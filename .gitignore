@@ -1,0 +1,7 @@
+.idea/
+
+node_modules/
+gamedata/
+gamedata_raw/
+
+target/.cache

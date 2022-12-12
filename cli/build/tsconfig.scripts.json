@@ -1,0 +1,14 @@
+{
+  "extends": "../../src/tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "../../src/mod",
+    "outDir": "../../target/gamedata"
+  },
+  "include": [
+    "../../src/mod/lib",
+    "../../src/mod/scripts"
+  ],
+  "exclude": [
+    "../../src/mod/configs"
+  ]
+}

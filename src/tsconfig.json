@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "lib": [ "esnext" ],
+    "moduleResolution": "node",
+    "types": [],
+    "strict": true,
+    "rootDir": "."
+  },
+  "tstl": {
+    "luaTarget": "JIT"
+  }
+}
