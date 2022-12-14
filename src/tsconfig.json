@@ -6,8 +6,5 @@
     "types": [],
     "strict": true,
     "rootDir": "."
-  },
-  "tstl": {
-    "luaTarget": "JIT"
   }
 }

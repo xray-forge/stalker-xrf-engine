@@ -13,7 +13,7 @@
     "start_game:win32": "call cli/run/windows_start_game.bat",
     "build": "ts-node ./cli/build/build.ts",
     "build:clean": "ts-node ./cli/build/build.ts --clean",
-    "build_lua": "ts-node ./cli/build/build.ts --no-resources",
+    "build_scripts": "ts-node ./cli/build/build.ts --no-resources",
     "watch:dev": "tstl -p cli/build/tsconfig.scripts.json --extension .script --noHeader --watch",
     "format": "prettier --write \"**/*.(js|ts|tsx)\" && eslint . --ext .ts,.tsx,.js --fix",
     "lint": "eslint . --ext .ts,.tsx,.js"

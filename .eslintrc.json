@@ -29,19 +29,6 @@
             "error"
         ],
         "@typescript-eslint/explicit-module-boundary-types": "off",
-        "@typescript-eslint/naming-convention": [
-            "error",
-            {
-                "custom": {
-                    "match": true,
-                    "regex": "^I[A-Z]"
-                },
-                "format": [
-                    "PascalCase"
-                ],
-                "selector": "interface"
-            }
-        ],
         "@typescript-eslint/no-empty-function": "off",
         "@typescript-eslint/no-empty-interface": "off",
         "@typescript-eslint/no-explicit-any": "off",
@@ -62,7 +49,7 @@
         ],
         "arrow-spacing": "error",
         "brace-style": "error",
-        "camelcase": "error",
+        "camelcase": "off",
         "comma-dangle": [
             "error",
             {

@@ -10,5 +10,11 @@
   ],
   "exclude": [
     "../../src/mod/configs"
-  ]
+  ],
+  "tstl": {
+    "buildMode": "default",
+    "luaTarget": "JIT",
+    "noImplicitGlobalVariables": true,
+    "noImplicitSelf": true
+  }
 }

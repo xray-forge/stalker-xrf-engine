@@ -1,4 +1,9 @@
-import { environmentConfig } from "../lib";
+const tst1: XR_CUIWindow = CUIWindow();
 
-export const a: number = 1 + 4;
-export const b: string = String(environmentConfig.IS_DEBUG) + "s";
+tst1.Show(true);
+tst1.GetHeight();
+tst1.SetAutoDelete(true);
+
+const b: number = stalker_ids.action_look_out;
+const c: number = stalker_ids.sound_panic_human;
+const e: number = stalker_ids.property_anomaly;

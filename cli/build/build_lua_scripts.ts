@@ -13,7 +13,9 @@ export async function buildLuaScripts(): Promise<void> {
   });
 
   if (result.diagnostics?.length) {
-    log.info("Lua build diagnostics");
+    log.info("Lua build diagnostics:");
+
+    result.diagnostics.forEach((it) => log.warn("Lua issue:", it.category, it.messageText));
   }
 
   log.info("Built lua scripts");
