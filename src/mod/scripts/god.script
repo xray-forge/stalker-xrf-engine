@@ -1,4 +1,3 @@
-
 -- Записываем переменную
 function save_var(variable_name, value)
 	xr_logic.pstor_store(db.actor, variable_name, value)
@@ -18,11 +17,7 @@ end
 
 -- Обработчик нажатий на клавиши в Главном меню
 function key_binder(dik, keyboard_action, self)
-
-	printf("%s", "[DBG_LOG] Keybinder called, start");
-	printf("%s", "[DBG_LOG] PKG " .. package.path);
-	printf("[DBG_LOG] Keybinder called, end");
-	local t = require("scripts.ex.example")
+	log:info("Key binder call")
 
 
  if db.actor then
@@ -54,8 +49,6 @@ end
 end
 
 function spawn_item_in_inv(spawn_item,npc)
-  printf("%s !", "[DBG_LOG] Spawning items");
-
   if npc==nil then
     npc=db.actor
   end
@@ -68,8 +61,6 @@ function spawn_item_in_inv(spawn_item,npc)
 end
 
 function spawn(spawn_item)
-	printf("%s !", "[DBG_LOG] Spawn");
-
    local npc=db.actor
 
   return alife():create(spawn_item,
@@ -80,8 +71,6 @@ end
 
 --используем для спавна патронов
 function spawn_ammo_in_inv(spawn_item,number,npc)
-	printf("%s !", "[DBG_LOG] Spawning ammo");
-
   if npc==nil then
     npc=db.actor
   end

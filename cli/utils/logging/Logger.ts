@@ -4,7 +4,7 @@ import { stringifyValue } from "#/utils/logging/stringifyValue";
 import { Optional } from "#/utils/types";
 
 /**
- * Logger file that logs only in dev/flagged environment.
+ * DebugLogger file that logs only in dev/flagged environment.
  * Allows to collect app logs in a file for future investigations or dev sharing.
  */
 export class Logger {

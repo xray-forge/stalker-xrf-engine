@@ -1,0 +1,5 @@
+_G.lua_string = string
+
+_G.declare_global = function (key, value)
+  _G[key] = value
+end

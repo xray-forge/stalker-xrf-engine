@@ -2,14 +2,20 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "noEmit": true,
-    "lib": ["esnext"],
-    "rootDir": "./",
+    "target": "esnext",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "rootDir": "../",
     "baseUrl": "./",
+    "jsx": "react",
+    "jsxFactory": "JSXXML",
+    "lib": ["esnext"],
     "paths": {
       "#/*": ["./*"],
+      "@/*": ["../src/mod/*"],
     }
   },
   "ts-node": {
     "require": ["tsconfig-paths/register"]
-  }
+  },
 }

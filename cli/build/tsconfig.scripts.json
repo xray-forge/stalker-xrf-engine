@@ -5,12 +5,12 @@
     "outDir": "../../target/gamedata"
   },
   "include": [
+    "../../src/types",
     "../../src/mod/lib",
     "../../src/mod/scripts"
   ],
-  "exclude": [
-    "../../src/mod/configs"
-  ],
+  "jsx": "preserve",
+  "jsxFactory": "JSXXML",
   "tstl": {
     "buildMode": "default",
     "luaTarget": "JIT",

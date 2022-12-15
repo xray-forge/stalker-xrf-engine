@@ -1,13 +1,15 @@
-local game_root = getFS():update_path("$fs_root$", "")
+-- Inject LUA globals and enable modules requiring
+package.path = package.path .. string.format("%sgamedata\\?.script;", getFS():update_path("$fs_root$", ""))
+require("scripts.inject.lua_globals")
 
-package.path = package.path .. string.format("%sgamedata\\?.lua;", game_root) .. string.format("%sgamedata\\?.script;", game_root)
+local a = require("scripts.examples.example")
+local b = require("scripts.example_root")
 
 if (jit == nil) then
 	profiler.setup_hook	()
 end
 
-
-function empty	(container)
+function empty(container)
 	if (type(container) == "function") then
 		for i in container do
 			return	(false)

@@ -4,11 +4,14 @@
     "lib": ["esnext"],
     "moduleResolution": "node",
     "types": ["@typescript-to-lua/language-extensions"],
+    "jsx": "preserve",
+    "jsxFactory": "JSXXML",
     "strict": true,
-    "rootDir": ".",
+    "rootDir": "..",
     "baseUrl": "./mod",
     "paths": {
-      "@/*": ["./*"],
+      "#/*": ["../../cli/*"],
+      "@/*": ["./*"]
     }
   }
 }

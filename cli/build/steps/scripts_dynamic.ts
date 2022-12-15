@@ -36,7 +36,7 @@ async function renameTargetScripts(
 /**
  * Transform typescript codebase to lua scripts and replace .lua with .script extensions.
  */
-export async function buildLuaScripts(): Promise<void> {
+export async function buildDynamicScripts(): Promise<void> {
   log.warn("Build lua scripts");
 
   const startedAt: number = Date.now();
