@@ -2,17 +2,19 @@ import * as fs from "fs";
 import * as fsPromises from "fs/promises";
 import * as path from "path";
 
+import { default as chalk } from "chalk";
+
 import { GAME_DATA_SCRIPTS_DIR, TARGET_GAME_DATA_SCRIPTS_DIR } from "#/build/build_globals";
 import { Logger, readDirContent } from "#/utils";
 
 const log: Logger = new Logger("BUILD_SCRIPT_STATICS");
 
 export async function buildScriptsStatics(): Promise<void> {
-  log.info("Copy raw lua scripts");
+  log.info("Copy raw scripts");
 
-  function collectLua(acc: Array<[string, string]>, it: Array<string> | string): Array<[string, string]> {
+  function collectStaticScripts(acc: Array<[string, string]>, it: Array<string> | string): Array<[string, string]> {
     if (Array.isArray(it)) {
-      it.forEach((nested) => collectLua(acc, nested));
+      it.forEach((nested) => collectStaticScripts(acc, nested));
     } else if (String(it).endsWith(".script")) {
       const relativePath: string = it.slice(GAME_DATA_SCRIPTS_DIR.length);
 
@@ -22,11 +24,11 @@ export async function buildScriptsStatics(): Promise<void> {
     return acc;
   }
 
-  const rawScripts: Array<[string, string]> = (await readDirContent(GAME_DATA_SCRIPTS_DIR)).reduce(collectLua, []);
+  const rawScripts: Array<[string, string]> =
+    (await readDirContent(GAME_DATA_SCRIPTS_DIR)).reduce(collectStaticScripts, []);
 
   if (rawScripts.length > 0) {
-    log.info("Found lua scripts:", rawScripts.length);
-    log.info("Raw lua scripts cope success");
+    log.info("Detected static scripts");
 
     /**
      * Sync way for folder creation when needed.
@@ -35,21 +37,21 @@ export async function buildScriptsStatics(): Promise<void> {
       const targetDir: string = path.dirname(to);
 
       if (!fs.existsSync(targetDir)) {
-        log.info("Create lua scripts dir:", targetDir);
+        log.info("MKDIR dir:", targetDir);
         fs.mkdirSync(targetDir, { recursive: true });
       }
     });
 
     await Promise.all(
       rawScripts.map(([ from, to ]) => {
-        log.info("Create lua script:", to);
+        log.info("CP:", chalk.yellow(to));
 
         return fsPromises.copyFile(from, to);
       })
     );
 
-    log.info(rawScripts.length, "scripts processed");
+    log.info("Scripts copied:", rawScripts.length);
   } else {
-    log.info("No raw lua scripts for copy found");
+    log.info("No raw scripts for copy found");
   }
 }

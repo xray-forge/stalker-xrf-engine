@@ -2,6 +2,8 @@ import * as fs from "fs";
 import * as fsPromises from "fs/promises";
 import * as path from "path";
 
+import { default as chalk } from "chalk";
+
 import { RESOURCES_DIR, TARGET_GAME_DATA_DIR } from "#/build/build_globals";
 import { Logger } from "#/utils";
 
@@ -32,20 +34,20 @@ export async function buildResourcesStatics(): Promise<void> {
         .filter(Boolean)
     );
 
-    log.info("Copy folders:", contentFolders.length);
+    log.info("Copy assets folders");
 
     await Promise.all(
       contentFolders.map(async (it) => {
         const relativePath: string = it.slice(RESOURCES_DIR.length);
         const targetDir: string = path.join(TARGET_GAME_DATA_DIR, relativePath);
 
-        log.info("Copy folder:", targetDir);
+        log.info("CP -R:", chalk.yellow(targetDir));
 
         return fsPromises.cp(it, targetDir, { recursive: true });
       })
     );
 
-    log.info(contentFolders.length, "resource folders processed");
+    log.info("Resource folders processed:", contentFolders.length);
   } else {
     log.info("No static resources detected");
   }

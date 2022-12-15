@@ -1,7 +1,9 @@
 import * as fsPromises from "fs/promises";
 
+import { default as chalk } from "chalk";
+
 import {
-  GAME_DATA_METADATA_FILE, TARGET_GAME_DATA_DIR,
+  TARGET_GAME_DATA_DIR,
   TARGET_GAME_DATA_METADATA_FILE
 } from "./build_globals";
 
@@ -9,10 +11,7 @@ import { Logger, readDirContent } from "#/utils";
 
 const log: Logger = new Logger("BUILD_META");
 
-export async function buildMeta(): Promise<void> {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const meta: Record<string, unknown> = require(GAME_DATA_METADATA_FILE);
-
+export async function buildMeta(meta: Record<string, unknown>): Promise<void> {
   const collectFiles = (acc, it) => {
     if (Array.isArray(it)) {
       it.forEach((nested) => collectFiles(acc, nested));
@@ -28,9 +27,9 @@ export async function buildMeta(): Promise<void> {
     .reduce((acc, it) => acc + it.size, 0);
   const assetsSizesMegabytes: string = (assetsSizeBytes / 1024 / 1024).toFixed(3);
 
-  log.info("Collecting gamedata meta:", TARGET_GAME_DATA_DIR);
+  log.info("Collecting gamedata meta:", chalk.yellowBright(TARGET_GAME_DATA_DIR));
   log.info("Collected files count:", builtFiles.length);
-  log.info("Collected files size:", assetsSizesMegabytes, "MB");
+  log.info("Collected files size:", chalk.yellow(assetsSizesMegabytes), "MB");
 
   meta["built_at"] = (new Date()).toLocaleString();
   meta["files_size"] = assetsSizesMegabytes + " MB";

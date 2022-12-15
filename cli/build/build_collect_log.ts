@@ -15,7 +15,7 @@ export async function collectLog(): Promise<void> {
       await fsPromises.unlink(fileLogPath);
     }
 
-    await fsPromises.writeFile(fileLogPath, Logger.FILE_LOG.join("\n"));
+    await fsPromises.writeFile(fileLogPath, Logger.LOG_FILE_BUFFER.join(""));
 
     log.info("File log collect");
   } catch (error) {
