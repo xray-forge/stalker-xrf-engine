@@ -1,3 +1,4 @@
+
 -- Записываем переменную
 function save_var(variable_name, value)
 	xr_logic.pstor_store(db.actor, variable_name, value)
@@ -17,10 +18,11 @@ end
 
 -- Обработчик нажатий на клавиши в Главном меню
 function key_binder(dik, keyboard_action, self)
+
 	printf("%s", "[DBG_LOG] Keybinder called, start");
-	print_table(custom_script);
-	print_table(require("god_tbl"));
+	printf("%s", "[DBG_LOG] PKG " .. package.path);
 	printf("[DBG_LOG] Keybinder called, end");
+	local t = require("scripts.ex.example")
 
 
  if db.actor then

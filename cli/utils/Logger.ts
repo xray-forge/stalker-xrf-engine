@@ -28,12 +28,15 @@ export class Logger {
   }
 
   protected logAs(method: string, args: Array<unknown>): void {
+    const date: Date = new Date();
+    const timestamp: string = date.toLocaleTimeString() + " " + date.getMilliseconds();
+
     if (Logger.IS_FILE_ENABLED) {
-      Logger.FILE_LOG.push(`${this.prefix} ${args.join(" ")}`);
+      Logger.FILE_LOG.push(`${timestamp} ${this.prefix} ${args.join(" ")}`);
     }
 
     if (Logger.IS_CONSOLE_ENABLED) {
-      return console[method](this.prefix, ...args);
+      return console[method](timestamp, this.prefix, ...args);
     }
   }
 

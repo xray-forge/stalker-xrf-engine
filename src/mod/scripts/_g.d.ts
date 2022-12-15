@@ -10,7 +10,7 @@ declare function printf(this: void, ...args: Array<string>): void;
 /**
  * Global log.
  */
-declare function log(this: void, ...args: Array<string>): void;
+declare function log(this: void, ...args: Array<unknown>): void;
 
 /** ********************************************************************************************************************
  * Globals namespaces:

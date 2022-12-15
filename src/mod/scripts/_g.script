@@ -1,3 +1,7 @@
+local game_root = getFS():update_path("$fs_root$", "")
+
+package.path = package.path .. string.format("%sgamedata\\?.lua;", game_root) .. string.format("%sgamedata\\?.script;", game_root)
+
 if (jit == nil) then
 	profiler.setup_hook	()
 end
