@@ -1,8 +1,15 @@
 {
   "compilerOptions": {
     "esModuleInterop": true,
-    "rootDir": ".",
     "noEmit": true,
-    "lib": ["esnext"]
+    "lib": ["esnext"],
+    "rootDir": "./",
+    "baseUrl": "./",
+    "paths": {
+      "#/*": ["./*"],
+    }
+  },
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
   }
 }

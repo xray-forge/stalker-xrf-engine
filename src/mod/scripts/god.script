@@ -1,0 +1,225 @@
+-- Записываем переменную
+function save_var(variable_name, value)
+	xr_logic.pstor_store(db.actor, variable_name, value)
+end
+
+-- Загружаем переменную
+function load_var(variable_name, value_if_not_found)
+	return xr_logic.pstor_retrieve(db.actor, variable_name, value_if_not_found)
+end
+
+-- Удаляем переменную
+function del(variable_name)
+	if db.storage[db.actor:id()].pstor[variable_name] then
+		db.storage[db.actor:id()].pstor[variable_name] = nil
+	end
+end
+
+-- Обработчик нажатий на клавиши в Главном меню
+function key_binder(dik, keyboard_action, self)
+	printf("%s", "[DBG_LOG] Keybinder called, start");
+	print_table(custom_script);
+	print_table(require("god_tbl"));
+	printf("[DBG_LOG] Keybinder called, end");
+
+
+ if db.actor then
+--------------------------HUD DISABLE MOD----------------------------
+		if dik == DIK_keys.DIK_H then
+            level.hide_indicators_safe()
+            end
+
+		if dik == DIK_keys.DIK_J then
+   		level.show_indicators()
+            end
+---------------------------------------------------------------------
+  end
+end
+
+function main()
+god_timers.main()
+
+if load_var("weather_state",false)==true then
+ local wt = load_var("god_weather_type","none")
+ if wt~="none" then
+  if load_var("god_weather_fx",false)==false then
+ 	      level.set_weather(wt,true)
+  else
+		level.set_weather_fx(wt)
+  end
+ end
+end
+end
+
+function spawn_item_in_inv(spawn_item,npc)
+  printf("%s !", "[DBG_LOG] Spawning items");
+
+  if npc==nil then
+    npc=db.actor
+  end
+
+  return alife():create(spawn_item,
+      npc:position(),
+      npc:level_vertex_id(),
+      npc:game_vertex_id(),
+      npc:id())
+end
+
+function spawn(spawn_item)
+	printf("%s !", "[DBG_LOG] Spawn");
+
+   local npc=db.actor
+
+  return alife():create(spawn_item,
+      npc:position(),
+      npc:level_vertex_id(),
+      npc:game_vertex_id())
+end
+
+--используем для спавна патронов
+function spawn_ammo_in_inv(spawn_item,number,npc)
+	printf("%s !", "[DBG_LOG] Spawning ammo");
+
+  if npc==nil then
+    npc=db.actor
+  end
+  if number > 0 then
+    return se_respawn.create_ammo(spawn_item,
+        npc:position(),
+        npc:level_vertex_id(),
+        npc:game_vertex_id(),
+        npc:id(),
+        number)
+  end
+end
+
+-- Вывод инфы в консоль
+function con(msg)
+-- get_console():execute(msg)
+end
+
+function spawn_lc(gv, pos, dest_level, dest_pos, mode, dist_gv, dest_dir, custom)
+
+	local obj = alife():create("level_changer", pos, 1, gv)
+
+	if obj ~= nil then
+		local packet = net_packet()
+		packet:w_begin(0)
+		obj:STATE_Write(packet)
+            packet:r_seek(2)
+
+		-- свойства cse_alife_object
+		local game_vertex_id = packet:r_u16()
+		local cse_alife_object__unk1_f32 = packet:r_float()
+		local cse_alife_object__unk2_u32 = packet:r_s32()
+		local level_vertex_id = packet:r_s32()
+		local object_flags = packet:r_s32()
+		local custom_data = packet:r_stringZ()
+		local story_id = packet:r_s32()
+		local cse_alife_object__unk3_u32 = packet:r_s32()
+
+		-- свойства cse_shape
+		local shape_count = packet:r_u8()
+		local shape_type
+		local center
+		local radius
+
+		if shape_count == 0 then
+			shape_type = 0
+			center = vector():set(0,0,0)
+			radius = 10.0
+			shape_count = 1
+		else
+			for i=1,shape_count do
+				local shape_type = packet:r_u8()
+				if shape_type == 0 then
+					local center = packet:r_vec3()
+					local radius = packet:r_float()
+				else
+					local v1 = packet:r_vec3()
+					local v2 = packet:r_vec3()
+					local v3 = packet:r_vec3()
+					local v4 = packet:r_vec3()
+				end
+			end
+		end
+
+		-- свойства cse_alife_space_restrictor
+		local restrictor_type = packet:r_u8()
+
+		-- свойства cse_alife_level_changer
+		local dest_game_vertex_id = packet:r_u16()
+		local dest_level_vertex_id = packet:r_s32()
+		local dest_position = packet:r_vec3()
+		local dest_direction = packet:r_vec3()
+		local dest_level_name = packet:r_stringZ()
+		local dest_graph_point = packet:r_stringZ()
+		local silent_mode = packet:r_u8()
+
+		-- свойства se_level_changer
+		local enabled = packet:r_u8()
+		local hint = packet:r_stringZ()
+		local se_level_changer__marker = packet:r_u16()
+
+--		if packet:r_elapsed() ~= 0 then get_console():execute("left="..packet:r_elapsed()) end
+
+		-- свойства cse_alife_object
+		packet:w_u16(game_vertex_id)
+		packet:w_float(cse_alife_object__unk1_f32)
+		packet:w_s32(cse_alife_object__unk2_u32)
+		packet:w_s32(level_vertex_id)
+		packet:w_s32(object_flags)
+		if custom ~= nil then
+			packet:w_stringZ(custom)
+		else
+			packet:w_stringZ(custom_data)
+		end
+		packet:w_s32(story_id)
+		packet:w_s32(cse_alife_object__unk3_u32)
+
+		-- свойства cse_shape
+		packet:w_u8(shape_count)
+
+		for i=1,shape_count do
+			packet:w_u8(shape_type)
+			if shape_type == 0 then
+				packet:w_vec3(vector():set(0,0,0))
+				packet:w_float(2)
+
+			else
+
+				packet:w_vec3(vector():set(2,0,0))
+				packet:w_vec3(vector():set(0,2,0))
+				packet:w_vec3(vector():set(0,0,2))
+				packet:w_vec3(vector():set(0,0,0))
+			end
+		end
+
+		-- свойства cse_alife_space_restrictor
+		packet:w_u8(restrictor_type)
+
+		-- свойства cse_alife_level_changer
+		packet:w_u16(dist_gv)
+		packet:w_s32(1)
+		packet:w_vec3(dest_pos)
+
+            if dist_dir~=nil then
+		packet:w_vec3(dest_dir)
+               else
+		packet:w_vec3(dest_direction)
+            end
+
+		packet:w_stringZ(dest_level)
+		packet:w_stringZ(dest_graph_point)
+		packet:w_u8(mode)
+
+		-- свойства se_level_changer
+		packet:w_u8(enabled)
+		packet:w_stringZ(hint)
+		packet:w_u16(se_level_changer__marker)
+
+
+		obj:STATE_Read(packet, packet:w_tell()-packet:r_tell())
+	end
+            return obj
+end

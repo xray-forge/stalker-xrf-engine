@@ -1,0 +1,58 @@
+[extracontent_packs]
+extracontent_pack_1 = BonusPack1
+extracontent_pack_2 = BonusPack2
+
+[extracontent_pack_1]
+stalker_killer_mask_us
+stalker_killer_mask_uk
+mp_pool
+
+[extracontent_pack_2]
+stalker_killer_mask_de
+stalker_killer_mask_fr
+mp_darkvalley
+
+
+; Учёные 
+[sci_1]:stalker
+$spawn                     = "respawn\jup_b6_scientist_tech"
+character_profile     = jup_b6_scientist_tech
+
+
+[sci_2]:stalker
+$spawn                     = "respawn\jup_b6_scientist_biochemist"
+character_profile     = jup_b6_scientist_biochemist
+
+[sci_3]:stalker
+$spawn                     = "respawn\jup_b6_scientist_nuclear_physicist"
+character_profile     = jup_b6_scientist_nuclear_physicist
+
+
+; Вертолёт
+[god_heli]:physic_object
+$spawn                        = "dynamic_objects\scene_objects\pri_a28_earth_helli_1"
+visual                        = dynamics\vehicles\mi24\veh_mi24_u_02.ogf
+startup_animation					= idle
+fixed_bones							= korpus1
+custom_data 		      = models\objects\ignore_static.ltx
+
+; Лампа
+[god_table_lamp_01]:physic_destroyable_object
+$spawn                        = "dynamic_objects\el_tehnika\table_lamp_01"
+visual                        = dynamics\el_tehnika\table_lamp_01.ogf
+
+[god_wood_fence_1]:physic_destroyable_object
+$spawn                        = "dynamic_objects\fence\wood_fence_1"
+visual                        = dynamics\fence\wood_fence_1.ogf 
+
+[god_wood_fence_2]:physic_destroyable_object
+$spawn                        = "dynamic_objects\fence\wood_fence_2"
+visual                        = dynamics\fence\wood_fence_2.ogf 
+
+[god_wood_fence_3]:physic_destroyable_object
+$spawn                        = "dynamic_objects\fence\wood_fence_3"
+visual                        = dynamics\fence\wood_fence_3.ogf 
+
+[god_wood_fence_4]:physic_destroyable_object
+$spawn                        = "dynamic_objects\fence\wood_fence_4"
+visual                        = dynamics\fence\wood_fence_4.ogf 

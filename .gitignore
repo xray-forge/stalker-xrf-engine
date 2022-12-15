@@ -2,6 +2,7 @@
 
 node_modules/
 gamedata/
-gamedata_raw/
+gamedata_*/
 
 target/.cache
+target/

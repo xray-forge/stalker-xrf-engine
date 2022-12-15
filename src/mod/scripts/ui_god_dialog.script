@@ -1,0 +1,1064 @@
+--[[-----------------
+�������� ������ ���������� ���� CoP + UI
+����� Shoker
+�� ������ ������� ui_load_dialog
+�� ���������� GSC, ������������ ��������
+���-���� ��� �� (�������� ����� :) )
+--]]-----------------
+
+local required_god_tbl = god_tbl;
+local mode
+
+local s_table = {
+  st_stalker_lx8_smart_terrain = "����������� X8",
+  st_stalker_pas_b400_elevator = "���������� �������: ��������",
+  st_stalker_pas_b400_track =    "���������� �������: ����� ������������� ������",
+  st_stalker_pas_b400_downstairs = "���������� �������: ����� �� ������ �������",
+  st_stalker_pas_b400_tunnel     = "���������� �������: ������ � ������",
+  st_stalker_pas_b400_hall = "���������� �������: ������� ���",
+  st_stalker_pas_b400_way  = "���������� �������: ��������� ������",
+  st_stalker_pas_b400_canalisation = "���������� �������: �����������",
+  st_stalker_pas_b400_fake = "���������� �������: ����",
+
+}
+
+get_console():execute("INITIALIZE GOD_DIALOG")
+
+class "god_item" (CUIListBoxItem)
+
+function god_item:__init(height) super(height)
+  printf("%f",height)
+  self.file_name		= "filename"
+
+  self:SetTextColor(GetARGB(255, 170, 170, 170))
+
+  self.fn = self:GetTextItem()
+  self.fn:SetFont(GetFontLetterica18Russian())
+  self.fn:SetEllipsis(true)
+end
+
+function god_item:__finalize()
+end
+
+class "god_dialog" (CUIScriptWnd)
+
+function god_dialog:__init() super()
+  self:InitControls()
+  self:InitCallBacks()
+end
+
+function god_dialog:__finalize()
+end
+
+function god_dialog:FillList()
+  self.list_box:RemoveAll()
+  mode = "item"
+
+  local tbl
+  local name
+  tbl = required_god_tbl.god_food_and_drugs_table
+
+  for i, v in ipairs(tbl) do
+    name = game.translate_string(system_ini():r_string(v, "inv_name"))
+    self:AddItemToList(name, v)
+  end
+
+end
+
+
+cost_easy = nil
+cost_dffclt = nil
+
+local time_factor_desc_by_num = {
+  [0] = "Real",
+  [1] = "Ten",
+  [2] = "One Hundred",
+  [3] = "One Thousand",
+  [4] = "Ten Thousand",
+  [5] = "One Hundred Thousand"
+}
+
+local RU_coeff = 1000
+local time_factor, actor_money
+
+
+function god_dialog:InitControls()
+  self:SetWndRect			(Frect():set(0,0,1024,768))
+
+  local xml				= CScriptXmlInit()
+  local ctrl
+  xml:ParseFile			("ui_mm_god_dlg.xml")
+
+  xml:InitStatic			("background",self)
+
+  ctrl					= CUIWindow()
+  xml:InitWindow			("file_item:main",0,ctrl)
+
+  self.file_item_main_sz	= vector2():set(ctrl:GetWidth(),ctrl:GetHeight())
+
+  xml:InitWindow			("file_item:fn",0,ctrl)
+  self.file_item_fn_sz	= vector2():set(ctrl:GetWidth(),ctrl:GetHeight())
+
+  xml:InitWindow			("file_item:fd",0,ctrl)
+  self.file_item_fd_sz	= vector2():set(ctrl:GetWidth(),ctrl:GetHeight())
+
+  self.form				= xml:InitStatic("form",self)
+
+  xml:InitStatic			("form:caption",self.form)
+
+  self.picture			= xml:InitStatic("form:picture",self.form)
+
+  --	xml:InitStatic			("form:file_info",self.form)
+
+  self.file_caption 		= xml:InitTextWnd("form:file_caption",self.form)
+  self.file_data			= xml:InitTextWnd("form:file_data",self.form)
+
+  xml:InitFrame			("form:list_frame",self.form)
+
+  self.list_box			= xml:InitListBox("form:list",self.form)
+
+  self.list_box:ShowSelectedItem	(true)
+  self:Register			(self.list_box, "list_window")
+
+  ctrl					= xml:Init3tButton("form:btn_load",	self.form)
+  self:Register			(ctrl, "button_load")
+
+  ctrl = xml:Init3tButton	("form:btn_delete",	self.form)
+  self:Register			(ctrl, "button_del")
+  self.wt_but = ctrl
+
+  ctrl = xml:Init3tButton	("form:btn_cancel",	self.form)
+  self:Register			(ctrl, "button_back")
+
+  self.message_box		= CUIMessageBoxEx()
+  self:Register			(self.message_box,"message_box")
+
+  self.cap_rubel	 		= xml:InitStatic("form:cap_rubel",		self.form)
+  self.cap_spawn	 		= xml:InitStatic("form:cap_spawn",		self.form)
+  self.cap_loc	 		= xml:InitStatic("form:cap_loc",		self.form)
+
+  self.spin_rubel			= xml:InitSpinNum("form:spin_rubel",		self.form)
+  self.spin_rubel:Show		(true)
+
+  self.cap_rubel_coeff		= xml:InitStatic("form:cap_rubel_coeff",	self.form)
+  self.cap_rubel_coeff:TextControl():SetText	(game.translate_string("x") .. " " .. tostring(RU_coeff) .. " RU")
+
+  self.cap_rubel_currently	= xml:InitStatic("form:cap_rubel_currently",	self.form)
+  if db.actor ~= nil then actor_money = db.actor:money() else actor_money = 0 end
+  self:RefreshMoneyDisplay()
+
+  btn				= xml:Init3tButton("form:btn_moneyplus",	self.form)
+  self:Register			(btn, "button_moneyplus")
+  btn				= xml:Init3tButton("form:btn_moneyminus",	self.form)
+  self:Register			(btn, "button_moneyminus")
+
+
+  self.cap_timefactor 		= xml:InitStatic("form:cap_timefactor",		self.form)
+
+  self.cap_timefactor_currently	= xml:InitStatic("form:cap_timefactor_currently", self.form)
+  if level.present() then time_factor = level.get_time_factor() else time_factor = 10 end
+
+  self.cap_timefactor_desc	= xml:InitStatic("form:cap_timefactor_desc",	self.form)
+  self:RefreshTimeFactorDisplay()
+
+  btn				= xml:Init3tButton("form:btn_timeplus",		self.form)
+  self:Register			(btn, "button_timeplus")
+  btn				= xml:Init3tButton("form:btn_timeminus",	self.form)
+  self:Register			(btn, "button_timeminus")
+
+  self.spin_spawn			= xml:InitSpinNum("form:spin_spawn",		self.form)
+  self.spin_spawn:Show		(true)
+
+  btn				= xml:Init3tButton("form:btn_surge",		self.form)
+  self:Register			(btn, "button_surge")
+
+  btn                      = xml:InitCheck("form:check_wt",		self)
+  self:Register		(btn, "check_wt")
+  self.chek_weather = btn
+
+  if db.actor then
+    self.chek_weather:SetCheck(god.load_var("weather_state",false))
+  end
+
+  self.combo_renderer			= xml:InitComboBox("form:list_renderer",		self)
+  self:Register				(self.combo_renderer, "combo_renderer")
+  self.combo_renderer:AddItem         ("1. Weather",         1)
+  self.combo_renderer:AddItem         ("2. Fast Travel Dialogs",        2)
+  self.combo_renderer:AddItem         ("3. Stalkers",      3)
+  self.combo_renderer:AddItem         ("4. Mutants",        4)
+  self.combo_renderer:AddItem         ("5. Ammunition",      5)
+  self.combo_renderer:AddItem         ("6. Weapons",         6)
+  self.combo_renderer:AddItem         ("7. Med/Devices/Food",           7)
+  self.combo_renderer:AddItem         ("8. Artifacts",      8)
+  self.combo_renderer:AddItem         ("9. Outfits/Armour",          9)
+  self.combo_renderer:AddItem         ("10. Quest Items",    10)
+  self.combo_renderer:AddItem         ("11. Anomolys",    11)
+  self.combo_renderer:AddItem         ("12. WorldI tems",       12)
+  self.combo_renderer:AddItem         ("13. Community",  13)
+  self.combo_renderer:AddItem         ("14. Videos",  14)
+  self.combo_renderer:AddItem         ("15. Music",       15)
+  self.combo_renderer:AddItem         ("16. Squads",       16)
+  self.combo_renderer:AddItem         ("17. Teleportation", 17)
+
+
+  -- ���� ������������ --
+  self.dialog			= xml:InitStatic("dialog",			self)
+  xml:InitStatic				("dialog:capt", self.dialog)
+  xml:InitStatic				("dialog:msg2", self.dialog)
+  xml:InitStatic				("dialog:msg3", self.dialog)
+  self.dialog:Show(false)
+
+  -- ������
+  self:Register(xml:Init3tButton("dialog:btn_1", self.dialog),"btn_1")
+  self:Register(xml:Init3tButton("dialog:btn_2", self.dialog),"btn_2")
+  self:Register(xml:Init3tButton("dialog:btn_3", self.dialog),"btn_3")
+  self:Register(xml:Init3tButton("dialog:btn_4", self.dialog),"btn_4")
+  self:Register(xml:Init3tButton("dialog:btn_5", self.dialog),"btn_5")
+
+  btn = xml:InitEditBox("dialog:edit_box", 	self.dialog)
+  self.edit_box = btn
+  self:Register(btn, "edit_box")
+
+  btn = xml:InitEditBox("dialog:edit_box2", 	self.dialog)
+  self.edit_box2 = btn
+  self:Register(btn, "edit_box2")
+
+  btn = xml:InitEditBox("dialog:edit_box3", 	self.dialog)
+  self.edit_box3 = btn
+  self:Register(btn, "edit_box3")
+
+  btn = xml:InitEditBox("dialog:edit_box4", 	self.dialog)
+  self.edit_box4 = btn
+  self:Register(btn, "edit_box4")
+
+end
+
+function god_dialog:InitCallBacks()
+  self:AddCallback("button_load",		ui_events.BUTTON_CLICKED,             self.OnButton_load_clicked,	self)
+  self:AddCallback("button_back",		ui_events.BUTTON_CLICKED,             self.OnButton_back_clicked,	self)
+  self:AddCallback("button_del",		ui_events.BUTTON_CLICKED,             self.OnButton_del_clicked,	self)
+  self:AddCallback("message_box",		ui_events.MESSAGE_BOX_YES_CLICKED,    self.OnMsgYes,				self)
+  self:AddCallback("message_box",		ui_events.MESSAGE_BOX_OK_CLICKED,	  self.OnMsgYes,				self)
+
+  self:AddCallback("list_window", ui_events.LIST_ITEM_CLICKED, 			  self.OnListItemClicked,		self)
+  self:AddCallback("list_window", ui_events.WINDOW_LBUTTON_DB_CLICK,		  self.OnListItemDbClicked,		self)
+
+  self:AddCallback("button_moneyplus",	ui_events.BUTTON_CLICKED,		self.OnButton_moneyplus_clicked,	self)
+  self:AddCallback("button_moneyminus",	ui_events.BUTTON_CLICKED,		self.OnButton_moneyminus_clicked,	self)
+
+  self:AddCallback("button_timeplus",	      ui_events.BUTTON_CLICKED,		self.OnButton_timeplus_clicked,		self)
+  self:AddCallback("button_timeminus",	ui_events.BUTTON_CLICKED,		self.OnButton_timeminus_clicked,	self)
+  self:AddCallback("button_spawnitem",	ui_events.BUTTON_CLICKED,		self.OnButton_spawnitem_clicked,	self)
+
+  self:AddCallback("combo_renderer",  	ui_events.LIST_ITEM_SELECT,		self.ModeChanges,	                  self)
+
+  self:AddCallback("btn_1", ui_events.BUTTON_CLICKED,		self.OnButton_btn1_clicked,	self)
+  self:AddCallback("btn_2", ui_events.BUTTON_CLICKED,		self.OnButton_btn2_clicked,	self)
+  self:AddCallback("btn_3", ui_events.BUTTON_CLICKED,		self.OnButton_btn3_clicked,	self)
+  self:AddCallback("btn_4", ui_events.BUTTON_CLICKED,		self.OnButton_btn4_clicked,	self)
+  self:AddCallback("btn_5", ui_events.BUTTON_CLICKED,		self.OnButton_btn5_clicked,	self)
+
+  self:AddCallback("button_surge", ui_events.BUTTON_CLICKED,		self.OnButton_surge_clicked,	self)
+
+end
+
+
+-- ����� �������
+function god_dialog:OnButton_surge_clicked()
+  surge_manager.start_surge()
+end
+
+-- ����� ����
+function god_dialog:ModeChanges()
+  local n = str_explode(".", self.combo_renderer:GetText())[1] -- �������� �������� �����
+  self.list_box:RemoveAll()
+  self.file_data:SetText		("")
+  self.file_caption:SetText	("")
+  self.dialog:Show(False)
+  self.cap_loc:TextControl():SetText("")
+
+  -- ������
+  if n=="1" then
+    mode = "weather"
+
+    local tbl
+    local name
+    tbl = required_god_tbl.god_weather_table
+
+    for i, v in ipairs(tbl) do
+      self:AddItemToList(v[2], v[1])
+    end
+
+
+  end
+
+
+  -- �������
+  if n=="2" then
+    mode = "level"
+
+    local tbl
+    local name
+    tbl = required_god_tbl.god_smart_table
+
+    if db.actor~=nil then
+      for i=1, 65535 do
+        local obj = alife():object(i)
+        if obj~=nil then
+          if obj:section_name()=="smart_terrain" then
+            local s_name = game.translate_string("st_stalker_"..obj:name())
+
+            if s_table[s_name]~=nil then s_name = s_table[s_name] end
+
+            self:AddItemToList(s_name, i)
+          end
+        end
+      end
+    end
+
+  end
+
+
+  -- ���������
+  if n=="3" then
+    mode = "npc"
+    local tbl
+    local name
+    tbl = required_god_tbl.god_stalker_table
+
+    for i, v in ipairs(tbl) do
+      self:AddItemToList(v[2], v[1])
+    end
+  end
+
+
+  -- �������
+  if n=="4" then
+    mode = "npc"
+    local tbl
+    local name
+    tbl = required_god_tbl.god_mob_table
+
+    for i, v in ipairs(tbl) do
+      self:AddItemToList(v[2], v[1])
+    end
+  end
+
+  -- �����������
+  if n=="5" then
+    mode = "item"
+    local tbl
+    local name
+    tbl = required_god_tbl.god_ammo_table
+
+    for i, v in ipairs(tbl) do
+      name = game.translate_string(system_ini():r_string(v, "inv_name"))
+      self:AddItemToList(name, v)
+    end
+  end
+
+  -- ������
+  if n=="6" then
+    mode = "item"
+    local tbl
+    local name
+    tbl = required_god_tbl.god_weapons_table
+
+    for i, v in ipairs(tbl) do
+      name = game.translate_string(system_ini():r_string(v, "inv_name"))
+      self:AddItemToList(name, v)
+    end
+  end
+
+  -- ����
+  if n=="7" then
+    mode = "item"
+    local tbl
+    local name
+    tbl = required_god_tbl.god_food_and_drugs_table
+
+    for i, v in ipairs(tbl) do
+      name = game.translate_string(system_ini():r_string(v, "inv_name"))
+      self:AddItemToList(name, v)
+    end
+  end
+
+
+  -- ���������
+  if n=="8" then
+    mode = "item"
+    local tbl
+    local name
+    tbl = required_god_tbl.god_artefacts_table
+
+    for i, v in ipairs(tbl) do
+      name = game.translate_string(system_ini():r_string(v, "inv_name"))
+      self:AddItemToList(name, v)
+    end
+  end
+
+
+  -- �����
+  if n=="9" then
+    mode = "item"
+    local tbl
+    local name
+    tbl = required_god_tbl.god_outfits_table
+
+    for i, v in ipairs(tbl) do
+      name = game.translate_string(system_ini():r_string(v, "inv_name"))
+      self:AddItemToList(name, v)
+    end
+  end
+
+  -- ��������� ���������
+  if n=="10" then
+    mode = "item"
+    local tbl
+    local name
+    tbl = required_god_tbl.god_info_table
+
+    for i, v in ipairs(tbl) do
+      name = game.translate_string(system_ini():r_string(v, "inv_name"))
+      self:AddItemToList(name, v)
+    end
+  end
+
+  -- ��������
+  if n=="11" then
+    mode = "anom"
+    local tbl
+    local name
+    tbl = required_god_tbl.god_anom_table
+
+    for i, v in ipairs(tbl) do
+      self:AddItemToList(v[2], v[1])
+    end
+  end
+
+  -- ������
+  if n=="12" then
+    mode = "npc"
+    local tbl
+    local name
+    tbl = required_god_tbl.god_other_table
+
+    for i, v in ipairs(tbl) do
+      self:AddItemToList(v[2], v[1])
+    end
+  end
+
+  -- �����������
+  if n=="13" then
+    mode = "com"
+    local tbl
+    local name
+    tbl = required_god_tbl.god_community_table
+
+    for i, v in ipairs(tbl) do
+      self:AddItemToList(v[2], v[1])
+    end
+  end
+
+  -- �����������
+  if n=="14" then
+    mode = "vid"
+    local tbl
+    local name
+    tbl = required_god_tbl.god_vid_table
+
+    for i, v in ipairs(tbl) do
+      self:AddItemToList(v[2], v[1])
+    end
+  end
+
+  -- ������
+  if n=="15" then
+    mode = "snd"
+    local tbl
+    local name
+    tbl = required_god_tbl.god_snd_table
+
+    for i,v in ipairs(tbl) do
+      self:AddItemToList(v[1], v[2])
+    end
+
+  end
+
+  -- ������������
+  if n=="17" then
+    mode = "tlp"
+    self.dialog:Show(true)
+
+    self.settingFileName = "gamedata\\teleports_coordinats.txt"
+    local file = io.open( self.settingFileName, "r" )
+
+
+    if file ~= nil then
+      for line in file:lines() do
+        local pos_tbl = str_explode("|", line)
+        self:AddItemToList(pos_tbl[1], pos_tbl[2].."|"..pos_tbl[3].."|"..pos_tbl[4])
+      end
+      file:close()
+    end
+
+
+  end
+
+
+  -- ������
+  if n=="16" then
+    mode = "squad"
+
+    local tbl
+    local name
+    tbl = required_god_tbl.god_squad_table
+
+    for i, v in ipairs(tbl) do
+      self:AddItemToList(v[2], v[1])
+    end
+
+  end
+
+  -----------------
+end
+
+-------------------------------------------------------
+function god_dialog:RefreshMoneyDisplay()
+  local am = comma_value(actor_money)
+  local st_rubles = "st_rubles"
+  local ru = game.translate_string(st_rubles)
+  if ru == st_rubles then ru = "RU" end
+  local thsep = game.translate_string("ui_ch_thousand_separator_in_quotes")
+  if string.len(thsep) == 3 then
+    thsep = string.sub(thsep, 2, 2)
+    am = string.gsub(am, ",", thsep)
+  end
+  self.cap_rubel_currently:TextControl():SetText(am .. " " .. ru)
+end
+
+
+function god_dialog:OnButton_moneyplus_clicked()
+  local s = tonumber(self.spin_rubel:GetText())
+  if s == 0 then s = 0.01 end
+  actor_money = actor_money + s * RU_coeff
+  if db.actor ~= nil then
+    local am = actor_money - db.actor:money()
+    db.actor:give_money(am)
+  end
+  self:RefreshMoneyDisplay()
+end
+
+function god_dialog:OnButton_moneyminus_clicked()
+  local s = tonumber(self.spin_rubel:GetText())
+  if s == 0 then s = 0.01 end
+  actor_money = actor_money - s * RU_coeff
+  if actor_money < 0 then actor_money = 0 end
+  if db.actor ~= nil then
+    local am = actor_money - db.actor:money()
+    db.actor:give_money(am)
+  end
+  self:RefreshMoneyDisplay()
+end
+
+function god_dialog:RefreshTimeFactorDisplay()
+  local tf = comma_value(time_factor)
+  local thsep = game.translate_string("ui_ch_thousand_separator_in_quotes")
+  if string.len(thsep) == 3 then
+    thsep = string.sub(thsep, 2, 2)
+    tf = string.gsub(tf, ",", thsep)
+  end
+  self.cap_timefactor_currently:TextControl():SetText(tf .. game.translate_string("x"))
+  local tfd = game.translate_string(time_factor_desc_by_num[tf_exp(time_factor)])
+  self.cap_timefactor_desc:TextControl():SetText(tfd)
+end
+
+
+function god_dialog:OnButton_timeminus_clicked()
+  local exp = tf_exp(time_factor)
+  time_factor = tonumber("1" .. string.rep("0", exp - 1))
+  if level.present() then level.set_time_factor(time_factor) end
+  self:RefreshTimeFactorDisplay()
+end
+
+function god_dialog:OnButton_timeplus_clicked()
+  local exp, explimit = tf_exp(time_factor), 4
+  if exp > explimit then exp = explimit end
+  time_factor = tonumber("1" .. string.rep("0", exp + 1))
+  if level.present() then level.set_time_factor(time_factor) end
+  self:RefreshTimeFactorDisplay()
+end
+
+
+
+function god_dialog:OnListItemClicked()
+  if self.list_box:GetSize()==0 then return end
+
+  local item			= self.list_box:GetSelectedItem()
+
+  if item == nil then
+    self.file_caption:SetText	("")
+    self.file_data:SetText		("")
+
+    local r = self.picture:GetTextureRect()
+    self.picture:InitTexture						("ui\\ui_noise")
+    self.picture:SetTextureRect(Frect():set(r.x1,r.y1,r.x2,r.y2))
+
+    return
+  end
+  local item_text				= item.fn:GetText()
+  self.file_caption:SetText	(item_text)
+  self.file_caption:SetEllipsis(true)
+
+  self.file_data:SetText		(item.fage:GetText())
+
+  if mode == "level" then
+    self.cap_loc:TextControl():SetText(item_text)
+  end
+end
+
+function god_dialog:OnListItemDbClicked()
+  self:OnButton_load_clicked()
+end
+
+
+
+function god_dialog:OnButton_load_clicked()
+  local sec = self.file_data:GetText()
+  local dis = tonumber(self.spin_spawn:GetText())
+  local dir
+  local pos
+
+  if tostring(sec)=="nil" or tostring(sec)=="" then return end
+
+
+  if db.actor~=nil then
+    dir = db.actor:direction()
+    pos = db.actor:position()
+  end
+
+  if mode == "item" then
+    if (db.actor ~= nil) then
+      if tonumber(self.spin_spawn:GetText())==0 then
+        alife():create(sec, db.actor:position(), 0, 0, db.actor:id())
+      else
+        pos = pos:add(dir:mul(dis))
+        alife():create(sec, pos, db.actor:level_vertex_id(), db.actor:game_vertex_id())
+      end
+    end
+  end
+
+  if mode == "npc" then
+    pos = pos:add(dir:mul(dis))
+    alife():create(sec, pos, db.actor:level_vertex_id(), db.actor:game_vertex_id())
+  end
+
+  if mode == "com" then
+    if (db.actor ~= nil) then
+      db.actor:set_character_community(sec, 0, 0)
+    end
+  end
+
+  if mode == "snd" then
+    if (db.actor ~= nil) then
+      local snd = sound_object(sec)
+
+      if ui_god_dialog.last_music ~= nil then
+        ui_god_dialog.last_music:stop()
+      end
+
+      snd:play_at_pos (db.actor, vector ():set (0, 0, 0), 0, sound_object.s2d)
+      ui_god_dialog.last_music = snd
+    end
+  end
+
+  if mode == "anom" then
+    if (db.actor ~= nil) then
+      pos = pos:add(dir:mul(dis))
+      spawn_anom(sec,pos)
+    end
+  end
+
+  if mode == "tlp" then
+    self:OnButton_btn1_clicked()
+  end
+
+  if mode == "weather" then
+    if (db.actor ~= nil) then
+      if string.find(sec, "fx_") then
+        level.set_weather_fx(sec)
+        god.save_var("god_weather_fx",true)
+      else
+        level.set_weather(sec,true)
+        god.save_var("god_weather_fx",false)
+      end
+      god.save_var("god_weather_type",sec)
+    end
+  end
+
+
+  if mode == "squad" then
+    if db.actor~=nil then
+      for i=1, 65535 do
+        local obj = alife():object(i)
+        if obj~=nil then
+          if obj:section_name()=="smart_terrain" and obj.position:distance_to(db.actor:position())<=20 then
+            xr_effects.create_squad(nil, nil, {sec, obj:name()})
+          end
+        end
+      end
+    end
+
+  end
+
+
+  if mode == "vid" then
+    if db.actor~=nil then
+      self:OnButton_back2_clicked()
+    end
+
+
+    game.start_tutorial(sec)
+
+  end
+
+  if mode == "level" then
+
+    local obj = alife():object(tonumber(sec))
+    local gv2 = db.actor:game_vertex_id()
+    local pos2 = db.actor:position()
+    local lv1 = alife():level_name(game_graph():vertex(obj.m_game_vertex_id):level_id())
+    local dp1 = obj.position
+
+
+    if level.name()==lv1 then
+      self:OnButton_back2_clicked()
+      level.add_pp_effector ("teleport.ppe", 2006, false)
+      local snd = sound_object([[affects\hit_fist]])
+      snd:play_no_feedback(db.actor,sound_object.s2d, 0, vector():set(0, 0, 0), 1.5)
+      db.actor:set_actor_position(dp1)
+    else
+      self:OnButton_back2_clicked()
+      level.add_pp_effector ("teleport.ppe", 2006, false)
+      local snd = sound_object([[affects\hit_fist]])
+      snd:play_no_feedback(db.actor,sound_object.s2d, 0, vector():set(0, 0, 0), 1.5)
+      local lc = god.spawn_lc(gv2, pos2, lv1, dp1, 1, obj.m_game_vertex_id)
+      -- god.save_var("god_lc_id", lc.id)
+      -- god.save_var("god_lc_rls", time_global() + (5*1000))
+      god_timers.start_timer("dlc_timer",0.3, lc.id)
+    end
+  end
+
+
+end
+
+function god_dialog:OnButton_back_clicked()
+
+  if db.actor then
+    god.save_var("weather_state",self.chek_weather:GetCheck())
+  end
+
+  self.owner:ShowDialog(true)
+  self:HideDialog()
+  self.owner:Show						(true)
+end
+
+function god_dialog:OnButton_back2_clicked()
+
+  if db.actor then
+    god.save_var("weather_state",self.chek_weather:GetCheck())
+  end
+
+  self.owner:ShowDialog(true)
+  self:HideDialog()
+  self.owner:Show						(true)
+
+  if db.actor~=nil then
+    local console = get_console()
+    get_console():execute("main_menu off")
+    xr_s.on_main_menu_off()
+  end
+
+end
+
+function god_dialog:OnButton_del_clicked()
+  if db.actor then
+    local s =  ui_god_dialog.last_music
+    if s~=nil then
+      s:stop()
+      ui_god_dialog.last_music = nil
+    end
+  end
+end
+
+function god_dialog:OnKeyboard(dik, keyboard_action)  --virtual function
+  CUIScriptWnd.OnKeyboard(self,dik,keyboard_action)
+  local bind = dik_to_bind(dik)
+  if bind == key_bindings.kQUIT then
+    self:OnButton_back_clicked()
+  else
+
+    DIK_RETURN = 28
+
+    if dik == DIK_RETURN and keyboard_action == ui_events.WINDOW_KEY_PRESSED then
+      self:OnButton_load_clicked()
+    end
+  end
+  return true
+end
+
+function god_dialog:AddItemToList(file_name, date_time)
+
+  local _itm			= god_item(self.file_item_main_sz.y)
+
+  _itm:SetWndSize		(self.file_item_main_sz)
+
+  _itm.fn:SetWndPos	(vector2():set(0,0))
+  _itm.fn:SetWndSize	(self.file_item_fn_sz)
+  _itm.fn:SetText		(file_name)
+
+  _itm.fage			= _itm:AddTextField(date_time, self.file_item_fd_sz.x)
+  _itm.fage:SetFont	(GetFontLetterica16Russian())
+  _itm.fage:SetWndPos	(vector2():set(self.file_item_fn_sz.x+4, 0))
+  _itm.fage:SetWndSize(self.file_item_fd_sz)
+
+  self.list_box:AddExistingItem(_itm)
+end
+
+
+
+
+function log(fmt,...)
+  --[[
+    if fmt==nil then fmt="nil" end
+
+    local msg = string.format(fmt, ...)
+    local msg_no_ws = string.gsub(msg, "%s", "_")
+    print_log(msg_no_ws)
+  ]]
+end
+
+-- ��������� ���� � ��������� ����
+function print_log(msg)
+  local log_name = "gamedata\\dbg_log.txt"
+  local file = io.open( log_name, "a" )
+  if file ~= nil then
+    file:write(msg.."\n")
+    file:close()
+  end
+
+end
+
+
+function tf_exp(num)
+  local tf, exp = tostring(math.floor(num)), 2
+  --for z in string.gmatch(tf, "0") do exp = exp + 1 end
+  exp = string.len(tf) - 1 if exp > 6 then exp = 6 end
+  return exp
+end
+
+-- from sam_lie
+-- Compatible with Lua 5.0 and 5.1.
+-- Disclaimer : use at own risk especially for hedge fund reports :-)
+
+---============================================================
+-- add comma to separate thousands
+--
+function comma_value(amount)
+  local formatted = amount
+  while true do
+    formatted, k = string.gsub(formatted, "^(-?%d+)(%d%d%d)", '%1,%2')
+    if (k==0) then
+      break
+    end
+  end
+  return formatted
+end
+
+---============================================================
+-- rounds a number to the nearest decimal places
+--
+function round(val, decimal)
+  if (decimal) then
+    return math.floor( (val * 10^decimal) + 0.5) / (10^decimal)
+  else
+    return math.floor(val+0.5)
+  end
+end
+
+
+function format_num(amount, decimal, prefix)
+  local str_amount,  formatted, famount, remain
+
+  decimal = decimal or 2  -- default 2 decimal places
+  neg_prefix = "-"
+
+  famount = math.abs(round(amount, decimal))
+  --famount = math.floor(famount)
+
+  local s = tostring(famount)
+  local i = string.find(s, ".", 1, true)
+  if (i == nil) then s = s .. "." .. string.rep("0", decimal) i = -decimal - 1 end
+  formatted = string.sub(s, 1, i + decimal)
+
+  -- if value is negative then format accordingly
+  if (amount<0) then
+    formatted = neg_prefix .. formatted
+  end
+
+  -- attach prefix string e.g '$'
+  formatted = (prefix or "") .. formatted
+
+  return formatted
+end
+
+-- normalize case of words in 'str' to Title Case
+-- code by Walter Cruz and Mark Edgar
+function titlecase(str)
+  local buf = {}
+  for word in string.gfind(str, "%S+") do
+    local first, rest = string.sub(word, 1, 1), string.sub(word, 2)
+    table.insert(buf, string.upper(first) .. string.lower(rest))
+  end
+  return table.concat(buf, " ")
+end
+
+function str_explode(div,str,pos1,pos2,clear)
+  local t={}
+  local cpt, pos
+
+  if pos1 == nil then pos1 = 1 end
+  if pos2 == nil then pos2 = pos1 end
+
+  local cpt1 = string.find (str, div, pos1, true)
+  local cpt2 = string.find (str, div, pos2, true)
+
+  if cpt1 and cpt2 then
+
+    if cpt2-cpt1 > 5 then
+      cpt = cpt1
+      pos = pos1
+    else
+      cpt = cpt2
+      pos = pos2
+    end
+
+    repeat
+      if clear then
+        table.insert( t, trim(string.sub(str, 1, cpt-1)) )
+      else
+        table.insert( t, string.sub(str, 1, cpt-1) )
+      end
+      str = string.sub( str, cpt+string.len(div) )
+      cpt = string.find (str, div, pos, true)
+    until cpt==nil
+  end
+  if clear then
+    table.insert(t, trim(str))
+  else
+    table.insert(t, str)
+  end
+  return t
+end
+
+-- ������� ��������
+function spawn_anom(item,pos)
+
+  local obj = alife():create(item,pos,db.actor:level_vertex_id(),db.actor:game_vertex_id())
+
+
+  if string.find(obj:section_name(), "zone_mine_gravitational") or
+      string.find(obj:section_name(), "field") or
+      string.find(obj:section_name(), "teleport") or
+      string.find(obj:section_name(), "campfire") or
+      string.find(obj:section_name(), "death") or
+      string.find(obj:section_name(), "sarcofag") or
+      string.find(obj:section_name(), "zone_radioactive") then
+    anom.create_anom(obj,3, pos, db.actor:level_vertex_id(), db.actor:game_vertex_id(),"field")
+  else
+    anom.create_anom(obj,3, pos, db.actor:level_vertex_id(), db.actor:game_vertex_id())
+  end
+end
+
+
+-- ������������ �� 5�.
+function god_dialog:OnButton_btn5_clicked()
+  local dir = db.actor:direction()
+  local pos = db.actor:position()
+  pos = pos:add(dir:mul(5))
+
+  db.actor:set_actor_position(pos)
+end
+
+-- ������������
+function god_dialog:OnButton_btn4_clicked()
+
+
+  pos_x = tonumber(self.edit_box:GetText())
+  pos_y = tonumber(self.edit_box2:GetText())
+  pos_z = tonumber(self.edit_box3:GetText())
+
+  if pos_x==nil then pos_x=db.actor:position().x end
+  if pos_y==nil then pos_y=db.actor:position().y end
+  if pos_z==nil then pos_z=db.actor:position().z end
+
+  db.actor:set_actor_position(vector():set(pos_x,pos_y,pos_z))
+
+end
+
+-- ������ ������� ��
+function god_dialog:OnButton_btn3_clicked()
+
+  local pos_xt = str_explode(".", db.actor:position().x) -- ��������� X
+  local pos_yt = str_explode(".", db.actor:position().y) -- ��������� Y
+  local pos_zt = str_explode(".", db.actor:position().z) -- ��������� Z
+
+  local pos_x = pos_xt[1]
+  local pos_y = pos_yt[1]
+  local pos_z = pos_zt[1]
+
+  self.edit_box:SetText(pos_x)
+  self.edit_box2:SetText(pos_y)
+  self.edit_box3:SetText(pos_z)
+end
+
+-- ������ �� �������
+function god_dialog:OnButton_btn1_clicked()
+  if self.list_box:GetSize()==0 then
+    return
+  end
+
+  local index = self.list_box:GetSelectedItem()
+
+  if index == -1 then
+    return
+  end
+
+  local itmname			= self.file_data:GetText() -- ����������
+
+  local pos_tbl = str_explode("|", itmname)
+
+  self.edit_box:SetText(pos_tbl[1])
+  self.edit_box2:SetText(pos_tbl[2])
+  self.edit_box3:SetText(pos_tbl[3])
+end
+
+-- ������ � �������
+function god_dialog:OnButton_btn2_clicked()
+  pos_x = tostring(self.edit_box:GetText())
+  pos_y = tostring(self.edit_box2:GetText())
+  pos_z = tostring(self.edit_box3:GetText())
+  pos_name = tostring(self.edit_box4:GetText())
+
+  if pos_x~="" and pos_y~="" and pos_z~="" and pos_name~="" then
+    self.settingFileName = "gamedata\\teleports_coordinats.txt"
+    local file = io.open( self.settingFileName, "a" )
+    if file ~= nil then
+      file:write( pos_name.."|"..pos_x.."|"..pos_y .."|"..pos_z.."\n")
+      file:close()
+    end
+    self:ModeChanges()
+  end
+
+end
+

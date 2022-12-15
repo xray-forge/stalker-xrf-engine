@@ -1,4 +1,7 @@
 <window>
+<!-- ���������� ���� -->
+#include "ui\ui_mm_god_dlg.xml"
+
 	<talk_ssu>
     <render_prio>5</render_prio>
     <global_wnd width="1024" height="768">
@@ -31,7 +34,7 @@
       <function_on_start>outro_cond.start_bk_sound</function_on_start>
       <function_on_stop>outro_cond.stop_bk_sound</function_on_stop>
     </global_wnd>
-    
+
     <!------ 0_pause -->
 		<item>
 			<length_sec>8</length_sec>
@@ -669,7 +672,7 @@
 			<auto_static>
 			</auto_static>
 		</main_wnd>
-	</item> 
+	</item>
 </intro_logo>
 <!------ No intro -->
 

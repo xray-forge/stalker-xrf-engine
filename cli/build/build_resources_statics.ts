@@ -2,9 +2,8 @@ import * as fs from "fs";
 import * as fsPromises from "fs/promises";
 import * as path from "path";
 
-import { Logger } from "../utils";
-
-import { GAME_DATA_SCRIPTS_DIR, RESOURCES_DIR, TARGET_GAME_DATA_DIR } from "./build_globals";
+import { RESOURCES_DIR, TARGET_GAME_DATA_DIR } from "#/build/build_globals";
+import { Logger } from "#/utils";
 
 const log: Logger = new Logger("BUILD_ASSET_STATICS");
 const EXPECTED_FILES: Array<string> = [ "README.md" ];

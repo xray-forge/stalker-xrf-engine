@@ -5,16 +5,17 @@
   "scripts": {
     "link": "run-script-os",
     "link:win32": "call cli/link/windows_link_gamedata.bat",
+    "link_logs": "run-script-os",
+    "link_logs:win32": "call cli/link/windows_link_logs.bat",
     "unlink": "run-script-os",
     "unlink:win32": "call cli/unlink/windows_unlink_gamedata.bat",
     "open_game_folder": "run-script-os",
     "open_game_folder:win32": "call cli/open_game_folder/windows_open_game_folder.bat",
     "start_game": "run-script-os",
     "start_game:win32": "call cli/run/windows_start_game.bat",
-    "build": "ts-node ./cli/build/build.ts",
-    "build:clean": "ts-node ./cli/build/build.ts --clean",
-    "build_scripts": "ts-node ./cli/build/build.ts --no-resources",
-    "watch:dev": "tstl -p cli/build/tsconfig.scripts.json --extension .script --noHeader --watch",
+    "build": "ts-node -P cli/tsconfig.json ./cli/build/build.ts",
+    "build:clean": "ts-node -P cli/tsconfig.json ./cli/build/build.ts --clean",
+    "build_scripts": "ts-node -P cli/tsconfig.json./cli/build/build.ts --no-resources",
     "format": "prettier --write \"**/*.(js|ts|tsx)\" && eslint . --ext .ts,.tsx,.js --fix",
     "lint": "eslint . --ext .ts,.tsx,.js"
   },
@@ -22,6 +23,7 @@
     "@types/node": "^18.11.13",
     "@typescript-eslint/eslint-plugin": "^5.46.1",
     "@typescript-eslint/parser": "^5.46.1",
+    "@typescript-to-lua/language-extensions": "^1.0.0",
     "chalk": "4.1.2",
     "eslint": "^8.29.0",
     "eslint-config-standard-with-typescript": "^23.0.0",
@@ -30,6 +32,7 @@
     "prettier": "^2.8.1",
     "run-script-os": "^1.1.6",
     "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.1.1",
     "typescript": "^4.9.4",
     "typescript-to-lua": "^1.11.1"
   }

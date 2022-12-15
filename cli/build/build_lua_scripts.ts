@@ -2,7 +2,7 @@ import * as path from "path";
 
 import * as tstl from "typescript-to-lua";
 
-import { Logger } from "../utils";
+import { Logger } from "#/utils";
 
 const log: Logger = new Logger("BUILD_LUA_SCRIPTS");
 

@@ -2,9 +2,8 @@ import * as fs from "fs";
 import * as fsPromises from "fs/promises";
 import * as path from "path";
 
-import { Logger, readDirContent } from "../utils";
-
-import { GAME_DATA_CONFIGS_DIR, TARGET_GAME_DATA_CONFIGS_DIR } from "./build_globals";
+import { GAME_DATA_CONFIGS_DIR, TARGET_GAME_DATA_CONFIGS_DIR } from "#/build/build_globals";
+import { Logger, readDirContent } from "#/utils";
 
 const log: Logger = new Logger("BUILD_CONFIGS_STATICS");
 const EXPECTED_CONFIG_EXTENSIONS: Array<string> = [ ".ltx", ".xml" ];
