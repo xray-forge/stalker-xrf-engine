@@ -4,6 +4,7 @@ export const ROOT_DIR: string = path.resolve(__dirname, "../../");
 export const SRC_DIR: string = path.resolve(ROOT_DIR, "src");
 export const MOD_DIR: string = path.resolve(SRC_DIR, "mod");
 export const RESOURCES_DIR: string = path.resolve(MOD_DIR, "resources");
+export const BUILD_LUA_TSCONFIG: string = path.resolve(__dirname, "./tsconfig.scripts.json");
 
 export const GAME_DATA_METADATA_FILE: string = path.resolve(MOD_DIR, "metadata.json");
 export const GAME_DATA_SCRIPTS_DIR: string = path.resolve(MOD_DIR, "scripts");

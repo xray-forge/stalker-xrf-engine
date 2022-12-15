@@ -5,7 +5,7 @@ import { default as chalk } from "chalk";
 import {
   TARGET_GAME_DATA_DIR,
   TARGET_GAME_DATA_METADATA_FILE
-} from "./build_globals";
+} from "../globals";
 
 import { Logger, readDirContent } from "#/utils";
 

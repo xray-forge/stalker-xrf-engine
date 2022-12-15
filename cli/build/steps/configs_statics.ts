@@ -4,7 +4,7 @@ import * as path from "path";
 
 import { default as chalk } from "chalk";
 
-import { GAME_DATA_CONFIGS_DIR, TARGET_GAME_DATA_CONFIGS_DIR } from "#/build/build_globals";
+import { GAME_DATA_CONFIGS_DIR, TARGET_GAME_DATA_CONFIGS_DIR } from "#/build/globals";
 import { Logger, readDirContent } from "#/utils";
 
 const log: Logger = new Logger("BUILD_CONFIGS_STATICS");

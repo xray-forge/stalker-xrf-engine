@@ -2,13 +2,15 @@ import * as fs from "fs";
 
 import { default as chalk } from "chalk";
 
-import { collectLog } from "#/build/build_collect_log";
-import { buildConfigsStatics } from "#/build/build_configs_statics";
-import { GAME_DATA_METADATA_FILE, TARGET_GAME_DATA_DIR } from "#/build/build_globals";
-import { buildLuaScripts } from "#/build/build_lua_scripts";
-import { buildMeta } from "#/build/build_meta";
-import { buildResourcesStatics } from "#/build/build_resources_statics";
-import { buildScriptsStatics } from "#/build/build_scripts_statics";
+import { GAME_DATA_METADATA_FILE, TARGET_GAME_DATA_DIR } from "#/build/globals";
+import {
+  collectLog,
+  buildConfigsStatics,
+  buildLuaScripts,
+  buildMeta,
+  buildResourcesStatics,
+  buildScriptsStatics
+} from "#/build/steps";
 import { Logger } from "#/utils";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires

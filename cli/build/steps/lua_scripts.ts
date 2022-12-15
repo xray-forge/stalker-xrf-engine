@@ -1,10 +1,9 @@
-import fsPromises from "fs/promises";
-import * as path from "path";
+import * as fsPromises from "fs/promises";
 
 import { default as chalk } from "chalk";
 import * as tstl from "typescript-to-lua";
 
-import { TARGET_GAME_DATA_DIR } from "#/build/build_globals";
+import { BUILD_LUA_TSCONFIG, TARGET_GAME_DATA_DIR } from "#/build/globals";
 import { Logger, readDirContent } from "#/utils";
 
 const log: Logger = new Logger("BUILD_LUA_SCRIPTS");
@@ -42,7 +41,7 @@ export async function buildLuaScripts(): Promise<void> {
 
   const startedAt: number = Date.now();
   const scriptsExtension: string = "script";
-  const result = tstl.transpileProject(path.resolve(__dirname, "./tsconfig.scripts.json"), {
+  const result = tstl.transpileProject(BUILD_LUA_TSCONFIG, {
     noHeader: true,
     tstlVerbose: false
     // Issues of builder: breaks module resolution

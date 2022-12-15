@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as fsPromises from "fs/promises";
 import * as path from "path";
 
-import { TARGET_DIR } from "#/build/build_globals";
+import { TARGET_DIR } from "#/build/globals";
 import { Logger } from "#/utils";
 
 const log: Logger = new Logger("BUILD_COLLECT_LOG");

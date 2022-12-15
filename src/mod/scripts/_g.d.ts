@@ -3756,7 +3756,7 @@ C++ class patrol {
 
   function name(number) const;
 
-  function index(string) const;
+  function index.ts(string) const;
 
   function terminal(number) const;
 
