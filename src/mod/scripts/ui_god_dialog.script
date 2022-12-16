@@ -22,7 +22,7 @@ local s_table = {
 
 }
 
-get_console():execute("INITIALIZE GOD_DIALOG")
+get_console():execute("INITIALIZE_GOD_DIALOG")
 
 class "god_item" (CUIListBoxItem)
 
@@ -87,7 +87,7 @@ function god_dialog:InitControls()
 
   local xml				= CScriptXmlInit()
   local ctrl
-  xml:ParseFile			("ui_dev_debug_dialog.xml")
+  xml:ParseFile			("ui_mm_dev_debug_dialog_old.xml")
 
   xml:InitStatic			("background",self)
 

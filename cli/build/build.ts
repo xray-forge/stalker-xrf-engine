@@ -51,7 +51,7 @@ Logger.IS_FILE_ENABLED = true;
 
     log.info("Successfully executed build command, took:", (Date.now() - startedAt) / 1000, "sec");
   } catch (error) {
-    log.error("Build failed:", error.title, error.message, error);
+    log.error("Build failed:", error.message, error);
   } finally {
     await collectLog();
   }

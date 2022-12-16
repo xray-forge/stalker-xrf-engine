@@ -8,8 +8,8 @@ import { GAME_DATA_CONFIGS_DIR, TARGET_GAME_DATA_CONFIGS_DIR } from "#/build/glo
 import { Logger, readDirContent } from "#/utils";
 import { renderJsxToXmlText } from "#/utils/xml";
 
-const log: Logger = new Logger("BUILD_CONFIGS_STATICS");
-const EXPECTED_DYNAMIC_XML_EXTENSIONS: Array<string> = [ ".tsx" ];
+const log: Logger = new Logger("BUILD_CONFIGS_DYNAMIC");
+const EXPECTED_DYNAMIC_XML_EXTENSIONS: Array<string> = [ ".tsx", ".ts" ];
 
 export async function buildDynamicConfigs(): Promise<void> {
   log.info("Build dynamic configs");
@@ -47,30 +47,32 @@ async function transformXmlConfigs(): Promise<void> {
       const targetDir: string = path.dirname(to);
 
       if (!fs.existsSync(targetDir)) {
-        log.info("MKDIR:", chalk.yellowBright(targetDir));
+        log.info("MKDIR:", chalk.blueBright(targetDir));
         fs.mkdirSync(targetDir, { recursive: true });
       }
     });
 
+    let processedXmlConfigs: number = 0;
+
     await Promise.all(
       xmlConfigs.map(async ([ from, to ]) => {
-        log.info("FOUND:", chalk.yellow(to));
-
         // eslint-disable-next-line @typescript-eslint/no-var-requires
         const xmlSource = require(from);
-        const xmlContent = typeof xmlSource?.create === "function" && xmlSource?.create();
+        const xmlContent = typeof xmlSource?.create === "function" && xmlSource?.IS_XML && xmlSource?.create();
 
         if (xmlContent) {
-          log.info("TRANSFORM:", chalk.yellow(to));
+          log.info("TRANSFORM:", chalk.blue(to));
 
           await fsPromises.writeFile(to, renderJsxToXmlText(xmlContent));
+
+          processedXmlConfigs += 1;
         } else {
-          log.warn("SKIP, invalid source:", chalk.yellow(from));
+          log.warn("SKIP, not XML source:", chalk.blue(from));
         }
       })
     );
 
-    log.info("XML files processed:", xmlConfigs.length);
+    log.info("XML files processed:", processedXmlConfigs);
   } else {
     log.info("No dynamic XML configs found");
   }

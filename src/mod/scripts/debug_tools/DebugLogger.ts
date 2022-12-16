@@ -1,4 +1,4 @@
-import { environmentConfig } from "@/mod/lib";
+import { gameConfig } from "@/mod/lib/configs/GameConfig";
 
 export class DebugLogger {
 
@@ -9,7 +9,7 @@ export class DebugLogger {
     this.prefix = "[DL][" + prefix + "]";
     this.isEnabled = isEnabled;
 
-    if (environmentConfig.IS_DEBUG_RESOLVE_ENABLED) {
+    if (gameConfig.DEBUG.IS_RESOLVE_LOG_ENABLED) {
       this.info("Created");
     }
   }
@@ -27,7 +27,7 @@ export class DebugLogger {
   }
 
   protected logAs(method: string, args: Array<any>): void {
-    if (environmentConfig.IS_DEBUG_LOG_ENABLED && this.isEnabled) {
+    if (gameConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
       log(this.prefix + method + " " + args.map((it) => tostring(it)).join(" "));
     }
   }

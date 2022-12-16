@@ -8,6 +8,5 @@
 - Global typedefs for stalker lua
 - Script to unbpack raw_gamedata for observation / usage
 - Script to transform ltx to js/json
-- Script to transform xml to js/json
-- Script to post-process dynamic XML and JS configs
+- Script to build translation labels
 

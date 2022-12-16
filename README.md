@@ -54,3 +54,10 @@ Main goals of the project are:
 - `unlink` - unlink target/gamedata folder and stalker folder
 - `open_game_folder` - open game folder in explorer
 - `start_game` - start game with debug flag, admin permissions may be required
+
+## Notes
+
+### Typescript
+Typescript to lua compilation does not do tree shaking and has its specifics. <br/>
+- To prevent bloated codebase avoid index files usage and re-exporting
+- Do not use window/dom/document/global APIs in lua scripts / shared mod libs, they are not transpiled to Lua

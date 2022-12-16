@@ -1,4 +1,4 @@
-import { DebugLogger } from "@/mod/scripts/utils/DebugLogger";
+import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
 
 const log: DebugLogger = new DebugLogger("EX_ROOT");
 

@@ -8,7 +8,8 @@
   "include": [
     "../../src/types",
     "../../src/mod/lib",
-    "../../src/mod/scripts"
+    "../../src/mod/scripts",
+    "../../src/mod/globals"
   ],
   "tstl": {
     "buildMode": "default",

@@ -49,9 +49,11 @@ export async function buildDynamicScripts(): Promise<void> {
   });
 
   if (result.diagnostics?.length) {
-    log.warn("Lua build diagnostics:");
+    log.warn(chalk.redBright("Lua build issues:"));
 
-    result.diagnostics.forEach((it) => log.error("Lua issue:", it.category, it.messageText));
+    result.diagnostics.forEach((it) => log.error(chalk.red("Lua issue:", it.category, it.messageText)));
+
+    throw new Error(`Build failed, got ${result.diagnostics.length} lua issues.`);
   }
 
   log.info("Built lua scripts:", chalk.blue((Date.now() - startedAt) / 1000), "sec");
