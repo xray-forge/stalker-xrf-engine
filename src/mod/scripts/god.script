@@ -17,8 +17,6 @@ end
 
 -- Обработчик нажатий на клавиши в Главном меню
 function key_binder(dik, keyboard_action, self)
-	log:info("Key binder call")
-
 
  if db.actor then
 --------------------------HUD DISABLE MOD----------------------------

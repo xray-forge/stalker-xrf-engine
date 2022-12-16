@@ -1,6 +1,7 @@
 {
   "extends": "../../src/tsconfig.json",
   "compilerOptions": {
+    "jsx": "react",
     "rootDir": "../../src/mod",
     "outDir": "../../target/gamedata"
   },
@@ -9,8 +10,6 @@
     "../../src/mod/lib",
     "../../src/mod/scripts"
   ],
-  "jsx": "preserve",
-  "jsxFactory": "JSXXML",
   "tstl": {
     "buildMode": "default",
     "luaTarget": "JIT",

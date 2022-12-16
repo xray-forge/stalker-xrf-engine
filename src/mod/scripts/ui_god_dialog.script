@@ -87,7 +87,7 @@ function god_dialog:InitControls()
 
   local xml				= CScriptXmlInit()
   local ctrl
-  xml:ParseFile			("ui_mm_god_dlg.xml")
+  xml:ParseFile			("ui_dev_debug_dialog.xml")
 
   xml:InitStatic			("background",self)
 

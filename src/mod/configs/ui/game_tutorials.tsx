@@ -5,8 +5,6 @@ import { includeXmlFile } from "#/utils";
 export function create(): JSXNode {
   return (
     <window>
-      {includeXmlFile("ui\\ui_mm_god_dlg.xml")}
-
       <talk_ssu>
         <render_prio>5</render_prio>
         <global_wnd width="1024" height="768">
@@ -697,7 +695,7 @@ export function create(): JSXNode {
           <grab_input>0</grab_input>
         </item>
       </outro_game>
-      #include "ui\ui_credits.xml"
+      {includeXmlFile("ui\\ui_credits.xml")}
 
       <game_over>
         <global_wnd/>
@@ -716,7 +714,8 @@ export function create(): JSXNode {
               <text font="graffiti50" r="255" g="0" b="0" a="255" align="c">st_game_over</text>
             </auto_static>
             <auto_static
-              start_time="3" length_sec="10000" x="350" y="660" width="300" height="60" light_anim="ui_pda_contacts" la_cyclic="1" la_text="1" la_alpha="1">
+              start_time="3" length_sec="10000" x="350" y="660" width="300" height="60" light_anim="ui_pda_contacts"
+              la_cyclic="1" la_text="1" la_alpha="1">
               <text font="graffiti22" r="255" g="0" b="0" a="255" align="c">st_game_over_press_jump</text>
             </auto_static>
           </main_wnd>
@@ -734,15 +733,15 @@ export function create(): JSXNode {
           <grab_input>1</grab_input>
           <main_wnd>
 
-            <auto_static
-              start_time="0" length_sec="10000" alignment="c" x="512" y="545" width="600" height="30" light_anim="ui_slow_blinking_alpha" la_cyclic="1" la_text="1" la_alpha="1">
+            <auto_static start_time="0" length_sec="10000" alignment="c" x="512" y="545" width="600" height="30"
+              light_anim="ui_slow_blinking_alpha" la_cyclic="1" la_text="1" la_alpha="1">
               <text font="letterica18" r="180" g="180" b="180" a="255" align="c">st_press_any_key</text>
             </auto_static>
           </main_wnd>
         </item>
       </game_loaded>
 
-      #include "ui\ui_credits.xml"
+      {includeXmlFile("ui\\ui_credits.xml")}
 
       {/* }<!------ No intro -->*/}
       <intro_logo>

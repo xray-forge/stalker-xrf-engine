@@ -20,5 +20,5 @@ function formatXml(xml: string, tab: string = "\t"): string {
 export function renderJsxToXmlText(node: JSXNode): string {
   const xmlMeta: string = "<?xml version=\"1.0\"?>";
 
-  return formatXml(render(node).slice(xmlMeta.length), "  ");
+  return formatXml(render(node).slice(xmlMeta.length), "  ") + "\n";
 }

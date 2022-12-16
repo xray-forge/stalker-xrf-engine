@@ -1,4 +1,4 @@
-import { environmentConfig } from "@/lib";
+import { environmentConfig } from "@/mod/lib";
 
 export class DebugLogger {
 

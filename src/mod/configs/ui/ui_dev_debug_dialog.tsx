@@ -1,31 +1,38 @@
 import { JSXNode, JSXXML, Fragment } from "jsx-xml";
 
+import { EUITexture } from "@/types/enums";
+
 export function create(): JSXNode {
+  const BASE_WIDTH: number = 1024;
+  const BASE_HEIGHT: number = 768;
+
   return <Fragment>
     <w>
-      <background width="1024" height="768">
+      <background width={BASE_WIDTH} height={BASE_HEIGHT}>
         <auto_static x="500" y="130" width="432" height="160" stretch="1">
-          <texture width="432" height="160">ui\video_voroni_crop</texture>
+          <texture width="432" height="160">{EUITexture.UI_VIDEO_VORONI_CROP}</texture>
         </auto_static>
         <auto_static x="413" y="352" width="576" height="416" stretch="1">
-          <texture width="576" height="416">ui\video_water_crop</texture>
+          <texture width="576" height="416">{EUITexture.UI_VIDEO_WATER_CROP}</texture>
         </auto_static>
         <auto_static width="1024" height="768">
-          <texture>ui_inGame2_background</texture>
+          <texture>{EUITexture.UI_IN_GAME2_BACKGROUND}</texture>
         </auto_static>
         <auto_static x="41" y="278" width="288" height="428">
-          <texture>ui_save_load_back</texture>
+          <texture>{EUITexture.UI_SAVE_LOAD_BACK}</texture>
         </auto_static>
       </background>
+
       <file_item>
         <main width="490" height="18"/>
         <fn width="325" height="18"/>
         <fd width="110" height="18"/>
       </file_item>
+
       <form x="50" y="252" width="560" height="460" stretch="1">
         <texture>ui_inGame2_main_window_small</texture>
         <caption x="0" y="20" width="560" height="30">
-          <text font="graffiti32" align="c">GOTZ (v1.0) ENG Trans By Jamie1992 </text>
+          <text font="graffiti32" align="c"> XRTS debug tools </text>
         </caption>
         <picture x="31" y="75" width="128" height="128">
           <texture width="128" height="128">ui\ui_noise</texture>
