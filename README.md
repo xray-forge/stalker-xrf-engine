@@ -55,9 +55,21 @@ Main goals of the project are:
 - `open_game_folder` - open game folder in explorer
 - `start_game` - start game with debug flag, admin permissions may be required
 
-## Notes
+## For developers
 
 ### Typescript
 Typescript to lua compilation does not do tree shaking and has its specifics. <br/>
 - To prevent bloated codebase avoid index files usage and re-exporting
 - Do not use window/dom/document/global APIs in lua scripts / shared mod libs, they are not transpiled to Lua
+
+### X-ray SDK / global type declarations
+To use typescript together with xray SDK you will need correct type declarations.
+
+- [xray 16 typedefs](src/typedefs/xray16)
+    - [xray ui](src/typedefs/xray16/c_ui)
+    - [xray core](src/typedefs/xray16/c_core)
+    - [xray constants](src/typedefs/xray16/c_constants.d.ts)
+- [LuaJIT typedefs](src/typedefs/luaJIT.d.ts)
+
+
+
