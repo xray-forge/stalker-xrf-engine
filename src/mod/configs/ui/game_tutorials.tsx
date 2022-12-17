@@ -748,7 +748,7 @@ export function create(): JSXNode {
 
       {includeXmlFile("ui\\ui_credits.xml")}
 
-      {createIntro()}
+      <GameIntro />
 
       <intro_game>
         <global_wnd width="1024" height="768">
@@ -1236,7 +1236,7 @@ export function create(): JSXNode {
   );
 }
 
-function createIntro(): JSXNode {
+function GameIntro(): JSXNode {
   if (gameConfig.ARE_INTRO_VIDEOS_ENABLED) {
     return (
       <intro_logo>

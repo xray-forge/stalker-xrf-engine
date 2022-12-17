@@ -6,7 +6,7 @@
     "outDir": "../../target/gamedata"
   },
   "include": [
-    "../../src/types",
+    "../../src/typedefs",
     "../../src/mod/lib",
     "../../src/mod/scripts",
     "../../src/mod/globals"

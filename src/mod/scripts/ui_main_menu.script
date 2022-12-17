@@ -1,10 +1,6 @@
-local ____lualib = require("lualib_bundle")
-local ____ui_dev_debug_dialog = require("scripts.debug_tools.ui_dev_debug_dialog")
-local ____DebugLogger = require("scripts.debug_tools.DebugLogger")
-
-local __TS__New = ____lualib.__TS__New
-local UiDevDebugDialog = ____ui_dev_debug_dialog.UiDevDebugDialog
-local DebugLogger = ____DebugLogger.DebugLogger
+local __TS__New = require("lualib_bundle").__TS__New
+local UiDevDebugDialog = require("scripts.debug_tools.UiDevDebugDialog").UiDevDebugDialog
+local DebugLogger = require("scripts.debug_tools.DebugLogger").DebugLogger
 
 -- File:        UI_MAIN_MENU.SCRIPT
 -- Description: Load Dialog for STALKER
