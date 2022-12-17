@@ -13,7 +13,11 @@ export const gameConfig = {
      * Printing messages each time logger instance is created.
      * Based on DEBUG_LOG setting.
      */
-    IS_RESOLVE_LOG_ENABLED: true
+    IS_RESOLVE_LOG_ENABLED: true,
+    /**
+     * Global prefix for lua debug logger in project.
+     */
+    GLOBAL_LOG_PREFIX: "[XRTS-DL]"
   },
   /**
    * Whether game intros are enabled.

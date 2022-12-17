@@ -1,9 +1,8 @@
 -- Inject LUA globals and enable modules requiring
 package.path = package.path .. string.format("%sgamedata\\?.script;", getFS():update_path("$fs_root$", ""))
-require("scripts.inject.lua_globals")
 
-local a = require("scripts.examples.example")
-local b = require("scripts.example_root")
+require("scripts.inject.lua_globals")
+require("scripts.examples.example")
 
 if (jit == nil) then
 	profiler.setup_hook	()

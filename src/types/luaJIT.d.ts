@@ -36,4 +36,12 @@ declare interface LUA_String {
 
 }
 
+/**
+ * Cast value to string.
+ */
 declare const tostring: (value: any) => string;
+
+/**
+ * Get type of value.
+ */
+declare const type: (value: any) => string;

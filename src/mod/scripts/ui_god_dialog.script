@@ -825,19 +825,6 @@ function god_dialog:AddItemToList(file_name, date_time)
   self.list_box:AddExistingItem(_itm)
 end
 
-
-
-
-function log(fmt,...)
-  --[[
-    if fmt==nil then fmt="nil" end
-
-    local msg = string.format(fmt, ...)
-    local msg_no_ws = string.gsub(msg, "%s", "_")
-    print_log(msg_no_ws)
-  ]]
-end
-
 -- ��������� ���� � ��������� ����
 function print_log(msg)
   local log_name = "gamedata\\dbg_log.txt"

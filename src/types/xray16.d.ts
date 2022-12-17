@@ -170,7 +170,6 @@ declare function buy_condition(a: number, b: number): unknown;
 declare function create_ini_file(a: string): unknown;
 declare function get_hud(): unknown;
 declare function GetFontSmall(): unknown;
-declare function error_log(a: string): unknown;
 declare function GetFontLetterica18Russian(): unknown;
 declare function command_line(): unknown;
 declare function getFS(): unknown;
@@ -182,6 +181,7 @@ declare function IsDynamicMusic(): unknown;
 declare function GetFontDI(): unknown;
 declare function GetFontLetterica16Russian(): unknown;
 declare function log(text: string): unknown;
+declare function error_log(text: string): unknown;
 declare function show_condition(a: unknown, b: string): unknown;
 declare function IsImportantSave(): unknown;
 declare function GetFontLetterica25(): unknown;
@@ -208,7 +208,31 @@ declare function bit_xor(a: number, b: number): unknown;
  * Types declarations:
  * ********************************************************************************************************************/
 
-declare const CUIWindow: () => XR_CUIWindow;
+declare const CUIWindow: typeof XR_CUIWindow;
+
+declare const CUIDialogWnd: typeof XR_CUIDialogWnd;
+
+declare const CUIScriptWnd: typeof XR_CUIScriptWnd;
+
+declare const CScriptXmlInit: typeof XR_CScriptXmlInit;
+
+declare const CUIFrameLineWnd: typeof XR_CUIFrameLineWnd;
+
+declare const CUIListBox: typeof XR_CUIListBox;
+
+declare const CUIListBoxItem: typeof XR_CUIListBoxItem;
+
+declare const CUIScrollView: typeof XR_CUIScrollView;
+
+declare const CUIMessageBoxEx: typeof XR_CUIMessageBoxEx;
+
+declare const CUIStatic: typeof XR_CUIStatic;
+
+declare const CUICustomSpin: typeof XR_CUICustomSpin;
+
+declare const CUISpinText: typeof XR_CUISpinText;
+
+declare const vector2: typeof XR_vector2;
 
 declare const Frect: () => XR_FRect;
 
@@ -225,6 +249,51 @@ declare const DIK_keys: IXR_DIK_keys;
  * ********************************************************************************************************************/
 
 /**
+ * Base for bindings brought from LuaBind library.
+ *
+ * Available overloading methods:
+ * __init
+ * __finalize
+ * __call
+ * __add
+ * __sub
+ * __mul
+ * __div
+ * __pow
+ * __lt
+ * __le
+ * __eq
+ * __unm
+ * __tostring
+ * __len
+ *
+ * todo: Correct signatures.
+ */
+declare class XR_LuaBindBase {
+
+  public static __init(this: void, ...args: Array<any>): void;
+  public static __finalize(this: void,): void;
+
+  public __init(...args: Array<any>): void;
+  public __finalize(): void;
+
+  public __call(args: Array<any>): void;
+  public __tostring(): void;
+  public __len(): void;
+
+  public __unm(): void;
+  public __eq(): void;
+  public __le(): void;
+  public __lt(): void;
+  public __pow(): void;
+  public __div(): void;
+  public __mul(): void;
+  public __sub(): void;
+  public __add(): void;
+
+}
+
+/**
  * C++ class memory_object {
  *   property last_level_time;
  *   property level_time;
@@ -232,7 +301,7 @@ declare const DIK_keys: IXR_DIK_keys;
  *
  * @customConstructor memory_object
  */
-declare class XR_MemoryObject {
+declare class XR_MemoryObject extends XR_LuaBindBase {
 
   public last_level_time: number;
   public level_time: number;
@@ -291,7 +360,7 @@ declare class XR_GameMemoryObject extends XR_MemoryObject {
  *   function set(number);
  * };
  */
-declare class XR_FColor {
+declare class XR_FColor extends XR_LuaBindBase {
 
   public a: number;
   public b: number;
@@ -305,6 +374,9 @@ declare class XR_FColor {
 }
 
 /**
+ * Frame rectangle.
+ * Describing x1, y1 top left start point and x2, y2 bottom right end point.
+ *
  * C++ class Frect {
  *   property lt;
  *   property rb;
@@ -317,17 +389,20 @@ declare class XR_FColor {
  *
  *   function set(number, number, number, number);
  * };
+ *
+ * @customConstructor FRect
  */
-declare class XR_FRect {
+declare class XR_FRect extends XR_LuaBindBase {
 
   public lt: number;
   public rb: number;
+
   public x1: number;
   public x2: number;
   public y1: number;
   public y2: number;
 
-  public set(a: number, b: number, c: number, d: number): XR_FRect;
+  public set(x1: number, y1: number, x2: number, y2: number): XR_FRect;
 
 }
 
@@ -354,27 +429,32 @@ declare class XR_FRect {
  *   function GetWidth() const;
  *   function IsAutoDelete();
  * };
+ *
+ * @customConstructor CUIWindow
  */
-declare class XR_CUIWindow {
+declare class XR_CUIWindow extends XR_LuaBindBase {
+
+  public IsShown(): boolean;
+  public IsEnabled(): boolean;
+  public IsAutoDelete(): boolean;
+
+  public GetHeight(): number;
+  public GetWidth(): number;
+  public GetWndPos(wnd: XR_CUIWindow): unknown;
+  public SetWndSize(vector2: unknown): unknown;
 
   public SetWindowName(this: XR_CUIWindow, value: string): unknown;
-  public Enable(value: boolean): unknown;
-  public SetAutoDelete(value: boolean): void;
-  public AttachChild(child: XR_CUIWindow): unknown;
   public SetWndPos(vector2: unknown): unknown;
-  public DetachChild(child: XR_CUIWindow): unknown;
+  public SetAutoDelete(value: boolean): void;
   public SetPPMode(): unknown;
-  public WindowName(): unknown;
-  public IsShown(): unknown;
-  public ResetPPMode(): unknown;
   public SetWndRect(rect: XR_FRect): unknown;
-  public GetHeight(): unknown;
+
+  public Enable(value: boolean): unknown;
+  public AttachChild(child: XR_CUIWindow): unknown;
+  public DetachChild(child: XR_CUIWindow): unknown;
+  public WindowName(): unknown;
+  public ResetPPMode(): unknown;
   public Show(this: any, value: boolean): unknown;
-  public GetWndPos(wnd: XR_CUIWindow): unknown;
-  public IsEnabled(): unknown;
-  public SetWndSize(vector2: unknown): unknown;
-  public GetWidth(): unknown;
-  public IsAutoDelete(): unknown;
 
 }
 
@@ -502,21 +582,28 @@ C++ class matrix {
 // todo;
 
 /**
-
-C++ class vector2 {
-  property x;
-  property y;
-
-  vector2 ();
-
-  function set(number, number);
-  function set(const vector2&);
-
-};
+ * C++ class vector2 {
+ *   property x;
+ *   property y;
  *
+ *   vector2 ();
+ *
+ *   function set(number, number);
+ *   function set(const vector2&);
+ *
+ * };
+ *
+ * @customConstructor vector2
  */
+declare class XR_vector2 {
 
-// todo;
+  public x: number;
+  public y: number;
+
+  public set(x: number, y: number): XR_vector2;
+  public set(vector: XR_vector2): XR_vector2;
+
+}
 
 /**
 
@@ -9948,67 +10035,126 @@ C++ class look {
 // todo;
 
 /**
-C++ class CScriptXmlInit {
-  CScriptXmlInit ();
+ * Class to handle UI xml parsing and applying.
+ *
+ * C++ class CScriptXmlInit {
+ *   CScriptXmlInit ();
+ *
+ *   function InitSpinText(string, CUIWindow*);
+ *
+ *   function InitTab(string, CUIWindow*);
+ *
+ *   function InitStatic(string, CUIWindow*);
+ *
+ *   function InitSleepStatic(string, CUIWindow*);
+ *
+ *   function InitTextWnd(string, CUIWindow*);
+ *
+ *   function InitSpinFlt(string, CUIWindow*);
+ *
+ *   function InitProgressBar(string, CUIWindow*);
+ *
+ *   function InitSpinNum(string, CUIWindow*);
+ *
+ *   function InitMapList(string, CUIWindow*);
+ *
+ *   function ParseFile(string);
+ *
+ *   function InitCDkey(string, CUIWindow*);
+ *
+ *   function InitListBox(string, CUIWindow*);
+ *
+ *   function InitKeyBinding(string, CUIWindow*);
+ *
+ *   function InitMMShniaga(string, CUIWindow*);
+ *
+ *   function InitWindow(string, number, CUIWindow*);
+ *
+ *   function InitEditBox(string, CUIWindow*);
+ *
+ *   function InitCheck(string, CUIWindow*);
+ *
+ *   function InitScrollView(string, CUIWindow*);
+ *
+ *   function InitMPPlayerName(string, CUIWindow*);
+ *
+ *   function InitTrackBar(string, CUIWindow*);
+ *
+ *   function InitMapInfo(string, CUIWindow*);
+ *
+ *   function InitServerList(string, CUIWindow*);
+ *
+ *   function InitComboBox(string, CUIWindow*);
+ *
+ *   function InitFrameLine(string, CUIWindow*);
+ *
+ *   function Init3tButton(string, CUIWindow*);
+ *
+ *   function InitAnimStatic(string, CUIWindow*);
+ *
+ *   function InitFrame(string, CUIWindow*);
+ *
+ * };
+ *
+ * @customConstructor CScriptXmlInit
+ */
+declare class XR_CScriptXmlInit {
 
-  function InitSpinText(string, CUIWindow*);
+  public InitSpinText(value: string, window: XR_CUIWindow): unknown;
 
-  function InitTab(string, CUIWindow*);
+  public InitTab(value: string, window: XR_CUIWindow): unknown;
 
-  function InitStatic(string, CUIWindow*);
+  public InitStatic(element: string, window: XR_CUIWindow): XR_CUIStatic;
 
-  function InitSleepStatic(string, CUIWindow*);
+  public InitSleepStatic(value: string, window: XR_CUIWindow): unknown;
 
-  function InitTextWnd(string, CUIWindow*);
+  public InitTextWnd(value: string, window: XR_CUIWindow): unknown;
 
-  function InitSpinFlt(string, CUIWindow*);
+  public InitSpinFlt(value: string, window: XR_CUIWindow): unknown;
 
-  function InitProgressBar(string, CUIWindow*);
+  public InitProgressBar(value: string, window: XR_CUIWindow): unknown;
 
-  function InitSpinNum(string, CUIWindow*);
+  public InitSpinNum(value: string, window: XR_CUIWindow): XR_CUISpinText;
 
-  function InitMapList(string, CUIWindow*);
+  public InitMapList(value: string, window: XR_CUIWindow): unknown;
 
-  function ParseFile(string);
+  public ParseFile(path: string): unknown;
 
-  function InitCDkey(string, CUIWindow*);
+  public InitCDkey(value: string, window: XR_CUIWindow): unknown;
 
-  function InitListBox(string, CUIWindow*);
+  public InitListBox(value: string, window: XR_CUIWindow): XR_CUIListBox;
 
-  function InitKeyBinding(string, CUIWindow*);
+  public InitKeyBinding(value: string, window: XR_CUIWindow): unknown;
 
-  function InitMMShniaga(string, CUIWindow*);
+  public InitMMShniaga(value: string, window: XR_CUIWindow): unknown;
 
-  function InitWindow(string, number, CUIWindow*);
+  public InitWindow(value: string, another: number, window: XR_CUIWindow): unknown;
 
-  function InitEditBox(string, CUIWindow*);
+  public InitEditBox(value: string, window: XR_CUIWindow): unknown;
 
-  function InitCheck(string, CUIWindow*);
+  public InitCheck(value: string, window: XR_CUIWindow): unknown;
 
-  function InitScrollView(string, CUIWindow*);
+  public InitScrollView(value: string, window: XR_CUIWindow): unknown;
 
-  function InitMPPlayerName(string, CUIWindow*);
+  public InitMPPlayerName(value: string, window: XR_CUIWindow): unknown;
 
-  function InitTrackBar(string, CUIWindow*);
+  public InitTrackBar(value: string, window: XR_CUIWindow): unknown;
 
-  function InitMapInfo(string, CUIWindow*);
+  public InitMapInfo(value: string, window: XR_CUIWindow): unknown;
 
-  function InitServerList(string, CUIWindow*);
+  public InitServerList(value: string, window: XR_CUIWindow): unknown;
 
-  function InitComboBox(string, CUIWindow*);
+  public InitComboBox(value: string, window: XR_CUIWindow): unknown;
 
-  function InitFrameLine(string, CUIWindow*);
+  public InitFrameLine(value: string, window: XR_CUIWindow): unknown;
 
-  function Init3tButton(string, CUIWindow*);
+  public Init3tButton(value: string, window: XR_CUIWindow): XR_CUIWindow;
 
-  function InitAnimStatic(string, CUIWindow*);
+  public InitAnimStatic(value: string, window: XR_CUIWindow): unknown;
 
-  function InitFrame(string, CUIWindow*);
+  public InitFrame(value: string, window: XR_CUIWindow): unknown;
 
-};
-*/
-
-// todo;
+}
 
 /**
 C++ class ce_script_zone : DLL_Pure {
@@ -10859,163 +11005,196 @@ C++ class CUICustomEdit : CUIWindow {
 // todo;
 
 /**
-C++ class CUICustomSpin : CUIWindow {
-  function SetWindowName(string);
-
-  function GetWndPos(CUIWindow*);
-
-  function GetText();
-
-  function SetAutoDelete(boolean);
-
-  function AttachChild(CUIWindow*);
-
-  function SetWndPos(vector2);
-
-  function DetachChild(CUIWindow*);
-
-  function SetPPMode();
-
-  function WindowName();
-
-  function IsShown();
-
-  function SetWndRect(Frect);
-
-  function Show(boolean);
-
-  function GetHeight() const;
-
-  function GetWidth() const;
-
-  function SetWndSize(vector2);
-
-  function IsEnabled();
-
-  function ResetPPMode();
-
-  function Enable(boolean);
-
-  function IsAutoDelete();
-
-};
+ * C++ class CUICustomSpin : CUIWindow {
+ *   function SetWindowName(string);
+ *
+ *   function GetWndPos(CUIWindow*);
+ *
+ *   function GetText();
+ *
+ *   function SetAutoDelete(boolean);
+ *
+ *   function AttachChild(CUIWindow*);
+ *
+ *   function SetWndPos(vector2);
+ *
+ *   function DetachChild(CUIWindow*);
+ *
+ *   function SetPPMode();
+ *
+ *   function WindowName();
+ *
+ *   function IsShown();
+ *
+ *   function SetWndRect(Frect);
+ *
+ *   function Show(boolean);
+ *
+ *   function GetHeight() const;
+ *
+ *   function GetWidth() const;
+ *
+ *   function SetWndSize(vector2);
+ *
+ *   function IsEnabled();
+ *
+ *   function ResetPPMode();
+ *
+ *   function Enable(boolean);
+ *
+ *   function IsAutoDelete();
+ *
+ * };
+ *
+ * @customConstructor CUICustomSpin
 */
+declare class XR_CUICustomSpin extends XR_CUIWindow {
 
-// todo;
+  public GetText(): unknown;
+
+}
 
 /**
-C++ class CUIDialogWnd : CUIWindow {
-  function HideDialog();
+ * C++ class CUIDialogWnd : CUIWindow {
+ *   function HideDialog();
+ *
+ *   function SetWindowName(string);
+ *
+ *   function GetWndPos(CUIWindow*);
+ *
+ *   function SetAutoDelete(boolean);
+ *
+ *   function AttachChild(CUIWindow*);
+ *
+ *   function SetWndPos(vector2);
+ *
+ *   function SetWndRect(Frect);
+ *
+ *   function ShowDialog(boolean);
+ *
+ *   function DetachChild(CUIWindow*);
+ *
+ *   function SetPPMode();
+ *
+ *   function WindowName();
+ *
+ *   function IsShown();
+ *
+ *   function GetHolder();
+ *
+ *   function Show(boolean);
+ *
+ *   function GetHeight() const;
+ *
+ *   function GetWidth() const;
+ *
+ *   function SetWndSize(vector2);
+ *
+ *   function IsEnabled();
+ *
+ *   function ResetPPMode();
+ *
+ *   function Enable(boolean);
+ *
+ *   function IsAutoDelete();
+ *
+ * };
+ *
+ * @customConstructor CUIDialogWnd
+ */
 
-  function SetWindowName(string);
+declare class XR_CUIDialogWnd extends XR_CUIWindow {
 
-  function GetWndPos(CUIWindow*);
+  public HideDialog(): void;
 
-  function SetAutoDelete(boolean);
+  public ShowDialog(value: boolean): void;
 
-  function AttachChild(CUIWindow*);
+  public GetHolder(): unknown;
 
-  function SetWndPos(vector2);
-
-  function SetWndRect(Frect);
-
-  function ShowDialog(boolean);
-
-  function DetachChild(CUIWindow*);
-
-  function SetPPMode();
-
-  function WindowName();
-
-  function IsShown();
-
-  function GetHolder();
-
-  function Show(boolean);
-
-  function GetHeight() const;
-
-  function GetWidth() const;
-
-  function SetWndSize(vector2);
-
-  function IsEnabled();
-
-  function ResetPPMode();
-
-  function Enable(boolean);
-
-  function IsAutoDelete();
-
-};
-*/
-
-// todo;
+}
 
 /**
-C++ class CUIScriptWnd : CUIDialogWnd,DLL_Pure {
-  CUIScriptWnd ();
+ * C++ class CUIScriptWnd : CUIDialogWnd,DLL_Pure {
+ *   CUIScriptWnd ();
+ *
+ *   function HideDialog();
+ *
+ *   function _construct();
+ *
+ *   function SetWindowName(string);
+ *
+ *   function GetWndPos(CUIWindow*);
+ *
+ *   function OnKeyboard(number, enum EUIMessages);
+ *
+ *   function Update();
+ *
+ *   function AddCallback(string, number, const function<void>&, object);
+ *
+ *   function SetAutoDelete(boolean);
+ *
+ *   function Dispatch(number, number);
+ *
+ *   function Show(boolean);
+ *
+ *   function AttachChild(CUIWindow*);
+ *
+ *   function Register(CUIWindow*, string);
+ *
+ *   function SetWndPos(vector2);
+ *
+ *   function ShowDialog(boolean);
+ *
+ *   function Enable(boolean);
+ *
+ *   function DetachChild(CUIWindow*);
+ *
+ *   function SetPPMode();
+ *
+ *   function WindowName();
+ *
+ *   function IsShown();
+ *
+ *   function GetHolder();
+ *
+ *   function SetWndRect(Frect);
+ *
+ *   function GetHeight() const;
+ *
+ *   function ResetPPMode();
+ *
+ *   function GetWidth() const;
+ *
+ *   function IsEnabled();
+ *
+ *   function SetWndSize(vector2);
+ *
+ *   function Load(string);
+ *
+ *   function IsAutoDelete();
+ *
+ * };
+ *
+ * @customConstructor CUIScriptWnd
+ */
 
-  function HideDialog();
+declare class XR_CUIScriptWnd extends XR_CUIDialogWnd {
 
-  function _construct();
+  public _construct(): XR_CUIDialogWnd;
 
-  function SetWindowName(string);
+  public OnKeyboard(key: number, message: unknown /* enum EUIMessages todo*/): void;
 
-  function GetWndPos(CUIWindow*);
+  public Update(): void;
 
-  function OnKeyboard(number, enum EUIMessages);
+  public AddCallback(name: string, event: number, cb: () => void): void;
 
-  function Update();
+  public Dispatch(value1: number, value2: number): void;
 
-  function AddCallback(string, number, const function<void>&, object);
+  public Register(window: XR_CUIWindow, name: string): void;
 
-  function SetAutoDelete(boolean);
+  public Load(value: string): unknown;
 
-  function Dispatch(number, number);
-
-  function Show(boolean);
-
-  function AttachChild(CUIWindow*);
-
-  function Register(CUIWindow*, string);
-
-  function SetWndPos(vector2);
-
-  function ShowDialog(boolean);
-
-  function Enable(boolean);
-
-  function DetachChild(CUIWindow*);
-
-  function SetPPMode();
-
-  function WindowName();
-
-  function IsShown();
-
-  function GetHolder();
-
-  function SetWndRect(Frect);
-
-  function GetHeight() const;
-
-  function ResetPPMode();
-
-  function GetWidth() const;
-
-  function IsEnabled();
-
-  function SetWndSize(vector2);
-
-  function Load(string);
-
-  function IsAutoDelete();
-
-};
-*/
-
-// todo;
+}
 
 /**
 C++ class CUIEditBox : CUICustomEdit {
@@ -11128,55 +11307,64 @@ C++ class CUIEditBoxEx : CUICustomEdit {
 // todo;
 
 /**
-C++ class CUIFrameLineWnd : CUIWindow {
-  CUIFrameLineWnd ();
-
-  function SetWindowName(string);
-
-  function GetWndPos(CUIWindow*);
-
-  function SetHeight(number);
-
-  function SetAutoDelete(boolean);
-
-  function AttachChild(CUIWindow*);
-
-  function SetWndPos(vector2);
-
-  function SetColor(number);
-
-  function GetWidth() const;
-
-  function DetachChild(CUIWindow*);
-
-  function SetPPMode();
-
-  function WindowName();
-
-  function IsShown();
-
-  function SetWndRect(Frect);
-
-  function Show(boolean);
-
-  function GetHeight() const;
-
-  function SetWidth(number);
-
-  function SetWndSize(vector2);
-
-  function IsEnabled();
-
-  function ResetPPMode();
-
-  function Enable(boolean);
-
-  function IsAutoDelete();
-
-};
+ * C++ class CUIFrameLineWnd : CUIWindow {
+ *   CUIFrameLineWnd ();
+ *
+ *   function SetWindowName(string);
+ *
+ *   function GetWndPos(CUIWindow*);
+ *
+ *   function SetHeight(number);
+ *
+ *   function SetAutoDelete(boolean);
+ *
+ *   function AttachChild(CUIWindow*);
+ *
+ *   function SetWndPos(vector2);
+ *
+ *   function SetColor(number);
+ *
+ *   function GetWidth() const;
+ *
+ *   function DetachChild(CUIWindow*);
+ *
+ *   function SetPPMode();
+ *
+ *   function WindowName();
+ *
+ *   function IsShown();
+ *
+ *   function SetWndRect(Frect);
+ *
+ *   function Show(boolean);
+ *
+ *   function GetHeight() const;
+ *
+ *   function SetWidth(number);
+ *
+ *   function SetWndSize(vector2);
+ *
+ *   function IsEnabled();
+ *
+ *   function ResetPPMode();
+ *
+ *   function Enable(boolean);
+ *
+ *   function IsAutoDelete();
+ *
+ * };
+ *
+ * @customConstructor CUIFrameLineWnd
 */
+declare class XR_CUIFrameLineWnd extends XR_CUIWindow {
 
-// todo;
+  public SetHeight(value: number): unknown;
+
+  public SetColor(value: number): unknown;
+
+  public SetWidth(value: number): unknown;
+
+}
 
 /**
 C++ class CUIFrameWindow : CUIWindow {
@@ -11274,146 +11462,182 @@ C++ class CUILines {
 // todo;
 
 /**
-C++ class CUIListBox : CUIScrollView {
-  CUIListBox ();
-
-  function SetWindowName(string);
-
-  function Enable(boolean);
-
-  function RemoveWindow(CUIWindow*);
-
-  function ScrollToBegin();
-
-  function GetMinScrollPos();
-
-  function AddExistingItem(CUIListBoxItem*);
-
-  function AddWindow(CUIWindow*, boolean);
-
-  function GetWidth() const;
-
-  function Clear();
-
-  function DetachChild(CUIWindow*);
-
-  function SetPPMode();
-
-  function IsShown();
-
-  function Show(boolean);
-
-  function GetHeight() const;
-
-  function IsEnabled();
-
-  function ResetPPMode();
-
-  function GetWndPos(CUIWindow*);
-
-  function GetCurrentScrollPos();
-
-  function SetAutoDelete(boolean);
-
-  function AttachChild(CUIWindow*);
-
-  function AddTextItem(string);
-
-  function SetWndPos(vector2);
-
-  function ScrollToEnd();
-
-  function RemoveItem(CUIWindow*);
-
-  function GetMaxScrollPos();
-
-  function GetItemByIndex(number);
-
-  function WindowName();
-
-  function GetSelectedIndex();
-
-  function GetSelectedItem();
-
-  function SetWndRect(Frect);
-
-  function SetScrollPos(number);
-
-  function GetSize();
-
-  function RemoveAll();
-
-  function ShowSelectedItem(boolean);
-
-  function SetWndSize(vector2);
-
-  function GetItem(number);
-
-  function IsAutoDelete();
-
-};
+ * C++ class CUIListBox : CUIScrollView {
+ *   CUIListBox ();
+ *
+ *   function SetWindowName(string);
+ *
+ *   function Enable(boolean);
+ *
+ *   function RemoveWindow(CUIWindow*);
+ *
+ *   function ScrollToBegin();
+ *
+ *   function GetMinScrollPos();
+ *
+ *   function AddExistingItem(CUIListBoxItem*);
+ *
+ *   function AddWindow(CUIWindow*, boolean);
+ *
+ *   function GetWidth() const;
+ *
+ *   function Clear();
+ *
+ *   function DetachChild(CUIWindow*);
+ *
+ *   function SetPPMode();
+ *
+ *   function IsShown();
+ *
+ *   function Show(boolean);
+ *
+ *   function GetHeight() const;
+ *
+ *   function IsEnabled();
+ *
+ *   function ResetPPMode();
+ *
+ *   function GetWndPos(CUIWindow*);
+ *
+ *   function GetCurrentScrollPos();
+ *
+ *   function SetAutoDelete(boolean);
+ *
+ *   function AttachChild(CUIWindow*);
+ *
+ *   function AddTextItem(string);
+ *
+ *   function SetWndPos(vector2);
+ *
+ *   function ScrollToEnd();
+ *
+ *   function RemoveItem(CUIWindow*);
+ *
+ *   function GetMaxScrollPos();
+ *
+ *   function GetItemByIndex(number);
+ *
+ *   function WindowName();
+ *
+ *   function GetSelectedIndex();
+ *
+ *   function GetSelectedItem();
+ *
+ *   function SetWndRect(Frect);
+ *
+ *   function SetScrollPos(number);
+ *
+ *   function GetSize();
+ *
+ *   function RemoveAll();
+ *
+ *   function ShowSelectedItem(boolean);
+ *
+ *   function SetWndSize(vector2);
+ *
+ *   function GetItem(number);
+ *
+ *   function IsAutoDelete();
+ *
+ * };
+ *
+ * @customConstructor CUIListBox
 */
+declare class XR_CUIListBox extends XR_CUIScrollView {
 
-// todo;
+  public AddExistingItem(item: XR_CUIListBoxItem): unknown;
+
+  public AddTextItem(text: string): unknown;
+
+  public RemoveItem(window: XR_CUIWindow): unknown;
+
+  public GetItemByIndex(index: number): unknown;
+
+  public GetSelectedIndex(): unknown;
+
+  public GetSelectedItem(): unknown;
+
+  public GetSize(): unknown;
+
+  public RemoveAll(): unknown;
+
+  public ShowSelectedItem(value: boolean): unknown;
+
+  public GetItem(index: number): unknown;
+
+}
 
 /**
-C++ class CUIListBoxItem : CUIFrameLineWnd {
-  CUIListBoxItem (number);
-
-  function SetWindowName(string);
-
-  function GetWndPos(CUIWindow*);
-
-  function SetHeight(number);
-
-  function AddIconField(number);
-
-  function SetAutoDelete(boolean);
-
-  function SetTextColor(number);
-
-  function AddTextField(string, number);
-
-  function AttachChild(CUIWindow*);
-
-  function GetTextItem();
-
-  function SetWndPos(vector2);
-
-  function IsAutoDelete();
-
-  function Enable(boolean);
-
-  function DetachChild(CUIWindow*);
-
-  function SetPPMode();
-
-  function WindowName();
-
-  function IsShown();
-
-  function ResetPPMode();
-
-  function SetWndRect(Frect);
-
-  function GetHeight() const;
-
-  function SetWidth(number);
-
-  function Show(boolean);
-
-  function IsEnabled();
-
-  function SetWndSize(vector2);
-
-  function GetWidth() const;
-
-  function SetColor(number);
-
-};
+ * C++ class CUIListBoxItem : CUIFrameLineWnd {
+ *   CUIListBoxItem (number);
+ *
+ *   function SetWindowName(string);
+ *
+ *   function GetWndPos(CUIWindow*);
+ *
+ *   function SetHeight(number);
+ *
+ *   function AddIconField(number);
+ *
+ *   function SetAutoDelete(boolean);
+ *
+ *   function SetTextColor(number);
+ *
+ *   function AddTextField(string, number);
+ *
+ *   function AttachChild(CUIWindow*);
+ *
+ *   function GetTextItem();
+ *
+ *   function SetWndPos(vector2);
+ *
+ *   function IsAutoDelete();
+ *
+ *   function Enable(boolean);
+ *
+ *   function DetachChild(CUIWindow*);
+ *
+ *   function SetPPMode();
+ *
+ *   function WindowName();
+ *
+ *   function IsShown();
+ *
+ *   function ResetPPMode();
+ *
+ *   function SetWndRect(Frect);
+ *
+ *   function GetHeight() const;
+ *
+ *   function SetWidth(number);
+ *
+ *   function Show(boolean);
+ *
+ *   function IsEnabled();
+ *
+ *   function SetWndSize(vector2);
+ *
+ *   function GetWidth() const;
+ *
+ *   function SetColor(number);
+ *
+ * };
+ *
+ * @customConstructor CUIListBoxItem
 */
+declare class XR_CUIListBoxItem extends XR_CUIFrameLineWnd {
 
-// todo;
+  public constructor(index: number);
+
+  public AddIconField(value: number): unknown;
+
+  public SetTextColor(value: number): unknown;
+
+  public AddTextField(value1: string, value2: number): unknown;
+
+  public GetTextItem(): unknown;
+
+}
 
 /**
 C++ class CUIListBoxItemMsgChain : CUIListBoxItem {
@@ -11711,63 +11935,74 @@ C++ class CUIMessageBox : CUIStatic {
 // todo;
 
 /**
-C++ class CUIMessageBoxEx : CUIDialogWnd {
-  CUIMessageBoxEx ();
-
-  function HideDialog();
-
-  function InitMessageBox(string);
-
-  function SetWindowName(string);
-
-  function GetWndPos(CUIWindow*);
-
-  function SetText(string);
-
-  function SetAutoDelete(boolean);
-
-  function GetPassword();
-
-  function AttachChild(CUIWindow*);
-
-  function GetHost();
-
-  function SetWndPos(vector2);
-
-  function ShowDialog(boolean);
-
-  function Enable(boolean);
-
-  function DetachChild(CUIWindow*);
-
-  function SetPPMode();
-
-  function WindowName();
-
-  function IsShown();
-
-  function GetHolder();
-
-  function SetWndRect(Frect);
-
-  function GetHeight() const;
-
-  function ResetPPMode();
-
-  function GetWidth() const;
-
-  function IsEnabled();
-
-  function SetWndSize(vector2);
-
-  function Show(boolean);
-
-  function IsAutoDelete();
-
-};
+ * C++ class CUIMessageBoxEx : CUIDialogWnd {
+ *   CUIMessageBoxEx ();
+ *
+ *   function HideDialog();
+ *
+ *   function InitMessageBox(string);
+ *
+ *   function SetWindowName(string);
+ *
+ *   function GetWndPos(CUIWindow*);
+ *
+ *   function SetText(string);
+ *
+ *   function SetAutoDelete(boolean);
+ *
+ *   function GetPassword();
+ *
+ *   function AttachChild(CUIWindow*);
+ *
+ *   function GetHost();
+ *
+ *   function SetWndPos(vector2);
+ *
+ *   function ShowDialog(boolean);
+ *
+ *   function Enable(boolean);
+ *
+ *   function DetachChild(CUIWindow*);
+ *
+ *   function SetPPMode();
+ *
+ *   function WindowName();
+ *
+ *   function IsShown();
+ *
+ *   function GetHolder();
+ *
+ *   function SetWndRect(Frect);
+ *
+ *   function GetHeight() const;
+ *
+ *   function ResetPPMode();
+ *
+ *   function GetWidth() const;
+ *
+ *   function IsEnabled();
+ *
+ *   function SetWndSize(vector2);
+ *
+ *   function Show(boolean);
+ *
+ *   function IsAutoDelete();
+ *
+ * };
+ *
+ * @customConstructor CUIMessageBoxEx
 */
+declare class XR_CUIMessageBoxEx extends XR_CUIDialogWnd {
 
-// todo;
+  public InitMessageBox(value: string): void;
+
+  public SetText(text: string): void;
+
+  public GetPassword(): string;
+
+  public GetHost(): unknown;
+
+}
 
 /**
 C++ class COptionsManager {
@@ -11910,67 +12145,88 @@ C++ class CUIPropertiesBox : CUIFrameWindow {
 // todo;
 
 /**
-C++ class CUIScrollView : CUIWindow {
-  CUIScrollView ();
-
-  function SetWindowName(string);
-
-  function GetWndPos(CUIWindow*);
-
-  function SetScrollPos(number);
-
-  function RemoveWindow(CUIWindow*);
-
-  function ScrollToBegin();
-
-  function SetAutoDelete(boolean);
-
-  function GetCurrentScrollPos();
-
-  function AddWindow(CUIWindow*, boolean);
-
-  function GetMaxScrollPos();
-
-  function AttachChild(CUIWindow*);
-
-  function GetMinScrollPos();
-
-  function SetWndPos(vector2);
-
-  function ScrollToEnd();
-
-  function Clear();
-
-  function DetachChild(CUIWindow*);
-
-  function SetPPMode();
-
-  function WindowName();
-
-  function IsShown();
-
-  function SetWndRect(Frect);
-
-  function Show(boolean);
-
-  function GetHeight() const;
-
-  function GetWidth() const;
-
-  function SetWndSize(vector2);
-
-  function IsEnabled();
-
-  function ResetPPMode();
-
-  function Enable(boolean);
-
-  function IsAutoDelete();
-
-};
+ * C++ class CUIScrollView : CUIWindow {
+ *   CUIScrollView ();
+ *
+ *   function SetWindowName(string);
+ *
+ *   function GetWndPos(CUIWindow*);
+ *
+ *   function SetScrollPos(number);
+ *
+ *   function RemoveWindow(CUIWindow*);
+ *
+ *   function ScrollToBegin();
+ *
+ *   function SetAutoDelete(boolean);
+ *
+ *   function GetCurrentScrollPos();
+ *
+ *   function AddWindow(CUIWindow*, boolean);
+ *
+ *   function GetMaxScrollPos();
+ *
+ *   function AttachChild(CUIWindow*);
+ *
+ *   function GetMinScrollPos();
+ *
+ *   function SetWndPos(vector2);
+ *
+ *   function ScrollToEnd();
+ *
+ *   function Clear();
+ *
+ *   function DetachChild(CUIWindow*);
+ *
+ *   function SetPPMode();
+ *
+ *   function WindowName();
+ *
+ *   function IsShown();
+ *
+ *   function SetWndRect(Frect);
+ *
+ *   function Show(boolean);
+ *
+ *   function GetHeight() const;
+ *
+ *   function GetWidth() const;
+ *
+ *   function SetWndSize(vector2);
+ *
+ *   function IsEnabled();
+ *
+ *   function ResetPPMode();
+ *
+ *   function Enable(boolean);
+ *
+ *   function IsAutoDelete();
+ *
+ * };
+ *
+ * @customConstructor CUIScrollView
 */
+declare class XR_CUIScrollView extends XR_CUIWindow {
 
-// todo;
+  public SetScrollPos(position: number): unknown;
+
+  public RemoveWindow(window: XR_CUIWindow): unknown;
+
+  public ScrollToBegin(): unknown;
+
+  public GetCurrentScrollPos(): unknown;
+
+  public AddWindow(window: XR_CUIWindow, value: boolean): unknown;
+
+  public GetMaxScrollPos(): unknown;
+
+  public GetMinScrollPos(): unknown;
+
+  public ScrollToEnd(): unknown;
+
+  public Clear(): unknown;
+
+}
 
 /**
 C++ class CUISleepStatic : CUIStatic {
@@ -12122,106 +12378,121 @@ C++ class CUISpinNum : CUICustomSpin {
 // todo;
 
 /**
-C++ class CUISpinText : CUICustomSpin {
-  CUISpinText ();
-
-  function SetWindowName(string);
-
-  function GetWndPos(CUIWindow*);
-
-  function GetText();
-
-  function SetAutoDelete(boolean);
-
-  function AttachChild(CUIWindow*);
-
-  function SetWndPos(vector2);
-
-  function DetachChild(CUIWindow*);
-
-  function SetPPMode();
-
-  function WindowName();
-
-  function IsShown();
-
-  function GetWidth() const;
-
-  function SetWndRect(Frect);
-
-  function GetHeight() const;
-
-  function Enable(boolean);
-
-  function ResetPPMode();
-
-  function IsEnabled();
-
-  function SetWndSize(vector2);
-
-  function Show(boolean);
-
-  function IsAutoDelete();
-
-};
+ * C++ class CUISpinText : CUICustomSpin {
+ *   CUISpinText ();
+ *
+ *   function SetWindowName(string);
+ *
+ *   function GetWndPos(CUIWindow*);
+ *
+ *   function GetText();
+ *
+ *   function SetAutoDelete(boolean);
+ *
+ *   function AttachChild(CUIWindow*);
+ *
+ *   function SetWndPos(vector2);
+ *
+ *   function DetachChild(CUIWindow*);
+ *
+ *   function SetPPMode();
+ *
+ *   function WindowName();
+ *
+ *   function IsShown();
+ *
+ *   function GetWidth() const;
+ *
+ *   function SetWndRect(Frect);
+ *
+ *   function GetHeight() const;
+ *
+ *   function Enable(boolean);
+ *
+ *   function ResetPPMode();
+ *
+ *   function IsEnabled();
+ *
+ *   function SetWndSize(vector2);
+ *
+ *   function Show(boolean);
+ *
+ *   function IsAutoDelete();
+ *
+ * };
+ *
+ * @customConstructor CUISpinText
 */
-
-// todo;
+declare class XR_CUISpinText extends XR_CUICustomSpin {
+}
 
 /**
-C++ class CUIStatic : CUIWindow {
-  CUIStatic ();
-
-  function SetWindowName(string);
-
-  function GetWndPos(CUIWindow*);
-
-  function TextControl();
-
-  function SetAutoDelete(boolean);
-
-  function GetTextureRect();
-
-  function AttachChild(CUIWindow*);
-
-  function SetStretchTexture(boolean);
-
-  function SetWndPos(vector2);
-
-  function SetTextureRect(Frect*);
-
-  function SetWndSize(vector2);
-
-  function DetachChild(CUIWindow*);
-
-  function SetPPMode();
-
-  function WindowName();
-
-  function IsShown();
-
-  function SetWndRect(Frect);
-
-  function Show(boolean);
-
-  function GetHeight() const;
-
-  function GetWidth() const;
-
-  function InitTexture(string);
-
-  function IsEnabled();
-
-  function ResetPPMode();
-
-  function Enable(boolean);
-
-  function IsAutoDelete();
-
-};
+ * C++ class CUIStatic : CUIWindow {
+ *   CUIStatic ();
+ *
+ *   function SetWindowName(string);
+ *
+ *   function GetWndPos(CUIWindow*);
+ *
+ *   function TextControl();
+ *
+ *   function SetAutoDelete(boolean);
+ *
+ *   function GetTextureRect();
+ *
+ *   function AttachChild(CUIWindow*);
+ *
+ *   function SetStretchTexture(boolean);
+ *
+ *   function SetWndPos(vector2);
+ *
+ *   function SetTextureRect(Frect*);
+ *
+ *   function SetWndSize(vector2);
+ *
+ *   function DetachChild(CUIWindow*);
+ *
+ *   function SetPPMode();
+ *
+ *   function WindowName();
+ *
+ *   function IsShown();
+ *
+ *   function SetWndRect(Frect);
+ *
+ *   function Show(boolean);
+ *
+ *   function GetHeight() const;
+ *
+ *   function GetWidth() const;
+ *
+ *   function InitTexture(string);
+ *
+ *   function IsEnabled();
+ *
+ *   function ResetPPMode();
+ *
+ *   function Enable(boolean);
+ *
+ *   function IsAutoDelete();
+ *
+ * };
+ *
+ * @customConstructor CUIStatic
 */
+declare class XR_CUIStatic extends XR_CUIWindow {
 
-// todo;
+  public TextControl(): unknown;
+
+  public GetTextureRect(): unknown;
+
+  public SetStretchTexture(value: boolean): unknown;
+
+  public SetTextureRect(frect: XR_FRect): unknown;
+
+  public InitTexture(value: string): unknown;
+
+}
 
 /**
 C++ class CUITabButton : CUIButton {
@@ -13114,8 +13385,11 @@ C++ class DLL_Pure {
 
 };
 */
+declare class XR_DLL_Pure {
 
-// todo;
+  public _construct(): void;
+
+}
 
 /**
 C++ class FS_file_list {

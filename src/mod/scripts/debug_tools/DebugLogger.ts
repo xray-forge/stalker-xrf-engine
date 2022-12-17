@@ -6,11 +6,11 @@ export class DebugLogger {
   protected isEnabled: boolean;
 
   public constructor(prefix: string, isEnabled: boolean = true) {
-    this.prefix = "[DL][" + prefix + "]";
+    this.prefix = gameConfig.DEBUG.GLOBAL_LOG_PREFIX + "[" + prefix + "]";
     this.isEnabled = isEnabled;
 
     if (gameConfig.DEBUG.IS_RESOLVE_LOG_ENABLED) {
-      this.info("Created");
+      this.info("Declared logger: '" + prefix + "'");
     }
   }
 
@@ -28,7 +28,13 @@ export class DebugLogger {
 
   protected logAs(method: string, args: Array<any>): void {
     if (gameConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
-      log(this.prefix + method + " " + args.map((it) => tostring(it)).join(" "));
+      const text: string = this.prefix + method + " " + args.map((it) => tostring(it)).join(" ");
+
+      if (method === "[ERROR]") {
+        error_log(text);
+      } else {
+        log(text);
+      }
     }
   }
 

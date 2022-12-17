@@ -1,5 +1,60 @@
+local DebugLogger = require("scripts.debug_tools.DebugLogger").DebugLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(DebugLogger, "lug_globals");
+
+-- ---------------------------------------------------------------------------------------------------------------------
+-- Link global lua_string to prevent conflicts of TS and Lua global namespaces
+-- ---------------------------------------------------------------------------------------------------------------------
 _G.lua_string = string
 
+-- ---------------------------------------------------------------------------------------------------------------------
+-- Method to declare native C++ classes from lua
+-- Easier to declare it as LUA global and use than transpile from TS directly
+-- LuaBind classes require constructor-destructor implementation and are defined as 'userdata'
+-- Usage of metatables and TsToLua approach will not work with lua bind
+--
+-- @param name - name of new class
+-- @param base - base luabind class for extending
+-- @param implementation - optional object with class implementation
+-- ---------------------------------------------------------------------------------------------------------------------
+_G.declare_xr_class = function(name, base, implementation)
+  if (_G[name]) then
+    log:warn("Declaring class name that is already used in globals: " .. name)
+  end
+
+  if base then
+    class (name) (base)
+  else
+    class (name)
+  end
+
+  local global_declaration = _G[name];
+
+  -- Apply implementation immediately if it is provided
+  if implementation ~= nil then
+    for k, v in pairs(implementation) do
+      global_declaration[k] = v
+    end
+  end
+
+  log:info("Declared xr class: " .. name .. " # " .. (base and "extending" or "base"))
+
+  return global_declaration
+end
+
+-- ---------------------------------------------------------------------------------------------------------------------
+-- todo
+-- ---------------------------------------------------------------------------------------------------------------------
+_G.create_xr_class_instance = function(it, ...)
+  log:info("Creating xr class instance: " .. tostring(it))
+
+  return it(...)
+end
+
+-- ---------------------------------------------------------------------------------------------------------------------
+-- With TS we are using mostly locals to prevent scope pollution
+-- If explicit global declaration is needed, we can use this utility function and declare something as global from TS
+-- ---------------------------------------------------------------------------------------------------------------------
 _G.declare_global = function (key, value)
   _G[key] = value
 end

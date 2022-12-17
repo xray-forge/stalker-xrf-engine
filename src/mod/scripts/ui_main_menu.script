@@ -1,3 +1,11 @@
+local ____lualib = require("lualib_bundle")
+local ____ui_dev_debug_dialog = require("scripts.debug_tools.ui_dev_debug_dialog")
+local ____DebugLogger = require("scripts.debug_tools.DebugLogger")
+
+local __TS__New = ____lualib.__TS__New
+local UiDevDebugDialog = ____ui_dev_debug_dialog.UiDevDebugDialog
+local DebugLogger = ____DebugLogger.DebugLogger
+
 -- File:        UI_MAIN_MENU.SCRIPT
 -- Description: Load Dialog for STALKER
 -- Created:     28.10.2004
@@ -6,58 +14,66 @@
 -- Author:      Serhiy Vynnychenko (narrator@gsc-game.kiev.ua)
 -- Version:     0.9
 
+local log = __TS__New(DebugLogger, "ui_main_menu")
+
 class "main_menu" (CUIScriptWnd)
 
 function main_menu:__init() super()
+	log:info("Init main menu");
 	self.mbox_mode = 0
-    self:InitControls()
-    self:InitCallBacks()
-    xr_s.on_main_menu_on()     						 --' Distemper 03.2008 --
+	self:InitControls()
+	self:InitCallBacks()
+	xr_s.on_main_menu_on()     						 --' Distemper 03.2008 --
 end
 
 function main_menu:__finalize()
 end
 
 function main_menu:InitControls()
+	log:info("Init controls");
 	self:SetWndRect					(Frect():set(0,0,1024,768))
 
-    local xml						= CScriptXmlInit()
-    xml:ParseFile					("ui_mm_main.xml")
+	local xml						= CScriptXmlInit()
+	xml:ParseFile					("ui_mm_main.xml")
+	xml:InitStatic					("background", self)
 
-    xml:InitStatic					("background", self)
-    self.shniaga					= xml:InitMMShniaga("shniaga_wnd",self);
+	self.shniaga					= xml:InitMMShniaga("shniaga_wnd",self);
 
 	self.message_box				= CUIMessageBoxEx()
 	self:Register					(self.message_box, "msg_box")
 
 	local _ver = xml:InitStatic		("static_version",self)
 	local mm						= _G.main_menu.get_main_menu()
+
 	_ver:TextControl():SetText		("ver. " .. mm:GetGSVer())
 
-    self.l_mgr = mm:GetLoginMngr()
-    self.acc_mgr = mm:GetAccountMngr()
-    self.profile_store = mm:GetProfileStore()
-    self.gs_profile = self.l_mgr:get_current_profile()
-    
-    if (self.gs_profile and not(level.present())) then
+	self.l_mgr = mm:GetLoginMngr()
+	self.acc_mgr = mm:GetAccountMngr()
+	self.profile_store = mm:GetProfileStore()
+	self.gs_profile = self.l_mgr:get_current_profile()
+
+	if (self.gs_profile and not(level.present())) then
 		self.shniaga:ShowPage(CUIMMShniaga.epi_new_network_game) --fake
 		self.shniaga:SetPage(CUIMMShniaga.epi_main, "ui_mm_main.xml", "menu_main_logout")
 		self.shniaga:ShowPage(CUIMMShniaga.epi_main)
-    end
+	end
 end
 
 function main_menu:Show(f)
+	log:info("Show");
 	self.shniaga:SetVisibleMagnifier(f)
 end
 
 
 function main_menu:InitCallBacks()
+	log:info("Init callbacks");
+
 	-- new game
 	self:AddCallback("btn_novice",		ui_events.BUTTON_CLICKED,				self.OnButton_new_novice_game,		self)
 	self:AddCallback("btn_stalker",		ui_events.BUTTON_CLICKED,				self.OnButton_new_stalker_game,		self)
 	self:AddCallback("btn_veteran",		ui_events.BUTTON_CLICKED,				self.OnButton_new_veteran_game,		self)
 	self:AddCallback("btn_master",		ui_events.BUTTON_CLICKED,				self.OnButton_new_master_game,		self)
-	self:AddCallback("btn_spawn",		ui_events.BUTTON_CLICKED,				self.OnButton_load_spawn,			self)
+	self:AddCallback("btn_dev_debug_dialog",		  ui_events.BUTTON_CLICKED,				 self.OnButton_dev_debug_dialog,			self)
 	-- options
 	self:AddCallback("btn_options",     ui_events.BUTTON_CLICKED,				self.OnButton_options_clicked,		self)
 	-- load
@@ -65,13 +81,13 @@ function main_menu:InitCallBacks()
 	-- save
 	self:AddCallback("btn_save",		ui_events.BUTTON_CLICKED,				self.OnButton_save_clicked,			self)
 	-- multiplayer
-	
+
 	self:AddCallback("btn_net_game",	ui_events.BUTTON_CLICKED,				self.OnButton_network_game_clicked,	self)
 	self:AddCallback("btn_internet",	ui_events.BUTTON_CLICKED,				self.OnButton_internet_clicked,		self)
 	self:AddCallback("btn_localnet",	ui_events.BUTTON_CLICKED,				self.OnButton_localnet_clicked,		self)
 	self:AddCallback("btn_multiplayer", ui_events.BUTTON_CLICKED,				self.OnButton_multiplayer_clicked,	self)
 	self:AddCallback("btn_logout",		ui_events.BUTTON_CLICKED,				self.OnButton_logout_clicked,		self)
-	
+
 	-- quit
 	self:AddCallback("btn_quit",		ui_events.BUTTON_CLICKED,				self.OnButton_quit_clicked,			self)
 	self:AddCallback("btn_quit_to_mm",	ui_events.BUTTON_CLICKED,				self.OnButton_disconnect_clicked,	self)
@@ -86,11 +102,14 @@ function main_menu:InitCallBacks()
 	self:AddCallback("msg_box",			ui_events.MESSAGE_BOX_QUIT_GAME_CLICKED,self.OnMessageQuitGame,				self)
 	self:AddCallback("msg_box",			ui_events.MESSAGE_BOX_QUIT_WIN_CLICKED,	self.OnMessageQuitWin,				self)
 end
+
 function main_menu:OnMsgOk()
+	log:info("Message OK clicked");
 	self.mbox_mode = 0
 end
 
 function main_menu:OnMsgCancel()
+	log:info("Message cancel clicked");
 	self.mbox_mode = 0
 end
 
@@ -130,8 +149,8 @@ function main_menu:OnButton_last_save()
 end
 
 function main_menu:OnButton_credits_clicked()
---	local console = get_console()
---	console:execute("main_menu off")
+	--	local console = get_console()
+	--	console:execute("main_menu off")
 	game.start_tutorial("credits_seq")
 end
 
@@ -163,6 +182,7 @@ function main_menu:OnMessageQuitWin()
 end
 
 function main_menu:OnButton_return_game()
+	log:info("Return to game");
 	local console = get_console()
 	console:execute("main_menu off")
 	xr_s.on_main_menu_off()      						--' Distemper 03.2008 --
@@ -203,12 +223,16 @@ function main_menu:StartGame()
 	console:execute("main_menu off")
 end
 
-function main_menu:OnButton_load_spawn()
-	self.god_dlg = ui_god_dialog.god_dialog()
-	self.god_dlg.owner = self
+function main_menu:OnButton_dev_debug_dialog()
+	log:info("Dev debug modal activated");
 
-	self.god_dlg:FillList()
-	self.god_dlg:ShowDialog(true)
+	if self.dev_debug_dialog == nil then
+		self.dev_debug_dialog = UiDevDebugDialog();
+		self.dev_debug_dialog.owner = self
+	end
+
+	self.dev_debug_dialog:ShowDialog(true)
+
 	self:HideDialog()
 	self:Show(false)
 end
@@ -236,17 +260,18 @@ function main_menu:OnButton_options_clicked()
 	self:HideDialog()
 	self:Show(false)
 end
- --'Повелитель Зоны 5.0'--
+
 function main_menu:OnButton_load_clicked()
-	self.load_dlg = ui_load_dialog.load_dialog()
-	self.load_dlg.owner = self
+	if self.load_dlg ==nil then
+		self.load_dlg = ui_load_dialog.load_dialog()
+		self.load_dlg.owner = self
+	end
 
 	self.load_dlg:FillList()
 	self.load_dlg:ShowDialog(true)
 	self:HideDialog()
 	self:Show(false)
 end
- --'Повелитель Зоны 5.0'--
 
 function main_menu:OnButton_network_game_clicked()
 	self.shniaga:ShowPage(CUIMMShniaga.epi_new_network_game)
@@ -256,18 +281,18 @@ function main_menu:OnButton_multiplayer_clicked()
 	-- assert(self.gs_profile)
 
 	if not(self.mp_dlg) then
-        self.mp_dlg = ui_mp_main.mp_main(self.gs_profile:online())
-        self.mp_dlg.owner = self
+		self.mp_dlg = ui_mp_main.mp_main(self.gs_profile:online())
+		self.mp_dlg.owner = self
 		self.mp_dlg:OnRadio_NetChanged()
 		if (self.mp_dlg.online) then
 			self.mp_dlg.dlg_profile:InitBestScores()
 			self.mp_dlg.dlg_profile:FillRewardsTable()
 		end
-    end
-    self.mp_dlg:UpdateControls()
-    self.mp_dlg:ShowDialog(true)
+	end
+	self.mp_dlg:UpdateControls()
+	self.mp_dlg:ShowDialog(true)
 
-    self:HideDialog()
+	self:HideDialog()
 	self:Show(false)
 
 	local console			= get_console()
@@ -285,13 +310,13 @@ function main_menu:OnButton_logout_clicked()
 end
 
 function main_menu:OnButton_internet_clicked()
-    if not(self.gs_dlg) then
-        self.gs_dlg = ui_mm_mp_gamespy.gamespy_page()
-        self.gs_dlg.owner = self
-    end
-    self.gs_dlg:ShowLoginPage()
-    self.gs_dlg:ShowDialog(true)
-	
+	if not(self.gs_dlg) then
+		self.gs_dlg = ui_mm_mp_gamespy.gamespy_page()
+		self.gs_dlg.owner = self
+	end
+	self.gs_dlg:ShowLoginPage()
+	self.gs_dlg:ShowDialog(true)
+
 	self:HideDialog()
 	self:Show(false)
 
@@ -301,13 +326,13 @@ end
 
 function main_menu:OnButton_localnet_clicked()
 	if not(self.ln_dlg) then
-        self.ln_dlg = ui_mm_mp_localnet.localnet_page()
-        self.ln_dlg.owner = self
-        self.ln_dlg.lp_nickname:SetText(self.l_mgr:get_nick_from_registry())
-        self.ln_dlg.lp_check_remember_me:SetCheck(self.l_mgr:get_remember_me_from_registry())
-    end
-    self.ln_dlg:ShowDialog(true)
-	
+		self.ln_dlg = ui_mm_mp_localnet.localnet_page()
+		self.ln_dlg.owner = self
+		self.ln_dlg.lp_nickname:SetText(self.l_mgr:get_nick_from_registry())
+		self.ln_dlg.lp_check_remember_me:SetCheck(self.l_mgr:get_remember_me_from_registry())
+	end
+	self.ln_dlg:ShowDialog(true)
+
 	self:HideDialog()
 	self:Show(false)
 
@@ -323,37 +348,27 @@ function main_menu:Dispatch(cmd, param)  --virtual function
 end
 
 function main_menu:OnKeyboard(dik, keyboard_action)  --virtual function
-	CUIScriptWnd.OnKeyboard(self,dik,keyboard_action)
-	local bind = dik_to_bind(dik)
-	local console = get_console()
+	CUIScriptWnd.OnKeyboard(self, dik, keyboard_action)
 
 	if keyboard_action == ui_events.WINDOW_KEY_PRESSED then
 		if dik == DIK_keys.DIK_ESCAPE then
 			if level.present() and
-				(	((db.actor ~= nil)and(db.actor:alive())) or
-					(false==IsGameTypeSingle())
-				) then
+					(	((db.actor ~= nil)and(db.actor:alive())) or
+							(false==IsGameTypeSingle())
+					) then
 				self.OnButton_return_game()                      --' xStream 02.2008
 				-- console:execute("main_menu off")							   --' xStream 02.2008
 			end
 		end
 
-                  --'Повелитель Зоны 5.0'--
-		if dik == DIK_keys.DIK_F1 then
-                if db.actor then
-			self:OnButton_load_spawn()
-                end
-		end
-                  --'Повелитель Зоны 5.0'--
-
-		if dik == DIK_keys.DIK_Q then
+		if dik == DIK_keys.DIK_S then
+			self:OnButton_dev_debug_dialog()
+		else if dik == DIK_keys.DIK_Q then
 			self:OnMessageQuitWin()
 		end
 
-                  --'Повелитель Зоны 5.0'--
-	            god.key_binder(dik, keyboard_action, self)
-                  --'Повелитель Зоны 5.0'--
 	end
 
 	return true
+	end
 end
