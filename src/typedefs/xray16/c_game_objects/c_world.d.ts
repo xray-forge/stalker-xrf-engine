@@ -240,4 +240,36 @@ declare global {
 
   // todo;
 
+  /**
+   C++ class client_spawn_manager {
+    function remove(number, number);
+
+    function add(number, number, const function<void>&, object);
+    function add(number, number, const function<void>&);
+
+  };
+   */
+
+  // todo;
+
+  /**
+   C++ class property_storage {
+    property_storage ();
+
+    function property(const number&) const;
+
+    function set_property(const number&, const boolean&);
+
+  };
+   */
+
+  // todo;
+
+  /**
+   C++ class cpure_server_object : ipure_server_object {
+  };
+   */
+
+  // todo;
+
 }

@@ -345,4 +345,61 @@ declare global {
 
   // todo;
 
+  /**
+
+   C++ class Patch_Dawnload_Progress {
+    function GetProgress();
+
+    function GetInProgress();
+
+    function GetStatus();
+
+    function GetFlieName();
+
+  };
+   *
+   */
+
+  // todo;
+
+  /**
+   C++ class profile_store {
+    const at_award_massacre = 0;
+    const at_awards_count = 30;
+    const bst_backstabs_in_row = 2;
+    const bst_bleed_kills_in_row = 2;
+    const bst_explosive_kills_in_row = 3;
+    const bst_eye_kills_in_row = 4;
+    const bst_head_shots_in_row = 3;
+    const bst_kills_in_row = 0;
+    const bst_kinife_kills_in_row = 1;
+    const bst_score_types_count = 7;
+
+    function get_best_scores();
+
+    function get_awards();
+
+    function stop_loading();
+
+    function load_current_profile(store_operation_cb, store_operation_cb);
+
+  };
+   */
+
+  // todo;
+
+  /**
+   C++ class suggest_nicks_cb {
+    suggest_nicks_cb ();
+    suggest_nicks_cb (object, function<void>);
+
+    function bind(object, function<void>);
+
+    function clear();
+
+  };
+   */
+
+  // todo;
+
 }

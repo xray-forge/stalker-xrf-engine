@@ -1083,5 +1083,57 @@ declare global {
 
   // todo;
 
+  /**
+   C++ class cond {
+    const act_end = 128;
+    const anim_end = 4;
+    const look_end = 2;
+    const move_end = 1;
+    const object_end = 32;
+    const sound_end = 8;
+    const time_end = 64;
+
+    cond ();
+    cond (number);
+    cond (number, double);
+
+  };
+   */
+
+  // todo;
+
+  /**
+   C++ class anim {
+    const attack = 7;
+    const capture_prepare = 1;
+    const danger = 0;
+    const eat = 4;
+    const free = 1;
+    const lie_idle = 3;
+    const look_around = 8;
+    const panic = 2;
+    const rest = 6;
+    const sit_idle = 2;
+    const sleep = 5;
+    const stand_idle = 0;
+    const turn = 9;
+
+    anim ();
+    anim (string);
+    anim (string, boolean);
+    anim (enum MonsterSpace::EMentalState);
+    anim (enum MonsterSpace::EScriptMonsterAnimAction, number);
+
+    function completed();
+
+    function type(enum MonsterSpace::EMentalState);
+
+    function anim(string);
+
+  };
+   */
+
+  // todo;
+
 }
 

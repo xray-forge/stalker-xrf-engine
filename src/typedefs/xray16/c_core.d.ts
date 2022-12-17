@@ -245,24 +245,9 @@ declare global {
   // todo;
 
   /**
-   C++ class CGameObject : DLL_Pure,ISheduled,ICollidable,IRenderable {
-    CGameObject ();
-
-    function Visual() const;
-
-    function getEnabled() const;
-
-    function _construct();
-
-    function net_Import(net_packet&);
-
-    function getVisible() const;
-
-    function net_Export(net_packet&);
-
-    function net_Spawn(cse_abstract*);
-
-    function use(CGameObject*);
+   C++ class object_factory {
+    function register(string, string, string, string);
+    function register(string, string, string);
 
   };
    */
@@ -270,9 +255,250 @@ declare global {
   // todo;
 
   /**
-   C++ class object_factory {
-    function register(string, string, string, string);
-    function register(string, string, string);
+   C++ class CSavedGameWrapper {
+    CSavedGameWrapper (string);
+
+    function level_name() const;
+
+    function level_id() const;
+
+    function game_time(const CSavedGameWrapper*);
+
+    function actor_health() const;
+
+  };
+   */
+
+  // todo;
+
+  /**
+   C++ class object_binder {
+    property object;
+
+    object_binder (game_object*);
+
+    function save(net_packet*);
+
+    function update(number);
+
+    function reload(string);
+
+    function net_export(net_packet*);
+
+    function net_save_relevant();
+
+    function load(reader*);
+
+    function net_destroy();
+
+    function reinit();
+
+    function net_Relcase(game_object*);
+
+    function net_spawn(cse_alife_object*);
+
+    function net_import(net_packet*);
+
+  };
+   */
+
+  // todo;
+
+  /**
+   C++ class move {
+    const back = 4;
+    const criteria = 2;
+    const crouch = 0;
+    const curve = 0;
+    const curve_criteria = 2;
+    const default = 0;
+    const dodge = 1;
+    const down = 64;
+    const drag = 3;
+    const force = 1;
+    const fwd = 2;
+    const handbrake = 128;
+    const jump = 4;
+    const left = 8;
+    const line = 0;
+    const none = 1;
+    const off = 512;
+    const on = 256;
+    const right = 16;
+    const run = 1;
+    const run_fwd = 2;
+    const run_with_leader = 7;
+    const stand = 2;
+    const standing = 1;
+    const steal = 5;
+    const up = 32;
+    const walk = 0;
+    const walk_bkwd = 1;
+    const walk_fwd = 0;
+    const walk_with_leader = 6;
+
+    move ();
+    move (enum CScriptMovementAction::EInputKeys);
+    move (enum CScriptMovementAction::EInputKeys, number);
+    move (
+      enum MonsterSpace::EBodyState,
+      enum MonsterSpace::EMovementType,
+      enum DetailPathManager::EDetailPathType,
+      game_object*
+    );
+    move (
+      enum MonsterSpace::EBodyState,
+      enum MonsterSpace::EMovementType,
+      enum DetailPathManager::EDetailPathType,
+      game_object*, number
+    );
+    move (
+      enum MonsterSpace::EBodyState,
+      enum MonsterSpace::EMovementType,
+      enum DetailPathManager::EDetailPathType,
+      patrol*
+    );
+    move (
+      enum MonsterSpace::EBodyState,
+      enum MonsterSpace::EMovementType,
+      enum DetailPathManager::EDetailPathType,
+      patrol*, number
+    );
+    move (
+      enum MonsterSpace::EBodyState,
+      enum MonsterSpace::EMovementType,
+      enum DetailPathManager::EDetailPathType,
+      vector*
+    );
+    move (
+      enum MonsterSpace::EBodyState,
+      enum MonsterSpace::EMovementType,
+      enum DetailPathManager::EDetailPathType,
+      vector*,
+      number
+    );
+    move (vector*, number);
+    move (enum MonsterSpace::EScriptMonsterMoveAction, vector*);
+    move (enum MonsterSpace::EScriptMonsterMoveAction, patrol*);
+    move (enum MonsterSpace::EScriptMonsterMoveAction, game_object*);
+    move (enum MonsterSpace::EScriptMonsterMoveAction, vector*, number);
+    move (enum MonsterSpace::EScriptMonsterMoveAction, number, vector*);
+    move (enum MonsterSpace::EScriptMonsterMoveAction, number, vector*, number);
+    move (enum MonsterSpace::EScriptMonsterMoveAction, patrol*, number);
+    move (enum MonsterSpace::EScriptMonsterMoveAction, game_object*, number);
+    move (enum MonsterSpace::EScriptMonsterMoveAction, vector*, number, enum MonsterSpace::EScriptMonsterSpeedParam);
+    move (enum MonsterSpace::EScriptMonsterMoveAction, patrol*, number, enum MonsterSpace::EScriptMonsterSpeedParam);
+    move (
+      enum MonsterSpace::EScriptMonsterMoveAction,
+      game_object*, number,
+      enum MonsterSpace::EScriptMonsterSpeedParam
+    );
+
+    function completed();
+
+    function path(enum DetailPathManager::EDetailPathType);
+
+    function move(enum MonsterSpace::EMovementType);
+
+    function position(const vector&);
+
+    function input(enum CScriptMovementAction::EInputKeys);
+
+    function patrol(const class CPatrolPath*, class shared_str);
+
+    function object(game_object*);
+
+    function body(enum MonsterSpace::EBodyState);
+
+  };
+   */
+
+  // todo;
+
+  /**
+   C++ class object {
+    const activate = 16;
+    const aim1 = 4;
+    const aim2 = 5;
+    const deactivate = 17;
+    const drop = 11;
+    const dummy = -1;
+    const fire1 = 6;
+    const fire2 = 8;
+    const hide = 22;
+    const idle = 9;
+    const reload = 2;
+    const reload1 = 2;
+    const reload2 = 3;
+    const show = 21;
+    const strap = 10;
+    const switch1 = 0;
+    const switch2 = 1;
+    const take = 23;
+    const turn_off = 20;
+    const turn_on = 19;
+    const use = 18;
+
+    object ();
+    object (game_object*, enum MonsterSpace::EObjectAction);
+    object (game_object*, enum MonsterSpace::EObjectAction, number);
+    object (enum MonsterSpace::EObjectAction);
+    object (string, enum MonsterSpace::EObjectAction);
+
+    function completed();
+
+    function object(string);
+    function object(game_object*);
+
+    function action(enum MonsterSpace::EObjectAction);
+
+  };
+   */
+
+  // todo;
+
+  /**
+   C++ class particle {
+    particle ();
+    particle (string, string);
+    particle (string, string, const particle_params&);
+    particle (string, string, const particle_params&, boolean);
+    particle (string, const particle_params&);
+    particle (string, const particle_params&, boolean);
+
+    function set_velocity(const vector&);
+
+    function set_position(const vector&);
+
+    function set_bone(string);
+
+    function set_angles(const vector&);
+
+    function completed();
+
+    function set_particle(string, boolean);
+
+  };
+   */
+
+  // todo;
+
+  /**
+   C++ class ce_script_zone : DLL_Pure {
+    ce_script_zone ();
+
+    function _construct();
+
+  };
+   */
+
+  // todo;
+
+  /**
+   C++ class ce_smart_zone : DLL_Pure {
+    ce_smart_zone ();
+
+    function _construct();
 
   };
    */

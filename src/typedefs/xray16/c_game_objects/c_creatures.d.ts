@@ -176,4 +176,79 @@ declare global {
 
   // todo;
 
+  /**
+   C++ class CPseudoGigant : CGameObject {
+    CPseudoGigant ();
+
+    function Visual() const;
+
+    function _construct();
+
+    function getEnabled() const;
+
+    function net_Import(net_packet&);
+
+    function net_Export(net_packet&);
+
+    function getVisible() const;
+
+    function net_Spawn(cse_abstract*);
+
+    function use(CGameObject*);
+
+  };
+   */
+
+  // todo;
+
+  /**
+   C++ class CPsyDog : CGameObject {
+    CPsyDog ();
+
+    function Visual() const;
+
+    function _construct();
+
+    function getEnabled() const;
+
+    function net_Import(net_packet&);
+
+    function net_Export(net_packet&);
+
+    function getVisible() const;
+
+    function net_Spawn(cse_abstract*);
+
+    function use(CGameObject*);
+
+  };
+   */
+
+  // todo;
+
+  /**
+   C++ class CPsyDogPhantom : CGameObject {
+    CPsyDogPhantom ();
+
+    function Visual() const;
+
+    function _construct();
+
+    function getEnabled() const;
+
+    function net_Import(net_packet&);
+
+    function net_Export(net_packet&);
+
+    function getVisible() const;
+
+    function net_Spawn(cse_abstract*);
+
+    function use(CGameObject*);
+
+  };
+   */
+
+  // todo;
+
 }

@@ -551,4 +551,55 @@ declare global {
    */
 
   // todo;
+
+  /**
+   C++ class CScope : CGameObject {
+    CScope ();
+
+    function Visual() const;
+
+    function _construct();
+
+    function getEnabled() const;
+
+    function net_Import(net_packet&);
+
+    function net_Export(net_packet&);
+
+    function getVisible() const;
+
+    function net_Spawn(cse_abstract*);
+
+    function use(CGameObject*);
+
+  };
+   */
+
+  // todo;
+
+  /**
+   C++ class CRGD5 : CGameObject {
+    CRGD5 ();
+
+    function Visual() const;
+
+    function _construct();
+
+    function getEnabled() const;
+
+    function net_Import(net_packet&);
+
+    function net_Export(net_packet&);
+
+    function getVisible() const;
+
+    function net_Spawn(cse_abstract*);
+
+    function use(CGameObject*);
+
+  };
+   */
+
+  // todo;
+
 }

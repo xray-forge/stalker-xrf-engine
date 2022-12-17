@@ -185,4 +185,39 @@ declare global {
 
   // todo;
 
+  /**
+   C++ class ini_file {
+    ini_file (string);
+
+    function line_count(string);
+
+    function r_bool(string, string);
+
+    function section_exist(string);
+
+    function r_float(string, string);
+
+    function r_clsid(string, string);
+
+    function r_s32(string, string);
+
+    function r_line(ini_file*, string, number, string&, string&);
+
+    function r_token(string, string, const token_list&);
+
+    function r_vector(string, string);
+
+    function r_u32(string, string);
+
+    function r_string_wq(string, string);
+
+    function r_string(string, string);
+
+    function line_exist(string, string);
+
+  };
+   */
+
+  // todo;
+
 }

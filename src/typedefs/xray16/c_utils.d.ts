@@ -519,4 +519,300 @@ declare global {
 
   // todo;
 
+  /**
+   C++ class hit {
+    const burn = 0;
+    const chemical_burn = 2;
+    const dummy = 12;
+    const explosion = 7;
+    const fire_wound = 8;
+    const light_burn = 11;
+    const radiation = 3;
+    const shock = 1;
+    const strike = 5;
+    const telepatic = 4;
+    const wound = 6;
+
+    property direction;
+    property draftsman;
+    property impulse;
+    property power;
+    property type;
+
+    hit ();
+    hit (const hit*);
+
+    function bone(string);
+
+  };
+   */
+
+  // todo;
+
+  /**
+   C++ class act {
+    const attack = 2;
+    const eat = 1;
+    const panic = 3;
+    const rest = 0;
+
+    act ();
+    act (enum MonsterSpace::EScriptMonsterGlobalAction);
+    act (enum MonsterSpace::EScriptMonsterGlobalAction, game_object*);
+
+  };
+   */
+  /**
+   C++ class MonsterHitInfo {
+    property direction;
+    property time;
+    property who;
+
+  };
+   */
+
+  // todo;
+
+  /**
+
+   C++ class color_animator {
+    color_animator (string);
+
+    function calculate(number);
+
+    function load(string);
+
+    function length();
+
+  };
+   *
+   */
+
+  // todo;
+
+  /**
+
+   C++ class profile {
+    function unique_nick() const;
+
+    function online() const;
+
+  };
+   *
+   */
+
+  // todo;
+
+  /**
+
+   C++ class profile_timer {
+    profile_timer ();
+    profile_timer (profile_timer&);
+
+    operator +(const profile_timer&, profile_timer);
+
+    function stop();
+
+    function start();
+
+    function time() const;
+
+    function __tostring(profile_timer&);
+
+    operator <(const profile_timer&, profile_timer);
+
+  };
+   *
+   */
+
+  // todo;
+
+  /**
+
+   C++ class action_base {
+    property object;
+    property storage;
+
+    action_base ();
+    action_base (game_object*);
+    action_base (game_object*, string);
+
+    function finalize();
+
+    function add_precondition(const world_property&);
+
+    function execute();
+
+    function remove_precondition(const number&);
+
+    function setup(game_object*, property_storage*);
+
+    function set_weight(const number&);
+
+    function add_effect(const world_property&);
+
+    function show(string);
+
+    function initialize();
+
+    function remove_effect(const number&);
+
+  };
+   *
+   */
+
+  // todo;
+
+  /**
+   C++ class rtoken_list {
+    rtoken_list ();
+
+    function clear();
+
+    function remove(number);
+
+    function count();
+
+    function get(number);
+
+    function add(string);
+
+  };
+   */
+
+  // todo;
+
+  /**
+   C++ class token_list {
+    token_list ();
+
+    function clear();
+
+    function remove(string);
+
+    function name(number);
+
+    function id(string);
+
+    function add(string, number);
+
+  };
+   */
+
+  // todo;
+
+  /**
+   C++ class GameGraph__CVertex {
+    function level_vertex_id() const;
+
+    function game_point(const GameGraph__CVertex*);
+
+    function level_id() const;
+
+    function level_point(const GameGraph__CVertex*);
+
+  };
+   */
+
+  // todo;
+
+  /**
+   C++ class FactionState {
+    property actor_goodwill;
+    property bonus;
+    property faction_id;
+    property icon;
+    property icon_big;
+    property location;
+    property member_count;
+    property name;
+    property power;
+    property resource;
+    property target;
+    property target_desc;
+    property war_state1;
+    property war_state2;
+    property war_state3;
+    property war_state4;
+    property war_state5;
+    property war_state_hint1;
+    property war_state_hint2;
+    property war_state_hint3;
+    property war_state_hint4;
+    property war_state_hint5;
+
+  };
+   */
+
+  // todo;
+
+  /**
+   C++ class effector {
+    effector (number, number);
+
+    function start(effector*);
+
+    function process(effector_params*);
+
+    function finish(effector*);
+
+  };
+   */
+
+  // todo;
+
+  // todo;
+
+  /**
+   C++ class particle_params {
+    particle_params ();
+    particle_params (const vector&);
+    particle_params (const vector&, const vector&);
+    particle_params (const vector&, const vector&, const vector&);
+
+  };
+   */
+
+  /**
+   C++ class demo_info {
+    function get_map_name() const;
+
+    function get_player(number) const;
+
+    function get_game_type() const;
+
+    function get_players_count() const;
+
+    function get_map_version() const;
+
+    function get_author_name() const;
+
+    function get_game_score() const;
+
+  };
+   */
+
+  // todo;
+
+  /**
+   C++ class demo_player_info {
+    function get_spots() const;
+
+    function get_name() const;
+
+    function get_rank() const;
+
+    function get_artefacts() const;
+
+    function get_team() const;
+
+    function get_deaths() const;
+
+    function get_frags() const;
+
+  };
+   */
+
+  // todo;
+
 }

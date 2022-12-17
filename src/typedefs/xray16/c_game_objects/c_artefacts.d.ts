@@ -374,4 +374,35 @@ declare global {
 
   // todo;
 
+  /**
+   C++ class CRustyHairArtefact : CArtefact {
+    CRustyHairArtefact ();
+
+    function Visual() const;
+
+    function _construct();
+
+    function net_Import(net_packet&);
+
+    function getVisible() const;
+
+    function net_Spawn(cse_abstract*);
+
+    function SwitchVisibility(boolean);
+
+    function FollowByPath(string, number, vector);
+
+    function getEnabled() const;
+
+    function net_Export(net_packet&);
+
+    function GetAfRank() const;
+
+    function use(CGameObject*);
+
+  };
+   */
+
+  // todo;
+
 }
