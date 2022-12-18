@@ -4,16 +4,21 @@ import * as path from "path";
 
 import { default as chalk } from "chalk";
 
+import { TFolderFiles, TFolderReplicationDescriptor } from "@/mod/lib/types/general";
+
 import { GAME_DATA_CONFIGS_DIR, TARGET_GAME_DATA_CONFIGS_DIR } from "#/build/globals";
 import { Logger, readDirContent } from "#/utils";
 
 const log: Logger = new Logger("BUILD_CONFIGS_STATICS");
 const EXPECTED_CONFIG_EXTENSIONS: Array<string> = [ ".ltx", ".xml" ];
 
-export async function buildConfigsStatics(): Promise<void> {
+export async function buildStaticConfigs(): Promise<void> {
   log.info("Copy static configs");
 
-  function collectConfigs(acc: Array<[string, string]>, it: Array<string> | string): Array<[string, string]> {
+  function collectConfigs(
+    acc: Array<TFolderReplicationDescriptor>,
+    it: TFolderFiles
+  ): Array<TFolderReplicationDescriptor> {
     if (Array.isArray(it)) {
       it.forEach((nested) => collectConfigs(acc, nested));
     } else if (EXPECTED_CONFIG_EXTENSIONS.includes(path.extname(it))) {
@@ -25,7 +30,7 @@ export async function buildConfigsStatics(): Promise<void> {
     return acc;
   }
 
-  const staticConfigs: Array<[string, string]> = (await readDirContent(GAME_DATA_CONFIGS_DIR)).reduce(
+  const staticConfigs: Array<TFolderReplicationDescriptor> = (await readDirContent(GAME_DATA_CONFIGS_DIR)).reduce(
     collectConfigs,
     []
   );

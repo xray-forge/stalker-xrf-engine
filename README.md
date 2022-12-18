@@ -20,19 +20,18 @@ Main goals of the project are:
 - creating development tools to simplify life
 - fun
 
-<br/>
-
 ---
-
-<br/>
 
 ## 🌓 Starting work
 
 ### 🧰 Pre-requirements  
+- [Open-X-Ray](https://github.com/OpenXRay/xray-16)
 - [NodeJS](https://nodejs.org/en/)
 - `config.ini` file should be edited, paths matched to your local system
 
 ### 💿 Start development
+- DOWNLOAD the game (stalker call of pripyat)
+- DOWNLOAD and INSTALL the latest release version of open x-ray
 - EDIT `config.ini` - correct paths to match your local system
 - RUN `cd stalker-xrts-modding` - cd to project folder
 - RUN `npm install` - install all the dependencies
@@ -55,7 +54,7 @@ Main goals of the project are:
 - `open_game_folder` - open game folder in explorer
 - `start_game` - start game with debug flag, admin permissions may be required
 
-## For developers
+## Developing
 
 ### Typescript
 Typescript to lua compilation does not do tree shaking and has its specifics. <br/>
@@ -71,5 +70,5 @@ To use typescript together with xray SDK you will need correct type declarations
     - [xray constants](src/typedefs/xray16/c_constants.d.ts)
 - [LuaJIT typedefs](src/typedefs/luaJIT.d.ts)
 
-
-
+### gamedata folder structure
+todo: Describe structure of gamedata and intention of every folder

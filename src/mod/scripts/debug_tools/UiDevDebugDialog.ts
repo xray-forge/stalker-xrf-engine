@@ -45,13 +45,11 @@ export const UiDevDebugDialog: IUiDevDebugDialog = declare_xr_class(
     initializeUI(): void {
       this.SetWndRect(Frect().set(0, 0, 1024, 768));
 
-      let control: XR_CUIWindow;
+      const control: XR_CUIWindow = new CUIWindow();
       const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
       xml.ParseFile("debug_tools/ui_mm_dev_debug_dialog.xml");
       xml.InitStatic("background", this);
-
-      control = new CUIWindow();
 
       xml.InitWindow("file_item:main",0, control);
       this.file_item_main_sz = (new vector2()).set(control.GetWidth(), control.GetHeight());
@@ -63,8 +61,8 @@ export const UiDevDebugDialog: IUiDevDebugDialog = declare_xr_class(
       this.file_item_fd_sz = (new vector2()).set(control.GetWidth(),control.GetHeight());
 
       this.form = xml.InitStatic("form", this);
-      xml.InitStatic("form:caption", this.form);
 
+      /*
       this.picture = xml.InitStatic("form:picture", this.form);
 
       // xml.InitStatic            ("form:file_info", this.form)

@@ -1,12 +1,10 @@
 ## List of todo items
 
-- Implement explain script / config / config_value script with help details
-- Add shared lib to use enums and constants instead of inline magic
-- Transform some scripts
-- Create metadata file about mod size / files count / summary / last update etc on build
-- Dynamic configs / dynamic XML UI descriptors
-- Global typedefs for stalker lua
+- Implement explain script / wiki / config / config_value script with help details
+- Dynamic configs 
 - Script to unbpack raw_gamedata for observation / usage
 - Script to transform ltx to js/json
 - Script to build translation labels
+- Script to verify integrity of assets and defined constants
+- Scripts unification for build steps, codebase can be deduplicated
 

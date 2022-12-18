@@ -8,6 +8,7 @@ export const captions = {
   ui_mm_network_game: "ui_mm_network_game",
   ui_mm_return_game: "ui_mm_return_game",
   ui_mm_options_n: "ui_mm_options_n",
+  ui_mm_debug_tools: "ui_mm_debug_tools",
   ui_mm_credits: "ui_mm_credits",
   ui_mm_quit2windows: "ui_mm_quit2windows",
   ui_mp_internet: "ui_mp_internet",

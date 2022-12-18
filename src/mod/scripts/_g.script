@@ -25,7 +25,6 @@ function empty(container)
 	return			(true)
 end
 
-
 schemes = {} -- соответствие схем модулям
 stypes = {} -- типv схем
 
@@ -45,67 +44,65 @@ mus_vol = 0
 amb_vol = 0
 ----------------------------------------------------------------------
 local scripts_to_print =	{
-							["stalker_generic"] = true,
-							["xr_smartcover"] = true,
-							["xr_logic"] = true,
-							["xr_conditions"] = true,
-							["xr_cover"] = true,
-							["xr_motivator"] = true,
-							["xr_walker"] = true,
-							["xr_camper"] = true,
-							["xr_kamp"] = true,
-							["restrictor_manager"] = true,
-							["sim_board"] = true,
-							["sim_faction"] = true,
-							["post_combat_idle"] = true,
-							["xr_death"] = true,
-							["xr_sound"] = true,
-							["utils"] = true,
-							["treasure_manager"] = true,
-							["object_collection"] = true,
-							["se_actor"] = true,
-							["smart_terrain"] = true,
-							["bind_physic_object"] = true,
-							["bind_heli"] = true,
-							["bind_anomaly_zone"] = true,
-							["bind_stalker"] = true,
-							["state_mgr_animation"] = true,
-							["se_stalker"] = true,
-							["db"] = true,
-							["sim_squad_generic"] = true,
-							["sim_squad_scripted"] = true,
-							["se_smart_cover"] = true,
-							["se_monster"] = true,
-							["dialog_manager"] = true,
-							["xr_combat_ignore"] = true,
-							["xr_remark"] = true,
-							["cover_manager"] = true,
-							["xr_danger"]	 = true,
-							["task_manager"] = true,
-							["task_objects"]	 = true
-							}
-
+	["stalker_generic"] = true,
+	["xr_smartcover"] = true,
+	["xr_logic"] = true,
+	["xr_conditions"] = true,
+	["xr_cover"] = true,
+	["xr_motivator"] = true,
+	["xr_walker"] = true,
+	["xr_camper"] = true,
+	["xr_kamp"] = true,
+	["restrictor_manager"] = true,
+	["sim_board"] = true,
+	["sim_faction"] = true,
+	["post_combat_idle"] = true,
+	["xr_death"] = true,
+	["xr_sound"] = true,
+	["utils"] = true,
+	["treasure_manager"] = true,
+	["object_collection"] = true,
+	["se_actor"] = true,
+	["smart_terrain"] = true,
+	["bind_physic_object"] = true,
+	["bind_heli"] = true,
+	["bind_anomaly_zone"] = true,
+	["bind_stalker"] = true,
+	["state_mgr_animation"] = true,
+	["se_stalker"] = true,
+	["db"] = true,
+	["sim_squad_generic"] = true,
+	["sim_squad_scripted"] = true,
+	["se_smart_cover"] = true,
+	["se_monster"] = true,
+	["dialog_manager"] = true,
+	["xr_combat_ignore"] = true,
+	["xr_remark"] = true,
+	["cover_manager"] = true,
+	["xr_danger"]	 = true,
+	["task_manager"] = true,
+	["task_objects"]	 = true
+}
 function printf(fmt,...)
-	local is_g = 0
-	local result = fmt
+    local is_g = 0
+    local result = fmt
+    if debug == nil then
+      log(string.format(fmt,...))
+      return
+    end
+    local info_table = debug.getinfo(2)
+    local script_name = string.gsub(info_table.short_src, "%.script", "")
+    script_name = string.gsub(script_name, "gamedata\\scripts\\", "")
 
-	if debug == nil then
-		log(string.format(fmt,...))
-		return
-	end
-	local info_table = debug.getinfo(2)
-	local script_name = string.gsub(info_table.short_src, "%.script", "")
-	script_name = string.gsub(script_name, "gamedata\\scripts\\", "")
+    if scripts_to_print[script_name] == false then return end
 
-	if scripts_to_print[script_name] == false then return end
-
-	script_name,is_g = string.gsub(script_name, "_g", "")
-	if is_g == 0 then
-		result = script_name..":("..info_table.currentline.."):"..fmt
-	else
-		result = fmt
-	end
-	log(string.format(result,...))
+    script_name,is_g = string.gsub(script_name, "_g", "")
+    if is_g == 0 then
+      result = script_name..":("..info_table.currentline.."):"..fmt
+    else
+      result = fmt
+    end
+    log(string.format(result,...))
 end
 
 ----------------------------------------------------------------------
@@ -204,7 +201,7 @@ end
 
 function reset_action (npc, script_name)
 	if npc:get_script () then
-		 npc:script (false, script_name)
+		npc:script (false, script_name)
 	end
 	npc:script (true, script_name)
 end
@@ -359,19 +356,19 @@ function print_table(table, subs)
 		elseif type(v) == "userdata" then
 			printf(sub.."%s:userdata", tostring(k))
 		elseif type(v) == "boolean" then
-					if v == true then
-							if(type(k)~="userdata") then
-									printf(sub.."%s:true", tostring(k))
-							else
-									printf(sub.."userdata:true")
-							end
-					else
-							if(type(k)~="userdata") then
-									printf(sub.."%s:false", tostring(k))
-							else
-									printf(sub.."userdata:false")
-							end
-					end
+			if v == true then
+				if(type(k)~="userdata") then
+					printf(sub.."%s:true", tostring(k))
+				else
+					printf(sub.."userdata:true")
+				end
+			else
+				if(type(k)~="userdata") then
+					printf(sub.."%s:false", tostring(k))
+				else
+					printf(sub.."userdata:false")
+				end
+			end
 		else
 			if v ~= nil then
 				printf(sub.."%s:%s", tostring(k),v)
@@ -395,8 +392,8 @@ function store_table(table, subs)
 			store_table(v, sub.."    ")
 		elseif type(v) == "function" then
 			printf(sub.."%s = \"func\",", tostring(k))
-			elseif type(v) == "userdata" then
-					printf(sub.."%s = \"userdata\",", tostring(k))
+		elseif type(v) == "userdata" then
+			printf(sub.."%s = \"userdata\",", tostring(k))
 		elseif type(v) == "string" then
 			printf(sub.."%s = \"%s\",", tostring(k), tostring(v))
 		else
@@ -413,12 +410,12 @@ local weapon_classes = {}
 local artefact_classes = {}
 
 function IsMonster (object, class_id)
-		local id = class_id or get_clsid(object)
-		return monster_classes[id] == true
+	local id = class_id or get_clsid(object)
+	return monster_classes[id] == true
 end
 function IsStalker (object, class_id)
-		local id = class_id or get_clsid(object)
-		return stalker_classes[id] == true
+	local id = class_id or get_clsid(object)
+	return stalker_classes[id] == true
 end
 
 function isWeapon(object, class_id)
@@ -427,7 +424,7 @@ function isWeapon(object, class_id)
 end
 
 function isArtefact(object, class_id)
-		local id = class_id or get_clsid(object)
+	local id = class_id or get_clsid(object)
 	return artefact_classes[id] == true
 end
 
@@ -547,13 +544,13 @@ function start_game_callback()
 		[clsid.flesh_s] 				= true,
 		[clsid.pseudodog_s] 			= true,
 		[clsid.burer_s] 				= true,
---		[clsid.cat_s] 					= true,
+		--		[clsid.cat_s] 					= true,
 		[clsid.chimera_s] 				= true,
 		[clsid.controller_s] 			= true,
---		[clsid.fracture_s] 				= true,
+		--		[clsid.fracture_s] 				= true,
 		[clsid.poltergeist_s] 			= true,
 		[clsid.gigant_s] 				= true,
---		[clsid.zombie_s] 				= true,
+		--		[clsid.zombie_s] 				= true,
 		[clsid.snork_s] 				= true,
 		[clsid.tushkano_s] 				= true,
 		[clsid.psy_dog_s] 				= true,
@@ -720,16 +717,16 @@ function set_save_marker(p, mode, check, prefix)
 
 	-- определяем ключ маркера.
 	local result = ""
---	if debug ~= nil then
---		local info_table = debug.getinfo(2)
---		local script_name = string.gsub(info_table.short_src, "%.script", "")
---		script_name = string.gsub(script_name, "gamedata\\scripts\\", "")
---		result = script_name
---	end
+	--	if debug ~= nil then
+	--		local info_table = debug.getinfo(2)
+	--		local script_name = string.gsub(info_table.short_src, "%.script", "")
+	--		script_name = string.gsub(script_name, "gamedata\\scripts\\", "")
+	--		result = script_name
+	--	end
 
---	if prefix ~= nil then
-		result = result .. "_" .. prefix
---	end
+	--	if prefix ~= nil then
+	result = result .. "_" .. prefix
+	--	end
 
 	if check == true then
 		if save_markers[result] == nil then
@@ -743,17 +740,17 @@ function set_save_marker(p, mode, check, prefix)
 				printf("WARNING! may be this is problem save point")
 			end
 			if dif >= 10240 then
---				abort("You are saving too much")
+				--				abort("You are saving too much")
 			end
 			p:w_u16(dif)
 		else
 			local c_dif = p:r_tell() - save_markers[result]
 			local dif = p:r_u16()
-			 if dif ~= c_dif then
-			 	abort("INCORRECT LOAD [%s].[%s][%s]", result, dif, c_dif)
-			 else
-			 	printf(result..": LOAD DIF: %s", dif)
-			 end
+			if dif ~= c_dif then
+				abort("INCORRECT LOAD [%s].[%s][%s]", result, dif, c_dif)
+			else
+				printf(result..": LOAD DIF: %s", dif)
+			end
 		end
 		return
 	end
@@ -853,21 +850,21 @@ function in_time_interval(val1, val2)
 end
 
 function show_all_ui(show)
-		local hud = get_hud()
+	local hud = get_hud()
 	if(show) then
-			level.show_indicators()
---	    db.actor:restore_weapon()
-			db.actor:disable_hit_marks(false)
-			hud:show_messages()
+		level.show_indicators()
+		--	    db.actor:restore_weapon()
+		db.actor:disable_hit_marks(false)
+		hud:show_messages()
 	else
-			if db.actor:is_talking() then
-					db.actor:stop_talk()
-			end
-			level.hide_indicators_safe()
-			hud:HideActorMenu()
-			hud:HidePdaMenu()
-			hud:hide_messages()
---	    db.actor:hide_weapon()
-			db.actor:disable_hit_marks(true)
+		if db.actor:is_talking() then
+			db.actor:stop_talk()
+		end
+		level.hide_indicators_safe()
+		hud:HideActorMenu()
+		hud:HidePdaMenu()
+		hud:hide_messages()
+		--	    db.actor:hide_weapon()
+		db.actor:disable_hit_marks(true)
 	end
 end

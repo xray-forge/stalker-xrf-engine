@@ -5,13 +5,15 @@ import { default as chalk } from "chalk";
 import { GAME_DATA_METADATA_FILE, TARGET_GAME_DATA_DIR } from "#/build/globals";
 import {
   collectLog,
-  buildConfigsStatics,
+  buildDynamicUi,
+  buildStaticConfigs,
   buildDynamicConfigs,
   buildDynamicScripts,
   buildMeta,
   buildResourcesStatics,
   buildScriptsStatics
 } from "#/build/steps";
+import { buildStaticUi } from "#/build/steps/ui_statics";
 import { Logger } from "#/utils";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -38,8 +40,12 @@ Logger.IS_FILE_ENABLED = true;
 
     await buildDynamicScripts();
     await buildScriptsStatics();
+
+    await buildDynamicUi();
+    await buildStaticUi();
+
     await buildDynamicConfigs();
-    await buildConfigsStatics();
+    await buildStaticConfigs();
 
     if (isBuildResourcesEnabled) {
       await buildResourcesStatics();

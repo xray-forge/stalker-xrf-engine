@@ -30,52 +30,34 @@ function DebugToolForm() {
   return (
     <form x={50} y={252} width={560} height={460} stretch={1}>
       <texture>{textures.ui_inGame2_main_window_small}</texture>
-      <caption x={0} y={20} width={560} height={30}>
-        <text font={fonts.graffiti32} align={"c"}>
-          Debug tools
-        </text>
-      </caption>
-      <picture x={31} y={75} width={128} height={128}>
-        <texture width={128} height={128}>{textures.ui_ui_noise}</texture>
-      </picture>
       <auto_static x={30} y={74} width={130} height={130} stretch={1}>
         <texture>{textures.ui_inGame2_picture_window}</texture>
       </auto_static>
+
       <file_caption x={60} y={395} width={440} height={20}>
         <text font={fonts.letterica18}/>
       </file_caption>
       <file_data x={170} y={-350} width={240} height={50} complex_mode={1}>
         <text font={fonts.letterica18}/>
       </file_data>
+
       <list_frame x={30} y={215} width={500} height={175}>
         <texture>ui_inGame2_servers_list_frame</texture>
       </list_frame>
+
       <list x={33} y={215} width={497} height={173} item_height={18} can_select={1}>
         <font font={fonts.letterica16}/>
       </list>
+
       <btn_load x={65} y={427} width={135} height={26}>
         <texture>{textures.ui_inGame2_Mp_bigbuttone}</texture>
         <text font={fonts.letterica18}>Spawn</text>
       </btn_load>
-      <btn_delete x={221} y={427} width={135} height={26}>
-        <texture>{textures.ui_inGame2_Mp_bigbuttone}</texture>
-        <text font={fonts.letterica18}>Stop Music (If on)</text>
-      </btn_delete>
+
       <btn_cancel x={377} y={427} width={135} height={26}>
         <texture>{textures.ui_inGame2_Mp_bigbuttone}</texture>
         <text font={fonts.letterica18}>Close</text>
       </btn_cancel>
-
-      {/* <!-- ������ -->*/}
-      <cap_rubel x={160} y={70} width={200} height={23}>
-        <text font={fonts.letterica16} r={115} g={114} b={112} vert_align={"c"}>
-          Money:
-        </text>
-      </cap_rubel>
-
-      <cap_rubel_currently x={160} y={70} width={200} height={23}>    {/* <!-- ��������� -->*/}
-        <text align={"r"} font={fonts.graffiti22} color={"ui_7"}/>
-      </cap_rubel_currently>
 
       <cap_rubel_coeff x={285} y={90} width={90} height={23}>
         <text vert_align={"c"} font={fonts.letterica16} r={115} g={114} b={112}/>

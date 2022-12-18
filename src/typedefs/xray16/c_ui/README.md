@@ -18,42 +18,51 @@ Base element for representation of nested components. Basically grid.
 ### 🧱 CUIStatic
 <p>
 Any static element in ui that represents simple label, animation or image.
+Example: main menu background.
 </p>
 
 <img src="demo\CUIStatic.png" alt="screenshot" width="600"/>
 
 ### 🧱 CUIButton
 <p>
-Generic button element used everywhere, from settings to different modal windows.
+Base button core with logic, normally 'CUI3tButton' is preferred (?).
 </p>
-
-<img src="demo\CUIButton.png" alt="screenshot" width="600"/>
 
 ### 🧱 CUI3tButton
 <p>
-todo;
+Generic button element used everywhere, from settings to different modal windows.
+Example: any action button.
 </p>
 
-<img src="demo\CUI3tButton.png" alt="screenshot" width="600"/>
+<img src="demo\CUI3tButton.png" alt="screenshot" width="200"/>
 
 
 ### 🧱 CUICheckButton
 <p>
 Generic checkbox button for settings true/false values.
+Example: settings options.
 </p>
 
 <img src="demo\CUICheckButton.png" alt="screenshot" width="200"/>
+Expression    : ai().script_engine().functor(start_game_callback,functor)
+Function      : CALifeSimulator::CALifeSimulator
+File          : D:\prog_repository\sources\trunk\xrGame\alife_simulator.cpp
+Line          : 74
+Description   : failed to get start game callback
+
 
 ### 🧱 CUIComboBox
 <p>
-todo;
+Generic combobox with list of items for selection.
+Example: settings selection.
 </p>
 
-<img src="demo\CUIComboBox.png" alt="screenshot" width="600"/>
+<img src="demo\CUIComboBox.png" alt="screenshot" width="400"/>
 
 ### 🧱 CUICustomEdit
 <p>
-todo;
+Generic component with text or number input.
+Example: login inputs for multiplayer, cd key input.
 </p>
 
 <img src="demo\CUICustomEdit.png" alt="screenshot" width="600"/>
@@ -176,7 +185,7 @@ todo;
 </p>
 
 <img src="demo\CUIScrollView.png" alt="screenshot" width="600"/>
-
+1
 ### 🧱 CUISleepStatic
 <p>
 todo;
@@ -219,19 +228,19 @@ todo;
 
 <img src="demo\CUITabControl.png" alt="screenshot" width="600"/>
 
+### 🧱 CUITrackBar
+<p>
+Generic slider used for settings adjustments. Useful to set configs in specific range.
+</p>
+
+<img src="demo\CUITrackBar.png" alt="screenshot" width="600"/>
+
 ### 🧱 CUITextWnd
 <p>
 todo;
 </p>
 
 <img src="demo\CUITextWnd.png" alt="screenshot" width="600"/>
-
-### 🧱 CUITrackBar
-<p>
-todo;
-</p>
-
-<img src="demo\todo.png" alt="screenshot" width="600"/>
 
 ### 🧱 CServerList 
 <p>

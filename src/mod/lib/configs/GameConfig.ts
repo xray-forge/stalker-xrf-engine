@@ -5,6 +5,10 @@
 export const gameConfig = {
   DEBUG: {
     /**
+     * Is debug mode enabled.
+     */
+    IS_ENABLED: true,
+    /**
      * Enable debugging log modules.
      */
     IS_LOG_ENABLED: true,
