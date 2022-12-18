@@ -599,7 +599,7 @@ declare global {
 
     public Update(): void;
 
-    public AddCallback(name: string, event: number, cb: () => void): void;
+    public AddCallback(this: XR_CUIWindow, name: string, event: number, cb: () => void, source?: XR_CUIWindow): void;
 
     public Dispatch(value1: number, value2: number): void;
 
@@ -1874,59 +1874,62 @@ declare global {
   }
 
   /**
-   C++ class CUITabButton : CUIButton {
-    CUITabButton ();
-
-    function SetWindowName(string);
-
-    function GetWndPos(CUIWindow*);
-
-    function TextControl();
-
-    function SetAutoDelete(boolean);
-
-    function Enable(boolean);
-
-    function AttachChild(CUIWindow*);
-
-    function GetTextureRect();
-
-    function SetWndPos(vector2);
-
-    function SetWndSize(vector2);
-
-    function SetWndRect(Frect);
-
-    function DetachChild(CUIWindow*);
-
-    function SetPPMode();
-
-    function WindowName();
-
-    function IsShown();
-
-    function SetTextureRect(Frect*);
-
-    function Show(boolean);
-
-    function GetHeight() const;
-
-    function GetWidth() const;
-
-    function InitTexture(string);
-
-    function IsEnabled();
-
-    function ResetPPMode();
-
-    function SetStretchTexture(boolean);
-
-    function IsAutoDelete();
-
-  };
+   *  C++ class CUITabButton : CUIButton {
+   *     CUITabButton ();
+   *
+   *     function SetWindowName(string);
+   *
+   *     function GetWndPos(CUIWindow*);
+   *
+   *     function TextControl();
+   *
+   *     function SetAutoDelete(boolean);
+   *
+   *     function Enable(boolean);
+   *
+   *     function AttachChild(CUIWindow*);
+   *
+   *     function GetTextureRect();
+   *
+   *     function SetWndPos(vector2);
+   *
+   *     function SetWndSize(vector2);
+   *
+   *     function SetWndRect(Frect);
+   *
+   *     function DetachChild(CUIWindow*);
+   *
+   *     function SetPPMode();
+   *
+   *     function WindowName();
+   *
+   *     function IsShown();
+   *
+   *     function SetTextureRect(Frect*);
+   *
+   *     function Show(boolean);
+   *
+   *     function GetHeight() const;
+   *
+   *     function GetWidth() const;
+   *
+   *     function InitTexture(string);
+   *
+   *     function IsEnabled();
+   *
+   *     function ResetPPMode();
+   *
+   *     function SetStretchTexture(boolean);
+   *
+   *     function IsAutoDelete();
+   *
+   *   };
+   *
+   * @customConstructor CUITabButton
    */
 
-  // todo;
+  class XR_CUITabButton extends XR_CUIButton {
+  }
 
   /**
    C++ class CUITabControl : CUIWindow {

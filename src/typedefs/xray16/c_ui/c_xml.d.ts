@@ -70,7 +70,7 @@ declare global {
 
     public InitSpinText(value: string, window: XR_CUIWindow): unknown;
 
-    public InitTab(value: string, window: XR_CUIWindow): unknown;
+    public InitTab(value: string, window: XR_CUIWindow): XR_CUITabButton;
 
     public InitStatic(element: string, window: XR_CUIWindow): XR_CUIStatic;
 

@@ -1,4 +1,4 @@
-import { Optional } from "@/mod/lib/types/general";
+import { Optional } from "@/mod/lib/types";
 
 /** ********************************************************************************************************************
  * _g namespace:

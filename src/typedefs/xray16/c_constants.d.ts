@@ -130,7 +130,7 @@ declare global {
    * };
    */
 
-  interface IXR_StalkerIDs {
+  interface IXR_stalker_ids {
 
     action_accomplish_task: 7;
     action_aim_enemy: 16;
@@ -485,42 +485,68 @@ declare global {
   // todo;
 
   /**
-
-   C++ class ui_events {
-    const BUTTON_CLICKED = 17;
-    const BUTTON_DOWN = 18;
-    const CHECK_BUTTON_RESET = 21;
-    const CHECK_BUTTON_SET = 20;
-    const EDIT_TEXT_COMMIT = 71;
-    const LIST_ITEM_CLICKED = 35;
-    const LIST_ITEM_SELECT = 36;
-    const MESSAGE_BOX_CANCEL_CLICKED = 44;
-    const MESSAGE_BOX_COPY_CLICKED = 45;
-    const MESSAGE_BOX_NO_CLICKED = 43;
-    const MESSAGE_BOX_OK_CLICKED = 39;
-    const MESSAGE_BOX_QUIT_GAME_CLICKED = 42;
-    const MESSAGE_BOX_QUIT_WIN_CLICKED = 41;
-    const MESSAGE_BOX_YES_CLICKED = 40;
-    const PROPERTY_CLICKED = 38;
-    const RADIOBUTTON_SET = 22;
-    const SCROLLBAR_HSCROLL = 32;
-    const SCROLLBAR_VSCROLL = 31;
-    const SCROLLBOX_MOVE = 30;
-    const TAB_CHANGED = 19;
-    const WINDOW_KEY_PRESSED = 10;
-    const WINDOW_KEY_RELEASED = 11;
-    const WINDOW_LBUTTON_DB_CLICK = 9;
-    const WINDOW_LBUTTON_DOWN = 0;
-    const WINDOW_LBUTTON_UP = 3;
-    const WINDOW_MOUSE_MOVE = 6;
-    const WINDOW_RBUTTON_DOWN = 1;
-    const WINDOW_RBUTTON_UP = 4;
-
-  };
-   *
+   *   C++ class ui_events {
+   *     const BUTTON_CLICKED = 17;
+   *     const BUTTON_DOWN = 18;
+   *     const CHECK_BUTTON_RESET = 21;
+   *     const CHECK_BUTTON_SET = 20;
+   *     const EDIT_TEXT_COMMIT = 71;
+   *     const LIST_ITEM_CLICKED = 35;
+   *     const LIST_ITEM_SELECT = 36;
+   *     const MESSAGE_BOX_CANCEL_CLICKED = 44;
+   *     const MESSAGE_BOX_COPY_CLICKED = 45;
+   *     const MESSAGE_BOX_NO_CLICKED = 43;
+   *     const MESSAGE_BOX_OK_CLICKED = 39;
+   *     const MESSAGE_BOX_QUIT_GAME_CLICKED = 42;
+   *     const MESSAGE_BOX_QUIT_WIN_CLICKED = 41;
+   *     const MESSAGE_BOX_YES_CLICKED = 40;
+   *     const PROPERTY_CLICKED = 38;
+   *     const RADIOBUTTON_SET = 22;
+   *     const SCROLLBAR_HSCROLL = 32;
+   *     const SCROLLBAR_VSCROLL = 31;
+   *     const SCROLLBOX_MOVE = 30;
+   *     const TAB_CHANGED = 19;
+   *     const WINDOW_KEY_PRESSED = 10;
+   *     const WINDOW_KEY_RELEASED = 11;
+   *     const WINDOW_LBUTTON_DB_CLICK = 9;
+   *     const WINDOW_LBUTTON_DOWN = 0;
+   *     const WINDOW_LBUTTON_UP = 3;
+   *     const WINDOW_MOUSE_MOVE = 6;
+   *     const WINDOW_RBUTTON_DOWN = 1;
+   *     const WINDOW_RBUTTON_UP = 4;
+   *   };
    */
 
-  // todo;
+  interface IXR_ui_events {
+    BUTTON_CLICKED: 17;
+    BUTTON_DOWN: 18;
+    CHECK_BUTTON_RESET: 21;
+    CHECK_BUTTON_SET: 20;
+    EDIT_TEXT_COMMIT: 71;
+    LIST_ITEM_CLICKED: 35;
+    LIST_ITEM_SELECT: 36;
+    MESSAGE_BOX_CANCEL_CLICKED: 44;
+    MESSAGE_BOX_COPY_CLICKED: 45;
+    MESSAGE_BOX_NO_CLICKED: 43;
+    MESSAGE_BOX_OK_CLICKED: 39;
+    MESSAGE_BOX_QUIT_GAME_CLICKED: 42;
+    MESSAGE_BOX_QUIT_WIN_CLICKED: 41;
+    MESSAGE_BOX_YES_CLICKED: 40;
+    PROPERTY_CLICKED: 38;
+    RADIOBUTTON_SET: 22;
+    SCROLLBAR_HSCROLL: 32;
+    SCROLLBAR_VSCROLL: 31;
+    SCROLLBOX_MOVE: 30;
+    TAB_CHANGED: 19;
+    WINDOW_KEY_PRESSED: 10;
+    WINDOW_KEY_RELEASED: 11;
+    WINDOW_LBUTTON_DB_CLICK: 9;
+    WINDOW_LBUTTON_DOWN: 0;
+    WINDOW_LBUTTON_UP: 3;
+    WINDOW_MOUSE_MOVE: 6;
+    WINDOW_RBUTTON_DOWN: 1;
+    WINDOW_RBUTTON_UP: 4;
+  }
 
   /**
 

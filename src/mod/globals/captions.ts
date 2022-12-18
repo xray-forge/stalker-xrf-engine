@@ -22,6 +22,7 @@ export const captions = {
   ui_mm_novice: "ui_mm_novice",
   ui_mm_stalker: "ui_mm_stalker",
   ui_mm_veteran: "ui_mm_veteran",
-  ui_mm_master: "ui_mm_master"
+  ui_mm_master: "ui_mm_master",
+  ui_mm_cancel: "ui_mm_cancel"
 };
 

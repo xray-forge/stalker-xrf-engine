@@ -72,3 +72,12 @@ To use typescript together with xray SDK you will need correct type declarations
 
 ### gamedata folder structure
 todo: Describe structure of gamedata and intention of every folder
+
+### src folder structure
+todo: Describe structure of src and intention of every folder
+
+### Custom forms and windows
+Notes:
+- When creating forms with xml, here we use [JSX](https://www.typescriptlang.org/docs/handbook/jsx.html)
+- When mod compilation happens we transform JSX into valid XML files
+- All coordinates with (x, y) are based on parent (not XML child, rather script register parent) and are not absolute

@@ -53,7 +53,7 @@ Logger.IS_FILE_ENABLED = true;
       log.info("Resources build steps skipped");
     }
 
-    await buildMeta(meta);
+    await buildMeta({ meta, startedAt });
 
     log.info("Successfully executed build command, took:", (Date.now() - startedAt) / 1000, "sec");
   } catch (error) {

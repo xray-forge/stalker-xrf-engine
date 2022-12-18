@@ -34,6 +34,8 @@ declare global {
 
   const CUICheckButton: typeof XR_CUICheckButton;
 
+  const CUITabButton: typeof XR_CUITabButton;
+
   const vector2: typeof XR_vector2;
 
   const Frect: () => XR_FRect;
@@ -42,7 +44,9 @@ declare global {
 
   const fcolor: () => XR_FColor;
 
-  const stalker_ids: IXR_StalkerIDs;
+  const stalker_ids: IXR_stalker_ids;
+
+  const ui_events: IXR_ui_events;
 
   const DIK_keys: IXR_DIK_keys;
 

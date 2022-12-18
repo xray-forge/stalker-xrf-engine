@@ -1,7 +1,11 @@
-import { JSXNode, JSXXML, Fragment } from "jsx-xml";
+import { JSXNode, JSXXML } from "jsx-xml";
 
+import { captions } from "@/mod/globals/captions";
 import { fonts } from "@/mod/globals/fonts";
 import { textures } from "@/mod/globals/textures";
+import { IRgbColor } from "@/mod/lib/types";
+import { Xr3tButton, XrStatic, XrTab } from "@/mod/ui/components/base";
+import { CustomTab } from "@/mod/ui/components/custom";
 
 export const IS_XML: boolean = true;
 
@@ -12,6 +16,8 @@ export function create(): JSXNode {
   return (
     <w>
       <DebugToolBackground width={BASE_WIDTH} height={BASE_HEIGHT}/>
+
+      <DebugDialogForm width={BASE_WIDTH} height={BASE_HEIGHT} />
 
       <file_item>
         <main width={490} height={18}/>
@@ -26,9 +32,67 @@ export function create(): JSXNode {
   );
 }
 
-function DebugToolForm() {
+function DebugDialogForm({ width= 0, height= 0 }): JSXNode {
+  const dialogWidth: number = width * 0.9;
+  const dialogHeight: number = height * 0.9;
+  const dialogWidthPadding: number = width * 0.05;
+  const dialogHeightPadding: number = height * 0.05;
+
+  const dialogButtonWidth: number = 108;
+  const dialogButtonHeight: number = 26;
+
+  const dialogTabsWidth: number = dialogWidth - 72;
+  const dialogTabsHeight: number = 16;
+
+  const textColorDarker: IRgbColor = { r: 170, g: 170, b: 170 };
+  const textColorLighter: IRgbColor = { r: 200, g: 200, b: 200 };
+
   return (
-    <form x={50} y={252} width={560} height={460} stretch={1}>
+    <main_dialog x={0} y={0} width={width} height={height}>
+      <XrStatic
+        tag={"dialog"}
+        x={dialogWidthPadding}
+        y={dialogHeightPadding}
+        height={dialogHeight}
+        width={dialogWidth}
+        texture={textures.ui_inGame2_opt_main_window}
+      />
+
+      <Xr3tButton
+        tag={"btn_cancel"}
+        x={dialogWidth - dialogButtonWidth - 48}
+        y={dialogHeight - dialogButtonHeight - 12}
+        height={dialogButtonHeight}
+        width={dialogButtonWidth}
+        font={fonts.letterica18}
+        label={captions.ui_mm_cancel}
+        textColor={textColorDarker}
+        texture={textures.ui_inGame2_Mp_bigbuttone}
+      />
+
+      <CustomTab
+        x={(dialogWidth - dialogTabsWidth) / 2}
+        y={dialogHeightPadding}
+        width={dialogTabsWidth}
+        height={dialogTabsHeight}
+        font={fonts.letterica16}
+        textColor={textColorLighter}
+        tabs={[
+          { id: "general", label: "General", texture: textures.ui_inGame2_opt_button_1_e },
+          { id: "position", label: "Position", texture: textures.ui_inGame2_opt_button_1_e },
+          { id: "spawn", label: "Spawn" , texture: textures.ui_inGame2_opt_button_1_e },
+          { id: "sound", label: "Sound", texture: textures.ui_inGame2_opt_button_1_e },
+          { id: "logics", label: "Logics", texture: textures.ui_inGame2_opt_button_1_e },
+          { id: "ui", label: "UI", texture: textures.ui_inGame2_opt_button_1_e },
+          { id: "other", label: "Other", texture: textures.ui_inGame2_opt_button_1_e }
+        ]}/>
+    </main_dialog>
+  );
+}
+
+function DebugToolForm({ width = 0, height = 0 }) {
+  return (
+    <form x={width * 0.05} y={height * 0.05} width={width * 0.9} height={width * 0.9} stretch={1}>
       <texture>{textures.ui_inGame2_main_window_small}</texture>
       <auto_static x={30} y={74} width={130} height={130} stretch={1}>
         <texture>{textures.ui_inGame2_picture_window}</texture>
@@ -48,16 +112,6 @@ function DebugToolForm() {
       <list x={33} y={215} width={497} height={173} item_height={18} can_select={1}>
         <font font={fonts.letterica16}/>
       </list>
-
-      <btn_load x={65} y={427} width={135} height={26}>
-        <texture>{textures.ui_inGame2_Mp_bigbuttone}</texture>
-        <text font={fonts.letterica18}>Spawn</text>
-      </btn_load>
-
-      <btn_cancel x={377} y={427} width={135} height={26}>
-        <texture>{textures.ui_inGame2_Mp_bigbuttone}</texture>
-        <text font={fonts.letterica18}>Close</text>
-      </btn_cancel>
 
       <cap_rubel_coeff x={285} y={90} width={90} height={23}>
         <text vert_align={"c"} font={fonts.letterica16} r={115} g={114} b={112}/>
@@ -247,7 +301,8 @@ function DebugToolBackground({ width = 0, height = 0 }): JSXNode {
       <auto_static x={413} y={352} width={576} height={416} stretch={1}>
         <texture width={576} height={416}>{textures.ui_video_water_crop}</texture>
       </auto_static>
-      <auto_static width={1024} height={768}>
+
+      <auto_static width={width} height={height}>
         <texture>{textures.ui_inGame2_background}</texture>
       </auto_static>
       <auto_static x={41} y={278} width={288} height={428}>

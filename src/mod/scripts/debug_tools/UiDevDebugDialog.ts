@@ -1,35 +1,21 @@
 import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
 
 export interface IUiDevDebugDialog extends XR_CUIScriptWnd {
-  owner?: XR_CUIWindow;
+  owner: XR_CUIScriptWnd;
 
-  file_item_main_sz?: unknown;
-  file_item_fn_sz?: unknown;
-  file_item_fd_sz?: unknown;
-
-  file_caption?: unknown;
-  file_data?: unknown;
-
-  form?: XR_CUIStatic;
-  picture?: XR_CUIStatic;
-  wt_but?: XR_CUIWindow;
-
-  list_box?: XR_CUIListBox;
-  message_box?: XR_CUIMessageBoxEx;
-
-  cap_rubel?: XR_CUIStatic;
-  cap_spawn?: XR_CUIStatic;
-  cap_loc?: XR_CUIStatic;
-  spin_rubel?: XR_CUISpinText;
-  cap_rubel_coeff?: XR_CUIStatic;
-  cap_rubel_currently?: XR_CUIStatic;
+  dialog: XR_CUIStatic;
+  tab: XR_CUITabButton;
 
   __init(): void;
-  __finalize(): void;
-  initializeUI(): void;
+
+  InitControls(): void;
+  InitCallBacks(): void;
+
+  onCancelButtonAction(): void;
 }
 
 const log: DebugLogger = new DebugLogger("UiDevDebugDialog");
+const base: string = "debug_tools/UiDevDebugDialog.component.xml";
 
 export const UiDevDebugDialog: IUiDevDebugDialog = declare_xr_class(
   "UiDevDebugDialog",
@@ -37,33 +23,32 @@ export const UiDevDebugDialog: IUiDevDebugDialog = declare_xr_class(
   {
     __init(this: IUiDevDebugDialog): void {
       CUIScriptWnd.__init(this);
-
-      this.initializeUI();
+      this.InitControls();
+      this.InitCallBacks();
     },
     __finalize(): void {
     },
-    initializeUI(): void {
+    InitCallBacks(): void {
+      log.info("Init callbacks");
+      this.AddCallback("btn_cancel", ui_events.BUTTON_CLICKED, () => this.onCancelButtonAction(), this);
+    },
+    InitControls(): void {
+      log.info("Init controls");
+
       this.SetWndRect(Frect().set(0, 0, 1024, 768));
 
-      const control: XR_CUIWindow = new CUIWindow();
       const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
-      xml.ParseFile("debug_tools/ui_mm_dev_debug_dialog.xml");
+      xml.ParseFile(base);
       xml.InitStatic("background", this);
 
-      xml.InitWindow("file_item:main",0, control);
-      this.file_item_main_sz = (new vector2()).set(control.GetWidth(), control.GetHeight());
+      this.dialog = xml.InitStatic("main_dialog:dialog", this);
 
-      xml.InitWindow("file_item:fn",0, control);
-      this.file_item_fn_sz = (new vector2()).set(control.GetWidth(),control.GetHeight());
-
-      xml.InitWindow("file_item:fd",0, control);
-      this.file_item_fd_sz = (new vector2()).set(control.GetWidth(),control.GetHeight());
-
-      this.form = xml.InitStatic("form", this);
+      this.Register(xml.Init3tButton("main_dialog:btn_cancel", this.dialog), "btn_cancel");
+      this.Register(xml.InitTab("main_dialog:tab", this.dialog), "tab");
 
       /*
-      this.picture = xml.InitStatic("form:picture", this.form);
+      this.form = xml.InitStatic("form", this);
 
       // xml.InitStatic            ("form:file_info", this.form)
       this.file_caption = xml.InitTextWnd("form:file_caption", this.form);
@@ -76,16 +61,11 @@ export const UiDevDebugDialog: IUiDevDebugDialog = declare_xr_class(
       this.list_box.ShowSelectedItem(true);
       this.Register(this.list_box, "list_window");
 
-      control = xml.Init3tButton("form:btn_load", this.form);
-      this.Register(control, "button_load");
+      const cancelButton = xml.Init3tButton("form:btn_cancel", this.form);
 
-      control = xml.Init3tButton("form:btn_delete", this.form);
-      this.Register(control, "button_del");
-      this.wt_but = control;
+      this.Register(cancelButton, "button_back");
 
-      control = xml.Init3tButton("form:btn_cancel", this.form);
-      this.Register(control, "button_back");
-
+      /*
       this.message_box = new XR_CUIMessageBoxEx();
       this.Register(this.message_box,"message_box");
 
@@ -109,8 +89,6 @@ export const UiDevDebugDialog: IUiDevDebugDialog = declare_xr_class(
 
       this.Register(moneyPlusButton, "button_moneyplus");
       this.Register(moneyMinusButton, "button_moneyminus");
-
-      /*
 
       this.cap_timefactor        = xml.InitStatic("form:cap_timefactor",        this.form)
 
@@ -190,6 +168,14 @@ export const UiDevDebugDialog: IUiDevDebugDialog = declare_xr_class(
       this.Register(btn, "edit_box4")
 
        */
+    },
+    onCancelButtonAction(): void {
+      log.info("Cancel button activated");
+
+      this.owner.ShowDialog(true);
+      this.owner.Show(true);
+
+      this.HideDialog();
     }
   } as IUiDevDebugDialog
 );

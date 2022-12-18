@@ -1,6 +1,6 @@
 import { default as chalk } from "chalk";
 
-import { Optional } from "@/mod/lib/types/general";
+import { Optional } from "@/mod/lib/types";
 
 import { stringifyValue } from "#/utils/logging/stringifyValue";
 
