@@ -26,10 +26,7 @@ export async function buildStaticUi(): Promise<void> {
     return acc;
   }
 
-  const xmlConfigs: Array<[string, string]> = (await readDirContent(GAME_DATA_UI_DIR)).reduce(
-    collectXmlConfigs,
-    []
-  );
+  const xmlConfigs: Array<[string, string]> = (await readDirContent(GAME_DATA_UI_DIR)).reduce(collectXmlConfigs, []);
 
   if (xmlConfigs.length > 0) {
     log.info("Found static UI configs");

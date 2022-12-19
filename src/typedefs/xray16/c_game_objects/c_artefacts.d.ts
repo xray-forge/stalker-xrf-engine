@@ -1,7 +1,6 @@
 export {};
 
 declare global {
-
   /**
    C++ class CZudaArtefact : CArtefact {
     CZudaArtefact ();
@@ -30,9 +29,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CThornArtefact : CArtefact {
     CThornArtefact ();
@@ -61,9 +58,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CArtefact : CGameObject {
     CArtefact ();
@@ -92,9 +87,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CBastArtefact : CArtefact {
     CBastArtefact ();
@@ -123,9 +116,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CBlackDrops : CArtefact {
     CBlackDrops ();
@@ -154,9 +145,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CBlackGraviArtefact : CArtefact {
     CBlackGraviArtefact ();
@@ -185,9 +174,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CDummyArtefact : CArtefact {
     CDummyArtefact ();
@@ -216,9 +203,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CElectricBall : CArtefact {
     CElectricBall ();
@@ -247,9 +232,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CFadedBall : CArtefact {
     CFadedBall ();
@@ -278,9 +261,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CGalantineArtefact : CArtefact {
     CGalantineArtefact ();
@@ -309,9 +290,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CGraviArtefact : CArtefact {
     CGraviArtefact ();
@@ -340,9 +319,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CMercuryBall : CArtefact {
     CMercuryBall ();
@@ -371,9 +348,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CRustyHairArtefact : CArtefact {
     CRustyHairArtefact ();
@@ -402,7 +377,5 @@ declare global {
 
   };
    */
-
   // todo;
-
 }

@@ -1,7 +1,6 @@
 export {};
 
 declare global {
-
   /**
    * Class to handle UI xml parsing and applying.
    *
@@ -123,5 +122,4 @@ declare global {
     public InitFrame(value: string, window: XR_CUIWindow): unknown;
 
   }
-
 }

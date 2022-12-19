@@ -6,7 +6,7 @@ export interface IBaseXmlNode {
   width: number;
   height: number;
   tag?: string;
-  children?: JSXNode
+  children?: JSXNode;
 }
 
 export interface IRgbColor {

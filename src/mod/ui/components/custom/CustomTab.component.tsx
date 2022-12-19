@@ -14,7 +14,7 @@ interface ICustomTabProps {
   height?: number;
   font: TFontId;
   textColor: IRgbColor;
-  tabs: Array<{ id: string, label: string; texture: TTextureId }>
+  tabs: Array<{ id: string; label: string; texture: TTextureId }>;
 }
 
 export function CustomTab({ id, x, y, width, height = 38, font, textColor, tabs }: ICustomTabProps): JSXNode {
@@ -23,15 +23,8 @@ export function CustomTab({ id, x, y, width, height = 38, font, textColor, tabs 
   return (
     <tab id={id} x={x} y={y} width={width} height={height}>
       {tabs.map((it, index) => (
-        <CustomTabButton
-          id={it.id}
-          x={(index * tabWidth)}
-          y={0}
-          width={tabWidth}
-          height={height}
-          texture={it.texture}
-        >
-          <XrText label={it.label} font={font} align={"c"}/>
+        <CustomTabButton id={it.id} x={index * tabWidth} y={0} width={tabWidth} height={height} texture={it.texture}>
+          <XrText label={it.label} font={font} align={"c"} />
           <XrTextColor textColor={textColor} />
         </CustomTabButton>
       ))}

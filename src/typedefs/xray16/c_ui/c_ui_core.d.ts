@@ -1,7 +1,6 @@
 export {};
 
 declare global {
-
   /**
    C++ class COptionsManager {
     COptionsManager ();
@@ -24,9 +23,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CMainMenu {
     function GetCDKey();
@@ -51,9 +48,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   // todo;
   /**
    C++ class CUIGameCustom {
@@ -77,7 +72,5 @@ declare global {
 
   };
    */
-
   // todo;
-
 }

@@ -8,4 +8,4 @@ export const fonts = {
 
 export type TFonts = typeof fonts;
 
-export type TFontId = keyof TFonts
+export type TFontId = keyof TFonts;

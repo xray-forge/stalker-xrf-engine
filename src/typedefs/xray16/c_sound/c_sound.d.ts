@@ -1,7 +1,6 @@
 export {};
 
 declare global {
-
   /**
    C++ class sound_object {
     const looped = 1;
@@ -42,9 +41,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class sound {
     const attack = 3;
@@ -90,9 +87,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class SoundInfo {
     property danger;
@@ -103,9 +98,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class sound_params {
     property frequency;
@@ -116,9 +109,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
 
    C++ class sound_memory_object : game_memory_object {
@@ -135,7 +126,5 @@ declare global {
   };
    *
    */
-
   // todo;
-
 }

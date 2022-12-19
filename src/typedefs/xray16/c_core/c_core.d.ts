@@ -1,7 +1,6 @@
 export {};
 
 declare global {
-
   /**
    * Base for bindings brought from LuaBind library.
    *
@@ -26,7 +25,7 @@ declare global {
   class XR_LuaBindBase {
 
     public static __init(this: void, ...args: Array<any>): void;
-    public static __finalize(this: void,): void;
+    public static __finalize(this: void): void;
 
     public __init(...args: Array<any>): void;
     public __finalize(): void;
@@ -504,5 +503,4 @@ declare global {
    */
 
   // todo;
-
 }

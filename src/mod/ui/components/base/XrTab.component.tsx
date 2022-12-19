@@ -12,7 +12,7 @@ interface IXrTabProps extends IBaseXmlNode {
   id?: string;
   font: TFontId;
   textColor: IRgbColor;
-  tabs: Array<{ id: string, label: string }>
+  tabs: Array<{ id: string; label: string }>;
 }
 
 /**
@@ -21,7 +21,7 @@ interface IXrTabProps extends IBaseXmlNode {
 export function XrTab({ id, x, y, width, height = 38, font, textColor, tabs }: IXrTabProps): JSXNode {
   const tabWidth: number = width / tabs.length;
   const padding: number = tabWidth / 5;
-  const totalWidth: number = tabWidth + ((tabWidth - padding) * (tabs.length - 1));
+  const totalWidth: number = tabWidth + (tabWidth - padding) * (tabs.length - 1);
 
   return (
     <Fragment>
@@ -40,13 +40,13 @@ export function XrTab({ id, x, y, width, height = 38, font, textColor, tabs }: I
         {tabs.map((it, index) => (
           <XrTabButton
             id={it.id}
-            x={(index * tabWidth) - (padding * index)}
+            x={index * tabWidth - padding * index}
             y={2}
             width={tabWidth}
             height={height - 12}
-            texture={index === tabs.length -1 ? textures.ui_inGame2_opt_button_2 : textures.ui_inGame2_opt_button_1}
+            texture={index === tabs.length - 1 ? textures.ui_inGame2_opt_button_2 : textures.ui_inGame2_opt_button_1}
           >
-            <XrText label={it.label} font={font} align={"c"}/>
+            <XrText label={it.label} font={font} align={"c"} />
             <XrTextColor textColor={textColor} />
           </XrTabButton>
         ))}

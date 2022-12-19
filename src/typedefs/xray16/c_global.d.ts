@@ -176,7 +176,7 @@ declare global {
   function render_get_dx_level(): unknown;
   function GetFontGraffiti19Russian(): unknown;
   function sell_condition(a: unknown, b: string): unknown;
-  function sell_condition(a: number,b: number): unknown;
+  function sell_condition(a: number, b: number): unknown;
   function buy_condition(a: unknown, b: string): unknown;
   function buy_condition(a: number, b: number): unknown;
   function create_ini_file(a: string): unknown;
@@ -216,6 +216,5 @@ declare global {
 
   const game: IXR_game;
 
-// todo: nested namespaces
-
+  // todo: nested namespaces
 }

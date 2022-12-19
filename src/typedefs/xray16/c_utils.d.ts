@@ -1,7 +1,6 @@
 export {};
 
 declare global {
-
   /**
    * C++ class fcolor {
    *   property a;
@@ -814,5 +813,4 @@ declare global {
    */
 
   // todo;
-
 }

@@ -17,14 +17,14 @@ export function create(): JSXNode {
 
   return (
     <w>
-      <DebugToolBackground width={BASE_WIDTH} height={BASE_HEIGHT}/>
+      <DebugToolBackground width={BASE_WIDTH} height={BASE_HEIGHT} />
 
       <DebugDialogBase width={BASE_WIDTH} height={BASE_HEIGHT} />
     </w>
   );
 }
 
-function DebugDialogBase({ width= 0, height= 0 }): JSXNode {
+function DebugDialogBase({ width = 0, height = 0 }): JSXNode {
   const dialogWidth: number = width * 0.9;
   const dialogHeight: number = height * 0.9;
   const dialogWidthPadding: number = width * 0.05;
@@ -71,20 +71,16 @@ function DebugDialogBase({ width= 0, height= 0 }): JSXNode {
         textColor={textColorLighter}
         tabs={[
           { id: EDebugSection.GENERAL, label: "General", texture: textures.ui_inGame2_Mp_bigbuttone },
-          { id: EDebugSection.ITEMS, label: "Items" , texture: textures.ui_inGame2_Mp_bigbuttone },
+          { id: EDebugSection.ITEMS, label: "Items", texture: textures.ui_inGame2_Mp_bigbuttone },
           { id: EDebugSection.POSITION, label: "Position", texture: textures.ui_inGame2_Mp_bigbuttone },
           { id: EDebugSection.SOUND, label: "Sound", texture: textures.ui_inGame2_Mp_bigbuttone },
           { id: EDebugSection.SPAWN, label: "Spawn", texture: textures.ui_inGame2_Mp_bigbuttone },
           { id: EDebugSection.UI, label: "UI", texture: textures.ui_inGame2_Mp_bigbuttone },
           { id: EDebugSection.WORLD, label: "World", texture: textures.ui_inGame2_Mp_bigbuttone }
-        ]}/>
-
-      <debug_section
-        x={0}
-        y={dialogHeightPadding + dialogTabsHeight}
-        width={width * 0.9}
-        height={dialogHeight}
+        ]}
       />
+
+      <debug_section x={0} y={dialogHeightPadding + dialogTabsHeight} width={width * 0.9} height={dialogHeight} />
     </main_dialog>
   );
 }
@@ -93,10 +89,14 @@ function DebugToolBackground({ width = 0, height = 0 }): JSXNode {
   return (
     <background width={width} height={height}>
       <auto_static x={500} y={130} width={432} height={160} stretch={1}>
-        <texture width={432} height={160}>{textures.ui_video_voroni_crop}</texture>
+        <texture width={432} height={160}>
+          {textures.ui_video_voroni_crop}
+        </texture>
       </auto_static>
       <auto_static x={413} y={352} width={576} height={416} stretch={1}>
-        <texture width={576} height={416}>{textures.ui_video_water_crop}</texture>
+        <texture width={576} height={416}>
+          {textures.ui_video_water_crop}
+        </texture>
       </auto_static>
 
       <auto_static width={width} height={height}>

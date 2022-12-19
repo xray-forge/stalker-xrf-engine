@@ -15,7 +15,7 @@ declare const lua_string: LUA_String;
 declare const declare_xr_class: <T, B extends abstract new () => any>(
   name: string,
   base?: B | null,
-  implementation?: Partial<T>,
+  implementation?: Partial<T>
 ) => T & InstanceType<B>;
 
 /**

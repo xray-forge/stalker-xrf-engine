@@ -1,7 +1,6 @@
 export {};
 
 declare global {
-
   /**
    C++ class CAntirad : CGameObject {
     CAntirad ();
@@ -24,9 +23,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CBottleItem : CGameObject {
     CBottleItem ();
@@ -49,9 +46,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CFoodItem : CGameObject {
     CFoodItem ();
@@ -74,9 +69,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CMedkit : CGameObject {
     CMedkit ();
@@ -99,7 +92,5 @@ declare global {
 
   };
    */
-
   // todo;
-
 }

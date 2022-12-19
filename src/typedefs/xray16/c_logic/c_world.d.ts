@@ -1,7 +1,6 @@
 export {};
 
 declare global {
-
   /**
 
    C++ class action_planner {
@@ -43,9 +42,7 @@ declare global {
   };
    *
    */
-
   // todo;
-
   /**
 
    C++ class planner_action : action_planner,action_base {
@@ -108,9 +105,7 @@ declare global {
   };
    *
    */
-
   // todo;
-
   /**
 
    C++ class world_state {
@@ -133,9 +128,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class world_property {
     world_property (number, boolean);
@@ -150,9 +143,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CController : CGameObject {
     CController ();
@@ -175,9 +166,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cover_point {
     function level_vertex_id() const;
@@ -189,7 +178,6 @@ declare global {
   };
    */
   // todo;
-
   /**
    C++ class CDestroyablePhysicsObject : CGameObject {
     CDestroyablePhysicsObject ();
@@ -212,9 +200,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CLevelChanger : CGameObject {
     CLevelChanger ();
@@ -237,9 +223,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class client_spawn_manager {
     function remove(number, number);
@@ -249,9 +233,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class property_storage {
     property_storage ();
@@ -262,14 +244,10 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cpure_server_object : ipure_server_object {
   };
    */
-
   // todo;
-
 }

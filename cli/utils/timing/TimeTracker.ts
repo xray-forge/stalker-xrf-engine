@@ -8,8 +8,7 @@ export class TimeTracker {
   private startedAt: number = 0;
   private endedAt: number = 0;
 
-  public constructor() {
-  }
+  public constructor() {}
 
   public start(): TimeTracker {
     if (this.marks.has(TimeTracker.STARTED_AT)) {

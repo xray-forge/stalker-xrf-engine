@@ -32,7 +32,7 @@ Logger.IS_FILE_ENABLED = true;
   const timeTracker: TimeTracker = new TimeTracker().start();
 
   try {
-    log.info("XRTS build:", chalk.green(meta?.name), chalk.blue((new Date()).toLocaleString()));
+    log.info("XRTS build:", chalk.green(meta?.name), chalk.blue(new Date().toLocaleString()));
 
     if (isCleanBuild) {
       log.info("Perform target cleanup");
@@ -85,7 +85,7 @@ Logger.IS_FILE_ENABLED = true;
 
     await buildMeta({ meta, timeTracker });
 
-    log.info("Successfully executed build command, took:", (timeTracker.getDuration()) / 1000, "sec");
+    log.info("Successfully executed build command, took:", timeTracker.getDuration() / 1000, "sec");
   } catch (error) {
     log.error("Build failed:", error.message, error);
     timeTracker.end();

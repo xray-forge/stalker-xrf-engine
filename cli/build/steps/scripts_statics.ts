@@ -24,8 +24,10 @@ export async function buildScriptsStatics(): Promise<void> {
     return acc;
   }
 
-  const rawScripts: Array<[string, string]> =
-    (await readDirContent(GAME_DATA_SCRIPTS_DIR)).reduce(collectStaticScripts, []);
+  const rawScripts: Array<[string, string]> = (await readDirContent(GAME_DATA_SCRIPTS_DIR)).reduce(
+    collectStaticScripts,
+    []
+  );
 
   if (rawScripts.length > 0) {
     log.info("Detected static scripts");

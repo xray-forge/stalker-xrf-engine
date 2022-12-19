@@ -29,15 +29,16 @@ export function XrStatic({
   stretch = true,
   children = null
 }: IXrStaticProps): JSXNode {
-  return JSXXML(tag, {
-    id,
-    x,
-    y,
-    width,
-    height,
-    stretch: stretch ? "1" : "0"
-  }, [
-    texture ? <XrTexture id={texture}/> : null,
-    children
-  ]);
+  return JSXXML(
+    tag,
+    {
+      id,
+      x,
+      y,
+      width,
+      height,
+      stretch: stretch ? "1" : "0"
+    },
+    [ texture ? <XrTexture id={texture} /> : null, children ]
+  );
 }

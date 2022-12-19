@@ -1,7 +1,6 @@
 export {};
 
 declare global {
-
   /**
    C++ class CAI_Bloodsucker : CGameObject {
     CAI_Bloodsucker ();
@@ -26,9 +25,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CAI_Boar : CGameObject {
     CAI_Boar ();
@@ -51,9 +48,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CAI_Dog : CGameObject {
     CAI_Dog ();
@@ -76,9 +71,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CAI_Flesh : CGameObject {
     CAI_Flesh ();
@@ -101,9 +94,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CAI_PseudoDog : CGameObject {
     CAI_PseudoDog ();
@@ -126,9 +117,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CAI_Stalker : CGameObject {
     CAI_Stalker ();
@@ -151,9 +140,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CAI_Trader : CGameObject {
     CAI_Trader ();
@@ -176,9 +163,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CALifeHumanBrain : CALifeMonsterBrain {
     function can_choose_alife_tasks(boolean);
@@ -189,9 +174,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CALifeMonsterBrain {
     function can_choose_alife_tasks(boolean);
@@ -202,9 +185,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CALifeMonsterDetailPathManager {
     function completed() const;
@@ -222,9 +203,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CALifeMonsterMovementManager {
     function completed() const;
@@ -240,9 +219,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CALifeMonsterPatrolPathManager {
     function path(string);
@@ -270,9 +247,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class alife_simulator {
     function level_name(const alife_simulator*, number);
@@ -327,9 +302,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CALifeSmartTerrainTask {
     CALifeSmartTerrainTask (string);
@@ -344,30 +317,22 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class ipure_alife_load_object {
   };
    */
-
   // todo;
-
   /**
    C++ class ipure_alife_save_object {
   };
    */
-
   // todo;
-
   /**
    C++ class ipure_alife_load_save_object : ipure_alife_load_object,ipure_alife_save_object {
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_item_weapon_magazined : cse_alife_item_weapon {
     property angle;
@@ -440,9 +405,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_item_weapon_magazined_w_gl : cse_alife_item_weapon_magazined {
     property angle;
@@ -515,9 +478,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_item_weapon_shotgun : cse_alife_item_weapon {
     property angle;
@@ -590,9 +551,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_level_changer : cse_alife_space_restrictor {
     property angle;
@@ -661,9 +620,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_monster_abstract : cse_alife_creature_abstract,cse_alife_schedulable {
     property angle;
@@ -777,9 +734,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_monster_base : cse_alife_monster_abstract,cse_ph_skeleton {
     property angle;
@@ -893,9 +848,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_monster_rat : cse_alife_monster_abstract,cse_alife_inventory_item {
     property angle;
@@ -1009,9 +962,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_monster_zombie : cse_alife_monster_abstract {
     property angle;
@@ -1125,9 +1076,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_mounted_weapon : cse_alife_dynamic_object_visual {
     property angle;
@@ -1196,9 +1145,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_object : cse_abstract {
     property angle;
@@ -1253,9 +1200,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_object_breakable : cse_alife_dynamic_object_visual {
     property angle;
@@ -1324,9 +1269,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_object_climable : cse_shape,cse_abstract {
     property angle;
@@ -1357,9 +1300,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_object_hanging_lamp : cse_alife_dynamic_object_visual,cse_ph_skeleton {
     property angle;
@@ -1428,9 +1369,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_object_physic : cse_alife_dynamic_object_visual,cse_ph_skeleton {
     property angle;
@@ -1499,9 +1438,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_object_projector : cse_alife_dynamic_object_visual {
     property angle;
@@ -1570,9 +1507,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_online_offline_group : cse_alife_dynamic_object,cse_alife_schedulable {
     property angle;
@@ -1661,9 +1596,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_ph_skeleton_object : cse_alife_dynamic_object_visual,cse_ph_skeleton {
     property angle;
@@ -1732,9 +1665,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_psydog_phantom : cse_alife_monster_base {
     property angle;
@@ -1848,16 +1779,12 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_schedulable : ipure_schedulable_object {
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_smart_zone : cse_alife_space_restrictor,cse_alife_schedulable {
     property angle;
@@ -1942,9 +1869,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_space_restrictor : cse_alife_dynamic_object,cse_shape {
     property angle;
@@ -2013,9 +1938,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_team_base_zone : cse_alife_space_restrictor {
     property angle;
@@ -2084,9 +2007,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_torrid_zone : cse_custom_zone,cse_motion {
     property angle;
@@ -2155,9 +2076,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_trader : cse_alife_dynamic_object_visual,cse_alife_trader_abstract {
     property angle;
@@ -2234,9 +2153,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_trader_abstract {
     function profile_name(cse_alife_trader_abstract*);
@@ -2249,9 +2166,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_smart_cover : cse_alife_dynamic_object {
     property angle;
@@ -2324,9 +2239,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_car : cse_alife_dynamic_object_visual,cse_ph_skeleton {
     property angle;
@@ -2395,9 +2308,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_creature_abstract : cse_alife_dynamic_object_visual {
     property angle;
@@ -2483,9 +2394,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_creature_actor : cse_alife_creature_abstract,cse_alife_trader_abstract,cse_ph_skeleton {
     property angle;
@@ -2579,9 +2488,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_creature_crow : cse_alife_creature_abstract {
     property angle;
@@ -2667,9 +2574,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_creature_phantom : cse_alife_creature_abstract {
     property angle;
@@ -2755,9 +2660,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_custom_zone : cse_alife_dynamic_object,cse_shape {
     property angle;
@@ -2826,9 +2729,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_dynamic_object : cse_alife_object {
     property angle;
@@ -2897,9 +2798,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_dynamic_object_visual : cse_alife_dynamic_object,cse_visual {
     property angle;
@@ -2968,9 +2867,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_graph_point : cse_abstract {
     property angle;
@@ -3001,16 +2898,12 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_group_abstract {
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_helicopter : cse_alife_dynamic_object_visual,cse_motion,cse_ph_skeleton {
     property angle;
@@ -3079,9 +2972,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_human_abstract : cse_alife_trader_abstract,cse_alife_monster_abstract {
     property angle;
@@ -3204,9 +3095,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_human_stalker : cse_alife_human_abstract,cse_ph_skeleton {
     property angle;
@@ -3329,9 +3218,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_inventory_box : cse_alife_dynamic_object_visual {
     property angle;
@@ -3400,16 +3287,12 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_inventory_item {
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_item : cse_alife_dynamic_object_visual,cse_alife_inventory_item {
     property angle;
@@ -3480,9 +3363,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_item_ammo : cse_alife_item {
     property angle;
@@ -3553,9 +3434,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_item_artefact : cse_alife_item {
     property angle;
@@ -3626,9 +3505,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_item_bolt : cse_alife_item {
     property angle;
@@ -3699,9 +3576,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_item_custom_outfit : cse_alife_item {
     property angle;
@@ -3772,9 +3647,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_item_detector : cse_alife_item {
     property angle;
@@ -3845,9 +3718,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_item_document : cse_alife_item {
     property angle;
@@ -3918,9 +3789,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_item_explosive : cse_alife_item {
     property angle;
@@ -3991,9 +3860,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_item_grenade : cse_alife_item {
     property angle;
@@ -4064,9 +3931,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_item_pda : cse_alife_item {
     property angle;
@@ -4137,9 +4002,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_item_torch : cse_alife_item {
     property angle;
@@ -4210,9 +4073,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_item_weapon : cse_alife_item {
     property angle;
@@ -4285,9 +4146,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_alife_item_weapon_auto_shotgun : cse_alife_item_weapon {
     property angle;
@@ -4360,9 +4219,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_anomalous_zone : cse_custom_zone {
     property angle;
@@ -4431,9 +4288,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class patrol {
     const continue = 1;
@@ -4478,5 +4333,4 @@ declare global {
 
   };
    */
-
 }

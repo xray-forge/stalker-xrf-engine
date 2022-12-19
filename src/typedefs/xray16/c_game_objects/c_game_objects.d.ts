@@ -1,7 +1,6 @@
 export {};
 
 declare global {
-
   /**
    C++ class CGameObject : DLL_Pure,ISheduled,ICollidable,IRenderable {
     CGameObject ();
@@ -24,9 +23,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class game_object {
     const action_type_count = 6;
@@ -414,7 +411,12 @@ declare global {
 
     function inv_box_can_take(boolean);
 
-    function set_patrol_path(string, enum PatrolPathManager::EPatrolStartType, enum PatrolPathManager::EPatrolRouteType, boolean);
+    function set_patrol_path(
+      string,
+      enum PatrolPathManager::EPatrolStartType,
+      enum PatrolPathManager::EPatrolRouteType,
+      boolean
+     );
 
     function allow_sprint(boolean);
 
@@ -862,9 +864,7 @@ declare global {
 
   };
    */
-
   // todo
-
   /**
    C++ class CSnork : CGameObject {
     CSnork ();
@@ -887,9 +887,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CSpaceRestrictor : CGameObject {
     CSpaceRestrictor ();
@@ -912,9 +910,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CStalkerOutfit : CGameObject {
     CStalkerOutfit ();
@@ -937,9 +933,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CTorch : CGameObject {
     CTorch ();
@@ -962,9 +956,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CTorridZone : CGameObject {
     CTorridZone ();
@@ -987,9 +979,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CZoneCampfire : CGameObject {
     CZoneCampfire ();
@@ -1018,9 +1008,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CCar : CGameObject,holder {
     const eWpnActivate = 3;
@@ -1076,9 +1064,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CGrenadeLauncher : CGameObject {
     CGrenadeLauncher ();
@@ -1101,9 +1087,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CHelicopter : CGameObject {
     const eAlive = 0;
@@ -1221,9 +1205,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CPda : CGameObject {
     CPda ();
@@ -1246,9 +1228,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CPhysicObject : CGameObject {
     CPhysicObject ();
@@ -1289,9 +1269,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CExplosiveItem : CGameObject {
     CExplosiveItem ();
@@ -1314,9 +1292,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CF1 : CGameObject {
     CF1 ();
@@ -1339,9 +1315,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CFracture : CGameObject {
     CFracture ();
@@ -1364,9 +1338,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CHairsZone : CGameObject {
     CHairsZone ();
@@ -1389,9 +1361,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class hanging_lamp : CGameObject {
     hanging_lamp ();
@@ -1418,9 +1388,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class holder {
     function engaged();
@@ -1431,9 +1399,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CInventoryBox : CGameObject {
     CInventoryBox ();
@@ -1456,9 +1422,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CMincer : CGameObject {
     CMincer ();
@@ -1481,9 +1445,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CMosquitoBald : CGameObject {
     CMosquitoBald ();
@@ -1506,9 +1468,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class entity_action {
     entity_action ();
@@ -1543,9 +1503,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class look {
     const cur_dir = 0;
@@ -1576,9 +1534,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class smart_cover_object : CGameObject {
     smart_cover_object ();
@@ -1601,9 +1557,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CRadioactiveZone : CGameObject {
     CRadioactiveZone ();
@@ -1626,7 +1580,6 @@ declare global {
 
   };
    */
-
   // todo;
   /**
    C++ class explosive {
@@ -1634,7 +1587,5 @@ declare global {
 
   };
    */
-
   // todo;
-
 }

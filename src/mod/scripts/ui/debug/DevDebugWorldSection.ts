@@ -12,30 +12,26 @@ export interface IDevDebugWorldSection extends XR_CUIScriptWnd {
   InitCallBacks(): void;
 }
 
-export const DevDebugWorldSection: IDevDebugWorldSection = declare_xr_class(
-  "DevDebugWorldSection",
-  CUIWindow,
-  {
-    __init(this: IDevDebugWorldSection): void {
-      log.info("Init");
-      CUIWindow.__init(this);
+export const DevDebugWorldSection: IDevDebugWorldSection = declare_xr_class("DevDebugWorldSection", CUIWindow, {
+  __init(this: IDevDebugWorldSection): void {
+    log.info("Init");
+    CUIWindow.__init(this);
 
-      this.InitControls();
-      this.InitCallBacks();
-    },
-    __finalize(): void {
-      log.info("Finalize");
-    },
-    InitControls(): void {
-      log.info("Init controls");
+    this.InitControls();
+    this.InitCallBacks();
+  },
+  __finalize(): void {
+    log.info("Finalize");
+  },
+  InitControls(): void {
+    log.info("Init controls");
 
-      const xml: XR_CScriptXmlInit = new CScriptXmlInit();
+    const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
-      xml.ParseFile(base);
-      xml.InitStatic("background", this);
-    },
-    InitCallBacks(): void {
-      log.info("Init callbacks");
-    }
-  } as IDevDebugWorldSection
-);
+    xml.ParseFile(base);
+    xml.InitStatic("background", this);
+  },
+  InitCallBacks(): void {
+    log.info("Init callbacks");
+  }
+} as IDevDebugWorldSection);

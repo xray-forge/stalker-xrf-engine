@@ -1,51 +1,38 @@
 export {};
 
 declare global {
-
   /**
    C++ class ipure_schedulable_object {
   };
    */
-
   // todo;
-
   /**
    C++ class ipure_server_object : ipure_alife_load_save_object {
   };
    */
-
   // todo;
-
   /**
    C++ class IRender_Visual {
     function dcast_PKinematicsAnimated();
 
   };
    */
-
   // todo;
-
   /**
    C++ class IRenderable {
   };
    */
-
   // todo;
-
   /**
    C++ class ISheduled {
   };
    */
-
   // todo;
-
   /**
    C++ class CBlend {
   };
    */
-
   // todo;
-
   /**
    C++ class cse_zone_visual : cse_anomalous_zone,cse_visual {
     property angle;
@@ -114,9 +101,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_abstract : cpure_server_object {
     property angle;
@@ -143,9 +128,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CSE_AbstractVisual : cse_visual,cse_abstract {
     property angle;
@@ -178,30 +161,22 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_motion {
   };
    */
-
   // todo;
-
   /**
    C++ class cse_ph_skeleton {
   };
    */
-
   // todo;
-
   /**
    C++ class cse_shape {
   };
    */
-
   // todo;
-
   /**
    C++ class cse_spectator : cse_abstract {
     property angle;
@@ -232,9 +207,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_temporary : cse_abstract {
     property angle;
@@ -265,16 +238,12 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cse_visual {
   };
    */
-
   // todo;
-
   /**
    C++ class render_device {
     property aspect_ratio;
@@ -298,9 +267,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class cef_storage {
     function evaluate(cef_storage*, string, game_object*);
@@ -314,5 +281,4 @@ declare global {
 
   };
    */
-
 }

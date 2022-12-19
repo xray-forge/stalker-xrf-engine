@@ -1,7 +1,6 @@
 export {};
 
 declare global {
-
   /**
    C++ class CWeaponAK74 : CGameObject {
     CWeaponAK74 ();
@@ -24,9 +23,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CWeaponAmmo : CGameObject {
     CWeaponAmmo ();
@@ -49,9 +46,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CWeaponAutomaticShotgun : CGameObject {
     CWeaponAutomaticShotgun ();
@@ -74,9 +69,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CWeaponBM16 : CGameObject {
     CWeaponBM16 ();
@@ -99,9 +92,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CWeaponBinoculars : CGameObject {
     CWeaponBinoculars ();
@@ -124,9 +115,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CWeaponFN2000 : CGameObject {
     CWeaponFN2000 ();
@@ -149,9 +138,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CWeaponFORT : CGameObject {
     CWeaponFORT ();
@@ -174,9 +161,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CWeaponGroza : CGameObject {
     CWeaponGroza ();
@@ -199,9 +184,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CWeaponHPSA : CGameObject {
     CWeaponHPSA ();
@@ -224,9 +207,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CWeaponKnife : CGameObject {
     CWeaponKnife ();
@@ -249,9 +230,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CWeaponLR300 : CGameObject {
     CWeaponLR300 ();
@@ -274,9 +253,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CWeaponPM : CGameObject {
     CWeaponPM ();
@@ -299,9 +276,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CWeaponRG6 : CGameObject {
     CWeaponRG6 ();
@@ -324,9 +299,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CWeaponRPG7 : CGameObject {
     CWeaponRPG7 ();
@@ -349,9 +322,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CWeaponSVD : CGameObject {
     CWeaponSVD ();
@@ -374,9 +345,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CWeaponSVU : CGameObject {
     CWeaponSVU ();
@@ -399,9 +368,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CWeaponShotgun : CGameObject {
     CWeaponShotgun ();
@@ -424,9 +391,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CWeaponUSP45 : CGameObject {
     CWeaponUSP45 ();
@@ -449,9 +414,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CWeaponVal : CGameObject {
     CWeaponVal ();
@@ -474,9 +437,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CWeaponVintorez : CGameObject {
     CWeaponVintorez ();
@@ -499,9 +460,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CWeaponWalther : CGameObject {
     CWeaponWalther ();
@@ -524,9 +483,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CSilencer : CGameObject {
     CSilencer ();
@@ -549,9 +506,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CScope : CGameObject {
     CScope ();
@@ -574,9 +529,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CRGD5 : CGameObject {
     CRGD5 ();
@@ -599,7 +552,5 @@ declare global {
 
   };
    */
-
   // todo;
-
 }

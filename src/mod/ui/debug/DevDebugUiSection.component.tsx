@@ -17,12 +17,10 @@ export function create(): JSXNode {
 
   return (
     <w>
-      <background >
-      </background>
+      <background></background>
 
       <section x={0} y={0} width={LIST_WIDTH} height={BASE_HEIGHT * 0.75}>
-
-        <XrListRenderer tag={"textures_list"} x={PADDING_LEFT} y={12} width={LIST_WIDTH} height={24}/>
+        <XrListRenderer tag={"textures_list"} x={PADDING_LEFT} y={12} width={LIST_WIDTH} height={24} />
 
         <XrStatic
           tag={"textures_picture"}
@@ -42,7 +40,7 @@ export function create(): JSXNode {
           />
         </XrStatic>
 
-        <XrListRenderer tag={"fonts_list"} x={PADDING_LEFT} y={78} width={LIST_WIDTH} height={24}/>
+        <XrListRenderer tag={"fonts_list"} x={PADDING_LEFT} y={78} width={LIST_WIDTH} height={24} />
       </section>
     </w>
   );

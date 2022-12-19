@@ -23,9 +23,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CTushkano : CGameObject {
     CTushkano ();
@@ -48,9 +46,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CActor : CGameObject {
     CActor ();
@@ -73,9 +69,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CBurer : CGameObject {
     CBurer ();
@@ -98,9 +92,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CCat : CGameObject {
     CCat ();
@@ -123,9 +115,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CChimera : CGameObject {
     CChimera ();
@@ -148,9 +138,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CPoltergeist : CGameObject {
     CPoltergeist ();
@@ -173,9 +161,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CPseudoGigant : CGameObject {
     CPseudoGigant ();
@@ -198,9 +184,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CPsyDog : CGameObject {
     CPsyDog ();
@@ -223,9 +207,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CPsyDogPhantom : CGameObject {
     CPsyDogPhantom ();
@@ -248,7 +230,5 @@ declare global {
 
   };
    */
-
   // todo;
-
 }

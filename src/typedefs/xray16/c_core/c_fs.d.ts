@@ -1,7 +1,6 @@
 export {};
 
 declare global {
-
   /**
    C++ class reader {
     function r_advance(number);
@@ -61,9 +60,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class FS_file_list {
     function Free();
@@ -74,9 +71,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class FS_file_list_ex {
     function Sort(number);
@@ -87,9 +82,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
 
    C++ class FS_item {
@@ -106,9 +99,7 @@ declare global {
   };
    *
    */
-
   // todo;
-
   /**
 
    C++ class fs_file {
@@ -122,9 +113,7 @@ declare global {
   };
    *
    */
-
   // todo;
-
   /**
    C++ class FS {
     const FS_ClampExt = 4;
@@ -182,9 +171,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class ini_file {
     ini_file (string);
@@ -217,7 +204,5 @@ declare global {
 
   };
    */
-
   // todo;
-
 }

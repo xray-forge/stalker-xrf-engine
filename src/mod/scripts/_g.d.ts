@@ -23,12 +23,12 @@ declare const strn_by_respawn: Record<string, unknown>;
 declare const heli_enemies: Record<string, unknown>;
 declare const heli_enemy_count = 0;
 declare const anim_obj_by_name: Record<string, unknown>;
-declare const goodwill: { sympathy: Record<string, unknown>, relations: Record<string, unknown> };
+declare const goodwill: { sympathy: Record<string, unknown>; relations: Record<string, unknown> };
 declare const story_object: Record<string, unknown>;
 declare const signal_light: Record<string, unknown>;
 declare const offline_objects: Record<string, unknown>;
 declare const anomaly_by_name: Record<string, unknown>;
-declare const level_doors : Record<string, unknown>; // level doors, enables NPCs doors logic
+declare const level_doors: Record<string, unknown>; // level doors, enables NPCs doors logic
 declare const no_weap_zones: Record<string, unknown>;
 declare const spawned_vertex_by_i: Record<string, unknown>;
 

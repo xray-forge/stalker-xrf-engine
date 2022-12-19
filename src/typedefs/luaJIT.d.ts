@@ -1,5 +1,4 @@
 declare interface LUA_String {
-
   byte(this: void, s: unknown, i: unknown, j: unknown): unknown;
 
   char(this: void, ...rest: Array<unknown>): unknown;
@@ -33,7 +32,6 @@ declare interface LUA_String {
   unpack(this: void, fmt: unknown, s: unknown, pos: unknown): unknown;
 
   upper(this: void, s: unknown): unknown;
-
 }
 
 /**

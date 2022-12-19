@@ -166,8 +166,7 @@ declare global {
    *
    * @customConstructor CUIButton
    */
-  class XR_CUIButton extends XR_CUIStatic {
-  }
+  class XR_CUIButton extends XR_CUIStatic {}
 
   /**
    * C++ class CUI3tButton : CUIButton {
@@ -223,9 +222,7 @@ declare global {
    *
    * @customConstructor CUI3tButton
    */
-  class XR_CUI3tButton extends XR_CUIButton {
-
-  }
+  class XR_CUI3tButton extends XR_CUIButton {}
 
   /**
    *  C++ class CUICheckButton : CUI3tButton {
@@ -635,7 +632,8 @@ declare global {
     public _construct(): XR_CUIDialogWnd;
 
     public static OnKeyboard(
-      this: void, base: XR_CUIWindow,
+      this: void,
+      base: XR_CUIWindow,
       key: number,
       message: IXR_ui_events[keyof IXR_ui_events]
     ): boolean;
@@ -1156,8 +1154,7 @@ declare global {
    *
    *  @customConstructor CUIListBoxItemMsgChain
    */
-  class XR_CUIListBoxItemMsgChain extends XR_CUIListBoxItem {
-  }
+  class XR_CUIListBoxItemMsgChain extends XR_CUIListBoxItem {}
 
   /**
    * C++ class CUIMMShniaga : CUIWindow {
@@ -1901,8 +1898,7 @@ declare global {
    *
    * @customConstructor CUISpinText
    */
-  class XR_CUISpinText extends XR_CUICustomSpin {
-  }
+  class XR_CUISpinText extends XR_CUICustomSpin {}
 
   /**
    * C++ class CUIStatic : CUIWindow {
@@ -2027,8 +2023,7 @@ declare global {
    * @customConstructor CUITabButton
    */
 
-  class XR_CUITabButton extends XR_CUIButton {
-  }
+  class XR_CUITabButton extends XR_CUIButton {}
 
   /**
    *  C++ class CUITabControl : CUIWindow {
@@ -2087,23 +2082,23 @@ declare global {
    *
    *   @customConstructor CUITabControl
    */
-    class XR_CUITabControl extends XR_CUIWindow {
+  class XR_CUITabControl extends XR_CUIWindow {
 
-      public GetActiveId(): string;
+    public GetActiveId(): string;
 
-      public SetActiveTab(id: string): string;
+    public SetActiveTab(id: string): string;
 
-      public GetTabsCount(): number;
+    public GetTabsCount(): number;
 
-      public GetButtonById(value: string): XR_CUITabButton;
+    public GetButtonById(value: string): XR_CUITabButton;
 
-      public RemoveAll(): void;
+    public RemoveAll(): void;
 
-      public AddItem(item: XR_CUITabButton): void;
+    public AddItem(item: XR_CUITabButton): void;
 
-      public AddItem(id: string, name: string, a :XR_vector2, b: XR_vector2): void;
+    public AddItem(id: string, name: string, a: XR_vector2, b: XR_vector2): void;
 
-    }
+  }
 
   /**
    C++ class CUITextWnd : CUIWindow {
@@ -2230,5 +2225,4 @@ declare global {
 
   };
    */
-
 }

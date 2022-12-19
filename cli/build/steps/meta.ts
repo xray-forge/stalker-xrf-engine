@@ -4,10 +4,7 @@ import * as os from "os";
 
 import { default as chalk } from "chalk";
 
-import {
-  TARGET_GAME_DATA_DIR,
-  TARGET_GAME_DATA_METADATA_FILE
-} from "../globals";
+import { TARGET_GAME_DATA_DIR, TARGET_GAME_DATA_METADATA_FILE } from "../globals";
 
 import { Logger, readDirContent, TimeTracker } from "#/utils";
 
@@ -15,13 +12,10 @@ const log: Logger = new Logger("META");
 
 interface IBuildMetaParams {
   meta: Record<string, unknown>;
-  timeTracker: TimeTracker
+  timeTracker: TimeTracker;
 }
 
-export async function buildMeta({
-  meta,
-  timeTracker
-}: IBuildMetaParams): Promise<void> {
+export async function buildMeta({ meta, timeTracker }: IBuildMetaParams): Promise<void> {
   log.info("Build metadata");
 
   const buildMeta: Record<string, unknown> = { ...meta };
@@ -40,17 +34,19 @@ export async function buildMeta({
     fs.mkdirSync(TARGET_GAME_DATA_DIR);
   }
 
-  const builtFiles:Array<string> = (await readDirContent(TARGET_GAME_DATA_DIR)).reduce(collectFiles, []);
-  const assetsSizeBytes: number = (await Promise.all(builtFiles.map((it) => fsPromises.stat(it))))
-    .reduce((acc, it) => acc + it.size, 0);
+  const builtFiles: Array<string> = (await readDirContent(TARGET_GAME_DATA_DIR)).reduce(collectFiles, []);
+  const assetsSizeBytes: number = (await Promise.all(builtFiles.map((it) => fsPromises.stat(it)))).reduce(
+    (acc, it) => acc + it.size,
+    0
+  );
   const assetsSizesMegabytes: string = (assetsSizeBytes / 1024 / 1024).toFixed(3);
 
   log.info("Collecting gamedata meta:", chalk.yellowBright(TARGET_GAME_DATA_DIR));
   log.info("Collected files count:", builtFiles.length);
   log.info("Collected files size:", chalk.yellow(assetsSizesMegabytes), "MB");
 
-  buildMeta["built_took"] = (timeTracker.getDuration()) / 1000 + " SEC";
-  buildMeta["built_at"] = (new Date()).toLocaleString();
+  buildMeta["built_took"] = timeTracker.getDuration() / 1000 + " SEC";
+  buildMeta["built_at"] = new Date().toLocaleString();
   buildMeta["build_flags"] = process.argv;
   buildMeta["build_timings"] = getTimingsInfo(timeTracker);
 

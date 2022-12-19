@@ -37,16 +37,22 @@ export function Xr3tButton({
   textColor,
   stretch = true
 }: IXrButtonProps): JSXNode {
-  return JSXXML(tag, {
-    id,
-    x,
-    y,
-    width,
-    height,
-    stretch: stretch ? "1" : "0"
-  }, [
-    <text font={font} align={align}>{label}</text>,
-    <XrTexture id={texture}/>,
-    <XrTextColor textColor={textColor}/>
-  ]);
+  return JSXXML(
+    tag,
+    {
+      id,
+      x,
+      y,
+      width,
+      height,
+      stretch: stretch ? "1" : "0"
+    },
+    [
+      <text font={font} align={align}>
+        {label}
+      </text>,
+      <XrTexture id={texture} />,
+      <XrTextColor textColor={textColor} />
+    ]
+  );
 }

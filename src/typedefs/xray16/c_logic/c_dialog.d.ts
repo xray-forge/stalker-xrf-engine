@@ -1,7 +1,6 @@
 export {};
 
 declare global {
-
   /**
    C++ class CDialogHolder {
     function RemoveDialogToRender(CUIWindow*);
@@ -10,9 +9,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CPhraseScript {
     function SetScriptText(string);
@@ -31,9 +28,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CGameTask {
     CGameTask ();
@@ -84,25 +79,19 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class CPhrase {
     function GetPhraseScript();
 
   };
    */
-
   // todo;
-
   /**
    C++ class CPhraseDialog {
     function AddPhrase(string, string, string, number);
 
   };
    */
-
   // todo;
-
 }

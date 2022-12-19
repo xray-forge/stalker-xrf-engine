@@ -1,7 +1,6 @@
 export {};
 
 declare global {
-
   /**
    C++ class net_packet {
     net_packet ();
@@ -119,9 +118,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class SServerFilters {
     property empty;
@@ -135,9 +132,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class account_manager {
     function get_account_profiles(string, string, account_profiles_cb);
@@ -170,9 +165,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class ClientID {
     ClientID ();
@@ -185,9 +178,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class login_manager {
     function save_nick_to_registry(string);
@@ -224,9 +215,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
 
    C++ class GameGraph__LEVEL_MAP__value_type {
@@ -236,9 +225,7 @@ declare global {
   };
    *
    */
-
   // todo;
-
   /**
 
    C++ class MEMBERS__value_type {
@@ -248,9 +235,7 @@ declare global {
   };
    *
    */
-
   // todo;
-
   /**
 
    C++ class award_pair_t {
@@ -260,9 +245,7 @@ declare global {
   };
    *
    */
-
   // todo;
-
   /**
 
    C++ class best_scores_pair_t {
@@ -272,9 +255,7 @@ declare global {
   };
    *
    */
-
   // todo;
-
   /**
    C++ class account_profiles_cb {
     account_profiles_cb ();
@@ -286,9 +267,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class login_operation_cb {
     login_operation_cb ();
@@ -300,9 +279,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class account_operation_cb {
     account_operation_cb ();
@@ -314,9 +291,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class found_email_cb {
     found_email_cb ();
@@ -328,9 +303,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class store_operation_cb {
     store_operation_cb ();
@@ -342,9 +315,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
 
    C++ class Patch_Dawnload_Progress {
@@ -359,9 +330,7 @@ declare global {
   };
    *
    */
-
   // todo;
-
   /**
    C++ class profile_store {
     const at_award_massacre = 0;
@@ -385,9 +354,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class suggest_nicks_cb {
     suggest_nicks_cb ();
@@ -399,7 +366,5 @@ declare global {
 
   };
    */
-
   // todo;
-
 }

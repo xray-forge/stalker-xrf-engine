@@ -1,7 +1,6 @@
 export {};
 
 declare global {
-
   const CUIWindow: typeof XR_CUIWindow;
 
   const CUIDialogWnd: typeof XR_CUIDialogWnd;
@@ -63,5 +62,4 @@ declare global {
   const ui_events: IXR_ui_events;
 
   const DIK_keys: IXR_DIK_keys;
-
 }

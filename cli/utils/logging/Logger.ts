@@ -86,8 +86,10 @@ export class Logger {
   private logAs(method: string, args: Array<unknown>): void {
     if (this.isEnabled) {
       const date: Date = new Date();
-      const timestamp: string = `${date.toLocaleTimeString("en-GB")}:${
-        String(date.getMilliseconds()).padStart(3, "0")}`;
+      const timestamp: string = `${date.toLocaleTimeString("en-GB")}:${String(date.getMilliseconds()).padStart(
+        3,
+        "0"
+      )}`;
 
       if (Logger.IS_CONSOLE_ENABLED) {
         console[method](`${timestamp} ${chalk.green(this.prefix)}`, ...args);

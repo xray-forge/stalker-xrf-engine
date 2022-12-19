@@ -25,4 +25,3 @@ export const captions = {
   ui_mm_master: "ui_mm_master",
   ui_mm_cancel: "ui_mm_cancel"
 };
-

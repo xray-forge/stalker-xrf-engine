@@ -5,5 +5,5 @@ export enum EDebugSection {
   SOUND = "sound",
   SPAWN = "spawn",
   UI = "ui",
-  WORLD = "world",
+  WORLD = "world"
 }

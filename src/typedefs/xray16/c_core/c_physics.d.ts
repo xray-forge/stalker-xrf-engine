@@ -1,7 +1,6 @@
 export {};
 
 declare global {
-
   /**
    C++ class physics_element {
     function get_density();
@@ -28,9 +27,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class physics_joint {
     function set_limits(number, number, number);
@@ -75,9 +72,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class physics_shell {
     function get_joints_number();
@@ -112,9 +107,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class physics_world {
     function set_gravity(number);
@@ -125,27 +118,21 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
    C++ class ICollidable {
     ICollidable ();
 
   };
    */
-
   // todo;
-
   /**
    C++ class IKinematicsAnimated {
     function PlayCycle(IKinematicsAnimated*, string);
 
   };
    */
-
   // todo;
-
   /**
    C++ class particles_object {
     particles_object (string);
@@ -174,9 +161,7 @@ declare global {
 
   };
    */
-
   // todo;
-
   /**
 
    C++ class hit_memory_object : entity_memory_object {
@@ -193,7 +178,5 @@ declare global {
   };
    *
    */
-
   // todo;
-
 }

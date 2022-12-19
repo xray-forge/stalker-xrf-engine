@@ -13,7 +13,7 @@ interface IXrTextProps {
 /**
  * Generic component for text rendering.
  */
-export function XrText({ tag= "text", font, align, label }: IXrTextProps): JSXNode {
+export function XrText({ tag = "text", font, align, label }: IXrTextProps): JSXNode {
   return JSXXML(
     tag,
     {

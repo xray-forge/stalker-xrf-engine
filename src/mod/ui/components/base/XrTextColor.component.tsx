@@ -12,7 +12,7 @@ interface IXrTextColorProps {
 export function XrTextColor({ textColor: { r, g, b } }: IXrTextColorProps): JSXNode {
   return (
     <text_color>
-      <e r={r} g={g} b={b}/>
+      <e r={r} g={g} b={b} />
     </text_color>
   );
 }
