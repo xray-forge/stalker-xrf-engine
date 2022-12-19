@@ -1,20 +1,17 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 import { TTextureId } from "@/mod/globals/textures";
+import { IBaseXmlNode } from "@/mod/lib/types";
 import { XrTexture } from "@/mod/ui/components/base/XrTexture.component";
 
-interface IXrStaticProps {
+interface IXrStaticProps extends IBaseXmlNode {
   id?: string;
   /**
    * Enable custom tag name for button elements.
    */
-  tag: "auto_static" | "dialog";
-  x: number;
-  y: number;
-  height: number;
-  width: number;
+  tag?: string;
   stretch?: boolean;
-  texture: TTextureId;
+  texture?: TTextureId;
   children?: JSXNode;
 }
 
@@ -22,7 +19,7 @@ interface IXrStaticProps {
  * Generic component for rendering dialogs background.
  */
 export function XrStatic({
-  tag,
+  tag = "auto_static",
   id,
   x,
   y,
@@ -40,7 +37,7 @@ export function XrStatic({
     height,
     stretch: stretch ? "1" : "0"
   }, [
-    <XrTexture id={texture}/>,
+    texture ? <XrTexture id={texture}/> : null,
     children
   ]);
 }

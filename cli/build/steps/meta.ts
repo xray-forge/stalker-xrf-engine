@@ -10,7 +10,7 @@ import {
 
 import { Logger, readDirContent } from "#/utils";
 
-const log: Logger = new Logger("os_META");
+const log: Logger = new Logger("META");
 
 interface IBuildMetaParams {
   meta: Record<string, unknown>;

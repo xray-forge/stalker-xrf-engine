@@ -1,14 +1,6 @@
 local __TS__New = require("lualib_bundle").__TS__New
-local UiDevDebugDialog = require("scripts.debug_tools.UiDevDebugDialog").UiDevDebugDialog
+local DevDebugDialog = require("scripts.ui.debug.DevDebugDialog").DevDebugDialog
 local DebugLogger = require("scripts.debug_tools.DebugLogger").DebugLogger
-
--- File:        UI_MAIN_MENU.SCRIPT
--- Description: Load Dialog for STALKER
--- Created:     28.10.2004
--- Lasd edit:  18.01.2006
--- Copyright:   2004 GSC Game World
--- Author:      Serhiy Vynnychenko (narrator@gsc-game.kiev.ua)
--- Version:     0.9
 
 local log = __TS__New(DebugLogger, "ui_main_menu")
 
@@ -250,7 +242,7 @@ function main_menu:OnButton_dev_debug_dialog()
   log:info("Activating debug settings view");
 
   if self.dev_debug_dialog == nil then
-    self.dev_debug_dialog = UiDevDebugDialog();
+    self.dev_debug_dialog = DevDebugDialog();
     self.dev_debug_dialog.owner = self
   end
 

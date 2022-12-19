@@ -298,73 +298,101 @@ declare global {
   }
 
   /**
-   C++ class CUIComboBox : CUIWindow {
-    CUIComboBox ();
-
-    function ClearList();
-
-    function SetWindowName(string);
-
-    function GetWndPos(CUIWindow*);
-
-    function SetText(string);
-
-    function enable_id(number);
-
-    function SetWndSize(vector2);
-
-    function AddItem(string, number);
-
-    function GetText();
-
-    function SetAutoDelete(boolean);
-
-    function SetListLength(number);
-
-    function CurrentID();
-
-    function GetTextOf(number);
-
-    function AttachChild(CUIWindow*);
-
-    function Enable(boolean);
-
-    function SetWndPos(vector2);
-
-    function SetCurrentValue();
-
-    function SetVertScroll(boolean);
-
-    function DetachChild(CUIWindow*);
-
-    function SetPPMode();
-
-    function WindowName();
-
-    function IsShown();
-
-    function SetWndRect(Frect);
-
-    function Show(boolean);
-
-    function GetHeight() const;
-
-    function GetWidth() const;
-
-    function disable_id(number);
-
-    function IsEnabled();
-
-    function ResetPPMode();
-
-    function SetCurrentID(number);
-
-    function IsAutoDelete();
-
-  };
+   * C++ class CUIComboBox : CUIWindow {
+   *     CUIComboBox ();
+   *
+   *     function ClearList();
+   *
+   *     function SetWindowName(string);
+   *
+   *     function GetWndPos(CUIWindow*);
+   *
+   *     function SetText(string);
+   *
+   *     function enable_id(number);
+   *
+   *     function SetWndSize(vector2);
+   *
+   *     function AddItem(string, number);
+   *
+   *     function GetText();
+   *
+   *     function SetAutoDelete(boolean);
+   *
+   *     function SetListLength(number);
+   *
+   *     function CurrentID();
+   *
+   *     function GetTextOf(number);
+   *
+   *     function AttachChild(CUIWindow*);
+   *
+   *     function Enable(boolean);
+   *
+   *     function SetWndPos(vector2);
+   *
+   *     function SetCurrentValue();
+   *
+   *     function SetVertScroll(boolean);
+   *
+   *     function DetachChild(CUIWindow*);
+   *
+   *     function SetPPMode();
+   *
+   *     function WindowName();
+   *
+   *     function IsShown();
+   *
+   *     function SetWndRect(Frect);
+   *
+   *     function Show(boolean);
+   *
+   *     function GetHeight() const;
+   *
+   *     function GetWidth() const;
+   *
+   *     function disable_id(number);
+   *
+   *     function IsEnabled();
+   *
+   *     function ResetPPMode();
+   *
+   *     function SetCurrentID(number);
+   *
+   *     function IsAutoDelete();
+   *
+   *   };
+   *
+   *   @customConstructor CUIComboBox
    */
 
-  // todo;
+  class XR_CUIComboBox extends XR_CUIWindow {
+
+    public ClearList(): void;
+
+    public SetText(text: string): void;
+
+    public enable_id(id: number): void;
+
+    public AddItem(label: string, id: number): void;
+
+    public GetText(): string;
+
+    public SetListLength(length: number): void;
+
+    public CurrentID(): string;
+
+    public GetTextOf(id: number): string;
+
+    public SetCurrentValue(): void;
+
+    public SetVertScroll(enabled: boolean): void;
+
+    public disable_id(id: number): void;
+
+    public SetCurrentID(id: number): void;
+
+  }
 
   /**
    C++ class CUICustomEdit : CUIWindow {
@@ -595,7 +623,13 @@ declare global {
 
     public _construct(): XR_CUIDialogWnd;
 
-    public OnKeyboard(key: number, message: unknown /* enum EUIMessages todo*/): void;
+    public static OnKeyboard(
+      this: void, base: XR_CUIWindow,
+      key: number,
+      message: IXR_ui_events[keyof IXR_ui_events]
+    ): boolean;
+
+    public OnKeyboard(key: number, message: IXR_ui_events[keyof IXR_ui_events]): boolean;
 
     public Update(): void;
 
@@ -1932,62 +1966,79 @@ declare global {
   }
 
   /**
-   C++ class CUITabControl : CUIWindow {
-    CUITabControl ();
-
-    function SetWindowName(string);
-
-    function GetWndPos(CUIWindow*);
-
-    function SetAutoDelete(boolean);
-
-    function GetActiveId();
-
-    function SetActiveTab(string);
-
-    function GetTabsCount() const;
-
-    function AttachChild(CUIWindow*);
-
-    function GetButtonById(string);
-
-    function SetWndPos(vector2);
-
-    function RemoveAll();
-
-    function AddItem(CUITabButton*);
-    function AddItem(string, string, vector2, vector2);
-
-    function DetachChild(CUIWindow*);
-
-    function SetPPMode();
-
-    function WindowName();
-
-    function IsShown();
-
-    function SetWndRect(Frect);
-
-    function Show(boolean);
-
-    function GetHeight() const;
-
-    function GetWidth() const;
-
-    function SetWndSize(vector2);
-
-    function IsEnabled();
-
-    function ResetPPMode();
-
-    function Enable(boolean);
-
-    function IsAutoDelete();
-
-  };
+   *  C++ class CUITabControl : CUIWindow {
+   *     CUITabControl ();
+   *
+   *     function SetWindowName(string);
+   *
+   *     function GetWndPos(CUIWindow*);
+   *
+   *     function SetAutoDelete(boolean);
+   *
+   *     function GetActiveId();
+   *
+   *     function SetActiveTab(string);
+   *
+   *     function GetTabsCount() const;
+   *
+   *     function AttachChild(CUIWindow*);
+   *
+   *     function GetButtonById(string);
+   *
+   *     function SetWndPos(vector2);
+   *
+   *     function RemoveAll();
+   *
+   *     function AddItem(CUITabButton*);
+   *     function AddItem(string, string, vector2, vector2);
+   *
+   *     function DetachChild(CUIWindow*);
+   *
+   *     function SetPPMode();
+   *
+   *     function WindowName();
+   *
+   *     function IsShown();
+   *
+   *     function SetWndRect(Frect);
+   *
+   *     function Show(boolean);
+   *
+   *     function GetHeight() const;
+   *
+   *     function GetWidth() const;
+   *
+   *     function SetWndSize(vector2);
+   *
+   *     function IsEnabled();
+   *
+   *     function ResetPPMode();
+   *
+   *     function Enable(boolean);
+   *
+   *     function IsAutoDelete();
+   *
+   *   };
+   *
+   *   @customConstructor CUITabControl
    */
+    class XR_CUITabControl extends XR_CUIWindow {
 
-  // todo;
+      public GetActiveId(): string;
+
+      public SetActiveTab(id: string): string;
+
+      public GetTabsCount(): number;
+
+      public GetButtonById(value: string): XR_CUITabButton;
+
+      public RemoveAll(): void;
+
+      public AddItem(item: XR_CUITabButton): void;
+
+      public AddItem(id: string, name: string, a :XR_vector2, b: XR_vector2): void;
+
+    }
 
   /**
    C++ class CUITextWnd : CUIWindow {

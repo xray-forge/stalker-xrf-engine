@@ -2,20 +2,16 @@ import { JSXNode, JSXXML } from "jsx-xml";
 
 import { TFontId } from "@/mod/globals/fonts";
 import { TTextureId } from "@/mod/globals/textures";
-import { IRgbColor, TTextAlign } from "@/mod/lib/types";
+import { IBaseXmlNode, IRgbColor, TTextAlign } from "@/mod/lib/types";
 import { XrTextColor } from "@/mod/ui/components/base/XrTextColor.component";
 import { XrTexture } from "@/mod/ui/components/base/XrTexture.component";
 
-interface IXrButtonProps {
+interface IXrButtonProps extends IBaseXmlNode {
   id?: string;
   /**
    * Enable custom tag name for button elements.
    */
   tag?: string;
-  x: number;
-  y: number;
-  height: number;
-  width: number;
   label: string;
   font: TFontId;
   textColor: IRgbColor;

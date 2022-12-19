@@ -252,11 +252,6 @@ export const textures = {
   ui_mp_icon_kill: "ui_mp_icon_kill",
   ui_mp_main: "ui_mp_main",
   ui_mp_skin_select_anim: "ui_mp_skin_select_anim",
-  ui_noise_00: "ui_noise_00",
-  ui_noise_01: "ui_noise_01",
-  ui_noise_02: "ui_noise_02",
-  ui_noise_03: "ui_noise_03",
-  ui_noise_04: "ui_noise_04",
   ui_nomap: "ui_nomap",
   ui_nomap2: "ui_nomap2",
   ui_npc_monster: "ui_npc_monster",
@@ -301,4 +296,4 @@ export const textures = {
 
 export type TTextures = typeof textures;
 
-export type TTextureId = keyof TTextures;
+export type TTextureId = TTextures[keyof TTextures];

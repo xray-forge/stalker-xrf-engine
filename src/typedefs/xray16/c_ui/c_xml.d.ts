@@ -70,7 +70,7 @@ declare global {
 
     public InitSpinText(value: string, window: XR_CUIWindow): unknown;
 
-    public InitTab(value: string, window: XR_CUIWindow): XR_CUITabButton;
+    public InitTab(value: string, window: XR_CUIWindow): XR_CUITabControl;
 
     public InitStatic(element: string, window: XR_CUIWindow): XR_CUIStatic;
 
@@ -96,7 +96,7 @@ declare global {
 
     public InitMMShniaga(value: string, window: XR_CUIWindow): unknown;
 
-    public InitWindow(value: string, another: number, window: XR_CUIWindow): unknown;
+    public InitWindow(value: string, index: number, window: XR_CUIWindow): unknown;
 
     public InitEditBox(value: string, window: XR_CUIWindow): unknown;
 
@@ -112,7 +112,7 @@ declare global {
 
     public InitServerList(value: string, window: XR_CUIWindow): unknown;
 
-    public InitComboBox(value: string, window: XR_CUIWindow): unknown;
+    public InitComboBox(value: string, window: XR_CUIWindow): XR_CUIComboBox;
 
     public InitFrameLine(value: string, window: XR_CUIWindow): unknown;
 

@@ -2,18 +2,14 @@ import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
 import { TFontId } from "@/mod/globals/fonts";
 import { textures } from "@/mod/globals/textures";
-import { IRgbColor } from "@/mod/lib/types";
+import { IBaseXmlNode, IRgbColor } from "@/mod/lib/types";
 import { XrStatic } from "@/mod/ui/components/base/XrStatic.component";
 import { XrTabButton } from "@/mod/ui/components/base/XrTabButton.component";
 import { XrText } from "@/mod/ui/components/base/XrText.component";
 import { XrTextColor } from "@/mod/ui/components/base/XrTextColor.component";
 
-interface IXrTabProps {
+interface IXrTabProps extends IBaseXmlNode {
   id?: string;
-  x: number;
-  y: number;
-  width: number;
-  height?: number;
   font: TFontId;
   textColor: IRgbColor;
   tabs: Array<{ id: string, label: string }>

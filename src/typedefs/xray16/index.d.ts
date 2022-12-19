@@ -36,6 +36,8 @@ declare global {
 
   const CUITabButton: typeof XR_CUITabButton;
 
+  const CUITabControl: typeof XR_CUITabControl;
+
   const vector2: typeof XR_vector2;
 
   const Frect: () => XR_FRect;

@@ -116,16 +116,16 @@ function options_dialog:UpdateDependControls()
 	for i,j in pairs(self.m_preconditions) do
 		j		(i, _current_id, _ssample_trb_val, _ssample_cb_val)
 	end
-	
+
 	local max_texture_lod	= 	4
 	local min_texture_lod	= 	0
-	
+
 	if _current_id ~= 0 then
 		if not is_enough_address_space_available()	then
 			min_texture_lod = 1
 		end
 	end
-	
+
 	self.texture_lod_track:SetOptIBounds(min_texture_lod, max_texture_lod)
 end
 

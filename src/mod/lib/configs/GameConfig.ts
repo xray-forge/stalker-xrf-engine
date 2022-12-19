@@ -24,6 +24,13 @@ export const gameConfig = {
     GLOBAL_LOG_PREFIX: "[XRTS-DL]"
   },
   /**
+   * Base sizing for templates in UI.
+   */
+  UI: {
+    BASE_WIDTH: 1024,
+    BASE_HEIGHT: 768
+  },
+  /**
    * Whether game intros are enabled.
    */
   ARE_INTRO_VIDEOS_ENABLED: false

@@ -42,7 +42,7 @@ export async function buildDynamicScripts(): Promise<void> {
   const startedAt: number = Date.now();
   const scriptsExtension: string = "script";
   const result = tstl.transpileProject(BUILD_LUA_TSCONFIG, {
-    noHeader: true,
+    noHeader: false,
     tstlVerbose: false
     // Issues of builder: breaks module resolution
     // extension: "script"
@@ -51,7 +51,7 @@ export async function buildDynamicScripts(): Promise<void> {
   if (result.diagnostics?.length) {
     log.warn(chalk.redBright("Lua build issues:"));
 
-    result.diagnostics.forEach((it) => log.error(chalk.red("Lua issue:"), it.category, it.messageText));
+    result.diagnostics.forEach((it) => log.error(chalk.red("Lua issue:"), it.code, it.category, it.messageText));
 
     throw new Error(`Build failed, got ${result.diagnostics.length} lua issues.`);
   }
