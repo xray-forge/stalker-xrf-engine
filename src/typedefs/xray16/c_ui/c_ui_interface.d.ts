@@ -28,7 +28,6 @@ declare global {
    * @customConstructor CUIWindow
    */
   class XR_CUIWindow extends XR_LuaBindBase {
-
     public IsShown(): boolean;
     public IsEnabled(): boolean;
     public IsAutoDelete(): boolean;
@@ -50,7 +49,6 @@ declare global {
     public WindowName(): unknown;
     public ResetPPMode(): unknown;
     public Show(this: any, value: boolean): unknown;
-
   }
 
   /**
@@ -285,13 +283,11 @@ declare global {
    * @customConstructor CUICheckButton
    */
   class XR_CUICheckButton extends XR_CUI3tButton {
-
     public SetCheck(value: boolean): void;
 
     public GetCheck(): boolean;
 
     public SetDependControl(window: XR_CUIWindow): void;
-
   }
 
   /**
@@ -364,7 +360,6 @@ declare global {
    */
 
   class XR_CUIComboBox extends XR_CUIWindow {
-
     public ClearList(): void;
 
     public SetText(text: string): void;
@@ -388,7 +383,6 @@ declare global {
     public disable_id(id: number): void;
 
     public SetCurrentID(id: number): void;
-
   }
 
   /**
@@ -442,7 +436,6 @@ declare global {
    *  @customConstructor CUICustomEdit
    */
   class XR_CUICustomEdit extends XR_CUIWindow {
-
     public SetText(text: string): void;
 
     public SetNextFocusCapturer(edit: XR_CUICustomEdit): void;
@@ -450,7 +443,6 @@ declare global {
     public GetText(): string;
 
     public CaptureFocus(value: boolean): void;
-
   }
 
   /**
@@ -498,9 +490,7 @@ declare global {
    * @customConstructor CUICustomSpin
    */
   class XR_CUICustomSpin extends XR_CUIWindow {
-
     public GetText(): unknown;
-
   }
 
   /**
@@ -553,13 +543,11 @@ declare global {
    */
 
   class XR_CUIDialogWnd extends XR_CUIWindow {
-
     public HideDialog(): void;
 
     public ShowDialog(value: boolean): void;
 
     public GetHolder(): unknown;
-
   }
 
   /**
@@ -628,7 +616,6 @@ declare global {
    */
 
   class XR_CUIScriptWnd extends XR_CUIDialogWnd {
-
     public _construct(): XR_CUIDialogWnd;
 
     public static OnKeyboard(
@@ -649,7 +636,6 @@ declare global {
     public Register(window: XR_CUIWindow, name: string): void;
 
     public Load(value: string): unknown;
-
   }
 
   /**
@@ -707,9 +693,7 @@ declare global {
    *  @customConstructor CUIEditBox
    */
   class XR_CUIEditBox extends XR_CUICustomEdit {
-
     public InitTexture(textureId: string): void;
-
   }
 
   /**
@@ -767,9 +751,7 @@ declare global {
    *  @customConstructor CUIEditBoxEx
    */
   class XR_CUIEditBoxEx extends XR_CUICustomEdit {
-
     public InitTexture(textureId: string): void;
-
   }
 
   /**
@@ -823,13 +805,11 @@ declare global {
    * @customConstructor CUIFrameLineWnd
    */
   class XR_CUIFrameLineWnd extends XR_CUIWindow {
-
     public SetHeight(value: number): unknown;
 
     public SetColor(value: number): unknown;
 
     public SetWidth(value: number): unknown;
-
   }
 
   /**
@@ -903,7 +883,6 @@ declare global {
    */
 
   class XR_CUILines {
-
     public GetText(): string;
 
     public SetTextST(value: string): void;
@@ -912,10 +891,13 @@ declare global {
 
     public SetText(value: string): void;
 
+    /**
+     * Expects C pointer to the file.
+     * String enums or constants will not work.
+     */
     public SetFont(value: unknown): void;
 
     public SetElipsis(value: boolean): void;
-
   }
 
   /**
@@ -1001,7 +983,6 @@ declare global {
    * @customConstructor CUIListBox
    */
   class XR_CUIListBox extends XR_CUIScrollView {
-
     public AddExistingItem(item: XR_CUIListBoxItem): unknown;
 
     public AddTextItem(text: string): unknown;
@@ -1021,7 +1002,6 @@ declare global {
     public ShowSelectedItem(value: boolean): unknown;
 
     public GetItem(index: number): unknown;
-
   }
 
   /**
@@ -1083,7 +1063,6 @@ declare global {
    * @customConstructor CUIListBoxItem
    */
   class XR_CUIListBoxItem extends XR_CUIFrameLineWnd {
-
     public constructor(index: number);
 
     public AddIconField(value: number): unknown;
@@ -1093,7 +1072,6 @@ declare global {
     public AddTextField(value1: string, value2: number): unknown;
 
     public GetTextItem(): unknown;
-
   }
 
   /**
@@ -1209,7 +1187,6 @@ declare global {
    *  @customConstructor CUIMMShniaga
    */
   class XR_CUIMMShniaga extends XR_CUIWindow {
-
     public static epi_main: 0;
     public static epi_new_game: 1;
     public static epi_new_network_game: 2;
@@ -1219,7 +1196,6 @@ declare global {
     public SetPage(pageId: number, a: string, b: string): void;
 
     public SetVisibleMagnifier(isVisible: boolean): void;
-
   }
 
   /**
@@ -1342,7 +1318,6 @@ declare global {
    *  @customConstructor CUIMapList
    */
   class XR_CUIMapList extends XR_CUIWindow {
-
     public IsEmpty(): boolean;
 
     public StartDedicatedServer(): void;
@@ -1368,7 +1343,6 @@ declare global {
     public SetServerParams(params: string): void;
 
     public SetWeatherSelector(selector: XR_CUIComboBox): void;
-
   }
 
   /**
@@ -1493,7 +1467,6 @@ declare global {
    * @customConstructor CUIMessageBoxEx
    */
   class XR_CUIMessageBoxEx extends XR_CUIDialogWnd {
-
     public InitMessageBox(value: string): void;
 
     public SetText(text: string): void;
@@ -1501,7 +1474,6 @@ declare global {
     public GetPassword(): string;
 
     public GetHost(): unknown;
-
   }
 
   /**
@@ -1682,7 +1654,6 @@ declare global {
    * @customConstructor CUIScrollView
    */
   class XR_CUIScrollView extends XR_CUIWindow {
-
     public SetScrollPos(position: number): unknown;
 
     public RemoveWindow(window: XR_CUIWindow): unknown;
@@ -1700,7 +1671,6 @@ declare global {
     public ScrollToEnd(): unknown;
 
     public Clear(): unknown;
-
   }
 
   /**
@@ -1955,7 +1925,6 @@ declare global {
    * @customConstructor CUIStatic
    */
   class XR_CUIStatic extends XR_CUIWindow {
-
     public TextControl(): XR_CUILines;
 
     public GetTextureRect(): unknown;
@@ -1965,7 +1934,6 @@ declare global {
     public SetTextureRect(frect: XR_FRect): unknown;
 
     public InitTexture(value: string): unknown;
-
   }
 
   /**
@@ -2083,7 +2051,6 @@ declare global {
    *   @customConstructor CUITabControl
    */
   class XR_CUITabControl extends XR_CUIWindow {
-
     public GetActiveId(): string;
 
     public SetActiveTab(id: string): string;
@@ -2097,7 +2064,6 @@ declare global {
     public AddItem(item: XR_CUITabButton): void;
 
     public AddItem(id: string, name: string, a: XR_vector2, b: XR_vector2): void;
-
   }
 
   /**

@@ -1,7 +1,6 @@
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 
 export class DebugLogger {
-
   protected prefix: string;
   protected isEnabled: boolean;
 
@@ -37,5 +36,4 @@ export class DebugLogger {
       }
     }
   }
-
 }

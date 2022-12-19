@@ -1,4 +1,3 @@
-import { fonts } from "@/mod/globals/fonts";
 import { textures } from "@/mod/globals/textures";
 import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
 
@@ -9,9 +8,12 @@ export interface IDevDebugUiSection extends XR_CUIWindow {
   owner: XR_CUIScriptWnd;
 
   section: XR_CUIStatic;
-  fontsList: XR_CUIComboBox;
+
   texturesList: XR_CUIComboBox;
-  texturesListDisplay: XR_CUIStatic;
+  texturesListLineDisplay: XR_CUIStatic;
+  texturesListSquareBigDisplay: XR_CUIStatic;
+  texturesListSquareMediumDisplay: XR_CUIStatic;
+  texturesListSquareSmallDisplay: XR_CUIStatic;
 
   __init(): void;
 
@@ -48,11 +50,12 @@ export const DevDebugUiSection: IDevDebugUiSection = declare_xr_class("DevDebugU
 
     this.section = xml.InitStatic("section", this);
     this.texturesList = xml.InitComboBox("section:textures_list", this.section);
-    this.texturesListDisplay = xml.InitStatic("section:textures_picture", this.section);
-    this.fontsList = xml.InitComboBox("section:fonts_list", this.section);
+    this.texturesListSquareBigDisplay = xml.InitStatic("section:textures_picture_square_big", this.section);
+    this.texturesListSquareMediumDisplay = xml.InitStatic("section:textures_picture_square_medium", this.section);
+    this.texturesListSquareSmallDisplay = xml.InitStatic("section:textures_picture_square_small", this.section);
+    this.texturesListLineDisplay = xml.InitStatic("section:textures_picture_line", this.section);
 
     this.owner.Register(this.texturesList, "textures_list");
-    this.owner.Register(this.fontsList, "fonts_list");
   },
   InitCallBacks(): void {
     log.info("Init callbacks");
@@ -66,21 +69,15 @@ export const DevDebugUiSection: IDevDebugUiSection = declare_xr_class("DevDebugU
     Object.values(textures).forEach((it, index) => {
       this.texturesList.AddItem(it, index + 1);
     });
-
-    Object.values(fonts).forEach((it, index) => {
-      this.fontsList.AddItem(it, index + 1);
-    });
-  },
-  onFontListChange(): void {
-    const font: string = this.fontsList.GetText();
-
-    log.info("Change font to:", font);
   },
   onTextureListChange(): void {
-    const texture: string = this.texturesList.GetText();
+    const texture: string = "ui\\" + this.texturesList.GetText();
 
     log.info("Change texture to:", texture, " # ", this.texturesList.CurrentID());
 
-    this.texturesListDisplay.InitTexture(texture);
+    this.texturesListSquareBigDisplay.InitTexture(texture);
+    this.texturesListSquareMediumDisplay.InitTexture(texture);
+    this.texturesListSquareSmallDisplay.InitTexture(texture);
+    this.texturesListLineDisplay.InitTexture(texture);
   }
 } as IDevDebugUiSection);

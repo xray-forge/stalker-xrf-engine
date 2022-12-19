@@ -39,6 +39,6 @@ export function XrStatic({
       height,
       stretch: stretch ? "1" : "0"
     },
-    [ texture ? <XrTexture id={texture} /> : null, children ]
+    [texture ? <XrTexture id={texture} /> : null, children]
   );
 }

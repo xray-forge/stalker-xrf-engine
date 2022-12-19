@@ -9,7 +9,7 @@ import { Logger, readDirContent } from "#/utils";
 import { renderJsxToXmlText } from "#/utils/xml";
 
 const log: Logger = new Logger("BUILD_UI_STATIC");
-const EXPECTED_STATIC_XML_EXTENSIONS: Array<string> = [ ".xml" ];
+const EXPECTED_STATIC_XML_EXTENSIONS: Array<string> = [".xml"];
 
 export async function buildStaticUi(): Promise<void> {
   log.info("Copy static UI schemas");
@@ -20,7 +20,7 @@ export async function buildStaticUi(): Promise<void> {
     } else if (EXPECTED_STATIC_XML_EXTENSIONS.includes(path.extname(it))) {
       const to: string = it.slice(GAME_DATA_UI_DIR.length);
 
-      acc.push([ it, path.join(TARGET_GAME_DATA_UI_DIR, to) ]);
+      acc.push([it, path.join(TARGET_GAME_DATA_UI_DIR, to)]);
     }
 
     return acc;
@@ -34,7 +34,7 @@ export async function buildStaticUi(): Promise<void> {
     /**
      * Sync way for folder creation when needed.
      */
-    xmlConfigs.forEach(([ from, to ]) => {
+    xmlConfigs.forEach(([from, to]) => {
       const targetDir: string = path.dirname(to);
 
       if (!fs.existsSync(targetDir)) {
@@ -44,7 +44,7 @@ export async function buildStaticUi(): Promise<void> {
     });
 
     await Promise.all(
-      xmlConfigs.map(([ from, to ]) => {
+      xmlConfigs.map(([from, to]) => {
         log.info("CP:", chalk.yellow(to));
 
         return fsPromises.copyFile(from, to);

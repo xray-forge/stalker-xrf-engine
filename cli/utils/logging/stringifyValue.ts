@@ -3,18 +3,17 @@
  */
 export function stringifyValue(value: unknown): string {
   const references: Array<unknown> = [];
-
-  return typeof value === "object"
-    ? JSON.stringify(value, (key, value) => {
-      if (typeof value === "object" && value !== null) {
-        if (references.includes(value)) {
-          return "~circular~";
-        }
-
-        references.push(value);
+  const replacer = (key, value) => {
+    if (typeof value === "object" && value !== null) {
+      if (references.includes(value)) {
+        return "~circular~";
       }
 
-      return value;
-    })
-    : String(value);
+      references.push(value);
+    }
+
+    return value;
+  };
+
+  return typeof value === "object" ? JSON.stringify(value, replacer) : String(value);
 }

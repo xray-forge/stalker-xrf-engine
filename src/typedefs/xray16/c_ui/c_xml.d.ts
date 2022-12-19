@@ -66,7 +66,6 @@ declare global {
    * @customConstructor CScriptXmlInit
    */
   class XR_CScriptXmlInit {
-
     public InitSpinText(value: string, window: XR_CUIWindow): unknown;
 
     public InitTab(value: string, window: XR_CUIWindow): XR_CUITabControl;
@@ -120,6 +119,5 @@ declare global {
     public InitAnimStatic(value: string, window: XR_CUIWindow): unknown;
 
     public InitFrame(value: string, window: XR_CUIWindow): unknown;
-
   }
 }

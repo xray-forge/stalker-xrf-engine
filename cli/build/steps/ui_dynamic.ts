@@ -11,7 +11,7 @@ import { Logger, readDirContent } from "#/utils";
 import { renderJsxToXmlText } from "#/utils/xml";
 
 const log: Logger = new Logger("BUILD_UI_DYNAMIC");
-const EXPECTED_DYNAMIC_XML_EXTENSIONS: Array<string> = [ ".tsx", ".ts" ];
+const EXPECTED_DYNAMIC_XML_EXTENSIONS: Array<string> = [".tsx", ".ts"];
 
 export async function buildDynamicUi(): Promise<void> {
   log.info("Build dynamic UI schemas");
@@ -25,7 +25,7 @@ export async function buildDynamicUi(): Promise<void> {
     } else if (EXPECTED_DYNAMIC_XML_EXTENSIONS.includes(path.extname(it))) {
       const to: string = it.slice(GAME_DATA_UI_DIR.length).replace(/\.[^/.]+$/, "") + ".xml";
 
-      acc.push([ it, path.join(TARGET_GAME_DATA_UI_DIR, to) ]);
+      acc.push([it, path.join(TARGET_GAME_DATA_UI_DIR, to)]);
     }
 
     return acc;
@@ -42,7 +42,7 @@ export async function buildDynamicUi(): Promise<void> {
     /**
      * Sync way for folder creation when needed.
      */
-    xmlConfigs.forEach(([ from, to ]) => {
+    xmlConfigs.forEach(([from, to]) => {
       const targetDir: string = path.dirname(to);
 
       if (!fs.existsSync(targetDir)) {
@@ -54,7 +54,7 @@ export async function buildDynamicUi(): Promise<void> {
     let processedXmlConfigs: number = 0;
 
     await Promise.all(
-      xmlConfigs.map(async ([ from, to ]) => {
+      xmlConfigs.map(async ([from, to]) => {
         // eslint-disable-next-line @typescript-eslint/no-var-requires
         const xmlSource = require(from);
         const xmlContent = typeof xmlSource?.create === "function" && xmlSource?.IS_XML && xmlSource?.create();

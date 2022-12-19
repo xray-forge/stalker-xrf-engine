@@ -23,7 +23,6 @@ declare global {
    * todo: Correct signatures.
    */
   class XR_LuaBindBase {
-
     public static __init(this: void, ...args: Array<any>): void;
     public static __finalize(this: void): void;
 
@@ -43,7 +42,6 @@ declare global {
     public __mul(): void;
     public __sub(): void;
     public __add(): void;
-
   }
 
   /**
@@ -55,10 +53,8 @@ declare global {
    * @customConstructor memory_object
    */
   class XR_MemoryObject extends XR_LuaBindBase {
-
     public last_level_time: number;
     public level_time: number;
-
   }
 
   /**
@@ -72,12 +68,10 @@ declare global {
    * };
    */
   class XR_EntityMemoryObject extends XR_MemoryObject {
-
     public object_info: unknown;
     public self_info: unknown;
 
     public object(entity_memory_object: XR_MemoryObject): void;
-
   }
 
   /**
@@ -91,12 +85,10 @@ declare global {
    * };
    */
   class XR_GameMemoryObject extends XR_MemoryObject {
-
     public object_info: unknown;
     public self_info: unknown;
 
     public object(entity_memory_object: XR_MemoryObject): XR_MemoryObject;
-
   }
 
   /**
@@ -219,9 +211,7 @@ declare global {
   };
    */
   class XR_DLL_Pure {
-
     public _construct(): void;
-
   }
 
   /**

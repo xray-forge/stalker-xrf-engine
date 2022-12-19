@@ -10,7 +10,7 @@ import { GAME_DATA_CONFIGS_DIR, TARGET_GAME_DATA_CONFIGS_DIR } from "#/build/glo
 import { Logger, readDirContent } from "#/utils";
 
 const log: Logger = new Logger("BUILD_CONFIGS_STATICS");
-const EXPECTED_CONFIG_EXTENSIONS: Array<string> = [ ".ltx", ".xml" ];
+const EXPECTED_CONFIG_EXTENSIONS: Array<string> = [".ltx", ".xml"];
 
 export async function buildStaticConfigs(): Promise<void> {
   log.info("Copy static configs");
@@ -24,7 +24,7 @@ export async function buildStaticConfigs(): Promise<void> {
     } else if (EXPECTED_CONFIG_EXTENSIONS.includes(path.extname(it))) {
       const relativePath: string = it.slice(GAME_DATA_CONFIGS_DIR.length);
 
-      acc.push([ it, path.join(TARGET_GAME_DATA_CONFIGS_DIR, relativePath) ]);
+      acc.push([it, path.join(TARGET_GAME_DATA_CONFIGS_DIR, relativePath)]);
     }
 
     return acc;
@@ -41,7 +41,7 @@ export async function buildStaticConfigs(): Promise<void> {
     /**
      * Sync way for folder creation when needed.
      */
-    staticConfigs.forEach(([ from, to ]) => {
+    staticConfigs.forEach(([from, to]) => {
       const targetDir: string = path.dirname(to);
 
       if (!fs.existsSync(targetDir)) {
@@ -51,7 +51,7 @@ export async function buildStaticConfigs(): Promise<void> {
     });
 
     await Promise.all(
-      staticConfigs.map(([ from, to ]) => {
+      staticConfigs.map(([from, to]) => {
         log.info("CP:", chalk.yellow(to));
 
         return fsPromises.copyFile(from, to);

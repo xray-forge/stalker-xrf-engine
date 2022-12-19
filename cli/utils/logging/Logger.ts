@@ -9,7 +9,6 @@ import { stringifyValue } from "#/utils/logging/stringifyValue";
  * Allows to collect app logs in a file for future investigations or dev sharing.
  */
 export class Logger {
-
   public static LOG_FILE_BUFFER: Array<string> = [];
   public static LOG_FILE_BUFFER_LINES_LIMIT: number = 5000;
   public static LOG_FILE_BUFFER_SPLICE: number = 100;
@@ -100,5 +99,4 @@ export class Logger {
       }
     }
   }
-
 }

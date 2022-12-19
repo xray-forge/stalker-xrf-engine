@@ -16,7 +16,6 @@ declare global {
    * };
    */
   class XR_FColor extends XR_LuaBindBase {
-
     public a: number;
     public b: number;
     public g: number;
@@ -25,7 +24,6 @@ declare global {
     public set(a: number, b: number, c: number, d: number): XR_FColor;
     public set(it: XR_FColor): XR_FColor;
     public set(value: number): XR_FColor;
-
   }
 
   /**
@@ -48,7 +46,6 @@ declare global {
    * @customConstructor FRect
    */
   class XR_FRect extends XR_LuaBindBase {
-
     public lt: number;
     public rb: number;
 
@@ -58,7 +55,6 @@ declare global {
     public y2: number;
 
     public set(x1: number, y1: number, x2: number, y2: number): XR_FRect;
-
   }
 
   /**
@@ -199,13 +195,11 @@ declare global {
    * @customConstructor vector2
    */
   class XR_vector2 {
-
     public x: number;
     public y: number;
 
     public set(x: number, y: number): XR_vector2;
     public set(vector: XR_vector2): XR_vector2;
-
   }
 
   /**

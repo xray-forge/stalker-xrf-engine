@@ -34,10 +34,6 @@
         "@typescript-eslint/no-inferrable-types": "off",
         "@typescript-eslint/no-non-null-assertion": "off",
         "@typescript-eslint/no-unused-vars": "off",
-        "array-bracket-spacing": [
-            "error",
-            "always"
-        ],
         "array-element-newline": [
             "error",
             "consistent"
@@ -153,13 +149,6 @@
                 "allowAllPropertiesOnSameLine": true
             }
         ],
-        "padded-blocks": [
-            "error",
-            {
-                "blocks": "never",
-                "classes": "always"
-            }
-        ],
         "padding-line-between-statements": [
             "error",
             {
@@ -226,13 +215,6 @@
             "double"
         ],
         "semi": "error",
-        "space-before-function-paren": [
-            "error",
-            {
-                "anonymous": "never",
-                "named": "never"
-            }
-        ],
         "space-in-parens": [
             "error",
             "never"

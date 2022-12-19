@@ -18,7 +18,7 @@ export async function buildScriptsStatics(): Promise<void> {
     } else if (String(it).endsWith(".script")) {
       const relativePath: string = it.slice(GAME_DATA_SCRIPTS_DIR.length);
 
-      acc.push([ it, path.join(TARGET_GAME_DATA_SCRIPTS_DIR, relativePath) ]);
+      acc.push([it, path.join(TARGET_GAME_DATA_SCRIPTS_DIR, relativePath)]);
     }
 
     return acc;
@@ -35,7 +35,7 @@ export async function buildScriptsStatics(): Promise<void> {
     /**
      * Sync way for folder creation when needed.
      */
-    rawScripts.forEach(([ from, to ]) => {
+    rawScripts.forEach(([from, to]) => {
       const targetDir: string = path.dirname(to);
 
       if (!fs.existsSync(targetDir)) {
@@ -45,7 +45,7 @@ export async function buildScriptsStatics(): Promise<void> {
     });
 
     await Promise.all(
-      rawScripts.map(([ from, to ]) => {
+      rawScripts.map(([from, to]) => {
         log.info("CP:", chalk.yellow(to));
 
         return fsPromises.copyFile(from, to);

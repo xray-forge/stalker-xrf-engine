@@ -8,7 +8,7 @@ import { RESOURCES_DIR, TARGET_GAME_DATA_DIR } from "#/build/globals";
 import { Logger } from "#/utils";
 
 const log: Logger = new Logger("BUILD_ASSET_STATICS");
-const EXPECTED_FILES: Array<string> = [ "README.md" ];
+const EXPECTED_FILES: Array<string> = ["README.md"];
 
 export async function buildResourcesStatics(): Promise<void> {
   log.info("Copy raw assets");

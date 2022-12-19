@@ -64,7 +64,7 @@ export async function buildMeta({ meta, timeTracker }: IBuildMetaParams): Promis
 export function getTimingsInfo(timeTracker: TimeTracker): Record<string, string | number> {
   const total: number = timeTracker.getDuration();
 
-  return Object.entries(timeTracker.getStats()).reduce((acc, [ key, value ]) => {
+  return Object.entries(timeTracker.getStats()).reduce((acc, [key, value]) => {
     acc[key] = `${(value / (total / 100)).toFixed(1)}% ${value / 1000} SEC`;
 
     return acc;

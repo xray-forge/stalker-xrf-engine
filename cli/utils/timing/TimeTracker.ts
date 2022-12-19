@@ -1,5 +1,4 @@
 export class TimeTracker {
-
   private static STARTED_AT: string = "STARTED_AT";
   private static ENDED_AT: string = "ENDED_AT";
 
@@ -48,7 +47,7 @@ export class TimeTracker {
       throw new Error("Cannot collect stats, timer is not started yet.");
     }
 
-    for (const [ key, value ] of this.marks.entries()) {
+    for (const [key, value] of this.marks.entries()) {
       stats[key] = value - lastTs;
       lastTs = value;
     }
@@ -59,5 +58,4 @@ export class TimeTracker {
 
     return stats;
   }
-
 }
