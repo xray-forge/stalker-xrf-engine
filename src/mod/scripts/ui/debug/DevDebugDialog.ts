@@ -1,3 +1,4 @@
+import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
 import { DevDebugGeneralSection, IDevDebugGeneralSection } from "@/mod/scripts/ui/debug/DevDebugGeneralSection";
 import { DevDebugItemsSection } from "@/mod/scripts/ui/debug/DevDebugItemsSection";
@@ -56,7 +57,7 @@ export const DevDebugDialog: IDevDebugDialog = declare_xr_class(
     InitControls(): void {
       log.info("Init controls");
 
-      this.SetWndRect(Frect().set(0, 0, 1024, 768));
+      this.SetWndRect(Frect().set(0, 0, gameConfig.UI.BASE_WIDTH, gameConfig.UI.BASE_HEIGHT));
 
       const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
@@ -123,7 +124,7 @@ export const DevDebugDialog: IDevDebugDialog = declare_xr_class(
       this.dialog.AttachChild(this.sectionUi);
       xml.InitWindow("main_dialog:debug_section", 0, this.sectionUi);
 
-      // Init would section.
+      // Init world section.
       this.sectionWorld = create_xr_class_instance(DevDebugWorldSection, this);
       this.sectionWorld.SetAutoDelete(true);
       this.sectionWorld.Show(false);
