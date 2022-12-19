@@ -54,14 +54,14 @@ Main goals of the project are:
 - `open_game_folder` - open game folder in explorer
 - `start_game` - start game with debug flag, admin permissions may be required
 
-## Developing
+## 🧰 Developing
 
-### Typescript
+### 🧰 Typescript
 Typescript to lua compilation does not do tree shaking and has its specifics. <br/>
 - To prevent bloated codebase avoid index files usage and re-exporting
 - Do not use window/dom/document/global APIs in lua scripts / shared mod libs, they are not transpiled to Lua
 
-### X-ray SDK / global type declarations
+### 🧰 X-ray SDK / global type declarations
 To use typescript together with xray SDK you will need correct type declarations.
 
 - [xray 16 typedefs](src/typedefs/xray16)
@@ -70,14 +70,18 @@ To use typescript together with xray SDK you will need correct type declarations
     - [xray constants](src/typedefs/xray16/c_constants.d.ts)
 - [LuaJIT typedefs](src/typedefs/luaJIT.d.ts)
 
-### gamedata folder structure
+### 🧰 gamedata folder structure
 todo: Describe structure of gamedata and intention of every folder
 
-### src folder structure
+### 🧰 src folder structure
 todo: Describe structure of src and intention of every folder
 
-### Custom forms and windows
+### 🧰 Custom forms and windows
 Notes:
 - When creating forms with xml, here we use [JSX](https://www.typescriptlang.org/docs/handbook/jsx.html)
 - When mod compilation happens we transform JSX into valid XML files
 - All coordinates with (x, y) are based on parent (not XML child, rather script register parent) and are not absolute
+
+### 🧰 Code style
+For code style unification and validation prettier and eslint are used. <br/>
+Line endings are set to CRLF to match windows system.
