@@ -42,7 +42,7 @@ export async function buildDynamicScripts(): Promise<void> {
   const startedAt: number = Date.now();
   const scriptsExtension: string = "script";
   const result = tstl.transpileProject(BUILD_LUA_TSCONFIG, {
-    noHeader: false,
+    noHeader: true,
     tstlVerbose: false
     // Issues of builder: breaks module resolution
     // extension: "script"

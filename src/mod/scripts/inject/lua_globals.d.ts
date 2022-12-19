@@ -27,3 +27,10 @@ declare const declare_xr_class: <T, B extends abstract new () => any>(
  * Binding of implemented class creation function.
  */
 declare const create_xr_class_instance: <T>(it: T, ...params: Array<any>) => T;
+
+/**
+ * Injected by TSTL plugin.
+ * Allows 'super()' injecting from lua.
+ * Without plugin, it conflicts with javascript constructor super.
+ */
+declare const xr_class_super: () => void;

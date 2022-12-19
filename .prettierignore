@@ -1,2 +1,4 @@
-target
-node_modules
+src/resources/
+src/typedefs/
+target/
+node_modules/

@@ -15,6 +15,10 @@
     "buildMode": "default",
     "luaTarget": "JIT",
     "noImplicitGlobalVariables": true,
-    "noImplicitSelf": true
+    "noImplicitSelf": true,
+    "luaPlugins": [
+      { "name": "./plugins/xr_class_super_transform.ts" },
+      { "name": "./plugins/built_at_info.ts" }
+    ]
   }
 }
