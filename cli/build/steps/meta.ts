@@ -1,3 +1,4 @@
+import fs from "fs";
 import * as fsPromises from "fs/promises";
 import * as os from "os";
 
@@ -8,18 +9,21 @@ import {
   TARGET_GAME_DATA_METADATA_FILE
 } from "../globals";
 
-import { Logger, readDirContent } from "#/utils";
+import { Logger, readDirContent, TimeTracker } from "#/utils";
 
 const log: Logger = new Logger("META");
 
 interface IBuildMetaParams {
   meta: Record<string, unknown>;
-  startedAt: number
+  timeTracker: TimeTracker
 }
 
 export async function buildMeta({
-  meta, startedAt
+  meta,
+  timeTracker
 }: IBuildMetaParams): Promise<void> {
+  log.info("Build metadata");
+
   const buildMeta: Record<string, unknown> = { ...meta };
 
   const collectFiles = (acc, it) => {
@@ -32,6 +36,10 @@ export async function buildMeta({
     return acc;
   };
 
+  if (!fs.existsSync(TARGET_GAME_DATA_DIR)) {
+    fs.mkdirSync(TARGET_GAME_DATA_DIR);
+  }
+
   const builtFiles:Array<string> = (await readDirContent(TARGET_GAME_DATA_DIR)).reduce(collectFiles, []);
   const assetsSizeBytes: number = (await Promise.all(builtFiles.map((it) => fsPromises.stat(it))))
     .reduce((acc, it) => acc + it.size, 0);
@@ -41,8 +49,10 @@ export async function buildMeta({
   log.info("Collected files count:", builtFiles.length);
   log.info("Collected files size:", chalk.yellow(assetsSizesMegabytes), "MB");
 
-  buildMeta["built_took"] = (Date.now() - startedAt) / 1000 + " SEC";
+  buildMeta["built_took"] = (timeTracker.getDuration()) / 1000 + " SEC";
   buildMeta["built_at"] = (new Date()).toLocaleString();
+  buildMeta["build_flags"] = process.argv;
+  buildMeta["build_timings"] = getTimingsInfo(timeTracker);
 
   Object.assign(buildMeta, getBuildSystemInfo());
 
@@ -53,6 +63,16 @@ export async function buildMeta({
   await fsPromises.writeFile(TARGET_GAME_DATA_METADATA_FILE, JSON.stringify(buildMeta, null, 2));
 
   log.info("Included mod metadata");
+}
+
+export function getTimingsInfo(timeTracker: TimeTracker): Record<string, string | number> {
+  const total: number = timeTracker.getDuration();
+
+  return Object.entries(timeTracker.getStats()).reduce((acc, [ key, value ]) => {
+    acc[key] = `${(value / (total / 100)).toFixed(1)}% ${value / 1000} SEC`;
+
+    return acc;
+  }, {});
 }
 
 export function getBuildSystemInfo(): Record<string, string | number> {

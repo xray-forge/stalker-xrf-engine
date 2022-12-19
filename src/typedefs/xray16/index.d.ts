@@ -38,6 +38,18 @@ declare global {
 
   const CUITabControl: typeof XR_CUITabControl;
 
+  const CUICustomEdit: typeof XR_CUICustomEdit;
+
+  const CUIEditBox: typeof XR_CUIEditBox;
+
+  const CUIEditBoxEx: typeof XR_CUIEditBoxEx;
+
+  const CUIListBoxItemMsgChain: typeof XR_CUIListBoxItemMsgChain;
+
+  const CUIMMShniaga: typeof XR_CUIMMShniaga;
+
+  const CUIMapList: typeof XR_CUIMapList;
+
   const vector2: typeof XR_vector2;
 
   const Frect: () => XR_FRect;

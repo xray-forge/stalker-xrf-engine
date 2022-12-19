@@ -395,55 +395,66 @@ declare global {
   }
 
   /**
-   C++ class CUICustomEdit : CUIWindow {
-    function SetWindowName(string);
-
-    function GetWndPos(CUIWindow*);
-
-    function SetText(string);
-
-    function SetNextFocusCapturer(CUICustomEdit*);
-
-    function GetText();
-
-    function SetAutoDelete(boolean);
-
-    function AttachChild(CUIWindow*);
-
-    function SetWndPos(vector2);
-
-    function CaptureFocus(boolean);
-
-    function DetachChild(CUIWindow*);
-
-    function SetPPMode();
-
-    function WindowName();
-
-    function IsShown();
-
-    function SetWndRect(Frect);
-
-    function Show(boolean);
-
-    function GetHeight() const;
-
-    function GetWidth() const;
-
-    function SetWndSize(vector2);
-
-    function IsEnabled();
-
-    function ResetPPMode();
-
-    function Enable(boolean);
-
-    function IsAutoDelete();
-
-  };
+   * C++ class CUICustomEdit : CUIWindow {
+   *     function SetWindowName(string);
+   *
+   *     function GetWndPos(CUIWindow*);
+   *
+   *     function SetText(string);
+   *
+   *     function SetNextFocusCapturer(CUICustomEdit*);
+   *
+   *     function GetText();
+   *
+   *     function SetAutoDelete(boolean);
+   *
+   *     function AttachChild(CUIWindow*);
+   *
+   *     function SetWndPos(vector2);
+   *
+   *     function CaptureFocus(boolean);
+   *
+   *     function DetachChild(CUIWindow*);
+   *
+   *     function SetPPMode();
+   *
+   *     function WindowName();
+   *
+   *     function IsShown();
+   *
+   *     function SetWndRect(Frect);
+   *
+   *     function Show(boolean);
+   *
+   *     function GetHeight() const;
+   *
+   *     function GetWidth() const;
+   *
+   *     function SetWndSize(vector2);
+   *
+   *     function IsEnabled();
+   *
+   *     function ResetPPMode();
+   *
+   *     function Enable(boolean);
+   *
+   *     function IsAutoDelete();
+   *
+   *   };
+   *
+   *  @customConstructor CUICustomEdit
    */
+  class XR_CUICustomEdit extends XR_CUIWindow {
 
-  // todo;
+    public SetText(text: string): void;
+
+    public SetNextFocusCapturer(edit: XR_CUICustomEdit): void;
+
+    public GetText(): string;
+
+    public CaptureFocus(value: boolean): void;
+
+  }
 
   /**
    * C++ class CUICustomSpin : CUIWindow {
@@ -644,114 +655,124 @@ declare global {
   }
 
   /**
-   C++ class CUIEditBox : CUICustomEdit {
-    CUIEditBox ();
-
-    function SetWindowName(string);
-
-    function GetWndPos(CUIWindow*);
-
-    function SetText(string);
-
-    function SetNextFocusCapturer(CUICustomEdit*);
-
-    function GetText();
-
-    function SetAutoDelete(boolean);
-
-    function AttachChild(CUIWindow*);
-
-    function SetWndPos(vector2);
-
-    function GetWidth() const;
-
-    function SetPPMode();
-
-    function DetachChild(CUIWindow*);
-
-    function CaptureFocus(boolean);
-
-    function WindowName();
-
-    function IsShown();
-
-    function Enable(boolean);
-
-    function SetWndRect(Frect);
-
-    function GetHeight() const;
-
-    function ResetPPMode();
-
-    function InitTexture(string);
-
-    function IsEnabled();
-
-    function SetWndSize(vector2);
-
-    function Show(boolean);
-
-    function IsAutoDelete();
-
-  };
+   * C++ class CUIEditBox : CUICustomEdit {
+   *     CUIEditBox ();
+   *
+   *     function SetWindowName(string);
+   *
+   *     function GetWndPos(CUIWindow*);
+   *
+   *     function SetText(string);
+   *
+   *     function SetNextFocusCapturer(CUICustomEdit*);
+   *
+   *     function GetText();
+   *
+   *     function SetAutoDelete(boolean);
+   *
+   *     function AttachChild(CUIWindow*);
+   *
+   *     function SetWndPos(vector2);
+   *
+   *     function GetWidth() const;
+   *
+   *     function SetPPMode();
+   *
+   *     function DetachChild(CUIWindow*);
+   *
+   *     function CaptureFocus(boolean);
+   *
+   *     function WindowName();
+   *
+   *     function IsShown();
+   *
+   *     function Enable(boolean);
+   *
+   *     function SetWndRect(Frect);
+   *
+   *     function GetHeight() const;
+   *
+   *     function ResetPPMode();
+   *
+   *     function InitTexture(string);
+   *
+   *     function IsEnabled();
+   *
+   *     function SetWndSize(vector2);
+   *
+   *     function Show(boolean);
+   *
+   *     function IsAutoDelete();
+   *
+   *   };
+   *
+   *  @customConstructor CUIEditBox
    */
+  class XR_CUIEditBox extends XR_CUICustomEdit {
 
-  // todo;
+    public InitTexture(textureId: string): void;
+
+  }
 
   /**
-   C++ class CUIEditBoxEx : CUICustomEdit {
-    CUIEditBoxEx ();
-
-    function SetWindowName(string);
-
-    function GetWndPos(CUIWindow*);
-
-    function SetText(string);
-
-    function SetNextFocusCapturer(CUICustomEdit*);
-
-    function GetText();
-
-    function SetAutoDelete(boolean);
-
-    function AttachChild(CUIWindow*);
-
-    function SetWndPos(vector2);
-
-    function GetWidth() const;
-
-    function SetPPMode();
-
-    function DetachChild(CUIWindow*);
-
-    function CaptureFocus(boolean);
-
-    function WindowName();
-
-    function IsShown();
-
-    function Enable(boolean);
-
-    function SetWndRect(Frect);
-
-    function GetHeight() const;
-
-    function ResetPPMode();
-
-    function InitTexture(string);
-
-    function IsEnabled();
-
-    function SetWndSize(vector2);
-
-    function Show(boolean);
-
-    function IsAutoDelete();
-
-  };
+   * C++ class CUIEditBoxEx : CUICustomEdit {
+   *     CUIEditBoxEx ();
+   *
+   *     function SetWindowName(string);
+   *
+   *     function GetWndPos(CUIWindow*);
+   *
+   *     function SetText(string);
+   *
+   *     function SetNextFocusCapturer(CUICustomEdit*);
+   *
+   *     function GetText();
+   *
+   *     function SetAutoDelete(boolean);
+   *
+   *     function AttachChild(CUIWindow*);
+   *
+   *     function SetWndPos(vector2);
+   *
+   *     function GetWidth() const;
+   *
+   *     function SetPPMode();
+   *
+   *     function DetachChild(CUIWindow*);
+   *
+   *     function CaptureFocus(boolean);
+   *
+   *     function WindowName();
+   *
+   *     function IsShown();
+   *
+   *     function Enable(boolean);
+   *
+   *     function SetWndRect(Frect);
+   *
+   *     function GetHeight() const;
+   *
+   *     function ResetPPMode();
+   *
+   *     function InitTexture(string);
+   *
+   *     function IsEnabled();
+   *
+   *     function SetWndSize(vector2);
+   *
+   *     function Show(boolean);
+   *
+   *     function IsAutoDelete();
+   *
+   *   };
+   *
+   *  @customConstructor CUIEditBoxEx
    */
+  class XR_CUIEditBoxEx extends XR_CUICustomEdit {
 
-  // todo;
+    public InitTexture(textureId: string): void;
+
+  }
 
   /**
    * C++ class CUIFrameLineWnd : CUIWindow {
@@ -1078,116 +1099,131 @@ declare global {
   }
 
   /**
-   C++ class CUIListBoxItemMsgChain : CUIListBoxItem {
-    CUIListBoxItemMsgChain (number);
-
-    function SetWindowName(string);
-
-    function Enable(boolean);
-
-    function SetHeight(number);
-
-    function AddIconField(number);
-
-    function SetAutoDelete(boolean);
-
-    function SetTextColor(number);
-
-    function SetColor(number);
-
-    function AttachChild(CUIWindow*);
-
-    function GetWidth() const;
-
-    function SetWndPos(vector2);
-
-    function SetWndSize(vector2);
-
-    function IsShown();
-
-    function DetachChild(CUIWindow*);
-
-    function SetPPMode();
-
-    function WindowName();
-
-    function AddTextField(string, number);
-
-    function Show(boolean);
-
-    function SetWndRect(Frect);
-
-    function GetTextItem();
-
-    function SetWidth(number);
-
-    function GetHeight() const;
-
-    function IsEnabled();
-
-    function ResetPPMode();
-
-    function GetWndPos(CUIWindow*);
-
-    function IsAutoDelete();
-
-  };
+   * C++ class CUIListBoxItemMsgChain : CUIListBoxItem {
+   *     CUIListBoxItemMsgChain (number);
+   *
+   *     function SetWindowName(string);
+   *
+   *     function Enable(boolean);
+   *
+   *     function SetHeight(number);
+   *
+   *     function AddIconField(number);
+   *
+   *     function SetAutoDelete(boolean);
+   *
+   *     function SetTextColor(number);
+   *
+   *     function SetColor(number);
+   *
+   *     function AttachChild(CUIWindow*);
+   *
+   *     function GetWidth() const;
+   *
+   *     function SetWndPos(vector2);
+   *
+   *     function SetWndSize(vector2);
+   *
+   *     function IsShown();
+   *
+   *     function DetachChild(CUIWindow*);
+   *
+   *     function SetPPMode();
+   *
+   *     function WindowName();
+   *
+   *     function AddTextField(string, number);
+   *
+   *     function Show(boolean);
+   *
+   *     function SetWndRect(Frect);
+   *
+   *     function GetTextItem();
+   *
+   *     function SetWidth(number);
+   *
+   *     function GetHeight() const;
+   *
+   *     function IsEnabled();
+   *
+   *     function ResetPPMode();
+   *
+   *     function GetWndPos(CUIWindow*);
+   *
+   *     function IsAutoDelete();
+   *
+   *   };
+   *
+   *  @customConstructor CUIListBoxItemMsgChain
    */
-
-  // todo;
+  class XR_CUIListBoxItemMsgChain extends XR_CUIListBoxItem {
+  }
 
   /**
-   C++ class CUIMMShniaga : CUIWindow {
-    const epi_main = 0;
-    const epi_new_game = 1;
-    const epi_new_network_game = 2;
-
-    function SetWindowName(string);
-
-    function GetWndPos(CUIWindow*);
-
-    function SetAutoDelete(boolean);
-
-    function AttachChild(CUIWindow*);
-
-    function ShowPage(enum CUIMMShniaga::enum_page_id);
-
-    function SetWndPos(vector2);
-
-    function SetPage(enum CUIMMShniaga::enum_page_id, string, string);
-
-    function SetVisibleMagnifier(boolean);
-
-    function DetachChild(CUIWindow*);
-
-    function SetPPMode();
-
-    function WindowName();
-
-    function IsShown();
-
-    function SetWndRect(Frect);
-
-    function Show(boolean);
-
-    function GetHeight() const;
-
-    function GetWidth() const;
-
-    function SetWndSize(vector2);
-
-    function IsEnabled();
-
-    function ResetPPMode();
-
-    function Enable(boolean);
-
-    function IsAutoDelete();
-
-  };
+   * C++ class CUIMMShniaga : CUIWindow {
+   *     const epi_main = 0;
+   *     const epi_new_game = 1;
+   *     const epi_new_network_game = 2;
+   *
+   *     function SetWindowName(string);
+   *
+   *     function GetWndPos(CUIWindow*);
+   *
+   *     function SetAutoDelete(boolean);
+   *
+   *     function AttachChild(CUIWindow*);
+   *
+   *     function ShowPage(enum CUIMMShniaga::enum_page_id);
+   *
+   *     function SetWndPos(vector2);
+   *
+   *     function SetPage(enum CUIMMShniaga::enum_page_id, string, string);
+   *
+   *     function SetVisibleMagnifier(boolean);
+   *
+   *     function DetachChild(CUIWindow*);
+   *
+   *     function SetPPMode();
+   *
+   *     function WindowName();
+   *
+   *     function IsShown();
+   *
+   *     function SetWndRect(Frect);
+   *
+   *     function Show(boolean);
+   *
+   *     function GetHeight() const;
+   *
+   *     function GetWidth() const;
+   *
+   *     function SetWndSize(vector2);
+   *
+   *     function IsEnabled();
+   *
+   *     function ResetPPMode();
+   *
+   *     function Enable(boolean);
+   *
+   *     function IsAutoDelete();
+   *
+   *   };
+   *
+   *  @customConstructor CUIMMShniaga
    */
+  class XR_CUIMMShniaga extends XR_CUIWindow {
 
-  // todo;
+    public static epi_main: 0;
+    public static epi_new_game: 1;
+    public static epi_new_network_game: 2;
+
+    public ShowPage(pageId: number): void;
+
+    public SetPage(pageId: number, a: string, b: string): void;
+
+    public SetVisibleMagnifier(isVisible: boolean): void;
+
+  }
 
   /**
    C++ class CUIMapInfo : CUIWindow {
@@ -1239,75 +1275,104 @@ declare global {
   // todo;
 
   /**
-   C++ class CUIMapList : CUIWindow {
-    CUIMapList ();
-
-    function IsEmpty();
-
-    function StartDedicatedServer();
-
-    function SetWindowName(string);
-
-    function GetWndPos(CUIWindow*);
-
-    function SetModeSelector(CUISpinText*);
-
-    function ClearList();
-
-    function SetMapInfo(CUIMapInfo*);
-
-    function OnModeChange();
-
-    function LoadMapList();
-
-    function SetAutoDelete(boolean);
-
-    function GetCommandLine(string);
-
-    function GetCurGameType();
-
-    function SetWndRect(Frect);
-
-    function AttachChild(CUIWindow*);
-
-    function SaveMapList();
-
-    function SetWndPos(vector2);
-
-    function SetMapPic(CUIStatic*);
-
-    function SetServerParams(string);
-
-    function DetachChild(CUIWindow*);
-
-    function SetPPMode();
-
-    function WindowName();
-
-    function IsShown();
-
-    function SetWeatherSelector(CUIComboBox*);
-
-    function Show(boolean);
-
-    function GetHeight() const;
-
-    function GetWidth() const;
-
-    function SetWndSize(vector2);
-
-    function IsEnabled();
-
-    function ResetPPMode();
-
-    function Enable(boolean);
-
-    function IsAutoDelete();
-
-  };
+   * C++ class CUIMapList : CUIWindow {
+   *     CUIMapList ();
+   *
+   *     function IsEmpty();
+   *
+   *     function StartDedicatedServer();
+   *
+   *     function SetWindowName(string);
+   *
+   *     function GetWndPos(CUIWindow*);
+   *
+   *     function SetModeSelector(CUISpinText*);
+   *
+   *     function ClearList();
+   *
+   *     function SetMapInfo(CUIMapInfo*);
+   *
+   *     function OnModeChange();
+   *
+   *     function LoadMapList();
+   *
+   *     function SetAutoDelete(boolean);
+   *
+   *     function GetCommandLine(string);
+   *
+   *     function GetCurGameType();
+   *
+   *     function SetWndRect(Frect);
+   *
+   *     function AttachChild(CUIWindow*);
+   *
+   *     function SaveMapList();
+   *
+   *     function SetWndPos(vector2);
+   *
+   *     function SetMapPic(CUIStatic*);
+   *
+   *     function SetServerParams(string);
+   *
+   *     function DetachChild(CUIWindow*);
+   *
+   *     function SetPPMode();
+   *
+   *     function WindowName();
+   *
+   *     function IsShown();
+   *
+   *     function SetWeatherSelector(CUIComboBox*);
+   *
+   *     function Show(boolean);
+   *
+   *     function GetHeight() const;
+   *
+   *     function GetWidth() const;
+   *
+   *     function SetWndSize(vector2);
+   *
+   *     function IsEnabled();
+   *
+   *     function ResetPPMode();
+   *
+   *     function Enable(boolean);
+   *
+   *     function IsAutoDelete();
+   *
+   *   };
+   *
+   *  @customConstructor CUIMapList
    */
+  class XR_CUIMapList extends XR_CUIWindow {
 
-  // todo;
+    public IsEmpty(): boolean;
+
+    public StartDedicatedServer(): void;
+
+    public SetModeSelector(modeSelector: XR_CUISpinText): void;
+
+    public ClearList(): void;
+
+    public SetMapInfo(info: unknown /* CUIMapInfo*/): void;
+
+    public OnModeChange(): void;
+
+    public LoadMapList(): void;
+
+    public GetCommandLine(value: string): unknown;
+
+    public GetCurGameType(): unknown;
+
+    public SaveMapList(): void;
+
+    public SetMapPic(picture: XR_CUIStatic): void;
+
+    public SetServerParams(params: string): void;
+
+    public SetWeatherSelector(selector: XR_CUIComboBox): void;
+
+  }
 
   /**
    C++ class CUIMessageBox : CUIStatic {

@@ -21,6 +21,7 @@ export function create(): JSXNode {
       </background>
 
       <section x={0} y={0} width={LIST_WIDTH} height={BASE_HEIGHT * 0.75}>
+
         <XrListRenderer tag={"textures_list"} x={PADDING_LEFT} y={12} width={LIST_WIDTH} height={24}/>
 
         <XrStatic
