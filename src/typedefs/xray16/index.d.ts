@@ -65,6 +65,10 @@ declare global {
 
   const main_menu: IXR_main_menu;
 
+  const GAME_TYPE: XR_GAME_TYPE;
+
+  const game_difficulty: XR_game_difficulty;
+
   const ui_events: IXR_ui_events;
 
   const DIK_keys: IXR_DIK_keys;

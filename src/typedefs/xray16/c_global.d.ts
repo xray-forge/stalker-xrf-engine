@@ -284,10 +284,21 @@ declare global {
   function GetFontMedium(): unknown;
   function alife(): unknown;
   function flush(): unknown;
-  function editor(): unknown;
+
+  /**
+   * Is dev editor tool enabled?
+   */
+  function editor(): boolean;
+
   function bit_or(a: number, b: number): unknown;
+
   function GetFontGraffiti22Russian(): unknown;
-  function prefetch(a: string): unknown;
+
+  /**
+   * Prefetch provided script before executing next lines.
+   */
+  function prefetch(path: string): void;
+
   function time_global(): unknown;
   function verify_if_thread_is_running(): unknown;
   function script_server_object_version(): unknown;

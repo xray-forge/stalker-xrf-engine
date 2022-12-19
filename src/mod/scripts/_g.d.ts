@@ -6,6 +6,12 @@ import { Optional } from "@/mod/lib/types";
 
 declare global {
   const _G: Record<string, any>;
+
+  /**
+   * Registration logic.
+   */
+  let register: (factory: XR_object_factory) => void;
+  let get_game_clsid: (game_type_option: any, is_server: boolean) => string;
 }
 
 /** ********************************************************************************************************************

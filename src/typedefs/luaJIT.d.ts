@@ -43,3 +43,5 @@ declare const tostring: (value: any) => string;
  * Get type of value.
  */
 declare const type: (value: any) => string;
+
+declare const require: (modulePath: string) => any;

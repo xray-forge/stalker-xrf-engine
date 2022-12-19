@@ -240,7 +240,6 @@ declare global {
    *   C++ class object_factory {
    *     function register(string, string, string, string);
    *     function register(string, string, string);
-   *
    *   };
    */
   class XR_object_factory {

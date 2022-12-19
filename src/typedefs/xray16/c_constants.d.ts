@@ -381,33 +381,36 @@ declare global {
   // todo;
 
   /**
-
-   C++ class GAME_TYPE {
-    const GAME_UNKNOWN = -1;
-    const eGameIDArtefactHunt = 8;
-    const eGameIDCaptureTheArtefact = 16;
-    const eGameIDDeathmatch = 2;
-    const eGameIDTeamDeathmatch = 4;
-
-  };
-   *
+   *    C++ class GAME_TYPE {
+   *     const GAME_UNKNOWN = -1;
+   *     const eGameIDArtefactHunt = 8;
+   *     const eGameIDCaptureTheArtefact = 16;
+   *     const eGameIDDeathmatch = 2;
+   *     const eGameIDTeamDeathmatch = 4;
+   *   };
    */
-
-  // todo;
+  class XR_GAME_TYPE {
+    public GAME_UNKNOWN: -1;
+    public eGameIDArtefactHunt: 8;
+    public eGameIDCaptureTheArtefact: 16;
+    public eGameIDDeathmatch: 2;
+    public eGameIDTeamDeathmatch: 4;
+  }
 
   /**
-
-   C++ class game_difficulty {
-    const master = 3;
-    const novice = 0;
-    const stalker = 1;
-    const veteran = 2;
-
-  };
-   *
+   *   C++ class game_difficulty {
+   *     const novice = 0;
+   *     const stalker = 1;
+   *     const veteran = 2;
+   *     const master = 3;
+   *   };
    */
-
-  // todo;
+  class XR_game_difficulty {
+    public novice: 0;
+    public stalker: 1;
+    public veteran: 2;
+    public master: 3;
+  }
 
   /**
 
