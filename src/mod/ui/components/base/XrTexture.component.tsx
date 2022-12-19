@@ -7,7 +7,7 @@ interface IXrTextureProps {
   idEnabled?: TTextureId;
   idTouched?: TTextureId;
   idDisabled?: TTextureId;
-  idHighlighted: TTextureId;
+  idHighlighted?: TTextureId;
 }
 
 /**
