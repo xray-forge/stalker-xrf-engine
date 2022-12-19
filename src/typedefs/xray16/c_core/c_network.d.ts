@@ -134,38 +134,67 @@ declare global {
    */
   // todo;
   /**
-   C++ class account_manager {
-    function get_account_profiles(string, string, account_profiles_cb);
-
-    function create_profile(string, string, string, string, account_operation_cb);
-
-    function get_suggested_unicks() const;
-
-    function stop_suggest_unique_nicks();
-
-    function verify_password(string);
-
-    function verify_unique_nick(string);
-
-    function stop_searching_email();
-
-    function verify_email(string);
-
-    function search_for_email(string, found_email_cb);
-
-    function suggest_unique_nicks(string, suggest_nicks_cb);
-
-    function get_verify_error_descr() const;
-
-    function delete_profile(account_operation_cb);
-
-    function stop_fetching_account_profiles();
-
-    function get_found_profiles() const;
-
-  };
+   * C++ class account_manager {
+   *     function get_account_profiles(string, string, account_profiles_cb);
+   *
+   *     function create_profile(string, string, string, string, account_operation_cb);
+   *
+   *     function get_suggested_unicks() const;
+   *
+   *     function stop_suggest_unique_nicks();
+   *
+   *     function verify_password(string);
+   *
+   *     function verify_unique_nick(string);
+   *
+   *     function stop_searching_email();
+   *
+   *     function verify_email(string);
+   *
+   *     function search_for_email(string, found_email_cb);
+   *
+   *     function suggest_unique_nicks(string, suggest_nicks_cb);
+   *
+   *     function get_verify_error_descr() const;
+   *
+   *     function delete_profile(account_operation_cb);
+   *
+   *     function stop_fetching_account_profiles();
+   *
+   *     function get_found_profiles() const;
+   *
+   *   };
    */
-  // todo;
+  class XR_account_manager {
+    public get_account_profiles(a: string, b: string, c: unknown /* account_profiles_cb*/): unknown;
+
+    public create_profile(a: string, b: string, c: string, d: string, e: unknown /* account_profiles_cb*/): unknown;
+
+    public get_suggested_unicks(): unknown;
+
+    public stop_suggest_unique_nicks(): unknown;
+
+    public verify_password(password: string): boolean;
+
+    public verify_unique_nick(nick: string): boolean;
+
+    public stop_searching_email(): void;
+
+    public verify_email(email: string): boolean;
+
+    public search_for_email(email: string, cb: unknown /* found_email_cb */): unknown;
+
+    public suggest_unique_nicks(a: string, b: unknown /* suggest_nicks_cb */): unknown;
+
+    public get_verify_error_descr(): unknown;
+
+    public delete_profile(operation: unknown /* account_operation_cb*/): unknown;
+
+    public stop_fetching_account_profiles(): unknown;
+
+    public get_found_profiles(): unknown;
+  }
+
   /**
    C++ class ClientID {
     ClientID ();
@@ -180,42 +209,73 @@ declare global {
    */
   // todo;
   /**
-   C++ class login_manager {
-    function save_nick_to_registry(string);
-
-    function forgot_password(string);
-
-    function get_nick_from_registry();
-
-    function get_current_profile() const;
-
-    function get_remember_me_from_registry();
-
-    function stop_login();
-
-    function save_password_to_registry(string);
-
-    function login_offline(string, login_operation_cb);
-
-    function save_remember_me_to_registry(boolean);
-
-    function set_unique_nick(string, login_operation_cb);
-
-    function login(string, string, string, login_operation_cb);
-
-    function get_email_from_registry();
-
-    function logout();
-
-    function get_password_from_registry();
-
-    function save_email_to_registry(string);
-
-    function stop_setting_unique_nick();
-
-  };
+   *   C++ class login_manager {
+   *     function save_nick_to_registry(string);
+   *
+   *     function forgot_password(string);
+   *
+   *     function get_nick_from_registry();
+   *
+   *     function get_current_profile() const;
+   *
+   *     function get_remember_me_from_registry();
+   *
+   *     function stop_login();
+   *
+   *     function save_password_to_registry(string);
+   *
+   *     function login_offline(string, login_operation_cb);
+   *
+   *     function save_remember_me_to_registry(boolean);
+   *
+   *     function set_unique_nick(string, login_operation_cb);
+   *
+   *     function login(string, string, string, login_operation_cb);
+   *
+   *     function get_email_from_registry();
+   *
+   *     function logout();
+   *
+   *     function get_password_from_registry();
+   *
+   *     function save_email_to_registry(string);
+   *
+   *     function stop_setting_unique_nick();
+   *
+   *   };
    */
-  // todo;
+  class XR_login_manager {
+    public save_nick_to_registry(nick: string): unknown;
+
+    public forgot_password(email: string): unknown;
+
+    public get_nick_from_registry(): unknown;
+
+    public get_current_profile(): XR_profile;
+
+    public get_remember_me_from_registry(): unknown;
+
+    public stop_login(): void;
+
+    public save_password_to_registry(password: string): unknown;
+
+    public login_offline(nick: string, operation: unknown /* login_operation_cb*/): unknown;
+
+    public set_unique_nick(nick: string, operation: unknown /* login_operation_cb*/): unknown;
+
+    public login(a: string, b: string, c: string, operation: unknown /* login_operation_cb*/): unknown;
+
+    public get_email_from_registry(): unknown;
+
+    public logout(): void;
+
+    public get_password_from_registry(): unknown;
+
+    public save_email_to_registry(email: string): unknown;
+
+    public stop_setting_unique_nick(): unknown;
+  }
+
   /**
 
    C++ class GameGraph__LEVEL_MAP__value_type {
@@ -332,29 +392,49 @@ declare global {
    */
   // todo;
   /**
-   C++ class profile_store {
-    const at_award_massacre = 0;
-    const at_awards_count = 30;
-    const bst_backstabs_in_row = 2;
-    const bst_bleed_kills_in_row = 2;
-    const bst_explosive_kills_in_row = 3;
-    const bst_eye_kills_in_row = 4;
-    const bst_head_shots_in_row = 3;
-    const bst_kills_in_row = 0;
-    const bst_kinife_kills_in_row = 1;
-    const bst_score_types_count = 7;
-
-    function get_best_scores();
-
-    function get_awards();
-
-    function stop_loading();
-
-    function load_current_profile(store_operation_cb, store_operation_cb);
-
-  };
+   *  C++ class profile_store {
+   *     const at_award_massacre = 0;
+   *     const at_awards_count = 30;
+   *     const bst_backstabs_in_row = 2;
+   *     const bst_bleed_kills_in_row = 2;
+   *     const bst_explosive_kills_in_row = 3;
+   *     const bst_eye_kills_in_row = 4;
+   *     const bst_head_shots_in_row = 3;
+   *     const bst_kills_in_row = 0;
+   *     const bst_kinife_kills_in_row = 1;
+   *     const bst_score_types_count = 7;
+   *
+   *     function get_best_scores();
+   *
+   *     function get_awards();
+   *
+   *     function stop_loading();
+   *
+   *     function load_current_profile(store_operation_cb, store_operation_cb);
+   *
+   *   };
    */
-  // todo;
+  class XR_profile_store {
+    public static at_award_massacre: 0;
+    public static at_awards_count: 30;
+    public static bst_backstabs_in_row: 2;
+    public static bst_bleed_kills_in_row: 2;
+    public static bst_explosive_kills_in_row: 3;
+    public static bst_eye_kills_in_row: 4;
+    public static bst_head_shots_in_row: 3;
+    public static bst_kills_in_row: 0;
+    public static bst_kinife_kills_in_row: 1;
+    public static bst_score_types_count: 7;
+
+    public get_best_scores(): unknown;
+
+    public get_awards(): unknown;
+
+    public stop_loading(): unknown;
+
+    public load_current_profile(a: unknown /* store_operation_cb*/, b: unknown /* store_operation_cb*/): unknown;
+  }
+
   /**
    C++ class suggest_nicks_cb {
     suggest_nicks_cb ();

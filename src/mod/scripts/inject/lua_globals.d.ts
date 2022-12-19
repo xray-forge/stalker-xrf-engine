@@ -4,6 +4,11 @@
 declare const declare_global: (key: string, value: unknown) => void;
 
 /**
+ * Utility to get global variables.
+ */
+declare const get_global: <T = any>(key: string) => T;
+
+/**
  * Binding of native lua string interface.
  */
 declare const lua_string: LUA_String;

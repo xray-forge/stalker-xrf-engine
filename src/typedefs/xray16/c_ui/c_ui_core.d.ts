@@ -25,31 +25,52 @@ declare global {
    */
   // todo;
   /**
-   C++ class CMainMenu {
-    function GetCDKey();
-
-    function GetAccountMngr();
-
-    function GetDemoInfo(string);
-
-    function GetPatchProgress();
-
-    function GetProfileStore();
-
-    function GetGSVer();
-
-    function CancelDownload();
-
-    function GetLoginMngr();
-
-    function ValidateCDKey();
-
-    function GetPlayerName();
-
-  };
+   *   C++ class CMainMenu {
+   *     function GetCDKey();
+   *
+   *     function GetAccountMngr();
+   *
+   *     function GetDemoInfo(string);
+   *
+   *     function GetPatchProgress();
+   *
+   *     function GetProfileStore();
+   *
+   *     function GetGSVer();
+   *
+   *     function CancelDownload();
+   *
+   *     function GetLoginMngr();
+   *
+   *     function ValidateCDKey();
+   *
+   *     function GetPlayerName();
+   *
+   *   };
    */
-  // todo;
-  // todo;
+
+  class XR_CMainMenu {
+    public GetCDKey(): string;
+
+    public GetAccountMngr(): XR_account_manager;
+
+    public GetDemoInfo(fileName: string): unknown;
+
+    public GetPatchProgress(): unknown;
+
+    public GetProfileStore(): XR_profile_store;
+
+    public GetGSVer(): string;
+
+    public CancelDownload(): void;
+
+    public GetLoginMngr(): XR_login_manager;
+
+    public ValidateCDKey(): boolean;
+
+    public GetPlayerName(): string;
+  }
+
   /**
    C++ class CUIGameCustom {
     function HidePdaMenu();
@@ -73,4 +94,18 @@ declare global {
   };
    */
   // todo;
+
+  /**
+   *    C++ class profile {
+   *     function unique_nick() const;
+   *
+   *     function online() const;
+   *
+   *   };
+   */
+  class XR_profile {
+    public unique_nick(): unknown;
+
+    public online(): boolean;
+  }
 }

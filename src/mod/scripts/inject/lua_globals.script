@@ -2,6 +2,8 @@ local DebugLogger = require("scripts.debug_tools.DebugLogger").DebugLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 local log = create_ts_class_instance(DebugLogger, "lug_globals");
 
+log:info("Injecting lua globals")
+
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Link global lua_string to prevent conflicts of TS and Lua global namespaces
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -18,8 +20,11 @@ _G.lua_string = string
 -- @param implementation - optional object with class implementation
 -- ---------------------------------------------------------------------------------------------------------------------
 _G.declare_xr_class = function(name, base, implementation)
+  local is_declared = false;
+
   if (_G[name]) then
-    log:warn("Declaring class name that is already used in globals: " .. name)
+    log:warn("Skip declaring class name that is already used in globals: " .. name)
+    is_declared = true;
   end
 
   if base then
@@ -43,7 +48,7 @@ _G.declare_xr_class = function(name, base, implementation)
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
--- todo
+-- Create XR class instance safely from typescript skipping all the polyfills
 -- ---------------------------------------------------------------------------------------------------------------------
 _G.create_xr_class_instance = function(it, ...)
   log:info("Creating xr class instance: " .. tostring(it))
@@ -57,4 +62,11 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 _G.declare_global = function (key, value)
   _G[key] = value
+end
+
+-- ---------------------------------------------------------------------------------------------------------------------
+-- Get LUA globals from TS
+-- ---------------------------------------------------------------------------------------------------------------------
+_G.get_global = function(key)
+  return _G[key]
 end

@@ -12,7 +12,7 @@ import { EDebugSection } from "@/mod/ui/debug/sections";
 const base: string = "debug/DevDebugDialog.component.xml";
 const log: DebugLogger = new DebugLogger("DevDebugDialog");
 
-interface IDevDebugDialog extends XR_CUIScriptWnd {
+export interface IDevDebugDialog extends XR_CUIScriptWnd {
   owner: XR_CUIScriptWnd;
 
   dialog: XR_CUIStatic;
@@ -26,8 +26,6 @@ interface IDevDebugDialog extends XR_CUIScriptWnd {
   sectionItems: IDevDebugGeneralSection;
   sectionUi: IDevDebugUiSection;
   sectionWorld: IDevDebugWorldSection;
-
-  __init(): void;
 
   InitControls(): void;
   InitSections(): void;
@@ -138,7 +136,7 @@ export const DevDebugDialog: IDevDebugDialog = declare_xr_class("DevDebugDialog"
     this.tab.SetActiveTab(EDebugSection.GENERAL);
   },
   onCancelButtonAction(): void {
-    log.info("Cancel button activated");
+    log.info("Cancel action");
 
     this.owner.ShowDialog(true);
     this.owner.Show(true);
@@ -176,11 +174,11 @@ export const DevDebugDialog: IDevDebugDialog = declare_xr_class("DevDebugDialog"
       log.warn("Unknown section selected:", id);
     }
   },
-  OnKeyboard(key: number, event: IXR_ui_events[keyof IXR_ui_events]): boolean {
+  OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
     CUIScriptWnd.OnKeyboard(this, key, event);
 
     if (event === ui_events.WINDOW_KEY_PRESSED) {
-      if (key === DIK_keys.DIK_S) {
+      if (key === DIK_keys.DIK_S || key === DIK_keys.DIK_ESCAPE || key === DIK_keys.DIK_Q) {
         this.onCancelButtonAction();
       }
     }

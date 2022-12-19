@@ -234,14 +234,19 @@ declare global {
   // todo;
 
   /**
-   C++ class object_factory {
-    function register(string, string, string, string);
-    function register(string, string, string);
-
-  };
+   * C++ class global to register objects from lua scripts in C++.
+   * Used mainly in class/game register scripts.
+   *
+   *   C++ class object_factory {
+   *     function register(string, string, string, string);
+   *     function register(string, string, string);
+   *
+   *   };
    */
-
-  // todo;
+  class XR_object_factory {
+    public register(client_class: string, server_class: string, clsid: string, script_clsid: string): void;
+    public register(unknown_class: string, clsid: string, script_clsid: string): void;
+  }
 
   /**
    C++ class CSavedGameWrapper {

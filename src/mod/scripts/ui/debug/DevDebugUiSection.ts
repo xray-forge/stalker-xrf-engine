@@ -15,8 +15,6 @@ export interface IDevDebugUiSection extends XR_CUIWindow {
   texturesListSquareMediumDisplay: XR_CUIStatic;
   texturesListSquareSmallDisplay: XR_CUIStatic;
 
-  __init(): void;
-
   InitControls(): void;
   InitCallBacks(): void;
   InitData(): void;

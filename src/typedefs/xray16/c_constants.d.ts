@@ -545,6 +545,8 @@ declare global {
     WINDOW_RBUTTON_UP: 4;
   }
 
+  type TXR_ui_event = IXR_ui_events[keyof IXR_ui_events];
+
   /**
 
    C++ class clsid {
@@ -1072,6 +1074,8 @@ declare global {
     MOUSE_2: 338;
     MOUSE_3: 339;
   }
+
+  type TXR_DIK_key = IXR_DIK_keys[keyof IXR_DIK_keys];
 
   /**
    C++ class danger_object {

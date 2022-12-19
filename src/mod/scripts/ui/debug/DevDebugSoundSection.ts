@@ -6,8 +6,6 @@ const log: DebugLogger = new DebugLogger("DevDebugSoundSection");
 export interface IDevDebugSoundSection extends XR_CUIScriptWnd {
   owner: XR_CUIScriptWnd;
 
-  __init(): void;
-
   InitControls(): void;
   InitCallBacks(): void;
 }

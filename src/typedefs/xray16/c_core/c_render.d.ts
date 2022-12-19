@@ -245,29 +245,49 @@ declare global {
    */
   // todo;
   /**
-   C++ class render_device {
-    property aspect_ratio;
-    property cam_dir;
-    property cam_pos;
-    property cam_right;
-    property cam_top;
-    property f_time_delta;
-    property fov;
-    property frame;
-    property height;
-    property precache_frame;
-    property time_delta;
-    property width;
-
-    function time_global(const render_device*);
-
-    function is_paused(render_device*);
-
-    function pause(render_device*, boolean);
-
-  };
+   * C++ class render_device {
+   *     property aspect_ratio;
+   *     property cam_dir;
+   *     property cam_pos;
+   *     property cam_right;
+   *     property cam_top;
+   *     property f_time_delta;
+   *     property fov;
+   *     property frame;
+   *     property height;
+   *     property precache_frame;
+   *     property time_delta;
+   *     property width;
+   *
+   *     function time_global(const render_device*);
+   *
+   *     function is_paused(render_device*);
+   *
+   *     function pause(render_device*, boolean);
+   *
+   *   };
    */
-  // todo;
+  class XR_render_device {
+    public aspect_ratio: number;
+    public cam_dir: unknown;
+    public cam_pos: unknown;
+    public cam_right: unknown;
+    public cam_top: unknown;
+    public f_time_delta: unknown;
+    public fov: unknown;
+    public frame: unknown;
+    public height: unknown;
+    public precache_frame: unknown;
+    public time_delta: unknown;
+    public width: number;
+
+    public time_global(): unknown;
+
+    public is_paused(): boolean;
+
+    public pause(isPaused: boolean): void;
+  }
+
   /**
    C++ class cef_storage {
     function evaluate(cef_storage*, string, game_object*);

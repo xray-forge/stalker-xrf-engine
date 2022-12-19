@@ -55,9 +55,15 @@ declare global {
 
   const memory_object: () => XR_MemoryObject;
 
+  const object_factory: () => XR_object_factory;
+
   const fcolor: () => XR_FColor;
 
   const stalker_ids: IXR_stalker_ids;
+
+  const level: IXR_level;
+
+  const main_menu: IXR_main_menu;
 
   const ui_events: IXR_ui_events;
 

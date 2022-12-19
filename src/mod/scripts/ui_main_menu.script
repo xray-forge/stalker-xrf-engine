@@ -22,7 +22,7 @@ function main_menu:InitControls()
   self:SetWndRect          (Frect():set(0,0,1024,768))
 
   local xml            = CScriptXmlInit()
-  xml:ParseFile          ("ui_mm_main.xml")
+  xml:ParseFile          ("menu/MainMenu.component.xml")
   xml:InitStatic          ("background", self)
 
   self.shniaga          = xml:InitMMShniaga("shniaga_wnd",self);

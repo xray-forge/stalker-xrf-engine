@@ -585,19 +585,6 @@ declare global {
 
   /**
 
-   C++ class profile {
-    function unique_nick() const;
-
-    function online() const;
-
-  };
-   *
-   */
-
-  // todo;
-
-  /**
-
    C++ class profile_timer {
     profile_timer ();
     profile_timer (profile_timer&);

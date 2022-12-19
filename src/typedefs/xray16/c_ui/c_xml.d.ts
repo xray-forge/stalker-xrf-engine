@@ -92,7 +92,7 @@ declare global {
 
     public InitKeyBinding(value: string, window: XR_CUIWindow): unknown;
 
-    public InitMMShniaga(value: string, window: XR_CUIWindow): unknown;
+    public InitMMShniaga(value: string, window: XR_CUIWindow): XR_CUIMMShniaga;
 
     public InitWindow(value: string, index: number, window: XR_CUIWindow): unknown;
 

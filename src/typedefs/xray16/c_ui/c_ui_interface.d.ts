@@ -37,11 +37,11 @@ declare global {
     public GetWndPos(wnd: XR_CUIWindow): unknown;
     public SetWndSize(vector2: unknown): unknown;
 
-    public SetWindowName(this: XR_CUIWindow, value: string): unknown;
-    public SetWndPos(vector2: unknown): unknown;
+    public SetWindowName(this: XR_CUIWindow, value: string): void;
+    public SetWndPos(vector2: unknown): void;
     public SetAutoDelete(value: boolean): void;
-    public SetPPMode(): unknown;
-    public SetWndRect(rect: XR_FRect): unknown;
+    public SetPPMode(): void;
+    public SetWndRect(rect: XR_FRect): void;
 
     public Enable(value: boolean): unknown;
     public AttachChild(child: XR_CUIWindow): unknown;
@@ -618,20 +618,15 @@ declare global {
   class XR_CUIScriptWnd extends XR_CUIDialogWnd {
     public _construct(): XR_CUIDialogWnd;
 
-    public static OnKeyboard(
-      this: void,
-      base: XR_CUIWindow,
-      key: number,
-      message: IXR_ui_events[keyof IXR_ui_events]
-    ): boolean;
+    public static OnKeyboard(this: void, base: XR_CUIWindow, key: number, message: TXR_ui_event): boolean;
 
-    public OnKeyboard(key: number, message: IXR_ui_events[keyof IXR_ui_events]): boolean;
+    public OnKeyboard(dik: TXR_DIK_key, event: TXR_ui_event): boolean;
 
     public Update(): void;
 
     public AddCallback(this: XR_CUIWindow, name: string, event: number, cb: () => void, source?: XR_CUIWindow): void;
 
-    public Dispatch(value1: number, value2: number): void;
+    public Dispatch(cmd: number, param: number): boolean;
 
     public Register(window: XR_CUIWindow, name: string): void;
 
