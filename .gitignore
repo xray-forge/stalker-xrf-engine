@@ -4,5 +4,7 @@ node_modules/
 gamedata/
 gamedata_*/
 
-target/.cache
-target/
+target/gamedata*
+target/*/*
+
+xrts_build.log

@@ -1,4 +1,4 @@
-## [XRTS](../../README.md) / CLI / BUILD
+# [XRTS](../../README.md) / CLI / BUILD
 
 ### Description
 
@@ -39,15 +39,15 @@ List of arguments:
 23:23:11:721 [BUILD_CONFIGS_DYNAMIC] Build dynamic configs
 23:23:11:721 [BUILD_CONFIGS_STATICS] Copy static configs
 23:23:11:722 [BUILD_CONFIGS_STATICS] Found static configs:
-23:23:11:722 [BUILD_CONFIGS_STATICS] MKDIR: F:\Documents\Projects\stalker-xrts-modding\target\gamedata\configs
-23:23:11:722 [BUILD_CONFIGS_STATICS] CP: F:\Documents\Projects\stalker-xrts-modding\target\gamedata\configs\example.ltx
+23:23:11:722 [BUILD_CONFIGS_STATICS] MKDIR: F:\Documents\Projects\stalker-xrts-template\target\gamedata\configs
+23:23:11:722 [BUILD_CONFIGS_STATICS] CP: F:\Documents\Projects\stalker-xrts-template\target\gamedata\configs\example.ltx
 23:23:11:723 [BUILD_CONFIGS_STATICS] Configs processed: 1
 23:23:11:724 [BUILD_ASSET_STATICS] Copy raw assets
 23:23:11:724 [BUILD_ASSET_STATICS] Copy assets folders
-23:23:11:724 [BUILD_ASSET_STATICS] CP -R: F:\Documents\Projects\stalker-xrts-modding\target\gamedata\shaders
+23:23:11:724 [BUILD_ASSET_STATICS] CP -R: F:\Documents\Projects\stalker-xrts-template\target\gamedata\shaders
 23:23:11:893 [BUILD_ASSET_STATICS] Resource folders processed: 1
 23:23:11:893 [META] Build metadata
-23:23:11:897 [META] Collecting gamedata meta: F:\Documents\Projects\stalker-xrts-modding\target\gamedata
+23:23:11:897 [META] Collecting gamedata meta: F:\Documents\Projects\stalker-xrts-template\target\gamedata
 23:23:11:897 [META] Collected files count: 446
 23:23:11:897 [META] Collected files size: 0.463 MB
 23:23:11:901 [META] Included mod metadata

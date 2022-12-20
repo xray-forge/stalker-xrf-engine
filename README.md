@@ -1,15 +1,15 @@
-# 🎮 Stalker XRay-TS template
+# 🎮 [Stalker XRay-TS template](README.md)
 
-Enabling power of typescript for scripting and dynamic configuration.
+Enabling power of typescript for scripting and dynamic configuration. <br/>
+Completely different way of XRay mods creation.
 
-## 📌What is used:
+## 📌What is used
 
-- [Typescript](https://www.typescriptlang.org/) to write custom scripts
-- [TypeScriptToLua](https://typescripttolua.github.io/docs/getting-started) to compile typescript to lua
+- [Typescript](https://www.typescriptlang.org/) and [ts-node](https://typestrong.org/ts-node/) to write custom scripts
+- [TypeScriptToLua](https://typescripttolua.github.io/docs/getting-started) to compile typescript code to lua
 - [Open-X-Ray](https://github.com/OpenXRay/xray-16) to improve core game performance and APIs
-- Custom build system to collect 'gamedata' mod packages
-- Custom tools and JSX to emit XML files from typescript
-- (todo) Custom tools to generate .ltx config files based on typescript files
+- Custom [build system](cli/README.md) to collect `gamedata` mods
+- Custom tools and JSX to emit XML and LTX files from typescript
 
 ## 📍 Purposes
 
@@ -26,32 +26,39 @@ Main goals of the project are:
 
 ---
 
-## 🌓 Starting work
+## 🥦 Main differences with original
 
-### 🧰 Pre-requirements
+Intention is to create base template without breaking changes to the game story.
+
+- Game codebase is unified and refactored with typescript
+- Separate verification and preparation steps added instead of direct ltx/xml/script files editing
+- Dev tools added for easier mod debugging and development, always can be turned off for release versions of mods
+
+# 🌓 Starting work
+
+## 🧰 Pre-requirements
 
 - [NodeJS](https://nodejs.org/en/)
 - `cli/config.json` file should be edited, paths matched to your local system
 
-### 💿 Start development
+## 💿 Start development
 
 - DOWNLOAD the game (stalker call of pripyat)
-- DOWNLOAD and INSTALL the latest release version of open x-ray
 - EDIT `cli/config.json` - correct paths to match your local system
-- RUN `cd stalker-xrts-modding` - cd to project folder
+- RUN `cd stalker-xrts-template` - cd to project folder
 - RUN `npm install` - install all the dependencies
 - RUN `npm run link` - link gamedata to the game folder
 - RUN `npm run build` - build gamedata to the destination
 - RUN `npm run engine use release` - link open xray with game
-- RUN `npm run start_game` - start game in debug mode and test changes
+- RUN `npm run start_game` - start game and test changes
 
-### 🧰 Check issues
+## 🧰 Check issues
 
-`$ npm run verify` - will check whether project is setup and ready to start developing
+`$ npm run verify` - will check whether project is set up and ready to start developing
 
-## 🛠 Commands
+# 🧰 Developing
 
-### NPM
+## 🏗️ Project commands
 
 `$ npm run COMMAND_NAME`
 
@@ -67,22 +74,55 @@ Main goals of the project are:
 - `format` - reformat TS code and lint it
 - `lint` - lint TS code with eslint utils
 
-## 🧰 Developing
+## 🏗️ Code style
 
-### 🧰 Typescript
+For code style unification and validation prettier and eslint are used. <br/>
+Line endings are set to CRLF to match windows system.
 
-Typescript to lua compilation does not do tree shaking and has its specifics. <br/>
+## 🧰 Typescript
+
+Core of this project is [TypeScriptToLua](https://github.com/TypeScriptToLua/TypeScriptToLua). <br/>
+Even if you see simple typescript, in does not mean that it will work as javascript in all cases. It has some specifics.
+
+---
+
+Typescript to lua compilation does not do tree shaking: <br/>
 
 - To prevent bloated codebase avoid index files usage and re-exporting
 - Do not use window/dom/document/global APIs in lua scripts / shared mod libs, they are not transpiled to Lua
 
-### 🧰 gamedata folder structure
+---
+
+To work correctly with conflicting keywords and luabind classes custom utils are provided:
+
+- Build [plugin](cli/build/plugins) to support keyword `super` as `xr_class_super`
+- `lua_globals.script` and `_g.script` to supply global functions that can be used from global context by typescript
+- Custom [typedefs](src/typedefs) to support functions call from Lua global context (xray engine, lua libs)
+
+---
+
+Reference: [Open X-Ray source code](https://github.com/OpenXRay/xray-16)
+
+- [XRay typedefs](src/typedefs/xray16)
+
+  - [xray core](src/typedefs/xray16/c_core)
+  - [xray game objects](src/typedefs/xray16/c_game_objects)
+  - [xray logic](src/typedefs/xray16/c_logic)
+  - [xray sound](src/typedefs/xray16/c_sound)
+  - [xray ui](src/typedefs/xray16/c_ui)
+  - [xray constants](src/typedefs/xray16/c_constants.d.ts)
+  - [xray global](src/typedefs/xray16/c_global.d.ts)
+  - [xray utils](src/typedefs/xray16/c_utils.d.ts)
+
+- [Lua typedefs](src/typedefs/lua)
+
+---
+
+## 🏗️ Mod gamedata folder structure
 
 todo: Describe structure of gamedata and intention of every folder
 
-### 🧰 project folder structure
-
-todo: Describe structure of src and intention of every folder
+## 🧰 Project structure
 
 - [bin](bin/README.md)
 - [cli](cli/README.md)
@@ -98,26 +138,28 @@ todo: Describe structure of src and intention of every folder
   - [mod](src/mod/README.md)
   - [resources](src/resources/README.md)
   - [typedefs](src/typedefs/README.md)
+- [target](target/README.md)
 
-### 🧰 x-ray SDK / global type declarations
-
-To use typescript together with xray SDK you will need correct type declarations.
-
-- [xray 16 typedefs](src/typedefs/xray16)
-  - [xray ui](src/typedefs/xray16/c_ui)
-  - [xray core](src/typedefs/xray16/c_core)
-  - [xray constants](src/typedefs/xray16/c_constants.d.ts)
-- [LuaJIT typedefs](src/typedefs/luaJIT.d.ts)
-
-### 🧰 Custom forms and windows
+## 🧰 Custom forms and UI
 
 Notes:
 
-- When creating forms with xml, here we use [JSX](https://www.typescriptlang.org/docs/handbook/jsx.html)
-- When mod compilation happens we transform JSX into valid XML files
+- When creating forms, use [JSX](https://www.typescriptlang.org/docs/handbook/jsx.html)
+- When mod compilation happens, JSX is transformed to valid XML
 - All coordinates with (x, y) are based on parent (not XML child, rather script register parent) and are not absolute
 
-### 🧰 Code style
+For examples check `src/mod/ui`.
 
-For code style unification and validation prettier and eslint are used. <br/>
-Line endings are set to CRLF to match windows system.
+## 🏗️ Development utils
+
+[Can be checked here.](UTILS.md)
+
+## 🧰 Main todos
+
+- Move remaining logic and codebase to typescript
+- After migration consider simplification and unification of some parts
+- Finish LTX generation tools
+- Finish translation generation tools
+- Create electron application to simplify development of dialogs, labels, translations, asset management etc
+- Scripts to unpack raw_gamedata for observation / usage
+- Script to verify integrity of assets and defined constants

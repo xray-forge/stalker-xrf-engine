@@ -1,4 +1,4 @@
-## [XRTS](../../README.md) / CLI / OPEN_GAME_FOLDER
+# [XRTS](../../README.md) / CLI / OPEN_GAME_FOLDER
 
 ### Description
 

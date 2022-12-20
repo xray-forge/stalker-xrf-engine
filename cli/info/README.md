@@ -1,4 +1,4 @@
-## [XRTS](../../README.md) / CLI / INFO
+# [XRTS](../../README.md) / CLI / INFO
 
 ### Description
 
@@ -21,8 +21,8 @@ Prints project configuration information and list of available scripts.
 23:23:38:674 [INFO] Game folder: F:\Applications\Steam\steamapps\common\Stalker Call of Pripyat
 23:23:38:674 [INFO] Game exe: Stalker-COP.exe
 23:23:38:674 [INFO] --------------------------------------
-23:23:38:674 [INFO] Target build folder: F:\Documents\Projects\stalker-xrts-modding\target\gamedata
-23:23:38:675 [INFO] Target build meta-info: F:\Documents\Projects\stalker-xrts-modding\target\gamedata\metadata.json
+23:23:38:674 [INFO] Target build folder: F:\Documents\Projects\stalker-xrts-template\target\gamedata
+23:23:38:675 [INFO] Target build meta-info: F:\Documents\Projects\stalker-xrts-template\target\gamedata\metadata.json
 23:23:38:675 [INFO] --------------------------------------
 23:23:38:675 [INFO] Available scripts:
 23:23:38:675 [INFO] npm run info

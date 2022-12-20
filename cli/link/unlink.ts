@@ -1,5 +1,4 @@
 import * as fsPromises from "fs/promises";
-import { Stats } from "node:fs";
 import * as path from "path";
 
 import { default as chalk } from "chalk";
@@ -31,7 +30,7 @@ const log: Logger = new Logger("UNLINK");
 async function unlink(target: string): Promise<void> {
   log.info("Unlinking:", chalk.yellowBright(target));
 
-  const stat: Optional<Stats> = await fsPromises.stat(target).catch(() => null);
+  const stat: Optional<string> = await fsPromises.readlink(target).catch(() => null);
 
   if (!stat) {
     return log.info("Skip operation, target does not exist");

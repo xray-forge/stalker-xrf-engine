@@ -1,4 +1,4 @@
-## [XRTS](../../README.md) / CLI / ENGINE
+# [XRTS](../../README.md) / CLI / ENGINE
 
 ### Description
 
@@ -49,10 +49,10 @@ List of arguments:
 23:26:40:245 [ENGINE] Running manage script: use
 23:26:40:257 [ENGINE] Switching engine
 23:26:40:259 [ENGINE] Switching to: gold
-23:26:40:259 [ENGINE] Linking: F:\Documents\Projects\stalker-xrts-modding\bin\openxray\gold\bin -> F:\Applications\Steam\steamapps\common\Stalker Call of Pripyat\bin
+23:26:40:259 [ENGINE] Linking: F:\Documents\Projects\stalker-xrts-template\bin\openxray\gold\bin -> F:\Applications\Steam\steamapps\common\Stalker Call of Pripyat\bin
 23:26:40:259 [ENGINE] Unlinked engine detected
 23:26:40:260 [ENGINE] Created backup at: F:\Applications\Steam\steamapps\common\Stalker Call of Pripyat\bin_xrts_backup
-23:26:40:260 [ENGINE] Linked engines: F:\Documents\Projects\stalker-xrts-modding\bin\openxray\gold\bin -> F:\Applications\Steam\steamapps\common\Stalker Call of Pripyat\bin
+23:26:40:260 [ENGINE] Linked engines: F:\Documents\Projects\stalker-xrts-template\bin\openxray\gold\bin -> F:\Applications\Steam\steamapps\common\Stalker Call of Pripyat\bin
 ```
 
 ```text

@@ -1,4 +1,4 @@
-## [XRTS](../../README.md) / CLI / VERIFY
+# [XRTS](../../README.md) / CLI / VERIFY
 
 ### Description
 

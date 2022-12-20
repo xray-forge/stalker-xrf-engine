@@ -1,4 +1,4 @@
-## [XRTS](../README.md) / BIN
+# [XRTS](../README.md) / BIN
 
 Folder containing binaries and executables needed for development or final game mod package.
 
