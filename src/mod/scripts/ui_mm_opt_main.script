@@ -1,3 +1,5 @@
+local OptionsSound = require("scripts.ui.options.OptionsSound").OptionsSound
+
 class "options_dialog" (CUIScriptWnd)
 
 function options_dialog:__init() super()
@@ -17,7 +19,7 @@ function options_dialog:InitControls()
 	self:Enable					(true)
 
 	local xml					= CScriptXmlInit()
-	xml:ParseFile				("ui_mm_opt.xml")
+	xml:ParseFile				("options/Options.component.xml")
 
 	xml:InitStatic				("background", self)
 	self.dialog					= xml:InitStatic("main_dialog:dialog", self)
@@ -30,7 +32,7 @@ function options_dialog:InitControls()
 	self.dialog:AttachChild		(self.dlg_video)
 	xml:InitWindow				("tab_size", 0, self.dlg_video)
 
-	self.dlg_sound				= ui_mm_opt_sound.opt_sound()
+	self.dlg_sound				= create_xr_class_instance(OptionsSound)
 	self.dlg_sound:InitControls	(0,0, xml, self)
 	self.dlg_sound:Show			(false)
 	self.dialog:AttachChild		(self.dlg_sound)
