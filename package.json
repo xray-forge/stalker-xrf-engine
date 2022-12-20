@@ -4,17 +4,18 @@
   "private": true,
   "scripts": {
     "info": "ts-node -P ./cli/tsconfig.json cli/info/info.ts",
+    "verify": "ts-node -P ./cli/tsconfig.json cli/verify/verify.ts",
     "link": "ts-node -P ./cli/tsconfig.json cli/link/link.ts",
     "unlink": "ts-node -P ./cli/tsconfig.json cli/link/unlink.ts",
     "engine": "ts-node -P ./cli/tsconfig.json cli/engine/engine.ts",
     "open_game_folder": "ts-node -P ./cli/tsconfig.json cli/open_game_folder/open_game_folder.ts",
-    "start_game": "ts-node -P ./cli/tsconfig.json ./cli/start/start_game.ts",
+    "start_game": "ts-node -P ./cli/tsconfig.json cli/start_game/start_game.ts",
     "build": "ts-node -P cli/tsconfig.json ./cli/build/build.ts",
     "build:clean": "ts-node -P cli/tsconfig.json ./cli/build/build.ts --clean",
     "build:no-resources": "ts-node -P cli/tsconfig.json ./cli/build/build.ts --no-resources",
     "build:resources-only": "ts-node -P cli/tsconfig.json ./cli/build/build.ts --no-scripts --no-ui --no-configs",
     "typecheck:lua": "tstl -P ./cli/build/tsconfig.scripts.json --noEmit",
-    "format": "prettier --write \"**/*.(js|ts|tsx)\" && eslint . --ext .ts,.tsx,.js --fix",
+    "format": "prettier --write \"**/*.(js|ts|tsx|md)\" && eslint . --ext .ts,.tsx,.js --fix",
     "lint": "eslint . --ext .ts,.tsx,.js"
   },
   "devDependencies": {

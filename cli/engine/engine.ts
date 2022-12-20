@@ -53,6 +53,29 @@ const GAME_BIN_BACKUP_DIR: string = path.resolve(GAME_DIR, XR_ENGINE_BACKUP_DIR)
 
 async function printEngineInfo(): Promise<void> {
   log.info("Getting engine info");
+
+  const engineDescriptorPath: string = path.resolve(GAME_BIN_DIR, "bin.json");
+
+  const isBinBackupExist: boolean = await exists(GAME_BIN_BACKUP_DIR);
+  const isLinkedEngine: boolean = await exists(engineDescriptorPath);
+
+  if (isBinBackupExist) {
+    log.info("Backup version of engine exists:", chalk.yellow(GAME_BIN_BACKUP_DIR));
+  } else {
+    log.info("No backup version of engine detected:", chalk.yellow(GAME_BIN_BACKUP_DIR));
+  }
+
+  if (isLinkedEngine) {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const config = require(engineDescriptorPath);
+
+    log.info("Linked X-Ray engine detected");
+    log.info("Linked X-Ray variant:", chalk.blue(config.type));
+    log.info("Linked X-Ray version:", chalk.blue(config.version));
+    log.info("Linked X-Ray release:", chalk.blue(config.release));
+  } else {
+    log.info("Using not linked engine, manually provided or original X-Ray is active");
+  }
 }
 
 async function rollbackEngineToOriginal(): Promise<void> {

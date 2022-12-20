@@ -1,3 +1,5 @@
 {
-  "type": "gold"
+  "type": "release",
+  "version": "1.6.0.2",
+  "release": "December 2021 RC1"
 }

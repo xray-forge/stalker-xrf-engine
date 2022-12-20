@@ -1,9 +1,11 @@
 # List of useful tools for mod development
- - https://github.com/revolucas/AXRToolset - set of utilities for mod development (unpack gamedata)
- - https://github.com/OpenXRay/xray-16 - open x-ray project
- - https://apps.microsoft.com/store/detail/windows-terminal/9N0DX20HK701 - windows terminal
+
+- https://github.com/revolucas/AXRToolset - set of utilities for mod development (unpack gamedata)
+- https://github.com/OpenXRay/xray-16 - open x-ray project
+- https://apps.microsoft.com/store/detail/windows-terminal/9N0DX20HK701 - windows terminal
 
 ## Command line flags for xr-engine
+
 - `-depth16`
 - `-designer`
 - `-demomode`
@@ -50,7 +52,7 @@
 
 Seems like it is 'luabind' part defined as globals
 
-```c
+```c++
 lua_setglobal(L, "class");
 
 lua_pushcclosure(L, &make_property, 0);

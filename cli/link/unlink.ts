@@ -37,6 +37,13 @@ async function unlink(target: string): Promise<void> {
     return log.info("Skip operation, target does not exist");
   }
 
-  await fsPromises.unlink(target);
-  log.info("Unlinked:", chalk.yellow(target));
+  try {
+    await fsPromises.unlink(target);
+    log.info("Unlinked:", chalk.yellow(target));
+  } catch (error) {
+    log.error("Failed to unlink:", chalk.yellow(target));
+    log.error("Check this folder, probably it was created manually or contains your own gamedata from another mod");
+
+    throw error;
+  }
 }

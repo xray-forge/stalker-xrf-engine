@@ -9,6 +9,7 @@ export const RESOURCES_DIR: string = path.resolve(SRC_DIR, "resources");
 export const BIN_DIR: string = path.resolve(ROOT_DIR, "bin");
 export const OPEN_XRAY_ENGINES_DIR: string = path.resolve(BIN_DIR, "openxray");
 export const BUILD_LUA_TSCONFIG: string = path.resolve(__dirname, "./tsconfig.scripts.json");
+export const CLI_CONFIG: string = path.resolve(ROOT_DIR, "cli/config.json");
 
 export const GAME_DATA_METADATA_FILE: string = path.resolve(MOD_DIR, "metadata.json");
 export const GAME_DATA_SCRIPTS_DIR: string = path.resolve(MOD_DIR, "scripts");
