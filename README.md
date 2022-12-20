@@ -27,7 +27,7 @@ Main goals of the project are:
 ### 🧰 Pre-requirements  
 - [Open-X-Ray](https://github.com/OpenXRay/xray-16)
 - [NodeJS](https://nodejs.org/en/)
-- `config.ini` file should be edited, paths matched to your local system
+- `cli/config.json` file should be edited, paths matched to your local system
 
 ### 💿 Start development
 - DOWNLOAD the game (stalker call of pripyat)
