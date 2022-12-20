@@ -327,8 +327,9 @@ export const Options: IOptions = declare_xr_class("Options", CUIScriptWnd, {
     const mainMenu: XR_CMainMenu = main_menu.get_main_menu();
     const patchDownload: XR_Patch_Dawnload_Progress = mainMenu.GetPatchProgress();
     const patchProgress: number = patchDownload.GetProgress();
+    const filename: string = patchDownload.GetFlieName();
 
-    if (patchProgress && patchProgress >= 0 && patchProgress <= 100) {
+    if (filename && patchProgress && patchProgress >= 0 && patchProgress <= 100) {
       this.text_download.Show(true);
       this.cap_download.Show(true);
       this.download_progress.Show(true);

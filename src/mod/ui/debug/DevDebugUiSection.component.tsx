@@ -32,8 +32,9 @@ export function create(): JSXNode {
           width={BODY_WIDTH}
           height={24}
           font={fonts.letterica18}
-          texture={textures.ui_linetext_e}
+          texture={textures.ui_inGame2_edit_box_2}
           color={TEXT_COLOR}
+          vertAlign={"c"}
         />
 
         <XrListRenderer

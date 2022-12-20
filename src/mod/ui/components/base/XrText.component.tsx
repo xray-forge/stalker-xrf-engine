@@ -9,17 +9,23 @@ interface IXrTextProps {
   label?: Optional<string>;
   font: TFontId;
   align?: TTextAlign;
+  vertAlign?: TTextAlign;
+  x?: number;
+  y?: number;
 }
 
 /**
  * Generic component for text rendering.
  */
-export function XrText({ tag = "text", font, align, color, label = null }: IXrTextProps): JSXNode {
+export function XrText({ tag = "text", font, align, color, x, y, vertAlign, label = null }: IXrTextProps): JSXNode {
   return JSXXML(
     tag,
     {
       font,
       align,
+      vert_align: vertAlign,
+      x,
+      y,
       r: color?.r,
       g: color?.g,
       b: color?.b
