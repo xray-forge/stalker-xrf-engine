@@ -12,9 +12,9 @@ export interface IDevDebugGeneralSection extends XR_CUIScriptWnd {
 
 export const DevDebugGeneralSection: IDevDebugGeneralSection = declare_xr_class("DevDebugGeneralSection", CUIWindow, {
   __init(this: IDevDebugGeneralSection, owner: XR_CUIScriptWnd): void {
-    log.info("Init");
+    xr_class_super();
 
-    CUIWindow.__init(this);
+    log.info("Init");
 
     this.owner = owner;
 

@@ -25,9 +25,9 @@ export interface IDevDebugUiSection extends XR_CUIWindow {
 
 export const DevDebugUiSection: IDevDebugUiSection = declare_xr_class("DevDebugUiSection", CUIWindow, {
   __init(this: IDevDebugUiSection, owner: XR_CUIScriptWnd): void {
-    log.info("Init");
+    xr_class_super();
 
-    CUIWindow.__init(this);
+    log.info("Init");
 
     this.owner = owner;
 
