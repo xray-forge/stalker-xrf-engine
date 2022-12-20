@@ -256,7 +256,7 @@ declare global {
   function IsGameTypeSingle(): unknown;
   function game_graph(): unknown;
   function dik_to_bind(a: number): unknown;
-  function render_get_dx_level(): unknown;
+  function render_get_dx_level(): number;
   function GetFontGraffiti19Russian(): unknown;
   function sell_condition(a: unknown, b: string): unknown;
   function sell_condition(a: number, b: number): unknown;
@@ -269,7 +269,7 @@ declare global {
   function command_line(): unknown;
   function getFS(): unknown;
   function valid_saved_game(a: string): unknown;
-  function get_console(): XR_Console;
+  function get_console(): XR_CConsole;
   function GetFontGraffiti50Russian(): unknown;
   function app_ready(): unknown;
   function IsDynamicMusic(): unknown;
@@ -284,6 +284,7 @@ declare global {
   function GetFontMedium(): unknown;
   function alife(): unknown;
   function flush(): unknown;
+  function is_enough_address_space_available(): boolean;
 
   /**
    * Is dev editor tool enabled?
@@ -300,6 +301,7 @@ declare global {
   function prefetch(path: string): void;
 
   function time_global(): unknown;
+  function time_global_async(...args: Array<unknown>): unknown;
   function verify_if_thread_is_running(): unknown;
   function script_server_object_version(): unknown;
   function bit_not(a: number): unknown;

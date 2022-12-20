@@ -1,11 +1,12 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 import { TFontId } from "@/mod/globals/fonts";
-import { TTextAlign } from "@/mod/lib/types";
+import { IRgbColor, Optional, TTextAlign } from "@/mod/lib/types";
 
 interface IXrTextProps {
   tag?: string;
-  label: string;
+  color?: IRgbColor;
+  label?: Optional<string>;
   font: TFontId;
   align?: TTextAlign;
 }
@@ -13,12 +14,15 @@ interface IXrTextProps {
 /**
  * Generic component for text rendering.
  */
-export function XrText({ tag = "text", font, align, label }: IXrTextProps): JSXNode {
+export function XrText({ tag = "text", font, align, color, label = null }: IXrTextProps): JSXNode {
   return JSXXML(
     tag,
     {
       font,
-      align
+      align,
+      r: color?.r,
+      g: color?.g,
+      b: color?.b
     },
     label
   );

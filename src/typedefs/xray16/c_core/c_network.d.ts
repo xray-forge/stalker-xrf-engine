@@ -377,20 +377,28 @@ declare global {
    */
   // todo;
   /**
-
-   C++ class Patch_Dawnload_Progress {
-    function GetProgress();
-
-    function GetInProgress();
-
-    function GetStatus();
-
-    function GetFlieName();
-
-  };
+   *  C++ class Patch_Dawnload_Progress {
+   *     function GetProgress();
    *
+   *     function GetInProgress();
+   *
+   *     function GetStatus();
+   *
+   *     function GetFlieName();
+   *
+   *   };
    */
-  // todo;
+  class XR_Patch_Dawnload_Progress {
+    public GetProgress(): number;
+
+    public GetInProgress(): boolean;
+
+    public GetStatus(): string;
+
+    public GetFlieName(): string;
+
+  }
+
   /**
    *  C++ class profile_store {
    *     const at_award_massacre = 0;

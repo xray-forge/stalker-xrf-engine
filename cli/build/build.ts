@@ -87,7 +87,7 @@ Logger.IS_FILE_ENABLED = true;
 
     log.info("Successfully executed build command, took:", timeTracker.getDuration() / 1000, "sec");
   } catch (error) {
-    log.error("Build failed:", error.message, error);
+    log.error("Build fail:", error);
     timeTracker.end();
   } finally {
     await collectLog();

@@ -43,11 +43,17 @@ declare global {
 
   const CUIEditBoxEx: typeof XR_CUIEditBoxEx;
 
+  const CUITrackBar: typeof XR_CUITrackBar;
+
   const CUIListBoxItemMsgChain: typeof XR_CUIListBoxItemMsgChain;
 
   const CUIMMShniaga: typeof XR_CUIMMShniaga;
 
   const CUIMapList: typeof XR_CUIMapList;
+
+  const CMainMenu: typeof XR_CMainMenu;
+
+  const COptionsManager: typeof XR_COptionsManager;
 
   const vector2: typeof XR_vector2;
 

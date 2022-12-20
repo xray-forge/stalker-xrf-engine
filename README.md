@@ -4,8 +4,8 @@ Enabling power of typescript for scripting and dynamic configuration.
 ## 📌What is used:
  - [Typescript](https://www.typescriptlang.org/) to write custom scripts
  - [TypeScriptToLua](https://typescripttolua.github.io/docs/getting-started) to compile typescript to lua
- - Custom build system to collect 'gamedata' mod packages, emit metainfo and logs
- - (todo) Custom tools and JSX to emit XML files from typescript files
+ - Custom build system to collect 'gamedata' mod packages, emit metainfo and logs with build info
+ - Custom tools and JSX to emit XML files from typescript files
  - (todo) Custom tools to generate .ltx config files based on typescript files
 
 ## 📍 Purposes

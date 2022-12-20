@@ -372,7 +372,7 @@ declare global {
 
     public SetListLength(length: number): void;
 
-    public CurrentID(): string;
+    public CurrentID(): number;
 
     public GetTextOf(id: number): string;
 
@@ -621,6 +621,8 @@ declare global {
     public static OnKeyboard(this: void, base: XR_CUIWindow, key: number, message: TXR_ui_event): boolean;
 
     public OnKeyboard(dik: TXR_DIK_key, event: TXR_ui_event): boolean;
+
+    public static Update(this: void, base: XR_CUIWindow): boolean;
 
     public Update(): void;
 
@@ -1472,57 +1474,68 @@ declare global {
   }
 
   /**
-   C++ class CUIProgressBar : CUIWindow {
-    CUIProgressBar ();
-
-    function SetWindowName(string);
-
-    function GetWndPos(CUIWindow*);
-
-    function GetRange_max();
-
-    function SetAutoDelete(boolean);
-
-    function GetRange_min();
-
-    function SetProgressPos(number);
-
-    function AttachChild(CUIWindow*);
-
-    function SetWndPos(vector2);
-
-    function GetProgressPos();
-
-    function DetachChild(CUIWindow*);
-
-    function SetPPMode();
-
-    function WindowName();
-
-    function IsShown();
-
-    function SetWndRect(Frect);
-
-    function Show(boolean);
-
-    function GetHeight() const;
-
-    function GetWidth() const;
-
-    function SetWndSize(vector2);
-
-    function IsEnabled();
-
-    function ResetPPMode();
-
-    function Enable(boolean);
-
-    function IsAutoDelete();
-
-  };
+   * C++ class CUIProgressBar : CUIWindow {
+   *     CUIProgressBar ();
+   *
+   *     function SetWindowName(string);
+   *
+   *     function GetWndPos(CUIWindow*);
+   *
+   *     function GetRange_max();
+   *
+   *     function SetAutoDelete(boolean);
+   *
+   *     function GetRange_min();
+   *
+   *     function SetProgressPos(number);
+   *
+   *     function AttachChild(CUIWindow*);
+   *
+   *     function SetWndPos(vector2);
+   *
+   *     function GetProgressPos();
+   *
+   *     function DetachChild(CUIWindow*);
+   *
+   *     function SetPPMode();
+   *
+   *     function WindowName();
+   *
+   *     function IsShown();
+   *
+   *     function SetWndRect(Frect);
+   *
+   *     function Show(boolean);
+   *
+   *     function GetHeight() const;
+   *
+   *     function GetWidth() const;
+   *
+   *     function SetWndSize(vector2);
+   *
+   *     function IsEnabled();
+   *
+   *     function ResetPPMode();
+   *
+   *     function Enable(boolean);
+   *
+   *     function IsAutoDelete();
+   *
+   *   };
+   *
+   *   @customConstructor CUIProgressBar
    */
+  class XR_CUIProgressBar extends XR_CUIWindow {
 
-  // todo;
+    public GetRange_max(): number;
+
+    public GetRange_min(): number;
+
+    public SetProgressPos(value: number): void;
+
+    public GetProgressPos(): number;
+
+  }
 
   /**
    C++ class CUIPropertiesBox : CUIFrameWindow {
@@ -2135,55 +2148,79 @@ declare global {
   // todo;
 
   /**
-   C++ class CUITrackBar : CUIWindow {
-    CUITrackBar ();
-
-    function GetFValue();
-
-    function SetWindowName(string);
-
-    function GetWndPos(CUIWindow*);
-
-    function SetAutoDelete(boolean);
-
-    function SetCheck(boolean);
-
-    function AttachChild(CUIWindow*);
-
-    function SetCurrentValue();
-
-    function SetWndPos(vector2);
-
-    function GetCheck();
-
-    function GetIValue();
-
-    function DetachChild(CUIWindow*);
-
-    function SetPPMode();
-
-    function WindowName();
-
-    function IsShown();
-
-    function SetWndRect(Frect);
-
-    function Show(boolean);
-
-    function GetHeight() const;
-
-    function GetWidth() const;
-
-    function SetWndSize(vector2);
-
-    function IsEnabled();
-
-    function ResetPPMode();
-
-    function Enable(boolean);
-
-    function IsAutoDelete();
-
-  };
+   * C++ class CUITrackBar : CUIWindow {
+   *     CUITrackBar ();
+   *
+   *     function GetFValue();
+   *
+   *     function SetWindowName(string);
+   *
+   *     function GetWndPos(CUIWindow*);
+   *
+   *     function SetAutoDelete(boolean);
+   *
+   *     function SetCheck(boolean);
+   *
+   *     function AttachChild(CUIWindow*);
+   *
+   *     function SetCurrentValue();
+   *
+   *     function SetWndPos(vector2);
+   *
+   *     function GetCheck();
+   *
+   *     function GetIValue();
+   *
+   *     function DetachChild(CUIWindow*);
+   *
+   *     function SetPPMode();
+   *
+   *     function WindowName();
+   *
+   *     function IsShown();
+   *
+   *     function SetWndRect(Frect);
+   *
+   *     function Show(boolean);
+   *
+   *     function GetHeight() const;
+   *
+   *     function GetWidth() const;
+   *
+   *     function SetWndSize(vector2);
+   *
+   *     function IsEnabled();
+   *
+   *     function ResetPPMode();
+   *
+   *     function Enable(boolean);
+   *
+   *     function IsAutoDelete();
+   *
+   *   };
+   *
+   *  .def("GetIValue", &CUITrackBar::GetIValue)
+   *  .def("GetFValue", &CUITrackBar::GetFValue)
+   *  .def("SetOptIBounds", &CUITrackBar::SetOptIBounds)
+   *  .def("SetOptFBounds", &CUITrackBar::SetOptFBounds)
+   *
+   *   @customConstructor CUITrackBar
    */
+  class XR_CUITrackBar extends XR_CUIWindow {
+    public SetCheck(value: boolean): void;
+
+    public SetCurrentValue(): void;
+
+    public GetCheck(): unknown;
+
+    public GetIValue(): number;
+
+    public GetFValue(): number;
+
+    public SetOptIBounds(min: number, max: number): number;
+
+    public SetOptFBounds(min: number, max: number): number;
+
+  }
+
 }

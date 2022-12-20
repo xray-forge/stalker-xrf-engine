@@ -1,10 +1,10 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
-import { OptionsControls } from "@/mod/ui/options/OptionsControls.component";
-import { OptionsGameplay } from "@/mod/ui/options/OptionsGameplay.component";
-import { OptionsSounds } from "@/mod/ui/options/OptionsSounds.component";
-import { OptionsVideo } from "@/mod/ui/options/OptionsVideo.component";
-import { OptionsVideoAdvanced } from "@/mod/ui/options/OptionsVideoAdvanced.component";
+import { OptionsControls } from "@/mod/ui/options/OptionsControls.part";
+import { OptionsGameplay } from "@/mod/ui/options/OptionsGameplay.part";
+import { OptionsSounds } from "@/mod/ui/options/OptionsSounds.part";
+import { OptionsVideo } from "@/mod/ui/options/OptionsVideo.part";
+import { OptionsVideoAdvanced } from "@/mod/ui/options/OptionsVideoAdvanced.part";
 
 export const IS_XML: boolean = true;
 

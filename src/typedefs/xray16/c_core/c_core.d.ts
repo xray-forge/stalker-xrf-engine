@@ -188,7 +188,7 @@ declare global {
    *   .def("execute_deferred", &execute_console_command_deferred),
    */
 
-  interface XR_Console {
+  interface XR_CConsole {
     execute(cmd: string): void;
     execute_script(script: string): void;
     execute_deferred(cmd: string): void;

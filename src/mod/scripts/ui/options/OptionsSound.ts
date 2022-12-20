@@ -1,9 +1,10 @@
 import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
+import { IOptions } from "@/mod/scripts/ui/options/Options";
 
 const log: DebugLogger = new DebugLogger("OptionsSound");
 
 export interface IOptionsSound extends XR_CUIWindow {
-  InitControls(): void;
+  InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IOptions): void;
 }
 
 export const OptionsSound: IOptionsSound = declare_xr_class("OptionsSound", CUIWindow, {
@@ -14,7 +15,7 @@ export const OptionsSound: IOptionsSound = declare_xr_class("OptionsSound", CUIW
   __finalize(): void {
     log.info("Finalize");
   },
-  InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: XR_CUIWindow): void {
+  InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IOptions): void {
     log.info("Init controls");
 
     log.info("Set pos");

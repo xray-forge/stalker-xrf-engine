@@ -78,7 +78,7 @@ declare global {
 
     public InitSpinFlt(value: string, window: XR_CUIWindow): unknown;
 
-    public InitProgressBar(value: string, window: XR_CUIWindow): unknown;
+    public InitProgressBar(value: string, window: XR_CUIWindow): XR_CUIProgressBar;
 
     public InitSpinNum(value: string, window: XR_CUIWindow): XR_CUISpinText;
 
@@ -96,15 +96,15 @@ declare global {
 
     public InitWindow(value: string, index: number, window: XR_CUIWindow): unknown;
 
-    public InitEditBox(value: string, window: XR_CUIWindow): unknown;
+    public InitEditBox(value: string, window: XR_CUIWindow): XR_CUIEditBox;
 
     public InitCheck(value: string, window: XR_CUIWindow): unknown;
 
-    public InitScrollView(value: string, window: XR_CUIWindow): unknown;
+    public InitScrollView(value: string, window: XR_CUIWindow): XR_CUIScrollView;
 
     public InitMPPlayerName(value: string, window: XR_CUIWindow): unknown;
 
-    public InitTrackBar(value: string, window: XR_CUIWindow): unknown;
+    public InitTrackBar(value: string, window: XR_CUIWindow): XR_CUITrackBar;
 
     public InitMapInfo(value: string, window: XR_CUIWindow): unknown;
 

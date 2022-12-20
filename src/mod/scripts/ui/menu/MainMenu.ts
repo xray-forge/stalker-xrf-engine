@@ -2,6 +2,7 @@ import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
 import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
 import { DevDebugDialog, IDevDebugDialog } from "@/mod/scripts/ui/debug/DevDebugDialog";
+import { Options } from "@/mod/scripts/ui/options/Options";
 
 const base: string = "menu/MainMenu.component.xml";
 const log: DebugLogger = new DebugLogger("MainMenu");
@@ -58,7 +59,7 @@ export interface IMainMenu extends XR_CUIScriptWnd {
 
 export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
   __init(this: IMainMenu): void {
-    CUIScriptWnd.__init(this);
+    xr_class_super();
 
     log.info("Init");
 
@@ -163,7 +164,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     this.mbox_mode = 0;
   },
   LoadLastSave(): void {
-    const console: XR_Console = get_console();
+    const console: XR_CConsole = get_console();
 
     console.execute("main_menu off");
     console.execute("load_last_save");
@@ -208,49 +209,49 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     this.message_box.ShowDialog(true);
   },
   OnMessageQuitGame(): void {
-    const console: XR_Console = get_console();
+    const console: XR_CConsole = get_console();
 
     console.execute("disconnect");
   },
   OnMessageQuitWin(): void {
-    const console: XR_Console = get_console();
+    const console: XR_CConsole = get_console();
 
     console.execute("quit");
   },
   OnButton_return_game(): void {
     log.info("Return to game");
 
-    const console: XR_Console = get_console();
+    const console: XR_CConsole = get_console();
 
     console.execute("main_menu off");
     get_global("xr_s").on_main_menu_off(); //          --' Distemper 03.2008 --
   },
   OnButton_new_novice_game(): void {
-    const console: XR_Console = get_console();
+    const console: XR_CConsole = get_console();
 
     console.execute("g_game_difficulty gd_novice");
     this.StartGame();
   },
   OnButton_new_stalker_game(): void {
-    const console: XR_Console = get_console();
+    const console: XR_CConsole = get_console();
 
     console.execute("g_game_difficulty gd_stalker");
     this.StartGame();
   },
   OnButton_new_veteran_game(): void {
-    const console: XR_Console = get_console();
+    const console: XR_CConsole = get_console();
 
     console.execute("g_game_difficulty gd_veteran");
     this.StartGame();
   },
   OnButton_new_master_game(): void {
-    const console: XR_Console = get_console();
+    const console: XR_CConsole = get_console();
 
     console.execute("g_game_difficulty gd_master");
     this.StartGame();
   },
   StartGame(): void {
-    const console: XR_Console = get_console();
+    const console: XR_CConsole = get_console();
 
     if (alife() !== null) {
       console.execute("disconnect");
@@ -276,7 +277,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     log.info("Activating options view");
 
     if (this.opt_dlg == null) {
-      this.opt_dlg = get_global("ui_mm_opt_main").options_dialog();
+      this.opt_dlg = create_xr_class_instance(Options);
       this.opt_dlg.owner = this;
     }
 
@@ -332,7 +333,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     this.HideDialog();
     this.Show(false);
 
-    const console: XR_Console = get_console();
+    const console: XR_CConsole = get_console();
 
     console.execute("check_for_updates 0");
   },
@@ -358,7 +359,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     this.HideDialog();
     this.Show(false);
 
-    const console: XR_Console = get_console();
+    const console: XR_CConsole = get_console();
 
     console.execute("check_for_updates 0");
   },
@@ -375,7 +376,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     this.HideDialog();
     this.Show(false);
 
-    const console: XR_Console = get_console();
+    const console: XR_CConsole = get_console();
 
     console.execute("check_for_updates 0");
   },

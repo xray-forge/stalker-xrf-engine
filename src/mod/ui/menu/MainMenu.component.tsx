@@ -10,27 +10,7 @@ export const IS_XML: boolean = true;
 export function create(): JSXNode {
   return (
     <w>
-      <background x={0} y={0} width={1024} height={768}>
-        <auto_static x={500} y={130} width={345} height={160} stretch={1}>
-          <texture width={432} height={160}>
-            {textures.ui_video_voroni_crop}
-          </texture>
-        </auto_static>
-        <auto_static x={432} y={353} width={460} height={416} stretch={1}>
-          <texture x={0} y={0} width={576} height={416}>
-            {textures.ui_video_water_crop}
-          </texture>
-        </auto_static>
-        <auto_static x={102} y={0} width={819} height={768} stretch={1}>
-          <texture>{textures.ui_inGame2_background}</texture>
-        </auto_static>
-        <auto_static x={0} y={0} width={104} height={768} stretch={1}>
-          <texture>{textures.ui_inGame2_left_widepanel}</texture>
-        </auto_static>
-        <auto_static x={920} y={0} width={104} height={768} stretch={1}>
-          <texture>{textures.ui_inGame2_right_widepanel}</texture>
-        </auto_static>
-      </background>
+      <MainMenuBackground />
 
       <shniaga_wnd x={134} y={320} width={216} height={380}>
         <buttons_region x={8} y={0} width={220} height={380} always_show_scroll={false} vert_interval={12} />
@@ -129,5 +109,31 @@ export function create(): JSXNode {
         <text align={"l"} font={fonts.graffiti19} r={135} g={123} b={116} complex_mode={0} />
       </static_version>
     </w>
+  );
+}
+
+function MainMenuBackground(): JSXNode {
+  return (
+    <background x={0} y={0} width={1024} height={768}>
+      <auto_static x={500} y={130} width={345} height={160} stretch={1}>
+        <texture width={432} height={160}>
+          {textures.ui_video_voroni_crop}
+        </texture>
+      </auto_static>
+      <auto_static x={432} y={353} width={460} height={416} stretch={1}>
+        <texture x={0} y={0} width={576} height={416}>
+          {textures.ui_video_water_crop}
+        </texture>
+      </auto_static>
+      <auto_static x={102} y={0} width={819} height={768} stretch={1}>
+        <texture>{textures.ui_inGame2_background}</texture>
+      </auto_static>
+      <auto_static x={0} y={0} width={104} height={768} stretch={1}>
+        <texture>{textures.ui_inGame2_left_widepanel}</texture>
+      </auto_static>
+      <auto_static x={920} y={0} width={104} height={768} stretch={1}>
+        <texture>{textures.ui_inGame2_right_widepanel}</texture>
+      </auto_static>
+    </background>
   );
 }

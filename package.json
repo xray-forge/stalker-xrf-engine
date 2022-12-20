@@ -15,7 +15,9 @@
     "start_game:win32": "call cli/run/windows_start_game.bat",
     "build": "ts-node -P cli/tsconfig.json ./cli/build/build.ts",
     "build:clean": "ts-node -P cli/tsconfig.json ./cli/build/build.ts --clean",
-    "build_scripts": "ts-node -P cli/tsconfig.json./cli/build/build.ts --no-resources",
+    "build:no-resources": "ts-node -P cli/tsconfig.json ./cli/build/build.ts --no-resources",
+    "build:resources-only": "ts-node -P cli/tsconfig.json ./cli/build/build.ts --no-scripts --no-ui --no-configs",
+    "typecheck:lua": "tstl -P ./cli/build/tsconfig.scripts.json --noEmit",
     "format": "prettier --write \"**/*.(js|ts|tsx)\" && eslint . --ext .ts,.tsx,.js --fix",
     "lint": "eslint . --ext .ts,.tsx,.js"
   },

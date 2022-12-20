@@ -2,28 +2,52 @@ export {};
 
 declare global {
   /**
-   C++ class COptionsManager {
-    COptionsManager ();
-
-    function SendMessage2Group(string, string);
-
-    function UndoGroup(string);
-
-    function SaveBackupValues(string);
-
-    function IsGroupChanged(string);
-
-    function SaveValues(string);
-
-    function SetCurrentValues(string);
-
-    function NeedSystemRestart();
-
-    function OptionsPostAccept();
-
-  };
+   *    C++ class COptionsManager {
+   *     COptionsManager ();
+   *
+   *     function SendMessage2Group(string, string);
+   *
+   *     function UndoGroup(string);
+   *
+   *     function SaveBackupValues(string);
+   *
+   *     function IsGroupChanged(string);
+   *
+   *     function SaveValues(string);
+   *
+   *     function SetCurrentValues(string);
+   *
+   *     function NeedSystemRestart();
+   *
+   *     function NeedVidRestart();
+   *
+   *     function OptionsPostAccept();
+   *
+   *   };
+   *
+   *  @customConstructor COptionsManager
    */
-  // todo;
+  class XR_COptionsManager {
+    public SendMessage2Group(group: string, message: string): void;
+
+    public UndoGroup(group: string): void;
+
+    public SaveBackupValues(group: string): void;
+
+    public IsGroupChanged(group: string): boolean;
+
+    public SaveValues(group: string): void;
+
+    public SetCurrentValues(group: string): void;
+
+    public NeedSystemRestart(): boolean;
+
+    public NeedVidRestart(): boolean;
+
+    public OptionsPostAccept(): void;
+
+  }
+
   /**
    *   C++ class CMainMenu {
    *     function GetCDKey();
@@ -47,6 +71,8 @@ declare global {
    *     function GetPlayerName();
    *
    *   };
+   *
+   *   @customConstructor CMainMenu
    */
 
   class XR_CMainMenu {
@@ -56,7 +82,7 @@ declare global {
 
     public GetDemoInfo(fileName: string): unknown;
 
-    public GetPatchProgress(): unknown;
+    public GetPatchProgress(): XR_Patch_Dawnload_Progress;
 
     public GetProfileStore(): XR_profile_store;
 

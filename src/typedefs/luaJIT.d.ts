@@ -5,9 +5,9 @@ declare interface LUA_String {
 
   dump(this: void, func: unknown, strip: unknown): unknown;
 
-  find(this: void, s: unknown, pattern: unknown, init: unknown, plain: unknown): unknown;
+  find(this: void, s: string, pattern: unknown, init?: number, plain?: boolean): unknown;
 
-  format(this: void, formatstring: string, ...rest: Array<string>): string;
+  format(this: void, formatstring: string, ...rest: Array<string | number>): string;
 
   gmatch(this: void, s: unknown, pattern: unknown): unknown;
 

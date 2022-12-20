@@ -176,14 +176,14 @@ export const DevDebugDialog: IDevDebugDialog = declare_xr_class("DevDebugDialog"
     }
   },
   OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
-    CUIScriptWnd.OnKeyboard(this, key, event);
+    const result: boolean = CUIScriptWnd.OnKeyboard(this, key, event);
 
     if (event === ui_events.WINDOW_KEY_PRESSED) {
-      if (key === DIK_keys.DIK_S || key === DIK_keys.DIK_ESCAPE || key === DIK_keys.DIK_Q) {
+      if (key === DIK_keys.DIK_ESCAPE) {
         this.onCancelButtonAction();
       }
     }
 
-    return true;
+    return result;
   }
 } as IDevDebugDialog);

@@ -51,9 +51,21 @@ export async function buildDynamicScripts(): Promise<void> {
   if (result.diagnostics?.length) {
     log.warn(chalk.redBright("Lua build issues:"));
 
-    result.diagnostics.forEach((it) => log.error(chalk.red("Lua issue:"), it.code, it.category, it.messageText));
+    result.diagnostics.forEach((it) => {
+      log.error(
+        chalk.red("Lua issue:"),
+        it.code,
+        it.category,
+        chalk.yellowBright(it.file.fileName),
+        chalk.red(it.messageText)
+      );
+    });
 
-    throw new Error(`Build failed, got ${result.diagnostics.length} lua issues.`);
+    throw new Error(
+      `Lua transpiling failed, got ${result.diagnostics.length} lua issues. Use ${chalk.yellow(
+        "'npm run typecheck:lua'"
+      )} for investigation.`
+    );
   }
 
   log.info("Built lua scripts:", chalk.blue((Date.now() - startedAt) / 1000), "sec");

@@ -21,5 +21,13 @@ export const console_command = {
    * Set game difficulty.
    * Second param - diffuculty value.
    */
-  g_game_difficulty: "g_game_difficulty"
+  g_game_difficulty: "g_game_difficulty",
+  /**
+   * Check game updates.
+   */
+  check_for_updates: "check_for_updates",
+  /**
+   * Save options changes.
+   */
+  cfg_save: "cfg_save"
 };
