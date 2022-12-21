@@ -3,8 +3,8 @@ import { Optional } from "@/mod/lib/types";
 import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
 import { DevDebugDialog, IDevDebugDialog } from "@/mod/scripts/ui/debug/DevDebugDialog";
 import { ILoadDialog, LoadDialog } from "@/mod/scripts/ui/menu/LoadDialog";
+import { IOptionsDialog, OptionsDialog } from "@/mod/scripts/ui/menu/OptionsDialog";
 import { ISaveDialog, SaveDialog } from "@/mod/scripts/ui/menu/SaveDialog";
-import { IOptions, Options } from "@/mod/scripts/ui/options/Options";
 
 const base: string = "menu/MainMenu.component.xml";
 const log: DebugLogger = new DebugLogger("MainMenu");
@@ -14,7 +14,7 @@ export interface IMainMenu extends XR_CUIScriptWnd {
 
   modalBoxMode: number;
 
-  gameOptionsDialog: IOptions;
+  gameOptionsDialog: IOptionsDialog;
   gameSavesSaveDialog: ISaveDialog;
   gameSavesLoadDialog: ILoadDialog;
   ln_dlg: any;
@@ -281,7 +281,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     log.info("Activating options view");
 
     if (this.gameOptionsDialog == null) {
-      this.gameOptionsDialog = create_xr_class_instance(Options);
+      this.gameOptionsDialog = create_xr_class_instance(OptionsDialog);
       this.gameOptionsDialog.owner = this;
     }
 

@@ -1,5 +1,5 @@
 import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
-import { IOptions } from "@/mod/scripts/ui/options/Options";
+import { IOptionsDialog } from "@/mod/scripts/ui/menu/OptionsDialog";
 
 const log: DebugLogger = new DebugLogger("OptionsVideoAdvanced");
 
@@ -7,7 +7,7 @@ export interface IOptionsVideoAdvanced extends XR_CUIWindow {
   scroll_v: XR_CUIScrollView;
   texture_lod_track: XR_CUITrackBar;
 
-  InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IOptions): void;
+  InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IOptionsDialog): void;
 }
 
 export const OptionsVideoAdvanced: IOptionsVideoAdvanced = declare_xr_class("OptionsVideoAdvanced", CUIWindow, {
@@ -18,7 +18,7 @@ export const OptionsVideoAdvanced: IOptionsVideoAdvanced = declare_xr_class("Opt
   __finalize(): void {
     log.info("Finalize");
   },
-  InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IOptions): void {
+  InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IOptionsDialog): void {
     log.info("Init controls");
 
     let ctl: any;
@@ -198,48 +198,48 @@ export const OptionsVideoAdvanced: IOptionsVideoAdvanced = declare_xr_class("Opt
   }
 } as IOptionsVideoAdvanced);
 
-function only_1_mode(ctrl: IOptions, _id: number): void {
+function only_1_mode(ctrl: IOptionsDialog, _id: number): void {
   const bEnabled: boolean = _id === 0;
 
   ctrl.Enable(bEnabled);
 }
 
 // -- >=R2a
-function only_2a_and_more_mode(ctrl: IOptions, _id: number): void {
+function only_2a_and_more_mode(ctrl: IOptionsDialog, _id: number): void {
   const bEnabled: boolean = _id >= 1;
 
   ctrl.Enable(bEnabled);
 }
 
 // -- >=R2
-function only_2_and_more_mode(ctrl: IOptions, _id: number): void {
+function only_2_and_more_mode(ctrl: IOptionsDialog, _id: number): void {
   const bEnabled: boolean = _id >= 2;
 
   ctrl.Enable(bEnabled);
 }
 
 // -- >=R2.5
-function only_25_and_more_mode(ctrl: IOptions, _id: number): void {
+function only_25_and_more_mode(ctrl: IOptionsDialog, _id: number): void {
   const bEnabled: boolean = _id >= 3;
 
   ctrl.Enable(bEnabled);
 }
 
 // -- >=R3
-function only_3_and_more_mode(ctrl: IOptions, _id: number): void {
+function only_3_and_more_mode(ctrl: IOptionsDialog, _id: number): void {
   const bEnabled: boolean = _id >= 4;
 
   ctrl.Enable(bEnabled);
 }
 
-function only_3_and_more_mode_visible(ctrl: IOptions, _id: number): void {
+function only_3_and_more_mode_visible(ctrl: IOptionsDialog, _id: number): void {
   const bEnabled: boolean = _id >= 4;
 
   ctrl.Enable(bEnabled);
   ctrl.Show(bEnabled);
 }
 
-function only_3_and_more_mode_invisible(ctrl: IOptions, _id: number): void {
+function only_3_and_more_mode_invisible(ctrl: IOptionsDialog, _id: number): void {
   const bEnabled: boolean = _id < 4;
 
   ctrl.Enable(bEnabled);

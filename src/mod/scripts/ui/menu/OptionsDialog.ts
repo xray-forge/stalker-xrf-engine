@@ -1,17 +1,18 @@
 import { option_groups, option_groups_messages } from "@/mod/globals/option_groups";
 import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
-import { IOptionsControls, OptionsControls } from "@/mod/scripts/ui/options/OptionsControls";
-import { IOptionsGameplay, OptionsGameplay } from "@/mod/scripts/ui/options/OptionsGameplay";
-import { IOptionsSound, OptionsSound } from "@/mod/scripts/ui/options/OptionsSound";
-import { IOptionsVideo, OptionsVideo } from "@/mod/scripts/ui/options/OptionsVideo";
-import { IOptionsVideoAdvanced, OptionsVideoAdvanced } from "@/mod/scripts/ui/options/OptionsVideoAdvanced";
+import { IOptionsControls, OptionsControls } from "@/mod/scripts/ui/menu/options/OptionsControls";
+import { IOptionsGameplay, OptionsGameplay } from "@/mod/scripts/ui/menu/options/OptionsGameplay";
+import { IOptionsSound, OptionsSound } from "@/mod/scripts/ui/menu/options/OptionsSound";
+import { IOptionsVideo, OptionsVideo } from "@/mod/scripts/ui/menu/options/OptionsVideo";
+import { IOptionsVideoAdvanced, OptionsVideoAdvanced } from "@/mod/scripts/ui/menu/options/OptionsVideoAdvanced";
 
+const base: string = "menu/OptionsDialog.component.xml";
 const log: DebugLogger = new DebugLogger("Options");
 
-export interface IOptions extends XR_CUIScriptWnd {
+export interface IOptionsDialog extends XR_CUIScriptWnd {
   owner: XR_CUIScriptWnd;
 
-  m_preconditions: Record<string, (ctrl: IOptions, id: number) => void>;
+  m_preconditions: Record<string, (ctrl: IOptionsDialog, id: number) => void>;
 
   tab: XR_CUITabControl;
   dialog: XR_CUIStatic;
@@ -57,7 +58,7 @@ export interface IOptions extends XR_CUIScriptWnd {
   OnBtn_CancelDownload(): void;
 }
 
-export const Options: IOptions = declare_xr_class("Options", CUIScriptWnd, {
+export const OptionsDialog: IOptionsDialog = declare_xr_class("OptionsDialog", CUIScriptWnd, {
   __init(): void {
     xr_class_super();
     log.info("Init");
@@ -76,9 +77,9 @@ export const Options: IOptions = declare_xr_class("Options", CUIScriptWnd, {
     this.SetWndRect(new Frect().set(0, 0, 1024, 768));
     this.Enable(true);
 
-    const xml = new CScriptXmlInit();
+    const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
-    xml.ParseFile("options/Options.component.xml");
+    xml.ParseFile(base);
 
     xml.InitStatic("background", this);
     this.dialog = xml.InitStatic("main_dialog:dialog", this);
@@ -354,4 +355,4 @@ export const Options: IOptions = declare_xr_class("Options", CUIScriptWnd, {
 
     mainMenu.CancelDownload();
   }
-} as IOptions);
+} as IOptionsDialog);

@@ -1,10 +1,10 @@
 import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
-import { IOptions } from "@/mod/scripts/ui/options/Options";
+import { IOptionsDialog } from "@/mod/scripts/ui/menu/OptionsDialog";
 
 const log: DebugLogger = new DebugLogger("OptionsControls");
 
 export interface IOptionsControls extends XR_CUIWindow {
-  InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IOptions): void;
+  InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IOptionsDialog): void;
 }
 
 export const OptionsControls: IOptionsControls = declare_xr_class("OptionsControls", CUIWindow, {
@@ -15,7 +15,7 @@ export const OptionsControls: IOptionsControls = declare_xr_class("OptionsContro
   __finalize(): void {
     log.info("Finalize");
   },
-  InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IOptions): void {
+  InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IOptionsDialog): void {
     log.info("Init controls");
 
     this.SetWndPos(new vector2().set(x, y));
