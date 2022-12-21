@@ -281,7 +281,7 @@ declare global {
   function IsImportantSave(): unknown;
   function GetFontLetterica25(): unknown;
   function system_ini(): unknown;
-  function GetFontMedium(): unknown;
+  function GetFontMedium(): XR_CGameFont;
   function alife(): unknown;
   function flush(): unknown;
   function is_enough_address_space_available(): boolean;

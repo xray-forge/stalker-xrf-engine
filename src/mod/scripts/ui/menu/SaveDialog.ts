@@ -1,10 +1,15 @@
+import { gameConfig } from "@/mod/lib/configs/GameConfig";
+import { Optional } from "@/mod/lib/types";
 import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
+import { deleteGameSave } from "@/mod/scripts/utils/game_saves_utils";
 
 const base: string = "menu/SaveDialog.component.xml";
 const log: DebugLogger = new DebugLogger("SaveDialog");
 
 interface ISaveItem extends XR_CUIListBoxItem {
+  owner: XR_CUIScriptWnd;
   fn: XR_CUITextWnd;
+  fage: XR_CUITextWnd;
 }
 
 const SaveItem = declare_xr_class("SaveItem", CUIListBoxItem, {
@@ -20,6 +25,24 @@ const SaveItem = declare_xr_class("SaveItem", CUIListBoxItem, {
 } as ISaveItem);
 
 export interface ISaveDialog extends XR_CUIScriptWnd {
+  owner: XR_CUIScriptWnd;
+
+  list_file_font: XR_CGameFont;
+  list_date_font: XR_CGameFont;
+
+  file_item_main_sz: XR_vector2;
+  file_item_fn_sz: XR_vector2;
+  file_item_fd_sz: XR_vector2;
+
+  form: XR_CUIStatic;
+  editbox: XR_CUIEditBox;
+  list_box: XR_CUIListBox<ISaveItem>;
+
+  message_box: XR_CUIMessageBoxEx;
+
+  new_save: string;
+  mbox_mode: number;
+
   InitControls(): void;
   InitCallBacks(): void;
   FillList(): void;
@@ -29,8 +52,8 @@ export interface ISaveDialog extends XR_CUIScriptWnd {
   delete_selected_file(): void;
   OnButton_ok_clicked(): void;
   OnButton_cancel_clicked(): void;
-  AddItemToList(): void;
-  SaveFile(): void;
+  AddItemToList(filename: string, datetime: string): void;
+  SaveFile(filename: string): void;
 }
 
 export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptWnd, {
@@ -44,206 +67,205 @@ export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptW
     this.FillList();
   },
   __finalize(): void {},
-  FillList(): void {
-    /**
-     * function save_dialog:FillList()
-     *    self.list_box:RemoveAll()
-     *    local flist = getFS():file_list_open_ex("$game_saves$",FS.FS_ListFiles,"*"..saved_game_extension)
-     *    local f_cnt = flist:Size()
-     *
-     *    flist:Sort(FS.FS_sort_by_modif_down)
-     *
-     *    for    it=0, f_cnt-1    do
-     *        local file        =    flist:GetAt(it)
-     *        local file_name = string.sub(file:NameFull(), 0, (string.len(file:NameFull()) - string.len(saved_game_extension)))
-     *        local date_time = "[" .. file:ModifDigitOnly() .. "]"
-     *        --menu_item =  ..
-     *        self:AddItemToList(file_name, date_time)
-     *    end
-     * end
-     */
-  },
   InitControls(): void {
-    /**
-     * function save_dialog:InitControls()
-     *    self:SetWndRect(Frect():set(0,0,1024,768))
-     *
-     *    self.list_file_font = GetFontMedium()
-     *    self.list_date_font = GetFontMedium()
-     *
-     *    local xml = CScriptXmlInit()
-     *    xml:ParseFile("ui_mm_save_dlg.xml")
-     *
-     *    local ctrl
-     *
-     *    xml:InitWindow                    ("background", 0, self)
-     *
-     *    ctrl                            = CUIWindow()
-     *    xml:InitWindow                    ("file_item:main", 0, ctrl)
-     *
-     *    self.file_item_main_sz            = vector2():set(ctrl:GetWidth(),ctrl:GetHeight())
-     *
-     *    xml:InitWindow                    ("file_item:fn",0,ctrl)
-     *    self.file_item_fn_sz            = vector2():set(ctrl:GetWidth(),ctrl:GetHeight())
-     *
-     *    xml:InitWindow                    ("file_item:fd",0,ctrl)
-     *    self.file_item_fd_sz            = vector2():set(ctrl:GetWidth(),ctrl:GetHeight())
-     *
-     *
-     *    self.form = xml:InitStatic        ("form", self)
-     *
-     *    xml:InitTextWnd                    ("form:caption", self.form)
-     *
-     *    self.editbox                    = xml:InitEditBox("form:edit", self.form)
-     *    self:Register                    (self.editbox, "edit_filename")
-     *
-     *    xml:InitFrame                    ("form:list_frame", self.form)
-     *
-     *    self.list_box = xml:InitListBox    ("form:list", self.form)
-     *    self.list_box:ShowSelectedItem    (true)
-     *    self:Register                    (self.list_box, "list_window")
-     *
-     *    ctrl = xml:Init3tButton            ("form:btn_save", self.form)
-     *    self:Register                    (ctrl, "button_ok")
-     *
-     *    ctrl = xml:Init3tButton            ("form:btn_delete",    self.form)
-     *    self:Register                    (ctrl, "button_del")
-     *
-     *    ctrl = xml:Init3tButton            ("form:btn_cancel",    self.form)
-     *    self:Register                    (ctrl, "button_cancel")
-     *
-     *    self.message_box                = CUIMessageBoxEx()
-     *    self:Register                    (self.message_box,"message_box")
-     *
-     *    self.mbox_mode                    = 0
-     * end
-     */
+    log.info("Init controls");
+
+    this.SetWndRect(new Frect().set(0, 0, 1024, 768));
+
+    this.list_file_font = GetFontMedium();
+    this.list_date_font = GetFontMedium();
+
+    const xml: XR_CScriptXmlInit = new CScriptXmlInit();
+
+    xml.ParseFile(base);
+
+    xml.InitWindow("background", 0, this);
+
+    const ctrl: XR_CUIWindow = new CUIWindow();
+
+    xml.InitWindow("file_item:main", 0, ctrl);
+
+    this.file_item_main_sz = new vector2().set(ctrl.GetWidth(), ctrl.GetHeight());
+
+    xml.InitWindow("file_item:fn", 0, ctrl);
+    this.file_item_fn_sz = new vector2().set(ctrl.GetWidth(), ctrl.GetHeight());
+
+    xml.InitWindow("file_item:fd", 0, ctrl);
+    this.file_item_fd_sz = new vector2().set(ctrl.GetWidth(), ctrl.GetHeight());
+
+    this.form = xml.InitStatic("form", this);
+
+    xml.InitTextWnd("form:caption", this.form);
+
+    this.editbox = xml.InitEditBox("form:edit", this.form);
+    this.Register(this.editbox, "edit_filename");
+
+    xml.InitFrame("form:list_frame", this.form);
+
+    this.list_box = xml.InitListBox("form:list", this.form);
+    this.list_box.ShowSelectedItem(true);
+    this.Register(this.list_box, "list_window");
+
+    this.Register(xml.Init3tButton("form:btn_save", this.form), "button_ok");
+
+    this.Register(xml.Init3tButton("form:btn_delete", this.form), "button_del");
+
+    this.Register(xml.Init3tButton("form:btn_cancel", this.form), "button_cancel");
+
+    this.message_box = new CUIMessageBoxEx();
+    this.Register(this.message_box, "message_box");
+
+    this.mbox_mode = 0;
   },
   InitCallBacks(): void {
-    /**
-     * function save_dialog:InitCallBacks()
-     *     -- main frame buttons
-     *    self:AddCallback("button_ok",     ui_events.BUTTON_CLICKED,            self.OnButton_ok_clicked,        self)
-     *    self:AddCallback("button_cancel", ui_events.BUTTON_CLICKED,            self.OnButton_cancel_clicked,    self)
-     *    self:AddCallback("button_del",      ui_events.BUTTON_CLICKED,             self.OnButton_del_clicked,    self)
-     *
-     *    self:AddCallback("message_box", ui_events.MESSAGE_BOX_YES_CLICKED,        self.OnMsgYes,             self)
-     *    self:AddCallback("list_window", ui_events.LIST_ITEM_CLICKED,            self.OnListItemClicked,        self)
-     * end
-     */
-  },
+    log.info("Init callbacks");
 
+    this.AddCallback("button_ok", ui_events.BUTTON_CLICKED, () => this.OnButton_ok_clicked(), this);
+    this.AddCallback("button_cancel", ui_events.BUTTON_CLICKED, () => this.OnButton_cancel_clicked(), this);
+    this.AddCallback("button_del", ui_events.BUTTON_CLICKED, () => this.OnButton_del_clicked(), this);
+
+    this.AddCallback("message_box", ui_events.MESSAGE_BOX_YES_CLICKED, () => this.OnMsgYes(), this);
+    this.AddCallback("list_window", ui_events.LIST_ITEM_CLICKED, () => this.OnListItemClicked(), this);
+  },
+  FillList(): void {
+    log.info("Fill list");
+
+    this.list_box.RemoveAll();
+
+    const flist: XR_FS_file_list_ex = getFS().file_list_open_ex(
+      "$game_saves$",
+      FS.FS_ListFiles,
+      "*" + gameConfig.GAME_SAVE_EXTENSION
+    );
+
+    flist.Sort(FS.FS_sort_by_modif_down);
+
+    for (let it = 0; it < flist.Size(); it += 1) {
+      const file: XR_FS_item = flist.GetAt(it);
+      const file_name: string = lua_string.sub(
+        file.NameFull(),
+        0,
+        lua_string.len(file.NameFull()) - lua_string.len(gameConfig.GAME_SAVE_EXTENSION)
+      );
+      const date_time: string = "[" + file.ModifDigitOnly() + "]";
+
+      // --menu_item =  +
+      this.AddItemToList(file_name, date_time);
+    }
+  },
   OnListItemClicked(): void {
-    /**
-     *
-     * function save_dialog:OnListItemClicked()
-     *    if self.list_box:GetSize()==0 then return end
-     *
-     *    local item            = self.list_box:GetSelectedItem()
-     *
-     *    if item==nil then return end
-     *
-     *    local item_text            = item.fn:GetText()
-     *    self.editbox:SetText    (item_text)
-     * end
-     */
+    log.info("List item clicked");
+
+    if (this.list_box.GetSize() === 0) {
+      return;
+    }
+
+    const item = this.list_box.GetSelectedItem();
+
+    if (item === null) {
+      return;
+    }
+
+    const item_text: string = item.fn.GetText();
+
+    this.editbox.SetText(item_text);
   },
   OnMsgYes(): void {
-    /**
-     * function save_dialog:OnMsgYes()
-     *    if self.mbox_mode == 1 then
-     *        self:SaveFile(self.new_save)
-     *
-     *        self.owner:ShowDialog(true)
-     *        self:HideDialog()
-     *        self.owner:Show(true)
-     *
-     *    elseif self.mbox_mode == 2 then
-     *        self:delete_selected_file()
-     *    end
-     * end
-     */
+    log.info("Message yes clicked:", this.mbox_mode);
+
+    if (this.mbox_mode === 1) {
+      this.SaveFile(this.new_save);
+
+      this.owner.ShowDialog(true);
+      this.HideDialog();
+      this.owner.Show(true);
+    } else if (this.mbox_mode == 2) {
+      this.delete_selected_file();
+    }
   },
   OnButton_del_clicked(): void {
-    /**
-     * function save_dialog:OnButton_del_clicked()
-     *    if self.list_box:GetSize()==0 then return end
-     *
-     *    local item    = self.list_box:GetSelectedItem()
-     *    if item == nil then return end
-     *
-     *    self.mbox_mode = 2
-     *    self.message_box:InitMessageBox("message_box_delete_file_name")
-     *    self.message_box:ShowDialog(true)
-     * end
-     */
+    log.info("Message delete clicked");
+
+    if (this.list_box.GetSize() === 0) {
+      return;
+    }
+
+    const item: Optional<ISaveItem> = this.list_box.GetSelectedItem();
+
+    if (item == null) {
+      return;
+    }
+
+    this.mbox_mode = 2;
+    this.message_box.InitMessageBox("message_box_delete_file_name");
+    this.message_box.ShowDialog(true);
   },
   delete_selected_file(): void {
-    /**
-     * function save_dialog:delete_selected_file()
-     *    if self.list_box:GetSize()==0 then return end
-     *
-     *    local index = self.list_box:GetSelectedIndex()
-     *
-     *    if index == -1 then return end
-     *
-     *    local item        = self.list_box:GetItemByIndex(index)
-     *    local filename    = item.fn:GetText()
-     *
-     *    ui_load_dialog.delete_save_game(filename)
-     *
-     *    self.list_box:RemoveItem(item)
-     *    self:OnListItemClicked()
-     * end
-     */
+    log.info("Deleting selected file");
+
+    if (this.list_box.GetSize() === 0) {
+      return;
+    }
+
+    const index: number = this.list_box.GetSelectedIndex();
+
+    if (index == -1) {
+      return;
+    }
+
+    const item: ISaveItem = this.list_box.GetItemByIndex(index);
+    const filename: string = item.fn.GetText();
+
+    deleteGameSave(filename);
+
+    this.list_box.RemoveItem(item);
+    this.OnListItemClicked();
   },
   OnButton_ok_clicked(): void {
-    /**
-     *
-     * function save_dialog:OnButton_ok_clicked()
-     *    -- prepare message box
-     *
-     *    -- Get file name
-     *    self.new_save        = self.editbox:GetText()
-     *
-     *    -- check for empty name
-     *    if string.len(self.new_save) == 0 then
-     *        self.mbox_mode = 0
-     *        self.message_box:InitMessageBox("message_box_empty_file_name")
-     *        self.message_box:ShowDialog(true)
-     *        return
-     *    end
-     *
-     *    -- check for match name
-     *    local f = getFS()
-     *    local flist = f:file_list_open("$game_saves$",FS.FS_ListFiles)
-     *    local file_struct = f:exist("$game_saves$", self.new_save .. saved_game_extension )
-     *
-     *    if file_struct ~= nil then
-     *        self.mbox_mode = 1
-     *        self.message_box:InitMessageBox("message_box_file_already_exist")
-     *        self.message_box:ShowDialog(true)
-     *
-     *        flist:Free()
-     *        return
-     *    end
-     *    flist:Free()
-     *    self:SaveFile(self.new_save)
-     *
-     *    self.owner:ShowDialog(true)
-     *    self:HideDialog()
-     *    self.owner:Show(true)
-     * end
-     */
+    log.info("OK confirm clicked");
+
+    this.new_save = this.editbox.GetText();
+
+    if (lua_string.len(this.new_save) == 0) {
+      log.info("Save name is empty");
+
+      this.mbox_mode = 0;
+      this.message_box.InitMessageBox("message_box_empty_file_name");
+      this.message_box.ShowDialog(true);
+
+      return;
+    }
+
+    const fs: XR_FS = getFS();
+    const fileList: XR_FS_file_list = fs.file_list_open("$game_saves$", FS.FS_ListFiles);
+    const file_struct: unknown = fs.exist("$game_saves$", this.new_save + gameConfig.GAME_SAVE_EXTENSION);
+
+    if (file_struct !== null) {
+      log.info("File already exists");
+
+      this.mbox_mode = 1;
+      this.message_box.InitMessageBox("message_box_file_already_exist");
+      this.message_box.ShowDialog(true);
+
+      fileList.Free();
+
+      return;
+    }
+
+    fileList.Free();
+    this.SaveFile(this.new_save);
+
+    this.owner.ShowDialog(true);
+    this.HideDialog();
+    this.owner.Show(true);
+
+    log.info("Saved");
   },
   OnButton_cancel_clicked(): void {
-    /**
-     * function save_dialog:OnButton_cancel_clicked()
-     *    self.owner:ShowDialog(true)
-     *    self:HideDialog()
-     *    self.owner:Show(true)
-     * end
-     */
+    log.info("Cancel clicked");
+    this.owner.ShowDialog(true);
+    this.HideDialog();
+    this.owner.Show(true);
   },
   OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
     CUIScriptWnd.OnKeyboard(this, key, event);
@@ -260,25 +282,24 @@ export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptW
 
     return true;
   },
-  AddItemToList(): void {
-    /**
-     * function save_dialog:AddItemToList(file_name, date_time)
-     *    local _itm            = save_item(self.file_item_main_sz.y)
-     *    _itm:SetWndSize        (self.file_item_main_sz)
-     *
-     *    _itm.fn:SetWndPos    (vector2():set(0,0))
-     *    _itm.fn:SetWndSize    (self.file_item_fn_sz)
-     *    _itm.fn:SetText        (file_name)
-     *
-     *    _itm.fage            = _itm:AddTextField(date_time, self.file_item_fd_sz.x)
-     *    _itm.fage:SetFont    (GetFontLetterica16Russian())
-     *    _itm.fage:SetWndPos    (vector2():set(self.file_item_fn_sz.x+4, 0))
-     *
-     *    self.list_box:AddExistingItem(_itm)
-     * end
-     */
+  AddItemToList(filename: string, datetime: string): void {
+    const it: ISaveItem = create_xr_class_instance(SaveItem, this.file_item_main_sz.y);
+
+    it.SetWndSize(this.file_item_main_sz);
+
+    it.fn.SetWndPos(new vector2().set(0, 0));
+    it.fn.SetWndSize(this.file_item_fn_sz);
+    it.fn.SetText(filename);
+
+    it.fage = it.AddTextField(datetime, this.file_item_fd_sz.x);
+    it.fage.SetFont(GetFontLetterica16Russian());
+    it.fage.SetWndPos(new vector2().set(this.file_item_fn_sz.x + 4, 0));
+
+    this.list_box.AddExistingItem(it);
   },
   SaveFile(filename: string): void {
+    log.info("Save file:", filename);
+
     if (filename !== null) {
       const console: XR_CConsole = get_console();
 

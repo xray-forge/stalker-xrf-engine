@@ -3,6 +3,7 @@ import { Optional } from "@/mod/lib/types";
 import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
 import { DevDebugDialog, IDevDebugDialog } from "@/mod/scripts/ui/debug/DevDebugDialog";
 import { ILoadDialog, LoadDialog } from "@/mod/scripts/ui/menu/LoadDialog";
+import { ISaveDialog, SaveDialog } from "@/mod/scripts/ui/menu/SaveDialog";
 import { Options } from "@/mod/scripts/ui/options/Options";
 
 const base: string = "menu/MainMenu.component.xml";
@@ -13,7 +14,7 @@ export interface IMainMenu extends XR_CUIScriptWnd {
   shniaga: XR_CUIMMShniaga;
 
   opt_dlg: any;
-  save_dlg: any;
+  save_dlg: ISaveDialog;
   load_dlg: ILoadDialog;
   ln_dlg: any;
   gs_dlg: any;
@@ -265,7 +266,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
   },
   OnButton_save_clicked(): void {
     if (this.save_dlg === null) {
-      this.save_dlg = get_global("ui_save_dialog").save_dialog();
+      this.save_dlg = create_xr_class_instance(SaveDialog);
       this.save_dlg.owner = this;
     }
 

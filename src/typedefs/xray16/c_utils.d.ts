@@ -484,15 +484,17 @@ declare global {
   // todo;
 
   /**
-   C++ class CGameFont {
-    const alCenter = 2;
-    const alLeft = 0;
-    const alRight = 1;
-
-  };
+   * C++ class CGameFont {
+   *     const alCenter = 2;
+   *     const alLeft = 0;
+   *     const alRight = 1;
+   *   };
    */
-
-  // todo;
+  class XR_CGameFont {
+    public static alCenter: 2;
+    public static alLeft: 0;
+    public static alRight: 1;
+  }
 
   /**
    C++ class CGameGraph {

@@ -62,16 +62,25 @@ declare global {
    */
   // todo;
   /**
-   C++ class FS_file_list {
-    function Free();
-
-    function GetAt(number);
-
-    function Size();
-
-  };
+   *   C++ class FS_file_list {
+   *     function Free();
+   *
+   *     function GetAt(number);
+   *
+   *     function Size();
+   *
+   *   };
+   *
+   * @customConstructor FS_file_list
    */
-  // todo;
+  class XR_FS_file_list {
+    public Free(): void;
+
+    public GetAt(number: number): XR_FS_item;
+
+    public Size(): number;
+  }
+
   /**
    *  C++ class FS_file_list_ex {
    *     function Sort(number);
@@ -260,8 +269,8 @@ declare global {
 
     public w_close(writer: unknown /* class IWriter*& */): unknown;
 
-    public file_list_open(fs: XR_FS, a: string, b: number): unknown;
-    public file_list_open(fs: XR_FS, a: string, b: string, c: number): unknown;
+    public file_list_open(a: string, b: number): XR_FS_file_list;
+    public file_list_open(a: string, b: string, c: number): XR_FS_file_list;
 
     public path_exist(a: string): unknown;
 
