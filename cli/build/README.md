@@ -1,8 +1,8 @@
-# [XRTS](../../README.md) / CLI / BUILD
+# [XRTS](../../.) / CLI / BUILD
 
 ### Description
 
-Multistep preparation of stalke gamedata built from typescript and other generic tools.
+Multistep preparation of stalker gamedata built from typescript and other generic tools.
 
 Build includes such steps:
 
@@ -13,6 +13,8 @@ Build includes such steps:
 - copy static UI XML files
 - build dynamic configs from ts files
 - copy static LTX config files
+- build dynamic translation files
+- copy static translation files
 - copy static resources (textures, shaders, models, sounds)
 - build mod metadata.json
 
@@ -25,6 +27,7 @@ List of arguments:
 - `--no-ui` - skip UI building/copying steps
 - `--no-scripts` - skip lua scripts building/copying steps
 - `--no-configs` - skip configs building/copying steps
+- `--no-translations` - skip translations building/copying steps
 
 ### Example output
 

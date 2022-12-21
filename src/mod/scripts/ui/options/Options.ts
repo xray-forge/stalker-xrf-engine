@@ -73,7 +73,7 @@ export const Options: IOptions = declare_xr_class("Options", CUIScriptWnd, {
   InitControls(): void {
     log.info("Init controls");
 
-    this.SetWndRect(Frect().set(0, 0, 1024, 768));
+    this.SetWndRect(new Frect().set(0, 0, 1024, 768));
     this.Enable(true);
 
     const xml = new CScriptXmlInit();

@@ -55,9 +55,15 @@ declare global {
 
   const COptionsManager: typeof XR_COptionsManager;
 
+  const CSavedGameWrapper: typeof XR_CSavedGameWrapper;
+
+  const CTime: typeof XR_CTime;
+
+  const FS: typeof XR_FS;
+
   const vector2: typeof XR_vector2;
 
-  const Frect: () => XR_FRect;
+  const Frect: typeof XR_FRect;
 
   const memory_object: () => XR_MemoryObject;
 
@@ -76,6 +82,8 @@ declare global {
   const game_difficulty: XR_game_difficulty;
 
   const ui_events: IXR_ui_events;
+
+  const key_bindings: XR_key_bindings;
 
   const DIK_keys: IXR_DIK_keys;
 }

@@ -1,6 +1,7 @@
 {
   "name": "stalker-xrts-template",
   "version": "1.0.0",
+  "author": "Neloreck",
   "private": true,
   "scripts": {
     "info": "ts-node -P ./cli/tsconfig.json cli/info/info.ts",

@@ -73,33 +73,81 @@ declare global {
    */
   // todo;
   /**
-   C++ class FS_file_list_ex {
-    function Sort(number);
-
-    function GetAt(number);
-
-    function Size();
-
-  };
-   */
-  // todo;
-  /**
-
-   C++ class FS_item {
-    function Modif();
-
-    function NameFull();
-
-    function NameShort();
-
-    function ModifDigitOnly();
-
-    function Size();
-
-  };
+   *  C++ class FS_file_list_ex {
+   *     function Sort(number);
    *
+   *     function GetAt(number);
+   *
+   *     function Size();
+   *
+   *   };
+   *
+   *  @customConstructor FS_file_list_ex
    */
-  // todo;
+  class XR_FS_file_list_ex {
+    public Sort(u: number): void;
+
+    public GetAt(index: number): XR_FS_item;
+
+    public Size(): number;
+  }
+
+  /**
+   *  C++ class FS_item {
+   *     function Modif();
+   *
+   *     function NameFull();
+   *
+   *     function NameShort();
+   *
+   *     function ModifDigitOnly();
+   *
+   *     function Size();
+   *
+   *   };
+   *
+   *  @customConstructor FS_item
+   */
+  class XR_FS_item {
+    public Modif(): unknown;
+
+    public NameFull(): string;
+
+    public NameShort(): string;
+
+    public ModifDigitOnly(): unknown;
+
+    public Size(): number;
+  }
+
+  /**
+   * C++ class CSavedGameWrapper {
+   *     CSavedGameWrapper (string);
+   *
+   *     function level_name() const;
+   *
+   *     function level_id() const;
+   *
+   *     function game_time(const CSavedGameWrapper*);
+   *
+   *     function actor_health() const;
+   *
+   *   };
+   *
+   *  @customConstructor CSavedGameWrapper
+   */
+  class XR_CSavedGameWrapper {
+    public constructor(name: string);
+
+    public level_name(): string;
+
+    public level_id(): number;
+
+    public game_time(/* const CSavedGameWrapper*/): XR_CTime;
+
+    public actor_health(): number;
+  }
+
   /**
 
    C++ class fs_file {
@@ -115,63 +163,120 @@ declare global {
    */
   // todo;
   /**
-   C++ class FS {
-    const FS_ClampExt = 4;
-    const FS_ListFiles = 1;
-    const FS_ListFolders = 2;
-    const FS_RootOnly = 8;
-    const FS_sort_by_modif_down = 5;
-    const FS_sort_by_modif_up = 4;
-    const FS_sort_by_name_down = 1;
-    const FS_sort_by_name_up = 0;
-    const FS_sort_by_size_down = 3;
-    const FS_sort_by_size_up = 2;
-
-    function get_file_age(string);
-
-    function file_length(string);
-
-    function file_rename(string, string, boolean);
-
-    function r_open(string, string);
-    function r_open(string);
-
-    function append_path(string, string, string, number);
-
-    function file_copy(string, string);
-
-    function get_file_age_str(FS*, string);
-
-    function dir_delete(FS*, string, number);
-    function dir_delete(FS*, string, string, number);
-
-    function update_path(FS*, string, string);
-
-    function r_close(reader*&);
-
-    function exist(string);
-    function exist(string, string);
-
-    function w_close(class IWriter*&);
-
-    function file_list_open(FS*, string, number);
-    function file_list_open(FS*, string, string, number);
-
-    function path_exist(string);
-
-    function file_list_open_ex(FS*, string, number, string);
-
-    function get_path(string);
-
-    function file_delete(string, string);
-    function file_delete(string);
-
-    function w_open(string, string);
-    function w_open(string);
-
-  };
+   * C++ class FS {
+   *     const FS_ClampExt = 4;
+   *     const FS_ListFiles = 1;
+   *     const FS_ListFolders = 2;
+   *     const FS_RootOnly = 8;
+   *     const FS_sort_by_modif_down = 5;
+   *     const FS_sort_by_modif_up = 4;
+   *     const FS_sort_by_name_down = 1;
+   *     const FS_sort_by_name_up = 0;
+   *     const FS_sort_by_size_down = 3;
+   *     const FS_sort_by_size_up = 2;
+   *
+   *     function get_file_age(string);
+   *
+   *     function file_length(string);
+   *
+   *     function file_rename(string, string, boolean);
+   *
+   *     function r_open(string, string);
+   *     function r_open(string);
+   *
+   *     function append_path(string, string, string, number);
+   *
+   *     function file_copy(string, string);
+   *
+   *     function get_file_age_str(FS*, string);
+   *
+   *     function dir_delete(FS*, string, number);
+   *     function dir_delete(FS*, string, string, number);
+   *
+   *     function update_path(FS*, string, string);
+   *
+   *     function r_close(reader*&);
+   *
+   *     function exist(string);
+   *     function exist(string, string);
+   *
+   *     function w_close(class IWriter*&);
+   *
+   *     function file_list_open(FS*, string, number);
+   *     function file_list_open(FS*, string, string, number);
+   *
+   *     function path_exist(string);
+   *
+   *     function file_list_open_ex(FS*, string, number, string);
+   *
+   *     function get_path(string);
+   *
+   *     function file_delete(string, string);
+   *     function file_delete(string);
+   *
+   *     function w_open(string, string);
+   *     function w_open(string);
+   *
+   *   };
+   *
+   * @customConstructor FS
    */
-  // todo;
+  class XR_FS {
+    public static FS_ClampExt: 4;
+    public static FS_ListFiles: 1;
+    public static FS_ListFolders: 2;
+    public static FS_RootOnly: 8;
+    public static FS_sort_by_modif_down: 5;
+    public static FS_sort_by_modif_up: 4;
+    public static FS_sort_by_name_down: 1;
+    public static FS_sort_by_name_up: 0;
+    public static FS_sort_by_size_down: 3;
+    public static FS_sort_by_size_up: 2;
+
+    public get_file_age(a: string): unknown;
+
+    public file_length(a: string): unknown;
+
+    public file_rename(a: string, b: string, c: boolean): unknown;
+
+    public r_open(a: string, b: string): unknown;
+    public r_open(a: string): unknown;
+
+    public append_path(a: string, b: string, c: string, d: number): unknown;
+
+    public file_copy(a: string, b: string): unknown;
+
+    public get_file_age_str(fs: XR_FS, a: string): unknown;
+
+    public dir_delete(fs: XR_FS, a: string, c: number): unknown;
+    public dir_delete(fs: XR_FS, a: string, b: string, c: number): unknown;
+
+    public update_path(fs: XR_FS, a: string, b: string): unknown;
+
+    public r_close(reader: unknown /** reader*& */): unknown;
+
+    public exist(a: string): unknown;
+    public exist(a: string, b: string): unknown;
+
+    public w_close(writer: unknown /* class IWriter*& */): unknown;
+
+    public file_list_open(fs: XR_FS, a: string, b: number): unknown;
+    public file_list_open(fs: XR_FS, a: string, b: string, c: number): unknown;
+
+    public path_exist(a: string): unknown;
+
+    public file_list_open_ex(a: string, b: number, c: string): XR_FS_file_list_ex;
+
+    public get_path(a: string): unknown;
+
+    public file_delete(a: string, b: string): unknown;
+    public file_delete(a: string): unknown;
+
+    public w_open(a: string, b: string): unknown;
+    public w_open(a: string): unknown;
+
+  }
+
   /**
    C++ class ini_file {
     ini_file (string);

@@ -18,7 +18,7 @@ interface IBuildMetaParams {
 export async function buildMeta({ meta, timeTracker }: IBuildMetaParams): Promise<void> {
   log.info("Build metadata");
 
-  const buildMeta: Record<string, unknown> = { ...meta };
+  const buildMeta: Record<string, unknown> = {};
 
   const collectFiles = (acc, it) => {
     if (Array.isArray(it)) {
@@ -45,6 +45,10 @@ export async function buildMeta({ meta, timeTracker }: IBuildMetaParams): Promis
   log.info("Collected files count:", builtFiles.length);
   log.info("Collected files size:", chalk.yellow(assetsSizesMegabytes), "MB");
 
+  buildMeta["name"] = meta.name;
+  buildMeta["version"] = meta.version;
+  buildMeta["author"] = meta.author;
+  buildMeta["built_took"] = timeTracker.getDuration() / 1000 + " SEC";
   buildMeta["built_took"] = timeTracker.getDuration() / 1000 + " SEC";
   buildMeta["built_at"] = new Date().toLocaleString();
   buildMeta["build_flags"] = process.argv;

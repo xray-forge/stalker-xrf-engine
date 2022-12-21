@@ -31,7 +31,7 @@ export function create(): JSXNode {
 }
 
 function GameVendorsIntro(): JSXNode {
-  if (gameConfig.ARE_INTRO_VIDEOS_ENABLED) {
+  if (gameConfig.UI.ARE_INTRO_VIDEOS_ENABLED) {
     return (
       <intro_logo>
         <global_wnd width="1024" height="768">

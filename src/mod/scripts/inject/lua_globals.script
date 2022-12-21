@@ -9,6 +9,8 @@ log:info("Injecting lua globals")
 -- ---------------------------------------------------------------------------------------------------------------------
 _G.lua_string = string
 
+_G.lua_table = table
+
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Method to declare native C++ classes from lua
 -- Easier to declare it as LUA global and use than transpile from TS directly
@@ -51,8 +53,6 @@ end
 -- Create XR class instance safely from typescript skipping all the polyfills
 -- ---------------------------------------------------------------------------------------------------------------------
 _G.create_xr_class_instance = function(it, ...)
-  log:info("Creating xr class instance: " .. tostring(it))
-
   return it(...)
 end
 
@@ -69,4 +69,11 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 _G.get_global = function(key)
   return _G[key]
+end
+
+-- ---------------------------------------------------------------------------------------------------------------------
+-- Pack params list as table
+-- ---------------------------------------------------------------------------------------------------------------------
+_G.pack_table = function(...)
+  return { ... }
 end

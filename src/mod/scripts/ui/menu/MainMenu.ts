@@ -2,6 +2,7 @@ import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
 import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
 import { DevDebugDialog, IDevDebugDialog } from "@/mod/scripts/ui/debug/DevDebugDialog";
+import { ILoadDialog, LoadDialog } from "@/mod/scripts/ui/menu/LoadDialog";
 import { Options } from "@/mod/scripts/ui/options/Options";
 
 const base: string = "menu/MainMenu.component.xml";
@@ -13,7 +14,7 @@ export interface IMainMenu extends XR_CUIScriptWnd {
 
   opt_dlg: any;
   save_dlg: any;
-  load_dlg: any;
+  load_dlg: ILoadDialog;
   ln_dlg: any;
   gs_dlg: any;
   mp_dlg: any;
@@ -74,7 +75,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
   InitControls(): void {
     log.info("Init controls");
 
-    this.SetWndRect(Frect().set(0, 0, gameConfig.UI.BASE_WIDTH, gameConfig.UI.BASE_HEIGHT));
+    this.SetWndRect(new Frect().set(0, 0, gameConfig.UI.BASE_WIDTH, gameConfig.UI.BASE_HEIGHT));
 
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
@@ -89,7 +90,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     const version: XR_CUIStatic = xml.InitStatic("static_version", this);
     const xrMainMenu: XR_CMainMenu = main_menu.get_main_menu();
 
-    version.TextControl().SetText("ver. " + xrMainMenu.GetGSVer() + " XRTS 0.1");
+    version.TextControl().SetText(lua_string.format(gameConfig.VERSION, xrMainMenu.GetGSVer()));
 
     this.l_mgr = xrMainMenu.GetLoginMngr();
     this.acc_mgr = xrMainMenu.GetAccountMngr();
@@ -301,7 +302,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
   },
   OnButton_load_clicked(): void {
     if (this.load_dlg === null) {
-      this.load_dlg = get_global("ui_load_dialog").load_dialog();
+      this.load_dlg = create_xr_class_instance(LoadDialog);
       this.load_dlg.owner = this;
     }
 

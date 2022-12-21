@@ -2,7 +2,8 @@ import * as fs from "fs";
 
 import { default as chalk } from "chalk";
 
-import { GAME_DATA_METADATA_FILE, TARGET_GAME_DATA_DIR } from "#/build/globals";
+import { default as pkg } from "#/../package.json";
+import { TARGET_GAME_DATA_DIR } from "#/build/globals";
 import {
   collectLog,
   buildDynamicUi,
@@ -13,11 +14,10 @@ import {
   buildResourcesStatics,
   buildScriptsStatics
 } from "#/build/steps";
+import { buildStaticTranslations } from "#/build/steps/translations_statics";
 import { buildStaticUi } from "#/build/steps/ui_statics";
 import { Logger, TimeTracker } from "#/utils";
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const meta: Record<string, unknown> = require(GAME_DATA_METADATA_FILE);
 const log: Logger = new Logger("BUILD_ALL");
 
 const isCleanBuild: boolean = process.argv.includes("--clean");
@@ -25,6 +25,7 @@ const areBuildResourcesEnabled: boolean = !process.argv.includes("--no-resources
 const areUiResourcesEnabled: boolean = !process.argv.includes("--no-ui");
 const areScriptsResourcesEnabled: boolean = !process.argv.includes("--no-scripts");
 const areConfigResourcesEnabled: boolean = !process.argv.includes("--no-configs");
+const areTranslationResourcesEnabled: boolean = !process.argv.includes("--no-translations");
 
 Logger.IS_FILE_ENABLED = true;
 
@@ -32,7 +33,7 @@ Logger.IS_FILE_ENABLED = true;
   const timeTracker: TimeTracker = new TimeTracker().start();
 
   try {
-    log.info("XRTS build:", chalk.green(meta?.name), chalk.blue(new Date().toLocaleString()));
+    log.info("XRTS build:", chalk.green(pkg?.name), chalk.blue(new Date().toLocaleString()));
 
     if (isCleanBuild) {
       log.info("Perform target cleanup");
@@ -73,6 +74,14 @@ Logger.IS_FILE_ENABLED = true;
       timeTracker.addMark("SKIP_CONFIGS");
     }
 
+    if (areTranslationResourcesEnabled) {
+      await buildStaticTranslations();
+      timeTracker.addMark("BUILT_STATIC_TRANSLATIONS");
+    } else {
+      log.info("Translations build steps skipped");
+      timeTracker.addMark("SKIP_TRANSLATIONS");
+    }
+
     if (areBuildResourcesEnabled) {
       await buildResourcesStatics();
       timeTracker.addMark("BUILT_RESOURCES");
@@ -83,7 +92,7 @@ Logger.IS_FILE_ENABLED = true;
 
     timeTracker.end();
 
-    await buildMeta({ meta, timeTracker });
+    await buildMeta({ meta: pkg, timeTracker });
 
     log.info("Successfully executed build command, took:", timeTracker.getDuration() / 1000, "sec");
   } catch (error) {

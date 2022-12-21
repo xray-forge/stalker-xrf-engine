@@ -3,6 +3,10 @@
  * Used to define some dev flags/features.
  */
 export const gameConfig = {
+  /**
+   * Affects label in game menu.
+   */
+  VERSION: "ver %s XRTS 0.1",
   DEBUG: {
     /**
      * Is debug mode enabled.
@@ -27,11 +31,12 @@ export const gameConfig = {
    * Base sizing for templates in UI.
    */
   UI: {
+    ARE_INTRO_VIDEOS_ENABLED: false,
     BASE_WIDTH: 1024,
     BASE_HEIGHT: 768
   },
   /**
    * Whether game intros are enabled.
    */
-  ARE_INTRO_VIDEOS_ENABLED: false
+  GAME_SAVE_EXTENSION: ".scop"
 };

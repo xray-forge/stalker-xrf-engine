@@ -620,7 +620,7 @@ declare global {
 
     public static OnKeyboard(this: void, base: XR_CUIWindow, key: number, message: TXR_ui_event): boolean;
 
-    public OnKeyboard(dik: TXR_DIK_key, event: TXR_ui_event): boolean;
+    public OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean;
 
     public static Update(this: void, base: XR_CUIWindow): boolean;
 
@@ -979,22 +979,22 @@ declare global {
    *
    * @customConstructor CUIListBox
    */
-  class XR_CUIListBox extends XR_CUIScrollView {
-    public AddExistingItem(item: XR_CUIListBoxItem): unknown;
+  class XR_CUIListBox<T extends XR_CUIListBoxItem = XR_CUIListBoxItem> extends XR_CUIScrollView {
+    public AddExistingItem(item: T): unknown;
 
     public AddTextItem(text: string): unknown;
 
-    public RemoveItem(window: XR_CUIWindow): unknown;
+    public RemoveItem(window: XR_CUIWindow): void;
 
-    public GetItemByIndex(index: number): unknown;
+    public GetItemByIndex(index: number): T;
 
-    public GetSelectedIndex(): unknown;
+    public GetSelectedIndex(): number;
 
-    public GetSelectedItem(): unknown;
+    public GetSelectedItem(): T | null;
 
-    public GetSize(): unknown;
+    public GetSize(): number;
 
-    public RemoveAll(): unknown;
+    public RemoveAll(): void;
 
     public ShowSelectedItem(value: boolean): unknown;
 
@@ -1060,15 +1060,15 @@ declare global {
    * @customConstructor CUIListBoxItem
    */
   class XR_CUIListBoxItem extends XR_CUIFrameLineWnd {
-    public constructor(index: number);
+    // public constructor(index: number);
 
     public AddIconField(value: number): unknown;
 
-    public SetTextColor(value: number): unknown;
+    public SetTextColor(color: number): unknown;
 
-    public AddTextField(value1: string, value2: number): unknown;
+    public AddTextField(text: string, width: number): XR_CUITextWnd;
 
-    public GetTextItem(): unknown;
+    public GetTextItem(): XR_CUITextWnd;
   }
 
   /**
@@ -1935,13 +1935,13 @@ declare global {
   class XR_CUIStatic extends XR_CUIWindow {
     public TextControl(): XR_CUILines;
 
-    public GetTextureRect(): unknown;
+    public GetTextureRect(): XR_FRect;
 
-    public SetStretchTexture(value: boolean): unknown;
+    public SetStretchTexture(isStretched: boolean): void;
 
-    public SetTextureRect(frect: XR_FRect): unknown;
+    public SetTextureRect(frect: XR_FRect): void;
 
-    public InitTexture(value: string): unknown;
+    public InitTexture(value: string): void;
   }
 
   /**
@@ -2075,77 +2075,108 @@ declare global {
   }
 
   /**
-   C++ class CUITextWnd : CUIWindow {
-    CUITextWnd ();
-
-    function SetWndRect(Frect);
-
-    function GetFont();
-
-    function SetTextOffset(number, number);
-
-    function SetWindowName(string);
-
-    function GetWndPos(CUIWindow*);
-
-    function SetText(string);
-
-    function SetWndSize(vector2);
-
-    function SetTextAlignment(enum CGameFont::EAligment);
-
-    function SetTextComplexMode(boolean);
-
-    function GetText();
-
-    function SetAutoDelete(boolean);
-
-    function GetTextColor();
-
-    function SetTextColor(number);
-
-    function SetFont(CGameFont*);
-
-    function AttachChild(CUIWindow*);
-
-    function SetTextST(string);
-
-    function SetWndPos(vector2);
-
-    function AdjustHeightToText();
-
-    function AdjustWidthToText();
-
-    function DetachChild(CUIWindow*);
-
-    function SetPPMode();
-
-    function WindowName();
-
-    function IsShown();
-
-    function SetEllipsis(boolean);
-
-    function Show(boolean);
-
-    function GetHeight() const;
-
-    function GetWidth() const;
-
-    function SetVTextAlignment(enum EVTextAlignment);
-
-    function IsEnabled();
-
-    function ResetPPMode();
-
-    function Enable(boolean);
-
-    function IsAutoDelete();
-
-  };
+   * C++ class CUITextWnd : CUIWindow {
+   *     CUITextWnd ();
+   *
+   *     function SetWndRect(Frect);
+   *
+   *     function GetFont();
+   *
+   *     function SetTextOffset(number, number);
+   *
+   *     function SetWindowName(string);
+   *
+   *     function GetWndPos(CUIWindow*);
+   *
+   *     function SetText(string);
+   *
+   *     function SetWndSize(vector2);
+   *
+   *     function SetTextAlignment(enum CGameFont::EAligment);
+   *
+   *     function SetTextComplexMode(boolean);
+   *
+   *     function GetText();
+   *
+   *     function SetAutoDelete(boolean);
+   *
+   *     function GetTextColor();
+   *
+   *     function SetTextColor(number);
+   *
+   *     function SetFont(CGameFont*);
+   *
+   *     function AttachChild(CUIWindow*);
+   *
+   *     function SetTextST(string);
+   *
+   *     function SetWndPos(vector2);
+   *
+   *     function AdjustHeightToText();
+   *
+   *     function AdjustWidthToText();
+   *
+   *     function DetachChild(CUIWindow*);
+   *
+   *     function SetPPMode();
+   *
+   *     function WindowName();
+   *
+   *     function IsShown();
+   *
+   *     function SetEllipsis(boolean);
+   *
+   *     function Show(boolean);
+   *
+   *     function GetHeight() const;
+   *
+   *     function GetWidth() const;
+   *
+   *     function SetVTextAlignment(enum EVTextAlignment);
+   *
+   *     function IsEnabled();
+   *
+   *     function ResetPPMode();
+   *
+   *     function Enable(boolean);
+   *
+   *     function IsAutoDelete();
+   *
+   *   };
+   *
+   *  @customConstructor CUITextWnd
    */
+  class XR_CUITextWnd extends XR_CUIWindow {
 
-  // todo;
+    public GetFont(): unknown;
+
+    public SetTextOffset(x: number, y: number): unknown;
+
+    public SetText(text: string): unknown;
+
+    public SetTextAlignment(align: number /* CGameFont::EAligment */): unknown;
+
+    public SetTextComplexMode(value: boolean): unknown;
+
+    public GetText(): string;
+
+    public GetTextColor(): unknown;
+
+    public SetTextColor(color: number): unknown;
+
+    public SetFont(font: unknown /* CGameFont */): unknown;
+
+    public SetTextST(text: string): unknown;
+
+    public AdjustHeightToText(): unknown;
+
+    public AdjustWidthToText(): unknown;
+
+    public SetEllipsis(value: boolean): unknown;
+
+    public SetVTextAlignment(alignment: unknown /* enum EVTextAlignment */): unknown;
+
+  }
 
   /**
    * C++ class CUITrackBar : CUIWindow {

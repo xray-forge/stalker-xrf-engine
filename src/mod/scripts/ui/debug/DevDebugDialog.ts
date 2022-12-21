@@ -53,7 +53,7 @@ export const DevDebugDialog: IDevDebugDialog = declare_xr_class("DevDebugDialog"
   InitControls(): void {
     log.info("Init controls");
 
-    this.SetWndRect(Frect().set(0, 0, gameConfig.UI.BASE_WIDTH, gameConfig.UI.BASE_HEIGHT));
+    this.SetWndRect(new Frect().set(0, 0, gameConfig.UI.BASE_WIDTH, gameConfig.UI.BASE_HEIGHT));
 
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 

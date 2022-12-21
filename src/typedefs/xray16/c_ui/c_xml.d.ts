@@ -66,58 +66,61 @@ declare global {
    * @customConstructor CScriptXmlInit
    */
   class XR_CScriptXmlInit {
-    public InitSpinText(value: string, window: XR_CUIWindow): unknown;
+    public ParseFile(path: string): void;
 
-    public InitTab(value: string, window: XR_CUIWindow): XR_CUITabControl;
+    public InitSpinText(selector: string, window: XR_CUIWindow): XR_CUISpinText;
 
-    public InitStatic(element: string, window: XR_CUIWindow): XR_CUIStatic;
+    public InitTab(selector: string, window: XR_CUIWindow): XR_CUITabControl;
 
-    public InitSleepStatic(value: string, window: XR_CUIWindow): unknown;
+    public InitStatic(selector: string, window: XR_CUIWindow): XR_CUIStatic;
 
-    public InitTextWnd(value: string, window: XR_CUIWindow): unknown;
+    public InitSleepStatic(selector: string, window: XR_CUIWindow): unknown;
 
-    public InitSpinFlt(value: string, window: XR_CUIWindow): unknown;
+    public InitTextWnd(selector: string, window: XR_CUIWindow): XR_CUITextWnd;
 
-    public InitProgressBar(value: string, window: XR_CUIWindow): XR_CUIProgressBar;
+    public InitSpinFlt(selector: string, window: XR_CUIWindow): unknown;
 
-    public InitSpinNum(value: string, window: XR_CUIWindow): XR_CUISpinText;
+    public InitProgressBar(selector: string, window: XR_CUIWindow): XR_CUIProgressBar;
 
-    public InitMapList(value: string, window: XR_CUIWindow): unknown;
+    public InitSpinNum(selector: string, window: XR_CUIWindow): XR_CUISpinText;
 
-    public ParseFile(path: string): unknown;
+    public InitMapList(selector: string, window: XR_CUIWindow): unknown;
 
-    public InitCDkey(value: string, window: XR_CUIWindow): unknown;
+    public InitCDkey(selector: string, window: XR_CUIWindow): unknown;
 
-    public InitListBox(value: string, window: XR_CUIWindow): XR_CUIListBox;
+    public InitListBox<T extends XR_CUIListBoxItem = XR_CUIListBoxItem>(
+      selector: string,
+      window: XR_CUIWindow
+    ): XR_CUIListBox<T>;
 
-    public InitKeyBinding(value: string, window: XR_CUIWindow): unknown;
+    public InitKeyBinding(selector: string, window: XR_CUIWindow): unknown;
 
-    public InitMMShniaga(value: string, window: XR_CUIWindow): XR_CUIMMShniaga;
+    public InitMMShniaga(selector: string, window: XR_CUIWindow): XR_CUIMMShniaga;
 
-    public InitWindow(value: string, index: number, window: XR_CUIWindow): unknown;
+    public InitWindow(selector: string, index: number, window: XR_CUIWindow): unknown;
 
-    public InitEditBox(value: string, window: XR_CUIWindow): XR_CUIEditBox;
+    public InitEditBox(selector: string, window: XR_CUIWindow): XR_CUIEditBox;
 
-    public InitCheck(value: string, window: XR_CUIWindow): unknown;
+    public InitCheck(selector: string, window: XR_CUIWindow): unknown;
 
-    public InitScrollView(value: string, window: XR_CUIWindow): XR_CUIScrollView;
+    public InitScrollView(selector: string, window: XR_CUIWindow): XR_CUIScrollView;
 
-    public InitMPPlayerName(value: string, window: XR_CUIWindow): unknown;
+    public InitMPPlayerName(selector: string, window: XR_CUIWindow): unknown;
 
-    public InitTrackBar(value: string, window: XR_CUIWindow): XR_CUITrackBar;
+    public InitTrackBar(selector: string, window: XR_CUIWindow): XR_CUITrackBar;
 
-    public InitMapInfo(value: string, window: XR_CUIWindow): unknown;
+    public InitMapInfo(selector: string, window: XR_CUIWindow): unknown;
 
-    public InitServerList(value: string, window: XR_CUIWindow): unknown;
+    public InitServerList(selector: string, window: XR_CUIWindow): unknown;
 
-    public InitComboBox(value: string, window: XR_CUIWindow): XR_CUIComboBox;
+    public InitComboBox(selector: string, window: XR_CUIWindow): XR_CUIComboBox;
 
-    public InitFrameLine(value: string, window: XR_CUIWindow): unknown;
+    public InitFrameLine(selector: string, window: XR_CUIWindow): unknown;
 
-    public Init3tButton(value: string, window: XR_CUIWindow): XR_CUI3tButton;
+    public Init3tButton(selector: string, window: XR_CUIWindow): XR_CUI3tButton;
 
-    public InitAnimStatic(value: string, window: XR_CUIWindow): unknown;
+    public InitAnimStatic(selector: string, window: XR_CUIWindow): unknown;
 
-    public InitFrame(value: string, window: XR_CUIWindow): unknown;
+    public InitFrame(selector: string, window: XR_CUIWindow): unknown;
   }
 }

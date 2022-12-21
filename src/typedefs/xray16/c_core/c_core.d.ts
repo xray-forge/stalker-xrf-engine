@@ -121,55 +121,86 @@ declare global {
   // todo;
 
   /**
-   C++ class CTime {
-    const DateToDay = 0;
-    const DateToMonth = 1;
-    const DateToYear = 2;
-    const TimeToHours = 0;
-    const TimeToMilisecs = 3;
-    const TimeToMinutes = 1;
-    const TimeToSeconds = 2;
-
-    CTime ();
-    CTime (const CTime&);
-
-    function sub(CTime*);
-
-    function timeToString(number);
-
-    function dateToString(number);
-
-    operator ==(const CTime&, CTime);
-
-    function get(number&, number&, number&, number&, number&, number&, number&);
-
-    function set(number, number, number, number, number, number, number);
-
-    function setHMSms(number, number, number, number);
-
-    function diffSec(CTime*);
-
-    operator <(const CTime&, CTime);
-
-    operator +(CTime&, CTime);
-
-    operator >=(const CTime&, CTime);
-
-    function setHMS(number, number, number);
-
-    operator >(const CTime&, CTime);
-
-    operator -(CTime&, CTime);
-
-    operator <=(const CTime&, CTime);
-
-    function add(CTime*);
-
-  };
-
+   *  C++ class CTime {
+   *     const DateToDay = 0;
+   *     const DateToMonth = 1;
+   *     const DateToYear = 2;
+   *     const TimeToHours = 0;
+   *     const TimeToMilisecs = 3;
+   *     const TimeToMinutes = 1;
+   *     const TimeToSeconds = 2;
+   *
+   *     CTime ();
+   *     CTime (const CTime&);
+   *
+   *     function sub(CTime*);
+   *
+   *     function timeToString(number);
+   *
+   *     function dateToString(number);
+   *
+   *     operator ==(const CTime&, CTime);
+   *
+   *     function get(number&, number&, number&, number&, number&, number&, number&);
+   *
+   *     function set(number, number, number, number, number, number, number);
+   *
+   *     function setHMSms(number, number, number, number);
+   *
+   *     function diffSec(CTime*);
+   *
+   *     operator <(const CTime&, CTime);
+   *
+   *     operator +(CTime&, CTime);
+   *
+   *     operator >=(const CTime&, CTime);
+   *
+   *     function setHMS(number, number, number);
+   *
+   *     operator >(const CTime&, CTime);
+   *
+   *     operator -(CTime&, CTime);
+   *
+   *     operator <=(const CTime&, CTime);
+   *
+   *     function add(CTime*);
+   *
+   *   };
+   *
+   *  @customConstructor CTime
    */
+  class XR_CTime {
+    public static DateToDay: 0;
+    public static DateToMonth: 1;
+    public static DateToYear: 2;
+    public static TimeToHours: 0;
+    public static TimeToMilisecs: 3;
+    public static TimeToMinutes: 1;
+    public static TimeToSeconds: 2;
 
-  // todo;
+    public sub(time: XR_CTime): unknown;
+
+    public timeToString(time: number): unknown;
+
+    public dateToString(time: number): unknown;
+
+    /**
+     * Modifies supplied values by reference.
+     */
+    public get(y: number, m: number, d: number, h: number, min: number, sec: number, ms: number):
+      Record<string, number>;
+
+    public set(y: number, m: number, d: number, h: number, min: number, sec: number, ms: number): void;
+
+    public setHMSms(a: number, b: number, c: number, d: number): unknown;
+
+    public diffSec(time: XR_CTime): unknown;
+
+    public setHMS(a: number, b: number, c: number): unknown;
+
+    public add(time: XR_CTime): unknown;
+
+  }
 
   /**
    * Custom console.
@@ -246,23 +277,6 @@ declare global {
     public register(client_class: string, server_class: string, clsid: string, script_clsid: string): void;
     public register(unknown_class: string, clsid: string, script_clsid: string): void;
   }
-
-  /**
-   C++ class CSavedGameWrapper {
-    CSavedGameWrapper (string);
-
-    function level_name() const;
-
-    function level_id() const;
-
-    function game_time(const CSavedGameWrapper*);
-
-    function actor_health() const;
-
-  };
-   */
-
-  // todo;
 
   /**
    C++ class object_binder {

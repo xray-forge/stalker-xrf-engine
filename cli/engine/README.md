@@ -1,4 +1,4 @@
-# [XRTS](../../README.md) / CLI / ENGINE
+# [XRTS](../../) / CLI / ENGINE
 
 ### Description
 

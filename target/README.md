@@ -1,4 +1,4 @@
-# [XRTS](../../README.md) / TARGET
+# [XRTS](../../) / TARGET
 
 Folder containing built assets and details regarding build process.
 

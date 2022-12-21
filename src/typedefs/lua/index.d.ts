@@ -13,7 +13,7 @@ declare interface LUA_String {
 
   gsub(this: void, s: unknown, pattern: unknown, repl: unknown, n: unknown): unknown;
 
-  len(this: void, s: unknown): unknown;
+  len(this: void, str: string): number;
 
   lower(this: void, s: unknown): unknown;
 
@@ -27,11 +27,23 @@ declare interface LUA_String {
 
   reverse(this: void, s: unknown): unknown;
 
-  sub(this: void, s: unknown, i: unknown, j: unknown): unknown;
+  sub(this: void, str: string, i: number, j: number): string;
 
   unpack(this: void, fmt: unknown, s: unknown, pos: unknown): unknown;
 
   upper(this: void, s: unknown): unknown;
+}
+
+declare interface LUA_Table {
+  concat(this: void,list: unknown, sep: unknown, i: unknown, j: unknown): unknown;
+
+  insert(this: void,list: unknown, pos: unknown, value: unknown): unknown;
+
+  move(this: void,a1: unknown, f: unknown, e: unknown, t: unknown, a2: unknown): unknown;
+
+  remove(this: void,list: unknown, pos: unknown): unknown;
+
+  sort(this: void, list: unknown, comp: unknown): unknown;
 }
 
 /**

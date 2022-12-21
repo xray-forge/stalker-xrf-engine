@@ -122,6 +122,17 @@ Reference: [Open X-Ray source code](https://github.com/OpenXRay/xray-16)
 
 todo: Describe structure of gamedata and intention of every folder
 
+- `ai`
+- `anims`
+- `configs`
+- `levels`
+- `meshes`
+- `scripts`
+- `shaders`
+- `sounds`
+- `spawns`
+- `textures`
+
 ## 🧰 Project structure
 
 - [bin](bin/README.md)
@@ -136,6 +147,12 @@ todo: Describe structure of gamedata and intention of every folder
   - [verify](cli/verify/README.md)
 - [src](src/README.md)
   - [mod](src/mod/README.md)
+    - [configs](src/mod/cfg_b/README.md)
+    - [globals](src/mod/globals/README.md)
+    - [lib](src/mod/lib/README.md)
+    - [scripts](src/mod/scripts/README.md)
+    - [translations](src/mod/translations/README.md)
+    - [ui](src/mod/ui/README.md)
   - [resources](src/resources/README.md)
   - [typedefs](src/typedefs/README.md)
 - [target](target/README.md)

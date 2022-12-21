@@ -1,4 +1,4 @@
-# [XRTS](../../README.md) / CLI / INFO
+# [XRTS](../../) / CLI / INFO
 
 ### Description
 

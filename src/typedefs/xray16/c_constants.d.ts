@@ -329,56 +329,95 @@ declare global {
   // todo;
 
   /**
-
-   C++ class key_bindings {
-    const kACCEL = 6;
-    const kBACK = 9;
-    const kBUY = 48;
-    const kCAM_1 = 14;
-    const kCAM_2 = 15;
-    const kCAM_3 = 16;
-    const kCAM_ZOOM_IN = 17;
-    const kCAM_ZOOM_OUT = 18;
-    const kCHAT = 42;
-    const kCONSOLE = 46;
-    const kCROUCH = 5;
-    const kDOWN = 3;
-    const kDROP = 39;
-    const kFWD = 8;
-    const kINVENTORY = 47;
-    const kJUMP = 4;
-    const kLEFT = 0;
-    const kL_LOOKOUT = 12;
-    const kL_STRAFE = 10;
-    const kNIGHT_VISION = 20;
-    const kQUIT = 45;
-    const kRIGHT = 1;
-    const kR_LOOKOUT = 13;
-    const kR_STRAFE = 11;
-    const kSCORES = 41;
-    const kSCREENSHOT = 44;
-    const kSKIN = 49;
-    const kTEAM = 50;
-    const kTORCH = 19;
-    const kUP = 2;
-    const kUSE = 40;
-    const kWPN_1 = 22;
-    const kWPN_2 = 23;
-    const kWPN_3 = 24;
-    const kWPN_4 = 25;
-    const kWPN_5 = 26;
-    const kWPN_6 = 27;
-    const kWPN_FIRE = 30;
-    const kWPN_FUNC = 35;
-    const kWPN_NEXT = 29;
-    const kWPN_RELOAD = 34;
-    const kWPN_ZOOM = 31;
-
-  };
-   *
+   * C++ class key_bindings {
+   *     const kACCEL = 6;
+   *     const kBACK = 9;
+   *     const kBUY = 48;
+   *     const kCAM_1 = 14;
+   *     const kCAM_2 = 15;
+   *     const kCAM_3 = 16;
+   *     const kCAM_ZOOM_IN = 17;
+   *     const kCAM_ZOOM_OUT = 18;
+   *     const kCHAT = 42;
+   *     const kCONSOLE = 46;
+   *     const kCROUCH = 5;
+   *     const kDOWN = 3;
+   *     const kDROP = 39;
+   *     const kFWD = 8;
+   *     const kINVENTORY = 47;
+   *     const kJUMP = 4;
+   *     const kLEFT = 0;
+   *     const kL_LOOKOUT = 12;
+   *     const kL_STRAFE = 10;
+   *     const kNIGHT_VISION = 20;
+   *     const kQUIT = 45;
+   *     const kRIGHT = 1;
+   *     const kR_LOOKOUT = 13;
+   *     const kR_STRAFE = 11;
+   *     const kSCORES = 41;
+   *     const kSCREENSHOT = 44;
+   *     const kSKIN = 49;
+   *     const kTEAM = 50;
+   *     const kTORCH = 19;
+   *     const kUP = 2;
+   *     const kUSE = 40;
+   *     const kWPN_1 = 22;
+   *     const kWPN_2 = 23;
+   *     const kWPN_3 = 24;
+   *     const kWPN_4 = 25;
+   *     const kWPN_5 = 26;
+   *     const kWPN_6 = 27;
+   *     const kWPN_FIRE = 30;
+   *     const kWPN_FUNC = 35;
+   *     const kWPN_NEXT = 29;
+   *     const kWPN_RELOAD = 34;
+   *     const kWPN_ZOOM = 31;
+   *   };
    */
-
-  // todo;
+  class XR_key_bindings {
+    public kACCEL: 6;
+    public kBACK: 9;
+    public kBUY: 48;
+    public kCAM_1: 14;
+    public kCAM_2: 15;
+    public kCAM_3: 16;
+    public kCAM_ZOOM_IN: 17;
+    public kCAM_ZOOM_OUT: 18;
+    public kCHAT: 42;
+    public kCONSOLE: 46;
+    public kCROUCH: 5;
+    public kDOWN: 3;
+    public kDROP: 39;
+    public kFWD: 8;
+    public kINVENTORY: 47;
+    public kJUMP: 4;
+    public kLEFT: 0;
+    public kL_LOOKOUT: 12;
+    public kL_STRAFE: 10;
+    public kNIGHT_VISION: 20;
+    public kQUIT: 45;
+    public kRIGHT: 1;
+    public kR_LOOKOUT: 13;
+    public kR_STRAFE: 11;
+    public kSCORES: 41;
+    public kSCREENSHOT: 44;
+    public kSKIN: 49;
+    public kTEAM: 50;
+    public kTORCH: 19;
+    public kUP: 2;
+    public kUSE: 40;
+    public kWPN_1: 22;
+    public kWPN_2: 23;
+    public kWPN_3: 24;
+    public kWPN_4: 25;
+    public kWPN_5: 26;
+    public kWPN_6: 27;
+    public kWPN_FIRE: 30;
+    public kWPN_FUNC: 35;
+    public kWPN_NEXT: 29;
+    public kWPN_RELOAD: 34;
+    public kWPN_ZOOM: 31;
+  }
 
   /**
    *    C++ class GAME_TYPE {

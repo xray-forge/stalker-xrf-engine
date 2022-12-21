@@ -255,7 +255,7 @@ declare global {
   function cast_planner(a: unknown): unknown;
   function IsGameTypeSingle(): unknown;
   function game_graph(): unknown;
-  function dik_to_bind(a: number): unknown;
+  function dik_to_bind(keycode: number): number;
   function render_get_dx_level(): number;
   function GetFontGraffiti19Russian(): unknown;
   function sell_condition(a: unknown, b: string): unknown;
@@ -267,8 +267,8 @@ declare global {
   function GetFontSmall(): unknown;
   function GetFontLetterica18Russian(): unknown;
   function command_line(): unknown;
-  function getFS(): unknown;
-  function valid_saved_game(a: string): unknown;
+  function getFS(): XR_FS;
+  function valid_saved_game(filename: string): boolean;
   function get_console(): XR_CConsole;
   function GetFontGraffiti50Russian(): unknown;
   function app_ready(): unknown;
@@ -291,7 +291,7 @@ declare global {
    */
   function editor(): boolean;
 
-  function bit_or(a: number, b: number): unknown;
+  function bit_or(first: number, second: number): number;
 
   function GetFontGraffiti22Russian(): unknown;
 
@@ -306,7 +306,7 @@ declare global {
   function script_server_object_version(): unknown;
   function bit_not(a: number): unknown;
   function ef_storage(): unknown;
-  function GetARGB(a: number, b: number, c: number, d: number): unknown;
+  function GetARGB(a: number,r: number, g: number, b: number): number;
   function user_name(): unknown;
   function bit_xor(a: number, b: number): unknown;
 

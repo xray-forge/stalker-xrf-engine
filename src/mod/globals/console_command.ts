@@ -1,4 +1,7 @@
 export const console_command = {
+  /**
+   * todo: ???
+   */
   start: "start",
   /**
    * Disconnect from server / game session.
@@ -13,6 +16,10 @@ export const console_command = {
    * Second param - on / off.
    */
   main_menu: "main_menu",
+  /**
+   * Load save.
+   */
+  load: "load",
   /**
    * Load last save.
    */

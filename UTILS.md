@@ -1,4 +1,4 @@
-# [XRTS](README.md) / UTILS
+# [XRTS](.) / UTILS
 
 - https://github.com/revolucas/AXRToolset - set of utilities for mod development (unpack gamedata)
 - https://github.com/OpenXRay/xray-16 - open x-ray project

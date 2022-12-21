@@ -43,7 +43,7 @@ declare global {
    *   function set(number, number, number, number);
    * };
    *
-   * @customConstructor FRect
+   * @customConstructor Frect
    */
   class XR_FRect extends XR_LuaBindBase {
     public lt: number;

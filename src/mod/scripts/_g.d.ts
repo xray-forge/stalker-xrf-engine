@@ -7,6 +7,8 @@ import { Optional } from "@/mod/lib/types";
 declare global {
   const _G: Record<string, any>;
 
+  const db: Record<string, any>;
+
   /**
    * Registration logic.
    */
