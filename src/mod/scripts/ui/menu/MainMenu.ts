@@ -4,29 +4,31 @@ import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
 import { DevDebugDialog, IDevDebugDialog } from "@/mod/scripts/ui/debug/DevDebugDialog";
 import { ILoadDialog, LoadDialog } from "@/mod/scripts/ui/menu/LoadDialog";
 import { ISaveDialog, SaveDialog } from "@/mod/scripts/ui/menu/SaveDialog";
-import { Options } from "@/mod/scripts/ui/options/Options";
+import { IOptions, Options } from "@/mod/scripts/ui/options/Options";
 
 const base: string = "menu/MainMenu.component.xml";
 const log: DebugLogger = new DebugLogger("MainMenu");
 
 export interface IMainMenu extends XR_CUIScriptWnd {
-  mbox_mode: number;
   shniaga: XR_CUIMMShniaga;
 
-  opt_dlg: any;
-  save_dlg: ISaveDialog;
-  load_dlg: ILoadDialog;
+  modalBoxMode: number;
+
+  gameOptionsDialog: IOptions;
+  gameSavesSaveDialog: ISaveDialog;
+  gameSavesLoadDialog: ILoadDialog;
   ln_dlg: any;
   gs_dlg: any;
   mp_dlg: any;
-  dev_debug_dialog: Optional<IDevDebugDialog>;
+
+  gameDevDebugDialog: Optional<IDevDebugDialog>;
 
   message_box: XR_CUIMessageBoxEx;
-  acc_mgr: XR_account_manager;
+  accountManager: XR_account_manager;
   profile_store: XR_profile_store;
-  gs_profile: Optional<XR_profile>;
+  gameSpyProfile: Optional<XR_profile>;
 
-  l_mgr: XR_login_manager;
+  loginManager: XR_login_manager;
 
   InitControls(): void;
   InitCallBacks(): void;
@@ -65,7 +67,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
 
     log.info("Init");
 
-    this.mbox_mode = 0;
+    this.modalBoxMode = 0;
 
     this.InitControls();
     this.InitCallBacks();
@@ -93,12 +95,12 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
 
     version.TextControl().SetText(lua_string.format(gameConfig.VERSION, xrMainMenu.GetGSVer()));
 
-    this.l_mgr = xrMainMenu.GetLoginMngr();
-    this.acc_mgr = xrMainMenu.GetAccountMngr();
+    this.loginManager = xrMainMenu.GetLoginMngr();
+    this.accountManager = xrMainMenu.GetAccountMngr();
     this.profile_store = xrMainMenu.GetProfileStore();
-    this.gs_profile = this.l_mgr.get_current_profile();
+    this.gameSpyProfile = this.loginManager.get_current_profile();
 
-    if (this.gs_profile && !level.present()) {
+    if (this.gameSpyProfile && !level.present()) {
       this.shniaga.ShowPage(CUIMMShniaga.epi_new_network_game);
       this.shniaga.SetPage(CUIMMShniaga.epi_main, "ui_mm_main.xml", "menu_main_logout");
       this.shniaga.ShowPage(CUIMMShniaga.epi_main);
@@ -149,21 +151,21 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
   },
   OnMsgOk(): void {
     log.info("Message OK clicked");
-    this.mbox_mode = 0;
+    this.modalBoxMode = 0;
   },
   OnMsgCancel(): void {
     log.info("Message cancel clicked");
-    this.mbox_mode = 0;
+    this.modalBoxMode = 0;
   },
   OnMsgYes(): void {
-    if (this.mbox_mode === 1) {
+    if (this.modalBoxMode === 1) {
       this.LoadLastSave();
     }
 
-    this.mbox_mode = 0;
+    this.modalBoxMode = 0;
   },
   OnMsgNo(): void {
-    this.mbox_mode = 0;
+    this.modalBoxMode = 0;
   },
   LoadLastSave(): void {
     const console: XR_CConsole = get_console();
@@ -186,7 +188,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
       return;
     }
 
-    this.mbox_mode = 1;
+    this.modalBoxMode = 1;
     this.message_box.InitMessageBox("message_box_confirm_load_save");
     this.message_box.ShowDialog(true);
   },
@@ -265,50 +267,50 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     console.execute("main_menu off");
   },
   OnButton_save_clicked(): void {
-    if (this.save_dlg === null) {
-      this.save_dlg = create_xr_class_instance(SaveDialog);
-      this.save_dlg.owner = this;
+    if (this.gameSavesSaveDialog === null) {
+      this.gameSavesSaveDialog = create_xr_class_instance(SaveDialog);
+      this.gameSavesSaveDialog.owner = this;
     }
 
-    this.save_dlg.FillList();
-    this.save_dlg.ShowDialog(true);
+    this.gameSavesSaveDialog.FillList();
+    this.gameSavesSaveDialog.ShowDialog(true);
     this.HideDialog();
     this.Show(false);
   },
   OnButton_options_clicked(): void {
     log.info("Activating options view");
 
-    if (this.opt_dlg == null) {
-      this.opt_dlg = create_xr_class_instance(Options);
-      this.opt_dlg.owner = this;
+    if (this.gameOptionsDialog == null) {
+      this.gameOptionsDialog = create_xr_class_instance(Options);
+      this.gameOptionsDialog.owner = this;
     }
 
-    this.opt_dlg.SetCurrentValues();
-    this.opt_dlg.ShowDialog(true);
+    this.gameOptionsDialog.SetCurrentValues();
+    this.gameOptionsDialog.ShowDialog(true);
     this.HideDialog();
     this.Show(false);
   },
   OnButton_dev_debug_dialog(): void {
     log.info("Activating debug settings view");
 
-    if (this.dev_debug_dialog == null) {
-      this.dev_debug_dialog = create_xr_class_instance(DevDebugDialog);
-      this.dev_debug_dialog.owner = this;
+    if (this.gameDevDebugDialog == null) {
+      this.gameDevDebugDialog = create_xr_class_instance(DevDebugDialog);
+      this.gameDevDebugDialog.owner = this;
     }
 
-    this.dev_debug_dialog.ShowDialog(true);
+    this.gameDevDebugDialog.ShowDialog(true);
 
     this.HideDialog();
     this.Show(false);
   },
   OnButton_load_clicked(): void {
-    if (this.load_dlg === null) {
-      this.load_dlg = create_xr_class_instance(LoadDialog);
-      this.load_dlg.owner = this;
+    if (this.gameSavesLoadDialog === null) {
+      this.gameSavesLoadDialog = create_xr_class_instance(LoadDialog);
+      this.gameSavesLoadDialog.owner = this;
     }
 
-    this.load_dlg.FillList();
-    this.load_dlg.ShowDialog(true);
+    this.gameSavesLoadDialog.FillList();
+    this.gameSavesLoadDialog.ShowDialog(true);
     this.HideDialog();
     this.Show(false);
   },
@@ -319,7 +321,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     // -- assert(this.gs_profile)
 
     if (!this.mp_dlg) {
-      this.mp_dlg = get_global("ui_mp_main").mp_main(this.gs_profile!.online());
+      this.mp_dlg = get_global("ui_mp_main").mp_main(this.gameSpyProfile!.online());
       this.mp_dlg.owner = this;
       this.mp_dlg.OnRadio_NetChanged();
 
@@ -343,8 +345,8 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     // -- assert(this.gs_profile)
 
     this.shniaga.ShowPage(CUIMMShniaga.epi_new_network_game); // --fake
-    this.l_mgr.logout();
-    this.gs_profile = null;
+    this.loginManager.logout();
+    this.gameSpyProfile = null;
     this.mp_dlg = null;
     this.shniaga.SetPage(CUIMMShniaga.epi_main, "ui_mm_main.xml", "menu_main");
     this.shniaga.ShowPage(CUIMMShniaga.epi_main);
@@ -369,8 +371,8 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     if (!this.ln_dlg) {
       this.ln_dlg = get_global("ui_mm_mp_localnet").localnet_page();
       this.ln_dlg.owner = this;
-      this.ln_dlg.lp_nickname.SetText(this.l_mgr.get_nick_from_registry());
-      this.ln_dlg.lp_check_remember_me.SetCheck(this.l_mgr.get_remember_me_from_registry());
+      this.ln_dlg.lp_nickname.SetText(this.loginManager.get_nick_from_registry());
+      this.ln_dlg.lp_check_remember_me.SetCheck(this.loginManager.get_remember_me_from_registry());
     }
 
     this.ln_dlg.ShowDialog(true);

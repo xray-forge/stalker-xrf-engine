@@ -1,5 +1,6 @@
 import { textures } from "@/mod/globals/textures";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
+import { Optional } from "@/mod/lib/types";
 import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
 import { deleteGameSave, gatFileDataForGameSave, isGameSaveFileExist } from "@/mod/scripts/utils/game_saves_utils";
 
@@ -7,22 +8,19 @@ const base: string = "menu/LoadDialog.component.xml";
 const log: DebugLogger = new DebugLogger("LoadDialog");
 
 interface ILoadItem extends XR_CUIListBoxItem {
-  file_name: string;
-  fn: XR_CUITextWnd;
-  fage: XR_CUITextWnd;
+  innerNameText: XR_CUITextWnd;
+  innerAgeText: XR_CUITextWnd;
 }
 
 const LoadItem: ILoadItem = declare_xr_class("LoadItem", CUIListBoxItem, {
   __init(height: number): void {
     xr_class_super(height);
 
-    this.file_name = "filename";
-
     this.SetTextColor(GetARGB(255, 170, 170, 170));
 
-    this.fn = this.GetTextItem();
-    this.fn.SetFont(GetFontLetterica18Russian());
-    this.fn.SetEllipsis(true);
+    this.innerNameText = this.GetTextItem();
+    this.innerNameText.SetFont(GetFontLetterica18Russian());
+    this.innerNameText.SetEllipsis(true);
   },
   __finalize(): void {}
 } as ILoadItem);
@@ -30,20 +28,20 @@ const LoadItem: ILoadItem = declare_xr_class("LoadItem", CUIListBoxItem, {
 export interface ILoadDialog extends XR_CUIScriptWnd {
   owner: XR_CUIScriptWnd;
 
-  msgbox_id: number;
+  messageBoxId: number;
 
   form: XR_CUIStatic;
   picture: XR_CUIStatic;
 
-  file_item_main_sz: XR_vector2;
-  file_item_fn_sz: XR_vector2;
-  file_item_fd_sz: XR_vector2;
+  fileItemMainSize: XR_vector2;
+  fileItemInnerNameTextSize: XR_vector2;
+  fileItemDdSz: XR_vector2;
 
-  file_caption: XR_CUITextWnd;
-  file_data: XR_CUITextWnd;
+  fileCaption: XR_CUITextWnd;
+  fileData: XR_CUITextWnd;
 
-  list_box: XR_CUIListBox<ILoadItem>;
-  message_box: XR_CUIMessageBoxEx;
+  listBox: XR_CUIListBox<ILoadItem>;
+  messageBox: XR_CUIMessageBoxEx;
 
   InitControls(): void;
   InitCallBacks(): void;
@@ -56,7 +54,7 @@ export interface ILoadDialog extends XR_CUIScriptWnd {
   OnButton_load_clicked(): void;
   OnButton_back_clicked(): void;
   OnButton_del_clicked(): void;
-  AddItemToList(filename: string, date_time: unknown): void;
+  AddItemToList(filename: string, datetime: string): void;
 }
 
 export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptWnd, {
@@ -83,13 +81,13 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
 
     xml.InitWindow("file_item:main", 0, window);
 
-    this.file_item_main_sz = new vector2().set(window.GetWidth(), window.GetHeight());
+    this.fileItemMainSize = new vector2().set(window.GetWidth(), window.GetHeight());
 
     xml.InitWindow("file_item:fn", 0, window);
-    this.file_item_fn_sz = new vector2().set(window.GetWidth(), window.GetHeight());
+    this.fileItemInnerNameTextSize = new vector2().set(window.GetWidth(), window.GetHeight());
 
     xml.InitWindow("file_item:fd", 0, window);
-    this.file_item_fd_sz = new vector2().set(window.GetWidth(), window.GetHeight());
+    this.fileItemDdSz = new vector2().set(window.GetWidth(), window.GetHeight());
 
     this.form = xml.InitStatic("form", this);
 
@@ -99,29 +97,21 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
 
     // -- xml.InitStatic("form:file_info", this.form);
 
-    this.file_caption = xml.InitTextWnd("form:file_caption", this.form);
-    this.file_data = xml.InitTextWnd("form:file_data", this.form);
+    this.fileCaption = xml.InitTextWnd("form:file_caption", this.form);
+    this.fileData = xml.InitTextWnd("form:file_data", this.form);
 
     xml.InitFrame("form:list_frame", this.form);
 
-    this.list_box = xml.InitListBox("form:list", this.form);
+    this.listBox = xml.InitListBox("form:list", this.form);
+    this.listBox.ShowSelectedItem(true);
 
-    this.list_box.ShowSelectedItem(true);
-    this.Register(this.list_box, "list_window");
+    this.Register(this.listBox, "list_window");
+    this.Register(xml.Init3tButton("form:btn_load", this.form), "button_load");
+    this.Register(xml.Init3tButton("form:btn_delete", this.form), "button_del");
+    this.Register(xml.Init3tButton("form:btn_cancel", this.form), "button_back");
 
-    let ctrl;
-
-    ctrl = xml.Init3tButton("form:btn_load", this.form);
-    this.Register(ctrl, "button_load");
-
-    ctrl = xml.Init3tButton("form:btn_delete", this.form);
-    this.Register(ctrl, "button_del");
-
-    ctrl = xml.Init3tButton("form:btn_cancel", this.form);
-    this.Register(ctrl, "button_back");
-
-    this.message_box = new CUIMessageBoxEx();
-    this.Register(this.message_box, "message_box");
+    this.messageBox = new CUIMessageBoxEx();
+    this.Register(this.messageBox, "message_box");
   },
   InitCallBacks(): void {
     log.info("Init callbacks");
@@ -138,42 +128,41 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
   FillList(): void {
     log.info("Fill list");
 
-    this.list_box.RemoveAll();
+    this.listBox.RemoveAll();
 
-    const f: XR_FS = getFS();
-    const flist: XR_FS_file_list_ex = f.file_list_open_ex(
+    const fs: XR_FS = getFS();
+    const flist: XR_FS_file_list_ex = fs.file_list_open_ex(
       "$game_saves$",
       bit_or(FS.FS_ListFiles, FS.FS_RootOnly),
       "*" + gameConfig.GAME_SAVE_EXTENSION
     );
-    const filesCount = flist.Size();
 
     flist.Sort(FS.FS_sort_by_modif_down);
 
-    for (let it = 0; it < filesCount; it += 1) {
+    for (let it = 0; it < flist.Size(); it += 1) {
       const file: XR_FS_item = flist.GetAt(it);
-      const file_name = lua_string.sub(
+      const filename: string = lua_string.sub(
         file.NameFull(),
         0,
         lua_string.len(file.NameFull()) - lua_string.len(gameConfig.GAME_SAVE_EXTENSION)
       );
-      const date_time = "[" + file.ModifDigitOnly() + "]";
+      const datetime: string = "[" + file.ModifDigitOnly() + "]";
 
-      this.AddItemToList(file_name, date_time);
+      this.AddItemToList(filename, datetime);
     }
   },
   OnListItemClicked(): void {
     log.info("List item selected");
 
-    if (this.list_box.GetSize() == 0) {
+    if (this.listBox.GetSize() == 0) {
       return;
     }
 
-    const item = this.list_box.GetSelectedItem();
+    const item: Optional<ILoadItem> = this.listBox.GetSelectedItem();
 
     if (item == null) {
-      this.file_caption.SetText("");
-      this.file_data.SetText("");
+      this.fileCaption.SetText("");
+      this.fileData.SetText("");
 
       const r = this.picture.GetTextureRect();
 
@@ -183,24 +172,24 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
       return;
     }
 
-    const item_text = item.fn.GetText();
+    const itemText: string = item.innerNameText.GetText();
 
-    this.file_caption.SetText(item_text);
-    this.file_caption.SetEllipsis(true);
-    this.file_data.SetText(gatFileDataForGameSave(item_text));
+    this.fileCaption.SetText(itemText);
+    this.fileCaption.SetEllipsis(true);
+    this.fileData.SetText(gatFileDataForGameSave(itemText));
 
-    if (!isGameSaveFileExist(item_text + gameConfig.GAME_SAVE_EXTENSION)) {
-      this.list_box.RemoveItem(item);
+    if (!isGameSaveFileExist(itemText + gameConfig.GAME_SAVE_EXTENSION)) {
+      this.listBox.RemoveItem(item);
 
       return;
     }
 
     const r = this.picture.GetTextureRect();
 
-    if (isGameSaveFileExist(item_text + ".dds")) {
-      this.picture.InitTexture(item_text);
+    if (isGameSaveFileExist(itemText + ".dds")) {
+      this.picture.InitTexture(itemText);
     } else {
-      this.picture.InitTexture("ui\\ui_noise");
+      this.picture.InitTexture(textures.ui_ui_noise);
     }
 
     this.picture.SetTextureRect(new Frect().set(r.x1, r.y1, r.x2, r.y2));
@@ -212,73 +201,73 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
   OnMsgYes(): void {
     log.info("Message yes confirmed");
 
-    const index: number = this.list_box.GetSelectedIndex();
+    const index: number = this.listBox.GetSelectedIndex();
 
     if (index === -1) {
       return;
     }
 
-    if (this.msgbox_id === 1) {
-      const item: ILoadItem = this.list_box.GetItemByIndex(index);
+    if (this.messageBoxId === 1) {
+      const item: ILoadItem = this.listBox.GetItemByIndex(index);
 
-      const fname: string = item.fn.GetText();
+      const innerNameTextame: string = item.innerNameText.GetText();
 
-      deleteGameSave(fname);
+      deleteGameSave(innerNameTextame);
 
-      this.list_box.RemoveItem(item);
+      this.listBox.RemoveItem(item);
 
       this.OnListItemClicked();
-    } else if (this.msgbox_id === 2) {
+    } else if (this.messageBoxId === 2) {
       this.load_game_internal();
     }
 
-    this.msgbox_id = 0;
+    this.messageBoxId = 0;
   },
   load_game_internal(): void {
     log.info("Load game internal");
 
     const console: XR_CConsole = get_console();
 
-    if (this.list_box.GetSize() == 0) {
+    if (this.listBox.GetSize() == 0) {
       return;
     }
 
-    const index = this.list_box.GetSelectedIndex();
+    const index = this.listBox.GetSelectedIndex();
 
     if (index === -1) {
       return;
     }
 
-    const item = this.list_box.GetItemByIndex(index);
+    const item = this.listBox.GetItemByIndex(index);
 
-    const fname = item.fn.GetText();
+    const innerNameTextame = item.innerNameText.GetText();
 
     if (alife() === null) {
       console.execute("disconnect");
-      console.execute("start server(" + fname + "/single/alife/load) client(consthost)");
+      console.execute("start server(" + innerNameTextame + "/single/alife/load) client(consthost)");
     } else {
-      console.execute("load " + fname);
+      console.execute("load " + innerNameTextame);
     }
   },
   OnButton_load_clicked(): void {
     log.info("Load game clicked");
 
-    if (this.list_box.GetSize() === 0) {
+    if (this.listBox.GetSize() === 0) {
       return;
     }
 
-    const item = this.list_box.GetSelectedItem();
+    const item = this.listBox.GetSelectedItem();
 
     if (item === null) {
       return;
     }
 
-    const fname: string = item.fn.GetText();
+    const innerNameTextame: string = item.innerNameText.GetText();
 
-    if (!valid_saved_game(fname)) {
-      this.msgbox_id = 0;
-      this.message_box.InitMessageBox("message_box_invalid_saved_game");
-      this.message_box.ShowDialog(true);
+    if (!valid_saved_game(innerNameTextame)) {
+      this.messageBoxId = 0;
+      this.messageBox.InitMessageBox("message_box_invalid_saved_game");
+      this.messageBox.ShowDialog(true);
 
       return;
     }
@@ -295,9 +284,9 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
       return;
     }
 
-    this.msgbox_id = 2;
-    this.message_box.InitMessageBox("message_box_confirm_load_save");
-    this.message_box.ShowDialog(true);
+    this.messageBoxId = 2;
+    this.messageBox.InitMessageBox("message_box_confirm_load_save");
+    this.messageBox.ShowDialog(true);
   },
   OnButton_back_clicked(): void {
     log.info("Back clicked");
@@ -309,20 +298,20 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
   OnButton_del_clicked(): void {
     log.info("Delete clicked");
 
-    if (this.list_box.GetSize() === 0) {
+    if (this.listBox.GetSize() === 0) {
       return;
     }
 
-    const index = this.list_box.GetSelectedIndex();
+    const index = this.listBox.GetSelectedIndex();
 
     if (index === -1) {
       return;
     }
 
-    this.msgbox_id = 1;
+    this.messageBoxId = 1;
 
-    this.message_box.InitMessageBox("message_box_delete_file_name");
-    this.message_box.ShowDialog(true);
+    this.messageBox.InitMessageBox("message_box_delete_file_name");
+    this.messageBox.ShowDialog(true);
   },
   OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
     CUIScriptWnd.OnKeyboard(this, key, event);
@@ -340,19 +329,19 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
     return true;
   },
   AddItemToList(filename: string, datetime: string): void {
-    const _itm = create_xr_class_instance(LoadItem, this.file_item_main_sz.y);
+    const it: ILoadItem = create_xr_class_instance(LoadItem, this.fileItemMainSize.y);
 
-    _itm.SetWndSize(this.file_item_main_sz);
+    it.SetWndSize(this.fileItemMainSize);
 
-    _itm.fn.SetWndPos(new vector2().set(0, 0));
-    _itm.fn.SetWndSize(this.file_item_fn_sz);
-    _itm.fn.SetText(filename);
+    it.innerNameText.SetWndPos(new vector2().set(0, 0));
+    it.innerNameText.SetWndSize(this.fileItemInnerNameTextSize);
+    it.innerNameText.SetText(filename);
 
-    _itm.fage = _itm.AddTextField(datetime, this.file_item_fd_sz.x);
-    _itm.fage.SetFont(GetFontLetterica16Russian());
-    _itm.fage.SetWndPos(new vector2().set(this.file_item_fn_sz.x + 4, 0));
-    _itm.fage.SetWndSize(this.file_item_fd_sz);
+    it.innerAgeText = it.AddTextField(datetime, this.fileItemDdSz.x);
+    it.innerAgeText.SetFont(GetFontLetterica16Russian());
+    it.innerAgeText.SetWndPos(new vector2().set(this.fileItemInnerNameTextSize.x + 4, 0));
+    it.innerAgeText.SetWndSize(this.fileItemDdSz);
 
-    this.list_box.AddExistingItem(_itm);
+    this.listBox.AddExistingItem(it);
   }
 } as ILoadDialog);
