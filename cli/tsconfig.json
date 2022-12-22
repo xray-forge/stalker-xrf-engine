@@ -10,7 +10,7 @@
     "baseUrl": "./",
     "jsx": "react",
     "jsxFactory": "JSXXML",
-    "lib": ["esnext"],
+    "lib": ["esnext", "dom"],
     "paths": {
       "#/*": ["./*"],
       "@/*": ["../src/*"]

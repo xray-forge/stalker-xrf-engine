@@ -1,15 +1,18 @@
-# [XRTS](../../) / CLI / OPEN_GAME_FOLDER
+# [XRTS](../../) / CLI / OPEN
 
 ### Description
 
+Open folder utility commands. <br/>
 Open game folder configured in `cli/config.json`. <br/>
-Uses explorer of operating system.
+Or open project folder.
 
+Uses explorer of operating system.
 Main goal is simple access to the engine assets.
 
 ### Example
 
 - `npm run open_game_folder`
+- `npm run open_project_folder`
 
 ### Example output
 

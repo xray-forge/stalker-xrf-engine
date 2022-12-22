@@ -24,3 +24,5 @@ export const TARGET_GAME_DATA_SCRIPTS_DIR: string = path.resolve(TARGET_GAME_DAT
 export const TARGET_GAME_DATA_CONFIGS_DIR: string = path.resolve(TARGET_GAME_DATA_DIR, "configs");
 export const TARGET_GAME_DATA_UI_DIR: string = path.resolve(TARGET_GAME_DATA_CONFIGS_DIR, "ui");
 export const TARGET_GAME_DATA_TRANSLATIONS_DIR: string = path.resolve(TARGET_GAME_DATA_CONFIGS_DIR, "text");
+
+export const TARGET_PREVIEW_DIR: string = path.resolve(TARGET_DIR, "preview");

@@ -48,16 +48,15 @@ export const DevDebugUiSection: IDevDebugUiSection = declare_xr_class("DevDebugU
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
     xml.ParseFile(base);
-    xml.InitStatic("background", this);
 
     this.section = xml.InitStatic("section", this);
-    this.texturesList = xml.InitComboBox("section:textures_list", this.section);
-    this.texturesListFilter = xml.InitEditBox("section:textures_list_filter", this.section);
-    this.texturesListSquareBigDisplay = xml.InitStatic("section:textures_picture_square_big", this.section);
-    this.texturesListSquareMediumDisplay = xml.InitStatic("section:textures_picture_square_medium", this.section);
-    this.texturesListSquareSmallDisplay = xml.InitStatic("section:textures_picture_square_small", this.section);
-    this.texturesListSquareMiniDisplay = xml.InitStatic("section:textures_picture_square_mini", this.section);
-    this.texturesListLineDisplay = xml.InitStatic("section:textures_picture_line", this.section);
+    this.texturesList = xml.InitComboBox("section:textures_list", this);
+    this.texturesListFilter = xml.InitEditBox("section:textures_list_filter", this);
+    this.texturesListSquareBigDisplay = xml.InitStatic("section:textures_picture_square_big", this);
+    this.texturesListSquareMediumDisplay = xml.InitStatic("section:textures_picture_square_medium", this);
+    this.texturesListSquareSmallDisplay = xml.InitStatic("section:textures_picture_square_small", this);
+    this.texturesListSquareMiniDisplay = xml.InitStatic("section:textures_picture_square_mini", this);
+    this.texturesListLineDisplay = xml.InitStatic("section:textures_picture_line", this);
 
     this.owner.Register(this.texturesList, "textures_list");
     this.owner.Register(this.texturesListFilter, "textures_list_filter");

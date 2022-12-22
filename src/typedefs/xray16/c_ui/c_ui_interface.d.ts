@@ -44,8 +44,8 @@ declare global {
     public SetWndRect(rect: XR_FRect): void;
 
     public Enable(value: boolean): unknown;
-    public AttachChild(child: XR_CUIWindow): unknown;
-    public DetachChild(child: XR_CUIWindow): unknown;
+    public AttachChild(child: XR_CUIWindow): void;
+    public DetachChild(child: XR_CUIWindow): void;
     public WindowName(): unknown;
     public ResetPPMode(): unknown;
     public Show(this: any, value: boolean): unknown;

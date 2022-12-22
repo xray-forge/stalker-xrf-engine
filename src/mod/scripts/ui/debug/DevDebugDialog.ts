@@ -15,7 +15,7 @@ const log: DebugLogger = new DebugLogger("DevDebugDialog");
 export interface IDevDebugDialog extends XR_CUIScriptWnd {
   owner: XR_CUIScriptWnd;
 
-  dialog: XR_CUIStatic;
+  section: XR_CUIStatic;
   tab: XR_CUITabControl;
   cancelButton: XR_CUI3tButton;
 
@@ -60,9 +60,9 @@ export const DevDebugDialog: IDevDebugDialog = declare_xr_class("DevDebugDialog"
     xml.ParseFile(base);
     xml.InitStatic("background", this);
 
-    this.dialog = xml.InitStatic("main_dialog:dialog", this);
-    this.cancelButton = xml.Init3tButton("main_dialog:btn_cancel", this.dialog);
-    this.tab = xml.InitTab("main_dialog:tab", this.dialog);
+    this.section = xml.InitStatic("main_dialog:section", this);
+    this.cancelButton = xml.Init3tButton("main_dialog:btn_cancel", this);
+    this.tab = xml.InitTab("main_dialog:tab", this);
 
     this.Register(this.cancelButton, "btn_cancel");
     this.Register(this.tab, "tab");
@@ -71,60 +71,61 @@ export const DevDebugDialog: IDevDebugDialog = declare_xr_class("DevDebugDialog"
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
     xml.ParseFile(base);
+
     // Init general section.
     this.sectionGeneral = create_xr_class_instance(DevDebugGeneralSection, this);
     this.sectionGeneral.SetAutoDelete(true);
     this.sectionGeneral.Show(false);
-    this.dialog.AttachChild(this.sectionGeneral);
+    this.AttachChild(this.sectionGeneral);
     xml.InitWindow("main_dialog:debug_section", 0, this.sectionGeneral);
 
     // Init items section.
     this.sectionItems = create_xr_class_instance(DevDebugItemsSection, this);
     this.sectionItems.SetAutoDelete(true);
     this.sectionItems.Show(false);
-    this.dialog.AttachChild(this.sectionItems);
+    this.AttachChild(this.sectionItems);
     xml.InitWindow("main_dialog:debug_section", 0, this.sectionItems);
 
     // Init position section.
     this.sectionPosition = create_xr_class_instance(DevDebugPositionSection, this);
     this.sectionPosition.SetAutoDelete(true);
     this.sectionPosition.Show(false);
-    this.dialog.AttachChild(this.sectionPosition);
+    this.AttachChild(this.sectionPosition);
     xml.InitWindow("main_dialog:debug_section", 0, this.sectionPosition);
 
     // Init position section.
     this.sectionSound = create_xr_class_instance(DevDebugSoundSection, this);
     this.sectionSound.SetAutoDelete(true);
     this.sectionSound.Show(false);
-    this.dialog.AttachChild(this.sectionSound);
+    this.AttachChild(this.sectionSound);
     xml.InitWindow("main_dialog:debug_section", 0, this.sectionSound);
 
     // Init sound section.
     this.sectionSound = create_xr_class_instance(DevDebugSoundSection, this);
     this.sectionSound.SetAutoDelete(true);
     this.sectionSound.Show(false);
-    this.dialog.AttachChild(this.sectionSound);
+    this.AttachChild(this.sectionSound);
     xml.InitWindow("main_dialog:debug_section", 0, this.sectionSound);
 
     // Init spawn section.
     this.sectionSpawn = create_xr_class_instance(DevDebugSpawnSection, this);
     this.sectionSpawn.SetAutoDelete(true);
     this.sectionSpawn.Show(false);
-    this.dialog.AttachChild(this.sectionSpawn);
+    this.AttachChild(this.sectionSpawn);
     xml.InitWindow("main_dialog:debug_section", 0, this.sectionSpawn);
 
     // Init UI section.
     this.sectionUi = create_xr_class_instance(DevDebugUiSection, this);
     this.sectionUi.SetAutoDelete(true);
     this.sectionUi.Show(false);
-    this.dialog.AttachChild(this.sectionUi);
+    this.AttachChild(this.sectionUi);
     xml.InitWindow("main_dialog:debug_section", 0, this.sectionUi);
 
     // Init world section.
     this.sectionWorld = create_xr_class_instance(DevDebugWorldSection, this);
     this.sectionWorld.SetAutoDelete(true);
     this.sectionWorld.Show(false);
-    this.dialog.AttachChild(this.sectionWorld);
+    this.AttachChild(this.sectionWorld);
     xml.InitWindow("main_dialog:debug_section", 0, this.sectionWorld);
   },
   InitCallBacks(): void {

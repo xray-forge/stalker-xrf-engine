@@ -141,7 +141,8 @@ todo: Describe structure of gamedata and intention of every folder
   - [engine](cli/engine/README.md)
   - [info](cli/info/README.md)
   - [link](cli/link/README.md)
-  - [open_game_folder](cli/open_game_folder/README.md)
+  - [open_game_folder](cli/open/README.md)
+  - [preview](cli/preview/README.md)
   - [start_game](cli/start_game/README.md)
   - [utils](cli/utils/README.md)
   - [verify](cli/verify/README.md)
@@ -163,9 +164,10 @@ Notes:
 
 - When creating forms, use [JSX](https://www.typescriptlang.org/docs/handbook/jsx.html)
 - When mod compilation happens, JSX is transformed to valid XML
-- All coordinates with (x, y) are based on parent (not XML child, rather script register parent) and are not absolute
+- All coordinates with (x, y) are based on 'attach' parent (not XML child, rather script register parent) and related
+- Use `preview` command to preview forms and develop faster, example: `npm run preview menu`
 
-For examples check `src/mod/ui`.
+For examples check: `src/mod/ui`.
 
 ## 🏗️ Development utils
 

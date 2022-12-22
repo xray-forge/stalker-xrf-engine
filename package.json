@@ -9,8 +9,10 @@
     "link": "ts-node -P ./cli/tsconfig.json cli/link/link.ts",
     "unlink": "ts-node -P ./cli/tsconfig.json cli/link/unlink.ts",
     "engine": "ts-node -P ./cli/tsconfig.json cli/engine/engine.ts",
-    "open_game_folder": "ts-node -P ./cli/tsconfig.json cli/open_game_folder/open_game_folder.ts",
+    "open_game_folder": "ts-node -P ./cli/tsconfig.json cli/open/open_game_folder.ts",
+    "open_project_folder": "ts-node -P ./cli/tsconfig.json cli/open/open_project_folder.ts",
     "start_game": "ts-node -P ./cli/tsconfig.json cli/start_game/start_game.ts",
+    "preview": "ts-node -P cli/tsconfig.json ./cli/preview/preview.ts",
     "build": "ts-node -P cli/tsconfig.json ./cli/build/build.ts",
     "build:clean": "ts-node -P cli/tsconfig.json ./cli/build/build.ts --clean",
     "build:no-resources": "ts-node -P cli/tsconfig.json ./cli/build/build.ts --no-resources",
@@ -20,6 +22,7 @@
     "lint": "eslint . --ext .ts,.tsx,.js"
   },
   "devDependencies": {
+    "@types/jsdom": "^20.0.1",
     "@types/node": "^18.11.13",
     "@typescript-eslint/eslint-plugin": "^5.46.1",
     "@typescript-eslint/parser": "^5.46.1",
@@ -34,6 +37,7 @@
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.1.1",
     "typescript": "^4.9.4",
-    "typescript-to-lua": "^1.11.1"
+    "typescript-to-lua": "^1.11.1",
+    "jsdom": "^20.0.3"
   }
 }
