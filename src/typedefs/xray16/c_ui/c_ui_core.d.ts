@@ -80,7 +80,7 @@ declare global {
 
     public GetAccountMngr(): XR_account_manager;
 
-    public GetDemoInfo(fileName: string): unknown;
+    public GetDemoInfo(fileName: string): XR_demo_info | null;
 
     public GetPatchProgress(): XR_Patch_Dawnload_Progress;
 
@@ -130,7 +130,7 @@ declare global {
    *   };
    */
   class XR_profile {
-    public unique_nick(): unknown;
+    public unique_nick(): string;
 
     public online(): boolean;
   }

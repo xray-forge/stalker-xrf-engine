@@ -4,6 +4,10 @@ export const console_command = {
    */
   start: "start",
   /**
+   * todo: ???
+   */
+  cl_mpdemosave: "cl_mpdemosave",
+  /**
    * Disconnect from server / game session.
    */
   disconnect: "disconnect",

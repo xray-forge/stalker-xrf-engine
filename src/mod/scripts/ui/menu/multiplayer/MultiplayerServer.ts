@@ -1,65 +1,56 @@
-export interface IMultiplayerServer extends XR_CUIWindow {}
+import { IMultiplayerMenu } from "@/mod/scripts/ui/menu/MultiplayerMenu";
 
-export const MultiplayerServer: IMultiplayerServer = declare_xr_class(
-  "MultiplayerServer",
-  CUIWindow,
-  {} as IMultiplayerServer
-);
+export interface IMultiplayerServer extends XR_CUIWindow {
+  map_pic: XR_CUIStatic;
+  map_info: XR_CUIMapInfo;
 
-/**
- * -- File:        UI_MM_MP_SERVER.SCRIPT
- * -- Description:        server tab for MP menu
- * -- Created:        10.06.2005
- * -- Author:        Serge Vynnychenko
- * -- Mail:        narrator@gsc-game.kiev.ua
- * --
- * -- Copyright 2005 GSC Game World
- *
- * class "mp_server" (CUIWindow)
- *
- * function mp_server:__init() super()
- * end
- *
- * function mp_server:__finalize()
- * end
- *
- * function mp_server:InitControls(x, y, xml, handler)
- *    self:SetAutoDelete(true)
- *
- *    xml:InitWindow                ("tab_server:main", 0, self)
- *
- *    -- SPIN BOXES
- *    handler.spin_max_players    = xml:InitSpinNum("tab_server:spin_max_players", self)
- * --    handler.spin_mode            = xml:InitSpinText("tab_server:spin_game_mode", self)
- *    handler.spin_mode            = xml:InitComboBox("tab_server:spin_game_mode", self)
- *    handler:Register            (handler.spin_mode,"spin_game_mode")
- *    local map_list                = xml:InitMapList("tab_server:map_list", self)
- *    map_list:SetWeatherSelector (handler.spin_weather)
- *    map_list:SetModeSelector    (handler.spin_mode)
- *
- *    xml:InitStatic                ("tab_server:static_map_pic_fore", self)
- *    self.map_pic                = xml:InitStatic ("tab_server:static_map_pic", self)
- *    self.map_info                = xml:InitMapInfo("tab_server:cap_map_info", self)
- *
- *    map_list:SetMapPic            (self.map_pic)
- *    map_list:SetMapInfo            (self.map_info)
- *
- *    handler.map_list            = map_list;
- *    xml:InitFrameLine            ("tab_server:cap_server_settings", self)
- *    xml:InitStatic                ("tab_server:cap_server_name",    self)
- *    xml:InitStatic                ("tab_server:cap_password",        self)
- *    xml:InitStatic                ("tab_server:cap_game_mode",        self)
- *    xml:InitStatic                ("tab_server:cap_max_players",    self)
- *
- *    xml:InitStatic                ("tab_server:btn_left_static", self)
- *    xml:InitStatic                ("tab_server:btn_right_static", self)
- *    xml:InitStatic                ("tab_server:btn_up_static", self)
- *    xml:InitStatic                ("tab_server:btn_down_static", self)
- *    -- CHECK BOXES
- *    handler.check_dedicated        = xml:InitCheck("tab_server:check_dedicated", self);
- *
- *    -- EDIT BOXES
- *    handler.edit_server_name    = xml:InitEditBox("tab_server:edit_server_name", self)
- *    handler.edit_password        = xml:InitEditBox("tab_server:edit_password", self)
- * end
- */
+  InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IMultiplayerMenu): void;
+}
+
+export const MultiplayerServer: IMultiplayerServer = declare_xr_class("MultiplayerServer", CUIWindow, {
+  __init(): void {
+    xr_class_super();
+  },
+  __finalize(): void {},
+  InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IMultiplayerMenu): void {
+    this.SetAutoDelete(true);
+
+    xml.InitWindow("tab_server:main", 0, this);
+
+    // -- SPIN BOXES
+    handler.spin_max_players = xml.InitSpinNum("tab_server:spin_max_players", this);
+    // --    handler.spin_mode = xml.InitSpinText("tab_server:spin_game_mode", this)
+    handler.spin_mode = xml.InitComboBox("tab_server:spin_game_mode", this);
+    handler.Register(handler.spin_mode, "spin_game_mode");
+
+    const map_list = xml.InitMapList("tab_server:map_list", this);
+
+    map_list.SetWeatherSelector(handler.spin_weather);
+    map_list.SetModeSelector(handler.spin_mode);
+
+    xml.InitStatic("tab_server:static_map_pic_fore", this);
+    this.map_pic = xml.InitStatic("tab_server:static_map_pic", this);
+    this.map_info = xml.InitMapInfo("tab_server:cap_map_info", this);
+
+    map_list.SetMapPic(this.map_pic);
+    map_list.SetMapInfo(this.map_info);
+
+    handler.map_list = map_list;
+    xml.InitFrameLine("tab_server:cap_server_settings", this);
+    xml.InitStatic("tab_server:cap_server_name", this);
+    xml.InitStatic("tab_server:cap_password", this);
+    xml.InitStatic("tab_server:cap_game_mode", this);
+    xml.InitStatic("tab_server:cap_max_players", this);
+
+    xml.InitStatic("tab_server:btn_left_static", this);
+    xml.InitStatic("tab_server:btn_right_static", this);
+    xml.InitStatic("tab_server:btn_up_static", this);
+    xml.InitStatic("tab_server:btn_down_static", this);
+
+    // -- CHECK BOXES
+    handler.check_dedicated = xml.InitCheck("tab_server:check_dedicated", this);
+    // -- EDIT BOXES
+    handler.edit_server_name = xml.InitEditBox("tab_server:edit_server_name", this);
+    handler.edit_password = xml.InitEditBox("tab_server:edit_password", this);
+  }
+} as IMultiplayerServer);

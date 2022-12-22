@@ -1,5 +1,9 @@
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 
+export function fileExists(folderAlias: string, filename: string): boolean {
+  return getFS().exist(folderAlias, filename);
+}
+
 export function isGameSaveFileExist(filename: string): boolean {
   const fs: XR_FS = getFS();
   const flist: XR_FS_file_list_ex = fs.file_list_open_ex(

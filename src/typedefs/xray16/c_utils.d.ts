@@ -412,16 +412,18 @@ declare global {
   // todo;
 
   /**
-
-   C++ class award_data {
-    property m_count;
-    property m_last_reward_date;
-
-  };
+   *    C++ class award_data {
+   *     property m_count;
+   *     property m_last_reward_date;
    *
+   *   };
+   *
+   * @customConstructor award_data
    */
-
-  // todo;
+  class XR_award_data {
+    public m_count: number;
+    public m_last_reward_date: number;
+  }
 
   /**
 
@@ -755,45 +757,4 @@ declare global {
   };
    */
 
-  /**
-   C++ class demo_info {
-    function get_map_name() const;
-
-    function get_player(number) const;
-
-    function get_game_type() const;
-
-    function get_players_count() const;
-
-    function get_map_version() const;
-
-    function get_author_name() const;
-
-    function get_game_score() const;
-
-  };
-   */
-
-  // todo;
-
-  /**
-   C++ class demo_player_info {
-    function get_spots() const;
-
-    function get_name() const;
-
-    function get_rank() const;
-
-    function get_artefacts() const;
-
-    function get_team() const;
-
-    function get_deaths() const;
-
-    function get_frags() const;
-
-  };
-   */
-
-  // todo;
 }

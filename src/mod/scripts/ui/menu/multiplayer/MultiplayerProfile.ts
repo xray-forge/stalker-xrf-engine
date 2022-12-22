@@ -1,221 +1,259 @@
-export interface IMultiplayerProfile extends XR_CUIWindow {}
+import { Optional } from "@/mod/lib/types";
+import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
+import { IMultiplayerMenu } from "@/mod/scripts/ui/menu/MultiplayerMenu";
 
-export const MultiplayerProfile: IMultiplayerProfile = declare_xr_class(
-  "MultiplayerProfile",
-  CUIWindow,
-  {} as IMultiplayerProfile
-);
+const base: string = "menu/multiplayer/MultiplayerAwards.component.xml";
+const log: DebugLogger = new DebugLogger("MultiplayerProfile");
+const awards_xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
-/**
- * --------------------------------------------------------------------------------
- * -- Created: 20.03.2009 ---------------------------------------------------------
- * -- Description:    profile tab for multiplayer menu -------------------------------
- * -- Author: Sergey Pryshchepa ---------------------------------------------------
- * -- Mail: peacemaker@gsc-game.kiev.ua -------------------------------------------
- * -- (c)GSC Game World 2009 ------------------------------------------------------
- * --------------------------------------------------------------------------------
- * local ini                = ini_file("mp\\rewarding.ltx")
- * local awards_xml        = CScriptXmlInit()
- *
- * class "mp_profile" (CUIWindow)
- * function mp_profile:__init() super()
- *    awards_xml:ParseFile("ui_mp_awards.xml")
- * end
- *
- * function mp_profile:__finalize()
- * end
- *
- * function mp_profile:InitControls(x, y, xml, handler)
- *    self.handler = handler
- *    self.xml = xml
- *    self:SetAutoDelete(true)
- *    xml:InitWindow("tab_profile:main", 0, self)
- *
- *    xml:InitStatic("tab_profile:cap_unique_nick", self)
- *    self.edit_unique_nick = xml:InitEditBox("tab_profile:edit_unique_nick", self)
- *    handler:Register(self.edit_unique_nick, "edit_unique_nick")
- *    handler:AddCallback("edit_unique_nick", ui_events.EDIT_TEXT_COMMIT, self.OnEditUniqueNickChanged, self)
- *
- *     self.btn_avail = xml:Init3tButton("tab_profile:button_avaliability", self)
- *    handler:Register(self.btn_avail, "btn_avail")
- *    handler:AddCallback("btn_avail", ui_events.BUTTON_CLICKED, self.OnEditUniqueNickChanged, self)
- *
- *    self.combo_aval_unique_nick = xml:InitComboBox("tab_profile:combo_aval_unique_nick", self)
- *    handler:Register(self.combo_aval_unique_nick, "combo_aval_unique_nick")
- *    handler:AddCallback("combo_aval_unique_nick", ui_events.LIST_ITEM_SELECT, self.OnUniqueNickSelect, self)
- *    handler:AddCallback("combo_aval_unique_nick", ui_events.WINDOW_LBUTTON_DOWN, self.OnUniqueNickSelect, self)
- *    self.combo_aval_unique_nick:Show(false)
- *
- *    self.awards_window = CUIWindow()
- *    xml:InitWindow("tab_profile:awards_list", 0, self.awards_window)
- *    self.awards_window:SetAutoDelete(true)
- *    self:AttachChild(self.awards_window)
- *
- *    xml:InitFrameLine("tab_profile:awards_list:header", self.awards_window)
- *    xml:InitFrame("tab_profile:awards_list:frame", self.awards_window)
- *
- *    self.awards_list = xml:InitScrollView("tab_profile:awards_list:list", self.awards_window)
- *    self.awards = {}
- *
- *    -- self.hint_wnd = xml:InitHint("tab_profile:hint_wnd", self)
- *
- *    self.best_results_list = CUIWindow()
- *    xml:InitWindow("tab_profile:best_results_list", 0, self.best_results_list)
- *    self.best_results_list:SetAutoDelete(true)
- *    self:AttachChild(self.best_results_list)
- *
- *    xml:InitFrameLine("tab_profile:best_results_list:header", self.best_results_list)
- *    xml:InitFrame("tab_profile:best_results_list:frame", self.best_results_list)
- *
- *    self.player_results = {}
- *    xml:InitStatic("tab_profile:best_results_list:cap_cscore_0", self.best_results_list)
- *    xml:InitStatic("tab_profile:best_results_list:cap_cscore_1", self.best_results_list)
- *    xml:InitStatic("tab_profile:best_results_list:cap_cscore_2", self.best_results_list)
- *    xml:InitStatic("tab_profile:best_results_list:cap_cscore_3", self.best_results_list)
- *    xml:InitStatic("tab_profile:best_results_list:cap_cscore_4", self.best_results_list)
- *    xml:InitStatic("tab_profile:best_results_list:cap_cscore_5", self.best_results_list)
- *    xml:InitStatic("tab_profile:best_results_list:cap_cscore_6", self.best_results_list)
- *
- *     self.gs_change_nick_mb_cancel = CUIMessageBoxEx()
- *    handler:Register(self.gs_change_nick_mb_cancel, "gs_change_nick_mb_cancel")
- *    handler:AddCallback("gs_change_nick_mb_cancel", ui_events.BUTTON_CLICKED, self.OnCancelChangeUnick, self)
- *    self.gs_change_nick_mb_cancel:InitMessageBox("message_box_gs_info")
- *
- *     self.gs_change_nick_mb = CUIMessageBoxEx()
- *     handler:Register(self.gs_change_nick_mb, "gs_change_nick_mb")
- *     self.gs_change_nick_mb:InitMessageBox("message_box_ok")
- * end
- *
- * function mp_profile:InitBestScores()
- *    if(self.handler.owner.profile_store) then
- *         for i in self.handler.owner.profile_store:get_best_scores() do
- *            printf("----------> Player best score: id = " ..tostring(i.first) .. ", value = " .. tostring(i.second))
- *            local score_wnd = self.xml:InitTextWnd("tab_profile:best_results_list:cap_score_"..tostring(i.first), self.best_results_list)
- *            self.xml:InitTextWnd("tab_profile:best_results_list:cap_cscore_"..tostring(i.first), self.best_results_list)
- *            -- assert(score_wnd)
- *            score_wnd:SetText(tostring(i.second))
- *        end
- *    else
- *        abort("Profile not loaded!")
- *    end
- * end
- *
- * function mp_profile:FillRewardsTable()
- *    if(self.handler.owner.profile_store) then
- *        local pos = vector2():set(0, 0)
- *        local field = 1
- *        local counter = 1
- *         for i in self.handler.owner.profile_store:get_awards() do
- *             printf("----------> Player award: id = "..tostring(i.first)..", count = "..tostring(i.second.m_count)..", last_reward_date = "..tostring(i.second.m_last_reward_date))
- *             local k = math.mod(counter,3)
- *             if(k==1) then
- *                 field = field + 1
- *                 self.awards[field] = {}
- *                 self.awards[field].field = self.xml:InitStatic("tab_profile:awards_list:field", nil)
- *                 self.awards[field].field = self.xml:InitStatic("tab_profile:awards_list:field", nil)
- *                 self.awards_list:AddWindow(self.awards[field].field, true)
- *             end
- *
- *             local award_name        = "award_"..k
- *             local reward_name        = "reward_"..i.first
- *
- *             local award_xml_name    = ""
- *             if (i.second.m_count > 0) then
- *                award_xml_name        = "award_"..i.first.."_active"
- * --                award_xml_name        = "award_0_active"
- *                self.awards[field][award_name] = awards_xml:InitStatic(award_xml_name, self.awards[field].field)
- *                local rewards_count = awards_xml:InitTextWnd(award_xml_name..":cap_count", self.awards[field][award_name])
- *                rewards_count:SetText(tostring(i.second.m_count))
- *             else
- *                award_xml_name        = "award_"..i.first.."_inactive"
- * --                award_xml_name        = "award_0_inactive"
- *                self.awards[field][award_name] = awards_xml:InitStatic(award_xml_name, self.awards[field].field)
- *             end
- *
- *            local tmp = 0
- *            if(utils.is_widescreen()) then
- *                tmp = 96+16
- *            else
- *                tmp = 121+21
- *            end
- *
- *             if(k==0) then
- *                 pos.x = (tmp)*(3-1)
- *             else
- *                 pos.x = (tmp)*(k-1)
- *             end
- *             self.awards[field][award_name]:SetWndPos(pos)
- *            counter = counter + 1
- *        end
- *    else
- *        abort("Profile not loaded!")
- *    end
- * end
- *
- * function mp_profile:OnEditUniqueNickChanged()
- *    self.gs_change_nick_mb_cancel:SetText("ui_mp_gamespy_suggesting_unique_name")
- *    self.gs_change_nick_mb_cancel:ShowDialog(true)
- *    self.handler.owner.acc_mgr:suggest_unique_nicks(self.edit_unique_nick:GetText(), suggest_nicks_cb(self, self.OnNickSuggestionComplete))
- *    self.combo_aval_unique_nick:Show(true);
- *    self.combo_aval_unique_nick:ClearList()
- * end
- *
- * function mp_profile:OnCancelChangeUnick()
- *    self.handler.owner.acc_mgr:stop_suggest_unique_nicks()
- *    self.gs_change_nick_mb_cancel:HideDialog()
- *    self.edit_unique_nick:SetText(self.handler.owner.gs_profile:unique_nick())
- * end
- *
- * function mp_profile:OnNickSuggestionComplete(tmp, descr)
- *    self.gs_change_nick_mb_cancel:HideDialog()
- *    local new_unique_nick = self.edit_unique_nick:GetText();
- *    local num = 1
- *    for i in (self.handler.owner.acc_mgr:get_suggested_unicks()) do
- *         if(i==new_unique_nick) then
- *            self.gs_change_nick_mb:InitMessageBox("message_box_gs_changing_unick")
- *            self.gs_change_nick_mb:SetText("ui_mp_gamespy_changing_unique_nick");
- *            self.gs_change_nick_mb:ShowDialog(true)
- *            self.handler.owner.l_mgr:set_unique_nick(new_unique_nick, login_operation_cb(self, self.ChangeNickOperationResult))
- *            return
- *         end
- *         self.combo_aval_unique_nick:AddItem(i, num)
- *         num = num + 1
- *    end
- *
- *    self.gs_change_nick_mb:InitMessageBox("message_box_ok")
- *    local first_name = self.combo_aval_unique_nick:GetTextOf(0)
- *    self.combo_aval_unique_nick:SetText(first_name)
- *    if (tmp > 0) then
- *        self.gs_change_nick_mb:SetText("ui_mp_gamespy_verify_nickname_error1")
- *    else
- *        self.gs_change_nick_mb:SetText(descr)
- *    end
- *    self.edit_unique_nick:SetText(self.handler.owner.gs_profile:unique_nick())
- *    self.gs_change_nick_mb:ShowDialog(true)
- * end
- *
- * function mp_profile:OnUniqueNickSelect()
- *    self.edit_unique_nick:SetText(self.combo_aval_unique_nick:GetText())
- * end
- *
- * function mp_profile:ChangeNickOperationResult(profile, descr)
- *    self.gs_change_nick_mb:HideDialog()
- *    self.combo_aval_unique_nick:Show(false)
- *    self.gs_change_nick_mb:InitMessageBox("message_box_ok")
- *    if(profile==nil) then
- *        self.gs_change_nick_mb:SetText(descr)
- *    else
- *        self.gs_change_nick_mb:SetText(game.translate_string("ui_st_mp_unique_nickname_change").." "..profile:unique_nick()..".")
- *    end
- *     self.edit_unique_nick:SetText(self.handler.owner.gs_profile:unique_nick())
- *     self.gs_change_nick_mb:ShowDialog(true)
- * end
- *
- * function mp_profile:UpdateControls()
- * end
- *
- * function mp_profile:OnDraw()
- *    super():OnDraw()
- *    self.hint_wnd:OnDraw()
- * end
- */
+export interface IMultiplayerProfile extends XR_CUIWindow {
+  awards: Record<string, Record<string, any>>;
+  player_results: Record<string, unknown>;
+
+  xml: XR_CScriptXmlInit;
+  handler: IMultiplayerMenu;
+
+  awards_window: XR_CUIWindow;
+  best_results_list: XR_CUIWindow;
+
+  gs_change_nick_mb_cancel: XR_CUIMessageBoxEx;
+  gs_change_nick_mb: XR_CUIMessageBoxEx;
+  edit_unique_nick: XR_CUIEditBox;
+  btn_avail: XR_CUI3tButton;
+  combo_aval_unique_nick: XR_CUIComboBox;
+  awards_list: XR_CUIScrollView;
+
+  InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IMultiplayerMenu): void;
+  OnEditUniqueNickChanged(): void;
+  OnCancelChangeUnick(): void;
+  OnNickSuggestionComplete(response: number, description: string): void;
+  OnUniqueNickSelect(): void;
+  ChangeNickOperationResult(profile: Optional<XR_profile>, description: string): void;
+  UpdateControls(): void;
+  InitBestScores(): void;
+  FillRewardsTable(): void;
+}
+
+export const MultiplayerProfile: IMultiplayerProfile = declare_xr_class("MultiplayerProfile", CUIWindow, {
+  __init(): void {
+    xr_class_super();
+    awards_xml.ParseFile(base);
+  },
+  __finalize(): void {},
+  InitControls(x, y, xml, handler): void {
+    log.info("Init controls");
+
+    this.handler = handler;
+    this.xml = xml;
+    this.SetAutoDelete(true);
+    xml.InitWindow("tab_profile:main", 0, this);
+
+    xml.InitStatic("tab_profile:cap_unique_nick", this);
+    this.edit_unique_nick = xml.InitEditBox("tab_profile:edit_unique_nick", this);
+    handler.Register(this.edit_unique_nick, "edit_unique_nick");
+    handler.AddCallback("edit_unique_nick", ui_events.EDIT_TEXT_COMMIT, () => this.OnEditUniqueNickChanged(), this);
+
+    this.btn_avail = xml.Init3tButton("tab_profile:button_avaliability", this);
+    handler.Register(this.btn_avail, "btn_avail");
+    handler.AddCallback("btn_avail", ui_events.BUTTON_CLICKED, () => this.OnEditUniqueNickChanged(), this);
+
+    this.combo_aval_unique_nick = xml.InitComboBox("tab_profile:combo_aval_unique_nick", this);
+    handler.Register(this.combo_aval_unique_nick, "combo_aval_unique_nick");
+    handler.AddCallback("combo_aval_unique_nick", ui_events.LIST_ITEM_SELECT, () => this.OnUniqueNickSelect(), this);
+    handler.AddCallback("combo_aval_unique_nick", ui_events.WINDOW_LBUTTON_DOWN, () => this.OnUniqueNickSelect(), this);
+    this.combo_aval_unique_nick.Show(false);
+
+    this.awards_window = new CUIWindow();
+    xml.InitWindow("tab_profile:awards_list", 0, this.awards_window);
+    this.awards_window.SetAutoDelete(true);
+    this.AttachChild(this.awards_window);
+
+    xml.InitFrameLine("tab_profile:awards_list:header", this.awards_window);
+    xml.InitFrame("tab_profile:awards_list:frame", this.awards_window);
+
+    this.awards_list = xml.InitScrollView("tab_profile:awards_list:list", this.awards_window);
+    this.awards = {};
+
+    // -- this.hint_wnd = xml.InitHint("tab_profile:hint_wnd", this)
+
+    this.best_results_list = new CUIWindow();
+    xml.InitWindow("tab_profile:best_results_list", 0, this.best_results_list);
+    this.best_results_list.SetAutoDelete(true);
+    this.AttachChild(this.best_results_list);
+
+    xml.InitFrameLine("tab_profile:best_results_list:header", this.best_results_list);
+    xml.InitFrame("tab_profile:best_results_list:frame", this.best_results_list);
+
+    this.player_results = {};
+    xml.InitStatic("tab_profile:best_results_list:cap_cscore_0", this.best_results_list);
+    xml.InitStatic("tab_profile:best_results_list:cap_cscore_1", this.best_results_list);
+    xml.InitStatic("tab_profile:best_results_list:cap_cscore_2", this.best_results_list);
+    xml.InitStatic("tab_profile:best_results_list:cap_cscore_3", this.best_results_list);
+    xml.InitStatic("tab_profile:best_results_list:cap_cscore_4", this.best_results_list);
+    xml.InitStatic("tab_profile:best_results_list:cap_cscore_5", this.best_results_list);
+    xml.InitStatic("tab_profile:best_results_list:cap_cscore_6", this.best_results_list);
+
+    this.gs_change_nick_mb_cancel = new CUIMessageBoxEx();
+    handler.Register(this.gs_change_nick_mb_cancel, "gs_change_nick_mb_cancel");
+    handler.AddCallback("gs_change_nick_mb_cancel", ui_events.BUTTON_CLICKED, () => this.OnCancelChangeUnick(), this);
+    this.gs_change_nick_mb_cancel.InitMessageBox("message_box_gs_info");
+
+    this.gs_change_nick_mb = new CUIMessageBoxEx();
+    handler.Register(this.gs_change_nick_mb, "gs_change_nick_mb");
+    this.gs_change_nick_mb.InitMessageBox("message_box_ok");
+  },
+  InitBestScores(): void {
+    log.info("Init best scores");
+
+    if (this.handler.owner.profile_store !== null) {
+      forin(this.handler.owner.profile_store.get_best_scores(), (it) => {
+        const score_wnd: XR_CUITextWnd = this.xml.InitTextWnd(
+          "tab_profile:best_results_list:cap_score_" + tostring(it.first),
+          this.best_results_list
+        );
+
+        this.xml.InitTextWnd("tab_profile:best_results_list:cap_cscore_" + tostring(it.first), this.best_results_list);
+        score_wnd.SetText(tostring(it.second));
+      });
+    } else {
+      abort("Profile not loaded!");
+    }
+  },
+  OnEditUniqueNickChanged(): void {
+    this.gs_change_nick_mb_cancel.SetText("ui_mp_gamespy_suggesting_unique_name");
+    this.gs_change_nick_mb_cancel.ShowDialog(true);
+    this.handler.owner.accountManager.suggest_unique_nicks(
+      this.edit_unique_nick.GetText(),
+      new suggest_nicks_cb(this, (result, description) => this.OnNickSuggestionComplete(result, description))
+    );
+    this.combo_aval_unique_nick.Show(true);
+    this.combo_aval_unique_nick.ClearList();
+  },
+  OnCancelChangeUnick(): void {
+    this.handler.owner.accountManager.stop_suggest_unique_nicks();
+    this.gs_change_nick_mb_cancel.HideDialog();
+    this.edit_unique_nick.SetText(this.handler.owner.gameSpyProfile!.unique_nick());
+  },
+  UpdateControls(): void {
+    // Nothing.
+  },
+  OnUniqueNickSelect(): void {
+    this.edit_unique_nick.SetText(this.combo_aval_unique_nick.GetText());
+  },
+  ChangeNickOperationResult(profile: Optional<XR_profile>, description: string): void {
+    this.gs_change_nick_mb.HideDialog();
+    this.combo_aval_unique_nick.Show(false);
+    this.gs_change_nick_mb.InitMessageBox("message_box_ok");
+
+    if (profile == null) {
+      this.gs_change_nick_mb.SetText(description);
+    } else {
+      this.gs_change_nick_mb.SetText(
+        game.translate_string("ui_st_mp_unique_nickname_change") + " " + profile.unique_nick() + "."
+      );
+    }
+
+    this.edit_unique_nick.SetText(this.handler.owner.gameSpyProfile!.unique_nick());
+    this.gs_change_nick_mb.ShowDialog(true);
+  },
+  OnNickSuggestionComplete(result: number, desctiption: string) {
+    this.gs_change_nick_mb_cancel.HideDialog();
+
+    const new_unique_nick: string = this.edit_unique_nick.GetText();
+
+    let isNickUsed: boolean = false;
+
+    forin(this.handler.owner.accountManager.get_suggested_unicks(), (it, index, stop) => {
+      if (it == new_unique_nick) {
+        this.gs_change_nick_mb.InitMessageBox("message_box_gs_changing_unick");
+        this.gs_change_nick_mb.SetText("ui_mp_gamespy_changing_unique_nick");
+        this.gs_change_nick_mb.ShowDialog(true);
+        this.handler.owner.loginManager.set_unique_nick(
+          new_unique_nick,
+          new login_operation_cb(this, (profile: Optional<XR_profile>, description: string) => {
+            this.ChangeNickOperationResult(profile, description);
+          })
+        );
+
+        isNickUsed = true;
+        stop();
+      }
+
+      this.combo_aval_unique_nick.AddItem(it, index);
+    });
+
+    if (isNickUsed) {
+      return;
+    }
+
+    this.gs_change_nick_mb.InitMessageBox("message_box_ok");
+
+    const first_name = this.combo_aval_unique_nick.GetTextOf(0);
+
+    this.combo_aval_unique_nick.SetText(first_name);
+
+    if (result > 0) {
+      this.gs_change_nick_mb.SetText("ui_mp_gamespy_verify_nickname_error1");
+    } else {
+      this.gs_change_nick_mb.SetText(desctiption);
+    }
+
+    this.edit_unique_nick.SetText(this.handler.owner.gameSpyProfile!.unique_nick());
+    this.gs_change_nick_mb.ShowDialog(true);
+  },
+  FillRewardsTable() {
+    if (this.handler.owner.profile_store !== null) {
+      const pos: XR_vector2 = new vector2().set(0, 0);
+      let field = 1;
+
+      forin(this.handler.owner.profile_store.get_awards(), (it, index) => {
+        const k: number = lua_math.mod(index, 3);
+
+        if (k == 1) {
+          field = field + 1;
+          this.awards[field] = {};
+          this.awards[field].field = this.xml.InitStatic("tab_profile:awards_list:field", null);
+          this.awards[field].field = this.xml.InitStatic("tab_profile:awards_list:field", null);
+          this.awards_list.AddWindow(this.awards[field].field, true);
+        }
+
+        const award_name: string = "award_" + k;
+        const reward_name: string = "reward_" + it.first;
+
+        let award_xml_name: string = "";
+
+        if (it.second.m_count > 0) {
+          award_xml_name = "award_" + it.first + "_active";
+          // --                award_xml_name        = "award_0_active"
+          this.awards[field][award_name] = awards_xml.InitStatic(award_xml_name, this.awards[field].field);
+
+          const rewards_count = awards_xml.InitTextWnd(award_xml_name + ".cap_count", this.awards[field][award_name]);
+
+          rewards_count.SetText(tostring(it.second.m_count));
+        } else {
+          award_xml_name = "award_" + it.first + "_inactive";
+          // --                award_xml_name        = "award_0_inactive"
+          this.awards[field][award_name] = awards_xml.InitStatic(award_xml_name, this.awards[field].field);
+        }
+
+        let tmp = 0;
+
+        if (get_global("utils").is_widescreen()) {
+          tmp = 96 + 16;
+        } else {
+          tmp = 121 + 21;
+        }
+
+        if (k == 0) {
+          pos.x = tmp * (3 - 1);
+        } else {
+          pos.x = tmp * (k - 1);
+        }
+
+        this.awards[field][award_name].SetWndPos(pos);
+      });
+    } else {
+      abort("Profile not loaded!");
+    }
+  }
+} as IMultiplayerProfile);

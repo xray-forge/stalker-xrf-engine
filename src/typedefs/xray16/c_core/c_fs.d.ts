@@ -260,12 +260,12 @@ declare global {
     public dir_delete(fs: XR_FS, a: string, c: number): unknown;
     public dir_delete(fs: XR_FS, a: string, b: string, c: number): unknown;
 
-    public update_path(fs: XR_FS, a: string, b: string): unknown;
+    public update_path(a: string, b: string): string;
 
     public r_close(reader: unknown /** reader*& */): unknown;
 
     public exist(a: string): unknown;
-    public exist(a: string, b: string): unknown;
+    public exist(folderAlias: string, filename: string): boolean;
 
     public w_close(writer: unknown /* class IWriter*& */): unknown;
 
@@ -287,36 +287,67 @@ declare global {
   }
 
   /**
-   C++ class ini_file {
-    ini_file (string);
-
-    function line_count(string);
-
-    function r_bool(string, string);
-
-    function section_exist(string);
-
-    function r_float(string, string);
-
-    function r_clsid(string, string);
-
-    function r_s32(string, string);
-
-    function r_line(ini_file*, string, number, string&, string&);
-
-    function r_token(string, string, const token_list&);
-
-    function r_vector(string, string);
-
-    function r_u32(string, string);
-
-    function r_string_wq(string, string);
-
-    function r_string(string, string);
-
-    function line_exist(string, string);
-
-  };
+   *  C++ class ini_file {
+   *     ini_file (string);
+   *
+   *     function line_count(string);
+   *
+   *     function r_bool(string, string);
+   *
+   *     function section_exist(string);
+   *
+   *     function r_float(string, string);
+   *
+   *     function r_clsid(string, string);
+   *
+   *     function r_s32(string, string);
+   *
+   *     function r_line(ini_file*, string, number, string&, string&);
+   *
+   *     function r_token(string, string, const token_list&);
+   *
+   *     function r_vector(string, string);
+   *
+   *     function r_u32(string, string);
+   *
+   *     function r_string_wq(string, string);
+   *
+   *     function r_string(string, string);
+   *
+   *     function line_exist(string, string);
+   *
+   *   };
+   *
+   *  @customConstructor ini_file
    */
-  // todo;
+  class XR_ini_file {
+    public constructor(path: string);
+
+    public line_count(section: string): number;
+
+    public r_bool(section: string, param: string): boolean;
+
+    public section_exist(section: string): boolean;
+
+    public r_float(section:string, param: string): number;
+
+    public r_clsid(section:string, param: string): string;
+
+    public r_s32(section:string, param: string): number;
+
+    public r_line(ini_file: XR_ini_file, a: string, b: number, c: string, d: string): string;
+
+    public r_token(section: string, param: string, list: unknown /* const token_list& */): unknown;
+
+    public r_vector(section:string, param: string): XR_vector2;
+
+    public r_u32(section:string, param: string): number;
+
+    public r_string_wq(section:string, param: string): string;
+
+    public r_string(section: string, param: string): string;
+
+    public line_exist(section:string, param: string): boolean;
+
+  }
 }

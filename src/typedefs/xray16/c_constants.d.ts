@@ -420,7 +420,7 @@ declare global {
   }
 
   /**
-   *    C++ class GAME_TYPE {
+   *   C++ class GAME_TYPE {
    *     const GAME_UNKNOWN = -1;
    *     const eGameIDArtefactHunt = 8;
    *     const eGameIDCaptureTheArtefact = 16;
@@ -429,12 +429,26 @@ declare global {
    *   };
    */
   class XR_GAME_TYPE {
-    public GAME_UNKNOWN: -1;
     public eGameIDArtefactHunt: 8;
     public eGameIDCaptureTheArtefact: 16;
     public eGameIDDeathmatch: 2;
     public eGameIDTeamDeathmatch: 4;
+
+    public GAME_UNKNOWN: -1;
+    public GAME_ANY: 0;
+    public GAME_SINGLE : 1;
+    public GAME_DEATHMATCH: 2;
+    //	GAME_CTF							= 3,
+    //	GAME_ASSAULT						= 4,	// Team1 - assaulting, Team0 - Defending
+    public GAME_CS: 5;
+    public GAME_TEAMDEATHMATCH: 6;
+    public GAME_ARTEFACTHUNT: 7;
+    public GAME_CAPTURETHEARTEFACT: 8;
+    // identifiers in range [100...254] are registered for script game type
+    public GAME_DUMMY: 255; // temporary g
   }
+
+  type XR_TGAME_TYPE = XR_GAME_TYPE[keyof XR_GAME_TYPE];
 
   /**
    *   C++ class game_difficulty {

@@ -34,7 +34,7 @@ declare global {
 
     public GetHeight(): number;
     public GetWidth(): number;
-    public GetWndPos(wnd: XR_CUIWindow): unknown;
+    public GetWndPos(): XR_vector2;
     public SetWndSize(vector2: unknown): unknown;
 
     public SetWindowName(this: XR_CUIWindow, value: string): void;
@@ -52,63 +52,85 @@ declare global {
   }
 
   /**
-   C++ class CServerList : CUIWindow {
-    CServerList ();
-
-    function SetPlayerName(string);
-
-    function SetWindowName(string);
-
-    function GetWndPos(CUIWindow*);
-
-    function SetFilters(SServerFilters&);
-
-    function RefreshList(boolean);
-
-    function SetAutoDelete(boolean);
-
-    function SetSortFunc(string, boolean);
-
-    function NetRadioChanged(boolean);
-
-    function AttachChild(CUIWindow*);
-
-    function ShowServerInfo();
-
-    function SetWndPos(vector2);
-
-    function RefreshQuick();
-
-    function ConnectToSelected();
-
-    function DetachChild(CUIWindow*);
-
-    function SetPPMode();
-
-    function WindowName();
-
-    function IsShown();
-
-    function SetWndRect(Frect);
-
-    function Show(boolean);
-
-    function GetHeight() const;
-
-    function GetWidth() const;
-
-    function SetWndSize(vector2);
-
-    function IsEnabled();
-
-    function ResetPPMode();
-
-    function Enable(boolean);
-
-    function IsAutoDelete();
-
-  };
+   *  C++ class CServerList : CUIWindow {
+   *     CServerList ();
+   *
+   *     function SetPlayerName(string);
+   *
+   *     function SetWindowName(string);
+   *
+   *     function GetWndPos(CUIWindow*);
+   *
+   *     function SetFilters(SServerFilters&);
+   *
+   *     function RefreshList(boolean);
+   *
+   *     function SetAutoDelete(boolean);
+   *
+   *     function SetSortFunc(string, boolean);
+   *
+   *     function NetRadioChanged(boolean);
+   *
+   *     function AttachChild(CUIWindow*);
+   *
+   *     function ShowServerInfo();
+   *
+   *     function SetWndPos(vector2);
+   *
+   *     function RefreshQuick();
+   *
+   *     function ConnectToSelected();
+   *
+   *     function DetachChild(CUIWindow*);
+   *
+   *     function SetPPMode();
+   *
+   *     function WindowName();
+   *
+   *     function IsShown();
+   *
+   *     function SetWndRect(Frect);
+   *
+   *     function Show(boolean);
+   *
+   *     function GetHeight() const;
+   *
+   *     function GetWidth() const;
+   *
+   *     function SetWndSize(vector2);
+   *
+   *     function IsEnabled();
+   *
+   *     function ResetPPMode();
+   *
+   *     function Enable(boolean);
+   *
+   *     function IsAutoDelete();
+   *
+   *   };
+   *
+   *  @customConstructor CServerList
    */
+  class XR_CServerList extends XR_CUIWindow {
+    public SetPlayerName(name: string): void;
+
+    public SetFilters(filsters: XR_SServerFilters): void;
+
+    public RefreshList(value: boolean): void;
+
+    public SetSortFunc(a: string, b: boolean): void;
+
+    public NetRadioChanged(value: boolean): unknown;
+
+    public ShowServerInfo(): unknown;
+
+    public RefreshQuick(): void;
+
+    public ConnectToSelected(): unknown;
+
+    public SetConnectionErrCb(cb: XR_connect_error_cb): void;
+
+  }
 
   /**
    *  C++ class CUIButton : CUIStatic {
@@ -490,7 +512,7 @@ declare global {
    * @customConstructor CUICustomSpin
    */
   class XR_CUICustomSpin extends XR_CUIWindow {
-    public GetText(): unknown;
+    public GetText(): string;
   }
 
   /**
@@ -1062,9 +1084,9 @@ declare global {
   class XR_CUIListBoxItem extends XR_CUIFrameLineWnd {
     // public constructor(index: number);
 
-    public AddIconField(value: number): unknown;
+    public AddIconField(value: number): XR_CUIStatic;
 
-    public SetTextColor(color: number): unknown;
+    public SetTextColor(color: number): void;
 
     public AddTextField(text: string, width: number): XR_CUITextWnd;
 
@@ -1190,59 +1212,64 @@ declare global {
 
     public ShowPage(pageId: number): void;
 
-    public SetPage(pageId: number, a: string, b: string): void;
+    public SetPage(pageId: number, xml: string, className: string): void;
 
     public SetVisibleMagnifier(isVisible: boolean): void;
   }
 
   /**
-   C++ class CUIMapInfo : CUIWindow {
-    CUIMapInfo ();
-
-    function SetWindowName(string);
-
-    function GetWndPos(CUIWindow*);
-
-    function InitMap(string, string);
-
-    function SetAutoDelete(boolean);
-
-    function AttachChild(CUIWindow*);
-
-    function SetWndPos(vector2);
-
-    function Init(vector2, vector2);
-
-    function DetachChild(CUIWindow*);
-
-    function SetPPMode();
-
-    function WindowName();
-
-    function IsShown();
-
-    function SetWndRect(Frect);
-
-    function Show(boolean);
-
-    function GetHeight() const;
-
-    function GetWidth() const;
-
-    function SetWndSize(vector2);
-
-    function IsEnabled();
-
-    function ResetPPMode();
-
-    function Enable(boolean);
-
-    function IsAutoDelete();
-
-  };
+   * C++ class CUIMapInfo : CUIWindow {
+   *     CUIMapInfo ();
+   *
+   *     function SetWindowName(string);
+   *
+   *     function GetWndPos(CUIWindow*);
+   *
+   *     function InitMap(string, string);
+   *
+   *     function SetAutoDelete(boolean);
+   *
+   *     function AttachChild(CUIWindow*);
+   *
+   *     function SetWndPos(vector2);
+   *
+   *     function Init(vector2, vector2);
+   *
+   *     function DetachChild(CUIWindow*);
+   *
+   *     function SetPPMode();
+   *
+   *     function WindowName();
+   *
+   *     function IsShown();
+   *
+   *     function SetWndRect(Frect);
+   *
+   *     function Show(boolean);
+   *
+   *     function GetHeight() const;
+   *
+   *     function GetWidth() const;
+   *
+   *     function SetWndSize(vector2);
+   *
+   *     function IsEnabled();
+   *
+   *     function ResetPPMode();
+   *
+   *     function Enable(boolean);
+   *
+   *     function IsAutoDelete();
+   *
+   *   };
    */
+  class XR_CUIMapInfo extends XR_CUIWindow {
 
-  // todo;
+    public InitMap(a: string, b: string): void;
+
+    public Init(a: XR_vector2, b: XR_vector2): void;
+
+  }
 
   /**
    * C++ class CUIMapList : CUIWindow {
@@ -1329,9 +1356,9 @@ declare global {
 
     public LoadMapList(): void;
 
-    public GetCommandLine(value: string): unknown;
+    public GetCommandLine(value: string): string;
 
-    public GetCurGameType(): unknown;
+    public GetCurGameType(): XR_GAME_TYPE[keyof XR_GAME_TYPE];
 
     public SaveMapList(): void;
 
@@ -1470,7 +1497,7 @@ declare global {
 
     public GetPassword(): string;
 
-    public GetHost(): unknown;
+    public GetHost(): string;
   }
 
   /**
@@ -1737,98 +1764,102 @@ declare global {
   // todo;
 
   /**
-   C++ class CUISpinFlt : CUICustomSpin {
-    CUISpinFlt ();
-
-    function SetWindowName(string);
-
-    function GetWndPos(CUIWindow*);
-
-    function GetText();
-
-    function SetAutoDelete(boolean);
-
-    function AttachChild(CUIWindow*);
-
-    function SetWndPos(vector2);
-
-    function DetachChild(CUIWindow*);
-
-    function SetPPMode();
-
-    function WindowName();
-
-    function IsShown();
-
-    function GetWidth() const;
-
-    function SetWndRect(Frect);
-
-    function GetHeight() const;
-
-    function Enable(boolean);
-
-    function ResetPPMode();
-
-    function IsEnabled();
-
-    function SetWndSize(vector2);
-
-    function Show(boolean);
-
-    function IsAutoDelete();
-
-  };
+   * C++ class CUISpinFlt : CUICustomSpin {
+   *     CUISpinFlt ();
+   *
+   *     function SetWindowName(string);
+   *
+   *     function GetWndPos(CUIWindow*);
+   *
+   *     function GetText();
+   *
+   *     function SetAutoDelete(boolean);
+   *
+   *     function AttachChild(CUIWindow*);
+   *
+   *     function SetWndPos(vector2);
+   *
+   *     function DetachChild(CUIWindow*);
+   *
+   *     function SetPPMode();
+   *
+   *     function WindowName();
+   *
+   *     function IsShown();
+   *
+   *     function GetWidth() const;
+   *
+   *     function SetWndRect(Frect);
+   *
+   *     function GetHeight() const;
+   *
+   *     function Enable(boolean);
+   *
+   *     function ResetPPMode();
+   *
+   *     function IsEnabled();
+   *
+   *     function SetWndSize(vector2);
+   *
+   *     function Show(boolean);
+   *
+   *     function IsAutoDelete();
+   *
+   *   };
+   *
+   *  @customConstructor CUISpinFlt
    */
+  class XR_CUISpinFlt extends XR_CUICustomSpin {
 
-  // todo;
+  }
 
   /**
-   C++ class CUISpinNum : CUICustomSpin {
-    CUISpinNum ();
-
-    function SetWindowName(string);
-
-    function GetWndPos(CUIWindow*);
-
-    function GetText();
-
-    function SetAutoDelete(boolean);
-
-    function AttachChild(CUIWindow*);
-
-    function SetWndPos(vector2);
-
-    function DetachChild(CUIWindow*);
-
-    function SetPPMode();
-
-    function WindowName();
-
-    function IsShown();
-
-    function GetWidth() const;
-
-    function SetWndRect(Frect);
-
-    function GetHeight() const;
-
-    function Enable(boolean);
-
-    function ResetPPMode();
-
-    function IsEnabled();
-
-    function SetWndSize(vector2);
-
-    function Show(boolean);
-
-    function IsAutoDelete();
-
-  };
+   * C++ class CUISpinNum : CUICustomSpin {
+   *     CUISpinNum ();
+   *
+   *     function SetWindowName(string);
+   *
+   *     function GetWndPos(CUIWindow*);
+   *
+   *     function GetText();
+   *
+   *     function SetAutoDelete(boolean);
+   *
+   *     function AttachChild(CUIWindow*);
+   *
+   *     function SetWndPos(vector2);
+   *
+   *     function DetachChild(CUIWindow*);
+   *
+   *     function SetPPMode();
+   *
+   *     function WindowName();
+   *
+   *     function IsShown();
+   *
+   *     function GetWidth() const;
+   *
+   *     function SetWndRect(Frect);
+   *
+   *     function GetHeight() const;
+   *
+   *     function Enable(boolean);
+   *
+   *     function ResetPPMode();
+   *
+   *     function IsEnabled();
+   *
+   *     function SetWndSize(vector2);
+   *
+   *     function Show(boolean);
+   *
+   *     function IsAutoDelete();
+   *
+   *   };
    */
+  class XR_CUISpinNum extends XR_CUICustomSpin {
 
-  // todo;
+  }
 
   /**
    * C++ class CUISpinText : CUICustomSpin {

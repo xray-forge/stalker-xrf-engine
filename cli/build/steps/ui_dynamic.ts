@@ -16,6 +16,54 @@ const EXPECTED_DYNAMIC_XML_EXTENSIONS: Array<string> = [".tsx", ".ts"];
 export async function buildDynamicUi(): Promise<void> {
   log.info("Build dynamic UI schemas");
 
+  const xmlConfigs: Array<TFolderReplicationDescriptor> = await getUiConfigs();
+
+  if (xmlConfigs.length > 0) {
+    log.info("Found dynamic XML configs");
+
+    let processedXmlConfigs: number = 0;
+    let skippedXmlConfigs: number = 0;
+
+    createFoldersForConfigs(xmlConfigs);
+
+    await Promise.all(
+      xmlConfigs.map(async ([from, to]) => {
+        const xmlSource = await import(from);
+        const xmlContent = typeof xmlSource?.create === "function" && xmlSource?.IS_XML && xmlSource?.create();
+
+        if (xmlContent) {
+          log.info("TRANSFORM:", chalk.blue(to));
+          await fsPromises.writeFile(to, renderJsxToXmlText(xmlContent));
+          processedXmlConfigs += 1;
+        } else {
+          log.warn("SKIP, not XML source:", chalk.blue(from));
+          skippedXmlConfigs += 1;
+        }
+      })
+    );
+
+    log.info("XML files processed:", processedXmlConfigs);
+    log.info("XML files skipped:", skippedXmlConfigs);
+  } else {
+    log.info("No dynamic XML configs found");
+  }
+}
+
+/**
+ * Sync way for folder creation when needed.
+ */
+function createFoldersForConfigs(xmlConfigs: Array<TFolderReplicationDescriptor>): void {
+  xmlConfigs.forEach(([, to]) => {
+    const targetDir: string = path.dirname(to);
+
+    if (!fs.existsSync(targetDir)) {
+      log.info("MKDIR:", chalk.blueBright(targetDir));
+      fs.mkdirSync(targetDir, { recursive: true });
+    }
+  });
+}
+
+async function getUiConfigs(): Promise<Array<TFolderReplicationDescriptor>> {
   function collectXmlConfigs(
     acc: Array<TFolderReplicationDescriptor>,
     it: TFolderFiles
@@ -31,48 +79,5 @@ export async function buildDynamicUi(): Promise<void> {
     return acc;
   }
 
-  const xmlConfigs: Array<TFolderReplicationDescriptor> = (await readDirContent(GAME_DATA_UI_DIR)).reduce(
-    collectXmlConfigs,
-    []
-  );
-
-  if (xmlConfigs.length > 0) {
-    log.info("Found dynamic XML configs");
-
-    /**
-     * Sync way for folder creation when needed.
-     */
-    xmlConfigs.forEach(([from, to]) => {
-      const targetDir: string = path.dirname(to);
-
-      if (!fs.existsSync(targetDir)) {
-        log.info("MKDIR:", chalk.blueBright(targetDir));
-        fs.mkdirSync(targetDir, { recursive: true });
-      }
-    });
-
-    let processedXmlConfigs: number = 0;
-
-    await Promise.all(
-      xmlConfigs.map(async ([from, to]) => {
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const xmlSource = require(from);
-        const xmlContent = typeof xmlSource?.create === "function" && xmlSource?.IS_XML && xmlSource?.create();
-
-        if (xmlContent) {
-          log.info("TRANSFORM:", chalk.blue(to));
-
-          await fsPromises.writeFile(to, renderJsxToXmlText(xmlContent));
-
-          processedXmlConfigs += 1;
-        } else {
-          log.warn("SKIP, not XML source:", chalk.blue(from));
-        }
-      })
-    );
-
-    log.info("XML files processed:", processedXmlConfigs);
-  } else {
-    log.info("No dynamic XML configs found");
-  }
+  return (await readDirContent(GAME_DATA_UI_DIR)).reduce(collectXmlConfigs, []);
 }

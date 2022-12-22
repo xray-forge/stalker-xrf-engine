@@ -11,6 +11,8 @@ _G.lua_string = string
 
 _G.lua_table = table
 
+_G.lua_math = math
+
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Method to declare native C++ classes from lua
 -- Easier to declare it as LUA global and use than transpile from TS directly
@@ -76,4 +78,22 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 _G.pack_table = function(...)
   return { ... }
+end
+
+_G.forin = function(arr, cb)
+  local is_enabled = true
+  local index = 1;
+
+  local stop = function()
+    is_enabled = false
+  end
+
+  for it in arr do
+    if is_enabled then
+      cb(it, index, stop)
+      index = index + 1
+    else
+      return
+    end
+  end
 end

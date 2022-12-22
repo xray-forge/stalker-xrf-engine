@@ -45,6 +45,8 @@ export async function buildMeta({ meta, timeTracker }: IBuildMetaParams): Promis
   log.info("Collected files count:", builtFiles.length);
   log.info("Collected files size:", chalk.yellow(assetsSizesMegabytes), "MB");
 
+  const timingInfo: Record<string, string | number> = getTimingsInfo(timeTracker);
+
   buildMeta["name"] = meta.name;
   buildMeta["version"] = meta.version;
   buildMeta["author"] = meta.author;
@@ -52,7 +54,7 @@ export async function buildMeta({ meta, timeTracker }: IBuildMetaParams): Promis
   buildMeta["built_took"] = timeTracker.getDuration() / 1000 + " SEC";
   buildMeta["built_at"] = new Date().toLocaleString();
   buildMeta["build_flags"] = process.argv;
-  buildMeta["build_timings"] = getTimingsInfo(timeTracker);
+  buildMeta["build_timings"] = timingInfo;
 
   Object.assign(buildMeta, getBuildSystemInfo());
 
@@ -61,6 +63,9 @@ export async function buildMeta({ meta, timeTracker }: IBuildMetaParams): Promis
   buildMeta["files"] = builtFiles.map((it) => it.slice(TARGET_GAME_DATA_DIR.length + 1));
 
   await fsPromises.writeFile(TARGET_GAME_DATA_METADATA_FILE, JSON.stringify(buildMeta, null, 2));
+
+  log.info("Timing stats:");
+  Object.entries(timingInfo).forEach(([key, value]) => log.info(`* ${key}:  ${chalk.yellow(value)}`));
 
   log.info("Included mod metadata");
 }

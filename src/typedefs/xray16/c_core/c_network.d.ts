@@ -120,19 +120,28 @@ declare global {
    */
   // todo;
   /**
-   C++ class SServerFilters {
-    property empty;
-    property full;
-    property listen_servers;
-    property with_pass;
-    property without_ff;
-    property without_pass;
-
-    SServerFilters ();
-
-  };
+   *   C++ class SServerFilters {
+   *     property empty;
+   *     property full;
+   *     property listen_servers;
+   *     property with_pass;
+   *     property without_ff;
+   *     property without_pass;
+   *
+   *     SServerFilters ();
+   *   };
+   *
+   * @customConstructor SServerFilters
    */
-  // todo;
+  class XR_SServerFilters {
+    public empty: boolean;
+    public full: boolean;
+    public listen_servers: boolean;
+    public with_pass: boolean;
+    public without_ff: boolean;
+    public without_pass: boolean;
+  }
+
   /**
    * C++ class account_manager {
    *     function get_account_profiles(string, string, account_profiles_cb);
@@ -166,11 +175,11 @@ declare global {
    *   };
    */
   class XR_account_manager {
-    public get_account_profiles(a: string, b: string, c: unknown /* account_profiles_cb*/): unknown;
+    public get_account_profiles(a: string, b: string, cb: XR_account_profiles_cb): unknown;
 
-    public create_profile(a: string, b: string, c: string, d: string, e: unknown /* account_profiles_cb*/): unknown;
+    public create_profile(a: string, b: string, c: string, d: string, cb: XR_account_profiles_cb): unknown;
 
-    public get_suggested_unicks(): unknown;
+    public get_suggested_unicks(): Array<string>;
 
     public stop_suggest_unique_nicks(): unknown;
 
@@ -182,17 +191,17 @@ declare global {
 
     public verify_email(email: string): boolean;
 
-    public search_for_email(email: string, cb: unknown /* found_email_cb */): unknown;
+    public search_for_email(email: string, cb: XR_found_email_cb): void;
 
-    public suggest_unique_nicks(a: string, b: unknown /* suggest_nicks_cb */): unknown;
+    public suggest_unique_nicks(nick: string, b: XR_suggest_nicks_cb): void;
 
-    public get_verify_error_descr(): unknown;
+    public get_verify_error_descr(): string;
 
-    public delete_profile(operation: unknown /* account_operation_cb*/): unknown;
+    public delete_profile(operation: XR_account_operation_cb): void;
 
     public stop_fetching_account_profiles(): unknown;
 
-    public get_found_profiles(): unknown;
+    public get_found_profiles(): Array<string>;
   }
 
   /**
@@ -245,31 +254,33 @@ declare global {
    *   };
    */
   class XR_login_manager {
-    public save_nick_to_registry(nick: string): unknown;
+    public save_nick_to_registry(nick: string): void;
 
-    public forgot_password(email: string): unknown;
+    public forgot_password(url: string): unknown;
 
-    public get_nick_from_registry(): unknown;
+    public get_nick_from_registry(): string;
 
     public get_current_profile(): XR_profile;
 
-    public get_remember_me_from_registry(): unknown;
+    public get_remember_me_from_registry(): boolean;
 
     public stop_login(): void;
 
     public save_password_to_registry(password: string): unknown;
 
-    public login_offline(nick: string, operation: unknown /* login_operation_cb*/): unknown;
+    public login_offline(nick: string, cb: XR_login_operation_cb): unknown;
 
-    public set_unique_nick(nick: string, operation: unknown /* login_operation_cb*/): unknown;
+    public set_unique_nick(nick: string, cb: XR_login_operation_cb): unknown;
 
-    public login(a: string, b: string, c: string, operation: unknown /* login_operation_cb*/): unknown;
+    public login(a: string, b: string, c: string, cb: XR_login_operation_cb): unknown;
 
-    public get_email_from_registry(): unknown;
+    public save_remember_me_to_registry(value: boolean): void;
+
+    public get_email_from_registry(): string;
 
     public logout(): void;
 
-    public get_password_from_registry(): unknown;
+    public get_password_from_registry(): string;
 
     public save_email_to_registry(email: string): unknown;
 
@@ -297,85 +308,183 @@ declare global {
    */
   // todo;
   /**
-
-   C++ class award_pair_t {
-    property first;
-    property second;
-
-  };
+   *   C++ class award_pair_t {
+   *     property first;
+   *     property second;
    *
-   */
-  // todo;
-  /**
-
-   C++ class best_scores_pair_t {
-    property first;
-    property second;
-
-  };
+   *   };
    *
+   * @constructor award_pair_t
    */
-  // todo;
+    class XR_award_pair_t {
+      public first: XR_award_data;
+      public second: XR_award_data;
+    }
+
   /**
-   C++ class account_profiles_cb {
-    account_profiles_cb ();
-    account_profiles_cb (object, function<void>);
-
-    function bind(object, function<void>);
-
-    function clear();
-
-  };
+   *   C++ class best_scores_pair_t {
+   *     property first;
+   *     property second;
+   *
+   *   };
+   *
+   *  @customConstructor best_scores_pair_t
    */
-  // todo;
+  class XR_best_scores_pair_t {
+    public first: XR_award_data;
+    public second: XR_award_data;
+  }
+
   /**
-   C++ class login_operation_cb {
-    login_operation_cb ();
-    login_operation_cb (object, function<void>);
-
-    function bind(object, function<void>);
-
-    function clear();
-
-  };
+   * C++ class account_profiles_cb {
+   *     account_profiles_cb ();
+   *     account_profiles_cb (object, function<void>);
+   *
+   *     function bind(object, function<void>);
+   *
+   *     function clear();
+   *
+   *   };
+   *
+   * @customConstructor account_profiles_cb
    */
-  // todo;
+  class XR_account_profiles_cb {
+    public constructor (object: object, cb: (this: object, code: number, description: string) => void);
+
+    public bind(object: object, cb: (this: object, code: number, description: string) => void): void;
+
+    public clear(): void;
+  }
+
   /**
-   C++ class account_operation_cb {
-    account_operation_cb ();
-    account_operation_cb (object, function<void>);
-
-    function bind(object, function<void>);
-
-    function clear();
-
-  };
+   *   C++ class login_operation_cb {
+   *     login_operation_cb ();
+   *     login_operation_cb (object, function<void>);
+   *
+   *     function bind(object, function<void>);
+   *
+   *     function clear();
+   *
+   *   };
+   *
+   *  @customConstructor login_operation_cb
    */
-  // todo;
+  class XR_login_operation_cb {
+    public constructor (
+      object: object,
+      cb: (this: object, profile: XR_profile | null, description: string) => void
+    );
+
+    public bind(object: object, cb: (this: object, profile: XR_profile | null, description: string) => void): void;
+
+    public clear(): void;
+  }
+
   /**
-   C++ class found_email_cb {
-    found_email_cb ();
-    found_email_cb (object, function<void>);
-
-    function bind(object, function<void>);
-
-    function clear();
-
-  };
+   *   C++ class connect_error_cb {
+   *     connect_error_cb ();
+   *     connect_error_cb (object, function<void>);
+   *
+   *     function bind(object, function<void>);
+   *
+   *     function clear();
+   *
+   *   };
+   *
+   *  @customConstructor connect_error_cb
    */
-  // todo;
+  class XR_connect_error_cb {
+    public constructor (object: object, cb: (this: object, code: number, description: string) => void);
+
+    public bind(object: object, cb: (this: object, code: number, description: string) => void): void;
+
+    public clear(): void;
+  }
+
   /**
-   C++ class store_operation_cb {
-    store_operation_cb ();
-    store_operation_cb (object, function<void>);
-
-    function bind(object, function<void>);
-
-    function clear();
-
-  };
+   *  C++ class account_operation_cb {
+   *     account_operation_cb ();
+   *     account_operation_cb (object, function<void>);
+   *
+   *     function bind(object, function<void>);
+   *
+   *     function clear();
+   *
+   *   };
+   *
+   *  @customConstructor account_operation_cb
    */
-  // todo;
+  class XR_account_operation_cb {
+    public constructor (object: object, cb: (this: object, code: number, description: string) => void);
+
+    public bind(object: unknown, cb: (this: object, code: number, description: string) => void): void;
+
+    public clear(): void;
+  }
+
+  /**
+   *  C++ class found_email_cb {
+   *     found_email_cb ();
+   *     found_email_cb (object, function<void>);
+   *
+   *     function bind(object, function<void>);
+   *
+   *     function clear();
+   *
+   *   };
+   *
+   *  @customConstructor found_email_cb
+   */
+  class XR_found_email_cb {
+    public constructor (object: object, cb: (this: object, found: boolean, description: string) => void);
+
+    public bind(object: object, cb: (this: object, found: boolean, description: string) => void): void;
+
+    public clear(): void;
+  }
+
+  /**
+   * C++ class store_operation_cb {
+   *     store_operation_cb ();
+   *     store_operation_cb (object, function<void>);
+   *
+   *     function bind(object, function<void>);
+   *
+   *     function clear();
+   *
+   * };
+   *
+   * @customConstructor store_operation_cb
+   */
+  class XR_store_operation_cb {
+    public constructor (object: object, cb: (this: object, code: number, description: string) => void);
+
+    public bind(object: object, cb: (this: object, code: number, description: string) => void): void;
+
+    public clear(): void;
+  }
+
+  /**
+   *  C++ class suggest_nicks_cb {
+   *     suggest_nicks_cb ();
+   *     suggest_nicks_cb (object, function<void>);
+   *
+   *     function bind(object, function<void>);
+   *
+   *     function clear();
+   *
+   *   };
+   *
+   * @customConstructor suggest_nicks_cb
+   */
+  class XR_suggest_nicks_cb {
+    public constructor (object: object, cb: (this: object, result: number, description: string) => void);
+
+    public bind(object: object, cb: (this: object, result: number, description: string) => void): void;
+
+    public clear(): void;
+  }
+
   /**
    *  C++ class Patch_Dawnload_Progress {
    *     function GetProgress();
@@ -434,25 +543,13 @@ declare global {
     public static bst_kinife_kills_in_row: 1;
     public static bst_score_types_count: 7;
 
-    public get_best_scores(): unknown;
+    public get_best_scores(): Array<XR_best_scores_pair_t>;
 
-    public get_awards(): unknown;
+    public get_awards(): Array<XR_award_pair_t>;
 
     public stop_loading(): unknown;
 
-    public load_current_profile(a: unknown /* store_operation_cb*/, b: unknown /* store_operation_cb*/): unknown;
+    public load_current_profile(onProgress: XR_store_operation_cb, onComlete: XR_store_operation_cb): unknown;
   }
 
-  /**
-   C++ class suggest_nicks_cb {
-    suggest_nicks_cb ();
-    suggest_nicks_cb (object, function<void>);
-
-    function bind(object, function<void>);
-
-    function clear();
-
-  };
-   */
-  // todo;
 }

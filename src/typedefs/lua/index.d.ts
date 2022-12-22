@@ -5,13 +5,13 @@ declare interface LUA_String {
 
   dump(this: void, func: unknown, strip: unknown): unknown;
 
-  find(this: void, s: string, pattern: unknown, init?: number, plain?: boolean): unknown;
+  find(this: void, s: string, pattern: unknown, init?: number, plain?: boolean): number;
 
   format(this: void, formatstring: string, ...rest: Array<string | number>): string;
 
   gmatch(this: void, s: unknown, pattern: unknown): unknown;
 
-  gsub(this: void, s: unknown, pattern: unknown, repl: unknown, n: unknown): unknown;
+  gsub(this: void, s: string, pattern: string, repl: string, n?: unknown): string;
 
   len(this: void, str: string): number;
 
@@ -35,15 +35,67 @@ declare interface LUA_String {
 }
 
 declare interface LUA_Table {
-  concat(this: void,list: unknown, sep: unknown, i: unknown, j: unknown): unknown;
+  concat(this: void, list: unknown, sep: unknown, i: unknown, j: unknown): unknown;
 
-  insert(this: void,list: unknown, pos: unknown, value: unknown): unknown;
+  insert(this: void, list: unknown, pos: unknown, value: unknown): unknown;
 
-  move(this: void,a1: unknown, f: unknown, e: unknown, t: unknown, a2: unknown): unknown;
+  move(this: void, a1: unknown, f: unknown, e: unknown, t: unknown, a2: unknown): unknown;
 
-  remove(this: void,list: unknown, pos: unknown): unknown;
+  remove(this: void, list: unknown, pos: unknown): unknown;
 
   sort(this: void, list: unknown, comp: unknown): unknown;
+}
+
+declare interface LUA_Math {
+  pi: number
+
+  abs(this: void, x: number): unknown
+
+  acos(this: void, x: number): unknown
+
+  asin(this: void, x: number): unknown
+
+  atan(this: void, y: number, x: number): unknown
+
+  ceil(this: void, x: number): unknown
+
+  cos(this: void, x: number): unknown
+
+  deg(this: void, x: number): unknown
+
+  exp(this: void, x: number): unknown
+
+  floor(this: void, x: number): unknown
+
+  fmod(this: void, x: number, y: number): unknown
+
+  log(this: void, x: number, base: number): unknown
+
+  max(this: void, x: number, ...args: Array<number>): unknown
+
+  min(this: void, x: number, ...args: Array<number>): unknown
+
+  mod(this: void, x: number, base: number): number
+
+  modf(this: void, x: number): unknown
+
+  rad(this: void, x: number): unknown
+
+  random(this: void, m: number, n: number): unknown
+
+  randomseed(this: void, x: number): unknown
+
+  sin(this: void, x: number): unknown
+
+  sqrt(this: void, x: number): unknown
+
+  tan(this: void, x: number): unknown
+
+  tointeger(this: void, x: number): unknown
+
+  type(this: void, x: number): unknown
+
+  ult(this: void, m: number, n: number): unknown
 }
 
 /**

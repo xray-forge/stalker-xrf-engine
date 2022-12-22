@@ -19,6 +19,20 @@ declare const lua_string: LUA_String;
 declare const lua_table: LUA_Table;
 
 /**
+ * Binding of native lua math interface.
+ */
+declare const lua_math: LUA_Math;
+
+type ArrayElement<ArrayType extends readonly unknown[]> = ArrayType extends readonly (infer ElementType)[]
+  ? ElementType
+  : never;
+
+declare const forin: <D, T extends Array<D>>(
+  array: T,
+  cb: (it: ArrayElement<T>, index: number, stop: () => void) => void
+) => void;
+
+/**
  * Binding of implemented class defining function.
  * todo: Infer + more type safety.
  */
@@ -30,6 +44,7 @@ declare const declare_xr_class: <T, B extends abstract new () => any>(
 
 /**
  * Binding of implemented class creation function.
+ * todo: Infer + InstanceType<T> generic.
  */
 declare const create_xr_class_instance: <T>(it: T, ...params: Array<any>) => T;
 
@@ -38,7 +53,7 @@ declare const create_xr_class_instance: <T>(it: T, ...params: Array<any>) => T;
  * Allows 'super()' injecting from lua.
  * Without plugin, it conflicts with javascript constructor super.
  */
-declare const xr_class_super: (...args: Array<unknown>) => void;
+declare const xr_class_super: <T = any>(...args: Array<unknown>) => T;
 
 /**
  * Pack parameters for tuple usage in typescript.

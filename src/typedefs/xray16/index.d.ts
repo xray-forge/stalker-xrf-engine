@@ -25,6 +25,10 @@ declare global {
 
   const CUISpinText: typeof XR_CUISpinText;
 
+  const CUISpinNum: typeof XR_CUISpinNum;
+
+  const CUISpinFlt: typeof XR_CUISpinFlt;
+
   const CUILines: typeof XR_CUILines;
 
   const CUIButton: typeof XR_CUIButton;
@@ -51,27 +55,53 @@ declare global {
 
   const CUIMapList: typeof XR_CUIMapList;
 
+  const CUIMapInfo: typeof XR_CUIMapInfo;
+
+  const CServerList: typeof XR_CServerList;
+
   const CMainMenu: typeof XR_CMainMenu;
 
   const COptionsManager: typeof XR_COptionsManager;
 
   const CSavedGameWrapper: typeof XR_CSavedGameWrapper;
 
+  const SServerFilters: typeof XR_SServerFilters;
+
   const CTime: typeof XR_CTime;
 
+  const CGameFont: typeof XR_CGameFont;
+
   const FS: typeof XR_FS;
+
+  const connect_error_cb: typeof XR_connect_error_cb;
+
+  const login_operation_cb: typeof XR_login_operation_cb;
+
+  const account_operation_cb: typeof XR_account_operation_cb;
+
+  const account_profiles_cb: typeof XR_account_profiles_cb;
+
+  const found_email_cb: typeof XR_found_email_cb;
+
+  const store_operation_cb: typeof XR_store_operation_cb;
+
+  const suggest_nicks_cb: typeof XR_suggest_nicks_cb;
+
+  const demo_info: typeof XR_demo_info;
+
+  const demo_player_info: typeof XR_demo_player_info;
+
+  const ini_file: typeof XR_ini_file;
 
   const vector2: typeof XR_vector2;
 
   const Frect: typeof XR_FRect;
 
-  const memory_object: () => XR_MemoryObject;
-
-  const object_factory: () => XR_object_factory;
-
-  const fcolor: () => XR_FColor;
+  const fcolor: typeof XR_FColor;
 
   const stalker_ids: IXR_stalker_ids;
+
+  const award_pair_t: XR_award_pair_t;
 
   const level: IXR_level;
 

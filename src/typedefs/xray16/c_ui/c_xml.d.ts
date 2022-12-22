@@ -72,21 +72,21 @@ declare global {
 
     public InitTab(selector: string, window: XR_CUIWindow): XR_CUITabControl;
 
-    public InitStatic(selector: string, window: XR_CUIWindow): XR_CUIStatic;
+    public InitStatic(selector: string, window: XR_CUIWindow | null): XR_CUIStatic;
 
     public InitSleepStatic(selector: string, window: XR_CUIWindow): unknown;
 
     public InitTextWnd(selector: string, window: XR_CUIWindow): XR_CUITextWnd;
 
-    public InitSpinFlt(selector: string, window: XR_CUIWindow): unknown;
+    public InitSpinFlt(selector: string, window: XR_CUIWindow): XR_CUISpinFlt;
 
     public InitProgressBar(selector: string, window: XR_CUIWindow): XR_CUIProgressBar;
 
-    public InitSpinNum(selector: string, window: XR_CUIWindow): XR_CUISpinText;
+    public InitSpinNum(selector: string, window: XR_CUIWindow): XR_CUISpinNum;
 
-    public InitMapList(selector: string, window: XR_CUIWindow): unknown;
+    public InitMapList(selector: string, window: XR_CUIWindow): XR_CUIMapList;
 
-    public InitCDkey(selector: string, window: XR_CUIWindow): unknown;
+    public InitCDkey(selector: string, window: XR_CUIWindow): XR_CUIEditBox;
 
     public InitListBox<T extends XR_CUIListBoxItem = XR_CUIListBoxItem>(
       selector: string,
@@ -101,7 +101,7 @@ declare global {
 
     public InitEditBox(selector: string, window: XR_CUIWindow): XR_CUIEditBox;
 
-    public InitCheck(selector: string, window: XR_CUIWindow): unknown;
+    public InitCheck(selector: string, window: XR_CUIWindow): XR_CUICheckButton;
 
     public InitScrollView(selector: string, window: XR_CUIWindow): XR_CUIScrollView;
 
@@ -109,9 +109,9 @@ declare global {
 
     public InitTrackBar(selector: string, window: XR_CUIWindow): XR_CUITrackBar;
 
-    public InitMapInfo(selector: string, window: XR_CUIWindow): unknown;
+    public InitMapInfo(selector: string, window: XR_CUIWindow): XR_CUIMapInfo;
 
-    public InitServerList(selector: string, window: XR_CUIWindow): unknown;
+    public InitServerList(selector: string, window: XR_CUIWindow): XR_CServerList;
 
     public InitComboBox(selector: string, window: XR_CUIWindow): XR_CUIComboBox;
 

@@ -1,4 +1,4 @@
-import { Optional } from "@/mod/lib/types";
+import { Definable, Optional } from "@/mod/lib/types";
 
 /** ********************************************************************************************************************
  * _g namespace:
@@ -9,11 +9,14 @@ declare global {
 
   const db: Record<string, any>;
 
+  const abort: (reason: string) => void;
+
   /**
    * Registration logic.
    */
   let register: (factory: XR_object_factory) => void;
   let get_game_clsid: (game_type_option: any, is_server: boolean) => string;
+  let get_ui_clsid: (game_type_option: string) => Definable<string>;
 }
 
 /** ********************************************************************************************************************

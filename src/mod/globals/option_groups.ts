@@ -1,4 +1,7 @@
 export const option_groups = {
+  mm_mp_client: "mm_mp_client",
+  mm_mp_server: "mm_mp_server",
+  mm_mp_srv_filter: "mm_mp_srv_filter",
   mm_opt_video_preset: "mm_opt_video_preset",
   mm_opt_video: "mm_opt_video",
   mm_opt_video_adv: "mm_opt_video_adv",

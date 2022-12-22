@@ -3,6 +3,9 @@ import { Optional } from "@/mod/lib/types";
 import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
 import { DevDebugDialog, IDevDebugDialog } from "@/mod/scripts/ui/debug/DevDebugDialog";
 import { ILoadDialog, LoadDialog } from "@/mod/scripts/ui/menu/LoadDialog";
+import { IMultiplayerGameSpy, MultiplayerGameSpy } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerGamespy";
+import { IMultiplayerLocalnet, MultiplayerLocalnet } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerLocalnet";
+import { IMultiplayerMenu, MultiplayerMenu } from "@/mod/scripts/ui/menu/MultiplayerMenu";
 import { IOptionsDialog, OptionsDialog } from "@/mod/scripts/ui/menu/OptionsDialog";
 import { ISaveDialog, SaveDialog } from "@/mod/scripts/ui/menu/SaveDialog";
 
@@ -17,9 +20,9 @@ export interface IMainMenu extends XR_CUIScriptWnd {
   gameOptionsDialog: IOptionsDialog;
   gameSavesSaveDialog: ISaveDialog;
   gameSavesLoadDialog: ILoadDialog;
-  ln_dlg: any;
-  gs_dlg: any;
-  mp_dlg: any;
+  localnetDialog: IMultiplayerLocalnet;
+  gamespyDialog: IMultiplayerGameSpy;
+  multiplayerMenuDialog: Optional<IMultiplayerMenu>;
 
   gameDevDebugDialog: Optional<IDevDebugDialog>;
 
@@ -318,71 +321,71 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     this.shniaga.ShowPage(CUIMMShniaga.epi_new_network_game);
   },
   OnButton_multiplayer_clicked(): void {
+    log.info("Button multiplayer clicked, profile");
+
     // -- assert(this.gs_profile)
 
-    if (!this.mp_dlg) {
-      this.mp_dlg = get_global("ui_mp_main").mp_main(this.gameSpyProfile!.online());
-      this.mp_dlg.owner = this;
-      this.mp_dlg.OnRadio_NetChanged();
+    if (!this.multiplayerMenuDialog) {
+      this.multiplayerMenuDialog = create_xr_class_instance(MultiplayerMenu, this.gameSpyProfile!.online());
+      this.multiplayerMenuDialog.owner = this;
+      this.multiplayerMenuDialog.OnRadio_NetChanged();
 
-      if (this.mp_dlg.online) {
-        this.mp_dlg.dlg_profile.InitBestScores();
-        this.mp_dlg.dlg_profile.FillRewardsTable();
+      if (this.multiplayerMenuDialog.online) {
+        this.multiplayerMenuDialog.dlg_profile.InitBestScores();
+        this.multiplayerMenuDialog.dlg_profile.FillRewardsTable();
       }
     }
 
-    this.mp_dlg.UpdateControls();
-    this.mp_dlg.ShowDialog(true);
+    log.info("Updating multiplayer menu");
+
+    this.multiplayerMenuDialog.UpdateControls();
+    this.multiplayerMenuDialog.ShowDialog(true);
 
     this.HideDialog();
     this.Show(false);
 
-    const console: XR_CConsole = get_console();
-
-    console.execute("check_for_updates 0");
+    get_console().execute("check_for_updates 0");
   },
   OnButton_logout_clicked(): void {
+    log.info("Logout clicked");
+
     // -- assert(this.gs_profile)
 
     this.shniaga.ShowPage(CUIMMShniaga.epi_new_network_game); // --fake
     this.loginManager.logout();
     this.gameSpyProfile = null;
-    this.mp_dlg = null;
-    this.shniaga.SetPage(CUIMMShniaga.epi_main, "ui_mm_main.xml", "menu_main");
+    this.multiplayerMenuDialog = null;
+    this.shniaga.SetPage(CUIMMShniaga.epi_main, base, "menu_main");
     this.shniaga.ShowPage(CUIMMShniaga.epi_main);
   },
   OnButton_internet_clicked(): void {
-    if (!this.gs_dlg) {
-      this.gs_dlg = get_global("ui_mm_mp_gamespy").gamespy_page();
-      this.gs_dlg.owner = this;
+    if (!this.gamespyDialog) {
+      this.gamespyDialog = create_xr_class_instance(MultiplayerGameSpy);
+      this.gamespyDialog.owner = this;
     }
 
-    this.gs_dlg.ShowLoginPage();
-    this.gs_dlg.ShowDialog(true);
+    this.gamespyDialog.ShowLoginPage();
+    this.gamespyDialog.ShowDialog(true);
 
     this.HideDialog();
     this.Show(false);
 
-    const console: XR_CConsole = get_console();
-
-    console.execute("check_for_updates 0");
+    get_console().execute("check_for_updates 0");
   },
   OnButton_localnet_clicked(): void {
-    if (!this.ln_dlg) {
-      this.ln_dlg = get_global("ui_mm_mp_localnet").localnet_page();
-      this.ln_dlg.owner = this;
-      this.ln_dlg.lp_nickname.SetText(this.loginManager.get_nick_from_registry());
-      this.ln_dlg.lp_check_remember_me.SetCheck(this.loginManager.get_remember_me_from_registry());
+    if (!this.localnetDialog) {
+      this.localnetDialog = create_xr_class_instance(MultiplayerLocalnet);
+      this.localnetDialog.owner = this;
+      this.localnetDialog.lp_nickname.SetText(this.loginManager.get_nick_from_registry());
+      this.localnetDialog.lp_check_remember_me.SetCheck(this.loginManager.get_remember_me_from_registry());
     }
 
-    this.ln_dlg.ShowDialog(true);
+    this.localnetDialog.ShowDialog(true);
 
     this.HideDialog();
     this.Show(false);
 
-    const console: XR_CConsole = get_console();
-
-    console.execute("check_for_updates 0");
+    get_console().execute("check_for_updates 0");
   },
   Dispatch(cmd: number, param: number): boolean {
     if (cmd == 2) {
