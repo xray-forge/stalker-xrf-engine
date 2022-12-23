@@ -1,8 +1,9 @@
 import { Optional } from "@/mod/lib/types";
 import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
 import { IMainMenu } from "@/mod/scripts/ui/menu/MainMenu";
+import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
 
-const base: string = "menu/multiplayer/MultiplayerLocalnet.component.xml";
+const base: string = "menu\\multiplayer\\MultiplayerLocalnet.component";
 const log: DebugLogger = new DebugLogger("MultiplayerLocalnet");
 
 export interface IMultiplayerLocalnet extends XR_CUIScriptWnd {
@@ -42,7 +43,7 @@ export const MultiplayerLocalnet: IMultiplayerLocalnet = declare_xr_class("Multi
 
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
-    xml.ParseFile(base);
+    xml.ParseFile(resolveXmlFormPath(base));
 
     this.SetWndRect(new Frect().set(0, 0, 1024, 768));
     this.Enable(true);

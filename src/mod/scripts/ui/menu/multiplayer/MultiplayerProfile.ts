@@ -1,8 +1,9 @@
 import { Optional } from "@/mod/lib/types";
 import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
 import { IMultiplayerMenu } from "@/mod/scripts/ui/menu/MultiplayerMenu";
+import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
 
-const base: string = "menu/multiplayer/MultiplayerAwards.component.xml";
+const base: string = "menu\\multiplayer\\MultiplayerAwards.component";
 const log: DebugLogger = new DebugLogger("MultiplayerProfile");
 const awards_xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
@@ -37,7 +38,7 @@ export interface IMultiplayerProfile extends XR_CUIWindow {
 export const MultiplayerProfile: IMultiplayerProfile = declare_xr_class("MultiplayerProfile", CUIWindow, {
   __init(): void {
     xr_class_super();
-    awards_xml.ParseFile(base);
+    awards_xml.ParseFile(resolveXmlFormPath(base));
   },
   __finalize(): void {},
   InitControls(x, y, xml, handler): void {

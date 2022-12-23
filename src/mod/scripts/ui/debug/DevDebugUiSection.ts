@@ -1,7 +1,8 @@
 import { textures } from "@/mod/globals/textures";
 import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
+import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
 
-const base: string = "debug/DevDebugUiSection.component.xml";
+const base: string = "debug\\DevDebugUiSection.component";
 const log: DebugLogger = new DebugLogger("DevDebugUiSection");
 
 export interface IDevDebugUiSection extends XR_CUIWindow {
@@ -47,7 +48,7 @@ export const DevDebugUiSection: IDevDebugUiSection = declare_xr_class("DevDebugU
 
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
-    xml.ParseFile(base);
+    xml.ParseFile(resolveXmlFormPath(base));
 
     this.section = xml.InitStatic("section", this);
     this.texturesList = xml.InitComboBox("section:textures_list", this);

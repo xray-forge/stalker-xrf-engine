@@ -5,6 +5,7 @@ declare const declare_global: (key: string, value: unknown) => void;
 
 /**
  * Utility to get global variables.
+ * todo: Probably remove after TS migration.
  */
 declare const get_global: <T = any>(key: string) => T;
 

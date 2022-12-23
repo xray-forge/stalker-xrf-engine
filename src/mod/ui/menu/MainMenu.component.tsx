@@ -3,7 +3,6 @@ import { JSXXML, JSXNode } from "jsx-xml";
 import { captions } from "@/mod/globals/captions";
 import { fonts } from "@/mod/globals/fonts";
 import { textures } from "@/mod/globals/textures";
-import { gameConfig } from "@/mod/lib/configs/GameConfig";
 
 export const IS_XML: boolean = true;
 
@@ -30,7 +29,6 @@ export function create(): JSXNode {
         <btn name={"btn_load"} caption={captions.ui_mm_load_game} />
         <btn name={"btn_net_game"} caption={captions.ui_mm_network_game} />
         <btn name={"btn_options"} caption={captions.ui_mm_options_n} />
-        {gameConfig.DEBUG.IS_ENABLED ? <btn name={"btn_debug_tools"} caption={captions.ui_mm_debug_tools} /> : null}
         <btn name={"btn_credits"} caption={captions.ui_mm_credits} />
         <btn name={"btn_quit"} caption={captions.ui_mm_quit2windows} />
       </menu_main>
@@ -47,7 +45,6 @@ export function create(): JSXNode {
         <btn name={"btn_multiplayer"} caption={captions.ui_mm_network_game} />
         <btn name={"btn_logout"} caption={captions.ui_mm_logout} />
         <btn name={"btn_options"} caption={captions.ui_mm_options_n} />
-        {gameConfig.DEBUG.IS_ENABLED ? <btn name={"btn_debug_tools"} caption={captions.ui_mm_debug_tools} /> : null}
         <btn name={"btn_credits"} caption={captions.ui_mm_credits} />
         <btn name={"btn_quit"} caption={captions.ui_mm_quit2windows} />
       </menu_main_logout>
@@ -58,7 +55,6 @@ export function create(): JSXNode {
         <btn name={"btn_lastsave"} caption={captions.ui_mm_last_save} />
         <btn name={"btn_net_game"} caption={captions.ui_mm_network_game} />
         <btn name={"btn_options"} caption={captions.ui_mm_options_n} />
-        {gameConfig.DEBUG.IS_ENABLED ? <btn name={"btn_debug_tools"} caption={captions.ui_mm_debug_tools} /> : null}
         <btn name={"btn_credits"} caption={captions.ui_mm_credits} />
         <btn name={"btn_quit"} caption={captions.ui_mm_quit2windows} />
       </menu_main_last_save>
@@ -77,7 +73,6 @@ export function create(): JSXNode {
         <btn name={"btn_load"} caption={captions.ui_mm_load_game} />
         <btn name={"btn_save"} caption={captions.ui_mm_save_game} />
         <btn name={"btn_options"} caption={captions.ui_mm_options_n} />
-        {gameConfig.DEBUG.IS_ENABLED ? <btn name={"btn_debug_tools"} caption={captions.ui_mm_debug_tools} /> : null}
         <btn name={"btn_credits"} caption={captions.ui_mm_credits} />
         <btn name={"btn_quit_to_mm"} caption={captions.ui_mm_quit_game} />
         <btn name={"btn_quit"} caption={captions.ui_mm_quit2windows} />
@@ -95,7 +90,6 @@ export function create(): JSXNode {
       <menu_main_mm btn_height={34} font={fonts.graffiti22}>
         <btn name={"btn_ret"} caption={captions.ui_mm_return_game} />
         <btn name={"btn_options"} caption={captions.ui_mm_options_n} />
-        {gameConfig.DEBUG.IS_ENABLED ? <btn name={"btn_debug_tools"} caption={captions.ui_mm_debug_tools} /> : null}
         <btn name={"btn_credits"} caption={captions.ui_mm_credits} />
         <btn name={"btn_quit_to_mm"} caption={captions.ui_mm_disconnect} />
         <btn name={"btn_quit"} caption={captions.ui_mm_quit2windows} />

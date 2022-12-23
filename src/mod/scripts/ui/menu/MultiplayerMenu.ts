@@ -8,8 +8,8 @@ import { IMultiplayerOptions, MultiplayerOptions } from "@/mod/scripts/ui/menu/m
 import { IMultiplayerProfile, MultiplayerProfile } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerProfile";
 import { IMultiplayerServer, MultiplayerServer } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerServer";
 
-const baseOnline: string = "menu/multiplayer/MultiplayerOnline.component.xml";
-const baseOffline: string = "menu/multiplayer/MultiplayerOffline.component.xml";
+const baseOnline: string = "menu/multiplayer/MultiplayerOnline.component";
+const baseOffline: string = "menu/multiplayer/MultiplayerOffline.component";
 const log: DebugLogger = new DebugLogger("MultiplayerMenu");
 
 export interface IMultiplayerMenu extends XR_CUIScriptWnd {

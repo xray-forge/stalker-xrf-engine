@@ -11,6 +11,8 @@ declare global {
 
   const abort: (reason: string) => void;
 
+  const disable_info: (info: string) => void;
+
   /**
    * Registration logic.
    */

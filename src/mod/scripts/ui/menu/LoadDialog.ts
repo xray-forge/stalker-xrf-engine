@@ -3,8 +3,9 @@ import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
 import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
 import { deleteGameSave, gatFileDataForGameSave, isGameSaveFileExist } from "@/mod/scripts/utils/game_saves_utils";
+import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
 
-const base: string = "menu/LoadDialog.component.xml";
+const base: string = "menu\\LoadDialog.component";
 const log: DebugLogger = new DebugLogger("LoadDialog");
 
 interface ILoadItem extends XR_CUIListBoxItem {
@@ -74,7 +75,7 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
 
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
-    xml.ParseFile(base);
+    xml.ParseFile(resolveXmlFormPath(base));
     xml.InitStatic("background", this);
 
     const window: XR_CUIWindow = new CUIWindow();

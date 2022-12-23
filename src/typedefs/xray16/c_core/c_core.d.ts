@@ -229,6 +229,7 @@ declare global {
 
     get_string(key: string): string;
     get_integer(key: string): number;
+    get_float(key: string): number;
     get_bool(key: string): boolean;
     get_token(key: string): string;
   }

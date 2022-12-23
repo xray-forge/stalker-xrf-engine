@@ -1,6 +1,7 @@
 import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
+import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
 
-const base: string = "debug/DevDebugSpawnSection.component.xml";
+const base: string = "debug\\DevDebugSpawnSection.component";
 const log: DebugLogger = new DebugLogger("DevDebugSpawnSection");
 
 export interface IDevDebugSpawnSection extends XR_CUIScriptWnd {
@@ -27,7 +28,7 @@ export const DevDebugSpawnSection: IDevDebugSpawnSection = declare_xr_class("Dev
 
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
-    xml.ParseFile(base);
+    xml.ParseFile(resolveXmlFormPath(base));
     xml.InitStatic("background", this);
   },
   InitCallBacks(): void {

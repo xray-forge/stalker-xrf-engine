@@ -1,6 +1,7 @@
 import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
+import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
 
-const base: string = "debug/DevDebugPositionSection.component.xml";
+const base: string = "debug\\DevDebugPositionSection.component";
 const log: DebugLogger = new DebugLogger("DevDebugPositionSection");
 
 export interface IDevDebugPositionSection extends XR_CUIScriptWnd {
@@ -30,7 +31,7 @@ export const DevDebugPositionSection: IDevDebugPositionSection = declare_xr_clas
 
       const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
-      xml.ParseFile(base);
+      xml.ParseFile(resolveXmlFormPath(base));
       xml.InitStatic("background", this);
     },
     InitCallBacks(): void {

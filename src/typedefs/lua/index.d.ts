@@ -5,7 +5,7 @@ declare interface LUA_String {
 
   dump(this: void, func: unknown, strip: unknown): unknown;
 
-  find(this: void, s: string, pattern: unknown, init?: number, plain?: boolean): number;
+  find(this: void, s: string, pattern: unknown, init?: number, plain?: boolean): number | null;
 
   format(this: void, formatstring: string, ...rest: Array<string | number>): string;
 
@@ -65,7 +65,7 @@ declare interface LUA_Math {
 
   exp(this: void, x: number): unknown
 
-  floor(this: void, x: number): unknown
+  floor(this: void, x: number): number
 
   fmod(this: void, x: number, y: number): unknown
 

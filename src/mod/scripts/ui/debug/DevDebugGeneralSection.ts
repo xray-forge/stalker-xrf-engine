@@ -1,6 +1,7 @@
 import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
+import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
 
-const base: string = "debug/DevDebugGeneralSection.component.xml";
+const base: string = "debug\\DevDebugGeneralSection.component";
 const log: DebugLogger = new DebugLogger("DevDebugGeneralSection");
 
 export interface IDevDebugGeneralSection extends XR_CUIScriptWnd {
@@ -29,7 +30,7 @@ export const DevDebugGeneralSection: IDevDebugGeneralSection = declare_xr_class(
 
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
-    xml.ParseFile(base);
+    xml.ParseFile(resolveXmlFormPath(base));
     xml.InitStatic("background", this);
   },
   InitCallBacks(): void {

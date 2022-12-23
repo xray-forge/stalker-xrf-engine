@@ -274,9 +274,9 @@ declare global {
     public cam_right: unknown;
     public cam_top: unknown;
     public f_time_delta: unknown;
-    public fov: unknown;
+    public fov: number;
     public frame: unknown;
-    public height: unknown;
+    public height: number;
     public precache_frame: unknown;
     public time_delta: unknown;
     public width: number;

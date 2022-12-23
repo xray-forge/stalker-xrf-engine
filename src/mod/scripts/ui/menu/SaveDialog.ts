@@ -2,8 +2,9 @@ import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
 import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
 import { deleteGameSave } from "@/mod/scripts/utils/game_saves_utils";
+import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
 
-const base: string = "menu/SaveDialog.component.xml";
+const base: string = "menu\\SaveDialog.component";
 const log: DebugLogger = new DebugLogger("SaveDialog");
 
 interface ISaveItem extends XR_CUIListBoxItem {
@@ -78,7 +79,7 @@ export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptW
 
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
-    xml.ParseFile(base);
+    xml.ParseFile(resolveXmlFormPath(base));
 
     xml.InitWindow("background", 0, this);
 

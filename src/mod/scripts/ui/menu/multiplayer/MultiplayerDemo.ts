@@ -385,7 +385,7 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
       return;
     }
 
-    const tmp_index: number = lua_string.find(new_file_name, ".demo", 1, true);
+    const tmp_index: Optional<number> = lua_string.find(new_file_name, ".demo", 1, true);
 
     if (tmp_index !== null) {
       new_file_name = lua_string.sub(new_file_name, 1, tmp_index - 1);

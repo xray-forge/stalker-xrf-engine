@@ -5,8 +5,9 @@ import { IOptionsGameplay, OptionsGameplay } from "@/mod/scripts/ui/menu/options
 import { IOptionsSound, OptionsSound } from "@/mod/scripts/ui/menu/options/OptionsSound";
 import { IOptionsVideo, OptionsVideo } from "@/mod/scripts/ui/menu/options/OptionsVideo";
 import { IOptionsVideoAdvanced, OptionsVideoAdvanced } from "@/mod/scripts/ui/menu/options/OptionsVideoAdvanced";
+import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
 
-const base: string = "menu/OptionsDialog.component.xml";
+const base: string = "menu\\OptionsDialog.component";
 const log: DebugLogger = new DebugLogger("Options");
 
 export interface IOptionsDialog extends XR_CUIScriptWnd {
@@ -79,7 +80,7 @@ export const OptionsDialog: IOptionsDialog = declare_xr_class("OptionsDialog", C
 
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
-    xml.ParseFile(base);
+    xml.ParseFile(resolveXmlFormPath(base));
 
     xml.InitStatic("background", this);
     this.dialog = xml.InitStatic("main_dialog:dialog", this);

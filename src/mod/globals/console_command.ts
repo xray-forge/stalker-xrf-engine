@@ -2,6 +2,14 @@ export const console_command = {
   /**
    * todo: ???
    */
+  snd_volume_music: "snd_volume_music",
+  /**
+   * todo: ???
+   */
+  snd_volume_eff: "snd_volume_eff",
+  /**
+   * todo: ???
+   */
   start: "start",
   /**
    * todo: ???

@@ -1,7 +1,7 @@
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 
 export function fileExists(folderAlias: string, filename: string): boolean {
-  return getFS().exist(folderAlias, filename);
+  return getFS().exist(folderAlias, filename) !== null;
 }
 
 export function isGameSaveFileExist(filename: string): boolean {

@@ -13,6 +13,9 @@ _G.lua_table = table
 
 _G.lua_math = math
 
+-- todo: Remove after refactor, alias TS global and lua global
+_G._____G = _G
+
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Method to declare native C++ classes from lua
 -- Easier to declare it as LUA global and use than transpile from TS directly

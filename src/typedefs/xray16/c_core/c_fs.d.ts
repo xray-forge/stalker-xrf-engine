@@ -260,12 +260,12 @@ declare global {
     public dir_delete(fs: XR_FS, a: string, c: number): unknown;
     public dir_delete(fs: XR_FS, a: string, b: string, c: number): unknown;
 
-    public update_path(a: string, b: string): string;
+    public update_path(alias: string, addition: string): string;
 
     public r_close(reader: unknown /** reader*& */): unknown;
 
-    public exist(a: string): unknown;
-    public exist(folderAlias: string, filename: string): boolean;
+    public exist(path: string): number | null;
+    public exist(folderAlias: string, filename: string): number | null;
 
     public w_close(writer: unknown /* class IWriter*& */): unknown;
 
@@ -276,10 +276,13 @@ declare global {
 
     public file_list_open_ex(a: string, b: number, c: string): XR_FS_file_list_ex;
 
-    public get_path(a: string): unknown;
+    /**
+     * Not registered in LUA, will throw.
+     */
+    public get_path(alias: string): unknown;
 
     public file_delete(a: string, b: string): unknown;
-    public file_delete(a: string): unknown;
+    public file_delete(fs: string): unknown;
 
     public w_open(a: string, b: string): unknown;
     public w_open(a: string): unknown;

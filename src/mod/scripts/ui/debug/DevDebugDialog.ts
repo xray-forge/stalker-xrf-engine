@@ -7,9 +7,10 @@ import { DevDebugSoundSection, IDevDebugSoundSection } from "@/mod/scripts/ui/de
 import { DevDebugSpawnSection, IDevDebugSpawnSection } from "@/mod/scripts/ui/debug/DevDebugSpawnSection";
 import { DevDebugUiSection, IDevDebugUiSection } from "@/mod/scripts/ui/debug/DevDebugUiSection";
 import { DevDebugWorldSection, IDevDebugWorldSection } from "@/mod/scripts/ui/debug/DevDebugWorldSection";
+import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
 import { EDebugSection } from "@/mod/ui/debug/sections";
 
-const base: string = "debug/DevDebugDialog.component.xml";
+const base: string = "debug\\DevDebugDialog.component";
 const log: DebugLogger = new DebugLogger("DevDebugDialog");
 
 export interface IDevDebugDialog extends XR_CUIScriptWnd {
@@ -57,7 +58,7 @@ export const DevDebugDialog: IDevDebugDialog = declare_xr_class("DevDebugDialog"
 
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
-    xml.ParseFile(base);
+    xml.ParseFile(resolveXmlFormPath(base));
     xml.InitStatic("background", this);
 
     this.section = xml.InitStatic("main_dialog:section", this);
@@ -70,7 +71,7 @@ export const DevDebugDialog: IDevDebugDialog = declare_xr_class("DevDebugDialog"
   InitSections(): void {
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
-    xml.ParseFile(base);
+    xml.ParseFile(resolveXmlFormPath(base));
 
     // Init general section.
     this.sectionGeneral = create_xr_class_instance(DevDebugGeneralSection, this);

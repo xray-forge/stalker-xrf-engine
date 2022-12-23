@@ -8,8 +8,9 @@ import { IMultiplayerLocalnet, MultiplayerLocalnet } from "@/mod/scripts/ui/menu
 import { IMultiplayerMenu, MultiplayerMenu } from "@/mod/scripts/ui/menu/MultiplayerMenu";
 import { IOptionsDialog, OptionsDialog } from "@/mod/scripts/ui/menu/OptionsDialog";
 import { ISaveDialog, SaveDialog } from "@/mod/scripts/ui/menu/SaveDialog";
+import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
 
-const base: string = "menu/MainMenu.component.xml";
+const base: string = "menu\\MainMenu.component";
 const log: DebugLogger = new DebugLogger("MainMenu");
 
 export interface IMainMenu extends XR_CUIScriptWnd {
@@ -85,7 +86,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
 
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
-    xml.ParseFile(base);
+    xml.ParseFile(resolveXmlFormPath(base));
     xml.InitStatic("background", this);
 
     this.shniaga = xml.InitMMShniaga("shniaga_wnd", this);
@@ -294,7 +295,13 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     this.Show(false);
   },
   OnButton_dev_debug_dialog(): void {
-    log.info("Activating debug settings view");
+    if (gameConfig.DEBUG.IS_ENABLED) {
+      log.info("Activating debug settings view");
+    } else {
+      log.info("Debug settings are disabled");
+
+      return;
+    }
 
     if (this.gameDevDebugDialog == null) {
       this.gameDevDebugDialog = create_xr_class_instance(DevDebugDialog);
@@ -404,7 +411,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
         if (level.present() && ((actor != null && actor.alive()) || IsGameTypeSingle() == false)) {
           this.OnButton_return_game();
         }
-      } else if (dik === DIK_keys.DIK_S) {
+      } else if (dik === DIK_keys.DIK_F7) {
         this.OnButton_dev_debug_dialog();
       } else if (dik === DIK_keys.DIK_Q) {
         this.OnMessageQuitWin();

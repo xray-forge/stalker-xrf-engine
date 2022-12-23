@@ -93,78 +93,81 @@ declare global {
    *   };
    */
   interface IXR_level {
-    add_complex_effector(str: string, num: number): unknown;
-    enable_input(): unknown;
-    check_object(object: unknown /* game_object*/): unknown;
-    map_change_spot_hint(num: number, str1: string, str2: string): unknown;
-    game_id(): unknown;
-    vertex_id(vector: unknown /* vector */): unknown;
-    vertex_in_direction(num1: number, vector: unknown /* vector */, num2: number): unknown;
-    change_game_time(num1: number, num2: number, num3: number): unknown;
-    remove_complex_effector(num: number): unknown;
-    get_time_days(): unknown;
-    set_pp_effector_factor(num1: number, num2: number, num3: number): unknown;
-    set_pp_effector_factor(num1: number, num2: number): unknown;
-    rain_factor(): unknown;
-    remove_pp_effector(num: number): unknown;
-    add_pp_effector(str: string, num: number, val: boolean): unknown;
-    get_bounding_volume(): unknown;
-    set_snd_volume(num: number): unknown;
-    add_cam_effector(str1: string, num: number, val: boolean, str2: string): unknown;
-    add_call(cb1: unknown, cb2: unknown /* const function<boolean>&, const function<void>&*/): unknown;
-    add_call(object: unknown, cb1: unknown, cb2: unknown /* const function<boolean>&, const function<void>&*/): unknown;
-    add_call(object: unknown, str1: string, str2: string): unknown;
-    set_weather_fx(str: string): unknown;
-    add_cam_effector2(str1: string, num1: number, val: boolean, str2: string, num2: number): unknown;
-    get_snd_volume(): unknown;
-    remove_calls_for_object(object: unknown): unknown;
-    prefetch_sound(str: string): unknown;
-    iterate_sounds(str: string, num: number, cb: unknown /* function<void> */): unknown;
-    iterate_sounds(str: string, num: number, object: unknown, cb: unknown /* function<void>*/): unknown;
-    name(): unknown;
-    environment(): unknown;
-    remove_cam_effector(num: number): unknown;
-    high_cover_in_direction(num: number, vector: unknown /* const vector& */): unknown;
-    spawn_phantom(vector: unknown /* const vector& */): unknown;
-    object_by_id(num: number): unknown;
-    debug_object(str: string): unknown;
-    get_weather(): unknown;
-    present(): boolean;
-    hide_indicators(): unknown;
-    physics_world(): unknown;
-    get_time_hours(): unknown;
-    remove_call(cb1: unknown, cb2: unknown /* const function<boolean>&, const function<void>& */): unknown;
+    add_complex_effector(this: void, str: string, num: number): unknown;
+    enable_input(this: void): unknown;
+    check_object(this: void, object: unknown /* game_object*/): unknown;
+    map_change_spot_hint(this: void, num: number, str1: string, str2: string): unknown;
+    game_id(this: void): unknown;
+    vertex_id(this: void, vector: unknown /* vector */): unknown;
+    vertex_in_direction(this: void, num1: number, vector: unknown /* vector */, num2: number): unknown;
+    change_game_time(this: void, num1: number, num2: number, num3: number): unknown;
+    remove_complex_effector(this: void, num: number): unknown;
+    get_time_days(this: void): unknown;
+    set_pp_effector_factor(this: void, num1: number, num2: number, num3: number): unknown;
+    set_pp_effector_factor(this: void, num1: number, num2: number): unknown;
+    rain_factor(this: void): unknown;
+    remove_pp_effector(this: void, num: number): unknown;
+    add_pp_effector(this: void, str: string, num: number, val: boolean): unknown;
+    get_bounding_volume(this: void): unknown;
+    set_snd_volume(this: void, num: number): unknown;
+    add_cam_effector(this: void, effect: string, num: number, val: boolean, scriptPath: string): unknown;
+    add_cam_effector2(this: void, str1: string, num1: number, val: boolean, str2: string, num2: number): unknown;
+    add_call(this: void, cb1: unknown, cb2: unknown /* const function<boolean>&, const function<void>&*/): unknown;
+    add_call(
+      this: void, object: unknown, cb1: unknown, cb2: unknown /* const function<boolean>&, const function<void>&*/
+    ): unknown;
+    add_call(this: void, object: unknown, str1: string, str2: string): unknown;
+    set_weather_fx(this: void, str: string): unknown;
+    get_snd_volume(this: void): unknown;
+    remove_calls_for_object(this: void, object: unknown): unknown;
+    prefetch_sound(this: void, str: string): unknown;
+    iterate_sounds(this: void, str: string, num: number, cb: unknown /* function<void> */): unknown;
+    iterate_sounds(this: void, str: string, num: number, object: unknown, cb: unknown /* function<void>*/): unknown;
+    name(this: void): unknown;
+    environment(this: void): unknown;
+    remove_cam_effector(this: void, num: number): unknown;
+    high_cover_in_direction(this: void, num: number, vector: unknown /* const vector& */): unknown;
+    spawn_phantom(this: void, vector: unknown /* const vector& */): unknown;
+    object_by_id(this: void, num: number): unknown;
+    debug_object(this: void, str: string): unknown;
+    get_weather(this: void): unknown;
+    present(this: void): boolean;
+    hide_indicators(this: void): unknown;
+    physics_world(this: void): unknown;
+    get_time_hours(this: void): number;
+    remove_call(this: void, cb1: unknown, cb2: unknown /* const function<boolean>&, const function<void>& */): unknown;
     remove_call(
+      this: void,
       object: unknown,
       cb1: unknown,
       cb2: unknown /* const function<boolean>&, const function<void>& */
     ): unknown;
-    remove_call(object: unknown, str1: string, str2: string): unknown;
-    set_weather(str: string, val: boolean): unknown;
-    show_indicators(): unknown;
-    get_game_difficulty(): unknown;
-    map_remove_object_spot(num: number, str: string): unknown;
-    remove_dialog_to_render(window: XR_CUIDialogWnd): unknown;
-    stop_weather_fx(): unknown;
-    patrol_path_exists(str: string): unknown;
-    vertex_position(num: number): unknown;
-    show_weapon(val: boolean): unknown;
-    get_wfx_time(): unknown;
-    disable_input(): unknown;
-    map_add_object_spot(num: number, str1: string, str2: string): unknown;
-    get_time_minutes(): unknown;
-    get_time_factor(): unknown;
-    map_add_object_spot_ser(num: number, str1: string, str2: string): unknown;
-    set_game_difficulty(difficulty: unknown /* enum ESingleGameDifficulty */): unknown;
-    low_cover_in_direction(num: number, vector: unknown /* const vector&*/): unknown;
-    is_wfx_playing(): unknown;
-    set_time_factor(num: number): unknown;
-    client_spawn_manager(): unknown;
-    map_has_object_spot(num: number, str: string): unknown;
-    add_dialog_to_render(window: XR_CUIDialogWnd): unknown;
-    start_weather_fx_from_time(str: string, num: number): unknown;
-    hide_indicators_safe(): unknown;
-    debug_actor(): unknown;
+    remove_call(this: void, object: unknown, str1: string, str2: string): unknown;
+    set_weather(this: void, str: string, val: boolean): unknown;
+    show_indicators(this: void): unknown;
+    get_game_difficulty(this: void): unknown;
+    map_remove_object_spot(this: void, num: number, str: string): unknown;
+    remove_dialog_to_render(this: void, window: XR_CUIDialogWnd): unknown;
+    stop_weather_fx(this: void): unknown;
+    patrol_path_exists(this: void, str: string): unknown;
+    vertex_position(this: void, num: number): unknown;
+    show_weapon(this: void, val: boolean): unknown;
+    get_wfx_time(this: void): unknown;
+    disable_input(this: void): unknown;
+    map_add_object_spot(this: void, num: number, str1: string, str2: string): unknown;
+    get_time_minutes(this: void): unknown;
+    get_time_factor(this: void): unknown;
+    map_add_object_spot_ser(this: void, num: number, str1: string, str2: string): unknown;
+    set_game_difficulty(this: void, difficulty: unknown /* enum ESingleGameDifficulty */): unknown;
+    low_cover_in_direction(this: void, num: number, vector: unknown /* const vector&*/): unknown;
+    is_wfx_playing(this: void): unknown;
+    set_time_factor(this: void, num: number): unknown;
+    client_spawn_manager(this: void): unknown;
+    map_has_object_spot(this: void, num: number, str: string): unknown;
+    add_dialog_to_render(this: void, window: XR_CUIDialogWnd): unknown;
+    start_weather_fx_from_time(this: void, str: string, num: number): unknown;
+    hide_indicators_safe(this: void): unknown;
+    debug_actor(this: void): unknown;
   }
 
   /**
@@ -174,7 +177,7 @@ declare global {
    */
 
   interface IXR_main_menu {
-    get_main_menu(): XR_CMainMenu;
+    get_main_menu(this: void): XR_CMainMenu;
   }
 
   /**
@@ -248,67 +251,67 @@ declare global {
    *   function bit_xor(number, number);
    * }
    */
-  function game_ini(): unknown;
-  function bit_and(a: number, b: number): unknown;
-  function GetFontGraffiti32Russian(): unknown;
-  function device(): XR_render_device;
-  function cast_planner(a: unknown): unknown;
-  function IsGameTypeSingle(): unknown;
-  function game_graph(): unknown;
-  function dik_to_bind(keycode: number): number;
-  function render_get_dx_level(): number;
-  function GetFontGraffiti19Russian(): unknown;
-  function sell_condition(a: unknown, b: string): unknown;
-  function sell_condition(a: number, b: number): unknown;
-  function buy_condition(a: unknown, b: string): unknown;
-  function buy_condition(a: number, b: number): unknown;
-  function create_ini_file(a: string): unknown;
-  function get_hud(): unknown;
-  function GetFontSmall(): unknown;
-  function GetFontLetterica18Russian(): unknown;
-  function command_line(): unknown;
-  function getFS(): XR_FS;
-  function valid_saved_game(filename: string): boolean;
-  function get_console(): XR_CConsole;
-  function GetFontGraffiti50Russian(): unknown;
-  function app_ready(): unknown;
-  function IsDynamicMusic(): unknown;
-  function GetFontDI(): unknown;
-  function GetFontLetterica16Russian(): unknown;
-  function log(text: string): unknown;
-  function error_log(text: string): unknown;
-  function show_condition(a: unknown, b: string): unknown;
-  function IsImportantSave(): unknown;
-  function GetFontLetterica25(): unknown;
-  function system_ini(): unknown;
-  function GetFontMedium(): XR_CGameFont;
-  function alife(): unknown;
-  function flush(): unknown;
-  function is_enough_address_space_available(): boolean;
+  function game_ini(this: void): unknown;
+  function bit_and(this: void,a: number, b: number): unknown;
+  function GetFontGraffiti32Russian(this: void): unknown;
+  function device(this: void): XR_render_device;
+  function cast_planner(this: void,a: unknown): unknown;
+  function IsGameTypeSingle(this: void): unknown;
+  function game_graph(this: void): unknown;
+  function dik_to_bind(this: void,keycode: number): number;
+  function render_get_dx_level(this: void): number;
+  function GetFontGraffiti19Russian(this: void): unknown;
+  function sell_condition(this: void,a: unknown, b: string): unknown;
+  function sell_condition(this: void,a: number, b: number): unknown;
+  function buy_condition(this: void,a: unknown, b: string): unknown;
+  function buy_condition(this: void,a: number, b: number): unknown;
+  function create_ini_file(this: void,a: string): unknown;
+  function get_hud(this: void): unknown;
+  function GetFontSmall(this: void): unknown;
+  function GetFontLetterica18Russian(this: void): unknown;
+  function command_line(this: void): unknown;
+  function getFS(this: void): XR_FS;
+  function valid_saved_game(this: void,filename: string): boolean;
+  function get_console(this: void): XR_CConsole;
+  function GetFontGraffiti50Russian(this: void): unknown;
+  function app_ready(this: void): unknown;
+  function IsDynamicMusic(this: void): unknown;
+  function GetFontDI(this: void): unknown;
+  function GetFontLetterica16Russian(this: void): unknown;
+  function log(this: void,text: string): unknown;
+  function error_log(this: void,text: string): unknown;
+  function show_condition(this: void,a: unknown, b: string): unknown;
+  function IsImportantSave(this: void): unknown;
+  function GetFontLetterica25(this: void): unknown;
+  function system_ini(this: void): unknown;
+  function GetFontMedium(this: void): XR_CGameFont;
+  function alife(this: void): unknown;
+  function flush(this: void): unknown;
+  function is_enough_address_space_available(this: void): boolean;
 
   /**
    * Is dev editor tool enabled?
    */
-  function editor(): boolean;
+  function editor(this: void): boolean;
 
-  function bit_or(first: number, second: number): number;
+  function bit_or(this: void,first: number, second: number): number;
 
-  function GetFontGraffiti22Russian(): unknown;
+  function GetFontGraffiti22Russian(this: void): unknown;
 
   /**
    * Prefetch provided script before executing next lines.
    */
-  function prefetch(path: string): void;
+  function prefetch(this: void,path: string): void;
 
-  function time_global(): unknown;
-  function time_global_async(...args: Array<unknown>): unknown;
-  function verify_if_thread_is_running(): unknown;
-  function script_server_object_version(): unknown;
-  function bit_not(a: number): unknown;
-  function ef_storage(): unknown;
-  function GetARGB(a: number,r: number, g: number, b: number): number;
-  function user_name(): unknown;
-  function bit_xor(a: number, b: number): unknown;
+  function time_global(this: void): unknown;
+  function time_global_async(this: void,...args: Array<unknown>): unknown;
+  function verify_if_thread_is_running(this: void): unknown;
+  function script_server_object_version(this: void): unknown;
+  function bit_not(this: void,a: number): unknown;
+  function ef_storage(this: void): unknown;
+  function GetARGB(this: void,a: number,r: number, g: number, b: number): number;
+  function user_name(this: void): unknown;
+  function bit_xor(this: void,a: number, b: number): unknown;
 
   const game: IXR_game;
 
