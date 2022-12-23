@@ -5,14 +5,13 @@ import * as path from "path";
 import { default as chalk } from "chalk";
 
 import { GAME_DATA_UI_DIR, TARGET_GAME_DATA_UI_DIR } from "#/build/globals";
-import { Logger, readDirContent } from "#/utils";
-import { renderJsxToXmlText } from "#/utils/xml";
+import { NodeLogger, readDirContent } from "#/utils";
 
-const log: Logger = new Logger("BUILD_UI_STATIC");
+const log: NodeLogger = new NodeLogger("BUILD_UI_STATIC");
 const EXPECTED_STATIC_XML_EXTENSIONS: Array<string> = [".xml"];
 
 export async function buildStaticUi(): Promise<void> {
-  log.info("Copy static UI schemas");
+  log.info(chalk.blueBright("Copy static UI schemas"));
 
   function collectXmlConfigs(acc: Array<[string, string]>, it: Array<string> | string): Array<[string, string]> {
     if (Array.isArray(it)) {
@@ -45,7 +44,7 @@ export async function buildStaticUi(): Promise<void> {
 
     await Promise.all(
       xmlConfigs.map(([from, to]) => {
-        log.info("CP:", chalk.yellow(to));
+        log.debug("CP:", chalk.yellow(to));
 
         return fsPromises.copyFile(from, to);
       })

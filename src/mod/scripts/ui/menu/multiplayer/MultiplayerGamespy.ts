@@ -1,10 +1,10 @@
 import { Optional } from "@/mod/lib/types";
-import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
+import { LuaLogger } from "@/mod/scripts/debug_tools/LuaLogger";
 import { IMainMenu } from "@/mod/scripts/ui/menu/MainMenu";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
 
 const base: string = "menu\\multiplayer\\MultiplayerGamespy.component";
-const log: DebugLogger = new DebugLogger("MultiplayerGameSpy");
+const log: LuaLogger = new LuaLogger("MultiplayerGameSpy");
 
 export interface IMultiplayerGameSpy extends XR_CUIScriptWnd {
   owner: IMainMenu;

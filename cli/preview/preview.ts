@@ -9,14 +9,17 @@ import { TFolderFiles, TFolderReplicationDescriptor } from "@/mod/lib/types";
 
 import { GAME_DATA_UI_DIR, TARGET_PREVIEW_DIR } from "#/build/globals";
 import { generatePreview } from "#/preview/utils/generate_preview";
-import { Logger, readDirContent, renderJsxToXmlText, TimeTracker } from "#/utils";
+import { NodeLogger, readDirContent, renderJsxToXmlText, TimeTracker } from "#/utils";
 
-const FILTERS: Array<string> = process.argv.slice(2);
+const FILTERS: Array<string> = process.argv.slice(2).filter((it) => !it.trim().startsWith("--"));
 
 const isCleanBuild: boolean = process.argv.includes("--clean");
+const isVerboseBuild: boolean = process.argv.includes("--verbose");
 
 const EXPECTED_XML_EXTENSIONS = [".tsx", ".xml"];
-const log: Logger = new Logger("PREVIEW");
+const log: NodeLogger = new NodeLogger("PREVIEW");
+
+NodeLogger.IS_VERBOSE = isVerboseBuild;
 
 (async function preview(): Promise<void> {
   const timeTracker: TimeTracker = new TimeTracker().start();
@@ -50,15 +53,15 @@ const log: Logger = new Logger("PREVIEW");
             xmlSource?.create();
 
           if (jsxContent) {
-            log.info("COMPILE JSX:", chalk.blue(to));
+            log.debug("COMPILE JSX:", chalk.blue(to));
             await fsPromises.writeFile(to, generatePreview(renderJsxToXmlText(jsxContent)));
           } else {
-            log.warn("SKIP, not valid source:", chalk.blue(from));
+            log.debug("SKIP, not valid source:", chalk.blue(from));
           }
         } else {
           const content: ArrayBuffer = await fsPromises.readFile(from);
 
-          log.info("COMPILE XML:", chalk.blue(to));
+          log.debug("COMPILE XML:", chalk.blue(to));
 
           await fsPromises.writeFile(to, generatePreview(content.toString()));
         }
@@ -82,7 +85,7 @@ function createFoldersForConfigs(xmlConfigs: Array<TFolderReplicationDescriptor>
     const targetDir: string = path.dirname(to);
 
     if (!fs.existsSync(targetDir)) {
-      log.info("MKDIR:", chalk.blueBright(targetDir));
+      log.debug("MKDIR:", chalk.blueBright(targetDir));
       fs.mkdirSync(targetDir, { recursive: true });
     }
   });

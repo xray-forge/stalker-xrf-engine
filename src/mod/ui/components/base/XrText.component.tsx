@@ -3,7 +3,9 @@ import { JSXNode, JSXXML } from "jsx-xml";
 import { TFontId } from "@/mod/globals/fonts";
 import { IRgbColor, Optional, TTextAlign } from "@/mod/lib/types";
 
-interface IXrTextProps {
+import { normalizeBaseNodeCoordinates } from "#/utils";
+
+export interface IXrTextProps {
   tag?: string;
   color?: IRgbColor;
   label?: Optional<string>;
@@ -17,7 +19,9 @@ interface IXrTextProps {
 /**
  * Generic component for text rendering.
  */
-export function XrText({ tag = "text", font, align, color, x, y, vertAlign, label = null }: IXrTextProps): JSXNode {
+export function XrText(props: IXrTextProps): JSXNode {
+  const { tag = "text", font, align, color, x, y, vertAlign, label = null } = normalizeBaseNodeCoordinates(props);
+
   return JSXXML(
     tag,
     {

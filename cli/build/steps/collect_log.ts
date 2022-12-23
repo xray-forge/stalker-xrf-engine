@@ -2,10 +2,12 @@ import * as fs from "fs";
 import * as fsPromises from "fs/promises";
 import * as path from "path";
 
-import { TARGET_DIR } from "#/build/globals";
-import { Logger } from "#/utils";
+import { default as chalk } from "chalk";
 
-const log: Logger = new Logger("BUILD_COLLECT_LOG");
+import { TARGET_DIR } from "#/build/globals";
+import { NodeLogger } from "#/utils";
+
+const log: NodeLogger = new NodeLogger("BUILD_COLLECT_LOG");
 
 export async function collectLog(): Promise<void> {
   const fileLogPath: string = path.resolve(TARGET_DIR, "xrts_build.log");
@@ -15,9 +17,9 @@ export async function collectLog(): Promise<void> {
       await fsPromises.unlink(fileLogPath);
     }
 
-    await fsPromises.writeFile(fileLogPath, Logger.LOG_FILE_BUFFER.join(""));
+    await fsPromises.writeFile(fileLogPath, NodeLogger.LOG_FILE_BUFFER.join(""));
 
-    log.info("File log collect");
+    log.info(chalk.blueBright("File log collect"));
   } catch (error) {
     log.error("Failed to collect log:", error);
   }

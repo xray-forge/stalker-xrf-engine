@@ -141,6 +141,7 @@ todo: Describe structure of gamedata and intention of every folder
   - [engine](cli/engine/README.md)
   - [info](cli/info/README.md)
   - [link](cli/link/README.md)
+  - [logs](cli/logs/README.md)
   - [open_game_folder](cli/open/README.md)
   - [preview](cli/preview/README.md)
   - [start_game](cli/start_game/README.md)
@@ -182,3 +183,5 @@ For examples check: `src/mod/ui`.
 - Create electron application to simplify development of dialogs, labels, translations, asset management etc
 - Scripts to unpack raw_gamedata for observation / usage
 - Script to verify integrity of assets and defined constants
+- Screenshots of some tools
+- Typescript / c++ cooperation comments

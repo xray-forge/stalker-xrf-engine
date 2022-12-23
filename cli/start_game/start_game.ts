@@ -3,9 +3,9 @@ import * as cp from "child_process";
 import { default as chalk } from "chalk";
 
 import { default as config } from "#/config.json";
-import { Logger } from "#/utils";
+import { NodeLogger } from "#/utils";
 
-const log: Logger = new Logger("START_GAME");
+const log: NodeLogger = new NodeLogger("START_GAME");
 
 (async function startGame(): Promise<void> {
   log.info("Starting game");

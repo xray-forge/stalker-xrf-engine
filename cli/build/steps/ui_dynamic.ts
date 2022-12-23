@@ -7,14 +7,14 @@ import { default as chalk } from "chalk";
 import { TFolderFiles, TFolderReplicationDescriptor } from "@/mod/lib/types/general";
 
 import { GAME_DATA_UI_DIR, TARGET_GAME_DATA_UI_DIR } from "#/build/globals";
-import { Logger, readDirContent } from "#/utils";
+import { NodeLogger, readDirContent } from "#/utils";
 import { renderJsxToXmlText } from "#/utils/xml";
 
-const log: Logger = new Logger("BUILD_UI_DYNAMIC");
+const log: NodeLogger = new NodeLogger("BUILD_UI_DYNAMIC");
 const EXPECTED_DYNAMIC_XML_EXTENSIONS: Array<string> = [".tsx", ".ts"];
 
 export async function buildDynamicUi(): Promise<void> {
-  log.info("Build dynamic UI schemas");
+  log.info(chalk.blueBright("Build dynamic UI schemas"));
 
   const xmlConfigs: Array<TFolderReplicationDescriptor> = await getUiConfigs();
 
@@ -32,11 +32,11 @@ export async function buildDynamicUi(): Promise<void> {
         const xmlContent = typeof xmlSource?.create === "function" && xmlSource?.IS_XML && xmlSource?.create();
 
         if (xmlContent) {
-          log.info("TRANSFORM:", chalk.blue(to));
+          log.debug("TRANSFORM:", chalk.blue(to));
           await fsPromises.writeFile(to, renderJsxToXmlText(xmlContent));
           processedXmlConfigs += 1;
         } else {
-          log.warn("SKIP, not XML source:", chalk.blue(from));
+          log.debug("SKIP, not XML source:", chalk.blue(from));
           skippedXmlConfigs += 1;
         }
       })
@@ -57,7 +57,7 @@ function createFoldersForConfigs(xmlConfigs: Array<TFolderReplicationDescriptor>
     const targetDir: string = path.dirname(to);
 
     if (!fs.existsSync(targetDir)) {
-      log.info("MKDIR:", chalk.blueBright(targetDir));
+      log.debug("MKDIR:", chalk.blueBright(targetDir));
       fs.mkdirSync(targetDir, { recursive: true });
     }
   });

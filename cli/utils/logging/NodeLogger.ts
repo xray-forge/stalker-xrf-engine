@@ -2,24 +2,25 @@ import { default as chalk } from "chalk";
 
 import { Optional } from "@/mod/lib/types";
 
-import { stringifyValue } from "#/utils/logging/stringifyValue";
+import { stringifyValue } from "#/utils/logging/stringify_value";
 
 /**
  * DebugLogger file that logs only in dev/flagged environment.
  * Allows to collect app logs in a file for future investigations or dev sharing.
  */
-export class Logger {
+export class NodeLogger {
   public static LOG_FILE_BUFFER: Array<string> = [];
   public static LOG_FILE_BUFFER_LINES_LIMIT: number = 5000;
   public static LOG_FILE_BUFFER_SPLICE: number = 100;
 
   public static IS_CONSOLE_ENABLED: boolean = true;
   public static IS_FILE_ENABLED: boolean = true;
+  public static IS_VERBOSE: boolean = false;
 
   /**
    * Global log singleton.
    */
-  private static GLOBAL: Optional<Logger> = null;
+  private static GLOBAL: Optional<NodeLogger> = null;
 
   private readonly prefix: string;
   private readonly isEnabled: boolean = true;
@@ -27,12 +28,12 @@ export class Logger {
   /**
    * Get global logger singleton object to do inline printing.
    */
-  public static getGlobal(): Logger {
-    if (!Logger.GLOBAL) {
-      Logger.GLOBAL = new Logger("🪐GLBL");
+  public static getGlobal(): NodeLogger {
+    if (!NodeLogger.GLOBAL) {
+      NodeLogger.GLOBAL = new NodeLogger("🪐GLBL");
     }
 
-    return Logger.GLOBAL;
+    return NodeLogger.GLOBAL;
   }
 
   /**
@@ -46,11 +47,11 @@ export class Logger {
    * Log in a file with limited count of lines to save reports with detailed info.
    */
   public static logInFile(text: string): void {
-    if (Logger.IS_FILE_ENABLED) {
-      Logger.LOG_FILE_BUFFER.push(text);
+    if (NodeLogger.IS_FILE_ENABLED) {
+      NodeLogger.LOG_FILE_BUFFER.push(text);
 
-      if (Logger.LOG_FILE_BUFFER.length > Logger.LOG_FILE_BUFFER_LINES_LIMIT) {
-        Logger.LOG_FILE_BUFFER.splice(0, Logger.LOG_FILE_BUFFER_SPLICE);
+      if (NodeLogger.LOG_FILE_BUFFER.length > NodeLogger.LOG_FILE_BUFFER_LINES_LIMIT) {
+        NodeLogger.LOG_FILE_BUFFER.splice(0, NodeLogger.LOG_FILE_BUFFER_SPLICE);
       }
     }
   }
@@ -90,12 +91,14 @@ export class Logger {
         "0"
       )}`;
 
-      if (Logger.IS_CONSOLE_ENABLED) {
+      if (NodeLogger.IS_CONSOLE_ENABLED && (NodeLogger.IS_VERBOSE ? true : method !== "debug")) {
         console[method](`${timestamp} ${chalk.green(this.prefix)}`, ...args);
       }
 
-      if (Logger.IS_FILE_ENABLED) {
-        Logger.logInFile(`${timestamp} [${method}] ${this.prefix} ${args.map((it) => stringifyValue(it)).join(" ")}\n`);
+      if (NodeLogger.IS_FILE_ENABLED) {
+        NodeLogger.logInFile(
+          `${timestamp} [${method}] ${this.prefix} ${args.map((it) => stringifyValue(it)).join(" ")}\n`
+        );
       }
     }
   }

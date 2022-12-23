@@ -1,6 +1,6 @@
 import { option_groups } from "@/mod/globals/option_groups";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
-import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
+import { LuaLogger } from "@/mod/scripts/debug_tools/LuaLogger";
 import { IMainMenu } from "@/mod/scripts/ui/menu/MainMenu";
 import { IMultiplayerDemo, MultiplayerDemo } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerDemo";
 import { IMultiplayerJoin, MultiplayerJoin } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerJoin";
@@ -10,7 +10,7 @@ import { IMultiplayerServer, MultiplayerServer } from "@/mod/scripts/ui/menu/mul
 
 const baseOnline: string = "menu/multiplayer/MultiplayerOnline.component";
 const baseOffline: string = "menu/multiplayer/MultiplayerOffline.component";
-const log: DebugLogger = new DebugLogger("MultiplayerMenu");
+const log: LuaLogger = new LuaLogger("MultiplayerMenu");
 
 export interface IMultiplayerMenu extends XR_CUIScriptWnd {
   owner: IMainMenu;

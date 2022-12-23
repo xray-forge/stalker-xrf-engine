@@ -6,7 +6,9 @@ import { IRgbColor } from "@/mod/lib/types";
 import { XrText, XrTextColor } from "@/mod/ui/components/base";
 import { CustomTabButton } from "@/mod/ui/components/custom/CustomTabButton.component";
 
-interface ICustomTabProps {
+import { normalizeBaseNodeCoordinates } from "#/utils";
+
+export interface ICustomTabProps {
   id?: string;
   x: number;
   y: number;
@@ -17,7 +19,8 @@ interface ICustomTabProps {
   tabs: Array<{ id: string; label: string; texture: TTextureId }>;
 }
 
-export function CustomTab({ id, x, y, width, height = 38, font, textColor, tabs }: ICustomTabProps): JSXNode {
+export function CustomTab(props: ICustomTabProps): JSXNode {
+  const { id, x, y, width, height = 38, font, textColor, tabs } = normalizeBaseNodeCoordinates(props);
   const tabWidth: number = width / tabs.length;
 
   return (

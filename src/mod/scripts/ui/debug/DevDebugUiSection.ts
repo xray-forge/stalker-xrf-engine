@@ -1,9 +1,9 @@
 import { textures } from "@/mod/globals/textures";
-import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
+import { LuaLogger } from "@/mod/scripts/debug_tools/LuaLogger";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
 
 const base: string = "debug\\DevDebugUiSection.component";
-const log: DebugLogger = new DebugLogger("DevDebugUiSection");
+const log: LuaLogger = new LuaLogger("DevDebugUiSection");
 
 export interface IDevDebugUiSection extends XR_CUIWindow {
   owner: XR_CUIScriptWnd;

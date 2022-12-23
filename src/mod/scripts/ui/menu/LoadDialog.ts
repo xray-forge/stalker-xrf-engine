@@ -1,12 +1,12 @@
 import { textures } from "@/mod/globals/textures";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
-import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
+import { LuaLogger } from "@/mod/scripts/debug_tools/LuaLogger";
 import { deleteGameSave, gatFileDataForGameSave, isGameSaveFileExist } from "@/mod/scripts/utils/game_saves_utils";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
 
 const base: string = "menu\\LoadDialog.component";
-const log: DebugLogger = new DebugLogger("LoadDialog");
+const log: LuaLogger = new LuaLogger("LoadDialog");
 
 interface ILoadItem extends XR_CUIListBoxItem {
   innerNameText: XR_CUITextWnd;

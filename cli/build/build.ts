@@ -16,18 +16,20 @@ import {
 } from "#/build/steps";
 import { buildStaticTranslations } from "#/build/steps/translations_statics";
 import { buildStaticUi } from "#/build/steps/ui_statics";
-import { Logger, TimeTracker } from "#/utils";
+import { NodeLogger, TimeTracker } from "#/utils";
 
-const log: Logger = new Logger("BUILD_ALL");
+const log: NodeLogger = new NodeLogger("BUILD_ALL");
 
 const isCleanBuild: boolean = process.argv.includes("--clean");
+const isVerboseBuild: boolean = process.argv.includes("--verbose");
 const areBuildResourcesEnabled: boolean = !process.argv.includes("--no-resources");
 const areUiResourcesEnabled: boolean = !process.argv.includes("--no-ui");
 const areScriptsResourcesEnabled: boolean = !process.argv.includes("--no-scripts");
 const areConfigResourcesEnabled: boolean = !process.argv.includes("--no-configs");
 const areTranslationResourcesEnabled: boolean = !process.argv.includes("--no-translations");
 
-Logger.IS_FILE_ENABLED = true;
+NodeLogger.IS_FILE_ENABLED = true;
+NodeLogger.IS_VERBOSE = isVerboseBuild;
 
 (async function buildMod(): Promise<void> {
   const timeTracker: TimeTracker = new TimeTracker().start();

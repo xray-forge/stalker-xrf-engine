@@ -5,10 +5,18 @@
 Compile XML form files to HTML to preview them in browser. <br/>
 You can find them in `target/preview` folder for observation.
 
+### Arguments
+
+List of arguments:
+
+- `--verbose` - use more verbose logging
+- `...filters` - list of space-separated regex patterns for preview generation
+
 ### Example
 
 - `npm run preview`
-- `npm run preview debug`
+- `npm run preview debug -- --verbose`
+- `npm run preview debug menu options`
 
 ### Example output
 

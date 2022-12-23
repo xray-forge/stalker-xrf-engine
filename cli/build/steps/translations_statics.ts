@@ -7,13 +7,13 @@ import { default as chalk } from "chalk";
 import { TFolderFiles, TFolderReplicationDescriptor } from "@/mod/lib/types/general";
 
 import { GAME_DATA_TRANSLATIONS_DIR, TARGET_GAME_DATA_TRANSLATIONS_DIR } from "#/build/globals";
-import { Logger, readDirContent } from "#/utils";
+import { NodeLogger, readDirContent } from "#/utils";
 
-const log: Logger = new Logger("BUILD_TRANSLATIONS_STATIC");
+const log: NodeLogger = new NodeLogger("BUILD_TRANSLATIONS_STATIC");
 const EXPECTED_CONFIG_EXTENSIONS: Array<string> = [".xml"];
 
 export async function buildStaticTranslations(): Promise<void> {
-  log.info("Copy static translations");
+  log.info(chalk.blueBright("Copy static translations"));
 
   function collectTranslations(
     acc: Array<TFolderReplicationDescriptor>,
@@ -44,14 +44,14 @@ export async function buildStaticTranslations(): Promise<void> {
       const targetDir: string = path.dirname(to);
 
       if (!fs.existsSync(targetDir)) {
-        log.info("MKDIR:", chalk.yellowBright(targetDir));
+        log.debug("MKDIR:", chalk.yellowBright(targetDir));
         fs.mkdirSync(targetDir, { recursive: true });
       }
     });
 
     await Promise.all(
       staticTranslations.map(([from, to]) => {
-        log.info("CP:", chalk.yellow(to));
+        log.debug("CP:", chalk.yellow(to));
 
         return fsPromises.copyFile(from, to);
       })

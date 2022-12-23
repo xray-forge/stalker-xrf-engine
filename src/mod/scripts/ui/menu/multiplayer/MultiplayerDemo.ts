@@ -1,10 +1,10 @@
 import { textures } from "@/mod/globals/textures";
 import { Optional } from "@/mod/lib/types";
-import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
+import { LuaLogger } from "@/mod/scripts/debug_tools/LuaLogger";
 import { IMultiplayerMenu } from "@/mod/scripts/ui/menu/MultiplayerMenu";
 import { fileExists } from "@/mod/scripts/utils/game_saves_utils";
 
-const log: DebugLogger = new DebugLogger("MultiplayerDemo");
+const log: LuaLogger = new LuaLogger("MultiplayerDemo");
 
 interface IPlayerInfo extends XR_LuaBindBase {
   name: string;

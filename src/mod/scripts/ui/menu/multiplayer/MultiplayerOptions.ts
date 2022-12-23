@@ -1,7 +1,7 @@
-import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
+import { LuaLogger } from "@/mod/scripts/debug_tools/LuaLogger";
 import { IMultiplayerMenu } from "@/mod/scripts/ui/menu/MultiplayerMenu";
 
-const log: DebugLogger = new DebugLogger("MultiplayerOptions");
+const log: LuaLogger = new LuaLogger("MultiplayerOptions");
 
 export interface IMultiplayerOptions extends XR_CUIWindow {
   online: boolean;

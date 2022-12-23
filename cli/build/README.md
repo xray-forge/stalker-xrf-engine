@@ -22,12 +22,19 @@ Build includes such steps:
 
 List of arguments:
 
+- `--verbose` - use more verbose logging
 - `--clean` - clean up `target/gamedata` folder before build
 - `--no-resources` - skip static resources copy, useful when copy process is not needed
 - `--no-ui` - skip UI building/copying steps
 - `--no-scripts` - skip lua scripts building/copying steps
 - `--no-configs` - skip configs building/copying steps
 - `--no-translations` - skip translations building/copying steps
+
+### Example
+
+- `npm run build -- --clean`
+- `npm run build -- --verbose`
+- `npm run build -- --no-resources --no-ui`
 
 ### Example output
 

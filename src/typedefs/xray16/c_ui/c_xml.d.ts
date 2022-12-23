@@ -74,6 +74,7 @@ declare global {
 
     public InitStatic(selector: string, window: XR_CUIWindow | null): XR_CUIStatic;
 
+    // todo: Check if implemented. Was planned for original game but never used.
     public InitSleepStatic(selector: string, window: XR_CUIWindow): unknown;
 
     public InitTextWnd(selector: string, window: XR_CUIWindow): XR_CUITextWnd;
@@ -97,7 +98,7 @@ declare global {
 
     public InitMMShniaga(selector: string, window: XR_CUIWindow): XR_CUIMMShniaga;
 
-    public InitWindow(selector: string, index: number, window: XR_CUIWindow): unknown;
+    public InitWindow(selector: string, index: number, window: XR_CUIWindow): XR_CUIWindow;
 
     public InitEditBox(selector: string, window: XR_CUIWindow): XR_CUIEditBox;
 
@@ -115,7 +116,7 @@ declare global {
 
     public InitComboBox(selector: string, window: XR_CUIWindow): XR_CUIComboBox;
 
-    public InitFrameLine(selector: string, window: XR_CUIWindow): unknown;
+    public InitFrameLine(selector: string, window: XR_CUIWindow): XR_CUIFrameLineWnd;
 
     public Init3tButton(selector: string, window: XR_CUIWindow): XR_CUI3tButton;
 

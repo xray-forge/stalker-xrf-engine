@@ -8,17 +8,21 @@ import { XrTabButton } from "@/mod/ui/components/base/XrTabButton.component";
 import { XrText } from "@/mod/ui/components/base/XrText.component";
 import { XrTextColor } from "@/mod/ui/components/base/XrTextColor.component";
 
-interface IXrTabProps extends IBaseXmlNode {
+import { normalizeBaseNodeCoordinates } from "#/utils";
+
+export interface IXrTabProps extends IBaseXmlNode {
   id?: string;
   font: TFontId;
   textColor: IRgbColor;
+  width: number;
   tabs: Array<{ id: string; label: string }>;
 }
 
 /**
  * Tab navigation component.
  */
-export function XrTab({ id, x, y, width, height = 38, font, textColor, tabs }: IXrTabProps): JSXNode {
+export function XrTab(props: IXrTabProps): JSXNode {
+  const { id, x, y, width, height = 38, font, textColor, tabs } = normalizeBaseNodeCoordinates(props);
   const tabWidth: number = width / tabs.length;
   const padding: number = tabWidth / 5;
   const totalWidth: number = tabWidth + (tabWidth - padding) * (tabs.length - 1);

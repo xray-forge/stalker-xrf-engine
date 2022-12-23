@@ -6,3 +6,6 @@ export * from "@/mod/ui/components/base/XrTextColor.component";
 export * from "@/mod/ui/components/base/Xr3tButton.component";
 export * from "@/mod/ui/components/base/XrTextColor.component";
 export * from "@/mod/ui/components/base/XrStatic.component";
+export * from "@/mod/ui/components/base/XrBackground.component";
+export * from "@/mod/ui/components/base/XrRoot.component";
+export * from "@/mod/ui/components/base/XrContainer.component";

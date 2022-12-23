@@ -5,7 +5,7 @@ import { default as chalk } from "chalk";
 
 import { OPEN_XRAY_ENGINES_DIR, XR_ENGINE_BACKUP_DIR } from "#/build/globals";
 import { default as config } from "#/config.json";
-import { exists, Logger } from "#/utils";
+import { exists, NodeLogger } from "#/utils";
 
 enum EEngineCmd {
   INFO = "info",
@@ -16,7 +16,7 @@ enum EEngineCmd {
 
 const cmd: string = process.argv[2];
 const args: Array<string> = process.argv.slice(3);
-const log: Logger = new Logger("ENGINE");
+const log: NodeLogger = new NodeLogger("ENGINE");
 
 const GAME_DIR: string = path.resolve(config.targets.STALKER_GAME_FOLDER_PATH);
 const GAME_BIN_DIR: string = path.resolve(GAME_DIR, "bin");

@@ -1,8 +1,11 @@
-import { Logger } from "#/utils";
+import { default as chalk } from "chalk";
 
-const log: Logger = new Logger("BUILD_CONFIGS_DYNAMIC");
+import { NodeLogger } from "#/utils";
+
+const log: NodeLogger = new NodeLogger("BUILD_CONFIGS_DYNAMIC");
 
 // todo: TS to ltx files transformer build
 export async function buildDynamicConfigs(): Promise<void> {
-  log.info("Build dynamic configs");
+  log.info(chalk.blueBright("Build dynamic configs"));
+  log.info("todo;");
 }

@@ -1,11 +1,11 @@
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
-import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
+import { LuaLogger } from "@/mod/scripts/debug_tools/LuaLogger";
 import { deleteGameSave } from "@/mod/scripts/utils/game_saves_utils";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
 
 const base: string = "menu\\SaveDialog.component";
-const log: DebugLogger = new DebugLogger("SaveDialog");
+const log: LuaLogger = new LuaLogger("SaveDialog");
 
 interface ISaveItem extends XR_CUIListBoxItem {
   owner: XR_CUIScriptWnd;

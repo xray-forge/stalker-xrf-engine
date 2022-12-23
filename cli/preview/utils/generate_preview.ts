@@ -1,6 +1,6 @@
 import { default as jsdom } from "jsdom";
 
-const { style, STATIC_ASSET, GENERIC } = generateDomClasses();
+const { style, STATIC_ASSET, GRADIENT_BG_, GENERIC } = generateDomClasses();
 
 export function generatePreview(content: string): string {
   const dom = new jsdom.JSDOM(content);
@@ -76,9 +76,12 @@ function prepareText(node: HTMLElement): void {
 
 function prepareTexture(node: HTMLElement): void {
   node.setAttribute("texture_resource", node.textContent);
+
+  node.className = STATIC_ASSET + " " + GRADIENT_BG_ + Math.floor(Math.random() * 10);
   node.innerHTML = "";
-  node.style.position = "relative";
   node.style.border = "none";
+  node.style.width = "100%";
+  node.style.height = "100%";
 }
 
 function prepareWindow(node: HTMLElement): void {
@@ -86,29 +89,46 @@ function prepareWindow(node: HTMLElement): void {
 }
 
 function prepareStaticAsset(node: HTMLElement): void {
-  node.className = STATIC_ASSET;
+  node.className = STATIC_ASSET + " " + GRADIENT_BG_ + Math.floor(Math.random() * 10);
 }
 
 function generateDomClasses() {
   const GENERIC: string = "generic";
   const STATIC_ASSET: string = "static-asset";
+  const GRADIENT_BG_: string = "gradient-bg-";
+
+  const gradients: string = Array.from(Array(11).keys())
+    .map((it) => {
+      const first: string = getRandomColor();
+      const second: string = getRandomColor();
+
+      return `
+      .${GRADIENT_BG_ + it} {
+        background-position: 0 0, 10px 10px;
+        background-size: 20px 20px;
+        background-color: ${second};
+        background-image:  repeating-linear-gradient(45deg, ${first} 25%, transparent 25%, transparent 75%, ${first}
+        75%, ${first}), repeating-linear-gradient(45deg, ${first} 25%, ${second} 25%, ${second} 75%, ${first} 75%,
+         ${first});
+    }
+    `;
+    })
+    .join("\n");
 
   const style: string = `
      * {
        padding: 0;
        margin: 0;
        font-size: 10px;
+       box-sizing: border-box;
      }
   
     .${STATIC_ASSET} {
       border: 1px solid black;
-      background-color: #e5e5f7;
       opacity: 0.8;
-      background-image:  repeating-linear-gradient(45deg, #444cf7 25%, transparent 25%, transparent 75%, #444cf7 75%,
-       #444cf7), repeating-linear-gradient(45deg, #444cf7 25%, #e5e5f7 25%, #e5e5f7 75%, #444cf7 75%, #444cf7);
-      background-position: 0 0, 10px 10px;
-      background-size: 20px 20px;
     }
+    
+    ${gradients}
     
     .${GENERIC} {
       background-color: rgba(179, 177, 130, 0.8);
@@ -118,6 +138,11 @@ function generateDomClasses() {
   return {
     style,
     GENERIC,
+    GRADIENT_BG_,
     STATIC_ASSET
   };
+}
+
+function getRandomColor(): string {
+  return "#" + (((1 << 24) * Math.random()) | 0).toString(16).padStart(6, "0");
 }

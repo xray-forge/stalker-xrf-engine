@@ -7,13 +7,13 @@ import { default as chalk } from "chalk";
 import { TFolderFiles, TFolderReplicationDescriptor } from "@/mod/lib/types/general";
 
 import { GAME_DATA_CONFIGS_DIR, TARGET_GAME_DATA_CONFIGS_DIR } from "#/build/globals";
-import { Logger, readDirContent } from "#/utils";
+import { NodeLogger, readDirContent } from "#/utils";
 
-const log: Logger = new Logger("BUILD_CONFIGS_STATICS");
+const log: NodeLogger = new NodeLogger("BUILD_CONFIGS_STATICS");
 const EXPECTED_CONFIG_EXTENSIONS: Array<string> = [".ltx", ".xml"];
 
 export async function buildStaticConfigs(): Promise<void> {
-  log.info("Copy static configs");
+  log.info(chalk.blueBright("Copy static configs"));
 
   function collectConfigs(
     acc: Array<TFolderReplicationDescriptor>,
@@ -45,14 +45,14 @@ export async function buildStaticConfigs(): Promise<void> {
       const targetDir: string = path.dirname(to);
 
       if (!fs.existsSync(targetDir)) {
-        log.info("MKDIR:", chalk.yellowBright(targetDir));
+        log.debug("MKDIR:", chalk.yellowBright(targetDir));
         fs.mkdirSync(targetDir, { recursive: true });
       }
     });
 
     await Promise.all(
       staticConfigs.map(([from, to]) => {
-        log.info("CP:", chalk.yellow(to));
+        log.debug("CP:", chalk.yellow(to));
 
         return fsPromises.copyFile(from, to);
       })

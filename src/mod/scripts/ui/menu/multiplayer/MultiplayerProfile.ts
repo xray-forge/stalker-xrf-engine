@@ -1,10 +1,10 @@
 import { Optional } from "@/mod/lib/types";
-import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
+import { LuaLogger } from "@/mod/scripts/debug_tools/LuaLogger";
 import { IMultiplayerMenu } from "@/mod/scripts/ui/menu/MultiplayerMenu";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
 
 const base: string = "menu\\multiplayer\\MultiplayerAwards.component";
-const log: DebugLogger = new DebugLogger("MultiplayerProfile");
+const log: LuaLogger = new LuaLogger("MultiplayerProfile");
 const awards_xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
 export interface IMultiplayerProfile extends XR_CUIWindow {

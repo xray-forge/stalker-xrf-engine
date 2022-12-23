@@ -1,7 +1,7 @@
-import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
+import { LuaLogger } from "@/mod/scripts/debug_tools/LuaLogger";
 import { IOptionsDialog } from "@/mod/scripts/ui/menu/OptionsDialog";
 
-const log: DebugLogger = new DebugLogger("OptionsVideo");
+const log: LuaLogger = new LuaLogger("OptionsVideo");
 
 export interface IOptionsVideo extends XR_CUIWindow {
   InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IOptionsDialog): void;

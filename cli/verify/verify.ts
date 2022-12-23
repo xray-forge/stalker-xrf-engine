@@ -5,7 +5,7 @@ import { default as chalk } from "chalk";
 
 import { CLI_CONFIG, TARGET_GAME_DATA_DIR, TARGET_LOGS_DIR } from "#/build/globals";
 import { default as config } from "#/config.json";
-import { exists, Logger } from "#/utils";
+import { exists, NodeLogger } from "#/utils";
 
 const GAME_LOGS_PATH: string = path.resolve(config.targets.STALKER_LOGS_FOLDER_PATH);
 const GAME_PATH: string = path.resolve(config.targets.STALKER_GAME_FOLDER_PATH);
@@ -13,7 +13,7 @@ const GAME_BIN_PATH: string = path.resolve(GAME_PATH, "bin");
 const GAME_GAMEDATA_PATH: string = path.resolve(GAME_PATH, "gamedata");
 const GAME_BIN_JSON_PATH: string = path.resolve(GAME_BIN_PATH, "bin.json");
 
-const log: Logger = new Logger("VERIFY");
+const log: NodeLogger = new NodeLogger("VERIFY");
 
 (async function verify(): Promise<void> {
   log.info("Verifying project state");

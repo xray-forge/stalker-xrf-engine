@@ -1,11 +1,11 @@
 import { captions } from "@/mod/globals/captions";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
-import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
+import { LuaLogger } from "@/mod/scripts/debug_tools/LuaLogger";
 import { resolveXmlFormPath, isWideScreen } from "@/mod/scripts/utils/rendering";
 
 const base: string = "interaction\\SleepDialog.component";
-const log: DebugLogger = new DebugLogger("SleepDialog");
+const log: LuaLogger = new LuaLogger("SleepDialog");
 
 let sleep_control: Optional<ISleepDialog> = null;
 const isWide = isWideScreen();

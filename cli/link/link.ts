@@ -5,9 +5,9 @@ import { default as chalk } from "chalk";
 
 import { TARGET_GAME_DATA_DIR, TARGET_LOGS_DIR } from "#/build/globals";
 import { default as config } from "#/config.json";
-import { exists, Logger } from "#/utils";
+import { exists, NodeLogger } from "#/utils";
 
-const log: Logger = new Logger("LINK");
+const log: NodeLogger = new NodeLogger("LINK");
 const isForceLink: boolean = process.argv.includes("--force");
 
 (async function linkFolders(): Promise<void> {

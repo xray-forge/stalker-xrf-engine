@@ -5,13 +5,13 @@ import * as path from "path";
 import { default as chalk } from "chalk";
 
 import { RESOURCES_DIR, TARGET_GAME_DATA_DIR } from "#/build/globals";
-import { Logger } from "#/utils";
+import { NodeLogger } from "#/utils";
 
-const log: Logger = new Logger("BUILD_ASSET_STATICS");
+const log: NodeLogger = new NodeLogger("BUILD_ASSET_STATICS");
 const EXPECTED_FILES: Array<string> = ["README.md"];
 
 export async function buildResourcesStatics(): Promise<void> {
-  log.info("Copy raw assets");
+  log.info(chalk.blueBright("Copy raw assets"));
 
   const resourcesExist: boolean = fs.existsSync(RESOURCES_DIR);
 
@@ -41,7 +41,7 @@ export async function buildResourcesStatics(): Promise<void> {
         const relativePath: string = it.slice(RESOURCES_DIR.length);
         const targetDir: string = path.join(TARGET_GAME_DATA_DIR, relativePath);
 
-        log.info("CP -R:", chalk.yellow(targetDir));
+        log.debug("CP -R:", chalk.yellow(targetDir));
 
         return fsPromises.cp(it, targetDir, { recursive: true });
       })

@@ -1,7 +1,7 @@
-import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
+import { LuaLogger } from "@/mod/scripts/debug_tools/LuaLogger";
 import { IOptionsDialog } from "@/mod/scripts/ui/menu/OptionsDialog";
 
-const log: DebugLogger = new DebugLogger("OptionsVideoAdvanced");
+const log: LuaLogger = new LuaLogger("OptionsVideoAdvanced");
 
 export interface IOptionsVideoAdvanced extends XR_CUIWindow {
   scroll_v: XR_CUIScrollView;

@@ -13,6 +13,7 @@
     "open_project_folder": "ts-node -P ./cli/tsconfig.json cli/open/open_project_folder.ts",
     "start_game": "ts-node -P ./cli/tsconfig.json cli/start_game/start_game.ts",
     "preview": "ts-node -P cli/tsconfig.json ./cli/preview/preview.ts",
+    "logs": "ts-node -P cli/tsconfig.json cli/logs/logs.ts",
     "build": "ts-node -P cli/tsconfig.json ./cli/build/build.ts",
     "build:clean": "ts-node -P cli/tsconfig.json ./cli/build/build.ts --clean",
     "build:no-resources": "ts-node -P cli/tsconfig.json ./cli/build/build.ts --no-resources",

@@ -1,7 +1,7 @@
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
-import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
+import { LuaLogger } from "@/mod/scripts/debug_tools/LuaLogger";
 
-const log: DebugLogger = new DebugLogger("utils/rendering");
+const log: LuaLogger = new LuaLogger("utils/rendering");
 
 export function isWideScreen(): boolean {
   return device().width / device().height > 1024 / 768 + 0.01;
@@ -19,7 +19,7 @@ export function resolveXmlFormPath(path: string, hasWideScreenSupport: boolean =
   const wideBase: string = base + ".16" + ".xml";
   const canBeWide: boolean = hasWideScreenSupport && isWideScreen();
 
-  log.info("Resolving XML form file:", path, canBeWide);
+  log.info("Resolving XML form file:", path);
 
   /**
    * Warn about bad path in dev mode.
@@ -31,9 +31,9 @@ export function resolveXmlFormPath(path: string, hasWideScreenSupport: boolean =
     }
   }
 
-  if (canBeWide && getFS().exist("$game_config$", "ui\\" + wideBase)) {
-    return wideBase;
-  } else {
-    return base + ".xml";
-  }
+  const resolved: string = canBeWide && getFS().exist("$game_config$", "ui\\" + wideBase) ? wideBase : base + ".xml";
+
+  log.info("Resolved XML to:", resolved);
+
+  return resolved;
 }

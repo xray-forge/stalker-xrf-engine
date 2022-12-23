@@ -1,7 +1,7 @@
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
-import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
-import { DevDebugDialog, IDevDebugDialog } from "@/mod/scripts/ui/debug/DevDebugDialog";
+import { LuaLogger } from "@/mod/scripts/debug_tools/LuaLogger";
+import { DebugDialog, IDebugDialog } from "@/mod/scripts/ui/debug/DebugDialog";
 import { ILoadDialog, LoadDialog } from "@/mod/scripts/ui/menu/LoadDialog";
 import { IMultiplayerGameSpy, MultiplayerGameSpy } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerGamespy";
 import { IMultiplayerLocalnet, MultiplayerLocalnet } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerLocalnet";
@@ -11,7 +11,7 @@ import { ISaveDialog, SaveDialog } from "@/mod/scripts/ui/menu/SaveDialog";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
 
 const base: string = "menu\\MainMenu.component";
-const log: DebugLogger = new DebugLogger("MainMenu");
+const log: LuaLogger = new LuaLogger("MainMenu");
 
 export interface IMainMenu extends XR_CUIScriptWnd {
   shniaga: XR_CUIMMShniaga;
@@ -25,7 +25,7 @@ export interface IMainMenu extends XR_CUIScriptWnd {
   gamespyDialog: IMultiplayerGameSpy;
   multiplayerMenuDialog: Optional<IMultiplayerMenu>;
 
-  gameDevDebugDialog: Optional<IDevDebugDialog>;
+  gameDebugDialog: Optional<IDebugDialog>;
 
   message_box: XR_CUIMessageBoxEx;
   accountManager: XR_account_manager;
@@ -303,12 +303,12 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
       return;
     }
 
-    if (this.gameDevDebugDialog == null) {
-      this.gameDevDebugDialog = create_xr_class_instance(DevDebugDialog);
-      this.gameDevDebugDialog.owner = this;
+    if (this.gameDebugDialog == null) {
+      this.gameDebugDialog = create_xr_class_instance(DebugDialog);
+      this.gameDebugDialog.owner = this;
     }
 
-    this.gameDevDebugDialog.ShowDialog(true);
+    this.gameDebugDialog.ShowDialog(true);
 
     this.HideDialog();
     this.Show(false);

@@ -1,6 +1,6 @@
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
-import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
-import { DevDebugGeneralSection, IDevDebugGeneralSection } from "@/mod/scripts/ui/debug/DevDebugGeneralSection";
+import { LuaLogger } from "@/mod/scripts/debug_tools/LuaLogger";
+import { DebugGeneralSection, IDebugGeneralSection } from "@/mod/scripts/ui/debug/DebugGeneralSection";
 import { DevDebugItemsSection } from "@/mod/scripts/ui/debug/DevDebugItemsSection";
 import { DevDebugPositionSection, IDevDebugPositionSection } from "@/mod/scripts/ui/debug/DevDebugPositionSection";
 import { DevDebugSoundSection, IDevDebugSoundSection } from "@/mod/scripts/ui/debug/DevDebugSoundSection";
@@ -10,21 +10,21 @@ import { DevDebugWorldSection, IDevDebugWorldSection } from "@/mod/scripts/ui/de
 import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
 import { EDebugSection } from "@/mod/ui/debug/sections";
 
-const base: string = "debug\\DevDebugDialog.component";
-const log: DebugLogger = new DebugLogger("DevDebugDialog");
+const base: string = "debug\\DebugDialog.component";
+const log: LuaLogger = new LuaLogger("DebugDialog");
 
-export interface IDevDebugDialog extends XR_CUIScriptWnd {
+export interface IDebugDialog extends XR_CUIScriptWnd {
   owner: XR_CUIScriptWnd;
 
-  section: XR_CUIStatic;
+  sectionBackground: XR_CUIStatic;
   tab: XR_CUITabControl;
   cancelButton: XR_CUI3tButton;
 
-  sectionGeneral: IDevDebugGeneralSection;
+  sectionGeneral: IDebugGeneralSection;
   sectionPosition: IDevDebugPositionSection;
   sectionSound: IDevDebugSoundSection;
   sectionSpawn: IDevDebugSpawnSection;
-  sectionItems: IDevDebugGeneralSection;
+  sectionItems: IDebugGeneralSection;
   sectionUi: IDevDebugUiSection;
   sectionWorld: IDevDebugWorldSection;
 
@@ -37,11 +37,9 @@ export interface IDevDebugDialog extends XR_CUIScriptWnd {
   onCancelButtonAction(): void;
 }
 
-export const DevDebugDialog: IDevDebugDialog = declare_xr_class("DevDebugDialog", CUIScriptWnd, {
-  __init(this: IDevDebugDialog): void {
+export const DebugDialog: IDebugDialog = declare_xr_class("DebugDialog", CUIScriptWnd, {
+  __init(this: IDebugDialog): void {
     xr_class_super();
-
-    log.info("Init");
 
     this.InitControls();
     this.InitSections();
@@ -61,7 +59,7 @@ export const DevDebugDialog: IDevDebugDialog = declare_xr_class("DevDebugDialog"
     xml.ParseFile(resolveXmlFormPath(base));
     xml.InitStatic("background", this);
 
-    this.section = xml.InitStatic("main_dialog:section", this);
+    this.sectionBackground = xml.InitStatic("main_dialog:section_background", this);
     this.cancelButton = xml.Init3tButton("main_dialog:btn_cancel", this);
     this.tab = xml.InitTab("main_dialog:tab", this);
 
@@ -74,7 +72,7 @@ export const DevDebugDialog: IDevDebugDialog = declare_xr_class("DevDebugDialog"
     xml.ParseFile(resolveXmlFormPath(base));
 
     // Init general section.
-    this.sectionGeneral = create_xr_class_instance(DevDebugGeneralSection, this);
+    this.sectionGeneral = create_xr_class_instance(DebugGeneralSection, this);
     this.sectionGeneral.SetAutoDelete(true);
     this.sectionGeneral.Show(false);
     this.AttachChild(this.sectionGeneral);
@@ -188,4 +186,4 @@ export const DevDebugDialog: IDevDebugDialog = declare_xr_class("DevDebugDialog"
 
     return result;
   }
-} as IDevDebugDialog);
+} as IDebugDialog);

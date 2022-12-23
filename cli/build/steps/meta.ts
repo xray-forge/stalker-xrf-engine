@@ -1,4 +1,4 @@
-import fs from "fs";
+import * as fs from "fs";
 import * as fsPromises from "fs/promises";
 import * as os from "os";
 
@@ -6,9 +6,9 @@ import { default as chalk } from "chalk";
 
 import { TARGET_GAME_DATA_DIR, TARGET_GAME_DATA_METADATA_FILE } from "../globals";
 
-import { Logger, readDirContent, TimeTracker } from "#/utils";
+import { NodeLogger, readDirContent, TimeTracker } from "#/utils";
 
-const log: Logger = new Logger("META");
+const log: NodeLogger = new NodeLogger("META");
 
 interface IBuildMetaParams {
   meta: Record<string, unknown>;
@@ -16,7 +16,7 @@ interface IBuildMetaParams {
 }
 
 export async function buildMeta({ meta, timeTracker }: IBuildMetaParams): Promise<void> {
-  log.info("Build metadata");
+  log.info(chalk.blueBright("Build metadata"));
 
   const buildMeta: Record<string, unknown> = {};
 
@@ -90,6 +90,7 @@ export function getBuildSystemInfo(): Record<string, string | number> {
     ["os_cpus"]: cpuInfos.length,
     ["os_cpus_type"]: cpuInfos.length ? cpuInfos[0].model : "",
     ["os_ram_max"]: os.totalmem() / 1024 / 1024 + " MB",
-    ["os_hostname"]: os.hostname()
+    ["os_hostname"]: os.hostname(),
+    ["os_user"]: os.userInfo()?.username
   };
 }

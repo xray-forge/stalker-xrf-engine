@@ -3,9 +3,9 @@ import * as path from "path";
 import { default as chalk } from "chalk";
 
 import { default as config } from "#/config.json";
-import { Logger, openFolderInExplorer } from "#/utils";
+import { NodeLogger, openFolderInExplorer } from "#/utils";
 
-const log: Logger = new Logger("OPEN_GAME_FOLDER");
+const log: NodeLogger = new NodeLogger("OPEN_GAME_FOLDER");
 
 (async function unlinkFolders(): Promise<void> {
   log.info("Opening game folder");

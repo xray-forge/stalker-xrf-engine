@@ -1,8 +1,8 @@
-import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
+import { LuaLogger } from "@/mod/scripts/debug_tools/LuaLogger";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
 
 const base: string = "debug\\DevDebugItemsSection.component";
-const log: DebugLogger = new DebugLogger("DevDebugItemsSection");
+const log: LuaLogger = new LuaLogger("DevDebugItemsSection");
 
 export interface IDevDebugItemsSection extends XR_CUIScriptWnd {
   owner: XR_CUIScriptWnd;

@@ -1,5 +1,5 @@
 import { option_groups, option_groups_messages } from "@/mod/globals/option_groups";
-import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
+import { LuaLogger } from "@/mod/scripts/debug_tools/LuaLogger";
 import { IOptionsControls, OptionsControls } from "@/mod/scripts/ui/menu/options/OptionsControls";
 import { IOptionsGameplay, OptionsGameplay } from "@/mod/scripts/ui/menu/options/OptionsGameplay";
 import { IOptionsSound, OptionsSound } from "@/mod/scripts/ui/menu/options/OptionsSound";
@@ -8,7 +8,7 @@ import { IOptionsVideoAdvanced, OptionsVideoAdvanced } from "@/mod/scripts/ui/me
 import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
 
 const base: string = "menu\\OptionsDialog.component";
-const log: DebugLogger = new DebugLogger("Options");
+const log: LuaLogger = new LuaLogger("Options");
 
 export interface IOptionsDialog extends XR_CUIScriptWnd {
   owner: XR_CUIScriptWnd;

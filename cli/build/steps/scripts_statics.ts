@@ -5,12 +5,12 @@ import * as path from "path";
 import { default as chalk } from "chalk";
 
 import { GAME_DATA_SCRIPTS_DIR, TARGET_GAME_DATA_SCRIPTS_DIR } from "#/build/globals";
-import { Logger, readDirContent } from "#/utils";
+import { NodeLogger, readDirContent } from "#/utils";
 
-const log: Logger = new Logger("BUILD_SCRIPT_STATICS");
+const log: NodeLogger = new NodeLogger("BUILD_SCRIPT_STATICS");
 
 export async function buildScriptsStatics(): Promise<void> {
-  log.info("Copy raw scripts");
+  log.info(chalk.blueBright("Copy raw scripts"));
 
   function collectStaticScripts(acc: Array<[string, string]>, it: Array<string> | string): Array<[string, string]> {
     if (Array.isArray(it)) {
@@ -39,14 +39,14 @@ export async function buildScriptsStatics(): Promise<void> {
       const targetDir: string = path.dirname(to);
 
       if (!fs.existsSync(targetDir)) {
-        log.info("MKDIR dir:", targetDir);
+        log.debug("MKDIR dir:", chalk.yellow(targetDir));
         fs.mkdirSync(targetDir, { recursive: true });
       }
     });
 
     await Promise.all(
       rawScripts.map(([from, to]) => {
-        log.info("CP:", chalk.yellow(to));
+        log.debug("CP:", chalk.yellow(to));
 
         return fsPromises.copyFile(from, to);
       })

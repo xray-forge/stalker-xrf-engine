@@ -1,7 +1,7 @@
-import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
+import { LuaLogger } from "@/mod/scripts/debug_tools/LuaLogger";
 import * as SleepDialogModule from "@/mod/scripts/ui/interaction/SleepDialog";
 
-const log: DebugLogger = new DebugLogger("_extern");
+const log: LuaLogger = new LuaLogger("_extern");
 
 log.info("Resolve externals");
 

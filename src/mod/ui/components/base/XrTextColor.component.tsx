@@ -2,7 +2,7 @@ import { JSXNode, JSXXML } from "jsx-xml";
 
 import { IRgbColor } from "@/mod/lib/types";
 
-interface IXrTextColorProps {
+export interface IXrTextColorProps {
   textColor: IRgbColor;
 }
 

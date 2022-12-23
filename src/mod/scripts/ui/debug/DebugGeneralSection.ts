@@ -1,18 +1,18 @@
-import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
+import { LuaLogger } from "@/mod/scripts/debug_tools/LuaLogger";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
 
-const base: string = "debug\\DevDebugGeneralSection.component";
-const log: DebugLogger = new DebugLogger("DevDebugGeneralSection");
+const base: string = "debug\\DebugGeneralSection.component";
+const log: LuaLogger = new LuaLogger("DebugGeneralSection");
 
-export interface IDevDebugGeneralSection extends XR_CUIScriptWnd {
+export interface IDebugGeneralSection extends XR_CUIScriptWnd {
   owner: XR_CUIScriptWnd;
 
   InitControls(): void;
   InitCallBacks(): void;
 }
 
-export const DevDebugGeneralSection: IDevDebugGeneralSection = declare_xr_class("DevDebugGeneralSection", CUIWindow, {
-  __init(this: IDevDebugGeneralSection, owner: XR_CUIScriptWnd): void {
+export const DebugGeneralSection: IDebugGeneralSection = declare_xr_class("DebugGeneralSection", CUIWindow, {
+  __init(this: IDebugGeneralSection, owner: XR_CUIScriptWnd): void {
     xr_class_super();
 
     log.info("Init");
@@ -36,4 +36,4 @@ export const DevDebugGeneralSection: IDevDebugGeneralSection = declare_xr_class(
   InitCallBacks(): void {
     log.info("Init callbacks");
   }
-} as IDevDebugGeneralSection);
+} as IDebugGeneralSection);

@@ -1,6 +1,6 @@
-local DebugLogger = require("scripts.debug_tools.DebugLogger").DebugLogger
+local LuaLogger = require("scripts.debug_tools.LuaLogger").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
-local log = create_ts_class_instance(DebugLogger, "lug_globals");
+local log = create_ts_class_instance(LuaLogger, "lug_globals");
 
 log:info("Injecting lua globals")
 

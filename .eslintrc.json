@@ -216,17 +216,6 @@
             "error",
             "never"
         ],
-        "space-unary-ops": [
-            "error",
-            {
-                "nonwords": false,
-                "overrides": {
-                    "++": true,
-                    "--": true
-                },
-                "words": true
-            }
-        ],
         "spaced-comment": [
             "error",
             "always"

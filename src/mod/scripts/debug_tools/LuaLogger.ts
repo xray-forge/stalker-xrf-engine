@@ -1,6 +1,6 @@
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 
-export class DebugLogger {
+export class LuaLogger {
   protected prefix: string;
   protected isEnabled: boolean;
 

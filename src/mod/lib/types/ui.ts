@@ -1,10 +1,10 @@
 import { JSXNode } from "jsx-xml";
 
 export interface IBaseXmlNode {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
+  x?: number;
+  y?: number;
+  width?: number;
+  height?: number;
   tag?: string;
   children?: JSXNode;
 }

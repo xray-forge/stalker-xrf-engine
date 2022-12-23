@@ -6,7 +6,9 @@ import { IBaseXmlNode, IRgbColor, TTextAlign } from "@/mod/lib/types";
 import { XrTextColor } from "@/mod/ui/components/base/XrTextColor.component";
 import { XrTexture } from "@/mod/ui/components/base/XrTexture.component";
 
-interface IXrButtonProps extends IBaseXmlNode {
+import { normalizeBaseNodeCoordinates } from "#/utils";
+
+export interface IXrButtonProps extends IBaseXmlNode {
   id?: string;
   /**
    * Enable custom tag name for button elements.
@@ -23,20 +25,22 @@ interface IXrButtonProps extends IBaseXmlNode {
 /**
  * Generic component for button rendering.
  */
-export function Xr3tButton({
-  tag = "button",
-  id,
-  x,
-  y,
-  width,
-  height,
-  align = "c",
-  texture,
-  font,
-  label,
-  textColor,
-  stretch = true
-}: IXrButtonProps): JSXNode {
+export function Xr3tButton(props: IXrButtonProps): JSXNode {
+  const {
+    tag = "button",
+    id,
+    x,
+    y,
+    width,
+    height,
+    align = "c",
+    texture,
+    font,
+    label,
+    textColor,
+    stretch = true
+  } = normalizeBaseNodeCoordinates(props);
+
   return JSXXML(
     tag,
     {

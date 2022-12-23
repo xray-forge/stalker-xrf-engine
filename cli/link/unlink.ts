@@ -7,9 +7,9 @@ import { Optional } from "@/mod/lib/types";
 
 import { TARGET_LOGS_DIR } from "#/build/globals";
 import { default as config } from "#/config.json";
-import { Logger } from "#/utils";
+import { NodeLogger } from "#/utils";
 
-const log: Logger = new Logger("UNLINK");
+const log: NodeLogger = new NodeLogger("UNLINK");
 
 (async function unlinkFolders(): Promise<void> {
   log.info("Unlinking mod development folders");

@@ -1,10 +1,10 @@
 import { Optional } from "@/mod/lib/types";
-import { DebugLogger } from "@/mod/scripts/debug_tools/DebugLogger";
+import { LuaLogger } from "@/mod/scripts/debug_tools/LuaLogger";
 import { IMainMenu } from "@/mod/scripts/ui/menu/MainMenu";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
 
 const base: string = "menu\\multiplayer\\MultiplayerLocalnet.component";
-const log: DebugLogger = new DebugLogger("MultiplayerLocalnet");
+const log: LuaLogger = new LuaLogger("MultiplayerLocalnet");
 
 export interface IMultiplayerLocalnet extends XR_CUIScriptWnd {
   owner: IMainMenu;
