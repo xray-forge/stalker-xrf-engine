@@ -98,6 +98,8 @@ declare interface LUA_Math {
   ult(this: void, m: number, n: number): unknown
 }
 
+declare const _VERSION: string | null;
+
 /**
  * Cast value to string.
  */
@@ -109,3 +111,33 @@ declare const tostring: (value: any) => string;
 declare const type: (value: any) => string;
 
 declare const require: (modulePath: string) => any;
+
+/**
+ * This function is a generic interface to the garbage collector. It performs
+ * different functions according to its first argument, `opt`:
+ * ---
+ * **"collect"**: performs a full garbage-collection cycle. This is the default
+ * option.
+ * **"stop"**: stops automatic execution of the garbage collector. The
+ * collector will run only when explicitly invoked, until a call to restart it.
+ * **"restart"**: restarts automatic execution of the garbage collector.
+ * **"count"**: returns the total memory in use by Lua in Kbytes. The value has
+ * a fractional part, so that it multiplied by 1024 gives the exact number of
+ * bytes in use by Lua (except for overflows).
+ * **"step"**: performs a garbage-collection step. The step "size" is
+ * controlled by `arg`. With a zero value, the collector will perform one basic
+ * (indivisible) step. For non-zero values, the collector will perform as if
+ * that amount of memory (in KBytes) had been allocated by Lua. Returns
+ * **true** if the step finished a collection cycle.
+ * **"setpause"**: sets `arg` as the new value for the *pause* of the collector
+ * (see §2.5). Returns the previous value for *pause`.
+ * **"incremental"**: Change the collector mode to incremental. This option can
+ * be followed by three numbers: the garbage-collector pause, the step
+ * multiplier, and the step size.
+ * **"generational"**: Change the collector mode to generational. This option
+ * can be followed by two numbers: the garbage-collector minor multiplier and
+ * the major multiplier.
+ * **"isrunning"**: returns a boolean that tells whether the collector is
+ * running (i.e., not stopped).
+ */
+declare const collectgarbage: (operation: "count" | "collect" | "restart") => number;

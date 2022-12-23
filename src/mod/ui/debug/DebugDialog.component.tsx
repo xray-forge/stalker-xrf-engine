@@ -28,7 +28,7 @@ export function create(): JSXNode {
   const dialogButtonWidth: number = 108;
   const dialogButtonHeight: number = 26;
 
-  const dialogTabsWidth: number = SECTION_WIDTH - 16;
+  const dialogTabsWidth: number = SECTION_WIDTH - 20;
 
   return (
     <XrRoot>
@@ -61,15 +61,13 @@ export function create(): JSXNode {
           height={20}
           font={fonts.letterica16}
           textColor={textColorLighter}
-          tabs={[
-            { id: EDebugSection.GENERAL, label: "General", texture: textures.ui_inGame2_Mp_bigbuttone },
-            { id: EDebugSection.ITEMS, label: "Items", texture: textures.ui_inGame2_Mp_bigbuttone },
-            { id: EDebugSection.POSITION, label: "Position", texture: textures.ui_inGame2_Mp_bigbuttone },
-            { id: EDebugSection.SOUND, label: "Sound", texture: textures.ui_inGame2_Mp_bigbuttone },
-            { id: EDebugSection.SPAWN, label: "Spawn", texture: textures.ui_inGame2_Mp_bigbuttone },
-            { id: EDebugSection.UI, label: "UI", texture: textures.ui_inGame2_Mp_bigbuttone },
-            { id: EDebugSection.WORLD, label: "World", texture: textures.ui_inGame2_Mp_bigbuttone }
-          ]}
+          align={"c"}
+          vertAlign={"c"}
+          tabs={Object.entries(EDebugSection).map(([key, value]) => ({
+            id: value,
+            label: key,
+            texture: textures.ui_inGame2_Mp_bigbuttone
+          }))}
         />
 
         <XrContainer
@@ -82,8 +80,8 @@ export function create(): JSXNode {
 
         <Xr3tButton
           tag={"btn_cancel"}
-          x={dialogWidthPadding + SECTION_WIDTH - dialogButtonWidth - 8}
-          y={SECTION_HEIGHT + dialogHeightPadding + 20 - dialogButtonHeight}
+          x={dialogWidthPadding + SECTION_WIDTH - dialogButtonWidth - 12}
+          y={SECTION_HEIGHT + dialogHeightPadding + 16 - dialogButtonHeight}
           height={dialogButtonHeight}
           width={dialogButtonWidth}
           font={fonts.letterica18}

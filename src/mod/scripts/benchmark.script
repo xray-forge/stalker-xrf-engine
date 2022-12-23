@@ -1,3 +1,4 @@
+-- todo: Check purposes
 function main()
 	local spawn_table = {	bench_sunshafts = {	weather_name  = "sun_shafts",
 												effector_name = "marsh_benchmark",
@@ -33,7 +34,7 @@ function main()
 			level.add_cam_effector2( "benchmarks\\"..spawn_table[spawn_name].effector_name..".anm",
 									spawn_table[spawn_name].effector_id,
 									false,
-									"xr_effects.quit")		
+									"xr_effects.quit")
 		end
-	end	
+	end
 end

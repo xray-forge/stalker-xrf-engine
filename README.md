@@ -185,3 +185,4 @@ For examples check: `src/mod/ui`.
 - Script to verify integrity of assets and defined constants
 - Screenshots of some tools
 - Typescript / c++ cooperation comments
+- Strip log:info / log:error with TSTL plugin

@@ -18,7 +18,7 @@
     "build:clean": "ts-node -P cli/tsconfig.json ./cli/build/build.ts --clean",
     "build:no-resources": "ts-node -P cli/tsconfig.json ./cli/build/build.ts --no-resources",
     "build:resources-only": "ts-node -P cli/tsconfig.json ./cli/build/build.ts --no-scripts --no-ui --no-configs",
-    "typecheck:lua": "tstl -P ./cli/build/tsconfig.scripts.json --noEmit",
+    "typecheck": "tstl -P ./cli/build/tsconfig.scripts.json --noEmit",
     "format": "prettier --write \"**/*.(js|ts|tsx|md)\" && eslint . --ext .ts,.tsx,.js --fix",
     "lint": "eslint . --ext .ts,.tsx,.js"
   },

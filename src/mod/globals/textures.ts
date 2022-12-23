@@ -8,6 +8,7 @@ export const textures = {
   ui_inGame2_right_widepanel: "ui_inGame2_right_widepanel",
   ui_inGame2_slider: "ui_inGame2_slider",
   ui_inGame2_background: "ui_inGame2_background",
+  ui_inGame2_checkbox: "ui_inGame2_checkbox",
   ui_inGame2_opt_button_1: "ui_inGame2_opt_button_1",
   ui_inGame2_opt_button_2: "ui_inGame2_opt_button_2",
   ui_inGame2_Mp_bigbuttone: "ui_inGame2_Mp_bigbuttone",

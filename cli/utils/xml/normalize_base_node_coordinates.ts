@@ -1,15 +1,17 @@
 export function normalizeBaseNodeCoordinates<T extends object>(props: T): T {
   const nextProps: T = { ...props };
 
-  ["x", "y", "width", "height"].forEach((key) => {
-    const it = nextProps[key];
+  ["x", "y", "width", "height", "rightIdent", "leftIdent", "topIndent", "bottomIndent", "vertInterval"].forEach(
+    (key) => {
+      const it = nextProps[key];
 
-    if (typeof it === "number") {
-      nextProps[key] = Math.round(it);
+      if (typeof it === "number") {
+        nextProps[key] = Math.round(it);
+      }
     }
-  });
+  );
 
-  ["stretch"].forEach((key) => {
+  ["stretch", "alwaysShowScroll", "flipVert", "canSelect"].forEach((key) => {
     const it = nextProps[key];
 
     if (typeof it === "boolean") {

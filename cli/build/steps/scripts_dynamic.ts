@@ -38,7 +38,7 @@ export async function buildDynamicScripts(): Promise<void> {
 
     throw new Error(
       `Lua transpiling failed, got ${result.diagnostics.length} lua issues. Use ${chalk.yellow(
-        "'npm run typecheck:lua'"
+        "'npm run typecheck'"
       )} for investigation.`
     );
   }

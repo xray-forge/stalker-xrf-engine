@@ -85,7 +85,8 @@ function prepareTexture(node: HTMLElement): void {
 }
 
 function prepareWindow(node: HTMLElement): void {
-  node.style.position = "relative";
+  node.style.position = "absolute";
+  node.style.background = "rgba(50, 50, 50, 0.05)";
 }
 
 function prepareStaticAsset(node: HTMLElement): void {

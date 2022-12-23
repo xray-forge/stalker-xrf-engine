@@ -48,7 +48,7 @@ export interface IMainMenu extends XR_CUIScriptWnd {
   OnButton_disconnect_clicked(): void;
   OnMessageQuitGame(): void;
   OnMessageQuitWin(): void;
-  OnButton_return_game(): void;
+  onButtonReturnToGameClick(): void;
   OnButton_new_novice_game(): void;
   OnButton_new_stalker_game(): void;
   OnButton_new_veteran_game(): void;
@@ -137,7 +137,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     // -- quit
     this.AddCallback("btn_quit", ui_events.BUTTON_CLICKED, () => this.OnButton_quit_clicked(), this);
     this.AddCallback("btn_quit_to_mm", ui_events.BUTTON_CLICKED, () => this.OnButton_disconnect_clicked(), this);
-    this.AddCallback("btn_ret", ui_events.BUTTON_CLICKED, () => this.OnButton_return_game(), this);
+    this.AddCallback("btn_ret", ui_events.BUTTON_CLICKED, () => this.onButtonReturnToGameClick(), this);
     this.AddCallback("btn_lastsave", ui_events.BUTTON_CLICKED, () => this.OnButton_last_save(), this);
     this.AddCallback("btn_credits", ui_events.BUTTON_CLICKED, () => this.OnButton_credits_clicked(), this);
 
@@ -226,12 +226,10 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
 
     console.execute("quit");
   },
-  OnButton_return_game(): void {
+  onButtonReturnToGameClick(): void {
     log.info("Return to game");
 
-    const console: XR_CConsole = get_console();
-
-    console.execute("main_menu off");
+    get_console().execute("main_menu off");
     get_global("xr_s").on_main_menu_off(); //          --' Distemper 03.2008 --
   },
   OnButton_new_novice_game(): void {
@@ -409,9 +407,9 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
         const actor = get_global("db").actor;
 
         if (level.present() && ((actor != null && actor.alive()) || IsGameTypeSingle() == false)) {
-          this.OnButton_return_game();
+          this.onButtonReturnToGameClick();
         }
-      } else if (dik === DIK_keys.DIK_F7) {
+      } else if (dik === DIK_keys.DIK_F11) {
         this.OnButton_dev_debug_dialog();
       } else if (dik === DIK_keys.DIK_Q) {
         this.OnMessageQuitWin();

@@ -1,3 +1,7 @@
+type ArrayElement<ArrayType extends readonly unknown[]> = ArrayType extends readonly (infer ElementType)[]
+  ? ElementType
+  : never;
+
 /**
  * Utility to declare global variables.
  */
@@ -24,10 +28,9 @@ declare const lua_table: LUA_Table;
  */
 declare const lua_math: LUA_Math;
 
-type ArrayElement<ArrayType extends readonly unknown[]> = ArrayType extends readonly (infer ElementType)[]
-  ? ElementType
-  : never;
-
+/**
+ * Forin implementation for usage without TSTL transpiling.
+ */
 declare const forin: <D, T extends Array<D>>(
   array: T,
   cb: (it: ArrayElement<T>, index: number, stop: () => void) => void

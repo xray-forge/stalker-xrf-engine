@@ -1,7 +1,9 @@
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { LuaLogger } from "@/mod/scripts/debug_tools/LuaLogger";
+import { DebugCommandsSection, IDebugCommandsSection } from "@/mod/scripts/ui/debug/DebugCommandsSection";
 import { DebugGeneralSection, IDebugGeneralSection } from "@/mod/scripts/ui/debug/DebugGeneralSection";
-import { DevDebugItemsSection } from "@/mod/scripts/ui/debug/DevDebugItemsSection";
+import { DebugPlayerSection, IDebugPlayerSection } from "@/mod/scripts/ui/debug/DebugPlayerSection";
+import { DevDebugItemsSection, IDevDebugItemsSection } from "@/mod/scripts/ui/debug/DevDebugItemsSection";
 import { DevDebugPositionSection, IDevDebugPositionSection } from "@/mod/scripts/ui/debug/DevDebugPositionSection";
 import { DevDebugSoundSection, IDevDebugSoundSection } from "@/mod/scripts/ui/debug/DevDebugSoundSection";
 import { DevDebugSpawnSection, IDevDebugSpawnSection } from "@/mod/scripts/ui/debug/DevDebugSpawnSection";
@@ -21,10 +23,12 @@ export interface IDebugDialog extends XR_CUIScriptWnd {
   cancelButton: XR_CUI3tButton;
 
   sectionGeneral: IDebugGeneralSection;
+  sectionCommands: IDebugCommandsSection;
   sectionPosition: IDevDebugPositionSection;
+  sectionPlayer: IDebugPlayerSection;
   sectionSound: IDevDebugSoundSection;
   sectionSpawn: IDevDebugSpawnSection;
-  sectionItems: IDebugGeneralSection;
+  sectionItems: IDevDebugItemsSection;
   sectionUi: IDevDebugUiSection;
   sectionWorld: IDevDebugWorldSection;
 
@@ -78,6 +82,13 @@ export const DebugDialog: IDebugDialog = declare_xr_class("DebugDialog", CUIScri
     this.AttachChild(this.sectionGeneral);
     xml.InitWindow("main_dialog:debug_section", 0, this.sectionGeneral);
 
+    // Init commands section.
+    this.sectionCommands = create_xr_class_instance(DebugCommandsSection, this);
+    this.sectionCommands.SetAutoDelete(true);
+    this.sectionCommands.Show(false);
+    this.AttachChild(this.sectionCommands);
+    xml.InitWindow("main_dialog:debug_section", 0, this.sectionCommands);
+
     // Init items section.
     this.sectionItems = create_xr_class_instance(DevDebugItemsSection, this);
     this.sectionItems.SetAutoDelete(true);
@@ -92,12 +103,12 @@ export const DebugDialog: IDebugDialog = declare_xr_class("DebugDialog", CUIScri
     this.AttachChild(this.sectionPosition);
     xml.InitWindow("main_dialog:debug_section", 0, this.sectionPosition);
 
-    // Init position section.
-    this.sectionSound = create_xr_class_instance(DevDebugSoundSection, this);
-    this.sectionSound.SetAutoDelete(true);
-    this.sectionSound.Show(false);
-    this.AttachChild(this.sectionSound);
-    xml.InitWindow("main_dialog:debug_section", 0, this.sectionSound);
+    // Init player section.
+    this.sectionPlayer = create_xr_class_instance(DebugPlayerSection, this);
+    this.sectionPlayer.SetAutoDelete(true);
+    this.sectionPlayer.Show(false);
+    this.AttachChild(this.sectionPlayer);
+    xml.InitWindow("main_dialog:debug_section", 0, this.sectionPlayer);
 
     // Init sound section.
     this.sectionSound = create_xr_class_instance(DevDebugSoundSection, this);
@@ -150,8 +161,11 @@ export const DebugDialog: IDebugDialog = declare_xr_class("DebugDialog", CUIScri
     const id: string = this.tab.GetActiveId();
 
     this.sectionGeneral.Show(false);
+    this.sectionCommands.Show(false);
+    this.sectionCommands.Show(false);
     this.sectionItems.Show(false);
     this.sectionPosition.Show(false);
+    this.sectionPlayer.Show(false);
     this.sectionSound.Show(false);
     this.sectionSpawn.Show(false);
     this.sectionUi.Show(false);
@@ -159,10 +173,14 @@ export const DebugDialog: IDebugDialog = declare_xr_class("DebugDialog", CUIScri
 
     if (id === EDebugSection.GENERAL) {
       this.sectionGeneral.Show(true);
+    } else if (id === EDebugSection.COMMANDS) {
+      this.sectionCommands.Show(true);
     } else if (id === EDebugSection.ITEMS) {
       this.sectionItems.Show(true);
     } else if (id === EDebugSection.POSITION) {
       this.sectionPosition.Show(true);
+    } else if (id === EDebugSection.PLAYER) {
+      this.sectionPlayer.Show(true);
     } else if (id === EDebugSection.SOUND) {
       this.sectionSound.Show(true);
     } else if (id === EDebugSection.SPAWN) {
