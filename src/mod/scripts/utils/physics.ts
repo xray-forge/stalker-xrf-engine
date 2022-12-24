@@ -1,3 +1,4 @@
+import { Optional } from "@/mod/lib/types";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("utils/physics");
@@ -6,6 +7,7 @@ const log: LuaLogger = new LuaLogger("utils/physics");
 const PI_DEGREE: number = math.pi / 180;
 const RADIAN: number = 57.2957;
 const ACTOR_VISIBILITY_FRUSTUM = 35; // todo: Probably should be configured + based on FOV settings.
+const MAX_DISTANCE: number = 100000;
 
 /**
  * todo: Description
@@ -67,4 +69,22 @@ export function npcInActorFrustum(npc: XR_game_object): boolean {
   const npcDirection: XR_vector = npc.position().sub(db.actor.position());
 
   return yawDegree3d(actorDirection, npcDirection) < ACTOR_VISIBILITY_FRUSTUM;
+}
+
+/**
+ * todo: Description
+ */
+export function distanceBetween(first: XR_game_object, second: XR_game_object): number {
+  return first.position().distance_to(second.position());
+}
+
+/**
+ * todo: Description
+ */
+export function distanceBetweenSafe(first: Optional<XR_game_object>, second: Optional<XR_game_object>): number {
+  if (first !== null && second !== null) {
+    return first.position().distance_to(second.position());
+  }
+
+  return MAX_DISTANCE;
 }

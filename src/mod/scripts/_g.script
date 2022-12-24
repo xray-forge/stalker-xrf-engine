@@ -45,8 +45,6 @@ local utilsUnknown = require("scripts.utils.unknown")
 -- get_object_squad = utilsAlife.getObjectSquad
 -- get_story_squad = utilsAlife.getStorySquad
 -- id_by_sid = utilsAlife.idBySid
--- distance_between = utilsAlife.distanceBetween
--- distance_between_safe = utilsAlife.distanceBetweenSafe
 -- reset_action = utilsAlife.resetAction
 -- create_ammo = utilsAlife.createAmmo
 -- wait_game = utilsAlife.waitGame
@@ -78,9 +76,11 @@ empty = utilsGeneral.isEmpty
 yaw = utilsPhysics.yaw
 yaw_degree = utilsPhysics.yawDegree
 yaw_degree3d = utilsPhysics.yawDegree3d
-vector_cross = utilsPhysics.yawDegree3d
+vector_cross = utilsPhysics.vectorCross
 vector_rotate_y = utilsPhysics.vectorRotateY
 npc_in_actor_frustrum = utilsPhysics.npcInActorFrustum
+distance_between = utilsPhysics.distanceBetween
+distance_between_safe = utilsPhysics.distanceBetweenSafe
 
 -- get_param_string = utilsUnknown.getParamString
 
@@ -118,6 +118,7 @@ function printf(fmt,...)
 end
 
 ----------------------------------------------------------------------
+
 if nil == time_global then
 	time_global = function () return device():time_global() end
 end
@@ -189,18 +190,8 @@ function round (value)
 	return min
 end
 
-
-function distance_between(obj1, obj2)
-	return obj1:position():distance_to(obj2:position())
-end
-
--- +��� ���� ������ nil, �������� ��� ������, �� �������, ��� �� ������
-function distance_between_safe(obj1, obj2)
-	if(obj1 == nil or obj2 == nil) then return 100000 end
-	return obj1:position():distance_to(obj2:position())
-end
-
 local aa = nil
+
 --' �������� �� ���������v, ���� ���� ������ �� ��	�������
 function has_alife_info(info_id)
 	if aa == nil then

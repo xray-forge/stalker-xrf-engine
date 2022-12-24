@@ -199,30 +199,6 @@ export function idBySid(sid: number): Optional<unknown> {
 }
 
 /**
- * function distance_between(obj1, obj2)
- *  return obj1:position():distance_to(obj2:position())
- * end
- */
-export function distanceBetween(first: XR_game_object, second: XR_game_object): number {
-  return first.position().distance_to(second.position());
-}
-
-/**
- * -- +��� ���� ������ nil, �������� ��� ������, �� �������, ��� �� ������
- * function distance_between_safe(obj1, obj2)
- *  if(obj1 == nil or obj2 == nil) then return 100000 end
- *  return obj1:position():distance_to(obj2:position())
- * end
- */
-export function distanceBetweenSafe(first: Optional<XR_game_object>, second: Optional<XR_game_object>): number {
-  if (first == null || second == null) {
-    return 100000;
-  }
-
-  return first.position().distance_to(second.position());
-}
-
-/**
  * function reset_action (npc, script_name)
  *  if npc:get_script () then
  *    npc:script (false, script_name)
