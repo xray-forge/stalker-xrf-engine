@@ -87,3 +87,42 @@ export function distanceBetweenSafe(first: Optional<XR_game_object>, second: Opt
 
   return MAX_DISTANCE;
 }
+
+/**
+ * function vector_cmp(a, b)
+ *    return a.x == b.x and a.y == b.y and a.z == b.z
+ * end
+ */
+export function vectorCmp(first: XR_vector, second: XR_vector): boolean {
+  return first.x == second.x && first.y == second.y && first.z == second.z;
+}
+
+/**
+ * function vector_cmp_prec(a, b, d)
+ *    return math.abs(a.x - b.x) <= d and
+ *           math.abs(a.y - b.y) <= d and
+ *           math.abs(a.z - b.z) <= d
+ * end
+ */
+export function vectorCmpPrec(first: XR_vector, second: XR_vector, d: number): boolean {
+  return math.abs(first.x - second.x) <= d && math.abs(first.y - second.y) <= d && math.abs(first.z - second.z) <= d;
+}
+
+/**
+ *
+ * --' ���������� ���������� ����� ����� ������� ����� � ������ �������� �������
+ * function graph_distance(vid1, vid2)
+ *  local p1 = game_graph():vertex(vid1):game_point()
+ *  local p2 = game_graph():vertex(vid2):game_point()
+ *
+ *  --printf("GRAPH DISTANCE [%s][%s][%s] : [%s][%s][%s]", p1.x, p1.y, p1.z, p2.x, p2.y, p2.z)
+ *
+ *  return game_graph():vertex(vid1):game_point():distance_to(game_graph():vertex(vid2):game_point())
+ * end
+ */
+export function graphDistance(vertexId1: number, vertexId2: number): number {
+  const point1: XR_vector = game_graph().vertex(vertexId1).game_point();
+  const point2: XR_vector = game_graph().vertex(vertexId2).game_point();
+
+  return game_graph().vertex(vertexId1).game_point().distance_to(game_graph().vertex(vertexId2).game_point());
+}

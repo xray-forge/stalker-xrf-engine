@@ -665,7 +665,7 @@ function hit_by_killer(actor, npc, p)
 	local h = hit()
 	h.draftsman = npc
 	h.type = hit.wound
-	h.direction = utils.vector_copy_by_val(p1):sub(p2)
+	h.direction = vector():set(p1):sub(p2)
 	h.bone = p[1]
 	h.power = p[2]
 	h.impulse = p[3]

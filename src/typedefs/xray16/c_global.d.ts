@@ -257,7 +257,7 @@ declare global {
   function device(this: void): XR_render_device;
   function cast_planner(this: void, a: unknown): unknown;
   function IsGameTypeSingle(this: void): unknown;
-  function game_graph(this: void): unknown;
+  function game_graph(this: void): XR_CGameGraph;
   function dik_to_bind(this: void,keycode: number): number;
   function render_get_dx_level(this: void): number;
   function GetFontGraffiti19Russian(this: void): unknown;

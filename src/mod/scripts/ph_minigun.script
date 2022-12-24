@@ -130,7 +130,7 @@ function action_mgun:reset_scheme(loading)
 
 				self.path_fire = self.st.path_fire
 				self.path_fire_point = nil
-				--' Запоминаем позицию куда стрелять.
+				--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 				if self.path_fire ~= nil then
 						if level.patrol_path_exists(self.path_fire) then
 								self.path_fire_point = patrol(self.path_fire):point(0)
@@ -143,11 +143,11 @@ function action_mgun:reset_scheme(loading)
 				self.def_fire_rep = self.st.fire_rep
 				self.fire_rep = self.def_fire_rep
 
-				printf("car <fire>: def_rep = %d (%s)", self.fire_rep, utils.to_str(self.st.fire_rep))
+				-- printf("car <fire>: def_rep = %d (%s)", self.fire_rep, utils.to_str(self.st.fire_rep))
 
 				self.fire_range_sqr = self.st.fire_range * self.st.fire_range
 
-				--' Стрельба по патрульным точкам.
+				--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
 				if self.state_firetarget == state_firetarget_points and self.path_fire then
 						printf("car <state>: firetarget = points")
 						self.state_cannon = state_cannon_follow
@@ -213,7 +213,7 @@ end
 
 function action_mgun:fastcall()
 	if db.storage[self.object:id()].active_scheme ~= "ph_minigun" then
-		--' Если активная схема - не машина, снять быстрый апдейт
+		--' пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ - пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 				self:set_shooting(0)
 		return true
 	end
@@ -267,7 +267,7 @@ function action_mgun:fast_update()
 		if xr_logic.mob_captured(self.object) and not self.object:action() then
 				printf("car <state>: stopped")
 					self:destroy_car()
-			return true -- апдейты больше не нужны
+			return true -- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 		end
 		return false
 	end
@@ -296,7 +296,7 @@ function action_mgun:fast_update()
 		end
 
 			if self.state_firetarget == state_firetarget_points then
-						--' Стрельба по точкам
+						--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 					local fire_angle = angle_xz(self.object, self.path_fire_point, self.start_direction)
 			local can_rotate = fire_angle <= self.st.fire_angle*math.pi/360 and fire_angle >= -(self.st.fire_angle*math.pi/360)
 
@@ -413,7 +413,7 @@ function add_to_binder(npc, ini, scheme, section, storage)
 
 	local new_action = action_mgun(npc, storage)
 
-	-- Зарегистрировать все actions, в которых должен быть вызван метод reset_scheme при изменении настроек схемы:
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ actions, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ reset_scheme пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ:
 	xr_logic.subscribe_action_for_events(npc, storage, new_action)
 end
 function set_scheme(npc, ini, scheme, section, gulag_name)
@@ -421,15 +421,15 @@ function set_scheme(npc, ini, scheme, section, gulag_name)
 
 		st.logic            = xr_logic.cfg_get_switch_conditions(ini, section, npc)
 			st.path_fire        = utils.cfg_get_string(ini, section, "path_fire",       npc, false, gulag_name, nil)
-			st.auto_fire        = utils.cfg_get_bool(ini,   section, "auto_fire",       npc, false, false) --' Стрелять или нет.
-			st.fire_time        = utils.cfg_get_number(ini, section, "fire_time",       npc, false, def_min_fire_time) --' Время стрельбы
-			st.fire_rep         = utils.cfg_get_number(ini, section, "fire_repeat",     npc, false, def_fire_rep) --' Время задержки
-			st.fire_range       = utils.cfg_get_number(ini, section, "fire_range",      npc, false, def_fire_range) --' Расстояние при которой стреляем
-			st.fire_target      = utils.cfg_get_string(ini, section, "target",          npc, false, gulag_name, "points") --' Цель: actor|story_ids|points
-			st.fire_track_target= utils.cfg_get_bool(ini,   section, "track_target",    npc, false, false)  --' Преследовать цель.
-		st.fire_angle		= utils.cfg_get_number(ini, section, "fire_angle",    npc, false, def_fire_angle) --' Угол обзора
+			st.auto_fire        = utils.cfg_get_bool(ini,   section, "auto_fire",       npc, false, false) --' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ.
+			st.fire_time        = utils.cfg_get_number(ini, section, "fire_time",       npc, false, def_min_fire_time) --' пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+			st.fire_rep         = utils.cfg_get_number(ini, section, "fire_repeat",     npc, false, def_fire_rep) --' пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+			st.fire_range       = utils.cfg_get_number(ini, section, "fire_range",      npc, false, def_fire_range) --' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+			st.fire_target      = utils.cfg_get_string(ini, section, "target",          npc, false, gulag_name, "points") --' пїЅпїЅпїЅпїЅ: actor|story_ids|points
+			st.fire_track_target= utils.cfg_get_bool(ini,   section, "track_target",    npc, false, false)  --' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ.
+		st.fire_angle		= utils.cfg_get_number(ini, section, "fire_angle",    npc, false, def_fire_angle) --' пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 		st.shoot_only_on_visible =  utils.cfg_get_bool(ini, section, "shoot_only_on_visible", npc, false, true)
 
-			st.on_target_vis    = xr_logic.cfg_get_string_and_condlist(ini, section, "on_target_vis", npc) --' Условие перехода
-			st.on_target_nvis   = xr_logic.cfg_get_string_and_condlist(ini, section, "on_target_nvis", npc) --' Условие перехода
+			st.on_target_vis    = xr_logic.cfg_get_string_and_condlist(ini, section, "on_target_vis", npc) --' пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+			st.on_target_nvis   = xr_logic.cfg_get_string_and_condlist(ini, section, "on_target_nvis", npc) --' пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 end

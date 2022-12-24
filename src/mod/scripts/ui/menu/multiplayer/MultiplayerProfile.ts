@@ -1,7 +1,7 @@
 import { Optional } from "@/mod/lib/types";
 import { IMultiplayerMenu } from "@/mod/scripts/ui/menu/MultiplayerMenu";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
+import { isWideScreen, resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
 const base: string = "menu\\multiplayer\\MultiplayerAwards.component";
 const log: LuaLogger = new LuaLogger("MultiplayerProfile");
@@ -236,7 +236,7 @@ export const MultiplayerProfile: IMultiplayerProfile = declare_xr_class("Multipl
 
         let tmp = 0;
 
-        if (get_global("utils").is_widescreen()) {
+        if (isWideScreen()) {
           tmp = 96 + 16;
         } else {
           tmp = 121 + 21;

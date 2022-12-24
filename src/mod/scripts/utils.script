@@ -1,54 +1,22 @@
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "utils");
 
---[[
-ОПИСАНИЕ ФУНКЦИЙ
+log:info("Initialize utils")
 
--- Выводит отладочное сообщение в лог, если скрипт активен (активный скрипт выбирается с помощью
--- переменной debug_info.trace_script).
-function trace(script_name, fmt, ...)
+--
 
--- Переводит переменную любого типа (включая nil) в строку. Используется для отладочного вывода информации.
-function to_str(what)
+local utilsPhysics = require("scripts.utils.physics")
 
--- Создает и возвращает копию вектора
-function vector_copy_by_val(vec)
+vector_cmp = utilsPhysics.vectorCmp
+vector_cmp_prec = utilsPhysics.vectorCmpPrec
+graph_distance = utilsPhysics.graphDistance
 
--- Настройка параметров игровых объектов:
-function cfg_get_bool(char_ini, section, field, object, mandatory, default_val)
-function cfg_get_string(char_ini, section, field, object, mandatory, gulag_name, default_val)
-function cfg_get_number(char_ini, section, field, object, mandatory, default_val)
-
--- Проверяет, находится ли stalker рядом с точкой path_point пути patrol_path
-function stalker_at_waypoint(stalker, patrol_path, path_point)
-
--- Послать stalker в заданную точку patrol_path(path_point)
-function stalker_go_to_waypoint(stalker, patrol_path, path_point)
-
---]]
-
-----------------------------------------------------------------------------------------------------
-
--- Выводит отладочное сообщение в лог, если скрипт активен (активный скрипт выбирается с помощью
--- переменной debug_info.trace_script).
---function trace(script_name, fmt, ...)
---	if debug_info.trace_script == script_name then
---		log(string.format("[TRACE] " .. script_name .. ".script: " .. fmt, unpack(arg)))
---	end
---end
-
--- Переводит переменную любого типа (включая nil) в строку. Используется для отладочного вывода информации.
-function to_str(what)
-	if what == nil then
-		return "<nil>"
-	else
-		return tostring(what)
-	end
-end
-
---'Копирование таблицы по значению
+--'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 function copy_table(dest, src)
 	for k,v in pairs(src) do
 		if type(v) == "table" then
-			--' рекурсивный вызов себя же для подтаблиц
+			--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 			dest[k] = {}
 			copy_table(dest[k], v)
 		else
@@ -57,74 +25,15 @@ function copy_table(dest, src)
 	end
 end
 
-function print_table()
-	local sub
-	if subs ~= nil then
-		sub = subs
-	else
-		sub = ""
-	end
-	for k,v in pairs(table) do
-		if type(v) == "table" then
-			printf(sub.."%s:", tostring(k))
-			print_table(v, sub.."    ")
-		elseif type(v) == "function" then
-			printf(sub.."%s:function", tostring(k))
-		elseif type(v) == "userdata" then
-			printf(sub.."%s:userdata", tostring(k))
-		elseif type(v) == "boolean" then
-	if v == true then
-		printf(sub.."%s:true", tostring(k))
-	else
-		printf(sub.."%s:false", tostring(k))
-	end
-		else
-			if v ~= nil then
-				printf(sub.."%s:%s", tostring(k),v)
-			else
-				printf(sub.."%s:nil", tostring(k),v)
-			end
-		end
-	end
-end
-
---' Возвращает расстояние между двумя точками графа с учетом разности уровней
-function graph_distance(vid1, vid2)
-	local p1 = game_graph():vertex(vid1):game_point()
-	local p2 = game_graph():vertex(vid2):game_point()
-
-	--printf("GRAPH DISTANCE [%s][%s][%s] : [%s][%s][%s]", p1.x, p1.y, p1.z, p2.x, p2.y, p2.z)
-
-	return game_graph():vertex(vid1):game_point():distance_to(game_graph():vertex(vid2):game_point())
-end
-
---' Сравнивает два вектора
-function vector_cmp(a, b)
-		return a.x == b.x and a.y == b.y and a.z == b.z
-end
-
---' Сравнивает два вектора с заданной погрешностью
-function vector_cmp_prec(a, b, d)
-		return math.abs(a.x - b.x) <= d and
-					 math.abs(a.y - b.y) <= d and
-					 math.abs(a.z - b.z) <= d
-end
-
-
--- Создает и возвращает копию вектора
-function vector_copy_by_val(vec)
-	return vector():set(vec)
-end
-
--- Настройка параметра типа bool у игрового объекта.
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ bool пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 --
--- char_ini - указатель на customdata (обычно object:spawn_ini())
--- section - имя секции в customdata
--- field - имя поля в customdata
--- object - игровой объект, от которого будет взято имя для сообщения об ошибке
--- mandatory - поле обязательно должно быть задано
+-- char_ini - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ customdata (пїЅпїЅпїЅпїЅпїЅпїЅ object:spawn_ini())
+-- section - пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ customdata
+-- field - пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ customdata
+-- object - пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+-- mandatory - пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 --
--- Возвращает true или false
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ true пїЅпїЅпїЅ false
 function cfg_get_bool(char_ini, section, field, object, mandatory, default_val)
 	if mandatory == nil then
 		abort("section '%s': wrong arguments order in call to cfg_get_bool", section)
@@ -212,7 +121,7 @@ function mob_get_bool(char_ini, section, field, override, object, mandatory, def
 	return cfg_get_bool(char_ini, section, field, object, mandatory, default_val)
 end
 
--- Проверяет, находится ли stalker рядом с точкой path_point пути patrol_path
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ stalker пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ path_point пїЅпїЅпїЅпїЅ patrol_path
 function stalker_at_waypoint(stalker, patrol_path, path_point)
 --	return stalker:level_vertex_id() == patrol_path:level_vertex_id(path_point)
 
@@ -225,7 +134,7 @@ function stalker_at_waypoint(stalker, patrol_path, path_point)
 
 end
 
--- Послать stalker в заданную точку patrol_path(path_point)
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ stalker пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ patrol_path(path_point)
 --[[
 function stalker_go_to_waypoint(stalker, patrol_path, path_point)
 	if stalker:animation_count() > 0 then
@@ -301,7 +210,7 @@ function door_init(door)
 	door:set_use_callback(door_default_callback)
 end
 
--- Дверь door импульсом захлопнется и залочится, при юзе будет вызываться callback_fn
+-- пїЅпїЅпїЅпїЅпїЅ door пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ callback_fn
 function door_close_then_lock(door, callback_fn)
 	local ph_shell = door:get_physics_shell()
 	local joint = ph_shell:get_joint_by_bone_name("door")
@@ -317,10 +226,10 @@ function door_close_then_lock(door, callback_fn)
 	end
 end
 
---unlock_then_open(door) -- дверь разлочится и импульсом откроется
---locked(door) -- true, если дверь закрыта и залочена
+--unlock_then_open(door) -- пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+--locked(door) -- true, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
---При попытке поюзать незапертую дверь она просто силой открывается до максимально допустимого состояния.
+--пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 
 function parse_waypoint_data(pathname, wpflags, wpname)
 	local rslt = {}
@@ -496,7 +405,7 @@ function electro_art_enabled ()
 end
 
 function no_need_to_rotate(npc, target_pos)
-	local y = yaw(npc:direction(), utils.vector_copy_by_val(target_pos):sub(npc:position()))
+	local y = yaw(npc:direction(), vector():set(target_pos):sub(npc:position()))
 
 	return y < 0.3
 end
@@ -504,24 +413,24 @@ end
 function no_need_to_rotate_xz(npc, target_pos)
 	local dir1 = npc:direction()
 	dir1.y = 0
-	local dir2 = utils.vector_copy_by_val(target_pos):sub(npc:position())
+	local dir2 = vector():set(target_pos):sub(npc:position())
 	dir2.y = 0
 	local y = yaw(dir1, dir2)
 
 	return y < 0.3
 end
 
--- Перевод угла из радианов в градусы
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 function rad2deg(r)
 	return r * 180.0 / math.pi
 end
 
--- Перевод угла из градусов в радианы
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 function deg2rad(d)
 	return d * math.pi / 180.0
 end
 
--- угол между двумя векторами в градусах.
+-- пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 function angle_diff(a1, a2)
 	local b1 = a1:normalize()
 	local b2 = a2:normalize()
@@ -530,7 +439,7 @@ function angle_diff(a1, a2)
 	return rad2deg(math.acos(math.abs(dotp)))
 end
 
--- true, если нужно поворачивать влево
+-- true, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 function angle_left(dir1, dir2)
 	local dir_res = vector()
 	dir_res:crossproduct(dir1, dir2)
@@ -567,14 +476,14 @@ function npc_in_zone(npc, zone)
 	return npc ~= nil and zone ~= nil and zone:inside(npc:position())
 end
 
-------------------------- запись/загрузка CTime ---------------------------
+------------------------- пїЅпїЅпїЅпїЅпїЅпїЅ/пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ CTime ---------------------------
 local CTime_0
 
 if not editor() then
 	CTime_0 = game.CTime()
 end
 
--- запись CTime в пакет. если t=nil, то запишет один нулевой байт
+-- пїЅпїЅпїЅпїЅпїЅпїЅ CTime пїЅ пїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅ t=nil, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 function w_CTime( p, t )
 	--set_save_marker(p, "save", false, "CTIME")
 	if t == nil then
@@ -600,7 +509,7 @@ function w_CTime( p, t )
 	--set_save_marker(p, "save", true, "CTIME")
 end
 
--- чтение CTime из пакета
+-- пїЅпїЅпїЅпїЅпїЅпїЅ CTime пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 function r_CTime( p )
 	--set_save_marker(p, "load", false, "CTIME")
 	local Y = p:r_u8()
@@ -622,8 +531,8 @@ function r_CTime( p )
 end
 ---------------------------------------------------------------------------
 
--- отослать в ближайшую разрешённую ноду по направлению к заданной.
--- возвращает vertex_id, в которое отправил персонажа
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ vertex_id, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 function send_to_nearest_accessible_vertex( npc, v_id )
 	if not npc:accessible( v_id ) then
 		local vtemp = vector()
@@ -636,8 +545,8 @@ function send_to_nearest_accessible_vertex( npc, v_id )
 	return v_id
 end
 
--- происходит ли в данный момент смена уровня?
--- нужно для того, чтобы объекты знали, какую информацию записывать при сохранении, а какую нет
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ?
+-- пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
 function level_changing()
 	local sim = alife()
 
@@ -678,7 +587,7 @@ end
 
 
 
---' Вычитка свойств для спауна объектов.
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 function parse_names(s)
 		local t = {}
 		for name in string.gfind( s, "([%w_%-.\\]+)%p*" ) do
@@ -688,7 +597,7 @@ function parse_names(s)
 end
 
 function parse_spawns(str)
-	--' если default-ов больше, чем значений в ini, то забить недостающие последним значением из ini
+	--' пїЅпїЅпїЅпїЅ default-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ ini, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ ini
 	local t = utils.parse_names(str)
 	local n = #t
 
@@ -697,16 +606,16 @@ function parse_spawns(str)
 	while k <= n do
 		local spawn = {}
 		spawn.section = t[k]
-		--' Проверяем что это не последняя запись
+		--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 		if t[k+1] ~= nil then
 			local p = tonumber(t[k+1])
-			--' проверяем что вторым числом задана вероятность, а не другая секция спавну
+			--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 			if p then
-				--' забиваем число
+				--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 				spawn.prob = p
 				k = k + 2
 			else
-				--' забиваем дефолт 1
+				--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ 1
 				spawn.prob = 1
 				k = k + 1
 			end
@@ -722,7 +631,7 @@ end
 
 function r_2nums( spawn_ini, section, line, def1, def2 )
 	if spawn_ini:line_exist( section, line ) then
-		-- если default-ов больше, чем значений в ini, то забить недостающие последним значением из ini
+		-- пїЅпїЅпїЅпїЅ default-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ ini, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ ini
 		local t = utils.parse_names( spawn_ini:r_string( section, line ) )
 		local n = #t
 
@@ -736,16 +645,6 @@ function r_2nums( spawn_ini, section, line, def1, def2 )
 	else
 		return def1, def2
 	end
-end
-
-
-function parse_target(target)
-		local pos = string.find(target, ",")
-		if pos then
-				return string.sub(target, 1, pos - 1), string.sub(target, pos + 1)
-		else
-				return target, nil
-		end
 end
 
 function parse_data(npc,s)
@@ -816,8 +715,4 @@ function parse_syn_data(npc,s)
 	end
 
 		return t
-end
-
-function is_widescreen()
-	return (device().width/device().height>1024/768+0.01)
 end

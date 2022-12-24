@@ -1,7 +1,7 @@
 ----------------------------------------------------------------------------------------------------
 -- Apply directional hit to the object
 ----------------------------------------------------------------------------------------------------
--- Исходный скрипт: Oleg Hryptul (Haron) haronk@ukr.net
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ: Oleg Hryptul (Haron) haronk@ukr.net
 ----------------------------------------------------------------------------------------------------
 
 class "action_hit"
@@ -16,7 +16,7 @@ end
 
 function action_hit:reset_scheme()
 	printf("_hr: action_hit:reset_scheme: self.object:name()='%s'", self.object:name())
-	
+
 	local p1 = patrol(self.st.dir_path):point(0)
 	local p2 = self.object:position()
 	local h = hit()
@@ -24,10 +24,10 @@ function action_hit:reset_scheme()
 	h.impulse   = self.st.impulse
 	h:bone(self.st.bone)
 	h.type      = hit.strike
-	h.direction = utils.vector_copy_by_val(p1):sub(p2)
+	h.direction = vector():set(p1):sub(p2)
 	h.draftsman = self.object
 	self.object:hit(h)
-	
+
 	--printf("_hr: action_hit:reset_scheme: p1=%f,%f,%f", p1.x, p1.y, p1.z)
 	--printf("_hr: action_hit:reset_scheme: p2=%f,%f,%f", p2.x, p2.y, p2.z)
 	--printf("_hr: action_hit:reset_scheme: bone = %d", h.bone)
@@ -49,7 +49,7 @@ function action_hit:update(delta)
 	if xr_logic.try_switch_to_another_section(self.object, self.st, actor) then
 		return
 	end
-	
+
 end
 
 --[[
@@ -77,7 +77,7 @@ function add_to_binder(npc, ini, scheme, section, storage)
 
 	local new_action = action_hit(npc, storage)
 
-	-- Зарегистрировать все actions, в которых должен быть вызван метод reset_scheme при изменении настроек схемы:
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ actions, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ reset_scheme пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ:
 	xr_logic.subscribe_action_for_events(npc, storage, new_action)
 end
 
@@ -85,7 +85,7 @@ function set_scheme(npc, ini, scheme, section, gulag_name)
 	local st = xr_logic.assign_storage_and_bind(npc, ini, scheme, section)
 
 	st.logic = xr_logic.cfg_get_switch_conditions(ini, section, npc)
-	
+
 	st.power    = utils.cfg_get_number(ini, section, "power", npc, false, 0)
 	st.impulse  = utils.cfg_get_number(ini, section, "impulse", npc, false, 1000)
 	st.bone     = utils.cfg_get_string(ini, section, "bone", npc, true, "")

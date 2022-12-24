@@ -2,11 +2,11 @@
 ----------------------------------------------------------------------------------------------------
 -- Mob remarks
 ----------------------------------------------------------------------------------------------------
--- Разработчик: Andrey Fidrya (Zmey) af@svitonline.com
--- Исходный скрипт (trader): Evgeniy Negrobov (Jon) jon@gsc-game.kiev.ua
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: Andrey Fidrya (Zmey) af@svitonline.com
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (trader): Evgeniy Negrobov (Jon) jon@gsc-game.kiev.ua
 ----------------------------------------------------------------------------------------------------
 
-local default_wait_time = 5000 -- время в ms, или nil для anim_end condition
+local default_wait_time = 5000 -- пїЅпїЅпїЅпїЅпїЅ пїЅ ms, пїЅпїЅпїЅ nil пїЅпїЅпїЅ anim_end condition
 local default_anim_standing = anim.stand_idle
 
 local state_moving = 0
@@ -58,7 +58,7 @@ function mob_walker:reset_scheme()
 	self.crouch = false
 	self.running = false
 	self.cur_anim_set = default_anim_standing
-	self.pt_wait_time = default_wait_time -- сколько ждать в точке, где играем анимацию
+	self.pt_wait_time = default_wait_time -- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
 	self.scheduled_snd = nil
 
@@ -75,7 +75,7 @@ function mob_walker:update(delta)
 	--	return
 	--end
 	local actor = db.actor
-	-- Монстр после выхода из alife может уже быть не под скриптом, поэтому взять опять под скрипт
+	-- пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ alife пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 	if not xr_logic.mob_captured(self.object) then
 		self:reset_scheme()
 		return
@@ -96,7 +96,7 @@ function mob_walker:update(delta)
 			else
 				self.last_look_index = nil
 				self.state = state_moving
-				self:update_movement_state() -- идти дальше
+				self:update_movement_state() -- пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 			end
 		end
 	end
@@ -153,9 +153,9 @@ function mob_walker:waypoint_callback(obj, action_type, index)
 
 	local search_for = self.path_walk_info[index].flags
 	if search_for:get() == 0 then
-		-- TODO: запретить одноточечные пути без соответствующего path_look по аналогии с move_mgr
+		-- TODO: пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ path_look пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ move_mgr
 		printf("_bp: no flags")
-		self:update_movement_state() -- идти дальше
+		self:update_movement_state() -- пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 		return
 	end
 
@@ -190,14 +190,14 @@ function mob_walker:waypoint_callback(obj, action_type, index)
 			mob_state_mgr.set_state(self.object, db.actor, self.st.state)
 		end
 
-		if pt_chosen_idx ~= self.last_look_index then -- если уже смотрели туда - не поворачиваться
-			self:look_at_waypoint(pt_chosen_idx) -- поворачиваемся
+		if pt_chosen_idx ~= self.last_look_index then -- пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ - пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+			self:look_at_waypoint(pt_chosen_idx) -- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		end
 		self.state = state_standing
 		self:update_standing_state()
 
-		-- Сразу же стартовать update, не ждать execute. Тогда, если мы уже смотрим
-		-- в нужную сторону - не будет паузы в несколько миллисекунд на поворот.
+		-- пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ update, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ execute. пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+		-- пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 		self:update(true)
 	else
 		abort("object '%s': path_walk '%s', index.ts %d: cannot find corresponding point(s) on path_look '%s'",
@@ -251,7 +251,7 @@ function mob_walker:look_at_waypoint(pt)
 		return
 	end
 
-	local look_pt = utils.vector_copy_by_val(self.patrol_look:point(pt)):sub(self.object:position())
+	local look_pt = vector():set(self.patrol_look:point(pt)):sub(self.object:position())
 	look_pt:normalize()
 	--self.object:set_sight(look.direction, look_pt, 0)
 
@@ -267,7 +267,7 @@ function add_to_binder(npc, ini, scheme, section, storage)
 
 	local new_action = mob_walker(npc, storage)
 
-	-- Зарегистрировать все actions, в которых должен быть вызван метод reset_scheme при изменении настроек схемы:
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ actions, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ reset_scheme пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ:
 	xr_logic.subscribe_action_for_events(npc, storage, new_action)
 end
 
@@ -284,7 +284,7 @@ function set_scheme(npc, ini, scheme, section, gulag_name)
 		abort("You are trying to set 'path_look' equal to 'path_walk' in section [%s] for npc [%s]", section, npc:name())
 	end
 
-	st.path_walk_info = nil -- Будут инициализированы в reset(), сейчас пути могут быть еще
-	st.path_look_info = nil -- не загружены.
+	st.path_walk_info = nil -- пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ reset(), пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
+	st.path_look_info = nil -- пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 end
 

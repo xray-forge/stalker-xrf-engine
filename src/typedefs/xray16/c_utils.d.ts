@@ -586,22 +586,35 @@ declare global {
   }
 
   /**
-   C++ class CGameGraph {
-    function valid_vertex_id(number) const;
-
-    function vertex(number) const;
-
-    function accessible(const CGameGraph*, const number&);
-    function accessible(const CGameGraph*, const number&, boolean);
-
-    function levels(const CGameGraph*);
-
-    function vertex_id(const GameGraph__CVertex*) const;
-
-  };
+   *  C++ class CGameGraph {
+   *     function valid_vertex_id(number) const;
+   *
+   *     function vertex(number) const;
+   *
+   *     function accessible(const CGameGraph*, const number&);
+   *     function accessible(const CGameGraph*, const number&, boolean);
+   *
+   *     function levels(const CGameGraph*);
+   *
+   *     function vertex_id(const GameGraph__CVertex*) const;
+   *
+   *   };
+   *
+   *  @customConstructor CGameGraph
    */
+  class XR_CGameGraph {
+    public valid_vertex_id(this: void, value: number): unknown;
 
-  // todo;
+    public vertex(vertexId: number): XR_GameGraph__CVertex;
+
+    public accessible(value: number): unknown;
+    public accessible(value1: number, value2: boolean): unknown;
+
+    public levels(): unknown;
+
+    public vertex_id(): number;
+
+  }
 
   /**
    C++ class hit {
@@ -773,19 +786,27 @@ declare global {
   // todo;
 
   /**
-   C++ class GameGraph__CVertex {
-    function level_vertex_id() const;
-
-    function game_point(const GameGraph__CVertex*);
-
-    function level_id() const;
-
-    function level_point(const GameGraph__CVertex*);
-
-  };
+   *  C++ class GameGraph__CVertex {
+   *     function level_vertex_id() const;
+   *
+   *     function game_point(const GameGraph__CVertex*);
+   *
+   *     function level_id() const;
+   *
+   *     function level_point(const GameGraph__CVertex*);
+   *
+   *   };
    */
+  class XR_GameGraph__CVertex {
+    public level_vertex_id(): number;
 
-  // todo;
+    public level_id(): number;
+
+    public game_point(): XR_vector;
+
+    public level_point(): XR_vector;
+
+  }
 
   /**
    C++ class FactionState {
