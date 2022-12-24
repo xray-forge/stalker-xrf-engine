@@ -1,3 +1,5 @@
+export type AnyObject = Record<string, any>;
+
 export type Optional<T> = T | null;
 
 export type Definable<T> = T | undefined;

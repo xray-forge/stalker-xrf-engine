@@ -1,4 +1,4 @@
-import { Optional } from "@/mod/lib/types";
+import { AnyObject, Optional } from "@/mod/lib/types";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("utils/general");
@@ -41,38 +41,32 @@ export function vectorToString(vector: Optional<XR_vector>): Optional<string> {
  *  return      (true)
  * end
  */
-export function isEmpty(container: any): boolean {
+export function isEmpty(container: Optional<LuaIterable<any>>): boolean {
   log.info("Check is empty:", type(container), tostring(container));
 
-  let isEmptyElement: boolean = true;
-
   if (container === null) {
-    return isEmptyElement;
+    return true;
   }
 
   if (type(container) === "function") {
-    forin(container, (acc, index, stop) => {
-      isEmptyElement = false;
-      stop();
-    });
+    for (const it of container) {
+      return false;
+    }
 
-    return isEmptyElement;
+    return true;
   }
 
   assert(type(container) == "table");
 
-  if (container[1] !== null) {
+  if ((container as AnyObject)[1] !== null) {
     return false;
   }
 
-  log.info("Check is empty:", type(pairs(container)), tostring(pairs(container)));
+  for (const _ of pairs(container)) {
+    return false;
+  }
 
-  forin(pairs(container), (acc, index, stop) => {
-    isEmptyElement = false;
-    stop();
-  });
-
-  return isEmptyElement;
+  return true;
 }
 
 /**

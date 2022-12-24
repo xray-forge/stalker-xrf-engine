@@ -63,7 +63,7 @@ local utilsUnknown = require("scripts.utils.unknown")
 -- set_save_marker = utilsGameSaves.setSaveMarker
 
 -- vec_to_str = utilsGeneral.vectorToString
--- empty = utilsGeneral.isEmpty
+empty = utilsGeneral.isEmpty
 -- round = utilsGeneral.round
 -- add = utilsGeneral.add
 -- if_then_else = utilsGeneral.ifThenElse
@@ -93,23 +93,6 @@ time_infinite = 100000000
 
 if (jit == nil) then
 	profiler.setup_hook	()
-end
-
-function empty(container)
-	if (type(container) == "function") then
-		for i in container do
-			return	(false)
-		end
-		return		(true)
-	end
-	assert			(type(container) == "table")
-	if (container[1] ~= nil) then
-		return		(false)
-	end
-	for i,j in pairs(container) do
-		return		(false)
-	end
-	return			(true)
 end
 
 schemes = {} -- ������������ ���� �������

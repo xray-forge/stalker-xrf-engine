@@ -5,7 +5,7 @@ declare interface LUA_String {
   find(this: void, s: string, pattern: unknown, init?: number, plain?: boolean): number | null;
   gfind(this: void, s: string, pattern: unknown, init?: number, plain?: boolean): Array<string>;
   format(this: void, formatstring: string, ...rest: Array<string | number>): string;
-  gmatch(this: void, s: unknown, pattern: unknown): unknown;
+  gmatch(this: void, s: unknown, pattern: unknown): LuaIterable<LuaMultiReturn<Array<string>>>;
   gsub(this: void, s: string, pattern: string, repl: string, n?: unknown): LuaMultiReturn<[string, number]>;
   len(this: void, str: string): number;
   lower(this: void, s: unknown): unknown;
@@ -87,7 +87,7 @@ declare const require: (modulePath: string) => any;
 
 declare const assert: (condition: boolean) => void;
 
-declare const pairs: (table: LuaTable) => Array<[string, any]>;
+declare const pairs: (table: LuaIterable<any, any>) => LuaIterable<Array<[string, any]>>;
 
 declare const coroutine: ILUA_Coroutine;
 
