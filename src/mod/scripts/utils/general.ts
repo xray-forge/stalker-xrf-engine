@@ -26,7 +26,7 @@ export function isEmpty(container: Optional<LuaIterable<any>>): boolean {
     return false;
   }
 
-  for (const _ of pairs(container)) {
+  for (const [k, v] of pairs(container)) {
     return false;
   }
 

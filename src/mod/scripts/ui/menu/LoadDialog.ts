@@ -3,7 +3,7 @@ import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
 import { deleteGameSave, gatFileDataForGameSave, isGameSaveFileExist } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
+import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
 const base: string = "menu\\LoadDialog.component";
 const log: LuaLogger = new LuaLogger("LoadDialog");

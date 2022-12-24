@@ -1,7 +1,7 @@
 import { Optional } from "@/mod/lib/types";
 import { IMultiplayerMenu } from "@/mod/scripts/ui/menu/MultiplayerMenu";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
+import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
 const base: string = "menu\\multiplayer\\MultiplayerAwards.component";
 const log: LuaLogger = new LuaLogger("MultiplayerProfile");

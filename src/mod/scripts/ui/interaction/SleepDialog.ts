@@ -2,7 +2,7 @@ import { captions } from "@/mod/globals/captions";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { resolveXmlFormPath, isWideScreen } from "@/mod/scripts/utils/rendering";
+import { resolveXmlFormPath, isWideScreen } from "@/mod/scripts/utils/ui";
 
 const base: string = "interaction\\SleepDialog.component";
 const log: LuaLogger = new LuaLogger("SleepDialog");
@@ -259,4 +259,7 @@ export function sleep(): void {
 }
 
 // @ts-ignore Todo: Get rid of globals
-main = () => sleepImpl();
+main = () => {
+  log.info("[main] Call sleep from main");
+  sleep();
+};

@@ -16,17 +16,17 @@ declare const get_global: <T = any>(key: string) => T;
 /**
  * Binding of native lua table interface.
  */
-declare const lua_string: LUA_String;
+declare const lua_string: ILUAString;
 
 /**
  * Binding of native lua string interface.
  */
-declare const lua_table: LUA_Table;
+declare const lua_table: ILUATable;
 
 /**
  * Binding of native lua math interface.
  */
-declare const lua_math: LUA_Math;
+declare const lua_math: ILUAMath;
 
 /**
  * Forin implementation for usage without TSTL transpiling.

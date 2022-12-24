@@ -1,4 +1,21 @@
-declare interface LUA_String {
+declare interface ILUADebug {
+  getinfo(this: void, thread: number, f?: unknown, what?: unknown): LuaIterable<any> ;
+  getlocal(this: void, thread: unknown, f: unknown, d: unknown): unknown ;
+  getmetatable(this: void, value: unknown): unknown ;
+  getregistry(this: void): unknown ;
+  getupvalue(this: void, f: unknown, up: unknown): unknown ;
+  getuservalue(this: void, u: unknown, n: unknown): unknown ;
+  sethook(this: void, thread: unknown, hook: unknown, mask: unknown, count: unknown): unknown ;
+  setlocal(this: void, thread: unknown, level: unknown, d: unknown, value: unknown): unknown ;
+  setmetatable(this: void, value: unknown, table: unknown): unknown ;
+  setupvalue(this: void, f: unknown, up: unknown, value: unknown): unknown ;
+  setuservalue(this: void, udata: unknown, value: unknown, n: unknown): unknown ;
+  traceback(this: void, thread: number, message?: unknown, level?: unknown): unknown ;
+  upvalueid(this: void, f: unknown, n: unknown): unknown ;
+  upvaluejoin(this: void, f1: unknown, n1: unknown, f2: unknown, n2: unknown): unknown ;
+}
+
+declare interface ILUAString {
   byte(this: void, s: unknown, i: unknown, j: unknown): unknown;
   char(this: void, ...rest: Array<unknown>): unknown;
   dump(this: void, func: unknown, strip: unknown): unknown;
@@ -19,7 +36,7 @@ declare interface LUA_String {
   upper(this: void, s: unknown): unknown;
 }
 
-declare interface LUA_Table {
+declare interface ILUATable {
   concat(this: void, list: unknown, sep: unknown, i: unknown, j: unknown): unknown;
   insert(this: void, list: unknown, pos: unknown, value: unknown): unknown;
   insert(this: void, list: unknown, value?: unknown): unknown;
@@ -28,7 +45,7 @@ declare interface LUA_Table {
   sort(this: void, list: unknown, comp: unknown): unknown;
 }
 
-declare interface LUA_Math {
+declare interface ILUAMath {
   pi: number
 
   abs(this: void, x: number): number
@@ -56,7 +73,7 @@ declare interface LUA_Math {
   ult(this: void, m: number, n: number): unknown
 }
 
-declare interface ILUA_Coroutine {
+declare interface ILUACoroutine {
   isyieldable(): boolean;
   running(): boolean;
   running(): boolean;
@@ -87,16 +104,18 @@ declare const require: (modulePath: string) => any;
 
 declare const assert: (condition: boolean) => void;
 
-declare const pairs: (table: LuaIterable<any, any>) => LuaIterable<Array<[string, any]>>;
+declare const pairs: (table: LuaIterable<any, any>) => LuaIterable<LuaMultiReturn<[string, any]>>;
 
-declare const coroutine: ILUA_Coroutine;
+declare const coroutine: ILUACoroutine;
 
-declare const math: LUA_Math;
+declare const debug: ILUADebug | null;
 
-declare const string: LUA_String;
+declare const math: ILUAMath;
+
+declare const string: ILUAString;
 
 /**
- * This function is a generic interface to the garbage collector. It performs
+ * This is a generic interface to the garbage collector. It performs
  * different functions according to its first argument, `opt`:
  * ---
  * **"collect"**: performs a full garbage-collection cycle. This is the default

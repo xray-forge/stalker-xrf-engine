@@ -1,6 +1,6 @@
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { collectLuaGarbage, getLuaMemoryUsed } from "@/mod/scripts/utils/ram";
-import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
+import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
 const base: string = "debug\\DebugGeneralSection.component";
 const log: LuaLogger = new LuaLogger("DebugGeneralSection");

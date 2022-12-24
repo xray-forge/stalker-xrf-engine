@@ -24,7 +24,7 @@ local debugUtils = require("scripts.utils.debug")
 local utilsGameSaves = require("scripts.utils.game_saves")
 local utilsGeneral = require("scripts.utils.general")
 local utilsPhysics = require("scripts.utils.physics")
-local utilsRendering = require("scripts.utils.rendering")
+local utilsUi = require("scripts.utils.ui")
 local utilsTime = require("scripts.utils.time")
 local utilsUnknown = require("scripts.utils.unknown")
 
@@ -71,8 +71,6 @@ empty = utilsGeneral.isEmpty
 -- parse_key_value = utilsGeneral.parseKeyValue
 -- parse_nums = utilsGeneral.parseNums
 
--- show_all_ui = utilsRendering.showAllUi
-
 yaw = utilsPhysics.yaw
 yaw_degree = utilsPhysics.yawDegree
 yaw_degree3d = utilsPhysics.yawDegree3d
@@ -84,12 +82,23 @@ distance_between_safe = utilsPhysics.distanceBetweenSafe
 
 -- get_param_string = utilsUnknown.getParamString
 
-
 -- in_time_interval = require("scripts.utils.time").isInTimeInterval
+
+
+-- todo: Remove
+print_table = function (table)
+  log:table(table);
+end
+
+-- todo: Remove
+function printf(fmt,...)
+  log:info(string.format(fmt, ...))
+end
+
+-- =====================================================================================================================
 
 aa = nil
 time_infinite = 100000000
-
 
 if (jit == nil) then
 	profiler.setup_hook	()
@@ -112,11 +121,6 @@ dev_debug = false
 sim_debug = false
 mus_vol = 0
 amb_vol = 0
-----------------------------------------------------------------------
-
-function printf(fmt,...)
-end
-
 ----------------------------------------------------------------------
 
 if nil == time_global then
@@ -317,46 +321,6 @@ function stop_play_sound(obj)
 	if obj:alive() == true then
 		obj:set_sound_mask(-1)
 		obj:set_sound_mask(0)
-	end
-end
-
--- �������� ������� ��� ������.
-function print_table(table, subs)
-	local sub
-	if subs ~= nil then
-		sub = subs
-	else
-		sub = ""
-	end
-	for k,v in pairs(table) do
-		if type(v) == "table" then
-			printf(sub.."%s:", tostring(k))
-			print_table(v, sub.."    ")
-		elseif type(v) == "function" then
-			printf(sub.."%s:function", tostring(k))
-		elseif type(v) == "userdata" then
-			printf(sub.."%s:userdata", tostring(k))
-		elseif type(v) == "boolean" then
-			if v == true then
-				if(type(k)~="userdata") then
-					printf(sub.."%s:true", tostring(k))
-				else
-					printf(sub.."userdata:true")
-				end
-			else
-				if(type(k)~="userdata") then
-					printf(sub.."%s:false", tostring(k))
-				else
-					printf(sub.."userdata:false")
-				end
-			end
-		else
-			if v ~= nil then
-				printf(sub.."%s:%s", tostring(k),v)
-			else
-				printf(sub.."%s:nil", tostring(k),v)
-			end
-		end
 	end
 end
 
@@ -811,25 +775,5 @@ function in_time_interval(val1, val2)
 		return game_hours < val2 or game_hours >= val1
 	else
 		return game_hours < val2 and game_hours >= val1
-	end
-end
-
-function show_all_ui(show)
-	local hud = get_hud()
-	if(show) then
-		level.show_indicators()
-		--	    db.actor:restore_weapon()
-		db.actor:disable_hit_marks(false)
-		hud:show_messages()
-	else
-		if db.actor:is_talking() then
-			db.actor:stop_talk()
-		end
-		level.hide_indicators_safe()
-		hud:HideActorMenu()
-		hud:HidePdaMenu()
-		hud:hide_messages()
-		--	    db.actor:hide_weapon()
-		db.actor:disable_hit_marks(true)
 	end
 end

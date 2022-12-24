@@ -5,7 +5,7 @@ import { IOptionsSound, OptionsSound } from "@/mod/scripts/ui/menu/options/Optio
 import { IOptionsVideo, OptionsVideo } from "@/mod/scripts/ui/menu/options/OptionsVideo";
 import { IOptionsVideoAdvanced, OptionsVideoAdvanced } from "@/mod/scripts/ui/menu/options/OptionsVideoAdvanced";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
+import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
 const base: string = "menu\\OptionsDialog.component";
 const log: LuaLogger = new LuaLogger("Options");

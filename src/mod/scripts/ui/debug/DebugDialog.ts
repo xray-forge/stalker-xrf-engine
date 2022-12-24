@@ -9,7 +9,7 @@ import { DevDebugSpawnSection, IDevDebugSpawnSection } from "@/mod/scripts/ui/de
 import { DevDebugUiSection, IDevDebugUiSection } from "@/mod/scripts/ui/debug/DevDebugUiSection";
 import { DevDebugWorldSection, IDevDebugWorldSection } from "@/mod/scripts/ui/debug/DevDebugWorldSection";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
+import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 import { EDebugSection } from "@/mod/ui/debug/sections";
 
 const base: string = "debug\\DebugDialog.component";

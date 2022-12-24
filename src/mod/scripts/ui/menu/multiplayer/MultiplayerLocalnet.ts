@@ -1,7 +1,7 @@
 import { Optional } from "@/mod/lib/types";
 import { IMainMenu } from "@/mod/scripts/ui/menu/MainMenu";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
+import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
 const base: string = "menu\\multiplayer\\MultiplayerLocalnet.component";
 const log: LuaLogger = new LuaLogger("MultiplayerLocalnet");

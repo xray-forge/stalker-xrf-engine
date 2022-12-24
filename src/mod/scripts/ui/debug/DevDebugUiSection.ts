@@ -1,6 +1,6 @@
 import { textures } from "@/mod/globals/textures";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
+import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
 const base: string = "debug\\DevDebugUiSection.component";
 const log: LuaLogger = new LuaLogger("DevDebugUiSection");

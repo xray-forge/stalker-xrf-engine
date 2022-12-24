@@ -77,24 +77,16 @@ declare global {
 
   class XR_CMainMenu {
     public GetCDKey(): string;
-
     public GetAccountMngr(): XR_account_manager;
-
     public GetDemoInfo(fileName: string): XR_demo_info | null;
-
     public GetPatchProgress(): XR_Patch_Dawnload_Progress;
-
     public GetProfileStore(): XR_profile_store;
-
     public GetGSVer(): string;
+    public GetLoginMngr(): XR_login_manager;
+    public GetPlayerName(): string;
 
     public CancelDownload(): void;
-
-    public GetLoginMngr(): XR_login_manager;
-
     public ValidateCDKey(): boolean;
-
-    public GetPlayerName(): string;
   }
 
   /**
@@ -123,7 +115,6 @@ declare global {
    */
   class XR_CUIGameCustom {
     public HidePdaMenu(): unknown;
-
     public HideActorMenu(): unknown;
 
     public AddDialogToRender(window: XR_CUIWindow): unknown;
@@ -151,7 +142,6 @@ declare global {
    */
   class XR_profile {
     public unique_nick(): string;
-
     public online(): boolean;
   }
 }

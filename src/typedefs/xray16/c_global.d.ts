@@ -144,7 +144,7 @@ declare global {
     ): unknown;
     remove_call(this: void, object: unknown, str1: string, str2: string): unknown;
     set_weather(this: void, str: string, val: boolean): unknown;
-    show_indicators(this: void): unknown;
+    show_indicators(this: void): void;
     get_game_difficulty(this: void): unknown;
     map_remove_object_spot(this: void, num: number, str: string): unknown;
     remove_dialog_to_render(this: void, window: XR_CUIDialogWnd): unknown;

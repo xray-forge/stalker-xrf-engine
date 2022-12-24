@@ -38,10 +38,12 @@ export function resolveXmlFormPath(path: string, hasWideScreenSupport: boolean =
   return resolved;
 }
 
-export function showAllUi(show: boolean): void {
+export function setUiVisibility(isVisible: boolean): void {
   const hud: XR_CUIGameCustom = get_hud();
 
-  if (show) {
+  if (isVisible) {
+    log.info("[setUiVisibility] Showing UI");
+
     level.show_indicators();
 
     // --      db.actor:restore_weapon()
@@ -49,6 +51,8 @@ export function showAllUi(show: boolean): void {
     db.actor.disable_hit_marks(false);
     hud.show_messages();
   } else {
+    log.info("[setUiVisibility] Hiding UI");
+
     if (db.actor.is_talking()) {
       db.actor.stop_talk();
     }
@@ -63,4 +67,6 @@ export function showAllUi(show: boolean): void {
 
     db.actor.disable_hit_marks(true);
   }
+
+  log.info("[setUiVisibility] Completed");
 }

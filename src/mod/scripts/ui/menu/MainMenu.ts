@@ -8,7 +8,7 @@ import { IMultiplayerMenu, MultiplayerMenu } from "@/mod/scripts/ui/menu/Multipl
 import { IOptionsDialog, OptionsDialog } from "@/mod/scripts/ui/menu/OptionsDialog";
 import { ISaveDialog, SaveDialog } from "@/mod/scripts/ui/menu/SaveDialog";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
+import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
 const base: string = "menu\\MainMenu.component";
 const log: LuaLogger = new LuaLogger("MainMenu");
