@@ -91,9 +91,15 @@ declare global {
 
   const demo_player_info: typeof XR_demo_player_info;
 
+  const game_object: typeof XR_game_object;
+
   const ini_file: typeof XR_ini_file;
 
+  const clsid: typeof XR_clsid;
+
   const vector2: typeof XR_vector2;
+
+  const vector: typeof XR_vector;
 
   const Frect: typeof XR_FRect;
 

@@ -98,28 +98,48 @@ declare global {
   }
 
   /**
-   C++ class CUIGameCustom {
-    function HidePdaMenu();
-
-    function HideActorMenu();
-
-    function AddDialogToRender(CUIWindow*);
-
-    function RemoveDialogToRender(CUIWindow*);
-
-    function show_messages();
-
-    function GetCustomStatic(string);
-
-    function AddCustomStatic(string, boolean);
-
-    function hide_messages();
-
-    function RemoveCustomStatic(string);
-
-  };
+   * C++ class CUIGameCustom {
+   *     function HidePdaMenu();
+   *
+   *     function HideActorMenu();
+   *
+   *     function AddDialogToRender(CUIWindow*);
+   *
+   *     function RemoveDialogToRender(CUIWindow*);
+   *
+   *     function show_messages();
+   *
+   *     function GetCustomStatic(string);
+   *
+   *     function AddCustomStatic(string, boolean);
+   *
+   *     function hide_messages();
+   *
+   *     function RemoveCustomStatic(string);
+   *
+   *   };
+   *
+   *  @customConstructor CUIGameCustom
    */
-  // todo;
+  class XR_CUIGameCustom {
+    public HidePdaMenu(): unknown;
+
+    public HideActorMenu(): unknown;
+
+    public AddDialogToRender(window: XR_CUIWindow): unknown;
+
+    public RemoveDialogToRender(window: XR_CUIWindow): unknown;
+
+    public show_messages(): unknown;
+
+    public GetCustomStatic(value: string): unknown;
+
+    public AddCustomStatic(a: string, b:boolean): unknown;
+
+    public hide_messages(): unknown;
+
+    public RemoveCustomStatic(value:string): unknown;
+  }
 
   /**
    *    C++ class profile {

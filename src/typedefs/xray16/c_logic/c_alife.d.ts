@@ -248,60 +248,158 @@ declare global {
   };
    */
   // todo;
+
   /**
-   C++ class alife_simulator {
-    function level_name(const alife_simulator*, number);
-
-    function dont_has_info(const alife_simulator*, const number&, string);
-
-    function create_ammo(alife_simulator*, string, const vector&, number, number, number, number);
-
-    function add_out_restriction(alife_simulator*, cse_alife_monster_abstract*, number);
-
-    function set_interactive(number, boolean);
-
-    function add_in_restriction(alife_simulator*, cse_alife_monster_abstract*, number);
-
-    function remove_in_restriction(alife_simulator*, cse_alife_monster_abstract*, number);
-
-    function level_id(alife_simulator*);
-
-    function valid_object_id(const alife_simulator*, number);
-
-    function remove_out_restriction(alife_simulator*, cse_alife_monster_abstract*, number);
-
-    function switch_distance() const;
-    function switch_distance(number);
-
-    function kill_entity(cse_alife_monster_abstract*, const number&, cse_alife_schedulable*);
-    function kill_entity(alife_simulator*, cse_alife_monster_abstract*, const number&);
-    function kill_entity(alife_simulator*, cse_alife_monster_abstract*);
-
-    function set_switch_online(number, boolean);
-
-    function set_switch_offline(number, boolean);
-
-    function has_info(const alife_simulator*, const number&, string);
-
-    function remove_all_restrictions(number, const enum RestrictionSpace::ERestrictorTypes&);
-
-    function object(const alife_simulator*, number);
-    function object(const alife_simulator*, number, boolean);
-
-    function actor(const alife_simulator*);
-
-    function story_object(const alife_simulator*, number);
-
-    function spawn_id(alife_simulator*, number);
-
-    function release(alife_simulator*, cse_abstract*, boolean);
-
-    function create(alife_simulator*, number);
-    function create(alife_simulator*, string, const vector&, number, number, number);
-    function create(alife_simulator*, string, const vector&, number, number);
-
-  };
+   * C++ class alife_simulator {
+   *     function level_name(const alife_simulator*, number);
+   *
+   *     function dont_has_info(const alife_simulator*, const number&, string);
+   *
+   *     function create_ammo(alife_simulator*, string, const vector&, number, number, number, number);
+   *
+   *     function add_out_restriction(alife_simulator*, cse_alife_monster_abstract*, number);
+   *
+   *     function set_interactive(number, boolean);
+   *
+   *     function add_in_restriction(alife_simulator*, cse_alife_monster_abstract*, number);
+   *
+   *     function remove_in_restriction(alife_simulator*, cse_alife_monster_abstract*, number);
+   *
+   *     function level_id(alife_simulator*);
+   *
+   *     function valid_object_id(const alife_simulator*, number);
+   *
+   *     function remove_out_restriction(alife_simulator*, cse_alife_monster_abstract*, number);
+   *
+   *     function switch_distance() const;
+   *     function switch_distance(number);
+   *
+   *     function kill_entity(cse_alife_monster_abstract*, const number&, cse_alife_schedulable*);
+   *     function kill_entity(alife_simulator*, cse_alife_monster_abstract*, const number&);
+   *     function kill_entity(alife_simulator*, cse_alife_monster_abstract*);
+   *
+   *     function set_switch_online(number, boolean);
+   *
+   *     function set_switch_offline(number, boolean);
+   *
+   *     function has_info(const alife_simulator*, const number&, string);
+   *
+   *     function remove_all_restrictions(number, const enum RestrictionSpace::ERestrictorTypes&);
+   *
+   *     function object(const alife_simulator*, number);
+   *     function object(const alife_simulator*, number, boolean);
+   *
+   *     function actor(const alife_simulator*);
+   *
+   *     function story_object(const alife_simulator*, number);
+   *
+   *     function spawn_id(alife_simulator*, number);
+   *
+   *     function release(alife_simulator*, cse_abstract*, boolean);
+   *
+   *     function create(alife_simulator*, number);
+   *     function create(alife_simulator*, string, const vector&, number, number, number);
+   *     function create(alife_simulator*, string, const vector&, number, number);
+   *
+   *   };
    */
+  class XR_alife_simulator {
+    /**
+     * Statics.
+     */
+
+    public set_interactive(this: void, value1: number, value2: boolean): unknown;
+    public switch_distance(this: void): unknown;
+    public switch_distance(this: void, value: number): unknown;
+    public set_switch_online(this: void, value1: number, value2: boolean): unknown;
+    public set_switch_offline(this: void, value1: number, value2: boolean): unknown;
+    public remove_all_restrictions(
+      this: void,
+      value: number,
+      type: unknown /* enum RestrictionSpace::ERestrictorTypes */
+    ): unknown;
+
+    /**
+     * Methods.
+     */
+
+    public add_in_restriction(
+      monster: unknown /* cse_alife_monster_abstract */,
+      value: number
+    ): unknown;
+
+    public remove_in_restriction(
+      monster: unknown /* cse_alife_monster_abstract */,
+      value: number
+    ): unknown;
+
+    public level_name(value: number): unknown;
+
+    public dont_has_info(value: number, str: string): unknown;
+
+    public create_ammo(
+      str:string,
+      vector: XR_vector2,
+      value1: number,
+      value2: number,
+      value3: number,
+      value4: number
+    ): unknown;
+
+    public add_out_restriction(
+      monster: unknown /* cse_alife_monster_abstract */,
+      value: number
+    ): unknown;
+
+    public level_id(life: XR_alife_simulator): unknown;
+
+    public valid_object_id(value: number): unknown;
+
+    public remove_out_restriction(
+      life: XR_alife_simulator,
+      monster: unknown /* cse_alife_monster_abstract */,
+      value: number
+    ): unknown;
+
+    public kill_entity(cse_alife_monster_abstract: any, value: number): unknown;
+    public kill_entity(cse_alife_monster_abstract: any): unknown;
+    public kill_entity(
+      this: void,
+      monster1: unknown /* cse_alife_monster_abstract */,
+      value: number,
+      monster2: unknown /* cse_alife_monster_abstract */
+    ): unknown;
+
+    public has_info(value1: number, value2: string): unknown;
+
+    public object(value: number): unknown;
+    public object(value1: number, value2: boolean): unknown;
+
+    public actor(): unknown;
+
+    public story_object(value: number): unknown;
+
+    public spawn_id(value: number): unknown;
+
+    public release(cse_abstract: unknown /* cse_abstract */, value: boolean): unknown;
+
+    public create(value: number): unknown;
+    public create(
+      value1: string,
+      vector: XR_vector2,
+      value2: number,
+      value3: number,
+      value4: number
+    ): unknown;
+    public create(
+      value1: string,
+      vector: XR_vector2,
+      value2: number,
+      value3: number
+    ): unknown;
+
+  }
+
   // todo;
   /**
    C++ class CALifeSmartTerrainTask {

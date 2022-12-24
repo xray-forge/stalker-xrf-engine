@@ -269,7 +269,7 @@ declare global {
    */
   class XR_render_device {
     public aspect_ratio: number;
-    public cam_dir: unknown;
+    public cam_dir: XR_vector;
     public cam_pos: unknown;
     public cam_right: unknown;
     public cam_top: unknown;
@@ -281,7 +281,7 @@ declare global {
     public time_delta: unknown;
     public width: number;
 
-    public time_global(): unknown;
+    public time_global(): number;
 
     public is_paused(): boolean;
 

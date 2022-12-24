@@ -43,14 +43,6 @@ Generic checkbox button for settings true/false values.
 Example: settings options.
 </p>
 
-<img src="demo\CUICheckButton.png" alt="screenshot" width="200"/>
-Expression    : ai().script_engine().functor(start_game_callback,functor)
-Function      : CALifeSimulator::CALifeSimulator
-File          : D:\prog_repository\sources\trunk\xrGame\alife_simulator.cpp
-Line          : 74
-Description   : failed to get start game callback
-
-
 ### 🧱 CUIComboBox
 <p>
 Generic combobox with list of items for selection.

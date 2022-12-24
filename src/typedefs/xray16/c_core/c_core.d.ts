@@ -188,7 +188,7 @@ declare global {
      * Modifies supplied values by reference.
      */
     public get(y: number, m: number, d: number, h: number, min: number, sec: number, ms: number):
-      Record<string, number>;
+      LuaMultiReturn<[number, number, number, number, number, number, number ]>;
 
     public set(y: number, m: number, d: number, h: number, min: number, sec: number, ms: number): void;
 

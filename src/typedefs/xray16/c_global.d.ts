@@ -128,7 +128,7 @@ declare global {
     remove_cam_effector(this: void, num: number): unknown;
     high_cover_in_direction(this: void, num: number, vector: unknown /* const vector& */): unknown;
     spawn_phantom(this: void, vector: unknown /* const vector& */): unknown;
-    object_by_id(this: void, num: number): unknown;
+    object_by_id(this: void, object_id: number): XR_game_object;
     debug_object(this: void, str: string): unknown;
     get_weather(this: void): unknown;
     present(this: void): boolean;
@@ -156,12 +156,12 @@ declare global {
     disable_input(this: void): unknown;
     map_add_object_spot(this: void, num: number, str1: string, str2: string): unknown;
     get_time_minutes(this: void): unknown;
-    get_time_factor(this: void): unknown;
+    get_time_factor(this: void): number;
     map_add_object_spot_ser(this: void, num: number, str1: string, str2: string): unknown;
     set_game_difficulty(this: void, difficulty: unknown /* enum ESingleGameDifficulty */): unknown;
     low_cover_in_direction(this: void, num: number, vector: unknown /* const vector&*/): unknown;
     is_wfx_playing(this: void): unknown;
-    set_time_factor(this: void, num: number): unknown;
+    set_time_factor(this: void, factor: number): void;
     client_spawn_manager(this: void): unknown;
     map_has_object_spot(this: void, num: number, str: string): unknown;
     add_dialog_to_render(this: void, window: XR_CUIDialogWnd): unknown;
@@ -192,7 +192,7 @@ declare global {
    */
   interface IXR_game {
     translate_string(this: void, key: string): string;
-    time(this: void): unknown;
+    time(this: void): number;
     get_game_time(this: void): unknown;
     start_tutorial(this: void, id: string): unknown;
     has_active_tutorial(this: void): boolean;
@@ -266,7 +266,7 @@ declare global {
   function buy_condition(this: void,a: unknown, b: string): unknown;
   function buy_condition(this: void,a: number, b: number): unknown;
   function create_ini_file(this: void,a: string): unknown;
-  function get_hud(this: void): unknown;
+  function get_hud(this: void): XR_CUIGameCustom;
   function GetFontSmall(this: void): unknown;
   function GetFontLetterica18Russian(this: void): unknown;
   function command_line(this: void): unknown;
@@ -283,9 +283,9 @@ declare global {
   function show_condition(this: void,a: unknown, b: string): unknown;
   function IsImportantSave(this: void): unknown;
   function GetFontLetterica25(this: void): unknown;
-  function system_ini(this: void): unknown;
+  function system_ini(this: void): XR_ini_file;
   function GetFontMedium(this: void): XR_CGameFont;
-  function alife(this: void): unknown;
+  function alife(this: void): XR_alife_simulator;
   function flush(this: void): unknown;
   function is_enough_address_space_available(this: void): boolean;
 
@@ -303,9 +303,9 @@ declare global {
    */
   function prefetch(this: void,path: string): void;
 
-  function time_global(this: void): unknown;
+  function time_global(this: void): number;
   function time_global_async(this: void,...args: Array<unknown>): unknown;
-  function verify_if_thread_is_running(this: void): unknown;
+  function verify_if_thread_is_running(this: void): boolean;
   function script_server_object_version(this: void): unknown;
   function bit_not(this: void,a: number): unknown;
   function ef_storage(this: void): unknown;
