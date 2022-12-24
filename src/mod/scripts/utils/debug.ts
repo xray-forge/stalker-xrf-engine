@@ -1,29 +1,19 @@
+import { AnyArgs } from "@/mod/lib/types";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("utils/debug");
 
 /**
- *
- * -- �������� ���� (����� ������ ��������� �� ������ � ���)
- * function abort(fmt, ...)
- *  local reason = string.format(fmt, ...)
- *  --error_log(reason)
- * end
+ * Call game abort and print reason.
  */
+export function abort(format: string, ...rest: AnyArgs): void {
+  const reason: string = lua_string.format(format, ...rest);
 
-export function abort(format: string, ...rest: Array<any>): void {
-  log.info("[abort] Aborting game:", lua_string.format(format, ...rest));
-
-  const reason = lua_string.format(format, ...rest);
+  log.error("[abort] Aborting:", reason);
 }
 
 /**
- * -- ������� � ��� ���� ������ �������.
- * function callstack()
- *  if debug ~= nil then
- *    log(debug.traceback(2))
- *  end
- * end
+ * Print callstack for debugging.
  */
 export function callstack(): void {
   if (get_global("debug") !== null) {

@@ -185,6 +185,7 @@ For examples check: `src/mod/ui`.
 - Script to verify integrity of assets and defined constants
 - Screenshots of some tools
 - Typescript / c++ cooperation comments
-- Strip log:info / log:error with TSTL plugin
+- Strip log:info / log:error with TSTL plugin?
+- Declare luaBind classes with TSTL plugin?
 - Use modules instead of global scope for typedefs folder (no-resolve + declare types packages)
 - Rework acdc perl script and add all.spawn editing utils
