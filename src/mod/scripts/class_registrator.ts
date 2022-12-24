@@ -1,5 +1,9 @@
+import { LuaLogger } from "@/mod/scripts/utils/logging";
+
 prefetch("_G");
 require("@/mod/scripts/ui/menu/MainMenu");
+
+const log: LuaLogger = new LuaLogger("class_registrator");
 
 function cs_register(
   factory: XR_object_factory,
@@ -8,6 +12,7 @@ function cs_register(
   clsid: string,
   script_clsid: string
 ): void {
+  log.info("[cs_register] Registering:", client_object_class, server_object_class, clsid, script_clsid);
   factory.register(client_object_class, server_object_class, clsid, script_clsid);
 }
 
@@ -18,6 +23,7 @@ function c_register(
   script_clsid: string
 ): void {
   if (!editor()) {
+    log.info("[c_register] Registering:", client_object_class, clsid, script_clsid);
     factory.register(client_object_class, clsid, script_clsid);
   }
 }
@@ -28,10 +34,13 @@ function s_register(
   clsid: string,
   script_clsid: string
 ): void {
+  log.info("[s_register] Registering:", server_object_class, clsid, script_clsid);
   factory.register(server_object_class, clsid, script_clsid);
 }
 
 export function register_impl(object_factory: XR_object_factory): void {
+  log.info("Registering bindings:");
+
   // -- GENERAL --------------------------------------------------------------------------------------------------------
   c_register(object_factory, "MainMenu", "MAIN_MNU", "MainMenu");
   cs_register(object_factory, "ce_smart_zone", "smart_terrain.se_smart_terrain", "SMRTTRRN", "smart_terrain");

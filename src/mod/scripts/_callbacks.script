@@ -1,0 +1,34 @@
+--' L��������
+function on_actor_critical_power()
+
+end
+
+function on_actor_critical_max_power()
+end
+
+--' ������������
+function on_actor_bleeding()
+
+end
+
+function on_actor_satiety()
+end
+
+--' ��������
+function on_actor_radiation()
+
+end
+
+--' ��������� ������
+function on_actor_weapon_jammed()
+
+end
+
+--' �� ����� ������ ���� ����
+function on_actor_cant_walk_weight()
+
+end
+
+--' ��� �����������
+function on_actor_psy()
+end

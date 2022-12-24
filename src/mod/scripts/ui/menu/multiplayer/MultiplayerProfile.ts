@@ -1,6 +1,6 @@
 import { Optional } from "@/mod/lib/types";
-import { LuaLogger } from "@/mod/scripts/debug_tools/LuaLogger";
 import { IMultiplayerMenu } from "@/mod/scripts/ui/menu/MultiplayerMenu";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
 
 const base: string = "menu\\multiplayer\\MultiplayerAwards.component";

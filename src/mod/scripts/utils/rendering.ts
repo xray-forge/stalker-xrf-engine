@@ -1,5 +1,5 @@
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
-import { LuaLogger } from "@/mod/scripts/debug_tools/LuaLogger";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("utils/rendering");
 
@@ -36,4 +36,31 @@ export function resolveXmlFormPath(path: string, hasWideScreenSupport: boolean =
   log.info("Resolved XML to:", resolved);
 
   return resolved;
+}
+
+export function showAllUi(show: boolean): void {
+  const hud: XR_CUIGameCustom = get_hud();
+
+  if (show) {
+    level.show_indicators();
+
+    // --      db.actor:restore_weapon()
+
+    db.actor.disable_hit_marks(false);
+    hud.show_messages();
+  } else {
+    if (db.actor.is_talking()) {
+      db.actor.stop_talk();
+    }
+
+    level.hide_indicators_safe();
+
+    hud.HideActorMenu();
+    hud.HidePdaMenu();
+    hud.hide_messages();
+
+    // --      db.actor:hide_weapon()
+
+    db.actor.disable_hit_marks(true);
+  }
 }

@@ -1,6 +1,5 @@
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
-import { LuaLogger } from "@/mod/scripts/debug_tools/LuaLogger";
 import { DebugDialog, IDebugDialog } from "@/mod/scripts/ui/debug/DebugDialog";
 import { ILoadDialog, LoadDialog } from "@/mod/scripts/ui/menu/LoadDialog";
 import { IMultiplayerGameSpy, MultiplayerGameSpy } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerGamespy";
@@ -8,6 +7,7 @@ import { IMultiplayerLocalnet, MultiplayerLocalnet } from "@/mod/scripts/ui/menu
 import { IMultiplayerMenu, MultiplayerMenu } from "@/mod/scripts/ui/menu/MultiplayerMenu";
 import { IOptionsDialog, OptionsDialog } from "@/mod/scripts/ui/menu/OptionsDialog";
 import { ISaveDialog, SaveDialog } from "@/mod/scripts/ui/menu/SaveDialog";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
 
 const base: string = "menu\\MainMenu.component";

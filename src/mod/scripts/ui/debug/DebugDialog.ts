@@ -1,5 +1,4 @@
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
-import { LuaLogger } from "@/mod/scripts/debug_tools/LuaLogger";
 import { DebugCommandsSection, IDebugCommandsSection } from "@/mod/scripts/ui/debug/DebugCommandsSection";
 import { DebugGeneralSection, IDebugGeneralSection } from "@/mod/scripts/ui/debug/DebugGeneralSection";
 import { DebugPlayerSection, IDebugPlayerSection } from "@/mod/scripts/ui/debug/DebugPlayerSection";
@@ -9,6 +8,7 @@ import { DevDebugSoundSection, IDevDebugSoundSection } from "@/mod/scripts/ui/de
 import { DevDebugSpawnSection, IDevDebugSpawnSection } from "@/mod/scripts/ui/debug/DevDebugSpawnSection";
 import { DevDebugUiSection, IDevDebugUiSection } from "@/mod/scripts/ui/debug/DevDebugUiSection";
 import { DevDebugWorldSection, IDevDebugWorldSection } from "@/mod/scripts/ui/debug/DevDebugWorldSection";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
 import { EDebugSection } from "@/mod/ui/debug/sections";
 

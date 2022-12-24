@@ -1,5 +1,5 @@
-import { LuaLogger } from "@/mod/scripts/debug_tools/LuaLogger";
 import { IOptionsDialog } from "@/mod/scripts/ui/menu/OptionsDialog";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("OptionsVideo");
 

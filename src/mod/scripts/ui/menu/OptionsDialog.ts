@@ -1,10 +1,10 @@
 import { option_groups, option_groups_messages } from "@/mod/globals/option_groups";
-import { LuaLogger } from "@/mod/scripts/debug_tools/LuaLogger";
 import { IOptionsControls, OptionsControls } from "@/mod/scripts/ui/menu/options/OptionsControls";
 import { IOptionsGameplay, OptionsGameplay } from "@/mod/scripts/ui/menu/options/OptionsGameplay";
 import { IOptionsSound, OptionsSound } from "@/mod/scripts/ui/menu/options/OptionsSound";
 import { IOptionsVideo, OptionsVideo } from "@/mod/scripts/ui/menu/options/OptionsVideo";
 import { IOptionsVideoAdvanced, OptionsVideoAdvanced } from "@/mod/scripts/ui/menu/options/OptionsVideoAdvanced";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
 
 const base: string = "menu\\OptionsDialog.component";

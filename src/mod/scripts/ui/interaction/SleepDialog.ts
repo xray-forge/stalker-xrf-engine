@@ -1,7 +1,7 @@
 import { captions } from "@/mod/globals/captions";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
-import { LuaLogger } from "@/mod/scripts/debug_tools/LuaLogger";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resolveXmlFormPath, isWideScreen } from "@/mod/scripts/utils/rendering";
 
 const base: string = "interaction\\SleepDialog.component";

@@ -1,8 +1,8 @@
 import { textures } from "@/mod/globals/textures";
 import { Optional } from "@/mod/lib/types";
-import { LuaLogger } from "@/mod/scripts/debug_tools/LuaLogger";
 import { IMultiplayerMenu } from "@/mod/scripts/ui/menu/MultiplayerMenu";
-import { fileExists } from "@/mod/scripts/utils/game_saves_utils";
+import { fileExists } from "@/mod/scripts/utils/game_saves";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("MultiplayerDemo");
 
@@ -392,7 +392,7 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
       log.info("Rename to new file name:", new_file_name);
     }
 
-    new_file_name = lua_string.gsub(new_file_name, "[^a-z0-9A-Z_]", "_");
+    [new_file_name] = lua_string.gsub(new_file_name, "[^a-z0-9A-Z_]", "_");
 
     this.on_yes_action = "rename";
     this.file_name_to_rename = new_file_name;

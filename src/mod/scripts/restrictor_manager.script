@@ -1,10 +1,13 @@
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "restrictor_manager");
 
 class "Crestrictor_manager"
 
 function Crestrictor_manager:__init(obj)
   	self.object = obj
   	self.base_out_restrictions = {}
-  	self.base_in_restrictions = {}	
+  	self.base_in_restrictions = {}
 	self.out_restrictions = utils.parse_names(self.object:out_restrictions())
 	for k,v in pairs(self.out_restrictions) do
 		self.base_out_restrictions[v] = true
@@ -19,30 +22,33 @@ end
 ----------------------------------------------------------------------------------------------------------------------
 -- STALKER restrictions
 ----------------------------------------------------------------------------------------------------------------------
---' Данная функция вычитывает из логики набор рестрикторов, которые нужно проставить персонажу.
+--' пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 function Crestrictor_manager:reset_restrictions(st, section)
+	log:info("[reset_restrictions] Reset:", self.object:name(), tostring(section));
 	--printf("reset restrictions obj=%s section=%s", self.object:name(), tostring(section))
 
 	local actual_ini = st.ini
-	
+
 	local out_restr_string = get_param_string(utils.cfg_get_string(actual_ini, section, "out_restr", nil, false, "", ""), self.object)
-	
-	--' Вычитываем новые аут рестрикторы
+
+	log:info("[reset_restrictions] Restriction string:", out_restr_string);
+
+	--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	local new_out_restr = utils.parse_names(out_restr_string)
-	
-	--' Узнаем про существующие аут рестрикторы
+
+	--' пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	local old_out_restr = utils.parse_names(self.object:out_restrictions())
 
 	--[[
 	printf("old out_restrs table:")
-	print_table(old_out_restr)	
+	print_table(old_out_restr)
 	printf("new out_restrs table:")
 	print_table(new_out_restr)
-	]]--	
+	]]--
 
-	--' Проверяем появились ли новые рестрикторы.
-	local ins_restr = {}  --' Тут поместим рестрикторы, которые нужно добавить
-	local del_restr = {}  --' Тут поместим рестрикторы, которые нужно удалить
+	--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+	local ins_restr = {}  --' пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+	local del_restr = {}  --' пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	for k,v in pairs(old_out_restr) do
 		local exist_rest = false
 		for kk,vv in pairs(new_out_restr) do
@@ -68,7 +74,7 @@ function Crestrictor_manager:reset_restrictions(st, section)
 		end
 	end
 
-	--'Удаляем старые аут рестрикторы. апплаим новые.
+	--'пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.
 	for k,v in pairs(del_restr) do
 		--printf("old out_restr [%s] deleted", v)
 		self.object:remove_restrictions(v, "")
@@ -78,27 +84,27 @@ function Crestrictor_manager:reset_restrictions(st, section)
 		self.object:add_restrictions(v, "")
 	end
 
-	
-	
-	--' Вычитываем новые ИН рестрикторы
+
+
+	--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	local in_restr_string = get_param_string(utils.cfg_get_string(actual_ini, section, "in_restr", nil, false, "", ""), self.object)
-	
-	--' Вычитываем новые аут рестрикторы
+
+	--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	local new_in_restr = utils.parse_names(in_restr_string)
 
-	--' Узнаем про существующие ИН рестрикторы
+	--' пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	local old_in_restr = utils.parse_names(self.object:in_restrictions())
 
 	--[[
 	printf("old in_restrs table:")
-	print_table(old_in_restr)	
+	print_table(old_in_restr)
 	printf("new in_restrs table:")
 	print_table(new_in_restr)
-	]]--	
+	]]--
 
-	--' Проверяем появились ли новые рестрикторы.
-	ins_restr = {}  --' Тут поместим рестрикторы, которые нужно добавить
-	del_restr = {}  --' Тут поместим рестрикторы, которые нужно удалить
+	--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+	ins_restr = {}  --' пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+	del_restr = {}  --' пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	for k,v in pairs(old_in_restr) do
 		local exist_rest = false
 		for kk,vv in pairs(new_in_restr) do
@@ -124,7 +130,7 @@ function Crestrictor_manager:reset_restrictions(st, section)
 		end
 	end
 
-	--'Удаляем старые аут рестрикторы. апплаим новые.
+	--'пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.
 	for k,v in pairs(del_restr) do
 		--printf("old in_restr [%s] deleted", v)
 		self.object:remove_restrictions("", v)
@@ -133,7 +139,7 @@ function Crestrictor_manager:reset_restrictions(st, section)
 		--printf("new in_restr [%s] added", v)
 		self.object:add_restrictions("", v)
 	end
-	 
+
 end
 
 

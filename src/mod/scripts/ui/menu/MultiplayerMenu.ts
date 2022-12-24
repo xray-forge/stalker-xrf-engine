@@ -1,12 +1,12 @@
 import { option_groups } from "@/mod/globals/option_groups";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
-import { LuaLogger } from "@/mod/scripts/debug_tools/LuaLogger";
 import { IMainMenu } from "@/mod/scripts/ui/menu/MainMenu";
 import { IMultiplayerDemo, MultiplayerDemo } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerDemo";
 import { IMultiplayerJoin, MultiplayerJoin } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerJoin";
 import { IMultiplayerOptions, MultiplayerOptions } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerOptions";
 import { IMultiplayerProfile, MultiplayerProfile } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerProfile";
 import { IMultiplayerServer, MultiplayerServer } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerServer";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const baseOnline: string = "menu/multiplayer/MultiplayerOnline.component";
 const baseOffline: string = "menu/multiplayer/MultiplayerOffline.component";

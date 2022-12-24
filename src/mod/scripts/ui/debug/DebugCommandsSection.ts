@@ -1,5 +1,5 @@
 import { Optional } from "@/mod/lib/types";
-import { LuaLogger } from "@/mod/scripts/debug_tools/LuaLogger";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
 import { zero_one_cmds, on_off_cmds } from "@/mod/ui/debug/sections";
 

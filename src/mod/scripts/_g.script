@@ -1,6 +1,95 @@
 -- Inject LUA globals and enable modules requiring
 package.path = package.path .. string.format("%sgamedata\\?.script;", getFS():update_path("$fs_root$", ""))
+
+--
+
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "_g");
+
+log:info("Initialize globals")
+
+--
+
 require("scripts.inject.lua_globals")
+require("scripts._callbacks")
+
+--
+
+local coreStartGame = require("scripts.core.start_game")
+
+local utilsActor = require("scripts.utils.actor")
+local utilsAlife = require("scripts.utils.alife")
+local debugUtils = require("scripts.utils.debug")
+local utilsGameSaves = require("scripts.utils.game_saves")
+local utilsGeneral = require("scripts.utils.general")
+local utilsRendering = require("scripts.utils.rendering")
+local utilsTime = require("scripts.utils.time")
+local utilsUnknown = require("scripts.utils.unknown")
+
+-- start_game_callback = coreStartGame.startGame
+
+-- give_info = utilsActor.giveInfo
+-- disable_info = utilsActor.disableInfo
+-- has_alife_info = utilsActor.hasAlifeInfo
+
+-- change_team_squad_group = utilsAlife.changeTeamSquadGroup
+-- add_story_object = utilsAlife.addStoryObject
+-- get_story_object = utilsAlife.getStoryObject
+-- level_object_by_sid = utilsAlife.levelObjectBySid
+-- get_object_story_id = utilsAlife.getObjectStoryId
+-- get_story_object_id = utilsAlife.getStoryObjectId
+-- unregister_story_object_by_id = utilsAlife.unregisterStoryObjectById
+-- unregister_story_id = utilsAlife.unregisterStoryId
+-- get_object_squad = utilsAlife.getObjectSquad
+-- get_story_squad = utilsAlife.getStorySquad
+-- id_by_sid = utilsAlife.idBySid
+-- distance_between = utilsAlife.distanceBetween
+-- distance_between_safe = utilsAlife.distanceBetweenSafe
+-- reset_action = utilsAlife.resetAction
+-- create_ammo = utilsAlife.createAmmo
+-- wait_game = utilsAlife.waitGame
+-- wait = utilsAlife.wait
+-- interrupt_action = utilsAlife.interruptAction
+-- get_clsid = utilsAlife.getClsId
+-- is_object_online = utilsAlife.isObjectOnline
+-- set_current_time = utilsAlife.setCurrentTime
+-- stop_play_sound = utilsAlife.stopPlaySound
+-- npc_in_actor_frustrum = utilsAlife.npcInActorFrustrum
+
+-- callstack = debugUtils.callstack
+-- abort = debugUtils.abort
+
+-- set_save_marker = utilsGameSaves.setSaveMarker
+
+-- vec_to_str = utilsGeneral.vectorToString
+-- empty = utilsGeneral.isEmpty
+-- round = utilsGeneral.round
+-- add = utilsGeneral.add
+-- if_then_else = utilsGeneral.ifThenElse
+-- random_choice = utilsGeneral.randomChoice
+-- random_number = utilsGeneral.randomNumber
+-- parse_names = utilsGeneral.parseNames
+-- parse_key_value = utilsGeneral.parseKeyValue
+-- parse_nums = utilsGeneral.parseNums
+-- yaw = utilsGeneral.yaw
+-- yaw_degree = utilsGeneral.yawDegree
+-- yaw_degree3d = utilsGeneral.yawDegree3d
+-- vector_cross = utilsGeneral.yawDegree3d
+-- vector_rotate_y = utilsGeneral.vectorRotateY
+
+-- show_all_ui = utilsRendering.showAllUi
+
+-- is_in_time_interval = utilsTime.isInTimeInterval
+
+-- get_param_string = utilsUnknown.getParamString
+
+
+-- in_time_interval = require("scripts.utils.time").isInTimeInterval
+
+aa = nil
+time_infinite = 100000000
+
 
 if (jit == nil) then
 	profiler.setup_hook	()
@@ -23,13 +112,13 @@ function empty(container)
 	return			(true)
 end
 
-schemes = {} -- соответствие схем модулям
-stypes = {} -- типv схем
+schemes = {} -- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+stypes = {} -- пїЅпїЅпїЅv пїЅпїЅпїЅпїЅ
 
--- іагружает схему из файла на диске и активирует в мотиваторе.
--- ідесь:
--- 	filename - имя файла, в котором реализована схема, без расширения
--- 	scheme - имя схем
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+-- пїЅпїЅпїЅпїЅпїЅ:
+-- 	filename - пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+-- 	scheme - пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 function load_scheme(filename, scheme, stype)
 	schemes[scheme] = filename
 	stypes[scheme] = stype
@@ -41,66 +130,8 @@ sim_debug = false
 mus_vol = 0
 amb_vol = 0
 ----------------------------------------------------------------------
-local scripts_to_print =	{
-	["stalker_generic"] = true,
-	["xr_smartcover"] = true,
-	["xr_logic"] = true,
-	["xr_conditions"] = true,
-	["xr_cover"] = true,
-	["xr_motivator"] = true,
-	["xr_walker"] = true,
-	["xr_camper"] = true,
-	["xr_kamp"] = true,
-	["restrictor_manager"] = true,
-	["sim_board"] = true,
-	["sim_faction"] = true,
-	["post_combat_idle"] = true,
-	["xr_death"] = true,
-	["xr_sound"] = true,
-	["utils"] = true,
-	["treasure_manager"] = true,
-	["object_collection"] = true,
-	["se_actor"] = true,
-	["smart_terrain"] = true,
-	["bind_physic_object"] = true,
-	["bind_heli"] = true,
-	["bind_anomaly_zone"] = true,
-	["bind_stalker"] = true,
-	["state_mgr_animation"] = true,
-	["se_stalker"] = true,
-	["db"] = true,
-	["sim_squad_generic"] = true,
-	["sim_squad_scripted"] = true,
-	["se_smart_cover"] = true,
-	["se_monster"] = true,
-	["dialog_manager"] = true,
-	["xr_combat_ignore"] = true,
-	["xr_remark"] = true,
-	["cover_manager"] = true,
-	["xr_danger"]	 = true,
-	["task_manager"] = true,
-	["task_objects"]	 = true
-}
+
 function printf(fmt,...)
-    local is_g = 0
-    local result = fmt
-    if debug == nil then
-      log(string.format(fmt,...))
-      return
-    end
-    local info_table = debug.getinfo(2)
-    local script_name = string.gsub(info_table.short_src, "%.script", "")
-    script_name = string.gsub(script_name, "gamedata\\scripts\\", "")
-
-    if scripts_to_print[script_name] == false then return end
-
-    script_name,is_g = string.gsub(script_name, "_g", "")
-    if is_g == 0 then
-      result = script_name..":("..info_table.currentline.."):"..fmt
-    else
-      result = fmt
-    end
-    log(string.format(result,...))
 end
 
 ----------------------------------------------------------------------
@@ -180,14 +211,14 @@ function distance_between(obj1, obj2)
 	return obj1:position():distance_to(obj2:position())
 end
 
--- +сли один объект nil, например нет актера, то считаем, что он далеко
+-- +пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ nil, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 function distance_between_safe(obj1, obj2)
 	if(obj1 == nil or obj2 == nil) then return 100000 end
 	return obj1:position():distance_to(obj2:position())
 end
 
 local aa = nil
---' іроверка на инфопоршнv, даже если игрока не су	ествует
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅv, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ	пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 function has_alife_info(info_id)
 	if aa == nil then
 		return false
@@ -208,10 +239,10 @@ end
 -- Functions and variables added by Zmey
 --------------------------------------------------
 
--- іонстанта, которуі использовать в местах, где нужно задать неограниченное время действия
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 time_infinite = 100000000
 
--- +сли в даннvй момент вvполняется какое-то действие, прерvвает его и отклічает скриптовvй режим
+-- +пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅvпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅvпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅvпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅvпїЅ пїЅпїЅпїЅпїЅпїЅ
 function interrupt_action(who, script_name)
 	if who:get_script() then
 		who:script(false, script_name)
@@ -291,7 +322,7 @@ function parse_nums( s )
 	return t
 end
 
--- Находится ли обьект в онлайне.
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 function is_object_online(obj_id)
 	return level.object_by_id(obj_id) ~= nil
 end
@@ -301,7 +332,7 @@ function get_clsid(npc)
 	return npc:clsid()
 end
 
---Tvчисляет yaw в радианах
+--TvпїЅпїЅпїЅпїЅпїЅпїЅпїЅ yaw пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 function yaw( v1, v2 )
 	return  math.acos( ( (v1.x*v2.x) + (v1.z*v2.z ) ) / ( math.sqrt(v1.x*v1.x + v1.z*v1.z ) * math.sqrt(v2.x*v2.x + v2.z*v2.z ) ) )
 end
@@ -315,7 +346,7 @@ function vector_cross(v1, v2)
 	return vector():set(v1.y  * v2.z  - v1.z  * v2.y, v1.z  * v2.x  - v1.x  * v2.z, v1.x  * v2.y  - v1.y  * v2.x)
 end
 
---Поворачивает вектор вокруг оси y против часовой стрелки.
+--пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ y пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 function vector_rotate_y(v, angle)
 	angle = angle * 0.017453292519943295769236907684886
 	local c = math.cos (angle)
@@ -323,7 +354,7 @@ function vector_rotate_y(v, angle)
 	return vector ():set (v.x * c - v.z * s, v.y, v.x * s + v.z * c)
 end
 
--- очистка таблицы.
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 function clear_table (t)
 	while #t > 0 do
 		table.remove (t, #t)
@@ -337,7 +368,7 @@ function stop_play_sound(obj)
 	end
 end
 
--- Печатает таблицу как дерево.
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
 function print_table(table, subs)
 	local sub
 	if subs ~= nil then
@@ -376,6 +407,7 @@ function print_table(table, subs)
 		end
 	end
 end
+
 function store_table(table, subs)
 	local sub
 	if subs ~= nil then
@@ -450,7 +482,7 @@ function alife_character_community (obj)
 	return "monster"
 end
 
--- получить геймобжект по стори_айди.
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ_пїЅпїЅпїЅпїЅ.
 function level_object_by_sid( sid )
 	local sim = alife()
 	if sim then
@@ -461,7 +493,7 @@ function level_object_by_sid( sid )
 	end
 	return nil
 end
--- Получить айдишник обьекта по стори айди.
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ.
 function id_by_sid( sid )
 	local sim = alife()
 	if sim then
@@ -473,7 +505,7 @@ function id_by_sid( sid )
 	return nil
 end
 
--- Крешнуть игру (после вывода сообщения об ошибке в лог)
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅ)
 function abort(fmt, ...)
 	local reason = string.format(fmt, ...)
 	--error_log(reason)
@@ -485,7 +517,7 @@ function set_inactivate_input_time(delta)
 	level.disable_input()
 end
 
--- іринимает: позициі положения, позициі куда смотреть, время сна в минутах.
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 --[[
 function set_sleep_relocate(point, look, timeout)
 	db.storage[db.actor:id()].sleep_relocate_time = game.get_game_time()
@@ -495,12 +527,12 @@ function set_sleep_relocate(point, look, timeout)
 end
 ]]--
 
--- проверяет целую часть числа на нечетность
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 function odd( x )
 	return math.floor( x * 0.5 ) * 2 == math.floor( x )
 end
 
---' находится ли NPC во фруструме игрока
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ NPC пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 function npc_in_actor_frustrum(npc)
 	local actor_dir = device().cam_dir
 	--local actor_dir = db.actor:direction()
@@ -609,12 +641,12 @@ function start_game_callback()
 	sim_board.clear()
 	sr_light.clean_up ()
 	pda.add_quick_slot_items_on_game_start()
-	-- Tестирование оптимизации
+	-- TпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	--local test_object = test_object.test_object_class()
 	--test_object:test()
 end
 
---' Lсталость
+--' LпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 function on_actor_critical_power()
 
 end
@@ -622,7 +654,7 @@ end
 function on_actor_critical_max_power()
 end
 
---' іровотечение
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 function on_actor_bleeding()
 
 end
@@ -630,22 +662,22 @@ end
 function on_actor_satiety()
 end
 
---' іадиация
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 function on_actor_radiation()
 
 end
 
---' іаклинило оружие
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 function on_actor_weapon_jammed()
 
 end
 
---' не может ходить изза веса
+--' пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 function on_actor_cant_walk_weight()
 
 end
 
---' пси воздействие
+--' пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 function on_actor_psy()
 end
 
@@ -696,7 +728,7 @@ ammo_section["ammo_12x76_zhekan"]	= true
 ammo_section["ammo_pkm_100"]		= true
 
 quest_section = {}
--- преобразует строку в соответствии со значением
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 function get_param_string(src_string , obj)
 	--printf("src_string is [%s] obj name is [%s]", tostring(src_string), obj:name())
 	local script_ids = db.script_ids[obj:id()]
@@ -710,10 +742,10 @@ end
 
 local save_markers = {}
 
--- Функции для проверки корректности сейв лоад
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 function set_save_marker(p, mode, check, prefix)
 
-	-- определяем ключ маркера.
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 	local result = ""
 	--	if debug ~= nil then
 	--		local info_table = debug.getinfo(2)
@@ -765,18 +797,20 @@ function set_save_marker(p, mode, check, prefix)
 	end
 
 end
--- переводит вектор в строку.
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
 function vec_to_str (vector)
 	if vector == nil then return "nil" end
 	return string.format("[%s:%s:%s]", vector.x, vector.y, vector.z)
 end
--- выводит в лог стэк вызова функций.
+
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 function callstack()
 	if debug ~= nil then
-		log(debug.traceback(2))
+		log:info(debug.traceback(2))
 	end
 end
--- меняет team:squad:group обьекта.
+
+-- пїЅпїЅпїЅпїЅпїЅпїЅ team:squad:group пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 function change_team_squad_group(se_obj, team, squad, group)
 	local cl_obj = db.storage[se_obj.id] and db.storage[se_obj.id].object
 	if cl_obj ~= nil then
@@ -788,6 +822,7 @@ function change_team_squad_group(se_obj, team, squad, group)
 	end
 	--printf("_G:TSG: [%s][%s][%s]", tostring(se_obj.team), tostring(se_obj.squad), tostring(se_obj.group))
 end
+
 --     Story_ID -------------------------------------------------------------
 function add_story_object(obj_id , story_obj_id)
 	story_objects.get_story_objects_registry():register(obj_id , story_obj_id)
@@ -816,7 +851,7 @@ function unregister_story_id(story_id)
 end
 
 -----------------------------------------------------------------------------------------------
--- Получить сквад обьекта!!!!!
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ!!!!!
 function get_object_squad(object)
 	if object == nil then abort("You are trying to get squad_object from NIL object!!!") end
 	local obj_id = nil
@@ -837,7 +872,7 @@ function get_story_squad(story_id)
 	return squad_id and alife():object(squad_id)
 end
 
---Проверка по временному интервалу.
+--пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 function in_time_interval(val1, val2)
 	local game_hours = level.get_time_hours()
 	if val1 >= val2 then

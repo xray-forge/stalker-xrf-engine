@@ -1,4 +1,4 @@
-import { LuaLogger } from "@/mod/scripts/debug_tools/LuaLogger";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/rendering";
 
 const base: string = "debug\\DevDebugPositionSection.component";

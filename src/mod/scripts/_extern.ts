@@ -1,5 +1,5 @@
-import { LuaLogger } from "@/mod/scripts/debug_tools/LuaLogger";
 import * as SleepDialogModule from "@/mod/scripts/ui/interaction/SleepDialog";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("_extern");
 
