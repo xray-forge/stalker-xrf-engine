@@ -58,9 +58,3 @@ declare const create_xr_class_instance: <T>(it: T, ...params: Array<any>) => T;
  * Without plugin, it conflicts with javascript constructor super.
  */
 declare const xr_class_super: <T = any>(...args: Array<unknown>) => T;
-
-/**
- * Pack parameters for tuple usage in typescript.
- * Example: const [a, b, c] = pack_table(multi_return_lua_function());
- */
-declare const pack_table: (...args: Array<any>) => Array<any>;

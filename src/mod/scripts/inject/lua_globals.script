@@ -1,4 +1,4 @@
-local LuaLogger = require("scripts.debug_tools.LuaLogger").LuaLogger
+local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 local log = create_ts_class_instance(LuaLogger, "lug_globals");
 
@@ -79,9 +79,6 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Pack params list as table
 -- ---------------------------------------------------------------------------------------------------------------------
-_G.pack_table = function(...)
-  return { ... }
-end
 
 _G.forin = function(arr, cb)
   local is_enabled = true
