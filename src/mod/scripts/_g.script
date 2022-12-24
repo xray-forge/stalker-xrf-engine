@@ -34,17 +34,18 @@ local utilsUnknown = require("scripts.utils.unknown")
 -- disable_info = utilsActor.disableInfo
 -- has_alife_info = utilsActor.hasAlifeInfo
 
+add_story_object = utilsAlife.addStoryObject
+get_story_object = utilsAlife.getStoryObject
+level_object_by_sid = utilsAlife.levelObjectBySid
+get_object_story_id = utilsAlife.getObjectStoryId
+get_story_object_id = utilsAlife.getStoryObjectId
+get_story_squad = utilsAlife.getStorySquad
+get_object_squad = utilsAlife.getObjectSquad
+unregister_story_object_by_id = utilsAlife.unregisterStoryObjectById
+unregister_story_id = utilsAlife.unregisterStoryId
+id_by_sid = utilsAlife.getIdBySid;
+
 -- change_team_squad_group = utilsAlife.changeTeamSquadGroup
--- add_story_object = utilsAlife.addStoryObject
--- get_story_object = utilsAlife.getStoryObject
--- level_object_by_sid = utilsAlife.levelObjectBySid
--- get_object_story_id = utilsAlife.getObjectStoryId
--- get_story_object_id = utilsAlife.getStoryObjectId
--- unregister_story_object_by_id = utilsAlife.unregisterStoryObjectById
--- unregister_story_id = utilsAlife.unregisterStoryId
--- get_object_squad = utilsAlife.getObjectSquad
--- get_story_squad = utilsAlife.getStorySquad
--- id_by_sid = utilsAlife.idBySid
 -- reset_action = utilsAlife.resetAction
 -- create_ammo = utilsAlife.createAmmo
 -- interrupt_action = utilsAlife.interruptAction
@@ -60,6 +61,7 @@ abort = debugUtils.abort
 
 -- vec_to_str = utilsGeneral.vectorToString
 empty = utilsGeneral.isEmpty
+clear_table = utilsGeneral.clearTable
 round = utilsGeneral.round
 add = utilsGeneral.add
 if_then_else = utilsGeneral.ifThenElse
@@ -255,13 +257,6 @@ function get_clsid(npc)
 	return npc:clsid()
 end
 
--- ������� �������.
-function clear_table (t)
-	while #t > 0 do
-		table.remove (t, #t)
-	end
-end
-
 function stop_play_sound(obj)
 	if obj:alive() == true then
 		obj:set_sound_mask(-1)
@@ -343,30 +338,6 @@ function alife_character_community (obj)
 		return obj:community()
 	end
 	return "monster"
-end
-
--- �������� ���������� �� �����_����.
-function level_object_by_sid( sid )
-	local sim = alife()
-	if sim then
-		local se_obj = sim:story_object( sid )
-		if se_obj then
-			return level.object_by_id( se_obj.id )
-		end
-	end
-	return nil
-end
-
--- �������� �������� ������� �� ����� ����.
-function id_by_sid( sid )
-	local sim = alife()
-	if sim then
-		local se_obj = sim:story_object( sid )
-		if se_obj then
-			return se_obj.id
-		end
-	end
-	return nil
 end
 
 function set_inactivate_input_time(delta)
@@ -662,53 +633,4 @@ function change_team_squad_group(se_obj, team, squad, group)
 		se_obj.group = group
 	end
 	--printf("_G:TSG: [%s][%s][%s]", tostring(se_obj.team), tostring(se_obj.squad), tostring(se_obj.group))
-end
-
---     Story_ID -------------------------------------------------------------
-function add_story_object(obj_id , story_obj_id)
-	story_objects.get_story_objects_registry():register(obj_id , story_obj_id)
-end
-
-function get_story_object(story_obj_id)
-	local obj_id = story_objects.get_story_objects_registry():get(story_obj_id)
-	if obj_id == nil then return nil end
-	return (db.storage[obj_id] and db.storage[obj_id].object) or (level ~= nil and level.object_by_id(obj_id))
-end
-
-function get_object_story_id(obj_id)
-	return story_objects.get_story_objects_registry():get_story_id(obj_id)
-end
-
-function get_story_object_id(story_obj_id)
-	return story_objects.get_story_objects_registry().id_by_story_id[story_obj_id]
-end
-
-function unregister_story_object_by_id(obj_id)
-	story_objects.get_story_objects_registry():unregister_by_id(obj_id)
-end
-
-function unregister_story_id(story_id)
-	story_objects.get_story_objects_registry():unregister_by_story_id(story_id)
-end
-
------------------------------------------------------------------------------------------------
--- �������� ����� �������!!!!!
-function get_object_squad(object)
-	if object == nil then abort("You are trying to get squad_object from NIL object!!!") end
-	local obj_id = nil
-	if type(object.id) == "function" then
-		obj_id = object:id()
-	else
-		obj_id = object.id
-	end
-	local se_obj = alife():object(obj_id)
-	if se_obj and se_obj.group_id ~= 65535 then
-		return alife():object(se_obj.group_id)
-	end
-	return nil
-end
-
-function get_story_squad(story_id)
-	local squad_id = get_story_object_id(story_id)
-	return squad_id and alife():object(squad_id)
 end

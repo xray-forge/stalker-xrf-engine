@@ -80,6 +80,15 @@ export function randomNumber(min?: number, max?: number): number {
 }
 
 /**
+ * todo: description
+ */
+export function clearTable(tbl: LuaTable): void {
+  while (tbl.length() !== 0) {
+    table.remove(tbl, tbl.length());
+  }
+}
+
+/**
  * -- ��������� ������ � ������.
  * function vec_to_str (vector)
  *  if vector == nil then return "nil" end

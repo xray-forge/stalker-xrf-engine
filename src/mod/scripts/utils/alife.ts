@@ -3,157 +3,76 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { wait } from "@/mod/scripts/utils/time";
 
 const log: LuaLogger = new LuaLogger("utils/alife");
+const MAX_16_BIT_VALUE: number = 65535;
 
 /**
- * -- ������ team:squad:group �������.
- * function change_team_squad_group(se_obj, team, squad, group)
- *  local cl_obj = db.storage[se_obj.id] and db.storage[se_obj.id].object
- *  if cl_obj ~= nil then
- *    cl_obj:change_team(team, squad, group)
- *  else
- *    se_obj.team = team
- *    se_obj.squad = squad
- *    se_obj.group = group
- *  end
- *  --printf("_G:TSG: [%s][%s][%s]", tostring(se_obj.team), tostring(se_obj.squad), tostring(se_obj.group))
- * end
+ * todo;
  */
-export function changeTeamSquadGroup(se_obj: any, team: any, squad: any, group: any) {
-  const cl_obj = db.storage[se_obj.id] && db.storage[se_obj.id].object;
-
-  if (cl_obj !== null) {
-    cl_obj.change_team(team, squad, group);
-  } else {
-    se_obj.team = team;
-    se_obj.squad = squad;
-    se_obj.group = group;
-  }
-}
-
-/**
- * --     Story_ID -------------------------------------------------------------
- * function add_story_object(obj_id , story_obj_id)
- *  story_objects.get_story_objects_registry():register(obj_id , story_obj_id)
- * end
- */
-export function addStoryObject(objectId: unknown, storyObjectId: string): void {
+export function addStoryObject(objectId: number, storyObjectId: number): void {
   get_global("story_objects").get_story_objects_registry().register(objectId, storyObjectId);
 }
 
 /**
- * function get_story_object(story_obj_id)
- *  local obj_id = story_objects.get_story_objects_registry():get(story_obj_id)
- *  if obj_id == nil then return nil end
- *  return (db.storage[obj_id] and db.storage[obj_id].object) or (level ~= nil and level.object_by_id(obj_id))
- * end
+ * todo;
  */
-export function getStoryObject(storyObjectId: unknown): unknown {
-  const objectId = get_global("story_objects").get_story_objects_registry().get(storyObjectId);
+export function getStoryObject(storyObjectId: number): Optional<XR_cse_alife_creature_abstract> {
+  const objectId: Optional<number> = get_global("story_objects").get_story_objects_registry().get(storyObjectId);
 
-  if (objectId === null) {
-    return null;
-  }
-
-  return (db.storage[objectId] && db.storage[objectId].object) || (level !== null && level.object_by_id(objectId));
+  return objectId
+    ? (db.storage[objectId] && db.storage[objectId].object) || (level !== null && level.object_by_id(objectId))
+    : null;
 }
 
 /**
- * -- �������� ���������� �� �����_����.
- * function level_object_by_sid( sid )
- *  local sim = alife()
- *
- *  if sim then
- *    local se_obj = sim:story_object( sid )
- *    if se_obj then
- *      return level.object_by_id( se_obj.id )
- *    end
- *  end
- *
- *  return nil
- * end
+ * todo;
  */
 export function levelObjectBySid(sid: number): Optional<XR_game_object> {
-  const sim = alife();
+  const se_obj: Optional<XR_cse_alife_creature_abstract> = alife()?.story_object(sid);
 
-  if (sim !== null) {
-    const se_obj = sim.story_object(sid) as any;
-
-    if (se_obj) {
-      return level.object_by_id(se_obj.id);
-    }
-  }
-
-  return null;
+  return se_obj === null ? null : level.object_by_id(se_obj.id);
 }
 
 /**
- * function get_object_story_id(obj_id)
- *  return story_objects.get_story_objects_registry():get_story_id(obj_id)
- * end
+ * todo;
  */
-export function getObjectStoryId(objectId: unknown): Optional<unknown> {
+export function getObjectStoryId(objectId: number): Optional<number> {
   return get_global("story_objects").get_story_objects_registry().get_story_id(objectId);
 }
 
 /**
- * function get_story_object_id(story_obj_id)
- *  return story_objects.get_story_objects_registry().id_by_story_id[story_obj_id]
- * end
+ * todo: description
  */
-export function getStoryObjectId(storyObjectId: unknown): Optional<unknown> {
-  return get_global("story_objects").get_story_objects_registry().id_by_story_id[storyObjectId as string | number];
+export function getStoryObjectId(storyObjectId: number): Optional<number> {
+  return get_global("story_objects").get_story_objects_registry().id_by_story_id[storyObjectId as number];
 }
 
 /**
- * function unregister_story_object_by_id(obj_id)
- *  story_objects.get_story_objects_registry():unregister_by_id(obj_id)
- * end
+ * todo;
  */
-export function unregisterStoryObjectById(id: unknown): void {
+export function unregisterStoryObjectById(id: number): void {
   get_global("story_objects").get_story_objects_registry().unregister_by_id(id);
 }
 
 /**
- * function unregister_story_id(story_id)
- *  story_objects.get_story_objects_registry():unregister_by_story_id(story_id)
- * end
+ * todo;
  */
-export function unregisterStoryId(id: unknown): void {
+export function unregisterStoryId(id: number): void {
   get_global("story_objects").get_story_objects_registry().unregister_by_story_id(id);
 }
 
 /**
- * function get_object_squad(object)
- *  if object == nil then abort("You are trying to get squad_object from NIL object!!!") end
- *  local obj_id = nil
- *  if type(object.id) == "function" then
- *    obj_id = object:id()
- *  else
- *    obj_id = object.id
- *  end
- *  local se_obj = alife():object(obj_id)
- *  if se_obj and se_obj.group_id ~= 65535 then
- *    return alife():object(se_obj.group_id)
- *  end
- *  return nil
- * end
+ * todo;
  */
-export function getObjectSquad(object: Optional<any>): unknown {
+export function getObjectSquad(object: Optional<XR_game_object | XR_cse_alife_creature_abstract>): Optional<number> {
   if (object === null) {
-    abort("Attempt to get squad object from NIL.");
+    return abort("Attempt to get squad object from NIL.") as never;
   }
 
-  let obj_id = null;
+  const objectId: number =
+    type(object.id) == "function" ? (object as XR_game_object).id() : (object as XR_cse_alife_creature_abstract).id;
+  const se_obj: Optional<any> = alife().object(objectId);
 
-  if (type(object.id) == "function") {
-    obj_id = object.id();
-  } else {
-    obj_id = object.id;
-  }
-
-  const se_obj: any = alife().object(obj_id);
-
-  if (se_obj && se_obj.group_id !== 65535) {
+  if (se_obj && se_obj.group_id !== MAX_16_BIT_VALUE) {
     return alife().object(se_obj.group_id);
   }
 
@@ -161,42 +80,19 @@ export function getObjectSquad(object: Optional<any>): unknown {
 }
 
 /**
- * function get_story_squad(story_id)
- *  local squad_id = get_story_object_id(story_id)
- *  return squad_id and alife():object(squad_id)
- * end
+ * todo;
  */
-export function getStorySquad(id: unknown): unknown {
-  const squadId: any = getStoryObjectId(id);
+export function getStorySquad(id: number): Optional<number> {
+  const squadId: Optional<number> = getStoryObjectId(id);
 
   return squadId && alife().object(squadId);
 }
 
 /**
- * -- �������� �������� ������� �� ����� ����.
- * function id_by_sid( sid )
- *  local sim = alife()
- *  if sim then
- *    local se_obj = sim:story_object( sid )
- *    if se_obj then
- *      return se_obj.id
- *    end
- *  end
- *  return nil
- * end
+ * todo;
  */
-export function idBySid(sid: number): Optional<unknown> {
-  const sim: XR_alife_simulator = alife();
-
-  if (sim !== null) {
-    const se_obj: any = sim.story_object(sid);
-
-    if (se_obj) {
-      return se_obj.id;
-    }
-  }
-
-  return null;
+export function getIdBySid(sid: number): Optional<number> {
+  return alife()?.story_object(sid)?.id;
 }
 
 /**
@@ -340,5 +236,31 @@ export function stopPlaySound(object: XR_game_object): void {
   if (object.alive()) {
     object.set_sound_mask(-1);
     object.set_sound_mask(0);
+  }
+}
+
+/**
+ * -- ������ team:squad:group �������.
+ * function change_team_squad_group(se_obj, team, squad, group)
+ *  local cl_obj = db.storage[se_obj.id] and db.storage[se_obj.id].object
+ *  if cl_obj ~= nil then
+ *    cl_obj:change_team(team, squad, group)
+ *  else
+ *    se_obj.team = team
+ *    se_obj.squad = squad
+ *    se_obj.group = group
+ *  end
+ *  --printf("_G:TSG: [%s][%s][%s]", tostring(se_obj.team), tostring(se_obj.squad), tostring(se_obj.group))
+ * end
+ */
+export function changeTeamSquadGroup(se_obj: any, team: any, squad: any, group: any) {
+  const cl_obj = db.storage[se_obj.id] && db.storage[se_obj.id].object;
+
+  if (cl_obj !== null) {
+    cl_obj.change_team(team, squad, group);
+  } else {
+    se_obj.team = team;
+    se_obj.squad = squad;
+    se_obj.group = group;
   }
 }

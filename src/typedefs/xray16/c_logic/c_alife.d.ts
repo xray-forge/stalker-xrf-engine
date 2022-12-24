@@ -372,12 +372,12 @@ declare global {
 
     public has_info(value1: number, value2: string): unknown;
 
-    public object(value: number): unknown;
-    public object(value1: number, value2: boolean): unknown;
+    public object(value: number): number;
+    public object(value1: number, value2: boolean): number;
 
     public actor(): unknown;
 
-    public story_object(value: number): unknown;
+    public story_object(value: number): XR_cse_alife_creature_abstract;
 
     public spawn_id(value: number): unknown;
 
@@ -719,6 +719,7 @@ declare global {
   };
    */
   // todo;
+
   /**
    C++ class cse_alife_monster_abstract : cse_alife_creature_abstract,cse_alife_schedulable {
     property angle;
@@ -1878,11 +1879,13 @@ declare global {
   };
    */
   // todo;
+
   /**
    C++ class cse_alife_schedulable : ipure_schedulable_object {
   };
    */
   // todo;
+
   /**
    C++ class cse_alife_smart_zone : cse_alife_space_restrictor,cse_alife_schedulable {
     property angle;
@@ -2407,92 +2410,178 @@ declare global {
   };
    */
   // todo;
+
   /**
-   C++ class cse_alife_creature_abstract : cse_alife_dynamic_object_visual {
-    property angle;
-    property group;
-    property id;
-    property m_game_vertex_id;
-    property m_level_vertex_id;
-    property m_story_id;
-    property online;
-    property parent_id;
-    property position;
-    property script_version;
-    property squad;
-    property team;
-
-    cse_alife_creature_abstract (string);
-
-    function on_death(cse_abstract*);
-
-    function on_before_register();
-
-    function use_ai_locations(boolean);
-
-    function interactive() const;
-
-    function on_register();
-
-    function alive() const;
-
-    function can_switch_online() const;
-    function can_switch_online(boolean);
-
-    function visible_for_map() const;
-    function visible_for_map(boolean);
-
-    function g_team();
-
-    function switch_offline();
-
-    function health() const;
-
-    function g_group();
-
-    function clsid() const;
-
-    function g_squad();
-
-    function can_save() const;
-
-    function switch_online();
-
-    function STATE_Write(net_packet&);
-
-    function move_offline() const;
-    function move_offline(boolean);
-
-    function init();
-
-    function keep_saved_data_anyway() const;
-
-    function used_ai_locations() const;
-
-    function spawn_ini(cse_abstract*);
-
-    function section_name(const cse_abstract*);
-
-    function o_torso(cse_alife_creature_abstract*);
-
-    function STATE_Read(net_packet&, number);
-
-    function name(const cse_abstract*);
-
-    function on_spawn();
-
-    function can_switch_offline() const;
-    function can_switch_offline(boolean);
-
-    function UPDATE_Write(net_packet&);
-
-    function on_unregister();
-
-    function UPDATE_Read(net_packet&);
-
-  };
+   * C++ class cse_alife_creature_abstract : cse_alife_dynamic_object_visual {
+   *     property angle;
+   *     property group;
+   *     property id;
+   *     property m_game_vertex_id;
+   *     property m_level_vertex_id;
+   *     property m_story_id;
+   *     property online;
+   *     property parent_id;
+   *     property position;
+   *     property script_version;
+   *     property squad;
+   *     property team;
+   *
+   *     cse_alife_creature_abstract (string);
+   *
+   *     function on_death(cse_abstract*);
+   *
+   *     function on_before_register();
+   *
+   *     function use_ai_locations(boolean);
+   *
+   *     function interactive() const;
+   *
+   *     function on_register();
+   *
+   *     function alive() const;
+   *
+   *     function can_switch_online() const;
+   *     function can_switch_online(boolean);
+   *
+   *     function visible_for_map() const;
+   *     function visible_for_map(boolean);
+   *
+   *     function g_team();
+   *
+   *     function switch_offline();
+   *
+   *     function health() const;
+   *
+   *     function g_group();
+   *
+   *     function clsid() const;
+   *
+   *     function g_squad();
+   *
+   *     function can_save() const;
+   *
+   *     function switch_online();
+   *
+   *     function STATE_Write(net_packet&);
+   *
+   *     function move_offline() const;
+   *     function move_offline(boolean);
+   *
+   *     function init();
+   *
+   *     function keep_saved_data_anyway() const;
+   *
+   *     function used_ai_locations() const;
+   *
+   *     function spawn_ini(cse_abstract*);
+   *
+   *     function section_name(const cse_abstract*);
+   *
+   *     function o_torso(cse_alife_creature_abstract*);
+   *
+   *     function STATE_Read(net_packet&, number);
+   *
+   *     function name(const cse_abstract*);
+   *
+   *     function on_spawn();
+   *
+   *     function can_switch_offline() const;
+   *     function can_switch_offline(boolean);
+   *
+   *     function UPDATE_Write(net_packet&);
+   *
+   *     function on_unregister();
+   *
+   *     function UPDATE_Read(net_packet&);
+   *
+   *   };
+   *
+   *  @customConstructor
    */
-  // todo;
+  class XR_cse_alife_creature_abstract {
+    public angle: number;
+    public group: number;
+    public id: number;
+    public m_game_vertex_id: number;
+    public m_level_vertex_id: number;
+    public m_story_id: number;
+    public online: boolean;
+    public parent_id: number;
+    public position: unknown;
+    public script_version: unknown;
+    public squad: unknown;
+    public team: unknown;
+
+    public constructor(id: string);
+
+    public on_death(cse_abstract: XR_cse_alife_creature_abstract): unknown;
+
+    public on_before_register(): unknown;
+
+    public use_ai_locations(value: boolean): unknown;
+
+    public interactive(): unknown;
+
+    public on_register(): unknown;
+
+    public alive(): unknown;
+
+    public can_switch_online(): unknown;
+    public can_switch_online(value: boolean): unknown;
+
+    public visible_for_map(): unknown;
+    public visible_for_map(value: boolean): unknown;
+
+    public g_team(): unknown;
+
+    public switch_offline(): unknown;
+
+    public health(): unknown;
+
+    public g_group(): unknown;
+
+    public clsid(): unknown;
+
+    public g_squad(): unknown;
+
+    public can_save(): unknown;
+
+    public switch_online(): unknown;
+
+    public STATE_Write(net_packet: unknown): unknown;
+
+    public move_offline(): unknown;
+    public move_offline(value: boolean): unknown;
+
+    public init(): unknown;
+
+    public keep_saved_data_anyway(): unknown;
+
+    public used_ai_locations(): unknown;
+
+    public spawn_ini(cse_abstract: XR_cse_alife_creature_abstract): unknown;
+
+    public section_name(cse_abstract: XR_cse_alife_creature_abstract): unknown;
+
+    public o_torso(cse_alife_creature_abstract: XR_cse_alife_creature_abstract): unknown;
+
+    public STATE_Read(net_packet: unknown, value: number): unknown;
+
+    public name(cse_abstract: XR_cse_alife_creature_abstract): unknown;
+
+    public on_spawn(): unknown;
+
+    public can_switch_offline(): unknown;
+    public can_switch_offline(value: boolean): unknown;
+
+    public UPDATE_Write(net_packet: unknown): unknown;
+
+    public on_unregister(): unknown;
+
+    public UPDATE_Read(net_packet: unknown): unknown;
+
+  }
+
   /**
    C++ class cse_alife_creature_actor : cse_alife_creature_abstract,cse_alife_trader_abstract,cse_ph_skeleton {
     property angle;

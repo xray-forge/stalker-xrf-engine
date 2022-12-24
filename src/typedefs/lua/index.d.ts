@@ -41,7 +41,7 @@ declare interface ILUATable {
   insert(this: void, list: unknown, pos: unknown, value: unknown): unknown;
   insert(this: void, list: unknown, value?: unknown): unknown;
   move(this: void, a1: unknown, f: unknown, e: unknown, t: unknown, a2: unknown): unknown;
-  remove(this: void, list: unknown, pos: unknown): unknown;
+  remove(this: void, list: unknown, pos: number): unknown;
   sort(this: void, list: unknown, comp: unknown): unknown;
 }
 
