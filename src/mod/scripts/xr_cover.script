@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------------
---    Схема: прячемся в кавере
+--    пїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 ------------------------------------------------------------------------------------
 class "evaluator_need_cover" (property_evaluator)
 function evaluator_need_cover:__init(storage, name) super(nil, name)
@@ -21,25 +21,25 @@ end
 function action_cover:activate_scheme()
     self.st.signals = {}
     self.board = sim_board.get_sim_board()
-    --' Высчитываем кавер.
+    --' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.
     local base_point = sim_board.get_sim_board():get_smart_by_name(self.st.smart).m_level_vertex_id
 
-       
+
     local direction_vector = vector():set(math.random(-100,100), 0, math.random(-100,100))
     local base_vertex_id = level.vertex_in_direction(base_point, direction_vector, math.random(self.st.radius_min,self.st.radius_max))
     local self_random_position = level.vertex_position(base_vertex_id)
 
-	--' Получаем врага, относительно которого надо искать кавер
-	self.enemy_random_position = self_random_position --' дефолтовая позиция
+	--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+	self.enemy_random_position = self_random_position --' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
 	local cover = nil
 	local tcover = nil
 
 	local cover_dist = 2
     while cover == nil and cover_dist <= 4 do
-		cover = self.object:best_cover(self_random_position, self.enemy_random_position, cover_dist, 1, 150)		
-		cover_dist = cover_dist + 1		
-	end	
+		cover = self.object:best_cover(self_random_position, self.enemy_random_position, cover_dist, 1, 150)
+		cover_dist = cover_dist + 1
+	end
 
 	if cover == nil then
 		--printf("cover is [nil]")
@@ -56,17 +56,17 @@ function action_cover:activate_scheme()
 		end
 		--printf("cover exists -- cover_vertex [%s] cover_position [%s]", tostring(self.cover_vertex_id), vec_to_str(self.cover_position))
 	end
-			
+
 	if not self.object:accessible(self.cover_position) then
 		local ttp = vector():set(0,0,0)
 		self.cover_vertex_id = self.object:accessible_nearest(self.cover_position, ttp)
 		self.cover_position = level.vertex_position(self.cover_vertex_id)
 		--printf("cover exists but not accesible -- cover_vertex [%s] cover_position [%s]", tostring(self.cover_vertex_id), vec_to_str(self.cover_position))
-	end	
+	end
 
 	local desired_direction = vector():sub(self.cover_position,self.enemy_random_position)
 	printf("desired_direction = %s", vec_to_str(desired_direction))
-	if desired_direction ~= nil and not utils.vector_cmp(desired_direction, vector():set(0,0,0)) then
+	if desired_direction ~= nil and not vector_cmp(desired_direction, vector():set(0,0,0)) then
 		desired_direction:normalize()
 		self.object:set_desired_direction(desired_direction)
 	end
@@ -80,7 +80,7 @@ function action_cover:activate_scheme()
 end
 function action_cover:execute()
 	--printf("[%s] dist %s to %s", self.object:name(), self.cover_position:distance_to_sqr(self.object:position()), vec_to_str(self.cover_position))
-	--' Проверяем пришли ли в точку.
+	--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ.
 	if self.cover_position:distance_to_sqr(self.object:position()) <= 0.4 then
 		local anim = xr_logic.pick_section_from_condlist(db.actor, self.object, self.st.anim)
 		state_mgr.set_state(self.object, anim, nil, nil, {look_position = self.enemy_random_position}, nil, nil)
@@ -90,13 +90,13 @@ function action_cover:execute()
 	end
 	if self.st.sound_idle ~= nil then
 		xr_sound.set_sound_play(self.object:id(), self.st.sound_idle)
-	end	
+	end
 	action_base.execute(self)
 end
 function action_cover:finalize()
 	action_base.finalize(self)
 end
---' Возвращает достиг ли персонаж точки начала работы схемы
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 function action_cover:position_riched()
 	return self.cover_position:distance_to_sqr(self.object:position()) <= 0.4
 end
@@ -107,13 +107,13 @@ end
 function add_to_binder(npc, ini, scheme, section, storage)
   		local operators	= {}
 	  	local properties  = {}
-		
+
 	   	local manager = npc:motivation_action_manager()
 
 		properties["event"]			= xr_evaluators_id.reaction
 	 	properties["need_cover"]	= xr_evaluators_id.stohe_cover_base + 1
 		properties["state_mgr_logic_active"] 	= xr_evaluators_id.state_mgr + 4
-		
+
 	 	operators["action_cover"]	= xr_actions_id.stohe_cover_base + 1
 
 	   	-- evaluators
@@ -130,14 +130,14 @@ function add_to_binder(npc, ini, scheme, section, storage)
 	   	new_action:add_effect (world_property(properties["state_mgr_logic_active"], false))
 		manager:add_action(operators["action_cover"], new_action)
 
-		-- Зарегистрировать все actions, в которых должен быть вызван метод reset_scheme при изменении настроек схемы:
+		-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ actions, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ reset_scheme пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ:
 		xr_logic.subscribe_action_for_events(npc, storage, new_action)
 
 	  	new_action = manager:action(xr_actions_id.alife)
 	  	new_action:add_precondition(world_property(properties["need_cover"], false))
 end
 
--- Включение схемы
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 function set_scheme(npc, ini, scheme, section, gulag_name)
 	local st = xr_logic.assign_storage_and_bind(npc, ini, scheme, section)
 
@@ -146,11 +146,11 @@ function set_scheme(npc, ini, scheme, section, gulag_name)
 	st.smart	= utils.cfg_get_string(ini, section, "smart", npc, false, "")
 	st.anim		= xr_logic.parse_condlist(npc, "anim", "anim", utils.cfg_get_string(ini, section, "anim", npc, false, "", "hide"))
 	st.sound_idle= utils.cfg_get_string(ini, section, "sound_idle",npc, false, "")
-		
+
 	if st.smart == nil then
 		abort("There is no path_walk and smart in xr_cover.")
 	end
-	
+
 	st.use_attack_direction = utils.cfg_get_bool(ini, section, "use_attack_direction", npc, false, true)
 
 	st.radius_min = utils.cfg_get_number(ini, section, "radius_min", npc, false, 3)

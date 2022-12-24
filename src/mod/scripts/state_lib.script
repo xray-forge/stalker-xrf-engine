@@ -1,11 +1,11 @@
 ----------------------------------------------------------------------------------------------------------------------
---	Библиотека состояний тела
---	автор: Диденко Руслан (Stohe)
+--	пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+--	пїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (Stohe)
 --	TODO:
 ----------------------------------------------------------------------------------------------------------------------
 
 states = {
-	-- Дефолтовый
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	idle = {	weapon = nil,
 				movement = nil,
 				mental = nil,
@@ -22,7 +22,7 @@ states = {
 				direction = CSightParams.eSightTypeAnimationDirection
 			},
 
-	-- Ходячие состояния
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	walk = {	weapon = "strapped",
 				movement = move.walk,
 				mental = anim.free,
@@ -130,7 +130,7 @@ states = {
 				animation = nil
 			},
 
-	-- Стоячие состояния
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	wait = {	weapon = "strapped",
 				movement = move.stand,
 				mental = anim.free,
@@ -359,13 +359,13 @@ states = {
 				animstate = nil,
 				animation = "hide"
 			},
-	-- Сидячие состояния
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	sit = {		weapon = "strapped",
 				movement = move.stand,
 				mental = anim.free,
 				bodystate = move.standing,
 				animstate = "sit",
-				animation = nil 
+				animation = nil
 			},
 	sit_knee = {weapon = "strapped",
 				movement = move.stand,
@@ -622,7 +622,7 @@ states = {
 
 
 
-	-- Раненый
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	wounded = {	weapon = "strapped",
 				movement = move.stand,
 				mental = anim.danger,
@@ -693,7 +693,7 @@ states = {
 				animation = "talk_default"
 			},
 
-	-- Пси раненый
+	-- пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	psy_pain = {weapon = "drop",
 				movement = move.stand,
 				mental = anim.free,
@@ -725,6 +725,6 @@ states = {
 		animation = "wounded_heavy_1"}
 }
 
-utils.copy_table(states, state_lib_animpoint.add_state_lib())
-utils.copy_table(states, state_mgr_scenario.add_state_lib())
-utils.copy_table(states, state_mgr_pri_a15.add_state_lib())
+copy_table(states, state_lib_animpoint.add_state_lib())
+copy_table(states, state_mgr_scenario.add_state_lib())
+copy_table(states, state_mgr_pri_a15.add_state_lib())

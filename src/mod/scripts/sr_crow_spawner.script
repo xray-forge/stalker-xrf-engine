@@ -40,7 +40,9 @@ end
 -- Checks a need for spawn a new crow
 function crowkiller:check_for_spawn_new_crow()
     local path_table = {}
-    utils.copy_table(path_table, self.st.path_table)
+
+    copy_table(path_table, self.st.path_table)
+
     for i=1,#self.st.path_table do
         local idx = math.random(#path_table)
         local selected_path = path_table[idx]

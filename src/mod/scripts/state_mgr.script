@@ -1,6 +1,6 @@
 ----------------------------------------------------------------------------------------------------------------------
---	Менеджер изменения состояния тела
---	автор: Диденко Руслан (Stohe)
+--	пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+--	пїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (Stohe)
 --	TODO:
 ----------------------------------------------------------------------------------------------------------------------
 --function printf()
@@ -9,8 +9,8 @@
 aim_ratio = 1000/50
 min_ratio = 1500
 
---' Эвалуатор, который синхронизирует менеджер.
---' Мы уже в безраличном состоянии idle или нет
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+--' пїЅпїЅ пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ idle пїЅпїЅпїЅ пїЅпїЅпїЅ
 class "evaluator_state_mgr_idle" (property_evaluator)
 function evaluator_state_mgr_idle:__init(name, state_manager) super (nil, name)
 	self.st = state_manager
@@ -43,10 +43,10 @@ function evaluator_state_mgr_idle:evaluate()
 
 	if self.st.combat == true then return true end
 
-	--' Если у нас пост комбат вейт - вернуть ТРУ.  Делалось, чтобы когда чувак выполняет пост комбат, он считал что стейт менеджер находится в безразличном состоянии.
+	--' пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ.  пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 
-	--  Заремленно, потому что был баг, когда чувак уже выполняет планнер комбата, а еще не вышел из анимации посткомбата
-	-- UPD: Отремлено, потому что стейт менеджер не имеет права работать во время пост комбата.
+	--  пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+	-- UPD: пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 	if self.combat_planner == nil then
 		self.combat_planner = cast_planner(self.mgr:action(stalker_ids.action_combat_planner))
 	end
@@ -62,7 +62,7 @@ function evaluator_state_mgr_idle:evaluate()
 	return false
 end
 
---' Мы уже в безраличном состоянии idle или нет ()учет с проверкой alife
+--' пїЅпїЅ пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ idle пїЅпїЅпїЅ пїЅпїЅпїЅ ()пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ alife
 class "evaluator_state_mgr_idle_alife" (property_evaluator)
 function evaluator_state_mgr_idle_alife:__init(name, state_manager) super (nil, name)
 	self.st = state_manager
@@ -72,8 +72,8 @@ function evaluator_state_mgr_idle_alife:evaluate()
 	if not self.object:alive() then
 		return true
 	end
-	-- апдейт менеджера анимаций
-	-- раньше он был тут, сейчас он вынесен из эвалуатора
+	-- пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+	-- пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
 --	printf("SECTION %s", utils.to_str(db.storage[self.st.npc:id()].active_section))
 	mgr = self.object:motivation_action_manager()
@@ -86,7 +86,7 @@ function evaluator_state_mgr_idle_alife:evaluate()
 		end
 	end
 
---	if db.storage[self.st.npc:id()].active_section == nil then  --Заремил, потому что чуваки пока у них есть активная секция срывались в алайф без корректного завершения анимаций
+--	if db.storage[self.st.npc:id()].active_section == nil then  --пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		if xr_meet.is_meet(self.object) == false then
 			local t = self.st.target_state == "idle" and
 				--not self.st.planner:evaluator(self.st.properties["locked"]):evaluate() and
@@ -117,7 +117,7 @@ function evaluator_state_mgr_idle_alife:evaluate()
 --	return true
 end
 
---' Мы уже в безраличном состоянии idle или нет ()учет с проверкой alife
+--' пїЅпїЅ пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ idle пїЅпїЅпїЅ пїЅпїЅпїЅ ()пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ alife
 class "evaluator_state_mgr_idle_items" (property_evaluator)
 function evaluator_state_mgr_idle_items:__init(name, state_manager) super (nil, name)
 	self.st = state_manager
@@ -127,8 +127,8 @@ function evaluator_state_mgr_idle_items:evaluate()
 	if not self.object:alive() then
 		return true
 	end
-	-- апдейт менеджера анимаций
-	-- раньше он был тут, сейчас он вынесен из эвалуатора
+	-- пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+	-- пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
 --	printf("SECTION %s", utils.to_str(db.storage[self.st.npc:id()].active_section))
 --	mgr = self.object:motivation_action_manager()
@@ -141,7 +141,7 @@ function evaluator_state_mgr_idle_items:evaluate()
 --		end
 --	end
 
---	if db.storage[self.st.npc:id()].active_section == nil then  --Заремил, потому что чуваки пока у них есть активная секция срывались в алайф без корректного завершения анимаций
+--	if db.storage[self.st.npc:id()].active_section == nil then  --пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		if xr_meet.is_meet(self.object) == false then
 			local t = self.st.target_state == "idle" and
 --				not self.st.planner:evaluator(self.st.properties["locked"]):evaluate() and
@@ -185,7 +185,7 @@ function evaluator_state_mgr_logic_active:evaluate()
 	return true
 end
 
---' Переход в idle
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ idle
 class "act_state_mgr_to_idle" (action_base)
 function act_state_mgr_to_idle:__init(name,state_manager) super (nil, name)
 	self.st = state_manager
@@ -225,8 +225,8 @@ function act_state_mgr_to_idle:execute()
 	action_base.execute(self)
 end
 function act_state_mgr_to_idle:finalize()
-	-- По завершению перехода нужно записать -1 в указатель "на кого смотреть",
-	-- чтобы при возврате было понятно что его нужно переинициализировать.
+	-- пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ -1 пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ "пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ",
+	-- пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 
 	self.st.current_object = -1
 
@@ -235,9 +235,9 @@ end
 
 
 --'-------------------------------------------------------------------------------------
---' Эвалуаторы и экшены менеджера
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 --'-------------------------------------------------------------------------------------
---' Закончил ли менеджер свою работу
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 class "eva_state_mgr_end" (property_evaluator)
 function eva_state_mgr_end:__init(name, st) super (nil, name)
 	self.st = st
@@ -275,7 +275,7 @@ function eva_state_mgr_end:evaluate()
 	return false
 end
 
---' Залочен ли менеджер
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 class "eva_state_mgr_locked" (property_evaluator)
 function eva_state_mgr_locked:__init(name, st) super (nil, name)
 	self.st = st
@@ -306,7 +306,7 @@ end
 
 
 
---' Идловый экшн менеджера
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 class "act_state_mgr_end" (action_base)
 function act_state_mgr_end:__init(name, st) super (nil, name)
 	self.st = st
@@ -320,7 +320,7 @@ function act_state_mgr_end:execute()
 	self:weapon_update()
 end
 function act_state_mgr_end:weapon_update()
-	-- Коллбек на завершение состояния
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	if self.st.callback ~= nil then
 		if self.st.callback.begin == nil then
 			self.st.callback.begin = time_global()
@@ -394,7 +394,7 @@ function act_state_mgr_end:finalize()
 	action_base.finalize(self)
 end
 
---' Лок менеджера
+--' пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 class "act_state_mgr_locked" (action_base)
 function act_state_mgr_locked:__init(name, st) super (nil, name)
 	self.st = st
@@ -410,7 +410,7 @@ function act_state_mgr_locked:finalize()
 end
 
 
---' Сам менеджер
+--' пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 class "state_manager"
 function state_manager:__init(npc)
 	state_mgr_goap.goap_graph(self, npc)
@@ -451,7 +451,7 @@ function state_manager:set_state(state_name, callback, timeout, target, extra)
 		--printf("look target NIL")
 	end
 
-	--сперва устанавливаем цели
+	--пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 	if target ~= nil then
 		self.look_position = target.look_position
 		if target.look_object ~= nil then
@@ -470,22 +470,22 @@ function state_manager:set_state(state_name, callback, timeout, target, extra)
 		--printf("Set State called: for %s State: %s  [%s]", self.npc:name(), state_name, device():time_global())
 		--callstack()
 		--log(string.format("Set State called: for %s State: %s  [%s]", self.npc:name(), state_name, device():time_global()))
-		--' Если мы переключаемся из стреляющего состояния в нестреляющее - необходимо сразу же прекратить стрельбу
+		--' пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
 		if (state_lib.states[self.target_state].weapon == "fire" or
-			 state_lib.states[self.target_state].weapon == "sniper_fire") and   -- or self.target_state == "idle"  Заремил, потому что залипали в анимпоинтах, когда при активной анимации анстрапалось оружие.
+			 state_lib.states[self.target_state].weapon == "sniper_fire") and   -- or self.target_state == "idle"  пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
 			 (state_lib.states[state_name].weapon ~= "fire" and
 			 state_lib.states[state_name].weapon ~= "sniper_fire")
 		then
 			--self.npc:set_item(state_mgr_weapon.get_idle_state(state_name), state_mgr_weapon.get_weapon(self.npc, state_name))
-			if self.npc:weapon_unstrapped()	then 
+			if self.npc:weapon_unstrapped()	then
 				self.npc:set_item(object.idle, state_mgr_weapon.get_weapon(self.npc, state_name))
 				--printf("[%s] stop shooting", self.npc:name())
 			end
 		end
 
 
-		--' Проверка на необходимость special_danger_move
+		--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ special_danger_move
 		if state_lib.states[state_name].special_danger_move == true then
 			--printf("SPECIAL DANGER MOVE %s for stalker [%s]", tostring(self.npc:special_danger_move()), self.npc:name())
 			if self.npc:special_danger_move() ~= true then
@@ -505,10 +505,10 @@ function state_manager:set_state(state_name, callback, timeout, target, extra)
 		if extra ~= nil then
 			self.fast_set 				= extra.fast_set
 
-			-- Заново заставляем применить позицию и направление в случае если оно не было применено либо позиция и направление изменились.
+			-- пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 			if self.pos_direction_applied == false or
-				 (self.animation_position ~= nil and extra.animation_position ~= nil and (not utils.vector_cmp(self.animation_position, extra.animation_position)) or
-					self.animation_direction ~= nil and extra.animation_direction ~= nil and (not utils.vector_cmp(self.animation_direction, extra.animation_direction)) )
+				 (self.animation_position ~= nil and extra.animation_position ~= nil and (not vector_cmp(self.animation_position, extra.animation_position)) or
+					self.animation_direction ~= nil and extra.animation_direction ~= nil and (not vector_cmp(self.animation_direction, extra.animation_direction)) )
 
 			then
 				self.animation_position 	= extra.animation_position
@@ -542,17 +542,17 @@ function state_manager:get_state()
 end
 function state_manager:update()
 	--printf("Update called for stalker [%s]", self.npc:name())
-	-- Обрабатываем коллбек
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	if self.animation.states.current_state == state_lib.states[self.target_state].animation then
 		if self.callback ~= nil and
 			 self.callback.func ~= nil
 		then
 			 if self.callback.begin == nil then
-					 -- Инициализируем коллбек
+					 -- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 				self.callback.begin = time_global()
 				--printf("		Callback initialized %s", time_global())
 			else
-				-- Проверяем, не пришло ли время вызвать коллбек
+				-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 				if time_global() - self.callback.begin >= self.callback.timeout then
 					--printf("		Callback called %s", time_global())
 

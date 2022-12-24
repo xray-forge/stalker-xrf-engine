@@ -4,27 +4,6 @@ local log = create_ts_class_instance(LuaLogger, "utils");
 
 log:info("Initialize utils")
 
---
-
-local utilsPhysics = require("scripts.utils.physics")
-
-vector_cmp = utilsPhysics.vectorCmp
-vector_cmp_prec = utilsPhysics.vectorCmpPrec
-graph_distance = utilsPhysics.graphDistance
-
---'����������� ������� �� ��������
-function copy_table(dest, src)
-	for k,v in pairs(src) do
-		if type(v) == "table" then
-			--' ����������� ����� ���� �� ��� ���������
-			dest[k] = {}
-			copy_table(dest[k], v)
-		else
-			dest[k] = v
-		end
-	end
-end
-
 -- ��������� ��������� ���� bool � �������� �������.
 --
 -- char_ini - ��������� �� customdata (������ object:spawn_ini())

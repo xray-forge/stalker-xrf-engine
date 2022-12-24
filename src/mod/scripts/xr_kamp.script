@@ -1,19 +1,19 @@
 ----------------------------------------------------------------------------------------------------------------------
---	Схема лагерь. Чудак(и) у костра.
---	автор: Диденко Руслан (Stohe)
+--	пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅ(пїЅ) пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
+--	пїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (Stohe)
 --	TODO:
 ----------------------------------------------------------------------------------------------------------------------
 --function printf()
 --end
 
 kamps = {}
-kamp_stalkers = {} -- могут ли сталкеры в лагере юзаться игроком.
--- Объявления итераторов
+kamp_stalkers = {} -- пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 local k,v,kk,vv = 0,0,0,0
 ---------------------------------------------------------------------------------------------------------------------
 --Evaluators
 ----------------------------------------------------------------------------------------------------------------------
---' Условие завершения скрипта
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 class "evaluator_kamp_end" (property_evaluator)
 function evaluator_kamp_end:__init(name, storage) super (nil, name)
 	self.a = storage
@@ -21,7 +21,7 @@ end
 function evaluator_kamp_end:evaluate()
 	return not xr_logic.is_active(self.object, self.a)
 end
---' Находимся ли мы на заданной позиции
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 class "evaluator_on_position" (property_evaluator)
 function evaluator_on_position:__init(name, storage) super (nil, name)
 	self.a = storage
@@ -35,7 +35,7 @@ end
 ----------------------------------------------------------------------------------------------------------------------
 --Actions
 ----------------------------------------------------------------------------------------------------------------------
---' Идет в заданную область
+--' пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 class "action_go_position" (action_base)
 function action_go_position:__init (npc_name,action_name,storage) super (nil,action_name)
 	self.a = storage
@@ -54,13 +54,13 @@ end
 function action_go_position:execute ()
 	action_base.execute (self)
 
-	-- Спрашиваем где сидеть
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 	local tmp_pos_vertex, npc_position_num = kamps[self.a.center_point]:getDestVertex(self.object, self.a.radius)
 	if self.a.npc_position_num ~= npc_position_num then
 		self.a.npc_position_num = npc_position_num
 		self.a.pos_vertex = tmp_pos_vertex
 
-		--' Определяем куда смотреть.
+		--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 		self.a.pp = patrol(self.a.center_point):point(0)
 
 		local dir = vector():set(math.random(-1,1), 0, math.random(-1,1))
@@ -76,7 +76,7 @@ function action_go_position:execute ()
 		--printf("vertex_position")
 		local desired_direction = vector():sub(self.a.pp,level.vertex_position(self.a.pos_vertex))
 		--printf("desired_direction = %s", vec_to_str(desired_direction))
-		if desired_direction ~= nil and not utils.vector_cmp(desired_direction, vector():set(0,0,0)) then
+		if desired_direction ~= nil and not vector_cmp(desired_direction, vector():set(0,0,0)) then
 			desired_direction:normalize()
 			self.object:set_desired_direction(desired_direction)
 		end
@@ -88,7 +88,7 @@ function action_go_position:finalize ()
 	action_base.finalize (self)
 end
 
---' Просто сидит и втыкает
+--' пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 class "action_wait" (action_base)
 function action_wait:__init (npc_name,action_name,storage) super (nil,action_name)
 	self.a = storage
@@ -108,7 +108,7 @@ end
 function action_wait:execute()
 	action_base.execute (self)
 
-	--' повернуть его лицом к центру
+	--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 	state_mgr.set_state(self.object, "sit", nil, nil, {look_position = self.a.pp})
 end
 function action_wait:finalize()
@@ -154,17 +154,17 @@ function CKampManager:__init(path)
 	self.npc = {}
 	self.population = 0
 	self.kamp_state = "idle"
-	-- Где то здесь распарсим патрульный путь и проапдейтим вектор позиций.
-	-- 0 вершина - центр лагеря.
-	-- 1 флаг - сектор занят, в поинте можно сидеть.
-	-- 2 флаг - сектор занят, в поинте нельзя сидеть.
+	-- пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+	-- 0 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
+	-- 1 пїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
+	-- 2 пїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
 --[[
 	for k = 1, self.patrol:count() - 1 do
-		-- если есть 1 или 2 флажок - отметить сектор как занятый
+		-- пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ 1 пїЅпїЅпїЅ 2 пїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		if self.patrol:flag(k,1) or
 			 self.patrol:flag(k,2)
 		then
-			-- отметить сектор как занятый
+			-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 			for key,value in pairs(self.position) do
 				dir = vector():sub(level.vertex_position(self.patrol:level_vertex_id(k)), level.vertex_position(self.center))
 				if value.dir then
@@ -179,15 +179,15 @@ function CKampManager:__init(path)
 
 		end
 
-		-- если есть 1 флажок - создать место для сидения в точке пути
+		-- пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ 1 пїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 		if self.patrol:flag(k,1) then
-			-- создать точку для сидения
+			-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 			table.insert(self.position, {vertex = self.patrol:level_vertex_id(k)})
 		end
 	end
 ]]
 	--print_table(self.position)
-	--Таблица соответствий состояния лагеря и допустимых анимаций и звуков.
+	--пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
 	self.avail_state = {idle				= { directed	= { "wait", "sit", "sit_ass", "sit_knee", "eat_kolbasa", "eat_vodka", "eat_energy", "eat_bread", "trans"}},
 						pre_harmonica		= { directed	= { "wait_harmonica"},
 												undirected	= { "wait", "sit", "sit_ass", "sit_knee", "eat_kolbasa", "eat_vodka", "eat_energy", "eat_bread", "trans"}},
@@ -213,7 +213,7 @@ function CKampManager:__init(path)
 						post_guitar			= { directed = "", undirected = "reac_guitar"},
 						story				= { directed = "", undirected = ""}}
 
-	-- Таблица таймаутов по состоянию. Если состояние установилось, то некоторое время оно не может быт изменено.
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 	self.timeout	 = {idle				= { min = 30000 },
 						pre_harmonica		= { min = 3000 },
 						harmonica			= { min = 5000, soundstart = true },
@@ -223,12 +223,12 @@ function CKampManager:__init(path)
 						post_guitar			= { min = 3000 },
 						story				= { min = 1000, soundstart = true }}
 
-	-- Таблица глобальных состояний лагеря.
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
 	self.kamp_states = { idle = true,
 						 pre_harmonica = false, harmonica = false, post_harmonica = false,
 						 pre_guitar = false, guitar = false, post_guitar = false,
 						 story = true }
-	-- Таблица допустимых переходов между состояниями с вероятностями.
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 	self.trans_kamp = { idle			= { idle = 0, pre_harmonica = 0, pre_guitar = 50, story = 50},
 						pre_harmonica	= { harmonica = 100 },
 						harmonica		= { post_harmonica = 100 },
@@ -238,15 +238,15 @@ function CKampManager:__init(path)
 						post_guitar		= { idle = 70, guitar = 30 },
 						story			= { idle = 100 }}
 
-	-- Хранилище для режиссера лагеря. Режиссерем является сталкер, затеявший необычное поведение
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	self.director = nil
 
 
-	--' Для теста создаем объект истории
+	--' пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	self.sound_manager = sound_manager.get_sound_manager("kamp_"..path)
 end
 function CKampManager:selectPosition(npc_id)
-	-- создаем список доступных позиций
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	--printf("KAMP. [%s] called select position", npc_id)
 	local free = {}
 	for k,v in pairs(self.position) do
@@ -254,7 +254,7 @@ function CKampManager:selectPosition(npc_id)
 			table.insert(free, k)
 		end
 	end
-	--' затем из доступных позиций выбрать рандомно одну.
+	--' пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ.
 	if #free > 0 then
 		--printf("KAMP [%s] free node > 0", npc_id)
 		local rr = math.random(#free)
@@ -279,13 +279,13 @@ function CKampManager:getDestVertex(npc, radius)
 		return nil
 	end
 
-	-- высчитываем вертех по направлению
-	-- Берем позицию в заданном направлении, затем берем ниарест точку от нее.
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+	-- пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ.
 
 	local pp = self.patrol:point(0)
 	local dir = self.position[self.npc[npc_id].position].dir
 
-	-- Считаем рандомное отклонение направления.
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 	dir.x = dir.x + math.random(-1,1)/5
 	dir.z = dir.z + math.random(-1,1)/5
 	dir:normalize()
@@ -321,7 +321,7 @@ function CKampManager:getDestVertex(npc, radius)
 	return dest_vertex, self.npc[npc_id].position
 end
 function CKampManager:proceedState(npc)
-	-- Проверка на таймаут
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	local npc_id = npc:id()
 	local active_sound_count = npc:active_sound_count()
 	if self.npc[npc_id].need_sound_begin == true then
@@ -337,31 +337,31 @@ function CKampManager:proceedState(npc)
 		return
 	end
 
-	--' Если режиссер не закончил говорить - ждем конца фразы.
+	--' пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.
 	if active_sound_count > 0 then
 		return
 	end
 
-	--' Если начали говорить какую то историю саунд-менеджера
+	--' пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	if not self.sound_manager:is_finished() then
 		self.sound_manager:update()
 		return
 	end
 
 	--printf("Proceed state for [%s]", npc_id)
-	-- Определяются допустимые в данный момент переходы.
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 	local temp = {}
 	local max_rnd = 0
 	for k,v in pairs(self.trans_kamp[self.kamp_state]) do
-		-- Определяются допустимые состояния для лагеря.
+		-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
 		if self.kamp_states[k] == true then
 			temp[k] = v
 			max_rnd = max_rnd + v
 		end
 	end
-	-- Осуществляется рандомный взвешенный переход.
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 	if max_rnd == 0 then
-		-- Если переходить некуда - переходим в айдл
+		-- пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ
 		temp["idle"] = 100
 		max_rnd = 100
 	end
@@ -398,14 +398,14 @@ function CKampManager:proceedState(npc)
 end
 function CKampManager:proceedRole(npc, director)
 	--printf("Proceed Role for [%s]", npc:id())
-	-- Определить список доступных анимаций по состоянию лагеря.
-	-- определить список доступных анимаций по наличию предметов
-	-- выбрать одну из них (то же самое со звуком).
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ (пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ).
 	local states = 0
 	local sound = ""
 	local state = ""
 	local npc_id = npc:id()
-	-- Выбирать новое состояние только раз в какое то время.
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.
 	if self.npc[npc_id].begin == nil or
 		 time_global() - self.npc[npc_id].begin >= self.npc[npc_id].state_idle
 	then
@@ -415,7 +415,7 @@ function CKampManager:proceedRole(npc, director)
 			states = self.avail_state[self.kamp_state].undirected
 		end
 
-		--' Выбираем только те анимации, которые может играть НПС.
+		--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ.
 		local temp = {}
 		for k,v in pairs(states) do
 			--printf("npc community is [%s]", character_community(npc))
@@ -446,16 +446,16 @@ function CKampManager:proceedRole(npc, director)
 	return state, sound
 end
 function CKampManager:updateNpc(npc)
-	-- Проверка что сталкер может делать, а что нет.
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ.
 	self:checkNpcAbility(npc)
-	-- Просим лагерь выбрать текущее состояние. Менять состояние лагеря
-	-- имеет право только режиссер.
+	-- пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+	-- пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 	local npc_id = npc:id()
 	local director = self.director == nil or self.director == npc_id
 	if director	then
 		self:proceedState(npc)
 	end
-	-- Говорим чудаку выбрать себе состояние для текущего состояния лагеря.
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
 	local state, sound = self:proceedRole(npc, director)
 
 	local substate = nil
@@ -522,7 +522,7 @@ function CKampManager:updateNpc(npc)
 		xr_kamp.kamp_stalkers[npc_id] = true
 	end
 
-	-- Выбор реальных звуков
+	-- пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 	if sound == "idle" then
 		sound = "state"
 	elseif sound == "reac_guitar" then
@@ -542,31 +542,31 @@ function CKampManager:checkNpcAbility(npc)
 	if character_community(npc) ~= "monolith" and
 		 character_community(npc) ~= "zombied"
 	then
-		-- есть колбасу
+		-- пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		if npc:object("kolbasa") then
 			self.npc[npc_id].states["eat_kolbasa"] = true
 		else
 			self.npc[npc_id].states["eat_kolbasa"] = false
 		end
-		-- пить водку
+		-- пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 		if npc:object("vodka") then
 			self.npc[npc_id].states["eat_vodka"] = true
 		else
 			self.npc[npc_id].states["eat_vodka"] = false
 		end
-		-- пить енергитический напиток
+		-- пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		if npc:object("energy_drink") then
 			self.npc[npc_id].states["eat_energy"] = true
 		else
 			self.npc[npc_id].states["eat_energy"] = false
 		end
-		-- есть хлеб
+		-- пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 		if npc:object("bread") then
 			self.npc[npc_id].states["eat_bread"] = true
 		else
 			self.npc[npc_id].states["eat_bread"] = false
 		end
-		-- играть на гармошке
+		-- пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 --		if npc:object("harmonica_a") then
 --			self.npc[npc_id].states["play_harmonica"] = true
 --			self.npc[npc_id].states["wait_harmonica"] = true
@@ -580,7 +580,7 @@ function CKampManager:checkNpcAbility(npc)
 			self.kamp_states["harmonica"] = false
 			self.kamp_states["post_harmonica"] = false
 --		end
-		-- играть на гитаре
+		-- пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 --		if npc:object("guitar_a") then
 --			self.npc[npc_id].states["play_guitar"] = true
 --			self.npc[npc_id].states["wait_guitar"] = true
@@ -627,7 +627,7 @@ function CKampManager:removeNpc(npc)
 	self.sound_manager:unregister_npc(npc:id())
 	local npc_id = npc:id()
 	if self.npc[npc_id] ~= nil then
-		-- Если удаляем режиссера - необходимо форсированно перевести лагерь в идловое состояние.
+		-- пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 		if self.director == npc_id then
 			self.director = nil
 			self.npc[npc_id].begin = nil
@@ -711,7 +711,7 @@ function add_to_binder(object, ini, scheme, section, storage)
 	action:add_precondition		(world_property(properties["kamp_end"],		true))
 
 end
--- включение лагеря
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 function set_scheme(npc, ini, scheme, section, gulag_name)
 	local st = xr_logic.assign_storage_and_bind(npc, ini, scheme, section)
 

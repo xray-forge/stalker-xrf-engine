@@ -25,6 +25,7 @@ local utilsGameSaves = require("scripts.utils.game_saves")
 local utilsGeneral = require("scripts.utils.general")
 local utilsPhysics = require("scripts.utils.physics")
 local utilsUi = require("scripts.utils.ui")
+local utilsTable = require("scripts.utils.table")
 local utilsTime = require("scripts.utils.time")
 local utilsUnknown = require("scripts.utils.unknown")
 
@@ -60,8 +61,6 @@ abort = debugUtils.abort
 -- set_save_marker = utilsGameSaves.setSaveMarker
 
 -- vec_to_str = utilsGeneral.vectorToString
-empty = utilsGeneral.isEmpty
-clear_table = utilsGeneral.clearTable
 round = utilsGeneral.round
 add = utilsGeneral.add
 if_then_else = utilsGeneral.ifThenElse
@@ -79,6 +78,13 @@ vector_rotate_y = utilsPhysics.vectorRotateY
 npc_in_actor_frustrum = utilsPhysics.npcInActorFrustum
 distance_between = utilsPhysics.distanceBetween
 distance_between_safe = utilsPhysics.distanceBetweenSafe
+vector_cmp = utilsPhysics.vectorCmp
+vector_cmp_prec = utilsPhysics.vectorCmpPrec
+graph_distance = utilsPhysics.graphDistance
+
+empty = utilsTable.isEmpty
+clear_table = utilsTable.clearTable
+copy_table = utilsTable.copyTable
 
 wait_game = utilsTime.waitGame
 wait = utilsTime.wait
