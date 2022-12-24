@@ -1,5 +1,6 @@
 import { Optional } from "@/mod/lib/types";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { wait } from "@/mod/scripts/utils/time";
 
 const log: LuaLogger = new LuaLogger("utils/alife");
 
@@ -251,63 +252,6 @@ export function createAmmo(section: string, position: any, lvi: any, gvi: any, p
   table.insert(t, obj);
 
   return t;
-}
-
-/**
- *
- * function wait_game(time_to_wait)
- *  verify_if_thread_is_running()
- *
- *  if (time_to_wait == nil) then
- *    coroutine.yield()
- *  else
- *    local time_to_stop = game.time() + time_to_wait
- *    while game.time() <= time_to_stop do
- *      coroutine.yield()
- *    end
- *  end
- * end
- */
-export function waitGame(timeToWait: Optional<number> = null): void {
-  verify_if_thread_is_running();
-
-  if (timeToWait === null) {
-    coroutine.yield();
-  } else {
-    const time_to_stop = game.time() + timeToWait;
-
-    while (game.time() <= time_to_stop) {
-      coroutine.yield();
-    }
-  }
-}
-
-/**
- * function wait(time_to_wait)
- *  verify_if_thread_is_running()
- *
- *  if (time_to_wait == nil) then
- *    coroutine.yield()
- *  else
- *    local time_to_stop = time_global() + time_to_wait
- *    while time_global() <= time_to_stop do
- *      coroutine.yield()
- *    end
- *  end
- * end
- */
-export function wait(timeToWait: Optional<number> = null): void {
-  verify_if_thread_is_running();
-
-  if (timeToWait === null) {
-    coroutine.yield();
-  } else {
-    const time_to_stop = time_global() + timeToWait;
-
-    while (time_global() <= time_to_stop) {
-      coroutine.yield();
-    }
-  }
 }
 
 /**

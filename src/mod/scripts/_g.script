@@ -47,8 +47,6 @@ local utilsUnknown = require("scripts.utils.unknown")
 -- id_by_sid = utilsAlife.idBySid
 -- reset_action = utilsAlife.resetAction
 -- create_ammo = utilsAlife.createAmmo
--- wait_game = utilsAlife.waitGame
--- wait = utilsAlife.wait
 -- interrupt_action = utilsAlife.interruptAction
 -- get_clsid = utilsAlife.getClsId
 -- is_object_online = utilsAlife.isObjectOnline
@@ -80,10 +78,14 @@ npc_in_actor_frustrum = utilsPhysics.npcInActorFrustum
 distance_between = utilsPhysics.distanceBetween
 distance_between_safe = utilsPhysics.distanceBetweenSafe
 
+wait_game = utilsTime.waitGame
+wait = utilsTime.wait
+in_time_interval = utilsTime.isInTimeInterval
+
 -- get_param_string = utilsUnknown.getParamString
 
--- in_time_interval = require("scripts.utils.time").isInTimeInterval
 
+-- =====================================================================================================================
 
 -- todo: Remove
 print_table = function (table)
@@ -95,60 +97,36 @@ function printf(fmt,...)
   log:info(string.format(fmt, ...))
 end
 
--- =====================================================================================================================
 
 aa = nil
 time_infinite = 100000000
+
+schemes = {} -- ������������ ���� �������
+stypes = {} -- ���v ����
+
+-- =====================================================================================================================
+
+dev_debug = false
+sim_debug = false
+mus_vol = 0
+amb_vol = 0
+
+-- =====================================================================================================================
 
 if (jit == nil) then
 	profiler.setup_hook	()
 end
 
-schemes = {} -- ������������ ���� �������
-stypes = {} -- ���v ����
-
--- ��������� ����� �� ����� �� ����� � ���������� � ����������.
--- �����:
--- 	filename - ��� �����, � ������� ����������� �����, ��� ����������
--- 	scheme - ��� ����
-function load_scheme(filename, scheme, stype)
-	schemes[scheme] = filename
-	stypes[scheme] = stype
-end
-
-----------------------------------------------------------------------
-dev_debug = false
-sim_debug = false
-mus_vol = 0
-amb_vol = 0
-----------------------------------------------------------------------
 
 if nil == time_global then
 	time_global = function () return device():time_global() end
 end
 
-function wait_game(time_to_wait)
-	verify_if_thread_is_running()
-	if (time_to_wait == nil) then
-		coroutine.yield()
-	else
-		local time_to_stop = game.time() + time_to_wait
-		while game.time() <= time_to_stop do
-			coroutine.yield()
-		end
-	end
-end
+-- =====================================================================================================================
 
-function wait(time_to_wait)
-	verify_if_thread_is_running()
-	if (time_to_wait == nil) then
-		coroutine.yield()
-	else
-		local time_to_stop = time_global() + time_to_wait
-		while time_global() <= time_to_stop do
-			coroutine.yield()
-		end
-	end
+function load_scheme(filename, scheme, stype)
+	schemes[scheme] = filename
+	stypes[scheme] = stype
 end
 
 function action(obj,...)
@@ -766,14 +744,4 @@ end
 function get_story_squad(story_id)
 	local squad_id = get_story_object_id(story_id)
 	return squad_id and alife():object(squad_id)
-end
-
---�������� �� ���������� ���������.
-function in_time_interval(val1, val2)
-	local game_hours = level.get_time_hours()
-	if val1 >= val2 then
-		return game_hours < val2 or game_hours >= val1
-	else
-		return game_hours < val2 and game_hours >= val1
-	end
 end
