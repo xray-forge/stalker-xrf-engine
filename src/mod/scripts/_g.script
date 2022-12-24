@@ -60,11 +60,11 @@ abort = debugUtils.abort
 
 -- vec_to_str = utilsGeneral.vectorToString
 empty = utilsGeneral.isEmpty
--- round = utilsGeneral.round
--- add = utilsGeneral.add
--- if_then_else = utilsGeneral.ifThenElse
--- random_choice = utilsGeneral.randomChoice
--- random_number = utilsGeneral.randomNumber
+round = utilsGeneral.round
+add = utilsGeneral.add
+if_then_else = utilsGeneral.ifThenElse
+random_choice = utilsGeneral.randomChoice
+random_number = utilsGeneral.randomNumber
 -- parse_names = utilsGeneral.parseNames
 -- parse_key_value = utilsGeneral.parseKeyValue
 -- parse_nums = utilsGeneral.parseNums
@@ -165,15 +165,6 @@ function action_first(obj,...)
 	return  entity_action(act)
 end
 
-function round (value)
-	local min = math.floor (value)
-	local max = min + 1
-	if value - min > max - value then return max end
-	return min
-end
-
-local aa = nil
-
 --' �������� �� ���������v, ���� ���� ������ �� ��	�������
 function has_alife_info(info_id)
 	if aa == nil then
@@ -205,20 +196,6 @@ function interrupt_action(who, script_name)
 	end
 end
 
-function random_choice(...)
-	local arg = {...}
-	local r = math.random(1, #arg)
-	return arg[r]
-end
-
-function if_then_else(cond, if_true, if_false)
-	if cond then
-		return if_true
-	end
-	return if_false
-end
-
-
 function set_current_time (hour, min, sec)
 	local current_time_factor = level.get_time_factor ()
 	printf ("Need time : %d:%d:%d", hour, min, sec)
@@ -233,16 +210,6 @@ function set_current_time (hour, min, sec)
 	while game.time () < n_time do wait () end
 	level.set_time_factor (current_time_factor)
 end
-
-function random_number (min_value, max_value)
-	math.randomseed (device ():time_global ())
-	if min_value == nil and max_value == nil then
-		return math.random ()
-	else
-		return math.random (min_value, max_value)
-	end
-end
-
 
 function parse_names( s )
 	local t = {}

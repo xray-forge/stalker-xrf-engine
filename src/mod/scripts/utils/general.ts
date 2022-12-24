@@ -34,6 +34,52 @@ export function isEmpty(container: Optional<LuaIterable<any>>): boolean {
 }
 
 /**
+ * todo: description
+ */
+export function round(value: number): number {
+  const min: number = math.floor(value);
+  const max: number = min + 1;
+
+  return value - min >= max - value ? max : min;
+}
+
+/**
+ * todo: description
+ * todo: Probably unused
+ */
+export function add(x: number): boolean {
+  return math.floor(x * 0.5) * 2 === math.floor(x);
+}
+
+/**
+ * todo: description
+ */
+export function ifThenElse<A, B>(condition: boolean, ifTrue: A, ifFalse: B): A | B {
+  return condition ? ifTrue : ifFalse;
+}
+
+/**
+ * todo: description
+ */
+export function randomChoice<T>(...args: Array<T>): T {
+  return args[math.random(0, args.length - 1)];
+}
+
+/**
+ * todo: description
+ * - Probably needs improvement since seed is same if calls happening almost instantly, needs nanotime or different seed
+ */
+export function randomNumber(min?: number, max?: number): number {
+  math.randomseed(device().time_global());
+
+  if (min === null && max === null) {
+    return math.random();
+  } else {
+    return math.random(min, max);
+  }
+}
+
+/**
  * -- ��������� ������ � ������.
  * function vec_to_str (vector)
  *  if vector == nil then return "nil" end
@@ -46,83 +92,6 @@ export function vectorToString(vector: Optional<XR_vector>): Optional<string> {
   }
 
   return string.format("[%s:%s:%s]", vector.x, vector.y, vector.z);
-}
-
-/**
- *
- * function round (value)
- *  local min = math.floor (value)
- *  local max = min + 1
- *
- *  if value - min > max - value then return max end
- *  return min
- * end
- */
-export function round(value: number): number {
-  const min: number = math.floor(value);
-  const max: number = min + 1;
-
-  if (value - min > max - value) {
-    return max;
-  }
-
-  return min;
-}
-
-/**
- * -- ��������� ����� ����� ����� �� ����������
- * function odd( x )
- *  return math.floor( x * 0.5 ) * 2 == math.floor( x )
- * end
- */
-export function add(x: number): boolean {
-  return math.floor(x * 0.5) * 2 === math.floor(x);
-}
-
-/**
- * function if_then_else(cond, if_true, if_false)
- *  if cond then
- *    return if_true
- *  end
- *  return if_false
- * end
- */
-export function ifThenElse<A, B>(condition: boolean, ifTrue: A, ifFalse: B): A | B {
-  return condition ? ifTrue : ifFalse;
-}
-
-/**
- * function random_choice(...)
- *  local arg = {...}
- *  local r = math.random(1, #arg)
- *  return arg[r]
- * end
- */
-export function randomChoice(...args: Array<any>): any {
-  const index: number = math.random(1, args.length);
-
-  return args[index];
-}
-
-/**
- *
- * function random_number (min_value, max_value)
- *  math.randomseed (device ():time_global ())
- *  if min_value == nil and max_value == nil then
- *    return math.random ()
- *  else
- *    return math.random (min_value, max_value)
- *  end
- * end
- */
-export function randomNumber(min: number, max: number): number {
-  math.randomseed(device().time_global());
-
-  if (min === null && max === null) {
-    return math.random();
-  } else {
-    return math.random(min, max);
-  }
 }
 
 /**

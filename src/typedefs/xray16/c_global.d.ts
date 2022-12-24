@@ -252,20 +252,20 @@ declare global {
    * }
    */
   function game_ini(this: void): unknown;
-  function bit_and(this: void,a: number, b: number): unknown;
+  function bit_and(this: void, a: number, b: number): unknown;
   function GetFontGraffiti32Russian(this: void): unknown;
   function device(this: void): XR_render_device;
-  function cast_planner(this: void,a: unknown): unknown;
+  function cast_planner(this: void, a: unknown): unknown;
   function IsGameTypeSingle(this: void): unknown;
   function game_graph(this: void): unknown;
   function dik_to_bind(this: void,keycode: number): number;
   function render_get_dx_level(this: void): number;
   function GetFontGraffiti19Russian(this: void): unknown;
-  function sell_condition(this: void,a: unknown, b: string): unknown;
-  function sell_condition(this: void,a: number, b: number): unknown;
-  function buy_condition(this: void,a: unknown, b: string): unknown;
-  function buy_condition(this: void,a: number, b: number): unknown;
-  function create_ini_file(this: void,a: string): unknown;
+  function sell_condition(this: void, a: unknown, b: string): unknown;
+  function sell_condition(this: void, a: number, b: number): unknown;
+  function buy_condition(this: void, a: unknown, b: string): unknown;
+  function buy_condition(this: void, a: number, b: number): unknown;
+  function create_ini_file(this: void, a: string): unknown;
   function get_hud(this: void): XR_CUIGameCustom;
   function GetFontSmall(this: void): unknown;
   function GetFontLetterica18Russian(this: void): unknown;
@@ -280,7 +280,7 @@ declare global {
   function GetFontLetterica16Russian(this: void): unknown;
   function log(this: void,text: string): unknown;
   function error_log(this: void,text: string): unknown;
-  function show_condition(this: void,a: unknown, b: string): unknown;
+  function show_condition(this: void, a: unknown, b: string): unknown;
   function IsImportantSave(this: void): unknown;
   function GetFontLetterica25(this: void): unknown;
   function system_ini(this: void): XR_ini_file;
@@ -307,11 +307,11 @@ declare global {
   function time_global_async(this: void,...args: Array<unknown>): unknown;
   function verify_if_thread_is_running(this: void): boolean;
   function script_server_object_version(this: void): unknown;
-  function bit_not(this: void,a: number): unknown;
+  function bit_not(this: void, a: number): unknown;
   function ef_storage(this: void): unknown;
-  function GetARGB(this: void,a: number,r: number, g: number, b: number): number;
+  function GetARGB(this: void, a: number,r: number, g: number, b: number): number;
   function user_name(this: void): unknown;
-  function bit_xor(this: void,a: number, b: number): unknown;
+  function bit_xor(this: void, a: number, b: number): unknown;
 
   const game: IXR_game;
 
