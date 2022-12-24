@@ -9,7 +9,7 @@ declare global {
 
   const db: Record<string, any>;
 
-  const abort: (reason: string) => void;
+  const abort: (format: string, ...parts: Array<any>) => void;
 
   const disable_info: (info: string) => void;
 
