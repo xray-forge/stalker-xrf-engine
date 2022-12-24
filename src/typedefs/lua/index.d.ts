@@ -20,7 +20,7 @@ declare interface ILUAString {
   char(this: void, ...rest: Array<unknown>): unknown;
   dump(this: void, func: unknown, strip: unknown): unknown;
   find(this: void, s: string, pattern: unknown, init?: number, plain?: boolean): number | null;
-  gfind(this: void, s: string, pattern: unknown, init?: number, plain?: boolean): Array<string>;
+  gfind(this: void, s: string, pattern: unknown, init?: number, plain?: boolean): LuaIterable<string>;
   format(this: void, formatstring: string, ...rest: Array<string | number>): string;
   gmatch(this: void, s: unknown, pattern: unknown): LuaIterable<LuaMultiReturn<Array<string>>>;
   gsub(this: void, s: string, pattern: string, repl: string, n?: unknown): LuaMultiReturn<[string, number]>;
@@ -113,6 +113,8 @@ declare const debug: ILUADebug | null;
 declare const math: ILUAMath;
 
 declare const string: ILUAString;
+
+declare const table: ILUATable;
 
 /**
  * This is a generic interface to the garbage collector. It performs

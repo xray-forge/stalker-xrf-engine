@@ -1212,7 +1212,7 @@ declare global {
 
     public ShowPage(pageId: number): void;
 
-    public SetPage(pageId: number, xml: string, className: string): void;
+    public SetPage(pageId: number, xml: string, selector: string): void;
 
     public SetVisibleMagnifier(isVisible: boolean): void;
   }

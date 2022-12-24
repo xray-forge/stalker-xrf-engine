@@ -99,7 +99,7 @@ export const SleepDialog = declare_xr_class("SleepDialog", CUIScriptWnd, {
       this.sleep_st_tbl[it].TextControl().SetText(hours + game.translate_string(captions.st_sleep_hours));
     }
 
-    const delta: number = lua_math.floor((591 / 24) * cur_hours);
+    const delta: number = math.floor((591 / 24) * cur_hours);
     let rect: XR_FRect = new Frect().set(delta, 413, 591, 531);
 
     this.sleep_static.SetTextureRect(rect);
@@ -152,7 +152,7 @@ export const SleepDialog = declare_xr_class("SleepDialog", CUIScriptWnd, {
     CUIScriptWnd.Update(this);
 
     const sleep_time: number = this.time_track.GetIValue() - 1;
-    let x: number = lua_math.floor((591 / 24) * sleep_time);
+    let x: number = math.floor((591 / 24) * sleep_time);
 
     if (x === 0) {
       x = 5;

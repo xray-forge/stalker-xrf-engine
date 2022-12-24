@@ -10,11 +10,11 @@ import { ISaveDialog, SaveDialog } from "@/mod/scripts/ui/menu/SaveDialog";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
-const base: string = "menu\\MainMenu.component";
+export const base: string = "menu\\MainMenu.component";
 const log: LuaLogger = new LuaLogger("MainMenu");
 
 export interface IMainMenu extends XR_CUIScriptWnd {
-  shniaga: XR_CUIMMShniaga;
+  menuController: XR_CUIMMShniaga;
 
   modalBoxMode: number;
 
@@ -28,10 +28,10 @@ export interface IMainMenu extends XR_CUIScriptWnd {
   gameDebugDialog: Optional<IDebugDialog>;
 
   message_box: XR_CUIMessageBoxEx;
-  accountManager: XR_account_manager;
-  profile_store: XR_profile_store;
   gameSpyProfile: Optional<XR_profile>;
 
+  accountManager: XR_account_manager;
+  profile_store: XR_profile_store;
   loginManager: XR_login_manager;
 
   InitControls(): void;
@@ -89,7 +89,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     xml.ParseFile(resolveXmlFormPath(base));
     xml.InitStatic("background", this);
 
-    this.shniaga = xml.InitMMShniaga("shniaga_wnd", this);
+    this.menuController = xml.InitMMShniaga("shniaga_wnd", this);
 
     this.message_box = new CUIMessageBoxEx();
     this.Register(this.message_box, "msg_box");
@@ -97,7 +97,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     const version: XR_CUIStatic = xml.InitStatic("static_version", this);
     const xrMainMenu: XR_CMainMenu = main_menu.get_main_menu();
 
-    version.TextControl().SetText(lua_string.format(gameConfig.VERSION, xrMainMenu.GetGSVer()));
+    version.TextControl().SetText(string.format(gameConfig.VERSION, xrMainMenu.GetGSVer()));
 
     this.loginManager = xrMainMenu.GetLoginMngr();
     this.accountManager = xrMainMenu.GetAccountMngr();
@@ -105,9 +105,9 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     this.gameSpyProfile = this.loginManager.get_current_profile();
 
     if (this.gameSpyProfile && !level.present()) {
-      this.shniaga.ShowPage(CUIMMShniaga.epi_new_network_game);
-      this.shniaga.SetPage(CUIMMShniaga.epi_main, "ui_mm_main.xml", "menu_main_logout");
-      this.shniaga.ShowPage(CUIMMShniaga.epi_main);
+      this.menuController.ShowPage(CUIMMShniaga.epi_new_network_game); // --fake
+      this.menuController.SetPage(CUIMMShniaga.epi_main, resolveXmlFormPath(base), "menu_main_logout");
+      this.menuController.ShowPage(CUIMMShniaga.epi_main);
     }
   },
   InitCallBacks(): void {
@@ -151,7 +151,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
   },
   Show(value: boolean): void {
     log.info("Show");
-    this.shniaga.SetVisibleMagnifier(value);
+    this.menuController.SetVisibleMagnifier(value);
   },
   OnMsgOk(): void {
     log.info("Message OK clicked");
@@ -186,7 +186,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
 
     const actor = get_global("db").actor;
 
-    if (actor !== null && actor.alive() === false) {
+    if (actor !== null && !actor.alive()) {
       this.LoadLastSave();
 
       return;
@@ -217,14 +217,10 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     this.message_box.ShowDialog(true);
   },
   OnMessageQuitGame(): void {
-    const console: XR_CConsole = get_console();
-
-    console.execute("disconnect");
+    get_console().execute("disconnect");
   },
   OnMessageQuitWin(): void {
-    const console: XR_CConsole = get_console();
-
-    console.execute("quit");
+    get_console().execute("quit");
   },
   onButtonReturnToGameClick(): void {
     log.info("Return to game");
@@ -233,27 +229,19 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     get_global("xr_s").on_main_menu_off(); //          --' Distemper 03.2008 --
   },
   OnButton_new_novice_game(): void {
-    const console: XR_CConsole = get_console();
-
-    console.execute("g_game_difficulty gd_novice");
+    get_console().execute("g_game_difficulty gd_novice");
     this.StartGame();
   },
   OnButton_new_stalker_game(): void {
-    const console: XR_CConsole = get_console();
-
-    console.execute("g_game_difficulty gd_stalker");
+    get_console().execute("g_game_difficulty gd_stalker");
     this.StartGame();
   },
   OnButton_new_veteran_game(): void {
-    const console: XR_CConsole = get_console();
-
-    console.execute("g_game_difficulty gd_veteran");
+    get_console().execute("g_game_difficulty gd_veteran");
     this.StartGame();
   },
   OnButton_new_master_game(): void {
-    const console: XR_CConsole = get_console();
-
-    console.execute("g_game_difficulty gd_master");
+    get_console().execute("g_game_difficulty gd_master");
     this.StartGame();
   },
   StartGame(): void {
@@ -323,7 +311,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     this.Show(false);
   },
   OnButton_network_game_clicked(): void {
-    this.shniaga.ShowPage(CUIMMShniaga.epi_new_network_game);
+    this.menuController.ShowPage(CUIMMShniaga.epi_new_network_game);
   },
   OnButton_multiplayer_clicked(): void {
     log.info("Button multiplayer clicked, profile");
@@ -352,18 +340,22 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     get_console().execute("check_for_updates 0");
   },
   OnButton_logout_clicked(): void {
-    log.info("Logout clicked");
+    log.info("Logout clicked, log out of profiles");
 
     // -- assert(this.gs_profile)
 
-    this.shniaga.ShowPage(CUIMMShniaga.epi_new_network_game); // --fake
+    this.menuController.ShowPage(CUIMMShniaga.epi_new_network_game); // --fake
     this.loginManager.logout();
+
     this.gameSpyProfile = null;
     this.multiplayerMenuDialog = null;
-    this.shniaga.SetPage(CUIMMShniaga.epi_main, base, "menu_main");
-    this.shniaga.ShowPage(CUIMMShniaga.epi_main);
+
+    this.menuController.SetPage(CUIMMShniaga.epi_main, resolveXmlFormPath(base), "menu_main");
+    this.menuController.ShowPage(CUIMMShniaga.epi_main);
   },
   OnButton_internet_clicked(): void {
+    log.info("Button internet clicked");
+
     if (!this.gamespyDialog) {
       this.gamespyDialog = create_xr_class_instance(MultiplayerGameSpy);
       this.gamespyDialog.owner = this;
@@ -404,7 +396,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
 
     if (event === ui_events.WINDOW_KEY_PRESSED) {
       if (dik === DIK_keys.DIK_ESCAPE) {
-        const actor = get_global("db").actor;
+        const actor: Optional<XR_game_object> = get_global("db").actor;
 
         if (level.present() && ((actor != null && actor.alive()) || IsGameTypeSingle() == false)) {
           this.onButtonReturnToGameClick();

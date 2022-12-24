@@ -14,7 +14,7 @@ const MAX_DISTANCE: number = 100000;
  */
 export function yaw(v1: XR_vector, v2: XR_vector) {
   return math.acos(
-    (v1.x * v2.x + v1.z * v2.z) / (lua_math.sqrt(v1.x * v1.x + v1.z * v1.z) * lua_math.sqrt(v2.x * v2.x + v2.z * v2.z))
+    (v1.x * v2.x + v1.z * v2.z) / (math.sqrt(v1.x * v1.x + v1.z * v1.z) * math.sqrt(v2.x * v2.x + v2.z * v2.z))
   );
 }
 
@@ -24,8 +24,7 @@ export function yaw(v1: XR_vector, v2: XR_vector) {
 export function yawDegree(v1: XR_vector, v2: XR_vector): number {
   return (
     math.acos(
-      (v1.x * v2.x + v1.z * v2.z) /
-        (lua_math.sqrt(v1.x * v1.x + v1.z * v1.z) * lua_math.sqrt(v2.x * v2.x + v2.z * v2.z))
+      (v1.x * v2.x + v1.z * v2.z) / (math.sqrt(v1.x * v1.x + v1.z * v1.z) * math.sqrt(v2.x * v2.x + v2.z * v2.z))
     ) * RADIAN
   );
 }

@@ -338,7 +338,7 @@ export const OptionsDialog: IOptionsDialog = declare_xr_class("OptionsDialog", C
 
       this.download_progress.SetProgressPos(patchProgress);
 
-      const str: string = lua_string.format("%.0f%%(%s)", patchProgress, patchDownload.GetFlieName());
+      const str: string = string.format("%.0f%%(%s)", patchProgress, patchDownload.GetFlieName());
 
       this.text_download.TextControl().SetText(str);
       this.btn_cancel_download.Show(true);

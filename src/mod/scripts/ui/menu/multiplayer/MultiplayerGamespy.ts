@@ -93,8 +93,8 @@ export interface IMultiplayerGameSpy extends XR_CUIScriptWnd {
   OnNickSuggestionComplete(result: number, description: string): void;
 }
 
-let ctrl = false;
-let focused_eb = 0;
+let ctrl: boolean = false;
+let focused_eb: number = 0;
 
 export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("MultiplayerGameSpy", CUIScriptWnd, {
   __init(): void {
@@ -441,9 +441,7 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
       this.gs_login_mb_result.SetText(description);
       this.gs_login_mb_result.ShowDialog(true);
     } else {
-      const profiles = this.owner.accountManager.get_found_profiles();
-
-      forin(profiles, (it) => {
+      for (const it of this.owner.accountManager.get_found_profiles()) {
         if (this.profile_name === "") {
           this.profile_name = it;
         }
@@ -459,7 +457,7 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
 
           return;
         }
-      });
+      }
 
       this.gs_login_mb_cancel.HideDialog();
       this.LoginProfileUseExist();
@@ -489,8 +487,12 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
       log.info("Continue with profile info load");
 
       this.owner.gameSpyProfile = profile;
-      this.owner.shniaga.SetPage(CUIMMShniaga.epi_main, "menu/MainMenu.component.xml", "menu_main_logout");
-      this.owner.shniaga.ShowPage(CUIMMShniaga.epi_main);
+      this.owner.menuController.SetPage(
+        CUIMMShniaga.epi_main,
+        resolveXmlFormPath("menu\\MainMenu.component"),
+        "menu_main_logout"
+      );
+      this.owner.menuController.ShowPage(CUIMMShniaga.epi_main);
       this.owner.profile_store.load_current_profile(
         new store_operation_cb(this, () => this.LoadingProgress()),
         new store_operation_cb(this, () => this.LoadingComplete())
@@ -508,8 +510,12 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
     if (this.owner.gameSpyProfile !== null) {
       this.owner.profile_store.stop_loading();
       this.owner.loginManager.logout();
-      this.owner.shniaga.ShowPage(CUIMMShniaga.epi_new_network_game);
-      this.owner.shniaga.SetPage(CUIMMShniaga.epi_main, "menu/MainMenu.component.xml", "menu_main");
+      this.owner.menuController.ShowPage(CUIMMShniaga.epi_new_network_game);
+      this.owner.menuController.SetPage(
+        CUIMMShniaga.epi_main,
+        resolveXmlFormPath("menu\\MainMenu.component"),
+        "menu_main"
+      );
     } else if (this.profile_name === "") {
       this.owner.accountManager.stop_fetching_account_profiles();
     } else {
@@ -776,11 +782,15 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
     }
   },
   OnNickSuggestionComplete(result: number, description: string): void {
+    log.info("On nick suggestion complete:", description);
+
     this.gs_mb_create_vnick_cancel.HideDialog();
     this.btn_create_acc.Enable(false);
 
     if (result > 0) {
-      forin(this.owner.accountManager.get_suggested_unicks(), (it, index) => {
+      let index: number = 1;
+
+      for (const it of this.owner.accountManager.get_suggested_unicks()) {
         if (it === this.ca_unique_nick.GetText()) {
           this.ca_st_unique_nick.InitTexture("ui_inGame2_lamp_GREEN");
           this.ca_unique_nick_valid = true;
@@ -792,7 +802,9 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
         }
 
         this.ca_combo_aval_unique_nick.AddItem(it, index);
-      });
+
+        index += 1;
+      }
 
       const first_name = this.ca_combo_aval_unique_nick.GetTextOf(0);
 

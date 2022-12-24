@@ -142,10 +142,10 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
 
     for (let it = 0; it < flist.Size(); it += 1) {
       const file: XR_FS_item = flist.GetAt(it);
-      const filename: string = lua_string.sub(
+      const filename: string = string.sub(
         file.NameFull(),
         0,
-        lua_string.len(file.NameFull()) - lua_string.len(gameConfig.GAME_SAVE_EXTENSION)
+        string.len(file.NameFull()) - string.len(gameConfig.GAME_SAVE_EXTENSION)
       );
       const datetime: string = "[" + file.ModifDigitOnly() + "]";
 

@@ -13,6 +13,7 @@ export function create(): JSXNode {
 
       <shniaga_wnd x={134} y={320} width={216} height={380}>
         <buttons_region x={8} y={0} width={220} height={380} always_show_scroll={false} vert_interval={12} />
+
         <shniaga x={7} y={-20} width={219} height={61} stretch={1}>
           <texture>{textures.ui_inGame2_slider}</texture>
           <magnifire x={27} y={18} width={162} height={24} stretch={1}>

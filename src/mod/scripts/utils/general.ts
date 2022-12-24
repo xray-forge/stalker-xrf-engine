@@ -45,7 +45,7 @@ export function vectorToString(vector: Optional<XR_vector>): Optional<string> {
     return null;
   }
 
-  return lua_string.format("[%s:%s:%s]", vector.x, vector.y, vector.z);
+  return string.format("[%s:%s:%s]", vector.x, vector.y, vector.z);
 }
 
 /**
@@ -59,7 +59,7 @@ export function vectorToString(vector: Optional<XR_vector>): Optional<string> {
  * end
  */
 export function round(value: number): number {
-  const min: number = lua_math.floor(value);
+  const min: number = math.floor(value);
   const max: number = min + 1;
 
   if (value - min > max - value) {
@@ -76,7 +76,7 @@ export function round(value: number): number {
  * end
  */
 export function add(x: number): boolean {
-  return lua_math.floor(x * 0.5) * 2 === lua_math.floor(x);
+  return math.floor(x * 0.5) * 2 === math.floor(x);
 }
 
 /**
@@ -99,7 +99,7 @@ export function ifThenElse<A, B>(condition: boolean, ifTrue: A, ifFalse: B): A |
  * end
  */
 export function randomChoice(...args: Array<any>): any {
-  const index: number = lua_math.random(1, args.length);
+  const index: number = math.random(1, args.length);
 
   return args[index];
 }
@@ -116,12 +116,12 @@ export function randomChoice(...args: Array<any>): any {
  * end
  */
 export function randomNumber(min: number, max: number): number {
-  lua_math.randomseed(device().time_global());
+  math.randomseed(device().time_global());
 
   if (min === null && max === null) {
-    return lua_math.random();
+    return math.random();
   } else {
-    return lua_math.random(min, max);
+    return math.random(min, max);
   }
 }
 
@@ -139,9 +139,9 @@ export function randomNumber(min: number, max: number): number {
 export function parseNames(str: string): Record<string, unknown> {
   const t = {};
 
-  forin(lua_string.gfind(str, "([%w_\\]+)%p*"), (it) => {
-    lua_table.insert(t, it);
-  });
+  for (const it of string.gfind(str, "([%w_\\]+)%p*")) {
+    table.insert(t, it);
+  }
 
   return t;
 }
@@ -177,14 +177,14 @@ export function parseKeyValue(str: Optional<string>): Optional<Record<string, st
   const container: Record<string, string> = {};
   let key: Optional<string> = null;
 
-  forin(lua_string.gfind(str, "([%w_\\]+)%p*"), (name: string) => {
+  for (const name of string.gfind(str, "([%w_\\]+)%p*")) {
     if (key === null) {
       key = name;
     } else {
       container[key] = name;
       key = null;
     }
-  });
+  }
 
   return container;
 }
@@ -203,9 +203,9 @@ export function parseKeyValue(str: Optional<string>): Optional<Record<string, st
 export function parseNums(str: string): Record<string, unknown> {
   const container: Record<string, string> = {};
 
-  forin(lua_string.gfind(str, "([%-%d%.]+)%,*"), (entry) => {
-    lua_table.insert(container, tonumber(entry));
-  });
+  for (const it of string.gfind(str, "([%-%d%.]+)%,*")) {
+    table.insert(container, tonumber(it));
+  }
 
   return container;
 }

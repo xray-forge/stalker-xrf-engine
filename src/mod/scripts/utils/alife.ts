@@ -241,14 +241,14 @@ export function createAmmo(section: string, position: any, lvi: any, gvi: any, p
   while (num > num_in_box) {
     const obj = alife().create_ammo(section, position, lvi, gvi, pid, num_in_box);
 
-    lua_table.insert(t, obj);
+    table.insert(t, obj);
 
     num = num - num_in_box;
   }
 
   const obj = alife().create_ammo(section, position, lvi, gvi, pid, num);
 
-  lua_table.insert(t, obj);
+  table.insert(t, obj);
 
   return t;
 }
@@ -365,7 +365,7 @@ export function setCurrentTime(hour: number, min: number, sec: number) {
   const current_time_factor = level.get_time_factor();
   const current_time = game.time();
 
-  let c_day = lua_math.floor(current_time / 86400000);
+  let c_day = math.floor(current_time / 86400000);
   const c_time = current_time - c_day * 86400000;
   let n_time = (sec + min * 60 + hour * 3600) * 1000;
 

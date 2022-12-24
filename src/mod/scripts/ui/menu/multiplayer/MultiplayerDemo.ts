@@ -238,7 +238,7 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
 
     for (let it = 0; it < f_cnt; it += 1) {
       const file = flist.GetAt(it);
-      const file_name: string = lua_string.sub(file.NameFull(), 0, lua_string.len(file.NameFull()) - 5);
+      const file_name: string = string.sub(file.NameFull(), 0, string.len(file.NameFull()) - 5);
       const date_time: string = "[" + file.ModifDigitOnly() + "]";
 
       // --menu_item =  +
@@ -385,14 +385,14 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
       return;
     }
 
-    const tmp_index: Optional<number> = lua_string.find(new_file_name, ".demo", 1, true);
+    const tmp_index: Optional<number> = string.find(new_file_name, ".demo", 1, true);
 
     if (tmp_index !== null) {
-      new_file_name = lua_string.sub(new_file_name, 1, tmp_index - 1);
+      new_file_name = string.sub(new_file_name, 1, tmp_index - 1);
       log.info("Rename to new file name:", new_file_name);
     }
 
-    [new_file_name] = lua_string.gsub(new_file_name, "[^a-z0-9A-Z_]", "_");
+    [new_file_name] = string.gsub(new_file_name, "[^a-z0-9A-Z_]", "_");
 
     this.on_yes_action = "rename";
     this.file_name_to_rename = new_file_name;

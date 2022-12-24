@@ -107,7 +107,7 @@ export const MultiplayerProfile: IMultiplayerProfile = declare_xr_class("Multipl
     log.info("Init best scores");
 
     if (this.handler.owner.profile_store !== null) {
-      forin(this.handler.owner.profile_store.get_best_scores(), (it) => {
+      for (const it of this.handler.owner.profile_store.get_best_scores()) {
         const score_wnd: XR_CUITextWnd = this.xml.InitTextWnd(
           "tab_profile:best_results_list:cap_score_" + tostring(it.first),
           this.best_results_list
@@ -115,7 +115,7 @@ export const MultiplayerProfile: IMultiplayerProfile = declare_xr_class("Multipl
 
         this.xml.InitTextWnd("tab_profile:best_results_list:cap_cscore_" + tostring(it.first), this.best_results_list);
         score_wnd.SetText(tostring(it.second));
-      });
+      }
     } else {
       abort("Profile not loaded!");
     }
@@ -161,10 +161,9 @@ export const MultiplayerProfile: IMultiplayerProfile = declare_xr_class("Multipl
     this.gs_change_nick_mb_cancel.HideDialog();
 
     const new_unique_nick: string = this.edit_unique_nick.GetText();
+    let index: number = 1;
 
-    let isNickUsed: boolean = false;
-
-    forin(this.handler.owner.accountManager.get_suggested_unicks(), (it, index, stop) => {
+    for (const it of this.handler.owner.accountManager.get_suggested_unicks()) {
       if (it == new_unique_nick) {
         this.gs_change_nick_mb.InitMessageBox("message_box_gs_changing_unick");
         this.gs_change_nick_mb.SetText("ui_mp_gamespy_changing_unique_nick");
@@ -176,15 +175,11 @@ export const MultiplayerProfile: IMultiplayerProfile = declare_xr_class("Multipl
           })
         );
 
-        isNickUsed = true;
-        stop();
+        return;
       }
 
       this.combo_aval_unique_nick.AddItem(it, index);
-    });
-
-    if (isNickUsed) {
-      return;
+      index += 1;
     }
 
     this.gs_change_nick_mb.InitMessageBox("message_box_ok");
@@ -205,10 +200,12 @@ export const MultiplayerProfile: IMultiplayerProfile = declare_xr_class("Multipl
   FillRewardsTable() {
     if (this.handler.owner.profile_store !== null) {
       const pos: XR_vector2 = new vector2().set(0, 0);
-      let field = 1;
 
-      forin(this.handler.owner.profile_store.get_awards(), (it, index) => {
-        const k: number = lua_math.mod(index, 3);
+      let field: number = 1;
+      let index: number = 1;
+
+      for (const it of this.handler.owner.profile_store.get_awards()) {
+        const k: number = math.mod(index, 3);
 
         if (k == 1) {
           field = field + 1;
@@ -252,7 +249,8 @@ export const MultiplayerProfile: IMultiplayerProfile = declare_xr_class("Multipl
         }
 
         this.awards[field][award_name].SetWndPos(pos);
-      });
+        index += 1;
+      }
     } else {
       abort("Profile not loaded!");
     }

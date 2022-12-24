@@ -115,8 +115,12 @@ export const MultiplayerLocalnet: IMultiplayerLocalnet = declare_xr_class("Multi
       log.info("With profile");
       this.owner.gameSpyProfile = profile;
 
-      this.owner.shniaga.SetPage(CUIMMShniaga.epi_main, "menu/MainMenu.component.xml", "menu_main_logout");
-      this.owner.shniaga.ShowPage(CUIMMShniaga.epi_main);
+      this.owner.menuController.SetPage(
+        CUIMMShniaga.epi_main,
+        resolveXmlFormPath("menu\\MainMenu.component"),
+        "menu_main_logout"
+      );
+      this.owner.menuController.ShowPage(CUIMMShniaga.epi_main);
 
       if (this.lp_check_remember_me.GetCheck()) {
         log.info("Saving to registry:", profile === null);

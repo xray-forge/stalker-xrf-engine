@@ -25,7 +25,7 @@ export function resolveXmlFormPath(path: string, hasWideScreenSupport: boolean =
    * Warn about bad path in dev mode.
    */
   if (gameConfig.DEBUG.IS_ENABLED) {
-    if (lua_string.find(path, "/") !== null) {
+    if (string.find(path, "/") !== null) {
       log.error("Non-windows path for XML supplied:", path);
       abort("Non-windows path supplied for FS");
     }

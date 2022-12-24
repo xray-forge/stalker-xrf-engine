@@ -1,7 +1,3 @@
-type ArrayElement<ArrayType extends readonly unknown[]> = ArrayType extends readonly (infer ElementType)[]
-  ? ElementType
-  : never;
-
 /**
  * Utility to declare global variables.
  */
@@ -12,29 +8,6 @@ declare const declare_global: (key: string, value: unknown) => void;
  * todo: Probably remove after TS migration.
  */
 declare const get_global: <T = any>(key: string) => T;
-
-/**
- * Binding of native lua table interface.
- */
-declare const lua_string: ILUAString;
-
-/**
- * Binding of native lua string interface.
- */
-declare const lua_table: ILUATable;
-
-/**
- * Binding of native lua math interface.
- */
-declare const lua_math: ILUAMath;
-
-/**
- * Forin implementation for usage without TSTL transpiling.
- */
-declare const forin: <D, T extends Array<D>>(
-  array: T,
-  cb: (it: ArrayElement<T>, index: number, stop: () => void) => void
-) => void;
 
 /**
  * Binding of implemented class defining function.

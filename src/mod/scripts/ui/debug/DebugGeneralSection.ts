@@ -86,6 +86,6 @@ export const DebugGeneralSection: IDebugGeneralSection = declare_xr_class("Debug
     this.memoryUsageCountLabel.TextControl().SetText(this.getUsedMemoryLabel());
   },
   getUsedMemoryLabel(): string {
-    return lua_string.format("RAM: %.03f MB", getLuaMemoryUsed() / 1000);
+    return string.format("RAM: %.03f MB", getLuaMemoryUsed() / 1000);
   }
 } as IDebugGeneralSection);

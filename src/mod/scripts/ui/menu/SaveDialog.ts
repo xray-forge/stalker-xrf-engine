@@ -144,10 +144,10 @@ export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptW
 
     for (let it = 0; it < flist.Size(); it += 1) {
       const file: XR_FS_item = flist.GetAt(it);
-      const file_name: string = lua_string.sub(
+      const file_name: string = string.sub(
         file.NameFull(),
         0,
-        lua_string.len(file.NameFull()) - lua_string.len(gameConfig.GAME_SAVE_EXTENSION)
+        string.len(file.NameFull()) - string.len(gameConfig.GAME_SAVE_EXTENSION)
       );
       const date_time: string = "[" + file.ModifDigitOnly() + "]";
 
@@ -228,7 +228,7 @@ export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptW
 
     this.newSave = this.editBox.GetText();
 
-    if (lua_string.len(this.newSave) == 0) {
+    if (string.len(this.newSave) == 0) {
       log.info("Save name is empty");
 
       this.modalBoxMode = 0;

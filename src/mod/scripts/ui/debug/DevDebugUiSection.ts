@@ -80,7 +80,7 @@ export const DevDebugUiSection: IDevDebugUiSection = declare_xr_class("DevDebugU
 
     Object.values(textures).forEach((it, index) => {
       // Filter items if filter exists.
-      if (hasMask && !lua_string.find(it, filterMask, 0, true)) {
+      if (hasMask && !string.find(it, filterMask, 0, true)) {
         return;
       }
 

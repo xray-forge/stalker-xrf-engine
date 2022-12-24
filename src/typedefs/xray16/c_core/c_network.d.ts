@@ -179,7 +179,7 @@ declare global {
 
     public create_profile(a: string, b: string, c: string, d: string, cb: XR_account_profiles_cb): unknown;
 
-    public get_suggested_unicks(): Array<string>;
+    public get_suggested_unicks(): LuaIterable<string>;
 
     public stop_suggest_unique_nicks(): unknown;
 
@@ -201,7 +201,7 @@ declare global {
 
     public stop_fetching_account_profiles(): unknown;
 
-    public get_found_profiles(): Array<string>;
+    public get_found_profiles(): LuaIterable<string>;
   }
 
   /**
@@ -543,9 +543,9 @@ declare global {
     public static bst_kinife_kills_in_row: 1;
     public static bst_score_types_count: 7;
 
-    public get_best_scores(): Array<XR_best_scores_pair_t>;
+    public get_best_scores(): LuaIterable<XR_best_scores_pair_t>;
 
-    public get_awards(): Array<XR_award_pair_t>;
+    public get_awards(): LuaIterable<XR_award_pair_t>;
 
     public stop_loading(): unknown;
 

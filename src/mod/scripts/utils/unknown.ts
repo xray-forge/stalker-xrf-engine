@@ -17,7 +17,7 @@ const log: LuaLogger = new LuaLogger("utils/unknown");
  */
 export function getParamString(srcString: string, obj: XR_game_object): LuaMultiReturn<[string, boolean]> {
   const scriptIds = db.script_ids[obj.id()];
-  const [outString, num] = lua_string.gsub(srcString, "%$script_id%$", tostring(scriptIds));
+  const [outString, num] = string.gsub(srcString, "%$script_id%$", tostring(scriptIds));
 
   if (num > 0) {
     return $multi(outString, true);

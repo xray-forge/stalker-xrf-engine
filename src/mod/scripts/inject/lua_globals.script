@@ -5,13 +5,6 @@ local log = create_ts_class_instance(LuaLogger, "lug_globals");
 log:info("Injecting lua globals")
 
 -- ---------------------------------------------------------------------------------------------------------------------
--- Link global lua_string to prevent conflicts of TS and Lua global namespaces
--- ---------------------------------------------------------------------------------------------------------------------
-_G.lua_string = string
-
-_G.lua_table = table
-
-_G.lua_math = math
 
 -- todo: Remove after refactor, alias TS global and lua global
 _G._____G = _G
@@ -74,26 +67,4 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 _G.get_global = function(key)
   return _G[key]
-end
-
--- ---------------------------------------------------------------------------------------------------------------------
--- Pack params list as table
--- ---------------------------------------------------------------------------------------------------------------------
-
-_G.forin = function(arr, cb)
-  local is_enabled = true
-  local index = 1;
-
-  local stop = function()
-    is_enabled = false
-  end
-
-  for it in arr do
-    if is_enabled then
-      cb(it, index, stop)
-      index = index + 1
-    else
-      return
-    end
-  end
 end

@@ -7,9 +7,10 @@ import { IMultiplayerOptions, MultiplayerOptions } from "@/mod/scripts/ui/menu/m
 import { IMultiplayerProfile, MultiplayerProfile } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerProfile";
 import { IMultiplayerServer, MultiplayerServer } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerServer";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
-const baseOnline: string = "menu/multiplayer/MultiplayerOnline.component";
-const baseOffline: string = "menu/multiplayer/MultiplayerOffline.component";
+const baseOnline: string = "menu\\multiplayer\\MultiplayerOnline.component";
+const baseOffline: string = "menu\\multiplayer\\MultiplayerOffline.component";
 const log: LuaLogger = new LuaLogger("MultiplayerMenu");
 
 export interface IMultiplayerMenu extends XR_CUIScriptWnd {
@@ -136,16 +137,16 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
     if (this.online) {
-      xml.ParseFile(baseOnline);
+      xml.ParseFile(resolveXmlFormPath(baseOnline));
     } else {
-      xml.ParseFile(baseOffline);
+      xml.ParseFile(resolveXmlFormPath(baseOffline));
     }
 
     xml.InitStatic("background", this);
 
     this.Enable(true);
 
-    const wrk_area = new CUIWindow();
+    const wrk_area: XR_CUIWindow = new CUIWindow();
 
     xml.InitWindow("wrk_area", 0, wrk_area);
     wrk_area.SetAutoDelete(true);
@@ -223,7 +224,7 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
     const version: XR_CUIStatic = xml.InitStatic("static_version", this);
     const mm: XR_CMainMenu = main_menu.get_main_menu();
 
-    version.TextControl().SetText(lua_string.format(gameConfig.VERSION, mm.GetGSVer()));
+    version.TextControl().SetText(string.format(gameConfig.VERSION, mm.GetGSVer()));
 
     if (this.online) {
       this.cdkey.SetText(mm.GetCDKey());
@@ -344,7 +345,7 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
   OnDirectIP_yes(): void {
     log.info("On direct API confirm");
 
-    if (lua_string.len(this.message_box.GetHost()) !== 0) {
+    if (string.len(this.message_box.GetHost()) !== 0) {
       // -- const cmd = "start client(" + this.message_box.GetHost() + "/name=" + this.player_name.GetText()
       // + "/psw=" + this.message_box.GetPassword() + ")"
       const cmd: string =
@@ -502,15 +503,14 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
       return;
     }
 
-    const mm = main_menu.get_main_menu();
-    const gs_profile = this.owner.loginManager.get_current_profile();
+    const mm: XR_CMainMenu = main_menu.get_main_menu();
+    const gs_profile: XR_profile = this.owner.loginManager.get_current_profile();
 
     if (gs_profile && gs_profile.online() && mm.ValidateCDKey() === false) {
       return;
     }
 
-    const opt = new COptionsManager();
-    const console = get_console();
+    const opt: XR_COptionsManager = new COptionsManager();
 
     opt.SaveValues("mm_mp_server");
     opt.SaveValues("mm_mp_client");
@@ -520,6 +520,7 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
     if (this.check_dedicated.GetCheck()) {
       this.map_list.StartDedicatedServer();
     } else {
+      const console: XR_CConsole = get_console();
       const command: string = this.map_list.GetCommandLine(this.owner.gameSpyProfile!.unique_nick());
       // --this.player_name.GetText())
 
@@ -535,19 +536,19 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
 
     // -- server name ------------------------------------------------------------------
     tmpStr = this.edit_server_name.GetText();
-    if (lua_string.len(tmpStr) > 0) {
+    if (string.len(tmpStr) > 0) {
       cmdstr = "/hname=" + tmpStr;
     }
 
     // -- password ---------------------------------------------------------------------
     tmpStr = this.edit_password.GetText();
-    if (lua_string.len(tmpStr) > 0) {
+    if (string.len(tmpStr) > 0) {
       cmdstr = cmdstr + "/psw=" + tmpStr;
     }
 
     // -- max players ------------------------------------------------------------------
     tmpStr = this.spin_max_players.GetText();
-    if (lua_string.len(tmpStr) > 0) {
+    if (string.len(tmpStr) > 0) {
       cmdstr = cmdstr + "/maxplayers=" + tmpStr;
     }
     // -- public server ----------------------------------------------------------------
@@ -557,14 +558,14 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
     }
 
     tmpStr = this.spin_max_ping.GetText();
-    if (lua_string.len(tmpStr) > 0) {
+    if (string.len(tmpStr) > 0) {
       cmdstr = cmdstr + "/maxping=" + tmpStr;
     }
 
     // -- spectator --------------------------------------------------------------------
     if (this.check_spectator.GetCheck()) {
       tmpStr = this.spin_spectator.GetText();
-      if (lua_string.len(tmpStr) > 0) {
+      if (string.len(tmpStr) > 0) {
         cmdstr = cmdstr + "/spectr=" + tmpStr;
       }
     }
@@ -603,7 +604,7 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
 
     // -- damage block ------------------------------------------------------------------
     tmpStr = this.spin_damage_block.GetText();
-    if (lua_string.len(tmpStr) > 0) {
+    if (string.len(tmpStr) > 0) {
       cmdstr = cmdstr + "/dmgblock=" + tmpStr;
     }
 
@@ -613,19 +614,19 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
 
     // -- frag limit ---------------------------------------------------------------------
     tmpStr = this.spin_frag_limit.GetText();
-    if (lua_string.len(tmpStr) > 0) {
+    if (string.len(tmpStr) > 0) {
       cmdstr = cmdstr + "/fraglimit=" + tmpStr;
     }
 
     // -- time limit ---------------------------------------------------------------------
     tmpStr = this.spin_time_limit.GetText();
-    if (lua_string.len(tmpStr) > 0) {
+    if (string.len(tmpStr) > 0) {
       cmdstr = cmdstr + "/timelimit=" + tmpStr;
     }
 
     // -- friendly fire ------------------------------------------------------------------
     tmpStr = this.spin_friendly_fire.GetText();
-    if (lua_string.len(tmpStr) > 0) {
+    if (string.len(tmpStr) > 0) {
       cmdstr = cmdstr + "/ffire=" + tmpStr;
     }
 
@@ -642,7 +643,7 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
     // -- Force respawn --------------------------------------------------------------
     if (this.tab_respawn.GetActiveId() === "reinforcement") {
       tmpStr = this.spin_force_respawn.GetText();
-      if (lua_string.len(tmpStr) > 0) {
+      if (string.len(tmpStr) > 0) {
         cmdstr = cmdstr + "/frcrspwn=" + tmpStr;
       }
     }
@@ -652,19 +653,19 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
       if (this.map_list.GetCurGameType() === GAME_TYPE.eGameIDArtefactHunt) {
         // -- number of artefacts ---------------------------------------------------------
         tmpStr = this.spin_artefacts_num.GetText();
-        if (lua_string.len(tmpStr) > 0) {
+        if (string.len(tmpStr) > 0) {
           cmdstr = cmdstr + "/anum=" + tmpStr;
         }
 
         // -- aretefact delay --------------------------------------------------------------
         tmpStr = this.spin_artefact_delay.GetText();
-        if (lua_string.len(tmpStr) > 0) {
+        if (string.len(tmpStr) > 0) {
           cmdstr = cmdstr + "/ardelta=" + tmpStr;
         }
 
         // -- artefact stay ----------------------------------------------------------------
         tmpStr = this.spin_artefact_stay.GetText();
-        if (lua_string.len(tmpStr) > 0) {
+        if (string.len(tmpStr) > 0) {
           cmdstr = cmdstr + "/astime=" + tmpStr;
         }
 
@@ -673,7 +674,7 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
           cmdstr = cmdstr + "/reinf=-1";
         } else {
           tmpStr = this.spin_reinforcement.GetText();
-          if (lua_string.len(tmpStr) > 0) {
+          if (string.len(tmpStr) > 0) {
             cmdstr = cmdstr + "/reinf=" + tmpStr;
           }
         }
@@ -683,17 +684,17 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
       if (this.map_list.GetCurGameType() === GAME_TYPE.eGameIDCaptureTheArtefact) {
         // -- number of artefacts ---------------------------------------------------------
         tmpStr = this.spin_artefacts_num.GetText();
-        if (lua_string.len(tmpStr) > 0) {
+        if (string.len(tmpStr) > 0) {
           cmdstr = cmdstr + "/anum=" + tmpStr;
         }
 
         tmpStr = this.spin_reinforcement.GetText();
-        if (lua_string.len(tmpStr) > 0) {
+        if (string.len(tmpStr) > 0) {
           cmdstr = cmdstr + "/reinf=" + tmpStr;
         }
 
         tmpStr = this.spin_artreturn_time.GetText();
-        if (lua_string.len(tmpStr) > 0) {
+        if (string.len(tmpStr) > 0) {
           cmdstr = cmdstr + "/artrettime=" + tmpStr;
         }
 
@@ -705,19 +706,19 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
       if (this.map_list.GetCurGameType() === GAME_TYPE.GAME_ARTEFACTHUNT) {
         // -- number of artefacts ---------------------------------------------------------
         tmpStr = this.spin_artefacts_num.GetText();
-        if (lua_string.len(tmpStr) > 0) {
+        if (string.len(tmpStr) > 0) {
           cmdstr = cmdstr + "/anum=" + tmpStr;
         }
 
         // -- aretefact delay --------------------------------------------------------------
         tmpStr = this.spin_artefact_delay.GetText();
-        if (lua_string.len(tmpStr) > 0) {
+        if (string.len(tmpStr) > 0) {
           cmdstr = cmdstr + "/ardelta=" + tmpStr;
         }
 
         // -- artefact stay ----------------------------------------------------------------
         tmpStr = this.spin_artefact_stay.GetText();
-        if (lua_string.len(tmpStr) > 0) {
+        if (string.len(tmpStr) > 0) {
           cmdstr = cmdstr + "/astime=" + tmpStr;
         }
 
@@ -726,7 +727,7 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
           cmdstr = cmdstr + "/reinf=-1";
         } else {
           tmpStr = this.spin_reinforcement.GetText();
-          if (lua_string.len(tmpStr) > 0) {
+          if (string.len(tmpStr) > 0) {
             cmdstr = cmdstr + "/reinf=" + tmpStr;
           }
         }
@@ -746,7 +747,7 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
     // -- anomaly time ---------------------------------------------------------------------
     if (this.check_no_anmalies.GetCheck() === false) {
       tmpStr = this.spin_anomaly_time.GetText();
-      if (lua_string.len(tmpStr) > 0) {
+      if (string.len(tmpStr) > 0) {
         cmdstr = cmdstr + "/ans=1/anslen=" + tmpStr;
       }
     } else {
@@ -760,13 +761,13 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
 
     // -- warm up time ---------------------------------------------------------------------
     tmpStr = this.spin_warm_up_time.GetText();
-    if (lua_string.len(tmpStr) > 0) {
+    if (string.len(tmpStr) > 0) {
       cmdstr = cmdstr + "/warmup=" + tmpStr;
     }
 
     // -- rate of weather change -----------------------------------------------------------
     tmpStr = this.spin_rate_of_change.GetText();
-    if (lua_string.len(tmpStr) > 0) {
+    if (string.len(tmpStr) > 0) {
       cmdstr = cmdstr + "/etimef=" + tmpStr;
     }
 
@@ -836,7 +837,7 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
 
       this.download_progress.SetProgressPos(_progr);
 
-      const str = lua_string.format("%.0f%%(%s)", _progr, patchDownload.GetFlieName());
+      const str: string = string.format("%.0f%%(%s)", _progr, patchDownload.GetFlieName());
 
       this.text_download.TextControl().SetText(str);
       this.btn_cancel_download.Show(true);

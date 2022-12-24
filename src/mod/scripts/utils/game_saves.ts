@@ -66,7 +66,7 @@ export function gatFileDataForGameSave(filename: string) {
     date_time = date_time + y;
 
     // --string.format("[%d/%d/%d %d]",m,d,h,min,y)
-    const health = lua_string.format(
+    const health = string.format(
       "\\n%s %d%s",
       game.translate_string("st_ui_health_sensor"),
       sg.actor_health() * 100,
