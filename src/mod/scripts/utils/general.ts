@@ -4,46 +4,10 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 const log: LuaLogger = new LuaLogger("utils/general");
 
 /**
- * -- ��������� ������ � ������.
- * function vec_to_str (vector)
- *  if vector == nil then return "nil" end
- *  return string.format("[%s:%s:%s]", vector.x, vector.y, vector.z)
- * end
- */
-export function vectorToString(vector: Optional<XR_vector>): Optional<string> {
-  if (vector === null) {
-    return null;
-  }
-
-  return lua_string.format("[%s:%s:%s]", vector.x, vector.y, vector.z);
-}
-
-/**
- *
- * function empty(container)
- *  if (type(container) == "function") then
- *    for i in container do
- *      return  (false)
- *    end
- *    return    (true)
- *  end
- *
- *  assert      (type(container) == "table")
- *
- *  if (container[1] ~= nil) then
- *    return    (false)
- *  end
- *
- *  for i,j in pairs(container) do
- *    return    (false)
- *  end
- *
- *  return      (true)
- * end
+ * Check if provided container is empty collection.
+ * Very lua-specific checks, do not apply TS logic here.
  */
 export function isEmpty(container: Optional<LuaIterable<any>>): boolean {
-  log.info("Check is empty:", type(container), tostring(container));
-
   if (container === null) {
     return true;
   }
@@ -67,6 +31,21 @@ export function isEmpty(container: Optional<LuaIterable<any>>): boolean {
   }
 
   return true;
+}
+
+/**
+ * -- ��������� ������ � ������.
+ * function vec_to_str (vector)
+ *  if vector == nil then return "nil" end
+ *  return string.format("[%s:%s:%s]", vector.x, vector.y, vector.z)
+ * end
+ */
+export function vectorToString(vector: Optional<XR_vector>): Optional<string> {
+  if (vector === null) {
+    return null;
+  }
+
+  return lua_string.format("[%s:%s:%s]", vector.x, vector.y, vector.z);
 }
 
 /**
@@ -229,88 +208,4 @@ export function parseNums(str: string): Record<string, unknown> {
   });
 
   return container;
-}
-
-/**
- *
- * function yaw( v1, v2 )
- *  return  math.acos(
- *  ( (v1.x*v2.x) + (v1.z*v2.z ) ) / ( math.sqrt(v1.x*v1.x + v1.z*v1.z ) * math.sqrt(v2.x*v2.x + v2.z*v2.z ) )
- *  )
- * end
- */
-export function yaw(v1: XR_vector, v2: XR_vector) {
-  return lua_math.acos(
-    (v1.x * v2.x + v1.z * v2.z) / (lua_math.sqrt(v1.x * v1.x + v1.z * v1.z) * lua_math.sqrt(v2.x * v2.x + v2.z * v2.z))
-  );
-}
-
-/**
- *
- * function yaw_degree( v1, v2 )
- *  return  (
- *   math.acos(
- *   ( (v1.x*v2.x) + (v1.z*v2.z ) ) / ( math.sqrt(v1.x*v1.x + v1.z*v1.z ) * math.sqrt(v2.x*v2.x + v2.z*v2.z ) )
- *   ) * 57.2957
- *   )
- * end
- *
- */
-export function yawDegree(v1: XR_vector, v2: XR_vector): number {
-  return (
-    lua_math.acos(
-      (v1.x * v2.x + v1.z * v2.z) /
-        (lua_math.sqrt(v1.x * v1.x + v1.z * v1.z) * lua_math.sqrt(v2.x * v2.x + v2.z * v2.z))
-    ) * 57.2957
-  );
-}
-
-/**
- * function yaw_degree3d( v1, v2 )
- *  return  (
- *  math.acos(
- *  (v1.x*v2.x + v1.y*v2.y + v1.z*v2.z) /
- *    (math.sqrt(v1.x*v1.x + v1.y*v1.y + v1.z*v1.z )*math.sqrt(v2.x*v2.x + v2.y*v2.y + v2.z*v2.z))
- *  )*57.2957
- *  )
- * end
- */
-export function yawDegree3d(v1: XR_vector, v2: XR_vector): number {
-  return (
-    lua_math.acos(
-      (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z) /
-        (lua_math.sqrt(v1.x * v1.x + v1.y * v1.y + v1.z * v1.z) *
-          lua_math.sqrt(v2.x * v2.x + v2.y * v2.y + v2.z * v2.z))
-    ) * 57.2957
-  );
-}
-
-/**
- *
- * function vector_cross(v1, v2)
- *  return vector():set(v1.y  * v2.z  - v1.z  * v2.y, v1.z  * v2.x  - v1.x  * v2.z, v1.x  * v2.y  - v1.y  * v2.x)
- * end
- */
-export function vectorCross(v1: XR_vector, v2: XR_vector): XR_vector {
-  return new vector().set(v1.y * v2.z - v1.z * v2.y, v1.z * v2.x - v1.x * v2.z, v1.x * v2.y - v1.y * v2.x);
-}
-
-/**
- *
- * --������������ ������ ������ ��� y ������ ������� �������.
- * function vector_rotate_y(v, angle)
- *  angle = angle * 0.017453292519943295769236907684886
- *  local c = math.cos (angle)
- *  local s = math.sin (angle)
- *  return vector ():set (v.x * c - v.z * s, v.y, v.x * s + v.z * c)
- * end
- */
-export function vectorRotateY(target: XR_vector, angle: number): XR_vector {
-  // eslint-disable-next-line @typescript-eslint/no-loss-of-precision
-  angle = angle * 0.017453292519943295769236907684886;
-
-  const c = lua_math.cos(angle);
-  const s = lua_math.sin(angle);
-
-  return new vector().set(target.x * c - target.z * s, target.y, target.x * s + target.z * c);
 }

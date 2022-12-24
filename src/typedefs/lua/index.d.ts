@@ -91,6 +91,10 @@ declare const pairs: (table: LuaIterable<any, any>) => LuaIterable<Array<[string
 
 declare const coroutine: ILUA_Coroutine;
 
+declare const math: LUA_Math;
+
+declare const string: LUA_String;
+
 /**
  * This function is a generic interface to the garbage collector. It performs
  * different functions according to its first argument, `opt`:

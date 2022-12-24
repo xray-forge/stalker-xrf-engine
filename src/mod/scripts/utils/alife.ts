@@ -1,5 +1,4 @@
 import { Optional } from "@/mod/lib/types";
-import { yawDegree3d } from "@/mod/scripts/utils/general";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("utils/alife");
@@ -422,26 +421,4 @@ export function stopPlaySound(object: XR_game_object): void {
     object.set_sound_mask(-1);
     object.set_sound_mask(0);
   }
-}
-
-/**
- *
- * --' ��������� �� NPC �� ��������� ������
- * function npc_in_actor_frustrum(npc)
- *  local actor_dir = device().cam_dir
- *  --local actor_dir = db.actor:direction()
- *
- *  local npc_dir = npc:position():sub(db.actor:position())
- *  local yaw = yaw_degree3d(actor_dir, npc_dir)
- *
- *  --printf("YAW %s", tostring(yaw))
- *
- *  return yaw < 35
- * end
- */
-export function npcInActorFrustrum(npc: XR_game_object): boolean {
-  const actor_dir = device().cam_dir;
-  const npc_dir: XR_vector = npc.position().sub(db.actor.position());
-
-  return yawDegree3d(actor_dir, npc_dir) < 35;
 }

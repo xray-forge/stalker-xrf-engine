@@ -23,6 +23,7 @@ local utilsAlife = require("scripts.utils.alife")
 local debugUtils = require("scripts.utils.debug")
 local utilsGameSaves = require("scripts.utils.game_saves")
 local utilsGeneral = require("scripts.utils.general")
+local utilsPhysics = require("scripts.utils.physics")
 local utilsRendering = require("scripts.utils.rendering")
 local utilsTime = require("scripts.utils.time")
 local utilsUnknown = require("scripts.utils.unknown")
@@ -55,7 +56,6 @@ local utilsUnknown = require("scripts.utils.unknown")
 -- is_object_online = utilsAlife.isObjectOnline
 -- set_current_time = utilsAlife.setCurrentTime
 -- stop_play_sound = utilsAlife.stopPlaySound
--- npc_in_actor_frustrum = utilsAlife.npcInActorFrustrum
 
 callstack = debugUtils.callstack
 abort = debugUtils.abort
@@ -72,15 +72,15 @@ empty = utilsGeneral.isEmpty
 -- parse_names = utilsGeneral.parseNames
 -- parse_key_value = utilsGeneral.parseKeyValue
 -- parse_nums = utilsGeneral.parseNums
--- yaw = utilsGeneral.yaw
--- yaw_degree = utilsGeneral.yawDegree
--- yaw_degree3d = utilsGeneral.yawDegree3d
--- vector_cross = utilsGeneral.yawDegree3d
--- vector_rotate_y = utilsGeneral.vectorRotateY
 
 -- show_all_ui = utilsRendering.showAllUi
 
--- is_in_time_interval = utilsTime.isInTimeInterval
+yaw = utilsPhysics.yaw
+yaw_degree = utilsPhysics.yawDegree
+yaw_degree3d = utilsPhysics.yawDegree3d
+vector_cross = utilsPhysics.yawDegree3d
+vector_rotate_y = utilsPhysics.vectorRotateY
+npc_in_actor_frustrum = utilsPhysics.npcInActorFrustum
 
 -- get_param_string = utilsUnknown.getParamString
 
@@ -315,28 +315,6 @@ function get_clsid(npc)
 	return npc:clsid()
 end
 
---Tv������� yaw � ��������
-function yaw( v1, v2 )
-	return  math.acos( ( (v1.x*v2.x) + (v1.z*v2.z ) ) / ( math.sqrt(v1.x*v1.x + v1.z*v1.z ) * math.sqrt(v2.x*v2.x + v2.z*v2.z ) ) )
-end
-function yaw_degree( v1, v2 )
-	return  (math.acos( ( (v1.x*v2.x) + (v1.z*v2.z ) ) / ( math.sqrt(v1.x*v1.x + v1.z*v1.z ) * math.sqrt(v2.x*v2.x + v2.z*v2.z ) ) ) * 57.2957)
-end
-function yaw_degree3d( v1, v2 )
-	return  (math.acos((v1.x*v2.x + v1.y*v2.y + v1.z*v2.z)/(math.sqrt(v1.x*v1.x + v1.y*v1.y + v1.z*v1.z )*math.sqrt(v2.x*v2.x + v2.y*v2.y + v2.z*v2.z)))*57.2957)
-end
-function vector_cross(v1, v2)
-	return vector():set(v1.y  * v2.z  - v1.z  * v2.y, v1.z  * v2.x  - v1.x  * v2.z, v1.x  * v2.y  - v1.y  * v2.x)
-end
-
---������������ ������ ������ ��� y ������ ������� �������.
-function vector_rotate_y(v, angle)
-	angle = angle * 0.017453292519943295769236907684886
-	local c = math.cos (angle)
-	local s = math.sin (angle)
-	return vector ():set (v.x * c - v.z * s, v.y, v.x * s + v.z * c)
-end
-
 -- ������� �������.
 function clear_table (t)
 	while #t > 0 do
@@ -426,6 +404,7 @@ function IsMonster (object, class_id)
 	local id = class_id or get_clsid(object)
 	return monster_classes[id] == true
 end
+
 function IsStalker (object, class_id)
 	local id = class_id or get_clsid(object)
 	return stalker_classes[id] == true
@@ -443,6 +422,7 @@ end
 
 
 -------------------------------------------------------------------------------------------
+---
 function get_object_community(obj)
 	if type(obj.id) == "function" then
 		return character_community(obj)
@@ -476,6 +456,7 @@ function level_object_by_sid( sid )
 	end
 	return nil
 end
+
 -- �������� �������� ������� �� ����� ����.
 function id_by_sid( sid )
 	local sim = alife()
@@ -507,16 +488,6 @@ end
 -- ��������� ����� ����� ����� �� ����������
 function odd( x )
 	return math.floor( x * 0.5 ) * 2 == math.floor( x )
-end
-
---' ��������� �� NPC �� ��������� ������
-function npc_in_actor_frustrum(npc)
-	local actor_dir = device().cam_dir
-	--local actor_dir = db.actor:direction()
-	local npc_dir = npc:position():sub(db.actor:position())
-	local yaw = yaw_degree3d(actor_dir, npc_dir)
-	--printf("YAW %s", tostring(yaw))
-	return yaw < 35
 end
 
 function start_game_callback()
