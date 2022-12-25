@@ -2,8 +2,8 @@ import { JSXNode, JSXXML } from "jsx-xml";
 
 import { XrCheckBox, XrContainer, XrRoot, XrText } from "@/mod/ui/components/base";
 import { XrScrollView } from "@/mod/ui/components/base/XrScrollView.component";
-import { SECTION_HEIGHT, SECTION_WIDTH } from "@/mod/ui/debug/DebugDialog.component";
-import { on_off_cmds, zero_one_cmds } from "@/mod/ui/debug/sections";
+import { SECTION_HEIGHT, SECTION_WIDTH } from "@/mod/ui/menu/debug/DebugDialog.component";
+import { on_off_cmds, zero_one_cmds } from "@/mod/ui/menu/debug/sections";
 
 export const IS_XML: boolean = true;
 

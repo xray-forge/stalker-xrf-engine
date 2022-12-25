@@ -2,7 +2,7 @@ import { textures } from "@/mod/globals/textures";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
-const base: string = "debug\\DevDebugUiSection.component";
+const base: string = "menu\\debug\\DevDebugUiSection.component";
 const log: LuaLogger = new LuaLogger("DevDebugUiSection");
 
 export interface IDevDebugUiSection extends XR_CUIWindow {

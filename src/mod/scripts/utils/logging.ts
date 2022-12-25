@@ -1,5 +1,5 @@
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
-import { Optional } from "@/mod/lib/types";
+import { Maybe, Optional } from "@/mod/lib/types";
 
 export class LuaLogger {
   protected prefix: string;
@@ -22,7 +22,7 @@ export class LuaLogger {
     this.logAs("[INFO]", args);
   }
 
-  public table(table: Optional<LuaIterable<any>>, sub: string = ""): void {
+  public table(table: Maybe<LuaIterable<any>>, sub: string = ""): void {
     if (gameConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
       if (table === null) {
         return this.info("[TABLE]: null");
@@ -30,7 +30,7 @@ export class LuaLogger {
         this.info("[TABLE]");
       }
 
-      for (const [k, v] of pairs(table)) {
+      for (const [k, v] of pairs(table as LuaIterable<string, any>)) {
         if (type(v) == "table") {
           this.info(string.format(sub + "%s:", tostring(k)));
           this.table(v, "  ");
@@ -69,7 +69,7 @@ export class LuaLogger {
 
   protected logAs(method: string, args: Array<any>): void {
     if (gameConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
-      const text: string = this.prefix + method + " " + args.map((it) => tostring(it)).join(" ");
+      const text: string = `[${time_global()}]${this.prefix}${method} ${args.map((it) => tostring(it)).join(" ")}`;
 
       if (method === "[ERROR]") {
         error_log(text);

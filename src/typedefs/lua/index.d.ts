@@ -104,7 +104,7 @@ declare const require: (modulePath: string) => any;
 
 declare const assert: (condition: boolean) => void;
 
-declare const pairs: (table: LuaIterable<any, any>) => LuaIterable<LuaMultiReturn<[string, any]>>;
+declare const pairs: <T = any, D = any>(table: LuaIterable<T, D>) => LuaIterable<LuaMultiReturn<[T, D]>>;
 
 declare const coroutine: ILUACoroutine;
 

@@ -10,9 +10,9 @@ import { DevDebugUiSection, IDevDebugUiSection } from "@/mod/scripts/ui/debug/De
 import { DevDebugWorldSection, IDevDebugWorldSection } from "@/mod/scripts/ui/debug/DevDebugWorldSection";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
-import { EDebugSection } from "@/mod/ui/debug/sections";
+import { EDebugSection } from "@/mod/ui/menu/debug/sections";
 
-const base: string = "debug\\DebugDialog.component";
+const base: string = "menu\\debug\\DebugDialog.component";
 const log: LuaLogger = new LuaLogger("DebugDialog");
 
 export interface IDebugDialog extends XR_CUIScriptWnd {

@@ -146,7 +146,7 @@ declare global {
     set_weather(this: void, str: string, val: boolean): unknown;
     show_indicators(this: void): void;
     get_game_difficulty(this: void): unknown;
-    map_remove_object_spot(this: void, num: number, str: string): unknown;
+    map_remove_object_spot(this: void, id: number, selector: string): unknown;
     remove_dialog_to_render(this: void, window: XR_CUIDialogWnd): unknown;
     stop_weather_fx(this: void): unknown;
     patrol_path_exists(this: void, str: string): unknown;
@@ -163,7 +163,7 @@ declare global {
     is_wfx_playing(this: void): unknown;
     set_time_factor(this: void, factor: number): void;
     client_spawn_manager(this: void): unknown;
-    map_has_object_spot(this: void, num: number, str: string): unknown;
+    map_has_object_spot(this: void, objectId: number, str: string): number;
     add_dialog_to_render(this: void, window: XR_CUIDialogWnd): unknown;
     start_weather_fx_from_time(this: void, str: string, num: number): unknown;
     hide_indicators_safe(this: void): unknown;
@@ -303,6 +303,10 @@ declare global {
    */
   function prefetch(this: void,path: string): void;
 
+  /**
+   * Returns 'ms' from game start.
+   * Examples: 0, 1000, 60000
+   */
   function time_global(this: void): number;
   function time_global_async(this: void,...args: Array<unknown>): unknown;
   function verify_if_thread_is_running(this: void): boolean;

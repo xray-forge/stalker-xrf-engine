@@ -18,7 +18,8 @@
     "plugins": [
         "@typescript-eslint",
         "jest",
-        "import"
+        "import",
+        "sort-keys-fix"
     ],
     "rules": {
         "@typescript-eslint/ban-ts-comment": "off",

@@ -9,11 +9,11 @@ class ActorMenu extends AbstractActorMenu {
   private static instance: Optional<ActorMenu> = null;
 
   public static getInstance(): ActorMenu {
-    if (!ActorMenu.instance) {
-      ActorMenu.instance = new ActorMenu();
+    if (!this.instance) {
+      this.instance = new ActorMenu();
     }
 
-    return ActorMenu.instance;
+    return this.instance;
   }
 
   public initQuickSlotItems(): void {

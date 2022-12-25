@@ -1,3 +1,5 @@
+/* eslint sort-keys-fix/sort-keys-fix: "error"*/
+
 /**
  * Replicating keys from lua keybindings.
  * Intended to be used with configs only.

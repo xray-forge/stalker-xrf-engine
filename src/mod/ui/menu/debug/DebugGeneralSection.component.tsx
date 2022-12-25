@@ -4,7 +4,7 @@ import { WHITE } from "@/mod/globals/colors";
 import { fonts } from "@/mod/globals/fonts";
 import { textures } from "@/mod/globals/textures";
 import { Xr3tButton, XrRoot, XrStatic, XrText } from "@/mod/ui/components/base";
-import { SECTION_HEIGHT, SECTION_WIDTH } from "@/mod/ui/debug/DebugDialog.component";
+import { SECTION_HEIGHT, SECTION_WIDTH } from "@/mod/ui/menu/debug/DebugDialog.component";
 
 export const IS_XML: boolean = true;
 
@@ -22,7 +22,7 @@ export function create(): JSXNode {
         <XrText font={fonts.letterica16} align={"c"} vertAlign={"c"} />
       </XrStatic>
 
-      <XrStatic tag={"game_command_line"} x={124} y={12} width={60} height={16}>
+      <XrStatic tag={"game_command_line"} x={140} y={12} width={60} height={16}>
         <XrText font={fonts.letterica16} align={"c"} vertAlign={"c"} />
       </XrStatic>
 

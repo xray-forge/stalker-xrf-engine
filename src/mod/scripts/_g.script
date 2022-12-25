@@ -21,9 +21,7 @@ require("scripts._callbacks")
 --
 
 local coreStartGame = require("scripts.core.start_game")
-
-pda = require("scripts.ui.game.pda")
-actor_menu = require("scripts.ui.game.ActorMenu").actorMenu
+local actorMenu = require("scripts.ui.game.ActorMenu").actorMenu
 
 local utilsUtils = require("scripts.utils.utils")
 local utilsActor = require("scripts.utils.actor")
@@ -108,12 +106,12 @@ in_time_interval = utilsTime.isInTimeInterval
 
 -- todo: Remove
 print_table = function (table)
-  log:table(table);
+  -- log:table(table);
 end
 
 -- todo: Remove
 function printf(fmt,...)
-  log:info(string.format(fmt, ...))
+  -- log:info(string.format(fmt, ...))
 end
 
 
@@ -402,7 +400,6 @@ function set_save_marker(p, mode, check, prefix)
 
 		if mode == "save" then
 			local dif = p:w_tell() - save_markers[result]
-			printf(result..": SAVE DIF: %s", dif)
 			if dif >= 8000 then
 				printf("WARNING! may be this is problem save point")
 			end
@@ -423,7 +420,7 @@ function set_save_marker(p, mode, check, prefix)
 	end
 
 	if mode == "save" then
-		printf(result..": set save marker: %s", p:w_tell())
+		-- printf(result..": set save marker: %s", p:w_tell())
 		save_markers[result] = p:w_tell()
 		if p:w_tell() > 16000 then
 			abort("You are saving too much")
@@ -530,7 +527,7 @@ function start_game_callback()
 	sim_objects.clear()
 	sim_board.clear()
 	sr_light.clean_up ()
-	actor_menu:initQuickSlotItems()
+	actorMenu:initQuickSlotItems()
 	-- T����������� �����������
 	--local test_object = test_object.test_object_class()
 	--test_object:test()

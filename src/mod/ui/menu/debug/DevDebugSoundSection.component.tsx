@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 import { textures } from "@/mod/globals/textures";
-import { SECTION_HEIGHT, SECTION_WIDTH } from "@/mod/ui/debug/DebugDialog.component";
+import { SECTION_HEIGHT, SECTION_WIDTH } from "@/mod/ui/menu/debug/DebugDialog.component";
 
 export const IS_XML: boolean = true;
 

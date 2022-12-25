@@ -1,5 +1,5 @@
 --'******************************************************
---'*  Биндер объекта зоны аномалий .
+--'*  пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ .
 --'******************************************************
 artefact_ways_by_id					= {}
 artefact_points_by_id				= {}
@@ -388,7 +388,7 @@ function anomaly_zone_binder:on_artefact_take(obj)
 	self.artefact_points_by_id[id] = nil
 	self.spawned_count = self.spawned_count - 1
 
-	pda.change_anomalies_names()
+	pda.update_anomalies_zones()
 end
 
 -- Standart function for save

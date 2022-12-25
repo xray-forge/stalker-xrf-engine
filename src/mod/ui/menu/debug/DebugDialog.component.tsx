@@ -8,7 +8,7 @@ import { IRgbColor } from "@/mod/lib/types";
 import { Xr3tButton, XrBackground, XrRoot, XrStatic } from "@/mod/ui/components/base";
 import { XrContainer } from "@/mod/ui/components/base/XrContainer.component";
 import { CustomTab } from "@/mod/ui/components/custom";
-import { EDebugSection } from "@/mod/ui/debug/sections";
+import { EDebugSection } from "@/mod/ui/menu/debug/sections";
 
 export const IS_XML: boolean = true;
 

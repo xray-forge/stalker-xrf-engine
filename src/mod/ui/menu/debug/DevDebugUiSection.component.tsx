@@ -5,7 +5,7 @@ import { textures } from "@/mod/globals/textures";
 import { IRgbColor } from "@/mod/lib/types";
 import { XrEditBox, XrStatic } from "@/mod/ui/components/base";
 import { XrListRenderer } from "@/mod/ui/components/base/XrListRenderer.component";
-import { SECTION_HEIGHT, SECTION_WIDTH } from "@/mod/ui/debug/DebugDialog.component";
+import { SECTION_HEIGHT, SECTION_WIDTH } from "@/mod/ui/menu/debug/DebugDialog.component";
 
 export const IS_XML: boolean = true;
 

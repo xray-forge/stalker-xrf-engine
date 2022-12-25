@@ -1,7 +1,7 @@
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
-const base: string = "debug\\DevDebugSpawnSection.component";
+const base: string = "menu\\debug\\DevDebugSpawnSection.component";
 const log: LuaLogger = new LuaLogger("DevDebugSpawnSection");
 
 export interface IDevDebugSpawnSection extends XR_CUIScriptWnd {

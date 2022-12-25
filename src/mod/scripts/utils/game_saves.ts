@@ -170,8 +170,7 @@ export function setSaveMarker(p: any, mode: string, check: boolean, prefix: stri
     if (mode == "save") {
       const dif = p.w_tell() - save_markers[result];
 
-      // printf(result..": SAVE DIF: %s", dif)
-      log.info("Set save marker result:", result, dif, mode);
+      // log.info("Set save marker result:", result, dif, mode);
 
       if (dif >= 8000) {
         log.info("May be problem with save point");
@@ -191,8 +190,7 @@ export function setSaveMarker(p: any, mode: string, check: boolean, prefix: stri
       if (dif !== c_dif) {
         abort("INCORRECT LOAD [%s].[%s][%s]", result, dif, c_dif);
       } else {
-        log.info("Set save marker result:", result, dif, mode);
-        // printf(result..": LOAD DIF: %s", dif)
+        // log.info("Set save marker result:", result, dif, mode);
       }
     }
 
@@ -200,14 +198,14 @@ export function setSaveMarker(p: any, mode: string, check: boolean, prefix: stri
   }
 
   if (mode === "save") {
-    log.info("Set save marker result:", result, p.w_tell(), mode);
+    // log.info("Set save marker result:", result, p.w_tell(), mode);
     save_markers[result] = p.w_tell();
 
     if (p.w_tell() > 16000) {
       abort("You are saving too much");
     }
   } else {
-    log.info("Set save marker result:", result, p.r_tell(), mode);
+    // log.info("Set save marker result:", result, p.r_tell(), mode);
     save_markers[result] = p.r_tell();
   }
 }

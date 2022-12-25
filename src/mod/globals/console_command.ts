@@ -1,3 +1,5 @@
+/* eslint sort-keys-fix/sort-keys-fix: "error"*/
+
 /**
  * DOC ref:
  *
@@ -354,111 +356,175 @@
  */
 export const console_command = {
   /**
+   * Save options changes.
+   */
+  cfg_save: "cfg_save",
+
+  /**
+   * Check game updates.
+   */
+  check_for_updates: "check_for_updates",
+
+  /**
+   * todo: ???
+   */
+  cl_mpdemosave: "cl_mpdemosave",
+
+  dbg_destroy: "dbg_destroy",
+
+  dbg_draw_actor_alive: "dbg_draw_actor_alive",
+
+  dbg_draw_actor_dead: "dbg_draw_actor_dead",
+
+  dbg_draw_actor_phys: "dbg_draw_actor_phys",
+
+  dbg_draw_autopickupbox: "dbg_draw_autopickupbox",
+
+  dbg_draw_bullet_hit: "dbg_draw_bullet_hit",
+
+  dbg_draw_climbable: "dbg_draw_climbable",
+
+  dbg_draw_customzone: "dbg_draw_customzone",
+
+  dbg_draw_invitem: "dbg_draw_invitem",
+
+  dbg_draw_ph_cashed_tries_stats: "dbg_draw_ph_cashed_tries_stats",
+
+  dbg_draw_ph_contacts: "dbg_draw_ph_contacts",
+
+  dbg_draw_ph_death_boxes: "dbg_draw_ph_death_boxes",
+
+  dbg_draw_ph_enabled_aabbs: "dbg_draw_ph_enabled_aabbs",
+
+  dbg_draw_ph_explosion_position: "dbg_draw_ph_explosion_position",
+
+  dbg_draw_ph_explosions: "dbg_draw_ph_explosions",
+
+  dbg_draw_ph_hit_anims: "dbg_draw_ph_hit_anims",
+
+  dbg_draw_ph_hit_app_pos: "dbg_draw_ph_hit_app_pos",
+
+  dbg_draw_ph_ik_goal: "dbg_draw_ph_ik_goal",
+
+  dbg_draw_ph_ik_limits: "dbg_draw_ph_ik_limits",
+
+  dbg_draw_ph_intersected_tries: "dbg_draw_ph_intersected_tries",
+
+  dbg_draw_ph_mass_centres: "dbg_draw_ph_mass_centres",
+
+  dbg_draw_ph_negative_tries: "dbg_draw_ph_negative_tries",
+
+  dbg_draw_ph_positive_tries: "dbg_draw_ph_positive_tries",
+
+  dbg_draw_ph_ray_motions: "dbg_draw_ph_ray_motions",
+
+  dbg_draw_ph_saved_tries: "dbg_draw_ph_saved_tries",
+
+  dbg_draw_ph_statistics: "dbg_draw_ph_statistics",
+
+  dbg_draw_ph_tri_point: "dbg_draw_ph_tri_point",
+
+  dbg_draw_ph_tri_test_aabb: "dbg_draw_ph_tri_test_aabb",
+
+  dbg_draw_ph_tri_trace: "dbg_draw_ph_tri_trace",
+
+  dbg_draw_ph_tries_changes_sign: "dbg_draw_ph_tries_changes_sign",
+
+  dbg_draw_ph_zbuffer_disable: "dbg_draw_ph_zbuffer_disable",
+
+  dbg_draw_rp: "dbg_draw_rp",
+
+  dbg_draw_skeleton: "dbg_draw_skeleton",
+
+  dbg_draw_teamzone: "dbg_draw_teamzone",
+
+  dbg_dump_physics_step: "dbg_dump_physics_step",
+
+  dbg_ph_actor_restriction: "dbg_ph_actor_restriction",
+
+  dbg_ph_ai_always_phmove: "dbg_ph_ai_always_phmove",
+
+  dbg_ph_ai_never_phmove: "dbg_ph_ai_never_phmove",
+
+  dbg_ph_character_control: "dbg_ph_character_control",
+
+  dbg_ph_ik: "dbg_ph_ik",
+
+  dbg_ph_ik_limits: "dbg_ph_ik_limits",
+
+  dbg_ph_ik_off: "dbg_ph_ik_off",
+
+  dbg_ph_ladder: "dbg_ph_ladder",
+
+  dbg_ph_obj_collision_damage: "dbg_ph_obj_collision_damage",
+
+  /**
+   * Disconnect from server / game session.
+   */
+  disconnect: "disconnect",
+
+  g_always_run: "g_always_run",
+
+  g_autopickup: "g_autopickup",
+
+  /**
+   * Set game difficulty.
+   * Second param - diffuculty value.
+   */
+  g_game_difficulty: "g_game_difficulty",
+
+  /**
+   * Debug commands:
+   */
+  g_god: "g_god",
+
+  g_unlimitedammo: "g_unlimitedammo",
+
+  hud_crosshair: "hud_crosshair",
+
+  hud_crosshair_dist: "hud_crosshair_dist",
+
+  hud_draw: "hud_draw",
+
+  hud_info: "hud_info",
+
+  hud_weapon: "hud_weapon",
+
+  /**
+   * Load save.
+   */
+  load: "load",
+
+  /**
+   * Load last save.
+   */
+  load_last_save: "load_last_save",
+
+  /**
+   * Toggle main menu.
+   * Second param - on / off.
+   */
+  main_menu: "main_menu",
+
+  /**
+   * Quit from game.
+   */
+  quit: "quit",
+
+  show_wnd_rect_all: "show_wnd_rect_all",
+
+  /**
+   * todo: ???
+   */
+  snd_volume_eff: "snd_volume_eff",
+
+  /**
    * todo: ???
    */
   snd_volume_music: "snd_volume_music",
   /**
    * todo: ???
    */
-  snd_volume_eff: "snd_volume_eff",
-  /**
-   * todo: ???
-   */
   start: "start",
-  /**
-   * todo: ???
-   */
-  cl_mpdemosave: "cl_mpdemosave",
-  /**
-   * Disconnect from server / game session.
-   */
-  disconnect: "disconnect",
-  /**
-   * Quit from game.
-   */
-  quit: "quit",
-  /**
-   * Toggle main menu.
-   * Second param - on / off.
-   */
-  main_menu: "main_menu",
-  /**
-   * Load save.
-   */
-  load: "load",
-  /**
-   * Load last save.
-   */
-  load_last_save: "load_last_save",
-  /**
-   * Set game difficulty.
-   * Second param - diffuculty value.
-   */
-  g_game_difficulty: "g_game_difficulty",
-  /**
-   * Check game updates.
-   */
-  check_for_updates: "check_for_updates",
-  /**
-   * Save options changes.
-   */
-  cfg_save: "cfg_save",
-  /**
-   * Debug commands:
-   */
-  g_god: "g_god",
-  g_unlimitedammo: "g_unlimitedammo",
-  g_autopickup: "g_autopickup",
-  g_always_run: "g_always_run",
-  hud_weapon: "hud_weapon",
-  wpn_aim_toggle: "wpn_aim_toggle",
-  hud_info: "hud_info",
-  hud_crosshair_dist: "hud_crosshair_dist",
-  hud_crosshair: "hud_crosshair",
-  hud_draw: "hud_draw",
-  dbg_destroy: "dbg_destroy",
-  dbg_draw_actor_alive: "dbg_draw_actor_alive",
-  dbg_draw_actor_dead: "dbg_draw_actor_dead",
-  dbg_draw_actor_phys: "dbg_draw_actor_phys",
-  dbg_draw_autopickupbox: "dbg_draw_autopickupbox",
-  dbg_draw_bullet_hit: "dbg_draw_bullet_hit",
-  dbg_draw_climbable: "dbg_draw_climbable",
-  dbg_draw_customzone: "dbg_draw_customzone",
-  dbg_draw_invitem: "dbg_draw_invitem",
-  dbg_draw_ph_cashed_tries_stats: "dbg_draw_ph_cashed_tries_stats",
-  dbg_draw_ph_contacts: "dbg_draw_ph_contacts",
-  dbg_draw_ph_death_boxes: "dbg_draw_ph_death_boxes",
-  dbg_draw_ph_enabled_aabbs: "dbg_draw_ph_enabled_aabbs",
-  dbg_draw_ph_explosion_position: "dbg_draw_ph_explosion_position",
-  dbg_draw_ph_explosions: "dbg_draw_ph_explosions",
-  dbg_draw_ph_hit_anims: "dbg_draw_ph_hit_anims",
-  dbg_draw_ph_hit_app_pos: "dbg_draw_ph_hit_app_pos",
-  dbg_draw_ph_ik_goal: "dbg_draw_ph_ik_goal",
-  dbg_draw_ph_ik_limits: "dbg_draw_ph_ik_limits",
-  dbg_draw_ph_intersected_tries: "dbg_draw_ph_intersected_tries",
-  dbg_draw_ph_mass_centres: "dbg_draw_ph_mass_centres",
-  dbg_draw_ph_negative_tries: "dbg_draw_ph_negative_tries",
-  dbg_draw_ph_positive_tries: "dbg_draw_ph_positive_tries",
-  dbg_draw_ph_ray_motions: "dbg_draw_ph_ray_motions",
-  dbg_draw_ph_saved_tries: "dbg_draw_ph_saved_tries",
-  dbg_draw_ph_statistics: "dbg_draw_ph_statistics",
-  dbg_draw_ph_tri_point: "dbg_draw_ph_tri_point",
-  dbg_draw_ph_tri_test_aabb: "dbg_draw_ph_tri_test_aabb",
-  dbg_draw_ph_tri_trace: "dbg_draw_ph_tri_trace",
-  dbg_draw_ph_tries_changes_sign: "dbg_draw_ph_tries_changes_sign",
-  dbg_draw_ph_zbuffer_disable: "dbg_draw_ph_zbuffer_disable",
-  dbg_draw_rp: "dbg_draw_rp",
-  dbg_draw_skeleton: "dbg_draw_skeleton",
-  dbg_draw_teamzone: "dbg_draw_teamzone",
-  dbg_dump_physics_step: "dbg_dump_physics_step",
-  dbg_ph_actor_restriction: "dbg_ph_actor_restriction",
-  dbg_ph_ai_always_phmove: "dbg_ph_ai_always_phmove",
-  dbg_ph_ai_never_phmove: "dbg_ph_ai_never_phmove",
-  dbg_ph_character_control: "dbg_ph_character_control",
-  dbg_ph_ik: "dbg_ph_ik",
-  dbg_ph_ik_limits: "dbg_ph_ik_limits",
-  dbg_ph_ik_off: "dbg_ph_ik_off",
-  dbg_ph_ladder: "dbg_ph_ladder",
-  dbg_ph_obj_collision_damage: "dbg_ph_obj_collision_damage",
-  show_wnd_rect_all: "show_wnd_rect_all"
+  wpn_aim_toggle: "wpn_aim_toggle"
 };

@@ -1,36 +1,106 @@
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "_callbacks");
+
+local pdaMenu = require("scripts.ui.game.PdaMenu").pdaMenu
 local actorMenu = require("scripts.ui.game.ActorMenu").actorMenu
 
 --' L��������
 function on_actor_critical_power()
-
+  log:info("Actor critical power")
 end
 
 function on_actor_critical_max_power()
+  log:info("Actor critical max power")
 end
 
 --' ������������
 function on_actor_bleeding()
-
+  log:info("Actor bleeding")
 end
 
 function on_actor_satiety()
+  log:info("Actor satiety")
 end
 
 --' ��������
 function on_actor_radiation()
-
+  log:info("Actor radiation")
 end
 
 --' ��������� ������
 function on_actor_weapon_jammed()
-
+  log:info("Actor weapon jammed")
 end
 
 --' �� ����� ������ ���� ����
 function on_actor_cant_walk_weight()
-
+  log:info("Actor cant walk weight")
 end
 
 --' ��� �����������
 function on_actor_psy()
+  log:info("Actor psy")
+end
+
+actor_menu = {}
+
+--- Actor menu bindings
+function actor_menu.actor_menu_mode(mode)
+  return actorMenu:setActiveMode(mode)
+end
+
+--- PDA bindings
+pda = {}
+
+function pda.set_active_subdialog(...)
+  return log:info("Set active subdialog", ...)
+end
+
+function pda.fill_fraction_state(state)
+  return pdaMenu.fillFactionState(state)
+end
+
+function pda.get_max_resource()
+  return 10
+end
+
+function pda.get_max_power()
+  return 10
+end
+
+function pda.get_max_member_count()
+  return 10
+end
+
+function pda.actor_menu_mode(...)
+  log:info("Pda actor menu mode:", ...)
+end
+
+function pda.property_box_clicked(...)
+  log:info("Pda box property clicked:", ...)
+end
+
+function pda.property_box_add_properties(...)
+  log:info("Pda box property added:", ...)
+end
+
+function pda.get_monster_back()
+  return pdaMenu:getMonsterBackground()
+end
+
+function pda.get_monster_icon()
+  return pdaMenu:getMonsterIcon()
+end
+
+function pda.get_favorite_weapon()
+  return pdaMenu:getFavoriteWeapon()
+end
+
+function pda.get_stat(index)
+  return pdaMenu:getStat(index)
+end
+
+function pda.update_anomalies_zones()
+  return pdaMenu:updateAnomaliesZones()
 end

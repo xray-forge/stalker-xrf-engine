@@ -489,7 +489,7 @@ function fill_priority_table(npc, PT_subtable, PRT_subtable)
 	for num, phrase in pairs(PT_subtable) do
 -- calculate priority for each phrase
 		local pr = calculate_priority(PRT_subtable, phrase, npc, phrase.id)
-		log("--->phrase ["..phrase.name.."] priority ["..pr.."]")
+		log:info("--->phrase ["..phrase.name.."] priority ["..pr.."]")
 	end
 end
 

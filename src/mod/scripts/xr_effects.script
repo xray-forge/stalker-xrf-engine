@@ -210,7 +210,7 @@ function jup_b32_place_scanner(actor, npc)
 end
 
 function jup_b32_pda_check(actor, npc)
-	pda.change_anomalies_names()
+	pda.update_anomalies_zones()
 end
 
 function pri_b306_generator_start(actor, npc)

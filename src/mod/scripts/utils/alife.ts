@@ -43,8 +43,8 @@ export function getObjectStoryId(objectId: number): Optional<number> {
 /**
  * todo: description
  */
-export function getStoryObjectId(storyObjectId: number): Optional<number> {
-  return get_global("story_objects").get_story_objects_registry().id_by_story_id[storyObjectId as number];
+export function getStoryObjectId(storyObjectId: string): Optional<number> {
+  return get_global("story_objects").get_story_objects_registry().id_by_story_id[storyObjectId];
 }
 
 /**
@@ -83,8 +83,8 @@ export function getObjectSquad(object: Optional<XR_game_object | XR_cse_alife_cr
 /**
  * todo;
  */
-export function getStorySquad(id: number): Optional<number> {
-  const squadId: Optional<number> = getStoryObjectId(id);
+export function getStorySquad(storyId: string): Optional<number> {
+  const squadId: Optional<number> = getStoryObjectId(storyId);
 
   return squadId && alife().object(squadId);
 }

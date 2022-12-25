@@ -1,9 +1,9 @@
 import { Optional } from "@/mod/lib/types";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
-import { zero_one_cmds, on_off_cmds } from "@/mod/ui/debug/sections";
+import { zero_one_cmds, on_off_cmds } from "@/mod/ui/menu/debug/sections";
 
-const base: string = "debug\\DebugCommandsSection.component";
+const base: string = "menu\\debug\\DebugCommandsSection.component";
 const log: LuaLogger = new LuaLogger("DebugCommandsSection");
 
 export interface IDebugCommandsSection extends XR_CUIScriptWnd {
