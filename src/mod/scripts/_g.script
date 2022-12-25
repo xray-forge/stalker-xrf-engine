@@ -31,9 +31,9 @@ local utilsUnknown = require("scripts.utils.unknown")
 
 -- start_game_callback = coreStartGame.startGame
 
--- give_info = utilsActor.giveInfo
--- disable_info = utilsActor.disableInfo
--- has_alife_info = utilsActor.hasAlifeInfo
+give_info = utilsActor.giveInfo
+disable_info = utilsActor.disableInfo
+has_alife_info = utilsActor.hasAlifeInfo
 
 add_story_object = utilsAlife.addStoryObject
 get_story_object = utilsAlife.getStoryObject
@@ -172,16 +172,6 @@ function action_first(obj,...)
 	return  entity_action(act)
 end
 
---' �������� �� ���������v, ���� ���� ������ �� ��	�������
-function has_alife_info(info_id)
-	if aa == nil then
-		return false
-	end
-	return aa:has_info(0, info_id)
-end
-
-
-
 function reset_action (npc, script_name)
 	if npc:get_script () then
 		npc:script (false, script_name)
@@ -192,9 +182,6 @@ end
 --------------------------------------------------
 -- Functions and variables added by Zmey
 --------------------------------------------------
-
--- ���������, ������ ������������ � ������, ��� ����� ������ �������������� ����� ��������
-time_infinite = 100000000
 
 -- +��� � ����v� ������ �v��������� �����-�� ��������, ����v���� ��� � �������� ��������v� �����
 function interrupt_action(who, script_name)
@@ -329,9 +316,111 @@ function set_sleep_relocate(point, look, timeout)
 end
 ]]--
 
--- ��������� ����� ����� ����� �� ����������
-function odd( x )
-	return math.floor( x * 0.5 ) * 2 == math.floor( x )
+function create_ammo(section, position, lvi, gvi, pid, num)
+	local ini = system_ini()
+
+	local num_in_box = ini:r_u32(section, "box_size")
+	local t = {}
+	while num > num_in_box do
+		local obj = alife():create_ammo(section, position, lvi,	gvi, pid, num_in_box)
+		table.insert(t, obj)
+		num = num - num_in_box
+	end
+	local obj = alife():create_ammo(section, position, lvi,	gvi, pid, num)
+	table.insert(t, obj)
+	return t
+end
+
+ammo_section = {}
+ammo_section["ammo_9x18_fmj"]		= true
+ammo_section["ammo_9x18_pmm"]		= true
+ammo_section["ammo_9x19_fmj"]		= true
+ammo_section["ammo_9x19_pbp"]		= true
+ammo_section["ammo_5.45x39_fmj"]	= true
+ammo_section["ammo_5.45x39_ap"]		= true
+ammo_section["ammo_5.56x45_ss190"]	= true
+ammo_section["ammo_5.56x45_ap"]		= true
+ammo_section["ammo_5.7x28_fmj"]		= true
+ammo_section["ammo_5.7x28_ap"]		= true
+ammo_section["ammo_7.62x54_7h1"]	= true
+ammo_section["ammo_9x39_pab9"]		= true
+ammo_section["ammo_gauss"]			= true
+ammo_section["ammo_9x39_ap"]		= true
+ammo_section["ammo_11.43x23_fmj"]	= true
+ammo_section["ammo_11.43x23_hydro"]	= true
+ammo_section["ammo_12x70_buck"]		= true
+ammo_section["ammo_12x76_zhekan"]	= true
+ammo_section["ammo_pkm_100"]		= true
+
+quest_section = {}
+
+-- ����������� ������ � ������������ �� ���������
+function get_param_string(src_string , obj)
+	--printf("src_string is [%s] obj name is [%s]", tostring(src_string), obj:name())
+	local script_ids = db.script_ids[obj:id()]
+	local out_string, num = string.gsub(src_string, "%$script_id%$", tostring(script_ids))
+	if num > 0 then
+		return out_string , true
+	else
+		return src_string , false
+	end
+end
+
+local save_markers = {}
+
+-- ������� ��� �������� ������������ ���� ����
+function set_save_marker(p, mode, check, prefix)
+	-- ���������� ���� �������.
+	local result = ""
+	--	if debug ~= nil then
+	--		local info_table = debug.getinfo(2)
+	--		local script_name = string.gsub(info_table.short_src, "%.script", "")
+	--		script_name = string.gsub(script_name, "gamedata\\scripts\\", "")
+	--		result = script_name
+	--	end
+
+	--	if prefix ~= nil then
+	result = result .. "_" .. prefix
+	--	end
+
+	if check == true then
+		if save_markers[result] == nil then
+			abort("Trying to check without marker %s", result)
+		end
+
+		if mode == "save" then
+			local dif = p:w_tell() - save_markers[result]
+			printf(result..": SAVE DIF: %s", dif)
+			if dif >= 8000 then
+				printf("WARNING! may be this is problem save point")
+			end
+			if dif >= 10240 then
+				--				abort("You are saving too much")
+			end
+			p:w_u16(dif)
+		else
+			local c_dif = p:r_tell() - save_markers[result]
+			local dif = p:r_u16()
+			if dif ~= c_dif then
+				abort("INCORRECT LOAD [%s].[%s][%s]", result, dif, c_dif)
+			else
+				printf(result..": LOAD DIF: %s", dif)
+			end
+		end
+		return
+	end
+
+	if mode == "save" then
+		printf(result..": set save marker: %s", p:w_tell())
+		save_markers[result] = p:w_tell()
+		if p:w_tell() > 16000 then
+			abort("You are saving too much")
+		end
+	else
+		printf(result..": set load marker: %s", p:r_tell())
+		save_markers[result] = p:r_tell()
+	end
+
 end
 
 function start_game_callback()
@@ -355,9 +444,6 @@ function start_game_callback()
 		["monster_zombied_night"]			= "monster",
 		["monster_special"]					= "monster"
 	}
-
-
-
 
 	monster_classes = {
 		[clsid.bloodsucker_s] 			= true,
@@ -436,157 +522,4 @@ function start_game_callback()
 	-- T����������� �����������
 	--local test_object = test_object.test_object_class()
 	--test_object:test()
-end
-
---' L��������
-function on_actor_critical_power()
-
-end
-
-function on_actor_critical_max_power()
-end
-
---' ������������
-function on_actor_bleeding()
-
-end
-
-function on_actor_satiety()
-end
-
---' ��������
-function on_actor_radiation()
-
-end
-
---' ��������� ������
-function on_actor_weapon_jammed()
-
-end
-
---' �� ����� ������ ���� ����
-function on_actor_cant_walk_weight()
-
-end
-
---' ��� �����������
-function on_actor_psy()
-end
-
-function give_info (info)
-	db.actor:give_info_portion(info)
-end
-function disable_info (info)
-	if has_alife_info(info) then
-		printf("*INFO*: disabled npc='single_player' id='%s'", info)
-		db.actor:disable_info_portion(info)
-	end
-end
-
-function create_ammo(section, position, lvi, gvi, pid, num)
-	local ini = system_ini()
-
-	local num_in_box = ini:r_u32(section, "box_size")
-	local t = {}
-	while num > num_in_box do
-		local obj = alife():create_ammo(section, position, lvi,	gvi, pid, num_in_box)
-		table.insert(t, obj)
-		num = num - num_in_box
-	end
-	local obj = alife():create_ammo(section, position, lvi,	gvi, pid, num)
-	table.insert(t, obj)
-	return t
-end
-
-ammo_section = {}
-ammo_section["ammo_9x18_fmj"]		= true
-ammo_section["ammo_9x18_pmm"]		= true
-ammo_section["ammo_9x19_fmj"]		= true
-ammo_section["ammo_9x19_pbp"]		= true
-ammo_section["ammo_5.45x39_fmj"]	= true
-ammo_section["ammo_5.45x39_ap"]		= true
-ammo_section["ammo_5.56x45_ss190"]	= true
-ammo_section["ammo_5.56x45_ap"]		= true
-ammo_section["ammo_5.7x28_fmj"]		= true
-ammo_section["ammo_5.7x28_ap"]		= true
-ammo_section["ammo_7.62x54_7h1"]	= true
-ammo_section["ammo_9x39_pab9"]		= true
-ammo_section["ammo_gauss"]			= true
-ammo_section["ammo_9x39_ap"]		= true
-ammo_section["ammo_11.43x23_fmj"]	= true
-ammo_section["ammo_11.43x23_hydro"]	= true
-ammo_section["ammo_12x70_buck"]		= true
-ammo_section["ammo_12x76_zhekan"]	= true
-ammo_section["ammo_pkm_100"]		= true
-
-quest_section = {}
-
--- ����������� ������ � ������������ �� ���������
-function get_param_string(src_string , obj)
-	--printf("src_string is [%s] obj name is [%s]", tostring(src_string), obj:name())
-	local script_ids = db.script_ids[obj:id()]
-	local out_string, num = string.gsub(src_string, "%$script_id%$", tostring(script_ids))
-	if num > 0 then
-		return out_string , true
-	else
-		return src_string , false
-	end
-end
-
-local save_markers = {}
-
--- ������� ��� �������� ������������ ���� ����
-function set_save_marker(p, mode, check, prefix)
-
-	-- ���������� ���� �������.
-	local result = ""
-	--	if debug ~= nil then
-	--		local info_table = debug.getinfo(2)
-	--		local script_name = string.gsub(info_table.short_src, "%.script", "")
-	--		script_name = string.gsub(script_name, "gamedata\\scripts\\", "")
-	--		result = script_name
-	--	end
-
-	--	if prefix ~= nil then
-	result = result .. "_" .. prefix
-	--	end
-
-	if check == true then
-		if save_markers[result] == nil then
-			abort("Trying to check without marker %s", result)
-		end
-
-		if mode == "save" then
-			local dif = p:w_tell() - save_markers[result]
-			printf(result..": SAVE DIF: %s", dif)
-			if dif >= 8000 then
-				printf("WARNING! may be this is problem save point")
-			end
-			if dif >= 10240 then
-				--				abort("You are saving too much")
-			end
-			p:w_u16(dif)
-		else
-			local c_dif = p:r_tell() - save_markers[result]
-			local dif = p:r_u16()
-			if dif ~= c_dif then
-				abort("INCORRECT LOAD [%s].[%s][%s]", result, dif, c_dif)
-			else
-				printf(result..": LOAD DIF: %s", dif)
-			end
-		end
-		return
-	end
-
-	if mode == "save" then
-		printf(result..": set save marker: %s", p:w_tell())
-		save_markers[result] = p:w_tell()
-		if p:w_tell() > 16000 then
-			abort("You are saving too much")
-		end
-	else
-		printf(result..": set load marker: %s", p:r_tell())
-		save_markers[result] = p:r_tell()
-	end
-
 end
