@@ -64,7 +64,9 @@ export function unregisterStoryId(id: number): void {
 /**
  * todo;
  */
-export function getObjectSquad(object: Optional<XR_game_object | XR_cse_alife_creature_abstract>): Optional<number> {
+export function getObjectSquad(
+  object: Optional<XR_game_object | XR_cse_alife_creature_abstract>
+): Optional<XR_cse_alife_creature_abstract> {
   if (object === null) {
     return abort("Attempt to get squad object from NIL.") as never;
   }
@@ -83,10 +85,10 @@ export function getObjectSquad(object: Optional<XR_game_object | XR_cse_alife_cr
 /**
  * todo;
  */
-export function getStorySquad(storyId: string): Optional<number> {
+export function getStorySquad(storyId: string): Optional<XR_cse_alife_creature_abstract> {
   const squadId: Optional<number> = getStoryObjectId(storyId);
 
-  return squadId && alife().object(squadId);
+  return squadId ? alife().object(squadId) : null;
 }
 
 /**

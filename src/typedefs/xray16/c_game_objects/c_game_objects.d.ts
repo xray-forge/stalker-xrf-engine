@@ -1491,7 +1491,7 @@ declare global {
 
     public on_door_is_open(): unknown;
 
-    public general_goodwill(game_object: XR_game_object): unknown;
+    public general_goodwill(game_object: XR_game_object): number;
 
     public change_goodwill(value: number, game_object: XR_game_object): unknown;
 

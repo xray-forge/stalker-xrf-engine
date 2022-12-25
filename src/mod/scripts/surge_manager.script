@@ -1,3 +1,5 @@
+local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
+
 --------------------------------------------------------------------------------
 -- Surge manager class ---------------------------------------------------------
 -- Made by Peacemaker ----------------------------------------------------------
@@ -396,7 +398,8 @@ function CSurgeManager:respawn_artefacts_and_replace_anomaly_zone()
 		v:respawn_artefacts_and_replace_anomaly_zone()
 		--printf("respawn artefacts in anomal zone [%s]", tostring(k))
 	end
-	pda.update_anomalies_zones()
+
+	mapDisplayManager:updateAnomaliesZones()
 end
 
 function CSurgeManager:give_surge_hide_task()

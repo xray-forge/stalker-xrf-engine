@@ -5,11 +5,11 @@ Completely different way of XRay mods creation.
 
 ## 📌What is used
 
-- [Typescript](https://www.typescriptlang.org/) and [ts-node](https://typestrong.org/ts-node/) to write custom scripts
-- [TypeScriptToLua](https://typescripttolua.github.io/docs/getting-started) to compile typescript code to lua
-- [Open-X-Ray](https://github.com/OpenXRay/xray-16) to improve core game performance and APIs
-- Custom [build system](cli/README.md) to collect `gamedata` mods
-- Custom tools and JSX to emit XML and LTX files from typescript
+- [Typescript](https://www.typescriptlang.org/) and [ts-node](https://typestrong.org/ts-node/) for scripting
+- [TypeScriptToLua](https://typescripttolua.github.io/docs/getting-started) for transpiling to LUA
+- [Open-X-Ray](https://github.com/OpenXRay/xray-16) for improved core game performance and APIs
+- Custom [build system](cli/README.md) for `gamedata` building
+- Custom tools and JSX for XML files generation
 
 ## 📍 Purposes
 

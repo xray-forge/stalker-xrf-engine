@@ -1,5 +1,8 @@
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
+local pdaMenu = require("scripts.ui.game.PdaMenu").pdaMenu
+local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
+
 local log = create_ts_class_instance(LuaLogger, "xr_motivator");
 
 --[[------------------------------------------------------------------------------------------------------------------
@@ -300,7 +303,9 @@ function motivator_binder:death_callback(victim, who)
 	--' ���� ����� ��� � ������� �� �������� - ������� ���
 	local st = db.storage[self.object:id()]
 	local npc = self.object
-	stalker_generic.remove_level_spot(npc, st)
+
+	mapDisplayManager:removeNpcSpot(npc, st)
+
 	--' end  --
 	if who:id() == db.actor:id() then
 		xr_statistic.inc_killed_stalkers_counter()

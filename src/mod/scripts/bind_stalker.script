@@ -1,4 +1,5 @@
 local pdaMenu = require("scripts.ui.game.PdaMenu").pdaMenu
+local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
 
 function init    (obj)
 				xr_motivator.AddToMotivator(obj)
@@ -361,7 +362,7 @@ function actor_binder:update(delta)
 	end
 	treasure_manager.get_treasure_manager():update()
 
-	pdaMenu:onActorPositionUpdate()
+	mapDisplayManager:update()
 end
 ----------------------------------------------------------------------------------------------------------------------
 function actor_binder:save(packet)

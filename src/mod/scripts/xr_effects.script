@@ -1,4 +1,9 @@
 local SleepDialog = require("scripts.ui.interaction.SleepDialog")
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
+
+local log = create_ts_class_instance(LuaLogger, "xr_effects");
 
 -- ----------------------------------------------------------------------------------------------------
 -- ����� �������
@@ -210,7 +215,7 @@ function jup_b32_place_scanner(actor, npc)
 end
 
 function jup_b32_pda_check(actor, npc)
-	pda.update_anomalies_zones()
+	mapDisplayManager:updateAnomaliesZones();
 end
 
 function pri_b306_generator_start(actor, npc)

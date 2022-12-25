@@ -372,8 +372,8 @@ declare global {
 
     public has_info(value1: number, value2: string): unknown;
 
-    public object(value: number): number;
-    public object(value1: number, value2: boolean): number;
+    public object(value: number): XR_cse_alife_creature_abstract | null;
+    public object(value1: number, value2: boolean): XR_cse_alife_creature_abstract | null;
 
     public actor(): unknown;
 

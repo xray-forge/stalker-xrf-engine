@@ -1,3 +1,9 @@
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+
+local log = create_ts_class_instance(LuaLogger, "xr_logic");
+
 ----------------------------------------------------------------------------------------------------
 -- Script switching logic
 ----------------------------------------------------------------------------------------------------
@@ -446,8 +452,8 @@ function reset_generic_schemes_on_scheme_switch(npc, scheme, section)
 		xr_gather_items.reset_gather_items(npc, scheme, st, section)
 		xr_combat_ignore.reset_combat_ignore_checker(npc, scheme, st, section)
 
+		mapDisplayManager:updateNpcSpot(npc, scheme, st, section)
 		stalker_generic.reset_threshold(npc, scheme, st, section)
-		stalker_generic.reset_show_spot(npc, scheme, st, section)
 --		stalker_generic.set_level_spot(npc, scheme, st, section)
 		stalker_generic.reset_invulnerability(npc, st.ini, section)
 		stalker_generic.reset_group(npc, st.ini, section)

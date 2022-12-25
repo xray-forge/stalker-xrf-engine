@@ -1,4 +1,3 @@
-import { Optional } from "@/mod/lib/types";
 import { AbstractActorMenu, EActorMenuMode } from "@/mod/scripts/ui/game/AbstractActorMenu";
 import { getConfigString } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -6,16 +5,6 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 const log: LuaLogger = new LuaLogger("ActorMenu");
 
 class ActorMenu extends AbstractActorMenu {
-  private static instance: Optional<ActorMenu> = null;
-
-  public static getInstance(): ActorMenu {
-    if (!this.instance) {
-      this.instance = new ActorMenu();
-    }
-
-    return this.instance;
-  }
-
   public initQuickSlotItems(): void {
     const console: XR_CConsole = get_console();
     const ini: XR_ini_file = system_ini();
@@ -35,4 +24,4 @@ class ActorMenu extends AbstractActorMenu {
   }
 }
 
-export const actorMenu: ActorMenu = ActorMenu.getInstance();
+export const actorMenu: ActorMenu = ActorMenu.getInstance() as ActorMenu;

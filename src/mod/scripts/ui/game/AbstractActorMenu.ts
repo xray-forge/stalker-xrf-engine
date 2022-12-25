@@ -1,3 +1,5 @@
+import { AbstractSingletonManager } from "@/mod/scripts/core/AbstractSingletonManager";
+
 export enum EActorMenuMode {
   UNDEFINED = 0,
   INVENTORY = 1,
@@ -9,7 +11,7 @@ export enum EActorMenuMode {
   TALK_DIALOG_HIDE = 11
 }
 
-export abstract class AbstractActorMenu {
+export abstract class AbstractActorMenu extends AbstractSingletonManager {
   public activeMode: EActorMenuMode = EActorMenuMode.UNDEFINED;
 
   public setActiveMode(nextMode: EActorMenuMode): void {
