@@ -1,5 +1,13 @@
--- вызывается  1 раз в 3 секунды
-function fill_faction_state(state)
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "pda");
+
+local export = {};
+
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ  1 пїЅпїЅпїЅ пїЅ 3 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+function export.fill_faction_state(state)
+	log:info("Fill faction state")
+
 	local board = sim_board.get_sim_board()
 
 	state.member_count = 0
@@ -27,33 +35,24 @@ function fill_faction_state(state)
 	state.war_state_hint5 = "5"
 
 	state.bonus = 0
-
-
-
-
 end
 
---int		get_max_member_count	();   ------ 1 раз в 3 секунды
---float	get_max_resource();
---float	get_max_power();
-
-function get_max_member_count()
+function export.get_max_member_count()
 	return 10
 end
 
-function get_max_resource()
+function export.get_max_resource()
 	return 10
 end
 
-function get_max_power()
+function export.get_max_power()
 	return 10
 end
 
-
--- потом это нужно стереть
+-- пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
 -- int mode:
--- 0 = 	Undefined = закрыто
+-- 0 = 	Undefined = пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 -- 1 = 	Inventory
 -- 2 = 	Trade
 -- 3 = 	Upgrade
@@ -61,78 +60,83 @@ end
 -- 10 =  Talk dialog  show
 -- 11 =  Talk dialog  hide
 local last_mode = 0
-dialog_closed = false
-trade_closed = false
-upgrade_closed = false
-function actor_menu_mode(mode)
+
+export.dialog_closed = false
+export.trade_closed = false
+export.upgrade_closed = false
+
+function export.actor_menu_mode(mode)
+	log:info("Switch actor menu mode:", mode)
+
 	if(mode==0) then
 		if(last_mode==1) then
-			inventory_wnd_closed()
+			export.inventory_wnd_closed()
 		elseif(last_mode==2) then
-			trade_wnd_closed()
+			export.trade_wnd_closed()
 		elseif(last_mode==3) then
-			upgrade_wnd_closed()
+			export.upgrade_wnd_closed()
 		elseif(last_mode==4) then
-			dead_body_search_wnd_closed()
+			export.dead_body_search_wnd_closed()
 		end
 		last_mode = 0
 	elseif(mode==1) then
 		last_mode = 1
-		inventory_wnd_opened()
+		export.inventory_wnd_opened()
 	elseif(mode==2) then
 		last_mode = 2
-		trade_wnd_opened()
+		export.trade_wnd_opened()
 	elseif(mode==3) then
 		last_mode = 3
-		upgrade_wnd_opened()
+		export.upgrade_wnd_opened()
 	elseif(mode==4) then
 		last_mode = 4
-		dead_body_search_wnd_opened()
+		export.dead_body_search_wnd_opened()
 	elseif(mode==10) then
-		dialog_wnd_showed()
+		export.dialog_wnd_showed()
 	elseif(mode==11) then
-		dialog_wnd_closed()
+		export.dialog_wnd_closed()
 	end
 end
 
-function inventory_wnd_opened()
-	--printf("---:>Inventory opened")
+function export.inventory_wnd_opened()
+	printf("---:>Inventory opened")
 end
 
-function inventory_wnd_closed()
-	--printf("---:>Inventory closed")
+function export.inventory_wnd_closed()
+	printf("---:>Inventory closed")
 end
 
-function trade_wnd_opened()
-	dialog_closed = false
-	--printf("---:>Trade opened")
+function export.trade_wnd_opened()
+	export.dialog_closed = false
+	printf("---:>Trade opened")
 end
 
-function trade_wnd_closed()
-	--printf("---:>Trade closed")
-	trade_closed = true
+function export.trade_wnd_closed()
+	printf("---:>Trade closed")
+	export.trade_closed = true
 end
 
-function upgrade_wnd_opened()
-	dialog_closed = false
-	--printf("---:>Upgrade opened")
+function export.upgrade_wnd_opened()
+	export.dialog_closed = false
+	printf("---:>Upgrade opened")
 end
 
-function upgrade_wnd_closed()
-	--printf("---:>Upgrade closed")
-	upgrade_closed = true
+function export.upgrade_wnd_closed()
+	printf("---:>Upgrade closed")
+	export.upgrade_closed = true
 end
 
-function dead_body_search_wnd_opened()
-	--printf("---:>DeadBodySearch opened")
+function export.dead_body_search_wnd_opened()
+	printf("---:>DeadBodySearch opened")
 end
 
-function dead_body_search_wnd_closed()
-	--printf("---:>DeadBodySearch closed")
+function export.dead_body_search_wnd_closed()
+	printf("---:>DeadBodySearch closed")
 end
 
-function dialog_wnd_showed()
-	dialog_closed = false
+function export.dialog_wnd_showed()
+	export.dialog_closed = false
+
 	for k,v in pairs(db.storage) do
 		local npc = v.object
 		if npc ~= nil then
@@ -146,15 +150,15 @@ function dialog_wnd_showed()
 			end
 		end
 	end
-	--printf("---:>Talk Dialog show")
+	printf("---:>Talk Dialog show")
 end
 
-function dialog_wnd_closed()
-	--printf("---:>Talk Dialog hide")
-	dialog_closed = true
+function export.dialog_wnd_closed()
+	printf("---:>Talk Dialog hide")
+	export.dialog_closed = true
 end
 
-function get_stat(index) -- index.ts= int        return string
+function export.get_stat(index) -- index.ts= int        return string
 	if(index==0) then
 		return "00:00:00"
 	elseif(index==1) then
@@ -172,7 +176,7 @@ function get_stat(index) -- index.ts= int        return string
 	end
 end
 
-killed_monsters_tbl =
+export.killed_monsters_tbl =
 {
 	bloodsucker_weak  	= {back = "ui_inGame2_Krovosos", 		icon = ""},
 	bloodsucker_normal	= {back = "ui_inGame2_Krovosos_1", 		icon = ""},
@@ -196,19 +200,22 @@ killed_monsters_tbl =
 	tushkano 			= {back = "ui_inGame2_Tushkan", 		icon = ""},
 	none 				= {back = "", icon = ""}
 }
-function get_monster_back()
-	if not(xr_statistic.actor_statistic.best_monster) or not(killed_monsters_tbl[xr_statistic.actor_statistic.best_monster]) then
-		return tostring(killed_monsters_tbl.none.back)
+
+function export.get_monster_back()
+	if not(xr_statistic.actor_statistic.best_monster) or not(export.killed_monsters_tbl[xr_statistic.actor_statistic.best_monster]) then
+		return tostring(export.killed_monsters_tbl.none.back)
 	end
-		return tostring(killed_monsters_tbl[xr_statistic.actor_statistic.best_monster].back)
+		return tostring(export.killed_monsters_tbl[xr_statistic.actor_statistic.best_monster].back)
 end
-function get_monster_icon()
-	if not(xr_statistic.actor_statistic.best_monster) or not(killed_monsters_tbl[xr_statistic.actor_statistic.best_monster]) then
-		return tostring(killed_monsters_tbl.none.icon)
+
+function export.get_monster_icon()
+	if not(xr_statistic.actor_statistic.best_monster) or not(export.killed_monsters_tbl[xr_statistic.actor_statistic.best_monster]) then
+		return tostring(export.killed_monsters_tbl.none.icon)
 	end
-		return tostring(killed_monsters_tbl[xr_statistic.actor_statistic.best_monster].icon)
+		return tostring(export.killed_monsters_tbl[xr_statistic.actor_statistic.best_monster].icon)
 end
-function get_favorite_weapon()
+
+function export.get_favorite_weapon()
 	if not(xr_statistic.actor_statistic.favorite_weapon_sect) then
 		return "wpn_knife"
 	end
@@ -292,18 +299,18 @@ local sleep_zones_tbl =
 	{target = "pri_a16_sr_sleep_id",	hint = "st_ui_pda_sleep_place"},
 }
 
-function fill_primary_objects()
+function export.fill_primary_objects()
 	for k,v in pairs(primary_objects_tbl) do
 		local obj_id = get_story_object_id(v.target)
 		if(obj_id) then
 			level.map_add_object_spot(obj_id, "primary_object", v.hint)
 		end
 	end
-	change_anomalies_names()
-	fill_sleep_zones()
+	export.change_anomalies_names()
+	export.fill_sleep_zones()
 end
 
-function fill_sleep_zones()
+function export.fill_sleep_zones()
 	for k,v in pairs(sleep_zones_tbl) do
 		local obj_id = get_story_object_id(v.target)
 		if(obj_id and db.storage[obj_id] and db.storage[obj_id].object) then
@@ -316,19 +323,7 @@ function fill_sleep_zones()
 	end
 end
 
-function add_quick_slot_items_on_game_start()
-	local _ini = system_ini()
-	local str = utils.cfg_get_string(_ini, "actor", "quick_item_1", db.actor, false, "", "")
-	get_console():execute("slot_0 "..str)
-	local str = utils.cfg_get_string(_ini, "actor", "quick_item_2", db.actor, false, "", "")
-	get_console():execute("slot_1 "..str)
-	local str = utils.cfg_get_string(_ini, "actor", "quick_item_3", db.actor, false, "", "")
-	get_console():execute("slot_2 "..str)
-	local str = utils.cfg_get_string(_ini, "actor", "quick_item_4", db.actor, false, "", "")
-	get_console():execute("slot_3 "..str)
-end
-
-function change_anomalies_names()
+function export.change_anomalies_names()
 	if has_alife_info("jup_b32_scanner_reward") then
 		for k,v in pairs(change_objects_tbl) do
 			if has_alife_info(v.group) and not v.enabled then
@@ -340,23 +335,27 @@ function change_anomalies_names()
 	if level.name() ~= "jupiter" then
 		return
 	end
+
 	for k,v in pairs(change_objects_tbl) do
 		if v.enabled then
 			local obj_id = get_story_object_id(v.target)
+
 			if (obj_id) and (level.map_has_object_spot(obj_id, "primary_object") ~= 0) then
 				level.map_remove_object_spot(obj_id, "primary_object")
 			end
+
 			local hint = game.translate_string(v.hint).."\\n".." \\n"
 			local has_af = false
 			local af_table = {}
 			has_af, af_table = xr_conditions.anomaly_has_artefact(db.actor, nil, {v.zone})
+
 			if has_af then
-				hint = hint..game.translate_string("st_jup_b32_has_af")
+				hint = hint .. game.translate_string("st_jup_b32_has_af")
 				for k,v in pairs(af_table) do
 					hint = hint.."\\n"..game.translate_string("st_"..v.."_name")
 				end
 			else
-				hint = hint..game.translate_string("st_jup_b32_no_af")
+				hint = hint .. game.translate_string("st_jup_b32_no_af")
 			end
 			if (obj_id) and level.map_has_object_spot(obj_id, "primary_object") == 0 then
 				level.map_add_object_spot(obj_id, "primary_object", hint)
@@ -364,3 +363,5 @@ function change_anomalies_names()
 		end
 	end
 end
+
+return export

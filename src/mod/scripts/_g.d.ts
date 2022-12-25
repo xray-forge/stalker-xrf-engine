@@ -9,8 +9,6 @@ declare global {
 
   const db: Record<string, any>;
 
-  const abort: (format: string, ...parts: Array<any>) => void;
-
   const disable_info: (info: string) => void;
 
   /**

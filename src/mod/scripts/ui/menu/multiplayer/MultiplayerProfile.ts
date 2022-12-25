@@ -1,5 +1,6 @@
 import { Optional } from "@/mod/lib/types";
 import { IMultiplayerMenu } from "@/mod/scripts/ui/menu/MultiplayerMenu";
+import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { isWideScreen, resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 

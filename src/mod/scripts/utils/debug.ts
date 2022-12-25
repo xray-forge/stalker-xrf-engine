@@ -6,10 +6,10 @@ const log: LuaLogger = new LuaLogger("utils/debug");
 /**
  * Call game abort and print reason.
  */
-export function abort(format: string, ...rest: AnyArgs): void {
+export function abort(format: string, ...rest: AnyArgs): never {
   const reason: string = string.format(format, ...rest);
 
-  log.error("[abort] Aborting:", reason);
+  return log.error("[abort] Aborting:", reason) as never;
 }
 
 /**

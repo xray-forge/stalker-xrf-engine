@@ -1,3 +1,5 @@
+local actorMenu = require("scripts.ui.game.ActorMenu").actorMenu
+
 --' L��������
 function on_actor_critical_power()
 

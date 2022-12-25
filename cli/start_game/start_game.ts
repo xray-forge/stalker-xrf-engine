@@ -10,7 +10,8 @@ const log: NodeLogger = new NodeLogger("START_GAME");
 (async function startGame(): Promise<void> {
   log.info("Starting game");
 
-  const cmd: string = `"${config.targets.STALKER_GAME_FOLDER_PATH}\\${config.targets.STALKER_GAME_EXE_NAME}"`;
+  const params: string = "";
+  const cmd: string = `"${config.targets.STALKER_GAME_FOLDER_PATH}\\${config.targets.STALKER_GAME_EXE_NAME}" ${params}`;
 
   log.info("Starting game exe:", chalk.blue(cmd));
 

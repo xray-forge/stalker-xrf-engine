@@ -1,4 +1,5 @@
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
+import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("utils/rendering");
@@ -26,8 +27,7 @@ export function resolveXmlFormPath(path: string, hasWideScreenSupport: boolean =
    */
   if (gameConfig.DEBUG.IS_ENABLED) {
     if (string.find(path, "/") !== null) {
-      log.error("Non-windows path for XML supplied:", path);
-      abort("Non-windows path supplied for FS");
+      abort("Non-windows path for XML supplied:", path);
     }
   }
 

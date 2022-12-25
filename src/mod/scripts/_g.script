@@ -1,3 +1,7 @@
+--- --------------------------------------------------------------------------------------------------------------------
+--- Global entrypoint for stalker scripts
+--- --------------------------------------------------------------------------------------------------------------------
+
 -- Inject LUA globals and enable modules requiring
 package.path = package.path .. string.format("%sgamedata\\?.script;", getFS():update_path("$fs_root$", ""))
 
@@ -18,8 +22,13 @@ require("scripts._callbacks")
 
 local coreStartGame = require("scripts.core.start_game")
 
+pda = require("scripts.ui.game.pda")
+actor_menu = require("scripts.ui.game.ActorMenu").actorMenu
+
+local utilsUtils = require("scripts.utils.utils")
 local utilsActor = require("scripts.utils.actor")
 local utilsAlife = require("scripts.utils.alife")
+local utilsConfigs = require("scripts.utils.configs")
 local debugUtils = require("scripts.utils.debug")
 local utilsGameSaves = require("scripts.utils.game_saves")
 local utilsGeneral = require("scripts.utils.general")
@@ -28,6 +37,9 @@ local utilsUi = require("scripts.utils.ui")
 local utilsTable = require("scripts.utils.table")
 local utilsTime = require("scripts.utils.time")
 local utilsUnknown = require("scripts.utils.unknown")
+
+utils = utilsUtils
+utils.cfg_get_string = utilsConfigs.getConfigString
 
 -- start_game_callback = coreStartGame.startGame
 
@@ -508,7 +520,7 @@ function start_game_callback()
 		[clsid.artefact] 				= true,
 		[clsid.artefact_s] 				= true}
 
-	printf	("start_game_callback called")
+	log:info("start_game_callback called")
 	smart_names.init_smart_names_table()
 	task_manager.clear_task_manager()
 	sound_theme.load_sound()
@@ -518,7 +530,7 @@ function start_game_callback()
 	sim_objects.clear()
 	sim_board.clear()
 	sr_light.clean_up ()
-	pda.add_quick_slot_items_on_game_start()
+	actor_menu:initQuickSlotItems()
 	-- T����������� �����������
 	--local test_object = test_object.test_object_class()
 	--test_object:test()

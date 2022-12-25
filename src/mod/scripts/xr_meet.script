@@ -1,13 +1,13 @@
 ----------------------------------------------------------------------------------------------------------------------
---	Схема встречи двух сталкеров
---	автор: Диденко Руслан (Stohe)
+--	пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+--	пїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (Stohe)
 --	TODO:
 ----------------------------------------------------------------------------------------------------------------------
 
 ---------------------------------------------------------------------------------------------------------------------
 --Evaluators
 ----------------------------------------------------------------------------------------------------------------------
---' Возвращает есть ли у нас контакт с другим сталкером
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 class "evaluator_contact" (property_evaluator)
 function evaluator_contact:__init(name, storage) super (nil, name)
 	self.a = storage
@@ -52,7 +52,7 @@ end
 ----------------------------------------------------------------------------------------------------------------------
 --Actions
 ----------------------------------------------------------------------------------------------------------------------
---' Приглашение к тороговле
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 class "action_meet_wait" (action_base)
 function action_meet_wait:__init (npc_name,action_name, storage, char_ini) super (nil, action_name)
 	self.char_ini = char_ini
@@ -74,10 +74,10 @@ end
 
 
 
--- Функционал
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 --[[
 
--- звук на юзание CB
+-- пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ CB
 
 ]]
 
@@ -93,27 +93,27 @@ function Cmeet_manager:__init(npc, storage)
 	self.allow_break = nil
 	self.npc_is_camp_director = false
 
-	self.curent_distance = nil -- nil - мит не активен, close - близко, far - далеко
+	self.curent_distance = nil -- nil - пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, close - пїЅпїЅпїЅпїЅпїЅпїЅ, far - пїЅпїЅпїЅпїЅпїЅпїЅ
 
-	self.hello_passed = false 	-- Говорили ли мы привет
-	self.bye_passed = false	 	-- Говорили ли мы пока
+	self.hello_passed = false 	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+	self.bye_passed = false	 	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ
 end
 function Cmeet_manager:update_state()
 	local state = nil
 	local victim = nil
 
 	if self.current_distance == "close" then
-		-- анимация, пока в близком радиусе
+		-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		state = xr_logic.pick_section_from_condlist(db.actor, self.npc, self.a.close_anim)
 
-		-- направление, пока в близком радиусе
+		-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		victim = xr_logic.pick_section_from_condlist(db.actor, self.npc, self.a.close_victim)
 
 	elseif self.current_distance == "far" then
-		-- анимация, пока в дальнем радиусе
+		-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		state = xr_logic.pick_section_from_condlist(db.actor, self.npc, self.a.far_anim)
 
-		-- направление, пока в близком радиусе
+		-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		victim = xr_logic.pick_section_from_condlist(db.actor, self.npc, self.a.far_victim)
 
 	end
@@ -136,7 +136,7 @@ function Cmeet_manager:update_state()
 
 	local snd = xr_logic.pick_section_from_condlist(db.actor, self.npc, self.a.far_snd)
 
-	-- звук, пока в дальнем радиусе  (отыгрывается, даже если мы в ближнем)
+	-- пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ  (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
 	if tostring(snd) ~= "nil" then
 		xr_sound.set_sound_play(self.npc:id(), snd)
 	end
@@ -157,7 +157,7 @@ function Cmeet_manager:set_start_distance()
 		return
 	end
 
-	-- Определение, в каком радиусе находимся
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	local distance = self.npc:position():distance_to(db.actor:position())
 
 	local actor_visible = self.npc:see(db.actor)
@@ -181,7 +181,7 @@ function Cmeet_manager:set_start_distance()
 
 end
 function Cmeet_manager:update()
-	-- Определение, в каком радиусе находимся
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	local distance = self.npc:position():distance_to(db.actor:position())
 
 	local actor_visible = self.npc:see(db.actor)
@@ -189,33 +189,33 @@ function Cmeet_manager:update()
 	if actor_visible then
 		--printf("%s check distance %s <= %s <= %s", self.npc:name(), distance, tonumber(xr_logic.pick_section_from_condlist(db.actor, self.npc, self.a.close_snd_distance)), tonumber(xr_logic.pick_section_from_condlist(db.actor, self.npc, self.a.far_snd_distance)) )
 		if distance <= tonumber(xr_logic.pick_section_from_condlist(db.actor, self.npc, self.a.close_snd_distance)) then
-			-- Коллбек на приближение
-			-- звук при приближении
+			-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+			-- пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 			if self.hello_passed == false then
 				local snd = xr_logic.pick_section_from_condlist(db.actor, self.npc, self.a.close_snd_hello)
 				if tostring(snd) ~= "nil" and not state_mgr.is_npc_in_combat(self.npc) then
 					xr_sound.set_sound_play(self.npc:id(), snd)
 				end
-	
+
 				self.hello_passed = true
 			end
-	
+
 		elseif distance <= tonumber(xr_logic.pick_section_from_condlist(db.actor, self.npc, self.a.far_snd_distance)) then
 			if self.hello_passed == true then
-				-- Коллбек на отдаление
-				-- звук при отдалении
+				-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+				-- пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 				if self.bye_passed == false then
 					local snd = xr_logic.pick_section_from_condlist(db.actor, self.npc, self.a.close_snd_bye)
 					if tostring(snd) ~= "nil" and not state_mgr.is_npc_in_combat(self.npc) then
 						xr_sound.set_sound_play(self.npc:id(), snd)
 					end
-	
+
 					self.bye_passed = true
 				end
 			end
 		end
 	end
-	
+
 	local is_object_far = actor_visible and distance <= tonumber(xr_logic.pick_section_from_condlist(db.actor, self.npc, self.a.far_distance))
 	local is_object_close = (actor_visible and distance <= tonumber(xr_logic.pick_section_from_condlist(db.actor, self.npc, self.a.close_distance))) or (self.npc:is_talking() and self.a.meet_on_talking)
 
@@ -229,7 +229,7 @@ function Cmeet_manager:update()
 	elseif is_object_far == true then
 		self.current_distance = "far"
 	elseif distance > self.a.reset_distance then
-		-- ресет флажков при выходе в дальний радиус CB
+		-- пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ CB
 		self.hello_passed = false
 		self.bye_passed = false
 		self.current_distance = nil
@@ -238,25 +238,25 @@ function Cmeet_manager:update()
 	end
 
 
-	-- Можно или нет оборвать диалог
+	-- пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 	local allow_break = xr_logic.pick_section_from_condlist(db.actor, self.npc, self.a.allow_break)
 	if self.allow_break ~= (allow_break == "true") then
 		self.allow_break = (allow_break == "true")
 	end
 
-	-- стартовый диалог
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 	if self.a.meet_dialog ~= nil then
 		local start_dialog = xr_logic.pick_section_from_condlist(db.actor, self.npc, self.a.meet_dialog)
 		if self.startdialog ~= start_dialog then
 			self.startdialog = start_dialog
 			--printf("*DIALOGS %s* SET [%s]", self.npc:name(), tostring(start_dialog))
 			if start_dialog == nil or start_dialog == "nil" then
-				-- восстановление начального
+				-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 				--printf("RESTORE")
 				self.npc:restore_default_start_dialog()
 			else
 				--printf("SET %s allow_break %s", start_dialog, tostring(self.allow_break))
-				-- установка нового
+				-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 				self.npc:set_start_dialog(start_dialog)
 				if self.npc:is_talking() then
 					db.actor:run_talk_dialog(self.npc, not(self.allow_break))
@@ -271,7 +271,7 @@ function Cmeet_manager:update()
 
 	local use = xr_logic.pick_section_from_condlist(db.actor, self.npc, self.a.use)
 
-	-- Проверяем, играем ли мы что то в кампе
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ
 	if self.npc_is_camp_director == true then
 		use = "false"
 	end
@@ -279,7 +279,7 @@ function Cmeet_manager:update()
 
 	--printf("%s self.use[%s] use [%s]", self.npc:name(), tostring(self.use), tostring(use))
 	--print_table(self.a.use)
-	-- доступность юзания
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 	if self.use ~= use then
 		if use == "self" then
 			if not is_talking and device().precache_frame < 1 then
@@ -312,7 +312,7 @@ function Cmeet_manager:update()
 		db.actor:allow_break_talk_dialog(self.allow_break)
 	end
 ]]
-	-- Проверяем включать ли обижание на заюзывание
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	local abuse = xr_logic.pick_section_from_condlist(db.actor, self.npc, self.a.abuse)
 	if self.abuse_mode ~= abuse then
 		if abuse == "true" then
@@ -323,7 +323,7 @@ function Cmeet_manager:update()
 		self.abuse_mode = abuse
 	end
 
-	-- доступность торговли
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	if xr_wounded.is_wounded(self.npc) then
 		self.trade_enable = false
 	else
@@ -343,7 +343,7 @@ end
 function notify_on_use(victim, who)
 	--printf("NOTIFY [%s] used by [%s]", victim:name(), who:name())
 
-	-- Если мы мертвы - на юзание не реагировать
+	-- пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	if not victim:alive() then
 		return
 	end
@@ -397,11 +397,11 @@ function add_to_binder(object, char_ini, scheme, section, st)
 	action:add_precondition		(world_property(stalker_ids.property_enemy,	false))
 	action:add_precondition		(world_property(stalker_ids.property_danger,false))
 	action:add_precondition		(world_property(stalker_ids.property_anomaly,false))
-	
+
 	action:add_precondition		(world_property(stalker_ids.property_items,	false))
 	action:add_precondition		(world_property(properties["wounded_exist"],false))
 	action:add_precondition		(world_property(properties["corpse_exist"],	false))
-	
+
 	action:add_precondition		(world_property(properties["contact"], 		true))
 	action:add_precondition		(world_property(properties["wounded"], 		false))
 	action:add_precondition		(world_property(properties["abuse"],		false))
@@ -422,12 +422,12 @@ end
 
 
 ------------
--- Вызывается только в начале на чтении логики, создает экшены, эвалуаторы и производит
--- первичную настройку.
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 function set_meet(npc, ini, scheme, section)
 	local st = xr_logic.assign_storage_and_bind(npc, ini, scheme, section)
 end
--- Вызывается на переключении на новую секцию. Производит вычитывание настроек из текущей секции.
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
 function reset_meet(npc, scheme, st, section)
 	local meet_section
 --	printf("[%s]", utils.to_str(st.section_logic))
@@ -441,7 +441,7 @@ function reset_meet(npc, scheme, st, section)
 end
 
 
--- Функция чтения настроек. В нее передается секция, откуда их нужно читать.
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
 function init_meet(npc, ini, section, st, scheme)
 	--printf("MEET SECTION [%s][%s][%s]", tostring(st.meet_section), tostring(section), tostring(scheme))
 
@@ -451,9 +451,9 @@ function init_meet(npc, ini, section, st, scheme)
 		return
 	end
 
-	st.meet_section = utils.tostring(section)
+	st.meet_section = tostring(section)
 
--- Что можно настраивать в meet
+-- пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ meet
 --[[
 [meet]
 close_distance 	= {=actor_has_weapon} 3, 3
@@ -471,19 +471,19 @@ far_victim 		= {=actor_has_weapon} a, b
 
 snd_on_use 		= {=in_battle} a, {=no_talk} b, c
 
-use				= {=actor_has_weapon} true, false  -- self - юзает сам
+use				= {=actor_has_weapon} true, false  -- self - пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
 meet_dialog		= {=actor_has_weapon} a
 abuse			= {=in_battle} true, false
 trade_enable	= {=in_battle} true, false
 allow_break		= {=in_battle} true, false
 
-Ненастраиваемые параметры:
+пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ:
 
 reset_distance	= 30
 
 ]]
 
-	-- Устанавливаем дефолты
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	local def = {}
 
 	local relation = game_relations.get_npcs_relation(npc, db.actor)
@@ -508,7 +508,7 @@ reset_distance	= 30
 		def.allow_break			= "true"
 		def.meet_on_talking		= "false"
 		def.use_text			= "nil"
-		
+
 	else
 		def.close_distance 		= "{=is_wounded} 0, {!is_squad_commander} 0, 3"
 		def.close_anim 			= "{=is_wounded} nil, {!is_squad_commander} nil, {=actor_has_weapon} threat_na, talk_default"
@@ -589,7 +589,7 @@ reset_distance	= 30
 	st.meet_manager:set_start_distance()
 
 	--print_table(st.far_distance)
-	-- флажок, что функция хотя бы раз вызывалась
+	-- пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	st.meet_set = true
 end
 
@@ -598,7 +598,7 @@ function disable_scheme(npc, scheme)
 	db.storage[npc:id()].actor_disable = nil
 end
 
---- Находится ли чувак в данный момент в состоянии мита
+--- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 function is_meet(npc)
 	local manager = npc:motivation_action_manager()
 	if manager and manager:initialized() then
