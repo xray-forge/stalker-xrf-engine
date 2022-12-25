@@ -1,4 +1,4 @@
-import { Optional } from "@/mod/lib/types";
+import { Maybe, Optional } from "@/mod/lib/types";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { wait } from "@/mod/scripts/utils/time";
 
@@ -164,13 +164,10 @@ export function interruptAction(target: XR_game_object, scriptName: string): voi
 }
 
 /**
- * function get_clsid(npc)
- *  if npc == nil then return nil end
- *  return npc:clsid()
- * end
+ * todo;
  */
-export function getClsId(npc: Optional<XR_game_object>): Optional<string> {
-  return npc ? npc.clsid() : null;
+export function getClsId(npc: Optional<XR_game_object>): Maybe<string> {
+  return npc?.clsid();
 }
 
 /**
@@ -184,22 +181,7 @@ export function isObjectOnline(objectId: number): boolean {
 }
 
 /**
- *
- * function set_current_time (hour, min, sec)
- *  local current_time_factor = level.get_time_factor ()
- *  printf ("Need time : %d:%d:%d", hour, min, sec)
- *  local current_time = game.time ()
- *  local c_day = math.floor (current_time / 86400000)
- *  local c_time = current_time - c_day * 86400000
- *  local n_time = (sec + min * 60 + hour * 3600) * 1000
- *
- *  if c_time > n_time then c_day = c_day + 1 end
- *
- *  n_time = n_time + c_day * 86400000
- *  level.set_time_factor (10000)
- *  while game.time () < n_time do wait () end
- *  level.set_time_factor (current_time_factor)
- * end
+ * todo;
  */
 export function setCurrentTime(hour: number, min: number, sec: number) {
   const current_time_factor = level.get_time_factor();
@@ -225,12 +207,7 @@ export function setCurrentTime(hour: number, min: number, sec: number) {
 }
 
 /**
- * function stop_play_sound(obj)
- *  if obj:alive() == true then
- *    obj:set_sound_mask(-1)
- *    obj:set_sound_mask(0)
- *  end
- * end
+ * todo;
  */
 export function stopPlaySound(object: XR_game_object): void {
   if (object.alive()) {
@@ -240,18 +217,7 @@ export function stopPlaySound(object: XR_game_object): void {
 }
 
 /**
- * -- ������ team:squad:group �������.
- * function change_team_squad_group(se_obj, team, squad, group)
- *  local cl_obj = db.storage[se_obj.id] and db.storage[se_obj.id].object
- *  if cl_obj ~= nil then
- *    cl_obj:change_team(team, squad, group)
- *  else
- *    se_obj.team = team
- *    se_obj.squad = squad
- *    se_obj.group = group
- *  end
- *  --printf("_G:TSG: [%s][%s][%s]", tostring(se_obj.team), tostring(se_obj.squad), tostring(se_obj.group))
- * end
+ * todo;
  */
 export function changeTeamSquadGroup(se_obj: any, team: any, squad: any, group: any) {
   const cl_obj = db.storage[se_obj.id] && db.storage[se_obj.id].object;

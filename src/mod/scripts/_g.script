@@ -46,21 +46,21 @@ unregister_story_object_by_id = utilsAlife.unregisterStoryObjectById
 unregister_story_id = utilsAlife.unregisterStoryId
 id_by_sid = utilsAlife.getIdBySid;
 
--- change_team_squad_group = utilsAlife.changeTeamSquadGroup
+change_team_squad_group = utilsAlife.changeTeamSquadGroup
+get_clsid = utilsAlife.getClsId
+is_object_online = utilsAlife.isObjectOnline
+set_current_time = utilsAlife.setCurrentTime
+stop_play_sound = utilsAlife.stopPlaySound
 -- reset_action = utilsAlife.resetAction
 -- create_ammo = utilsAlife.createAmmo
 -- interrupt_action = utilsAlife.interruptAction
--- get_clsid = utilsAlife.getClsId
--- is_object_online = utilsAlife.isObjectOnline
--- set_current_time = utilsAlife.setCurrentTime
--- stop_play_sound = utilsAlife.stopPlaySound
 
 callstack = debugUtils.callstack
 abort = debugUtils.abort
 
--- set_save_marker = utilsGameSaves.setSaveMarker
+set_save_marker = utilsGameSaves.setSaveMarker
 
--- vec_to_str = utilsGeneral.vectorToString
+vec_to_str = utilsGeneral.vectorToString
 round = utilsGeneral.round
 add = utilsGeneral.add
 if_then_else = utilsGeneral.ifThenElse
@@ -91,7 +91,6 @@ wait = utilsTime.wait
 in_time_interval = utilsTime.isInTimeInterval
 
 -- get_param_string = utilsUnknown.getParamString
-
 
 -- =====================================================================================================================
 
@@ -204,21 +203,6 @@ function interrupt_action(who, script_name)
 	end
 end
 
-function set_current_time (hour, min, sec)
-	local current_time_factor = level.get_time_factor ()
-	printf ("Need time : %d:%d:%d", hour, min, sec)
-	local current_time = game.time ()
-	local c_day = math.floor (current_time / 86400000)
-	local c_time = current_time - c_day * 86400000
-	local n_time = (sec + min * 60 + hour * 3600) * 1000
-
-	if c_time > n_time then c_day = c_day + 1 end
-	n_time = n_time + c_day * 86400000
-	level.set_time_factor (10000)
-	while game.time () < n_time do wait () end
-	level.set_time_factor (current_time_factor)
-end
-
 function parse_names( s )
 	local t = {}
 	for name in string.gfind( s, "([%w_\\]+)%p*" ) do
@@ -251,23 +235,6 @@ function parse_nums( s )
 		table.insert( t, tonumber( entry ) )
 	end
 	return t
-end
-
--- ��������� �� ������ � �������.
-function is_object_online(obj_id)
-	return level.object_by_id(obj_id) ~= nil
-end
-
-function get_clsid(npc)
-	if npc == nil then return nil end
-	return npc:clsid()
-end
-
-function stop_play_sound(obj)
-	if obj:alive() == true then
-		obj:set_sound_mask(-1)
-		obj:set_sound_mask(0)
-	end
 end
 
 function store_table(table, subs)
@@ -553,6 +520,7 @@ ammo_section["ammo_12x76_zhekan"]	= true
 ammo_section["ammo_pkm_100"]		= true
 
 quest_section = {}
+
 -- ����������� ������ � ������������ �� ���������
 function get_param_string(src_string , obj)
 	--printf("src_string is [%s] obj name is [%s]", tostring(src_string), obj:name())
@@ -621,22 +589,4 @@ function set_save_marker(p, mode, check, prefix)
 		save_markers[result] = p:r_tell()
 	end
 
-end
--- ��������� ������ � ������.
-function vec_to_str (vector)
-	if vector == nil then return "nil" end
-	return string.format("[%s:%s:%s]", vector.x, vector.y, vector.z)
-end
-
--- ������ team:squad:group �������.
-function change_team_squad_group(se_obj, team, squad, group)
-	local cl_obj = db.storage[se_obj.id] and db.storage[se_obj.id].object
-	if cl_obj ~= nil then
-		cl_obj:change_team(team, squad, group)
-	else
-		se_obj.team = team
-		se_obj.squad = squad
-		se_obj.group = group
-	end
-	--printf("_G:TSG: [%s][%s][%s]", tostring(se_obj.team), tostring(se_obj.squad), tostring(se_obj.group))
 end
