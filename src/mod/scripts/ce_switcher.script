@@ -1,3 +1,9 @@
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "ce_switcher");
+
+-- todo: Maybe unused or for manual execution
+
 function _printf(ss)
 --if editor() == false then
 --	printf(ss)
@@ -8,6 +14,8 @@ end
 class "ce_switcher" (CGameObject)
 
 function ce_switcher:__init() super()
+	log:info("Init")
+
 	self.m_state = 0
 	_printf("ce_switcher:__init() is called (%d)",self.m_state)
 end

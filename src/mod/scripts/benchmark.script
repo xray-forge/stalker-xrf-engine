@@ -1,5 +1,11 @@
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "benchmark");
+
 -- todo: Check purposes
 function main()
+	log:info("Run benchmark")
+
 	local spawn_table = {	bench_sunshafts = {	weather_name  = "sun_shafts",
 												effector_name = "marsh_benchmark",
 												effector_id   = 106081,
@@ -21,9 +27,14 @@ function main()
 												enable_light  = true
 											  }
 						}
+
 	local pos1 = string.find(command_line(), "%(")
 	local pos2 = string.find(command_line(), "/", pos1)
+
+
 	if pos1 and pos2 then
+		log:info("Executing benchmark")
+
 		local spawn_name = string.sub(command_line(), pos1+1, pos2-1)
 		if spawn_table[spawn_name] then
 			weather = true
@@ -32,9 +43,11 @@ function main()
 				light = true
 			end
 			level.add_cam_effector2( "benchmarks\\"..spawn_table[spawn_name].effector_name..".anm",
-									spawn_table[spawn_name].effector_id,
-									false,
-									"xr_effects.quit")
+					spawn_table[spawn_name].effector_id,
+					false,
+					"xr_effects.quit")
 		end
+	else
+		log:info("Skip execution")
 	end
 end

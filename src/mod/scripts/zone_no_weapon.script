@@ -1,20 +1,28 @@
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "zone_no_weapon");
+
 ----------------------------------------------------------------------------------------------------------------------
--- Класс CZoneNoWeapon. При входе игрока в зону, у него убирается оружие. При выходе - достается
+-- пїЅпїЅпїЅпїЅпїЅ CZoneNoWeapon. пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 ----------------------------------------------------------------------------------------------------------------------
 
 class "CZoneNoWeapon"
 
 function CZoneNoWeapon:__init( zone, binder, ini )
-	-- Если уже есть актер и он в зоне, то убираем оружие
+	log:info("Init")
+
+	-- пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 	if binder.actor_inside then
 		db.actor:hide_weapon()
 	end
 end
 
 function CZoneNoWeapon:on_enter( actor )
+	log:info("Entered no weapon zone")
 	actor:hide_weapon()
 end
 
 function CZoneNoWeapon:on_leave( actor )
+	log:info("Left no weapon zone")
 	actor:restore_weapon()
 end

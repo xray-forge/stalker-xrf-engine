@@ -1,6 +1,10 @@
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "db");
+
 --[[------------------------------------------------------------------------------------------------
-База данных живых онлайновых объектов, зон и рестрикторов, актёра
-Чугай Александр
+пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ
+пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 --------------------------------------------------------------------------------------------------]]
 
 zone_by_name        = {}
@@ -22,73 +26,96 @@ story_object		= {}
 signal_light		= {}
 offline_objects		= {}
 anomaly_by_name     = {}
-level_doors 		= {}  -- Содержит список всех дверей на уровне (чтобы нпс могли по нему пробегаться и открывать двери, рядом с которыми они стоят.
+level_doors 		= {}  -- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.
 no_weap_zones 		= {}
 spawned_vertex_by_id= {}
 
-
-
 function add_enemy( obj )
+	log:info("Add enemy")
 	heli_enemies[heli_enemy_count] = obj
 	heli_enemy_count = heli_enemy_count + 1
 end
 
 function delete_enemy( e_index )
+	log:info("Delete enemy")
 	heli_enemies[e_index] = nil
 end
 
 function add_obj( obj )
-	printf("adding object %s",obj:name())
+	log:info("Add object:", obj:name())
+
 	storage[obj:id()].object = obj
 end
 
 function del_obj( obj )
+	log:info("Delete object:", obj:name())
+
 	storage   [obj:id()] = nil
 end
 
 
 function add_zone( zone )
+	log:info("Add zone:", zone:name())
+
 	zone_by_name[zone:name()] = zone
 end
 
 function del_zone( zone )
+	log:info("Delete zone:", zone:name())
+
 	zone_by_name[zone:name()] = nil
 end
 
 function add_anomaly( anomaly )
+	log:info("Add anomaly:", anomaly.object:name())
+
 	anomaly_by_name[anomaly.object:name()] = anomaly
 end
 
 function del_anomaly( anomaly )
+	log:info("Delete anomaly:", anomaly.object:name())
+
 	anomaly_by_name[anomaly.object:name()] = nil
 end
 
 function add_actor( obj )
+	log:info("Add actor")
+
 	actor = obj
 	actor_proxy:net_spawn( obj )
 	add_obj( obj )
 end
 
 function del_actor()
+	log:info("Delete actor")
+
 	del_obj( actor )
 	actor_proxy:net_destroy()
 	actor = nil
 end
 
-
 function add_heli(obj)
+	log:info("Add heli")
+
 	heli[obj:id()] = obj
 end
+
 function del_heli(obj)
+	log:info("Delete heli")
+
 	heli[obj:id()] = nil
 end
 
 
 function add_smart_terrain( obj )
+	log:info("Add smart terrain:", obj.id)
+
 	smart_terrain_by_id[obj.id] = obj
 end
 
 function del_smart_terrain( obj )
+	log:info("Delete smart terrain:", obj.id)
+
 	smart_terrain_by_id[obj.id] = nil
 end
 

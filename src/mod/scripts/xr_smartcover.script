@@ -1,3 +1,7 @@
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "xr_smartcover");
+
 ----------------------------------------------------------------------------------------------------
 -- smartcovers
 ---------------------------------------------------------------------------------------------------------------------
@@ -38,7 +42,7 @@ function action_smartcover_activity:initialize()
 	action_base.initialize(self)
 
 	self.initialized = true
-	
+
 	self:activate_scheme()
 end
 function action_smartcover_activity:target_selector(obj)
@@ -71,34 +75,34 @@ function action_smartcover_activity:activate_scheme()
 	self.target_enemy_id = nil
 	self.cover_name, used = get_param_string(self.st.cover_name, object)
 	printf("setting smartcover [gps] [%s] used [%s] for npc[%s]", self.cover_name , tostring(used), object:name())
-		
-	--' Проверяем cover_name , если get_param_string вернул не такое же значение или вообще не использовался, то идем дальше.
+
+	--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ cover_name , пїЅпїЅпїЅпїЅ get_param_string пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
 	if self.cover_name ~= self.st.cover_name or used == false then
 		if se_smart_cover.registered_smartcovers[self.cover_name] == nil then
 			abort("There is no smart_cover with name [%s]", self.cover_name)
 		end
 
-		-- ВХОД В СМАРТКАВЕР ЧЕРЕЗ СТЕЙТ МЕНЕДЖЕР (передаем имя смарткавера, лупхолу)
+		-- пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
 		state_mgr.set_state(self.object, "smartcover")
-		
-		
+
+
 		self.target_path_condlist = xr_logic.parse_condlist(object, self.st.active_section, "target_path", self.st.target_path)
 		self:check_target()
 
-		--' Вычитываем кондлист который вернет поведение чувака в смарткавере.
+		--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 		self.cover_condlist = xr_logic.parse_condlist(object, self.st.active_section, "cover_state", self.st.cover_state)
 		self.cover_state = xr_logic.pick_section_from_condlist(db.actor, object ,self.cover_condlist)
 		self:target_selector(self.object)
 		self:check_target_selector()
 
-		-- Назначим минимальные и максимальные значения времени сидения в айдле и выглядывания.
+		-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 		--printf("idle_min[%s]  idle_max[%s]  lookout_min[%s]  lookout_max[%s]", self.st.idle_min_time, self.st.idle_max_time, self.st.lookout_min_time, self.st.lookout_max_time )
 		object:idle_min_time(self.st.idle_min_time)
 		object:idle_max_time(self.st.idle_max_time)
 		object:lookout_min_time(self.st.lookout_min_time)
 		object:lookout_max_time(self.st.lookout_max_time)
 	end
-	
+
 end
 function action_smartcover_activity:check_target_selector()
 	local object = self.object
@@ -179,11 +183,11 @@ function action_smartcover_activity:finalize()
 	self.initialized = nil
 	action_base.finalize(self)
 end
---' Возвращает достиг ли персонаж точки начала работы схемы
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 function action_smartcover_activity:position_riched()
 	return self.object:in_smart_cover()
 end
--- Обнуление полей при деактивации схемы
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 function action_smartcover_activity:deactivate()
 	self.st.cover_name = nil
 	self.st.loophole_name = nil
@@ -218,17 +222,17 @@ function add_to_binder(npc, ini, scheme, section, storage)
 	new_action:add_precondition(world_property(properties["need_smartcover"], true))
 	new_action:add_precondition(world_property(properties["use_smartcover_in_combat"], false))
 	new_action:add_precondition(world_property(stalker_ids.property_enemy,false))
-	
+
 	new_action:add_precondition (world_property(xr_evaluators_id.stohe_meet_base + 1,false))
 	new_action:add_precondition (world_property(xr_evaluators_id.sidor_wounded_base + 0,  false))
 	new_action:add_precondition (world_property(xr_evaluators_id.abuse_base, false))
-	
+
 	new_action:add_effect (world_property(properties["need_smartcover"], false))
 	new_action:add_effect (world_property(properties["state_mgr_logic_active"], false))
 	--new_action:add_effect (world_property(stalker_ids.property_danger,false))
 	manager:add_action(operators["action_smartcover"], new_action)
 
-	-- Зарегистрировать все actions, в которых должен быть вызван метод reset_scheme при изменении настроек схемы:
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ actions, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ reset_scheme пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ:
 	xr_logic.subscribe_action_for_events(npc, storage, new_action)
 
 	new_action = this.action_smartcover_activity(npc, "action_combat_smartcover", storage)
@@ -240,7 +244,7 @@ function add_to_binder(npc, ini, scheme, section, storage)
 	new_action:add_precondition (world_property(xr_evaluators_id.stohe_meet_base + 1,false))
 	new_action:add_precondition (world_property(xr_evaluators_id.sidor_wounded_base + 0,  false))
 	new_action:add_precondition (world_property(xr_evaluators_id.abuse_base, false))
-		
+
 	new_action:add_effect (world_property(properties["need_smartcover"], false))
 	new_action:add_effect (world_property(stalker_ids.property_enemy,false))
 	new_action:add_effect (world_property(stalker_ids.property_danger,false))
@@ -248,7 +252,7 @@ function add_to_binder(npc, ini, scheme, section, storage)
 --	new_action:add_effect (world_property(properties["state_mgr_idle_smartcover"], false))
 	manager:add_action(operators["action_combat_smartcover"], new_action)
 
-	-- Зарегистрировать все actions, в которых должен быть вызван метод reset_scheme при изменении настроек схемы:
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ actions, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ reset_scheme пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ:
 	xr_logic.subscribe_action_for_events(npc, storage, new_action)
 
 	new_action = manager:action(xr_actions_id.alife)

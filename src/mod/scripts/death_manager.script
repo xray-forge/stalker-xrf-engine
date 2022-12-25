@@ -1,28 +1,32 @@
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "death_manager");
 
---' Ключем является группировка персонажа. Значением является таблица, содержашая имена секций предметов.
+--' пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 local item_by_community = {}
 
---' Зависимости в спауне предметов. Предмет спауниться только если есть хотя бы один из зависимых.
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 local item_dependence = {}
 
---' Множители и минимаксы для выпадения вещей в зависимости от уровня
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 local mul_by_level = {}
 local count_by_level = {}
 
---' Предметы, которые нельзя удалять (квестовые например)
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
 local always_keep_item = {}
 
---' Предметы, относящиеся к патронам. Их надо спаунить другим методом.
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 ammo_sections = {}
 
 local death_ini = ini_file("misc\\death_generic.ltx")
 
-
 function init_drop_settings()
+	log:info("Init drop settings")
+
 	local community_list = { "stalker", "dolg", "freedom", "bandit", "army", "zombied", "ecolog", "killer", "monolith" }
 
 		for k,v in pairs(community_list) do
-				--' Необходимо заполнить таблицу
+				--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 				item_by_community[v] = {}
 				if death_ini:section_exist(v) then
 				local n = death_ini:line_count(v)
@@ -34,7 +38,7 @@ function init_drop_settings()
 				end
 		end
 
-		--' Заполняем таблицу зависимостей
+		--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	local n = death_ini:line_count("item_dependence")
 	local id, value = "", ""
 	for i=0,n-1 do
@@ -46,7 +50,7 @@ function init_drop_settings()
 		end
 	end
 
-	--' Множители и минимаксы для выпадения вещей в зависимости от уровня
+	--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 		local level_name = level.name()
 
 	if not death_ini:section_exist(level_name) then
@@ -64,7 +68,7 @@ function init_drop_settings()
 		local n = death_ini:line_count(item_count_section)
 	for i=0,n-1 do
 		result, id, value	= death_ini:r_line(item_count_section,i,"","")
-		--' Нужно распарсить value в два значения
+		--' пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ value пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		local t = parse_nums(value)
 		if t[1] == nil then
 			abort("Error on [death_ini] declaration. Section [%s], line [%s]", item_count_section, tostring(id))
@@ -85,7 +89,7 @@ function init_drop_settings()
 		count_by_level[id] = {min = min, max = max}
 	end
 
- 	--' Предметы, которые нельзя удалять (квестовые например)
+ 	--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
 	local n = death_ini:line_count("keep_items")
 	for i=0,n-1 do
 		result, id, value	= death_ini:r_line("keep_items",i,"","")
@@ -94,7 +98,7 @@ function init_drop_settings()
 		end
 	end
 
-	--' Предметы, относящиеся к патронам. Их надо спаунить другим методом.
+	--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 	ammo_sections = {}
 	local n = death_ini:line_count("ammo_sections")
 	local id, value = "", ""
@@ -104,24 +108,24 @@ function init_drop_settings()
 	end
 end
 
-
-
 class "drop_manager"
 function drop_manager:__init(npc)
+	log:info("Init drop manager")
 	self.npc = npc
 end
+
 function drop_manager:create_release_item()
-	--' Спрашиваем у серверного объекта генерились ли предметы
+	--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	local se_obj = alife():object(self.npc:id())
 	if se_obj == nil or se_obj.death_droped == true then
 		return
 	end
 	se_obj.death_droped = true
 
-	--' Запускаем итератор на удаление предметов
+	--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	self.npc:iterate_inventory(keep_item, self.npc)
 
-	--' Проверка на отсутствие спауна лута
+	--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 	local ini = self.npc:spawn_ini()
 
 	if ini and ini:section_exist("dont_spawn_loot") then
@@ -133,29 +137,29 @@ function drop_manager:create_release_item()
 		return
 	end
 
-	--' Доспавниваем необходимое количество итемов:
-	--' Необходимо составить список объектов которые могут быть заспавнены для персонажа
+	--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ:
+	--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
 	local spawn_items = item_by_community[character_community(self.npc)]
 	if spawn_items == nil then
 		return
 	end
 	for k,v in pairs(spawn_items) do
-		--' По каждому объекту необходимо получить зависимости
+		--' пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		if check_item_dependence(self.npc, k) == true then
-			--' По каждому объекту необходимо получить количество
+			--' пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 			if count_by_level[k] == nil then
 				abort("Incorrect count settings in death_manager for object[%s]", k)
 			end
 			local number = math.ceil(math.random(count_by_level[k].min, count_by_level[k].max))
-			--' Необходимо заспавнить нужное количество.
+			--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 			create_items(self.npc, k, number, v)
 		end
 	end
 
 end
 
---' Функция вызывается для каждого предмета, если вернет false то предмет удалится.
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ false пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 function keep_item(npc, item)
 	local section = item:section()
 
@@ -196,13 +200,13 @@ function keep_item(npc, item)
 	local item_id = item:id()
 	local item_in_slot = npc:item_in_slot(2)
 	if item_in_slot ~= nil and item_in_slot:id() == item_id then
-		--' Тут надо уменьшить кондишн оружия
+		--' пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 		item:set_condition((math.random(40)+40)/100)
 		return
 	end
 	item_in_slot = npc:item_in_slot(3)
 	if item_in_slot ~= nil and item_in_slot:id() == item_id then
-		--' Тут надо уменьшить кондишн оружия
+		--' пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 		item:set_condition((math.random(40)+40)/100)
 		return
 	end
@@ -222,10 +226,10 @@ end
 function set_weapon_drop_condition(item)
 	local condition  = (math.random(40)+40)/100
 	--printf("condition [%s]", tostring(condition))
-	item:set_condition(condition)	
+	item:set_condition(condition)
 end
 
---' Функция спавнит необходимое число предметов
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 function create_items(npc, section, number, rnd)
 		--'printf("create %s of %s", tostring(number), tostring(section))
 		if ammo_sections[section] == true then
@@ -239,7 +243,7 @@ function create_items(npc, section, number, rnd)
 				end
 		else
 				for i=1,number do
-			--' Проверяем вероятность появить каждый объект в отдельности
+			--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 					if math.random(100) <=  rnd then
 					alife():create(section,
 							npc:position(),
@@ -252,7 +256,7 @@ function create_items(npc, section, number, rnd)
 end
 
 
---' Функция проверяет есть ли хоть один из зависимых объектов у персонажа
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 function check_item_dependence(npc, section)
 	if item_dependence[section] == nil then
 		return true

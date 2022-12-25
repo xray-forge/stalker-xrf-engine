@@ -45,6 +45,10 @@ export function create(): JSXNode {
         textColor={WHITE}
         texture={textures.ui_inGame2_Mp_bigbuttone}
       />
+
+      <XrStatic tag={"game_command_line"} x={16} y={48} width={60} height={16}>
+        <XrText font={fonts.letterica16} align={"c"} vertAlign={"c"} />
+      </XrStatic>
     </XrRoot>
   );
 }

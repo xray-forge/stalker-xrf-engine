@@ -269,7 +269,7 @@ declare global {
   function get_hud(this: void): XR_CUIGameCustom;
   function GetFontSmall(this: void): unknown;
   function GetFontLetterica18Russian(this: void): unknown;
-  function command_line(this: void): unknown;
+  function command_line(this: void): string;
   function getFS(this: void): XR_FS;
   function valid_saved_game(this: void,filename: string): boolean;
   function get_console(this: void): XR_CConsole;

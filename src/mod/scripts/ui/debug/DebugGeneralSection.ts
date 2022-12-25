@@ -44,6 +44,10 @@ export const DebugGeneralSection: IDebugGeneralSection = declare_xr_class("Debug
     xml.ParseFile(resolveXmlFormPath(base));
 
     xml.InitStatic("lua_version_label", this);
+    xml
+      .InitStatic("game_command_line", this)
+      .TextControl()
+      .SetText("Command line args:" + (command_line() || "unknown"));
 
     this.memoryUsageCountLabel = xml.InitStatic("memory_usage_count", this);
     this.luaVersionLabel = xml.InitStatic("lua_version_label", this);
