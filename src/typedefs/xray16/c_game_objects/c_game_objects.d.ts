@@ -1139,7 +1139,7 @@ declare global {
 
     public eat(game_object: XR_game_object): unknown;
 
-    public clsid(): string;
+    public clsid(): TXR_ClsId;
 
     public register_door_for_npc(): unknown;
 

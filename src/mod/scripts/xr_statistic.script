@@ -1,72 +1,56 @@
 -- run_string log("----->"..tostring(xr_statistic.actor_statistic.best_monster).." "..tostring(xr_statistic.actor_statistic.best_monster_rank))
 actor_statistic = {
-					surges = 0,
-					completed_quests = 0,
-					killed_monsters = 0,
-					killed_stalkers = 0,
-					founded_secrets = 0,
-					artefacts_founded = 0,
-					best_monster = nil,
-					favorite_weapon_sect = nil,
-					best_monster_rank = 0,
-					}
+  surges = 0,
+  completed_quests = 0,
+  killed_monsters = 0,
+  killed_stalkers = 0,
+  founded_secrets = 0,
+  artefacts_founded = 0,
+  best_monster = nil,
+  favorite_weapon_sect = nil,
+  best_monster_rank = 0,
+}
 
-monster_classes = {
-			[clsid.bloodsucker_s] 	  = "bloodsucker",
-			[clsid.boar_s] 			  = "boar",
-			[clsid.burer_s] 		  = "burer",
-			[clsid.chimera_s] 		  = "chimera",
-			[clsid.controller_s] 	  = "controller",
-			[clsid.dog_s] 			  = "dog",
-			[clsid.flesh_s] 		  = "flesh",
-			[clsid.gigant_s] 		  = "gigant",
-			[clsid.poltergeist_s] 	  = "poltergeist",
-			[clsid.psy_dog_s] 		  = "psy_dog",
-			[clsid.pseudodog_s]		  = "pseudodog",
-			[clsid.snork_s ] 		  = "snork",
-			[clsid.tushkano_s ] 	  = "tushkano",
-		}
+local weapons_table = {
+  abakan			= 0,
+  ak74			= 0,
+  ak74u			= 0,
+  beretta			= 0,
+  bm16			= 0,
+  colt1911		= 0,
+  desert			= 0,
+  f1				= 0,
+  fn2000			= 0,
+  fort			= 0,
+  g36				= 0,
+  gauss			= 0,
+  groza			= 0,
+  hpsa			= 0,
+  knife			= 0,
+  l85				= 0,
+  lr300			= 0,
+  mp5				= 0,
+  pb				= 0,
+  pkm				= 0,
+  pm				= 0,
+  protecta		= 0,
+  rg				= 0,
+  rgd5			= 0,
+  rpg7			= 0,
+  sig220			= 0,
+  sig550			= 0,
+  spas12			= 0,
+  svd				= 0,
+  svu				= 0,
+  toz34			= 0,
+  usp45			= 0,
+  val				= 0,
+  vintorez		= 0,
+  walther			= 0,
+  wincheaster1300	= 0,
+}
 
-weapons_table = {
-									abakan			= 0,
-									ak74			= 0,
-									ak74u			= 0,
-									beretta			= 0,
-									bm16			= 0,
-									colt1911		= 0,
-									desert			= 0,
-									f1				= 0,
-									fn2000			= 0,
-									fort			= 0,
-									g36				= 0,
-									gauss			= 0,
-									groza			= 0,
-									hpsa			= 0,
-									knife			= 0,
-									l85				= 0,
-									lr300			= 0,
-									mp5				= 0,
-									pb				= 0,
-									pkm				= 0,
-									pm				= 0,
-									protecta		= 0,
-									rg				= 0,
-									rgd5			= 0,
-									rpg7			= 0,
-									sig220			= 0,
-									sig550			= 0,
-									spas12			= 0,
-									svd				= 0,
-									svu				= 0,
-									toz34			= 0,
-									usp45			= 0,
-									val				= 0,
-									vintorez		= 0,
-									walther			= 0,
-									wincheaster1300	= 0,
-				}
-
-artefacts_table = {
+local artefacts_table = {
 	af_cristall = false,
 	af_blood = false,
 	af_electra_sparkler = false,
@@ -92,20 +76,24 @@ artefacts_table = {
 	af_ice = false,
 }
 
-taken_artefacts = {}
+local taken_artefacts = {}
 
 function inc_surges_counter()
 	actor_statistic.surges = actor_statistic.surges + 1
 end
+
 function inc_completed_quests_counter()
 	actor_statistic.completed_quests = actor_statistic.completed_quests + 1
 end
+
 function inc_killed_monsters_counter()
 	actor_statistic.killed_monsters = actor_statistic.killed_monsters + 1
 end
+
 function inc_killed_stalkers_counter()
 	actor_statistic.killed_stalkers = actor_statistic.killed_stalkers + 1
 end
+
 function inc_founded_artefacts_counter(art_id)
 	if(taken_artefacts[art_id]==nil) then
 			actor_statistic.artefacts_founded = actor_statistic.artefacts_founded + 1
@@ -116,6 +104,7 @@ function inc_founded_artefacts_counter(art_id)
 			end
 	end
 end
+
 function inc_founded_secrets_counter()
 	actor_statistic.founded_secrets = actor_statistic.founded_secrets + 1
 end
@@ -357,7 +346,7 @@ function seeker_functor()
 			return false
 		end
 	end
-	-- Бандиты симуляционно больше преследуют игрока
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 	db.actor:give_info_portion("sim_bandit_attack_harder")
 	news_manager.send_tip(db.actor, "st_ach_seeker", nil, "seeker", nil, nil)
 	xr_effects.inc_faction_goodwill_to_actor(db.actor, nil, {"stalker", 200})
@@ -397,7 +386,7 @@ function skilled_stalker_functor()
 end
 
 function leader_functor()
-	-- логика бонуса: pri_a21_base_restrictor.ltx
+	-- пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ: pri_a21_base_restrictor.ltx
 	if not has_alife_info("leader_achievement_gained") then
 		if has_alife_info("jup_a10_vano_agree_go_und")
 				and has_alife_info("jup_b218_soldier_hired")
@@ -499,7 +488,7 @@ function wealthy_functor()
 end
 
 function keeper_of_secrets_functor()
-	-- логика бонуса: pri_b305_logic.ltx
+	-- пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ: pri_b305_logic.ltx
 	if not has_alife_info("keeper_of_secrets_achievement_gained") then
 		if has_alife_info("pri_b305_all_strelok_notes_given") then
 			db.actor:give_info_portion("keeper_of_secrets_achievement_gained")
@@ -547,7 +536,9 @@ function information_dealer_functor()
 		[15] = "device_pda_port_bandit_leader_sold",
 		[16] = "jup_b10_ufo_memory_2_sold"
 	}
+
 	local count = 0
+
 	for k,v in pairs (info_table) do
 		if has_alife_info(v) then
 			count = count + 1

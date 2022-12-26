@@ -1046,6 +1046,8 @@ declare global {
     public static zone_torrid_s: 203;
   }
 
+  type TXR_ClsId = XR_clsid[keyof XR_clsid]
+
   /**
 
    C++ class MonsterSpace {

@@ -20,8 +20,13 @@ require("scripts._callbacks")
 
 --
 
+local classIds = require("globals.class_ids")
+
 local coreStartGame = require("scripts.core.start_game")
+local coreCheckers = require("scripts.core.checkers")
+
 local actorMenu = require("scripts.ui.game.ActorMenu").actorMenu
+local declarations = require("scripts._declaration")
 
 local utilsUtils = require("scripts.utils.utils")
 local utilsActor = require("scripts.utils.actor")
@@ -104,6 +109,19 @@ in_time_interval = utilsTime.isInTimeInterval
 
 -- =====================================================================================================================
 
+IsMonster = coreCheckers.isMonster
+IsStalker = coreCheckers.isStalker
+isWeapon = coreCheckers.isWeapon
+isArtefact = coreCheckers.isArtefact
+
+squad_community_by_behaviour = declarations.squadCommunityByBehaviour
+monster_classes = classIds.monster_class_ids
+stalker_classes = classIds.stalker_class_ids
+weapon_classes = classIds.weapon_class_ids
+artefact_classes = classIds.artefact_class_ids
+
+-- =====================================================================================================================
+
 -- todo: Remove
 print_table = function (table)
   -- log:table(table);
@@ -115,7 +133,6 @@ function printf(fmt,...)
 end
 
 
-aa = nil
 time_infinite = 100000000
 
 schemes = {} -- ������������ ���� �������
@@ -260,34 +277,7 @@ function store_table(table, subs)
 end
 
 -------------------------------------------------------------------------------------------
-local monster_classes = {}
-local stalker_classes = {}
-local weapon_classes = {}
-local artefact_classes = {}
 
-function IsMonster (object, class_id)
-	local id = class_id or get_clsid(object)
-	return monster_classes[id] == true
-end
-
-function IsStalker (object, class_id)
-	local id = class_id or get_clsid(object)
-	return stalker_classes[id] == true
-end
-
-function isWeapon(object, class_id)
-	local id = class_id or get_clsid(object)
-	return weapon_classes[id] == true
-end
-
-function isArtefact(object, class_id)
-	local id = class_id or get_clsid(object)
-	return artefact_classes[id] == true
-end
-
-
--------------------------------------------------------------------------------------------
----
 function get_object_community(obj)
 	if type(obj.id) == "function" then
 		return character_community(obj)
@@ -307,6 +297,7 @@ function alife_character_community (obj)
 	if IsStalker(obj, obj:clsid()) then
 		return obj:community()
 	end
+
 	return "monster"
 end
 
@@ -315,16 +306,6 @@ function set_inactivate_input_time(delta)
 	db.storage[db.actor:id()].disable_input_idle = delta
 	level.disable_input()
 end
-
--- ���������: ������ ���������, ������ ���� ��������, ����� ��� � �������.
---[[
-function set_sleep_relocate(point, look, timeout)
-	db.storage[db.actor:id()].sleep_relocate_time = game.get_game_time()
-	db.storage[db.actor:id()].sleep_relocate_idle = timeout*60
-	db.storage[db.actor:id()].sleep_relocate_point = point
-	db.storage[db.actor:id()].sleep_relocate_look = look
-end
-]]--
 
 function create_ammo(section, position, lvi, gvi, pid, num)
 	local ini = system_ini()
@@ -341,27 +322,6 @@ function create_ammo(section, position, lvi, gvi, pid, num)
 	return t
 end
 
-ammo_section = {}
-ammo_section["ammo_9x18_fmj"]		= true
-ammo_section["ammo_9x18_pmm"]		= true
-ammo_section["ammo_9x19_fmj"]		= true
-ammo_section["ammo_9x19_pbp"]		= true
-ammo_section["ammo_5.45x39_fmj"]	= true
-ammo_section["ammo_5.45x39_ap"]		= true
-ammo_section["ammo_5.56x45_ss190"]	= true
-ammo_section["ammo_5.56x45_ap"]		= true
-ammo_section["ammo_5.7x28_fmj"]		= true
-ammo_section["ammo_5.7x28_ap"]		= true
-ammo_section["ammo_7.62x54_7h1"]	= true
-ammo_section["ammo_9x39_pab9"]		= true
-ammo_section["ammo_gauss"]			= true
-ammo_section["ammo_9x39_ap"]		= true
-ammo_section["ammo_11.43x23_fmj"]	= true
-ammo_section["ammo_11.43x23_hydro"]	= true
-ammo_section["ammo_12x70_buck"]		= true
-ammo_section["ammo_12x76_zhekan"]	= true
-ammo_section["ammo_pkm_100"]		= true
-
 quest_section = {}
 
 -- ����������� ������ � ������������ �� ���������
@@ -376,148 +336,9 @@ function get_param_string(src_string , obj)
 	end
 end
 
-local save_markers = {}
-
--- ������� ��� �������� ������������ ���� ����
-function set_save_marker(p, mode, check, prefix)
-	-- ���������� ���� �������.
-	local result = ""
-	--	if debug ~= nil then
-	--		local info_table = debug.getinfo(2)
-	--		local script_name = string.gsub(info_table.short_src, "%.script", "")
-	--		script_name = string.gsub(script_name, "gamedata\\scripts\\", "")
-	--		result = script_name
-	--	end
-
-	--	if prefix ~= nil then
-	result = result .. "_" .. prefix
-	--	end
-
-	if check == true then
-		if save_markers[result] == nil then
-			abort("Trying to check without marker %s", result)
-		end
-
-		if mode == "save" then
-			local dif = p:w_tell() - save_markers[result]
-			if dif >= 8000 then
-				printf("WARNING! may be this is problem save point")
-			end
-			if dif >= 10240 then
-				--				abort("You are saving too much")
-			end
-			p:w_u16(dif)
-		else
-			local c_dif = p:r_tell() - save_markers[result]
-			local dif = p:r_u16()
-			if dif ~= c_dif then
-				abort("INCORRECT LOAD [%s].[%s][%s]", result, dif, c_dif)
-			else
-				printf(result..": LOAD DIF: %s", dif)
-			end
-		end
-		return
-	end
-
-	if mode == "save" then
-		-- printf(result..": set save marker: %s", p:w_tell())
-		save_markers[result] = p:w_tell()
-		if p:w_tell() > 16000 then
-			abort("You are saving too much")
-		end
-	else
-		printf(result..": set load marker: %s", p:r_tell())
-		save_markers[result] = p:r_tell()
-	end
-
-end
-
 function start_game_callback()
-	aa = alife()
-
-	squad_community_by_behaviour = {
-		["stalker"]							= "stalker",
-		["bandit"]							= "bandit",
-		["dolg"]							= "dolg",
-		["freedom"]							= "freedom",
-		["army"]							= "army",
-		["ecolog"]							= "ecolog",
-		["killer"]							= "killer",
-		["zombied"]							= "zombied",
-		["monolith"]						= "monolith",
-		["monster"]							= "monster",
-		["monster_predatory_day"]			= "monster",
-		["monster_predatory_night"]			= "monster",
-		["monster_vegetarian"]				= "monster",
-		["monster_zombied_day"]				= "monster",
-		["monster_zombied_night"]			= "monster",
-		["monster_special"]					= "monster"
-	}
-
-	monster_classes = {
-		[clsid.bloodsucker_s] 			= true,
-		[clsid.boar_s] 					= true,
-		[clsid.dog_s] 					= true,
-		[clsid.flesh_s] 				= true,
-		[clsid.pseudodog_s] 			= true,
-		[clsid.burer_s] 				= true,
-		--		[clsid.cat_s] 					= true,
-		[clsid.chimera_s] 				= true,
-		[clsid.controller_s] 			= true,
-		--		[clsid.fracture_s] 				= true,
-		[clsid.poltergeist_s] 			= true,
-		[clsid.gigant_s] 				= true,
-		--		[clsid.zombie_s] 				= true,
-		[clsid.snork_s] 				= true,
-		[clsid.tushkano_s] 				= true,
-		[clsid.psy_dog_s] 				= true,
-		[clsid.psy_dog_phantom_s] 		= true}
-
-	stalker_classes = {
-		[clsid.script_actor] 			= true,
-		[clsid.script_stalker] 			= true}
-
-	weapon_classes = {
-		[clsid.wpn_vintorez_s] 			= true,
-		[clsid.wpn_ak74_s] 				= true,
-		[clsid.wpn_lr300_s] 			= true,
-		[clsid.wpn_hpsa_s] 				= true,
-		[clsid.wpn_pm_s] 				= true,
-		[clsid.wpn_shotgun_s] 			= true,
-		[clsid.wpn_auto_shotgun_s]		= true,
-		[clsid.wpn_bm16_s] 				= true,
-		[clsid.wpn_svd_s] 				= true,
-		[clsid.wpn_svu_s] 				= true,
-		[clsid.wpn_rg6_s] 				= true,
-		[clsid.wpn_rpg7_s] 				= true,
-		[clsid.wpn_val_s] 				= true,
-		[clsid.wpn_walther_s] 			= true,
-		[clsid.wpn_usp45_s] 			= true,
-		[clsid.wpn_groza_s] 			= true,
-		[clsid.wpn_knife_s] 			= true,
-		[clsid.wpn_grenade_f1_s] 		= true,
-		[clsid.wpn_grenade_rgd5_s] 		= true,
-		[clsid.wpn_grenade_launcher] 	= true,
-		[clsid.wpn_grenade_fake] 		= true}
-
-	artefact_classes = {
-		[clsid.art_bast_artefact] 		= true,
-		[clsid.art_black_drops] 		= true,
-		[clsid.art_dummy] 				= true,
-		[clsid.art_electric_ball] 		= true,
-		[clsid.art_faded_ball] 			= true,
-		[clsid.art_galantine] 			= true,
-		[clsid.art_gravi] 				= true,
-		[clsid.art_gravi_black] 		= true,
-		[clsid.art_mercury_ball] 		= true,
-		[clsid.art_needles] 			= true,
-		[clsid.art_rusty_hair] 			= true,
-		[clsid.art_thorn] 				= true,
-		[clsid.art_zuda] 				= true,
-		[clsid.artefact] 				= true,
-		[clsid.artefact_s] 				= true}
-
 	log:info("start_game_callback called")
+
 	smart_names.init_smart_names_table()
 	task_manager.clear_task_manager()
 	sound_theme.load_sound()

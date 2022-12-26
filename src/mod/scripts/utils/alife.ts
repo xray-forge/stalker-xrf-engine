@@ -169,8 +169,8 @@ export function interruptAction(target: XR_game_object, scriptName: string): voi
 /**
  * todo;
  */
-export function getClsId(npc: Optional<XR_game_object>): Maybe<string> {
-  return npc?.clsid();
+export function getClsId(npc: XR_game_object): TXR_ClsId {
+  return npc.clsid();
 }
 
 /**
