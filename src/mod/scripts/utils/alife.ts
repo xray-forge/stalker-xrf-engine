@@ -1,5 +1,8 @@
-import { AnyArgs, Maybe, Optional } from "@/mod/lib/types";
+import { communities, TCommunity } from "@/mod/globals/communities";
+import { AnyArgs, Optional } from "@/mod/lib/types";
+import { isStalker } from "@/mod/scripts/core/checkers";
 import { abort } from "@/mod/scripts/utils/debug";
+import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { wait } from "@/mod/scripts/utils/time";
 
@@ -22,29 +25,6 @@ export function getStoryObject(storyObjectId: number): Optional<XR_cse_alife_cre
   return objectId
     ? (db.storage[objectId] && db.storage[objectId].object) || (level !== null && level.object_by_id(objectId))
     : null;
-}
-
-/**
- * todo;
- */
-export function levelObjectBySid(sid: number): Optional<XR_game_object> {
-  const se_obj: Optional<XR_cse_alife_creature_abstract> = alife()?.story_object(sid);
-
-  return se_obj === null ? null : level.object_by_id(se_obj.id);
-}
-
-/**
- * todo;
- */
-export function getObjectStoryId(objectId: number): Optional<number> {
-  return get_global("story_objects").get_story_objects_registry().get_story_id(objectId);
-}
-
-/**
- * todo: description
- */
-export function getStoryObjectId(storyObjectId: string): Optional<number> {
-  return get_global("story_objects").get_story_objects_registry().id_by_story_id[storyObjectId];
 }
 
 /**
@@ -92,13 +72,6 @@ export function getStorySquad(storyId: string): Optional<XR_cse_alife_creature_a
 }
 
 /**
- * todo;
- */
-export function getIdBySid(sid: number): Optional<number> {
-  return alife()?.story_object(sid)?.id;
-}
-
-/**
  * function create_ammo(section, position, lvi, gvi, pid, num)
  *  local ini = system_ini()
  *
@@ -135,15 +108,6 @@ export function createAmmo(section: string, position: any, lvi: any, gvi: any, p
   table.insert(t, obj);
 
   return t;
-}
-
-/**
- * todo;
- */
-export function getClsId(npc: null): null;
-export function getClsId(npc: XR_game_object): TXR_ClsId;
-export function getClsId(npc: Optional<XR_game_object>): Optional<TXR_ClsId> {
-  return npc ? npc.clsid() : null;
 }
 
 /**
@@ -265,4 +229,37 @@ export function interruptAction(npc: XR_game_object, scriptName: string): void {
   if (npc.get_script()) {
     npc.script(false, scriptName);
   }
+}
+
+/**
+ * todo;
+ */
+export function getObjectCommunity(object: XR_game_object | XR_cse_alife_creature_abstract) {
+  if (type(object.id) == "function") {
+    return getCharacterCommunity(object as XR_game_object);
+  } else {
+    getAlifeCharacterCommunity(object as XR_cse_alife_human_abstract);
+  }
+}
+
+/**
+ * todo;
+ */
+export function getCharacterCommunity(object: XR_game_object): TCommunity {
+  if (isStalker(object)) {
+    return object.character_community() as TCommunity;
+  }
+
+  return communities.monster;
+}
+
+/**
+ * todo;
+ */
+export function getAlifeCharacterCommunity(object: XR_cse_alife_creature_abstract): TCommunity {
+  if (isStalker(object, object.clsid())) {
+    return object.community() as TCommunity;
+  }
+
+  return communities.monster;
 }

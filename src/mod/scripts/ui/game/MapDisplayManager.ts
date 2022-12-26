@@ -6,8 +6,8 @@ import { story_ids } from "@/mod/globals/story_ids";
 import { AnyCallable, AnyObject, Maybe, Optional } from "@/mod/lib/types";
 import { AbstractSingletonManager } from "@/mod/scripts/core/AbstractSingletonManager";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
-import { getStoryObjectId } from "@/mod/scripts/utils/alife";
 import { getConfigString } from "@/mod/scripts/utils/configs";
+import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("MapDisplayManager");

@@ -17,4 +17,8 @@ export const communities = {
   monster_zombied_night: "monster_zombied_night",
   stalker: "stalker",
   zombied: "zombied"
-};
+} as const;
+
+export type TCommunities = typeof communities;
+
+export type TCommunity = TCommunities[keyof TCommunities];

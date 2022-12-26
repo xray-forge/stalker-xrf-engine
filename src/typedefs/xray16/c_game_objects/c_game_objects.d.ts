@@ -899,6 +899,13 @@ declare global {
     public psy_health: unknown;
     public radiation: unknown;
 
+    public id(): number;
+
+    public story_id(): unknown;
+    public object(value: string): unknown;
+    public object(value: number): unknown;
+    public clsid(): TXR_ClsId;
+
     public memory_time(another: XR_game_object): unknown;
 
     public dont_has_info(value: string): unknown;
@@ -1139,8 +1146,6 @@ declare global {
 
     public eat(game_object: XR_game_object): unknown;
 
-    public clsid(): TXR_ClsId;
-
     public register_door_for_npc(): unknown;
 
     public get_script_name(): unknown;
@@ -1192,9 +1197,6 @@ declare global {
 
     public bone_position(value: string): unknown;
 
-    public object(value: string): unknown;
-    public object(value: number): unknown;
-
     public fov(): unknown;
 
     public set_default_panic_threshold(): unknown;
@@ -1241,8 +1243,6 @@ declare global {
     public character_icon(): unknown;
 
     public patrol(): unknown;
-
-    public story_id(): unknown;
 
     public in_restrictions(): unknown;
 
@@ -1673,7 +1673,7 @@ declare global {
 
     public set_movement_type(type: unknown /** MonsterSpace::EMovementType */): unknown;
 
-    public character_community(): unknown;
+    public character_community(): string;
 
     public group(): unknown;
 
@@ -1707,8 +1707,6 @@ declare global {
     public get_sound_info(): unknown;
 
     public find_best_cover(vector: XR_vector): unknown;
-
-    public id(): number;
 
     public register_in_combat(): unknown;
 

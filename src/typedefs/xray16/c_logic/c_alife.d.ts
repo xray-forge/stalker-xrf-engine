@@ -721,119 +721,160 @@ declare global {
   // todo;
 
   /**
-   C++ class cse_alife_monster_abstract : cse_alife_creature_abstract,cse_alife_schedulable {
-    property angle;
-    property group;
-    property group_id;
-    property id;
-    property m_game_vertex_id;
-    property m_level_vertex_id;
-    property m_smart_terrain_id;
-    property m_story_id;
-    property online;
-    property parent_id;
-    property position;
-    property script_version;
-    property squad;
-    property team;
-
-    cse_alife_monster_abstract (string);
-
-    function kill();
-
-    function can_save() const;
-
-    function update();
-
-    function can_switch_online() const;
-    function can_switch_online(boolean);
-
-    function UPDATE_Read(net_packet&);
-
-    function g_squad();
-
-    function switch_offline();
-
-    function clsid() const;
-
-    function STATE_Write(net_packet&);
-
-    function init();
-
-    function spawn_ini(cse_abstract*);
-
-    function section_name(const cse_abstract*);
-
-    function name(const cse_abstract*);
-
-    function keep_saved_data_anyway() const;
-
-    function on_death(cse_abstract*);
-
-    function used_ai_locations() const;
-
-    function use_ai_locations(boolean);
-
-    function switch_online();
-
-    function force_set_goodwill(cse_alife_monster_abstract*, number, number);
-
-    function visible_for_map() const;
-    function visible_for_map(boolean);
-
-    function clear_smart_terrain(cse_alife_monster_abstract*);
-
-    function alive() const;
-
-    function interactive() const;
-
-    function travel_speed(cse_alife_monster_abstract*);
-    function travel_speed(cse_alife_monster_abstract*, number);
-
-    function smart_terrain_task_deactivate(cse_alife_monster_abstract*);
-
-    function smart_terrain_task_activate(cse_alife_monster_abstract*);
-
-    function current_level_travel_speed(cse_alife_monster_abstract*);
-    function current_level_travel_speed(cse_alife_monster_abstract*, number);
-
-    function brain(cse_alife_monster_abstract*);
-
-    function has_detector();
-
-    function smart_terrain_id(cse_alife_monster_abstract*);
-
-    function on_before_register();
-
-    function on_unregister();
-
-    function on_register();
-
-    function g_team();
-
-    function can_switch_offline() const;
-    function can_switch_offline(boolean);
-
-    function o_torso(cse_alife_creature_abstract*);
-
-    function STATE_Read(net_packet&, number);
-
-    function health() const;
-
-    function move_offline() const;
-    function move_offline(boolean);
-
-    function on_spawn();
-
-    function UPDATE_Write(net_packet&);
-
-    function g_group();
-
-    function rank();
-
-  };
+   * C++ class cse_alife_monster_abstract : cse_alife_creature_abstract,cse_alife_schedulable {
+   *     property angle;
+   *     property group;
+   *     property group_id;
+   *     property id;
+   *     property m_game_vertex_id;
+   *     property m_level_vertex_id;
+   *     property m_smart_terrain_id;
+   *     property m_story_id;
+   *     property online;
+   *     property parent_id;
+   *     property position;
+   *     property script_version;
+   *     property squad;
+   *     property team;
+   *
+   *     cse_alife_monster_abstract (string);
+   *
+   *     function kill();
+   *
+   *     function can_save() const;
+   *
+   *     function update();
+   *
+   *     function can_switch_online() const;
+   *     function can_switch_online(boolean);
+   *
+   *     function UPDATE_Read(net_packet&);
+   *
+   *     function g_squad();
+   *
+   *     function switch_offline();
+   *
+   *     function clsid() const;
+   *
+   *     function STATE_Write(net_packet&);
+   *
+   *     function init();
+   *
+   *     function spawn_ini(cse_abstract*);
+   *
+   *     function section_name(const cse_abstract*);
+   *
+   *     function name(const cse_abstract*);
+   *
+   *     function keep_saved_data_anyway() const;
+   *
+   *     function on_death(cse_abstract*);
+   *
+   *     function used_ai_locations() const;
+   *
+   *     function use_ai_locations(boolean);
+   *
+   *     function switch_online();
+   *
+   *     function force_set_goodwill(cse_alife_monster_abstract*, number, number);
+   *
+   *     function visible_for_map() const;
+   *     function visible_for_map(boolean);
+   *
+   *     function clear_smart_terrain(cse_alife_monster_abstract*);
+   *
+   *     function alive() const;
+   *
+   *     function interactive() const;
+   *
+   *     function travel_speed(cse_alife_monster_abstract*);
+   *     function travel_speed(cse_alife_monster_abstract*, number);
+   *
+   *     function smart_terrain_task_deactivate(cse_alife_monster_abstract*);
+   *
+   *     function smart_terrain_task_activate(cse_alife_monster_abstract*);
+   *
+   *     function current_level_travel_speed(cse_alife_monster_abstract*);
+   *     function current_level_travel_speed(cse_alife_monster_abstract*, number);
+   *
+   *     function brain(cse_alife_monster_abstract*);
+   *
+   *     function has_detector();
+   *
+   *     function smart_terrain_id(cse_alife_monster_abstract*);
+   *
+   *     function on_before_register();
+   *
+   *     function on_unregister();
+   *
+   *     function on_register();
+   *
+   *     function g_team();
+   *
+   *     function can_switch_offline() const;
+   *     function can_switch_offline(boolean);
+   *
+   *     function o_torso(cse_alife_creature_abstract*);
+   *
+   *     function STATE_Read(net_packet&, number);
+   *
+   *     function health() const;
+   *
+   *     function move_offline() const;
+   *     function move_offline(boolean);
+   *
+   *     function on_spawn();
+   *
+   *     function UPDATE_Write(net_packet&);
+   *
+   *     function g_group();
+   *
+   *     function rank();
+   *
+   *   };
+   *
+   *  @customConstructor cse_alife_monster_abstract
    */
-  // todo;
+  class XR_cse_alife_monster_abstract extends XR_cse_alife_creature_abstract {
+    public group_id: number | null;
+    public m_smart_terrain_id: number | null;
+
+    public constructor (clsId: string);
+
+    public kill(): unknown;
+
+    public update(): unknown;
+
+    public force_set_goodwill(
+      cse_alife_monster_abstract: XR_cse_alife_monster_abstract, value1: number, value2: number
+    ): unknown;
+
+    public clear_smart_terrain(cse_alife_monster_abstract: XR_cse_alife_monster_abstract): unknown;
+
+    public travel_speed(cse_alife_monster_abstract: XR_cse_alife_monster_abstract): unknown;
+    public travel_speed(cse_alife_monster_abstract: XR_cse_alife_monster_abstract, value: number): unknown;
+
+    public smart_terrain_task_deactivate(cse_alife_monster_abstract: XR_cse_alife_monster_abstract): unknown;
+
+    public smart_terrain_task_activate(cse_alife_monster_abstract: XR_cse_alife_monster_abstract): unknown;
+
+    public current_level_travel_speed(cse_alife_monster_abstract: XR_cse_alife_monster_abstract): unknown;
+
+    public current_level_travel_speed(
+      cse_alife_monster_abstract:
+        XR_cse_alife_monster_abstract, value: number
+    ): unknown;
+
+    public brain(cse_alife_monster_abstract: XR_cse_alife_monster_abstract): unknown;
+
+    public has_detector(): unknown;
+
+    public smart_terrain_id(cse_alife_monster_abstract: XR_cse_alife_monster_abstract): unknown;
+
+    public rank(): unknown;
+
+  }
+
   /**
    C++ class cse_alife_monster_base : cse_alife_monster_abstract,cse_ph_skeleton {
     property angle;
@@ -2540,7 +2581,7 @@ declare global {
 
     public g_group(): unknown;
 
-    public clsid(): unknown;
+    public clsid(): TXR_ClsId;
 
     public g_squad(): unknown;
 
@@ -3161,128 +3202,141 @@ declare global {
    */
   // todo;
   /**
-   C++ class cse_alife_human_abstract : cse_alife_trader_abstract,cse_alife_monster_abstract {
-    property angle;
-    property group;
-    property group_id;
-    property id;
-    property m_game_vertex_id;
-    property m_level_vertex_id;
-    property m_smart_terrain_id;
-    property m_story_id;
-    property online;
-    property parent_id;
-    property position;
-    property script_version;
-    property squad;
-    property team;
+   * C++ class cse_alife_human_abstract : cse_alife_trader_abstract,cse_alife_monster_abstract {
+   *     property angle;
+   *     property group;
+   *     property group_id;
+   *     property id;
+   *     property m_game_vertex_id;
+   *     property m_level_vertex_id;
+   *     property m_smart_terrain_id;
+   *     property m_story_id;
+   *     property online;
+   *     property parent_id;
+   *     property position;
+   *     property script_version;
+   *     property squad;
+   *     property team;
+   *
+   *     cse_alife_human_abstract (string);
+   *
+   *     function kill();
+   *
+   *     function can_save() const;
+   *
+   *     function update();
+   *
+   *     function can_switch_online() const;
+   *     function can_switch_online(boolean);
+   *
+   *     function UPDATE_Read(net_packet&);
+   *
+   *     function g_squad();
+   *
+   *     function switch_offline();
+   *
+   *     function clsid() const;
+   *
+   *     function STATE_Write(net_packet&);
+   *
+   *     function init();
+   *
+   *     function spawn_ini(cse_abstract*);
+   *
+   *     function section_name(const cse_abstract*);
+   *
+   *     function profile_name(cse_alife_trader_abstract*);
+   *
+   *     function name(const cse_abstract*);
+   *
+   *     function keep_saved_data_anyway() const;
+   *
+   *     function on_death(cse_abstract*);
+   *
+   *     function clear_smart_terrain(cse_alife_monster_abstract*);
+   *
+   *     function set_rank(number);
+   *
+   *     function use_ai_locations(boolean);
+   *
+   *     function g_group();
+   *
+   *     function switch_online();
+   *
+   *     function brain(cse_alife_monster_abstract*);
+   *     function brain(cse_alife_human_abstract*);
+   *
+   *     function on_spawn();
+   *
+   *     function visible_for_map() const;
+   *     function visible_for_map(boolean);
+   *
+   *     function move_offline() const;
+   *     function move_offline(boolean);
+   *
+   *     function alive() const;
+   *
+   *     function health() const;
+   *
+   *     function STATE_Read(net_packet&, number);
+   *
+   *     function smart_terrain_task_deactivate(cse_alife_monster_abstract*);
+   *
+   *     function used_ai_locations() const;
+   *
+   *     function current_level_travel_speed(cse_alife_monster_abstract*);
+   *     function current_level_travel_speed(cse_alife_monster_abstract*, number);
+   *
+   *     function can_switch_offline() const;
+   *     function can_switch_offline(boolean);
+   *
+   *     function has_detector();
+   *
+   *     function g_team();
+   *
+   *     function on_register();
+   *
+   *     function reputation();
+   *
+   *     function force_set_goodwill(cse_alife_monster_abstract*, number, number);
+   *
+   *     function on_before_register();
+   *
+   *     function smart_terrain_id(cse_alife_monster_abstract*);
+   *
+   *     function o_torso(cse_alife_creature_abstract*);
+   *
+   *     function travel_speed(cse_alife_monster_abstract*);
+   *     function travel_speed(cse_alife_monster_abstract*, number);
+   *
+   *     function interactive() const;
+   *
+   *     function community() const;
+   *
+   *     function smart_terrain_task_activate(cse_alife_monster_abstract*);
+   *
+   *     function UPDATE_Write(net_packet&);
+   *
+   *     function on_unregister();
+   *
+   *     function rank();
+   *
+   *   };
+   *
+   *  @customConstructor cse_alife_human_abstract
+   * */
+  class XR_cse_alife_human_abstract extends XR_cse_alife_monster_abstract {
 
-    cse_alife_human_abstract (string);
+    public profile_name(trader: unknown /* cse_alife_trader_abstract */): unknown;
 
-    function kill();
+    public set_rank(rank: number): void;
 
-    function can_save() const;
+    public reputation(): unknown;
 
-    function update();
+    public community(): string;
 
-    function can_switch_online() const;
-    function can_switch_online(boolean);
+  }
 
-    function UPDATE_Read(net_packet&);
-
-    function g_squad();
-
-    function switch_offline();
-
-    function clsid() const;
-
-    function STATE_Write(net_packet&);
-
-    function init();
-
-    function spawn_ini(cse_abstract*);
-
-    function section_name(const cse_abstract*);
-
-    function profile_name(cse_alife_trader_abstract*);
-
-    function name(const cse_abstract*);
-
-    function keep_saved_data_anyway() const;
-
-    function on_death(cse_abstract*);
-
-    function clear_smart_terrain(cse_alife_monster_abstract*);
-
-    function set_rank(number);
-
-    function use_ai_locations(boolean);
-
-    function g_group();
-
-    function switch_online();
-
-    function brain(cse_alife_monster_abstract*);
-    function brain(cse_alife_human_abstract*);
-
-    function on_spawn();
-
-    function visible_for_map() const;
-    function visible_for_map(boolean);
-
-    function move_offline() const;
-    function move_offline(boolean);
-
-    function alive() const;
-
-    function health() const;
-
-    function STATE_Read(net_packet&, number);
-
-    function smart_terrain_task_deactivate(cse_alife_monster_abstract*);
-
-    function used_ai_locations() const;
-
-    function current_level_travel_speed(cse_alife_monster_abstract*);
-    function current_level_travel_speed(cse_alife_monster_abstract*, number);
-
-    function can_switch_offline() const;
-    function can_switch_offline(boolean);
-
-    function has_detector();
-
-    function g_team();
-
-    function on_register();
-
-    function reputation();
-
-    function force_set_goodwill(cse_alife_monster_abstract*, number, number);
-
-    function on_before_register();
-
-    function smart_terrain_id(cse_alife_monster_abstract*);
-
-    function o_torso(cse_alife_creature_abstract*);
-
-    function travel_speed(cse_alife_monster_abstract*);
-    function travel_speed(cse_alife_monster_abstract*, number);
-
-    function interactive() const;
-
-    function community() const;
-
-    function smart_terrain_task_activate(cse_alife_monster_abstract*);
-
-    function UPDATE_Write(net_packet&);
-
-    function on_unregister();
-
-    function rank();
-
-  };
-   */
-  // todo;
   /**
    C++ class cse_alife_human_stalker : cse_alife_human_abstract,cse_ph_skeleton {
     property angle;

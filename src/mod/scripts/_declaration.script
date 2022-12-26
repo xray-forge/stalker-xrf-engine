@@ -1,0 +1,168 @@
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "_declaration");
+
+log:info("Declaring globals")
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+local classIds = require("globals.class_ids")
+local behaviours = require("globals.behaviours")
+
+local coreCheckers = require("scripts.core.checkers")
+local coreSchemes = require("scripts.core.schemes")
+
+local utilsUtils = require("scripts.utils.utils")
+local utilsActor = require("scripts.utils.actor")
+local utilsAlife = require("scripts.utils.alife")
+local utilsConfigs = require("scripts.utils.configs")
+local utilsControls = require("scripts.utils.controls")
+local debugUtils = require("scripts.utils.debug")
+local utilsGameSaves = require("scripts.utils.game_saves")
+local utilsGeneral = require("scripts.utils.general")
+local utilsIds = require("scripts.utils.ids")
+local utilsPhysics = require("scripts.utils.physics")
+local utilsTable = require("scripts.utils.table")
+local utilsTime = require("scripts.utils.time")
+local utilsParams = require("scripts.utils.params")
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+time_infinite = 100000000
+
+dev_debug = true
+mus_vol = 0
+amb_vol = 0
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+utils = utilsUtils
+utils.cfg_get_string = utilsConfigs.getConfigString
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+give_info = utilsActor.giveInfo
+disable_info = utilsActor.disableInfo
+has_alife_info = utilsActor.hasAlifeInfo
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+add_story_object = utilsAlife.addStoryObject
+get_story_object = utilsAlife.getStoryObject
+get_story_squad = utilsAlife.getStorySquad
+get_object_squad = utilsAlife.getObjectSquad
+unregister_story_object_by_id = utilsAlife.unregisterStoryObjectById
+unregister_story_id = utilsAlife.unregisterStoryId
+action = utilsAlife.action;
+action_first = utilsAlife.actionFirst;
+reset_action = utilsAlife.resetAction;
+interrupt_action = utilsAlife.interruptAction
+change_team_squad_group = utilsAlife.changeTeamSquadGroup
+is_object_online = utilsAlife.isObjectOnline
+set_current_time = utilsAlife.setCurrentTime
+stop_play_sound = utilsAlife.stopPlaySound
+get_object_community = utilsAlife.getObjectCommunity
+character_community = utilsAlife.getCharacterCommunity
+alife_character_community = utilsAlife.getAlifeCharacterCommunity
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+set_inactivate_input_time = utilsControls.setInactiveInputTime
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+callstack = debugUtils.callstack
+abort = debugUtils.abort
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+set_save_marker = utilsGameSaves.setSaveMarker
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+vec_to_str = utilsGeneral.vectorToString
+round = utilsGeneral.round
+add = utilsGeneral.add
+if_then_else = utilsGeneral.ifThenElse
+random_choice = utilsGeneral.randomChoice
+random_number = utilsGeneral.randomNumber
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+get_clsid = utilsIds.getClsId
+level_object_by_sid = utilsIds.levelObjectBySid
+get_object_story_id = utilsIds.getObjectStoryId
+get_story_object_id = utilsIds.getStoryObjectId
+id_by_sid = utilsIds.getIdBySid;
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+yaw = utilsPhysics.yaw
+yaw_degree = utilsPhysics.yawDegree
+yaw_degree3d = utilsPhysics.yawDegree3d
+vector_cross = utilsPhysics.vectorCross
+vector_rotate_y = utilsPhysics.vectorRotateY
+npc_in_actor_frustrum = utilsPhysics.npcInActorFrustum
+distance_between = utilsPhysics.distanceBetween
+distance_between_safe = utilsPhysics.distanceBetweenSafe
+vector_cmp = utilsPhysics.vectorCmp
+vector_cmp_prec = utilsPhysics.vectorCmpPrec
+graph_distance = utilsPhysics.graphDistance
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+empty = utilsTable.isEmpty
+clear_table = utilsTable.clearTable
+copy_table = utilsTable.copyTable
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+wait_game = utilsTime.waitGame
+wait = utilsTime.wait
+in_time_interval = utilsTime.isInTimeInterval
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+get_param_string = utilsParams.getParamString
+parse_names = utilsParams.parseNames
+parse_key_value = utilsParams.parseKeyValue
+parse_nums = utilsParams.parseNums
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+IsMonster = coreCheckers.isMonster
+IsStalker = coreCheckers.isStalker
+isWeapon = coreCheckers.isWeapon
+isArtefact = coreCheckers.isArtefact
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+squad_community_by_behaviour = behaviours.squadCommunityByBehaviour
+monster_classes = classIds.monster_class_ids
+stalker_classes = classIds.stalker_class_ids
+weapon_classes = classIds.weapon_class_ids
+artefact_classes = classIds.artefact_class_ids
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+schemes = coreSchemes.schemes
+stypes = coreSchemes.stypes
+load_scheme = coreSchemes.loadScheme
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+-- todo: Remove
+print_table = function (table) end
+printf = function (fmt,...) end
+-- --
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+if (jit == nil) then
+  profiler.setup_hook	()
+end
+
+
+if nil == time_global then
+  time_global = function () return device():time_global() end
+end
