@@ -1,10 +1,9 @@
-local SleepDialog = require("scripts.ui.interaction.SleepDialog")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
 
 local log = create_ts_class_instance(LuaLogger, "bind_anomaly_zone");
-
+local AnomalyFieldBinder = require("scripts.core.binders.AnomalyFieldBinder")
 
 --'******************************************************
 --'*  ������ ������� ���� �������� .
@@ -150,7 +149,7 @@ function anomaly_zone_binder:disable_anomaly_fields()
 		return
 	end
 	local layer = self.cur_layer
-	local anom_fields = bind_anomaly_field.fields_by_names
+	local anom_fields = AnomalyFieldBinder.FIELDS_BY_NAME
 	local counter = 0
 	for k,v in pairs(self.fields_table) do
 		if(k~=layer) then
@@ -193,7 +192,7 @@ function anomaly_zone_binder:disable_anomaly_fields()
 end
 
 function anomaly_zone_binder:respawn_artefacts_and_replace_anomaly_zone()
-	local anom_fields = bind_anomaly_field.fields_by_names
+	local anom_fields = AnomalyFieldBinder.FIELDS_BY_NAME
 	self.respawn_artefacts = true
 	if(self.custom_placement) then
 		local layer = self.cur_layer

@@ -1,4 +1,7 @@
-local pdaMenu = require("scripts.ui.game.PdaMenu").pdaMenu
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "bind_stalker");
+
 local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
 
 function init    (obj)
@@ -88,8 +91,9 @@ function actor_binder:net_destroy()
 	self.object:set_callback(callback.take_item_from_box, nil)
 	self.object:set_callback(callback.use_object, nil)
 
-	log("--------->"..tostring(_G.amb_vol))
-	log("--------->"..tostring(_G.mus_vol))
+	log:info("--------->"..tostring(_G.amb_vol))
+	log:info("--------->"..tostring(_G.mus_vol))
+
 	if(_G.amb_vol~=0) then
 		get_console():execute("snd_volume_eff "..tostring(_G.amb_vol))
 		_G.amb_vol = 0

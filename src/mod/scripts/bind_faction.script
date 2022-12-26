@@ -1,5 +1,9 @@
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "bind_faction");
+
 --'******************************************************
---'*	Биндер объекта группировки.
+--'*	пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 --'******************************************************
 function bind(obj)
 	obj:bind_object(faction_binder(obj))
@@ -14,7 +18,7 @@ function faction_binder:net_spawn(server_object)
 	if not object_binder.net_spawn(self, server_object) then
 		return false
 	end
-	--' получить ссылку на настоящий серверный объект
+	--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 	self.faction = alife():object(self.object:id())
 	return true
 end

@@ -1,8 +1,12 @@
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "bind_camp");
+
 function bind(obj)
 	obj:bind_object(camp_binder( obj ))
 end
 
--- Таблица, содержащая кемпы
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 camps = {}
 CAMP_SECTION = "camp"
 
@@ -30,7 +34,7 @@ function camp_binder:net_spawn(data)
 		if filename then
 			ini = ini_file(filename)
 		end
-	
+
 		--printf("!!!!!")
 		camps[self.object:id()].camp = sr_camp.CCampManager(self.object, ini)
 	end
@@ -42,7 +46,7 @@ function camp_binder:net_destroy()
 
 	object_binder.net_destroy(self)
 end
--- вызывается из обновления актёра!
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ!
 function camp_binder:update(delta)
 	local cc = camps[self.object:id()]
 	if cc ~= nil then

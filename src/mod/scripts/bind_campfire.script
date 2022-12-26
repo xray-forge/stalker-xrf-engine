@@ -1,5 +1,9 @@
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "bind_campfire");
+
 --'******************************************************
---'*	Биндер объекта костра .
+--'*	пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ .
 --'******************************************************
 campfire_table_by_smart_names = {}
 function bind(obj)

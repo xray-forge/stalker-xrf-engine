@@ -1,14 +1,18 @@
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "bind_heli");
+
 --[[------------------------------------------------------------------------------------------------
 Helicoter binding
-Чугай Александр
+пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
-Сделать:
-	- настройки в ltx
+пїЅпїЅпїЅпїЅпїЅпїЅпїЅ:
+	- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ ltx
 --------------------------------------------------------------------------------------------------]]
 
 
 ---------------------------------------------------------------------------------------------
--- Функция для бинда
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 ---------------------------------------------------------------------------------------------
 
 function bind( obj )
@@ -20,7 +24,7 @@ function bind( obj )
 end
 
 ---------------------------------------------------------------------------------------------
--- Биндер вертолётов
+-- пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 ---------------------------------------------------------------------------------------------
 class "heli_binder" ( object_binder )
 
@@ -61,7 +65,7 @@ function heli_binder:reinit()
 	self.snd_damage = utils.cfg_get_string( object_ini, "helicopter", "snd_damage", self.object, false, "", "heli_damaged")
 	self.snd_down	= utils.cfg_get_string( object_ini, "helicopter", "snd_down", self.object, false, "", "heli_down")
 
-	-- на случай загрузки
+	-- пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	self.st.last_alt       = self.heliObject:GetRealAltitude()
 	self.st.alt_check_time = time_global() + 1000
 end
@@ -165,7 +169,7 @@ function heli_binder:on_hit( power, impulse, hit_type, enemy_id )
 	local enemy_cls_id = get_clsid( enemy )
 	self.heli_fire.enemy = enemy
 	self.heli_fire:update_hit()
-	-- если обидчик актёр или сталкер, то сделать его своим врагом
+	-- пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 	if enemy_cls_id == clsid.actor or enemy_cls_id == clsid.script_stalker then
 --		if not self.st.combat.enemy_id then
 --			self.st.combat.enemy_id = enemy_id
@@ -176,7 +180,7 @@ function heli_binder:on_hit( power, impulse, hit_type, enemy_id )
 		end
 	end
 
-	-- пилоты ругаются по рации
+	-- пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 	if self.last_hit_snd_timeout < time_global() then
 --		xr_sound.set_sound_play(self.object:id(), self.snd_hit)
 		self.last_hit_snd_timeout = time_global() + math.random( 4000, 8000 )

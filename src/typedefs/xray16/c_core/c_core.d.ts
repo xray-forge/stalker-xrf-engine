@@ -311,31 +311,50 @@ declare global {
    *
    *  @customConstructor object_binder
    */
-  class XR_object_binder<T = XR_game_object> {
+  class XR_object_binder<T = XR_game_object> extends XR_LuaBindBase {
     public object: T;
 
-    public constructor(game_object: T);
+    public constructor(object: T);
 
+    public static save(this: void, target: XR_object_binder, net_packet: unknown): unknown;
     public save(net_packet: unknown): unknown;
 
-    public update(value: number): unknown;
+    public static update(this: void, target: XR_object_binder, value: number): void;
+    public update(value: number): void;
 
+    public static reload(this: void, target: XR_object_binder, value: string): unknown;
     public reload(value: string): unknown;
 
+    public static net_export(this: void, target: XR_object_binder, net_packet: unknown): unknown;
     public net_export(net_packet: unknown): unknown;
 
-    public net_save_relevant(): unknown;
+    public net_save_relevant(this: void, target: XR_object_binder): boolean;
+    public net_save_relevant(): boolean;
 
+    public static load(this: void, target: XR_object_binder, reader: unknown): unknown;
     public load(reader: unknown): unknown;
 
-    public net_destroy(): unknown;
+    public static net_destroy(this: void, target: XR_object_binder): void;
+    public net_destroy(): void;
 
-    public reinit(): unknown;
+    public static reinit(this: void, target: XR_object_binder): void;
+    public reinit(): void;
 
-    public net_Relcase(game_object: T): unknown;
+    public static net_Relcase<ST extends XR_game_object = XR_game_object>(
+      this: void, target:
+        XR_object_binder,
+      game_object: ST
+    ): unknown;
+    public net_Relcase(object: T): unknown;
 
-    public net_spawn(cse_alife_object: T): unknown;
+    public static net_spawn<ST extends XR_game_object = XR_game_object>(
+      this: void,
+      target: XR_object_binder,
+      cse_alife_object: ST
+    ): boolean;
+    public net_spawn(object: T): boolean;
 
+    public static net_import(this: void, target: XR_object_binder, net_packet: unknown): unknown
     public net_import(net_packet: unknown): unknown;
   }
 

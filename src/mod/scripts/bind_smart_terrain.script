@@ -1,7 +1,11 @@
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "bind_smart_terrain");
+
 --[[------------------------------------------------------------------------------------------------------------------
 Smart terrain binder
-Нужен для того, чтобы серверный объект smart terrain получал обновления.
-Чугай Александр
+пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ smart terrain пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 --------------------------------------------------------------------------------------------------------------------]]
 
 function bind( obj )
@@ -36,7 +40,7 @@ function smart_terrain_binder:net_spawn( server_object )
 		return false
 	end
 
-	-- получить ссылку на настоящий серверный объект
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 	self.se_smart_terrain = alife():object( server_object.id )
 
 	db.add_zone( self.object )
@@ -47,7 +51,7 @@ end
 
 function smart_terrain_binder:net_destroy()
 	xr_sound.stop_sounds_by_id(self.object:id())
-	
+
 	db.del_zone( self.object )
 	db.del_smart_terrain( self.se_smart_terrain )
 
@@ -59,7 +63,7 @@ function smart_terrain_binder:net_Relcase( obj )
 
 	if self.se_smart_terrain.npc_info[obj:id()] then
 		--self.se_smart_terrain.gulag:object_setup_offline( obj:id(), true )
-		-- TODO: Заменить на аналог
+		-- TODO: пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 	end
 end
 

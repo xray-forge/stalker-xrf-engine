@@ -6,9 +6,7 @@ export class LuaLogger {
   protected isEnabled: boolean;
 
   public constructor(prefix: string, isEnabled: boolean = true) {
-    const THREAD_ID: string = string.sub(tostring({}), 8);
-
-    this.prefix = `[${THREAD_ID}]${gameConfig.DEBUG.GLOBAL_LOG_PREFIX}[${prefix}]`;
+    this.prefix = `${gameConfig.DEBUG.GLOBAL_LOG_PREFIX}[${prefix}]`;
     this.isEnabled = isEnabled;
 
     if (gameConfig.DEBUG.IS_RESOLVE_LOG_ENABLED) {

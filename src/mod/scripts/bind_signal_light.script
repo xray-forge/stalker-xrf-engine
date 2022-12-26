@@ -1,3 +1,7 @@
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "bind_signal_light");
+
 function init(obj)
 	printf("_bp: init(): name='%s'", obj:name())
 
@@ -51,7 +55,7 @@ function signal_light_binder:update(delta)
 		end
 		return
 	end
-	-- Главный цикл полета сигналки
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	if fly_time > 28500 then
 		self:stop()
 		return

@@ -13,7 +13,7 @@ declare const get_global: <T = any>(key: string) => T;
  * Binding of implemented class defining function.
  * todo: Infer + more type safety.
  */
-declare const declare_xr_class: <T, B extends abstract new () => any>(
+declare const declare_xr_class: <T, B extends abstract new (...args: Array<any>) => any>(
   name: string,
   base?: B | null,
   implementation?: Partial<T>
