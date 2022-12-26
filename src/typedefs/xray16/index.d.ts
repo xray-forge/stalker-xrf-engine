@@ -95,6 +95,8 @@ declare global {
 
   const game_object: typeof XR_game_object;
 
+  const object_binder: typeof XR_object_binder;
+
   const cse_alife_creature_abstract: typeof XR_cse_alife_creature_abstract;
 
   const ini_file: typeof XR_ini_file;

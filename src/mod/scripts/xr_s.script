@@ -84,6 +84,7 @@ function on_game_load()
   if db.storage[db.actor:id()].pstor == nil then
     db.storage[db.actor:id()].pstor = {}
   end
+
 	math.randomseed (device():time_global())
   for func,o in pairs(callbacks.game_load) do
     func(o.userobj)

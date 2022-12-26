@@ -31,7 +31,7 @@ declare interface ILUAString {
   packsize(this: void, fmt: unknown): unknown;
   rep(this: void, s: unknown, n: unknown, sep: unknown): unknown;
   reverse(this: void, s: unknown): unknown;
-  sub(this: void, str: string, i: number, j: number): string;
+  sub(this: void, str: string, i: number, j?: number): string;
   unpack(this: void, fmt: unknown, s: unknown, pos: unknown): unknown;
   upper(this: void, s: unknown): unknown;
 }

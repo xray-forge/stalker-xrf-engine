@@ -4,6 +4,11 @@ local log = create_ts_class_instance(LuaLogger, "_declaration");
 
 log:info("Declaring globals")
 
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+require("scripts.core.db")
+
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local classIds = require("globals.class_ids")

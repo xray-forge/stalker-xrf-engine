@@ -5,6 +5,7 @@ import { map_mark_type, npc_map_marks } from "@/mod/globals/npc_map_marks";
 import { story_ids } from "@/mod/globals/story_ids";
 import { AnyCallable, AnyObject, Maybe, Optional } from "@/mod/lib/types";
 import { AbstractSingletonManager } from "@/mod/scripts/core/AbstractSingletonManager";
+import { getActor, storage } from "@/mod/scripts/core/db";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { getConfigString } from "@/mod/scripts/utils/configs";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
@@ -168,6 +169,7 @@ export class MapDisplayManager extends AbstractSingletonManager {
       spot_section = "true";
     }
 
+    const actor: XR_game_object = getActor()!;
     let map_spot: Optional<string> = getConfigString(st.ini, st.section_logic, "level_spot", npc, false, "");
 
     if (map_spot == null) {
@@ -176,11 +178,11 @@ export class MapDisplayManager extends AbstractSingletonManager {
 
     if (map_spot !== null) {
       map_spot = (xrLogic.parse_condlist as AnyCallable)(npc, section, "level_spot", map_spot);
-      map_spot = (xrLogic.pick_section_from_condlist as AnyCallable)(db.actor, npc, map_spot);
+      map_spot = (xrLogic.pick_section_from_condlist as AnyCallable)(actor, npc, map_spot);
     }
 
     const spot_condlist = (xrLogic.parse_condlist as AnyCallable)(npc, section, "show_spot", spot_section);
-    const spot: string = (xrLogic.pick_section_from_condlist as AnyCallable)(db.actor, npc, spot_condlist);
+    const spot: string = (xrLogic.pick_section_from_condlist as AnyCallable)(actor, npc, spot_condlist);
     const obj: Optional<XR_cse_alife_creature_abstract> = sim.object(npc.id());
 
     if (obj?.online) {
@@ -193,7 +195,7 @@ export class MapDisplayManager extends AbstractSingletonManager {
           level.map_remove_object_spot(npcId, descriptor.map_location);
         }
 
-        if (db.actor && npc && npc.general_goodwill(db.actor) > -1000) {
+        if (actor && npc && npc.general_goodwill(actor) > -1000) {
           level.map_add_object_spot(npcId, descriptor.map_location, descriptor.hint);
         }
       } else {
@@ -225,9 +227,10 @@ export class MapDisplayManager extends AbstractSingletonManager {
 
     if (map_spot !== null) {
       const xrLogic = get_global("xr_logic");
+      const actor: XR_game_object = getActor()!;
 
       map_spot = (xrLogic.parse_condlist as AnyCallable)(npc, st.active_section, "level_spot", map_spot);
-      map_spot = (xrLogic.pick_section_from_condlist as AnyCallable)(db.actor, npc, map_spot);
+      map_spot = (xrLogic.pick_section_from_condlist as AnyCallable)(actor, npc, map_spot);
     }
 
     if (npcId && map_spot !== "" && map_spot !== null) {
@@ -257,10 +260,10 @@ export class MapDisplayManager extends AbstractSingletonManager {
   public fillSleepZones(): void {
     sleepZones.forEach((it) => {
       const objectId: Optional<number> = getStoryObjectId(it.target);
-      const storedObject: Optional<{ object: XR_game_object }> = objectId ? db.storage[objectId] : null;
+      const storedObject: Optional<{ object: XR_game_object }> = objectId ? storage[objectId] : null;
 
       if (objectId && storedObject && storedObject.object) {
-        const actorPosition: XR_vector = db.actor.position();
+        const actorPosition: XR_vector = getActor()!.position();
         const distanceFromActor: number = storedObject.object.position().distance_to(actorPosition);
         const hasSleepSpot: boolean =
           level.map_has_object_spot(objectId, npc_map_marks.ui_pda2_actor_sleep_location) !== 0;
@@ -293,7 +296,8 @@ export class MapDisplayManager extends AbstractSingletonManager {
           const objectId: Optional<number> = getStoryObjectId(v.target);
 
           let hint: string = game.translate_string(v.hint) + "\\n" + " \\n";
-          const [has_af, af_table] = get_global("xr_conditions").anomaly_has_artefact(db.actor, null, [v.zone]);
+          const actor: XR_game_object = getActor()!;
+          const [has_af, af_table] = get_global("xr_conditions").anomaly_has_artefact(actor, null, [v.zone]);
 
           if (has_af) {
             hint = hint + game.translate_string(captions.st_jup_b32_has_af);

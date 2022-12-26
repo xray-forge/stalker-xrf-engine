@@ -1,3 +1,4 @@
+import { getActor } from "@/mod/scripts/core/db";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("utils/actor");
@@ -7,7 +8,7 @@ const log: LuaLogger = new LuaLogger("utils/actor");
  */
 export function giveInfo(infoId: string): void {
   log.info("Give alife info:", infoId);
-  db.actor.give_info_portion(infoId);
+  getActor()!.give_info_portion(infoId);
 }
 
 /**
@@ -15,7 +16,7 @@ export function giveInfo(infoId: string): void {
  */
 export function disableInfo(infoId: string): void {
   if (hasAlifeInfo(infoId)) {
-    db.actor.disable_info_portion(infoId);
+    getActor()!.disable_info_portion(infoId);
   }
 }
 

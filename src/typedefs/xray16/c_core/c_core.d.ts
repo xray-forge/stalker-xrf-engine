@@ -280,37 +280,64 @@ declare global {
   }
 
   /**
-   C++ class object_binder {
-    property object;
-
-    object_binder (game_object*);
-
-    function save(net_packet*);
-
-    function update(number);
-
-    function reload(string);
-
-    function net_export(net_packet*);
-
-    function net_save_relevant();
-
-    function load(reader*);
-
-    function net_destroy();
-
-    function reinit();
-
-    function net_Relcase(game_object*);
-
-    function net_spawn(cse_alife_object*);
-
-    function net_import(net_packet*);
-
-  };
+   * C++ class object_binder {
+   *     property object;
+   *
+   *     object_binder (game_object*);
+   *
+   *     function save(net_packet*);
+   *
+   *     function update(number);
+   *
+   *     function reload(string);
+   *
+   *     function net_export(net_packet*);
+   *
+   *     function net_save_relevant();
+   *
+   *     function load(reader*);
+   *
+   *     function net_destroy();
+   *
+   *     function reinit();
+   *
+   *     function net_Relcase(game_object*);
+   *
+   *     function net_spawn(cse_alife_object*);
+   *
+   *     function net_import(net_packet*);
+   *
+   *   };
+   *
+   *  @customConstructor object_binder
    */
+  class XR_object_binder<T = XR_game_object> {
+    public object: T;
 
-  // todo;
+    public constructor(game_object: T);
+
+    public save(net_packet: unknown): unknown;
+
+    public update(value: number): unknown;
+
+    public reload(value: string): unknown;
+
+    public net_export(net_packet: unknown): unknown;
+
+    public net_save_relevant(): unknown;
+
+    public load(reader: unknown): unknown;
+
+    public net_destroy(): unknown;
+
+    public reinit(): unknown;
+
+    public net_Relcase(game_object: T): unknown;
+
+    public net_spawn(cse_alife_object: T): unknown;
+
+    public net_import(net_packet: unknown): unknown;
+  }
 
   /**
    C++ class move {

@@ -1,12 +1,14 @@
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
-import { Maybe, Optional } from "@/mod/lib/types";
+import { Maybe } from "@/mod/lib/types";
 
 export class LuaLogger {
   protected prefix: string;
   protected isEnabled: boolean;
 
   public constructor(prefix: string, isEnabled: boolean = true) {
-    this.prefix = gameConfig.DEBUG.GLOBAL_LOG_PREFIX + "[" + prefix + "]";
+    const THREAD_ID: string = string.sub(tostring({}), 8);
+
+    this.prefix = `[${THREAD_ID}]${gameConfig.DEBUG.GLOBAL_LOG_PREFIX}[${prefix}]`;
     this.isEnabled = isEnabled;
 
     if (gameConfig.DEBUG.IS_RESOLVE_LOG_ENABLED) {

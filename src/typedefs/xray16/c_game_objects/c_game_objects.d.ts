@@ -892,12 +892,12 @@ declare global {
     public static sound: 3;
     public static watch: 1;
 
-    public bleeding: unknown;
-    public health: unknown;
-    public morale: unknown;
-    public power: unknown;
-    public psy_health: unknown;
-    public radiation: unknown;
+    public bleeding: number;
+    public health: number;
+    public morale: number;
+    public power: number;
+    public psy_health: number;
+    public radiation: number;
 
     public id(): number;
 
@@ -1355,8 +1355,8 @@ declare global {
 
     public money(): unknown;
 
-    public disable_hit_marks(value: boolean): unknown;
-    public disable_hit_marks(): unknown;
+    public disable_hit_marks(value: boolean): void;
+    public disable_hit_marks(): void;
 
     public is_there_items_to_pickup(): unknown;
 
@@ -1501,7 +1501,7 @@ declare global {
 
     public goodwill(game_object: XR_game_object): unknown;
 
-    public stop_talk(): unknown;
+    public stop_talk(): void;
 
     public profile_name(): unknown;
 
@@ -1669,7 +1669,7 @@ declare global {
 
     public accessible_nearest(vector1: XR_vector, vector2: XR_vector): unknown;
 
-    public name(): unknown;
+    public name(): string;
 
     public set_movement_type(type: unknown /** MonsterSpace::EMovementType */): unknown;
 

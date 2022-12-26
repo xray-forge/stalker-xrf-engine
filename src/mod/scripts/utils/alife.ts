@@ -1,6 +1,7 @@
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { AnyArgs, Optional } from "@/mod/lib/types";
 import { isStalker } from "@/mod/scripts/core/checkers";
+import { storage } from "@/mod/scripts/core/db";
 import { abort } from "@/mod/scripts/utils/debug";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -18,12 +19,12 @@ export function addStoryObject(objectId: number, storyObjectId: number): void {
 
 /**
  * todo;
- */
-export function getStoryObject(storyObjectId: number): Optional<XR_cse_alife_creature_abstract> {
+ */ ("");
+export function getStoryObject(storyObjectId: number): Optional<XR_game_object> {
   const objectId: Optional<number> = get_global("story_objects").get_story_objects_registry().get(storyObjectId);
 
   return objectId
-    ? (db.storage[objectId] && db.storage[objectId].object) || (level !== null && level.object_by_id(objectId))
+    ? (storage[objectId] && storage[objectId].object) || (level !== null && level.object_by_id(objectId))
     : null;
 }
 
@@ -160,7 +161,7 @@ export function stopPlaySound(object: XR_game_object): void {
  * todo;
  */
 export function changeTeamSquadGroup(se_obj: any, team: any, squad: any, group: any) {
-  const cl_obj = db.storage[se_obj.id] && db.storage[se_obj.id].object;
+  const cl_obj = storage[se_obj.id] && storage[se_obj.id].object;
 
   if (cl_obj !== null) {
     cl_obj.change_team(team, squad, group);

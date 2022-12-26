@@ -1,4 +1,5 @@
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
+import { getActor } from "@/mod/scripts/core/db";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -40,6 +41,7 @@ export function resolveXmlFormPath(path: string, hasWideScreenSupport: boolean =
 
 export function setUiVisibility(isVisible: boolean): void {
   const hud: XR_CUIGameCustom = get_hud();
+  const actor: XR_game_object = getActor()!;
 
   if (isVisible) {
     log.info("[setUiVisibility] Showing UI");
@@ -48,13 +50,13 @@ export function setUiVisibility(isVisible: boolean): void {
 
     // --      db.actor:restore_weapon()
 
-    db.actor.disable_hit_marks(false);
+    actor.disable_hit_marks(false);
     hud.show_messages();
   } else {
     log.info("[setUiVisibility] Hiding UI");
 
-    if (db.actor.is_talking()) {
-      db.actor.stop_talk();
+    if (actor.is_talking()) {
+      actor.stop_talk();
     }
 
     level.hide_indicators_safe();
@@ -65,7 +67,7 @@ export function setUiVisibility(isVisible: boolean): void {
 
     // --      db.actor:hide_weapon()
 
-    db.actor.disable_hit_marks(true);
+    actor.disable_hit_marks(true);
   }
 
   log.info("[setUiVisibility] Completed");

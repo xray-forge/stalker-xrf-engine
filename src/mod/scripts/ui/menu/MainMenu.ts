@@ -1,5 +1,6 @@
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
+import { getActor } from "@/mod/scripts/core/db";
 import { DebugDialog, IDebugDialog } from "@/mod/scripts/ui/debug/DebugDialog";
 import { ILoadDialog, LoadDialog } from "@/mod/scripts/ui/menu/LoadDialog";
 import { IMultiplayerGameSpy, MultiplayerGameSpy } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerGamespy";
@@ -184,7 +185,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
       return;
     }
 
-    const actor = get_global("db").actor;
+    const actor: Optional<XR_game_object> = getActor();
 
     if (actor !== null && !actor.alive()) {
       this.LoadLastSave();
@@ -396,7 +397,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
 
     if (event === ui_events.WINDOW_KEY_PRESSED) {
       if (dik === DIK_keys.DIK_ESCAPE) {
-        const actor: Optional<XR_game_object> = get_global("db").actor;
+        const actor: Optional<XR_game_object> = getActor();
 
         if (level.present() && ((actor != null && actor.alive()) || IsGameTypeSingle() == false)) {
           this.onButtonReturnToGameClick();

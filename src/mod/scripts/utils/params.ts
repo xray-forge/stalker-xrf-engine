@@ -1,4 +1,5 @@
 import { Optional } from "@/mod/lib/types";
+import { scriptIds } from "@/mod/scripts/core/db";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("utils/unknown");
@@ -7,8 +8,8 @@ const log: LuaLogger = new LuaLogger("utils/unknown");
  * todo;
  */
 export function getParamString(srcString: string, obj: XR_game_object): LuaMultiReturn<[string, boolean]> {
-  const scriptIds = db.script_ids[obj.id()];
-  const [outString, num] = string.gsub(srcString, "%$script_id%$", tostring(scriptIds));
+  const scriptId = scriptIds[obj.id()];
+  const [outString, num] = string.gsub(srcString, "%$script_id%$", tostring(scriptId));
 
   if (num > 0) {
     return $multi(outString, true);
