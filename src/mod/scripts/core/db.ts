@@ -1,4 +1,8 @@
+// todo: Separate file with DB objects
+// todo: Separate file with DB utils
+
 import { Optional } from "@/mod/lib/types";
+import { ActorProxy, IActorProxy } from "@/mod/scripts/core/ActorProxy";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("core/db");
@@ -16,7 +20,7 @@ export const offlineObjects = {};
 export const zoneByName: Record<string, XR_game_object> = {};
 
 export const storage: Record<string, XR_object_binder> = {};
-export const actorProxy = get_global("actor_proxy").actor_proxy();
+export const actorProxy: IActorProxy = create_xr_class_instance(ActorProxy);
 export const heli: Record<number, XR_game_object> = {};
 export const smartTerrainById: Record<number, XR_cse_alife_creature_abstract> = {};
 export const animObjByName: Record<string, XR_object_binder> = {};

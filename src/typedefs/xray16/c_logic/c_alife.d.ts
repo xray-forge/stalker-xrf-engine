@@ -370,12 +370,12 @@ declare global {
       monster2: unknown /* cse_alife_monster_abstract */
     ): unknown;
 
-    public has_info(value1: number, infoId: string): boolean;
+    public has_info(objectId: number, infoId: string): boolean;
 
     public object(value: number): XR_cse_alife_creature_abstract | null;
     public object(value1: number, value2: boolean): XR_cse_alife_creature_abstract | null;
 
-    public actor(): unknown;
+    public actor(): XR_cse_alife_creature_abstract;
 
     public story_object(value: number): XR_cse_alife_creature_abstract;
 

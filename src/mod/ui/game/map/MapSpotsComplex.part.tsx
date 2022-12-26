@@ -163,7 +163,8 @@ export function MapSpotsComplex(): JSXNode {
 
         {/**
 				 <!--focused_border x="0" y="-5" width="25" height="25" stretch="0" light_anim="tutor_rad_sign_clr"
-				 light_anim_cyclic="1" la_alpha="1" la_texture="1" xform_anim="map_spot_border_xform" xform_anim_cyclic="1">
+         light_anim_cyclic="1" la_alpha="1" la_texture="1"
+         xform_anim="map_spot_border_xform" xform_anim_cyclic="1">
 				 <texture r="242" g="31" b="11">ui_pda2_stask_last_02</texture>
 				 </focused_border-->
 				 */}
@@ -269,7 +270,9 @@ export function MapSpotsComplex(): JSXNode {
       </secondary_task_location_complex_defend_smart_delay>
 
       {/** <!--
-			 <secondary_task_defend_smart_delay_complex_spot x="0"  y="0"  width="30" height="27" stretch="0" alignment="c" location_level="5" scale="0" scale_min="2.5" scale_max="5.1">
+			 <secondary_task_defend_smart_delay_complex_spot
+       x="0"  y="0"  width="30" height="27" stretch="0" alignment="c"
+       location_level="5" scale="0" scale_min="2.5" scale_max="5.1">
 			 <left_icon   x="0"  y="0"  width="0"  height="0"  stretch="1" />
 			 <right_icon  x="0"  y="0"  width="0"  height="0"  stretch="1" />
 			 <top_icon    x="7.5"  y="0"  width="15" height="15" stretch="1" >
