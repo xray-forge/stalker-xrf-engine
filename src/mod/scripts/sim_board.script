@@ -1,3 +1,7 @@
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "sim_board");
+
 --'******************************************************
 --'*        ������ �����-���������. ������� ���� ���������.
 --'******************************************************
@@ -413,11 +417,11 @@ function sim_board:fill_start_position()
 	end
 end
 
-
 --' ���������� ����� �� ��� �����.
 function sim_board:get_smart_by_name(name)
 	return self.smarts_by_names[name]
 end
+
 --' ���������� ���������� ������� � ������.
 function sim_board:get_smart_population(smart)
 	return self.smarts[smart.id].stayed_squad_quan
@@ -470,6 +474,7 @@ local targets_by_squad_id = {}
 end]]--
 --' ��������� ������ �� �������� ����.
 function clear()
+	log:info("Clear")
 	board = nil
 end
 

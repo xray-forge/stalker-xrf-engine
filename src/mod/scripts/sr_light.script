@@ -1,3 +1,7 @@
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "sr_light");
+
 local light_zones = {}
 
 local indoor_levels = {
@@ -5,28 +9,32 @@ local indoor_levels = {
 }
 ---------------------------------------------------------------------------------------------------------------------
 class "action_light"
+
 function action_light:__init (obj, storage)
 	self.object = obj
 	self.st = storage
 	self.active = false
 	self.id = obj:id()
 end
+
 function action_light:reset_scheme()
     printf("Light zone insert")
     light_zones[self.id] = self
 end
+
 function action_light:update(delta)
 	if xr_logic.try_switch_to_another_section(self.object, self.st, db.actor) then
-	   self.active = false     
+	   self.active = false
 	   self.stalkers = {}
        printf("Light zone set nil")
 	   light_zones[self.id] = nil
 	   return
-	end	
+	end
 	self.active = true
 end
+
 function action_light:check_stalker(stalker)
-    if self.active == false then 
+    if self.active == false then
        return false, false
     end
 
@@ -38,6 +46,7 @@ function action_light:check_stalker(stalker)
 end
 
 ---------------------------------------------------------------------------------------------------------------------
+---
 function add_to_binder(npc, ini, scheme, section, storage)
 --'	printf("DEBUG: add_to_binder: scheme='%s', section='%s'", scheme, section)
 	local new_action = action_light (npc, storage)
@@ -50,13 +59,11 @@ function set_scheme(npc, ini, scheme, section, gulag_name)
 	st.light = utils.cfg_get_bool (ini, section, "light_on", npc, false, false)
 end
 
-
-
 ---------------------------------------------------------------------------------------------------------------------
 function check_light(stalker)
 --'	printf("[check_light %s] start", stalker:name())
-    if stalker == nil then 
-       return 
+    if stalker == nil then
+       return
     end
 
 --'	printf("[check_light %s] start_passed", stalker:name())
@@ -68,19 +75,19 @@ function check_light(stalker)
 --'	printf("[check_light %s] torch_passed", stalker:name())
 	local light = false
 	local forced = false
-	
+
 	if benchmark.light then
 		light  = true
 		forced = true
 	end
-	
+
 	if stalker:alive() == false then
 		light  = false
 		forced = true
 	end
 
 --'	printf("[check_light %s] alive_passed: light=%s, forced=%s", stalker:name(), tostring(light), tostring(forced))
-    --' Проверка по лайтзонам
+    --' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     if not forced then
 	    for k,v in pairs(light_zones) do
 			light, forced = v:check_stalker(stalker)
@@ -92,24 +99,24 @@ function check_light(stalker)
 
 --'	printf("[check_light %s] lightzone_passed: light=%s, forced=%s", stalker:name(), tostring(light), tostring(forced))
 	if not forced then
-		--' Проверка по времени суток (ночью всегда включено)
+		--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
 		local htime = level.get_time_hours()
 		if htime <= 4 or htime >= 22 then
 			light = true
 		end
-	
-		--' Проверка на индор-аутдор (внутри всегда включено)
+
+		--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
 		if light == false then
 			if indoor_levels[level.name()] == true then
 				light = true
 			end
 		end
-	end			
+	end
 
 --'	printf("[check_light %s] timezone_passed: light=%s, forced=%s", stalker:name(), tostring(light), tostring(forced))
-	--' Проверка по активному действию
+	--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	if not forced and light == true then
-		--' Фонарики должны быть выключены у костра
+		--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 		local scheme = db.storage[stalker:id()].active_scheme
 		if scheme == "kamp" or
 		   scheme == "camper" or
@@ -120,20 +127,21 @@ function check_light(stalker)
 		end
 	end
 
---'	printf("[check_light %s] scheme_passed: light=%s, forced=%s", stalker:name(), tostring(light), tostring(forced))	
+--'	printf("[check_light %s] scheme_passed: light=%s, forced=%s", stalker:name(), tostring(light), tostring(forced))
 	if not forced and light == true then
-		--' Фонарики должны быть выключены в бою. Но если в бою идет поиск врага - то включены.
+		--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅ. пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ - пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 		if stalker:best_enemy() ~= nil and indoor_levels[level.name()] ~= true then
 			light = false
-		end				
+		end
 	end
-	
+
 	if light ~= nil then
 		torch:enable_attachable_item(light)
 	end
 end
 
 function clean_up ()
+	log:info("Clean up")
 --'   printf("Light zones cleanup")
-   light_zones = {} 
+   light_zones = {}
 end

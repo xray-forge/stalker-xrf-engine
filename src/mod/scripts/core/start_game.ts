@@ -1,9 +1,11 @@
+import { actorMenu } from "@/mod/scripts/ui/game/ActorMenu";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("core/start_game");
 
 /**
- * todo: Description.
+ * Main start game callback.
+ * Called when game is started
  */
 export function startGame(): void {
   log.info("Start game callback");
@@ -17,7 +19,8 @@ export function startGame(): void {
   get_global("sim_objects").clear();
   get_global("sim_board").clear();
   get_global("sr_light").clean_up();
-  get_global("pda").add_quick_slot_items_on_game_start();
+
+  actorMenu.initQuickSlotItems();
 
   log.info("Initialized modules");
 }

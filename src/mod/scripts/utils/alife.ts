@@ -1,4 +1,4 @@
-import { Maybe, Optional } from "@/mod/lib/types";
+import { AnyArgs, Maybe, Optional } from "@/mod/lib/types";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { wait } from "@/mod/scripts/utils/time";
@@ -96,22 +96,6 @@ export function getStorySquad(storyId: string): Optional<XR_cse_alife_creature_a
  */
 export function getIdBySid(sid: number): Optional<number> {
   return alife()?.story_object(sid)?.id;
-}
-
-/**
- * function reset_action (npc, script_name)
- *  if npc:get_script () then
- *    npc:script (false, script_name)
- *  end
- *  npc:script (true, script_name)
- * end
- */
-export function resetAction(npc: XR_game_object, scriptName: string): void {
-  if (npc.get_script()) {
-    npc.script(false, scriptName);
-  }
-
-  npc.script(true, scriptName);
 }
 
 /**
@@ -232,4 +216,53 @@ export function changeTeamSquadGroup(se_obj: any, team: any, squad: any, group: 
     se_obj.squad = squad;
     se_obj.group = group;
   }
+}
+
+export function action(obj: Optional<XR_game_object>, ...args: AnyArgs): XR_entity_action {
+  log.info("Set action for:", obj?.name());
+
+  const act: XR_entity_action = new entity_action();
+  let i: number = 0;
+
+  while (args[i] !== null) {
+    act.set_action(args[i]);
+    i = i + 1;
+  }
+
+  if (obj !== null) {
+    obj.command(act, false);
+  }
+
+  return new entity_action(act);
+}
+
+export function actionFirst(obj: Optional<XR_game_object>, ...args: AnyArgs): XR_entity_action {
+  log.info("Set action for:", obj?.name());
+
+  const act: XR_entity_action = new entity_action();
+  let i: number = 0;
+
+  while (args[i] !== null) {
+    act.set_action(args[i]);
+    i = i + 1;
+  }
+
+  if (obj !== null) {
+    obj.command(act, true);
+  }
+
+  return new entity_action(act);
+}
+
+/**
+ * todo;
+ */
+export function resetAction(npc: XR_game_object, scriptName: string): void {
+  log.info("Reset action:", npc.name(), scriptName);
+
+  if (npc.get_script()) {
+    npc.script(false, scriptName);
+  }
+
+  npc.script(true, scriptName);
 }

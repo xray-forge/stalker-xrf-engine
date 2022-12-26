@@ -1,6 +1,10 @@
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "xr_sound");
+
 --'-------------------------------------------------------------------------------------------------------------------
---'	Схема озвучки
---'	автор:  Диденко Руслан  (Stohe)
+--'	пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+--'	пїЅпїЅпїЅпїЅпїЅ:  пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ  (Stohe)
 --'--------------------------------------------------------------------------------------------------------------------
 
 --function printf()
@@ -82,6 +86,7 @@ function play_sound_looped(npc_id, sound)
 		looped_sound[npc_id][sound] = snd_theme
 	end
 end
+
 function stop_sound_looped(npc_id, sound)
 	if sound then
 		if type(looped_sound[npc_id][sound]) ~= "string" then
@@ -158,6 +163,7 @@ function actor_save(thread)
 	end
 	set_save_marker(thread, "save", true, "sound_actor_save")
 end
+
 function actor_load(thread)
 	set_save_marker(thread, "load", false, "sound_actor_save")
 	for k,v in pairs(sound_theme.theme) do
@@ -193,6 +199,7 @@ function save_npc(thread, npc_id)
 	end
 	set_save_marker(thread, "save", true, "sound_npc_save")
 end
+
 function load_npc(thread, npc_id)
 	set_save_marker(thread, "load", false, "sound_npc_save")
 	for k,v in pairs(sound_theme.theme) do
@@ -200,7 +207,6 @@ function load_npc(thread, npc_id)
 	end
 	set_save_marker(thread, "load", true, "sound_npc_save")
 end
-
 
 function start_game_callback()
 	sound_table = {}

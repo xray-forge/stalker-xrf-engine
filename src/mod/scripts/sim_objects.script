@@ -1,19 +1,23 @@
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "sim_objects");
+
 --'******************************************************
---'*	Реестр персонажей.
+--'*	пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 --'******************************************************
 
---' Таблица содержащая объекты и данные о них в формате:
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ:
 --' npc = { smart_id, squad_id, flags}
 local objects = {}
 
---' Таблица содержащая объекты сгрупированные по squad_id:
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ squad_id:
 local squad_objects = {}
 
---' Значения флагов:
---' alive - живой персонаж или мертвый
---' marked - помечен ли он мапспотом.
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ:
+--' alive - пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+--' marked - пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 
---' Регистрация нового персонажа.
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 function register_object(obj)
 	if objects[obj.id] ~= nil then
 		abort("Object already exist in list [%s]", obj:name())
@@ -26,7 +30,7 @@ function register_object(obj)
 
 	show_object_spot(obj)
 
-	--' ВРЕМЕННО. Здесь будем выбирать смарттеррейн.
+	--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 	local obj_ini = obj:spawn_ini()
 	local smart = utils.cfg_get_string(obj_ini, "logic", "smart_terrain", obj, false, "", "")
 	printf("SMART = %s", smart)
@@ -41,7 +45,7 @@ function register_object(obj)
 	--obj.m_smart_terrain_id = tonumber(smart_id)
 end
 
---' АнРегистрация персонажа.
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 function unregister_object(obj)
 	if objects[obj.id] == nil then
 		abort("Trying to unregister nil object [%s]", obj:name())
@@ -52,13 +56,13 @@ function unregister_object(obj)
 	objects[obj.id] = nil
 end
 
---' Отметить объект как померший.
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 function object_die(obj)
 	objects[obj.id].flags.alive = false
 
 	hide_object_spot(obj)
 
-	--' Убрать объект из отряда.
+	--' пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
 	local squad_id = objects[obj.id].squad_id
 	squad_objects[squad_id][obj.id] = nil
 	objects[obj.id].squad_id = nil
@@ -67,7 +71,7 @@ function object_die(obj)
 	print_table(objects[obj.id])
 end
 
---' Показать объект на карте
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 function show_object_spot(obj)
 	if objects[obj.id].flags.marked then
 		return
@@ -84,7 +88,7 @@ function show_object_spot(obj)
 	end
 end
 
---' Убрать объект с карты
+--' пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ
 function hide_object_spot(obj)
 	if not objects[obj.id].flags.marked then
 		return
@@ -95,10 +99,10 @@ function hide_object_spot(obj)
 	local community = getObjComunity(obj)
 	if(_G.dev_debug) then
 		level.map_remove_object_spot(obj.id, "alife_presentation_"..community)
-	end 
+	end
 end
 
---' Получить группировку объекта
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 function getObjComunity(obj)
 	if obj:clsid() == clsid.script_stalker then
 		return obj:community()
@@ -108,19 +112,16 @@ function getObjComunity(obj)
 end
 
 
---' Обнуление списка на создании игры.
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ.
 function clear()
 	objects = {}
 	squad_objects = {}
 end
 
-
-
---' Тестовые функции
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 function print()
 	printf("Object list:")
 	print_table(objects)
 	printf("Squad list:")
 	print_table(squad_objects)
-
 end

@@ -21,6 +21,7 @@ end
 
 -- ��� ������� ���������� ��� ������ ����. ���������� ���� ����������� ������� ���������������� ��������.
 function init()
+  log:info("Init")
   -- init_module_if_exists("xrs_dyn_weather")
   init_module_if_exists("xrs_dyn_music")
   -- init_module_if_exists("xrs_debug")

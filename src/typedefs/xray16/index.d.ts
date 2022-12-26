@@ -73,6 +73,8 @@ declare global {
 
   const FS: typeof XR_FS;
 
+  const entity_action: typeof XR_entity_action;
+
   const connect_error_cb: typeof XR_connect_error_cb;
 
   const login_operation_cb: typeof XR_login_operation_cb;

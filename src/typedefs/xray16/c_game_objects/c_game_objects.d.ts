@@ -1654,7 +1654,7 @@ declare global {
       value6: string
     ): unknown;
 
-    public command(entity_action: unknown, value: boolean): unknown;
+    public command(entity_action: XR_entity_action, value: boolean): unknown;
 
     public hit(hit: unknown): unknown;
 
@@ -2339,39 +2339,74 @@ declare global {
    */
   // todo;
   /**
-   C++ class entity_action {
-    entity_action ();
-    entity_action (const entity_action*);
-
-    function set_action(move&);
-    function set_action(look&);
-    function set_action(anim&);
-    function set_action(sound&);
-    function set_action(particle&);
-    function set_action(object&);
-    function set_action(cond&);
-    function set_action(act&);
-
-    function move() const;
-
-    function particle() const;
-
-    function completed();
-
-    function object() const;
-
-    function all();
-
-    function time();
-
-    function look() const;
-
-    function sound() const;
-
-    function anim() const;
-
-  };
+   * class entity_action {
+   *     entity_action ();
+   *     entity_action (const entity_action*);
+   *
+   *     function set_action(move&);
+   *     function set_action(look&);
+   *     function set_action(anim&);
+   *     function set_action(sound&);
+   *     function set_action(particle&);
+   *     function set_action(object&);
+   *     function set_action(cond&);
+   *     function set_action(act&);
+   *
+   *     function move() const;
+   *
+   *     function particle() const;
+   *
+   *     function completed();
+   *
+   *     function object() const;
+   *
+   *     function all();
+   *
+   *     function time();
+   *
+   *     function look() const;
+   *
+   *     function sound() const;
+   *
+   *     function anim() const;
+   *
+   *   };
+   *
+   *  @customConstructor entity_action
    */
+  class XR_entity_action {
+    public constructor ();
+    public constructor (entity: XR_entity_action);
+
+    public set_action(move: unknown): void;
+    public set_action(look: unknown): void;
+    public set_action(anim: unknown): void;
+    public set_action(sound: unknown): void;
+    public set_action(particle: unknown): void;
+    public set_action(objec: unknown): void;
+    public set_action(cond: unknown): void;
+    public set_action(act: unknown): void;
+
+    public move(): unknown;
+
+    public particle(): unknown;
+
+    public completed(): unknown;
+
+    public object(): unknown;
+
+    public all(): unknown;
+
+    public time(): unknown;
+
+    public look(): unknown;
+
+    public sound(): unknown;
+
+    public anim(): unknown;
+
+  }
+
   // todo;
   /**
    C++ class look {

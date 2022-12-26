@@ -41,10 +41,10 @@ local utilsTable = require("scripts.utils.table")
 local utilsTime = require("scripts.utils.time")
 local utilsUnknown = require("scripts.utils.unknown")
 
+start_game_callback = coreStartGame.startGame
+
 utils = utilsUtils
 utils.cfg_get_string = utilsConfigs.getConfigString
-
--- start_game_callback = coreStartGame.startGame
 
 give_info = utilsActor.giveInfo
 disable_info = utilsActor.disableInfo
@@ -60,6 +60,9 @@ get_object_squad = utilsAlife.getObjectSquad
 unregister_story_object_by_id = utilsAlife.unregisterStoryObjectById
 unregister_story_id = utilsAlife.unregisterStoryId
 id_by_sid = utilsAlife.getIdBySid;
+action = utilsAlife.action;
+action_first = utilsAlife.actionFirst;
+reset_action = utilsAlife.resetAction;
 
 change_team_squad_group = utilsAlife.changeTeamSquadGroup
 get_clsid = utilsAlife.getClsId
@@ -140,8 +143,7 @@ stypes = {} -- ���v ����
 
 -- =====================================================================================================================
 
-dev_debug = false
-sim_debug = false
+dev_debug = true
 mus_vol = 0
 amb_vol = 0
 
@@ -161,49 +163,6 @@ end
 function load_scheme(filename, scheme, stype)
 	schemes[scheme] = filename
 	stypes[scheme] = stype
-end
-
-function action(obj,...)
-	local arg = {...}
-	local act = entity_action()
-	local i = 1
-	while true do
-		if (arg[i] ~= nil) then
-			act:set_action(arg[i])
-		else
-			break
-		end
-		i = i + 1
-	end
-	if (obj ~= nil) then
-		obj:command(act,false)
-	end
-	return  entity_action(act)
-end
-
-function action_first(obj,...)
-	local arg = {...}
-	local act = entity_action()
-	local i = 1
-	while true do
-		if (arg[i] ~= nil) then
-			act:set_action(arg[i])
-		else
-			break
-		end
-		i = i + 1
-	end
-	if (obj ~= nil) then
-		obj:command(act,true)
-	end
-	return  entity_action(act)
-end
-
-function reset_action (npc, script_name)
-	if npc:get_script () then
-		npc:script (false, script_name)
-	end
-	npc:script (true, script_name)
 end
 
 --------------------------------------------------
@@ -334,22 +293,4 @@ function get_param_string(src_string , obj)
 	else
 		return src_string , false
 	end
-end
-
-function start_game_callback()
-	log:info("start_game_callback called")
-
-	smart_names.init_smart_names_table()
-	task_manager.clear_task_manager()
-	sound_theme.load_sound()
-	xr_sound.start_game_callback()
-	dialog_manager.fill_phrase_table()
-	xr_s.init()
-	sim_objects.clear()
-	sim_board.clear()
-	sr_light.clean_up ()
-	actorMenu:initQuickSlotItems()
-	-- T����������� �����������
-	--local test_object = test_object.test_object_class()
-	--test_object:test()
 end
