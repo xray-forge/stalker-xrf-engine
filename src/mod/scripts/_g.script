@@ -63,15 +63,13 @@ id_by_sid = utilsAlife.getIdBySid;
 action = utilsAlife.action;
 action_first = utilsAlife.actionFirst;
 reset_action = utilsAlife.resetAction;
-
+interrupt_action = utilsAlife.interruptAction
 change_team_squad_group = utilsAlife.changeTeamSquadGroup
 get_clsid = utilsAlife.getClsId
 is_object_online = utilsAlife.isObjectOnline
 set_current_time = utilsAlife.setCurrentTime
 stop_play_sound = utilsAlife.stopPlaySound
--- reset_action = utilsAlife.resetAction
 -- create_ammo = utilsAlife.createAmmo
--- interrupt_action = utilsAlife.interruptAction
 
 callstack = debugUtils.callstack
 abort = debugUtils.abort
@@ -84,9 +82,9 @@ add = utilsGeneral.add
 if_then_else = utilsGeneral.ifThenElse
 random_choice = utilsGeneral.randomChoice
 random_number = utilsGeneral.randomNumber
--- parse_names = utilsGeneral.parseNames
--- parse_key_value = utilsGeneral.parseKeyValue
--- parse_nums = utilsGeneral.parseNums
+parse_names = utilsGeneral.parseNames
+parse_key_value = utilsGeneral.parseKeyValue
+parse_nums = utilsGeneral.parseNums
 
 yaw = utilsPhysics.yaw
 yaw_degree = utilsPhysics.yawDegree
@@ -126,14 +124,9 @@ artefact_classes = classIds.artefact_class_ids
 -- =====================================================================================================================
 
 -- todo: Remove
-print_table = function (table)
-  -- log:table(table);
-end
-
+print_table = function (table) end
 -- todo: Remove
-function printf(fmt,...)
-  -- log:info(string.format(fmt, ...))
-end
+function printf(fmt,...) end
 
 
 time_infinite = 100000000
@@ -165,76 +158,6 @@ function load_scheme(filename, scheme, stype)
 	stypes[scheme] = stype
 end
 
---------------------------------------------------
--- Functions and variables added by Zmey
---------------------------------------------------
-
--- +��� � ����v� ������ �v��������� �����-�� ��������, ����v���� ��� � �������� ��������v� �����
-function interrupt_action(who, script_name)
-	if who:get_script() then
-		who:script(false, script_name)
-	end
-end
-
-function parse_names( s )
-	local t = {}
-	for name in string.gfind( s, "([%w_\\]+)%p*" ) do
-		--for name in string.gfind( s, "%s*([^%,]+)%s*" ) do
-		table.insert( t, name )
-	end
-	return t
-end
-
-function parse_key_value( s )
-	local t = {}
-	if s == nil then
-		return nil
-	end
-	local key, nam = nil, nil
-	for name in string.gfind( s, "([%w_\\]+)%p*" ) do
-		if key == nil then
-			key = name
-		else
-			t[key] = name
-			key = nil
-		end
-	end
-	return t
-end
-
-function parse_nums( s )
-	local t = {}
-	for entry in string.gfind( s, "([%-%d%.]+)%,*" ) do
-		table.insert( t, tonumber( entry ) )
-	end
-	return t
-end
-
-function store_table(table, subs)
-	local sub
-	if subs ~= nil then
-		sub = subs
-	else
-		sub = ""
-	end
-	printf(sub.."{")
-	for k,v in pairs(table) do
-		if type(v) == "table" then
-			printf(sub.."%s = ", tostring(k))
-			store_table(v, sub.."    ")
-		elseif type(v) == "function" then
-			printf(sub.."%s = \"func\",", tostring(k))
-		elseif type(v) == "userdata" then
-			printf(sub.."%s = \"userdata\",", tostring(k))
-		elseif type(v) == "string" then
-			printf(sub.."%s = \"%s\",", tostring(k), tostring(v))
-		else
-			printf(sub.."%s = %s,", tostring(k), tostring(v))
-		end
-	end
-	printf(sub.."},")
-end
-
 -------------------------------------------------------------------------------------------
 
 function get_object_community(obj)
@@ -245,7 +168,7 @@ function get_object_community(obj)
 	end
 end
 
-function character_community (obj)
+function character_community(obj)
 	if IsStalker(obj) then
 		return obj:character_community()
 	end

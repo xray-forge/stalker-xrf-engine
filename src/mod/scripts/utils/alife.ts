@@ -138,23 +138,12 @@ export function createAmmo(section: string, position: any, lvi: any, gvi: any, p
 }
 
 /**
- * function interrupt_action(who, script_name)
- *  if who:get_script() then
- *    who:script(false, script_name)
- *  end
- * end
- */
-export function interruptAction(target: XR_game_object, scriptName: string): void {
-  if (target.get_script()) {
-    target.script(false, scriptName);
-  }
-}
-
-/**
  * todo;
  */
-export function getClsId(npc: XR_game_object): TXR_ClsId {
-  return npc.clsid();
+export function getClsId(npc: null): null;
+export function getClsId(npc: XR_game_object): TXR_ClsId;
+export function getClsId(npc: Optional<XR_game_object>): Optional<TXR_ClsId> {
+  return npc ? npc.clsid() : null;
 }
 
 /**
@@ -265,4 +254,15 @@ export function resetAction(npc: XR_game_object, scriptName: string): void {
   }
 
   npc.script(true, scriptName);
+}
+
+/**
+ * todo;
+ */
+export function interruptAction(npc: XR_game_object, scriptName: string): void {
+  log.info("Interrupt action:", npc.name(), scriptName);
+
+  if (npc.get_script()) {
+    npc.script(false, scriptName);
+  }
 }

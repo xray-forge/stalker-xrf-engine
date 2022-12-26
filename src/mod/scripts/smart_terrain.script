@@ -432,14 +432,12 @@ function se_smart_terrain:load_jobs()
 
 --	if self:name() == "jup_a10_smart_terrain" then
 --		printf("before sort")
---		store_table(self.jobs)
 --	end
 
 	sort_jobs(self.jobs)
 
 	--if self:name() == "jup_a10_smart_terrain" then
 	--	printf("after sort")
-	--	store_table(self.jobs)
 	--end
 
 

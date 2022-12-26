@@ -189,3 +189,4 @@ For examples check: `src/mod/ui`.
 - Declare luaBind classes with TSTL plugin?
 - Use modules instead of global scope for typedefs folder (no-resolve + declare types packages)
 - Rework acdc perl script and add all.spawn editing utils
+- Unit tests and mocks?

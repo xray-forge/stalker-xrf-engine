@@ -65,48 +65,20 @@ export function vectorToString(vector: Optional<XR_vector>): Optional<string> {
 }
 
 /**
- *
- * function parse_names( s )
- *  local t = {}
- *  for name in string.gfind( s, "([%w_\\]+)%p*" ) do
- *    --for name in string.gfind( s, "%s*([^%,]+)%s*" ) do
- *    table.insert( t, name )
- *  end
- *  return t
- * end
+ * todo;
  */
 export function parseNames(str: string): Record<string, unknown> {
-  const t = {};
+  const names = {};
 
   for (const it of string.gfind(str, "([%w_\\]+)%p*")) {
-    table.insert(t, it);
+    table.insert(names, it);
   }
 
-  return t;
+  return names;
 }
 
 /**
- *
- * function parse_key_value( s )
- *  local t = {}
- *
- *  if s == nil then
- *    return nil
- *  end
- *
- *  local key, nam = nil, nil
- *
- *  for name in string.gfind( s, "([%w_\\]+)%p*" ) do
- *    if key == nil then
- *      key = name
- *    else
- *      t[key] = name
- *      key = nil
- *    end
- *  end
- *
- *  return t
- * end
+ * todo;
  */
 export function parseKeyValue(str: Optional<string>): Optional<Record<string, string>> {
   if (str === null) {
@@ -129,15 +101,7 @@ export function parseKeyValue(str: Optional<string>): Optional<Record<string, st
 }
 
 /**
- * function parse_nums( s )
- *  local t = {}
- *
- *  for entry in string.gfind( s, "([%-%d%.]+)%,*" ) do
- *    table.insert( t, tonumber( entry ) )
- *  end
- *
- *  return t
- * end
+ * todo;
  */
 export function parseNums(str: string): Record<string, unknown> {
   const container: Record<string, string> = {};
