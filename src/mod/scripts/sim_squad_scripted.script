@@ -104,7 +104,7 @@ function sim_squad_scripted:get_script_target()
 	if new_target ~= self.last_target then
 		self.last_target = new_target
 		--' ������ ����� ������ ��� ������
-		self.parsed_targets = utils.parse_names(new_target)
+		self.parsed_targets = parse_names(new_target)
 
 		if self.need_free_update ~= true then
 			self.next_target = 1
@@ -540,7 +540,7 @@ end
 --' �������� ������� � �����
 function sim_squad_scripted:create_npc(spawn_smart)
 	local ini = system_ini()
-	local spawn_sections = utils.parse_names(utils.cfg_get_string(ini, self.settings_id, "npc", self, false, "", ""))
+	local spawn_sections = parse_names(utils.cfg_get_string(ini, self.settings_id, "npc", self, false, "", ""))
 
 	local spawn_point = utils.cfg_get_string(ini, self.settings_id, "spawn_point", self, false, "","self") or
 						utils.cfg_get_string(spawn_smart.ini, smart_terrain.SMART_TERRAIN_SECT, "spawn_point", self, false,"","self")
@@ -577,7 +577,7 @@ function sim_squad_scripted:create_npc(spawn_smart)
 	-- �������� ��������� �������...
 	local random_spawn = utils.cfg_get_string(ini, self.settings_id, "npc_random", self, false, "",nil)
 	if random_spawn ~= nil then
-		random_spawn 				= 	utils.parse_names(random_spawn)
+		random_spawn 				= 	parse_names(random_spawn)
 		local count_min, count_max 	= utils.r_2nums( ini,  self.settings_id, "npc_in_squad", 1, 2 )
 		if count_min > count_max then
 			abort("min_count can't be greater then max_count [%s]!!!!!", self.settings_id)

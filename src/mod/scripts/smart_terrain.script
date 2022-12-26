@@ -1366,7 +1366,7 @@ function se_smart_terrain:check_respawn_params(respawn_params)
 		elseif spawn_num == nil then
 			abort("Wrong smatr_terrain respawn_params section [%s] prop [%s] line [spawn_num](there is no line)", respawn_params, prop_name)
 		end
-		spawn_squads = utils.parse_names(spawn_squads)
+		spawn_squads = parse_names(spawn_squads)
 		spawn_num = xr_logic.parse_condlist(nil, prop_name, "spawn_num", spawn_num)
 		self.respawn_params[prop_name] 			= {}
 		self.already_spawned[prop_name]			= {}

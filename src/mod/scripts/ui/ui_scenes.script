@@ -136,7 +136,7 @@ function scenes_item_dialog:OnButton_create_clicked()
 	end
 	if self.check_spawn_items:GetCheck() then
 		if scenes_table[itmname][4] ~= nil then
-			local spawn_items = utils.parse_names(scenes_table[itmname][4])
+			local spawn_items = parse_names(scenes_table[itmname][4])
 			for k,v in pairs (spawn_items) do
 				alife():create(v, db.actor:position(), 0, 0, db.actor:id())
 			end

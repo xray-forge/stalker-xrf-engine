@@ -21,7 +21,7 @@ function apply_combat_restrictor(npc)
 end
 
 function clear_combat_restrictor(npc)
-	local out_restr = utils.parse_names(npc:out_restrictions())
+	local out_restr = parse_names(npc:out_restrictions())
 
 	for k,v in pairs(out_restr) do
 		if combat_sectors[v] ~= nil then

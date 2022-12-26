@@ -547,7 +547,7 @@ function check(param)
 end
 
 function check_availability(precondition, existing_npc)
-	local check_names = utils.parse_names(existing_npc)
+	local check_names = parse_names(existing_npc)
 
 	for k,v in pairs(precondition) do
 		for kk,vv in pairs(check_names) do
@@ -565,7 +565,7 @@ function get_sequence_for_npc(npc, existing_npc)
 	local return_table = {}
 
 	for i = 1,#cutscene do
-		-- Проверяем есть ли чувак в этой камере
+		-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 		if check_availability(cutscene[i].precondition, existing_npc) then
 			local anm = cutscene[i].animation[npc].a
 			local anm2 = cutscene[i].animation[npc].a2

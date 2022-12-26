@@ -23,7 +23,7 @@ export function getParamString(srcString: string, obj: XR_game_object): LuaMulti
 export function parseNames(str: string): Record<string, unknown> {
   const names = {};
 
-  for (const it of string.gfind(str, "([%w_\\]+)%p*")) {
+  for (const it of string.gfind(str, "([%w_%-.\\]+)%p*")) {
     table.insert(names, it);
   }
 

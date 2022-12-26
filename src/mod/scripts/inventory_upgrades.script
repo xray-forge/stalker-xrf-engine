@@ -2,19 +2,19 @@
 --' funtions for upgerade items ----------------------------------------------------
 --' Made by Distemper ----------------------------------------------------------------
 --' 03.08 --------------------------------------------------------------------------------
-	--' функция доступности апгрейда
+	--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		--' function precondition_functor_a( param1, section )
-	--' функция применения апгрейда (отнимание денег)
+	--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ)
 		--' function effect_functor_a( param2, section )
-	--' функция отображения нужных сдедств  для апгрейда
+	--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ  пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		--' function prereq_functor_a( param3, section )
-	--' функция временно не используеться
+	--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		--' function prereq_tooltip_functor_a( param3 )
-		--' функции для отображения свойств апгрейдов
+		--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		--' function property_functor_a( param1, name )
 		--' function property_functor_b( param1, name )
 		--' function property_functor_c( param1, name )
-		--' функция для отображения специализации техника
+		--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 --------------------------------------------------------------------------------------------
 cur_hint = nil
 local issue_condlist = true
@@ -105,7 +105,7 @@ end
 function property_functor_a( param1, name )
 	local prorerty_name = char_ini:r_string(name, "name")
 	local t_prorerty_name = game.translate_string(prorerty_name)
-	local section_table = utils.parse_names(param1)
+	local section_table = parse_names(param1)
 	local section_table_n = #section_table
 	local section = section_table[1]
 	if(section_table_n==0) then
@@ -169,7 +169,7 @@ end
 function issue_property( param1, name )
 	local prorerty_name = char_ini:r_string(name, "name")
 	local t_prorerty_name = game.translate_string(prorerty_name)
-	local value_table = utils.parse_names(param1)
+	local value_table = parse_names(param1)
 	local section = value_table[1]
 	if section then
 		if not char_ini:line_exist(section, "value") or not char_ini:r_string(section, "value") then

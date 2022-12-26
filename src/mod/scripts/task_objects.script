@@ -1,5 +1,5 @@
 --'*************************************************************************************
---' Дескриптор обычного задания
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 --'*************************************************************************************
 local guiders_by_level = {
 							["zaton"]={["jupiter"]="zat_b215_stalker_guide_zaton", ["pripyat"]="zat_b215_stalker_guide_zaton"},
@@ -70,7 +70,7 @@ function CGeneralTask:__init(task_ini, id)
 	self.prior			= utils.cfg_get_number(task_ini, id, "prior", nil, false, 0)
 	self.storyline		= utils.cfg_get_bool(task_ini, id, "storyline", nil, false, true)
 
-	--' Условия выполнения и провала квеста
+	--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 	local i = 0
 	self.condlist = {}
 	while task_ini:line_exist(id, "condlist_"..i) do
@@ -78,19 +78,19 @@ function CGeneralTask:__init(task_ini, id)
 		i = i + 1
 	end
 
-	--' Кондлисты на статусы квеста
+	--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 	self.on_init = xr_logic.parse_condlist(nil, "task_manager", "condlist", utils.cfg_get_string(task_ini, id, "on_init", nil, false, "", ""))
 	self.on_complete = xr_logic.parse_condlist(nil, "task_manager", "condlist", utils.cfg_get_string(task_ini, id, "on_complete", nil, false, "", ""))
 	self.on_reversed = xr_logic.parse_condlist(nil, "task_manager", "condlist", utils.cfg_get_string(task_ini, id, "on_reversed", nil, false, "", ""))
 
-	--' Награды за квест
+	--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 	self.reward_money = xr_logic.parse_condlist(nil, "task_manager", "condlist", utils.cfg_get_string(task_ini, id, "reward_money", nil, false, "", ""))
 	self.reward_item = xr_logic.parse_condlist(nil, "task_manager", "condlist", utils.cfg_get_string(task_ini, id, "reward_item", nil, false, "", ""))
 
 	self.community_relation_delta_fail = utils.cfg_get_number(task_ini, id, "community_relation_delta_fail", nil, false, 0)
 	self.community_relation_delta_complete = utils.cfg_get_number(task_ini, id, "community_relation_delta_complete", nil, false, 0)
 
-	--' Статус квеста, может быть: "normal", "selected", "completed", "fail", "reversed"
+	--' пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ: "normal", "selected", "completed", "fail", "reversed"
 	self.status = "normal"
 
 	self.current_title = task_functor[self.title_functor](self.id, "title", self.title)
@@ -98,7 +98,7 @@ function CGeneralTask:__init(task_ini, id)
 
 	local time = 0
 	if self.wait_time ~= nil then
-		time = self.wait_time  -- Тут время задано в игровых секундах
+		time = self.wait_time  -- пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	end
 	if(self.storyline) then
 			if time == 0 then
@@ -116,7 +116,7 @@ function CGeneralTask:__init(task_ini, id)
 	self.current_target = task_functor[self.target_functor](self.id, "target", self.target)
 	self.dont_send_update_news = utils.cfg_get_bool(task_ini, id, "dont_send_update_news", nil, false, false)
 end
---' Выдача квеста
+--' пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 function CGeneralTask:give_task(community)
 	local t = CGameTask()
 	t:set_id(tostring(self.id))
@@ -146,16 +146,16 @@ function CGeneralTask:give_task(community)
 	end
 	local time = 0
 	if self.wait_time ~= nil then
-		time = self.wait_time  -- Тут время задано в игровых секундах
+		time = self.wait_time  -- пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	end
-	--' Заносим в task_info
+	--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ task_info
 	self.status = "selected"
 	self.inited_time = game.get_game_time()
 
 	db.actor:give_task(t, time*10, false, time)
 	self.t = t
 end
---' Проверка текущего выполнения квеста
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 function CGeneralTask:check_task(tm)
 	local global_time = time_global()
 	local task_updated = false
@@ -163,7 +163,7 @@ function CGeneralTask:check_task(tm)
 		 self.last_check_task ~= nil and
 		 global_time - self.check_time <= 50
 	then
-		--' Возвращаем результат прошлой проверки (для оптимизации)
+		--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
 		return
 	end
 	if self.t == nil then
@@ -223,7 +223,7 @@ function CGeneralTask:check_task(tm)
 	for k,v in pairs(self.condlist) do
 		local t = xr_logic.pick_section_from_condlist(db.actor, db.actor, v)
 		if t ~= nil then
-			--' Проверка на валидность
+			--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 			if valid_values[t] ~= true then
 				abort("Invalid task status [%s] for task [%s]", t, self.name)
 			end
@@ -234,14 +234,14 @@ function CGeneralTask:check_task(tm)
 
 end
 
---' Инициализация награды
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 function CGeneralTask:give_reward()
 	xr_logic.pick_section_from_condlist(db.actor, db.actor, self.on_complete)
 
 	local money = xr_logic.pick_section_from_condlist(db.actor, db.actor, self.reward_money)
 	local items = xr_logic.pick_section_from_condlist(db.actor, db.actor, self.reward_item)
 
-	-- Награду можно выдать двумя методами: от нпс или просто свалитьс неба. Если не найден НПС, с которым мы в диалоге, то просто валим с неба
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ
 
 	local npc = inventory_upgrades.victim
 
@@ -251,7 +251,7 @@ function CGeneralTask:give_reward()
 
 	if items ~= nil then
 		local ancillary_item_table = {}
-		for k,v in pairs(utils.parse_names(items)) do
+		for k,v in pairs(parse_names(items)) do
 			if ancillary_item_table[v] == nil then
 				ancillary_item_table[v] = 1
 			else
@@ -267,7 +267,7 @@ end
 function CGeneralTask:reverse_task()
 	self.last_check_task = "reversed"
 end
---' Деактивация квеста
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 function CGeneralTask:deactivate_task(task)
 	printf("deactivate task %s", self.id)
 
