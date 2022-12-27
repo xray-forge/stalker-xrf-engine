@@ -1,3 +1,5 @@
+local AnomalyZoneBinder = require("scripts.core.binders.AnomalyZoneBinder")
+
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 local log = create_ts_class_instance(LuaLogger, "bind_stalker");
@@ -152,11 +154,11 @@ end
 function actor_binder:on_item_take (obj)
 	printf("on_item_take [%s]", obj:name())
 	if isArtefact(obj) then
-		local anomal_zone = bind_anomaly_zone.parent_zones_by_artefact_id[obj:id()]
+		local anomal_zone = AnomalyZoneBinder.PARENT_ZONES_BY_ARTEFACT_ID[obj:id()]
 		if anomal_zone ~= nil then
-			anomal_zone:on_artefact_take(obj)
+			anomal_zone:onArtefactTaken(obj)
 		else
-			bind_anomaly_zone.artefact_ways_by_id[obj:id()] = nil
+			AnomalyZoneBinder.ARTEFACT_WAYS_BY_ARTEFACT_ID[obj:id()] = nil
 		end
 		local artefact = obj:get_artefact()
 		artefact:FollowByPath("NULL",0,vector():set(500,500,500))
@@ -353,7 +355,7 @@ function actor_binder:update(delta)
 			self.f_surge_manager_loaded = true
 		end
 		if(self.surge_manager.levels_respawn[level.name()]) then
-			self.surge_manager:respawn_artefacts_and_replace_anomaly_zone()
+			self.surge_manager:respawnArtefactsAndReplaceAnomalyZones()
 		end
 		self.surge_manager:update()
 	end

@@ -107,6 +107,8 @@ declare global {
 
   const vector: typeof XR_vector;
 
+  const patrol: typeof XR_patrol;
+
   const CGameGraph: typeof XR_CGameGraph;
 
   const Frect: typeof XR_FRect;

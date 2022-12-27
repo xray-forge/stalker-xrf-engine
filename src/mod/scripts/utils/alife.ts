@@ -1,5 +1,5 @@
 import { communities, TCommunity } from "@/mod/globals/communities";
-import { AnyArgs, Optional } from "@/mod/lib/types";
+import { AnyArgs, Maybe, Optional } from "@/mod/lib/types";
 import { isStalker } from "@/mod/scripts/core/checkers";
 import { storage } from "@/mod/scripts/core/db";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -19,13 +19,18 @@ export function addStoryObject(objectId: number, storyObjectId: number): void {
 
 /**
  * todo;
- */ ("");
-export function getStoryObject(storyObjectId: number): Optional<XR_game_object> {
+ */
+export function getStoryObject(storyObjectId: string): Optional<XR_game_object> {
   const objectId: Optional<number> = get_global("story_objects").get_story_objects_registry().get(storyObjectId);
+  const possibleObject: Maybe<XR_game_object> = objectId ? storage.get(objectId)?.object : null;
 
-  return objectId
-    ? (storage[objectId] && storage[objectId].object) || (level !== null && level.object_by_id(objectId))
-    : null;
+  if (possibleObject) {
+    return possibleObject;
+  } else if (level && objectId) {
+    return level.object_by_id(objectId);
+  }
+
+  return null;
 }
 
 /**
@@ -160,21 +165,24 @@ export function stopPlaySound(object: XR_game_object): void {
 /**
  * todo;
  */
-export function changeTeamSquadGroup(se_obj: any, team: any, squad: any, group: any) {
-  const cl_obj = storage[se_obj.id] && storage[se_obj.id].object;
+export function changeTeamSquadGroup(
+  serverObject: XR_cse_alife_creature_abstract,
+  team: number,
+  squad: number,
+  group: number
+): void {
+  const clientObject: Maybe<XR_game_object> = storage.get(serverObject.id) && storage.get(serverObject.id).object;
 
-  if (cl_obj !== null) {
-    cl_obj.change_team(team, squad, group);
+  if (clientObject) {
+    clientObject.change_team(team, squad, group);
   } else {
-    se_obj.team = team;
-    se_obj.squad = squad;
-    se_obj.group = group;
+    serverObject.team = team;
+    serverObject.squad = squad;
+    serverObject.group = group;
   }
 }
 
 export function action(obj: Optional<XR_game_object>, ...args: AnyArgs): XR_entity_action {
-  log.info("Set action for:", obj?.name());
-
   const act: XR_entity_action = new entity_action();
   let i: number = 0;
 
@@ -191,8 +199,6 @@ export function action(obj: Optional<XR_game_object>, ...args: AnyArgs): XR_enti
 }
 
 export function actionFirst(obj: Optional<XR_game_object>, ...args: AnyArgs): XR_entity_action {
-  log.info("Set action for:", obj?.name());
-
   const act: XR_entity_action = new entity_action();
   let i: number = 0;
 
@@ -212,8 +218,6 @@ export function actionFirst(obj: Optional<XR_game_object>, ...args: AnyArgs): XR
  * todo;
  */
 export function resetAction(npc: XR_game_object, scriptName: string): void {
-  log.info("Reset action:", npc.name(), scriptName);
-
   if (npc.get_script()) {
     npc.script(false, scriptName);
   }
@@ -225,8 +229,6 @@ export function resetAction(npc: XR_game_object, scriptName: string): void {
  * todo;
  */
 export function interruptAction(npc: XR_game_object, scriptName: string): void {
-  log.info("Interrupt action:", npc.name(), scriptName);
-
   if (npc.get_script()) {
     npc.script(false, scriptName);
   }

@@ -1,3 +1,4 @@
+local AnomalyZoneBinder = require("scripts.core.binders.AnomalyZoneBinder")
 
 -- ������ ������� � ���� ����� ������������ ��� ������� xr_logic: {=������� !�������}
 -- ���� � ������� ���������� ���������� ���������, ��:  {=�������(�����1:�����2:...) !�������(�����1:�����2:...)}
@@ -1330,7 +1331,7 @@ function anomaly_has_artefact(actor, npc, p)
 
 	if af_name == nil then
 		local af_table = {}
-		for k,v in pairs(anomal_zone.artefact_ways_by_id) do
+		for k,v in pairs(AnomalyZoneBinder.ARTEFACT_WAYS_BY_ARTEFACT_ID) do
 			if alife():object(tonumber(k)) then
 				table.insert(af_table, alife():object(tonumber(k)):section_name())
 			end
@@ -1338,7 +1339,7 @@ function anomaly_has_artefact(actor, npc, p)
 		return true, af_table
 	end
 
-	for k,v in pairs(anomal_zone.artefact_ways_by_id) do
+	for k,v in pairs(AnomalyZoneBinder.ARTEFACT_WAYS_BY_ARTEFACT_ID) do
 		if alife():object(tonumber(k)) and af_name == alife():object(tonumber(k)):section_name() then
 			return true
 		end
@@ -1367,7 +1368,7 @@ function zat_b29_anomaly_has_af(actor, npc, p)
 		end
 	end
 
-	for k,v in pairs(anomal_zone.artefact_ways_by_id) do
+	for k,v in pairs(AnomalyZoneBinder.ARTEFACT_WAYS_BY_ARTEFACT_ID) do
 		if alife():object(tonumber(k)) and af_name == alife():object(tonumber(k)):section_name() then
 			db.actor:give_info_portion(az_name)
 			return true

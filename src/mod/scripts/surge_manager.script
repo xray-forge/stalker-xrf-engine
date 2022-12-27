@@ -336,7 +336,7 @@ function CSurgeManager:skip_surge()
 	self.blowout_sound			= false
 	prev_sec				= 0
 
-	self:respawn_artefacts_and_replace_anomaly_zone()
+	self:respawnArtefactsAndReplaceAnomalyZones()
 	xr_statistic.inc_surges_counter()
 	if (not self.skip_message) then
 		news_manager.send_tip(db.actor, "st_surge_while_asleep", nil, "recent_surge", nil, nil)
@@ -384,18 +384,18 @@ function CSurgeManager:end_surge(manual)
 		self:kill_all_unhided()
 	end
 
-	self:respawn_artefacts_and_replace_anomaly_zone()
+	self:respawnArtefactsAndReplaceAnomalyZones()
 	xr_statistic.inc_surges_counter()
 end
 
-function CSurgeManager:respawn_artefacts_and_replace_anomaly_zone()
+function CSurgeManager:respawnArtefactsAndReplaceAnomalyZones()
 	local lvl_nm = level.name()
 	if(self.levels_respawn[lvl_nm]) then
 		self.levels_respawn[lvl_nm] = false
 	end
 	local anomalies = db.anomaly_by_name
 	for k,v in pairs(anomalies) do
-		v:respawn_artefacts_and_replace_anomaly_zone()
+		v:respawnArtefactsAndReplaceAnomalyZones()
 		--printf("respawn artefacts in anomal zone [%s]", tostring(k))
 	end
 

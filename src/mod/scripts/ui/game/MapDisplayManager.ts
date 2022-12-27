@@ -5,7 +5,7 @@ import { map_mark_type, npc_map_marks } from "@/mod/globals/npc_map_marks";
 import { story_ids } from "@/mod/globals/story_ids";
 import { AnyCallable, AnyObject, Maybe, Optional } from "@/mod/lib/types";
 import { AbstractSingletonManager } from "@/mod/scripts/core/AbstractSingletonManager";
-import { getActor, storage } from "@/mod/scripts/core/db";
+import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { getConfigString } from "@/mod/scripts/utils/configs";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
@@ -260,7 +260,7 @@ export class MapDisplayManager extends AbstractSingletonManager {
   public fillSleepZones(): void {
     sleepZones.forEach((it) => {
       const objectId: Optional<number> = getStoryObjectId(it.target);
-      const storedObject: Optional<{ object: XR_game_object }> = objectId ? storage[objectId] : null;
+      const storedObject: Optional<IStoredObject> = objectId ? storage.get(objectId) : null;
 
       if (objectId && storedObject && storedObject.object) {
         const actorPosition: XR_vector = getActor()!.position();

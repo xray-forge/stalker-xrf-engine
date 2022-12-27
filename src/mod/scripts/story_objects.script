@@ -14,6 +14,7 @@ function story_objects_registry:register(obj_id , story_obj_id, on_register)
 		if obj_id ~= self.id_by_story_id[story_obj_id] then
 			local exist_obj_name = alife():object(self.id_by_story_id[story_obj_id]):name()
 			local adding_obj_name = alife():object(obj_id):name()
+
 			abort("You are trying to spawn two or more objects with the same story_id:[%s] --> [%s] try to add:[%s]", story_obj_id, exist_obj_name, adding_obj_name)
 		end
 	elseif self.story_id_by_id[obj_id] ~= nil then

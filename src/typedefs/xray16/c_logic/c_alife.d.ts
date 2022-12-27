@@ -1,3 +1,5 @@
+import { Optional } from "@/mod/lib/types";
+
 export {};
 
 declare global {
@@ -372,8 +374,8 @@ declare global {
 
     public has_info(objectId: number, infoId: string): boolean;
 
-    public object(value: number): XR_cse_alife_creature_abstract | null;
-    public object(value1: number, value2: boolean): XR_cse_alife_creature_abstract | null;
+    public object(id: number): XR_cse_alife_creature_abstract | null;
+    public object(id: number, value2: boolean): XR_cse_alife_creature_abstract | null;
 
     public actor(): XR_cse_alife_creature_abstract;
 
@@ -381,22 +383,22 @@ declare global {
 
     public spawn_id(value: number): unknown;
 
-    public release(cse_abstract: unknown /* cse_abstract */, value: boolean): unknown;
+    public release(cse_abstract: Optional<XR_cse_alife_creature_abstract>, value: boolean): unknown;
 
     public create(value: number): unknown;
     public create(
       value1: string,
-      vector: XR_vector2,
+      vector: XR_vector,
       value2: number,
       value3: number,
       value4: number
     ): unknown;
     public create(
       value1: string,
-      vector: XR_vector2,
+      vector: XR_vector,
       value2: number,
       value3: number
-    ): unknown;
+    ): XR_cse_alife_creature_abstract;
 
   }
 
@@ -2550,8 +2552,8 @@ declare global {
     public parent_id: number;
     public position: unknown;
     public script_version: unknown;
-    public squad: unknown;
-    public team: unknown;
+    public squad: number;
+    public team: number;
 
     public constructor(id: string);
 
@@ -4531,47 +4533,86 @@ declare global {
    */
   // todo;
   /**
-   C++ class patrol {
-    const continue = 1;
-    const custom = 3;
-    const dummy = -1;
-    const nearest = 2;
-    const next = 4;
-    const start = 0;
-    const stop = 0;
-
-    patrol (string);
-    patrol (string, enum PatrolPathManager::EPatrolStartType);
-    patrol (string, enum PatrolPathManager::EPatrolStartType, enum PatrolPathManager::EPatrolRouteType);
-    patrol (string, enum PatrolPathManager::EPatrolStartType, enum PatrolPathManager::EPatrolRouteType, boolean)
-    patrol (
-      string,
-      enum PatrolPathManager::EPatrolStartType,
-      enum PatrolPathManager::EPatrolRouteType,
-      boolean,
-      number
-    );
-
-    function level_vertex_id(number) const;
-
-    function point(const patrol*, number);
-
-    function flag(number, number) const;
-
-    function game_vertex_id(number) const;
-
-    function flags(number) const;
-
-    function name(number) const;
-
-    function index.d.ts(string) const;
-
-    function terminal(number) const;
-
-    function count() const;
-
-    function get_nearest(const vector&) const;
-
-  };
+   * C++ class patrol {
+   *     const continue = 1;
+   *     const custom = 3;
+   *     const dummy = -1;
+   *     const nearest = 2;
+   *     const next = 4;
+   *     const start = 0;
+   *     const stop = 0;
+   *
+   *     patrol (string);
+   *     patrol (string, enum PatrolPathManager::EPatrolStartType);
+   *     patrol (string, enum PatrolPathManager::EPatrolStartType, enum PatrolPathManager::EPatrolRouteType);
+   *     patrol (string, enum PatrolPathManager::EPatrolStartType, enum PatrolPathManager::EPatrolRouteType, boolean)
+   *     patrol (
+   *       string,
+   *       enum PatrolPathManager::EPatrolStartType,
+   *       enum PatrolPathManager::EPatrolRouteType,
+   *       boolean,
+   *       number
+   *     );
+   *
+   *     function level_vertex_id(number) const;
+   *
+   *     function point(const patrol*, number);
+   *
+   *     function flag(number, number) const;
+   *
+   *     function game_vertex_id(number) const;
+   *
+   *     function flags(number) const;
+   *
+   *     function name(number) const;
+   *
+   *     function index(string) const;
+   *
+   *     function terminal(number) const;
+   *
+   *     function count() const;
+   *
+   *     function get_nearest(const vector&) const;
+   *
+   *   };
+   *
+   * @customConstructor patrol
    */
+  class XR_patrol {
+    public static continue: 1;
+    public static custom : 3;
+    public static dummy:-1;
+    public static nearest: 2;
+    public static next : 4;
+    public static start : 0;
+    public static stop: 0;
+
+    public constructor (value: string);
+    public constructor (value: string, startType: unknown);
+    public constructor (value: string, startType: unknown, routeType: unknown);
+    public constructor (values: string, startType: unknown, routeType: unknown, valueb: boolean)
+    public constructor (valueS: string, startType: unknown, routeType: unknown, valueB: boolean, valueN: number);
+
+    public level_vertex_id(value: number): unknown;
+
+    public point(value: number): XR_vector;
+
+    public flag(value1: number, value2: number): unknown;
+
+    public game_vertex_id(value: number): unknown;
+
+    public flags(value: number): unknown;
+
+    public name(value: number): unknown;
+
+    public index(value: string): unknown;
+
+    public terminal(value: number): unknown;
+
+    public count(): number;
+
+    public get_nearest(vector: XR_vector): unknown;
+
+  }
+
 }

@@ -1,3 +1,5 @@
+local AnomalyZoneBinder = require("scripts.core.binders.AnomalyZoneBinder")
+
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 local log = create_ts_class_instance(LuaLogger, "bind_artefact");
@@ -23,17 +25,17 @@ function artefact_binder:net_spawn(server_object)
 	db.add_obj(self.object)
 	local artefact = self.object:get_artefact()
 	local id = self.object:id()
-	if bind_anomaly_zone.artefact_ways_by_id[id] ~= nil then
-		local anomal_zone = bind_anomaly_zone.parent_zones_by_artefact_id[id]
-		local force_xz	= anomal_zone.applying_force_xz
-		local force_y	= anomal_zone.applying_force_y
-		artefact:FollowByPath(bind_anomaly_zone.artefact_ways_by_id[id],bind_anomaly_zone.artefact_points_by_id[id],vector():set(force_xz,force_y,force_xz))
---		artefact:FollowByPath(bind_anomaly_zone.artefact_ways_by_id[id],0,vector():set(force_xz,force_y,force_xz))
+
+	if AnomalyZoneBinder.ARTEFACT_WAYS_BY_ARTEFACT_ID[id] ~= nil then
+		local anomal_zone = AnomalyZoneBinder.PARENT_ZONES_BY_ARTEFACT_ID[id]
+		local force_xz	= anomal_zone.applyingForceXZ
+		local force_y	= anomal_zone.applyingForceY
+
+		artefact:FollowByPath(AnomalyZoneBinder.ARTEFACT_WAYS_BY_ARTEFACT_ID[id],AnomalyZoneBinder.ARTEFACT_POINTS_BY_ARTEFACT_ID[id],vector():set(force_xz,force_y,force_xz))
+--		artefact:FollowByPath(AnomalyZoneBinder.ARTEFACT_WAYS_BY_ARTEFACT_ID[id],0,vector():set(force_xz,force_y,force_xz))
 	end
 
 	self.first_call = true
-
-
 
 	return true
 end

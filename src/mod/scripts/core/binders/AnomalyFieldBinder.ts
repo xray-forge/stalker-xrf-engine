@@ -3,37 +3,34 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("core/binders/AnomalyFieldBinder");
 
-export const FIELDS_BY_NAME: Record<string, any> = {};
+// todo: Move to db.
+export const FIELDS_BY_NAME: LuaTable<string, IAnomalyFieldBinder> = new LuaTable();
+const UPDATE_THROTTLE: number = 10000;
 
 export interface IAnomalyFieldBinder extends XR_object_binder {
-  last_update: number;
-  // todo: Probably not needed.
-  st: any;
+  updatedAt: number;
 
   set_enable(isEnabled: boolean): void;
 }
 
 export const AnomalyFieldBinder: IAnomalyFieldBinder = declare_xr_class("AnomalyFieldBinder", object_binder, {
   __init(object: XR_game_object): void {
-    log.info("Init binder:", object.name());
+    log.info("Init binder:", object.name(), object.id());
 
     xr_class_super(object);
-    this.last_update = time_global();
-  },
-  __finalize() {
-    log.info("Finalized");
+
+    this.updatedAt = time_global();
   },
   reload(section: string): void {
-    log.info("Reload binder:", this.object.name());
+    log.info("Reload binder:", this.object.name(), this.object.id());
     object_binder.reload(this, section);
   },
   reinit(): void {
-    log.info("Reinit binder:", this.object.name());
+    log.info("Reinit binder:", this.object.name(), this.object.id());
 
     object_binder.reinit(this);
 
-    storage[this.object.id()] = {} as XR_object_binder;
-    this.st = storage[this.object.id()];
+    storage.set(this.object.id(), {});
   },
 
   net_spawn(object: XR_game_object): boolean {
@@ -46,7 +43,7 @@ export const AnomalyFieldBinder: IAnomalyFieldBinder = declare_xr_class("Anomaly
     addZone(this.object);
     addObject(this.object);
 
-    FIELDS_BY_NAME[this.object.name()] = this;
+    FIELDS_BY_NAME.set(this.object.name(), this);
 
     return true;
   },
@@ -56,8 +53,8 @@ export const AnomalyFieldBinder: IAnomalyFieldBinder = declare_xr_class("Anomaly
     deleteZone(this.object);
     deleteObject(this.object);
 
-    storage[this.object.id()] = null as any;
-    FIELDS_BY_NAME[this.object.name()] = null;
+    storage.delete(this.object.id());
+    FIELDS_BY_NAME.delete(this.object.name());
 
     object_binder.net_destroy(this);
 
@@ -73,13 +70,13 @@ export const AnomalyFieldBinder: IAnomalyFieldBinder = declare_xr_class("Anomaly
     }
   },
   update(value: number): void {
-    object_binder.update(this, value);
+    const now: number = time_global();
 
-    if (time_global() - this.last_update < 10000) {
-      return;
+    if (now - this.updatedAt > UPDATE_THROTTLE) {
+      this.updatedAt = now;
+
+      object_binder.update(this, value);
     }
-
-    this.last_update = time_global();
   },
   net_save_relevant(): boolean {
     return true;

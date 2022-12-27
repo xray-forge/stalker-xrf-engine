@@ -316,8 +316,8 @@ declare global {
 
     public constructor(object: T);
 
-    public static save(this: void, target: XR_object_binder, net_packet: unknown): unknown;
-    public save(net_packet: unknown): unknown;
+    public static save(this: void, target: XR_object_binder, net_packet: XR_net_packet): unknown;
+    public save(net_packet: XR_net_packet): unknown;
 
     public static update(this: void, target: XR_object_binder, value: number): void;
     public update(value: number): void;
@@ -325,14 +325,14 @@ declare global {
     public static reload(this: void, target: XR_object_binder, value: string): unknown;
     public reload(value: string): unknown;
 
-    public static net_export(this: void, target: XR_object_binder, net_packet: unknown): unknown;
-    public net_export(net_packet: unknown): unknown;
+    public static net_export(this: void, target: XR_object_binder, net_packet: XR_net_packet): unknown;
+    public net_export(net_packet: XR_net_packet): unknown;
 
     public net_save_relevant(this: void, target: XR_object_binder): boolean;
     public net_save_relevant(): boolean;
 
-    public static load(this: void, target: XR_object_binder, reader: unknown): unknown;
-    public load(reader: unknown): unknown;
+    public static load(this: void, target: XR_object_binder, net_packet: XR_net_packet): unknown;
+    public load(net_packet: XR_net_packet): unknown;
 
     public static net_destroy(this: void, target: XR_object_binder): void;
     public net_destroy(): void;
@@ -354,8 +354,8 @@ declare global {
     ): boolean;
     public net_spawn(object: T): boolean;
 
-    public static net_import(this: void, target: XR_object_binder, net_packet: unknown): unknown
-    public net_import(net_packet: unknown): unknown;
+    public static net_import(this: void, target: XR_object_binder, net_packet: XR_net_packet): unknown
+    public net_import(net_packet: XR_net_packet): unknown;
   }
 
   /**
@@ -558,4 +558,238 @@ declare global {
    */
 
   // todo;
+
+  /**
+   * C++ class net_packet {
+   *     net_packet ();
+   *
+   *     function r_advance(number);
+   *
+   *     function r_begin(number&);
+   *
+   *     function w_chunk_open16(number&);
+   *
+   *     function r_u32(number&);
+   *     function r_u32();
+   *
+   *     function w_begin(number);
+   *
+   *     function w_u32(number);
+   *
+   *     function r_u8(number&);
+   *     function r_u8();
+   *
+   *     function r_eof(net_packet*);
+   *
+   *     function w_chunk_open8(number&);
+   *
+   *     function r_vec3(vector&);
+   *
+   *     function w_u8(number);
+   *
+   *     function r_u16(number&);
+   *     function r_u16();
+   *
+   *     function r_float_q16(number&, number, number);
+   *
+   *     function r_angle16(number&);
+   *
+   *     function r_s64(__int64&);
+   *     function r_s64();
+   *
+   *     function w_angle16(number);
+   *
+   *     function r_tell();
+   *
+   *     function r_s16(number&);
+   *     function r_s16();
+   *
+   *     function w_clientID(ClientID&);
+   *
+   *     function r_elapsed();
+   *
+   *     function r_u64(unsigned __int64&);
+   *     function r_u64();
+   *
+   *     function w_sdir(const vector&);
+   *
+   *     function r_clientID(net_packet*);
+   *
+   *     function r_dir(vector&);
+   *
+   *     function r_matrix(matrix&);
+   *
+   *     function r_stringZ(net_packet*);
+   *
+   *     function w_s16(number);
+   *
+   *     function r_sdir(vector&);
+   *
+   *     function w_matrix(matrix&);
+   *
+   *     function w_u16(number);
+   *
+   *     function r_float_q8(number&, number, number);
+   *
+   *     function w_s64(__int64);
+   *
+   *     function r_bool(net_packet*);
+   *
+   *     function w_bool(net_packet*, boolean);
+   *
+   *     function w_dir(const vector&);
+   *
+   *     function w_s32(number);
+   *
+   *     function w_stringZ(string);
+   *
+   *     function w_float_q16(number, number, number);
+   *
+   *     function r_s8(signed char&);
+   *     function r_s8();
+   *
+   *     function w_chunk_close8(number);
+   *
+   *     function r_float(number&);
+   *     function r_float();
+   *
+   *     function w_angle8(number);
+   *
+   *     function r_s32(number&);
+   *     function r_s32();
+   *
+   *     function w_float(number);
+   *
+   *     function w_tell();
+   *
+   *     function r_seek(number);
+   *
+   *     function w_float_q8(number, number, number);
+   *
+   *     function w_vec3(const vector&);
+   *
+   *     function w_chunk_close16(number);
+   *
+   *     function w_u64(unsigned __int64);
+   *
+   *     function r_angle8(number&);
+   *
+   *   };
+   *
+   *  @customConstructor net_packet
+   */
+  class XR_net_packet {
+    public r_advance(value: number): unknown;
+
+    public r_begin(value: number): unknown;
+
+    public w_chunk_open16(value: number): unknown;
+
+    public r_u32(value: number): unknown;
+    public r_u32(): unknown;
+
+    public w_begin(value: number): unknown;
+
+    public w_u32(value: number): unknown;
+
+    public r_u8(value: number): unknown;
+    public r_u8(): number;
+
+    public r_eof(): unknown;
+
+    public w_chunk_open8(value: number): unknown;
+
+    public r_vec3(vector: XR_vector): unknown;
+
+    public w_u8(value: number): unknown;
+
+    public r_u16(value: number): number;
+    public r_u16(): number;
+
+    public r_float_q16(value1: number, value2: number, value3: number): unknown;
+
+    public r_angle16(value: number): unknown;
+
+    public r_s64(value: number): unknown;
+    public r_s64(): unknown;
+
+    public w_angle16(value: number): unknown;
+
+    public r_tell(): unknown;
+
+    public r_s16(value: number): unknown;
+    public r_s16(): unknown;
+
+    public w_clientID(ClientID: unknown): unknown;
+
+    public r_elapsed(): unknown;
+
+    public r_u64(value: number): unknown;
+    public r_u64(): unknown;
+
+    public w_sdir(vector: XR_vector): unknown;
+
+    public r_clientID(): unknown;
+
+    public r_dir(vector: XR_vector): unknown;
+
+    public r_matrix(matrix: unknown): unknown;
+
+    public r_stringZ(): string;
+
+    public w_s16(value: number): unknown;
+
+    public r_sdir(vector: XR_vector): unknown;
+
+    public w_matrix(matrix: unknown): unknown;
+
+    public w_u16(value: number): number;
+
+    public r_float_q8(value1: number, value2: number, value3: number): unknown;
+
+    public w_s64(value: number): void;
+
+    public r_bool(): boolean;
+
+    public w_bool(value: boolean): void;
+
+    public w_dir(vector: XR_vector): unknown;
+
+    public w_s32(value: number): unknown;
+
+    public w_stringZ(value: string): void;
+
+    public w_float_q16(value1: number, value2: number, value3: number): unknown;
+
+    public r_s8(value: string): unknown;
+    public r_s8(): unknown;
+
+    public w_chunk_close8(value: number): unknown;
+
+    public r_float(value: number): unknown;
+    public r_float(): unknown;
+
+    public w_angle8(value: number): unknown;
+
+    public r_s32(value: number): unknown;
+    public r_s32(): unknown;
+
+    public w_float(value: number): unknown;
+
+    public w_tell(): unknown;
+
+    public r_seek(value: number): unknown;
+
+    public w_float_q8(value1: number, value2: number, value3: number): unknown;
+
+    public w_vec3(vector: XR_vector): unknown;
+
+    public w_chunk_close16(value: number): unknown;
+
+    public w_u64(value: number): unknown;
+
+    public r_angle8(value: number): unknown;
+
+  }
+
 }

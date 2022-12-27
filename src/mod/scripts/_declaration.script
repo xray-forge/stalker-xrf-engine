@@ -43,6 +43,7 @@ amb_vol = 0
 
 utils = utilsUtils
 utils.cfg_get_string = utilsConfigs.getConfigString
+utils.cfg_get_number = utilsConfigs.getConfigNumber
 
 -- ---------------------------------------------------------------------------------------------------------------------
 

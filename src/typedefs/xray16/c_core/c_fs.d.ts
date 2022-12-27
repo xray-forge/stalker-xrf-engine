@@ -338,7 +338,7 @@ declare global {
 
     public r_s32(section:string, param: string): number;
 
-    public r_line(ini_file: XR_ini_file, a: string, b: number, c: string, d: string): string;
+    public r_line(a: string, b: number, c: string, d: string): LuaMultiReturn<Array<string>>;
 
     public r_token(section: string, param: string, list: unknown /* const token_list& */): unknown;
 

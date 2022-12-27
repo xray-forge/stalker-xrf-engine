@@ -21,8 +21,8 @@ export function getParamString(srcString: string, obj: XR_game_object): LuaMulti
 /**
  * todo;
  */
-export function parseNames(str: string): Record<string, unknown> {
-  const names = {};
+export function parseNames(str: string): LuaTable<number, string> {
+  const names: LuaTable<number, string> = new LuaTable();
 
   for (const it of string.gfind(str, "([%w_%-.\\]+)%p*")) {
     table.insert(names, it);
@@ -57,8 +57,8 @@ export function parseKeyValue(str: Optional<string>): Optional<Record<string, st
 /**
  * todo;
  */
-export function parseNums(str: string): Record<string, unknown> {
-  const container: Record<string, string> = {};
+export function parseNums(str: string): LuaTable<number, number> {
+  const container: LuaTable<number, number> = new LuaTable();
 
   for (const it of string.gfind(str, "([%-%d%.]+)%,*")) {
     table.insert(container, tonumber(it));

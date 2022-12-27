@@ -19,7 +19,11 @@ export const offlineObjects = {};
 
 export const zoneByName: Record<string, XR_game_object> = {};
 
-export const storage: Record<string, XR_object_binder> = {};
+export interface IStoredObject<T = XR_game_object> {
+  object?: T;
+}
+
+export const storage: LuaTable<number, IStoredObject> = new LuaTable();
 export const actorProxy: IActorProxy = create_xr_class_instance(ActorProxy);
 export const heli: Record<number, XR_game_object> = {};
 export const smartTerrainById: Record<number, XR_cse_alife_creature_abstract> = {};
@@ -58,13 +62,13 @@ export function deleteEnemy(enemyIndex: number): void {
 export function addObject(object: XR_game_object): void {
   log.info("Add object:", object.name());
 
-  storage[object.id()].object = object;
+  storage.get(object.id()).object = object;
 }
 
 export function deleteObject(object: XR_game_object): void {
   log.info("Delete object:", object.name());
 
-  storage[object.id()] = null as any;
+  storage.delete(object.id());
 }
 
 export function addZone(zone: XR_game_object): void {

@@ -39,7 +39,8 @@ declare interface ILUAString {
 declare interface ILUATable {
   concat(this: void, list: unknown, sep: unknown, i: unknown, j: unknown): unknown;
   insert(this: void, list: unknown, pos: unknown, value: unknown): unknown;
-  insert(this: void, list: unknown, value?: unknown): unknown;
+  insert<T>(this: void, list: Array<T> | Record<any, T>, value?: T): unknown;
+  insert<T>(this: void, list: LuaTable<number, T>, value?: T): unknown;
   move(this: void, a1: unknown, f: unknown, e: unknown, t: unknown, a2: unknown): unknown;
   remove(this: void, list: unknown, pos: number): unknown;
   sort(this: void, list: unknown, comp: unknown): unknown;

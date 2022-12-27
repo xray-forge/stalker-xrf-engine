@@ -2,6 +2,8 @@ local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 local log = create_ts_class_instance(LuaLogger, "utils");
 
+local utilsConfigs = require("scripts.utils.configs")
+
 log:info("Initialize utils")
 
 local export = {}
@@ -39,23 +41,6 @@ function export.cfg_get_bool(char_ini, section, field, object, mandatory, defaul
 		"section '%s'", object:name(), field, section)
 end
 
-function export.cfg_get_number(char_ini, section, field, object, mandatory, default_val)
-	if mandatory == nil then
-		abort("section '%s': wrong arguments order in call to cfg_get_number", section)
-	end
-
-	--printf("DEBUG: conf_get_number: section='%s', field='%s'", section, field)
-	if section and char_ini:section_exist(section) and char_ini:line_exist(section, field) then
-		return char_ini:r_float(section, field)
-	end
-	if not mandatory then
-		return default_val
-	end
-	-- local err = "object name '" .. object:name() .. "': attempt to read a non-existant numeric field '" ..
-	--	field .. "' in section '" .. section .. "'";
-	-- abort("%s", err)
-end
-
 function export.mob_get_string(char_ini, section, field, override, object, mandatory, default_val)
 	if override ~= nil then
 		return override
@@ -69,7 +54,7 @@ function export.mob_get_number(char_ini, section, field, override, object, manda
 		return override
 	end
 
-	return cfg_get_number(char_ini, section, field, object, mandatory, default_val)
+	return utilsConfigs.getConfigNumber(char_ini, section, field, object, mandatory, default_val)
 end
 
 function export.mob_get_bool(char_ini, section, field, override, object, mandatory, default_val)

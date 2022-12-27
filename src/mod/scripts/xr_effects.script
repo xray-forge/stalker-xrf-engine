@@ -2594,7 +2594,7 @@ function pick_artefact_from_anomaly(actor, npc, p)
 		return
 	end
 
-	anomal_zone:on_artefact_take(af_obj)
+	anomal_zone:onArtefactTaken(af_obj)
 
 	alife():release(af_obj, true)
 	give_item(db.actor, npc, {af_name, p[1]})

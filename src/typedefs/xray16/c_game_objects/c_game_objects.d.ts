@@ -1156,7 +1156,7 @@ declare global {
 
     public sympathy(): unknown;
 
-    public spawn_ini(): unknown;
+    public spawn_ini(): XR_ini_file;
 
     public drop_item_and_teleport(game_object: XR_game_object, vector: XR_vector): unknown;
 
@@ -1687,7 +1687,7 @@ declare global {
 
     public base_in_restrictions(): unknown;
 
-    public level_vertex_id(): unknown;
+    public level_vertex_id(): number;
 
     public set_trader_head_anim(value: string): unknown;
 
@@ -1726,7 +1726,7 @@ declare global {
 
     public set_manual_invisibility(value: boolean): unknown;
 
-    public game_vertex_id(): unknown;
+    public game_vertex_id(): number;
 
     public action_by_index(value: number): unknown;
 

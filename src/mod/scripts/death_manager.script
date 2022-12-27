@@ -124,8 +124,9 @@ function init_drop_settings()
 end
 
 class "drop_manager"
+
 function drop_manager:__init(npc)
-	log:info("Init drop manager")
+	log:info("Init drop manager:", npc:name())
 	self.npc = npc
 end
 
