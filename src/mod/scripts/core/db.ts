@@ -8,7 +8,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 const log: LuaLogger = new LuaLogger("core/db", false);
 
 export const infoRestr = {};
-export const scriptIds: Record<number, any> = {};
+export const scriptIds: LuaTable<number, any> = new LuaTable();
 export const campStorage = {};
 export const noWeapZones = {};
 export const spawnedVertexById = {};
@@ -17,7 +17,7 @@ export const signalLight = {};
 export const goodwill = { sympathy: {}, relations: {} };
 export const offlineObjects = {};
 
-export const zoneByName: Record<string, XR_game_object> = {};
+export const zoneByName: LuaTable<string, XR_game_object> = new LuaTable();
 
 export interface IStoredObject<T = XR_game_object> {
   object?: T;
@@ -25,10 +25,10 @@ export interface IStoredObject<T = XR_game_object> {
 
 export const storage: LuaTable<number, IStoredObject> = new LuaTable();
 export const actorProxy: IActorProxy = create_xr_class_instance(ActorProxy);
-export const heli: Record<number, XR_game_object> = {};
-export const smartTerrainById: Record<number, XR_cse_alife_creature_abstract> = {};
-export const animObjByName: Record<string, XR_object_binder> = {};
-export const anomalyByName: Record<string, XR_object_binder> = {};
+export const heli: LuaTable<number, XR_game_object> = new LuaTable();
+export const smartTerrainById: LuaTable<number, IXR_cse_alife_object> = new LuaTable();
+export const animObjByName: LuaTable<string, IStoredObject> = new LuaTable();
+export const anomalyByName: LuaTable<string, IStoredObject> = new LuaTable();
 
 export const CAMPS: LuaTable<number, { object?: XR_game_object; camp?: any }> = new LuaTable();
 
@@ -37,7 +37,7 @@ export const CROW_STORAGE = {
   COUNT: 0
 };
 
-export const heliEnemies: Record<number, XR_game_object> = {};
+export const heliEnemies: LuaTable<number, XR_game_object> = new LuaTable();
 
 export let heliEnemyCount: number = 0;
 export let actor: Optional<XR_game_object> = null;
@@ -54,7 +54,7 @@ export function hetHeliEnemiesCount(): number {
 export function addEnemy(object: XR_game_object): void {
   log.info("Add heli enemy");
 
-  heliEnemies[heliEnemyCount] = object;
+  heliEnemies.set(heliEnemyCount, object);
 
   heliEnemyCount = heliEnemyCount + 1;
   // @ts-ignore todo: TEMP
@@ -63,7 +63,7 @@ export function addEnemy(object: XR_game_object): void {
 
 export function deleteEnemy(enemyIndex: number): void {
   log.info("Delete enemy");
-  heliEnemies[enemyIndex] = null as any;
+  heliEnemies.delete(enemyIndex);
 }
 
 export function addObject(object: XR_game_object): void {
@@ -81,25 +81,25 @@ export function deleteObject(object: XR_game_object): void {
 export function addZone(zone: XR_game_object): void {
   log.info("Add zone:", zone.name());
 
-  zoneByName[zone.name()] = zone;
+  zoneByName.set(zone.name(), zone);
 }
 
 export function deleteZone(zone: XR_game_object): void {
   log.info("Delete zone:", zone.name());
 
-  zoneByName[zone.name()] = null as any;
+  zoneByName.delete(zone.name());
 }
 
 export function addAnomaly(anomaly: XR_object_binder): void {
   log.info("Add anomaly:", anomaly.object.name());
 
-  anomalyByName[anomaly.object.name()] = anomaly;
+  anomalyByName.set(anomaly.object.name(), anomaly);
 }
 
 export function deleteAnomaly(anomaly: XR_object_binder): void {
   log.info("Delete anomaly:", anomaly.object.name());
 
-  anomalyByName[anomaly.object.name()] = null as any;
+  anomalyByName.delete(anomaly.object.name());
 }
 
 export function addActor(object: XR_game_object): void {
@@ -127,34 +127,34 @@ export function deleteActor(): void {
 export function addHeli(object: XR_game_object): void {
   log.info("Add heli");
 
-  heli[object.id()] = object;
+  heli.set(object.id(), object);
 }
 
 export function deleteHeli(object: XR_game_object): void {
   log.info("Delete heli");
 
-  heli[object.id()] = null as any;
+  heli.delete(object.id());
 }
 
-export function addSmartTerrain(object: XR_cse_alife_creature_abstract): void {
+export function addSmartTerrain(object: IXR_cse_alife_object): void {
   log.info("Add smart terrain:", object.id);
 
-  smartTerrainById[object.id] = object;
+  smartTerrainById.set(object.id, object);
 }
 
-export function deleteSmartTerrain(object: XR_cse_alife_creature_abstract): void {
+export function deleteSmartTerrain(object: IXR_cse_alife_object): void {
   log.info("Delete smart terrain:", object.id);
 
-  smartTerrainById[object.id] = null as any;
+  smartTerrainById.delete(object.id);
 }
 
-export function addAnimationObject(object: XR_game_object, binder: XR_object_binder): void {
-  animObjByName[object.name()] = binder;
+export function addAnimationObject(object: XR_game_object, storedObject: IStoredObject): void {
+  animObjByName.set(object.name(), storedObject);
   addObject(object);
 }
 
 export function deleteAnimationObject(object: XR_game_object): void {
-  animObjByName[object.name()] = null as any;
+  animObjByName.delete(object.name());
   deleteObject(object);
 }
 

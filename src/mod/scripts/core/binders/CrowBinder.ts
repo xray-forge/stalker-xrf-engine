@@ -45,7 +45,7 @@ export const CrowBinder: ICrowBinder = declare_xr_class("CrowBinder", object_bin
 
     storage.set(this.object.id(), {});
   },
-  net_spawn(object: XR_cse_alife_creature_abstract): boolean {
+  net_spawn(object: IXR_cse_alife_object): boolean {
     if (!object_binder.net_spawn(this, object)) {
       return false;
     }

@@ -1,7 +1,7 @@
-export const schemes: Record<string, string> = {};
-export const stypes: Record<string, string> = {};
+export const schemes: LuaTable<string, string> = new LuaTable();
+export const stypes: LuaTable<string, string> = new LuaTable();
 
 export function loadScheme(filename: string, scheme: string, stype: string): void {
-  schemes[scheme] = filename;
-  stypes[scheme] = stype;
+  schemes.set(scheme, filename);
+  stypes.set(scheme, stype);
 }

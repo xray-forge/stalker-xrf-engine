@@ -476,6 +476,7 @@ function se_pda:can_switch_online()
 end
 
 class "se_detector" (cse_alife_item_detector)
+
 function se_detector:__init (section) super (section)
 	self.secret_item = false
 end

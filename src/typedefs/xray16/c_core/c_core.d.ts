@@ -46,10 +46,6 @@ declare global {
 
   /**
    * C++ class memory_object {
-   *   property last_level_time;
-   *   property level_time;
-   * };
-   *
    * @customConstructor memory_object
    */
   class XR_MemoryObject extends XR_LuaBindBase {
@@ -59,13 +55,6 @@ declare global {
 
   /**
    * C++ class entity_memory_object : memory_object {
-   *   property last_level_time;
-   *   property level_time;
-   *   property object_info;
-   *   property self_info;
-   *
-   *   function object(const entity_memory_object&);
-   * };
    */
   class XR_EntityMemoryObject extends XR_MemoryObject {
     public object_info: unknown;
@@ -76,13 +65,6 @@ declare global {
 
   /**
    * C++ class game_memory_object : memory_object {
-   *   property last_level_time;
-   *   property level_time;
-   *   property object_info;
-   *   property self_info;
-   *
-   *   function object(const game_memory_object&);
-   * };
    */
   class XR_GameMemoryObject extends XR_MemoryObject {
     public object_info: unknown;
@@ -122,51 +104,6 @@ declare global {
 
   /**
    *  C++ class CTime {
-   *     const DateToDay = 0;
-   *     const DateToMonth = 1;
-   *     const DateToYear = 2;
-   *     const TimeToHours = 0;
-   *     const TimeToMilisecs = 3;
-   *     const TimeToMinutes = 1;
-   *     const TimeToSeconds = 2;
-   *
-   *     CTime ();
-   *     CTime (const CTime&);
-   *
-   *     function sub(CTime*);
-   *
-   *     function timeToString(number);
-   *
-   *     function dateToString(number);
-   *
-   *     operator ==(const CTime&, CTime);
-   *
-   *     function get(number&, number&, number&, number&, number&, number&, number&);
-   *
-   *     function set(number, number, number, number, number, number, number);
-   *
-   *     function setHMSms(number, number, number, number);
-   *
-   *     function diffSec(CTime*);
-   *
-   *     operator <(const CTime&, CTime);
-   *
-   *     operator +(CTime&, CTime);
-   *
-   *     operator >=(const CTime&, CTime);
-   *
-   *     function setHMS(number, number, number);
-   *
-   *     operator >(const CTime&, CTime);
-   *
-   *     operator -(CTime&, CTime);
-   *
-   *     operator <=(const CTime&, CTime);
-   *
-   *     function add(CTime*);
-   *
-   *   };
-   *
    *  @customConstructor CTime
    */
   class XR_CTime {
@@ -235,12 +172,7 @@ declare global {
   }
 
   /**
-   C++ class DLL_Pure {
-    DLL_Pure ();
-
-    function _construct();
-
-  };
+   * C++ class DLL_Pure {
    */
   class XR_DLL_Pure {
     public _construct(): void;
@@ -267,12 +199,6 @@ declare global {
 
   /**
    * C++ class global to register objects from lua scripts in C++.
-   * Used mainly in class/game register scripts.
-   *
-   *   C++ class object_factory {
-   *     function register(string, string, string, string);
-   *     function register(string, string, string);
-   *   };
    */
   class XR_object_factory {
     public register(client_class: string, server_class: string, clsid: string, script_clsid: string): void;
@@ -281,35 +207,7 @@ declare global {
 
   /**
    * C++ class object_binder {
-   *     property object;
-   *
-   *     object_binder (game_object*);
-   *
-   *     function save(net_packet*);
-   *
-   *     function update(number);
-   *
-   *     function reload(string);
-   *
-   *     function net_export(net_packet*);
-   *
-   *     function net_save_relevant();
-   *
-   *     function load(reader*);
-   *
-   *     function net_destroy();
-   *
-   *     function reinit();
-   *
-   *     function net_Relcase(game_object*);
-   *
-   *     function net_spawn(cse_alife_object*);
-   *
-   *     function net_import(net_packet*);
-   *
-   *   };
-   *
-   *  @customConstructor object_binder
+   * @customConstructor object_binder
    */
   class XR_object_binder<T = XR_game_object> extends XR_LuaBindBase {
     public object: T;
@@ -350,9 +248,9 @@ declare global {
     public static net_spawn(
       this: void,
       target: XR_object_binder,
-      cse_alife_object: XR_cse_alife_creature_abstract
+      cse_alife_object: IXR_cse_alife_object
     ): boolean;
-    public net_spawn(object: XR_cse_alife_creature_abstract): boolean;
+    public net_spawn(object: IXR_cse_alife_object): boolean;
 
     public static net_import(this: void, target: XR_object_binder, net_packet: XR_net_packet): unknown
     public net_import(net_packet: XR_net_packet): unknown;
@@ -556,127 +454,11 @@ declare global {
 
   };
    */
-
   // todo;
 
   /**
    * C++ class net_packet {
-   *     net_packet ();
-   *
-   *     function r_advance(number);
-   *
-   *     function r_begin(number&);
-   *
-   *     function w_chunk_open16(number&);
-   *
-   *     function r_u32(number&);
-   *     function r_u32();
-   *
-   *     function w_begin(number);
-   *
-   *     function w_u32(number);
-   *
-   *     function r_u8(number&);
-   *     function r_u8();
-   *
-   *     function r_eof(net_packet*);
-   *
-   *     function w_chunk_open8(number&);
-   *
-   *     function r_vec3(vector&);
-   *
-   *     function w_u8(number);
-   *
-   *     function r_u16(number&);
-   *     function r_u16();
-   *
-   *     function r_float_q16(number&, number, number);
-   *
-   *     function r_angle16(number&);
-   *
-   *     function r_s64(__int64&);
-   *     function r_s64();
-   *
-   *     function w_angle16(number);
-   *
-   *     function r_tell();
-   *
-   *     function r_s16(number&);
-   *     function r_s16();
-   *
-   *     function w_clientID(ClientID&);
-   *
-   *     function r_elapsed();
-   *
-   *     function r_u64(unsigned __int64&);
-   *     function r_u64();
-   *
-   *     function w_sdir(const vector&);
-   *
-   *     function r_clientID(net_packet*);
-   *
-   *     function r_dir(vector&);
-   *
-   *     function r_matrix(matrix&);
-   *
-   *     function r_stringZ(net_packet*);
-   *
-   *     function w_s16(number);
-   *
-   *     function r_sdir(vector&);
-   *
-   *     function w_matrix(matrix&);
-   *
-   *     function w_u16(number);
-   *
-   *     function r_float_q8(number&, number, number);
-   *
-   *     function w_s64(__int64);
-   *
-   *     function r_bool(net_packet*);
-   *
-   *     function w_bool(net_packet*, boolean);
-   *
-   *     function w_dir(const vector&);
-   *
-   *     function w_s32(number);
-   *
-   *     function w_stringZ(string);
-   *
-   *     function w_float_q16(number, number, number);
-   *
-   *     function r_s8(signed char&);
-   *     function r_s8();
-   *
-   *     function w_chunk_close8(number);
-   *
-   *     function r_float(number&);
-   *     function r_float();
-   *
-   *     function w_angle8(number);
-   *
-   *     function r_s32(number&);
-   *     function r_s32();
-   *
-   *     function w_float(number);
-   *
-   *     function w_tell();
-   *
-   *     function r_seek(number);
-   *
-   *     function w_float_q8(number, number, number);
-   *
-   *     function w_vec3(const vector&);
-   *
-   *     function w_chunk_close16(number);
-   *
-   *     function w_u64(unsigned __int64);
-   *
-   *     function r_angle8(number&);
-   *
-   *   };
-   *
-   *  @customConstructor net_packet
+   * @customConstructor net_packet
    */
   class XR_net_packet {
     public r_advance(value: number): unknown;

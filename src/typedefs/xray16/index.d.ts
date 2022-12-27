@@ -97,7 +97,7 @@ declare global {
 
   const object_binder: typeof XR_object_binder;
 
-  const cse_alife_creature_abstract: typeof XR_cse_alife_creature_abstract;
+  const cse_alife_creature_abstract: IXR_cse_alife_creature_abstract;
 
   const ini_file: typeof XR_ini_file;
 

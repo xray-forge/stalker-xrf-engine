@@ -245,9 +245,4 @@ declare global {
   };
    */
   // todo;
-  /**
-   C++ class cpure_server_object : ipure_server_object {
-  };
-   */
-  // todo;
 }

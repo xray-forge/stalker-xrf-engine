@@ -23,7 +23,7 @@ export const ArtefactBinder: IArtefactBinder = declare_xr_class("ArtefactBinder"
     xr_class_super(object);
     storage.set(object.id(), {});
   },
-  net_spawn(object: XR_cse_alife_creature_abstract): boolean {
+  net_spawn(object: IXR_cse_alife_object): boolean {
     if (!object_binder.net_spawn(this, object)) {
       return false;
     }

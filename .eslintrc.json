@@ -22,6 +22,7 @@
         "sort-keys-fix"
     ],
     "rules": {
+        "@typescript-eslint/no-misused-new": "off",
         "@typescript-eslint/ban-ts-comment": "off",
         "@typescript-eslint/ban-ts-ignore": "off",
         "@typescript-eslint/explicit-function-return-type": "off",

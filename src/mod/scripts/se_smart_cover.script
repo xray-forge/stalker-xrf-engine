@@ -1,5 +1,5 @@
 --'******************************************************
---'*  серверный класс объекта смарт кавер .
+--'*  пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ .
 --'******************************************************
 registered_smartcovers = {}
 registered_smartcovers_by_lv_id = {}
@@ -99,7 +99,6 @@ function se_smart_cover:update()
 end
 
 function se_smart_cover:FillProps	(pref,items)
---	log							("CSE_NewAttachableItem::FillProps called!")
 --	log							(tostring(self:description()))
 	cse_smart_cover.FillProps	(self,pref,items)
 	local						prefix = pref .. "\\" .. self:section_name().."\\"

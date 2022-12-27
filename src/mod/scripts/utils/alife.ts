@@ -51,14 +51,14 @@ export function unregisterStoryId(id: number): void {
  * todo;
  */
 export function getObjectSquad(
-  object: Optional<XR_game_object | XR_cse_alife_creature_abstract>
-): Optional<XR_cse_alife_creature_abstract> {
+  object: Optional<XR_game_object | IXR_cse_alife_creature_abstract>
+): Optional<IXR_cse_alife_creature_abstract> {
   if (object === null) {
     return abort("Attempt to get squad object from NIL.") as never;
   }
 
   const objectId: number =
-    type(object.id) == "function" ? (object as XR_game_object).id() : (object as XR_cse_alife_creature_abstract).id;
+    type(object.id) == "function" ? (object as XR_game_object).id() : (object as IXR_cse_alife_creature_abstract).id;
   const se_obj: Optional<any> = alife().object(objectId);
 
   if (se_obj && se_obj.group_id !== MAX_16_BIT_VALUE) {
@@ -71,7 +71,7 @@ export function getObjectSquad(
 /**
  * todo;
  */
-export function getStorySquad(storyId: string): Optional<XR_cse_alife_creature_abstract> {
+export function getStorySquad(storyId: string): Optional<IXR_cse_alife_creature_abstract> {
   const squadId: Optional<number> = getStoryObjectId(storyId);
 
   return squadId ? alife().object(squadId) : null;
@@ -166,7 +166,7 @@ export function stopPlaySound(object: XR_game_object): void {
  * todo;
  */
 export function changeTeamSquadGroup(
-  serverObject: XR_cse_alife_creature_abstract,
+  serverObject: IXR_cse_alife_creature_abstract,
   team: number,
   squad: number,
   group: number
@@ -237,11 +237,11 @@ export function interruptAction(npc: XR_game_object, scriptName: string): void {
 /**
  * todo;
  */
-export function getObjectCommunity(object: XR_game_object | XR_cse_alife_creature_abstract) {
+export function getObjectCommunity(object: XR_game_object | IXR_cse_alife_creature_abstract) {
   if (type(object.id) == "function") {
     return getCharacterCommunity(object as XR_game_object);
   } else {
-    getAlifeCharacterCommunity(object as XR_cse_alife_human_abstract);
+    getAlifeCharacterCommunity(object as IXR_cse_alife_human_abstract);
   }
 }
 
@@ -259,7 +259,7 @@ export function getCharacterCommunity(object: XR_game_object): TCommunity {
 /**
  * todo;
  */
-export function getAlifeCharacterCommunity(object: XR_cse_alife_creature_abstract): TCommunity {
+export function getAlifeCharacterCommunity(object: IXR_cse_abstract): TCommunity {
   if (isStalker(object, object.clsid())) {
     return object.community() as TCommunity;
   }

@@ -2,14 +2,12 @@ export {};
 
 declare global {
   /**
-   C++ class ipure_schedulable_object {
-  };
+   *  C++ class ipure_schedulable_object {
+   *  };
    */
-  // todo;
-  /**
-   C++ class ipure_server_object : ipure_alife_load_save_object {
-  };
-   */
+  interface IXR_ipure_schedulable_object {
+  }
+
   // todo;
   /**
    C++ class IRender_Visual {
@@ -102,33 +100,7 @@ declare global {
   };
    */
   // todo;
-  /**
-   C++ class cse_abstract : cpure_server_object {
-    property angle;
-    property id;
-    property parent_id;
-    property position;
-    property script_version;
 
-    function UPDATE_Read(net_packet&);
-
-    function STATE_Read(net_packet&, number);
-
-    function name(const cse_abstract*);
-
-    function UPDATE_Write(net_packet&);
-
-    function STATE_Write(net_packet&);
-
-    function clsid() const;
-
-    function spawn_ini(cse_abstract*);
-
-    function section_name(const cse_abstract*);
-
-  };
-   */
-  // todo;
   /**
    C++ class CSE_AbstractVisual : cse_visual,cse_abstract {
     property angle;
@@ -162,21 +134,7 @@ declare global {
   };
    */
   // todo;
-  /**
-   C++ class cse_motion {
-  };
-   */
-  // todo;
-  /**
-   C++ class cse_ph_skeleton {
-  };
-   */
-  // todo;
-  /**
-   C++ class cse_shape {
-  };
-   */
-  // todo;
+
   /**
    C++ class cse_spectator : cse_abstract {
     property angle;
@@ -239,11 +197,7 @@ declare global {
   };
    */
   // todo;
-  /**
-   C++ class cse_visual {
-  };
-   */
-  // todo;
+
   /**
    * C++ class render_device {
    *     property aspect_ratio;
