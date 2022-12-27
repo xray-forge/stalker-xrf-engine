@@ -81,7 +81,7 @@ export interface IAnomalyZoneBinder extends XR_object_binder {
   turn_on(forceRespawn: boolean): void;
   turn_off(): void;
 
-  getArtefactsListForSection(section: string, defaultList: string): LuaTable<number, string>;
+  getArtefactsListForSection(section: string, defaultList: Optional<string>): LuaTable<number, string>;
 
   getRandomArtefactPath(): string;
   disableAnomalyFields(): void;
@@ -148,11 +148,43 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     const defaultMaxArtefacts: number = getConfigNumber(ini, ANOMAL_ZONE_SECTION, "max_artefacts", null, false, 3);
     const defaultForceXZ: number = getConfigNumber(ini, ANOMAL_ZONE_SECTION, "applying_force_xz", null, false, 200);
     const defaultForceY: number = getConfigNumber(ini, ANOMAL_ZONE_SECTION, "applying_force_y", null, false, 400);
-    const defaultArtefacts: string = getConfigString(ini, ANOMAL_ZONE_SECTION, "artefacts", null, false, "", null);
-    const defaultSpawned: string = getConfigString(ini, ANOMAL_ZONE_SECTION, "start_artefact", null, false, "", null);
-    const defaultWays: string = getConfigString(ini, ANOMAL_ZONE_SECTION, "artefact_ways", null, false, "", null);
-    const defaultFieldName: string = getConfigString(ini, ANOMAL_ZONE_SECTION, "field_name", null, false, "", null);
-    const defaultCoeffs: string = getConfigString(ini, ANOMAL_ZONE_SECTION, "coeff", null, false, "", null);
+    const defaultArtefacts: Optional<string> = getConfigString(
+      ini,
+      ANOMAL_ZONE_SECTION,
+      "artefacts",
+      null,
+      false,
+      "",
+      null
+    );
+    const defaultSpawned: Optional<string> = getConfigString(
+      ini,
+      ANOMAL_ZONE_SECTION,
+      "start_artefact",
+      null,
+      false,
+      "",
+      null
+    );
+    const defaultWays: Optional<string> = getConfigString(
+      ini,
+      ANOMAL_ZONE_SECTION,
+      "artefact_ways",
+      null,
+      false,
+      "",
+      null
+    );
+    const defaultFieldName: Optional<string> = getConfigString(
+      ini,
+      ANOMAL_ZONE_SECTION,
+      "field_name",
+      null,
+      false,
+      "",
+      null
+    );
+    const defaultCoeffs: Optional<string> = getConfigString(ini, ANOMAL_ZONE_SECTION, "coeff", null, false, "", null);
     const defaultCoeffSectionName: string = getConfigString(
       ini,
       ANOMAL_ZONE_SECTION,
@@ -197,7 +229,15 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
 
       this.artefactsSpawnList.set(section, listOfAvailableArtefacts);
 
-      const initialArtefacts: string = getConfigString(ini, section, "start_artefact", null, false, "", defaultSpawned);
+      const initialArtefacts: Optional<string> = getConfigString(
+        ini,
+        section,
+        "start_artefact",
+        null,
+        false,
+        "",
+        defaultSpawned
+      );
 
       if (initialArtefacts !== null) {
         this.isForcedToSpawn = true;
@@ -235,7 +275,7 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
 
       this.artefactsSpawnCoefficients.set(section, coeffs === null ? new LuaTable() : parseNums(coeffs));
 
-      const path: string = getConfigString(ini, section, "artefact_ways", null, false, "", defaultWays);
+      const path: Optional<string> = getConfigString(ini, section, "artefact_ways", null, false, "", defaultWays);
 
       if (path == null) {
         abort("There is no field 'artefact_ways' in section [%s] in obj [%s]", section, object.name());
@@ -699,7 +739,7 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
 
     setMarker(packet, "load", true, "AnomalyZoneBinder");
   },
-  getArtefactsListForSection(section: string, defaultArtefacts: string): LuaTable<number, string> {
+  getArtefactsListForSection(section: string, defaultArtefacts: Optional<string>): LuaTable<number, string> {
     const baseArtefactsList: Optional<string> = getConfigString(
       this.ini,
       section,

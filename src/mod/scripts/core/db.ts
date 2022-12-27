@@ -30,6 +30,8 @@ export const smartTerrainById: Record<number, XR_cse_alife_creature_abstract> = 
 export const animObjByName: Record<string, XR_object_binder> = {};
 export const anomalyByName: Record<string, XR_object_binder> = {};
 
+export const CAMPS: LuaTable<number, { object?: XR_game_object; camp?: any }> = new LuaTable();
+
 export const CROW_STORAGE = {
   STORAGE: new LuaTable<number, number>(),
   COUNT: 0
@@ -177,7 +179,9 @@ declare_global("db", {
   level_doors: levelDoors,
   no_weap_zones: noWeapZones,
   spawned_vertex_by_id: spawnedVertexById,
+
   CROW_STORAGE: CROW_STORAGE,
+  CAMPS: CAMPS,
 
   add_enemy: addEnemy,
   delete_enemy: deleteEnemy,

@@ -4,15 +4,15 @@ import { abort } from "@/mod/scripts/utils/debug";
 /**
  * todo: Description
  */
-export function getConfigString(
+export function getConfigString<D = string>(
   ini: XR_ini_file,
   section: string,
   field: string,
   object: Optional<XR_game_object>,
   mandatory: boolean,
   gulagName: unknown,
-  defaultVal?: Optional<string>
-): string {
+  defaultVal?: D
+): string | D {
   if (mandatory == null || gulagName == null) {
     abort("section '%s': wrong arguments order in call to cfg_get_string", section);
   }

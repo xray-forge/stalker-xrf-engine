@@ -1,12 +1,19 @@
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "sr_camp");
+
 local npc_role = {noone=0, listener=1, director=2}
+
 CAMP_SECTION = "camp"
 
 --------------------------------------------------------------------------------
 -- Precondition functions
 --------------------------------------------------------------------------------
+
 function sr_camp_idle_precondition(camp)
 	return true
 end
+
 function sr_camp_harmonica_precondition(camp)
 	--printf("camp harmonica precondition")
 	if(#camp.harmonica_table>0) then
@@ -15,9 +22,9 @@ function sr_camp_harmonica_precondition(camp)
 			n = n + 1
 		end
 		if(n>1) then
-			for k,v in pairs(camp.npc) do				
+			for k,v in pairs(camp.npc) do
 				local scheme = db.storage[k] and db.storage[k].active_scheme and  db.storage[k][db.storage[k].active_scheme]
-				
+
 				local npc = db.storage[k] and db.storage[k].object
 
 				--printf("	is director %s", tostring(v.harmonica==npc_role.director))
@@ -34,6 +41,7 @@ function sr_camp_harmonica_precondition(camp)
 	--printf("	return false")
 	return false
 end
+
 function sr_camp_guitar_precondition(camp)
 	--printf("camp guitar precondition")
 	if(#camp.guitar_table>0) then
@@ -44,12 +52,12 @@ function sr_camp_guitar_precondition(camp)
 		if(n>1) then
 			for k,v in pairs(camp.npc) do
 				local scheme = db.storage[k] and db.storage[k].active_scheme and db.storage[k][db.storage[k].active_scheme]
-				
+
 				local npc = db.storage[k] and db.storage[k].object
 				--printf("	is director %s", tostring(v.guitar==npc_role.director))
 				--printf("    base_action %s", tostring(scheme.base_action) )
 				--printf("    description %s", tostring(scheme.description) )
-				
+
 				if(v.guitar==npc_role.director) and (scheme ~= nil and scheme.base_action == scheme.description) and npc ~= nil and not xr_meet.is_meet(npc) then
 				--if(v.guitar==npc_role.director) then
 					--printf("	return true [%s]", k)
@@ -61,11 +69,12 @@ function sr_camp_guitar_precondition(camp)
 	--printf("	return false")
 	return false
 end
+
 function sr_camp_story_precondition(camp)
 	if(#camp.story_table>0) then
 		local n = 0
 		for k,v in pairs(camp.npc) do
-		
+
 			local npc = db.storage[k] and db.storage[k].object
 			if npc ~= nil and not xr_meet.is_meet(npc) then
 				n = n + 1
@@ -77,12 +86,15 @@ function sr_camp_story_precondition(camp)
 	end
 	return false
 end
+
 --------------------------------------------------------------------------------
--- Класс CCampManager
+-- пїЅпїЅпїЅпїЅпїЅ CCampManager
 --------------------------------------------------------------------------------
--- Кемп содержит свои действия в терминах состояния кемпа (рассказ истории, музыка, ожидание), а не в терминах анимаций персонажей
--- Кемп возвращает свое состояние, а решение какую именно анимацию играть принимает финальная схема, например xr_animpoint
+-- пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ), пїЅ пїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+-- пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ xr_animpoint
+
 class "CCampManager"
+
 function CCampManager:__init(object, ini)
 	self.object = object
 	self.ini = ini
@@ -94,14 +106,14 @@ function CCampManager:__init(object, ini)
 		self.harmonica_table = parse_names(harmonicas)
 	self.npc = {}
 	self.schemes = {}
-	-- Хранилище для режиссера лагеря. Режиссерем является сталкер, затеявший необычное поведение
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	self.director = nil
-	-- Текущее состояние
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	self.active_state = "idle"
-	--' Для теста создаем объект истории
+	--' пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	self.sound_manager = sound_manager.get_sound_manager(CAMP_SECTION..self.object:id())
 	self.sound_manager_started = true
-	-- Состояния кемпа
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 	self.states = {
 					idle = {
 								director_state = nil,
@@ -144,10 +156,11 @@ function CCampManager:__init(object, ini)
 	self.timeout = 0
 	self.idle_talker = nil
 end
--- Переключает состояния кемпа
+
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 function CCampManager:update()
 
-	-- Если саундменеджер говорит какую то историю - ждем окончания.
+	-- пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 	if not self.sound_manager:is_finished() then
 		self.sound_manager:update()
 		return
@@ -157,7 +170,7 @@ function CCampManager:update()
 		return
 	end
 
-	-- Если кто-то говорит айдловую фразу, ждем пока он договорит.
+	-- пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 	if(self.idle_talker~=nil) then
 		if(xr_sound.sound_table[self.idle_talker]) then
 			return
@@ -166,17 +179,17 @@ function CCampManager:update()
 		end
 	end
 
-	-- Выбор состояния кемпа. Тут решается что делать дальше.
+	-- пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
 	--printf("camp time %s", tostring(self.active_state_time - time_global()))
 	if(self.active_state_time < time_global()) then
 		self:set_next_state()
 		if self:get_director() == false then
-		
+
 			self.active_state = "idle"
 			for k,v in pairs(self.npc) do
 				v.state = self.active_state
 			end
-		
+
 			--self:set_next_state()
 		end
 
@@ -193,13 +206,13 @@ function CCampManager:update()
 		end
 	end
 
-	-- Выбираем новую тему для саундменеджера (Для гитары и гармошки нужно будет юзать другой метод, чтобы не начали играть звук до того, как достанут инструмент)
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
 	if(self.timeout~=0) and (self.timeout<=time_global()) then
 		self:set_story()
 		self.timeout = 0
 	end
 
-	-- Болтовня в айдле
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ
 	if(self.active_state=="idle") then
 		local npc_count = 0
 		local talkers = {}
@@ -215,6 +228,7 @@ function CCampManager:update()
 
 
 end
+
 function CCampManager:set_next_state()
 	--printf("CAMP set_next_state")
 	local transitions = self.states[self.active_state].transitions
@@ -238,6 +252,7 @@ function CCampManager:set_next_state()
 	self.active_state_time = time_global()+math.random(self.states[self.active_state].min_time, self.states[self.active_state].max_time)
 	self.timeout = time_global()+self.states[self.active_state].timeout
 end
+
 function CCampManager:get_director()
 	if(self.active_state=="idle") then
 		self.director = nil
@@ -247,7 +262,7 @@ function CCampManager:get_director()
 	local npc_count = 0
 	for k,v in pairs(self.npc) do
 		npc_count = npc_count + 1
-		local storage = db.storage[k] 
+		local storage = db.storage[k]
 		if storage ~= nil then
 			local scheme = storage.active_scheme and storage[storage.active_scheme]
 			local npc = storage.object
@@ -270,6 +285,7 @@ function CCampManager:get_director()
 	end
 	--printf("camp director [%s]", self.director)
 end
+
 function CCampManager:set_story()
 	if(self.active_state=="story") then
 		self.sound_manager:set_storyteller(self.director)
@@ -279,7 +295,8 @@ function CCampManager:set_story()
 		self.sound_manager_started = true
 	end
 end
--- Возвращает текущее действие кемпа
+
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 function CCampManager:get_camp_action(npc_id)
 	if(npc_id==nil) then
 		abort("Trying to use destroyed object!")
@@ -289,14 +306,15 @@ function CCampManager:get_camp_action(npc_id)
 	end
 	return self.npc[npc_id].state, self.director==npc_id
 end
--- Регистрит персонажа в кемп
+
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ
 function CCampManager:register_npc(npc_id)
 --	local npc_id = npc:id()
 	--printf("Register NPC to camp %s", self.object:id())
 	self.npc[npc_id] = {state = self.active_state}
 	db.storage[npc_id].registred_camp = self.object:id()
 
-	-- При регистрации персонажа, проверяем какие роли он может выполнять.
+	-- пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 	for k,v in pairs(self.states) do
 		--printf("FIND NPC ROLE %s", npc_id)
 		local role = self:get_npc_role(npc_id, k)
@@ -309,26 +327,27 @@ function CCampManager:register_npc(npc_id)
 
 	xr_logic.issue_event(db.storage[npc_id].object, db.storage[npc_id][db.storage[npc_id].active_scheme], "update")
 end
--- Убирает персонажа из кемпа
+
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 function CCampManager:unregister_npc(npc_id)
 --	local npc_id = npc:id()
-	-- Если удаляется режиссер лагеря
+	-- пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 	if self.director == npc_id then
 		self.sound_manager_started = false
 		self.active_state_time = 0
 		self.director = nil
-		
+
 		self.active_state = "idle"
 		for k,v in pairs(self.npc) do
 			v.state = self.active_state
-		end		
+		end
 	end
-
 
 	db.storage[npc_id].registred_camp = nil
 	self.npc[npc_id] = nil
 	self.sound_manager:unregister_npc(npc_id)
 end
+
 function CCampManager:get_npc_role(npc_id, state)
 	local scheme = db.storage[npc_id][db.storage[npc_id].active_scheme]
 	if scheme == nil then
@@ -339,7 +358,7 @@ function CCampManager:get_npc_role(npc_id, state)
 	local descr = scheme.description
 	if(state=="harmonica") or (state=="guitar") then
 		descr = descr.."_"..state
-		--printf("finding music director [%s]", descr) 
+		--printf("finding music director [%s]", descr)
 		for i = 1,#npc_actions do
 			--printf("check action [%s]", npc_actions[i].name)
 			if(npc_actions[i].name==descr) then
@@ -361,9 +380,10 @@ function CCampManager:get_npc_role(npc_id, state)
 	end
 	return npc_role.noone
 end
+
 --------------------------------------------------------------------------------
 function get_current_camp(position)
-	for k,v in pairs(bind_camp.camps) do
+	for k,v in pairs(db.CAMPS) do
 		if v.object:inside(position) then
 			return v.camp
 		end
@@ -372,12 +392,14 @@ function get_current_camp(position)
 end
 
 function start_guitar(npc)
+	log.info("Start guitar play")
+
 	local camp_id = db.storage[npc:id()].registred_camp
 	if camp_id == nil then
-		return	
+		return
 		--abort("trying to play guitar without camp [%s]",tostring(npc:name()))
 	end
-	local camp = bind_camp.camps[camp_id].camp
+	local camp = db.CAMPS[camp_id].camp
 
 	camp.sound_manager:set_storyteller(camp.director)
 	camp.sound_manager:set_story(camp.guitar_table[math.random(#camp.guitar_table)])
@@ -386,12 +408,14 @@ function start_guitar(npc)
 end
 
 function start_harmonica(npc)
+	log.info("Start harmonica play")
+
 	local camp_id = db.storage[npc:id()].registred_camp
-	if camp_id == nil then	
+	if camp_id == nil then
 		return
 		--abort("trying to play harmonica without camp")
 	end
-	local camp = bind_camp.camps[camp_id].camp
+	local camp = db.CAMPS[camp_id].camp
 
 	camp.sound_manager:set_storyteller(camp.director)
 	camp.sound_manager:set_story(camp.harmonica_table[math.random(#camp.harmonica_table)])
