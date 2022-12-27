@@ -704,13 +704,13 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     const waysCount: number = packet.r_u16();
 
     for (const i of $range(1, waysCount)) {
-      const art_id = packet.r_u16();
-      const way_name = packet.r_stringZ();
+      const artefactId: number = packet.r_u16();
+      const wayName: string = packet.r_stringZ();
 
-      this.artefactWaysByArtefactId.set(art_id, way_name);
+      this.artefactWaysByArtefactId.set(artefactId, wayName);
 
-      ARTEFACT_WAYS_BY_ARTEFACT_ID.set(art_id, way_name);
-      PARENT_ZONES_BY_ARTEFACT_ID.set(art_id, this);
+      ARTEFACT_WAYS_BY_ARTEFACT_ID.set(artefactId, wayName);
+      PARENT_ZONES_BY_ARTEFACT_ID.set(artefactId, this);
     }
 
     const pointsCount: number = packet.r_u16();
@@ -729,7 +729,7 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     this.hasForcedSpawnOverride = packet.r_bool();
     this.forcedArtefact = packet.r_stringZ();
 
-    const currentLayer = packet.r_u8();
+    const currentLayer: number = packet.r_u8();
 
     if (currentLayer !== MAX_UNSIGNED_8_BIT) {
       this.currentZoneLayer = ANOMAL_ZONE_LAYER + currentLayer;

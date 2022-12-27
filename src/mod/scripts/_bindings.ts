@@ -4,14 +4,15 @@ import { ArtefactBinder } from "@/mod/scripts/core/binders/ArtefactBinder";
 import { CampBinder } from "@/mod/scripts/core/binders/CampBinder";
 import { CrowBinder } from "@/mod/scripts/core/binders/CrowBinder";
 
-export type TBinder = (object: XR_game_object) => void;
-
-function createBinder(target: XR_object_binder): TBinder {
+function createBinder(target: XR_object_binder): (object: XR_game_object) => void {
   return (object: XR_game_object) => object.bind_object(create_xr_class_instance(target, object));
 }
 
-export const bindAnomalyField: TBinder = createBinder(AnomalyFieldBinder);
-export const bindAnomalyZone: TBinder = createBinder(AnomalyZoneBinder);
-export const bindArtefact: TBinder = createBinder(ArtefactBinder);
-export const bindCrow: TBinder = createBinder(CrowBinder);
-export const bindCamp: TBinder = createBinder(CampBinder);
+// @ts-ignore, declare lua global
+list = {
+  bindAnomalyField: createBinder(AnomalyFieldBinder),
+  bindAnomalyZone: createBinder(AnomalyZoneBinder),
+  bindArtefact: createBinder(ArtefactBinder),
+  bindCrow: createBinder(CrowBinder),
+  bindCamp: createBinder(CampBinder)
+};

@@ -692,7 +692,7 @@ declare global {
 
     public w_u32(value: number): unknown;
 
-    public r_u8(value: number): unknown;
+    public r_u8(value: number): number;
     public r_u8(): number;
 
     public r_eof(): unknown;
