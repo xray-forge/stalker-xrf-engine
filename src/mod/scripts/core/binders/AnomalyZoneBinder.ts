@@ -5,7 +5,7 @@ import { mapDisplayManager } from "@/mod/scripts/ui/game/MapDisplayManager";
 import { getStoryObject } from "@/mod/scripts/utils/alife";
 import { getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
-import { setSaveMarker } from "@/mod/scripts/utils/game_saves";
+import { setMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseNames, parseNums } from "@/mod/scripts/utils/params";
 
@@ -96,7 +96,7 @@ export interface IAnomalyZoneBinder extends XR_object_binder {
  * todo: Critically needs simplification of logic.
  */
 export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZoneBinder", object_binder, {
-  delta: 0,
+  delta: UPDATE_THROTTLE,
   __init(object: XR_game_object): void {
     xr_class_super(object);
 
@@ -515,7 +515,7 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     object_binder.reinit(this);
     storage.set(this.object.id(), {} as any);
   },
-  net_spawn(object: XR_game_object): boolean {
+  net_spawn(object: XR_cse_alife_creature_abstract): boolean {
     if (!object_binder.net_spawn(this, object)) {
       return false;
     }
@@ -535,7 +535,7 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
   update(delta: number): void {
     this.delta += delta;
 
-    if (this.delta > UPDATE_THROTTLE) {
+    if (this.delta >= UPDATE_THROTTLE) {
       object_binder.update(this, this.delta);
 
       this.delta = 0;
@@ -589,7 +589,7 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     return true;
   },
   save(packet: XR_net_packet): void {
-    setSaveMarker(packet, "save", false, "AnomalyZoneBinder");
+    setMarker(packet, "save", false, "AnomalyZoneBinder");
     object_binder.save(this, packet);
 
     let count: number = 0;
@@ -655,10 +655,10 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
 
     packet.w_bool(this.isTurnedOff);
 
-    setSaveMarker(packet, "save", true, "AnomalyZoneBinder");
+    setMarker(packet, "save", true, "AnomalyZoneBinder");
   },
   load(packet: XR_net_packet): void {
-    setSaveMarker(packet, "load", false, "AnomalyZoneBinder");
+    setMarker(packet, "load", false, "AnomalyZoneBinder");
     object_binder.load(this, packet);
 
     const waysCount: number = packet.r_u16();
@@ -697,7 +697,7 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
 
     this.isTurnedOff = packet.r_bool();
 
-    setSaveMarker(packet, "load", true, "AnomalyZoneBinder");
+    setMarker(packet, "load", true, "AnomalyZoneBinder");
   },
   getArtefactsListForSection(section: string, defaultArtefacts: string): LuaTable<number, string> {
     const baseArtefactsList: Optional<string> = getConfigString(

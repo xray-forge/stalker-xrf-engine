@@ -487,7 +487,8 @@ function CSurgeManager:kill_all_unhided()
 	h.impulse = 0.0
 	h.direction = vector():set(0,0,1)
 	h.draftsman = db.actor
-	for k,v in pairs(bind_crow.crow_storage) do
+
+	for k,v in pairs(db.CROW_STORAGE.STORAGE) do
 		local obj = alife():object(v)
 		if obj then
 			local crow = level.object_by_id(obj.id)

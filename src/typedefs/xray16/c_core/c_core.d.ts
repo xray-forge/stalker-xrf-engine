@@ -322,8 +322,8 @@ declare global {
     public static update(this: void, target: XR_object_binder, value: number): void;
     public update(delta: number): void;
 
-    public static reload(this: void, target: XR_object_binder, value: string): unknown;
-    public reload(value: string): unknown;
+    public static reload(this: void, target: XR_object_binder, section: string): void;
+    public reload(section: string): void;
 
     public static net_export(this: void, target: XR_object_binder, net_packet: XR_net_packet): unknown;
     public net_export(net_packet: XR_net_packet): unknown;
@@ -331,8 +331,8 @@ declare global {
     public net_save_relevant(this: void, target: XR_object_binder): boolean;
     public net_save_relevant(): boolean;
 
-    public static load(this: void, target: XR_object_binder, net_packet: XR_net_packet): unknown;
-    public load(net_packet: XR_net_packet): unknown;
+    public static load(this: void, target: XR_object_binder, net_packet: XR_net_packet): void;
+    public load(packet: XR_net_packet): void;
 
     public static net_destroy(this: void, target: XR_object_binder): void;
     public net_destroy(): void;
@@ -344,15 +344,15 @@ declare global {
       this: void, target:
         XR_object_binder,
       game_object: ST
-    ): unknown;
-    public net_Relcase(object: T): unknown;
+    ): void;
+    public net_Relcase(object: T): void;
 
-    public static net_spawn<ST extends XR_game_object = XR_game_object>(
+    public static net_spawn(
       this: void,
       target: XR_object_binder,
-      cse_alife_object: ST
+      cse_alife_object: XR_cse_alife_creature_abstract
     ): boolean;
-    public net_spawn(object: T): boolean;
+    public net_spawn(object: XR_cse_alife_creature_abstract): boolean;
 
     public static net_import(this: void, target: XR_object_binder, net_packet: XR_net_packet): unknown
     public net_import(net_packet: XR_net_packet): unknown;
@@ -685,8 +685,8 @@ declare global {
 
     public w_chunk_open16(value: number): unknown;
 
-    public r_u32(value: number): unknown;
-    public r_u32(): unknown;
+    public r_u32(value: number): number;
+    public r_u32(): number;
 
     public w_begin(value: number): unknown;
 
@@ -715,7 +715,7 @@ declare global {
 
     public w_angle16(value: number): unknown;
 
-    public r_tell(): unknown;
+    public r_tell(): number;
 
     public r_s16(value: number): unknown;
     public r_s16(): unknown;
@@ -776,7 +776,7 @@ declare global {
 
     public w_float(value: number): unknown;
 
-    public w_tell(): unknown;
+    public w_tell(): number;
 
     public r_seek(value: number): unknown;
 

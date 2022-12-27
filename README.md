@@ -86,8 +86,8 @@ Even if you see simple typescript, in does not mean that it will work as javascr
 
 ---
 
-Typescript to lua compilation does not do tree shaking: <br/>
-
+- Typescript to lua compilation does not do tree shaking
+- Use LuaTable/LuaMap classes where possible, avoid inline JS arrays and objects
 - To prevent bloated codebase avoid index files usage and re-exporting
 - Do not use window/dom/document/global APIs in lua scripts / shared mod libs, they are not transpiled to Lua
 

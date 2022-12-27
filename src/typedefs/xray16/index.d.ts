@@ -129,6 +129,8 @@ declare global {
 
   const ui_events: IXR_ui_events;
 
+  const callback: IXR_callback;
+
   const key_bindings: XR_key_bindings;
 
   const DIK_keys: IXR_DIK_keys;

@@ -16,17 +16,19 @@ export interface IArtefactBinder extends XR_object_binder {
 }
 
 export const ArtefactBinder: IArtefactBinder = declare_xr_class("ArtefactBinder", object_binder, {
-  delta: 0,
+  delta: UPDATE_THROTTLE,
   __init(object: XR_game_object): void {
     log.info("Init:", object.name());
 
     xr_class_super(object);
     storage.set(object.id(), {});
   },
-  net_spawn(object: XR_game_object): boolean {
+  net_spawn(object: XR_cse_alife_creature_abstract): boolean {
     if (!object_binder.net_spawn(this, object)) {
       return false;
     }
+
+    log.info("Spawn artefact to network");
 
     addObject(this.object);
 
@@ -56,7 +58,7 @@ export const ArtefactBinder: IArtefactBinder = declare_xr_class("ArtefactBinder"
   update(delta: number): void {
     this.delta += delta;
 
-    if (this.delta > UPDATE_THROTTLE) {
+    if (this.delta >= UPDATE_THROTTLE) {
       object_binder.update(this, this.delta);
 
       this.delta = 0;

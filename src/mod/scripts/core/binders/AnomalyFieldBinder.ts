@@ -14,7 +14,7 @@ export interface IAnomalyFieldBinder extends XR_object_binder {
 }
 
 export const AnomalyFieldBinder: IAnomalyFieldBinder = declare_xr_class("AnomalyFieldBinder", object_binder, {
-  delta: 0,
+  delta: UPDATE_THROTTLE,
   __init(object: XR_game_object): void {
     log.info("Init binder:", object.name(), object.id());
 
@@ -32,12 +32,12 @@ export const AnomalyFieldBinder: IAnomalyFieldBinder = declare_xr_class("Anomaly
     storage.set(this.object.id(), {});
   },
 
-  net_spawn(object: XR_game_object): boolean {
-    log.info("Net spawn:", object.name());
-
+  net_spawn(object: XR_cse_alife_creature_abstract): boolean {
     if (!object_binder.net_spawn(this, object)) {
       return false;
     }
+
+    log.info("Net spawn:", object.name());
 
     addZone(this.object);
     addObject(this.object);
@@ -60,8 +60,6 @@ export const AnomalyFieldBinder: IAnomalyFieldBinder = declare_xr_class("Anomaly
     log.info("Net destroyed:", this.object.name());
   },
   set_enable(enabled: boolean): void {
-    log.info("Toggle anomaly:", this.object.name(), enabled);
-
     if (enabled) {
       this.object.enable_anomaly();
     } else {
@@ -71,10 +69,12 @@ export const AnomalyFieldBinder: IAnomalyFieldBinder = declare_xr_class("Anomaly
   update(delta: number): void {
     this.delta += delta;
 
-    if (this.delta > UPDATE_THROTTLE) {
+    if (this.delta >= UPDATE_THROTTLE) {
       object_binder.update(this, this.delta);
 
       this.delta = 0;
+    } else {
+      return;
     }
   },
   net_save_relevant(): boolean {

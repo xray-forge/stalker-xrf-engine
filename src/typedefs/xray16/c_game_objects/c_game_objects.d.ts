@@ -1591,9 +1591,12 @@ declare global {
 
     public get_enemy(): unknown;
 
-    public set_callback(type: unknown, cb: () => void): unknown;
-    public set_callback(type: unknown, cb: () => void, object: XR_game_object): unknown;
-    public set_callback(type: unknown): unknown;
+    public set_callback(type: TXR_callback, cb?: (() => void) | null, object?: XR_object_binder | null): void;
+    public set_callback(
+      type: IXR_callback["death"],
+      cb?: (victim: XR_game_object, killer: XR_game_object) => void,
+      object?: XR_object_binder
+    ): void;
 
     public get_corpse(): unknown;
 

@@ -2,7 +2,7 @@ import { monsters, TMonster } from "@/mod/globals/monsters";
 import { textures } from "@/mod/globals/textures";
 import { weapons } from "@/mod/globals/weapons";
 import { Optional } from "@/mod/lib/types";
-import { AbstractSingletonManager } from "@/mod/scripts/core/AbstractSingletonManager";
+import { AbstractSingletonManager } from "@/mod/scripts/core/utils/AbstractSingletonManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("PdaMenu");

@@ -3,7 +3,9 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("utils/game_saves");
-const save_markers: Record<string, number> = {};
+
+// todo: Move to DB.
+const SAVE_MARKERS: LuaTable<string, number> = new LuaTable();
 
 export function fileExists(folderAlias: string, filename: string): boolean {
   return getFS().exist(folderAlias, filename) !== null;
@@ -89,67 +91,18 @@ export function gatFileDataForGameSave(filename: string) {
   }
 }
 
+export function setSaveMarker(packet: XR_net_packet, check: boolean, prefix: string): void {
+  return setMarker(packet, "save", check, prefix);
+}
+
+export function setLoadMarker(packet: XR_net_packet, check: boolean, prefix: string): void {
+  return setMarker(packet, "load", check, prefix);
+}
+
 /**
- *
- * local save_markers = {}
- *
- * -- ������� ��� �������� ������������ ���� ����
- * function set_save_marker(p, mode, check, prefix)
- *
- *  -- ���������� ���� �������.
- *  local result = ""
- *  --  if debug ~= nil then
- *  --    local info_table = debug.getinfo(2)
- *  --    local script_name = string.gsub(info_table.short_src, "%.script", "")
- *  --    script_name = string.gsub(script_name, "gamedata\\scripts\\", "")
- *  --    result = script_name
- *  --  end
- *
- *  --  if prefix ~= nil then
- *  result = result .. "_" .. prefix
- *  --  end
- *
- *  if check == true then
- *    if save_markers[result] == nil then
- *      abort("Trying to check without marker %s", result)
- *    end
- *
- *    if mode == "save" then
- *      local dif = p:w_tell() - save_markers[result]
- *      printf(result..": SAVE DIF: %s", dif)
- *      if dif >= 8000 then
- *        printf("WARNING! may be this is problem save point")
- *      end
- *      if dif >= 10240 then
- *        --        abort("You are saving too much")
- *      end
- *      p:w_u16(dif)
- *    else
- *      local c_dif = p:r_tell() - save_markers[result]
- *      local dif = p:r_u16()
- *      if dif ~= c_dif then
- *        abort("INCORRECT LOAD [%s].[%s][%s]", result, dif, c_dif)
- *      else
- *        printf(result..": LOAD DIF: %s", dif)
- *      end
- *    end
- *    return
- *  end
- *
- *  if mode == "save" then
- *    printf(result..": set save marker: %s", p:w_tell())
- *    save_markers[result] = p:w_tell()
- *    if p:w_tell() > 16000 then
- *      abort("You are saving too much")
- *    end
- *  else
- *    printf(result..": set load marker: %s", p:r_tell())
- *    save_markers[result] = p:r_tell()
- *  end
- *
- * end
+ * todo: description.
  */
-export function setSaveMarker(p: any, mode: string, check: boolean, prefix: string): void {
+export function setMarker(packet: XR_net_packet, mode: "save" | "load", check: boolean, prefix: string): void {
   const result = "_" + prefix;
   // --  if debug ~= nil then
   // --    local info_table = debug.getinfo(2)
@@ -163,12 +116,12 @@ export function setSaveMarker(p: any, mode: string, check: boolean, prefix: stri
   // --  end
 
   if (check === true) {
-    if (save_markers[result] === null) {
+    if (SAVE_MARKERS.get(result) === null) {
       abort("Trying to check without marker: " + result);
     }
 
     if (mode == "save") {
-      const dif = p.w_tell() - save_markers[result];
+      const dif = packet.w_tell() - SAVE_MARKERS.get(result);
 
       // log.info("Set save marker result:", result, dif, mode);
 
@@ -182,10 +135,10 @@ export function setSaveMarker(p: any, mode: string, check: boolean, prefix: stri
         // --        abort("You are saving too much")
       }
 
-      p.w_u16(dif);
+      packet.w_u16(dif);
     } else {
-      const c_dif = p.r_tell() - save_markers[result];
-      const dif = p.r_u16();
+      const c_dif = packet.r_tell() - SAVE_MARKERS.get(result);
+      const dif = packet.r_u16();
 
       if (dif !== c_dif) {
         abort("INCORRECT LOAD [%s].[%s][%s]", result, dif, c_dif);
@@ -199,13 +152,13 @@ export function setSaveMarker(p: any, mode: string, check: boolean, prefix: stri
 
   if (mode === "save") {
     // log.info("Set save marker result:", result, p.w_tell(), mode);
-    save_markers[result] = p.w_tell();
+    SAVE_MARKERS.set(result, packet.w_tell());
 
-    if (p.w_tell() > 16000) {
+    if (packet.w_tell() > 16_000) {
       abort("You are saving too much");
     }
   } else {
     // log.info("Set save marker result:", result, p.r_tell(), mode);
-    save_markers[result] = p.r_tell();
+    SAVE_MARKERS.set(result, packet.r_tell());
   }
 }

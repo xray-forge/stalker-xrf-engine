@@ -2591,7 +2591,7 @@ declare global {
 
     public switch_online(): unknown;
 
-    public STATE_Write(net_packet: unknown): unknown;
+    public STATE_Write(net_packet: XR_net_packet): unknown;
 
     public move_offline(): unknown;
     public move_offline(value: boolean): unknown;
@@ -2608,20 +2608,20 @@ declare global {
 
     public o_torso(cse_alife_creature_abstract: XR_cse_alife_creature_abstract): unknown;
 
-    public STATE_Read(net_packet: unknown, value: number): unknown;
+    public STATE_Read(net_packet: XR_net_packet, value: number): unknown;
 
-    public name(cse_abstract: XR_cse_alife_creature_abstract): unknown;
+    public name(): string;
 
     public on_spawn(): unknown;
 
     public can_switch_offline(): unknown;
     public can_switch_offline(value: boolean): unknown;
 
-    public UPDATE_Write(net_packet: unknown): unknown;
+    public UPDATE_Write(net_packet: XR_net_packet): unknown;
 
     public on_unregister(): unknown;
 
-    public UPDATE_Read(net_packet: unknown): unknown;
+    public UPDATE_Read(net_packet: XR_net_packet): unknown;
 
   }
 

@@ -5,7 +5,7 @@ import { Optional } from "@/mod/lib/types";
 import { ActorProxy, IActorProxy } from "@/mod/scripts/core/ActorProxy";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("core/db");
+const log: LuaLogger = new LuaLogger("core/db", false);
 
 export const infoRestr = {};
 export const scriptIds: Record<number, any> = {};
@@ -29,6 +29,11 @@ export const heli: Record<number, XR_game_object> = {};
 export const smartTerrainById: Record<number, XR_cse_alife_creature_abstract> = {};
 export const animObjByName: Record<string, XR_object_binder> = {};
 export const anomalyByName: Record<string, XR_object_binder> = {};
+
+export const CROW_STORAGE = {
+  STORAGE: new LuaTable<number, number>(),
+  COUNT: 0
+};
 
 export const heliEnemies: Record<number, XR_game_object> = {};
 
@@ -172,6 +177,7 @@ declare_global("db", {
   level_doors: levelDoors,
   no_weap_zones: noWeapZones,
   spawned_vertex_by_id: spawnedVertexById,
+  CROW_STORAGE: CROW_STORAGE,
 
   add_enemy: addEnemy,
   delete_enemy: deleteEnemy,

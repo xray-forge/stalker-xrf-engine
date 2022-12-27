@@ -283,50 +283,86 @@ declare global {
   // todo;
 
   /**
-
-   C++ class callback {
-    const action_animation = 21;
-    const action_movement = 18;
-    const action_object = 24;
-    const action_particle = 23;
-    const action_removed = 20;
-    const action_sound = 22;
-    const action_watch = 19;
-    const actor_sleep = 25;
-    const article_info = 12;
-    const death = 8;
-    const helicopter_on_hit = 27;
-    const helicopter_on_point = 26;
-    const hit = 16;
-    const inventory_info = 11;
-    const inventory_pda = 10;
-    const level_border_enter = 7;
-    const level_border_exit = 6;
-    const map_location_added = 14;
-    const on_item_drop = 29;
-    const on_item_take = 28;
-    const patrol_path_in_point = 9;
-    const script_animation = 30;
-    const sound = 17;
-    const take_item_from_box = 34;
-    const task_state = 13;
-    const trade_perform_operation = 3;
-    const trade_sell_buy_item = 2;
-    const trade_start = 0;
-    const trade_stop = 1;
-    const trader_global_anim_request = 31;
-    const trader_head_anim_request = 32;
-    const trader_sound_end = 33;
-    const use_object = 15;
-    const weapon_no_ammo = 35;
-    const zone_enter = 4;
-    const zone_exit = 5;
-
-  };
+   *  C++ class callback {
+   *     const action_animation = 21;
+   *     const action_movement = 18;
+   *     const action_object = 24;
+   *     const action_particle = 23;
+   *     const action_removed = 20;
+   *     const action_sound = 22;
+   *     const action_watch = 19;
+   *     const actor_sleep = 25;
+   *     const article_info = 12;
+   *     const death = 8;
+   *     const helicopter_on_hit = 27;
+   *     const helicopter_on_point = 26;
+   *     const hit = 16;
+   *     const inventory_info = 11;
+   *     const inventory_pda = 10;
+   *     const level_border_enter = 7;
+   *     const level_border_exit = 6;
+   *     const map_location_added = 14;
+   *     const on_item_drop = 29;
+   *     const on_item_take = 28;
+   *     const patrol_path_in_point = 9;
+   *     const script_animation = 30;
+   *     const sound = 17;
+   *     const take_item_from_box = 34;
+   *     const task_state = 13;
+   *     const trade_perform_operation = 3;
+   *     const trade_sell_buy_item = 2;
+   *     const trade_start = 0;
+   *     const trade_stop = 1;
+   *     const trader_global_anim_request = 31;
+   *     const trader_head_anim_request = 32;
+   *     const trader_sound_end = 33;
+   *     const use_object = 15;
+   *     const weapon_no_ammo = 35;
+   *     const zone_enter = 4;
+   *     const zone_exit = 5;
    *
+   *   };
    */
+  interface IXR_callback {
+    action_animation: 21;
+    action_movement: 18;
+    action_object: 24;
+    action_particle: 23;
+    action_removed: 20;
+    action_sound: 22;
+    action_watch: 19;
+    actor_sleep: 25;
+    article_info: 12;
+    death: 8;
+    helicopter_on_hit: 27;
+    helicopter_on_point: 26;
+    hit: 16;
+    inventory_info: 11;
+    inventory_pda: 10;
+    level_border_enter: 7;
+    level_border_exit: 6;
+    map_location_added: 14;
+    on_item_drop: 29;
+    on_item_take: 28;
+    patrol_path_in_point: 9;
+    script_animation: 30;
+    sound: 17;
+    take_item_from_box: 34;
+    task_state: 13;
+    trade_perform_operation: 3;
+    trade_sell_buy_item: 2;
+    trade_start: 0;
+    trade_stop: 1;
+    trader_global_anim_request: 31;
+    trader_head_anim_request: 32;
+    trader_sound_end: 33;
+    use_object: 15;
+    weapon_no_ammo: 35;
+    zone_enter: 4;
+    zone_exit: 5;
+  }
 
-  // todo;
+  export type TXR_callback = IXR_callback[keyof IXR_callback]
 
   /**
    * C++ class key_bindings {
