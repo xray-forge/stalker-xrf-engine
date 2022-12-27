@@ -28,12 +28,12 @@ const ANOMAL_ZONE_SECTION: string = "anomal_zone";
 const ANOMAL_ZONE_LAYER: string = "layer_";
 const MAX_UNSIGNED_8_BIT: number = 255;
 const ARTEFACT_SPAWN_CHANCE: number = 17;
-const UPDATE_THROTTLE: number = 10000;
+const UPDATE_THROTTLE: number = 5_000;
 
 export interface IAnomalyZoneBinder extends XR_object_binder {
   ini: XR_ini_file;
 
-  lastUpdatedAt: number;
+  delta: number;
 
   isDisabled: boolean;
   isTurnedOff: boolean;
@@ -96,12 +96,12 @@ export interface IAnomalyZoneBinder extends XR_object_binder {
  * todo: Critically needs simplification of logic.
  */
 export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZoneBinder", object_binder, {
+  delta: 0,
   __init(object: XR_game_object): void {
     xr_class_super(object);
 
     log.info("Init anomaly zone:", object.name());
 
-    this.lastUpdatedAt = time_global();
     this.ini = object.spawn_ini();
 
     if (!this.ini.section_exist(ANOMAL_ZONE_SECTION)) {
@@ -533,15 +533,15 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     object_binder.net_destroy(this);
   },
   update(delta: number): void {
-    const now: number = time_global();
+    this.delta += delta;
 
-    if (now - this.lastUpdatedAt < UPDATE_THROTTLE) {
-      return;
+    if (this.delta > UPDATE_THROTTLE) {
+      object_binder.update(this, this.delta);
+
+      this.delta = 0;
     } else {
-      this.lastUpdatedAt = now;
+      return;
     }
-
-    object_binder.update(this, delta);
 
     if (this.isTurnedOff) {
       return;

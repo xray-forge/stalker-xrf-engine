@@ -2,28 +2,48 @@ export {};
 
 declare global {
   /**
-   C++ class CGameObject : DLL_Pure,ISheduled,ICollidable,IRenderable {
-    CGameObject ();
-
-    function Visual() const;
-
-    function getEnabled() const;
-
-    function _construct();
-
-    function net_Import(net_packet&);
-
-    function getVisible() const;
-
-    function net_Export(net_packet&);
-
-    function net_Spawn(cse_abstract*);
-
-    function use(CGameObject*);
-
-  };
+   * C++ class CGameObject : DLL_Pure,ISheduled,ICollidable,IRenderable {
+   *     CGameObject ();
+   *
+   *     function Visual() const;
+   *
+   *     function getEnabled() const;
+   *
+   *     function _construct();
+   *
+   *     function net_Import(net_packet&);
+   *
+   *     function getVisible() const;
+   *
+   *     function net_Export(net_packet&);
+   *
+   *     function net_Spawn(cse_abstract*);
+   *
+   *     function use(CGameObject*);
+   *
+   *   };
+   *
+   *  @customConstructor CGameObject
    */
-  // todo;
+  class XR_CGameObject extends XR_DLL_Pure{
+
+    public Visual(): unknown;
+
+    public getEnabled(): boolean;
+
+    public _construct(): unknown;
+
+    public net_Import(net_packet: XR_net_packet): unknown;
+
+    public getVisible(): boolean;
+
+    public net_Export(net_packet: XR_net_packet): unknown;
+
+    public net_Spawn(cse_abstract: XR_cse_alife_creature_abstract): unknown;
+
+    public use(object: XR_CGameObject): unknown;
+
+  }
 
   /**
    *  C++ class game_object {
@@ -1068,7 +1088,7 @@ declare global {
 
     public memory_hit_objects(): unknown;
 
-    public bind_object(binder: unknown /** base binder */): unknown;
+    public bind_object(binder: XR_object_binder): void;
 
     public weapon_silencer_status(): unknown;
 
@@ -1308,7 +1328,7 @@ declare global {
 
     public cost(): unknown;
 
-    public get_artefact(): unknown;
+    public get_artefact(): XR_CArtefact;
 
     public body_state(): unknown;
 
@@ -1432,7 +1452,7 @@ declare global {
 
     public get_current_holder(): unknown;
 
-    public get_physics_shell(): unknown;
+    public get_physics_shell(): XR_physics_shell;
 
     public set_actor_position(vector: XR_vector): unknown;
 

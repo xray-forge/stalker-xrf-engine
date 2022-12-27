@@ -2,32 +2,57 @@ export {};
 
 declare global {
   /**
-   C++ class physics_element {
-    function get_density();
-
-    function get_mass();
-
-    function is_fixed();
-
-    function is_breakable();
-
-    function get_volume();
-
-    function get_linear_vel(vector&) const;
-
-    function fix();
-
-    function get_angular_vel(vector&) const;
-
-    function apply_force(number, number, number);
-
-    function release_fixed();
-
-    function global_transform(physics_element*);
-
-  };
+   * C++ class physics_element {
+   *     function get_density();
+   *
+   *     function get_mass();
+   *
+   *     function is_fixed();
+   *
+   *     function is_breakable();
+   *
+   *     function get_volume();
+   *
+   *     function get_linear_vel(vector&) const;
+   *
+   *     function fix();
+   *
+   *     function get_angular_vel(vector&) const;
+   *
+   *     function apply_force(number, number, number);
+   *
+   *     function release_fixed();
+   *
+   *     function global_transform(physics_element*);
+   *
+   *   };
+   *
+   *  @customConstructor physics_element
    */
-  // todo;
+  class XR_physics_element {
+    public get_density(): number;
+
+    public get_mass(): number;
+
+    public is_fixed(): boolean;
+
+    public is_breakable(): boolean;
+
+    public get_volume(): number;
+
+    public get_linear_vel(vector: XR_vector): number;
+
+    public fix(): unknown;
+
+    public get_angular_vel(vector: XR_vector): number;
+
+    public apply_force(a: number, b: number, c: number): void;
+
+    public release_fixed(): void;
+
+    public global_transform(physics_element: XR_physics_element): unknown;
+  }
+
   /**
    C++ class physics_joint {
     function set_limits(number, number, number);
@@ -74,40 +99,74 @@ declare global {
    */
   // todo;
   /**
-   C++ class physics_shell {
-    function get_joints_number();
-
-    function is_breaking_blocked();
-
-    function get_element_by_bone_id(number);
-
-    function get_linear_vel(vector&) const;
-
-    function is_breakable();
-
-    function get_elements_number();
-
-    function unblock_breaking();
-
-    function get_joint_by_bone_name(string);
-
-    function get_element_by_order(number);
-
-    function get_element_by_bone_name(string);
-
-    function apply_force(number, number, number);
-
-    function get_angular_vel(vector&) const;
-
-    function block_breaking();
-
-    function get_joint_by_order(number);
-
-    function get_joint_by_bone_id(number);
-
-  };
+   * C++ class physics_shell {
+   *     function get_joints_number();
+   *
+   *     function is_breaking_blocked();
+   *
+   *     function get_element_by_bone_id(number);
+   *
+   *     function get_linear_vel(vector&) const;
+   *
+   *     function is_breakable();
+   *
+   *     function get_elements_number();
+   *
+   *     function unblock_breaking();
+   *
+   *     function get_joint_by_bone_name(string);
+   *
+   *     function get_element_by_order(number);
+   *
+   *     function get_element_by_bone_name(string);
+   *
+   *     function apply_force(number, number, number);
+   *
+   *     function get_angular_vel(vector&) const;
+   *
+   *     function block_breaking();
+   *
+   *     function get_joint_by_order(number);
+   *
+   *     function get_joint_by_bone_id(number);
+   *
+   *   };
+   *
+   *  @customConstructor physics_shell
    */
-  // todo;
+  class XR_physics_shell {
+    public get_joints_number(): number;
+
+    public is_breaking_blocked(): boolean;
+
+    public get_element_by_bone_id(id: number): unknown;
+
+    public get_linear_vel(vector: XR_vector): number;
+
+    public is_breakable(): boolean;
+
+    public get_elements_number(): number;
+
+    public unblock_breaking(): boolean;
+
+    public get_joint_by_bone_name(name: string): unknown;
+
+    public get_element_by_order(order: number): void;
+
+    public get_element_by_bone_name(name: string): XR_physics_element;
+
+    public apply_force(a: number, b: number, c: number): void;
+
+    public get_angular_vel(vector: XR_vector): number;
+
+    public block_breaking(): void;
+
+    public get_joint_by_order(order: number): unknown;
+
+    public get_joint_by_bone_id(id: number): unknown;
+
+  }
+
   /**
    C++ class physics_world {
     function set_gravity(number);

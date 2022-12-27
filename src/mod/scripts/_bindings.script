@@ -2,3 +2,4 @@ local bindings = require("scripts.core.binders.bindings")
 
 bindAnomalyField = bindings.bindAnomalyField;
 bindAnomalyZone = bindings.bindAnomalyZone;
+bindArtefact = bindings.bindArtefact;

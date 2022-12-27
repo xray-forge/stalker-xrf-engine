@@ -320,7 +320,7 @@ declare global {
     public save(net_packet: XR_net_packet): unknown;
 
     public static update(this: void, target: XR_object_binder, value: number): void;
-    public update(value: number): void;
+    public update(delta: number): void;
 
     public static reload(this: void, target: XR_object_binder, value: string): unknown;
     public reload(value: string): unknown;

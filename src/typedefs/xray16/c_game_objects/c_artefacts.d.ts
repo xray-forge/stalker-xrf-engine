@@ -2,6 +2,44 @@ export {};
 
 declare global {
   /**
+   * C++ class CArtefact : CGameObject {
+   *     CArtefact ();
+   *
+   *     function Visual() const;
+   *
+   *     function getEnabled() const;
+   *
+   *     function net_Import(net_packet&);
+   *
+   *     function getVisible() const;
+   *
+   *     function net_Spawn(cse_abstract*);
+   *
+   *     function SwitchVisibility(boolean);
+   *
+   *     function FollowByPath(string, number, vector);
+   *
+   *     function _construct();
+   *
+   *     function net_Export(net_packet&);
+   *
+   *     function GetAfRank() const;
+   *
+   *     function use(CGameObject*);
+   *
+   *   };
+   *
+   *  @customContructor CArtefact
+   */
+  class XR_CArtefact extends XR_CGameObject {
+    public SwitchVisibility(to: boolean): void;
+
+    public FollowByPath(a: string, b: number, c: XR_vector): void;
+
+    public GetAfRank(): number;
+  }
+
+  /**
    C++ class CZudaArtefact : CArtefact {
     CZudaArtefact ();
 
@@ -59,35 +97,7 @@ declare global {
   };
    */
   // todo;
-  /**
-   C++ class CArtefact : CGameObject {
-    CArtefact ();
 
-    function Visual() const;
-
-    function getEnabled() const;
-
-    function net_Import(net_packet&);
-
-    function getVisible() const;
-
-    function net_Spawn(cse_abstract*);
-
-    function SwitchVisibility(boolean);
-
-    function FollowByPath(string, number, vector);
-
-    function _construct();
-
-    function net_Export(net_packet&);
-
-    function GetAfRank() const;
-
-    function use(CGameObject*);
-
-  };
-   */
-  // todo;
   /**
    C++ class CBastArtefact : CArtefact {
     CBastArtefact ();

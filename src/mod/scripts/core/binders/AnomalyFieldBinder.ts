@@ -5,21 +5,20 @@ const log: LuaLogger = new LuaLogger("core/binders/AnomalyFieldBinder");
 
 // todo: Move to db.
 export const FIELDS_BY_NAME: LuaTable<string, IAnomalyFieldBinder> = new LuaTable();
-const UPDATE_THROTTLE: number = 10000;
+const UPDATE_THROTTLE: number = 5_000;
 
 export interface IAnomalyFieldBinder extends XR_object_binder {
-  updatedAt: number;
+  delta: number;
 
   set_enable(isEnabled: boolean): void;
 }
 
 export const AnomalyFieldBinder: IAnomalyFieldBinder = declare_xr_class("AnomalyFieldBinder", object_binder, {
+  delta: 0,
   __init(object: XR_game_object): void {
     log.info("Init binder:", object.name(), object.id());
 
     xr_class_super(object);
-
-    this.updatedAt = time_global();
   },
   reload(section: string): void {
     log.info("Reload binder:", this.object.name(), this.object.id());
@@ -69,13 +68,13 @@ export const AnomalyFieldBinder: IAnomalyFieldBinder = declare_xr_class("Anomaly
       this.object.disable_anomaly();
     }
   },
-  update(value: number): void {
-    const now: number = time_global();
+  update(delta: number): void {
+    this.delta += delta;
 
-    if (now - this.updatedAt > UPDATE_THROTTLE) {
-      this.updatedAt = now;
+    if (this.delta > UPDATE_THROTTLE) {
+      object_binder.update(this, this.delta);
 
-      object_binder.update(this, value);
+      this.delta = 0;
     }
   },
   net_save_relevant(): boolean {
