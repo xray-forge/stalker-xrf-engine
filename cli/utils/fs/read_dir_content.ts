@@ -1,10 +1,12 @@
 import * as fs from "fs/promises";
 import * as path from "path";
 
+import { TDirectoryFilesTree } from "#/utils/fs/types";
+
 /**
  * Read contents of directory including folders and scripts.
  */
-export async function readDirContent(dirPath): Promise<Array<string | Array<string>>> {
+export async function readDirContent(dirPath): Promise<TDirectoryFilesTree> {
   return (await Promise.all(
     (
       await fs.readdir(dirPath, { withFileTypes: true })

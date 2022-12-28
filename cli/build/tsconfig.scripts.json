@@ -22,7 +22,8 @@
     "luaPlugins": [
       { "name": "./plugins/global_declarations_transform.ts" },
       { "name": "./plugins/xr_class_super_transform.ts" },
-      { "name": "./plugins/built_at_info.ts" }
+      { "name": "./plugins/built_at_info.ts" },
+      { "name": "./plugins/strip_lua_logger.ts" }
     ]
   }
 }

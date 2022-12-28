@@ -2,6 +2,7 @@
   "name": "stalker-xrts-template",
   "version": "1.0.0",
   "author": "Neloreck",
+  "repository": "https://github.com/stalker-xrts/stalker-xrts-template",
   "private": true,
   "scripts": {
     "info": "ts-node -P ./cli/tsconfig.json cli/info/info.ts",
@@ -16,6 +17,7 @@
     "logs": "ts-node -P cli/tsconfig.json cli/logs/logs.ts",
     "build": "ts-node -P cli/tsconfig.json ./cli/build/build.ts",
     "build:clean": "ts-node -P cli/tsconfig.json ./cli/build/build.ts --clean",
+    "build:optimized": "ts-node -P cli/tsconfig.json ./cli/build/build.ts --clean --no-lua-logger",
     "build:no-resources": "ts-node -P cli/tsconfig.json ./cli/build/build.ts --no-resources",
     "build:resources-only": "ts-node -P cli/tsconfig.json ./cli/build/build.ts --no-scripts --no-ui --no-configs",
     "typecheck": "tstl -P ./cli/build/tsconfig.scripts.json --noEmit",

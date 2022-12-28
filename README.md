@@ -101,20 +101,22 @@ To work correctly with conflicting keywords and luabind classes custom utils are
 
 ---
 
-Reference: [Open X-Ray source code](https://github.com/OpenXRay/xray-16)
+## 🏗️ Typedefs
+
+To use X-Ray engine globals direct import from "xray16" nodule required. <br/>
+After transpiling process import statements will be stripped and transformed to globals.
 
 - [XRay typedefs](src/typedefs/xray16)
 
   - [xray core](src/typedefs/xray16/c_core)
   - [xray game objects](src/typedefs/xray16/c_game_objects)
   - [xray logic](src/typedefs/xray16/c_logic)
-  - [xray sound](src/typedefs/xray16/c_sound)
   - [xray ui](src/typedefs/xray16/c_ui)
   - [xray constants](src/typedefs/xray16/c_constants.d.ts)
   - [xray global](src/typedefs/xray16/c_global.d.ts)
   - [xray utils](src/typedefs/xray16/c_utils.d.ts)
 
-- [Lua typedefs](src/typedefs/luaJIT)
+For types correction and validation: [Open X-Ray source code](https://github.com/OpenXRay/xray-16)
 
 ---
 
@@ -184,9 +186,6 @@ For examples check: `src/mod/ui`.
 - Scripts to unpack raw_gamedata for observation / usage
 - Script to verify integrity of assets and defined constants
 - Screenshots of some tools
-- Typescript / c++ cooperation comments
-- Strip log:info / log:error with TSTL plugin?
 - Declare luaBind classes with TSTL plugin?
-- Use modules instead of global scope for typedefs folder (no-resolve + declare types packages)
 - Rework acdc perl script and add all.spawn editing utils
 - Unit tests and mocks?

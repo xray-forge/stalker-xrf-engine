@@ -4,8 +4,7 @@ import { Plugin } from "typescript-to-lua";
 const XRTS_GLOBALS: Array<string> = ["xray16"];
 
 /**
- * Plugin that transforms super_call_expression calls to super.
- * Allows usage of 'super' from lua without workarounds and problems.
+ * Plugin that removes imports from 'global' libraries like engine typedefs.
  */
 const plugin: Plugin = {
   visitors: {
