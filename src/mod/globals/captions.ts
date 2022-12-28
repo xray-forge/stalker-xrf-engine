@@ -5,6 +5,13 @@
  * todo: Include all translations, build translation collecting script.
  */
 export const captions = {
+  general_in_item: "general_in_item",
+  general_in_money: "general_in_money",
+  general_out_item: "general_out_item",
+  general_out_money: "general_out_money",
+  st_found_new_treasure: "st_found_new_treasure",
+  st_found_old_treasure: "st_found_old_treasure",
+  st_got_treasure: "st_got_treasure",
   st_jup_a10_name: "st_jup_a10_name",
   st_jup_a12_name: "st_jup_a12_name",
   st_jup_a6_name: "st_jup_a6_name",
@@ -40,6 +47,7 @@ export const captions = {
   st_pri_b35_name: "st_pri_b35_name",
   st_pri_b36_name: "st_pri_b36_name",
   st_sleep_hours: "st_sleep_hours",
+  st_tip: "st_tip",
   st_ui_pda_legend_mechanic: "st_ui_pda_legend_mechanic",
   st_ui_pda_legend_medic: "st_ui_pda_legend_medic",
   st_ui_pda_legend_scout: "st_ui_pda_legend_scout",

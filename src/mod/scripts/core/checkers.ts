@@ -5,7 +5,8 @@ import {
   XR_cse_alife_item_artefact,
   XR_cse_alife_item_weapon,
   XR_cse_alife_monster_abstract,
-  XR_game_object
+  XR_game_object,
+  clsid
 } from "xray16";
 
 import { artefact_class_ids, monster_class_ids, stalker_class_ids, weapon_class_ids } from "@/mod/globals/class_ids";
@@ -34,6 +35,13 @@ export function isStalker(
   const id: TXR_ClsId = class_id || getClsId(object);
 
   return stalker_class_ids[id] === true;
+}
+
+/**
+ * todo;
+ */
+export function isStalkerClassId(class_id: number): boolean {
+  return class_id === clsid.stalker || class_id === clsid.script_stalker;
 }
 
 /**

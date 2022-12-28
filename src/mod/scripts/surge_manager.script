@@ -1,4 +1,9 @@
+local NewsManager = require("scripts.core.NewsManager")
 local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+
+local log = create_ts_class_instance(LuaLogger, "surge_manager");
 
 --------------------------------------------------------------------------------
 -- Surge manager class ---------------------------------------------------------
@@ -339,7 +344,7 @@ function CSurgeManager:skip_surge()
 	self:respawnArtefactsAndReplaceAnomalyZones()
 	xr_statistic.inc_surges_counter()
 	if (not self.skip_message) then
-		news_manager.send_tip(db.actor, "st_surge_while_asleep", nil, "recent_surge", nil, nil)
+		NewsManager.send_tip(db.actor, "st_surge_while_asleep", nil, "recent_surge", nil, nil)
 		self.skip_message = true
 	end
 end

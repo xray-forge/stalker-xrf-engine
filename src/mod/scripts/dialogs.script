@@ -1,3 +1,5 @@
+local NewsManager = require("scripts.core.NewsManager")
+
 quest_section = {}
 
 function is_npc_in_current_smart(first_speaker, second_speaker, smart_name)
@@ -136,7 +138,7 @@ function relocate_item_section(victim, section, type, amount)
 			local box_size = ltx:r_s32(section, "box_size")
 			amount = amount * box_size
 		end
-		news_manager.relocate_item(db.actor, type, section, amount)
+		NewsManager.relocate_item(db.actor, type, section, amount)
 	end
 end
 
@@ -154,7 +156,7 @@ function relocate_money(victim, num, type)
 			db.actor:transfer_money(num, victim)
 			game_stats.money_quest_update(-num)
 		end
-		news_manager.relocate_money(db.actor, type, num)
+		NewsManager.relocate_money(db.actor, type, num)
 	end
 end
 
@@ -480,13 +482,13 @@ function relocate_item_section_to_actor(first_speaker, second_speaker, section, 
 		local box_size = ltx:r_s32(section, "box_size")
 		amount = amount * box_size
 	end
-	news_manager.relocate_item(db.actor, "in", section, amount)
+	NewsManager.relocate_item(db.actor, "in", section, amount)
 end
 
 function relocate_money_to_actor(first_speaker, second_speaker, num)
 	db.actor:give_money(num)
 	game_stats.money_quest_update (num)
-	news_manager.relocate_money(db.actor, "in", num)
+	NewsManager.relocate_money(db.actor, "in", num)
 end
 
 function relocate_money_from_actor(first_speaker, second_speaker, num)
@@ -496,14 +498,14 @@ function relocate_money_from_actor(first_speaker, second_speaker, num)
 	end
 	db.actor:transfer_money(num, victim)
 	game_stats.money_quest_update(-num)
-	news_manager.relocate_money(db.actor, "out", num)
+	NewsManager.relocate_money(db.actor, "out", num)
 end
 
 --[[ Old one
 function relocate_item_section_from_actor(first_speaker, second_speaker, section)
 	local npc = who_is_npc(first_speaker, second_speaker)
 	db.actor:transfer_item(db.actor:object(section), npc)
-	news_manager.relocate_item(db.actor, "out", section)
+	NewsManager.relocate_item(db.actor, "out", section)
 end
 ]]--
 
@@ -556,7 +558,7 @@ function relocate_item_section_from_actor(first_speaker, second_speaker, section
 		local box_size = ltx:r_s32(section, "box_size")
 		amount = amount * box_size
 	end
-	news_manager.relocate_item(db.actor, "out", section, amount - i)
+	NewsManager.relocate_item(db.actor, "out", section, amount - i)
 end
 
 function actor_has_item(first_speaker, second_speaker, section)
@@ -582,7 +584,7 @@ function transfer_any_pistol_from_actor(first_speaker, second_speaker)
 		db.actor:iterate_inventory(is_pistol, npc)
 	if(db.actor.pistol~=nil) then
 			db.actor:transfer_item(db.actor:object(db.actor.pistol), npc)
-		news_manager.relocate_item(db.actor, "out", db.actor.pistol)
+		NewsManager.relocate_item(db.actor, "out", db.actor.pistol)
 		db.actor.pistol = nil
 	end
 end
@@ -618,7 +620,7 @@ function transfer_any_gun_from_actor(first_speaker, second_speaker)
 		db.actor:iterate_inventory(is_gun, npc)
 	if(db.actor.gun~=nil) then
 			db.actor:transfer_item(db.actor:object(db.actor.gun), npc)
-		news_manager.relocate_item(db.actor, "out", db.actor.gun)
+		NewsManager.relocate_item(db.actor, "out", db.actor.gun)
 		db.actor.gun = nil
 	end
 end
@@ -651,7 +653,7 @@ function transfer_any_shootgun_from_actor(first_speaker, second_speaker)
 		db.actor:iterate_inventory(is_shootgun, npc)
 	if(db.actor.shootgun~=nil) then
 			db.actor:transfer_item(db.actor:object(db.actor.shootgun), npc)
-		news_manager.relocate_item(db.actor, "out", db.actor.shootgun)
+		NewsManager.relocate_item(db.actor, "out", db.actor.shootgun)
 		db.actor.shootgun = nil
 	end
 end

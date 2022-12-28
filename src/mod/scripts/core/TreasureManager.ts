@@ -13,6 +13,7 @@ import {
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { AnyCallable, Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
+import { send_treasure } from "@/mod/scripts/core/NewsManager";
 import { parseSpawns } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
@@ -286,7 +287,7 @@ export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManag
     }
 
     if (this.secrets.get(treasure_id).to_find == 0 && !this.secrets.get(treasure_id).empty) {
-      (get_global("news_manager").send_treasure as AnyCallable)(2);
+      send_treasure(2);
 
       return log.info("Already empty treasure:", treasure_id);
     }
@@ -298,7 +299,7 @@ export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManag
     level.map_add_object_spot_ser(this.secret_restrs.get(treasure_id), "treasure", "");
 
     this.secrets.get(treasure_id).given = true;
-    (get_global("news_manager").send_treasure as AnyCallable)(0);
+    send_treasure(0);
 
     log.info("Give treasure:", treasure_id);
   },
@@ -341,7 +342,7 @@ export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManag
         level.map_remove_object_spot(this.secret_restrs.get(treasureId), "treasure");
         get_global("xr_statistic").inc_founded_secrets_counter();
         this.secrets.get(treasureId).checked = true;
-        (get_global("news_manager").send_treasure as AnyCallable)(1);
+        send_treasure(1);
 
         log.info("Secret now is empty:", treasureId);
       }

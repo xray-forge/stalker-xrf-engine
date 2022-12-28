@@ -1,5 +1,3 @@
-import { XR_CSightParams } from "xray16";
-
 declare module "xray16" {
   /**
    * C++ class CGameObject : DLL_Pure,ISheduled,ICollidable,IRenderable {
@@ -245,8 +243,8 @@ declare module "xray16" {
     public play_cycle(value1: string, value2: boolean): unknown;
     public weapon_is_grenadelauncher(): unknown;
     public set_capture_anim(game_object: XR_game_object, value1: string, vector: XR_vector, value2: number): unknown;
-    public character_icon(): unknown;
-    public patrol(): unknown;
+    public character_icon(): string;
+    public patrol(): XR_patrol | null;
     public in_restrictions(): unknown;
     public unlock_door_for_npc(): unknown;
     public buy_item_condition_factor(value: number): unknown;
@@ -437,7 +435,7 @@ declare module "xray16" {
       object?: XR_object_binder
     ): void;
     public get_corpse(): unknown;
-    public give_task(task: unknown /** CGameTask */, value1: number, value2: boolean, value3: number): unknown;
+    public give_task(task: XR_CGameTask, value1: number, value2: boolean, value3: number): unknown;
     public get_task_state(value: string): unknown;
     public get_enemy_strength(): unknown;
     public path_type(): unknown;
@@ -445,13 +443,15 @@ declare module "xray16" {
     public range(): unknown;
     public set_anomaly_power(value: number): unknown;
     public deadbody_can_take(value: boolean): unknown;
-    public give_talk_message2(value1: string, value2: string, value3: string, value4: string): unknown;
+    public give_talk_message2(value1: string, value2: string, value3: string, selector: string): unknown;
     public set_vis_state(value: number): unknown;
     public get_ammo_in_magazine(): unknown;
-    public give_game_news(value1: string, value2: string, value3: string, value4: number, value5: number): unknown;
     public give_game_news(
-      value1: string, value2: string, value3: string, value4: number, value5: number, value6: number
-    ): unknown;
+      caption: string, news_text: string, texture: string, timeout: number, show_time: number
+    ): void;
+    public give_game_news(
+      caption: string, news_text: string, texture: string, timeout: number, show_time: number, value6: number
+    ): void;
     public best_enemy(): unknown;
     public death_time(): unknown;
     public get_visibility_state(): unknown;
@@ -899,171 +899,103 @@ declare module "xray16" {
   /**
    C++ class CPhysicObject : CGameObject {
     CPhysicObject ();
-
     function set_door_ignore_dynamics();
-
     function _construct();
-
     function getVisible() const;
-
     function net_Spawn(cse_abstract*);
-
     function play_bones_sound();
-
     function run_anim_back();
-
     function net_Export(net_packet&);
-
     function Visual() const;
-
     function unset_door_ignore_dynamics();
-
     function net_Import(net_packet&);
-
     function run_anim_forward();
-
     function stop_anim();
-
     function anim_time_get();
-
     function getEnabled() const;
-
     function anim_time_set(number);
-
     function stop_bones_sound();
-
     function use(CGameObject*);
-
   };
    */
   // todo;
   /**
    C++ class CExplosiveItem : CGameObject {
     CExplosiveItem ();
-
     function Visual() const;
-
     function _construct();
-
     function getEnabled() const;
-
     function net_Import(net_packet&);
-
     function net_Export(net_packet&);
-
     function getVisible() const;
-
     function net_Spawn(cse_abstract*);
-
     function use(CGameObject*);
-
   };
    */
   // todo;
   /**
    C++ class CF1 : CGameObject {
     CF1 ();
-
     function Visual() const;
-
     function _construct();
-
     function getEnabled() const;
-
     function net_Import(net_packet&);
-
     function net_Export(net_packet&);
-
     function getVisible() const;
-
     function net_Spawn(cse_abstract*);
-
     function use(CGameObject*);
-
   };
    */
   // todo;
   /**
    C++ class CFracture : CGameObject {
     CFracture ();
-
     function Visual() const;
-
     function _construct();
-
     function getEnabled() const;
-
     function net_Import(net_packet&);
-
     function net_Export(net_packet&);
-
     function getVisible() const;
-
     function net_Spawn(cse_abstract*);
-
     function use(CGameObject*);
-
   };
    */
   // todo;
   /**
    C++ class CHairsZone : CGameObject {
     CHairsZone ();
-
     function Visual() const;
-
     function _construct();
-
     function getEnabled() const;
-
     function net_Import(net_packet&);
-
     function net_Export(net_packet&);
-
     function getVisible() const;
-
     function net_Spawn(cse_abstract*);
-
     function use(CGameObject*);
-
   };
    */
   // todo;
   /**
    C++ class hanging_lamp : CGameObject {
     hanging_lamp ();
-
     function Visual() const;
-
     function getEnabled() const;
-
     function net_Import(net_packet&);
-
     function getVisible() const;
-
     function net_Spawn(cse_abstract*);
-
     function turn_on();
-
     function turn_off();
-
     function net_Export(net_packet&);
-
     function _construct();
-
     function use(CGameObject*);
-
   };
    */
   // todo;
   /**
    C++ class holder {
     function engaged();
-
     function Action(number, number);
-
     function SetParam(number, vector);
-
   };
    */
   // todo;
@@ -1072,21 +1004,13 @@ declare module "xray16" {
     CInventoryBox ();
 
     function Visual() const;
-
     function _construct();
-
     function getEnabled() const;
-
     function net_Import(net_packet&);
-
     function net_Export(net_packet&);
-
     function getVisible() const;
-
     function net_Spawn(cse_abstract*);
-
     function use(CGameObject*);
-
   };
    */
   // todo;
@@ -1095,21 +1019,13 @@ declare module "xray16" {
     CMincer ();
 
     function Visual() const;
-
     function _construct();
-
     function getEnabled() const;
-
     function net_Import(net_packet&);
-
     function net_Export(net_packet&);
-
     function getVisible() const;
-
     function net_Spawn(cse_abstract*);
-
     function use(CGameObject*);
-
   };
    */
   // todo;
@@ -1118,21 +1034,13 @@ declare module "xray16" {
     CMosquitoBald ();
 
     function Visual() const;
-
     function _construct();
-
     function getEnabled() const;
-
     function net_Import(net_packet&);
-
     function net_Export(net_packet&);
-
     function getVisible() const;
-
     function net_Spawn(cse_abstract*);
-
     function use(CGameObject*);
-
   };
    */
   // todo;
@@ -1184,15 +1092,10 @@ declare module "xray16" {
     look (game_object*, number, number);
 
     function completed();
-
     function type(enum SightManager::ESightType);
-
     function object(game_object*);
-
     function bone(string);
-
     function direct(const vector&);
-
   };
    */
   // todo;
@@ -1202,21 +1105,13 @@ declare module "xray16" {
     smart_cover_object ();
 
     function Visual() const;
-
     function _construct();
-
     function getEnabled() const;
-
     function net_Import(net_packet&);
-
     function net_Export(net_packet&);
-
     function getVisible() const;
-
     function net_Spawn(cse_abstract*);
-
     function use(CGameObject*);
-
   };
    */
   // todo;
@@ -1226,21 +1121,13 @@ declare module "xray16" {
     CRadioactiveZone ();
 
     function Visual() const;
-
     function _construct();
-
     function getEnabled() const;
-
     function net_Import(net_packet&);
-
     function net_Export(net_packet&);
-
     function getVisible() const;
-
     function net_Spawn(cse_abstract*);
-
     function use(CGameObject*);
-
   };
    */
   // todo;

@@ -1,3 +1,4 @@
+local NewsManager = require("scripts.core.NewsManager")
 local AnomalyZoneBinder = require("scripts.core.binders.AnomalyZoneBinder")
 
 local LuaLogger = require("scripts.utils.logging").LuaLogger
@@ -226,9 +227,9 @@ end
 function actor_binder:task_callback(_task, _state)
 	if _state ~= task.fail then
 		if _state == task.completed then
-			news_manager.send_task(db.actor, "complete", _task)
+			NewsManager.send_task(db.actor, "complete", _task)
 		else
-			news_manager.send_task(db.actor, "new", _task)
+			NewsManager.send_task(db.actor, "new", _task)
 		end
 	end
 	task_manager.task_callback(_task, _state)

@@ -1,3 +1,9 @@
+local NewsManager = require("scripts.core.NewsManager")
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+
+local log = create_ts_class_instance(LuaLogger, "task_objects");
+
 --'*************************************************************************************
 --' ���������� �������� �������
 --'*************************************************************************************
@@ -218,7 +224,7 @@ function CGeneralTask:check_task(tm)
 		self.current_target = t_target
 	end
 	if task_updated and not(self.dont_send_update_news) then
-		news_manager.send_task(db.actor, "updated", self.t)
+		NewsManager.send_task(db.actor, "updated", self.t)
 	end
 	for k,v in pairs(self.condlist) do
 		local t = xr_logic.pick_section_from_condlist(db.actor, db.actor, v)
@@ -273,10 +279,10 @@ function CGeneralTask:deactivate_task(task)
 
 	self.check_time = nil
 	if self.last_check_task == "fail" then
-		news_manager.send_task(db.actor, "fail", task)
+		NewsManager.send_task(db.actor, "fail", task)
 	elseif self.last_check_task == "reversed" then
 		xr_logic.pick_section_from_condlist(db.actor, db.actor, self.on_reversed)
-		news_manager.send_task(db.actor, "reversed", task)
+		NewsManager.send_task(db.actor, "reversed", task)
 	end
 	self.last_check_task = nil
 

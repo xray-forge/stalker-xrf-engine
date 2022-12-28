@@ -1,3 +1,4 @@
+local NewsManager = require("scripts.core.NewsManager")
 local SleepDialog = require("scripts.ui.interaction.SleepDialog")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
@@ -503,7 +504,7 @@ send_tip(news_id:sender:sender_id)
 		* - not necessary
 --]]
 function send_tip(actor, npc, p)
-	news_manager.send_tip(actor, p[1], nil, p[2], nil, p[3])
+	NewsManager.send_tip(actor, p[1], nil, p[2], nil, p[3])
 end
 
 --[[
@@ -1310,7 +1311,7 @@ function give_actor(actor, npc, p)
 				db.actor:level_vertex_id(),
 				db.actor:game_vertex_id(),
 				db.actor:id())
-		news_manager.relocate_item(db.actor, "in", v)
+		NewsManager.relocate_item(db.actor, "in", v)
 	end
 end
 
@@ -2225,7 +2226,7 @@ function remove_item(actor, npc, p)
 	else
 		abort("Actor has no such item!")
 	end
-	news_manager.relocate_item(db.actor, "out", item)
+	NewsManager.relocate_item(db.actor, "out", item)
 end
 
 -- �������� ���������� � ������ ������
