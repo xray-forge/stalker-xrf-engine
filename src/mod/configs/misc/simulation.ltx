@@ -1,5 +1,5 @@
 [sim_faction]
-GroupControlSection	= 
+GroupControlSection	=
 $spawn 			= "ai\DO_NOT_USE"
 class			= SCRIPTZN
 ;script_binding	= bind_faction.bind
@@ -9,12 +9,12 @@ shape_edge_color		= 32, 32, 32, 255 ;0xFF202020
 
 
 [smart_terrain]
-GroupControlSection	= 
+GroupControlSection	=
 $spawn 			= "ai\smart_terrain"
 ;$prefetch 		= 4
 $def_sphere		= 2
 class			= SMRTTRRN
-script_binding	= bind_smart_terrain.bind
+script_binding	= _bindings.list.bindSmartTerrain
 
 shape_transp_color		= 100, 100, 180, 60 ;0x1800FF00
 shape_edge_color		= 32, 32, 32, 255 ;0xFF202020
@@ -28,8 +28,8 @@ default = 10000, 10001
 
 
 
-;В simulation.ltx создаете поле [start_position_<имя уровня>]
-;В нем пишите строку <ид сквада> = <имя смарта>
+;пїЅ simulation.ltx пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ [start_position_<пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ>]
+;пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ <пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ> = <пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ>
 
 ;;;;;;;;;;;;;;;;;;;;;; FINAL JUPITER ;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -138,7 +138,7 @@ lain_selo_dog = lain_test_smart_terrain
 
 [start_position_zaton_b52]
 zat_a2_general_characters = zat_stalker_base_smart
-zat_b22_barmen = zat_stalker_base_smart 
+zat_b22_barmen = zat_stalker_base_smart
 zat_b22_medic = zat_medic_home_smart
 ;zat_b7_stalkers_raiders = zat_b7_stalker_base
 zat_b103_mechanic = zat_stalker_base_smart
@@ -329,7 +329,7 @@ zat_b18_dog_noah_squad = zat_b18
 [start_position_redstain_selo]
 ;hein_selo_squad = redstain_selo_smart_terrain
 ;zat_b38_stalker_cop_squad_temp = redstain_selo_smart_terrain
- 
+
 [start_position_bes_selo_lab]
 lx8_snork_down_squad = lx8_smart_terrain
 lx8_snork_up_squad = lx8_smart_terrain
