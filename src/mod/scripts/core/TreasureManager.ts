@@ -13,6 +13,7 @@ import {
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { AnyCallable, Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
+import { parseSpawns } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -114,7 +115,7 @@ export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManag
           } else {
             this.secrets.get(id).items.set(item_section, new LuaTable());
 
-            const tbl: LuaTable = (get_global("utils").parse_spawns as AnyCallable)(str);
+            const tbl = parseSpawns(str);
 
             if (tbl.length() === 0) {
               abort("There is no items count set for treasure [%s], item [%s]", id, item_section);

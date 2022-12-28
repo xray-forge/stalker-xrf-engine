@@ -31,7 +31,6 @@ local utilsIds = require("scripts.utils.ids")
 local utilsPhysics = require("scripts.utils.physics")
 local utilsTable = require("scripts.utils.table")
 local utilsTime = require("scripts.utils.time")
-local utilsParams = require("scripts.utils.params")
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -53,6 +52,12 @@ getTreasureManager = coreTreasureManager.getTreasureManager
 utils = utilsUtils
 utils.cfg_get_string = utilsConfigs.getConfigString
 utils.cfg_get_number = utilsConfigs.getConfigNumber
+utils.cfg_get_bool = utilsConfigs.getConfigBoolean
+
+get_param_string = utilsConfigs.getParamString
+parse_names = utilsConfigs.parseNames
+parse_key_value = utilsConfigs.parseKeyValue
+parse_nums = utilsConfigs.parseNums
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -135,13 +140,6 @@ copy_table = utilsTable.copyTable
 wait_game = utilsTime.waitGame
 wait = utilsTime.wait
 in_time_interval = utilsTime.isInTimeInterval
-
--- ---------------------------------------------------------------------------------------------------------------------
-
-get_param_string = utilsParams.getParamString
-parse_names = utilsParams.parseNames
-parse_key_value = utilsParams.parseKeyValue
-parse_nums = utilsParams.parseNums
 
 -- ---------------------------------------------------------------------------------------------------------------------
 

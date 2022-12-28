@@ -2,68 +2,9 @@ local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 local log = create_ts_class_instance(LuaLogger, "utils");
 
-local utilsConfigs = require("scripts.utils.configs")
-
 log:info("Initialize utils")
 
 local export = {}
-
--- ��������� ��������� ���� bool � �������� �������.
---
--- char_ini - ��������� �� customdata (������ object:spawn_ini())
--- section - ��� ������ � customdata
--- field - ��� ���� � customdata
--- object - ������� ������, �� �������� ����� ����� ��� ��� ��������� �� ������
--- mandatory - ���� ����������� ������ ���� ������
---
--- ���������� true ��� false
-function export.cfg_get_bool(char_ini, section, field, object, mandatory, default_val)
-	if mandatory == nil then
-		abort("section '%s': wrong arguments order in call to cfg_get_bool", section)
-	end
-
-	--printf("DEBUG: conf_get_bool: section='%s', field='%s'", section, field)
-	if section and char_ini:section_exist(section) and char_ini:line_exist(section, field) then
-		local ret = char_ini:r_bool(section, field)
-		return ret
-	end
-	if not mandatory then
-		if default_val then
-			if default_val ~= false and default_val ~= true then
-				abort("object '%s': section '%s': field '%s': default value is " ..
-					"not boolean", object:name(), section, field)
-			end
-			return default_val
-		end
-		return false
-	end
-	abort("object '%s': attempt to read a non-existant boolean field '%s' in " ..
-		"section '%s'", object:name(), field, section)
-end
-
-function export.mob_get_string(char_ini, section, field, override, object, mandatory, default_val)
-	if override ~= nil then
-		return override
-	end
-
-	return cfg_get_string(char_ini, section, field, object, mandatory, "", default_val)
-end
-
-function export.mob_get_number(char_ini, section, field, override, object, mandatory, default_val)
-	if override ~= nil then
-		return override
-	end
-
-	return utilsConfigs.getConfigNumber(char_ini, section, field, object, mandatory, default_val)
-end
-
-function export.mob_get_bool(char_ini, section, field, override, object, mandatory, default_val)
-	if override ~= nil then
-		return override ~= false
-	end
-
-	return cfg_get_bool(char_ini, section, field, object, mandatory, default_val)
-end
 
 -- ���������, ��������� �� stalker ����� � ������ path_point ���� patrol_path
 function export.stalker_at_waypoint(stalker, patrol_path, path_point)
@@ -71,67 +12,17 @@ function export.stalker_at_waypoint(stalker, patrol_path, path_point)
 
 	local stalker_pos = stalker:position()
 	local distance = stalker_pos:distance_to_sqr(patrol_path:point(path_point))
+
 	if distance <= 0.13 then
 		return true
 	end
+
 	return false
-
 end
-
--- ������� stalker � �������� ����� patrol_path(path_point)
---[[
-function exports.stalker_go_to_waypoint(stalker, patrol_path, path_point)
-	if stalker:animation_count() > 0 then
-		stalker:clear_animations()
-	end
-	if stalker:level_vertex_id() == patrol_path:level_vertex_id(path_point) then
-		return
-	end
-	stalker:set_dest_level_vertex_id(patrol_path:level_vertex_id(path_point))
-	stalker:set_movement_type(move.run)
-	stalker:set_body_state(move.standing)
-	stalker:set_sight(look.path_dir, nil, 0)
-	stalker:set_path_type(game_object.level_path)
-	stalker:set_mental_state(anim.danger)
-	stalker:set_detail_path_type(move.line)
-end
---]]
 
 function export.stalker_stop(stalker)
 	stalker:set_movement_type(move.stand)
 end
-
---[[
-function exports.stalker_look_at_waypoint(stalker, patrol_path, path_point)
-	local look_pt = this.vector_copy_by_val(patrol_path:point(path_point)):sub(stalker:position())
-	stalker:set_sight(look.direction, look_pt, 0)
-end
---]]
-
---[[
-function exports.stalker_look_at_stalker(stalker, whom)
-	local look_pt = this.vector_copy_by_val(whom:position()):sub(stalker:position())
-	stalker:set_sight(look.direction, look_pt, 0)
-end
---]]
-
---[[
-function exports.stalker_look_at_stalker_angle(stalker, whom, angle)
-		--stalker - killer
-		--whom - killed :)
-	local look_pt = this.vector_copy_by_val(whom:position()):sub(stalker:position())
-	stalker:set_sight (look.direction, vector_rotate_y (look_pt, angle), 0)
-end
---]]
-
---[[
-function exports.stalker_look_firepoint_angle(stalker, whom, angle)
-		--stalker - killer
-		--whom - killed :)
-	local look_pt = this.vector_copy_by_val(whom:position()):sub(stalker:position())
-	stalker:set_sight (look.fire_point, vector_rotate_y (look_pt, angle), 0)
-end
---]]
 
 local function door_default_callback(door, actor)
 	local ph_shell = door:get_physics_shell()
@@ -322,40 +213,6 @@ function export.no_need_to_rotate_xz(npc, target_pos)
 	return y < 0.3
 end
 
--- ������� ���� �� �������� � �������
-function export.rad2deg(r)
-	return r * 180.0 / math.pi
-end
-
--- ������� ���� �� �������� � �������
-function export.deg2rad(d)
-	return d * math.pi / 180.0
-end
-
--- ���� ����� ����� ��������� � ��������.
-function export.angle_diff(a1, a2)
-	local b1 = a1:normalize()
-	local b2 = a2:normalize()
-	local dotp = b1:dotproduct(b2)
-
-	return rad2deg(math.acos(math.abs(dotp)))
-end
-
--- true, ���� ����� ������������ �����
-function export.angle_left(dir1, dir2)
-	local dir_res = vector()
-	dir_res:crossproduct(dir1, dir2)
-	return dir_res.y <= 0
-end
-
-function export.angle_left_xz(dir1, dir2)
-	local dir_res = vector()
-	dir1.y = 0
-	dir2.y = 0
-	dir_res:crossproduct(dir1, dir2)
-	return dir_res.y <= 0
-end
-
 function export.get_nearest_waypoint(obj, pathname, ptr, cnt)
 	local pt_chosen = nil
 	local min_dist = nil
@@ -461,7 +318,6 @@ function export.level_changing()
 	return actor_gv:level_id() ~= sim:level_id()
 end
 
-
 function export.parse_data_1v(npc, s)
 	local t = {}
 
@@ -485,40 +341,6 @@ function export.parse_data_1v(npc, s)
 		end
 	end
 		return t
-end
-
-function export.parse_spawns(str)
-	--' ���� default-�� ������, ��� �������� � ini, �� ������ ����������� ��������� ��������� �� ini
-	local t = parse_names(str)
-	local n = #t
-
-	local ret_table = {}
-	local k = 1
-	while k <= n do
-		local spawn = {}
-		spawn.section = t[k]
-		--' ��������� ��� ��� �� ��������� ������
-		if t[k+1] ~= nil then
-			local p = tonumber(t[k+1])
-			--' ��������� ��� ������ ������ ������ �����������, � �� ������ ������ ������
-			if p then
-				--' �������� �����
-				spawn.prob = p
-				k = k + 2
-			else
-				--' �������� ������ 1
-				spawn.prob = 1
-				k = k + 1
-			end
-		else
-			spawn.prob = 1
-			k = k + 1
-		end
-
-		table.insert(ret_table, spawn)
-
-	end
-	return ret_table
 end
 
 function export.r_2nums(spawn_ini, section, line, def1, def2 )
@@ -608,6 +430,5 @@ function export.parse_syn_data(npc, s)
 
 		return t
 end
-
 
 return export

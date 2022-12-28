@@ -113,19 +113,61 @@ export function vectorCmpPrec(first: XR_vector, second: XR_vector, d: number): b
 
 /**
  *
- * --' ���������� ���������� ����� ����� ������� ����� � ������ �������� �������
- * function graph_distance(vid1, vid2)
- *  local p1 = game_graph():vertex(vid1):game_point()
- *  local p2 = game_graph():vertex(vid2):game_point()
- *
- *  --printf("GRAPH DISTANCE [%s][%s][%s] : [%s][%s][%s]", p1.x, p1.y, p1.z, p2.x, p2.y, p2.z)
- *
- *  return game_graph():vertex(vid1):game_point():distance_to(game_graph():vertex(vid2):game_point())
- * end
  */
 export function graphDistance(vertexId1: number, vertexId2: number): number {
   const point1: XR_vector = game_graph().vertex(vertexId1).game_point();
   const point2: XR_vector = game_graph().vertex(vertexId2).game_point();
 
-  return game_graph().vertex(vertexId1).game_point().distance_to(game_graph().vertex(vertexId2).game_point());
+  return point1.distance_to(point2);
+}
+
+/**
+ *
+ */
+export function radianToDegree(radian: number): number {
+  return (radian * 180) / math.pi;
+}
+
+/**
+ *
+ */
+export function degreeToRadian(degree: number): number {
+  return (degree * math.pi) / 180;
+}
+
+/**
+ *
+ */
+export function angleDiff(a1: XR_vector, a2: XR_vector): number {
+  const b1: XR_vector = a1.normalize();
+  const b2: XR_vector = a2.normalize();
+
+  return radianToDegree(math.acos(math.abs(b1.dotproduct(b2))));
+}
+
+/**
+ *
+ */
+export function angleLeft(dir1: XR_vector, dir2: XR_vector): boolean {
+  const dir_res: XR_vector = new vector();
+
+  dir_res.crossproduct(dir1, dir2);
+
+  return dir_res.y <= 0;
+}
+
+/**
+ *
+ */
+export function angleLeftXZ(dir1: XR_vector, dir2: XR_vector): boolean {
+  const dir1XZ: XR_vector = new XR_vector().set(dir1);
+  const dir2XZ: XR_vector = new XR_vector().set(dir2);
+  const dir: XR_vector = new vector();
+
+  dir1XZ.y = 0;
+  dir2XZ.y = 0;
+
+  dir.crossproduct(dir1XZ, dir2XZ);
+
+  return dir.y <= 0;
 }

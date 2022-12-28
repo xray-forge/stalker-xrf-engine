@@ -201,99 +201,8 @@ declare module "xray16" {
   }
 
   /**
-   *  C++ class XR_vector {
-   *     property x;
-   *     property y;
-   *     property z;
-   *
-   *     vector ();
-   *
-   *     function set_length(number);
-   *
-   *     function sub(number);
-   *     function sub(const vector&);
-   *     function sub(const vector&, const vector&);
-   *     function sub(const vector&, number);
-   *
-   *     function reflect(const vector&, const vector&);
-   *
-   *     function slide(const vector&, const vector&);
-   *
-   *     function average(const vector&);
-   *     function average(const vector&, const vector&);
-   *
-   *     function normalize_safe();
-   *     function normalize_safe(const vector&);
-   *
-   *     function normalize();
-   *     function normalize(const vector&);
-   *
-   *     function align();
-   *
-   *     function magnitude() const;
-   *
-   *     function getP() const;
-   *
-   *     function max(const vector&);
-   *     function max(const vector&, const vector&);
-   *
-   *     function distance_to_xz(const vector&) const;
-   *
-   *     function invert();
-   *     function invert(const vector&);
-   *
-   *     function mad(const vector&, number);
-   *     function mad(const vector&, const vector&, number);
-   *     function mad(const vector&, const vector&);
-   *     function mad(const vector&, const vector&, const vector&);
-   *
-   *     function clamp(const vector&);
-   *     function clamp(const vector&, vector);
-   *
-   *     function inertion(const vector&, number);
-   *
-   *     function crossproduct(const vector&, const vector&);
-   *
-   *     function set(number, number, number);
-   *     function set(const vector&);
-   *
-   *     function abs(const vector&);
-   *
-   *     function div(number);
-   *     function div(const vector&);
-   *     function div(const vector&, const vector&);
-   *     function div(const vector&, number);
-   *
-   *     function dotproduct(const vector&) const;
-   *
-   *     function getH() const;
-   *
-   *     function min(const vector&);
-   *     function min(const vector&, const vector&);
-   *
-   *     function similar(const vector&, number) const;
-   *
-   *     function distance_to(const vector&) const;
-   *
-   *     function lerp(const vector&, const vector&, number);
-   *
-   *     function distance_to_sqr(const vector&) const;
-   *
-   *     function mul(number);
-   *     function mul(const vector&);
-   *     function mul(const vector&, const vector&);
-   *     function mul(const vector&, number);
-   *
-   *     function setHP(number, number);
-   *
-   *     function add(number);
-   *     function add(const vector&);
-   *     function add(const vector&, const vector&);
-   *     function add(const vector&, number);
-   *
-   *   };
-   *
-   *  @customConstructor vector
+   * C++ class XR_vector {
+   * @customConstructor vector
    */
   export class XR_vector {
     public x: number;
@@ -317,8 +226,8 @@ declare module "xray16" {
     public normalize_safe(): unknown;
     public normalize_safe(vector: XR_vector): unknown;
 
-    public normalize(): unknown;
-    public normalize(vector: XR_vector): unknown;
+    public normalize(): XR_vector;
+    public normalize(vector: XR_vector): XR_vector;
 
     public align(): unknown;
 
@@ -344,7 +253,7 @@ declare module "xray16" {
 
     public inertion(vector: XR_vector, val:number): unknown;
 
-    public crossproduct(vector1: XR_vector, vector2: XR_vector): unknown;
+    public crossproduct(vector1: XR_vector, vector2: XR_vector): void;
 
     public set(x: number, y: number, z: number): XR_vector;
     public set(vector: XR_vector): XR_vector;
@@ -356,7 +265,7 @@ declare module "xray16" {
     public div(vector1: XR_vector, vector2: XR_vector): unknown;
     public div(vector: XR_vector, val:number): unknown;
 
-    public dotproduct(vector: XR_vector) : unknown;
+    public dotproduct(vector: XR_vector) : number;
 
     public getH() : unknown;
 

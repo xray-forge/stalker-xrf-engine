@@ -17,11 +17,10 @@ import { FIELDS_BY_NAME } from "@/mod/scripts/core/binders/AnomalyFieldBinder";
 import { addAnomaly, addObject, deleteAnomaly, deleteObject, storage } from "@/mod/scripts/core/db";
 import { mapDisplayManager } from "@/mod/scripts/ui/game/MapDisplayManager";
 import { getStoryObject } from "@/mod/scripts/utils/alife";
-import { getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
+import { getConfigNumber, getConfigString, parseNames, parseNums } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { parseNames, parseNums } from "@/mod/scripts/utils/params";
 
 const log: LuaLogger = new LuaLogger("core/binders/AnomalyZoneBinder");
 
