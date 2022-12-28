@@ -1,3 +1,5 @@
+import { device, get_hud, getFS, level, XR_CUIGameCustom, XR_game_object } from "xray16";
+
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { getActor } from "@/mod/scripts/core/db";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -27,7 +29,9 @@ export function resolveXmlFormPath(path: string, hasWideScreenSupport: boolean =
    * Warn about bad path in dev mode.
    */
   if (gameConfig.DEBUG.IS_ENABLED) {
-    if (string.find(path, "/") !== null) {
+    const [hasNonWindowsChars] = string.find(path, "/");
+
+    if (hasNonWindowsChars !== null) {
       abort("Non-windows path for XML supplied:", path);
     }
   }

@@ -1,11 +1,13 @@
-// todo: Separate file with DB objects
-// todo: Separate file with DB utils
+import { IXR_cse_alife_object, XR_game_object, XR_object_binder } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { ActorProxy, IActorProxy } from "@/mod/scripts/core/ActorProxy";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("core/db", false);
+
+// todo: Separate file with DB objects
+// todo: Separate file with DB utils
 
 export const infoRestr = {};
 export const scriptIds: LuaTable<number, any> = new LuaTable();

@@ -1,3 +1,5 @@
+import { level, game, time_global, verify_if_thread_is_running } from "xray16";
+
 import { Optional } from "@/mod/lib/types";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

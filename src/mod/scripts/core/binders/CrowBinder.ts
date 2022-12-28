@@ -1,3 +1,15 @@
+import {
+  alife,
+  callback,
+  IXR_cse_alife_object,
+  object_binder,
+  time_global,
+  XR_alife_simulator,
+  XR_game_object,
+  XR_net_packet,
+  XR_object_binder
+} from "xray16";
+
 import { AnyCallable } from "@/mod/lib/types";
 import { addObject, CROW_STORAGE, deleteObject, storage } from "@/mod/scripts/core/db";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";

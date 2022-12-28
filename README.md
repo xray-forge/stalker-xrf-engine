@@ -114,7 +114,7 @@ Reference: [Open X-Ray source code](https://github.com/OpenXRay/xray-16)
   - [xray global](src/typedefs/xray16/c_global.d.ts)
   - [xray utils](src/typedefs/xray16/c_utils.d.ts)
 
-- [Lua typedefs](src/typedefs/lua)
+- [Lua typedefs](src/typedefs/luaJIT)
 
 ---
 

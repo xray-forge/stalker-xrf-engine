@@ -1,6 +1,4 @@
-export {};
-
-declare global {
+declare module "xray16" {
   /**
    * C++ class fcolor {
    *   property a;
@@ -15,7 +13,7 @@ declare global {
    *   function set(number);
    * };
    */
-  class XR_FColor extends XR_LuaBindBase {
+  export class XR_FColor extends XR_LuaBindBase {
     public a: number;
     public b: number;
     public g: number;
@@ -45,7 +43,7 @@ declare global {
    *
    * @customConstructor Frect
    */
-  class XR_FRect extends XR_LuaBindBase {
+  export class XR_FRect extends XR_LuaBindBase {
     public lt: number;
     public rb: number;
 
@@ -194,7 +192,7 @@ declare global {
    *
    * @customConstructor vector2
    */
-  class XR_vector2 {
+  export class XR_vector2 {
     public x: number;
     public y: number;
 
@@ -297,7 +295,7 @@ declare global {
    *
    *  @customConstructor vector
    */
-  class XR_vector {
+  export class XR_vector {
     public x: number;
     public y: number;
     public z: number;
@@ -507,7 +505,7 @@ declare global {
    *
    * @customConstructor award_data
    */
-  class XR_award_data {
+  export class XR_award_data {
     public m_count: number;
     public m_last_reward_date: number;
   }
@@ -579,7 +577,7 @@ declare global {
    *     const alRight = 1;
    *   };
    */
-  class XR_CGameFont {
+  export class XR_CGameFont {
     public static alCenter: 2;
     public static alLeft: 0;
     public static alRight: 1;
@@ -602,7 +600,7 @@ declare global {
    *
    *  @customConstructor CGameGraph
    */
-  class XR_CGameGraph {
+  export class XR_CGameGraph {
     public valid_vertex_id(this: void, value: number): unknown;
 
     public vertex(vertexId: number): XR_GameGraph__CVertex;
@@ -797,7 +795,7 @@ declare global {
    *
    *   };
    */
-  class XR_GameGraph__CVertex {
+  export class XR_GameGraph__CVertex {
     public level_vertex_id(): number;
 
     public level_id(): number;
@@ -864,5 +862,4 @@ declare global {
 
   };
    */
-
 }

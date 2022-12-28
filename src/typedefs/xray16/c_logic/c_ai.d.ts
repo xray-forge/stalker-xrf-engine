@@ -1,31 +1,11 @@
-export {};
-
-declare global {
+declare module "xray16" {
   /**
-   C++ class CAI_Bloodsucker : CGameObject {
-    CAI_Bloodsucker ();
-
-    function Visual() const;
-
-    function getEnabled() const;
-
-    function net_Import(net_packet&);
-
-    function getVisible() const;
-
-    function net_Spawn(cse_abstract*);
-
-    function force_visibility_state(number);
-
-    function net_Export(net_packet&);
-
-    function _construct();
-
-    function use(CGameObject*);
-
-  };
+   * C++ class CAI_Bloodsucker : CGameObject {
    */
-  // todo;
+  export class XR_CAI_Bloodsucker extends XR_CGameObject {
+    public force_visibility_state(value: number): unknown;
+  }
+
   /**
    C++ class CAI_Boar : CGameObject {
     CAI_Boar ();
@@ -118,6 +98,7 @@ declare global {
   };
    */
   // todo;
+
   /**
    C++ class CAI_Stalker : CGameObject {
     CAI_Stalker ();
@@ -141,6 +122,7 @@ declare global {
   };
    */
   // todo;
+
   /**
    C++ class CAI_Trader : CGameObject {
     CAI_Trader ();
@@ -164,6 +146,7 @@ declare global {
   };
    */
   // todo;
+
   /**
    C++ class CALifeHumanBrain : CALifeMonsterBrain {
     function can_choose_alife_tasks(boolean);
@@ -186,6 +169,7 @@ declare global {
   };
    */
   // todo;
+
   /**
    C++ class CALifeMonsterDetailPathManager {
     function completed() const;

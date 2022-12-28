@@ -1,3 +1,35 @@
+import {
+  CScriptXmlInit,
+  CUIScriptWnd,
+  CUIWindow,
+  DIK_keys,
+  found_email_cb,
+  Frect,
+  game,
+  ui_events,
+  suggest_nicks_cb,
+  XR_CScriptXmlInit,
+  XR_CUI3tButton,
+  XR_CUICheckButton,
+  XR_CUIMessageBoxEx,
+  XR_CUIScriptWnd,
+  XR_CUIStatic,
+  XR_CUITextWnd,
+  XR_CUIWindow,
+  XR_profile,
+  get_console,
+  IXR_CConsole,
+  dik_to_bind,
+  login_operation_cb,
+  CUIMMShniaga,
+  store_operation_cb,
+  account_profiles_cb,
+  account_operation_cb,
+  CUIMessageBoxEx,
+  XR_CUIEditBox,
+  XR_CUIComboBox
+} from "xray16";
+
 import { Optional } from "@/mod/lib/types";
 import { IMainMenu } from "@/mod/scripts/ui/menu/MainMenu";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -581,7 +613,7 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
     CUIScriptWnd.OnKeyboard(this, key, event);
 
     const bind = dik_to_bind(key);
-    const console = get_console();
+    const console: IXR_CConsole = get_console();
 
     if (event === ui_events.WINDOW_KEY_RELEASED) {
       if (key === DIK_keys.DIK_LCONTROL) {

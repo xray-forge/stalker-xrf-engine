@@ -1,5 +1,6 @@
+import { error_log, log, time_global } from "xray16";
+
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
-import { Maybe } from "@/mod/lib/types";
 
 export class LuaLogger {
   protected prefix: string;
@@ -22,7 +23,7 @@ export class LuaLogger {
     this.logAs("[INFO]", args);
   }
 
-  public table(table: Maybe<LuaIterable<any>>, sub: string = ""): void {
+  public table(table: LuaTable, sub: string = ""): void {
     if (gameConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
       if (table === null) {
         return this.info("[TABLE]: null");
@@ -30,7 +31,7 @@ export class LuaLogger {
         this.info("[TABLE]");
       }
 
-      for (const [k, v] of pairs(table as LuaIterable<string, any>)) {
+      for (const [k, v] of table) {
         if (type(v) == "table") {
           this.info(string.format(sub + "%s:", tostring(k)));
           this.table(v, "  ");

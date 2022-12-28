@@ -1,3 +1,24 @@
+import {
+  vector2,
+  XR_CScriptXmlInit,
+  XR_CUI3tButton,
+  XR_CUIComboBox,
+  XR_CUIEditBox,
+  XR_CUIMessageBoxEx,
+  XR_CUIScrollView,
+  XR_profile,
+  XR_vector2,
+  XR_CUIWindow,
+  XR_CUITextWnd,
+  suggest_nicks_cb,
+  CScriptXmlInit,
+  CUIWindow,
+  ui_events,
+  CUIMessageBoxEx,
+  login_operation_cb,
+  game
+} from "xray16";
+
 import { Optional } from "@/mod/lib/types";
 import { IMultiplayerMenu } from "@/mod/scripts/ui/menu/MultiplayerMenu";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -206,7 +227,7 @@ export const MultiplayerProfile: IMultiplayerProfile = declare_xr_class("Multipl
       let index: number = 1;
 
       for (const it of this.handler.owner.profile_store.get_awards()) {
-        const k: number = math.mod(index, 3);
+        const k: number = math.fmod(index, 3);
 
         if (k == 1) {
           field = field + 1;

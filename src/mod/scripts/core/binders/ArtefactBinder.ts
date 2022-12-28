@@ -1,4 +1,16 @@
 import {
+  IXR_cse_alife_object,
+  object_binder,
+  vector,
+  XR_CArtefact,
+  XR_game_object,
+  XR_ini_file,
+  XR_object_binder,
+  XR_physics_element,
+  XR_physics_shell
+} from "xray16";
+
+import {
   ARTEFACT_POINTS_BY_ARTEFACT_ID,
   ARTEFACT_WAYS_BY_ARTEFACT_ID,
   IAnomalyZoneBinder,

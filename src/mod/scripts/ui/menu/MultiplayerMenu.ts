@@ -1,3 +1,45 @@
+import {
+  XR_CUITabControl,
+  XR_CUIMessageBoxEx,
+  XR_CUIEditBox,
+  XR_CServerList,
+  XR_CUIMapList,
+  XR_CUI3tButton,
+  XR_CUICheckButton,
+  XR_CUISpinText,
+  XR_CUISpinNum,
+  XR_CUIScriptWnd,
+  XR_CUISpinFlt,
+  XR_CUIComboBox,
+  XR_CUIEditBoxEx,
+  XR_CUIStatic,
+  XR_CUIProgressBar,
+  XR_Patch_Dawnload_Progress,
+  CUIScriptWnd,
+  main_menu,
+  DIK_keys,
+  ui_events,
+  XR_CScriptXmlInit,
+  Frect,
+  XR_CUIWindow,
+  CScriptXmlInit,
+  CUIWindow,
+  XR_COptionsManager,
+  COptionsManager,
+  XR_CMainMenu,
+  CUIMessageBoxEx,
+  game,
+  GAME_TYPE,
+  get_console,
+  IXR_CConsole,
+  XR_profile,
+  XR_SServerFilters,
+  SServerFilters,
+  login_operation_cb,
+  level,
+  connect_error_cb
+} from "xray16";
+
 import { option_groups } from "@/mod/globals/option_groups";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { IMainMenu } from "@/mod/scripts/ui/menu/MainMenu";
@@ -356,7 +398,7 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
         "/psw=" +
         this.message_box.GetPassword() +
         ")";
-      const console: XR_CConsole = get_console();
+      const console: IXR_CConsole = get_console();
 
       console.execute(cmd);
     }
@@ -365,7 +407,7 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
     log.info("CD key changed");
 
     const cdKey: string = this.cdkey.GetText();
-    const console: XR_CConsole = get_console();
+    const console: IXR_CConsole = get_console();
 
     console.execute("cdkey " + (cdKey === "" ? "clear" : cdKey));
   },
@@ -417,7 +459,7 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
   OnDemoSaveChange(): void {
     log.info("Demo save change");
 
-    const console: XR_CConsole = get_console();
+    const console: IXR_CConsole = get_console();
 
     if (this.check_demosave.GetCheck()) {
       console.execute("cl_mpdemosave 1");
@@ -520,7 +562,7 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
     if (this.check_dedicated.GetCheck()) {
       this.map_list.StartDedicatedServer();
     } else {
-      const console: XR_CConsole = get_console();
+      const console: IXR_CConsole = get_console();
       const command: string = this.map_list.GetCommandLine(this.owner.gameSpyProfile!.unique_nick());
       // --this.player_name.GetText())
 

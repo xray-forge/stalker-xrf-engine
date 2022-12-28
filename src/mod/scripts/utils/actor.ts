@@ -1,3 +1,5 @@
+import { alife, XR_alife_simulator } from "xray16";
+
 import { getActor } from "@/mod/scripts/core/db";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

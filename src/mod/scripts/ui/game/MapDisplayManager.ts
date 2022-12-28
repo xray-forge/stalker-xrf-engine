@@ -1,3 +1,14 @@
+import {
+  level,
+  alife,
+  IXR_cse_alife_object,
+  XR_alife_simulator,
+  XR_game_object,
+  XR_vector,
+  game,
+  time_global
+} from "xray16";
+
 import { alife_infos } from "@/mod/globals/alife_infos";
 import { captions } from "@/mod/globals/captions";
 import { levels } from "@/mod/globals/levels";
@@ -101,43 +112,44 @@ const npcMarks = {
   }
 };
 
-const changeObjects = [
-  {
-    target: story_ids.jup_b32_spot,
-    hint: captions.st_jup_b32_name,
-    zone: "jup_b32_anomal_zone",
-    group: alife_infos.jup_b32_scanner_1_placed,
-    enabled: false
-  },
-  {
-    target: story_ids.jup_b201_spot,
-    hint: captions.st_jup_b201_name,
-    zone: "jup_b201_anomal_zone",
-    group: alife_infos.jup_b32_scanner_2_placed,
-    enabled: false
-  },
-  {
-    target: story_ids.jup_b209_spot,
-    hint: captions.st_jup_b209_name,
-    zone: "jup_b209_anomal_zone",
-    group: alife_infos.jup_b32_scanner_3_placed,
-    enabled: false
-  },
-  {
-    target: story_ids.jup_b211_spot,
-    hint: captions.st_jup_b211_name,
-    zone: "jup_b211_anomal_zone",
-    group: alife_infos.jup_b32_scanner_4_placed,
-    enabled: false
-  },
-  {
-    target: story_ids.jup_b1_spot,
-    hint: captions.st_jup_b1_name,
-    zone: "jup_b10_anomal_zone",
-    group: alife_infos.jup_b32_scanner_5_placed,
-    enabled: false
-  }
-];
+const changeObjects: LuaTable<number, { target: string; hint: string; zone: string; group: string; enabled: boolean }> =
+  [
+    {
+      target: story_ids.jup_b32_spot,
+      hint: captions.st_jup_b32_name,
+      zone: "jup_b32_anomal_zone",
+      group: alife_infos.jup_b32_scanner_1_placed,
+      enabled: false
+    },
+    {
+      target: story_ids.jup_b201_spot,
+      hint: captions.st_jup_b201_name,
+      zone: "jup_b201_anomal_zone",
+      group: alife_infos.jup_b32_scanner_2_placed,
+      enabled: false
+    },
+    {
+      target: story_ids.jup_b209_spot,
+      hint: captions.st_jup_b209_name,
+      zone: "jup_b209_anomal_zone",
+      group: alife_infos.jup_b32_scanner_3_placed,
+      enabled: false
+    },
+    {
+      target: story_ids.jup_b211_spot,
+      hint: captions.st_jup_b211_name,
+      zone: "jup_b211_anomal_zone",
+      group: alife_infos.jup_b32_scanner_4_placed,
+      enabled: false
+    },
+    {
+      target: story_ids.jup_b1_spot,
+      hint: captions.st_jup_b1_name,
+      zone: "jup_b10_anomal_zone",
+      group: alife_infos.jup_b32_scanner_5_placed,
+      enabled: false
+    }
+  ] as any;
 
 export class MapDisplayManager extends AbstractSingletonManager {
   public static readonly DISTANCE_TO_SHOW_MAP_MARKS: number = 75;
@@ -279,11 +291,9 @@ export class MapDisplayManager extends AbstractSingletonManager {
 
   public updateAnomaliesZones(): void {
     if (hasAlifeInfo(alife_infos.jup_b32_scanner_reward)) {
-      changeObjects.forEach((it) => {
-        if (hasAlifeInfo(it.group)) {
-          it.enabled = true;
-        }
-      });
+      for (const [k, v] of changeObjects) {
+        v.enabled = hasAlifeInfo(v.group);
+      }
     }
 
     /**
@@ -291,7 +301,7 @@ export class MapDisplayManager extends AbstractSingletonManager {
      * Works for jupiter only.
      */
     if (level.name() === levels.jupiter) {
-      for (const [k, v] of pairs(changeObjects as LuaIterable<number, any>)) {
+      for (const [k, v] of changeObjects) {
         if (v.enabled) {
           const objectId: Optional<number> = getStoryObjectId(v.target);
 

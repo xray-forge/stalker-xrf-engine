@@ -5,11 +5,6 @@ local log = create_ts_class_instance(LuaLogger, "lug_globals");
 log:info("Injecting lua globals")
 
 -- ---------------------------------------------------------------------------------------------------------------------
-
--- todo: Remove after refactor, alias TS global and lua global
-_G._____G = _G
-
--- ---------------------------------------------------------------------------------------------------------------------
 -- Method to declare native C++ classes from lua
 -- Easier to declare it as LUA global and use than transpile from TS directly
 -- LuaBind classes require constructor-destructor implementation and are defined as 'userdata'

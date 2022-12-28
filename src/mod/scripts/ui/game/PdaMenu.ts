@@ -1,3 +1,5 @@
+import { game } from "xray16";
+
 import { monsters, TMonster } from "@/mod/globals/monsters";
 import { textures } from "@/mod/globals/textures";
 import { weapons } from "@/mod/globals/weapons";

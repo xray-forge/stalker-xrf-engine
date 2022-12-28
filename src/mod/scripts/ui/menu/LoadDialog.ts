@@ -1,3 +1,42 @@
+import {
+  bit_or,
+  CScriptXmlInit,
+  CUIListBoxItem,
+  CUIMessageBoxEx,
+  CUIScriptWnd,
+  CUIWindow,
+  FS,
+  Frect,
+  GetARGB,
+  GetFontLetterica18Russian,
+  getFS,
+  ui_events,
+  vector2,
+  XR_CScriptXmlInit,
+  XR_CUIListBox,
+  XR_CUIListBoxItem,
+  XR_CUIMessageBoxEx,
+  XR_CUIScriptWnd,
+  XR_CUIStatic,
+  XR_CUITextWnd,
+  XR_CUIWindow,
+  XR_FS,
+  XR_FS_file_list_ex,
+  XR_vector2,
+  XR_FS_item,
+  get_console,
+  IXR_CConsole,
+  alife,
+  valid_saved_game,
+  XR_game_object,
+  TXR_DIK_key,
+  TXR_ui_event,
+  dik_to_bind,
+  key_bindings,
+  GetFontLetterica16Russian,
+  DIK_keys
+} from "xray16";
+
 import { textures } from "@/mod/globals/textures";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
@@ -228,7 +267,7 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
   load_game_internal(): void {
     log.info("Load game internal");
 
-    const console: XR_CConsole = get_console();
+    const console: IXR_CConsole = get_console();
 
     if (this.listBox.GetSize() == 0) {
       return;

@@ -1,3 +1,5 @@
+import { CUIWindow, vector2, XR_CScriptXmlInit, XR_CUIWindow } from "xray16";
+
 import { IOptionsDialog } from "@/mod/scripts/ui/menu/OptionsDialog";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

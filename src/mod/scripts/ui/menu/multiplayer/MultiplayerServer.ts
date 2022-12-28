@@ -1,3 +1,5 @@
+import { CUIWindow, XR_CScriptXmlInit, XR_CUIMapInfo, XR_CUIStatic, XR_CUIWindow } from "xray16";
+
 import { IMultiplayerMenu } from "@/mod/scripts/ui/menu/MultiplayerMenu";
 
 export interface IMultiplayerServer extends XR_CUIWindow {

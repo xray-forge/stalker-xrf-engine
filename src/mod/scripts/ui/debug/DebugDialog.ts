@@ -1,3 +1,18 @@
+import {
+  CScriptXmlInit,
+  CUIScriptWnd,
+  DIK_keys,
+  Frect,
+  TXR_DIK_key,
+  TXR_ui_event,
+  ui_events,
+  XR_CScriptXmlInit,
+  XR_CUI3tButton,
+  XR_CUIScriptWnd,
+  XR_CUIStatic,
+  XR_CUITabControl
+} from "xray16";
+
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { DebugCommandsSection, IDebugCommandsSection } from "@/mod/scripts/ui/debug/DebugCommandsSection";
 import { DebugGeneralSection, IDebugGeneralSection } from "@/mod/scripts/ui/debug/DebugGeneralSection";

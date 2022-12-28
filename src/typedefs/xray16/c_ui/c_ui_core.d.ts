@@ -1,81 +1,25 @@
-export {};
-
-declare global {
+declare module "xray16" {
   /**
-   *    C++ class COptionsManager {
-   *     COptionsManager ();
-   *
-   *     function SendMessage2Group(string, string);
-   *
-   *     function UndoGroup(string);
-   *
-   *     function SaveBackupValues(string);
-   *
-   *     function IsGroupChanged(string);
-   *
-   *     function SaveValues(string);
-   *
-   *     function SetCurrentValues(string);
-   *
-   *     function NeedSystemRestart();
-   *
-   *     function NeedVidRestart();
-   *
-   *     function OptionsPostAccept();
-   *
-   *   };
-   *
-   *  @customConstructor COptionsManager
+   * C++ class COptionsManager {
+   * @customConstructor COptionsManager
    */
-  class XR_COptionsManager {
+  export class XR_COptionsManager {
     public SendMessage2Group(group: string, message: string): void;
-
     public UndoGroup(group: string): void;
-
     public SaveBackupValues(group: string): void;
-
     public IsGroupChanged(group: string): boolean;
-
     public SaveValues(group: string): void;
-
     public SetCurrentValues(group: string): void;
-
     public NeedSystemRestart(): boolean;
-
     public NeedVidRestart(): boolean;
-
     public OptionsPostAccept(): void;
-
   }
 
   /**
-   *   C++ class CMainMenu {
-   *     function GetCDKey();
-   *
-   *     function GetAccountMngr();
-   *
-   *     function GetDemoInfo(string);
-   *
-   *     function GetPatchProgress();
-   *
-   *     function GetProfileStore();
-   *
-   *     function GetGSVer();
-   *
-   *     function CancelDownload();
-   *
-   *     function GetLoginMngr();
-   *
-   *     function ValidateCDKey();
-   *
-   *     function GetPlayerName();
-   *
-   *   };
-   *
-   *   @customConstructor CMainMenu
+   * C++ class CMainMenu {
+   * @customConstructor CMainMenu
    */
-
-  class XR_CMainMenu {
+  export class XR_CMainMenu {
     public GetCDKey(): string;
     public GetAccountMngr(): XR_account_manager;
     public GetDemoInfo(fileName: string): XR_demo_info | null;
@@ -84,63 +28,30 @@ declare global {
     public GetGSVer(): string;
     public GetLoginMngr(): XR_login_manager;
     public GetPlayerName(): string;
-
     public CancelDownload(): void;
     public ValidateCDKey(): boolean;
   }
 
   /**
    * C++ class CUIGameCustom {
-   *     function HidePdaMenu();
-   *
-   *     function HideActorMenu();
-   *
-   *     function AddDialogToRender(CUIWindow*);
-   *
-   *     function RemoveDialogToRender(CUIWindow*);
-   *
-   *     function show_messages();
-   *
-   *     function GetCustomStatic(string);
-   *
-   *     function AddCustomStatic(string, boolean);
-   *
-   *     function hide_messages();
-   *
-   *     function RemoveCustomStatic(string);
-   *
-   *   };
-   *
-   *  @customConstructor CUIGameCustom
+   * @customConstructor CUIGameCustom
    */
-  class XR_CUIGameCustom {
+  export class XR_CUIGameCustom {
     public HidePdaMenu(): unknown;
     public HideActorMenu(): unknown;
-
     public AddDialogToRender(window: XR_CUIWindow): unknown;
-
     public RemoveDialogToRender(window: XR_CUIWindow): unknown;
-
     public show_messages(): unknown;
-
     public GetCustomStatic(value: string): unknown;
-
     public AddCustomStatic(a: string, b:boolean): unknown;
-
     public hide_messages(): unknown;
-
     public RemoveCustomStatic(value:string): unknown;
   }
 
   /**
-   *    C++ class profile {
-   *     function unique_nick() const;
-   *
-   *     function online() const;
-   *
-   *   };
+   * C++ class profile {
    */
-  class XR_profile {
+  export class XR_profile {
     public unique_nick(): string;
     public online(): boolean;
   }

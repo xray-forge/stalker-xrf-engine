@@ -7,13 +7,13 @@ const log: LuaLogger = new LuaLogger("utils/table");
  * Check if provided container is empty collection.
  * Very lua-specific checks, do not apply TS logic here.
  */
-export function isEmpty(container: Optional<LuaIterable<any>>): boolean {
+export function isEmpty(container: Optional<LuaTable<any>>): boolean {
   if (container === null) {
     return true;
   }
 
   if (type(container) === "function") {
-    for (const it of container) {
+    for (const [k, v] of container) {
       return false;
     }
 
@@ -36,13 +36,13 @@ export function isEmpty(container: Optional<LuaIterable<any>>): boolean {
 /**
  * todo: description
  */
-export function copyTable(target: AnyObject, source: AnyObject): void {
-  for (const [k, v] of pairs(source as LuaIterable<string, any>)) {
+export function copyTable(target: LuaTable<string | number>, source: LuaTable<string | number>): void {
+  for (const [k, v] of source) {
     if (type(v) == "table") {
-      target[k] = {};
-      copyTable(target[k], v);
+      target.set(k, new LuaTable());
+      copyTable(target.get(k), v);
     } else {
-      target[k] = v;
+      target.set(k, v);
     }
   }
 }
@@ -50,8 +50,8 @@ export function copyTable(target: AnyObject, source: AnyObject): void {
 /**
  * todo: description
  */
-export function clearTable(tbl: LuaTable): void {
-  while (tbl.length() !== 0) {
-    table.remove(tbl, tbl.length());
+export function clearTable(target: LuaTable): void {
+  while (target.length() !== 0) {
+    table.remove(target as any, target.length());
   }
 }

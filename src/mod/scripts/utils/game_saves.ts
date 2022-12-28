@@ -1,3 +1,15 @@
+import {
+  getFS,
+  XR_FS,
+  FS,
+  XR_FS_file_list_ex,
+  bit_or,
+  XR_CSavedGameWrapper,
+  CSavedGameWrapper,
+  game,
+  XR_net_packet
+} from "xray16";
+
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

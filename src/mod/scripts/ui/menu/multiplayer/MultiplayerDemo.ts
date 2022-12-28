@@ -1,3 +1,36 @@
+import {
+  bit_or,
+  CGameFont,
+  CUIListBoxItem,
+  CUIListBoxItemMsgChain,
+  CUIMessageBoxEx,
+  CUIWindow,
+  Frect,
+  game,
+  get_console,
+  GetARGB,
+  GetFontLetterica16Russian,
+  getFS,
+  main_menu,
+  ui_events,
+  vector2,
+  XR_CScriptXmlInit,
+  XR_CUI3tButton,
+  XR_CUIEditBoxEx,
+  XR_CUIListBox,
+  XR_CUIListBoxItem,
+  XR_CUIListBoxItemMsgChain,
+  XR_CUIMapInfo,
+  XR_CUIMessageBoxEx,
+  XR_CUIStatic,
+  XR_CUITextWnd,
+  XR_CUIWindow,
+  XR_FS,
+  XR_LuaBindBase,
+  FS,
+  XR_vector2
+} from "xray16";
+
 import { textures } from "@/mod/globals/textures";
 import { Optional } from "@/mod/lib/types";
 import { IMultiplayerMenu } from "@/mod/scripts/ui/menu/MultiplayerMenu";
@@ -385,7 +418,7 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
       return;
     }
 
-    const tmp_index: Optional<number> = string.find(new_file_name, ".demo", 1, true);
+    const [tmp_index] = string.find(new_file_name, ".demo", 1, true);
 
     if (tmp_index !== null) {
       new_file_name = string.sub(new_file_name, 1, tmp_index - 1);

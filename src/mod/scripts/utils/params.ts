@@ -1,3 +1,5 @@
+import { XR_game_object } from "xray16";
+
 import { Optional } from "@/mod/lib/types";
 import { scriptIds } from "@/mod/scripts/core/db";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -61,7 +63,7 @@ export function parseNums(str: string): LuaTable<number, number> {
   const container: LuaTable<number, number> = new LuaTable();
 
   for (const it of string.gfind(str, "([%-%d%.]+)%,*")) {
-    table.insert(container, tonumber(it));
+    table.insert(container, tonumber(it) as number);
   }
 
   return container;

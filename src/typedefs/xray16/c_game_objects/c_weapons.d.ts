@@ -1,29 +1,10 @@
-export {};
-
-declare global {
+declare module "xray16" {
   /**
-   C++ class CWeaponAK74 : CGameObject {
-    CWeaponAK74 ();
-
-    function Visual() const;
-
-    function _construct();
-
-    function getEnabled() const;
-
-    function net_Import(net_packet&);
-
-    function net_Export(net_packet&);
-
-    function getVisible() const;
-
-    function net_Spawn(cse_abstract*);
-
-    function use(CGameObject*);
-
-  };
+   * C++ class CWeaponAK74 : CGameObject {
    */
-  // todo;
+  export class XR_CCWeaponAK74 extends XR_CGameObject {
+  }
+
   /**
    C++ class CWeaponAmmo : CGameObject {
     CWeaponAmmo ();

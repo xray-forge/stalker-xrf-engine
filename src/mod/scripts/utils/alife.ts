@@ -1,3 +1,17 @@
+import {
+  XR_game_object,
+  level,
+  IXR_cse_alife_creature_abstract,
+  alife,
+  XR_ini_file,
+  system_ini,
+  game,
+  XR_entity_action,
+  entity_action,
+  IXR_cse_alife_human_abstract,
+  IXR_cse_abstract
+} from "xray16";
+
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { AnyArgs, Maybe, Optional } from "@/mod/lib/types";
 import { isStalker } from "@/mod/scripts/core/checkers";
@@ -78,28 +92,20 @@ export function getStorySquad(storyId: string): Optional<IXR_cse_alife_creature_
 }
 
 /**
- * function create_ammo(section, position, lvi, gvi, pid, num)
- *  local ini = system_ini()
- *
- *  local num_in_box = ini:r_u32(section, "box_size")
- *  local t = {}
- *
- *  while num > num_in_box do
- *    local obj = alife():create_ammo(section, position, lvi,  gvi, pid, num_in_box)
- *    table.insert(t, obj)
- *    num = num - num_in_box
- *  end
- *
- *  local obj = alife():create_ammo(section, position, lvi,  gvi, pid, num)
- *  table.insert(t, obj)
- *  return t
- * end
+ * todo;
  */
-export function createAmmo(section: string, position: any, lvi: any, gvi: any, pid: any, num: number): any {
+export function createAmmo(
+  section: string,
+  position: any,
+  lvi: any,
+  gvi: any,
+  pid: any,
+  num: number
+): LuaTable<number, IXR_cse_abstract> {
   const ini: XR_ini_file = system_ini();
 
   const num_in_box = ini.r_u32(section, "box_size");
-  const t = {};
+  const t: LuaTable<number, IXR_cse_abstract> = new LuaTable();
 
   while (num > num_in_box) {
     const obj = alife().create_ammo(section, position, lvi, gvi, pid, num_in_box);

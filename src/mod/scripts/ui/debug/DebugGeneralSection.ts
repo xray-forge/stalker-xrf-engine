@@ -1,3 +1,13 @@
+import {
+  command_line,
+  CScriptXmlInit,
+  CUIWindow,
+  ui_events,
+  XR_CScriptXmlInit,
+  XR_CUIScriptWnd,
+  XR_CUIStatic
+} from "xray16";
+
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { collectLuaGarbage, getLuaMemoryUsed } from "@/mod/scripts/utils/ram";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";

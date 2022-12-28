@@ -1,6 +1,15 @@
-export {};
+declare module "xray16" {
+  /**
+   * C++ class sound_params {
+   */
+  export interface IXR_sound_params {
+    frequency: unknown;
+    max_distance: unknown;
+    min_distance: unknown;
+    position: unknown;
+    volume: unknown;
+  }
 
-declare global {
   /**
    C++ class sound_object {
     const looped = 1;
@@ -99,17 +108,7 @@ declare global {
   };
    */
   // todo;
-  /**
-   C++ class sound_params {
-    property frequency;
-    property max_distance;
-    property min_distance;
-    property position;
-    property volume;
 
-  };
-   */
-  // todo;
   /**
 
    C++ class sound_memory_object : game_memory_object {

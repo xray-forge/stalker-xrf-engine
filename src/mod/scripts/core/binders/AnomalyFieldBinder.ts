@@ -1,3 +1,5 @@
+import { IXR_cse_alife_object, object_binder, XR_game_object, XR_object_binder } from "xray16";
+
 import { addObject, addZone, deleteObject, deleteZone, storage } from "@/mod/scripts/core/db";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

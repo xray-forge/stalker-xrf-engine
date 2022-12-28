@@ -1,3 +1,24 @@
+import {
+  CScriptXmlInit,
+  CUIMessageBoxEx,
+  CUIScriptWnd,
+  Frect,
+  game,
+  get_console,
+  IXR_CConsole,
+  level,
+  ui_events,
+  vector2,
+  XR_CScriptXmlInit,
+  XR_CUI3tButton,
+  XR_CUIMessageBoxEx,
+  XR_CUIScriptWnd,
+  XR_CUIStatic,
+  XR_CUITrackBar,
+  XR_FRect,
+  XR_game_object
+} from "xray16";
+
 import { captions } from "@/mod/globals/captions";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
@@ -37,7 +58,7 @@ export interface ISleepDialog extends XR_CUIScriptWnd {
   OnMessageBoxOk(): void;
 }
 
-export const SleepDialog = declare_xr_class("SleepDialog", CUIScriptWnd, {
+export const SleepDialog = declare_xr_class("SleepDialog", XR_CUIScriptWnd, {
   __init(): void {
     xr_class_super();
 
@@ -199,11 +220,13 @@ export const SleepDialog = declare_xr_class("SleepDialog", CUIScriptWnd, {
 
     log.info("Turn off volumes");
 
-    _G.mus_vol = get_console().get_float("snd_volume_music");
-    _G.amb_vol = get_console().get_float("snd_volume_eff");
+    const console: IXR_CConsole = get_console();
 
-    get_console().execute("snd_volume_music 0");
-    get_console().execute("snd_volume_eff 0");
+    declare_global("mus_vol", console.get_float("snd_volume_music"));
+    declare_global("amb_vol", console.get_float("snd_volume_eff"));
+
+    console.execute("snd_volume_music 0");
+    console.execute("snd_volume_eff 0");
 
     log.info("Surge manager update resurrect skip message");
     get_global("surge_manager").resurrect_skip_message();
@@ -244,11 +267,11 @@ export function dream_callback2(): void {
   const actor: XR_game_object = getActor()!;
 
   get_global("xr_effects").enable_ui(actor, null);
-  get_console().execute("snd_volume_music " + tostring(_G.mus_vol));
-  get_console().execute("snd_volume_eff " + tostring(_G.amb_vol));
+  get_console().execute("snd_volume_music " + tostring(get_global("mus_vol")));
+  get_console().execute("snd_volume_eff " + tostring(get_global("amb_vol")));
 
-  _G.amb_vol = 0;
-  _G.mus_vol = 0;
+  declare_global("mus_vol", 0);
+  declare_global("amb_vol", 0);
 
   actor.give_info_portion("tutorial_sleep");
 

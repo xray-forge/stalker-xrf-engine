@@ -16,7 +16,11 @@
     "luaTarget": "JIT",
     "noImplicitGlobalVariables": true,
     "noImplicitSelf": true,
+    "noResolvePaths": [
+      "xray16"
+    ],
     "luaPlugins": [
+      { "name": "./plugins/global_declarations_transform.ts" },
       { "name": "./plugins/xr_class_super_transform.ts" },
       { "name": "./plugins/built_at_info.ts" }
     ]

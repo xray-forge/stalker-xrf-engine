@@ -1,3 +1,34 @@
+import {
+  alife,
+  CScriptXmlInit,
+  CUIMessageBoxEx,
+  CUIMMShniaga,
+  CUIScriptWnd,
+  device,
+  DIK_keys,
+  Frect,
+  game,
+  get_console,
+  IsGameTypeSingle,
+  IXR_CConsole,
+  level,
+  main_menu,
+  TXR_DIK_key,
+  TXR_ui_event,
+  ui_events,
+  XR_account_manager,
+  XR_CMainMenu,
+  XR_CScriptXmlInit,
+  XR_CUIMessageBoxEx,
+  XR_CUIMMShniaga,
+  XR_CUIScriptWnd,
+  XR_CUIStatic,
+  XR_game_object,
+  XR_login_manager,
+  XR_profile,
+  XR_profile_store
+} from "xray16";
+
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
@@ -173,7 +204,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     this.modalBoxMode = 0;
   },
   LoadLastSave(): void {
-    const console: XR_CConsole = get_console();
+    const console: IXR_CConsole = get_console();
 
     console.execute("main_menu off");
     console.execute("load_last_save");
@@ -246,7 +277,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     this.StartGame();
   },
   StartGame(): void {
-    const console: XR_CConsole = get_console();
+    const console: IXR_CConsole = get_console();
 
     if (alife() !== null) {
       console.execute("disconnect");

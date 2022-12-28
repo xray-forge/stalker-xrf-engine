@@ -1,6 +1,4 @@
-export {};
-
-declare global {
+declare module "xray16" {
   /**
    * C++ class stalker_ids {
    *   const action_accomplish_task = 7;
@@ -129,7 +127,7 @@ declare global {
    * };
    */
 
-  interface IXR_stalker_ids {
+  export interface IXR_stalker_ids {
     action_accomplish_task: 7;
     action_aim_enemy: 16;
     action_alife_planner: 88;
@@ -323,7 +321,7 @@ declare global {
    *
    *   };
    */
-  interface IXR_callback {
+  export interface IXR_callback {
     action_animation: 21;
     action_movement: 18;
     action_object: 24;
@@ -410,7 +408,7 @@ declare global {
    *     const kWPN_ZOOM = 31;
    *   };
    */
-  class XR_key_bindings {
+  export class XR_key_bindings {
     public kACCEL: 6;
     public kBACK: 9;
     public kBUY: 48;
@@ -464,7 +462,7 @@ declare global {
    *     const eGameIDTeamDeathmatch = 4;
    *   };
    */
-  class XR_GAME_TYPE {
+  export class XR_GAME_TYPE {
     public eGameIDArtefactHunt: 8;
     public eGameIDCaptureTheArtefact: 16;
     public eGameIDDeathmatch: 2;
@@ -472,7 +470,7 @@ declare global {
 
     public GAME_UNKNOWN: -1;
     public GAME_ANY: 0;
-    public GAME_SINGLE : 1;
+    public GAME_SINGLE: 1;
     public GAME_DEATHMATCH: 2;
     //	GAME_CTF							= 3,
     //	GAME_ASSAULT						= 4,	// Team1 - assaulting, Team0 - Defending
@@ -494,7 +492,7 @@ declare global {
    *     const master = 3;
    *   };
    */
-  class XR_game_difficulty {
+  export class XR_game_difficulty {
     public novice: 0;
     public stalker: 1;
     public veteran: 2;
@@ -606,7 +604,7 @@ declare global {
    *   };
    */
 
-  interface IXR_ui_events {
+  export interface IXR_ui_events {
     BUTTON_CLICKED: 17;
     BUTTON_DOWN: 18;
     CHECK_BUTTON_RESET: 21;
@@ -862,7 +860,7 @@ declare global {
    *   };
    *
    */
-  class XR_clsid {
+  export class XR_clsid {
     public static actor: 90;
     public static art_bast_artefact: 0;
     public static art_black_drops: 1;
@@ -1258,7 +1256,7 @@ declare global {
   };
    */
 
-  interface IXR_DIK_keys {
+  export interface IXR_DIK_keys {
     DIK_0: 11;
     DIK_1: 2;
     DIK_2: 3;

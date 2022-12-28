@@ -1,3 +1,5 @@
+import { get_console, IXR_CConsole, system_ini, XR_game_object, XR_ini_file } from "xray16";
+
 import { getActor } from "@/mod/scripts/core/db";
 import { AbstractActorMenu, EActorMenuMode } from "@/mod/scripts/ui/game/AbstractActorMenu";
 import { getConfigString } from "@/mod/scripts/utils/configs";
@@ -7,7 +9,7 @@ const log: LuaLogger = new LuaLogger("ActorMenu");
 
 class ActorMenu extends AbstractActorMenu {
   public initQuickSlotItems(): void {
-    const console: XR_CConsole = get_console();
+    const console: IXR_CConsole = get_console();
     const ini: XR_ini_file = system_ini();
     const actor: XR_game_object = getActor()!;
 

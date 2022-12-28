@@ -6,7 +6,7 @@ const super_call_expression_from: string = "xr_class_super";
 const super_call_expression_to: string = "super";
 
 /**
- * Plugin that transforms super_call_exppression calls to super.
+ * Plugin that transforms super_call_expression calls to super.
  * Allows usage of 'super' from lua without workarounds and problems.
  */
 const plugin: Plugin = {

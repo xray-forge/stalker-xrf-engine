@@ -3,7 +3,7 @@
     "target": "esnext",
     "lib": ["esnext"],
     "moduleResolution": "node",
-    "types": ["@typescript-to-lua/language-extensions"],
+    "types": ["@typescript-to-lua/language-extensions", "lua-types/5.4"],
     "jsx": "preserve",
     "jsxFactory": "JSXXML",
     "strict": true,

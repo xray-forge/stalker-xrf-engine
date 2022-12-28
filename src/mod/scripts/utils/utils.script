@@ -514,6 +514,7 @@ function export.parse_spawns(str)
 			spawn.prob = 1
 			k = k + 1
 		end
+
 		table.insert(ret_table, spawn)
 
 	end

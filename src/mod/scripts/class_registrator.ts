@@ -1,3 +1,5 @@
+import { editor, prefetch, XR_object_factory } from "xray16";
+
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 prefetch("_G");

@@ -1,15 +1,12 @@
-export {};
-
-declare global {
+declare module "xray16" {
   /**
-   C++ class CDialogHolder {
-    function RemoveDialogToRender(CUIWindow*);
-
-    function AddDialogToRender(CUIWindow*);
-
-  };
+   * C++ class CDialogHolder {
    */
-  // todo;
+  export interface IXR_CDialogHolder {
+    RemoveDialogToRender(window: XR_CUIWindow): void;
+    AddDialogToRender(window: XR_CUIWindow): void;
+  }
+
   /**
    C++ class CPhraseScript {
     function SetScriptText(string);

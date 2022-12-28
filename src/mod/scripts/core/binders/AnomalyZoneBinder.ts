@@ -1,3 +1,16 @@
+import {
+  alife,
+  ini_file,
+  IXR_cse_alife_object,
+  object_binder,
+  patrol,
+  XR_game_object,
+  XR_ini_file,
+  XR_net_packet,
+  XR_object_binder,
+  XR_patrol
+} from "xray16";
+
 import { AnyCallable, AnyObject, Optional } from "@/mod/lib/types";
 import { FIELDS_BY_NAME } from "@/mod/scripts/core/binders/AnomalyFieldBinder";
 import { addAnomaly, addObject, deleteAnomaly, deleteObject, storage } from "@/mod/scripts/core/db";
@@ -328,7 +341,7 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     this.disableAnomalyFields();
 
     for (const [k, v] of this.artefactWaysByArtefactId) {
-      alife().release(alife().object(tonumber(k)), true);
+      alife().release(alife().object(tonumber(k) as number), true);
       ARTEFACT_WAYS_BY_ARTEFACT_ID.delete(k);
       ARTEFACT_POINTS_BY_ARTEFACT_ID.delete(k);
       PARENT_ZONES_BY_ARTEFACT_ID.delete(k);
@@ -679,13 +692,11 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     /**
      * Save current layer.
      */
+
+    const [foundIndex] = string.find(this.currentZoneLayer, "_");
     const layerNumber: number = tonumber(
-      string.sub(
-        this.currentZoneLayer,
-        (string.find(this.currentZoneLayer, "_") as number) + 1,
-        string.len(this.currentZoneLayer)
-      )
-    );
+      string.sub(this.currentZoneLayer, foundIndex + 1, string.len(this.currentZoneLayer))
+    ) as number;
 
     if (layerNumber !== null) {
       packet.w_u8(layerNumber);

@@ -1,3 +1,5 @@
+import { device, XR_vector } from "xray16";
+
 import { Optional } from "@/mod/lib/types";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

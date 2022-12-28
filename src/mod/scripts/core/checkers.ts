@@ -1,3 +1,13 @@
+import {
+  IXR_cse_abstract,
+  IXR_cse_alife_human_stalker,
+  IXR_cse_alife_item_artefact,
+  IXR_cse_alife_item_weapon,
+  IXR_cse_alife_monster_abstract,
+  TXR_ClsId,
+  XR_game_object
+} from "xray16";
+
 import { artefact_class_ids, monster_class_ids, stalker_class_ids, weapon_class_ids } from "@/mod/globals/class_ids";
 import { Maybe } from "@/mod/lib/types";
 import { getClsId } from "@/mod/scripts/utils/ids";

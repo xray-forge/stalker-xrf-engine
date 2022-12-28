@@ -1,3 +1,5 @@
+import { XR_game_object, XR_object_binder } from "xray16";
+
 import { AnomalyFieldBinder } from "@/mod/scripts/core/binders/AnomalyFieldBinder";
 import { AnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
 import { ArtefactBinder } from "@/mod/scripts/core/binders/ArtefactBinder";

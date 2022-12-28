@@ -1,248 +1,250 @@
-export {};
+declare module "xray16" {
+   /**
+    C++ class property_storage {
+     property_storage ();
 
-declare global {
-  /**
+     function property(const number&) const;
 
-   C++ class action_planner {
-    property object;
-    property storage;
+     function set_property(const number&, const boolean&);
 
-    action_planner ();
+   };
+    */
+   export interface IXR_property_storage {
+      property(value: number): unknown;
+      set_property(value1: number, value2: boolean): void;
+   }
 
-    function initialized() const;
+   /**
 
-    function remove_action(const number&);
+    C++ class action_planner {
+     property object;
+     property storage;
 
-    function action(const number&);
+     action_planner ();
 
-    function add_action(const number&, action_base*);
+     function initialized() const;
 
-    function show(string);
+     function remove_action(const number&);
 
-    function update();
+     function action(const number&);
 
-    function clear();
+     function add_action(const number&, action_base*);
 
-    function evaluator(const number&);
+     function show(string);
 
-    function setup(game_object*);
+     function update();
 
-    function set_goal_world_state(action_planner*, world_state*);
+     function clear();
 
-    function current_action();
+     function evaluator(const number&);
 
-    function add_evaluator(const number&, property_evaluator*);
+     function setup(game_object*);
 
-    function remove_evaluator(const number&);
+     function set_goal_world_state(action_planner*, world_state*);
 
-    function current_action_id() const;
+     function current_action();
 
-    function actual(const action_planner*);
+     function add_evaluator(const number&, property_evaluator*);
 
-  };
-   *
-   */
-  // todo;
-  /**
+     function remove_evaluator(const number&);
 
-   C++ class planner_action : action_planner,action_base {
-    property object;
-    property storage;
+     function current_action_id() const;
 
-    planner_action ();
-    planner_action (game_object*);
-    planner_action (game_object*, string);
+     function actual(const action_planner*);
 
-    function finalize();
+   };
+    *
+    */
+   // todo;
+   /**
 
-    function action(const number&);
+    C++ class planner_action : action_planner,action_base {
+     property object;
+     property storage;
 
-    function add_precondition(const world_property&);
+     planner_action ();
+     planner_action (game_object*);
+     planner_action (game_object*, string);
 
-    function add_action(const number&, action_base*);
+     function finalize();
 
-    function update();
+     function action(const number&);
 
-    function remove_effect(const number&);
+     function add_precondition(const world_property&);
 
-    function current_action();
+     function add_action(const number&, action_base*);
 
-    function current_action_id() const;
+     function update();
 
-    function initialized() const;
+     function remove_effect(const number&);
 
-    function weight(const world_state&, const world_state&) const;
+     function current_action();
 
-    function initialize();
+     function current_action_id() const;
 
-    function actual(const action_planner*);
+     function initialized() const;
 
-    function remove_action(const number&);
+     function weight(const world_state&, const world_state&) const;
 
-    function remove_precondition(const number&);
+     function initialize();
 
-    function execute();
+     function actual(const action_planner*);
 
-    function clear();
+     function remove_action(const number&);
 
-    function evaluator(const number&);
+     function remove_precondition(const number&);
 
-    function set_goal_world_state(action_planner*, world_state*);
+     function execute();
 
-    function set_weight(const number&);
+     function clear();
 
-    function add_effect(const world_property&);
+     function evaluator(const number&);
 
-    function show(string);
+     function set_goal_world_state(action_planner*, world_state*);
 
-    function setup(game_object*);
-    function setup(game_object*, property_storage*);
+     function set_weight(const number&);
 
-    function remove_evaluator(const number&);
+     function add_effect(const world_property&);
 
-    function add_evaluator(const number&, property_evaluator*);
+     function show(string);
 
-  };
-   *
-   */
-  // todo;
-  /**
+     function setup(game_object*);
+     function setup(game_object*, property_storage*);
 
-   C++ class world_state {
-    world_state ();
-    world_state (world_state);
+     function remove_evaluator(const number&);
 
-    function clear();
+     function add_evaluator(const number&, property_evaluator*);
 
-    function includes(const world_state&) const;
+   };
+    *
+    */
+   // todo;
+   /**
 
-    operator ==(const world_state&, world_state);
+    C++ class world_state {
+     world_state ();
+     world_state (world_state);
 
-    function remove_property(const number&);
+     function clear();
 
-    function add_property(const world_property&);
+     function includes(const world_state&) const;
 
-    operator <(const world_state&, world_state);
+     operator ==(const world_state&, world_state);
 
-    function property(const number&) const;
+     function remove_property(const number&);
 
-  };
-   */
-  // todo;
-  /**
-   C++ class world_property {
-    world_property (number, boolean);
+     function add_property(const world_property&);
 
-    function value() const;
+     operator <(const world_state&, world_state);
 
-    operator <(const world_property&, world_property);
+     function property(const number&) const;
 
-    function condition() const;
+   };
+    */
+   // todo;
+   /**
+    C++ class world_property {
+     world_property (number, boolean);
 
-    operator ==(const world_property&, world_property);
+     function value() const;
 
-  };
-   */
-  // todo;
-  /**
-   C++ class CController : CGameObject {
-    CController ();
+     operator <(const world_property&, world_property);
 
-    function Visual() const;
+     function condition() const;
 
-    function _construct();
+     operator ==(const world_property&, world_property);
 
-    function getEnabled() const;
+   };
+    */
+   // todo;
+   /**
+    C++ class CController : CGameObject {
+     CController ();
 
-    function net_Import(net_packet&);
+     function Visual() const;
 
-    function net_Export(net_packet&);
+     function _construct();
 
-    function getVisible() const;
+     function getEnabled() const;
 
-    function net_Spawn(cse_abstract*);
+     function net_Import(net_packet&);
 
-    function use(CGameObject*);
+     function net_Export(net_packet&);
 
-  };
-   */
-  // todo;
-  /**
-   C++ class cover_point {
-    function level_vertex_id() const;
+     function getVisible() const;
 
-    function is_smart_cover(const cover_point*);
+     function net_Spawn(cse_abstract*);
 
-    function position() const;
+     function use(CGameObject*);
 
-  };
-   */
-  // todo;
-  /**
-   C++ class CDestroyablePhysicsObject : CGameObject {
-    CDestroyablePhysicsObject ();
+   };
+    */
+   // todo;
+   /**
+    C++ class cover_point {
+     function level_vertex_id() const;
 
-    function Visual() const;
+     function is_smart_cover(const cover_point*);
 
-    function _construct();
+     function position() const;
 
-    function getEnabled() const;
+   };
+    */
+   // todo;
+   /**
+    C++ class CDestroyablePhysicsObject : CGameObject {
+     CDestroyablePhysicsObject ();
 
-    function net_Import(net_packet&);
+     function Visual() const;
 
-    function net_Export(net_packet&);
+     function _construct();
 
-    function getVisible() const;
+     function getEnabled() const;
 
-    function net_Spawn(cse_abstract*);
+     function net_Import(net_packet&);
 
-    function use(CGameObject*);
+     function net_Export(net_packet&);
 
-  };
-   */
-  // todo;
-  /**
-   C++ class CLevelChanger : CGameObject {
-    CLevelChanger ();
+     function getVisible() const;
 
-    function Visual() const;
+     function net_Spawn(cse_abstract*);
 
-    function _construct();
+     function use(CGameObject*);
 
-    function getEnabled() const;
+   };
+    */
+   // todo;
+   /**
+    C++ class CLevelChanger : CGameObject {
+     CLevelChanger ();
 
-    function net_Import(net_packet&);
+     function Visual() const;
 
-    function net_Export(net_packet&);
+     function _construct();
 
-    function getVisible() const;
+     function getEnabled() const;
 
-    function net_Spawn(cse_abstract*);
+     function net_Import(net_packet&);
 
-    function use(CGameObject*);
+     function net_Export(net_packet&);
 
-  };
-   */
-  // todo;
-  /**
-   C++ class client_spawn_manager {
-    function remove(number, number);
+     function getVisible() const;
 
-    function add(number, number, const function<void>&, object);
-    function add(number, number, const function<void>&);
+     function net_Spawn(cse_abstract*);
 
-  };
-   */
-  // todo;
-  /**
-   C++ class property_storage {
-    property_storage ();
+     function use(CGameObject*);
 
-    function property(const number&) const;
+   };
+    */
+   // todo;
+   /**
+    C++ class client_spawn_manager {
+     function remove(number, number);
 
-    function set_property(const number&, const boolean&);
+     function add(number, number, const function<void>&, object);
+     function add(number, number, const function<void>&);
 
-  };
-   */
-  // todo;
+   };
+    */
+   // todo;
 }

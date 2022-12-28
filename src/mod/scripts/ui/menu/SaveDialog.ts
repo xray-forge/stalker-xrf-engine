@@ -1,3 +1,42 @@
+import {
+  CScriptXmlInit,
+  CUIListBoxItem,
+  CUIMessageBoxEx,
+  CUIScriptWnd,
+  CUIWindow,
+  DIK_keys,
+  Frect,
+  FS,
+  dik_to_bind,
+  get_console,
+  GetARGB,
+  GetFontLetterica16Russian,
+  GetFontLetterica18Russian,
+  GetFontMedium,
+  getFS,
+  IXR_CConsole,
+  key_bindings,
+  TXR_DIK_key,
+  TXR_ui_event,
+  ui_events,
+  vector2,
+  XR_CGameFont,
+  XR_CScriptXmlInit,
+  XR_CUIEditBox,
+  XR_CUIListBox,
+  XR_CUIMessageBoxEx,
+  XR_CUIScriptWnd,
+  XR_CUIStatic,
+  XR_CUITextWnd,
+  XR_CUIWindow,
+  XR_FS,
+  XR_FS_file_list,
+  XR_FS_file_list_ex,
+  XR_FS_item,
+  XR_CUIListBoxItem,
+  XR_vector2
+} from "xray16";
+
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
 import { deleteGameSave } from "@/mod/scripts/utils/game_saves";
@@ -303,7 +342,7 @@ export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptW
     log.info("Save file:", filename);
 
     if (filename !== null) {
-      const console: XR_CConsole = get_console();
+      const console: IXR_CConsole = get_console();
 
       console.execute("save " + filename);
     }

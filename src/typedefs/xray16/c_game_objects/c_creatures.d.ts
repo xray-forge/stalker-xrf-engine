@@ -1,28 +1,10 @@
-export {};
-
-declare global {
+declare module "xray16" {
   /**
-   C++ class CZombie : CGameObject {
-    CZombie ();
-
-    function Visual() const;
-
-    function _construct();
-
-    function getEnabled() const;
-
-    function net_Import(net_packet&);
-
-    function net_Export(net_packet&);
-
-    function getVisible() const;
-
-    function net_Spawn(cse_abstract*);
-
-    function use(CGameObject*);
-
-  };
+   * C++ class CZombie : CGameObject {
    */
+  export class XR_CZombie extends XR_CGameObject {
+  }
+
   // todo;
   /**
    C++ class CTushkano : CGameObject {

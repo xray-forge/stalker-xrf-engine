@@ -1,3 +1,31 @@
+import {
+  COptionsManager,
+  CScriptXmlInit,
+  CUIMessageBoxEx,
+  CUIScriptWnd,
+  DIK_keys,
+  Frect,
+  get_console,
+  is_enough_address_space_available,
+  IXR_CConsole,
+  main_menu,
+  TXR_DIK_key,
+  TXR_ui_event,
+  ui_events,
+  XR_CMainMenu,
+  XR_COptionsManager,
+  XR_CScriptXmlInit,
+  XR_CUI3tButton,
+  XR_CUIComboBox,
+  XR_CUIMessageBoxEx,
+  XR_CUIProgressBar,
+  XR_CUIScriptWnd,
+  XR_CUIStatic,
+  XR_CUITabControl,
+  XR_CUITrackBar,
+  XR_Patch_Dawnload_Progress
+} from "xray16";
+
 import { option_groups, option_groups_messages } from "@/mod/globals/option_groups";
 import { IOptionsControls, OptionsControls } from "@/mod/scripts/ui/menu/options/OptionsControls";
 import { IOptionsGameplay, OptionsGameplay } from "@/mod/scripts/ui/menu/options/OptionsGameplay";
@@ -201,12 +229,12 @@ export const OptionsDialog: IOptionsDialog = declare_xr_class("OptionsDialog", C
     this.AddCallback("cb_ssample", ui_events.LIST_ITEM_SELECT, () => this.UpdateDependControls(), this);
   },
   OnBtnCheckUpdates(): void {
-    const console: XR_CConsole = get_console();
+    const console: IXR_CConsole = get_console();
 
     console.execute("check_for_updates 1");
   },
   OnBtnKeybDefault(): void {
-    const console: XR_CConsole = get_console();
+    const console: IXR_CConsole = get_console();
 
     console.execute("default_controls");
 
@@ -232,7 +260,7 @@ export const OptionsDialog: IOptionsDialog = declare_xr_class("OptionsDialog", C
   },
   OnBtnAccept(): void {
     const opt: XR_COptionsManager = new COptionsManager();
-    const console: XR_CConsole = get_console();
+    const console: IXR_CConsole = get_console();
 
     opt.SaveValues("mm_opt_video_preset");
     opt.SaveValues("key_binding");

@@ -1,3 +1,5 @@
+import { XR_game_object, XR_ini_file } from "xray16";
+
 import { Optional } from "@/mod/lib/types";
 import { abort } from "@/mod/scripts/utils/debug";
 

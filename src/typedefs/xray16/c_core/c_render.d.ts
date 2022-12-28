@@ -1,11 +1,8 @@
-export {};
-
-declare global {
+declare module "xray16" {
   /**
-   *  C++ class ipure_schedulable_object {
-   *  };
+   * C++ class ipure_schedulable_object {
    */
-  interface IXR_ipure_schedulable_object {
+  export interface IXR_ipure_schedulable_object {
   }
 
   // todo;
@@ -200,28 +197,8 @@ declare global {
 
   /**
    * C++ class render_device {
-   *     property aspect_ratio;
-   *     property cam_dir;
-   *     property cam_pos;
-   *     property cam_right;
-   *     property cam_top;
-   *     property f_time_delta;
-   *     property fov;
-   *     property frame;
-   *     property height;
-   *     property precache_frame;
-   *     property time_delta;
-   *     property width;
-   *
-   *     function time_global(const render_device*);
-   *
-   *     function is_paused(render_device*);
-   *
-   *     function pause(render_device*, boolean);
-   *
-   *   };
    */
-  class XR_render_device {
+  export class XR_render_device {
     public aspect_ratio: number;
     public cam_dir: XR_vector;
     public cam_pos: unknown;
@@ -234,11 +211,8 @@ declare global {
     public precache_frame: unknown;
     public time_delta: unknown;
     public width: number;
-
     public time_global(): number;
-
     public is_paused(): boolean;
-
     public pause(isPaused: boolean): void;
   }
 

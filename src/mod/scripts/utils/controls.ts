@@ -1,3 +1,5 @@
+import { game, level, XR_game_object } from "xray16";
+
 import { getActor, storage } from "@/mod/scripts/core/db";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

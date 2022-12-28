@@ -1,3 +1,13 @@
+import {
+  ini_file,
+  IXR_cse_alife_object,
+  object_binder,
+  XR_game_object,
+  XR_ini_file,
+  XR_net_packet,
+  XR_object_binder
+} from "xray16";
+
 import { AnyCallable, Optional } from "@/mod/lib/types";
 import { CAMPS } from "@/mod/scripts/core/db";
 import { getConfigString } from "@/mod/scripts/utils/configs";

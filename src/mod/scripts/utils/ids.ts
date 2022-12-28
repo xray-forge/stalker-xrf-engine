@@ -1,3 +1,5 @@
+import { alife, level, IXR_cse_abstract, TXR_ClsId, XR_game_object } from "xray16";
+
 import { Optional } from "@/mod/lib/types";
 
 /**

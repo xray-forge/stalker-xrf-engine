@@ -1,3 +1,5 @@
+import { CUIWindow, GAME_TYPE, XR_CScriptXmlInit, XR_CUIWindow, XR_TGAME_TYPE } from "xray16";
+
 import { IMultiplayerMenu } from "@/mod/scripts/ui/menu/MultiplayerMenu";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

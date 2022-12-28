@@ -1,98 +1,72 @@
-export {};
-
-declare global {
+declare module "xray16" {
   /**
-   namespace  {
-  namespace relation_registry {
-    function change_community_goodwill(string, number, number);
-    function community_relation(string, string);
-    function set_community_goodwill(string, number, number);
-    function community_goodwill(string, number);
-    function set_community_relation(string, string, number);
-  };
-
-  namespace actor_stats {
-    function add_points_str(string, string, string);
-    function get_points(string);
-    function add_points(string, string, number, number);
-  };
-};
+   * namespace global {
    */
-  // todo;
+  export function game_ini(this: void): unknown;
+  export function bit_and(this: void, a: number, b: number): unknown;
+  export function GetFontGraffiti32Russian(this: void): unknown;
+  export function device(this: void): XR_render_device;
+  export function cast_planner(this: void, a: unknown): unknown;
+  export function IsGameTypeSingle(this: void): unknown;
+  export function game_graph(this: void): XR_CGameGraph;
+  export function dik_to_bind(this: void,keycode: number): number;
+  export function render_get_dx_level(this: void): number;
+  export function GetFontGraffiti19Russian(this: void): unknown;
+  export function sell_condition(this: void, a: unknown, b: string): unknown;
+  export function sell_condition(this: void, a: number, b: number): unknown;
+  export function buy_condition(this: void, a: unknown, b: string): unknown;
+  export function buy_condition(this: void, a: number, b: number): unknown;
+  export function create_ini_file(this: void, a: string): unknown;
+  export function get_hud(this: void): XR_CUIGameCustom;
+  export function GetFontSmall(this: void): unknown;
+  export function GetFontLetterica18Russian(this: void): unknown;
+  export function command_line(this: void): string;
+  export function getFS(this: void): XR_FS;
+  export function valid_saved_game(this: void,filename: string): boolean;
+  export function get_console(this: void): IXR_CConsole;
+  export function GetFontGraffiti50Russian(this: void): unknown;
+  export function app_ready(this: void): unknown;
+  export function IsDynamicMusic(this: void): unknown;
+  export function GetFontDI(this: void): unknown;
+  export function GetFontLetterica16Russian(this: void): unknown;
+  export function log(this: void,text: string): unknown;
+  export function error_log(this: void,text: string): unknown;
+  export function show_condition(this: void, a: unknown, b: string): unknown;
+  export function IsImportantSave(this: void): unknown;
+  export function GetFontLetterica25(this: void): unknown;
+  export function system_ini(this: void): XR_ini_file;
+  export function GetFontMedium(this: void): XR_CGameFont;
+  export function alife(this: void): XR_alife_simulator;
+  export function flush(this: void): unknown;
+  export function is_enough_address_space_available(this: void): boolean;
+  /**
+   * Is dev editor tool enabled?
+   */
+  export function editor(this: void): boolean;
+  export function bit_or(this: void,first: number, second: number): number;
+  export function GetFontGraffiti22Russian(this: void): unknown;
+  /**
+   * Prefetch provided script before executing next lines.
+   */
+  export function prefetch(this: void, path: string): void;
+  /**
+   * Returns 'ms' from game start.
+   * Examples: 0, 1000, 60000
+   */
+  export function time_global(this: void): number;
+  export function time_global_async(this: void,...args: Array<unknown>): unknown;
+  export function verify_if_thread_is_running(this: void): boolean;
+  export function script_server_object_version(this: void): unknown;
+  export function bit_not(this: void, a: number): unknown;
+  export function ef_storage(this: void): unknown;
+  export function GetARGB(this: void, a: number,r: number, g: number, b: number): number;
+  export function user_name(this: void): unknown;
+  export function bit_xor(this: void, a: number, b: number): unknown;
 
   /**
-   *  namespace level {
-   *     function add_complex_effector(string, number);
-   *     function enable_input();
-   *     function check_object(game_object*);
-   *     function map_change_spot_hint(number, string, string);
-   *     function game_id();
-   *     function vertex_id(vector);
-   *     function vertex_in_direction(number, vector, number);
-   *     function change_game_time(number, number, number);
-   *     function remove_complex_effector(number);
-   *     function get_time_days();
-   *     function set_pp_effector_factor(number, number, number);
-   *     function set_pp_effector_factor(number, number);
-   *     function rain_factor();
-   *     function remove_pp_effector(number);
-   *     function add_pp_effector(string, number, boolean);
-   *     function get_bounding_volume();
-   *     function set_snd_volume(number);
-   *     function add_cam_effector(string, number, boolean, string);
-   *     function add_call(const function<boolean>&, const function<void>&);
-   *     function add_call(object, const function<boolean>&, const function<void>&);
-   *     function add_call(object, string, string);
-   *     function set_weather_fx(string);
-   *     function add_cam_effector2(string, number, boolean, string, number);
-   *     function get_snd_volume();
-   *     function remove_calls_for_object(object);
-   *     function prefetch_sound(string);
-   *     function iterate_sounds(string, number, function<void>);
-   *     function iterate_sounds(string, number, object, function<void>);
-   *     function name();
-   *     function environment();
-   *     function remove_cam_effector(number);
-   *     function high_cover_in_direction(number, const vector&);
-   *     function spawn_phantom(const vector&);
-   *     function object_by_id(number);
-   *     function debug_object(string);
-   *     function get_weather();
-   *     function present();
-   *     function hide_indicators();
-   *     function physics_world();
-   *     function get_time_hours();
-   *     function remove_call(const function<boolean>&, const function<void>&);
-   *     function remove_call(object, const function<boolean>&, const function<void>&);
-   *     function remove_call(object, string, string);
-   *     function set_weather(string, boolean);
-   *     function show_indicators();
-   *     function get_game_difficulty();
-   *     function map_remove_object_spot(number, string);
-   *     function remove_dialog_to_render(CUIDialogWnd*);
-   *     function stop_weather_fx();
-   *     function patrol_path_exists(string);
-   *     function vertex_position(number);
-   *     function show_weapon(boolean);
-   *     function get_wfx_time();
-   *     function disable_input();
-   *     function map_add_object_spot(number, string, string);
-   *     function get_time_minutes();
-   *     function get_time_factor();
-   *     function map_add_object_spot_ser(number, string, string);
-   *     function set_game_difficulty(enum ESingleGameDifficulty);
-   *     function low_cover_in_direction(number, const vector&);
-   *     function is_wfx_playing();
-   *     function set_time_factor(number);
-   *     function client_spawn_manager();
-   *     function map_has_object_spot(number, string);
-   *     function add_dialog_to_render(CUIDialogWnd*);
-   *     function start_weather_fx_from_time(string, number);
-   *     function hide_indicators_safe();
-   *     function debug_actor();
-   *   };
+   * namespace level {
    */
-  interface IXR_level {
+  export interface IXR_level {
     add_complex_effector(this: void, str: string, num: number): unknown;
     enable_input(this: void): unknown;
     check_object(this: void, object: unknown /* game_object*/): unknown;
@@ -171,26 +145,36 @@ declare global {
   }
 
   /**
-   *  namespace main_menu {
-   *     function get_main_menu();
-   *   };
+   * namespace main_menu {
    */
-
-  interface IXR_main_menu {
+  export interface IXR_main_menu {
     get_main_menu(this: void): XR_CMainMenu;
   }
 
   /**
-   *  namespace game {
-   *     function translate_string(string);
-   *     function time();
-   *     function get_game_time();
-   *     function start_tutorial(string);
-   *     function has_active_tutorial();
-   *     function stop_tutorial();
-   *   };
+   * namespace relation_registry {
    */
-  interface IXR_game {
+  export interface IXR_relation_registry {
+     change_community_goodwill(value1: string, value2:number, value3:number): unknown;
+     community_relation(value1:string, value2:string): unknown;
+     set_community_goodwill(value1:string, value2:number, value3:number): unknown;
+     community_goodwill(value1:string, value2:number): unknown;
+     set_community_relation(value1:string, value2:string,value3: number): unknown;
+  }
+
+  /**
+   * namespace actor_stats {
+   */
+  export interface IXR_actor_stats {
+     add_points_str(value1: string, value2: string, value3: string): unknown;
+     get_points(value: string): unknown;
+     add_points(value1: string, value2: string, value3: number, value4: number): unknown;
+  }
+
+  /**
+   * namespace game {
+   */
+  export interface IXR_game {
     translate_string(this: void, key: string): string;
     time(this: void): number;
     get_game_time(this: void): unknown;
@@ -198,126 +182,4 @@ declare global {
     has_active_tutorial(this: void): boolean;
     stop_tutorial(this: void): void;
   }
-
-  /**
-   * namespace  {
-   *   function game_ini();
-   *   function bit_and(number, number);
-   *   function GetFontGraffiti32Russian();
-   *   function device();
-   *   function cast_planner(action_base*);
-   *   function IsGameTypeSingle();
-   *   function game_graph();
-   *   function dik_to_bind(number);
-   *   function render_get_dx_level();
-   *   function GetFontGraffiti19Russian();
-   *   function sell_condition(ini_file*, string);
-   *   function sell_condition(number, number);
-   *   function buy_condition(ini_file*, string);
-   *   function buy_condition(number, number);
-   *   function create_ini_file(string);
-   *   function get_hud();
-   *   function GetFontSmall();
-   *   function error_log(string);
-   *   function GetFontLetterica18Russian();
-   *   function command_line();
-   *   function getFS();
-   *   function valid_saved_game(string);
-   *   function get_console();
-   *   function GetFontGraffiti50Russian();
-   *   function app_ready();
-   *   function IsDynamicMusic();
-   *   function GetFontDI();
-   *   function GetFontLetterica16Russian();
-   *   function log(string);
-   *   function show_condition(ini_file*, string);
-   *   function IsImportantSave();
-   *   function GetFontLetterica25();
-   *   function system_ini();
-   *   function GetFontMedium();
-   *   function alife();
-   *   function flush();
-   *   function editor();
-   *   function bit_or(number, number);
-   *   function GetFontGraffiti22Russian();
-   *   function prefetch(string);
-   *   function time_global();
-   *   function verify_if_thread_is_running();
-   *   function script_server_object_version();
-   *   function bit_not(number);
-   *   function ef_storage();
-   *   function GetARGB(number, number, number, number);
-   *   function user_name();
-   *   function bit_xor(number, number);
-   * }
-   */
-  function game_ini(this: void): unknown;
-  function bit_and(this: void, a: number, b: number): unknown;
-  function GetFontGraffiti32Russian(this: void): unknown;
-  function device(this: void): XR_render_device;
-  function cast_planner(this: void, a: unknown): unknown;
-  function IsGameTypeSingle(this: void): unknown;
-  function game_graph(this: void): XR_CGameGraph;
-  function dik_to_bind(this: void,keycode: number): number;
-  function render_get_dx_level(this: void): number;
-  function GetFontGraffiti19Russian(this: void): unknown;
-  function sell_condition(this: void, a: unknown, b: string): unknown;
-  function sell_condition(this: void, a: number, b: number): unknown;
-  function buy_condition(this: void, a: unknown, b: string): unknown;
-  function buy_condition(this: void, a: number, b: number): unknown;
-  function create_ini_file(this: void, a: string): unknown;
-  function get_hud(this: void): XR_CUIGameCustom;
-  function GetFontSmall(this: void): unknown;
-  function GetFontLetterica18Russian(this: void): unknown;
-  function command_line(this: void): string;
-  function getFS(this: void): XR_FS;
-  function valid_saved_game(this: void,filename: string): boolean;
-  function get_console(this: void): XR_CConsole;
-  function GetFontGraffiti50Russian(this: void): unknown;
-  function app_ready(this: void): unknown;
-  function IsDynamicMusic(this: void): unknown;
-  function GetFontDI(this: void): unknown;
-  function GetFontLetterica16Russian(this: void): unknown;
-  function log(this: void,text: string): unknown;
-  function error_log(this: void,text: string): unknown;
-  function show_condition(this: void, a: unknown, b: string): unknown;
-  function IsImportantSave(this: void): unknown;
-  function GetFontLetterica25(this: void): unknown;
-  function system_ini(this: void): XR_ini_file;
-  function GetFontMedium(this: void): XR_CGameFont;
-  function alife(this: void): XR_alife_simulator;
-  function flush(this: void): unknown;
-  function is_enough_address_space_available(this: void): boolean;
-
-  /**
-   * Is dev editor tool enabled?
-   */
-  function editor(this: void): boolean;
-
-  function bit_or(this: void,first: number, second: number): number;
-
-  function GetFontGraffiti22Russian(this: void): unknown;
-
-  /**
-   * Prefetch provided script before executing next lines.
-   */
-  function prefetch(this: void,path: string): void;
-
-  /**
-   * Returns 'ms' from game start.
-   * Examples: 0, 1000, 60000
-   */
-  function time_global(this: void): number;
-  function time_global_async(this: void,...args: Array<unknown>): unknown;
-  function verify_if_thread_is_running(this: void): boolean;
-  function script_server_object_version(this: void): unknown;
-  function bit_not(this: void, a: number): unknown;
-  function ef_storage(this: void): unknown;
-  function GetARGB(this: void, a: number,r: number, g: number, b: number): number;
-  function user_name(this: void): unknown;
-  function bit_xor(this: void, a: number, b: number): unknown;
-
-  const game: IXR_game;
-
-  // todo: nested namespaces
 }

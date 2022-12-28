@@ -1,3 +1,15 @@
+import {
+  CScriptXmlInit,
+  CUIWindow,
+  ui_events,
+  XR_CScriptXmlInit,
+  XR_CUIComboBox,
+  XR_CUIEditBox,
+  XR_CUIScriptWnd,
+  XR_CUIStatic,
+  XR_CUIWindow
+} from "xray16";
+
 import { textures } from "@/mod/globals/textures";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";

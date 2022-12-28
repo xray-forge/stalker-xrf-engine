@@ -1,3 +1,5 @@
+import { XR_object_factory } from "xray16";
+
 export function register_impl(object_factory: XR_object_factory): void {}
 
 export function get_game_clsid_impl(game_type_option: any, isServer: boolean): string {

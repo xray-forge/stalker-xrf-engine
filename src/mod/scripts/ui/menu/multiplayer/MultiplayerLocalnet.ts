@@ -1,3 +1,24 @@
+import {
+  CScriptXmlInit,
+  CUIMessageBoxEx,
+  CUIMMShniaga,
+  CUIScriptWnd,
+  CUIWindow,
+  DIK_keys,
+  Frect,
+  login_operation_cb,
+  ui_events,
+  XR_CScriptXmlInit,
+  XR_CUI3tButton,
+  XR_CUICheckButton,
+  XR_CUIEditBox,
+  XR_CUIMessageBoxEx,
+  XR_CUIScriptWnd,
+  XR_CUITextWnd,
+  XR_CUIWindow,
+  XR_profile
+} from "xray16";
+
 import { Optional } from "@/mod/lib/types";
 import { IMainMenu } from "@/mod/scripts/ui/menu/MainMenu";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

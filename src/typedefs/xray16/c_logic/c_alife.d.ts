@@ -1,10 +1,8 @@
-export {};
-
-declare global {
+declare module "xray16" {
   /**
    * C++ class alife_simulator {
    */
-  class XR_alife_simulator {
+  export class XR_alife_simulator {
     public set_interactive(this: void, value1: number, value2: boolean): unknown;
     public switch_distance(this: void): unknown;
     public switch_distance(this: void, value: number): unknown;
@@ -41,7 +39,7 @@ declare global {
       value2: number,
       value3: number,
       value4: number
-    ): unknown;
+    ): IXR_cse_abstract;
 
     public add_out_restriction(
       monster: unknown /* cse_alife_monster_abstract */,
@@ -101,7 +99,7 @@ declare global {
    * C++ class patrol {
    * @customConstructor patrol
    */
-  class XR_patrol {
+  export class XR_patrol {
     public static continue: 1;
     public static custom : 3;
     public static dummy:-1;
@@ -132,7 +130,7 @@ declare global {
    * C++ class CALifeSmartTerrainTask {
    * @customConstructor CALifeSmartTerrainTask
    */
-  class XR_CALifeSmartTerrainTask {
+  export class XR_CALifeSmartTerrainTask {
     public constructor (a: string);
     public constructor (a: string, b: number);
     public constructor (a: number, b: number);
@@ -141,5 +139,4 @@ declare global {
     public position(): XR_vector;
     public game_vertex_id(): number;
   }
-
 }

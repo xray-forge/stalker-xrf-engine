@@ -1,3 +1,5 @@
+import { alife, XR_alife_simulator, XR_game_object, XR_LuaBindBase } from "xray16";
+
 import { Optional } from "@/mod/lib/types";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
