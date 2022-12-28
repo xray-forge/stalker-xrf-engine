@@ -26,10 +26,7 @@
  --]]
 
  --[[
- function exports.stalker_look_at_stalker(stalker, whom)
- local look_pt = this.vector_copy_by_val(whom:position()):sub(stalker:position())
- stalker:set_sight(look.direction, look_pt, 0)
- end
+
  --]]
 
  --[[

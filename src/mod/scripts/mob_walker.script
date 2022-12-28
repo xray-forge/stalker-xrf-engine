@@ -1,3 +1,4 @@
+local utilsWorld = require("scripts.utils.world")
 
 ----------------------------------------------------------------------------------------------------
 -- Mob remarks
@@ -90,7 +91,7 @@ function mob_walker:update(delta)
 	if self.state == state_standing then
 		if not self.object:action() then
 			local patrol_walk_count = self.patrol_walk:count()
-			if patrol_walk_count == 1 and utils.stalker_at_waypoint(self.object, self.patrol_walk, 0) then
+			if patrol_walk_count == 1 and utilsWorld.isStalkerAtWaypoint(self.object, self.patrol_walk, 0) then
 				self.state = state_moving
 				self:waypoint_callback(self.object, nil, self.last_index)
 			else
@@ -166,7 +167,7 @@ function mob_walker:waypoint_callback(obj, action_type, index)
 			self.pt_wait_time = tonumber(suggested_wait_time)
 		else
 			local patrol_walk_count = self.patrol_walk:count()
-			if patrol_walk_count == 1 and utils.stalker_at_waypoint(self.object, self.patrol_walk, 0) then
+			if patrol_walk_count == 1 and utilsWorld.isStalkerAtWaypoint(self.object, self.patrol_walk, 0) then
 				self.pt_wait_time = time_infinite
 			else
 				self.pt_wait_time = default_wait_time

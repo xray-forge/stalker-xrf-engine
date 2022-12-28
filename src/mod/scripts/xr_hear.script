@@ -1,3 +1,5 @@
+local utilsConfigs = require("scripts.utils.configs")
+
 local function get_sound_type(sound_type)
 	local s_type = "NIL"
 	if bit_and(sound_type, snd_type.weapon) == snd_type.weapon then
@@ -48,7 +50,7 @@ function reset_hear_callback(st, section)
 	end
 	local function add_parsed_data_to_storage(value, st)
 		local obj = st.object
-		local parsed_params = utils.parse_params(value)
+		local parsed_params = utilsConfigs.parseParams(value)
 		st.hear_sounds[parsed_params[1]] = st.hear_sounds[parsed_params[1]] or {}
 		st.hear_sounds[parsed_params[1]][parsed_params[2]] = {	dist = tonumber(parsed_params[3]),
 																power = tonumber(parsed_params[4]),

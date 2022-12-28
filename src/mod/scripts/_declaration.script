@@ -31,6 +31,7 @@ local utilsIds = require("scripts.utils.ids")
 local utilsPhysics = require("scripts.utils.physics")
 local utilsTable = require("scripts.utils.table")
 local utilsTime = require("scripts.utils.time")
+local utilsWorld = require("scripts.utils.world")
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -53,6 +54,7 @@ utils = utilsUtils
 utils.cfg_get_string = utilsConfigs.getConfigString
 utils.cfg_get_number = utilsConfigs.getConfigNumber
 utils.cfg_get_bool = utilsConfigs.getConfigBoolean
+utils.r_2nums = utilsConfigs.r_2nums
 
 get_param_string = utilsConfigs.getParamString
 parse_names = utilsConfigs.parseNames

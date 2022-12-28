@@ -6,24 +6,6 @@ log:info("Initialize utils")
 
 local export = {}
 
--- ���������, ��������� �� stalker ����� � ������ path_point ���� patrol_path
-function export.stalker_at_waypoint(stalker, patrol_path, path_point)
---	return stalker:level_vertex_id() == patrol_path:level_vertex_id(path_point)
-
-	local stalker_pos = stalker:position()
-	local distance = stalker_pos:distance_to_sqr(patrol_path:point(path_point))
-
-	if distance <= 0.13 then
-		return true
-	end
-
-	return false
-end
-
-function export.stalker_stop(stalker)
-	stalker:set_movement_type(move.stand)
-end
-
 local function door_default_callback(door, actor)
 	local ph_shell = door:get_physics_shell()
 	local joint = ph_shell:get_joint_by_bone_name("door")
@@ -184,19 +166,6 @@ function export.get_scheme_by_section(section)
 	return scheme
 end
 
--- a | b | c  ==>  { 1 = "a", 2 = "b", 3 = "c" }
-function export.parse_params(params)
-	--printf("_bp: parse_params: params=%s", params)
-	local rslt = {}
-	local n = 1
-	for fld in string.gfind(params, "%s*([^|]+)%s*") do
-		--printf("_bp: parse_params iter=%d, fld=%s", n, fld)
-		rslt[n] = fld
-		n = n + 1
-	end
-	return rslt
-end
-
 function export.no_need_to_rotate(npc, target_pos)
 	local y = yaw(npc:direction(), vector():set(target_pos):sub(npc:position()))
 
@@ -341,24 +310,6 @@ function export.parse_data_1v(npc, s)
 		end
 	end
 		return t
-end
-
-function export.r_2nums(spawn_ini, section, line, def1, def2 )
-	if spawn_ini:line_exist( section, line ) then
-		-- ���� default-�� ������, ��� �������� � ini, �� ������ ����������� ��������� ��������� �� ini
-		local t = parse_names( spawn_ini:r_string( section, line ) )
-		local n = #t
-
-		if n == 0 then
-			return def1, def2
-		elseif n == 1 then
-			return t[1], def2
-		else
-			return t[1], t[2]
-		end
-	else
-		return def1, def2
-	end
 end
 
 function export.parse_data(npc, s)

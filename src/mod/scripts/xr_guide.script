@@ -1,7 +1,9 @@
+local utilsWorld = require("scripts.utils.world")
+
 ----------------------------------------------------------------------------------------------------
 -- Guide
 ----------------------------------------------------------------------------------------------------
--- Разработчик: Andrey Fidrya (Zmey) af@svitonline.com
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: Andrey Fidrya (Zmey) af@svitonline.com
 ----------------------------------------------------------------------------------------------------
 
 local state_main = 1
@@ -53,7 +55,7 @@ function action_guide_activity:reset_scheme()
 	end
 
 	self.object:clear_animations()
-	
+
 	if self.st.path_main_walk_info == nil then
 		self.st.path_main_walk_info = utils.path_parse_waypoints(self.st.path_main_walk)
 	end
@@ -68,12 +70,12 @@ function action_guide_activity:reset_scheme()
 	end
 
 	self.state = state_main
-	
+
 	self.move_mgr:reset(self.st.path_main_walk, self.st.path_main_walk_info,
 		self.st.path_main_look, self.st.path_main_look_info,
 		self.st.team,
 		nil, {obj = self, func = self.move_callback})
-end	
+end
 
 function action_guide_activity:move_callback(mode, number)
 	if number == 1 then
@@ -83,8 +85,8 @@ function action_guide_activity:move_callback(mode, number)
 			return false
 		end
 		if distance_between(self.object, actor) > 5 then
-			utils.stalker_stop(self.object)
-			utils.stalker_look_at_stalker(self.object, actor)
+			utilsWorld.stalkerStop(self.object)
+			utilsWorld.stalkerLookAtStalker(self.object, actor)
 			self.state = state_wait
 			return true
 		end
@@ -93,7 +95,7 @@ function action_guide_activity:move_callback(mode, number)
 		printf("SWITCH_TO_ROBBER")
 		self.st.enabled = false
 		xr_motivator.storage[self.object:id()].robber.enabled = true
-		return false -- false т.к. мы не меняли параметры движения в схеме, просто активировали другую...
+		return false -- false пїЅ.пїЅ. пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ...
 	end
 	abort("object '%s': invalid 'ret' value specified in path: ret = %d", self.object:name(), number)
 	return false
@@ -106,7 +108,7 @@ function action_guide_activity:execute()
 	if not actor then
 		return
 	end
-	
+
 	if self.state == state_main then
 		if self.object:see(actor) and distance_between(self.object, actor) < 3 then
 			self.move_mgr:reset(self.st.path_lead_walk, self.st.path_lead_walk_info,
@@ -130,7 +132,7 @@ function action_guide_activity:execute()
 			self.move_mgr:update_movement_state()
 			self.state = state_lead
 		else
-			utils.stalker_look_at_stalker(self.object, actor)
+			utilsWorld.stalkerLookAtStalker(self.object, actor)
 		end
 	end
 end
@@ -149,7 +151,7 @@ function add_to_binder(npc, char_ini)
 		printf("xr_guide: add_to_binder")
   		local operators	= {}
 	  	local properties  = {}
-		
+
 	   	local manager = npc:motivation_action_manager()
 
 		properties["event"] = xr_evaluators_id.reaction
@@ -183,12 +185,12 @@ function add_to_binder(npc, char_ini)
 	end
 end
 
--- Включение схемы
--- 
--- enabled - включена ли схема
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+--
+-- enabled - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 function set_guide(object, enabled, path_main_walk, path_main_look, path_lead_walk, path_lead_look, team)
 	--printf("_bp: set_guide (path_main_walk=%s)", path_main_walk)
-	local char_ini = object:spawn_ini()	
+	local char_ini = object:spawn_ini()
 	local st = xr_motivator.storage[object:id()].guide
 
 	st.enabled = utils.conf_get_bool(char_ini, "guide", "enabled", enabled, object, true)
@@ -198,10 +200,10 @@ function set_guide(object, enabled, path_main_walk, path_main_look, path_lead_wa
 	st.path_lead_look = utils.conf_get_string(char_ini, "guide", "path_lead_look", path_lead_look, object, false)
 	st.team = utils.conf_get_string(char_ini, "guide", "team", team, object, false)
 
-	st.path_main_walk_info = nil -- Будут инициализированы в reset(), сейчас пути могут быть еще
-	st.path_main_look_info = nil -- не загружены.
-	st.path_lead_walk_info = nil -- Будут инициализированы в reset(), сейчас пути могут быть еще
-	st.path_lead_look_info = nil -- не загружены.
+	st.path_main_walk_info = nil -- пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ reset(), пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
+	st.path_main_look_info = nil -- пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+	st.path_lead_walk_info = nil -- пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ reset(), пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
+	st.path_lead_look_info = nil -- пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 
 	if st.action ~= nil then
 		printf("_bp: set_guide: reset_scheme")

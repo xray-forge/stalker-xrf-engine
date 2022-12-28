@@ -1,6 +1,8 @@
+local utilsWorld = require("scripts.utils.world")
+
 ----------------------------------------------------------------------------------------------------------------------
---'	Схема кемпер. Чудак с бальшой пушкой ходит и отстреливает живность.
---'	автор: Диденко Руслан (Stohe)
+--'	пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+--'	пїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (Stohe)
 --'	TODO:
 ----------------------------------------------------------------------------------------------------------------------
 --function printf()
@@ -16,7 +18,7 @@
 		return nil
 	end
 
---' Условие завершения скрипта
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 class "evaluator_end" (property_evaluator)
 function evaluator_end:__init(name, storage) super (nil, name)
 	self.a = storage
@@ -25,7 +27,7 @@ function evaluator_end:evaluate()
 	return not xr_logic.is_active(self.object, self.a)
 end
 
---' Обычный комбат или кемперский
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 class "evaluator_close_combat" (property_evaluator)
 function evaluator_close_combat:__init(name, storage) super (nil, name)
 	self.a = storage
@@ -43,18 +45,18 @@ function evaluator_close_combat:evaluate()
 		return false
 	end
 
-	-- если мы не можем воевать вообще - вернуть false
+	-- пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅ false
 	if not self.mgr:evaluator(xr_evaluators_id.sidor_wounded_base + 1):evaluate() then
 		return false
 	end
 
-	-- Если видим гранату - автоматом отпускаем в close_combat (возвращаем true)
+	-- пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ close_combat (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ true)
 	if self.mgr:evaluator(stalker_ids.property_danger):evaluate() then
 		return true
 	end
 
 	if self.object:best_enemy() == nil then
-		return self.close_combat  -- Тут возможно нужно просто устанавливать FALSE и возвращать FALSE
+		return self.close_combat  -- пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ FALSE пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ FALSE
 	end
 
 	if self.close_combat == false then
@@ -78,7 +80,7 @@ end
 ----------------------------------------------------------------------------------------------------------------------
 -- ACTIONS
 ----------------------------------------------------------------------------------------------------------------------
---' Патрулировать территорию по патрульному пути
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 
 class "action_patrol" (action_base)
 function action_patrol:__init (npc,action_name,storage) super (nil,action_name)
@@ -106,7 +108,7 @@ function action_patrol:reset_scheme()
 			nil,
 			nil,self.a.suggested_state,{obj=self,func=self.process_point})
 
-		-- тут вставить парсинг углов для скана
+		-- пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 		local path = patrol(self.a.path_look)
 		if path ~= nil then
 			for k = 0, path:count() - 1 do
@@ -121,7 +123,7 @@ function action_patrol:reset_scheme()
 			end
 		end
 
-		--' Включаем быстрый апдейт снайпера
+		--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		if self.object:sniper_update_rate() == false then
 				self.object:sniper_update_rate(true)
 		end
@@ -132,7 +134,7 @@ function action_patrol:reset_scheme()
 			utils.path_parse_waypoints(self.a.path_look),
 			nil,self.a.suggested_state,{obj=self,func=self.process_point})
 
-		--' Включаем обычный апдейт снайпера
+		--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		if self.object:sniper_update_rate() == true then
 				self.object:sniper_update_rate(false)
 		end
@@ -169,7 +171,7 @@ function action_patrol:execute()
 	if self.enemy ~= nil then
 		self.a.mem_enemy = self.object:memory_time(self.enemy)
 
-		--'Забывание врага по времени.
+		--'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 		if self.a.mem_enemy == nil or
 			 time_global()- self.a.mem_enemy > self.a.idle
 		then
@@ -184,11 +186,11 @@ function action_patrol:execute()
 		end
 	end
 
-	-- Три типа действия:
-	-- Есть враг
+	-- пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ:
+	-- пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 	if self.enemy ~= nil then
 		if self.object:see(self.enemy) == true and self:can_shoot() then
-			-- отстрел врага
+			-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 			--printf("cp: [%s] see [%s]", self.object:name(), self.enemy:name())
 			if self.a.sniper == true then
 				if self.a.suggested_state.campering_fire then
@@ -207,7 +209,7 @@ function action_patrol:execute()
 			xr_sound.set_sound_play(self.object:id(), self.a.attack_sound)
 
 		else
-			--' Анализируем последнюю известную позицию врага.
+			--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.
 			local memory_position = self.object:memory_position(self.enemy)
 			if self.enemy_position == nil or
 				 self.enemy_position.x ~= memory_position.x or
@@ -215,7 +217,7 @@ function action_patrol:execute()
 				 self.enemy_position.z ~= memory_position.z
 			then
 				self.enemy_position = memory_position
-				--' Занести место поиска врага в scan_table
+				--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ scan_table
 				if self.a.sniper == true then
 					self.position = self.object:position()
 
@@ -243,9 +245,9 @@ function action_patrol:execute()
 
 --			xr_sound.set_sound(self.object, nil)
 			if self.a.sniper == true then
-				-- поиск врага (сканирование врага)
+				-- пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ)
 				--printf("SCAN_ENEMY [%s] of [%s]", utils.to_str(time_global() - self.a.mem_enemy), utils.to_str(self.a.idle))
-				-- сканируем
+				-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 				if time_global() - self.a.mem_enemy < self.a.post_enemy_wait then
 					local position
 					if self.enemy_position then
@@ -260,7 +262,7 @@ function action_patrol:execute()
 					self:scan(-1)
 				end
 			else
-				-- если норетрит или мы на месте - ныкаться, иначе идти на точку
+				-- пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 				if self:on_place() then
 					--printf("on place[%s]", self.object:name())
 					local position
@@ -274,7 +276,7 @@ function action_patrol:execute()
 					end
 				else
 					--printf("not on place[%s]", self.object:name())
-					-- идем дальше
+					-- пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 					self.move_mgr:continue()
 					self.move_mgr:update()
 				end
@@ -295,22 +297,22 @@ function action_patrol:execute()
 		self.move_mgr:continue()
 	end
 
-	-- если нет ни врага ни денжера.
+	-- пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 	if self.a.sniper == true then
-		-- Сканирование местности в узловых точках
-		-- если мы на точке - запустить счетчик сканирования и посканировать определенное время.
+		-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+		-- пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.
 		if self:on_place() then
 			if self.scantime == nil then
 				self.scantime = time_global()
 			end
 			--printf("SCAN [%s] : [%s] of [%s]", self.object:name(), utils.to_str(time_global() - self.scantime), utils.to_str(self.a.scantime_free))
-			-- сканируем
+			-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 			self:scan(self.a.wp_flag)
-			-- если мы стоим на финальной точке - не ресетить.
+			-- пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ - пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 			if self.move_mgr:standing_on_terminal_waypoint() then
 				return
 			end
-			-- проверка на завершение сканирования.
+			-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 			if self.scantime ~= nil and time_global() - self.scantime >= self.a.scantime_free then
 				self.move_mgr:continue()
 			end
@@ -319,7 +321,7 @@ function action_patrol:execute()
 			self.move_mgr:update()
 		end
 	else
-		-- Перемещение по move_mgr
+		-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ move_mgr
 		--printf("camper [%s] update move mgr", self.object:name())
 		self.move_mgr:update()
 	end
@@ -343,8 +345,8 @@ function action_patrol:process_danger()
 		self.object:play_sound(stalker_ids.sound_alarm, 1, 0, 1, 0)
 	end
 
-	-- Если денжер опасный - стрельнуть в позицию его инициатора, если нет - повернуться и смотреть туда.
-	-- Опасный денжер - хит или очень близкий рикошет.
+	-- пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ.
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 	local urgent_danger = (best_danger_object ~= nil) and
 							(bd_type == danger_object.attacked) and
 							(time_global() - best_danger:time() < 5000)
@@ -457,7 +459,7 @@ function action_patrol:on_place()
 	local path = patrol(self.a.path_walk)
 	if path ~= nil then
 		for k = 0, path:count() - 1 do
-			if utils.stalker_at_waypoint(self.object, patrol(self.a.path_walk), k) then
+			if utilsWorld.isStalkerAtWaypoint(self.object, patrol(self.a.path_walk), k) then
 				for i = 0, 31 do
 					if path:flag(k, i) then
 						self.a.wp_flag = i
@@ -502,7 +504,7 @@ function add_to_binder(object, ini, scheme, section, storage)
 		action:add_precondition (world_property(stalker_ids.property_danger,false))
 		action:add_precondition	(world_property(stalker_ids.property_anomaly,false))
 
-	-- Дубляж common_precondition без подбора вещей.
+	-- пїЅпїЅпїЅпїЅпїЅпїЅ common_precondition пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.
 	action:add_precondition (world_property(xr_evaluators_id.stohe_meet_base + 1,false))
 	action:add_precondition (world_property(xr_evaluators_id.sidor_wounded_base + 0,  false))
 	action:add_precondition (world_property(xr_evaluators_id.abuse_base, false))
@@ -566,10 +568,10 @@ function set_scheme(npc, ini, scheme, section, gulag_name)
 		st.attack_sound = nil
 	end
 
-	-- Время забывания врага
+	-- пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 	st.idle = utils.cfg_get_number(ini, section, "enemy_idle", npc, false, 60000)
-	st.post_enemy_wait = 5000 -- время, которое мы ждем врага, смотря в его последнюю позицию.
-	st.enemy_disp = 7/57.2957 -- Угол в пределах которого снайпер ведет поиск потерянного врага.
+	st.post_enemy_wait = 5000 -- пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+	st.enemy_disp = 7/57.2957 -- пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.
 
 	st.scandelta = 30
 	st.timedelta = 4000

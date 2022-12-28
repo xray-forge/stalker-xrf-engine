@@ -1098,33 +1098,31 @@ declare module "xray16" {
   // todo;
 
   /**
+   * C++ class CSightParams {
+   **/
+  class XR_CSightParams {
+    public static eSightTypeAnimationDirection: 11;
+    public static eSightTypeCover: 5;
+    public static eSightTypeCoverLookOver: 8;
+    public static eSightTypeCurrentDirection : 0;
+    public static eSightTypeDirection: 2;
+    public static eSightTypeDummy: -1;
+    public static eSightTypeFireObject: 9;
+    public static eSightTypeFirePosition: 10;
+    public static eSightTypeLookOver: 7;
+    public static eSightTypeObject: 4;
+    public static eSightTypePathDirection: 1;
+    public static eSightTypePosition: 3;
+    public static eSightTypeSearch: 6;
 
-   C++ class CSightParams {
-    const eSightTypeAnimationDirection = 11;
-    const eSightTypeCover = 5;
-    const eSightTypeCoverLookOver = 8;
-    const eSightTypeCurrentDirection = 0;
-    const eSightTypeDirection = 2;
-    const eSightTypeDummy = -1;
-    const eSightTypeFireObject = 9;
-    const eSightTypeFirePosition = 10;
-    const eSightTypeLookOver = 7;
-    const eSightTypeObject = 4;
-    const eSightTypePathDirection = 1;
-    const eSightTypePosition = 3;
-    const eSightTypeSearch = 6;
+    public m_object: XR_CGameObject;
+    public m_sight_type: TXR_SightType;
+    public m_vector: XR_vector;
+  }
 
-    property m_object;
-    property m_sight_type;
-    property m_vector;
+  export type TXR_SightTypes = typeof XR_CSightParams;
 
-    CSightParams ();
-
-  };
-   *
-   */
-
-  // todo;
+  export type TXR_SightType = TXR_SightTypes[keyof TXR_SightTypes];
 
   /**
    C++ class DIK_keys {

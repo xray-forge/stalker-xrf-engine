@@ -3,6 +3,9 @@ import { XR_game_object, XR_ini_file } from "xray16";
 import { Optional } from "@/mod/lib/types";
 import { scriptIds } from "@/mod/scripts/core/db";
 import { abort } from "@/mod/scripts/utils/debug";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
+
+const log: LuaLogger = new LuaLogger("utils/configs");
 
 /**
  * todo: Description
@@ -193,4 +196,46 @@ export function parseSpawns(str: string): LuaTable<number, { section: string; pr
   }
 
   return ret_table;
+}
+
+/**
+ *
+ */
+export function r_2nums(
+  spawn_ini: XR_ini_file,
+  section: string,
+  line: string,
+  def1: string,
+  def2: string
+): LuaMultiReturn<[string, string]> {
+  if (spawn_ini.line_exist(section, line)) {
+    const t = parseNames(spawn_ini.r_string(section, line));
+    const n = t.length();
+
+    if (n == 0) {
+      return $multi(def1, def2);
+    } else if (n === 1) {
+      return $multi(t.get(1), def2);
+    } else {
+      return $multi(t.get(1), t.get(2));
+    }
+  } else {
+    return $multi(def1, def2);
+  }
+}
+
+/**
+ * todo;
+ * example: a | b | c ==> { 1 = "a", 2 = "b", 3 = "c" }
+ */
+export function parseParams(params: string): LuaTable<number, string> {
+  const rslt: LuaTable<number, string> = new LuaTable();
+  let n = 1;
+
+  for (const field of string.gfind(params, "%s*([^|]+)%s*")) {
+    rslt.set(n, field);
+    n = n + 1;
+  }
+
+  return rslt;
 }

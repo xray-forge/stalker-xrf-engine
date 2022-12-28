@@ -1,6 +1,9 @@
-local scenes_table = {
-					}
+local utilsConfigs = require("scripts.utils.configs")
+
+local scenes_table = {}
+
 gOldVer = CUIListItemEx~=nil
+
 if(gOldVer) then
 	class "scene_item" (CUIListItemEx)
 else
@@ -54,7 +57,7 @@ function scenes_item_dialog:FillList()
 
 	for line_number = 0, line_count - 1 do
 		local result, id, value  = scenes_ini:r_line(level_name,line_number,"","")
-		local parsed_value = utils.parse_params(value)
+		local parsed_value = utilsConfigs.parseParams(value)
 		scenes_table[id] = parsed_value
 		self:AddItemToList(id)
 	end

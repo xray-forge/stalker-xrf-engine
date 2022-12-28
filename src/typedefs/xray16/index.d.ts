@@ -59,6 +59,7 @@ declare module "xray16" {
   export const clsid: typeof XR_clsid;
   export const vector2: typeof XR_vector2;
   export const vector: typeof XR_vector;
+  export const move: typeof XR_move;
   export const patrol: typeof XR_patrol;
   export const fcolor: typeof XR_FColor;
   export const stalker_ids: IXR_stalker_ids;
@@ -73,6 +74,7 @@ declare module "xray16" {
 
   export const FS: typeof XR_FS;
   export const CGameGraph: typeof XR_CGameGraph;
+  export const CSightParams: typeof XR_CSightParams;
   export const Frect: typeof XR_FRect;
 
   /**

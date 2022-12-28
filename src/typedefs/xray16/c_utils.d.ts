@@ -278,7 +278,7 @@ declare module "xray16" {
 
     public lerp(vector1: XR_vector, vector2: XR_vector, val:number): unknown;
 
-    public distance_to_sqr(vector: XR_vector) : unknown;
+    public distance_to_sqr(vector: XR_vector) : number;
 
     public mul(val:number): unknown;
     public mul(vector: XR_vector): unknown;

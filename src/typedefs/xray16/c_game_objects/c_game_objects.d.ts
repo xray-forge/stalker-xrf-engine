@@ -1,3 +1,5 @@
+import { XR_CSightParams } from "xray16";
+
 declare module "xray16" {
   /**
    * C++ class CGameObject : DLL_Pure,ISheduled,ICollidable,IRenderable {
@@ -267,7 +269,7 @@ declare module "xray16" {
     public special_danger_move(): unknown;
     public is_level_changer_enabled(): unknown;
     public enable_level_changer(value: boolean): unknown;
-    public actor_look_at_point(vector: XR_vector): unknown;
+    public actor_look_at_point(vector: XR_vector): void;
     public make_item_active(game_object: XR_game_object): unknown;
     public set__force(vector: XR_vector, value1: number, value2: number): unknown;
     public sell_condition(ini_file: unknown, value: string): unknown;
@@ -291,17 +293,17 @@ declare module "xray16" {
     public idle_min_time(value: number): unknown;
     public idle_min_time(): unknown;
     public info_add(value: string): unknown;
-    public sight_params(): unknown;
+    public sight_params(): XR_CSightParams;
     public unload_magazine(): unknown;
     public set_character_community(value1: string, value2: number, value3: number): unknown;
     public take_items_enabled(value: boolean): unknown;
     public take_items_enabled(): unknown;
-    public set_sight(type: unknown /** enum SightManager::ESightType */, vector: XR_vector, value: number): unknown;
+    public set_sight(type: TXR_SightType, vector: XR_vector, value: number): unknown;
     public set_sight(
-      type: unknown /** enum SightManager::ESightType */, value1: XR_vector, value2: boolean, value3: boolean
+      type: TXR_SightType, value1: XR_vector, value2: boolean, value3: boolean
     ): unknown;
-    public set_sight(type: unknown /** enum SightManager::ESightType */, vector: XR_vector, value: boolean): unknown;
-    public set_sight(type: unknown /** enum SightManager::ESightType */, vector: XR_vector): unknown;
+    public set_sight(type: TXR_SightType, vector: XR_vector, value: boolean): unknown;
+    public set_sight(type: TXR_SightType, vector: XR_vector): unknown;
     public set_sight(game_object: XR_game_object): unknown;
     public set_sight(game_object: XR_game_object, value: boolean): unknown;
     public set_sight(game_object: XR_game_object, value1: boolean, value2: boolean): unknown;

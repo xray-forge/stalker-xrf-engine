@@ -226,115 +226,110 @@ declare module "xray16" {
   }
 
   /**
-     C++ class move {
-      const back = 4;
-      const criteria = 2;
-      const crouch = 0;
-      const curve = 0;
-      const curve_criteria = 2;
-      const default = 0;
-      const dodge = 1;
-      const down = 64;
-      const drag = 3;
-      const force = 1;
-      const fwd = 2;
-      const handbrake = 128;
-      const jump = 4;
-      const left = 8;
-      const line = 0;
-      const none = 1;
-      const off = 512;
-      const on = 256;
-      const right = 16;
-      const run = 1;
-      const run_fwd = 2;
-      const run_with_leader = 7;
-      const stand = 2;
-      const standing = 1;
-      const steal = 5;
-      const up = 32;
-      const walk = 0;
-      const walk_bkwd = 1;
-      const walk_fwd = 0;
-      const walk_with_leader = 6;
+   * C++ class move {
+   * @customConstructor move
+   **/
+  class XR_move {
+    public static back: 4;
+    public static criteria: 2;
+    public static crouch: 0;
+    public static curve: 0;
+    public static curve_criteria: 2;
+    public static default: 0;
+    public static dodge: 1;
+    public static down: 64;
+    public static drag: 3;
+    public static force: 1;
+    public static fwd: 2;
+    public static handbrake: 128;
+    public static jump: 4;
+    public static left: 8;
+    public static line: 0;
+    public static none: 1;
+    public static off: 512;
+    public static on: 256;
+    public static right: 16;
+    public static run: 1;
+    public static run_fwd: 2;
+    public static run_with_leader: 7;
+    public static stand: 2;
+    public static standing: 1;
+    public static steal: 5;
+    public static up: 32;
+    public static walk: 0;
+    public static walk_bkwd: 1;
+    public static walk_fwd: 0;
+    public static walk_with_leader: 6;
 
-      move ();
-      move (enum CScriptMovementAction::EInputKeys);
-      move (enum CScriptMovementAction::EInputKeys, number);
-      move (
-        enum MonsterSpace::EBodyState,
-        enum MonsterSpace::EMovementType,
-        enum DetailPathManager::EDetailPathType,
-        game_object*
-      );
-      move (
-        enum MonsterSpace::EBodyState,
-        enum MonsterSpace::EMovementType,
-        enum DetailPathManager::EDetailPathType,
-        game_object*, number
-      );
-      move (
-        enum MonsterSpace::EBodyState,
-        enum MonsterSpace::EMovementType,
-        enum DetailPathManager::EDetailPathType,
-        patrol*
-      );
-      move (
-        enum MonsterSpace::EBodyState,
-        enum MonsterSpace::EMovementType,
-        enum DetailPathManager::EDetailPathType,
-        patrol*, number
-      );
-      move (
-        enum MonsterSpace::EBodyState,
-        enum MonsterSpace::EMovementType,
-        enum DetailPathManager::EDetailPathType,
-        vector*
-      );
-      move (
-        enum MonsterSpace::EBodyState,
-        enum MonsterSpace::EMovementType,
-        enum DetailPathManager::EDetailPathType,
-        vector*,
-        number
-      );
-      move (vector*, number);
-      move (enum MonsterSpace::EScriptMonsterMoveAction, vector*);
-      move (enum MonsterSpace::EScriptMonsterMoveAction, patrol*);
-      move (enum MonsterSpace::EScriptMonsterMoveAction, game_object*);
-      move (enum MonsterSpace::EScriptMonsterMoveAction, vector*, number);
-      move (enum MonsterSpace::EScriptMonsterMoveAction, number, vector*);
-      move (enum MonsterSpace::EScriptMonsterMoveAction, number, vector*, number);
-      move (enum MonsterSpace::EScriptMonsterMoveAction, patrol*, number);
-      move (enum MonsterSpace::EScriptMonsterMoveAction, game_object*, number);
-      move (enum MonsterSpace::EScriptMonsterMoveAction, vector*, number, enum MonsterSpace::EScriptMonsterSpeedParam);
-      move (enum MonsterSpace::EScriptMonsterMoveAction, patrol*, number, enum MonsterSpace::EScriptMonsterSpeedParam);
-      move (
-        enum MonsterSpace::EScriptMonsterMoveAction,
-        game_object*, number,
-        enum MonsterSpace::EScriptMonsterSpeedParam
-      );
+    public constructor();
+    public constructor(action: unknown);
+    public constructor(action: unknown, value: number);
+    public constructor(
+      bodyState: unknown,
+      movementType: unknown,
+      pathType: unknown,
+      game_object: XR_game_object
+    );
+    public constructor(
+      bodyState: unknown,
+      movementType: unknown,
+      pathType: unknown,
+      game_object: XR_game_object,
+      value: number
+    );
+    public constructor(
+      bodyState: unknown,
+      movementType: unknown,
+      pathType: unknown,
+      patrol: XR_patrol
+    );
+    public constructor(
+      bodyState: unknown,
+      movementType: unknown,
+      pathType: unknown,
+      patrol: XR_patrol,
+      value: number
+    );
+    public constructor(
+      bodyState: unknown,
+      movementType: unknown,
+      pathType: unknown,
+      vector: XR_vector
+    );
+    public constructor(
+      bodyState: unknown,
+      movementType: unknown,
+      pathType: unknown,
+      vector: XR_vector,
+      value: number
+    );
+    public constructor(vector: XR_vector, value: number);
+    public constructor(moveAction: unknown, vector: XR_vector);
+    public constructor(moveAction: unknown, patrol: XR_patrol);
+    public constructor(moveAction: unknown, game_object: XR_game_object);
+    public constructor(moveAction: unknown, vector: XR_vector, value: number);
+    public constructor(moveAction: unknown, value: number, vector: XR_patrol);
+    public constructor(moveAction: unknown, value: number, vector: XR_vector, value2: number);
+    public constructor(moveAction: unknown, patrol: XR_patrol, value: number);
+    public constructor(moveAction: unknown, game_object: XR_game_object, value: number);
+    public constructor(moveAction: unknown, vector: XR_vector, value: number, speedParam: unknown);
+    public constructor(moveAction: unknown, patrol: XR_patrol, value: number, speedParam: unknown);
+    public constructor(
+      moveAction: unknown,
+      game_object: XR_game_object,
+      value: number,
+      speedParam: unknown
+    );
 
-      function completed();
-
-      function path(enum DetailPathManager::EDetailPathType);
-
-      function move(enum MonsterSpace::EMovementType);
-
-      function position(const vector&);
-
-      function input(enum CScriptMovementAction::EInputKeys);
-
-      function patrol(const class CPatrolPath*, class shared_str);
-
-      function object(game_object*);
-
-      function body(enum MonsterSpace::EBodyState);
-
-    };
-     */
-
-  // todo;
+    public completed(): unknown;
+    public path(EDetailPathType: unknown): unknown;
+    public move(EMovementType: unknown): unknown;
+    public position(vector: XR_vector): unknown;
+    public input(EInputKeys: unknown): unknown;
+    public patrol(patrolPath: unknown, shared_str: unknown): unknown;
+    public object(game_object: XR_game_object): unknown;
+    public body(EBodyState: unknown): unknown;
+  }
 
   /**
      C++ class object {
