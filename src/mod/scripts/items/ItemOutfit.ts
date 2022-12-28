@@ -1,11 +1,13 @@
 import { cse_alife_item_custom_outfit, XR_cse_alife_item_custom_outfit } from "xray16";
 
+import { Optional } from "@/mod/lib/types";
 import { REGISTERED_ITEMS } from "@/mod/scripts/core/db";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
+import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 
 export interface IItemOutfit extends XR_cse_alife_item_custom_outfit {
-  secret_item: boolean;
+  secret_item: Optional<boolean>;
 }
 
 export const ItemOutfit: IItemOutfit = declare_xr_class("ItemOutfit", cse_alife_item_custom_outfit, {
@@ -24,7 +26,7 @@ export const ItemOutfit: IItemOutfit = declare_xr_class("ItemOutfit", cse_alife_
       REGISTERED_ITEMS.set(this.section_name(), REGISTERED_ITEMS.get(this.section_name()) + 1);
     }
 
-    this.secret_item = get_global("treasure_manager").get_treasure_manager().register_item(this);
+    this.secret_item = getTreasureManager().register_item(this);
   },
   on_unregister(): void {
     unregisterStoryObjectById(this.id);

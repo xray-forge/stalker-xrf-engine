@@ -95,7 +95,7 @@ declare module "xray16" {
     public angle: number;
     public id: number;
     public parent_id: number;
-    public position: unknown;
+    public position: XR_vector;
     public script_version: unknown;
 
     public name(): string;

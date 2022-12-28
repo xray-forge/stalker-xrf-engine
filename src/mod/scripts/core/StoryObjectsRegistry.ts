@@ -1,5 +1,6 @@
 import { alife, system_ini, XR_cse_abstract, XR_ini_file, XR_LuaBindBase, XR_net_packet } from "xray16";
 
+import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { Optional } from "@/mod/lib/types";
 import { getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -8,8 +9,6 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("core/StoryObjectsRegistry");
 let storyObjectsRegistry: Optional<IStoryObjectsRegistry> = null;
-
-const MAX_UNSIGNED_16_BIT: number = 65535;
 
 export interface IStoryObjectsRegistry extends XR_LuaBindBase {
   id_by_story_id: LuaTable<string, number>;

@@ -11,6 +11,7 @@ import {
   XR_patrol
 } from "xray16";
 
+import { MAX_UNSIGNED_8_BIT } from "@/mod/globals/memory";
 import { AnyCallable, AnyObject, Optional } from "@/mod/lib/types";
 import { FIELDS_BY_NAME } from "@/mod/scripts/core/binders/AnomalyFieldBinder";
 import { addAnomaly, addObject, deleteAnomaly, deleteObject, storage } from "@/mod/scripts/core/db";
@@ -39,7 +40,6 @@ export const PARENT_ZONES_BY_ARTEFACT_ID: LuaTable<number, IAnomalyZoneBinder> =
  */
 const ANOMAL_ZONE_SECTION: string = "anomal_zone";
 const ANOMAL_ZONE_LAYER: string = "layer_";
-const MAX_UNSIGNED_8_BIT: number = 255;
 const ARTEFACT_SPAWN_CHANCE: number = 17;
 const UPDATE_THROTTLE: number = 5_000;
 

@@ -225,7 +225,7 @@ function se_restrictor:on_register()
 	-- ��������� ���������� ������� �� ������� ����� ����.
 	checkSpawnIniForStoryId(self)
 
-	treasure_manager.get_treasure_manager():register_restrictor(self)
+	getTreasureManager():register_restrictor(self)
 end
 
 function se_restrictor:keep_saved_data_anyway()

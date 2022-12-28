@@ -10,7 +10,8 @@ import {
   VariableDeclarationList
 } from "typescript";
 import { Plugin } from "typescript-to-lua";
-import { IS_LUA_LOGGER_DISABLED } from "#/build/build";
+
+export const IS_LUA_LOGGER_DISABLED: boolean = process.argv.includes("--no-lua-logger");
 
 const LUA_LOGGER_STRIP_TARGET: string = "LuaLogger";
 

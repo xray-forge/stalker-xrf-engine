@@ -77,7 +77,7 @@ export function getObjectSquad(
   const se_obj: Optional<any> = alife().object(objectId);
 
   if (se_obj && se_obj.group_id !== MAX_16_BIT_VALUE) {
-    return alife().object(se_obj.group_id);
+    return alife().object(se_obj.group_id) as XR_cse_alife_creature_abstract;
   }
 
   return null;
@@ -89,7 +89,7 @@ export function getObjectSquad(
 export function getStorySquad(storyId: string): Optional<XR_cse_alife_creature_abstract> {
   const squadId: Optional<number> = getStoryObjectId(storyId);
 
-  return squadId ? alife().object(squadId) : null;
+  return squadId ? (alife().object(squadId) as XR_cse_alife_creature_abstract) : null;
 }
 
 /**

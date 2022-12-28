@@ -68,16 +68,16 @@ declare module "xray16" {
 
     public has_info(objectId: number, infoId: string): boolean;
 
-    public object(id: number): XR_cse_alife_creature_abstract | null;
-    public object(id: number, value2: boolean): XR_cse_alife_creature_abstract | null;
+    public object(id: number): XR_cse_alife_object | null;
+    public object(id: number, value2: boolean): XR_cse_alife_object | null;
 
-    public actor(): XR_cse_alife_creature_abstract;
+    public actor(): XR_cse_alife_creature_actor;
 
-    public story_object(value: number): XR_cse_alife_creature_abstract;
+    public story_object(value: number): XR_cse_alife_object;
 
     public spawn_id(value: number): unknown;
 
-    public release(cse_abstract: XR_cse_alife_creature_abstract | null, value: boolean): unknown;
+    public release(cse_abstract: XR_cse_alife_object | null, value: boolean): unknown;
 
     public create(value: number): XR_cse_alife_object;
     public create(
@@ -88,7 +88,7 @@ declare module "xray16" {
       value4: number
     ): XR_cse_alife_object;
     public create(
-      value1: string,
+      value1: string | number,
       vector: XR_vector,
       value2: number,
       value3: number

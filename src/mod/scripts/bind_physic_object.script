@@ -146,7 +146,6 @@ end
 function generic_physics_binder:use_callback(obj, who)
 	if obj:clsid() == clsid.inventory_box then
 		local box_name = obj:name()
---		treasure_manager.use_box(obj, who)
 	end
 	if self.st.active_section then
 		xr_logic.issue_event(self.object, self.st[self.st.active_scheme], "use_callback", obj, who)

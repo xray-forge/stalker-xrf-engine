@@ -1793,7 +1793,7 @@ function give_treasure (actor, npc, p)
 		abort("Required parameter is [NIL]")
 	end
 	for k,v in pairs(p) do
-		treasure_manager.get_treasure_manager():give_treasure(v)
+		getTreasureManager():give_treasure(v)
 	end
 end
 

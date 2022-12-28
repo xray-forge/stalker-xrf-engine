@@ -172,7 +172,7 @@ function actor_binder:on_item_take (obj)
 		end
 ]]
 	end
-	treasure_manager.get_treasure_manager():on_item_take(obj:id())
+	getTreasureManager():on_item_take(obj:id())
 end
 ----------------------------------------------------------------------------------------------------------------------
 function actor_binder:on_item_drop (obj)
@@ -366,7 +366,7 @@ function actor_binder:update(delta)
 		get_console():execute("dump_infos")
 		self.loaded = true
 	end
-	treasure_manager.get_treasure_manager():update()
+	getTreasureManager():update()
 
 	mapDisplayManager:update()
 end
@@ -393,7 +393,7 @@ function actor_binder:save(packet)
 	xr_sound.actor_save(packet)
 	packet:w_stringZ(tostring(self.last_level_name))
 	xr_statistic.save(packet)
-	treasure_manager.get_treasure_manager():save(packet)
+	getTreasureManager():save(packet)
 
 	local n = 0
 	for k,v in pairs(db.script_ids) do
@@ -464,7 +464,7 @@ function actor_binder:load(reader)
 		self.last_level_name = n
 	end
 	xr_statistic.load(reader)
-	treasure_manager.get_treasure_manager():load(reader)
+	getTreasureManager():load(reader)
 	n = reader:r_u8()
 	for i = 1,n do
 		db.script_ids[reader:r_u16()] = reader:r_stringZ()

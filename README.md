@@ -15,7 +15,7 @@ Enabling power of typescript for mods creation. <br/>
 Main goals of the project are:
 
 - type safety
-- unified development tools 
+- unified development tools
 - automated builds and versioning system
 - build-level globals and better build control
 - shared template for mods development
