@@ -10,7 +10,7 @@ declare module "xray16" {
     public net_Import(net_packet: XR_net_packet): unknown;
     public getVisible(): boolean;
     public net_Export(net_packet: XR_net_packet): unknown;
-    public net_Spawn(cse_abstract: IXR_cse_abstract): unknown;
+    public net_Spawn(cse_abstract: XR_cse_abstract): unknown;
     public use(object: XR_CGameObject): unknown;
   }
 

@@ -1,28 +1,13 @@
 declare module "xray16" {
   /**
    * Base for bindings brought from LuaBind library.
-   *
-   * Available overloading methods:
-   * __init
-   * __finalize
-   * __call
-   * __add
-   * __sub
-   * __mul
-   * __div
-   * __pow
-   * __lt
-   * __le
-   * __eq
-   * __unm
-   * __tostring
-   * __len
-   *
    * todo: Correct signatures.
    */
   export class XR_LuaBindBase {
     public static __init(this: void, ...args: Array<any>): void;
     public static __finalize(this: void): void;
+    public static __call(this: void): void;
+
     public __init(...args: Array<any>): void;
     public __finalize(): void;
     public __call(args: Array<any>): void;
@@ -232,9 +217,9 @@ declare module "xray16" {
     public static net_spawn(
         this: void,
         target: XR_object_binder,
-        cse_alife_object: IXR_cse_alife_object
+        cse_alife_object: XR_cse_alife_object
       ): boolean;
-    public net_spawn(object: IXR_cse_alife_object): boolean;
+    public net_spawn(object: XR_cse_alife_object): boolean;
 
     public static net_import(this: void, target: XR_object_binder, net_packet: XR_net_packet): unknown
     public net_import(net_packet: XR_net_packet): unknown;

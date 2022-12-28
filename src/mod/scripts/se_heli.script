@@ -7,8 +7,8 @@ end
 
 function se_heli:on_register()
 	cse_alife_helicopter.on_register(self)
-	-- Проверяем кастомдату обьекта на наличие стори айди.
-	story_objects.check_spawn_ini_for_story_id(self)
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ.
+	checkSpawnIniForStoryId(self)
 end
 
 function se_heli:on_unregister()

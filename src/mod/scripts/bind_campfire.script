@@ -6,6 +6,7 @@ local log = create_ts_class_instance(LuaLogger, "bind_campfire");
 --'*	������ ������� ������ .
 --'******************************************************
 campfire_table_by_smart_names = {}
+
 function bind(obj)
 	obj:bind_object(campfire_binder(obj))
 end

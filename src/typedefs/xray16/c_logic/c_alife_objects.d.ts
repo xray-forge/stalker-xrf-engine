@@ -66,454 +66,532 @@ declare module "xray16" {
   }
 
   /**
-   *  C++ class cse_abstract : cpure_server_object {
-   */
-  export interface IXR_cse_abstract extends IXR_cpure_server_object{
-    angle: number;
-    id: number;
-    parent_id: number;
-    position: unknown;
-    script_version: unknown
-
-    name(): string;
-    clsid(): TXR_ClsId;
-    spawn_ini(): XR_ini_file;
-    section_name(): string;
-
-    UPDATE_Read(packet: XR_net_packet): unknown;
-    STATE_Read(packet: XR_net_packet, value: number): unknown;
-    UPDATE_Write(packet: XR_net_packet): void;
-    STATE_Write(packet: XR_net_packet): void;
-  }
-
-  /**
-   * C++ class cse_alife_object_breakable : cse_alife_dynamic_object_visual {
-   */
-  export interface IXR_cse_alife_object_breakable extends IXR_cse_alife_dynamic_object_visual {
-  }
-
-  /**
-   * C++ class cse_alife_trader_abstract {
-   */
-  export interface IXR_cse_alife_trader_abstract {
-     reputation(): number;
-     rank(): number;
-     community(): unknown;
-  }
-
-  /**
-   * C++ class cse_alife_object : cse_abstract {
-   */
-  export interface IXR_cse_alife_object extends IXR_cse_abstract {
-    m_game_vertex_id: number;
-    m_level_vertex_id: number;
-    m_story_id: number;
-    online: boolean;
-
-    constructor(value: string): IXR_cse_abstract;
-
-    used_ai_locations(): boolean;
-    use_ai_locations(value: boolean): boolean;
-
-    can_save(): boolean;
-
-    can_switch_online(): boolean;
-    can_switch_online(value: boolean): boolean;
-
-    init(): void;
-
-    interactive(): unknown;
-
-    visible_for_map(): boolean
-    visible_for_map(value: boolean): boolean;
-
-    can_switch_offline(): boolean;
-    can_switch_offline(value: boolean): boolean;
-
-    move_offline(): void
-    move_offline(value: boolean): void
-  }
-
-  /**
-   * C++ class cse_alife_dynamic_object : cse_alife_object {
-   */
-  export interface IXR_cse_alife_dynamic_object extends IXR_cse_alife_object {
-    switch_offline(): unknown;
-    switch_online(): unknown;
-
-    keep_saved_data_anyway(): unknown;
-
-    on_register(): unknown;
-    on_before_register(): unknown;
-
-    on_spawn(): unknown;
-    on_unregister(): unknown;
-  }
-
-  /**
-   * C++ class cse_alife_space_restrictor : cse_alife_dynamic_object,cse_shape {
-   */
-  export interface IXR_cse_alife_space_restrictor extends IXR_cse_alife_dynamic_object, IXR_cse_shape {
-  }
-
-  /**
-   * C++ class cse_alife_dynamic_object_visual : cse_alife_dynamic_object,cse_visual {
-   */
-  export interface IXR_cse_alife_dynamic_object_visual extends IXR_cse_alife_dynamic_object, IXR_cse_visual {
-  }
-
-  /**
-   * C++ class cse_custom_zone : cse_alife_dynamic_object,cse_shape {
-   */
-  export interface IXR_cse_custom_zone extends IXR_cse_alife_dynamic_object, IXR_cse_shape {
-  }
-
-  /**
-   * C++ class cse_alife_creature_abstract : cse_alife_dynamic_object_visual {
-   */
-  export interface IXR_cse_alife_creature_abstract extends IXR_cse_alife_dynamic_object_visual {
-    group: number;
-    squad: number;
-    team: number;
-    health(): unknown;
-
-    on_death(cse_abstract: IXR_cse_alife_creature_abstract): unknown;
-
-    alive(): boolean;
-
-    g_team(): unknown;
-    g_group(): unknown;
-    g_squad(): unknown;
-
-    o_torso(cse_alife_creature_abstract: IXR_cse_alife_creature_abstract): unknown;
-
-  }
-
-  /**
-   * C++ class cse_alife_human_abstract : cse_alife_trader_abstract,cse_alife_monster_abstract {
-   * */
-  export interface IXR_cse_alife_human_abstract extends IXR_cse_alife_monster_abstract {
-    profile_name(trader: unknown /* cse_alife_trader_abstract */): unknown;
-    set_rank(rank: number): void;
-    reputation(): unknown;
-    community(): string;
-  }
-
-  /**
    * C++ class cse_alife_inventory_item {
    */
   export interface IXR_cse_alife_inventory_item {
   }
 
   /**
-   * C++ class cse_alife_item : cse_alife_dynamic_object_visual,cse_alife_inventory_item {
+   * C++ class cse_alife_object_breakable : cse_alife_dynamic_object_visual {
    */
-  export interface IXR_cse_alife_item extends IXR_cse_alife_dynamic_object_visual, IXR_cse_alife_inventory_item {
-    bfUseful(): unknown;
+  export interface IXR_cse_alife_object_breakable extends XR_cse_alife_dynamic_object_visual {
+  }
+
+  /**
+   * C++ class cse_alife_trader_abstract {
+   * @customConstructor cse_alife_trader_abstract
+   */
+  export class XR_cse_alife_trader_abstract {
+    public reputation(): number;
+    public rank(): number;
+    public community(): unknown;
+  }
+
+  /**
+   * C++ class cse_abstract : cpure_server_object {
+   * @customConstructor cse_abstract
+   */
+  export class XR_cse_abstract extends XR_LuaBindBase implements IXR_cpure_server_object {
+    public angle: number;
+    public id: number;
+    public parent_id: number;
+    public position: unknown;
+    public script_version: unknown;
+
+    public name(): string;
+    public clsid(): TXR_ClsId;
+    public spawn_ini(): XR_ini_file;
+    public section_name(): string;
+
+    public UPDATE_Read(packet: XR_net_packet): unknown;
+    public STATE_Read(packet: XR_net_packet, value: number): unknown;
+    public UPDATE_Write(packet: XR_net_packet): void;
+    public STATE_Write(packet: XR_net_packet): void;
+  }
+
+  /**
+   * C++ class cse_alife_object : cse_abstract {
+   * @customConstructor cse_alife_object
+   */
+  export class XR_cse_alife_object extends XR_cse_abstract {
+    public m_game_vertex_id: number;
+    public m_level_vertex_id: number;
+    public m_story_id: number;
+    public online: boolean;
+
+    public constructor(value: string);
+
+    public used_ai_locations(): boolean;
+    public use_ai_locations(value: boolean): boolean;
+
+    public can_save(): boolean;
+
+    public static can_switch_online(this: void, target: XR_cse_alife_object): boolean;
+    public static can_switch_online(this: void, target: XR_cse_alife_object, value: boolean): boolean;
+
+    public can_switch_online(): boolean;
+    public can_switch_online(value: boolean): boolean;
+
+    public init(): void;
+
+    public interactive(): unknown;
+
+    public visible_for_map(): boolean
+    public visible_for_map(value: boolean): boolean;
+
+    public can_switch_offline(): boolean;
+    public can_switch_offline(value: boolean): boolean;
+
+    public move_offline(): void
+    public move_offline(value: boolean): void
+  }
+
+  /**
+   * C++ class cse_alife_dynamic_object : cse_alife_object {
+   * @customConstructor cse_alife_dynamic_object
+   */
+  class XR_cse_alife_dynamic_object extends XR_cse_alife_object {
+    public switch_offline(): void;
+    public switch_online(): void;
+
+    public static keep_saved_data_anyway(this: void, target: XR_cse_alife_dynamic_object): unknown;
+    public keep_saved_data_anyway(): unknown;
+
+    public static on_register(this: void, target: XR_cse_alife_dynamic_object): void;
+    public on_register(): void;
+
+    public static on_before_register(this: void, target: XR_cse_alife_dynamic_object): void;
+    public on_before_register(): void;
+
+    public static on_spawn(this: void, target: XR_cse_alife_dynamic_object): void;
+    public on_spawn(): void;
+
+    public static on_unregister(this: void, target: XR_cse_alife_dynamic_object): void;
+    public on_unregister(): void;
+  }
+
+  /**
+   * C++ class cse_alife_space_restrictor : cse_alife_dynamic_object,cse_shape {
+   * @customConstructor cse_alife_space_restrictor
+   */
+  export class XR_cse_alife_space_restrictor extends XR_cse_alife_dynamic_object implements IXR_cse_shape {
+  }
+
+  /**
+   * C++ class cse_alife_dynamic_object_visual : cse_alife_dynamic_object,cse_visual {
+   * @customConstructor cse_alife_dynamic_object_visual
+   */
+  export class XR_cse_alife_dynamic_object_visual extends XR_cse_alife_dynamic_object implements IXR_cse_visual {
+  }
+
+  /**
+   * C++ class cse_custom_zone : cse_alife_dynamic_object,cse_shape {
+   * @customConstructor cse_custom_zone
+   */
+  export class XR_cse_custom_zone extends XR_cse_alife_dynamic_object implements IXR_cse_shape {
+  }
+
+  /**
+   * C++ class cse_alife_creature_abstract : cse_alife_dynamic_object_visual {
+   * @customConstructor cse_alife_creature_abstract
+   */
+  export class XR_cse_alife_creature_abstract extends XR_cse_alife_dynamic_object_visual {
+    public group: number;
+    public squad: number;
+    public team: number;
+    public health(): unknown;
+
+    public on_death(cse_abstract: XR_cse_alife_creature_abstract): unknown;
+
+    public alive(): boolean;
+
+    public g_team(): unknown;
+    public g_group(): unknown;
+    public g_squad(): unknown;
+
+    public o_torso(cse_alife_creature_abstract: XR_cse_alife_creature_abstract): unknown;
+
+  }
+
+  /**
+   * C++ class cse_alife_human_abstract : cse_alife_trader_abstract,cse_alife_monster_abstract {
+   * @customConstructor XR_cse_alife_human_abstract
+   * */
+  export class XR_cse_alife_human_abstract extends XR_cse_alife_monster_abstract {
+    public profile_name(trader: unknown /* cse_alife_trader_abstract */): unknown;
+    public set_rank(rank: number): void;
+    public reputation(): unknown;
+    public community(): string;
+  }
+
+  /**
+   * C++ class cse_alife_item : cse_alife_dynamic_object_visual,cse_alife_inventory_item {
+   * @customConstructor cse_alife_item
+   */
+  export class XR_cse_alife_item extends XR_cse_alife_dynamic_object_visual implements IXR_cse_alife_inventory_item {
+    public bfUseful(): unknown;
   }
 
   /**
    * C++ class cse_alife_item_weapon : cse_alife_item {
+   * @customConstructor cse_alife_item_weapon
    */
-  export interface IXR_cse_alife_item_weapon extends IXR_cse_alife_item {
-    clone_addons(cse_alife_item_weapon: IXR_cse_alife_item_weapon): unknown;
+  export class XR_cse_alife_item_weapon extends XR_cse_alife_item {
+    public clone_addons(cse_alife_item_weapon: XR_cse_alife_item_weapon): unknown;
   }
 
   /**
    * C++ class cse_alife_item_weapon_magazined : cse_alife_item_weapon {
+   * @customConstructor cse_alife_item_weapon_magazined
    */
-  export interface IXR_cse_alife_item_weapon_magazined extends IXR_cse_alife_item_weapon {
+  export class XR_cse_alife_item_weapon_magazined extends XR_cse_alife_item_weapon {
   }
 
   /**
    * C++ class cse_alife_item_weapon_magazined_w_gl : cse_alife_item_weapon_magazined {
+   * @customConstructor cse_alife_item_weapon_magazined_w_gl
    */
-  export interface IXR_cse_alife_item_weapon_magazined_w_gl extends IXR_cse_alife_item_weapon {
+  export class XR_cse_alife_item_weapon_magazined_w_gl extends XR_cse_alife_item_weapon {
   }
 
   /**
    * C++ class cse_alife_item_weapon_shotgun : cse_alife_item_weapon {
+   * @customConstructor cse_alife_item_weapon_shotgun
    */
-  export interface IXR_cse_alife_item_weapon_shotgun extends IXR_cse_alife_item_weapon {
+  export class XR_cse_alife_item_weapon_shotgun extends XR_cse_alife_item_weapon {
   }
 
   /**
    * C++ class cse_alife_level_changer : cse_alife_space_restrictor {
+   * @customConstructor cse_alife_level_changer
    */
-  export interface IXR_cse_alife_level_changer extends IXR_cse_alife_space_restrictor {
+  export class XR_cse_alife_level_changer extends XR_cse_alife_space_restrictor {
   }
 
   /**
    * C++ class cse_alife_monster_abstract : cse_alife_creature_abstract,cse_alife_schedulable {
+   * @customConstructor cse_alife_monster_abstract
    */
-  export interface IXR_cse_alife_monster_abstract extends IXR_cse_alife_creature_abstract, IXR_cse_alife_schedulable {
-     group_id: number | null;
-     m_smart_terrain_id: number | null;
+  export class XR_cse_alife_monster_abstract
+    extends XR_cse_alife_creature_abstract
+    implements IXR_cse_alife_schedulable {
 
-    kill(): unknown;
+    public group_id: number | null;
+    public m_smart_terrain_id: number | null;
 
-    update(): unknown;
+    public kill(): unknown;
 
-    force_set_goodwill(
-      cse_alife_monster_abstract: IXR_cse_alife_monster_abstract, value1: number, value2: number
+    public update(): unknown;
+
+    public force_set_goodwill(
+      cse_alife_monster_abstract: XR_cse_alife_monster_abstract, value1: number, value2: number
     ): unknown;
 
-    clear_smart_terrain(cse_alife_monster_abstract: IXR_cse_alife_monster_abstract): unknown;
+    public clear_smart_terrain(cse_alife_monster_abstract: XR_cse_alife_monster_abstract): unknown;
 
-    travel_speed(cse_alife_monster_abstract: IXR_cse_alife_monster_abstract): unknown;
-    travel_speed(cse_alife_monster_abstract: IXR_cse_alife_monster_abstract, value: number): unknown;
+    public travel_speed(cse_alife_monster_abstract: XR_cse_alife_monster_abstract): unknown;
+    public travel_speed(cse_alife_monster_abstract: XR_cse_alife_monster_abstract, value: number): unknown;
 
-    smart_terrain_task_deactivate(cse_alife_monster_abstract: IXR_cse_alife_monster_abstract): unknown;
-    smart_terrain_task_activate(cse_alife_monster_abstract: IXR_cse_alife_monster_abstract): unknown;
+    public smart_terrain_task_deactivate(cse_alife_monster_abstract: XR_cse_alife_monster_abstract): unknown;
+    public smart_terrain_task_activate(cse_alife_monster_abstract: XR_cse_alife_monster_abstract): unknown;
 
-    current_level_travel_speed(cse_alife_monster_abstract: IXR_cse_alife_monster_abstract): unknown;
-    current_level_travel_speed(
+    public current_level_travel_speed(cse_alife_monster_abstract: XR_cse_alife_monster_abstract): unknown;
+    public current_level_travel_speed(
       cse_alife_monster_abstract:
-        IXR_cse_alife_monster_abstract, value: number
+        XR_cse_alife_monster_abstract, value: number
     ): unknown;
 
-     brain(cse_alife_monster_abstract: IXR_cse_alife_monster_abstract): unknown;
+    public brain(cse_alife_monster_abstract: XR_cse_alife_monster_abstract): unknown;
 
-     has_detector(): unknown;
+    public has_detector(): unknown;
 
-     smart_terrain_id(cse_alife_monster_abstract: IXR_cse_alife_monster_abstract): unknown;
+    public smart_terrain_id(cse_alife_monster_abstract: XR_cse_alife_monster_abstract): unknown;
 
-     rank(): unknown;
+    public rank(): unknown;
   }
 
   /**
    * C++ class cse_alife_monster_base : cse_alife_monster_abstract,cse_ph_skeleton {
+   * @customConstructor cse_alife_monster_base
    */
-  export interface IXR_cse_alife_monster_base extends IXR_cse_alife_monster_abstract, IXR_cse_ph_skeleton {
+  export class XR_cse_alife_monster_base extends XR_cse_alife_monster_abstract implements IXR_cse_ph_skeleton {
   }
 
   /**
    *  C++ class cse_alife_monster_rat : cse_alife_monster_abstract,cse_alife_inventory_item {
+   *  @customConstructor cse_alife_monster_rat
    */
-  export interface IXR_cse_alife_monster_rat extends IXR_cse_alife_monster_abstract, IXR_cse_alife_inventory_item {
+  export class XR_cse_alife_monster_rat extends XR_cse_alife_monster_abstract implements IXR_cse_alife_inventory_item {
   }
 
   /**
    * C++ class cse_alife_monster_zombie : cse_alife_monster_abstract {}
+   * @customConstructor cse_alife_monster_zombie
    */
-  export interface IXR_cse_alife_monster_zombie extends IXR_cse_alife_monster_abstract {
+  export class XR_cse_alife_monster_zombie extends XR_cse_alife_monster_abstract {
   }
 
   /**
    * C++ class cse_alife_mounted_weapon : cse_alife_dynamic_object_visual {
+   * @customConstructor cse_alife_mounted_weapon
    */
-  export interface IXR_cse_alife_mounted_weapon extends IXR_cse_alife_dynamic_object_visual {
+  export class XR_cse_alife_mounted_weapon extends XR_cse_alife_dynamic_object_visual {
   }
 
   /**
    * C++ class cse_alife_inventory_box : cse_alife_dynamic_object_visual {
+   * @customConstructor cse_alife_inventory_box
    */
-  export interface IXR_cse_alife_inventory_box extends IXR_cse_alife_dynamic_object_visual {
+  export class XR_cse_alife_inventory_box extends XR_cse_alife_dynamic_object_visual {
   }
 
   /**
    * C++ class cse_alife_item_ammo : cse_alife_item {
+   * @customConstructor cse_alife_item_ammo
    */
-  export interface IXR_cse_alife_item_ammo extends IXR_cse_alife_item {
+  export class XR_cse_alife_item_ammo extends XR_cse_alife_item {
   }
 
   /**
    * C++ class cse_alife_item_artefact : cse_alife_item {
+   * @customConstructor cse_alife_item_artefact
    */
-  export interface IXR_cse_alife_item_artefact extends IXR_cse_alife_item {
+  export class XR_cse_alife_item_artefact extends XR_cse_alife_item {
   }
 
   /**
    * C++ class cse_alife_item_bolt : cse_alife_item {
+   * @customConstructor cse_alife_item_bolt
    */
-  export interface IXR_cse_alife_item_bolt extends IXR_cse_alife_item {
+  export class XR_cse_alife_item_bolt extends XR_cse_alife_item {
   }
 
   /**
    * C++ class cse_alife_item_custom_outfit : cse_alife_item {
+   * @customConstructor cse_alife_item_custom_outfit
    */
-  export interface IXR_cse_alife_item_custom_outfit extends IXR_cse_alife_item {
+  export class XR_cse_alife_item_custom_outfit extends XR_cse_alife_item {
   }
 
   /**
    * C++ class cse_alife_item_document : cse_alife_item {
+   * @customConstructor cse_alife_item_document
    */
-  export interface IXR_cse_alife_item_document extends IXR_cse_alife_item {
+  export class XR_cse_alife_item_document extends XR_cse_alife_item {
   }
 
   /**
    * C++ class cse_alife_item_explosive : cse_alife_item {
+   * @customConstructor cse_alife_item_explosive
    */
-  export interface IXR_cse_alife_item_explosive extends IXR_cse_alife_item {
+  export class XR_cse_alife_item_explosive extends XR_cse_alife_item {
   }
 
   /**
    * C++ class cse_alife_item_grenade : cse_alife_item {
+   * @customConstructor cse_alife_item_grenade
    */
-  export interface IXR_cse_alife_item_grenade extends IXR_cse_alife_item {
+  export class XR_cse_alife_item_grenade extends XR_cse_alife_item {
   }
 
   /**
    * C++ class cse_alife_item_pda : cse_alife_item {
+   * @customConstructor cse_alife_item_pda
    */
-  export interface IXR_cse_alife_item_pda extends IXR_cse_alife_item {
+  export class XR_cse_alife_item_pda extends XR_cse_alife_item {
   }
 
   /**
    * C++ class cse_alife_item_torch : cse_alife_item
+   * @customConstructor cse_alife_item_torch
    */
-  export interface IXR_cse_alife_item_torch extends IXR_cse_alife_item {
+  export class XR_cse_alife_item_torch extends XR_cse_alife_item {
   }
 
   /**
    * C++ class cse_alife_item_weapon_auto_shotgun : cse_alife_item_weapon {
+   * @customConstructor cse_alife_item_weapon_auto_shotgun
    */
-  export interface IXR_cse_alife_item_weapon_auto_shotgun extends IXR_cse_alife_item_weapon {
+  export class XR_cse_alife_item_weapon_auto_shotgun extends XR_cse_alife_item_weapon {
   }
 
   /**
    * C++ class cse_anomalous_zone : cse_custom_zone {
+   * @customConstructor cse_anomalous_zone
    */
-  export interface IXR_cse_anomalous_zone extends IXR_cse_custom_zone {
+  export class XR_cse_anomalous_zone extends XR_cse_custom_zone {
   }
 
   /**
    * C++ class cse_alife_object_climable : cse_shape,cse_abstract {
+   * @customConstructor cse_alife_object_climable
    **/
-  export interface IXR_cse_alife_object_climable extends IXR_cse_shape, IXR_cse_abstract {
-    init(): void;
+  export class XR_cse_alife_object_climable extends XR_cse_abstract implements IXR_cse_shape {
+    public init(): void;
   }
 
   /**
    * C++ class cse_alife_object_hanging_lamp : cse_alife_dynamic_object_visual,cse_ph_skeleton {
+   * @customConstructor cse_alife_object_hanging_lamp
    **/
-  export interface IXR_cse_alife_object_hanging_lamp extends IXR_cse_alife_dynamic_object_visual, IXR_cse_ph_skeleton {
+  export class XR_cse_alife_object_hanging_lamp extends XR_cse_alife_dynamic_object_visual
+    implements IXR_cse_ph_skeleton {
   }
 
   /**
    * C++ class cse_alife_object_physic : cse_alife_dynamic_object_visual,cse_ph_skeleton {
+   * @customConstructor cse_alife_object_physic
    **/
-  export interface IXR_cse_alife_object_physic extends IXR_cse_alife_dynamic_object_visual, IXR_cse_ph_skeleton {
+  export class XR_cse_alife_object_physic extends XR_cse_alife_dynamic_object_visual implements IXR_cse_ph_skeleton {
   }
 
   /**
    * C++ class cse_alife_object_projector : cse_alife_dynamic_object_visual {
+   * @customConstructor cse_alife_object_projector
    **/
-  export interface IXR_cse_alife_object_projector extends IXR_cse_alife_dynamic_object_visual {
+  export class XR_cse_alife_object_projector extends XR_cse_alife_dynamic_object_visual {
   }
 
   /**
    * C++ class cse_alife_online_offline_group : cse_alife_dynamic_object,cse_alife_schedulable {
+   * @customConstructor cse_alife_online_offline_group
    **/
-  export interface IXR_cse_alife_online_offline_group extends IXR_cse_alife_dynamic_object, IXR_cse_alife_schedulable {
-     update(): unknown;
-     register_member(id: number): unknown;
-     clear_location_types(): unknown;
-     get_current_task(): unknown;
-     commander_id(): unknown;
-     unregister_member(id: number): unknown;
-     squad_members(): unknown;
-     force_change_position(vector: XR_vector): unknown;
-     add_location_type(location: string): unknown;
-     npc_count(): number;
+  export class XR_cse_alife_online_offline_group extends XR_cse_alife_dynamic_object
+    implements IXR_cse_alife_schedulable {
+
+    public update(): unknown;
+    public register_member(id: number): unknown;
+    public clear_location_types(): unknown;
+    public get_current_task(): unknown;
+    public commander_id(): unknown;
+    public unregister_member(id: number): unknown;
+    public squad_members(): unknown;
+    public force_change_position(vector: XR_vector): unknown;
+    public add_location_type(location: string): unknown;
+    public npc_count(): number;
   }
 
   /**
    * C++ class cse_alife_ph_skeleton_object : cse_alife_dynamic_object_visual,cse_ph_skeleton {
+   * @customConstructor cse_alife_ph_skeleton_object
    */
-  export interface IXR_cse_alife_ph_skeleton_object extends IXR_cse_alife_dynamic_object_visual, IXR_cse_ph_skeleton {
+  export class XR_cse_alife_ph_skeleton_object extends XR_cse_alife_dynamic_object_visual
+    implements IXR_cse_ph_skeleton {
   }
 
   /**
    * C++ class cse_alife_psydog_phantom : cse_alife_monster_base {
+   * @customConstructor cse_alife_psydog_phantom
    */
-  export interface IXR_cse_alife_psydog_phantom extends IXR_cse_alife_monster_abstract {
+  export class XR_cse_alife_psydog_phantom extends XR_cse_alife_monster_abstract {
   }
 
   /**
    * C++ class cse_alife_smart_zone : cse_alife_space_restrictor,cse_alife_schedulable {
+   * @customConstructor cse_alife_smart_zone
    */
-  export interface IXR_cse_alife_smart_zone extends IXR_cse_alife_space_restrictor, IXR_cse_alife_schedulable {
-    detect_probability(): unknown;
-    smart_touch(cse_alife_monster_abstract: IXR_cse_alife_monster_abstract): unknown;
-    unregister_npc(cse_alife_monster_abstract:IXR_cse_alife_monster_abstract): unknown;
-    register_npc(cse_alife_monster_abstract:IXR_cse_alife_monster_abstract): unknown;
-    suitable(cse_alife_monster_abstract:IXR_cse_alife_monster_abstract): unknown;
-    task(cse_alife_monster_abstract:IXR_cse_alife_monster_abstract): unknown;
-    enabled(cse_alife_monster_abstract:IXR_cse_alife_monster_abstract): unknown;
-    update(): void;
+  export class XR_cse_alife_smart_zone extends XR_cse_alife_space_restrictor implements IXR_cse_alife_schedulable {
+    public detect_probability(): unknown;
+    public smart_touch(cse_alife_monster_abstract: XR_cse_alife_monster_abstract): unknown;
+    public unregister_npc(cse_alife_monster_abstract:XR_cse_alife_monster_abstract): unknown;
+    public register_npc(cse_alife_monster_abstract:XR_cse_alife_monster_abstract): unknown;
+    public suitable(cse_alife_monster_abstract:XR_cse_alife_monster_abstract): unknown;
+    public task(cse_alife_monster_abstract:XR_cse_alife_monster_abstract): unknown;
+    public enabled(cse_alife_monster_abstract:XR_cse_alife_monster_abstract): unknown;
+    public update(): void;
   }
 
   /**
    * C++ class cse_alife_team_base_zone : cse_alife_space_restrictor {
+   * @customConstructor cse_alife_team_base_zone
    */
-  export interface IXR_cse_alife_team_base_zone extends IXR_cse_alife_space_restrictor {
+  export class XR_cse_alife_team_base_zone extends XR_cse_alife_space_restrictor {
   }
 
   /**
    * C++ class cse_torrid_zone : cse_custom_zone,cse_motion {
+   * @customConstructor cse_torrid_zone
    */
-  export interface IXR_cse_torrid_zone extends IXR_cse_custom_zone, IXR_cse_abstract {
+  export class XR_cse_torrid_zone extends XR_cse_custom_zone implements XR_cse_abstract {
   }
 
   /**
    * C++ class cse_alife_trader : cse_alife_dynamic_object_visual,cse_alife_trader_abstract {
+   * @customConstructor cse_alife_trader
    */
-  export interface IXR_cse_alife_trader extends IXR_cse_alife_dynamic_object_visual, IXR_cse_alife_trader_abstract {
-     profile_name(cse_alife_trader_abstract: IXR_cse_alife_trader_abstract): string;
+  export class XR_cse_alife_trader extends XR_cse_alife_dynamic_object_visual implements XR_cse_alife_trader_abstract {
+    public profile_name(cse_alife_trader_abstract: XR_cse_alife_trader_abstract): string;
+    public community(): unknown;
+    public rank(): number;
+    public reputation(): number;
   }
 
   /**
    * C++ class cse_smart_cover : cse_alife_dynamic_object {
+   * @customConstructor cse_smart_cover
    */
-  export interface IXR_cse_smart_cover extends IXR_cse_alife_dynamic_object {
-     description(): string;
-     set_available_loopholes(object: unknown): unknown;
+  export class XR_cse_smart_cover extends XR_cse_alife_dynamic_object {
+    public description(): string;
+    public set_available_loopholes(object: unknown): unknown;
   }
 
   /**
    * C++ class cse_alife_car : cse_alife_dynamic_object_visual,cse_ph_skeleton {
+   * @customConstructor cse_alife_car
    */
-  export interface IXR_cse_alife_car extends IXR_cse_alife_dynamic_object_visual, IXR_cse_ph_skeleton {
+  export class XR_cse_alife_car extends XR_cse_alife_dynamic_object_visual implements IXR_cse_ph_skeleton {
   }
 
   /**
    * C++ class cse_alife_creature_actor : cse_alife_creature_abstract,cse_alife_trader_abstract,cse_ph_skeleton {
+   * @customConstructor cse_alife_creature_actor
    */
-  export interface IXR_cse_alife_creature_actor extends
-    IXR_cse_alife_creature_abstract, IXR_cse_alife_trader_abstract, IXR_cse_ph_skeleton {
-    profile_name(cse_alife_trader_abstract: IXR_cse_alife_trader): unknown;
+  export class XR_cse_alife_creature_actor
+    extends XR_cse_alife_creature_abstract
+    implements IXR_cse_ph_skeleton, XR_cse_alife_trader_abstract {
+
+    public profile_name(cse_alife_trader_abstract: XR_cse_alife_trader): unknown;
+
+    public community(): unknown;
+    public rank(): number;
+    public reputation(): number;
   }
 
   /**
    * C++ class cse_alife_creature_crow : cse_alife_creature_abstract {
+   * @customConstructor cse_alife_creature_crow
    */
-  export interface IXR_cse_alife_creature_crow extends IXR_cse_alife_creature_abstract {
+  export class XR_cse_alife_creature_crow extends XR_cse_alife_creature_abstract {
   }
 
   /**
    * C++ class cse_alife_creature_phantom : cse_alife_creature_abstract {
+   * @customConstructor cse_alife_creature_phantom
    */
-  export interface IXR_cse_alife_creature_phantom extends IXR_cse_alife_creature_abstract {
+  export class XR_cse_alife_creature_phantom extends XR_cse_alife_creature_abstract {
   }
 
   /**
    * C++ class cse_alife_graph_point : cse_abstract {
+   * @customConstructor cse_alife_graph_point
    */
-  export interface IXR_cse_alife_graph_point extends IXR_cse_abstract {
-    init(): void;
+  export class XR_cse_alife_graph_point extends XR_cse_abstract {
+    public init(): void;
   }
 
   /**
    * C++ class cse_alife_helicopter : cse_alife_dynamic_object_visual,cse_motion,cse_ph_skeleton {
+   * @customConstructor cse_alife_helicopter
    */
-  export interface IXR_cse_alife_helicopter extends IXR_cse_alife_dynamic_object_visual,
-    IXR_cse_motion, IXR_cse_ph_skeleton {
+  export class XR_cse_alife_helicopter
+    extends XR_cse_alife_dynamic_object_visual
+    implements IXR_cse_motion, IXR_cse_ph_skeleton {
   }
 
   /**
    * C++ class cse_alife_human_stalker : cse_alife_human_abstract,cse_ph_skeleton {
+   * @customConstructor cse_alife_human_stalker
    */
-  export interface IXR_cse_alife_human_stalker extends IXR_cse_alife_human_abstract, IXR_cse_ph_skeleton {
+  export class XR_cse_alife_human_stalker extends XR_cse_alife_human_abstract implements IXR_cse_ph_skeleton {
   }
 }

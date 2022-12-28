@@ -150,7 +150,7 @@ function se_smart_terrain:on_register()
 
 	cse_alife_smart_zone.on_register(self)
 	-- ��������� ���������� ������� �� ������� ����� ����.
-	story_objects.check_spawn_ini_for_story_id(self)
+	checkSpawnIniForStoryId(self)
 	simulation_objects.get_sim_obj_registry():register(self)
 
 	if dev_dedug then

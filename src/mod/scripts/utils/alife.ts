@@ -1,21 +1,22 @@
 import {
   XR_game_object,
   level,
-  IXR_cse_alife_creature_abstract,
+  XR_cse_alife_creature_abstract,
   alife,
   XR_ini_file,
   system_ini,
   game,
   XR_entity_action,
   entity_action,
-  IXR_cse_alife_human_abstract,
-  IXR_cse_abstract
+  XR_cse_alife_human_abstract,
+  XR_cse_abstract
 } from "xray16";
 
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { AnyArgs, Maybe, Optional } from "@/mod/lib/types";
 import { isStalker } from "@/mod/scripts/core/checkers";
 import { storage } from "@/mod/scripts/core/db";
+import { getStoryObjectsRegistry } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { abort } from "@/mod/scripts/utils/debug";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -27,15 +28,15 @@ const MAX_16_BIT_VALUE: number = 65535;
 /**
  * todo;
  */
-export function addStoryObject(objectId: number, storyObjectId: number): void {
-  get_global("story_objects").get_story_objects_registry().register(objectId, storyObjectId);
+export function addStoryObject(objectId: number, storyObjectId: string): void {
+  getStoryObjectsRegistry().register(objectId, storyObjectId);
 }
 
 /**
  * todo;
  */
 export function getStoryObject(storyObjectId: string): Optional<XR_game_object> {
-  const objectId: Optional<number> = get_global("story_objects").get_story_objects_registry().get(storyObjectId);
+  const objectId: Optional<number> = getStoryObjectsRegistry().get(storyObjectId);
   const possibleObject: Maybe<XR_game_object> = objectId ? storage.get(objectId)?.object : null;
 
   if (possibleObject) {
@@ -51,28 +52,28 @@ export function getStoryObject(storyObjectId: string): Optional<XR_game_object> 
  * todo;
  */
 export function unregisterStoryObjectById(id: number): void {
-  get_global("story_objects").get_story_objects_registry().unregister_by_id(id);
+  getStoryObjectsRegistry().unregister_by_id(id);
 }
 
 /**
  * todo;
  */
-export function unregisterStoryId(id: number): void {
-  get_global("story_objects").get_story_objects_registry().unregister_by_story_id(id);
+export function unregisterStoryId(id: string): void {
+  getStoryObjectsRegistry().unregister_by_story_id(id);
 }
 
 /**
  * todo;
  */
 export function getObjectSquad(
-  object: Optional<XR_game_object | IXR_cse_alife_creature_abstract>
-): Optional<IXR_cse_alife_creature_abstract> {
+  object: Optional<XR_game_object | XR_cse_alife_creature_abstract>
+): Optional<XR_cse_alife_creature_abstract> {
   if (object === null) {
     return abort("Attempt to get squad object from NIL.") as never;
   }
 
   const objectId: number =
-    type(object.id) == "function" ? (object as XR_game_object).id() : (object as IXR_cse_alife_creature_abstract).id;
+    type(object.id) == "function" ? (object as XR_game_object).id() : (object as XR_cse_alife_creature_abstract).id;
   const se_obj: Optional<any> = alife().object(objectId);
 
   if (se_obj && se_obj.group_id !== MAX_16_BIT_VALUE) {
@@ -85,7 +86,7 @@ export function getObjectSquad(
 /**
  * todo;
  */
-export function getStorySquad(storyId: string): Optional<IXR_cse_alife_creature_abstract> {
+export function getStorySquad(storyId: string): Optional<XR_cse_alife_creature_abstract> {
   const squadId: Optional<number> = getStoryObjectId(storyId);
 
   return squadId ? alife().object(squadId) : null;
@@ -101,11 +102,11 @@ export function createAmmo(
   gvi: any,
   pid: any,
   num: number
-): LuaTable<number, IXR_cse_abstract> {
+): LuaTable<number, XR_cse_abstract> {
   const ini: XR_ini_file = system_ini();
 
   const num_in_box = ini.r_u32(section, "box_size");
-  const t: LuaTable<number, IXR_cse_abstract> = new LuaTable();
+  const t: LuaTable<number, XR_cse_abstract> = new LuaTable();
 
   while (num > num_in_box) {
     const obj = alife().create_ammo(section, position, lvi, gvi, pid, num_in_box);
@@ -172,7 +173,7 @@ export function stopPlaySound(object: XR_game_object): void {
  * todo;
  */
 export function changeTeamSquadGroup(
-  serverObject: IXR_cse_alife_creature_abstract,
+  serverObject: XR_cse_alife_creature_abstract,
   team: number,
   squad: number,
   group: number
@@ -243,11 +244,11 @@ export function interruptAction(npc: XR_game_object, scriptName: string): void {
 /**
  * todo;
  */
-export function getObjectCommunity(object: XR_game_object | IXR_cse_alife_creature_abstract) {
+export function getObjectCommunity(object: XR_game_object | XR_cse_alife_creature_abstract) {
   if (type(object.id) == "function") {
     return getCharacterCommunity(object as XR_game_object);
   } else {
-    getAlifeCharacterCommunity(object as IXR_cse_alife_human_abstract);
+    getAlifeCharacterCommunity(object as XR_cse_alife_human_abstract);
   }
 }
 
@@ -265,7 +266,7 @@ export function getCharacterCommunity(object: XR_game_object): TCommunity {
 /**
  * todo;
  */
-export function getAlifeCharacterCommunity(object: IXR_cse_abstract): TCommunity {
+export function getAlifeCharacterCommunity(object: XR_cse_alife_human_abstract): TCommunity {
   if (isStalker(object, object.clsid())) {
     return object.community() as TCommunity;
   }

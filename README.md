@@ -1,13 +1,12 @@
-# 🎮 [Stalker XRay-TS template](README.md)
+# 🎮 [Stalker XR-TS template](README.md)
 
-Enabling power of typescript for scripting and dynamic configuration. <br/>
-Completely different way of XRay mods creation.
+Enabling power of typescript for mods creation. <br/>
 
 ## 📌What is used
 
 - [Typescript](https://www.typescriptlang.org/) and [ts-node](https://typestrong.org/ts-node/) for scripting
 - [TypeScriptToLua](https://typescripttolua.github.io/docs/getting-started) for transpiling to LUA
-- [Open-X-Ray](https://github.com/OpenXRay/xray-16) for improved core game performance and APIs
+- [Open-X-Ray](https://github.com/OpenXRay/xray-16) for better core game performance and APIs
 - Custom [build system](cli/README.md) for `gamedata` building
 - Custom tools and JSX for XML files generation
 
@@ -16,29 +15,30 @@ Completely different way of XRay mods creation.
 Main goals of the project are:
 
 - type safety
-- unified tools for mod development
-- automated builds steps and versioning system
-- build-level globals to reduce amount of magical constants in codebase
+- unified development tools 
+- automated builds and versioning system
+- build-level globals and better build control
 - shared template for mods development
-- documented code that can be used by others without searching forums from 2000s
-- creating development tools to simplify life
+- documented code and readable code
+- simplification
 - fun
 
 ---
 
 ## 🥦 Main differences with original
 
-Intention is to create base template without breaking changes to the game story.
+Intention is to create base template without breaking changes to the original game.
 
 - Game codebase is unified and refactored with typescript
 - Separate verification and preparation steps added instead of direct ltx/xml/script files editing
-- Dev tools added for easier mod debugging and development, always can be turned off for release versions of mods
+- Tools added for easier debugging and development, turned off for release versions of mods
 
 # 🌓 Starting work
 
 ## 🧰 Pre-requirements
 
 - [NodeJS](https://nodejs.org/en/)
+- [Stalker-COP](https://store.steampowered.com/app/41700/STALKER_Call_of_Pripyat/)
 - `cli/config.json` file should be edited, paths matched to your local system
 
 ## 💿 Start development

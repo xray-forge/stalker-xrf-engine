@@ -1,10 +1,10 @@
 import {
-  IXR_cse_abstract,
-  IXR_cse_alife_human_stalker,
-  IXR_cse_alife_item_artefact,
-  IXR_cse_alife_item_weapon,
-  IXR_cse_alife_monster_abstract,
   TXR_ClsId,
+  XR_cse_abstract,
+  XR_cse_alife_human_stalker,
+  XR_cse_alife_item_artefact,
+  XR_cse_alife_item_weapon,
+  XR_cse_alife_monster_abstract,
   XR_game_object
 } from "xray16";
 
@@ -16,9 +16,9 @@ import { getClsId } from "@/mod/scripts/utils/ids";
  * todo;
  */
 export function isMonster(
-  object: XR_game_object | IXR_cse_abstract,
+  object: XR_game_object | XR_cse_abstract,
   class_id?: Maybe<TXR_ClsId>
-): object is IXR_cse_alife_monster_abstract {
+): object is XR_cse_alife_monster_abstract {
   const id: TXR_ClsId = class_id || getClsId(object);
 
   return monster_class_ids[id] === true;
@@ -28,9 +28,9 @@ export function isMonster(
  * todo;
  */
 export function isStalker(
-  object: XR_game_object | IXR_cse_abstract,
+  object: XR_game_object | XR_cse_abstract,
   class_id?: Maybe<TXR_ClsId>
-): object is IXR_cse_alife_human_stalker {
+): object is XR_cse_alife_human_stalker {
   const id: TXR_ClsId = class_id || getClsId(object);
 
   return stalker_class_ids[id] === true;
@@ -40,9 +40,9 @@ export function isStalker(
  * todo;
  */
 export function isWeapon(
-  object: XR_game_object | IXR_cse_abstract,
+  object: XR_game_object | XR_cse_abstract,
   class_id?: Maybe<TXR_ClsId>
-): object is IXR_cse_alife_item_weapon {
+): object is XR_cse_alife_item_weapon {
   const id: TXR_ClsId = class_id || getClsId(object);
 
   return weapon_class_ids[id] === true;
@@ -52,9 +52,9 @@ export function isWeapon(
  * todo;
  */
 export function isArtefact(
-  object: XR_game_object | IXR_cse_abstract,
+  object: XR_game_object | XR_cse_abstract,
   class_id?: Maybe<TXR_ClsId>
-): object is IXR_cse_alife_item_artefact {
+): object is XR_cse_alife_item_artefact {
   const id: TXR_ClsId = class_id || getClsId(object);
 
   return artefact_class_ids[id] === true;

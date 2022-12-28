@@ -95,36 +95,27 @@ declare module "xray16" {
 
   export const object_binder: typeof XR_object_binder;
 
-  export const cse_alife_creature_abstract: IXR_cse_alife_creature_abstract;
+  export const cse_alife_creature_abstract: typeof XR_cse_alife_creature_abstract;
+  export const cse_alife_item_custom_outfit: typeof XR_cse_alife_item_custom_outfit;
 
   export const ini_file: typeof XR_ini_file;
-
   export const clsid: typeof XR_clsid;
-
   export const vector2: typeof XR_vector2;
-
   export const vector: typeof XR_vector;
-
   export const patrol: typeof XR_patrol;
-
-  export const CGameGraph: typeof XR_CGameGraph;
-
-  export const Frect: typeof XR_FRect;
-
   export const fcolor: typeof XR_FColor;
-
   export const stalker_ids: IXR_stalker_ids;
-
   export const award_pair_t: XR_award_pair_t;
-
-  export const GAME_TYPE: XR_GAME_TYPE;
-
   export const game_difficulty: XR_game_difficulty;
-
   export const ui_events: IXR_ui_events;
   export const callback: IXR_callback;
+
   export const key_bindings: XR_key_bindings;
   export const DIK_keys: IXR_DIK_keys;
+  export const GAME_TYPE: XR_GAME_TYPE;
+
+  export const CGameGraph: typeof XR_CGameGraph;
+  export const Frect: typeof XR_FRect;
 
   /**
    * Namespace:

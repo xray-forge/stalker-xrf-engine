@@ -1,13 +1,13 @@
 import {
-  alife,
-  callback,
-  IXR_cse_alife_object,
-  object_binder,
-  time_global,
   XR_alife_simulator,
+  XR_cse_alife_object,
   XR_game_object,
   XR_net_packet,
-  XR_object_binder
+  XR_object_binder,
+  alife,
+  callback,
+  object_binder,
+  time_global
 } from "xray16";
 
 import { AnyCallable } from "@/mod/lib/types";
@@ -57,7 +57,7 @@ export const CrowBinder: ICrowBinder = declare_xr_class("CrowBinder", object_bin
 
     storage.set(this.object.id(), {});
   },
-  net_spawn(object: IXR_cse_alife_object): boolean {
+  net_spawn(object: XR_cse_alife_object): boolean {
     if (!object_binder.net_spawn(this, object)) {
       return false;
     }

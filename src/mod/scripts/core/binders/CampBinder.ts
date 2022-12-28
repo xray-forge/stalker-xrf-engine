@@ -1,6 +1,6 @@
 import {
   ini_file,
-  IXR_cse_alife_object,
+  XR_cse_alife_object,
   object_binder,
   XR_game_object,
   XR_ini_file,
@@ -31,7 +31,7 @@ export const CampBinder: ICampBinder = declare_xr_class("CampBinder", object_bin
     object_binder.reinit(this);
     CAMPS.set(this.object.id(), { object: this.object });
   },
-  net_spawn(object: IXR_cse_alife_object): boolean {
+  net_spawn(object: XR_cse_alife_object): boolean {
     if (!object_binder.net_spawn(this, object)) {
       return false;
     }

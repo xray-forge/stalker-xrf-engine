@@ -1,7 +1,7 @@
 import {
   alife,
   ini_file,
-  IXR_cse_alife_object,
+  XR_cse_alife_object,
   object_binder,
   patrol,
   XR_game_object,
@@ -509,7 +509,7 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     const randomPath: XR_patrol = new patrol(randomPathName);
     const randomPathPoint: number = math.random(0, randomPath.count() - 1);
 
-    const artefactObject: IXR_cse_alife_object = alife().create(
+    const artefactObject: XR_cse_alife_object = alife().create(
       randomArtefact,
       randomPath.point(randomPathPoint),
       this.object.level_vertex_id(),
@@ -568,7 +568,7 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     object_binder.reinit(this);
     storage.set(this.object.id(), {} as any);
   },
-  net_spawn(object: IXR_cse_alife_object): boolean {
+  net_spawn(object: XR_cse_alife_object): boolean {
     if (!object_binder.net_spawn(this, object)) {
       return false;
     }
@@ -622,11 +622,11 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
       this.disableAnomalyFields();
     }
   },
-  onArtefactTaken(object: XR_game_object | IXR_cse_alife_object): void {
+  onArtefactTaken(object: XR_game_object | XR_cse_alife_object): void {
     log.info("On artefact take:", this.object.name());
 
     const id: number =
-      type(object.id) === "number" ? (object as IXR_cse_alife_object).id : (object as XR_game_object).id();
+      type(object.id) === "number" ? (object as XR_cse_alife_object).id : (object as XR_game_object).id();
 
     ARTEFACT_WAYS_BY_ARTEFACT_ID.delete(id);
     ARTEFACT_POINTS_BY_ARTEFACT_ID.delete(id);

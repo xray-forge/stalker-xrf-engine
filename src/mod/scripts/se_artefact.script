@@ -6,8 +6,8 @@ end
 
 function se_artefact:on_register()
 	cse_alife_item_artefact.on_register(self)
-	-- Проверяем кастомдату обьекта на наличие стори айди.
-	story_objects.check_spawn_ini_for_story_id(self)
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ.
+	checkSpawnIniForStoryId(self)
 end
 
 function se_artefact:on_unregister()

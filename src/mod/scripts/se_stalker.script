@@ -1,8 +1,8 @@
 --[[
-Изменения script_version:
-	3 - сохранение поля job_online
-	5 - сохранение поля was_in_smart_terrain
-	6 - сохранение поля death_droped
+пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ script_version:
+	3 - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ job_online
+	5 - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ was_in_smart_terrain
+	6 - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ death_droped
 ]]
 
 class "se_stalker"	(cse_alife_human_stalker)
@@ -14,15 +14,15 @@ function se_stalker:__init (section) super (section)
 	self.smart_terrain_conditions = nil
 	self.smart_terrain_conditions_initialized = false
 
-	-- этот флаг берётся из работы смарта
-	-- true     = всегда в онлайне
-	-- false    = всегда в офлайне
-	-- condlist = условие, которое отпределяет true или false
-	-- nil      = смарту всё равно
+	-- пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+	-- true     = пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+	-- false    = пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+	-- condlist = пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ true пїЅпїЅпїЅ false
+	-- nil      = пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 	self.job_online          = nil
 	self.job_online_condlist = nil
 
-	self.death_droped = false --'Генерил ли персонаж выпадаемые предметы или нет.
+	self.death_droped = false --'пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ.
 
 	self.m_registred = false
 
@@ -98,8 +98,8 @@ end
 --------------------
 function se_stalker:on_register()
 	cse_alife_human_stalker.on_register( self )
-	-- Проверяем кастомдату обьекта на наличие стори айди.
-	story_objects.check_spawn_ini_for_story_id(self)
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ.
+	checkSpawnIniForStoryId(self)
 
 	self.board 	= sim_board.get_sim_board()
 
@@ -111,10 +111,10 @@ function se_stalker:on_register()
 --	db.offline_objects[self.id].level_vertex_id = self.m_level_vertex_id
 
 	printf("registering stalker %s ", self:name())
-	--' Отключаем старый метод выбора смарттеррейнов.
+	--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 	self:brain():can_choose_alife_tasks(false)
 
-	--' Выбор смарта
+	--' пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 	local smart = utils.cfg_get_string(obj_ini, "logic", "smart_terrain", self, false, "", "")
 	local smart_obj = self.board:get_smart_by_name(smart)
 	if smart_obj == nil then

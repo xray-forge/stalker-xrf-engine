@@ -1,4 +1,4 @@
-import { IXR_cse_alife_object, XR_game_object, XR_object_binder } from "xray16";
+import { XR_cse_alife_object, XR_game_object, XR_object_binder } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { ActorProxy, IActorProxy } from "@/mod/scripts/core/ActorProxy";
@@ -18,6 +18,7 @@ export const levelDoors = {};
 export const signalLight = {};
 export const goodwill = { sympathy: {}, relations: {} };
 export const offlineObjects = {};
+export const REGISTERED_ITEMS: LuaTable<string, number> = new LuaTable();
 
 export const zoneByName: LuaTable<string, XR_game_object> = new LuaTable();
 
@@ -28,7 +29,7 @@ export interface IStoredObject<T = XR_game_object> {
 export const storage: LuaTable<number, IStoredObject> = new LuaTable();
 export const actorProxy: IActorProxy = create_xr_class_instance(ActorProxy);
 export const heli: LuaTable<number, XR_game_object> = new LuaTable();
-export const smartTerrainById: LuaTable<number, IXR_cse_alife_object> = new LuaTable();
+export const smartTerrainById: LuaTable<number, XR_cse_alife_object> = new LuaTable();
 export const animObjByName: LuaTable<string, IStoredObject> = new LuaTable();
 export const anomalyByName: LuaTable<string, IStoredObject> = new LuaTable();
 
@@ -138,13 +139,13 @@ export function deleteHeli(object: XR_game_object): void {
   heli.delete(object.id());
 }
 
-export function addSmartTerrain(object: IXR_cse_alife_object): void {
+export function addSmartTerrain(object: XR_cse_alife_object): void {
   log.info("Add smart terrain:", object.id);
 
   smartTerrainById.set(object.id, object);
 }
 
-export function deleteSmartTerrain(object: IXR_cse_alife_object): void {
+export function deleteSmartTerrain(object: XR_cse_alife_object): void {
   log.info("Delete smart terrain:", object.id);
 
   smartTerrainById.delete(object.id);

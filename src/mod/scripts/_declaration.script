@@ -16,6 +16,7 @@ local behaviours = require("globals.behaviours")
 
 local coreCheckers = require("scripts.core.checkers")
 local coreSchemes = require("scripts.core.schemes")
+local coreStoryObjectsRegistry = require("scripts.core.StoryObjectsRegistry")
 
 local utilsUtils = require("scripts.utils.utils")
 local utilsActor = require("scripts.utils.actor")
@@ -38,6 +39,11 @@ time_infinite = 100000000
 dev_debug = true
 mus_vol = 0
 amb_vol = 0
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+checkSpawnIniForStoryId = coreStoryObjectsRegistry.checkSpawnIniForStoryId
+getStoryObjectsRegistry = coreStoryObjectsRegistry.getStoryObjectsRegistry
 
 -- ---------------------------------------------------------------------------------------------------------------------
 

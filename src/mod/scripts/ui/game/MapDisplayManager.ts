@@ -1,7 +1,7 @@
 import {
   level,
   alife,
-  IXR_cse_alife_object,
+  XR_cse_alife_object,
   XR_alife_simulator,
   XR_game_object,
   XR_vector,
@@ -195,7 +195,7 @@ export class MapDisplayManager extends AbstractSingletonManager {
 
     const spot_condlist = (xrLogic.parse_condlist as AnyCallable)(npc, section, "show_spot", spot_section);
     const spot: string = (xrLogic.pick_section_from_condlist as AnyCallable)(actor, npc, spot_condlist);
-    const obj: Optional<IXR_cse_alife_object> = sim.object(npc.id());
+    const obj: Optional<XR_cse_alife_object> = sim.object(npc.id());
 
     if (obj?.online) {
       obj.visible_for_map(spot !== "false");

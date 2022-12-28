@@ -15,7 +15,7 @@ function se_actor:on_register()
 	log:info("Register");
 
 	cse_alife_creature_actor.on_register(self)
-	story_objects.get_story_objects_registry():register(self.id, "actor", true)
+	getStoryObjectsRegistry():register(self.id, "actor", true)
 	simulation_objects.get_sim_obj_registry():register(self)
 	self.m_registred = true
 	if not self.start_position_filled then
@@ -40,7 +40,6 @@ function se_actor:STATE_Write(packet)
 --	end
 	set_save_marker(packet, "save", false, "se_actor")
 	packet:w_bool(self.start_position_filled)
---	story_objects.get_story_objects_registry():save(packet)
 	set_save_marker(packet, "save", true, "se_actor")
 end
 --------------------
@@ -56,7 +55,6 @@ function se_actor:STATE_Read(packet, size)
 	if db.actor == nil then
 		set_save_marker(packet, "load", false, "se_actor")
 		self.start_position_filled = packet:r_bool()
---		story_objects.get_story_objects_registry():load(packet)
 		set_save_marker(packet, "load", true, "se_actor")
 	end
 end

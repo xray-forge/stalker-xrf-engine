@@ -28,8 +28,8 @@ function se_zone_anom:__init (section) super (section)
 end
 function se_zone_anom:on_register()
 	cse_anomalous_zone.on_register(self)
-	-- Проверяем кастомдату обьекта на наличие стори айди.
-	story_objects.check_spawn_ini_for_story_id(self)
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ.
+	checkSpawnIniForStoryId(self)
 
 	self.m_registred = true
 	self.artefact_spawn_idle = 60*60*1000*utils.cfg_get_number(system_ini(), self:section_name(), "artefact_spawn_idle", self, false, 24)
@@ -67,7 +67,7 @@ function se_zone_anom:STATE_Write(packet)
 		utils.w_CTime(packet, self.last_spawn_time)
 	end
 end
--- восстановление
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 function se_zone_anom:STATE_Read( packet, size )
 	cse_anomalous_zone.STATE_Read( self, packet, size )
 
@@ -94,8 +94,8 @@ function se_zone_torrid:__init (section) super (section)
 end
 function se_zone_torrid:on_register()
 	cse_torrid_zone.on_register(self)
-	-- Проверяем кастомдату обьекта на наличие стори айди.
-	story_objects.check_spawn_ini_for_story_id(self)
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ.
+	checkSpawnIniForStoryId(self)
 
 	self.m_registred = true
 	self.artefact_spawn_idle = 60*60*1000*utils.cfg_get_number(system_ini(), self:section_name(), "artefact_spawn_idle", self, false, 24)
@@ -133,7 +133,7 @@ function se_zone_torrid:STATE_Write(packet)
 		utils.w_CTime(packet, self.last_spawn_time)
 	end
 end
--- восстановление
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 function se_zone_torrid:STATE_Read( packet, size )
 	cse_torrid_zone.STATE_Read( self, packet, size )
 
@@ -160,8 +160,8 @@ function se_zone_visual:__init (section) super (section)
 end
 function se_zone_visual:on_register()
 	cse_zone_visual.on_register(self)
-	-- Проверяем кастомдату обьекта на наличие стори айди.
-	story_objects.check_spawn_ini_for_story_id(self)
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ.
+	checkSpawnIniForStoryId(self)
 
 	self.artefact_spawn_idle = 60*60*1000*utils.cfg_get_number(system_ini(), self:section_name(), "artefact_spawn_idle", self, false, 24)
 	self.artefact_spawn_rnd = utils.cfg_get_number(system_ini(), self:section_name(), "artefact_spawn_rnd", self, false, 100)
@@ -195,7 +195,7 @@ function se_zone_visual:STATE_Write(packet)
 		utils.w_CTime(packet, self.last_spawn_time)
 	end
 end
--- восстановление
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 function se_zone_visual:STATE_Read( packet, size )
 	cse_zone_visual.STATE_Read( self, packet, size )
 
@@ -215,15 +215,15 @@ end
 
 
 
---' Рестрикторы
+--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 class "se_restrictor" (cse_alife_space_restrictor)
 function se_restrictor:__init (section) super (section)
 end
 
 function se_restrictor:on_register()
 	cse_alife_space_restrictor.on_register(self)
-	-- Проверяем кастомдату обьекта на наличие стори айди.
-	story_objects.check_spawn_ini_for_story_id(self)
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ.
+	checkSpawnIniForStoryId(self)
 
 	treasure_manager.get_treasure_manager():register_restrictor(self)
 end

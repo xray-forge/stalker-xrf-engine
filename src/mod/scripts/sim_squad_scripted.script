@@ -761,7 +761,7 @@ function sim_squad_scripted:on_register()
 	cse_alife_online_offline_group.on_register( self )
 	self.board.squads[self.id] = self
 	-- ��������� ���������� ������� �� ������� ����� ����.
-	story_objects.check_spawn_ini_for_story_id(self)
+	checkSpawnIniForStoryId(self)
 	simulation_objects.get_sim_obj_registry():register(self)
 end
 

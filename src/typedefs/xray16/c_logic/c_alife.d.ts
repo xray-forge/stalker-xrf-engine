@@ -1,6 +1,7 @@
 declare module "xray16" {
   /**
    * C++ class alife_simulator {
+   * @customConstructor alife_simulator
    */
   export class XR_alife_simulator {
     public set_interactive(this: void, value1: number, value2: boolean): unknown;
@@ -39,7 +40,7 @@ declare module "xray16" {
       value2: number,
       value3: number,
       value4: number
-    ): IXR_cse_abstract;
+    ): XR_cse_abstract;
 
     public add_out_restriction(
       monster: unknown /* cse_alife_monster_abstract */,
@@ -67,31 +68,31 @@ declare module "xray16" {
 
     public has_info(objectId: number, infoId: string): boolean;
 
-    public object(id: number): IXR_cse_alife_creature_abstract | null;
-    public object(id: number, value2: boolean): IXR_cse_alife_creature_abstract | null;
+    public object(id: number): XR_cse_alife_creature_abstract | null;
+    public object(id: number, value2: boolean): XR_cse_alife_creature_abstract | null;
 
-    public actor(): IXR_cse_alife_creature_abstract;
+    public actor(): XR_cse_alife_creature_abstract;
 
-    public story_object(value: number): IXR_cse_alife_creature_abstract;
+    public story_object(value: number): XR_cse_alife_creature_abstract;
 
     public spawn_id(value: number): unknown;
 
-    public release(cse_abstract: IXR_cse_alife_creature_abstract | null, value: boolean): unknown;
+    public release(cse_abstract: XR_cse_alife_creature_abstract | null, value: boolean): unknown;
 
-    public create(value: number): IXR_cse_alife_object;
+    public create(value: number): XR_cse_alife_object;
     public create(
       value1: string,
       vector: XR_vector,
       value2: number,
       value3: number,
       value4: number
-    ): IXR_cse_alife_object;
+    ): XR_cse_alife_object;
     public create(
       value1: string,
       vector: XR_vector,
       value2: number,
       value3: number
-    ): IXR_cse_alife_object;
+    ): XR_cse_alife_object;
 
   }
 
