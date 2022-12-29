@@ -10,352 +10,74 @@ declare module "xray16" {
   }
 
   /**
-   C++ class CZudaArtefact : CArtefact {
-    CZudaArtefact ();
-
-    function Visual() const;
-
-    function _construct();
-
-    function net_Import(net_packet&);
-
-    function getVisible() const;
-
-    function net_Spawn(cse_abstract*);
-
-    function SwitchVisibility(boolean);
-
-    function FollowByPath(string, number, vector);
-
-    function getEnabled() const;
-
-    function net_Export(net_packet&);
-
-    function GetAfRank() const;
-
-    function use(CGameObject*);
-
-  };
-   */
-  // todo;
-  /**
-   C++ class CThornArtefact : CArtefact {
-    CThornArtefact ();
-
-    function Visual() const;
-
-    function _construct();
-
-    function net_Import(net_packet&);
-
-    function getVisible() const;
-
-    function net_Spawn(cse_abstract*);
-
-    function SwitchVisibility(boolean);
-
-    function FollowByPath(string, number, vector);
-
-    function getEnabled() const;
-
-    function net_Export(net_packet&);
-
-    function GetAfRank() const;
-
-    function use(CGameObject*);
-
-  };
-   */
-  // todo;
+   * C++ class CZudaArtefact : CArtefact {
+   * */
+  class XR_CZudaArtefact extends XR_CArtefact {
+  }
 
   /**
-   C++ class CBastArtefact : CArtefact {
-    CBastArtefact ();
+   * C++ class CThornArtefact : CArtefact {
+   * */
+  class XR_CThornArtefact extends XR_CArtefact {
+  }
 
-    function Visual() const;
-
-    function _construct();
-
-    function net_Import(net_packet&);
-
-    function getVisible() const;
-
-    function net_Spawn(cse_abstract*);
-
-    function SwitchVisibility(boolean);
-
-    function FollowByPath(string, number, vector);
-
-    function getEnabled() const;
-
-    function net_Export(net_packet&);
-
-    function GetAfRank() const;
-
-    function use(CGameObject*);
-
-  };
-   */
-  // todo;
   /**
-   C++ class CBlackDrops : CArtefact {
-    CBlackDrops ();
+   * C++ class CBastArtefact : CArtefact {
+   * */
+  class XR_CBastArtefact extends XR_CArtefact {
+  }
 
-    function Visual() const;
-
-    function _construct();
-
-    function net_Import(net_packet&);
-
-    function getVisible() const;
-
-    function net_Spawn(cse_abstract*);
-
-    function SwitchVisibility(boolean);
-
-    function FollowByPath(string, number, vector);
-
-    function getEnabled() const;
-
-    function net_Export(net_packet&);
-
-    function GetAfRank() const;
-
-    function use(CGameObject*);
-
-  };
-   */
-  // todo;
   /**
-   C++ class CBlackGraviArtefact : CArtefact {
-    CBlackGraviArtefact ();
+   * C++ class CBlackDrops : CArtefact {
+   * */
+  class XR_CBlackDrops extends XR_CArtefact {
+  }
 
-    function Visual() const;
-
-    function _construct();
-
-    function net_Import(net_packet&);
-
-    function getVisible() const;
-
-    function net_Spawn(cse_abstract*);
-
-    function SwitchVisibility(boolean);
-
-    function FollowByPath(string, number, vector);
-
-    function getEnabled() const;
-
-    function net_Export(net_packet&);
-
-    function GetAfRank() const;
-
-    function use(CGameObject*);
-
-  };
-   */
-  // todo;
   /**
-   C++ class CDummyArtefact : CArtefact {
-    CDummyArtefact ();
+   * C++ class CBlackGraviArtefact : CArtefact {
+   * */
+  class XR_CBlackGraviArtefact extends XR_CArtefact {
+  }
 
-    function Visual() const;
-
-    function _construct();
-
-    function net_Import(net_packet&);
-
-    function getVisible() const;
-
-    function net_Spawn(cse_abstract*);
-
-    function SwitchVisibility(boolean);
-
-    function FollowByPath(string, number, vector);
-
-    function getEnabled() const;
-
-    function net_Export(net_packet&);
-
-    function GetAfRank() const;
-
-    function use(CGameObject*);
-
-  };
-   */
-  // todo;
   /**
-   C++ class CElectricBall : CArtefact {
-    CElectricBall ();
+   * C++ class CDummyArtefact : CArtefact {
+   * */
+  class XR_CDummyArtefact extends XR_CArtefact {
+  }
 
-    function Visual() const;
-
-    function _construct();
-
-    function net_Import(net_packet&);
-
-    function getVisible() const;
-
-    function net_Spawn(cse_abstract*);
-
-    function SwitchVisibility(boolean);
-
-    function FollowByPath(string, number, vector);
-
-    function getEnabled() const;
-
-    function net_Export(net_packet&);
-
-    function GetAfRank() const;
-
-    function use(CGameObject*);
-
-  };
-   */
-  // todo;
   /**
-   C++ class CFadedBall : CArtefact {
-    CFadedBall ();
+   * C++ class CElectricBall : CArtefact {
+   * */
+  class XR_CElectricBall extends XR_CArtefact {
+  }
 
-    function Visual() const;
-
-    function _construct();
-
-    function net_Import(net_packet&);
-
-    function getVisible() const;
-
-    function net_Spawn(cse_abstract*);
-
-    function SwitchVisibility(boolean);
-
-    function FollowByPath(string, number, vector);
-
-    function getEnabled() const;
-
-    function net_Export(net_packet&);
-
-    function GetAfRank() const;
-
-    function use(CGameObject*);
-
-  };
-   */
-  // todo;
   /**
-   C++ class CGalantineArtefact : CArtefact {
-    CGalantineArtefact ();
+   * C++ class CFadedBall : CArtefact {
+   * */
+  class XR_CFadedBall extends XR_CArtefact {
+  }
 
-    function Visual() const;
-
-    function _construct();
-
-    function net_Import(net_packet&);
-
-    function getVisible() const;
-
-    function net_Spawn(cse_abstract*);
-
-    function SwitchVisibility(boolean);
-
-    function FollowByPath(string, number, vector);
-
-    function getEnabled() const;
-
-    function net_Export(net_packet&);
-
-    function GetAfRank() const;
-
-    function use(CGameObject*);
-
-  };
-   */
-  // todo;
   /**
-   C++ class CGraviArtefact : CArtefact {
-    CGraviArtefact ();
+   * C++ class CGalantineArtefact : CArtefact {
+   * */
+  class XR_CGalantineArtefact extends XR_CArtefact {
+  }
 
-    function Visual() const;
-
-    function _construct();
-
-    function net_Import(net_packet&);
-
-    function getVisible() const;
-
-    function net_Spawn(cse_abstract*);
-
-    function SwitchVisibility(boolean);
-
-    function FollowByPath(string, number, vector);
-
-    function getEnabled() const;
-
-    function net_Export(net_packet&);
-
-    function GetAfRank() const;
-
-    function use(CGameObject*);
-
-  };
-   */
-  // todo;
   /**
-   C++ class CMercuryBall : CArtefact {
-    CMercuryBall ();
+   * C++ class CGraviArtefact : CArtefact {
+   * */
+  class XR_CGraviArtefact extends XR_CArtefact {
+  }
 
-    function Visual() const;
-
-    function _construct();
-
-    function net_Import(net_packet&);
-
-    function getVisible() const;
-
-    function net_Spawn(cse_abstract*);
-
-    function SwitchVisibility(boolean);
-
-    function FollowByPath(string, number, vector);
-
-    function getEnabled() const;
-
-    function net_Export(net_packet&);
-
-    function GetAfRank() const;
-
-    function use(CGameObject*);
-
-  };
-   */
-  // todo;
   /**
-   C++ class CRustyHairArtefact : CArtefact {
-    CRustyHairArtefact ();
+   * C++ class CMercuryBall : CArtefact {
+   * */
+  class XR_CMercuryBall extends XR_CArtefact {
+  }
 
-    function Visual() const;
-
-    function _construct();
-
-    function net_Import(net_packet&);
-
-    function getVisible() const;
-
-    function net_Spawn(cse_abstract*);
-
-    function SwitchVisibility(boolean);
-
-    function FollowByPath(string, number, vector);
-
-    function getEnabled() const;
-
-    function net_Export(net_packet&);
-
-    function GetAfRank() const;
-
-    function use(CGameObject*);
-
-  };
-   */
-  // todo;
+  /**
+   * C++ class CRustyHairArtefact : CArtefact {
+   * */
+  class XR_CRustyHairArtefact extends XR_CArtefact {
+  }
 }

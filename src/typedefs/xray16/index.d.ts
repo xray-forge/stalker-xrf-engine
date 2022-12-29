@@ -1,6 +1,7 @@
+import { XR_planner_action } from "xray16";
+
 declare module "xray16" {
   export const CScriptXmlInit: typeof XR_CScriptXmlInit;
-
   export const CUIWindow: typeof XR_CUIWindow;
   export const CUIDialogWnd: typeof XR_CUIDialogWnd;
   export const CUIScriptWnd: typeof XR_CUIScriptWnd;
@@ -52,6 +53,15 @@ declare module "xray16" {
   export const object_binder: typeof XR_object_binder;
   export const entity_action: typeof XR_entity_action;
 
+  export const world_state: typeof XR_world_state;
+  export const property_storage: typeof XR_property_storage;
+  export const property_evaluator: typeof XR_property_evaluator;
+  export const property_evaluator_const: typeof XR_property_evaluator_const;
+  export const world_property: typeof XR_world_property;
+  export const action_base: typeof XR_action_base;
+  export const action_planner: typeof XR_action_planner;
+  export const planner_action: typeof XR_planner_action;
+
   export const cse_alife_creature_abstract: typeof XR_cse_alife_creature_abstract;
   export const cse_alife_item_custom_outfit: typeof XR_cse_alife_item_custom_outfit;
 
@@ -76,10 +86,6 @@ declare module "xray16" {
   export const CGameGraph: typeof XR_CGameGraph;
   export const CSightParams: typeof XR_CSightParams;
   export const Frect: typeof XR_FRect;
-
-  /**
-   * Namespace:
-   */
 
   export const level: IXR_level;
   export const main_menu: IXR_main_menu;

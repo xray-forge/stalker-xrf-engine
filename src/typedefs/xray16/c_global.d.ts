@@ -6,7 +6,7 @@ declare module "xray16" {
   export function bit_and(this: void, a: number, b: number): unknown;
   export function GetFontGraffiti32Russian(this: void): unknown;
   export function device(this: void): XR_render_device;
-  export function cast_planner(this: void, a: unknown): unknown;
+  export function cast_planner(this: void, base_action: XR_action_base): XR_action_planner;
   export function IsGameTypeSingle(this: void): unknown;
   export function game_graph(this: void): XR_CGameGraph;
   export function dik_to_bind(this: void,keycode: number): number;

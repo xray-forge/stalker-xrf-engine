@@ -220,7 +220,7 @@ declare module "xray16" {
     public get_visual_name(): unknown;
     public set_movement_selection_type(type: unknown /** enum ESelectionType */): unknown;
     public disable_anomaly(): unknown;
-    public motivation_action_manager(game_object: XR_game_object): unknown;
+    public motivation_action_manager(): XR_action_planner;
     public bone_position(value: string): unknown;
     public fov(): number;
     public set_default_panic_threshold(): unknown;

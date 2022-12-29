@@ -1,17 +1,7 @@
 declare module "xray16" {
   /**
    * C++ class fcolor {
-   *   property a;
-   *   property b;
-   *   property g;
-   *   property r;
-   *
-   *   fcolor ();
-   *
-   *   function set(number, number, number, number);
-   *   function set(const fcolor&);
-   *   function set(number);
-   * };
+   * @customConstructor fcolor
    */
   export class XR_FColor extends XR_LuaBindBase {
     public a: number;
@@ -29,18 +19,6 @@ declare module "xray16" {
    * Describing x1, y1 top left start point and x2, y2 bottom right end point.
    *
    * C++ class Frect {
-   *   property lt;
-   *   property rb;
-   *   property x1;
-   *   property x2;
-   *   property y1;
-   *   property y2;
-   *
-   *   Frect ();
-   *
-   *   function set(number, number, number, number);
-   * };
-   *
    * @customConstructor Frect
    */
   export class XR_FRect extends XR_LuaBindBase {
@@ -180,16 +158,6 @@ declare module "xray16" {
 
   /**
    * C++ class vector2 {
-   *   property x;
-   *   property y;
-   *
-   *   vector2 ();
-   *
-   *   function set(number, number);
-   *   function set(const vector2&);
-   *
-   * };
-   *
    * @customConstructor vector2
    */
   export class XR_vector2 {
@@ -406,12 +374,7 @@ declare module "xray16" {
   // todo;
 
   /**
-   *    C++ class award_data {
-   *     property m_count;
-   *     property m_last_reward_date;
-   *
-   *   };
-   *
+   * C++ class award_data {
    * @customConstructor award_data
    */
   export class XR_award_data {
@@ -434,40 +397,6 @@ declare module "xray16" {
   // todo;
 
   /**
-   C++ class property_evaluator {
-    property object;
-    property storage;
-
-    property_evaluator ();
-    property_evaluator (game_object*);
-    property_evaluator (game_object*, string);
-
-    function evaluate();
-
-    function setup(game_object*, property_storage*);
-
-  };
-   */
-
-  // todo;
-
-  /**
-   C++ class property_evaluator_const : property_evaluator {
-    property object;
-    property storage;
-
-    property_evaluator_const (boolean);
-
-    function evaluate();
-
-    function setup(game_object*, property_storage*);
-
-  };
-   */
-
-  // todo;
-
-  /**
    C++ class Fbox {
     property max;
     property min;
@@ -481,10 +410,6 @@ declare module "xray16" {
 
   /**
    * C++ class CGameFont {
-   *     const alCenter = 2;
-   *     const alLeft = 0;
-   *     const alRight = 1;
-   *   };
    */
   export class XR_CGameFont {
     public static alCenter: 2;
@@ -493,21 +418,8 @@ declare module "xray16" {
   }
 
   /**
-   *  C++ class CGameGraph {
-   *     function valid_vertex_id(number) const;
-   *
-   *     function vertex(number) const;
-   *
-   *     function accessible(const CGameGraph*, const number&);
-   *     function accessible(const CGameGraph*, const number&, boolean);
-   *
-   *     function levels(const CGameGraph*);
-   *
-   *     function vertex_id(const GameGraph__CVertex*) const;
-   *
-   *   };
-   *
-   *  @customConstructor CGameGraph
+   * C++ class CGameGraph {
+   * @customConstructor CGameGraph
    */
   export class XR_CGameGraph {
     public valid_vertex_id(this: void, value: number): unknown;
@@ -619,42 +531,6 @@ declare module "xray16" {
   // todo;
 
   /**
-
-   C++ class action_base {
-    property object;
-    property storage;
-
-    action_base ();
-    action_base (game_object*);
-    action_base (game_object*, string);
-
-    function finalize();
-
-    function add_precondition(const world_property&);
-
-    function execute();
-
-    function remove_precondition(const number&);
-
-    function setup(game_object*, property_storage*);
-
-    function set_weight(const number&);
-
-    function add_effect(const world_property&);
-
-    function show(string);
-
-    function initialize();
-
-    function remove_effect(const number&);
-
-  };
-   *
-   */
-
-  // todo;
-
-  /**
    C++ class rtoken_list {
     rtoken_list ();
 
@@ -693,26 +569,13 @@ declare module "xray16" {
   // todo;
 
   /**
-   *  C++ class GameGraph__CVertex {
-   *     function level_vertex_id() const;
-   *
-   *     function game_point(const GameGraph__CVertex*);
-   *
-   *     function level_id() const;
-   *
-   *     function level_point(const GameGraph__CVertex*);
-   *
-   *   };
+   * C++ class GameGraph__CVertex {
    */
   export class XR_GameGraph__CVertex {
     public level_vertex_id(): number;
-
     public level_id(): number;
-
     public game_point(): XR_vector;
-
     public level_point(): XR_vector;
-
   }
 
   /**
@@ -748,17 +611,11 @@ declare module "xray16" {
   /**
    C++ class effector {
     effector (number, number);
-
     function start(effector*);
-
     function process(effector_params*);
-
     function finish(effector*);
-
   };
    */
-
-  // todo;
 
   // todo;
 
@@ -768,7 +625,6 @@ declare module "xray16" {
     particle_params (const vector&);
     particle_params (const vector&, const vector&);
     particle_params (const vector&, const vector&, const vector&);
-
   };
    */
 }
