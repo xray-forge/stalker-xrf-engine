@@ -10,7 +10,7 @@ declare module "xray16" {
     public static __finalize(this: void): void;
     public static __call(this: void): void;
 
-    public __class_name: string;
+    public __name: string;
 
     public __init(...args: Array<any>): void;
     public __finalize(): void;

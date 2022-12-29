@@ -1,12 +1,5 @@
---[[
-��������� script_version:
-	3 - ���������� ���� job_online
-	5 - ���������� ���� was_in_smart_terrain
-	6 - ���������� ���� death_droped
-]]
-
 class "se_stalker"	(cse_alife_human_stalker)
---------------------
+
 function se_stalker:__init (section) super (section)
 	self.ini = nil
 	self.ini_initialized = false
@@ -14,11 +7,6 @@ function se_stalker:__init (section) super (section)
 	self.smart_terrain_conditions = nil
 	self.smart_terrain_conditions_initialized = false
 
-	-- ���� ���� ������ �� ������ ������
-	-- true     = ������ � �������
-	-- false    = ������ � �������
-	-- condlist = �������, ������� ����������� true ��� false
-	-- nil      = ������ �� �����
 	self.job_online          = nil
 	self.job_online_condlist = nil
 
@@ -34,21 +22,21 @@ function se_stalker:__init (section) super (section)
 
 	self.board = sim_board.get_sim_board()
 end
---------------------
+
 function se_stalker:get_ini()
 	if not self.ini_initialized then
 		self.ini             = self:spawn_ini()
 		self.ini_initialized = true
 	end
 end
---------------------
+
 function se_stalker:can_switch_offline()
 	if self.group_id ~= 65535 then
 		return true
 	end
 	return cse_alife_human_stalker.can_switch_offline(self)
 end
---------------------
+
 function se_stalker:can_switch_online()
 	if self.group_id ~= 65535 then
 		return true
@@ -63,7 +51,7 @@ end
 function se_stalker:switch_offline()
 	cse_alife_human_stalker.switch_offline(self)
 end
---------------------
+
 function se_stalker:STATE_Write(packet)
 	cse_alife_human_stalker.STATE_Write (self, packet)
 	if self.online then
@@ -74,7 +62,7 @@ function se_stalker:STATE_Write(packet)
 	packet:w_stringZ(tostring(db.offline_objects[self.id] and db.offline_objects[self.id].active_section))
 	packet:w_bool(self.death_droped )
 end
---------------------
+
 function se_stalker:STATE_Read(packet, size)
 	cse_alife_human_stalker.STATE_Read (self, packet, size)
 	if self.script_version > 10 then
@@ -92,10 +80,10 @@ function se_stalker:STATE_Read(packet, size)
 	end
 	self.death_droped = packet:r_bool()
 end
---------------------
+
 function se_stalker:on_before_register()
 end
---------------------
+
 function se_stalker:on_register()
 	cse_alife_human_stalker.on_register( self )
 	-- ��������� ���������� ������� �� ������� ����� ����.
@@ -122,7 +110,7 @@ function se_stalker:on_register()
 	end
 	alife():object(smart_obj.id):register_npc(self)
 end
---------------------
+
 function se_stalker:on_unregister()
 	local strn_id = self:smart_terrain_id()
 	if strn_id ~= 65535 then
@@ -135,11 +123,11 @@ function se_stalker:on_unregister()
 	unregister_story_object_by_id(self.id)
 	cse_alife_human_stalker.on_unregister(self)
 end
---------------------
+
 function se_stalker:on_spawn()
 	cse_alife_human_stalker.on_spawn(self)
 end
---------------------
+
 function se_stalker:on_death(killer)
 	cse_alife_human_stalker.on_death(self, killer)
 
@@ -155,7 +143,7 @@ function se_stalker:on_death(killer)
 		squad:on_npc_death(self)
 	end
 end
---------------------
+
 function se_stalker:update()
 	cse_alife_human_stalker.update(self)
 end

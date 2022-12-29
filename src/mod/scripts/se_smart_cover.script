@@ -5,6 +5,7 @@ registered_smartcovers = {}
 registered_smartcovers_by_lv_id = {}
 
 class "se_smart_cover"	(cse_smart_cover)
+
 function se_smart_cover:__init (section) super (section)
 --	printf("se_smart_cover:__init( ) called")
 	self.loopholes				= {}

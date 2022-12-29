@@ -110,7 +110,7 @@ declare module "xray16" {
     public UPDATE_Read(packet: XR_net_packet): void;
 
     public static STATE_Read(this: void, target: XR_cse_abstract, packet: XR_net_packet, size: number): void;
-    public STATE_Read(packet: XR_net_packet, size: number): void;
+    public STATE_Read(packet: XR_net_packet, size?: number): void;
 
     public static UPDATE_Write(this: void, target: XR_cse_abstract, packet: XR_net_packet): void;
     public UPDATE_Write(packet: XR_net_packet): void;

@@ -2,7 +2,6 @@ import {
   alife,
   command_line,
   object_binder,
-  XR_cse_alife_level_changer,
   XR_cse_alife_object,
   XR_game_object,
   XR_net_packet,
@@ -10,10 +9,10 @@ import {
 } from "xray16";
 
 import { AnyCallable } from "@/mod/lib/types";
+import { addObject, deleteObject, storage } from "@/mod/scripts/core/db";
+import { ILevelChanger } from "@/mod/scripts/se/LevelChanger";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-
-import { addObject, deleteObject, storage } from "../db";
 
 const log: LuaLogger = new LuaLogger("core/binders/LevelChangerBinder");
 
@@ -48,9 +47,8 @@ export const LevelChangerBinder: ILevelChangerBinder = declare_xr_class("LevelCh
 
     addObject(this.object);
 
-    const s_obj: any = alife().object(this.object.id()) as XR_cse_alife_level_changer;
+    const s_obj: ILevelChanger = alife().object(this.object.id()) as ILevelChanger;
 
-    // todo: Use correct declaration after se_level_changer update, class extending CLevelChanger.
     this.object.enable_level_changer(s_obj.enabled);
     this.object.set_level_changer_invitation(s_obj.hint);
 

@@ -7,12 +7,12 @@ local log = create_ts_class_instance(LuaLogger, "bind_stalker");
 
 local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
 
-function init    (obj)
-				xr_motivator.AddToMotivator(obj)
+function init(obj)
+  xr_motivator.AddToMotivator(obj)
 end
 
 function actor_init    (npc)
-				npc:bind_object(actor_binder(npc))
+  npc:bind_object(actor_binder(npc))
 end
 
 local game_difficulty_by_num = {
@@ -27,6 +27,7 @@ local weapon_hide = {}
 ----------------------------------------------------------------------------------------------------------------------
 class "actor_binder" (object_binder)
 ----------------------------------------------------------------------------------------------------------------------
+
 function actor_binder:__init (obj) super(obj)
 	self.bCheckStart = false
 	self.weather_manager = level_weathers.get_weather_manager()
