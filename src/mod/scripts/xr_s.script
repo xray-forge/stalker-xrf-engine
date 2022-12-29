@@ -181,11 +181,11 @@ function del_variable(vn)
 end
 
 function warning(msg,...)
-  log(string.format(msg,...))
+  log:info(string.format(msg,...))
 end
 
 function notice(msg,...)
-  log(string.format(msg,...))
+  log:info(string.format(msg,...))
   if xrs_debug.debug_on then
     get_console():execute("flush")
   end
@@ -216,6 +216,7 @@ end
 function str_explode(div,str,clear)
 	local t={}
 	local cpt = string.find (str, div, 1, true)
+
 	if cpt then
 		repeat
 			if clear then
@@ -227,6 +228,7 @@ function str_explode(div,str,clear)
 			cpt = string.find (str, div, 1, true)
 		until cpt==nil
 	end
+
 	if clear then
 		table.insert(t, trim(str))
 	else

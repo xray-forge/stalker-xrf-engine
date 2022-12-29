@@ -478,6 +478,7 @@ function sim_squad_scripted:set_location_types_section (section)
 		self:add_location_type(id)
 	end
 end
+
 function sim_squad_scripted:set_location_types(new_smart_name)
 	local default_location = "stalker_terrain"
 	printf("set_location_types for squad [%s]", self:name())

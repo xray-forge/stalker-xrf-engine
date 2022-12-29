@@ -68,6 +68,8 @@ declare module "xray16" {
   export const planner_action: typeof XR_planner_action;
 
   export const cse_alife_item: typeof XR_cse_alife_item;
+  export const cse_alife_creature_actor: typeof XR_cse_alife_creature_actor;
+  export const cse_alife_item_artefact: typeof XR_cse_alife_item_artefact;
   export const cse_alife_inventory_box: typeof XR_cse_alife_inventory_box;
   export const cse_alife_item_explosive: typeof XR_cse_alife_item_explosive;
   export const cse_alife_item_ammo: typeof XR_cse_alife_item_ammo;
@@ -104,6 +106,7 @@ declare module "xray16" {
 
   export const FS: typeof XR_FS;
   export const CGameGraph: typeof XR_CGameGraph;
+  export const CALifeSmartTerrainTask: typeof XR_CALifeSmartTerrainTask;
   export const CSightParams: typeof XR_CSightParams;
   export const Frect: typeof XR_Frect;
 

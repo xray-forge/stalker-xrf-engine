@@ -1,23 +1,25 @@
 import { editor, TXR_ClsKey, XR_object_factory } from "xray16";
 
-import { InventoryBox } from "@/mod/scripts/items/InvertoryBox";
-import { Item } from "@/mod/scripts/items/Item";
-import { ItemAmmo } from "@/mod/scripts/items/ItemAmmo";
-import { ItemDetector } from "@/mod/scripts/items/ItemDetector";
-import { ItemEatable } from "@/mod/scripts/items/ItemEatable";
-import { ItemExplosive } from "@/mod/scripts/items/ItemExplosive";
-import { ItemGrenade } from "@/mod/scripts/items/ItemGrenade";
-import { ItemHelmet } from "@/mod/scripts/items/ItemHelmet";
-import { ItemOutfit } from "@/mod/scripts/items/ItemOutfit";
-import { ItemPda } from "@/mod/scripts/items/ItemPda";
-import { ItemTorch } from "@/mod/scripts/items/ItemTorch";
-import { ItemWeapon } from "@/mod/scripts/items/ItemWeapon";
-import { ItemWeaponAutomaticShotgun } from "@/mod/scripts/items/ItemWeaponAutomaticShotgun";
-import { ItemWeaponMagazined } from "@/mod/scripts/items/ItemWeaponMagazined";
-import { ItemWeaponMagazinedWGl } from "@/mod/scripts/items/ItemWeaponMagazinedWGl";
-import { ItemWeaponShotgun } from "@/mod/scripts/items/ItemWeaponShotgun";
-import { ObjectHangingLamp } from "@/mod/scripts/items/ObjectHangingLamp";
-import { ObjectPhysic } from "@/mod/scripts/items/ObjectPhysic";
+import { Actor } from "@/mod/scripts/se/Actor";
+import { InventoryBox } from "@/mod/scripts/se/items/InvertoryBox";
+import { Item } from "@/mod/scripts/se/items/Item";
+import { ItemAmmo } from "@/mod/scripts/se/items/ItemAmmo";
+import { ItemArtefact } from "@/mod/scripts/se/items/ItemArtefact";
+import { ItemDetector } from "@/mod/scripts/se/items/ItemDetector";
+import { ItemEatable } from "@/mod/scripts/se/items/ItemEatable";
+import { ItemExplosive } from "@/mod/scripts/se/items/ItemExplosive";
+import { ItemGrenade } from "@/mod/scripts/se/items/ItemGrenade";
+import { ItemHelmet } from "@/mod/scripts/se/items/ItemHelmet";
+import { ItemOutfit } from "@/mod/scripts/se/items/ItemOutfit";
+import { ItemPda } from "@/mod/scripts/se/items/ItemPda";
+import { ItemTorch } from "@/mod/scripts/se/items/ItemTorch";
+import { ItemWeapon } from "@/mod/scripts/se/items/ItemWeapon";
+import { ItemWeaponAutomaticShotgun } from "@/mod/scripts/se/items/ItemWeaponAutomaticShotgun";
+import { ItemWeaponMagazined } from "@/mod/scripts/se/items/ItemWeaponMagazined";
+import { ItemWeaponMagazinedWGl } from "@/mod/scripts/se/items/ItemWeaponMagazinedWGl";
+import { ItemWeaponShotgun } from "@/mod/scripts/se/items/ItemWeaponShotgun";
+import { ObjectHangingLamp } from "@/mod/scripts/se/items/ObjectHangingLamp";
+import { ObjectPhysic } from "@/mod/scripts/se/items/ObjectPhysic";
 import { MainMenu } from "@/mod/scripts/ui/menu/MainMenu";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -76,7 +78,7 @@ export function registerGameClasses(object_factory: XR_object_factory): void {
     "LVL_CHNG",
     "level_changer_s"
   );
-  clientServerRegister(object_factory, "CActor", "se_actor.se_actor", "S_ACTOR", "script_actor");
+  clientServerRegister(object_factory, "CActor", Actor.__class_name, "S_ACTOR", "script_actor");
   clientServerRegister(object_factory, "CAI_Stalker", "se_stalker.se_stalker", "AI_STL_S", "script_stalker");
   clientServerRegister(object_factory, "CHelicopter", "se_heli.se_heli", "C_HLCP_S", "script_heli");
   clientServerRegister(object_factory, "ce_smart_zone", "se_zones.se_restrictor", "SPC_RS_S", "script_restr");
@@ -98,7 +100,7 @@ export function registerGameClasses(object_factory: XR_object_factory): void {
   clientServerRegister(object_factory, "hanging_lamp", ObjectHangingLamp.__class_name, "SO_HLAMP", "hlamp_s");
 
   // -- ARTEFACTS ------------------------------------------------------------------------------------------------------
-  clientServerRegister(object_factory, "CElectricBall", "se_artefact.se_artefact", "SCRPTART", "artefact_s");
+  clientServerRegister(object_factory, "CElectricBall", ItemArtefact.__class_name, "SCRPTART", "artefact_s");
 
   // -- MONSTERS -------------------------------------------------------------------------------------------------------
   clientServerRegister(object_factory, "CAI_Bloodsucker", "se_monster.se_monster", "SM_BLOOD", "bloodsucker_s");

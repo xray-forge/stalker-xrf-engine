@@ -124,7 +124,9 @@ end
 ----------------------------------------------------------------------------------------------------------------------
 -- ����� "se_smart_terrain". ������������ ��������� smart terrain � �������.
 ----------------------------------------------------------------------------------------------------------------------
+-- todo: Move
 class "se_smart_terrain" (cse_alife_smart_zone)
+
 function se_smart_terrain:__init(section) super(section)
   self.initialized	= false
   self.b_registred	= false

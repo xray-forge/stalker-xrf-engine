@@ -101,11 +101,7 @@ export function vectorCmp(first: XR_vector, second: XR_vector): boolean {
 }
 
 /**
- * function vector_cmp_prec(a, b, d)
- *    return math.abs(a.x - b.x) <= d and
- *           math.abs(a.y - b.y) <= d and
- *           math.abs(a.z - b.z) <= d
- * end
+ * todo;
  */
 export function vectorCmpPrec(first: XR_vector, second: XR_vector, d: number): boolean {
   return math.abs(first.x - second.x) <= d && math.abs(first.y - second.y) <= d && math.abs(first.z - second.z) <= d;

@@ -160,10 +160,10 @@ function CSurgeManager:update()
 	if not(self.started) then
 		local g_time = game.get_game_time()
 		if(self.time_forwarded) then
-			log("--->delta="..tostring(self._delta))
-			log("--->diffSec="..tostring(g_time:diffSec(self.last_surge_time)))
+			log:info("--->delta="..tostring(self._delta))
+			log:info("--->diffSec="..tostring(g_time:diffSec(self.last_surge_time)))
 			local diff = math.abs(self._delta - g_time:diffSec(self.last_surge_time))
-			log("--->diff="..tostring(diff))
+			log:info("--->diff="..tostring(diff))
 			if(diff<3600) then
 				self._delta = 3*3600+g_time:diffSec(self.last_surge_time)
 			end
@@ -301,7 +301,7 @@ function CSurgeManager:start(manual)
 	end
 
 	diff_sec = math.ceil(game.get_game_time():diffSec(self.inited_time)/level.get_time_factor())
-	log("--->start diff_sec="..tostring(diff_sec))
+	log:info("--->start diff_sec="..tostring(diff_sec))
 	local level_name = level.name()
 	if(level_name=="labx8" or level_name=="jupiter_underground") then
 		printf("Surge skipped because of level!")

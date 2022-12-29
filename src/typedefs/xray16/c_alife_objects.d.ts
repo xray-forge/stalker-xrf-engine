@@ -98,14 +98,24 @@ declare module "xray16" {
     public position: XR_vector;
     public script_version: unknown;
 
+    public __init(section: string): void;
+    public constructor(section: string);
+
     public name(): string;
     public clsid(): TXR_ClsId;
     public spawn_ini(): XR_ini_file;
     public section_name(): string;
 
-    public UPDATE_Read(packet: XR_net_packet): unknown;
-    public STATE_Read(packet: XR_net_packet, value: number): unknown;
+    public static UPDATE_Read(this: void, target: XR_cse_abstract,packet: XR_net_packet): void;
+    public UPDATE_Read(packet: XR_net_packet): void;
+
+    public static STATE_Read(this: void, target: XR_cse_abstract, packet: XR_net_packet, size: number): void;
+    public STATE_Read(packet: XR_net_packet, size: number): void;
+
+    public static UPDATE_Write(this: void, target: XR_cse_abstract, packet: XR_net_packet): void;
     public UPDATE_Write(packet: XR_net_packet): void;
+
+    public static STATE_Write(this: void, target: XR_cse_abstract, packet: XR_net_packet): void;
     public STATE_Write(packet: XR_net_packet): void;
   }
 
@@ -128,7 +138,6 @@ declare module "xray16" {
 
     public static can_switch_online(this: void, target: XR_cse_alife_object): boolean;
     public static can_switch_online(this: void, target: XR_cse_alife_object, value: boolean): boolean;
-
     public can_switch_online(): boolean;
     public can_switch_online(value: boolean): boolean;
 
@@ -139,6 +148,8 @@ declare module "xray16" {
     public visible_for_map(): boolean
     public visible_for_map(value: boolean): boolean;
 
+    public static can_switch_offline(this: void, target: XR_cse_alife_object): boolean;
+    public static can_switch_offline(this: void, value: boolean, target: XR_cse_alife_object): boolean;
     public can_switch_offline(): boolean;
     public can_switch_offline(value: boolean): boolean;
 
