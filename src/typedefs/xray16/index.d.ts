@@ -89,6 +89,7 @@ declare module "xray16" {
   export const cse_alife_object_physic: typeof XR_cse_alife_object_physic;
   export const cse_alife_object_hanging_lamp: typeof XR_cse_alife_object_hanging_lamp;
   export const cse_alife_level_changer: typeof XR_cse_alife_level_changer;
+  export const cse_alife_human_stalker: typeof XR_cse_alife_human_stalker;
 
   export const ini_file: typeof XR_ini_file;
   export const clsid: typeof XR_clsid;

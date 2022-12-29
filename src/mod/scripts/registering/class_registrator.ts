@@ -22,6 +22,7 @@ import { ObjectHangingLamp } from "@/mod/scripts/se/items/ObjectHangingLamp";
 import { ObjectPhysic } from "@/mod/scripts/se/items/ObjectPhysic";
 import { LevelChanger } from "@/mod/scripts/se/LevelChanger";
 import { Monster } from "@/mod/scripts/se/Monster";
+import { Stalker } from "@/mod/scripts/se/Stalker";
 import { MainMenu } from "@/mod/scripts/ui/menu/MainMenu";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -75,7 +76,7 @@ export function registerGameClasses(object_factory: XR_object_factory): void {
   clientServerRegister(object_factory, "ce_smart_zone", "smart_terrain.se_smart_terrain", "SMRTTRRN", "smart_terrain");
   clientServerRegister(object_factory, "CLevelChanger", LevelChanger.__name, "LVL_CHNG", "level_changer_s");
   clientServerRegister(object_factory, "CActor", Actor.__name, "S_ACTOR", "script_actor");
-  clientServerRegister(object_factory, "CAI_Stalker", "se_stalker.se_stalker", "AI_STL_S", "script_stalker");
+  clientServerRegister(object_factory, "CAI_Stalker", Stalker.__name, "AI_STL_S", "script_stalker");
   clientServerRegister(object_factory, "CHelicopter", "se_heli.se_heli", "C_HLCP_S", "script_heli");
   clientServerRegister(object_factory, "ce_smart_zone", "se_zones.se_restrictor", "SPC_RS_S", "script_restr");
   clientServerRegister(object_factory, "CPhysicObject", ObjectPhysic.__name, "O_PHYS_S", "script_phys");
