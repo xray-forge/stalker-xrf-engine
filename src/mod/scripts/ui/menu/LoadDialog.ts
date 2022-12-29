@@ -25,7 +25,7 @@ import {
   XR_vector2,
   XR_FS_item,
   get_console,
-  IXR_CConsole,
+  XR_CConsole,
   alife,
   valid_saved_game,
   XR_game_object,
@@ -267,7 +267,7 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
   load_game_internal(): void {
     log.info("Load game internal");
 
-    const console: IXR_CConsole = get_console();
+    const console: XR_CConsole = get_console();
 
     if (this.listBox.GetSize() == 0) {
       return;

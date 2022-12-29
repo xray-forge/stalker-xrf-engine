@@ -18,7 +18,7 @@ import {
   XR_CUIWindow,
   XR_profile,
   get_console,
-  IXR_CConsole,
+  XR_CConsole,
   dik_to_bind,
   login_operation_cb,
   CUIMMShniaga,
@@ -613,7 +613,7 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
     CUIScriptWnd.OnKeyboard(this, key, event);
 
     const bind = dik_to_bind(key);
-    const console: IXR_CConsole = get_console();
+    const console: XR_CConsole = get_console();
 
     if (event === ui_events.WINDOW_KEY_RELEASED) {
       if (key === DIK_keys.DIK_LCONTROL) {

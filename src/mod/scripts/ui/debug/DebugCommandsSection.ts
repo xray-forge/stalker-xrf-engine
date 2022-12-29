@@ -2,7 +2,7 @@ import {
   CScriptXmlInit,
   CUIWindow,
   get_console,
-  IXR_CConsole,
+  XR_CConsole,
   ui_events,
   XR_CScriptXmlInit,
   XR_CUICheckButton,
@@ -27,7 +27,7 @@ export interface IDebugCommandsSection extends XR_CUIScriptWnd {
   InitControls(): void;
   InitCallBacks(): void;
   InitState(): void;
-  InitEntry(name: string, xml: XR_CScriptXmlInit, console: IXR_CConsole, type: "numeric" | "boolean"): void;
+  InitEntry(name: string, xml: XR_CScriptXmlInit, console: XR_CConsole, type: "numeric" | "boolean"): void;
 
   onCheckboxChange(check: XR_CUICheckButton, name: string, type: "numeric" | "boolean"): void;
 }
@@ -51,7 +51,7 @@ export const DebugCommandsSection: IDebugCommandsSection = declare_xr_class("Deb
     log.info("Init controls");
 
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
-    const console: IXR_CConsole = get_console();
+    const console: XR_CConsole = get_console();
 
     xml.ParseFile(resolveXmlFormPath(base));
 
@@ -66,7 +66,7 @@ export const DebugCommandsSection: IDebugCommandsSection = declare_xr_class("Deb
   InitState(): void {
     log.info("Init state");
   },
-  InitEntry(name: string, xml: XR_CScriptXmlInit, console: IXR_CConsole, type: "numeric" | "boolean"): void {
+  InitEntry(name: string, xml: XR_CScriptXmlInit, console: XR_CConsole, type: "numeric" | "boolean"): void {
     log.info("Init item:", name);
 
     const item: XR_CUIStatic = xml.InitStatic("command_item", this.commandsList);

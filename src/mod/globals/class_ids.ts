@@ -242,12 +242,12 @@ export const monster_class_ids = {
   [class_ids.psy_dog_s]: true,
   [class_ids.snork_s]: true,
   [class_ids.tushkano_s]: true
-};
+} as const;
 
 export const stalker_class_ids = {
   [class_ids.script_actor]: true,
   [class_ids.script_stalker]: true
-};
+} as const;
 
 export const weapon_class_ids = {
   [class_ids.wpn_vintorez_s]: true,
@@ -271,7 +271,7 @@ export const weapon_class_ids = {
   [class_ids.wpn_grenade_rgd5_s]: true,
   [class_ids.wpn_grenade_launcher]: true,
   [class_ids.wpn_grenade_fake]: true
-};
+} as const;
 
 export const artefact_class_ids = {
   [class_ids.art_bast_artefact]: true,
@@ -289,4 +289,4 @@ export const artefact_class_ids = {
   [class_ids.art_zuda]: true,
   [class_ids.artefact]: true,
   [class_ids.artefact_s]: true
-};
+} as const;

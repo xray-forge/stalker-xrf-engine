@@ -1,7 +1,7 @@
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
-local pdaMenu = require("scripts.ui.game.PdaMenu").pdaMenu
 local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
+local PostCombatIdle = require("scripts.core.logic.PostCombatIdle")
 
 local log = create_ts_class_instance(LuaLogger, "xr_motivator");
 
@@ -179,7 +179,7 @@ function motivator_binder:net_spawn(sobject)
 
 	--' ������������� ������ �� ����� �� �������
 	if character_community(self.object) ~= "zombied" then
-		post_combat_idle.add_post_combat_idle(self.object)
+		PostCombatIdle.add_post_combat_idle(self.object)
 	end
 
 

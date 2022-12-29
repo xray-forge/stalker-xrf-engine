@@ -282,7 +282,7 @@ function load(package)
 	artefacts_table = {}
 	n = package:r_u8()
 	for i = 1,n do
-		log("n "..tostring(n))
+		log:info("Load xr stats "..tostring(n))
 		local k = package:r_stringZ()
 		local v = package:r_bool()
 		artefacts_table[k] = v

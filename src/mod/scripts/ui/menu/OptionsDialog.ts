@@ -7,7 +7,7 @@ import {
   Frect,
   get_console,
   is_enough_address_space_available,
-  IXR_CConsole,
+  XR_CConsole,
   main_menu,
   TXR_DIK_key,
   TXR_ui_event,
@@ -229,12 +229,12 @@ export const OptionsDialog: IOptionsDialog = declare_xr_class("OptionsDialog", C
     this.AddCallback("cb_ssample", ui_events.LIST_ITEM_SELECT, () => this.UpdateDependControls(), this);
   },
   OnBtnCheckUpdates(): void {
-    const console: IXR_CConsole = get_console();
+    const console: XR_CConsole = get_console();
 
     console.execute("check_for_updates 1");
   },
   OnBtnKeybDefault(): void {
-    const console: IXR_CConsole = get_console();
+    const console: XR_CConsole = get_console();
 
     console.execute("default_controls");
 
@@ -260,7 +260,7 @@ export const OptionsDialog: IOptionsDialog = declare_xr_class("OptionsDialog", C
   },
   OnBtnAccept(): void {
     const opt: XR_COptionsManager = new COptionsManager();
-    const console: IXR_CConsole = get_console();
+    const console: XR_CConsole = get_console();
 
     opt.SaveValues("mm_opt_video_preset");
     opt.SaveValues("key_binding");

@@ -31,7 +31,7 @@ import {
   game,
   GAME_TYPE,
   get_console,
-  IXR_CConsole,
+  XR_CConsole,
   XR_profile,
   XR_SServerFilters,
   SServerFilters,
@@ -398,7 +398,7 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
         "/psw=" +
         this.message_box.GetPassword() +
         ")";
-      const console: IXR_CConsole = get_console();
+      const console: XR_CConsole = get_console();
 
       console.execute(cmd);
     }
@@ -407,7 +407,7 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
     log.info("CD key changed");
 
     const cdKey: string = this.cdkey.GetText();
-    const console: IXR_CConsole = get_console();
+    const console: XR_CConsole = get_console();
 
     console.execute("cdkey " + (cdKey === "" ? "clear" : cdKey));
   },
@@ -459,7 +459,7 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
   OnDemoSaveChange(): void {
     log.info("Demo save change");
 
-    const console: IXR_CConsole = get_console();
+    const console: XR_CConsole = get_console();
 
     if (this.check_demosave.GetCheck()) {
       console.execute("cl_mpdemosave 1");
@@ -562,7 +562,7 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
     if (this.check_dedicated.GetCheck()) {
       this.map_list.StartDedicatedServer();
     } else {
-      const console: IXR_CConsole = get_console();
+      const console: XR_CConsole = get_console();
       const command: string = this.map_list.GetCommandLine(this.owner.gameSpyProfile!.unique_nick());
       // --this.player_name.GetText())
 

@@ -24,6 +24,12 @@ export const zoneByName: LuaTable<string, XR_game_object> = new LuaTable();
 
 export interface IStoredObject<T = XR_game_object> {
   object?: T;
+  combat_ignore?: boolean;
+  post_combat_wait?: unknown;
+  overrides?: {
+    min_post_combat_time: number;
+    max_post_combat_time: number;
+  };
 }
 
 export const storage: LuaTable<number, IStoredObject> = new LuaTable();

@@ -5,7 +5,7 @@ import {
   Frect,
   game,
   get_console,
-  IXR_CConsole,
+  XR_CConsole,
   level,
   ui_events,
   vector2,
@@ -15,7 +15,7 @@ import {
   XR_CUIScriptWnd,
   XR_CUIStatic,
   XR_CUITrackBar,
-  XR_FRect,
+  XR_Frect,
   XR_game_object
 } from "xray16";
 
@@ -123,7 +123,7 @@ export const SleepDialog = declare_xr_class("SleepDialog", XR_CUIScriptWnd, {
     }
 
     const delta: number = math.floor((591 / 24) * cur_hours);
-    let rect: XR_FRect = new Frect().set(delta, 413, 591, 531);
+    let rect: XR_Frect = new Frect().set(delta, 413, 591, 531);
 
     this.sleep_static.SetTextureRect(rect);
 
@@ -220,7 +220,7 @@ export const SleepDialog = declare_xr_class("SleepDialog", XR_CUIScriptWnd, {
 
     log.info("Turn off volumes");
 
-    const console: IXR_CConsole = get_console();
+    const console: XR_CConsole = get_console();
 
     declare_global("mus_vol", console.get_float("snd_volume_music"));
     declare_global("amb_vol", console.get_float("snd_volume_eff"));

@@ -10,7 +10,7 @@ import {
   game,
   get_console,
   IsGameTypeSingle,
-  IXR_CConsole,
+  XR_CConsole,
   level,
   main_menu,
   TXR_DIK_key,
@@ -204,7 +204,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     this.modalBoxMode = 0;
   },
   LoadLastSave(): void {
-    const console: IXR_CConsole = get_console();
+    const console: XR_CConsole = get_console();
 
     console.execute("main_menu off");
     console.execute("load_last_save");
@@ -277,7 +277,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     this.StartGame();
   },
   StartGame(): void {
-    const console: IXR_CConsole = get_console();
+    const console: XR_CConsole = get_console();
 
     if (alife() !== null) {
       console.execute("disconnect");

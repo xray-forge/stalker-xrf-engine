@@ -10,7 +10,7 @@ import {
 } from "xray16";
 
 import { AnyCallable } from "@/mod/lib/types";
-import { setSaveMarker } from "@/mod/scripts/utils/game_saves";
+import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 import { addObject, deleteObject, storage } from "../db";
@@ -73,9 +73,9 @@ export const LevelChangerBinder: ILevelChangerBinder = declare_xr_class("LevelCh
     setSaveMarker(packet, true, "LevelChangerBinder");
   },
   load(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, "LevelChangerBinder");
+    setLoadMarker(packet, false, "LevelChangerBinder");
     object_binder.load(this, packet);
-    (get_global("xr_logic").xr_logic as AnyCallable)(this.object, packet);
-    setSaveMarker(packet, true, "LevelChangerBinder");
+    (get_global("xr_logic").load_obj as AnyCallable)(this.object, packet);
+    setLoadMarker(packet, true, "LevelChangerBinder");
   }
 } as ILevelChangerBinder);

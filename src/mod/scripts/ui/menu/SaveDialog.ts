@@ -14,7 +14,7 @@ import {
   GetFontLetterica18Russian,
   GetFontMedium,
   getFS,
-  IXR_CConsole,
+  XR_CConsole,
   key_bindings,
   TXR_DIK_key,
   TXR_ui_event,
@@ -342,7 +342,7 @@ export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptW
     log.info("Save file:", filename);
 
     if (filename !== null) {
-      const console: IXR_CConsole = get_console();
+      const console: XR_CConsole = get_console();
 
       console.execute("save " + filename);
     }
