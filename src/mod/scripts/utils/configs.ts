@@ -1,4 +1,4 @@
-import { XR_game_object, XR_ini_file } from "xray16";
+import { XR_cse_abstract, XR_game_object, XR_ini_file } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { scriptIds } from "@/mod/scripts/core/db";
@@ -14,7 +14,8 @@ export function getConfigString<D = string>(
   ini: XR_ini_file,
   section: string,
   field: string,
-  object: Optional<XR_game_object>,
+  // todo: Remove?
+  object: Optional<XR_cse_abstract | XR_game_object>,
   mandatory: boolean,
   gulagName: unknown,
   defaultVal?: D

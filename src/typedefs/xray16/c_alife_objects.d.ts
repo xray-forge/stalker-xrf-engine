@@ -96,7 +96,7 @@ declare module "xray16" {
     public id: number;
     public parent_id: number;
     public position: XR_vector;
-    public script_version: unknown;
+    public script_version: number;
 
     public __init(section: string): void;
     public constructor(section: string);
@@ -134,6 +134,7 @@ declare module "xray16" {
     public used_ai_locations(): boolean;
     public use_ai_locations(value: boolean): boolean;
 
+    public static can_save(this: void, target: XR_cse_alife_object): boolean;
     public can_save(): boolean;
 
     public static can_switch_online(this: void, target: XR_cse_alife_object): boolean;
@@ -162,7 +163,10 @@ declare module "xray16" {
    * @customConstructor cse_alife_dynamic_object
    */
   export class XR_cse_alife_dynamic_object extends XR_cse_alife_object {
+    public static switch_offline(this: void, target: XR_cse_alife_dynamic_object): void;
     public switch_offline(): void;
+
+    public static switch_online(this: void, target: XR_cse_alife_dynamic_object): void;
     public switch_online(): void;
 
     public static keep_saved_data_anyway(this: void, target: XR_cse_alife_dynamic_object): boolean;
@@ -210,9 +214,16 @@ declare module "xray16" {
     public group: number;
     public squad: number;
     public team: number;
-    public health(): unknown;
 
-    public on_death(cse_abstract: XR_cse_alife_creature_abstract): unknown;
+    public static health(this:void, target: XR_cse_alife_creature_abstract): number;
+    public health(): number;
+
+    public static on_death(
+      this:void,
+      target: XR_cse_alife_creature_abstract,
+      killer: XR_cse_alife_creature_abstract
+    ): void;
+    public on_death(killer: XR_cse_alife_creature_abstract): void;
 
     public alive(): boolean;
 
@@ -287,12 +298,13 @@ declare module "xray16" {
     extends XR_cse_alife_creature_abstract
     implements IXR_cse_alife_schedulable {
 
-    public group_id: number | null;
-    public m_smart_terrain_id: number | null;
+    public group_id: number;
+    public m_smart_terrain_id: number;
 
-    public kill(): unknown;
+    public kill(): void;
 
-    public update(): unknown;
+    public static update(this: void, target: XR_cse_alife_monster_abstract): void;
+    public update(): void;
 
     public force_set_goodwill(
       cse_alife_monster_abstract: XR_cse_alife_monster_abstract, value1: number, value2: number
@@ -312,11 +324,13 @@ declare module "xray16" {
         XR_cse_alife_monster_abstract, value: number
     ): unknown;
 
-    public brain(cse_alife_monster_abstract: XR_cse_alife_monster_abstract): unknown;
+    public static brain(this: void, target: XR_cse_alife_monster_abstract): XR_CAILifeMonsterBrain;
+    public brain(): XR_CAILifeMonsterBrain;
 
     public has_detector(): unknown;
 
-    public smart_terrain_id(cse_alife_monster_abstract: XR_cse_alife_monster_abstract): unknown;
+    public static smart_terrain_id(this: void, target: XR_cse_alife_monster_abstract): number;
+    public smart_terrain_id(): number;
 
     public rank(): unknown;
   }

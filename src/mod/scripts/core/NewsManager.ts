@@ -187,7 +187,7 @@ export function send_task(actor: Optional<XR_game_object>, type: TActionType, ta
 /**
  * todo;
  */
-function send_tip(
+export function send_tip(
   actor: XR_game_object,
   news_id: string,
   timeout: Maybe<number>,

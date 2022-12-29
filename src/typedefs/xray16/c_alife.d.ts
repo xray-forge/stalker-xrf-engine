@@ -170,4 +170,36 @@ declare module "xray16" {
    */
 
   // todo;
+
+  /**
+   * C++ class CALifeMonsterBrain {}
+   */
+  export class XR_CAILifeMonsterBrain {
+    public constructor(object: unknown);
+
+    public select_task(forced?: boolean): void;
+    public process_task(): void;
+    public default_behaviour(): void;
+
+    public can_choose_alife_tasks(): boolean
+    public can_choose_alife_tasks(value: boolean): void;
+
+    public on_state_write(packet: XR_net_packet): void;
+    public on_state_read(packet: XR_net_packet): void;
+    public on_register(): void;
+    public on_unregister(): void;
+    public on_location_change(): void;
+    public on_switch_online(): void;
+    public on_switch_offline(): void;
+
+    public update(forced?: boolean): void;
+    public update_script(): void;
+
+    public perform_attack(): boolean;
+    public action_type(
+      tpALifeSchedulable: unknown, index: number, mutual_detection: boolean): unknown;
+    public object(): unknown;
+    public movement(): unknown;
+    public smart_terrain(): unknown;
+  }
 }

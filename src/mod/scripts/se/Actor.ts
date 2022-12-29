@@ -5,6 +5,7 @@ import {
   editor,
   level,
   XR_CALifeSmartTerrainTask,
+  XR_cse_abstract,
   XR_cse_alife_creature_actor,
   XR_net_packet,
   XR_vector
@@ -99,9 +100,9 @@ export const Actor: IActor = declare_xr_class("Actor", cse_alife_creature_actor,
   on_reach_target(squad: any): void {
     squad.set_location_types();
 
-    for (const k of squad.squadMembers()) {
-      if (offlineObjects[k.id] !== null) {
-        offlineObjects[k.id] = {};
+    for (const k of squad.squadMembers() as LuaIterable<XR_cse_abstract>) {
+      if (offlineObjects.get(k.id) !== null) {
+        offlineObjects.set(k.id as number, {});
       }
     }
 

@@ -17,7 +17,7 @@ export const spawnedVertexById = {};
 export const levelDoors = {};
 export const signalLight = {};
 export const goodwill = { sympathy: {}, relations: {} };
-export const offlineObjects: Record<string, any> = {};
+export const offlineObjects: LuaTable<number, any> = new LuaTable();
 export const REGISTERED_ITEMS: LuaTable<string, number> = new LuaTable();
 
 export const zoneByName: LuaTable<string, XR_game_object> = new LuaTable();

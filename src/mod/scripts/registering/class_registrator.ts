@@ -20,6 +20,7 @@ import { ItemWeaponMagazinedWGl } from "@/mod/scripts/se/items/ItemWeaponMagazin
 import { ItemWeaponShotgun } from "@/mod/scripts/se/items/ItemWeaponShotgun";
 import { ObjectHangingLamp } from "@/mod/scripts/se/items/ObjectHangingLamp";
 import { ObjectPhysic } from "@/mod/scripts/se/items/ObjectPhysic";
+import { Monster } from "@/mod/scripts/se/Monster";
 import { MainMenu } from "@/mod/scripts/ui/menu/MainMenu";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -102,25 +103,6 @@ export function registerGameClasses(object_factory: XR_object_factory): void {
   // -- ARTEFACTS ------------------------------------------------------------------------------------------------------
   clientServerRegister(object_factory, "CElectricBall", ItemArtefact.__class_name, "SCRPTART", "artefact_s");
 
-  // -- MONSTERS -------------------------------------------------------------------------------------------------------
-  clientServerRegister(object_factory, "CAI_Bloodsucker", "se_monster.se_monster", "SM_BLOOD", "bloodsucker_s");
-  clientServerRegister(object_factory, "CAI_Boar", "se_monster.se_monster", "SM_BOARW", "boar_s");
-  clientServerRegister(object_factory, "CAI_Dog", "se_monster.se_monster", "SM_DOG_S", "dog_s");
-  clientServerRegister(object_factory, "CAI_Flesh", "se_monster.se_monster", "SM_FLESH", "flesh_s");
-  clientServerRegister(object_factory, "CAI_PseudoDog", "se_monster.se_monster", "SM_P_DOG", "pseudodog_s");
-  clientServerRegister(object_factory, "CBurer", "se_monster.se_monster", "SM_BURER", "burer_s");
-  clientServerRegister(object_factory, "CCat", "se_monster.se_monster", "SM_CAT_S", "cat_s");
-  clientServerRegister(object_factory, "CChimera", "se_monster.se_monster", "SM_CHIMS", "chimera_s");
-  clientServerRegister(object_factory, "CController", "se_monster.se_monster", "SM_CONTR", "controller_s");
-  clientServerRegister(object_factory, "CFracture", "se_monster.se_monster", "SM_IZLOM", "fracture_s");
-  clientServerRegister(object_factory, "CPoltergeist", "se_monster.se_monster", "SM_POLTR", "poltergeist_s");
-  clientServerRegister(object_factory, "CPseudoGigant", "se_monster.se_monster", "SM_GIANT", "gigant_s");
-  clientServerRegister(object_factory, "CZombie", "se_monster.se_monster", "SM_ZOMBI", "zombie_s");
-  clientServerRegister(object_factory, "CSnork", "se_monster.se_monster", "SM_SNORK", "snork_s");
-  clientServerRegister(object_factory, "CTushkano", "se_monster.se_monster", "SM_TUSHK", "tushkano_s");
-  clientServerRegister(object_factory, "CPsyDog", "se_monster.se_monster", "SM_DOG_P", "psy_dog_s");
-  clientServerRegister(object_factory, "CPsyDogPhantom", "se_monster.se_monster", "SM_DOG_F", "psy_dog_phantom_s");
-
   // -- DEVICES --------------------------------------------------------------------------------------------------------
   clientServerRegister(object_factory, "CTorch", ItemTorch.__class_name, "TORCH_S", "device_torch_s");
   clientServerRegister(
@@ -198,8 +180,23 @@ export function registerGameClasses(object_factory: XR_object_factory): void {
   clientServerRegister(object_factory, "CWeaponWalther", ItemWeaponMagazined.__class_name, "WP_WALTH", "wpn_walther_s");
   // --cs_register(object_factory, "CWeaponStatMgun", "se_item.se_mgun", "W_STMGUN", "wpn_stat_mgun");
   // --cs_register(object_factory, "CWeaponMagazined", "se_item.se_weapon_magazined", "WP_MAGAZ", "wpn_magazined_s");
-
+  clientServerRegister(object_factory, "CWeaponAmmo", ItemAmmo.__class_name, "AMMO_S", "wpn_ammo_s");
+  clientServerRegister(object_factory, "CWeaponAmmo", ItemAmmo.__class_name, "S_VOG25", "wpn_ammo_vog25_s");
+  clientServerRegister(object_factory, "CWeaponAmmo", ItemAmmo.__class_name, "S_OG7B", "wpn_ammo_og7b_s");
+  clientServerRegister(object_factory, "CWeaponAmmo", ItemAmmo.__class_name, "S_M209", "wpn_ammo_m209_s");
+  clientServerRegister(object_factory, "CF1", ItemGrenade.__class_name, "G_F1_S", "wpn_grenade_f1_s");
+  clientServerRegister(object_factory, "CRGD5", ItemGrenade.__class_name, "G_RGD5_S", "wpn_grenade_rgd5_s");
+  clientServerRegister(object_factory, "CMedkit", ItemEatable.__class_name, "S_MEDKI", "obj_medkit_s");
+  clientServerRegister(object_factory, "CMedkit", ItemEatable.__class_name, "S_BANDG", "obj_bandage_s");
+  clientServerRegister(object_factory, "CAntirad", ItemEatable.__class_name, "S_ANTIR", "obj_antirad_s");
+  clientServerRegister(object_factory, "CFoodItem", ItemEatable.__class_name, "S_FOOD", "obj_food_s");
+  clientServerRegister(object_factory, "CBottleItem", ItemEatable.__class_name, "S_BOTTL", "obj_bottle_s");
+  clientServerRegister(object_factory, "CInventoryBox", InventoryBox.__class_name, "S_INVBOX", "inventory_box_s");
+  clientServerRegister(object_factory, "CExplosiveItem", ItemExplosive.__class_name, "S_EXPLO", "obj_explosive_s");
+  clientServerRegister(object_factory, "CPda", ItemPda.__class_name, "S_PDA", "obj_pda_s");
+  serverRegister(object_factory, "sim_squad_scripted.sim_squad_scripted", "ON_OFF_S", "online_offline_group_s");
   // -- ANOMALY ZONES --------------------------------------------------------------------------------------------------
+
   clientServerRegister(object_factory, "CHairsZone", "se_zones.se_zone_visual", "ZS_BFUZZ", "zone_bfuzz_s");
   clientServerRegister(object_factory, "CMosquitoBald", "se_zones.se_zone_anom", "ZS_MBALD", "zone_mbald_s");
   clientServerRegister(object_factory, "CMincer", "se_zones.se_zone_anom", "ZS_GALAN", "zone_galant_s");
@@ -207,32 +204,22 @@ export function registerGameClasses(object_factory: XR_object_factory): void {
   clientServerRegister(object_factory, "CRadioactiveZone", "se_zones.se_zone_anom", "ZS_RADIO", "zone_radio_s");
   clientServerRegister(object_factory, "CTorridZone", "se_zones.se_zone_torrid", "ZS_TORRD", "zone_torrid_s");
 
-  // -- AMMO -----------------------------------------------------------------------------------------------------------
-  clientServerRegister(object_factory, "CWeaponAmmo", ItemAmmo.__class_name, "AMMO_S", "wpn_ammo_s");
-  clientServerRegister(object_factory, "CWeaponAmmo", ItemAmmo.__class_name, "S_VOG25", "wpn_ammo_vog25_s");
-  clientServerRegister(object_factory, "CWeaponAmmo", ItemAmmo.__class_name, "S_OG7B", "wpn_ammo_og7b_s");
-  clientServerRegister(object_factory, "CWeaponAmmo", ItemAmmo.__class_name, "S_M209", "wpn_ammo_m209_s");
-
-  // -- GRENADES -------------------------------------------------------------------------------------------------------
-  clientServerRegister(object_factory, "CF1", ItemGrenade.__class_name, "G_F1_S", "wpn_grenade_f1_s");
-  clientServerRegister(object_factory, "CRGD5", ItemGrenade.__class_name, "G_RGD5_S", "wpn_grenade_rgd5_s");
-
-  // -- EATABLE --------------------------------------------------------------------------------------------------------
-  clientServerRegister(object_factory, "CMedkit", ItemEatable.__class_name, "S_MEDKI", "obj_medkit_s");
-  clientServerRegister(object_factory, "CMedkit", ItemEatable.__class_name, "S_BANDG", "obj_bandage_s");
-  clientServerRegister(object_factory, "CAntirad", ItemEatable.__class_name, "S_ANTIR", "obj_antirad_s");
-  clientServerRegister(object_factory, "CFoodItem", ItemEatable.__class_name, "S_FOOD", "obj_food_s");
-  clientServerRegister(object_factory, "CBottleItem", ItemEatable.__class_name, "S_BOTTL", "obj_bottle_s");
-
-  // -- INVENTORY BOX --------------------------------------------------------------------------------------------------
-  clientServerRegister(object_factory, "CInventoryBox", InventoryBox.__class_name, "S_INVBOX", "inventory_box_s");
-
-  // -- EXPLOSIVE ------------------------------------------------------------------------------------------------------
-  clientServerRegister(object_factory, "CExplosiveItem", ItemExplosive.__class_name, "S_EXPLO", "obj_explosive_s");
-
-  // -- PDA       ------------------------------------------------------------------------------------------------------
-  clientServerRegister(object_factory, "CPda", ItemPda.__class_name, "S_PDA", "obj_pda_s");
-
-  // -- ONLINE_OFFLINE_GROUP -------------------------------------------------------------------------------------------
-  serverRegister(object_factory, "sim_squad_scripted.sim_squad_scripted", "ON_OFF_S", "online_offline_group_s");
+  // -- MONSTERS -------------------------------------------------------------------------------------------------------
+  clientServerRegister(object_factory, "CAI_Bloodsucker", Monster.__class_name, "SM_BLOOD", "bloodsucker_s");
+  clientServerRegister(object_factory, "CAI_Boar", Monster.__class_name, "SM_BOARW", "boar_s");
+  clientServerRegister(object_factory, "CAI_Dog", Monster.__class_name, "SM_DOG_S", "dog_s");
+  clientServerRegister(object_factory, "CAI_Flesh", Monster.__class_name, "SM_FLESH", "flesh_s");
+  clientServerRegister(object_factory, "CAI_PseudoDog", Monster.__class_name, "SM_P_DOG", "pseudodog_s");
+  clientServerRegister(object_factory, "CBurer", Monster.__class_name, "SM_BURER", "burer_s");
+  clientServerRegister(object_factory, "CCat", Monster.__class_name, "SM_CAT_S", "cat_s");
+  clientServerRegister(object_factory, "CChimera", Monster.__class_name, "SM_CHIMS", "chimera_s");
+  clientServerRegister(object_factory, "CController", Monster.__class_name, "SM_CONTR", "controller_s");
+  clientServerRegister(object_factory, "CFracture", Monster.__class_name, "SM_IZLOM", "fracture_s");
+  clientServerRegister(object_factory, "CPoltergeist", Monster.__class_name, "SM_POLTR", "poltergeist_s");
+  clientServerRegister(object_factory, "CPseudoGigant", Monster.__class_name, "SM_GIANT", "gigant_s");
+  clientServerRegister(object_factory, "CZombie", Monster.__class_name, "SM_ZOMBI", "zombie_s");
+  clientServerRegister(object_factory, "CSnork", Monster.__class_name, "SM_SNORK", "snork_s");
+  clientServerRegister(object_factory, "CTushkano", Monster.__class_name, "SM_TUSHK", "tushkano_s");
+  clientServerRegister(object_factory, "CPsyDog", Monster.__class_name, "SM_DOG_P", "psy_dog_s");
+  clientServerRegister(object_factory, "CPsyDogPhantom", Monster.__class_name, "SM_DOG_F", "psy_dog_phantom_s");
 }

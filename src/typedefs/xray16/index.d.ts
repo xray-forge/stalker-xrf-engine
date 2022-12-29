@@ -69,6 +69,7 @@ declare module "xray16" {
 
   export const cse_alife_item: typeof XR_cse_alife_item;
   export const cse_alife_creature_actor: typeof XR_cse_alife_creature_actor;
+  export const cse_alife_monster_base: typeof XR_cse_alife_monster_base;
   export const cse_alife_item_artefact: typeof XR_cse_alife_item_artefact;
   export const cse_alife_inventory_box: typeof XR_cse_alife_inventory_box;
   export const cse_alife_item_explosive: typeof XR_cse_alife_item_explosive;
