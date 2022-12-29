@@ -1,3 +1,5 @@
+import { class_ids } from "@/mod/globals/class_ids";
+
 declare module "xray16" {
   /**
    * C++ class stalker_ids {
@@ -471,6 +473,7 @@ declare module "xray16" {
     public static equ_scientific: 62;
     public static equ_stalker: 63;
     public static equ_stalker_s: 65;
+    public static equ_helmet_s: 70;
     public static flesh: 24;
     public static flesh_group: 25;
     public static flesh_s: 117;
@@ -642,8 +645,9 @@ declare module "xray16" {
     public static zone_torrid_s: 203;
   }
 
-  type TXR_ClsIds = typeof XR_clsid
-  type TXR_ClsId = TXR_ClsIds[Exclude<keyof TXR_ClsIds, "prototype" | "constructor">]
+  type TXR_ClsIds = typeof XR_clsid;
+  type TXR_ClsKey = keyof TXR_ClsIds;
+  type TXR_ClsId = TXR_ClsIds[Exclude<keyof TXR_ClsIds, "prototype" | "constructor">];
 
   /**
 

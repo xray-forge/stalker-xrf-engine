@@ -67,8 +67,24 @@ declare module "xray16" {
   export const action_planner: typeof XR_action_planner;
   export const planner_action: typeof XR_planner_action;
 
+  export const cse_alife_item: typeof XR_cse_alife_item;
+  export const cse_alife_inventory_box: typeof XR_cse_alife_inventory_box;
+  export const cse_alife_item_explosive: typeof XR_cse_alife_item_explosive;
+  export const cse_alife_item_ammo: typeof XR_cse_alife_item_ammo;
+  export const cse_alife_item_pda: typeof XR_cse_alife_item_pda;
+  export const cse_alife_item_detector: typeof XR_cse_alife_item_detector;
+  export const cse_alife_item_torch: typeof XR_cse_alife_item_torch;
+  export const cse_alife_item_grenade: typeof XR_cse_alife_item_grenade;
   export const cse_alife_creature_abstract: typeof XR_cse_alife_creature_abstract;
   export const cse_alife_item_custom_outfit: typeof XR_cse_alife_item_custom_outfit;
+  export const cse_alife_item_helmet: typeof XR_cse_alife_item_helmet;
+  export const cse_alife_item_weapon: typeof XR_cse_alife_item_weapon;
+  export const cse_alife_item_weapon_magazined: typeof XR_cse_alife_item_weapon_magazined;
+  export const cse_alife_item_weapon_magazined_w_gl: typeof XR_cse_alife_item_weapon_magazined_w_gl;
+  export const cse_alife_item_weapon_auto_shotgun: typeof XR_cse_alife_item_weapon_auto_shotgun;
+  export const cse_alife_item_weapon_shotgun: typeof XR_cse_alife_item_weapon_shotgun;
+  export const cse_alife_object_physic: typeof XR_cse_alife_object_physic;
+  export const cse_alife_object_hanging_lamp: typeof XR_cse_alife_object_hanging_lamp;
 
   export const ini_file: typeof XR_ini_file;
   export const clsid: typeof XR_clsid;

@@ -1,9 +1,9 @@
 [common]
 script 						= _G
 levels 						=
-class_registrators 			= class_registrator.register, game_registrator.register ;, test_global_registrator
-game_type_clsid_factory		= game_registrator.get_game_clsid
-ui_type_clsid_factory		= ui_registrator.get_ui_clsid
+class_registrators 			= _register.register_classes
+game_type_clsid_factory		= _register.get_game_clsid
+ui_type_clsid_factory		= _register.get_ui_clsid
 
 [single]
 script = ;level_weathers  ������ ������ ���������� �� ������ ������ � ���������� ������. ��������� ������ �����.

@@ -9,8 +9,8 @@ import {
   time_global
 } from "xray16";
 
-import { alife_infos } from "@/mod/globals/alife_infos";
 import { captions } from "@/mod/globals/captions";
+import { info_portions } from "@/mod/globals/info_portions";
 import { levels } from "@/mod/globals/levels";
 import { map_mark_type, npc_map_marks } from "@/mod/globals/npc_map_marks";
 import { story_ids } from "@/mod/globals/story_ids";
@@ -118,35 +118,35 @@ const changeObjects: LuaTable<number, { target: string; hint: string; zone: stri
       target: story_ids.jup_b32_spot,
       hint: captions.st_jup_b32_name,
       zone: "jup_b32_anomal_zone",
-      group: alife_infos.jup_b32_scanner_1_placed,
+      group: info_portions.jup_b32_scanner_1_placed,
       enabled: false
     },
     {
       target: story_ids.jup_b201_spot,
       hint: captions.st_jup_b201_name,
       zone: "jup_b201_anomal_zone",
-      group: alife_infos.jup_b32_scanner_2_placed,
+      group: info_portions.jup_b32_scanner_2_placed,
       enabled: false
     },
     {
       target: story_ids.jup_b209_spot,
       hint: captions.st_jup_b209_name,
       zone: "jup_b209_anomal_zone",
-      group: alife_infos.jup_b32_scanner_3_placed,
+      group: info_portions.jup_b32_scanner_3_placed,
       enabled: false
     },
     {
       target: story_ids.jup_b211_spot,
       hint: captions.st_jup_b211_name,
       zone: "jup_b211_anomal_zone",
-      group: alife_infos.jup_b32_scanner_4_placed,
+      group: info_portions.jup_b32_scanner_4_placed,
       enabled: false
     },
     {
       target: story_ids.jup_b1_spot,
       hint: captions.st_jup_b1_name,
       zone: "jup_b10_anomal_zone",
-      group: alife_infos.jup_b32_scanner_5_placed,
+      group: info_portions.jup_b32_scanner_5_placed,
       enabled: false
     }
   ] as any;
@@ -290,7 +290,7 @@ export class MapDisplayManager extends AbstractSingletonManager {
   }
 
   public updateAnomaliesZones(): void {
-    if (hasAlifeInfo(alife_infos.jup_b32_scanner_reward)) {
+    if (hasAlifeInfo(info_portions.jup_b32_scanner_reward)) {
       for (const [k, v] of changeObjects) {
         v.enabled = hasAlifeInfo(v.group);
       }

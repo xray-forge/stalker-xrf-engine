@@ -30,6 +30,8 @@ _G.declare_xr_class = function(name, base, implementation)
 
   local global_declaration = _G[name];
 
+  global_declaration.__class_name = name
+
   -- Apply implementation immediately if it is provided
   if implementation ~= nil then
     for k, v in pairs(implementation) do

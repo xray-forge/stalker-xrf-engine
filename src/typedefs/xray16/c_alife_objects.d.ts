@@ -154,8 +154,8 @@ declare module "xray16" {
     public switch_offline(): void;
     public switch_online(): void;
 
-    public static keep_saved_data_anyway(this: void, target: XR_cse_alife_dynamic_object): unknown;
-    public keep_saved_data_anyway(): unknown;
+    public static keep_saved_data_anyway(this: void, target: XR_cse_alife_dynamic_object): boolean;
+    public keep_saved_data_anyway(): boolean;
 
     public static on_register(this: void, target: XR_cse_alife_dynamic_object): void;
     public on_register(): void;
@@ -374,6 +374,13 @@ declare module "xray16" {
   }
 
   /**
+   * C++ class cse_alife_item_helmet : cse_alife_item {
+   * @customConstructor cse_alife_item_helmet
+   */
+  export class XR_cse_alife_item_helmet extends XR_cse_alife_item {
+  }
+
+  /**
    * C++ class cse_alife_item_document : cse_alife_item {
    * @customConstructor cse_alife_item_document
    */
@@ -399,6 +406,13 @@ declare module "xray16" {
    * @customConstructor cse_alife_item_pda
    */
   export class XR_cse_alife_item_pda extends XR_cse_alife_item {
+  }
+
+  /**
+   * C++ class cse_alife_item_detector : cse_alife_item {
+   * @customConstructor cse_alife_item_detector
+   */
+  export class XR_cse_alife_item_detector extends XR_cse_alife_item {
   }
 
   /**

@@ -107,15 +107,9 @@ To use X-Ray engine globals direct import from "xray16" nodule required. <br/>
 After transpiling process import statements will be stripped and transformed to globals.
 
 - [XRay typedefs](src/typedefs/xray16)
-
-  - [xray core](src/typedefs/xray16/c_core)
-  - [xray game objects](src/typedefs/xray16/c_game_objects)
-  - [xray logic](src/typedefs/xray16/c_logic)
-  - [xray ui](src/typedefs/xray16/c_ui)
-  - [xray constants](src/typedefs/xray16/c_constants.d.ts)
-  - [xray global](src/typedefs/xray16/c_global.d.ts)
-  - [xray utils](src/typedefs/xray16/c_utils.d.ts)
-
+- [Lua](https://www.npmjs.com/package/lua-types)
+- [TSTL language extension](https://www.npmjs.com/package/@typescript-to-lua/language-extensions)
+ 
 For types correction and validation: [Open X-Ray source code](https://github.com/OpenXRay/xray-16)
 
 ---

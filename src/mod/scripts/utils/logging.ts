@@ -23,7 +23,7 @@ export class LuaLogger {
     this.logAs("[INFO]", args);
   }
 
-  public table(table: LuaTable, sub: string = ""): void {
+  public table(table: LuaTable<any, any>, sub: string = ""): void {
     if (gameConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
       if (table === null) {
         return this.info("[TABLE]: null");

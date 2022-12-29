@@ -10,6 +10,8 @@ declare module "xray16" {
     public static __finalize(this: void): void;
     public static __call(this: void): void;
 
+    public __class_name: string;
+
     public __init(...args: Array<any>): void;
     public __finalize(): void;
     public __call(args: Array<any>): void;
@@ -219,8 +221,18 @@ declare module "xray16" {
    * @customConstructor object_factory
    */
   export class XR_object_factory {
-    public register(client_class: string, server_class: string, clsid: string, script_clsid: string): void;
-    public register(unknown_class: string, clsid: string, script_clsid: string): void;
+    public register(
+      client_object_class: string,
+      server_object_class: string,
+      clsid: string,
+      script_clsid: TXR_ClsKey
+    ): void;
+
+    public register(
+      client_object_class: string,
+      clsid: string,
+      script_clsid: TXR_ClsKey
+    ): void;
   }
 
   /**

@@ -293,5 +293,4 @@ export function sleep(): void {
 // @ts-ignore Todo: Get rid of globals
 main = () => {
   log.info("[main] Call sleep from main");
-  sleep();
 };

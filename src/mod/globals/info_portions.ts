@@ -1,0 +1,33 @@
+/* eslint sort-keys-fix/sort-keys-fix: "error"*/
+
+export const info_portions = {
+  balance_advocate_gained: "balance_advocate_gained",
+  jup_a10_vano_agree_go_und: "jup_a10_vano_agree_go_und",
+  jup_b16_oasis_artefact_to_scientist: "jup_b16_oasis_artefact_to_scientist",
+  jup_b218_monolith_hired: "jup_b218_monolith_hired",
+  jup_b218_soldier_hired: "jup_b218_soldier_hired",
+  jup_b32_scanner_1_placed: "jup_b32_scanner_1_placed",
+  jup_b32_scanner_2_placed: "jup_b32_scanner_2_placed",
+  jup_b32_scanner_3_placed: "jup_b32_scanner_3_placed",
+  jup_b32_scanner_4_placed: "jup_b32_scanner_4_placed",
+  jup_b32_scanner_5_placed: "jup_b32_scanner_5_placed",
+  jup_b32_scanner_reward: "jup_b32_scanner_reward",
+  kingpin_gained: "kingpin_gained",
+  mutant_hunter_achievement_gained: "mutant_hunter_achievement_gained",
+  one_of_the_lads_gained: "one_of_the_lads_gained",
+  pri_a16_vano_was_alive_when_removed: "pri_a16_vano_was_alive_when_removed",
+  pri_a16_wanderer_was_alive_when_removed: "pri_a16_wanderer_was_alive_when_removed",
+  pri_a28_actor_in_zone_stay: "pri_a28_actor_in_zone_stay",
+  pri_a28_army_leaved_alive: "pri_a28_army_leaved_alive",
+  pri_a28_koval_dead: "pri_a28_koval_dead",
+  pri_a28_sokolov_left_alive: "pri_a28_sokolov_left_alive",
+  pri_a28_strelok_dead: "pri_a28_strelok_dead",
+  pri_b301_save_zulus_complete: "pri_b301_save_zulus_complete",
+  pri_b35_task_running: "pri_b35_task_running",
+  research_man_gained: "research_man_gained",
+  sim_duty_help_harder: "sim_duty_help_harder",
+  sim_freedom_help_harder: "sim_freedom_help_harder",
+  zat_b18_noah_met: "zat_b18_noah_met",
+  zat_b44_tech_buddies_both_told: "zat_b44_tech_buddies_both_told",
+  zat_b57_bloodsucker_lair_clear: "zat_b57_bloodsucker_lair_clear"
+};

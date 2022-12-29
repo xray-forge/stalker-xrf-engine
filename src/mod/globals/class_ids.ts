@@ -1,5 +1,3 @@
-import { communities } from "@/mod/globals/communities";
-
 export const class_ids = {
   actor: 90,
   art_bast_artefact: 0,
@@ -219,10 +217,6 @@ export const class_ids = {
   zone_rusty_hair: 213,
   zone_torrid_s: 203
 };
-
-export type TClassIds = typeof class_ids;
-
-export type TClassId = TClassIds[keyof TClassIds];
 
 export const monster_class_ids = {
   // --		[class_ids.cat_s] 					: true,
