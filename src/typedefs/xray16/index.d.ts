@@ -1,5 +1,3 @@
-import { XR_planner_action } from "xray16";
-
 declare module "xray16" {
   export const CScriptXmlInit: typeof XR_CScriptXmlInit;
   export const CUIWindow: typeof XR_CUIWindow;
@@ -49,10 +47,17 @@ declare module "xray16" {
   export const demo_info: typeof XR_demo_info;
   export const demo_player_info: typeof XR_demo_player_info;
 
+  export const object: typeof XR_object;
+  export const anim: typeof XR_anim;
+  export const move: typeof XR_move;
+  export const patrol: typeof XR_patrol;
+  export const look: typeof XR_look;
+
   export const game_object: typeof XR_game_object;
   export const object_binder: typeof XR_object_binder;
   export const entity_action: typeof XR_entity_action;
 
+  export const FactionState: typeof XR_FactionState;
   export const world_state: typeof XR_world_state;
   export const property_storage: typeof XR_property_storage;
   export const property_evaluator: typeof XR_property_evaluator;
@@ -69,23 +74,24 @@ declare module "xray16" {
   export const clsid: typeof XR_clsid;
   export const vector2: typeof XR_vector2;
   export const vector: typeof XR_vector;
-  export const move: typeof XR_move;
-  export const patrol: typeof XR_patrol;
-  export const fcolor: typeof XR_FColor;
-  export const stalker_ids: IXR_stalker_ids;
-  export const award_pair_t: XR_award_pair_t;
-  export const game_difficulty: XR_game_difficulty;
-  export const ui_events: IXR_ui_events;
-  export const callback: IXR_callback;
 
-  export const key_bindings: XR_key_bindings;
-  export const DIK_keys: IXR_DIK_keys;
-  export const GAME_TYPE: XR_GAME_TYPE;
+  export const fcolor: typeof XR_fcolor;
+  export const stalker_ids: typeof XR_stalker_ids;
+  export const award_pair_t: typeof XR_award_pair_t;
+  export const game_difficulty: typeof XR_game_difficulty;
+  export const ui_events: typeof XR_ui_events;
+  export const callback: typeof XR_callback;
+
+  export const key_bindings: typeof XR_key_bindings;
+  export const DIK_keys: typeof XR_DIK_keys;
+  export const GAME_TYPE: typeof XR_GAME_TYPE;
 
   export const FS: typeof XR_FS;
   export const CGameGraph: typeof XR_CGameGraph;
   export const CSightParams: typeof XR_CSightParams;
-  export const Frect: typeof XR_FRect;
+  export const Frect: typeof XR_Frect;
+
+  // Namespaces section:
 
   export const level: IXR_level;
   export const main_menu: IXR_main_menu;

@@ -17,7 +17,7 @@ declare module "xray16" {
     public SetWndPos(vector2: unknown): void;
     public SetAutoDelete(value: boolean): void;
     public SetPPMode(): void;
-    public SetWndRect(rect: XR_FRect): void;
+    public SetWndRect(rect: XR_Frect): void;
 
     public Enable(value: boolean): unknown;
     public AttachChild(child: XR_CUIWindow): void;
@@ -356,9 +356,9 @@ declare module "xray16" {
    */
   export class XR_CUIStatic extends XR_CUIWindow {
     public TextControl(): XR_CUILines;
-    public GetTextureRect(): XR_FRect;
+    public GetTextureRect(): XR_Frect;
     public SetStretchTexture(isStretched: boolean): void;
-    public SetTextureRect(frect: XR_FRect): void;
+    public SetTextureRect(frect: XR_Frect): void;
     public InitTexture(value: string): void;
   }
 

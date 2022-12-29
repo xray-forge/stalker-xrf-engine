@@ -1,9 +1,11 @@
+import { XR_game_object } from "xray16";
+
 declare module "xray16" {
   /**
    * C++ class world_state {
    * @customConstructor world_state
    * */
-  class XR_world_state {
+  export class XR_world_state extends XR_LuaBindBase {
     public constructor ();
     public constructor (world_state: XR_world_state);
 
@@ -18,7 +20,7 @@ declare module "xray16" {
    * C++ class property_storage {
    * @customConstructor property_storage
    */
-  export class XR_property_storage {
+  export class XR_property_storage extends XR_LuaBindBase {
     public property(value: number): unknown;
     public set_property(value1: number, value2: boolean): void;
   }
@@ -27,15 +29,15 @@ declare module "xray16" {
    * C++ class property_evaluator {
    * @customConstructor property_evaluator
    * */
-  class XR_property_evaluator {
-    public object: unknown;
+  export class XR_property_evaluator extends XR_LuaBindBase {
+    public object: XR_game_object;
     public storage: unknown;
 
     public constructor ();
     public constructor (game_object: XR_game_object);
     public constructor (game_object: XR_CGameObject, value: string);
 
-    public evaluate(): unknown;
+    public evaluate(): boolean;
     public setup(game_object: XR_game_object, property_storage: XR_property_storage): void;
   }
 
@@ -43,7 +45,7 @@ declare module "xray16" {
    * C++ class property_evaluator_const : property_evaluator {
    * @customConstructor property_evaluator_const
    * */
-  class XR_property_evaluator_const extends XR_property_evaluator {
+  export class XR_property_evaluator_const extends XR_property_evaluator {
     public constructor(value: boolean);
   }
 
@@ -51,7 +53,7 @@ declare module "xray16" {
    * C++ class world_property {
    * @customConstructor world_property
    * */
-  class XR_world_property {
+  export class XR_world_property extends XR_LuaBindBase {
     public constructor (value1: number, value2: boolean);
 
     public value(): unknown;
@@ -62,7 +64,7 @@ declare module "xray16" {
    * C++ class action_base {
    * @customConstructor action_base
    * */
-  class XR_action_base {
+  export class XR_action_base extends XR_LuaBindBase {
     public object: XR_game_object;
     public storage: unknown;
 
@@ -70,15 +72,23 @@ declare module "xray16" {
     public constructor (game_object: XR_game_object);
     public constructor (game_object: XR_game_object, value: string);
 
+    public static finalize(this: void, target: XR_action_base): void;
     public finalize(): void;
+
     public add_precondition(world_property: XR_world_property): void;
-    public execute(): unknown;
+
+    public static execute(this: void, target: XR_action_base): void;
+    public execute(): void;
+
     public remove_precondition(id: number): unknown;
     public setup(game_object: XR_game_object, property_storage: XR_property_storage): void;
     public set_weight(weight: number): unknown;
     public add_effect(world_property: XR_world_property): unknown;
     public show(value: string): void;
+
+    public static initialize(this: void, target: XR_action_base): void;
     public initialize(): void;
+
     public remove_effect(id: number): void;
   }
 
@@ -86,7 +96,7 @@ declare module "xray16" {
    * C++ class action_planner {
    * @customConstructor action_planner
    * */
-  class XR_action_planner {
+  export class XR_action_planner {
     public object: XR_game_object;
     public storage: unknown;
 
@@ -111,7 +121,7 @@ declare module "xray16" {
    * C++ class planner_action : action_planner,action_base {
    * @customConstructor planner_action
    * */
-  class XR_planner_action extends XR_action_planner {
+  export class XR_planner_action extends XR_action_planner {
     public constructor();
     public constructor (game_object: XR_game_object);
     public constructor (game_object: XR_game_object, value: string);
@@ -125,6 +135,34 @@ declare module "xray16" {
     public add_effect(world_property: XR_world_property): unknown;
     public initialize(): void;
     public remove_effect(id: number): void;
+  }
+
+  /**
+   * class entity_action {
+   * @customConstructor entity_action
+   */
+  export class XR_entity_action {
+    public constructor ();
+    public constructor (entity: XR_entity_action);
+
+    public set_action(move: unknown): void;
+    public set_action(look: unknown): void;
+    public set_action(anim: unknown): void;
+    public set_action(sound: unknown): void;
+    public set_action(particle: unknown): void;
+    public set_action(objec: unknown): void;
+    public set_action(cond: unknown): void;
+    public set_action(act: unknown): void;
+
+    public move(): unknown;
+    public particle(): unknown;
+    public completed(): unknown;
+    public object(): unknown;
+    public all(): unknown;
+    public time(): unknown;
+    public look(): unknown;
+    public sound(): unknown;
+    public anim(): unknown;
   }
 
   /**

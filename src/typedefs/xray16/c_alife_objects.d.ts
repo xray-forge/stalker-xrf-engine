@@ -150,7 +150,7 @@ declare module "xray16" {
    * C++ class cse_alife_dynamic_object : cse_alife_object {
    * @customConstructor cse_alife_dynamic_object
    */
-  class XR_cse_alife_dynamic_object extends XR_cse_alife_object {
+  export class XR_cse_alife_dynamic_object extends XR_cse_alife_object {
     public switch_offline(): void;
     public switch_online(): void;
 

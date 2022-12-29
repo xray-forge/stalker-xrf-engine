@@ -3,15 +3,15 @@ declare module "xray16" {
    * C++ class fcolor {
    * @customConstructor fcolor
    */
-  export class XR_FColor extends XR_LuaBindBase {
+  export class XR_fcolor extends XR_LuaBindBase {
     public a: number;
     public b: number;
     public g: number;
     public r: number;
 
-    public set(a: number, b: number, c: number, d: number): XR_FColor;
-    public set(it: XR_FColor): XR_FColor;
-    public set(value: number): XR_FColor;
+    public set(a: number, b: number, c: number, d: number): XR_fcolor;
+    public set(it: XR_fcolor): XR_fcolor;
+    public set(value: number): XR_fcolor;
   }
 
   /**
@@ -21,7 +21,7 @@ declare module "xray16" {
    * C++ class Frect {
    * @customConstructor Frect
    */
-  export class XR_FRect extends XR_LuaBindBase {
+  export class XR_Frect extends XR_LuaBindBase {
     public lt: number;
     public rb: number;
 
@@ -30,7 +30,7 @@ declare module "xray16" {
     public y1: number;
     public y2: number;
 
-    public set(x1: number, y1: number, x2: number, y2: number): XR_FRect;
+    public set(x1: number, y1: number, x2: number, y2: number): XR_Frect;
   }
 
   /**
@@ -115,7 +115,6 @@ declare module "xray16" {
   // todo;
 
   /**
-
    C++ class matrix {
     property _14_;
     property _24_;
@@ -374,15 +373,6 @@ declare module "xray16" {
   // todo;
 
   /**
-   * C++ class award_data {
-   * @customConstructor award_data
-   */
-  export class XR_award_data {
-    public m_count: number;
-    public m_last_reward_date: number;
-  }
-
-  /**
 
    C++ class token {
     property id;
@@ -409,15 +399,6 @@ declare module "xray16" {
   // todo;
 
   /**
-   * C++ class CGameFont {
-   */
-  export class XR_CGameFont {
-    public static alCenter: 2;
-    public static alLeft: 0;
-    public static alRight: 1;
-  }
-
-  /**
    * C++ class CGameGraph {
    * @customConstructor CGameGraph
    */
@@ -434,36 +415,6 @@ declare module "xray16" {
     public vertex_id(): number;
 
   }
-
-  /**
-   C++ class hit {
-    const burn = 0;
-    const chemical_burn = 2;
-    const dummy = 12;
-    const explosion = 7;
-    const fire_wound = 8;
-    const light_burn = 11;
-    const radiation = 3;
-    const shock = 1;
-    const strike = 5;
-    const telepatic = 4;
-    const wound = 6;
-
-    property direction;
-    property draftsman;
-    property impulse;
-    property power;
-    property type;
-
-    hit ();
-    hit (const hit*);
-
-    function bone(string);
-
-  };
-   */
-
-  // todo;
 
   /**
    C++ class act {
@@ -562,46 +513,6 @@ declare module "xray16" {
     function id(string);
 
     function add(string, number);
-
-  };
-   */
-
-  // todo;
-
-  /**
-   * C++ class GameGraph__CVertex {
-   */
-  export class XR_GameGraph__CVertex {
-    public level_vertex_id(): number;
-    public level_id(): number;
-    public game_point(): XR_vector;
-    public level_point(): XR_vector;
-  }
-
-  /**
-   C++ class FactionState {
-    property actor_goodwill;
-    property bonus;
-    property faction_id;
-    property icon;
-    property icon_big;
-    property location;
-    property member_count;
-    property name;
-    property power;
-    property resource;
-    property target;
-    property target_desc;
-    property war_state1;
-    property war_state2;
-    property war_state3;
-    property war_state4;
-    property war_state5;
-    property war_state_hint1;
-    property war_state_hint2;
-    property war_state_hint3;
-    property war_state_hint4;
-    property war_state_hint5;
 
   };
    */

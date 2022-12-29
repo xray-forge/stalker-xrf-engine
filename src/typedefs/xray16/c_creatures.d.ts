@@ -66,12 +66,6 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CMosquitoBald : CGameObject {
-   */
-  export class XR_CMosquitoBald extends XR_CGameObject {
-  }
-
-  /**
    * C++ class CAI_Bloodsucker : CGameObject {
    */
   export class XR_CAI_Bloodsucker extends XR_CGameObject {
@@ -112,5 +106,11 @@ declare module "xray16" {
    * C++ class CAI_Trader : CGameObject {
    */
   export class XR_CAI_Trader extends XR_CGameObject {
+  }
+
+  /**
+   * C++ class CSnork : CGameObject {
+   */
+  export class XR_CSnork extends XR_CGameObject {
   }
 }

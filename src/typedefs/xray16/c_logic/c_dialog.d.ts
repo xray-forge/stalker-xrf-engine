@@ -11,7 +11,7 @@ declare module "xray16" {
    * C++ class CGameTask {
    * @customConstructor CGameTask
    */
-  class XR_CGameTask {
+  export class XR_CGameTask {
     public get_id(): number;
     public set_priority(value: number): unknown;
     public set_title(value: string): unknown;

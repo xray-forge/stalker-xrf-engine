@@ -23,7 +23,7 @@ declare module "xray16" {
   export function command_line(this: void): string;
   export function getFS(this: void): XR_FS;
   export function valid_saved_game(this: void,filename: string): boolean;
-  export function get_console(this: void): IXR_CConsole;
+  export function get_console(this: void): XR_CConsole;
   export function GetFontGraffiti50Russian(this: void): unknown;
   export function app_ready(this: void): unknown;
   export function IsDynamicMusic(this: void): unknown;

@@ -18,6 +18,24 @@ declare module "xray16" {
   }
 
   /**
+   C++ class particle {
+      particle ();
+      particle (string, string);
+      particle (string, string, public static particle_params&);
+      particle (string, string, public static particle_params&, boolean);
+      particle (string, public static particle_params&);
+      particle (string, public static particle_params&, boolean);
+
+      function set_velocity(public static vector&);
+      function set_position(public static vector&);
+      function set_bone(string);
+      function set_angles(public static vector&);
+      function completed();
+      function set_particle(string, boolean);
+    };
+   */
+
+  /**
    C++ class physics_joint {
     function set_limits(number, number, number);
 
@@ -143,21 +161,4 @@ declare module "xray16" {
    */
   // todo;
 
-  /**
-
-   C++ class hit_memory_object : entity_memory_object {
-    property amount;
-    property bone_index;
-    property direction;
-    property last_level_time;
-    property level_time;
-    property object_info;
-    property self_info;
-
-    function object(const entity_memory_object&);
-
-  };
-   *
-   */
-  // todo;
 }

@@ -81,7 +81,7 @@ declare module "xray16" {
     public lookout_max_time(): unknown;
     public in_current_loophole_fov(vector: XR_vector): unknown;
     public disable_trade(): unknown;
-    public active_item(): unknown;
+    public active_item(): XR_game_object | null;
     public mental_state(): unknown;
     public clear_animations(): unknown;
     public can_throw_grenades(): unknown;
@@ -99,7 +99,7 @@ declare module "xray16" {
     public set_smart_cover_target_selector(cb: () => void, object: XR_game_object): unknown;
     public set_smart_cover_target_selector(): unknown;
     public debug_planner(action_planner: unknown): unknown;
-    public best_weapon(): unknown;
+    public best_weapon(): XR_game_object | null;
     public active_slot(): unknown;
     public who_hit_section_name(): unknown;
     public inventory_for_each(cb: () => void): unknown;
@@ -107,7 +107,10 @@ declare module "xray16" {
     public relation(game_object: XR_game_object): unknown;
     public set_previous_point(point: number): unknown;
     public set_item(action: unknown /* enum MonsterSpace::EObjectAction */): unknown;
-    public set_item(action: unknown /* enum MonsterSpace::EObjectAction */, game_object: XR_game_object): unknown;
+    public set_item(
+      action: unknown /* enum MonsterSpace::EObjectAction */,
+      game_object: XR_game_object | null
+    ): unknown;
     public set_item(
       action: unknown /* enum MonsterSpace::EObjectAction */,
       game_object: XR_game_object,
@@ -165,7 +168,10 @@ declare module "xray16" {
     public set_start_point(point: number): unknown;
     public set_fov(fov: number): unknown;
     public set_path_type(type: unknown /** enum MovementManager::EPathType */): unknown;
-    public weapon_strapped(): unknown;
+
+    public weapon_strapped(): boolean;
+    public weapon_unstrapped(): boolean;
+
     public get_ammo_total(): unknown;
     public best_danger(): unknown;
     public restore_max_ignore_monster_distance(): unknown;
@@ -298,7 +304,7 @@ declare module "xray16" {
     public set_character_community(value1: string, value2: number, value3: number): unknown;
     public take_items_enabled(value: boolean): unknown;
     public take_items_enabled(): unknown;
-    public set_sight(type: TXR_SightType, vector: XR_vector, value: number): unknown;
+    public set_sight(type: TXR_SightType, vector: XR_vector | null, value: number): unknown;
     public set_sight(
       type: TXR_SightType, value1: XR_vector, value2: boolean, value3: boolean
     ): unknown;
@@ -318,7 +324,6 @@ declare module "xray16" {
     public disable_hit_marks(): void;
     public is_there_items_to_pickup(): unknown;
     public location_on_path(value: number, vector: XR_vector): unknown;
-    public weapon_unstrapped(): unknown;
     public sound_prefix(): unknown;
     public sound_prefix(value: string): unknown;
     public set_task_state(state: unknown /** enum ETaskState */, value: string): unknown;
@@ -432,7 +437,7 @@ declare module "xray16" {
     public get_enemy(): unknown;
     public set_callback(type: TXR_callback, cb?: (() => void) | null, object?: XR_object_binder | null): void;
     public set_callback(
-      type: IXR_callback["death"],
+      type: TXR_callback,
       cb?: (victim: XR_game_object, killer: XR_game_object) => void,
       object?: XR_object_binder
     ): void;
@@ -454,7 +459,7 @@ declare module "xray16" {
     public give_game_news(
       caption: string, news_text: string, texture: string, timeout: number, show_time: number, value6: number
     ): void;
-    public best_enemy(): unknown;
+    public best_enemy(): XR_game_object | null;
     public death_time(): unknown;
     public get_visibility_state(): unknown;
     public center(): unknown;
@@ -526,591 +531,23 @@ declare module "xray16" {
     public action_by_index(value: number): unknown;
   }
 
-  /**
-   C++ class CSnork : CGameObject {
-    CSnork ();
-
-    function Visual() const;
-
-    function _construct();
-
-    function getEnabled() const;
-
-    function net_Import(net_packet&);
-
-    function net_Export(net_packet&);
-
-    function getVisible() const;
-
-    function net_Spawn(cse_abstract*);
-
-    function use(CGameObject*);
-
-  };
-   */
-  // todo;
-
-  /**
-   C++ class CSpaceRestrictor : CGameObject {
-    CSpaceRestrictor ();
-
-    function Visual() const;
-
-    function _construct();
-
-    function getEnabled() const;
-
-    function net_Import(net_packet&);
-
-    function net_Export(net_packet&);
-
-    function getVisible() const;
-
-    function net_Spawn(cse_abstract*);
-
-    function use(CGameObject*);
-
-  };
-   */
-  // todo;
-
-  /**
-   C++ class CStalkerOutfit : CGameObject {
-    CStalkerOutfit ();
-
-    function Visual() const;
-
-    function _construct();
-
-    function getEnabled() const;
-
-    function net_Import(net_packet&);
-
-    function net_Export(net_packet&);
-
-    function getVisible() const;
-
-    function net_Spawn(cse_abstract*);
-
-    function use(CGameObject*);
-
-  };
-   */
-  // todo;
-
-  /**
-   C++ class CTorch : CGameObject {
-    CTorch ();
-
-    function Visual() const;
-
-    function _construct();
-
-    function getEnabled() const;
-
-    function net_Import(net_packet&);
-
-    function net_Export(net_packet&);
-
-    function getVisible() const;
-
-    function net_Spawn(cse_abstract*);
-
-    function use(CGameObject*);
-
-  };
-   */
-  // todo;
-
-  /**
-   C++ class CTorridZone : CGameObject {
-    CTorridZone ();
-
-    function Visual() const;
-
-    function _construct();
-
-    function getEnabled() const;
-
-    function net_Import(net_packet&);
-
-    function net_Export(net_packet&);
-
-    function getVisible() const;
-
-    function net_Spawn(cse_abstract*);
-
-    function use(CGameObject*);
-
-  };
-   */
-  // todo;
-
-  /**
-   * C++ class CZoneCampfire : CGameObject {
+   /**
+   * C++ class CSpaceRestrictor : CGameObject {
    * @customConstructor CZoneCampfire
-   * */
-  class XR_CZoneCampfire extends XR_CGameObject {
-    public is_on(): boolean;
-    public turn_on(): void;
-    public turn_off(): void;
+   */
+  export class XR_CSpaceRestrictor extends XR_CGameObject {
   }
-
-  /**
-   C++ class CCar : CGameObject,holder {
-    const eWpnActivate = 3;
-    const eWpnAutoFire = 5;
-    const eWpnDesiredDir = 1;
-    const eWpnDesiredPos = 2;
-    const eWpnFire = 4;
-    const eWpnToDefaultDir = 6;
-
-    CCar ();
-
-    function _construct();
-
-    function GetfHealth() const;
-
-    function CurrentVel();
-
-    function getVisible() const;
-
-    function net_Spawn(cse_abstract*);
-
-    function SetParam(number, vector);
-
-    function net_Export(net_packet&);
-
-    function Visual() const;
-
-    function IsObjectVisible(game_object*);
-
-    function SetExplodeTime(number);
-
-    function net_Import(net_packet&);
-
-    function HasWeapon();
-
-    function SetfHealth(number);
-
-    function engaged();
-
-    function ExplodeTime();
-
-    function FireDirDiff();
-
-    function CarExplode();
-
-    function CanHit();
-
-    function getEnabled() const;
-
-    function Action(number, number);
-
-    function use(CGameObject*);
-
-  };
-   */
-  // todo;
-
-  /**
-   C++ class CGrenadeLauncher : CGameObject {
-    CGrenadeLauncher ();
-
-    function Visual() const;
-
-    function _construct();
-
-    function getEnabled() const;
-
-    function net_Import(net_packet&);
-
-    function net_Export(net_packet&);
-
-    function getVisible() const;
-
-    function net_Spawn(cse_abstract*);
-
-    function use(CGameObject*);
-
-  };
-   */
-  // todo;
-
-  /**
-   C++ class CHelicopter : CGameObject {
-    const eAlive = 0;
-    const eBodyByPath = 0;
-    const eBodyToPoint = 1;
-    const eDead = 1;
-    const eEnemyEntity = 2;
-    const eEnemyNone = 0;
-    const eEnemyPoint = 1;
-    const eMovLanding = 4;
-    const eMovNone = 0;
-    const eMovPatrolPath = 2;
-    const eMovRoundPath = 3;
-    const eMovTakeOff = 5;
-    const eMovToPoint = 1;
-
-    property m_dead;
-    property m_exploded;
-    property m_flame_started;
-    property m_light_started;
-    property m_max_mgun_dist;
-    property m_max_rocket_dist;
-    property m_min_mgun_dist;
-    property m_min_rocket_dist;
-    property m_syncronize_rocket;
-    property m_time_between_rocket_attack;
-    property m_use_mgun_on_attack;
-    property m_use_rocket_on_attack;
-
-    CHelicopter ();
-
-    function _construct();
-
-    function SetSpeedInDestPoint(number);
-
-    function getVisible() const;
-
-    function LookAtPoint(vector, boolean);
-
-    function GetRealAltitude();
-
-    function GetCurrVelocity();
-
-    function SetLinearAcc(number, number);
-
-    function GoPatrolByPatrolPath(string, number);
-
-    function GetSpeedInDestPoint(number);
-
-    function isVisible(game_object*);
-
-    function net_Import(net_packet&);
-
-    function SetMaxVelocity(number);
-
-    function SetfHealth(number);
-
-    function GetMovementState();
-
-    function SetEnemy(game_object*);
-    function SetEnemy(vector*);
-
-    function getEnabled() const;
-
-    function GetfHealth() const;
-
-    function Explode();
-
-    function SetOnPointRangeDist(number);
-
-    function SetFireTrailLength(number);
-
-    function GetOnPointRangeDist();
-
-    function GetMaxVelocity();
-
-    function TurnLighting(boolean);
-
-    function SetBarrelDirTolerance(number);
-
-    function GetBodyState();
-
-    function GetCurrVelocityVec();
-
-    function net_Export(net_packet&);
-
-    function SetDestPosition(vector*);
-
-    function UseFireTrail();
-    function UseFireTrail(boolean);
-
-    function GoPatrolByRoundPath(vector, number, boolean);
-
-    function net_Spawn(cse_abstract*);
-
-    function GetState();
-
-    function Die();
-
-    function StartFlame();
-
-    function Visual() const;
-
-    function GetDistanceToDestPosition();
-
-    function GetHuntState();
-
-    function TurnEngineSound(boolean);
-
-    function GetSafeAltitude();
-
-    function ClearEnemy();
-
-    function use(CGameObject*);
-
-  };
-   */
-  // todo;
-  /**
-   C++ class CPda : CGameObject {
-    CPda ();
-
-    function Visual() const;
-
-    function _construct();
-
-    function getEnabled() const;
-
-    function net_Import(net_packet&);
-
-    function net_Export(net_packet&);
-
-    function getVisible() const;
-
-    function net_Spawn(cse_abstract*);
-
-    function use(CGameObject*);
-
-  };
-   */
-  // todo;
-  /**
-   C++ class CPhysicObject : CGameObject {
-    CPhysicObject ();
-    function set_door_ignore_dynamics();
-    function _construct();
-    function getVisible() const;
-    function net_Spawn(cse_abstract*);
-    function play_bones_sound();
-    function run_anim_back();
-    function net_Export(net_packet&);
-    function Visual() const;
-    function unset_door_ignore_dynamics();
-    function net_Import(net_packet&);
-    function run_anim_forward();
-    function stop_anim();
-    function anim_time_get();
-    function getEnabled() const;
-    function anim_time_set(number);
-    function stop_bones_sound();
-    function use(CGameObject*);
-  };
-   */
-  // todo;
-  /**
-   C++ class CExplosiveItem : CGameObject {
-    CExplosiveItem ();
-    function Visual() const;
-    function _construct();
-    function getEnabled() const;
-    function net_Import(net_packet&);
-    function net_Export(net_packet&);
-    function getVisible() const;
-    function net_Spawn(cse_abstract*);
-    function use(CGameObject*);
-  };
-   */
-  // todo;
-  /**
-   C++ class CF1 : CGameObject {
-    CF1 ();
-    function Visual() const;
-    function _construct();
-    function getEnabled() const;
-    function net_Import(net_packet&);
-    function net_Export(net_packet&);
-    function getVisible() const;
-    function net_Spawn(cse_abstract*);
-    function use(CGameObject*);
-  };
-   */
-  // todo;
-  /**
-   C++ class CFracture : CGameObject {
-    CFracture ();
-    function Visual() const;
-    function _construct();
-    function getEnabled() const;
-    function net_Import(net_packet&);
-    function net_Export(net_packet&);
-    function getVisible() const;
-    function net_Spawn(cse_abstract*);
-    function use(CGameObject*);
-  };
-   */
-  // todo;
-  /**
-   C++ class CHairsZone : CGameObject {
-    CHairsZone ();
-    function Visual() const;
-    function _construct();
-    function getEnabled() const;
-    function net_Import(net_packet&);
-    function net_Export(net_packet&);
-    function getVisible() const;
-    function net_Spawn(cse_abstract*);
-    function use(CGameObject*);
-  };
-   */
-  // todo;
-  /**
-   C++ class hanging_lamp : CGameObject {
-    hanging_lamp ();
-    function Visual() const;
-    function getEnabled() const;
-    function net_Import(net_packet&);
-    function getVisible() const;
-    function net_Spawn(cse_abstract*);
-    function turn_on();
-    function turn_off();
-    function net_Export(net_packet&);
-    function _construct();
-    function use(CGameObject*);
-  };
-   */
-  // todo;
-  /**
-   C++ class holder {
-    function engaged();
-    function Action(number, number);
-    function SetParam(number, vector);
-  };
-   */
-  // todo;
-  /**
-   C++ class CInventoryBox : CGameObject {
-    CInventoryBox ();
-
-    function Visual() const;
-    function _construct();
-    function getEnabled() const;
-    function net_Import(net_packet&);
-    function net_Export(net_packet&);
-    function getVisible() const;
-    function net_Spawn(cse_abstract*);
-    function use(CGameObject*);
-  };
-   */
-  // todo;
-  /**
-   C++ class CMincer : CGameObject {
-    CMincer ();
-
-    function Visual() const;
-    function _construct();
-    function getEnabled() const;
-    function net_Import(net_packet&);
-    function net_Export(net_packet&);
-    function getVisible() const;
-    function net_Spawn(cse_abstract*);
-    function use(CGameObject*);
-  };
-   */
-  // todo;
 
   /**
    * C++ class CLevelChanger : CGameObject {
    * @customConstructor CLevelChanger
    */
-  class XR_CLevelChanger extends XR_CGameObject {
+  export class XR_CLevelChanger extends XR_CGameObject {
   }
 
   /**
-   * class entity_action {
-   * @customConstructor entity_action
+   * C++ class smart_cover_object : CGameObject {
    */
-  export class XR_entity_action {
-    public constructor ();
-    public constructor (entity: XR_entity_action);
-
-    public set_action(move: unknown): void;
-    public set_action(look: unknown): void;
-    public set_action(anim: unknown): void;
-    public set_action(sound: unknown): void;
-    public set_action(particle: unknown): void;
-    public set_action(objec: unknown): void;
-    public set_action(cond: unknown): void;
-    public set_action(act: unknown): void;
-
-    public move(): unknown;
-    public particle(): unknown;
-    public completed(): unknown;
-    public object(): unknown;
-    public all(): unknown;
-    public time(): unknown;
-    public look(): unknown;
-    public sound(): unknown;
-    public anim(): unknown;
+  export class XR_smart_cover_object extends XR_CGameObject {
   }
-
-  /**
-   C++ class look {
-    const cur_dir = 0;
-    const danger = 5;
-    const direction = 2;
-    const fire_point = 10;
-    const path_dir = 1;
-    const point = 3;
-    const search = 6;
-
-    look ();
-    look (enum SightManager::ESightType);
-    look (enum SightManager::ESightType, vector&);
-    look (enum SightManager::ESightType, game_object*);
-    look (enum SightManager::ESightType, game_object*, string);
-    look (const vector&, number, number);
-    look (game_object*, number, number);
-
-    function completed();
-    function type(enum SightManager::ESightType);
-    function object(game_object*);
-    function bone(string);
-    function direct(const vector&);
-  };
-   */
-  // todo;
-
-  /**
-   C++ class smart_cover_object : CGameObject {
-    smart_cover_object ();
-
-    function Visual() const;
-    function _construct();
-    function getEnabled() const;
-    function net_Import(net_packet&);
-    function net_Export(net_packet&);
-    function getVisible() const;
-    function net_Spawn(cse_abstract*);
-    function use(CGameObject*);
-  };
-   */
-  // todo;
-
-  /**
-   C++ class CRadioactiveZone : CGameObject {
-    CRadioactiveZone ();
-
-    function Visual() const;
-    function _construct();
-    function getEnabled() const;
-    function net_Import(net_packet&);
-    function net_Export(net_packet&);
-    function getVisible() const;
-    function net_Spawn(cse_abstract*);
-    function use(CGameObject*);
-  };
-   */
-  // todo;
-
-  /**
-   C++ class explosive {
-    function explode();
-
-  };
-   */
-  // todo;
 }

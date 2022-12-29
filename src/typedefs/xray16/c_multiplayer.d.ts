@@ -1,5 +1,32 @@
 declare module "xray16" {
   /**
+   * C++ class demo_info {
+   * @customConstructor demo_info
+   */
+  export class XR_demo_info {
+    public get_map_name(): string;
+    public get_player(value: number): XR_demo_player_info;
+    public get_game_type(): string;
+    public get_players_count(): number;
+    public get_map_version(): string;
+    public get_author_name(): unknown;
+    public get_game_score(): string;
+  }
+
+  /**
+   * C++ class demo_player_info {
+   * @customConstructor demo_player_info
+   */
+  export class XR_demo_player_info {
+    public get_spots(): number;
+    public get_name() : string;
+    public get_rank(): number;
+    public get_artefacts(): number;
+    public get_team(): number;
+    public get_deaths(): number;
+    public get_frags(): number;
+  }
+  /**
    * C++ class SServerFilters {
    * @customConstructor SServerFilters
    */
@@ -10,6 +37,14 @@ declare module "xray16" {
     public with_pass: boolean;
     public without_ff: boolean;
     public without_pass: boolean;
+  }
+
+  /**
+   * C++ class profile {
+   */
+  export class XR_profile {
+    public unique_nick(): string;
+    public online(): boolean;
   }
 
   /**
@@ -177,5 +212,14 @@ declare module "xray16" {
     public get_awards(): LuaIterable<XR_award_pair_t>;
     public stop_loading(): unknown;
     public load_current_profile(onProgress: XR_store_operation_cb, onComlete: XR_store_operation_cb): unknown;
+  }
+
+  /**
+   * C++ class award_data {
+   * @customConstructor award_data
+   */
+  export class XR_award_data {
+    public m_count: number;
+    public m_last_reward_date: number;
   }
 }

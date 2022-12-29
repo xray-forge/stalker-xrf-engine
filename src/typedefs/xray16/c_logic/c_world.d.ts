@@ -1,5 +1,4 @@
 declare module "xray16" {
-
    /**
     C++ class cover_point {
      function level_vertex_id() const;
@@ -8,6 +7,7 @@ declare module "xray16" {
    };
     */
    // todo;
+
    /**
     C++ class CDestroyablePhysicsObject : CGameObject {
      CDestroyablePhysicsObject ();

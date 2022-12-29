@@ -97,37 +97,6 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class patrol {
-   * @customConstructor patrol
-   */
-  export class XR_patrol {
-    public static continue: 1;
-    public static custom : 3;
-    public static dummy:-1;
-    public static nearest: 2;
-    public static next : 4;
-    public static start : 0;
-    public static stop: 0;
-
-    public constructor (value: string);
-    public constructor (value: string, startType: unknown);
-    public constructor (value: string, startType: unknown, routeType: unknown);
-    public constructor (values: string, startType: unknown, routeType: unknown, valueb: boolean)
-    public constructor (valueS: string, startType: unknown, routeType: unknown, valueB: boolean, valueN: number);
-
-    public level_vertex_id(value: number): unknown;
-    public point(value: number): XR_vector;
-    public flag(value1: number, value2: number): unknown;
-    public game_vertex_id(value: number): unknown;
-    public flags(value: number): unknown;
-    public name(value: number): unknown;
-    public index(value: string): unknown;
-    public terminal(value: number): unknown;
-    public count(): number;
-    public get_nearest(vector: XR_vector): unknown;
-  }
-
-  /**
    * C++ class CALifeSmartTerrainTask {
    * @customConstructor CALifeSmartTerrainTask
    */
@@ -140,4 +109,65 @@ declare module "xray16" {
     public position(): XR_vector;
     public game_vertex_id(): number;
   }
+
+  /**
+   C++ class danger_object {
+    const attack_sound = 1;
+    const attacked = 5;
+    const bullet_ricochet = 0;
+    const enemy_sound = 7;
+    const entity_attacked = 2;
+    const entity_corpse = 4;
+    const entity_death = 3;
+    const grenade = 6;
+    const hit = 2;
+    const sound = 1;
+    const visual = 0;
+
+    function type() const;
+
+    function time() const;
+
+    operator ==(const danger_object&, danger_object);
+
+    function position(const danger_object*);
+
+    function object(const danger_object*);
+
+    function perceive_type() const;
+
+    function dependent_object(const danger_object*);
+
+   */
+  // todo;
+
+  /**
+   C++ class hit {
+    const burn = 0;
+    const chemical_burn = 2;
+    const dummy = 12;
+    const explosion = 7;
+    const fire_wound = 8;
+    const light_burn = 11;
+    const radiation = 3;
+    const shock = 1;
+    const strike = 5;
+    const telepatic = 4;
+    const wound = 6;
+
+    property direction;
+    property draftsman;
+    property impulse;
+    property power;
+    property type;
+
+    hit ();
+    hit (const hit*);
+
+    function bone(string);
+
+  };
+   */
+
+  // todo;
 }
