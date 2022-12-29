@@ -4,7 +4,10 @@ import { AnomalyFieldBinder } from "@/mod/scripts/core/binders/AnomalyFieldBinde
 import { AnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
 import { ArtefactBinder } from "@/mod/scripts/core/binders/ArtefactBinder";
 import { CampBinder } from "@/mod/scripts/core/binders/CampBinder";
+import { CampfireBinder } from "@/mod/scripts/core/binders/CampfireBinder";
 import { CrowBinder } from "@/mod/scripts/core/binders/CrowBinder";
+import { LevelChangerBinder } from "@/mod/scripts/core/binders/LevelChangerBinder";
+import { SmartCoverBinder } from "@/mod/scripts/core/binders/SmartCoverBinder";
 import { SmartTerrainBinder } from "@/mod/scripts/core/binders/SmartTerrainBinder";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -20,16 +23,15 @@ list = {
   bindAnomalyField: createBinder(AnomalyFieldBinder),
   bindAnomalyZone: createBinder(AnomalyZoneBinder),
   bindArtefact: createBinder(ArtefactBinder),
-  bindCrow: createBinder(CrowBinder),
   bindCamp: createBinder(CampBinder),
+  bindCampfire: createBinder(CampfireBinder),
+  bindCrow: createBinder(CrowBinder),
+  bindLevelChanger: createBinder(LevelChangerBinder),
+  bindSmartCover: createBinder(SmartCoverBinder),
   bindSmartTerrain: (object: XR_game_object) => {
     const ini: XR_ini_file = object.spawn_ini();
 
-    if (ini === null) {
-      return;
-    }
-
-    if (ini.section_exist("gulag1") || ini.section_exist("smart_terrain")) {
+    if (ini !== null && (ini.section_exist("gulag1") || ini.section_exist("smart_terrain"))) {
       if (object.clsid() === clsid.smart_terrain) {
         if (alife() !== null) {
           object.bind_object(create_xr_class_instance(SmartTerrainBinder, object));

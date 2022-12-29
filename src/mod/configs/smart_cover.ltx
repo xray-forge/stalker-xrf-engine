@@ -3,7 +3,7 @@ GroupControlSection			= spawn_group_zone
 $spawn 						= "ai\smart_cover"
 $def_sphere					= 2
 $_render_if_selected
-class						= SMRT_C_S	
+class						= SMRT_C_S
 is_combat_cover				= 1
 shape_transp_color			= 0, 200, 200, 60 ;0x1800FF00
 shape_edge_color			= 32, 32, 32, 255 ;0xFF202020
@@ -13,7 +13,7 @@ exit_min_enemy_distance		= 10.0
 
 can_fire					= false
 
-script_binding              = bind_smart_cover.bind
+script_binding              = _bindings.list.bindSmartCover
 
 
 [smart_covers_animation_offsets]

@@ -213,4 +213,20 @@ declare module "xray16" {
   };
    */
   // todo;
+
+  /**
+   C++ class CMosquitoBald : CGameObject {
+    CMosquitoBald ();
+
+    function Visual() const;
+    function _construct();
+    function getEnabled() const;
+    function net_Import(net_packet&);
+    function net_Export(net_packet&);
+    function getVisible() const;
+    function net_Spawn(cse_abstract*);
+    function use(CGameObject*);
+  };
+   */
+  // todo;
 }

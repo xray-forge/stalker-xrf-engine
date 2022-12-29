@@ -183,8 +183,8 @@ declare module "xray16" {
 
     public constructor(object: T);
 
-    public static save(this: void, target: XR_object_binder, net_packet: XR_net_packet): unknown;
-    public save(net_packet: XR_net_packet): unknown;
+    public static save(this: void, target: XR_object_binder, packet: XR_net_packet): void;
+    public save(packet: XR_net_packet): void;
 
     public static update(this: void, target: XR_object_binder, value: number): void;
     public update(delta: number): void;
@@ -198,7 +198,7 @@ declare module "xray16" {
     public net_save_relevant(this: void, target: XR_object_binder): boolean;
     public net_save_relevant(): boolean;
 
-    public static load(this: void, target: XR_object_binder, net_packet: XR_net_packet): void;
+    public static load(this: void, target: XR_object_binder, packet: XR_net_packet): void;
     public load(packet: XR_net_packet): void;
 
     public static net_destroy(this: void, target: XR_object_binder): void;
@@ -214,10 +214,10 @@ declare module "xray16" {
       ): void;
     public net_Relcase(object: T): void;
 
-    public static net_spawn(
+    public static net_spawn<ST extends XR_game_object = XR_game_object>(
         this: void,
         target: XR_object_binder,
-        cse_alife_object: XR_cse_alife_object
+        object: XR_cse_alife_object
       ): boolean;
     public net_spawn(object: XR_cse_alife_object): boolean;
 

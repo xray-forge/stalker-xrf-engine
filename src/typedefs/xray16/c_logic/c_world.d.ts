@@ -1,13 +1,7 @@
 declare module "xray16" {
    /**
-    C++ class property_storage {
-     property_storage ();
-
-     function property(const number&) const;
-
-     function set_property(const number&, const boolean&);
-
-   };
+    * C++ class property_storage {
+    * @customConstructor property_storage
     */
    export interface IXR_property_storage {
       property(value: number): unknown;
@@ -214,29 +208,7 @@ declare module "xray16" {
    };
     */
    // todo;
-   /**
-    C++ class CLevelChanger : CGameObject {
-     CLevelChanger ();
 
-     function Visual() const;
-
-     function _construct();
-
-     function getEnabled() const;
-
-     function net_Import(net_packet&);
-
-     function net_Export(net_packet&);
-
-     function getVisible() const;
-
-     function net_Spawn(cse_abstract*);
-
-     function use(CGameObject*);
-
-   };
-    */
-   // todo;
    /**
     C++ class client_spawn_manager {
      function remove(number, number);

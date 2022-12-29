@@ -1,3 +1,5 @@
+import { XR_vector } from "xray16";
+
 declare module "xray16" {
   /**
    * C++ class CGameObject : DLL_Pure,ISheduled,ICollidable,IRenderable {
@@ -197,7 +199,7 @@ declare module "xray16" {
     public sympathy(): unknown;
     public spawn_ini(): XR_ini_file;
     public drop_item_and_teleport(game_object: XR_game_object, vector: XR_vector): unknown;
-    public get_campfire(): unknown;
+    public get_campfire(): XR_CZoneCampfire;
     public get_movement_speed(): unknown;
     public set_body_state(state: unknown /** enum MonsterSpace::EBodyState */): unknown;
     public in_loophole_fov(value1: string, valu2:string, value3:XR_vector): unknown;
@@ -266,7 +268,7 @@ declare module "xray16" {
     public special_danger_move(value: boolean): unknown;
     public special_danger_move(): unknown;
     public is_level_changer_enabled(): unknown;
-    public enable_level_changer(value: boolean): unknown;
+    public enable_level_changer(value: boolean): void;
     public actor_look_at_point(vector: XR_vector): void;
     public make_item_active(game_object: XR_game_object): unknown;
     public set__force(vector: XR_vector, value1: number, value2: number): unknown;
@@ -279,7 +281,7 @@ declare module "xray16" {
     public set_trader_sound(value1: string, value2: string): unknown;
     public aim_time(game_object: XR_game_object, value: number): unknown;
     public aim_time(game_object: XR_game_object): unknown;
-    public direction(): unknown;
+    public direction(): XR_vector;
     public kill(game_object: XR_game_object): unknown;
     public cost(): unknown;
     public get_artefact(): XR_CArtefact;
@@ -396,7 +398,7 @@ declare module "xray16" {
     public profile_name(): unknown;
     public get_start_dialog(): unknown;
     public set_start_dialog(value: string): unknown;
-    public set_level_changer_invitation(value: string): unknown;
+    public set_level_changer_invitation(hint: string): unknown;
     public run_talk_dialog(game_object: XR_game_object, value: boolean): unknown;
     public weapon_scope_status(): unknown;
     public set_custom_panic_threshold(value: number): unknown;
@@ -645,34 +647,14 @@ declare module "xray16" {
   // todo;
 
   /**
-   C++ class CZoneCampfire : CGameObject {
-    CZoneCampfire ();
-
-    function Visual() const;
-
-    function getEnabled() const;
-
-    function net_Import(net_packet&);
-
-    function getVisible() const;
-
-    function net_Spawn(cse_abstract*);
-
-    function is_on();
-
-    function turn_on();
-
-    function turn_off();
-
-    function net_Export(net_packet&);
-
-    function _construct();
-
-    function use(CGameObject*);
-
-  };
-   */
-  // todo;
+   * C++ class CZoneCampfire : CGameObject {
+   * @customConstructor CZoneCampfire
+   * */
+  class XR_CZoneCampfire extends XR_CGameObject {
+    public is_on(): boolean;
+    public turn_on(): void;
+    public turn_off(): void;
+  }
 
   /**
    C++ class CCar : CGameObject,holder {
@@ -1029,21 +1011,13 @@ declare module "xray16" {
   };
    */
   // todo;
-  /**
-   C++ class CMosquitoBald : CGameObject {
-    CMosquitoBald ();
 
-    function Visual() const;
-    function _construct();
-    function getEnabled() const;
-    function net_Import(net_packet&);
-    function net_Export(net_packet&);
-    function getVisible() const;
-    function net_Spawn(cse_abstract*);
-    function use(CGameObject*);
-  };
+  /**
+   * C++ class CLevelChanger : CGameObject {
+   * @customConstructor CLevelChanger
    */
-  // todo;
+  class XR_CLevelChanger extends XR_CGameObject {
+  }
 
   /**
    * class entity_action {

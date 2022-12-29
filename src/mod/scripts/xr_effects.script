@@ -1337,16 +1337,6 @@ function anim_obj_stop(actor, npc, p)
 	end
 end
 
--- ������� ��� ������ � ��������� ������.
---[[
-function turn_on_fire_zone(actor, npc, p)
-	bind_campfire.fire_zones_table[ p[1] ]:turn_on()
-end
-
-function turn_off_fire_zone(actor, npc, p)
-	bind_campfire.fire_zones_table[ p[1] ]:turn_off()
-end
-]]--
 --'-----------------------------------------------------------------------------------
 --' ������� ��� ����������� �����
 --'-----------------------------------------------------------------------------------
