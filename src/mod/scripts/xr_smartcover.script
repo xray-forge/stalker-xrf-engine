@@ -1,6 +1,9 @@
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
+local SmartCover = require("scripts.se.SmartCover")
+
 local log = create_ts_class_instance(LuaLogger, "xr_smartcover");
+
 
 ----------------------------------------------------------------------------------------------------
 -- smartcovers
@@ -78,7 +81,7 @@ function action_smartcover_activity:activate_scheme()
 
 	--' ��������� cover_name , ���� get_param_string ������ �� ����� �� �������� ��� ������ �� �������������, �� ���� ������.
 	if self.cover_name ~= self.st.cover_name or used == false then
-		if se_smart_cover.registered_smartcovers[self.cover_name] == nil then
+		if SmartCover.registered_smartcovers[self.cover_name] == nil then
 			abort("There is no smart_cover with name [%s]", self.cover_name)
 		end
 

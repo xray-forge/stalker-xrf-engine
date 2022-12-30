@@ -18,17 +18,14 @@ export interface IAnomalyFieldBinder extends XR_object_binder {
 export const AnomalyFieldBinder: IAnomalyFieldBinder = declare_xr_class("AnomalyFieldBinder", object_binder, {
   delta: UPDATE_THROTTLE,
   __init(object: XR_game_object): void {
-    log.info("Init binder:", object.name(), object.id());
+    log.info("Init:", object.name(), object.id());
 
     xr_class_super(object);
   },
   reload(section: string): void {
-    log.info("Reload binder:", this.object.name(), this.object.id());
     object_binder.reload(this, section);
   },
   reinit(): void {
-    log.info("Reinit binder:", this.object.name(), this.object.id());
-
     object_binder.reinit(this);
 
     storage.set(this.object.id(), {});

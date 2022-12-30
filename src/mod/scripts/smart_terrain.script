@@ -1,5 +1,6 @@
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local CampfireBinder = require("scripts.core.binders.CampfireBinder")
+local SmartCover = require("scripts.se.SmartCover")
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 local log = create_ts_class_instance(LuaLogger, "smart_terrain");
 
@@ -507,7 +508,7 @@ function se_smart_terrain:load_jobs()
 
     elseif v.job_type == "smartcover_job" then -- ������ �������� ������������
       local smartcover_name = ltx:r_string(active_section, "cover_name")
-      local smartcover = se_smart_cover.registered_smartcovers[smartcover_name]
+      local smartcover = SmartCover.registered_smartcovers[smartcover_name]
       if smartcover == nil then
         abort("There is an exclusive job with wrong smatrcover name [%s]    smartterrain [%s]", tostring(smartcover_name), self:name())
       end

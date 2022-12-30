@@ -15,6 +15,7 @@ export const ItemArtefact: IItemArtefact = declare_xr_class("ItemArtefact", cse_
   },
   on_register(): void {
     cse_alife_item_artefact.on_register(this);
+    log.info("Register:", this.id, this.name(), this.section_name());
     checkSpawnIniForStoryId(this);
   },
   on_unregister(): void {

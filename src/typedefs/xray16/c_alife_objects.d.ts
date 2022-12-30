@@ -117,6 +117,9 @@ declare module "xray16" {
 
     public static STATE_Write(this: void, target: XR_cse_abstract, packet: XR_net_packet): void;
     public STATE_Write(packet: XR_net_packet): void;
+
+    public static FillProps(this: void, target: XR_cse_abstract, pref: string, items: unknown): void;
+    public FillProps(pref: string, items: LuaTable<number, unknown>): void;
   }
 
   /**
@@ -593,8 +596,9 @@ declare module "xray16" {
    * @customConstructor cse_smart_cover
    */
   export class XR_cse_smart_cover extends XR_cse_alife_dynamic_object {
-    public description(): string;
-    public set_available_loopholes(object: unknown): unknown;
+    public description(): string | null;
+    public set_available_loopholes(object: unknown): void;
+    public set_loopholes_table_checker(value: boolean): void;
   }
 
   /**

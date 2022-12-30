@@ -4,7 +4,7 @@ import { Optional } from "@/mod/lib/types";
 import { ActorProxy, IActorProxy } from "@/mod/scripts/core/ActorProxy";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("core/db", false);
+const log: LuaLogger = new LuaLogger("db", false);
 
 // todo: Separate file with DB objects
 // todo: Separate file with DB utils

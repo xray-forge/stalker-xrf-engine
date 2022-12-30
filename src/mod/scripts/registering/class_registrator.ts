@@ -26,6 +26,7 @@ import { ObjectHangingLamp } from "@/mod/scripts/se/items/ObjectHangingLamp";
 import { ObjectPhysic } from "@/mod/scripts/se/items/ObjectPhysic";
 import { LevelChanger } from "@/mod/scripts/se/LevelChanger";
 import { Monster } from "@/mod/scripts/se/Monster";
+import { SmartCover } from "@/mod/scripts/se/SmartCover";
 import { Stalker } from "@/mod/scripts/se/Stalker";
 import { MainMenu } from "@/mod/scripts/ui/menu/MainMenu";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -84,13 +85,7 @@ export function registerGameClasses(object_factory: XR_object_factory): void {
   clientServerRegister(object_factory, "CHelicopter", "se_heli.se_heli", "C_HLCP_S", "script_heli");
   clientServerRegister(object_factory, "ce_smart_zone", ZoneRestrictor.__name, "SPC_RS_S", "script_restr");
   clientServerRegister(object_factory, "CPhysicObject", ObjectPhysic.__name, "O_PHYS_S", "script_phys");
-  clientServerRegister(
-    object_factory,
-    "smart_cover_object",
-    "se_smart_cover.se_smart_cover",
-    "SMRT_C_S",
-    "smartcover_s"
-  );
+  clientServerRegister(object_factory, "smart_cover_object", SmartCover.__name, "SMRT_C_S", "smartcover_s");
   clientServerRegister(object_factory, "CDestroyablePhysicsObject", ObjectPhysic.__name, "O_DSTR_S", "destrphys_s");
   clientServerRegister(object_factory, "hanging_lamp", ObjectHangingLamp.__name, "SO_HLAMP", "hlamp_s");
 

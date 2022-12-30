@@ -138,12 +138,12 @@ export function setMarker(packet: XR_net_packet, mode: "save" | "load", check: b
       // log.info("Set save marker result:", result, dif, mode);
 
       if (dif >= 8000) {
-        log.info("May be problem with save point");
+        log.info("May be problem with save point:", prefix, dif);
         // printf("WARNING! may be this is problem save point")
       }
 
       if (dif >= 10240) {
-        log.info("Saving more than 10240");
+        log.info("Saving more than 10240:", prefix, dif);
         // --        abort("You are saving too much")
       }
 
@@ -167,7 +167,7 @@ export function setMarker(packet: XR_net_packet, mode: "save" | "load", check: b
     SAVE_MARKERS.set(result, packet.w_tell());
 
     if (packet.w_tell() > 16_000) {
-      abort("You are saving too much");
+      abort("You are saving too much in %s", prefix);
     }
   } else {
     // log.info("Set save marker result:", result, p.r_tell(), mode);

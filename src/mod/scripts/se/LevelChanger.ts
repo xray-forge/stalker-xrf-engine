@@ -16,16 +16,13 @@ export const LevelChanger: ILevelChanger = declare_xr_class("LevelChanger", cse_
   __init(section: string): void {
     xr_class_super(section);
 
-    log.info("Init new level changer:", this.name());
-
     this.enabled = true;
     this.hint = "level_changer_invitation";
   },
   on_register(): void {
     cse_alife_level_changer.on_register(this);
+    log.info("Register:", this.id, this.name(), this.section_name());
     checkSpawnIniForStoryId(this);
-
-    log.info("Register:", this.name());
   },
   on_unregister(): void {
     unregisterStoryObjectById(this.id);

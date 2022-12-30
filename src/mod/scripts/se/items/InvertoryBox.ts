@@ -20,7 +20,7 @@ export const InventoryBox: IInventoryBox = declare_xr_class("InventoryBox", cse_
   },
   on_register(): void {
     cse_alife_inventory_box.on_register(this);
-
+    log.info("Register:", this.id, this.name(), this.section_name());
     checkSpawnIniForStoryId(this);
 
     this.secret_item = getTreasureManager().register_item(this);

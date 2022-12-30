@@ -109,7 +109,7 @@ After transpiling process import statements will be stripped and transformed to 
 - [XRay typedefs](src/typedefs/xray16)
 - [Lua](https://www.npmjs.com/package/lua-types)
 - [TSTL language extension](https://www.npmjs.com/package/@typescript-to-lua/language-extensions)
- 
+
 For types correction and validation: [Open X-Ray source code](https://github.com/OpenXRay/xray-16)
 
 ---

@@ -136,9 +136,8 @@ export const Stalker: IStalker = declare_xr_class("Stalker", cse_alife_human_sta
   },
   on_before_register(): void {},
   on_register(): void {
-    log.info("Register:", this.name());
-
     cse_alife_human_stalker.on_register(this);
+    log.info("Register:", this.id, this.name(), this.section_name());
     checkSpawnIniForStoryId(this);
 
     const board = get_global("sim_board").get_sim_board();

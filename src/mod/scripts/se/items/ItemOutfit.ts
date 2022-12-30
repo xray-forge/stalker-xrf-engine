@@ -16,11 +16,12 @@ export interface IItemOutfit extends XR_cse_alife_item_custom_outfit {
 export const ItemOutfit: IItemOutfit = declare_xr_class("ItemOutfit", cse_alife_item_custom_outfit, {
   __init(section: string): void {
     xr_class_super(section);
+
     this.secret_item = false;
   },
   on_register(): void {
     cse_alife_item_custom_outfit.on_register(this);
-
+    log.info("Register:", this.id, this.name(), this.section_name());
     checkSpawnIniForStoryId(this);
 
     if (REGISTERED_ITEMS.get(this.section_name()) === null) {

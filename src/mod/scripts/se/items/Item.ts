@@ -21,7 +21,7 @@ export const Item: IItem = declare_xr_class("Item", cse_alife_item, {
   },
   on_register(): void {
     cse_alife_item.on_register(this);
-
+    log.info("Register:", this.id, this.name(), this.section_name());
     checkSpawnIniForStoryId(this);
 
     if (REGISTERED_ITEMS.get(this.section_name()) == null) {

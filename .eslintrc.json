@@ -12,7 +12,9 @@
         "plugin:import/typescript"
     ],
     "ignorePatterns": [
-        "target/**/*"
+        "target/**/*",
+        // Typescript plugins typing check cause eslint issues, takes too much time for few files
+        "cli/build/plugins/**/*"
     ],
     "parser": "@typescript-eslint/parser",
     "plugins": [

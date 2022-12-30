@@ -24,7 +24,7 @@ export const ItemWeaponAutomaticShotgun: IItemWeaponAutomaticShotgun = declare_x
     },
     on_register(): void {
       cse_alife_item_weapon_auto_shotgun.on_register(this);
-
+      log.info("Register:", this.id, this.name(), this.section_name());
       checkSpawnIniForStoryId(this);
 
       if (REGISTERED_ITEMS.get(this.section_name()) == null) {

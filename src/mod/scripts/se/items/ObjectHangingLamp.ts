@@ -18,11 +18,14 @@ export const ObjectHangingLamp: IObjectHangingLamp = declare_xr_class(
   {
     __init(section: string): void {
       xr_class_super(section);
+
       this.secret_item = false;
     },
     on_register(): void {
       cse_alife_object_hanging_lamp.on_register(this);
+      log.info("Register:", this.id, this.name(), this.section_name());
       checkSpawnIniForStoryId(this);
+
       this.secret_item = getTreasureManager().register_item(this);
     },
     on_unregister(): void {

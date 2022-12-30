@@ -21,7 +21,9 @@ export const ItemPda: IItemPda = declare_xr_class("ItemPda", cse_alife_item_pda,
   },
   on_register(): void {
     cse_alife_item_pda.on_register(this);
+    log.info("Register:", this.id, this.name(), this.section_name());
     checkSpawnIniForStoryId(this);
+
     this.secret_item = getTreasureManager().register_item(this);
   },
   on_unregister(): void {

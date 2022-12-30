@@ -21,7 +21,7 @@ export const ItemTorch: IItemTorch = declare_xr_class("ItemTorch", cse_alife_ite
   },
   on_register(): void {
     cse_alife_item_torch.on_register(this);
-
+    log.info("Register:", this.id, this.name(), this.section_name());
     checkSpawnIniForStoryId(this);
 
     if (REGISTERED_ITEMS.get(this.section_name()) == null) {

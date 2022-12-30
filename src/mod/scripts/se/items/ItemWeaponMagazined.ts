@@ -24,7 +24,7 @@ export const ItemWeaponMagazined: IItemWeaponMagazined = declare_xr_class(
     },
     on_register(): void {
       cse_alife_item_weapon_magazined.on_register(this);
-
+      log.info("Register:", this.id, this.name(), this.section_name());
       checkSpawnIniForStoryId(this);
 
       if (REGISTERED_ITEMS.get(this.section_name()) == null) {

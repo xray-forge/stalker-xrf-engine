@@ -38,16 +38,12 @@ export const Actor: IActor = declare_xr_class("Actor", cse_alife_creature_actor,
   __init(section: string): void {
     xr_class_super(section);
 
-    log.info("Init");
-
     this.m_registred = false;
     this.start_position_filled = false;
   },
   on_register(): void {
-    log.info("Register");
-
     cse_alife_creature_actor.on_register(this);
-
+    log.info("Register:", this.id, this.name(), this.section_name());
     getStoryObjectsRegistry().register(this.id, "actor");
 
     get_global("simulation_objects").get_sim_obj_registry().register(this);

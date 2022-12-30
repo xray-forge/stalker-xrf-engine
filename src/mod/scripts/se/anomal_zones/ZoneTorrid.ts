@@ -7,7 +7,7 @@ import { isSinglePlayerGame } from "@/mod/scripts/utils/general";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
 
-const log: LuaLogger = new LuaLogger("anomal_zones/ZoneTorrid");
+const log: LuaLogger = new LuaLogger("ZoneTorrid");
 
 export interface IZoneTorrid extends XR_cse_torrid_zone {
   m_registred: boolean;
@@ -20,10 +20,14 @@ export interface IZoneTorrid extends XR_cse_torrid_zone {
 export const ZoneTorrid: IZoneTorrid = declare_xr_class("ZoneTorrid", cse_torrid_zone, {
   __init(section: string) {
     xr_class_super(section);
+
     this.m_registred = false;
   },
   on_register(): void {
     cse_torrid_zone.on_register(this);
+
+    log.info("Register:", this.id, this.name(), this.section_name());
+
     checkSpawnIniForStoryId(this);
 
     this.m_registred = true;

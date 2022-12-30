@@ -25,6 +25,9 @@ export const AnomalousZone = declare_xr_class("AnomalousZone", cse_anomalous_zon
   },
   on_register(): void {
     cse_anomalous_zone.on_register(this);
+
+    log.info("Register:", this.id, this.name(), this.section_name());
+
     checkSpawnIniForStoryId(this);
 
     this.m_registred = true;

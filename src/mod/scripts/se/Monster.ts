@@ -120,14 +120,12 @@ export const Monster: IMonster = declare_xr_class("Monster", cse_alife_monster_b
   on_before_register(): void {},
   on_register(): void {
     cse_alife_monster_base.on_register(this);
-
-    log.info("Register:", this.name());
+    log.info("Register:", this.id, this.name(), this.section_name());
+    checkSpawnIniForStoryId(this);
 
     this.m_registred = true;
 
     const board = get_global("sim_board").get_sim_board();
-
-    checkSpawnIniForStoryId(this);
 
     if (offlineObjects.get(this.id) == null) {
       offlineObjects.set(this.id, {});
