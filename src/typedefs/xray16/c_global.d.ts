@@ -123,7 +123,7 @@ declare module "xray16" {
     map_remove_object_spot(this: void, id: number, selector: string): unknown;
     remove_dialog_to_render(this: void, window: XR_CUIDialogWnd): unknown;
     stop_weather_fx(this: void): unknown;
-    patrol_path_exists(this: void, str: string): unknown;
+    patrol_path_exists(this: void, path_name: string): boolean;
     vertex_position(this: void, num: number): unknown;
     show_weapon(this: void, val: boolean): unknown;
     get_wfx_time(this: void): unknown;

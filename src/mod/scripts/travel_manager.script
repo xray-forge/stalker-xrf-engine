@@ -346,7 +346,7 @@ function check_smart_availability(smart_name, smart_table, squad)
 		return false
 	end
 
---	local squad_count = smart_terrain.smart_terrain_squad_count(board.smarts[smart.id].squads)
+--	local squad_count = SmartTerrain.smart_terrain_squad_count(board.smarts[smart.id].squads)
 --	if squad_count ~= nil and (smart.max_population <= squad_count) then
 --		return false
 --	end

@@ -1,4 +1,4 @@
-import { XR_cse_abstract, XR_game_object, XR_ini_file } from "xray16";
+import { XR_cse_abstract, XR_cse_alife_object, XR_game_object, XR_ini_file } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { scriptIds } from "@/mod/scripts/core/db";
@@ -72,7 +72,7 @@ export function getConfigBoolean(
   char_ini: XR_ini_file,
   section: string,
   field: string,
-  object: Optional<XR_game_object>,
+  object: Optional<XR_game_object | XR_cse_alife_object>,
   mandatory: boolean,
   default_val?: boolean
 ): boolean {

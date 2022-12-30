@@ -5,6 +5,7 @@ import { AnomalousZone } from "@/mod/scripts/se/anomal_zones/AnomalousZone";
 import { ZoneRestrictor } from "@/mod/scripts/se/anomal_zones/ZoneRestrictor";
 import { ZoneTorrid } from "@/mod/scripts/se/anomal_zones/ZoneTorrid";
 import { ZoneVisual } from "@/mod/scripts/se/anomal_zones/ZoneVisual";
+import { Heli } from "@/mod/scripts/se/Heli";
 import { InventoryBox } from "@/mod/scripts/se/items/InvertoryBox";
 import { Item } from "@/mod/scripts/se/items/Item";
 import { ItemAmmo } from "@/mod/scripts/se/items/ItemAmmo";
@@ -27,6 +28,7 @@ import { ObjectPhysic } from "@/mod/scripts/se/items/ObjectPhysic";
 import { LevelChanger } from "@/mod/scripts/se/LevelChanger";
 import { Monster } from "@/mod/scripts/se/Monster";
 import { SmartCover } from "@/mod/scripts/se/SmartCover";
+import { SmartTerrain } from "@/mod/scripts/se/SmartTerrain";
 import { Stalker } from "@/mod/scripts/se/Stalker";
 import { MainMenu } from "@/mod/scripts/ui/menu/MainMenu";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -78,11 +80,11 @@ export function registerGameClasses(object_factory: XR_object_factory): void {
 
   // -- GENERAL --------------------------------------------------------------------------------------------------------
   clientRegister(object_factory, MainMenu.__name, "MAIN_MNU", "MainMenu");
-  clientServerRegister(object_factory, "ce_smart_zone", "smart_terrain.se_smart_terrain", "SMRTTRRN", "smart_terrain");
+  clientServerRegister(object_factory, "ce_smart_zone", SmartTerrain.__name, "SMRTTRRN", "smart_terrain");
   clientServerRegister(object_factory, "CLevelChanger", LevelChanger.__name, "LVL_CHNG", "level_changer_s");
   clientServerRegister(object_factory, "CActor", Actor.__name, "S_ACTOR", "script_actor");
   clientServerRegister(object_factory, "CAI_Stalker", Stalker.__name, "AI_STL_S", "script_stalker");
-  clientServerRegister(object_factory, "CHelicopter", "se_heli.se_heli", "C_HLCP_S", "script_heli");
+  clientServerRegister(object_factory, "CHelicopter", Heli.__name, "C_HLCP_S", "script_heli");
   clientServerRegister(object_factory, "ce_smart_zone", ZoneRestrictor.__name, "SPC_RS_S", "script_restr");
   clientServerRegister(object_factory, "CPhysicObject", ObjectPhysic.__name, "O_PHYS_S", "script_phys");
   clientServerRegister(object_factory, "smart_cover_object", SmartCover.__name, "SMRT_C_S", "smartcover_s");

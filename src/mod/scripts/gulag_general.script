@@ -1,3 +1,4 @@
+local SmartTerrain = require("scripts.se.SmartTerrain")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local SmartCover = require("scripts.se.SmartCover")
 local create_ts_class_instance = require("lualib_bundle").__TS__New
@@ -851,7 +852,7 @@ function load_job(smart)
   --'                      ������������ ������
   --'------------------------------------------------------------------------
   local smart_ini = smart.ini
-  if smart_ini:section_exist(smart_terrain.SMART_TERRAIN_SECT) then
+  if smart_ini:section_exist(SmartTerrain.SMART_TERRAIN_SECT) then
     if smart_ini:section_exist("exclusive") then
       local n = smart_ini:line_count("exclusive")
       local id, value = "",""
@@ -861,8 +862,8 @@ function load_job(smart)
       end
     else
       local num = 1
-      while smart_ini:line_exist(smart_terrain.SMART_TERRAIN_SECT, "work"..num) do
-        add_exclusive_job(smart_terrain.SMART_TERRAIN_SECT, "work"..num, smart_ini, job_table)
+      while smart_ini:line_exist(SmartTerrain.SMART_TERRAIN_SECT, "work"..num) do
+        add_exclusive_job(SmartTerrain.SMART_TERRAIN_SECT, "work"..num, smart_ini, job_table)
         num = num + 1
       end
     end

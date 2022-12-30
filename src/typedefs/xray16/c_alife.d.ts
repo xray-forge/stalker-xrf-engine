@@ -29,7 +29,7 @@ declare module "xray16" {
       value: number
     ): unknown;
 
-    public level_name(value: number): unknown;
+    public level_name(value: number): string;
 
     public dont_has_info(value: number, str: string): unknown;
 

@@ -27,7 +27,6 @@ export const LevelChanger: ILevelChanger = declare_xr_class("LevelChanger", cse_
   on_unregister(): void {
     unregisterStoryObjectById(this.id);
     cse_alife_level_changer.on_unregister(this);
-
     log.info("Unregister:", this.name());
   },
   STATE_Write(packet: XR_net_packet): void {

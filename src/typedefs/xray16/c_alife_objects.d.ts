@@ -239,6 +239,8 @@ declare module "xray16" {
 
     public o_torso(cse_alife_creature_abstract: XR_cse_alife_creature_abstract): unknown;
 
+    public static smart_terrain_id(this: void, target: XR_cse_alife_monster_abstract): number;
+    public smart_terrain_id(): number;
   }
 
   /**
@@ -354,9 +356,6 @@ declare module "xray16" {
     public brain(): XR_CAILifeMonsterBrain;
 
     public has_detector(): unknown;
-
-    public static smart_terrain_id(this: void, target: XR_cse_alife_monster_abstract): number;
-    public smart_terrain_id(): number;
 
     public rank(): unknown;
   }
@@ -557,12 +556,12 @@ declare module "xray16" {
    */
   export class XR_cse_alife_smart_zone extends XR_cse_alife_space_restrictor implements IXR_cse_alife_schedulable {
     public detect_probability(): unknown;
-    public smart_touch(cse_alife_monster_abstract: XR_cse_alife_monster_abstract): unknown;
-    public unregister_npc(cse_alife_monster_abstract:XR_cse_alife_monster_abstract): unknown;
-    public register_npc(cse_alife_monster_abstract:XR_cse_alife_monster_abstract): unknown;
-    public suitable(cse_alife_monster_abstract:XR_cse_alife_monster_abstract): unknown;
-    public task(cse_alife_monster_abstract:XR_cse_alife_monster_abstract): unknown;
-    public enabled(cse_alife_monster_abstract:XR_cse_alife_monster_abstract): unknown;
+    public smart_touch(cse_alife_monster_abstract: XR_cse_alife_creature_abstract): unknown;
+    public unregister_npc(cse_alife_monster_abstract: XR_cse_alife_creature_abstract): unknown;
+    public register_npc(cse_alife_monster_abstract: XR_cse_alife_creature_abstract): unknown;
+    public suitable(cse_alife_monster_abstract: XR_cse_alife_creature_abstract): unknown;
+    public task(cse_alife_monster_abstract: XR_cse_alife_creature_abstract): XR_CALifeSmartTerrainTask | null;
+    public enabled(cse_alife_monster_abstract: XR_cse_alife_creature_abstract): unknown;
     public update(): void;
   }
 

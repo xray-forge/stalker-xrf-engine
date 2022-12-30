@@ -80,7 +80,6 @@ declare module "xray16" {
   export const cse_alife_item_detector: typeof XR_cse_alife_item_detector;
   export const cse_alife_item_torch: typeof XR_cse_alife_item_torch;
   export const cse_alife_item_grenade: typeof XR_cse_alife_item_grenade;
-  export const cse_alife_creature_abstract: typeof XR_cse_alife_creature_abstract;
   export const cse_alife_item_custom_outfit: typeof XR_cse_alife_item_custom_outfit;
   export const cse_alife_item_helmet: typeof XR_cse_alife_item_helmet;
   export const cse_alife_item_weapon: typeof XR_cse_alife_item_weapon;
@@ -94,9 +93,11 @@ declare module "xray16" {
   export const cse_alife_human_stalker: typeof XR_cse_alife_human_stalker;
   export const cse_zone_visual: typeof XR_cse_zone_visual;
   export const cse_alife_space_restrictor: typeof XR_cse_alife_space_restrictor;
+  export const cse_alife_smart_zone: typeof XR_cse_alife_smart_zone;
   export const cse_anomalous_zone: typeof XR_cse_anomalous_zone;
   export const cse_torrid_zone: typeof XR_cse_torrid_zone;
   export const cse_smart_cover: typeof XR_cse_smart_cover;
+  export const cse_alife_helicopter: typeof XR_cse_alife_helicopter;
 
   export const ini_file: typeof XR_ini_file;
   export const clsid: typeof XR_clsid;

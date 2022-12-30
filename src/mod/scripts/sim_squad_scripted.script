@@ -1,3 +1,4 @@
+local SmartTerrain = require("scripts.se.SmartTerrain")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 local log = create_ts_class_instance(LuaLogger, "sim_squad_scripted");
@@ -544,7 +545,7 @@ function sim_squad_scripted:create_npc(spawn_smart)
 	local spawn_sections = parse_names(utils.cfg_get_string(ini, self.settings_id, "npc", self, false, "", ""))
 
 	local spawn_point = utils.cfg_get_string(ini, self.settings_id, "spawn_point", self, false, "","self") or
-						utils.cfg_get_string(spawn_smart.ini, smart_terrain.SMART_TERRAIN_SECT, "spawn_point", self, false,"","self")
+						utils.cfg_get_string(spawn_smart.ini, SmartTerrain.SMART_TERRAIN_SECT, "spawn_point", self, false,"","self")
 	spawn_point = xr_logic.parse_condlist(self, "spawn_point", "spawn_point", spawn_point)
 	spawn_point = xr_logic.pick_section_from_condlist(db.actor, self, spawn_point)
 

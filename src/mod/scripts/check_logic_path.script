@@ -1,3 +1,4 @@
+local SmartTerrain = require("scripts.se.SmartTerrain")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 local log = create_ts_class_instance(LuaLogger, "check_logic_path");
@@ -9,7 +10,7 @@ local log = create_ts_class_instance(LuaLogger, "check_logic_path");
 local path_fields = { "path_walk", "path_main", "path_home", "center_point" }
 
 function check()
-	for smart_name,smart in pairs(smart_terrain.smart_terrains_by_name) do
+	for smart_name,smart in pairs(SmartTerrain.smart_terrains_by_name) do
 		--printf("checking smart ---> %s", smart_name)
 
 		for k,v in pairs(smart.job_data) do

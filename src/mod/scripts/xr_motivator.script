@@ -1,3 +1,4 @@
+local SmartTerrain = require("scripts.se.SmartTerrain")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
@@ -175,7 +176,7 @@ function motivator_binder:net_spawn(sobject)
 --******************************************************************************************************************
 
 
-	smart_terrain.setup_gulag_and_logic_on_spawn(self.object, self.st, sobject, modules.stype_stalker, self.loaded)
+	SmartTerrain.setup_gulag_and_logic_on_spawn(self.object, self.st, sobject, modules.stype_stalker, self.loaded)
 
 	--' ������������� ������ �� ����� �� �������
 	if character_community(self.object) ~= "zombied" then

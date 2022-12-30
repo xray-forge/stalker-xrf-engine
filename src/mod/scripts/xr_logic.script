@@ -352,7 +352,7 @@ end
 -- � ����� ������� ���������� gulag_name �����������
 -- ���� section �� ��������, �� ��� ������� �� ������ ����������� ������.
 function activate_by_section(npc, ini, section, gulag_name, loading)
-	--printf("LOGIC[%s]: Object '%s': activate_by_section: looking for section '%s'", tostring(time_global()), npc:name(), section)
+	log:info("Activate by section:", npc:name(), section, gulag_name)
 
 	if loading == nil then
 		abort("xr_logic: activate_by_section: loading field is nil, true or false expected")
@@ -705,12 +705,15 @@ function switch_to_section(npc, ini, section)
 	if active_section then
 		issue_event(npc, db.storage[npc_id][db.storage[npc_id].active_scheme], "deactivate", npc)
 	end
+
 	db.storage[npc_id].exit_from_smartcover_initialized = nil
 	db.storage[npc_id].active_section = nil
 	db.storage[npc_id].active_scheme = nil
+
 	if section == nil then
 		return true
 	end
+
 	activate_by_section(npc, ini, section, db.storage[npc_id].gulag_name, false)
 	--printf("section = [%s]5", tostring(section))
 	return true
