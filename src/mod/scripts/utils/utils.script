@@ -211,6 +211,7 @@ if not editor() then
 	CTime_0 = game.CTime()
 end
 
+-- todo: Moved
 -- ������ CTime � �����. ���� t=nil, �� ������� ���� ������� ����
 function export.w_CTime(p, t )
 	--set_save_marker(p, "save", false, "CTIME")
@@ -237,6 +238,7 @@ function export.w_CTime(p, t )
 	--set_save_marker(p, "save", true, "CTIME")
 end
 
+-- todo: Moved
 -- ������ CTime �� ������
 function export.r_CTime(p )
 	--set_save_marker(p, "load", false, "CTIME")

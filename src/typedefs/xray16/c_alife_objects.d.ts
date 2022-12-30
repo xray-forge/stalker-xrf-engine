@@ -156,6 +156,9 @@ declare module "xray16" {
 
     public move_offline(): void
     public move_offline(value: boolean): void
+
+    public static update(this: void, target: XR_cse_alife_object): void;
+    public update(): void;
   }
 
   /**
@@ -263,6 +266,29 @@ declare module "xray16" {
   }
 
   /**
+   * C++ class cse_zone_visual : cse_anomalous_zone,cse_visual {
+   * @customConstructor cse_zone_visual
+   */
+  export class XR_cse_zone_visual extends XR_cse_anomalous_zone implements IXR_cse_visual {
+  }
+
+  /**
+   * C++ class cse_spectator : cse_abstract {
+   * @customConstructor cse_spectator
+   */
+  export class XR_cse_spectator extends XR_cse_abstract {
+    public init(): void;
+  }
+
+  /**
+   * C++ class cse_temporary : cse_abstract {
+   * @customConstructor cse_temporary
+   */
+  export class XR_cse_temporary extends XR_cse_abstract {
+    public init(): void;
+  }
+
+  /**
    * C++ class cse_alife_item_weapon_magazined : cse_alife_item_weapon {
    * @customConstructor cse_alife_item_weapon_magazined
    */
@@ -303,9 +329,6 @@ declare module "xray16" {
 
     public kill(): void;
 
-    public static update(this: void, target: XR_cse_alife_monster_abstract): void;
-    public update(): void;
-
     public force_set_goodwill(
       cse_alife_monster_abstract: XR_cse_alife_monster_abstract, value1: number, value2: number
     ): unknown;
@@ -343,8 +366,8 @@ declare module "xray16" {
   }
 
   /**
-   *  C++ class cse_alife_monster_rat : cse_alife_monster_abstract,cse_alife_inventory_item {
-   *  @customConstructor cse_alife_monster_rat
+   * C++ class cse_alife_monster_rat : cse_alife_monster_abstract,cse_alife_inventory_item {
+   * @customConstructor cse_alife_monster_rat
    */
   export class XR_cse_alife_monster_rat extends XR_cse_alife_monster_abstract implements IXR_cse_alife_inventory_item {
   }

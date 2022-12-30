@@ -7,7 +7,7 @@ declare module "xray16" {
   export function GetFontGraffiti32Russian(this: void): unknown;
   export function device(this: void): XR_render_device;
   export function cast_planner(this: void, base_action: XR_action_base): XR_action_planner;
-  export function IsGameTypeSingle(this: void): unknown;
+  export function IsGameTypeSingle(this: void): boolean;
   export function game_graph(this: void): XR_CGameGraph;
   export function dik_to_bind(this: void,keycode: number): number;
   export function render_get_dx_level(this: void): number;
@@ -175,9 +175,11 @@ declare module "xray16" {
    * namespace game {
    */
   export interface IXR_game {
+    CTime: (this: void) => XR_CTime;
+
     translate_string(this: void, key: string): string;
     time(this: void): number;
-    get_game_time(this: void): unknown;
+    get_game_time(this: void): XR_CTime;
     start_tutorial(this: void, id: string): unknown;
     has_active_tutorial(this: void): boolean;
     stop_tutorial(this: void): void;

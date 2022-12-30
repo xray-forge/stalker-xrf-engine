@@ -46,7 +46,7 @@ export function getConfigNumber(
   ini: XR_ini_file,
   section: string,
   field: string,
-  object: Optional<XR_game_object>,
+  object: Optional<XR_game_object | XR_cse_abstract>,
   mandatory: boolean,
   defaultVal?: number
 ): number {

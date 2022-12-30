@@ -1,4 +1,4 @@
-import { device, XR_vector } from "xray16";
+import { alife, device, IsGameTypeSingle, XR_vector } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -64,4 +64,17 @@ export function vectorToString(vector: Optional<XR_vector>): Optional<string> {
   }
 
   return string.format("[%s:%s:%s]", vector.x, vector.y, vector.z);
+}
+
+/**
+ * todo
+ */
+export function isSinglePlayerGame(): boolean {
+  if (get_global("alife") === null || alife() !== null) {
+    return true;
+  } else if (get_global("IsGameTypeSingle") === null || IsGameTypeSingle()) {
+    return true;
+  }
+
+  return false;
 }

@@ -1,6 +1,10 @@
 import { editor, TXR_ClsKey, XR_object_factory } from "xray16";
 
 import { Actor } from "@/mod/scripts/se/Actor";
+import { AnomalousZone } from "@/mod/scripts/se/anomal_zones/AnomalousZone";
+import { ZoneRestrictor } from "@/mod/scripts/se/anomal_zones/ZoneRestrictor";
+import { ZoneTorrid } from "@/mod/scripts/se/anomal_zones/ZoneTorrid";
+import { ZoneVisual } from "@/mod/scripts/se/anomal_zones/ZoneVisual";
 import { InventoryBox } from "@/mod/scripts/se/items/InvertoryBox";
 import { Item } from "@/mod/scripts/se/items/Item";
 import { ItemAmmo } from "@/mod/scripts/se/items/ItemAmmo";
@@ -78,7 +82,7 @@ export function registerGameClasses(object_factory: XR_object_factory): void {
   clientServerRegister(object_factory, "CActor", Actor.__name, "S_ACTOR", "script_actor");
   clientServerRegister(object_factory, "CAI_Stalker", Stalker.__name, "AI_STL_S", "script_stalker");
   clientServerRegister(object_factory, "CHelicopter", "se_heli.se_heli", "C_HLCP_S", "script_heli");
-  clientServerRegister(object_factory, "ce_smart_zone", "se_zones.se_restrictor", "SPC_RS_S", "script_restr");
+  clientServerRegister(object_factory, "ce_smart_zone", ZoneRestrictor.__name, "SPC_RS_S", "script_restr");
   clientServerRegister(object_factory, "CPhysicObject", ObjectPhysic.__name, "O_PHYS_S", "script_phys");
   clientServerRegister(
     object_factory,
@@ -163,12 +167,12 @@ export function registerGameClasses(object_factory: XR_object_factory): void {
   serverRegister(object_factory, "sim_squad_scripted.sim_squad_scripted", "ON_OFF_S", "online_offline_group_s");
   // -- ANOMALY ZONES --------------------------------------------------------------------------------------------------
 
-  clientServerRegister(object_factory, "CHairsZone", "se_zones.se_zone_visual", "ZS_BFUZZ", "zone_bfuzz_s");
-  clientServerRegister(object_factory, "CMosquitoBald", "se_zones.se_zone_anom", "ZS_MBALD", "zone_mbald_s");
-  clientServerRegister(object_factory, "CMincer", "se_zones.se_zone_anom", "ZS_GALAN", "zone_galant_s");
-  clientServerRegister(object_factory, "CMincer", "se_zones.se_zone_anom", "ZS_MINCE", "zone_mincer_s");
-  clientServerRegister(object_factory, "CRadioactiveZone", "se_zones.se_zone_anom", "ZS_RADIO", "zone_radio_s");
-  clientServerRegister(object_factory, "CTorridZone", "se_zones.se_zone_torrid", "ZS_TORRD", "zone_torrid_s");
+  clientServerRegister(object_factory, "CHairsZone", ZoneVisual.__name, "ZS_BFUZZ", "zone_bfuzz_s");
+  clientServerRegister(object_factory, "CMosquitoBald", AnomalousZone.__name, "ZS_MBALD", "zone_mbald_s");
+  clientServerRegister(object_factory, "CMincer", AnomalousZone.__name, "ZS_GALAN", "zone_galant_s");
+  clientServerRegister(object_factory, "CMincer", AnomalousZone.__name, "ZS_MINCE", "zone_mincer_s");
+  clientServerRegister(object_factory, "CRadioactiveZone", AnomalousZone.__name, "ZS_RADIO", "zone_radio_s");
+  clientServerRegister(object_factory, "CTorridZone", ZoneTorrid.__name, "ZS_TORRD", "zone_torrid_s");
 
   // -- MONSTERS -------------------------------------------------------------------------------------------------------
   clientServerRegister(object_factory, "CAI_Bloodsucker", Monster.__name, "SM_BLOOD", "bloodsucker_s");

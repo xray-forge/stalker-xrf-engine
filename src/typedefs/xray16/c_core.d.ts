@@ -193,7 +193,7 @@ declare module "xray16" {
         LuaMultiReturn<[number, number, number, number, number, number, number ]>;
     public set(y: number, m: number, d: number, h: number, min: number, sec: number, ms: number): void;
     public setHMSms(a: number, b: number, c: number, d: number): unknown;
-    public diffSec(time: XR_CTime): unknown;
+    public diffSec(time: XR_CTime): number;
     public setHMS(a: number, b: number, c: number): unknown;
     public add(time: XR_CTime): unknown;
   }
