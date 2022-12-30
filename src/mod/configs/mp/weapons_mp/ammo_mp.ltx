@@ -19,7 +19,7 @@
 [mp_ammo_12x70_buck]:ammo_12x70_buck
 	$spawn							 = "network\ammo\mp_ammo_12x70_buck"
 	class							 = AMMO
-    k_ap                             = 0.23 ;0.3       
+    k_ap                             = 0.3       
     k_hit                            = 0.73
 	k_disp							 = 8
     k_air_resistance                 = 0.6 ;2.4       
@@ -75,7 +75,7 @@
 [mp_ammo_7.62x54_7h1]:ammo_7.62x54_7h1
 	$spawn							 = "network\ammo\mp_ammo_7.62x54_7h1"
 	class							 = AMMO
-    k_ap                             = 0.75     
+    k_ap                             = 1 ;0.75     
     k_hit                            = 1       
     k_air_resistance                 = 0.5 ;1
     tracers                          = off      
@@ -166,6 +166,7 @@
     tracers                          = off
     allow_ricochet					 = false
     magnetic_beam_shot				 = true;
+    box_size						 = 15
 
 
 [mp_ammo_m209]:ammo_m209
@@ -194,6 +195,7 @@
     k_air_resistance                 = 0.5
     tracer_color_ID                  = 2       
     tracers                          = off      
+    box_size						 = 150
 
 
 [mp_ammo_vog-25]:ammo_vog-25
