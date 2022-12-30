@@ -206,10 +206,11 @@ function Cwound_manager:eat_medkit()
 		end
 
 		xr_logic.pstor_store(self.npc, "begin_wounded", nil)
-	end
 
-	self.can_use_medkit = false
-	self:update()
+		self.can_use_medkit = false
+		db.storage[self.npc:id()].wounded_already_selected = nil
+		self:update()
+	end
 end
 function Cwound_manager:process_fight(hp)
 	local key
@@ -461,6 +462,11 @@ function unlock_medkit(npc)
 	end
 end
 
+function eat_medkit(npc)
+	if db.storage[npc:id()].wounded ~= nil then
+		db.storage[npc:id()].wounded.wound_manager:eat_medkit()
+	end
+end
 
 
 function is_wounded(npc)
