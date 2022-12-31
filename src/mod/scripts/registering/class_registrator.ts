@@ -27,6 +27,7 @@ import { ObjectHangingLamp } from "@/mod/scripts/se/items/ObjectHangingLamp";
 import { ObjectPhysic } from "@/mod/scripts/se/items/ObjectPhysic";
 import { LevelChanger } from "@/mod/scripts/se/LevelChanger";
 import { Monster } from "@/mod/scripts/se/Monster";
+import { SimSquad } from "@/mod/scripts/se/SimSquad";
 import { SmartCover } from "@/mod/scripts/se/SmartCover";
 import { SmartTerrain } from "@/mod/scripts/se/SmartTerrain";
 import { Stalker } from "@/mod/scripts/se/Stalker";
@@ -133,13 +134,6 @@ export function registerGameClasses(object_factory: XR_object_factory): void {
   clientServerRegister(object_factory, "CWeaponHPSA", ItemWeaponMagazined.__name, "WP_HPSA", "wpn_hpsa_s");
   clientServerRegister(object_factory, "CWeaponPM", ItemWeaponMagazined.__name, "WP_PM", "wpn_pm_s");
   clientServerRegister(object_factory, "CWeaponRPG7", ItemWeaponMagazined.__name, "WP_RPG7", "wpn_rpg7_s");
-  clientServerRegister(
-    object_factory,
-    "CWeaponAutomaticShotgun",
-    ItemWeaponAutomaticShotgun.__name,
-    "WP_ASHTG",
-    "wpn_auto_shotgun_s"
-  );
   clientServerRegister(object_factory, "CWeaponSVU", ItemWeaponMagazined.__name, "WP_SVU", "wpn_svu_s");
   clientServerRegister(object_factory, "CWeaponUSP45", ItemWeaponMagazined.__name, "WP_USP45", "wpn_usp45_s");
   clientServerRegister(object_factory, "CWeaponVal", ItemWeaponMagazined.__name, "WP_VAL", "wpn_val_s");
@@ -161,9 +155,16 @@ export function registerGameClasses(object_factory: XR_object_factory): void {
   clientServerRegister(object_factory, "CInventoryBox", InventoryBox.__name, "S_INVBOX", "inventory_box_s");
   clientServerRegister(object_factory, "CExplosiveItem", ItemExplosive.__name, "S_EXPLO", "obj_explosive_s");
   clientServerRegister(object_factory, "CPda", ItemPda.__name, "S_PDA", "obj_pda_s");
-  serverRegister(object_factory, "sim_squad_scripted.sim_squad_scripted", "ON_OFF_S", "online_offline_group_s");
-  // -- ANOMALY ZONES --------------------------------------------------------------------------------------------------
+  clientServerRegister(
+    object_factory,
+    "CWeaponAutomaticShotgun",
+    ItemWeaponAutomaticShotgun.__name,
+    "WP_ASHTG",
+    "wpn_auto_shotgun_s"
+  );
+  serverRegister(object_factory, SimSquad.__name, "ON_OFF_S", "online_offline_group_s");
 
+  // -- ANOMALY ZONES --------------------------------------------------------------------------------------------------
   clientServerRegister(object_factory, "CHairsZone", ZoneVisual.__name, "ZS_BFUZZ", "zone_bfuzz_s");
   clientServerRegister(object_factory, "CMosquitoBald", AnomalousZone.__name, "ZS_MBALD", "zone_mbald_s");
   clientServerRegister(object_factory, "CMincer", AnomalousZone.__name, "ZS_GALAN", "zone_galant_s");

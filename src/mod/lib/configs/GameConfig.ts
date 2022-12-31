@@ -16,6 +16,10 @@ export const gameConfig = {
      */
     IS_ENABLED: true,
     /**
+     * Is debug mode for smarts enabled (display on map).
+     */
+    IS_SMARTS_DEBUG_ENABLED: true,
+    /**
      * Enable debugging log modules.
      */
     IS_LOG_ENABLED: true,
@@ -28,7 +32,7 @@ export const gameConfig = {
     /**
      * Global prefix for lua debug logger in project.
      */
-    GLOBAL_LOG_PREFIX: "[XRTS-DL]"
+    GLOBAL_LOG_PREFIX: "[XRTS]"
   },
   /**
    * Base sizing for templates in UI.

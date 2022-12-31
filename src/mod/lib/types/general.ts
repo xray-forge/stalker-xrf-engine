@@ -10,6 +10,8 @@ export type AnyArgs = Array<any>;
 
 export type AnyCallable = (this: void, ...args: AnyArgs) => any;
 
+export type AnyCallablesModule = Record<string, (this: void, ...args: AnyArgs) => any>;
+
 export type TFolderFiles = string | Array<string | Array<string>>;
 
 export type TFolderReplicationDescriptor = [string, string];

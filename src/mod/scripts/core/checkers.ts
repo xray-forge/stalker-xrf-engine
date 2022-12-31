@@ -9,7 +9,9 @@ import {
   clsid
 } from "xray16";
 
+import { squadMonsters } from "@/mod/globals/behaviours";
 import { artefact_class_ids, monster_class_ids, stalker_class_ids, weapon_class_ids } from "@/mod/globals/class_ids";
+import { TCommunity } from "@/mod/globals/communities";
 import { Maybe } from "@/mod/lib/types";
 import { getClsId } from "@/mod/scripts/utils/ids";
 
@@ -23,6 +25,13 @@ export function isMonster(
   const id: TXR_ClsId = class_id || getClsId(object);
 
   return monster_class_ids[id] === true;
+}
+
+/**
+ * todo;
+ */
+export function isSquadMonsterCommunity(community: TCommunity): boolean {
+  return squadMonsters[community] === true;
 }
 
 /**

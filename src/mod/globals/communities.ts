@@ -4,6 +4,7 @@ export const communities = {
   army: "army",
   bandit: "bandit",
   dolg: "dolg",
+  duty: "duty",
   ecolog: "ecolog",
   freedom: "freedom",
   killer: "killer",

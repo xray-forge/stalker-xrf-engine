@@ -4,13 +4,12 @@ declare module "xray16" {
    * @customConstructor alife_simulator
    */
   export class XR_alife_simulator {
-    public set_interactive(this: void, value1: number, value2: boolean): unknown;
-    public switch_distance(this: void): unknown;
-    public switch_distance(this: void, value: number): unknown;
-    public set_switch_online(this: void, value1: number, value2: boolean): unknown;
-    public set_switch_offline(this: void, value1: number, value2: boolean): unknown;
+    public set_interactive(value1: number, value2: boolean): unknown;
+    public switch_distance(): number;
+    public switch_distance(value: number): number;
+    public set_switch_online(value1: number, value2: boolean): unknown;
+    public set_switch_offline(value1: number, value2: boolean): unknown;
     public remove_all_restrictions(
-      this: void,
       value: number,
       type: unknown /* enum RestrictionSpace::ERestrictorTypes */
     ): unknown;
@@ -68,8 +67,8 @@ declare module "xray16" {
 
     public has_info(objectId: number, infoId: string): boolean;
 
-    public object(id: number): XR_cse_alife_object | null;
-    public object(id: number, value2: boolean): XR_cse_alife_object | null;
+    public object<T extends XR_cse_alife_object = XR_cse_alife_object>(id: number): T | null;
+    public object<T extends XR_cse_alife_object = XR_cse_alife_object>(id: number, value2: boolean): T | null;
 
     public actor(): XR_cse_alife_creature_actor;
 

@@ -7,7 +7,7 @@ import { isSinglePlayerGame } from "@/mod/scripts/utils/general";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
 
-const log: LuaLogger = new LuaLogger("anomal_zones/AnomalousZone");
+const log: LuaLogger = new LuaLogger("AnomalousZone");
 
 export interface IAnomalousZone extends XR_cse_anomalous_zone {
   m_registred: boolean;

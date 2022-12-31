@@ -188,8 +188,8 @@ declare module "xray16" {
     public get_force_anti_aim(): unknown;
     public enable_inv_upgrade(): unknown;
     public set_smart_cover_target_idle(): unknown;
-    public invulnerable(): unknown;
-    public invulnerable(value: boolean): unknown;
+    public invulnerable(): boolean;
+    public invulnerable(value: boolean): boolean;
     public movement_type(): unknown;
     public explode(value: number): unknown;
     public remove_home(): unknown;
@@ -357,8 +357,8 @@ declare module "xray16" {
     public target_body_state(): unknown;
     public info_clear(): unknown;
     public head_orientation(): unknown;
-    public inside(vector: XR_vector, value: number): unknown;
-    public inside(vector: XR_vector): unknown;
+    public inside(vector: XR_vector, value: number): boolean;
+    public inside(vector: XR_vector): boolean;
     public set_nonscript_usable(value: boolean): unknown;
     public set_tip_text_default(): unknown;
     public set_tip_text(value: string): unknown;

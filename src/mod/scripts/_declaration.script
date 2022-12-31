@@ -37,7 +37,6 @@ local utilsWorld = require("scripts.utils.world")
 
 time_infinite = 100000000
 
-dev_debug = true
 mus_vol = 0
 amb_vol = 0
 

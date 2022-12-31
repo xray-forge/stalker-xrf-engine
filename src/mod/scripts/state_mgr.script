@@ -1,3 +1,9 @@
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "state_mgr");
+
+
 ----------------------------------------------------------------------------------------------------------------------
 --	�������� ��������� ��������� ����
 --	�����: ������� ������ (Stohe)
@@ -16,6 +22,7 @@ function evaluator_state_mgr_idle:__init(name, state_manager) super (nil, name)
 	self.st = state_manager
 	self.mgr = nil
 end
+
 function evaluator_state_mgr_idle:evaluate()
 	local t = self.st.target_state == "idle" and
 			 --not self.st.planner:evaluator(self.st.properties["locked"]):evaluate() and

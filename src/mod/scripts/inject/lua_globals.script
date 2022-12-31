@@ -39,8 +39,6 @@ _G.declare_xr_class = function(name, base, implementation)
     end
   end
 
-  log:info("Declared xr class: " .. name .. " # " .. (base and "extending" or "base"))
-
   return global_declaration
 end
 

@@ -4,7 +4,7 @@ import { TTextureId } from "@/mod/globals/textures";
 import { IBaseXmlNode } from "@/mod/lib/types";
 import { XrTexture } from "@/mod/ui/components/base/XrTexture.component";
 
-import { normalizeBaseNodeCoordinates } from "#/utils";
+import { normalizeBaseNodeProps } from "#/utils";
 
 export interface IXrStaticProps extends IBaseXmlNode {
   id?: string;
@@ -42,7 +42,7 @@ export function XrStatic(props: IXrStaticProps): JSXNode {
     textureHeight,
     stretch,
     children = null
-  } = normalizeBaseNodeCoordinates(props);
+  } = normalizeBaseNodeProps(props);
 
   return JSXXML(
     tag,

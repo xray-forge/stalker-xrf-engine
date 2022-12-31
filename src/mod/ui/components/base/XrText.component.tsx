@@ -3,7 +3,7 @@ import { JSXNode, JSXXML } from "jsx-xml";
 import { fonts, TFontId } from "@/mod/globals/fonts";
 import { IBaseXmlNode, IRgbColor, Optional, TTextAlign } from "@/mod/lib/types";
 
-import { normalizeBaseNodeCoordinates } from "#/utils";
+import { normalizeBaseNodeProps } from "#/utils";
 
 export interface IXrTextProps extends IBaseXmlNode {
   tag?: string;
@@ -29,7 +29,7 @@ export function XrText(props: IXrTextProps): JSXNode {
     vertAlign,
     label = null,
     children = null
-  } = normalizeBaseNodeCoordinates(props);
+  } = normalizeBaseNodeProps(props);
 
   return JSXXML(
     tag,

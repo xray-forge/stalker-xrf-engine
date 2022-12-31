@@ -2,7 +2,7 @@ import { JSXNode, JSXXML } from "jsx-xml";
 
 import { IBaseXmlNode } from "@/mod/lib/types";
 
-import { normalizeBaseNodeCoordinates } from "#/utils";
+import { normalizeBaseNodeProps } from "#/utils";
 
 export interface IXrScrollViewProps extends IBaseXmlNode {
   rightIndent: number;
@@ -30,7 +30,7 @@ export function XrScrollView(props: IXrScrollViewProps): JSXNode {
     alwaysShowScroll,
     flipVert,
     canSelect
-  } = normalizeBaseNodeCoordinates(props);
+  } = normalizeBaseNodeProps(props);
 
   return JSXXML(tag, {
     x,

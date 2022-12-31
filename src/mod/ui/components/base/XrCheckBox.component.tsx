@@ -4,7 +4,7 @@ import { textures, TTextureId } from "@/mod/globals/textures";
 import { IBaseXmlNode } from "@/mod/lib/types";
 import { XrTexture } from "@/mod/ui/components/base/XrTexture.component";
 
-import { normalizeBaseNodeCoordinates } from "#/utils";
+import { normalizeBaseNodeProps } from "#/utils";
 
 export interface IXrCheckBoxProps extends IBaseXmlNode {
   itemTag?: string;
@@ -29,7 +29,7 @@ export function XrCheckBox(props: IXrCheckBoxProps): JSXNode {
     entry,
     group,
     children = null
-  } = normalizeBaseNodeCoordinates(props);
+  } = normalizeBaseNodeProps(props);
 
   return JSXXML(tag, { x, y, width, height, stretch: stretch === undefined ? "1" : stretch }, [
     <XrTexture>{texture}</XrTexture>,

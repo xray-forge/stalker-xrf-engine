@@ -14,6 +14,7 @@ import {
 import { AnyCallable } from "@/mod/lib/types";
 import { getActor, offlineObjects, zoneByName } from "@/mod/scripts/core/db";
 import { getStoryObjectsRegistry } from "@/mod/scripts/core/StoryObjectsRegistry";
+import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -151,7 +152,7 @@ export const Actor: IActor = declare_xr_class("Actor", cse_alife_creature_actor,
 
     return true;
   },
-  target_precondition(squad: any): unknown {
+  target_precondition(squad: ISimSquad): unknown {
     const squad_params = get_global("sim_board").simulation_activities[squad.player_id];
 
     if (

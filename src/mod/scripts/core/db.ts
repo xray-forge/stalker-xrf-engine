@@ -1,4 +1,4 @@
-import { XR_cse_alife_object, XR_game_object, XR_object_binder } from "xray16";
+import { XR_cse_alife_object, XR_game_object, XR_ini_file, XR_object_binder } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { ActorProxy, IActorProxy } from "@/mod/scripts/core/ActorProxy";
@@ -13,19 +13,22 @@ export const infoRestr = {};
 export const scriptIds: LuaTable<number, any> = new LuaTable();
 export const campStorage = {};
 export const noWeapZones = {};
-export const spawnedVertexById = {};
+export const spawnedVertexById: LuaTable<number, number> = new LuaTable();
 export const levelDoors = {};
 export const signalLight = {};
-export const goodwill = { sympathy: {}, relations: {} };
+export const goodwill = { sympathy: new LuaTable(), relations: new LuaTable() };
 export const offlineObjects: LuaTable<number, any> = new LuaTable();
 export const REGISTERED_ITEMS: LuaTable<string, number> = new LuaTable();
 
 export const zoneByName: LuaTable<string, XR_game_object> = new LuaTable();
 
 export interface IStoredObject<T = XR_game_object> {
+  ini?: XR_ini_file;
   object?: T;
+  active_section?: any;
   combat_ignore?: boolean;
   post_combat_wait?: unknown;
+  state_mgr?: any;
   overrides?: {
     min_post_combat_time: number;
     max_post_combat_time: number;

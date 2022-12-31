@@ -1,3 +1,4 @@
+local gameConfig = require("lib.configs.GameConfig").gameConfig
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 local log = create_ts_class_instance(LuaLogger, "sim_objects");
@@ -19,6 +20,8 @@ local squad_objects = {}
 
 --' ����������� ������ ���������.
 function register_object(obj)
+  log:info("Registering sim object:", obj.id);
+
 	if objects[obj.id] ~= nil then
 		abort("Object already exist in list [%s]", obj:name())
 	end
@@ -33,14 +36,12 @@ function register_object(obj)
 	--' ��������. ����� ����� �������� ������������.
 	local obj_ini = obj:spawn_ini()
 	local smart = utils.cfg_get_string(obj_ini, "logic", "smart_terrain", obj, false, "", "")
-	printf("SMART = %s", smart)
 	local smart_obj = sim_board.get_sim_board():get_smart_by_name(smart)
 
 	if smart_obj == nil then
 		return
 	end
 
-	printf("SMART_ID = %s ", smart_obj.id)
 	alife():object(smart_obj.id):register_npc(obj)
 	--obj.m_smart_terrain_id = tonumber(smart_id)
 end
@@ -66,40 +67,38 @@ function object_die(obj)
 	local squad_id = objects[obj.id].squad_id
 	squad_objects[squad_id][obj.id] = nil
 	objects[obj.id].squad_id = nil
-
-	printf("Object %s died:", obj:name())
-	print_table(objects[obj.id])
 end
 
 --' �������� ������ �� �����
 function show_object_spot(obj)
+	if(gameConfig.DEBUG.IS_SMARTS_DEBUG_ENABLED) then
+		local community = getObjComunity(obj)
+		level.map_add_object_spot(obj.id, "alife_presentation_"..community, obj:name())
+	end
+
 	if objects[obj.id].flags.marked then
 		return
 	end
+
 	if not objects[obj.id].flags.alive then
 		return
 	end
 
 	objects[obj.id].flags.marked = true
-
-	local community = getObjComunity(obj)
-	if(_G.dev_debug) then
-		level.map_add_object_spot(obj.id, "alife_presentation_"..community, obj:name())
-	end
 end
 
 --' ������ ������ � �����
 function hide_object_spot(obj)
+	if(gameConfig.DEBUG.IS_SMARTS_DEBUG_ENABLED) then
+		local community = getObjComunity(obj)
+		level.map_remove_object_spot(obj.id, "alife_presentation_"..community)
+	end
+
 	if not objects[obj.id].flags.marked then
 		return
 	end
 
 	objects[obj.id].flags.marked = false
-
-	local community = getObjComunity(obj)
-	if(_G.dev_debug) then
-		level.map_remove_object_spot(obj.id, "alife_presentation_"..community)
-	end
 end
 
 --' �������� ����������� �������
@@ -116,12 +115,4 @@ end
 function clear()
 	objects = {}
 	squad_objects = {}
-end
-
---' �������� �������
-function print()
-	printf("Object list:")
-	print_table(objects)
-	printf("Squad list:")
-	print_table(squad_objects)
 end

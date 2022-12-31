@@ -1,5 +1,3 @@
-import { XR_prop_value, XR_properties_helper } from "xray16";
-
 declare module "xray16" {
   export const CScriptXmlInit: typeof XR_CScriptXmlInit;
   export const CUIWindow: typeof XR_CUIWindow;
@@ -98,6 +96,7 @@ declare module "xray16" {
   export const cse_torrid_zone: typeof XR_cse_torrid_zone;
   export const cse_smart_cover: typeof XR_cse_smart_cover;
   export const cse_alife_helicopter: typeof XR_cse_alife_helicopter;
+  export const cse_alife_online_offline_group: typeof XR_cse_alife_online_offline_group;
 
   export const ini_file: typeof XR_ini_file;
   export const clsid: typeof XR_clsid;

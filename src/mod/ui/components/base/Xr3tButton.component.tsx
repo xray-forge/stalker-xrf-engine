@@ -6,7 +6,7 @@ import { IBaseXmlNode, IRgbColor, TTextAlign } from "@/mod/lib/types";
 import { XrTextColor } from "@/mod/ui/components/base/XrTextColor.component";
 import { XrTexture } from "@/mod/ui/components/base/XrTexture.component";
 
-import { normalizeBaseNodeCoordinates } from "#/utils";
+import { normalizeBaseNodeProps } from "#/utils";
 
 export interface IXrButtonProps extends IBaseXmlNode {
   id?: string;
@@ -39,7 +39,7 @@ export function Xr3tButton(props: IXrButtonProps): JSXNode {
     label,
     textColor,
     stretch = true
-  } = normalizeBaseNodeCoordinates(props);
+  } = normalizeBaseNodeProps(props);
 
   return JSXXML(
     tag,

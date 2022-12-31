@@ -1,4 +1,4 @@
-local SmartTerrain = require("scripts.se.SmartTerrain")
+local sections = require("scripts.core.db.sections")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local SmartCover = require("scripts.se.SmartCover")
 local create_ts_class_instance = require("lualib_bundle").__TS__New
@@ -7,7 +7,10 @@ local log = create_ts_class_instance(LuaLogger, "gulag_general");
 local ltx
 
 function load_job(smart)
-  printf("LOAD JOB %s", smart:name())
+  local smart_name = smart:name()
+
+  log:info("Load job:", smart_name)
+
   -- �������� �������� �������� ����:
   --[[
       self.jobs = {
@@ -41,7 +44,6 @@ function load_job(smart)
   local t
   local board = sim_board.get_sim_board()
   local job_table = {}
-
 
   ltx =  "" ..
 
@@ -95,6 +97,7 @@ function load_job(smart)
   --'                          GENERIC POINT
   --'------------------------------------------------------------------------
   -- ��������� ������� �������� ������ � ������.
+  log:info("Generic point jobs load:", smart_name)
   local stalker_generic_point = {_prior = 3, jobs = {}}
   for it=1,20 do
     -- ���������� �������� ���������� ����� �� �������� ����� ����.
@@ -134,12 +137,15 @@ function load_job(smart)
 
     ltx = ltx..job_ltx
   end
+
   table.insert(stalker_jobs.jobs, stalker_generic_point)
 
   --'------------------------------------------------------------------------
   --'                           SURGE
   --'------------------------------------------------------------------------
   -- ��������� ������� ����� �������� ������ ������.
+  log:info("Surge jobs load:", smart_name)
+
   local stalker_surge = {_prior = 50, jobs = {}}
 
   it = 1
@@ -189,12 +195,15 @@ function load_job(smart)
     ltx = ltx..job_ltx
     it = it + 1
   end
+
   if it > 1 then table.insert(stalker_jobs.jobs, stalker_surge) end
 
   --'------------------------------------------------------------------------
   --'                         SLEEP
   --'------------------------------------------------------------------------
   -- ��������� ������� ����� ��� ���.
+  log:info("Sleep jobs load:", smart_name)
+
   local stalker_sleep = {_prior = 10, jobs = {}}
   it = 1
   while level.patrol_path_exists(gname.."_sleep_"..it) do
@@ -265,6 +274,8 @@ function load_job(smart)
   --'                           COLLECTOR
   --'------------------------------------------------------------------------
   -- ��������� ������� ����� �������� ������ ������.
+  log:info("Collector jobs load:", smart_name)
+
   local stalker_collector = {_prior = 25, jobs = {}}
   it = 1
   while level.patrol_path_exists(gname.."_collector_"..it.."_walk") do
@@ -347,6 +358,8 @@ function load_job(smart)
   --'                           WALKER
   --'------------------------------------------------------------------------
   -- ��������� ������� ����� �������� ������ ������.
+  log:info("Walker jobs load:", smart_name)
+
   local stalker_walker = {_prior = 15, jobs = {}}
   it = 1
 
@@ -418,6 +431,7 @@ function load_job(smart)
   --'                          PATROL
   --'------------------------------------------------------------------------
   -- ��������� ������� �������� ������ � ������.
+  log:info("Patrol jobs load:", smart_name)
   local stalker_patrol = {_prior = 20, jobs = {}}
   it = 1
   while level.patrol_path_exists(gname.."_patrol_"..it.."_walk") do
@@ -492,6 +506,7 @@ function load_job(smart)
   --'                          XR_ANIMPOINT
   --'------------------------------------------------------------------------
   -- ��������� ������� �������� ������ � ������.
+  log:info("Animpoint jobs load:", smart_name)
   it = 1
   while SmartCover.registered_smartcovers[gname.."_animpoint_"..it] ~= nil do
     -- ���������� �������� ���������� ����� �� �������� ����� ����.
@@ -558,6 +573,7 @@ function load_job(smart)
   --'                              GUARD
   --'------------------------------------------------------------------------
   -- ��������� ������� ������� � ������.
+  log:info("Guard jobs load:", smart_name)
   local stalker_guard = {_prior = 25, jobs = {}}
   it = 1
   while level.patrol_path_exists(gname.."_guard_"..it.."_walk") do
@@ -667,16 +683,11 @@ function load_job(smart)
   end
   if it > 1 then table.insert(stalker_jobs.jobs, stalker_guard) end
 
-
-
-
-
-
-
   --'------------------------------------------------------------------------
   --'                     SNIPER
   --'------------------------------------------------------------------------
   -- ��������� ������� ��������� � ������.
+  log:info("Sniper jobs load:", smart_name)
   local stalker_def_sniper = {_prior = 30, jobs = {}}
   it = 1
   while level.patrol_path_exists(gname.."_sniper_"..it.."_walk") do
@@ -732,6 +743,7 @@ function load_job(smart)
   --'                             CAMPER
   --'------------------------------------------------------------------------
   -- ��������� ����������� ����� �������� :-)
+  log:info("Camper jobs load:", smart_name)
   local stalker_def_camper = {_prior = 45, jobs = {}}
   it = 1
   while level.patrol_path_exists(gname.."_camper_"..it.."_walk") do
@@ -789,19 +801,6 @@ function load_job(smart)
   table.insert(job_table, stalker_jobs)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
   --'------------------------------------------------------------------------
   --'         ������ ��������
   --'------------------------------------------------------------------------
@@ -810,6 +809,7 @@ function load_job(smart)
   --'------------------------------------------------------------------------
   --'                        MOB HOME
   --'------------------------------------------------------------------------
+  log:info("Mob home jobs load:", smart_name)
 
   for it = 1,20 do
     -- ���������� �������� ���������� ����� �� �������� ����� ����.
@@ -841,18 +841,14 @@ function load_job(smart)
     ltx = ltx..job_ltx
   end
 
-
-
   table.insert(job_table, monster_jobs)
-
-
-
 
   --'------------------------------------------------------------------------
   --'                      ������������ ������
   --'------------------------------------------------------------------------
   local smart_ini = smart.ini
-  if smart_ini:section_exist(SmartTerrain.SMART_TERRAIN_SECT) then
+  if smart_ini:section_exist(sections.SMART_TERRAIN_SECT) then
+    log:info("Exclusive jobs load:", smart_name)
     if smart_ini:section_exist("exclusive") then
       local n = smart_ini:line_count("exclusive")
       local id, value = "",""
@@ -862,13 +858,14 @@ function load_job(smart)
       end
     else
       local num = 1
-      while smart_ini:line_exist(SmartTerrain.SMART_TERRAIN_SECT, "work"..num) do
-        add_exclusive_job(SmartTerrain.SMART_TERRAIN_SECT, "work"..num, smart_ini, job_table)
+      while smart_ini:line_exist(sections.SMART_TERRAIN_SECT, "work"..num) do
+        add_exclusive_job(sections.SMART_TERRAIN_SECT, "work"..num, smart_ini, job_table)
         num = num + 1
       end
     end
   end
 
+  log:info("Composed job table:", smart_name)
 
   return job_table
 end

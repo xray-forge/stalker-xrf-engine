@@ -3,12 +3,12 @@ import { JSXNode, JSXXML } from "jsx-xml";
 import { fonts } from "@/mod/globals/fonts";
 import { IBaseXmlNode } from "@/mod/lib/types";
 
-import { normalizeBaseNodeCoordinates } from "#/utils";
+import { normalizeBaseNodeProps } from "#/utils";
 
 export interface IXrListRendererComponentProps extends IBaseXmlNode {}
 
 export function XrListRenderer(props: IXrListRendererComponentProps): JSXNode {
-  const { tag = "list_renderer", x, y, width, height, children = null } = normalizeBaseNodeCoordinates(props);
+  const { tag = "list_renderer", x, y, width, height, children = null } = normalizeBaseNodeProps(props);
 
   return JSXXML(
     tag,

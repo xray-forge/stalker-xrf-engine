@@ -6,7 +6,7 @@ import { IBaseXmlNode, IRgbColor, TTextAlign } from "@/mod/lib/types";
 import { XrText } from "@/mod/ui/components/base/XrText.component";
 import { XrTexture } from "@/mod/ui/components/base/XrTexture.component";
 
-import { normalizeBaseNodeCoordinates } from "#/utils";
+import { normalizeBaseNodeProps } from "#/utils";
 
 export interface IXrEditBoxProps extends IBaseXmlNode {
   texture?: TTextureId;
@@ -30,7 +30,7 @@ export function XrEditBox(props: IXrEditBoxProps): JSXNode {
     vertAlign,
     maxSymbolsCount,
     color = { r: 170, g: 170, b: 170 }
-  } = normalizeBaseNodeCoordinates(props);
+  } = normalizeBaseNodeProps(props);
 
   return JSXXML(tag, { width, height, x, y, max_symb_count: maxSymbolsCount }, [
     <XrTexture id={texture} />,

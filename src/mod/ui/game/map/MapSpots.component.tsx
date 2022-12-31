@@ -1,8 +1,24 @@
-﻿import { JSXNode, JSXXML } from "jsx-xml";
+﻿import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
+import { textures } from "@/mod/globals/textures";
+import { IBaseXmlNode, TTextAlign } from "@/mod/lib/types";
+import { XrTexture } from "@/mod/ui/components/base/XrTexture.component";
 import { MapSpotsComplex } from "@/mod/ui/game/map/MapSpotsComplex.part";
 import { MapSpotsMp } from "@/mod/ui/game/map/MapSpotsMp.part";
 import { MapSpotsRelations } from "@/mod/ui/game/map/MapSpotsRelations.part";
+
+import { normalizeBaseNodeProps } from "#/utils";
+
+interface IPdaMapSpotProps extends IBaseXmlNode {
+  heading?: boolean;
+  alignment?: TTextAlign;
+}
+
+function PdaMapSpot(props: IPdaMapSpotProps): JSXNode {
+  const { tag = "map_spot", width, height, x, y, heading, children = null } = normalizeBaseNodeProps(props);
+
+  return JSXXML(tag, { width, height, x, y, heading: heading ? 1 : 0 }, children);
+}
 
 export function MapSpots(): JSXNode {
   return (
@@ -11,20 +27,18 @@ export function MapSpots(): JSXNode {
       <MapSpotsRelations />
       <MapSpotsComplex />
 
-      <quest_pointer width="11" height="24" heading="1" alignment="c">
-        <texture a="255" r="255" g="255" b="255">
-          ui_hud_map_arrow
-        </texture>
-      </quest_pointer>
-      <quest_pointer2 width="11" height="24" heading="1" alignment="c">
-        <texture a="255" r="242" g="231" b="11">
-          ui_hud_map_arrow
-        </texture>
-      </quest_pointer2>
+      <PdaMapSpot tag={"quest_pointer"} width={11} height={24} heading={true} alignment={"c"}>
+        <XrTexture a={255} r={255} g={255} b={255} id={textures.ui_hud_map_arrow} />
+      </PdaMapSpot>
 
-      <quest_pointer_small width="5" height="12" heading="1" alignment="c">
-        <texture a="255">ui_hud_map_arrow</texture>
-      </quest_pointer_small>
+      <PdaMapSpot tag={"quest_pointer2"} width={11} height={24} heading={true} alignment={"c"}>
+        <XrTexture a={255} r={242} g={231} b={11} id={textures.ui_hud_map_arrow} />
+      </PdaMapSpot>
+
+      <PdaMapSpot tag={"quest_pointer_small"} width={5} height={12} heading={true} alignment={"c"}>
+        <XrTexture a={255} id={textures.ui_hud_map_arrow} />
+      </PdaMapSpot>
+
       <combat_pointer width="11" height="24" heading="1" alignment="c">
         <texture a="255" color="red">
           ui_hud_map_arrow
@@ -34,6 +48,7 @@ export function MapSpots(): JSXNode {
       <crlc_big>
         <level_map spot="crlc_big_spot" pointer="quest_pointer" />
       </crlc_big>
+
       <crlc_big_spot width="115" height="115" alignment="c" scale="1" scale_min="1" scale_max="3" stretch="1">
         <texture x="730" y="456" width="115" height="115">
           ui\ui_common
@@ -43,6 +58,7 @@ export function MapSpots(): JSXNode {
       <crlc_mdl>
         <level_map spot="crlc_mdl_spot" pointer="quest_pointer" />
       </crlc_mdl>
+
       <crlc_mdl_spot width="62" height="62" alignment="c" scale="1" scale_min="1" scale_max="3" stretch="1">
         <texture x="858" y="392" width="62" height="62">
           ui\ui_common
@@ -52,6 +68,7 @@ export function MapSpots(): JSXNode {
       <crlc_small>
         <level_map spot="crlc_small_spot" pointer="quest_pointer" />
       </crlc_small>
+
       <crlc_small_spot width="31" height="31" alignment="c" scale="1" scale_min="1" scale_max="3" stretch="1">
         <texture x="633" y="789" width="31" height="31">
           ui\ui_common
@@ -62,9 +79,11 @@ export function MapSpots(): JSXNode {
         <level_map spot="blue_spot" pointer="quest_pointer" />
         <mini_map spot="blue_mini_spot" pointer="quest_pointer" />
       </blue_location>
+
       <blue_spot width="32" height="32" stretch="1" alignment="c" xform_anim="map_spot_new_xform" xform_anim_cyclic="0">
         <texture>ui_icons_mapPDA_persBig_e</texture>
       </blue_spot>
+
       <blue_mini_spot
         width="11"
         height="11"
@@ -96,6 +115,7 @@ export function MapSpots(): JSXNode {
       >
         <texture>ui_icons_mapPDA_persBig_h</texture>
       </green_spot>
+
       <green_mini_spot
         width="11"
         height="11"
@@ -223,6 +243,7 @@ export function MapSpots(): JSXNode {
       <level_changer_down>
         <level_map spot="level_changer_down_spot" pointer="quest_pointer" />
       </level_changer_down>
+
       <level_changer_down_spot width="19" height="21" alignment="c" location_level="1" heading_angle="180">
         <texture r="10" g="250" b="250">
           ui_pda2_exit_point
@@ -267,6 +288,370 @@ export function MapSpots(): JSXNode {
         <texture>ui_inGame2_PDA_icon_secret</texture>
       </treasure_spot_mini>
 
+      <debug_stalker hint="invalid hint">
+        <level_map spot="debug_stalker_spot" />
+      </debug_stalker>
+
+      <debug_stalker_spot width="3" height="3" alignment="c">
+        <texture r="50" g="255" b="0">
+          ui_minimap_point
+        </texture>
+      </debug_stalker_spot>
+
+      <storyline_task_location>
+        <level_map spot="storyline_task_spot" pointer="quest_pointer2" />
+        <mini_map spot="storyline_task_spot_mini" pointer="quest_pointer2" />
+      </storyline_task_location>
+
+      <storyline_task_spot width="19" height="19" stretch="1" alignment="c" location_level="5">
+        <texture>ui_inGame2_PDA_icon_Primary_mission</texture>
+        <static_border
+          x="-5"
+          y="-5"
+          width="29"
+          height="29"
+          stretch="1"
+          light_anim="ui_slow_blinking_alpha"
+          la_cyclic="1"
+          la_texture="1"
+          la_text="0"
+          la_alpha="1"
+        >
+          <texture r="242" g="231" b="11">
+            ui_pda2_stask_last_02
+          </texture>
+        </static_border>
+      </storyline_task_spot>
+
+      <storyline_task_spot_mini width="19" height="19" stretch="1" alignment="c" location_level="5">
+        <texture>ui_inGame2_PDA_icon_Primary_mission</texture>
+        <static_border
+          x="-5"
+          y="-5"
+          width="29"
+          height="29"
+          stretch="1"
+          light_anim="ui_slow_blinking_alpha"
+          la_cyclic="1"
+          la_texture="1"
+          la_text="0"
+          la_alpha="1"
+        >
+          <texture r="242" g="231" b="11">
+            ui_mmap_stask_last_02
+          </texture>
+        </static_border>
+        <texture_below>storyline_task_spot_below</texture_below>
+        <texture_above>storyline_task_spot_above</texture_above>
+      </storyline_task_spot_mini>
+
+      <secondary_task_location>
+        <level_map spot="secondary_task_spot" pointer="quest_pointer" />
+        <mini_map spot="secondary_task_spot_mini" pointer="quest_pointer" />
+      </secondary_task_location>
+
+      <secondary_task_spot width="19" height="19" stretch="1" alignment="c" location_level="5">
+        <texture>ui_inGame2_PDA_icon_Secondary_mission</texture>
+        <static_border
+          x="-5"
+          y="-5"
+          width="29"
+          height="29"
+          stretch="1"
+          light_anim="ui_slow_blinking_alpha"
+          la_cyclic="1"
+          la_texture="1"
+          la_text="0"
+          la_alpha="1"
+        >
+          <texture>ui_pda2_stask_last_02</texture>
+        </static_border>
+      </secondary_task_spot>
+
+      <secondary_task_spot_mini width="19" height="19" stretch="1" alignment="c" location_level="5">
+        <texture>ui_inGame2_PDA_icon_Secondary_mission</texture>
+        <static_border
+          x="-5"
+          y="-5"
+          width="29"
+          height="29"
+          stretch="1"
+          light_anim="ui_slow_blinking_alpha"
+          la_cyclic="1"
+          la_texture="1"
+          la_text="0"
+          la_alpha="1"
+        >
+          <texture>ui_mmap_stask_last_02</texture>
+        </static_border>
+        <texture_below>secondary_task_spot_below</texture_below>
+        <texture_above>secondary_task_spot_above</texture_above>
+      </secondary_task_spot_mini>
+
+      <ui_secondary_task_blink ttl="15" hint="disable_hint" location_level="-1">
+        <level_map spot="ui_secondary_task_blink_spot" />
+      </ui_secondary_task_blink>
+      <ui_secondary_task_blink_spot
+        x="-8"
+        y="-40"
+        width="39"
+        height="39"
+        stretch="1"
+        light_anim="new_task_highlight_00"
+        light_anim_cyclic="1"
+        la_texture="1"
+        xform_anim="new_task_highlight_xform"
+        xform_anim_cyclic="1"
+        alignment="c"
+        location_level="-1"
+      >
+        <texture>ui_pda2_stask_last_01a</texture>
+      </ui_secondary_task_blink_spot>
+
+      <ui_storyline_task_blink ttl="15" hint="disable_hint" location_level="-1">
+        <level_map spot="ui_storyline_task_blink_spot" />
+      </ui_storyline_task_blink>
+      <ui_storyline_task_blink_spot
+        x="-8"
+        y="-10"
+        width="39"
+        height="39"
+        stretch="1"
+        light_anim="new_task_highlight"
+        light_anim_cyclic="1"
+        la_texture="1"
+        xform_anim="new_task_highlight_xform"
+        xform_anim_cyclic="1"
+        alignment="c"
+        location_level="-1"
+      >
+        <texture>ui_pda2_stask_last_01a</texture>
+      </ui_storyline_task_blink_spot>
+
+      {/** <!-- <secondary_na_border width="37" height="37" alignment="c" stretch="1" scale_min="2.5" scale_max="4.1"
+       scale="1" location_level="5">
+       <texture r="0" g="154" b="218">ui_pda2_hl_quest_base</texture>
+       </secondary_na_border>
+       <secondary_mini_na_border width="18" height="18" alignment="c" stretch="1" scale_min="2.5" scale_max="4.1"
+       scale="1" location_level="5">
+       <texture r="0" g="154" b="218">ui_pda2_hl_quest_base</texture>
+       </secondary_mini_na_border>
+
+       <secondary_ac_border width="37" height="37" alignment="c" stretch="1" scale_min="2.5" scale_max="4.1" scale="1"
+       location_level="5">
+       <texture r="255" g="240" b="0">ui_pda2_hl_quest_base</texture>
+       </secondary_ac_border>
+       <secondary_mini_ac_border width="18" height="18" alignment="c" stretch="1" scale_min="2.5" scale_max="4.1"
+       scale="1" location_level="5">
+       <texture r="255" g="240" b="0">ui_pda2_hl_quest_base</texture>
+       </secondary_mini_ac_border> -->
+
+       <!--
+       <primary_task_location>
+       <level_map spot="primary_task_spot"        pointer="quest_pointer"/>
+       <mini_map spot="primary_task_spot_mini"        pointer="quest_pointer"/>
+       </primary_task_location>
+       <primary_task_spot width="21" height="21" stretch="1" alignment="c" location_level="5">
+       <texture r="242" g="15" b="11">ui_pda2_quest</texture>
+       </primary_task_spot>
+       <primary_task_spot_mini  width="15" height="15" stretch="1" alignment="c" location_level="5">
+       <texture r="242" g="15" b="11">ui_mmap_quest</texture>
+       <texture_below r="242" g="15" b="11">ui_mini_sn_spot_below</texture_below>
+       <texture_above r="242" g="15" b="11">ui_mini_sn_spot_above</texture_above>
+       </primary_task_spot_mini>
+
+       <primary_na_border width="37" height="37" alignment="c" stretch="1" location_level="5">
+       <texture r="0" g="154" b="218">ui_pda2_hl_quest_base</texture>
+       </primary_na_border>
+       <primary_mini_na_border width="18" height="18" alignment="c" stretch="1" location_level="5">
+       <texture r="0" g="154" b="218">ui_pda2_hl_quest_base</texture>
+       </primary_mini_na_border>
+
+       <primary_ac_border width="37" height="37" alignment="c" stretch="1" location_level="5">
+       <texture r="255" g="240" b="0">ui_pda2_hl_quest_base</texture>
+       </primary_ac_border>
+       <primary_mini_ac_border width="18" height="18" alignment="c" stretch="1" location_level="5">
+       <texture r="255" g="240" b="0">ui_pda2_hl_quest_base</texture>
+       </primary_mini_ac_border>
+
+       <third_task_location>
+       <level_map spot="third_task_spot"/>
+       </third_task_location>
+       <third_task_spot width="27" height="27" stretch="1" alignment="c" location_level="5">
+       <texture r="0" g="154" b="218">ui_pda2_sq_sos</texture>
+       </third_task_spot>
+
+       <third_na_border width="37" height="37" alignment="c" stretch="1" location_level="5">
+       <texture r="0" g="154" b="218">ui_pda2_hl_quest_base</texture>
+       </third_na_border>
+
+       <third_ac_border width="37" height="37" alignment="c" stretch="1" location_level="5">
+       <texture r="255" g="240" b="0">ui_pda2_hl_quest_base</texture>
+       </third_ac_border>
+
+       --> */}
+
+      <no_spot width="0" height="0" stretch="1" alignment="c">
+        <texture>ui_pda2_hl_seq_quest2</texture>
+      </no_spot>
+
+      <primary_object>
+        <level_map spot="primary_object_spot" />
+      </primary_object>
+
+      <primary_object_spot
+        width="15"
+        height="15"
+        stretch="1"
+        alignment="c"
+        location_level="-3"
+        scale="1"
+        scale_min="1"
+        scale_max="6"
+      >
+        <texture>ui_inGame2_PDA_icon_location</texture>
+      </primary_object_spot>
+      {/** <!--
+       <primary_object_spot_mini  width="15" height="15" stretch="1" alignment="c" location_level="5">
+       <texture r="242" g="15" b="11">ui_mmap_quest</texture>
+       </primary_object_spot_mini>
+       --> */}
+      <storyline_task_on_guider>
+        <mini_map spot="storyline_task_on_guider_spot" />
+      </storyline_task_on_guider>
+      <storyline_task_on_guider_spot x="0" y="0" width="21" height="21" stretch="1" alignment="c" location_level="-1">
+        <texture r="242" g="231" b="11">
+          ui_pda2_stask_last_01
+        </texture>
+      </storyline_task_on_guider_spot>
+
+      <secondary_task_on_guider>
+        <mini_map spot="secondary_task_on_guider_spot" />
+      </secondary_task_on_guider>
+      <secondary_task_on_guider_spot x="0" y="0" width="21" height="21" stretch="1" alignment="c" location_level="-1">
+        <texture>ui_pda2_stask_last_01</texture>
+      </secondary_task_on_guider_spot>
+
+      <AlifeRepresentationsCollection />
+    </map_spots>
+  );
+}
+
+function UsefulNpcsCollection(): JSXNode {
+  return (
+    <Fragment>
+      <ui_pda2_mechanic_location hint="st_ui_pda_legend_mechanic">
+        <level_map spot="ui_pda2_mechanic_location_spot" />
+        <mini_map spot="ui_pda2_mechanic_location_mini_spot" />
+      </ui_pda2_mechanic_location>
+      <ui_pda2_mechanic_location_spot
+        width="19"
+        height="19"
+        stretch="1"
+        alignment="c"
+        location_level="-1"
+        scale_min="3"
+      >
+        <texture>ui_inGame2_PDA_icon_Stalker_machanik</texture>
+      </ui_pda2_mechanic_location_spot>
+      <ui_pda2_mechanic_location_mini_spot width="14" height="14" stretch="1" alignment="c" location_level="-1">
+        <texture>ui_inGame2_PDA_icon_Stalker_machanik_small</texture>
+      </ui_pda2_mechanic_location_mini_spot>
+
+      <ui_pda2_trader_location hint="st_ui_pda_legend_trader">
+        <level_map spot="ui_pda2_trader_location_spot" />
+        <mini_map spot="ui_pda2_trader_location_mini_spot" pointer="quest_pointer" />
+      </ui_pda2_trader_location>
+      <ui_pda2_trader_location_spot width="19" height="19" stretch="1" alignment="c" location_level="-1" scale_min="3">
+        <texture>ui_inGame2_PDA_icon_Stalker_Trader</texture>
+      </ui_pda2_trader_location_spot>
+      <ui_pda2_trader_location_mini_spot width="14" height="14" stretch="1" alignment="c" location_level="-1">
+        <texture>ui_inGame2_PDA_icon_Stalker_Trader_small</texture>
+      </ui_pda2_trader_location_mini_spot>
+
+      <ui_pda2_scout_location hint="st_ui_pda_legend_scout">
+        <level_map spot="ui_pda2_scout_location_spot" />
+        <mini_map spot="ui_pda2_scout_location_mini_spot" />
+      </ui_pda2_scout_location>
+      <ui_pda2_scout_location_spot width="19" height="19" stretch="1" alignment="c" location_level="-1" scale_min="3">
+        <texture>ui_inGame2_PDA_icon_Stalker_guide</texture>
+      </ui_pda2_scout_location_spot>
+      <ui_pda2_scout_location_mini_spot width="14" height="14" stretch="1" alignment="c" location_level="-1">
+        <texture>ui_inGame2_PDA_icon_Stalker_guide_small</texture>
+      </ui_pda2_scout_location_mini_spot>
+
+      <ui_pda2_quest_npc_location hint="st_ui_pda_legend_vip">
+        <level_map spot="ui_pda2_quest_npc_location_spot" />
+        <mini_map spot="ui_pda2_quest_npc_location_mini_spot" />
+      </ui_pda2_quest_npc_location>
+      <ui_pda2_quest_npc_location_spot
+        width="19"
+        height="19"
+        stretch="1"
+        alignment="c"
+        location_level="-1"
+        scale_min="3"
+      >
+        <texture>ui_inGame2_PDA_icon_Stalker_VIP</texture>
+      </ui_pda2_quest_npc_location_spot>
+
+      <ui_pda2_quest_npc_location_mini_spot width="14" height="14" stretch="1" alignment="c" location_level="-1">
+        <texture>ui_inGame2_PDA_icon_Stalker_VIP</texture>
+      </ui_pda2_quest_npc_location_mini_spot>
+
+      <ui_pda2_medic_location hint="st_ui_pda_legend_medic">
+        <level_map spot="ui_pda2_medic_location_spot" />
+        <mini_map spot="ui_pda2_medic_location_mini_spot" />
+      </ui_pda2_medic_location>
+      <ui_pda2_medic_location_spot width="19" height="19" stretch="1" alignment="c" location_level="-1" scale_min="3">
+        <texture>ui_inGame2_PDA_icon_Stalker_Medic</texture>
+      </ui_pda2_medic_location_spot>
+      <ui_pda2_medic_location_mini_spot width="14" height="14" stretch="1" alignment="c" location_level="-1">
+        <texture>ui_inGame2_PDA_icon_Stalker_Medic_small</texture>
+      </ui_pda2_medic_location_mini_spot>
+
+      <ui_pda2_actor_box_location hint="st_ui_pda_actor_box">
+        <level_map spot="ui_pda2_actor_box_location_spot" />
+        <mini_map spot="ui_pda2_actor_box_location_mini_spot" />
+      </ui_pda2_actor_box_location>
+      <ui_pda2_actor_box_location_spot
+        width="19"
+        height="19"
+        stretch="1"
+        alignment="c"
+        location_level="-1"
+        scale_min="3"
+      >
+        <texture>ui_inGame2_PDA_icon_Actor_Box</texture>
+      </ui_pda2_actor_box_location_spot>
+      <ui_pda2_actor_box_location_mini_spot width="14" height="14" stretch="1" alignment="c" location_level="-1">
+        <texture>ui_inGame2_PDA_icon_Actor_Box_small</texture>
+      </ui_pda2_actor_box_location_mini_spot>
+
+      <ui_pda2_actor_sleep_location hint="st_ui_pda_sleep_place">
+        <level_map spot="ui_pda2_actor_sleep_location_spot" />
+        <mini_map spot="ui_pda2_actor_sleep_location_mini_spot" />
+      </ui_pda2_actor_sleep_location>
+      <ui_pda2_actor_sleep_location_spot
+        width="19"
+        height="19"
+        stretch="1"
+        alignment="c"
+        location_level="-1"
+        scale_min="3"
+      >
+        <texture>ui_inGame2_PDA_icon_Place_to_rest</texture>
+      </ui_pda2_actor_sleep_location_spot>
+      <ui_pda2_actor_sleep_location_mini_spot width="14" height="14" stretch="1" alignment="c" location_level="-1">
+        <texture>ui_inGame2_PDA_icon_Place_to_rest_small</texture>
+      </ui_pda2_actor_sleep_location_mini_spot>
+    </Fragment>
+  );
+}
+
+function AlifeRepresentationsCollection(): JSXNode {
+  return (
+    <Fragment>
       <alife_combat_fight>
         <level_map spot="alife_combat_fight_spot" pointer="combat_pointer" />
         <mini_map spot="alife_combat_fight_spot_mini" />
@@ -332,17 +717,6 @@ export function MapSpots(): JSXNode {
         <texture>ui_alife_combat</texture>
       </alife_combat_spot>
 
-      <debug_stalker hint="invalid hint">
-        <level_map spot="debug_stalker_spot" />
-      </debug_stalker>
-
-      <debug_stalker_spot width="3" height="3" alignment="c">
-        <texture r="50" g="255" b="0">
-          ui_minimap_point
-        </texture>
-      </debug_stalker_spot>
-
-      {/**  <!-- Группировки --> */}
       <alife_presentation_faction_duty>
         <level_map spot="alife_presentation_faction_duty_spot" />
       </alife_presentation_faction_duty>
@@ -500,7 +874,6 @@ export function MapSpots(): JSXNode {
         <level_map spot="alife_presentation_faction_digger_spot" />
       </alife_presentation_faction_monolith>
 
-      {/** <!-- Смарттеррейны --> */}
       <alife_presentation_smart>
         <level_map spot="alife_presentation_smart_spot" />
       </alife_presentation_smart>
@@ -1056,395 +1429,58 @@ export function MapSpots(): JSXNode {
         </texture>
       </alife_presentation_squad_monster_spot_mini>
       {/**  <!--
-         <alife_presentation_squad_attack_point>
-         <level_map spot="alife_presentation_squad_attack_point_spot"/>
-         <mini_map spot="alife_presentation_squad_attack_point_spot_mini"/>
-         </alife_presentation_squad_attack_point>
-         <alife_presentation_squad_attack_point_spot width="11" height="11" alignment="c" stretch="1" scale_min="3.0"
+       <alife_presentation_squad_attack_point>
+       <level_map spot="alife_presentation_squad_attack_point_spot"/>
+       <mini_map spot="alife_presentation_squad_attack_point_spot_mini"/>
+       </alife_presentation_squad_attack_point>
+       <alife_presentation_squad_attack_point_spot width="11" height="11" alignment="c" stretch="1" scale_min="3.0"
        scale_max="5.1" scale="0" location_level="10">
-         <texture r="0" g="0" b="255">ui_pda2_squad_leader</texture>
-         </alife_presentation_squad_attack_point_spot>
-         <alife_presentation_squad_attack_point_spot_mini width="9" height="9" alignment="c" stretch="1"
+       <texture r="0" g="0" b="255">ui_pda2_squad_leader</texture>
+       </alife_presentation_squad_attack_point_spot>
+       <alife_presentation_squad_attack_point_spot_mini width="9" height="9" alignment="c" stretch="1"
        scale_min="3.0" scale_max="5.1" scale="0" location_level="10">
-         <texture r="0" g="0" b="255">ui_minimap_squad_leader</texture>
-         </alife_presentation_squad_attack_point_spot_mini>
+       <texture r="0" g="0" b="255">ui_minimap_squad_leader</texture>
+       </alife_presentation_squad_attack_point_spot_mini>
 
-         <alife_presentation_enemy_squad_attack_point>
-         <level_map spot="alife_presentation_enemy_squad_attack_point_spot"/>
-         <mini_map spot="alife_presentation_enemy_squad_attack_point_spot_mini"/>
-         </alife_presentation_enemy_squad_attack_point>
-         <alife_presentation_enemy_squad_attack_point_spot width="11" height="11" alignment="c" stretch="1"
+       <alife_presentation_enemy_squad_attack_point>
+       <level_map spot="alife_presentation_enemy_squad_attack_point_spot"/>
+       <mini_map spot="alife_presentation_enemy_squad_attack_point_spot_mini"/>
+       </alife_presentation_enemy_squad_attack_point>
+       <alife_presentation_enemy_squad_attack_point_spot width="11" height="11" alignment="c" stretch="1"
        scale_min="3.0" scale_max="5.1" scale="0" location_level="10">
-         <texture r="255" g="100" b="100">ui_pda2_squad_leader</texture>
-         </alife_presentation_enemy_squad_attack_point_spot>
-         <alife_presentation_enemy_squad_attack_point_spot_mini width="9" height="9" alignment="c" stretch="1"
+       <texture r="255" g="100" b="100">ui_pda2_squad_leader</texture>
+       </alife_presentation_enemy_squad_attack_point_spot>
+       <alife_presentation_enemy_squad_attack_point_spot_mini width="9" height="9" alignment="c" stretch="1"
        scale_min="3.0" scale_max="5.1" scale="0" location_level="10">
-         <texture r="255" g="100" b="100">ui_minimap_squad_leader</texture>
-         </alife_presentation_enemy_squad_attack_point_spot_mini>
+       <texture r="255" g="100" b="100">ui_minimap_squad_leader</texture>
+       </alife_presentation_enemy_squad_attack_point_spot_mini>
 
-         <alife_presentation_neutral_squad_attack_point>
-         <level_map spot="alife_presentation_neutral_squad_attack_point_spot"/>
-         <mini_map spot="alife_presentation_neutral_squad_attack_point_spot_mini"/>
-         </alife_presentation_neutral_squad_attack_point>
-         <alife_presentation_neutral_squad_attack_point_spot width="11" height="11" alignment="c" stretch="1"
+       <alife_presentation_neutral_squad_attack_point>
+       <level_map spot="alife_presentation_neutral_squad_attack_point_spot"/>
+       <mini_map spot="alife_presentation_neutral_squad_attack_point_spot_mini"/>
+       </alife_presentation_neutral_squad_attack_point>
+       <alife_presentation_neutral_squad_attack_point_spot width="11" height="11" alignment="c" stretch="1"
        scale_min="3.0" scale_max="5.1" scale="0" location_level="10">
-         <texture r="255" g="255" b="100">ui_pda2_squad_leader</texture>
-         </alife_presentation_neutral_squad_attack_point_spot>
-         <alife_presentation_neutral_squad_attack_point_spot_mini width="9" height="9" alignment="c" stretch="1"
+       <texture r="255" g="255" b="100">ui_pda2_squad_leader</texture>
+       </alife_presentation_neutral_squad_attack_point_spot>
+       <alife_presentation_neutral_squad_attack_point_spot_mini width="9" height="9" alignment="c" stretch="1"
        scale_min="3.0" scale_max="5.1" scale="0" location_level="10">
-         <texture r="255" g="255" b="100">ui_minimap_squad_leader</texture>
-         </alife_presentation_neutral_squad_attack_point_spot_mini>
+       <texture r="255" g="255" b="100">ui_minimap_squad_leader</texture>
+       </alife_presentation_neutral_squad_attack_point_spot_mini>
 
-         <alife_presentation_friend_squad_attack_point>
-         <level_map spot="alife_presentation_friend_squad_attack_point_spot"/>
-         <mini_map spot="alife_presentation_friend_squad_attack_point_spot_mini"/>
-         </alife_presentation_friend_squad_attack_point>
-         <alife_presentation_friend_squad_attack_point_spot width="11" height="11" alignment="c" stretch="1"
+       <alife_presentation_friend_squad_attack_point>
+       <level_map spot="alife_presentation_friend_squad_attack_point_spot"/>
+       <mini_map spot="alife_presentation_friend_squad_attack_point_spot_mini"/>
+       </alife_presentation_friend_squad_attack_point>
+       <alife_presentation_friend_squad_attack_point_spot width="11" height="11" alignment="c" stretch="1"
        scale_min="3.0" scale_max="5.1" scale="0" location_level="10">
-         <texture r="170" g="255" b="170">ui_pda2_squad_leader</texture>
-         </alife_presentation_friend_squad_attack_point_spot>
-         <alife_presentation_friend_squad_attack_point_spot_mini width="9" height="9" alignment="c" stretch="1"
+       <texture r="170" g="255" b="170">ui_pda2_squad_leader</texture>
+       </alife_presentation_friend_squad_attack_point_spot>
+       <alife_presentation_friend_squad_attack_point_spot_mini width="9" height="9" alignment="c" stretch="1"
        scale_min="3.0" scale_max="5.1" scale="0" location_level="10">
-         <texture r="170" g="255" b="170">ui_minimap_squad_leader</texture>
-         </alife_presentation_friend_squad_attack_point_spot_mini>
-         --> */}
-
-      <storyline_task_location>
-        <level_map spot="storyline_task_spot" pointer="quest_pointer2" />
-        <mini_map spot="storyline_task_spot_mini" pointer="quest_pointer2" />
-      </storyline_task_location>
-      <storyline_task_spot width="19" height="19" stretch="1" alignment="c" location_level="5">
-        <texture>ui_inGame2_PDA_icon_Primary_mission</texture>
-        <static_border
-          x="-5"
-          y="-5"
-          width="29"
-          height="29"
-          stretch="1"
-          light_anim="ui_slow_blinking_alpha"
-          la_cyclic="1"
-          la_texture="1"
-          la_text="0"
-          la_alpha="1"
-        >
-          <texture r="242" g="231" b="11">
-            ui_pda2_stask_last_02
-          </texture>
-        </static_border>
-      </storyline_task_spot>
-
-      <storyline_task_spot_mini width="19" height="19" stretch="1" alignment="c" location_level="5">
-        <texture>ui_inGame2_PDA_icon_Primary_mission</texture>
-        <static_border
-          x="-5"
-          y="-5"
-          width="29"
-          height="29"
-          stretch="1"
-          light_anim="ui_slow_blinking_alpha"
-          la_cyclic="1"
-          la_texture="1"
-          la_text="0"
-          la_alpha="1"
-        >
-          <texture r="242" g="231" b="11">
-            ui_mmap_stask_last_02
-          </texture>
-        </static_border>
-        <texture_below>storyline_task_spot_below</texture_below>
-        <texture_above>storyline_task_spot_above</texture_above>
-      </storyline_task_spot_mini>
-
-      <secondary_task_location>
-        <level_map spot="secondary_task_spot" pointer="quest_pointer" />
-        <mini_map spot="secondary_task_spot_mini" pointer="quest_pointer" />
-      </secondary_task_location>
-
-      <secondary_task_spot width="19" height="19" stretch="1" alignment="c" location_level="5">
-        <texture>ui_inGame2_PDA_icon_Secondary_mission</texture>
-        <static_border
-          x="-5"
-          y="-5"
-          width="29"
-          height="29"
-          stretch="1"
-          light_anim="ui_slow_blinking_alpha"
-          la_cyclic="1"
-          la_texture="1"
-          la_text="0"
-          la_alpha="1"
-        >
-          <texture>ui_pda2_stask_last_02</texture>
-        </static_border>
-      </secondary_task_spot>
-
-      <secondary_task_spot_mini width="19" height="19" stretch="1" alignment="c" location_level="5">
-        <texture>ui_inGame2_PDA_icon_Secondary_mission</texture>
-        <static_border
-          x="-5"
-          y="-5"
-          width="29"
-          height="29"
-          stretch="1"
-          light_anim="ui_slow_blinking_alpha"
-          la_cyclic="1"
-          la_texture="1"
-          la_text="0"
-          la_alpha="1"
-        >
-          <texture>ui_mmap_stask_last_02</texture>
-        </static_border>
-        <texture_below>secondary_task_spot_below</texture_below>
-        <texture_above>secondary_task_spot_above</texture_above>
-      </secondary_task_spot_mini>
-
-      <ui_secondary_task_blink ttl="15" hint="disable_hint" location_level="-1">
-        <level_map spot="ui_secondary_task_blink_spot" />
-      </ui_secondary_task_blink>
-      <ui_secondary_task_blink_spot
-        x="-8"
-        y="-40"
-        width="39"
-        height="39"
-        stretch="1"
-        light_anim="new_task_highlight_00"
-        light_anim_cyclic="1"
-        la_texture="1"
-        xform_anim="new_task_highlight_xform"
-        xform_anim_cyclic="1"
-        alignment="c"
-        location_level="-1"
-      >
-        <texture>ui_pda2_stask_last_01a</texture>
-      </ui_secondary_task_blink_spot>
-
-      <ui_storyline_task_blink ttl="15" hint="disable_hint" location_level="-1">
-        <level_map spot="ui_storyline_task_blink_spot" />
-      </ui_storyline_task_blink>
-      <ui_storyline_task_blink_spot
-        x="-8"
-        y="-10"
-        width="39"
-        height="39"
-        stretch="1"
-        light_anim="new_task_highlight"
-        light_anim_cyclic="1"
-        la_texture="1"
-        xform_anim="new_task_highlight_xform"
-        xform_anim_cyclic="1"
-        alignment="c"
-        location_level="-1"
-      >
-        <texture>ui_pda2_stask_last_01a</texture>
-      </ui_storyline_task_blink_spot>
-
-      {/** <!-- <secondary_na_border width="37" height="37" alignment="c" stretch="1" scale_min="2.5" scale_max="4.1"
-       scale="1" location_level="5">
-       <texture r="0" g="154" b="218">ui_pda2_hl_quest_base</texture>
-       </secondary_na_border>
-       <secondary_mini_na_border width="18" height="18" alignment="c" stretch="1" scale_min="2.5" scale_max="4.1"
-       scale="1" location_level="5">
-       <texture r="0" g="154" b="218">ui_pda2_hl_quest_base</texture>
-       </secondary_mini_na_border>
-
-       <secondary_ac_border width="37" height="37" alignment="c" stretch="1" scale_min="2.5" scale_max="4.1" scale="1"
-       location_level="5">
-       <texture r="255" g="240" b="0">ui_pda2_hl_quest_base</texture>
-       </secondary_ac_border>
-       <secondary_mini_ac_border width="18" height="18" alignment="c" stretch="1" scale_min="2.5" scale_max="4.1"
-       scale="1" location_level="5">
-       <texture r="255" g="240" b="0">ui_pda2_hl_quest_base</texture>
-       </secondary_mini_ac_border> -->
-
-       <!--
-       <primary_task_location>
-       <level_map spot="primary_task_spot"        pointer="quest_pointer"/>
-       <mini_map spot="primary_task_spot_mini"        pointer="quest_pointer"/>
-       </primary_task_location>
-       <primary_task_spot width="21" height="21" stretch="1" alignment="c" location_level="5">
-       <texture r="242" g="15" b="11">ui_pda2_quest</texture>
-       </primary_task_spot>
-       <primary_task_spot_mini  width="15" height="15" stretch="1" alignment="c" location_level="5">
-       <texture r="242" g="15" b="11">ui_mmap_quest</texture>
-       <texture_below r="242" g="15" b="11">ui_mini_sn_spot_below</texture_below>
-       <texture_above r="242" g="15" b="11">ui_mini_sn_spot_above</texture_above>
-       </primary_task_spot_mini>
-
-       <primary_na_border width="37" height="37" alignment="c" stretch="1" location_level="5">
-       <texture r="0" g="154" b="218">ui_pda2_hl_quest_base</texture>
-       </primary_na_border>
-       <primary_mini_na_border width="18" height="18" alignment="c" stretch="1" location_level="5">
-       <texture r="0" g="154" b="218">ui_pda2_hl_quest_base</texture>
-       </primary_mini_na_border>
-
-       <primary_ac_border width="37" height="37" alignment="c" stretch="1" location_level="5">
-       <texture r="255" g="240" b="0">ui_pda2_hl_quest_base</texture>
-       </primary_ac_border>
-       <primary_mini_ac_border width="18" height="18" alignment="c" stretch="1" location_level="5">
-       <texture r="255" g="240" b="0">ui_pda2_hl_quest_base</texture>
-       </primary_mini_ac_border>
-
-       <third_task_location>
-       <level_map spot="third_task_spot"/>
-       </third_task_location>
-       <third_task_spot width="27" height="27" stretch="1" alignment="c" location_level="5">
-       <texture r="0" g="154" b="218">ui_pda2_sq_sos</texture>
-       </third_task_spot>
-
-       <third_na_border width="37" height="37" alignment="c" stretch="1" location_level="5">
-       <texture r="0" g="154" b="218">ui_pda2_hl_quest_base</texture>
-       </third_na_border>
-
-       <third_ac_border width="37" height="37" alignment="c" stretch="1" location_level="5">
-       <texture r="255" g="240" b="0">ui_pda2_hl_quest_base</texture>
-       </third_ac_border>
-
+       <texture r="170" g="255" b="170">ui_minimap_squad_leader</texture>
+       </alife_presentation_friend_squad_attack_point_spot_mini>
        --> */}
-
-      <no_spot width="0" height="0" stretch="1" alignment="c">
-        <texture>ui_pda2_hl_seq_quest2</texture>
-      </no_spot>
-
-      <ui_pda2_mechanic_location hint="st_ui_pda_legend_mechanic">
-        <level_map spot="ui_pda2_mechanic_location_spot" />
-        <mini_map spot="ui_pda2_mechanic_location_mini_spot" />
-      </ui_pda2_mechanic_location>
-      <ui_pda2_mechanic_location_spot
-        width="19"
-        height="19"
-        stretch="1"
-        alignment="c"
-        location_level="-1"
-        scale_min="3"
-      >
-        <texture>ui_inGame2_PDA_icon_Stalker_machanik</texture>
-      </ui_pda2_mechanic_location_spot>
-      <ui_pda2_mechanic_location_mini_spot width="14" height="14" stretch="1" alignment="c" location_level="-1">
-        <texture>ui_inGame2_PDA_icon_Stalker_machanik_small</texture>
-      </ui_pda2_mechanic_location_mini_spot>
-
-      <ui_pda2_trader_location hint="st_ui_pda_legend_trader">
-        <level_map spot="ui_pda2_trader_location_spot" />
-        <mini_map spot="ui_pda2_trader_location_mini_spot" pointer="quest_pointer" />
-      </ui_pda2_trader_location>
-      <ui_pda2_trader_location_spot width="19" height="19" stretch="1" alignment="c" location_level="-1" scale_min="3">
-        <texture>ui_inGame2_PDA_icon_Stalker_Trader</texture>
-      </ui_pda2_trader_location_spot>
-      <ui_pda2_trader_location_mini_spot width="14" height="14" stretch="1" alignment="c" location_level="-1">
-        <texture>ui_inGame2_PDA_icon_Stalker_Trader_small</texture>
-      </ui_pda2_trader_location_mini_spot>
-
-      <ui_pda2_scout_location hint="st_ui_pda_legend_scout">
-        <level_map spot="ui_pda2_scout_location_spot" />
-        <mini_map spot="ui_pda2_scout_location_mini_spot" />
-      </ui_pda2_scout_location>
-      <ui_pda2_scout_location_spot width="19" height="19" stretch="1" alignment="c" location_level="-1" scale_min="3">
-        <texture>ui_inGame2_PDA_icon_Stalker_guide</texture>
-      </ui_pda2_scout_location_spot>
-      <ui_pda2_scout_location_mini_spot width="14" height="14" stretch="1" alignment="c" location_level="-1">
-        <texture>ui_inGame2_PDA_icon_Stalker_guide_small</texture>
-      </ui_pda2_scout_location_mini_spot>
-
-      <ui_pda2_quest_npc_location hint="st_ui_pda_legend_vip">
-        <level_map spot="ui_pda2_quest_npc_location_spot" />
-        <mini_map spot="ui_pda2_quest_npc_location_mini_spot" />
-      </ui_pda2_quest_npc_location>
-      <ui_pda2_quest_npc_location_spot
-        width="19"
-        height="19"
-        stretch="1"
-        alignment="c"
-        location_level="-1"
-        scale_min="3"
-      >
-        <texture>ui_inGame2_PDA_icon_Stalker_VIP</texture>
-      </ui_pda2_quest_npc_location_spot>
-      <ui_pda2_quest_npc_location_mini_spot width="14" height="14" stretch="1" alignment="c" location_level="-1">
-        <texture>ui_inGame2_PDA_icon_Stalker_VIP</texture>
-      </ui_pda2_quest_npc_location_mini_spot>
-
-      <ui_pda2_medic_location hint="st_ui_pda_legend_medic">
-        <level_map spot="ui_pda2_medic_location_spot" />
-        <mini_map spot="ui_pda2_medic_location_mini_spot" />
-      </ui_pda2_medic_location>
-      <ui_pda2_medic_location_spot width="19" height="19" stretch="1" alignment="c" location_level="-1" scale_min="3">
-        <texture>ui_inGame2_PDA_icon_Stalker_Medic</texture>
-      </ui_pda2_medic_location_spot>
-      <ui_pda2_medic_location_mini_spot width="14" height="14" stretch="1" alignment="c" location_level="-1">
-        <texture>ui_inGame2_PDA_icon_Stalker_Medic_small</texture>
-      </ui_pda2_medic_location_mini_spot>
-
-      <ui_pda2_actor_box_location hint="st_ui_pda_actor_box">
-        <level_map spot="ui_pda2_actor_box_location_spot" />
-        <mini_map spot="ui_pda2_actor_box_location_mini_spot" />
-      </ui_pda2_actor_box_location>
-      <ui_pda2_actor_box_location_spot
-        width="19"
-        height="19"
-        stretch="1"
-        alignment="c"
-        location_level="-1"
-        scale_min="3"
-      >
-        <texture>ui_inGame2_PDA_icon_Actor_Box</texture>
-      </ui_pda2_actor_box_location_spot>
-      <ui_pda2_actor_box_location_mini_spot width="14" height="14" stretch="1" alignment="c" location_level="-1">
-        <texture>ui_inGame2_PDA_icon_Actor_Box_small</texture>
-      </ui_pda2_actor_box_location_mini_spot>
-
-      <ui_pda2_actor_sleep_location hint="st_ui_pda_sleep_place">
-        <level_map spot="ui_pda2_actor_sleep_location_spot" />
-        <mini_map spot="ui_pda2_actor_sleep_location_mini_spot" />
-      </ui_pda2_actor_sleep_location>
-      <ui_pda2_actor_sleep_location_spot
-        width="19"
-        height="19"
-        stretch="1"
-        alignment="c"
-        location_level="-1"
-        scale_min="3"
-      >
-        <texture>ui_inGame2_PDA_icon_Place_to_rest</texture>
-      </ui_pda2_actor_sleep_location_spot>
-      <ui_pda2_actor_sleep_location_mini_spot width="14" height="14" stretch="1" alignment="c" location_level="-1">
-        <texture>ui_inGame2_PDA_icon_Place_to_rest_small</texture>
-      </ui_pda2_actor_sleep_location_mini_spot>
-
-      <primary_object>
-        <level_map spot="primary_object_spot" />
-      </primary_object>
-      <primary_object_spot
-        width="15"
-        height="15"
-        stretch="1"
-        alignment="c"
-        location_level="-3"
-        scale="1"
-        scale_min="1"
-        scale_max="6"
-      >
-        <texture>ui_inGame2_PDA_icon_location</texture>
-      </primary_object_spot>
-      {/** <!--
-       <primary_object_spot_mini  width="15" height="15" stretch="1" alignment="c" location_level="5">
-       <texture r="242" g="15" b="11">ui_mmap_quest</texture>
-       </primary_object_spot_mini>
-       --> */}
-      <storyline_task_on_guider>
-        <mini_map spot="storyline_task_on_guider_spot" />
-      </storyline_task_on_guider>
-      <storyline_task_on_guider_spot x="0" y="0" width="21" height="21" stretch="1" alignment="c" location_level="-1">
-        <texture r="242" g="231" b="11">
-          ui_pda2_stask_last_01
-        </texture>
-      </storyline_task_on_guider_spot>
-
-      <secondary_task_on_guider>
-        <mini_map spot="secondary_task_on_guider_spot" />
-      </secondary_task_on_guider>
-      <secondary_task_on_guider_spot x="0" y="0" width="21" height="21" stretch="1" alignment="c" location_level="-1">
-        <texture>ui_pda2_stask_last_01</texture>
-      </secondary_task_on_guider_spot>
-    </map_spots>
+    </Fragment>
   );
 }

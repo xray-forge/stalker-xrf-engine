@@ -128,7 +128,7 @@ declare module "xray16" {
     show_weapon(this: void, val: boolean): unknown;
     get_wfx_time(this: void): unknown;
     disable_input(this: void): unknown;
-    map_add_object_spot(this: void, num: number, str1: string, str2: string): unknown;
+    map_add_object_spot(this: void, id: number, section: string, hint: string): unknown;
     get_time_minutes(this: void): unknown;
     get_time_factor(this: void): number;
     map_add_object_spot_ser(this: void, num: number, str1: string, str2: string): unknown;

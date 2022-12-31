@@ -478,7 +478,6 @@ function move_mgr:waypoint_callback(obj, action_type, index)
 	if suggested_state_moving then
 		self.cur_state_moving = xr_logic.pick_section_from_condlist(db.actor, self.object, suggested_state_moving)
 		if tostring(self.cur_state_moving) == "true" then
-			print_table(suggested_state_moving)
 			abort("!!!!!")
 		end
 	else

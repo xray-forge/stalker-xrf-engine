@@ -4,7 +4,7 @@ import { TTextureId } from "@/mod/globals/textures";
 import { IBaseXmlNode, TTextAlign } from "@/mod/lib/types";
 import { XrTexture } from "@/mod/ui/components/base/XrTexture.component";
 
-import { normalizeBaseNodeCoordinates } from "#/utils";
+import { normalizeBaseNodeProps } from "#/utils";
 
 export interface IXrTabButtonProps extends IBaseXmlNode {
   id: string;
@@ -16,7 +16,7 @@ export interface IXrTabButtonProps extends IBaseXmlNode {
 }
 
 export function CustomTabButton(props: IXrTabButtonProps): JSXNode {
-  const { x, y, width, height, children, texture, id, stretch } = normalizeBaseNodeCoordinates(props);
+  const { x, y, width, height, children, texture, id, stretch } = normalizeBaseNodeProps(props);
 
   return (
     <button x={x} y={y} width={width} height={height} id={id} stretch={stretch === undefined ? "1" : stretch}>

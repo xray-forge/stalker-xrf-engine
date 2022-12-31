@@ -23,6 +23,7 @@ import {
 } from "xray16";
 
 import { MAX_UNSIGNED_16_BIT, MAX_UNSIGNED_8_BIT } from "@/mod/globals/memory";
+import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { AnyCallable, AnyObject, Optional } from "@/mod/lib/types";
 import {
   turn_off_campfires_by_smart_name,
@@ -30,8 +31,10 @@ import {
 } from "@/mod/scripts/core/binders/CampfireBinder";
 import { isMonster, isStalker } from "@/mod/scripts/core/checkers";
 import { getActor, offlineObjects, storage } from "@/mod/scripts/core/db";
+import { SMART_TERRAIN_SECT } from "@/mod/scripts/core/db/sections";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
-import { registered_smartcovers, SmartCover } from "@/mod/scripts/se/SmartCover";
+import { ISimSquad } from "@/mod/scripts/se/SimSquad";
+import { registered_smartcovers } from "@/mod/scripts/se/SmartCover";
 import { getStoryObject, unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { getConfigBoolean, getConfigNumber, getConfigString, parseNames } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -46,7 +49,6 @@ export const DEATH_IDLE_TIME: number = 10 * 60;
 export const RESPAWN_IDLE: number = 1000;
 export const RESPAWN_RADIUS: number = 150;
 
-export const SMART_TERRAIN_SECT: string = "smart_terrain";
 export const smart_terrains_by_name: LuaTable<string, ISmartTerrain> = new LuaTable();
 
 export const locations_ini = new ini_file("misc\\smart_terrain_masks.ltx");
@@ -158,16 +160,16 @@ export interface ISmartTerrain extends XR_cse_alife_smart_zone {
   check_alarm(): void;
   on_death(object: XR_cse_alife_object): void;
   get_location(): LuaMultiReturn<[XR_vector, number, number]>;
-  am_i_reached(squad: any): boolean;
-  on_after_reach(squad: any): boolean;
-  on_reach_target(squad: any): void;
+  am_i_reached(squad: ISimSquad): boolean;
+  on_after_reach(squad: ISimSquad): boolean;
+  on_reach_target(squad: ISimSquad): void;
   get_alife_task(): Optional<XR_CALifeSmartTerrainTask>;
-  evaluate_prior(squad: any): number;
+  evaluate_prior(squad: ISimSquad): number;
   check_respawn_params(respawn_params: any): void;
   call_respawn(): void;
   try_respawn(): void;
   sim_available(): boolean;
-  target_precondition(squad: XR_cse_alife_online_offline_group, need_to_dec_population: boolean): boolean;
+  target_precondition(squad: ISimSquad, need_to_dec_population: boolean): boolean;
 }
 
 export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_alife_smart_zone, {
@@ -198,7 +200,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
 
     get_global("simulation_objects").get_sim_obj_registry().register(this);
 
-    if (get_global("dev_debug")) {
+    if (gameConfig.DEBUG.IS_SMARTS_DEBUG_ENABLED) {
       this.refresh();
     }
 
@@ -371,7 +373,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     );
   },
   register_npc(obj: XR_cse_alife_creature_abstract): void {
-    log.info("[smart_terrain %s] register called obj=%s", this.name(), obj.name());
+    log.info("Register npc:", this.name(), obj.name());
     this.population = this.population + 1;
 
     if (this.b_registred === false) {
@@ -469,6 +471,8 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     return this.job_data.get(this.npc_info.get(obj.id).job_id).alife_task;
   },
   load_jobs(): void {
+    log.info("Load jobs:", this.name());
+
     this.jobs = (get_global("gulag_general").load_job as AnyCallable)(this);
 
     const [ltx, ltx_name] = (
@@ -599,7 +603,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     }
   },
   select_npc_job(npc_info: INpcInfo): void {
-    log.info("Select npc job:", this.name(), npc_info.se_obj.id);
+    // log.info("Select npc job:", this.name(), npc_info.se_obj.id);
 
     const [selected_job_id, selected_job_prior, selected_job_link] = job_iterator(this.jobs, npc_info, 0, this);
 
@@ -631,12 +635,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     if (npc_info.begin_job !== true) {
       const job_data = this.job_data.get(npc_info.job_id);
 
-      log.info(
-        "[smart_terrain %s] gulag: beginJob: obj=%s job= %s",
-        this.name(),
-        npc_info.se_obj.name(),
-        job_data.section
-      );
+      log.info("Begin job in gulag", this.name(), npc_info.se_obj.name(), job_data.section);
       offlineObjects.set(npc_info.se_obj.id, {});
       npc_info.begin_job = true;
 
@@ -974,7 +973,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
   get_smart_props(): string {
     let props = (get_global("smart_names").get_smart_terrain_name as AnyCallable)(this);
 
-    if (props === null || get_global("dev_debug")) {
+    if (props === null || gameConfig.DEBUG.IS_SMARTS_DEBUG_ENABLED) {
       props =
         this.name() +
         "  [" +
@@ -1034,7 +1033,6 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
 
     this.showtime = time;
 
-    const player = this.player_name;
     let spot = "neutral";
 
     if (
@@ -1060,7 +1058,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
       return;
     }
 
-    if (get_global("dev_debug")) {
+    if (gameConfig.DEBUG.IS_SMARTS_DEBUG_ENABLED) {
       if (this.smrt_showed_spot !== null) {
         level.map_remove_object_spot(
           this.id,
@@ -1099,7 +1097,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
   update(): void {
     cse_alife_smart_zone.update(this);
 
-    if (get_global("dev_debug")) {
+    if (gameConfig.DEBUG.IS_SMARTS_DEBUG_ENABLED) {
       this.refresh();
     }
 
@@ -1193,10 +1191,8 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
   get_location(): LuaMultiReturn<[XR_vector, number, number]> {
     return $multi(this.position, this.m_level_vertex_id, this.m_game_vertex_id);
   },
-  am_i_reached(squad: any): boolean {
-    const [squad_pos, squad_lv_id, squad_gv_id] = (
-      squad.get_location as (this: XR_cse_alife_object) => LuaMultiReturn<[XR_vector, number, number]>
-    )();
+  am_i_reached(squad: ISimSquad): boolean {
+    const [squad_pos, squad_lv_id, squad_gv_id] = squad.get_location();
     const [target_pos, target_lv_id, target_gv_id] = this.get_location();
 
     if (game_graph().vertex(squad_gv_id).level_id() !== game_graph().vertex(target_gv_id).level_id()) {
@@ -1209,20 +1205,20 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
 
     return squad.always_arrived || squad_pos.distance_to_sqr(target_pos) <= this.arrive_dist * this.arrive_dist;
   },
-  on_after_reach(squad: any): void {
-    for (const k of squad.squad_members() as LuaIterable<any>) {
-      const obj = k.object;
+  on_after_reach(squad: ISimSquad): void {
+    for (const k of squad.squad_members()) {
+      const obj = (k as any).object;
 
       squad.board.setup_squad_and_group(obj);
     }
 
     squad.current_target_id = this.id;
   },
-  on_reach_target(squad: any): void {
+  on_reach_target(squad: ISimSquad): void {
     squad.set_location_types(this.name());
     this.board.assign_squad_to_smart(squad, this.id);
 
-    for (const k of squad.squad_members() as LuaIterable<any>) {
+    for (const k of squad.squad_members()) {
       if (offlineObjects.get(k.id) !== null) {
         offlineObjects.set(k.id, {});
       }
@@ -1231,7 +1227,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
   get_alife_task(): Optional<XR_CALifeSmartTerrainTask> {
     return this.smart_alife_task;
   },
-  evaluate_prior(squad: any): number {
+  evaluate_prior(squad: ISimSquad): number {
     return (get_global("simulation_objects").evaluate_prior as AnyCallable)(this, squad);
   },
   check_respawn_params(respawn_params: any): void {
@@ -1361,7 +1357,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
       this.base_on_actor_control.status !== get_global("smart_terrain_control").NORMAL
     );
   },
-  target_precondition(squad: any, need_to_dec_population: boolean): boolean {
+  target_precondition(squad: ISimSquad, need_to_dec_population: boolean): boolean {
     if (this.respawn_only_smart) {
       return false;
     }

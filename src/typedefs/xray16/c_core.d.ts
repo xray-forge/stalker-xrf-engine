@@ -444,10 +444,10 @@ declare module "xray16" {
     public constructor (values: string, startType: unknown, routeType: unknown, valueb: boolean)
     public constructor (valueS: string, startType: unknown, routeType: unknown, valueB: boolean, valueN: number);
 
-    public level_vertex_id(value: number): unknown;
+    public level_vertex_id(value: number): number;
     public point(value: number): XR_vector;
     public flag(value1: number, value2: number): unknown;
-    public game_vertex_id(value: number): unknown;
+    public game_vertex_id(value: number): number;
     public flags(value: number): unknown;
     public name(value: number): unknown;
     public index(value: string): unknown;

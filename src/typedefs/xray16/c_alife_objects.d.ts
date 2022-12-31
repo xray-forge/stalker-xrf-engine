@@ -220,6 +220,8 @@ declare module "xray16" {
     public group: number;
     public squad: number;
     public team: number;
+    public group_id: number;
+    public m_smart_terrain_id: number;
 
     public static health(this:void, target: XR_cse_alife_creature_abstract): number;
     public health(): number;
@@ -241,6 +243,32 @@ declare module "xray16" {
 
     public static smart_terrain_id(this: void, target: XR_cse_alife_monster_abstract): number;
     public smart_terrain_id(): number;
+    public kill(): void;
+
+    public force_set_goodwill(
+      cse_alife_monster_abstract: XR_cse_alife_monster_abstract, value1: number, value2: number
+    ): unknown;
+
+    public clear_smart_terrain(cse_alife_monster_abstract: XR_cse_alife_monster_abstract): unknown;
+
+    public travel_speed(cse_alife_monster_abstract: XR_cse_alife_monster_abstract): unknown;
+    public travel_speed(cse_alife_monster_abstract: XR_cse_alife_monster_abstract, value: number): unknown;
+
+    public smart_terrain_task_deactivate(cse_alife_monster_abstract: XR_cse_alife_monster_abstract): unknown;
+    public smart_terrain_task_activate(cse_alife_monster_abstract: XR_cse_alife_monster_abstract): unknown;
+
+    public current_level_travel_speed(cse_alife_monster_abstract: XR_cse_alife_monster_abstract): unknown;
+    public current_level_travel_speed(
+      cse_alife_monster_abstract:
+        XR_cse_alife_monster_abstract, value: number
+    ): unknown;
+
+    public static brain(this: void, target: XR_cse_alife_monster_abstract): XR_CAILifeMonsterBrain;
+    public brain(): XR_CAILifeMonsterBrain;
+
+    public has_detector(): boolean;
+
+    public rank(): number;
   }
 
   /**
@@ -328,36 +356,6 @@ declare module "xray16" {
   export class XR_cse_alife_monster_abstract
     extends XR_cse_alife_creature_abstract
     implements IXR_cse_alife_schedulable {
-
-    public group_id: number;
-    public m_smart_terrain_id: number;
-
-    public kill(): void;
-
-    public force_set_goodwill(
-      cse_alife_monster_abstract: XR_cse_alife_monster_abstract, value1: number, value2: number
-    ): unknown;
-
-    public clear_smart_terrain(cse_alife_monster_abstract: XR_cse_alife_monster_abstract): unknown;
-
-    public travel_speed(cse_alife_monster_abstract: XR_cse_alife_monster_abstract): unknown;
-    public travel_speed(cse_alife_monster_abstract: XR_cse_alife_monster_abstract, value: number): unknown;
-
-    public smart_terrain_task_deactivate(cse_alife_monster_abstract: XR_cse_alife_monster_abstract): unknown;
-    public smart_terrain_task_activate(cse_alife_monster_abstract: XR_cse_alife_monster_abstract): unknown;
-
-    public current_level_travel_speed(cse_alife_monster_abstract: XR_cse_alife_monster_abstract): unknown;
-    public current_level_travel_speed(
-      cse_alife_monster_abstract:
-        XR_cse_alife_monster_abstract, value: number
-    ): unknown;
-
-    public static brain(this: void, target: XR_cse_alife_monster_abstract): XR_CAILifeMonsterBrain;
-    public brain(): XR_CAILifeMonsterBrain;
-
-    public has_detector(): unknown;
-
-    public rank(): unknown;
   }
 
   /**
@@ -527,9 +525,9 @@ declare module "xray16" {
     public register_member(id: number): unknown;
     public clear_location_types(): unknown;
     public get_current_task(): unknown;
-    public commander_id(): unknown;
+    public commander_id(): number;
     public unregister_member(id: number): unknown;
-    public squad_members(): unknown;
+    public squad_members(): LuaIterable<XR_cse_alife_creature_abstract>;
     public force_change_position(vector: XR_vector): unknown;
     public add_location_type(location: string): unknown;
     public npc_count(): number;

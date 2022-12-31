@@ -1,4 +1,4 @@
-export function normalizeBaseNodeCoordinates<T extends object>(props: T): T {
+export function normalizeBaseNodeProps<T extends object>(props: T): T {
   const nextProps: T = { ...props };
 
   ["x", "y", "width", "height", "rightIdent", "leftIdent", "topIndent", "bottomIndent", "vertInterval"].forEach(

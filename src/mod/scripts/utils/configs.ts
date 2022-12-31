@@ -42,14 +42,14 @@ export function getConfigString<D = string>(
 /**
  * todo;
  */
-export function getConfigNumber(
+export function getConfigNumber<T = number>(
   ini: XR_ini_file,
   section: string,
   field: string,
   object: Optional<XR_game_object | XR_cse_abstract>,
   mandatory: boolean,
-  defaultVal?: number
-): number {
+  defaultVal?: T
+): number | T {
   if (mandatory == null) {
     abort("section '%s': wrong arguments order in call to cfg_get_number", section);
   }

@@ -4,11 +4,6 @@ local log = create_ts_class_instance(LuaLogger, "ce_switcher");
 
 -- todo: Maybe unused or for manual execution
 
-function _printf(ss)
---if editor() == false then
---	printf(ss)
---end
-end
 -- -i -noprefetch -ltx user_andy.ltx -external -start server(andy_test_switch/single) client(localhost)
 --client entity
 class "ce_switcher" (CGameObject)
@@ -95,8 +90,6 @@ end
 
 
 function ce_switcher:use(who)
-	printf("----ce_switcher used " )
-
 	if self.m_state==0 then
 		self:SetState(1)
 	else
