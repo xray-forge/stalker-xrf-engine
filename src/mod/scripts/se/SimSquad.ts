@@ -36,6 +36,8 @@ import {
 } from "@/mod/scripts/core/db";
 import { SMART_TERRAIN_SECT } from "@/mod/scripts/core/db/sections";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
+import { SimSquadReachTargetAction } from "@/mod/scripts/se/SimSquadReachTargetAction";
+import { SimSquadStayOnTargetAction } from "@/mod/scripts/se/SimSquadStayOnTargetAction";
 import type { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
@@ -471,7 +473,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
           squad_target.on_after_reach(this);
         }
 
-        this.current_action = get_global<AnyCallablesModule>("sim_squad_actions").stay_on_target(this);
+        this.current_action = create_xr_class_instance(SimSquadStayOnTargetAction, this);
         this.current_target_id = this.assigned_target_id;
         this.current_action.make(under_simulation);
 
@@ -480,11 +482,11 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     }
 
     if (this.assigned_target_id === this.current_target_id || this.assigned_target_id === null) {
-      this.current_action = get_global<AnyCallablesModule>("sim_squad_actions").stay_on_target(this);
+      this.current_action = create_xr_class_instance(SimSquadStayOnTargetAction, this);
       this.current_target_id = this.assigned_target_id;
       this.current_action.make(under_simulation);
     } else {
-      this.current_action = get_global<AnyCallablesModule>("sim_squad_actions").reach_target(this);
+      this.current_action = create_xr_class_instance(SimSquadReachTargetAction, this);
       this.current_action.make(under_simulation);
     }
   },
