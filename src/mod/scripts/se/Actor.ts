@@ -11,11 +11,12 @@ import {
   XR_vector
 } from "xray16";
 
-import { AnyCallable } from "@/mod/lib/types";
+import { AnyCallable, AnyObject } from "@/mod/lib/types";
 import { getActor, offlineObjects, zoneByName } from "@/mod/scripts/core/db";
 import { getStoryObjectsRegistry } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { simulation_activities } from "@/mod/scripts/se/SimActivity";
 import { get_sim_board } from "@/mod/scripts/se/SimBoard";
+import { evaluate_prior, get_sim_obj_registry } from "@/mod/scripts/se/SimObjectsRegistry";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { nearest_to_actor_smart } from "@/mod/scripts/se/SmartTerrain";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
@@ -27,15 +28,18 @@ const log: LuaLogger = new LuaLogger("Actor");
 export interface IActor extends XR_cse_alife_creature_actor {
   m_registred: boolean;
   start_position_filled: boolean;
+  sim_avail: boolean;
+
+  props: AnyObject;
 
   get_location(): LuaMultiReturn<[XR_vector, number, number]>;
   am_i_reached(): boolean;
   on_after_reach(squad: any): void;
   on_reach_target(squad: any): void;
   get_alife_task(): XR_CALifeSmartTerrainTask;
-  sim_available(): unknown;
-  target_precondition(squad: any): unknown;
-  evaluate_prior(squad: any): number;
+  sim_available(): boolean;
+  target_precondition(squad: ISimSquad): boolean;
+  evaluate_prior(squad: ISimSquad): number;
 }
 
 export const Actor: IActor = declare_xr_class("Actor", cse_alife_creature_actor, {
@@ -50,7 +54,7 @@ export const Actor: IActor = declare_xr_class("Actor", cse_alife_creature_actor,
     log.info("Register:", this.id, this.name(), this.section_name());
     getStoryObjectsRegistry().register(this.id, "actor");
 
-    get_global("simulation_objects").get_sim_obj_registry().register(this);
+    get_sim_obj_registry().register(this);
 
     this.m_registred = true;
 
@@ -64,7 +68,7 @@ export const Actor: IActor = declare_xr_class("Actor", cse_alife_creature_actor,
 
     cse_alife_creature_actor.on_unregister(this);
     unregisterStoryObjectById(this.id);
-    get_global("simulation_objects").get_sim_obj_registry().unregister(this);
+    get_sim_obj_registry().unregister(this);
   },
   STATE_Write(packet: XR_net_packet): void {
     cse_alife_creature_actor.STATE_Write(this, packet);
@@ -118,10 +122,7 @@ export const Actor: IActor = declare_xr_class("Actor", cse_alife_creature_actor,
       ["jup_b41_sr_no_assault"]: "jup_b41"
     };
 
-    if (
-      nearest_to_actor_smart.dist < 50 &&
-      get_global("simulation_objects").get_sim_obj_registry().objects[nearest_to_actor_smart.id!] === null
-    ) {
+    if (nearest_to_actor_smart.dist < 50 && !get_sim_obj_registry().objects.has(nearest_to_actor_smart.id!)) {
       return false;
     }
 
@@ -153,7 +154,7 @@ export const Actor: IActor = declare_xr_class("Actor", cse_alife_creature_actor,
 
     return true;
   },
-  target_precondition(squad: ISimSquad): unknown {
+  target_precondition(squad: ISimSquad): boolean {
     const squad_params = simulation_activities[squad.player_id];
 
     if (
@@ -166,7 +167,7 @@ export const Actor: IActor = declare_xr_class("Actor", cse_alife_creature_actor,
 
     return true;
   },
-  evaluate_prior(squad: any): number {
-    return (get_global("simulation_objects").evaluate_prior as AnyCallable)(this, squad);
+  evaluate_prior(squad: ISimSquad): number {
+    return evaluate_prior(this, squad);
   }
 } as IActor);

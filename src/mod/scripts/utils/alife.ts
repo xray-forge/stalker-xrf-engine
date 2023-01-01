@@ -9,7 +9,9 @@ import {
   XR_entity_action,
   entity_action,
   XR_cse_alife_human_abstract,
-  XR_cse_abstract
+  XR_cse_abstract,
+  XR_cse_alife_object,
+  game_graph
 } from "xray16";
 
 import { communities, TCommunity } from "@/mod/globals/communities";
@@ -20,6 +22,7 @@ import { getStoryObjectsRegistry } from "@/mod/scripts/core/StoryObjectsRegistry
 import { abort } from "@/mod/scripts/utils/debug";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { graphDistance } from "@/mod/scripts/utils/physics";
 import { wait } from "@/mod/scripts/utils/time";
 
 const log: LuaLogger = new LuaLogger("utils/alife");
@@ -272,4 +275,20 @@ export function getAlifeCharacterCommunity(object: XR_cse_alife_human_abstract):
   }
 
   return communities.monster;
+}
+
+/**
+ * todo;
+ */
+export function getAlifeDistanceBetween(first: XR_cse_alife_object, second: XR_cse_alife_object): number {
+  return graphDistance(first.m_game_vertex_id, second.m_game_vertex_id);
+}
+
+/**
+ * todo;
+ */
+export function areOnSameAlifeLevel(first: XR_cse_alife_object, second: XR_cse_alife_object): boolean {
+  return (
+    game_graph().vertex(first.m_game_vertex_id).level_id() == game_graph().vertex(second.m_game_vertex_id).level_id()
+  );
 }

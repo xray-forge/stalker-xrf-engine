@@ -1,6 +1,8 @@
+local SimObjectsRegistry = require("scripts.se.SimObjectsRegistry")
 local SmartTerrain = require("scripts.se.SmartTerrain")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
+
 local log = create_ts_class_instance(LuaLogger, "bind_monster");
 
 -----------------------------------------------------------------------------------
@@ -108,7 +110,7 @@ function generic_object_binder:update(delta)
 
 
 	if squad and squad.current_action and squad.current_action.name == "reach_target" then
-		local squad_target = simulation_objects.get_sim_obj_registry().objects[squad.assigned_target_id]
+		local squad_target = SimObjectsRegistry.get_sim_obj_registry().objects[squad.assigned_target_id]
 		if squad_target == nil then return end
 	--	printf("_bp: mob_reach_task:reset_scheme: %s", self.object:name())
 

@@ -18,7 +18,6 @@ import {
   ini_file,
   level,
   time_global,
-  clsid,
   editor
 } from "xray16";
 
@@ -35,9 +34,10 @@ import { SMART_TERRAIN_SECT } from "@/mod/scripts/core/db/sections";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { simulation_activities } from "@/mod/scripts/se/SimActivity";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/se/SimBoard";
+import { evaluate_prior, get_sim_obj_registry } from "@/mod/scripts/se/SimObjectsRegistry";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { registered_smartcovers } from "@/mod/scripts/se/SmartCover";
-import { getStoryObject, unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
+import { areOnSameAlifeLevel, getStoryObject, unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { getConfigBoolean, getConfigNumber, getConfigString, parseNames } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
@@ -170,7 +170,7 @@ export interface ISmartTerrain extends XR_cse_alife_smart_zone {
   call_respawn(): void;
   try_respawn(): void;
   sim_available(): boolean;
-  target_precondition(squad: ISimSquad, need_to_dec_population: boolean): boolean;
+  target_precondition(squad: ISimSquad, need_to_dec_population?: boolean): boolean;
 }
 
 export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_alife_smart_zone, {
@@ -199,7 +199,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     log.info("Register:", this.id, this.name(), this.section_name());
     checkSpawnIniForStoryId(this);
 
-    get_global("simulation_objects").get_sim_obj_registry().register(this);
+    get_sim_obj_registry().register(this);
 
     if (gameConfig.DEBUG.IS_SMARTS_DEBUG_ENABLED) {
       this.refresh();
@@ -227,7 +227,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     this.board.unregister_smart(this);
     smart_terrains_by_name.delete(this.name());
     unregisterStoryObjectById(this.id);
-    get_global("simulation_objects").get_sim_obj_registry().unregister(this);
+    get_sim_obj_registry().unregister(this);
   },
   read_params(): void {
     this.ini = this.spawn_ini();
@@ -1104,7 +1104,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
 
     const current_time = time_global();
 
-    if ((get_global("simulation_objects").is_on_the_same_level as AnyCallable)(this, alife().actor())) {
+    if (areOnSameAlifeLevel(this, alife().actor())) {
       const dist_to_actor = this.position.distance_to(alife().actor()!.position);
       const old_dist_to_actor =
         (nearest_to_actor_smart.id === null && nearest_to_actor_smart.dist) ||
@@ -1157,7 +1157,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
       this.base_on_actor_control.update();
     }
 
-    get_global("simulation_objects").get_sim_obj_registry().update_avaliability(this);
+    get_sim_obj_registry().update_avaliability(this);
   },
   set_alarm(): void {
     this.smart_alarm_time = game.get_game_time();
@@ -1211,7 +1211,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     return this.smart_alife_task;
   },
   evaluate_prior(squad: ISimSquad): number {
-    return (get_global("simulation_objects").evaluate_prior as AnyCallable)(this, squad);
+    return evaluate_prior(this, squad);
   },
   check_respawn_params(respawn_params: any): void {
     this.respawn_params = new LuaTable();
@@ -1340,7 +1340,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
       this.base_on_actor_control.status !== get_global("smart_terrain_control").NORMAL
     );
   },
-  target_precondition(squad: ISimSquad, need_to_dec_population: boolean): boolean {
+  target_precondition(squad: ISimSquad, need_to_dec_population?: boolean): boolean {
     if (this.respawn_only_smart) {
       return false;
     }
@@ -1540,8 +1540,7 @@ function arrived_to_smart(obj: XR_cse_alife_object, smart: ISmartTerrain): boole
 
     if (squad !== null && squad.current_action) {
       if (squad.current_action.name === "reach_target") {
-        const squad_target: ISmartTerrain =
-          get_global("simulation_objects").get_sim_obj_registry().objects[squad.assigned_target_id];
+        const squad_target = get_sim_obj_registry().objects.get(squad.assigned_target_id);
 
         if (squad_target !== null) {
           return squad_target.am_i_reached(squad);

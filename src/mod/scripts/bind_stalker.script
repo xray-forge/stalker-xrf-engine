@@ -1,3 +1,4 @@
+local SimObjectsRegistry = require("scripts.se.SimObjectsRegistry")
 local SimBoard = require("scripts.se.SimBoard")
 local NewsManager = require("scripts.core.NewsManager")
 local AnomalyZoneBinder = require("scripts.core.binders.AnomalyZoneBinder")
@@ -363,7 +364,7 @@ function actor_binder:update(delta)
 		self.surge_manager:update()
 	end
 	-- ������ ����������� ��� ���������.
-	simulation_objects.get_sim_obj_registry():update_avaliability(alife():actor())
+	SimObjectsRegistry.get_sim_obj_registry():update_avaliability(alife():actor())
 
 	if not self.loaded then
 		get_console():execute("dump_infos")

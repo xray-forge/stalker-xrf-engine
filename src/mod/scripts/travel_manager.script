@@ -1,3 +1,4 @@
+local getAlifeDistanceBetween = require("scripts.utils.alife").getAlifeDistanceBetween
 local SimBoard = require("scripts.se.SimBoard")
 local NewsManager = require("scripts.core.NewsManager")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
@@ -313,7 +314,7 @@ function actor_go_with_squad(actor, npc, dialog_id, phrase_id)
 	level.hide_indicators_safe()
 	level.add_pp_effector("fade_in_out.ppe", 613, false)
 
-	local distance = simulation_objects.sim_dist_to(npc_squad , smart)
+	local distance = getAlifeDistanceBetween(npc_squad , smart)
 	traveler_distance = distance
 	traveler_actor_path = smart.traveler_actor_path
 	traveler_squad_path = smart.traveler_squad_path
@@ -343,7 +344,7 @@ function check_smart_availability(smart_name, smart_table, squad)
 	end
 
 	-- �� �� ����� � ������� �����
-	if simulation_objects.sim_dist_to(squad , smart) < 50 then
+	if getAlifeDistanceBetween(squad , smart) < 50 then
 		return false
 	end
 
@@ -402,7 +403,7 @@ function get_travel_cost(actor, npc, dialog_id, phrase_id, p1)
 	local smart = board:get_smart_by_name(smart_name)
 	local npc_squad = get_object_squad(npc)
 
-	--local distance = simulation_objects.sim_dist_to(npc_squad , smart)
+	--local distance = getAlifeDistanceBetween(npc_squad , smart)
 
 	local squad_position = npc:position()
 	local smart_position = smart.position
@@ -427,7 +428,7 @@ function actor_have_money(actor, npc, dialog_id, phrase_id)
 	local npc_squad = get_object_squad(npc)
 
 
-	--local distance = simulation_objects.sim_dist_to(npc_squad , smart)
+	--local distance = getAlifeDistanceBetween(npc_squad , smart)
 
 	local squad_position = npc:position()
 	local smart_position = smart.position
@@ -463,7 +464,7 @@ function actor_travel_with_squad(actor, npc, dialog_id, phrase_id)
 	local smart = board:get_smart_by_name(smart_name)
 	local npc_squad = get_object_squad(npc)
 
-	local distance = simulation_objects.sim_dist_to(npc_squad , smart)
+	local distance = getAlifeDistanceBetween(npc_squad , smart)
 
 	local price = get_price_by_distance(distance)
 

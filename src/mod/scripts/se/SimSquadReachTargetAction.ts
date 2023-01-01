@@ -1,5 +1,6 @@
 import { alife, XR_LuaBindBase } from "xray16";
 
+import { get_sim_obj_registry } from "@/mod/scripts/se/SimObjectsRegistry";
 import type { ISimSquad } from "@/mod/scripts/se/SimSquad";
 
 export interface ISimSquadReachTargetAction extends XR_LuaBindBase {
@@ -28,10 +29,10 @@ export const SimSquadReachTargetAction: ISimSquadReachTargetAction = declare_xr_
     load(): void {},
     update(isUnderSimulation): boolean {
       const squad = alife().object<ISimSquad>(this.squad_id)!;
-      let squad_target = get_global("simulation_objects").get_sim_obj_registry().objects[squad.assigned_target_id];
+      let squad_target = get_sim_obj_registry().objects.get(squad.assigned_target_id);
 
       if (!isUnderSimulation) {
-        squad_target = alife().object(squad.assigned_target_id);
+        squad_target = alife().object(squad.assigned_target_id)!;
       }
 
       if (squad_target === null) {
@@ -50,13 +51,13 @@ export const SimSquadReachTargetAction: ISimSquadReachTargetAction = declare_xr_
     },
     make(isUnderSimulation: boolean): void {
       const squad = alife().object<ISimSquad>(this.squad_id)!;
-      let squad_target = get_global("simulation_objects").get_sim_obj_registry().objects[squad.assigned_target_id];
+      let squad_target = get_sim_obj_registry().objects.get(squad.assigned_target_id);
 
       if (!isUnderSimulation) {
-        squad_target = alife().object(squad.assigned_target_id);
+        squad_target = alife().object(squad.assigned_target_id)!;
       }
 
-      if (squad_target) {
+      if (squad_target !== null) {
         squad_target.on_reach_target(squad);
       }
 

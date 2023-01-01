@@ -13,6 +13,7 @@ import {
 import { TCommunity } from "@/mod/globals/communities";
 import { Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
+import { get_sim_obj_registry } from "@/mod/scripts/se/SimObjectsRegistry";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
 import { changeTeamSquadGroup } from "@/mod/scripts/utils/alife";
@@ -325,7 +326,7 @@ export const SimBoard: ISimBoard = declare_xr_class("SimBoard", null, {
     let most_priority_task = null;
     const max_prior = 0;
 
-    for (const [k, v] of get_global("simulation_objects").get_sim_obj_registry().objects) {
+    for (const [k, v] of get_sim_obj_registry().objects) {
       let curr_prior = 0;
 
       if (v.id !== squad.id) {

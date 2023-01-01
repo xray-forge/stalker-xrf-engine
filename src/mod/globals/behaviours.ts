@@ -1,4 +1,5 @@
 import { communities, TCommunity } from "@/mod/globals/communities";
+import { PartialRecord } from "@/mod/lib/types";
 
 export const squadCommunityByBehaviour: Record<TCommunity, TCommunity> = {
   [communities.stalker]: communities.stalker,
@@ -20,12 +21,12 @@ export const squadCommunityByBehaviour: Record<TCommunity, TCommunity> = {
   [communities.monster_special]: communities.monster
 };
 
-export const squadMonsters = {
-  [squadCommunityByBehaviour.monster_predatory_day]: true,
-  [squadCommunityByBehaviour.monster_predatory_night]: true,
-  [squadCommunityByBehaviour.monster_vegetarian]: true,
-  [squadCommunityByBehaviour.monster_zombied_day]: true,
-  [squadCommunityByBehaviour.monster_zombied_night]: true,
-  [squadCommunityByBehaviour.monster_special]: true,
-  [squadCommunityByBehaviour.monster]: true
+export const squadMonsters: PartialRecord<TCommunity, boolean> = {
+  [communities.monster_predatory_day]: true,
+  [communities.monster_predatory_night]: true,
+  [communities.monster_vegetarian]: true,
+  [communities.monster_zombied_day]: true,
+  [communities.monster_zombied_night]: true,
+  [communities.monster_special]: true,
+  [communities.monster]: true
 };

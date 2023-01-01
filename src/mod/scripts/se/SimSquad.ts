@@ -15,7 +15,8 @@ import {
   system_ini,
   clsid,
   patrol,
-  game
+  game,
+  XR_game_object
 } from "xray16";
 
 import { squadCommunityByBehaviour } from "@/mod/globals/behaviours";
@@ -24,7 +25,7 @@ import { goodwill } from "@/mod/globals/goodwill";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { relations, TRelation } from "@/mod/globals/relations";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
-import { AnyCallable, AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { AnyCallable, AnyCallablesModule, AnyObject, Optional } from "@/mod/lib/types";
 import { isSquadMonsterCommunity } from "@/mod/scripts/core/checkers";
 import {
   getActor,
@@ -37,13 +38,13 @@ import {
 import { SMART_TERRAIN_SECT } from "@/mod/scripts/core/db/sections";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { simulation_activities } from "@/mod/scripts/se/SimActivity";
-import type { ISimBoard } from "@/mod/scripts/se/SimBoard";
-import { get_sim_board, squad_ltx } from "@/mod/scripts/se/SimBoard";
+import { ISimBoard, get_sim_board, squad_ltx } from "@/mod/scripts/se/SimBoard";
+import { evaluate_prior, get_sim_obj_registry } from "@/mod/scripts/se/SimObjectsRegistry";
 import { SimSquadReachTargetAction } from "@/mod/scripts/se/SimSquadReachTargetAction";
 import { SimSquadStayOnTargetAction } from "@/mod/scripts/se/SimSquadStayOnTargetAction";
 import type { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
-import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
+import { areOnSameAlifeLevel, unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { getConfigBoolean, getConfigNumber, getConfigString, parseNames, r_2nums } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setSaveMarker } from "@/mod/scripts/utils/game_saves";
@@ -67,6 +68,7 @@ export interface ISimSquad extends XR_cse_alife_online_offline_group {
   player_id: TCommunity;
   smart_id: Optional<number>;
   board: ISimBoard;
+  sim_avail: boolean;
 
   squad_online: boolean;
   show_disabled: boolean;
@@ -107,6 +109,8 @@ export interface ISimSquad extends XR_cse_alife_online_offline_group {
   always_walk: boolean;
   always_arrived: boolean;
   need_to_reset_location_masks: boolean;
+
+  props: AnyObject;
 
   init_squad_on_load(): void;
   pick_next_target(): string;
@@ -323,7 +327,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     cse_alife_online_offline_group.update(this);
     this.refresh();
 
-    get_global("simulation_objects").get_sim_obj_registry().update_avaliability(this);
+    get_sim_obj_registry().update_avaliability(this);
 
     this.check_invulnerability();
 
@@ -632,7 +636,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     } else {
       this.set_location_types_section("squad_terrain");
 
-      for (const [k, v] of get_global("simulation_objects").get_sim_obj_registry().objects) {
+      for (const [k, v] of get_sim_obj_registry().objects) {
         if (alife().object(k)?.clsid() === clsid.smart_terrain) {
           const props_base = alife().object<ISmartTerrain>(k)!.props && alife().object<ISmartTerrain>(k)!.props["base"];
 
@@ -668,7 +672,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     this.sound_manager.register_npc(obj.id);
 
     if (
-      (get_global("simulation_objects").is_on_the_same_level as AnyCallable)(obj, alife().actor()) &&
+      areOnSameAlifeLevel(obj, alife().actor()) &&
       position.distance_to_sqr(alife().actor().position) <= alife().switch_distance() * alife().switch_distance()
     ) {
       spawnedVertexById.set(obj.id, lv_id);
@@ -684,47 +688,32 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     const spawn_sections = parseNames(getConfigString(ini, this.settings_id, "npc", this, false, "", ""));
     const parse_condlist = get_global("xr_logic").parse_condlist as AnyCallable;
 
-    log.info("P0");
-
     let spawn_point =
       getConfigString(ini, this.settings_id, "spawn_point", this, false, "", "self") ||
       getConfigString(spawn_smart.ini, SMART_TERRAIN_SECT, "spawn_point", this, false, "", "self");
 
-    log.info("P0a", spawn_point);
-
     spawn_point = parse_condlist(this, "spawn_point", "spawn_point", spawn_point);
-    log.info("P0b", spawn_point);
     spawn_point = get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(getActor(), this, spawn_point);
-    log.info("P0c", spawn_point);
-
-    log.info("P1");
 
     let base_spawn_position: XR_vector = spawn_smart.position;
     let base_lvi = spawn_smart.m_level_vertex_id;
     let base_gvi = spawn_smart.m_game_vertex_id;
 
-    log.info("P2");
-
     if (spawn_point !== null) {
       if (spawn_point === "self") {
-        log.info("P3.1");
         base_spawn_position = spawn_smart.position;
         base_lvi = spawn_smart.m_level_vertex_id;
         base_gvi = spawn_smart.m_game_vertex_id;
       } else {
-        log.info("P3.3", spawn_point);
         base_spawn_position = new patrol(spawn_point).point(0);
         base_lvi = new patrol(spawn_point).level_vertex_id(0);
         base_gvi = new patrol(spawn_point).game_vertex_id(0);
       }
     } else if (spawn_smart.spawn_point !== null) {
-      log.info("P4");
       base_spawn_position = new patrol(spawn_smart.spawn_point).point(0);
       base_lvi = new patrol(spawn_smart.spawn_point).level_vertex_id(0);
       base_gvi = new patrol(spawn_smart.spawn_point).game_vertex_id(0);
     }
-
-    log.info("P5");
 
     if (spawn_sections.length() !== 0) {
       for (const [k, v] of spawn_sections) {
@@ -753,8 +742,6 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     } else if (spawn_sections.length() === 0) {
       abort("You are trying to spawn an empty squad [%s]!", this.settings_id);
     }
-
-    log.info("P7");
 
     this.smart_id = spawn_smart.id;
     this.refresh();
@@ -885,7 +872,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     cse_alife_online_offline_group.on_register(this);
     this.board.squads[this.id] = this;
     checkSpawnIniForStoryId(this);
-    get_global("simulation_objects").get_sim_obj_registry().register(this);
+    get_sim_obj_registry().register(this);
   },
   on_unregister(): void {
     unregisterStoryObjectById(this.id);
@@ -893,7 +880,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     this.board.squads[this.id] = null;
     this.board.assign_squad_to_smart(this, null);
     cse_alife_online_offline_group.on_unregister(this);
-    get_global("simulation_objects").get_sim_obj_registry().unregister(this);
+    get_sim_obj_registry().unregister(this);
 
     if (this.respawn_point_id !== null) {
       const smart = alife().object<ISmartTerrain>(this.respawn_point_id)!;
@@ -1124,12 +1111,12 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     return true;
   },
   evaluate_prior(squad: ISimSquad): number {
-    return (get_global("simulation_objects").evaluate_prior as AnyCallable)(this, squad);
+    return evaluate_prior(this, squad);
   }
 } as ISimSquad);
 
 export function get_help_target_id(squad: ISimSquad): Optional<number> {
-  log.info("Get help target id:", squad.name());
+  // log.info("Get help target id:", squad.name());
 
   if (!can_help_actor(squad)) {
     return null;
@@ -1202,8 +1189,8 @@ function set_relation(
   }
 }
 
-function reset_animation(npc: any): void {
-  const state_mgr = storage.get(npc.id).state_mgr;
+function reset_animation(npc: XR_game_object): void {
+  const state_mgr = storage.get(npc.id()).state_mgr;
 
   if (state_mgr === null) {
     return;
