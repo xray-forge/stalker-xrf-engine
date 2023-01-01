@@ -4,6 +4,7 @@
 --' Made by Distemper ----------------------------------------------------------------
 --' 11.02.08 ----------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------
+
 local IDLE_AFTER_DEATH = 40000
 
 local function add_to_release_table(release_tbl, object_id)
@@ -101,8 +102,6 @@ function Crelease_body:try_to_release()
   end
 end
 
-
-
 function Crelease_body:inspection_result(obj)
   for k,v in pairs(self.keep_items_table) do
     if obj:object(self.keep_items_table[k]) ~= nil then
@@ -121,7 +120,7 @@ function Crelease_body:inspection_result(obj)
   return true
 end
 
-function  Crelease_body:check_for_known_info(obj)
+function Crelease_body:check_for_known_info(obj)
   local char_ini = ""
   local spawn_ini = obj:spawn_ini()
   local filename = nil

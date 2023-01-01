@@ -1,3 +1,4 @@
+local SmartTerrainControl = require("scripts.se.SmartTerrainControl")
 local AnomalyZoneBinder = require("scripts.core.binders.AnomalyZoneBinder")
 local SimBoard = require("scripts.se.SimBoard")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
@@ -595,9 +596,9 @@ end
 
 -------------------------------------------------------------------------------------------------------
 local alarm_statuses = {
-	normal = smart_terrain_control.NORMAL,
-	danger = smart_terrain_control.DANGER,
-	alarm = smart_terrain_control.ALARM
+	normal = SmartTerrainControl.ESmartTerrainStatus.NORMAL,
+	danger = SmartTerrainControl.ESmartTerrainStatus.DANGER,
+	alarm = SmartTerrainControl.ESmartTerrainStatus.ALARM
 }
 
 -- ������� ��������� ������������ ���

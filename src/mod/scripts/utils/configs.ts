@@ -1,6 +1,6 @@
 import { XR_cse_abstract, XR_cse_alife_object, XR_game_object, XR_ini_file } from "xray16";
 
-import { Optional } from "@/mod/lib/types";
+import { AnyObject, Optional } from "@/mod/lib/types";
 import { scriptIds } from "@/mod/scripts/core/db";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -15,7 +15,7 @@ export function getConfigString<D = string>(
   section: string,
   field: string,
   // todo: Remove?
-  object: Optional<XR_cse_abstract | XR_game_object>,
+  object: Optional<XR_cse_abstract | XR_game_object | AnyObject>,
   mandatory: boolean,
   gulagName: unknown,
   defaultVal?: D

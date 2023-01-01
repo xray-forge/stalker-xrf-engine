@@ -43,6 +43,7 @@ import { evaluate_prior, get_sim_obj_registry } from "@/mod/scripts/se/SimObject
 import { SimSquadReachTargetAction } from "@/mod/scripts/se/SimSquadReachTargetAction";
 import { SimSquadStayOnTargetAction } from "@/mod/scripts/se/SimSquadStayOnTargetAction";
 import type { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
+import { ESmartTerrainStatus } from "@/mod/scripts/se/SmartTerrainControl";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { areOnSameAlifeLevel, unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { getConfigBoolean, getConfigNumber, getConfigString, parseNames, r_2nums } from "@/mod/scripts/utils/configs";
@@ -1063,7 +1064,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
         if (
           smart &&
           smart.base_on_actor_control !== null &&
-          smart.base_on_actor_control.status !== get_global("smart_terrain_control").ALARM
+          smart.base_on_actor_control.status !== ESmartTerrainStatus.ALARM
         ) {
           return false;
         }
@@ -1081,10 +1082,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
       return false;
     }
 
-    if (
-      smart.base_on_actor_control !== null &&
-      smart.base_on_actor_control.status !== get_global("smart_terrain_control").NORMAL
-    ) {
+    if (smart.base_on_actor_control !== null && smart.base_on_actor_control.status !== ESmartTerrainStatus.NORMAL) {
       if (
         zoneByName.get(smart.base_on_actor_control.noweap_zone) === null ||
         !zoneByName.get(smart.base_on_actor_control.noweap_zone).inside(this.position)

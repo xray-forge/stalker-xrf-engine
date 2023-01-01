@@ -18,7 +18,8 @@ import { simulation_activities } from "@/mod/scripts/se/SimActivity";
 import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { evaluate_prior, get_sim_obj_registry } from "@/mod/scripts/se/SimObjectsRegistry";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
-import { nearest_to_actor_smart } from "@/mod/scripts/se/SmartTerrain";
+import { ISmartTerrain, nearest_to_actor_smart } from "@/mod/scripts/se/SmartTerrain";
+import { ESmartTerrainStatus, getCurrentSmartId } from "@/mod/scripts/se/SmartTerrainControl";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -132,21 +133,21 @@ export const Actor: IActor = declare_xr_class("Actor", cse_alife_creature_actor,
       if (zone !== null && zone.inside(this.position)) {
         const smart = get_sim_board().get_smart_by_name(v);
 
-        if (smart !== null && smart.base_on_actor_control.status !== get_global("smart_terrain_control").ALARM) {
+        if (smart !== null && smart.base_on_actor_control.status !== ESmartTerrainStatus.ALARM) {
           return false;
         }
       }
     }
 
-    if (get_global("smart_terrain_control").current_smart_id === null) {
+    if (getCurrentSmartId() === null) {
       return true;
     }
 
-    const smart: any = alife().object(get_global("smart_terrain_control").current_smart_id);
+    const smart: ISmartTerrain = alife().object<ISmartTerrain>(getCurrentSmartId()!)!;
 
     if (
       smart.base_on_actor_control !== null &&
-      smart.base_on_actor_control.status == get_global("smart_terrain_control").NORMAL &&
+      smart.base_on_actor_control.status == ESmartTerrainStatus.NORMAL &&
       zoneByName.get(smart.base_on_actor_control.noweap_zone).inside(this.position)
     ) {
       return false;

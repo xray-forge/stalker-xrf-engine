@@ -13,16 +13,16 @@ function init(obj)
   xr_motivator.AddToMotivator(obj)
 end
 
-function actor_init    (npc)
+function actor_init(npc)
   npc:bind_object(actor_binder(npc))
 end
 
 local game_difficulty_by_num = {
-				[0] = "gd_novice",
-				[1] = "gd_stalker",
-				[2] = "gd_veteran",
-				[3] = "gd_master"
-				}
+	[0] = "gd_novice",
+	[1] = "gd_stalker",
+	[2] = "gd_veteran",
+	[3] = "gd_master"
+}
 
 local weapon_hide = {}
 
@@ -31,6 +31,8 @@ class "actor_binder" (object_binder)
 ----------------------------------------------------------------------------------------------------------------------
 
 function actor_binder:__init (obj) super(obj)
+	log:info("Init new stalker binder:", obj:name())
+
 	self.bCheckStart = false
 	self.weather_manager = level_weathers.get_weather_manager()
 	self.surge_manager = surge_manager.get_surge_manager()
@@ -572,13 +574,3 @@ function restore_weapon(zone_id)
 	printf("[WEAPON_CONTROL]:restoring weapon from zone [%s] in section [%s]!!!", zone_id, db.storage[zone_id].active_section)
 	weapon_hide[zone_id] = false
 end
-
-
-
-
-
-
-
-
-
-

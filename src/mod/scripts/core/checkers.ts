@@ -12,7 +12,7 @@ import {
 import { squadMonsters } from "@/mod/globals/behaviours";
 import { artefact_class_ids, monster_class_ids, stalker_class_ids, weapon_class_ids } from "@/mod/globals/class_ids";
 import { TCommunity } from "@/mod/globals/communities";
-import { Maybe } from "@/mod/lib/types";
+import { Maybe, Optional } from "@/mod/lib/types";
 import { getClsId } from "@/mod/scripts/utils/ids";
 
 /**
@@ -57,9 +57,13 @@ export function isStalkerClassId(class_id: number): boolean {
  * todo;
  */
 export function isWeapon(
-  object: XR_game_object | XR_cse_abstract,
+  object: Optional<XR_game_object | XR_cse_abstract>,
   class_id?: Maybe<TXR_ClsId>
 ): object is XR_cse_alife_item_weapon {
+  if (object === null) {
+    return false;
+  }
+
   const id: TXR_ClsId = class_id || getClsId(object);
 
   return weapon_class_ids[id] === true;

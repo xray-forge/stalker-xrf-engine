@@ -37,6 +37,7 @@ import { get_sim_board, ISimBoard } from "@/mod/scripts/se/SimBoard";
 import { evaluate_prior, get_sim_obj_registry } from "@/mod/scripts/se/SimObjectsRegistry";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { registered_smartcovers } from "@/mod/scripts/se/SmartCover";
+import { ESmartTerrainStatus, ISmartTerrainControl, SmartTerrainControl } from "@/mod/scripts/se/SmartTerrainControl";
 import { areOnSameAlifeLevel, getStoryObject, unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { getConfigBoolean, getConfigNumber, getConfigString, parseNames } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -115,7 +116,7 @@ export interface ISmartTerrain extends XR_cse_alife_smart_zone {
   safe_restr: Optional<string>;
   spawn_point: Optional<string>;
 
-  base_on_actor_control: any;
+  base_on_actor_control: ISmartTerrainControl;
 
   max_population: number;
 
@@ -308,11 +309,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     const smart_control_section = getConfigString(ini, SMART_TERRAIN_SECT, "smart_control", this, false, "", null);
 
     if (smart_control_section !== null) {
-      this.base_on_actor_control = (get_global("smart_terrain_control").CBaseOnActorControl as AnyCallable)(
-        this,
-        ini,
-        smart_control_section
-      );
+      this.base_on_actor_control = create_xr_class_instance(SmartTerrainControl, this, ini, smart_control_section);
     }
 
     this.respawn_point = false;
@@ -1335,10 +1332,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     }
   },
   sim_available(): boolean {
-    return !(
-      this.base_on_actor_control !== null &&
-      this.base_on_actor_control.status !== get_global("smart_terrain_control").NORMAL
-    );
+    return !(this.base_on_actor_control !== null && this.base_on_actor_control.status !== ESmartTerrainStatus.NORMAL);
   },
   target_precondition(squad: ISimSquad, need_to_dec_population?: boolean): boolean {
     if (this.respawn_only_smart) {

@@ -1,3 +1,4 @@
+local SmartTerrainControl = require("scripts.se.SmartTerrainControl")
 local SimObjectsRegistry = require("scripts.se.SimObjectsRegistry")
 local SimBoard = require("scripts.se.SimBoard")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
@@ -66,7 +67,7 @@ function is_enemy(obj, enemy, st, not_check_sim)
 			local zone = db.zone_by_name[k]
 			if zone and (utils.npc_in_zone(obj, zone) or utils.npc_in_zone(enemy, zone)) then
 				local smart = SimBoard.get_sim_board():get_smart_by_name(v)
-				if smart and smart.base_on_actor_control ~= nil and smart.base_on_actor_control.status ~= smart_terrain_control.ALARM then
+				if smart and smart.base_on_actor_control ~= nil and smart.base_on_actor_control.status ~= SmartTerrainControl.ESmartTerrainStatus.ALARM then
 					return false
 				end
 			end
