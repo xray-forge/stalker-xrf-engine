@@ -141,14 +141,8 @@ simulation_activities = {
   },
 }
 
-
-
-
-
-
-
-
 class "sim_board"
+
 function sim_board:__init()
   --' ������� ���������� ������ � ������ � ��� � �������:
   --' smart = {smrt, targets = {}, dangers = {}, squads = {}, stayed_squad_quan = 0}

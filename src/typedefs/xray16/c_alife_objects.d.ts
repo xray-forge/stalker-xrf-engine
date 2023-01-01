@@ -518,8 +518,11 @@ declare module "xray16" {
    * C++ class cse_alife_online_offline_group : cse_alife_dynamic_object,cse_alife_schedulable {
    * @customConstructor cse_alife_online_offline_group
    **/
-  export class XR_cse_alife_online_offline_group extends XR_cse_alife_dynamic_object
-    implements IXR_cse_alife_schedulable {
+  export class XR_cse_alife_online_offline_group<
+    T extends XR_cse_alife_creature_abstract = XR_cse_alife_creature_abstract
+  > extends XR_cse_alife_dynamic_object implements IXR_cse_alife_schedulable {
+
+    public object: T;
 
     public update(): unknown;
     public register_member(id: number): unknown;
@@ -527,7 +530,7 @@ declare module "xray16" {
     public get_current_task(): unknown;
     public commander_id(): number;
     public unregister_member(id: number): unknown;
-    public squad_members(): LuaIterable<XR_cse_alife_creature_abstract>;
+    public squad_members(): LuaIterable<{ id: number, object: T }>;
     public force_change_position(vector: XR_vector): unknown;
     public add_location_type(location: string): unknown;
     public npc_count(): number;

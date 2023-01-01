@@ -3,6 +3,7 @@ local SmartCoverBinder = require("scripts.core.binders.SmartCoverBinder")
 local SmartCover = require("scripts.se.SmartCover")
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 local log = create_ts_class_instance(LuaLogger, "cover_manager");
+local SimBoard = require("scripts.se.SimBoard")
 
 --'******************************************************
 --'*	�������� ��� ������ ������� � ������� ������.
@@ -15,7 +16,7 @@ function CCover_manager:__init(smart)
 
   self.squads = {}
   self.cover_table = {}
-  self.board = sim_board.get_sim_board()
+  self.board = SimBoard.get_sim_board()
   self.is_valid = false
   --	self.name = smart:name()
   --	self.sid = math.random(1,100000)

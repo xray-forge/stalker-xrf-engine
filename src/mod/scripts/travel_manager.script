@@ -1,3 +1,4 @@
+local SimBoard = require("scripts.se.SimBoard")
 local NewsManager = require("scripts.core.NewsManager")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
@@ -177,7 +178,7 @@ function traveling()
 		--local dir = vector():sub( point:point(1), point:point(0) ):normalize():getH()
 		local dir = -point:point(1):sub(point:point(0)):getH()
 
-		local board = sim_board.get_sim_board()
+		local board = SimBoard.get_sim_board()
 		for k,v in pairs(board.smarts[traveler_smart_id].squads) do
 			if get_object_story_id(v.id) == nil and check_squad_for_enemies(v) then
 				board:exit_smart(v, traveler_smart_id)
@@ -326,7 +327,7 @@ end
 
 
 function check_smart_availability(smart_name, smart_table, squad)
-	local board = sim_board.get_sim_board()
+	local board = SimBoard.get_sim_board()
 	local smart = board:get_smart_by_name(smart_name)
 	if smart == nil then
 		abort("Error in travel manager. Smart [%s] doesnt exist.", tostring(smart_name))
@@ -397,7 +398,7 @@ function get_travel_cost(actor, npc, dialog_id, phrase_id, p1)
 
 	-- ����� �� id ����� �����
 	local smart_name = travel_class.smart_by_phrase[travel_phrase_id]
-	local board = sim_board.get_sim_board()
+	local board = SimBoard.get_sim_board()
 	local smart = board:get_smart_by_name(smart_name)
 	local npc_squad = get_object_squad(npc)
 
@@ -421,7 +422,7 @@ function actor_have_money(actor, npc, dialog_id, phrase_id)
 
 	-- ����� �� id ����� �����
 	local smart_name = travel_class.smart_by_phrase[travel_phrase_id]
-	local board = sim_board.get_sim_board()
+	local board = SimBoard.get_sim_board()
 	local smart = board:get_smart_by_name(smart_name)
 	local npc_squad = get_object_squad(npc)
 
@@ -458,7 +459,7 @@ function actor_travel_with_squad(actor, npc, dialog_id, phrase_id)
 
 	-- ����� �� id ����� �����
 	local smart_name = travel_class.smart_by_phrase[travel_phrase_id]
-	local board = sim_board.get_sim_board()
+	local board = SimBoard.get_sim_board()
 	local smart = board:get_smart_by_name(smart_name)
 	local npc_squad = get_object_squad(npc)
 

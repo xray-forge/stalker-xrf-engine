@@ -61,8 +61,8 @@ export const SimSquadReachTargetAction: ISimSquadReachTargetAction = declare_xr_
       }
 
       for (const k of squad.squad_members()) {
-        if ((k as any).object !== null) {
-          this.board.setup_squad_and_group((k as any).object);
+        if (k.object !== null) {
+          this.board.setup_squad_and_group(k.object);
         }
       }
     }

@@ -1,7 +1,13 @@
+local SimBoard = require("scripts.se.SimBoard")
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "xr_cover");
+
 ------------------------------------------------------------------------------------
 --    �����: �������� � ������
 ------------------------------------------------------------------------------------
 class "evaluator_need_cover" (property_evaluator)
+
 function evaluator_need_cover:__init(storage, name) super(nil, name)
   	self.st = storage
 end
@@ -11,18 +17,21 @@ end
 
 ----------------------------------------------------------------------------------------------------------------------
 class "action_cover" (action_base)
+
 function action_cover:__init (npc_name, action_name, storage) super(nil, action_name)
 	self.st = storage
 end
+
 function action_cover:initialize()
 	action_base.initialize(self)
-	self.board = sim_board.get_sim_board()
+	self.board = SimBoard.get_sim_board()
 end
+
 function action_cover:activate_scheme()
     self.st.signals = {}
-    self.board = sim_board.get_sim_board()
+    self.board = SimBoard.get_sim_board()
     --' ����������� �����.
-    local base_point = sim_board.get_sim_board():get_smart_by_name(self.st.smart).m_level_vertex_id
+    local base_point = self.board:get_smart_by_name(self.st.smart).m_level_vertex_id
 
 
     local direction_vector = vector():set(math.random(-100,100), 0, math.random(-100,100))

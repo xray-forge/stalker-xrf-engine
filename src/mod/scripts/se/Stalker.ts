@@ -9,9 +9,11 @@ import {
 } from "xray16";
 
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
-import { AnyCallable, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { offlineObjects } from "@/mod/scripts/core/db";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
+import { get_sim_board } from "@/mod/scripts/se/SimBoard";
+import { ISmartTerrain, on_death } from "@/mod/scripts/se/SmartTerrain";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -140,7 +142,7 @@ export const Stalker: IStalker = declare_xr_class("Stalker", cse_alife_human_sta
     log.info("Register:", this.id, this.name(), this.section_name());
     checkSpawnIniForStoryId(this);
 
-    const board = get_global("sim_board").get_sim_board();
+    const board = get_sim_board();
     const obj_ini = this.spawn_ini();
 
     this.m_registred = true;
@@ -158,8 +160,7 @@ export const Stalker: IStalker = declare_xr_class("Stalker", cse_alife_human_sta
       return;
     }
 
-    // todo: Smart obj SE dependency
-    (alife()!.object(smart_obj.id) as any).register_npc(this);
+    alife()!.object<ISmartTerrain>(smart_obj.id)!.register_npc(this);
   },
   on_unregister(): void {
     log.info("Unregister:", this.name());
@@ -167,8 +168,7 @@ export const Stalker: IStalker = declare_xr_class("Stalker", cse_alife_human_sta
     const strn_id = this.smart_terrain_id();
 
     if (strn_id !== MAX_UNSIGNED_16_BIT) {
-      // todo: Smart obj SE dependency
-      const smart: any = alife().object(strn_id);
+      const smart: Optional<ISmartTerrain> = alife().object(strn_id);
 
       if (smart != null) {
         smart.unregister_npc(this);
@@ -188,7 +188,7 @@ export const Stalker: IStalker = declare_xr_class("Stalker", cse_alife_human_sta
 
     cse_alife_human_stalker.on_death(this, killer);
 
-    (get_global("smart_terrain").on_death as AnyCallable)(this);
+    on_death(this);
 
     if (this.group_id !== MAX_UNSIGNED_16_BIT) {
       const squad: any = alife().object(this.group_id);

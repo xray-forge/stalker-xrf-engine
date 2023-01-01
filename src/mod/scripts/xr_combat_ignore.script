@@ -1,6 +1,11 @@
+local SimBoard = require("scripts.se.SimBoard")
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "xr_combat_ignore");
+
 --[[------------------------------------------------------------------------------------------------------------------
-Игнорирование врагов
-Чугай Александр
+пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 --------------------------------------------------------------------------------------------------------------------]]
 local ignored_smart = {
 	zat_stalker_base_smart	= true,
@@ -40,7 +45,7 @@ function is_enemy(obj, enemy, st, not_check_sim)
 	end
 	storage.enemy_id = enemy:id()
 
-	--' Отсеиваем по зоне
+	--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ
 	local active_sector = storage.active_sector
 	if active_sector ~= nil then
 		if sr_danger.check_danger_position(enemy:position(), active_sector) == false then
@@ -49,16 +54,16 @@ function is_enemy(obj, enemy, st, not_check_sim)
 		end
 	end
 
-	-- Проверка на зоны комбат игнора возле баз:
-		-- игнорировать если:
-		-- враг не актер.
-		-- сталкер находится в зоне.
-		-- смарт в котором находится сталкер не в состоянии тревоги.
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ:
+		-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ:
+		-- пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.
+		-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ.
+		-- пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 	if enemy:id() ~= db.actor:id() then
 		for k,v in pairs (smarts_by_no_assault_zones) do
 			local zone = db.zone_by_name[k]
 			if zone and (utils.npc_in_zone(obj, zone) or utils.npc_in_zone(enemy, zone)) then
-				local smart = sim_board.get_sim_board():get_smart_by_name(v)
+				local smart = SimBoard.get_sim_board():get_smart_by_name(v)
 				if smart and smart.base_on_actor_control ~= nil and smart.base_on_actor_control.status ~= smart_terrain_control.ALARM then
 					return false
 				end
@@ -76,7 +81,7 @@ function is_enemy(obj, enemy, st, not_check_sim)
 		end
 	end
 	--printf("checking combat_ignore for stalker[%s] enemy name [%s] in section[%s]",obj:name(), enemy:name(),storage.active_section)
-	--' Если есть оверрайды, то работаем по ним.
+	--' пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ.
 	if overrides and
 		 overrides.combat_ignore
 	then
@@ -140,7 +145,7 @@ function action_process_enemy:hit_callback(obj, amount, local_direction, who, bo
 
 --	printf("_bp: action_process_enemy: hit_callback(): obj='%s'", obj:name())
 	if amount == 0 then
-		-- Кто-то стрельнул в воздух
+		-- пїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 		return
 	end
 
@@ -170,7 +175,7 @@ function reset_combat_ignore_checker(npc, scheme, st, section)
 
 	npc:set_enemy_callback( storage.action.enemy_callback, storage.action )
 
-	-- Подписываемся на hit callback-и:
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ hit callback-пїЅ:
 	xr_logic.subscribe_action_for_events( npc, storage, storage.action )
 
 	storage.overrides = xr_logic.generic_scheme_overrides(npc)
@@ -183,8 +188,8 @@ end
 function disable_scheme( npc, scheme )
 	npc:set_enemy_callback()
 
-	-- Отписываемся от hit callback. Это делать обязательно, потому что иначе при переключении на другой набор
-	-- схем, в котором нет перехвата боя, продолжится вызываться callback в старом подписанном action-е.
+	-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ hit callback. пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+	-- пїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ callback пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ action-пїЅ.
 	local st = db.storage[npc:id()][scheme]
 	if st then
 		xr_logic.unsubscribe_action_from_events(npc, st, st.action)

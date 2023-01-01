@@ -14,7 +14,10 @@ import {
 import { AnyCallable } from "@/mod/lib/types";
 import { getActor, offlineObjects, zoneByName } from "@/mod/scripts/core/db";
 import { getStoryObjectsRegistry } from "@/mod/scripts/core/StoryObjectsRegistry";
+import { simulation_activities } from "@/mod/scripts/se/SimActivity";
+import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
+import { nearest_to_actor_smart } from "@/mod/scripts/se/SmartTerrain";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -52,7 +55,7 @@ export const Actor: IActor = declare_xr_class("Actor", cse_alife_creature_actor,
     this.m_registred = true;
 
     if (!this.start_position_filled) {
-      get_global("sim_board").get_sim_board().fill_start_position();
+      get_sim_board().fill_start_position();
       this.start_position_filled = true;
     }
   },
@@ -103,7 +106,7 @@ export const Actor: IActor = declare_xr_class("Actor", cse_alife_creature_actor,
       }
     }
 
-    get_global("sim_board").get_sim_board().assign_squad_to_smart(squad, null);
+    get_sim_board().assign_squad_to_smart(squad, null);
   },
   get_alife_task(): XR_CALifeSmartTerrainTask {
     return new CALifeSmartTerrainTask(this.m_game_vertex_id, this.m_level_vertex_id);
@@ -116,10 +119,8 @@ export const Actor: IActor = declare_xr_class("Actor", cse_alife_creature_actor,
     };
 
     if (
-      get_global("smart_terrain").nearest_to_actor_smart.dist < 50 &&
-      get_global("simulation_objects").get_sim_obj_registry().objects[
-        get_global("smart_terrain").nearest_to_actor_smart.id
-      ] === null
+      nearest_to_actor_smart.dist < 50 &&
+      get_global("simulation_objects").get_sim_obj_registry().objects[nearest_to_actor_smart.id!] === null
     ) {
       return false;
     }
@@ -128,7 +129,7 @@ export const Actor: IActor = declare_xr_class("Actor", cse_alife_creature_actor,
       const zone = zoneByName.get(k);
 
       if (zone !== null && zone.inside(this.position)) {
-        const smart = get_global("sim_board").get_sim_board().get_smart_by_name(v);
+        const smart = get_sim_board().get_smart_by_name(v);
 
         if (smart !== null && smart.base_on_actor_control.status !== get_global("smart_terrain_control").ALARM) {
           return false;
@@ -153,7 +154,7 @@ export const Actor: IActor = declare_xr_class("Actor", cse_alife_creature_actor,
     return true;
   },
   target_precondition(squad: ISimSquad): unknown {
-    const squad_params = get_global("sim_board").simulation_activities[squad.player_id];
+    const squad_params = simulation_activities[squad.player_id];
 
     if (
       squad_params === null ||

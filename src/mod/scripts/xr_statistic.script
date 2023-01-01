@@ -82,22 +82,6 @@ local artefacts_table = {
 	af_ice = false,
 }
 
-local monster_classes = {
-  [clsid.bloodsucker_s] 	  = "bloodsucker",
-  [clsid.boar_s] 			  = "boar",
-  [clsid.burer_s] 		  = "burer",
-  [clsid.chimera_s] 		  = "chimera",
-  [clsid.controller_s] 	  = "controller",
-  [clsid.dog_s] 			  = "dog",
-  [clsid.flesh_s] 		  = "flesh",
-  [clsid.gigant_s] 		  = "gigant",
-  [clsid.poltergeist_s] 	  = "poltergeist",
-  [clsid.psy_dog_s] 		  = "psy_dog",
-  [clsid.pseudodog_s]		  = "pseudodog",
-  [clsid.snork_s ] 		  = "snork",
-  [clsid.tushkano_s ] 	  = "tushkano",
-}
-
 local taken_artefacts = {}
 
 function inc_surges_counter()
@@ -135,6 +119,22 @@ function set_best_monster(obj)
 	if IsStalker(obj) then
 --		actor_statistic.best_monster = "stalker"
 	else
+		local monster_classes = {
+			[clsid.bloodsucker_s] 	  = "bloodsucker",
+			[clsid.boar_s] 			  = "boar",
+			[clsid.burer_s] 		  = "burer",
+			[clsid.chimera_s] 		  = "chimera",
+			[clsid.controller_s] 	  = "controller",
+			[clsid.dog_s] 			  = "dog",
+			[clsid.flesh_s] 		  = "flesh",
+			[clsid.gigant_s] 		  = "gigant",
+			[clsid.poltergeist_s] 	  = "poltergeist",
+			[clsid.psy_dog_s] 		  = "psy_dog",
+			[clsid.pseudodog_s]		  = "pseudodog",
+			[clsid.snork_s ] 		  = "snork",
+			[clsid.tushkano_s ] 	  = "tushkano",
+		}
+
 		local community = monster_classes[get_clsid(obj)]
 		if not(community) then
 			abort("Statistic ERROR: cannot find monster class for [%s] clsid [%s]", obj:name(), tostring(get_clsid(obj)))

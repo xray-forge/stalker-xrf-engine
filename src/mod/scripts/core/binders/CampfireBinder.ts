@@ -1,5 +1,6 @@
 import { object_binder, XR_cse_alife_object, XR_CZoneCampfire, XR_game_object, XR_object_binder } from "xray16";
 
+import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { isEmpty } from "@/mod/scripts/utils/table";
 
@@ -28,7 +29,7 @@ export const CampfireBinder: ICampfireBinder = declare_xr_class("CampfireBinder"
 
     const [smart_name] = string.gsub(this.object.name(), "_campfire_%d*", "");
 
-    if (get_global("sim_board").get_sim_board().smarts_by_names[smart_name]) {
+    if (get_sim_board().smarts_by_names[smart_name]) {
       this.campfire.turn_off();
 
       if (campfire_table_by_smart_names.get(smart_name) === null) {

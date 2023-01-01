@@ -1,3 +1,7 @@
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "simulation_objects");
+
 local sim_objects_registry = nil
 local props_ini = ini_file("misc\\simulation_objects_props.ltx")
 
@@ -64,7 +68,6 @@ end
 --***********************************************************************************************
 --*										SIMULATION_LOCAL_FUNCTIONS								*
 --***********************************************************************************************
-
 
 function sim_dist_to(obj1 , obj2)
 	local pos1,lv1,gv1 = obj1:get_location()

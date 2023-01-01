@@ -967,7 +967,7 @@ end
 function precondition_sim_action_attack_point_none(npc, actor, dialog_name)
 	local squad = get_object_squad(npc)
 		if(squad.current_action.name=="attack_point") then
-		local smart = sim_board.get_sim_board().smarts[squad.current_action.dest_smrt_id].smrt
+		local smart = SimBoard.get_sim_board().smarts[squad.current_action.dest_smrt_id].smrt
 		if(smart.player_name=="none") then
 			return true
 		end
@@ -978,7 +978,7 @@ end
 function precondition_sim_action_attack_point_friend(npc, actor, dialog_name)
 	local squad = get_object_squad(npc)
 		if(squad.current_action.name=="attack_point") then
-		local smart = sim_board.get_sim_board().smarts[squad.current_action.dest_smrt_id].smrt
+		local smart = SimBoard.get_sim_board().smarts[squad.current_action.dest_smrt_id].smrt
 		if(smart.player_name==squad.player_id) then
 			return true
 		end
@@ -989,7 +989,7 @@ end
 function precondition_sim_action_attack_point_enemy(npc, actor, dialog_name)
 	local squad = get_object_squad(npc)
 		if(squad.current_action.name=="attack_point") then
-		local smart = sim_board.get_sim_board().smarts[squad.current_action.dest_smrt_id].smrt
+		local smart = SimBoard.get_sim_board().smarts[squad.current_action.dest_smrt_id].smrt
 		if(smart.player_name~=squad.player_id) and (smart.player_name~="none") then
 			return true
 		end

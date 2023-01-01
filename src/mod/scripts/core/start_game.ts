@@ -1,3 +1,4 @@
+import { reset_sim_board } from "@/mod/scripts/se/SimBoard";
 import { actorMenu } from "@/mod/scripts/ui/game/ActorMenu";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -16,8 +17,7 @@ export function startGame(): void {
   get_global("xr_sound").start_game_callback();
   get_global("dialog_manager").fill_phrase_table();
   get_global("xr_s").init();
-  get_global("sim_objects").clear();
-  get_global("sim_board").clear();
+  reset_sim_board();
   get_global("sr_light").clean_up();
 
   actorMenu.initQuickSlotItems();

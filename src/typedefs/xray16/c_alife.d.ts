@@ -78,20 +78,20 @@ declare module "xray16" {
 
     public release(cse_abstract: XR_cse_alife_object | null, value: boolean): unknown;
 
-    public create(value: number): XR_cse_alife_object;
-    public create(
+    public create<T extends XR_cse_alife_object = XR_cse_alife_object>(value: number): T;
+    public create<T extends XR_cse_alife_object = XR_cse_alife_object>(
       value1: string,
       vector: XR_vector,
       value2: number,
       value3: number,
       value4: number
-    ): XR_cse_alife_object;
-    public create(
+    ): T;
+    public create<T extends XR_cse_alife_object = XR_cse_alife_object>(
       value1: string | number,
       vector: XR_vector,
       value2: number,
       value3: number
-    ): XR_cse_alife_object;
+    ): T;
 
   }
 

@@ -1,3 +1,4 @@
+local SimBoard = require("scripts.se.SimBoard")
 local NewsManager = require("scripts.core.NewsManager")
 local SleepDialog = require("scripts.ui.interaction.SleepDialog")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
@@ -1343,7 +1344,7 @@ end
 function play_sound(actor, obj, p)
 	local theme = p[1]
 	local faction = p[2]
-	local point = sim_board.get_sim_board().smarts_by_names[p[3]]
+	local point = SimBoard.get_sim_board().smarts_by_names[p[3]]
 	if point ~= nil then
 		point = point.id
 	elseif p[3]~=nil then
@@ -1363,7 +1364,7 @@ function play_sound_by_story(actor, obj, p)
 	local story_obj = get_story_object_id(p[1])
 	local theme = p[2]
 	local faction = p[3]
-	local point = sim_board.get_sim_board().smarts_by_names[p[4]]
+	local point = SimBoard.get_sim_board().smarts_by_names[p[4]]
 	if point ~= nil then
 		point = point.id
 	elseif p[4]~=nil then
@@ -1397,18 +1398,18 @@ end
 --'-----------------------------------------------------------------------------------
 --[[
 function start_sim(actor, obj)
-	sim_board.get_sim_board():start_sim()
+	SimBoard.get_sim_board():start_sim()
 end
 
 function stop_sim(actor, obj)
-	sim_board.get_sim_board():stop_sim()
+	SimBoard.get_sim_board():stop_sim()
 end
 
 function update_faction_brain(actor, obj, p)
 	if p[1] == nil then
 		abort("Wrong parameters update_faction_brain")
 	end
-	local board = sim_board.get_sim_board()
+	local board = SimBoard.get_sim_board()
 	local player = board.players[ p[1] ]
 	if player == nil then
 		abort("Can't find player %s", tostring(p[1]))
@@ -1430,13 +1431,13 @@ function create_squad(actor, obj, p)
 		abort("Wrong smart name [NIL] in create_squad function")
 	end
 
-	local ltx = sim_board.squad_ltx
+	local ltx = SimBoard.squad_ltx
 
 	if not ltx:section_exist(squad_id) then
 		abort("Wrong squad identificator [%s]. Squad descr doesnt exist.", tostring(squad_id))
 	end
 
-	local board = sim_board.get_sim_board()
+	local board = SimBoard.get_sim_board()
 	local smart = board.smarts_by_names[smart_name]
 	if smart == nil then
 		abort("Wrong smart_name [%s] for [%s] faction in create_squad function", tostring(smart_name), tostring(player_name))
@@ -1463,13 +1464,13 @@ function create_squad_member(actor, obj, p)
 	if story_id == nil then
 		abort("Wrong squad identificator [NIL] in 'create_squad_member' function")
 	end
-	local board = sim_board.get_sim_board()
+	local board = SimBoard.get_sim_board()
 	local squad = get_story_squad(story_id)
 	local squad_smart = board.smarts[squad.smart_id].smrt
 	if p[3] ~= nil then
 		local spawn_point
 		if p[3] == "simulation_point" then
-			spawn_point = utils.cfg_get_string(sim_board.squad_ltx, squad:section_name(), "spawn_point", obj, false, "")
+			spawn_point = utils.cfg_get_string(SimBoard.squad_ltx, squad:section_name(), "spawn_point", obj, false, "")
 			if spawn_point == "" or spawn_point == nil then
 				spawn_point = xr_logic.parse_condlist(obj, "spawn_point", "spawn_point", squad_smart.spawn_point)
 			else
@@ -1505,7 +1506,7 @@ function remove_squad(actor, obj, p)
 		assert("Wrong squad identificator [%s]. squad doesnt exist", tostring(story_id))
 		return
 	end
-	local board = sim_board.get_sim_board()
+	local board = SimBoard.get_sim_board()
 	board:remove_squad(squad)
 end
 
@@ -1560,7 +1561,7 @@ function update_squad(actor, obj, p)
 	if squad_id == nil then
 		abort("Wrong squad identificator [NIL] in remove_squad function")
 	end
-	local board = sim_board.get_sim_board()
+	local board = SimBoard.get_sim_board()
 	local squad = board.squads[squad_id]
 	if squad == nil then
 		assert("Wrong squad identificator [%s]. squad doesnt exist", tostring(squad_id))
@@ -1576,7 +1577,7 @@ function clear_smart_terrain(actor, obj, p)
 		abort("Wrong squad identificator [NIL] in clear_smart_terrain function")
 	end
 
-	local board = sim_board.get_sim_board()
+	local board = SimBoard.get_sim_board()
 	local smart = board.smarts_by_names[smart_name]
 	local smart_id = smart.id
 	for k,v in pairs(board.smarts[smart_id].squads) do
@@ -1597,7 +1598,7 @@ function set_actor_faction(actor, obj, p)
 	if p[1] == nil then
 		abort("Wrong parameters")
 	end
-	sim_board.get_sim_board():set_actor_community(p[1])
+	SimBoard.get_sim_board():set_actor_community(p[1])
 end
 ]]--
 --'-----------------------------------------------------------------------------------
@@ -1900,7 +1901,7 @@ end
 
 function set_level_faction_community(actor, npc, p)
 	if(p[1]~=nil) and (p[2]~= nil) and (p[3]~= nil) then
-		local faction = sim_board.get_sim_board().players[p[1]]
+		local faction = SimBoard.get_sim_board().players[p[1]]
 		local goodwill = 0
 		if(p[3]=="enemy") then
 			goodwill = -3000
@@ -2055,7 +2056,7 @@ end
 --[[
 function reset_faction_goodwill(actor, obj, p)
 	if db.actor and p[1] then
-		local board = sim_board.get_sim_board()
+		local board = SimBoard.get_sim_board()
 		local faction = board.players[ p[1] ]
 		if faction then
 			db.actor:set_community_goodwill(p[1], 0)

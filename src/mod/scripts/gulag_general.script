@@ -42,7 +42,6 @@ function load_job(smart)
 
   local gname = smart:name()
   local t
-  local board = sim_board.get_sim_board()
   local job_table = {}
 
   ltx =  "" ..

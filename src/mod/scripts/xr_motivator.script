@@ -1,3 +1,4 @@
+local SimBoard = require("scripts.se.SimBoard")
 local SmartTerrain = require("scripts.se.SmartTerrain")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
@@ -254,7 +255,7 @@ function motivator_binder:hit_callback(obj, amount, local_direction, who, bone_i
 ]]
 		-- ���� ������ �� ����������
 		if amount > 0 then
-			for k,v in pairs(sim_board.get_sim_board().smarts) do
+			for k,v in pairs(SimBoard.get_sim_board().smarts) do
 				local smart = v.smrt
 				if smart.base_on_actor_control ~= nil then
 					local level_id = game_graph():vertex(smart.m_game_vertex_id):level_id()

@@ -13,6 +13,8 @@ import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { AnyCallable, Optional } from "@/mod/lib/types";
 import { offlineObjects } from "@/mod/scripts/core/db";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
+import { get_sim_board } from "@/mod/scripts/se/SimBoard";
+import { ISmartTerrain, on_death } from "@/mod/scripts/se/SmartTerrain";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -125,7 +127,7 @@ export const Monster: IMonster = declare_xr_class("Monster", cse_alife_monster_b
 
     this.m_registred = true;
 
-    const board = get_global("sim_board").get_sim_board();
+    const board = get_sim_board();
 
     if (offlineObjects.get(this.id) == null) {
       offlineObjects.set(this.id, {});
@@ -141,7 +143,7 @@ export const Monster: IMonster = declare_xr_class("Monster", cse_alife_monster_b
       return;
     }
 
-    (alife().object(smart_obj.id) as XR_cse_alife_smart_zone).register_npc(this);
+    alife().object<ISmartTerrain>(smart_obj.id)!.register_npc(this);
   },
   on_unregister(): void {
     log.info("Unregister:", this.name());
@@ -165,7 +167,7 @@ export const Monster: IMonster = declare_xr_class("Monster", cse_alife_monster_b
 
     cse_alife_monster_base.on_death(this, killer);
 
-    (get_global("smart_terrain").on_death as AnyCallable)(this);
+    on_death(this);
 
     if (this.group_id !== MAX_UNSIGNED_16_BIT) {
       const squad: any = alife().object(this.group_id);

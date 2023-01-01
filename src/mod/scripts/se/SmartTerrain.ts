@@ -33,6 +33,8 @@ import { isMonster, isStalker } from "@/mod/scripts/core/checkers";
 import { getActor, offlineObjects, storage } from "@/mod/scripts/core/db";
 import { SMART_TERRAIN_SECT } from "@/mod/scripts/core/db/sections";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
+import { simulation_activities } from "@/mod/scripts/se/SimActivity";
+import { get_sim_board, ISimBoard } from "@/mod/scripts/se/SimBoard";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { registered_smartcovers } from "@/mod/scripts/se/SmartCover";
 import { getStoryObject, unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
@@ -133,7 +135,7 @@ export interface ISmartTerrain extends XR_cse_alife_smart_zone {
   ltx_name: string;
 
   props: AnyObject;
-  board: AnyObject;
+  board: ISimBoard;
   smart_level: string;
 
   respawn_params: LuaTable<string, { squads: LuaTable<number, string>; num: number }>;
@@ -158,7 +160,6 @@ export interface ISmartTerrain extends XR_cse_alife_smart_zone {
   hide(): void;
   set_alarm(): void;
   check_alarm(): void;
-  on_death(object: XR_cse_alife_object): void;
   get_location(): LuaMultiReturn<[XR_vector, number, number]>;
   am_i_reached(squad: ISimSquad): boolean;
   on_after_reach(squad: ISimSquad): boolean;
@@ -189,7 +190,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
   },
   on_before_register(): void {
     cse_alife_smart_zone.on_before_register(this);
-    this.board = get_global("sim_board").get_sim_board();
+    this.board = get_sim_board();
     this.board.register_smart(this);
     this.smart_level = alife().level_name(game_graph().vertex(this.m_game_vertex_id).level_id());
   },
@@ -987,7 +988,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
         "capacity = " +
         tostring(this.max_population) +
         " (" +
-        get_global("sim_board").get_sim_board().get_smart_population(this) +
+        get_sim_board().get_smart_population(this) +
         ")\\n";
 
       if (this.respawn_point !== null && this.already_spawned !== null) {
@@ -1017,7 +1018,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
         }
       }
 
-      for (const [k, v] of get_global("sim_board").get_sim_board().smarts[this.id].squads) {
+      for (const [k, v] of get_sim_board().smarts.get(this.id).squads) {
         props = props + tostring(v.id) + "\\n";
       }
     }
@@ -1170,24 +1171,6 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
       this.smart_alarm_time = null;
     }
   },
-  on_death(obj: XR_cse_alife_creature_abstract): void {
-    const sim = alife();
-
-    if (sim !== null) {
-      obj = sim.object(obj.id) as XR_cse_alife_creature_abstract;
-
-      if (obj === null) {
-        return;
-      }
-
-      const strn_id: number = obj.smart_terrain_id();
-
-      if (strn_id !== MAX_UNSIGNED_16_BIT) {
-        log.info("Clear dead object:", obj.name());
-        (sim.object(strn_id) as ISmartTerrain).clear_dead(obj);
-      }
-    }
-  },
   get_location(): LuaMultiReturn<[XR_vector, number, number]> {
     return $multi(this.position, this.m_level_vertex_id, this.m_game_vertex_id);
   },
@@ -1207,7 +1190,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
   },
   on_after_reach(squad: ISimSquad): void {
     for (const k of squad.squad_members()) {
-      const obj = (k as any).object;
+      const obj = k.object;
 
       squad.board.setup_squad_and_group(obj);
     }
@@ -1332,7 +1315,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
         return;
       }
 
-      const squad_count = smart_terrain_squad_count(this.board.smarts[this.id].squads);
+      const squad_count = smart_terrain_squad_count(this.board.smarts.get(this.id).squads);
 
       if (this.max_population <= squad_count) {
         log.info("%s cannot respawn due to squad_count %s of %s", this.name(), this.max_population, squad_count);
@@ -1362,7 +1345,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
       return false;
     }
 
-    let squad_count = smart_terrain_squad_count(this.board.smarts[this.id].squads);
+    let squad_count = smart_terrain_squad_count(this.board.smarts.get(this.id).squads);
 
     if (need_to_dec_population) {
       squad_count = squad_count - 1;
@@ -1372,7 +1355,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
       return false;
     }
 
-    const squad_params = get_global("sim_board").simulation_activities[squad.player_id];
+    const squad_params = simulation_activities[squad.player_id];
 
     if (squad_params === null || squad_params.smart === null) {
       return false;
@@ -1381,7 +1364,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     if (tonumber(this.props["resource"])! > 0) {
       const smart_params = squad_params.smart.resource;
 
-      if (smart_params !== null && smart_params.prec(squad, this)) {
+      if (smart_params !== null && smart_params!.prec(squad, this)) {
         return true;
       }
     }
@@ -1389,7 +1372,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     if (tonumber(this.props["base"])! > 0) {
       const smart_params = squad_params.smart.base;
 
-      if (smart_params !== null && smart_params.prec(squad, this)) {
+      if (smart_params !== null && smart_params!.prec(squad, this)) {
         return true;
       }
     }
@@ -1397,7 +1380,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     if (tonumber(this.props["lair"])! > 0) {
       const smart_params = squad_params.smart.lair;
 
-      if (smart_params !== null && smart_params.prec(squad, this)) {
+      if (smart_params !== null && smart_params!.prec(squad, this)) {
         return true;
       }
     }
@@ -1405,7 +1388,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     if (tonumber(this.props["territory"])! > 0) {
       const smart_params = squad_params.smart.territory;
 
-      if (smart_params !== null && smart_params.prec(squad, this)) {
+      if (smart_params !== null && smart_params!.prec(squad, this)) {
         return true;
       }
     }
@@ -1413,7 +1396,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     if (tonumber(this.props["surge"])! > 0) {
       const smart_params = squad_params.smart.surge;
 
-      if (smart_params !== null && smart_params.prec(squad, this)) {
+      if (smart_params !== null && smart_params!.prec(squad, this)) {
         return true;
       }
     }
@@ -1467,70 +1450,6 @@ function smart_terrain_squad_count(board_smart_squads: LuaTable<number, XR_cse_a
   }
 
   return count;
-}
-
-export function surge_stats() {
-  const sim_obj_registry = get_global("simulation_objects").get_sim_obj_registry().objects;
-
-  const sim_squads: Record<string, LuaTable<number, any>> = {
-    ["zaton"]: new LuaTable(),
-    ["jupiter"]: new LuaTable(),
-    ["pripyat"]: new LuaTable()
-  };
-
-  const sim_smarts: Record<string, LuaTable<number, any>> = {
-    ["zaton"]: new LuaTable(),
-    ["jupiter"]: new LuaTable(),
-    ["pripyat"]: new LuaTable()
-  };
-
-  for (const [k, v] of sim_obj_registry) {
-    if (v.clsid() === clsid.smart_terrain && tonumber(v.props["surge"] > 0)) {
-      const level_name = alife().level_name(game_graph().vertex(v.m_game_vertex_id).level_id());
-
-      if (sim_smarts[level_name] !== null) {
-        table.insert(sim_smarts[level_name], v);
-      }
-    }
-
-    if (v.clsid() === clsid.online_offline_group_s) {
-      const squad_params = get_global("sim_board").simulation_activities[v.player_id];
-
-      if (squad_params !== null) {
-        const smart_params = squad_params.smart.surge;
-
-        if (smart_params !== null) {
-          const level_name = alife().level_name(game_graph().vertex(v.m_game_vertex_id).level_id());
-
-          if (sim_squads[level_name] !== null) {
-            table.insert(sim_squads[level_name], v);
-          }
-        }
-      }
-    }
-  }
-
-  const print_smarts_and_squads_by_level = (level_name: string) => {
-    log.info("LEVEL: [%s]", level_name);
-
-    let max_capacity_total = 0;
-
-    for (const i of $range(1, sim_smarts[level_name].length())) {
-      const smart = sim_smarts[level_name].get(i);
-
-      max_capacity_total = max_capacity_total + smart.max_population;
-
-      const squad_count = smart_terrain_squad_count(get_global("sim_board").get_sim_board().smarts[smart.id].squads);
-
-      log.info("smart: [%s] max_population [%d] squad_count [%d]", smart.name(), smart.max_population, squad_count);
-    }
-
-    log.info("TOTAL: capacity total : [%d] squads total [%d]", max_capacity_total, sim_squads[level_name].length);
-  };
-
-  print_smarts_and_squads_by_level("zaton");
-  print_smarts_and_squads_by_level("jupiter");
-  print_smarts_and_squads_by_level("pripyat");
 }
 
 /**
@@ -1650,4 +1569,23 @@ function is_only_monsters_on_jobs(npc_info: LuaTable<number, INpcInfo>): boolean
   }
 
   return true;
+}
+
+export function on_death(obj: XR_cse_alife_creature_abstract): void {
+  const sim = alife();
+
+  if (sim !== null) {
+    obj = sim.object(obj.id) as XR_cse_alife_creature_abstract;
+
+    if (obj === null) {
+      return;
+    }
+
+    const strn_id: number = obj.smart_terrain_id();
+
+    if (strn_id !== MAX_UNSIGNED_16_BIT) {
+      log.info("Clear dead object:", obj.name());
+      (sim.object(strn_id) as ISmartTerrain).clear_dead(obj);
+    }
+  }
 }

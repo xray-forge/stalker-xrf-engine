@@ -1,8 +1,13 @@
--- Состояние смарттеррейна
--- Может быть трех видов: normal, danger, alarm
--- normal - все как обычно, без ограничений
--- danger - в зоне контроля находится игрок с оружием. Нужно запереть двери и предложить ему убираться
--- alarm - игрок атаковал смарт. Нужно запереть двери и подождать время.
+local SimBoard = require("scripts.se.SimBoard")
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "smart_terrain_control");
+
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+-- пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ: normal, danger, alarm
+-- normal - пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+-- danger - пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+-- alarm - пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.
 
 NORMAL = 0
 DANGER = 1
@@ -12,10 +17,9 @@ current_smart_id = nil
 
 local ALARM_TIME = 2*60*60
 
-
 class "CBaseOnActorControl"
-function CBaseOnActorControl:__init(smart, ini, section)
 
+function CBaseOnActorControl:__init(smart, ini, section)
 	self.noweap_zone	= utils.cfg_get_string(ini, section, "noweap_zone", self, true, "")
 	self.ignore_zone	= utils.cfg_get_string(ini, section, "ignore_zone", self, false, "")
 
@@ -38,12 +42,12 @@ function CBaseOnActorControl:update()
 
 		local sound = xr_logic.pick_section_from_condlist(db.actor, self.smart, self.alarm_stop_sound)
 		--printf("SOUND = %s", tostring(sound))
-		--' Озвучка на конец атаки
+		--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 		if sound ~= nil then
 			xr_sound.set_sound_play(db.actor:id(), sound)
 		end
 
-		for squad_id,squad in pairs(sim_board.get_sim_board().smarts[self.smart.id].squads) do
+		for squad_id,squad in pairs(SimBoard.get_sim_board().smarts[self.smart.id].squads) do
 			game_relations.set_squad_goodwill(squad_id, "neutral")
 		end
 	end
@@ -55,7 +59,7 @@ function CBaseOnActorControl:update()
 	end
 end
 
--- Возвращает статус угрожает ли игрок смарту или нет (находится ли с оружием в пределах новеапон зоны).
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ).
 function CBaseOnActorControl:get_actor_treat()
 	local zone = db.zone_by_name[self.noweap_zone]
 	if zone == nil then
@@ -78,16 +82,16 @@ function CBaseOnActorControl:get_actor_treat()
 	return false
 end
 
--- Устанавливает, что игрок атаковал смарт
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 function CBaseOnActorControl:actor_attack()
 
 	if self.status ~= ALARM then
 		local sound = xr_logic.pick_section_from_condlist(db.actor, self.smart, self.alarm_start_sound)
-		--' Озвучка на начало атаки.
+		--' пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.
 		if sound ~= nil then
 			xr_sound.set_sound_play(db.actor:id(), sound)
 		end
-		for squad_id,squad in pairs(sim_board.get_sim_board().smarts[self.smart.id].squads) do
+		for squad_id,squad in pairs(SimBoard.get_sim_board().smarts[self.smart.id].squads) do
 			game_relations.set_squad_goodwill(squad_id, "enemy")
 		end
 	end
@@ -99,7 +103,7 @@ function CBaseOnActorControl:get_status()
 	return self.status
 end
 
--- НЕ ЗАБЫТЬ СЕЙВ ЛОАД
+-- пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 function CBaseOnActorControl:save(packet)
 	set_save_marker(packet, "save", false, "CBaseOnActorControl")
 

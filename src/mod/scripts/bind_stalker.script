@@ -1,3 +1,4 @@
+local SimBoard = require("scripts.se.SimBoard")
 local NewsManager = require("scripts.core.NewsManager")
 local AnomalyZoneBinder = require("scripts.core.binders.AnomalyZoneBinder")
 
@@ -73,7 +74,7 @@ end
 ----------------------------------------------------------------------------------------------------------------------
 function actor_binder:net_destroy()
 	xr_sound.stop_sounds_by_id(self.object:id())
-	local board_factions = sim_board.get_sim_board().players
+	local board_factions = SimBoard.get_sim_board().players
 	if(board_factions) then
 			for k,v in pairs (board_factions) do
 					xr_sound.stop_sounds_by_id(v.id)
@@ -390,7 +391,7 @@ function actor_binder:save(packet)
 	release_body_manager.get_release_body_manager():save(packet)
 	self.surge_manager:save(packet)
 	sr_psy_antenna.save( packet )
-	packet:w_bool(sim_board.get_sim_board().simulation_started)
+	packet:w_bool(SimBoard.get_sim_board().simulation_started)
 
 	xr_sound.actor_save(packet)
 	packet:w_stringZ(tostring(self.last_level_name))
@@ -458,7 +459,7 @@ function actor_binder:load(reader)
 	self.surge_manager:load(reader)
 	self.f_surge_manager_loaded = true
 	sr_psy_antenna.load(reader)
-	sim_board.get_sim_board().simulation_started = reader:r_bool()
+	SimBoard.get_sim_board().simulation_started = reader:r_bool()
 
 	xr_sound.actor_load(reader)
 	local n = reader:r_stringZ()

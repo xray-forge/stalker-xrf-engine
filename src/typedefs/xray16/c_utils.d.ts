@@ -410,7 +410,7 @@ declare module "xray16" {
     public accessible(value: number): unknown;
     public accessible(value1: number, value2: boolean): unknown;
 
-    public levels(): unknown;
+    public levels(): LuaIterable<XR_cse_abstract>
 
     public vertex_id(): number;
 

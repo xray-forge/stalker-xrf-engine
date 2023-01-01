@@ -1,4 +1,8 @@
+local SimBoard = require("scripts.se.SimBoard")
 local NewsManager = require("scripts.core.NewsManager")
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "dialogs");
 
 quest_section = {}
 
@@ -271,7 +275,7 @@ end
 -- Community
 -----------------------------------------------------------------------------------
 function actor_in_dolg(actor, npc)
-	for k,v in pairs(sim_board.get_sim_board().players) do
+	for k,v in pairs(SimBoard.get_sim_board().players) do
 		if v.community_player == true and v.player_name == "dolg" then
 			return true
 		end
@@ -280,7 +284,7 @@ function actor_in_dolg(actor, npc)
 end
 
 function actor_not_in_dolg(actor, npc)
-	for k,v in pairs(sim_board.get_sim_board().players) do
+	for k,v in pairs(SimBoard.get_sim_board().players) do
 		if v.community_player == true and v.player_name == "dolg" then
 			return false
 		end
@@ -290,13 +294,13 @@ end
 
 function actor_set_dolg(actor, npc)
 	printf("ACTOR NOW IN [DOLG] COMMUNITY")
-	sim_board.get_sim_board():set_actor_community("dolg")
+	SimBoard.get_sim_board():set_actor_community("dolg")
 	return true
 end
 
 
 function actor_in_freedom(actor, npc)
-	for k,v in pairs(sim_board.get_sim_board().players) do
+	for k,v in pairs(SimBoard.get_sim_board().players) do
 		if v.community_player == true and v.player_name == "freedom" then
 			return true
 		end
@@ -305,7 +309,7 @@ function actor_in_freedom(actor, npc)
 end
 
 function actor_not_in_freedom(actor, npc)
-	for k,v in pairs(sim_board.get_sim_board().players) do
+	for k,v in pairs(SimBoard.get_sim_board().players) do
 		if v.community_player == true and v.player_name == "freedom" then
 			return false
 		end
@@ -315,13 +319,13 @@ end
 
 function actor_set_freedom(actor, npc)
 	printf("ACTOR NOW IN [FREEDOM] COMMUNITY")
-	sim_board.get_sim_board():set_actor_community("freedom")
+	SimBoard.get_sim_board():set_actor_community("freedom")
 	return true
 end
 
 
 function actor_in_bandit(actor, npc)
-	for k,v in pairs(sim_board.get_sim_board().players) do
+	for k,v in pairs(SimBoard.get_sim_board().players) do
 		if v.community_player == true and v.player_name == "bandit" then
 			return true
 		end
@@ -330,7 +334,7 @@ function actor_in_bandit(actor, npc)
 end
 
 function actor_not_in_bandit(actor, npc)
-	for k,v in pairs(sim_board.get_sim_board().players) do
+	for k,v in pairs(SimBoard.get_sim_board().players) do
 		if v.community_player == true and v.player_name == "bandit" then
 			return false
 		end
@@ -340,13 +344,13 @@ end
 
 function actor_set_bandit(actor, npc)
 	printf("ACTOR NOW IN [BANDIT] COMMUNITY")
-	sim_board.get_sim_board():set_actor_community("bandit")
+	SimBoard.get_sim_board():set_actor_community("bandit")
 	return true
 end
 
 
 function actor_in_stalker(actor, npc)
-	for k,v in pairs(sim_board.get_sim_board().players) do
+	for k,v in pairs(SimBoard.get_sim_board().players) do
 		if v.community_player == true and v.player_name == "stalker" then
 			return true
 		end
@@ -355,7 +359,7 @@ function actor_in_stalker(actor, npc)
 end
 
 function actor_not_in_stalker(actor, npc)
-	for k,v in pairs(sim_board.get_sim_board().players) do
+	for k,v in pairs(SimBoard.get_sim_board().players) do
 		if v.community_player == true and v.player_name == "stalker" then
 			return false
 		end
@@ -365,14 +369,14 @@ end
 
 function actor_set_stalker(actor, npc)
 	printf("ACTOR NOW IN [STALKER] COMMUNITY")
-	sim_board.get_sim_board():set_actor_community("stalker")
+	SimBoard.get_sim_board():set_actor_community("stalker")
 	return true
 end
 
 
 function actor_clear_community(actor, npc)
 	printf("ACTOR NOW IN [NEUTRAL] COMMUNITY")
-	sim_board.get_sim_board():set_actor_community("none")
+	SimBoard.get_sim_board():set_actor_community("none")
 	return true
 end
 

@@ -1,4 +1,8 @@
 local AnomalyZoneBinder = require("scripts.core.binders.AnomalyZoneBinder")
+local SimBoard = require("scripts.se.SimBoard")
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "xr_conditions");
 
 -- ������ ������� � ���� ����� ������������ ��� ������� xr_logic: {=������� !�������}
 -- ���� � ������� ���������� ���������� ���������, ��:  {=�������(�����1:�����2:...) !�������(�����1:�����2:...)}
@@ -31,7 +35,6 @@ function enemy_in_zone(enemy, npc, p)
 	return utils.npc_in_zone(enemy, zone)
 end
 
-
 -- ----------------------------------------------------------------------------------------------------
 -- ����� �������
 -- ----------------------------------------------------------------------------------------------------
@@ -39,6 +42,7 @@ end
 function black_screen(actor, npc)
 	return device().precache_frame > 1
 end
+
 --��������, ����������� �� � ����� ������ ���� �� ����� .
 function check_npc_name (actor , npc , p)
 	if npc:name() == nil then return false end
@@ -120,7 +124,7 @@ end
 function is_obj_on_job(actor, npc, p)
 	local smart
 	if p and p[2] then
-		smart = sim_board.get_sim_board():get_smart_by_name(p[2])
+		smart = SimBoard.get_sim_board():get_smart_by_name(p[2])
 	else
 		smart = xr_gulag.get_npc_smart(npc)
 	end
@@ -605,7 +609,7 @@ function check_smart_alarm_status(actor, npc, p)
 		abort("Wrong status[%s] in 'check_smart_alarm_status'", tostring(p[2]))
 	end
 
-	local smart = sim_board.get_sim_board():get_smart_by_name(smart_name)
+	local smart = SimBoard.get_sim_board():get_smart_by_name(smart_name)
 
 	local smart_control = smart.base_on_actor_control
 
@@ -880,8 +884,6 @@ function squad_in_zone(actor, npc, p)
 		zone_name = npc:name()
 	end
 
-	local sim_board = sim_board.get_sim_board()
-
 	local squad = get_story_squad(story_id)
 	if squad == nil then
 		--abort("There is no squad with id[%s]", tostring(squad_id))
@@ -958,9 +960,8 @@ function squad_in_zone_all(actor, npc, p)
 end
 
 function squads_in_zone_b41(actor, npc, p)
-	local smart = sim_board.get_sim_board():get_smart_by_name("jup_b41")
+	local smart = SimBoard.get_sim_board():get_smart_by_name("jup_b41")
 	local zone = db.zone_by_name["jup_b41_sr_light"]
-	local al = alife()
 
 	if zone == nil then
 		return false
@@ -969,7 +970,7 @@ function squads_in_zone_b41(actor, npc, p)
 		return false
 	end
 
-	for k,v in pairs(sim_board.get_sim_board().smarts[smart.id].squads) do
+	for k,v in pairs(SimBoard.get_sim_board().smarts[smart.id].squads) do
 		if v ~= nil then
 			for j in v:squad_members() do
 				if not zone:inside(j.object.position) then

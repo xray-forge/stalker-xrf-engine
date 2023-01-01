@@ -1,3 +1,4 @@
+local SimBoard = require("scripts.se.SimBoard")
 local NewsManager = require("scripts.core.NewsManager")
 local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
 local LuaLogger = require("scripts.utils.logging").LuaLogger
@@ -476,7 +477,7 @@ end
 function check_squad_smart_props(squad_id)
 	local squad = alife():object(squad_id)
 	if(squad) then
-		local board = sim_board.get_sim_board()
+		local board = SimBoard.get_sim_board()
 		if(board and squad.smart_id and board.smarts[squad.smart_id]) then
 			local smart = board.smarts[squad.smart_id].smrt
 			if(tonumber(smart.props["surge"])<=0) then
@@ -505,7 +506,7 @@ function CSurgeManager:kill_all_unhided()
 		end
 	end
 
-	local board = sim_board.get_sim_board()
+	local board = SimBoard.get_sim_board()
 	for k,v in pairs(board.squads) do
 		local squad = v
 		if(check_squad_level(squad.id)) then
@@ -578,7 +579,7 @@ function CSurgeManager:kill_all_unhided()
 end
 
 function CSurgeManager:kill_all_unhided_after_actor_death()
-	local board = sim_board.get_sim_board()
+	local board = SimBoard.get_sim_board()
 	for k,v in pairs(board.squads) do
 		local squad = v
 		if(check_squad_level(squad.id)) then
