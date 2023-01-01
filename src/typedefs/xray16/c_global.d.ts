@@ -97,7 +97,7 @@ declare module "xray16" {
     prefetch_sound(this: void, str: string): unknown;
     iterate_sounds(this: void, str: string, num: number, cb: unknown /* function<void> */): unknown;
     iterate_sounds(this: void, str: string, num: number, object: unknown, cb: unknown /* function<void>*/): unknown;
-    name(this: void): string;
+    name<T extends string = string>(this: void): T;
     environment(this: void): unknown;
     remove_cam_effector(this: void, num: number): unknown;
     high_cover_in_direction(this: void, num: number, vector: unknown /* const vector& */): unknown;

@@ -1,3 +1,5 @@
+local TaskManager = require("scripts.se.task.TaskManager")
+
 --'******************************************************
 --'*	������ �����������.
 --'******************************************************
@@ -234,7 +236,6 @@ function faction_brain_human:reset_actor_tasks()
 	--callstack()
 	--print_table(self.faction.target_smart_value)
 
-	local tm = task_manager.get_task_manager()
 	local faction = self.faction
 
 	self.interfirience_points = {}
@@ -345,7 +346,7 @@ function faction_brain_human:init_player_task(target_data)
 		return
 	end
 
-	local tm 				= task_manager.get_task_manager()
+	local tm 				= TaskManager.get_task_manager()
 	local faction 			= self.faction
 
 	-- ���������� � �������. ���� ��� ������, �� �������� ������� ���� � ������ �����.

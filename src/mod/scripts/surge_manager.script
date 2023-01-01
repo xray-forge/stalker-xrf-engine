@@ -1,3 +1,4 @@
+local TaskManager = require("scripts.se.task.TaskManager")
 local SimBoard = require("scripts.se.SimBoard")
 local NewsManager = require("scripts.core.NewsManager")
 local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
@@ -422,9 +423,9 @@ function CSurgeManager:give_surge_hide_task()
 	end
 	if(self.surge_task_sect~="empty") then
 		if(self.surge_task_sect=="") then
-			task_manager.get_task_manager():give_task("hide_from_surge")
+			TaskManager.get_task_manager():give_task("hide_from_surge")
 		else
-			task_manager.get_task_manager():give_task(self.surge_task_sect)
+			TaskManager.get_task_manager():give_task(self.surge_task_sect)
 		end
 	end
 end

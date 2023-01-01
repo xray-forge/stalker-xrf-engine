@@ -1,3 +1,4 @@
+local TaskManager = require("scripts.se.task.TaskManager")
 local SimBoard = require("scripts.se.SimBoard")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
@@ -185,7 +186,7 @@ function sound_manager:update()
 				local our_squad = get_object_squad(npc)
 				if(our_squad) then
 					local our_smart = our_squad.smart_id
-					local task = task_manager.get_task_manager():get_tasks_by_smart(our_smart)
+					local task = TaskManager.get_task_manager():get_tasks_by_smart(our_smart)
 					if(next_phrase.who~="teller") then
 						local enemy_faction = task.counter_attack_community
 						xr_sound.set_sound_play(npc.id, next_phrase.theme, enemy_faction)

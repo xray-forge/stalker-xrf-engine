@@ -1,5 +1,6 @@
 import { mapDisplayManager } from "scripts/ui/game/MapDisplayManager";
 import {
+  XR_CGameTask,
   XR_cse_alife_creature_actor,
   XR_game_object,
   XR_net_packet,
@@ -16,7 +17,7 @@ import {
   task,
   time_global,
   vector,
-  XR_CGameTask
+  TXR_TaskState
 } from "xray16";
 
 import { game_difficulties_by_number } from "@/mod/globals/game_difficulties";
@@ -31,6 +32,7 @@ import { send_task } from "@/mod/scripts/core/NewsManager";
 import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
 import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { get_sim_obj_registry } from "@/mod/scripts/se/SimObjectsRegistry";
+import { ITaskManager } from "@/mod/scripts/se/task/TaskManager";
 import { giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
@@ -58,7 +60,7 @@ export interface IActorBinder extends XR_object_binder {
   f_surge_manager_loaded: boolean;
 
   weather_manager: any;
-  task_manager: any;
+  task_manager: ITaskManager;
   surge_manager: any;
 
   already_jumped: boolean;
@@ -271,7 +273,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
       }
     }
   },
-  task_callback(_task, _state): void {
+  task_callback(_task, _state: TXR_TaskState): void {
     if (_state !== task.fail) {
       if (_state === task.completed) {
         send_task(getActor(), "complete", _task);
@@ -280,7 +282,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
       }
     }
 
-    get_global<AnyCallablesModule>("task_manager").task_callback(_task, _state);
+    get_global<AnyCallablesModule>("_extern").task_callback(_task, _state);
   },
   update(delta: number): void {
     object_binder.update(this, delta);

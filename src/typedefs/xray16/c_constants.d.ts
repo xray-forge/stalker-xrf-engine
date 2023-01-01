@@ -348,6 +348,9 @@ declare module "xray16" {
     public static task_dummy: 65535;
   }
 
+  export type TXR_TaskStates = typeof XR_task;
+  export type TXR_TaskState = TXR_TaskStates[Exclude<keyof TXR_TaskStates, "prototype" | "constructor">]
+
   /**
    * C++ class ui_events {
    */

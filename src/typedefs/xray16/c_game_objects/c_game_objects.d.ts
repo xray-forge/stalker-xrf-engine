@@ -354,6 +354,7 @@ declare module "xray16" {
     public group_throw_time_interval(): unknown;
     public group_throw_time_interval(value: number): unknown;
     public is_inv_box_empty(): unknown;
+    public is_active_task(task: XR_CGameTask): boolean;
     public target_body_state(): unknown;
     public info_clear(): unknown;
     public head_orientation(): unknown;
@@ -432,7 +433,7 @@ declare module "xray16" {
     public give_info_portion(value: string): unknown;
     public burer_get_force_gravi_attack(): unknown;
     public inv_box_closed(value1: boolean, value2: string): unknown;
-    public get_task(value1: string, value2: boolean): unknown;
+    public get_task(task_id: string, value2: boolean): XR_CGameTask;
     public set_active_task(task: unknown): unknown;
     public get_enemy(): unknown;
     public get_corpse(): unknown;

@@ -12,9 +12,9 @@ declare module "xray16" {
    * @customConstructor CGameTask
    */
   export class XR_CGameTask {
-    public get_id(): number;
+    public get_id(): string;
     public set_priority(value: number): unknown;
-    public set_title(value: string): unknown;
+    public set_title(value: string | null): unknown;
     public set_map_hint(value: string): unknown;
     public get_title(): string;
     public get_icon_name(): string;

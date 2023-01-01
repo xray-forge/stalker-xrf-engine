@@ -211,7 +211,7 @@ declare module "xray16" {
     public w_bool(value: boolean): void;
     public w_dir(vector: XR_vector): unknown;
     public w_s32(value: number): unknown;
-    public w_stringZ(value: string): void;
+    public w_stringZ(value: string | null): void;
     public w_float_q16(value1: number, value2: number, value3: number): unknown;
     public r_s8(value: string): unknown;
     public r_s8(): unknown;

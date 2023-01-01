@@ -1,7 +1,8 @@
-import { game, get_console, level } from "xray16";
+import { game, get_console, level, task, TXR_TaskState, XR_CGameTask } from "xray16";
 
 import { AnyCallablesModule } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
+import { get_task_manager } from "@/mod/scripts/se/task/TaskManager";
 import * as SleepDialogModule from "@/mod/scripts/ui/interaction/SleepDialog";
 import { disableInfo } from "@/mod/scripts/utils/actor";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -50,4 +51,21 @@ anabiotic_callback2 = () => {
   declare_global("mus_vol", 0);
 
   disableInfo("anabiotic_in_process");
+};
+
+// @ts-ignore global declararation
+task_complete = (task_id: string): boolean => {
+  return get_task_manager().task_complete(task_id);
+};
+
+// @ts-ignore global declararation
+task_fail = (task_id: string): boolean => {
+  return get_task_manager().task_fail(task_id);
+};
+
+// @ts-ignore global declararation
+task_callback = (target: XR_CGameTask, state: TXR_TaskState): void => {
+  if (state == task.fail || state == task.completed) {
+    get_task_manager().task_callback(target, state == task.completed);
+  }
 };

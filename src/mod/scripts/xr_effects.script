@@ -1,3 +1,4 @@
+local TaskManager = require("scripts.se.task.TaskManager")
 local SimBoard = require("scripts.se.SimBoard")
 local NewsManager = require("scripts.core.NewsManager")
 local SleepDialog = require("scripts.ui.interaction.SleepDialog")
@@ -1608,7 +1609,7 @@ function give_task(actor, obj, p)
 	if p[1] == nil then
 		abort("No parameter in give_task function.")
 	end
-	task_manager.get_task_manager():give_task(p[1])
+	TaskManager.get_task_manager():give_task(p[1])
 end
 
 function set_active_task(actor, npc, p)
