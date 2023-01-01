@@ -1,5 +1,7 @@
 import { alife, clsid, XR_game_object, XR_ini_file, XR_object_binder } from "xray16";
 
+import { AnyCallablesModule } from "@/mod/lib/types";
+import { ActorBinder } from "@/mod/scripts/core/binders/ActorBinder";
 import { AnomalyFieldBinder } from "@/mod/scripts/core/binders/AnomalyFieldBinder";
 import { AnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
 import { ArtefactBinder } from "@/mod/scripts/core/binders/ArtefactBinder";
@@ -20,6 +22,7 @@ function createBinder(target: XR_object_binder): (object: XR_game_object) => voi
 
 // @ts-ignore, declare lua global
 list = {
+  bindActor: createBinder(ActorBinder),
   bindAnomalyField: createBinder(AnomalyFieldBinder),
   bindAnomalyZone: createBinder(AnomalyZoneBinder),
   bindArtefact: createBinder(ArtefactBinder),
@@ -42,5 +45,8 @@ list = {
         abort("You must use SMART_TERRAIN instead of SCRIPT_ZONE %s", object.name());
       }
     }
+  },
+  bindStalker: (object: XR_game_object) => {
+    get_global<AnyCallablesModule>("xr_motivator").AddToMotivator(object);
   }
 };

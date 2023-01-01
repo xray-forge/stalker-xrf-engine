@@ -41,7 +41,7 @@ declare module "xray16" {
     public cam_top: unknown;
     public f_time_delta: unknown;
     public fov: number;
-    public frame: unknown;
+    public frame: number;
     public height: number;
     public precache_frame: unknown;
     public time_delta: unknown;

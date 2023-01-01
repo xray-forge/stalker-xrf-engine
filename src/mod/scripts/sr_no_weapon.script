@@ -1,3 +1,9 @@
+local ActorBinder = require("scripts.core.binders.ActorBinder")
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+
+local log = create_ts_class_instance(LuaLogger, "travel_manager");
+
 ----------------------------------------------------------------------------------------------------
 -- Disable actor's weapon
 ----------------------------------------------------------------------------------------------------
@@ -76,7 +82,7 @@ end
 
 function action_no_weapon:zone_enter()
   self.state = state_inside
-  bind_stalker.hide_weapon(self.object:id())
+  ActorBinder.hide_weapon(self.object:id())
   local hud = get_hud()
   local custom_static = hud:GetCustomStatic("can_use_weapon_now")
   if custom_static ~= nil then
@@ -87,7 +93,7 @@ end
 
 function action_no_weapon:zone_leave()
   self.state = state_outside
-  bind_stalker.restore_weapon(self.object:id())
+  ActorBinder.restore_weapon(self.object:id())
   local hud = get_hud()
   local custom_static = hud:GetCustomStatic("can_use_weapon_now")
   if db.no_weap_zones[self.object:name()] == true then

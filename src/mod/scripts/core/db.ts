@@ -28,7 +28,11 @@ export interface IStoredObject<T = XR_game_object> {
   active_section?: any;
   combat_ignore?: boolean;
   post_combat_wait?: unknown;
+  pstor?: any;
+  disable_input_time?: any;
+  disable_input_idle?: any;
   state_mgr?: any;
+  sr_deimos?: any;
   overrides?: {
     min_post_combat_time: number;
     max_post_combat_time: number;

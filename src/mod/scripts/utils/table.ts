@@ -36,6 +36,19 @@ export function isEmpty(container: Optional<LuaTable<any>>): boolean {
 /**
  * todo: description
  */
+export function getTableSize(collection: LuaTable<any, any>): number {
+  let count: number = 0;
+
+  for (const [k, v] of collection) {
+    count += 1;
+  }
+
+  return count;
+}
+
+/**
+ * todo: description
+ */
 export function copyTable(target: LuaTable<string | number>, source: LuaTable<string | number>): void {
   for (const [k, v] of source) {
     if (type(v) == "table") {

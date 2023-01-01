@@ -11,7 +11,7 @@ import {
 } from "xray16";
 
 import { TCommunity } from "@/mod/globals/communities";
-import { Optional } from "@/mod/lib/types";
+import { AnyObject, Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
 import { get_sim_obj_registry } from "@/mod/scripts/se/SimObjectsRegistry";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
@@ -45,6 +45,7 @@ export interface ISimSmartDescriptor {
 export interface ISimBoard extends XR_LuaBindBase {
   simulation_started: boolean;
 
+  players: Optional<LuaTable>;
   smarts: LuaTable<number, ISimSmartDescriptor>;
   smarts_by_names: any;
   squads: any;

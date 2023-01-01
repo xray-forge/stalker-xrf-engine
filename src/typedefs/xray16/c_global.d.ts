@@ -119,7 +119,7 @@ declare module "xray16" {
     remove_call(this: void, object: unknown, str1: string, str2: string): unknown;
     set_weather(this: void, str: string, val: boolean): unknown;
     show_indicators(this: void): void;
-    get_game_difficulty(this: void): unknown;
+    get_game_difficulty(this: void): number;
     map_remove_object_spot(this: void, id: number, selector: string): unknown;
     remove_dialog_to_render(this: void, window: XR_CUIDialogWnd): unknown;
     stop_weather_fx(this: void): unknown;
@@ -155,20 +155,21 @@ declare module "xray16" {
    * namespace relation_registry {
    */
   export interface IXR_relation_registry {
-     change_community_goodwill(value1: string, value2:number, value3:number): unknown;
-     community_relation(value1:string, value2:string): unknown;
-     set_community_goodwill(value1:string, value2:number, value3:number): unknown;
-     community_goodwill(value1:string, value2:number): unknown;
-     set_community_relation(value1:string, value2:string,value3: number): unknown;
+    change_community_goodwill(value1: string, value2:number, value3:number): unknown;
+    community_relation(value1:string, value2:string): unknown;
+    set_community_goodwill(value1:string, value2:number, value3:number): unknown;
+    community_goodwill(value1:string, value2:number): unknown;
+    set_community_relation(value1:string, value2:string,value3: number): unknown;
   }
 
   /**
    * namespace actor_stats {
    */
   export interface IXR_actor_stats {
-     add_points_str(value1: string, value2: string, value3: string): unknown;
-     get_points(value: string): unknown;
-     add_points(value1: string, value2: string, value3: number, value4: number): unknown;
+    add_points_str(value1: string, value2: string, value3: string): unknown;
+    get_points(value: string): unknown;
+    add_points(value1: string, value2: string, value3: number, value4: number): unknown;
+    remove_from_ranking: (object_id: number) => void | null;
   }
 
   /**

@@ -1,5 +1,3 @@
-import { XR_game_object, XR_vector } from "xray16";
-
 declare module "xray16" {
   /**
    * Base for bindings brought from LuaBind library.
@@ -240,6 +238,9 @@ declare module "xray16" {
    * @customConstructor object_binder
    */
   export class XR_object_binder<T = XR_game_object> extends XR_LuaBindBase {
+    public static __init(this: void, target: XR_object_binder, object: XR_object): void
+    public __init(object: T): void
+
     public object: T;
 
     public constructor(object: T);

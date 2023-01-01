@@ -1,4 +1,4 @@
-import { XR_vector } from "xray16";
+import { XR_CGameTask, XR_vector } from "xray16";
 
 declare module "xray16" {
   /**
@@ -100,7 +100,7 @@ declare module "xray16" {
     public set_smart_cover_target_selector(): unknown;
     public debug_planner(action_planner: unknown): unknown;
     public best_weapon(): XR_game_object | null;
-    public active_slot(): unknown;
+    public active_slot(): number;
     public who_hit_section_name(): unknown;
     public inventory_for_each(cb: () => void): unknown;
     public disable_talk(): unknown;
@@ -410,7 +410,7 @@ declare module "xray16" {
     public weapon_grenadelauncher_status(): unknown;
     public weapon_is_silencer(): unknown;
     public allow_break_talk_dialog(value: boolean): unknown;
-    public is_talking(): unknown;
+    public is_talking(): boolean;
     public deadbody_can_take_status(): unknown;
     public switch_to_upgrade(): unknown;
     public on_door_is_closed(): unknown;
@@ -435,12 +435,6 @@ declare module "xray16" {
     public get_task(value1: string, value2: boolean): unknown;
     public set_active_task(task: unknown): unknown;
     public get_enemy(): unknown;
-    public set_callback(type: TXR_callback, cb?: (() => void) | null, object?: XR_object_binder | null): void;
-    public set_callback(
-      type: TXR_callback,
-      cb?: (victim: XR_game_object, killer: XR_game_object) => void,
-      object?: XR_object_binder
-    ): void;
     public get_corpse(): unknown;
     public give_task(task: XR_CGameTask, value1: number, value2: boolean, value3: number): unknown;
     public get_task_state(value: string): unknown;
@@ -529,6 +523,26 @@ declare module "xray16" {
     public set_manual_invisibility(value: boolean): unknown;
     public game_vertex_id(): number;
     public action_by_index(value: number): unknown;
+
+    public set_callback(type: TXR_callback, cb?: (() => void) | null, object?: XR_object_binder | null): void;
+    public set_callback(
+      type: typeof XR_callback["trade_sell_buy_item"],
+      cb?: ((item: XR_game_object, sell_bye: boolean, money: number) => void) | null, object?: XR_object_binder | null
+    ): void;
+    public set_callback(
+      type: typeof XR_callback["inventory_info"],
+      cb?: ((npc: XR_game_object, info_id: string) => void) | null, object?: XR_object_binder | null
+    ): void;
+    public set_callback(
+      type: typeof XR_callback["task_state"],
+      cb?: ((task: XR_CGameTask, state: number) => void) | null, object?: XR_object_binder | null
+    ): void;
+    public set_callback(
+      type: TXR_callback,
+      cb?: (victim: XR_game_object, killer: XR_game_object) => void,
+      object?: XR_object_binder
+    ): void;
+
   }
 
    /**
