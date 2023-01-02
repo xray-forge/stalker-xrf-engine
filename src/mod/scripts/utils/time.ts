@@ -92,7 +92,7 @@ export function readCTimeFromPacket(packet: XR_net_packet): Optional<XR_CTime> {
   }
 
   if (Y !== 0) {
-    const time: XR_CTime = new CTime();
+    const time: XR_CTime = game.CTime();
 
     const M: number = packet.r_u8();
     const D: number = packet.r_u8();

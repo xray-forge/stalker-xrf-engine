@@ -63,7 +63,6 @@ export interface IActorBinder extends XR_object_binder {
   task_manager: ITaskManager;
   surge_manager: any;
 
-  already_jumped: boolean;
   loaded: boolean;
   spawn_frame: number;
 
@@ -141,7 +140,6 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
 
     this.task_manager = get_global("task_manager").get_task_manager();
     this.spawn_frame = device().frame;
-    this.already_jumped = false;
     this.loaded = false;
 
     return true;
@@ -222,15 +220,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
   info_callback(npc: XR_game_object, info_id: string): void {
     log.info("[info callback]");
   },
-  on_trade(item, sell_bye, money): void {
-    const game_stats = get_global<AnyCallablesModule>("game_stats");
-
-    if (sell_bye == true) {
-      game_stats.money_trade_update(money);
-    } else {
-      game_stats.money_trade_update(-money);
-    }
-  },
+  on_trade(item, sell_bye, money): void {},
   article_callback(): void {},
   on_item_take(obj: XR_game_object): void {
     log.info("On item take:", obj.name());
@@ -290,17 +280,6 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     const [index] = string.find(command_line(), "-designer");
 
     if (index !== null) {
-      return;
-    }
-
-    if (
-      this.already_jumped === false &&
-      get_global("jump_level").need_jump === true &&
-      device().frame > this.spawn_frame + 2000
-    ) {
-      get_global("jump_level").try_to_jump();
-      this.already_jumped = true;
-
       return;
     }
 

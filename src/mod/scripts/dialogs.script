@@ -160,14 +160,12 @@ function relocate_money(victim, num, type)
   if db.actor then
     if type == "in" then
       db.actor:give_money(num)
-      game_stats.money_quest_update(num)
 
     elseif type == "out" then
       if victim == nil then
         abort("Couldn't relocate money to NULL")
       end
       db.actor:transfer_money(num, victim)
-      game_stats.money_quest_update(-num)
     end
     NewsManager.relocate_money(db.actor, type, num)
   end
@@ -496,7 +494,6 @@ end
 
 function relocate_money_to_actor(first_speaker, second_speaker, num)
   db.actor:give_money(num)
-  game_stats.money_quest_update(num)
   NewsManager.relocate_money(db.actor, "in", num)
 end
 
@@ -506,7 +503,6 @@ function relocate_money_from_actor(first_speaker, second_speaker, num)
     abort("Couldn't relocate money to NULL")
   end
   db.actor:transfer_money(num, victim)
-  game_stats.money_quest_update(-num)
   NewsManager.relocate_money(db.actor, "out", num)
 end
 

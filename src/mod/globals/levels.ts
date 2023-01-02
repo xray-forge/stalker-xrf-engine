@@ -2,6 +2,8 @@
 
 export const levels = {
   jupiter: "jupiter",
+  jupiter_underground: "jupiter_underground",
+  labx8: "labx8",
   pripyat: "pripyat",
   zaton: "zaton"
 } as const;
