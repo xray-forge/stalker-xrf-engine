@@ -5,7 +5,7 @@ import { isWeapon } from "@/mod/scripts/core/checkers";
 import { getActor, zoneByName } from "@/mod/scripts/core/db";
 import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
-import { getConfigString } from "@/mod/scripts/utils/configs";
+import { getConfigString, parseCondList } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
@@ -43,18 +43,16 @@ export interface ISmartTerrainControl extends XR_LuaBindBase {
 // CBaseOnActorControl
 export const SmartTerrainControl: ISmartTerrainControl = declare_xr_class("SmartTerrainControl", null, {
   __init(smart: ISmartTerrain, ini: XR_ini_file, section: string): void {
-    const parse_condlist: AnyCallable = get_global("xr_logic").parse_condlist;
-
     this.noweap_zone = getConfigString(ini, section, "noweap_zone", this, true, "");
     this.ignore_zone = getConfigString(ini, section, "ignore_zone", this, false, "");
 
-    this.alarm_start_sound = parse_condlist(
+    this.alarm_start_sound = parseCondList(
       smart,
       section,
       "alarm_start_sound",
       getConfigString(ini, section, "alarm_start_sound", this, false, "")
     );
-    this.alarm_stop_sound = parse_condlist(
+    this.alarm_stop_sound = parseCondList(
       smart,
       section,
       "alarm_stop_sound",

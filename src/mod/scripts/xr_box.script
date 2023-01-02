@@ -11,218 +11,218 @@ local ammo_sections = {}
 local death_ini = ini_file("misc\\ph_box_generic.ltx")
 
 function create_ammo(section, position, lvi, gvi, pid, num)
-	local ini = system_ini()
+  local ini = system_ini()
 
-	local num_in_box = ini:r_u32(section, "box_size")
-	local t = {}
-	while num > num_in_box do
-		local obj = alife():create_ammo(section, position, lvi,	gvi, pid, num_in_box)
-		table.insert(t, obj)
-		num = num - num_in_box
-	end
-	local obj = alife():create_ammo(section, position, lvi,	gvi, pid, num)
-	table.insert(t, obj)
-	return t
+  local num_in_box = ini:r_u32(section, "box_size")
+  local t = {}
+  while num > num_in_box do
+    local obj = alife():create_ammo(section, position, lvi, gvi, pid, num_in_box)
+    table.insert(t, obj)
+    num = num - num_in_box
+  end
+  local obj = alife():create_ammo(section, position, lvi, gvi, pid, num)
+  table.insert(t, obj)
+  return t
 end
 
 class "ph_item_box"
 
 function ph_item_box:__init(obj)
-	self.obj = obj
-	local community_list = { "def_box", "small_box_generic", "small_box_ussr", "small_box_nato", "small_box_army", "small_box_science", "big_box_generic", "big_box_dungeons", "big_box_arsenal"}
+  self.obj = obj
+  local community_list = { "def_box", "small_box_generic", "small_box_ussr", "small_box_nato", "small_box_army", "small_box_science", "big_box_generic", "big_box_dungeons", "big_box_arsenal" }
 
-	for k,v in pairs(community_list) do
-				--' ���������� ��������� �������
-		-- printf("pl: community = %s",v )
-				item_by_community[v] = {}
-				if death_ini:section_exist(v) then
-				local n = death_ini:line_count(v)
-				local id, value = "", ""
-				for i=0,n-1 do
-					result, id, value	= death_ini:r_line(v,i,"","")
-								item_by_community[v][id] = 100*tonumber(value)
-				-- printf("PL : id=%s  value=%s",id, value)
-				end
-				end
-		end
+  for k, v in pairs(community_list) do
+    --' ���������� ��������� �������
+    -- printf("pl: community = %s",v )
+    item_by_community[v] = {}
+    if death_ini:section_exist(v) then
+      local n = death_ini:line_count(v)
+      local id, value = "", ""
+      for i = 0, n - 1 do
+        result, id, value = death_ini:r_line(v, i, "", "")
+        item_by_community[v][id] = 100 * tonumber(value)
+        -- printf("PL : id=%s  value=%s",id, value)
+      end
+    end
+  end
 
-	--' ��������� � ��������� ��� ��������� ����� � ����������� �� ������
-		local level_name = level.name()
+  --' ��������� � ��������� ��� ��������� ����� � ����������� �� ������
+  local level_name = level.name()
 
-	if not death_ini:section_exist(level_name) then
-		level_name = "default"
-	end
+  if not death_ini:section_exist(level_name) then
+    level_name = "default"
+  end
 
-		local n = death_ini:line_count(level_name)
-	local id, value = "", ""
-	for i=0,n-1 do
-		result, id, value	= death_ini:r_line(level_name,i,"","")
-				mul_by_level[id] = tonumber(value)
-	end
+  local n = death_ini:line_count(level_name)
+  local id, value = "", ""
+  for i = 0, n - 1 do
+    result, id, value = death_ini:r_line(level_name, i, "", "")
+    mul_by_level[id] = tonumber(value)
+  end
 
-		local item_count_section = "item_count_" .. level.get_game_difficulty()
-		local n = death_ini:line_count(item_count_section)
-	for i=0,n-1 do
-		result, id, value	= death_ini:r_line(item_count_section,i,"","")
-				--' ����� ���������� value � ��� ��������
-				local t = parse_nums(value)
-		if t[1] == nil then
-						abort("Error on [death_ini] declaration. Section [%s], line [%s]", item_count_section, tostring(id))
-				end
-				local min = t[1]
-				local max = t[2]
-				if max == nil then
-						max = min
-				end
+  local item_count_section = "item_count_" .. level.get_game_difficulty()
+  local n = death_ini:line_count(item_count_section)
+  for i = 0, n - 1 do
+    result, id, value = death_ini:r_line(item_count_section, i, "", "")
+    --' ����� ���������� value � ��� ��������
+    local t = parse_nums(value)
+    if t[1] == nil then
+      abort("Error on [death_ini] declaration. Section [%s], line [%s]", item_count_section, tostring(id))
+    end
+    local min = t[1]
+    local max = t[2]
+    if max == nil then
+      max = min
+    end
 
-				if mul_by_level[id] == nil then
-						mul_by_level[id] = 0
-				end
+    if mul_by_level[id] == nil then
+      mul_by_level[id] = 0
+    end
 
-				min = tonumber(min) * mul_by_level[id]
-				max = tonumber(max) * mul_by_level[id]
+    min = tonumber(min) * mul_by_level[id]
+    max = tonumber(max) * mul_by_level[id]
 
-				count_by_level[id] = {min = min, max = max}
-	end
-	--' ��������, ����������� � ��������. �� ���� �������� ������ �������.
-	 ammo_sections = {}
-		local n = death_ini:line_count("ammo_sections")
-	local id, value = "", ""
-	for i=0,n-1 do
-		result, id, value	= death_ini:r_line("ammo_sections",i,"","")
-				ammo_sections[id] = true
-	end
+    count_by_level[id] = { min = min, max = max }
+  end
+  --' ��������, ����������� � ��������. �� ���� �������� ������ �������.
+  ammo_sections = {}
+  local n = death_ini:line_count("ammo_sections")
+  local id, value = "", ""
+  for i = 0, n - 1 do
+    result, id, value = death_ini:r_line("ammo_sections", i, "", "")
+    ammo_sections[id] = true
+  end
 end
 
 function ph_item_box:spawn_items()
-	printf("SPAWN ITEMS")
-	local spawn_items = {}
-	local ini = self.obj:spawn_ini()
-	local community	= utils.cfg_get_string(ini, "drop_box", "community", self.obj, false, "", "def_box")
-	local items = r_items(ini, "drop_box", "items", self.obj)
-	if items ~= nil then
-		printf("found items")
-		for k,v in pairs(items) do
-			create_obligatory_items(self.obj, v.section, v.count)
-		end
-		return
-	end
+  printf("SPAWN ITEMS")
+  local spawn_items = {}
+  local ini = self.obj:spawn_ini()
+  local community = utils.cfg_get_string(ini, "drop_box", "community", self.obj, false, "", "def_box")
+  local items = r_items(ini, "drop_box", "items", self.obj)
+  if items ~= nil then
+    printf("found items")
+    for k, v in pairs(items) do
+      create_obligatory_items(self.obj, v.section, v.count)
+    end
+    return
+  end
 
-	printf(" community = %s", community)
-	--' ������������ ����������� ���������� ������:
-		--' ���������� ��������� ������ �������� ������� ����� ���� ���������� ��� ���������
-		local spawn_items = item_by_community[community]
-	--' ���� ��������� ������ �� �����, �� ������ ������ � ���� � ���.
-	if spawn_items == nil then
-		printf("xr_box: wrong community [%s] for box [%s]", community, self.obj:name())
-		spawn_items = {}
-				spawn_items = item_by_community["def_box"]
-	end
+  printf(" community = %s", community)
+  --' ������������ ����������� ���������� ������:
+  --' ���������� ��������� ������ �������� ������� ����� ���� ���������� ��� ���������
+  local spawn_items = item_by_community[community]
+  --' ���� ��������� ������ �� �����, �� ������ ������ � ���� � ���.
+  if spawn_items == nil then
+    printf("xr_box: wrong community [%s] for box [%s]", community, self.obj:name())
+    spawn_items = {}
+    spawn_items = item_by_community["def_box"]
+  end
 
-		for k,v in pairs(spawn_items) do
-		--' �� ������� ������� ���������� �������� ����������
-		local number = math.ceil(math.random(count_by_level[k].min, count_by_level[k].max))
-		--' ���������� ���������� ������ ����������.
-		 create_items(self.obj, k, number, v)
-		end
+  for k, v in pairs(spawn_items) do
+    --' �� ������� ������� ���������� �������� ����������
+    local number = math.ceil(math.random(count_by_level[k].min, count_by_level[k].max))
+    --' ���������� ���������� ������ ����������.
+    create_items(self.obj, k, number, v)
+  end
 end
 
 --' ������� ������� ����������� ����� ���������
 function create_items(obj, section, number, rnd)
-		printf("create %s of %s", tostring(number), tostring(section))
-		if ammo_sections[section] == true then
-		if math.random(100) <= rnd	then
+  printf("create %s of %s", tostring(number), tostring(section))
+  if ammo_sections[section] == true then
+    if math.random(100) <= rnd then
 
-			if number > 0 then
-				local position = vector():set(0,0,0)
-				position.x = obj:position().x --+ math.random(-30,30)/100
-				position.z = obj:position().z --+ math.random(-30,30)/100
-				position.y = obj:position().y --+ math.random(30,50)/100
+      if number > 0 then
+        local position = vector():set(0, 0, 0)
+        position.x = obj:position().x --+ math.random(-30,30)/100
+        position.z = obj:position().z --+ math.random(-30,30)/100
+        position.y = obj:position().y --+ math.random(30,50)/100
 
-				create_ammo(section,
-							position,
-						obj:level_vertex_id(),
-						obj:game_vertex_id(),
-						65535,
-						number)
-			end
-		end
-		else
-				for i=1,number do
-			--' ��������� ����������� ������� ������ ������ � �����������
-						if math.random(100) <=  rnd then
-				local position = vector():set(0,0,0)
-				position.x = obj:position().x --+ math.random(-30,30)/100
-				position.z = obj:position().z --+ math.random(-30,30)/100
-				position.y = obj:position().y --+ math.random(30,50)/100
+        create_ammo(section,
+            position,
+            obj:level_vertex_id(),
+            obj:game_vertex_id(),
+            65535,
+            number)
+      end
+    end
+  else
+    for i = 1, number do
+      --' ��������� ����������� ������� ������ ������ � �����������
+      if math.random(100) <= rnd then
+        local position = vector():set(0, 0, 0)
+        position.x = obj:position().x --+ math.random(-30,30)/100
+        position.z = obj:position().z --+ math.random(-30,30)/100
+        position.y = obj:position().y --+ math.random(30,50)/100
 
-				alife():create(section,
-							position,
-						obj:level_vertex_id(),
-						obj:game_vertex_id())
-			end
-				end
-		end
+        alife():create(section,
+            position,
+            obj:level_vertex_id(),
+            obj:game_vertex_id())
+      end
+    end
+  end
 end
 
-function parse_names( s )
-		local t = {}
-		for name in string.gfind( s, "([%w_%-.\\]+)%p*" ) do
-				table.insert( t, name )
-		end
-		return t
+function parse_names(s)
+  local t = {}
+  for name in string.gfind(s, "([%w_%-.\\]+)%p*") do
+    table.insert(t, name)
+  end
+  return t
 end
 
-function r_items( spawn_ini, section, line, obj)
-	if spawn_ini:line_exist( section, line ) then
-		--' ���� default-�� ������, ��� �������� � ini, �� ������ ����������� ��������� ��������� �� ini
-		local t = parse_names( spawn_ini:r_string( section, line ) )
-		local n = #t
+function r_items(spawn_ini, section, line, obj)
+  if spawn_ini:line_exist(section, line) then
+    --' ���� default-�� ������, ��� �������� � ini, �� ������ ����������� ��������� ��������� �� ini
+    local t = parse_names(spawn_ini:r_string(section, line))
+    local n = #t
 
-		local ret_table = {}
-		local k = 1
-		while k <= n do
-			local item = {}
-			item.section = t[k]
-			if item_by_community["def_box"][item.section] == nil then
-				printf("There is no such item [%s] for box [%s]", tostring(item.section), obj:name())
-			end
-			-- ��������� ��� ��� �� ��������� ������
-			if t[k+1] ~= nil then
-				local p = tonumber(t[k+1])
-				-- ��������� ��� ������ ������ ������ �����������, � �� ������ ������ ������
-				if p then
-					-- �������� �����
-					item.count = p
-					k = k + 2
-				else
-					-- �������� ������ 1
-					item.count = 1
-					k = k + 1
-				end
-			else
-				item.count	 = 1
-				k = k + 1
-			end
-			table.insert(ret_table, item)
-		end
-		return ret_table
-	end
-	return nil
+    local ret_table = {}
+    local k = 1
+    while k <= n do
+      local item = {}
+      item.section = t[k]
+      if item_by_community["def_box"][item.section] == nil then
+        printf("There is no such item [%s] for box [%s]", tostring(item.section), obj:name())
+      end
+      -- ��������� ��� ��� �� ��������� ������
+      if t[k + 1] ~= nil then
+        local p = tonumber(t[k + 1])
+        -- ��������� ��� ������ ������ ������ �����������, � �� ������ ������ ������
+        if p then
+          -- �������� �����
+          item.count = p
+          k = k + 2
+        else
+          -- �������� ������ 1
+          item.count = 1
+          k = k + 1
+        end
+      else
+        item.count = 1
+        k = k + 1
+      end
+      table.insert(ret_table, item)
+    end
+    return ret_table
+  end
+  return nil
 end
 
-function create_obligatory_items(obj, item , count)
-	printf("creating %s(%s)", item, count)
-	for i = 1,count do
-				local position = vector():set(0,0,0)
-				position.x = obj:position().x --+ math.random(-30,30)/100
-				position.z = obj:position().z --+ math.random(-30,30)/100
-				position.y = obj:position().y --+ math.random(30,50)/100 + 2
+function create_obligatory_items(obj, item, count)
+  printf("creating %s(%s)", item, count)
+  for i = 1, count do
+    local position = vector():set(0, 0, 0)
+    position.x = obj:position().x --+ math.random(-30,30)/100
+    position.z = obj:position().z --+ math.random(-30,30)/100
+    position.y = obj:position().y --+ math.random(30,50)/100 + 2
 
-				printf(" at pos [%s][%s][%s]", position.x, position.y, position.z)
-				alife():create(item,
-							position,
-						obj:level_vertex_id(),
-						obj:game_vertex_id())
-	end
+    printf(" at pos [%s][%s][%s]", position.x, position.y, position.z)
+    alife():create(item,
+        position,
+        obj:level_vertex_id(),
+        obj:game_vertex_id())
+  end
 end

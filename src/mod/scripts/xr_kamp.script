@@ -13,21 +13,23 @@ local log = create_ts_class_instance(LuaLogger, "xr_kamp");
 kamps = {}
 kamp_stalkers = {} -- ����� �� �������� � ������ ������� �������.
 -- ���������� ����������
-local k,v,kk,vv = 0,0,0,0
+local k, v, kk, vv = 0, 0, 0, 0
 ---------------------------------------------------------------------------------------------------------------------
 --Evaluators
 ----------------------------------------------------------------------------------------------------------------------
 --' ������� ���������� �������
-class "evaluator_kamp_end" (property_evaluator)
-function evaluator_kamp_end:__init(name, storage) super (nil, name)
+class "evaluator_kamp_end"(property_evaluator)
+function evaluator_kamp_end:__init(name, storage)
+  super(nil, name)
   self.a = storage
 end
 function evaluator_kamp_end:evaluate()
   return not xr_logic.is_active(self.object, self.a)
 end
 --' ��������� �� �� �� �������� �������
-class "evaluator_on_position" (property_evaluator)
-function evaluator_on_position:__init(name, storage) super (nil, name)
+class "evaluator_on_position"(property_evaluator)
+function evaluator_on_position:__init(name, storage)
+  super(nil, name)
   self.a = storage
 end
 function evaluator_on_position:evaluate()
@@ -40,8 +42,9 @@ end
 --Actions
 ----------------------------------------------------------------------------------------------------------------------
 --' ���� � �������� �������
-class "action_go_position" (action_base)
-function action_go_position:__init (npc_name,action_name,storage) super (nil,action_name)
+class "action_go_position"(action_base)
+function action_go_position:__init (npc_name, action_name, storage)
+  super(nil, action_name)
   self.a = storage
 end
 function action_go_position:initialize()
@@ -56,7 +59,7 @@ function action_go_position:initialize()
   self.a.signals = {}
 end
 function action_go_position:execute ()
-  action_base.execute (self)
+  action_base.execute(self)
 
   -- ���������� ��� ������
   local tmp_pos_vertex, npc_position_num = kamps[self.a.center_point]:getDestVertex(self.object, self.a.radius)
@@ -67,20 +70,18 @@ function action_go_position:execute ()
     --' ���������� ���� ��������.
     self.a.pp = patrol(self.a.center_point):point(0)
 
-    local dir = vector():set(math.random(-1,1), 0, math.random(-1,1))
+    local dir = vector():set(math.random(-1, 1), 0, math.random(-1, 1))
     dir:normalize()
 
-    local delta_dist = math.random(0,0.5)
+    local delta_dist = math.random(0, 0.5)
     self.a.pp.x = self.a.pp.x + dir.x * delta_dist
     self.a.pp.z = self.a.pp.z + dir.z * delta_dist
 
-
-
     self.object:set_dest_level_vertex_id(self.a.pos_vertex)
     --printf("vertex_position")
-    local desired_direction = vector():sub(self.a.pp,level.vertex_position(self.a.pos_vertex))
+    local desired_direction = vector():sub(self.a.pp, level.vertex_position(self.a.pos_vertex))
     --printf("desired_direction = %s", vec_to_str(desired_direction))
-    if desired_direction ~= nil and not vector_cmp(desired_direction, vector():set(0,0,0)) then
+    if desired_direction ~= nil and not vector_cmp(desired_direction, vector():set(0, 0, 0)) then
       desired_direction:normalize()
       self.object:set_desired_direction(desired_direction)
     end
@@ -89,12 +90,13 @@ function action_go_position:execute ()
   end
 end
 function action_go_position:finalize ()
-  action_base.finalize (self)
+  action_base.finalize(self)
 end
 
 --' ������ ����� � �������
-class "action_wait" (action_base)
-function action_wait:__init (npc_name,action_name,storage) super (nil,action_name)
+class "action_wait"(action_base)
+function action_wait:__init (npc_name, action_name, storage)
+  super(nil, action_name)
   self.a = storage
 end
 function action_wait:initialize()
@@ -110,14 +112,14 @@ function action_wait:activate_scheme()
   self.a.signals = {}
 end
 function action_wait:execute()
-  action_base.execute (self)
+  action_base.execute(self)
 
   --' ��������� ��� ����� � ������
-  state_mgr.set_state(self.object, "sit", nil, nil, {look_position = self.a.pp})
+  state_mgr.set_state(self.object, "sit", nil, nil, { look_position = self.a.pp })
 end
 function action_wait:finalize()
   kamps[self.a.center_point]:decreasePops(self.object)
-  action_base.finalize (self)
+  action_base.finalize(self)
 end
 function action_wait:deactivate(npc)
   kamps[self.a.center_point]:removeNpc(npc)
@@ -129,32 +131,19 @@ function action_wait:net_destroy(npc)
   kamps[self.a.center_point]:removeNpc(npc)
 end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 class "CKampManager"
 function CKampManager:__init(path)
   self.kamp_name = path
   self.patrol = patrol(path)
   --self.center = self.patrol:level_vertex_id(0)
-  self.position = {{dir = vector():set(1, 0, 0),	used = nil},
-                   {dir = vector():set(1, 0, 1),	used = nil},
-                   {dir = vector():set(0, 0, 1),	used = nil},
-                   {dir = vector():set(-1, 0, 1),	used = nil},
-                   {dir = vector():set(-1, 0, 0),	used = nil},
-                   {dir = vector():set(-1, 0, -1),used = nil},
-                   {dir = vector():set(0, 0, -1),	used = nil},
-                   {dir = vector():set(1, 0, -1),	used = nil}}
+  self.position = { { dir = vector():set(1, 0, 0), used = nil },
+                    { dir = vector():set(1, 0, 1), used = nil },
+                    { dir = vector():set(0, 0, 1), used = nil },
+                    { dir = vector():set(-1, 0, 1), used = nil },
+                    { dir = vector():set(-1, 0, 0), used = nil },
+                    { dir = vector():set(-1, 0, -1), used = nil },
+                    { dir = vector():set(0, 0, -1), used = nil },
+                    { dir = vector():set(1, 0, -1), used = nil } }
   self.npc = {}
   self.population = 0
   self.kamp_state = "idle"
@@ -192,40 +181,40 @@ function CKampManager:__init(path)
   ]]
   --print_table(self.position)
   --������� ������������ ��������� ������ � ���������� �������� � ������.
-  self.avail_state = {idle				= { directed	= { "wait", "sit", "sit_ass", "sit_knee", "eat_kolbasa", "eat_vodka", "eat_energy", "eat_bread", "trans"}},
-                      pre_harmonica		= { directed	= { "wait_harmonica"},
-                                           undirected	= { "wait", "sit", "sit_ass", "sit_knee", "eat_kolbasa", "eat_vodka", "eat_energy", "eat_bread", "trans"}},
-                      harmonica			= { directed	= { "play_harmonica"},
-                                         undirected	= { "wait", "sit", "sit_ass", "sit_knee", "eat_kolbasa", "eat_vodka", "eat_energy", "eat_bread", "trans"}},
-                      post_harmonica		= { directed	= { "wait_harmonica"},
-                                            undirected	= { "wait", "sit", "sit_ass", "sit_knee", "eat_kolbasa", "eat_vodka", "eat_energy", "eat_bread", "trans"}},
-                      pre_guitar			= { directed	= { "wait_guitar"},
-                                          undirected	= { "wait", "sit", "sit_ass", "sit_knee", "eat_kolbasa", "eat_vodka", "eat_energy", "eat_bread", "trans"}},
-                      guitar				= { directed	= { "play_guitar"},
-                                        undirected	= { "wait", "sit", "sit_ass", "sit_knee", "eat_kolbasa", "eat_vodka", "eat_energy", "eat_bread", "trans"}},
-                      post_guitar			= { directed	= { "wait_guitar"},
-                                           undirected	= { "wait", "sit", "sit_ass", "sit_knee", "eat_kolbasa", "eat_vodka", "eat_energy", "eat_bread", "trans"}},
-                      story				= { directed	= { "declarate"},
-                                       undirected	= { "wait", "sit", "sit_ass", "sit_knee", "eat_kolbasa", "eat_vodka", "eat_energy", "eat_bread", "trans"}}}
+  self.avail_state = { idle = { directed = { "wait", "sit", "sit_ass", "sit_knee", "eat_kolbasa", "eat_vodka", "eat_energy", "eat_bread", "trans" } },
+                       pre_harmonica = { directed = { "wait_harmonica" },
+                                         undirected = { "wait", "sit", "sit_ass", "sit_knee", "eat_kolbasa", "eat_vodka", "eat_energy", "eat_bread", "trans" } },
+                       harmonica = { directed = { "play_harmonica" },
+                                     undirected = { "wait", "sit", "sit_ass", "sit_knee", "eat_kolbasa", "eat_vodka", "eat_energy", "eat_bread", "trans" } },
+                       post_harmonica = { directed = { "wait_harmonica" },
+                                          undirected = { "wait", "sit", "sit_ass", "sit_knee", "eat_kolbasa", "eat_vodka", "eat_energy", "eat_bread", "trans" } },
+                       pre_guitar = { directed = { "wait_guitar" },
+                                      undirected = { "wait", "sit", "sit_ass", "sit_knee", "eat_kolbasa", "eat_vodka", "eat_energy", "eat_bread", "trans" } },
+                       guitar = { directed = { "play_guitar" },
+                                  undirected = { "wait", "sit", "sit_ass", "sit_knee", "eat_kolbasa", "eat_vodka", "eat_energy", "eat_bread", "trans" } },
+                       post_guitar = { directed = { "wait_guitar" },
+                                       undirected = { "wait", "sit", "sit_ass", "sit_knee", "eat_kolbasa", "eat_vodka", "eat_energy", "eat_bread", "trans" } },
+                       story = { directed = { "declarate" },
+                                 undirected = { "wait", "sit", "sit_ass", "sit_knee", "eat_kolbasa", "eat_vodka", "eat_energy", "eat_bread", "trans" } } }
 
-  self.avail_sound = {idle				= { directed = "idle"},
-                      pre_harmonica		= { directed = "pre_harmonica", undirected = ""},
-                      harmonica			= { directed = "", undirected = ""},
-                      post_harmonica		= { directed = "", undirected = "reac_harmonica"},
-                      pre_guitar			= { directed = "pre_guitar", undirected = ""},
-                      guitar				= { directed = "", undirected = ""},
-                      post_guitar			= { directed = "", undirected = "reac_guitar"},
-                      story				= { directed = "", undirected = ""}}
+  self.avail_sound = { idle = { directed = "idle" },
+                       pre_harmonica = { directed = "pre_harmonica", undirected = "" },
+                       harmonica = { directed = "", undirected = "" },
+                       post_harmonica = { directed = "", undirected = "reac_harmonica" },
+                       pre_guitar = { directed = "pre_guitar", undirected = "" },
+                       guitar = { directed = "", undirected = "" },
+                       post_guitar = { directed = "", undirected = "reac_guitar" },
+                       story = { directed = "", undirected = "" } }
 
   -- ������� ��������� �� ���������. ���� ��������� ������������, �� ��������� ����� ��� �� ����� ��� ��������.
-  self.timeout	 = {idle				= { min = 30000 },
-                    pre_harmonica		= { min = 3000 },
-                    harmonica			= { min = 5000, soundstart = true },
-                    post_harmonica		= { min = 3000 },
-                    pre_guitar			= { min = 3000 },
-                    guitar				= { min = 5000, soundstart = true },
-                    post_guitar			= { min = 3000 },
-                    story				= { min = 1000, soundstart = true }}
+  self.timeout = { idle = { min = 30000 },
+                   pre_harmonica = { min = 3000 },
+                   harmonica = { min = 5000, soundstart = true },
+                   post_harmonica = { min = 3000 },
+                   pre_guitar = { min = 3000 },
+                   guitar = { min = 5000, soundstart = true },
+                   post_guitar = { min = 3000 },
+                   story = { min = 1000, soundstart = true } }
 
   -- ������� ���������� ��������� ������.
   self.kamp_states = { idle = true,
@@ -233,27 +222,27 @@ function CKampManager:__init(path)
                        pre_guitar = false, guitar = false, post_guitar = false,
                        story = true }
   -- ������� ���������� ��������� ����� ����������� � �������������.
-  self.trans_kamp = { idle			= { idle = 0, pre_harmonica = 0, pre_guitar = 50, story = 50},
-                      pre_harmonica	= { harmonica = 100 },
-                      harmonica		= { post_harmonica = 100 },
-                      post_harmonica	= { idle = 70, harmonica = 30 },
-                      pre_guitar		= { guitar = 100 },
-                      guitar			= { post_guitar = 100 },
-                      post_guitar		= { idle = 70, guitar = 30 },
-                      story			= { idle = 100 }}
+  self.trans_kamp = { idle = { idle = 0, pre_harmonica = 0, pre_guitar = 50, story = 50 },
+                      pre_harmonica = { harmonica = 100 },
+                      harmonica = { post_harmonica = 100 },
+                      post_harmonica = { idle = 70, harmonica = 30 },
+                      pre_guitar = { guitar = 100 },
+                      guitar = { post_guitar = 100 },
+                      post_guitar = { idle = 70, guitar = 30 },
+                      story = { idle = 100 } }
 
   -- ��������� ��� ��������� ������. ���������� �������� �������, ��������� ��������� ���������
   self.director = nil
 
 
   --' ��� ����� ������� ������ �������
-  self.sound_manager = sound_manager.get_sound_manager("kamp_"..path)
+  self.sound_manager = sound_manager.get_sound_manager("kamp_" .. path)
 end
 function CKampManager:selectPosition(npc_id)
   -- ������� ������ ��������� �������
   --printf("KAMP. [%s] called select position", npc_id)
   local free = {}
-  for k,v in pairs(self.position) do
+  for k, v in pairs(self.position) do
     if v.used == nil then
       table.insert(free, k)
     end
@@ -290,16 +279,16 @@ function CKampManager:getDestVertex(npc, radius)
   local dir = self.position[self.npc[npc_id].position].dir
 
   -- ������� ��������� ���������� �����������.
-  dir.x = dir.x + math.random(-1,1)/5
-  dir.z = dir.z + math.random(-1,1)/5
+  dir.x = dir.x + math.random(-1, 1) / 5
+  dir.z = dir.z + math.random(-1, 1) / 5
   dir:normalize()
 
-  radius = radius + math.random(-0.3,0.3)
+  radius = radius + math.random(-0.3, 0.3)
 
   local dest_vertex = 4294967295
 
   while dest_vertex == 4294967295 do
-    local tmp_pos = vector():set(0,0,0)
+    local tmp_pos = vector():set(0, 0, 0)
     tmp_pos.x = pp.x + dir.x * radius
     tmp_pos.z = pp.z + dir.z * radius
     tmp_pos.y = pp.y
@@ -317,7 +306,7 @@ function CKampManager:getDestVertex(npc, radius)
     --printf("vertex_position %s", tostring(dest_vertex))
     local vp = level.vertex_position(dest_vertex)
     --printf("Nearest for npc[%s] kamp [%s] position [%s:%s:%s]", npc:name(), tostring(self.kamp_name),tostring(vp.x), tostring(vp.y), tostring(vp.z))
-    local nearest_vertex = npc:accessible_nearest(vp, vector():set(0,0,0))
+    local nearest_vertex = npc:accessible_nearest(vp, vector():set(0, 0, 0))
     --printf("Nearest for npc[%s] kamp [%s] position [%s:%s:%s]", npc:name(), tostring(self.kamp_name), vec_to_str(nearest_vertex))
     return nearest_vertex, self.npc[npc_id].position
   end
@@ -356,7 +345,7 @@ function CKampManager:proceedState(npc)
   -- ������������ ���������� � ������ ������ ��������.
   local temp = {}
   local max_rnd = 0
-  for k,v in pairs(self.trans_kamp[self.kamp_state]) do
+  for k, v in pairs(self.trans_kamp[self.kamp_state]) do
     -- ������������ ���������� ��������� ��� ������.
     if self.kamp_states[k] == true then
       temp[k] = v
@@ -369,8 +358,8 @@ function CKampManager:proceedState(npc)
     temp["idle"] = 100
     max_rnd = 100
   end
-  local p = math.random(0,max_rnd)
-  for k,v in pairs(temp) do
+  local p = math.random(0, max_rnd)
+  for k, v in pairs(temp) do
     p = p - v
     if p <= 0 then
       --printf("Selected [%s]", k)
@@ -393,7 +382,7 @@ function CKampManager:proceedState(npc)
       end
       self.kamp_state = k
       self.begin = time_global()
-      for kk,vv in pairs(self.npc) do
+      for kk, vv in pairs(self.npc) do
         vv.new = true
       end
       return
@@ -421,7 +410,7 @@ function CKampManager:proceedRole(npc, director)
 
     --' �������� ������ �� ��������, ������� ����� ������ ���.
     local temp = {}
-    for k,v in pairs(states) do
+    for k, v in pairs(states) do
       --printf("npc community is [%s]", character_community(npc))
       --print_table(self.npc[npc_id].states)
       if self.npc[npc_id].states[v] == true then
@@ -432,7 +421,7 @@ function CKampManager:proceedRole(npc, director)
     self.npc[npc_id].begin = time_global()
     state = temp[math.random(#temp)]
     self.npc[npc_id].state_selected = state
-    self.npc[npc_id].state_idle = math.random(15000,20000)
+    self.npc[npc_id].state_idle = math.random(15000, 20000)
   else
     state = self.npc[npc_id].state_selected
   end
@@ -456,7 +445,7 @@ function CKampManager:updateNpc(npc)
   -- ����� ����� ������ ��������.
   local npc_id = npc:id()
   local director = self.director == nil or self.director == npc_id
-  if director	then
+  if director then
     self:proceedState(npc)
   end
   -- ������� ������ ������� ���� ��������� ��� �������� ��������� ������.
@@ -611,15 +600,15 @@ function CKampManager:addNpc(npc)
   if character_community(npc) == "monolith" or
       character_community(npc) == "zombied"
   then
-    self.npc[npc:id()] = {name = npc:name(), position = nil, current = nil, speak = 0, states = {
+    self.npc[npc:id()] = { name = npc:name(), position = nil, current = nil, speak = 0, states = {
       stand_wait = false, sit = false, sit_ass = false, sit_knee = false, declarate = true,
       eat_kolbasa = false, eat_vodka = false, eat_energy = false, eat_bread = false, trans = true,
-      play_harmonica = false, play_guitar = false}}
+      play_harmonica = false, play_guitar = false } }
   else
-    self.npc[npc:id()] = {name = npc:name(), position = nil, current = nil, speak = 0, states = {
+    self.npc[npc:id()] = { name = npc:name(), position = nil, current = nil, speak = 0, states = {
       stand_wait = true, sit = true, sit_ass = true, sit_knee = true, declarate = true,
       eat_kolbasa = false, eat_vodka = false, eat_energy = false, eat_bread = false, trans = false,
-      play_harmonica = false, play_guitar = false}}
+      play_harmonica = false, play_guitar = false } }
   end
   self:selectPosition(npc:id())
   self.sound_manager:register_npc(npc:id())
@@ -638,7 +627,7 @@ function CKampManager:removeNpc(npc)
       self.censor = nil
       self.kamp_state = "idle"
       self.begin = time_global()
-      for kk,vv in pairs(self.npc) do
+      for kk, vv in pairs(self.npc) do
         vv.new = true
       end
       --'			xr_sound.set_sound(npc, nil)
@@ -655,7 +644,7 @@ function CKampManager:increasePops(npc)
 
   self.population = self.population + 1
   -- Probably undefined reference
-  local campfire = bind_campfire.campfire_table[self.kamp_name.."_campfire"]
+  local campfire = bind_campfire.campfire_table[self.kamp_name .. "_campfire"]
   if self.population > 0 and campfire ~= nil and not campfire:is_on() then
     campfire:turn_on()
   end
@@ -666,7 +655,7 @@ function CKampManager:decreasePops(npc)
 
   self.population = self.population - 1
   -- Probably undefined reference
-  local campfire = bind_campfire.campfire_table[self.kamp_name.."_campfire"]
+  local campfire = bind_campfire.campfire_table[self.kamp_name .. "_campfire"]
   if self.population < 1 and campfire ~= nil and campfire:is_on() then
     campfire:turn_off()
   end
@@ -677,56 +666,56 @@ end
 ----------------------------------------------------------------------------------------------------------------------
 
 function add_to_binder(object, ini, scheme, section, storage)
-  local operators		= {}
-  local properties	= {}
+  local operators = {}
+  local properties = {}
 
   local manager = object:motivation_action_manager()
 
-  properties["kamp_end"]		= xr_evaluators_id.stohe_kamp_base + 1
-  properties["on_position"]	= xr_evaluators_id.stohe_kamp_base + 2
-  properties["contact"]		= xr_evaluators_id.stohe_meet_base + 1
+  properties["kamp_end"] = xr_evaluators_id.stohe_kamp_base + 1
+  properties["on_position"] = xr_evaluators_id.stohe_kamp_base + 2
+  properties["contact"] = xr_evaluators_id.stohe_meet_base + 1
 
-  operators["go_position"]	= xr_actions_id.stohe_kamp_base + 1
-  operators["wait"]		= xr_actions_id.stohe_kamp_base + 3
+  operators["go_position"] = xr_actions_id.stohe_kamp_base + 1
+  operators["wait"] = xr_actions_id.stohe_kamp_base + 3
 
   -- Evaluators
-  manager:add_evaluator (properties["kamp_end"], 		this.evaluator_kamp_end		("kamp_end", storage, "kamp_end"))
-  manager:add_evaluator (properties["on_position"],	this.evaluator_on_position	("kamp_on_position", storage, "kamp_on_position"))
+  manager:add_evaluator(properties["kamp_end"], this.evaluator_kamp_end("kamp_end", storage, "kamp_end"))
+  manager:add_evaluator(properties["on_position"], this.evaluator_on_position("kamp_on_position", storage, "kamp_on_position"))
 
   -- Actions
-  local action = this.action_wait (object:name(),"action_kamp_wait", storage)
-  action:add_precondition		(world_property(stalker_ids.property_alive, true))
-  action:add_precondition		(world_property(stalker_ids.property_danger,false))
-  action:add_precondition		(world_property(stalker_ids.property_enemy,	false))
-  action:add_precondition		(world_property(stalker_ids.property_anomaly,false))
+  local action = this.action_wait(object:name(), "action_kamp_wait", storage)
+  action:add_precondition(world_property(stalker_ids.property_alive, true))
+  action:add_precondition(world_property(stalker_ids.property_danger, false))
+  action:add_precondition(world_property(stalker_ids.property_enemy, false))
+  action:add_precondition(world_property(stalker_ids.property_anomaly, false))
   xr_motivator.addCommonPrecondition(action)
-  action:add_precondition		(world_property(properties["on_position"], 	true))
-  action:add_effect 		(world_property(properties["kamp_end"], 	true))
-  manager:add_action (operators["wait"], action)
+  action:add_precondition(world_property(properties["on_position"], true))
+  action:add_effect(world_property(properties["kamp_end"], true))
+  manager:add_action(operators["wait"], action)
   xr_logic.subscribe_action_for_events(object, storage, action)
 
-  action = this.action_go_position (object:name(),"action_go_kamp", storage)
-  action:add_precondition		(world_property(stalker_ids.property_alive, true))
-  action:add_precondition		(world_property(stalker_ids.property_danger,false))
-  action:add_precondition		(world_property(stalker_ids.property_enemy,	false))
-  action:add_precondition		(world_property(stalker_ids.property_anomaly,false))
+  action = this.action_go_position(object:name(), "action_go_kamp", storage)
+  action:add_precondition(world_property(stalker_ids.property_alive, true))
+  action:add_precondition(world_property(stalker_ids.property_danger, false))
+  action:add_precondition(world_property(stalker_ids.property_enemy, false))
+  action:add_precondition(world_property(stalker_ids.property_anomaly, false))
   xr_motivator.addCommonPrecondition(action)
-  action:add_precondition 	(world_property(properties["on_position"], 	false))
-  action:add_effect 		(world_property(properties["on_position"], 	true))
-  manager:add_action (operators["go_position"], action)
+  action:add_precondition(world_property(properties["on_position"], false))
+  action:add_effect(world_property(properties["on_position"], true))
+  manager:add_action(operators["go_position"], action)
 
-  action = manager:action (xr_actions_id.alife)
-  action:add_precondition		(world_property(properties["kamp_end"],		true))
+  action = manager:action(xr_actions_id.alife)
+  action:add_precondition(world_property(properties["kamp_end"], true))
 
 end
 -- ��������� ������
 function set_scheme(npc, ini, scheme, section, gulag_name)
   local st = xr_logic.assign_storage_and_bind(npc, ini, scheme, section)
 
-  st.logic     = xr_logic.cfg_get_switch_conditions(ini, section, npc)
+  st.logic = xr_logic.cfg_get_switch_conditions(ini, section, npc)
 
-  st.center_point = utils.cfg_get_string(ini, section, "center_point", npc, true,  gulag_name)
-  st.radius		= utils.cfg_get_number(ini, section, "radius", npc, false, 2)
+  st.center_point = utils.cfg_get_string(ini, section, "center_point", npc, true, gulag_name)
+  st.radius = utils.cfg_get_number(ini, section, "radius", npc, false, 2)
 
   if kamps[st.center_point] == nil then
     kamps[st.center_point] = CKampManager(st.center_point)

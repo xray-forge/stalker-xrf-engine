@@ -11,13 +11,13 @@ local log = create_ts_class_instance(LuaLogger, "xr_gulag");
 --' � ������� ���� object ������ id �������
 local pl_gulag_enemy = 0
 
-local gulag_tasks_file_name  = "misc\\gulag_tasks.ltx"
-local gulag_tasks_ltx        = ini_file( gulag_tasks_file_name )
+local gulag_tasks_file_name = "misc\\gulag_tasks.ltx"
+local gulag_tasks_ltx = ini_file(gulag_tasks_file_name)
 
 local job_position_threshold = 120 --'50  -- ���������� �� ����� ������ ��� ������� �������� � ������� ��������� ��������� ����� ������
-local job_idle_after_death   = 10 -- � ������� ������ ������� ������� ����� ������ ��������� ��� ������ ����� ����������
+local job_idle_after_death = 10 -- � ������� ������ ������� ������� ����� ������ ��������� ��� ������ ����� ����������
 
-idle_nil  = nil
+idle_nil = nil
 idle_once = -1
 idle_none = -2
 
@@ -34,7 +34,7 @@ function get_gulag_by_name(name)
   if strn then
     return strn
   else
-    printf("there is no gulag with name [%s] ",name)
+    printf("there is no gulag with name [%s] ", name)
     return nil
   end
 end
@@ -48,11 +48,11 @@ function get_gulag_by_sid(sid)
 end
 
 -- �������� ����� �� ����� ��� story id ������
-function get_gulag( name_or_sid )
-  if type( name_or_sid ) == "number" then
-    return get_gulag_by_sid( name_or_sid )
+function get_gulag(name_or_sid)
+  if type(name_or_sid) == "number" then
+    return get_gulag_by_sid(name_or_sid)
   else
-    return get_gulag_by_name( name_or_sid )
+    return get_gulag_by_name(name_or_sid)
   end
 end
 
@@ -75,51 +75,51 @@ end
 
 
 -- ���������� ��������� ���� ������ ������ � ���������� �������
-function setGulagRelation( name_or_sid, relation, target_obj )
-  local gulag = get_gulag( name_or_sid )
+function setGulagRelation(name_or_sid, relation, target_obj)
+  local gulag = get_gulag(name_or_sid)
 
   if gulag then
-    gulag:set_relation( relation, target_obj )
+    gulag:set_relation(relation, target_obj)
   end
 end
 
 -- ���������� ������������� ���� ������ ������ � ���������� �������
-function setGulagGoodwill( name_or_sid, goodwill, target_obj )
-  local gulag = get_gulag( name_or_sid )
+function setGulagGoodwill(name_or_sid, goodwill, target_obj)
+  local gulag = get_gulag(name_or_sid)
 
   if gulag then
-    gulag:set_goodwill( goodwill, target_obj )
+    gulag:set_goodwill(goodwill, target_obj)
   end
 end
 
 -- ������� ���������� ��������� ������ ���� ���������� ������
-function setGulagEnemy( name_or_sid, target_obj )
-  setGulagRelation( name_or_sid, game_object.enemy, target_obj )
+function setGulagEnemy(name_or_sid, target_obj)
+  setGulagRelation(name_or_sid, game_object.enemy, target_obj)
 end
 
 -- ������� ���������� ��������� ������ ���� ���������� ������, ������� � �������
-function setGulagNeutral( name_or_sid, target_obj )
-  setGulagRelation( name_or_sid, game_object.neutral, target_obj )
+function setGulagNeutral(name_or_sid, target_obj)
+  setGulagRelation(name_or_sid, game_object.neutral, target_obj)
 end
 
 -- ���������� ��������� �� ������.
 -- obj=game_object
-function resetJob( obj )
-  printf( "gulag resetJob: obj=%s", obj:name() )
+function resetJob(obj)
+  printf("gulag resetJob: obj=%s", obj:name())
 
-  local gulag = get_npc_smart( obj )
+  local gulag = get_npc_smart(obj)
   if gulag then
-    gulag:free_obj_and_reinit( obj:id() )
+    gulag:free_obj_and_reinit(obj:id())
     gulag:update()
   end
 end
 
-function free_object( obj )
-  printf( "gulag free_object: obj=%s", obj:name() )
+function free_object(obj)
+  printf("gulag free_object: obj=%s", obj:name())
 
-  local gulag = get_npc_smart( obj )
+  local gulag = get_npc_smart(obj)
   if gulag then
-    gulag:free_obj( obj:id() )
+    gulag:free_obj(obj:id())
     --gulag:update()
   end
 end
@@ -128,7 +128,7 @@ end
 -- �� ��������� �� �������� ���������� ��� ��������������� �����������?
 -- ���� ���, �� ���������� ����� ���������
 -- ������� �������� game_object �����������
-function is_info_restricted( obj_id, info_pos )
+function is_info_restricted(obj_id, info_pos)
   local r = db.info_restr[obj_id]
 
   if r == nil then
@@ -145,7 +145,7 @@ function is_info_restricted( obj_id, info_pos )
     db.info_restr[obj_id] = r
   end
 
-  return not r:inside( info_pos )
+  return not r:inside(info_pos)
 end
 
 --' ����� ������ �������� �� ������ GUARD �� ��������� ������� ������.
@@ -153,7 +153,7 @@ function find_stalker_for_job(obj, need_job)
   local smart = get_npc_smart(obj)
 
   -- ��� �� ���� �������� ������ �� ����� �� ������.
-  for k,v in pairs(smart.npc_info) do
+  for k, v in pairs(smart.npc_info) do
     local npc_job = smart.job_data[v.job_id]
     if npc_job ~= nil and npc_job.reserve_job == true then
       local selected_npc_data = smart.npc_info[k]
@@ -178,7 +178,7 @@ end
 -- �� �����: "*���_������������*���_������"
 local dynamic_ltx = {}
 function loadLtx(name)
-  local h    = "*"..name
+  local h = "*" .. name
   local dltx = dynamic_ltx[h]
 
   if dltx then
@@ -195,12 +195,6 @@ function loadLtx(name)
   end
 end
 
-
-
-
-
-
-
 function job_in_restrictor(smart, restrictor_name, way_name)
   --printf("SMART [%s] restr [%s]", smart:name(), tostring(restrictor_name))
 
@@ -208,7 +202,7 @@ function job_in_restrictor(smart, restrictor_name, way_name)
     return nil
   end
 
-  local restrictor =  db.zone_by_name[restrictor_name]
+  local restrictor = db.zone_by_name[restrictor_name]
   -- ���������� ��� �� �����������
   if restrictor == nil then
     return nil

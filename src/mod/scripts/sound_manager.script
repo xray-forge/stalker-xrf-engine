@@ -19,221 +19,219 @@ local story_ltx = ini_file("misc\\sound_stories.ltx")
 --' �������� �������� �������� � ���� ������ ����������, ������� ����� ���������� ������� �� �����.
 class "sound_manager"
 function sound_manager:__init(id)
-	self.id = tostring(id)
-	self.npc = {}			--'������� ����������, ������������������ � �������������
-	self.storyteller = nil	--'��� �������� ������������
-	self.story = nil		--'����� ������� ����� ���������� ������ ��������. ���� �������� ����� ���������� ������ ���� �������.
-	self.last_playing_npc = nil
-	self.phrase_timeout = nil	--' ������ ����� ������ ����� ����� �������.
-	self.phrase_idle = 0	--' ������ ����� ����� ����� �������.
+  self.id = tostring(id)
+  self.npc = {}      --'������� ����������, ������������������ � �������������
+  self.storyteller = nil  --'��� �������� ������������
+  self.story = nil    --'����� ������� ����� ���������� ������ ��������. ���� �������� ����� ���������� ������ ���� �������.
+  self.last_playing_npc = nil
+  self.phrase_timeout = nil  --' ������ ����� ������ ����� ����� �������.
+  self.phrase_idle = 0  --' ������ ����� ����� ����� �������.
 end
 --' ���������������� ���.
 function sound_manager:register_npc(npc_id)
-	printf("Register sm npc [%s]:[%s]", self.id, npc_id)
-	table.insert(self.npc, {npc_id = npc_id})
-	--print_table(self.npc)
+  printf("Register sm npc [%s]:[%s]", self.id, npc_id)
+  table.insert(self.npc, { npc_id = npc_id })
+  --print_table(self.npc)
 end
 --' ���������������� ���
 function sound_manager:unregister_npc(npc_id)
-	printf("UnRegister sm npc [%s]:[%s]", self.id, npc_id)
+  printf("UnRegister sm npc [%s]:[%s]", self.id, npc_id)
 
-	if self.last_playing_npc == npc_id and
-		 xr_sound.sound_table[self.last_playing_npc]
-	then
-		-- ��������� �����, ������� ��� ������� �����. ����� �������� �������
-		self.story = nil
-		xr_sound.sound_table[self.last_playing_npc]:stop(npc_id)
-	end
+  if self.last_playing_npc == npc_id and
+      xr_sound.sound_table[self.last_playing_npc]
+  then
+    -- ��������� �����, ������� ��� ������� �����. ����� �������� �������
+    self.story = nil
+    xr_sound.sound_table[self.last_playing_npc]:stop(npc_id)
+  end
 
-	if self.storyteller == npc_id then
-		self.storyteller = nil
-	end
+  if self.storyteller == npc_id then
+    self.storyteller = nil
+  end
 
-	local remove_id = nil
-	for k,v in pairs(self.npc) do
-		if v.npc_id == npc_id then
-			remove_id = k
-			break
-		end
-	end
-	if remove_id ~= nil then
-		table.remove(self.npc, remove_id)
-	end
-	--print_table(self.npc)
+  local remove_id = nil
+  for k, v in pairs(self.npc) do
+    if v.npc_id == npc_id then
+      remove_id = k
+      break
+    end
+  end
+  if remove_id ~= nil then
+    table.remove(self.npc, remove_id)
+  end
+  --print_table(self.npc)
 end
 --' ���������� ���, ��� ����������.
 function sound_manager:set_storyteller(npc_id)
-	self.storyteller = npc_id
-	--printf("Set storyteller sm [%s] = [%s]", self.id, npc_id)
+  self.storyteller = npc_id
+  --printf("Set storyteller sm [%s] = [%s]", self.id, npc_id)
 end
 
 --' ����������
 function sound_manager:update()
-	--printf("Updating sm [%s]", self.id)
-	if self.story == nil then
-		--printf("no story")
-		return
-	end
+  --printf("Updating sm [%s]", self.id)
+  if self.story == nil then
+    --printf("no story")
+    return
+  end
 
-	--' ���� ���� �� ���������� ��� ������� ����
-	if xr_sound.sound_table[self.last_playing_npc] ~= nil then
-		--printf("wait sound")
+  --' ���� ���� �� ���������� ��� ������� ����
+  if xr_sound.sound_table[self.last_playing_npc] ~= nil then
+    --printf("wait sound")
 
-		-- !!! ���� � ��� - �������� ���� � ���������
-		if db.storage[self.last_playing_npc] and db.storage[self.last_playing_npc].object:best_enemy() ~= nil then
-			self.story = nil
-			xr_sound.sound_table[self.last_playing_npc]:stop(self.last_playing_npc)
-		end
+    -- !!! ���� � ��� - �������� ���� � ���������
+    if db.storage[self.last_playing_npc] and db.storage[self.last_playing_npc].object:best_enemy() ~= nil then
+      self.story = nil
+      xr_sound.sound_table[self.last_playing_npc]:stop(self.last_playing_npc)
+    end
 
-		return
-	end
+    return
+  end
 
-	--' ������������� ������� �������� ����� �������.
-	local t_global = time_global()
-	if self.phrase_timeout == nil then
-		self.phrase_timeout = t_global
-	end
+  --' ������������� ������� �������� ����� �������.
+  local t_global = time_global()
+  if self.phrase_timeout == nil then
+    self.phrase_timeout = t_global
+  end
 
-	if t_global - self.phrase_timeout < self.phrase_idle then
-		--printf("wait time")
-		return
-	end
-
-
-	--' �������� ��������� �����.
-	local next_phrase = self.story:get_next_phrase()
-
-	--' � ���� ����������� �����
-	if next_phrase == nil then
-		--printf("no phrase")
-		return
-	end
-
-	local npc = nil
-	local tn = #self.npc
-	if tn == 0 then
-		--printf("no npc")
-		return
-	end
-
-	--' �������� ���������, ������� ������ �����
-	if next_phrase.who == "teller" then
-		--' ����� �����������
-		if self.storyteller == nil then
-			self:choose_random_storyteller()
-		end
-		npc = self.storyteller
-
-	elseif next_phrase.who == "reaction" then
-		--' ����� ���� ������, ����� �����������
-		local teller_id = 0
-		for k,v in pairs(self.npc) do
-			if v.npc_id == self.storyteller then
-				teller_id = k
-				break
-			end
-		end
-
-		if tn >= 2 then
-			local id = math.random(1,tn-1)
-			if id >= teller_id then
-				id = id + 1
-			end
-			npc = self.npc[id].npc_id
-		else
-			npc = self.npc[1].npc_id
-		end
-	elseif next_phrase.who == "reaction_all" then
-		local npc_id = nil
-		for k,v in pairs(self.npc) do
-			if v.npc_id ~= self.storyteller then
-				xr_sound.set_sound_play(v.npc_id, next_phrase.theme)
-				npc_id = v.npc_id
-			end
-		end
-
-		self.last_playing_npc = npc_id
-		self.phrase_timeout = nil
-		self.phrase_idle = next_phrase.timeout * 1000
-		return
-	else
-		--' ����� ���� ������.
-		npc = self.npc[math.random(1,#self.npc)].npc_id
-	end
-
-		if(npc==nil or db.storage[npc]==nil) then
-		return
-	end
-	-- !!! ���� � ��� - �������� ���� � ���������
-	if db.storage[npc].object:best_enemy() ~= nil and xr_sound.sound_table[npc] ~= nil then
-		self.story = nil
-		xr_sound.sound_table[npc]:stop(npc)
-		return
-	end
+  if t_global - self.phrase_timeout < self.phrase_idle then
+    --printf("wait time")
+    return
+  end
 
 
-	printf("Speaking sm [%s] npc[%s] phrase[%s]", self.id, npc, next_phrase.theme)
+  --' �������� ��������� �����.
+  local next_phrase = self.story:get_next_phrase()
 
-	--' �������� ��� ���������� �����, ����� ����������� ����� �� ��������
-	self.last_playing_npc = npc
+  --' � ���� ����������� �����
+  if next_phrase == nil then
+    --printf("no phrase")
+    return
+  end
 
-	--' ���������� �����
-	if next_phrase.theme ~= "nil" then
-		if(self.story and self.story.id=="squad_counter_attack") then
-			local npc = alife():object(npc)
-			local board = SimBoard.get_sim_board()
-			if(npc) and (board) then
-				local our_squad = get_object_squad(npc)
-				if(our_squad) then
-					local our_smart = our_squad.smart_id
-					local task = TaskManager.get_task_manager():get_tasks_by_smart(our_smart)
-					if(next_phrase.who~="teller") then
-						local enemy_faction = task.counter_attack_community
-						xr_sound.set_sound_play(npc.id, next_phrase.theme, enemy_faction)
-						self.phrase_timeout = nil
-						self.phrase_idle = next_phrase.timeout * 1000
-						return
-					end
-					xr_sound.set_sound_play(npc.id, next_phrase.theme, our_squad.player_id, our_smart)
-					self.phrase_timeout = nil
-					self.phrase_idle = next_phrase.timeout * 1000
-					return
-				end
-			end
-		end
+  local npc = nil
+  local tn = #self.npc
+  if tn == 0 then
+    --printf("no npc")
+    return
+  end
 
+  --' �������� ���������, ������� ������ �����
+  if next_phrase.who == "teller" then
+    --' ����� �����������
+    if self.storyteller == nil then
+      self:choose_random_storyteller()
+    end
+    npc = self.storyteller
 
-		xr_sound.set_sound_play(npc, next_phrase.theme)
-	end
+  elseif next_phrase.who == "reaction" then
+    --' ����� ���� ������, ����� �����������
+    local teller_id = 0
+    for k, v in pairs(self.npc) do
+      if v.npc_id == self.storyteller then
+        teller_id = k
+        break
+      end
+    end
 
-	self.phrase_timeout = nil
-	self.phrase_idle = next_phrase.timeout * 1000
+    if tn >= 2 then
+      local id = math.random(1, tn - 1)
+      if id >= teller_id then
+        id = id + 1
+      end
+      npc = self.npc[id].npc_id
+    else
+      npc = self.npc[1].npc_id
+    end
+  elseif next_phrase.who == "reaction_all" then
+    local npc_id = nil
+    for k, v in pairs(self.npc) do
+      if v.npc_id ~= self.storyteller then
+        xr_sound.set_sound_play(v.npc_id, next_phrase.theme)
+        npc_id = v.npc_id
+      end
+    end
+
+    self.last_playing_npc = npc_id
+    self.phrase_timeout = nil
+    self.phrase_idle = next_phrase.timeout * 1000
+    return
+  else
+    --' ����� ���� ������.
+    npc = self.npc[math.random(1, #self.npc)].npc_id
+  end
+
+  if (npc == nil or db.storage[npc] == nil) then
+    return
+  end
+  -- !!! ���� � ��� - �������� ���� � ���������
+  if db.storage[npc].object:best_enemy() ~= nil and xr_sound.sound_table[npc] ~= nil then
+    self.story = nil
+    xr_sound.sound_table[npc]:stop(npc)
+    return
+  end
+
+  printf("Speaking sm [%s] npc[%s] phrase[%s]", self.id, npc, next_phrase.theme)
+
+  --' �������� ��� ���������� �����, ����� ����������� ����� �� ��������
+  self.last_playing_npc = npc
+
+  --' ���������� �����
+  if next_phrase.theme ~= "nil" then
+    if (self.story and self.story.id == "squad_counter_attack") then
+      local npc = alife():object(npc)
+      local board = SimBoard.get_sim_board()
+      if (npc) and (board) then
+        local our_squad = get_object_squad(npc)
+        if (our_squad) then
+          local our_smart = our_squad.smart_id
+          local task = TaskManager.get_task_manager():get_tasks_by_smart(our_smart)
+          if (next_phrase.who ~= "teller") then
+            local enemy_faction = task.counter_attack_community
+            xr_sound.set_sound_play(npc.id, next_phrase.theme, enemy_faction)
+            self.phrase_timeout = nil
+            self.phrase_idle = next_phrase.timeout * 1000
+            return
+          end
+          xr_sound.set_sound_play(npc.id, next_phrase.theme, our_squad.player_id, our_smart)
+          self.phrase_timeout = nil
+          self.phrase_idle = next_phrase.timeout * 1000
+          return
+        end
+      end
+    end
+
+    xr_sound.set_sound_play(npc, next_phrase.theme)
+  end
+
+  self.phrase_timeout = nil
+  self.phrase_idle = next_phrase.timeout * 1000
 end
 --' ��������� ����� ���������� (���������� ���� �� ������ �������� ����������� ���)
 function sound_manager:choose_random_storyteller()
-	self.storyteller = self.npc[math.random(1,#self.npc)].npc_id
+  self.storyteller = self.npc[math.random(1, #self.npc)].npc_id
 end
 --' �������� �� ����� �������� ������ ���� �������
 function sound_manager:is_finished()
-	if self.story == nil then
-		return true
-	end
-	return self.story:is_finished()
+  if self.story == nil then
+    return true
+  end
+  return self.story:is_finished()
 end
 --' ���������� ����� ������� �������� ������ ��������
 function sound_manager:set_story(story_id)
-	self.story = CStory(story_id)
-	--printf("Set story sm [%s] = [%s]", self.id, story_id)
+  self.story = CStory(story_id)
+  --printf("Set story sm [%s] = [%s]", self.id, story_id)
 end
 
 
 
 --' ������� ����� �����-��������. ����� �������� ���������� ��������
 function get_sound_manager(id)
-	if sound_managers[id] == nil then
-		sound_managers[id] = sound_manager(id)
-	end
-	return sound_managers[id]
+  if sound_managers[id] == nil then
+    sound_managers[id] = sound_manager(id)
+  end
+  return sound_managers[id]
 end
 
 
@@ -245,45 +243,45 @@ end
 --' ����� "�������". �������� ������ ����. � ������ ����� ������� ������ �� �� �������� ���������� ��� ���������.
 class "CStory"
 function CStory:__init(story_id)
-	--printf("Creating story [%s]", tostring(story_id))
+  --printf("Creating story [%s]", tostring(story_id))
 
-	if not story_ltx:section_exist(story_id) then
-		abort("There is no story [%s] in sound_stories.ltx", tostring(story_id))
-	end
+  if not story_ltx:section_exist(story_id) then
+    abort("There is no story [%s] in sound_stories.ltx", tostring(story_id))
+  end
 
-	self.replics = {}
-	--' ���������� ������ ������� �� ini �����
+  self.replics = {}
+  --' ���������� ������ ������� �� ini �����
 
-	local n = story_ltx:line_count(story_id)
-	local id, value = "",""
+  local n = story_ltx:line_count(story_id)
+  local id, value = "", ""
 
-	for i=0,n-1 do
-		result, id, value	= story_ltx:r_line(story_id,i,"","")
+  for i = 0, n - 1 do
+    result, id, value = story_ltx:r_line(story_id, i, "", "")
 
-		local t = parse_names(value)
+    local t = parse_names(value)
 
-		if t[1] ~= "teller" and t[1] ~= "reaction" and t[1] ~= "reaction_all" then
-			abort("Wrong fist field [%s] in story [%s]", tostring(t[1]), tostring(story_id))
-		end
+    if t[1] ~= "teller" and t[1] ~= "reaction" and t[1] ~= "reaction_all" then
+      abort("Wrong fist field [%s] in story [%s]", tostring(t[1]), tostring(story_id))
+    end
 
-		self.replics[i] = {who = t[1], theme = t[2], timeout = t[3]}
-	end
-		self.id = tostring(story_id)
-	self.max_phrase_count = n-1
-	self.next_phrase = 0
-	--print_table(self.replics)
+    self.replics[i] = { who = t[1], theme = t[2], timeout = t[3] }
+  end
+  self.id = tostring(story_id)
+  self.max_phrase_count = n - 1
+  self.next_phrase = 0
+  --print_table(self.replics)
 end
 --' ��������� �� �������
 function CStory:is_finished()
-	return self.next_phrase > self.max_phrase_count
+  return self.next_phrase > self.max_phrase_count
 end
 --' ����� �������
 function CStory:reset_story()
-	self.next_phrase = 0
+  self.next_phrase = 0
 end
 --' ���������� ��������� �����
 function CStory:get_next_phrase()
-	local phrase = self.replics[self.next_phrase]
-	self.next_phrase = self.next_phrase + 1
-	return phrase
+  local phrase = self.replics[self.next_phrase]
+  self.next_phrase = self.next_phrase + 1
+  return phrase
 end

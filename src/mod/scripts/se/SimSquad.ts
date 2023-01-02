@@ -46,7 +46,14 @@ import type { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
 import { ESmartTerrainStatus } from "@/mod/scripts/se/SmartTerrainControl";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { areOnSameAlifeLevel, unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
-import { getConfigBoolean, getConfigNumber, getConfigString, parseNames, r_2nums } from "@/mod/scripts/utils/configs";
+import {
+  getConfigBoolean,
+  getConfigNumber,
+  getConfigString,
+  parseCondList,
+  parseNames,
+  r_2nums
+} from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -179,22 +186,20 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
   init_squad(): void {
     log.info("Init squad:", this.name());
 
-    const parse_condlist = get_global("xr_logic").parse_condlist as AnyCallable;
-
     this.player_id = getConfigString(squad_ltx, this.settings_id, "faction", this, true, "") as TCommunity;
-    this.action_condlist = parse_condlist(
+    this.action_condlist = parseCondList(
       this,
       "assign_action",
       "target_smart",
       getConfigString(squad_ltx, this.settings_id, "target_smart", this, false, "", "")
     );
-    this.death_condlist = parse_condlist(
+    this.death_condlist = parseCondList(
       this,
       "death_condlist",
       "on_death",
       getConfigString(squad_ltx, this.settings_id, "on_death", this, false, "", "")
     );
-    this.invulnerability = parse_condlist(
+    this.invulnerability = parseCondList(
       this,
       "invulnerability",
       "invulnerability",
@@ -203,7 +208,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     this.relationship =
       this.relationship || getConfigString(squad_ltx, this.settings_id, "relationship", this, false, "", null);
     this.sympathy = getConfigNumber(squad_ltx, this.settings_id, "sympathy", this, false, null);
-    this.show_spot = parse_condlist(
+    this.show_spot = parseCondList(
       this,
       "show_spot",
       "show_spot",
@@ -687,13 +692,12 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     const ini = system_ini();
 
     const spawn_sections = parseNames(getConfigString(ini, this.settings_id, "npc", this, false, "", ""));
-    const parse_condlist = get_global("xr_logic").parse_condlist as AnyCallable;
 
     let spawn_point =
       getConfigString(ini, this.settings_id, "spawn_point", this, false, "", "self") ||
       getConfigString(spawn_smart.ini, SMART_TERRAIN_SECT, "spawn_point", this, false, "", "self");
 
-    spawn_point = parse_condlist(this, "spawn_point", "spawn_point", spawn_point);
+    spawn_point = parseCondList(this, "spawn_point", "spawn_point", spawn_point);
     spawn_point = get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(getActor(), this, spawn_point);
 
     let base_spawn_position: XR_vector = spawn_smart.position;

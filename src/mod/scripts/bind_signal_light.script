@@ -12,6 +12,7 @@ end
 
 ---------------------------------------------------------------------------------------------
 class "signal_light_binder" (object_binder)
+
 function signal_light_binder:__init(obj) super(obj)
     self.need_turn_off = true
 --	self.initialized = false

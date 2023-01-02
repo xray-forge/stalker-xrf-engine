@@ -166,17 +166,21 @@ load_scheme = coreSchemes.loadScheme
 -- ---------------------------------------------------------------------------------------------------------------------
 
 -- todo: Remove
-print_table = function (table) end
-printf = function (fmt,...) end
+print_table = function(table)
+end
+
+printf = function(fmt, ...)
+end
 -- --
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
 if (jit == nil) then
-  profiler.setup_hook	()
+  profiler.setup_hook()
 end
 
-
 if nil == time_global then
-  time_global = function () return device():time_global() end
+  time_global = function()
+    return device():time_global()
+  end
 end

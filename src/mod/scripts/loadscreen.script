@@ -2,7 +2,7 @@ local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 local log = create_ts_class_instance(LuaLogger, "loadscreen");
 
-tips_table 	  =	{
+tips_table = {
   [1] = "all",
   [2] = "all",
   [3] = "all",
@@ -173,12 +173,12 @@ mp_tips_table = {
 }
 function get_tip_number(level_name)
   local tbl = {}
-  for i=1,#tips_table do
-    if(tips_table[i]==level_name or tips_table[i]=="all") then
+  for i = 1, #tips_table do
+    if (tips_table[i] == level_name or tips_table[i] == "all") then
       table.insert(tbl, i)
     end
   end
-  if(#tbl==0) then
+  if (#tbl == 0) then
     return 1
   else
     return tbl[math.random(#tbl)]
@@ -187,12 +187,12 @@ end
 
 function get_mp_tip_number(level_name)
   local tbl = {}
-  for i=1,#tips_table do
-    if(mp_tips_table[i]==level_name or mp_tips_table[i]=="all") then
+  for i = 1, #tips_table do
+    if (mp_tips_table[i] == level_name or mp_tips_table[i] == "all") then
       table.insert(tbl, i)
     end
   end
-  if(#tbl==0) then
+  if (#tbl == 0) then
     return 1
   else
     return tbl[math.random(#tbl)]

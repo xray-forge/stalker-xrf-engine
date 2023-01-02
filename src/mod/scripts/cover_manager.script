@@ -48,7 +48,7 @@ function CCover_manager:calculate_covers(position)
   self.is_valid = true
 
   local npc_table = {}
-  for k,v in pairs(self.squads) do
+  for k, v in pairs(self.squads) do
     local squad = alife():object(k)
     for kk in squad:squad_members() do
       if db.storage[kk.id] ~= nil then
@@ -58,26 +58,26 @@ function CCover_manager:calculate_covers(position)
     end
   end
 
-  for k,v in pairs(npc_table) do
+  for k, v in pairs(npc_table) do
     v:register_in_combat()
   end
 
   self.cover_table = {}
-  for k,v in pairs(npc_table) do
+  for k, v in pairs(npc_table) do
     v:find_best_cover(position)
   end
-  for k,v in pairs(npc_table) do
+  for k, v in pairs(npc_table) do
     local cover = v:find_best_cover(position)
     if cover ~= nil then
       --printf("!!! %s: %s [%s]", v:name(), cover:level_vertex_id(), tostring(cover:is_smart_cover()))
-      self.cover_table[v:id()] = {cover_vertex_id = cover:level_vertex_id(), cover_position = cover:position(),
-                                  look_pos = position, is_smart_cover = cover:is_smart_cover()}
+      self.cover_table[v:id()] = { cover_vertex_id = cover:level_vertex_id(), cover_position = cover:position(),
+                                   look_pos = position, is_smart_cover = cover:is_smart_cover() }
       --else
       --printf("!!! nil")
     end
   end
 
-  for k,v in pairs(npc_table) do
+  for k, v in pairs(npc_table) do
     v:unregister_in_combat()
   end
 end
@@ -89,11 +89,11 @@ function CCover_manager:save(packet)
 
   -- ��������� ������������ ������
   local n = 0
-  for k,v in pairs(self.cover_table) do
+  for k, v in pairs(self.cover_table) do
     n = n + 1
   end
   packet:w_u8(n)
-  for k,v in pairs(self.cover_table) do
+  for k, v in pairs(self.cover_table) do
     packet:w_u16(k)
     packet:w_u32(v.cover_vertex_id)
     packet:w_float(v.cover_position.x)
@@ -114,23 +114,23 @@ function CCover_manager:load(packet)
   self.is_valid = packet:r_bool()
 
   local n = packet:r_u8()
-  for i = 1,n do
+  for i = 1, n do
     local npc_id = packet:r_u16()
     local cover_vertex_id = packet:r_u32()
-    local cover_position = vector():set(0,0,0)
+    local cover_position = vector():set(0, 0, 0)
     cover_position.x = packet:r_float()
     cover_position.y = packet:r_float()
     cover_position.z = packet:r_float()
 
-    local look_pos = vector():set(0,0,0)
+    local look_pos = vector():set(0, 0, 0)
     look_pos.x = packet:r_float()
     look_pos.y = packet:r_float()
     look_pos.z = packet:r_float()
 
     local is_smart_cover = packet:r_bool()
 
-    self.cover_table[npc_id] = {cover_vertex_id = cover_vertex_id, cover_position = cover_position,
-                                look_pos = look_pos, is_smart_cover = is_smart_cover}
+    self.cover_table[npc_id] = { cover_vertex_id = cover_vertex_id, cover_position = cover_position,
+                                 look_pos = look_pos, is_smart_cover = is_smart_cover }
   end
 
   set_save_marker(packet, "load", true, "CCover_manager")

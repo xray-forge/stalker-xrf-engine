@@ -8,13 +8,13 @@ local log = create_ts_class_instance(LuaLogger, "stalker_generic");
 function set_npc_info(npc, ini, scheme, section)
   --printf("INFO SECTION [%s]", utils.to_str(section))
 
-  local in_info	= get_infos_from_data(npc, utils.cfg_get_string(ini, section, "in", npc, false, ""))
-  local out_info	= get_infos_from_data(npc, utils.cfg_get_string(ini, section, "out", npc, false, ""))
+  local in_info = get_infos_from_data(npc, utils.cfg_get_string(ini, section, "in", npc, false, ""))
+  local out_info = get_infos_from_data(npc, utils.cfg_get_string(ini, section, "out", npc, false, ""))
 
-  for k,v in pairs(in_info) do
+  for k, v in pairs(in_info) do
     npc:give_info_portion(v)
   end
-  for k,v in pairs(out_info) do
+  for k, v in pairs(out_info) do
     npc:disable_info_portion(v)
   end
 end
@@ -23,7 +23,7 @@ function get_infos_from_data(npc, s)
   --	printf("get_infos_from_data [%s]", utils.to_str(s))
   local t = {}
   if s then
-    for name in string.gfind( s, "(%|*[^%|]+%|*)%p*" ) do
+    for name in string.gfind(s, "(%|*[^%|]+%|*)%p*") do
       --			printf("[%s]", utils.to_str(name))
       local condlist = xr_logic.parse_condlist(npc, "in", name, name)
       if condlist then
@@ -33,7 +33,6 @@ function get_infos_from_data(npc, s)
   end
   return t
 end
-
 
 ----------------------------------------------------------------------------------------------------------------------
 -- STALKER IGNORE MONSTER THRESHOLD
@@ -49,13 +48,13 @@ function reset_threshold(npc, scheme, st, section)
 
   --'printf("THRESHOLD SECTION [%s]", utils.to_str(threshold_section))
   if threshold_section then
-    local max_ignore_distance	= utils.cfg_get_number(st.ini, threshold_section, "max_ignore_distance", npc, false)
+    local max_ignore_distance = utils.cfg_get_number(st.ini, threshold_section, "max_ignore_distance", npc, false)
     if max_ignore_distance then
       npc:max_ignore_monster_distance(max_ignore_distance)
     else
       npc:restore_max_ignore_monster_distance()
     end
-    local ignore_monster		= utils.cfg_get_number(st.ini, threshold_section, "ignore_monster", npc, false)
+    local ignore_monster = utils.cfg_get_number(st.ini, threshold_section, "ignore_monster", npc, false)
     if ignore_monster then
       npc:ignore_monster_threshold(ignore_monster)
     else
@@ -119,7 +118,7 @@ end
 
 function take_items_enabled(npc, scheme, st, section)
   local take_items = nil
-  if(st.ini:line_exist(section, "take_items")) then
+  if (st.ini:line_exist(section, "take_items")) then
     take_items = utils.cfg_get_bool(st.ini, section, "take_items", npc, false, true)
   else
     take_items = utils.cfg_get_bool(st.ini, st.section_logic, "take_items", npc, false, true)
@@ -129,11 +128,11 @@ end
 
 function can_select_weapon(npc, scheme, st, section)
   local str = utils.cfg_get_string(st.ini, section, "can_select_weapon", npc, false, "", "")
-  if(str=="") then
+  if (str == "") then
     str = utils.cfg_get_string(st.ini, st.section_logic, "can_select_weapon", npc, false, "", "true")
   end
 
   local cond = xr_logic.parse_condlist(npc, section, "can_select_weapon", str)
   local can = xr_logic.pick_section_from_condlist(db.actor, npc, cond)
-  npc:can_select_weapon(can=="true")
+  npc:can_select_weapon(can == "true")
 end

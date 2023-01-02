@@ -11,8 +11,9 @@ local MARKER_IDLE = 3
 
 --' �������� ���������
 --' �� ��� ��������� � ����������� ���������?
-class "eva_state_mgr_animation" (property_evaluator)
-function eva_state_mgr_animation:__init(name, st) super (nil, name)
+class "eva_state_mgr_animation"(property_evaluator)
+function eva_state_mgr_animation:__init(name, st)
+  super(nil, name)
   self.st = st
 end
 
@@ -22,8 +23,9 @@ function eva_state_mgr_animation:evaluate()
 end
 
 --' ���������� �� �� ������ ����������� ��������
-class "eva_state_mgr_animation_play_now" (property_evaluator)
-function eva_state_mgr_animation_play_now:__init(name, st) super (nil, name)
+class "eva_state_mgr_animation_play_now"(property_evaluator)
+function eva_state_mgr_animation_play_now:__init(name, st)
+  super(nil, name)
   self.st = st
 end
 function eva_state_mgr_animation_play_now:evaluate()
@@ -32,8 +34,9 @@ end
 
 
 --' �� ��� �� ���������� ������� ����������� ��������
-class "eva_state_mgr_animation_none_now" (property_evaluator)
-function eva_state_mgr_animation_none_now:__init(name, st) super (nil, name)
+class "eva_state_mgr_animation_none_now"(property_evaluator)
+function eva_state_mgr_animation_none_now:__init(name, st)
+  super(nil, name)
   self.st = st
 end
 function eva_state_mgr_animation_none_now:evaluate()
@@ -41,8 +44,9 @@ function eva_state_mgr_animation_none_now:evaluate()
 end
 
 --' �� ������ ���������� �������� � ���� �������� �� ���
-class "eva_state_mgr_animation_locked" (property_evaluator)
-function eva_state_mgr_animation_locked:__init(name, st) super (nil, name)
+class "eva_state_mgr_animation_locked"(property_evaluator)
+function eva_state_mgr_animation_locked:__init(name, st)
+  super(nil, name)
   self.st = st
 end
 function eva_state_mgr_animation_locked:evaluate()
@@ -58,8 +62,9 @@ end
 
 
 --' ������ ������� ��������
-class "act_state_mgr_animation_start" (action_base)
-function act_state_mgr_animation_start:__init(name, st) super (nil, name)
+class "act_state_mgr_animation_start"(action_base)
+function act_state_mgr_animation_start:__init(name, st)
+  super(nil, name)
   self.st = st
 end
 function act_state_mgr_animation_start:initialize()
@@ -77,8 +82,9 @@ end
 
 
 --' ������ �������� ��������
-class "act_state_mgr_animation_stop" (action_base)
-function act_state_mgr_animation_stop:__init(name, st) super (nil, name)
+class "act_state_mgr_animation_stop"(action_base)
+function act_state_mgr_animation_stop:__init(name, st)
+  super(nil, name)
   self.st = st
 end
 function act_state_mgr_animation_stop:initialize()
@@ -163,7 +169,7 @@ function animation:set_state(new_state, fast_set)
       local anim_for_slot = self:anim_for_slot(wpn_slot, state.out)
 
       if anim_for_slot ~= nil then
-        for k,next_anim in pairs(anim_for_slot) do
+        for k, next_anim in pairs(anim_for_slot) do
           if type(next_anim) == "table" then
             self:process_special_action(next_anim)
           end
@@ -177,14 +183,13 @@ function animation:set_state(new_state, fast_set)
     --printf("NULIFY ANIM MARKER %s", tostring(self.states.anim_marker))
     self.states.anim_marker = nil
 
-    self.states.current_state 	= new_state
-    self.states.target_state	= new_state
-    self.states.seq_id			= 1
+    self.states.current_state = new_state
+    self.states.target_state = new_state
+    self.states.seq_id = 1
 
     self.states.next_rnd = time_global()
     return
   end
-
 
   self.states.target_state = new_state
   self.states.next_rnd = time_global()
@@ -316,7 +321,7 @@ function animation:select_rnd(anim_state, wpn_slot, must_play)
     return nil
   end
 
-  local anima = self:anim_for_slot(wpn_slot,anim_state.rnd)
+  local anima = self:anim_for_slot(wpn_slot, anim_state.rnd)
   if anima == nil then
     return nil
   end
@@ -327,7 +332,7 @@ function animation:select_rnd(anim_state, wpn_slot, must_play)
     if states.last_id == nil then
       r = math.random(#anima)
     else
-      r = math.random(#anima-1)
+      r = math.random(#anima - 1)
       if r >= states.last_id then
         r = r + 1
       end
@@ -350,7 +355,6 @@ function animation:add_anim(anim, state)
     --callstack()
     abort("Illegal call of add animation. Weapon is strapping now!!! %s", npc:name())
   end
-
 
   if animation_props == nil or animation_props.moving ~= true then
     npc:add_animation(anim, true, false)
@@ -375,7 +379,7 @@ function animation:add_anim(anim, state)
 
     --printf("%s UGOL %s", npc:name(), rot_y)
     -- ������������� ������ - ��� ����� ����� �������� �������� � ���������� �����������.
-    npc:add_animation			(anim, true, self.mgr.animation_position, vector():set(0, rot_y, 0), false)
+    npc:add_animation(anim, true, self.mgr.animation_position, vector():set(0, rot_y, 0), false)
 
     self.mgr.pos_direction_applied = true
   end
@@ -384,7 +388,7 @@ end
 -- ����� ��������, ������ � ���� ������ ����� ����� ����� ��������.
 function animation:animation_callback(skip_multianim_check)
   --printf("[%s][%s] ANIM CALLBACK time[%s] count[%s]", self.npc:name(), self.name, time_global(), self.npc:animation_count())
-  if(self.npc:animation_count()~=0) then
+  if (self.npc:animation_count() ~= 0) then
     return
   end
   local states = self.states
@@ -419,11 +423,10 @@ function animation:animation_callback(skip_multianim_check)
     states.anim_marker = nil
     local props = self.anim_path.animations[states.current_state].prop
     if props.maxidle == 0 then
-      states.next_rnd = time_global() + props.sumidle*1000
+      states.next_rnd = time_global() + props.sumidle * 1000
     else
-      states.next_rnd = time_global() + (props.sumidle + math.random(props.maxidle))*1000
+      states.next_rnd = time_global() + (props.sumidle + math.random(props.maxidle)) * 1000
     end
-
 
     self:update_anim()
     return
@@ -436,7 +439,7 @@ function animation:animation_callback(skip_multianim_check)
     if skip_multianim_check ~= true then
       -- ���� OUT �������� ���������
       local out_table = {}
-      if(self.anim_path.animations[states.current_state].out) then
+      if (self.anim_path.animations[states.current_state].out) then
         out_table = self:anim_for_slot(self:weapon_slot(), self.anim_path.animations[states.current_state].out)
       end
 

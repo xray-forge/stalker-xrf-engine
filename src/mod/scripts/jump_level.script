@@ -18,9 +18,9 @@ function try_to_jump()
     local console = get_console()
     console:execute("flush")
 
-    console:execute("save build_save_" .. tostring(time_global()) )
+    console:execute("save build_save_" .. tostring(time_global()))
 
-    for k,v in pairs(levels) do
+    for k, v in pairs(levels) do
       if level.name() == k then
         if v ~= "end" then
           dest_level = v
@@ -31,7 +31,7 @@ function try_to_jump()
         end
         printf("BUILD:jumping to level [%s] from level [%s]", tostring(dest_level), tostring(k))
         console:execute("flush")
-        console:execute("jump_to_level "..dest_level)
+        console:execute("jump_to_level " .. dest_level)
         break
       end
     end

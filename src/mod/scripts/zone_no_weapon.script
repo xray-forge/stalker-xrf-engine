@@ -8,21 +8,21 @@ local log = create_ts_class_instance(LuaLogger, "zone_no_weapon");
 
 class "CZoneNoWeapon"
 
-function CZoneNoWeapon:__init( zone, binder, ini )
-	log:info("Init")
+function CZoneNoWeapon:__init(zone, binder, ini)
+  log:info("Init")
 
-	-- ���� ��� ���� ����� � �� � ����, �� ������� ������
-	if binder.actor_inside then
-		db.actor:hide_weapon()
-	end
+  -- ���� ��� ���� ����� � �� � ����, �� ������� ������
+  if binder.actor_inside then
+    db.actor:hide_weapon()
+  end
 end
 
-function CZoneNoWeapon:on_enter( actor )
-	log:info("Entered no weapon zone")
-	actor:hide_weapon()
+function CZoneNoWeapon:on_enter(actor)
+  log:info("Entered no weapon zone")
+  actor:hide_weapon()
 end
 
-function CZoneNoWeapon:on_leave( actor )
-	log:info("Left no weapon zone")
-	actor:restore_weapon()
+function CZoneNoWeapon:on_leave(actor)
+  log:info("Left no weapon zone")
+  actor:restore_weapon()
 end

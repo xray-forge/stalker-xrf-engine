@@ -12,7 +12,9 @@ function bind(obj)
 	db.storage[obj:id()] = {}
 end
 --------------------------------------------------------------------------------
+
 class "door_binder_labx8" (object_binder)
+
 function door_binder_labx8:__init(obj) super(obj)
 	local ini = obj:spawn_ini()
 

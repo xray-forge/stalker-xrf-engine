@@ -5,7 +5,6 @@ local log = create_ts_class_instance(LuaLogger, "bind_heli");
 ---------------------------------------------------------------------------------------------
 -- ������� ��� �����
 ---------------------------------------------------------------------------------------------
-
 function bind( obj )
 --    printf( "BIND HELICOPTER id=%d", obj:id() )
 		 local ini = obj:spawn_ini()

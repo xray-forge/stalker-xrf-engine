@@ -39,7 +39,13 @@ import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { registered_smartcovers } from "@/mod/scripts/se/SmartCover";
 import { ESmartTerrainStatus, ISmartTerrainControl, SmartTerrainControl } from "@/mod/scripts/se/SmartTerrainControl";
 import { areOnSameAlifeLevel, getStoryObject, unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
-import { getConfigBoolean, getConfigNumber, getConfigString, parseNames } from "@/mod/scripts/utils/configs";
+import {
+  getConfigBoolean,
+  getConfigNumber,
+  getConfigString,
+  parseCondList,
+  parseNames
+} from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -268,12 +274,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
         this.respawn_sector = "all";
       }
 
-      this.respawn_sector = (get_global("xr_logic").parse_condlist as AnyCallable)(
-        null,
-        SMART_TERRAIN_SECT,
-        "respawn_sector",
-        this.respawn_sector
-      );
+      this.respawn_sector = parseCondList(null, SMART_TERRAIN_SECT, "respawn_sector", this.respawn_sector);
     }
 
     this.mutant_lair = getConfigBoolean(ini, SMART_TERRAIN_SECT, "mutant_lair", this, false);
@@ -290,13 +291,8 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     this.spawn_point = getConfigString(ini, SMART_TERRAIN_SECT, "spawn_point", this, false, "");
     this.arrive_dist = getConfigNumber(ini, SMART_TERRAIN_SECT, "arrive_dist", this, false, 30);
 
-    const max_population = getConfigString(ini, SMART_TERRAIN_SECT, "max_population", this, false, "", 0);
-    const parsed_condlist = (get_global("xr_logic").parse_condlist as AnyCallable)(
-      null,
-      SMART_TERRAIN_SECT,
-      "max_population",
-      max_population
-    );
+    const max_population: string = getConfigString(ini, SMART_TERRAIN_SECT, "max_population", this, false, "", "0");
+    const parsed_condlist = parseCondList(null, SMART_TERRAIN_SECT, "max_population", max_population);
 
     this.max_population = tonumber(
       (get_global("xr_logic").pick_section_from_condlist as AnyCallable)(getStoryObject("actor"), null, parsed_condlist)
@@ -563,12 +559,6 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
           );
         }
 
-        log.info(
-          "Returning alife task for object [%s] game_vertex [%s] level_vertex [%s] position %s",
-          smartcover.id,
-          smartcover.m_game_vertex_id,
-          smartcover.m_level_vertex_id
-        );
         v.alife_task = new CALifeSmartTerrainTask(smartcover.m_game_vertex_id, smartcover.m_level_vertex_id);
       } else if (v.job_type === "point_job") {
         v.alife_task = this.smart_alife_task;
@@ -1253,7 +1243,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
         );
       }
 
-      spawn_num = (get_global("xr_logic").parse_condlist as AnyCallable)(null, prop_name, "spawn_num", spawn_num);
+      spawn_num = parseCondList(null, prop_name, "spawn_num", spawn_num);
 
       this.respawn_params.set(prop_name, {} as any);
       this.already_spawned.set(prop_name, {} as any);

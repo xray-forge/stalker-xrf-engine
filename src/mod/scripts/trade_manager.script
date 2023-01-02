@@ -1,4 +1,3 @@
-
 local trade_manager = {
 }
 
@@ -38,7 +37,6 @@ function trade_init(npc, cfg)
   end
 end
 
-
 function update(npc)
   local tt = trade_manager[npc:id()]
 
@@ -52,7 +50,7 @@ function update(npc)
   tt.update_time = time_global() + 3600000
 
   local str = xr_logic.pick_section_from_condlist(db.actor, npc, tt.buy_condition)
-  if(str=="" or str==nil) then
+  if (str == "" or str == nil) then
     abort("Wrong section in buy_condition condlist for npc [%s]!", npc:name())
   end
   if tt.current_buy_condition ~= str then
@@ -62,7 +60,7 @@ function update(npc)
   end
 
   str = xr_logic.pick_section_from_condlist(db.actor, npc, tt.sell_condition)
-  if(str=="" or str==nil) then
+  if (str == "" or str == nil) then
     abort("Wrong section in buy_condition condlist for npc [%s]!", npc:name())
   end
   if tt.current_sell_condition ~= str then
@@ -82,7 +80,7 @@ function update(npc)
   end
 
   str = xr_logic.pick_section_from_condlist(db.actor, npc, tt.buy_supplies)
-  if(str=="" or str==nil) then
+  if (str == "" or str == nil) then
     abort("Wrong section in buy_condition condlist for npc [%s]!", npc:name())
   end
   if tt.current_buy_supplies ~= str then
@@ -92,10 +90,9 @@ function update(npc)
     --'printf("TRADE [%s]: buy_supplies = %s", npc:name(), str)
     npc:buy_supplies(tt.config, str)
     tt.current_buy_supplies = str
-    tt.resuply_time = time_global() + 24*3600000
+    tt.resuply_time = time_global() + 24 * 3600000
   end
 end
-
 
 function save(obj, packet)
   local tt = trade_manager[obj:id()]
@@ -198,10 +195,11 @@ function load(obj, packet)
   end
   set_save_marker(packet, "load", true, "trade_manager")
 end
+
 ----------- NOT TO DELETE!!!!!!!!! called from engine
 function get_buy_discount(npc_id)
   local str = utils.cfg_get_string(trade_manager[npc_id].config, "trader", "discounts", nil, false, "", "")
-  if(str=="") then
+  if (str == "") then
     return 1
   end
 
@@ -209,10 +207,11 @@ function get_buy_discount(npc_id)
   str = utils.cfg_get_number(trade_manager[npc_id].config, sect, "buy", nil, false, 1)
   return str
 end
+
 ----------- NOT TO DELETE!!!!!!!!! called from engine
 function get_sell_discount(npc_id)
   local str = utils.cfg_get_string(trade_manager[npc_id].config, "trader", "discounts", nil, false, "", "")
-  if(str=="") then
+  if (str == "") then
     return 1
   end
 

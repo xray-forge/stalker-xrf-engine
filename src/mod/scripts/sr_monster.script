@@ -1,6 +1,6 @@
 class "fake_monster"
 
-function fake_monster:__init( obj , storage)
+function fake_monster:__init(obj, storage)
   self.object = obj
   self.st = storage
   self.is_actor_inside = nil
@@ -20,7 +20,7 @@ function fake_monster:reset_scheme()
 
 end
 
-function fake_monster:update( delta )
+function fake_monster:update(delta)
 
   local actor = db.actor
 
@@ -39,20 +39,20 @@ function fake_monster:update( delta )
   --	end
 
   if self.is_actor_inside == nil and self.st.monster ~= nil then
-    self.is_actor_inside = self.object:inside( actor:position() )
+    self.is_actor_inside = self.object:inside(actor:position())
     return
   end
-  if self.object:inside( actor:position() ) then
+  if self.object:inside(actor:position()) then
     if not self.is_actor_inside then
-      self:on_enter( actor )
+      self:on_enter(actor)
       self.is_actor_inside = true
     end
   end
-  if self.final_action and (db.storage[self.monster.id] == nil or self.monster_obj:position():distance_to(self.st.path:point(self.st.path:count()-1)) <= 1) then
+  if self.final_action and (db.storage[self.monster.id] == nil or self.monster_obj:position():distance_to(self.st.path:point(self.st.path:count() - 1)) <= 1) then
     if db.storage[self.monster.id] ~= nil then
       xr_logic.mob_release(self.monster_obj)
     end
-    alife():release(self.monster,true)
+    alife():release(self.monster, true)
     self.monster = nil
     self.monster_obj = nil
     self.final_action = false
@@ -64,33 +64,30 @@ function fake_monster:update( delta )
     return
   end
 
-
-
-
   if self.is_actor_inside == true and self.monster == nil then
     local target_pos = vector():set(self.current)
     target_pos:mad(self.dir, self.st.sound_slide_vel * delta / 1000)
     if target_pos:distance_to(self.current) > self.current:distance_to(self.target) then
-      self.cur_point	= self:next_point()
+      self.cur_point = self:next_point()
       self:set_positions()
     else
-      self.current	= vector():set(target_pos)
+      self.current = vector():set(target_pos)
     end
 
-    self.snd_obj = xr_sound.set_sound_play( self.object:id(), self.st.snd_obj)
+    self.snd_obj = xr_sound.set_sound_play(self.object:id(), self.st.snd_obj)
     printf("play_sound_obj")
-    if  self.snd_obj and self.snd_obj:playing() then
+    if self.snd_obj and self.snd_obj:playing() then
       self.snd_obj:set_position(self.current)
     end
-  elseif self.monster_obj == nil and self.monster ~= nil  and db.storage[self.monster.id] ~= nil and not self.final_action then
+  elseif self.monster_obj == nil and self.monster ~= nil and db.storage[self.monster.id] ~= nil and not self.final_action then
     self.monster_obj = db.storage[self.monster.id].object
     xr_logic.mob_capture(self.monster_obj, true)
-    action(self.monster_obj, move(move.run_fwd, self.st.path:point(self.st.path:count()-1)),cond(cond.move_end))
-    printf("added action RUN to %s(%s)", self.path_name, tostring(self.st.path:count()-1))
+    action(self.monster_obj, move(move.run_fwd, self.st.path:point(self.st.path:count() - 1)), cond(cond.move_end))
+    printf("added action RUN to %s(%s)", self.path_name, tostring(self.st.path:count() - 1))
     self.final_action = true
   end
 
-  xr_logic.try_switch_to_another_section( self.object, self.st, db.actor )
+  xr_logic.try_switch_to_another_section(self.object, self.st, db.actor)
 end
 
 function fake_monster:on_enter()
@@ -99,7 +96,7 @@ function fake_monster:on_enter()
 end
 
 function fake_monster:reset_path()
-  self.cur_point	  = 0
+  self.cur_point = 0
   local path_name_new = self.path_name
   local path_count = #self.st.path_table
   if path_count == 1 then
@@ -108,7 +105,7 @@ function fake_monster:reset_path()
     return
   end
   while self.path_name == path_name_new do
-    path_name_new = self.st.path_table[math.random(1,path_count)]
+    path_name_new = self.st.path_table[math.random(1, path_count)]
   end
   self.path_name = path_name_new
   self.st.path = patrol(self.path_name)
@@ -116,8 +113,8 @@ function fake_monster:reset_path()
 end
 
 function fake_monster:next_point()
-  if self.cur_point+1 < self.st.path:count() then
-    return self.cur_point+1
+  if self.cur_point + 1 < self.st.path:count() then
+    return self.cur_point + 1
   else
     return 0
   end
@@ -128,46 +125,45 @@ function fake_monster:set_positions()
 
   if (self:next_point() == 0) then
     if self.monster == nil and self.st.monster ~= nil then
-      self.monster = alife():create( self.st.monster,
+      self.monster = alife():create(self.st.monster,
           self.current,
           self.object:level_vertex_id(),
           self.object:game_vertex_id())
       self.monster.sim_forced_online = true
     end
-    self.appear_snd:play_at_pos( db.actor, self.current, 0, sound_object.s3d)
+    self.appear_snd:play_at_pos(db.actor, self.current, 0, sound_object.s3d)
     if self.snd_obj ~= nil then
       self.snd_obj:stop()
     end
     self:reset_path()
   end
 
-  self.current	= self.st.path:point(self.cur_point)
-  self.target		= self.st.path:point(self:next_point())
-  self.dir		= vector():sub(self.target, self.current):normalize()
+  self.current = self.st.path:point(self.cur_point)
+  self.target = self.st.path:point(self:next_point())
+  self.dir = vector():sub(self.target, self.current):normalize()
 end
 
-
 ---------------------------------------------------------------------------------------------------------------------
-function add_to_binder( npc, ini, scheme, section, storage )
+function add_to_binder(npc, ini, scheme, section, storage)
   printf("DEBUG: add_to_binder: scheme='%s', section='%s'", scheme, section)
 
   local new_action = fake_monster(npc, storage)
 
   -- ���������������� ��� actions, � ������� ������ ���� ������ ����� reset_scheme ��� ��������� �������� �����:
-  xr_logic.subscribe_action_for_events( npc, storage, new_action )
+  xr_logic.subscribe_action_for_events(npc, storage, new_action)
 end
 
-function set_scheme( obj, ini, scheme, section, gulag_name )
-  local st        = xr_logic.assign_storage_and_bind( obj, ini, scheme, section )
-  st.logic        = xr_logic.cfg_get_switch_conditions( ini, section, obj )
+function set_scheme(obj, ini, scheme, section, gulag_name)
+  local st = xr_logic.assign_storage_and_bind(obj, ini, scheme, section)
+  st.logic = xr_logic.cfg_get_switch_conditions(ini, section, obj)
 
-  st.snd_obj      = utils.cfg_get_string( ini, section, "snd", obj, false, "", nil )
-  st.delay        = utils.cfg_get_number( ini, section, "delay",    obj, false, 0 )
-  st.idle         = utils.cfg_get_number( ini, section, "idle",     obj, false, 30 ) * 10000 -- �������->��
-  local path      = utils.cfg_get_string( ini, section, "sound_path", obj, false, "", nil )
-  st.path_table   = parse_names(path)
-  st.monster      = utils.cfg_get_string( ini, section, "monster_section", obj, false, "", nil)
-  st.sound_slide_vel	= utils.cfg_get_number(ini, section, "slide_velocity",	obj, false, 7)
+  st.snd_obj = utils.cfg_get_string(ini, section, "snd", obj, false, "", nil)
+  st.delay = utils.cfg_get_number(ini, section, "delay", obj, false, 0)
+  st.idle = utils.cfg_get_number(ini, section, "idle", obj, false, 30) * 10000 -- �������->��
+  local path = utils.cfg_get_string(ini, section, "sound_path", obj, false, "", nil)
+  st.path_table = parse_names(path)
+  st.monster = utils.cfg_get_string(ini, section, "monster_section", obj, false, "", nil)
+  st.sound_slide_vel = utils.cfg_get_number(ini, section, "slide_velocity", obj, false, 7)
 
 end
 

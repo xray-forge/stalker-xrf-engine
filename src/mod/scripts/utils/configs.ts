@@ -1,6 +1,6 @@
 import { XR_cse_abstract, XR_cse_alife_object, XR_game_object, XR_ini_file } from "xray16";
 
-import { AnyObject, Optional } from "@/mod/lib/types";
+import { AnyObject, Maybe, Optional } from "@/mod/lib/types";
 import { scriptIds } from "@/mod/scripts/core/db";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -239,4 +239,154 @@ export function parseParams(params: string): LuaTable<number, string> {
   }
 
   return rslt;
+}
+
+export interface IConfigCondition {
+  name?: string;
+  func?: string;
+  required?: boolean;
+  expected?: boolean;
+  prob?: number;
+  params?: Optional<LuaTable<number, string | number>>;
+}
+
+export interface ICondRecord {
+  section: string | number;
+  infop_check: LuaTable<number, IConfigCondition>;
+  infop_set: LuaTable<number, IConfigCondition>;
+}
+
+/**
+ * todo;
+ * -- {+infop1} section1 %-infop2%, {+infop3 -infop4} section2 ...
+ * -- {
+ * --   1 = { infop_check = { 1 = {"infop1" = true} }, infop_set = { 1 = {"infop2" = false } }, section = "section1" },
+ * --   2 = { infop_check = { 1 = {"infop3" = true}, 2 = {"infop4" = false} }, infop_set = {}, section = "section2" },
+ * -- }
+ */
+export function parseCondList(
+  npc: Optional<XR_game_object | XR_cse_alife_object>,
+  section: string,
+  field: string,
+  src: string
+): any {
+  const lst: LuaTable<
+    number,
+    {
+      section: string | number;
+      infop_check: LuaTable<number, IConfigCondition>;
+      infop_set: LuaTable<number, IConfigCondition>;
+    }
+  > = new LuaTable();
+  let at, to, infop_check_lst, remainings, infop_set_lst, newsect;
+
+  let n = 1;
+
+  for (const fld of string.gfind(src, "%s*([^,]+)%s*")) {
+    lst.set(n, {} as any);
+
+    [at, to, infop_check_lst] = string.find(fld, "{%s*(.*)%s*}");
+
+    if (infop_check_lst !== null) {
+      remainings = string.sub(fld, 1, (at as number) - 1) + string.sub(fld, (to as number) + 1);
+    } else {
+      remainings = fld;
+    }
+
+    [at, to, infop_set_lst] = string.find(remainings, "%%%s*(.*)%s*%%");
+
+    if (infop_set_lst !== null) {
+      newsect = string.sub(remainings, 1, (at as number) - 1) + string.sub(remainings, (to as number) + 1);
+    } else {
+      newsect = remainings;
+    }
+
+    [at, to, newsect] = string.find(newsect, "%s*(.*)%s*");
+
+    if (!newsect) {
+      abort("object '%s': section '%s': field '%s': syntax error in switch condition", npc?.name(), section, field);
+    }
+
+    lst.get(n).section = newsect;
+    lst.get(n).infop_check = new LuaTable();
+
+    parse_infop(lst.get(n).infop_check, infop_check_lst as string);
+
+    lst.get(n).infop_set = new LuaTable();
+    parse_infop(lst.get(n).infop_set, infop_set_lst as string);
+
+    n = n + 1;
+  }
+
+  return lst;
+}
+
+/**
+ *
+ */
+export function parse_infop(rslt: LuaTable<number, IConfigCondition>, str: string): void {
+  if (str === null) {
+    return;
+  }
+
+  let infop_n = 1;
+
+  for (const s of string.gfind(str, "%s*([%-%+%~%=%!][^%-%+%~%=%!%s]+)%s*")) {
+    const sign = string.sub(s, 1, 1);
+    let infop_name = string.sub(s, 2);
+    let at = null;
+    let params: Optional<LuaTable<number, string | number>> = null;
+
+    [at] = string.find(infop_name, "%(");
+
+    if (at !== null) {
+      if (string.sub(infop_name, -1) !== ")") {
+        abort("wrong condlist %s", str);
+      }
+
+      if (at < string.len(infop_n as any) - 1) {
+        params = parse_func_params(string.sub(infop_name, (at as number) + 1, -2));
+      } else {
+        params = new LuaTable();
+      }
+
+      infop_name = string.sub(infop_name, 1, (at as number) - 1);
+    }
+
+    if (sign === "+") {
+      rslt.set(infop_n, { name: infop_name, required: true });
+    } else if (sign === "-") {
+      rslt.set(infop_n, { name: infop_name, required: false });
+    } else if (sign === "~") {
+      rslt.set(infop_n, { prob: tonumber(infop_name) });
+    } else if (sign === "=") {
+      rslt.set(infop_n, { func: infop_name, expected: true, params: params });
+    } else if (sign === "!") {
+      rslt.set(infop_n, { func: infop_name, expected: false, params: params });
+    } else {
+      abort("Syntax error in switch condition.");
+    }
+
+    infop_n = infop_n + 1;
+  }
+}
+
+/**
+ * todo;
+ */
+export function parse_func_params(str: string): LuaTable<number, string | number> {
+  const lst: LuaTable<number, string | number> = new LuaTable();
+  let n: Maybe<number>;
+
+  for (const par of string.gfind(str, "%s*([^:]+)%s*")) {
+    n = tonumber(par);
+
+    if (n !== null) {
+      table.insert(lst, n!);
+    } else {
+      table.insert(lst, par);
+    }
+  }
+
+  return lst;
 }

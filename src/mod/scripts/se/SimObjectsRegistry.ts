@@ -6,6 +6,7 @@ import { IActor } from "@/mod/scripts/se/Actor";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
 import { areOnSameAlifeLevel, getAlifeDistanceBetween } from "@/mod/scripts/utils/alife";
+import { parseCondList } from "@/mod/scripts/utils/configs";
 
 let sim_objects_registry: Optional<ISimObjectsRegistry> = null;
 const props_ini = new ini_file("misc\\simulation_objects_props.ltx");
@@ -67,24 +68,14 @@ export const SimObjectsRegistry: ISimObjectsRegistry = declare_xr_class("SimObje
       const [result, prop_name, prop_condlist] = props_ini.r_line(props_section, j, "", "");
 
       if (prop_name === "sim_avail") {
-        obj.sim_avail = get_global<AnyCallablesModule>("xr_logic").parse_condlist(
-          null,
-          "simulation_object",
-          "sim_avail",
-          prop_condlist
-        );
+        obj.sim_avail = parseCondList(null, "simulation_object", "sim_avail", prop_condlist);
       } else {
         obj.props[prop_name] = prop_condlist;
       }
     }
 
     if (obj.sim_avail == null) {
-      obj.sim_avail = get_global<AnyCallablesModule>("xr_logic").parse_condlist(
-        null,
-        "simulation_object",
-        "sim_avail",
-        "true"
-      );
+      obj.sim_avail = parseCondList(null, "simulation_object", "sim_avail", "true");
     }
   },
   unregister(obj: XR_cse_alife_object): void {

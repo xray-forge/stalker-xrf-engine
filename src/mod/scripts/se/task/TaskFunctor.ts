@@ -1,10 +1,11 @@
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { getStoryObject } from "@/mod/scripts/utils/alife";
+import { parseCondList } from "@/mod/scripts/utils/configs";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 
 export function condlist(id: string, field: string, p: string): void {
-  const parsed_condlist = get_global<AnyCallablesModule>("xr_logic").parse_condlist(null, "task", "task_condlist", p);
+  const parsed_condlist = parseCondList(null, "task", "task_condlist", p);
 
   return get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(
     getStoryObject("actor"),
@@ -114,12 +115,7 @@ export function surge_task_descr(id: string, field: string, p: string): Optional
 
 export function target_condlist(id: string, field: string, p: string) {
   const cond_string = p;
-  const parsed_condlist = get_global<AnyCallablesModule>("xr_logic").parse_condlist(
-    null,
-    "task",
-    "task_condlist",
-    cond_string
-  );
+  const parsed_condlist = parseCondList(null, "task", "task_condlist", cond_string);
   const value = get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(
     getStoryObject("actor"),
     null,
