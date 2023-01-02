@@ -32,6 +32,7 @@ import { isMonster, isStalker } from "@/mod/scripts/core/checkers";
 import { getActor, offlineObjects, storage } from "@/mod/scripts/core/db";
 import { SMART_TERRAIN_SECT } from "@/mod/scripts/core/db/sections";
 import { get_smart_terrain_name } from "@/mod/scripts/core/db/smart_names";
+import { stype_mobile, stype_stalker } from "@/mod/scripts/core/schemes";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { simulation_activities } from "@/mod/scripts/se/SimActivity";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/se/SimBoard";
@@ -344,19 +345,19 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     npc_info.begin_job = false;
 
     if (is_stalker) {
-      npc_info.stype = get_global("modules").stype_stalker;
+      npc_info.stype = stype_stalker;
     } else {
-      npc_info.stype = get_global("modules").stype_mobile;
+      npc_info.stype = stype_mobile;
     }
 
     return npc_info;
   },
   refresh_script_logic(obj_id: number): void {
     const object = alife().object(obj_id)!;
-    let stype = get_global("modules").stype_mobile;
+    let stype = stype_mobile;
 
     if (isStalker(object)) {
-      stype = get_global("modules").stype_stalker;
+      stype = stype_stalker;
     }
 
     (get_global("xr_logic").initialize_obj as AnyCallable)(
@@ -413,10 +414,10 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
 
       if (storage.get(obj.id) !== null) {
         const object = storage.get(obj.id).object;
-        let stype = get_global("modules").stype_mobile;
+        let stype = stype_mobile;
 
         if (isStalker(obj)) {
-          stype = get_global("modules").stype_stalker;
+          stype = stype_stalker;
         }
 
         (get_global("xr_logic").initialize_obj as AnyCallable)(object, storage.get(obj.id), false, getActor(), stype);

@@ -1,3 +1,4 @@
+local schemes = require("scripts.core.schemes")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
 local create_ts_class_instance = require("lualib_bundle").__TS__New
@@ -125,8 +126,6 @@ function generic_scheme_overrides(npc)
 --	gulag_name - ��� ������, ���� ������ ���������� �������, � �� ��������
 --]]--
 function configure_schemes(npc, ini, ini_filename, stype, section_logic, gulag_name)
-  --printf("DEBUG: enable_scripts: npc:name()=%s", npc:name())
-
   local npc_id = npc:id()
   local st = db.storage[npc_id]
 
@@ -167,7 +166,7 @@ function configure_schemes(npc, ini, ini_filename, stype, section_logic, gulag_n
       ]]--
 
     else
-      if stype == modules.stype_stalker or stype == modules.stype_mobile then
+      if stype == schemes.stype_stalker or stype == schemes.stype_mobile then
         local current_smart = xr_gulag.get_npc_smart(npc)
         if current_smart ~= nil then
           local t = current_smart:getJob(npc_id)
@@ -198,7 +197,7 @@ function configure_schemes(npc, ini, ini_filename, stype, section_logic, gulag_n
   st.ini_filename = actual_ini_filename
   st.section_logic = section_logic
   -- ������������� ��������
-  if stype == modules.stype_stalker
+  if stype == schemes.stype_stalker
   then
     local trade_ini = utils.cfg_get_string(actual_ini, section_logic, "trade", npc, false, "", "misc\\trade\\trade_generic.ltx")
     trade_manager.trade_init(npc, trade_ini)
@@ -241,20 +240,20 @@ end
 -- ����� ��������� � ��� �������, �� ��������� ��������� ��������������� ������ � � enable_generic_schemes
 ------------------------------------------------------------------------------------------------------------
 function disable_generic_schemes(npc, stype)
-  if stype == modules.stype_stalker then
+  if stype == schemes.stype_stalker then
     xr_combat.disable_scheme(npc, "combat")
     xr_hit.disable_scheme(npc, "hit")
     xr_meet.disable_scheme(npc, "actor_dialogs")
     --'xr_heli_hunter.disable_scheme(npc, "heli_hunter")
     xr_combat_ignore.disable_scheme(npc, "combat_ignore")
     stalker_generic.disable_invulnerability(npc)
-  elseif stype == modules.stype_mobile then
+  elseif stype == schemes.stype_mobile then
     mob_combat.disable_scheme(npc, "mob_combat")
     xr_combat_ignore.disable_scheme(npc, "combat_ignore")
     stalker_generic.disable_invulnerability(npc)
-  elseif stype == modules.stype_item then
+  elseif stype == schemes.stype_item then
     ph_on_hit.disable_scheme(npc, "ph_on_hit")
-  elseif stype == modules.stype_heli then
+  elseif stype == schemes.stype_heli then
     xr_hit.disable_scheme(npc, "hit")
   end
 end
@@ -263,7 +262,7 @@ end
 -- ����� ��������� � ��� �������, �� ��������� ��������� ��������������� ������ � � disable_generic_schemes
 ------------------------------------------------------------------------------------------------------------
 function enable_generic_schemes(ini, npc, stype, section)
-  if stype == modules.stype_stalker then
+  if stype == schemes.stype_stalker then
     --xr_reactions.set_reactions(npc, ini, "reactions", section)
     xr_danger.set_danger(npc, ini, "danger", "danger")
     xr_gather_items.set_gather_items(npc, ini, "gather_items", "gather_items")
@@ -309,7 +308,7 @@ function enable_generic_schemes(ini, npc, stype, section)
     xr_combat_ignore.set_combat_ignore_checker(npc, ini, "combat_ignore")
     xr_reach_task.set_reach_task(npc, ini, "reach_task")
 
-  elseif stype == modules.stype_mobile then
+  elseif stype == schemes.stype_mobile then
     local combat_section = utils.cfg_get_string(ini, section, "on_combat", npc, false, "")
     if combat_section then
       mob_combat.set_scheme(npc, ini, "mob_combat", combat_section)
@@ -329,14 +328,14 @@ function enable_generic_schemes(ini, npc, stype, section)
 
     xr_combat_ignore.set_combat_ignore_checker(npc, ini, "combat_ignore")
 
-  elseif stype == modules.stype_item then
+  elseif stype == schemes.stype_item then
     local hit_section = utils.cfg_get_string(ini, section, "on_hit", npc, false, "")
     --printf("HIT SECTION [%s]", tostring(hit_section))
     if hit_section then
       ph_on_hit.set_scheme(npc, ini, "ph_on_hit", hit_section)
     end
 
-  elseif stype == modules.stype_heli then
+  elseif stype == schemes.stype_heli then
     local hit_section = utils.cfg_get_string(ini, section, "on_hit", npc, false, "")
     if hit_section then
       xr_hit.set_hit_checker(npc, ini, "hit", hit_section)
@@ -395,9 +394,9 @@ function activate_by_section(npc, ini, section, gulag_name, loading)
   reset_generic_schemes_on_scheme_switch(npc, scheme, section)
 
 
-  -- schemes[scheme] ���� ��� ����� (������), � ������� ����������� �����
+  -- schemes.schemes[scheme] ���� ��� ����� (������), � ������� ����������� �����
   -- _G[] ���� ��������� �� ��������� (�������) ����� ������
-  local filename = schemes[scheme]
+  local filename = schemes.schemes[scheme]
   if filename == nil then
     abort("xr_logic: scheme '%s' is not registered in modules.script", scheme)
   end
@@ -411,7 +410,7 @@ function activate_by_section(npc, ini, section, gulag_name, loading)
   db.storage[npc_id].active_section = section
   db.storage[npc_id].active_scheme = scheme
 
-  if db.storage[npc_id].stype == modules.stype_stalker then
+  if db.storage[npc_id].stype == schemes.stype_stalker then
     -- ����� �������� ����������� �������� �� ���� ��� ��������� ������������
     utils.send_to_nearest_accessible_vertex(npc, npc:level_vertex_id())
 
@@ -437,7 +436,7 @@ function reset_generic_schemes_on_scheme_switch(npc, scheme, section)
     return
   end
 
-  if st.stype == modules.stype_stalker then
+  if st.stype == schemes.stype_stalker then
     --xr_reactions.reset_reactions(npc, scheme, st, section)
     xr_meet.reset_meet(npc, scheme, st, section)
     xr_help_wounded.reset_help_wounded(npc, scheme, st, section)
@@ -459,7 +458,7 @@ function reset_generic_schemes_on_scheme_switch(npc, scheme, section)
     restrictor_manager.get_restrictor_manager(npc):reset_restrictions(st, section)
     xr_hear.reset_hear_callback(st, section)
 
-  elseif st.stype == modules.stype_mobile then
+  elseif st.stype == schemes.stype_mobile then
     --printf("_bp: disabling talk")
     --npc:disable_talk() -- ������ �������� � dialog_manager_reset
     mob_release(npc)
@@ -476,7 +475,7 @@ function reset_generic_schemes_on_scheme_switch(npc, scheme, section)
     stalker_generic.reset_invulnerability(npc, st.ini, section)
     restrictor_manager.get_restrictor_manager(npc):reset_restrictions(st, section)
     xr_hear.reset_hear_callback(st, section)
-  elseif st.stype == modules.stype_item then
+  elseif st.stype == schemes.stype_item then
     npc:set_callback(callback.use_object, nil)
     npc:set_nonscript_usable(true)
     if get_clsid(npc) == clsid.car then
@@ -499,7 +498,7 @@ function assign_storage_and_bind(npc, ini, scheme, section)
 
     -- ����� �������� ������� - ����������
     --printf("DEBUG: assign_storage_and_bind: bind scheme: '%s'", scheme)
-    _G[schemes[scheme]].add_to_binder(npc, ini, scheme, section, st)
+    _G[schemes.schemes[scheme]].add_to_binder(npc, ini, scheme, section, st)
   else
     st = db.storage[npc_id][scheme]
   end

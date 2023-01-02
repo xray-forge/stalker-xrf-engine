@@ -1,3 +1,4 @@
+local schemes = require("scripts.core.schemes")
 local SimObjectsRegistry = require("scripts.se.SimObjectsRegistry")
 local SmartTerrain = require("scripts.se.SmartTerrain")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
@@ -273,7 +274,7 @@ function generic_object_binder:net_spawn(sobject)
   --******************************************************************************************************************
 
 
-  SmartTerrain.setup_gulag_and_logic_on_spawn( self.object, self.st, sobject, modules.stype_mobile, self.loaded)
+  SmartTerrain.setup_gulag_and_logic_on_spawn( self.object, self.st, sobject, schemes.stype_mobile, self.loaded)
 
   return true
 end

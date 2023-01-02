@@ -1,3 +1,4 @@
+local schemes = require("scripts.core.schemes")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 local log = create_ts_class_instance(LuaLogger, "bind_heli");
@@ -68,7 +69,7 @@ function heli_binder:update( delta )
 
 	if not self.initialized and db.actor then
 		self.initialized = true
-		xr_logic.initialize_obj( self.object, self.st, self.loaded, db.actor, modules.stype_heli )
+		xr_logic.initialize_obj(self.object, self.st, self.loaded, db.actor, schemes.stype_heli)
 	end
 
 	if self.st.active_section ~= nil then

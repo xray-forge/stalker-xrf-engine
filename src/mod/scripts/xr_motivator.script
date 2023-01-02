@@ -1,3 +1,4 @@
+local schemes = require("scripts.core.schemes")
 local DropManager = require("scripts.core.DropManager").DropManager
 local SimBoard = require("scripts.se.SimBoard")
 local SmartTerrain = require("scripts.se.SmartTerrain")
@@ -179,8 +180,7 @@ function motivator_binder:net_spawn(sobject)
   end
   --******************************************************************************************************************
 
-
-  SmartTerrain.setup_gulag_and_logic_on_spawn(self.object, self.st, sobject, modules.stype_stalker, self.loaded)
+  SmartTerrain.setup_gulag_and_logic_on_spawn(self.object, self.st, sobject, schemes.stype_stalker, self.loaded)
 
   --' ������������� ������ �� ����� �� �������
   if character_community(self.object) ~= "zombied" then

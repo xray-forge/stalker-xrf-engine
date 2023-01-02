@@ -16,6 +16,7 @@ import {
 } from "xray16";
 
 import { communities, TCommunity } from "@/mod/globals/communities";
+import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { AnyArgs, Maybe, Optional } from "@/mod/lib/types";
 import { isStalker } from "@/mod/scripts/core/checkers";
 import { storage } from "@/mod/scripts/core/db";
@@ -27,7 +28,6 @@ import { graphDistance } from "@/mod/scripts/utils/physics";
 import { wait } from "@/mod/scripts/utils/time";
 
 const log: LuaLogger = new LuaLogger("utils/alife");
-const MAX_16_BIT_VALUE: number = 65535;
 
 /**
  * todo;
@@ -80,7 +80,7 @@ export function getObjectSquad(
     type(object.id) == "function" ? (object as XR_game_object).id() : (object as XR_cse_alife_creature_abstract).id;
   const se_obj: Optional<any> = alife().object(objectId);
 
-  if (se_obj && se_obj.group_id !== MAX_16_BIT_VALUE) {
+  if (se_obj && se_obj.group_id !== MAX_UNSIGNED_16_BIT) {
     return alife().object(se_obj.group_id) as XR_cse_alife_creature_abstract;
   }
 

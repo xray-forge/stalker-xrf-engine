@@ -69,10 +69,8 @@ export class LuaLogger {
   }
 
   protected logAs(method: string, args: Array<any>): void {
-    return;
-
     if (gameConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
-      const text: string = `[${1}]${this.prefix}${method} ${args
+      const text: string = `[${time_global()}]${this.prefix}${method} ${args
         .map((it) => (it === null ? "<nil>" : tostring(it)))
         .join(" ")}`;
 

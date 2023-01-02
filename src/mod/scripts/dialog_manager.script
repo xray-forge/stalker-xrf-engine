@@ -26,7 +26,6 @@ priority_table = {
   information = {},
 }
 
-
 -- Generate id for phrase
 function get_id()
   id_counter = id_counter + 1

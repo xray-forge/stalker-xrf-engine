@@ -3,7 +3,7 @@ local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 local log = create_ts_class_instance(LuaLogger, "check_logic_path");
 
--- todo: Maybe unused or for manual usage
+-- todo: For manual usage
 
 -- run_string check_logic_path.check()
 
@@ -40,8 +40,6 @@ function get_sections(ini, active_section_cond)
       end
     end
   end
-
-
 end
 
 function check_ini(ini, section, smart, prefix_name)
@@ -134,15 +132,9 @@ function check_ini(ini, section, smart, prefix_name)
             printf("path_walk [%s] is one-point walk path without path_look", path_walk)
           end
         end
-
-
       end
-
-
     end
-
   end
-
 end
 
 function main()

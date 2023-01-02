@@ -158,12 +158,6 @@ artefact_classes = classIds.artefact_class_ids
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-schemes = coreSchemes.schemes
-stypes = coreSchemes.stypes
-load_scheme = coreSchemes.loadScheme
-
--- ---------------------------------------------------------------------------------------------------------------------
-
 -- todo: Remove
 print_table = function(table)
 end
@@ -174,6 +168,8 @@ end
 -- ---
 
 if time_global == nil then
+  log:info("Mock time_global calls")
+
   local device_instance = device()
 
   time_global = function()

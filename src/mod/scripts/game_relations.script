@@ -8,11 +8,13 @@ FRIENDS = 1000
 NEUTRALS = 0
 ENEMIES = -1000
 default_sympathy = 0.01
-game_relations_by_num = { [0] = "friend",
-                          [1] = "neutral",
-                          [2] = "enemy",
+game_relations_by_num = {
+  [0] = "friend",
+  [1] = "neutral",
+  [2] = "enemy",
 }
 temp_goodwill_table = {}
+
 function set_factions_community(faction, faction_to, new_community)
   if (faction ~= nil) and (faction ~= "none") and (faction_to ~= "none") then
     local community = 0

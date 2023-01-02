@@ -1,4 +1,5 @@
 import { init_smart_names_table } from "@/mod/scripts/core/db/smart_names";
+import { initializeModules } from "@/mod/scripts/core/modules";
 import { reset_sim_board } from "@/mod/scripts/se/SimBoard";
 import { clearTaskManager } from "@/mod/scripts/se/task/TaskManager";
 import { actorMenu } from "@/mod/scripts/ui/game/ActorMenu";
@@ -13,6 +14,7 @@ const log: LuaLogger = new LuaLogger("core/start_game");
 export function startGame(): void {
   log.info("Start game callback");
 
+  initializeModules();
   init_smart_names_table();
   clearTaskManager();
   reset_sim_board();
