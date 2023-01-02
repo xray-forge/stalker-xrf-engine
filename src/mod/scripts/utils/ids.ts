@@ -6,10 +6,10 @@ import { getStoryObjectsRegistry } from "@/mod/scripts/core/StoryObjectsRegistry
 /**
  * todo;
  */
-export function getClsId(npc: null): null;
-export function getClsId(npc: XR_cse_abstract | XR_game_object): TXR_ClsId;
-export function getClsId(npc: Optional<XR_game_object | XR_cse_abstract>): Optional<TXR_ClsId> {
-  return npc ? npc.clsid() : null;
+export function getClsId(object: null): null;
+export function getClsId(object: XR_cse_abstract | XR_game_object): TXR_ClsId;
+export function getClsId(object: Optional<XR_game_object | XR_cse_abstract>): Optional<TXR_ClsId> {
+  return object ? object.clsid() : null;
 }
 
 /**

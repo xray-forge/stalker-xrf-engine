@@ -1,3 +1,8 @@
+local utilsAlife = require("scripts.utils.alife")
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "state_mgr_weapon");
+
 --' ������
 --' ������������� �� ��������� ������ ����������
 class "eva_state_mgr_weapon"(property_evaluator)
@@ -107,6 +112,7 @@ function eva_state_mgr_weapon_strapped:evaluate()
   return state_lib.states[self.st.target_state].weapon == "strapped"
 end
 --' ����� �� ��� ������ �� �����
+
 class "eva_state_mgr_weapon_strapped_now"(property_evaluator)
 function eva_state_mgr_weapon_strapped_now:__init(name)
   super(nil, name)
@@ -135,6 +141,7 @@ function eva_state_mgr_weapon_unstrapped:evaluate()
       state_lib.states[self.st.target_state].weapon == "fire" or
       state_lib.states[self.st.target_state].weapon == "sniper_fire"
 end
+
 --' ������ �� ��� �� ������ � �����
 class "eva_state_mgr_weapon_unstrapped_now"(property_evaluator)
 function eva_state_mgr_weapon_unstrapped_now:__init(name)
@@ -149,7 +156,6 @@ function eva_state_mgr_weapon_unstrapped_now:evaluate()
       (not self.object:is_weapon_going_to_be_strapped(best_weapon) and self.object:weapon_unstrapped())
 end
 
-
 --' ���������� �� �������� ������ ������
 class "eva_state_mgr_weapon_none"(property_evaluator)
 function eva_state_mgr_weapon_none:__init(name, st)
@@ -159,6 +165,7 @@ end
 function eva_state_mgr_weapon_none:evaluate()
   return state_lib.states[self.st.target_state].weapon == "none"
 end
+
 --' �������� �� ������ ������.
 class "eva_state_mgr_weapon_none_now"(property_evaluator)
 function eva_state_mgr_weapon_none_now:__init(name)
@@ -188,7 +195,6 @@ function eva_state_mgr_weapon_fire:evaluate()
   return state_lib.states[self.st.target_state].weapon == "fire" or
       state_lib.states[self.st.target_state].weapon == "sniper_fire"
 end
-
 
 --' ������� ������
 class "act_state_mgr_weapon_unstrapp"(action_base)
@@ -258,7 +264,7 @@ function act_state_mgr_weapon_drop:initialize()
   local weap = get_weapon(self.object, self.st.target_state)
   if strappable_weapon(weap) then
     self.object:set_item(object.drop, weap)
-    death_manager.set_weapon_drop_condition(weap)
+    utilsAlife.setItemCondition(weap, math.random(40, 80));
   else
     self.object:set_item(object.idle, nil)
   end

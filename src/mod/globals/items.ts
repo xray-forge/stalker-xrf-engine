@@ -1,8 +1,9 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error"*/
 
 export const weapons = {
+  wpn_binoc: "wpn_binoc",
   wpn_knife: "wpn_knife"
-};
+} as const;
 
 export const weaponsNames = {
   abakan: "abakan",
@@ -41,8 +42,20 @@ export const weaponsNames = {
   vintorez: "vintorez",
   walther: "walther",
   wincheaster130: "wincheaster130"
-};
+} as const;
 
 export type TWeapons = typeof weapons;
 
 export type TWeapon = TWeapons[keyof TWeapons];
+
+export const misc = {
+  bolt: "bolt",
+  device_pda: "device_pda",
+  guitar_a: "guitar_a",
+  harmonica_a: "harmonica_a",
+  wpn_binoc: weapons.wpn_binoc
+} as const;
+
+export type TMiscItems = typeof misc;
+
+export type TMiscItem = TMiscItems[keyof TMiscItems];

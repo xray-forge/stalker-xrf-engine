@@ -687,6 +687,7 @@ function CSurgeManager:load(packet)
   self.loaded = true
   set_save_marker(packet, "load", true, "SurgeHide")
 end
+
 --------------------------------------------------------------------------------
 function get_surge_manager()
   if surge_manager == nil then

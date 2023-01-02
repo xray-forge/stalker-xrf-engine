@@ -33,12 +33,12 @@ declare module "xray16" {
     public dont_has_info(value: number, str: string): unknown;
 
     public create_ammo(
-      str:string,
-      vector: XR_vector2,
-      value1: number,
-      value2: number,
-      value3: number,
-      value4: number
+      section: string,
+      vector: XR_vector,
+      lvi: number,
+      gvi: number,
+      pid: number,
+      num: number
     ): XR_cse_abstract;
 
     public add_out_restriction(
@@ -80,17 +80,17 @@ declare module "xray16" {
 
     public create<T extends XR_cse_alife_object = XR_cse_alife_object>(value: number): T;
     public create<T extends XR_cse_alife_object = XR_cse_alife_object>(
-      value1: string,
+      section: string,
       vector: XR_vector,
-      value2: number,
-      value3: number,
-      value4: number
+      lvi: number,
+      gvi: number,
+      pid: number,
     ): T;
     public create<T extends XR_cse_alife_object = XR_cse_alife_object>(
-      value1: string | number,
+      section: string | number,
       vector: XR_vector,
-      value2: number,
-      value3: number
+      lvi: number,
+      gvi: number
     ): T;
 
   }

@@ -56,10 +56,7 @@ export function isStalkerClassId(class_id: number): boolean {
 /**
  * todo;
  */
-export function isWeapon(
-  object: Optional<XR_game_object | XR_cse_abstract>,
-  class_id?: Maybe<TXR_ClsId>
-): object is XR_cse_alife_item_weapon {
+export function isWeapon(object: Optional<XR_game_object | XR_cse_abstract>, class_id?: Maybe<TXR_ClsId>): boolean {
   if (object === null) {
     return false;
   }
@@ -67,6 +64,19 @@ export function isWeapon(
   const id: TXR_ClsId = class_id || getClsId(object);
 
   return weapon_class_ids[id] === true;
+}
+
+/**
+ * todo;
+ */
+export function isGrenade(object: Optional<XR_game_object | XR_cse_abstract>, class_id?: Maybe<TXR_ClsId>): boolean {
+  if (object === null) {
+    return false;
+  }
+
+  const id: TXR_ClsId = class_id || getClsId(object);
+
+  return id === clsid.wpn_grenade_rgd5_s || id === clsid.wpn_grenade_f1_s;
 }
 
 /**

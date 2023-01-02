@@ -1,3 +1,4 @@
+local DropManager = require("scripts.core.DropManager").DropManager
 local SimBoard = require("scripts.se.SimBoard")
 local SmartTerrain = require("scripts.se.SmartTerrain")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
@@ -335,7 +336,7 @@ function motivator_binder:death_callback(victim, who)
   end
 
   sr_light.check_light(self.object)
-  death_manager.drop_manager(self.object):create_release_item()
+  DropManager(self.object):create_release_item()
   db.delete_enemy(self.e_index)
 
   self:clear_callbacks()
@@ -381,7 +382,7 @@ function motivator_binder:update(delta)
 
   if self.first_update == false then
     if object_alive == false then
-      death_manager.drop_manager(object):create_release_item()
+      DropManager(object):create_release_item()
     end
     self.first_update = true
   end

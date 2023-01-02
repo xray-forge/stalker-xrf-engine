@@ -11,7 +11,8 @@ import {
   XR_cse_alife_human_abstract,
   XR_cse_abstract,
   XR_cse_alife_object,
-  game_graph
+  game_graph,
+  XR_vector
 } from "xray16";
 
 import { communities, TCommunity } from "@/mod/globals/communities";
@@ -100,30 +101,63 @@ export function getStorySquad(storyId: string): Optional<XR_cse_alife_creature_a
  */
 export function createAmmo(
   section: string,
-  position: any,
-  lvi: any,
-  gvi: any,
-  pid: any,
+  position: XR_vector,
+  lvi: number,
+  gvi: number,
+  target_id: number,
   num: number
 ): LuaTable<number, XR_cse_abstract> {
   const ini: XR_ini_file = system_ini();
 
   const num_in_box = ini.r_u32(section, "box_size");
-  const t: LuaTable<number, XR_cse_abstract> = new LuaTable();
+  const container: LuaTable<number, XR_cse_abstract> = new LuaTable();
 
   while (num > num_in_box) {
-    const obj = alife().create_ammo(section, position, lvi, gvi, pid, num_in_box);
+    const obj = alife().create_ammo(section, position, lvi, gvi, target_id, num_in_box);
 
-    table.insert(t, obj);
+    table.insert(container, obj);
 
     num = num - num_in_box;
   }
 
-  const obj = alife().create_ammo(section, position, lvi, gvi, pid, num);
+  const obj = alife().create_ammo(section, position, lvi, gvi, target_id, num);
 
-  table.insert(t, obj);
+  table.insert(container, obj);
 
-  return t;
+  return container;
+}
+
+/**
+ * todo;
+ */
+export function createGenericItem(
+  section: string,
+  position: XR_vector,
+  lvi: number,
+  gvi: number,
+  target_id: number,
+  count: number,
+  probability: number
+): LuaTable<number, XR_cse_abstract> {
+  const container: LuaTable<number, XR_cse_abstract> = new LuaTable();
+
+  for (const i of $range(1, count)) {
+    if (math.random(100) <= probability) {
+      alife().create(section, position, lvi, gvi, target_id);
+    }
+  }
+
+  return container;
+}
+
+/**
+ * Set item condition.
+ *
+ * @param item
+ * @param condition - value from 0 to 100, percents
+ */
+export function setItemCondition(item: XR_game_object, condition: number): void {
+  item.set_condition(condition / 100);
 }
 
 /**

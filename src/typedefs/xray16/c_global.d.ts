@@ -119,6 +119,9 @@ declare module "xray16" {
     remove_call(this: void, object: unknown, str1: string, str2: string): unknown;
     set_weather(this: void, str: string, val: boolean): unknown;
     show_indicators(this: void): void;
+    /**
+     * @returns game difficulty ID, from 0 to 3
+     */
     get_game_difficulty(this: void): number;
     map_remove_object_spot(this: void, id: number, selector: string): unknown;
     remove_dialog_to_render(this: void, window: XR_CUIDialogWnd): unknown;

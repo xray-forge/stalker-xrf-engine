@@ -27,6 +27,7 @@ export interface IStoredObject<T = XR_game_object> {
   object?: T;
   active_section?: any;
   combat_ignore?: boolean;
+  section_logic?: string;
   post_combat_wait?: unknown;
   pstor?: any;
   disable_input_time?: any;

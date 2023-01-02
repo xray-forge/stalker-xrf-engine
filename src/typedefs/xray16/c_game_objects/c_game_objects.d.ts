@@ -54,8 +54,8 @@ declare module "xray16" {
 
     public id(): number;
     public story_id(): unknown;
-    public object(value: string): unknown;
-    public object(value: number): unknown;
+    public object(value: string): XR_game_object;
+    public object(value: number): XR_game_object;
     public clsid(): TXR_ClsId;
     public memory_time(another: XR_game_object): unknown;
     public dont_has_info(value: string): unknown;
@@ -236,7 +236,7 @@ declare module "xray16" {
     public hide_weapon(): unknown;
     public is_body_turning(): unknown;
     public set_dest_game_vertex_id(value: number): unknown;
-    public marked_dropped(game_object: XR_game_object): unknown;
+    public marked_dropped(game_object: XR_game_object): boolean;
     public set_character_rank(value: number): unknown;
     public patrol_path_make_inactual(): unknown;
     public fake_death_stand_up(): unknown;
@@ -259,7 +259,7 @@ declare module "xray16" {
     public visibility_threshold(): unknown;
     public sniper_update_rate(value: boolean): unknown;
     public sniper_update_rate(): unknown;
-    public section(): unknown;
+    public section(): string;
     public get_current_point_index(): unknown;
     public stop_particles(value1: string, value2: string): unknown;
     public set_alien_control(value: boolean): unknown;
@@ -487,8 +487,8 @@ declare module "xray16" {
     ): unknown;
     public command(entity_action: XR_entity_action, value: boolean): unknown;
     public hit(hit: unknown): unknown;
-    public iterate_inventory(cb: unknown /** function<void> */, object: XR_game_object): unknown;
-    public set_condition(value: number): unknown;
+    public iterate_inventory(cb: (npc: XR_game_object, item: XR_game_object) => void, object: XR_game_object): unknown;
+    public set_condition(condition: number): void;
     public movement_enabled(value: boolean): unknown;
     public movement_enabled(): unknown;
     public berserk(): unknown;

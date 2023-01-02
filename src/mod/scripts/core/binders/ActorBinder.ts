@@ -1,5 +1,6 @@
 import { mapDisplayManager } from "scripts/ui/game/MapDisplayManager";
 import {
+  TXR_TaskState,
   XR_CGameTask,
   XR_cse_alife_creature_actor,
   XR_game_object,
@@ -16,8 +17,7 @@ import {
   object_binder,
   task,
   time_global,
-  vector,
-  TXR_TaskState
+  vector
 } from "xray16";
 
 import { game_difficulties_by_number } from "@/mod/globals/game_difficulties";
@@ -28,6 +28,7 @@ import {
 } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
 import { isArtefact } from "@/mod/scripts/core/checkers";
 import { addActor, deleteActor, getActor, IStoredObject, scriptIds, storage, zoneByName } from "@/mod/scripts/core/db";
+import { initDropSettings } from "@/mod/scripts/core/DropManager";
 import { send_task } from "@/mod/scripts/core/NewsManager";
 import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
 import { get_sim_board } from "@/mod/scripts/se/SimBoard";
@@ -136,7 +137,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     get_global<AnyCallablesModule>("xr_s").on_game_load();
     this.weather_manager.reset();
 
-    get_global<AnyCallablesModule>("death_manager").init_drop_settings();
+    initDropSettings();
 
     this.task_manager = get_global("task_manager").get_task_manager();
     this.spawn_frame = device().frame;

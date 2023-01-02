@@ -1,3 +1,4 @@
+local DropManager = require("scripts.core.DropManager")
 local SimBoard = require("scripts.se.SimBoard")
 local NewsManager = require("scripts.core.NewsManager")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
@@ -147,7 +148,7 @@ function relocate_item_section(victim, section, type, amount)
         db.actor:transfer_item(db.actor:object(section), victim)
       end
     end
-    if death_manager.ammo_sections[section] == true then
+    if DropManager.ammo_sections[section] == true then
       local ltx = system_ini()
       local box_size = ltx:r_s32(section, "box_size")
       amount = amount * box_size
@@ -484,7 +485,8 @@ function relocate_item_section_to_actor(first_speaker, second_speaker, section, 
           db.actor:id())
     end
   end
-  if death_manager.ammo_sections[section] == true then
+
+  if DropManager.ammo_sections[section] == true then
     local ltx = system_ini()
     local box_size = ltx:r_s32(section, "box_size")
     amount = amount * box_size
@@ -558,11 +560,12 @@ function relocate_item_section_from_actor(first_speaker, second_speaker, section
     assert("Actor do not has enough items! Transferred [%s], needed [%s]", tostring(amount - i), tostring(amount))
   end
 
-  if death_manager.ammo_sections[db.actor.section] == true then
+  if DropManager.ammo_sections[db.actor.section] == true then
     local ltx = system_ini()
     local box_size = ltx:r_s32(section, "box_size")
     amount = amount * box_size
   end
+
   NewsManager.relocate_item(db.actor, "out", section, amount - i)
 end
 
