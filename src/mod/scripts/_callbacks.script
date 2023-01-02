@@ -4,7 +4,6 @@ local log = create_ts_class_instance(LuaLogger, "_callbacks");
 
 local pdaMenu = require("scripts.ui.game.PdaMenu").pdaMenu
 local actorMenu = require("scripts.ui.game.ActorMenu").actorMenu
-local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
 
 --' L��������
 function on_actor_critical_power()

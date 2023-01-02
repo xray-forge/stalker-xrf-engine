@@ -14,6 +14,7 @@ import { textures } from "@/mod/globals/textures";
 import { AnyCallable, Maybe, Optional } from "@/mod/lib/types";
 import { isStalkerClassId } from "@/mod/scripts/core/checkers";
 import { getActor } from "@/mod/scripts/core/db";
+import { get_smart_terrain_name } from "@/mod/scripts/core/db/smart_names";
 import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -273,7 +274,7 @@ export function send_sound(
     const smart = get_sim_board().smarts.get(point as any);
 
     if (smart !== null) {
-      point_name = (get_global("smart_names").get_smart_terrain_name as AnyCallable)(smart.smrt);
+      point_name = get_smart_terrain_name(smart.smrt) as string;
     } else {
       point_name = game.translate_string(point);
     }

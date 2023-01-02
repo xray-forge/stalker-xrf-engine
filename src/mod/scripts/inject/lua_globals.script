@@ -1,9 +1,3 @@
-local LuaLogger = require("scripts.utils.logging").LuaLogger
-local create_ts_class_instance = require("lualib_bundle").__TS__New
-local log = create_ts_class_instance(LuaLogger, "lug_globals");
-
-log:info("Injecting lua globals")
-
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Method to declare native C++ classes from lua
 -- Easier to declare it as LUA global and use than transpile from TS directly

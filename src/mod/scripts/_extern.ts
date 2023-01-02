@@ -2,6 +2,7 @@ import { game, get_console, level, task, TXR_TaskState, XR_CGameTask } from "xra
 
 import { AnyCallablesModule } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
+import { loadScreenManager } from "@/mod/scripts/core/LoadScreenManager";
 import { get_task_manager } from "@/mod/scripts/se/task/TaskManager";
 import * as SleepDialogModule from "@/mod/scripts/ui/interaction/SleepDialog";
 import { disableInfo } from "@/mod/scripts/utils/actor";
@@ -68,4 +69,10 @@ task_callback = (target: XR_CGameTask, state: TXR_TaskState): void => {
   if (state == task.fail || state == task.completed) {
     get_task_manager().task_callback(target, state == task.completed);
   }
+};
+
+// @ts-ignore global declararation
+loadscreen = {
+  get_tip_number: (levelName: string) => loadScreenManager.get_tip_number(levelName),
+  get_mp_tip_number: (levelName: string) => loadScreenManager.get_mp_tip_number(levelName)
 };

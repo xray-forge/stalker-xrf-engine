@@ -31,6 +31,7 @@ import {
 import { isMonster, isStalker } from "@/mod/scripts/core/checkers";
 import { getActor, offlineObjects, storage } from "@/mod/scripts/core/db";
 import { SMART_TERRAIN_SECT } from "@/mod/scripts/core/db/sections";
+import { get_smart_terrain_name } from "@/mod/scripts/core/db/smart_names";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { simulation_activities } from "@/mod/scripts/se/SimActivity";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/se/SimBoard";
@@ -959,7 +960,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     }
   },
   get_smart_props(): string {
-    let props = (get_global("smart_names").get_smart_terrain_name as AnyCallable)(this);
+    let props: Optional<string> = get_smart_terrain_name(this);
 
     if (props === null || gameConfig.DEBUG.IS_SMARTS_DEBUG_ENABLED) {
       props =

@@ -4,7 +4,6 @@ local log = create_ts_class_instance(LuaLogger, "_declaration");
 
 log:info("Declaring globals")
 
-
 -- ---------------------------------------------------------------------------------------------------------------------
 
 require("scripts.core.db")
@@ -171,16 +170,13 @@ end
 
 printf = function(fmt, ...)
 end
--- --
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- ---
 
-if (jit == nil) then
-  profiler.setup_hook()
-end
+if time_global == nil then
+  local device_instance = device()
 
-if nil == time_global then
   time_global = function()
-    return device():time_global()
+    return device_instance:time_global()
   end
 end
