@@ -42,10 +42,10 @@ export async function buildDynamicUi(): Promise<void> {
       })
     );
 
-    log.info("XML files processed:", processedXmlConfigs);
-    log.info("XML files skipped:", skippedXmlConfigs);
+    log.info("TSX files processed:", processedXmlConfigs);
+    log.info("TSX files skipped:", skippedXmlConfigs);
   } else {
-    log.info("No dynamic XML configs found");
+    log.info("No dynamic TSX configs found");
   }
 }
 

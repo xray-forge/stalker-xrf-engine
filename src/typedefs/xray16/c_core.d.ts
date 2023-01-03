@@ -223,13 +223,13 @@ declare module "xray16" {
       client_object_class: string,
       server_object_class: string,
       clsid: string,
-      script_clsid: TXR_ClsKey
+      script_clsid: TXR_cls_key
     ): void;
 
     public register(
       client_object_class: string,
       clsid: string,
-      script_clsid: TXR_ClsKey
+      script_clsid: TXR_cls_key
     ): void;
   }
 
@@ -440,6 +440,7 @@ declare module "xray16" {
     public static stop: 0;
 
     public constructor (value: string);
+    public constructor (value: string);
     public constructor (value: string, startType: unknown);
     public constructor (value: string, startType: unknown, routeType: unknown);
     public constructor (values: string, startType: unknown, routeType: unknown, valueb: boolean)
@@ -449,7 +450,7 @@ declare module "xray16" {
     public point(value: number): XR_vector;
     public flag(value1: number, value2: number): unknown;
     public game_vertex_id(value: number): number;
-    public flags(value: number): unknown;
+    public flags(value: number): XR_flags32;
     public name(value: number): unknown;
     public index(value: string): unknown;
     public terminal(value: number): unknown;

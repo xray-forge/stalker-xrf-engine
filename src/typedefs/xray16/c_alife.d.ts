@@ -76,7 +76,7 @@ declare module "xray16" {
 
     public spawn_id(value: number): unknown;
 
-    public release(cse_abstract: XR_cse_alife_object | null, value: boolean): unknown;
+    public release(cse_abstract: XR_cse_alife_object | null, flag: boolean): unknown;
 
     public create<T extends XR_cse_alife_object = XR_cse_alife_object>(value: number): T;
     public create<T extends XR_cse_alife_object = XR_cse_alife_object>(
@@ -141,34 +141,36 @@ declare module "xray16" {
   // todo;
 
   /**
-   C++ class hit {
-    const burn = 0;
-    const chemical_burn = 2;
-    const dummy = 12;
-    const explosion = 7;
-    const fire_wound = 8;
-    const light_burn = 11;
-    const radiation = 3;
-    const shock = 1;
-    const strike = 5;
-    const telepatic = 4;
-    const wound = 6;
-
-    property direction;
-    property draftsman;
-    property impulse;
-    property power;
-    property type;
-
-    hit ();
-    hit (const hit*);
-
-    function bone(string);
-
-  };
+   * C++ class hit {
+   * @customConstructor hit
    */
+  export class XR_hit {
+    public static readonly burn = 0;
+    public static readonly chemical_burn = 2;
+    public static readonly dummy = 12;
+    public static readonly explosion = 7;
+    public static readonly fire_wound = 8;
+    public static readonly light_burn = 11;
+    public static readonly radiation = 3;
+    public static readonly shock = 1;
+    public static readonly strike = 5;
+    public static readonly telepatic = 4;
+    public static readonly wound = 6;
 
-  // todo;
+    public direction: XR_vector;
+    public draftsman: unknown;
+    public impulse: number;
+    public power: number;
+    public type: TXR_hit_type;
+
+    public constructor ();
+    public constructor (hit: XR_hit);
+
+    public bone(bone: string): void;
+  }
+
+  export type TXR_hit_types = typeof XR_hit;
+  export type TXR_hit_type = TXR_hit_types[Exclude<keyof TXR_hit_types, "prototype" | "constructor">];
 
   /**
    * C++ class CALifeMonsterBrain {}

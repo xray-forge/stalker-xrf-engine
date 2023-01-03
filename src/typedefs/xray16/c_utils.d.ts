@@ -35,84 +35,79 @@ declare module "xray16" {
 
   /**
    * C++ class flags16 {
-   *   flags16 ();
-   *
-   *   function zero();
-   *
-   *   function assign(const flags16&);
-   *   function assign(number);
-   *
-   *   function is(flags16*, number);
-   *
-   *   function and(number);
-   *   function and(const flags16&, number);
-   *
-   *   function equal(flags16*, const flags16&);
-   *   function equal(flags16*, const flags16&, number);
-   *
-   *   function test(flags16*, number);
-   *
-   *   function is_any(flags16*, number);
-   *
-   *   function or(number);
-   *   function or(const flags16&, number);
-   *
-   *   function one(flags16*);
-   *
-   *   function set(flags16*, number, boolean);
-   *
-   *   function invert();
-   *   function invert(const flags16&);
-   *   function invert(number);
-   *
-   *   function get() const;
-   *
-   * };
-   *
+   * @customConstructor flags16
    */
+  export class XR_flags16 {
+    public constructor();
 
-  // todo;
+    public zero(): unknown;
+
+    public assign(value: XR_flags16): unknown;
+    public assign(value: number): unknown;
+
+    public is(value: XR_flags16, value2: number): unknown;
+
+    public and(value: number): unknown;
+    public and(value1: XR_flags16, value2: number): unknown;
+
+    public equal(value1: XR_flags16, value2: XR_flags16): unknown;
+    public equal(value1: XR_flags16, value2: XR_flags16, value3: number): unknown;
+
+    public test(value1: XR_flags16, value2: number): unknown;
+
+    public is_any(value1: XR_flags16, value2: number): unknown;
+
+    public or(value: number): unknown;
+    public or(value: XR_flags16, value2: number): unknown;
+
+    public one(): unknown;
+
+    public set(flags32: XR_flags16, value: number, value2: boolean): unknown;
+
+    public invert(): unknown;
+    public invert(value: XR_flags16): unknown;
+    public invert(value: number): unknown;
+
+    public get(): number;
+  }
 
   /**
-
-   C++ class flags32 {
-    flags32 ();
-
-    function zero();
-
-    function assign(const flags32&);
-    function assign(number);
-
-    function is(flags32*, number);
-
-    function and(number);
-    function and(const flags32&, number);
-
-    function equal(flags32*, const flags32&);
-    function equal(flags32*, const flags32&, number);
-
-    function test(flags32*, number);
-
-    function is_any(flags32*, number);
-
-    function or(number);
-    function or(const flags32&, number);
-
-    function one();
-
-    function set(flags32*, number, boolean);
-
-    function invert();
-    function invert(const flags32&);
-    function invert(number);
-
-    function get() const;
-
-  };
-   *
+   * C++ class flags32 {
+   * @customConstructor flags32
    */
+  export class XR_flags32 {
+    public constructor();
 
-  // todo;
+    public zero(): unknown;
+
+    public assign(value: XR_flags32): unknown;
+    public assign(value: number): unknown;
+
+    public is(value: XR_flags32, value2: number): unknown;
+
+    public and(value: number): unknown;
+    public and(value1: XR_flags32, value2: number): unknown;
+
+    public equal(value1: XR_flags32, value2: XR_flags32): unknown;
+    public equal(value1: XR_flags32, value2: XR_flags32, value3: number): unknown;
+
+    public test(value1: XR_flags32, value2: number): unknown;
+
+    public is_any(value1: XR_flags32, value2: number): unknown;
+
+    public or(value: number): unknown;
+    public or(value: XR_flags32, value2: number): unknown;
+
+    public one(): unknown;
+
+    public set(flags32: XR_flags32, value: number, value2: boolean): unknown;
+
+    public invert(): unknown;
+    public invert(value: XR_flags32): unknown;
+    public invert(value: number): unknown;
+
+    public get(): number;
+  }
 
   /**
    C++ class matrix {

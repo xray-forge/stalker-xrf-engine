@@ -1,4 +1,4 @@
-import { editor, TXR_ClsKey, XR_object_factory } from "xray16";
+import { editor, TXR_cls_key, XR_object_factory } from "xray16";
 
 import { Actor } from "@/mod/scripts/se/Actor";
 import { AnomalousZone } from "@/mod/scripts/se/anomal_zones/AnomalousZone";
@@ -48,7 +48,7 @@ function clientServerRegister(
   client_object_class: string,
   server_object_class: string,
   clsid: string,
-  script_clsid: TXR_ClsKey
+  script_clsid: TXR_cls_key
 ): void {
   log.info("[clientServerRegister] Registering:", client_object_class, server_object_class, clsid, script_clsid);
   factory.register(client_object_class, server_object_class, clsid, script_clsid);
@@ -62,7 +62,7 @@ function clientRegister(
 ): void {
   if (!editor()) {
     log.info("[clientRegister] Registering:", client_object_class, clsid, script_clsid);
-    factory.register(client_object_class, clsid, script_clsid as TXR_ClsKey);
+    factory.register(client_object_class, clsid, script_clsid as TXR_cls_key);
   }
 }
 
@@ -70,7 +70,7 @@ function serverRegister(
   factory: XR_object_factory,
   server_object_class: string,
   clsid: string,
-  script_clsid: TXR_ClsKey
+  script_clsid: TXR_cls_key
 ): void {
   log.info("[serverRegister] Registering:", server_object_class, clsid, script_clsid);
   factory.register(server_object_class, clsid, script_clsid);

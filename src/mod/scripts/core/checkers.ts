@@ -1,5 +1,5 @@
 import {
-  TXR_ClsId,
+  TXR_cls_id,
   XR_cse_abstract,
   XR_cse_alife_human_stalker,
   XR_cse_alife_item_artefact,
@@ -20,9 +20,9 @@ import { getClsId } from "@/mod/scripts/utils/ids";
  */
 export function isMonster(
   object: XR_game_object | XR_cse_abstract,
-  class_id?: Maybe<TXR_ClsId>
+  class_id?: Maybe<TXR_cls_id>
 ): object is XR_cse_alife_monster_abstract {
-  const id: TXR_ClsId = class_id || getClsId(object);
+  const id: TXR_cls_id = class_id || getClsId(object);
 
   return monster_class_ids[id] === true;
 }
@@ -39,9 +39,9 @@ export function isSquadMonsterCommunity(community: TCommunity): boolean {
  */
 export function isStalker(
   object: XR_game_object | XR_cse_abstract,
-  class_id?: Maybe<TXR_ClsId>
+  class_id?: Maybe<TXR_cls_id>
 ): object is XR_cse_alife_human_stalker {
-  const id: TXR_ClsId = class_id || getClsId(object);
+  const id: TXR_cls_id = class_id || getClsId(object);
 
   return stalker_class_ids[id] === true;
 }
@@ -56,12 +56,12 @@ export function isStalkerClassId(class_id: number): boolean {
 /**
  * todo;
  */
-export function isWeapon(object: Optional<XR_game_object | XR_cse_abstract>, class_id?: Maybe<TXR_ClsId>): boolean {
+export function isWeapon(object: Optional<XR_game_object | XR_cse_abstract>, class_id?: Maybe<TXR_cls_id>): boolean {
   if (object === null) {
     return false;
   }
 
-  const id: TXR_ClsId = class_id || getClsId(object);
+  const id: TXR_cls_id = class_id || getClsId(object);
 
   return weapon_class_ids[id] === true;
 }
@@ -69,12 +69,12 @@ export function isWeapon(object: Optional<XR_game_object | XR_cse_abstract>, cla
 /**
  * todo;
  */
-export function isGrenade(object: Optional<XR_game_object | XR_cse_abstract>, class_id?: Maybe<TXR_ClsId>): boolean {
+export function isGrenade(object: Optional<XR_game_object | XR_cse_abstract>, class_id?: Maybe<TXR_cls_id>): boolean {
   if (object === null) {
     return false;
   }
 
-  const id: TXR_ClsId = class_id || getClsId(object);
+  const id: TXR_cls_id = class_id || getClsId(object);
 
   return id === clsid.wpn_grenade_rgd5_s || id === clsid.wpn_grenade_f1_s;
 }
@@ -84,9 +84,9 @@ export function isGrenade(object: Optional<XR_game_object | XR_cse_abstract>, cl
  */
 export function isArtefact(
   object: XR_game_object | XR_cse_abstract,
-  class_id?: Maybe<TXR_ClsId>
+  class_id?: Maybe<TXR_cls_id>
 ): object is XR_cse_alife_item_artefact {
-  const id: TXR_ClsId = class_id || getClsId(object);
+  const id: TXR_cls_id = class_id || getClsId(object);
 
   return artefact_class_ids[id] === true;
 }

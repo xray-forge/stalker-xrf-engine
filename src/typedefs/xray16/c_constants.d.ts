@@ -155,42 +155,72 @@ declare module "xray16" {
    * C++ class callback {
    */
   export class XR_callback {
-    public static action_animation: 21;
-    public static action_movement: 18;
-    public static action_object: 24;
-    public static action_particle: 23;
-    public static action_removed: 20;
-    public static action_sound: 22;
-    public static action_watch: 19;
-    public static actor_sleep: 25;
-    public static article_info: 12;
-    public static death: 8;
-    public static helicopter_on_hit: 27;
-    public static helicopter_on_point: 26;
-    public static hit: 16;
-    public static inventory_info: 11;
-    public static inventory_pda: 10;
-    public static level_border_enter: 7;
-    public static level_border_exit: 6;
-    public static map_location_added: 14;
-    public static on_item_drop: 29;
-    public static on_item_take: 28;
-    public static patrol_path_in_point: 9;
-    public static script_animation: 30;
-    public static sound: 17;
-    public static take_item_from_box: 34;
-    public static task_state: 13;
-    public static trade_perform_operation: 3;
-    public static trade_sell_buy_item: 2;
-    public static trade_start: 0;
-    public static trade_stop: 1;
-    public static trader_global_anim_request: 31;
-    public static trader_head_anim_request: 32;
-    public static trader_sound_end: 33;
-    public static use_object: 15;
-    public static weapon_no_ammo: 35;
-    public static zone_enter: 4;
-    public static zone_exit: 5;
+    /**
+     * Placeholder.
+     */
+    public static readonly dummy: -1;
+
+    /**
+     * Default x-ray 16 callbacks.
+     */
+    public static readonly trade_start: 0;
+    public static readonly trade_stop: 1;
+    public static readonly trade_sell_buy_item: 2;
+    public static readonly trade_perform_operation: 3;
+    public static readonly zone_enter: 4;
+    public static readonly zone_exit: 5;
+    public static readonly level_border_exit: 6;
+    public static readonly level_border_enter: 7;
+    public static readonly death: 8;
+    public static readonly patrol_path_in_point: 9;
+    public static readonly inventory_pda: 10;
+    public static readonly inventory_info: 11;
+    public static readonly article_info: 12;
+    public static readonly task_state: 13;
+    public static readonly map_location_added: 14;
+    public static readonly use_object: 15;
+    public static readonly hit: 16;
+    public static readonly sound: 17;
+    public static readonly action_movement: 18;
+    public static readonly action_watch: 19;
+    public static readonly action_removed: 20;
+    public static readonly action_animation: 21;
+    public static readonly action_sound: 22;
+    public static readonly action_particle: 23;
+    public static readonly action_object: 24;
+    public static readonly actor_sleep: 25;
+    public static readonly helicopter_on_point: 26;
+    public static readonly helicopter_on_hit: 27;
+    public static readonly on_item_take: 28;
+    public static readonly on_item_drop: 29;
+    public static readonly script_animation: 30;
+    public static readonly trader_global_anim_request: 31;
+    public static readonly trader_head_anim_request: 32;
+    public static readonly trader_sound_end: 33;
+    public static readonly take_item_from_box: 34;
+    public static readonly weapon_no_ammo: 35;
+
+    /**
+     * Custom callbacks from open x-ray:
+     */
+    public static readonly key_press: 36;
+    public static readonly key_release: 37;
+    public static readonly key_hold: 38;
+    public static readonly mouse_move: 39;
+    public static readonly mouse_wheel: 40;
+    public static readonly controller_press: 41;
+    public static readonly controller_release: 42;
+    public static readonly controller_hold: 43;
+    public static readonly item_to_belt: 44;
+    public static readonly item_to_slot: 45;
+    public static readonly item_to_ruck: 46;
+    public static readonly actor_before_death: 47;
+    public static readonly on_attach_vehicle: 48;
+    public static readonly on_detach_vehicle: 49;
+    public static readonly on_use_vehicle: 50;
+    public static readonly weapon_zoom_in: 51;
+    public static readonly weapon_zoom_out: 52;
+    public static readonly weapon_jammed: 53;
   }
 
   export type TXR_callbacks = typeof XR_callback
@@ -612,12 +642,11 @@ declare module "xray16" {
     public static zone_torrid_s: 203;
   }
 
-  type TXR_ClsIds = typeof XR_clsid;
-  type TXR_ClsKey = keyof TXR_ClsIds;
-  type TXR_ClsId = TXR_ClsIds[Exclude<keyof TXR_ClsIds, "prototype" | "constructor">];
+  type TXR_cls_ids = typeof XR_clsid;
+  type TXR_cls_key = Exclude<keyof TXR_cls_ids, "prototype" | "constructor">;
+  type TXR_cls_id = TXR_cls_ids[TXR_cls_key];
 
   /**
-
    C++ class MonsterSpace {
     const head_anim_angry = 1;
     const head_anim_glad = 2;
@@ -790,23 +819,22 @@ declare module "xray16" {
   type TXR_DIK_key = XR_DIK_keys[keyof XR_DIK_keys];
 
   /**
-   C++ class cond {
-    const act_end = 128;
-    const anim_end = 4;
-    const look_end = 2;
-    const move_end = 1;
-    const object_end = 32;
-    const sound_end = 8;
-    const time_end = 64;
-
-    cond ();
-    cond (number);
-    cond (number, double);
-
-  };
+   * C++ class cond {
+   * @customConstructor cond
    */
+  export class XR_cond {
+    public static readonly act_end: 128;
+    public static readonly anim_end: 4;
+    public static readonly look_end: 2;
+    public static readonly move_end: 1;
+    public static readonly object_end: 32;
+    public static readonly sound_end: 8;
+    public static readonly time_end: 64;
 
-  // todo;
+    public constructor ();
+    public constructor (value: number);
+    public constructor (value1: number, value2: number);
+  }
 
   /**
    * C++ class FactionState {

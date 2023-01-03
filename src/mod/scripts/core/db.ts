@@ -23,18 +23,24 @@ export const REGISTERED_ITEMS: LuaTable<string, number> = new LuaTable();
 export const zoneByName: LuaTable<string, XR_game_object> = new LuaTable();
 
 export interface IStoredObject<T = XR_game_object> {
+  [index: string]: any;
+
   ini?: XR_ini_file;
   object?: T;
-  active_section?: any;
+  hit?: any;
+  active_scheme?: string;
+  active_section?: string;
   combat_ignore?: boolean;
   section_logic?: string;
   post_combat_wait?: unknown;
   pstor?: any;
+  mob_death?: any;
   disable_input_time?: any;
   disable_input_idle?: any;
   state_mgr?: any;
   sr_deimos?: any;
   overrides?: {
+    on_offline_condlist: number;
     min_post_combat_time: number;
     max_post_combat_time: number;
   };

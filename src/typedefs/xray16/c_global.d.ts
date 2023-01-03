@@ -127,7 +127,7 @@ declare module "xray16" {
     remove_dialog_to_render(this: void, window: XR_CUIDialogWnd): unknown;
     stop_weather_fx(this: void): unknown;
     patrol_path_exists(this: void, path_name: string): boolean;
-    vertex_position(this: void, num: number): unknown;
+    vertex_position(this: void, id: number): XR_vector;
     show_weapon(this: void, val: boolean): unknown;
     get_wfx_time(this: void): unknown;
     disable_input(this: void): unknown;

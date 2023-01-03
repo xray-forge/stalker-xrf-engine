@@ -1,3 +1,5 @@
+import { TXR_callbacks } from "xray16";
+
 declare module "xray16" {
   /**
    * C++ class CGameObject : DLL_Pure,ISheduled,ICollidable,IRenderable {
@@ -15,15 +17,223 @@ declare module "xray16" {
   }
 
   /**
+   * Custom extension.
+   * For reference: src/xrGame/script_game_object_script.cpp
+   */
+  class XR_game_object_callbacks_base {
+
+    /**
+     * Remove callback.
+     * @param type - type of callback
+     * @param cb - null to reset
+     */
+    public set_callback(
+      type: TXR_callback,
+      cb: null,
+    ): void;
+
+    // 0 todo: trade start
+
+    // 1 todo: trade stop
+
+    /**
+     * 2 todo;
+     */
+    public set_callback(
+      type: TXR_callbacks["trade_sell_buy_item"],
+      cb?: ((item: XR_game_object, money_direction: boolean, money: number) => void) | null,
+      object?: XR_object_binder | null
+    ): void;
+
+    // 3 todo: trade_perform_operation
+
+    // 4 todo: zone_enter
+
+    // 5 todo: zone_exit
+
+    // 6 todo: level_border_exit
+
+    // 7 todo: level_border_enter
+
+    /**
+     * 8 todo;
+     */
+    public set_callback(
+      type: TXR_callbacks["death"],
+      cb?: (target: XR_game_object, killer: XR_game_object) => void,
+      object?: XR_object_binder
+    ): void;
+
+    /**
+     * 9 todo;
+     */
+    public set_callback(
+      type: TXR_callbacks["patrol_path_in_point"],
+      cb?: ((object: XR_game_object, action_type: number, point_index: number) => void) | null,
+      object?: XR_object_binder | null
+    ): void;
+
+    // 10 todo: inventory_pda
+
+    /**
+     * 11 todo:
+     */
+    public set_callback(
+      type: TXR_callbacks["inventory_info"],
+      cb?: ((npc: XR_game_object, info_id: string) => void) | null,
+      object?: XR_object_binder | null
+    ): void;
+
+    // 12 todo: article_info
+
+    /**
+     * 13 todo;
+     */
+    public set_callback(
+      type: TXR_callbacks["task_state"],
+      cb?: ((task: XR_CGameTask, state: number) => void) | null,
+      object?: XR_object_binder | null
+    ): void;
+
+    // 14 todo: map_location_added
+
+    /**
+     * 15 todo;
+     */
+    public set_callback(
+      type: TXR_callbacks["use_object"],
+      cb?: ((object: XR_game_object) => void) | null,
+      object?: XR_object_binder | null
+    ): void;
+
+    /**
+     * 16 Entity got hit.
+     */
+    public set_callback(
+      type: TXR_callbacks["hit"],
+      cb?: (
+        (object: XR_game_object, damage: number, direction: XR_vector, who: XR_game_object, bone_id: number) => void
+        ) | null,
+      object?: XR_object_binder | null
+    ): void;
+
+    /**
+     * 17 todo;
+     */
+    public set_callback(
+      type: TXR_callbacks["sound"],
+      cb?: ((
+        this: void,
+        object: XR_game_object, source_id: number, sound_type: string, position: XR_vector, sound_power: number
+      ) => void) | null,
+      object?: XR_object_binder | null
+    ): void;
+
+    // 18 todo: action_movement
+
+    // 19 todo: action_watch
+
+    // 20 todo: action_removed
+
+    // 21 todo: action_animation
+
+    // 22 todo: action_sound
+
+    // 23 todo: action_particle
+
+    // 24 todo: action_object
+
+    // 25 todo: actor_sleep
+
+    // 26 todo: helicopter_on_point
+
+    // 27 todo: helicopter_on_hit
+
+    /**
+     * 28 todo;
+     */
+    public set_callback(
+      type: TXR_callbacks["on_item_take"],
+      cb?: ((npc: XR_game_object, item: XR_game_object) => void) | null,
+      object?: XR_object_binder | null
+    ): void;
+
+    /**
+     * 29 todo;
+     */
+    public set_callback(
+      type: TXR_callbacks["on_item_drop"],
+      cb?: ((npc: XR_game_object, item: XR_game_object) => void) | null,
+      object?: XR_object_binder | null
+    ): void;
+
+    // 30 todo: script_animation
+
+    // 31 todo: trader_global_anim_request
+
+    // 32 todo: trader_head_anim_request
+
+    // 33 todo: trader_sound_end
+
+    /**
+     * 34 todo;
+     */
+    public set_callback(
+      type: TXR_callbacks["take_item_from_box"],
+      cb?: ((npc: XR_game_object, box: XR_game_object, item: XR_game_object) => void) | null,
+      object?: XR_object_binder | null
+    ): void;
+
+    // 35 todo: weapon_no_ammo
+
+    // 36 todo: key_press
+
+    // 37 todo: key_release
+
+    // 38 todo: key_hold
+
+    // 39 todo: mouse_move
+
+    // 40 todo: mouse_wheel
+
+    // 41 todo: controller_press
+
+    // 42 todo: controller_release
+
+    // 43 todo: controller_hold
+
+    // 44 todo: item_to_belt
+
+    // 45 todo: item_to_slot
+
+    // 46 todo: item_to_ruck
+
+    // 47 todo: actor_before_death
+
+    // 48 todo: on_attach_vehicle
+
+    // 49 todo: on_detach_vehicle
+
+    // 50 todo: on_use_vehicle
+
+    // 51 todo: weapon_zoom_in
+
+    // 52 todo: weapon_zoom_out
+
+    // 53 todo: weapon_jammed
+  }
+
+  /**
    * C++ class game_object {
    */
-  export class XR_game_object {
+  export class XR_game_object extends XR_game_object_callbacks_base {
+    public static readonly dummy: -1;
+
     public static readonly action_type_count: 6;
     public static readonly alifeMovementTypeMask: 0;
     public static readonly alifeMovementTypeRandom: 1;
     public static readonly animation: 2;
     public static readonly dialog_pda_msg: 0;
-    public static readonly dummy: -1;
     public static readonly enemy: 2;
     public static readonly friend: 0;
     public static readonly game_path: 0;
@@ -54,7 +264,7 @@ declare module "xray16" {
     public story_id(): string;
     public object(value: string): XR_game_object;
     public object(value: number): XR_game_object;
-    public clsid(): TXR_ClsId;
+    public clsid(): TXR_cls_id;
 
     public memory_time(another: XR_game_object): unknown;
     public dont_has_info(value: string): boolean;
@@ -66,7 +276,7 @@ declare module "xray16" {
     public add_animation(
       value1: string, value2: boolean, value3: XR_vector, value4: XR_vector, value: boolean
     ): unknown;
-    public get_script(): unknown | null;
+    public get_script(): boolean | null;
     public enable_night_vision(value: boolean): unknown;
     public buy_supplies(value1: unknown, value2: string): unknown;
     public sound_voice_prefix(): unknown;
@@ -124,7 +334,7 @@ declare module "xray16" {
 
     public set_smart_cover_target_fire(): unknown;
     public set_community_goodwill(first: string, second: number): unknown;
-    public team(): unknown;
+    public team(): string;
     public get_smart_cover_description(): unknown;
     public set_ammo_elapsed(value: number): unknown;
     public active_zone_contact(value: number): unknown;
@@ -143,7 +353,7 @@ declare module "xray16" {
     public give_talk_message(value1: string, value2: string, value3: string): unknown;
     public not_yet_visible_objects(): unknown;
     public set_mental_state(state: unknown /** EMentalState */): unknown;
-    public squad(): unknown;
+    public squad(): string;
     public reset_action_queue(): unknown;
     public burer_set_force_gravi_attack(value: boolean): unknown;
     public can_select_weapon(): unknown;
@@ -236,10 +446,10 @@ declare module "xray16" {
     public is_body_turning(): unknown;
     public set_dest_game_vertex_id(value: number): unknown;
     public marked_dropped(game_object: XR_game_object): boolean;
-    public set_character_rank(value: number): unknown;
+    public set_character_rank(value: number): void;
+    public character_rank(): number;
     public patrol_path_make_inactual(): unknown;
     public fake_death_stand_up(): unknown;
-    public character_rank(): unknown;
     public remove_sound(value: number): unknown;
     public set_detail_path_type(type: unknown /** enum DetailPathManager::EDetailPathType */): unknown;
     public extrapolate_length(): unknown;
@@ -251,7 +461,7 @@ declare module "xray16" {
     public weapon_is_grenadelauncher(): unknown;
     public set_capture_anim(game_object: XR_game_object, value1: string, vector: XR_vector, value2: number): unknown;
     public character_icon(): string;
-    public patrol(): XR_patrol | null;
+    public patrol(): string | null;
     public in_restrictions(): unknown;
     public unlock_door_for_npc(): unknown;
     public buy_item_condition_factor(value: number): unknown;
@@ -259,7 +469,7 @@ declare module "xray16" {
     public sniper_update_rate(value: boolean): unknown;
     public sniper_update_rate(): unknown;
     public section(): string;
-    public get_current_point_index(): unknown;
+    public get_current_point_index(): number;
     public stop_particles(value1: string, value2: string): unknown;
     public set_alien_control(value: boolean): unknown;
     public inv_box_can_take(value: boolean): unknown;
@@ -297,7 +507,7 @@ declare module "xray16" {
     public critically_wounded(): unknown;
     public idle_min_time(value: number): unknown;
     public idle_min_time(): unknown;
-    public info_add(value: string): unknown;
+    public info_add(value: string): void;
     public sight_params(): XR_CSightParams;
     public unload_magazine(): unknown;
     public set_character_community(value1: string, value2: number, value3: number): unknown;
@@ -434,7 +644,7 @@ declare module "xray16" {
     public inv_box_closed(value1: boolean, value2: string): unknown;
     public get_task(task_id: string, value2: boolean): XR_CGameTask;
     public set_active_task(task: unknown): unknown;
-    public get_enemy(): unknown;
+    public get_enemy(): XR_game_object | null;
     public get_corpse(): unknown;
     public give_task(task: XR_CGameTask, value1: number, value2: boolean, value3: number): unknown;
     public get_task_state(value: string): unknown;
@@ -485,7 +695,7 @@ declare module "xray16" {
       value6: string
     ): unknown;
     public command(entity_action: XR_entity_action, value: boolean): unknown;
-    public hit(hit: unknown): unknown;
+    public hit(hit: XR_hit): void;
     public iterate_inventory(cb: (npc: XR_game_object, item: XR_game_object) => void, object: XR_game_object): unknown;
     public set_condition(condition: number): void;
     public movement_enabled(value: boolean): unknown;
@@ -495,7 +705,7 @@ declare module "xray16" {
     public name(): string;
     public set_movement_type(type: unknown /** MonsterSpace::EMovementType */): unknown;
     public character_community(): string;
-    public group(): unknown;
+    public group(): string;
     public alive(): boolean;
     public script(value1: boolean, scriptName: string): unknown;
     public safe_cover(vector: XR_vector, value1: number, value2: number): unknown;
@@ -523,25 +733,6 @@ declare module "xray16" {
     public set_manual_invisibility(value: boolean): unknown;
     public game_vertex_id(): number;
     public action_by_index(value: number): unknown;
-
-    public set_callback(type: TXR_callback, cb?: (() => void) | null, object?: XR_object_binder | null): void;
-    public set_callback(
-      type: typeof XR_callback["trade_sell_buy_item"],
-      cb?: ((item: XR_game_object, sell_bye: boolean, money: number) => void) | null, object?: XR_object_binder | null
-    ): void;
-    public set_callback(
-      type: typeof XR_callback["inventory_info"],
-      cb?: ((npc: XR_game_object, info_id: string) => void) | null, object?: XR_object_binder | null
-    ): void;
-    public set_callback(
-      type: typeof XR_callback["task_state"],
-      cb?: ((task: XR_CGameTask, state: number) => void) | null, object?: XR_object_binder | null
-    ): void;
-    public set_callback(
-      type: TXR_callback,
-      cb?: (victim: XR_game_object, killer: XR_game_object) => void,
-      object?: XR_object_binder
-    ): void;
 
   }
 

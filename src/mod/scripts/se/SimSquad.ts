@@ -168,8 +168,6 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
   __init(section: string): void {
     xr_class_super(section);
 
-    log.info("Init");
-
     this.smart_id = null;
     this.board = get_sim_board();
     this.current_spot_id = null;
@@ -184,8 +182,6 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     this.set_squad_behaviour();
   },
   init_squad(): void {
-    log.info("Init squad:", this.name());
-
     this.player_id = getConfigString(squad_ltx, this.settings_id, "faction", this, true, "") as TCommunity;
     this.action_condlist = parseCondList(
       this,
@@ -604,7 +600,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
 
         if (
           npc?.invulnerable() !== invulnerability &&
-          getConfigString(npc_st.ini!, npc_st.active_section, "invulnerable", npc, false, "", null) === null
+          getConfigString(npc_st.ini!, npc_st.active_section!, "invulnerable", npc, false, "", null) === null
         ) {
           npc.invulnerable(invulnerability);
         }

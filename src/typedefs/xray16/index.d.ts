@@ -1,5 +1,3 @@
-import { XR_task } from "xray16";
-
 declare module "xray16" {
   export const CScriptXmlInit: typeof XR_CScriptXmlInit;
   export const CUIWindow: typeof XR_CUIWindow;
@@ -116,6 +114,8 @@ declare module "xray16" {
   export const ui_events: typeof XR_ui_events;
   export const callback: typeof XR_callback;
   export const task: typeof XR_task;
+  export const hit: typeof XR_hit;
+  export const cond: typeof XR_cond;
 
   export const key_bindings: typeof XR_key_bindings;
   export const DIK_keys: typeof XR_DIK_keys;

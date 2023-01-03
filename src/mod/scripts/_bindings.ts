@@ -9,6 +9,7 @@ import { CampBinder } from "@/mod/scripts/core/binders/CampBinder";
 import { CampfireBinder } from "@/mod/scripts/core/binders/CampfireBinder";
 import { CrowBinder } from "@/mod/scripts/core/binders/CrowBinder";
 import { LevelChangerBinder } from "@/mod/scripts/core/binders/LevelChangerBinder";
+import { MonsterBinder } from "@/mod/scripts/core/binders/MonsterBinder";
 import { SmartCoverBinder } from "@/mod/scripts/core/binders/SmartCoverBinder";
 import { SmartTerrainBinder } from "@/mod/scripts/core/binders/SmartTerrainBinder";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -30,6 +31,7 @@ list = {
   bindCampfire: createBinder(CampfireBinder),
   bindCrow: createBinder(CrowBinder),
   bindLevelChanger: createBinder(LevelChangerBinder),
+  bindMonster: createBinder(MonsterBinder),
   bindSmartCover: createBinder(SmartCoverBinder),
   bindSmartTerrain: (object: XR_game_object) => {
     const ini: XR_ini_file = object.spawn_ini();

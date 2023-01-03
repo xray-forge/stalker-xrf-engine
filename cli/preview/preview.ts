@@ -68,9 +68,9 @@ NodeLogger.IS_VERBOSE = isVerboseBuild;
       })
     );
 
-    log.info("XML files processed:", xmlConfigs.length);
+    log.info("TSX files processed:", xmlConfigs.length);
   } else {
-    log.info("No XML configs found");
+    log.info("No TSX configs found");
   }
 
   timeTracker.end();

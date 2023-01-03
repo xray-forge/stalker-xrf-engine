@@ -138,7 +138,7 @@ export function setMarker(packet: XR_net_packet, mode: "save" | "load", check: b
       // log.info("Set save marker result:", result, dif, mode);
 
       if (dif >= 8000) {
-        log.info("May be problem with save point:", prefix, dif);
+        log.info("Saving more than 8000:", prefix, dif);
         // printf("WARNING! may be this is problem save point")
       }
 

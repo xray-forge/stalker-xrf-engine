@@ -103,7 +103,7 @@ declare module "xray16" {
     public constructor(section: string);
 
     public name(): string;
-    public clsid(): TXR_ClsId;
+    public clsid(): TXR_cls_id;
     public spawn_ini(): XR_ini_file;
     public section_name(): string;
 

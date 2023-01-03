@@ -1,4 +1,4 @@
-import { alife, level, XR_cse_abstract, TXR_ClsId, XR_game_object } from "xray16";
+import { alife, level, XR_cse_abstract, TXR_cls_id, XR_game_object } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { getStoryObjectsRegistry } from "@/mod/scripts/core/StoryObjectsRegistry";
@@ -7,8 +7,8 @@ import { getStoryObjectsRegistry } from "@/mod/scripts/core/StoryObjectsRegistry
  * todo;
  */
 export function getClsId(object: null): null;
-export function getClsId(object: XR_cse_abstract | XR_game_object): TXR_ClsId;
-export function getClsId(object: Optional<XR_game_object | XR_cse_abstract>): Optional<TXR_ClsId> {
+export function getClsId(object: XR_cse_abstract | XR_game_object): TXR_cls_id;
+export function getClsId(object: Optional<XR_game_object | XR_cse_abstract>): Optional<TXR_cls_id> {
   return object ? object.clsid() : null;
 }
 

@@ -265,16 +265,16 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
       }
     }
   },
-  task_callback(_task, _state: TXR_TaskState): void {
+  task_callback(task_object, _state: TXR_TaskState): void {
     if (_state !== task.fail) {
       if (_state === task.completed) {
-        send_task(getActor(), "complete", _task);
+        send_task(getActor(), "complete", task_object);
       } else {
-        send_task(getActor(), "new", _task);
+        send_task(getActor(), "new", task_object);
       }
     }
 
-    get_global<AnyCallablesModule>("_extern").task_callback(_task, _state);
+    get_global<AnyCallablesModule>("_extern").task_callback(task_object, _state);
   },
   update(delta: number): void {
     object_binder.update(this, delta);

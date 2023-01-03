@@ -21,6 +21,7 @@ import { AnyArgs, Maybe, Optional } from "@/mod/lib/types";
 import { isStalker } from "@/mod/scripts/core/checkers";
 import { storage } from "@/mod/scripts/core/db";
 import { getStoryObjectsRegistry } from "@/mod/scripts/core/StoryObjectsRegistry";
+import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { abort } from "@/mod/scripts/utils/debug";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -69,9 +70,7 @@ export function unregisterStoryId(id: string): void {
 /**
  * todo;
  */
-export function getObjectSquad(
-  object: Optional<XR_game_object | XR_cse_alife_creature_abstract>
-): Optional<XR_cse_alife_creature_abstract> {
+export function getObjectSquad(object: Optional<XR_game_object | XR_cse_alife_creature_abstract>): Optional<ISimSquad> {
   if (object === null) {
     return abort("Attempt to get squad object from NIL.") as never;
   }
@@ -81,7 +80,7 @@ export function getObjectSquad(
   const se_obj: Optional<any> = alife().object(objectId);
 
   if (se_obj && se_obj.group_id !== MAX_UNSIGNED_16_BIT) {
-    return alife().object(se_obj.group_id) as XR_cse_alife_creature_abstract;
+    return alife().object<ISimSquad>(se_obj.group_id);
   }
 
   return null;
