@@ -13,9 +13,13 @@ const log: NodeLogger = new NodeLogger("START_GAME");
   const params: string = "";
   const cmd: string = `"${config.targets.STALKER_GAME_FOLDER_PATH}\\${config.targets.STALKER_GAME_EXE_NAME}" ${params}`;
 
-  log.info("Starting game exe:", chalk.blue(cmd));
+  log.info("Starting game exe:", chalk.yellow(cmd));
 
   cp.exec(cmd, (error, data) => {
-    log.error("Failed to start process:", error, data);
+    if (error !== null) {
+      log.error("Failed to start process:", error, data, "\n");
+    } else {
+      log.info("Started process:", chalk.green("OK"), "\n");
+    }
   });
 })();

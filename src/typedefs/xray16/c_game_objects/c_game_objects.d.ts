@@ -1,5 +1,3 @@
-import { XR_CGameTask, XR_vector } from "xray16";
-
 declare module "xray16" {
   /**
    * C++ class CGameObject : DLL_Pure,ISheduled,ICollidable,IRenderable {
@@ -20,30 +18,30 @@ declare module "xray16" {
    * C++ class game_object {
    */
   export class XR_game_object {
-    public static action_type_count: 6;
-    public static alifeMovementTypeMask: 0;
-    public static alifeMovementTypeRandom: 1;
-    public static animation: 2;
-    public static dialog_pda_msg: 0;
-    public static dummy: -1;
-    public static enemy: 2;
-    public static friend: 0;
-    public static game_path: 0;
-    public static info_pda_msg: 1;
-    public static level_path: 1;
-    public static movement: 0;
-    public static neutral: 1;
-    public static no_path: 3;
-    public static no_pda_msg: 2;
-    public static object: 5;
-    public static particle: 4;
-    public static patrol_path: 2;
-    public static relation_attack: 1;
-    public static relation_fight_help_human: 2;
-    public static relation_fight_help_monster: 4;
-    public static relation_kill: 0;
-    public static sound: 3;
-    public static watch: 1;
+    public static readonly action_type_count: 6;
+    public static readonly alifeMovementTypeMask: 0;
+    public static readonly alifeMovementTypeRandom: 1;
+    public static readonly animation: 2;
+    public static readonly dialog_pda_msg: 0;
+    public static readonly dummy: -1;
+    public static readonly enemy: 2;
+    public static readonly friend: 0;
+    public static readonly game_path: 0;
+    public static readonly info_pda_msg: 1;
+    public static readonly level_path: 1;
+    public static readonly movement: 0;
+    public static readonly neutral: 1;
+    public static readonly no_path: 3;
+    public static readonly no_pda_msg: 2;
+    public static readonly object: 5;
+    public static readonly particle: 4;
+    public static readonly patrol_path: 2;
+    public static readonly relation_attack: 1;
+    public static readonly relation_fight_help_human: 2;
+    public static readonly relation_fight_help_monster: 4;
+    public static readonly relation_kill: 0;
+    public static readonly sound: 3;
+    public static readonly watch: 1;
 
     public bleeding: number;
     public health: number;
@@ -53,12 +51,13 @@ declare module "xray16" {
     public radiation: number;
 
     public id(): number;
-    public story_id(): unknown;
+    public story_id(): string;
     public object(value: string): XR_game_object;
     public object(value: number): XR_game_object;
     public clsid(): TXR_ClsId;
+
     public memory_time(another: XR_game_object): unknown;
-    public dont_has_info(value: string): unknown;
+    public dont_has_info(value: string): boolean;
     public max_ignore_monster_distance(value: number): unknown;
     public max_ignore_monster_distance(): unknown;
     public best_item(): unknown;
@@ -82,18 +81,18 @@ declare module "xray16" {
     public in_current_loophole_fov(vector: XR_vector): unknown;
     public disable_trade(): unknown;
     public active_item(): XR_game_object | null;
-    public mental_state(): unknown;
-    public clear_animations(): unknown;
-    public can_throw_grenades(): unknown;
-    public can_throw_grenades(value: boolean): unknown;
-    public set_enemy(object: XR_game_object): unknown;
+    public mental_state(): number;
+    public clear_animations(): void;
+    public can_throw_grenades(): boolean;
+    public can_throw_grenades(value: boolean): boolean;
+    public set_enemy(object: XR_game_object): void;
     public set_smart_cover_target_default(value: boolean): unknown;
     public get_physics_object(): unknown;
     public switch_to_talk(): unknown;
     public idle_max_time(time: number): unknown;
     public idle_max_time(): unknown;
     public base_out_restrictions(): unknown;
-    public weapon_is_scope(): unknown;
+    public weapon_is_scope(): boolean;
     public iterate_inventory_box(cb: () => void, object: XR_game_object): unknown;
     public set_smart_cover_target_selector(cb: () => void): unknown;
     public set_smart_cover_target_selector(cb: () => void, object: XR_game_object): unknown;

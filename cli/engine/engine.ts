@@ -137,6 +137,7 @@ async function switchEngine(): Promise<void> {
     await fsPromises.symlink(engineBinDir, GAME_BIN_DIR, "junction");
 
     log.info("Linked engines:", chalk.yellow(engineBinDir), "->", chalk.yellow(GAME_BIN_DIR));
+    log.info("Link result:", chalk.green("OK"), "\n");
   } else {
     log.error("Supplied unknown engine version:", chalk.yellow(desiredVersion));
     log.error("Only following are available:", engines);

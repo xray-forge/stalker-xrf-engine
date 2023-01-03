@@ -19,7 +19,7 @@ export async function collectLog(): Promise<void> {
 
     await fsPromises.writeFile(fileLogPath, NodeLogger.LOG_FILE_BUFFER.join(""));
 
-    log.info(chalk.blueBright("File log collect"));
+    log.info(chalk.blueBright("File log collected", "\n"));
   } catch (error) {
     log.error("Failed to collect log:", error);
   }

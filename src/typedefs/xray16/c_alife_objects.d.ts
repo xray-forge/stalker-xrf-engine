@@ -92,11 +92,12 @@ declare module "xray16" {
    * @customConstructor cse_abstract
    */
   export class XR_cse_abstract extends XR_LuaBindBase implements IXR_cpure_server_object {
+    public readonly id: number;
+    public readonly parent_id: number;
+    public readonly position: XR_vector;
+    public readonly script_version: number;
+
     public angle: number;
-    public id: number;
-    public parent_id: number;
-    public position: XR_vector;
-    public script_version: number;
 
     public __init(section: string): void;
     public constructor(section: string);
@@ -127,10 +128,10 @@ declare module "xray16" {
    * @customConstructor cse_alife_object
    */
   export class XR_cse_alife_object extends XR_cse_abstract {
-    public m_game_vertex_id: number;
-    public m_level_vertex_id: number;
-    public m_story_id: number;
-    public online: boolean;
+    public readonly m_game_vertex_id: number;
+    public readonly m_level_vertex_id: number;
+    public readonly m_story_id: number;
+    public readonly online: boolean;
 
     public constructor(value: string);
 

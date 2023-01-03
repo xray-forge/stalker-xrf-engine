@@ -1,4 +1,5 @@
 local schemes = require("scripts.core.schemes")
+local ReleaseBodyManager = require("scripts.core.ReleaseBodyManager")
 local DropManager = require("scripts.core.DropManager").DropManager
 local SimBoard = require("scripts.se.SimBoard")
 local SmartTerrain = require("scripts.se.SmartTerrain")
@@ -127,9 +128,11 @@ function motivator_binder:net_spawn(sobject)
   end
 
   if not self.object:alive() then
+    log:info("Spawned dead object:", self.object:name())
+
     self.object:death_sound_enabled(false)
 
-    release_body_manager.get_release_body_manager():moving_dead_body(self.object)
+    ReleaseBodyManager.get_release_body_manager():moving_dead_body(self.object)
     ---�� ������ ������
     return true
   end
@@ -298,6 +301,8 @@ function motivator_binder:hit_callback(obj, amount, local_direction, who, bone_i
 end
 
 function motivator_binder:death_callback(victim, who)
+  log:info("Death callback for:", victim:name())
+
   self:hit_callback(victim, 1, vector():set(0, 0, 0), who, "from_death_callback")
 
   xrs_dyn_music.npc_table[self.object:id()] = nil
@@ -351,7 +356,8 @@ function motivator_binder:death_callback(victim, who)
     end
 
   end
-  release_body_manager.get_release_body_manager():moving_dead_body(self.object)
+
+  ReleaseBodyManager.get_release_body_manager():moving_dead_body(self.object)
 end
 
 function motivator_binder:use_callback(obj, who)

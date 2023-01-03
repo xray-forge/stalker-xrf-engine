@@ -30,6 +30,7 @@ import { isArtefact } from "@/mod/scripts/core/checkers";
 import { addActor, deleteActor, getActor, IStoredObject, scriptIds, storage, zoneByName } from "@/mod/scripts/core/db";
 import { initDropSettings } from "@/mod/scripts/core/DropManager";
 import { send_task } from "@/mod/scripts/core/NewsManager";
+import { get_release_body_manager } from "@/mod/scripts/core/ReleaseBodyManager";
 import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
 import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { get_sim_obj_registry } from "@/mod/scripts/se/SimObjectsRegistry";
@@ -422,7 +423,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
 
     get_global<AnyCallablesModule>("xr_logic").pstor_save_all(this.object, packet);
     this.weather_manager.save(packet);
-    get_global<AnyCallablesModule>("release_body_manager").get_release_body_manager().save(packet);
+    get_release_body_manager().save(packet);
     this.surge_manager.save(packet);
     get_global<AnyCallablesModule>("sr_psy_antenna").save(packet);
     packet.w_bool(get_sim_board().simulation_started);
@@ -492,7 +493,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
 
     get_global<AnyCallablesModule>("xr_logic").pstor_load_all(this.object, packet);
     this.weather_manager.load(packet);
-    get_global("release_body_manager").get_release_body_manager().load(packet);
+    get_release_body_manager().load(packet);
 
     this.surge_manager.load(packet);
     this.f_surge_manager_loaded = true;
