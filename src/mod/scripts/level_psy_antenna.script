@@ -1,8 +1,15 @@
+local PhantomManager = require("scripts.core.PhantomManager").PhantomManager
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "level_psy_antenna");
+
 class "PsyAntennaPP"(effector)
+
 function PsyAntennaPP:__init()
   super(1001, 10000000)
   self.params = effector_params();
 end
+
 function PsyAntennaPP:process(pp)
   pp:assign(self.params);
   effector.process(self, pp);
@@ -10,12 +17,14 @@ function PsyAntennaPP:process(pp)
 end
 
 class "PsyAntenna"
+
 pa_phase = {
   phIdle = 0,
   phStarting = 1,
   phWorking = 2,
   phStopping = 3
 }
+
 function PsyAntenna:__init        ()
   -- ----------------------------------------------------------------------------------------
   -- settings
@@ -55,6 +64,7 @@ function PsyAntenna:__init        ()
   self.pp = PsyAntennaPP();
   self.pp:start();
 end
+
 function PsyAntenna:__finalize      ()
   self.pp:finish();
 end;
@@ -69,6 +79,7 @@ function PsyAntenna:load        (packet)
   self.phase = packet:r_u32()
   set_save_marker(packet, "load", true, "psy_antenna")
 end
+
 function PsyAntenna:save        (packet)
   set_save_marker(packet, "save", false, "psy_antenna")
   packet:r_u32(self.phase)
@@ -83,6 +94,7 @@ function PsyAntenna:is_idle_time    (tm)
   end ;
   return false;
 end
+
 function PsyAntenna:update_postprocess  ()
   self.pp.params.color_base = color(0.5 + self.base_amplitude.r * self.intensity, 0.5 + self.base_amplitude.g * self.intensity, 0.5 + self.base_amplitude.b * self.intensity);
   self.pp.params.color_gray = color(self.gray_color.r, self.gray_color.g, self.gray_color.b);
@@ -91,6 +103,7 @@ function PsyAntenna:update_postprocess  ()
   self.pp.params.dual = duality(self.dual_amplitude * self.power_factor.a, self.dual_amplitude * self.power_factor.a);
   --	self.pp.params.noise				= self.noise_var;
 end
+
 function PsyAntenna:update_psy_hit    (dt)
   local d_time = time_global() - self.hit_time;
   if d_time > 200 and self.power_factor.a > 0.01 then
@@ -104,16 +117,17 @@ function PsyAntenna:update_psy_hit    (dt)
     db.actor:hit(psy_hit);
   end ;
 end
+
 function PsyAntenna:generate_phantoms  ()
   if self.power_factor.a > 0.1 then
     if math.random() < self.phantom_spawn_probability then
-      if phantom_manager:phantom_count() < self.phantom_max then
+      if PhantomManager:getInstance().phantom_count() < self.phantom_max then
         local yaw = math.pi * 2.0 * math.random();
         local radius = self.phantom_spawn_radius * (math.random() / 2.0 + 0.5);
         local height = self.phantom_spawn_height * math.random();
         local a_pos = db.actor:position();
         local pos = vector():set(math.sin(yaw) * radius + a_pos.x, a_pos.y + height, math.cos(yaw) * radius + a_pos.z);
-        phantom_manager.spawn_phantom(pos);
+        PhantomManager:getInstance():spawn_phantom(pos);
       end ;
     end ;
   end ;
@@ -124,6 +138,7 @@ function PsyAntenna:switch_to_phase    (ph)
   self.eff_time = 0;
   self.power_factor:set(0, 0, 0, 0);
 end
+
 function PsyAntenna:phase_starting    ()
   self.intensity = self.eff_time / self.starting_time;
   if self.eff_time > self.starting_time then
@@ -132,6 +147,7 @@ function PsyAntenna:phase_starting    ()
     self.power_factor:set(self.starting_anim:calculate(self.eff_time / 1000));
   end ;
 end
+
 function PsyAntenna:phase_working    ()
   self.intensity = 1.0;
   local h = level.get_time_hours();
@@ -142,6 +158,7 @@ function PsyAntenna:phase_working    ()
     self:generate_phantoms();
   end ;
 end
+
 function PsyAntenna:phase_stopping    ()
   self.intensity = 1.0 - self.eff_time / self.stopping_time;
   if self.eff_time > self.stopping_time then
@@ -150,12 +167,14 @@ function PsyAntenna:phase_stopping    ()
     self.power_factor:set(self.stopping_anim:calculate(self.eff_time / 1000));
   end ;
 end
+
 function PsyAntenna:phase_idle      ()
   local h = level.get_time_hours();
   if false == self:is_idle_time(h) then
     self:switch_to_phase(pa_phase.phStarting);
   end ;
 end
+
 function PsyAntenna:update        (dt)
   self.eff_time = self.eff_time + dt;
   if self.phase == pa_phase.phStarting then

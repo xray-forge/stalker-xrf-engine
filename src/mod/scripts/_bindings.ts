@@ -10,6 +10,7 @@ import { CampfireBinder } from "@/mod/scripts/core/binders/CampfireBinder";
 import { CrowBinder } from "@/mod/scripts/core/binders/CrowBinder";
 import { LevelChangerBinder } from "@/mod/scripts/core/binders/LevelChangerBinder";
 import { MonsterBinder } from "@/mod/scripts/core/binders/MonsterBinder";
+import { PhantomBinder } from "@/mod/scripts/core/binders/PhantomBinder";
 import { PhysicObjectBinder } from "@/mod/scripts/core/binders/PhysicObjectBinder";
 import { RestrictorBinder } from "@/mod/scripts/core/binders/RestrictorBinder";
 import { SmartCoverBinder } from "@/mod/scripts/core/binders/SmartCoverBinder";
@@ -35,6 +36,7 @@ list = {
   bindCrow: createBinder(CrowBinder),
   bindLevelChanger: createBinder(LevelChangerBinder),
   bindMonster: createBinder(MonsterBinder),
+  bindPhantom: createBinder(PhantomBinder),
   bindPhysicObject: (object: XR_game_object) => {
     const ini: Optional<XR_ini_file> = object.spawn_ini();
 

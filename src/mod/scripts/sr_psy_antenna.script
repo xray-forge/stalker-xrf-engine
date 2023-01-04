@@ -1,9 +1,14 @@
+local PhantomManager = require("scripts.core.PhantomManager").PhantomManager
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "sr_psy_antenna");
+
 --[[------------------------------------------------------------------------------------------------
 ���� ���-���������. ���������� ����������� � �������� �� ���������� �� custom_data
 --------------------------------------------------------------------------------------------------]]
 
-
 class "PsyAntenna"
+
 function PsyAntenna:__init        ()
   -- ----------------------------------------------------------------------------------------
   -- settings
@@ -49,14 +54,17 @@ function PsyAntenna:__init        ()
   self.hit_freq = 5000
 
 end
+
 function PsyAntenna:destroy        ()
   self.sound_obj_right:stop()
   self.sound_obj_left:stop()
   level.set_snd_volume(self.snd_volume)
   get_hud():enable_fake_indicators(false)
 end
+
 function PsyAntenna:construct      ()
 end
+
 function PsyAntenna:update_psy_hit(dt)
   local hud = get_hud()
   local custom_static = hud:GetCustomStatic("cs_psy_danger")
@@ -74,8 +82,6 @@ function PsyAntenna:update_psy_hit(dt)
     self.hit_time = time_global()
 
     local power = self.hit_amplitude * self.hit_intensity
-
-
 
     --printf("HIT: power = %s", tostring(power))
 
@@ -110,6 +116,7 @@ function PsyAntenna:update_psy_hit(dt)
     end
   end
 end
+
 function PsyAntenna:generate_phantoms()
   if self.phantom_idle == nil then
     self.phantom_idle = math.random(2000, 5000)
@@ -118,16 +125,17 @@ function PsyAntenna:generate_phantoms()
     self.phantom_time = time_global()
     self.phantom_idle = math.random(5000, 10000)
     if math.random() < self.phantom_spawn_probability then
-      if phantom_manager:phantom_count() < self.phantom_max then
+      if PhantomManager:getInstance().phantom_count < self.phantom_max then
         local radius = self.phantom_spawn_radius * (math.random() / 2.0 + 0.5)
         local ang = self.phantom_fov * math.random() - self.phantom_fov * 0.5
         local dir = vector_rotate_y(db.actor:direction(), ang)
 
-        phantom_manager.spawn_phantom(db.actor:position():add(dir:mul(radius)))
+        PhantomManager:getInstance():spawn_phantom(db.actor:position():add(dir:mul(radius)))
       end
     end
   end
 end
+
 function PsyAntenna:update_sound()
   if not self.sound_initialized then
     self.sound_obj_left:play_at_pos(db.actor, vector():set(-1, 0, 1), 0, sound_object.s2d + sound_object.looped)
@@ -147,6 +155,7 @@ function PsyAntenna:update_sound()
   self.sound_obj_left.volume = 1 / vol - 1
   self.sound_obj_right.volume = 1 / vol - 1
 end
+
 function PsyAntenna:update_postprocess(pp)
   if pp.intensity == 0 then
     self.postprocess_count = self.postprocess_count - 1
@@ -157,6 +166,7 @@ function PsyAntenna:update_postprocess(pp)
   level.set_pp_effector_factor(pp.idx, pp.intensity, 0.3)
   return true
 end
+
 function PsyAntenna:update(dt)
   self.eff_time = self.eff_time + dt
 
@@ -197,6 +207,7 @@ function PsyAntenna:update(dt)
 
   self:update_psy_hit(dt)
 end
+
 function PsyAntenna:save(p)
   printf("Psy Antenna SAVE")
   set_save_marker(p, "save", false, "psy_antenna_obj")
@@ -218,6 +229,7 @@ function PsyAntenna:save(p)
   end
   set_save_marker(p, "save", true, "psy_antenna_obj")
 end
+
 function PsyAntenna:load(p)
   printf("Psy Antenna LOAD")
   set_save_marker(p, "load", false, "psy_antenna_obj")
