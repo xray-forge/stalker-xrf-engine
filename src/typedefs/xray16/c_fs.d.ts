@@ -217,7 +217,7 @@ declare module "xray16" {
     public r_s8(): unknown;
     public w_chunk_close8(value: number): unknown;
     public r_float(value: number): unknown;
-    public r_float(): unknown;
+    public r_float(): number;
     public w_angle8(value: number): unknown;
     public r_s32(value: number): unknown;
     public r_s32(): unknown;

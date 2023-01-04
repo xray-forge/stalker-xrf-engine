@@ -1,4 +1,4 @@
-import { TXR_callbacks } from "xray16";
+import { TXR_callbacks, XR_cover_point } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 
@@ -681,7 +681,7 @@ declare module "xray16" {
     public poltergeist_set_actor_ignore(value: boolean): unknown;
     public accessible(vector: XR_vector): unknown;
     public accessible(value: number): unknown;
-    public suitable_smart_cover(game_object: XR_game_object): unknown;
+    public suitable_smart_cover(game_object: XR_game_object): boolean;
     public deadbody_closed_status(): unknown;
     public set_patrol_extrapolate_callback(): unknown;
     public set_patrol_extrapolate_callback(cb: () => boolean): unknown;
@@ -728,8 +728,8 @@ declare module "xray16" {
     public position(): XR_vector;
     public get_helicopter(): unknown;
     public get_sound_info(): unknown;
-    public find_best_cover(vector: XR_vector): unknown;
-    public register_in_combat(): unknown;
+    public find_best_cover(vector: XR_vector): XR_cover_point;
+    public register_in_combat(): void;
     public set_sound_threshold(value: number): unknown;
     public memory_position(game_object: XR_game_object): unknown;
     public set_visual_name(value: string): unknown;

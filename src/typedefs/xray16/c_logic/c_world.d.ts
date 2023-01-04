@@ -1,12 +1,12 @@
 declare module "xray16" {
    /**
-    C++ class cover_point {
-     function level_vertex_id() const;
-     function is_smart_cover(const cover_point*);
-     function position() const;
-   };
+    * C++ class cover_point
     */
-   // todo;
+   export class XR_cover_point {
+     public level_vertex_id(): number;
+     public is_smart_cover(): boolean;
+     public position(): XR_vector;
+   }
 
    /**
     C++ class CDestroyablePhysicsObject : CGameObject {

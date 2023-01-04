@@ -9,7 +9,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 const log: LuaLogger = new LuaLogger("SmartCover");
 
 // todo: Move to db.
-export const registered_smartcovers: LuaTable<string> = new LuaTable();
+export const registered_smartcovers: LuaTable<string, ISmartCover> = new LuaTable();
 export const registered_smartcovers_by_lv_id: LuaTable<number> = new LuaTable();
 
 export interface ISmartCover extends XR_cse_smart_cover {
@@ -49,7 +49,7 @@ export const SmartCover: ISmartCover = declare_xr_class("SmartCover", cse_smart_
   },
   on_unregister(): void {
     unregisterStoryObjectById(this.id);
-    registered_smartcovers.set(this.name(), null);
+    registered_smartcovers.delete(this.name());
 
     const level_id: number = game_graph().vertex(this.m_game_vertex_id).level_id();
 

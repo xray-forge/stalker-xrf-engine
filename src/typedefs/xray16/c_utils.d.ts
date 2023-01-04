@@ -253,7 +253,6 @@ declare module "xray16" {
     public add(vector: XR_vector): unknown;
     public add(vector1: XR_vector, vector2: XR_vector): unknown;
     public add(vector: XR_vector, val:number): unknown;
-
   }
 
   /**
