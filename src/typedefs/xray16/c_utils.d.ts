@@ -526,15 +526,6 @@ declare module "xray16" {
   // todo;
 
   /**
-   C++ class particle_params {
-    particle_params ();
-    particle_params (const vector&);
-    particle_params (const vector&, const vector&);
-    particle_params (const vector&, const vector&, const vector&);
-  };
-   */
-
-  /**
    * class_<PropValue>("prop_value"), class_<PropItemVec>("prop_item_vec"),
    *    class_<CChooseType>("choose_type")
    * .enum_("choose_type")[value("custom", int(smCustom)), value("sound_source", int(smSoundSource)),

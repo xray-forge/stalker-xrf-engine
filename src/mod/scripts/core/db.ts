@@ -1,4 +1,4 @@
-import { XR_cse_alife_object, XR_game_object, XR_ini_file, XR_object_binder } from "xray16";
+import { XR_cse_alife_object, XR_game_object, XR_ini_file, XR_object_binder, XR_vector } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { ActorProxy, IActorProxy } from "@/mod/scripts/core/ActorProxy";
@@ -14,7 +14,7 @@ export const scriptIds: LuaTable<number, any> = new LuaTable();
 export const campStorage = {};
 export const noWeapZones = {};
 export const spawnedVertexById: LuaTable<number, number> = new LuaTable();
-export const levelDoors = {};
+export const levelDoors: LuaTable<number, XR_vector> = new LuaTable();
 export const signalLight = {};
 export const goodwill = { sympathy: new LuaTable(), relations: new LuaTable() };
 export const offlineObjects: LuaTable<number, any> = new LuaTable();

@@ -150,7 +150,7 @@ slot_active_12      = false
 GroupControlSection = spawn_group
 $spawn        = "physics\hanging lamp"
 class       = SO_HLAMP
-script_binding      = bind_physic_object.init
+script_binding      = _bindings.list.bindPhysicObject
 
 
 [lights_signal_light]
@@ -166,7 +166,7 @@ $spawn        = "physics\search light"
 class       = O_SEARCH
 cform       = skeleton
 visual        = dynamics\light\projector.ogf
-script_binding      = bind_physic_object.init
+script_binding      = _bindings.list.bindPhysicObject
 
 [explosion_marks]
 wallmarks     = wm\wm_grenade
@@ -277,7 +277,7 @@ cost          = 100000
 inv_grid_width      = 1
 inv_grid_height     = 1
 
-script_binding      = bind_physic_object.init
+script_binding      = _bindings.list.bindPhysicObject
 
 
 [actor_firsteye_cam]
@@ -623,7 +623,7 @@ GroupControlSection   = spawn_group_restrictor
 $spawn          = "ai\space_restrictor"
 ;$prefetch        = 64
 class         = SPC_RS_S
-script_binding          = bind_restrictor.bind
+script_binding          = _bindings.list.bindRestrictor
 
 shape_transp_color    = 0, 255, 0, 24
 shape_edge_color    = 32, 32, 32, 255

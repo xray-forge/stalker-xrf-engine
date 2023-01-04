@@ -38,7 +38,7 @@ export const CampBinder: ICampBinder = declare_xr_class("CampBinder", object_bin
 
     log.info("Spawn camp", this.object.id());
 
-    let ini: XR_ini_file = this.object.spawn_ini();
+    let ini: Optional<XR_ini_file> = this.object.spawn_ini()!;
 
     if (ini.section_exist(CAMP_SECTION)) {
       const filename: Optional<string> = getConfigString(ini, CAMP_SECTION, "cfg", null, false, "", null);

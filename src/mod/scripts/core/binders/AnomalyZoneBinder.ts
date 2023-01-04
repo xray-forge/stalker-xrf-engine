@@ -114,7 +114,7 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
 
     log.info("Init anomaly zone:", object.name());
 
-    this.ini = object.spawn_ini();
+    this.ini = object.spawn_ini()!;
 
     if (!this.ini.section_exist(ANOMAL_ZONE_SECTION)) {
       this.isDisabled = true;

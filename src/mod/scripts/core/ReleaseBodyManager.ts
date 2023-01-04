@@ -135,7 +135,7 @@ export const ReleaseBodyManager: IReleaseBodyManager = declare_xr_class("Release
   },
   check_for_known_info(obj: XR_game_object): boolean {
     let char_ini: Optional<XR_ini_file> = null;
-    const spawn_ini: XR_ini_file = obj.spawn_ini();
+    const spawn_ini: Optional<XR_ini_file> = obj.spawn_ini();
     const filename: Optional<string> =
       spawn_ini === null ? null : getConfigString(spawn_ini, "logic", "cfg", obj, false, "");
 

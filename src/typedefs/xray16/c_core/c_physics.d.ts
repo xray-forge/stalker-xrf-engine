@@ -18,22 +18,55 @@ declare module "xray16" {
   }
 
   /**
-   C++ class particle {
-      particle ();
-      particle (string, string);
-      particle (string, string, public static particle_params&);
-      particle (string, string, public static particle_params&, boolean);
-      particle (string, public static particle_params&);
-      particle (string, public static particle_params&, boolean);
-
-      function set_velocity(public static vector&);
-      function set_position(public static vector&);
-      function set_bone(string);
-      function set_angles(public static vector&);
-      function completed();
-      function set_particle(string, boolean);
-    };
+   * C++ class particle {
+   * @customConstructor particle
    */
+  export class XR_particle {
+    public constructor();
+    public constructor(value1: string, value2: string);
+    public constructor(value1:string, value2:string, value3: XR_particle_params);
+    public constructor(value1:string, value2:string, particle_params: XR_particle_params, value3: boolean);
+    public constructor(value1:string, particle_params: XR_particle_params);
+    public constructor(value1:string, particle_params: XR_particle_params, value2: boolean);
+
+    public set_velocity(vector: XR_vector): unknown;
+    public set_position(vector: XR_vector): unknown;
+    public set_bone(bone_id: string): unknown;
+    public set_angles(vector: XR_vector): unknown;
+    public completed(): unknown;
+    public set_particle(value1: string, value2: boolean): unknown;
+  }
+
+  /**
+   * C++ class particle_params {
+   * @customConstructor particle_params
+   */
+  export class XR_particle_params {
+    public constructor();
+    public constructor(vector: XR_vector);
+    public constructor(vector1: XR_vector, vector2: XR_vector);
+    public constructor(vector1: XR_vector, vector2: XR_vector, vector3: XR_vector);
+  }
+
+  /**
+   * C++ class particles_object {
+   * @customConstructor particles_object
+   */
+  export class XR_particles_object {
+    public constructor(value: string);
+
+    public pause_path(value: boolean): unknown;
+    public play_at_pos(vector: XR_vector): unknown;
+    public move_to(vector1: XR_vector, vector2: XR_vector): unknown;
+    public looped(): unknown;
+    public load_path(path: string): unknown;
+    public start_path(value: boolean): unknown;
+    public stop(): void;
+    public stop_path(): void;
+    public stop_deffered(): void;
+    public play(): unknown;
+    public playing(): unknown;
+  }
 
   /**
    C++ class physics_joint {
@@ -126,36 +159,6 @@ declare module "xray16" {
   /**
    C++ class IKinematicsAnimated {
     function PlayCycle(IKinematicsAnimated*, string);
-
-  };
-   */
-  // todo;
-
-  /**
-   C++ class particles_object {
-    particles_object (string);
-
-    function pause_path(boolean);
-
-    function play_at_pos(const vector&);
-
-    function move_to(const vector&, const vector&);
-
-    function looped() const;
-
-    function load_path(string);
-
-    function start_path(boolean);
-
-    function stop();
-
-    function stop_path();
-
-    function stop_deffered();
-
-    function play();
-
-    function playing() const;
 
   };
    */

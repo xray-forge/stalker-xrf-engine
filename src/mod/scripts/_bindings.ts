@@ -1,6 +1,6 @@
 import { alife, clsid, XR_game_object, XR_ini_file, XR_object_binder } from "xray16";
 
-import { AnyCallablesModule } from "@/mod/lib/types";
+import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { ActorBinder } from "@/mod/scripts/core/binders/ActorBinder";
 import { AnomalyFieldBinder } from "@/mod/scripts/core/binders/AnomalyFieldBinder";
 import { AnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
@@ -10,8 +10,11 @@ import { CampfireBinder } from "@/mod/scripts/core/binders/CampfireBinder";
 import { CrowBinder } from "@/mod/scripts/core/binders/CrowBinder";
 import { LevelChangerBinder } from "@/mod/scripts/core/binders/LevelChangerBinder";
 import { MonsterBinder } from "@/mod/scripts/core/binders/MonsterBinder";
+import { PhysicObjectBinder } from "@/mod/scripts/core/binders/PhysicObjectBinder";
+import { RestrictorBinder } from "@/mod/scripts/core/binders/RestrictorBinder";
 import { SmartCoverBinder } from "@/mod/scripts/core/binders/SmartCoverBinder";
 import { SmartTerrainBinder } from "@/mod/scripts/core/binders/SmartTerrainBinder";
+import { storage } from "@/mod/scripts/core/db";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -32,9 +35,25 @@ list = {
   bindCrow: createBinder(CrowBinder),
   bindLevelChanger: createBinder(LevelChangerBinder),
   bindMonster: createBinder(MonsterBinder),
+  bindPhysicObject: (object: XR_game_object) => {
+    const ini: Optional<XR_ini_file> = object.spawn_ini();
+
+    if (!ini?.section_exist("logic")) {
+      if (object.clsid() !== clsid.inventory_box) {
+        return;
+      }
+    }
+
+    storage.set(object.id(), {});
+
+    object.bind_object(create_xr_class_instance(PhysicObjectBinder, object));
+
+    createBinder(PhysicObjectBinder);
+  },
+  bindRestrictor: createBinder(RestrictorBinder),
   bindSmartCover: createBinder(SmartCoverBinder),
   bindSmartTerrain: (object: XR_game_object) => {
-    const ini: XR_ini_file = object.spawn_ini();
+    const ini: Optional<XR_ini_file> = object.spawn_ini();
 
     if (ini !== null && (ini.section_exist("gulag1") || ini.section_exist("smart_terrain"))) {
       if (object.clsid() === clsid.smart_terrain) {

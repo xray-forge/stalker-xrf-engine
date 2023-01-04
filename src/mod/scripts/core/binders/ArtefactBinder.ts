@@ -10,6 +10,7 @@ import {
   vector
 } from "xray16";
 
+import { Optional } from "@/mod/lib/types";
 import {
   ARTEFACT_POINTS_BY_ARTEFACT_ID,
   ARTEFACT_WAYS_BY_ARTEFACT_ID,
@@ -79,9 +80,9 @@ export const ArtefactBinder: IArtefactBinder = declare_xr_class("ArtefactBinder"
     }
 
     if (this.isInitializing) {
-      const ini: XR_ini_file = this.object.spawn_ini();
+      const ini: Optional<XR_ini_file> = this.object.spawn_ini();
 
-      if (!(ini && ini.section_exist("fixed_bone"))) {
+      if (!ini?.section_exist("fixed_bone")) {
         return;
       }
 

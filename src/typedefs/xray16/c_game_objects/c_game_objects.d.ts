@@ -1,5 +1,7 @@
 import { TXR_callbacks } from "xray16";
 
+import { Optional } from "@/mod/lib/types";
+
 declare module "xray16" {
   /**
    * C++ class CGameObject : DLL_Pure,ISheduled,ICollidable,IRenderable {
@@ -103,6 +105,11 @@ declare module "xray16" {
     public set_callback(
       type: TXR_callbacks["use_object"],
       cb?: ((object: XR_game_object) => void) | null,
+      object?: XR_object_binder | null
+    ): void;
+    public set_callback(
+      type: TXR_callbacks["use_object"],
+      cb?: ((object: XR_game_object, who: XR_game_object) => void) | null,
       object?: XR_object_binder | null
     ): void;
 
@@ -412,7 +419,7 @@ declare module "xray16" {
     public set_sympathy(value: number): unknown;
     public torch_enabled(): unknown;
     public sympathy(): unknown;
-    public spawn_ini(): XR_ini_file;
+    public spawn_ini(): Optional<XR_ini_file>;
     public drop_item_and_teleport(game_object: XR_game_object, vector: XR_vector): unknown;
     public get_campfire(): XR_CZoneCampfire;
     public get_movement_speed(): unknown;
