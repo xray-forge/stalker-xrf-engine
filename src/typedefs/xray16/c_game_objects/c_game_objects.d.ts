@@ -384,7 +384,7 @@ declare module "xray16" {
     public set_start_point(point: number): unknown;
     public set_fov(fov: number): unknown;
     public set_path_type(type: unknown /** enum MovementManager::EPathType */): unknown;
-
+    public set_const_force(vector: XR_vector, value: number, time_interval: number): void
     public weapon_strapped(): boolean;
     public weapon_unstrapped(): boolean;
 
@@ -400,7 +400,7 @@ declare module "xray16" {
     public disable_inv_upgrade(): unknown;
     public memory_sound_objects(): unknown;
     public activate_slot(index: number): unknown;
-    public get_hanging_lamp(): unknown;
+    public get_hanging_lamp(): XR_hanging_lamp;
     public get_force_anti_aim(): unknown;
     public enable_inv_upgrade(): unknown;
     public set_smart_cover_target_idle(): unknown;
@@ -477,7 +477,7 @@ declare module "xray16" {
     public sniper_update_rate(): unknown;
     public section(): string;
     public get_current_point_index(): number;
-    public stop_particles(value1: string, value2: string): unknown;
+    public stop_particles(name: string, bone: string): unknown;
     public set_alien_control(value: boolean): unknown;
     public inv_box_can_take(value: boolean): unknown;
     public set_patrol_path(

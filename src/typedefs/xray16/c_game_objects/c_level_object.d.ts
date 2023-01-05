@@ -12,45 +12,29 @@ declare module "xray16" {
   }
 
   /**
-   C++ class CPhysicObject : CGameObject {
-    CPhysicObject ();
-    function set_door_ignore_dynamics();
-    function _construct();
-    function getVisible() const;
-    function net_Spawn(cse_abstract*);
-    function play_bones_sound();
-    function run_anim_back();
-    function net_Export(net_packet&);
-    function Visual() const;
-    function unset_door_ignore_dynamics();
-    function net_Import(net_packet&);
-    function run_anim_forward();
-    function stop_anim();
-    function anim_time_get();
-    function getEnabled() const;
-    function anim_time_set(number);
-    function stop_bones_sound();
-    function use(CGameObject*);
-  };
+   * C++ class CPhysicObject : CGameObject {
+   * @customConstructor CPhysicObject
    */
-  // todo;
+  export class XR_CPhysicObject extends XR_CGameObject {
+    public set_door_ignore_dynamics(): unknown;
+    public play_bones_sound(): unknown;
+    public run_anim_back(): unknown;
+    public unset_door_ignore_dynamics(): unknown;
+    public run_anim_forward(): unknown;
+    public stop_anim(): unknown;
+    public anim_time_get(): unknown;
+    public anim_time_set(value: number): unknown;
+    public stop_bones_sound(): unknown;
+  }
 
   /**
-   C++ class hanging_lamp : CGameObject {
-    hanging_lamp ();
-    function Visual() const;
-    function getEnabled() const;
-    function net_Import(net_packet&);
-    function getVisible() const;
-    function net_Spawn(cse_abstract*);
-    function turn_on();
-    function turn_off();
-    function net_Export(net_packet&);
-    function _construct();
-    function use(CGameObject*);
-  };
-
+   * C++ class hanging_lamp : CGameObject {
+   * @customConstructor hanging_lamp
    */
+  export class XR_hanging_lamp extends XR_CGameObject {
+    public turn_on(): void;
+    public turn_off(): void;
+  }
 
   /**
    C++ class CCar : CGameObject,holder {

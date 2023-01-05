@@ -13,6 +13,7 @@ import { MonsterBinder } from "@/mod/scripts/core/binders/MonsterBinder";
 import { PhantomBinder } from "@/mod/scripts/core/binders/PhantomBinder";
 import { PhysicObjectBinder } from "@/mod/scripts/core/binders/PhysicObjectBinder";
 import { RestrictorBinder } from "@/mod/scripts/core/binders/RestrictorBinder";
+import { SignalLightBinder } from "@/mod/scripts/core/binders/SignalLightBinder";
 import { SmartCoverBinder } from "@/mod/scripts/core/binders/SmartCoverBinder";
 import { SmartTerrainBinder } from "@/mod/scripts/core/binders/SmartTerrainBinder";
 import { storage } from "@/mod/scripts/core/db";
@@ -49,10 +50,9 @@ list = {
     storage.set(object.id(), {});
 
     object.bind_object(create_xr_class_instance(PhysicObjectBinder, object));
-
-    createBinder(PhysicObjectBinder);
   },
   bindRestrictor: createBinder(RestrictorBinder),
+  bindSignalLight: createBinder(SignalLightBinder),
   bindSmartCover: createBinder(SmartCoverBinder),
   bindSmartTerrain: (object: XR_game_object) => {
     const ini: Optional<XR_ini_file> = object.spawn_ini();

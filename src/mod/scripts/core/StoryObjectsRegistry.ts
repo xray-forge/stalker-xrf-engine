@@ -7,7 +7,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("core/StoryObjectsRegistry");
+const log: LuaLogger = new LuaLogger("StoryObjectsRegistry");
 let storyObjectsRegistry: Optional<IStoryObjectsRegistry> = null;
 
 export interface IStoryObjectsRegistry extends XR_LuaBindBase {

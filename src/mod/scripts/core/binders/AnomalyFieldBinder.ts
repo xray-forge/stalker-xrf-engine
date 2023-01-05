@@ -3,7 +3,7 @@ import { XR_cse_alife_object, object_binder, XR_game_object, XR_object_binder } 
 import { addObject, addZone, deleteObject, deleteZone, storage } from "@/mod/scripts/core/db";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("core/binders/AnomalyFieldBinder");
+const log: LuaLogger = new LuaLogger("AnomalyFieldBinder");
 
 // todo: Move to db.
 export const FIELDS_BY_NAME: LuaTable<string, IAnomalyFieldBinder> = new LuaTable();
