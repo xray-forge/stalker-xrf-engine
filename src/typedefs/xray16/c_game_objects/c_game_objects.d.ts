@@ -49,9 +49,23 @@ declare module "xray16" {
 
     // 3 todo: trade_perform_operation
 
-    // 4 todo: zone_enter
+    /**
+     * 4 todo;
+     */
+    public set_callback(
+      type: TXR_callbacks["zone_enter"],
+      cb?: ((zone: XR_game_object, object: XR_game_object) => void) | null,
+      object?: XR_object_binder | null
+    ): void;
 
-    // 5 todo: zone_exit
+    /**
+     * 4 todo;
+     */
+    public set_callback(
+      type: TXR_callbacks["zone_exit"],
+      cb?: ((zone: XR_game_object, object: XR_game_object) => void) | null,
+      object?: XR_object_binder | null
+    ): void;
 
     // 6 todo: level_border_exit
 

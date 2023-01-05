@@ -51,7 +51,8 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
   reinit(): void {
     object_binder.reinit(this);
 
-    this.st = storage.get(this.object.id());
+    this.st = {};
+    storage.set(this.object.id(), this.st);
   },
   net_destroy(): void {
     if (level.map_has_object_spot(this.object.id(), "ui_pda2_actor_box_location") !== 0) {

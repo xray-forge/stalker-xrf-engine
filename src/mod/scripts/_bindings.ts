@@ -4,6 +4,7 @@ import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { ActorBinder } from "@/mod/scripts/core/binders/ActorBinder";
 import { AnomalyFieldBinder } from "@/mod/scripts/core/binders/AnomalyFieldBinder";
 import { AnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
+import { ArenaZoneBinder } from "@/mod/scripts/core/binders/ArenaZoneBinder";
 import { ArtefactBinder } from "@/mod/scripts/core/binders/ArtefactBinder";
 import { CampBinder } from "@/mod/scripts/core/binders/CampBinder";
 import { CampfireBinder } from "@/mod/scripts/core/binders/CampfireBinder";
@@ -16,7 +17,6 @@ import { RestrictorBinder } from "@/mod/scripts/core/binders/RestrictorBinder";
 import { SignalLightBinder } from "@/mod/scripts/core/binders/SignalLightBinder";
 import { SmartCoverBinder } from "@/mod/scripts/core/binders/SmartCoverBinder";
 import { SmartTerrainBinder } from "@/mod/scripts/core/binders/SmartTerrainBinder";
-import { storage } from "@/mod/scripts/core/db";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -31,6 +31,17 @@ list = {
   bindActor: createBinder(ActorBinder),
   bindAnomalyField: createBinder(AnomalyFieldBinder),
   bindAnomalyZone: createBinder(AnomalyZoneBinder),
+  bindArenaZone: (object: XR_game_object) => {
+    const ini: Optional<XR_ini_file> = object.spawn_ini();
+
+    if (ini === null) {
+      return;
+    }
+
+    if (ini.section_exist("arena_zone") && alife() !== null) {
+      object.bind_object(create_xr_class_instance(ArenaZoneBinder, object));
+    }
+  },
   bindArtefact: createBinder(ArtefactBinder),
   bindCamp: createBinder(CampBinder),
   bindCampfire: createBinder(CampfireBinder),
@@ -46,8 +57,6 @@ list = {
         return;
       }
     }
-
-    storage.set(object.id(), {});
 
     object.bind_object(create_xr_class_instance(PhysicObjectBinder, object));
   },
