@@ -1,3 +1,4 @@
+local RestrictorManager = require("scripts.core.RestrictorManager").RestrictorManager
 local schemes = require("scripts.core.schemes")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
@@ -455,7 +456,7 @@ function reset_generic_schemes_on_scheme_switch(npc, scheme, section)
     stalker_generic.reset_group(npc, st.ini, section)
     stalker_generic.take_items_enabled(npc, scheme, st, section)
     stalker_generic.can_select_weapon(npc, scheme, st, section)
-    restrictor_manager.get_restrictor_manager(npc):reset_restrictions(st, section)
+    RestrictorManager:forNpc(npc):reset_restrictions(st, section)
     xr_hear.reset_hear_callback(st, section)
 
   elseif st.stype == schemes.stype_mobile then
@@ -473,7 +474,7 @@ function reset_generic_schemes_on_scheme_switch(npc, scheme, section)
     end
     xr_combat_ignore.reset_combat_ignore_checker(npc, scheme, st, section)
     stalker_generic.reset_invulnerability(npc, st.ini, section)
-    restrictor_manager.get_restrictor_manager(npc):reset_restrictions(st, section)
+    RestrictorManager:forNpc(npc):reset_restrictions(st, section)
     xr_hear.reset_hear_callback(st, section)
   elseif st.stype == schemes.stype_item then
     npc:set_callback(callback.use_object, nil)

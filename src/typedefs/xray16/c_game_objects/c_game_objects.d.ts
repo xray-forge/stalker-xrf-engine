@@ -469,7 +469,7 @@ declare module "xray16" {
     public set_capture_anim(game_object: XR_game_object, value1: string, vector: XR_vector, value2: number): unknown;
     public character_icon(): string;
     public patrol(): string | null;
-    public in_restrictions(): unknown;
+    public in_restrictions(): string;
     public unlock_door_for_npc(): unknown;
     public buy_item_condition_factor(value: number): unknown;
     public visibility_threshold(): unknown;
@@ -635,7 +635,7 @@ declare module "xray16" {
     public apply_loophole_direction_distance(): unknown;
     public give_money(value: number): unknown;
     public set_relation(type: unknown, game_object: XR_game_object): unknown;
-    public out_restrictions(): unknown;
+    public out_restrictions(): string;
     public transfer_item(game_object1: XR_game_object, game_object2: XR_game_object): unknown;
     public enable_attachable_item(value: boolean): unknown;
     public disable_show_hide_sounds(value: boolean): unknown;

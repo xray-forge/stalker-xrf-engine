@@ -2,6 +2,7 @@ import { XR_cse_alife_object, XR_game_object, XR_ini_file, XR_object_binder, XR_
 
 import { Optional } from "@/mod/lib/types";
 import { ActorProxy, IActorProxy } from "@/mod/scripts/core/ActorProxy";
+import { RestrictorManager } from "@/mod/scripts/core/RestrictorManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("db", false);
@@ -39,6 +40,7 @@ export interface IStoredObject<T = XR_game_object> {
   disable_input_idle?: any;
   state_mgr?: any;
   sr_deimos?: any;
+  restrictor_manager?: Optional<RestrictorManager>;
   overrides?: {
     on_offline_condlist: number;
     min_post_combat_time: number;
