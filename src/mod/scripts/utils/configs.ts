@@ -1,7 +1,7 @@
 import { XR_cse_abstract, XR_cse_alife_object, XR_game_object, XR_ini_file } from "xray16";
 
-import { AnyObject, Maybe, Optional } from "@/mod/lib/types";
-import { scriptIds } from "@/mod/scripts/core/db";
+import { AnyCallablesModule, AnyObject, Maybe, Optional } from "@/mod/lib/types";
+import { getActor, scriptIds } from "@/mod/scripts/core/db";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -389,4 +389,24 @@ export function parse_func_params(str: string): LuaTable<number, string | number
   }
 
   return lst;
+}
+
+/**
+ * todo;
+ */
+export function get_infos_from_data(npc: XR_game_object, str: Optional<string>): LuaTable<number, string> {
+  const t: LuaTable<number, string> = new LuaTable();
+  const actor = getActor();
+
+  if (str !== null) {
+    for (const name of string.gfind(str, "(%|*[^%|]+%|*)%p*")) {
+      const condlist = get_global<AnyCallablesModule>("xr_logic").parse_condlist(npc, "in", name, name);
+
+      if (condlist !== null) {
+        table.insert(t, get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(actor, npc, condlist));
+      }
+    }
+  }
+
+  return t;
 }

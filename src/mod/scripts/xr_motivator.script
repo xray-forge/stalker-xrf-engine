@@ -7,6 +7,7 @@ local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
 local PostCombatIdle = require("scripts.core.logic.PostCombatIdle")
+local utilsAlife = require("scripts.utils.alife")
 
 local log = create_ts_class_instance(LuaLogger, "xr_motivator");
 
@@ -431,7 +432,7 @@ function motivator_binder:update(delta)
     xr_meet.process_npc_usability(object)
 
     -- ������ ����������
-    stalker_generic.update_invulnerability(self.object)
+    utilsAlife.update_invulnerability(self.object)
   end
 
 

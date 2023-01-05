@@ -2,6 +2,7 @@ local RestrictorManager = require("scripts.core.RestrictorManager").RestrictorMa
 local schemes = require("scripts.core.schemes")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
+local utilsAlife = require("scripts.utils.alife")
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 
 local utilsConfigs = require("scripts.utils.configs")
@@ -247,11 +248,11 @@ function disable_generic_schemes(npc, stype)
     xr_meet.disable_scheme(npc, "actor_dialogs")
     --'xr_heli_hunter.disable_scheme(npc, "heli_hunter")
     xr_combat_ignore.disable_scheme(npc, "combat_ignore")
-    stalker_generic.disable_invulnerability(npc)
+    utilsAlife.disable_invulnerability(npc)
   elseif stype == schemes.stype_mobile then
     mob_combat.disable_scheme(npc, "mob_combat")
     xr_combat_ignore.disable_scheme(npc, "combat_ignore")
-    stalker_generic.disable_invulnerability(npc)
+    utilsAlife.disable_invulnerability(npc)
   elseif stype == schemes.stype_item then
     ph_on_hit.disable_scheme(npc, "ph_on_hit")
   elseif stype == schemes.stype_heli then
@@ -271,11 +272,11 @@ function enable_generic_schemes(ini, npc, stype, section)
     local combat_section = utils.cfg_get_string(ini, section, "on_combat", npc, false, "")
     xr_combat.set_combat_checker(npc, ini, "combat", combat_section)
 
-    stalker_generic.reset_invulnerability(npc, ini, section)
+    utilsAlife.reset_invulnerability(npc, ini, section)
 
     local info_section = utils.cfg_get_string(ini, section, "info", npc, false, "")
     if info_section then
-      stalker_generic.set_npc_info(npc, ini, "info", info_section)
+      utilsAlife.set_npc_info(npc, ini, "info", info_section)
     end
 
     local hit_section = utils.cfg_get_string(ini, section, "on_hit", npc, false, "")
@@ -320,7 +321,7 @@ function enable_generic_schemes(ini, npc, stype, section)
       mob_death.set_scheme(npc, ini, "mob_death", death_section)
     end
 
-    stalker_generic.reset_invulnerability(npc, ini, section)
+    utilsAlife.reset_invulnerability(npc, ini, section)
 
     local hit_section = utils.cfg_get_string(ini, section, "on_hit", npc, false, "")
     if hit_section then
@@ -450,12 +451,12 @@ function reset_generic_schemes_on_scheme_switch(npc, scheme, section)
     xr_combat_ignore.reset_combat_ignore_checker(npc, scheme, st, section)
 
     mapDisplayManager:updateNpcSpot(npc, scheme, st, section)
-    stalker_generic.reset_threshold(npc, scheme, st, section)
-    --		stalker_generic.set_level_spot(npc, scheme, st, section)
-    stalker_generic.reset_invulnerability(npc, st.ini, section)
-    stalker_generic.reset_group(npc, st.ini, section)
-    stalker_generic.take_items_enabled(npc, scheme, st, section)
-    stalker_generic.can_select_weapon(npc, scheme, st, section)
+    utilsAlife.reset_threshold(npc, scheme, st, section)
+    --		utilsAlife.set_level_spot(npc, scheme, st, section)
+    utilsAlife.reset_invulnerability(npc, st.ini, section)
+    utilsAlife.reset_group(npc, st.ini, section)
+    utilsAlife.take_items_enabled(npc, scheme, st, section)
+    utilsAlife.can_select_weapon(npc, scheme, st, section)
     RestrictorManager:forNpc(npc):reset_restrictions(st, section)
     xr_hear.reset_hear_callback(st, section)
 
@@ -473,7 +474,7 @@ function reset_generic_schemes_on_scheme_switch(npc, scheme, section)
       end
     end
     xr_combat_ignore.reset_combat_ignore_checker(npc, scheme, st, section)
-    stalker_generic.reset_invulnerability(npc, st.ini, section)
+    utilsAlife.reset_invulnerability(npc, st.ini, section)
     RestrictorManager:forNpc(npc):reset_restrictions(st, section)
     xr_hear.reset_hear_callback(st, section)
   elseif st.stype == schemes.stype_item then

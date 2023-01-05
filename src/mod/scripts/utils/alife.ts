@@ -17,11 +17,12 @@ import {
 
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
-import { AnyArgs, Maybe, Optional } from "@/mod/lib/types";
+import { AnyArgs, AnyCallablesModule, Maybe, Optional } from "@/mod/lib/types";
 import { isStalker } from "@/mod/scripts/core/checkers";
-import { storage } from "@/mod/scripts/core/db";
+import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { getStoryObjectsRegistry } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
+import { get_infos_from_data, getConfigBoolean, getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -324,4 +325,152 @@ export function areOnSameAlifeLevel(first: XR_cse_alife_object, second: XR_cse_a
   return (
     game_graph().vertex(first.m_game_vertex_id).level_id() == game_graph().vertex(second.m_game_vertex_id).level_id()
   );
+}
+
+/**
+ * todo;
+ */
+export function set_npc_info(npc: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
+  const in_info = get_infos_from_data(npc, getConfigString(ini, section, "in", npc, false, ""));
+  const out_info = get_infos_from_data(npc, getConfigString(ini, section, "out", npc, false, ""));
+
+  for (const [k, v] of in_info) {
+    npc.give_info_portion(v);
+  }
+
+  for (const [k, v] of out_info) {
+    npc.disable_info_portion(v);
+  }
+}
+
+/**
+ * todo: rename, update
+ */
+export function reset_group(npc: XR_game_object, ini: XR_ini_file, section: string): void {
+  const group = getConfigNumber(ini, section, "group", npc, false, -1);
+
+  if (group !== -1) {
+    npc.change_team(npc.team(), npc.squad(), group);
+  }
+}
+
+/**
+ * todo: rename, update
+ */
+export function take_items_enabled(npc: XR_game_object, scheme: string, st: IStoredObject, section: string): void {
+  const take_items = st.ini!.line_exist(section, "take_items")
+    ? getConfigBoolean(st.ini!, section, "take_items", npc, false, true)
+    : getConfigBoolean(st.ini!, st.section_logic!, "take_items", npc, false, true);
+
+  npc.take_items_enabled(take_items);
+}
+
+/**
+ * todo: rename, update
+ */
+export function can_select_weapon(npc: XR_game_object, scheme: string, st: IStoredObject, section: string): void {
+  let str = getConfigString(st.ini!, section, "can_select_weapon", npc, false, "", "");
+
+  if (str === "") {
+    str = getConfigString(st.ini!, st.section_logic!, "can_select_weapon", npc, false, "", "true");
+  }
+
+  const cond = get_global<AnyCallablesModule>("xr_logic").parse_condlist(npc, section, "can_select_weapon", str);
+  const can = get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(getActor(), npc, cond);
+
+  npc.can_select_weapon(can == "true");
+}
+
+/**
+ * todo;
+ */
+export function is_need_invulnerability(npc: XR_game_object): boolean {
+  const npc_st = storage.get(npc.id());
+  const invulnerability: Optional<string> = getConfigString(
+    npc_st.ini!,
+    npc_st.active_section!,
+    "invulnerable",
+    npc,
+    false,
+    "",
+    null
+  );
+
+  if (invulnerability === null) {
+    return false;
+  }
+
+  const invulnerability_condlist = get_global<AnyCallablesModule>("xr_logic").parse_condlist(
+    npc,
+    "invulnerability",
+    "invulnerability",
+    invulnerability
+  );
+
+  return (
+    get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(getActor(), npc, invulnerability_condlist) ===
+    "true"
+  );
+}
+
+/**
+ * todo;
+ */
+export function reset_invulnerability(npc: XR_game_object, ini: XR_ini_file, section: string): void {
+  const invulnerability = is_need_invulnerability(npc);
+
+  if (npc.invulnerable() !== invulnerability) {
+    npc.invulnerable(invulnerability);
+  }
+}
+
+/**
+ * todo;
+ */
+export function disable_invulnerability(npc: XR_game_object): void {
+  npc.invulnerable(false);
+}
+
+/**
+ * todo;
+ */
+export function update_invulnerability(npc: XR_game_object): void {
+  const invulnerability = is_need_invulnerability(npc);
+
+  if (npc.invulnerable() !== invulnerability) {
+    npc.invulnerable(invulnerability);
+  }
+}
+
+/**
+ * todo
+ */
+export function reset_threshold(
+  npc: XR_game_object,
+  scheme: Optional<string>,
+  st: IStoredObject,
+  section: string
+): void {
+  const threshold_section: Optional<string> =
+    scheme === null || scheme === "nil"
+      ? getConfigString(st.ini!, st.section_logic!, "threshold", npc, false, "")
+      : getConfigString(st.ini!, section, "threshold", npc, false, "");
+
+  if (threshold_section !== null) {
+    const max_ignore_distance = getConfigNumber(st.ini!, threshold_section, "max_ignore_distance", npc, false);
+
+    if (max_ignore_distance !== null) {
+      npc.max_ignore_monster_distance(max_ignore_distance);
+    } else {
+      npc.restore_max_ignore_monster_distance();
+    }
+
+    const ignore_monster: number = getConfigNumber(st.ini!, threshold_section, "ignore_monster", npc, false);
+
+    if (ignore_monster !== null) {
+      npc.ignore_monster_threshold(ignore_monster);
+    } else {
+      npc.restore_ignore_monster_threshold();
+    }
+  }
 }

@@ -355,7 +355,7 @@ declare module "xray16" {
 
     public set_smart_cover_target_fire(): unknown;
     public set_community_goodwill(first: string, second: number): unknown;
-    public team(): string;
+    public team(): number;
     public get_smart_cover_description(): unknown;
     public set_ammo_elapsed(value: number): unknown;
     public active_zone_contact(value: number): unknown;
@@ -374,7 +374,7 @@ declare module "xray16" {
     public give_talk_message(value1: string, value2: string, value3: string): unknown;
     public not_yet_visible_objects(): unknown;
     public set_mental_state(state: unknown /** EMentalState */): unknown;
-    public squad(): string;
+    public squad(): number;
     public reset_action_queue(): unknown;
     public burer_set_force_gravi_attack(value: boolean): unknown;
     public can_select_weapon(): unknown;
