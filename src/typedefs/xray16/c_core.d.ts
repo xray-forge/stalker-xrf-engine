@@ -393,6 +393,10 @@ declare module "xray16" {
     public body(EBodyState: unknown): unknown;
   }
 
+  export type TXR_moves = typeof XR_move;
+
+  export type TXR_move = TXR_moves[Exclude<keyof TXR_moves, "constructor" | "prototype">]
+
   /**
    * C++ class anim {
    * @customConstructor anim

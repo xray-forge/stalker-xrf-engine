@@ -2,6 +2,7 @@ import { cse_smart_cover, game_graph, properties_helper, XR_cse_smart_cover, XR_
 
 import { Optional } from "@/mod/lib/types";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
+import { ISmartCoverLoopholeDescriptor, smart_covers } from "@/mod/scripts/smart_covers/smart_covers";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -120,18 +121,14 @@ export const SmartCover: ISmartCover = declare_xr_class("SmartCover", cse_smart_
       const smart_cover_description: Optional<string> =
         this.last_description !== "" ? this.last_description : this.description();
       const existing_loopholes: LuaTable<string, any> = new LuaTable();
-      const smart_covers = get_global("smart_covers");
 
       if (smart_cover_description !== null) {
-        if (smart_covers === null) {
-          abort("smartcovers is null");
-        }
-
-        if (smart_covers.descriptions[smart_cover_description] == null) {
+        if (!smart_covers.has(smart_cover_description)) {
           abort("smartcover [%s] has wrong description [%s]", this.name(), tostring(smart_cover_description));
         }
 
-        const loopholes: LuaTable<string, any> = smart_covers.descriptions[smart_cover_description].loopholes;
+        const loopholes: LuaTable<number, ISmartCoverLoopholeDescriptor> =
+          smart_covers.get(smart_cover_description).loopholes;
 
         for (const [k, v] of loopholes) {
           existing_loopholes.set(v.id, true);
@@ -152,7 +149,8 @@ export const SmartCover: ISmartCover = declare_xr_class("SmartCover", cse_smart_
       const smart_cover_description = this.description();
 
       if (smart_cover_description !== null) {
-        const loopholes: LuaTable = get_global("smart_covers").descriptions[smart_cover_description].loopholes;
+        const loopholes: LuaTable<number, ISmartCoverLoopholeDescriptor> =
+          smart_covers.get(smart_cover_description).loopholes;
 
         for (const [k, v] of loopholes) {
           this.loopholes.set(v.id, true);
