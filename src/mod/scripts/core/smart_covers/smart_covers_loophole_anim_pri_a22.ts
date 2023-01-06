@@ -1,8 +1,8 @@
 import { vector, XR_vector } from "xray16";
 
-import { ISmartCoverLoopholeDescriptor } from "@/mod/scripts/smart_covers/smart_covers";
+import { ISmartCoverLoopholeDescriptor } from "@/mod/scripts/core/smart_covers/smart_covers";
 
-export function get_animpoint_sit_low_loophole(
+export function get_anim_pri_a22_loophole(
   id: string,
   position: XR_vector,
   fov_direction: XR_vector,
@@ -21,29 +21,29 @@ export function get_animpoint_sit_low_loophole(
     actions: {
       idle: {
         animations: {
-          idle: ["animpoint_sit_low_idle_1"]
+          idle: ["pri_a22_colonel_lean_on_tabl_idle"]
         }
       },
       lookout: {
         animations: {
-          idle: ["animpoint_sit_low_in_1"]
+          idle: ["pri_a22_colonel_lean_on_tabl_idle"]
         }
       },
       fire: {
         animations: {
-          idle: ["animpoint_sit_low_in_1"],
-          shoot: ["animpoint_sit_low_in_1"]
+          idle: ["pri_a22_colonel_lean_on_tabl_idle"],
+          shoot: ["pri_a22_colonel_lean_on_tabl_idle"]
         }
       },
       fire_no_lookout: {
         animations: {
-          idle: ["animpoint_sit_low_in_1"],
-          shoot: ["animpoint_sit_low_in_1"]
+          idle: ["pri_a22_colonel_lean_on_tabl_idle"],
+          shoot: ["pri_a22_colonel_lean_on_tabl_idle"]
         }
       },
       reload: {
         animations: {
-          idle: ["animpoint_sit_low_in_1"]
+          idle: ["pri_a22_colonel_lean_on_tabl_idle"]
         }
       }
     },
@@ -52,37 +52,37 @@ export function get_animpoint_sit_low_loophole(
         action_from: "idle",
         action_to: "lookout",
         weight: 1.2,
-        animations: ["animpoint_sit_low_in_1"]
+        animations: ["pri_a22_colonel_lean_on_tabl_idle"]
       },
       {
         action_from: "lookout",
         action_to: "idle",
         weight: 1.2,
-        animations: ["animpoint_sit_low_in_1"]
+        animations: ["pri_a22_colonel_lean_on_tabl_idle"]
       },
       {
         action_from: "idle",
         action_to: "fire",
         weight: 1.2,
-        animations: ["animpoint_sit_low_in_1"]
+        animations: ["pri_a22_colonel_lean_on_tabl_idle"]
       },
       {
         action_from: "fire",
         action_to: "idle",
         weight: 1.2,
-        animations: ["animpoint_sit_low_in_1"]
+        animations: ["pri_a22_colonel_lean_on_tabl_idle"]
       },
       {
         action_from: "idle",
         action_to: "fire_no_lookout",
         weight: 1.2,
-        animations: ["animpoint_sit_low_in_1"]
+        animations: ["pri_a22_colonel_lean_on_tabl_idle"]
       },
       {
         action_from: "fire_no_lookout",
         action_to: "idle",
         weight: 1.2,
-        animations: ["animpoint_sit_low_in_1"]
+        animations: ["pri_a22_colonel_lean_on_tabl_idle"]
       }
     ]
   };

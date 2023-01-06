@@ -1,14 +1,14 @@
 import { TXR_move, XR_vector } from "xray16";
 
-import { get_smart_cover_anim_pri_a22 } from "@/mod/scripts/smart_covers/smart_covers_anim_pri_a22";
-import { get_smart_cover_animpoint_pri_a15 } from "@/mod/scripts/smart_covers/smart_covers_animpoint_pri_a15";
-import { get_smart_cover_animpoint_sit_high } from "@/mod/scripts/smart_covers/smart_covers_animpoint_sit_high";
-import { get_smart_cover_animpoint_sit_low } from "@/mod/scripts/smart_covers/smart_covers_animpoint_sit_low";
-import { get_smart_cover_animpoint_sit_normal } from "@/mod/scripts/smart_covers/smart_covers_animpoint_sit_normal";
-import { get_smart_cover_animpoint_stay_table } from "@/mod/scripts/smart_covers/smart_covers_animpoint_stay_table";
-import { get_smart_cover_animpoint_stay_wall } from "@/mod/scripts/smart_covers/smart_covers_animpoint_stay_wall";
-import { get_smart_cover_combat_front } from "@/mod/scripts/smart_covers/smart_covers_combat_front";
-import { get_smart_cover_combat_prone } from "@/mod/scripts/smart_covers/smart_covers_combat_prone";
+import { get_smart_cover_anim_pri_a22 } from "@/mod/scripts/core/smart_covers/smart_covers_anim_pri_a22";
+import { get_smart_cover_animpoint_pri_a15 } from "@/mod/scripts/core/smart_covers/smart_covers_animpoint_pri_a15";
+import { get_smart_cover_animpoint_sit_high } from "@/mod/scripts/core/smart_covers/smart_covers_animpoint_sit_high";
+import { get_smart_cover_animpoint_sit_low } from "@/mod/scripts/core/smart_covers/smart_covers_animpoint_sit_low";
+import { get_smart_cover_animpoint_sit_normal } from "@/mod/scripts/core/smart_covers/smart_covers_animpoint_sit_normal";
+import { get_smart_cover_animpoint_stay_table } from "@/mod/scripts/core/smart_covers/smart_covers_animpoint_stay_table";
+import { get_smart_cover_animpoint_stay_wall } from "@/mod/scripts/core/smart_covers/smart_covers_animpoint_stay_wall";
+import { get_smart_cover_combat_front } from "@/mod/scripts/core/smart_covers/smart_covers_combat_front";
+import { get_smart_cover_combat_prone } from "@/mod/scripts/core/smart_covers/smart_covers_combat_prone";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 export interface ISmartCoverDescriptor {

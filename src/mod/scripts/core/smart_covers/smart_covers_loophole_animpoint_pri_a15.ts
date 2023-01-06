@@ -1,8 +1,8 @@
 import { vector, XR_vector } from "xray16";
 
-import { ISmartCoverLoopholeDescriptor } from "@/mod/scripts/smart_covers/smart_covers";
+import { ISmartCoverLoopholeDescriptor } from "@/mod/scripts/core/smart_covers/smart_covers";
 
-export function get_anim_pri_a22_loophole(
+export function get_animpoint_pri_a15_loophole(
   id: string,
   position: XR_vector,
   fov_direction: XR_vector,
@@ -21,29 +21,29 @@ export function get_anim_pri_a22_loophole(
     actions: {
       idle: {
         animations: {
-          idle: ["pri_a22_colonel_lean_on_tabl_idle"]
+          idle: ["idle_0_idle_0"]
         }
       },
       lookout: {
         animations: {
-          idle: ["pri_a22_colonel_lean_on_tabl_idle"]
+          idle: ["idle_0_idle_0"]
         }
       },
       fire: {
         animations: {
-          idle: ["pri_a22_colonel_lean_on_tabl_idle"],
-          shoot: ["pri_a22_colonel_lean_on_tabl_idle"]
+          idle: ["idle_0_idle_0"],
+          shoot: ["idle_0_idle_0"]
         }
       },
       fire_no_lookout: {
         animations: {
-          idle: ["pri_a22_colonel_lean_on_tabl_idle"],
-          shoot: ["pri_a22_colonel_lean_on_tabl_idle"]
+          idle: ["idle_0_idle_0"],
+          shoot: ["idle_0_idle_0"]
         }
       },
       reload: {
         animations: {
-          idle: ["pri_a22_colonel_lean_on_tabl_idle"]
+          idle: ["idle_0_idle_0"]
         }
       }
     },
@@ -52,37 +52,37 @@ export function get_anim_pri_a22_loophole(
         action_from: "idle",
         action_to: "lookout",
         weight: 1.2,
-        animations: ["pri_a22_colonel_lean_on_tabl_idle"]
+        animations: ["idle_0_idle_0"]
       },
       {
         action_from: "lookout",
         action_to: "idle",
         weight: 1.2,
-        animations: ["pri_a22_colonel_lean_on_tabl_idle"]
+        animations: ["idle_0_idle_0"]
       },
       {
         action_from: "idle",
         action_to: "fire",
         weight: 1.2,
-        animations: ["pri_a22_colonel_lean_on_tabl_idle"]
+        animations: ["pri_a15_zulus_cam5"]
       },
       {
         action_from: "fire",
         action_to: "idle",
         weight: 1.2,
-        animations: ["pri_a22_colonel_lean_on_tabl_idle"]
+        animations: ["idle_0_idle_0"]
       },
       {
         action_from: "idle",
         action_to: "fire_no_lookout",
         weight: 1.2,
-        animations: ["pri_a22_colonel_lean_on_tabl_idle"]
+        animations: ["idle_0_idle_0"]
       },
       {
         action_from: "fire_no_lookout",
         action_to: "idle",
         weight: 1.2,
-        animations: ["pri_a22_colonel_lean_on_tabl_idle"]
+        animations: ["idle_0_idle_0"]
       }
     ]
   };

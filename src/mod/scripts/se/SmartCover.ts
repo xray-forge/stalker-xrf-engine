@@ -2,7 +2,7 @@ import { cse_smart_cover, game_graph, properties_helper, XR_cse_smart_cover, XR_
 
 import { Optional } from "@/mod/lib/types";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
-import { ISmartCoverLoopholeDescriptor, smart_covers } from "@/mod/scripts/smart_covers/smart_covers";
+import { ISmartCoverLoopholeDescriptor, smart_covers } from "@/mod/scripts/core/smart_covers/smart_covers";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

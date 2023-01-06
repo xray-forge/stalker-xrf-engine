@@ -1,7 +1,7 @@
 import { move, vector } from "xray16";
 
-import { ISmartCoverDescriptor } from "@/mod/scripts/smart_covers/smart_covers";
-import { get_animpoint_stay_wall_loophole } from "@/mod/scripts/smart_covers/smart_covers_loophole_animpoint_stay_wall";
+import { ISmartCoverDescriptor } from "@/mod/scripts/core/smart_covers/smart_covers";
+import { get_animpoint_stay_wall_loophole } from "@/mod/scripts/core/smart_covers/smart_covers_loophole_animpoint_stay_wall";
 
 export function get_smart_cover_animpoint_stay_wall(): ISmartCoverDescriptor {
   return {

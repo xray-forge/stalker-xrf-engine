@@ -1,16 +1,16 @@
 import { vector, XR_vector } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { ISmartCoverLoopholeDescriptor } from "@/mod/scripts/smart_covers/smart_covers";
+import { ISmartCoverLoopholeDescriptor } from "@/mod/scripts/core/smart_covers/smart_covers";
 
-export function get_crouch_front_right_loophole(
+export function get_stand_front_right_loophole(
   id: string,
   fov_direction: XR_vector,
   position?: Optional<XR_vector>,
   enter_direction?: Optional<XR_vector>
 ): ISmartCoverLoopholeDescriptor {
-  const pos: XR_vector = position || new vector().set(0, 0, 0);
-  const enter_dir: XR_vector = enter_direction || new vector().set(-1, 0, 0);
+  const pos = position || new vector().set(0, 0, 0);
+  const enter_dir = enter_direction || new vector().set(-1, 0, 0);
 
   return {
     id: id,
@@ -27,29 +27,29 @@ export function get_crouch_front_right_loophole(
     actions: {
       idle: {
         animations: {
-          idle: ["loophole_crouch_front_right_idle_0"]
+          idle: ["loophole_stand_front_right_idle_0"]
         }
       },
       lookout: {
         animations: {
-          idle: ["loophole_crouch_front_right_look_idle_0"]
+          idle: ["loophole_stand_front_right_look_idle_0"]
         }
       },
       fire: {
         animations: {
-          idle: ["loophole_crouch_front_right_attack_idle_0"],
-          shoot: ["loophole_crouch_front_right_attack_shoot_0", "loophole_crouch_front_right_attack_shoot_1"]
+          idle: ["loophole_stand_front_right_attack_idle_0"],
+          shoot: ["loophole_stand_front_right_attack_shoot_0", "loophole_stand_front_right_attack_shoot_1"]
         }
       },
       fire_no_lookout: {
         animations: {
-          idle: ["loophole_crouch_front_right_attack_idle_0"],
-          shoot: ["loophole_crouch_front_right_attack_shoot_0", "loophole_crouch_front_right_attack_shoot_1"]
+          idle: ["loophole_stand_front_right_attack_idle_0"],
+          shoot: ["loophole_stand_front_right_attack_shoot_0", "loophole_stand_front_right_attack_shoot_1"]
         }
       },
       reload: {
         animations: {
-          idle: ["loophole_crouch_front_right_reload_0"]
+          idle: ["loophole_stand_front_right_reload_0"]
         }
       }
     },
@@ -58,37 +58,37 @@ export function get_crouch_front_right_loophole(
         action_from: "idle",
         action_to: "lookout",
         weight: 1.2,
-        animations: ["loophole_crouch_front_right_look_in_0"]
+        animations: ["loophole_stand_front_right_look_in_0"]
       },
       {
         action_from: "lookout",
         action_to: "idle",
         weight: 1.2,
-        animations: ["loophole_crouch_front_right_look_out_0"]
+        animations: ["loophole_stand_front_right_look_out_0"]
       },
       {
         action_from: "idle",
         action_to: "fire",
         weight: 1.2,
-        animations: ["loophole_crouch_front_right_attack_in_0"]
+        animations: ["loophole_stand_front_right_attack_in_0"]
       },
       {
         action_from: "fire",
         action_to: "idle",
         weight: 1.2,
-        animations: ["loophole_crouch_front_right_attack_out_0"]
+        animations: ["loophole_stand_front_right_attack_out_0"]
       },
       {
         action_from: "idle",
         action_to: "fire_no_lookout",
         weight: 1.2,
-        animations: ["loophole_crouch_front_right_attack_in_0"]
+        animations: ["loophole_stand_front_right_attack_in_0"]
       },
       {
         action_from: "fire_no_lookout",
         action_to: "idle",
         weight: 1.2,
-        animations: ["loophole_crouch_front_right_attack_out_0"]
+        animations: ["loophole_stand_front_right_attack_out_0"]
       }
     ]
   };

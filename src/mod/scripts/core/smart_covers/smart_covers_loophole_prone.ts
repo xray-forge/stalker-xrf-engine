@@ -1,49 +1,55 @@
 import { vector, XR_vector } from "xray16";
 
-import { ISmartCoverLoopholeDescriptor } from "@/mod/scripts/smart_covers/smart_covers";
+import { Optional } from "@/mod/lib/types";
+import { ISmartCoverLoopholeDescriptor } from "@/mod/scripts/core/smart_covers/smart_covers";
 
-export function get_animpoint_pri_a15_loophole(
+export function get_prone_loophole(
   id: string,
-  position: XR_vector,
   fov_direction: XR_vector,
-  enter_direction: XR_vector
+  position?: Optional<XR_vector>,
+  enter_direction?: Optional<XR_vector>
 ): ISmartCoverLoopholeDescriptor {
+  const pos = position || new vector().set(0, 0, 0);
+  const enter_dir = enter_direction || new vector().set(-1, 0, 0);
+
   return {
     id: id,
-    fov_position: position,
+    fov_position: pos,
     fov_direction: fov_direction,
     danger_fov_direction: new vector().set(-1, 0, 0),
-    enter_direction: enter_direction,
+    enter_direction: enter_dir,
+    enterable: true,
+    exitable: true,
     usable: true,
-    fov: 45.0,
-    danger_fov: 45.0,
+    fov: 60.0,
+    danger_fov: 90.0,
     range: 70.0,
     actions: {
       idle: {
         animations: {
-          idle: ["idle_0_idle_0"]
+          idle: ["loophole_9_idle_0"]
         }
       },
       lookout: {
         animations: {
-          idle: ["idle_0_idle_0"]
+          idle: ["loophole_9_look_idle_0"]
         }
       },
       fire: {
         animations: {
-          idle: ["idle_0_idle_0"],
-          shoot: ["idle_0_idle_0"]
+          idle: ["loophole_9_attack_idle_0"],
+          shoot: ["loophole_9_attack_shoot_0", "loophole_9_attack_shoot_1"]
         }
       },
       fire_no_lookout: {
         animations: {
-          idle: ["idle_0_idle_0"],
-          shoot: ["idle_0_idle_0"]
+          idle: ["loophole_9_attack_idle_0"],
+          shoot: ["loophole_9_attack_shoot_0", "loophole_9_attack_shoot_1"]
         }
       },
       reload: {
         animations: {
-          idle: ["idle_0_idle_0"]
+          idle: ["loophole_9_reload_0"]
         }
       }
     },
@@ -52,37 +58,37 @@ export function get_animpoint_pri_a15_loophole(
         action_from: "idle",
         action_to: "lookout",
         weight: 1.2,
-        animations: ["idle_0_idle_0"]
+        animations: ["loophole_9_look_in_0"]
       },
       {
         action_from: "lookout",
         action_to: "idle",
         weight: 1.2,
-        animations: ["idle_0_idle_0"]
+        animations: ["loophole_9_look_out_0"]
       },
       {
         action_from: "idle",
         action_to: "fire",
         weight: 1.2,
-        animations: ["pri_a15_zulus_cam5"]
+        animations: ["loophole_9_attack_in_0"]
       },
       {
         action_from: "fire",
         action_to: "idle",
         weight: 1.2,
-        animations: ["idle_0_idle_0"]
+        animations: ["loophole_9_attack_out_0"]
       },
       {
         action_from: "idle",
         action_to: "fire_no_lookout",
         weight: 1.2,
-        animations: ["idle_0_idle_0"]
+        animations: ["loophole_9_attack_in_0"]
       },
       {
         action_from: "fire_no_lookout",
         action_to: "idle",
         weight: 1.2,
-        animations: ["idle_0_idle_0"]
+        animations: ["loophole_9_attack_out_0"]
       }
     ]
   };
