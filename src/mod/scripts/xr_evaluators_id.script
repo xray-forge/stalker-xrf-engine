@@ -1,9 +1,13 @@
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "xr_evaluators");
+
 ----------------------------------------------------------------------------------------------------------------------
 --  ��������� �����������
 ----------------------------------------------------------------------------------------------------------------------
 
 local id_start = stalker_ids.property_script
-log("PROPERTY_BASE " .. tostring(id_start))
+
 -- ���������� ����������
 global_evaluators = id_start
 script_evaluator = id_start + 1

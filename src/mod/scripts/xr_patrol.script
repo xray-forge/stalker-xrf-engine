@@ -1,3 +1,8 @@
+local StateManager = require("scripts.core.state_management.StateManager")
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "xr_wounded");
+
 ----------------------------------------------------------------------------------------------------------------------
 --	����� �������. ������ � �������
 ----------------------------------------------------------------------------------------------------------------------
@@ -332,7 +337,7 @@ function action_commander:execute()
   action_base.execute(self)
   self.move_mgr:update()
 
-  local new_state = state_mgr.get_state(self.object)
+  local new_state = StateManager.get_state(self.object)
   local old_state = self.old_state
 
   if old_state ~= new_state then
@@ -450,26 +455,30 @@ function action_patrol:execute()
   self.object:set_path_type(game_object.level_path)
 
   --'������������ �� ����
-  state_mgr.set_state(self.object, self.cur_state)
+  StateManager.set_state(self.object, self.cur_state)
 end
+
 function action_patrol:finalize()
   if self.object:alive() == true then
     self.move_mgr:finalize()
   end
   action_base.finalize(self)
 end
+
 function action_patrol:formation_callback(mode, number, index)
 end
+
 function action_patrol:death_callback(npc)
   patrols[self.st.patrol_key]:remove_npc(npc)
 end
+
 function action_patrol:deactivate(npc)
   patrols[self.st.patrol_key]:remove_npc(npc)
 end
+
 function action_patrol:net_destroy(npc)
   self:deactivate(npc)
 end
-
 
 --'--------------------------------------------------------------------------------------------------------------------
 --' Patrol binder

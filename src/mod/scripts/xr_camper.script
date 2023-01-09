@@ -1,4 +1,8 @@
 local utilsWorld = require("scripts.utils.world")
+local StateManager = require("scripts.core.state_management.StateManager")
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "xr_camper");
 
 ----------------------------------------------------------------------------------------------------------------------
 --'	����� ������. ����� � ������� ������ ����� � ������������ ��������.
@@ -101,7 +105,7 @@ function action_patrol:initialize()
 end
 function action_patrol:reset_scheme()
   --printf("CAMPER %s RESET SCHEME", self.object:name())
-  state_mgr.set_state(self.object, "patrol")
+  StateManager.set_state(self.object, "patrol")
   self.a.signals = {}
   self.a.scan_table = {}
   if self.a.sniper == true then
@@ -197,15 +201,15 @@ function action_patrol:execute()
       --printf("cp: [%s] see [%s]", self.object:name(), self.enemy:name())
       if self.a.sniper == true then
         if self.a.suggested_state.campering_fire then
-          state_mgr.set_state(self.object, self.a.suggested_state.campering_fire, nil, nil, { look_object = self.enemy, look_position = self.enemy:position() }, { animation = true })
+          StateManager.set_state(self.object, self.a.suggested_state.campering_fire, nil, nil, { look_object = self.enemy, look_position = self.enemy:position() }, { animation = true })
         else
-          state_mgr.set_state(self.object, "hide_sniper_fire", nil, nil, { look_object = self.enemy, look_position = self.enemy:position() }, { animation = true })
+          StateManager.set_state(self.object, "hide_sniper_fire", nil, nil, { look_object = self.enemy, look_position = self.enemy:position() }, { animation = true })
         end
       else
         if self.a.suggested_state.campering_fire then
-          state_mgr.set_state(self.object, self.a.suggested_state.campering_fire, nil, nil, { look_object = self.enemy, look_position = self.enemy:position() }, { animation = true })
+          StateManager.set_state(self.object, self.a.suggested_state.campering_fire, nil, nil, { look_object = self.enemy, look_position = self.enemy:position() }, { animation = true })
         else
-          state_mgr.set_state(self.object, "hide_fire", nil, nil, { look_object = self.enemy, look_position = self.enemy:position() }, { animation = true })
+          StateManager.set_state(self.object, "hide_fire", nil, nil, { look_object = self.enemy, look_position = self.enemy:position() }, { animation = true })
         end
       end
       --'printf("attack sound [%s]", tostring(self.a.attack_sound))
@@ -256,9 +260,9 @@ function action_patrol:execute()
             position = { look_position = self.enemy_position }
           end
           if self.a.suggested_state.campering then
-            state_mgr.set_state(self.object, self.a.suggested_state.campering, nil, nil, position)
+            StateManager.set_state(self.object, self.a.suggested_state.campering, nil, nil, position)
           else
-            state_mgr.set_state(self.object, "hide_na", nil, nil, position)
+            StateManager.set_state(self.object, "hide_na", nil, nil, position)
           end
         else
           self:scan(-1)
@@ -272,9 +276,9 @@ function action_patrol:execute()
             position = { look_position = self.enemy_position }
           end
           if self.a.suggested_state.campering then
-            state_mgr.set_state(self.object, self.a.suggested_state.campering, nil, nil, position)
+            StateManager.set_state(self.object, self.a.suggested_state.campering, nil, nil, position)
           else
-            state_mgr.set_state(self.object, "hide", nil, nil, position)
+            StateManager.set_state(self.object, "hide", nil, nil, position)
           end
         else
           --printf("not on place[%s]", self.object:name())
@@ -356,18 +360,18 @@ function action_patrol:process_danger()
   if urgent_danger == true then
     local danger_object_position = { look_position = best_danger_object:position() }
     if self.a.suggested_state.campering_fire then
-      state_mgr.set_state(self.object, self.a.suggested_state.campering_fire, nil, nil, danger_object_position)
+      StateManager.set_state(self.object, self.a.suggested_state.campering_fire, nil, nil, danger_object_position)
     else
-      state_mgr.set_state(self.object, "hide_fire", nil, nil, danger_object_position)
+      StateManager.set_state(self.object, "hide_fire", nil, nil, danger_object_position)
     end
   else
     if self.a.suggested_state.campering then
-      state_mgr.set_state(self.object, self.a.suggested_state.campering, nil, nil, position)
+      StateManager.set_state(self.object, self.a.suggested_state.campering, nil, nil, position)
     else
       if self.a.sniper == true then
-        state_mgr.set_state(self.object, "hide_na", nil, nil, position)
+        StateManager.set_state(self.object, "hide_na", nil, nil, position)
       else
-        state_mgr.set_state(self.object, "hide", nil, nil, position)
+        StateManager.set_state(self.object, "hide", nil, nil, position)
       end
     end
   end
@@ -403,9 +407,9 @@ function action_patrol:scan(flag)
         self.look_position.y + self.a.cur_look_point * (self.dest_position.y - self.look_position.y) / self.a.scandelta,
         self.look_position.z + self.a.cur_look_point * (self.dest_position.z - self.look_position.z) / self.a.scandelta)
     if self.a.suggested_state.campering then
-      state_mgr.set_state(self.object, self.a.suggested_state.campering, nil, nil, { look_position = self.look_point })
+      StateManager.set_state(self.object, self.a.suggested_state.campering, nil, nil, { look_position = self.look_point })
     else
-      state_mgr.set_state(self.object, "hide_na", nil, nil, { look_position = self.look_point })
+      StateManager.set_state(self.object, "hide_na", nil, nil, { look_position = self.look_point })
     end
 
     if self.a.cur_look_point >= self.a.scandelta then

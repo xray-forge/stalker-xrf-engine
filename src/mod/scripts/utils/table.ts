@@ -49,6 +49,7 @@ export function getTableSize(collection: LuaTable<any, any>): number {
 /**
  * todo: description
  */
+export function copyTable<T extends Record<any, any>, D extends Record<any, any>>(target: T, source: D): void;
 export function copyTable(target: LuaTable<string | number>, source: LuaTable<string | number>): void {
   for (const [k, v] of source) {
     if (type(v) == "table") {

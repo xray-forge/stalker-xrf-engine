@@ -1,6 +1,6 @@
 import { XR_cse_alife_object, XR_game_object, XR_ini_file, XR_object_binder, XR_vector } from "xray16";
 
-import { Optional } from "@/mod/lib/types";
+import { AnyCallable, AnyObject, Optional } from "@/mod/lib/types";
 import { ActorProxy, IActorProxy } from "@/mod/scripts/core/ActorProxy";
 import { RestrictorManager } from "@/mod/scripts/core/RestrictorManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -29,6 +29,7 @@ export interface IStoredObject<T = XR_game_object> {
   ini?: XR_ini_file;
   object?: T;
   hit?: any;
+  smartcover?: any;
   active_scheme?: string;
   active_section?: string;
   combat_ignore?: boolean;

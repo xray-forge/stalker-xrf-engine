@@ -1,3 +1,4 @@
+local StateManager = require("scripts.core.state_management.StateManager")
 local NewsManager = require("scripts.core.NewsManager")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
@@ -95,13 +96,13 @@ function action_remark_activity:update()
     local target = self:get_target()
     if target == nil then
       local anim = xr_logic.pick_section_from_condlist(db.actor, self.object, self.st.anim)
-      state_mgr.set_state(self.object, anim, cb, 0)
+      StateManager.set_state(self.object, anim, cb, 0)
       self.state = state_animation
       return
     end
 
     local anim = xr_logic.pick_section_from_condlist(db.actor, self.object, self.st.anim)
-    state_mgr.set_state(self.object, anim, cb, 0, target)
+    StateManager.set_state(self.object, anim, cb, 0, target)
     self.state = state_animation
 
     --' �������� ������� �� ��������������

@@ -1,3 +1,8 @@
+local StateManager = require("scripts.core.state_management.StateManager")
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "xr_comanion");
+
 local desired_distance = 1
 local min_distance = 1
 
@@ -50,7 +55,7 @@ function action_companion_activity:initialize()
   self.object:enable_talk()
   self.assist_point = nil
   self.last_state = "guard_na"
-  state_mgr.set_state(self.object, self.last_state, nil, nil, nil, { animation = true })
+  StateManager.set_state(self.object, self.last_state, nil, nil, nil, { animation = true })
   self.keep_state_until = time_global()
 end
 
@@ -116,7 +121,7 @@ function action_companion_activity:beh_walk_simple()
   end
 
   if new_state and new_state ~= self.last_state then
-    state_mgr.set_state(self.object, new_state,
+    StateManager.set_state(self.object, new_state,
         nil, nil, target, { animation = true })
     self.last_state = new_state
   end
@@ -126,10 +131,9 @@ function action_companion_activity:beh_walk_simple()
 end
 
 function action_companion_activity:beh_wait_simple()
-  local actor = db.actor
   local new_state = "threat"
   if new_state ~= self.last_state then
-    state_mgr.set_state(self.object, new_state,
+    StateManager.set_state(self.object, new_state,
         nil, nil, { look_object = get_story_object("actor") }, { animation = true })
     self.last_state = new_state
   end

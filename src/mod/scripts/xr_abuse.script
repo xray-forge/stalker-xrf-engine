@@ -1,3 +1,8 @@
+local StateManager = require("scripts.core.state_management.StateManager")
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "xr_abuse");
+
 ----------------------------------------------------------------------------------------------------------------------
 --	����� ������� ��������� �� ���������� ������
 --	�����: ������� ������ (Stohe)
@@ -26,6 +31,7 @@ function action_abuse_hit:__init (npc_name, action_name, storage, char_ini)
   super(nil, action_name)
   self.a = storage
 end
+
 function action_abuse_hit:initialize()
   action_base.initialize(self)
   --	self.object:set_node_evaluator()
@@ -33,7 +39,7 @@ function action_abuse_hit:initialize()
   self.object:set_desired_position()
   self.object:set_desired_direction()
 
-  state_mgr.set_state(self.object, "punch", nil, nil, { look_object = db.actor }, { animation = true })
+  StateManager.set_state(self.object, "punch", nil, nil, { look_object = db.actor }, { animation = true })
   --	xr_sound.set_sound_play(self.object:id(), "use_abuse")
   self.hit_done = true      --' xStream 02.2008
 end
@@ -135,14 +141,13 @@ function add_to_binder(object, char_ini, scheme, section, st)
   st.abuse_manager = CAbuseManager(object, st)
 end
 
-
-
 ------------
 -- ���������� ������ � ������ �� ������ ������, ������� ������, ���������� � ����������
 -- ��������� ���������.
 function set_abuse(npc, ini, scheme, section)
   local st = xr_logic.assign_storage_and_bind(npc, ini, scheme, section)
 end
+
 -- ���������� ��� ������������ �� ����� ������. ���������� ����������� �������� �� ������� ������.
 function reset_abuse(npc, scheme, st, section)
 end
@@ -153,24 +158,28 @@ function add_abuse(npc, value)
     t.abuse_manager:addAbuse(value)
   end
 end
+
 function clear_abuse(npc)
   local t = db.storage[npc:id()].abuse
   if t then
     t.abuse_manager:clearAbuse()
   end
 end
+
 function disable_abuse(npc)
   local t = db.storage[npc:id()].abuse
   if t then
     t.abuse_manager:disableAbuse()
   end
 end
+
 function enable_abuse(npc)
   local t = db.storage[npc:id()].abuse
   if t then
     t.abuse_manager:enableAbuse()
   end
 end
+
 function is_abuse(npc)
   local t = db.storage[npc:id()].abuse
   if t == nil then

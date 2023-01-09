@@ -1,3 +1,8 @@
+local StateManager = require("scripts.core.state_management.StateManager")
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "xr_help_wounded");
+
 ----------------------------------------------------------------------------------------------------------------------
 --'	����� ������ �������
 --'	�����: ������� ������ (Stohe)
@@ -103,8 +108,8 @@ function action_help_wounded:initialize()
   self.object:set_desired_direction()
 
   self.object:set_dest_level_vertex_id(self.a.vertex_id)
-  --state_mgr.set_state(self.object, "patrol", nil, nil, {look_position = self.a.vertex_position})
-  state_mgr.set_state(self.object, "patrol")
+  --StateManager.set_state(self.object, "patrol", nil, nil, {look_position = self.a.vertex_position})
+  StateManager.set_state(self.object, "patrol")
 end
 function action_help_wounded:execute ()
   action_base.execute(self)
@@ -113,7 +118,7 @@ function action_help_wounded:execute ()
     return
   end
 
-  state_mgr.set_state(self.object, "help_wounded", nil, nil, { look_position = self.a.vertex_position })
+  StateManager.set_state(self.object, "help_wounded", nil, nil, { look_position = self.a.vertex_position })
 
 end
 function action_help_wounded:finalize ()

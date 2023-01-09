@@ -1,3 +1,8 @@
+local StateManager = require("scripts.core.state_management.StateManager")
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "xr_walker");
+
 ----------------------------------------------------------------------------------------------------
 -- Walkers
 ---------------------------------------------------------------------------------------------------------------------
@@ -93,7 +98,7 @@ function action_walker_activity:update()
 
   local tbl = assoc_tbl[camp_action].director
   local anim = tbl[math.random(#tbl)]
-  state_mgr.set_state(self.object, anim)
+  StateManager.set_state(self.object, anim)
 end
 
 function action_walker_activity:finalize()

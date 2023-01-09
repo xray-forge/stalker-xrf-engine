@@ -12,7 +12,8 @@ import {
   XR_cse_abstract,
   XR_cse_alife_object,
   game_graph,
-  XR_vector
+  XR_vector,
+  stalker_ids
 } from "xray16";
 
 import { communities, TCommunity } from "@/mod/globals/communities";
@@ -473,4 +474,21 @@ export function reset_threshold(
       npc.restore_ignore_monster_threshold();
     }
   }
+}
+
+/**
+ * todo;
+ */
+export function is_npc_in_combat(npc: XR_game_object): boolean {
+  const mgr = npc.motivation_action_manager();
+
+  if (!mgr.initialized()) {
+    return false;
+  }
+
+  const current_action_id = mgr.current_action_id();
+
+  return (
+    current_action_id == stalker_ids.action_combat_planner || current_action_id == stalker_ids.action_post_combat_wait
+  );
 }

@@ -1,3 +1,4 @@
+local StateManager = require("scripts.core.state_management.StateManager")
 local SimBoard = require("scripts.se.SimBoard")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
@@ -85,7 +86,7 @@ function action_cover:activate_scheme()
   self.object:set_dest_level_vertex_id(self.cover_vertex_id)
   --printf("cover position is %s enemy position is %s",  vec_to_str(self.cover_position), vec_to_str(self.enemy_random_position))
 
-  state_mgr.set_state(self.object, "assault")
+  StateManager.set_state(self.object, "assault")
   --printf("[%s]Setting cover %s", self.object:name(), self.cover_vertex_id)
 end
 function action_cover:execute()
@@ -93,10 +94,10 @@ function action_cover:execute()
   --' ��������� ������ �� � �����.
   if self.cover_position:distance_to_sqr(self.object:position()) <= 0.4 then
     local anim = xr_logic.pick_section_from_condlist(db.actor, self.object, self.st.anim)
-    state_mgr.set_state(self.object, anim, nil, nil, { look_position = self.enemy_random_position }, nil, nil)
+    StateManager.set_state(self.object, anim, nil, nil, { look_position = self.enemy_random_position }, nil, nil)
   else
     self.object:set_dest_level_vertex_id(self.cover_vertex_id)
-    state_mgr.set_state(self.object, "assault")
+    StateManager.set_state(self.object, "assault")
   end
   if self.st.sound_idle ~= nil then
     xr_sound.set_sound_play(self.object:id(), self.st.sound_idle)

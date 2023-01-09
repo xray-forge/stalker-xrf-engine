@@ -1,3 +1,8 @@
+local StateManager = require("scripts.core.state_management.StateManager")
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "xr_combat_zombied");
+
 --[[----------------------------------------------------------------------------------------------------------
 ������ ����� ������������� ���������
 ����� ���������
@@ -60,7 +65,7 @@ function action_zombie_shoot:set_state(state, be, pos)
     self.t.look_position = pos
   end
 
-  state_mgr.set_state(self.object, state, nil, nil, self.t)
+  StateManager.set_state(self.object, state, nil, nil, self.t)
 
   self.last_state = state
 end
@@ -193,7 +198,7 @@ function action_zombie_go_to_danger:set_state(state, be, pos)
   if state ~= self.last_state then
     self.t.look_object = be
     self.t.look_position = pos
-    state_mgr.set_state(self.object, state, nil, nil, self.t)
+    StateManager.set_state(self.object, state, nil, nil, self.t)
     self.last_state = state
     --		printf( "set state !!!!!!!!!!!" )
   end

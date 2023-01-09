@@ -36,6 +36,7 @@ import {
   zoneByName
 } from "@/mod/scripts/core/db";
 import { SMART_TERRAIN_SECT } from "@/mod/scripts/core/db/sections";
+import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { simulation_activities } from "@/mod/scripts/se/SimActivity";
 import { ISimBoard, get_sim_board, squad_ltx } from "@/mod/scripts/se/SimBoard";
@@ -1188,28 +1189,28 @@ function set_relation(
 }
 
 function reset_animation(npc: XR_game_object): void {
-  const state_mgr = storage.get(npc.id()).state_mgr;
+  const stateManager: StateManager = storage.get(npc.id()).state_mgr;
 
-  if (state_mgr === null) {
+  if (stateManager === null) {
     return;
   }
 
   // const planner = npc.motivation_action_manager();
 
-  state_mgr.animation.set_state(null, true);
-  state_mgr.animation.set_control();
-  state_mgr.animstate.set_state(null, true);
-  state_mgr.animstate.set_control();
+  stateManager.animation.set_state(null, true);
+  stateManager.animation.set_control();
+  stateManager.animstate.set_state(null, true);
+  stateManager.animstate.set_control();
 
-  state_mgr.set_state("idle", null, null, null, { fast_set: true });
+  stateManager.set_state("idle", null, null, null, { fast_set: true });
 
-  state_mgr.update();
-  state_mgr.update();
-  state_mgr.update();
-  state_mgr.update();
-  state_mgr.update();
-  state_mgr.update();
-  state_mgr.update();
+  stateManager.update();
+  stateManager.update();
+  stateManager.update();
+  stateManager.update();
+  stateManager.update();
+  stateManager.update();
+  stateManager.update();
 
   npc.set_body_state(move.standing);
   npc.set_mental_state(anim.free);

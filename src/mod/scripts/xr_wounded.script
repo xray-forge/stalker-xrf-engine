@@ -1,3 +1,8 @@
+local StateManager = require("scripts.core.state_management.StateManager")
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "xr_wounded");
+
 --	����� ���������
 --	�����: ������� ������ (Stohe)
 --	TODO:
@@ -125,7 +130,7 @@ function action_wounded:execute ()
       print_table(self.a.hp_state_see)
       abort("wrong wounded animation %s", self.object:name())
     end
-    state_mgr.set_state(self.object, wound_manager_state, nil, nil, { look_object = victim }, nil)
+    StateManager.set_state(self.object, wound_manager_state, nil, nil, { look_object = victim }, nil)
   end
 
   -- ����� �������� �������

@@ -323,30 +323,30 @@ function teleport_actor(actor, npc, p)
 end
 
 local function reset_animation(npc)
-  local state_mgr = db.storage[npc:id()].state_mgr
-  if state_mgr == nil then
+  local stateManager = db.storage[npc:id()].state_mgr
+  if stateManager == nil then
     return
   end
   local planner = npc:motivation_action_manager()
 
-  state_mgr.animation:set_state(nil, true)
-  state_mgr.animation:set_control()
-  state_mgr.animstate:set_state(nil, true)
-  state_mgr.animstate:set_control()
+  stateManager.animation:set_state(nil, true)
+  stateManager.animation:set_control()
+  stateManager.animstate:set_state(nil, true)
+  stateManager.animstate:set_control()
 
-  state_mgr:set_state("idle", nil, nil, nil, { fast_set = true })
+  stateManager:set_state("idle", nil, nil, nil, { fast_set = true })
 
   --	planner:update()
   --	planner:update()
   --	planner:update()
 
-  state_mgr:update()
-  state_mgr:update()
-  state_mgr:update()
-  state_mgr:update()
-  state_mgr:update()
-  state_mgr:update()
-  state_mgr:update()
+  stateManager:update()
+  stateManager:update()
+  stateManager:update()
+  stateManager:update()
+  stateManager:update()
+  stateManager:update()
+  stateManager:update()
 
   npc:set_body_state(move.standing)
   npc:set_mental_state(anim.free)
@@ -2802,22 +2802,22 @@ function pri_a17_hard_animation_reset(actor, npc, p)
   --db.storage[npc:id()].state_mgr:set_state("pri_a17_fall_down", nil, nil, nil, {fast_set = true})
   db.storage[npc:id()].state_mgr:set_state("pri_a17_fall_down")
 
-  local state_mgr = db.storage[npc:id()].state_mgr
-  if state_mgr ~= nil then
-    state_mgr.animation:set_state(nil, true)
-    state_mgr.animation:set_state("pri_a17_fall_down")
-    state_mgr.animation:set_control()
+  local stateManager = db.storage[npc:id()].state_mgr
+  if stateManager ~= nil then
+    stateManager.animation:set_state(nil, true)
+    stateManager.animation:set_state("pri_a17_fall_down")
+    stateManager.animation:set_control()
   end
 end
 
 function jup_b217_hard_animation_reset(actor, npc, p)
   db.storage[npc:id()].state_mgr:set_state("jup_b217_nitro_straight")
 
-  local state_mgr = db.storage[npc:id()].state_mgr
-  if state_mgr ~= nil then
-    state_mgr.animation:set_state(nil, true)
-    state_mgr.animation:set_state("jup_b217_nitro_straight")
-    state_mgr.animation:set_control()
+  local stateManager = db.storage[npc:id()].state_mgr
+  if stateManager ~= nil then
+    stateManager.animation:set_state(nil, true)
+    stateManager.animation:set_state("jup_b217_nitro_straight")
+    stateManager.animation:set_control()
   end
 end
 

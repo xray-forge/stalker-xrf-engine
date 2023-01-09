@@ -1,3 +1,9 @@
+local utilsAlife = require("scripts.utils.alife")
+local StateManager = require("scripts.core.state_management.StateManager")
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "xr_meet");
+
 ----------------------------------------------------------------------------------------------------------------------
 --	����� ������� ���� ���������
 --	�����: ������� ������ (Stohe)
@@ -132,9 +138,9 @@ function Cmeet_manager:update_state()
   end
   if tostring(state) ~= "nil" then
     if victim == nil then
-      state_mgr.set_state(self.npc, state, nil, nil, nil)
+      StateManager.set_state(self.npc, state, nil, nil, nil)
     else
-      state_mgr.set_state(self.npc, state, nil, nil, { look_object = victim })
+      StateManager.set_state(self.npc, state, nil, nil, { look_object = victim })
     end
   end
 
@@ -197,7 +203,7 @@ function Cmeet_manager:update()
       -- ���� ��� �����������
       if self.hello_passed == false then
         local snd = xr_logic.pick_section_from_condlist(db.actor, self.npc, self.a.close_snd_hello)
-        if tostring(snd) ~= "nil" and not state_mgr.is_npc_in_combat(self.npc) then
+        if tostring(snd) ~= "nil" and not utilsAlife.is_npc_in_combat(self.npc) then
           xr_sound.set_sound_play(self.npc:id(), snd)
         end
 
@@ -210,7 +216,7 @@ function Cmeet_manager:update()
         -- ���� ��� ���������
         if self.bye_passed == false then
           local snd = xr_logic.pick_section_from_condlist(db.actor, self.npc, self.a.close_snd_bye)
-          if tostring(snd) ~= "nil" and not state_mgr.is_npc_in_combat(self.npc) then
+          if tostring(snd) ~= "nil" and not utilsAlife.is_npc_in_combat(self.npc) then
             xr_sound.set_sound_play(self.npc:id(), snd)
           end
 

@@ -1,3 +1,8 @@
+local StateManager = require("scripts.core.state_management.StateManager")
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "xr_combat_monolity");
+
 --[[----------------------------------------------------------------------------------------------------------
 ������ ����� ��������� ����������� "�������"
 ����� ���������
@@ -85,7 +90,7 @@ end
 function action_fight_close:initialize()
   action_base.initialize(self)
 
-  state_mgr.set_state(self.object, "hide_fire", nil, nil, { look_object = self.object:best_enemy() })
+  StateManager.set_state(self.object, "hide_fire", nil, nil, { look_object = self.object:best_enemy() })
 end
 
 function action_fight_close:execute()
@@ -128,7 +133,7 @@ function action_fight_far:initialize()
   self.object:set_detail_path_type(move.line)
   self.object:set_path_type(game_object.level_path)
 
-  state_mgr.set_state(self.object, "assault_fire", nil, nil, { look_object = self.object:best_enemy() })
+  StateManager.set_state(self.object, "assault_fire", nil, nil, { look_object = self.object:best_enemy() })
 end
 
 function action_fight_far:execute()
@@ -174,7 +179,7 @@ function action_look_around:execute()
     local ang = math.rad(math.random(0, 359))
     local pos = self.object:position():add(vector():set(math.cos(ang), 0, math.sin(ang)))
 
-    state_mgr.set_state(self.object, "hide", nil, nil, { look_position = pos })
+    StateManager.set_state(self.object, "hide", nil, nil, { look_position = pos })
   end
 end
 
@@ -205,7 +210,7 @@ function action_go_to_pos:initialize()
   self.object:set_detail_path_type(move.line)
   self.object:set_path_type(game_object.level_path)
 
-  state_mgr.set_state(self.object, "assault")
+  StateManager.set_state(self.object, "assault")
 
   self.cached_id = -1
 end

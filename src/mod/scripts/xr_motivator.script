@@ -1,3 +1,5 @@
+local bind_state_manager = require("scripts.core.state_management.bind_state_manager").bind_state_manager
+local StateManager = require("scripts.core.state_management.StateManager")
 local schemes = require("scripts.core.schemes")
 local ReleaseBodyManager = require("scripts.core.ReleaseBodyManager")
 local DropManager = require("scripts.core.DropManager").DropManager
@@ -68,7 +70,7 @@ function motivator_binder:reinit()
 
   --' �������� ��������� �������� ��������� ����
   --memusage.collect_info(self.object, "before_statemgr")
-  self.st.state_mgr = state_mgr.bind_manager(self.object)
+  self.st.state_mgr = bind_state_manager(self.object)
 
   self.st.move_mgr = move_mgr.move_mgr(self.object)
   self.st.move_mgr:initialize()

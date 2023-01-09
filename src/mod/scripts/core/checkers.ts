@@ -3,10 +3,10 @@ import {
   XR_cse_abstract,
   XR_cse_alife_human_stalker,
   XR_cse_alife_item_artefact,
-  XR_cse_alife_item_weapon,
   XR_cse_alife_monster_abstract,
   XR_game_object,
-  clsid
+  clsid,
+  system_ini
 } from "xray16";
 
 import { squadMonsters } from "@/mod/globals/behaviours";
@@ -89,4 +89,27 @@ export function isArtefact(
   const id: TXR_cls_id = class_id || getClsId(object);
 
   return artefact_class_ids[id] === true;
+}
+
+/**
+ * todo;
+ */
+export function isStrappableWeapon(object: Optional<XR_game_object>): object is XR_game_object {
+  return object === null ? false : system_ini().line_exist(object.section(), "strap_bone0");
+  /* --[[
+  local id = get_clsid(obj)
+if id == nil then return false end
+
+if id == clsid.wpn_vintorez_s then return true
+elseif id == clsid.wpn_ak74_s then return true
+elseif id == clsid.wpn_lr300_s then return true
+elseif id == clsid.wpn_shotgun_s then return true
+elseif id == clsid.wpn_bm16_s then return true
+elseif id == clsid.wpn_svd_s then return true
+elseif id == clsid.wpn_svu_s then return true
+elseif id == clsid.wpn_rpg7_s then return true
+elseif id == clsid.wpn_val_s then return true
+elseif id == clsid.wpn_groza_s then return true
+else return false end
+]]*/
 }

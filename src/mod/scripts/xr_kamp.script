@@ -1,3 +1,4 @@
+local StateManager = require("scripts.core.state_management.StateManager")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 local log = create_ts_class_instance(LuaLogger, "xr_kamp");
@@ -86,7 +87,7 @@ function action_go_position:execute ()
       self.object:set_desired_direction(desired_direction)
     end
     self.object:set_path_type(game_object.level_path)
-    state_mgr.set_state(self.object, self.a.def_state_moving)
+    StateManager.set_state(self.object, self.a.def_state_moving)
   end
 end
 function action_go_position:finalize ()
@@ -115,7 +116,7 @@ function action_wait:execute()
   action_base.execute(self)
 
   --' ��������� ��� ����� � ������
-  state_mgr.set_state(self.object, "sit", nil, nil, { look_position = self.a.pp })
+  StateManager.set_state(self.object, "sit", nil, nil, { look_position = self.a.pp })
 end
 function action_wait:finalize()
   kamps[self.a.center_point]:decreasePops(self.object)

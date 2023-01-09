@@ -1,4 +1,8 @@
 local utilsWorld = require("scripts.utils.world")
+local StateManager = require("scripts.core.state_management.StateManager")
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "move_mgr");
 
 function printf()
 end
@@ -333,12 +337,12 @@ end
 --'-----------------------------------------------------------------------------
 function move_mgr:update_movement_state()
   --printf("%s UPDATE movement state to %s", self.object:name(), self.cur_state_moving)
-  state_mgr.set_state(self.object, self.cur_state_moving, nil, nil, nil)
+  StateManager.set_state(self.object, self.cur_state_moving, nil, nil, nil)
 end
 
 function move_mgr:update_standing_state(look_pos, snd)
   --printf("_bp [%s]: update_standing_state: snd='%s', pt_wait_time = %s path = %s", self.object:name(), utils.to_str(snd), utils.to_str(self.pt_wait_time),  self.path_walk)
-  state_mgr.set_state(self.object, self.cur_state_standing,
+  StateManager.set_state(self.object, self.cur_state_standing,
       { obj = self, func = self.time_callback, turn_end_func = self.turn_end_callback },
       self.pt_wait_time,
       { look_position = look_pos },
@@ -440,7 +444,7 @@ function move_mgr:turn_end_callback()
     --' ����� callback-�.
 
     --' 1) ��������� ������
-    state_mgr.set_state(self.object, self.cur_state_standing, nil, nil, nil)
+    StateManager.set_state(self.object, self.cur_state_standing, nil, nil, nil)
     --' 2) �������� callback
     if not self.move_cb_info then
       abort("object '%s': path_look '%s': ret flag is set, but " ..
