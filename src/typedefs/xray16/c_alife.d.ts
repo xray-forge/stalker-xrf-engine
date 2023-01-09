@@ -110,35 +110,29 @@ declare module "xray16" {
   }
 
   /**
-   C++ class danger_object {
-    const attack_sound = 1;
-    const attacked = 5;
-    const bullet_ricochet = 0;
-    const enemy_sound = 7;
-    const entity_attacked = 2;
-    const entity_corpse = 4;
-    const entity_death = 3;
-    const grenade = 6;
-    const hit = 2;
-    const sound = 1;
-    const visual = 0;
-
-    function type() const;
-
-    function time() const;
-
-    operator ==(const danger_object&, danger_object);
-
-    function position(const danger_object*);
-
-    function object(const danger_object*);
-
-    function perceive_type() const;
-
-    function dependent_object(const danger_object*);
-
+   * C++ class danger_object {
+   * @customConstructor danger_object
    */
-  // todo;
+  export class XR_danger_object {
+    public static attack_sound: 1;
+    public static attacked: 5;
+    public static bullet_ricochet: 0;
+    public static enemy_sound: 7;
+    public static entity_attacked: 2;
+    public static entity_corpse: 4;
+    public static entity_death: 3;
+    public static grenade: 6;
+    public static hit: 2;
+    public static sound: 1;
+    public static visual: 0;
+
+    public type(): unknown;
+    public time(): unknown;
+    public position(): XR_vector;
+    public object(): unknown;
+    public perceive_type(): unknown;
+    public dependent_object(): unknown;
+  }
 
   /**
    * C++ class hit {

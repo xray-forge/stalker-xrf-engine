@@ -7,3 +7,7 @@ declare namespace table {
 declare namespace string {
   function gfind(this: void, s: string, pattern: unknown, init?: number, plain?: boolean): LuaIterable<string>;
 }
+
+declare namespace math {
+  function atan2(first: number, second: number): number;
+}

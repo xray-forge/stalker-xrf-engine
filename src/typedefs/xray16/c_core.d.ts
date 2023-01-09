@@ -121,6 +121,10 @@ declare module "xray16" {
 
   }
 
+  export type TXR_object_states = typeof XR_object;
+
+  export type TXR_object_state = TXR_object_states[Exclude<keyof TXR_object_states, "constructor" | "prototype">];
+
   /**
    * C++ class entity_memory_object : memory_object {
    */
@@ -402,18 +406,20 @@ declare module "xray16" {
    * @customConstructor anim
    */
   export class XR_anim {
-    public static attack: 7;
-    public static capture_prepare: 1;
+    // Mental state:
     public static danger: 0;
-    public static eat: 4;
     public static free: 1;
-    public static lie_idle: 3;
-    public static look_around: 8;
     public static panic: 2;
-    public static rest: 6;
-    public static sit_idle: 2;
-    public static sleep: 5;
+
     public static stand_idle: 0;
+    public static capture_prepare: 1;
+    public static sit_idle: 2;
+    public static lie_idle: 3;
+    public static eat: 4;
+    public static sleep: 5;
+    public static rest: 6;
+    public static attack: 7;
+    public static look_around: 8;
     public static turn: 9;
 
     public constructor ();
@@ -427,21 +433,28 @@ declare module "xray16" {
     public type(state: unknown /* enum MonsterSpace::EMentalState */): unknown;
 
     public anim(value: string): unknown;
-
   }
+
+  export type TXR_animations = typeof XR_anim;
+
+  export type TXR_animation = TXR_animations[Exclude<keyof TXR_animations, "prototype" | "constructor">]
 
   /**
    * C++ class patrol {
    * @customConstructor patrol
    */
   export class XR_patrol {
+    // EPatrolRouteType:
+    // public static stop: 0;
     public static continue: 1;
-    public static custom : 3;
-    public static dummy:-1;
-    public static nearest: 2;
-    public static next : 4;
+
+    // EPatrolStartType:
     public static start : 0;
-    public static stop: 0;
+    public static stop: 1;
+    public static nearest: 2;
+    public static custom : 3;
+    public static next : 4;
+    public static dummy:-1;
 
     public constructor (value: string);
     public constructor (value: string);
@@ -489,6 +502,10 @@ declare module "xray16" {
     public bone(value: string): unknown;
     public direct(vector: XR_vector): unknown;
   }
+
+  export type TXR_looks = typeof XR_look;
+
+  export type TXR_look = TXR_looks[Exclude<keyof TXR_looks, "prototype"| "constructor">]
 
   /**
    * C++ class holder {

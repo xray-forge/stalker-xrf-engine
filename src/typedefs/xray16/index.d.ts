@@ -54,6 +54,7 @@ declare module "xray16" {
   export const look: typeof XR_look;
 
   export const game_object: typeof XR_game_object;
+  export const danger_object: typeof XR_danger_object;
   export const object_binder: typeof XR_object_binder;
   export const entity_action: typeof XR_entity_action;
 

@@ -1,5 +1,3 @@
-import { XR_game_object } from "xray16";
-
 declare module "xray16" {
   /**
    * C++ class world_state {
@@ -33,9 +31,13 @@ declare module "xray16" {
     public object: XR_game_object;
     public storage: unknown;
 
-    public constructor ();
-    public constructor (game_object: XR_game_object);
-    public constructor (game_object: XR_CGameObject, value: string);
+    public constructor();
+    public constructor(game_object: XR_game_object);
+    public constructor(game_object: XR_CGameObject, name: string);
+
+    public static __init(): void;
+    public static __init(game_object: XR_CGameObject): void;
+    public static __init(game_object: XR_CGameObject, name: string): void;
 
     public evaluate(): boolean;
     public setup(game_object: XR_game_object, property_storage: XR_property_storage): void;
@@ -54,7 +56,7 @@ declare module "xray16" {
    * @customConstructor world_property
    * */
   export class XR_world_property extends XR_LuaBindBase {
-    public constructor (value1: number, value2: boolean);
+    public constructor (id: number, enabled: boolean);
 
     public value(): unknown;
     public condition(): unknown;
@@ -68,9 +70,13 @@ declare module "xray16" {
     public object: XR_game_object;
     public storage: unknown;
 
-    public constructor ();
-    public constructor (game_object: XR_game_object);
-    public constructor (game_object: XR_game_object, value: string);
+    public constructor();
+    public constructor(game_object: XR_game_object);
+    public constructor(game_object: XR_game_object, value: string);
+
+    public __init(): void;
+    public __init(game_object: XR_game_object): void;
+    public __init(game_object: XR_game_object, value: string): void;
 
     public static finalize(this: void, target: XR_action_base): void;
     public finalize(): void;
@@ -107,11 +113,11 @@ declare module "xray16" {
     public show(value: string): unknown;
     public update(): unknown;
     public clear(): unknown;
-    public evaluator(value: number): unknown;
+    public evaluator(value: number): XR_property_evaluator;
     public setup(game_object: XR_game_object): unknown;
-    public set_goal_world_state(action_planner: XR_action_planner, world_state: XR_world_state): unknown;
+    public set_goal_world_state(world_state: XR_world_state): void;
     public current_action(): unknown;
-    public add_evaluator(value: number, property_evaluator: XR_property_evaluator): unknown;
+    public add_evaluator(id: number, property_evaluator: XR_property_evaluator): void;
     public remove_evaluator(value: number): unknown;
     public current_action_id(): number;
     public actual(action_planner: XR_action_planner): unknown;

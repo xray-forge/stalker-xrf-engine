@@ -176,7 +176,7 @@ declare module "xray16" {
     public sub(val:number): XR_vector;
     public sub(vector: XR_vector): XR_vector;
     public sub(vector1: XR_vector, vector2: XR_vector): XR_vector;
-    public sub(vector: XR_vector, val:number): XR_vector;
+    public sub(vector: XR_vector, val: number): XR_vector;
 
     public reflect(vector1: XR_vector, vector2: XR_vector): unknown;
 
@@ -256,22 +256,19 @@ declare module "xray16" {
   }
 
   /**
-
-   C++ class color {
-    property b;
-    property g;
-    property r;
-
-    color ();
-    color (number, number, number);
-
-    function set(number, number, number);
-
-  };
-   *
+   * C++ class color {
+   * @customConstructor color
    */
+  export class XR_color {
+    public b: number;
+    public g: number;
+    public r: number;
 
-  // todo;
+    public constructor();
+    public constructor(r: number, g: number, b: number);
+
+    public set(r: number, g: number, b: number): void;
+  }
 
   /**
 

@@ -664,27 +664,28 @@ declare module "xray16" {
    * C++ class CSightParams {
    **/
   export class XR_CSightParams {
-    public static eSightTypeAnimationDirection: 11;
-    public static eSightTypeCover: 5;
-    public static eSightTypeCoverLookOver: 8;
-    public static eSightTypeCurrentDirection : 0;
-    public static eSightTypeDirection: 2;
     public static eSightTypeDummy: -1;
+    public static eSightTypeCurrentDirection : 0;
+    public static eSightTypePathDirection: 1;
+    public static eSightTypeDirection: 2;
+    public static eSightTypePosition: 3;
+    public static eSightTypeObject: 4;
+    public static eSightTypeCover: 5;
+    public static eSightTypeSearch: 6;
+    public static eSightTypeLookOver: 7;
+    public static eSightTypeCoverLookOver: 8;
     public static eSightTypeFireObject: 9;
     public static eSightTypeFirePosition: 10;
-    public static eSightTypeLookOver: 7;
-    public static eSightTypeObject: 4;
-    public static eSightTypePathDirection: 1;
-    public static eSightTypePosition: 3;
-    public static eSightTypeSearch: 6;
+    public static eSightTypeAnimationDirection: 11;
 
-    public m_object: XR_CGameObject;
+    public m_object: XR_game_object;
     public m_sight_type: TXR_SightType;
     public m_vector: XR_vector;
   }
 
   export type TXR_SightTypes = typeof XR_CSightParams;
-  export type TXR_SightType = TXR_SightTypes[keyof TXR_SightTypes];
+
+  export type TXR_SightType = TXR_SightTypes[Exclude<keyof TXR_SightTypes, "constructor" | "prototype">];
 
   /**
    * C++ class DIK_keys {

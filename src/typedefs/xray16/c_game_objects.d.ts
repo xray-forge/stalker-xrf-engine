@@ -1,7 +1,3 @@
-import { TXR_callbacks, XR_cover_point } from "xray16";
-
-import { Optional } from "@/mod/lib/types";
-
 declare module "xray16" {
   /**
    * C++ class CGameObject : DLL_Pure,ISheduled,ICollidable,IRenderable {
@@ -188,7 +184,14 @@ declare module "xray16" {
       object?: XR_object_binder | null
     ): void;
 
-    // 30 todo: script_animation
+    /**
+     * 30 todo;
+     */
+    public set_callback(
+      type: TXR_callbacks["script_animation"],
+      cb?: ((skip_multi_anim_check?: boolean) => void) | null,
+      object?: object | null
+    ): void;
 
     // 31 todo: trader_global_anim_request
 
@@ -283,8 +286,8 @@ declare module "xray16" {
 
     public id(): number;
     public story_id(): string;
-    public object(value: string): XR_game_object;
-    public object(value: number): XR_game_object;
+    public object(value: string): XR_game_object | null;
+    public object(value: number): XR_game_object | null;
     public clsid(): TXR_cls_id;
 
     public memory_time(another: XR_game_object): unknown;
@@ -328,7 +331,7 @@ declare module "xray16" {
     public set_smart_cover_target_selector(cb: () => void): unknown;
     public set_smart_cover_target_selector(cb: () => void, object: XR_game_object): unknown;
     public set_smart_cover_target_selector(): unknown;
-    public debug_planner(action_planner: unknown): unknown;
+    public debug_planner(action_planner: XR_action_planner): void;
     public best_weapon(): XR_game_object | null;
     public active_slot(): number;
     public who_hit_section_name(): unknown;
@@ -343,12 +346,12 @@ declare module "xray16" {
     ): unknown;
     public set_item(
       action: unknown /* enum MonsterSpace::EObjectAction */,
-      game_object: XR_game_object,
+      game_object: XR_game_object | null,
       value: number
     ): unknown;
     public set_item(
       action: unknown /* enum MonsterSpace::EObjectAction */,
-      game_object: XR_game_object,
+      game_object: XR_game_object | null,
       value1: number,
       value2: number
     ): unknown;
@@ -368,12 +371,12 @@ declare module "xray16" {
     public restore_sound_threshold(): unknown;
     public object_count(): unknown;
     public is_talk_enabled(): unknown;
-    public animation_slot(): unknown;
+    public animation_slot(): number;
     public get_current_direction(): unknown;
     public action(): unknown;
     public give_talk_message(value1: string, value2: string, value3: string): unknown;
     public not_yet_visible_objects(): unknown;
-    public set_mental_state(state: unknown /** EMentalState */): unknown;
+    public set_mental_state(state: TXR_animation): void;
     public squad(): number;
     public reset_action_queue(): unknown;
     public burer_set_force_gravi_attack(value: boolean): unknown;
@@ -397,20 +400,21 @@ declare module "xray16" {
     public set_smart_cover_target(): unknown;
     public set_start_point(point: number): unknown;
     public set_fov(fov: number): unknown;
-    public set_path_type(type: unknown /** enum MovementManager::EPathType */): unknown;
+    public set_path_type(type: number /** enum MovementManager::EPathType */): unknown;
     public set_const_force(vector: XR_vector, value: number, time_interval: number): void
     public weapon_strapped(): boolean;
+    public is_weapon_going_to_be_strapped(weapon: XR_game_object | null): boolean;
     public weapon_unstrapped(): boolean;
 
     public get_ammo_total(): unknown;
-    public best_danger(): unknown;
+    public best_danger(): XR_danger_object | null;
     public restore_max_ignore_monster_distance(): unknown;
     public set_collision_off(value: boolean): unknown;
     public enable_memory_object(game_object: XR_game_object, value: boolean): unknown;
     public lookout_min_time(time: number): unknown;
     public lookout_min_time(): unknown;
     public get_current_outfit(): unknown;
-    public animation_count(): unknown;
+    public animation_count(): number;
     public disable_inv_upgrade(): unknown;
     public memory_sound_objects(): unknown;
     public activate_slot(index: number): unknown;
@@ -433,14 +437,14 @@ declare module "xray16" {
     public set_sympathy(value: number): unknown;
     public torch_enabled(): unknown;
     public sympathy(): unknown;
-    public spawn_ini(): Optional<XR_ini_file>;
+    public spawn_ini(): XR_ini_file | null;
     public drop_item_and_teleport(game_object: XR_game_object, vector: XR_vector): unknown;
     public get_campfire(): XR_CZoneCampfire;
     public get_movement_speed(): unknown;
     public set_body_state(state: unknown /** enum MonsterSpace::EBodyState */): unknown;
     public in_loophole_fov(value1: string, valu2:string, value3:XR_vector): unknown;
     public set_invisible(value: boolean): unknown;
-    public in_smart_cover(): unknown;
+    public in_smart_cover(): boolean;
     public has_info(value: string): unknown;
     public set_enemy_callback(): unknown;
     public set_enemy_callback(cb: () => boolean): unknown;
@@ -464,7 +468,7 @@ declare module "xray16" {
     public character_name(): unknown;
     public lock_door_for_npc(): unknown;
     public hide_weapon(): unknown;
-    public is_body_turning(): unknown;
+    public is_body_turning(): boolean;
     public set_dest_game_vertex_id(value: number): unknown;
     public marked_dropped(game_object: XR_game_object): boolean;
     public set_character_rank(value: number): void;
@@ -535,6 +539,7 @@ declare module "xray16" {
     public take_items_enabled(value: boolean): unknown;
     public take_items_enabled(): unknown;
     public set_sight(type: TXR_SightType, vector: XR_vector | null, value: number): unknown;
+    public set_sight(type: TXR_SightType, value1: boolean, value2: boolean): unknown;
     public set_sight(
       type: TXR_SightType, value1: XR_vector, value2: boolean, value3: boolean
     ): unknown;
@@ -585,7 +590,7 @@ declare module "xray16" {
     public group_throw_time_interval(value: number): unknown;
     public is_inv_box_empty(): unknown;
     public is_active_task(task: XR_CGameTask): boolean;
-    public target_body_state(): unknown;
+    public target_body_state(): TXR_move;
     public info_clear(): unknown;
     public head_orientation(): unknown;
     public inside(vector: XR_vector, value: number): boolean;
@@ -605,7 +610,7 @@ declare module "xray16" {
     public active_sound_count(value: boolean): unknown;
     public get_anomaly_power(): unknown;
     public enable_anomaly(): unknown;
-    public item_in_slot(value: number): unknown;
+    public item_in_slot(slot: number): XR_game_object | null;
     public get_actor_relation_flags(): unknown;
     public is_trade_enabled(): unknown;
     public set_sound_mask(value: number): unknown;
@@ -722,7 +727,12 @@ declare module "xray16" {
     public movement_enabled(value: boolean): unknown;
     public movement_enabled(): unknown;
     public berserk(): unknown;
-    public accessible_nearest(vector1: XR_vector, vector2: XR_vector): unknown;
+    public inactualize_patrol_path(): void;
+
+    /**
+     * @returns vertex_id of accessible position
+     */
+    public accessible_nearest(vector1: XR_vector, vector2: XR_vector): number;
     public name(): string;
     public set_movement_type(type: unknown /** MonsterSpace::EMovementType */): unknown;
     public character_community(): string;
@@ -749,7 +759,7 @@ declare module "xray16" {
     public set_visual_name(value: string): unknown;
     public external_sound_stop(): unknown;
     public inv_box_closed_status(): unknown;
-    public target_mental_state(): unknown;
+    public target_mental_state(): TXR_animation;
     public parent(): unknown;
     public set_manual_invisibility(value: boolean): unknown;
     public game_vertex_id(): number;

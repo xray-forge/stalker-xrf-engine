@@ -1,5 +1,3 @@
-import { XR_CGameObject } from "xray16";
-
 declare module "xray16" {
   /**
    * C++ class CZoneCampfire : CGameObject {
