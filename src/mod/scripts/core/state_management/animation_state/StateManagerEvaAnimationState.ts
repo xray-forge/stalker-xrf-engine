@@ -1,7 +1,14 @@
 import { property_evaluator, XR_property_evaluator } from "xray16";
 
+import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { states } from "@/mod/scripts/core/state_management/lib/state_lib";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
+
+const log: LuaLogger = new LuaLogger(
+  "StateManagerEvaAnimationState",
+  gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
+);
 
 export interface IStateManagerEvaAnimationState extends XR_property_evaluator {
   st: StateManager;
@@ -16,7 +23,7 @@ export const StateManagerEvaAnimationState: IStateManagerEvaAnimationState = dec
       this.st = st;
     },
     evaluate(): boolean {
-      return states.get(this.st.target_state).animstate == this.st.animstate.states.current_state;
+      return states.get(this.st.target_state).animstate === this.st.animstate.states.current_state;
     }
   } as IStateManagerEvaAnimationState
 );

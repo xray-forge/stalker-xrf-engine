@@ -1,6 +1,10 @@
 import { action_base, anim, XR_action_base } from "xray16";
 
+import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
+
+const log: LuaLogger = new LuaLogger("StateManagerActMentalPanic", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
 export interface IStateManagerActMentalPanic extends XR_action_base {
   st: StateManager;
@@ -19,6 +23,7 @@ export const StateManagerActMentalPanic: IStateManagerActMentalPanic = declare_x
       this.object.set_mental_state(anim.panic);
     },
     execute(): void {
+      log.info("Act mental panic");
       action_base.execute(this);
       this.object.set_mental_state(anim.panic);
     },

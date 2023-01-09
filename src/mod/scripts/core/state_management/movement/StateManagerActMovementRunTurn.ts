@@ -1,7 +1,14 @@
 import { action_base, move, XR_action_base } from "xray16";
 
+import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { turn } from "@/mod/scripts/core/state_management/direction/StateManagerDirection";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
+
+const log: LuaLogger = new LuaLogger(
+  "StateManagerActMovementRunTurn",
+  gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
+);
 
 export interface IStateManagerActMovementRunTurn extends XR_action_base {
   st: StateManager;
@@ -25,6 +32,7 @@ export const StateManagerActMovementRunTurn: IStateManagerActMovementRunTurn = d
       turn(this.object, this.st);
     },
     execute(): void {
+      log.info("Act movement run turn");
       action_base.execute(this);
     },
     finalize(): void {

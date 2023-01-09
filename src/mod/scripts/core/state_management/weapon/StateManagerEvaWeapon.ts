@@ -1,8 +1,12 @@
 import { property_evaluator, XR_property_evaluator } from "xray16";
 
+import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { isStrappableWeapon, isWeapon } from "@/mod/scripts/core/checkers";
 import { states } from "@/mod/scripts/core/state_management/lib/state_lib";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
+
+const log: LuaLogger = new LuaLogger("StateManagerEvaWeapon", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
 export interface IStateManagerEvaWeapon extends XR_property_evaluator {
   st: StateManager;
@@ -38,11 +42,11 @@ export const StateManagerEvaWeapon: IStateManagerEvaWeapon = declare_xr_class(
       const activeitem = this.object.active_item();
 
       if (
-        weapon == "strapped" &&
+        weapon === "strapped" &&
         ((isStrappableWeapon(bestweapon) &&
           this.object.weapon_strapped() &&
           this.object.is_weapon_going_to_be_strapped(bestweapon)) ||
-          (!isStrappableWeapon(bestweapon) && activeitem == null))
+          (!isStrappableWeapon(bestweapon) && activeitem === null))
       ) {
         return true;
       }
@@ -51,7 +55,7 @@ export const StateManagerEvaWeapon: IStateManagerEvaWeapon = declare_xr_class(
         (weapon == "unstrapped" || weapon == "fire" || weapon == "sniper_fire") &&
         activeitem !== null &&
         bestweapon !== null &&
-        activeitem.id() == bestweapon.id() &&
+        activeitem.id() === bestweapon.id() &&
         !this.object.is_weapon_going_to_be_strapped(bestweapon) &&
         this.object.weapon_unstrapped()
       ) {
@@ -64,7 +68,7 @@ export const StateManagerEvaWeapon: IStateManagerEvaWeapon = declare_xr_class(
         return true;
       }
 
-      if (weapon == "drop" && activeitem == null) {
+      if (weapon === "drop" && activeitem === null) {
         // -- printf("  drop weapon")
         return true;
       }

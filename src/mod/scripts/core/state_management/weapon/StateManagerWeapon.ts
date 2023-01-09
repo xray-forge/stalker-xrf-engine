@@ -1,8 +1,12 @@
 import { anim, move, object, TXR_object_state, XR_game_object } from "xray16";
 
+import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
-import { IStoredObject, storage } from "@/mod/scripts/core/db";
-import { states } from "@/mod/scripts/core/state_management/lib/state_lib";
+import { storage } from "@/mod/scripts/core/db";
+import { IStateDescriptor, states } from "@/mod/scripts/core/state_management/lib/state_lib";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
+
+const log: LuaLogger = new LuaLogger("StateManagerWeapon", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
 const state_queue_params: LuaTable<string, LuaTable<number, number>> = {
   barricade_0_attack: [5, 300, 0],
@@ -18,9 +22,9 @@ const state_queue_params: LuaTable<string, LuaTable<number, number>> = {
 export function get_queue_params(
   npc: XR_game_object,
   target: unknown,
-  st: IStoredObject
+  st: IStateDescriptor
 ): LuaMultiReturn<Array<number>> {
-  const a: LuaTable<number, number> = state_queue_params.get(st.animation);
+  const a: LuaTable<number, number> = state_queue_params.get(st.animation!);
   const bestWeapon: XR_game_object = npc.best_weapon()!;
   const npcId: number = npc.id();
 

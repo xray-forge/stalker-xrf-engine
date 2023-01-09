@@ -1,6 +1,11 @@
 import { property_evaluator, XR_property_evaluator } from "xray16";
 
+import { gameConfig } from "@/mod/lib/configs/GameConfig";
+import { EStateManagerProperty } from "@/mod/scripts/core/state_management/EStateManagerProperty";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
+
+const log: LuaLogger = new LuaLogger("StateManagerEvaLocked", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
 export interface IStateManagerEvaLocked extends XR_property_evaluator {
   st: StateManager;
@@ -21,8 +26,7 @@ export const StateManagerEvaLocked: IStateManagerEvaLocked = declare_xr_class(
 
       return (
         this.st.planner!.initialized() &&
-        (this.st.planner!.evaluator(this.st.properties.get("weapon_locked")).evaluate() ||
-          this.object.is_body_turning())
+        (this.st.planner!.evaluator(EStateManagerProperty.weapon_locked).evaluate() || this.object.is_body_turning())
       );
     }
   } as IStateManagerEvaLocked

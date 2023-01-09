@@ -18,7 +18,8 @@ const item_dependence: LuaTable<string, LuaTable<string, boolean>> = new LuaTabl
 const mul_by_level: LuaTable<string, number> = new LuaTable();
 const count_by_level: LuaTable<string, { min: number; max: number }> = new LuaTable();
 const always_keep_item: LuaTable<string, boolean> = new LuaTable();
-const ammo_sections: LuaTable<string, boolean> = new LuaTable();
+
+export const ammo_sections: LuaTable<string, boolean> = new LuaTable();
 
 export function initDropSettings(): void {
   log.info("Init drop settings");

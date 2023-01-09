@@ -20,6 +20,10 @@ export const gameConfig = {
      */
     IS_SMARTS_DEBUG_ENABLED: true,
     /**
+     * Is debug mode for state management / animations enabled.
+     */
+    IS_STATE_MANAGEMENT_DEBUG_ENABLED: true,
+    /**
      * Enable debugging log modules.
      */
     IS_LOG_ENABLED: true,

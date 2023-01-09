@@ -1,9 +1,13 @@
 import { action_base, object, XR_action_base, XR_game_object } from "xray16";
 
+import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
 import { isStrappableWeapon } from "@/mod/scripts/core/checkers";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
 import { get_weapon } from "@/mod/scripts/core/state_management/weapon/StateManagerWeapon";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
+
+const log: LuaLogger = new LuaLogger("StateManagerActWeaponStrapp", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
 export interface IStateManagerActWeaponStrapp extends XR_action_base {
   st: StateManager;
@@ -30,6 +34,7 @@ export const StateManagerActWeaponStrapp: IStateManagerActWeaponStrapp = declare
       }
     },
     execute(): void {
+      log.info("Act weapon strapp");
       action_base.execute(this);
     },
     finalize(): void {

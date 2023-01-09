@@ -1,12 +1,17 @@
 import { action_base, game_object, level, object, time_global, XR_action_base } from "xray16";
 
+import { gameConfig } from "@/mod/lib/configs/GameConfig";
+import { Optional } from "@/mod/lib/types";
 import { isStalker, isWeapon } from "@/mod/scripts/core/checkers";
 import { states } from "@/mod/scripts/core/state_management/lib/state_lib";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
 import { get_idle_state, get_queue_params } from "@/mod/scripts/core/state_management/weapon/StateManagerWeapon";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const aim_ratio: number = 1000 / 50;
 const min_ratio: number = 1500;
+
+const log: LuaLogger = new LuaLogger("StateManagerActEnd", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
 export interface IStateManagerActEnd extends XR_action_base {
   st: StateManager;
@@ -44,8 +49,8 @@ export const StateManagerActEnd: IStateManagerActEnd = declare_xr_class("StateMa
       }
     }
 
-    const t = states.get(this.st.target_state!).weapon;
-    const w = isWeapon(this.object.best_weapon());
+    const t: Optional<string> = states.get(this.st.target_state!).weapon;
+    const w: boolean = isWeapon(this.object.best_weapon());
 
     if (!w) {
       return;

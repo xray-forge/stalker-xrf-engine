@@ -1,8 +1,15 @@
 import { action_base, CSightParams, XR_action_base } from "xray16";
 
+import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { look_position_type } from "@/mod/scripts/core/state_management/direction/StateManagerDirection";
 import { states } from "@/mod/scripts/core/state_management/lib/state_lib";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
+
+const log: LuaLogger = new LuaLogger(
+  "StateManagerActDirectionSearch",
+  gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
+);
 
 export interface IStateManagerActDirectionSearch extends XR_action_base {
   st: StateManager;
@@ -29,6 +36,7 @@ export const StateManagerActDirectionSearch: IStateManagerActDirectionSearch = d
       }
     },
     execute(): void {
+      log.info("Act direction search");
       action_base.execute(this);
     },
     finalize(): void {

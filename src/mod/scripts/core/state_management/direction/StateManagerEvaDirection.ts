@@ -1,11 +1,23 @@
-import { CSightParams, property_evaluator, TXR_SightType, vector, XR_property_evaluator } from "xray16";
+import {
+  CSightParams,
+  property_evaluator,
+  TXR_SightType,
+  vector,
+  XR_CSightParams,
+  XR_property_evaluator,
+  XR_vector
+} from "xray16";
 
+import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import {
   look_object_type,
   look_position_type
 } from "@/mod/scripts/core/state_management/direction/StateManagerDirection";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { vectorCmpPrec } from "@/mod/scripts/utils/physics";
+
+const log: LuaLogger = new LuaLogger("StateManagerEvaDirection", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
 export interface IStateManagerEvaDirection extends XR_property_evaluator {
   st: StateManager;
@@ -26,11 +38,11 @@ export const StateManagerEvaDirection: IStateManagerEvaDirection = declare_xr_cl
         return true;
       }
 
-      const sight_type = this.object.sight_params();
+      const sight_type: XR_CSightParams = this.object.sight_params();
 
       if (this.st.look_object !== null) {
         if (
-          sight_type.m_object == null ||
+          sight_type.m_object === null ||
           sight_type.m_object.id() !== this.st.look_object ||
           this.st.point_obj_dir !== look_object_type(this.object, this.st)
         ) {
@@ -50,9 +62,9 @@ export const StateManagerEvaDirection: IStateManagerEvaDirection = declare_xr_cl
           return true;
         }
 
-        const dir = new vector().sub(this.st.look_position!, this.object.position());
+        const dir: XR_vector = new vector().sub(this.st.look_position!, this.object.position());
 
-        if (look_object_type(this.object, this.st) == true) {
+        if (look_object_type(this.object, this.st) === true) {
           dir.y = 0;
         }
 

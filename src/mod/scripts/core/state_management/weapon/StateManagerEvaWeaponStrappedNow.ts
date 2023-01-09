@@ -1,7 +1,15 @@
-import { property_evaluator, XR_property_evaluator } from "xray16";
+import { property_evaluator, XR_game_object, XR_property_evaluator } from "xray16";
 
+import { gameConfig } from "@/mod/lib/configs/GameConfig";
+import { Optional } from "@/mod/lib/types";
 import { isStrappableWeapon, isWeapon } from "@/mod/scripts/core/checkers";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
+
+const log: LuaLogger = new LuaLogger(
+  "StateManagerEvaWeaponStrappedNow",
+  gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
+);
 
 export interface IStateManagerEvaWeaponStrappedNow extends XR_property_evaluator {
   st: StateManager;
@@ -16,13 +24,13 @@ export const StateManagerEvaWeaponStrappedNow: IStateManagerEvaWeaponStrappedNow
       this.st = st;
     },
     evaluate(): boolean {
-      const best_weapon = this.object.best_weapon();
+      const best_weapon: Optional<XR_game_object> = this.object.best_weapon();
 
       if (!isWeapon(best_weapon)) {
         return true;
       }
 
-      const active_item = this.object.active_item();
+      const active_item: Optional<XR_game_object> = this.object.active_item();
 
       return (
         (!isStrappableWeapon(best_weapon) && active_item === null) ||

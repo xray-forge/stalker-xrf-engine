@@ -1,7 +1,14 @@
 import { action_base, move, XR_action_base } from "xray16";
 
+import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { storage } from "@/mod/scripts/core/db";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
+
+const log: LuaLogger = new LuaLogger(
+  "StateManagerActSmartCoverEnter",
+  gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
+);
 
 export interface IStateManagerActSmartCoverEnter extends XR_action_base {
   st: StateManager;
@@ -34,6 +41,7 @@ export const StateManagerActSmartCoverEnter: IStateManagerActSmartCoverEnter = d
       }
     },
     execute(): void {
+      log.info("Act smart cover enter");
       action_base.execute(this);
     },
     finalize(): void {

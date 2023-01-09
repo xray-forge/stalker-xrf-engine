@@ -1,6 +1,13 @@
 import { action_base, move, XR_action_base } from "xray16";
 
+import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
+
+const log: LuaLogger = new LuaLogger(
+  "StateManagerActMovementStand",
+  gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
+);
 
 export interface IStateManagerActMovementStand extends XR_action_base {
   st: StateManager;
@@ -20,6 +27,7 @@ export const StateManagerActMovementStand: IStateManagerActMovementStand = decla
       this.object.set_movement_type(move.stand);
     },
     execute(): void {
+      log.info("Act movement standd");
       action_base.execute(this);
     },
     finalize(): void {

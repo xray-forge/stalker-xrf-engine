@@ -1,7 +1,12 @@
 import { property_evaluator, XR_property_evaluator } from "xray16";
 
+import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { EStateManagerProperty } from "@/mod/scripts/core/state_management/EStateManagerProperty";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
+
+const log: LuaLogger = new LuaLogger("StateManagerEvaIdleItems", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
 export interface IStateManagerEvaIdleItems extends XR_property_evaluator {
   st: StateManager;
@@ -38,12 +43,12 @@ export const StateManagerEvaIdleItems: IStateManagerEvaIdleItems = declare_xr_cl
         const t =
           this.st.target_state == "idle" &&
           // --                !this.st.planner.evaluator(this.st.properties["locked"]).evaluate()  &&
-          !this.st.planner!.evaluator(this.st.properties.get("animstate_locked")).evaluate() &&
-          !this.st.planner!.evaluator(this.st.properties.get("animation_locked")).evaluate() &&
-          this.st.planner!.evaluator(this.st.properties.get("movement")).evaluate() &&
-          this.st.planner!.evaluator(this.st.properties.get("animstate")).evaluate() &&
-          this.st.planner!.evaluator(this.st.properties.get("animation")).evaluate() &&
-          this.st.planner!.evaluator(this.st.properties.get("smartcover")).evaluate();
+          !this.st.planner.evaluator(EStateManagerProperty.animstate_locked).evaluate() &&
+          !this.st.planner.evaluator(EStateManagerProperty.animation_locked).evaluate() &&
+          this.st.planner.evaluator(EStateManagerProperty.movement).evaluate() &&
+          this.st.planner.evaluator(EStateManagerProperty.animstate).evaluate() &&
+          this.st.planner.evaluator(EStateManagerProperty.animation).evaluate() &&
+          this.st.planner.evaluator(EStateManagerProperty.smartcover).evaluate();
 
         // --        printf("[%s] %s", this.object:name(), utils.to_str(this.st.target_state))
         // --        printf("%s", utils.to_str(this.st.planner.evaluator(this.st.properties["locked"]).evaluate()))

@@ -1,1 +1,0 @@
-/* eslint max-len: off */

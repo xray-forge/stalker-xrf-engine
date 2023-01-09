@@ -72,7 +72,7 @@ export async function buildMeta({ meta, timeTracker }: IBuildMetaParams): Promis
   log.info("Timing stats:");
   Object.entries(timingInfo).forEach(([key, value]) => log.info(`* ${key}:  ${chalk.yellow(value)}`));
 
-  log.info("Included mod metadata");
+  log.info("Included mod metadata:", chalk.yellowBright(TARGET_GAME_DATA_METADATA_FILE));
 }
 
 export function getTimingsInfo(timeTracker: TimeTracker): Record<string, string | number> {

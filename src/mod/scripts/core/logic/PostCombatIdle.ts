@@ -17,13 +17,13 @@ import {
 
 import { AnyCallable, Optional } from "@/mod/lib/types";
 import { getActor, storage as dbStorage } from "@/mod/scripts/core/db";
-import { Animation } from "@/mod/scripts/core/state_management/animation/Animation";
+import { AnimationManager } from "@/mod/scripts/core/state_management/AnimationManager";
 import { animations } from "@/mod/scripts/core/state_management/lib/state_mgr_animation_list";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("core/logic/PostCombatIdle");
 
-interface IPostCombatSharedState {
+export interface IPostCombatSharedState {
   timer: Optional<number>;
   animation: Optional<any>; // From script lua class.
   last_best_enemy_id: Optional<number>;
@@ -123,10 +123,8 @@ export const PostCombatIdleWait: IPostCombatIdleWait = declare_xr_class("PostCom
 
     this.anim_st = { animstate: { states: { anim_marker: null } } };
 
-    const state_mgr_animation = get_global("state_mgr_animation");
-
     this.st.animation = create_xr_class_instance(
-      Animation,
+      AnimationManager,
       this.object,
       this.anim_st,
       "state_mgr_animation_list",

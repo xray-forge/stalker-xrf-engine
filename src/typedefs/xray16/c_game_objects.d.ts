@@ -307,7 +307,7 @@ declare module "xray16" {
     public use_smart_covers_only(): unknown;
     public use_smart_covers_only(value: boolean): unknown;
     public external_sound_start(value: string): unknown;
-    public get_dest_smart_cover_name(): unknown;
+    public get_dest_smart_cover_name(): string | null;
     public memory_visible_objects(): unknown;
     public who_hit_name(): unknown;
     public lookout_max_time(value: number): unknown;
@@ -341,16 +341,16 @@ declare module "xray16" {
     public set_previous_point(point: number): unknown;
     public set_item(action: unknown /* enum MonsterSpace::EObjectAction */): unknown;
     public set_item(
-      action: unknown /* enum MonsterSpace::EObjectAction */,
+      action_id: number /* enum MonsterSpace::EObjectAction */,
       game_object: XR_game_object | null
     ): unknown;
     public set_item(
-      action: unknown /* enum MonsterSpace::EObjectAction */,
+      action_id: number /* enum MonsterSpace::EObjectAction */,
       game_object: XR_game_object | null,
       value: number
     ): unknown;
     public set_item(
-      action: unknown /* enum MonsterSpace::EObjectAction */,
+      action_id: number /* enum MonsterSpace::EObjectAction */,
       game_object: XR_game_object | null,
       value1: number,
       value2: number
@@ -429,7 +429,7 @@ declare module "xray16" {
     public remove_home(): unknown;
     public condition(): unknown;
     public switch_to_trade(): unknown;
-    public set_dest_level_vertex_id(value: number): unknown;
+    public set_dest_level_vertex_id(vertex_id: number): void;
     public deadbody_closed(value: boolean): unknown;
     public eat(game_object: XR_game_object): unknown;
     public register_door_for_npc(): unknown;
@@ -539,16 +539,16 @@ declare module "xray16" {
     public take_items_enabled(value: boolean): unknown;
     public take_items_enabled(): unknown;
     public set_sight(type: TXR_SightType, vector: XR_vector | null, value: number): unknown;
-    public set_sight(type: TXR_SightType, value1: boolean, value2: boolean): unknown;
+    public set_sight(type: TXR_SightType, torso_look: boolean, fire_object: boolean): unknown;
     public set_sight(
-      type: TXR_SightType, value1: XR_vector, value2: boolean, value3: boolean
+      type: TXR_SightType, value1: XR_vector, torso_look: boolean, fire_object: boolean
     ): unknown;
     public set_sight(type: TXR_SightType, vector: XR_vector, value: boolean): unknown;
     public set_sight(type: TXR_SightType, vector: XR_vector): unknown;
     public set_sight(game_object: XR_game_object): unknown;
-    public set_sight(game_object: XR_game_object, value: boolean): unknown;
-    public set_sight(game_object: XR_game_object, value1: boolean, value2: boolean): unknown;
-    public set_sight(game_object: XR_game_object, value1: boolean, value2: boolean, value3: boolean): unknown;
+    public set_sight(game_object: XR_game_object, torso_look: boolean): unknown;
+    public set_sight(game_object: XR_game_object, torso_look: boolean, fire_object: boolean): unknown;
+    public set_sight(game_object: XR_game_object, torso_look: boolean, fire_object: boolean, value3: boolean): unknown;
     public set_visual_memory_enabled(value: boolean): unknown;
     public wounded(): unknown;
     public wounded(value: boolean): unknown;

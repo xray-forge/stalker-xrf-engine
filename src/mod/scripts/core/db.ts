@@ -1,8 +1,9 @@
 import { XR_cse_alife_object, XR_game_object, XR_ini_file, XR_object_binder, XR_vector } from "xray16";
 
-import { AnyCallable, AnyObject, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { ActorProxy, IActorProxy } from "@/mod/scripts/core/ActorProxy";
 import { RestrictorManager } from "@/mod/scripts/core/RestrictorManager";
+import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("db", false);
@@ -39,7 +40,7 @@ export interface IStoredObject<T = XR_game_object> {
   mob_death?: any;
   disable_input_time?: any;
   disable_input_idle?: any;
-  state_mgr?: any;
+  state_mgr?: StateManager;
   sr_deimos?: any;
   restrictor_manager?: Optional<RestrictorManager>;
   overrides?: {

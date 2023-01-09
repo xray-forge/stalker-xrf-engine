@@ -314,7 +314,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
         this.weapon_hide_in_dialog = true;
       }
     } else {
-      if (this.weapon_hide_in_dialog == true) {
+      if (this.weapon_hide_in_dialog === true) {
         log.info("Restoring weapon in dialog");
         this.object.restore_weapon();
         this.weapon_hide_in_dialog = false;

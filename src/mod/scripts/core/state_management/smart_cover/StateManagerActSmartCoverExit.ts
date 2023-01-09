@@ -1,6 +1,13 @@
-import { action_base, level, vector, XR_action_base } from "xray16";
+import { action_base, level, vector, XR_action_base, XR_vector } from "xray16";
 
+import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
+
+const log: LuaLogger = new LuaLogger(
+  "StateManagerActSmartCoverExit",
+  gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
+);
 
 export interface IStateManagerActSmartCoverExit extends XR_action_base {
   st: StateManager;
@@ -23,8 +30,8 @@ export const StateManagerActSmartCoverExit: IStateManagerActSmartCoverExit = dec
       object.use_smart_covers_only(false);
       object.set_smart_cover_target_selector();
 
-      let vertex = object.level_vertex_id();
-      let npc_position = level.vertex_position(vertex);
+      let vertex: number = object.level_vertex_id();
+      let npc_position: XR_vector = level.vertex_position(vertex);
 
       if (!object.accessible(npc_position)) {
         const ttp = new vector().set(0, 0, 0);
@@ -38,6 +45,7 @@ export const StateManagerActSmartCoverExit: IStateManagerActSmartCoverExit = dec
       // printf("accesible position2 is %s", vectorToString(level.vertex_position(vertex)))
     },
     execute(): void {
+      log.info("Act smart cover exit");
       action_base.execute(this);
     },
     finalize(): void {

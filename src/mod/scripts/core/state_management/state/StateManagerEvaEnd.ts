@@ -1,7 +1,11 @@
 import { cast_planner, property_evaluator, stalker_ids, XR_action_planner, XR_property_evaluator } from "xray16";
 
+import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
+
+const log: LuaLogger = new LuaLogger("StateManagerEvaEnd", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
 export interface IStateManagerEvaEnd extends XR_property_evaluator {
   st: StateManager;
@@ -30,7 +34,7 @@ export const StateManagerEvaEnd: IStateManagerEvaEnd = declare_xr_class("StateMa
 
     const current_action_id: number = this.mgr.current_action_id();
 
-    if (current_action_id !== stalker_ids.action_combat_planner) {
+    if (current_action_id === stalker_ids.action_combat_planner) {
       if (!this.combat_planner.initialized()) {
         return false;
       }
@@ -38,13 +42,11 @@ export const StateManagerEvaEnd: IStateManagerEvaEnd = declare_xr_class("StateMa
       // --if this.combat_planner:current_action_id() === stalker_ids.action_post_combat_wait then
       // --    this.st.combat = false
       // --end
-    } else {
-      // if (
-      //  current_action_id !== stalker_ids.action_danger_planner &&
-      //  current_action_id !== stalker_ids.action_anomaly_planner
-      // ) {
+    } else if (
+      current_action_id !== stalker_ids.action_danger_planner &&
+      current_action_id !== stalker_ids.action_anomaly_planner
+    ) {
       this.st.combat = false;
-      // }
     }
 
     return false;

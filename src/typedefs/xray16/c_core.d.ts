@@ -13,7 +13,7 @@ declare module "xray16" {
     public __init(...args: Array<any>): void;
     public __finalize(): void;
     public __call(args: Array<any>): void;
-    public __tostring(): void;
+    public __tostring(): string;
     public __len(): void;
     public __unm(): void;
     public __eq(): void;

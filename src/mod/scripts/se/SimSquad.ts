@@ -1189,7 +1189,7 @@ function set_relation(
 }
 
 function reset_animation(npc: XR_game_object): void {
-  const stateManager: StateManager = storage.get(npc.id()).state_mgr;
+  const stateManager: Optional<StateManager> = storage.get(npc.id()).state_mgr!;
 
   if (stateManager === null) {
     return;

@@ -1,7 +1,11 @@
 import { action_base, game_object, XR_action_base } from "xray16";
 
+import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { AnyCallablesModule } from "@/mod/lib/types";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
+
+const log: LuaLogger = new LuaLogger("StateManagerActToIdle", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
 export interface IStateManagerActToIdle extends XR_action_base {
   st: StateManager;
@@ -31,14 +35,17 @@ export const StateManagerActToIdle: IStateManagerActToIdle = declare_xr_class("S
     }
 
     this.st.set_state("idle", null, null, null, null);
+
     get_global<AnyCallablesModule>("utils").send_to_nearest_accessible_vertex(
       this.object,
       this.object.level_vertex_id()
     );
+
     this.object.set_path_type(game_object.level_path);
   },
   finalize(): void {
     this.st.current_object = -1;
+    action_base.finalize(this);
   },
   execute(): void {
     get_global<AnyCallablesModule>("utils").send_to_nearest_accessible_vertex(

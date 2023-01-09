@@ -1,13 +1,18 @@
 import { level, look, TXR_look, vector, XR_game_object, XR_vector } from "xray16";
 
+import { gameConfig } from "@/mod/lib/configs/GameConfig";
+import { EStateManagerProperty } from "@/mod/scripts/core/state_management/EStateManagerProperty";
 import { states } from "@/mod/scripts/core/state_management/lib/state_lib";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { vectorCmp } from "@/mod/scripts/utils/physics";
+
+const log: LuaLogger = new LuaLogger("StateManagerDirection", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
 export function look_at_object(npc: XR_game_object, st: StateManager): void {
   st.point_obj_dir = look_object_type(npc, st);
 
-  if (st.point_obj_dir == true) {
+  if (st.point_obj_dir === true) {
     npc.set_sight(level.object_by_id(st.look_object!), true, false, false);
   } else {
     npc.set_sight(level.object_by_id(st.look_object!), true, true);
@@ -38,7 +43,7 @@ export function look_position_type(npc: XR_game_object, st: StateManager): TXR_l
     return states.get(st.target_state).direction! as TXR_look;
   }
 
-  if (!st.planner.evaluator(st.properties.get("movement_stand")).evaluate()) {
+  if (!st.planner.evaluator(EStateManagerProperty.movement_stand).evaluate()) {
     if (st.look_position !== null) {
       return look.direction;
     }
@@ -58,11 +63,12 @@ export function turn(npc: XR_game_object, st: StateManager): void {
   st.point_obj_dir = look_object_type(npc, st);
 
   if (st.look_object !== null && level.object_by_id(st.look_object) !== null) {
+    log.info("Look at object npc:", npc.name());
     look_at_object(npc, st);
   } else if (st.look_position !== null) {
     let dir: XR_vector = new vector().sub(st.look_position!, npc.position());
 
-    if (st.point_obj_dir == true) {
+    if (st.point_obj_dir === true) {
       dir.y = 0;
     }
 
@@ -83,5 +89,6 @@ export function turn(npc: XR_game_object, st: StateManager): void {
     }
 
     npc.set_sight(look.direction, dir, true);
+    log.info("Look at position:", npc.name());
   }
 }
