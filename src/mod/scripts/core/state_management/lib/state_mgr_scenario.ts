@@ -957,9 +957,9 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       into: {
         [0]: [
           "zat_b38_stalker_jump_lift_in_1",
-          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects.").zat_b38_open_info(...args) },
+          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").zat_b38_open_info(...args) },
           "zat_b38_stalker_jump_lift_in_2",
-          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects.").zat_b38_switch_info(...args) },
+          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").zat_b38_switch_info(...args) },
           "zat_b38_stalker_jump_lift_in_3",
           "zat_b38_stalker_jump_lift_idle",
           "zat_b38_stalker_jump_lift_out"
@@ -981,7 +981,7 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
         [0]: [
           "zat_b38_stalker_jump_tonnel",
           {
-            f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects.").zat_b38_jump_tonnel_info(...args)
+            f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").zat_b38_jump_tonnel_info(...args)
           }
         ]
       },
@@ -1015,7 +1015,7 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       into: {
         [0]: [
           "zat_b38_stalker_alert",
-          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects.").pri_a17_ice_climb_end(...args) }
+          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").pri_a17_ice_climb_end(...args) }
         ]
       },
       rnd: null
@@ -1044,7 +1044,7 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       into: {
         [0]: [
           "ragdoll_sniper_body_front_2",
-          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects.").pri_a17_preacher_death(...args) }
+          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").pri_a17_preacher_death(...args) }
         ]
       },
       out: null,
@@ -1062,7 +1062,7 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       into: {
         [0]: [
           "pri_a17_preacher_sermon_in",
-          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects.").pri_a17_pray_start(...args) },
+          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").pri_a17_pray_start(...args) },
           "pri_a17_preacher_sermon_out"
         ]
       },
@@ -1179,7 +1179,7 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       out: {
         [0]: [
           "zat_b3_tech_drunk_out",
-          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects.").zat_b3_tech_waked_up(...args) }
+          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").zat_b3_tech_waked_up(...args) }
         ]
       },
       idle: { [0]: "zat_b3_tech_drunk_idle" },
@@ -1211,7 +1211,7 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
           "zat_b3_tech_surprise",
           {
             f: (...args: Array<any>) =>
-              get_global<AnyCallablesModule>("xr_effects.").zat_b3_tech_surprise_anim_end(...args)
+              get_global<AnyCallablesModule>("xr_effects").zat_b3_tech_surprise_anim_end(...args)
           }
         ]
       },
@@ -1232,7 +1232,7 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
         [0]: [
           { d: "vodka" },
           "zat_b3_tech_drink_out",
-          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects.").zat_b3_tech_drinked_out(...args) }
+          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").zat_b3_tech_drinked_out(...args) }
         ]
       },
       idle: { [0]: "zat_b3_tech_drink_idle" },
@@ -1275,8 +1275,7 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
         [0]: [
           "pri_a28_kirillov_radio_on_in",
           {
-            f: (...args: Array<any>) =>
-              get_global<AnyCallablesModule>("xr_effects.").pri_a28_kirillov_hq_online(...args)
+            f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").pri_a28_kirillov_hq_online(...args)
           }
         ]
       },
@@ -1295,7 +1294,7 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
         [0]: [
           { a: "hand_radio_r" },
           "pri_a18_inspert_monolit_actor_in",
-          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects.").pri_a18_radio_start(...args) },
+          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").pri_a18_radio_start(...args) },
           "pri_a18_inspert_monolit_actor_idle",
           "pri_a18_inspert_monolit_actor_idle",
           "pri_a18_inspert_monolit_actor_idle",
@@ -1406,7 +1405,7 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       into: {
         [0]: [
           "cut_scene_0_actor",
-          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects.").zat_b38_cop_dead(...args) }
+          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").zat_b38_cop_dead(...args) }
         ]
       },
       out: null,
@@ -1430,7 +1429,7 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
           "jup_b15_zulus_sit_drink_out",
           {
             f: (...args: Array<any>) =>
-              get_global<AnyCallablesModule>("xr_effects.").jup_b15_zulus_drink_anim_info(...args)
+              get_global<AnyCallablesModule>("xr_effects").jup_b15_zulus_drink_anim_info(...args)
           }
         ]
       },
@@ -1493,7 +1492,7 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
           "jup_b219_descent_actor_4",
           { s: "jup_b219_actor_ready" },
           "jup_b219_descent_actor_8",
-          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects.").jup_b219_opening(...args) },
+          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").jup_b219_opening(...args) },
           "jup_b219_descent_actor_9",
           { s: "jup_b219_actor_go" },
           "jup_b219_descent_actor_10"
@@ -1505,7 +1504,7 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
           "jup_b219_descent_actor_4",
           { s: "jup_b219_actor_ready" },
           "jup_b219_descent_actor_8",
-          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects.").jup_b219_opening(...args) },
+          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").jup_b219_opening(...args) },
           "jup_b219_descent_actor_9",
           { s: "jup_b219_actor_go" },
           "jup_b219_descent_actor_10"
@@ -1532,7 +1531,7 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
           "jup_b219_descent_actor_5",
           { s: "jup_b219_actor_ready" },
           "jup_b219_descent_actor_8",
-          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects.").jup_b219_opening(...args) },
+          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").jup_b219_opening(...args) },
           "jup_b219_descent_actor_9",
           { s: "jup_b219_actor_go" },
           "jup_b219_descent_actor_10"
@@ -1559,7 +1558,7 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
           "jup_b219_descent_actor_6",
           { s: "jup_b219_actor_ready" },
           "jup_b219_descent_actor_8",
-          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects.").jup_b219_opening(...args) },
+          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").jup_b219_opening(...args) },
           "jup_b219_descent_actor_9",
           { s: "jup_b219_actor_go" },
           "jup_b219_descent_actor_10"
@@ -1586,7 +1585,7 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
           "jup_b219_descent_actor_7",
           { s: "jup_b219_actor_ready" },
           "jup_b219_descent_actor_8",
-          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects.").jup_b219_opening(...args) },
+          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").jup_b219_opening(...args) },
           "jup_b219_descent_actor_9",
           { s: "jup_b219_actor_go" },
           "jup_b219_descent_actor_10"
@@ -1615,7 +1614,7 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
           "jup_b219_descent_actor_7",
           { s: "jup_b219_actor_ready" },
           "jup_b219_descent_actor_8",
-          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects.").jup_b219_opening(...args) },
+          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").jup_b219_opening(...args) },
           "jup_b219_descent_actor_9",
           { s: "jup_b219_actor_go" },
           "jup_b219_descent_actor_10"
@@ -1643,7 +1642,7 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
           "jup_b219_descent_actor_7",
           { s: "jup_b219_actor_ready" },
           "jup_b219_descent_actor_8",
-          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects.").jup_b219_opening(...args) },
+          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").jup_b219_opening(...args) },
           "jup_b219_descent_actor_9",
           { s: "jup_b219_actor_go" },
           "jup_b219_descent_actor_10"
@@ -1671,7 +1670,7 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
           "jup_b219_descent_actor_7",
           { s: "jup_b219_actor_ready" },
           "jup_b219_descent_actor_8",
-          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects.").jup_b219_opening(...args) },
+          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").jup_b219_opening(...args) },
           "jup_b219_descent_actor_9",
           { s: "jup_b219_actor_go" },
           "jup_b219_descent_actor_10"
@@ -1699,7 +1698,7 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
           "jup_b219_descent_actor_6",
           { s: "jup_b219_actor_ready" },
           "jup_b219_descent_actor_8",
-          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects.").jup_b219_opening(...args) },
+          { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").jup_b219_opening(...args) },
           "jup_b219_descent_actor_9",
           { s: "jup_b219_actor_go" },
           "jup_b219_descent_actor_10"
@@ -2573,8 +2572,7 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
         [0]: [
           "poisk_8_idle_2",
           {
-            f: (...args: Array<any>) =>
-              get_global<AnyCallablesModule>("xr_effects.").jup_a9_cam1_actor_anim_end(...args)
+            f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").jup_a9_cam1_actor_anim_end(...args)
           }
         ]
       },

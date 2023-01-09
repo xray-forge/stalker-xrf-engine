@@ -999,9 +999,4 @@ export function goap_graph(st: StateManager, npc: XR_game_object): void {
 
   goal.add_property(new world_property(EStateManagerProperty.end, true));
   st.planner.set_goal_world_state(goal);
-
-  if (npc.debug_planner !== null) {
-    log.info("Enable debug planner:", npc.name());
-    npc.debug_planner(st.planner);
-  }
 }

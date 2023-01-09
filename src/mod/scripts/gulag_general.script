@@ -1,5 +1,6 @@
 -- 979
 local sections = require("scripts.core.db.sections")
+local combat_restrictor = require("scripts.core.combat_restrictor")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local SmartCover = require("scripts.se.SmartCover")
 local create_ts_class_instance = require("lualib_bundle").__TS__New

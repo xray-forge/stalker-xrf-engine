@@ -384,7 +384,7 @@ declare module "xray16" {
     public can_select_weapon(value: boolean): unknown;
     public set_actor_direction(value: number): unknown;
     public drop_item(game_object: XR_game_object): unknown;
-    public add_restrictions(value1: string, value2: string): unknown;
+    public add_restrictions(zone: string, value2: string): unknown;
     public get_monster_hit_info(): unknown;
     public memory_hit_objects(): unknown;
     public bind_object(binder: XR_object_binder): void;
