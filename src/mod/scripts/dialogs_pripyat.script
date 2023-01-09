@@ -1,3 +1,5 @@
+-- 248
+
 function pri_b301_zulus_reward(first_speaker, second_speaker)
   dialogs.relocate_item_section_to_actor(first_speaker, second_speaker, "wpn_pkm_zulus")
 end

@@ -1,3 +1,4 @@
+-- 36
 function get_state(ini, section, obj)
   local state = utils.cfg_get_string(ini, section, "state", obj, false, "", "")
   if (state == "") then

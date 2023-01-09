@@ -1,3 +1,4 @@
+-- 499
 local SimObjectsRegistry = require("scripts.se.SimObjectsRegistry")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
@@ -457,10 +458,7 @@ function action_reach_task_location:net_destroy(npc)
   end
 end
 
-
-
-
---------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------
 
 function set_reach_task(npc, ini, scheme)
   local st = xr_logic.assign_storage_and_bind(npc, ini, scheme)
@@ -498,11 +496,3 @@ function add_reach_task_action(npc)
 
   alife_action_planner:add_action(stalker_ids.action_smart_terrain_task, new_action)
 end
-
-
-
-
-
-
-
-

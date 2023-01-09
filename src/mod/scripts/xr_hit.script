@@ -1,3 +1,4 @@
+-- 67
 class "action_process_hit"
 
 function action_process_hit:__init(obj, storage)
@@ -63,4 +64,3 @@ function disable_scheme(npc, scheme)
     xr_logic.unsubscribe_action_from_events(npc, st, st.action)
   end
 end
-

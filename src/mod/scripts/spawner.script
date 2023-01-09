@@ -1,3 +1,4 @@
+-- 38
 local items_to_spawn = {}
 
 function spawn_items(npc, st)

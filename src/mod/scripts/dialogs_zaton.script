@@ -1,3 +1,4 @@
+-- 1657
 local NewsManager = require("scripts.core.NewsManager")
 local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
 local LuaLogger = require("scripts.utils.logging").LuaLogger

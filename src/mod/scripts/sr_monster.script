@@ -1,3 +1,4 @@
+-- 170
 class "fake_monster"
 
 function fake_monster:__init(obj, storage)
@@ -166,4 +167,3 @@ function set_scheme(obj, ini, scheme, section, gulag_name)
   st.sound_slide_vel = utils.cfg_get_number(ini, section, "slide_velocity", obj, false, 7)
 
 end
-

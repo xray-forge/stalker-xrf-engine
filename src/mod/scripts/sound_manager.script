@@ -1,3 +1,4 @@
+-- 291
 local TaskManager = require("scripts.se.task.TaskManager")
 local SimBoard = require("scripts.se.SimBoard")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
@@ -15,9 +16,9 @@ local sound_managers = {}
 
 local story_ltx = ini_file("misc\\sound_stories.ltx")
 
-
 --' �������� �������� �������� � ���� ������ ����������, ������� ����� ���������� ������� �� �����.
 class "sound_manager"
+
 function sound_manager:__init(id)
   self.id = tostring(id)
   self.npc = {}      --'������� ����������, ������������������ � �������������
@@ -27,12 +28,14 @@ function sound_manager:__init(id)
   self.phrase_timeout = nil  --' ������ ����� ������ ����� ����� �������.
   self.phrase_idle = 0  --' ������ ����� ����� ����� �������.
 end
+
 --' ���������������� ���.
 function sound_manager:register_npc(npc_id)
   printf("Register sm npc [%s]:[%s]", self.id, npc_id)
   table.insert(self.npc, { npc_id = npc_id })
   --print_table(self.npc)
 end
+
 --' ���������������� ���
 function sound_manager:unregister_npc(npc_id)
   printf("UnRegister sm npc [%s]:[%s]", self.id, npc_id)

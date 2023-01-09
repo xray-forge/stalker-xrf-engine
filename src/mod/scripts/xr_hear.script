@@ -1,3 +1,4 @@
+-- 94
 local utilsConfigs = require("scripts.utils.configs")
 
 local function get_sound_type(sound_type)
@@ -90,4 +91,3 @@ function hear_callback(obj, who_id, sound_type, sound_position, sound_power)
     end
   end
 end
-

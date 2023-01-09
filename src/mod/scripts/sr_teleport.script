@@ -1,3 +1,4 @@
+-- 105
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 local log = create_ts_class_instance(LuaLogger, "sr_teleport");
@@ -101,4 +102,3 @@ function set_scheme(obj, ini, scheme, section, gulag_name)
     abort("Wrong point nums in sr_teleport [%s]", tostring(section))
   end
 end
-
