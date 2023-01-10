@@ -399,15 +399,22 @@ function activate_by_section(npc, ini, section, gulag_name, loading)
 
   -- schemes.schemes[scheme] ���� ��� ����� (������), � ������� ����������� �����
   -- _G[] ���� ��������� �� ��������� (�������) ����� ������
-  local filename = schemes.schemes[scheme]
-  if filename == nil then
+  local filenameOrHandler = schemes.schemes[scheme]
+
+  if filenameOrHandler == nil then
     abort("xr_logic: scheme '%s' is not registered in modules.script", scheme)
   end
-  --printf("_bp: calling module('%s')", filename)
-  if not _G[filename] then
-    abort("xr_logic: can't call %s.set_scheme() - a nil value", filename)
+
+  if type(filenameOrHandler) == "string" then
+    --printf("_bp: calling module('%s')", filename)
+    if not _G[filenameOrHandler] then
+      abort("xr_logic: can't call %s.set_scheme() - a nil value", filenameOrHandler)
+    end
+
+    _G[filenameOrHandler].set_scheme(npc, ini, scheme, section, gulag_name)
+  else
+    filenameOrHandler:set_scheme(npc, ini, scheme, section, gulag_name)
   end
-  _G[filename].set_scheme(npc, ini, scheme, section, gulag_name)
 
   --printf("DEBUG: activate_by_section: scheme '%s' activated from section '%s'", scheme, section)
   db.storage[npc_id].active_section = section
@@ -490,6 +497,8 @@ function reset_generic_schemes_on_scheme_switch(npc, scheme, section)
 end
 
 function assign_storage_and_bind(npc, ini, scheme, section)
+  log:info("Assign storage and bind:", npc:name(), scheme, section)
+
   local npc_id = npc:id()
   local st
 
@@ -499,9 +508,14 @@ function assign_storage_and_bind(npc, ini, scheme, section)
 
     st["npc"] = npc
 
-    -- ����� �������� ������� - ����������
-    --printf("DEBUG: assign_storage_and_bind: bind scheme: '%s'", scheme)
-    _G[schemes.schemes[scheme]].add_to_binder(npc, ini, scheme, section, st)
+    local filenameOrHandler = schemes.schemes[scheme]
+
+    if type(filenameOrHandler) == "string" then
+      _G[schemes.schemes[scheme]].add_to_binder(npc, ini, scheme, section, st)
+    else
+      filenameOrHandler:add_to_binder(npc, ini, scheme, section, st)
+    end
+
   else
     st = db.storage[npc_id][scheme]
   end

@@ -1,6 +1,13 @@
-import { LuaLogger } from "../utils/logging";
-
-import { loadScheme, stype_heli, stype_item, stype_mobile, stype_restrictor, stype_stalker } from "./schemes";
+import { MobJump } from "@/mod/scripts/core/mob/MobJump";
+import {
+  loadScheme,
+  stype_heli,
+  stype_item,
+  stype_mobile,
+  stype_restrictor,
+  stype_stalker
+} from "@/mod/scripts/core/schemes";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("modules");
 
@@ -36,7 +43,7 @@ export function initializeModules(): void {
   loadScheme("mob_walker", "mob_walker", stype_mobile);
   loadScheme("mob_combat", "mob_combat", stype_mobile);
   loadScheme("mob_death", "mob_death", stype_mobile);
-  loadScheme("mob_jump", "mob_jump", stype_mobile);
+  loadScheme(MobJump, "mob_jump", stype_mobile);
   loadScheme("mob_home", "mob_home", stype_mobile);
 
   loadScheme("ph_door", "ph_door", stype_item);

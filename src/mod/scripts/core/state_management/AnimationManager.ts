@@ -93,7 +93,6 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
     const [anim, state] = this.select_anim();
 
     if (anim !== null) {
-      log.info("Update animation:", this.npc.name(), this.name, anim);
       this.add_anim(anim, state);
     }
   },
@@ -313,8 +312,6 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
     return anima.get(r) as any as string;
   },
   add_anim(anim: string, state: IAnimationDescriptor): void {
-    log.info("Add animation:", anim, type(state), this);
-
     const npc: XR_game_object = this.npc;
     const animation_props = state.prop;
 
