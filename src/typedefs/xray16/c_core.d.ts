@@ -331,57 +331,57 @@ declare module "xray16" {
     public constructor(action: unknown);
     public constructor(action: unknown, value: number);
     public constructor(
-      bodyState: unknown,
-      movementType: unknown,
+      bodyState: number,
+      movementType: TXR_move,
       pathType: unknown,
       game_object: XR_game_object
     );
     public constructor(
-      bodyState: unknown,
-      movementType: unknown,
+      bodyState: number,
+      movementType: TXR_move,
       pathType: unknown,
       game_object: XR_game_object,
       value: number
     );
     public constructor(
-      bodyState: unknown,
-      movementType: unknown,
+      bodyState: number,
+      movementType: TXR_move,
       pathType: unknown,
       patrol: XR_patrol
     );
     public constructor(
-      bodyState: unknown,
-      movementType: unknown,
+      bodyState: number,
+      movementType: TXR_move,
       pathType: unknown,
       patrol: XR_patrol,
       value: number
     );
     public constructor(
-      bodyState: unknown,
-      movementType: unknown,
+      bodyState: number,
+      movementType: TXR_move,
       pathType: unknown,
       vector: XR_vector
     );
     public constructor(
-      bodyState: unknown,
-      movementType: unknown,
+      bodyState: number,
+      movementType: TXR_move,
       pathType: unknown,
       vector: XR_vector,
       value: number
     );
     public constructor(vector: XR_vector, value: number);
-    public constructor(moveAction: unknown, vector: XR_vector);
-    public constructor(moveAction: unknown, patrol: XR_patrol);
-    public constructor(moveAction: unknown, game_object: XR_game_object);
-    public constructor(moveAction: unknown, vector: XR_vector, value: number);
-    public constructor(moveAction: unknown, value: number, vector: XR_patrol);
-    public constructor(moveAction: unknown, value: number, vector: XR_vector, value2: number);
-    public constructor(moveAction: unknown, patrol: XR_patrol, value: number);
-    public constructor(moveAction: unknown, game_object: XR_game_object, value: number);
-    public constructor(moveAction: unknown, vector: XR_vector, value: number, speedParam: unknown);
-    public constructor(moveAction: unknown, patrol: XR_patrol, value: number, speedParam: unknown);
+    public constructor(moveAction: TXR_move, vector: XR_vector);
+    public constructor(moveAction: TXR_move, patrol: XR_patrol);
+    public constructor(moveAction: TXR_move, game_object: XR_game_object);
+    public constructor(moveAction: TXR_move, vector: XR_vector, value: number);
+    public constructor(moveAction: TXR_move, value: number, vector: XR_vector);
+    public constructor(moveAction: TXR_move, value: number, vector: XR_vector, value2: number);
+    public constructor(moveAction: TXR_move, patrol: XR_patrol, value: number);
+    public constructor(moveAction: TXR_move, game_object: XR_game_object, value: number);
+    public constructor(moveAction: TXR_move, vector: XR_vector, value: number, speedParam: unknown);
+    public constructor(moveAction: TXR_move, patrol: XR_patrol, value: number, speedParam: unknown);
     public constructor(
-      moveAction: unknown,
+      moveAction: TXR_move,
       game_object: XR_game_object,
       value: number,
       speedParam: unknown
@@ -425,8 +425,8 @@ declare module "xray16" {
     public constructor ();
     public constructor (value: string);
     public constructor (value1: string, value2: boolean);
-    public constructor (state: unknown /* enum MonsterSpace::EMentalState */);
-    public constructor (state: unknown /* enum MonsterSpace::EMentalState */, value: number);
+    public constructor (state: number /* enum MonsterSpace::EMentalState */);
+    public constructor (state: number /* enum MonsterSpace::EMentalState */, value: number);
 
     public completed(): boolean;
 
@@ -437,7 +437,9 @@ declare module "xray16" {
 
   export type TXR_animations = typeof XR_anim;
 
-  export type TXR_animation = TXR_animations[Exclude<keyof TXR_animations, "prototype" | "constructor">]
+  export type TXR_animation_key = Exclude<keyof TXR_animations, "prototype" | "constructor">;
+
+  export type TXR_animation = TXR_animations[TXR_animation_key]
 
   /**
    * C++ class patrol {
@@ -468,7 +470,7 @@ declare module "xray16" {
     public flag(value1: number, value2: number): unknown;
     public game_vertex_id(value: number): number;
     public flags(value: number): XR_flags32;
-    public name(value: number): unknown;
+    public name(id: number): string;
     public index(value: string): unknown;
     public terminal(value: number): unknown;
     public count(): number;

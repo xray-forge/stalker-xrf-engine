@@ -1,4 +1,9 @@
+import { MobCombat } from "@/mod/scripts/core/mob/MobCombat";
+import { MobDeath } from "@/mod/scripts/core/mob/MobDeath";
+import { MobHome } from "@/mod/scripts/core/mob/MobHome";
 import { MobJump } from "@/mod/scripts/core/mob/MobJump";
+import { MobRemark } from "@/mod/scripts/core/mob/MobRemark";
+import { MobWalker } from "@/mod/scripts/core/mob/MobWalker";
 import {
   loadScheme,
   stype_heli,
@@ -39,12 +44,12 @@ export function initializeModules(): void {
   loadScheme("xr_animpoint", "animpoint", stype_stalker);
   loadScheme("xr_reach_task", "reach_task", stype_stalker);
 
-  loadScheme("mob_remark", "mob_remark", stype_mobile);
-  loadScheme("mob_walker", "mob_walker", stype_mobile);
-  loadScheme("mob_combat", "mob_combat", stype_mobile);
-  loadScheme("mob_death", "mob_death", stype_mobile);
+  loadScheme(MobRemark, "mob_remark", stype_mobile);
+  loadScheme(MobWalker, "mob_walker", stype_mobile);
+  loadScheme(MobCombat, "mob_combat", stype_mobile);
+  loadScheme(MobDeath, "mob_death", stype_mobile);
   loadScheme(MobJump, "mob_jump", stype_mobile);
-  loadScheme("mob_home", "mob_home", stype_mobile);
+  loadScheme(MobHome, "mob_home", stype_mobile);
 
   loadScheme("ph_door", "ph_door", stype_item);
   loadScheme("ph_idle", "ph_idle", stype_item);

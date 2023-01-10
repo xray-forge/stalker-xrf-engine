@@ -52,6 +52,9 @@ declare module "xray16" {
   export const move: typeof XR_move;
   export const patrol: typeof XR_patrol;
   export const look: typeof XR_look;
+  export const sound_object: typeof XR_sound_object;
+  export const sound_params: typeof XR_sound_params;
+  export const sound: typeof XR_sound;
 
   export const game_object: typeof XR_game_object;
   export const danger_object: typeof XR_danger_object;
@@ -126,6 +129,7 @@ declare module "xray16" {
   export const CGameGraph: typeof XR_CGameGraph;
   export const CALifeSmartTerrainTask: typeof XR_CALifeSmartTerrainTask;
   export const CSightParams: typeof XR_CSightParams;
+  export const MonsterSpace: typeof XR_MonsterSpace;
   export const Frect: typeof XR_Frect;
 
   // Namespaces section:

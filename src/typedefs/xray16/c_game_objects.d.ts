@@ -385,7 +385,7 @@ declare module "xray16" {
     public set_actor_direction(value: number): unknown;
     public drop_item(game_object: XR_game_object): unknown;
     public add_restrictions(zone: string, value2: string): unknown;
-    public get_monster_hit_info(): unknown;
+    public get_monster_hit_info(): XR_MonsterHitInfo;
     public memory_hit_objects(): unknown;
     public bind_object(binder: XR_object_binder): void;
     public weapon_silencer_status(): unknown;
@@ -662,8 +662,8 @@ declare module "xray16" {
     public enable_trade(): unknown;
     public set_trader_global_anim(value: string): unknown;
     public enable_talk(): unknown;
-    public set_home(value1: string, value2:number, value3:number, value4:boolean, value5:number): unknown;
-    public set_home(value1: number, value2:number, value3:number, value4:boolean, value5:number): unknown;
+    public set_home(value1: string | null, value2:number, value3:number, value4:boolean, value5:number): unknown;
+    public set_home(value1: number | null, value2:number, value3:number, value4:boolean, value5:number): unknown;
     public poltergeist_get_actor_ignore(): unknown;
     public give_info_portion(value: string): unknown;
     public burer_get_force_gravi_attack(): unknown;

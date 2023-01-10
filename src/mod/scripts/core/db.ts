@@ -1,4 +1,11 @@
-import { XR_cse_alife_object, XR_game_object, XR_ini_file, XR_object_binder, XR_vector } from "xray16";
+import {
+  TXR_MonsterSpaces,
+  XR_cse_alife_object,
+  XR_game_object,
+  XR_ini_file,
+  XR_object_binder,
+  XR_vector
+} from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { ActorProxy, IActorProxy } from "@/mod/scripts/core/ActorProxy";
@@ -12,8 +19,8 @@ const log: LuaLogger = new LuaLogger("db", false);
 // todo: Separate file with DB utils
 
 export const infoRestr = {};
-export const scriptIds: LuaTable<number, any> = new LuaTable();
-export const campStorage = {};
+export const scriptIds: LuaTable<number> = new LuaTable();
+export const campStorage: LuaTable = new LuaTable();
 export const noWeapZones = {};
 export const spawnedVertexById: LuaTable<number, number> = new LuaTable();
 export const levelDoors: LuaTable<number, XR_vector> = new LuaTable();
@@ -27,6 +34,8 @@ export const zoneByName: LuaTable<string, XR_game_object> = new LuaTable();
 export interface IStoredObject<T = XR_game_object> {
   [index: string]: any;
 
+  anim_head?: keyof TXR_MonsterSpaces;
+  action?: any;
   ini?: XR_ini_file;
   object?: T;
   hit?: any;
@@ -37,6 +46,7 @@ export interface IStoredObject<T = XR_game_object> {
   section_logic?: string;
   post_combat_wait?: unknown;
   pstor?: any;
+  death?: { killer: number; killer_name: Optional<string> };
   mob_death?: any;
   disable_input_time?: any;
   disable_input_idle?: any;

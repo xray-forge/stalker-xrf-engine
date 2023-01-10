@@ -647,21 +647,24 @@ declare module "xray16" {
   type TXR_cls_id = TXR_cls_ids[TXR_cls_key];
 
   /**
-   C++ class MonsterSpace {
-    const head_anim_angry = 1;
-    const head_anim_glad = 2;
-    const head_anim_kind = 3;
-    const head_anim_normal = 0;
-    const sound_script = 128;
-
-  };
-   *
+   * C++ class MonsterSpace {
+   * @customConstructor MonsterSpace
    */
+  export class XR_MonsterSpace {
+    public static head_anim_angry: 1;
+    public static head_anim_glad: 2;
+    public static head_anim_kind: 3;
+    public static head_anim_normal: 0;
+    public static sound_script: 128;
+  }
 
-  // todo;
+  export type TXR_MonsterSpaces = typeof XR_MonsterSpace;
+
+  export type TXR_MonsterSpace = TXR_MonsterSpaces[Exclude<keyof TXR_MonsterSpaces, "constructor" | "prototype">];
 
   /**
    * C++ class CSightParams {
+   * @customConstructor XR_CSightParams
    **/
   export class XR_CSightParams {
     public static eSightTypeDummy: -1;

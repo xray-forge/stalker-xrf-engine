@@ -1,4 +1,4 @@
-import { XR_cse_abstract, XR_cse_alife_object, XR_game_object, XR_ini_file } from "xray16";
+import { XR_cse_abstract, XR_cse_alife_object, XR_flags32, XR_game_object, XR_ini_file } from "xray16";
 
 import { AnyCallablesModule, AnyObject, Maybe, Optional } from "@/mod/lib/types";
 import { getActor, scriptIds } from "@/mod/scripts/core/db";
@@ -409,4 +409,68 @@ export function get_infos_from_data(npc: XR_game_object, str: Optional<string>):
   }
 
   return t;
+}
+
+/**
+ * todo;
+ */
+export function parse_waypoint_data(pathname: string, wpflags: XR_flags32, wpname: string): LuaTable<string> {
+  const rslt: LuaTable<string> = new LuaTable();
+
+  rslt.set("flags", wpflags);
+
+  let at;
+
+  if (string.find(wpname, "|", at, true) === null) {
+    return rslt;
+  }
+
+  let par_num = 1;
+  let fld;
+  let val;
+
+  for (const param of string.gfind(wpname, "([%w%+~_\\%=%{%}%s%!%-%,%*]+)|*")) {
+    if (par_num == 1) {
+      // -- continue
+    } else {
+      if (param == "") {
+        abort("path '%s': waypoint '%s': syntax error in waypoint name", pathname, wpname);
+      }
+
+      const [t_pos] = string.find(param, "=", 1, true);
+
+      if (t_pos == null) {
+        abort("path '%s': waypoint '%s': syntax error in waypoint name", pathname, wpname);
+      }
+
+      fld = string.sub(param, 1, t_pos - 1);
+      val = string.sub(param, t_pos + 1);
+
+      if (!fld || fld == "") {
+        abort(
+          "path '%s': waypoint '%s': syntax error while parsing the param '%s': no field specified",
+          pathname,
+          wpname,
+          param
+        );
+      }
+
+      if (!val || val == "") {
+        val = "true";
+      }
+
+      if (fld == "a") {
+        rslt.set(
+          fld,
+          get_global<AnyCallablesModule>("xr_logic").parse_condlist(getActor(), "waypoint_data", "anim_state", val)
+        );
+      } else {
+        rslt.set(fld, val);
+      }
+    }
+
+    par_num = par_num + 1;
+  }
+
+  return rslt;
 }

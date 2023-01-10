@@ -420,16 +420,15 @@ declare module "xray16" {
 
   };
    */
+
   /**
-   C++ class MonsterHitInfo {
-    property direction;
-    property time;
-    property who;
-
-  };
+   * C++ class MonsterHitInfo {
    */
-
-  // todo;
+  export class XR_MonsterHitInfo {
+    public direction: XR_vector;
+    public time: number;
+    public who: XR_game_object;
+  }
 
   /**
 

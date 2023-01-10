@@ -1,5 +1,7 @@
 -- 1517
 local RestrictorManager = require("scripts.core.RestrictorManager").RestrictorManager
+local MobCombat = require("scripts.core.mob.MobCombat").MobCombat
+local MobDeath = require("scripts.core.mob.MobDeath").MobDeath
 local schemes = require("scripts.core.schemes")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
@@ -251,7 +253,7 @@ function disable_generic_schemes(npc, stype)
     xr_combat_ignore.disable_scheme(npc, "combat_ignore")
     utilsAlife.disable_invulnerability(npc)
   elseif stype == schemes.stype_mobile then
-    mob_combat.disable_scheme(npc, "mob_combat")
+    MobCombat.disable_scheme(npc, "mob_combat")
     xr_combat_ignore.disable_scheme(npc, "combat_ignore")
     utilsAlife.disable_invulnerability(npc)
   elseif stype == schemes.stype_item then
@@ -314,12 +316,12 @@ function enable_generic_schemes(ini, npc, stype, section)
   elseif stype == schemes.stype_mobile then
     local combat_section = utils.cfg_get_string(ini, section, "on_combat", npc, false, "")
     if combat_section then
-      mob_combat.set_scheme(npc, ini, "mob_combat", combat_section)
+      MobCombat.set_scheme(npc, ini, "mob_combat", combat_section)
     end
 
     local death_section = utils.cfg_get_string(ini, section, "on_death", npc, false, "")
     if death_section then
-      mob_death.set_scheme(npc, ini, "mob_death", death_section)
+      MobDeath.set_scheme(npc, ini, "mob_death", death_section)
     end
 
     utilsAlife.reset_invulnerability(npc, ini, section)

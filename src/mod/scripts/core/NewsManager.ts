@@ -195,7 +195,7 @@ export function send_tip(
   timeout: Maybe<number>,
   sender: Optional<TIcon | XR_game_object>,
   showtime: Maybe<number>,
-  sender_id: string
+  sender_id: Optional<string>
 ): boolean {
   log.info("Show send tip:", news_id, timeout, showtime, sender_id);
 
