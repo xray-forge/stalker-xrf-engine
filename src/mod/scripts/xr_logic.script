@@ -1,4 +1,5 @@
 -- 1517
+local TradeManager = require("scripts.core.TradeManager")
 local RestrictorManager = require("scripts.core.RestrictorManager").RestrictorManager
 local MobCombat = require("scripts.core.mob.MobCombat").MobCombat
 local MobDeath = require("scripts.core.mob.MobDeath").MobDeath
@@ -205,7 +206,7 @@ function configure_schemes(npc, ini, ini_filename, stype, section_logic, gulag_n
   if stype == schemes.stype_stalker
   then
     local trade_ini = utils.cfg_get_string(actual_ini, section_logic, "trade", npc, false, "", "misc\\trade\\trade_generic.ltx")
-    trade_manager.trade_init(npc, trade_ini)
+    TradeManager.trade_init(npc, trade_ini)
     spawner.spawn_items(npc, st)
   end
 

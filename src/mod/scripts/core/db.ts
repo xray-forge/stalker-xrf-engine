@@ -28,8 +28,24 @@ export const signalLight: LuaTable<string, XR_object_binder> = new LuaTable();
 export const goodwill = { sympathy: new LuaTable(), relations: new LuaTable() };
 export const offlineObjects: LuaTable<number, any> = new LuaTable();
 export const REGISTERED_ITEMS: LuaTable<string, number> = new LuaTable();
+export const tradeState: LuaTable<number, ITradeManagerDescriptor> = new LuaTable();
 
 export const zoneByName: LuaTable<string, XR_game_object> = new LuaTable();
+
+export interface ITradeManagerDescriptor {
+  cfg_ltx: string;
+  config: XR_ini_file;
+  update_time: number;
+  buy_condition: LuaTable<number>;
+  sell_condition: LuaTable<number>;
+  buy_supplies: LuaTable<number>;
+  buy_item_condition_factor: LuaTable<number>;
+  resuply_time: number;
+  current_buy_condition: string;
+  current_sell_condition: string;
+  current_buy_item_condition_factor: string;
+  current_buy_supplies: string;
+}
 
 export interface IStoredObject<T = XR_game_object> {
   [index: string]: any;

@@ -219,9 +219,9 @@ declare module "xray16" {
     public r_float(value: number): unknown;
     public r_float(): number;
     public w_angle8(value: number): unknown;
-    public r_s32(value: number): unknown;
-    public r_s32(): unknown;
-    public w_float(value: number): unknown;
+    public r_s32(value: number): number;
+    public r_s32(): number;
+    public w_float(value: number): void;
     public w_tell(): number;
     public r_seek(value: number): unknown;
     public w_float_q8(value1: number, value2: number, value3: number): unknown;

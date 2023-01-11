@@ -1,6 +1,6 @@
 -- 605
+local TradeManager = require("scripts.core.TradeManager")
 local bind_state_manager = require("scripts.core.state_management.bind_state_manager").bind_state_manager
-local StateManager = require("scripts.core.state_management.StateManager")
 local schemes = require("scripts.core.schemes")
 local ReleaseBodyManager = require("scripts.core.ReleaseBodyManager")
 local DropManager = require("scripts.core.DropManager").DropManager
@@ -420,7 +420,7 @@ function motivator_binder:update(delta)
       if self.st.state_mgr.combat == false and
           self.st.state_mgr.alife == false --and self.st.state_mgr.planner:current_action_id() == self.st.state_mgr.operators["end"]
       then
-        trade_manager.update(object)
+        TradeManager.update(object)
       end
     else
       self.st.state_mgr = nil
@@ -506,7 +506,7 @@ function motivator_binder:save(packet)
   set_save_marker(packet, "save", false, "motivator_binder")
   object_binder.save(self, packet)
   xr_logic.save_obj(self.object, packet)
-  trade_manager.save(self.object, packet)
+  TradeManager.save(self.object, packet)
   xr_sound.save_npc(packet, self.object:id())
   dialog_manager.save_npc(packet, self.object:id())
 
@@ -527,7 +527,7 @@ function motivator_binder:load(reader)
   set_save_marker(reader, "load", false, "motivator_binder")
   object_binder.load(self, reader)
   xr_logic.load_obj(self.object, reader)
-  trade_manager.load(self.object, reader)
+  TradeManager.load(self.object, reader)
   xr_sound.load_npc(reader, self.object:id())
   dialog_manager.load_npc(reader, self.object:id())
 

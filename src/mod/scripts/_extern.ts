@@ -3,6 +3,7 @@ import { game, get_console, level, task, TXR_TaskState, XR_CGameTask } from "xra
 import { AnyCallablesModule } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
 import { loadScreenManager } from "@/mod/scripts/core/LoadScreenManager";
+import { get_buy_discount, get_sell_discount } from "@/mod/scripts/core/TradeManager";
 import { get_task_manager } from "@/mod/scripts/se/task/TaskManager";
 import * as SleepDialogModule from "@/mod/scripts/ui/interaction/SleepDialog";
 import { disableInfo } from "@/mod/scripts/utils/actor";
@@ -75,4 +76,10 @@ task_callback = (target: XR_CGameTask, state: TXR_TaskState): void => {
 loadscreen = {
   get_tip_number: (levelName: string) => loadScreenManager.get_tip_number(levelName),
   get_mp_tip_number: (levelName: string) => loadScreenManager.get_mp_tip_number(levelName)
+};
+
+// @ts-ignore
+trade_manager = {
+  get_sell_discount: get_sell_discount,
+  get_buy_discount: get_buy_discount
 };
