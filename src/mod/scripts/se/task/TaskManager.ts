@@ -1,6 +1,6 @@
 import { ini_file, XR_CGameTask, XR_ini_file, XR_LuaBindBase, XR_net_packet } from "xray16";
 
-import { Optional } from "@/mod/lib/types";
+import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { ITaskObject, TaskObject } from "@/mod/scripts/se/task/TaskObject";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
@@ -77,7 +77,7 @@ export const TaskManager: ITaskManager = declare_xr_class("TaskManager", null, {
 
     if (task.last_check_task == "complete") {
       task.give_reward();
-      get_global("xr_statistic").inc_completed_quests_counter();
+      get_global<AnyCallablesModule>("xr_statistic").inc_completed_quests_counter();
 
       return true;
     } else {

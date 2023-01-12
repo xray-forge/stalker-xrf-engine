@@ -2,6 +2,7 @@ import { communities, TCommunity } from "@/mod/globals/communities";
 import { PartialRecord } from "@/mod/lib/types";
 
 export const squadCommunityByBehaviour: Record<TCommunity, TCommunity> = {
+  [communities.none]: null as any,
   [communities.stalker]: communities.stalker,
   [communities.bandit]: communities.bandit,
   [communities.duty]: communities.dolg,

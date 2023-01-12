@@ -3,6 +3,7 @@ local ActorBinder = require("scripts.core.binders.ActorBinder")
 local getAlifeDistanceBetween = require("scripts.utils.alife").getAlifeDistanceBetween
 local SimBoard = require("scripts.se.SimBoard")
 local NewsManager = require("scripts.core.NewsManager")
+local game_relations = require("scripts.core.game_relations")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 

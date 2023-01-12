@@ -1,5 +1,6 @@
 export const relations = {
   enemy: "enemy",
+  neutral: "neutral",
   friend: "friend"
 } as const;
 

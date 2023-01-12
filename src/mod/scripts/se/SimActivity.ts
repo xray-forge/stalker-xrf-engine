@@ -28,6 +28,11 @@ export interface ISimActivityDescriptor {
 }
 
 export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> = {
+  [communities.none]: {
+    squad: null,
+    smart: null,
+    actor: null
+  },
   [communities.stalker]: {
     squad: null,
     smart: {

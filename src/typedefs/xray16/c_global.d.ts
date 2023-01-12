@@ -158,11 +158,11 @@ declare module "xray16" {
    * namespace relation_registry {
    */
   export interface IXR_relation_registry {
-    change_community_goodwill(value1: string, value2:number, value3:number): unknown;
-    community_relation(value1:string, value2:string): unknown;
-    set_community_goodwill(value1:string, value2:number, value3:number): unknown;
-    community_goodwill(value1:string, value2:number): unknown;
-    set_community_relation(value1:string, value2:string,value3: number): unknown;
+    change_community_goodwill(this: void, community_a: string, value2: number, value3: number): unknown;
+    community_relation(this: void, community_a: string, community_b: string): number;
+    set_community_goodwill(this: void, community_a: string, value2:number, value3:number): unknown;
+    community_goodwill(this: void, community: string, value2: number): unknown;
+    set_community_relation(this: void, community_a: string, community_b: string, value3: number): void;
   }
 
   /**

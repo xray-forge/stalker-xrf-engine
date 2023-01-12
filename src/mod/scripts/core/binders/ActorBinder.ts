@@ -239,7 +239,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
       const artefact = obj.get_artefact();
 
       artefact.FollowByPath("NULL", 0, new vector().set(500, 500, 500));
-      get_global("xr_statistic").inc_founded_artefacts_counter(obj.id());
+      get_global<AnyCallablesModule>("xr_statistic").inc_founded_artefacts_counter(obj.id());
     }
 
     getTreasureManager().on_item_take(obj.id());

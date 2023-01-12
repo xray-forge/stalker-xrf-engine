@@ -19,8 +19,6 @@ function check()
       local ltx = v.ini_file or smart.ltx
       check_ini(ltx, v.section, smart, v.prefix_name)
     end
-
-
   end
 end
 

@@ -247,8 +247,8 @@ declare module "xray16" {
     public kill(): void;
 
     public force_set_goodwill(
-      cse_alife_monster_abstract: XR_cse_alife_monster_abstract, value1: number, value2: number
-    ): unknown;
+      goodwill: number, npc_id: number
+    ): void;
 
     public clear_smart_terrain(cse_alife_monster_abstract: XR_cse_alife_monster_abstract): unknown;
 
@@ -619,7 +619,7 @@ declare module "xray16" {
 
     public profile_name(cse_alife_trader_abstract: XR_cse_alife_trader): unknown;
 
-    public community(): unknown;
+    public community(): string;
     public rank(): number;
     public reputation(): number;
   }

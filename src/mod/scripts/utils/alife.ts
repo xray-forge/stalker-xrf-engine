@@ -1,19 +1,20 @@
 import {
-  XR_game_object,
-  level,
-  XR_cse_alife_creature_abstract,
-  alife,
-  XR_ini_file,
-  system_ini,
-  game,
-  XR_entity_action,
-  entity_action,
-  XR_cse_alife_human_abstract,
   XR_cse_abstract,
+  XR_cse_alife_creature_abstract,
+  XR_cse_alife_human_abstract,
   XR_cse_alife_object,
-  game_graph,
+  XR_cse_alife_online_offline_group,
+  XR_entity_action,
+  XR_game_object,
+  XR_ini_file,
   XR_vector,
-  stalker_ids
+  alife,
+  entity_action,
+  game,
+  game_graph,
+  level,
+  stalker_ids,
+  system_ini
 } from "xray16";
 
 import { communities, TCommunity } from "@/mod/globals/communities";
@@ -91,10 +92,10 @@ export function getObjectSquad(object: Optional<XR_game_object | XR_cse_alife_cr
 /**
  * todo;
  */
-export function getStorySquad(storyId: string): Optional<XR_cse_alife_creature_abstract> {
+export function getStorySquad<T extends XR_cse_alife_online_offline_group>(storyId: string): Optional<T> {
   const squadId: Optional<number> = getStoryObjectId(storyId);
 
-  return squadId ? (alife().object(squadId) as XR_cse_alife_creature_abstract) : null;
+  return squadId ? alife().object<T>(squadId) : null;
 }
 
 /**

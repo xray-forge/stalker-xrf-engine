@@ -3,8 +3,10 @@ local InventoryUpgrades = require("scripts.core.inventory_upgrades")
 local SmartTerrainControl = require("scripts.se.SmartTerrainControl")
 local AnomalyZoneBinder = require("scripts.core.binders.AnomalyZoneBinder")
 local SimBoard = require("scripts.se.SimBoard")
+local game_relations = require("scripts.core.game_relations")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
+
 local log = create_ts_class_instance(LuaLogger, "xr_conditions");
 
 -- ������ ������� � ���� ����� ������������ ��� ������� xr_logic: {=������� !�������}

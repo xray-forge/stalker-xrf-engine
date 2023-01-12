@@ -55,5 +55,12 @@ end
 -- Get LUA globals from TS
 -- ---------------------------------------------------------------------------------------------------------------------
 _G.get_global = function(key)
-  return _G[key]
+  local matches = string.gmatch(key, "[^.]+")
+  local value = _G[matches()];
+
+  for match in matches do
+    value = value[match]
+  end
+
+  return value;
 end

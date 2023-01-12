@@ -16,6 +16,7 @@ export const communities = {
   monster_vegetarian: "monster_vegetarian",
   monster_zombied_day: "monster_zombied_day",
   monster_zombied_night: "monster_zombied_night",
+  none: "none",
   stalker: "stalker",
   zombied: "zombied"
 } as const;

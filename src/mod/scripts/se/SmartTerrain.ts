@@ -598,7 +598,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     const [selected_job_id, selected_job_prior, selected_job_link] = job_iterator(this.jobs, npc_info, 0, this);
 
     if (selected_job_id === null) {
-      abort("Insufficient smart_terrain jobs %s", this.name());
+      abort("Insufficient smart_terrain jobs: %s, %s, %s", this.name(), npc_info.se_obj.id, this.sim_type);
     }
 
     if (selected_job_id !== npc_info.job_id && selected_job_link !== null) {

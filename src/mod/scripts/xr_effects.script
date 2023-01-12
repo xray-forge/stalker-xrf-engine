@@ -4,9 +4,10 @@ local TaskManager = require("scripts.se.task.TaskManager")
 local SimBoard = require("scripts.se.SimBoard")
 local NewsManager = require("scripts.core.NewsManager")
 local SleepDialog = require("scripts.ui.interaction.SleepDialog")
+local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
+local game_relations = require("scripts.core.game_relations")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
-local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
 
 local log = create_ts_class_instance(LuaLogger, "xr_effects");
 

@@ -337,7 +337,7 @@ declare module "xray16" {
     public who_hit_section_name(): unknown;
     public inventory_for_each(cb: () => void): unknown;
     public disable_talk(): unknown;
-    public relation(game_object: XR_game_object): unknown;
+    public relation(game_object: XR_game_object): number;
     public set_previous_point(point: number): unknown;
     public set_item(action: unknown /* enum MonsterSpace::EObjectAction */): unknown;
     public set_item(
@@ -432,11 +432,11 @@ declare module "xray16" {
     public set_dest_level_vertex_id(vertex_id: number): void;
     public deadbody_closed(value: boolean): unknown;
     public eat(game_object: XR_game_object): unknown;
-    public register_door_for_npc(): unknown;
-    public get_script_name(): unknown;
-    public set_sympathy(value: number): unknown;
+    public register_door_for_npc(): void;
+    public get_script_name(): string;
+    public set_sympathy(value: number): void;
     public torch_enabled(): unknown;
-    public sympathy(): unknown;
+    public sympathy(): number;
     public spawn_ini(): XR_ini_file | null;
     public drop_item_and_teleport(game_object: XR_game_object, vector: XR_vector): unknown;
     public get_campfire(): XR_CZoneCampfire;

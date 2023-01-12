@@ -36,6 +36,12 @@ import {
   zoneByName
 } from "@/mod/scripts/core/db";
 import { SMART_TERRAIN_SECT } from "@/mod/scripts/core/db/sections";
+import {
+  get_squad_relation_to_actor_by_id,
+  is_factions_enemies,
+  set_npc_sympathy,
+  set_npcs_relation
+} from "@/mod/scripts/core/game_relations";
 import { get_sound_manager, SoundManager } from "@/mod/scripts/core/sound/SoundManager";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
@@ -151,7 +157,7 @@ export interface ISimSquad extends XR_cse_alife_online_offline_group {
   set_squad_relation(relation?: TRelation): void;
   set_squad_position(position: XR_vector): void;
   has_detector(): boolean;
-  get_squad_community(): string;
+  get_squad_community(): TCommunity;
   refresh(): void;
   hide(): void;
   show(): void;
@@ -754,10 +760,10 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
 
     if (symp !== null) {
       for (const k of this.squad_members()) {
-        const npc = storage.get(k.id) && storage.get(k.id).object;
+        const npc: Optional<XR_game_object> = storage.get(k.id) && storage.get(k.id).object!;
 
         if (npc !== null) {
-          (get_global("game_relations").set_npc_sympathy as AnyCallable)(npc, symp);
+          set_npc_sympathy(npc, symp);
         } else {
           if (dbGoodwill.sympathy === null) {
             dbGoodwill.sympathy = new LuaTable();
@@ -773,10 +779,10 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
 
     if (rel !== null) {
       for (const k of this.squad_members()) {
-        const npc = storage.get(k.id) && storage.get(k.id).object;
+        const npc: Optional<XR_game_object> = storage.get(k.id) && storage.get(k.id).object!;
 
         if (npc !== null) {
-          (get_global("game_relations").set_npcs_relation as AnyCallable)(npc, getActor(), rel);
+          set_npcs_relation(npc, getActor(), rel);
         } else {
           set_relation(alife().object(k.id), alife().actor(), rel);
         }
@@ -952,11 +958,11 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     let spot: string = "";
 
     if (!isSquadMonsterCommunity(this.player_id as TCommunity)) {
-      const relation = (get_global("game_relations").get_squad_relation_to_actor_by_id as AnyCallable)(this.id);
+      const relation: TRelation = get_squad_relation_to_actor_by_id(this.id);
 
-      if (relation === "friends") {
+      if (relation === relations.friend) {
         spot = "alife_presentation_squad_friend";
-      } else if (relation === "neutral") {
+      } else if (relation === relations.neutral) {
         spot = "alife_presentation_squad_neutral";
       }
     }
@@ -1131,10 +1137,7 @@ export function get_help_target_id(squad: ISimSquad): Optional<number> {
       if (
         target_squad &&
         squad.position.distance_to_sqr(target_squad.position) < 150 * 150 &&
-        (get_global("game_relations").is_factions_enemies as AnyCallable)(
-          squad.get_squad_community(),
-          target_squad.get_squad_community()
-        )
+        is_factions_enemies(squad.get_squad_community(), target_squad.get_squad_community())
       ) {
         return enemy_squad_id;
       }
