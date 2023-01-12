@@ -36,6 +36,7 @@ import {
   zoneByName
 } from "@/mod/scripts/core/db";
 import { SMART_TERRAIN_SECT } from "@/mod/scripts/core/db/sections";
+import { get_sound_manager, SoundManager } from "@/mod/scripts/core/sound/SoundManager";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { simulation_activities } from "@/mod/scripts/se/SimActivity";
@@ -95,7 +96,7 @@ export interface ISimSquad extends XR_cse_alife_online_offline_group {
   current_target_id: any;
   assigned_target_id: any;
 
-  sound_manager: any;
+  soundManager: SoundManager;
   settings_id: any;
   init_squad: any;
   set_squad_behaviour: any;
@@ -177,7 +178,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     this.current_target_id = null;
     this.assigned_target_id = null;
 
-    this.sound_manager = (get_global("sound_manager").get_sound_manager as AnyCallable)("squad_" + this.section_name());
+    this.soundManager = get_sound_manager("squad_" + this.section_name());
     this.settings_id = this.section_name();
     this.init_squad();
     this.set_squad_behaviour();
@@ -347,7 +348,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
       return;
     }
 
-    this.sound_manager.update();
+    this.soundManager.update();
 
     let need_to_find_new_action: boolean = false;
 
@@ -413,7 +414,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     return target_obj.target_precondition(this, true);
   },
   generic_update(): void {
-    this.sound_manager.update();
+    this.soundManager.update();
     this.refresh();
 
     const help_target_id = get_help_target_id(this);
@@ -523,7 +524,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
   on_npc_death(npc: XR_cse_alife_creature_abstract): void {
     log.info("On npc death:", this.name(), npc.name());
 
-    this.sound_manager.unregister_npc(npc.id);
+    this.soundManager.unregister_npc(npc.id);
     this.unregister_member(npc.id);
 
     if (this.npc_count() === 0) {
@@ -672,7 +673,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     const obj = alife().create(spawn_section, position, lv_id, gv_id);
 
     this.register_member(obj.id);
-    this.sound_manager.register_npc(obj.id);
+    this.soundManager.register_npc(obj.id);
 
     if (
       areOnSameAlifeLevel(obj, alife().actor()) &&

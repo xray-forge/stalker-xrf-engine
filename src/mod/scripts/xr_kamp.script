@@ -1,4 +1,5 @@
 -- 730
+local SoundManager = require("scripts.core.sound.SoundManager")
 local StateManager = require("scripts.core.state_management.StateManager")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
@@ -238,8 +239,9 @@ function CKampManager:__init(path)
 
 
   --' ��� ����� ������� ������ �������
-  self.sound_manager = sound_manager.get_sound_manager("kamp_" .. path)
+  self.sound_manager = SoundManager.get_sound_manager("kamp_" .. path)
 end
+
 function CKampManager:selectPosition(npc_id)
   -- ������� ������ ��������� �������
   --printf("KAMP. [%s] called select position", npc_id)
@@ -261,6 +263,7 @@ function CKampManager:selectPosition(npc_id)
   --printf("KAMP [%s] position table", npc_id)
   --print_table(self.position)
 end
+
 function CKampManager:getDestVertex(npc, radius)
   local npc_id = npc:id()
   --printf("get dest Vertex called [%s]", npc_id)
@@ -315,6 +318,7 @@ function CKampManager:getDestVertex(npc, radius)
 
   return dest_vertex, self.npc[npc_id].position
 end
+
 function CKampManager:proceedState(npc)
   -- �������� �� �������
   local npc_id = npc:id()
@@ -391,6 +395,7 @@ function CKampManager:proceedState(npc)
     end
   end
 end
+
 function CKampManager:proceedRole(npc, director)
   --printf("Proceed Role for [%s]", npc:id())
   -- ���������� ������ ��������� �������� �� ��������� ������.
@@ -440,6 +445,7 @@ function CKampManager:proceedRole(npc, director)
   --printf("Proceed Role state [%s] sound [%s]", state, sound)
   return state, sound
 end
+
 function CKampManager:updateNpc(npc)
   -- �������� ��� ������� ����� ������, � ��� ���.
   self:checkNpcAbility(npc)
@@ -531,6 +537,7 @@ function CKampManager:updateNpc(npc)
   --printf("Proceed Update Npc [%s] sound [%s]", state, sound)
   return state, sound, substate
 end
+
 function CKampManager:checkNpcAbility(npc)
   local npc_id = npc:id()
 

@@ -185,3 +185,4 @@ For examples check: `src/mod/ui`.
 - Unit tests and mocks?
 - Add scripts to handle xrEngine tools
 - Re-architecture lua core of the game, use external lua libs for serealization of LUA tables
+- Some way to override default TSTL class generation for XR classes declaration with luabind?
