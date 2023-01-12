@@ -1,4 +1,5 @@
 -- 3364
+local InventoryUpgrades = require("scripts.core.inventory_upgrades")
 local TaskManager = require("scripts.se.task.TaskManager")
 local SimBoard = require("scripts.se.SimBoard")
 local NewsManager = require("scripts.core.NewsManager")
@@ -2875,7 +2876,7 @@ end
 
 function mech_discount(actor, npc, p)
   if (p[1]) then
-    inventory_upgrades.mech_discount(tonumber(p[1]))
+    InventoryUpgrades.mech_discount(tonumber(p[1]))
   end
 end
 
@@ -3250,7 +3251,7 @@ end
 
 function upgrade_hint(actor, npc, p)
   if (p) then
-    inventory_upgrades.cur_hint = p
+    InventoryUpgrades.cur_hint = p
   end
 end
 

@@ -554,7 +554,7 @@ declare module "xray16" {
     public wounded(value: boolean): unknown;
     public remove_restrictions(value1: string, value2: string): unknown;
     public get_holder_class(): unknown;
-    public money(): unknown;
+    public money(): number;
     public disable_hit_marks(value: boolean): void;
     public disable_hit_marks(): void;
     public is_there_items_to_pickup(): unknown;

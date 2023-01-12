@@ -10,6 +10,7 @@ package.path = package.path .. string.format("%sgamedata\\?.script;", getFS():up
 require("scripts.inject.lua_globals")
 require("scripts._callbacks")
 require("scripts._declaration")
+require("scripts._extern")
 
 --- --------------------------------------------------------------------------------------------------------------------
 

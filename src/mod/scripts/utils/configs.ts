@@ -266,8 +266,8 @@ export interface ICondRecord {
  */
 export function parseCondList(
   npc: Optional<XR_game_object | XR_cse_alife_object>,
-  section: string,
-  field: string,
+  section: Optional<string>,
+  field: Optional<string>,
   src: string
 ): any {
   const lst: LuaTable<

@@ -2,6 +2,7 @@ import { game, get_console, level, task, TXR_TaskState, XR_CGameTask } from "xra
 
 import { AnyCallablesModule } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
+import { inventory_upgrades_functors } from "@/mod/scripts/core/inventory_upgrades";
 import { loadScreenManager } from "@/mod/scripts/core/LoadScreenManager";
 import { get_buy_discount, get_sell_discount } from "@/mod/scripts/core/TradeManager";
 import { get_task_manager } from "@/mod/scripts/se/task/TaskManager";
@@ -83,3 +84,6 @@ trade_manager = {
   get_sell_discount: get_sell_discount,
   get_buy_discount: get_buy_discount
 };
+
+// @ts-ignore
+inventory_upgrades = inventory_upgrades_functors;

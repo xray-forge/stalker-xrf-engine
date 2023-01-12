@@ -15,6 +15,7 @@ import {
 import { levels, TLevel } from "@/mod/globals/levels";
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
+import { getInventoryVictim } from "@/mod/scripts/core/inventory_upgrades";
 import { send_task } from "@/mod/scripts/core/NewsManager";
 import * as TaskFunctor from "@/mod/scripts/se/task/TaskFunctor";
 import { getConfigBoolean, getConfigNumber, getConfigString, parseNames } from "@/mod/scripts/utils/configs";
@@ -353,7 +354,7 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
     const money = xr_logic.pick_section_from_condlist(getActor(), getActor(), this.reward_money);
     const items = xr_logic.pick_section_from_condlist(getActor(), getActor(), this.reward_item);
 
-    const npc = get_global("inventory_upgrades").victim;
+    const npc = getInventoryVictim();
 
     if (money !== null) {
       get_global<AnyCallablesModule>("dialogs").relocate_money(npc, tonumber(money), "in");

@@ -1,4 +1,5 @@
 -- 1755
+local InventoryUpgrades = require("scripts.core.inventory_upgrades")
 local SmartTerrainControl = require("scripts.se.SmartTerrainControl")
 local AnomalyZoneBinder = require("scripts.core.binders.AnomalyZoneBinder")
 local SimBoard = require("scripts.se.SimBoard")
@@ -1748,7 +1749,7 @@ function upgrade_hint_kardan(actor, npc, p)
     can_upgrade = can_upgrade + 1
   end
 
-  inventory_upgrades.cur_hint = hint_table
+  InventoryUpgrades.cur_hint = hint_table
 
   return can_upgrade >= 2
 end
