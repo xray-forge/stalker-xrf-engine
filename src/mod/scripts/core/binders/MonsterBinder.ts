@@ -159,7 +159,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     }
 
     if (squad && squad.current_action && squad.current_action.name === "reach_target") {
-      const squad_target = get_sim_obj_registry().objects.get(squad.assigned_target_id);
+      const squad_target = get_sim_obj_registry().objects.get(squad.assigned_target_id!);
 
       if (squad_target === null) {
         return;

@@ -416,4 +416,73 @@ declare module "xray16" {
     public SetOptIBounds(min: number, max: number): number;
     public SetOptFBounds(min: number, max: number): number;
   }
+
+  /**
+   * C++ class CDialogHolder {
+   * @customConstructor CDialogHolder
+   */
+  export class XR_CDialogHolder {
+    public RemoveDialogToRender(window: XR_CUIWindow): void;
+    public AddDialogToRender(window: XR_CUIWindow): void;
+  }
+
+  /**
+   * C++ class CGameTask {
+   * @customConstructor CGameTask
+   */
+  export class XR_CGameTask {
+    public get_id(): string;
+    public set_priority(value: number): unknown;
+    public set_title(value: string | null): unknown;
+    public set_map_hint(value: string): unknown;
+    public get_title(): string;
+    public get_icon_name(): string;
+    public add_on_fail_info(value: string): unknown;
+    public add_complete_func(value: string): unknown;
+    public add_fail_func(value: string): unknown;
+    public remove_map_locations(value: boolean): unknown;
+    public add_fail_info(value: string): unknown;
+    public add_complete_info(value: string): unknown;
+    public set_type(value: number): unknown;
+    public set_map_object_id(value: number): unknown;
+    public set_description(value: string): unknown;
+    public set_id(value: string): unknown;
+    public add_on_fail_func(value: string): unknown;
+    public add_on_complete_func(value: string): unknown;
+    public set_icon_name(value: string): unknown;
+    public set_map_location(value: string): unknown;
+    public change_map_location(value1: string, value2: number): unknown;
+    public add_on_complete_info(value: string): unknown;
+    public get_priority(): number;
+  }
+
+  /**
+   * C++ class CPhraseScript {
+   * @customConstructor CPhraseScript
+   */
+  export class XR_CPhraseScript {
+    public SetScriptText(value: string): void;
+    public AddHasInfo(value: string): void;
+    public AddGiveInfo(value: string): void;
+    public AddDisableInfo(value: string): void;
+    public AddDontHasInfo(value: string): void;
+    public AddAction(value: string): void;
+    public AddPrecondition(value: string): void;
+  }
+
+  /**
+   * C++ class CPhrase {
+   * @customConstructor CPhrase
+   */
+  export class XR_CPhrase {
+    public GetPhraseScript(): XR_CPhraseScript;
+  }
+
+  /**
+   * C++ class CPhraseDialog {
+   * @customConstructor CPhraseDialog
+   */
+  export class XR_CPhraseDialog {
+    public AddPhrase(text: string, phrase_id: string, prev_phrase_id: string, goodwill_level: number): XR_CPhrase;
+  }
 }

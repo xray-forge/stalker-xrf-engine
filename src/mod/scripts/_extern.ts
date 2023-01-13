@@ -5,9 +5,11 @@ import { getActor } from "@/mod/scripts/core/db";
 import { inventory_upgrades_functors } from "@/mod/scripts/core/inventory_upgrades";
 import { loadScreenManager } from "@/mod/scripts/core/LoadScreenManager";
 import { get_buy_discount, get_sell_discount } from "@/mod/scripts/core/TradeManager";
+import { travelManager } from "@/mod/scripts/core/TravelManager";
 import { get_task_manager } from "@/mod/scripts/se/task/TaskManager";
 import * as SleepDialogModule from "@/mod/scripts/ui/interaction/SleepDialog";
 import { disableInfo } from "@/mod/scripts/utils/actor";
+import { externClassMethod } from "@/mod/scripts/utils/general";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("_extern");
@@ -87,3 +89,25 @@ trade_manager = {
 
 // @ts-ignore
 inventory_upgrades = inventory_upgrades_functors;
+
+// @ts-ignore
+travel_manager = {
+  init_traveler_dialog: externClassMethod(travelManager, travelManager.init_traveler_dialog),
+  uni_traveler_precond: externClassMethod(travelManager, travelManager.uni_traveler_precond),
+  check_squad_for_enemies: externClassMethod(travelManager, travelManager.check_squad_for_enemies),
+  traveling: externClassMethod(travelManager, travelManager.traveling),
+  squad_action_description: externClassMethod(travelManager, travelManager.squad_action_description),
+  squad_on_move: externClassMethod(travelManager, travelManager.squad_on_move),
+  squad_can_take_actor: externClassMethod(travelManager, travelManager.squad_can_take_actor),
+  squad_cannot_take_actor: externClassMethod(travelManager, travelManager.squad_cannot_take_actor),
+  actor_go_with_squad: externClassMethod(travelManager, travelManager.actor_go_with_squad),
+  check_smart_availability: externClassMethod(travelManager, travelManager.check_smart_availability),
+  actor_travel_with_squad: externClassMethod(travelManager, travelManager.actor_travel_with_squad),
+  squad_can_travel: externClassMethod(travelManager, travelManager.squad_can_travel),
+  travel_condlist: externClassMethod(travelManager, travelManager.travel_condlist),
+  get_price_by_distance: externClassMethod(travelManager, travelManager.get_price_by_distance),
+  get_travel_cost: externClassMethod(travelManager, travelManager.get_travel_cost),
+  actor_have_money: externClassMethod(travelManager, travelManager.actor_have_money),
+  actor_have_not_money: externClassMethod(travelManager, travelManager.actor_have_not_money),
+  squad_cannot_travel: externClassMethod(travelManager, travelManager.squad_cannot_travel)
+};

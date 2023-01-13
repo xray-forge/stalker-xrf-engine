@@ -37,7 +37,7 @@ export async function buildStaticUi(): Promise<void> {
       const targetDir: string = path.dirname(to);
 
       if (!fs.existsSync(targetDir)) {
-        log.info("MKDIR:", chalk.yellowBright(targetDir));
+        log.debug("MKDIR:", chalk.yellowBright(targetDir));
         fs.mkdirSync(targetDir, { recursive: true });
       }
     });

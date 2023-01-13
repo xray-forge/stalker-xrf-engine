@@ -2,6 +2,7 @@ import { XR_cse_alife_object } from "xray16";
 
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { AnyCallablesModule, Optional, PartialRecord } from "@/mod/lib/types";
+import { travelManager } from "@/mod/scripts/core/TravelManager";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { getAlifeDistanceBetween } from "@/mod/scripts/utils/alife";
@@ -9,9 +10,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { isInTimeInterval } from "@/mod/scripts/utils/time";
 
 const log: LuaLogger = new LuaLogger("SimActivity");
-
 const xr_conditions: AnyCallablesModule = get_global("xr_conditions");
-const travel_manager: AnyCallablesModule = get_global("travel_manager");
 
 export type TSimActivityPreconditionChecker = (squad: ISimSquad, target: XR_cse_alife_object) => boolean;
 
@@ -40,7 +39,7 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
         prec: (squad: ISimSquad, target: XR_cse_alife_object) =>
           isInTimeInterval(18, 8) &&
           !xr_conditions.surge_started() &&
-          !travel_manager.check_squad_for_enemies(squad) &&
+          !travelManager.check_squad_for_enemies(squad) &&
           (target.name() === "zat_stalker_base_smart" || target.name() === "jup_a6" || target.name() === "pri_a16")
       },
       surge: { prec: () => xr_conditions.surge_started() },
@@ -66,7 +65,7 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
         prec: (squad: ISimSquad, target: XR_cse_alife_object) =>
           isInTimeInterval(21, 8) &&
           !xr_conditions.surge_started() &&
-          !travel_manager.check_squad_for_enemies(squad) &&
+          !travelManager.check_squad_for_enemies(squad) &&
           (target.name() === "zat_stalker_base_smart" || target.name() === "jup_a10_smart_terrain")
       },
       territory: {
@@ -112,7 +111,7 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
         prec: (squad: ISimSquad, target: XR_cse_alife_object) =>
           isInTimeInterval(19, 8) &&
           !xr_conditions.surge_started() &&
-          !travel_manager.check_squad_for_enemies(squad) &&
+          !travelManager.check_squad_for_enemies(squad) &&
           (target.name() === "zat_stalker_base_smart" || target.name() === "jup_a6" || target.name() === "pri_a16")
       },
       territory: {
@@ -135,7 +134,7 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
         prec: (squad: ISimSquad, target: XR_cse_alife_object) =>
           isInTimeInterval(19, 8) &&
           !xr_conditions.surge_started() &&
-          !travel_manager.check_squad_for_enemies(squad) &&
+          !travelManager.check_squad_for_enemies(squad) &&
           (target.name() === "zat_stalker_base_smart" || target.name() === "jup_a6" || target.name() === "pri_a16")
       },
       territory: {

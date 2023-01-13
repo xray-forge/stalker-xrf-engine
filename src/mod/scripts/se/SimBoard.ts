@@ -6,12 +6,11 @@ import {
   level,
   system_ini,
   XR_cse_alife_creature_abstract,
-  XR_cse_alife_online_offline_group,
   XR_LuaBindBase
 } from "xray16";
 
 import { TCommunity } from "@/mod/globals/communities";
-import { AnyObject, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
 import { get_sim_obj_registry } from "@/mod/scripts/se/SimObjectsRegistry";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
@@ -38,7 +37,7 @@ let board: Optional<ISimBoard> = null;
 
 export interface ISimSmartDescriptor {
   smrt: ISmartTerrain;
-  squads: LuaTable<number, XR_cse_alife_online_offline_group>;
+  squads: LuaTable<number, ISimSquad>;
   stayed_squad_quan: number;
 }
 
@@ -263,7 +262,7 @@ export const SimBoard: ISimBoard = declare_xr_class("SimBoard", null, {
     let smart = null;
 
     if (squad.current_action != null && squad.current_action.name === "reach_target") {
-      smart = alife().object<ISmartTerrain>(squad.assigned_target_id);
+      smart = alife().object<ISmartTerrain>(squad.assigned_target_id!);
     } else if (squad.smart_id != null) {
       smart = alife().object<ISmartTerrain>(squad.smart_id);
     }

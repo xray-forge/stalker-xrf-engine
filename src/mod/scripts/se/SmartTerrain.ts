@@ -4,7 +4,6 @@ import {
   XR_CTime,
   XR_cse_alife_creature_abstract,
   XR_cse_alife_object,
-  XR_cse_alife_online_offline_group,
   XR_cse_alife_smart_zone,
   XR_game_object,
   XR_ini_file,
@@ -12,13 +11,13 @@ import {
   XR_vector,
   alife,
   cse_alife_smart_zone,
+  editor,
   game,
   game_graph,
   getFS,
   ini_file,
   level,
-  time_global,
-  editor
+  time_global
 } from "xray16";
 
 import { MAX_UNSIGNED_16_BIT, MAX_UNSIGNED_8_BIT } from "@/mod/globals/memory";
@@ -1426,7 +1425,7 @@ export function setup_gulag_and_logic_on_spawn(
   }
 }
 
-function smart_terrain_squad_count(board_smart_squads: LuaTable<number, XR_cse_alife_online_offline_group>): number {
+function smart_terrain_squad_count(board_smart_squads: LuaTable<number, ISimSquad>): number {
   let count = 0;
 
   for (const [k, v] of board_smart_squads) {

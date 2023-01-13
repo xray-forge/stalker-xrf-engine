@@ -97,7 +97,7 @@ export class MobWalker {
     set_state(this.object, getActor()!, this.st.state);
 
     this.st.signals = {};
-    get_global("xr_logic").mob_capture(this.object, true);
+    get_global<AnyCallablesModule>("xr_logic").mob_capture(this.object, true);
 
     this.patrol_walk = new patrol(this.st.path_walk);
 

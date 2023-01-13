@@ -229,7 +229,7 @@ declare module "xray16" {
 
     public dotproduct(vector: XR_vector) : number;
 
-    public getH() : unknown;
+    public getH() : number;
 
     public min(vector: XR_vector): unknown;
     public min(vector1: XR_vector, vector2: XR_vector): unknown;

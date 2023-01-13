@@ -28,7 +28,7 @@ export class MobCombat {
     section: string,
     gulag_name: string
   ): void {
-    log.info("Set scheme:", npc.name(), scheme, section);
+    log.info("Set scheme:", npc?.name(), scheme, section);
 
     const st = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(npc, ini, scheme, section);
 

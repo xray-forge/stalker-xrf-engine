@@ -163,16 +163,17 @@ declare module "xray16" {
     set_community_goodwill(this: void, community_a: string, value2:number, value3:number): unknown;
     community_goodwill(this: void, community: string, value2: number): unknown;
     set_community_relation(this: void, community_a: string, community_b: string, value3: number): void;
+    get_general_goodwill_between(this: void, from_id: number, to_id: number): number;
   }
 
   /**
    * namespace actor_stats {
    */
   export interface IXR_actor_stats {
-    add_points_str(value1: string, value2: string, value3: string): unknown;
-    get_points(value: string): unknown;
-    add_points(value1: string, value2: string, value3: number, value4: number): unknown;
-    remove_from_ranking: (object_id: number) => void | null;
+    add_points_str(this: void, value1: string, value2: string, value3: string): unknown;
+    get_points(this: void, value: string): unknown;
+    add_points(this: void, value1: string, value2: string, value3: number, value4: number): unknown;
+    remove_from_ranking(this: void, object_id: number): void | null;
   }
 
   /**

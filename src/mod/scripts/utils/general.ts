@@ -1,9 +1,18 @@
 import { alife, device, IsGameTypeSingle, XR_vector } from "xray16";
 
-import { Optional } from "@/mod/lib/types";
+import { AnyArgs, AnyCallable, Optional } from "@/mod/lib/types";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("utils/general");
+
+/**
+ * todo: description
+ */
+export function externClassMethod<B, T extends (this: B, ...rest: AnyArgs) => any>(base: B, method: T): T {
+  return function (this: void, ...args: AnyArgs) {
+    return (method as any)(base, ...args);
+  } as any;
+}
 
 /**
  * todo: description

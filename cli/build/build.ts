@@ -39,7 +39,7 @@ const log: NodeLogger = new NodeLogger("BUILD_ALL");
     log.info("XRTS build:", chalk.green(pkg?.name), chalk.blue(new Date().toLocaleString()));
 
     if (IS_CLEAN_BUILD) {
-      log.info("Perform target cleanup");
+      log.info("Perform target cleanup:", chalk.yellowBright(TARGET_GAME_DATA_DIR));
       fs.rmSync(TARGET_GAME_DATA_DIR, { recursive: true, force: true });
       timeTracker.addMark("BUILD_CLEANUP");
     } else {

@@ -317,12 +317,12 @@ function enable_generic_schemes(ini, npc, stype, section)
   elseif stype == schemes.stype_mobile then
     local combat_section = utils.cfg_get_string(ini, section, "on_combat", npc, false, "")
     if combat_section then
-      MobCombat.set_scheme(npc, ini, "mob_combat", combat_section)
+      MobCombat:set_scheme(npc, ini, "mob_combat", combat_section)
     end
 
     local death_section = utils.cfg_get_string(ini, section, "on_death", npc, false, "")
     if death_section then
-      MobDeath.set_scheme(npc, ini, "mob_death", death_section)
+      MobDeath:set_scheme(npc, ini, "mob_death", death_section)
     end
 
     utilsAlife.reset_invulnerability(npc, ini, section)

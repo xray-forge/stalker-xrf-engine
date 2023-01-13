@@ -2238,11 +2238,15 @@ end
 -- �������� ���������� � ������ ������
 function scenario_autosave(actor, npc, p)
   local save_name = p[1]
+
+  log:info("Performing auto-save:", save_name);
+
   if save_name == nil then
     abort("You are trying to use scenario_autosave without save name")
   end
 
   if IsImportantSave() then
+    log:info("Performing auto-save, detected as important:", save_name);
     local save_param = user_name() .. " - " .. game.translate_string(save_name)
 
     get_console():execute("save " .. save_param)

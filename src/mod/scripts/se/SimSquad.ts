@@ -99,8 +99,8 @@ export interface ISimSquad extends XR_cse_alife_online_offline_group {
   spot_section: Optional<string>;
 
   current_action: any;
-  current_target_id: any;
-  assigned_target_id: any;
+  current_target_id: Optional<any>;
+  assigned_target_id: Optional<number>;
 
   soundManager: SoundManager;
   settings_id: any;
@@ -472,7 +472,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     this.get_next_action(true);
   },
   get_next_action(under_simulation: boolean): void {
-    const squad_target = alife().object<ISmartTerrain>(this.assigned_target_id);
+    const squad_target = alife().object<ISmartTerrain>(this.assigned_target_id!);
 
     if (this.current_target_id === null) {
       if (squad_target === null || squad_target.am_i_reached(this)) {
@@ -631,7 +631,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
 
     this.clear_location_types();
 
-    if (alife().object(this.assigned_target_id)!.clsid() === clsid.smart_terrain) {
+    if (alife().object(this.assigned_target_id!)!.clsid() === clsid.smart_terrain) {
       this.set_location_types_section(default_location);
 
       const old_smart_name = this.smart_id && alife().object(this.smart_id) && alife().object(this.smart_id)!.name();
