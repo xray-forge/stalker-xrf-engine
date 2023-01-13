@@ -32,6 +32,7 @@ import { initDropSettings } from "@/mod/scripts/core/DropManager";
 import { send_task } from "@/mod/scripts/core/NewsManager";
 import { get_release_body_manager } from "@/mod/scripts/core/ReleaseBodyManager";
 import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
+import { weatherManager } from "@/mod/scripts/core/WeatherManager";
 import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { get_sim_obj_registry } from "@/mod/scripts/se/SimObjectsRegistry";
 import { ITaskManager } from "@/mod/scripts/se/task/TaskManager";
@@ -61,7 +62,6 @@ export interface IActorBinder extends XR_object_binder {
   bCheckStart: boolean;
   f_surge_manager_loaded: boolean;
 
-  weather_manager: any;
   task_manager: ITaskManager;
   surge_manager: any;
 
@@ -100,7 +100,6 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     log.info("Init new actor binder:", object.name());
 
     this.bCheckStart = false;
-    this.weather_manager = get_global<AnyCallablesModule>("level_weathers").get_weather_manager();
     this.surge_manager = get_global<AnyCallablesModule>("surge_manager").get_surge_manager();
     this.last_level_name = null;
     this.deimos_intensity = null;
@@ -136,7 +135,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     }
 
     get_global<AnyCallablesModule>("xr_s").on_game_load();
-    this.weather_manager.reset();
+    weatherManager.reset();
 
     initDropSettings();
 
@@ -292,7 +291,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     const time = time_global();
 
     get_global<AnyCallablesModule>("game_stats").update(delta, this.object);
-    this.weather_manager.update();
+    weatherManager.update();
 
     this.check_detective_achievement();
     this.check_mutant_hunter_achievement();
@@ -422,7 +421,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     }
 
     get_global<AnyCallablesModule>("xr_logic").pstor_save_all(this.object, packet);
-    this.weather_manager.save(packet);
+    weatherManager.save(packet);
     get_release_body_manager().save(packet);
     this.surge_manager.save(packet);
     get_global<AnyCallablesModule>("sr_psy_antenna").save(packet);
@@ -492,7 +491,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     }
 
     get_global<AnyCallablesModule>("xr_logic").pstor_load_all(this.object, packet);
-    this.weather_manager.load(packet);
+    weatherManager.load(packet);
     get_release_body_manager().load(packet);
 
     this.surge_manager.load(packet);

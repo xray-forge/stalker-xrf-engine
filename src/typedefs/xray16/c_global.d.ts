@@ -104,7 +104,7 @@ declare module "xray16" {
     spawn_phantom(this: void, vector: unknown /* const vector& */): unknown;
     object_by_id(this: void, object_id: number): XR_game_object;
     debug_object(this: void, str: string): unknown;
-    get_weather(this: void): unknown;
+    get_weather(this: void): string;
     present(this: void): boolean;
     hide_indicators(this: void): unknown;
     physics_world(this: void): unknown;
@@ -129,7 +129,7 @@ declare module "xray16" {
     patrol_path_exists(this: void, path_name: string): boolean;
     vertex_position(this: void, id: number): XR_vector;
     show_weapon(this: void, val: boolean): unknown;
-    get_wfx_time(this: void): unknown;
+    get_wfx_time(this: void): number;
     disable_input(this: void): unknown;
     map_add_object_spot(this: void, id: number, section: string, hint: string): unknown;
     get_time_minutes(this: void): unknown;

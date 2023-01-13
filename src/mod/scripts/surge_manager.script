@@ -2,6 +2,7 @@
 local TaskManager = require("scripts.se.task.TaskManager")
 local SimBoard = require("scripts.se.SimBoard")
 local NewsManager = require("scripts.core.NewsManager")
+local WeatherManager = require("scripts.core.WeatherManager")
 local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
@@ -373,10 +374,10 @@ function CSurgeManager:end_surge(manual)
   level.remove_pp_effector(surge_shock_pp_eff)
   level.remove_cam_effector(earthquake_cam_eff)
 
-  if (manual or (self.time_forwarded and level_weathers.get_weather_manager().weather_fx)) then
+  if (manual or (self.time_forwarded and WeatherManager.get_weather_manager().weather_fx)) then
     level.stop_weather_fx()
-    --		level_weathers.get_weather_manager():select_weather(true)
-    level_weathers.get_weather_manager():forced_weather_change()
+    --		WeatherManager.get_weather_manager():select_weather(true)
+    WeatherManager.get_weather_manager():forced_weather_change()
   end
 
   self.effector_set = false
@@ -617,7 +618,7 @@ function surge_callback()
   level.add_cam_effector("camera_effects\\surge_01.anm", sleep_cam_eff, false, "surge_manager.surge_callback2")
   --	level.stop_weather_fx()
   --	level.change_game_time(0,0,15)
-  --	level_weathers.get_weather_manager():forced_weather_change()
+  --	WeatherManager.get_weather_manager():forced_weather_change()
 end
 
 function surge_callback2()

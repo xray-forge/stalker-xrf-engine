@@ -23,6 +23,7 @@ import { captions } from "@/mod/globals/captions";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
+import { weatherManager } from "@/mod/scripts/core/WeatherManager";
 import { disableInfo } from "@/mod/scripts/utils/actor";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resolveXmlFormPath, isWideScreen } from "@/mod/scripts/utils/ui";
@@ -249,13 +250,13 @@ export function dream_callback(): void {
 
   level.change_game_time(0, hours, 0);
 
-  get_global("level_weathers").get_weather_manager().forced_weather_change();
+  weatherManager.forced_weather_change();
   get_global("surge_manager").get_surge_manager().time_forwarded = true;
 
-  if (get_global("surge_manager").is_started() && get_global("level_weathers").get_weather_manager().weather_fx) {
+  if (get_global("surge_manager").is_started() && weatherManager.weather_fx) {
     level.stop_weather_fx();
-    // --    level_weathers.get_weather_manager().select_weather(true)
-    get_global("level_weathers").get_weather_manager().forced_weather_change();
+    // --    WeatherManager.get_weather_manager().select_weather(true)
+    weatherManager.forced_weather_change();
   }
 
   actor.power = 1;

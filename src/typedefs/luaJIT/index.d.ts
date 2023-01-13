@@ -1,4 +1,5 @@
 declare namespace table {
+  function concat<K extends AnyNotNil, V>(list: LuaTable<K, V>, separator: string): string;
   function insert<K extends AnyNotNil, V>(list: LuaTable<K, V>, value: V): void;
   function remove<K extends AnyNotNil, V>(list: LuaTable<K, V>, index: number): void;
   function sort<K extends AnyNotNil, V>(list: LuaTable<K, V>, cb: (left: V, right: V) => boolean): void;

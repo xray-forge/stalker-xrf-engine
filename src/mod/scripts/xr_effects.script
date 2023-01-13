@@ -1,4 +1,5 @@
 -- 3364
+local WeatherManager = require("scripts.core.WeatherManager")
 local InventoryUpgrades = require("scripts.core.inventory_upgrades")
 local TaskManager = require("scripts.se.task.TaskManager")
 local SimBoard = require("scripts.se.SimBoard")
@@ -1044,9 +1045,9 @@ end
 function update_weather(actor, npc, p)
 	if p and p[1] then
 		if p[1] == "true" then
-			level_weathers.get_weather_manager():select_weather(true)
+			WeatherManager.get_weather_manager():select_weather(true)
 		elseif p[1] == "false" then
-			level_weathers.get_weather_manager():select_weather(false)
+			WeatherManager.get_weather_manager():select_weather(false)
 		end
 	end
 end
@@ -2416,7 +2417,7 @@ function set_game_time(actor, npc, p)
     hours_to_change = hours_to_change - 24
   end
   level.change_game_time(0, hours_to_change, minutes_to_change)
-  level_weathers.get_weather_manager():forced_weather_change()
+  WeatherManager.get_weather_manager():forced_weather_change()
   surge_manager.get_surge_manager().time_forwarded = true
   printf("set_game_time: time changed to [%d][%d]", hours_to_change, minutes_to_change)
 end
@@ -2433,7 +2434,7 @@ function forward_game_time(actor, npc, p)
     minutes = 0
   end
   level.change_game_time(0, hours, minutes)
-  level_weathers.get_weather_manager():forced_weather_change()
+  WeatherManager.get_weather_manager():forced_weather_change()
   surge_manager.get_surge_manager().time_forwarded = true
   printf("forward_game_time: time forwarded on [%d][%d]", hours, minutes)
 end
