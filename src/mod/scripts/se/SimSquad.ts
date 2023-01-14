@@ -60,6 +60,7 @@ import {
   getConfigString,
   parseCondList,
   parseNames,
+  pickSectionFromCondList,
   r_2nums
 } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -542,7 +543,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
       }
 
       if (this.death_condlist !== null) {
-        (get_global("xr_logic").pick_section_from_condlist as AnyCallable)(getActor(), this, this.death_condlist);
+        pickSectionFromCondList(getActor(), this, this.death_condlist as any);
       }
 
       this.board.remove_squad(this);

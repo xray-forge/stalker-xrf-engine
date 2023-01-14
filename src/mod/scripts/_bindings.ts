@@ -9,6 +9,7 @@ import { ArtefactBinder } from "@/mod/scripts/core/binders/ArtefactBinder";
 import { CampBinder } from "@/mod/scripts/core/binders/CampBinder";
 import { CampfireBinder } from "@/mod/scripts/core/binders/CampfireBinder";
 import { CrowBinder } from "@/mod/scripts/core/binders/CrowBinder";
+import { LabX8DoorBinder } from "@/mod/scripts/core/binders/LabX8DoorBinder";
 import { LevelChangerBinder } from "@/mod/scripts/core/binders/LevelChangerBinder";
 import { MonsterBinder } from "@/mod/scripts/core/binders/MonsterBinder";
 import { PhantomBinder } from "@/mod/scripts/core/binders/PhantomBinder";
@@ -46,6 +47,7 @@ list = {
   bindCamp: createBinder(CampBinder),
   bindCampfire: createBinder(CampfireBinder),
   bindCrow: createBinder(CrowBinder),
+  bindLabX8Door: createBinder(LabX8DoorBinder),
   bindLevelChanger: createBinder(LevelChangerBinder),
   bindMonster: createBinder(MonsterBinder),
   bindPhantom: createBinder(PhantomBinder),

@@ -3,6 +3,7 @@ import { XR_cse_abstract, XR_cse_alife_object, XR_flags32, XR_game_object, XR_in
 import { AnyCallablesModule, AnyObject, Maybe, Optional } from "@/mod/lib/types";
 import { stringifyAsJson } from "@/mod/lib/utils/json";
 import { getActor, scriptIds } from "@/mod/scripts/core/db";
+import { disableInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -473,4 +474,126 @@ export function parse_waypoint_data(pathname: string, wpflags: XR_flags32, wpnam
   }
 
   return rslt;
+}
+
+/**
+ * @returns picked section based on condlist
+ */
+export function pickSectionFromCondList(
+  actor: Optional<XR_game_object>,
+  npc: Optional<XR_game_object | XR_cse_alife_object>,
+  condlist: LuaTable
+): Optional<string> {
+  let rval: Optional<number> = null; // -- math.random(100)
+  // --printf("_bp: pick_section_from_condlist: rval = %d", rval)
+
+  const newsect = null;
+  let infop_conditions_met;
+
+  for (const [n, cond] of condlist) {
+    infop_conditions_met = true;
+    for (const [inum, infop] of pairs(cond.infop_check)) {
+      if (infop.prob) {
+        if (!rval) {
+          rval = math.random(100);
+        }
+
+        if (infop.prob < rval) {
+          infop_conditions_met = false;
+          break;
+        }
+      } else if (infop.func) {
+        // --printf("_bp: infop.func = %s", infop.func)
+        if (!get_global<AnyCallablesModule>("xr_conditions")[infop.func]) {
+          abort(
+            "object '%s': pick_section_from_condlist: function '%s' is " + "not defined in xr_conditions.script",
+            npc?.name(),
+            infop.func
+          );
+        }
+
+        // --if xr_conditions[infop.func](actor, npc) {
+        if (infop.params) {
+          if (get_global<AnyCallablesModule>("xr_conditions")[infop.func](actor, npc, infop.params)) {
+            if (!infop.expected) {
+              infop_conditions_met = false;
+              break;
+            }
+          } else {
+            if (infop.expected) {
+              infop_conditions_met = false;
+              break;
+            }
+          }
+        } else {
+          if (get_global<AnyCallablesModule>("xr_conditions")[infop.func](actor, npc)) {
+            if (!infop.expected) {
+              infop_conditions_met = false;
+              break;
+            }
+          } else {
+            if (infop.expected) {
+              infop_conditions_met = false;
+              break;
+            }
+          }
+        }
+      } else if (hasAlifeInfo(infop.name)) {
+        if (!infop.required) {
+          infop_conditions_met = false;
+          break;
+        } else {
+          // -
+        }
+      } else {
+        if (infop.required) {
+          infop_conditions_met = false;
+          break;
+        } else {
+          // -
+        }
+      }
+    }
+
+    if (infop_conditions_met) {
+      for (const [inum, infop] of pairs(cond.infop_set)) {
+        if (actor == null) {
+          abort("TRYING TO SET INFOS THEN ACTOR IS NIL");
+        }
+
+        if (infop.func) {
+          if (!get_global<AnyCallablesModule>("xr_effects")[infop.func]) {
+            abort(
+              "object '%s': pick_section_from_condlist: function '%s' is " + "not defined in xr_effects.script",
+              npc?.name(),
+              infop.func
+            );
+          }
+
+          if (infop.params) {
+            get_global<AnyCallablesModule>("xr_effects")[infop.func](actor, npc, infop.params);
+          } else {
+            get_global<AnyCallablesModule>("xr_effects")[infop.func](actor, npc);
+          }
+        } else if (infop.required) {
+          if (!hasAlifeInfo(infop.name)) {
+            actor.give_info_portion(infop.name);
+          }
+        } else {
+          if (hasAlifeInfo(infop.name)) {
+            // --printf("*INFO [disabled]*: npc='%s' id='%s'", actor:name(),infop.name)
+            disableInfo(infop.name);
+          }
+        }
+      }
+
+      if (cond.section === "never") {
+        return null;
+      } else {
+        return cond.section;
+      }
+    }
+  }
+
+  return null;
 }

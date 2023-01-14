@@ -321,7 +321,7 @@ declare module "xray16" {
     public can_throw_grenades(value: boolean): boolean;
     public set_enemy(object: XR_game_object): void;
     public set_smart_cover_target_default(value: boolean): unknown;
-    public get_physics_object(): unknown;
+    public get_physics_object(): XR_CPhysicObject;
     public switch_to_talk(): unknown;
     public idle_max_time(time: number): unknown;
     public idle_max_time(): unknown;
@@ -437,7 +437,7 @@ declare module "xray16" {
     public set_sympathy(value: number): void;
     public torch_enabled(): unknown;
     public sympathy(): number;
-    public spawn_ini(): XR_ini_file | null;
+    public spawn_ini(): XR_ini_file;
     public drop_item_and_teleport(game_object: XR_game_object, vector: XR_vector): unknown;
     public get_campfire(): XR_CZoneCampfire;
     public get_movement_speed(): unknown;

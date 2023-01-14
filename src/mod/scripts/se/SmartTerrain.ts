@@ -46,7 +46,8 @@ import {
   getConfigNumber,
   getConfigString,
   parseCondList,
-  parseNames
+  parseNames,
+  pickSectionFromCondList
 } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
@@ -296,9 +297,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     const max_population: string = getConfigString(ini, SMART_TERRAIN_SECT, "max_population", this, false, "", "0");
     const parsed_condlist = parseCondList(null, SMART_TERRAIN_SECT, "max_population", max_population);
 
-    this.max_population = tonumber(
-      (get_global("xr_logic").pick_section_from_condlist as AnyCallable)(getStoryObject("actor"), null, parsed_condlist)
-    )!;
+    this.max_population = tonumber(pickSectionFromCondList(getStoryObject("actor"), null, parsed_condlist))!;
 
     const respawn_params = getConfigString(ini, SMART_TERRAIN_SECT, "respawn_params", this, false, "", null);
 

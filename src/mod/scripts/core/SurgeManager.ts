@@ -28,7 +28,7 @@ import { get_sim_board, ISimBoard } from "@/mod/scripts/se/SimBoard";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { getStoryObject } from "@/mod/scripts/utils/alife";
-import { parseCondList } from "@/mod/scripts/utils/configs";
+import { parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { copyTable } from "@/mod/scripts/utils/table";
@@ -156,11 +156,7 @@ export class SurgeManager extends AbstractSingletonManager {
     if (this.surgeCoversCount > 0) {
       for (const [k, v] of hides) {
         if (v.condlist) {
-          const sect = get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(
-            getActor(),
-            null,
-            v.condlist
-          );
+          const sect: Optional<string> = pickSectionFromCondList(getActor(), null, v.condlist);
 
           if (sect !== "true" && sect !== null) {
             table.remove(hides, k);
@@ -180,11 +176,7 @@ export class SurgeManager extends AbstractSingletonManager {
 
         if (dist < nearest_cover_dist) {
           if (v.condlist) {
-            const sect = get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(
-              getActor(),
-              null,
-              v.condlist
-            );
+            const sect: Optional<string> = pickSectionFromCondList(getActor(), null, v.condlist);
 
             if (sect === "true") {
               nearest_cover_id = v.id();
@@ -199,11 +191,7 @@ export class SurgeManager extends AbstractSingletonManager {
 
       if (nearest_cover_id === hides.get(1).id()) {
         if (hides.get(1).condlist) {
-          const sect = get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(
-            getActor(),
-            null,
-            hides.get(1).condlist
-          );
+          const sect = pickSectionFromCondList(getActor(), null, hides.get(1).condlist);
 
           if (sect !== "true" && sect !== null) {
             return null;
@@ -240,13 +228,7 @@ export class SurgeManager extends AbstractSingletonManager {
         return;
       }
 
-      if (
-        get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(
-          getStoryObject("actor"),
-          null,
-          this.surgeManagerCondlist
-        ) !== "true"
-      ) {
+      if (pickSectionFromCondList(getStoryObject("actor"), null, this.surgeManagerCondlist) !== "true") {
         return;
       }
 
@@ -347,13 +329,7 @@ export class SurgeManager extends AbstractSingletonManager {
           h.direction = new vector().set(0, 0, 1);
           h.draftsman = getActor();
 
-          if (
-            get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(
-              getStoryObject("actor"),
-              null,
-              this.surgeSurviveCondlist
-            ) === "true"
-          ) {
+          if (pickSectionFromCondList(getStoryObject("actor"), null, this.surgeSurviveCondlist) === "true") {
             if (getActor()!.health <= h.power) {
               h.power = getActor()!.health - 0.05;
               if (h.power < 0) {
@@ -632,13 +608,7 @@ export class SurgeManager extends AbstractSingletonManager {
       getActor():hide_weapon()
     ]]--*/
         get_global<AnyCallablesModule>("xr_effects").disable_ui_only(getActor(), null);
-        if (
-          get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(
-            getActor(),
-            null,
-            this.surgeSurviveCondlist
-          ) !== "true"
-        ) {
+        if (pickSectionFromCondList(getActor(), null, this.surgeSurviveCondlist) !== "true") {
           this.kill_all_unhided_after_actor_death();
           getActor()!.kill(getActor()!);
 

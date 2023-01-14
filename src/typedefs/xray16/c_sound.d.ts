@@ -25,8 +25,8 @@ declare module "xray16" {
     public min_distance: number;
     public volume: number;
 
-    public constructor(value: string);
-    public constructor(value: string, type: unknown /* enum ESoundTypes */);
+    public constructor(sound_path: string);
+    public constructor(sound_path: string, type: unknown /* enum ESoundTypes */);
 
     public set_position(vector: XR_vector): unknown;
     public stop_deffered(): unknown;

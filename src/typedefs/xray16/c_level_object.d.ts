@@ -14,15 +14,15 @@ declare module "xray16" {
    * @customConstructor CPhysicObject
    */
   export class XR_CPhysicObject extends XR_CGameObject {
-    public set_door_ignore_dynamics(): unknown;
-    public play_bones_sound(): unknown;
-    public run_anim_back(): unknown;
+    public set_door_ignore_dynamics(): void;
+    public play_bones_sound(): void;
+    public run_anim_back(): void;
     public unset_door_ignore_dynamics(): unknown;
     public run_anim_forward(): unknown;
-    public stop_anim(): unknown;
-    public anim_time_get(): unknown;
-    public anim_time_set(value: number): unknown;
-    public stop_bones_sound(): unknown;
+    public stop_anim(): boolean;
+    public anim_time_get(): number;
+    public anim_time_set(value: number): void;
+    public stop_bones_sound(): void;
   }
 
   /**
