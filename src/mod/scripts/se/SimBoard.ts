@@ -47,7 +47,7 @@ export interface ISimBoard extends XR_LuaBindBase {
   players: Optional<LuaTable>;
   smarts: LuaTable<number, ISimSmartDescriptor>;
   smarts_by_names: any;
-  squads: any;
+  squads: LuaTable<number, ISimSquad>;
   spawn_smarts: any;
   mutant_lair: any;
   tmp_assigned_squad: LuaTable<number, LuaTable<number, ISimSquad>>;
@@ -80,7 +80,7 @@ export const SimBoard: ISimBoard = declare_xr_class("SimBoard", null, {
 
     this.smarts_by_names = {};
 
-    this.squads = {};
+    this.squads = new LuaTable();
 
     this.spawn_smarts = {};
     this.mutant_lair = {};

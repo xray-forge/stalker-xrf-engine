@@ -419,7 +419,7 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     }
   },
   respawnArtefactsAndReplaceAnomalyZones(): void {
-    log.info("Disable artefacts and replace anomaly zone:", this.object.name());
+    log.info("Respawn artefacts and replace anomaly zone:", this.object.name());
 
     const anom_fields = FIELDS_BY_NAME;
 

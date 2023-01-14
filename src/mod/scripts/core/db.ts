@@ -9,6 +9,7 @@ import {
 
 import { Optional } from "@/mod/lib/types";
 import { ActorProxy, IActorProxy } from "@/mod/scripts/core/ActorProxy";
+import { ISignalLightBinder } from "@/mod/scripts/core/binders/SignalLightBinder";
 import { RestrictorManager } from "@/mod/scripts/core/RestrictorManager";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -24,7 +25,7 @@ export const campStorage: LuaTable = new LuaTable();
 export const noWeapZones = {};
 export const spawnedVertexById: LuaTable<number, number> = new LuaTable();
 export const levelDoors: LuaTable<number, XR_vector> = new LuaTable();
-export const signalLight: LuaTable<string, XR_object_binder> = new LuaTable();
+export const signalLight: LuaTable<string, ISignalLightBinder> = new LuaTable();
 export const goodwill = { sympathy: new LuaTable(), relations: new LuaTable() };
 export const offlineObjects: LuaTable<number, any> = new LuaTable();
 export const REGISTERED_ITEMS: LuaTable<string, number> = new LuaTable();

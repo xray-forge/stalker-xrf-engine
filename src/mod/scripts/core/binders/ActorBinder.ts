@@ -20,7 +20,9 @@ import {
   vector
 } from "xray16";
 
+import { camera_effects } from "@/mod/globals/camera_effects";
 import { game_difficulties_by_number } from "@/mod/globals/game_difficulties";
+import { TLevel } from "@/mod/globals/levels";
 import { AnyCallable, AnyCallablesModule, Optional } from "@/mod/lib/types";
 import {
   ARTEFACT_WAYS_BY_ARTEFACT_ID,
@@ -31,6 +33,7 @@ import { addActor, deleteActor, getActor, IStoredObject, scriptIds, storage, zon
 import { initDropSettings } from "@/mod/scripts/core/DropManager";
 import { send_task } from "@/mod/scripts/core/NewsManager";
 import { get_release_body_manager } from "@/mod/scripts/core/ReleaseBodyManager";
+import { SurgeManager } from "@/mod/scripts/core/SurgeManager";
 import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
 import { weatherManager } from "@/mod/scripts/core/WeatherManager";
 import { get_sim_board } from "@/mod/scripts/se/SimBoard";
@@ -60,10 +63,10 @@ const mutant_hunter_achievement_items: LuaTable<number, string> = [
 
 export interface IActorBinder extends XR_object_binder {
   bCheckStart: boolean;
-  f_surge_manager_loaded: boolean;
+  isSurgeManagerLoaded: boolean;
 
   task_manager: ITaskManager;
-  surge_manager: any;
+  surgeManager: SurgeManager;
 
   loaded: boolean;
   spawn_frame: number;
@@ -100,7 +103,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     log.info("Init new actor binder:", object.name());
 
     this.bCheckStart = false;
-    this.surge_manager = get_global<AnyCallablesModule>("surge_manager").get_surge_manager();
+    this.surgeManager = SurgeManager.getInstance();
     this.last_level_name = null;
     this.deimos_intensity = null;
     this.loaded_active_slot = 3;
@@ -251,7 +254,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
       if (s_obj && s_obj.section_name() == "drug_anabiotic") {
         get_global<AnyCallablesModule>("xr_effects").disable_ui_only(getActor(), null);
 
-        level.add_cam_effector("camera_effects\\surge_02.anm", 10, false, "_extern.anabiotic_callback");
+        level.add_cam_effector(camera_effects.surge_02, 10, false, "_extern.anabiotic_callback");
         level.add_pp_effector("surge_fade.ppe", 11, false);
 
         giveInfo("anabiotic_in_process");
@@ -378,22 +381,16 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
 
     get_global("xr_s").on_actor_update(delta);
 
-    /**
-     *
-     */
-
-    if (this.surge_manager) {
-      if (this.f_surge_manager_loaded !== true) {
-        this.surge_manager.initialize();
-        this.f_surge_manager_loaded = true;
-      }
-
-      if (this.surge_manager.levels_respawn[level.name()]) {
-        this.surge_manager.respawnArtefactsAndReplaceAnomalyZones();
-      }
-
-      this.surge_manager.update();
+    if (!this.isSurgeManagerLoaded) {
+      this.surgeManager.initialize();
+      this.isSurgeManagerLoaded = true;
     }
+
+    if (this.surgeManager.levels_respawn[level.name() as TLevel]) {
+      this.surgeManager.respawnArtefactsAndReplaceAnomalyZones();
+    }
+
+    this.surgeManager.update();
 
     get_sim_obj_registry().update_avaliability(alife().actor());
 
@@ -423,7 +420,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     get_global<AnyCallablesModule>("xr_logic").pstor_save_all(this.object, packet);
     weatherManager.save(packet);
     get_release_body_manager().save(packet);
-    this.surge_manager.save(packet);
+    this.surgeManager.save(packet);
     get_global<AnyCallablesModule>("sr_psy_antenna").save(packet);
     packet.w_bool(get_sim_board().simulation_started);
 
@@ -494,8 +491,8 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     weatherManager.load(packet);
     get_release_body_manager().load(packet);
 
-    this.surge_manager.load(packet);
-    this.f_surge_manager_loaded = true;
+    this.surgeManager.load(packet);
+    this.isSurgeManagerLoaded = true;
     get_global<AnyCallablesModule>("sr_psy_antenna").load(packet);
     get_sim_board().simulation_started = packet.r_bool();
 

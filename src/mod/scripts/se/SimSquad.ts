@@ -879,14 +879,14 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
   },
   on_register(): void {
     cse_alife_online_offline_group.on_register(this);
-    this.board.squads[this.id] = this;
+    this.board.squads.set(this.id, this);
     checkSpawnIniForStoryId(this);
     get_sim_obj_registry().register(this);
   },
   on_unregister(): void {
     unregisterStoryObjectById(this.id);
 
-    this.board.squads[this.id] = null;
+    this.board.squads.delete(this.id);
     this.board.assign_squad_to_smart(this, null);
     cse_alife_online_offline_group.on_unregister(this);
     get_sim_obj_registry().unregister(this);

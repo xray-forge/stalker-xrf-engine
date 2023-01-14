@@ -1,4 +1,10 @@
 -- 344
+local SurgeManager = require("scripts.core.SurgeManager")
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+
+local log = create_ts_class_instance(LuaLogger, "xrs_dyn_music");
+
 --constants
 TRACK_SWITCH_DELTA = 3000      -- switch between tracks delta
 MAX_DIST = 100            -- max distance for dynamic sound stopping
@@ -20,15 +26,18 @@ cur_theme_number = 0
 cur_track_number = 0
 next_track_start_time = 0
 theme = nil
+
 -- local variables
 local init_failed = false
 local themes_inited = false
 local prev_fade_time = 0
 local force_fade = false
 local was_in_silence = false
+
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
+
 function init()
   xr_s.register_callback("update", on_actor_update, nil)
   xr_s.register_callback("actor_destroy", on_actor_destroy, nil)
@@ -99,8 +108,8 @@ function on_actor_update()
   if (init_failed) then
     return
   end
-  if (surge_manager.sound_started()) then
-    if (surge_manager.is_killing_all()) then
+  if (SurgeManager.sound_started()) then
+    if (SurgeManager.is_killing_all()) then
       force_fade = true
       FadeTo_ambient = ambient_vol
       fade_ambient()

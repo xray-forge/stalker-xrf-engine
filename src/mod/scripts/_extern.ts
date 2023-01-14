@@ -1,9 +1,12 @@
 import { game, get_console, level, task, TXR_TaskState, XR_CGameTask } from "xray16";
 
+import { camera_effects } from "@/mod/globals/camera_effects";
+import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { AnyCallablesModule } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
 import { inventory_upgrades_functors } from "@/mod/scripts/core/inventory_upgrades";
 import { loadScreenManager } from "@/mod/scripts/core/LoadScreenManager";
+import { sleep_cam_eff_id, SurgeManager } from "@/mod/scripts/core/SurgeManager";
 import { get_buy_discount, get_sell_discount } from "@/mod/scripts/core/TradeManager";
 import { travelManager } from "@/mod/scripts/core/TravelManager";
 import { weatherManager } from "@/mod/scripts/core/WeatherManager";
@@ -25,20 +28,20 @@ dream_callback2 = SleepDialogModule.dream_callback2;
 
 // @ts-ignore global declararation
 anabiotic_callback = () => {
-  level.add_cam_effector("camera_effects\\surge_01.anm", 10, false, "_extern.anabiotic_callback2");
+  level.add_cam_effector(camera_effects.surge_01, 10, false, "_extern.anabiotic_callback2");
 
   const rnd = math.random(35, 45);
-  const m = get_global("surge_manager").get_surge_manager();
+  const surgeManager: SurgeManager = SurgeManager.getInstance();
 
-  if (m.started) {
+  if (surgeManager.isStarted) {
     const tf = level.get_time_factor();
-    const diff_sec = math.ceil(game.get_game_time().diffSec(m.inited_time) / tf);
+    const diff_sec = math.ceil(game.get_game_time().diffSec(surgeManager.initedTime) / tf);
 
-    if (rnd > ((m.surge_time - diff_sec) * tf) / 60) {
-      m.time_forwarded = true;
-      m.ui_disabled = true;
-      m.kill_all_unhided();
-      m.end_surge();
+    if (rnd > ((surgeConfig.DURATION - diff_sec) * tf) / 60) {
+      surgeManager.isTimeForwarded = true;
+      surgeManager.ui_disabled = true;
+      surgeManager.kill_all_unhided();
+      surgeManager.endSurge();
     }
   }
 
@@ -58,6 +61,22 @@ anabiotic_callback2 = () => {
 
   disableInfo("anabiotic_in_process");
 };
+
+export function surge_callback(): void {
+  level.add_cam_effector(camera_effects.surge_01, sleep_cam_eff_id, false, "_extern.surge_callback2");
+  // --    level.stop_weather_fx()
+  // --    level.change_game_time(0,0,15)
+  // --    WeatherManager.get_weather_manager():forced_weather_change()
+}
+
+export function surge_callback2(): void {
+  get_global<AnyCallablesModule>("xr_effects").enable_ui(getActor(), null);
+  /* --[[
+  level.enable_input()
+  level.show_indicators()
+  getActor():restore_weapon()
+]]-- */
+}
 
 // @ts-ignore global declararation
 task_complete = (task_id: string): boolean => {

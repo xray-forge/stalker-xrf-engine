@@ -1,4 +1,7 @@
+import { game } from "xray16";
+
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { actor_in_cover, get_task_target } from "@/mod/scripts/core/SurgeManager";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { getStoryObject } from "@/mod/scripts/utils/alife";
 import { parseCondList } from "@/mod/scripts/utils/configs";
@@ -102,15 +105,13 @@ export function zat_b29_adv_descr(id: string, field: string, p: string) {
 }
 
 export function surge_task_title(id: string, field: string, p: string): string {
-  if (get_global("surge_manager").actor_in_cover) {
-    return "hide_from_surge_name_2";
-  } else {
-    return "hide_from_surge_name_1";
-  }
+  return actor_in_cover() ? "hide_from_surge_name_2" : "hide_from_surge_name_1";
 }
 
 export function surge_task_descr(id: string, field: string, p: string): Optional<string> {
-  return get_global("surge_manager").get_task_descr();
+  return actor_in_cover()
+    ? game.translate_string("hide_from_surge_descr_2_a")
+    : game.translate_string("hide_from_surge_descr_1_a");
 }
 
 export function target_condlist(id: string, field: string, p: string) {
@@ -185,6 +186,6 @@ export function zat_b29_adv_target(id: string, field: string, p: string) {
   return null;
 }
 
-export function surge_task_target(id: string, field: string, p: string): string {
-  return get_global("surge_manager").get_task_target();
+export function surge_task_target(id: string, field: string, p: string): Optional<number> {
+  return get_task_target();
 }

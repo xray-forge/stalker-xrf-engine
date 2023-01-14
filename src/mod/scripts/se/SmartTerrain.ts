@@ -17,7 +17,8 @@ import {
   getFS,
   ini_file,
   level,
-  time_global
+  time_global,
+  XR_GameGraph__CVertex
 } from "xray16";
 
 import { MAX_UNSIGNED_16_BIT, MAX_UNSIGNED_8_BIT } from "@/mod/globals/memory";
@@ -1502,7 +1503,7 @@ function job_iterator(
   return $multi(selected_job_id, current_job_prior, selected_job_link);
 }
 
-function arrived_to_smart(obj: XR_cse_alife_object, smart: ISmartTerrain): boolean {
+function arrived_to_smart(obj: XR_cse_alife_creature_abstract, smart: ISmartTerrain): boolean {
   const st = storage.get(obj.id);
 
   let obj_gv;
@@ -1518,19 +1519,19 @@ function arrived_to_smart(obj: XR_cse_alife_object, smart: ISmartTerrain): boole
     obj_pos = it.position();
   }
 
-  const smart_gv = game_graph().vertex(smart.m_game_vertex_id);
+  const smart_gv: XR_GameGraph__CVertex = game_graph().vertex(smart.m_game_vertex_id);
 
-  if ((obj as any).group_id) {
-    const squad = smart.board.squads[(obj as any).group_id];
+  if (obj.group_id !== null) {
+    const squad = smart.board.squads.get(obj.group_id);
 
     if (squad !== null && squad.current_action) {
       if (squad.current_action.name === "reach_target") {
-        const squad_target = get_sim_obj_registry().objects.get(squad.assigned_target_id);
+        const squad_target = get_sim_obj_registry().objects.get(squad.assigned_target_id!);
 
         if (squad_target !== null) {
           return squad_target.am_i_reached(squad);
         } else {
-          return (alife().object(squad.assigned_target_id) as ISmartTerrain).am_i_reached(squad);
+          return alife().object<ISmartTerrain>(squad.assigned_target_id!)!.am_i_reached(squad);
         }
       } else if (squad.current_action.name === "stay_point") {
         return true;

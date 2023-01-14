@@ -4,7 +4,7 @@ local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDispla
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 
-local log = create_ts_class_instance(LuaLogger, "surge_manager");
+local log = create_ts_class_instance(LuaLogger, "dialogs_zaton");
 
 function zat_b30_owl_stalker_trader_actor_has_item_to_sell(first_speaker, second_speaker)
   local items_table = {

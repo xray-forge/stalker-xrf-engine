@@ -23,6 +23,7 @@ import { set_travel_func } from "@/mod/scripts/core/binders/ActorBinder";
 import { getActor } from "@/mod/scripts/core/db";
 import { ERelation } from "@/mod/scripts/core/game_relations";
 import { relocate_money } from "@/mod/scripts/core/NewsManager";
+import { SurgeManager } from "@/mod/scripts/core/SurgeManager";
 import { AbstractSingletonManager } from "@/mod/scripts/core/utils/AbstractSingletonManager";
 import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
@@ -240,7 +241,7 @@ export class TravelManager extends AbstractSingletonManager {
       minutes = minutes - hours * 60;
 
       level.change_game_time(0, hours, minutes);
-      get_global("surge_manager.get_surge_manager")().time_forwarded = true;
+      SurgeManager.getInstance<SurgeManager>().isTimeForwarded = true;
       log.info("traveling: time forwarded on [%d][%d]", hours, minutes);
     }
 

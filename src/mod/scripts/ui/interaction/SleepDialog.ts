@@ -23,6 +23,7 @@ import { captions } from "@/mod/globals/captions";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
+import { is_started, resurrect_skip_message, SurgeManager } from "@/mod/scripts/core/SurgeManager";
 import { weatherManager } from "@/mod/scripts/core/WeatherManager";
 import { disableInfo } from "@/mod/scripts/utils/actor";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -32,7 +33,7 @@ const base: string = "interaction\\SleepDialog.component";
 const log: LuaLogger = new LuaLogger("SleepDialog");
 
 let sleep_control: Optional<ISleepDialog> = null;
-const isWide = isWideScreen();
+const isWide: boolean = isWideScreen();
 
 export interface ISleepDialog extends XR_CUIScriptWnd {
   back: XR_CUIStatic;
@@ -230,7 +231,7 @@ export const SleepDialog = declare_xr_class("SleepDialog", XR_CUIScriptWnd, {
     console.execute("snd_volume_eff 0");
 
     log.info("Surge manager update resurrect skip message");
-    get_global("surge_manager").resurrect_skip_message();
+    resurrect_skip_message();
   },
   OnMessageBoxOk(): void {
     log.info("On message box OK");
@@ -251,9 +252,9 @@ export function dream_callback(): void {
   level.change_game_time(0, hours, 0);
 
   weatherManager.forced_weather_change();
-  get_global("surge_manager").get_surge_manager().time_forwarded = true;
+  SurgeManager.getInstance<SurgeManager>().isTimeForwarded = true;
 
-  if (get_global("surge_manager").is_started() && weatherManager.weather_fx) {
+  if (is_started() && weatherManager.weather_fx) {
     level.stop_weather_fx();
     // --    WeatherManager.get_weather_manager().select_weather(true)
     weatherManager.forced_weather_change();

@@ -1,4 +1,5 @@
 -- 1755
+local SurgeManager = require("scripts.core.SurgeManager")
 local InventoryUpgrades = require("scripts.core.inventory_upgrades")
 local SmartTerrainControl = require("scripts.se.SmartTerrainControl")
 local AnomalyZoneBinder = require("scripts.core.binders.AnomalyZoneBinder")
@@ -622,7 +623,6 @@ function check_smart_alarm_status(actor, npc, p)
   end
 
   local smart = SimBoard.get_sim_board():get_smart_by_name(smart_name)
-
   local smart_control = smart.base_on_actor_control
 
   if smart_control == nil then
@@ -1071,15 +1071,15 @@ function squad_npc_count_ge(actor, npc, p)
 end
 
 function surge_complete()
-  return surge_manager.is_finished()
+  return SurgeManager.is_finished()
 end
 
 function surge_started()
-  return surge_manager.is_started()
+  return SurgeManager.is_started()
 end
 
 function surge_kill_all()
-  return surge_manager.is_killing_all()
+  return SurgeManager.is_killing_all()
 end
 
 function signal_rocket_flying(actor, npc, p)
@@ -1703,7 +1703,7 @@ end
 --------------------------------------------------------------------------------
 
 function actor_in_surge_cover(actor, npc, p)
-  return surge_manager.actor_in_cover()
+  return SurgeManager.actor_in_cover()
 end
 
 function is_door_blocked_by_npc(actor, obj)

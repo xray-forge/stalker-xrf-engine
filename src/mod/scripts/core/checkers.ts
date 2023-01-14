@@ -6,14 +6,20 @@ import {
   XR_cse_alife_monster_abstract,
   XR_game_object,
   clsid,
-  system_ini
+  system_ini,
+  XR_cse_alife_object,
+  alife,
+  game_graph
 } from "xray16";
 
 import { squadMonsters } from "@/mod/globals/behaviours";
 import { artefact_class_ids, monster_class_ids, stalker_class_ids, weapon_class_ids } from "@/mod/globals/class_ids";
 import { TCommunity } from "@/mod/globals/communities";
+import { TLevel } from "@/mod/globals/levels";
+import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { Maybe, Optional } from "@/mod/lib/types";
-import { getClsId } from "@/mod/scripts/utils/ids";
+import { ISimSquad } from "@/mod/scripts/se/SimSquad";
+import { getClsId, getObjectStoryId } from "@/mod/scripts/utils/ids";
 
 /**
  * todo;
@@ -97,19 +103,47 @@ export function isArtefact(
 export function isStrappableWeapon(object: Optional<XR_game_object>): object is XR_game_object {
   return object === null ? false : system_ini().line_exist(object.section(), "strap_bone0");
   /* --[[
-  local id = get_clsid(obj)
-if id == nil then return false end
+      local id = get_clsid(obj)
+    if id == nil then return false end
 
-if id == clsid.wpn_vintorez_s then return true
-elseif id == clsid.wpn_ak74_s then return true
-elseif id == clsid.wpn_lr300_s then return true
-elseif id == clsid.wpn_shotgun_s then return true
-elseif id == clsid.wpn_bm16_s then return true
-elseif id == clsid.wpn_svd_s then return true
-elseif id == clsid.wpn_svu_s then return true
-elseif id == clsid.wpn_rpg7_s then return true
-elseif id == clsid.wpn_val_s then return true
-elseif id == clsid.wpn_groza_s then return true
-else return false end
-]]*/
+    if id == clsid.wpn_vintorez_s then return true
+    elseif id == clsid.wpn_ak74_s then return true
+    elseif id == clsid.wpn_lr300_s then return true
+    elseif id == clsid.wpn_shotgun_s then return true
+    elseif id == clsid.wpn_bm16_s then return true
+    elseif id == clsid.wpn_svd_s then return true
+    elseif id == clsid.wpn_svu_s then return true
+    elseif id == clsid.wpn_rpg7_s then return true
+    elseif id == clsid.wpn_val_s then return true
+    elseif id == clsid.wpn_groza_s then return true
+    else return false end
+  ]]*/
+}
+
+/**
+ * @returns whether provided object is on a provided level.
+ */
+export function isObjectOnLevel(object: Optional<XR_cse_alife_object>, levelName: string): boolean {
+  return object !== null && alife().level_name(game_graph().vertex(object.m_game_vertex_id).level_id()) === levelName;
+}
+
+/**
+ * @returns whether provided community squad is immune to surge.
+ */
+export function isImmuneToSurge(object: ISimSquad): boolean {
+  return surgeConfig.IMMUNE_SQUDS[object.player_id] === true;
+}
+
+/**
+ * @returns whether provided object has linked story id.
+ */
+export function isStoryObject(object: XR_cse_alife_object): boolean {
+  return getObjectStoryId(object.id) !== null;
+}
+
+/**
+ * @returns whether surge can be started on provided level.
+ */
+export function isSurgeEnabledOnLevel(levelName: TLevel): boolean {
+  return surgeConfig.SURGE_DISABLED_LEVELS[levelName] !== true;
 }

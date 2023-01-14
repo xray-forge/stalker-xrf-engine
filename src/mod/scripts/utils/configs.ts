@@ -1,6 +1,7 @@
 import { XR_cse_abstract, XR_cse_alife_object, XR_flags32, XR_game_object, XR_ini_file } from "xray16";
 
 import { AnyCallablesModule, AnyObject, Maybe, Optional } from "@/mod/lib/types";
+import { stringifyAsJson } from "@/mod/lib/utils/json";
 import { getActor, scriptIds } from "@/mod/scripts/core/db";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -334,17 +335,16 @@ export function parse_infop(rslt: LuaTable<number, IConfigCondition>, str: strin
   for (const s of string.gfind(str, "%s*([%-%+%~%=%!][^%-%+%~%=%!%s]+)%s*")) {
     const sign = string.sub(s, 1, 1);
     let infop_name = string.sub(s, 2);
-    let at = null;
     let params: Optional<LuaTable<number, string | number>> = null;
 
-    [at] = string.find(infop_name, "%(");
+    const [at] = string.find(infop_name, "%(");
 
     if (at !== null) {
       if (string.sub(infop_name, -1) !== ")") {
         abort("wrong condlist %s", str);
       }
 
-      if (at < string.len(infop_n as any) - 1) {
+      if (at < string.len(infop_name) - 1) {
         params = parse_func_params(string.sub(infop_name, (at as number) + 1, -2));
       } else {
         params = new LuaTable();

@@ -43,8 +43,8 @@ declare module "xray16" {
     public fov: number;
     public frame: number;
     public height: number;
-    public precache_frame: unknown;
-    public time_delta: unknown;
+    public precache_frame: number;
+    public time_delta: number;
     public width: number;
     public time_global(): number;
     public is_paused(): boolean;

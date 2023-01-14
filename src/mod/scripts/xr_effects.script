@@ -1,4 +1,5 @@
 -- 3364
+local SurgeManager = require("scripts.core.SurgeManager")
 local WeatherManager = require("scripts.core.WeatherManager")
 local InventoryUpgrades = require("scripts.core.inventory_upgrades")
 local TaskManager = require("scripts.se.task.TaskManager")
@@ -1810,18 +1811,18 @@ end
 ]]--
 
 function start_surge(actor, npc, p)
-  surge_manager.start_surge(p)
+  SurgeManager.start_surge(p)
 end
 
 function stop_surge(actor, npc, p)
-  surge_manager.stop_surge()
+  SurgeManager.stop_surge()
 end
 
 function set_surge_mess_and_task(actor, npc, p)
   if (p) then
-    surge_manager.set_surge_message(p[1])
+    SurgeManager.set_surge_message(p[1])
     if (p[2]) then
-      surge_manager.set_surge_task(p[2])
+      SurgeManager.set_surge_task(p[2])
     end
   end
 end
@@ -2418,7 +2419,7 @@ function set_game_time(actor, npc, p)
   end
   level.change_game_time(0, hours_to_change, minutes_to_change)
   WeatherManager.get_weather_manager():forced_weather_change()
-  surge_manager.get_surge_manager().time_forwarded = true
+  SurgeManager.get_surge_manager().isTimeForwarded = true
   printf("set_game_time: time changed to [%d][%d]", hours_to_change, minutes_to_change)
 end
 
@@ -2435,7 +2436,7 @@ function forward_game_time(actor, npc, p)
   end
   level.change_game_time(0, hours, minutes)
   WeatherManager.get_weather_manager():forced_weather_change()
-  surge_manager.get_surge_manager().time_forwarded = true
+  SurgeManager.get_surge_manager().isTimeForwarded = true
   printf("forward_game_time: time forwarded on [%d][%d]", hours, minutes)
 end
 

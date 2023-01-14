@@ -19,7 +19,7 @@ import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("core/NewsManager");
+const log: LuaLogger = new LuaLogger("NewsManager");
 
 const tips_icons_old = {
   default: [0, 658],

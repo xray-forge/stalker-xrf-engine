@@ -1,4 +1,5 @@
 -- 999
+local SurgeManager = require("scripts.core.SurgeManager")
 local DropManager = require("scripts.core.DropManager")
 local SimBoard = require("scripts.se.SimBoard")
 local NewsManager = require("scripts.core.NewsManager")
@@ -699,11 +700,11 @@ function disable_ui_only(first_speaker, second_speaker)
 end
 
 function is_surge_running(first_speaker, second_speaker)
-  return surge_manager.get_surge_manager().started == true
+  return SurgeManager.get_surge_manager().isStarted == true
 end
 
 function is_surge_not_running(first_speaker, second_speaker)
-  return surge_manager.get_surge_manager().finished == true
+  return SurgeManager.get_surge_manager().isFinished == true
 end
 
 ---------------------
