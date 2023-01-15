@@ -1,4 +1,5 @@
 -- 173
+local heli_utils = require("scripts.core.heli.heli_utils")
 local StateManager = require("scripts.core.state_management.StateManager")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
@@ -60,7 +61,7 @@ function evaluator_shoot:evaluate()
     end
 
     -- �������� �� ��, ��� �������� ��� �����.
-    if not bind_heli.is_heli_alive(self.a.heli) then
+    if not heli_utils.is_heli_alive(self.a.heli) then
       self.a.heli = nil
       return false
     end

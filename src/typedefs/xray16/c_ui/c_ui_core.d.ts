@@ -42,8 +42,8 @@ declare module "xray16" {
     public AddDialogToRender(window: XR_CUIWindow): unknown;
     public RemoveDialogToRender(window: XR_CUIWindow): unknown;
     public show_messages(): unknown;
-    public GetCustomStatic(value: string): unknown;
-    public AddCustomStatic(a: string, b:boolean): unknown;
+    public GetCustomStatic(value: string): XR_StaticDrawableWrapper | null;
+    public AddCustomStatic(a: string, b: boolean): XR_StaticDrawableWrapper;
     public hide_messages(): unknown;
     public RemoveCustomStatic(value:string): unknown;
   }

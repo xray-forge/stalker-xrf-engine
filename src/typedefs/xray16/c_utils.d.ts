@@ -242,17 +242,17 @@ declare module "xray16" {
 
     public distance_to_sqr(vector: XR_vector) : number;
 
-    public mul(val:number): unknown;
+    public mul(val:number): XR_vector;
     public mul(vector: XR_vector): unknown;
     public mul(vector1: XR_vector, vector2: XR_vector): unknown;
     public mul(vector: XR_vector, val:number): unknown;
 
     public setHP(val1:number, val2:number): unknown;
 
-    public add(val:number): unknown;
-    public add(vector: XR_vector): unknown;
+    public add(val: number): XR_vector;
+    public add(vector: XR_vector): XR_vector;
     public add(vector1: XR_vector, vector2: XR_vector): XR_vector;
-    public add(vector: XR_vector, val:number): unknown;
+    public add(vector: XR_vector, val: number): unknown;
   }
 
   /**
@@ -378,16 +378,15 @@ declare module "xray16" {
   // todo;
 
   /**
-   C++ class Fbox {
-    property max;
-    property min;
-
-    Fbox ();
-
-  };
+   * C++ class Fbox {
+   * @customConstructor Fbox
    */
+  export class XR_Fbox {
+    public max: { x: number; y: number };
+    public min: { x: number; y: number };
 
-  // todo;
+    public constructor();
+  }
 
   /**
    * C++ class CGameGraph {

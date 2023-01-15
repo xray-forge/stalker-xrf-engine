@@ -10,6 +10,7 @@ import {
 import { Optional } from "@/mod/lib/types";
 import { ActorProxy, IActorProxy } from "@/mod/scripts/core/ActorProxy";
 import { ISignalLightBinder } from "@/mod/scripts/core/binders/SignalLightBinder";
+import { HeliCombat } from "@/mod/scripts/core/heli/HeliCombat";
 import { RestrictorManager } from "@/mod/scripts/core/RestrictorManager";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -51,6 +52,7 @@ export interface ITradeManagerDescriptor {
 export interface IStoredObject<T = XR_game_object> {
   [index: string]: any;
 
+  combat?: HeliCombat;
   anim_head?: keyof TXR_MonsterSpaces;
   action?: any;
   ini?: XR_ini_file;
@@ -101,7 +103,7 @@ export function getActor(): Optional<XR_game_object> {
   return actor;
 }
 
-export function hetHeliEnemiesCount(): number {
+export function getHeliEnemiesCount(): number {
   return heliEnemyCount;
 }
 

@@ -83,6 +83,13 @@ export function distanceBetween(first: XR_game_object, second: XR_game_object): 
 /**
  * todo: Description
  */
+export function distanceBetween2d(a: XR_vector, b: XR_vector): number {
+  return math.sqrt((b.x - a.x) ** 2 + (b.z - a.z) ** 2);
+}
+
+/**
+ * todo: Description
+ */
 export function distanceBetweenSafe(first: Optional<XR_game_object>, second: Optional<XR_game_object>): number {
   if (first !== null && second !== null) {
     return first.position().distance_to(second.position());

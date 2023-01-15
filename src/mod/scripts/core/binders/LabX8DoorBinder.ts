@@ -51,8 +51,6 @@ export const LabX8DoorBinder: ILabX8DoorBinder = declare_xr_class("LabX8DoorBind
   __init(object: XR_game_object): void {
     xr_class_super(object);
 
-    storage.set(object.id(), {});
-
     let ini: XR_ini_file = object.spawn_ini()!;
 
     if (!ini.section_exist(ANIMATED_OBJECT_SECT)) {
@@ -145,6 +143,10 @@ export const LabX8DoorBinder: ILabX8DoorBinder = declare_xr_class("LabX8DoorBind
 
     this.idle_delay = getConfigNumber(ini, ANIMATED_OBJECT_SECT, "idle_delay", null, false, 2000);
     this.start_delay = getConfigNumber(ini, ANIMATED_OBJECT_SECT, "start_delay", null, false, 0);
+  },
+  reinit(): void {
+    object_binder.reinit(this);
+    storage.set(this.object.id(), {});
   },
   net_spawn(object: XR_cse_alife_object): boolean {
     if (!object_binder.net_spawn(this, object)) {
@@ -289,17 +291,17 @@ export const LabX8DoorBinder: ILabX8DoorBinder = declare_xr_class("LabX8DoorBind
     return true;
   },
   save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, "LabX8DoorBinder");
+    setSaveMarker(packet, false, LabX8DoorBinder.__name);
     object_binder.save(this, packet);
     get_global<AnyCallablesModule>("xr_logic").save_obj(this.object, packet);
     packet.w_bool(this.is_idle);
     packet.w_bool(this.is_play_fwd);
     // --    packet.w_u32(this.idle_end)
     packet.w_float(this.object.get_physics_object().anim_time_get());
-    setSaveMarker(packet, true, "LabX8DoorBinder");
+    setSaveMarker(packet, true, LabX8DoorBinder.__name);
   },
   load(packet: XR_net_packet): void {
-    setLoadMarker(packet, false, "LabX8DoorBinder");
+    setLoadMarker(packet, false, LabX8DoorBinder.__name);
     object_binder.load(this, packet);
     get_global<AnyCallablesModule>("xr_logic").load_obj(this.object, packet);
     this.is_idle = packet.r_bool();
@@ -307,6 +309,6 @@ export const LabX8DoorBinder: ILabX8DoorBinder = declare_xr_class("LabX8DoorBind
     //    this.idle_end = packet.r_u32()
     this.anim_time = packet.r_float();
     this.loaded = true;
-    setLoadMarker(packet, true, "LabX8DoorBinder");
+    setLoadMarker(packet, true, LabX8DoorBinder.__name);
   }
 } as ILabX8DoorBinder);

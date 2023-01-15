@@ -1018,13 +1018,19 @@ end
 ]]--
 
 function heli_start_flame(actor, npc)
-  bind_heli.heli_start_flame(npc)
+  npc:get_helicopter():StartFlame()
 end
 
 function heli_die(actor, npc)
-  bind_heli.heli_die(npc)
-end
+  local heli = npc:get_helicopter()
+  local st   = db.storage[npc:id()]
 
+  heli:Die()
+  db.del_heli(npc)
+
+  st.last_alt       = heli:GetRealAltitude()
+  st.alt_check_time = time_global() + 1000
+end
 
 --'-----------------------------------------------------------------------------------
 --' ������� ��� ������ � ��������� ���������

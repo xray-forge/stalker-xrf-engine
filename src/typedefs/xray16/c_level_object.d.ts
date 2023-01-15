@@ -87,10 +87,10 @@ declare module "xray16" {
     public m_exploded: boolean;
     public m_flame_started: boolean;
     public m_light_started: boolean;
-    public m_max_mgun_dist: unknown;
-    public m_max_rocket_dist: unknown;
-    public m_min_mgun_dist: unknown;
-    public m_min_rocket_dist: unknown;
+    public m_max_mgun_dist: number;
+    public m_max_rocket_dist: number;
+    public m_min_mgun_dist: number;
+    public m_min_rocket_dist: number;
     public m_syncronize_rocket: unknown;
     public m_time_between_rocket_attack: unknown;
     public m_use_mgun_on_attack: boolean;
@@ -98,28 +98,29 @@ declare module "xray16" {
 
     public constructor();
 
-    public isVisible(game_object: XR_game_object): unknown;
+    public isVisible(game_object: XR_game_object): boolean;
     public GetSafeAltitude(): unknown;
     public GetRealAltitude(): unknown;
-    public GetCurrVelocity(): unknown;
-    public GetSpeedInDestPoint(value: number): unknown;
+    public GetCurrVelocity(): number;
+    public GetSpeedInDestPoint(value: number): number;
     public GetOnPointRangeDist(): unknown;
-    public GetMaxVelocity(): unknown;
+    public GetMaxVelocity(): number;
     public GetfHealth(): number;
     public GetMovementState(): unknown;
     public GetBodyState(): unknown;
-    public GetCurrVelocityVec(): unknown;
+    public GetCurrVelocityVec(): XR_vector;
     public GetState(): unknown;
-    public GetDistanceToDestPosition(): unknown;
-    public GetHuntState(): unknown; public SetSpeedInDestPoint(value: number): unknown;
+    public GetDistanceToDestPosition(): number;
+    public GetHuntState(): unknown;
+    public SetSpeedInDestPoint(value: number): unknown;
     public SetLinearAcc(value1: number, value2: number): unknown;
     public SetfHealth(value: number): unknown;
     public SetMaxVelocity(value: number): unknown;
-    public SetEnemy(game_object:XR_vector): unknown;
-    public SetEnemy(vector: XR_vector): unknown;
+    public SetEnemy(game_object: XR_game_object | null): void;
+    public SetEnemy(vector: XR_vector): void;
     public SetFireTrailLength(value: number): unknown;
     public SetBarrelDirTolerance(value: number): unknown;
-    public SetDestPosition(vector: XR_vector): unknown;
+    public SetDestPosition(vector: XR_vector): void;
     public SetOnPointRangeDist(value: number): unknown;
 
     public LookAtPoint(vector: XR_vector, value: boolean): unknown;
@@ -128,10 +129,10 @@ declare module "xray16" {
     public TurnLighting(value: boolean): unknown;
     public UseFireTrail(): unknown;
     public UseFireTrail(value: boolean): unknown;
-    public GoPatrolByRoundPath(vector: XR_vector, value1: number, value2: boolean): unknown;
-    public Die(): unknown;
-    public StartFlame(): unknown;
-    public TurnEngineSound(enabled: boolean): unknown;
-    public ClearEnemy(): unknown;
+    public GoPatrolByRoundPath(vector: XR_vector, value1: number, value2: boolean): void;
+    public Die(): void;
+    public StartFlame(): void;
+    public TurnEngineSound(enabled: boolean): void;
+    public ClearEnemy(): void;
   }
 }

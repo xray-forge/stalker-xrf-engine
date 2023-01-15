@@ -1,3 +1,4 @@
+import { HeliMove } from "@/mod/scripts/core/heli/HeliMove";
 import { MobCombat } from "@/mod/scripts/core/mob/MobCombat";
 import { MobDeath } from "@/mod/scripts/core/mob/MobDeath";
 import { MobHome } from "@/mod/scripts/core/mob/MobHome";
@@ -62,7 +63,7 @@ export function initializeModules(): void {
   // --loadScheme("ph_target",						"ph_target",		stype_item)
   loadScheme("ph_oscillate", "ph_oscillate", stype_item);
 
-  loadScheme("heli_move", "heli_move", stype_heli);
+  loadScheme(HeliMove, "heli_move", stype_heli);
 
   loadScheme("sr_no_weapon", "sr_no_weapon", stype_restrictor);
   loadScheme("sr_teleport", "sr_teleport", stype_restrictor);

@@ -1,5 +1,3 @@
-import { XR_CHelicopter } from "xray16";
-
 declare module "xray16" {
   /**
    * C++ class CGameObject : DLL_Pure,ISheduled,ICollidable,IRenderable {
@@ -410,7 +408,7 @@ declare module "xray16" {
     public path_completed(): unknown;
     public active_detector(): unknown;
     public release_stand_sleep_animation(): unknown;
-    public set_fastcall(cb: () => boolean, object: XR_game_object): unknown;
+    public set_fastcall<T>(cb: (this: T) => boolean, object: T): unknown;
     public set_smart_cover_target(vector: XR_vector): unknown;
     public set_smart_cover_target(game_object: XR_game_object): unknown;
     public set_smart_cover_target(): unknown;
@@ -706,7 +704,7 @@ declare module "xray16" {
       caption: string, news_text: string, texture: string, timeout: number, show_time: number, value6: number
     ): void;
     public best_enemy(): XR_game_object | null;
-    public death_time(): unknown;
+    public death_time(): number;
     public get_visibility_state(): unknown;
     public center(): unknown;
     public best_cover(vector1: XR_vector, vector2: XR_vector, value3: number, value4: number, value5: number): unknown;

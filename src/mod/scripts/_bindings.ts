@@ -9,6 +9,7 @@ import { ArtefactBinder } from "@/mod/scripts/core/binders/ArtefactBinder";
 import { CampBinder } from "@/mod/scripts/core/binders/CampBinder";
 import { CampfireBinder } from "@/mod/scripts/core/binders/CampfireBinder";
 import { CrowBinder } from "@/mod/scripts/core/binders/CrowBinder";
+import { HeliBinder } from "@/mod/scripts/core/binders/HeliBinder";
 import { LabX8DoorBinder } from "@/mod/scripts/core/binders/LabX8DoorBinder";
 import { LevelChangerBinder } from "@/mod/scripts/core/binders/LevelChangerBinder";
 import { MonsterBinder } from "@/mod/scripts/core/binders/MonsterBinder";
@@ -35,11 +36,7 @@ list = {
   bindArenaZone: (object: XR_game_object) => {
     const ini: Optional<XR_ini_file> = object.spawn_ini();
 
-    if (ini === null) {
-      return;
-    }
-
-    if (ini.section_exist("arena_zone") && alife() !== null) {
+    if (ini !== null && ini.section_exist("arena_zone") && alife() !== null) {
       object.bind_object(create_xr_class_instance(ArenaZoneBinder, object));
     }
   },
@@ -47,6 +44,13 @@ list = {
   bindCamp: createBinder(CampBinder),
   bindCampfire: createBinder(CampfireBinder),
   bindCrow: createBinder(CrowBinder),
+  bindHeli: (object: XR_game_object) => {
+    const ini: Optional<XR_ini_file> = object.spawn_ini();
+
+    if (ini !== null && ini.section_exist("logic")) {
+      object.bind_object(create_xr_class_instance(HeliBinder, object, ini));
+    }
+  },
   bindLabX8Door: createBinder(LabX8DoorBinder),
   bindLevelChanger: createBinder(LevelChangerBinder),
   bindMonster: createBinder(MonsterBinder),

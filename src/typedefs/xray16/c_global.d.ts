@@ -1,3 +1,5 @@
+import { XR_Fbox } from "xray16";
+
 declare module "xray16" {
   /**
    * namespace global {
@@ -82,7 +84,7 @@ declare module "xray16" {
     rain_factor(this: void): unknown;
     remove_pp_effector(this: void, num: number): unknown;
     add_pp_effector(this: void, str: string, num: number, val: boolean): unknown;
-    get_bounding_volume(this: void): unknown;
+    get_bounding_volume(this: void): XR_Fbox;
     set_snd_volume(this: void, num: number): unknown;
     add_cam_effector(this: void, effect: string, num: number, val: boolean, scriptPath: string): unknown;
     add_cam_effector2(this: void, str1: string, num1: number, val: boolean, str2: string, num2: number): unknown;

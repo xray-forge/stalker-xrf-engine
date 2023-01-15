@@ -250,7 +250,6 @@ function disable_generic_schemes(npc, stype)
     xr_combat.disable_scheme(npc, "combat")
     xr_hit.disable_scheme(npc, "hit")
     xr_meet.disable_scheme(npc, "actor_dialogs")
-    --'xr_heli_hunter.disable_scheme(npc, "heli_hunter")
     xr_combat_ignore.disable_scheme(npc, "combat_ignore")
     utilsAlife.disable_invulnerability(npc)
   elseif stype == schemes.stype_mobile then
@@ -307,9 +306,6 @@ function enable_generic_schemes(ini, npc, stype, section)
 
     local death_section = utils.cfg_get_string(ini, section, "on_death", npc, false, "")
     xr_death.set_death(npc, ini, "death", death_section)
-
-    --'local heli_hunter_section = utils.cfg_get_string(ini, section, "heli_hunter", npc, false, "")
-    --'xr_heli_hunter.set_scheme(npc, ini, "heli_hunter", heli_hunter_section)
 
     xr_combat_ignore.set_combat_ignore_checker(npc, ini, "combat_ignore")
     xr_reach_task.set_reach_task(npc, ini, "reach_task")

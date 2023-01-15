@@ -190,8 +190,8 @@ declare module "xray16" {
     public r_s64(): unknown;
     public w_angle16(value: number): unknown;
     public r_tell(): number;
-    public r_s16(value: number): unknown;
-    public r_s16(): unknown;
+    public r_s16(value: number): number;
+    public r_s16(): number;
     public w_clientID(ClientID: XR_ClientID): void;
     public r_elapsed(): unknown;
     public r_u64(value: number): unknown;

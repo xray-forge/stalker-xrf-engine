@@ -485,4 +485,19 @@ declare module "xray16" {
   export class XR_CPhraseDialog {
     public AddPhrase(text: string, phrase_id: string, prev_phrase_id: string, goodwill_level: number): XR_CPhrase;
   }
+
+  /**
+   * C++ class StaticDrawableWrapper
+   * @customConstructor StaticDrawableWrapper
+   */
+  export class XR_StaticDrawableWrapper {
+    public Draw(): void;
+    public Update(): void;
+
+    public IsActual(): boolean;
+    public SetText(text: string): void;
+
+    public destroy(): void;
+    public wnd(): XR_CUIStatic;
+  }
 }
