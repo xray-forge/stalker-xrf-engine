@@ -1,3 +1,5 @@
+import { XR_CHelicopter } from "xray16";
+
 declare module "xray16" {
   /**
    * C++ class CGameObject : DLL_Pure,ISheduled,ICollidable,IRenderable {
@@ -162,9 +164,23 @@ declare module "xray16" {
 
     // 25 todo: actor_sleep
 
-    // 26 todo: helicopter_on_point
+    /**
+     * 26 todo;
+     */
+    public set_callback(
+      type: TXR_callbacks["helicopter_on_point"],
+      cb?: ((distance: number, current_position: XR_vector, vertex_id: number) => void) | null,
+      object?: XR_object_binder | null
+    ): void;
 
-    // 27 todo: helicopter_on_hit
+    /**
+     * 27 todo;
+     */
+    public set_callback(
+      type: TXR_callbacks["helicopter_on_hit"],
+      cb?: ((damage: number, impulse: number, hit_type: number, who_id: number) => void) | null,
+      object?: XR_object_binder | null
+    ): void;
 
     /**
      * 28 todo;
@@ -750,7 +766,7 @@ declare module "xray16" {
     public set_desired_direction(): unknown;
     public set_desired_direction(vector: XR_vector): unknown;
     public position(): XR_vector;
-    public get_helicopter(): unknown;
+    public get_helicopter(): XR_CHelicopter;
     public get_sound_info(): unknown;
     public find_best_cover(vector: XR_vector): XR_cover_point;
     public register_in_combat(): void;

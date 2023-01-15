@@ -35,7 +35,10 @@ declare module "xray16" {
   }
 
   /**
-   C++ class CCar : CGameObject,holder {
+   * C++ class CCar : CGameObject,holder {
+   * @customConstructor CCar
+   */
+  export class XR_CCar extends XR_CGameObject implements XR_holder {
     public static eWpnActivate: 3;
     public static eWpnAutoFire: 5;
     public static eWpnDesiredDir: 1;
@@ -43,56 +46,29 @@ declare module "xray16" {
     public static eWpnFire: 4;
     public static eWpnToDefaultDir: 6;
 
-    CCar ();
+    public constructor ();
 
-    function _construct();
+    public CanHit(): boolean;
+    public IsObjectVisible(game_object: XR_game_object): boolean;
+    public HasWeapon(): boolean;
+    public GetfHealth(): number;
+    public CurrentVel(): number;
+    public SetExplodeTime(time: number): void;
+    public SetfHealth(value: number): void;
+    public ExplodeTime(): number;
+    public FireDirDiff(): unknown;
+    public CarExplode(): unknown;
 
-    function GetfHealth() const;
-
-    function CurrentVel();
-
-    function getVisible() const;
-
-    function net_Spawn(cse_abstract*);
-
-    function SetParam(number, vector);
-
-    function net_Export(net_packet&);
-
-    function Visual() const;
-
-    function IsObjectVisible(game_object*);
-
-    function SetExplodeTime(number);
-
-    function net_Import(net_packet&);
-
-    function HasWeapon();
-
-    function SetfHealth(number);
-
-    function engaged();
-
-    function ExplodeTime();
-
-    function FireDirDiff();
-
-    function CarExplode();
-
-    function CanHit();
-
-    function getEnabled() const;
-
-    function Action(number, number);
-
-    function use(CGameObject*);
-
-  };
-   */
-  // todo;
+    public engaged(): boolean;
+    public Action(value1: number, value2: number): unknown;
+    public SetParam(value1: number, vector: XR_vector): unknown;
+  }
 
   /**
-   C++ class CHelicopter : CGameObject {
+   * C++ class CHelicopter : CGameObject {
+   * @customConstructor CHelicopter
+   */
+  export class XR_CHelicopter extends XR_CGameObject {
     public static eAlive: 0;
     public static eBodyByPath: 0;
     public static eBodyToPoint: 1;
@@ -107,106 +83,55 @@ declare module "xray16" {
     public static eMovTakeOff: 5;
     public static eMovToPoint: 1;
 
-    property m_dead;
-    property m_exploded;
-    property m_flame_started;
-    property m_light_started;
-    property m_max_mgun_dist;
-    property m_max_rocket_dist;
-    property m_min_mgun_dist;
-    property m_min_rocket_dist;
-    property m_syncronize_rocket;
-    property m_time_between_rocket_attack;
-    property m_use_mgun_on_attack;
-    property m_use_rocket_on_attack;
+    public m_dead: boolean;
+    public m_exploded: boolean;
+    public m_flame_started: boolean;
+    public m_light_started: boolean;
+    public m_max_mgun_dist: unknown;
+    public m_max_rocket_dist: unknown;
+    public m_min_mgun_dist: unknown;
+    public m_min_rocket_dist: unknown;
+    public m_syncronize_rocket: unknown;
+    public m_time_between_rocket_attack: unknown;
+    public m_use_mgun_on_attack: boolean;
+    public m_use_rocket_on_attack: boolean;
 
-    CHelicopter ();
+    public constructor();
 
-    function _construct();
+    public isVisible(game_object: XR_game_object): unknown;
+    public GetSafeAltitude(): unknown;
+    public GetRealAltitude(): unknown;
+    public GetCurrVelocity(): unknown;
+    public GetSpeedInDestPoint(value: number): unknown;
+    public GetOnPointRangeDist(): unknown;
+    public GetMaxVelocity(): unknown;
+    public GetfHealth(): number;
+    public GetMovementState(): unknown;
+    public GetBodyState(): unknown;
+    public GetCurrVelocityVec(): unknown;
+    public GetState(): unknown;
+    public GetDistanceToDestPosition(): unknown;
+    public GetHuntState(): unknown; public SetSpeedInDestPoint(value: number): unknown;
+    public SetLinearAcc(value1: number, value2: number): unknown;
+    public SetfHealth(value: number): unknown;
+    public SetMaxVelocity(value: number): unknown;
+    public SetEnemy(game_object:XR_vector): unknown;
+    public SetEnemy(vector: XR_vector): unknown;
+    public SetFireTrailLength(value: number): unknown;
+    public SetBarrelDirTolerance(value: number): unknown;
+    public SetDestPosition(vector: XR_vector): unknown;
+    public SetOnPointRangeDist(value: number): unknown;
 
-    function SetSpeedInDestPoint(number);
-
-    function getVisible() const;
-
-    function LookAtPoint(vector, boolean);
-
-    function GetRealAltitude();
-
-    function GetCurrVelocity();
-
-    function SetLinearAcc(number, number);
-
-    function GoPatrolByPatrolPath(string, number);
-
-    function GetSpeedInDestPoint(number);
-
-    function isVisible(game_object*);
-
-    function net_Import(net_packet&);
-
-    function SetMaxVelocity(number);
-
-    function SetfHealth(number);
-
-    function GetMovementState();
-
-    function SetEnemy(game_object*);
-    function SetEnemy(vector*);
-
-    function getEnabled() const;
-
-    function GetfHealth() const;
-
-    function Explode();
-
-    function SetOnPointRangeDist(number);
-
-    function SetFireTrailLength(number);
-
-    function GetOnPointRangeDist();
-
-    function GetMaxVelocity();
-
-    function TurnLighting(boolean);
-
-    function SetBarrelDirTolerance(number);
-
-    function GetBodyState();
-
-    function GetCurrVelocityVec();
-
-    function net_Export(net_packet&);
-
-    function SetDestPosition(vector*);
-
-    function UseFireTrail();
-    function UseFireTrail(boolean);
-
-    function GoPatrolByRoundPath(vector, number, boolean);
-
-    function net_Spawn(cse_abstract*);
-
-    function GetState();
-
-    function Die();
-
-    function StartFlame();
-
-    function Visual() const;
-
-    function GetDistanceToDestPosition();
-
-    function GetHuntState();
-
-    function TurnEngineSound(boolean);
-
-    function GetSafeAltitude();
-
-    function ClearEnemy();
-
-    function use(CGameObject*);
-
-  };
-   */
-  // todo;
+    public LookAtPoint(vector: XR_vector, value: boolean): unknown;
+    public GoPatrolByPatrolPath(value1: string, value2: number): unknown;
+    public Explode(): unknown;
+    public TurnLighting(value: boolean): unknown;
+    public UseFireTrail(): unknown;
+    public UseFireTrail(value: boolean): unknown;
+    public GoPatrolByRoundPath(vector: XR_vector, value1: number, value2: boolean): unknown;
+    public Die(): unknown;
+    public StartFlame(): unknown;
+    public TurnEngineSound(enabled: boolean): unknown;
+    public ClearEnemy(): unknown;
+  }
 }
