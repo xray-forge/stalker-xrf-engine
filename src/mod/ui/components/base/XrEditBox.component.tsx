@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 import { fonts, TFontId } from "@/mod/globals/fonts";
-import { TTextureId } from "@/mod/globals/textures";
+import { TTexture } from "@/mod/globals/textures";
 import { IBaseXmlNode, IRgbColor, TTextAlign } from "@/mod/lib/types";
 import { XrText } from "@/mod/ui/components/base/XrText.component";
 import { XrTexture } from "@/mod/ui/components/base/XrTexture.component";
@@ -9,7 +9,7 @@ import { XrTexture } from "@/mod/ui/components/base/XrTexture.component";
 import { normalizeBaseNodeProps } from "#/utils";
 
 export interface IXrEditBoxProps extends IBaseXmlNode {
-  texture?: TTextureId;
+  texture?: TTexture;
   color?: IRgbColor;
   font?: TFontId;
   align?: TTextAlign;

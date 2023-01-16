@@ -1,6 +1,6 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
-import { texturesIngame, TTextureId } from "@/mod/globals/textures";
+import { texturesIngame, TTexture } from "@/mod/globals/textures";
 import { IBaseXmlNode } from "@/mod/lib/types";
 import { XrTexture } from "@/mod/ui/components/base/XrTexture.component";
 
@@ -10,7 +10,7 @@ export interface IXrCheckBoxProps extends IBaseXmlNode {
   itemTag?: string;
 
   stretch?: boolean;
-  texture?: TTextureId;
+  texture?: TTexture;
 
   entry?: string;
   group?: string;

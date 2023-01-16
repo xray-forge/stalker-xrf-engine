@@ -15,7 +15,7 @@ export function stringifyAsJson(target: unknown, separator: string = " "): strin
     let result: string = "{";
 
     for (const [k, v] of pairs(target)) {
-      result += string.format('"%s": %s,%s', k, stringifyAsJson(v, separator), separator);
+      result += string.format("\"%s\": %s,%s", k, stringifyAsJson(v, separator), separator);
     }
 
     return result + "}";

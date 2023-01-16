@@ -18,14 +18,18 @@ function set_sound_play(npc_id, sound, faction, point)
   if sound == nil then
     return
   end
+
   if sound_theme.theme[sound] == nil then
     abort("set_sound_play. Wrong sound theme [%s], npc[%s]", tostring(sound), npc_id)
     return
   end
+
   local snd_theme = sound_theme.theme[sound]
+
   if snd_theme.class_id == "looped_sound" then
     abort("You trying to play sound [%s] which type is looped", sound)
   end
+
   if sound_table[npc_id] == nil or snd_theme.play_always == true then
     if sound_table[npc_id] ~= nil then
       --printf("sound table not nil")

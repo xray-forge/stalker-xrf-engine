@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 import { TFontId } from "@/mod/globals/fonts";
-import { TTextureId } from "@/mod/globals/textures";
+import { TTexture } from "@/mod/globals/textures";
 import { IRgbColor, TTextAlign } from "@/mod/lib/types";
 import { XrText, XrTextColor } from "@/mod/ui/components/base";
 import { CustomTabButton } from "@/mod/ui/components/custom/CustomTabButton.component";
@@ -18,7 +18,7 @@ export interface ICustomTabProps {
   textColor: IRgbColor;
   align?: TTextAlign;
   vertAlign?: TTextAlign;
-  tabs: Array<{ id: string; label: string; texture: TTextureId }>;
+  tabs: Array<{ id: string; label: string; texture: TTexture }>;
 }
 
 export function CustomTab(props: ICustomTabProps): JSXNode {

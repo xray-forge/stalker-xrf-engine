@@ -255,7 +255,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
         get_global<AnyCallablesModule>("xr_effects").disable_ui_only(getActor(), null);
 
         level.add_cam_effector(animations.camera_effects_surge_02, 10, false, "_extern.anabiotic_callback");
-        level.add_pp_effector("surge_fade.ppe", 11, false);
+        level.add_pp_effector(animations.surge_fade, 11, false);
 
         giveInfo("anabiotic_in_process");
 

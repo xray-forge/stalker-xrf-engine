@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 import { TFontId } from "@/mod/globals/fonts";
-import { TTextureId } from "@/mod/globals/textures";
+import { TTexture } from "@/mod/globals/textures";
 import { IBaseXmlNode, IRgbColor, TTextAlign } from "@/mod/lib/types";
 import { XrTextColor } from "@/mod/ui/components/base/XrTextColor.component";
 import { XrTexture } from "@/mod/ui/components/base/XrTexture.component";
@@ -17,7 +17,7 @@ export interface IXrButtonProps extends IBaseXmlNode {
   label: string;
   font: TFontId;
   textColor: IRgbColor;
-  texture: TTextureId;
+  texture: TTexture;
   align?: TTextAlign;
   stretch?: boolean;
 }

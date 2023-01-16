@@ -58,4 +58,4 @@ export const story_ids = {
   zat_b56_spot: "zat_b56_spot",
   zat_b5_spot: "zat_b5_spot",
   zat_b7_spot: "zat_b7_spot"
-};
+} as const;

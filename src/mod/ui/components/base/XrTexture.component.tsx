@@ -1,16 +1,16 @@
 import { JSXXML, JSXNode } from "jsx-xml";
 
-import { TTextureId } from "@/mod/globals/textures";
+import { TTexture } from "@/mod/globals/textures";
 import { IBaseXmlNode } from "@/mod/lib/types";
 
 export interface IXrTextureProps extends IBaseXmlNode {
   tag?: never;
 
-  id?: TTextureId;
-  idEnabled?: TTextureId;
-  idTouched?: TTextureId;
-  idDisabled?: TTextureId;
-  idHighlighted?: TTextureId;
+  id?: TTexture;
+  idEnabled?: TTexture;
+  idTouched?: TTexture;
+  idDisabled?: TTexture;
+  idHighlighted?: TTexture;
 
   a?: number;
   r?: number;

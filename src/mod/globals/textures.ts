@@ -3608,4 +3608,4 @@ export const texturesIngame = {
 
 export type TTextures = typeof textures & typeof texturesIngame;
 
-export type TTextureId = TTextures[keyof TTextures];
+export type TTexture = TTextures[keyof TTextures];

@@ -1,5 +1,7 @@
 import { editor, TXR_cls_key, XR_object_factory } from "xray16";
 
+import { inventory_objects } from "@/mod/globals/invertory_objects";
+import { weapons } from "@/mod/globals/items";
 import { Actor } from "@/mod/scripts/se/Actor";
 import { AnomalousZone } from "@/mod/scripts/se/anomal_zones/AnomalousZone";
 import { ZoneRestrictor } from "@/mod/scripts/se/anomal_zones/ZoneRestrictor";
@@ -122,45 +124,69 @@ export function registerGameClasses(object_factory: XR_object_factory): void {
   clientServerRegister(object_factory, "CHelmet", ItemHelmet.__name, "E_HLMET", "equ_helmet_s");
 
   // -- WEAPONS --------------------------------------------------------------------------------------------------------
-  clientServerRegister(object_factory, "CWeaponBinoculars", ItemWeaponMagazined.__name, "WP_BINOC", "wpn_binocular_s");
-  clientServerRegister(object_factory, "CWeaponKnife", ItemWeapon.__name, "WP_KNIFE", "wpn_knife_s");
-  clientServerRegister(object_factory, "CWeaponBM16", ItemWeaponShotgun.__name, "WP_BM16", "wpn_bm16_s");
-  clientServerRegister(object_factory, "CWeaponRG6", ItemWeaponShotgun.__name, "WP_RG6", "wpn_rg6_s");
-  clientServerRegister(object_factory, "CWeaponShotgun", ItemWeaponShotgun.__name, "WP_SHOTG", "wpn_shotgun_s");
-  clientServerRegister(object_factory, "CWeaponGroza", ItemWeaponMagazinedWGl.__name, "WP_GROZA", "wpn_groza_s");
-  clientServerRegister(object_factory, "CWeaponAK74", ItemWeaponMagazinedWGl.__name, "WP_AK74", "wpn_ak74_s");
-  clientServerRegister(object_factory, "CWeaponSVD", ItemWeaponMagazined.__name, "WP_SVD", "wpn_svd_s");
-  clientServerRegister(object_factory, "CWeaponLR300", ItemWeaponMagazined.__name, "WP_LR300", "wpn_lr300_s");
-  clientServerRegister(object_factory, "CWeaponHPSA", ItemWeaponMagazined.__name, "WP_HPSA", "wpn_hpsa_s");
-  clientServerRegister(object_factory, "CWeaponPM", ItemWeaponMagazined.__name, "WP_PM", "wpn_pm_s");
-  clientServerRegister(object_factory, "CWeaponRPG7", ItemWeaponMagazined.__name, "WP_RPG7", "wpn_rpg7_s");
-  clientServerRegister(object_factory, "CWeaponSVU", ItemWeaponMagazined.__name, "WP_SVU", "wpn_svu_s");
-  clientServerRegister(object_factory, "CWeaponUSP45", ItemWeaponMagazined.__name, "WP_USP45", "wpn_usp45_s");
-  clientServerRegister(object_factory, "CWeaponVal", ItemWeaponMagazined.__name, "WP_VAL", "wpn_val_s");
-  clientServerRegister(object_factory, "CWeaponVintorez", ItemWeaponMagazined.__name, "WP_VINT", "wpn_vintorez_s");
-  clientServerRegister(object_factory, "CWeaponWalther", ItemWeaponMagazined.__name, "WP_WALTH", "wpn_walther_s");
+  clientServerRegister(
+    object_factory,
+    "CWeaponBinoculars",
+    ItemWeaponMagazined.__name,
+    "WP_BINOC",
+    weapons.wpn_binocular_s
+  );
+  clientServerRegister(object_factory, "CWeaponKnife", ItemWeapon.__name, "WP_KNIFE", weapons.wpn_knife_s);
+  clientServerRegister(object_factory, "CWeaponBM16", ItemWeaponShotgun.__name, "WP_BM16", weapons.wpn_bm16_s);
+  clientServerRegister(object_factory, "CWeaponRG6", ItemWeaponShotgun.__name, "WP_RG6", weapons.wpn_rg6_s);
+  clientServerRegister(object_factory, "CWeaponShotgun", ItemWeaponShotgun.__name, "WP_SHOTG", weapons.wpn_shotgun_s);
+  clientServerRegister(object_factory, "CWeaponGroza", ItemWeaponMagazinedWGl.__name, "WP_GROZA", weapons.wpn_groza_s);
+  clientServerRegister(object_factory, "CWeaponAK74", ItemWeaponMagazinedWGl.__name, "WP_AK74", weapons.wpn_ak74_s);
+  clientServerRegister(object_factory, "CWeaponSVD", ItemWeaponMagazined.__name, "WP_SVD", weapons.wpn_svd_s);
+  clientServerRegister(object_factory, "CWeaponLR300", ItemWeaponMagazined.__name, "WP_LR300", weapons.wpn_lr300_s);
+  clientServerRegister(object_factory, "CWeaponHPSA", ItemWeaponMagazined.__name, "WP_HPSA", weapons.wpn_hpsa_s);
+  clientServerRegister(object_factory, "CWeaponPM", ItemWeaponMagazined.__name, "WP_PM", weapons.wpn_pm_s);
+  clientServerRegister(object_factory, "CWeaponRPG7", ItemWeaponMagazined.__name, "WP_RPG7", weapons.wpn_rpg7_s);
+  clientServerRegister(object_factory, "CWeaponSVU", ItemWeaponMagazined.__name, "WP_SVU", weapons.wpn_svu_s);
+  clientServerRegister(object_factory, "CWeaponUSP45", ItemWeaponMagazined.__name, "WP_USP45", weapons.wpn_usp45_s);
+  clientServerRegister(object_factory, "CWeaponVal", ItemWeaponMagazined.__name, "WP_VAL", weapons.wpn_val_s);
+  clientServerRegister(
+    object_factory,
+    "CWeaponVintorez",
+    ItemWeaponMagazined.__name,
+    "WP_VINT",
+    weapons.wpn_vintorez_s
+  );
+  clientServerRegister(object_factory, "CWeaponWalther", ItemWeaponMagazined.__name, "WP_WALTH", weapons.wpn_walther_s);
   // --cs_register(object_factory, "CWeaponStatMgun", "se_item.se_mgun", "W_STMGUN", "wpn_stat_mgun");
   // --cs_register(object_factory, "CWeaponMagazined", "se_item.se_weapon_magazined", "WP_MAGAZ", "wpn_magazined_s");
-  clientServerRegister(object_factory, "CWeaponAmmo", ItemAmmo.__name, "AMMO_S", "wpn_ammo_s");
-  clientServerRegister(object_factory, "CWeaponAmmo", ItemAmmo.__name, "S_VOG25", "wpn_ammo_vog25_s");
-  clientServerRegister(object_factory, "CWeaponAmmo", ItemAmmo.__name, "S_OG7B", "wpn_ammo_og7b_s");
-  clientServerRegister(object_factory, "CWeaponAmmo", ItemAmmo.__name, "S_M209", "wpn_ammo_m209_s");
-  clientServerRegister(object_factory, "CF1", ItemGrenade.__name, "G_F1_S", "wpn_grenade_f1_s");
-  clientServerRegister(object_factory, "CRGD5", ItemGrenade.__name, "G_RGD5_S", "wpn_grenade_rgd5_s");
-  clientServerRegister(object_factory, "CMedkit", ItemEatable.__name, "S_MEDKI", "obj_medkit_s");
-  clientServerRegister(object_factory, "CMedkit", ItemEatable.__name, "S_BANDG", "obj_bandage_s");
-  clientServerRegister(object_factory, "CAntirad", ItemEatable.__name, "S_ANTIR", "obj_antirad_s");
-  clientServerRegister(object_factory, "CFoodItem", ItemEatable.__name, "S_FOOD", "obj_food_s");
-  clientServerRegister(object_factory, "CBottleItem", ItemEatable.__name, "S_BOTTL", "obj_bottle_s");
-  clientServerRegister(object_factory, "CInventoryBox", InventoryBox.__name, "S_INVBOX", "inventory_box_s");
-  clientServerRegister(object_factory, "CExplosiveItem", ItemExplosive.__name, "S_EXPLO", "obj_explosive_s");
-  clientServerRegister(object_factory, "CPda", ItemPda.__name, "S_PDA", "obj_pda_s");
+  clientServerRegister(object_factory, "CWeaponAmmo", ItemAmmo.__name, "AMMO_S", weapons.wpn_ammo_s);
+  clientServerRegister(object_factory, "CWeaponAmmo", ItemAmmo.__name, "S_VOG25", weapons.wpn_ammo_vog25_s);
+  clientServerRegister(object_factory, "CWeaponAmmo", ItemAmmo.__name, "S_OG7B", weapons.wpn_ammo_og7b_s);
+  clientServerRegister(object_factory, "CWeaponAmmo", ItemAmmo.__name, "S_M209", weapons.wpn_ammo_m209_s);
+  clientServerRegister(object_factory, "CF1", ItemGrenade.__name, "G_F1_S", weapons.wpn_grenade_f1_s);
+  clientServerRegister(object_factory, "CRGD5", ItemGrenade.__name, "G_RGD5_S", weapons.wpn_grenade_rgd5_s);
+  clientServerRegister(object_factory, "CMedkit", ItemEatable.__name, "S_MEDKI", inventory_objects.obj_medkit_s);
+  clientServerRegister(object_factory, "CMedkit", ItemEatable.__name, "S_BANDG", inventory_objects.obj_bandage_s);
+  clientServerRegister(object_factory, "CAntirad", ItemEatable.__name, "S_ANTIR", inventory_objects.obj_antirad_s);
+  clientServerRegister(object_factory, "CFoodItem", ItemEatable.__name, "S_FOOD", inventory_objects.obj_food_s);
+  clientServerRegister(object_factory, "CBottleItem", ItemEatable.__name, "S_BOTTL", inventory_objects.obj_bottle_s);
+  clientServerRegister(
+    object_factory,
+    "CInventoryBox",
+    InventoryBox.__name,
+    "S_INVBOX",
+    inventory_objects.inventory_box_s
+  );
+  clientServerRegister(
+    object_factory,
+    "CExplosiveItem",
+    ItemExplosive.__name,
+    "S_EXPLO",
+    inventory_objects.obj_explosive_s
+  );
+  clientServerRegister(object_factory, "CPda", ItemPda.__name, "S_PDA", inventory_objects.obj_pda_s);
   clientServerRegister(
     object_factory,
     "CWeaponAutomaticShotgun",
     ItemWeaponAutomaticShotgun.__name,
     "WP_ASHTG",
-    "wpn_auto_shotgun_s"
+    weapons.wpn_auto_shotgun_s
   );
   serverRegister(object_factory, SimSquad.__name, "ON_OFF_S", "online_offline_group_s");
 

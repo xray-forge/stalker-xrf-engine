@@ -16,7 +16,6 @@ import {
 
 import { animations } from "@/mod/globals/animations";
 import { levels, TLevel } from "@/mod/globals/levels";
-import { post_process_effectors } from "@/mod/globals/post_process_effectors";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { AnyCallablesModule, Optional, PartialRecord } from "@/mod/lib/types";
 import { isImmuneToSurge, isObjectOnLevel, isStoryObject, isSurgeEnabledOnLevel } from "@/mod/scripts/core/checkers";
@@ -285,7 +284,7 @@ export class SurgeManager extends AbstractSingletonManager {
           }
 
           if (this.isEffectorSet) {
-            level.add_pp_effector(post_process_effectors.surge_shock, surge_shock_pp_eff_id, true);
+            level.add_pp_effector(animations.surge_shock, surge_shock_pp_eff_id, true);
           }
 
           if (this.second_message_given) {
@@ -371,7 +370,7 @@ export class SurgeManager extends AbstractSingletonManager {
           level.add_cam_effector(animations.camera_effects_earthquake, earthquake_cam_eff_id, true, "");
           this.second_message_given = true;
         } else if (surgeDuration >= 100 && !this.isEffectorSet) {
-          level.add_pp_effector(post_process_effectors.surge_shock, surge_shock_pp_eff_id, true);
+          level.add_pp_effector(animations.surge_shock, surge_shock_pp_eff_id, true);
           // --                level.set_pp_effector_factor(surge_shock_pp_eff, 0, 10)
           this.isEffectorSet = true;
         } else if (surgeDuration >= 35 && !this.blowout_sound) {
@@ -615,7 +614,7 @@ export class SurgeManager extends AbstractSingletonManager {
           return;
         } else {
           level.add_cam_effector(animations.camera_effects_surge_02, sleep_cam_eff_id, false, "_extern.surge_callback");
-          level.add_pp_effector(post_process_effectors.surge_fade, sleep_fade_pp_eff_id, false);
+          level.add_pp_effector(animations.surge_fade, sleep_fade_pp_eff_id, false);
           getActor()!.health = getActor()!.health - 0.05;
         }
       }

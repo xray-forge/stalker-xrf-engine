@@ -1,6 +1,6 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
-import { TTextureId } from "@/mod/globals/textures";
+import { TTexture } from "@/mod/globals/textures";
 import { IBaseXmlNode } from "@/mod/lib/types";
 import { XrTexture } from "@/mod/ui/components/base/XrTexture.component";
 
@@ -15,7 +15,7 @@ export interface IXrStaticProps extends IBaseXmlNode {
   tag?: string;
   stretch?: boolean;
 
-  texture?: TTextureId;
+  texture?: TTexture;
   textureX?: number;
   textureY?: number;
   textureWidth?: number;

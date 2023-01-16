@@ -9,7 +9,7 @@ import {
 } from "xray16";
 
 import { captions } from "@/mod/globals/captions";
-import { sounds } from "@/mod/globals/sounds";
+import { sound_themes } from "@/mod/globals/sounds";
 import { texturesIngame } from "@/mod/globals/textures";
 import { AnyCallable, Maybe, Optional } from "@/mod/lib/types";
 import { isStalkerClassId } from "@/mod/scripts/core/checkers";
@@ -179,7 +179,7 @@ export function send_task(actor: Optional<XR_game_object>, type: TActionType, ta
     time_on_screen = 5000;
   }
 
-  (get_global("xr_sound").set_sound_play as AnyCallable)(actor.id(), sounds.pda_task);
+  (get_global("xr_sound").set_sound_play as AnyCallable)(actor.id(), sound_themes.pda_task);
 
   const news_caption: string = game.translate_string(actionDescriptionByTask[type]);
   const news_text: string = game.translate_string(task.get_title());
@@ -237,7 +237,7 @@ export function send_tip(
     }
   }
 
-  (get_global("xr_sound").set_sound_play as AnyCallable)(actor.id(), sounds.pda_task);
+  (get_global("xr_sound").set_sound_play as AnyCallable)(actor.id(), sound_themes.pda_task);
 
   let texture: string = texturesIngame.ui_iconsTotal_grouping;
 

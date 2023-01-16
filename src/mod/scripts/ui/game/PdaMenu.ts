@@ -2,14 +2,14 @@ import { game } from "xray16";
 
 import { weapons } from "@/mod/globals/items";
 import { monsters, TMonster } from "@/mod/globals/monsters";
-import { texturesIngame } from "@/mod/globals/textures";
-import { Optional } from "@/mod/lib/types";
+import { texturesIngame, TTexture } from "@/mod/globals/textures";
+import { Optional, PartialRecord } from "@/mod/lib/types";
 import { AbstractSingletonManager } from "@/mod/scripts/core/utils/AbstractSingletonManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("PdaMenu");
 
-const killedMonsters = {
+const killedMonsters: PartialRecord<TMonster, { back: TTexture; icon: string }> = {
   [monsters.bloodsucker_weak]: { back: texturesIngame.ui_inGame2_Krovosos, icon: "" },
   [monsters.bloodsucker_normal]: { back: texturesIngame.ui_inGame2_Krovosos_1, icon: "" },
   [monsters.bloodsucker_strong]: { back: texturesIngame.ui_inGame2_Krovosos_2, icon: "" },
