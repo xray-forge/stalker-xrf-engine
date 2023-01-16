@@ -5,7 +5,7 @@ import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("items/ItemArtefact");
+const log: LuaLogger = new LuaLogger("ItemArtefact");
 
 export interface IItemArtefact extends XR_cse_alife_item_artefact {}
 

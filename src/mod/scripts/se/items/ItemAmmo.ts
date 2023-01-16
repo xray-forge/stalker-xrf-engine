@@ -6,7 +6,7 @@ import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("items/ItemAmmo");
+const log: LuaLogger = new LuaLogger("ItemAmmo");
 
 export interface IItemAmmo extends XR_cse_alife_item_ammo {
   secret_item: Optional<boolean>;

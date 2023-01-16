@@ -15,7 +15,7 @@ import { addObject, CROW_STORAGE, deleteObject, storage } from "@/mod/scripts/co
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("core/binders/CrowBinder");
+const log: LuaLogger = new LuaLogger("CrowBinder");
 
 const CROW_DISPOSAL_TIMEOUT: number = 120_000;
 

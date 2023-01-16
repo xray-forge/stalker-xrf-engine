@@ -1,13 +1,12 @@
 import { cse_alife_item_pda, XR_cse_alife_item_pda } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { REGISTERED_ITEMS } from "@/mod/scripts/core/db";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("items/ItemPda");
+const log: LuaLogger = new LuaLogger("ItemPda");
 
 export interface IItemPda extends XR_cse_alife_item_pda {
   secret_item: Optional<boolean>;

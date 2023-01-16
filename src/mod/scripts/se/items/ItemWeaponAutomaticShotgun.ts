@@ -7,7 +7,7 @@ import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("items/ItemWeaponAutomaticShotgun");
+const log: LuaLogger = new LuaLogger("ItemWeaponAutomaticShotgun");
 
 export interface IItemWeaponAutomaticShotgun extends XR_cse_alife_item_weapon_auto_shotgun {
   secret_item: Optional<boolean>;

@@ -48,7 +48,16 @@ end
 -- If explicit global declaration is needed, we can use this utility function and declare something as global from TS
 -- ---------------------------------------------------------------------------------------------------------------------
 _G.declare_global = function (key, value)
-  _G[key] = value
+  local matches = string.gmatch(key, "[^.]+")
+  local target = _G
+  local target_key = matches()
+
+  for match in matches do
+    target = target[target_key]
+    target_key = match;
+  end
+
+  target[target_key] = value
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------

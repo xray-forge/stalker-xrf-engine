@@ -8,11 +8,6 @@ package.path = package.path .. string.format("%sgamedata\\?.script;", getFS():up
 --- --------------------------------------------------------------------------------------------------------------------
 
 require("scripts.inject.lua_globals")
-require("scripts._callbacks")
-require("scripts._declaration")
+require("scripts.inject.declaration")
+
 require("scripts._extern")
-
---- --------------------------------------------------------------------------------------------------------------------
-
--- Called on game start / load for reset and init operations
-start_game_callback = require("scripts.core.start_game").startGame

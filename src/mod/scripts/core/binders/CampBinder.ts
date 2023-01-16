@@ -14,7 +14,7 @@ import { getConfigString } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("core/binders/CampBinder");
+const log: LuaLogger = new LuaLogger("CampBinder");
 
 const CAMP_SECTION: string = "camp";
 

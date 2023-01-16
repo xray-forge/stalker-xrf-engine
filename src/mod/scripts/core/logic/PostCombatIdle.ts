@@ -21,7 +21,7 @@ import { AnimationManager } from "@/mod/scripts/core/state_management/AnimationM
 import { animations } from "@/mod/scripts/core/state_management/lib/state_mgr_animation_list";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("core/logic/PostCombatIdle");
+const log: LuaLogger = new LuaLogger("PostCombatIdle");
 
 export interface IPostCombatSharedState {
   timer: Optional<number>;

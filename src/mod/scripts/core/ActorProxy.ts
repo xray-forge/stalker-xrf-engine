@@ -3,7 +3,7 @@ import { alife, XR_alife_simulator, XR_game_object, XR_LuaBindBase } from "xray1
 import { Optional } from "@/mod/lib/types";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("core/ActorProxy");
+const log: LuaLogger = new LuaLogger("ActorProxy");
 
 export interface IActorProxy extends XR_LuaBindBase {
   initialized: boolean;

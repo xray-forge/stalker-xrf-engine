@@ -20,7 +20,7 @@ import {
 import { addObject, deleteObject, storage } from "@/mod/scripts/core/db";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("core/binders/ArtefactBinder");
+const log: LuaLogger = new LuaLogger("ArtefactBinder");
 const UPDATE_THROTTLE: number = 1_000;
 
 export interface IArtefactBinder extends XR_object_binder {

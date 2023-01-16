@@ -5,7 +5,7 @@ import { clearTaskManager } from "@/mod/scripts/se/task/TaskManager";
 import { actorMenu } from "@/mod/scripts/ui/game/ActorMenu";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("core/start_game");
+const log: LuaLogger = new LuaLogger("start_game");
 
 /**
  * Main start game callback.

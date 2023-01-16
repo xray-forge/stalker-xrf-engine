@@ -22,7 +22,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { setMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("core/binders/AnomalyZoneBinder");
+const log: LuaLogger = new LuaLogger("AnomalyZoneBinder");
 
 // todo: Move to db.
 export const ARTEFACT_WAYS_BY_ARTEFACT_ID: LuaTable<number, string> = new LuaTable();

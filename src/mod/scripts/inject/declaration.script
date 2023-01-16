@@ -14,7 +14,6 @@ local classIds = require("globals.class_ids")
 local behaviours = require("globals.behaviours")
 
 local coreCheckers = require("scripts.core.checkers")
-local coreSchemes = require("scripts.core.schemes")
 local coreStoryObjectsRegistry = require("scripts.core.StoryObjectsRegistry")
 local coreTreasureManager = require("scripts.core.TreasureManager")
 
@@ -30,7 +29,6 @@ local utilsIds = require("scripts.utils.ids")
 local utilsPhysics = require("scripts.utils.physics")
 local utilsTable = require("scripts.utils.table")
 local utilsTime = require("scripts.utils.time")
-local utilsWorld = require("scripts.utils.world")
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
