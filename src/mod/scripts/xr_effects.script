@@ -49,11 +49,6 @@ function update_obj_logic(actor, object, p)
 
       local st = db.storage[obj:id()]
       xr_logic.try_switch_to_another_section(obj, st[st.active_scheme], actor)
-
-      --			if st.active_scheme == "sr_cutscene" then
-      --				st[st.active_scheme].cutscene_action
-      --			end
-
     end
   end
 end

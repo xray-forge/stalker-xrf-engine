@@ -1,6 +1,6 @@
 import { game, get_console, level, task, TXR_TaskState, XR_CGameTask } from "xray16";
 
-import { camera_effects } from "@/mod/globals/camera_effects";
+import { animations } from "@/mod/globals/animations";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { AnyCallablesModule } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
@@ -10,6 +10,7 @@ import { sleep_cam_eff_id, SurgeManager } from "@/mod/scripts/core/SurgeManager"
 import { get_buy_discount, get_sell_discount } from "@/mod/scripts/core/TradeManager";
 import { travelManager } from "@/mod/scripts/core/TravelManager";
 import { weatherManager } from "@/mod/scripts/core/WeatherManager";
+import { ActionCutscene } from "@/mod/scripts/cutscenes/ActionCustscene";
 import { get_task_manager } from "@/mod/scripts/se/task/TaskManager";
 import * as SleepDialogModule from "@/mod/scripts/ui/interaction/SleepDialog";
 import { disableInfo } from "@/mod/scripts/utils/actor";
@@ -28,7 +29,7 @@ dream_callback2 = SleepDialogModule.dream_callback2;
 
 // @ts-ignore global declararation
 anabiotic_callback = () => {
-  level.add_cam_effector(camera_effects.surge_01, 10, false, "_extern.anabiotic_callback2");
+  level.add_cam_effector(animations.camera_effects_surge_01, 10, false, "_extern.anabiotic_callback2");
 
   const rnd = math.random(35, 45);
   const surgeManager: SurgeManager = SurgeManager.getInstance();
@@ -63,7 +64,7 @@ anabiotic_callback2 = () => {
 };
 
 export function surge_callback(): void {
-  level.add_cam_effector(camera_effects.surge_01, sleep_cam_eff_id, false, "_extern.surge_callback2");
+  level.add_cam_effector(animations.camera_effects_surge_01, sleep_cam_eff_id, false, "_extern.surge_callback2");
   // --    level.stop_weather_fx()
   // --    level.change_game_time(0,0,15)
   // --    WeatherManager.get_weather_manager():forced_weather_change()
@@ -130,4 +131,9 @@ travel_manager = {
   actor_have_money: externClassMethod(travelManager, travelManager.actor_have_money),
   actor_have_not_money: externClassMethod(travelManager, travelManager.actor_have_not_money),
   squad_cannot_travel: externClassMethod(travelManager, travelManager.squad_cannot_travel)
+};
+
+// @ts-ignore
+effector_callback = () => {
+  ActionCutscene.onCutsceneEnd();
 };

@@ -3,7 +3,6 @@ import * as fs from "fs";
 import { default as chalk } from "chalk";
 
 import { default as pkg } from "#/../package.json";
-import { TARGET_GAME_DATA_DIR } from "#/build/globals";
 import {
   collectLog,
   buildDynamicUi,
@@ -16,6 +15,7 @@ import {
 } from "#/build/steps";
 import { buildStaticTranslations } from "#/build/steps/translations_statics";
 import { buildStaticUi } from "#/build/steps/ui_statics";
+import { TARGET_GAME_DATA_DIR } from "#/globals";
 import { NodeLogger, TimeTracker } from "#/utils";
 
 export const IS_CLEAN_BUILD: boolean = process.argv.includes("--clean");

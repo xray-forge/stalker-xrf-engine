@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 import { fonts } from "@/mod/globals/fonts";
-import { textures } from "@/mod/globals/textures";
+import { textures, texturesIngame } from "@/mod/globals/textures";
 import { IRgbColor } from "@/mod/lib/types";
 import { XrEditBox, XrStatic } from "@/mod/ui/components/base";
 import { XrListRenderer } from "@/mod/ui/components/base/XrListRenderer.component";
@@ -27,7 +27,7 @@ export function create(): JSXNode {
           width={BASE_WIDTH - 48}
           height={24}
           font={fonts.letterica18}
-          texture={textures.ui_inGame2_edit_box_2}
+          texture={texturesIngame.ui_inGame2_edit_box_2}
           color={TEXT_COLOR}
           vertAlign={"c"}
         />

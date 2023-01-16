@@ -13,6 +13,7 @@ import {
   stype_restrictor,
   stype_stalker
 } from "@/mod/scripts/core/schemes";
+import { ActionCutscene } from "@/mod/scripts/cutscenes/ActionCustscene";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("modules");
@@ -73,7 +74,7 @@ export function initializeModules(): void {
   loadScheme("sr_psy_antenna", "sr_psy_antenna", stype_restrictor);
   loadScheme("sr_postprocess", "sr_postprocess", stype_restrictor);
   loadScheme("sr_particle", "sr_particle", stype_restrictor);
-  loadScheme("sr_cutscene", "sr_cutscene", stype_restrictor);
+  loadScheme(ActionCutscene, "sr_cutscene", stype_restrictor);
   // --loadScheme("sr_bloodsucker",					"sr_bloodsucker",	stype_restrictor)
   loadScheme("sr_monster", "sr_monster", stype_restrictor);
   // --loadScheme("sr_robbery",						"sr_robbery",		stype_restrictor)

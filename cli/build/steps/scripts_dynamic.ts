@@ -3,7 +3,7 @@ import * as fsPromises from "fs/promises";
 import { default as chalk } from "chalk";
 import * as tstl from "typescript-to-lua";
 
-import { BUILD_LUA_TSCONFIG, TARGET_GAME_DATA_DIR } from "#/build/globals";
+import { BUILD_LUA_TSCONFIG, TARGET_GAME_DATA_DIR } from "#/globals";
 import { NodeLogger, readDirContent } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("BUILD_LUA_SCRIPTS");

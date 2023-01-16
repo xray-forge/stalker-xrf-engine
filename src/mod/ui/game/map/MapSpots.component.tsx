@@ -28,15 +28,15 @@ export function MapSpots(): JSXNode {
       <MapSpotsComplex />
 
       <PdaMapSpot tag={"quest_pointer"} width={11} height={24} heading={true} alignment={"c"}>
-        <XrTexture a={255} r={255} g={255} b={255} id={textures.ui_hud_map_arrow} />
+        <XrTexture a={255} r={255} g={255} b={255} id={textures.ui_ui_hud_map_arrow} />
       </PdaMapSpot>
 
       <PdaMapSpot tag={"quest_pointer2"} width={11} height={24} heading={true} alignment={"c"}>
-        <XrTexture a={255} r={242} g={231} b={11} id={textures.ui_hud_map_arrow} />
+        <XrTexture a={255} r={242} g={231} b={11} id={textures.ui_ui_hud_map_arrow} />
       </PdaMapSpot>
 
       <PdaMapSpot tag={"quest_pointer_small"} width={5} height={12} heading={true} alignment={"c"}>
-        <XrTexture a={255} id={textures.ui_hud_map_arrow} />
+        <XrTexture a={255} id={textures.ui_ui_hud_map_arrow} />
       </PdaMapSpot>
 
       <combat_pointer width="11" height="24" heading="1" alignment="c">

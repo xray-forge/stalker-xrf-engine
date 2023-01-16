@@ -2,7 +2,7 @@ import { JSXXML, JSXNode } from "jsx-xml";
 
 import { captions } from "@/mod/globals/captions";
 import { fonts } from "@/mod/globals/fonts";
-import { textures } from "@/mod/globals/textures";
+import { textures, texturesIngame } from "@/mod/globals/textures";
 
 export const IS_XML: boolean = true;
 
@@ -15,9 +15,9 @@ export function create(): JSXNode {
         <buttons_region x={8} y={0} width={220} height={380} always_show_scroll={false} vert_interval={12} />
 
         <shniaga x={7} y={-20} width={219} height={61} stretch={1}>
-          <texture>{textures.ui_inGame2_slider}</texture>
+          <texture>{texturesIngame.ui_inGame2_slider}</texture>
           <magnifire x={27} y={18} width={162} height={24} stretch={1}>
-            <texture>{textures.ui_magnifier2}</texture>
+            <texture>{texturesIngame.ui_magnifier2}</texture>
             <y_offset>1</y_offset>
           </magnifire>
         </shniaga>
@@ -121,13 +121,13 @@ function MainMenuBackground(): JSXNode {
         </texture>
       </auto_static>
       <auto_static x={102} y={0} width={819} height={768} stretch={1}>
-        <texture>{textures.ui_inGame2_background}</texture>
+        <texture>{texturesIngame.ui_inGame2_background}</texture>
       </auto_static>
       <auto_static x={0} y={0} width={104} height={768} stretch={1}>
-        <texture>{textures.ui_inGame2_left_widepanel}</texture>
+        <texture>{texturesIngame.ui_inGame2_left_widepanel}</texture>
       </auto_static>
       <auto_static x={920} y={0} width={104} height={768} stretch={1}>
-        <texture>{textures.ui_inGame2_right_widepanel}</texture>
+        <texture>{texturesIngame.ui_inGame2_right_widepanel}</texture>
       </auto_static>
     </background>
   );

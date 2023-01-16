@@ -5,8 +5,7 @@ import * as path from "path";
 
 import { default as chalk } from "chalk";
 
-import { TARGET_GAME_DATA_DIR, TARGET_GAME_DATA_METADATA_FILE } from "../globals";
-
+import { TARGET_GAME_DATA_DIR, TARGET_GAME_DATA_METADATA_FILE } from "#/globals";
 import { NodeLogger, readDirContent, TDirectoryFilesTree, TimeTracker } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("META");

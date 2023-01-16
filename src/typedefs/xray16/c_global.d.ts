@@ -86,8 +86,8 @@ declare module "xray16" {
     add_pp_effector(this: void, str: string, num: number, val: boolean): unknown;
     get_bounding_volume(this: void): XR_Fbox;
     set_snd_volume(this: void, num: number): unknown;
-    add_cam_effector(this: void, effect: string, num: number, val: boolean, scriptPath: string): unknown;
-    add_cam_effector2(this: void, str1: string, num1: number, val: boolean, str2: string, num2: number): unknown;
+    add_cam_effector(this: void, effect: string, num: number, val: boolean, scriptPath: string): void;
+    add_cam_effector2(this: void, str1: string, num1: number, val: boolean, str2: string, num2: number): void;
     add_call(this: void, cb1: unknown, cb2: unknown /* const function<boolean>&, const function<void>&*/): unknown;
     add_call(
       this: void, object: unknown, cb1: unknown, cb2: unknown /* const function<boolean>&, const function<void>&*/
@@ -101,7 +101,7 @@ declare module "xray16" {
     iterate_sounds(this: void, str: string, num: number, object: unknown, cb: unknown /* function<void>*/): unknown;
     name<T extends string = string>(this: void): T;
     environment(this: void): unknown;
-    remove_cam_effector(this: void, num: number): unknown;
+    remove_cam_effector(this: void, num: number): void;
     high_cover_in_direction(this: void, num: number, vector: unknown /* const vector& */): unknown;
     spawn_phantom(this: void, vector: unknown /* const vector& */): unknown;
     object_by_id(this: void, object_id: number): XR_game_object;

@@ -3,8 +3,8 @@ import * as path from "path";
 
 import { default as chalk } from "chalk";
 
-import { OPEN_XRAY_ENGINES_DIR, XR_ENGINE_BACKUP_DIR } from "#/build/globals";
 import { default as config } from "#/config.json";
+import { OPEN_XRAY_ENGINES_DIR, XR_ENGINE_BACKUP_DIR } from "#/globals";
 import { exists, NodeLogger } from "#/utils";
 
 enum EEngineCmd {

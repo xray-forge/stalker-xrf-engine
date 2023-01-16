@@ -20,7 +20,7 @@ import {
   vector
 } from "xray16";
 
-import { camera_effects } from "@/mod/globals/camera_effects";
+import { animations } from "@/mod/globals/animations";
 import { game_difficulties_by_number } from "@/mod/globals/game_difficulties";
 import { TLevel } from "@/mod/globals/levels";
 import { AnyCallable, AnyCallablesModule, Optional } from "@/mod/lib/types";
@@ -254,7 +254,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
       if (s_obj && s_obj.section_name() == "drug_anabiotic") {
         get_global<AnyCallablesModule>("xr_effects").disable_ui_only(getActor(), null);
 
-        level.add_cam_effector(camera_effects.surge_02, 10, false, "_extern.anabiotic_callback");
+        level.add_cam_effector(animations.camera_effects_surge_02, 10, false, "_extern.anabiotic_callback");
         level.add_pp_effector("surge_fade.ppe", 11, false);
 
         giveInfo("anabiotic_in_process");

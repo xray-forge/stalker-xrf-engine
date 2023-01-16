@@ -1,10 +1,5 @@
 .idea/
-
 node_modules/
-gamedata/
-gamedata_*/
 
-target/gamedata*
-target/*/*
-
-xrts_build.log
+target/*
+!target/README.md

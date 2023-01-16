@@ -1,8 +1,8 @@
 import { default as chalk } from "chalk";
 
 import { default as pkg } from "#/../package.json";
-import { TARGET_GAME_DATA_DIR, TARGET_GAME_DATA_METADATA_FILE } from "#/build/globals";
 import { default as config } from "#/config.json";
+import { TARGET_GAME_DATA_DIR, TARGET_GAME_DATA_METADATA_FILE } from "#/globals";
 import { NodeLogger } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("INFO");

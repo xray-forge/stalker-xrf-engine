@@ -7,7 +7,7 @@ import { default as chalk } from "chalk";
 
 import { TFolderFiles, TFolderReplicationDescriptor } from "@/mod/lib/types";
 
-import { GAME_DATA_UI_DIR, TARGET_PREVIEW_DIR } from "#/build/globals";
+import { GAME_DATA_UI_DIR, TARGET_PREVIEW_DIR } from "#/globals";
 import { generatePreview } from "#/preview/utils/generate_preview";
 import { NodeLogger, readDirContent, renderJsxToXmlText, TimeTracker } from "#/utils";
 

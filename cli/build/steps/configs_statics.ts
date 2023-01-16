@@ -6,7 +6,7 @@ import { default as chalk } from "chalk";
 
 import { TFolderFiles, TFolderReplicationDescriptor } from "@/mod/lib/types/general";
 
-import { GAME_DATA_CONFIGS_DIR, TARGET_GAME_DATA_CONFIGS_DIR } from "#/build/globals";
+import { GAME_DATA_CONFIGS_DIR, TARGET_GAME_DATA_CONFIGS_DIR } from "#/globals";
 import { NodeLogger, readDirContent } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("BUILD_CONFIGS_STATICS");

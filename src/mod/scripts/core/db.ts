@@ -52,6 +52,7 @@ export interface ITradeManagerDescriptor {
 export interface IStoredObject<T = XR_game_object> {
   [index: string]: any;
 
+  cam_effector?: LuaTable<number, string>;
   combat?: HeliCombat;
   anim_head?: keyof TXR_MonsterSpaces;
   action?: any;

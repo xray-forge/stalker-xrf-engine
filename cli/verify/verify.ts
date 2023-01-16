@@ -3,8 +3,8 @@ import * as path from "path";
 
 import { default as chalk } from "chalk";
 
-import { CLI_CONFIG, TARGET_GAME_DATA_DIR, TARGET_LOGS_DIR } from "#/build/globals";
 import { default as config } from "#/config.json";
+import { CLI_CONFIG, TARGET_GAME_DATA_DIR, TARGET_LOGS_DIR } from "#/globals";
 import { exists, NodeLogger } from "#/utils";
 
 const GAME_LOGS_PATH: string = path.resolve(config.targets.STALKER_LOGS_FOLDER_PATH);

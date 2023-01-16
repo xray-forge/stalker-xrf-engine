@@ -2,7 +2,7 @@ import { JSXNode, JSXXML } from "jsx-xml";
 
 import { WHITE } from "@/mod/globals/colors";
 import { fonts } from "@/mod/globals/fonts";
-import { textures } from "@/mod/globals/textures";
+import { texturesIngame } from "@/mod/globals/textures";
 import { Xr3tButton, XrRoot, XrStatic, XrText } from "@/mod/ui/components/base";
 import { SECTION_HEIGHT, SECTION_WIDTH } from "@/mod/ui/menu/debug/DebugDialog.component";
 
@@ -35,7 +35,7 @@ export function create(): JSXNode {
         label={"Refresh"}
         font={fonts.letterica16}
         textColor={WHITE}
-        texture={textures.ui_inGame2_Mp_bigbuttone}
+        texture={texturesIngame.ui_inGame2_Mp_bigbuttone}
       />
 
       <Xr3tButton
@@ -47,7 +47,7 @@ export function create(): JSXNode {
         label={"Collect"}
         font={fonts.letterica16}
         textColor={WHITE}
-        texture={textures.ui_inGame2_Mp_bigbuttone}
+        texture={texturesIngame.ui_inGame2_Mp_bigbuttone}
       />
     </XrRoot>
   );

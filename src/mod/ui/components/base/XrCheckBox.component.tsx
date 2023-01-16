@@ -1,6 +1,6 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
-import { textures, TTextureId } from "@/mod/globals/textures";
+import { texturesIngame, TTextureId } from "@/mod/globals/textures";
 import { IBaseXmlNode } from "@/mod/lib/types";
 import { XrTexture } from "@/mod/ui/components/base/XrTexture.component";
 
@@ -25,7 +25,7 @@ export function XrCheckBox(props: IXrCheckBoxProps): JSXNode {
     width,
     height,
     stretch,
-    texture = textures.ui_inGame2_checkbox,
+    texture = texturesIngame.ui_inGame2_checkbox,
     entry,
     group,
     children = null

@@ -5,8 +5,8 @@ import { default as chalk } from "chalk";
 
 import { Optional } from "@/mod/lib/types";
 
-import { TARGET_LOGS_DIR } from "#/build/globals";
 import { default as config } from "#/config.json";
+import { TARGET_LOGS_DIR } from "#/globals";
 import { NodeLogger } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("UNLINK");

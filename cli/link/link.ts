@@ -3,8 +3,8 @@ import * as path from "path";
 
 import { default as chalk } from "chalk";
 
-import { TARGET_GAME_DATA_DIR, TARGET_LOGS_DIR } from "#/build/globals";
 import { default as config } from "#/config.json";
+import { TARGET_GAME_DATA_DIR, TARGET_LOGS_DIR } from "#/globals";
 import { exists, NodeLogger } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("LINK");

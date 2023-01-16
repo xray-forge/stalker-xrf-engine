@@ -4,7 +4,7 @@ import * as path from "path";
 
 import { default as chalk } from "chalk";
 
-import { RESOURCES_DIR, TARGET_GAME_DATA_DIR } from "#/build/globals";
+import { RESOURCES_DIR, TARGET_GAME_DATA_DIR } from "#/globals";
 import { NodeLogger } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("BUILD_ASSET_STATICS");

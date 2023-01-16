@@ -10,7 +10,7 @@ import {
 
 import { captions } from "@/mod/globals/captions";
 import { sounds } from "@/mod/globals/sounds";
-import { textures } from "@/mod/globals/textures";
+import { texturesIngame } from "@/mod/globals/textures";
 import { AnyCallable, Maybe, Optional } from "@/mod/lib/types";
 import { isStalkerClassId } from "@/mod/scripts/core/checkers";
 import { getActor } from "@/mod/scripts/core/db";
@@ -43,36 +43,36 @@ const tips_icons_old = {
 };
 
 const tips_icons = {
-  pioneer: textures.ui_inGame2_PD_Pervootkrivatel,
-  mutant_hunter: textures.ui_inGame2_PD_Ohotnik_na_mutantov,
-  detective: textures.ui_inGame2_PD_Sisshik,
-  one_of_the_lads: textures.ui_inGame2_PD_Svoy_paren,
-  kingpin: textures.ui_inGame2_PD_Avtoritet,
-  herald_of_justice: textures.ui_inGame2_PD_Gonets_pravosudiya,
-  seeker: textures.ui_inGame2_PD_Iskatel,
-  battle_systems_master: textures.ui_inGame2_PD_master_boevih_sistem,
-  high_tech_master: textures.ui_inGame2_PD_Master_visokih_technologiy,
-  skilled_stalker: textures.ui_inGame2_PD_Opitniy_stalker,
-  leader: textures.ui_inGame2_PD_Lider,
-  diplomat: textures.ui_inGame2_PD_Diplomat,
-  research_man: textures.ui_inGame2_PD_Nauchniy_sotrudnik,
-  friend_of_duty: textures.ui_inGame2_PD_Drug_Dolga,
-  friend_of_freedom: textures.ui_inGame2_PD_Drug_Swobodi,
-  balance_advocate: textures.ui_inGame2_PD_storonnik_ravnovesiya,
-  wealthy: textures.ui_inGame2_PD_Sostoyatelniy_klient,
-  keeper_of_secrets: textures.ui_inGame2_PD_Hranitel_tayn,
-  marked_by_zone: textures.ui_inGame2_PD_Otmecheniy_zonoy,
-  information_dealer: textures.ui_inGame2_PD_Torgovets_informatsiey,
-  friend_of_stalkers: textures.ui_inGame2_PD_Drug_Stalkerov,
-  got_artefact: textures.ui_inGame2_D_gonets_pravosudiya,
-  got_ammo: textures.ui_inGame2_D_Ohotnik_na_mutantov,
-  got_medicine: textures.ui_inGame2_D_Sisshik,
-  got_duty_light_armor: textures.ui_inGame2_D_Vipolnil_2_zadaniya_dlya_Dolga,
-  got_duty_heavy_armor: textures.ui_inGame2_D_Vipolnil_4_zadaniya_dlya_Dolga,
-  got_freedom_light_armor: textures.ui_inGame2_D_Vipolnil_2_zadaniya_dlya_Swobodi,
-  got_freedom_heavy_armor: textures.ui_inGame2_D_Vipolnil_4_zadaniya_dlya_Swobodi,
-  can_resupply: textures.ui_inGame2_Pered_zadaniyami_voennih,
-  recent_surge: textures.ui_inGame2_V_zone_nedavno_proshel_vibros
+  pioneer: texturesIngame.ui_inGame2_PD_Pervootkrivatel,
+  mutant_hunter: texturesIngame.ui_inGame2_PD_Ohotnik_na_mutantov,
+  detective: texturesIngame.ui_inGame2_PD_Sisshik,
+  one_of_the_lads: texturesIngame.ui_inGame2_PD_Svoy_paren,
+  kingpin: texturesIngame.ui_inGame2_PD_Avtoritet,
+  herald_of_justice: texturesIngame.ui_inGame2_PD_Gonets_pravosudiya,
+  seeker: texturesIngame.ui_inGame2_PD_Iskatel,
+  battle_systems_master: texturesIngame.ui_inGame2_PD_master_boevih_sistem,
+  high_tech_master: texturesIngame.ui_inGame2_PD_Master_visokih_technologiy,
+  skilled_stalker: texturesIngame.ui_inGame2_PD_Opitniy_stalker,
+  leader: texturesIngame.ui_inGame2_PD_Lider,
+  diplomat: texturesIngame.ui_inGame2_PD_Diplomat,
+  research_man: texturesIngame.ui_inGame2_PD_Nauchniy_sotrudnik,
+  friend_of_duty: texturesIngame.ui_inGame2_PD_Drug_Dolga,
+  friend_of_freedom: texturesIngame.ui_inGame2_PD_Drug_Swobodi,
+  balance_advocate: texturesIngame.ui_inGame2_PD_storonnik_ravnovesiya,
+  wealthy: texturesIngame.ui_inGame2_PD_Sostoyatelniy_klient,
+  keeper_of_secrets: texturesIngame.ui_inGame2_PD_Hranitel_tayn,
+  marked_by_zone: texturesIngame.ui_inGame2_PD_Otmecheniy_zonoy,
+  information_dealer: texturesIngame.ui_inGame2_PD_Torgovets_informatsiey,
+  friend_of_stalkers: texturesIngame.ui_inGame2_PD_Drug_Stalkerov,
+  got_artefact: texturesIngame.ui_inGame2_D_gonets_pravosudiya,
+  got_ammo: texturesIngame.ui_inGame2_D_Ohotnik_na_mutantov,
+  got_medicine: texturesIngame.ui_inGame2_D_Sisshik,
+  got_duty_light_armor: texturesIngame.ui_inGame2_D_Vipolnil_2_zadaniya_dlya_Dolga,
+  got_duty_heavy_armor: texturesIngame.ui_inGame2_D_Vipolnil_4_zadaniya_dlya_Dolga,
+  got_freedom_light_armor: texturesIngame.ui_inGame2_D_Vipolnil_2_zadaniya_dlya_Swobodi,
+  got_freedom_heavy_armor: texturesIngame.ui_inGame2_D_Vipolnil_4_zadaniya_dlya_Swobodi,
+  can_resupply: texturesIngame.ui_inGame2_Pered_zadaniyami_voennih,
+  recent_surge: texturesIngame.ui_inGame2_V_zone_nedavno_proshel_vibros
 };
 
 type TIcons = typeof tips_icons;
@@ -104,18 +104,23 @@ export function relocate_money(actor: Optional<XR_game_object>, type: "in" | "ou
     const news_text: string = game.translate_string(tostring(amount));
 
     if (actor.is_talking()) {
-      actor.give_talk_message2(news_caption, news_text, textures.ui_inGame2_Dengi_polucheni, "iconed_answer_item");
+      actor.give_talk_message2(
+        news_caption,
+        news_text,
+        texturesIngame.ui_inGame2_Dengi_polucheni,
+        "iconed_answer_item"
+      );
     } else {
-      actor.give_game_news(news_caption, news_text, textures.ui_inGame2_Dengi_polucheni, 0, 3000);
+      actor.give_game_news(news_caption, news_text, texturesIngame.ui_inGame2_Dengi_polucheni, 0, 3000);
     }
   } else if (type === "out") {
     const news_caption: string = game.translate_string(captions.general_out_money);
     const news_text: string = game.translate_string(tostring(amount));
 
     if (actor.is_talking()) {
-      actor.give_talk_message2(news_caption, news_text, textures.ui_inGame2_Dengi_otdani, "iconed_answer_item");
+      actor.give_talk_message2(news_caption, news_text, texturesIngame.ui_inGame2_Dengi_otdani, "iconed_answer_item");
     } else {
-      actor.give_game_news(news_caption, news_text, textures.ui_inGame2_Dengi_otdani, 0, 3000);
+      actor.give_game_news(news_caption, news_text, texturesIngame.ui_inGame2_Dengi_otdani, 0, 3000);
     }
   }
 }
@@ -145,9 +150,14 @@ export function send_treasure(param: 0 | 1 | 2): void {
   }
 
   if (actor.is_talking()) {
-    actor.give_talk_message2(news_caption, "", textures.ui_inGame2_Polucheni_koordinaty_taynika, "iconed_answer_item");
+    actor.give_talk_message2(
+      news_caption,
+      "",
+      texturesIngame.ui_inGame2_Polucheni_koordinaty_taynika,
+      "iconed_answer_item"
+    );
   } else {
-    actor.give_game_news(news_caption, "", textures.ui_inGame2_Polucheni_koordinaty_taynika, 0, 3000);
+    actor.give_game_news(news_caption, "", texturesIngame.ui_inGame2_Polucheni_koordinaty_taynika, 0, 3000);
   }
 }
 
@@ -176,7 +186,7 @@ export function send_task(actor: Optional<XR_game_object>, type: TActionType, ta
   let icon: string = task.get_icon_name();
 
   if (icon === null) {
-    icon = textures.ui_iconsTotal_storyline;
+    icon = texturesIngame.ui_iconsTotal_storyline;
   }
 
   if (actor.is_talking()) {
@@ -229,7 +239,7 @@ export function send_tip(
 
   (get_global("xr_sound").set_sound_play as AnyCallable)(actor.id(), sounds.pda_task);
 
-  let texture: string = textures.ui_iconsTotal_grouping;
+  let texture: string = texturesIngame.ui_iconsTotal_grouping;
 
   if (sender !== null) {
     if (type(sender) === "string") {
@@ -295,7 +305,7 @@ export function send_sound(
     return;
   }
 
-  let texture: string = textures.ui_iconsTotal_grouping;
+  let texture: string = texturesIngame.ui_iconsTotal_grouping;
 
   if (npc !== null && isStalkerClassId(npc.clsid())) {
     texture = npc.character_icon();
@@ -340,9 +350,14 @@ export function relocate_item(actor: XR_game_object, type: "in" | "out", item: s
     }
 
     if (actor.is_talking()) {
-      actor.give_talk_message2(news_caption, news_text, textures.ui_inGame2_Predmet_poluchen, "iconed_answer_item");
+      actor.give_talk_message2(
+        news_caption,
+        news_text,
+        texturesIngame.ui_inGame2_Predmet_poluchen,
+        "iconed_answer_item"
+      );
     } else {
-      actor.give_game_news(news_caption, news_text, textures.ui_inGame2_Predmet_poluchen, 0, 3000);
+      actor.give_game_news(news_caption, news_text, texturesIngame.ui_inGame2_Predmet_poluchen, 0, 3000);
     }
   } else if (type === "out") {
     if (amount === 1) {
@@ -354,9 +369,9 @@ export function relocate_item(actor: XR_game_object, type: "in" | "out", item: s
     }
 
     if (actor.is_talking()) {
-      actor.give_talk_message2(news_caption, news_text, textures.ui_inGame2_Predmet_otdan, "iconed_answer_item");
+      actor.give_talk_message2(news_caption, news_text, texturesIngame.ui_inGame2_Predmet_otdan, "iconed_answer_item");
     } else {
-      actor.give_game_news(news_caption, news_text, textures.ui_inGame2_Predmet_otdan, 0, 3000);
+      actor.give_game_news(news_caption, news_text, texturesIngame.ui_inGame2_Predmet_otdan, 0, 3000);
     }
   }
 }

@@ -1,7 +1,7 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
 import { TFontId } from "@/mod/globals/fonts";
-import { textures } from "@/mod/globals/textures";
+import { texturesIngame } from "@/mod/globals/textures";
 import { IBaseXmlNode, IRgbColor } from "@/mod/lib/types";
 import { XrStatic } from "@/mod/ui/components/base/XrStatic.component";
 import { XrTabButton } from "@/mod/ui/components/base/XrTabButton.component";
@@ -36,7 +36,7 @@ export function XrTab(props: IXrTabProps): JSXNode {
           y={y}
           width={totalWidth}
           height={height}
-          texture={textures.ui_inGame2_opt_buttons_frame}
+          texture={texturesIngame.ui_inGame2_opt_buttons_frame}
         />
       </tab_statics>
 
@@ -48,7 +48,11 @@ export function XrTab(props: IXrTabProps): JSXNode {
             y={2}
             width={tabWidth}
             height={height - 12}
-            texture={index === tabs.length - 1 ? textures.ui_inGame2_opt_button_2 : textures.ui_inGame2_opt_button_1}
+            texture={
+              index === tabs.length - 1
+                ? texturesIngame.ui_inGame2_opt_button_2
+                : texturesIngame.ui_inGame2_opt_button_1
+            }
           >
             <XrText label={it.label} font={font} align={"c"} />
             <XrTextColor textColor={textColor} />

@@ -2,7 +2,7 @@ import { JSXNode, JSXXML } from "jsx-xml";
 
 import { captions } from "@/mod/globals/captions";
 import { fonts } from "@/mod/globals/fonts";
-import { textures } from "@/mod/globals/textures";
+import { textures, texturesIngame } from "@/mod/globals/textures";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { IRgbColor } from "@/mod/lib/types";
 import { Xr3tButton, XrBackground, XrRoot, XrStatic } from "@/mod/ui/components/base";
@@ -38,7 +38,7 @@ export function create(): JSXNode {
           height={BASE_HEIGHT}
           textureWidth={BASE_WIDTH}
           textureHeight={BASE_HEIGHT}
-          texture={textures.ui_actor_multiplayer_background}
+          texture={textures.ui_ui_actor_multiplayer_background}
           stretch
         />
       </XrBackground>
@@ -50,7 +50,7 @@ export function create(): JSXNode {
           y={dialogHeightPadding}
           height={SECTION_HEIGHT + 32}
           width={SECTION_WIDTH}
-          texture={textures.ui_inGame2_picture_window}
+          texture={texturesIngame.ui_inGame2_picture_window}
           stretch
         />
 
@@ -66,7 +66,7 @@ export function create(): JSXNode {
           tabs={Object.entries(EDebugSection).map(([key, value]) => ({
             id: value,
             label: key,
-            texture: textures.ui_inGame2_Mp_bigbuttone
+            texture: texturesIngame.ui_inGame2_Mp_bigbuttone
           }))}
         />
 
@@ -87,7 +87,7 @@ export function create(): JSXNode {
           font={fonts.letterica18}
           label={captions.ui_mm_cancel}
           textColor={TEXT_COLOR_DARKER}
-          texture={textures.ui_inGame2_Mp_bigbuttone}
+          texture={texturesIngame.ui_inGame2_Mp_bigbuttone}
         />
       </XrContainer>
     </XrRoot>
