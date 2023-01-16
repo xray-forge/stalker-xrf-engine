@@ -110,11 +110,11 @@ export const Monster: IMonster = declare_xr_class("Monster", cse_alife_monster_b
 
       offlineObjects.get(this.id).active_section = packet.r_stringZ();
 
-      if (offlineObjects.get(this.id).active_section == "null") {
+      if (offlineObjects.get(this.id).active_section == "nil") {
         offlineObjects.get(this.id).active_section = null;
       }
 
-      if (old_lvid !== "null") {
+      if (old_lvid !== "nil") {
         offlineObjects.get(this.id).level_vertex_id = tonumber(old_lvid);
       }
     }

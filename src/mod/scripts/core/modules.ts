@@ -1,4 +1,5 @@
 import { HeliMove } from "@/mod/scripts/core/heli/HeliMove";
+import { ActionProcessHit } from "@/mod/scripts/core/logic/ActionProcessHit";
 import { MobCombat } from "@/mod/scripts/core/mob/MobCombat";
 import { MobDeath } from "@/mod/scripts/core/mob/MobDeath";
 import { MobHome } from "@/mod/scripts/core/mob/MobHome";
@@ -35,7 +36,7 @@ export function initializeModules(): void {
   loadScheme("xr_corpse_detection", "corpse_detection", stype_stalker);
   loadScheme("xr_combat", "combat", stype_stalker);
   loadScheme("xr_death", "death", stype_stalker);
-  loadScheme("xr_hit", "hit", stype_stalker);
+  loadScheme(ActionProcessHit, ActionProcessHit.SCHEME_SECTION, stype_stalker);
   loadScheme("xr_wounded", "wounded", stype_stalker);
   loadScheme("xr_meet", "actor_dialogs", stype_stalker);
   loadScheme("xr_combat_ignore", "combat_ignore", stype_stalker);

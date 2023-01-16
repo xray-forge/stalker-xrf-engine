@@ -125,7 +125,7 @@ export const Stalker: IStalker = declare_xr_class("Stalker", cse_alife_human_sta
 
       target.active_section = packet.r_stringZ();
 
-      if (target.active_section === "null") {
+      if (target.active_section === "nil") {
         target.active_section = null;
       }
 

@@ -43,7 +43,7 @@ export class ActionCutscene {
     st.point = getConfigString(ini, section, "point", obj, true, "", "none");
     st.look = getConfigString(ini, section, "look", obj, true, "", "none");
     st.global_cameffect = getConfigBoolean(ini, section, "global_cameffect", obj, false, false);
-    st.pp_effector = getConfigString(ini, section, "pp_effector", obj, false, "", "null") + ".ppe";
+    st.pp_effector = getConfigString(ini, section, "pp_effector", obj, false, "", "nil") + ".ppe";
     st.cam_effector = parseNames(getConfigString(ini, section, "cam_effector", obj, true, ""));
     st.fov = getConfigNumber(ini, section, "fov", obj, true);
 
@@ -102,6 +102,8 @@ export class ActionCutscene {
   }
 
   public zone_enter(): void {
+    log.info("Zone enter:", this.object.name());
+
     const actor: Optional<XR_game_object> = getActor();
 
     this.state = "run";

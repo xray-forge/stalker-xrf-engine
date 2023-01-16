@@ -4,6 +4,7 @@ local RestrictorManager = require("scripts.core.RestrictorManager").RestrictorMa
 local MobCombat = require("scripts.core.mob.MobCombat").MobCombat
 local MobDeath = require("scripts.core.mob.MobDeath").MobDeath
 local schemes = require("scripts.core.schemes")
+local ActionProcessHit = require("scripts.core.logic.ActionProcessHit").ActionProcessHit
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
 local utilsAlife = require("scripts.utils.alife")
@@ -248,7 +249,7 @@ end
 function disable_generic_schemes(npc, stype)
   if stype == schemes.stype_stalker then
     xr_combat.disable_scheme(npc, "combat")
-    xr_hit.disable_scheme(npc, "hit")
+    ActionProcessHit:disable_scheme(npc, ActionProcessHit.SCHEME_SECTION)
     xr_meet.disable_scheme(npc, "actor_dialogs")
     xr_combat_ignore.disable_scheme(npc, "combat_ignore")
     utilsAlife.disable_invulnerability(npc)
@@ -259,7 +260,7 @@ function disable_generic_schemes(npc, stype)
   elseif stype == schemes.stype_item then
     ph_on_hit.disable_scheme(npc, "ph_on_hit")
   elseif stype == schemes.stype_heli then
-    xr_hit.disable_scheme(npc, "hit")
+    ActionProcessHit:disable_scheme(npc, ActionProcessHit.SCHEME_SECTION)
   end
 end
 
@@ -284,7 +285,7 @@ function enable_generic_schemes(ini, npc, stype, section)
 
     local hit_section = utils.cfg_get_string(ini, section, "on_hit", npc, false, "")
     if hit_section then
-      xr_hit.set_hit_checker(npc, ini, "hit", hit_section)
+      ActionProcessHit:set_hit_checker(npc, ini, ActionProcessHit.SCHEME_SECTION, hit_section)
     end
 
     local actor_dialogs_section = utils.cfg_get_string(ini, section, "actor_dialogs", npc, false, "")
@@ -325,7 +326,7 @@ function enable_generic_schemes(ini, npc, stype, section)
 
     local hit_section = utils.cfg_get_string(ini, section, "on_hit", npc, false, "")
     if hit_section then
-      xr_hit.set_hit_checker(npc, ini, "hit", hit_section)
+      ActionProcessHit:set_hit_checker(npc, ini, ActionProcessHit.SCHEME_SECTION, hit_section)
     end
 
     xr_combat_ignore.set_combat_ignore_checker(npc, ini, "combat_ignore")
@@ -340,7 +341,7 @@ function enable_generic_schemes(ini, npc, stype, section)
   elseif stype == schemes.stype_heli then
     local hit_section = utils.cfg_get_string(ini, section, "on_hit", npc, false, "")
     if hit_section then
-      xr_hit.set_hit_checker(npc, ini, "hit", hit_section)
+      ActionProcessHit:set_hit_checker(npc, ini, ActionProcessHit.SCHEME_SECTION, hit_section)
     end
   end
 end
