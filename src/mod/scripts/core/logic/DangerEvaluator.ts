@@ -21,7 +21,7 @@ export interface IDangerEvaluator extends XR_property_evaluator {
   manager: Optional<XR_action_planner>;
 }
 
-export const DangerEvaluator = declare_xr_class("DangerEvaluator", property_evaluator, {
+export const DangerEvaluator: IDangerEvaluator = declare_xr_class("DangerEvaluator", property_evaluator, {
   __init(npc: XR_game_object, name: string, storage: IStoredObject): void {
     xr_class_super(null, name);
     this.state = storage;

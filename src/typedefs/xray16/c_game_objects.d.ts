@@ -571,7 +571,7 @@ declare module "xray16" {
     public money(): number;
     public disable_hit_marks(value: boolean): void;
     public disable_hit_marks(): void;
-    public is_there_items_to_pickup(): unknown;
+    public is_there_items_to_pickup(): boolean;
     public location_on_path(value: number, vector: XR_vector): unknown;
     public sound_prefix(): unknown;
     public sound_prefix(value: string): unknown;

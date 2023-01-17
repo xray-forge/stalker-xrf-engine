@@ -2,6 +2,7 @@ import { ActionButton } from "@/mod/scripts/core/logic/ActionButton";
 import { ActionCodepad } from "@/mod/scripts/core/logic/ActionCodepad";
 import { ActionDanger } from "@/mod/scripts/core/logic/ActionDanger";
 import { ActionDoor } from "@/mod/scripts/core/logic/ActionDoor";
+import { ActionGatherItems } from "@/mod/scripts/core/logic/ActionGatherItems";
 import { ActionHit } from "@/mod/scripts/core/logic/ActionHit";
 import { ActionIdle } from "@/mod/scripts/core/logic/ActionIdle";
 import { ActionOnDeath } from "@/mod/scripts/core/logic/ActionOnDeath";
@@ -32,7 +33,7 @@ export function initializeModules(): void {
   log.info("Initialize modules");
 
   loadScheme(ActionDanger, ActionDanger.SCHEME_SECTION, stype_stalker);
-  loadScheme("xr_gather_items", "gather_items", stype_stalker);
+  loadScheme(ActionGatherItems, ActionGatherItems.SCHEME_SECTION, stype_stalker);
   loadScheme("xr_abuse", "abuse", stype_stalker);
   loadScheme("xr_walker", "walker", stype_stalker);
   loadScheme("xr_remark", "remark", stype_stalker);
