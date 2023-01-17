@@ -126,13 +126,17 @@ declare module "xray16" {
     public static sound: 1;
     public static visual: 0;
 
-    public type(): unknown;
-    public time(): unknown;
+    public type(): TXR_danger_object;
+    public time(): number;
     public position(): XR_vector;
-    public object(): unknown;
+    public object(): XR_game_object;
     public perceive_type(): unknown;
-    public dependent_object(): unknown;
+    public dependent_object(): XR_game_object;
   }
+
+  export type TXR_danger_objects = typeof XR_danger_object;
+
+  export type TXR_danger_object = TXR_danger_objects[Exclude<keyof TXR_danger_objects, "constructor" | "prototype">];
 
   /**
    * C++ class hit {

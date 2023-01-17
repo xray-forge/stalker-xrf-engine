@@ -1,6 +1,7 @@
 -- 594
 local utilsWorld = require("scripts.utils.world")
 local StateManager = require("scripts.state_management.StateManager")
+local ActionDanger = require("scripts.core.logic.ActionDanger").ActionDanger
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 local log = create_ts_class_instance(LuaLogger, "xr_camper");
@@ -335,7 +336,7 @@ function action_patrol:execute()
 
 end
 function action_patrol:process_danger()
-  if xr_danger.is_danger(self.object) == false then
+  if ActionDanger:is_danger(self.object) == false then
     return false
   end
   local best_danger = self.object:best_danger()

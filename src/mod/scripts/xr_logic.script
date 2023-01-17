@@ -5,6 +5,7 @@ local ActionMobCombat = require("scripts.core.logic.mob.ActionMobCombat").Action
 local ActionMobDeath = require("scripts.core.logic.mob.ActionMobDeath").ActionMobDeath
 local schemes = require("scripts.core.schemes")
 local ActionProcessHit = require("scripts.core.logic.ActionProcessHit").ActionProcessHit
+local ActionDanger = require("scripts.core.logic.ActionDanger").ActionDanger
 local ActionOnHit = require("scripts.core.logic.ActionOnHit").ActionOnHit
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
@@ -271,7 +272,7 @@ end
 function enable_generic_schemes(ini, npc, stype, section)
   if stype == schemes.stype_stalker then
     --xr_reactions.set_reactions(npc, ini, "reactions", section)
-    xr_danger.set_danger(npc, ini, "danger", "danger")
+    ActionDanger:set_danger(npc, ini, ActionDanger.SCHEME_SECTION, "danger")
     xr_gather_items.set_gather_items(npc, ini, "gather_items", "gather_items")
 
     local combat_section = utils.cfg_get_string(ini, section, "on_combat", npc, false, "")
@@ -455,7 +456,7 @@ function reset_generic_schemes_on_scheme_switch(npc, scheme, section)
     xr_abuse.reset_abuse(npc, scheme, st, section)
     xr_wounded.reset_wounded(npc, scheme, st, section)
     xr_death.reset_death(npc, scheme, st, section)
-    xr_danger.reset_danger(npc, scheme, st, section)
+    ActionDanger:reset_danger(npc, scheme, st, section)
     xr_gather_items.reset_gather_items(npc, scheme, st, section)
     xr_combat_ignore.reset_combat_ignore_checker(npc, scheme, st, section)
 

@@ -4,6 +4,7 @@ local TradeManager = require("scripts.core.TradeManager")
 local bind_state_manager = require("scripts.state_management.bind_state_manager").bind_state_manager
 local schemes = require("scripts.core.schemes")
 local ReleaseBodyManager = require("scripts.core.ReleaseBodyManager")
+local ActionDanger = require("scripts.core.logic.ActionDanger").ActionDanger
 local DropManager = require("scripts.core.DropManager").DropManager
 local SimBoard = require("scripts.se.SimBoard")
 local SmartTerrain = require("scripts.se.SmartTerrain")
@@ -463,7 +464,7 @@ function motivator_binder:update(delta)
     end
     local best_danger = object:best_danger()
     if best_danger then
-      object:info_add("danger: " .. xr_danger.get_danger_name(best_danger))
+      object:info_add("danger: " .. ActionDanger:get_danger_name(best_danger))
     end
     object:info_add(object:name() .. " [" .. object:team() .. "][" .. object:squad() .. "][" .. object:group() .. "]")
 
