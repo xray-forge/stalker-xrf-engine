@@ -1,6 +1,6 @@
 -- 651
 local utilsAlife = require("scripts.utils.alife")
-local StateManager = require("scripts.core.state_management.StateManager")
+local StateManager = require("scripts.state_management.StateManager")
 local game_relations = require("scripts.core.game_relations")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New

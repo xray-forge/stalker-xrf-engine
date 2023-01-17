@@ -811,7 +811,7 @@ declare module "xray16" {
       path: string,
       object: XR_cse_abstract,
       value: unknown,
-      id: number
+      id: number | string
     ): boolean;
 
     public create_float(): unknown;

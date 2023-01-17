@@ -12,7 +12,7 @@ import { ActorProxy, IActorProxy } from "@/mod/scripts/core/ActorProxy";
 import { ISignalLightBinder } from "@/mod/scripts/core/binders/SignalLightBinder";
 import { HeliCombat } from "@/mod/scripts/core/heli/HeliCombat";
 import { RestrictorManager } from "@/mod/scripts/core/RestrictorManager";
-import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
+import { StateManager } from "@/mod/scripts/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("db", false);

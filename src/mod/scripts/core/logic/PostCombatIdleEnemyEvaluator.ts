@@ -17,8 +17,8 @@ import {
 
 import { AnyCallable, Optional } from "@/mod/lib/types";
 import { getActor, storage as dbStorage } from "@/mod/scripts/core/db";
-import { AnimationManager } from "@/mod/scripts/core/state_management/AnimationManager";
-import { animations } from "@/mod/scripts/core/state_management/lib/state_mgr_animation_list";
+import { AnimationManager } from "@/mod/scripts/state_management/AnimationManager";
+import { animations } from "@/mod/scripts/state_management/lib/state_mgr_animation_list";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("PostCombatIdleEnemyEvaluator");

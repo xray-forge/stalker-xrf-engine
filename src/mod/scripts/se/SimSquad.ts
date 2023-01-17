@@ -43,7 +43,6 @@ import {
   set_npcs_relation
 } from "@/mod/scripts/core/game_relations";
 import { get_sound_manager, SoundManager } from "@/mod/scripts/core/sound/SoundManager";
-import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { simulation_activities } from "@/mod/scripts/se/SimActivity";
 import { ISimBoard, get_sim_board, squad_ltx } from "@/mod/scripts/se/SimBoard";
@@ -52,6 +51,7 @@ import { SimSquadReachTargetAction } from "@/mod/scripts/se/SimSquadReachTargetA
 import { SimSquadStayOnTargetAction } from "@/mod/scripts/se/SimSquadStayOnTargetAction";
 import type { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
 import { ESmartTerrainStatus } from "@/mod/scripts/se/SmartTerrainControl";
+import { StateManager } from "@/mod/scripts/state_management/StateManager";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { areOnSameAlifeLevel, unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import {

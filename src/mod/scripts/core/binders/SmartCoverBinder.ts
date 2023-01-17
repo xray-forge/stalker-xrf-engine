@@ -25,7 +25,7 @@ export const SmartCoverBinder: ISmartCoverBinder = declare_xr_class("SmartCoverB
     return true;
   },
   net_destroy(): void {
-    log.info("Smart cover net spawn:", this.object.name());
+    log.info("Smart cover net destroy:", this.object.name());
     registered_smartcovers.delete(this.object.name());
     object_binder.net_destroy(this);
   },

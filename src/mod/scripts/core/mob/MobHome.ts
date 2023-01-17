@@ -14,6 +14,8 @@ const def_max_radius = 70;
 const log: LuaLogger = new LuaLogger("MobHome");
 
 export class MobHome {
+  public static readonly SCHEME_SECTION: string = "mob_home";
+
   public static add_to_binder(
     npc: XR_game_object,
     ini: XR_ini_file,

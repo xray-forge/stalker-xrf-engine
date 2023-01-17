@@ -42,12 +42,12 @@ declare module "xray16" {
     public play_at_pos(game_object: XR_game_object, vector: XR_vector): unknown;
     public play_at_pos(game_object: XR_game_object, vector: XR_vector, value1: number): unknown;
     public play_at_pos(game_object: XR_game_object, vector: XR_vector, value1: number, value2: number): unknown;
-    public attach_tail(value: string): unknown;
-    public length(): unknown;
+    public attach_tail(value: string): void;
+    public length(): number;
     public play(game_object: XR_game_object): unknown;
     public play(game_object: XR_game_object, value1: number): unknown;
     public play(game_object: XR_game_object, value1: number, value2: number): unknown;
-    public playing(): unknown;
+    public playing(): boolean;
   }
 
   /**

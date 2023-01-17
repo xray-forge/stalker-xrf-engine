@@ -1,7 +1,7 @@
 -- 605
 local InventoryUpgrades = require("scripts.core.inventory_upgrades")
 local TradeManager = require("scripts.core.TradeManager")
-local bind_state_manager = require("scripts.core.state_management.bind_state_manager").bind_state_manager
+local bind_state_manager = require("scripts.state_management.bind_state_manager").bind_state_manager
 local schemes = require("scripts.core.schemes")
 local ReleaseBodyManager = require("scripts.core.ReleaseBodyManager")
 local DropManager = require("scripts.core.DropManager").DropManager

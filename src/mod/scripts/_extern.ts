@@ -13,6 +13,7 @@ import { travelManager } from "@/mod/scripts/core/TravelManager";
 import { weatherManager } from "@/mod/scripts/core/WeatherManager";
 import { ActionCutscene } from "@/mod/scripts/cutscenes/ActionCustscene";
 import { get_task_manager } from "@/mod/scripts/se/task/TaskManager";
+import { smart_covers_list } from "@/mod/scripts/smart_covers/smart_covers_list";
 import { EActorMenuMode } from "@/mod/scripts/ui/game/AbstractActorMenu";
 import { actorMenu } from "@/mod/scripts/ui/game/ActorMenu";
 import { pdaMenu } from "@/mod/scripts/ui/game/PdaMenu";
@@ -26,6 +27,9 @@ const log: LuaLogger = new LuaLogger("_extern");
 log.info("Resolve externals");
 
 declare_global("_extern", {});
+
+declare_global("smart_covers", {});
+declare_global("smart_covers.descriptions", smart_covers_list);
 
 /**
  * Called by game engine on game start

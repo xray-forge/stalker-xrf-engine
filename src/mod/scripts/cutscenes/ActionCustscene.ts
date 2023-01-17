@@ -14,6 +14,8 @@ let object_cutscene: Optional<XR_game_object> = null;
 let storage_scene: Optional<IStoredObject> = null;
 
 export class ActionCutscene {
+  public static readonly SCHEME_SECTION: string = "sr_cutscene";
+
   public static add_to_binder(
     npc: XR_game_object,
     ini: XR_ini_file,

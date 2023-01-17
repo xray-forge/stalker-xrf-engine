@@ -1,5 +1,6 @@
 -- 344
 local SurgeManager = require("scripts.core.SurgeManager")
+local StereoSound = require("scripts.core.sound.StereoSound").StereoSound
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 
@@ -246,9 +247,11 @@ function start_theme()
 
   cur_theme_number = math.random(1, #themes)
   cur_track_number = math.random(1, #themes[cur_theme_number])
+
   if (theme == nil) then
-    theme = xrs_stereo.stereo_sound()
+    theme = create_ts_class_instance(StereoSound)
   end
+
   theme:initialize(themes[cur_theme_number][cur_track_number], m_theme_volume)
   next_track_start_time = theme:play() - TRACK_SWITCH_DELTA
   theme:update(m_theme_volume)

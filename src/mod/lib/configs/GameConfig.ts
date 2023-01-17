@@ -36,7 +36,7 @@ export const gameConfig = {
     /**
      * Global prefix for lua debug logger in project.
      */
-    GLOBAL_LOG_PREFIX: "[XRTS]"
+    GLOBAL_LOG_PREFIX: "[XR]"
   },
   /**
    * Base sizing for templates in UI.

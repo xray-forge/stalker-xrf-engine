@@ -1,4 +1,6 @@
 import { HeliMove } from "@/mod/scripts/core/heli/HeliMove";
+import { ActionHit } from "@/mod/scripts/core/logic/ActionHit";
+import { ActionOnDeath } from "@/mod/scripts/core/logic/ActionOnDeath";
 import { ActionProcessHit } from "@/mod/scripts/core/logic/ActionProcessHit";
 import { MobCombat } from "@/mod/scripts/core/mob/MobCombat";
 import { MobDeath } from "@/mod/scripts/core/mob/MobDeath";
@@ -52,15 +54,15 @@ export function initializeModules(): void {
   loadScheme(MobCombat, "mob_combat", stype_mobile);
   loadScheme(MobDeath, "mob_death", stype_mobile);
   loadScheme(MobJump, "mob_jump", stype_mobile);
-  loadScheme(MobHome, "mob_home", stype_mobile);
+  loadScheme(MobHome, MobHome.SCHEME_SECTION, stype_mobile);
 
   loadScheme("ph_door", "ph_door", stype_item);
   loadScheme("ph_idle", "ph_idle", stype_item);
-  loadScheme("ph_hit", "ph_hit", stype_item);
+  loadScheme(ActionHit, ActionHit.SCHEME_SECTION, stype_item);
   loadScheme("ph_on_hit", "ph_on_hit", stype_item);
   loadScheme("ph_button", "ph_button", stype_item);
   loadScheme("ph_code", "ph_code", stype_item);
-  loadScheme("ph_death", "ph_on_death", stype_item);
+  loadScheme(ActionOnDeath, ActionOnDeath.SCHEME_SECTION, stype_item);
   loadScheme("ph_minigun", "ph_minigun", stype_item);
   // --loadScheme("ph_target",						"ph_target",		stype_item)
   loadScheme("ph_oscillate", "ph_oscillate", stype_item);
@@ -75,7 +77,7 @@ export function initializeModules(): void {
   loadScheme("sr_psy_antenna", "sr_psy_antenna", stype_restrictor);
   loadScheme("sr_postprocess", "sr_postprocess", stype_restrictor);
   loadScheme("sr_particle", "sr_particle", stype_restrictor);
-  loadScheme(ActionCutscene, "sr_cutscene", stype_restrictor);
+  loadScheme(ActionCutscene, ActionCutscene.SCHEME_SECTION, stype_restrictor);
   // --loadScheme("sr_bloodsucker",					"sr_bloodsucker",	stype_restrictor)
   loadScheme("sr_monster", "sr_monster", stype_restrictor);
   // --loadScheme("sr_robbery",						"sr_robbery",		stype_restrictor)
