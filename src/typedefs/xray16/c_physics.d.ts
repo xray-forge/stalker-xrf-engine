@@ -10,7 +10,7 @@ declare module "xray16" {
     public is_breakable(): boolean;
     public get_volume(): number;
     public get_linear_vel(vector: XR_vector): number;
-    public fix(): unknown;
+    public fix(): void;
     public get_angular_vel(vector: XR_vector): number;
     public apply_force(a: number, b: number, c: number): void;
     public release_fixed(): void;
@@ -69,50 +69,31 @@ declare module "xray16" {
   }
 
   /**
-   C++ class physics_joint {
-    function set_limits(number, number, number);
-
-    function get_axis_angle(number);
-
-    function get_anchor(vector&);
-
-    function get_axis_dir(number, vector&);
-
-    function get_bone_id();
-
-    function is_breakable();
-
-    function set_max_force_and_velocity(number, number, number);
-
-    function set_axis_dir_global(number, number, number, number);
-
-    function get_first_element();
-
-    function set_axis_dir_vs_second_element(number, number, number, number);
-
-    function get_axes_number();
-
-    function set_joint_spring_dumping_factors(number, number);
-
-    function set_axis_spring_dumping_factors(number, number, number);
-
-    function set_anchor_vs_first_element(number, number, number);
-
-    function get_stcond_element();
-
-    function set_anchor_global(number, number, number);
-
-    function get_limits(number&, number&, number);
-
-    function set_anchor_vs_second_element(number, number, number);
-
-    function set_axis_dir_vs_first_element(number, number, number, number);
-
-    function get_max_force_and_velocity(number&, number&, number);
-
-  };
+   * C++ class physics_joint {
+   * @customConstructor physics_joint
    */
-  // todo;
+  export class XR_physics_joint {
+    public set_limits(value1: number, value2: number, value3: number): unknown;
+    public get_axis_angle(value: number): number;
+    public get_anchor(vector :XR_vector): unknown;
+    public get_axis_dir(value: number, vector: XR_vector): unknown;
+    public get_bone_id(): unknown;
+    public is_breakable(): unknown;
+    public set_max_force_and_velocity(value1: number, value2: number, value3: number): unknown;
+    public set_axis_dir_global(value1: number, value2: number, value3: number, value4: number): unknown;
+    public get_first_element(): unknown;
+    public set_axis_dir_vs_second_element(value1: number, value2: number, value3: number, value4: number): unknown;
+    public get_axes_number(): unknown;
+    public set_joint_spring_dumping_factors(value1: number, value2: number): unknown;
+    public set_axis_spring_dumping_factors(value1: number, value2: number, value3: number): unknown;
+    public set_anchor_vs_first_element(value1: number, value2: number, value3: number): unknown;
+    public get_stcond_element(): unknown;
+    public set_anchor_global(value1: number, value2: number, value3: number): unknown;
+    public get_limits(value1: number, value2: number, value3: number): LuaMultiReturn<[number, number]>;
+    public set_anchor_vs_second_element(value1: number, value2: number, value3: number): unknown;
+    public set_axis_dir_vs_first_element(value1: number, value2: number, value3: number, value4: number): unknown;
+    public get_max_force_and_velocity(value1: number, value2: number, value3: number): unknown;
+  }
 
   /**
    * C++ class physics_shell {
@@ -126,9 +107,9 @@ declare module "xray16" {
     public is_breakable(): boolean;
     public get_elements_number(): number;
     public unblock_breaking(): boolean;
-    public get_joint_by_bone_name(name: string): unknown;
+    public get_joint_by_bone_name(name: string): XR_physics_joint;
     public get_element_by_order(order: number): void;
-    public get_element_by_bone_name(name: string): XR_physics_element;
+    public get_element_by_bone_name(bone_name: string): XR_physics_element;
     public apply_force(a: number, b: number, c: number): void;
     public get_angular_vel(vector: XR_vector): number;
     public block_breaking(): void;
@@ -137,31 +118,27 @@ declare module "xray16" {
   }
 
   /**
-   C++ class physics_world {
-    function set_gravity(number);
-
-    function gravity();
-
-    function add_call(class CPHCondition*, class CPHAction*);
-
-  };
+   * C++ class physics_world {
+   * @customConstructor physics_world
    */
-  // todo;
+  export class XR_physics_world {
+    public set_gravity(value: number): void;
+    public gravity(): unknown;
+    public add_call(/* class CPHCondition*, class CPHAction */): unknown;
+  }
 
   /**
-   C++ class ICollidable {
-    ICollidable ();
-
-  };
+   * C++ class ICollidable {
+   * @customConstructor ICollidable
    */
-  // todo;
+  export class XR_ICollidable {
+  }
 
   /**
-   C++ class IKinematicsAnimated {
-    function PlayCycle(IKinematicsAnimated*, string);
-
-  };
+   * C++ class IKinematicsAnimated {
+   * @customConstructor IKinematicsAnimated
    */
-  // todo;
-
+  export class XR_IKinematicsAnimated {
+    public PlayCycle(value: string): unknown;
+  }
 }

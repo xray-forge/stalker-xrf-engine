@@ -60,7 +60,7 @@ export interface ISleepDialog extends XR_CUIScriptWnd {
   OnMessageBoxOk(): void;
 }
 
-export const SleepDialog = declare_xr_class("SleepDialog", XR_CUIScriptWnd, {
+export const SleepDialog = declare_xr_class("SleepDialog", CUIScriptWnd, {
   __init(): void {
     xr_class_super();
 

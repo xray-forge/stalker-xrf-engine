@@ -405,10 +405,10 @@ function motivator_binder:update(delta)
 
   -- ��������� �����
   if object_alive then
-    local opened_doors = ph_door.try_to_open_door(self.object)
+    local opened_doors = {}
     copy_table(self.opened_doors, opened_doors)
     -- ��������� �����
-    local closed_doors = ph_door.try_to_close_door(self.object, self.opened_doors)
+    local closed_doors = {}
     for id, v in pairs(closed_doors) do
       self.opened_doors[id] = nil
     end

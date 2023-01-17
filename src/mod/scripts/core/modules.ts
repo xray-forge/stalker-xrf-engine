@@ -1,9 +1,11 @@
 import { ActionButton } from "@/mod/scripts/core/logic/ActionButton";
 import { ActionCodepad } from "@/mod/scripts/core/logic/ActionCodepad";
+import { ActionDoor } from "@/mod/scripts/core/logic/ActionDoor";
 import { ActionHit } from "@/mod/scripts/core/logic/ActionHit";
 import { ActionIdle } from "@/mod/scripts/core/logic/ActionIdle";
 import { ActionOnDeath } from "@/mod/scripts/core/logic/ActionOnDeath";
 import { ActionOnHit } from "@/mod/scripts/core/logic/ActionOnHit";
+import { ActionOscillate } from "@/mod/scripts/core/logic/ActionOscillate";
 import { ActionProcessHit } from "@/mod/scripts/core/logic/ActionProcessHit";
 import { ActionHeliMove } from "@/mod/scripts/core/logic/heli/ActionHeliMove";
 import { ActionMobCombat } from "@/mod/scripts/core/logic/mob/ActionMobCombat";
@@ -60,7 +62,7 @@ export function initializeModules(): void {
   loadScheme(ActionMobJump, ActionMobJump.SCHEME_SECTION, stype_mobile);
   loadScheme(ActionMobHome, ActionMobHome.SCHEME_SECTION, stype_mobile);
 
-  loadScheme("ph_door", "ph_door", stype_item);
+  loadScheme(ActionDoor, ActionDoor.SCHEME_SECTION, stype_item);
   loadScheme(ActionIdle, ActionIdle.SCHEME_SECTION, stype_item);
   loadScheme(ActionHit, ActionHit.SCHEME_SECTION, stype_item);
   loadScheme(ActionOnHit, ActionOnHit.SCHEME_SECTION, stype_item);
@@ -68,8 +70,8 @@ export function initializeModules(): void {
   loadScheme(ActionCodepad, ActionCodepad.SCHEME_SECTION, stype_item);
   loadScheme(ActionOnDeath, ActionOnDeath.SCHEME_SECTION, stype_item);
   loadScheme("ph_minigun", "ph_minigun", stype_item);
-  // --loadScheme("ph_target",						"ph_target",		stype_item)
-  loadScheme("ph_oscillate", "ph_oscillate", stype_item);
+  // -- loadScheme("ph_target", "ph_target", stype_item);
+  loadScheme(ActionOscillate, ActionOscillate.SCHEME_SECTION, stype_item);
 
   loadScheme(ActionHeliMove, "heli_move", stype_heli);
 

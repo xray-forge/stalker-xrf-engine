@@ -88,7 +88,7 @@ export const ArtefactBinder: IArtefactBinder = declare_xr_class("ArtefactBinder"
 
       const boneName: string = ini.r_string("fixed_bone", "name");
 
-      const physicsShell: XR_physics_shell = this.object.get_physics_shell();
+      const physicsShell: Optional<XR_physics_shell> = this.object.get_physics_shell();
 
       if (!physicsShell) {
         return;

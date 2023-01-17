@@ -613,7 +613,7 @@ declare module "xray16" {
     public set_tip_text_default(): unknown;
     public set_tip_text(value: string): unknown;
     public get_current_holder(): unknown;
-    public get_physics_shell(): XR_physics_shell;
+    public get_physics_shell(): XR_physics_shell | null;
     public set_actor_position(vector: XR_vector): unknown;
     public unregister_in_combat(): unknown;
     public remove_all_restrictions(): unknown;
@@ -643,7 +643,7 @@ declare module "xray16" {
     public sniper_fire_mode(): unknown;
     public set_smart_cover_target_fire_no_lookout(): unknown;
     public transfer_money(value: number, game_object: XR_game_object): unknown;
-    public on_door_is_open(): unknown;
+    public on_door_is_open(): void;
     public general_goodwill(game_object: XR_game_object): number;
     public change_goodwill(value: number, game_object: XR_game_object): unknown;
     public force_set_goodwill(value: number, game_object: XR_game_object): unknown;

@@ -17,7 +17,7 @@ declare module "xray16" {
     public set_door_ignore_dynamics(): void;
     public play_bones_sound(): void;
     public run_anim_back(): void;
-    public unset_door_ignore_dynamics(): unknown;
+    public unset_door_ignore_dynamics(): void;
     public run_anim_forward(): unknown;
     public stop_anim(): boolean;
     public anim_time_get(): number;

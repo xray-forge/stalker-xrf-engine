@@ -1,11 +1,4 @@
 -- 435
-function printf()
-end
-local pi_2 = math.pi / 3 -- 60 degree
-
-local def_min_delta_per_sec = 0.2
-local def_min_car_explode_time = 1000
-
 local def_fire_angle = 120
 
 local def_min_fire_time = 1.0
@@ -38,6 +31,7 @@ function action_mgun:__init(obj, storage)
   self.start_look_pos.y = self.object:position().y
 
 end
+
 function action_mgun:reset_scheme(loading)
   printf("car <state>: START INITIALIZING ======================================================")
   printf("car <state>: action_mgun:reset_scheme: self.object:name()='%s'", self.object:name())
@@ -415,6 +409,7 @@ function add_to_binder(npc, ini, scheme, section, storage)
   -- ���������������� ��� actions, � ������� ������ ���� ������ ����� reset_scheme ��� ��������� �������� �����:
   xr_logic.subscribe_action_for_events(npc, storage, new_action)
 end
+
 function set_scheme(npc, ini, scheme, section, gulag_name)
   local st = xr_logic.assign_storage_and_bind(npc, ini, scheme, section)
 

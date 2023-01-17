@@ -5,9 +5,6 @@ local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 local log = create_ts_class_instance(LuaLogger, "move_mgr");
 
-function printf()
-end
-
 local dist_walk = 10 -- < dist_run
 local dist_run = 2500
 

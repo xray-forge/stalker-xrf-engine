@@ -32,6 +32,8 @@ export class ActionIdle extends AbstractSchemeAction {
   }
 
   public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
+    log.info("Set scheme:", object.name(), scheme, section);
+
     const state = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(object, ini, scheme, section);
 
     state.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, object);
@@ -67,7 +69,7 @@ export class ActionIdle extends AbstractSchemeAction {
     who: Optional<XR_game_object>,
     bone_index: number
   ): void {
-    log.info("Idle hit:", object.name(), "<-", who ? who.name() : "nil");
+    log.info("Idle hit:", this.object.name());
 
     if (this.state.hit_on_bone[bone_index] !== null) {
       const section = pickSectionFromCondList(getActor(), this.object, this.state.hit_on_bone[bone_index].state);
@@ -76,8 +78,8 @@ export class ActionIdle extends AbstractSchemeAction {
     }
   }
 
-  public use_callback(object: XR_game_object, who: Optional<XR_game_object>): Optional<boolean> {
-    log.info("Idle use:", object.name(), "<-", who ? who.name() : "nil");
+  public use_callback(): Optional<boolean> {
+    log.info("Idle use:", this.object.name());
 
     if (this.state.on_use) {
       if (
