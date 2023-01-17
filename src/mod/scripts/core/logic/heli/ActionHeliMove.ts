@@ -2,15 +2,16 @@ import { level, patrol, XR_CHelicopter, XR_game_object, XR_ini_file, XR_patrol, 
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
-import { get_heli_firer, HeliFire } from "@/mod/scripts/core/heli/HeliFire";
-import { get_heli_flyer, HeliFly } from "@/mod/scripts/core/heli/HeliFly";
-import { get_heli_looker, HeliLook } from "@/mod/scripts/core/heli/HeliLook";
+import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { get_heli_firer, HeliFire } from "@/mod/scripts/core/logic/heli/HeliFire";
+import { get_heli_flyer, HeliFly } from "@/mod/scripts/core/logic/heli/HeliFly";
+import { get_heli_looker, HeliLook } from "@/mod/scripts/core/logic/heli/HeliLook";
 import { getConfigBoolean, getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 
 const state_move: number = 0;
 
-export class HeliMove {
+export class ActionHeliMove extends AbstractSchemeAction {
   public static add_to_binder(
     npc: XR_game_object,
     ini: XR_ini_file,
@@ -18,7 +19,7 @@ export class HeliMove {
     section: string,
     storage: IStoredObject
   ): void {
-    const new_action = new HeliMove(npc, storage);
+    const new_action = new ActionHeliMove(npc, storage);
 
     get_global<AnyCallablesModule>("xr_logic.").subscribe_action_for_events(npc, storage, new_action);
   }
@@ -52,9 +53,7 @@ export class HeliMove {
     st.mute = getConfigBoolean(ini, section, "mute", npc, false, false);
   }
 
-  public readonly object: XR_game_object;
   public readonly heliObject: XR_CHelicopter;
-  public readonly st: IStoredObject;
 
   public heli_look: HeliLook;
   public heli_fire: HeliFire;
@@ -65,7 +64,7 @@ export class HeliMove {
   public patrol_look: Optional<XR_patrol> = null;
 
   public max_velocity!: number;
-  public state: Optional<number> = null;
+  public heliState: Optional<number> = null;
   public last_index: Optional<number> = null;
   public next_index: Optional<number> = null;
   public _flag_to_wp_callback: Optional<boolean> = null;
@@ -73,47 +72,47 @@ export class HeliMove {
   public by_stop_fire_fly: Optional<boolean> = null;
   public stop_point: Optional<XR_vector> = null;
 
-  public constructor(object: XR_game_object, storage: IStoredObject) {
-    this.object = object;
+  public constructor(object: XR_game_object, state: IStoredObject) {
+    super(object, state);
+
     this.heliObject = object.get_helicopter();
-    this.st = storage;
 
     this.heli_fly = get_heli_flyer(object);
     this.heli_fire = get_heli_firer(object);
     this.heli_look = get_heli_looker(object);
   }
 
-  public reset_scheme(loading: boolean): void {
-    this.st.signals = {};
-    this.heliObject.TurnEngineSound(this.st.engine_sound);
+  public reset_scheme(loading?: boolean): void {
+    this.state.signals = {};
+    this.heliObject.TurnEngineSound(this.state.engine_sound);
 
-    if (!level.patrol_path_exists(this.st.path_move)) {
-      abort("Patrol path %s doesnt exist", this.st.path_move);
+    if (!level.patrol_path_exists(this.state.path_move)) {
+      abort("Patrol path %s doesnt exist", this.state.path_move);
     }
 
-    this.patrol_move = new patrol(this.st.path_move);
-    this.patrol_move_info = get_global<AnyCallablesModule>("utils").path_parse_waypoints(this.st.path_move);
+    this.patrol_move = new patrol(this.state.path_move);
+    this.patrol_move_info = get_global<AnyCallablesModule>("utils").path_parse_waypoints(this.state.path_move);
 
-    if (this.st.path_look) {
-      if (this.st.path_look == "actor") {
+    if (this.state.path_look) {
+      if (this.state.path_look == "actor") {
         this.heli_fly.set_look_point(getActor()!.position());
         this.update_look_state();
       } else {
-        this.patrol_look = new patrol(this.st.path_look);
+        this.patrol_look = new patrol(this.state.path_look);
         this.heli_fly.set_look_point(this.patrol_look.point(0));
         this.update_look_state();
         if (!this.patrol_look) {
-          abort("object '%s': unable to find path_look '%s' on the map", this.object.name(), this.st.path_look);
+          abort("object '%s': unable to find path_look '%s' on the map", this.object.name(), this.state.path_look);
         }
       }
     } else {
       this.patrol_look = null;
     }
 
-    this.max_velocity = this.st.max_velocity;
+    this.max_velocity = this.state.max_velocity;
 
     if (loading) {
-      this.state = get_global<AnyCallablesModule>("xr_logic.").pstor_retrieve(this.object, "st");
+      this.heliState = get_global<AnyCallablesModule>("xr_logic.").pstor_retrieve(this.object, "st");
 
       this.last_index = get_global<AnyCallablesModule>("xr_logic.").pstor_retrieve(this.object, "li") || null;
       this.next_index = get_global<AnyCallablesModule>("xr_logic.").pstor_retrieve(this.object, "ni") || null;
@@ -130,52 +129,52 @@ export class HeliMove {
 
       this.heliObject.SetMaxVelocity(this.max_velocity);
 
-      this.state = null;
+      this.heliState = null;
       this.stop_point = null;
       this.by_stop_fire_fly = false;
 
       this.was_callback = false;
       this._flag_to_wp_callback = false;
-      this.heli_fire.enemy_ = this.st.enemy_;
+      this.heli_fire.enemy_ = this.state.enemy_;
       this.heli_fire.enemy = null;
       this.heli_fire.flag_by_enemy = true;
-      if (this.st.fire_point) {
-        this.heli_fire.fire_point = new patrol(this.st.fire_point).point(0);
+      if (this.state.fire_point) {
+        this.heli_fire.fire_point = new patrol(this.state.fire_point).point(0);
       }
 
-      if (this.st.max_mgun_dist) {
-        this.heliObject.m_max_mgun_dist = this.st.max_mgun_dist;
+      if (this.state.max_mgun_dist) {
+        this.heliObject.m_max_mgun_dist = this.state.max_mgun_dist;
       }
 
-      if (this.st.max_rocket_dist) {
-        this.heliObject.m_max_rocket_dist = this.st.max_rocket_dist;
+      if (this.state.max_rocket_dist) {
+        this.heliObject.m_max_rocket_dist = this.state.max_rocket_dist;
       }
 
-      if (this.st.min_mgun_dist) {
-        this.heliObject.m_min_mgun_dist = this.st.min_mgun_dist;
+      if (this.state.min_mgun_dist) {
+        this.heliObject.m_min_mgun_dist = this.state.min_mgun_dist;
       }
 
-      if (this.st.min_rocket_dist) {
-        this.heliObject.m_min_rocket_dist = this.st.min_rocket_dist;
+      if (this.state.min_rocket_dist) {
+        this.heliObject.m_min_rocket_dist = this.state.min_rocket_dist;
       }
 
-      if (this.st.use_mgun) {
+      if (this.state.use_mgun) {
         this.heliObject.m_use_mgun_on_attack = true;
       } else {
         this.heliObject.m_use_mgun_on_attack = false;
       }
 
-      if (this.st.use_rocket) {
+      if (this.state.use_rocket) {
         this.heliObject.m_use_rocket_on_attack = true;
       } else {
         this.heliObject.m_use_rocket_on_attack = false;
       }
 
-      this.heli_fire.upd_vis = this.st.upd_vis;
+      this.heli_fire.upd_vis = this.state.upd_vis;
       this.heli_fire.update_enemy_state();
       this.update_movement_state();
 
-      if (this.st.show_health) {
+      if (this.state.show_health) {
         this.heli_fire.cs_remove();
         this.heli_fire.show_health = true;
         this.heli_fire.cs_heli();
@@ -184,12 +183,12 @@ export class HeliMove {
         this.heli_fire.cs_remove();
       }
 
-      this.heliObject.UseFireTrail(this.st.fire_trail);
+      this.heliObject.UseFireTrail(this.state.fire_trail);
     }
   }
 
   public save(): void {
-    get_global<AnyCallablesModule>("xr_logic").pstor_store(this.object, "st", this.state);
+    get_global<AnyCallablesModule>("xr_logic").pstor_store(this.object, "st", this.heliState);
     // ---
     get_global<AnyCallablesModule>("xr_logic").pstor_store(this.object, "li", this.last_index || false);
     get_global<AnyCallablesModule>("xr_logic").pstor_store(this.object, "ni", this.next_index || false);
@@ -200,7 +199,7 @@ export class HeliMove {
   public update(delta: number): void {
     const actor: XR_game_object = getActor()!;
 
-    if (get_global<AnyCallablesModule>("xr_logic.").try_switch_to_another_section(this.object, this.st, actor)) {
+    if (get_global<AnyCallablesModule>("xr_logic.").try_switch_to_another_section(this.object, this.state, actor)) {
       return;
     }
 
@@ -210,10 +209,10 @@ export class HeliMove {
       this.was_callback = false;
     }
 
-    if (this.st.path_look) {
-      if (this.st.path_look == "actor") {
+    if (this.state.path_look) {
+      if (this.state.path_look == "actor") {
         this.heli_fly.set_look_point(actor.position());
-        if (this.st.stop_fire) {
+        if (this.state.stop_fire) {
           if (this.heliObject.isVisible(actor)) {
             if (!this.by_stop_fire_fly) {
               this.stop_point = this.object.position();
@@ -232,14 +231,14 @@ export class HeliMove {
       this.update_look_state();
     }
 
-    if (!this.st.path_look && this.heli_look.look_state) {
+    if (!this.state.path_look && this.heli_look.look_state) {
       this.heli_look.calc_look_point(this.heli_fly.dest_point, true);
     }
   }
 
   public update_movement_state(): void {
     // --'printf("update_movement_state()")
-    this.state = state_move;
+    this.heliState = state_move;
 
     if (this.patrol_move !== null) {
       if (!this.last_index) {
@@ -314,7 +313,7 @@ export class HeliMove {
             const signal = this.patrol_move_info.get(this.last_index!)["sig"];
 
             if (signal !== null) {
-              this.st.signals[signal] = true;
+              this.state.signals[signal] = true;
             }
           }
 

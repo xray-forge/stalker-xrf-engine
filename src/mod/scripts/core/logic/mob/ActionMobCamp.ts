@@ -1,4 +1,3 @@
-import { action } from "scripts/utils/alife";
 import {
   anim,
   cond,
@@ -16,8 +15,10 @@ import {
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { isMonster, isStalker } from "@/mod/scripts/core/checkers";
 import { campStorage, getActor, IStoredObject } from "@/mod/scripts/core/db";
-import { MobCombat } from "@/mod/scripts/core/mob/MobCombat";
-import { get_state, set_state } from "@/mod/scripts/core/mob/MobStateManager";
+import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { ActionMobCombat } from "@/mod/scripts/core/logic/mob/ActionMobCombat";
+import { get_state, set_state } from "@/mod/scripts/core/logic/mob/MobStateManager";
+import { action } from "@/mod/scripts/utils/alife";
 import { getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -28,7 +29,7 @@ const STATE_MOVE_HOME: number = 3;
 
 const log: LuaLogger = new LuaLogger("MobCamp");
 
-export class MobCamp {
+export class ActionMobCamp extends AbstractSchemeAction {
   public static add_to_binder(
     npc: XR_game_object,
     ini: XR_ini_file,
@@ -36,7 +37,7 @@ export class MobCamp {
     section: string,
     storage: IStoredObject
   ): void {
-    const new_action = new MobCombat(npc, storage);
+    const new_action = new ActionMobCombat(npc, storage);
 
     get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(npc, storage, new_action);
   }
@@ -76,9 +77,6 @@ export class MobCamp {
     storage.skip_transfer_enemy = ini.line_exist(section, "skip_transfer_enemy");
   }
 
-  public object: XR_game_object;
-  public st: IStoredObject;
-
   public look_path!: XR_patrol;
   public home_path: Optional<XR_patrol> = null;
   public camp_position!: XR_vector;
@@ -89,28 +87,23 @@ export class MobCamp {
   public time_point_changed!: number;
   public prev_enemy!: boolean;
 
-  public constructor(object: XR_game_object, storage: IStoredObject) {
-    this.object = object;
-    this.st = storage;
-  }
-
   public reset_scheme(): void {
     get_global<AnyCallablesModule>("xr_logic").mob_capture(this.object, true);
 
-    set_state(this.object, getActor()!, this.st.state);
+    set_state(this.object, getActor()!, this.state.state);
 
-    this.st.signals = {};
+    this.state.signals = {};
 
-    this.look_path = new patrol(this.st.look_point);
+    this.look_path = new patrol(this.state.look_point);
 
     if (!this.look_path) {
-      abort("object '%s': unable to find look_point '%s' on the map", this.object.name(), this.st.look_point);
+      abort("object '%s': unable to find look_point '%s' on the map", this.object.name(), this.state.look_point);
     }
 
-    if (this.st.home_point) {
-      this.home_path = new patrol(this.st.home_point);
+    if (this.state.home_point) {
+      this.home_path = new patrol(this.state.home_point);
       if (!this.home_path) {
-        abort("object '%s': unable to find home_point '%s' on the map", this.object.name(), this.st.home_point);
+        abort("object '%s': unable to find home_point '%s' on the map", this.object.name(), this.state.home_point);
       }
     } else {
       this.home_path = null;
@@ -137,13 +130,13 @@ export class MobCamp {
     this.time_point_changed = time_global();
     this.prev_enemy = false;
 
-    if (this.st.skip_transfer_enemy) {
+    if (this.state.skip_transfer_enemy) {
       this.object.skip_transfer_enemy(true);
     }
   }
 
   public update(delta: number): void {
-    if (get_global<AnyCallablesModule>("xr_logic").try_switch_to_another_section(this.object, this.st, getActor())) {
+    if (get_global<AnyCallablesModule>("xr_logic").try_switch_to_another_section(this.object, this.state, getActor())) {
       return;
     }
 
@@ -153,7 +146,7 @@ export class MobCamp {
       return;
     }
 
-    if (this.time_point_changed + this.st.time_change_point < time_global()) {
+    if (this.time_point_changed + this.state.time_change_point < time_global()) {
       this.select_current_home_point(false);
       this.time_point_changed = time_global();
     }
@@ -169,12 +162,12 @@ export class MobCamp {
       // -- fill table of free points
       const free_points: LuaTable<number, number> = new LuaTable();
 
-      if (campStorage.get(this.st.home_point) === null) {
-        campStorage.set(this.st.home_point, {});
+      if (campStorage.get(this.state.home_point) === null) {
+        campStorage.set(this.state.home_point, {});
       }
 
       for (const i of $range(1, this.home_path.count())) {
-        if (campStorage.get(this.st.home_point)[i] === null || campStorage.get(this.st.home_point)[i] === false) {
+        if (campStorage.get(this.state.home_point)[i] === null || campStorage.get(this.state.home_point)[i] === false) {
           table.insert(free_points, i);
         }
       }
@@ -191,11 +184,11 @@ export class MobCamp {
 
       if (!first_call) {
         if (prev_point_index !== this.cur_point_index) {
-          campStorage.get(this.st.home_point)[prev_point_index + 1] = false;
+          campStorage.get(this.state.home_point)[prev_point_index + 1] = false;
         }
       }
 
-      campStorage.get(this.st.home_point)[this.cur_point_index + 1] = true;
+      campStorage.get(this.state.home_point)[this.cur_point_index + 1] = true;
     } else {
       this.cur_point_index = math.random(0, this.look_path.count() - 1);
     }
@@ -218,7 +211,7 @@ export class MobCamp {
     // -- if enemy just appeared - signal
     if (enemy !== null) {
       if (!this.prev_enemy) {
-        this.st.signals["enemy"] = true;
+        this.state.signals["enemy"] = true;
       }
 
       this.prev_enemy = true;
@@ -230,11 +223,11 @@ export class MobCamp {
       const enemy_dist = enemy.position().distance_to(home_position);
       // --const my_dist        = this.object.position().distance_to(home_position)
 
-      if (this.state_prev === STATE_MOVE_HOME && enemy_dist > this.st.home_min_radius) {
+      if (this.state_prev === STATE_MOVE_HOME && enemy_dist > this.state.home_min_radius) {
         // empty
-      } else if (this.state_prev === STATE_ALIFE && enemy_dist > this.st.home_max_radius) {
+      } else if (this.state_prev === STATE_ALIFE && enemy_dist > this.state.home_max_radius) {
         this.state_current = STATE_MOVE_HOME;
-      } else if (this.state_prev === STATE_CAMP && enemy_dist > this.st.home_min_radius) {
+      } else if (this.state_prev === STATE_CAMP && enemy_dist > this.state.home_min_radius) {
         // empty
       } else {
         this.state_current = STATE_ALIFE;
@@ -257,7 +250,7 @@ export class MobCamp {
     if (enemy === null && h.who && h.time !== 0 && (isMonster(h.who) || isStalker(h.who))) {
       const dist = this.object.position().distance_to(home_position);
 
-      if (dist < this.st.home_min_radius) {
+      if (dist < this.state.home_min_radius) {
         this.state_current = STATE_ALIFE;
       }
     }
@@ -329,7 +322,7 @@ export class MobCamp {
 
   public deactivate(): void {
     if (this.home_path) {
-      campStorage.get(this.st.home_point)[this.cur_point_index + 1] = false;
+      campStorage.get(this.state.home_point)[this.cur_point_index + 1] = false;
     }
 
     this.object.skip_transfer_enemy(false);
@@ -337,7 +330,7 @@ export class MobCamp {
 
   public net_destroy(): void {
     if (this.home_path) {
-      campStorage.get(this.st.home_point)[this.cur_point_index + 1] = false;
+      campStorage.get(this.state.home_point)[this.cur_point_index + 1] = false;
     }
 
     this.object.skip_transfer_enemy(false);

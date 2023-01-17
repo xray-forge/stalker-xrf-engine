@@ -2,7 +2,8 @@ import { anim, cond, MonsterSpace, sound, XR_cond, XR_game_object, XR_ini_file }
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
-import { get_state, set_state } from "@/mod/scripts/core/mob/MobStateManager";
+import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { get_state, set_state } from "@/mod/scripts/core/logic/mob/MobStateManager";
 import { send_tip } from "@/mod/scripts/core/NewsManager";
 import { action } from "@/mod/scripts/utils/alife";
 import { getConfigBoolean, getConfigString, parseNames } from "@/mod/scripts/utils/configs";
@@ -11,7 +12,9 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("MobRemark");
 
-export class MobRemark {
+export class ActionMobRemark extends AbstractSchemeAction {
+  public static readonly SCHEME_SECTION: string = "mob_remark";
+
   public static add_to_binder(
     npc: XR_game_object,
     ini: XR_ini_file,
@@ -19,7 +22,7 @@ export class MobRemark {
     section: string,
     storage: IStoredObject
   ): void {
-    const new_action = new MobRemark(npc, storage);
+    const new_action = new ActionMobRemark(npc, storage);
 
     get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(npc, storage, new_action);
   }
@@ -51,30 +54,22 @@ export class MobRemark {
     st.time = getConfigString(ini, section, "time", npc, false, "");
   }
 
-  public object: XR_game_object;
-  public st: IStoredObject;
-
   public tip_sent: Optional<boolean> = null;
   public action_end_signalled: Optional<boolean> = null;
 
-  public constructor(object: XR_game_object, storage: IStoredObject) {
-    this.object = object;
-    this.st = storage;
-  }
-
   public reset_scheme(): void {
-    set_state(this.object, getActor()!, this.st.state);
+    set_state(this.object, getActor()!, this.state.state);
 
     this.object.disable_talk();
 
-    get_global<AnyCallablesModule>("xr_logic").mob_capture(this.object, !this.st.no_reset);
+    get_global<AnyCallablesModule>("xr_logic").mob_capture(this.object, !this.state.no_reset);
 
-    const anims = parseNames(this.st.anim);
+    const anims = parseNames(this.state.anim);
 
     let snds;
 
-    if (this.st.snd) {
-      snds = parseNames(this.st.snd);
+    if (this.state.snd) {
+      snds = parseNames(this.state.snd);
     } else {
       snds = new LuaTable();
     }
@@ -82,8 +77,8 @@ export class MobRemark {
     let sndset;
     let times;
 
-    if (this.st.time) {
-      times = parseNames(this.st.time);
+    if (this.state.time) {
+      times = parseNames(this.state.time);
     } else {
       times = new LuaTable();
     }
@@ -104,7 +99,12 @@ export class MobRemark {
         const snd = get_global<AnyCallablesModule>("mob_sound").pick_sound_from_set(this.object, sndset, {});
 
         if (!snd) {
-          abort("mobile '%s': section '%s': sound set '%s' does !exist", this.object.name(), this.st.section, sndset);
+          abort(
+            "mobile '%s': section '%s': sound set '%s' does !exist",
+            this.object.name(),
+            this.state.section,
+            sndset
+          );
         }
 
         if (tm === 0) {
@@ -113,12 +113,12 @@ export class MobRemark {
           cnd = new cond(cond.time_end, tm);
         }
 
-        if (this.st.anim_head) {
+        if (this.state.anim_head) {
           // --printf("__bp: action set: %d", time_global())
-          action(this.object, new anim(an), new sound(snd, "bip01_head", MonsterSpace[this.st.anim_head!]), cnd);
+          action(this.object, new anim(an), new sound(snd, "bip01_head", MonsterSpace[this.state.anim_head!]), cnd);
         } else {
           // --printf("__bp: action set: %d", time_global())
-          if (this.st.anim_movement === true) {
+          if (this.state.anim_movement === true) {
             action(this.object, new anim(an, true), new sound(snd, "bip01_head"), cnd);
           } else {
             action(this.object, new anim(an), new sound(snd, "bip01_head"), cnd);
@@ -132,7 +132,7 @@ export class MobRemark {
         }
 
         // --printf("__bp: action set: %d", time_global())
-        if (this.st.anim_movement === true) {
+        if (this.state.anim_movement === true) {
           // const pos = this.object.position();
           // const dir = this.object.direction();
 
@@ -150,31 +150,31 @@ export class MobRemark {
 
     this.tip_sent = false;
 
-    this.st.signals = {};
+    this.state.signals = {};
     this.action_end_signalled = false;
     // --printf("_bp: mob_remark:reset_scheme end")
   }
 
   public update(delta: number): void {
     // --printf("__bp: mob_remark update: %d", time_global())
-    // --if !xr_logic.is_active(this.object, this.st) then
+    // --if !xr_logic.is_active(this.object, this.state) then
     // --    return
     // --end
 
     const actor = getActor()!;
 
     /* --[[
-        if xr_logic.try_switch_to_another_section(this.object, this.st, actor) then
+        if xr_logic.try_switch_to_another_section(this.object, this.state, actor) then
           return
         end
     ]]*/
 
     if (
-      this.st.dialog_cond &&
+      this.state.dialog_cond &&
       get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(
         actor,
         this.object,
-        this.st.dialog_cond.condlist
+        this.state.dialog_cond.condlist
       ) !== null
     ) {
       // --printf("_bp: enable talk")
@@ -190,8 +190,8 @@ export class MobRemark {
 
     if (!this.tip_sent) {
       this.tip_sent = true;
-      if (this.st.tip) {
-        send_tip(actor, this.st.tip, null, null, null, null);
+      if (this.state.tip) {
+        send_tip(actor, this.state.tip, null, null, null, null);
       }
     }
 
@@ -203,7 +203,7 @@ export class MobRemark {
 
       if (!this.action_end_signalled) {
         this.action_end_signalled = true;
-        this.st.signals["action_end"] = true;
+        this.state.signals["action_end"] = true;
       }
     }
   }

@@ -2,7 +2,8 @@ import { alife, patrol, XR_cse_alife_creature_abstract, XR_game_object, XR_ini_f
 
 import { AnyCallablesModule } from "@/mod/lib/types";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
-import { get_state, set_state } from "@/mod/scripts/core/mob/MobStateManager";
+import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { get_state, set_state } from "@/mod/scripts/core/logic/mob/MobStateManager";
 import { getConfigBoolean, getConfigNumber, getConfigString, parse_waypoint_data } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -13,7 +14,7 @@ const def_max_radius = 70;
 
 const log: LuaLogger = new LuaLogger("MobHome");
 
-export class MobHome {
+export class ActionMobHome extends AbstractSchemeAction {
   public static readonly SCHEME_SECTION: string = "mob_home";
 
   public static add_to_binder(
@@ -23,7 +24,7 @@ export class MobHome {
     section: string,
     storage: IStoredObject
   ): void {
-    const new_action: MobHome = new MobHome(npc, storage);
+    const new_action: ActionMobHome = new ActionMobHome(npc, storage);
 
     get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(npc, storage, new_action);
   }
@@ -49,16 +50,8 @@ export class MobHome {
     storage.aggressive = getConfigBoolean(ini, section, "aggressive", npc, false, false);
   }
 
-  public object: XR_game_object;
-  public st: IStoredObject;
-
-  public constructor(object: XR_game_object, storage: IStoredObject) {
-    this.object = object;
-    this.st = storage;
-  }
-
   public reset_scheme(): void {
-    set_state(this.object, getActor()!, this.st.state);
+    set_state(this.object, getActor()!, this.state.state);
 
     let minr = def_min_radius;
     let maxr = def_max_radius;
@@ -68,13 +61,13 @@ export class MobHome {
     let path_info: LuaTable<string> = new LuaTable();
     let r = 0;
 
-    if (this.st.home !== null) {
-      ptr = new patrol(this.st.home);
-      path_info = parse_waypoint_data(this.st.home, ptr.flags(0), ptr.name(0));
+    if (this.state.home !== null) {
+      ptr = new patrol(this.state.home);
+      path_info = parse_waypoint_data(this.state.home, ptr.flags(0), ptr.name(0));
     }
 
-    if (this.st.home_min_radius !== null) {
-      minr = this.st.home_min_radius;
+    if (this.state.home_min_radius !== null) {
+      minr = this.state.home_min_radius;
     } else {
       r = path_info.get("minr");
       if (r !== null) {
@@ -85,8 +78,8 @@ export class MobHome {
       }
     }
 
-    if (this.st.home_max_radius !== null) {
-      maxr = this.st.home_max_radius;
+    if (this.state.home_max_radius !== null) {
+      maxr = this.state.home_max_radius;
     } else {
       r = path_info.get("maxr");
       if (r !== null) {
@@ -102,9 +95,9 @@ export class MobHome {
       abort("Mob_Home : Home Min Radius MUST be < Max Radius. Got: min radius = %d, max radius = %d.", minr, maxr);
     }
 
-    // --printf("DEBUG: reset_scheme: [%s] setting home path [%s]", this.object.name(), this.st.home)
-    if (this.st.home_mid_radius !== null) {
-      midr = this.st.home_mid_radius;
+    // --printf("DEBUG: reset_scheme: [%s] setting home path [%s]", this.object.name(), this.state.home)
+    if (this.state.home_mid_radius !== null) {
+      midr = this.state.home_mid_radius;
       if (midr <= minr || midr >= maxr) {
         midr = minr + (maxr - minr) / 2;
       }
@@ -112,21 +105,19 @@ export class MobHome {
       midr = minr + (maxr - minr) / 2;
     }
 
-    if (this.st.gulag_point !== null) {
+    if (this.state.gulag_point !== null) {
       const smrttrn = alife().object(
         alife().object<XR_cse_alife_creature_abstract>(this.object.id()!)!.m_smart_terrain_id
       );
       const lvid = smrttrn ? smrttrn.m_level_vertex_id : null;
 
-      this.object.set_home(lvid, minr, maxr, this.st.aggressive, midr);
+      this.object.set_home(lvid, minr, maxr, this.state.aggressive, midr);
     } else {
-      this.object.set_home(this.st.home, minr, maxr, this.st.aggressive, midr);
+      this.object.set_home(this.state.home, minr, maxr, this.state.aggressive, midr);
     }
 
-    // --this.object.set_home(this.st.home, minr, maxr, this.st.aggressive)
+    // --this.object.set_home(this.state.home, minr, maxr, this.state.aggressive)
   }
-
-  public update(delta: number): void {}
 
   public deactivate(): void {
     this.object.remove_home();

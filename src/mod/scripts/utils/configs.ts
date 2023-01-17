@@ -597,3 +597,62 @@ export function pickSectionFromCondList(
 
   return null;
 }
+
+/**
+ * todo
+ */
+export function getConfigCondList(
+  ini: XR_ini_file,
+  section: string,
+  field: string,
+  object: XR_game_object
+): Optional<{ name: string; condlist: LuaTable }> {
+  const str = getConfigString(ini, section, field, object, false, "");
+
+  if (!str) {
+    return null;
+  }
+
+  const par = parseParams(str);
+
+  if (!par.get(1)) {
+    abort("Invalid syntax in condlist");
+  }
+
+  return {
+    name: field,
+    condlist: parseCondList(object, section, field, par.get(1))
+  };
+}
+
+/**
+ * todo;
+ */
+export function getConfigStringAndCondList(
+  ini: XR_ini_file,
+  section: string,
+  field: string,
+  object: XR_game_object
+): Optional<{
+  name: string;
+  v1: string;
+  condlist: LuaTable;
+}> {
+  const str = getConfigString(ini, section, field, object, false, "");
+
+  if (!str) {
+    return null;
+  }
+
+  const par = parseParams(str);
+
+  if (!par.get(1) || !par.get(2)) {
+    abort("Invalid syntax in condlist");
+  }
+
+  return {
+    name: field,
+    v1: par.get(1),
+    condlist: parseCondList(object, section, field, par.get(2))
+  };
+}

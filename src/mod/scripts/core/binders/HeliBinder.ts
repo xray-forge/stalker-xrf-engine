@@ -16,8 +16,8 @@ import {
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { addHeli, addObject, deleteHeli, deleteObject, getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
-import { get_heli_health } from "@/mod/scripts/core/heli/heli_utils";
-import { HeliCombat } from "@/mod/scripts/core/heli/HeliCombat";
+import { get_heli_health } from "@/mod/scripts/core/logic/heli/heli_utils";
+import { HeliCombat } from "@/mod/scripts/core/logic/heli/HeliCombat";
 import { stype_heli } from "@/mod/scripts/core/schemes";
 import { getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";

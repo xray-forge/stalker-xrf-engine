@@ -17,7 +17,8 @@ import {
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
-import { get_state, set_state } from "@/mod/scripts/core/mob/MobStateManager";
+import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { get_state, set_state } from "@/mod/scripts/core/logic/mob/MobStateManager";
 import { action } from "@/mod/scripts/utils/alife";
 import { getConfigBoolean, getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -31,7 +32,9 @@ const state_moving: number = 0;
 const state_standing: number = 1;
 const log: LuaLogger = new LuaLogger("MobWalker");
 
-export class MobWalker {
+export class ActionMobWalker extends AbstractSchemeAction {
+  public static readonly SCHEME_SECTION: string = "mob_walker";
+
   public static add_to_binder(
     npc: XR_game_object,
     ini: XR_ini_file,
@@ -39,7 +42,7 @@ export class MobWalker {
     section: string,
     storage: IStoredObject
   ): void {
-    const new_action = new MobWalker(npc, storage);
+    const new_action = new ActionMobWalker(npc, storage);
 
     get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(npc, storage, new_action);
   }
@@ -69,9 +72,6 @@ export class MobWalker {
     st.path_look_info = null; // -- �� ���������.
   }
 
-  public object: XR_game_object;
-  public st: IStoredObject;
-
   public last_index: Optional<number> = null;
   public patrol_look: Optional<XR_patrol> = null;
   public patrol_walk: Optional<XR_patrol> = null;
@@ -84,47 +84,42 @@ export class MobWalker {
 
   public crouch: Optional<boolean> = null;
   public running: Optional<boolean> = null;
-  public state: Optional<number> = null;
+  public mob_state: Optional<number> = null;
 
   public path_look_info: Optional<any> = null;
 
-  public constructor(object: XR_game_object, storage: IStoredObject) {
-    this.object = object;
-    this.st = storage;
-  }
-
   public reset_scheme(): void {
-    set_state(this.object, getActor()!, this.st.state);
+    set_state(this.object, getActor()!, this.state.state);
 
-    this.st.signals = {};
+    this.state.signals = {};
     get_global<AnyCallablesModule>("xr_logic").mob_capture(this.object, true);
 
-    this.patrol_walk = new patrol(this.st.path_walk);
+    this.patrol_walk = new patrol(this.state.path_walk);
 
     if (!this.patrol_walk) {
-      abort("object '%s': unable to find path_walk '%s' on the map", this.object.name(), this.st.path_walk);
+      abort("object '%s': unable to find path_walk '%s' on the map", this.object.name(), this.state.path_walk);
     }
 
-    if (this.st.path_look) {
-      this.patrol_look = new patrol(this.st.path_look);
+    if (this.state.path_look) {
+      this.patrol_look = new patrol(this.state.path_look);
       if (!this.patrol_look) {
-        abort("object '%s': unable to find path_look '%s' on the map", this.object.name(), this.st.path_look);
+        abort("object '%s': unable to find path_look '%s' on the map", this.object.name(), this.state.path_look);
       }
     } else {
       this.patrol_look = null;
     }
 
-    if (this.st.path_walk_info === null) {
-      this.st.path_walk_info = get_global<AnyCallablesModule>("utils").path_parse_waypoints(this.st.path_walk);
-      this.path_walk_info = this.st.path_walk_info;
+    if (this.state.path_walk_info === null) {
+      this.state.path_walk_info = get_global<AnyCallablesModule>("utils").path_parse_waypoints(this.state.path_walk);
+      this.path_walk_info = this.state.path_walk_info;
     }
 
-    if (this.st.path_look_info === null) {
-      this.st.path_look_info = get_global<AnyCallablesModule>("utils").path_parse_waypoints(this.st.path_look);
-      this.path_look_info = this.st.path_look_info;
+    if (this.state.path_look_info === null) {
+      this.state.path_look_info = get_global<AnyCallablesModule>("utils").path_parse_waypoints(this.state.path_look);
+      this.path_look_info = this.state.path_look_info;
     }
 
-    this.state = state_moving;
+    this.mob_state = state_moving;
     this.crouch = false;
     this.running = false;
     this.cur_anim_set = default_anim_standing;
@@ -135,14 +130,14 @@ export class MobWalker {
 
     action(
       this.object,
-      new move(move.walk_fwd, new patrol(this.st.path_walk, patrol.next, patrol.continue)),
+      new move(move.walk_fwd, new patrol(this.state.path_walk, patrol.next, patrol.continue)),
       new cond(cond.move_end)
     );
   }
 
   public update(): void {
     // --    printf("__bp: mob_walker update: %d", time_global())
-    // --if !xr_logic.is_active(this.object, this.st) then
+    // --if !xr_logic.is_active(this.object, this.state) then
     // --    return
     // --end
     const actor = getActor()!;
@@ -156,22 +151,22 @@ export class MobWalker {
     /*
       --[[
           if this:arrived_to_first_waypoint() then
-            if xr_logic.try_switch_to_another_section(this.object, this.st, actor) then
+            if xr_logic.try_switch_to_another_section(this.object, this.state, actor) then
               return
             end
           end
         ]]
      */
-    if (this.state === state_standing) {
+    if (this.mob_state === state_standing) {
       if (!this.object.action()) {
         const patrol_walk_count = this.patrol_walk!.count();
 
         if (patrol_walk_count === 1 && isStalkerAtWaypoint(this.object, this.patrol_walk!, 0)) {
-          this.state = state_moving;
+          this.mob_state = state_moving;
           this.waypoint_callback(this.object, null, this.last_index);
         } else {
           this.last_look_index = null;
-          this.state = state_moving;
+          this.mob_state = state_moving;
           this.update_movement_state();
         }
       }
@@ -227,7 +222,7 @@ export class MobWalker {
     if (beh) {
       set_state(this.object, getActor()!, beh);
     } else {
-      set_state(this.object, getActor()!, this.st.state);
+      set_state(this.object, getActor()!, this.state.state);
     }
 
     const search_for = this.path_walk_info.get(index).get("flags") as XR_flags32;
@@ -283,14 +278,14 @@ export class MobWalker {
       if (beh) {
         set_state(this.object, getActor()!, beh);
       } else {
-        set_state(this.object, getActor()!, this.st.state);
+        set_state(this.object, getActor()!, this.state.state);
       }
 
       if (pt_chosen_idx !== this.last_look_index) {
         this.look_at_waypoint(pt_chosen_idx);
       }
 
-      this.state = state_standing;
+      this.mob_state = state_standing;
       this.update_standing_state();
 
       this.update();
@@ -315,7 +310,7 @@ export class MobWalker {
     if (this.scheduled_snd) {
       action(
         this.object,
-        new move(m, new patrol(this.st.path_walk, patrol.next, patrol.continue)),
+        new move(m, new patrol(this.state.path_walk, patrol.next, patrol.continue)),
         new sound(sound[this.scheduled_snd]),
         new cond(cond.move_end)
       );
@@ -323,7 +318,7 @@ export class MobWalker {
     } else {
       action(
         this.object,
-        new move(m, new patrol(this.st.path_walk, patrol.next, patrol.continue)),
+        new move(m, new patrol(this.state.path_walk, patrol.next, patrol.continue)),
         new cond(cond.move_end)
       );
     }

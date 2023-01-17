@@ -1,4 +1,4 @@
-import { clsid, XR_game_object, XR_ini_file } from "xray16";
+import { clsid, TXR_cls_id, XR_game_object, XR_ini_file } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { getConfigString } from "@/mod/scripts/utils/configs";
@@ -9,7 +9,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 const log: LuaLogger = new LuaLogger("MobStateManager");
 
 export function get_state(ini: XR_ini_file, section: string, obj: XR_game_object): Optional<string> {
-  const state = getConfigString(ini, section, "state", obj, false, "", "");
+  const state: string = getConfigString(ini, section, "state", obj, false, "", "");
 
   return state === "" ? null : state;
 }
@@ -19,7 +19,7 @@ export function set_state(obj: XR_game_object, actor: XR_game_object, state: Opt
     return;
   }
 
-  const obj_clsid = getClsId(obj);
+  const obj_clsid: TXR_cls_id = getClsId(obj);
 
   if (obj_clsid === clsid.bloodsucker_s) {
     if (state === "invis") {

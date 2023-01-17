@@ -3,6 +3,7 @@ import { level, patrol, XR_game_object, XR_ini_file } from "xray16";
 import { animations } from "@/mod/globals/animations";
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { EEffectorState, effector_sets } from "@/mod/scripts/cutscenes/cam_effector_sets";
 import { CamEffectorSet } from "@/mod/scripts/cutscenes/CamEffectorSet";
 import { getConfigBoolean, getConfigNumber, getConfigString, parseNames } from "@/mod/scripts/utils/configs";
@@ -13,7 +14,7 @@ const log: LuaLogger = new LuaLogger("ActionCutscene");
 let object_cutscene: Optional<XR_game_object> = null;
 let storage_scene: Optional<IStoredObject> = null;
 
-export class ActionCutscene {
+export class ActionCutscene extends AbstractSchemeAction {
   public static readonly SCHEME_SECTION: string = "sr_cutscene";
 
   public static add_to_binder(
@@ -57,48 +58,46 @@ export class ActionCutscene {
     get_global<AnyCallablesModule>("xr_logic").issue_event(object_cutscene, storage_scene, "cutscene_callback");
   }
 
-  public readonly object: XR_game_object;
-  public readonly st: IStoredObject;
   public ui_disabled: boolean;
   public postprocess: boolean;
   public motion_id: number;
   public motion: Optional<CamEffectorSet> = null;
-  public state!: string;
+  public sceneState!: string;
 
   public constructor(object: XR_game_object, storage: IStoredObject) {
+    super(object, storage);
+
     log.info("Init new cutscene:", object.name());
 
-    this.object = object;
-    this.st = storage;
     this.ui_disabled = false;
     this.motion_id = 1;
     this.postprocess = false;
   }
 
   public reset_scheme(): void {
-    this.state = "";
-    this.st.signals = {};
+    this.sceneState = "";
+    this.state.signals = {};
     this.motion = null;
 
     this.zone_enter();
   }
 
   public update(delta: number): void {
-    const state = this.state;
+    const sceneState = this.sceneState;
     // --    if(state~="run") then
     // --        this:zone_enter()
     // --    end
 
     if (this.motion) {
       this.motion.update();
-      if (this.st.signals["cam_effector_stop"] !== null) {
+      if (this.state.signals["cam_effector_stop"] !== null) {
         this.motion.stop_effect();
         this.cutscene_callback();
-        this.st.signals["cam_effector_stop"] = null;
+        this.state.signals["cam_effector_stop"] = null;
       }
     }
 
-    if (get_global<AnyCallablesModule>("xr_logic").try_switch_to_another_section(this.object, this.st, getActor())) {
+    if (get_global<AnyCallablesModule>("xr_logic").try_switch_to_another_section(this.object, this.state, getActor())) {
       return;
     }
   }
@@ -108,12 +107,15 @@ export class ActionCutscene {
 
     const actor: Optional<XR_game_object> = getActor();
 
-    this.state = "run";
+    this.sceneState = "run";
 
-    get_global<AnyCallablesModule>("xr_effects").teleport_actor(actor, this.object, [this.st.point, this.st.look]);
+    get_global<AnyCallablesModule>("xr_effects").teleport_actor(actor, this.object, [
+      this.state.point,
+      this.state.look
+    ]);
 
-    if (this.st.pp_effector !== animations.nil) {
-      level.add_pp_effector(this.st.pp_effector, 234, false);
+    if (this.state.pp_effector !== animations.nil) {
+      level.add_pp_effector(this.state.pp_effector, 234, false);
     }
 
     get_global<AnyCallablesModule>("xr_effects").disable_ui(actor, null);
@@ -121,7 +123,7 @@ export class ActionCutscene {
 
     const time_hours: number = level.get_time_hours();
 
-    if (this.st.outdoor && actor !== null && (time_hours < 6 || time_hours > 21)) {
+    if (this.state.outdoor && actor !== null && (time_hours < 6 || time_hours > 21)) {
       this.postprocess = true;
       level.add_complex_effector("brighten", 1999);
       // --level.add_pp_effector("brighten.ppe", 1999, true)
@@ -131,24 +133,24 @@ export class ActionCutscene {
     this.select_next_motion();
 
     object_cutscene = this.object;
-    storage_scene = this.st;
+    storage_scene = this.state;
   }
 
   public select_next_motion(): void {
-    const motion = this.st.cam_effector!.get(this.motion_id);
+    const motion = this.state.cam_effector!.get(this.motion_id);
 
     if (effector_sets[motion] === null) {
       this.motion = new CamEffectorSet(
         {
           start: new LuaTable(),
-          idle: [{ anim: motion, looped: false, global_cameffect: this.st.global_cameffect }] as any,
+          idle: [{ anim: motion, looped: false, global_cameffect: this.state.global_cameffect }] as any,
           finish: new LuaTable(),
           release: new LuaTable()
         },
-        this.st
+        this.state
       );
     } else {
-      this.motion = new CamEffectorSet(effector_sets[motion], this.st);
+      this.motion = new CamEffectorSet(effector_sets[motion], this.state);
     }
 
     const effect = this.motion.select_effect()!;
@@ -165,7 +167,7 @@ export class ActionCutscene {
 
     if (this.motion!.state == EEffectorState.RELEASE) {
       this.motion = null;
-      if (this.motion_id <= this.st.cam_effector!.length()) {
+      if (this.motion_id <= this.state.cam_effector!.length()) {
         this.select_next_motion();
       } else {
         if (this.postprocess) {
@@ -174,15 +176,17 @@ export class ActionCutscene {
         }
 
         if (this.ui_disabled) {
-          if (!actor.is_talking() && this.st.enable_ui_on_end) {
+          if (!actor.is_talking() && this.state.enable_ui_on_end) {
             get_global<AnyCallablesModule>("xr_effects").enable_ui(XR_game_object, null);
-          } else if (this.st.enable_ui_on_end) {
+          } else if (this.state.enable_ui_on_end) {
             level.enable_input();
           }
 
-          actor.set_actor_direction(-new patrol(this.st.look).point(0).sub(new patrol(this.st.point).point(0)).getH());
+          actor.set_actor_direction(
+            -new patrol(this.state.look).point(0).sub(new patrol(this.state.point).point(0)).getH()
+          );
           this.ui_disabled = false;
-          this.st.signals["cameff_end"] = true;
+          this.state.signals["cameff_end"] = true;
         }
       }
     } else {

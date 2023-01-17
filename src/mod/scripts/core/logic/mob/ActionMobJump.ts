@@ -2,6 +2,7 @@ import { cond, look, patrol, vector, XR_game_object, XR_ini_file, XR_patrol, XR_
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { IStoredObject } from "@/mod/scripts/core/db";
+import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { action } from "@/mod/scripts/utils/alife";
 import { getConfigNumber, getConfigString, parseNames } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -13,7 +14,9 @@ const STATE_JUMP = 3;
 
 const log: LuaLogger = new LuaLogger("MobJump");
 
-export class MobJump {
+export class ActionMobJump extends AbstractSchemeAction {
+  public static readonly SCHEME_SECTION: string = "mob_jump";
+
   public static add_to_binder(
     npc: XR_game_object,
     ini: XR_ini_file,
@@ -23,7 +26,7 @@ export class MobJump {
   ): void {
     log.info("Add to binder:", npc.name(), scheme, section);
 
-    const new_action = new MobJump(npc, storage);
+    const new_action = new ActionMobJump(npc, storage);
 
     get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(npc, storage, new_action);
   }
@@ -54,37 +57,30 @@ export class MobJump {
     }
   }
 
-  public object: XR_game_object;
-  public st: IStoredObject;
   public jump_path: Optional<XR_patrol> = null;
   public point: Optional<XR_vector> = null;
   public state_current: Optional<number> = null;
-
-  public constructor(object: XR_game_object, storage: IStoredObject) {
-    this.object = object;
-    this.st = storage;
-  }
 
   public reset_scheme(): void {
     get_global<AnyCallablesModule>("xr_logic").mob_capture(this.object, true);
 
     // -- reset signals
-    this.st.signals = {};
+    this.state.signals = {};
 
     // -- initialize jump point
     this.jump_path = null;
 
-    if (this.st.jump_path_name) {
-      this.jump_path = new patrol(this.st.jump_path_name);
+    if (this.state.jump_path_name) {
+      this.jump_path = new patrol(this.state.jump_path_name);
     } else {
-      this.st.jump_path_name = "[not defined]";
+      this.state.jump_path_name = "[not defined]";
     }
 
     if (!this.jump_path) {
-      abort("object '%s': unable to find jump_path '%s' on the map", this.object.name(), this.st.jump_path_name);
+      abort("object '%s': unable to find jump_path '%s' on the map", this.object.name(), this.state.jump_path_name);
     }
 
-    this.point = new vector().add(this.jump_path.point(0), this.st.offset);
+    this.point = new vector().add(this.jump_path.point(0), this.state.offset);
 
     this.state_current = STATE_START_LOOK;
   }
@@ -103,8 +99,8 @@ export class MobJump {
     }
 
     if (this.state_current == STATE_JUMP) {
-      this.object.jump(this.point!, this.st.ph_jump_factor);
-      this.st.signals["jumped"] = true;
+      this.object.jump(this.point!, this.state.ph_jump_factor);
+      this.state.signals["jumped"] = true;
       get_global<AnyCallablesModule>("xr_logic").mob_release(this.object);
     }
   }

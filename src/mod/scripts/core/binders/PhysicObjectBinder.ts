@@ -14,6 +14,7 @@ import {
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { addObject, deleteObject, getActor, IStoredObject, levelDoors, storage } from "@/mod/scripts/core/db";
+import { ActionOnHit } from "@/mod/scripts/core/logic/ActionOnHit";
 import { stype_item } from "@/mod/scripts/core/schemes";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -122,10 +123,10 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
     who: XR_game_object,
     bone_index: number
   ): void {
-    if (this.st.ph_on_hit) {
+    if (this.st[ActionOnHit.SCHEME_SECTION]) {
       get_global<AnyCallablesModule>("xr_logic").issue_event(
         this.object,
-        this.st.ph_on_hit,
+        this.st[ActionOnHit.SCHEME_SECTION],
         "hit_callback",
         obj,
         amount,

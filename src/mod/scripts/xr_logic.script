@@ -1,10 +1,11 @@
 -- 1517
 local TradeManager = require("scripts.core.TradeManager")
 local RestrictorManager = require("scripts.core.RestrictorManager").RestrictorManager
-local MobCombat = require("scripts.core.mob.MobCombat").MobCombat
-local MobDeath = require("scripts.core.mob.MobDeath").MobDeath
+local ActionMobCombat = require("scripts.core.logic.mob.ActionMobCombat").ActionMobCombat
+local ActionMobDeath = require("scripts.core.logic.mob.ActionMobDeath").ActionMobDeath
 local schemes = require("scripts.core.schemes")
 local ActionProcessHit = require("scripts.core.logic.ActionProcessHit").ActionProcessHit
+local ActionOnHit = require("scripts.core.logic.ActionOnHit").ActionOnHit
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
 local utilsAlife = require("scripts.utils.alife")
@@ -254,11 +255,11 @@ function disable_generic_schemes(npc, stype)
     xr_combat_ignore.disable_scheme(npc, "combat_ignore")
     utilsAlife.disable_invulnerability(npc)
   elseif stype == schemes.stype_mobile then
-    MobCombat.disable_scheme(npc, "mob_combat")
+    ActionMobCombat.disable_scheme(npc, "mob_combat")
     xr_combat_ignore.disable_scheme(npc, "combat_ignore")
     utilsAlife.disable_invulnerability(npc)
   elseif stype == schemes.stype_item then
-    ph_on_hit.disable_scheme(npc, "ph_on_hit")
+    ActionOnHit:disable_scheme(npc, ActionOnHit.SCHEME_SECTION)
   elseif stype == schemes.stype_heli then
     ActionProcessHit:disable_scheme(npc, ActionProcessHit.SCHEME_SECTION)
   end
@@ -314,12 +315,12 @@ function enable_generic_schemes(ini, npc, stype, section)
   elseif stype == schemes.stype_mobile then
     local combat_section = utils.cfg_get_string(ini, section, "on_combat", npc, false, "")
     if combat_section then
-      MobCombat:set_scheme(npc, ini, "mob_combat", combat_section)
+      ActionMobCombat:set_scheme(npc, ini, "mob_combat", combat_section)
     end
 
     local death_section = utils.cfg_get_string(ini, section, "on_death", npc, false, "")
     if death_section then
-      MobDeath:set_scheme(npc, ini, "mob_death", death_section)
+      ActionMobDeath:set_scheme(npc, ini, "mob_death", death_section)
     end
 
     utilsAlife.reset_invulnerability(npc, ini, section)
@@ -335,7 +336,7 @@ function enable_generic_schemes(ini, npc, stype, section)
     local hit_section = utils.cfg_get_string(ini, section, "on_hit", npc, false, "")
     --printf("HIT SECTION [%s]", tostring(hit_section))
     if hit_section then
-      ph_on_hit.set_scheme(npc, ini, "ph_on_hit", hit_section)
+      ActionOnHit:set_scheme(npc, ini, ActionOnHit.SCHEME_SECTION, hit_section)
     end
 
   elseif stype == schemes.stype_heli then

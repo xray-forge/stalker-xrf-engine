@@ -2,11 +2,14 @@ import { XR_game_object, XR_ini_file } from "xray16";
 
 import { AnyCallablesModule } from "@/mod/lib/types";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("MobCombat");
 
-export class MobCombat {
+export class ActionMobCombat extends AbstractSchemeAction {
+  public static readonly SCHEME_SECTION: string = "mob_combat";
+
   public static add_to_binder(
     npc: XR_game_object,
     ini: XR_ini_file,
@@ -14,7 +17,7 @@ export class MobCombat {
     section: string,
     storage: IStoredObject
   ): void {
-    const new_action = new MobCombat(npc, storage);
+    const new_action = new ActionMobCombat(npc, storage);
 
     storage.action = new_action;
 
@@ -44,20 +47,12 @@ export class MobCombat {
     }
   }
 
-  public object: XR_game_object;
-  public st: IStoredObject;
-
-  public constructor(object: XR_game_object, storage: IStoredObject) {
-    this.object = object;
-    this.st = storage;
-  }
-
   // todo: Is it needed at all?
   public combat_callback(): void {
-    if (this.st.enabled && this.object.get_enemy() !== null) {
+    if (this.state.enabled && this.object.get_enemy() !== null) {
       if (storage.get(this.object.id()).active_scheme !== null) {
         if (
-          get_global<AnyCallablesModule>("xr_logic").try_switch_to_another_section(this.object, this.st, getActor())
+          get_global<AnyCallablesModule>("xr_logic").try_switch_to_another_section(this.object, this.state, getActor())
         ) {
           return;
         }

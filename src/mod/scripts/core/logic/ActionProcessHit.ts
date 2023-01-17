@@ -2,12 +2,13 @@ import { XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("ActionProcessHit");
 
-export class ActionProcessHit {
+export class ActionProcessHit extends AbstractSchemeAction {
   public static SCHEME_SECTION: string = "hit";
 
   public static add_to_binder(
@@ -44,8 +45,6 @@ export class ActionProcessHit {
 
     get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(npc, st, st.action);
   }
-
-  public constructor(public object: XR_game_object, public storage: IStoredObject) {}
 
   public hit_callback(
     object: XR_game_object,

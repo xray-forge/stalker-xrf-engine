@@ -609,7 +609,7 @@ declare module "xray16" {
     public head_orientation(): unknown;
     public inside(vector: XR_vector, value: number): boolean;
     public inside(vector: XR_vector): boolean;
-    public set_nonscript_usable(value: boolean): unknown;
+    public set_nonscript_usable(is_usable: boolean): unknown;
     public set_tip_text_default(): unknown;
     public set_tip_text(value: string): unknown;
     public get_current_holder(): unknown;

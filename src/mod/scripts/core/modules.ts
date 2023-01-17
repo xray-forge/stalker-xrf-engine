@@ -1,13 +1,17 @@
-import { HeliMove } from "@/mod/scripts/core/heli/HeliMove";
+import { ActionButton } from "@/mod/scripts/core/logic/ActionButton";
+import { ActionCodepad } from "@/mod/scripts/core/logic/ActionCodepad";
 import { ActionHit } from "@/mod/scripts/core/logic/ActionHit";
+import { ActionIdle } from "@/mod/scripts/core/logic/ActionIdle";
 import { ActionOnDeath } from "@/mod/scripts/core/logic/ActionOnDeath";
+import { ActionOnHit } from "@/mod/scripts/core/logic/ActionOnHit";
 import { ActionProcessHit } from "@/mod/scripts/core/logic/ActionProcessHit";
-import { MobCombat } from "@/mod/scripts/core/mob/MobCombat";
-import { MobDeath } from "@/mod/scripts/core/mob/MobDeath";
-import { MobHome } from "@/mod/scripts/core/mob/MobHome";
-import { MobJump } from "@/mod/scripts/core/mob/MobJump";
-import { MobRemark } from "@/mod/scripts/core/mob/MobRemark";
-import { MobWalker } from "@/mod/scripts/core/mob/MobWalker";
+import { ActionHeliMove } from "@/mod/scripts/core/logic/heli/ActionHeliMove";
+import { ActionMobCombat } from "@/mod/scripts/core/logic/mob/ActionMobCombat";
+import { ActionMobDeath } from "@/mod/scripts/core/logic/mob/ActionMobDeath";
+import { ActionMobHome } from "@/mod/scripts/core/logic/mob/ActionMobHome";
+import { ActionMobJump } from "@/mod/scripts/core/logic/mob/ActionMobJump";
+import { ActionMobRemark } from "@/mod/scripts/core/logic/mob/ActionMobRemark";
+import { ActionMobWalker } from "@/mod/scripts/core/logic/mob/ActionMobWalker";
 import {
   loadScheme,
   stype_heli,
@@ -49,25 +53,25 @@ export function initializeModules(): void {
   loadScheme("xr_animpoint", "animpoint", stype_stalker);
   loadScheme("xr_reach_task", "reach_task", stype_stalker);
 
-  loadScheme(MobRemark, "mob_remark", stype_mobile);
-  loadScheme(MobWalker, "mob_walker", stype_mobile);
-  loadScheme(MobCombat, "mob_combat", stype_mobile);
-  loadScheme(MobDeath, "mob_death", stype_mobile);
-  loadScheme(MobJump, "mob_jump", stype_mobile);
-  loadScheme(MobHome, MobHome.SCHEME_SECTION, stype_mobile);
+  loadScheme(ActionMobRemark, ActionMobRemark.SCHEME_SECTION, stype_mobile);
+  loadScheme(ActionMobWalker, ActionMobWalker.SCHEME_SECTION, stype_mobile);
+  loadScheme(ActionMobCombat, ActionMobCombat.SCHEME_SECTION, stype_mobile);
+  loadScheme(ActionMobDeath, ActionMobDeath.SCHEME_SECTION, stype_mobile);
+  loadScheme(ActionMobJump, ActionMobJump.SCHEME_SECTION, stype_mobile);
+  loadScheme(ActionMobHome, ActionMobHome.SCHEME_SECTION, stype_mobile);
 
   loadScheme("ph_door", "ph_door", stype_item);
-  loadScheme("ph_idle", "ph_idle", stype_item);
+  loadScheme(ActionIdle, ActionIdle.SCHEME_SECTION, stype_item);
   loadScheme(ActionHit, ActionHit.SCHEME_SECTION, stype_item);
-  loadScheme("ph_on_hit", "ph_on_hit", stype_item);
-  loadScheme("ph_button", "ph_button", stype_item);
-  loadScheme("ph_code", "ph_code", stype_item);
+  loadScheme(ActionOnHit, ActionOnHit.SCHEME_SECTION, stype_item);
+  loadScheme(ActionButton, ActionButton.SCHEME_SECTION, stype_item);
+  loadScheme(ActionCodepad, ActionCodepad.SCHEME_SECTION, stype_item);
   loadScheme(ActionOnDeath, ActionOnDeath.SCHEME_SECTION, stype_item);
   loadScheme("ph_minigun", "ph_minigun", stype_item);
   // --loadScheme("ph_target",						"ph_target",		stype_item)
   loadScheme("ph_oscillate", "ph_oscillate", stype_item);
 
-  loadScheme(HeliMove, "heli_move", stype_heli);
+  loadScheme(ActionHeliMove, "heli_move", stype_heli);
 
   loadScheme("sr_no_weapon", "sr_no_weapon", stype_restrictor);
   loadScheme("sr_teleport", "sr_teleport", stype_restrictor);
