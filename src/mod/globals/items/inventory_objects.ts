@@ -1,10 +1,12 @@
+/* eslint sort-keys-fix/sort-keys-fix: "error"*/
+
 export const inventory_objects = {
   inventory_box_s: "inventory_box_s",
-  obj_bandage_s: "obj_bandage_s",
   obj_antirad: "obj_antirad",
   obj_antirad_s: "obj_antirad_s",
   obj_attachable: "obj_attachable",
   obj_bandage: "obj_bandage",
+  obj_bandage_s: "obj_bandage_s",
   obj_bolt: "obj_bolt",
   obj_bottle: "obj_bottle",
   obj_bottle_s: "obj_bottle_s",
