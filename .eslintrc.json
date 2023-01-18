@@ -55,6 +55,7 @@
                 "functions": "never"
             }
         ],
+        "eqeqeq": "error",
         "eol-last": [
             "error",
             "always"
