@@ -298,7 +298,7 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
     if (this.current_target !== t_target) {
       log.info("Updated task dut to target change:", this.id, this.current_target, t_target);
 
-      if (this.current_target == null) {
+      if (this.current_target === null) {
         task_updated = true;
         this.t.change_map_location(this.spot, t_target);
 
@@ -383,7 +383,7 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
     log.info("Deactivate task:", this.title);
     this.check_time = null;
 
-    if (this.last_check_task == "fail") {
+    if (this.last_check_task === "fail") {
       send_task(getActor(), "fail", task);
     } else if (this.last_check_task === "reversed") {
       get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(getActor(), getActor(), this.on_reversed);

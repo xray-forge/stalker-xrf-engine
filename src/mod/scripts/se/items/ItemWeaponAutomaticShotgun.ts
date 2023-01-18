@@ -27,7 +27,7 @@ export const ItemWeaponAutomaticShotgun: IItemWeaponAutomaticShotgun = declare_x
       log.info("Register:", this.id, this.name(), this.section_name());
       checkSpawnIniForStoryId(this);
 
-      if (REGISTERED_ITEMS.get(this.section_name()) == null) {
+      if (REGISTERED_ITEMS.get(this.section_name()) === null) {
         REGISTERED_ITEMS.set(this.section_name(), 1);
       } else {
         REGISTERED_ITEMS.set(this.section_name(), REGISTERED_ITEMS.get(this.section_name()) + 1);

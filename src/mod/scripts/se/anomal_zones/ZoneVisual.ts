@@ -40,7 +40,7 @@ export const ZoneVisual: IZoneVisual = declare_xr_class("ZoneVisual", cse_zone_v
   update(): void {
     cse_zone_visual.update(this);
 
-    if (this.last_spawn_time == null) {
+    if (this.last_spawn_time === null) {
       this.last_spawn_time = game.get_game_time();
     }
 

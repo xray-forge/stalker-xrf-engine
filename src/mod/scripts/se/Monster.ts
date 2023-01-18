@@ -110,7 +110,7 @@ export const Monster: IMonster = declare_xr_class("Monster", cse_alife_monster_b
 
       offlineObjects.get(this.id).active_section = packet.r_stringZ();
 
-      if (offlineObjects.get(this.id).active_section == "nil") {
+      if (offlineObjects.get(this.id).active_section === "nil") {
         offlineObjects.get(this.id).active_section = null;
       }
 
@@ -129,7 +129,7 @@ export const Monster: IMonster = declare_xr_class("Monster", cse_alife_monster_b
 
     const board = get_sim_board();
 
-    if (offlineObjects.get(this.id) == null) {
+    if (offlineObjects.get(this.id) === null) {
       offlineObjects.set(this.id, {});
     }
 

@@ -28,7 +28,6 @@ import {
   turn_off_campfires_by_smart_name,
   turn_on_campfires_by_smart_name
 } from "@/mod/scripts/core/binders/CampfireBinder";
-import { isMonster, isStalker } from "@/mod/scripts/core/checkers";
 import { getActor, offlineObjects, storage } from "@/mod/scripts/core/db";
 import { SMART_TERRAIN_SECT } from "@/mod/scripts/core/db/sections";
 import { get_smart_terrain_name } from "@/mod/scripts/core/db/smart_names";
@@ -41,6 +40,7 @@ import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { registered_smartcovers } from "@/mod/scripts/se/SmartCover";
 import { ESmartTerrainStatus, ISmartTerrainControl, SmartTerrainControl } from "@/mod/scripts/se/SmartTerrainControl";
 import { areOnSameAlifeLevel, getStoryObject, unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
+import { isMonster, isStalker } from "@/mod/scripts/utils/checkers";
 import {
   getConfigBoolean,
   getConfigNumber,

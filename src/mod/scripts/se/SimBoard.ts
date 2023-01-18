@@ -261,9 +261,9 @@ export const SimBoard: ISimBoard = declare_xr_class("SimBoard", null, {
 
     let smart = null;
 
-    if (squad.current_action != null && squad.current_action.name === "reach_target") {
+    if (squad.current_action !== null && squad.current_action.name === "reach_target") {
       smart = alife().object<ISmartTerrain>(squad.assigned_target_id!);
-    } else if (squad.smart_id != null) {
+    } else if (squad.smart_id !== null) {
       smart = alife().object<ISmartTerrain>(squad.smart_id);
     }
 

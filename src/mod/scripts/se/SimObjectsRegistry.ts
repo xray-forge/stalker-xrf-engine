@@ -33,7 +33,7 @@ export const SimObjectsRegistry: ISimObjectsRegistry = declare_xr_class("SimObje
         getActor() || alife().actor(),
         obj,
         obj.sim_avail
-      ) == "true" &&
+      ) === "true" &&
       obj.sim_available()
     ) {
       this.objects.set(obj.id, obj);
@@ -74,7 +74,7 @@ export const SimObjectsRegistry: ISimObjectsRegistry = declare_xr_class("SimObje
       }
     }
 
-    if (obj.sim_avail == null) {
+    if (obj.sim_avail === null) {
       obj.sim_avail = parseCondList(null, "simulation_object", "sim_avail", "true");
     }
   },
@@ -84,7 +84,7 @@ export const SimObjectsRegistry: ISimObjectsRegistry = declare_xr_class("SimObje
 } as ISimObjectsRegistry);
 
 export function get_sim_obj_registry() {
-  if (sim_objects_registry == null) {
+  if (sim_objects_registry === null) {
     sim_objects_registry = create_xr_class_instance(SimObjectsRegistry);
   }
 

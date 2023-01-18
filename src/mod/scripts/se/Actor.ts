@@ -147,7 +147,7 @@ export const Actor: IActor = declare_xr_class("Actor", cse_alife_creature_actor,
 
     if (
       smart.base_on_actor_control !== null &&
-      smart.base_on_actor_control.status == ESmartTerrainStatus.NORMAL &&
+      smart.base_on_actor_control.status === ESmartTerrainStatus.NORMAL &&
       zoneByName.get(smart.base_on_actor_control.noweap_zone).inside(this.position)
     ) {
       return false;

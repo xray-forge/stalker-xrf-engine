@@ -75,7 +75,7 @@ export const TaskManager: ITaskManager = declare_xr_class("TaskManager", null, {
 
     task.check_task();
 
-    if (task.last_check_task == "complete") {
+    if (task.last_check_task === "complete") {
       task.give_reward();
       get_global<AnyCallablesModule>("xr_statistic").inc_completed_quests_counter();
 
@@ -93,7 +93,7 @@ export const TaskManager: ITaskManager = declare_xr_class("TaskManager", null, {
 
     task.check_task();
 
-    return task.last_check_task == "fail" || task.last_check_task == "reversed";
+    return task.last_check_task === "fail" || task.last_check_task === "reversed";
   },
   task_callback(task, completed): void {
     const task_id: string = task.get_id();

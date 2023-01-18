@@ -170,7 +170,7 @@ export const Stalker: IStalker = declare_xr_class("Stalker", cse_alife_human_sta
     if (strn_id !== MAX_UNSIGNED_16_BIT) {
       const smart: Optional<ISmartTerrain> = alife().object(strn_id);
 
-      if (smart != null) {
+      if (smart !== null) {
         smart.unregister_npc(this);
       }
     }

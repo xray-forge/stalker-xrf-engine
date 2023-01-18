@@ -26,7 +26,6 @@ import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { relations, TRelation } from "@/mod/globals/relations";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { AnyCallable, AnyCallablesModule, AnyObject, Optional } from "@/mod/lib/types";
-import { isSquadMonsterCommunity } from "@/mod/scripts/core/checkers";
 import {
   getActor,
   goodwill as dbGoodwill,
@@ -54,6 +53,7 @@ import { ESmartTerrainStatus } from "@/mod/scripts/se/SmartTerrainControl";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { areOnSameAlifeLevel, unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
+import { isSquadMonsterCommunity } from "@/mod/scripts/utils/checkers";
 import {
   getConfigBoolean,
   getConfigNumber,

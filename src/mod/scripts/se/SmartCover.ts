@@ -75,7 +75,7 @@ export const SmartCover: ISmartCover = declare_xr_class("SmartCover", cse_smart_
       const loopholes = smart_covers_list.get(smart_cover_description).loopholes;
 
       for (const [k, v] of loopholes) {
-        if (this.loopholes.get(v.id) == null) {
+        if (this.loopholes.get(v.id) === null) {
           this.loopholes.set(v.id, true);
         }
 
