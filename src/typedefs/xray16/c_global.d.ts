@@ -74,7 +74,7 @@ declare module "xray16" {
     check_object(this: void, object: unknown /* game_object*/): unknown;
     map_change_spot_hint(this: void, num: number, str1: string, str2: string): unknown;
     game_id(this: void): unknown;
-    vertex_id(this: void, vector: unknown /* vector */): unknown;
+    vertex_id(this: void, vector: XR_vector): number;
     vertex_in_direction(this: void, num1: number, vector: unknown /* vector */, num2: number): unknown;
     change_game_time(this: void, num1: number, num2: number, num3: number): unknown;
     remove_complex_effector(this: void, num: number): unknown;

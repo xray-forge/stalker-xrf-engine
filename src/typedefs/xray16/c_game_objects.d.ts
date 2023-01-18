@@ -298,6 +298,9 @@ declare module "xray16" {
     public psy_health: number;
     public radiation: number;
 
+    /**
+     * Get engine object ID.
+     */
     public id(): number;
     public story_id(): string;
     public object(value: string): XR_game_object | null;
@@ -478,7 +481,7 @@ declare module "xray16" {
     public bone_position(value: string): unknown;
     public fov(): number;
     public set_default_panic_threshold(): unknown;
-    public set_actor_relation_flags(value: unknown /** flags32 */): unknown;
+    public set_actor_relation_flags(value: XR_flags32): void;
     public character_name(): unknown;
     public lock_door_for_npc(): unknown;
     public hide_weapon(): unknown;
@@ -507,7 +510,7 @@ declare module "xray16" {
     public visibility_threshold(): unknown;
     public sniper_update_rate(value: boolean): unknown;
     public sniper_update_rate(): unknown;
-    public section(): string;
+    public section<T extends string = string>(): T;
     public get_current_point_index(): number;
     public stop_particles(name: string, bone: string): unknown;
     public set_alien_control(value: boolean): unknown;
@@ -541,7 +544,7 @@ declare module "xray16" {
     public get_artefact(): XR_CArtefact;
     public body_state(): unknown;
     public skip_transfer_enemy(value: boolean): unknown;
-    public see(game_object: XR_game_object): unknown;
+    public see(game_object: XR_game_object): boolean;
     public see(value: string): unknown;
     public critically_wounded(): unknown;
     public idle_min_time(value: number): unknown;
@@ -709,11 +712,11 @@ declare module "xray16" {
     public center(): unknown;
     public best_cover(vector1: XR_vector, vector2: XR_vector, value3: number, value4: number, value5: number): unknown;
     public accuracy(): unknown;
-    public set_desired_position(): unknown;
-    public set_desired_position(vector: XR_vector): unknown;
+    public set_desired_position(): void;
+    public set_desired_position(vector: XR_vector): void;
     public poltergeist_set_actor_ignore(value: boolean): unknown;
     public accessible(vector: XR_vector): unknown;
-    public accessible(value: number): unknown;
+    public accessible(vertex_id: number): unknown;
     public suitable_smart_cover(game_object: XR_game_object): boolean;
     public deadbody_closed_status(): unknown;
     public set_patrol_extrapolate_callback(): unknown;
