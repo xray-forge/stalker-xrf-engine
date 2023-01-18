@@ -4,8 +4,9 @@
 
 Contains commands related to linking and unlinking of game folders.
 
-- Allows linking of gamedata folder and easier rebuilding of mode
-- Allows linking of game logs for easier observation directily from IDE
+- Allows linking of game folder and easier navigation
+- Allows linking of gamedata folder and easier rebuilding of mod
+- Allows linking of game logs for easier observation from IDE
 
 Unlinking removes folders if they are pointing to the project.
 If links pointing to other folders, manual involvement will be needed.

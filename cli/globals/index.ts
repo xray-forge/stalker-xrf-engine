@@ -17,13 +17,16 @@ export const GAME_DATA_TRANSLATIONS_DIR: string = path.resolve(MOD_DIR, "transla
 export const GAME_DATA_UI_DIR: string = path.resolve(MOD_DIR, "ui");
 
 export const TARGET_DIR: string = path.resolve(ROOT_DIR, "target");
-export const TARGET_LOGS_DIR: string = path.resolve(TARGET_DIR, "logs");
 export const TARGET_GAME_DATA_DIR: string = path.resolve(TARGET_DIR, "gamedata");
 export const TARGET_GAME_DATA_METADATA_FILE: string = path.resolve(TARGET_GAME_DATA_DIR, "metadata.json");
 export const TARGET_GAME_DATA_SCRIPTS_DIR: string = path.resolve(TARGET_GAME_DATA_DIR, "scripts");
 export const TARGET_GAME_DATA_CONFIGS_DIR: string = path.resolve(TARGET_GAME_DATA_DIR, "configs");
 export const TARGET_GAME_DATA_UI_DIR: string = path.resolve(TARGET_GAME_DATA_CONFIGS_DIR, "ui");
 export const TARGET_GAME_DATA_TRANSLATIONS_DIR: string = path.resolve(TARGET_GAME_DATA_CONFIGS_DIR, "text");
+
+export const TARGET_LOGS_LINK_DIR: string = path.resolve(TARGET_DIR, "logs_link");
+export const TARGET_GAME_LINK_DIR: string = path.resolve(TARGET_DIR, "game_link");
+
 export const TARGET_PARSED: string = path.resolve(TARGET_DIR, "parsed");
 
 export const TARGET_PREVIEW_DIR: string = path.resolve(TARGET_DIR, "preview");

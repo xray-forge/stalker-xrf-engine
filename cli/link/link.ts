@@ -4,7 +4,7 @@ import * as path from "path";
 import { default as chalk } from "chalk";
 
 import { default as config } from "#/config.json";
-import { TARGET_GAME_DATA_DIR, TARGET_LOGS_DIR } from "#/globals";
+import { TARGET_GAME_DATA_DIR, TARGET_GAME_LINK_DIR, TARGET_LOGS_LINK_DIR } from "#/globals";
 import { exists, NodeLogger } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("LINK");
@@ -14,8 +14,11 @@ const isForceLink: boolean = process.argv.includes("--force");
   log.info("Linking mod development folders");
 
   try {
+    await linkGameFolder();
     await linkGamedataFolders();
     await linkLogsFolders();
+
+    log.pushNewLine();
   } catch (error) {
     log.error("Links creation failed:", chalk.red(error.message));
   }
@@ -47,6 +50,31 @@ async function linkGamedataFolders(): Promise<void> {
 }
 
 /**
+ * Link game folder.
+ */
+async function linkGameFolder(): Promise<void> {
+  log.info("Linking game folders");
+
+  const gameFolderPath: string = path.resolve(config.targets.STALKER_GAME_FOLDER_PATH);
+
+  if (await exists(TARGET_GAME_LINK_DIR)) {
+    if (isForceLink) {
+      log.info("Forcing link as it already exists:", chalk.blue(TARGET_GAME_LINK_DIR));
+
+      await fsPromises.rm(TARGET_GAME_LINK_DIR, { recursive: true });
+    } else {
+      log.warn("Skip, already exists:", chalk.blue(TARGET_GAME_LINK_DIR));
+
+      return;
+    }
+  }
+
+  await fsPromises.symlink(gameFolderPath, TARGET_GAME_LINK_DIR, "junction");
+
+  log.info("Linked folders:", chalk.yellow(gameFolderPath), "->", chalk.yellowBright(TARGET_GAME_LINK_DIR));
+}
+
+/**
  * Link open-xray logs folder for easier check in project.
  */
 async function linkLogsFolders(): Promise<void> {
@@ -54,19 +82,19 @@ async function linkLogsFolders(): Promise<void> {
 
   const logsFolderPath: string = path.resolve(config.targets.STALKER_LOGS_FOLDER_PATH);
 
-  if (await exists(TARGET_LOGS_DIR)) {
+  if (await exists(TARGET_LOGS_LINK_DIR)) {
     if (isForceLink) {
-      log.info("Forcing link as it already exists:", chalk.blue(TARGET_LOGS_DIR));
+      log.info("Forcing link as it already exists:", chalk.blue(TARGET_LOGS_LINK_DIR));
 
-      await fsPromises.rm(TARGET_LOGS_DIR, { recursive: true });
+      await fsPromises.rm(TARGET_LOGS_LINK_DIR, { recursive: true });
     } else {
-      log.warn("Skip, already exists:", chalk.blue(TARGET_LOGS_DIR));
+      log.warn("Skip, already exists:", chalk.blue(TARGET_LOGS_LINK_DIR));
 
       return;
     }
   }
 
-  await fsPromises.symlink(logsFolderPath, TARGET_LOGS_DIR, "junction");
+  await fsPromises.symlink(logsFolderPath, TARGET_LOGS_LINK_DIR, "junction");
 
-  log.info("Linked folders:", chalk.yellow(logsFolderPath), "->", chalk.yellowBright(TARGET_LOGS_DIR));
+  log.info("Linked folders:", chalk.yellow(logsFolderPath), "->", chalk.yellowBright(TARGET_LOGS_LINK_DIR));
 }

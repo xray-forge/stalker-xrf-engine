@@ -3,6 +3,8 @@ import * as path from "path";
 
 import { default as chalk } from "chalk";
 
+import { Optional } from "@/mod/lib/types";
+
 import { default as config } from "#/config.json";
 import { OPEN_XRAY_ENGINES_DIR, XR_ENGINE_BACKUP_DIR } from "#/globals";
 import { exists, NodeLogger } from "#/utils";
@@ -111,22 +113,20 @@ async function printEngineList(): Promise<void> {
 }
 
 async function switchEngine(): Promise<void> {
-  log.info("Switching engine");
-
   const desiredVersion: string = String(args[0]).trim();
   const engines: Array<string> = await getEnginesList();
 
   if (engines.includes(desiredVersion)) {
     const engineBinDir: string = path.resolve(OPEN_XRAY_ENGINES_DIR, desiredVersion, "bin");
-
-    log.info("Switching to:", chalk.yellow(desiredVersion));
-    log.info("Linking:", chalk.yellow(engineBinDir), "->", chalk.yellow(GAME_BIN_DIR));
-
+    const possibleBinDescriptor: string = path.resolve(GAME_BIN_DIR, "bin.json");
     const isBinFolderExist: boolean = await exists(GAME_BIN_DIR);
-    const isLinkedEngine: boolean = await exists(path.resolve(GAME_BIN_DIR, "bin.json"));
+    const isLinkedEngine: boolean = await exists(possibleBinDescriptor);
+    const oldEngine: Optional<string> = isLinkedEngine ? (await import(possibleBinDescriptor)).type : null;
+
+    log.info("Switching engine:", chalk.blue(oldEngine || "original"), "->", chalk.blue(desiredVersion));
 
     if (isLinkedEngine) {
-      log.info("Engine is already linked, removing old link");
+      log.info("Removing old link");
       await fsPromises.unlink(GAME_BIN_DIR);
     } else if (isBinFolderExist) {
       log.info("Unlinked engine detected");
@@ -134,9 +134,9 @@ async function switchEngine(): Promise<void> {
       log.info("Created backup at:", chalk.yellow(GAME_BIN_BACKUP_DIR));
     }
 
+    log.info("Linking:", chalk.yellow(engineBinDir), "->", chalk.yellow(GAME_BIN_DIR));
     await fsPromises.symlink(engineBinDir, GAME_BIN_DIR, "junction");
 
-    log.info("Linked engines:", chalk.yellow(engineBinDir), "->", chalk.yellow(GAME_BIN_DIR));
     log.info("Link result:", chalk.green("OK"), "\n");
   } else {
     log.error("Supplied unknown engine version:", chalk.yellow(desiredVersion));

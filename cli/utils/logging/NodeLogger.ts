@@ -80,6 +80,18 @@ export class NodeLogger {
     this.logAs("info", args);
   }
 
+  public pushNewLine(): void {
+    if (this.isEnabled) {
+      if (NodeLogger.IS_CONSOLE_ENABLED) {
+        console.info("\n");
+      }
+
+      if (NodeLogger.IS_FILE_ENABLED) {
+        NodeLogger.logInFile("\n");
+      }
+    }
+  }
+
   /**
    * Generic log method for simple formatting and logging of information with shared logic.
    */

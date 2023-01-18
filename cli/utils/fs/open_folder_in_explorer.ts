@@ -6,9 +6,9 @@ export function openFolderInExplorer(path: string): Promise<void> {
     const osType: string = os.type();
     let cmd: string = "";
 
-    if (osType == "Windows_NT") {
+    if (osType === "Windows_NT") {
       cmd = "explorer";
-    } else if (osType == "Darwin") {
+    } else if (osType === "Darwin") {
       cmd = "open";
     } else {
       cmd = "xdg-open";

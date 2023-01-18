@@ -4,7 +4,7 @@ import * as path from "path";
 import { default as chalk } from "chalk";
 
 import { default as config } from "#/config.json";
-import { CLI_CONFIG, TARGET_GAME_DATA_DIR, TARGET_LOGS_DIR } from "#/globals";
+import { CLI_CONFIG, TARGET_GAME_DATA_DIR, TARGET_GAME_LINK_DIR, TARGET_LOGS_LINK_DIR } from "#/globals";
 import { exists, NodeLogger } from "#/utils";
 
 const GAME_LOGS_PATH: string = path.resolve(config.targets.STALKER_LOGS_FOLDER_PATH);
@@ -21,9 +21,12 @@ const log: NodeLogger = new NodeLogger("VERIFY");
   try {
     await verifyConfig();
     await verifyGamePath();
+    await verifyGameLink();
     await verifyGameEngine();
     await verifyGamedataLink();
     await verifyLogsLink();
+
+    log.pushNewLine();
   } catch (error) {
     log.error("verification failed failed:", chalk.red(error.message));
   }
@@ -41,7 +44,15 @@ async function verifyGamePath(): Promise<void> {
   if (await exists(GAME_PATH)) {
     log.info("Game folder:", chalk.greenBright("OK"));
   } else {
-    log.warn(chalk.yellow("Game folder is not correct, set path in cli/config.json:"), chalk.yellow(GAME_PATH));
+    log.warn(chalk.yellow("Game folder is not linked, set path in cli/config.json:"), chalk.yellow(GAME_PATH));
+  }
+}
+
+async function verifyGameLink(): Promise<void> {
+  if (await exists(TARGET_GAME_LINK_DIR)) {
+    log.info("Game link:", chalk.greenBright("OK"));
+  } else {
+    log.warn("Game link:", chalk.yellow("FAIL"));
   }
 }
 
@@ -51,7 +62,7 @@ async function verifyGameEngine(): Promise<void> {
   const isBinCorrectlyProvided: boolean = await exists(GAME_BIN_JSON_PATH);
 
   if (isGameDirPresent && isBinDirPresent && isBinCorrectlyProvided) {
-    log.info("Game engine:", chalk.greenBright("OK"));
+    log.info("Game engine link:", chalk.greenBright("OK"));
   } else {
     if (!isBinDirPresent) {
       log.warn(
@@ -80,7 +91,7 @@ async function verifyGamedataLink(): Promise<void> {
 
 async function verifyLogsLink(): Promise<void> {
   try {
-    const linkPath: string = await fs.readlink(TARGET_LOGS_DIR);
+    const linkPath: string = await fs.readlink(TARGET_LOGS_LINK_DIR);
 
     if (path.resolve(linkPath) === GAME_LOGS_PATH) {
       log.info("Logs link:", chalk.greenBright("OK"));

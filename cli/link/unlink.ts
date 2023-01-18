@@ -6,7 +6,7 @@ import { default as chalk } from "chalk";
 import { Optional } from "@/mod/lib/types";
 
 import { default as config } from "#/config.json";
-import { TARGET_LOGS_DIR } from "#/globals";
+import { TARGET_LOGS_LINK_DIR } from "#/globals";
 import { NodeLogger } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("UNLINK");
@@ -18,7 +18,7 @@ const log: NodeLogger = new NodeLogger("UNLINK");
     const gameGamedataFolderPath: string = path.resolve(config.targets.STALKER_GAME_FOLDER_PATH, "gamedata");
 
     await unlink(gameGamedataFolderPath);
-    await unlink(TARGET_LOGS_DIR);
+    await unlink(TARGET_LOGS_LINK_DIR);
   } catch (error) {
     log.error("Links removal failed:", chalk.red(error.message));
   }
