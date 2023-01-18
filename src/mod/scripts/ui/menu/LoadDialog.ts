@@ -195,13 +195,13 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
   OnListItemClicked(): void {
     log.info("List item selected");
 
-    if (this.listBox.GetSize() == 0) {
+    if (this.listBox.GetSize() === 0) {
       return;
     }
 
     const item: Optional<ILoadItem> = this.listBox.GetSelectedItem();
 
-    if (item == null) {
+    if (item === null) {
       this.fileCaption.SetText("");
       this.fileData.SetText("");
 
@@ -269,7 +269,7 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
 
     const console: XR_CConsole = get_console();
 
-    if (this.listBox.GetSize() == 0) {
+    if (this.listBox.GetSize() === 0) {
       return;
     }
 
@@ -313,7 +313,7 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
       return;
     }
 
-    if (alife() == null) {
+    if (alife() === null) {
       this.load_game_internal();
 
       return;
@@ -321,7 +321,7 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
 
     const actor: Optional<XR_game_object> = getActor();
 
-    if (actor != null && !actor.alive()) {
+    if (actor !== null && !actor.alive()) {
       this.load_game_internal();
 
       return;
@@ -365,7 +365,7 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
       this.OnButton_back_clicked();
     }
 
-    if (key === DIK_keys.DIK_RETURN && event == ui_events.WINDOW_KEY_PRESSED) {
+    if (key === DIK_keys.DIK_RETURN && event === ui_events.WINDOW_KEY_PRESSED) {
       this.OnButton_load_clicked();
     }
 

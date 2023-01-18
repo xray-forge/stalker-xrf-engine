@@ -22,7 +22,7 @@ export function getConfigString<D = string>(
   gulagName: unknown,
   defaultVal?: D
 ): string | D {
-  if (mandatory == null || gulagName == null) {
+  if (mandatory === null || gulagName === null) {
     abort("section '%s': wrong arguments order in call to cfg_get_string", section);
   }
 
@@ -52,7 +52,7 @@ export function getConfigNumber<T = number>(
   mandatory: boolean,
   defaultVal?: T
 ): number | T {
-  if (mandatory == null) {
+  if (mandatory === null) {
     abort("section '%s': wrong arguments order in call to cfg_get_number", section);
   }
 
@@ -215,7 +215,7 @@ export function r_2nums(
     const t = parseNames(spawn_ini.r_string(section, line));
     const n = t.length();
 
-    if (n == 0) {
+    if (n === 0) {
       return $multi(def1, def2);
     } else if (n === 1) {
       return $multi(t.get(1), def2);
@@ -431,23 +431,23 @@ export function parse_waypoint_data(pathname: string, wpflags: XR_flags32, wpnam
   let val;
 
   for (const param of string.gfind(wpname, "([%w%+~_\\%=%{%}%s%!%-%,%*]+)|*")) {
-    if (par_num == 1) {
+    if (par_num === 1) {
       // -- continue
     } else {
-      if (param == "") {
+      if (param === "") {
         abort("path '%s': waypoint '%s': syntax error in waypoint name", pathname, wpname);
       }
 
       const [t_pos] = string.find(param, "=", 1, true);
 
-      if (t_pos == null) {
+      if (t_pos === null) {
         abort("path '%s': waypoint '%s': syntax error in waypoint name", pathname, wpname);
       }
 
       fld = string.sub(param, 1, t_pos - 1);
       val = string.sub(param, t_pos + 1);
 
-      if (!fld || fld == "") {
+      if (!fld || fld === "") {
         abort(
           "path '%s': waypoint '%s': syntax error while parsing the param '%s': no field specified",
           pathname,
@@ -456,11 +456,11 @@ export function parse_waypoint_data(pathname: string, wpflags: XR_flags32, wpnam
         );
       }
 
-      if (!val || val == "") {
+      if (!val || val === "") {
         val = "true";
       }
 
-      if (fld == "a") {
+      if (fld === "a") {
         rslt.set(
           fld,
           get_global<AnyCallablesModule>("xr_logic").parse_condlist(getActor(), "waypoint_data", "anim_state", val)
@@ -557,7 +557,7 @@ export function pickSectionFromCondList(
 
     if (infop_conditions_met) {
       for (const [inum, infop] of pairs(cond.infop_set)) {
-        if (actor == null) {
+        if (actor === null) {
           abort("TRYING TO SET INFOS THEN ACTOR IS NIL");
         }
 

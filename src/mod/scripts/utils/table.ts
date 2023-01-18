@@ -20,7 +20,7 @@ export function isEmpty(container: Optional<LuaTable<any>>): boolean {
     return true;
   }
 
-  assert(type(container) == "table");
+  assert(type(container) === "table");
 
   if ((container as AnyObject)[1] !== null) {
     return false;
@@ -52,7 +52,7 @@ export function getTableSize(collection: LuaTable<any, any>): number {
 export function copyTable<T extends Record<any, any>, D extends Record<any, any>>(target: T, source: D): void;
 export function copyTable(target: LuaTable<string | number>, source: LuaTable<string | number>): void {
   for (const [k, v] of source) {
-    if (type(v) == "table") {
+    if (type(v) === "table") {
       target.set(k, new LuaTable());
       copyTable(target.get(k), v);
     } else {

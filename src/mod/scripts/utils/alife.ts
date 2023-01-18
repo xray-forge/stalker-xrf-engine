@@ -20,10 +20,10 @@ import {
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { AnyArgs, AnyCallablesModule, Maybe, Optional } from "@/mod/lib/types";
-import { isStalker } from "@/mod/scripts/core/checkers";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { getStoryObjectsRegistry } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
+import { isStalker } from "@/mod/scripts/utils/checkers";
 import { get_infos_from_data, getConfigBoolean, getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
@@ -79,7 +79,7 @@ export function getObjectSquad(object: Optional<XR_game_object | XR_cse_alife_cr
   }
 
   const objectId: number =
-    type(object.id) == "function" ? (object as XR_game_object).id() : (object as XR_cse_alife_creature_abstract).id;
+    type(object.id) === "function" ? (object as XR_game_object).id() : (object as XR_cse_alife_creature_abstract).id;
   const se_obj: Optional<any> = alife().object(objectId);
 
   if (se_obj && se_obj.group_id !== MAX_UNSIGNED_16_BIT) {
@@ -284,7 +284,7 @@ export function interruptAction(npc: XR_game_object, scriptName: string): void {
  * todo;
  */
 export function getObjectCommunity(object: XR_game_object | XR_cse_alife_creature_abstract) {
-  if (type(object.id) == "function") {
+  if (type(object.id) === "function") {
     return getCharacterCommunity(object as XR_game_object);
   } else {
     getAlifeCharacterCommunity(object as XR_cse_alife_human_abstract);
@@ -325,7 +325,7 @@ export function getAlifeDistanceBetween(first: XR_cse_alife_object, second: XR_c
  */
 export function areOnSameAlifeLevel(first: XR_cse_alife_object, second: XR_cse_alife_object): boolean {
   return (
-    game_graph().vertex(first.m_game_vertex_id).level_id() == game_graph().vertex(second.m_game_vertex_id).level_id()
+    game_graph().vertex(first.m_game_vertex_id).level_id() === game_graph().vertex(second.m_game_vertex_id).level_id()
   );
 }
 
@@ -380,7 +380,7 @@ export function can_select_weapon(npc: XR_game_object, scheme: string, st: IStor
   const cond = get_global<AnyCallablesModule>("xr_logic").parse_condlist(npc, section, "can_select_weapon", str);
   const can = get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(getActor(), npc, cond);
 
-  npc.can_select_weapon(can == "true");
+  npc.can_select_weapon(can === "true");
 }
 
 /**
@@ -490,6 +490,6 @@ export function is_npc_in_combat(npc: XR_game_object): boolean {
   const current_action_id = mgr.current_action_id();
 
   return (
-    current_action_id == stalker_ids.action_combat_planner || current_action_id == stalker_ids.action_post_combat_wait
+    current_action_id === stalker_ids.action_combat_planner || current_action_id === stalker_ids.action_post_combat_wait
   );
 }

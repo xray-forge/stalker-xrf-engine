@@ -168,7 +168,7 @@ export const MultiplayerProfile: IMultiplayerProfile = declare_xr_class("Multipl
     this.combo_aval_unique_nick.Show(false);
     this.gs_change_nick_mb.InitMessageBox("message_box_ok");
 
-    if (profile == null) {
+    if (profile === null) {
       this.gs_change_nick_mb.SetText(description);
     } else {
       this.gs_change_nick_mb.SetText(
@@ -186,7 +186,7 @@ export const MultiplayerProfile: IMultiplayerProfile = declare_xr_class("Multipl
     let index: number = 1;
 
     for (const it of this.handler.owner.accountManager.get_suggested_unicks()) {
-      if (it == new_unique_nick) {
+      if (it === new_unique_nick) {
         this.gs_change_nick_mb.InitMessageBox("message_box_gs_changing_unick");
         this.gs_change_nick_mb.SetText("ui_mp_gamespy_changing_unique_nick");
         this.gs_change_nick_mb.ShowDialog(true);
@@ -229,7 +229,7 @@ export const MultiplayerProfile: IMultiplayerProfile = declare_xr_class("Multipl
       for (const it of this.handler.owner.profile_store.get_awards()) {
         const k: number = math.fmod(index, 3);
 
-        if (k == 1) {
+        if (k === 1) {
           field = field + 1;
           this.awards[field] = {};
           this.awards[field].field = this.xml.InitStatic("tab_profile:awards_list:field", null);
@@ -264,7 +264,7 @@ export const MultiplayerProfile: IMultiplayerProfile = declare_xr_class("Multipl
           tmp = 121 + 21;
         }
 
-        if (k == 0) {
+        if (k === 0) {
           pos.x = tmp * (3 - 1);
         } else {
           pos.x = tmp * (k - 1);

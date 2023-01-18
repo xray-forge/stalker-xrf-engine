@@ -1,7 +1,7 @@
 import { editor, TXR_cls_key, XR_object_factory } from "xray16";
 
-import { inventory_objects } from "@/mod/globals/invertory_objects";
-import { weapons } from "@/mod/globals/items";
+import { inventory_objects } from "@/mod/globals/items/inventory_objects";
+import { weapons } from "@/mod/globals/items/weapons";
 import { Actor } from "@/mod/scripts/se/Actor";
 import { AnomalousZone } from "@/mod/scripts/se/anomal_zones/AnomalousZone";
 import { ZoneRestrictor } from "@/mod/scripts/se/anomal_zones/ZoneRestrictor";

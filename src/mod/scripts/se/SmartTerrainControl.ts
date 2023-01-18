@@ -1,10 +1,10 @@
 import { game, XR_CTime, XR_ini_file, XR_LuaBindBase, XR_net_packet } from "xray16";
 
-import { AnyCallable, AnyCallablesModule, Optional } from "@/mod/lib/types";
-import { isWeapon } from "@/mod/scripts/core/checkers";
+import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { getActor, zoneByName } from "@/mod/scripts/core/db";
 import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
+import { isWeapon } from "@/mod/scripts/utils/checkers";
 import { getConfigString, parseCondList } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

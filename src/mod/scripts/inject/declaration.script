@@ -10,10 +10,12 @@ require("scripts.core.db")
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
+-- todo: Remove whole declarations file, should not be used after 100% TS migration
+
 local classIds = require("globals.class_ids")
 local behaviours = require("globals.behaviours")
 
-local coreCheckers = require("scripts.core.checkers")
+local coreCheckers = require("scripts.utils.checkers")
 local coreStoryObjectsRegistry = require("scripts.core.StoryObjectsRegistry")
 local coreTreasureManager = require("scripts.core.TreasureManager")
 

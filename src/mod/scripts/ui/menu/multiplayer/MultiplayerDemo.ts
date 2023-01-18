@@ -307,7 +307,7 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
 
     if (playerInfo.team === 0) {
       texture_name = texture_name + "green_0" + tostring(playerInfo.rank + 1);
-    } else if (playerInfo.team == 1) {
+    } else if (playerInfo.team === 1) {
       texture_name = texture_name + "blue_0" + tostring(playerInfo.rank + 1);
     }
 
@@ -382,7 +382,7 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
 
     const item = this.demo_list.GetSelectedItem();
 
-    if (item == null) {
+    if (item === null) {
       log.warn("Error, no demo selected");
       this.file_name_edit.SetText("");
 
@@ -412,7 +412,7 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
 
     let new_file_name = this.file_name_edit.GetText();
 
-    if (new_file_name == "") {
+    if (new_file_name === "") {
       log.info("Bad file name to rename");
 
       return;
@@ -449,7 +449,7 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
       return;
     }
 
-    if (this.on_yes_action == "delete") {
+    if (this.on_yes_action === "delete") {
       const file_name_to_delete: string = fs.update_path("$logs$", item.fn.GetText() + ".demo");
 
       fs.file_delete(file_name_to_delete);
@@ -459,11 +459,11 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
       return;
     }
 
-    if (this.on_yes_action == "rename") {
+    if (this.on_yes_action === "rename") {
       const old_file_name = fs.update_path("$logs$", item.fn.GetText() + ".demo");
       const new_file_name = fs.update_path("$logs$", this.file_name_to_rename + ".demo");
 
-      if (old_file_name == new_file_name) {
+      if (old_file_name === new_file_name) {
         this.on_yes_action = "";
 
         return;
@@ -482,7 +482,7 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
   },
   UpdateDemoInfo(file_name) {
     this.players_list.RemoveAll();
-    if (file_name == "") {
+    if (file_name === "") {
       this.map_info.InitMap("", "");
       this.game_type.SetText("");
       this.players_count.SetText("");

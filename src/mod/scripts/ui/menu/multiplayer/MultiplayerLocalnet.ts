@@ -173,8 +173,8 @@ export const MultiplayerLocalnet: IMultiplayerLocalnet = declare_xr_class("Multi
   OnKeyboard(key, event) {
     CUIScriptWnd.OnKeyboard(this, key, event);
 
-    if (event == ui_events.WINDOW_KEY_PRESSED) {
-      if (key == DIK_keys.DIK_ESCAPE) {
+    if (event === ui_events.WINDOW_KEY_PRESSED) {
+      if (key === DIK_keys.DIK_ESCAPE) {
         this.OnBtnCancel();
       }
     }

@@ -220,7 +220,7 @@ export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptW
       this.owner.ShowDialog(true);
       this.HideDialog();
       this.owner.Show(true);
-    } else if (this.modalBoxMode == 2) {
+    } else if (this.modalBoxMode === 2) {
       this.delete_selected_file();
     }
   },
@@ -233,7 +233,7 @@ export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptW
 
     const item: Optional<ISaveItem> = this.listBox.GetSelectedItem();
 
-    if (item == null) {
+    if (item === null) {
       return;
     }
 
@@ -250,7 +250,7 @@ export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptW
 
     const index: number = this.listBox.GetSelectedIndex();
 
-    if (index == -1) {
+    if (index === -1) {
       return;
     }
 
@@ -267,7 +267,7 @@ export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptW
 
     this.newSave = this.editBox.GetText();
 
-    if (string.len(this.newSave) == 0) {
+    if (string.len(this.newSave) === 0) {
       log.info("Save name is empty");
 
       this.modalBoxMode = 0;
@@ -316,7 +316,7 @@ export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptW
     if (bind === key_bindings.kQUIT) {
       this.OnButton_cancel_clicked();
     } else {
-      if (key == DIK_keys.DIK_RETURN && event == ui_events.WINDOW_KEY_PRESSED) {
+      if (key === DIK_keys.DIK_RETURN && event === ui_events.WINDOW_KEY_PRESSED) {
         this.OnButton_ok_clicked();
       }
     }

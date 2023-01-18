@@ -104,8 +104,8 @@ declare_global("_extern.task_complete", (task_id: string): boolean => get_task_m
 declare_global("_extern.task_fail", (task_id: string): boolean => get_task_manager().task_fail(task_id));
 
 declare_global("_extern.task_callback", (target: XR_CGameTask, state: TXR_TaskState): void => {
-  if (state == task.fail || state == task.completed) {
-    get_task_manager().task_callback(target, state == task.completed);
+  if (state === task.fail || state === task.completed) {
+    get_task_manager().task_callback(target, state === task.completed);
   }
 });
 

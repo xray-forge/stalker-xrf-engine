@@ -240,7 +240,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
   OnButton_disconnect_clicked(): void {
     this.message_box.InitMessageBox("message_box_quit_game");
 
-    if (level.game_id() != 1) {
+    if (level.game_id() !== 1) {
       this.message_box.SetText("ui_mm_disconnect_message"); // -- MultiPlayer
     } else {
       this.message_box.SetText("ui_mm_quit_game_message"); //  -- SinglePlayer
@@ -302,7 +302,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
   OnButton_options_clicked(): void {
     log.info("Activating options view");
 
-    if (this.gameOptionsDialog == null) {
+    if (this.gameOptionsDialog === null) {
       this.gameOptionsDialog = create_xr_class_instance(OptionsDialog);
       this.gameOptionsDialog.owner = this;
     }
@@ -321,7 +321,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
       return;
     }
 
-    if (this.gameDebugDialog == null) {
+    if (this.gameDebugDialog === null) {
       this.gameDebugDialog = create_xr_class_instance(DebugDialog);
       this.gameDebugDialog.owner = this;
     }
@@ -417,7 +417,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     get_console().execute("check_for_updates 0");
   },
   Dispatch(cmd: number, param: number): boolean {
-    if (cmd == 2) {
+    if (cmd === 2) {
       this.OnButton_multiplayer_clicked();
     }
 
@@ -430,7 +430,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
       if (dik === DIK_keys.DIK_ESCAPE) {
         const actor: Optional<XR_game_object> = getActor();
 
-        if (level.present() && ((actor != null && actor.alive()) || IsGameTypeSingle() == false)) {
+        if (level.present() && ((actor !== null && actor.alive()) || IsGameTypeSingle() === false)) {
           this.onButtonReturnToGameClick();
         }
       } else if (dik === DIK_keys.DIK_F11) {

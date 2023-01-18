@@ -284,7 +284,7 @@ export function dream_callback2(): void {
 export function sleep(): void {
   log.info("Sleep called");
 
-  if (sleep_control == null) {
+  if (sleep_control === null) {
     sleep_control = create_xr_class_instance(SleepDialog);
   }
 

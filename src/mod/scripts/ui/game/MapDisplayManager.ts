@@ -171,7 +171,7 @@ export class MapDisplayManager extends AbstractSingletonManager {
 
     let spot_section;
 
-    if (scheme == null || scheme == "nil") {
+    if (scheme === null || scheme === "nil") {
       spot_section = getConfigString(st.ini, st.section_logic, "show_spot", npc, false, "");
     } else {
       spot_section = getConfigString(st.ini, section, "show_spot", npc, false, "");
@@ -184,7 +184,7 @@ export class MapDisplayManager extends AbstractSingletonManager {
     const actor: XR_game_object = getActor()!;
     let map_spot: Optional<string> = getConfigString(st.ini, st.section_logic, "level_spot", npc, false, "");
 
-    if (map_spot == null) {
+    if (map_spot === null) {
       map_spot = getConfigString(st.ini, section, "level_spot", npc, false, "");
     }
 

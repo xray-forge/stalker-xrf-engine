@@ -15,6 +15,7 @@ import {
 import { squadMonsters } from "@/mod/globals/behaviours";
 import { artefact_class_ids, monster_class_ids, stalker_class_ids, weapon_class_ids } from "@/mod/globals/class_ids";
 import { TCommunity } from "@/mod/globals/communities";
+import { lootable_table, TLootableItem } from "@/mod/globals/items/lootable_table";
 import { TLevel } from "@/mod/globals/levels";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { Maybe, Optional } from "@/mod/lib/types";
@@ -86,7 +87,7 @@ export function isGrenade(object: Optional<XR_game_object | XR_cse_abstract>, cl
 }
 
 /**
- * todo;
+ * Is provided object artefact.
  */
 export function isArtefact(
   object: XR_game_object | XR_cse_abstract,
@@ -104,18 +105,18 @@ export function isStrappableWeapon(object: Optional<XR_game_object>): object is 
   return object === null ? false : system_ini().line_exist(object.section(), "strap_bone0");
   /* --[[
       local id = get_clsid(obj)
-    if id == nil then return false end
+    if id === nil then return false end
 
-    if id == clsid.wpn_vintorez_s then return true
-    elseif id == clsid.wpn_ak74_s then return true
-    elseif id == clsid.wpn_lr300_s then return true
-    elseif id == clsid.wpn_shotgun_s then return true
-    elseif id == clsid.wpn_bm16_s then return true
-    elseif id == clsid.wpn_svd_s then return true
-    elseif id == clsid.wpn_svu_s then return true
-    elseif id == clsid.wpn_rpg7_s then return true
-    elseif id == clsid.wpn_val_s then return true
-    elseif id == clsid.wpn_groza_s then return true
+    if id === clsid.wpn_vintorez_s then return true
+    elseif id === clsid.wpn_ak74_s then return true
+    elseif id === clsid.wpn_lr300_s then return true
+    elseif id === clsid.wpn_shotgun_s then return true
+    elseif id === clsid.wpn_bm16_s then return true
+    elseif id === clsid.wpn_svd_s then return true
+    elseif id === clsid.wpn_svu_s then return true
+    elseif id === clsid.wpn_rpg7_s then return true
+    elseif id === clsid.wpn_val_s then return true
+    elseif id === clsid.wpn_groza_s then return true
     else return false end
   ]]*/
 }
@@ -146,4 +147,11 @@ export function isStoryObject(object: XR_cse_alife_object): boolean {
  */
 export function isSurgeEnabledOnLevel(levelName: TLevel): boolean {
   return surgeConfig.SURGE_DISABLED_LEVELS[levelName] !== true;
+}
+
+/**
+ * @returns whether object can be looted by stalkers from corpses.
+ */
+export function isLootableItem(object: XR_game_object): boolean {
+  return lootable_table[object.section<TLootableItem>()] !== null;
 }
