@@ -223,7 +223,7 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
 
     const spawn_ini: Optional<XR_ini_file> = this.object.spawn_ini();
 
-    if (this.st.active_section !== null || (spawn_ini !== null && spawn_ini.section_exist("drop_box") == true)) {
+    if (this.st.active_section !== null || (spawn_ini !== null && spawn_ini.section_exist("drop_box") === true)) {
       get_global<AnyCallablesModule>("xr_logic").issue_event(
         this.object,
         this.st[this.st.active_scheme as string],
@@ -235,7 +235,7 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
       this.object.set_callback(callback.use_object, this.use_callback, this);
     }
 
-    if (this.object.clsid() == clsid.inventory_box) {
+    if (this.object.clsid() === clsid.inventory_box) {
       this.object.set_callback(callback.use_object, this.use_callback, this);
     }
 

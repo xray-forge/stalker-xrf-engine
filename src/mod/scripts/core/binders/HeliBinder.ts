@@ -192,7 +192,7 @@ export const HeliBinder: IHeliBinder = declare_xr_class("HeliBinder", object_bin
     this.heli_fire.enemy = enemy;
     this.heli_fire.update_hit();
 
-    if (enemy_cls_id == clsid.actor || enemy_cls_id == clsid.script_stalker) {
+    if (enemy_cls_id === clsid.actor || enemy_cls_id === clsid.script_stalker) {
       // --        if (!this.st.combat.enemy_id) {
       // --            this.st.combat.enemy_id = enemy_id
       // --        }

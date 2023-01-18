@@ -289,7 +289,7 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
 
       const path: Optional<string> = getConfigString(ini, section, "artefact_ways", null, false, "", defaultWays);
 
-      if (path == null) {
+      if (path === null) {
         abort("There is no field 'artefact_ways' in section [%s] in obj [%s]", section, object.name());
       }
 
@@ -307,7 +307,7 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
 
         const mines_section = getConfigString(ini, section, "mines_section", null, true, "", null);
 
-        if (mines_section == null) {
+        if (mines_section === null) {
           abort("There is no field 'mines_section' in section [%s] in obj [%s]", section, object.name());
         }
 
@@ -534,7 +534,7 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
       let f_spawned = false;
 
       for (const [kk, vv] of this.artefactWaysByArtefactId) {
-        if (vv !== null && v == vv) {
+        if (vv !== null && v === vv) {
           f_spawned = true;
         }
       }

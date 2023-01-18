@@ -88,7 +88,10 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
   update(delta: number): void {
     object_binder.update(this, delta);
 
-    if (get_global("xr_combat_ignore").fighting_with_actor_npcs[this.object.id()] && this.object.best_enemy() == null) {
+    if (
+      get_global("xr_combat_ignore").fighting_with_actor_npcs[this.object.id()] &&
+      this.object.best_enemy() === null
+    ) {
       get_global("xr_combat_ignore").fighting_with_actor_npcs[this.object.id()] = null;
     }
 

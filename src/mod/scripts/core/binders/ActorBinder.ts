@@ -28,7 +28,6 @@ import {
   ARTEFACT_WAYS_BY_ARTEFACT_ID,
   PARENT_ZONES_BY_ARTEFACT_ID
 } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
-import { isArtefact } from "@/mod/scripts/core/checkers";
 import { addActor, deleteActor, getActor, IStoredObject, scriptIds, storage, zoneByName } from "@/mod/scripts/core/db";
 import { initDropSettings } from "@/mod/scripts/core/DropManager";
 import { send_task } from "@/mod/scripts/core/NewsManager";
@@ -40,6 +39,7 @@ import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { get_sim_obj_registry } from "@/mod/scripts/se/SimObjectsRegistry";
 import { ITaskManager } from "@/mod/scripts/se/task/TaskManager";
 import { giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
+import { isArtefact } from "@/mod/scripts/utils/checkers";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -133,7 +133,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
 
     this.deimos_intensity = null;
 
-    if (this.st.disable_input_time == null) {
+    if (this.st.disable_input_time === null) {
       level.enable_input();
     }
 
@@ -251,7 +251,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     if (obj !== null) {
       const s_obj = alife().object(obj.id());
 
-      if (s_obj && s_obj.section_name() == "drug_anabiotic") {
+      if (s_obj && s_obj.section_name() === "drug_anabiotic") {
         get_global<AnyCallablesModule>("xr_effects").disable_ui_only(getActor(), null);
 
         level.add_cam_effector(animations.camera_effects_surge_02, 10, false, "_extern.anabiotic_callback");
@@ -347,7 +347,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
      *  if this.object.radiation >= 0.7 then
      *    const hud = get_hud()
      *    const custom_static = hud:GetCustomStatic("cs_radiation_danger")
-     *    if custom_static == null then
+     *    if custom_static === null then
      *      hud:AddCustomStatic("cs_radiation_danger", true)
      *      hud:GetCustomStatic("cs_radiation_danger"):wnd():TextControl():SetTextST("st_radiation_danger")
      *    end
@@ -410,7 +410,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
 
     packet.w_u8(level.get_game_difficulty());
 
-    if (this.st.disable_input_time == null) {
+    if (this.st.disable_input_time === null) {
       packet.w_bool(false);
     } else {
       packet.w_bool(true);
@@ -456,14 +456,14 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
       packet.w_bool(false);
     }
 
-    if (this.last_detective_achievement_spawn_time == null) {
+    if (this.last_detective_achievement_spawn_time === null) {
       packet.w_bool(false);
     } else {
       packet.w_bool(true);
       writeCTimeToPacket(packet, this.last_detective_achievement_spawn_time);
     }
 
-    if (this.last_mutant_hunter_achievement_spawn_time == null) {
+    if (this.last_mutant_hunter_achievement_spawn_time === null) {
       packet.w_bool(false);
     } else {
       packet.w_bool(true);
@@ -527,13 +527,13 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
 
     let stored_achievement_time = packet.r_bool();
 
-    if (stored_achievement_time == true) {
+    if (stored_achievement_time === true) {
       this.last_detective_achievement_spawn_time = readCTimeFromPacket(packet);
     }
 
     stored_achievement_time = packet.r_bool();
 
-    if (stored_achievement_time == true) {
+    if (stored_achievement_time === true) {
       this.last_mutant_hunter_achievement_spawn_time = readCTimeFromPacket(packet);
     }
 
@@ -544,7 +544,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
       return;
     }
 
-    if (this.last_detective_achievement_spawn_time == null) {
+    if (this.last_detective_achievement_spawn_time === null) {
       this.last_detective_achievement_spawn_time = game.get_game_time();
     }
 
@@ -559,7 +559,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
       return;
     }
 
-    if (this.last_mutant_hunter_achievement_spawn_time == null) {
+    if (this.last_mutant_hunter_achievement_spawn_time === null) {
       this.last_mutant_hunter_achievement_spawn_time = game.get_game_time();
     }
 

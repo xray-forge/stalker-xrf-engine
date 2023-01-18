@@ -165,7 +165,7 @@ export const SignalLightBinder: ISignalLightBinder = declare_xr_class("SignalLig
 
     object_binder.save(this, packet);
 
-    if (this.start_time == null) {
+    if (this.start_time === null) {
       packet.w_u32(-1);
     } else {
       packet.w_u32(time_global() - this.start_time);
