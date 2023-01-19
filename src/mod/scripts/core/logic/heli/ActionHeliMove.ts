@@ -94,7 +94,7 @@ export class ActionHeliMove extends AbstractSchemeAction {
     this.patrol_move_info = get_global<AnyCallablesModule>("utils").path_parse_waypoints(this.state.path_move);
 
     if (this.state.path_look) {
-      if (this.state.path_look == "actor") {
+      if (this.state.path_look === "actor") {
         this.heli_fly.set_look_point(getActor()!.position());
         this.update_look_state();
       } else {
@@ -210,7 +210,7 @@ export class ActionHeliMove extends AbstractSchemeAction {
     }
 
     if (this.state.path_look) {
-      if (this.state.path_look == "actor") {
+      if (this.state.path_look === "actor") {
         this.heli_fly.set_look_point(actor.position());
         if (this.state.stop_fire) {
           if (this.heliObject.isVisible(actor)) {
@@ -302,7 +302,7 @@ export class ActionHeliMove extends AbstractSchemeAction {
   public waypoint_callback(object: XR_game_object, action_type: string, index: number): void {
     if (!this._flag_to_wp_callback) {
       if (this.patrol_move !== null) {
-        if (index == this.last_index) {
+        if (index === this.last_index) {
           return;
         }
 

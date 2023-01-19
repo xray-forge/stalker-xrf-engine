@@ -11,8 +11,8 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { isMonster, isStalker } from "@/mod/scripts/core/checkers";
 import { getActor, storage } from "@/mod/scripts/core/db";
+import { isMonster, isStalker } from "@/mod/scripts/utils/checkers";
 import { getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
@@ -173,7 +173,7 @@ export const ReleaseBodyManager: IReleaseBodyManager = declare_xr_class("Release
 
         if (
           distance_to_body > max_distance &&
-          (v.death_time == null || time_global() >= v.death_time + IDLE_AFTER_DEATH)
+          (v.death_time === null || time_global() >= v.death_time! + IDLE_AFTER_DEATH)
         ) {
           max_distance = distance_to_body;
           pos_in_table = k;

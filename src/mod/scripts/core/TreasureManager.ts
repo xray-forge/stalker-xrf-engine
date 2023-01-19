@@ -286,7 +286,7 @@ export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManag
       return log.info("Already given treasure:", treasure_id);
     }
 
-    if (this.secrets.get(treasure_id).to_find == 0 && !this.secrets.get(treasure_id).empty) {
+    if (this.secrets.get(treasure_id).to_find === 0 && !this.secrets.get(treasure_id).empty) {
       send_treasure(2);
 
       return log.info("Already empty treasure:", treasure_id);
@@ -325,7 +325,7 @@ export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManag
     let treasureId = null;
 
     for (const [k, v] of this.secret_restrs) {
-      if (restrId == v) {
+      if (restrId === v) {
         treasureId = k;
         break;
       }

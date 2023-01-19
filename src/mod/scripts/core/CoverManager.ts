@@ -145,7 +145,7 @@ export class CoverManager extends AbstractSingletonManager {
   }
 
   public calculate_covers(position: XR_vector): void {
-    if (this.is_valid == true) {
+    if (this.is_valid === true) {
       return;
     }
 

@@ -181,7 +181,7 @@ export class HeliCombat {
         } else {
           this.forget_enemy();
         }
-      } else if (combat_enemy == "nil") {
+      } else if (combat_enemy === "nil") {
         this.forget_enemy();
       } else {
         this.enemy_id = getIdBySid(tonumber(combat_enemy)!);
@@ -282,14 +282,14 @@ export class HeliCombat {
       packet.r_vec3(this.enemy_last_seen_pos);
       this.combat_type = packet.r_u8();
 
-      if (this.combat_type == combat_type_search) {
+      if (this.combat_type === combat_type_search) {
         this.center_pos = new vector();
 
         this.change_dir_time = packet.r_u32() + t;
         this.change_pos_time = packet.r_u32() + t;
         this.flight_direction = packet.r_bool();
         packet.r_vec3(this.center_pos);
-      } else if (this.combat_type == combat_type_flyby) {
+      } else if (this.combat_type === combat_type_flyby) {
         this.flyby_states_for_one_pass = packet.r_s16();
       }
     }
@@ -354,7 +354,7 @@ export class HeliCombat {
   public update_combat_type(see_enemy?: boolean): void {
     let ct = this.combat_type;
 
-    if (this.combat_type == combat_type_flyby) {
+    if (this.combat_type === combat_type_flyby) {
       if (this.flyby_states_for_one_pass <= 0) {
         if (this.attack_before_retreat) {
           ct = combat_type_retreat;
@@ -362,7 +362,7 @@ export class HeliCombat {
           ct = combat_type_round;
         }
       }
-    } else if (this.combat_type == combat_type_round) {
+    } else if (this.combat_type === combat_type_round) {
       if (see_enemy) {
         if (distanceBetween2d(this.object.position(), this.enemy!.position()) > this.flyby_attack_dist + 70) {
           // --               not this.flyby_pass_finished
@@ -379,7 +379,7 @@ export class HeliCombat {
 
         ct = combat_type_flyby;
       }
-    } else if (this.combat_type == combat_type_search) {
+    } else if (this.combat_type === combat_type_search) {
       if (see_enemy) {
         if (distanceBetween2d(this.object.position(), this.enemy!.position()) > this.flyby_attack_dist) {
           ct = combat_type_flyby;
@@ -467,13 +467,13 @@ export class HeliCombat {
     // -- FIXME
     // --    this.heliObject.GetSpeedInDestPoint(0)
 
-    if (this.combat_type == combat_type_search) {
+    if (this.combat_type === combat_type_search) {
       this.search_update(see_enemy);
-    } else if (this.combat_type == combat_type_round) {
+    } else if (this.combat_type === combat_type_round) {
       this.round_update(see_enemy);
-    } else if (this.combat_type == combat_type_flyby) {
+    } else if (this.combat_type === combat_type_flyby) {
       this.flyby_update(see_enemy);
-    } else if (this.combat_type == combat_type_retreat) {
+    } else if (this.combat_type === combat_type_retreat) {
       this.retreat_update();
     }
 
@@ -717,7 +717,7 @@ export class HeliCombat {
     if (this.was_callback) {
       if (this.state === flyby_state_to_attack_dist) {
         this.state = flyby_state_to_enemy;
-      } else if (this.state == flyby_state_to_enemy) {
+      } else if (this.state === flyby_state_to_enemy) {
         this.state = flyby_state_to_attack_dist;
       }
 
@@ -725,7 +725,7 @@ export class HeliCombat {
       this.state_initialized = false;
     }
 
-    if (this.state == flyby_state_to_attack_dist) {
+    if (this.state === flyby_state_to_attack_dist) {
       if (!this.state_initialized) {
         const p = this.calc_position_in_radius(this.flyby_attack_dist);
 
@@ -738,7 +738,7 @@ export class HeliCombat {
 
         this.state_initialized = true;
       }
-    } else if (this.state == flyby_state_to_enemy) {
+    } else if (this.state === flyby_state_to_enemy) {
       if (!this.state_initialized) {
         this.heliObject.SetEnemy(this.enemy);
         this.heliObject.UseFireTrail(true);

@@ -13,12 +13,12 @@ import {
 } from "xray16";
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
-import { isMonster, isStalker } from "@/mod/scripts/core/checkers";
 import { campStorage, getActor, IStoredObject } from "@/mod/scripts/core/db";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { ActionMobCombat } from "@/mod/scripts/core/logic/mob/ActionMobCombat";
 import { get_state, set_state } from "@/mod/scripts/core/logic/mob/MobStateManager";
 import { action } from "@/mod/scripts/utils/alife";
+import { isMonster, isStalker } from "@/mod/scripts/utils/checkers";
 import { getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

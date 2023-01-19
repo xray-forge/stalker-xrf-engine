@@ -114,7 +114,7 @@ export const StoryObjectsRegistry: IStoryObjectsRegistry = declare_xr_class("Sto
 } as IStoryObjectsRegistry);
 
 export function getStoryObjectsRegistry(): IStoryObjectsRegistry {
-  if (storyObjectsRegistry == null) {
+  if (storyObjectsRegistry === null) {
     storyObjectsRegistry = create_xr_class_instance(StoryObjectsRegistry);
   }
 

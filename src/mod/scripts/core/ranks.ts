@@ -1,7 +1,7 @@
 import { system_ini, XR_cse_alife_creature_abstract, XR_game_object, XR_ini_file } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { isStalker } from "@/mod/scripts/core/checkers";
+import { isStalker } from "@/mod/scripts/utils/checkers";
 import { parseNames } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

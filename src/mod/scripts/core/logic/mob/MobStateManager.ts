@@ -32,7 +32,7 @@ export function set_state(obj: XR_game_object, actor: XR_game_object, state: Opt
       return;
     }
   } else {
-    if (state == "") {
+    if (state === "") {
       return;
     }
   }

@@ -86,19 +86,19 @@ export class ActionMobJump extends AbstractSchemeAction {
   }
 
   public update(delta: number): void {
-    if (this.state_current == STATE_START_LOOK) {
+    if (this.state_current === STATE_START_LOOK) {
       if (!this.object.action()) {
         action(this.object, new look(look.point, this.point!), new cond(cond.look_end));
 
         this.state_current = STATE_WAIT_LOOK_END;
       }
-    } else if (this.state_current == STATE_WAIT_LOOK_END) {
+    } else if (this.state_current === STATE_WAIT_LOOK_END) {
       if (!this.object.action()) {
         this.state_current = STATE_JUMP;
       }
     }
 
-    if (this.state_current == STATE_JUMP) {
+    if (this.state_current === STATE_JUMP) {
       this.object.jump(this.point!, this.state.ph_jump_factor);
       this.state.signals["jumped"] = true;
       get_global<AnyCallablesModule>("xr_logic").mob_release(this.object);

@@ -119,9 +119,9 @@ export class HeliFly {
 
     rez_point.y = (this.point_arr.get(0).y + this.point_arr.get(1).y) / 2;
 
-    if (rez_point.y == this.point_arr.get(0).y) {
+    if (rez_point.y === this.point_arr.get(0).y) {
       rez_point.z = (this.point_arr.get(0).z + this.point_arr.get(1).z) / 2;
-      if (rez_point.z == this.point_arr.get(0).z) {
+      if (rez_point.z === this.point_arr.get(0).z) {
         rez_point.x = (this.point_arr.get(0).x + this.point_arr.get(1).x) / 2;
         rez_point.z = this.lagrange(rez_point.x, xxArr, zzArr);
       } else {

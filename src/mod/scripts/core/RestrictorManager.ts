@@ -62,7 +62,7 @@ export class RestrictorManager {
       let exist_rest = false;
 
       for (const [kk, vv] of new_out_restr) {
-        if (v == vv) {
+        if (v === vv) {
           exist_rest = true;
           break;
         }
@@ -116,7 +116,7 @@ export class RestrictorManager {
         }
       }
 
-      if (exist_rest == false && this.base_in_restrictions.get(v) !== true) {
+      if (exist_rest === false && this.base_in_restrictions.get(v) !== true) {
         table.insert(del_restr, v);
       }
     }

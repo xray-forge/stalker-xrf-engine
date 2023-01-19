@@ -54,7 +54,7 @@ export class HeliLook {
 }
 
 export function get_heli_looker(object: XR_game_object): HeliLook {
-  if (heli_looker.get(object.id()) == null) {
+  if (heli_looker.get(object.id()) === null) {
     heli_looker.set(object.id(), new HeliLook(object));
   }
 

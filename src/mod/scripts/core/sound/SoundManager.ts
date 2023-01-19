@@ -77,7 +77,7 @@ export class SoundManager {
 
     const t_global: number = time_global();
 
-    if (this.phrase_timeout == null) {
+    if (this.phrase_timeout === null) {
       this.phrase_timeout = t_global;
     }
 

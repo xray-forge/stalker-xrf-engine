@@ -12,10 +12,10 @@ import { captions } from "@/mod/globals/captions";
 import { sound_themes } from "@/mod/globals/sounds";
 import { texturesIngame } from "@/mod/globals/textures";
 import { AnyCallable, Maybe, Optional } from "@/mod/lib/types";
-import { isStalkerClassId } from "@/mod/scripts/core/checkers";
 import { getActor } from "@/mod/scripts/core/db";
 import { get_smart_terrain_name } from "@/mod/scripts/core/db/smart_names";
 import { get_sim_board } from "@/mod/scripts/se/SimBoard";
+import { isStalkerClassId } from "@/mod/scripts/utils/checkers";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -175,7 +175,7 @@ export function send_task(actor: Optional<XR_game_object>, type: TActionType, ta
   // todo: Move to configs.
   let time_on_screen = 10000;
 
-  if (type == "updated") {
+  if (type === "updated") {
     time_on_screen = 5000;
   }
 
