@@ -4,6 +4,7 @@ local RestrictorManager = require("scripts.core.RestrictorManager").RestrictorMa
 local ActionMobCombat = require("scripts.core.logic.mob.ActionMobCombat").ActionMobCombat
 local ActionMobDeath = require("scripts.core.logic.mob.ActionMobDeath").ActionMobDeath
 local schemes = require("scripts.core.schemes")
+local AbuseManager = require("scripts.core.logic.AbuseManager").AbuseManager
 local ActionProcessHit = require("scripts.core.logic.ActionProcessHit").ActionProcessHit
 local ActionGatherItems = require("scripts.core.logic.ActionGatherItems").ActionGatherItems
 local ActionCorpseDetect = require("scripts.core.logic.ActionCorpseDetect").ActionCorpseDetect
@@ -300,7 +301,7 @@ function enable_generic_schemes(ini, npc, stype, section)
     local wounded_section = utils.cfg_get_string(ini, section, "wounded", npc, false, "")
     xr_wounded.set_wounded(npc, ini, "wounded", wounded_section)
 
-    xr_abuse.set_abuse(npc, ini, "abuse", section)
+    AbuseManager:set_abuse(npc, ini, "abuse", section)
 
     xr_help_wounded.set_help_wounded(npc, ini, "help_wounded")
 
@@ -455,7 +456,7 @@ function reset_generic_schemes_on_scheme_switch(npc, scheme, section)
     xr_meet.reset_meet(npc, scheme, st, section)
     xr_help_wounded.reset_help_wounded(npc, scheme, st, section)
     ActionCorpseDetect:reset_corpse_detection(npc, scheme, st, section)
-    xr_abuse.reset_abuse(npc, scheme, st, section)
+    AbuseManager:reset_abuse(npc, scheme, st, section)
     xr_wounded.reset_wounded(npc, scheme, st, section)
     xr_death.reset_death(npc, scheme, st, section)
     ActionDanger:reset_danger(npc, scheme, st, section)

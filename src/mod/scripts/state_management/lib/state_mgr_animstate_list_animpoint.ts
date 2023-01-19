@@ -1,3 +1,4 @@
+import { AnyArgs, AnyCallablesModule } from "@/mod/lib/types";
 import { IAnimationStateDescriptor } from "@/mod/scripts/state_management/lib/state_mgr_animstate_list";
 
 export function add_animstate_animation_list(): LuaTable<string, IAnimationStateDescriptor> {
@@ -377,7 +378,12 @@ export function add_animstate_animation_list(): LuaTable<string, IAnimationState
         rnd: 100,
         moving: true
       },
-      into: { [0]: ["pri_a20_colonel_radio_in", { f: get_global("xr_effects").pri_a20_radio_start }] },
+      into: {
+        [0]: [
+          "pri_a20_colonel_radio_in",
+          { f: (...args: AnyArgs) => get_global<AnyCallablesModule>("xr_effects").pri_a20_radio_start(...args) }
+        ]
+      },
       out: { [0]: ["pri_a20_colonel_radio_out"] },
       idle: { [0]: "pri_a20_colonel_radio_idle" },
       rnd: null
@@ -390,7 +396,12 @@ export function add_animstate_animation_list(): LuaTable<string, IAnimationState
         rnd: 100,
         moving: true
       },
-      into: { [0]: ["pri_a22_colonel_lean_on_tabl_in", { f: get_global("xr_effects").pri_a22_kovalski_speak }] },
+      into: {
+        [0]: [
+          "pri_a22_colonel_lean_on_tabl_in",
+          { f: (...args: AnyArgs) => get_global<AnyCallablesModule>("xr_effects").pri_a22_kovalski_speak(...args) }
+        ]
+      },
       out: { [0]: ["pri_a22_colonel_lean_on_tabl_out"] },
       idle: { [0]: "pri_a22_colonel_lean_on_tabl_idle" },
       rnd: null

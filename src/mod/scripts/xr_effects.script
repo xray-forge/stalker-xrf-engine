@@ -6,6 +6,7 @@ local TaskManager = require("scripts.se.task.TaskManager")
 local SimBoard = require("scripts.se.SimBoard")
 local NewsManager = require("scripts.core.NewsManager")
 local SleepDialog = require("scripts.ui.interaction.SleepDialog")
+local AbuseManager = require("scripts.core.logic.AbuseManager").AbuseManager
 local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
 local game_relations = require("scripts.core.game_relations")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
@@ -873,8 +874,7 @@ end
 
 -- ��������� �����
 function clearAbuse(npc)
-  printf("CLEAR_ABUSE")
-  xr_abuse.clear_abuse(npc)
+  AbuseManager:clear_abuse(npc)
 end
 
 function turn_off_underpass_lamps(actor, npc)

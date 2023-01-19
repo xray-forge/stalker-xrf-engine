@@ -1,6 +1,7 @@
 -- 651
 local utilsAlife = require("scripts.utils.alife")
 local StateManager = require("scripts.state_management.StateManager")
+local AbuseManager = require("scripts.core.logic.AbuseManager").AbuseManager
 local ActionCorpseDetect = require("scripts.core.logic.ActionCorpseDetect").ActionCorpseDetect
 local game_relations = require("scripts.core.game_relations")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
@@ -327,9 +328,9 @@ function Cmeet_manager:update()
   local abuse = xr_logic.pick_section_from_condlist(db.actor, self.npc, self.a.abuse)
   if self.abuse_mode ~= abuse then
     if abuse == "true" then
-      xr_abuse.enable_abuse(self.npc)
+      AbuseManager:enable_abuse(self.npc)
     else
-      xr_abuse.disable_abuse(self.npc)
+      AbuseManager:disable_abuse(self.npc)
     end
     self.abuse_mode = abuse
   end
@@ -375,7 +376,7 @@ function notify_on_use(victim, who)
   if meet_manager.use == "false" and meet_manager.abuse_mode == "true" and
       game_relations.get_npcs_relation(victim, db.actor) == game_object.friend
   then
-    xr_abuse.add_abuse(victim, 1)
+    AbuseManager:add_abuse(victim, 1)
   end
 end
 

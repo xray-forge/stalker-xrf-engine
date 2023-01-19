@@ -1,3 +1,4 @@
+import { AbuseManager } from "@/mod/scripts/core/logic/AbuseManager";
 import { ActionButton } from "@/mod/scripts/core/logic/ActionButton";
 import { ActionCodepad } from "@/mod/scripts/core/logic/ActionCodepad";
 import { ActionCorpseDetect } from "@/mod/scripts/core/logic/ActionCorpseDetect";
@@ -36,7 +37,7 @@ export function initializeModules(): void {
   loadScheme(ActionDanger, ActionDanger.SCHEME_SECTION, stype_stalker);
   loadScheme(ActionGatherItems, ActionGatherItems.SCHEME_SECTION, stype_stalker);
   loadScheme(ActionCorpseDetect, ActionCorpseDetect.SCHEME_SECTION, stype_stalker);
-  loadScheme("xr_abuse", "abuse", stype_stalker);
+  loadScheme(AbuseManager, AbuseManager.SCHEME_SECTION, stype_stalker);
   loadScheme("xr_walker", "walker", stype_stalker);
   loadScheme("xr_remark", "remark", stype_stalker);
   loadScheme("xr_cover", "cover", stype_stalker);
