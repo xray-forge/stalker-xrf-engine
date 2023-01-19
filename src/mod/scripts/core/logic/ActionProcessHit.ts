@@ -55,7 +55,7 @@ export class ActionProcessHit extends AbstractSchemeAction {
   ): void {
     storage.get(this.object.id()).hit.bone_index = bone_index;
 
-    if (amount == 0 && !object.invulnerable()) {
+    if (amount === 0 && !object.invulnerable()) {
       return;
     }
 

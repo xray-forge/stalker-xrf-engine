@@ -165,7 +165,7 @@ export class ActionCutscene extends AbstractSchemeAction {
 
     const actor: XR_game_object = getActor()!;
 
-    if (this.motion!.state == EEffectorState.RELEASE) {
+    if (this.motion!.state === EEffectorState.RELEASE) {
       this.motion = null;
       if (this.motion_id <= this.state.cam_effector!.length()) {
         this.select_next_motion();

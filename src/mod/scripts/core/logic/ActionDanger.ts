@@ -34,7 +34,7 @@ export class ActionDanger extends AbstractSchemeAction {
     log.info("Add to binder:", object.name());
 
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const { DangerEvaluator } = require("@/mod/scripts/core/logic/DangerEvaluator");
+    const { EvaluatorDanger } = require("@/mod/scripts/core/logic/EvaluatorDanger");
 
     const manager = object.motivation_action_manager();
     const danger_action: XR_action_base = manager.action(stalker_ids.action_danger_planner);
@@ -43,13 +43,13 @@ export class ActionDanger extends AbstractSchemeAction {
     manager.remove_evaluator(stalker_ids.property_danger);
     manager.add_evaluator(
       stalker_ids.property_danger,
-      create_xr_class_instance(DangerEvaluator, object, "danger", state)
+      create_xr_class_instance(EvaluatorDanger, object, "danger", state)
     );
 
     danger_action_planner.remove_evaluator(stalker_ids.property_danger);
     danger_action_planner.add_evaluator(
       stalker_ids.property_danger,
-      create_xr_class_instance(DangerEvaluator, object, "danger", state)
+      create_xr_class_instance(EvaluatorDanger, object, "danger", state)
     );
   }
 
@@ -90,13 +90,13 @@ export class ActionDanger extends AbstractSchemeAction {
     }
 
     if (bd_type === danger_object.grenade) {
-      if (getCharacterCommunity(npc) == communities.zombied) {
+      if (getCharacterCommunity(npc) === communities.zombied) {
         return false;
       }
     }
 
     // todo: Implement?
-    if (bd_type == danger_object.entity_corpse) {
+    if (bd_type === danger_object.entity_corpse) {
       return false;
       /**
        *  --const corpse_object = best_danger:object()
@@ -150,7 +150,7 @@ export class ActionDanger extends AbstractSchemeAction {
 
     // todo: Update, originally incorrect.
     /**
-      if (active_scheme == "camper" && bd_type !== danger_object.grenade) {
+      if (active_scheme === "camper" && bd_type !== danger_object.grenade) {
         return false;
       }
      */
@@ -174,7 +174,7 @@ export class ActionDanger extends AbstractSchemeAction {
   }
 
   public static get_danger_time(danger: XR_danger_object): number {
-    if (danger.type() == danger_object.entity_corpse) {
+    if (danger.type() === danger_object.entity_corpse) {
       const corpse_object = danger.object();
 
       return corpse_object.death_time();

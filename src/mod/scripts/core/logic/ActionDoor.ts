@@ -173,7 +173,7 @@ export class ActionDoor extends AbstractSchemeAction {
   }
 
   public close_action(): void {
-    if (this.state.no_force == true) {
+    if (this.state.no_force === true) {
       this.joint!.set_max_force_and_velocity(0, 0, 0);
     } else {
       this.joint!.set_max_force_and_velocity(10000, 1, 0);

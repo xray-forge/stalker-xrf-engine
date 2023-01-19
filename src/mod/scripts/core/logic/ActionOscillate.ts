@@ -37,20 +37,20 @@ export class ActionOscillate extends AbstractSchemeAction {
     state.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, object);
     state.joint = getConfigString(ini, section, "joint", object, true, gulag_name);
 
-    if (state.joint == null) {
+    if (state.joint === null) {
       abort("Invalid joint definition for object %s", object.name());
     }
 
     state.period = getConfigNumber(ini, section, "period", object, true, 0);
     state.force = getConfigNumber(ini, section, "force", object, true, 0);
 
-    if (state.period == null || state.force == null) {
+    if (state.period === null || state.force === null) {
       abort("[ActionOscillate] Error : Force or period not defined");
     }
 
     state.angle = getConfigNumber(ini, section, "correct_angle", object, false, 0);
 
-    if (state.angle == null) {
+    if (state.angle === null) {
       state.angle = 0;
     }
   }
