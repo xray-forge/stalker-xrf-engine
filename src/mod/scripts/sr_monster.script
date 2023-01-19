@@ -8,7 +8,6 @@ function fake_monster:__init(obj, storage)
 end
 
 function fake_monster:reset_scheme()
-  printf("_bp: sr_idle: fake_monster:reset_scheme: self.object:name()='%s'", self.object:name())
   self.st.idle_end = 0
   self.st.signals = {}
   self.is_actor_inside = false

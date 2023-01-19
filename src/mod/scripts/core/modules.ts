@@ -11,6 +11,7 @@ import { ActionIdle } from "@/mod/scripts/core/logic/ActionIdle";
 import { ActionOnDeath } from "@/mod/scripts/core/logic/ActionOnDeath";
 import { ActionOnHit } from "@/mod/scripts/core/logic/ActionOnHit";
 import { ActionOscillate } from "@/mod/scripts/core/logic/ActionOscillate";
+import { ActionPhysicalIdle } from "@/mod/scripts/core/logic/ActionPhysicalIdle";
 import { ActionProcessHit } from "@/mod/scripts/core/logic/ActionProcessHit";
 import { ActionHeliMove } from "@/mod/scripts/core/logic/heli/ActionHeliMove";
 import { ActionMobCombat } from "@/mod/scripts/core/logic/mob/ActionMobCombat";
@@ -68,7 +69,7 @@ export function initializeModules(): void {
   loadScheme(ActionMobHome, ActionMobHome.SCHEME_SECTION, stype_mobile);
 
   loadScheme(ActionDoor, ActionDoor.SCHEME_SECTION, stype_item);
-  loadScheme(ActionIdle, ActionIdle.SCHEME_SECTION, stype_item);
+  loadScheme(ActionPhysicalIdle, ActionPhysicalIdle.SCHEME_SECTION, stype_item);
   loadScheme(ActionHit, ActionHit.SCHEME_SECTION, stype_item);
   loadScheme(ActionOnHit, ActionOnHit.SCHEME_SECTION, stype_item);
   loadScheme(ActionButton, ActionButton.SCHEME_SECTION, stype_item);
@@ -82,7 +83,7 @@ export function initializeModules(): void {
 
   loadScheme("sr_no_weapon", "sr_no_weapon", stype_restrictor);
   loadScheme("sr_teleport", "sr_teleport", stype_restrictor);
-  loadScheme("sr_idle", "sr_idle", stype_restrictor);
+  loadScheme(ActionIdle, ActionIdle.SCHEME_SECTION, stype_restrictor);
   loadScheme("sr_light", "sr_light", stype_restrictor);
   loadScheme("sr_timer", "sr_timer", stype_restrictor);
   loadScheme("sr_psy_antenna", "sr_psy_antenna", stype_restrictor);
