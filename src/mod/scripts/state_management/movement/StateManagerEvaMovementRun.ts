@@ -20,7 +20,7 @@ export const StateManagerEvaMovementRun: IStateManagerEvaMovementRun = declare_x
       this.st = st;
     },
     evaluate(): boolean {
-      return states.get(this.st.target_state).movement == move.run;
+      return states.get(this.st.target_state).movement === move.run;
     }
   } as IStateManagerEvaMovementRun
 );

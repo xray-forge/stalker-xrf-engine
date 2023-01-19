@@ -23,7 +23,7 @@ export const StateManagerEvaMovementStandNow: IStateManagerEvaMovementStandNow =
     },
     evaluate(): boolean {
       return this.object.target_movement_type() === move.stand;
-      // --    return this.object:movement_type() == move.stand
+      // --    return this.object:movement_type() === move.stand
     }
   } as IStateManagerEvaMovementStandNow
 );

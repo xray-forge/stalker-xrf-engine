@@ -32,12 +32,12 @@ export class LuaLogger {
       }
 
       for (const [k, v] of table) {
-        if (type(v) == "table") {
+        if (type(v) === "table") {
           this.info(string.format(sub + "%s:", tostring(k)));
           this.table(v, "  ");
-        } else if (type(v) == "function") {
+        } else if (type(v) === "function") {
           this.info(string.format(sub + "%s:function", tostring(k)));
-        } else if (type(v) == "userdata") {
+        } else if (type(v) === "userdata") {
           this.info(string.format(sub + "%s:userdata", tostring(k)));
         } else if (type(v) === "boolean") {
           if (v === true) {

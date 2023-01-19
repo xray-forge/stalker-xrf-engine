@@ -51,7 +51,7 @@ function strap_weapon(npc: XR_game_object): void {
     }
   }
 
-  if (item == null) {
+  if (item === null) {
     abort("cant find item in %s", npc.name());
   }
 
@@ -600,7 +600,7 @@ function check_availability(precondition: LuaTable<number, string>, existing_npc
 
   for (const [k, v] of precondition) {
     for (const [kk, vv] of check_names) {
-      if (v == vv) {
+      if (v === vv) {
         return true;
       }
     }

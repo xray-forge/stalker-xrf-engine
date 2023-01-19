@@ -35,7 +35,7 @@ export function look_object_type(npc: XR_game_object, st: StateManager): boolean
 }
 
 export function look_position_type(npc: XR_game_object, st: StateManager): TXR_look {
-  if (st == null) {
+  if (st === null) {
     return look.path_dir;
   }
 

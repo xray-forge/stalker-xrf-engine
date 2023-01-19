@@ -63,7 +63,7 @@ export function randomNumber(min?: number, max?: number): number {
 /**
  * -- ��������� ������ � ������.
  * function vec_to_str (vector)
- *  if vector == nil then return "nil" end
+ *  if vector === nil then return "nil" end
  *  return string.format("[%s:%s:%s]", vector.x, vector.y, vector.z)
  * end
  */

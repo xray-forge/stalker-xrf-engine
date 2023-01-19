@@ -5,7 +5,7 @@
  if stalker:animation_count() > 0 then
  stalker:clear_animations()
  end
- if stalker:level_vertex_id() == patrol_path:level_vertex_id(path_point) then
+ if stalker:level_vertex_id() === patrol_path:level_vertex_id(path_point) then
  return
  end
  stalker:set_dest_level_vertex_id(patrol_path:level_vertex_id(path_point))

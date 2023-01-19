@@ -106,7 +106,7 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
       this.npc.clear_animations();
 
       const state =
-        this.states.anim_marker == MARKER_IN
+        this.states.anim_marker === MARKER_IN
           ? this.animations.get(this.states.target_state!)
           : this.animations.get(this.states.current_state!);
 
@@ -172,7 +172,7 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
         const wpn_slot = this.weapon_slot();
         const anim_for_slot = this.anim_for_slot(wpn_slot, state.out as any);
 
-        if (anim_for_slot == null) {
+        if (anim_for_slot === null) {
           states.anim_marker = MARKER_OUT;
           this.animation_callback(true);
 
@@ -181,7 +181,7 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
 
         const next_anim = anim_for_slot.get(states.seq_id);
 
-        if (type(next_anim) == "table") {
+        if (type(next_anim) === "table") {
           log.info("Preprocess special action:", states.current_state, states.seq_id, this);
           this.process_special_action(next_anim as any);
           this.animation_callback();
@@ -197,7 +197,7 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
 
         const state = this.animations.get(states.target_state!);
 
-        if (state.into == null) {
+        if (state.into === null) {
           states.anim_marker = MARKER_IN;
           this.animation_callback(true);
 
@@ -209,7 +209,7 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
         const wpn_slot = this.weapon_slot();
         const anim_for_slot = this.anim_for_slot(wpn_slot, state.into as any);
 
-        if (anim_for_slot == null) {
+        if (anim_for_slot === null) {
           // --printf("anim for slot null")
           states.anim_marker = MARKER_IN;
           this.animation_callback(true);
@@ -219,7 +219,7 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
 
         const next_anim = anim_for_slot.get(states.seq_id);
 
-        if (type(next_anim) == "table") {
+        if (type(next_anim) === "table") {
           this.process_special_action(next_anim as any);
           this.animation_callback();
 
@@ -243,7 +243,7 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
         anim = this.select_rnd(state as any, wpn_slot, time_global() >= states.next_rnd!);
       }
 
-      if (anim == null && state.idle !== null) {
+      if (anim === null && state.idle !== null) {
         anim = this.anim_for_slot(wpn_slot, state.idle as any);
       }
 
@@ -316,7 +316,7 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
     const animation_props = state.prop;
 
     // --printf("[%s][%s] add_anim[%s] time[%s] no_rootmove[%s] %s", this.npc:name(), this.name, tostring(anim),
-    // time_global(), tostring(animation_props == null or animation_props.moving !== true), device():time_global())
+    // time_global(), tostring(animation_props === null or animation_props.moving !== true), device():time_global())
 
     if (!(npc.weapon_unstrapped() || npc.weapon_strapped())) {
       // --callstack()
@@ -336,7 +336,7 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
       log.info("No position animation addition:", this.npc.name(), anim);
       npc.add_animation(anim, true, true);
     } else {
-      if (this.mgr.animation_direction == null) {
+      if (this.mgr.animation_direction === null) {
         abort("Animation direction missing");
       }
 
@@ -431,7 +431,7 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
       states.seq_id = 1;
       states.current_state = null;
 
-      if (this.name == "state_mgr_animation_list") {
+      if (this.name === "state_mgr_animation_list") {
         if (this.mgr.animstate !== null && this.mgr.animstate.set_control !== null) {
           this.mgr.animstate.set_control();
           // --this.mgr.animstate:update_anim()

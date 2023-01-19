@@ -2,8 +2,8 @@ import { property_evaluator, XR_game_object, XR_property_evaluator } from "xray1
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
-import { isStrappableWeapon, isWeapon } from "@/mod/scripts/core/checkers";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
+import { isStrappableWeapon, isWeapon } from "@/mod/scripts/utils/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger(

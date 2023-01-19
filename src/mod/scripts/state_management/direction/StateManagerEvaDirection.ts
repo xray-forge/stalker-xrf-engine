@@ -55,7 +55,7 @@ export const StateManagerEvaDirection: IStateManagerEvaDirection = declare_xr_cl
         if (sight_type.m_sight_type !== look_position_type(this.object, this.st)) {
           // --printf("false type")
           return false;
-        } else if ((sight_type.m_sight_type as TXR_SightType) == CSightParams.eSightTypeAnimationDirection) {
+        } else if ((sight_type.m_sight_type as TXR_SightType) === CSightParams.eSightTypeAnimationDirection) {
           return true;
         }
 

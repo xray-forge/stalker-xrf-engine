@@ -12,7 +12,7 @@ import {
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { AnyCallable, AnyObject, Maybe, Optional } from "@/mod/lib/types";
-import { storage } from "@/mod/scripts/core/db";
+import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import * as animationManagement from "@/mod/scripts/state_management/animation";
 import * as animationStateManagement from "@/mod/scripts/state_management/animation_state";
 import { IAnimationManager, AnimationManager } from "@/mod/scripts/state_management/AnimationManager";
@@ -75,7 +75,7 @@ export class StateManager {
     state_name: string,
     callback: Optional<AnyObject>,
     timeout: Optional<number>,
-    target: Optional<StateManager>,
+    target: Optional<IStoredObject>,
     extra: Optional<AnyObject>
   ): void {
     // --printf("Set State called: for %s State: %s", this.npc:name(), state_name)
@@ -246,9 +246,9 @@ export class StateManager {
 export function set_state(
   npc: XR_game_object,
   state_name: string,
-  callback: AnyCallable,
-  timeout: number,
-  target: StateManager,
+  callback: Optional<AnyCallable>,
+  timeout: Optional<number>,
+  target: Optional<AnyObject>,
   extra: Optional<AnyObject>
 ): void {
   storage.get(npc.id()).state_mgr?.set_state(state_name, callback, timeout, target, extra);

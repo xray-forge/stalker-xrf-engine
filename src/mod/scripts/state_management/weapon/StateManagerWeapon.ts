@@ -65,7 +65,7 @@ export function get_weapon(obj: XR_game_object, target_state: string): Optional<
 export function get_idle_state(target_state: string): TXR_object_state {
   const state_object = states.get(target_state);
 
-  if (state_object.mental === anim.danger && state_object.movement == move.stand && state_object.animation === null) {
+  if (state_object.mental === anim.danger && state_object.movement === move.stand && state_object.animation === null) {
     return object.aim1;
   } else {
     return object.idle;

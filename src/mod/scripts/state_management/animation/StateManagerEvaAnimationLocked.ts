@@ -24,7 +24,7 @@ export const StateManagerEvaAnimationLocked: IStateManagerEvaAnimationLocked = d
     evaluate(): boolean {
       // --printf("anim_locked [%s] fast_set[%s] anim_marker[%s] sid[%s]", self.object:name(),
       // tostring(self.st.fast_set), tostring(self.st.animation.states.anim_marker), tostring(self.st.animation.sid))
-      // --    if self.st.fast_set == true then
+      // --    if self.st.fast_set === true then
       // --        return false
       // --    end
 

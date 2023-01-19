@@ -132,7 +132,7 @@ export function setMarker(packet: XR_net_packet, mode: "save" | "load", check: b
       abort("Trying to check without marker: " + result);
     }
 
-    if (mode == "save") {
+    if (mode === "save") {
       const dif = packet.w_tell() - SAVE_MARKERS.get(result);
 
       // log.info("Set save marker result:", result, dif, mode);

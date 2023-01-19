@@ -2,10 +2,10 @@ import { action_base, game_object, level, object, time_global, XR_action_base } 
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
-import { isStalker, isWeapon } from "@/mod/scripts/core/checkers";
 import { states } from "@/mod/scripts/state_management/lib/state_lib";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
 import { get_idle_state, get_queue_params } from "@/mod/scripts/state_management/weapon/StateManagerWeapon";
+import { isStalker, isWeapon } from "@/mod/scripts/utils/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const aim_ratio: number = 1000 / 50;

@@ -20,15 +20,15 @@ export const StateManagerEvaMovement: IStateManagerEvaMovement = declare_xr_clas
       this.st = st;
     },
     evaluate(): boolean {
-      // --    printf("MOVE: %s",utils.to_str((state_lib.states[this.st.target_state].movement == nil) or
-      // --           (state_lib.states[this.st.target_state].movement == this.object:target_movement_type())))
+      // --    printf("MOVE: %s",utils.to_str((state_lib.states[this.st.target_state].movement === nil) or
+      // --           (state_lib.states[this.st.target_state].movement === this.object:target_movement_type())))
       // --    printf("MOVE: %s",utils.to_str(this.object:target_movement_type()))
 
       return (
-        states.get(this.st.target_state).movement == null ||
-        states.get(this.st.target_state).movement == this.object.target_movement_type()
+        states.get(this.st.target_state).movement === null ||
+        states.get(this.st.target_state).movement === this.object.target_movement_type()
       );
-      // --           (state_lib.states[this.st.target_state].movement == this.object:movement_type())
+      // --           (state_lib.states[this.st.target_state].movement === this.object:movement_type())
     }
   } as IStateManagerEvaMovement
 );

@@ -20,7 +20,7 @@ export const StateManagerEvaAnimation: IStateManagerEvaAnimation = declare_xr_cl
       this.st = st;
     },
     evaluate(): boolean {
-      // --printf("%s [%s] == [%s]", self.object:name(), tostring(state_lib.states[self.st.target_state].animation),
+      // --printf("%s [%s] === [%s]", self.object:name(), tostring(state_lib.states[self.st.target_state].animation),
       // tostring(self.st.animation.states.current_state))
       return states.get(this.st.target_state).animation === this.st.animation.states.current_state;
     }

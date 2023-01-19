@@ -1,9 +1,9 @@
 import { property_evaluator, XR_property_evaluator } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
-import { isStrappableWeapon, isWeapon } from "@/mod/scripts/core/checkers";
 import { states } from "@/mod/scripts/state_management/lib/state_lib";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
+import { isStrappableWeapon, isWeapon } from "@/mod/scripts/utils/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("StateManagerEvaWeapon", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
@@ -29,7 +29,7 @@ export const StateManagerEvaWeapon: IStateManagerEvaWeapon = declare_xr_class(
 
       if (!isWeapon(this.object.best_weapon())) {
         // -- printf("isWeapon = false")
-        // -- if this.object:best_weapon() == nil then
+        // -- if this.object:best_weapon() === nil then
         // --   printf(" weapon nil")
         // -- else
         // --   abort(" corrupted weapon %s  clsid %s", this.object:best_weapon():name(),
@@ -52,7 +52,7 @@ export const StateManagerEvaWeapon: IStateManagerEvaWeapon = declare_xr_class(
       }
 
       if (
-        (weapon == "unstrapped" || weapon == "fire" || weapon == "sniper_fire") &&
+        (weapon === "unstrapped" || weapon === "fire" || weapon === "sniper_fire") &&
         activeitem !== null &&
         bestweapon !== null &&
         activeitem.id() === bestweapon.id() &&
@@ -63,7 +63,7 @@ export const StateManagerEvaWeapon: IStateManagerEvaWeapon = declare_xr_class(
         return true;
       }
 
-      if (weapon == "none" && activeitem == null) {
+      if (weapon === "none" && activeitem === null) {
         // -- printf("  no weapon")
         return true;
       }

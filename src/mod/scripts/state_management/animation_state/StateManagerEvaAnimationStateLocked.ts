@@ -22,7 +22,7 @@ export const StateManagerEvaAnimationStateLocked: IStateManagerEvaAnimationState
       this.st = st;
     },
     evaluate(): boolean {
-      // --    if self.st.fast_set == true then
+      // --    if self.st.fast_set === true then
       // --        return false
       // --    end
 

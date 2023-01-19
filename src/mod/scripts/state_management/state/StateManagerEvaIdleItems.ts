@@ -39,9 +39,9 @@ export const StateManagerEvaIdleItems: IStateManagerEvaIdleItems = declare_xr_cl
       // --    end
 
       //  --    if (db.storage[this.st.npc:id()].active_section === null) {
-      if (get_global<AnyCallablesModule>("xr_meet").is_meet(this.object) == false) {
+      if (get_global<AnyCallablesModule>("xr_meet").is_meet(this.object) === false) {
         const t =
-          this.st.target_state == "idle" &&
+          this.st.target_state === "idle" &&
           // --                !this.st.planner.evaluator(this.st.properties["locked"]).evaluate()  &&
           !this.st.planner.evaluator(EStateManagerProperty.animstate_locked).evaluate() &&
           !this.st.planner.evaluator(EStateManagerProperty.animation_locked).evaluate() &&
@@ -56,8 +56,8 @@ export const StateManagerEvaIdleItems: IStateManagerEvaIdleItems = declare_xr_cl
         // --        printf("%s", utils.to_str(this.st.planner.evaluator(this.st.properties["animstate"]).evaluate()))
         // --        printf("%s", utils.to_str(this.st.planner.evaluator(this.st.properties["animation"]).evaluate()))
 
-        // --            if (t == true) { this.st.alife = true }
-        // --            if (this.st.alife) == true {
+        // --            if (t === true) { this.st.alife = true }
+        // --            if (this.st.alife) === true {
         // --                return true
         // --            }
         return t;

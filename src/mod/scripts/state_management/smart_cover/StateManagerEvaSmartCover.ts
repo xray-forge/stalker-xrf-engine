@@ -28,7 +28,7 @@ export const StateManagerEvaSmartCover: IStateManagerEvaSmartCover = declare_xr_
       const state_descr: any = storage.get(this.object.id())["smartcover"];
       const dest_smart_cover_name: Optional<string> = this.object.get_dest_smart_cover_name();
 
-      // -- printf("SC %s [%s] [%s]", tostring(dest_smart_cover_name == (state_descr.smartcover_name or "")),
+      // -- printf("SC %s [%s] [%s]", tostring(dest_smart_cover_name === (state_descr.smartcover_name or "")),
       // -- tostring(dest_smart_cover_name), tostring((state_descr.smartcover_name or "")))
       if (state_descr === null) {
         return true;

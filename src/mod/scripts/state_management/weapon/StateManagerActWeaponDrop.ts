@@ -2,10 +2,10 @@ import { action_base, object, XR_action_base, XR_game_object } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
-import { isStrappableWeapon } from "@/mod/scripts/core/checkers";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
 import { get_weapon } from "@/mod/scripts/state_management/weapon/StateManagerWeapon";
 import { setItemCondition } from "@/mod/scripts/utils/alife";
+import { isStrappableWeapon } from "@/mod/scripts/utils/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("StateManagerActWeaponDrop", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);

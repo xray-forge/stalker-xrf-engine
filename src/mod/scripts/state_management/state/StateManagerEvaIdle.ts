@@ -22,7 +22,7 @@ export const StateManagerEvaIdle: IStateManagerEvaIdle = declare_xr_class("State
   },
   evaluate(): boolean {
     const t =
-      this.st.target_state == "idle" &&
+      this.st.target_state === "idle" &&
       // --!this.st.planner.evaluator(this.st.properties["locked"]).evaluate() &&
       !this.st.planner.evaluator(EStateManagerProperty.animstate_locked).evaluate() &&
       !this.st.planner.evaluator(EStateManagerProperty.animation_locked).evaluate() &&
@@ -31,7 +31,7 @@ export const StateManagerEvaIdle: IStateManagerEvaIdle = declare_xr_class("State
       this.st.planner.evaluator(EStateManagerProperty.animation).evaluate() &&
       this.st.planner.evaluator(EStateManagerProperty.smartcover).evaluate();
 
-    if (this.mgr == null) {
+    if (this.mgr === null) {
       this.mgr = this.object.motivation_action_manager();
     }
 
@@ -49,14 +49,14 @@ export const StateManagerEvaIdle: IStateManagerEvaIdle = declare_xr_class("State
       return true;
     }
 
-    if (this.combat_planner == null) {
+    if (this.combat_planner === null) {
       this.combat_planner = cast_planner(this.mgr.action(stalker_ids.action_combat_planner));
     }
 
     if (!this.combat_planner.initialized()) {
       return false;
     }
-    // --if this.combat_planner.current_action_id() == stalker_ids.action_post_combat_wait then
+    // --if this.combat_planner.current_action_id() === stalker_ids.action_post_combat_wait then
     // --    return true
     // --end
 
