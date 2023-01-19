@@ -1,6 +1,7 @@
 -- 651
 local utilsAlife = require("scripts.utils.alife")
 local StateManager = require("scripts.state_management.StateManager")
+local ActionCorpseDetect = require("scripts.core.logic.ActionCorpseDetect").ActionCorpseDetect
 local game_relations = require("scripts.core.game_relations")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
@@ -637,7 +638,7 @@ function process_npc_usability(npc)
   local use = meet.meet_manager.use
 
   if use == "true" then
-    if xr_corpse_detection.is_under_corpse_detection(npc) or xr_help_wounded.is_under_help_wounded(npc) then
+    if ActionCorpseDetect:is_under_corpse_detection(npc) or xr_help_wounded.is_under_help_wounded(npc) then
       npc:disable_talk()
     else
       npc:enable_talk()

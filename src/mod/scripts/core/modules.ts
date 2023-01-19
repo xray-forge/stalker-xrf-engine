@@ -1,5 +1,6 @@
 import { ActionButton } from "@/mod/scripts/core/logic/ActionButton";
 import { ActionCodepad } from "@/mod/scripts/core/logic/ActionCodepad";
+import { ActionCorpseDetect } from "@/mod/scripts/core/logic/ActionCorpseDetect";
 import { ActionDanger } from "@/mod/scripts/core/logic/ActionDanger";
 import { ActionDoor } from "@/mod/scripts/core/logic/ActionDoor";
 import { ActionGatherItems } from "@/mod/scripts/core/logic/ActionGatherItems";
@@ -34,6 +35,7 @@ export function initializeModules(): void {
 
   loadScheme(ActionDanger, ActionDanger.SCHEME_SECTION, stype_stalker);
   loadScheme(ActionGatherItems, ActionGatherItems.SCHEME_SECTION, stype_stalker);
+  loadScheme(ActionCorpseDetect, ActionCorpseDetect.SCHEME_SECTION, stype_stalker);
   loadScheme("xr_abuse", "abuse", stype_stalker);
   loadScheme("xr_walker", "walker", stype_stalker);
   loadScheme("xr_remark", "remark", stype_stalker);
@@ -43,7 +45,6 @@ export function initializeModules(): void {
   loadScheme("xr_camper", "camper", stype_stalker);
   loadScheme("xr_meet", "meet", stype_stalker);
   loadScheme("xr_help_wounded", "help_wounded", stype_stalker);
-  loadScheme("xr_corpse_detection", "corpse_detection", stype_stalker);
   loadScheme("xr_combat", "combat", stype_stalker);
   loadScheme("xr_death", "death", stype_stalker);
   loadScheme(ActionProcessHit, ActionProcessHit.SCHEME_SECTION, stype_stalker);

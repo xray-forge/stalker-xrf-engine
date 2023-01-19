@@ -1,3 +1,5 @@
+import { XR_game_object } from "xray16";
+
 import { AnyCallable, AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { add_animpoint_animation_list } from "@/mod/scripts/state_management/lib/state_mgr_animation_list_animpoint";
 import { add_animation_list_pri_a15 } from "@/mod/scripts/state_management/lib/state_mgr_pri_a15";
@@ -937,7 +939,12 @@ export const animations: LuaTable<string, IAnimationDescriptor> = {
       [0]: [
         "dinamit_1",
         {
-          f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_corpse_detection").get_all_from_corpse(...args)
+          f: (object: XR_game_object) => {
+            // eslint-disable-next-line @typescript-eslint/no-var-requires
+            const { ActionCorpseDetect } = require("@/mod/scripts/core/logic/ActionCorpseDetect");
+
+            ActionCorpseDetect.get_all_from_corpse(object);
+          }
         }
       ]
     },

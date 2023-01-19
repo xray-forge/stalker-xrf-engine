@@ -6,6 +6,7 @@ local ActionMobDeath = require("scripts.core.logic.mob.ActionMobDeath").ActionMo
 local schemes = require("scripts.core.schemes")
 local ActionProcessHit = require("scripts.core.logic.ActionProcessHit").ActionProcessHit
 local ActionGatherItems = require("scripts.core.logic.ActionGatherItems").ActionGatherItems
+local ActionCorpseDetect = require("scripts.core.logic.ActionCorpseDetect").ActionCorpseDetect
 local ActionDanger = require("scripts.core.logic.ActionDanger").ActionDanger
 local ActionOnHit = require("scripts.core.logic.ActionOnHit").ActionOnHit
 local LuaLogger = require("scripts.utils.logging").LuaLogger
@@ -303,7 +304,7 @@ function enable_generic_schemes(ini, npc, stype, section)
 
     xr_help_wounded.set_help_wounded(npc, ini, "help_wounded")
 
-    xr_corpse_detection.set_corpse_detection(npc, ini, "corpse_detection")
+    ActionCorpseDetect:set_corpse_detection(npc, ini, "corpse_detection")
 
     local meet_section = utils.cfg_get_string(ini, section, "meet", npc, false, "")
     xr_meet.set_meet(npc, ini, "meet", meet_section)
@@ -453,7 +454,7 @@ function reset_generic_schemes_on_scheme_switch(npc, scheme, section)
     --xr_reactions.reset_reactions(npc, scheme, st, section)
     xr_meet.reset_meet(npc, scheme, st, section)
     xr_help_wounded.reset_help_wounded(npc, scheme, st, section)
-    xr_corpse_detection.reset_corpse_detection(npc, scheme, st, section)
+    ActionCorpseDetect:reset_corpse_detection(npc, scheme, st, section)
     xr_abuse.reset_abuse(npc, scheme, st, section)
     xr_wounded.reset_wounded(npc, scheme, st, section)
     xr_death.reset_death(npc, scheme, st, section)

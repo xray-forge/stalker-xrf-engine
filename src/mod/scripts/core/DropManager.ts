@@ -1,11 +1,11 @@
 import { alife, ini_file, level, XR_game_object, XR_ini_file, XR_LuaBindBase } from "xray16";
 
 import { communities, TCommunity } from "@/mod/globals/communities";
-import { misc, TMiscItem } from "@/mod/globals/items";
-import { isArtefact, isGrenade, isWeapon } from "@/mod/scripts/core/checkers";
+import { misc, TMiscItem } from "@/mod/globals/items/misc";
 import { storage } from "@/mod/scripts/core/db";
 import { IStalker } from "@/mod/scripts/se/Stalker";
 import { createAmmo, createGenericItem, getCharacterCommunity, setItemCondition } from "@/mod/scripts/utils/alife";
+import { isArtefact, isGrenade, isLootableItem, isWeapon } from "@/mod/scripts/utils/checkers";
 import { parseNames, parseNums } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -140,7 +140,7 @@ export const DropManager: IDropManager = declare_xr_class("DropManager", null, {
   create_release_item(): void {
     const se_obj = alife().object<IStalker>(this.npc.id());
 
-    if (se_obj == null || se_obj.death_droped == true) {
+    if (se_obj === null || se_obj.death_droped === true) {
       return;
     }
 
@@ -168,7 +168,7 @@ export const DropManager: IDropManager = declare_xr_class("DropManager", null, {
     }
 
     for (const [section, probability] of spawn_items) {
-      if (this.check_item_dependence(this.npc, section) == true) {
+      if (this.check_item_dependence(this.npc, section) === true) {
         if (!count_by_level.has(section)) {
           abort("Incorrect count settings in DropManager for object[%s]", section);
         }
@@ -235,7 +235,7 @@ export const DropManager: IDropManager = declare_xr_class("DropManager", null, {
       return;
     }
 
-    if (get_global("xr_corpse_detection").lootable_table[section] === true && !ammo_sections.has(section)) {
+    if (isLootableItem(item) && !ammo_sections.has(section)) {
       log.info("Keep item, misc lootable", npc.name(), item.name(), section);
 
       return;
@@ -249,13 +249,13 @@ export const DropManager: IDropManager = declare_xr_class("DropManager", null, {
      *   --[[
      *     const item_id = item:id()
      *     const item_in_slot = npc:item_in_slot(2)
-     *     if item_in_slot ~= null and item_in_slot:id() == item_id then
+     *     if item_in_slot ~= null and item_in_slot:id() === item_id then
      *       --' ��� ���� ��������� ������� ������
      *       item:set_condition((math.random(40)+40)/100)
      *       return
      *     end
      *     item_in_slot = npc:item_in_slot(3)
-     *     if item_in_slot ~= null and item_in_slot:id() == item_id then
+     *     if item_in_slot ~= null and item_in_slot:id() === item_id then
      *       --' ��� ���� ��������� ������� ������
      *       item:set_condition((math.random(40)+40)/100)
      *       return
@@ -263,7 +263,7 @@ export const DropManager: IDropManager = declare_xr_class("DropManager", null, {
      *
      *   --  npc:mark_item_dropped(item)
      *     const item_in_slot = npc:item_in_slot(4)
-     *     if item_in_slot ~= null and item_in_slot:id() == item_id  then
+     *     if item_in_slot ~= null and item_in_slot:id() === item_id  then
      *       return
      *     end
      *     if not npc:marked_dropped(item) then

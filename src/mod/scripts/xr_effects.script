@@ -23,6 +23,7 @@ function update_npc_logic(actor, object, p)
   for k, v in pairs(p) do
     local npc = get_story_object(v)
     if npc ~= nil then
+      log:info("Update npc logic:", npc:id())
       xr_motivator.update_logic(npc)
 
       local planner = npc:motivation_action_manager()
@@ -46,6 +47,7 @@ function update_obj_logic(actor, object, p)
   for k, v in pairs(p) do
     local obj = get_story_object(v)
     if obj ~= nil then
+      log:info("Update obj logic:", obj:id())
 
       local st = db.storage[obj:id()]
       xr_logic.try_switch_to_another_section(obj, st[st.active_scheme], actor)
@@ -56,6 +58,8 @@ end
 local ui_active_slot = 0
 
 function disable_ui(actor, npc, p)
+  log:info("Disable UI")
+
   if db.actor:is_talking() then
     db.actor:stop_talk()
   end
@@ -79,6 +83,8 @@ function disable_ui(actor, npc, p)
 end
 
 function disable_ui_only(actor, npc)
+  log:info("Disable UI only")
+
   if db.actor:is_talking() then
     db.actor:stop_talk()
   end
@@ -100,6 +106,7 @@ function disable_ui_only(actor, npc)
 end
 
 function enable_ui(actor, npc, p)
+  log:info("Enable UI")
   --db.actor:restore_weapon()
 
   if not p or (p and p[1] ~= "true") then
@@ -119,6 +126,8 @@ end
 local cam_effector_playing_object_id = nil
 
 function run_cam_effector(actor, npc, p)
+  log:info("Run cam effector")
+
   if p[1] then
     local loop, num = false, (1000 + math.random(100))
     if p[2] and type(p[2]) == "number" and p[2] > 0 then
@@ -134,12 +143,16 @@ function run_cam_effector(actor, npc, p)
 end
 
 function stop_cam_effector(actor, npc, p)
+  log:info("Stop cam effector")
+
   if p[1] and type(p[1]) == "number" and p[1] > 0 then
     level.remove_cam_effector(p[1])
   end
 end
 
 function run_cam_effector_global(actor, npc, p)
+  log:info("Run cam effector global")
+
   local num = 1000 + math.random(100)
   if p[2] and type(p[2]) == "number" and p[2] > 0 then
     num = p[2]
@@ -153,24 +166,25 @@ function run_cam_effector_global(actor, npc, p)
 end
 
 function cam_effector_callback()
+  log:info("Run cam effector callback")
+
   if cam_effector_playing_object_id == nil then
-    printf("cam_eff:callback1!")
     return
   end
   local st = db.storage[cam_effector_playing_object_id]
   if st == nil or st.active_scheme == nil then
-    printf("cam_eff:callback2!")
     return
   end
 
   if st[st.active_scheme].signals == nil then
-    printf("cam_eff:callback3!")
     return
   end
   st[st.active_scheme].signals["cameff_end"] = true
 end
 
 function run_postprocess(actor, npc, p)
+  log:info("Run postprocess")
+
   if (p[1]) then
     if (system_ini():section_exist(p[1])) then
       local num = 2000 + math.random(100)
@@ -186,6 +200,8 @@ function run_postprocess(actor, npc, p)
 end
 
 function stop_postprocess(actor, npc, p)
+  log:info("Stop postprocess")
+
   if (p[1] and type(p[1]) == "number" and p[1] > 0) then
     printf("removing complex effector id [%s] from [%s]", tostring(p[1]), tostring(npc:name()))
     level.remove_complex_effector(p[1])
@@ -193,7 +209,7 @@ function stop_postprocess(actor, npc, p)
 end
 
 function run_tutorial(actor, npc, p)
-  printf("run tutorial called")
+  log:info("Run tutorial")
   game.start_tutorial(p[1])
 end
 
@@ -454,6 +470,7 @@ end
 ]]--
 
 function give_items(actor, npc, p)
+  log:info("Give items")
   local pos, lv_id, gv_id, npc_id = npc:position(), npc:level_vertex_id(), npc:game_vertex_id(), npc:id()
   for i, v in pairs(p) do
     alife():create(v, pos, lv_id, gv_id, npc_id)
@@ -461,6 +478,7 @@ function give_items(actor, npc, p)
 end
 
 function give_item(actor, npc, p)
+  log:info("Give item")
   if p[2] ~= nil then
     npc_id = get_story_object_id(p[2])
   else
@@ -502,6 +520,7 @@ send_tip(news_id:sender:sender_id)
 		* - not necessary
 --]]
 function send_tip(actor, npc, p)
+  log:info("Send tip")
   NewsManager.send_tip(actor, p[1], nil, p[2], nil, p[3])
 end
 
@@ -517,6 +536,7 @@ end
 		5. reverse (true/false) - ��������� ����������� �����. �� ��������� false
 --]]
 function hit_npc(actor, npc, p)
+  log:info("Hit npc")
   local h = hit()
   local rev = p[6] and p[6] == 'true'
   h.draftsman = npc
@@ -561,6 +581,7 @@ end
 				������ �������.
 --]]
 function hit_obj(actor, npc, p)
+  log:info("Hit obj")
   local h = hit()
   local obj = get_story_object(p[1])
   local sid = nil
@@ -1035,6 +1056,8 @@ end
 -- =set_weather(<������ ������>:true) - ��������� ������ �����, false - ����� ��������� �����
 -- ����� �������������� �� ������ ���� ��� ������� � � ����� jup_b15 - ���� ����� ������ � �������
 function set_weather(actor, npc, p)
+  log:info("Set weather")
+
   if (p[1]) then
     if (p[2] == "true") then
       level.set_weather(p[1], true)
@@ -1082,6 +1105,7 @@ end
 ]]--
 
 function game_disconnect(actor, npc)
+  log:info("Game disconnect")
   local c = get_console()
   c:execute("disconnect")
   --	c:execute_deferred("main_menu off")
@@ -1089,11 +1113,15 @@ function game_disconnect(actor, npc)
 end
 
 function game_credits(actor, npc)
+  log:info("Game credits")
+
   db.gameover_credits_started = true
   game.start_tutorial("credits_seq")
 end
 
 function game_over(actor, npc)
+  log:info("Game over")
+
   if db.gameover_credits_started ~= true then
     return
   end
@@ -1120,7 +1148,6 @@ function on_tutor_gameover_quickload()
   local c = get_console()
   c:execute("load_last_save")
 end
-
 
 -- ��� ����� ������
 function get_stalker_for_new_job(actor, npc, p)
@@ -1151,6 +1178,7 @@ end
 --' ������� ��� ������ � ����������
 --'-----------------------------------------------------------------------------------
 function spawn_object(actor, obj, p)
+  log:info("Spawn object")
   --' p[1] - ������ ���� ��������
   --' p[2] - ��� ����������� ���� ��� ��� �����.
   local spawn_sect = p[1]
@@ -1214,6 +1242,8 @@ function jup_b219_restore_gate()
 end
 
 function spawn_corpse(actor, obj, p)
+  log:info("Spawn corpse")
+
   --' p[1] - ������ ���� ��������
   --' p[2] - ��� ����������� ���� ��� ��������.
   local spawn_sect = p[1]
@@ -1340,11 +1370,13 @@ function anim_obj_forward(actor, npc, p)
     end
   end
 end
+
 function anim_obj_backward(actor, npc, p)
   if p[1] ~= nil then
     db.anim_obj_by_name[p[1]]:anim_backward()
   end
 end
+
 function anim_obj_stop(actor, npc, p)
   if p[1] ~= nil then
     db.anim_obj_by_name[p[1]]:anim_stop()
@@ -1355,6 +1387,8 @@ end
 --' ������� ��� ����������� �����
 --'-----------------------------------------------------------------------------------
 function play_sound(actor, obj, p)
+  log:info("Play sound")
+
   local theme = p[1]
   local faction = p[2]
   local point = SimBoard.get_sim_board().smarts_by_names[p[3]]
@@ -1584,6 +1618,8 @@ end
 ]]--
 
 function clear_smart_terrain(actor, obj, p)
+  log:info("Clear smart terrain")
+
   local smart_name = p[1]
   if smart_name == nil then
     abort("Wrong squad identificator [NIL] in clear_smart_terrain function")
@@ -1617,6 +1653,8 @@ end
 --' Quest support
 --'-----------------------------------------------------------------------------------
 function give_task(actor, obj, p)
+  log:info("Give task")
+
   if p[1] == nil then
     abort("No parameter in give_task function.")
   end
@@ -1624,6 +1662,8 @@ function give_task(actor, obj, p)
 end
 
 function set_active_task(actor, npc, p)
+  log:info("Set active task")
+
   if (p[1]) then
     local t = db.actor:get_task(tostring(p[1]), true)
     if (t) then
@@ -1765,7 +1805,6 @@ function dec_faction_goodwill_to_actor(actor, npc, p)
   end
 end
 
-
 --[[
 function add_custom_static(actor, npc, p)
 	if p[1] ~= nil and p[2] ~= nil then
@@ -1786,6 +1825,7 @@ end
 ]]--
 
 function kill_actor(actor, npc)
+  log:info("Kill actor")
   db.actor:kill(db.actor)
 end
 
@@ -1793,6 +1833,8 @@ end
 --  Treasures support
 -----------------------------------------------------------------------
 function give_treasure (actor, npc, p)
+  log:info("Give treasure")
+
   if p == nil then
     abort("Required parameter is [NIL]")
   end
@@ -1812,10 +1854,12 @@ end
 ]]--
 
 function start_surge(actor, npc, p)
+  log:info("Start surge")
   SurgeManager.start_surge(p)
 end
 
 function stop_surge(actor, npc, p)
+  log:info("Stop surge")
   SurgeManager.stop_surge()
 end
 
@@ -2128,6 +2172,8 @@ end
 -- �������� �������� �� ������ � ������
 -- relocate_item(item_name:story_id_from:story_id_to)
 function relocate_item(actor, npc, p)
+  log:info("Relocate item");
+
   local item = p and p[1]
   local from_obj = p and get_story_object(p[2])
   local to_obj = p and get_story_object(p[3])
@@ -2180,14 +2226,18 @@ function set_squads_enemies(actor, npc, p)
   end
 end
 
-local particles_table = {
-  [1] = { particle = particles_object("anomaly2\\teleport_out_00"), sound = sound_object("anomaly\\teleport_incoming") },
-  [2] = { particle = particles_object("anomaly2\\teleport_out_00"), sound = sound_object("anomaly\\teleport_incoming") },
-  [3] = { particle = particles_object("anomaly2\\teleport_out_00"), sound = sound_object("anomaly\\teleport_incoming") },
-  [4] = { particle = particles_object("anomaly2\\teleport_out_00"), sound = sound_object("anomaly\\teleport_incoming") },
-}
+particles_table = nil
 
 function jup_b16_play_particle_and_sound(actor, npc, p)
+  if particles_table == nil then
+    particles_table = {
+      [1] = { particle = particles_object("anomaly2\\teleport_out_00"), sound = sound_object("anomaly\\teleport_incoming") },
+      [2] = { particle = particles_object("anomaly2\\teleport_out_00"), sound = sound_object("anomaly\\teleport_incoming") },
+      [3] = { particle = particles_object("anomaly2\\teleport_out_00"), sound = sound_object("anomaly\\teleport_incoming") },
+      [4] = { particle = particles_object("anomaly2\\teleport_out_00"), sound = sound_object("anomaly\\teleport_incoming") },
+    }
+  end
+
   particles_table[p[1]].particle:play_at_pos(patrol(npc:name() .. "_particle"):point(0))
   --particles_table[p[1]].sound    :play_at_pos(actor, patrol(npc:name().."_particle"):point(0), 0, sound_object.s3d)
 end
@@ -2197,6 +2247,7 @@ end
 --						0 - ���������
 --						1 - �����������
 --						2 - ��������� �������
+
 function set_bloodsucker_state(actor, npc, p)
   if (p and p[1]) == nil then
     abort("Wrong parameters in function 'set_bloodsucker_state'!!!")
@@ -2224,6 +2275,8 @@ end
 
 --������� ������� �������� � ������
 function remove_item(actor, npc, p)
+  log:info("Remove item");
+
   if (p and p[1]) == nil then
     abort("Wrong parameters in function 'remove_item'!!!")
   end
@@ -2253,6 +2306,8 @@ function scenario_autosave(actor, npc, p)
     local save_param = user_name() .. " - " .. game.translate_string(save_name)
 
     get_console():execute("save " .. save_param)
+  else
+    log:info("Not important save, skip:", save_name);
   end
 end
 
@@ -2366,6 +2421,8 @@ function jup_b202_inventory_box_relocate(actor, npc)
 end
 
 function clear_box(actor, npc, p)
+  log:info("Clear box")
+
   if (p and p[1]) == nil then
     abort("Wrong parameters in function 'clear_box'!!!")
   end
@@ -2400,6 +2457,8 @@ function activate_weapon(actor, npc, p)
 end
 
 function set_game_time(actor, npc, p)
+  log:info("Set game time")
+
   local real_hours = level.get_time_hours()
   local real_minutes = level.get_time_minutes()
   local hours = tonumber(p[1])
@@ -2425,6 +2484,8 @@ function set_game_time(actor, npc, p)
 end
 
 function forward_game_time(actor, npc, p)
+  log:info("Forward game time")
+
   if not p then
     abort("Insufficient or invalid parameters in function 'forward_game_time'!")
   end
@@ -2526,6 +2587,8 @@ function jup_b10_spawn_drunk_dead_items(actor, npc, p)
 end
 
 function pick_artefact_from_anomaly(actor, npc, p)
+  log:info("Pick artefact from anomaly")
+
   local npc
   local az_name = p and p[2]
   local af_name = p and p[3]
@@ -2776,6 +2839,8 @@ function pas_b400_stop_particle(actor, npc, p)
 end
 
 function damage_actor_items_on_start(actor, npc)
+  log:info("Damage actor items on start")
+
   local actor = db.actor
 
   local obj = actor:object("helm_respirator")
@@ -2832,6 +2897,8 @@ function jup_b217_hard_animation_reset(actor, npc, p)
 end
 
 function sleep(actor, npc)
+  log:info("Sleep")
+
   local sleep_zones = {
     "zat_a2_sr_sleep",
     "jup_a6_sr_sleep",
@@ -2847,8 +2914,6 @@ function sleep(actor, npc)
   end
 
 end
-
-
 
 --[[
 function set_tip_to_story(actor, npc, p)
@@ -3071,6 +3136,8 @@ function enable_actor_torch(actor, npc)
 end
 
 function create_cutscene_actor_with_weapon(actor, npc, p)
+  log:info("Create cutscene actor with weapon")
+
   --' p[1] - ������ ���� ��������
   --' p[2] - ��� ����������� ���� ��� ��������.
   --' p[3] - ����� ����������� ����
@@ -3264,6 +3331,7 @@ function upgrade_hint(actor, npc, p)
 end
 
 function force_obj(actor, npc, p)
+  log:info("Force obj")
   local obj = get_story_object(p[1])
   if not obj then
     abort("'force_obj' Target object does not exist")

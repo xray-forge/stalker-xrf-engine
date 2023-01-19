@@ -1,4 +1,11 @@
 -- 187
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+
+local log = create_ts_class_instance(LuaLogger, "xr_logic");
+
+log:info("sr_particle")
+
 -----------------------------------------------------------------------------------------------------
 class "action_particle"
 ------------------------
@@ -11,6 +18,7 @@ function action_particle:__init (obj, storage)
   self.started = false
   self.first_played = false
 end
+
 ------------------------
 function action_particle:reset_scheme()
 

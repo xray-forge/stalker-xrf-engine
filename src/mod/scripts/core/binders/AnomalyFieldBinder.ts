@@ -55,8 +55,6 @@ export const AnomalyFieldBinder: IAnomalyFieldBinder = declare_xr_class("Anomaly
     FIELDS_BY_NAME.delete(this.object.name());
 
     object_binder.net_destroy(this);
-
-    log.info("Net destroyed:", this.object.name());
   },
   set_enable(enabled: boolean): void {
     if (enabled) {
