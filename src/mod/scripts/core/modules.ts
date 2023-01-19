@@ -2,6 +2,7 @@ import { AbuseManager } from "@/mod/scripts/core/logic/AbuseManager";
 import { ActionButton } from "@/mod/scripts/core/logic/ActionButton";
 import { ActionCodepad } from "@/mod/scripts/core/logic/ActionCodepad";
 import { ActionCorpseDetect } from "@/mod/scripts/core/logic/ActionCorpseDetect";
+import { ActionCrowSpawner } from "@/mod/scripts/core/logic/ActionCrowSpawner";
 import { ActionDanger } from "@/mod/scripts/core/logic/ActionDanger";
 import { ActionDoor } from "@/mod/scripts/core/logic/ActionDoor";
 import { ActionGatherItems } from "@/mod/scripts/core/logic/ActionGatherItems";
@@ -92,7 +93,7 @@ export function initializeModules(): void {
   loadScheme("sr_monster", "sr_monster", stype_restrictor);
   // --loadScheme("sr_robbery",						"sr_robbery",		stype_restrictor)
   // --loadScheme("sr_survival",						"sr_survival",		stype_restrictor)
-  loadScheme("sr_crow_spawner", "sr_crow_spawner", stype_restrictor);
+  loadScheme(ActionCrowSpawner, ActionCrowSpawner.SCHEME_SECTION, stype_restrictor);
   // --loadScheme("sr_shooting",						"sr_shooting",		stype_restrictor)
   // --loadScheme("sr_recoveritem",					"sr_recoveritem",	stype_restrictor)
   loadScheme("sr_silence", "sr_silence", stype_restrictor);

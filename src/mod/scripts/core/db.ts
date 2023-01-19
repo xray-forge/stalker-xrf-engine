@@ -52,12 +52,14 @@ export interface ITradeManagerDescriptor {
 export interface IStoredObject<T = XR_game_object> {
   [index: string]: any;
 
+  path_table?: LuaTable<number, string>;
   cam_effector?: LuaTable<number, string>;
   combat?: HeliCombat;
   anim_head?: keyof TXR_MonsterSpaces;
   action?: any;
   ini?: XR_ini_file;
   object?: T;
+  max_crows_on_level?: number;
   hit?: any;
   smartcover?: any;
   active_scheme?: string;
