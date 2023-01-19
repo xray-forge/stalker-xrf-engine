@@ -13,6 +13,7 @@ import { ActionOnHit } from "@/mod/scripts/core/logic/ActionOnHit";
 import { ActionOscillate } from "@/mod/scripts/core/logic/ActionOscillate";
 import { ActionPhysicalIdle } from "@/mod/scripts/core/logic/ActionPhysicalIdle";
 import { ActionProcessHit } from "@/mod/scripts/core/logic/ActionProcessHit";
+import { ActionSilence } from "@/mod/scripts/core/logic/ActionSilence";
 import { ActionHeliMove } from "@/mod/scripts/core/logic/heli/ActionHeliMove";
 import { ActionMobCombat } from "@/mod/scripts/core/logic/mob/ActionMobCombat";
 import { ActionMobDeath } from "@/mod/scripts/core/logic/mob/ActionMobDeath";
@@ -97,6 +98,6 @@ export function initializeModules(): void {
   loadScheme(ActionCrowSpawner, ActionCrowSpawner.SCHEME_SECTION, stype_restrictor);
   // --loadScheme("sr_shooting",						"sr_shooting",		stype_restrictor)
   // --loadScheme("sr_recoveritem",					"sr_recoveritem",	stype_restrictor)
-  loadScheme("sr_silence", "sr_silence", stype_restrictor);
+  loadScheme(ActionSilence, ActionSilence.SCHEME_SECTION, stype_restrictor);
   loadScheme("sr_deimos", "sr_deimos", stype_restrictor);
 }
