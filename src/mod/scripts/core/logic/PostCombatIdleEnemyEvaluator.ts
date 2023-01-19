@@ -69,19 +69,19 @@ export const PostCombatIdleEnemyEvaluator: IPostCombatIdleEnemyEvaluator = decla
         return true;
       }
 
-      if (best_enemy == null && this.st.timer == null) {
+      if (best_enemy === null && this.st.timer === null) {
         const overrides = dbStorage.get(this.object.id()).overrides;
         const min = (overrides && overrides.min_post_combat_time * 1000) || 10000;
         const max = (overrides && overrides.max_post_combat_time * 1000) || 15000;
 
-        if (this.st.last_best_enemy_id == getActor()!.id()) {
+        if (this.st.last_best_enemy_id === getActor()!.id()) {
           this.st.timer = time_global();
         } else {
           this.st.timer = time_global() + math.random(min, max);
         }
       }
 
-      if (this.st.timer == null) {
+      if (this.st.timer === null) {
         return best_enemy !== null;
       }
 
@@ -89,7 +89,7 @@ export const PostCombatIdleEnemyEvaluator: IPostCombatIdleEnemyEvaluator = decla
         return true;
       }
 
-      if (this.st.animation == null) {
+      if (this.st.animation === null) {
         return false;
       }
 
@@ -153,7 +153,7 @@ export const PostCombatIdleWait: IPostCombatIdleWait = declare_xr_class("PostCom
 
     (xr_sound.set_sound_play as AnyCallable)(this.object.id(), "post_combat_relax");
 
-    if (this.anim_started == true) {
+    if (this.anim_started === true) {
       this.st.animation.set_state(null, true);
     }
 

@@ -16,12 +16,12 @@ import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import { ActionDanger } from "@/mod/scripts/core/logic/ActionDanger";
 import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
 
-export interface IDangerEvaluator extends XR_property_evaluator {
+export interface IEvaluatorDanger extends XR_property_evaluator {
   state: IStoredObject;
   manager: Optional<XR_action_planner>;
 }
 
-export const DangerEvaluator: IDangerEvaluator = declare_xr_class("DangerEvaluator", property_evaluator, {
+export const EvaluatorDanger: IEvaluatorDanger = declare_xr_class("DangerEvaluator", property_evaluator, {
   __init(npc: XR_game_object, name: string, storage: IStoredObject): void {
     xr_class_super(null, name);
     this.state = storage;
@@ -61,4 +61,4 @@ export const DangerEvaluator: IDangerEvaluator = declare_xr_class("DangerEvaluat
 
     return true;
   }
-} as IDangerEvaluator);
+} as IEvaluatorDanger);
