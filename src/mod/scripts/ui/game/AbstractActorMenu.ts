@@ -1,4 +1,4 @@
-import { AbstractSingletonManager } from "@/mod/scripts/core/utils/AbstractSingletonManager";
+import { AbstractSingletonManager } from "@/mod/scripts/utils/AbstractSingletonManager";
 
 export enum EActorMenuMode {
   UNDEFINED = 0,

@@ -1,4 +1,4 @@
-import { AbstractSingletonManager } from "@/mod/scripts/core/utils/AbstractSingletonManager";
+import { AbstractSingletonManager } from "@/mod/scripts/utils/AbstractSingletonManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("LoadScreenManager");

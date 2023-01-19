@@ -1,6 +1,6 @@
 import { level, XR_vector } from "xray16";
 
-import { AbstractSingletonManager } from "@/mod/scripts/core/utils/AbstractSingletonManager";
+import { AbstractSingletonManager } from "@/mod/scripts/utils/AbstractSingletonManager";
 
 export class PhantomManager extends AbstractSingletonManager {
   public phantom_count: number = 0;

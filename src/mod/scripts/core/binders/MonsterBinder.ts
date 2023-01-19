@@ -9,6 +9,7 @@ import {
   object_binder,
   patrol,
   TXR_cls_id,
+  TXR_snd_type,
   vector,
   XR_cse_alife_creature_abstract,
   XR_cse_alife_object,
@@ -30,6 +31,7 @@ import {
   spawnedVertexById,
   storage
 } from "@/mod/scripts/core/db";
+import { Hear } from "@/mod/scripts/core/Hear";
 import { stype_mobile } from "@/mod/scripts/core/schemes";
 import { get_sim_obj_registry } from "@/mod/scripts/se/SimObjectsRegistry";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
@@ -59,7 +61,7 @@ export interface IMonsterBinder extends XR_object_binder {
   hear_callback(
     object: XR_game_object,
     source_id: number,
-    sound_type: string,
+    sound_type: TXR_snd_type,
     sound_position: XR_vector,
     sound_power: number
   ): void;
@@ -410,15 +412,12 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
   hear_callback(
     object: XR_game_object,
     source_id: number,
-    sound_type: string,
+    sound_type: TXR_snd_type,
     sound_position: XR_vector,
-    sound_power: number,
-    dst?: any
+    sound_power: number
   ): void {
-    if (source_id === object.id()) {
-      return;
+    if (source_id !== object.id()) {
+      Hear.hear_callback(object, source_id, sound_type, sound_position, sound_power);
     }
-
-    get_global<AnyCallablesModule>("xr_hear").hear_callback(object, source_id, sound_type, sound_position, sound_power);
   }
 } as IMonsterBinder);

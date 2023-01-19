@@ -1,5 +1,8 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error"*/
 
+/**
+ * List of sound assets declared in game XDB/asset folder.
+ */
 export const sounds = {
   $no_sound: "$no_sound",
   actor_breath_1: "actor\\breath_1",

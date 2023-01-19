@@ -1,6 +1,7 @@
 -- 605
 local InventoryUpgrades = require("scripts.core.inventory_upgrades")
 local TradeManager = require("scripts.core.TradeManager")
+local Hear = require("scripts.core.Hear").Hear
 local bind_state_manager = require("scripts.state_management.bind_state_manager").bind_state_manager
 local schemes = require("scripts.core.schemes")
 local ReleaseBodyManager = require("scripts.core.ReleaseBodyManager")
@@ -547,7 +548,8 @@ function motivator_binder:hear_callback(self, who_id, sound_type, sound_position
   if who_id == self:id() then
     return
   end
-  xr_hear.hear_callback(self, who_id, sound_type, sound_position, sound_power)
+
+  Hear:hear_callback(self, who_id, sound_type, sound_position, sound_power)
 end
 
 function AddToMotivator(npc)

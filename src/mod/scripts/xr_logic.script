@@ -1,6 +1,7 @@
 -- 1517
 local TradeManager = require("scripts.core.TradeManager")
 local RestrictorManager = require("scripts.core.RestrictorManager").RestrictorManager
+local Hear = require("scripts.core.Hear").Hear
 local ActionMobCombat = require("scripts.core.logic.mob.ActionMobCombat").ActionMobCombat
 local ActionMobDeath = require("scripts.core.logic.mob.ActionMobDeath").ActionMobDeath
 local schemes = require("scripts.core.schemes")
@@ -471,7 +472,7 @@ function reset_generic_schemes_on_scheme_switch(npc, scheme, section)
     utilsAlife.take_items_enabled(npc, scheme, st, section)
     utilsAlife.can_select_weapon(npc, scheme, st, section)
     RestrictorManager:forNpc(npc):reset_restrictions(st, section)
-    xr_hear.reset_hear_callback(st, section)
+    Hear:reset_hear_callback(st, section)
 
   elseif st.stype == schemes.stype_mobile then
     --printf("_bp: disabling talk")
@@ -489,7 +490,7 @@ function reset_generic_schemes_on_scheme_switch(npc, scheme, section)
     xr_combat_ignore.reset_combat_ignore_checker(npc, scheme, st, section)
     utilsAlife.reset_invulnerability(npc, st.ini, section)
     RestrictorManager:forNpc(npc):reset_restrictions(st, section)
-    xr_hear.reset_hear_callback(st, section)
+    Hear:reset_hear_callback(st, section)
   elseif st.stype == schemes.stype_item then
     npc:set_callback(callback.use_object, nil)
     npc:set_nonscript_usable(true)

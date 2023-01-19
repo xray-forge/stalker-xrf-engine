@@ -16,7 +16,7 @@ import { map_mark_type, npc_map_marks } from "@/mod/globals/npc_map_marks";
 import { story_ids } from "@/mod/globals/story_ids";
 import { AnyCallable, AnyObject, Maybe, Optional } from "@/mod/lib/types";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
-import { AbstractSingletonManager } from "@/mod/scripts/core/utils/AbstractSingletonManager";
+import { AbstractSingletonManager } from "@/mod/scripts/utils/AbstractSingletonManager";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { getConfigString } from "@/mod/scripts/utils/configs";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";

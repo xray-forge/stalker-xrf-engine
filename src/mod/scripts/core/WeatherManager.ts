@@ -2,7 +2,7 @@ import { ini_file, level, XR_ini_file, XR_net_packet } from "xray16";
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
-import { AbstractSingletonManager } from "@/mod/scripts/core/utils/AbstractSingletonManager";
+import { AbstractSingletonManager } from "@/mod/scripts/utils/AbstractSingletonManager";
 import { getConfigString, parseCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";

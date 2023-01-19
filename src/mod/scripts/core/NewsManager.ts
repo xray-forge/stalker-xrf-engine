@@ -9,7 +9,7 @@ import {
 } from "xray16";
 
 import { captions } from "@/mod/globals/captions";
-import { sound_themes } from "@/mod/globals/sounds";
+import { sound_themes } from "@/mod/globals/sound/sounds";
 import { texturesIngame } from "@/mod/globals/textures";
 import { AnyCallable, Maybe, Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";

@@ -4,7 +4,7 @@ import { weapons } from "@/mod/globals/items/weapons";
 import { monsters, TMonster } from "@/mod/globals/monsters";
 import { texturesIngame, TTexture } from "@/mod/globals/textures";
 import { Optional, PartialRecord } from "@/mod/lib/types";
-import { AbstractSingletonManager } from "@/mod/scripts/core/utils/AbstractSingletonManager";
+import { AbstractSingletonManager } from "@/mod/scripts/utils/AbstractSingletonManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("PdaMenu");
