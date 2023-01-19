@@ -55,6 +55,7 @@ declare module "xray16" {
   export const sound_object: typeof XR_sound_object;
   export const sound_params: typeof XR_sound_params;
   export const sound: typeof XR_sound;
+  export const snd_type: typeof XR_snd_type;
 
   export const game_object: typeof XR_game_object;
   export const danger_object: typeof XR_danger_object;

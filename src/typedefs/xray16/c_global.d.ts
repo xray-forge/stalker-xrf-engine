@@ -5,7 +5,7 @@ declare module "xray16" {
    * namespace global {
    */
   export function game_ini(this: void): unknown;
-  export function bit_and(this: void, a: number, b: number): unknown;
+  export function bit_and(this: void, left: number, right: number): number;
   export function GetFontGraffiti32Russian(this: void): unknown;
   export function device(this: void): XR_render_device;
   export function cast_planner(this: void, base_action: XR_action_base): XR_action_planner;

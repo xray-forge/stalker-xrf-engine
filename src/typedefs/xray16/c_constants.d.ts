@@ -311,62 +311,6 @@ declare module "xray16" {
   }
 
   /**
-
-   C++ class snd_type {
-    const ambient = 128;
-    const anomaly = 268435456;
-    const anomaly_idle = 268437504;
-    const attack = 8192;
-    const bullet_hit = 524288;
-    const die = 131072;
-    const drop = 33554432;
-    const eat = 4096;
-    const empty = 1048576;
-    const hide = 16777216;
-    const idle = 2048;
-    const injure = 65536;
-    const item = 1073741824;
-    const item_drop = 1107296256;
-    const item_hide = 1090519040;
-    const item_pick_up = 1140850688;
-    const item_take = 1082130432;
-    const item_use = 1077936128;
-    const monster = 536870912;
-    const monster_attack = 536879104;
-    const monster_die = 537001984;
-    const monster_eat = 536875008;
-    const monster_injure = 536936448;
-    const monster_step = 536903680;
-    const monster_talk = 536887296;
-    const no_sound = 0;
-    const object_break = 1024;
-    const object_collide = 512;
-    const object_explode = 256;
-    const pick_up = 67108864;
-    const reload = 262144;
-    const shoot = 2097152;
-    const step = 32768;
-    const take = 8388608;
-    const talk = 16384;
-    const use = 4194304;
-    const weapon = -2147483648;
-    const weapon_bullet_hit = -2146959360;
-    const weapon_empty = -2146435072;
-    const weapon_reload = -2147221504;
-    const weapon_shoot = -2145386496;
-    const world = 134217728;
-    const world_ambient = 134217856;
-    const world_object_break = 134218752;
-    const world_object_collide = 134218240;
-    const world_object_explode = 134217984;
-
-  };
-   *
-   */
-
-  // todo;
-
-  /**
    * C++ class task {
    */
   export class XR_task {

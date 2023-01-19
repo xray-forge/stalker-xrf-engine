@@ -141,7 +141,7 @@ declare module "xray16" {
       type: TXR_callbacks["sound"],
       cb?: ((
         this: void,
-        object: XR_game_object, source_id: number, sound_type: string, position: XR_vector, sound_power: number
+        object: XR_game_object, source_id: number, sound_type: TXR_snd_type, position: XR_vector, sound_power: number
       ) => void) | null,
       object?: XR_object_binder | null
     ): void;
