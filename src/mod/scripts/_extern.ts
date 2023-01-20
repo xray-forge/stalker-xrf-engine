@@ -17,6 +17,7 @@ import { smart_covers_list } from "@/mod/scripts/smart_covers/smart_covers_list"
 import { EActorMenuMode } from "@/mod/scripts/ui/game/AbstractActorMenu";
 import { actorMenu } from "@/mod/scripts/ui/game/ActorMenu";
 import { pdaMenu } from "@/mod/scripts/ui/game/PdaMenu";
+import { WeaponParams } from "@/mod/scripts/ui/game/WeaponParams";
 import * as SleepDialogModule from "@/mod/scripts/ui/interaction/SleepDialog";
 import { disableInfo } from "@/mod/scripts/utils/actor";
 import { externClassMethod } from "@/mod/scripts/utils/general";
@@ -203,4 +204,15 @@ declare_global("pda", {
   get_stat(index: number): string {
     return pdaMenu.getStat(index);
   }
+});
+
+/**
+ * Params in weapon menu in inventory.
+ */
+declare_global("ui_wpn_params", {
+  GetRPM: externClassMethod(WeaponParams, WeaponParams.GetRPM),
+  GetDamage: externClassMethod(WeaponParams, WeaponParams.GetDamage),
+  GetDamageMP: externClassMethod(WeaponParams, WeaponParams.GetDamageMP),
+  GetHandling: externClassMethod(WeaponParams, WeaponParams.GetHandling),
+  GetAccuracy: externClassMethod(WeaponParams, WeaponParams.GetAccuracy)
 });

@@ -6,14 +6,17 @@ local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 local log = create_ts_class_instance(LuaLogger, "xr_walker");
 
-----------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
 -- Walkers
----------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
+
 class "evaluator_need_walker"(property_evaluator)
+
 function evaluator_need_walker:__init(storage, name)
   super(nil, name)
   self.st = storage
 end
+
 function evaluator_need_walker:evaluate()
   return xr_logic.is_active(self.object, self.st)
 end
@@ -25,8 +28,10 @@ local assoc_tbl = {
   story = { director = { "wait" } },
 }
 
-----------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
+---
 class "action_walker_activity"(action_base)
+
 function action_walker_activity:__init (npc, action_name, storage)
   super(nil, action_name)
   self.st = storage
@@ -43,16 +48,19 @@ function action_walker_activity:__init (npc, action_name, storage)
     end
   end
 end
+
 function action_walker_activity:initialize()
   action_base.initialize(self)
   self.object:set_desired_position()
   self.object:set_desired_direction()
   self:reset_scheme(nil, self.object)
 end
+
 function action_walker_activity:activate_scheme(loading, npc)
   self.st.signals = {}
   self:reset_scheme(loading, npc)
 end
+
 function action_walker_activity:reset_scheme(loading, npc)
   if self.st.path_walk_info == nil then
     self.st.path_walk_info = utils.path_parse_waypoints(self.st.path_walk)
@@ -63,6 +71,7 @@ function action_walker_activity:reset_scheme(loading, npc)
 
   self.move_mgr:reset(self.st.path_walk, self.st.path_walk_info, self.st.path_look, self.st.path_look_info, self.st.team, self.st.suggested_state)
 end
+
 function action_walker_activity:execute()
   action_base.execute(self)
 
@@ -125,12 +134,10 @@ function action_walker_activity:net_destroy(npc)
   end
 end
 
-
-
-
-----------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
 --walker binder
-----------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
+
 function add_to_binder(npc, ini, scheme, section, storage)
   printf("DEBUG: add_to_binder: scheme='%s', section='%s'", scheme, section)
   local operators = {}

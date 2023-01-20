@@ -1,9 +1,9 @@
 import { alife, device, IsGameTypeSingle, XR_vector } from "xray16";
 
-import { AnyArgs, AnyCallable, Optional } from "@/mod/lib/types";
+import { AnyArgs, Optional } from "@/mod/lib/types";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("utils/general");
+const log: LuaLogger = new LuaLogger("general");
 
 /**
  * todo: description
