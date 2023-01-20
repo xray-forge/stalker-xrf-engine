@@ -1,4 +1,6 @@
 -- 189
+
+local GlobalSound = require("scripts.core.logic.GlobalSound").GlobalSound
 local StateManager = require("scripts.state_management.StateManager")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
@@ -122,11 +124,11 @@ function action_sleeper_activity:execute()
     return
   end
   if self.state == state_sleeping then
-    --		xr_sound.set_sound(self.object, "sleep")
+    --		GlobalSound:set_sound(self.object, "sleep")
   end
 end
 function action_sleeper_activity:finalize()
-  --  xr_sound.set_sound(self.object, nil)
+  --  GlobalSound:set_sound(self.object, nil)
   self.move_mgr:finalize()
   action_base.finalize(self)
 end

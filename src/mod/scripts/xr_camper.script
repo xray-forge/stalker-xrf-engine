@@ -1,4 +1,6 @@
 -- 594
+
+local GlobalSound = require("scripts.core.logic.GlobalSound").GlobalSound
 local utilsWorld = require("scripts.utils.world")
 local StateManager = require("scripts.state_management.StateManager")
 local ActionDanger = require("scripts.core.logic.ActionDanger").ActionDanger
@@ -215,7 +217,7 @@ function action_patrol:execute()
         end
       end
       --'printf("attack sound [%s]", tostring(self.a.attack_sound))
-      xr_sound.set_sound_play(self.object:id(), self.a.attack_sound)
+      GlobalSound:set_sound_play(self.object:id(), self.a.attack_sound)
 
     else
       --' ����������� ��������� ��������� ������� �����.
@@ -251,7 +253,7 @@ function action_patrol:execute()
         end
       end
 
-      --			xr_sound.set_sound(self.object, nil)
+      --			GlobalSound:set_sound(self.object, nil)
       if self.a.sniper == true then
         -- ����� ����� (������������ �����)
         --printf("SCAN_ENEMY [%s] of [%s]", utils.to_str(time_global() - self.a.mem_enemy), utils.to_str(self.a.idle))
@@ -295,7 +297,7 @@ function action_patrol:execute()
 
   local danger = self:process_danger()
   if danger then
-    --		xr_sound.set_sound(self.object, nil)
+    --		GlobalSound:set_sound(self.object, nil)
     self.danger = true
     return
   end

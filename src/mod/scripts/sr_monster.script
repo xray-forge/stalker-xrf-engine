@@ -1,4 +1,10 @@
 -- 170
+
+local GlobalSound = require("scripts.core.logic.GlobalSound").GlobalSound
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "sr_monster");
+
 class "fake_monster"
 
 function fake_monster:__init(obj, storage)
@@ -74,7 +80,7 @@ function fake_monster:update(delta)
       self.current = vector():set(target_pos)
     end
 
-    self.snd_obj = xr_sound.set_sound_play(self.object:id(), self.st.snd_obj)
+    self.snd_obj = GlobalSound:set_sound_play(self.object:id(), self.st.snd_obj)
     printf("play_sound_obj")
     if self.snd_obj and self.snd_obj:playing() then
       self.snd_obj:set_position(self.current)

@@ -1,4 +1,6 @@
 -- 187
+
+local GlobalSound = require("scripts.core.logic.GlobalSound").GlobalSound
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 
@@ -40,7 +42,7 @@ function action_particle:reset_scheme()
       end
       local snd_obj = nil
       if sound_name ~= nil and sound_name ~= "" then
-        snd_obj = xr_sound.get_sound_object(sound_name, "random")
+        snd_obj = GlobalSound:get_sound_object(sound_name, "random")
       end
       self.particles[a] = { particle = particles_object(self.st.name),
                             snd = snd_obj,
@@ -63,6 +65,7 @@ function action_particle:reset_scheme()
   self.started = false
   self.first_played = false
 end
+
 ------------------------
 function action_particle:update (delta)
 

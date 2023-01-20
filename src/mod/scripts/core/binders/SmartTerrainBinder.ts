@@ -9,6 +9,7 @@ import {
 
 import { AnyCallable } from "@/mod/lib/types";
 import { addSmartTerrain, addZone, deleteSmartTerrain, deleteZone } from "@/mod/scripts/core/db";
+import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("core/binders/SmartTerrainBinder");
@@ -34,7 +35,7 @@ export const SmartTerrainBinder: ISmartTerrainBinder = declare_xr_class("SmartTe
     return true;
   },
   net_destroy(): void {
-    (get_global("xr_sound").stop_sounds_by_id as AnyCallable)(this.object.id());
+    GlobalSound.stop_sounds_by_id(this.object.id());
 
     deleteZone(this.object);
     deleteSmartTerrain(this.se_smart_terrain);

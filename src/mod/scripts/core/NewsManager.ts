@@ -14,6 +14,7 @@ import { texturesIngame } from "@/mod/globals/textures";
 import { AnyCallable, Maybe, Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
 import { get_smart_terrain_name } from "@/mod/scripts/core/db/smart_names";
+import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { isStalkerClassId } from "@/mod/scripts/utils/checkers";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
@@ -179,7 +180,7 @@ export function send_task(actor: Optional<XR_game_object>, type: TActionType, ta
     time_on_screen = 5000;
   }
 
-  (get_global("xr_sound").set_sound_play as AnyCallable)(actor.id(), sound_themes.pda_task);
+  GlobalSound.set_sound_play(actor.id(), sound_themes.pda_task, null, null);
 
   const news_caption: string = game.translate_string(actionDescriptionByTask[type]);
   const news_text: string = game.translate_string(task.get_title());
@@ -237,7 +238,7 @@ export function send_tip(
     }
   }
 
-  (get_global("xr_sound").set_sound_play as AnyCallable)(actor.id(), sound_themes.pda_task);
+  GlobalSound.set_sound_play(actor.id(), sound_themes.pda_task, null, null);
 
   let texture: string = texturesIngame.ui_iconsTotal_grouping;
 

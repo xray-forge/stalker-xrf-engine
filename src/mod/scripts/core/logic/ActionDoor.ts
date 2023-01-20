@@ -4,6 +4,7 @@ import { XR_game_object, XR_ini_file, XR_physics_joint, XR_physics_shell, XR_vec
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import {
   getConfigBoolean,
   getConfigCondList,
@@ -193,14 +194,14 @@ export class ActionDoor extends AbstractSchemeAction {
     this.block = false;
 
     if (!this.soundless_block && this.state.snd_close_stop) {
-      get_global<AnyCallablesModule>("xr_sound").set_sound_play(this.object.id(), this.state.snd_close_stop);
+      GlobalSound.set_sound_play(this.object.id(), this.state.snd_close_stop, null, null);
     }
   }
 
   public open_door(disable_snd?: boolean): void {
     if (!disable_snd) {
       if (this.state.snd_open_start) {
-        get_global<AnyCallablesModule>("xr_sound").set_sound_play(this.object.id(), this.state.snd_open_start);
+        GlobalSound.set_sound_play(this.object.id(), this.state.snd_open_start, null, null);
       }
     }
 
@@ -248,7 +249,7 @@ export class ActionDoor extends AbstractSchemeAction {
   public close_door(disable_snd: boolean): void {
     if (!disable_snd) {
       if (this.state.snd_close_start) {
-        get_global<AnyCallablesModule>("xr_sound").set_sound_play(this.object.id(), this.state.snd_close_start);
+        GlobalSound.set_sound_play(this.object.id(), this.state.snd_close_start, null, null);
       }
     }
 
@@ -299,7 +300,7 @@ export class ActionDoor extends AbstractSchemeAction {
   public use_callback(target: XR_game_object, who: Optional<XR_game_object>): void {
     if (this.state.locked) {
       if (this.state.snd_open_start) {
-        get_global("xr_sound").set_sound_play(this.object.id(), this.state.snd_open_start);
+        GlobalSound.set_sound_play(this.object.id(), this.state.snd_open_start, null, null);
       }
     }
 

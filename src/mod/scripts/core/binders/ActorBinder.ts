@@ -30,6 +30,7 @@ import {
 } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
 import { addActor, deleteActor, getActor, IStoredObject, scriptIds, storage, zoneByName } from "@/mod/scripts/core/db";
 import { initDropSettings } from "@/mod/scripts/core/DropManager";
+import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { send_task } from "@/mod/scripts/core/NewsManager";
 import { get_release_body_manager } from "@/mod/scripts/core/ReleaseBodyManager";
 import { SurgeManager } from "@/mod/scripts/core/SurgeManager";
@@ -151,13 +152,13 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
   net_destroy(): void {
     log.info("Net destroy:", this.object.name());
 
-    get_global<AnyCallablesModule>("xr_sound").stop_sounds_by_id(this.object.id());
+    GlobalSound.stop_sounds_by_id(this.object.id());
 
     const board_factions = get_sim_board().players;
 
     if (board_factions !== null) {
       for (const [k, v] of board_factions) {
-        get_global<AnyCallablesModule>("xr_sound").stop_sounds_by_id(v.id);
+        GlobalSound.stop_sounds_by_id(v.id);
       }
     }
 
@@ -299,7 +300,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     this.check_detective_achievement();
     this.check_mutant_hunter_achievement();
 
-    get_global<AnyCallablesModule>("xr_sound").update(this.object.id());
+    GlobalSound.update(this.object.id());
 
     if (
       this.st.disable_input_time !== null &&
@@ -424,7 +425,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     get_global<AnyCallablesModule>("sr_psy_antenna").save(packet);
     packet.w_bool(get_sim_board().simulation_started);
 
-    get_global<AnyCallablesModule>("xr_sound").actor_save(packet);
+    GlobalSound.actor_save(packet);
     packet.w_stringZ(tostring(this.last_level_name));
     get_global<AnyCallablesModule>("xr_statistic").save(packet);
     getTreasureManager().save(packet);
@@ -496,7 +497,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     get_global<AnyCallablesModule>("sr_psy_antenna").load(packet);
     get_sim_board().simulation_started = packet.r_bool();
 
-    get_global<AnyCallablesModule>("xr_sound").actor_load(packet);
+    GlobalSound.actor_load(packet);
 
     const n = packet.r_stringZ();
 

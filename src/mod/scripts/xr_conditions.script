@@ -1,4 +1,6 @@
 -- 1755
+
+local GlobalSound = require("scripts.core.logic.GlobalSound").GlobalSound
 local SurgeManager = require("scripts.core.SurgeManager")
 local InventoryUpgrades = require("scripts.core.inventory_upgrades")
 local SmartTerrainControl = require("scripts.se.SmartTerrainControl")
@@ -79,7 +81,7 @@ function check_enemy_name (actor, npc, p)
 end
 
 function is_playing_sound (actor, npc)
-  return xr_sound.sound_table[npc:id()] ~= nil
+  return GlobalSound.sound_table[npc:id()] ~= nil
 end
 
 -- ��������, ��� ����� ���

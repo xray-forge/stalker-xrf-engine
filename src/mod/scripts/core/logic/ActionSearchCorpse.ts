@@ -2,6 +2,7 @@ import { action_base, XR_action_base } from "xray16";
 
 import { AnyCallablesModule } from "@/mod/lib/types";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
+import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { set_state } from "@/mod/scripts/state_management/StateManager";
 
 export interface IActionSearchCorpse extends XR_action_base {
@@ -37,6 +38,6 @@ export const ActionSearchCorpse: IActionSearchCorpse = declare_xr_class("ActionS
     }
 
     set_state(this.object, "search_corpse", null, null, { look_position: this.state.vertex_position }, null);
-    get_global<AnyCallablesModule>("xr_sound").set_sound_play(this.object.id(), "corpse_loot_begin");
+    GlobalSound.set_sound_play(this.object.id(), "corpse_loot_begin", null, null);
   }
 } as IActionSearchCorpse);

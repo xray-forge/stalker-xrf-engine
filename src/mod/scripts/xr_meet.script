@@ -1,4 +1,6 @@
 -- 651
+
+local GlobalSound = require("scripts.core.logic.GlobalSound").GlobalSound
 local utilsAlife = require("scripts.utils.alife")
 local StateManager = require("scripts.state_management.StateManager")
 local AbuseManager = require("scripts.core.logic.AbuseManager").AbuseManager
@@ -153,7 +155,7 @@ function Cmeet_manager:update_state()
 
   -- ����, ���� � ������� �������  (������������, ���� ���� �� � �������)
   if tostring(snd) ~= "nil" then
-    xr_sound.set_sound_play(self.npc:id(), snd)
+    GlobalSound:set_sound_play(self.npc:id(), snd)
   end
 
 end
@@ -209,7 +211,7 @@ function Cmeet_manager:update()
       if self.hello_passed == false then
         local snd = xr_logic.pick_section_from_condlist(db.actor, self.npc, self.a.close_snd_hello)
         if tostring(snd) ~= "nil" and not utilsAlife.is_npc_in_combat(self.npc) then
-          xr_sound.set_sound_play(self.npc:id(), snd)
+          GlobalSound:set_sound_play(self.npc:id(), snd)
         end
 
         self.hello_passed = true
@@ -222,7 +224,7 @@ function Cmeet_manager:update()
         if self.bye_passed == false then
           local snd = xr_logic.pick_section_from_condlist(db.actor, self.npc, self.a.close_snd_bye)
           if tostring(snd) ~= "nil" and not utilsAlife.is_npc_in_combat(self.npc) then
-            xr_sound.set_sound_play(self.npc:id(), snd)
+            GlobalSound:set_sound_play(self.npc:id(), snd)
           end
 
           self.bye_passed = true
@@ -368,7 +370,7 @@ function notify_on_use(victim, who)
 
   local snd = xr_logic.pick_section_from_condlist(db.actor, victim, st.snd_on_use)
   if tostring(snd) ~= "nil" then
-    xr_sound.set_sound_play(victim:id(), snd)
+    GlobalSound:set_sound_play(victim:id(), snd)
   end
 
   local meet_manager = st.meet_manager

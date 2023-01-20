@@ -1,13 +1,22 @@
 -- 183
+
+local GlobalSound = require("scripts.core.logic.GlobalSound").GlobalSound
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "sr_deimos");
+
 --------------------------------------------------------------------------------
 -- Fear zone -------------------------------------------------------------------
 -- Made by Peacemaker ----------------------------------------------------------
 -- 21.05.2009 ------------------------------------------------------------------
 --------------------------------------------------------------------------------
+
 local pp_effector_id = 5
 local cam_effector_id = 6
 local pp_effector2_id = 7
+
 class "CDeimos"
+
 function CDeimos:__init (obj, storage)
   self.object = obj
   self.st = storage
@@ -25,11 +34,11 @@ function CDeimos:update(delta)
     db.actor.deimos_intensity = nil
     if (self.st.intensity > self.st.disable_bound) then
       level.add_pp_effector(self.st.pp_effector .. ".ppe", pp_effector_id, true)
-      xr_sound.play_sound_looped(db.actor:id(), self.st.noise_sound)
+      GlobalSound:play_sound_looped(db.actor:id(), self.st.noise_sound)
       self.phase = 1
     end
     if (self.st.intensity > self.st.switch_lower_bound) then
-      xr_sound.play_sound_looped(db.actor:id(), self.st.heartbeet_sound)
+      GlobalSound:play_sound_looped(db.actor:id(), self.st.heartbeet_sound)
       self.phase = 2
     end
   end
@@ -53,9 +62,9 @@ function CDeimos:update(delta)
   local heartbeet_intensity = self.st.intensity
   if (self.phase > 0) then
     level.set_pp_effector_factor(pp_effector_id, pp_intensity)
-    xr_sound.set_volume_sound_looped(db.actor:id(), self.st.noise_sound, noise_intensity)
+    GlobalSound:set_volume_sound_looped(db.actor:id(), self.st.noise_sound, noise_intensity)
     if (self.phase > 1) then
-      xr_sound.set_volume_sound_looped(db.actor:id(), self.st.heartbeet_sound, heartbeet_intensity)
+      GlobalSound:set_volume_sound_looped(db.actor:id(), self.st.heartbeet_sound, heartbeet_intensity)
     end
   end
   if (intensity_delta > 0) then
@@ -69,29 +78,29 @@ function CDeimos:update(delta)
       end
     elseif (self.st.intensity > self.st.switch_lower_bound) then
       if (self.phase < 2) then
-        xr_sound.play_sound_looped(db.actor:id(), self.st.heartbeet_sound)
-        xr_sound.set_volume_sound_looped(db.actor:id(), self.st.heartbeet_sound, heartbeet_intensity)
+        GlobalSound:play_sound_looped(db.actor:id(), self.st.heartbeet_sound)
+        GlobalSound:set_volume_sound_looped(db.actor:id(), self.st.heartbeet_sound, heartbeet_intensity)
         self.phase = 2
       end
     elseif (self.st.intensity > self.st.disable_bound) then
       if (self.phase < 1) then
         level.add_pp_effector(self.st.pp_effector .. ".ppe", pp_effector_id, true)
         level.set_pp_effector_factor(pp_effector_id, pp_intensity)
-        xr_sound.play_sound_looped(db.actor:id(), self.st.noise_sound)
-        xr_sound.set_volume_sound_looped(db.actor:id(), self.st.noise_sound, noise_intensity)
+        GlobalSound:play_sound_looped(db.actor:id(), self.st.noise_sound)
+        GlobalSound:set_volume_sound_looped(db.actor:id(), self.st.noise_sound, noise_intensity)
         self.phase = 1
       end
     end
   else
     if (self.st.intensity < self.st.disable_bound) then
       if (self.phase > 0) then
-        xr_sound.stop_sound_looped(db.actor:id(), self.st.noise_sound)
+        GlobalSound:stop_sound_looped(db.actor:id(), self.st.noise_sound)
         level.remove_pp_effector(pp_effector_id)
         self.phase = 0
       end
     elseif (self.st.intensity < self.st.switch_lower_bound) then
       if (self.phase > 1) then
-        xr_sound.stop_sound_looped(db.actor:id(), self.st.heartbeet_sound)
+        GlobalSound:stop_sound_looped(db.actor:id(), self.st.heartbeet_sound)
         self.phase = 1
       end
     elseif (self.st.intensity < self.st.switch_upper_bound) then
@@ -101,10 +110,10 @@ function CDeimos:update(delta)
   end
   if xr_logic.try_switch_to_another_section(self.object, self.st, db.actor) then
     if (self.phase > 0) then
-      xr_sound.stop_sound_looped(db.actor:id(), self.st.noise_sound)
+      GlobalSound:stop_sound_looped(db.actor:id(), self.st.noise_sound)
       level.remove_pp_effector(pp_effector_id)
       if (self.phase > 1) then
-        xr_sound.stop_sound_looped(db.actor:id(), self.st.heartbeet_sound)
+        GlobalSound:stop_sound_looped(db.actor:id(), self.st.heartbeet_sound)
         level.remove_cam_effector(cam_effector_id)
         level.remove_pp_effector(pp_effector2_id)
       end

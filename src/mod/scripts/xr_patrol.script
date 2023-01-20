@@ -1,4 +1,6 @@
 -- 585
+
+local GlobalSound = require("scripts.core.logic.GlobalSound").GlobalSound
 local StateManager = require("scripts.state_management.StateManager")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
@@ -344,20 +346,20 @@ function action_commander:execute()
   if old_state ~= new_state then
     if self.st.silent ~= true then
       if new_state == "sneak" then
-        xr_sound.set_sound_play(self.object:id(), "patrol_sneak")
+        GlobalSound:set_sound_play(self.object:id(), "patrol_sneak")
       elseif new_state == "sneak_run" then
-        xr_sound.set_sound_play(self.object:id(), "patrol_run")
+        GlobalSound:set_sound_play(self.object:id(), "patrol_run")
       elseif new_state == "run" then
-        xr_sound.set_sound_play(self.object:id(), "patrol_run")
+        GlobalSound:set_sound_play(self.object:id(), "patrol_run")
       elseif new_state == "assault" then
-        xr_sound.set_sound_play(self.object:id(), "patrol_run")
+        GlobalSound:set_sound_play(self.object:id(), "patrol_run")
       elseif new_state == "rush" then
-        xr_sound.set_sound_play(self.object:id(), "patrol_run")
+        GlobalSound:set_sound_play(self.object:id(), "patrol_run")
       else
         if old_state == "sneak" or old_state == "sneak_run" or
             old_state == "run" or old_state == "assault" or old_state == "rush"
         then
-          xr_sound.set_sound_play(self.object:id(), "patrol_walk")
+          GlobalSound:set_sound_play(self.object:id(), "patrol_walk")
         end
       end
     end

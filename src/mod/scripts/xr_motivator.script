@@ -1,4 +1,6 @@
 -- 605
+
+local GlobalSound = require("scripts.core.logic.GlobalSound").GlobalSound
 local InventoryUpgrades = require("scripts.core.inventory_upgrades")
 local TradeManager = require("scripts.core.TradeManager")
 local Hear = require("scripts.core.Hear").Hear
@@ -28,8 +30,8 @@ load
 net_spawn
 --------------------------------------------------------------------------------------------------------------------]]
 
-
 ----------------------------------------------------------------------------------------------------------------------
+
 class "motivator_binder"(object_binder)
 
 function motivator_binder:__init (obj)
@@ -209,7 +211,7 @@ function motivator_binder:net_destroy()
 
   xr_combat_ignore.fighting_with_actor_npcs[self.object:id()] = nil
   --	xrs_dyn_music.stop_combat(self.object:id())
-  xr_sound.stop_sounds_by_id(self.object:id())
+  GlobalSound:stop_sounds_by_id(self.object:id())
   local st = db.storage[self.object:id()]
   if st.active_scheme then
     xr_logic.issue_event(self.object, st[st.active_scheme], "net_destroy", self.object)
@@ -433,7 +435,7 @@ function motivator_binder:update(delta)
 
   if object_alive then
     --' ������ ��������������
-    xr_sound.update(object:id())
+    GlobalSound:update(object:id())
 
     --' ������ ��������� ���������
     xr_meet.process_npc_usability(object)
@@ -511,7 +513,7 @@ function motivator_binder:save(packet)
   object_binder.save(self, packet)
   xr_logic.save_obj(self.object, packet)
   TradeManager.save(self.object, packet)
-  xr_sound.save_npc(packet, self.object:id())
+  GlobalSound:save_npc(packet, self.object:id())
   dialog_manager.save_npc(packet, self.object:id())
 
   local i = 0
@@ -532,7 +534,7 @@ function motivator_binder:load(reader)
   object_binder.load(self, reader)
   xr_logic.load_obj(self.object, reader)
   TradeManager.load(self.object, reader)
-  xr_sound.load_npc(reader, self.object:id())
+  GlobalSound:load_npc(reader, self.object:id())
   dialog_manager.load_npc(reader, self.object:id())
 
   local i = reader:r_u8()

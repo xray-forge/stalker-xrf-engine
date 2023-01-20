@@ -15,6 +15,7 @@ import {
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { addObject, deleteObject, getActor, IStoredObject, levelDoors, storage } from "@/mod/scripts/core/db";
 import { ActionOnHit } from "@/mod/scripts/core/logic/ActionOnHit";
+import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { stype_item } from "@/mod/scripts/core/schemes";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -61,7 +62,7 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
       level.map_remove_object_spot(this.object.id(), "ui_pda2_actor_box_location");
     }
 
-    get_global<AnyCallablesModule>("xr_sound").stop_sounds_by_id(this.object.id());
+    GlobalSound.stop_sounds_by_id(this.object.id());
 
     const st = storage.get(this.object.id());
 
@@ -240,6 +241,6 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
       this.object.set_callback(callback.use_object, this.use_callback, this);
     }
 
-    get_global<AnyCallablesModule>("xr_sound").update(this.object.id());
+    GlobalSound.update(this.object.id());
   }
 } as IPhysicObjectBinder);

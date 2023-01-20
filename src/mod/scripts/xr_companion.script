@@ -1,4 +1,5 @@
 -- 259
+
 local StateManager = require("scripts.state_management.StateManager")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
@@ -128,7 +129,7 @@ function action_companion_activity:beh_walk_simple()
   end
 
   -- 4. ���� ����� �� ����� - ���� ������� � ������ �����
-  --	xr_sound.set_sound(self.object, sound_wait)
+  --	GlobalSound:set_sound(self.object, sound_wait)
 end
 
 function action_companion_activity:beh_wait_simple()
@@ -140,7 +141,7 @@ function action_companion_activity:beh_wait_simple()
   end
 
   -- 4. ���� ����� �� ����� - ���� ������� � ������ �����
-  --	xr_sound.set_sound(self.object, sound_wait)
+  --	GlobalSound:set_sound(self.object, sound_wait)
 end
 
 function action_companion_activity:execute()

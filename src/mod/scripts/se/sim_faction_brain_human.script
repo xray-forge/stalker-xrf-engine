@@ -1,3 +1,4 @@
+local GlobalSound = require("scripts.core.logic.GlobalSound").GlobalSound
 local TaskManager = require("scripts.se.task.TaskManager")
 local game_relations = require("scripts.core.game_relations")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
@@ -48,7 +49,7 @@ function faction_brain_human:calculate_current_expansion()
 				--printf("LEVEL DOWN %s %s %s %s", self.faction.player_name, tostring(cond_valid), tostring(power_valid), tostring(advance_valid))
 				if faction.community_player == true then
 					if db.actor ~= nil and faction.expansion_level[faction.current_expansion_level].level_down_snd ~= nil then
-						xr_sound.set_sound_play(faction.id, faction.expansion_level[faction.current_expansion_level].level_down_snd, faction.player_name)
+						GlobalSound:set_sound_play(faction.id, faction.expansion_level[faction.current_expansion_level].level_down_snd, faction.player_name)
 					end
 				end
 				faction.current_expansion_level = k
@@ -74,7 +75,7 @@ function faction_brain_human:calculate_current_expansion()
 			if faction.community_player == true then
 				local old_exp = faction.expansion_level[faction.current_expansion_level]
 				if db.actor ~= nil and old_exp.level_up_snd ~= nil then
-					xr_sound.set_sound_play(faction.id, old_exp.level_up_snd, faction.player_name)
+					GlobalSound:set_sound_play(faction.id, old_exp.level_up_snd, faction.player_name)
 				end
 			end
 

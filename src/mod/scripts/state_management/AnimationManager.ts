@@ -2,6 +2,7 @@ import { callback, hit, time_global, vector, XR_game_object, XR_LuaBindBase } fr
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { AnyCallable, AnyCallablesModule, Maybe, Optional } from "@/mod/lib/types";
+import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { IAnimationDescriptor } from "@/mod/scripts/state_management/lib/state_mgr_animation_list";
 import { IAnimationStateDescriptor } from "@/mod/scripts/state_management/lib/state_mgr_animstate_list";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
@@ -465,7 +466,7 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
 
     // Play sound.
     if (action_table.get("s") !== null) {
-      get_global<AnyCallablesModule>("xr_sound").set_sound_play(this.npc.id(), action_table.get("s"));
+      GlobalSound.set_sound_play(this.npc.id(), action_table.get("s"), null, null);
     }
 
     // Hit actor.

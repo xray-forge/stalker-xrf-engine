@@ -1,4 +1,5 @@
 import { init_smart_names_table } from "@/mod/scripts/core/db/smart_names";
+import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { initializeModules } from "@/mod/scripts/core/modules";
 import { reset_sim_board } from "@/mod/scripts/se/SimBoard";
 import { clearTaskManager } from "@/mod/scripts/se/task/TaskManager";
@@ -20,7 +21,7 @@ export function startGame(): void {
   reset_sim_board();
 
   get_global("sound_theme").load_sound();
-  get_global("xr_sound").start_game_callback();
+  GlobalSound.start_game_callback();
   get_global("dialog_manager").fill_phrase_table();
   get_global("xr_s").init();
   get_global("sr_light").clean_up();

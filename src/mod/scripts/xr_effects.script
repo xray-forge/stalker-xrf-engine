@@ -1,4 +1,6 @@
 -- 3364
+
+local GlobalSound = require("scripts.core.logic.GlobalSound").GlobalSound
 local SurgeManager = require("scripts.core.SurgeManager")
 local WeatherManager = require("scripts.core.WeatherManager")
 local InventoryUpgrades = require("scripts.core.inventory_upgrades")
@@ -1404,7 +1406,7 @@ function play_sound(actor, obj, p)
     end
   end
 
-  xr_sound.set_sound_play(obj:id(), theme, faction, point)
+  GlobalSound:set_sound_play(obj:id(), theme, faction, point)
 end
 
 function play_sound_by_story(actor, obj, p)
@@ -1417,20 +1419,20 @@ function play_sound_by_story(actor, obj, p)
   elseif p[4] ~= nil then
     point = p[4]
   end
-  xr_sound.set_sound_play(story_obj, theme, faction, point)
+  GlobalSound:set_sound_play(story_obj, theme, faction, point)
 end
 
 function stop_sound(actor, npc)
-  xr_sound.stop_sounds_by_id(npc:id())
+  GlobalSound:stop_sounds_by_id(npc:id())
 end
 
 function play_sound_looped(actor, obj, p)
   local theme = p[1]
-  xr_sound.play_sound_looped(obj:id(), theme)
+  GlobalSound:play_sound_looped(obj:id(), theme)
 end
 
 function stop_sound_looped(actor, obj)
-  xr_sound.stop_sound_looped(obj:id())
+  GlobalSound:stop_sound_looped(obj:id())
 end
 
 function barrel_explode (actor, npc, p)
@@ -2402,8 +2404,8 @@ end
 -- ������� ������� ���������� �������� ���� � ������. by peacemaker, hein, redstain
 function reset_sound_npc(actor, npc, p)
   local obj_id = npc:id()
-  if obj_id and xr_sound.sound_table and xr_sound.sound_table[obj_id] then
-    xr_sound.sound_table[obj_id]:reset(obj_id)
+  if obj_id and GlobalSound.sound_table and GlobalSound.sound_table[obj_id] then
+    GlobalSound.sound_table[obj_id]:reset(obj_id)
   end
 end
 

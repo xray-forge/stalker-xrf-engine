@@ -52,6 +52,7 @@ export interface ITradeManagerDescriptor {
 export interface IStoredObject<T = XR_game_object> {
   [index: string]: any;
 
+  snd_close_start?: string;
   path_table?: LuaTable<number, string>;
   cam_effector?: LuaTable<number, string>;
   combat?: HeliCombat;

@@ -1,4 +1,6 @@
 -- 521
+
+local GlobalSound = require("scripts.core.logic.GlobalSound").GlobalSound
 local StateManager = require("scripts.state_management.StateManager")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
@@ -136,16 +138,16 @@ function action_wounded:execute ()
 
   -- ����� �������� �������
   if wound_manager_sound == "nil" then
-    xr_sound.set_sound_play(self.object:id(), nil)
+    GlobalSound:set_sound_play(self.object:id(), nil)
   else
-    xr_sound.set_sound_play(self.object:id(), wound_manager_sound)
+    GlobalSound:set_sound_play(self.object:id(), wound_manager_sound)
   end
 end
 function action_wounded:finalize ()
   action_base.finalize(self)
   self.object:enable_trade()
   self.object:disable_talk()
-  --  xr_sound.set_sound(self.object, nil)
+  --  GlobalSound:set_sound(self.object, nil)
   self.object:wounded(false)
   self.object:movement_enabled(true)
 end
@@ -213,7 +215,7 @@ function Cwound_manager:eat_medkit()
     local begin_wounded = xr_logic.pstor_retrieve(self.npc, "begin_wounded")
     local current_time = time_global()
     if begin_wounded ~= nil and current_time - begin_wounded <= 60000 then
-      xr_sound.set_sound_play(self.npc:id(), "help_thanks")
+      GlobalSound:set_sound_play(self.npc:id(), "help_thanks")
     end
 
     xr_logic.pstor_store(self.npc, "begin_wounded", nil)

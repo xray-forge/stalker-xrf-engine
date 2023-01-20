@@ -1,4 +1,6 @@
 -- 285
+
+local GlobalSound = require("scripts.core.logic.GlobalSound").GlobalSound
 local StateManager = require("scripts.state_management.StateManager")
 local NewsManager = require("scripts.core.NewsManager")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
@@ -38,7 +40,7 @@ function action_remark_activity:initialize()
   action_base.initialize(self)
   self.object:set_desired_position()
   self.object:set_desired_direction()
-  --	xr_sound.set_sound(self.object, nil)
+  --	GlobalSound:set_sound(self.object, nil)
 end
 function action_remark_activity:activate_scheme()
   self.st.signals = {}
@@ -113,7 +115,7 @@ function action_remark_activity:update()
   elseif self.state == state_sound then
     if self.snd_scheduled == true then
       self.snd_started = true
-      xr_sound.set_sound_play(self.object:id(), self.st.snd)
+      GlobalSound:set_sound_play(self.object:id(), self.st.snd)
     end
     --' ������ ������ ������ anim_end
     if self.anim_end_signalled == false then

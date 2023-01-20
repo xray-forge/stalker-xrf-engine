@@ -1,4 +1,6 @@
 -- 730
+
+local GlobalSound = require("scripts.core.logic.GlobalSound").GlobalSound
 local SoundManager = require("scripts.core.sound.SoundManager")
 local StateManager = require("scripts.state_management.StateManager")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
@@ -462,7 +464,7 @@ function CKampManager:updateNpc(npc)
   local substate = nil
   if state == "wait_harmonica" then
     if sound == "pre_harmonica" and self.npc[npc_id].new == true then
-      xr_sound.set_sound_play(npc:id(), "intro_music")
+      GlobalSound:set_sound_play(npc:id(), "intro_music")
       self.npc[npc_id].new = false
     end
     state = "harmonica"
@@ -473,7 +475,7 @@ function CKampManager:updateNpc(npc)
     xr_kamp.kamp_stalkers[npc_id] = false
   elseif state == "wait_guitar" then
     if sound == "pre_guitar" and self.npc[npc_id].new == true then
-      xr_sound.set_sound_play(npc:id(), "intro_music")
+      GlobalSound:set_sound_play(npc:id(), "intro_music")
       self.npc[npc_id].new = false
     end
     state = "guitar"
@@ -639,7 +641,7 @@ function CKampManager:removeNpc(npc)
       for kk, vv in pairs(self.npc) do
         vv.new = true
       end
-      --'			xr_sound.set_sound(npc, nil)
+      --'			GlobalSound:set_sound(npc, nil)
       stop_play_sound(npc)
     end
 

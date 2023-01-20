@@ -19,6 +19,7 @@ import { levels, TLevel } from "@/mod/globals/levels";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { AnyCallablesModule, Optional, PartialRecord } from "@/mod/lib/types";
 import { anomalyByName, CROW_STORAGE, getActor, signalLight, storage, zoneByName } from "@/mod/scripts/core/db";
+import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { send_tip } from "@/mod/scripts/core/NewsManager";
 import { get_weather_manager } from "@/mod/scripts/core/WeatherManager";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/se/SimBoard";
@@ -262,17 +263,11 @@ export class SurgeManager extends AbstractSingletonManager {
       if (surgeDuration >= surgeConfig.DURATION) {
         if (level !== null) {
           if (level.name() === levels.zaton) {
-            get_global<AnyCallablesModule>("xr_sound").set_sound_play(
-              getActor()!.id(),
-              "zat_a2_stalker_barmen_after_surge"
-            );
+            GlobalSound.set_sound_play(getActor()!.id(), "zat_a2_stalker_barmen_after_surge", null, null);
           } else if (level.name() === levels.jupiter) {
-            get_global<AnyCallablesModule>("xr_sound").set_sound_play(
-              getActor()!.id(),
-              "jup_a6_stalker_medik_after_surge"
-            );
+            GlobalSound.set_sound_play(getActor()!.id(), "jup_a6_stalker_medik_after_surge", null, null);
           } else if (!hasAlifeInfo("pri_b305_fifth_cam_end")) {
-            get_global<AnyCallablesModule>("xr_sound").set_sound_play(getActor()!.id(), "pri_a17_kovalsky_after_surge");
+            GlobalSound.set_sound_play(getActor()!.id(), "pri_a17_kovalsky_after_surge", null, null);
           }
         }
 
@@ -280,7 +275,7 @@ export class SurgeManager extends AbstractSingletonManager {
       } else {
         if (this.loaded) {
           if (this.blowout_sound) {
-            get_global<AnyCallablesModule>("xr_sound").play_sound_looped(getActor()!.id(), "blowout_rumble");
+            GlobalSound.play_sound_looped(getActor()!.id(), "blowout_rumble");
           }
 
           if (this.isEffectorSet) {
@@ -288,10 +283,7 @@ export class SurgeManager extends AbstractSingletonManager {
           }
 
           if (this.second_message_given) {
-            get_global<AnyCallablesModule>("xr_sound").play_sound_looped(
-              getActor()!.id(),
-              "surge_earthquake_sound_looped"
-            );
+            GlobalSound.play_sound_looped(getActor()!.id(), "surge_earthquake_sound_looped");
             level.add_cam_effector(animations.camera_effects_earthquake, earthquake_cam_eff_id, true, "");
           }
 
@@ -304,11 +296,7 @@ export class SurgeManager extends AbstractSingletonManager {
         }
 
         if (this.blowout_sound) {
-          get_global<AnyCallablesModule>("xr_sound").set_volume_sound_looped(
-            getActor()!.id(),
-            "blowout_rumble",
-            surgeDuration / 180
-          );
+          GlobalSound.set_volume_sound_looped(getActor()!.id(), "blowout_rumble", surgeDuration / 180);
         }
 
         if (
@@ -346,27 +334,15 @@ export class SurgeManager extends AbstractSingletonManager {
         } else if (surgeDuration >= 140 && !this.second_message_given) {
           if (level !== null) {
             if (level.name() === levels.zaton) {
-              get_global<AnyCallablesModule>("xr_sound").set_sound_play(
-                getActor()!.id(),
-                "zat_a2_stalker_barmen_surge_phase_2"
-              );
+              GlobalSound.set_sound_play(getActor()!.id(), "zat_a2_stalker_barmen_surge_phase_2", null, null);
             } else if (level.name() === levels.jupiter) {
-              get_global<AnyCallablesModule>("xr_sound").set_sound_play(
-                getActor()!.id(),
-                "jup_a6_stalker_medik_phase_2"
-              );
+              GlobalSound.set_sound_play(getActor()!.id(), "jup_a6_stalker_medik_phase_2", null, null);
             } else if (!hasAlifeInfo("pri_b305_fifth_cam_end")) {
-              get_global<AnyCallablesModule>("xr_sound").set_sound_play(
-                getActor()!.id(),
-                "pri_a17_kovalsky_surge_phase_2"
-              );
+              GlobalSound.set_sound_play(getActor()!.id(), "pri_a17_kovalsky_surge_phase_2", null, null);
             }
           }
 
-          get_global<AnyCallablesModule>("xr_sound").play_sound_looped(
-            getActor()!.id(),
-            "surge_earthquake_sound_looped"
-          );
+          GlobalSound.play_sound_looped(getActor()!.id(), "surge_earthquake_sound_looped");
           level.add_cam_effector(animations.camera_effects_earthquake, earthquake_cam_eff_id, true, "");
           this.second_message_given = true;
         } else if (surgeDuration >= 100 && !this.isEffectorSet) {
@@ -374,23 +350,17 @@ export class SurgeManager extends AbstractSingletonManager {
           // --                level.set_pp_effector_factor(surge_shock_pp_eff, 0, 10)
           this.isEffectorSet = true;
         } else if (surgeDuration >= 35 && !this.blowout_sound) {
-          get_global<AnyCallablesModule>("xr_sound").set_sound_play(getActor()!.id(), "blowout_begin");
-          get_global<AnyCallablesModule>("xr_sound").play_sound_looped(getActor()!.id(), "blowout_rumble");
-          get_global<AnyCallablesModule>("xr_sound").set_volume_sound_looped(getActor()!.id(), "blowout_rumble", 0.25);
+          GlobalSound.set_sound_play(getActor()!.id(), "blowout_begin", null, null);
+          GlobalSound.play_sound_looped(getActor()!.id(), "blowout_rumble");
+          GlobalSound.set_volume_sound_looped(getActor()!.id(), "blowout_rumble", 0.25);
           this.blowout_sound = true;
         } else if (surgeDuration >= 0 && !this.task_given) {
           if (level.name() === levels.zaton) {
-            get_global<AnyCallablesModule>("xr_sound").set_sound_play(
-              getActor()!.id(),
-              "zat_a2_stalker_barmen_surge_phase_1"
-            );
+            GlobalSound.set_sound_play(getActor()!.id(), "zat_a2_stalker_barmen_surge_phase_1", null, null);
           } else if (level.name() === levels.jupiter) {
-            get_global<AnyCallablesModule>("xr_sound").set_sound_play(getActor()!.id(), "jup_a6_stalker_medik_phase_1");
+            GlobalSound.set_sound_play(getActor()!.id(), "jup_a6_stalker_medik_phase_1", null, null);
           } else if (!hasAlifeInfo("pri_b305_fifth_cam_end")) {
-            get_global<AnyCallablesModule>("xr_sound").set_sound_play(
-              getActor()!.id(),
-              "pri_a17_kovalsky_surge_phase_1"
-            );
+            GlobalSound.set_sound_play(getActor()!.id(), "pri_a17_kovalsky_surge_phase_1", null, null);
           }
 
           level.set_weather_fx("fx_surge_day_3");
@@ -478,11 +448,11 @@ export class SurgeManager extends AbstractSingletonManager {
     this.task_given = false;
 
     if (this.isEffectorSet) {
-      get_global<AnyCallablesModule>("xr_sound").stop_sound_looped(getActor()!.id(), "blowout_rumble");
+      GlobalSound.stop_sound_looped(getActor()!.id(), "blowout_rumble");
     }
 
     if (this.second_message_given) {
-      get_global<AnyCallablesModule>("xr_sound").stop_sound_looped(getActor()!.id(), "surge_earthquake_sound_looped");
+      GlobalSound.stop_sound_looped(getActor()!.id(), "surge_earthquake_sound_looped");
     }
 
     level.remove_pp_effector(surge_shock_pp_eff_id);

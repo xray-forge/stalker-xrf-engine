@@ -2,6 +2,7 @@ import { game, XR_CTime, XR_ini_file, XR_LuaBindBase, XR_net_packet } from "xray
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { getActor, zoneByName } from "@/mod/scripts/core/db";
+import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
 import { isWeapon } from "@/mod/scripts/utils/checkers";
@@ -75,7 +76,7 @@ export const SmartTerrainControl: ISmartTerrainControl = declare_xr_class("Smart
       );
 
       if (sound !== null) {
-        get_global<AnyCallablesModule>("xr_sound").set_sound_play(getActor()!.id(), sound);
+        GlobalSound.set_sound_play(getActor()!.id(), sound, null, null);
       }
 
       for (const [squad_id, squad] of get_sim_board().smarts.get(this.smart.id).squads) {
@@ -123,7 +124,7 @@ export const SmartTerrainControl: ISmartTerrainControl = declare_xr_class("Smart
       );
 
       if (sound !== null) {
-        get_global<AnyCallablesModule>("xr_sound").set_sound_play(getActor()!.id(), sound);
+        GlobalSound.set_sound_play(getActor()!.id(), sound, null, null);
       }
 
       for (const [squad_id, squad] of get_sim_board().smarts.get(this.smart.id).squads) {

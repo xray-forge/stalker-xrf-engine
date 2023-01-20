@@ -2,6 +2,7 @@ import { object_binder, XR_cse_alife_object, XR_game_object, XR_net_packet, XR_o
 
 import { AnyCallablesModule } from "@/mod/lib/types";
 import { addObject, addZone, deleteObject, deleteZone, getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { stype_restrictor } from "@/mod/scripts/core/schemes";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -39,11 +40,11 @@ export const RestrictorBinder: IRestrictorBinder = declare_xr_class("RestrictorB
     addZone(this.object);
     addObject(this.object);
 
-    const obj_id = this.object.id();
+    const obj_id: number = this.object.id();
 
-    if (get_global("xr_sound").looped_sound[obj_id]) {
-      for (const [k, v] of pairs(get_global("xr_sound").looped_sound[obj_id])) {
-        get_global<AnyCallablesModule>("xr_sound").play_sound_looped(obj_id, k);
+    if (GlobalSound.looped_sound.get(obj_id) !== null) {
+      for (const [k, v] of pairs(GlobalSound.looped_sound.get(obj_id))) {
+        GlobalSound.play_sound_looped(obj_id, k);
       }
     }
 
@@ -64,7 +65,7 @@ export const RestrictorBinder: IRestrictorBinder = declare_xr_class("RestrictorB
     return true;
   },
   net_destroy(): void {
-    get_global("xr_sound").stop_sounds_by_id(this.object.id());
+    GlobalSound.stop_sounds_by_id(this.object.id());
 
     const st = storage.get(this.object.id());
 
@@ -115,7 +116,7 @@ export const RestrictorBinder: IRestrictorBinder = declare_xr_class("RestrictorB
       );
     }
 
-    get_global<AnyCallablesModule>("xr_sound").update(this.object.id());
+    GlobalSound.update(this.object.id());
   },
   net_save_relevant(target: XR_object_binder): boolean {
     return true;

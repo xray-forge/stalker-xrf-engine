@@ -32,6 +32,7 @@ import {
   storage
 } from "@/mod/scripts/core/db";
 import { Hear } from "@/mod/scripts/core/Hear";
+import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { stype_mobile } from "@/mod/scripts/core/schemes";
 import { get_sim_obj_registry } from "@/mod/scripts/se/SimObjectsRegistry";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
@@ -268,7 +269,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     this.object.set_callback(callback.hit, null);
     this.object.set_callback(callback.sound, null);
 
-    get_global<AnyCallablesModule>("xr_sound").stop_sounds_by_id(this.object.id());
+    GlobalSound.stop_sounds_by_id(this.object.id());
     get_global("xr_combat_ignore").fighting_with_actor_npcs[this.object.id()] = null;
 
     const st = storage.get(this.object.id());

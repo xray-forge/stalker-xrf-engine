@@ -17,6 +17,7 @@ import {
 
 import { AnyCallable, Optional } from "@/mod/lib/types";
 import { getActor, storage as dbStorage } from "@/mod/scripts/core/db";
+import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { AnimationManager } from "@/mod/scripts/state_management/AnimationManager";
 import { animations } from "@/mod/scripts/state_management/lib/state_mgr_animation_list";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -144,14 +145,10 @@ export const PostCombatIdleWait: IPostCombatIdleWait = declare_xr_class("PostCom
       }
     }
 
-    const xr_sound = get_global("xr_sound");
-
-    (xr_sound.set_sound_play as AnyCallable)(this.object.id(), "post_combat_wait");
+    GlobalSound.set_sound_play(this.object.id(), "post_combat_wait", null, null);
   },
   finalize(): void {
-    const xr_sound = get_global("xr_sound");
-
-    (xr_sound.set_sound_play as AnyCallable)(this.object.id(), "post_combat_relax");
+    GlobalSound.set_sound_play(this.object.id(), "post_combat_relax", null, null);
 
     if (this.anim_started === true) {
       this.st.animation.set_state(null, true);

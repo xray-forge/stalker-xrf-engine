@@ -24,7 +24,7 @@ export const ActionAbuseHit: IActionAbuseHit = declare_xr_class("ActionAbuseHit"
     this.object.set_desired_direction();
 
     set_state(this.object, "punch", null, null, { look_object: getActor() }, { animation: true });
-    // --    xr_sound.set_sound_play(this.object.id(), "use_abuse")
+    // --    GlobalSound.set_sound_play(this.object.id(), "use_abuse")
     this.hit_done = true;
   },
   execute(): void {

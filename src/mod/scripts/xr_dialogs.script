@@ -1,4 +1,10 @@
 -- 256
+
+local GlobalSound = require("scripts.core.logic.GlobalSound").GlobalSound
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "xr_dialogs");
+
 --[[------------------------------------------------------------------------------------------------------------------
 ���������� ��������� ����� ���������
 ����� ����
@@ -240,7 +246,7 @@ function dialog_mgr:update()
         else
           -- ���������� �����
           snd.themes[1] = self.a.cur_phrase.snd
-          xr_sound.sound_update(self.a.cur_npc, snd, true)
+          GlobalSound:sound_update(self.a.cur_npc, snd, true)
           self.a.phrase_playing = true
           -- printf( "SNDSNDNSNDND = " .. snd.themes[1] )
         end

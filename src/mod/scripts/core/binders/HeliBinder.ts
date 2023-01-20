@@ -16,6 +16,7 @@ import {
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { addHeli, addObject, deleteHeli, deleteObject, getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { get_heli_health } from "@/mod/scripts/core/logic/heli/heli_utils";
 import { HeliCombat } from "@/mod/scripts/core/logic/heli/HeliCombat";
 import { stype_heli } from "@/mod/scripts/core/schemes";
@@ -121,7 +122,7 @@ export const HeliBinder: IHeliBinder = declare_xr_class("HeliBinder", object_bin
 
     this.check_health();
 
-    get_global<AnyCallablesModule>("xr_sound").update(this.object.id());
+    GlobalSound.update(this.object.id());
   },
   net_spawn(object: XR_cse_alife_object): boolean {
     if (!object_binder.net_spawn(this, object)) {
@@ -173,7 +174,7 @@ export const HeliBinder: IHeliBinder = declare_xr_class("HeliBinder", object_bin
 
       if (health < this.flame_start_health && !heli.m_flame_started) {
         this.heliObject.StartFlame();
-        // --        xr_sound.set_sound_play(this.object:id(), this.snd_damage)
+        // --        GlobalSound.set_sound_play(this.object:id(), this.snd_damage)
       }
 
       if (health <= 0.005 && !this.st.immortal) {
@@ -181,7 +182,7 @@ export const HeliBinder: IHeliBinder = declare_xr_class("HeliBinder", object_bin
         deleteHeli(this.object);
         this.st.last_alt = heli.GetRealAltitude();
         this.st.alt_check_time = time_global() + 1000;
-        // --            xr_sound.set_sound_play(this.object:id(), this.snd_down)
+        // --            GlobalSound.set_sound_play(this.object:id(), this.snd_down)
       }
     }
   },
@@ -212,7 +213,7 @@ export const HeliBinder: IHeliBinder = declare_xr_class("HeliBinder", object_bin
     }
 
     if (this.last_hit_snd_timeout < time_global()) {
-      // -- xr_sound.set_sound_play(this.object:id(), this.snd_hit)
+      // -- GlobalSound.set_sound_play(this.object:id(), this.snd_hit)
       this.last_hit_snd_timeout = time_global() + math.random(4000, 8000);
     }
   },

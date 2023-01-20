@@ -1,7 +1,8 @@
 import { alife, time_global, XR_cse_alife_creature_abstract } from "xray16";
 
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { storage } from "@/mod/scripts/core/db";
+import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { SoundStory } from "@/mod/scripts/core/sound/SoundStory";
 import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { getObjectSquad } from "@/mod/scripts/utils/alife";
@@ -32,9 +33,9 @@ export class SoundManager {
   }
 
   public unregister_npc(npc_id: number): void {
-    if (this.last_playing_npc === npc_id && get_global("xr_sound").sound_table[this.last_playing_npc]) {
+    if (this.last_playing_npc === npc_id && GlobalSound.sound_table.get(this.last_playing_npc)) {
       this.story = null;
-      get_global("xr_sound").sound_table[this.last_playing_npc].stop(npc_id);
+      GlobalSound.sound_table.get(this.last_playing_npc).stop(npc_id);
     }
 
     if (this.storyteller === npc_id) {
@@ -64,12 +65,12 @@ export class SoundManager {
       return;
     }
 
-    if (get_global("xr_sound").sound_table[this.last_playing_npc!] !== null) {
+    if (GlobalSound.sound_table.get(this.last_playing_npc!) !== null) {
       // --printf("wait sound")
 
       if (storage.get(this.last_playing_npc!) && storage.get(this.last_playing_npc!).object!.best_enemy() !== null) {
         this.story = null;
-        get_global("xr_sound").sound_table[this.last_playing_npc!].stop(this.last_playing_npc);
+        GlobalSound.sound_table.get(this.last_playing_npc!).stop(this.last_playing_npc);
       }
 
       return;
@@ -131,7 +132,7 @@ export class SoundManager {
 
       for (const [k, v] of this.npc) {
         if (v.npc_id !== this.storyteller) {
-          get_global<AnyCallablesModule>("xr_sound").set_sound_play(v.npc_id, next_phrase.theme);
+          GlobalSound.set_sound_play(v.npc_id, next_phrase.theme, null, null);
           npc_id = v.npc_id;
         }
       }
@@ -149,9 +150,9 @@ export class SoundManager {
       return;
     }
 
-    if (storage.get(npc_id).object!.best_enemy() !== null && get_global("xr_sound").sound_table[npc_id] !== null) {
+    if (storage.get(npc_id).object!.best_enemy() !== null && GlobalSound.sound_table.get(npc_id) !== null) {
       this.story = null;
-      get_global("xr_sound").sound_table[npc_id].stop(npc_id);
+      GlobalSound.sound_table.get(npc_id).stop(npc_id);
 
       return;
     }
@@ -175,19 +176,14 @@ export class SoundManager {
             if (next_phrase.who !== "teller") {
               const enemy_faction = task.counter_attack_community;
 
-              get_global<AnyCallablesModule>("xr_sound").set_sound_play(npc.id, next_phrase.theme, enemy_faction);
+              GlobalSound.set_sound_play(npc.id, next_phrase.theme, enemy_faction, null);
               this.phrase_timeout = null;
               this.phrase_idle = next_phrase.timeout * 1000;
 
               return;
             }
 
-            get_global<AnyCallablesModule>("xr_sound").set_sound_play(
-              npc.id,
-              next_phrase.theme,
-              our_squad.player_id,
-              our_smart
-            );
+            GlobalSound.set_sound_play(npc.id, next_phrase.theme, our_squad.player_id, our_smart);
             this.phrase_timeout = null;
             this.phrase_idle = next_phrase.timeout * 1000;
 
@@ -196,7 +192,7 @@ export class SoundManager {
         }
       }
 
-      get_global<AnyCallablesModule>("xr_sound").set_sound_play(npc_id, next_phrase.theme);
+      GlobalSound.set_sound_play(npc_id, next_phrase.theme, null, null);
     }
 
     this.phrase_timeout = null;

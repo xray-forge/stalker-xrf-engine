@@ -1,4 +1,6 @@
 -- 201
+
+local GlobalSound = require("scripts.core.logic.GlobalSound").GlobalSound
 local StateManager = require("scripts.state_management.StateManager")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
@@ -140,7 +142,7 @@ function help_wounded(npc)
 
   db.storage[selected_id].wounded_already_selected = -1
 
-  xr_sound.set_sound_play(npc:id(), "wounded_medkit")
+  GlobalSound:set_sound_play(npc:id(), "wounded_medkit")
 end
 
 ----------------------------------------------------------------------------------------------------------------------

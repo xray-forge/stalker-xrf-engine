@@ -1,4 +1,6 @@
 -- 426
+
+local GlobalSound = require("scripts.core.logic.GlobalSound").GlobalSound
 local SoundManager = require("scripts.core.sound.SoundManager")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
@@ -174,7 +176,7 @@ function CCampManager:update()
 
   -- ���� ���-�� ������� �������� �����, ���� ���� �� ���������.
   if (self.idle_talker ~= nil) then
-    if (xr_sound.sound_table[self.idle_talker]) then
+    if (GlobalSound.sound_table[self.idle_talker]) then
       return
     else
       self.idle_talker = nil
@@ -224,7 +226,7 @@ function CCampManager:update()
     end
     if (npc_count ~= 0) then
       self.idle_talker = talkers[math.random(#talkers)]
-      xr_sound.set_sound_play(self.idle_talker, "state")
+      GlobalSound:set_sound_play(self.idle_talker, "state")
     end
   end
 

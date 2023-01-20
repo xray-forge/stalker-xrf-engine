@@ -5,6 +5,7 @@ import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { ActionSearchCorpse } from "@/mod/scripts/core/logic/ActionSearchCorpse";
 import { EvaluatorCorpseDetect } from "@/mod/scripts/core/logic/EvaluatorCorpseDetect";
+import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { isLootableItem } from "@/mod/scripts/utils/checkers";
 import { getConfigBoolean } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -109,9 +110,9 @@ export class ActionCorpseDetect extends AbstractSchemeAction {
     }, corpse_npc);
 
     if (math.random(100) > 20) {
-      get_global<AnyCallablesModule>("xr_sound").set_sound_play(object.id(), "corpse_loot_begin");
+      GlobalSound.set_sound_play(object.id(), "corpse_loot_begin", null, null);
     } else {
-      get_global<AnyCallablesModule>("xr_sound").set_sound_play(object.id(), "corpse_loot_bad");
+      GlobalSound.set_sound_play(object.id(), "corpse_loot_bad", null, null);
     }
   }
 }

@@ -1,4 +1,6 @@
 -- 171
+
+local GlobalSound = require("scripts.core.logic.GlobalSound").GlobalSound
 local StateManager = require("scripts.state_management.StateManager")
 local SimBoard = require("scripts.se.SimBoard")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
@@ -101,7 +103,7 @@ function action_cover:execute()
     StateManager.set_state(self.object, "assault")
   end
   if self.st.sound_idle ~= nil then
-    xr_sound.set_sound_play(self.object:id(), self.st.sound_idle)
+    GlobalSound:set_sound_play(self.object:id(), self.st.sound_idle)
   end
   action_base.execute(self)
 end

@@ -1,4 +1,6 @@
 -- 208
+
+local GlobalSound = require("scripts.core.logic.GlobalSound").GlobalSound
 local StateManager = require("scripts.state_management.StateManager")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
@@ -80,7 +82,7 @@ function action_walker_activity:execute()
   end
 
   if not self.in_camp and self.st.sound_idle ~= nil then
-    xr_sound.set_sound_play(self.object:id(), self.st.sound_idle)
+    GlobalSound:set_sound_play(self.object:id(), self.st.sound_idle)
   end
 end
 
