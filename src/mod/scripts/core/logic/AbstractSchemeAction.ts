@@ -6,11 +6,12 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("AbstractSchemeAction");
 
-export type TAbstractSchemeActionConstructor = typeof AbstractSchemeAction;
-
 export abstract class AbstractSchemeAction {
-  public static SCHEME_SECTION: string;
+  public static readonly SCHEME_SECTION: string;
 
+  /**
+   * Add scheme to object binder for initialization.
+   */
   public static add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,

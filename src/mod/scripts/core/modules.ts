@@ -9,6 +9,7 @@ import { ActionGatherItems } from "@/mod/scripts/core/logic/ActionGatherItems";
 import { ActionHit } from "@/mod/scripts/core/logic/ActionHit";
 import { ActionIdle } from "@/mod/scripts/core/logic/ActionIdle";
 import { ActionLight } from "@/mod/scripts/core/logic/ActionLight";
+import { ActionNoWeapon } from "@/mod/scripts/core/logic/ActionNoWeapon";
 import { ActionOnDeath } from "@/mod/scripts/core/logic/ActionOnDeath";
 import { ActionOnHit } from "@/mod/scripts/core/logic/ActionOnHit";
 import { ActionOscillate } from "@/mod/scripts/core/logic/ActionOscillate";
@@ -83,7 +84,7 @@ export function initializeModules(): void {
 
   loadScheme(ActionHeliMove, "heli_move", stype_heli);
 
-  loadScheme("sr_no_weapon", "sr_no_weapon", stype_restrictor);
+  loadScheme(ActionNoWeapon, ActionNoWeapon.SCHEME_SECTION, stype_restrictor);
   loadScheme("sr_teleport", "sr_teleport", stype_restrictor);
   loadScheme(ActionIdle, ActionIdle.SCHEME_SECTION, stype_restrictor);
   loadScheme(ActionLight, ActionLight.SCHEME_SECTION, stype_restrictor);

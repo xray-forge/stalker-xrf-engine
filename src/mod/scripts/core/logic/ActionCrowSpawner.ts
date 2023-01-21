@@ -10,7 +10,7 @@ import { copyTable } from "@/mod/scripts/utils/table";
 const log: LuaLogger = new LuaLogger("ActionCrowSpawner");
 
 export class ActionCrowSpawner extends AbstractSchemeAction {
-  public static SCHEME_SECTION: string = "sr_crow_spawner";
+  public static readonly SCHEME_SECTION: string = "sr_crow_spawner";
 
   public static add_to_binder(
     object: XR_game_object,

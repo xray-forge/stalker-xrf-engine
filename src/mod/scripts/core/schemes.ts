@@ -1,5 +1,5 @@
 import { AnyObject } from "@/mod/lib/types";
-import { TAbstractSchemeActionConstructor } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("schemes");
@@ -14,7 +14,7 @@ export const schemes: LuaTable<string, string | AnyObject> = new LuaTable();
 export const stypes: LuaTable<string, number> = new LuaTable();
 
 export function loadScheme(
-  filenameOrModule: string | TAbstractSchemeActionConstructor,
+  filenameOrModule: string | typeof AbstractSchemeAction,
   scheme: string,
   stype: number
 ): void {
