@@ -11,12 +11,12 @@ local ActionGatherItems = require("scripts.core.logic.ActionGatherItems").Action
 local ActionCorpseDetect = require("scripts.core.logic.ActionCorpseDetect").ActionCorpseDetect
 local ActionDanger = require("scripts.core.logic.ActionDanger").ActionDanger
 local ActionOnHit = require("scripts.core.logic.ActionOnHit").ActionOnHit
-local LuaLogger = require("scripts.utils.logging").LuaLogger
-local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
 local utilsAlife = require("scripts.utils.alife")
+local utilsConfigs = require("scripts.utils.configs")
+local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
+local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 
-local utilsConfigs = require("scripts.utils.configs")
 local log = create_ts_class_instance(LuaLogger, "xr_logic");
 
 ----------------------------------------------------------------------------------------------------
@@ -214,7 +214,7 @@ function configure_schemes(npc, ini, ini_filename, stype, section_logic, gulag_n
   then
     local trade_ini = utils.cfg_get_string(actual_ini, section_logic, "trade", npc, false, "", "misc\\trade\\trade_generic.ltx")
     TradeManager.trade_init(npc, trade_ini)
-    spawner.spawn_items(npc, st)
+    utilsAlife.spawnDefaultNpcItems(npc, st)
   end
 
   return st.ini

@@ -1,11 +1,21 @@
 import { alife, ini_file, level, XR_game_object, XR_ini_file, XR_LuaBindBase } from "xray16";
 
 import { communities, TCommunity } from "@/mod/globals/communities";
-import { misc, TMiscItem } from "@/mod/globals/items/misc";
+import { ammo, TAmmoItem } from "@/mod/globals/items/ammo";
+import { misc } from "@/mod/globals/items/misc";
+import { TSection } from "@/mod/lib/types/configuration";
 import { storage } from "@/mod/scripts/core/db";
 import { IStalker } from "@/mod/scripts/se/Stalker";
-import { createAmmo, createGenericItem, getCharacterCommunity, setItemCondition } from "@/mod/scripts/utils/alife";
-import { isArtefact, isGrenade, isLootableItem, isWeapon } from "@/mod/scripts/utils/checkers";
+import { getCharacterCommunity, setItemCondition } from "@/mod/scripts/utils/alife";
+import { spawnAmmoForObject, spawnItemsForObject } from "@/mod/scripts/utils/alife_spawn";
+import {
+  isAmmoItem,
+  isArtefact,
+  isExcludedFromLootDropItem,
+  isGrenade,
+  isLootableItem,
+  isWeapon
+} from "@/mod/scripts/utils/checkers";
 import { parseNames, parseNums } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -18,8 +28,6 @@ const item_dependence: LuaTable<string, LuaTable<string, boolean>> = new LuaTabl
 const mul_by_level: LuaTable<string, number> = new LuaTable();
 const count_by_level: LuaTable<string, { min: number; max: number }> = new LuaTable();
 const always_keep_item: LuaTable<string, boolean> = new LuaTable();
-
-export const ammo_sections: LuaTable<string, boolean> = new LuaTable();
 
 export function initDropSettings(): void {
   log.info("Init drop settings");
@@ -110,16 +118,6 @@ export function initDropSettings(): void {
     }
   }
 
-  log.info("Init drop settings for ammo_section");
-
-  const ammo_sections_count = death_ini.line_count("ammo_sections");
-
-  for (const i of $range(0, ammo_sections_count - 1)) {
-    const [result, id, value] = death_ini.r_line("ammo_sections", i, "", "");
-
-    ammo_sections.set(id, true);
-  }
-
   log.info("Initialized drop settings");
 }
 
@@ -180,29 +178,26 @@ export const DropManager: IDropManager = declare_xr_class("DropManager", null, {
       }
     }
   },
-  create_items(npc: XR_game_object, section: string, count: number, probability: number): void {
-    if (ammo_sections.get(section)) {
-      if (count > 0) {
-        createAmmo(section, npc.position(), npc.level_vertex_id(), npc.game_vertex_id(), npc.id(), count);
-      }
+  create_items(npc: XR_game_object, section: TSection, count: number, probability: number): void {
+    if (ammo[section as TAmmoItem]) {
+      spawnAmmoForObject(npc, section as TAmmoItem, count);
     } else {
-      createGenericItem(
-        section,
-        npc.position(),
-        npc.level_vertex_id(),
-        npc.game_vertex_id(),
-        npc.id(),
-        count,
-        probability
-      );
+      spawnItemsForObject(npc, section, count, probability);
     }
   },
   keep_item(npc: XR_game_object, item: XR_game_object): void {
-    const section = item.section();
-    const ini = npc.spawn_ini();
+    const section: TSection = item.section();
+    const ini: XR_ini_file = npc.spawn_ini();
 
-    if (ini !== null && ini.section_exist("keep_items") && misc[section as TMiscItem] === null) {
+    if (ini !== null && ini.section_exist("keep_items")) {
       log.info("Keep item, listed in config:", npc.name(), item.name(), section);
+
+      return;
+    }
+
+    if (isExcludedFromLootDropItem(item)) {
+      log.info("Release excluded from drop item:", npc.name(), item.name(), section);
+      alife().release(alife().object(item.id()), true);
 
       return;
     }
@@ -235,7 +230,7 @@ export const DropManager: IDropManager = declare_xr_class("DropManager", null, {
       return;
     }
 
-    if (isLootableItem(item) && !ammo_sections.has(section)) {
+    if (isLootableItem(item) && !isAmmoItem(item)) {
       log.info("Keep item, misc lootable", npc.name(), item.name(), section);
 
       return;

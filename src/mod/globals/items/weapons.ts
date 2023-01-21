@@ -1,6 +1,8 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error"*/
 
 export const weapons = {
+  grenade_f1: "grenade_f1",
+  grenade_rgd5: "grenade_rgd5",
   wpn_abakan: "wpn_abakan",
   wpn_ak74: "wpn_ak74",
   wpn_ak74_s: "wpn_ak74_s",

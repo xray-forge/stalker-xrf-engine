@@ -22,9 +22,7 @@ export const ammo = {
   ammo_m209: "ammo_m209",
   "ammo_og-7b": "ammo_og-7b",
   ammo_pkm_100: "ammo_pkm_100",
-  "ammo_vog-25": "ammo_vog-25",
-  grenade_f1: "grenade_f1",
-  grenade_rgd5: "grenade_rgd5"
+  "ammo_vog-25": "ammo_vog-25"
 } as const;
 
 export type TAmmoItems = typeof ammo;

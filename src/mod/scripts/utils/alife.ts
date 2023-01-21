@@ -1,20 +1,17 @@
 import {
-  XR_cse_abstract,
-  XR_cse_alife_creature_abstract,
-  XR_cse_alife_human_abstract,
-  XR_cse_alife_object,
-  XR_cse_alife_online_offline_group,
-  XR_entity_action,
-  XR_game_object,
-  XR_ini_file,
-  XR_vector,
   alife,
   entity_action,
   game,
   game_graph,
   level,
   stalker_ids,
-  system_ini
+  XR_cse_alife_creature_abstract,
+  XR_cse_alife_human_abstract,
+  XR_cse_alife_object,
+  XR_cse_alife_online_offline_group,
+  XR_entity_action,
+  XR_game_object,
+  XR_ini_file
 } from "xray16";
 
 import { communities, TCommunity } from "@/mod/globals/communities";
@@ -23,6 +20,7 @@ import { AnyArgs, AnyCallablesModule, Maybe, Optional } from "@/mod/lib/types";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { getStoryObjectsRegistry } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
+import { spawnItemsForObject } from "@/mod/scripts/utils/alife_spawn";
 import { isStalker } from "@/mod/scripts/utils/checkers";
 import { get_infos_from_data, getConfigBoolean, getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -96,60 +94,6 @@ export function getStorySquad<T extends XR_cse_alife_online_offline_group>(story
   const squadId: Optional<number> = getStoryObjectId(storyId);
 
   return squadId ? alife().object<T>(squadId) : null;
-}
-
-/**
- * todo;
- */
-export function createAmmo(
-  section: string,
-  position: XR_vector,
-  lvi: number,
-  gvi: number,
-  target_id: number,
-  num: number
-): LuaTable<number, XR_cse_abstract> {
-  const ini: XR_ini_file = system_ini();
-
-  const num_in_box = ini.r_u32(section, "box_size");
-  const container: LuaTable<number, XR_cse_abstract> = new LuaTable();
-
-  while (num > num_in_box) {
-    const obj = alife().create_ammo(section, position, lvi, gvi, target_id, num_in_box);
-
-    table.insert(container, obj);
-
-    num = num - num_in_box;
-  }
-
-  const obj = alife().create_ammo(section, position, lvi, gvi, target_id, num);
-
-  table.insert(container, obj);
-
-  return container;
-}
-
-/**
- * todo;
- */
-export function createGenericItem(
-  section: string,
-  position: XR_vector,
-  lvi: number,
-  gvi: number,
-  target_id: number,
-  count: number,
-  probability: number
-): LuaTable<number, XR_cse_abstract> {
-  const container: LuaTable<number, XR_cse_abstract> = new LuaTable();
-
-  for (const i of $range(1, count)) {
-    if (math.random(100) <= probability) {
-      alife().create(section, position, lvi, gvi, target_id);
-    }
-  }
-
-  return container;
 }
 
 /**
@@ -492,4 +436,30 @@ export function is_npc_in_combat(npc: XR_game_object): boolean {
   return (
     current_action_id === stalker_ids.action_combat_planner || current_action_id === stalker_ids.action_post_combat_wait
   );
+}
+
+/**
+ * todo: description
+ */
+export function spawnDefaultNpcItems(npc: XR_game_object, state: IStoredObject): void {
+  const items_to_spawn: LuaTable<string, number> = new LuaTable();
+  const spawn_items_section = getConfigString(state.ini!, state.section_logic!, "spawn", npc, false, "", null);
+
+  if (spawn_items_section === null) {
+    return;
+  }
+
+  const n = state.ini!.line_count(spawn_items_section);
+
+  for (const i of $range(0, n - 1)) {
+    const [result, id, value] = state.ini!.r_line(spawn_items_section, i, "", "");
+
+    items_to_spawn.set(id, value === "" ? 1 : tonumber(value)!);
+  }
+
+  for (const [k, v] of items_to_spawn) {
+    if (npc.object(k) === null) {
+      spawnItemsForObject(npc, k, v);
+    }
+  }
 }

@@ -15,7 +15,13 @@ import {
 import { squadMonsters } from "@/mod/globals/behaviours";
 import { artefact_class_ids, monster_class_ids, stalker_class_ids, weapon_class_ids } from "@/mod/globals/class_ids";
 import { TCommunity } from "@/mod/globals/communities";
-import { lootable_table, TLootableItem } from "@/mod/globals/items/lootable_table";
+import { ammo, TAmmoItem } from "@/mod/globals/items/ammo";
+import {
+  lootable_table,
+  lootable_table_exclude,
+  TLootableExcludeItem,
+  TLootableItem
+} from "@/mod/globals/items/lootable_table";
 import { TLevel } from "@/mod/globals/levels";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { Maybe, Optional } from "@/mod/lib/types";
@@ -154,4 +160,18 @@ export function isSurgeEnabledOnLevel(levelName: TLevel): boolean {
  */
 export function isLootableItem(object: XR_game_object): boolean {
   return lootable_table[object.section<TLootableItem>()] !== null;
+}
+
+/**
+ * @returns whether object is ammo-defined section item.
+ */
+export function isAmmoItem(object: XR_game_object): boolean {
+  return ammo[object.section<TAmmoItem>()] !== null;
+}
+
+/**
+ * @returns whether object is excluded from loot drop.
+ */
+export function isExcludedFromLootDropItem(object: XR_game_object): boolean {
+  return lootable_table_exclude[object.section<TLootableExcludeItem>()] !== null;
 }
