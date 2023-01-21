@@ -709,7 +709,7 @@ declare module "xray16" {
     public best_enemy(): XR_game_object | null;
     public death_time(): number;
     public get_visibility_state(): unknown;
-    public center(): unknown;
+    public center(): XR_vector;
     public best_cover(vector1: XR_vector, vector2: XR_vector, value3: number, value4: number, value5: number): unknown;
     public accuracy(): unknown;
     public set_desired_position(): void;

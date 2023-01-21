@@ -173,9 +173,9 @@ declare module "xray16" {
    */
   export class XR_CUILines {
     public GetText(): string;
-    public SetTextST(value: string): void;
-    public SetTextColor(value: number): void;
-    public SetText(value: string): void;
+    public SetTextST(text: string): void;
+    public SetTextColor(color_code: number): void;
+    public SetText(text: string): void;
 
     /**
      * Expects C pointer to the file.
