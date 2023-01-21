@@ -62,10 +62,20 @@ export function copyTable(target: LuaTable<string | number>, source: LuaTable<st
 }
 
 /**
- * todo: description
+ * Reset array-style table.
+ * todo: description, rename
  */
 export function clearTable(target: LuaTable): void {
   while (target.length() !== 0) {
     table.remove(target as any, target.length());
+  }
+}
+
+/**
+ * Reset table values in map-styled table.
+ */
+export function resetTable(target: LuaTable<any, any>): void {
+  for (const [k] of target) {
+    target.delete(k);
   }
 }

@@ -137,7 +137,7 @@ export class ActionDanger extends AbstractSchemeAction {
     if (active_sector !== null) {
       // todo: Does not exist.
       if (
-        get_global<AnyCallablesModule>("sr_danger").check_danger_position(best_danger.position(), active_sector) ==
+        get_global<AnyCallablesModule>("sr_danger").check_danger_position(best_danger.position(), active_sector) ===
         false
       ) {
         return false;

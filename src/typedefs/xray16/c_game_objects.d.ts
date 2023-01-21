@@ -576,17 +576,17 @@ declare module "xray16" {
     public disable_hit_marks(): void;
     public is_there_items_to_pickup(): boolean;
     public location_on_path(value: number, vector: XR_vector): unknown;
-    public sound_prefix(): unknown;
-    public sound_prefix(value: string): unknown;
+    public sound_prefix(): string;
+    public sound_prefix(value: string): void;
     public set_task_state(state: unknown /** enum ETaskState */, value: string): unknown;
     public show_condition(ini_file: unknown, value: string): unknown;
     public add_sound(
       value1: string, value2: number, type: unknown, value3: number, value4: number, value5: number
-    ): unknown;
+    ): number;
     public add_sound(
       value1: string, value2: number, type: unknown, value3: number, value4: number, value5: number, value6: string
-    ): unknown;
-    public max_health(): unknown;
+    ): number;
+    public max_health(): number;
     public restore_ignore_monster_threshold(): unknown;
     public set_queue_size(value: number): unknown;
     public buy_condition(ini_file: unknown, value: string): unknown;
@@ -736,7 +736,7 @@ declare module "xray16" {
       value4: number,
       value5: number,
       value6: string
-    ): unknown;
+    ): number;
     public command(entity_action: XR_entity_action, value: boolean): unknown;
     public hit(hit: XR_hit): void;
     public iterate_inventory(cb: (npc: XR_game_object, item: XR_game_object) => void, object: XR_game_object): unknown;

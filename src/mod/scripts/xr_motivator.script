@@ -1,6 +1,7 @@
 -- 605
 
 local GlobalSound = require("scripts.core.logic.GlobalSound").GlobalSound
+local SoundTheme = require("scripts.core.sound.SoundTheme").SoundTheme
 local InventoryUpgrades = require("scripts.core.inventory_upgrades")
 local TradeManager = require("scripts.core.TradeManager")
 local Hear = require("scripts.core.Hear").Hear
@@ -162,7 +163,7 @@ function motivator_binder:net_spawn(sobject)
 
   --' �������� �������
   --memusage.collect_info(self.object, "before_soundmgr")
-  sound_theme.init_npc_sound(self.object)
+  SoundTheme:init_npc_sound(self.object)
   --memusage.collect_info(self.object, "after_soundmgr_netspawn_end")
 
 

@@ -9,7 +9,7 @@ import {
 } from "xray16";
 
 import { captions } from "@/mod/globals/captions";
-import { sound_themes } from "@/mod/globals/sound/sounds";
+import { script_sounds } from "@/mod/globals/sound/script_sounds";
 import { texturesIngame } from "@/mod/globals/textures";
 import { AnyCallable, Maybe, Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
@@ -180,7 +180,7 @@ export function send_task(actor: Optional<XR_game_object>, type: TActionType, ta
     time_on_screen = 5000;
   }
 
-  GlobalSound.set_sound_play(actor.id(), sound_themes.pda_task, null, null);
+  GlobalSound.set_sound_play(actor.id(), script_sounds.pda_task, null, null);
 
   const news_caption: string = game.translate_string(actionDescriptionByTask[type]);
   const news_text: string = game.translate_string(task.get_title());
@@ -238,7 +238,7 @@ export function send_tip(
     }
   }
 
-  GlobalSound.set_sound_play(actor.id(), sound_themes.pda_task, null, null);
+  GlobalSound.set_sound_play(actor.id(), script_sounds.pda_task, null, null);
 
   let texture: string = texturesIngame.ui_iconsTotal_grouping;
 
@@ -267,11 +267,11 @@ export function send_tip(
  */
 export function send_sound(
   npc: Optional<XR_game_object>,
-  faction: Optional<TIcon>,
-  point: string,
+  faction: Optional<string>,
+  point: Optional<string>,
   str: string,
-  str2: string,
-  delay: number
+  str2: Optional<string>,
+  delay: Optional<number>
 ): void {
   log.info("Send sound:", npc?.id(), str, str2, faction);
 
@@ -311,8 +311,8 @@ export function send_sound(
   if (npc !== null && isStalkerClassId(npc.clsid())) {
     texture = npc.character_icon();
   } else {
-    if (tips_icons[faction] !== null) {
-      texture = tips_icons[faction];
+    if (tips_icons[faction as TIcon] !== null) {
+      texture = tips_icons[faction as TIcon];
     }
 
     if (tips_icons[point as TIcon] !== null) {
@@ -328,7 +328,7 @@ export function send_sound(
     news_caption = news_caption + ":";
   }
 
-  getActor()!.give_game_news(news_caption, news_text, texture, delay + 1000, 5000, 1);
+  getActor()!.give_game_news(news_caption, news_text, texture, delay! + 1000, 5000, 1);
 }
 
 export function relocate_item(actor: XR_game_object, type: "in" | "out", item: string, amount: number = 1): void {

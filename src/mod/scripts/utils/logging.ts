@@ -1,6 +1,7 @@
 import { error_log, log, time_global } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
+import { stringifyAsJson } from "@/mod/lib/utils/json";
 
 export class LuaLogger {
   protected prefix: string;
@@ -23,44 +24,9 @@ export class LuaLogger {
     this.logAs("[INFO]", args);
   }
 
-  public table(table: LuaTable<any, any>, sub: string = ""): void {
+  public table(table: LuaTable): void {
     if (gameConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
-      if (table === null) {
-        return this.info("[TABLE]: null");
-      } else {
-        this.info("[TABLE]");
-      }
-
-      for (const [k, v] of table) {
-        if (type(v) === "table") {
-          this.info(string.format(sub + "%s:", tostring(k)));
-          this.table(v, "  ");
-        } else if (type(v) === "function") {
-          this.info(string.format(sub + "%s:function", tostring(k)));
-        } else if (type(v) === "userdata") {
-          this.info(string.format(sub + "%s:userdata", tostring(k)));
-        } else if (type(v) === "boolean") {
-          if (v === true) {
-            if (type(k) !== "userdata") {
-              this.info(string.format(sub + "%s:true", tostring(k)));
-            } else {
-              this.info(sub + "userdata:true");
-            }
-          } else {
-            if (type(k) !== "userdata") {
-              this.info(string.format(sub + "%s:false", tostring(k)));
-            } else {
-              this.info(sub + "userdata:false");
-            }
-          }
-        } else {
-          if (v !== null) {
-            this.info(string.format(sub + "%s:%s", tostring(k), v as any));
-          } else {
-            this.info(string.format(sub + "%s:<nil>", tostring(k), v));
-          }
-        }
-      }
+      this.info("[TABLE]", stringifyAsJson(table));
     }
   }
 

@@ -1160,7 +1160,7 @@ export function can_help_actor(squad: ISimSquad): boolean {
     return false;
   }
 
-  if (hasAlifeInfo("sim_duty_help_harder") && squad.get_squad_community() === communities.duty) {
+  if (hasAlifeInfo("sim_duty_help_harder") && squad.get_squad_community() === communities.dolg) {
     return true;
   } else if (hasAlifeInfo("sim_freedom_help_harder") && squad.get_squad_community() === communities.freedom) {
     return true;

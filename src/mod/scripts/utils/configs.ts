@@ -1,7 +1,6 @@
 import { XR_cse_abstract, XR_cse_alife_object, XR_flags32, XR_game_object, XR_ini_file } from "xray16";
 
 import { AnyCallablesModule, AnyObject, Maybe, Optional } from "@/mod/lib/types";
-import { stringifyAsJson } from "@/mod/lib/utils/json";
 import { getActor, scriptIds } from "@/mod/scripts/core/db";
 import { disableInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -48,7 +47,7 @@ export function getConfigNumber<T = number>(
   ini: XR_ini_file,
   section: string,
   field: string,
-  object: Optional<XR_game_object | XR_cse_abstract>,
+  object: Optional<AnyObject>,
   mandatory: boolean,
   defaultVal?: T
 ): number | T {
@@ -119,11 +118,11 @@ export function getParamString(srcString: string, obj: XR_game_object): LuaMulti
 /**
  * todo;
  */
-export function parseNames(str: string): LuaTable<number, string> {
-  const names: LuaTable<number, string> = new LuaTable();
+export function parseNames<T extends string = string>(configString: string): LuaTable<number, T> {
+  const names: LuaTable<number, T> = new LuaTable();
 
-  for (const it of string.gfind(str, "([%w_%-.\\]+)%p*")) {
-    table.insert(names, it);
+  for (const it of string.gfind(configString, "([%w_%-.\\]+)%p*")) {
+    table.insert(names, it as T);
   }
 
   return names;

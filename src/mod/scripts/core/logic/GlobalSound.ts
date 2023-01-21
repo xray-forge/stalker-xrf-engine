@@ -1,6 +1,8 @@
 import { XR_net_packet } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
+import { sound_themes } from "@/mod/scripts/core/db";
+import { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -9,7 +11,7 @@ const log: LuaLogger = new LuaLogger("GlobalSound");
 
 export class GlobalSound {
   public static sound_table: LuaTable = new LuaTable();
-  public static looped_sound: LuaTable<number, LuaTable<string>> = new LuaTable();
+  public static looped_sound: LuaTable<number, LuaTable<string, AbstractPlayableSound>> = new LuaTable();
 
   public static set_sound_play(
     npc_id: number,
@@ -23,13 +25,13 @@ export class GlobalSound {
       return;
     }
 
-    if (get_global("sound_theme").theme[sound] === null) {
+    if (sound_themes.get(sound) === null) {
       abort("set_sound_play. Wrong sound theme [%s], npc[%s]", tostring(sound), npc_id);
 
       return;
     }
 
-    const snd_theme = get_global("sound_theme").theme[sound];
+    const snd_theme = sound_themes.get(sound);
 
     if (snd_theme.class_id === "looped_sound") {
       abort("You trying to play sound [%s] which type is looped", sound);
@@ -37,7 +39,7 @@ export class GlobalSound {
 
     const sound_item = GlobalSound.sound_table.get(npc_id);
 
-    if (sound_item === null || snd_theme.play_always === true) {
+    if (sound_item === null || snd_theme.play_always) {
       if (sound_item !== null) {
         // --printf("sound table not null")
         if (sound_item.reset !== null) {
@@ -92,7 +94,7 @@ export class GlobalSound {
       if (!sound_item.is_playing(npc_id)) {
         // --        if((t=="string") || !(sound_table[npc_id]:is_playing(npc_id))) {
         // --            if(t=="string") {
-        // --                sound_table[npc_id] = sound_theme.theme[sound_table[npc_id]]
+        // --                sound_table[npc_id] = SoundTheme.themes[sound_table[npc_id]]
         // --            }}
 
         // --printf("SOUND_CALLBACK from [%s] sound_path [%s]",npc_id,sound_table[npc_id].path)
@@ -105,7 +107,7 @@ export class GlobalSound {
   public static play_sound_looped(npc_id: number, sound: string): void {
     log.info();
 
-    const snd_theme = get_global("sound_theme").theme[sound];
+    const snd_theme = sound_themes.get(sound);
 
     if (snd_theme === null) {
       abort("play_sound_looped. Wrong sound theme [%s], npc[%s]", tostring(sound), npc_id);
@@ -172,7 +174,7 @@ export class GlobalSound {
   public static actor_save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, "sound_actor_save");
 
-    for (const [k, v] of get_global<Record<string, LuaTable>>("sound_theme").theme) {
+    for (const [k, v] of sound_themes) {
       v.save(packet);
     }
 
@@ -228,7 +230,7 @@ export class GlobalSound {
   public static set_save_marker(packet: XR_net_packet): void {
     setSaveMarker(packet, false, "sound_actor_save");
 
-    for (const [k, v] of get_global<Record<string, LuaTable>>("sound_theme").theme) {
+    for (const [k, v] of sound_themes) {
       v.save(packet);
     }
 
@@ -307,7 +309,7 @@ export class GlobalSound {
   public static actor_load(packet: XR_net_packet): void {
     setLoadMarker(packet, false, "sound_actor_save");
 
-    for (const [k, v] of get_global("sound_theme").theme) {
+    for (const [k, v] of sound_themes) {
       v.load(packet);
     }
 
@@ -320,7 +322,7 @@ export class GlobalSound {
       const theme = packet.r_stringZ();
 
       // --        sound_table[id] = thread:r_stringZ()
-      GlobalSound.sound_table.set(id, get_global("sound_theme").theme[theme]);
+      GlobalSound.sound_table.set(id, sound_themes.get(theme));
     }
 
     GlobalSound.looped_sound = new LuaTable();
@@ -335,7 +337,7 @@ export class GlobalSound {
         const sound = packet.r_stringZ();
 
         // --            looped_sound[id][sound] = thread:r_stringZ()
-        GlobalSound.looped_sound.get(id).set(sound, get_global("sound_theme").theme[sound]);
+        GlobalSound.looped_sound.get(id).set(sound, sound_themes.get(sound));
       }
     }
 
@@ -345,7 +347,7 @@ export class GlobalSound {
   public static save_npc(packet: XR_net_packet, npc_id: number): void {
     setSaveMarker(packet, false, "sound_npc_save");
 
-    for (const [k, v] of get_global<Record<string, LuaTable>>("sound_theme").theme) {
+    for (const [k, v] of sound_themes) {
       v.save_npc(packet, npc_id);
     }
 
@@ -355,7 +357,7 @@ export class GlobalSound {
   public static load_npc(packet: XR_net_packet, npc_id: number): void {
     setLoadMarker(packet, false, "sound_npc_save");
 
-    for (const [k, v] of get_global<Record<string, LuaTable>>("sound_theme").theme) {
+    for (const [k, v] of sound_themes) {
       v.load_npc(packet, npc_id);
     }
 

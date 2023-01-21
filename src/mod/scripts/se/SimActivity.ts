@@ -340,24 +340,6 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
     },
     actor: null
   },
-  [communities.duty]: {
-    squad: null,
-    smart: {
-      base: {
-        prec: (squad: ISimSquad, target: XR_cse_alife_object) =>
-          isInTimeInterval(18, 8) && !xr_conditions.surge_started()
-      },
-      surge: { prec: () => xr_conditions.surge_started() },
-      territory: {
-        prec: () => isInTimeInterval(8, 18) && !xr_conditions.surge_started()
-      },
-      resource: {
-        prec: (squad: ISimSquad, target: XR_cse_alife_object) =>
-          isInTimeInterval(8, 18) && !xr_conditions.surge_started()
-      }
-    },
-    actor: null
-  },
   [communities.ecolog]: {
     squad: null,
     smart: {

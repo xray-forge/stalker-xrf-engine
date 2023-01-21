@@ -5,7 +5,6 @@ export const squadCommunityByBehaviour: Record<TCommunity, TCommunity> = {
   [communities.none]: null as any,
   [communities.stalker]: communities.stalker,
   [communities.bandit]: communities.bandit,
-  [communities.duty]: communities.dolg,
   [communities.dolg]: communities.dolg,
   [communities.freedom]: communities.freedom,
   [communities.army]: communities.army,

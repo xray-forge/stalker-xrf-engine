@@ -4,34 +4,32 @@ Enabling power of typescript for mods creation. <br/>
 
 ## 📌What is used
 
-- [Typescript](https://www.typescriptlang.org/) and [ts-node](https://typestrong.org/ts-node/) for scripting
-- [TypeScriptToLua](https://typescripttolua.github.io/docs/getting-started) for transpiling to LUA
-- [Open-X-Ray](https://github.com/OpenXRay/xray-16) for better core game performance and APIs
-- Custom [build system](cli/README.md) for `gamedata` building
-- Custom tools and JSX for XML files generation
+- [Typescript](https://www.typescriptlang.org/)
+- [Ts-node](https://typestrong.org/ts-node/)
+- [TypeScriptToLua](https://typescripttolua.github.io/docs/getting-started)
+- [Open-X-Ray](https://github.com/OpenXRay/xray-16)
+- Custom [build system](cli/README.md)
 
 ## 📍 Purposes
 
-Main goals of the project are:
+Main goals:
 
 - type safety
 - unified development tools
 - automated builds and versioning system
-- build-level globals and better build control
 - shared template for mods development
-- documented code and readable code
+- documented and readable code
 - simplification
-- fun
 
 ---
 
 ## 🥦 Main differences with original
 
-Intention is to create base template without breaking changes to the original game.
+Intention is to create template without introducing breaking changes to the original game plot.
 
-- Game codebase is unified and refactored with typescript
-- Separate verification and preparation steps added instead of direct ltx/xml/script files editing
-- Tools added for easier debugging and development, turned off for release versions of mods
+- Game codebase is refactored with typescript
+- Separate verification and preparation steps added
+- Tools added for easier debugging and development
 
 # 🌓 Starting work
 
@@ -39,7 +37,7 @@ Intention is to create base template without breaking changes to the original ga
 
 - [NodeJS](https://nodejs.org/en/)
 - [Stalker-COP](https://store.steampowered.com/app/41700/STALKER_Call_of_Pripyat/)
-- `cli/config.json` file should be edited, paths matched to your local system
+- `cli/config.json` file should be edited to match your local system
 
 ## 💿 Start development
 
@@ -48,15 +46,15 @@ Intention is to create base template without breaking changes to the original ga
 - RUN `cd stalker-xrts-template` - cd to project folder
 - RUN `npm install` - install all the dependencies
 - RUN `npm run link` - link gamedata to the game folder
-- RUN `npm run build` - build gamedata to the destination
 - RUN `npm run engine use release` - link open xray with game
+- RUN `npm run build:clean` - build gamedata to the destination
 - RUN `npm run start_game` - start game and test changes
 
 ## 🧰 Check issues
 
 `$ npm run verify` - will check whether project is set up and ready to start developing
 
-# 🧰 Developing
+# 🧰 Development
 
 ## 🏗️ Project commands
 
@@ -74,7 +72,7 @@ Intention is to create base template without breaking changes to the original ga
 - `format` - reformat TS code and lint it
 - `lint` - lint TS code with eslint utils
 
-## 🏗️ Code style
+## 🏗️ Codestyle
 
 For code style unification and validation prettier and eslint are used. <br/>
 Line endings are set to CRLF to match windows system.
@@ -82,14 +80,6 @@ Line endings are set to CRLF to match windows system.
 ## 🧰 Typescript
 
 Core of this project is [TypeScriptToLua](https://github.com/TypeScriptToLua/TypeScriptToLua). <br/>
-Even if you see simple typescript, in does not mean that it will work as javascript in all cases. It has some specifics.
-
----
-
-- Typescript to lua compilation does not do tree shaking
-- Use LuaTable/LuaMap classes where possible, avoid inline JS arrays and objects
-- To prevent bloated codebase avoid index files usage and re-exporting
-- Do not use window/dom/document/global APIs in lua scripts / shared mod libs, they are not transpiled to Lua
 
 ---
 
@@ -176,13 +166,11 @@ For examples check: `src/mod/ui`.
 - After migration consider simplification and unification of some parts
 - Finish LTX generation tools
 - Finish translation generation tools
-- Create electron application to simplify development of dialogs, labels, translations, asset management etc
 - Scripts to unpack raw_gamedata for observation / usage
 - Script to verify integrity of assets and defined constants
 - Screenshots of some tools
-- Declare luaBind classes with TSTL plugin?
+- Declare luaBind classes with TSTL plugin, some way to override default TSTL class generation for XR classes declaration with luabind?
 - Rework acdc perl script and add all.spawn editing utils
-- Unit tests and mocks?
+- Unit tests and mocks
 - Add scripts to handle xrEngine tools
-- Re-architecture lua core of the game, use external lua libs for serealization of LUA tables
-- Some way to override default TSTL class generation for XR classes declaration with luabind?
+- Re-architecture lua core of the game, use external lua libs for serialization of LUA tables

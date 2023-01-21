@@ -8,10 +8,12 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
+import { TScheme, TSection } from "@/mod/lib/types/configuration";
 import { ActorProxy, IActorProxy } from "@/mod/scripts/core/ActorProxy";
 import { ISignalLightBinder } from "@/mod/scripts/core/binders/SignalLightBinder";
 import { HeliCombat } from "@/mod/scripts/core/logic/heli/HeliCombat";
 import { RestrictorManager } from "@/mod/scripts/core/RestrictorManager";
+import { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -63,8 +65,8 @@ export interface IStoredObject<T = XR_game_object> {
   max_crows_on_level?: number;
   hit?: any;
   smartcover?: any;
-  active_scheme?: string;
-  active_section?: string;
+  active_scheme?: TScheme;
+  active_section?: TSection;
   combat_ignore?: boolean;
   section_logic?: string;
   post_combat_wait?: unknown;
@@ -89,6 +91,7 @@ export const heli: LuaTable<number, XR_game_object> = new LuaTable();
 export const smartTerrainById: LuaTable<number, XR_cse_alife_object> = new LuaTable();
 export const animObjByName: LuaTable<string, IStoredObject> = new LuaTable();
 export const anomalyByName: LuaTable<string, IStoredObject> = new LuaTable();
+export const sound_themes: LuaTable<string, AbstractPlayableSound> = new LuaTable();
 
 export const CAMPS: LuaTable<number, { object?: XR_game_object; camp?: any }> = new LuaTable();
 

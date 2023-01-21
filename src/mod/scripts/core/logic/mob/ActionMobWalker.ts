@@ -16,6 +16,7 @@ import {
 } from "xray16";
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { TScheme } from "@/mod/lib/types/configuration";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { get_state, set_state } from "@/mod/scripts/core/logic/mob/MobStateManager";
@@ -211,8 +212,8 @@ export class ActionMobWalker extends AbstractSchemeAction {
     if (sig !== null) {
       // -- HACK, fixme:
       const npc_id = this.object.id();
-      const scheme = storage.get(npc_id)["active_scheme"];
-      const signals = storage.get(npc_id)[scheme!].signals;
+      const scheme: TScheme = storage.get(npc_id)["active_scheme"]!;
+      const signals: LuaTable = storage.get(npc_id)[scheme!].signals;
 
       signals.set(sig, true);
     }
