@@ -8,6 +8,7 @@ import { ActionDoor } from "@/mod/scripts/core/logic/ActionDoor";
 import { ActionGatherItems } from "@/mod/scripts/core/logic/ActionGatherItems";
 import { ActionHit } from "@/mod/scripts/core/logic/ActionHit";
 import { ActionIdle } from "@/mod/scripts/core/logic/ActionIdle";
+import { ActionLight } from "@/mod/scripts/core/logic/ActionLight";
 import { ActionOnDeath } from "@/mod/scripts/core/logic/ActionOnDeath";
 import { ActionOnHit } from "@/mod/scripts/core/logic/ActionOnHit";
 import { ActionOscillate } from "@/mod/scripts/core/logic/ActionOscillate";
@@ -85,7 +86,7 @@ export function initializeModules(): void {
   loadScheme("sr_no_weapon", "sr_no_weapon", stype_restrictor);
   loadScheme("sr_teleport", "sr_teleport", stype_restrictor);
   loadScheme(ActionIdle, ActionIdle.SCHEME_SECTION, stype_restrictor);
-  loadScheme("sr_light", "sr_light", stype_restrictor);
+  loadScheme(ActionLight, ActionLight.SCHEME_SECTION, stype_restrictor);
   loadScheme("sr_timer", "sr_timer", stype_restrictor);
   loadScheme("sr_psy_antenna", "sr_psy_antenna", stype_restrictor);
   loadScheme("sr_postprocess", "sr_postprocess", stype_restrictor);

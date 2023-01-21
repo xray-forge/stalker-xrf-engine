@@ -23,7 +23,9 @@ import { EPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/EPlayab
 import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
 import { getConfigBoolean, getConfigNumber, getConfigString, parseNames } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
 
+const log: LuaLogger = new LuaLogger("NpcSound");
 const nstl = 64;
 
 export class NpcSound extends AbstractPlayableSound {
@@ -39,7 +41,7 @@ export class NpcSound extends AbstractPlayableSound {
   public static sound_base: number = stalker_ids.sound_script + 10_000;
   public static readonly type: EPlayableSound = EPlayableSound.NPC;
 
-  public readonly class_id: EPlayableSound = NpcSound.type;
+  public readonly type: EPlayableSound = NpcSound.type;
 
   public readonly prefix: boolean;
   public readonly play_always: boolean;
@@ -119,13 +121,13 @@ export class NpcSound extends AbstractPlayableSound {
     }
   }
 
-  public reset(npc_id: number): void {
-    const npc: Optional<XR_game_object> = storage.get(npc_id) && storage.get(npc_id).object!;
+  public reset(npcId: number): void {
+    const npc: Optional<XR_game_object> = storage.get(npcId) && storage.get(npcId).object!;
 
     this.played_time = null;
     this.played_id = null;
     this.can_play_group_sound = true;
-    this.can_play_sound.set(npc_id, true);
+    this.can_play_sound.set(npcId, true);
 
     if (npc !== null) {
       npc.set_sound_mask(-1);
@@ -240,30 +242,26 @@ export class NpcSound extends AbstractPlayableSound {
   }
 
   public play(npc_id: number, faction: string, point: Optional<string>, msg: string): boolean {
+    log.info();
+
     const npc: Optional<XR_game_object> =
       storage.get(npc_id) && (storage.get(npc_id).object as Optional<XR_game_object>);
 
     if (npc === null) {
-      // --printf("coudnt find npc!!!")
       return false;
     }
 
-    // --    if !this.play_always {
     if (this.group_snd) {
       if (!this.can_play_group_sound) {
-        //  --printf("coudnt play snd1!!!")
         return false;
       }
     } else {
       if (!this.can_play_sound.get(npc_id)) {
-        //  --printf("coudnt play snd1!!!")
         return false;
       }
     }
-    //  --    }
 
     if (this.played_time !== null && time_global() - this.played_time < this.idle_time!) {
-      // --printf("coudnt play snd2!!!")
       return false;
     }
 
@@ -279,14 +277,10 @@ export class NpcSound extends AbstractPlayableSound {
     this.played_id = this.select_next_sound(npc_id);
 
     if (this.played_id === -1) {
-      // --printf("coudnt play snd3!!!")
-      // --' ����������.
       return false;
     }
 
-    if (npc !== null) {
-      npc.play_sound(npc_data.id, this.delay_sound + 0.06, this.delay_sound + 0.05, 1, 0, this.played_id);
-    }
+    npc.play_sound(npc_data.id, this.delay_sound + 0.06, this.delay_sound + 0.05, 1, 0, this.played_id);
 
     const table_id = this.played_id + 1;
     const snd = this.sound_path.get(npc_id)[table_id];

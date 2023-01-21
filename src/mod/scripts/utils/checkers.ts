@@ -22,7 +22,7 @@ import {
   TLootableExcludeItem,
   TLootableItem
 } from "@/mod/globals/items/lootable_table";
-import { TLevel } from "@/mod/globals/levels";
+import { levels, TLevel } from "@/mod/globals/levels";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { Maybe, Optional } from "@/mod/lib/types";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
@@ -132,6 +132,14 @@ export function isStrappableWeapon(object: Optional<XR_game_object>): object is 
  */
 export function isObjectOnLevel(object: Optional<XR_cse_alife_object>, levelName: string): boolean {
   return object !== null && alife().level_name(game_graph().vertex(object.m_game_vertex_id).level_id()) === levelName;
+}
+
+/**
+ * todo: Probably also lab?
+ * @returns whether level is fully indoor.
+ */
+export function isUndergroundLevel(level: TLevel): boolean {
+  return level === levels.jupiter_underground || level === levels.labx8;
 }
 
 /**

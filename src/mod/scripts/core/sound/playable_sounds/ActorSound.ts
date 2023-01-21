@@ -18,11 +18,14 @@ import { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/
 import { EPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/EPlayableSound";
 import { getConfigBoolean, getConfigString, parseNames } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
+
+const log: LuaLogger = new LuaLogger("ActorSound");
 
 export class ActorSound extends AbstractPlayableSound {
   public static readonly type: EPlayableSound = EPlayableSound.ACTOR;
 
-  public class_id: string = ActorSound.type;
+  public type: string = ActorSound.type;
 
   public stereo: boolean;
   public prefix: boolean;
@@ -217,7 +220,7 @@ export class ActorSound extends AbstractPlayableSound {
     return null;
   }
 
-  public reset(npc_id: number): void {
+  public reset(): void {
     this.played_time = null;
     this.played_id = null;
   }

@@ -11,6 +11,7 @@ import { Optional } from "@/mod/lib/types";
 import { TScheme, TSection } from "@/mod/lib/types/configuration";
 import { ActorProxy, IActorProxy } from "@/mod/scripts/core/ActorProxy";
 import { ISignalLightBinder } from "@/mod/scripts/core/binders/SignalLightBinder";
+import { ActionLight } from "@/mod/scripts/core/logic/ActionLight";
 import { HeliCombat } from "@/mod/scripts/core/logic/heli/HeliCombat";
 import { RestrictorManager } from "@/mod/scripts/core/RestrictorManager";
 import { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
@@ -54,6 +55,7 @@ export interface ITradeManagerDescriptor {
 export interface IStoredObject<T = XR_game_object> {
   [index: string]: any;
 
+  light?: boolean;
   snd_close_start?: string;
   path_table?: LuaTable<number, string>;
   cam_effector?: LuaTable<number, string>;
@@ -92,6 +94,7 @@ export const smartTerrainById: LuaTable<number, XR_cse_alife_object> = new LuaTa
 export const animObjByName: LuaTable<string, IStoredObject> = new LuaTable();
 export const anomalyByName: LuaTable<string, IStoredObject> = new LuaTable();
 export const sound_themes: LuaTable<string, AbstractPlayableSound> = new LuaTable();
+export const light_zones: LuaTable<number, ActionLight> = new LuaTable();
 
 export const CAMPS: LuaTable<number, { object?: XR_game_object; camp?: any }> = new LuaTable();
 

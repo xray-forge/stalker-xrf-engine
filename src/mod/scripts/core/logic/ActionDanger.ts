@@ -64,13 +64,13 @@ export class ActionDanger extends AbstractSchemeAction {
   public static reset_danger(npc: XR_game_object, scheme: string, state: IStoredObject, section: string): void {}
 
   public static is_danger(npc: XR_game_object): boolean {
-    const best_danger = npc.best_danger();
+    const best_danger: Optional<XR_danger_object> = npc.best_danger();
 
     if (best_danger === null) {
       return false;
     }
 
-    let best_danger_object: XR_game_object = best_danger.object();
+    let best_danger_object: Optional<XR_game_object> = best_danger.object();
     const bd_type: TXR_danger_object = best_danger.type();
 
     if (bd_type !== danger_object.grenade && best_danger.dependent_object() !== null) {
@@ -159,7 +159,7 @@ export class ActionDanger extends AbstractSchemeAction {
   }
 
   public static get_danger_name(best_danger: XR_danger_object): string {
-    let best_danger_object: XR_game_object = best_danger.object();
+    let best_danger_object: Optional<XR_game_object> = best_danger.object();
     const bd_type: TXR_danger_object = best_danger.type();
 
     if (bd_type !== danger_object.grenade && best_danger.dependent_object() !== null) {
@@ -168,7 +168,7 @@ export class ActionDanger extends AbstractSchemeAction {
 
     const bestDangerName: string = best_danger_object === null ? "none" : best_danger_object.name();
 
-    log.info("Get danger name:", best_danger_object.name());
+    log.info("Get danger name:", bestDangerName);
 
     return bestDangerName;
   }

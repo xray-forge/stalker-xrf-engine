@@ -63,7 +63,7 @@ export class SoundTheme {
 
   public static init_npc_sound(npc: XR_game_object): void {
     for (const [key, sound] of sound_themes) {
-      if (sound.class_id === NpcSound.type) {
+      if (sound.type === NpcSound.type) {
         // --printf("checking %s for %s (%s)", v.section, npc:name(), character_community(npc))
         if ((sound as NpcSound).avail_communities.has(getCharacterCommunity(npc))) {
           (sound as NpcSound).init_npc(npc);

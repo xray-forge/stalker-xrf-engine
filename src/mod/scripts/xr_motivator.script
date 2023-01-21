@@ -9,6 +9,7 @@ local bind_state_manager = require("scripts.state_management.bind_state_manager"
 local schemes = require("scripts.core.schemes")
 local ReleaseBodyManager = require("scripts.core.ReleaseBodyManager")
 local ActionDanger = require("scripts.core.logic.ActionDanger").ActionDanger
+local ActionLight = require("scripts.core.logic.ActionLight").ActionLight
 local DropManager = require("scripts.core.DropManager").DropManager
 local SimBoard = require("scripts.se.SimBoard")
 local SmartTerrain = require("scripts.se.SmartTerrain")
@@ -351,7 +352,7 @@ function motivator_binder:death_callback(victim, who)
     xr_logic.issue_event(self.object, self.st[self.st.active_scheme], "death_callback", victim, who)
   end
 
-  sr_light.check_light(self.object)
+  ActionLight:check_light(self.object)
   DropManager(self.object):create_release_item()
   db.delete_enemy(self.e_index)
 
@@ -404,7 +405,7 @@ function motivator_binder:update(delta)
     self.first_update = true
   end
   if time_global() - self.last_update > 1000 then
-    sr_light.check_light(object)
+    ActionLight:check_light(object)
     self.last_update = time_global()
   end
 

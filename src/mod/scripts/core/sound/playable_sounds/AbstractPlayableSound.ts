@@ -5,7 +5,7 @@ import { TSection } from "@/mod/lib/types/configuration";
 import { getConfigString } from "@/mod/scripts/utils/configs";
 
 export abstract class AbstractPlayableSound {
-  public abstract readonly class_id: string;
+  public abstract readonly type: string;
 
   public path: string;
   public section: TSection;
@@ -36,6 +36,10 @@ export abstract class AbstractPlayableSound {
   }
 
   public abstract play(...args: AnyArgs): boolean;
+
+  public reset(...args: AnyArgs): void {}
+
+  public callback(...args: AnyArgs): void {}
 
   public save(net_packet: XR_net_packet): void {}
 

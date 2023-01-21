@@ -5,11 +5,14 @@ import { storage } from "@/mod/scripts/core/db";
 import { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
 import { EPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/EPlayableSound";
 import { abort } from "@/mod/scripts/utils/debug";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
+
+const log: LuaLogger = new LuaLogger("LoopedSound");
 
 export class LoopedSound extends AbstractPlayableSound {
   public static readonly type: EPlayableSound = EPlayableSound.LOOPED;
 
-  public readonly class_id: EPlayableSound = LoopedSound.type;
+  public readonly type: EPlayableSound = LoopedSound.type;
 
   public sound: string;
 

@@ -1,8 +1,9 @@
-import { XR_net_packet } from "xray16";
+import { XR_net_packet, XR_sound_object } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { sound_themes } from "@/mod/scripts/core/db";
 import { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
+import { LoopedSound } from "@/mod/scripts/core/sound/playable_sounds/LoopedSound";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -10,95 +11,77 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 const log: LuaLogger = new LuaLogger("GlobalSound");
 
 export class GlobalSound {
-  public static sound_table: LuaTable = new LuaTable();
+  public static sound_table: LuaTable<number, AbstractPlayableSound> = new LuaTable();
   public static looped_sound: LuaTable<number, LuaTable<string, AbstractPlayableSound>> = new LuaTable();
 
   public static set_sound_play(
-    npc_id: number,
+    objectId: number,
     sound: Optional<string>,
     faction: Optional<string>,
     point: Optional<number>
-  ): void {
-    log.info("Set sound play:", npc_id);
+  ): Optional<XR_sound_object> {
+    log.info("Set sound play:", objectId);
 
     if (sound === null) {
-      return;
+      return null;
     }
 
-    if (sound_themes.get(sound) === null) {
-      abort("set_sound_play. Wrong sound theme [%s], npc[%s]", tostring(sound), npc_id);
+    const playableSound: Optional<AbstractPlayableSound> = sound_themes.get(sound);
 
-      return;
+    if (playableSound === null) {
+      abort("set_sound_play. Wrong sound theme [%s], npc[%s]", tostring(sound), objectId);
     }
 
-    const snd_theme = sound_themes.get(sound);
-
-    if (snd_theme.class_id === "looped_sound") {
-      abort("You trying to play sound [%s] which type is looped", sound);
+    if (playableSound.type === LoopedSound.type) {
+      abort("You trying to play sound [%s] which type is looped:", sound);
     }
 
-    const sound_item = GlobalSound.sound_table.get(npc_id);
+    const sound_item: Optional<AbstractPlayableSound> = GlobalSound.sound_table.get(objectId);
 
-    if (sound_item === null || snd_theme.play_always) {
+    if (sound_item === null || playableSound.play_always) {
       if (sound_item !== null) {
-        // --printf("sound table not null")
-        if (sound_item.reset !== null) {
-          GlobalSound.sound_table.get(npc_id).reset(npc_id);
-        } else {
-          // --printf("--------------"..type(sound_table[npc_id]))
-          // --printf("npc_id="..npc_id)
-          // --printf("sound="..sound)
-        }
+        GlobalSound.sound_table.get(objectId).reset(objectId);
       }
 
-      // --printf("PLAY. theme[%s] object[%s]", tostring(sound), npc_id)
-      if (snd_theme.play(npc_id, faction, point)) {
-        // --printf("PLAY2. theme[%s] object[%s]", tostring(sound), npc_id)
-        // --' fill table
-        GlobalSound.sound_table.set(npc_id, snd_theme);
+      if (playableSound.play(objectId, faction, point)) {
+        log.info("Play sound, store in table:", objectId);
+        GlobalSound.sound_table.set(objectId, playableSound);
+      } else {
+        log.info("Play was not successful:", objectId);
       }
     } else {
-      // --printf("Global sound: cannot play sound [%s] because i'm [%s] already play snd [%s]",
-      // tostring(sound), npc_id, sound_table[npc_id].path)
-      return GlobalSound.sound_table.get(npc_id).snd_obj;
+      return GlobalSound.sound_table.get(objectId).snd_obj;
     }
 
-    return GlobalSound.sound_table.get(npc_id).snd_obj;
+    return GlobalSound.sound_table.get(objectId)?.snd_obj;
   }
 
   public static stop_sounds_by_id(objectId: number): void {
     log.info("Stop sound play:", objectId);
 
-    const sound = GlobalSound.sound_table.get(objectId);
+    const playableSound: Optional<AbstractPlayableSound> = GlobalSound.sound_table.get(objectId);
 
-    if (sound && sound.stop) {
-      sound.stop(objectId);
+    if (playableSound !== null) {
+      playableSound.stop(objectId);
     }
 
-    const looped_snd = GlobalSound.looped_sound.get(objectId);
+    const loopedSounds: Optional<LuaTable<string, AbstractPlayableSound>> = GlobalSound.looped_sound.get(objectId);
 
-    if (looped_snd !== null) {
-      for (const [k, v] of looped_snd) {
-        if (v && v.is_playing(objectId)) {
-          v.stop(objectId);
+    if (loopedSounds !== null) {
+      for (const [k, it] of loopedSounds) {
+        if (it && it.is_playing(objectId)) {
+          it.stop(objectId);
         }
       }
     }
   }
 
   public static update(npc_id: number): void {
-    const sound_item = GlobalSound.sound_table.get(npc_id);
+    const playableSound: Optional<AbstractPlayableSound> = GlobalSound.sound_table.get(npc_id);
 
-    if (sound_item) {
-      // --        const t = type(sound_table[npc_id])
-      if (!sound_item.is_playing(npc_id)) {
-        // --        if((t=="string") || !(sound_table[npc_id]:is_playing(npc_id))) {
-        // --            if(t=="string") {
-        // --                sound_table[npc_id] = SoundTheme.themes[sound_table[npc_id]]
-        // --            }}
-
-        // --printf("SOUND_CALLBACK from [%s] sound_path [%s]",npc_id,sound_table[npc_id].path)
-        sound_item.callback(npc_id);
+    if (playableSound !== null) {
+      if (!playableSound.is_playing(npc_id)) {
+        playableSound.callback(npc_id);
         GlobalSound.sound_table.delete(npc_id);
       }
     }
@@ -113,7 +96,7 @@ export class GlobalSound {
       abort("play_sound_looped. Wrong sound theme [%s], npc[%s]", tostring(sound), npc_id);
     }
 
-    if (snd_theme.class_id !== "looped_sound") {
+    if (snd_theme.type !== "looped_sound") {
       abort("You trying to play sound [%s] which type is not looped", sound);
     }
 
@@ -302,7 +285,7 @@ export class GlobalSound {
     }
   }
 
-  public static start_game_callback(): void {
+  public static reset(): void {
     GlobalSound.sound_table = new LuaTable();
   }
 
