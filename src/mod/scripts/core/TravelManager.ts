@@ -28,7 +28,6 @@ import { SurgeManager } from "@/mod/scripts/core/SurgeManager";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/se/SimBoard";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
-import { AbstractSingletonManager } from "@/mod/scripts/utils/AbstractSingletonManager";
 import { getAlifeCharacterCommunity, getAlifeDistanceBetween, getObjectSquad } from "@/mod/scripts/utils/alife";
 import { abort } from "@/mod/scripts/utils/debug";
 import { getObjectStoryId } from "@/mod/scripts/utils/ids";
@@ -51,14 +50,22 @@ export interface ITravelRouteDescriptor {
   condlist: LuaTable;
 }
 
-export class TravelManager extends AbstractSingletonManager {
+export class TravelManager {
+  public static instance: Optional<TravelManager> = null;
+
+  public static getInstance(): TravelManager {
+    if (!this.instance) {
+      this.instance = new this();
+    }
+
+    return this.instance;
+  }
+
   public smart_to_stringtables: LuaTable<string, string> = new LuaTable();
   public smart_travels: LuaTable<string, ITravelRouteDescriptor> = new LuaTable();
   public smart_by_phrase: LuaTable<string, string> = new LuaTable();
 
   public constructor() {
-    super();
-
     log.info("Initialize new travel manager");
 
     const ini: XR_ini_file = new ini_file("misc\\travel_manager.ltx");
@@ -243,7 +250,7 @@ export class TravelManager extends AbstractSingletonManager {
       minutes = minutes - hours * 60;
 
       level.change_game_time(0, hours, minutes);
-      SurgeManager.getInstance<SurgeManager>().isTimeForwarded = true;
+      SurgeManager.getInstance().isTimeForwarded = true;
       log.info("traveling: time forwarded on [%d][%d]", hours, minutes);
     }
 

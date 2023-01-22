@@ -1,10 +1,12 @@
 import { XR_cse_abstract, XR_cse_alife_object, XR_flags32, XR_game_object, XR_ini_file } from "xray16";
 
 import { AnyCallablesModule, AnyObject, Maybe, Optional } from "@/mod/lib/types";
+import { TSection } from "@/mod/lib/types/configuration";
 import { getActor, scriptIds } from "@/mod/scripts/core/db";
 import { disableInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { trimString } from "@/mod/scripts/utils/string";
 
 const log: LuaLogger = new LuaLogger("utils/configs");
 
@@ -654,4 +656,26 @@ export function getConfigStringAndCondList(
     v1: par.get(1),
     condlist: parseCondList(object, section, field, par.get(2))
   };
+}
+
+/**
+ * todo: Description.
+ */
+export function parseIniSectionToArray(ini: XR_ini_file, section: TSection): Optional<LuaTable<string, string>> {
+  if (ini.section_exist(section)) {
+    const array: LuaTable<string, string> = new LuaTable();
+
+    for (const a of $range(0, ini.line_count(section) - 1)) {
+      const [result, id, value] = ini.r_line(section, a, "", "");
+      const cleanId: Optional<string> = trimString(id);
+
+      if (id !== null && trimString(id) !== "") {
+        array.set(cleanId, trimString(value));
+      }
+    }
+
+    return array;
+  } else {
+    return null;
+  }
 }

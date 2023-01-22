@@ -10,13 +10,13 @@ import {
   game,
   get_console,
   IsGameTypeSingle,
-  XR_CConsole,
   level,
   main_menu,
   TXR_DIK_key,
   TXR_ui_event,
   ui_events,
   XR_account_manager,
+  XR_CConsole,
   XR_CMainMenu,
   XR_CScriptXmlInit,
   XR_CUIMessageBoxEx,
@@ -32,6 +32,8 @@ import {
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
+import { EGameEvent } from "@/mod/scripts/core/events/EGameEvent";
+import { EventsManager } from "@/mod/scripts/core/events/EventsManager";
 import { DebugDialog, IDebugDialog } from "@/mod/scripts/ui/debug/DebugDialog";
 import { ILoadDialog, LoadDialog } from "@/mod/scripts/ui/menu/LoadDialog";
 import { IMultiplayerGameSpy, MultiplayerGameSpy } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerGamespy";
@@ -108,7 +110,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     this.InitControls();
     this.InitCallBacks();
 
-    get_global("xr_s").on_main_menu_on();
+    EventsManager.getInstance().emitEvent(EGameEvent.MAIN_MENU_ON);
   },
   __finalize(): void {},
   InitControls(): void {
@@ -258,7 +260,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     log.info("Return to game");
 
     get_console().execute("main_menu off");
-    get_global("xr_s").on_main_menu_off(); //          --' Distemper 03.2008 --
+    EventsManager.getInstance().emitEvent(EGameEvent.MAIN_MENU_OFF);
   },
   OnButton_new_novice_game(): void {
     get_console().execute("g_game_difficulty gd_novice");

@@ -16,7 +16,6 @@ import { map_mark_type, npc_map_marks } from "@/mod/globals/npc_map_marks";
 import { story_ids } from "@/mod/globals/story_ids";
 import { AnyCallable, AnyObject, Maybe, Optional } from "@/mod/lib/types";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
-import { AbstractSingletonManager } from "@/mod/scripts/utils/AbstractSingletonManager";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { getConfigString } from "@/mod/scripts/utils/configs";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
@@ -151,7 +150,17 @@ const changeObjects: LuaTable<number, { target: string; hint: string; zone: stri
     }
   ] as any;
 
-export class MapDisplayManager extends AbstractSingletonManager {
+export class MapDisplayManager {
+  public static instance: Optional<MapDisplayManager> = null;
+
+  public static getInstance(): MapDisplayManager {
+    if (!this.instance) {
+      this.instance = new this();
+    }
+
+    return this.instance;
+  }
+
   public static readonly DISTANCE_TO_SHOW_MAP_MARKS: number = 75;
   public static readonly UPDATES_THROTTLE: number = 10_000;
 

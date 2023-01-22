@@ -15,9 +15,8 @@ import { registered_smartcovers } from "@/mod/scripts/core/binders/SmartCoverBin
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/se/SimBoard";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
-import { ISmartCover, registered_smartcovers_by_lv_id } from "@/mod/scripts/se/SmartCover";
+import { registered_smartcovers_by_lv_id } from "@/mod/scripts/se/SmartCover";
 import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
-import { AbstractSingletonManager } from "@/mod/scripts/utils/AbstractSingletonManager";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { getTableSize } from "@/mod/scripts/utils/table";
@@ -34,7 +33,17 @@ export interface ICoverPointDescriptor {
 // todo: Maybe not used.
 // todo: Maybe not used.
 // todo: Maybe not used.
-export class CoverManager extends AbstractSingletonManager {
+export class CoverManager {
+  public static instance: Optional<CoverManager> = null;
+
+  public static getInstance(): CoverManager {
+    if (!this.instance) {
+      this.instance = new this();
+    }
+
+    return this.instance;
+  }
+
   public static get_cover(obj: XR_cse_alife_object, smrttrn: any): any {
     const coverManager: CoverManager = smrttrn.combat_manager.cover_manager;
 
@@ -116,9 +125,7 @@ export class CoverManager extends AbstractSingletonManager {
   public board: ISimBoard;
   public is_valid: boolean;
 
-  public constructor(smart: ISmartCover) {
-    super();
-
+  public constructor() {
     this.squads = new LuaTable();
     this.cover_table = new LuaTable();
     this.board = get_sim_board();

@@ -11,15 +11,15 @@ export const PhantomBinder: IPhantomBinder = declare_xr_class("PhantomBinder", o
   __init(object: XR_game_object): void {
     xr_class_super(object);
 
-    PhantomManager.getInstance<PhantomManager>().add_phantom();
+    PhantomManager.getInstance().add_phantom();
   },
   net_destroy(): void {
-    PhantomManager.getInstance<PhantomManager>().remove_phantom();
+    PhantomManager.getInstance().remove_phantom();
   },
   spawn_phantom(position: XR_vector): void {
-    PhantomManager.getInstance<PhantomManager>().spawn_phantom(position);
+    PhantomManager.getInstance().spawn_phantom(position);
   },
   phantom_count(): number {
-    return PhantomManager.getInstance<PhantomManager>().phantom_count;
+    return PhantomManager.getInstance().phantom_count;
   }
 } as IPhantomBinder);

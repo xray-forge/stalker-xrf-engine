@@ -1,3 +1,6 @@
+import { device } from "xray16";
+
+import { AnyCallablesModule } from "@/mod/lib/types";
 import { init_smart_names_table } from "@/mod/scripts/core/db/smart_names";
 import { ActionLight } from "@/mod/scripts/core/logic/ActionLight";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
@@ -17,6 +20,8 @@ const log: LuaLogger = new LuaLogger("start_game");
 export function startGame(): void {
   log.info("Start game callback");
 
+  math.randomseed(device().time_global());
+
   initializeModules();
   init_smart_names_table();
   clearTaskManager();
@@ -25,8 +30,8 @@ export function startGame(): void {
   SoundTheme.load_sound();
   GlobalSound.reset();
 
-  get_global("dialog_manager").fill_phrase_table();
-  get_global("xr_s").init();
+  get_global<AnyCallablesModule>("dialog_manager").fill_phrase_table();
+  get_global<AnyCallablesModule>("xrs_dyn_music").init();
 
   ActionLight.reset();
 

@@ -1,9 +1,19 @@
-import { AbstractSingletonManager } from "@/mod/scripts/utils/AbstractSingletonManager";
+import { Optional } from "@/mod/lib/types";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("LoadScreenManager");
 
-export class LoadScreenManager extends AbstractSingletonManager {
+export class LoadScreenManager {
+  public static instance: Optional<LoadScreenManager> = null;
+
+  public static getInstance(): LoadScreenManager {
+    if (!this.instance) {
+      this.instance = new this();
+    }
+
+    return this.instance;
+  }
+
   public get_tip_number(levelName: string): number {
     log.info("Get tip for single player game");
 
@@ -17,4 +27,4 @@ export class LoadScreenManager extends AbstractSingletonManager {
   }
 }
 
-export const loadScreenManager: LoadScreenManager = LoadScreenManager.getInstance() as LoadScreenManager;
+export const loadScreenManager: LoadScreenManager = LoadScreenManager.getInstance();

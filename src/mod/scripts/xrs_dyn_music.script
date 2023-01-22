@@ -1,5 +1,5 @@
--- 344
 local SurgeManager = require("scripts.core.SurgeManager")
+local EventsManager = require("scripts.core.events.EventsManager").EventsManager
 local StereoSound = require("scripts.core.sound.StereoSound").StereoSound
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
@@ -40,10 +40,14 @@ local was_in_silence = false
 --------------------------------------------------------------------------------
 
 function init()
-  xr_s.register_callback("update", on_actor_update, nil)
-  xr_s.register_callback("actor_destroy", on_actor_destroy, nil)
-  xr_s.register_callback("main_menu_on", main_menu_on, nil)
-  xr_s.register_callback("main_menu_off", main_menu_off, nil)
+  log:info("Init")
+
+  local eventsManager = EventsManager:getInstance();
+
+  eventsManager:registerCallback("ACTOR_UPDATE", on_actor_update, nil)
+  eventsManager:registerCallback("ACTOR_NET_DESTROY", on_actor_destroy, nil)
+  eventsManager:registerCallback("MAIN_MENU_ON", main_menu_on, nil)
+  eventsManager:registerCallback("MAIN_MENU_OFF", main_menu_off, nil)
 end
 
 function initialize_themes()
@@ -81,12 +85,16 @@ end
 
 function on_actor_destroy()
   if (theme) and (theme:playing()) then
+    log:info("Stop theme")
     theme:stop()
   end
+
+  log:info("Toggle ambient volume:", ambient_vol)
   get_console():execute("snd_volume_music " .. ambient_vol)
 end
 
 function main_menu_on()
+  log:info("Toggle ambient volume:", ambient_vol)
   get_console():execute("snd_volume_music " .. ambient_vol)
 end
 

@@ -1,11 +1,5 @@
 import { mapDisplayManager } from "scripts/ui/game/MapDisplayManager";
 import {
-  TXR_TaskState,
-  XR_CGameTask,
-  XR_cse_alife_creature_actor,
-  XR_game_object,
-  XR_net_packet,
-  XR_object_binder,
   actor_stats,
   alife,
   callback,
@@ -17,7 +11,13 @@ import {
   object_binder,
   task,
   time_global,
-  vector
+  TXR_TaskState,
+  vector,
+  XR_CGameTask,
+  XR_cse_alife_creature_actor,
+  XR_game_object,
+  XR_net_packet,
+  XR_object_binder
 } from "xray16";
 
 import { animations } from "@/mod/globals/animation/animations";
@@ -31,6 +31,8 @@ import {
 } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
 import { addActor, deleteActor, getActor, IStoredObject, scriptIds, storage, zoneByName } from "@/mod/scripts/core/db";
 import { initDropSettings } from "@/mod/scripts/core/DropManager";
+import { EGameEvent } from "@/mod/scripts/core/events/EGameEvent";
+import { EventsManager } from "@/mod/scripts/core/events/EventsManager";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { send_task } from "@/mod/scripts/core/NewsManager";
 import { get_release_body_manager } from "@/mod/scripts/core/ReleaseBodyManager";
@@ -69,6 +71,7 @@ export interface IActorBinder extends XR_object_binder {
 
   task_manager: ITaskManager;
   surgeManager: SurgeManager;
+  eventsManager: EventsManager;
 
   loaded: boolean;
   spawn_frame: number;
@@ -106,6 +109,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
 
     this.bCheckStart = false;
     this.surgeManager = SurgeManager.getInstance();
+    this.eventsManager = EventsManager.getInstance();
     this.last_level_name = null;
     this.deimos_intensity = null;
     this.loaded_active_slot = 3;
@@ -139,7 +143,10 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
       level.enable_input();
     }
 
-    get_global<AnyCallablesModule>("xr_s").on_game_load();
+    if (this.st.pstor === null) {
+      this.st.pstor = {};
+    }
+
     weatherManager.reset();
 
     initDropSettings();
@@ -147,6 +154,8 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     this.task_manager = get_task_manager();
     this.spawn_frame = device().frame;
     this.loaded = false;
+
+    this.eventsManager.emitEvent(EGameEvent.ACTOR_NET_SPAWN);
 
     return true;
   },
@@ -196,7 +205,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     }
 
     get_global<AnyCallablesModule>("xrs_dyn_music").finish_theme();
-    get_global<AnyCallablesModule>("xr_s").on_actor_destroy();
+    this.eventsManager.emitEvent(EGameEvent.ACTOR_NET_DESTROY);
 
     object_binder.net_destroy(this);
   },
@@ -208,7 +217,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     storage.set(npc_id, {});
 
     this.st = storage.get(npc_id);
-    this.st.pstor = null;
+    this.st.pstor = null!;
 
     this.object.set_callback(callback.inventory_info, this.info_callback, this);
     this.object.set_callback(callback.on_item_take, this.on_item_take, this);
@@ -381,7 +390,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
       this.loaded_slot_applied = true;
     }
 
-    get_global("xr_s").on_actor_update(delta);
+    this.eventsManager.emitEvent(EGameEvent.ACTOR_UPDATE, delta);
 
     if (!this.isSurgeManagerLoaded) {
       this.surgeManager.initialize();

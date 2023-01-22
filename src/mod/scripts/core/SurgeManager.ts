@@ -25,7 +25,6 @@ import { send_tip } from "@/mod/scripts/core/NewsManager";
 import { get_weather_manager } from "@/mod/scripts/core/WeatherManager";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/se/SimBoard";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
-import { AbstractSingletonManager } from "@/mod/scripts/utils/AbstractSingletonManager";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { getStoryObject } from "@/mod/scripts/utils/alife";
 import { isImmuneToSurge, isObjectOnLevel, isStoryObject, isSurgeEnabledOnLevel } from "@/mod/scripts/utils/checkers";
@@ -42,7 +41,17 @@ export const sleep_fade_pp_eff_id: number = 4;
 
 const log: LuaLogger = new LuaLogger("SurgeManager");
 
-export class SurgeManager extends AbstractSingletonManager {
+export class SurgeManager {
+  public static instance: Optional<SurgeManager> = null;
+
+  public static getInstance(): SurgeManager {
+    if (!this.instance) {
+      this.instance = new this();
+    }
+
+    return this.instance;
+  }
+
   public ini: XR_ini_file = new ini_file("misc\\surge_manager.ltx");
   public levels_respawn: PartialRecord<TLevel, boolean> = { zaton: false, jupiter: false, pripyat: false };
 
@@ -758,7 +767,7 @@ export function start_surge(): void {
 }
 
 export function actor_in_cover(): boolean {
-  const cover_id: Optional<number> = SurgeManager.getInstance<SurgeManager>().getNearestAvailableCover();
+  const cover_id: Optional<number> = SurgeManager.getInstance().getNearestAvailableCover();
 
   return cover_id !== null && storage.get(cover_id).object!.inside(getActor()!.position());
 }
@@ -782,11 +791,11 @@ export function get_task_target(): Optional<number> {
 }
 
 export function set_surge_message(message: string): void {
-  SurgeManager.getInstance<SurgeManager>().surge_message = message;
+  SurgeManager.getInstance().surge_message = message;
 }
 
 export function set_surge_task(task: string): void {
-  SurgeManager.getInstance<SurgeManager>().surge_task_sect = task;
+  SurgeManager.getInstance().surge_task_sect = task;
 }
 
 export function is_killing_all(): boolean {
@@ -796,11 +805,11 @@ export function is_killing_all(): boolean {
 }
 
 export function is_started(): boolean {
-  return SurgeManager.getInstance<SurgeManager>().isStarted;
+  return SurgeManager.getInstance().isStarted;
 }
 
 export function is_finished(): boolean {
-  return SurgeManager.getInstance<SurgeManager>().isFinished;
+  return SurgeManager.getInstance().isFinished;
 }
 
 export function get_surge_manager(): SurgeManager {
@@ -808,7 +817,7 @@ export function get_surge_manager(): SurgeManager {
 }
 
 export function resurrect_skip_message(): void {
-  SurgeManager.getInstance<SurgeManager>().skipMessage = false;
+  SurgeManager.getInstance().skipMessage = false;
 }
 
 export function sound_started(): boolean {

@@ -2,8 +2,7 @@ import { ini_file, level, XR_ini_file, XR_net_packet } from "xray16";
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
-import { AbstractSingletonManager } from "@/mod/scripts/utils/AbstractSingletonManager";
-import { getConfigString, parseCondList } from "@/mod/scripts/utils/configs";
+import { getConfigString, parseCondList, parseIniSectionToArray } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 
@@ -14,7 +13,17 @@ export interface IWeatherState {
   graph: LuaTable<string, number>;
 }
 
-export class WeatherManager extends AbstractSingletonManager {
+export class WeatherManager {
+  public static instance: Optional<WeatherManager> = null;
+
+  public static getInstance(): WeatherManager {
+    if (!this.instance) {
+      this.instance = new this();
+    }
+
+    return this.instance;
+  }
+
   public graphs_ini: XR_ini_file = new ini_file("environment\\dynamic_weather_graphs.ltx");
   public last_hour: number = 0;
   public wfx_time: number = 0;
@@ -27,8 +36,6 @@ export class WeatherManager extends AbstractSingletonManager {
   public graphs: LuaTable<string, LuaTable<string, number>> = new LuaTable();
 
   public constructor() {
-    super();
-
     if (!this.graphs_ini) {
       abort("error when open weather_dynamic_graphs.ltx");
     }
@@ -204,7 +211,7 @@ export class WeatherManager extends AbstractSingletonManager {
 
   public get_graph_by_name(name: string): LuaTable<string, number> {
     if (!this.graphs.has(name)) {
-      this.graphs.set(name, get_global<AnyCallablesModule>("xr_s").parse_ini_section_to_array(this.graphs_ini, name));
+      this.graphs.set(name, parseIniSectionToArray(this.graphs_ini, name) as any);
     }
 
     return this.graphs.get(name);

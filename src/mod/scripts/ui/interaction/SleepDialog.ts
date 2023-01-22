@@ -252,7 +252,7 @@ export function dream_callback(): void {
   level.change_game_time(0, hours, 0);
 
   weatherManager.forced_weather_change();
-  SurgeManager.getInstance<SurgeManager>().isTimeForwarded = true;
+  SurgeManager.getInstance().isTimeForwarded = true;
 
   if (is_started() && weatherManager.weather_fx) {
     level.stop_weather_fx();

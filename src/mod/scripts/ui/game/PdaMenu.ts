@@ -4,7 +4,6 @@ import { weapons } from "@/mod/globals/items/weapons";
 import { monsters, TMonster } from "@/mod/globals/monsters";
 import { texturesIngame, TTexture } from "@/mod/globals/textures";
 import { Optional, PartialRecord } from "@/mod/lib/types";
-import { AbstractSingletonManager } from "@/mod/scripts/utils/AbstractSingletonManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("PdaMenu");
@@ -44,7 +43,17 @@ enum EStatSection {
 
 /**
  */
-export class PdaMenu extends AbstractSingletonManager {
+export class PdaMenu {
+  public static instance: Optional<PdaMenu> = null;
+
+  public static getInstance(): PdaMenu {
+    if (!this.instance) {
+      this.instance = new this();
+    }
+
+    return this.instance;
+  }
+
   public getStat(index: EStatSection): string {
     const stats: Record<string, any> = get_global("xr_statistic");
 
@@ -124,4 +133,4 @@ export class PdaMenu extends AbstractSingletonManager {
   }
 }
 
-export const pdaMenu: PdaMenu = PdaMenu.getInstance() as PdaMenu;
+export const pdaMenu: PdaMenu = PdaMenu.getInstance();

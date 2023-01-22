@@ -18,17 +18,19 @@ import { buildStaticUi } from "#/build/steps/ui_statics";
 import { TARGET_GAME_DATA_DIR } from "#/globals";
 import { NodeLogger, TimeTracker } from "#/utils";
 
-export const IS_CLEAN_BUILD: boolean = process.argv.includes("--clean");
-export const IS_LUA_LOGGER_DISABLED: boolean = process.argv.includes("--no-lua-logger");
-export const IS_VERBOSE_BUILD: boolean = process.argv.includes("--verbose");
-export const ARE_STATIC_RESOURCES_ENABLED: boolean = !process.argv.includes("--no-resources");
-export const ARE_UI_RESOURCES_ENABLED: boolean = !process.argv.includes("--no-ui");
-export const ARE_SCRIPT_RESOURCES_ENABLED: boolean = !process.argv.includes("--no-scripts");
-export const ARE_CONFIG_RESOURCES_ENABLED: boolean = !process.argv.includes("--no-configs");
-export const ARE_TRANSLATION_RESOURCES_ENABLED: boolean = !process.argv.includes("--no-translations");
+export const BUILD_PARAMS = {
+  IS_CLEAN_BUILD: process.argv.includes("--clean"),
+  IS_LUA_LOGGER_DISABLED: process.argv.includes("--no-lua-logs"),
+  IS_VERBOSE_BUILD: process.argv.includes("--verbose"),
+  ARE_STATIC_RESOURCES_ENABLED: !process.argv.includes("--no-resources"),
+  ARE_UI_RESOURCES_ENABLED: !process.argv.includes("--no-ui"),
+  ARE_SCRIPT_RESOURCES_ENABLED: !process.argv.includes("--no-scripts"),
+  ARE_CONFIG_RESOURCES_ENABLED: !process.argv.includes("--no-configs"),
+  ARE_TRANSLATION_RESOURCES_ENABLED: !process.argv.includes("--no-translations")
+};
 
 NodeLogger.IS_FILE_ENABLED = true;
-NodeLogger.IS_VERBOSE = IS_VERBOSE_BUILD;
+NodeLogger.IS_VERBOSE = BUILD_PARAMS.IS_VERBOSE_BUILD;
 
 const log: NodeLogger = new NodeLogger("BUILD_ALL");
 
@@ -38,7 +40,7 @@ const log: NodeLogger = new NodeLogger("BUILD_ALL");
   try {
     log.info("XRTS build:", chalk.green(pkg?.name), chalk.blue(new Date().toLocaleString()));
 
-    if (IS_CLEAN_BUILD) {
+    if (BUILD_PARAMS.IS_CLEAN_BUILD) {
       log.info("Perform target cleanup:", chalk.yellowBright(TARGET_GAME_DATA_DIR));
       fs.rmSync(TARGET_GAME_DATA_DIR, { recursive: true, force: true });
       timeTracker.addMark("BUILD_CLEANUP");
@@ -47,7 +49,7 @@ const log: NodeLogger = new NodeLogger("BUILD_ALL");
       timeTracker.addMark("SKIP_CLEANUP");
     }
 
-    if (ARE_SCRIPT_RESOURCES_ENABLED) {
+    if (BUILD_PARAMS.ARE_SCRIPT_RESOURCES_ENABLED) {
       await buildDynamicScripts();
       timeTracker.addMark("BUILT_DYNAMIC_SCRIPTS");
       await buildScriptsStatics();
@@ -57,7 +59,7 @@ const log: NodeLogger = new NodeLogger("BUILD_ALL");
       timeTracker.addMark("SKIP_SCRIPTS");
     }
 
-    if (ARE_UI_RESOURCES_ENABLED) {
+    if (BUILD_PARAMS.ARE_UI_RESOURCES_ENABLED) {
       await buildDynamicUi();
       timeTracker.addMark("BUILT_DYNAMIC_UI");
       await buildStaticUi();
@@ -67,7 +69,7 @@ const log: NodeLogger = new NodeLogger("BUILD_ALL");
       timeTracker.addMark("SKIP_UI");
     }
 
-    if (ARE_CONFIG_RESOURCES_ENABLED) {
+    if (BUILD_PARAMS.ARE_CONFIG_RESOURCES_ENABLED) {
       await buildDynamicConfigs();
       timeTracker.addMark("BUILT_DYNAMIC_CONFIGS");
       await buildStaticConfigs();
@@ -77,7 +79,7 @@ const log: NodeLogger = new NodeLogger("BUILD_ALL");
       timeTracker.addMark("SKIP_CONFIGS");
     }
 
-    if (ARE_TRANSLATION_RESOURCES_ENABLED) {
+    if (BUILD_PARAMS.ARE_TRANSLATION_RESOURCES_ENABLED) {
       await buildStaticTranslations();
       timeTracker.addMark("BUILT_STATIC_TRANSLATIONS");
     } else {
@@ -85,7 +87,7 @@ const log: NodeLogger = new NodeLogger("BUILD_ALL");
       timeTracker.addMark("SKIP_TRANSLATIONS");
     }
 
-    if (ARE_STATIC_RESOURCES_ENABLED) {
+    if (BUILD_PARAMS.ARE_STATIC_RESOURCES_ENABLED) {
       await buildResourcesStatics();
       timeTracker.addMark("BUILT_STATIC_RESOURCES");
     } else {
