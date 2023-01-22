@@ -1,4 +1,4 @@
-import { getFS, sound_object, XR_game_object, XR_ini_file } from "xray16";
+import { getFS, sound_object, TXR_sound_object_type, XR_game_object, XR_ini_file } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { storage } from "@/mod/scripts/core/db";
@@ -26,14 +26,20 @@ export class LoopedSound extends AbstractPlayableSound {
     }
   }
 
-  public play(obj_id: number): boolean {
-    const obj: Optional<XR_game_object> = storage.get(obj_id).object!;
+  public play(objectId: number): boolean {
+    const object: Optional<XR_game_object> = storage.get(objectId).object!;
 
-    if (obj === null) {
+    if (object === null) {
       return false;
     } else {
       this.snd_obj = new sound_object(this.sound);
-      this.snd_obj.play_at_pos(obj, obj.position(), 0, sound_object.s3d + sound_object.looped);
+      this.snd_obj.play_at_pos(
+        object,
+        object.position(),
+        0,
+        // todo: Check if bitmasking originally works. 1+0=1 so probably no point in a such play.
+        (sound_object.s3d + sound_object.looped) as TXR_sound_object_type
+      );
 
       return true;
     }

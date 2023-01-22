@@ -4,6 +4,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("schemes");
 
+// Todo: Enum and constant in each binder.
 export const stype_stalker = 0;
 export const stype_mobile = 1;
 export const stype_item = 2;

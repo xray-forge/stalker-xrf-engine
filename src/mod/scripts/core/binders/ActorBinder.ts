@@ -20,7 +20,8 @@ import {
   vector
 } from "xray16";
 
-import { animations } from "@/mod/globals/animations";
+import { animations } from "@/mod/globals/animation/animations";
+import { post_processors } from "@/mod/globals/animation/post_processors";
 import { game_difficulties_by_number } from "@/mod/globals/game_difficulties";
 import { TLevel } from "@/mod/globals/levels";
 import { AnyCallable, AnyCallablesModule, Optional } from "@/mod/lib/types";
@@ -38,7 +39,7 @@ import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
 import { weatherManager } from "@/mod/scripts/core/WeatherManager";
 import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { get_sim_obj_registry } from "@/mod/scripts/se/SimObjectsRegistry";
-import { ITaskManager } from "@/mod/scripts/se/task/TaskManager";
+import { get_task_manager, ITaskManager } from "@/mod/scripts/se/task/TaskManager";
 import { giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { isArtefact } from "@/mod/scripts/utils/checkers";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
@@ -143,7 +144,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
 
     initDropSettings();
 
-    this.task_manager = get_global("task_manager").get_task_manager();
+    this.task_manager = get_task_manager();
     this.spawn_frame = device().frame;
     this.loaded = false;
 
@@ -256,7 +257,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
         get_global<AnyCallablesModule>("xr_effects").disable_ui_only(getActor(), null);
 
         level.add_cam_effector(animations.camera_effects_surge_02, 10, false, "_extern.anabiotic_callback");
-        level.add_pp_effector(animations.surge_fade, 11, false);
+        level.add_pp_effector(post_processors.surge_fade, 11, false);
 
         giveInfo("anabiotic_in_process");
 
@@ -439,7 +440,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
       packet.w_stringZ(v);
     }
 
-    get_global("task_manager").get_task_manager().save(packet);
+    get_task_manager().save(packet);
 
     packet.w_u8(this.object.active_slot());
 
@@ -515,7 +516,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
       scriptIds.set(packet.r_u16(), packet.r_stringZ());
     }
 
-    get_global("task_manager").get_task_manager().load(packet);
+    get_task_manager().load(packet);
 
     this.loaded_active_slot = packet.r_u8();
     this.loaded_slot_applied = false;

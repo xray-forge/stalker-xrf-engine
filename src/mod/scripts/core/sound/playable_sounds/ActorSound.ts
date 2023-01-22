@@ -148,17 +148,17 @@ export class ActorSound extends AbstractPlayableSound {
 
     get_hud().RemoveCustomStatic("cs_subtitles_actor");
 
-    const st = storage.get(npc_id);
+    const state = storage.get(npc_id);
 
-    if (st.active_scheme === null) {
+    if (!state.active_scheme) {
       return;
     }
 
-    if (st.get(st.active_scheme).signals === null) {
+    if (state[state.active_scheme].signals === null) {
       return;
     }
 
-    const schemeState: AnyObject = st.get(st.active_scheme);
+    const schemeState: AnyObject = state[state.active_scheme];
 
     if (this.played_id === this.sound.length() && this.shuffle !== "rnd") {
       schemeState.signals["theme_end"] = true;

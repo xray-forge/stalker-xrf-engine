@@ -3,6 +3,7 @@ import {
   ini_file,
   object_binder,
   sound_object,
+  TXR_sound_object_type,
   XR_cse_alife_object,
   XR_game_object,
   XR_ini_file,
@@ -230,7 +231,7 @@ export const LabX8DoorBinder: ILabX8DoorBinder = declare_xr_class("LabX8DoorBind
         this.object,
         this.object.position(),
         (this.start_delay + this.idle_delay) / 1000,
-        sound_object.s3d + sound_object.looped
+        (sound_object.s3d + sound_object.looped) as TXR_sound_object_type
       );
     }
 
@@ -255,7 +256,7 @@ export const LabX8DoorBinder: ILabX8DoorBinder = declare_xr_class("LabX8DoorBind
         this.object,
         this.object.position(),
         (this.start_delay + this.idle_delay) / 1000,
-        sound_object.s3d + sound_object.looped
+        (sound_object.s3d + sound_object.looped) as TXR_sound_object_type
       );
     }
 

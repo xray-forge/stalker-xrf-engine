@@ -17,6 +17,7 @@ import {
   time_global
 } from "xray16";
 
+import { post_processors } from "@/mod/globals/animation/post_processors";
 import { communities } from "@/mod/globals/communities";
 import { AnyCallable, AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { set_travel_func } from "@/mod/scripts/core/binders/ActorBinder";
@@ -24,7 +25,7 @@ import { getActor } from "@/mod/scripts/core/db";
 import { ERelation } from "@/mod/scripts/core/game_relations";
 import { relocate_money } from "@/mod/scripts/core/NewsManager";
 import { SurgeManager } from "@/mod/scripts/core/SurgeManager";
-import { get_sim_board } from "@/mod/scripts/se/SimBoard";
+import { get_sim_board, ISimBoard } from "@/mod/scripts/se/SimBoard";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
 import { AbstractSingletonManager } from "@/mod/scripts/utils/AbstractSingletonManager";
@@ -195,7 +196,8 @@ export class TravelManager extends AbstractSingletonManager {
   }
 
   public traveling(): void {
-    if (time_global() - init_time! < 3000) {
+    // originally it was 3000.
+    if (time_global() - init_time! < 1000) {
       return;
     }
 
@@ -359,7 +361,7 @@ export class TravelManager extends AbstractSingletonManager {
     // -- get_console():execute("hud_weapon 0")
     level.disable_input();
     level.hide_indicators_safe();
-    level.add_pp_effector("fade_in_out.ppe", 613, false);
+    level.add_pp_effector(post_processors.fade_in_out, 613, false);
 
     traveler_distance = getAlifeDistanceBetween(npc_squad, smart);
     traveler_actor_path = smart.traveler_actor_path;
@@ -420,7 +422,7 @@ export class TravelManager extends AbstractSingletonManager {
     // -- get_console():execute("hud_weapon 0")
     level.disable_input();
     level.hide_indicators_safe();
-    level.add_pp_effector("fade_in_out.ppe", 613, false);
+    level.add_pp_effector(post_processors.fade_in_out, 613, false);
 
     const smart_name = this.smart_by_phrase.get(travel_phrase_id);
     const board = get_sim_board();
@@ -500,10 +502,10 @@ export class TravelManager extends AbstractSingletonManager {
   }
 
   public actor_have_money(actor: XR_game_object, npc: XR_game_object, dialog_id: string, phrase_id: string): boolean {
-    const travel_phrase_id = string.sub(phrase_id, 1, string.len(phrase_id) - 2);
-    const smart_name = this.smart_by_phrase.get(travel_phrase_id);
-    const board = get_sim_board();
-    const smart = board.get_smart_by_name(smart_name);
+    const travel_phrase_id: string = string.sub(phrase_id, 1, string.len(phrase_id) - 2);
+    const smart_name: string = this.smart_by_phrase.get(travel_phrase_id);
+    const board: ISimBoard = get_sim_board();
+    const smart: Optional<ISmartTerrain> = board.get_smart_by_name(smart_name);
 
     const squad_position = npc.position();
     const smart_position = smart!.position;

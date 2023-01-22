@@ -16,6 +16,7 @@ import { ActionOscillate } from "@/mod/scripts/core/logic/ActionOscillate";
 import { ActionPhysicalIdle } from "@/mod/scripts/core/logic/ActionPhysicalIdle";
 import { ActionProcessHit } from "@/mod/scripts/core/logic/ActionProcessHit";
 import { ActionSilence } from "@/mod/scripts/core/logic/ActionSilence";
+import { ActionTeleport } from "@/mod/scripts/core/logic/ActionTeleport";
 import { ActionHeliMove } from "@/mod/scripts/core/logic/heli/ActionHeliMove";
 import { ActionMobCombat } from "@/mod/scripts/core/logic/mob/ActionMobCombat";
 import { ActionMobDeath } from "@/mod/scripts/core/logic/mob/ActionMobDeath";
@@ -85,7 +86,7 @@ export function initializeModules(): void {
   loadScheme(ActionHeliMove, "heli_move", stype_heli);
 
   loadScheme(ActionNoWeapon, ActionNoWeapon.SCHEME_SECTION, stype_restrictor);
-  loadScheme("sr_teleport", "sr_teleport", stype_restrictor);
+  loadScheme(ActionTeleport, ActionTeleport.SCHEME_SECTION, stype_restrictor);
   loadScheme(ActionIdle, ActionIdle.SCHEME_SECTION, stype_restrictor);
   loadScheme(ActionLight, ActionLight.SCHEME_SECTION, stype_restrictor);
   loadScheme("sr_timer", "sr_timer", stype_restrictor);

@@ -1,4 +1,4 @@
-import { TAnimation } from "@/mod/globals/animations";
+import { TAnimation } from "@/mod/globals/animation/animations";
 
 export enum EEffectorState {
   START = "start",

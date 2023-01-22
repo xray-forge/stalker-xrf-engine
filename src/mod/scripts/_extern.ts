@@ -1,6 +1,6 @@
 import { game, get_console, level, task, TXR_TaskState, XR_CGameTask } from "xray16";
 
-import { animations } from "@/mod/globals/animations";
+import { animations } from "@/mod/globals/animation/animations";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { AnyArgs, AnyCallablesModule, AnyObject } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";

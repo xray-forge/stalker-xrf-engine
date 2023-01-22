@@ -28,29 +28,38 @@ declare module "xray16" {
     public volume: number;
 
     public constructor(sound_path: string);
-    public constructor(sound_path: string, type: unknown /* enum ESoundTypes */);
+    public constructor(sound_path: string, type: TXR_sound_object_type);
 
-    public set_position(vector: XR_vector): unknown;
-    public stop_deffered(): unknown;
-    public get_position(): unknown;
-    public stop(): unknown;
-    public play_no_feedback(
-      game_object: XR_game_object,
-      value1: number,
-      value2: number,
-      vector: XR_vector,
-      value3: number
-    ): unknown;
-    public play_at_pos(game_object: XR_game_object, vector: XR_vector): unknown;
-    public play_at_pos(game_object: XR_game_object, vector: XR_vector, value1: number): unknown;
-    public play_at_pos(game_object: XR_game_object, vector: XR_vector, value1: number, value2: number): unknown;
-    public attach_tail(value: string): void;
     public length(): number;
-    public play(game_object: XR_game_object): unknown;
-    public play(game_object: XR_game_object, value1: number): unknown;
-    public play(game_object: XR_game_object, value1: number, value2: number): unknown;
     public playing(): boolean;
+    public get_position(): XR_vector;
+
+    public set_position(vector: XR_vector): void;
+    public attach_tail(value: string): void;
+
+    public play(object: XR_game_object): void;
+    public play(object: XR_game_object, delay: number): void;
+    public play(object: XR_game_object, delay: number, type: TXR_sound_object_type): void;
+    public play_at_pos(object: XR_game_object, position: XR_vector): void;
+    public play_at_pos(object: XR_game_object, position: XR_vector, delay: number): void;
+    public play_at_pos(object: XR_game_object, position: XR_vector, delay: number, type: TXR_sound_object_type): void;
+    public play_no_feedback(
+      object: XR_game_object,
+      type: TXR_sound_object_type,
+      value1: number,
+      position: XR_vector,
+      value2: number
+    ): void;
+
+    public stop(): void;
+    public stop_deffered(): void;
   }
+
+  export type TXR_sound_object_types = typeof XR_sound_object;
+
+  export type TXR_sound_object_type = TXR_sound_object_types[
+    Exclude<keyof TXR_sound_object_types, "prototype" | "constructor">
+  ];
 
   /**
    * C++ class sound {
@@ -100,11 +109,11 @@ declare module "xray16" {
     public completed(): unknown;
   }
 
-  export type TXR_sounds = typeof XR_sound;
+  export type TXR_sound_types = typeof XR_sound;
 
-  export type TXR_sound_key = Exclude<keyof TXR_sounds, "constructor" | "prototype">;
+  export type TXR_sound_key = Exclude<keyof TXR_sound_types, "constructor" | "prototype">;
 
-  export type TXR_sound = TXR_sounds[TXR_sound_key]
+  export type TXR_sound_type = TXR_sound_types[TXR_sound_key]
 
   /**
    * C++ class snd_type

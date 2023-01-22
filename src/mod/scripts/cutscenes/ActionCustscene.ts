@@ -1,6 +1,6 @@
 import { level, patrol, XR_game_object, XR_ini_file } from "xray16";
 
-import { animations } from "@/mod/globals/animations";
+import { post_processors } from "@/mod/globals/animation/post_processors";
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
@@ -114,7 +114,7 @@ export class ActionCutscene extends AbstractSchemeAction {
       this.state.look
     ]);
 
-    if (this.state.pp_effector !== animations.nil) {
+    if (this.state.pp_effector !== post_processors.nil) {
       level.add_pp_effector(this.state.pp_effector, 234, false);
     }
 
