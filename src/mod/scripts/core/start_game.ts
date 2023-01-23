@@ -5,6 +5,7 @@ import { init_smart_names_table } from "@/mod/scripts/core/db/smart_names";
 import { ActionLight } from "@/mod/scripts/core/logic/ActionLight";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { initializeModules } from "@/mod/scripts/core/modules";
+import { DynamicMusicManager } from "@/mod/scripts/core/sound/DynamicMusicManager";
 import { SoundTheme } from "@/mod/scripts/core/sound/SoundTheme";
 import { reset_sim_board } from "@/mod/scripts/se/SimBoard";
 import { clearTaskManager } from "@/mod/scripts/se/task/TaskManager";
@@ -31,7 +32,7 @@ export function startGame(): void {
   GlobalSound.reset();
 
   get_global<AnyCallablesModule>("dialog_manager").fill_phrase_table();
-  get_global<AnyCallablesModule>("xrs_dyn_music").init();
+  DynamicMusicManager.getInstance().initialize();
 
   ActionLight.reset();
 

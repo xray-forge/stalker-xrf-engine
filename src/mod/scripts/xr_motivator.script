@@ -9,6 +9,7 @@ local bind_state_manager = require("scripts.state_management.bind_state_manager"
 local schemes = require("scripts.core.schemes")
 local ReleaseBodyManager = require("scripts.core.ReleaseBodyManager")
 local ActionDanger = require("scripts.core.logic.ActionDanger").ActionDanger
+local DynamicMusicManager = require("scripts.core.sound.DynamicMusicManager").DynamicMusicManager
 local ActionLight = require("scripts.core.logic.ActionLight").ActionLight
 local DropManager = require("scripts.core.DropManager").DropManager
 local SimBoard = require("scripts.se.SimBoard")
@@ -100,7 +101,7 @@ function motivator_binder:net_spawn(sobject)
     end
   end
 
-  xrs_dyn_music.npc_table[self.object:id()] = self.object:id()
+  DynamicMusicManager.NPC_TABLE[self.object:id()] = self.object:id()
   --memusage.collect_info(self.object, "netspawn_start")
   if not object_binder.net_spawn(self, sobject) then
     return false
@@ -209,10 +210,10 @@ end
 
 function motivator_binder:net_destroy()
   --printf("motivator_binder:net_destroy(): self.object:name()='%s'", self.object:name())
-  xrs_dyn_music.npc_table[self.object:id()] = nil
+  DynamicMusicManager.NPC_TABLE[self.object:id()] = nil
 
   xr_combat_ignore.fighting_with_actor_npcs[self.object:id()] = nil
-  --	xrs_dyn_music.stop_combat(self.object:id())
+  --	DynamicMusicManager:stop_combat(self.object:id())
   GlobalSound:stop_sounds_by_id(self.object:id())
   local st = db.storage[self.object:id()]
   if st.active_scheme then
@@ -317,9 +318,9 @@ function motivator_binder:death_callback(victim, who)
 
   self:hit_callback(victim, 1, vector():set(0, 0, 0), who, "from_death_callback")
 
-  xrs_dyn_music.npc_table[self.object:id()] = nil
+  DynamicMusicManager.NPC_TABLE[self.object:id()] = nil
   xr_combat_ignore.fighting_with_actor_npcs[self.object:id()] = nil
-  --	xrs_dyn_music.stop_combat(self.object:id())
+  --	DynamicMusicManager.stop_combat(self.object:id())
   --' ���� ����� ��� � ������� �� �������� - ������� ���
   local st = db.storage[self.object:id()]
   local npc = self.object

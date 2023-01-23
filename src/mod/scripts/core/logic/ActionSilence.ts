@@ -1,7 +1,7 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { AnyCallablesModule } from "@/mod/lib/types";
-import { IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject, silenceZones } from "@/mod/scripts/core/db";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -34,11 +34,7 @@ export class ActionSilence extends AbstractSchemeAction {
 
     state.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, object);
 
-    if (state.silence_zone_table === null) {
-      state.silence_zone_table = {};
-    }
-
-    state.silence_zone_table[object.id()] = object.name();
+    silenceZones.set(object.id(), object.name());
   }
 
   public reset_scheme(): void {}

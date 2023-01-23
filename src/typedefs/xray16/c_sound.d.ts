@@ -18,24 +18,31 @@ declare module "xray16" {
    * @customConstructor sound_object
    */
   export class XR_sound_object {
+    public static s3d: 0;
     public static looped: 1;
     public static s2d: 2;
-    public static s3d: 0;
 
     public frequency: number;
     public max_distance: number;
     public min_distance: number;
     public volume: number;
 
+    /**
+     * @param sound_path - file path
+     */
     public constructor(sound_path: string);
-    public constructor(sound_path: string, type: TXR_sound_object_type);
+    /**
+     * @param sound_path - file path
+     * @param type - default 'no_sound' (0)
+     */
+    public constructor(sound_path: string, type: TXR_snd_type);
 
     public length(): number;
     public playing(): boolean;
     public get_position(): XR_vector;
 
     public set_position(vector: XR_vector): void;
-    public attach_tail(value: string): void;
+    public attach_tail(sound_path: string): void;
 
     public play(object: XR_game_object): void;
     public play(object: XR_game_object, delay: number): void;

@@ -28,7 +28,12 @@ declare module "xray16" {
   export function get_console(this: void): XR_CConsole;
   export function GetFontGraffiti50Russian(this: void): unknown;
   export function app_ready(this: void): unknown;
-  export function IsDynamicMusic(this: void): unknown;
+
+  /**
+   * Is dynamic music allowed in game settings.
+   */
+  export function IsDynamicMusic(this: void): boolean;
+
   export function GetFontDI(this: void): unknown;
   export function GetFontLetterica16Russian(this: void): unknown;
   export function log(this: void,text: string): unknown;

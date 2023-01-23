@@ -1,6 +1,7 @@
 import { error_log, log, time_global } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
+import { AnyObject } from "@/mod/lib/types";
 import { stringifyAsJson } from "@/mod/lib/utils/json";
 
 export class LuaLogger {
@@ -24,6 +25,7 @@ export class LuaLogger {
     this.logAs("[INFO]", args);
   }
 
+  public table(table: AnyObject): void;
   public table(table: LuaTable): void {
     if (gameConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
       this.info("[TABLE]", stringifyAsJson(table));

@@ -1,40 +1,27 @@
--- 701
---[[
-xStream 02.2008
-]]
-themes = {
-  {
-    files = {
-      "music\\combat\\theme1_part_1",
-      "music\\combat\\theme1_part_2",
-      "music\\combat\\theme1_part_3"
-    },
-  },
-  {
-    files = {
-      "music\\combat\\theme2_part_1",
-      "music\\combat\\theme2_part_2",
-      "music\\combat\\theme2_part_3"
-    },
-  },
-  {
-    files = {
-      "music\\combat\\theme3_part_1",
-      "music\\combat\\theme3_part_2",
-      "music\\combat\\theme3_part_3"
-    },
-  },
-  {
-    files = {
-      "music\\combat\\theme4_part_1",
-      "music\\combat\\theme4_part_2",
-      "music\\combat\\theme4_part_3"
-    }
-  }
+import { sounds, TSound } from "@/mod/globals/sound/sounds";
+import { Optional } from "@/mod/lib/types";
+
+export interface IDynamicMusicDescriptor {
+  maps?: Optional<string>;
+  files: LuaTable<number, TSound>;
 }
 
+export const dynamicMusicThemes: LuaTable<number, IDynamicMusicDescriptor> = [
+  {
+    files: [sounds.music_combat_theme1_part_1, sounds.music_combat_theme1_part_2, sounds.music_combat_theme1_part_3]
+  },
+  {
+    files: [sounds.music_combat_theme2_part_1, sounds.music_combat_theme2_part_2, sounds.music_combat_theme2_part_3]
+  },
+  {
+    files: [sounds.music_combat_theme3_part_1, sounds.music_combat_theme3_part_2, sounds.music_combat_theme3_part_3]
+  },
+  {
+    files: [sounds.music_combat_theme4_part_1, sounds.music_combat_theme4_part_2, sounds.music_combat_theme4_part_3]
+  }
+] as any;
 
---[[
+/* --[[
 themes={
 	{
 		maps = "stancia_2",
@@ -55,7 +42,8 @@ themes={
 		}
 	},
 	{
-		maps = "garbage, darkvalley, agroprom, agroprom_u, yantar, red_forest, military, limansk, hospital, peacemaker_selo",
+		maps = "garbage, darkvalley, agroprom, agroprom_u, yantar, red_forest, military, limansk, hospital,
+		 peacemaker_selo",
 		files={
 			intro = "music\\combat\\theme1_intro",
 			intro_2 = "music\\combat\\theme1_intro_2",
@@ -138,7 +126,8 @@ themes={
 		}
 	},
 	{
-		maps = "marsh, escape, garbage, darkvalley, agroprom, agroprom_u, yantar, red_forest, military, limansk, hospital",
+		maps = "marsh, escape, garbage, darkvalley, agroprom, agroprom_u, yantar, red_forest, military, limansk,
+		 hospital",
 		files={
 			intro_1 = "music\\combat\\theme2_intro_1",
 			intro_2 = "music\\combat\\theme2_intro_2",
@@ -304,7 +293,8 @@ themes={
 		}
 	},
 	{
-		maps = "marsh, escape, garbage, darkvalley, agroprom, agroprom_u, yantar, red_forest, military, limansk, hospital",
+		maps = "marsh, escape, garbage, darkvalley, agroprom, agroprom_u, yantar, red_forest, military, limansk,
+		 hospital",
 		files={
 			intro_1 = "music\\combat\\theme2_intro_1",
 			intro_2 = "music\\combat\\theme2_intro_2",
@@ -470,7 +460,8 @@ themes={
 		}
 	},
 	{
-		maps = "marsh, escape, garbage, darkvalley, agroprom, agroprom_u, yantar, red_forest, military, limansk, hospital",
+		maps = "marsh, escape, garbage, darkvalley, agroprom, agroprom_u, yantar, red_forest, military, limansk,
+		 hospital",
 		files={
 			intro_1 = "music\\combat\\theme3_intro_1",
 --			intro_2a = "music\\combat\\theme3_intro_2a",
@@ -581,7 +572,8 @@ themes={
 		}
 	},
 	{
-		maps = "marsh, escape, garbage, darkvalley, agroprom, agroprom_u, yantar, red_forest, military, limansk, hospital",
+		maps = "marsh, escape, garbage, darkvalley, agroprom, agroprom_u, yantar, red_forest, military, limansk,
+		 hospital",
 		files={
 --			intro_1 = "music\\combat\\theme3_intro_1",
 			intro_2a = "music\\combat\\theme3_intro_2a",
@@ -698,3 +690,4 @@ themes={
 	}
 }
 ]]
+*/

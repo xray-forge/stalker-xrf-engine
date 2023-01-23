@@ -16,7 +16,7 @@ export class EventsManager {
     return this.instance;
   }
 
-  public callbacks: Record<EGameEvent, LuaTable<AnyCallable, AnyObject>> = {
+  public callbacks: Record<EGameEvent, LuaTable<AnyCallable, { context: Optional<AnyObject> }>> = {
     [EGameEvent.ACTOR_NET_SPAWN]: new LuaTable(),
     [EGameEvent.ACTOR_NET_DESTROY]: new LuaTable(),
     [EGameEvent.ACTOR_UPDATE]: new LuaTable(),
@@ -30,11 +30,15 @@ export class EventsManager {
     [EGameEvent.MAIN_MENU_OFF]: new LuaTable()
   };
 
-  public registerCallback(event: EGameEvent, func: AnyCallable, context: AnyObject): void {
+  public registerCallback<T>(
+    event: EGameEvent,
+    func: (this: T, ...args: AnyArgs) => void,
+    context: Optional<AnyObject>
+  ): void {
     log.info("Register callback:", event);
 
     this.assertEventIsDeclared(event);
-    this.callbacks[event].set(func, { context: context });
+    this.callbacks[event].set(func as any, { context: context });
   }
 
   public unregisterCallback(event: EGameEvent, func: AnyCallable): void {

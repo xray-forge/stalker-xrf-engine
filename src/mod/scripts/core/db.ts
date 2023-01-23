@@ -35,6 +35,7 @@ export const goodwill = { sympathy: new LuaTable(), relations: new LuaTable() };
 export const offlineObjects: LuaTable<number, any> = new LuaTable();
 export const REGISTERED_ITEMS: LuaTable<string, number> = new LuaTable();
 export const tradeState: LuaTable<number, ITradeManagerDescriptor> = new LuaTable();
+export const silenceZones: LuaTable<number, string> = new LuaTable();
 
 export const zoneByName: LuaTable<string, XR_game_object> = new LuaTable();
 
