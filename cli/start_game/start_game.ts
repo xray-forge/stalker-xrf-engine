@@ -6,11 +6,11 @@ import { default as config } from "#/config.json";
 import { NodeLogger } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("START_GAME");
+const params: string = process.argv.slice(2).join(" ");
 
 (async function startGame(): Promise<void> {
-  log.info("Starting game");
+  log.info("Starting game:", chalk.blue(params));
 
-  const params: string = "";
   const cmd: string = `"${config.targets.STALKER_GAME_FOLDER_PATH}\\${config.targets.STALKER_GAME_EXE_NAME}" ${params}`;
 
   log.info("Starting game exe:", chalk.yellow(cmd));

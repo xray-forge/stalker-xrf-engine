@@ -71,6 +71,7 @@ declare module "xray16" {
   export const action_base: typeof XR_action_base;
   export const action_planner: typeof XR_action_planner;
   export const planner_action: typeof XR_planner_action;
+  export const profile_timer: typeof XR_profile_timer;
 
   export const cse_alife_item: typeof XR_cse_alife_item;
   export const cse_alife_creature_actor: typeof XR_cse_alife_creature_actor;

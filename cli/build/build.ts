@@ -3,6 +3,7 @@ import * as fs from "fs";
 import { default as chalk } from "chalk";
 
 import { default as pkg } from "#/../package.json";
+import { BUILD_PARAMS } from "#/build/build_params";
 import {
   collectLog,
   buildDynamicUi,
@@ -17,17 +18,6 @@ import { buildStaticTranslations } from "#/build/steps/translations_statics";
 import { buildStaticUi } from "#/build/steps/ui_statics";
 import { TARGET_GAME_DATA_DIR } from "#/globals";
 import { NodeLogger, TimeTracker } from "#/utils";
-
-export const BUILD_PARAMS = {
-  IS_CLEAN_BUILD: process.argv.includes("--clean"),
-  IS_LUA_LOGGER_DISABLED: process.argv.includes("--no-lua-logs"),
-  IS_VERBOSE_BUILD: process.argv.includes("--verbose"),
-  ARE_STATIC_RESOURCES_ENABLED: !process.argv.includes("--no-resources"),
-  ARE_UI_RESOURCES_ENABLED: !process.argv.includes("--no-ui"),
-  ARE_SCRIPT_RESOURCES_ENABLED: !process.argv.includes("--no-scripts"),
-  ARE_CONFIG_RESOURCES_ENABLED: !process.argv.includes("--no-configs"),
-  ARE_TRANSLATION_RESOURCES_ENABLED: !process.argv.includes("--no-translations")
-};
 
 NodeLogger.IS_FILE_ENABLED = true;
 NodeLogger.IS_VERBOSE = BUILD_PARAMS.IS_VERBOSE_BUILD;

@@ -36,7 +36,7 @@ declare module "xray16" {
 
   export function GetFontDI(this: void): unknown;
   export function GetFontLetterica16Russian(this: void): unknown;
-  export function log(this: void,text: string): unknown;
+  export function log(this: void, text: string): unknown;
   export function error_log(this: void,text: string): unknown;
   export function show_condition(this: void, a: unknown, b: string): unknown;
   export function IsImportantSave(this: void): unknown;

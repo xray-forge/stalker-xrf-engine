@@ -447,26 +447,17 @@ declare module "xray16" {
   // todo;
 
   /**
-
-   C++ class profile_timer {
-    profile_timer ();
-    profile_timer (profile_timer&);
-
-    operator +(const profile_timer&, profile_timer);
-
-    function stop();
-
-    function start();
-
-    function time() const;
-
-    function __tostring(profile_timer&);
-
-    operator <(const profile_timer&, profile_timer);
-
-  };
-   *
+   * C++ class profile_timer {
+   * @customConstructor profile_timer
    */
+  export class XR_profile_timer {
+    public constructor();
+    public constructor(profile_timer: XR_profile_timer);
+
+    public stop(): void;
+    public start(): void;
+    public time(): number;
+  }
 
   // todo;
 
