@@ -331,8 +331,6 @@ function action_patrol:execute()
       self.move_mgr:update()
     end
   else
-    -- ����������� �� move_mgr
-    --printf("camper [%s] update move mgr", self.object:name())
     self.move_mgr:update()
   end
 

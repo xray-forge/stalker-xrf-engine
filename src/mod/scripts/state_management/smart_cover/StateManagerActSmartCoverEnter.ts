@@ -25,8 +25,6 @@ export const StateManagerActSmartCoverEnter: IStateManagerActSmartCoverEnter = d
     initialize(): void {
       action_base.initialize(this);
 
-      // --this.move_mgr:finalize()
-      // --this.move_mgr = db.storage[npc:id()].move_mgr
       const state_descr = storage.get(this.object.id())["smartcover"];
 
       // printf("setting smartcover [%s] for stalker [%s] ", tostring(state_descr.cover_name), this.object.name())

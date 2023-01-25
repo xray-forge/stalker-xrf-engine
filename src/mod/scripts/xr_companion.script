@@ -110,7 +110,6 @@ function action_companion_activity:beh_walk_simple()
     if t >= self.keep_state_until then
       self.keep_state_until = t + keep_state_min_time
 
-      --printf("_bp: move_mgr: distance to destination waypoint: %d", dist_to_assist_pt)
       if dist_to_assist_pt <= dist_walk then
         new_state = "raid"
         target = { look_object = get_story_object("actor") }

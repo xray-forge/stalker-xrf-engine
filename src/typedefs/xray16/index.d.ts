@@ -122,6 +122,8 @@ declare module "xray16" {
   export const task: typeof XR_task;
   export const hit: typeof XR_hit;
   export const cond: typeof XR_cond;
+  export const flags16: typeof XR_flags16;
+  export const flags32: typeof XR_flags32;
 
   export const key_bindings: typeof XR_key_bindings;
   export const DIK_keys: typeof XR_DIK_keys;

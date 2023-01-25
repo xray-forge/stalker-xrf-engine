@@ -267,29 +267,34 @@ declare module "xray16" {
   export class XR_game_object extends XR_game_object_callbacks_base {
     public static readonly dummy: -1;
 
-    public static readonly action_type_count: 6;
+    public static readonly game_path: 0;
+    public static readonly level_path: 1;
+    public static readonly patrol_path: 2;
+    public static readonly no_path: 3;
+
+    public static readonly friend: 0;
+    public static readonly neutral: 1;
+    public static readonly enemy: 2;
+
     public static readonly alifeMovementTypeMask: 0;
     public static readonly alifeMovementTypeRandom: 1;
-    public static readonly animation: 2;
+
     public static readonly dialog_pda_msg: 0;
-    public static readonly enemy: 2;
-    public static readonly friend: 0;
-    public static readonly game_path: 0;
     public static readonly info_pda_msg: 1;
-    public static readonly level_path: 1;
-    public static readonly movement: 0;
-    public static readonly neutral: 1;
-    public static readonly no_path: 3;
     public static readonly no_pda_msg: 2;
-    public static readonly object: 5;
-    public static readonly particle: 4;
-    public static readonly patrol_path: 2;
+
+    public static readonly relation_kill: 0;
     public static readonly relation_attack: 1;
     public static readonly relation_fight_help_human: 2;
     public static readonly relation_fight_help_monster: 4;
-    public static readonly relation_kill: 0;
-    public static readonly sound: 3;
+
+    public static readonly movement: 0;
     public static readonly watch: 1;
+    public static readonly animation: 2;
+    public static readonly sound: 3;
+    public static readonly particle: 4;
+    public static readonly object: 5;
+    public static readonly action_type_count: 6;
 
     public bleeding: number;
     public health: number;

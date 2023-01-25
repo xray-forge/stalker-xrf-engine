@@ -31,10 +31,6 @@ function evaluator_contact:evaluate()
     return false
   end
 
-  --	if self.a.meet_only_at_path == true and not db.storage[self.object:id()].move_mgr:arrived_to_first_waypoint() then
-  --		return false
-  --	end
-
   if db.actor then
     if not db.actor:alive() then
       return false

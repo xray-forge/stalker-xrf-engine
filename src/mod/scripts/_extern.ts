@@ -145,21 +145,37 @@ declare_global("travel_manager", {
 
 declare_global("_extern.effector_callback", () => ActionCutscene.onCutsceneEnd());
 
-declare_global("on_actor_critical_power", () => log.info("Actor critical power"));
+declare_global("on_actor_critical_power", () => {
+  log.info("Actor critical power");
+});
 
-declare_global("on_actor_critical_max_power", () => log.info("Actor critical max power"));
+declare_global("on_actor_critical_max_power", () => {
+  log.info("Actor critical max power");
+});
 
-declare_global("on_actor_bleeding", () => log.info("Actor bleeding"));
+declare_global("on_actor_bleeding", () => {
+  log.info("Actor bleeding");
+});
 
-declare_global("on_actor_satiety", () => log.info("Actor satiety"));
+declare_global("on_actor_satiety", () => {
+  log.info("Actor satiety");
+});
 
-declare_global("on_actor_radiation", () => log.info("Actor radiation"));
+declare_global("on_actor_radiation", () => {
+  log.info("Actor radiation");
+});
 
-declare_global("on_actor_weapon_jammed", () => log.info("Actor weapon jammed"));
+declare_global("on_actor_weapon_jammed", () => {
+  log.info("Actor weapon jammed");
+});
 
-declare_global("on_actor_cant_walk_weight", () => log.info("Actor cant walk weight"));
+declare_global("on_actor_cant_walk_weight", () => {
+  log.info("Actor cant walk weight");
+});
 
-declare_global("on_actor_psy", () => log.info("Actor psy"));
+declare_global("on_actor_psy", () => {
+  log.info("Actor psy");
+});
 
 declare_global("actor_menu", {
   actor_menu_mode(mode: EActorMenuMode): void {
@@ -169,7 +185,7 @@ declare_global("actor_menu", {
 
 declare_global("pda", {
   set_active_subdialog(...args: AnyArgs): void {
-    return log.info("Set active subdialog", ...args);
+    log.info("Set active subdialog", ...args);
   },
   fill_fraction_state(state: AnyObject): void {
     return pdaMenu.fillFactionState(state);

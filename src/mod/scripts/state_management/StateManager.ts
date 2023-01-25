@@ -246,7 +246,7 @@ export class StateManager {
 export function set_state(
   npc: XR_game_object,
   state_name: string,
-  callback: Optional<AnyCallable>,
+  callback: Optional<AnyCallable> | AnyObject,
   timeout: Optional<number>,
   target: Optional<AnyObject>,
   extra: Optional<AnyObject>

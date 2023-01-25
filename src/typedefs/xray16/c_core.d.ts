@@ -469,10 +469,10 @@ declare module "xray16" {
     public point(value: number): XR_vector;
     public flag(value1: number, value2: number): unknown;
     public game_vertex_id(value: number): number;
-    public flags(value: number): XR_flags32;
-    public name(id: number): string;
+    public flags(point_index: number): XR_flags32;
+    public name(point_index: number): string;
     public index(value: string): unknown;
-    public terminal(value: number): unknown;
+    public terminal(point_index: number): boolean;
     public count(): number;
     public get_nearest(vector: XR_vector): unknown;
   }

@@ -10,9 +10,9 @@ import {
   VariableDeclarationList
 } from "typescript";
 import { Plugin } from "typescript-to-lua";
-import { BUILD_PARAMS } from "#/build/build_params";
 
 const LUA_LOGGER_STRIP_TARGET: string = "LuaLogger";
+const IS_LUA_LOGGER_DISABLED: boolean = process.argv.includes("--no-lua-logs");
 
 /**
  * Plugin that removes all LuaLogger instance creations and calls when possible.
@@ -20,7 +20,7 @@ const LUA_LOGGER_STRIP_TARGET: string = "LuaLogger";
 const plugin: Plugin = {
   visitors: {
     [SyntaxKind.VariableStatement]: (statement, context) => {
-      if (BUILD_PARAMS.IS_LUA_LOGGER_DISABLED) {
+      if (IS_LUA_LOGGER_DISABLED) {
         let elementsCount: number = 0;
         const list = statement.declarationList as VariableDeclarationList;
         const nodes: Array<VariableDeclaration> = [];
@@ -50,7 +50,7 @@ const plugin: Plugin = {
       return context.superTransformStatements(statement);
     },
     [SyntaxKind.ExpressionStatement]: (statement, context) => {
-      if (BUILD_PARAMS.IS_LUA_LOGGER_DISABLED && statement.expression?.kind === SyntaxKind.CallExpression) {
+      if (IS_LUA_LOGGER_DISABLED && statement.expression?.kind === SyntaxKind.CallExpression) {
         const expression: CallExpression = statement.expression as CallExpression;
         const propertyAccess: PropertyAccessExpression = expression.expression as PropertyAccessExpression;
 

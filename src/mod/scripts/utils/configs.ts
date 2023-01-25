@@ -1,6 +1,15 @@
-import { XR_cse_abstract, XR_cse_alife_object, XR_flags32, XR_game_object, XR_ini_file } from "xray16";
+import {
+  flags32,
+  patrol,
+  XR_cse_abstract,
+  XR_cse_alife_object,
+  XR_flags32,
+  XR_game_object,
+  XR_ini_file,
+  XR_patrol
+} from "xray16";
 
-import { AnyCallablesModule, AnyObject, Maybe, Optional } from "@/mod/lib/types";
+import { AnyArgs, AnyCallablesModule, AnyObject, Maybe, Optional } from "@/mod/lib/types";
 import { TSection } from "@/mod/lib/types/configuration";
 import { getActor, scriptIds } from "@/mod/scripts/core/db";
 import { disableInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
@@ -413,18 +422,22 @@ export function get_infos_from_data(npc: XR_game_object, str: Optional<string>):
   return t;
 }
 
+export interface IWaypointData {
+  [index: string]: any;
+  a?: any;
+  flags: XR_flags32;
+}
+
 /**
  * todo;
  */
-export function parse_waypoint_data(pathname: string, wpflags: XR_flags32, wpname: string): LuaTable<string> {
-  const rslt: LuaTable<string> = new LuaTable();
+export function parse_waypoint_data(pathname: string, wpflags: XR_flags32, wpname: string): IWaypointData {
+  const waypointData: IWaypointData = {
+    flags: wpflags
+  };
 
-  rslt.set("flags", wpflags);
-
-  let at;
-
-  if (string.find(wpname, "|", at, true) === null) {
-    return rslt;
+  if (string.find(wpname, "|", undefined, true) === null) {
+    return waypointData;
   }
 
   let par_num = 1;
@@ -462,19 +475,16 @@ export function parse_waypoint_data(pathname: string, wpflags: XR_flags32, wpnam
       }
 
       if (fld === "a") {
-        rslt.set(
-          fld,
-          get_global<AnyCallablesModule>("xr_logic").parse_condlist(getActor(), "waypoint_data", "anim_state", val)
-        );
+        waypointData[fld] = parseCondList(getActor(), "waypoint_data", "anim_state", val);
       } else {
-        rslt.set(fld, val);
+        waypointData[fld] = val;
       }
     }
 
     par_num = par_num + 1;
   }
 
-  return rslt;
+  return waypointData;
 }
 
 /**
@@ -678,4 +688,70 @@ export function parseIniSectionToArray(ini: XR_ini_file, section: TSection): Opt
   } else {
     return null;
   }
+}
+
+/**
+ * todo;
+ */
+export function path_parse_waypoints(pathname: Optional<string>): Optional<LuaTable<number, IWaypointData>> {
+  if (!pathname) {
+    return null;
+  }
+
+  const waypointPatrol: XR_patrol = new patrol(pathname);
+  const count: number = waypointPatrol.count();
+  const waypointsInfo: LuaTable<number, IWaypointData> = new LuaTable();
+
+  for (const point of $range(0, count - 1)) {
+    const data: Optional<IWaypointData> = parse_waypoint_data(
+      pathname,
+      waypointPatrol.flags(point),
+      waypointPatrol.name(point)
+    );
+
+    if (!data) {
+      abort("error while parsing point %d of path '%s'", point, pathname);
+    }
+
+    waypointsInfo.set(point, data);
+  }
+
+  return waypointsInfo;
+}
+
+export function path_parse_waypoints_from_arglist(pathname: string, num_points: number, ...args: AnyArgs): unknown {
+  if (!pathname) {
+    return null;
+  }
+
+  const waypointPatrol: XR_patrol = new patrol(pathname);
+  const count: number = waypointPatrol.count();
+
+  if (count !== num_points) {
+    abort("path '%s' has %d points, but %d points were expected", pathname, count, num_points);
+  }
+
+  const result: LuaTable<number, IWaypointData> = new LuaTable();
+
+  for (const point of $range(0, count - 1)) {
+    const cur_arg = args[point + 1];
+
+    if (!cur_arg) {
+      abort("script error [1] while processing point %d of path '%s'", point, pathname);
+    }
+
+    const flags: XR_flags32 = new flags32();
+
+    flags.assign(cur_arg[1]);
+
+    const data: IWaypointData = parse_waypoint_data(pathname, flags, cur_arg[2]);
+
+    if (!data) {
+      abort("script error [2] while processing point %d of path '%s'", point, pathname);
+    }
+
+    result.set(point, data);
+  }
+
+  return result;
 }

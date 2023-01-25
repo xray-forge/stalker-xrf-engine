@@ -133,7 +133,7 @@ export class ProfilingManager {
 
     this.profilingTimer.start();
 
-    debug.sethook((context, lineNumber) => this.hook(context, lineNumber), "crl");
+    debug.sethook((context, lineNumber) => this.hook(context, lineNumber), "cr");
 
     this.isProfilingStarted = true;
 
@@ -159,7 +159,6 @@ export class ProfilingManager {
     const caller = debug.getinfo(3, "f")!;
     const functionRef: AnyCallable = debug.getinfo(2, "f")!.func! as AnyCallable;
     const callerRef: Optional<AnyCallable> = caller === null ? null : (caller.func! as AnyCallable);
-    const info = debug.getinfo(2, "Sn");
 
     switch (context) {
       case "return": {

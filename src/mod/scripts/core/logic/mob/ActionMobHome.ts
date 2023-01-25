@@ -4,7 +4,13 @@ import { AnyCallablesModule } from "@/mod/lib/types";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { get_state, set_state } from "@/mod/scripts/core/logic/mob/MobStateManager";
-import { getConfigBoolean, getConfigNumber, getConfigString, parse_waypoint_data } from "@/mod/scripts/utils/configs";
+import {
+  getConfigBoolean,
+  getConfigNumber,
+  getConfigString,
+  IWaypointData,
+  parse_waypoint_data
+} from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -58,7 +64,7 @@ export class ActionMobHome extends AbstractSchemeAction {
     let midr = def_mid_radius;
 
     let ptr;
-    let path_info: LuaTable<string> = new LuaTable();
+    let path_info: Partial<IWaypointData> = {};
     let r = 0;
 
     if (this.state.home !== null) {

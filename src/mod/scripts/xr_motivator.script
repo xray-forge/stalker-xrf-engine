@@ -3,6 +3,7 @@
 local GlobalSound = require("scripts.core.logic.GlobalSound").GlobalSound
 local SoundTheme = require("scripts.core.sound.SoundTheme").SoundTheme
 local InventoryUpgrades = require("scripts.core.inventory_upgrades")
+local MoveManager = require("scripts.core.MoveManager").MoveManager
 local TradeManager = require("scripts.core.TradeManager")
 local Hear = require("scripts.core.Hear").Hear
 local bind_state_manager = require("scripts.state_management.bind_state_manager").bind_state_manager
@@ -82,7 +83,7 @@ function motivator_binder:reinit()
   --memusage.collect_info(self.object, "before_statemgr")
   self.st.state_mgr = bind_state_manager(self.object)
 
-  self.st.move_mgr = move_mgr.move_mgr(self.object)
+  self.st.move_mgr = create_ts_class_instance(MoveManager, self.object)
   self.st.move_mgr:initialize()
 
   --memusage.collect_info(self.object, "after_statemgr")

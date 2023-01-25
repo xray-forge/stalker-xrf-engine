@@ -30,6 +30,10 @@ const log: NodeLogger = new NodeLogger("BUILD_ALL");
   try {
     log.info("XRTS build:", chalk.green(pkg?.name), chalk.blue(new Date().toLocaleString()));
 
+    if (BUILD_PARAMS.IS_LUA_LOGGER_DISABLED) {
+      log.info("Lua logger is disabled");
+    }
+
     if (BUILD_PARAMS.IS_CLEAN_BUILD) {
       log.info("Perform target cleanup:", chalk.yellowBright(TARGET_GAME_DATA_DIR));
       fs.rmSync(TARGET_GAME_DATA_DIR, { recursive: true, force: true });

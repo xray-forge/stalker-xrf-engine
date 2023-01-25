@@ -20,6 +20,7 @@ import { TScheme } from "@/mod/lib/types/configuration";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { get_state, set_state } from "@/mod/scripts/core/logic/mob/MobStateManager";
+import { MoveManager } from "@/mod/scripts/core/MoveManager";
 import { action } from "@/mod/scripts/utils/alife";
 import { getConfigBoolean, getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -137,10 +138,6 @@ export class ActionMobWalker extends AbstractSchemeAction {
   }
 
   public update(): void {
-    // --    printf("__bp: mob_walker update: %d", time_global())
-    // --if !xr_logic.is_active(this.object, this.state) then
-    // --    return
-    // --end
     const actor = getActor()!;
 
     if (!get_global<AnyCallablesModule>("xr_logic").mob_captured(this.object)) {
@@ -234,14 +231,10 @@ export class ActionMobWalker extends AbstractSchemeAction {
       return;
     }
 
-    const pt_chosen_idx = get_global<AnyCallablesModule>("move_mgr").choose_look_point(
-      this.patrol_look,
-      this.path_look_info,
-      search_for
-    );
+    const [pt_chosen_idx] = MoveManager.choose_look_point(this.patrol_look!, this.path_look_info, search_for);
 
     if (pt_chosen_idx) {
-      const suggested_wait_time = this.path_look_info[pt_chosen_idx]["t"];
+      const suggested_wait_time = this.path_look_info.get(pt_chosen_idx)["t"];
 
       if (suggested_wait_time) {
         this.pt_wait_time = tonumber(suggested_wait_time)!;
