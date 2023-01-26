@@ -14,6 +14,7 @@ import {
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { addObject, deleteObject, getActor, IStoredObject, levelDoors, storage } from "@/mod/scripts/core/db";
+import { ItemBox } from "@/mod/scripts/core/ItemBox";
 import { ActionOnHit } from "@/mod/scripts/core/logic/ActionOnHit";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { stype_item } from "@/mod/scripts/core/schemes";
@@ -28,7 +29,7 @@ export interface IPhysicObjectBinder extends XR_object_binder {
   particle: Optional<XR_particles_object>;
   st: IStoredObject;
 
-  box_items: Optional<any>;
+  itemBox: Optional<ItemBox>;
 
   use_callback(object: XR_game_object, who: XR_game_object): void;
   hit_callback(
@@ -166,10 +167,8 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
       this.particle.stop();
     }
 
-    const spawn_ini: Optional<XR_ini_file> = this.object.spawn_ini();
-
-    if (spawn_ini !== null && spawn_ini.section_exist("drop_box")) {
-      this.box_items.spawn_items();
+    if (this.itemBox !== null) {
+      this.itemBox.spawnBoxItems();
     }
   },
   net_spawn(object: XR_cse_alife_object): boolean {
@@ -185,7 +184,7 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
 
     if (spawn_ini !== null) {
       if (spawn_ini.section_exist("drop_box")) {
-        this.box_items = get_global<AnyCallablesModule>("xr_box").ph_item_box(this.object);
+        this.itemBox = new ItemBox(this.object);
       }
 
       if (spawn_ini.section_exist("level_spot")) {
@@ -225,7 +224,7 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
 
     const spawn_ini: Optional<XR_ini_file> = this.object.spawn_ini();
 
-    if (this.st.active_section !== null || (spawn_ini !== null && spawn_ini.section_exist("drop_box") === true)) {
+    if (this.st.active_section !== null || (spawn_ini !== null && spawn_ini.section_exist("drop_box"))) {
       get_global<AnyCallablesModule>("xr_logic").issue_event(
         this.object,
         this.st[this.st.active_scheme as string],

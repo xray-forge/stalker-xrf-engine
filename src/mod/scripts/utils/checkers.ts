@@ -25,6 +25,7 @@ import {
 import { levels, TLevel } from "@/mod/globals/levels";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { Maybe, Optional } from "@/mod/lib/types";
+import { TSection } from "@/mod/lib/types/configuration";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { getClsId, getObjectStoryId } from "@/mod/scripts/utils/ids";
 
@@ -175,6 +176,13 @@ export function isLootableItem(object: XR_game_object): boolean {
  */
 export function isAmmoItem(object: XR_game_object): boolean {
   return ammo[object.section<TAmmoItem>()] !== null;
+}
+
+/**
+ * @returns whether section is ammo-defined.
+ */
+export function isAmmoSection(section: TSection): section is TAmmoItem {
+  return ammo[section as TAmmoItem] !== null;
 }
 
 /**
