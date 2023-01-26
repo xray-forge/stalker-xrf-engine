@@ -462,7 +462,7 @@ declare module "xray16" {
     public spawn_ini(): XR_ini_file;
     public drop_item_and_teleport(game_object: XR_game_object, vector: XR_vector): unknown;
     public get_campfire(): XR_CZoneCampfire;
-    public get_movement_speed(): unknown;
+    public get_movement_speed(): XR_vector;
     public set_body_state(state: unknown /** enum MonsterSpace::EBodyState */): unknown;
     public in_loophole_fov(value1: string, valu2:string, value3:XR_vector): unknown;
     public set_invisible(value: boolean): unknown;

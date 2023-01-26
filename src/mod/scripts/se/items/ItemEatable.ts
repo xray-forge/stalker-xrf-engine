@@ -6,7 +6,7 @@ import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("items/ItemEatable");
+const log: LuaLogger = new LuaLogger("ItemEatable");
 
 export interface IItemEatable extends XR_cse_alife_item {
   secret_item: Optional<boolean>;

@@ -12,6 +12,8 @@ import { abort } from "@/mod/scripts/utils/debug";
 const state_move: number = 0;
 
 export class ActionHeliMove extends AbstractSchemeAction {
+  public static SCHEME_SECTION: string = "heli_move";
+
   public static add_to_binder(
     npc: XR_game_object,
     ini: XR_ini_file,

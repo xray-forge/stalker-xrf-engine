@@ -1,5 +1,6 @@
 -- 1755
 
+local ActionDeimos = require("scripts.core.logic.ActionDeimos").ActionDeimos
 local GlobalSound = require("scripts.core.logic.GlobalSound").GlobalSound
 local SurgeManager = require("scripts.core.SurgeManager")
 local InventoryUpgrades = require("scripts.core.inventory_upgrades")
@@ -1668,7 +1669,7 @@ friend_of_stalkers_functor = xr_statistic.friend_of_stalkers_functor
 function check_deimos_phase(actor, npc, p)
   if (p[1] and p[2]) then
     local obj = db.storage[npc:id()]
-    local delta = sr_deimos.check_intensity_delta(obj)
+    local delta = ActionDeimos:check_intensity_delta(obj)
     if (p[2] == "increasing" and delta) then
       return false
     elseif (p[2] == "decreasing" and not (delta)) then
@@ -1676,27 +1677,27 @@ function check_deimos_phase(actor, npc, p)
     end
     if (p[1] == "disable_bound") then
       if (p[2] == "increasing") then
-        if not (sr_deimos.check_disable_bound(obj)) then
+        if not (ActionDeimos:check_disable_bound(obj)) then
           return true
         end
       elseif (p[2] == "decreasing") then
-        return sr_deimos.check_disable_bound(obj)
+        return ActionDeimos:check_disable_bound(obj)
       end
     elseif (p[1] == "lower_bound") then
       if (p[2] == "increasing") then
-        if not (sr_deimos.check_lower_bound(obj)) then
+        if not (ActionDeimos:check_lower_bound(obj)) then
           return true
         end
       elseif (p[2] == "decreasing") then
-        return sr_deimos.check_lower_bound(obj)
+        return ActionDeimos:check_lower_bound(obj)
       end
     elseif (p[1] == "upper_bound") then
       if (p[2] == "increasing") then
-        if not (sr_deimos.check_upper_bound(obj)) then
+        if not (ActionDeimos:check_upper_bound(obj)) then
           return true
         end
       elseif (p[2] == "decreasing") then
-        return sr_deimos.check_upper_bound(obj)
+        return ActionDeimos:check_upper_bound(obj)
       end
     end
   end

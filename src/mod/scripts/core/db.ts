@@ -82,7 +82,6 @@ export interface IStoredObject<T = XR_game_object> {
   disable_input_time?: any;
   disable_input_idle?: any;
   state_mgr?: StateManager;
-  sr_deimos?: any;
   restrictor_manager?: Optional<RestrictorManager>;
   overrides?: {
     on_offline_condlist: number;

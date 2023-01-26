@@ -23,6 +23,7 @@ import {
 import { animations } from "@/mod/globals/animation/animations";
 import { post_processors } from "@/mod/globals/animation/post_processors";
 import { game_difficulties_by_number } from "@/mod/globals/game_difficulties";
+import { ammo } from "@/mod/globals/items/ammo";
 import { TLevel } from "@/mod/globals/levels";
 import { AnyCallable, AnyCallablesModule, Optional } from "@/mod/lib/types";
 import {
@@ -33,9 +34,11 @@ import { addActor, deleteActor, getActor, IStoredObject, scriptIds, storage, zon
 import { initDropSettings } from "@/mod/scripts/core/DropManager";
 import { EGameEvent } from "@/mod/scripts/core/events/EGameEvent";
 import { EventsManager } from "@/mod/scripts/core/events/EventsManager";
+import { ActionDeimos } from "@/mod/scripts/core/logic/ActionDeimos";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { send_task } from "@/mod/scripts/core/NewsManager";
 import { get_release_body_manager } from "@/mod/scripts/core/ReleaseBodyManager";
+import { DynamicMusicManager } from "@/mod/scripts/core/sound/DynamicMusicManager";
 import { SurgeManager } from "@/mod/scripts/core/SurgeManager";
 import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
 import { weatherManager } from "@/mod/scripts/core/WeatherManager";
@@ -58,11 +61,11 @@ const log: LuaLogger = new LuaLogger("ActorBinder");
 const detective_achievement_items: LuaTable<number, string> = ["medkit", "antirad", "bandage"] as any;
 
 const mutant_hunter_achievement_items: LuaTable<number, string> = [
-  "ammo_5.45x39_ap",
-  "ammo_5.56x45_ap",
-  "ammo_9x39_ap",
-  "ammo_5.56x45_ap",
-  "ammo_12x76_zhekan"
+  ammo["ammo_5.45x39_ap"],
+  ammo["ammo_5.56x45_ap"],
+  ammo.ammo_9x39_ap,
+  ammo["ammo_5.56x45_ap"],
+  ammo.ammo_12x76_zhekan
 ] as any;
 
 export interface IActorBinder extends XR_object_binder {
@@ -77,7 +80,7 @@ export interface IActorBinder extends XR_object_binder {
   spawn_frame: number;
 
   last_level_name: Optional<string>;
-  deimos_intensity: Optional<any>;
+  deimos_intensity: Optional<number>;
   loaded_active_slot: number;
   loaded_slot_applied: boolean;
 
@@ -135,7 +138,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
 
     addActor(this.object);
 
-    (getActor() as any).deimos_intensity = this.deimos_intensity;
+    (getActor() as unknown as IActorBinder).deimos_intensity = this.deimos_intensity;
 
     this.deimos_intensity = null;
 
@@ -204,7 +207,8 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
       get_global("sr_psy_antenna").psy_antenna = false;
     }
 
-    get_global<AnyCallablesModule>("xrs_dyn_music").finish_theme();
+    DynamicMusicManager.getInstance().stopTheme();
+
     this.eventsManager.emitEvent(EGameEvent.ACTOR_NET_DESTROY);
 
     object_binder.net_destroy(this);
@@ -415,7 +419,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     mapDisplayManager.update();
   },
   save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, "ActorBinder");
+    setSaveMarker(packet, false, ActorBinder.__name);
 
     object_binder.save(this, packet);
 
@@ -456,10 +460,10 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     let deimos_exist = false;
 
     for (const [k, v] of zoneByName) {
-      if (storage.get(v.id()) && storage.get(v.id()).active_section === "sr_deimos") {
+      if (storage.get(v.id()) && storage.get(v.id()).active_section === ActionDeimos.SCHEME_SECTION) {
         deimos_exist = true;
         packet.w_bool(true);
-        packet.w_float(storage.get(v.id()).sr_deimos.intensity);
+        packet.w_float(storage.get(v.id())[ActionDeimos.SCHEME_SECTION].intensity);
       }
     }
 
@@ -481,10 +485,10 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
       writeCTimeToPacket(packet, this.last_mutant_hunter_achievement_spawn_time);
     }
 
-    setSaveMarker(packet, true, "ActorBinder");
+    setSaveMarker(packet, true, ActorBinder.__name);
   },
   load(packet: XR_net_packet): void {
-    setLoadMarker(packet, false, "ActorBinder");
+    setLoadMarker(packet, false, ActorBinder.__name);
 
     object_binder.load(this, packet);
 
@@ -548,7 +552,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
       this.last_mutant_hunter_achievement_spawn_time = readCTimeFromPacket(packet);
     }
 
-    setLoadMarker(packet, true, "ActorBinder");
+    setLoadMarker(packet, true, ActorBinder.__name);
   },
   check_detective_achievement(): void {
     if (!hasAlifeInfo("detective_achievement_gained")) {

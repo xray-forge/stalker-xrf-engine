@@ -401,6 +401,7 @@ declare module "xray16" {
     public static device_detector_advanced: 53;
     public static device_detector_elite: 54;
     public static device_detector_scientific: 57;
+    public static detector_scientific_s: -1;
     public static device_detector_simple: 58;
     public static device_flare: 55;
     public static device_pda: 56;
