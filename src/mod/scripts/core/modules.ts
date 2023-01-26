@@ -10,6 +10,7 @@ import { ActionGatherItems } from "@/mod/scripts/core/logic/ActionGatherItems";
 import { ActionHit } from "@/mod/scripts/core/logic/ActionHit";
 import { ActionIdle } from "@/mod/scripts/core/logic/ActionIdle";
 import { ActionLight } from "@/mod/scripts/core/logic/ActionLight";
+import { ActionMonster } from "@/mod/scripts/core/logic/ActionMonster";
 import { ActionNoWeapon } from "@/mod/scripts/core/logic/ActionNoWeapon";
 import { ActionOnDeath } from "@/mod/scripts/core/logic/ActionOnDeath";
 import { ActionOnHit } from "@/mod/scripts/core/logic/ActionOnHit";
@@ -89,7 +90,7 @@ export function initializeModules(): void {
   loadScheme("sr_particle", "sr_particle", ESchemeType.RESTRICTOR);
   loadScheme(ActionCutscene, ActionCutscene.SCHEME_SECTION, ESchemeType.RESTRICTOR);
   // --loadScheme("sr_bloodsucker",					"sr_bloodsucker",	ESchemeType.RESTRICTOR)
-  loadScheme("sr_monster", "sr_monster", ESchemeType.RESTRICTOR);
+  loadScheme(ActionMonster, ActionMonster.SCHEME_SECTION, ESchemeType.RESTRICTOR);
   // --loadScheme("sr_robbery",						"sr_robbery",		ESchemeType.RESTRICTOR)
   // --loadScheme("sr_survival",						"sr_survival",		ESchemeType.RESTRICTOR)
   loadScheme(ActionCrowSpawner, ActionCrowSpawner.SCHEME_SECTION, ESchemeType.RESTRICTOR);
