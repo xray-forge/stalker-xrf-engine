@@ -396,7 +396,7 @@ declare module "xray16" {
     public GetTextColor(): unknown;
     public SetTextColor(color: number): unknown;
     public SetFont(font: unknown /* CGameFont */): unknown;
-    public SetTextST(text: string): unknown;
+    public SetTextST(text: string): void;
     public AdjustHeightToText(): unknown;
     public AdjustWidthToText(): unknown;
     public SetEllipsis(value: boolean): unknown;

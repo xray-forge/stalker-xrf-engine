@@ -1,6 +1,7 @@
 import {
   TXR_MonsterSpaces,
   XR_cse_alife_object,
+  XR_CUIGameCustom,
   XR_game_object,
   XR_ini_file,
   XR_object_binder,
@@ -82,6 +83,7 @@ export interface IStoredObject<T = XR_game_object> {
   disable_input_time?: any;
   disable_input_idle?: any;
   state_mgr?: StateManager;
+  ui?: XR_CUIGameCustom;
   restrictor_manager?: Optional<RestrictorManager>;
   overrides?: {
     on_offline_condlist: number;
