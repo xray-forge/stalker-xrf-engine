@@ -148,8 +148,6 @@ declare module "xray16" {
    *
    */
 
-  // todo;
-
   /**
    * C++ class vector2 {
    * @customConstructor vector2
@@ -301,55 +299,37 @@ declare module "xray16" {
   // todo;
 
   /**
-
-   C++ class noise {
-    property fps;
-    property grain;
-    property intensity;
-
-    noise ();
-    noise (number, number, number);
-
-    function set(number, number, number);
-
-  };
-   *
+   * C++ class noise {
+   * @customConstructor XR_noise
    */
+  export class XR_noise {
+    /**
+     * float.
+     */
+    public fps: number;
+    /**
+     * float.
+     */
+    public grain: number;
+    /**
+     * float.
+     */
+    public intensity: number;
 
-  // todo;
+    public constructor();
+    public constructor(a: number, b: number, c: number);
+
+    public set(a: number, b: number, c: number): XR_noise;
+  }
 
   /**
-
-   C++ class object_params {
-    property level_vertex;
-    property position;
-
-  };
-   *
+   * C++ class object_params {
+   * @customConstructor object_params
    */
-
-  // todo;
-
-  /**
-
-   C++ class effector_params {
-    property blur;
-    property color_add;
-    property color_base;
-    property color_gray;
-    property dual;
-    property gray;
-    property noise;
-
-    effector_params ();
-
-    function assign(effector_params*, effector_params*);
-
-  };
-   *
-   */
-
-  // todo;
+  export class XR_object_params {
+    public level_vertex: number;
+    public position: XR_vector;
+  }
 
   /**
 
@@ -503,12 +483,35 @@ declare module "xray16" {
    * C++ class effector {
    * @customConstructor effector
    */
-  export class XR_effector {
-    public constructor(value1: number, value2: number);
+  export class XR_effector extends XR_LuaBindBase {
+    public constructor(int: number, float: number);
 
+    public static start(this: void, effector: XR_effector): void;
     public start(): void;
-    public process(effector_params: unknown): void;
+
+    public static process(this: void, effector: XR_effector, effector_params: XR_effector_params): void
+    public process(effector_params: XR_effector_params): boolean;
+
+    public static finish(this: void, effector: XR_effector): void;
     public finish(): void;
+  }
+
+  /**
+   * C++ class effector_params {
+   * @customConstructor effector_params
+   */
+  export class XR_effector_params {
+    public blur: unknown;
+    public color_add: unknown;
+    public color_base: unknown;
+    public color_gray: unknown;
+    public dual: unknown;
+    public gray: unknown;
+    public noise: XR_noise;
+
+    public constructor();
+
+    public assign(effector_params: XR_effector_params): void;
   }
 
   /**

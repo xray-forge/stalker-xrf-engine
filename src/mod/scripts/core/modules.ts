@@ -15,7 +15,9 @@ import { ActionNoWeapon } from "@/mod/scripts/core/logic/ActionNoWeapon";
 import { ActionOnDeath } from "@/mod/scripts/core/logic/ActionOnDeath";
 import { ActionOnHit } from "@/mod/scripts/core/logic/ActionOnHit";
 import { ActionOscillate } from "@/mod/scripts/core/logic/ActionOscillate";
+import { ActionParticle } from "@/mod/scripts/core/logic/ActionParticle";
 import { ActionPhysicalIdle } from "@/mod/scripts/core/logic/ActionPhysicalIdle";
+import { ActionPostProcess } from "@/mod/scripts/core/logic/ActionPostProcess";
 import { ActionProcessHit } from "@/mod/scripts/core/logic/ActionProcessHit";
 import { ActionSilence } from "@/mod/scripts/core/logic/ActionSilence";
 import { ActionTeleport } from "@/mod/scripts/core/logic/ActionTeleport";
@@ -87,16 +89,16 @@ export function initializeModules(): void {
   loadScheme(ActionLight, ActionLight.SCHEME_SECTION, ESchemeType.RESTRICTOR);
   loadScheme(ActionTimer, ActionTimer.SCHEME_SECTION, ESchemeType.RESTRICTOR);
   loadScheme("sr_psy_antenna", "sr_psy_antenna", ESchemeType.RESTRICTOR);
-  loadScheme("sr_postprocess", "sr_postprocess", ESchemeType.RESTRICTOR);
-  loadScheme("sr_particle", "sr_particle", ESchemeType.RESTRICTOR);
+  loadScheme(ActionPostProcess, ActionPostProcess.SCHEME_SECTION, ESchemeType.RESTRICTOR);
+  loadScheme(ActionParticle, ActionParticle.SCHEME_SECTION, ESchemeType.RESTRICTOR);
   loadScheme(ActionCutscene, ActionCutscene.SCHEME_SECTION, ESchemeType.RESTRICTOR);
-  // --loadScheme("sr_bloodsucker",					"sr_bloodsucker",	ESchemeType.RESTRICTOR)
+  // --loadScheme("sr_bloodsucker", "sr_bloodsucker", ESchemeType.RESTRICTOR)
   loadScheme(ActionMonster, ActionMonster.SCHEME_SECTION, ESchemeType.RESTRICTOR);
-  // --loadScheme("sr_robbery",						"sr_robbery",		ESchemeType.RESTRICTOR)
-  // --loadScheme("sr_survival",						"sr_survival",		ESchemeType.RESTRICTOR)
+  // --loadScheme("sr_robbery", "sr_robbery", ESchemeType.RESTRICTOR)
+  // --loadScheme("sr_survival", "sr_survival", ESchemeType.RESTRICTOR)
   loadScheme(ActionCrowSpawner, ActionCrowSpawner.SCHEME_SECTION, ESchemeType.RESTRICTOR);
-  // --loadScheme("sr_shooting",						"sr_shooting",		ESchemeType.RESTRICTOR)
-  // --loadScheme("sr_recoveritem",					"sr_recoveritem",	ESchemeType.RESTRICTOR)
+  // --loadScheme("sr_shooting", "sr_shooting", ESchemeType.RESTRICTOR)
+  // --loadScheme("sr_recoveritem", "sr_recoveritem", ESchemeType.RESTRICTOR)
   loadScheme(ActionSilence, ActionSilence.SCHEME_SECTION, ESchemeType.RESTRICTOR);
   loadScheme(ActionDeimos, ActionDeimos.SCHEME_SECTION, ESchemeType.RESTRICTOR);
 }

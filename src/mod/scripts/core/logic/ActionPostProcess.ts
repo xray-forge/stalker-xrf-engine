@@ -1,161 +1,166 @@
-export interface IPPEffector {}
+import { color, hit, noise, time_global, vector, XR_game_object, XR_ini_file, XR_noise } from "xray16";
 
-export const PPEffector: IPPEffector = declare_xr_class("S", null);
+import { AnyCallablesModule } from "@/mod/lib/types";
+import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { IPPEffector, PPEffector } from "@/mod/scripts/core/post_processing/PPEffector";
+import { getConfigNumber } from "@/mod/scripts/utils/configs";
+import { abort } from "@/mod/scripts/utils/debug";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-/**
- * -- 157
- * --[[------------------------------------------------------------------------------------------------
- * ���� ���-���������. ���������� ����������� � �������� �� ���������� �� custom_data
- * --------------------------------------------------------------------------------------------------]]
- *
- * ----------------------------------------------------------------------------------------------------
- * -- �����, ���������� �� ����������� � ��������
- * ----------------------------------------------------------------------------------------------------
- * -------------------
- * class "PPEffector"(effector)
- * -------------------
- * ---
- * function PPEffector:__init(id_number)
- *   super(id_number, 10000000)
- *   self.params = effector_params();
- * end
- *
- * -------------------
- * function PPEffector:process(pp)
- *   pp:assign(self.params);
- *   effector.process(self, pp);
- *   return true;
- * end
- * -------------------
- *
- * -------------------
- * class "action_postprocess"
- * -------------------
- * function action_postprocess:__init (obj, storage)
- *   self.object = obj
- *   self.st = storage
- *   self.actor_inside = false
- * end
- * -------------------
- * function action_postprocess:reset_scheme()
- *   self.actor_inside = false
- *   -- ----------------------------------------------------------------------------------------
- *   -- postprocess
- *   -- ----------------------------------------------------------------------------------------
- *   self.gray_amplitude = 1.0                -- gray max intensity            [0.0-1.0]
- *   self.gray_color = color(0.5, 0.5, 0.5);    -- RGB                            [0.0-1.0]
- *   self.base_color = color(0.5, 0.5, 0.5);      -- RGB                            [0.0-1.0]
- *   self.noise_var = noise(0.9, 0.5, 30);        -- intensity, grain, fps        [0.0-1.0,0.0-1.0,1-100]
- *   self.eff_time = 0;
- *   self.hit_time = 0;
- *   self.intensity = 0;
- *   self.intensity_base = self.st.intensity
- *   self.hit_power = 0
- *
- *   if self.intensity_base < 0.0 then
- *     self.intensity_inertion = -self.st.intensity_speed;
- *   else
- *     self.intensity_inertion = self.st.intensity_speed;
- *   end
- *
- *   self.pp = PPEffector(self.object:id() + 2000);
- *   self.pp.params.noise = noise();
- *   self.pp:start();
- *
- *   self.gray = 1
- *   self.noise = noise(1.0, 0.3, 30)
- * end
- * -------------------
- * function action_postprocess:deactivate()
- *   if self.state == state_inside then
- *     self.pp:finish()
- *     level.set_snd_volume(self.snd_volume)
- *     self:zone_leave()
- *   end
- * end
- * -------------------
- * function action_postprocess:update (delta)
- *   if xr_logic.try_switch_to_another_section(self.object, self.st, db.actor) then
- *     return
- *   end
- *
- *   self.actor_inside = self.object:inside(db.actor:position())
- *   local c_time = delta * 0.001
- *
- *   if self.actor_inside == true then
- *     self.intensity = self.intensity + self.intensity_inertion * c_time
- *     if self.intensity_base < 0.0 then
- *       if self.intensity < self.intensity_base then
- *         self.intensity = self.intensity_base
- *       end
- *     else
- *       if self.intensity > self.intensity_base then
- *         self.intensity = self.intensity_base
- *       end
- *     end
- *   else
- *     if self.intensity_base < 0.0 then
- *       self.intensity = self.intensity - self.intensity_inertion * c_time
- *       if self.intensity > 0.0 then
- *         self.intensity = 0.0
- *       end
- *     else
- *       self.intensity = self.intensity - self.intensity_inertion * c_time
- *       if self.intensity < 0.0 then
- *         self.intensity = 0.0
- *       end
- *     end
- *
- *   end
- *
- *   self.pp.params.color_base = self.base_color
- *   self.pp.params.color_gray = color(self.gray_color.r + self.intensity, self.gray_color.g + self.intensity, self.gray_color.b + self.intensity)--color (0.5 + self.base_color.r * self.intensity, 0.5 + self.base_color.g * self.intensity, 0.5 + self.base_color.b * self.intensity)
- *   self.pp.params.gray = self.gray_amplitude * self.intensity;
- *   self.pp.params.noise = noise(self.noise_var.intensity * self.intensity, self.noise_var.grain, self.noise_var.fps);
- *   self:update_hit(delta)
- * end
- * -------------------
- * function action_postprocess:update_hit    (delta)
- *   if self.actor_inside == false then
- *     self.hit_power = 0
- *     return
- *   end
- *   self.hit_power = self.hit_power + (delta * 0.001) * self.st.hit_intensity
- *   if time_global() - self.hit_time < 1000 then
- *     return
- *   end
- *   printf("HIT POWER = %f", self.hit_power)
- *   self.hit_time = time_global();
- *   local h = hit();
- *   h.power = self.hit_power
- *   h.direction = vector():set(0, 0, 0);
- *   h.impulse = 0;
- *   h.draftsman = db.actor;
- *   h.type = hit.radiation;
- *   db.actor:hit(h);
- *
- *   h.type = hit.shock
- *   db.actor:hit(h)
- *
- * end
- * -------------------
- *
- * ---------------------------------------------------------------------------------------------------------------------
- * function add_to_binder(npc, ini, scheme, section, storage)
- *
- *   local new_action = action_postprocess(npc, storage)
- *
- *   -- ���������������� ��� actions, � ������� ������ ���� ������ ����� reset_scheme ��� ��������� �������� �����:
- *   xr_logic.subscribe_action_for_events(npc, storage, new_action)
- * end
- * ---------------------------------------------------------------------------------------------------------------------
- * function set_scheme(npc, ini, scheme, section, gulag_name)
- *   local st = xr_logic.assign_storage_and_bind(npc, ini, scheme, section)
- *   st.logic = xr_logic.cfg_get_switch_conditions(ini, section, npc)
- *
- *   st.intensity = utils.cfg_get_number(ini, section, "intensity", npc, true) * 0.01
- *   st.intensity_speed = utils.cfg_get_number(ini, section, "intensity_speed", npc, true) * 0.01
- *   st.hit_intensity = utils.cfg_get_number(ini, section, "hit_intensity", npc, true)
- *
- * end
- */
+const log: LuaLogger = new LuaLogger("ActionPostProcess");
+
+export class ActionPostProcess extends AbstractSchemeAction {
+  public static readonly SCHEME_SECTION: string = "sr_postprocess";
+
+  public static add_to_binder(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: string,
+    section: string,
+    state: IStoredObject
+  ): void {
+    log.info("Add to binder:", object.name());
+
+    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(
+      object,
+      state,
+      new ActionPostProcess(object, state)
+    );
+  }
+
+  public static set_scheme(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: string,
+    section: string,
+    additional: string
+  ): void;
+  public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
+    const state = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(object, ini, scheme, section);
+
+    state.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, object);
+    state.intensity = getConfigNumber(ini, section, "intensity", object, true) * 0.01;
+    state.intensity_speed = getConfigNumber(ini, section, "intensity_speed", object, true) * 0.01;
+    state.hit_intensity = getConfigNumber(ini, section, "hit_intensity", object, true);
+  }
+
+  public actor_inside: boolean = false;
+  public gray: number = 1;
+  public gray_amplitude: number = 1.0;
+
+  public pp!: IPPEffector;
+  public noise!: XR_noise;
+  public gray_color = new color(0.5, 0.5, 0.5);
+  public base_color = new color(0.5, 0.5, 0.5);
+  public noise_var = new noise(0.9, 0.5, 30);
+
+  public eff_time: number = 0;
+  public hit_time: number = 0;
+  public intensity: number = 0;
+  public intensity_base: number = 0;
+  public hit_power: number = 0;
+  public intensity_inertion: number = 0;
+
+  public reset_scheme(): void {
+    this.actor_inside = false;
+
+    this.gray_amplitude = 1.0;
+    this.eff_time = 0;
+    this.hit_time = 0;
+    this.intensity = 0;
+    this.intensity_base = this.state.intensity;
+    this.hit_power = 0;
+    this.intensity_inertion = this.intensity_base < 0.0 ? -this.state.intensity_speed : this.state.intensity_speed;
+
+    this.pp = create_xr_class_instance(PPEffector, this.object.id() + 2000);
+    this.pp.params.noise = new noise();
+    this.pp.start();
+
+    this.gray = 1;
+    this.noise = new noise(1.0, 0.3, 30);
+  }
+
+  public deactivate(): void {
+    abort("Called not expected method, not implemented originally");
+  }
+
+  public update(delta: number): void {
+    const actor = getActor()!;
+
+    if (get_global<AnyCallablesModule>("xr_logic").try_switch_to_another_section(this.object, this.state, actor)) {
+      return;
+    }
+
+    this.actor_inside = this.object.inside(actor.position());
+
+    const c_time: number = delta * 0.001;
+
+    if (this.actor_inside == true) {
+      this.intensity = this.intensity + this.intensity_inertion * c_time;
+      if (this.intensity_base < 0.0) {
+        if (this.intensity < this.intensity_base) {
+          this.intensity = this.intensity_base;
+        }
+      } else {
+        if (this.intensity > this.intensity_base) {
+          this.intensity = this.intensity_base;
+        }
+      }
+    } else {
+      if (this.intensity_base < 0.0) {
+        this.intensity = this.intensity - this.intensity_inertion * c_time;
+        if (this.intensity > 0.0) {
+          this.intensity = 0.0;
+        }
+      } else {
+        this.intensity = this.intensity - this.intensity_inertion * c_time;
+        if (this.intensity < 0.0) {
+          this.intensity = 0.0;
+        }
+      }
+    }
+
+    this.pp.params.color_base = this.base_color;
+    this.pp.params.color_gray = new color(
+      this.gray_color.r + this.intensity,
+      this.gray_color.g + this.intensity,
+      this.gray_color.b + this.intensity
+    );
+    this.pp.params.gray = this.gray_amplitude * this.intensity;
+    this.pp.params.noise = new noise(
+      this.noise_var.intensity * this.intensity,
+      this.noise_var.grain,
+      this.noise_var.fps
+    );
+    this.update_hit(delta);
+  }
+
+  public update_hit(delta: number): void {
+    if (this.actor_inside === false) {
+      this.hit_power = 0;
+
+      return;
+    }
+
+    this.hit_power = this.hit_power + delta * 0.001 * this.state.hit_intensity;
+    if (time_global() - this.hit_time < 1000) {
+      return;
+    }
+
+    this.hit_time = time_global();
+
+    const actor = getActor()!;
+    const h = new hit();
+
+    h.power = this.hit_power;
+    h.direction = new vector().set(0, 0, 0);
+    h.impulse = 0;
+    h.draftsman = getActor();
+    h.type = hit.radiation;
+    getActor()!.hit(h);
+
+    h.type = hit.shock;
+    actor.hit(h);
+  }
+}
