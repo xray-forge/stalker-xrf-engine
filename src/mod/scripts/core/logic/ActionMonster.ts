@@ -81,7 +81,7 @@ export class ActionMonster extends AbstractSchemeAction {
     this.state.signals = {};
     this.snd_obj = null;
     this.final_action = false;
-    this.appear_snd = new sound_object(sounds.monsters_boar_boar_attack_1);
+    this.appear_snd = new sound_object(sounds.monsters_boar_boar_swamp_appear_1);
     this.idle_state = false;
     this.path_name = null;
     this.monster_obj = null;

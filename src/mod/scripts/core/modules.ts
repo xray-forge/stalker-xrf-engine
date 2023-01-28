@@ -19,6 +19,7 @@ import { ActionParticle } from "@/mod/scripts/core/logic/ActionParticle";
 import { ActionPhysicalIdle } from "@/mod/scripts/core/logic/ActionPhysicalIdle";
 import { ActionPostProcess } from "@/mod/scripts/core/logic/ActionPostProcess";
 import { ActionProcessHit } from "@/mod/scripts/core/logic/ActionProcessHit";
+import { ActionPsyAntenna } from "@/mod/scripts/core/logic/ActionPsyAntenna";
 import { ActionSilence } from "@/mod/scripts/core/logic/ActionSilence";
 import { ActionTeleport } from "@/mod/scripts/core/logic/ActionTeleport";
 import { ActionTimer } from "@/mod/scripts/core/logic/ActionTimer";
@@ -88,7 +89,7 @@ export function initializeModules(): void {
   loadScheme(ActionIdle, ActionIdle.SCHEME_SECTION, ESchemeType.RESTRICTOR);
   loadScheme(ActionLight, ActionLight.SCHEME_SECTION, ESchemeType.RESTRICTOR);
   loadScheme(ActionTimer, ActionTimer.SCHEME_SECTION, ESchemeType.RESTRICTOR);
-  loadScheme("sr_psy_antenna", "sr_psy_antenna", ESchemeType.RESTRICTOR);
+  loadScheme(ActionPsyAntenna, ActionPsyAntenna.SCHEME_SECTION, ESchemeType.RESTRICTOR);
   loadScheme(ActionPostProcess, ActionPostProcess.SCHEME_SECTION, ESchemeType.RESTRICTOR);
   loadScheme(ActionParticle, ActionParticle.SCHEME_SECTION, ESchemeType.RESTRICTOR);
   loadScheme(ActionCutscene, ActionCutscene.SCHEME_SECTION, ESchemeType.RESTRICTOR);

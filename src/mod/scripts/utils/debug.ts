@@ -9,7 +9,10 @@ const log: LuaLogger = new LuaLogger("utils/debug");
 export function abort(format: string, ...rest: AnyArgs): never {
   const reason: string = string.format(format, ...rest);
 
-  return log.error("[abort] Aborting:", reason) as never;
+  log.error("[abort] Aborting:", reason);
+  log.printStack();
+
+  return null as never;
 }
 
 /**

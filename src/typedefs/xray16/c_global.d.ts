@@ -94,10 +94,10 @@ declare module "xray16" {
     remove_complex_effector(this: void, id: number): void;
     get_time_days(this: void): unknown;
     set_pp_effector_factor(this: void, num1: number, num2: number, num3: number): unknown;
-    set_pp_effector_factor(this: void, num1: number, num2: number): unknown;
+    set_pp_effector_factor(this: void, index: number, factor: number): unknown;
     rain_factor(this: void): unknown;
     remove_pp_effector(this: void, num: number): unknown;
-    add_pp_effector(this: void, str: string, num: number, val: boolean): unknown;
+    add_pp_effector(this: void, str: string, index: number, val: boolean): unknown;
     get_bounding_volume(this: void): XR_Fbox;
     set_snd_volume(this: void, num: number): void;
     add_cam_effector(this: void, effect: string, num: number, val: boolean, scriptPath: string): void;

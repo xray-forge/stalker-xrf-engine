@@ -1,4 +1,4 @@
-import { error_log, log, time_global } from "xray16";
+import { error_log, log, print_stack, time_global } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { AnyObject } from "@/mod/lib/types";
@@ -34,6 +34,10 @@ export class LuaLogger {
 
   public error(...args: Array<any>): void {
     this.logAs("[ERROR]", args);
+  }
+
+  public printStack(): void {
+    print_stack();
   }
 
   protected logAs(method: string, args: Array<any>): void {
