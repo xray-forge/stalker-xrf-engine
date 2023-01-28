@@ -777,6 +777,7 @@ declare module "xray16" {
     public set_dest_loophole(): void;
     public set_dest_loophole(value: string): void;
     public set_goodwill(value: i32, game_object: XR_game_object): void;
+    public set_home(value1: u32 | null, value2: f32, value3?: f32, value4?: boolean, value5?: f32): void;
     public set_home(value1: string | null, value2: f32, value3?: f32, value4?: boolean, value5?: f32): void;
     public set_level_changer_invitation(hint: string): void;
     public set_nonscript_usable(is_usable: boolean): void;

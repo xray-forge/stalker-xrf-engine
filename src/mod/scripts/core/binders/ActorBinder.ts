@@ -31,12 +31,14 @@ import {
   PARENT_ZONES_BY_ARTEFACT_ID
 } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
 import { addActor, deleteActor, getActor, IStoredObject, scriptIds, storage, zoneByName } from "@/mod/scripts/core/db";
+import { destroyManager, getWeakManagerInstance, isManagerInitialized } from "@/mod/scripts/core/db/ManagersRegistry";
 import { initDropSettings } from "@/mod/scripts/core/DropManager";
 import { EGameEvent } from "@/mod/scripts/core/events/EGameEvent";
 import { EventsManager } from "@/mod/scripts/core/events/EventsManager";
 import { ActionDeimos } from "@/mod/scripts/core/logic/ActionDeimos";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { send_task } from "@/mod/scripts/core/NewsManager";
+import { PsyAntennaManager } from "@/mod/scripts/core/PsyAntennaManager";
 import { get_release_body_manager } from "@/mod/scripts/core/ReleaseBodyManager";
 import { DynamicMusicManager } from "@/mod/scripts/core/sound/DynamicMusicManager";
 import { SurgeManager } from "@/mod/scripts/core/SurgeManager";
@@ -202,10 +204,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
       declare_global("mus_vol", 0);
     }
 
-    if (get_global("sr_psy_antenna").psy_antenna) {
-      get_global("sr_psy_antenna").psy_antenna.destroy();
-      get_global("sr_psy_antenna").psy_antenna = false;
-    }
+    destroyManager(PsyAntennaManager, true);
 
     DynamicMusicManager.getInstance().stopTheme();
 
@@ -352,9 +351,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
       }
     }
 
-    if (get_global("sr_psy_antenna").psy_antenna) {
-      get_global("sr_psy_antenna").psy_antenna.update(delta);
-    }
+    getWeakManagerInstance(PsyAntennaManager)?.update(delta);
 
     /**
      * todo: Not implemented originally.
@@ -436,7 +433,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     weatherManager.save(packet);
     get_release_body_manager().save(packet);
     this.surgeManager.save(packet);
-    get_global<AnyCallablesModule>("sr_psy_antenna").save(packet);
+    PsyAntennaManager.save(packet);
     packet.w_bool(get_sim_board().simulation_started);
 
     GlobalSound.actor_save(packet);
@@ -508,7 +505,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
 
     this.surgeManager.load(packet);
     this.isSurgeManagerLoaded = true;
-    get_global<AnyCallablesModule>("sr_psy_antenna").load(packet);
+    PsyAntennaManager.load(packet);
     get_sim_board().simulation_started = packet.r_bool();
 
     GlobalSound.actor_load(packet);

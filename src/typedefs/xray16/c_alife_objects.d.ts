@@ -152,8 +152,8 @@ declare module "xray16" {
     public can_save(): boolean;
 
     public static can_switch_online(this: void, target: XR_cse_alife_object): boolean;
-    public static can_switch_online(this: void, target: XR_cse_alife_object, value: boolean): boolean;
-    public can_switch_online(): void;
+    public static can_switch_online(this: void, target: XR_cse_alife_object, value: boolean): void;
+    public can_switch_online(): boolean;
     public can_switch_online(value: boolean): void;
 
     public init(): XR_cse_abstract;
@@ -164,8 +164,8 @@ declare module "xray16" {
     public visible_for_map(value: boolean): void;
 
     public static can_switch_offline(this: void, target: XR_cse_alife_object): boolean;
-    public static can_switch_offline(this: void, value: boolean, target: XR_cse_alife_object): boolean;
-    public can_switch_offline(): void;
+    public static can_switch_offline(this: void, value: boolean, target: XR_cse_alife_object): void;
+    public can_switch_offline(): boolean;
     public can_switch_offline(value: boolean): void;
 
     public move_offline(): void

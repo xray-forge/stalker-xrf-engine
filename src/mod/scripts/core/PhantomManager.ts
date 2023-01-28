@@ -1,16 +1,8 @@
 import { level, XR_vector } from "xray16";
 
-import { managersRegistry } from "@/mod/scripts/core/db/ManagersRegistry";
+import { AbstractCoreManager } from "@/mod/scripts/core/AbstractCoreManager";
 
-export class PhantomManager {
-  public static getInstance(): PhantomManager {
-    if (!managersRegistry.has(this)) {
-      managersRegistry.set(this, new this());
-    }
-
-    return managersRegistry.get(this) as PhantomManager;
-  }
-
+export class PhantomManager extends AbstractCoreManager {
   public phantom_count: number = 0;
 
   public add_phantom(): void {

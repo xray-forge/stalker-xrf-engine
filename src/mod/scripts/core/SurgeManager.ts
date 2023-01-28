@@ -19,7 +19,9 @@ import { post_processors } from "@/mod/globals/animation/post_processors";
 import { levels, TLevel } from "@/mod/globals/levels";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { AnyCallablesModule, Optional, PartialRecord } from "@/mod/lib/types";
+import { AbstractCoreManager } from "@/mod/scripts/core/AbstractCoreManager";
 import { anomalyByName, CROW_STORAGE, getActor, signalLight, storage, zoneByName } from "@/mod/scripts/core/db";
+import { getManagerInstance } from "@/mod/scripts/core/db/ManagersRegistry";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { send_tip } from "@/mod/scripts/core/NewsManager";
 import { get_weather_manager } from "@/mod/scripts/core/WeatherManager";
@@ -41,17 +43,7 @@ export const sleep_fade_pp_eff_id: number = 4;
 
 const log: LuaLogger = new LuaLogger("SurgeManager");
 
-export class SurgeManager {
-  public static instance: Optional<SurgeManager> = null;
-
-  public static getInstance(): SurgeManager {
-    if (!this.instance) {
-      this.instance = new this();
-    }
-
-    return this.instance;
-  }
-
+export class SurgeManager extends AbstractCoreManager {
   public ini: XR_ini_file = new ini_file("misc\\surge_manager.ltx");
   public levels_respawn: PartialRecord<TLevel, boolean> = { zaton: false, jupiter: false, pripyat: false };
 

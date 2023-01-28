@@ -1,7 +1,7 @@
 import { profile_timer, XR_profile_timer } from "xray16";
 
 import { AnyCallable, Optional } from "@/mod/lib/types";
-import { getManagerInstance } from "@/mod/scripts/core/db/ManagersRegistry";
+import { AbstractCoreManager } from "@/mod/scripts/core/AbstractCoreManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("ProfilingManager");
@@ -12,11 +12,7 @@ export interface IProfileSnapshotDescriptor {
   childTimer: XR_profile_timer;
 }
 
-export class ProfilingManager {
-  public static getInstance(): ProfilingManager {
-    return getManagerInstance(this);
-  }
-
+export class ProfilingManager extends AbstractCoreManager {
   public Counters: LuaTable<AnyCallable, IProfileSnapshotDescriptor> = new LuaTable();
   public Names: LuaTable<AnyCallable, debug.FunctionInfo> = new LuaTable();
   public profilingTimer = new profile_timer();

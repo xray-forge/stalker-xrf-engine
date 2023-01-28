@@ -46,7 +46,7 @@ declare module "xray16" {
       value: number
     ): unknown;
 
-    public level_id(life: XR_alife_simulator): unknown;
+    public level_id(): number;
 
     public valid_object_id(value: number): unknown;
 
@@ -157,7 +157,7 @@ declare module "xray16" {
     public static readonly wound = 6;
 
     public direction: XR_vector;
-    public draftsman: XR_game_object;
+    public draftsman: XR_game_object | null;
     public impulse: f32;
     public power: f32;
     public type: TXR_hit_type;

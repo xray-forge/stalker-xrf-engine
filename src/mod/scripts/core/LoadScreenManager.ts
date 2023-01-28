@@ -1,17 +1,9 @@
-import { managersRegistry } from "@/mod/scripts/core/db/ManagersRegistry";
+import { AbstractCoreManager } from "@/mod/scripts/core/AbstractCoreManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("LoadScreenManager");
 
-export class LoadScreenManager {
-  public static getInstance(): LoadScreenManager {
-    if (!managersRegistry.get(this)) {
-      managersRegistry.set(this, new this());
-    }
-
-    return managersRegistry.get(this) as LoadScreenManager;
-  }
-
+export class LoadScreenManager extends AbstractCoreManager {
   public get_tip_number(levelName: string): number {
     log.info("Get tip for single player game");
 

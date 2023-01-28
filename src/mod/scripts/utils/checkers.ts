@@ -9,7 +9,8 @@ import {
   system_ini,
   XR_cse_alife_object,
   alife,
-  game_graph
+  game_graph,
+  XR_alife_simulator
 } from "xray16";
 
 import { squadMonsters } from "@/mod/globals/behaviours";
@@ -190,4 +191,15 @@ export function isAmmoSection(section: TSection): section is TAmmoItem {
  */
 export function isExcludedFromLootDropItem(object: XR_game_object): boolean {
   return lootable_table_exclude[object.section<TLootableExcludeItem>()] !== null;
+}
+
+/**
+ * @returns whether current game level is changing.
+ */
+export function isLevelChanging(): boolean {
+  const simulator: Optional<XR_alife_simulator> = alife();
+
+  return simulator === null
+    ? false
+    : game_graph().vertex(simulator.actor().m_game_vertex_id).level_id() !== simulator?.level_id();
 }

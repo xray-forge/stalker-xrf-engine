@@ -1,22 +1,26 @@
 import {
+  TXR_sound_object_type,
+  XR_CUIGameCustom,
+  XR_StaticDrawableWrapper,
+  XR_game_object,
+  XR_net_packet,
+  XR_sound_object,
   get_hud,
   hit,
   level,
   sound_object,
   time_global,
-  TXR_sound_object_type,
-  vector,
-  XR_CUIGameCustom,
-  XR_game_object,
-  XR_net_packet,
-  XR_sound_object,
-  XR_StaticDrawableWrapper
+  vector
 } from "xray16";
 
 import { sounds } from "@/mod/globals/sound/sounds";
 import { Optional } from "@/mod/lib/types";
+import { AbstractCoreManager } from "@/mod/scripts/core/AbstractCoreManager";
 import { getActor } from "@/mod/scripts/core/db";
+import { getWeakManagerInstance, isManagerInitialized } from "@/mod/scripts/core/db/ManagersRegistry";
 import { PhantomManager } from "@/mod/scripts/core/PhantomManager";
+import { isLevelChanging } from "@/mod/scripts/utils/checkers";
+import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { clampNumber } from "@/mod/scripts/utils/number";
 import { vectorRotateY } from "@/mod/scripts/utils/physics";
@@ -27,7 +31,37 @@ export interface IPsyPostProcessDescriptor {
   idx: number;
 }
 
-export class PsyAntenna {
+export class PsyAntennaManager extends AbstractCoreManager {
+  public static load(net_packet: XR_net_packet): void {
+    setLoadMarker(net_packet, false, PsyAntennaManager.name + "_static");
+
+    if (net_packet.r_bool()) {
+      if (isManagerInitialized(PsyAntennaManager)) {
+        abort("PsyAntennaManager already exists!");
+      }
+
+      PsyAntennaManager.getInstance().load(net_packet);
+    }
+
+    setLoadMarker(net_packet, true, PsyAntennaManager.name + "_static");
+  }
+
+  public static save(net_packet: XR_net_packet): void {
+    setSaveMarker(net_packet, false, PsyAntennaManager.name + "_static");
+
+    const manager: Optional<PsyAntennaManager> = getWeakManagerInstance(PsyAntennaManager);
+
+    if (manager && !isLevelChanging()) {
+      net_packet.w_bool(true);
+
+      manager.save(net_packet);
+    } else {
+      net_packet.w_bool(false);
+    }
+
+    setSaveMarker(net_packet, true, PsyAntennaManager.name + "_static");
+  }
+
   public readonly sound_obj_right: XR_sound_object = new sound_object(sounds.anomaly_psy_voices_1_r);
   public readonly sound_obj_left: XR_sound_object = new sound_object(sounds.anomaly_psy_voices_1_l);
 
@@ -63,6 +97,8 @@ export class PsyAntenna {
   public hit_freq: number = 5000;
 
   public constructor() {
+    super();
+
     this.sound_obj_left.volume = 0;
     this.sound_obj_right.volume = 0;
   }
@@ -222,7 +258,7 @@ export class PsyAntenna {
   }
 
   public save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, PsyAntenna.name);
+    setSaveMarker(packet, false, PsyAntennaManager.name);
 
     packet.w_float(this.hit_intensity);
     packet.w_float(this.sound_intensity);
@@ -241,11 +277,11 @@ export class PsyAntenna {
       packet.w_u16(v.idx);
     }
 
-    setSaveMarker(packet, true, PsyAntenna.name);
+    setSaveMarker(packet, true, PsyAntennaManager.name);
   }
 
   public load(packet: XR_net_packet): void {
-    setLoadMarker(packet, false, PsyAntenna.name);
+    setLoadMarker(packet, false, PsyAntennaManager.name);
     this.hit_intensity = packet.r_float();
     this.sound_intensity = packet.r_float();
     this.sound_intensity_base = packet.r_float();
@@ -269,6 +305,6 @@ export class PsyAntenna {
       level.set_pp_effector_factor(idx, ii);
     }
 
-    setLoadMarker(packet, true, PsyAntenna.name);
+    setLoadMarker(packet, true, PsyAntennaManager.name);
   }
 }

@@ -9,7 +9,7 @@ declare module "xray16" {
    * C++ class IRender_Visual {
    */
   export interface IXR_IRender_Visual {
-    dcast_PKinematicsAnimated(): unknown;
+    dcast_PKinematicsAnimated(): XR_IKinematicsAnimated;
   }
 
   /**

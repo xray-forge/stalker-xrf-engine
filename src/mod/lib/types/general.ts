@@ -1,3 +1,5 @@
+import { AbstractCoreManager } from "@/mod/scripts/core/AbstractCoreManager";
+
 export type AnyObject = Record<string, any>;
 
 export type Optional<T> = T | null;
@@ -19,3 +21,8 @@ export type AnyCallablesModule = Record<string, (this: void, ...args: AnyArgs) =
 export type TFolderFiles = string | Array<string | Array<string>>;
 
 export type TFolderReplicationDescriptor = [string, string];
+
+export interface IConstructor<T> {
+  prototype: T;
+  new (): T;
+}
