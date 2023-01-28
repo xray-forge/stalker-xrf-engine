@@ -127,10 +127,10 @@ declare module "xray16" {
     public static visual: 0;
 
     public type(): TXR_danger_object;
-    public time(): number;
+    public time(): u32;
     public position(): XR_vector;
     public object(): XR_game_object;
-    public perceive_type(): unknown;
+    public perceive_type(): number; /* CDangerObject::EDangerPerceiveType */
     public dependent_object(): XR_game_object;
   }
 
@@ -156,9 +156,9 @@ declare module "xray16" {
     public static readonly wound = 6;
 
     public direction: XR_vector;
-    public draftsman: unknown;
-    public impulse: number;
-    public power: number;
+    public draftsman: XR_game_object;
+    public impulse: f32;
+    public power: f32;
     public type: TXR_hit_type;
 
     public constructor ();

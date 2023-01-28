@@ -86,14 +86,14 @@ declare module "xray16" {
 
   /**
    * C++ class fs_file {
+   * @customConstructor fs_file
    */
-  export interface IXR_fs_file {
-    modif: unknown;
-    name: unknown;
-    ptr: unknown;
-    size_compressed: unknown;
-    size_real: unknown;
-    vfs: unknown;
+  export class XR_fs_file {
+    public modif: u32;
+    public name: string;
+    public ptr: u32;
+    public size_compressed: u32;
+    public size_real: u32;
   }
 
   /**

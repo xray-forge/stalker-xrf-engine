@@ -92,12 +92,12 @@ declare module "xray16" {
    * @customConstructor cse_abstract
    */
   export class XR_cse_abstract extends XR_LuaBindBase implements IXR_cpure_server_object {
-    public readonly id: number;
-    public readonly parent_id: number;
+    public readonly id: u16;
+    public readonly parent_id: u16;
     public readonly position: XR_vector;
-    public readonly script_version: number;
+    public readonly script_version: u16;
 
-    public angle: number;
+    public angle: XR_vector;
 
     public __init(section: string): void;
     public constructor(section: string);
@@ -128,35 +128,35 @@ declare module "xray16" {
    * @customConstructor cse_alife_object
    */
   export class XR_cse_alife_object extends XR_cse_abstract {
-    public readonly m_game_vertex_id: number;
-    public readonly m_level_vertex_id: number;
-    public readonly m_story_id: number;
+    public readonly m_game_vertex_id: u16;
+    public readonly m_level_vertex_id: u32;
+    public readonly m_story_id: u32;
     public readonly online: boolean;
 
     public constructor(value: string);
 
     public used_ai_locations(): boolean;
-    public use_ai_locations(value: boolean): boolean;
+    public use_ai_locations(value: boolean): void;
 
     public static can_save(this: void, target: XR_cse_alife_object): boolean;
     public can_save(): boolean;
 
     public static can_switch_online(this: void, target: XR_cse_alife_object): boolean;
     public static can_switch_online(this: void, target: XR_cse_alife_object, value: boolean): boolean;
-    public can_switch_online(): boolean;
-    public can_switch_online(value: boolean): boolean;
+    public can_switch_online(): void;
+    public can_switch_online(value: boolean): void;
 
-    public init(): void;
+    public init(): XR_cse_abstract;
 
-    public interactive(): unknown;
+    public interactive(): boolean;
 
-    public visible_for_map(): boolean
-    public visible_for_map(value: boolean): boolean;
+    public visible_for_map(): void;
+    public visible_for_map(value: boolean): void;
 
     public static can_switch_offline(this: void, target: XR_cse_alife_object): boolean;
     public static can_switch_offline(this: void, value: boolean, target: XR_cse_alife_object): boolean;
-    public can_switch_offline(): boolean;
-    public can_switch_offline(value: boolean): boolean;
+    public can_switch_offline(): void;
+    public can_switch_offline(value: boolean): void;
 
     public move_offline(): void
     public move_offline(value: boolean): void
@@ -288,7 +288,7 @@ declare module "xray16" {
    * @customConstructor cse_alife_item
    */
   export class XR_cse_alife_item extends XR_cse_alife_dynamic_object_visual implements IXR_cse_alife_inventory_item {
-    public bfUseful(): unknown;
+    public bfUseful(): boolean;
   }
 
   /**
@@ -296,7 +296,7 @@ declare module "xray16" {
    * @customConstructor cse_alife_item_weapon
    */
   export class XR_cse_alife_item_weapon extends XR_cse_alife_item {
-    public clone_addons(cse_alife_item_weapon: XR_cse_alife_item_weapon): unknown;
+    public clone_addons(cse_alife_item_weapon: XR_cse_alife_item_weapon): void;
   }
 
   /**

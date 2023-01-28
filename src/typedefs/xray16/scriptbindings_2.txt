@@ -1,811 +1,3 @@
-CGameFont* GetFontGraffiti32Russian();
-CGameFont* GetFontGraffiti19Russian();
-bool IsImportantSave();
-bool valid_saved_game(char const*);
-CGameFont* GetFontLetterica16Russian();
-bool GetTextureInfo(char const*,char const*,TEX_INFO&);
-unsigned int render_get_dx_level();
-CGameFont* GetFontLetterica18Russian();
-void sell_condition(float,float);
-bool IsGameTypeSingle();
-action_planner* cast_planner(action_base*);
-FS* getFS();
-bool FitInRect(CUIWindow*,Frect const&,float,float);
-int GetARGB(unsigned short,unsigned short,unsigned short,unsigned short);
-CUIGameCustom* get_hud();
-CGameFont* GetFontGraffiti50Russian();
-bool IsDynamicMusic();
-void show_condition(ini_file*,char const*);
-CGameFont* GetFontSmall();
-cef_storage* ef_storage();
-vector2 GetCursorPosition();
-void SetCursorPosition(vector2&);
-Frect GetTextureRect(char const*);
-CConsole* get_console();
-unsigned short script_server_object_version();
-int bit_and(int,int);
-ini_file* reload_system_ini();
-ini_file* system_ini();
-ini_file* create_ini_file(char const*);
-bool renderer_allow_override();
-char const* GetTextureName(char const*);
-unsigned int time_global_async();
-char const* command_line();
-int bit_not(int);
-CGameGraph const* game_graph();
-bool xrRender_test_r2_hw();
-unsigned int time_global();
-render_device* device();
-bool is_enough_address_space_available();
-void log(char const*);
-void error_log(char const*);
-CGameFont* GetFontDI();
-void print_stack();
-void prefetch(char const*);
-luabind::object class_names(lua_State*);
-int bit_or(int,int);
-bool editor();
-bool app_ready();
-char const* user_name();
-int dik_to_bind(int);
-alife_simulator* alife();
-CGameFont* GetFontLetterica25();
-CGameFont* GetFontGraffiti22Russian();
-void buy_condition(float,float);
-int bit_xor(int,int);
-CGameFont* GetFontMedium();
-class_info_data class_info(luabind::argument const&);
-ini_file* game_ini();
-void verify_if_thread_is_running();
-void flush();
-[cpp]
-class best_scores_pair_t
-{
-    int second { get; }
-    enum gamespy_profile::enum_best_score_type& first { get; }
-}
-[cpp]
-class hit
-{
-    const int burn = 0;
-    const int chemical_burn = 2;
-    const int dummy = 12;
-    const int explosion = 8;
-    const int fire_wound = 6;
-    const int light_burn = 10;
-    const int physic_strike = 11;
-    const int radiation = 3;
-    const int shock = 1;
-    const int strike = 7;
-    const int telepatic = 4;
-    const int wound = 5;
-    game_object* draftsman { get; set; }
-    void bone(char const*);
-    float power { get; set; }
-    int type { get; set; }
-    vector& direction { get; set; }
-    float impulse { get; set; }
-    hit(hit const*);
-}
-[cpp]
-class holder
-{
-    void Action(unsigned short,unsigned int);
-    bool engaged();
-    void SetParam(int,vector);
-}
-[cpp]
-class CPoltergeist : CGameObject
-{
-    CPoltergeist();
-}
-[cpp]
-class CALifeMonsterMovementManager
-{
-    CALifeMonsterDetailPathManager* detail();
-    enum MovementManager::EPathType const& path_type();
-    bool completed();
-    bool actual();
-    CALifeMonsterPatrolPathManager* patrol();
-}
-[cpp]
-class CAI_PseudoDog : CGameObject
-{
-    CAI_PseudoDog();
-}
-[cpp]
-class game_PlayerState
-{
-    void setFlag(unsigned short);
-    game_PlayerState();
-    bool testFlag(unsigned short);
-    unsigned char team { get; set; }
-    short money_delta { get; set; }
-    unsigned short GameID { get; set; }
-    char const* getName();
-    void net_Import(net_packet&);
-    short deaths { get; set; }
-    int money_for_round { get; set; }
-    void net_Export(net_packet&,int);
-    unsigned short ping { get; set; }
-    unsigned int RespawnTime { get; set; }
-    short kills { get; set; }
-    void resetFlag(unsigned short);
-    unsigned short lasthitter { get; set; }
-    void setName(char const*);
-    signed char skin { get; set; }
-    unsigned short flags { get; set; }
-    class std::vector<unsigned short,class xalloc<unsigned short> >& pItemList { get; set; }
-    unsigned short lasthitweapon { get; set; }
-    void clear();
-    int LastBuyAcount { get; set; }
-}
-[cpp]
-class CWeaponUSP45 : CWeaponMagazined
-{
-    CWeaponUSP45();
-}
-[cpp]
-class cse_alife_item_weapon_auto_shotgun : cse_alife_item_weapon
-{
-    void on_unregister();
-    bool can_switch_offline();
-    void switch_online();
-    cse_abstract* init();
-    bool interactive();
-    vector& position { get; set; }
-    unsigned int m_story_id { get; }
-    void switch_offline();
-    void STATE_Read(net_packet&,unsigned short);
-    void on_register();
-    unsigned short id { get; }
-    bool keep_saved_data_anyway();
-    unsigned short script_version { get; }
-    bool can_switch_online();
-    vector& angle { get; set; }
-    unsigned short m_game_vertex_id { get; }
-    void on_spawn();
-    unsigned int m_level_vertex_id { get; }
-    bool used_ai_locations();
-    bool can_save();
-    bool bfUseful();
-    unsigned short parent_id { get; }
-    void on_before_register();
-    bool online { get; }
-    void STATE_Write(net_packet&);
-    cse_alife_item_weapon_auto_shotgun(char const*);
-}
-[cpp]
-class story_ids
-{
-    const int INVALID_STORY_ID = -1;
-    const int Invalid = 65535;
-    const int test_01 = 65000;
-    const int test_02 = 65001;
-    const int test_03 = 65002;
-    const int test_04 = 65003;
-    const int test_05 = 65004;
-}
-[cpp]
-class danger_object
-{
-    const int attack_sound = 1;
-    const int attacked = 5;
-    const int bullet_ricochet = 0;
-    const int enemy_sound = 7;
-    const int entity_attacked = 2;
-    const int entity_corpse = 4;
-    const int entity_death = 3;
-    const int grenade = 6;
-    const int hit = 2;
-    const int sound = 1;
-    const int visual = 0;
-    game_object* object();
-    vector position();
-    enum CDangerObject::EDangerType type();
-    unsigned int time();
-    game_object* dependent_object();
-    enum CDangerObject::EDangerPerceiveType perceive_type();
-}
-[cpp]
-class fs_file
-{
-    unsigned int ptr { get; }
-    unsigned int size_real { get; }
-    unsigned __int64 vfs { get; }
-    unsigned int size_compressed { get; }
-    char const* name { get; }
-    unsigned int modif { get; }
-}
-[cpp]
-class CUIListBoxItem : CUIFrameLineWnd
-{
-    CUIListBoxItem(float);
-    CUIStatic* AddIconField(float);
-    void SetTextColor(unsigned int);
-    CUITextWnd* AddTextField(char const*,float);
-    CUITextWnd* GetTextItem();
-}
-[cpp]
-class DIK_keys
-{
-    const int DIK_0 = 39;
-    const int DIK_1 = 30;
-    const int DIK_2 = 31;
-    const int DIK_3 = 32;
-    const int DIK_4 = 33;
-    const int DIK_5 = 34;
-    const int DIK_6 = 35;
-    const int DIK_7 = 36;
-    const int DIK_8 = 37;
-    const int DIK_9 = 38;
-    const int DIK_A = 4;
-    const int DIK_ADD = 87;
-    const int DIK_ALTERASE = 153;
-    const int DIK_APOSTROPHE = 52;
-    const int DIK_APP1 = 283;
-    const int DIK_APP2 = 284;
-    const int DIK_APPLICATION = 101;
-    const int DIK_AUDIOMUTE = 262;
-    const int DIK_AUDIONEXT = 258;
-    const int DIK_AUDIOPLAY = 261;
-    const int DIK_AUDIOPREV = 259;
-    const int DIK_AUDIOSTOP = 260;
-    const int DIK_B = 5;
-    const int DIK_BACK = 42;
-    const int DIK_BACKSLASH = 49;
-    const int DIK_BRIGHTNESSDOWN = 275;
-    const int DIK_BRIGHTNESSUP = 276;
-    const int DIK_C = 6;
-    const int DIK_CANCEL = 155;
-    const int DIK_CAPITAL = 57;
-    const int DIK_CLEAR = 156;
-    const int DIK_CLEARAGAIN = 162;
-    const int DIK_COMMA = 54;
-    const int DIK_COPY = 124;
-    const int DIK_CRSEL = 163;
-    const int DIK_CURRENCYSUBUNIT = 181;
-    const int DIK_CURRENCYUNIT = 180;
-    const int DIK_CUT = 123;
-    const int DIK_D = 7;
-    const int DIK_DECIMALSEPARATOR = 179;
-    const int DIK_DELETE = 76;
-    const int DIK_DISPLAYSWITCH = 277;
-    const int DIK_DIVIDE = 84;
-    const int DIK_DOWN = 81;
-    const int DIK_E = 8;
-    const int DIK_EJECT = 281;
-    const int DIK_END = 77;
-    const int DIK_EQUALS = 46;
-    const int DIK_ESCAPE = 41;
-    const int DIK_EXECUTE = 116;
-    const int DIK_EXSEL = 164;
-    const int DIK_F = 9;
-    const int DIK_F1 = 58;
-    const int DIK_F10 = 67;
-    const int DIK_F11 = 68;
-    const int DIK_F12 = 69;
-    const int DIK_F13 = 104;
-    const int DIK_F14 = 105;
-    const int DIK_F15 = 106;
-    const int DIK_F16 = 107;
-    const int DIK_F17 = 108;
-    const int DIK_F18 = 109;
-    const int DIK_F19 = 110;
-    const int DIK_F2 = 59;
-    const int DIK_F20 = 111;
-    const int DIK_F21 = 112;
-    const int DIK_F22 = 113;
-    const int DIK_F23 = 114;
-    const int DIK_F24 = 115;
-    const int DIK_F3 = 60;
-    const int DIK_F4 = 61;
-    const int DIK_F5 = 62;
-    const int DIK_F6 = 63;
-    const int DIK_F7 = 64;
-    const int DIK_F8 = 65;
-    const int DIK_F9 = 66;
-    const int DIK_FIND = 126;
-    const int DIK_G = 10;
-    const int DIK_GRAVE = 53;
-    const int DIK_H = 11;
-    const int DIK_HANGUL = 144;
-    const int DIK_HANJA = 145;
-    const int DIK_HELP = 117;
-    const int DIK_HIRAGANA = 147;
-    const int DIK_HOME = 74;
-    const int DIK_I = 12;
-    const int DIK_INSERT = 73;
-    const int DIK_INTERNATIONAL1 = 135;
-    const int DIK_INTERNATIONAL2 = 136;
-    const int DIK_INTERNATIONAL4 = 138;
-    const int DIK_INTERNATIONAL5 = 139;
-    const int DIK_INTERNATIONAL6 = 140;
-    const int DIK_INTERNATIONAL7 = 141;
-    const int DIK_INTERNATIONAL8 = 142;
-    const int DIK_INTERNATIONAL9 = 143;
-    const int DIK_J = 13;
-    const int DIK_K = 14;
-    const int DIK_KATAKANA = 146;
-    const int DIK_KBDILLUMDOWN = 279;
-    const int DIK_KBDILLUMTOGGLE) = 278;
-    const int DIK_KBDILLUMUP = 280;
-    const int DIK_L = 15;
-    const int DIK_LANG6 = 149;
-    const int DIK_LANG7 = 150;
-    const int DIK_LANG8 = 151;
-    const int DIK_LANG9 = 152;
-    const int DIK_LBRACKET = 47;
-    const int DIK_LCONTROL = 224;
-    const int DIK_LEFT = 80;
-    const int DIK_LMENU = 226;
-    const int DIK_LSHIFT = 225;
-    const int DIK_LWIN = 227;
-    const int DIK_M = 16;
-    const int DIK_MENU = 118;
-    const int DIK_MINUS = 45;
-    const int DIK_MODE = 257;
-    const int DIK_MULTIPLY = 85;
-    const int DIK_MUTE = 127;
-    const int DIK_N = 17;
-    const int DIK_NONUSBACKSLASH = 100;
-    const int DIK_NONUSHASH = 50;
-    const int DIK_NUMLOCK = 83;
-    const int DIK_NUMPAD0 = 98;
-    const int DIK_NUMPAD1 = 89;
-    const int DIK_NUMPAD2 = 90;
-    const int DIK_NUMPAD3 = 91;
-    const int DIK_NUMPAD4 = 92;
-    const int DIK_NUMPAD5 = 93;
-    const int DIK_NUMPAD6 = 94;
-    const int DIK_NUMPAD7 = 95;
-    const int DIK_NUMPAD8 = 96;
-    const int DIK_NUMPAD9 = 97;
-    const int DIK_NUMPADCOMMA = 133;
-    const int DIK_NUMPADENTER = 88;
-    const int DIK_NUMPADEQUALS = 103;
-    const int DIK_NUMPADEQUALSAS400 = 134;
-    const int DIK_NUMPADPERIOD = 99;
-    const int DIK_NUMPAD_00 = 176;
-    const int DIK_NUMPAD_000 = 177;
-    const int DIK_NUMPAD_A = 188;
-    const int DIK_NUMPAD_AC_BACK = 270;
-    const int DIK_NUMPAD_AC_BOOKMARKS = 274;
-    const int DIK_NUMPAD_AC_FORWARD = 271;
-    const int DIK_NUMPAD_AC_HOME = 269;
-    const int DIK_NUMPAD_AC_REFRESH = 273;
-    const int DIK_NUMPAD_AC_SEARCH = 268;
-    const int DIK_NUMPAD_AC_STOP = 272;
-    const int DIK_NUMPAD_AMPERSAND = 199;
-    const int DIK_NUMPAD_AT = 206;
-    const int DIK_NUMPAD_B = 189;
-    const int DIK_NUMPAD_BACKSPACE = 187;
-    const int DIK_NUMPAD_BINARY = 218;
-    const int DIK_NUMPAD_C = 190;
-    const int DIK_NUMPAD_CALCULATOR = 266;
-    const int DIK_NUMPAD_CLEAR = 216;
-    const int DIK_NUMPAD_CLEARENTRY = 217;
-    const int DIK_NUMPAD_COLON = 203;
-    const int DIK_NUMPAD_COMPUTER = 267;
-    const int DIK_NUMPAD_D = 191;
-    const int DIK_NUMPAD_DBLAMPERSAND = 200;
-    const int DIK_NUMPAD_DBLVERTICALBAR = 202;
-    const int DIK_NUMPAD_DECIMAL = 220;
-    const int DIK_NUMPAD_E = 192;
-    const int DIK_NUMPAD_EXCLAM = 207;
-    const int DIK_NUMPAD_F = 193;
-    const int DIK_NUMPAD_GREATER = 198;
-    const int DIK_NUMPAD_HASH = 204;
-    const int DIK_NUMPAD_HEXADECIMAL = 221;
-    const int DIK_NUMPAD_LEFTBRACE = 184;
-    const int DIK_NUMPAD_LEFTPAREN = 182;
-    const int DIK_NUMPAD_LESS = 197;
-    const int DIK_NUMPAD_MAIL = 265;
-    const int DIK_NUMPAD_MEDIASELECT = 263;
-    const int DIK_NUMPAD_MEMADD = 211;
-    const int DIK_NUMPAD_MEMCLEAR = 210;
-    const int DIK_NUMPAD_MEMDIVIDE = 214;
-    const int DIK_NUMPAD_MEMMULTIPLY = 213;
-    const int DIK_NUMPAD_MEMRECALL = 209;
-    const int DIK_NUMPAD_MEMSTORE = 208;
-    const int DIK_NUMPAD_MEMSUBTRACT = 212;
-    const int DIK_NUMPAD_OCTAL = 219;
-    const int DIK_NUMPAD_PERCENT = 196;
-    const int DIK_NUMPAD_PLUSMINUS = 215;
-    const int DIK_NUMPAD_POWER = 195;
-    const int DIK_NUMPAD_RIGHTBRACE = 185;
-    const int DIK_NUMPAD_RIGHTPAREN = 183;
-    const int DIK_NUMPAD_SPACE = 205;
-    const int DIK_NUMPAD_TAB = 186;
-    const int DIK_NUMPAD_VERTICALBAR = 201;
-    const int DIK_NUMPAD_WWW = 264;
-    const int DIK_NUMPAD_XOR = 194;
-    const int DIK_O = 18;
-    const int DIK_OPER = 161;
-    const int DIK_OUT = 160;
-    const int DIK_P = 19;
-    const int DIK_PASTE = 125;
-    const int DIK_PAUSE = 72;
-    const int DIK_PERIOD = 55;
-    const int DIK_PGDN = 75;
-    const int DIK_PGUP = 78;
-    const int DIK_POWER = 102;
-    const int DIK_PRINTSCREEN = 70;
-    const int DIK_PRIOR = 157;
-    const int DIK_Q = 20;
-    const int DIK_R = 21;
-    const int DIK_RBRACKET = 48;
-    const int DIK_RCONTROL = 228;
-    const int DIK_REDO = 121;
-    const int DIK_RETURN = 40;
-    const int DIK_RETURN2 = 158;
-    const int DIK_RIGHT = 79;
-    const int DIK_RMENU = 230;
-    const int DIK_RSHIFT = 229;
-    const int DIK_RWIN = 231;
-    const int DIK_S = 22;
-    const int DIK_SCROLL = 71;
-    const int DIK_SELECT = 119;
-    const int DIK_SEMICOLON = 51;
-    const int DIK_SEPARATOR = 159;
-    const int DIK_SLASH = 56;
-    const int DIK_SLEEP = 282;
-    const int DIK_SPACE = 44;
-    const int DIK_STOP = 120;
-    const int DIK_SUBTRACT = 86;
-    const int DIK_T = 23;
-    const int DIK_TAB = 43;
-    const int DIK_THOUSANDSSEPARATOR = 178;
-    const int DIK_U = 24;
-    const int DIK_UNDO = 122;
-    const int DIK_UP = 82;
-    const int DIK_V = 25;
-    const int DIK_VOLUMEDOWN = 129;
-    const int DIK_VOLUMEUP = 128;
-    const int DIK_W = 26;
-    const int DIK_X = 27;
-    const int DIK_Y = 28;
-    const int DIK_YEN = 137;
-    const int DIK_Z = 29;
-    const int DIK_ZENHANKAKU = 148;
-    const int GAMEPAD_A = 518;
-    const int GAMEPAD_B = 519;
-    const int GAMEPAD_BACK = 522;
-    const int GAMEPAD_DPAD_DOWN = 530;
-    const int GAMEPAD_DPAD_LEFT = 531;
-    const int GAMEPAD_DPAD_RIGHT = 532;
-    const int GAMEPAD_DPAD_UP = 529;
-    const int GAMEPAD_GUIDE = 523;
-    const int GAMEPAD_LEFTSHOULDER = 527;
-    const int GAMEPAD_LEFTSTICK = 525;
-    const int GAMEPAD_RIGHTSHOULDER = 528;
-    const int GAMEPAD_RIGHTSTICK = 526;
-    const int GAMEPAD_START = 524;
-    const int GAMEPAD_X = 520;
-    const int GAMEPAD_Y = 521;
-    const int MOUSE_1 = 513;
-    const int MOUSE_2 = 515;
-    const int MOUSE_3 = 514;
-    const int MOUSE_4 = 516;
-    const int MOUSE_5 = 517;
-}
-[cpp]
-class key_bindings
-{
-    const int kACCEL = 7;
-    const int kBACK = 10;
-    const int kBUY = 52;
-    const int kCAM_1 = 16;
-    const int kCAM_2 = 17;
-    const int kCAM_3 = 18;
-    const int kCAM_ZOOM_IN = 20;
-    const int kCAM_ZOOM_OUT = 21;
-    const int kCHAT = 46;
-    const int kCONSOLE = 50;
-    const int kCROUCH = 5;
-    const int kDOWN = 3;
-    const int kDROP = 43;
-    const int kFWD = 9;
-    const int kINVENTORY = 51;
-    const int kJUMP = 4;
-    const int kLEFT = 0;
-    const int kL_LOOKOUT = 13;
-    const int kL_STRAFE = 11;
-    const int kNIGHT_VISION = 24;
-    const int kQUIT = 49;
-    const int kRIGHT = 1;
-    const int kR_LOOKOUT = 14;
-    const int kR_STRAFE = 12;
-    const int kSCORES = 45;
-    const int kSCREENSHOT = 48;
-    const int kSKIN = 53;
-    const int kTEAM = 54;
-    const int kTORCH = 23;
-    const int kUP = 2;
-    const int kUSE = 44;
-    const int kWPN_1 = 26;
-    const int kWPN_2 = 27;
-    const int kWPN_3 = 28;
-    const int kWPN_4 = 29;
-    const int kWPN_5 = 30;
-    const int kWPN_6 = 31;
-    const int kWPN_FIRE = 34;
-    const int kWPN_FUNC = 39;
-    const int kWPN_NEXT = 33;
-    const int kWPN_RELOAD = 38;
-    const int kWPN_ZOOM = 35;
-}
-[cpp]
-class CChimera : CGameObject
-{
-    CChimera();
-}
-[cpp]
-class ce_script_zone : DLL_Pure
-{
-    ce_script_zone();
-}
-[cpp]
-class CWeaponWalther : CWeaponMagazined
-{
-    CWeaponWalther();
-}
-[cpp]
-class ce_smart_zone : DLL_Pure
-{
-    ce_smart_zone();
-}
-[cpp]
-class CAI_Trader : CGameObject
-{
-    CAI_Trader();
-}
-[cpp]
-class CF1 : CGameObject, explosive
-{
-    CF1();
-}
-[cpp]
-class CUIStatic : CUIWindow
-{
-    unsigned int GetColor();
-    CUIStatic();
-    void SetStretchTexture(bool);
-    void Init(char const*,float,float,float,float);
-    bool GetStretchTexture();
-    void SetTextColor(int,int,int,int);
-    void SetHeading(float);
-    Frect const* GetTextureRect();
-    void SetTextST(char const*);
-    CUILines* TextControl();
-    void InitTexture(char const*);
-    void SetTextAlign(unsigned int);
-    unsigned int GetTextAlign();
-    char const* GetText();
-    void InitTextureEx(char const*,char const*);
-    void SetTextX(float);
-    void SetTextureOffset(float,float);
-    void SetColor(unsigned int);
-    float GetTextX();
-    void SetTextureRect(Frect*);
-    void SetElipsis(int,int);
-    float GetHeading();
-    void SetText(char const*);
-    Frect const* GetOriginalRect();
-    void SetOriginalRect(Frect*);
-    float GetTextY();
-    void SetTextY(float);
-}
-[cpp]
-class cse_alife_object_climable : cse_shape, cse_abstract
-{
-    vector& angle { get; set; }
-    vector& position { get; set; }
-    unsigned short id { get; }
-    void STATE_Read(net_packet&,unsigned short);
-    void STATE_Write(net_packet&);
-    unsigned short parent_id { get; }
-    unsigned short script_version { get; }
-    cse_abstract* init();
-    cse_alife_object_climable(char const*);
-}
-[cpp]
-class CDestroyablePhysicsObject : CPhysicObject
-{
-    CDestroyablePhysicsObject();
-}
-[cpp]
-class ICollidable
-{
-}
-[cpp]
-class CGrenadeLauncher : CGameObject
-{
-    CGrenadeLauncher();
-}
-[cpp]
-class CUIScriptWnd : CUIDialogWnd, DLL_Pure
-{
-    CUIListWnd* GetListWnd(char const*);
-    CUIScriptWnd();
-    CUIDialogWnd* GetDialogWnd(char const*);
-    bool Load(char const*);
-    CUIEditBox* GetEditBox(char const*);
-    CUIListBox* GetListBox(char const*);
-    void Update();
-    bool Dispatch(int,int);
-    CUIFrameLineWnd* GetFrameLineWnd(char const*);
-    bool OnKeyboard(int,enum EUIMessages);
-    CUITabControl* GetTabControl(char const*);
-    void Register(CUIWindow*,char const*);
-    CUIProgressBar* GetProgressBar(char const*);
-    CUIFrameWindow* GetFrameWindow(char const*);
-    CUIStatic* GetStatic(char const*);
-    void AddCallback(char const*,short,function<void> const&,luabind::object const&);
-}
-[cpp]
-class CUIEditBox : CUICustomEdit
-{
-    void InitTexture(char const*);
-    CUIEditBox();
-}
-[cpp]
-class CSnork : CGameObject
-{
-    CSnork();
-}
-[cpp]
-class CRGD5 : CGameObject, explosive
-{
-    CRGD5();
-}
-[cpp]
-class object
-{
-    const int activate = 16;
-    const int aim1 = 4;
-    const int aim2 = 5;
-    const int deactivate = 17;
-    const int drop = 11;
-    const int dummy = -1;
-    const int fire1 = 6;
-    const int fire2 = 8;
-    const int hide = 22;
-    const int idle = 9;
-    const int reload = 2;
-    const int reload1 = 2;
-    const int reload2 = 3;
-    const int show = 21;
-    const int strap = 10;
-    const int switch1 = 0;
-    const int switch2 = 1;
-    const int take = 23;
-    const int turn_off = 20;
-    const int turn_on = 19;
-    const int use = 18;
-    void object(game_object*);
-    void action(enum MonsterSpace::EObjectAction);
-    bool completed();
-    object(char const*,enum MonsterSpace::EObjectAction);
-}
-[cpp]
-class cse_alife_helicopter : cse_alife_dynamic_object_visual, cse_motion, cse_ph_skeleton
-{
-    void on_unregister();
-    cse_alife_helicopter(char const*);
-    bool can_switch_offline();
-    void switch_online();
-    cse_abstract* init();
-    unsigned int m_level_vertex_id { get; }
-    vector& position { get; set; }
-    unsigned int m_story_id { get; }
-    void switch_offline();
-    void STATE_Read(net_packet&,unsigned short);
-    void on_register();
-    unsigned short id { get; }
-    bool keep_saved_data_anyway();
-    unsigned short script_version { get; }
-    bool can_switch_online();
-    vector& angle { get; set; }
-    unsigned short m_game_vertex_id { get; }
-    void on_spawn();
-    bool can_save();
-    bool used_ai_locations();
-    void STATE_Write(net_packet&);
-    unsigned short parent_id { get; }
-    void on_before_register();
-    bool online { get; }
-    bool interactive();
-}
-[cpp]
-class game_memory_object : memory_object
-{
-    game_object* object();
-    struct MemorySpace::CObjectParams<class CGameObject>& self_info { get; }
-    unsigned int level_time { get; }
-    unsigned int last_level_time { get; }
-    struct MemorySpace::CObjectParams<class CGameObject>& object_info { get; }
-}
-[cpp]
-class CWeaponRG6 : CWeaponShotgun
-{
-    CWeaponRG6();
-}
-[cpp]
-class CWeaponAK74 : CWeaponMagazinedWGrenade
-{
-    CWeaponAK74();
-}
-[cpp]
-class CTorch : CGameObject
-{
-    CTorch();
-}
-[cpp]
-class CInventoryBox : CGameObject
-{
-    CInventoryBox();
-}
-[cpp]
-class sound_params
-{
-    float min_distance { get; set; }
-    vector& position { get; set; }
-    float max_distance { get; set; }
-    float volume { get; set; }
-    float frequency { get; set; }
-}
-[cpp]
-class CWeaponShotgun : CWeaponMagazined
-{
-    CWeaponShotgun();
-}
-[cpp]
-class sound
-{
-    const int attack = 3;
-    const int attack_hit = 4;
-    const int die = 7;
-    const int eat = 2;
-    const int idle = 1;
-    const int panic = 11;
-    const int steal = 10;
-    const int take_damage = 5;
-    const int threaten = 9;
-    void set_sound(sound_object const&);
-    void set_sound_type(enum ESoundTypes);
-    bool completed();
-    void set_position(vector const&);
-    void set_bone(char const*);
-    void set_angles(vector const&);
-    sound(char const*,char const*,enum MonsterSpace::EMonsterHeadAnimType);
-}
-[cpp]
-class not_yet_visible_object
-{
-    game_object* object();
-    float value { get; }
-}
-[cpp]
-class CGameObject : DLL_Pure, ISheduled, ICollidable, IRenderable
-{
-    void net_Import(net_packet&);
-    bool use(class IGameObject*);
-    IRender_Visual* Visual();
-    void net_Export(net_packet&);
-    CGameObject();
-    bool getEnabled();
-    DLL_Pure* _construct();
-    bool net_Spawn(cse_abstract*);
-    bool getVisible();
-}
-[cpp]
-class property_evaluator_const : property_evaluator
-{
-    game_object* object { get; }
-    property_storage* storage { get; }
-    property_evaluator_const(bool);
-}
 [cpp]
 class CPhysicObject : CGameObject
 {
@@ -820,11 +12,7 @@ class CPhysicObject : CGameObject
     void set_door_ignore_dynamics();
     void run_anim_forward();
 }
-[cpp]
-class CFadedBall : CArtefact
-{
-    CFadedBall();
-}
+
 [cpp]
 class cse_alife_item_ammo : cse_alife_item
 {
@@ -1405,22 +593,6 @@ class CAI_Flesh : CGameObject
     CAI_Flesh();
 }
 [cpp]
-class cse_abstract : cpure_server_object
-{
-    vector& angle { get; set; }
-    vector& position { get; set; }
-    unsigned short id { get; }
-    void UPDATE_Write(net_packet&);
-    unsigned short script_version { get; }
-    void UPDATE_Read(net_packet&);
-    unsigned short parent_id { get; }
-    ini_file* spawn_ini();
-    void STATE_Read(net_packet&,unsigned short);
-    int clsid();
-    void STATE_Write(net_packet&);
-    char const* name();
-    char const* section_name();
-}
 [cpp]
 class look
 {
@@ -1589,18 +761,8 @@ class CTorridZone : CGameObject
     CTorridZone();
 }
 [cpp]
-class cse_visual
-{
-}
-[cpp]
-class ipure_server_object : iserializable
-{
-}
-[cpp]
-class CController : CGameObject
-{
-    CController();
-}
+
+
 [cpp]
 class CSE_AbstractVisual : cse_visual, cse_abstract
 {
@@ -2319,120 +1481,7 @@ class cse_alife_monster_rat : cse_alife_monster_abstract, cse_alife_inventory_it
     unsigned int m_level_vertex_id { get; }
     unsigned char team { get; set; }
 }
-[cpp]
-class CFracture : CGameObject
-{
-    CFracture();
-}
-[cpp]
-class CBastArtefact : CArtefact
-{
-    CBastArtefact();
-}
-[cpp]
-class ISheduled
-{
-}
-[cpp]
-class cse_alife_item : cse_alife_dynamic_object_visual, cse_alife_inventory_item
-{
-    void on_unregister();
-    bool can_switch_offline();
-    void switch_online();
-    cse_abstract* init();
-    unsigned int m_level_vertex_id { get; }
-    vector& position { get; set; }
-    unsigned int m_story_id { get; }
-    void switch_offline();
-    void STATE_Read(net_packet&,unsigned short);
-    void on_register();
-    unsigned short id { get; }
-    bool keep_saved_data_anyway();
-    unsigned short script_version { get; }
-    bool can_switch_online();
-    vector& angle { get; set; }
-    unsigned short m_game_vertex_id { get; }
-    void on_spawn();
-    void STATE_Write(net_packet&);
-    bool can_save();
-    bool used_ai_locations();
-    bool bfUseful();
-    unsigned short parent_id { get; }
-    void on_before_register();
-    bool online { get; }
-    bool interactive();
-    cse_alife_item(char const*);
-}
-[cpp]
-class cse_alife_item_weapon : cse_alife_item
-{
-    void on_unregister();
-    cse_alife_item_weapon(char const*);
-    bool can_switch_offline();
-    void switch_online();
-    cse_abstract* init();
-    bool interactive();
-    vector& position { get; set; }
-    unsigned int m_story_id { get; }
-    void switch_offline();
-    void STATE_Read(net_packet&,unsigned short);
-    void on_register();
-    unsigned short id { get; }
-    void clone_addons(cse_alife_item_weapon*);
-    bool keep_saved_data_anyway();
-    unsigned short script_version { get; }
-    bool can_switch_online();
-    vector& angle { get; set; }
-    void on_spawn();
-    unsigned short m_game_vertex_id { get; }
-    void STATE_Write(net_packet&);
-    bool used_ai_locations();
-    bool can_save();
-    bool bfUseful();
-    unsigned short parent_id { get; }
-    void on_before_register();
-    bool online { get; }
-    unsigned int m_level_vertex_id { get; }
-}
-[cpp]
-class CUIWindow
-{
-    void AttachChild(CUIWindow*);
-    void SetWidth(float);
-    CUIWindow();
-    void Show(bool);
-    bool IsShown();
-    vector2 const GetWndPos();
-    float GetWidth();
-    void SetWndSize(float,float);
-    void SetWindowName(char const*);
-    void Init(Frect);
-    char const* WindowName();
-    void DetachChild(CUIWindow*);
-    void SetAutoDelete(bool);
-    bool IsAutoDelete();
-    CGameFont* GetFont();
-    bool IsCursorOverWindow();
-    void SetFont(CGameFont*);
-    void Enable(bool);
-    bool IsEnabled();
-    void SetHeight(float);
-    unsigned int FocusReceiveTime();
-    void SetWndRect(float,float,float,float);
-    void GetAbsoluteRect(Frect&);
-    void SetWndPos(float,float);
-    float GetHeight();
-}
-[cpp]
-class CLevelChanger : CGameObject
-{
-    CLevelChanger();
-}
-[cpp]
-class CWeaponPM : CWeaponMagazined
-{
-    CWeaponPM();
-}
+
 [cpp]
 class suggest_nicks_cb
 {
@@ -2601,10 +1650,7 @@ class CRustyHairArtefact : CArtefact
 {
     CRustyHairArtefact();
 }
-[cpp]
-class cpure_server_object : ipure_server_object
-{
-}
+
 [cpp]
 class ZoneMapEntities
 {
@@ -2759,12 +1805,6 @@ class FractionState
     int member_count { get; set; }
 }
 [cpp]
-class memory_object
-{
-    unsigned int level_time { get; }
-    unsigned int last_level_time { get; }
-}
-[cpp]
 class Frect
 {
     float x2 { get; set; }
@@ -2846,31 +1886,7 @@ class flags32
     flags32& one();
     unsigned int get();
 }
-[cpp]
-class cse_alife_object : cse_abstract
-{
-    unsigned short id { get; }
-    void use_ai_locations(bool);
-    cse_alife_object(char const*);
-    void can_switch_offline(bool);
-    void STATE_Write(net_packet&);
-    bool used_ai_locations();
-    cse_abstract* init();
-    unsigned int m_level_vertex_id { get; }
-    vector& angle { get; set; }
-    vector& position { get; set; }
-    unsigned int m_story_id { get; }
-    unsigned short script_version { get; }
-    bool interactive();
-    void STATE_Read(net_packet&,unsigned short);
-    void can_switch_online(bool);
-    unsigned short parent_id { get; }
-    bool can_save();
-    bool online { get; }
-    void visible_for_map(bool);
-    void move_offline(bool);
-    unsigned short m_game_vertex_id { get; }
-}
+
 [cpp]
 class flags16
 {
@@ -3157,69 +2173,7 @@ class CUICheckButton : CUI3tButton
     void SetDependControl(CUIWindow*);
 }
 [cpp]
-class cse_alife_dynamic_object : cse_alife_object
-{
-    void on_unregister();
-    cse_alife_dynamic_object(char const*);
-    bool can_switch_offline();
-    void switch_online();
-    cse_abstract* init();
-    bool interactive();
-    vector& position { get; set; }
-    unsigned int m_story_id { get; }
-    void switch_offline();
-    void STATE_Read(net_packet&,unsigned short);
-    void on_register();
-    unsigned short id { get; }
-    bool keep_saved_data_anyway();
-    unsigned short script_version { get; }
-    bool can_switch_online();
-    vector& angle { get; set; }
-    void on_spawn();
-    unsigned short m_game_vertex_id { get; }
-    unsigned int m_level_vertex_id { get; }
-    bool can_save();
-    bool used_ai_locations();
-    void STATE_Write(net_packet&);
-    unsigned short parent_id { get; }
-    void on_before_register();
-    bool online { get; }
-}
-[cpp]
-class CScientificDetector : CGameObject
-{
-    CScientificDetector();
-}
-[cpp]
-class CALifeMonsterDetailPathManager
-{
-    void target(CALifeSmartTerrainTask const*);
-    bool completed();
-    bool actual();
-    bool failed();
-    float const& speed();
-}
-[cpp]
-class CAdvancedDetector : CGameObject
-{
-    CAdvancedDetector();
-}
-[cpp]
-class CUISpinFlt : CUICustomSpin
-{
-    CUISpinFlt();
-}
-[cpp]
-class CWeaponAmmo : CGameObject
-{
-    CWeaponAmmo();
-}
-[cpp]
-class CWeaponMagazinedWGrenade : CWeaponMagazined
-{
-    CWeaponMagazinedWGrenade();
-}
-[cpp]
+
 class CUIMapInfo : CUIWindow
 {
     CUIMapInfo();
@@ -3227,10 +2181,7 @@ class CUIMapInfo : CUIWindow
     void InitMap(char const*,char const*);
 }
 [cpp]
-class CUISpinText : CUICustomSpin
-{
-    CUISpinText();
-}
+
 [cpp]
 class CUITrackBar : CUIWindow
 {
@@ -3243,10 +2194,7 @@ class CUITrackBar : CUIWindow
     void SetCurrentValue();
     void SetCheck(bool);
 }
-[cpp]
-class cse_ph_skeleton
-{
-}
+
 [cpp]
 class CGameFont
 {
@@ -3254,11 +2202,7 @@ class CGameFont
     const int alLeft = 0;
     const int alRight = 1;
 }
-[cpp]
-class CPda : CGameObject
-{
-    CPda();
-}
+
 [cpp]
 class CUITextWnd : CUIWindow
 {
@@ -3822,11 +2766,7 @@ class cse_alife_item_helmet : cse_alife_item
 class ipure_schedulable_object
 {
 }
-[cpp]
-class CUIListItem : CUIButton
-{
-    CUIListItem();
-}
+
 [cpp]
 class cse_alife_object_projector : cse_alife_dynamic_object_visual
 {
@@ -4084,34 +3024,7 @@ class duality
     duality(float,float);
 }
 [cpp]
-class cse_alife_dynamic_object_visual : cse_alife_dynamic_object, cse_visual
-{
-    void on_unregister();
-    cse_alife_dynamic_object_visual(char const*);
-    bool can_switch_offline();
-    void switch_online();
-    cse_abstract* init();
-    unsigned int m_level_vertex_id { get; }
-    vector& position { get; set; }
-    unsigned int m_story_id { get; }
-    void switch_offline();
-    void STATE_Read(net_packet&,unsigned short);
-    void on_register();
-    unsigned short id { get; }
-    bool keep_saved_data_anyway();
-    unsigned short script_version { get; }
-    bool can_switch_online();
-    vector& angle { get; set; }
-    unsigned short m_game_vertex_id { get; }
-    void on_spawn();
-    bool can_save();
-    bool used_ai_locations();
-    void STATE_Write(net_packet&);
-    unsigned short parent_id { get; }
-    void on_before_register();
-    bool online { get; }
-    bool interactive();
-}
+
 [cpp]
 class hit_memory_object : entity_memory_object
 {
@@ -4946,24 +3859,6 @@ class game_cl_GameState : game_GameState
     unsigned int start_time { get; }
 }
 [cpp]
-class CHelmet : CGameObject
-{
-    CHelmet();
-}
-[cpp]
-class CALifeMonsterPatrolPathManager
-{
-    bool actual();
-    unsigned short const& target_game_vertex_id();
-    vector target_position();
-    void path(char const*);
-    unsigned int const& target_level_vertex_id();
-    bool use_randomness();
-    void start_vertex_index(unsigned int const&);
-    bool completed();
-    enum EPatrolStartType const& start_type();
-    enum EPatrolRouteType const& route_type();
-}
 [cpp]
 class game_phases
 {
@@ -5180,14 +4075,7 @@ class CUIMessageBoxEx : CUIDialogWnd
     bool InitMessageBox(char const*);
 }
 [cpp]
-class cse_alife_inventory_item
-{
-}
-[cpp]
-class CBlackDrops : CArtefact
-{
-    CBlackDrops();
-}
+
 [cpp]
 class cse_alife_mounted_weapon : cse_alife_dynamic_object_visual
 {
@@ -5655,47 +4543,14 @@ class memory_info : visible_memory_object
     unsigned int level_time { get; }
 }
 [cpp]
-class CUIListWnd : CUIWindow
-{
-    void SetVertFlip(bool);
-    void RemoveItem(int);
-    CUIListWnd();
-    void ScrollToPos(int);
-    void ShowSelectedItem(bool);
-    void EnableScrollBar(bool);
-    CUIListItem* GetItem(int);
-    bool GetVertFlip();
-    void SetTextColor(unsigned int);
-    int GetSelectedItem();
-    void ScrollToEnd();
-    void SetFocusedItem(int);
-    void SetWidth(float);
-    void ActivateList(bool);
-    int GetSize();
-    bool IsScrollBarEnabled();
-    void ScrollToBegin();
-    void RemoveAll();
-    bool AddItem(CUIListItem*);
-    void SetItemHeight(float);
-    int GetItemPos(CUIListItem*);
-    bool IsListActive();
-    int GetFocusedItem();
-    void ResetFocusCapture();
-}
+
 [cpp]
 class CHairsZone : CGameObject
 {
     CHairsZone();
 }
 [cpp]
-class CUIDialogWnd : CUIWindow
-{
-    CDialogHolder* GetHolder();
-    CUIDialogWnd();
-    void ShowDialog(bool);
-    void HideDialog();
-    void SetHolder(CDialogHolder*);
-}
+
 [cpp]
 class object_params
 {
@@ -5841,45 +4696,6 @@ class world_state
     void clear();
     world_state(world_state);
 }
-[cpp]
-class CUIComboBox : CUIWindow
-{
-    void enable_id(int);
-    CUIComboBox();
-    void Init(float,float,float,float);
-    void SetCurrentValue();
-    char const* GetText();
-    char const* GetTextOf(int);
-    void ClearList();
-    void disable_id(int);
-    void SetVertScroll(bool);
-    void SetText(char const*);
-    CUIListBoxItem* AddItem(char const*,int);
-    void SetCurrentID(int);
-    void SetListLength(int);
-    int CurrentID();
-    void SetCurrentOptValue();
-}
-[cpp]
-class award_data
-{
-    unsigned short m_count { get; }
-    unsigned int m_last_reward_date { get; }
-}
-[cpp]
-class CUITabButton : CUIButton
-{
-    CUITabButton();
-}
-[cpp]
-class CWeaponVal : CWeaponMagazined
-{
-    CWeaponVal();
-}
-namespace main_menu
-{
-    CMainMenu* get_main_menu();
-}
 namespace level
 {
     void remove_call(luabind::object const&,char const*,char const*);
@@ -5895,10 +4711,8 @@ namespace level
     unsigned int get_time_minutes();
     void change_game_time(unsigned int,unsigned int,unsigned int);
     bool start_weather_fx_from_time(char const*,float);
-    void set_active_cam(unsigned char);
     unsigned int vertex_in_direction(unsigned int,vector,float);
     void map_add_object_spot_ser(unsigned short,char const*,char const*);
-    void check_object(game_object*);
     void add_call(luabind::object const&,char const*,char const*);
     void iterate_sounds(char const*,unsigned int,luabind::object,function<void>);
     void remove_dialog_to_render(CUIDialogWnd*);
@@ -5908,10 +4722,6 @@ namespace level
     unsigned short map_has_object_spot(unsigned short,char const*);
     game_object* debug_object(char const*);
     void show_indicators();
-    enum ESingleGameDifficulty get_game_difficulty();
-    void add_complex_effector(char const*,int);
-    void set_game_difficulty(enum ESingleGameDifficulty);
-    unsigned int vertex_id(vector);
     void map_change_spot_hint(unsigned short,char const*,char const*);
     bool ray_pick(vector const&,vector const&,float,enum collide::rq_target,rq_result&,game_object*);
     void set_pp_effector_factor(int,float);
@@ -6022,4 +4832,62 @@ namespace actor_stats
     void add_points_str(char const*,char const*,char const*);
     void add_points(char const*,char const*,int,int);
     int get_points(char const*);
+}
+[cpp]
+class game_PlayerState
+{
+    void setFlag(unsigned short);
+    game_PlayerState();
+    bool testFlag(unsigned short);
+    unsigned char team { get; set; }
+    short money_delta { get; set; }
+    unsigned short GameID { get; set; }
+    char const* getName();
+    void net_Import(net_packet&);
+    short deaths { get; set; }
+    int money_for_round { get; set; }
+    void net_Export(net_packet&,int);
+    unsigned short ping { get; set; }
+    unsigned int RespawnTime { get; set; }
+    short kills { get; set; }
+    void resetFlag(unsigned short);
+    unsigned short lasthitter { get; set; }
+    void setName(char const*);
+    signed char skin { get; set; }
+    unsigned short flags { get; set; }
+    class std::vector<unsigned short,class xalloc<unsigned short> >& pItemList { get; set; }
+    unsigned short lasthitweapon { get; set; }
+    void clear();
+    int LastBuyAcount { get; set; }
+}
+
+
+[cpp]
+class cse_alife_helicopter : cse_alife_dynamic_object_visual, cse_motion, cse_ph_skeleton
+{
+    void on_unregister();
+    cse_alife_helicopter(char const*);
+    bool can_switch_offline();
+    void switch_online();
+    cse_abstract* init();
+    unsigned int m_level_vertex_id { get; }
+    vector& position { get; set; }
+    unsigned int m_story_id { get; }
+    void switch_offline();
+    void STATE_Read(net_packet&,unsigned short);
+    void on_register();
+    unsigned short id { get; }
+    bool keep_saved_data_anyway();
+    unsigned short script_version { get; }
+    bool can_switch_online();
+    vector& angle { get; set; }
+    unsigned short m_game_vertex_id { get; }
+    void on_spawn();
+    bool can_save();
+    bool used_ai_locations();
+    void STATE_Write(net_packet&);
+    unsigned short parent_id { get; }
+    void on_before_register();
+    bool online { get; }
+    bool interactive();
 }

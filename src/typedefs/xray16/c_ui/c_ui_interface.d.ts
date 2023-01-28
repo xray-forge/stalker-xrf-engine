@@ -7,24 +7,36 @@ declare module "xray16" {
     public IsShown(): boolean;
     public IsEnabled(): boolean;
     public IsAutoDelete(): boolean;
+    public IsCursorOverWindow(): boolean;
 
-    public GetHeight(): number;
-    public GetWidth(): number;
+    public GetFont(): XR_CGameFont;
+    public GetHeight(): f32;
+    public GetWidth(): f32;
     public GetWndPos(): XR_vector2;
-    public SetWndSize(vector2: unknown): unknown;
+    public GetAbsoluteRect(): XR_Frect;
 
-    public SetWindowName(this: XR_CUIWindow, value: string): void;
-    public SetWndPos(vector2: unknown): void;
-    public SetAutoDelete(value: boolean): void;
+    public SetFont(font: XR_CGameFont): void;
+    public SetWndSize(vector2: XR_vector2): void;
+    public SetWndSize(width: f32, height: f32): void;
+    public SetWindowName(value: string): void;
+    public SetWndPos(vector2: XR_vector2): void;
+    public SetWndPos(x1: f32, y1: f32): void;
+    public SetAutoDelete(auto_delete: boolean): void;
     public SetPPMode(): void;
+    public SetHeight(height: f32): void;
+    public SetWidth(width: f32): void;
     public SetWndRect(rect: XR_Frect): void;
+    public SetWndRect(x1: f32, y1: f32, x2: f32, y2: f32): void;
 
-    public Enable(value: boolean): unknown;
+    public FocusReceiveTime(): u32;
+    public Init(frect: XR_Frect): void;
+    public Init(x1: f32, y1: f32, x2: f32, y2: f32): void;
+    public Enable(is_enabled: boolean): void;
     public AttachChild(child: XR_CUIWindow): void;
     public DetachChild(child: XR_CUIWindow): void;
-    public WindowName(): unknown;
-    public ResetPPMode(): unknown;
-    public Show(this: any, value: boolean): unknown;
+    public WindowName(): string;
+    public ResetPPMode(): void;
+    public Show(show: boolean): void;
   }
 
   /**
@@ -70,18 +82,18 @@ declare module "xray16" {
    * @customConstructor CUIComboBox
    */
   export class XR_CUIComboBox extends XR_CUIWindow {
+    public enable_id(id: i32): void;
+    public disable_id(id: i32): void;
     public ClearList(): void;
     public SetText(text: string): void;
-    public enable_id(id: number): void;
-    public AddItem(label: string, id: number): void;
+    public AddItem(label: string, id: i32): void;
     public GetText(): string;
-    public SetListLength(length: number): void;
-    public CurrentID(): number;
-    public GetTextOf(id: number): string;
-    public SetCurrentValue(): void;
+    public SetListLength(length: i32): void;
+    public CurrentID(): i32;
+    public GetTextOf(id: i32): string;
+    public SetCurrentOptValue(): void;
     public SetVertScroll(enabled: boolean): void;
-    public disable_id(id: number): void;
-    public SetCurrentID(id: number): void;
+    public SetCurrentID(id: i32): void;
   }
 
   /**
@@ -110,8 +122,9 @@ declare module "xray16" {
 
   export class XR_CUIDialogWnd extends XR_CUIWindow {
     public HideDialog(): void;
-    public ShowDialog(value: boolean): void;
-    public GetHolder(): unknown;
+    public ShowDialog(show: boolean): void;
+    public GetHolder(): XR_CDialogHolder;
+    public SetHolder(holder: XR_CDialogHolder): void;
   }
 
   /**
@@ -121,14 +134,31 @@ declare module "xray16" {
 
   export class XR_CUIScriptWnd extends XR_CUIDialogWnd {
     public _construct(): XR_CUIDialogWnd;
+
     public static OnKeyboard(this: void, base: XR_CUIWindow, key: number, message: TXR_ui_event): boolean;
     public OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean;
     public static Update(this: void, base: XR_CUIWindow): boolean;
     public Update(): void;
-    public AddCallback(this: XR_CUIWindow, name: string, event: number, cb: () => void, source?: XR_CUIWindow): void;
+    public static AddCallback(
+      this: void, base: XR_CUIWindow, name: string, event: number, cb: () => void, source?: XR_CUIWindow
+    ): void;
+    public AddCallback(name: string, event: number, cb: () => void, source?: XR_CUIWindow): void;
+    public static Dispatch(this: void, base: XR_CUIWindow, cmd: number, param: number): boolean;
     public Dispatch(cmd: number, param: number): boolean;
+    public static Register(this: void, base: XR_CUIWindow, window: XR_CUIWindow, name: string): void;
     public Register(window: XR_CUIWindow, name: string): void;
-    public Load(value: string): unknown;
+    public static Load(this: void, base: XR_CUIWindow, value: string): boolean;
+    public Load(value: string): boolean;
+
+    public GetListWnd(id: string): XR_CUIListWnd | null;
+    public GetDialogWnd(id: string): XR_CUIDialogWnd | null;
+    public GetEditBox(id: string): XR_CUIEditBox | null;
+    public GetListBox(id: string): XR_CUIListBox | null;
+    public GetFrameLineWnd(id: string): XR_CUIFrameLineWnd | null;
+    public GetTabControl(id: string): XR_CUITabControl | null;
+    public GetProgressBar(id: string): XR_CUIProgressBar | null;
+    public GetFrameWindow(id: string): XR_CUIFrameWindow | null;
+    public GetStatic(id: string): XR_CUIStatic | null;
   }
 
   /**
@@ -136,7 +166,7 @@ declare module "xray16" {
    * @customConstructor CUIEditBox
    */
   export class XR_CUIEditBox extends XR_CUICustomEdit {
-    public InitTexture(textureId: string): void;
+    public InitTexture(texture_id: string): void;
   }
 
   /**
@@ -144,7 +174,7 @@ declare module "xray16" {
    * @customConstructor CUIEditBoxEx
    */
   export class XR_CUIEditBoxEx extends XR_CUICustomEdit {
-    public InitTexture(textureId: string): void;
+    public InitTexture(texture_id: string): void;
   }
 
   /**
@@ -152,9 +182,7 @@ declare module "xray16" {
    * @customConstructor CUIFrameLineWnd
    */
   export class XR_CUIFrameLineWnd extends XR_CUIWindow {
-    public SetHeight(value: number): unknown;
-    public SetColor(value: number): unknown;
-    public SetWidth(value: number): unknown;
+    public SetColor(color: u32): void;
   }
 
   /**
@@ -162,9 +190,7 @@ declare module "xray16" {
    * @customConstructor CUIFrameWindow
    */
   export class XR_CUIFrameWindow extends XR_CUIWindow {
-    public SetHeight(value: number): void;
-    public SetColor(value: number): void;
-    public SetWidth(value: number): void;
+    public SetColor(color: u32): void;
   }
 
   /**
@@ -209,9 +235,9 @@ declare module "xray16" {
   export class XR_CUIListBoxItem extends XR_CUIFrameLineWnd {
     // public constructor(index: number);
 
-    public AddIconField(value: number): XR_CUIStatic;
-    public SetTextColor(color: number): void;
-    public AddTextField(text: string, width: number): XR_CUITextWnd;
+    public AddIconField(value: f32): XR_CUIStatic;
+    public SetTextColor(color: u32): void;
+    public AddTextField(text: string, width: f32): XR_CUITextWnd;
     public GetTextItem(): XR_CUITextWnd;
   }
 
@@ -240,7 +266,6 @@ declare module "xray16" {
    */
   export class XR_CUIMapInfo extends XR_CUIWindow {
     public InitMap(a: string, b: string): void;
-    public Init(a: XR_vector2, b: XR_vector2): void;
   }
 
   /**
@@ -269,7 +294,6 @@ declare module "xray16" {
    */
   export class XR_CUIMessageBox extends XR_CUIStatic {
     public InitMessageBox(value: string): void;
-    public SetText(value: string): string;
     public GetPassword(): string;
     public GetHost(): string;
   }
@@ -355,11 +379,31 @@ declare module "xray16" {
    * @customConstructor CUIStatic
    */
   export class XR_CUIStatic extends XR_CUIWindow {
+    public GetColor(): u32;
     public TextControl(): XR_CUILines;
     public GetTextureRect(): XR_Frect;
-    public SetStretchTexture(isStretched: boolean): void;
+    public GetStretchTexture(): boolean;
+    public SetStretchTexture(stretch: boolean): void;
     public SetTextureRect(frect: XR_Frect): void;
-    public InitTexture(value: string): void;
+    public InitTexture(texture: string): void;
+    public SetTextColor(r: i32, g: i32, b: i32, a: i32): void;
+    public SetHeading(number: f32): void;
+    public SetTextST(string: string): void;
+    public SetTextAlign(align: u32): void;
+    public GetTextAlign(): u32;
+    public GetText(): string;
+    public InitTextureEx(first: string, second: string): void;
+    public SetTextX(x: f32): void;
+    public SetTextY(x: f32): void;
+    public GetTextY(x: f32): void;
+    public GetTextX(): f32;
+    public SetTextureOffset(x: f32, y: f32): void;
+    public SetColor(color: u32): void;
+    public SetElipsis(a: i32, b: i32): void;
+    public GetHeading(): f32;
+    public SetText(text: string): void
+    public GetOriginalRect(): XR_Frect;
+    public SetOriginalRect(frect: XR_Frect): void;
   }
 
   /**
@@ -387,7 +431,6 @@ declare module "xray16" {
    * @customConstructor CUITextWnd
    */
   export class XR_CUITextWnd extends XR_CUIWindow {
-    public GetFont(): unknown;
     public SetTextOffset(x: number, y: number): unknown;
     public SetText(text: string): unknown;
     public SetTextAlignment(align: number /* CGameFont::EAligment */): unknown;
@@ -395,7 +438,6 @@ declare module "xray16" {
     public GetText(): string;
     public GetTextColor(): unknown;
     public SetTextColor(color: number): unknown;
-    public SetFont(font: unknown /* CGameFont */): unknown;
     public SetTextST(text: string): void;
     public AdjustHeightToText(): unknown;
     public AdjustWidthToText(): unknown;
@@ -499,5 +541,41 @@ declare module "xray16" {
 
     public destroy(): void;
     public wnd(): XR_CUIStatic;
+  }
+
+  /**
+   * C++ class CUIListWnd : CUIWindow
+   * @customConstructor CUIListWnd
+   */
+  export class XR_CUIListWnd extends XR_CUIWindow{
+    public SetVertFlip(flip: boolean): void;
+    public RemoveItem(index: i32): void;
+    public ScrollToPos(position: i32): void;
+    public ShowSelectedItem(show: boolean): void;
+    public EnableScrollBar(enable: boolean): void;
+    public GetItem(index: i32): XR_CUIListItem;
+    public GetVertFlip(): boolean;
+    public SetTextColor(color: i32): void;
+    public GetSelectedItem(): i32;
+    public ScrollToEnd(): void;
+    public SetFocusedItem(index: i32): void;
+    public ActivateList(flag: boolean): void;
+    public GetSize(): i32;
+    public IsScrollBarEnabled(): boolean;
+    public ScrollToBegin(): void;
+    public RemoveAll(): void;
+    public AddItem(item: XR_CUIListItem): boolean;
+    public SetItemHeight(height: f32): void;
+    public GetItemPos(item: XR_CUIListItem): i32;
+    public IsListActive(): boolean;
+    public GetFocusedItem(): i32;
+    public ResetFocusCapture(): void;
+  }
+
+  /**
+   * class CUIListItem : CUIButton
+   * @customConstructor CUIListItem
+   */
+  export class XR_CUIListItem extends XR_CUIButton {
   }
 }

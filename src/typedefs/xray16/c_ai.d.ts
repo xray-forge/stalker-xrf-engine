@@ -29,7 +29,7 @@ declare module "xray16" {
    * */
   export class XR_property_evaluator extends XR_LuaBindBase {
     public object: XR_game_object;
-    public storage: unknown;
+    public storage: XR_property_storage;
 
     public constructor();
     public constructor(game_object: XR_game_object);
@@ -190,47 +190,49 @@ declare module "xray16" {
   // todo;
 
   /**
-   C++ class CALifeMonsterDetailPathManager {
-    function completed() const;
-    function target(const number, const number, const vector);
-    function target(const number);
-    function target(const CALifeSmartTerrainTask);
-    function failed() const;
-    function speed	(const number);
-    function speed	() const;
-    function actual() const;
+   * C++ class CALifeMonsterDetailPathManager {
+   * @customConstructor CALifeMonsterDetailPathManager
+   */
+  export class XR_CALifeMonsterDetailPathManager {
+    public completed(): boolean;
+    public target(a: number, b: number, vector: XR_vector): void;
+    public target(task_id: number): void;
+    public target(task: XR_CALifeSmartTerrainTask): void;
+    public failed(): boolean;
+    public speed(number: f32): f32;
+    public speed(): f32;
+    public actual(): boolean;
+  }
 
-  };
-   */
-  // todo;
   /**
-   C++ class CALifeMonsterMovementManager {
-    function completed() const;
-    function patrol(const CALifeMonsterMovementManager);
-    function actual() const;
-    function path_type(const enum MovementManager::EPathType);
-    function path_type() const;
-    function detail(const CALifeMonsterMovementManager);
+   * C++ class CALifeMonsterMovementManager {
+   * @customConstructor CALifeMonsterMovementManager
+   */
+  export class XR_CALifeMonsterMovementManager {
+    public completed(): boolean;
+    public patrol(): XR_CALifeMonsterPatrolPathManager;
+    public actual(): boolean;
+    public path_type(): number; /* EPathType */
+    public detail(): XR_CALifeMonsterDetailPathManager;
+  }
 
-  };
-   */
-  // todo;
   /**
-   C++ class CALifeMonsterPatrolPathManager {
-    function path(string);
-    function target_game_vertex_id() const;
-    function target_position(CALifeMonsterPatrolPathManager);
-    function target_level_vertex_id() const;
-    function completed() const;
-    function route_type(const enum PatrolPathManager::EPatrolRouteType);
-    function route_type() const;
-    function use_randomness(const boolean);
-    function use_randomness() const;
-    function start_type(const enum PatrolPathManager::EPatrolStartType);
-    function start_type() const;
-    function start_vertex_index(const number);
-    function actual() const;
-  };
+   * C++ class CALifeMonsterPatrolPathManager {
+   * @customConstructor CALifeMonsterPatrolPathManager
    */
-  // todo;
+  export class XR_CALifeMonsterPatrolPathManager {
+    public path(string: string): void;
+    public target_game_vertex_id(): u16;
+    public target_level_vertex_id(): u16;
+    public target_position(): XR_vector;
+    public completed(): boolean;
+    public route_type(type: u32 /* const enum PatrolPathManager::EPatrolRouteType */): u32;
+    public route_type(): u32;
+    public use_randomness(enabled: boolean): boolean;
+    public use_randomness(): boolean;
+    public start_type(type: u32 /* const enum PatrolPathManager::EPatrolStartType */): u32;
+    public start_type(): u32;
+    public start_vertex_index(index: u32): void;
+    public actual(): boolean;
+  }
 }

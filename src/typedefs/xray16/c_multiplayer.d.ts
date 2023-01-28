@@ -219,7 +219,7 @@ declare module "xray16" {
    * @customConstructor award_data
    */
   export class XR_award_data {
-    public m_count: number;
-    public m_last_reward_date: number;
+    public m_count: u16;
+    public m_last_reward_date: u32;
   }
 }

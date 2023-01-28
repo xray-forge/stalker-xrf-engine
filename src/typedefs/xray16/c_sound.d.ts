@@ -4,11 +4,11 @@ declare module "xray16" {
    * @customConstructor sound_params
    */
   export class XR_sound_params {
-    public frequency: number;
-    public max_distance: number;
-    public min_distance: number;
+    public frequency: f32;
+    public max_distance: f32;
+    public min_distance: f32;
     public position: XR_vector;
-    public volume: number;
+    public volume: f32;
 
     private constructor();
   }
@@ -22,10 +22,10 @@ declare module "xray16" {
     public static looped: 1;
     public static s2d: 2;
 
-    public frequency: number;
-    public max_distance: number;
-    public min_distance: number;
-    public volume: number;
+    public frequency: f32;
+    public max_distance: f32;
+    public min_distance: f32;
+    public volume: f32;
 
     /**
      * @param sound_path - file path
@@ -111,9 +111,9 @@ declare module "xray16" {
     public set_sound(sound_object: XR_sound_object): void;
     public set_position(vector: XR_vector): void;
     public set_bone(value: string): void;
-    public set_angles(vector: XR_vector): unknown;
-    public set_sound_type(type: unknown /* ESoundTypes */): unknown;
-    public completed(): unknown;
+    public set_angles(vector: XR_vector): void;
+    public set_sound_type(type: unknown /* ESoundTypes */): void;
+    public completed(): boolean;
   }
 
   export type TXR_sound_types = typeof XR_sound;

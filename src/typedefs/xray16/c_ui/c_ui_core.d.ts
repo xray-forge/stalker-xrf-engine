@@ -37,15 +37,19 @@ declare module "xray16" {
    * @customConstructor CUIGameCustom
    */
   export class XR_CUIGameCustom {
-    public HidePdaMenu(): void;
-    public HideActorMenu(): void;
-    public AddDialogToRender(window: XR_CUIWindow): unknown;
-    public RemoveDialogToRender(window: XR_CUIWindow): unknown;
-    public show_messages(): unknown;
+    public AddCustomStatic(id: string, b: boolean, n: number): XR_StaticDrawableWrapper;
+    public AddDialogToRender(window: XR_CUIWindow): void;
     public GetCustomStatic(value: string): XR_StaticDrawableWrapper | null;
-    public AddCustomStatic(id: string, b: boolean): XR_StaticDrawableWrapper;
-    public hide_messages(): void;
+    public CurrentItemAtCell(): XR_game_object;
+    public HideActorMenu(): void;
+    public HidePdaMenu(): void;
     public RemoveCustomStatic(id: string): void;
+    public RemoveDialogToRender(window: XR_CUIWindow): void;
+    public UpdateActorMenu(): void;
+    public enable_fake_indicators(enabled: boolean): void;
+    public update_fake_indicators(u8: number, enabled: boolean): void;
+    public hide_messages(): void;
+    public show_messages(): void;
   }
 
   /**

@@ -75,8 +75,8 @@ declare module "xray16" {
    * @customConstructor memory_object
    */
   export class XR_memory_object extends XR_LuaBindBase {
-    public last_level_time: number;
-    public level_time: number;
+    public last_level_time: u32;
+    public level_time: u32;
   }
 
   /**
@@ -106,19 +106,12 @@ declare module "xray16" {
     public static turn_on: 19;
     public static use: 18;
 
-    public constructor ();
-    public constructor (game_object: XR_game_object, action: unknown /** EObjectAction */);
-    public constructor (game_object: XR_game_object, action: unknown, /** EObjectAction */ value: number);
-    public constructor (action: unknown /** EObjectAction */);
-    public constructor (value: string, action: unknown /** EObjectAction */);
+    public constructor(value: string);
+    public constructor(value: string, type: number /* MonsterSpace::EObjectAction */);
+    public constructor(game_object: XR_game_object);
 
-    public completed(): unknown;
-
-    public object(value: string): unknown;
-    public object(game_object: XR_game_object): unknown;
-
-    public action(space: unknown /** enum MonsterSpace::EObjectAction */): unknown;
-
+    public action(space: unknown /** enum MonsterSpace::EObjectAction */): void;
+    public completed(): boolean;
   }
 
   export type TXR_object_states = typeof XR_object;
@@ -147,17 +140,17 @@ declare module "xray16" {
    * C++ class game_memory_object : memory_object {
    */
   export class XR_game_memory_object extends XR_memory_object {
-    public object_info: unknown;
-    public self_info: unknown;
-    public object(entity_memory_object: XR_memory_object): XR_memory_object;
+    public object_info: unknown; /* MemorySpace::CObjectParams<class CGameObject>& */
+    public self_info: unknown; /* MemorySpace::CObjectParams<class CGameObject>& */
+    public object(): XR_game_object;
   }
 
   /**
    * C++ class not_yet_visible_object {
    */
   export class XR_not_yet_visible_object {
-    public value: unknown;
-    public object(not_yet_visible_object: XR_not_yet_visible_object): unknown;
+    public value: f32;
+    public object(): XR_game_object;
   }
 
   /**
@@ -515,7 +508,7 @@ declare module "xray16" {
    */
   export class XR_holder {
     public engaged(): boolean;
-    public Action(value1: number, value2: number): unknown;
-    public SetParam(value1: number, vector: XR_vector): unknown;
+    public Action(value1: u16, value2: u32): void;
+    public SetParam(value: i32, vector: XR_vector): void;
   }
 }

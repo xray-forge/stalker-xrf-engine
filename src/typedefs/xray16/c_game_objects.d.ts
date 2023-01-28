@@ -4,14 +4,14 @@ declare module "xray16" {
    * @customConstructor CGameObject
    */
   export class XR_CGameObject extends XR_DLL_Pure {
-    public Visual(): unknown;
+    public Visual(): IXR_IRender_Visual;
     public getEnabled(): boolean;
-    public _construct(): unknown;
-    public net_Import(net_packet: XR_net_packet): unknown;
+    public _construct(): XR_DLL_Pure;
+    public net_Import(net_packet: XR_net_packet): void;
     public getVisible(): boolean;
-    public net_Export(net_packet: XR_net_packet): unknown;
-    public net_Spawn(cse_abstract: XR_cse_abstract): unknown;
-    public use(object: XR_CGameObject): unknown;
+    public net_Export(net_packet: XR_net_packet): void;
+    public net_Spawn(cse_abstract: XR_cse_abstract): boolean;
+    public use(object: XR_CGameObject): boolean;
   }
 
   /**

@@ -23,6 +23,8 @@ declare module "xray16" {
   export const CUIListBox: typeof XR_CUIListBox;
   export const CUIListBoxItem: typeof XR_CUIListBoxItem;
   export const CUIListBoxItemMsgChain: typeof XR_CUIListBoxItemMsgChain;
+  export const CUIListItem: typeof XR_CUIListItem;
+  export const CUIListWnd: typeof XR_CUIListWnd;
   export const CUIMMShniaga: typeof XR_CUIMMShniaga;
   export const CUIMapInfo: typeof XR_CUIMapInfo;
   export const CUIMapList: typeof XR_CUIMapList;
