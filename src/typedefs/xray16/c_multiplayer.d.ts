@@ -147,7 +147,8 @@ declare module "xray16" {
    */
   export class XR_account_operation_cb {
     public constructor (object: object, cb: (this: object, code: number, description: string) => void);
-    public bind(object: unknown, cb: (this: object, code: number, description: string) => void): void;
+
+    public bind(object: object, cb: (this: object, code: number, description: string) => void): void;
     public clear(): void;
   }
 
@@ -157,6 +158,7 @@ declare module "xray16" {
    */
   export class XR_found_email_cb {
     public constructor (object: object, cb: (this: object, found: boolean, description: string) => void);
+
     public bind(object: object, cb: (this: object, found: boolean, description: string) => void): void;
     public clear(): void;
   }
@@ -169,7 +171,6 @@ declare module "xray16" {
     public constructor (object: object, cb: (this: object, code: number, description: string) => void);
 
     public bind(object: object, cb: (this: object, code: number, description: string) => void): void;
-
     public clear(): void;
   }
 
@@ -179,6 +180,7 @@ declare module "xray16" {
    */
   export class XR_suggest_nicks_cb {
     public constructor (object: object, cb: (this: object, result: number, description: string) => void);
+
     public bind(object: object, cb: (this: object, result: number, description: string) => void): void;
     public clear(): void;
   }
@@ -222,4 +224,37 @@ declare module "xray16" {
     public m_count: u16;
     public m_last_reward_date: u32;
   }
+
+  /**
+   * C++ class game_messages {
+   * @customConstructor game_messages
+   */
+  export class XR_game_messages {
+    public static GAME_EVENT_ARTEFACT_DESTROYED: 17;
+    public static GAME_EVENT_ARTEFACT_DROPPED: 19;
+    public static GAME_EVENT_ARTEFACT_ONBASE: 20;
+    public static GAME_EVENT_ARTEFACT_SPAWNED: 16;
+    public static GAME_EVENT_ARTEFACT_TAKEN: 18;
+    public static GAME_EVENT_BUY_MENU_CLOSED: 23;
+    public static GAME_EVENT_PLAYER_BUY_FINISHED: 2;
+    public static GAME_EVENT_PLAYER_CHANGE_SKIN: 6;
+    public static GAME_EVENT_PLAYER_CHANGE_TEAM: 6;
+    public static GAME_EVENT_PLAYER_CONNECTED: 8;
+    public static GAME_EVENT_PLAYER_DISCONNECTED: 9;
+    public static GAME_EVENT_PLAYER_ENTER_TEAM_BASE: 21;
+    public static GAME_EVENT_PLAYER_JOIN_TEAM: 13;
+    public static GAME_EVENT_PLAYER_KILL: 1;
+    public static GAME_EVENT_PLAYER_KILLED: 11;
+    public static GAME_EVENT_PLAYER_LEAVE_TEAM_BASE: 22;
+    public static GAME_EVENT_PLAYER_READY: 0;
+    public static GAME_EVENT_ROUND_END: 15;
+    public static GAME_EVENT_ROUND_STARTED: 14;
+    public static GAME_EVENT_SCRIPT_BEGINS_FROM: 46;
+    public static GAME_EVENT_SKIN_MENU_CLOSED: 25;
+    public static GAME_EVENT_TEAM_MENU_CLOSED: 24;
+  }
+
+  export type TXR_game_messages = typeof XR_game_messages;
+
+  export type TXR_game_message = TXR_game_messages[Exclude<keyof TXR_game_messages, "prototype" | "constructor">]
 }

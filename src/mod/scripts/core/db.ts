@@ -1,5 +1,5 @@
 import {
-  TXR_MonsterSpaces,
+  TXR_MonsterBodyStateKey,
   XR_cse_alife_object,
   XR_CUIGameCustom,
   XR_game_object,
@@ -64,7 +64,7 @@ export interface IStoredObject<T = XR_game_object> {
   path_table?: LuaTable<number, string>;
   cam_effector?: LuaTable<number, string>;
   combat?: HeliCombat;
-  anim_head?: keyof TXR_MonsterSpaces;
+  anim_head?: TXR_MonsterBodyStateKey;
   action?: any;
   ini?: XR_ini_file;
   object?: T;

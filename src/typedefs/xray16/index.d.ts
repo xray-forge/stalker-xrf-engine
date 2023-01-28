@@ -24,6 +24,7 @@ declare module "xray16" {
   export const CUIListBoxItem: typeof XR_CUIListBoxItem;
   export const CUIListBoxItemMsgChain: typeof XR_CUIListBoxItemMsgChain;
   export const CUIListItem: typeof XR_CUIListItem;
+  export const CUIListItemEx: typeof XR_CUIListItemEx;
   export const CUIListWnd: typeof XR_CUIListWnd;
   export const CUIMMShniaga: typeof XR_CUIMMShniaga;
   export const CUIMapInfo: typeof XR_CUIMapInfo;
@@ -38,7 +39,9 @@ declare module "xray16" {
   export const CUITabButton: typeof XR_CUITabButton;
   export const CUITabControl: typeof XR_CUITabControl;
   export const CUITrackBar: typeof XR_CUITrackBar;
+  export const CUIVersionList: typeof XR_CUIVersionList;
   export const CUIWindow: typeof XR_CUIWindow;
+  export const UIHint: typeof XR_UIHint;
 
   export const DIK_keys: typeof XR_DIK_keys;
   export const FS: typeof XR_FS;

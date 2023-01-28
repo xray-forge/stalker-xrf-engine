@@ -1,16 +1,14 @@
 import { level, XR_vector } from "xray16";
 
-import { Optional } from "@/mod/lib/types";
+import { managersRegistry } from "@/mod/scripts/core/db/ManagersRegistry";
 
 export class PhantomManager {
-  public static instance: Optional<PhantomManager> = null;
-
   public static getInstance(): PhantomManager {
-    if (!this.instance) {
-      this.instance = new this();
+    if (!managersRegistry.has(this)) {
+      managersRegistry.set(this, new this());
     }
 
-    return this.instance;
+    return managersRegistry.get(this) as PhantomManager;
   }
 
   public phantom_count: number = 0;

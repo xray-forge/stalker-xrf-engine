@@ -10,7 +10,7 @@ declare module "xray16" {
   export function GetFontLetterica25(this: void): XR_CGameFont;
   export function GetFontMedium(this: void): XR_CGameFont;
   export function GetFontSmall(this: void): XR_CGameFont;
-  export function GetTextureInfo(this: void, char: string, char2: string, /* TEX_INFO& */): boolean;
+  export function GetTextureInfo(this: void, char: string, char2: string, tex_info: XR_TEX_INFO): boolean;
   export function GetTextureName(this: void, char: string): string;
   export function IsGameTypeSingle(this: void): boolean;
   export function app_ready(this: void): boolean;

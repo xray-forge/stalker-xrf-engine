@@ -15,4 +15,8 @@ declare module "xray16" {
 
   type f64 = number;
   type f32 = number;
+
+  type EnumerateStaticsKeys<T> = Exclude<keyof T, "prototype"| "constructor">;
+
+  type EnumerateStaticsValues<T> = T[Exclude<keyof T, "prototype"| "constructor">]
 }

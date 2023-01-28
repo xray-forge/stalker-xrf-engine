@@ -1,3 +1,5 @@
+import { TXR_CGameFont_alignment } from "xray16";
+
 declare module "xray16" {
   /**
    * C++ class CUIWindow {
@@ -252,14 +254,16 @@ declare module "xray16" {
    * @customConstructor CUIMMShniaga
    */
   export class XR_CUIMMShniaga extends XR_CUIWindow {
-    public static epi_main: 0;
-    public static epi_new_game: 1;
-    public static epi_new_network_game: 2;
+    public static readonly epi_main: 0;
+    public static readonly epi_new_game: 1;
+    public static readonly epi_new_network_game: 2;
 
-    public ShowPage(pageId: number): void;
-    public SetPage(pageId: number, xml: string, selector: string): void;
-    public SetVisibleMagnifier(isVisible: boolean): void;
+    public ShowPage(page_id: TXR_MMShniaga_page): void;
+    public SetPage(page_id: TXR_MMShniaga_page, xml: string, selector: string): void;
+    public SetVisibleMagnifier(visible: boolean): void;
   }
+
+  export type TXR_MMShniaga_page = EnumerateStaticsValues<typeof XR_CUIMMShniaga>;
 
   /**
    * C++ class CUIMapInfo : CUIWindow {
@@ -314,10 +318,10 @@ declare module "xray16" {
    * @customConstructor CUIProgressBar
    */
   export class XR_CUIProgressBar extends XR_CUIWindow {
-    public GetRange_max(): number;
-    public GetRange_min(): number;
-    public SetProgressPos(value: number): void;
-    public GetProgressPos(): number;
+    public GetRange_max(): f32;
+    public GetRange_min(): f32;
+    public SetProgressPos(value: f32): void;
+    public GetProgressPos(): f32;
   }
 
   /**
@@ -325,11 +329,27 @@ declare module "xray16" {
    * @customConstructor CUIPropertiesBox
    */
   export class XR_CUIPropertiesBox extends XR_CUIFrameWindow {
-    public AddItem(value: string): unknown;
-    public AutoUpdateSize(): unknown;
-    public RemoveItem(value: number): unknown;
+    public AddItem(id: string): void;
+    public AutoUpdateSize(): void;
+    public RemoveItem(index: u32): void;
     public RemoveAll(): void
     public Hide(): void;
+
+    public Show(show: boolean): void;
+    public Show(int1: i32, int2: i32): void;
+  }
+
+  /**
+   * C++ class CUIVersionList : CUIWindow
+   * @customConstructor CUIVersionList
+   */
+  export class XR_CUIVersionList {
+    public constructor();
+
+    public GetItemsCount(): u64;
+    public SwitchToSelectedVersion(): void;
+    public GetCurrentVersionDescr(): string;
+    public GetCurrentVersionName(): string;
   }
 
   /**
@@ -431,18 +451,18 @@ declare module "xray16" {
    * @customConstructor CUITextWnd
    */
   export class XR_CUITextWnd extends XR_CUIWindow {
-    public SetTextOffset(x: number, y: number): unknown;
-    public SetText(text: string): unknown;
-    public SetTextAlignment(align: number /* CGameFont::EAligment */): unknown;
-    public SetTextComplexMode(value: boolean): unknown;
+    public SetTextOffset(x: f32, y: f32): void;
+    public SetText(text: string): void;
+    public SetTextAlignment(align: TXR_CGameFont_alignment): void;
+    public SetTextComplexMode(complex: boolean): void;
     public GetText(): string;
-    public GetTextColor(): unknown;
-    public SetTextColor(color: number): unknown;
+    public GetTextColor(): u32;
+    public SetTextColor(color: u32): void;
     public SetTextST(text: string): void;
-    public AdjustHeightToText(): unknown;
-    public AdjustWidthToText(): unknown;
-    public SetEllipsis(value: boolean): unknown;
-    public SetVTextAlignment(alignment: unknown /* enum EVTextAlignment */): unknown;
+    public AdjustHeightToText(): void;
+    public AdjustWidthToText(): void;
+    public SetEllipsis(value: boolean): void;
+    public SetVTextAlignment(alignment: TXR_CGameFont_alignment): void;
   }
 
   /**
@@ -452,11 +472,13 @@ declare module "xray16" {
   export class XR_CUITrackBar extends XR_CUIWindow {
     public SetCheck(value: boolean): void;
     public SetCurrentValue(): void;
-    public GetCheck(): unknown;
-    public GetIValue(): number;
-    public GetFValue(): number;
-    public SetOptIBounds(min: number, max: number): number;
-    public SetOptFBounds(min: number, max: number): number;
+    public SetCurrentValue(value: f32): void;
+    public SetCurrentValue(value: i32): void;
+    public GetCheck(): boolean;
+    public GetIValue(): i32;
+    public GetFValue(): f32;
+    public SetOptIBounds(min: i32, max: i32): void;
+    public SetOptFBounds(min: f32, max: f32): number;
   }
 
   /**
@@ -466,36 +488,22 @@ declare module "xray16" {
   export class XR_CDialogHolder {
     public RemoveDialogToRender(window: XR_CUIWindow): void;
     public AddDialogToRender(window: XR_CUIWindow): void;
+    public TopInputReceiver(): XR_CUIDialogWnd;
+    public MainInputReceiver(): XR_CUIDialogWnd;
+    public start_stop_menu(window: XR_CUIWindow, value: boolean): void;
   }
 
   /**
-   * C++ class CGameTask {
+   * C++ class CGameTask : SGameTaskObjective {
    * @customConstructor CGameTask
    */
-  export class XR_CGameTask {
+  export class XR_CGameTask extends XR_SGameTaskObjective {
+    public constructor();
+
     public get_id(): string;
-    public set_priority(value: number): unknown;
-    public set_title(value: string | null): unknown;
-    public set_map_hint(value: string): unknown;
-    public get_title(): string;
-    public get_icon_name(): string;
-    public add_on_fail_info(value: string): unknown;
-    public add_complete_func(value: string): unknown;
-    public add_fail_func(value: string): unknown;
-    public remove_map_locations(value: boolean): unknown;
-    public add_fail_info(value: string): unknown;
-    public add_complete_info(value: string): unknown;
-    public set_type(value: number): unknown;
-    public set_map_object_id(value: number): unknown;
-    public set_description(value: string): unknown;
-    public set_id(value: string): unknown;
-    public add_on_fail_func(value: string): unknown;
-    public add_on_complete_func(value: string): unknown;
-    public set_icon_name(value: string): unknown;
-    public set_map_location(value: string): unknown;
-    public change_map_location(value1: string, value2: number): unknown;
-    public add_on_complete_info(value: string): unknown;
-    public get_priority(): number;
+    public set_priority(value: i32): void;
+    public set_id(id: string): void;
+    public get_priority(): u32;
   }
 
   /**
@@ -533,6 +541,10 @@ declare module "xray16" {
    * @customConstructor StaticDrawableWrapper
    */
   export class XR_StaticDrawableWrapper {
+    public m_endTime: f32;
+
+    private constructor();
+
     public Draw(): void;
     public Update(): void;
 
@@ -573,9 +585,28 @@ declare module "xray16" {
   }
 
   /**
-   * class CUIListItem : CUIButton
+   * C++ class CUIListItem : CUIButton {
    * @customConstructor CUIListItem
    */
   export class XR_CUIListItem extends XR_CUIButton {
+  }
+
+  /**
+   * C++ class CUIListItemEx : CUIListItem {
+   * @customConstructor CUIListItemEx
+   */
+  export class XR_CUIListItemEx extends XR_CUIListItem {
+    public SetSelectionColor(color: u32): void;
+  }
+
+  /**
+   * C++ class UIHint : CUIWindow {
+   * @customConstructor UIHint
+   */
+  export class XR_UIHint extends XR_CUIWindow {
+    public constructor();
+
+    public GetHintText(): string;
+    public SetHintText(hint: string): void;
   }
 }

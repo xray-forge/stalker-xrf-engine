@@ -34,21 +34,24 @@ declare module "xray16" {
    * C++ class render_device {
    */
   export class XR_render_device {
-    public aspect_ratio: number;
-    public cam_dir: XR_vector;
-    public cam_pos: unknown;
-    public cam_right: unknown;
-    public cam_top: unknown;
-    public f_time_delta: unknown;
-    public fov: number;
-    public frame: number;
-    public height: number;
-    public precache_frame: number;
-    public time_delta: number;
-    public width: number;
-    public time_global(): number;
+    private constructor();
+
+    public readonly cam_dir: XR_vector;
+    public readonly cam_pos: XR_vector;
+    public readonly cam_right: XR_vector;
+    public readonly cam_top: XR_vector;
+    public readonly aspect_ratio: f32;
+    public readonly fov: f32;
+    public readonly precache_frame: u32;
+    public readonly frame: u32;
+    public readonly height: u32;
+    public readonly time_delta: u32;
+    public readonly f_time_delta: f32;
+    public readonly width: u32;
+
+    public time_global(): u32;
     public is_paused(): boolean;
-    public pause(isPaused: boolean): void;
+    public pause(paused: boolean): void;
   }
 
   /**

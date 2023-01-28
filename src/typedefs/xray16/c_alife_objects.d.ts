@@ -78,13 +78,23 @@ declare module "xray16" {
   }
 
   /**
+   * C++ class CSE_AbstractVisual : cse_visual, cse_abstract
+   * @customConstructor CSE_AbstractVisual
+   */
+  export class XR_CSE_AbstractVisual extends XR_cse_abstract implements IXR_cse_visual {
+    public getStartupAnimation(): string;
+    public init(): XR_cse_abstract;
+  }
+
+  /**
    * C++ class cse_alife_trader_abstract {
    * @customConstructor cse_alife_trader_abstract
    */
   export class XR_cse_alife_trader_abstract {
-    public reputation(): number;
-    public rank(): number;
-    public community(): unknown;
+    public reputation(): i32;
+    public rank(): i32;
+    public community(): string;
+    public profile_name(): string;
   }
 
   /**
@@ -218,14 +228,14 @@ declare module "xray16" {
    * @customConstructor cse_alife_creature_abstract
    */
   export class XR_cse_alife_creature_abstract extends XR_cse_alife_dynamic_object_visual {
-    public group: number;
-    public squad: number;
-    public team: number;
+    public group: u8;
+    public squad: u8;
+    public team: u8;
     public group_id: number;
     public m_smart_terrain_id: number;
 
-    public static health(this:void, target: XR_cse_alife_creature_abstract): number;
-    public health(): number;
+    public static health(this: void, target: XR_cse_alife_creature_abstract): f32;
+    public health(): f32;
 
     public static on_death(
       this:void,
@@ -236,11 +246,11 @@ declare module "xray16" {
 
     public alive(): boolean;
 
-    public g_team(): unknown;
-    public g_group(): unknown;
-    public g_squad(): unknown;
+    public g_team(): u8;
+    public g_group(): u8;
+    public g_squad(): u8;
 
-    public o_torso(cse_alife_creature_abstract: XR_cse_alife_creature_abstract): unknown;
+    public o_torso(cse_alife_creature_abstract: XR_cse_alife_creature_abstract): XR_rotation;
 
     public static smart_terrain_id(this: void, target: XR_cse_alife_monster_abstract): number;
     public smart_terrain_id(): number;
@@ -268,8 +278,7 @@ declare module "xray16" {
     public brain(): XR_CAILifeMonsterBrain;
 
     public has_detector(): boolean;
-
-    public rank(): number;
+    public rank(): i32;
   }
 
   /**
@@ -277,9 +286,9 @@ declare module "xray16" {
    * @customConstructor XR_cse_alife_human_abstract
    * */
   export class XR_cse_alife_human_abstract extends XR_cse_alife_monster_abstract {
-    public profile_name(trader: unknown /* cse_alife_trader_abstract */): unknown;
-    public set_rank(rank: number): void;
-    public reputation(): unknown;
+    public profile_name(): string;
+    public set_rank(rank: i32): void;
+    public reputation(): i32;
     public community(): string;
   }
 
@@ -523,18 +532,18 @@ declare module "xray16" {
     T extends XR_cse_alife_creature_abstract = XR_cse_alife_creature_abstract
   > extends XR_cse_alife_dynamic_object implements IXR_cse_alife_schedulable {
 
-    public object: T;
+    public readonly object: T;
 
-    public update(): unknown;
-    public register_member(id: number): unknown;
-    public clear_location_types(): unknown;
-    public get_current_task(): unknown;
-    public commander_id(): number;
-    public unregister_member(id: number): unknown;
-    public squad_members(): LuaIterable<{ id: number, object: T }>;
-    public force_change_position(vector: XR_vector): unknown;
-    public add_location_type(location: string): unknown;
-    public npc_count(): number;
+    public update(): void;
+    public register_member(id: u16): void;
+    public clear_location_types(): void;
+    public get_current_task(): XR_CALifeSmartTerrainTask;
+    public commander_id(): u16;
+    public unregister_member(id: u16): void;
+    public squad_members(): LuaIterable<{ id: u16, object: T }>; // struct std::less<unsigned short> 3rd param
+    public force_change_position(vector: XR_vector): void;
+    public add_location_type(location: string): void;
+    public npc_count(): i32;
   }
 
   /**
@@ -586,10 +595,10 @@ declare module "xray16" {
    * @customConstructor cse_alife_trader
    */
   export class XR_cse_alife_trader extends XR_cse_alife_dynamic_object_visual implements XR_cse_alife_trader_abstract {
-    public profile_name(cse_alife_trader_abstract: XR_cse_alife_trader_abstract): string;
-    public community(): unknown;
-    public rank(): number;
-    public reputation(): number;
+    public profile_name(): string;
+    public community(): string;
+    public rank(): i32;
+    public reputation(): i32;
   }
 
   /**
@@ -617,11 +626,10 @@ declare module "xray16" {
     extends XR_cse_alife_creature_abstract
     implements IXR_cse_ph_skeleton, XR_cse_alife_trader_abstract {
 
-    public profile_name(cse_alife_trader_abstract: XR_cse_alife_trader): unknown;
-
+    public profile_name(): string;
     public community(): string;
-    public rank(): number;
-    public reputation(): number;
+    public rank(): i32;
+    public reputation(): i32;
   }
 
   /**

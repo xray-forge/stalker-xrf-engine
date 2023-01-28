@@ -18,37 +18,6 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class particle {
-   * @customConstructor particle
-   */
-  export class XR_particle {
-    public constructor();
-    public constructor(value1: string, value2: string);
-    public constructor(value1:string, value2:string, value3: XR_particle_params);
-    public constructor(value1:string, value2:string, particle_params: XR_particle_params, value3: boolean);
-    public constructor(value1:string, particle_params: XR_particle_params);
-    public constructor(value1:string, particle_params: XR_particle_params, value2: boolean);
-
-    public set_velocity(vector: XR_vector): unknown;
-    public set_position(vector: XR_vector): unknown;
-    public set_bone(bone_id: string): unknown;
-    public set_angles(vector: XR_vector): unknown;
-    public completed(): unknown;
-    public set_particle(value1: string, value2: boolean): unknown;
-  }
-
-  /**
-   * C++ class particle_params {
-   * @customConstructor particle_params
-   */
-  export class XR_particle_params {
-    public constructor();
-    public constructor(vector: XR_vector);
-    public constructor(vector1: XR_vector, vector2: XR_vector);
-    public constructor(vector1: XR_vector, vector2: XR_vector, vector3: XR_vector);
-  }
-
-  /**
    * C++ class particles_object {
    * @customConstructor particles_object
    */
@@ -122,9 +91,9 @@ declare module "xray16" {
    * @customConstructor physics_world
    */
   export class XR_physics_world {
-    public set_gravity(value: number): void;
-    public gravity(): unknown;
-    public add_call(/* class CPHCondition*, class CPHAction */): unknown;
+    public set_gravity(value: f32): void;
+    public gravity(): f32;
+    public add_call(/* class CPHCondition*, class CPHAction */): void;
   }
 
   /**
@@ -139,6 +108,6 @@ declare module "xray16" {
    * @customConstructor IKinematicsAnimated
    */
   export class XR_IKinematicsAnimated {
-    public PlayCycle(value: string): unknown;
+    public PlayCycle(value: string): void;
   }
 }

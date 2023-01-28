@@ -37,7 +37,7 @@ declare module "xray16" {
      */
     public constructor(sound_path: string, type: TXR_snd_type);
 
-    public length(): number;
+    public length(): u32;
     public playing(): boolean;
     public get_position(): XR_vector;
 
@@ -45,82 +45,24 @@ declare module "xray16" {
     public attach_tail(sound_path: string): void;
 
     public play(object: XR_game_object): void;
-    public play(object: XR_game_object, delay: number): void;
-    public play(object: XR_game_object, delay: number, type: TXR_sound_object_type): void;
+    public play(object: XR_game_object, delay: f32): void;
+    public play(object: XR_game_object, delay: f32, type: TXR_sound_object_type): void;
     public play_at_pos(object: XR_game_object, position: XR_vector): void;
-    public play_at_pos(object: XR_game_object, position: XR_vector, delay: number): void;
-    public play_at_pos(object: XR_game_object, position: XR_vector, delay: number, type: TXR_sound_object_type): void;
+    public play_at_pos(object: XR_game_object, position: XR_vector, delay: f32): void;
+    public play_at_pos(object: XR_game_object, position: XR_vector, delay: f32, type: TXR_sound_object_type): void;
     public play_no_feedback(
       object: XR_game_object,
       type: TXR_sound_object_type,
-      value1: number,
+      value1: f32,
       position: XR_vector,
-      value2: number
+      value2: f32
     ): void;
 
     public stop(): void;
     public stop_deffered(): void;
   }
 
-  export type TXR_sound_object_types = typeof XR_sound_object;
-
-  export type TXR_sound_object_type = TXR_sound_object_types[
-    Exclude<keyof TXR_sound_object_types, "prototype" | "constructor">
-  ];
-
-  /**
-   * C++ class sound {
-   * @customConstructor sound
-   */
-  export class XR_sound {
-    public static attack: 3;
-    public static attack_hit: 4;
-    public static die: 7;
-    public static eat: 2;
-    public static idle: 1;
-    public static panic: 11;
-    public static steal: 10;
-    public static take_damage: 5;
-    public static threaten: 9;
-
-    public constructor();
-    public constructor(value1: string, value2: string);
-    public constructor(value1: string, value2: string, vector: XR_vector);
-    public constructor(value1: string, value2: string, vector: XR_vector, vector2: XR_vector);
-    public constructor(value1: string, value2: string, vector: XR_vector, vector2: XR_vector, value3: boolean);
-    public constructor(value1: string, vector: XR_vector);
-    public constructor(value1: string, vector: XR_vector, vector2: XR_vector);
-    public constructor(value1: string, vector: XR_vector, vector2: XR_vector, value3: boolean);
-    public constructor(sound_object: XR_sound_object, value1: string, vector: XR_vector);
-    public constructor(sound_object: XR_sound_object, value1: string, vector: XR_vector, vector2: XR_vector);
-    public constructor(
-      sound_object: XR_sound_object,
-      value1: string,
-      vector: XR_vector,
-      vector2: XR_vector,
-      value: boolean
-    );
-    public constructor(sound_object: XR_sound_object, vector: XR_vector);
-    public constructor(sound_object: XR_sound_object, vector: XR_vector, vector2: XR_vector);
-    public constructor(sound_object: XR_sound_object, vector: XR_vector, vector2: XR_vector, value: boolean);
-    public constructor(type: unknown /* MonsterSound::EType */);
-    public constructor(type: unknown /* enum MonsterSound::EType*/, value: number);
-    public constructor(value1:string, value2: string, type: unknown /* enum MonsterSpace::EMonsterHeadAnimType */);
-
-    public set_sound(value: string): void;
-    public set_sound(sound_object: XR_sound_object): void;
-    public set_position(vector: XR_vector): void;
-    public set_bone(value: string): void;
-    public set_angles(vector: XR_vector): void;
-    public set_sound_type(type: unknown /* ESoundTypes */): void;
-    public completed(): boolean;
-  }
-
-  export type TXR_sound_types = typeof XR_sound;
-
-  export type TXR_sound_key = Exclude<keyof TXR_sound_types, "constructor" | "prototype">;
-
-  export type TXR_sound_type = TXR_sound_types[TXR_sound_key]
+  export type TXR_sound_object_type = EnumerateStaticsValues<typeof XR_sound_object>;
 
   /**
    * C++ class snd_type

@@ -7,45 +7,7 @@
 
 ## Command line flags for xr-engine
 
-- `-depth16`
-- `-designer`
-- `-demomode`
-- `-disasm`
-- `-dsound`
-- `-file_activity`
-- `-fsltx`
-- `-gloss`
-- `-gpu_nopure`
-- `-gpu_ref`
-- `-gpu_sw`
-- `-launcher`
-- `-load`
-- `-ltx`
-- `-mblur`
-- `-no_occq`
-- `-nodistort`
-- `-nointro`
-- `-nojit`
-- `-nolog`
-- `-noprefetch`
-- `-noshadows`
-- `-nosound`
-- `-overlay`
-- `-psp`
-- `-r2`
-- `-r2a`
-- `-r4xx`
-- `-silent_error_mode`
-- `-skip_memtest`
-- `-smap1536`
-- `-smap2048`
-- `-smap2560`
-- `-smap3072`
-- `-smap4096`
-- `-ss_tga`
-- `-start`
-- `-sunfilter`
-- `-tune`
+Engine command line flags: [link](https://github.com/OpenXRay/xray-16/wiki/%5BEN%5D-Engine's-command-line-keys)
 
 ## What is 'class' and 'super' in lua
 

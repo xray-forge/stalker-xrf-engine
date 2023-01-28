@@ -100,13 +100,14 @@ declare module "xray16" {
    * @customConstructor CALifeSmartTerrainTask
    */
   export class XR_CALifeSmartTerrainTask {
+    // todo: Clarify constructor namings
     public constructor (a: string);
-    public constructor (a: string, b: number);
-    public constructor (a: number, b: number);
+    public constructor (a: string, b: u32);
+    public constructor (a: u16, b: u32);
 
-    public level_vertex_id(): number;
+    public level_vertex_id(): u16;
+    public game_vertex_id(): u16;
     public position(): XR_vector;
-    public game_vertex_id(): number;
   }
 
   /**

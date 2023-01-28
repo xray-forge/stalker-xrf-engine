@@ -69,7 +69,7 @@ declare module "xray16" {
    * C++ class CAI_Bloodsucker : CGameObject {
    */
   export class XR_CAI_Bloodsucker extends XR_CGameObject {
-    public force_visibility_state(value: number): unknown;
+    public force_visibility_state(value: i32): void;
   }
 
   /**

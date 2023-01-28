@@ -1,4 +1,4 @@
-import { CUIWindow, GAME_TYPE, XR_CScriptXmlInit, XR_CUIWindow, XR_TGAME_TYPE } from "xray16";
+import { CUIWindow, GAME_TYPE, XR_CScriptXmlInit, XR_CUIWindow, TXR_GAME_TYPE } from "xray16";
 
 import { IMultiplayerMenu } from "@/mod/scripts/ui/menu/MultiplayerMenu";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -11,7 +11,7 @@ export interface IMultiplayerOptions extends XR_CUIWindow {
   __init(online_mode: boolean): void;
 
   InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IMultiplayerMenu): void;
-  SetGameMode(gameType: XR_TGAME_TYPE, handler: IMultiplayerMenu): void;
+  SetGameMode(gameType: TXR_GAME_TYPE, handler: IMultiplayerMenu): void;
 }
 
 export const MultiplayerOptions: IMultiplayerOptions = declare_xr_class("MultiplayerOptions", CUIWindow, {
@@ -114,7 +114,7 @@ export const MultiplayerOptions: IMultiplayerOptions = declare_xr_class("Multipl
       // --        handler.check_public_server.SetCheck(false)
     }
   },
-  SetGameMode(mode: XR_TGAME_TYPE, handler: IMultiplayerMenu): void {
+  SetGameMode(mode: TXR_GAME_TYPE, handler: IMultiplayerMenu): void {
     log.info("Set game mode");
 
     handler.spin_friendly_fire.Enable(true);

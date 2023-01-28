@@ -4,33 +4,43 @@ declare module "xray16" {
    * @customConstructor fcolor
    */
   export class XR_fcolor extends XR_LuaBindBase {
-    public a: number;
-    public b: number;
-    public g: number;
-    public r: number;
+    public a: f32;
+    public b: f32;
+    public g: f32;
+    public r: f32;
 
-    public set(a: number, b: number, c: number, d: number): XR_fcolor;
+    public set(a: f32, b: f32, c: f32, d: f32): XR_fcolor;
     public set(it: XR_fcolor): XR_fcolor;
-    public set(value: number): XR_fcolor;
+    public set(value: u32): XR_fcolor;
   }
 
   /**
-   * Frame rectangle.
-   * Describing x1, y1 top left start point and x2, y2 bottom right end point.
-   *
-   * C++ class Frect {
-   * @customConstructor Frect
+   * C++ class flags8 {
+   * @customConstructor flags8
    */
-  export class XR_Frect extends XR_LuaBindBase {
-    public lt: number;
-    public rb: number;
+  export class XR_flags8 {
+    public constructor();
 
-    public x1: number;
-    public x2: number;
-    public y1: number;
-    public y2: number;
-
-    public set(x1: number, y1: number, x2: number, y2: number): XR_Frect;
+    public and(value1: XR_flags8, value2: u8): XR_flags8;
+    public and(value: u8): XR_flags8;
+    public assign(value: XR_flags8): XR_flags8;
+    public assign(value: u8): XR_flags8;
+    public equal(value2: Readonly<XR_flags8>): boolean;
+    public equal(value2: Readonly<XR_flags8>, value3: u8): boolean;
+    public get(): u8;
+    public invert(): XR_flags8;
+    public invert(value: XR_flags8): XR_flags8;
+    public invert(value: u8): XR_flags8;
+    public is(value: XR_flags8, value2: u8): boolean;
+    public is(value: u8): boolean;
+    public is_any(value1: XR_flags8, value2: u8): boolean;
+    public is_any(value: u8): boolean;
+    public one(): XR_flags8;
+    public or(value: XR_flags8, value2: u8): XR_flags8;
+    public or(value: u8): XR_flags8;
+    public set(value: u8, value2: boolean): XR_flags8;
+    public test(value: u8): boolean;
+    public zero(): XR_flags8;
   }
 
   /**
@@ -40,35 +50,26 @@ declare module "xray16" {
   export class XR_flags16 {
     public constructor();
 
-    public zero(): unknown;
-
-    public assign(value: XR_flags16): unknown;
-    public assign(value: number): unknown;
-
-    public is(value: XR_flags16, value2: number): unknown;
-
-    public and(value: number): unknown;
-    public and(value1: XR_flags16, value2: number): unknown;
-
-    public equal(value1: XR_flags16, value2: XR_flags16): unknown;
-    public equal(value1: XR_flags16, value2: XR_flags16, value3: number): unknown;
-
-    public test(value1: XR_flags16, value2: number): unknown;
-
-    public is_any(value1: XR_flags16, value2: number): unknown;
-
-    public or(value: number): unknown;
-    public or(value: XR_flags16, value2: number): unknown;
-
-    public one(): unknown;
-
-    public set(flags32: XR_flags16, value: number, value2: boolean): unknown;
-
-    public invert(): unknown;
-    public invert(value: XR_flags16): unknown;
-    public invert(value: number): unknown;
-
-    public get(): number;
+    public and(value1: XR_flags16, value2: u16): XR_flags16;
+    public and(value: u16): XR_flags16;
+    public assign(value: XR_flags16): XR_flags16;
+    public assign(value: u16): XR_flags16;
+    public equal(value2: Readonly<XR_flags16>): boolean;
+    public equal(value2: Readonly<XR_flags16>, value3: u16): boolean;
+    public get(): u16;
+    public invert(): XR_flags16;
+    public invert(value: XR_flags16): XR_flags16;
+    public invert(value: u16): XR_flags16;
+    public is(value: XR_flags16, value2: u16): boolean;
+    public is(value: u16): boolean;
+    public is_any(value1: XR_flags16, value2: u16): boolean;
+    public is_any(value: u16): boolean;
+    public one(): XR_flags16;
+    public or(value: XR_flags16, value2: u16): XR_flags16;
+    public or(value: u16): XR_flags16;
+    public set(value: u16, value2: boolean): XR_flags16;
+    public test(value: u16): boolean;
+    public zero(): XR_flags16;
   }
 
   /**
@@ -78,35 +79,26 @@ declare module "xray16" {
   export class XR_flags32 {
     public constructor();
 
-    public zero(): unknown;
-
-    public assign(value: XR_flags32): void;
-    public assign(value: number): void;
-
-    public is(value: XR_flags32, value2: number): unknown;
-
-    public and(value: number): unknown;
-    public and(value1: XR_flags32, value2: number): unknown;
-
-    public equal(value2: XR_flags32): boolean;
-    public equal(value2: XR_flags32, value3: number): unknown;
-
-    public test(value1: XR_flags32, value2: number): unknown;
-
-    public is_any(value1: XR_flags32, value2: number): unknown;
-
-    public or(value: number): unknown;
-    public or(value: XR_flags32, value2: number): unknown;
-
-    public one(): unknown;
-
-    public set(flags32: XR_flags32, value: number, value2: boolean): unknown;
-
-    public invert(): unknown;
-    public invert(value: XR_flags32): unknown;
-    public invert(value: number): unknown;
-
-    public get(): number;
+    public and(value1: XR_flags32, value2: u32): XR_flags32;
+    public and(value: u32): XR_flags32;
+    public assign(value: XR_flags32): XR_flags32;
+    public assign(value: u32): XR_flags32;
+    public equal(value2: Readonly<XR_flags32>): boolean;
+    public equal(value2: Readonly<XR_flags32>, value3: u32): boolean;
+    public get(): u32;
+    public invert(): XR_flags32;
+    public invert(value: XR_flags32): XR_flags32;
+    public invert(value: u32): XR_flags32;
+    public is(value: XR_flags32, value2: u32): boolean;
+    public is(value: u32): boolean;
+    public is_any(value1: XR_flags32, value2: u32): boolean;
+    public is_any(value: u32): boolean;
+    public one(): XR_flags32;
+    public or(value: XR_flags32, value2: u32): XR_flags32;
+    public or(value: u32): XR_flags32;
+    public set(value: u32, value2: boolean): XR_flags32;
+    public test(value: u32): boolean;
+    public zero(): XR_flags32;
   }
 
   /**
@@ -147,111 +139,6 @@ declare module "xray16" {
   };
    *
    */
-
-  /**
-   * C++ class vector2 {
-   * @customConstructor vector2
-   */
-  export class XR_vector2 {
-    public x: number;
-    public y: number;
-
-    public set(x: number, y: number): XR_vector2;
-    public set(vector: XR_vector2): XR_vector2;
-  }
-
-  /**
-   * C++ class XR_vector {
-   * @customConstructor vector
-   */
-  export class XR_vector {
-    public x: number;
-    public y: number;
-    public z: number;
-
-    public set_length(val:number): unknown;
-
-    public sub(val:number): XR_vector;
-    public sub(vector: XR_vector): XR_vector;
-    public sub(vector1: XR_vector, vector2: XR_vector): XR_vector;
-    public sub(vector: XR_vector, val: number): XR_vector;
-
-    public reflect(vector1: XR_vector, vector2: XR_vector): unknown;
-
-    public slide(vector1: XR_vector, vector2: XR_vector): unknown;
-
-    public average(vector: XR_vector): unknown;
-    public average(vector1: XR_vector, vector2: XR_vector): unknown;
-
-    public normalize_safe(): unknown;
-    public normalize_safe(vector: XR_vector): unknown;
-
-    public normalize(): XR_vector;
-    public normalize(vector: XR_vector): XR_vector;
-
-    public align(): unknown;
-
-    public magnitude() : unknown;
-
-    public getP() : unknown;
-
-    public max(vector: XR_vector): unknown;
-    public max(vector1: XR_vector, vector2: XR_vector): unknown;
-
-    public distance_to_xz(vector: XR_vector) : unknown;
-
-    public invert(): unknown;
-    public invert(vector: XR_vector): unknown;
-
-    public mad(vector: XR_vector, val:number): unknown;
-    public mad(vector1: XR_vector, vector2: XR_vector, val:number): unknown;
-    public mad(vector1: XR_vector, vector2: XR_vector): unknown;
-    public mad(vector1: XR_vector, vector2: XR_vector, vector3: XR_vector): unknown;
-
-    public clamp(vector: XR_vector): unknown;
-    public clamp(vector1: XR_vector, vector2: XR_vector): unknown;
-
-    public inertion(vector: XR_vector, val:number): unknown;
-
-    public crossproduct(vector1: XR_vector, vector2: XR_vector): void;
-
-    public set(x: number, y: number, z: number): XR_vector;
-    public set(vector: XR_vector): XR_vector;
-
-    public abs(vector: XR_vector): unknown;
-
-    public div(val:number): unknown;
-    public div(vector: XR_vector): unknown;
-    public div(vector1: XR_vector, vector2: XR_vector): unknown;
-    public div(vector: XR_vector, val:number): unknown;
-
-    public dotproduct(vector: XR_vector) : number;
-
-    public getH() : number;
-
-    public min(vector: XR_vector): unknown;
-    public min(vector1: XR_vector, vector2: XR_vector): unknown;
-
-    public similar(vector: XR_vector, val:number) : unknown;
-
-    public distance_to(vector: XR_vector) : number;
-
-    public lerp(vector1: XR_vector, vector2: XR_vector, val:number): unknown;
-
-    public distance_to_sqr(vector: XR_vector) : number;
-
-    public mul(val:number): XR_vector;
-    public mul(vector: XR_vector): unknown;
-    public mul(vector1: XR_vector, vector2: XR_vector): unknown;
-    public mul(vector: XR_vector, val:number): unknown;
-
-    public setHP(val1:number, val2:number): unknown;
-
-    public add(val: number): XR_vector;
-    public add(vector: XR_vector): XR_vector;
-    public add(vector1: XR_vector, vector2: XR_vector): XR_vector;
-    public add(vector: XR_vector, val: number): unknown;
-  }
 
   /**
    * C++ class color {
@@ -303,23 +190,14 @@ declare module "xray16" {
    * @customConstructor XR_noise
    */
   export class XR_noise {
-    /**
-     * float.
-     */
-    public fps: number;
-    /**
-     * float.
-     */
-    public grain: number;
-    /**
-     * float.
-     */
-    public intensity: number;
+    public fps: f32;
+    public grain: f32;
+    public intensity: f32;
 
     public constructor();
-    public constructor(a: number, b: number, c: number);
+    public constructor(fps: f32, grain: f32, intensity: f32);
 
-    public set(a: number, b: number, c: number): XR_noise;
+    public set(fps: f32, grain: f32, intensity: f32): XR_noise;
   }
 
   /**
@@ -332,40 +210,42 @@ declare module "xray16" {
   }
 
   /**
-
-   C++ class rotation {
-    property pitch;
-    property yaw;
-
-  };
-   *
+   * C++ class token {
+   * @customConstructor token
    */
-
-  // todo;
-
-  /**
-
-   C++ class token {
-    property id;
-    property name;
-
-    token ();
-
-  };
-   *
-   */
-
-  // todo;
-
-  /**
-   * C++ class Fbox {
-   * @customConstructor Fbox
-   */
-  export class XR_Fbox {
-    public max: { x: number; y: number };
-    public min: { x: number; y: number };
+  export class XR_token {
+    public id: i32;
+    public name: string;
 
     public constructor();
+  }
+
+  /**
+   * C++ class rtoken_list {
+   * @customConstructor rtoken_list
+   */
+  export class XR_rtoken_list {
+    public constructor();
+
+    public remove(index: u32): void;
+    public get(index: u32): string;
+    public count(): u32;
+    public add(token: string): void;
+    public clear(): void;
+  }
+
+  /**
+   * C++ class token_list {
+   * @customConstructor token_list
+   */
+  export class XR_token_list {
+    public constructor();
+
+    public remove(token: string): void;
+    public id(token: string): i32;
+    public name(int: i32): string;
+    public add(token: string, index: i32): void;
+    public clear(): void;
   }
 
   /**
@@ -404,8 +284,10 @@ declare module "xray16" {
    * C++ class MonsterHitInfo {
    */
   export class XR_MonsterHitInfo {
+    private constructor();
+
     public direction: XR_vector;
-    public time: number;
+    public time: i32;
     public who: XR_game_object;
   }
 
@@ -438,46 +320,6 @@ declare module "xray16" {
     public start(): void;
     public time(): number;
   }
-
-  // todo;
-
-  /**
-   C++ class rtoken_list {
-    rtoken_list ();
-
-    function clear();
-
-    function remove(number);
-
-    function count();
-
-    function get(number);
-
-    function add(string);
-
-  };
-   */
-
-  // todo;
-
-  /**
-   C++ class token_list {
-    token_list ();
-
-    function clear();
-
-    function remove(string);
-
-    function name(number);
-
-    function id(string);
-
-    function add(string, number);
-
-  };
-   */
-
-  // todo;
 
   /**
    * C++ class effector {
@@ -643,4 +485,12 @@ declare module "xray16" {
     public caption_value(): unknown;
   }
 
+  /**
+   * C++ class TEX_INFO
+   * @customConstructor TEX_INFO
+   */
+  export class XR_TEX_INFO {
+    public get_rect(): XR_Frect;
+    public get_file_name(): string;
+  }
 }

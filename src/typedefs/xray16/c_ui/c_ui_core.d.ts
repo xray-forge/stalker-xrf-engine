@@ -37,6 +37,7 @@ declare module "xray16" {
    * @customConstructor CUIGameCustom
    */
   export class XR_CUIGameCustom {
+    public AddCustomStatic(id: string, b: boolean): XR_StaticDrawableWrapper;
     public AddCustomStatic(id: string, b: boolean, n: number): XR_StaticDrawableWrapper;
     public AddDialogToRender(window: XR_CUIWindow): void;
     public GetCustomStatic(value: string): XR_StaticDrawableWrapper | null;
@@ -48,6 +49,7 @@ declare module "xray16" {
     public UpdateActorMenu(): void;
     public enable_fake_indicators(enabled: boolean): void;
     public update_fake_indicators(u8: number, enabled: boolean): void;
+    public update_fake_indicators(u8: number, value: i32): void;
     public hide_messages(): void;
     public show_messages(): void;
   }
@@ -57,45 +59,56 @@ declare module "xray16" {
    * @customConstructor CScriptXmlInit
    */
   export class XR_CScriptXmlInit {
+    public constructor();
+
     public ParseFile(path: string): void;
-    public InitSpinText(selector: string, window: XR_CUIWindow): XR_CUISpinText;
-    public InitTab(selector: string, window: XR_CUIWindow): XR_CUITabControl;
-    public InitStatic(selector: string, window: XR_CUIWindow | null): XR_CUIStatic;
-    // todo: Check if implemented. Was planned for original game but never used.
-    public InitSleepStatic(selector: string, window: XR_CUIWindow): XR_CUISleepStatic;
-    public InitTextWnd(selector: string, window: XR_CUIWindow): XR_CUITextWnd;
-    public InitSpinFlt(selector: string, window: XR_CUIWindow): XR_CUISpinFlt;
-    public InitProgressBar(selector: string, window: XR_CUIWindow): XR_CUIProgressBar;
-    public InitSpinNum(selector: string, window: XR_CUIWindow): XR_CUISpinNum;
-    public InitMapList(selector: string, window: XR_CUIWindow): XR_CUIMapList;
-    public InitCDkey(selector: string, window: XR_CUIWindow): XR_CUIEditBox;
-    public InitKeyBinding(selector: string, window: XR_CUIWindow): unknown;
-    public InitMMShniaga(selector: string, window: XR_CUIWindow): XR_CUIMMShniaga;
-    public InitWindow(selector: string, index: number, window: XR_CUIWindow): XR_CUIWindow;
-    public InitEditBox(selector: string, window: XR_CUIWindow): XR_CUIEditBox;
-    public InitCheck(selector: string, window: XR_CUIWindow): XR_CUICheckButton;
-    public InitScrollView(selector: string, window: XR_CUIWindow): XR_CUIScrollView;
-    public InitMPPlayerName(selector: string, window: XR_CUIWindow): unknown;
-    public InitTrackBar(selector: string, window: XR_CUIWindow): XR_CUITrackBar;
-    public InitMapInfo(selector: string, window: XR_CUIWindow): XR_CUIMapInfo;
-    public InitServerList(selector: string, window: XR_CUIWindow): XR_CServerList;
-    public InitComboBox(selector: string, window: XR_CUIWindow): XR_CUIComboBox;
-    public InitFrameLine(selector: string, window: XR_CUIWindow): XR_CUIFrameLineWnd;
-    public Init3tButton(selector: string, window: XR_CUIWindow): XR_CUI3tButton;
-    public InitAnimStatic(selector: string, window: XR_CUIWindow): XR_CUIStatic;
-    public InitFrame(selector: string, window: XR_CUIWindow): XR_CUIFrameWindow;
+    public ParseShTexInfo(path: string): void;
+
+    public Init3tButton(selector: string, window: XR_CUIWindow | null): XR_CUI3tButton;
+    public InitAnimStatic(selector: string, window: XR_CUIWindow | null): XR_CUIStatic;
+    public InitCDkey(selector: string, window: XR_CUIWindow | null): XR_CUIEditBox;
+    public InitCheck(selector: string, window: XR_CUIWindow | null): XR_CUICheckButton;
+    public InitComboBox(selector: string, window: XR_CUIWindow | null): XR_CUIComboBox;
+    public InitEditBox(selector: string, window: XR_CUIWindow | null): XR_CUIEditBox;
+    public InitFrame(selector: string, window: XR_CUIWindow | null): XR_CUIFrameWindow;
+    public InitFrameLine(selector: string, window: XR_CUIWindow | null): XR_CUIFrameLineWnd;
+    public InitKeyBinding(selector: string, window: XR_CUIWindow | null): XR_CUIWindow;
+    public InitLabel(selector: string, window: XR_CUIWindow | null): XR_CUIStatic;
+    public InitList(selector: string, window: XR_CUIWindow | null): XR_CUIListWnd;
     public InitListBox<T extends XR_CUIListBoxItem = XR_CUIListBoxItem>(
       selector: string,
-      window: XR_CUIWindow
+      window: XR_CUIWindow | null
     ): XR_CUIListBox<T>;
+    public InitMMShniaga(selector: string, window: XR_CUIWindow | null): XR_CUIMMShniaga;
+    public InitMPPlayerName(selector: string, window: XR_CUIWindow | null): XR_CUIEditBox;
+    public InitMapInfo(selector: string, window: XR_CUIWindow | null): XR_CUIMapInfo;
+    public InitMapList(selector: string, window: XR_CUIWindow | null): XR_CUIMapList;
+    public InitProgressBar(selector: string, window: XR_CUIWindow | null): XR_CUIProgressBar;
+    public InitScrollView(selector: string, window: XR_CUIWindow | null): XR_CUIScrollView;
+    public InitServerList(selector: string, window: XR_CUIWindow | null): XR_CServerList;
+    public InitSleepStatic(selector: string, window: XR_CUIWindow | null): XR_CUISleepStatic;
+    public InitSpinFlt(selector: string, window: XR_CUIWindow | null): XR_CUISpinFlt;
+    public InitSpinNum(selector: string, window: XR_CUIWindow | null): XR_CUISpinNum;
+    public InitSpinText(selector: string, window: XR_CUIWindow | null): XR_CUISpinText;
+    public InitStatic(selector: string, window: XR_CUIWindow | null): XR_CUIStatic;
+    public InitTab(selector: string, window: XR_CUIWindow | null): XR_CUITabControl;
+    public InitTextWnd(selector: string, window: XR_CUIWindow | null): XR_CUITextWnd;
+    public InitTrackBar(selector: string, window: XR_CUIWindow | null): XR_CUITrackBar;
+    public InitVerList(selector: string, window: XR_CUIWindow | null): XR_CUIVersionList;
+    public InitWindow(selector: string, index: i32, window: XR_CUIWindow | null): void;
   }
 
   /**
    * C++ class CGameFont {
    */
   export class XR_CGameFont {
-    public static alCenter: 2;
-    public static alLeft: 0;
-    public static alRight: 1;
+    public static readonly alCenter: 2;
+    public static readonly alLeft: 0;
+    public static readonly alRight: 1;
   }
+
+  /**
+   * EVTextAlignment.
+   */
+  export type TXR_CGameFont_alignment = EnumerateStaticsValues<typeof XR_CGameFont>;
 }

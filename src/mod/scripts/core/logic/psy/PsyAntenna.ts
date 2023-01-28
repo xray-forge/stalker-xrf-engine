@@ -1,7 +1,25 @@
-import { get_hud, level, sound_object, XR_net_packet } from "xray16";
+import {
+  get_hud,
+  hit,
+  level,
+  sound_object,
+  time_global,
+  TXR_sound_object_type,
+  vector,
+  XR_CUIGameCustom,
+  XR_game_object,
+  XR_net_packet,
+  XR_sound_object,
+  XR_StaticDrawableWrapper
+} from "xray16";
 
 import { sounds } from "@/mod/globals/sound/sounds";
+import { Optional } from "@/mod/lib/types";
+import { getActor } from "@/mod/scripts/core/db";
+import { PhantomManager } from "@/mod/scripts/core/PhantomManager";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
+import { clampNumber } from "@/mod/scripts/utils/number";
+import { vectorRotateY } from "@/mod/scripts/utils/physics";
 
 export interface IPsyPostProcessDescriptor {
   intensity_base: number;
@@ -10,38 +28,39 @@ export interface IPsyPostProcessDescriptor {
 }
 
 export class PsyAntenna {
-  public sound_obj_right = new sound_object(sounds.anomaly_psy_voices_1_r);
-  public sound_obj_left = new sound_object(sounds.anomaly_psy_voices_1_l);
+  public readonly sound_obj_right: XR_sound_object = new sound_object(sounds.anomaly_psy_voices_1_r);
+  public readonly sound_obj_left: XR_sound_object = new sound_object(sounds.anomaly_psy_voices_1_l);
 
-  public phantom_max = 8;
-  public phantom_spawn_probability = 0;
-  public phantom_spawn_radius = 30.0;
-  public phantom_spawn_height = 2.5;
-  public phantom_fov = 45;
+  public phantom_max: number = 8;
+  public phantom_spawn_probability: number = 0;
+  public phantom_spawn_radius: number = 30.0;
+  public phantom_spawn_height: number = 2.5;
+  public phantom_fov: number = 45;
 
-  public hit_amplitude = 1.0;
-  public eff_time = 0;
+  public hit_amplitude: number = 1.0;
+  public eff_time: number = 0;
 
-  public hit_time = 0;
-  public phantom_time = 0;
-  public intensity_inertion = 0.05;
-  public hit_intensity = 0;
-  public sound_intensity = 0;
-  public sound_intensity_base = 0;
+  public hit_time: number = 0;
+  public phantom_time: number = 0;
+  public phantom_idle: number = 0;
+  public intensity_inertion: number = 0.05;
+  public hit_intensity: number = 0;
+  public sound_intensity: number = 0;
+  public sound_intensity_base: number = 0;
 
-  public postprocess_count = 0;
-  public postprocess: LuaTable<number, IPsyPostProcessDescriptor> = new LuaTable();
+  public postprocess_count: number = 0;
+  public postprocess: LuaTable<string, IPsyPostProcessDescriptor> = new LuaTable();
 
-  public sound_initialized = false;
+  public sound_initialized: boolean = false;
 
-  public snd_volume = level.get_snd_volume();
-  public mute_sound_threshold = 0;
-  public max_mumble_volume = 10;
+  public snd_volume: number = level.get_snd_volume();
+  public mute_sound_threshold: number = 0;
+  public max_mumble_volume: number = 10;
 
-  public no_static = false;
-  public no_mumble = false;
-  public hit_type = "wound";
-  public hit_freq = 5000;
+  public no_static: boolean = false;
+  public no_mumble: boolean = false;
+  public hit_type: string = "wound";
+  public hit_freq: number = 5000;
 
   public constructor() {
     this.sound_obj_left.volume = 0;
@@ -56,150 +75,150 @@ export class PsyAntenna {
   }
 
   public update_psy_hit(dt: number): void {
-    /**
-     *   const hud = get_hud()
-     *   const custom_static = hud:GetCustomStatic("cs_psy_danger")
-     *   if (this.hit_intensity > 0.0001) {
-     *     if custom_static == nil and !this.no_static {
-     *       hud:AddCustomStatic("cs_psy_danger", true)
-     *       hud:GetCustomStatic("cs_psy_danger"):wnd():TextControl():SetTextST("st_psy_danger")
-     *     }
-     *   } else {
-     *     if custom_static ~= nil {
-     *       hud:RemoveCustomStatic("cs_psy_danger")
-     *     }
-     *   }
-     *
-     *   if time_global() - this.hit_time > this.hit_freq {
-     *     this.hit_time = time_global()
-     *
-     *     const power = this.hit_amplitude * this.hit_intensity
-     *
-     *     --printf("HIT: power = %s", tostring(power))
-     *
-     *     if power > 0.0001 {
-     *
-     *       const psy_hit = hit()
-     *       psy_hit.power = power
-     *       psy_hit.direction = vector():set(0, 0, 0)
-     *       psy_hit.impulse = 0
-     *       psy_hit.draftsman = db.actor
-     *       const hit_value = ((power <= 1) and power) or 1
-     *       if this.hit_type == "chemical" {
-     *         get_hud():update_fake_indicators(2, hit_value)
-     *         psy_hit.type = hit.chemical_burn
-     *       } else {
-     *         get_hud():update_fake_indicators(3, hit_value)
-     *         psy_hit.type = hit.telepatic
-     *       }
-     *
-     *       db.actor:hit(psy_hit)
-     *
-     *       if db.actor.health < 0.0001 and db.actor:alive() {
-     *         db.actor:kill(db.actor)
-     *       }
-     *     }
-     *   }
-     */
+    const hud: XR_CUIGameCustom = get_hud();
+    const custom_static: Optional<XR_StaticDrawableWrapper> = hud.GetCustomStatic("cs_psy_danger");
+
+    if (this.hit_intensity > 0.0001) {
+      if (custom_static === null && !this.no_static) {
+        hud.AddCustomStatic("cs_psy_danger", true);
+        hud.GetCustomStatic("cs_psy_danger")!.wnd().TextControl().SetTextST("st_psy_danger");
+      }
+    } else {
+      if (custom_static !== null) {
+        hud.RemoveCustomStatic("cs_psy_danger");
+      }
+    }
+
+    if (time_global() - this.hit_time > this.hit_freq) {
+      this.hit_time = time_global();
+
+      const power: number = this.hit_amplitude * this.hit_intensity;
+
+      if (power > 0.0001) {
+        const actor: XR_game_object = getActor()!;
+        const psy_hit = new hit();
+
+        psy_hit.power = power;
+        psy_hit.direction = new vector().set(0, 0, 0);
+        psy_hit.impulse = 0;
+        psy_hit.draftsman = actor;
+
+        const hit_value: number = (power <= 1 && power) || 1;
+
+        if (this.hit_type === "chemical") {
+          get_hud().update_fake_indicators(2, hit_value);
+          psy_hit.type = hit.chemical_burn;
+        } else {
+          get_hud().update_fake_indicators(3, hit_value);
+          psy_hit.type = hit.telepatic;
+        }
+
+        actor.hit(psy_hit);
+
+        if (actor.health < 0.0001 && actor.alive()) {
+          actor.kill(actor);
+        }
+      }
+    }
   }
 
   public generate_phantoms(): void {
-    /**
-     *   if this.phantom_idle == nil {
-     *     this.phantom_idle = math.random(2000, 5000)
-     *   }
-     *   if time_global() - this.phantom_time > this.phantom_idle {
-     *     this.phantom_time = time_global()
-     *     this.phantom_idle = math.random(5000, 10000)
-     *     if math.random() < this.phantom_spawn_probability {
-     *       if PhantomManager:getInstance().phantom_count < this.phantom_max {
-     *         const radius = this.phantom_spawn_radius * (math.random() / 2.0 + 0.5)
-     *         const ang = this.phantom_fov * math.random() - this.phantom_fov * 0.5
-     *         const dir = vector_rotate_y(db.actor:direction(), ang)
-     *
-     *         PhantomManager:getInstance():spawn_phantom(db.actor:position():add(dir:mul(radius)))
-     *       }
-     *     }
-     *   }
-     */
+    if (this.phantom_idle === null) {
+      this.phantom_idle = math.random(2000, 5000);
+    }
+
+    if (time_global() - this.phantom_time > this.phantom_idle) {
+      this.phantom_time = time_global();
+      this.phantom_idle = math.random(5000, 10000);
+
+      if (math.random() < this.phantom_spawn_probability) {
+        const actor = getActor()!;
+        const phantomManager: PhantomManager = PhantomManager.getInstance();
+
+        if (phantomManager.phantom_count < this.phantom_max) {
+          const radius = this.phantom_spawn_radius * (math.random() / 2.0 + 0.5);
+          const angle = this.phantom_fov * math.random() - this.phantom_fov * 0.5;
+          const dir = vectorRotateY(actor.direction(), angle);
+
+          phantomManager.spawn_phantom(actor.position().add(dir.mul(radius)));
+        }
+      }
+    }
   }
 
   public update_sound(): void {
-    /**
-     *   if !this.sound_initialized {
-     *     this.sound_obj_left:play_at_pos(db.actor, vector():set(-1, 0, 1), 0, sound_object.s2d + sound_object.looped)
-     *     this.sound_obj_right:play_at_pos(db.actor, vector():set(1, 0, 1), 0, sound_object.s2d + sound_object.looped)
-     *
-     *     this.sound_initialized = true
-     *   }
-     *
-     *   const vol = 1 - (this.sound_intensity ^ 3) * 0.9
-     *
-     *   if vol < this.mute_sound_threshold {
-     *     level.set_snd_volume(this.mute_sound_threshold)
-     *   } else {
-     *     level.set_snd_volume(vol)
-     *   }
-     *
-     *   this.sound_obj_left.volume = 1 / vol - 1
-     *   this.sound_obj_right.volume = 1 / vol - 1
-     */
+    if (!this.sound_initialized) {
+      this.sound_obj_left.play_at_pos(
+        getActor()!,
+        new vector().set(-1, 0, 1),
+        0,
+        (sound_object.s2d + sound_object.looped) as TXR_sound_object_type
+      );
+      this.sound_obj_right.play_at_pos(
+        getActor()!,
+        new vector().set(1, 0, 1),
+        0,
+        (sound_object.s2d + sound_object.looped) as TXR_sound_object_type
+      );
+
+      this.sound_initialized = true;
+    }
+
+    const vol = 1 - (this.sound_intensity ^ 3) * 0.9;
+
+    if (vol < this.mute_sound_threshold) {
+      level.set_snd_volume(this.mute_sound_threshold);
+    } else {
+      level.set_snd_volume(vol);
+    }
+
+    this.sound_obj_left.volume = 1 / vol - 1;
+    this.sound_obj_right.volume = 1 / vol - 1;
   }
 
-  public update_postprocess(pp): boolean {
-    /**
-     *   if pp.intensity == 0 {
-     *     this.postprocess_count = this.postprocess_count - 1
-     *     level.remove_pp_effector(pp.idx)
-     *     return false
-     *   }
-     *
-     *   level.set_pp_effector_factor(pp.idx, pp.intensity, 0.3)
-     *   return true
-     */
+  public update_postprocess(pp: IPsyPostProcessDescriptor): boolean {
+    if (pp.intensity === 0) {
+      this.postprocess_count = this.postprocess_count - 1;
+      level.remove_pp_effector(pp.idx);
+
+      return false;
+    }
+
+    level.set_pp_effector_factor(pp.idx, pp.intensity, 0.3);
+
+    return true;
   }
 
   public update(dt: number): void {
-    /**
-     *   this.eff_time = this.eff_time + dt
-     *
-     *   function update_intensity(intensity_base, intensity)
-     *     const di = this.intensity_inertion * dt * 0.01
-     *     const ii = intensity_base
-     *     if math.abs(intensity_base - intensity) >= di {
-     *       if intensity_base < intensity {
-     *         ii = intensity - di
-     *       } else {
-     *         ii = intensity + di
-     *       }
-     *     }
-     *
-     *     if ii < 0.0 {
-     *       ii = 0.0
-     *     elseif ii > 1.0 {
-     *       ii = 1.0
-     *     }
-     *     return ii
-     *   }
-     *
-     *   this:generate_phantoms()
-     *
-     *   if !this.no_mumble {
-     *     this.sound_intensity = update_intensity(this.sound_intensity_base, this.sound_intensity)
-     *     this:update_sound()
-     *   }
-     *
-     *   for k, v in pairs(this.postprocess) do
-     *     v.intensity = update_intensity(v.intensity_base, v.intensity)
-     *     const exist = this:update_postprocess(v)
-     *
-     *     if exist == false {
-     *       this.postprocess[k] = nil
-     *     }
-     *   }
-     *
-     *   this:update_psy_hit(dt)
-     */
+    this.eff_time = this.eff_time + dt;
+
+    const update_intensity = (intensity_base: number, intensity: number) => {
+      const di = this.intensity_inertion * dt * 0.01;
+      let ii = intensity_base;
+
+      if (math.abs(intensity_base - intensity) >= di) {
+        ii = intensity_base < intensity ? intensity - di : intensity + di;
+      }
+
+      return clampNumber(ii, 0.0, 1.0);
+    };
+
+    this.generate_phantoms();
+
+    if (!this.no_mumble) {
+      this.sound_intensity = update_intensity(this.sound_intensity_base, this.sound_intensity);
+      this.update_sound();
+    }
+
+    for (const [k, v] of this.postprocess) {
+      v.intensity = update_intensity(v.intensity_base, v.intensity);
+
+      if (!this.update_postprocess(v)) {
+        this.postprocess.delete(k);
+      }
+    }
+
+    this.update_psy_hit(dt);
   }
 
   public save(packet: XR_net_packet): void {

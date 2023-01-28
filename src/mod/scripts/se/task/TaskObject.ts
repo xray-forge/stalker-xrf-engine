@@ -235,7 +235,7 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
       t.set_type(task.additional);
     }
 
-    t.set_title(this.current_title);
+    t.set_title(this.current_title!);
     t.set_description(this.current_descr);
     t.set_priority(this.prior);
     t.set_icon_name(this.icon);

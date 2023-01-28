@@ -37,8 +37,8 @@ declare module "xray16" {
    * C++ class GameGraph__CVertex {
    */
   export class XR_GameGraph__CVertex {
-    public level_vertex_id(): number;
-    public level_id(): number;
+    public level_vertex_id(): u32;
+    public level_id(): u8;
     public game_point(): XR_vector;
     public level_point(): XR_vector;
   }
@@ -122,9 +122,10 @@ declare module "xray16" {
    * C++ class entity_memory_object : memory_object {
    */
   export class XR_entity_memory_object extends XR_memory_object {
-    public object_info: unknown;
-    public self_info: unknown;
-    public object(entity_memory_object: XR_memory_object): void;
+    public readonly object_info: unknown; // struct MemorySpace::CObjectParams<class CEntityAlive>
+    public readonly self_info: unknown; // struct MemorySpace::CObjectParams<class CEntityAlive>
+
+    public object(): XR_game_object;
   }
 
   /**
@@ -205,8 +206,8 @@ declare module "xray16" {
     public hide(): void;
 
     public get_string(key: string): string;
-    public get_integer(key: string): number;
-    public get_float(key: string): number;
+    public get_integer(key: string): i32;
+    public get_float(key: string): f32;
     public get_bool(key: string): boolean;
     public get_token(key: string): string;
   }
@@ -285,224 +286,6 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class move {
-   * @customConstructor move
-   **/
-  export class XR_move {
-    public static back: 4;
-    public static criteria: 2;
-    public static crouch: 0;
-    public static curve: 0;
-    public static curve_criteria: 2;
-    public static default: 0;
-    public static dodge: 1;
-    public static down: 64;
-    public static drag: 3;
-    public static force: 1;
-    public static fwd: 2;
-    public static handbrake: 128;
-    public static jump: 4;
-    public static left: 8;
-    public static line: 0;
-    public static none: 1;
-    public static off: 512;
-    public static on: 256;
-    public static right: 16;
-    public static run: 1;
-    public static run_fwd: 2;
-    public static run_with_leader: 7;
-    public static stand: 2;
-    public static standing: 1;
-    public static steal: 5;
-    public static up: 32;
-    public static walk: 0;
-    public static walk_bkwd: 1;
-    public static walk_fwd: 0;
-    public static walk_with_leader: 6;
-
-    public constructor();
-    public constructor(action: unknown);
-    public constructor(action: unknown, value: number);
-    public constructor(
-      bodyState: number,
-      movementType: TXR_move,
-      pathType: unknown,
-      game_object: XR_game_object
-    );
-    public constructor(
-      bodyState: number,
-      movementType: TXR_move,
-      pathType: unknown,
-      game_object: XR_game_object,
-      value: number
-    );
-    public constructor(
-      bodyState: number,
-      movementType: TXR_move,
-      pathType: unknown,
-      patrol: XR_patrol
-    );
-    public constructor(
-      bodyState: number,
-      movementType: TXR_move,
-      pathType: unknown,
-      patrol: XR_patrol,
-      value: number
-    );
-    public constructor(
-      bodyState: number,
-      movementType: TXR_move,
-      pathType: unknown,
-      vector: XR_vector
-    );
-    public constructor(
-      bodyState: number,
-      movementType: TXR_move,
-      pathType: unknown,
-      vector: XR_vector,
-      value: number
-    );
-    public constructor(vector: XR_vector, value: number);
-    public constructor(moveAction: TXR_move, vector: XR_vector);
-    public constructor(moveAction: TXR_move, patrol: XR_patrol);
-    public constructor(moveAction: TXR_move, game_object: XR_game_object);
-    public constructor(moveAction: TXR_move, vector: XR_vector, value: number);
-    public constructor(moveAction: TXR_move, value: number, vector: XR_vector);
-    public constructor(moveAction: TXR_move, value: number, vector: XR_vector, value2: number);
-    public constructor(moveAction: TXR_move, patrol: XR_patrol, value: number);
-    public constructor(moveAction: TXR_move, game_object: XR_game_object, value: number);
-    public constructor(moveAction: TXR_move, vector: XR_vector, value: number, speedParam: unknown);
-    public constructor(moveAction: TXR_move, patrol: XR_patrol, value: number, speedParam: unknown);
-    public constructor(
-      moveAction: TXR_move,
-      game_object: XR_game_object,
-      value: number,
-      speedParam: unknown
-    );
-
-    public completed(): unknown;
-    public path(EDetailPathType: unknown): unknown;
-    public move(EMovementType: unknown): unknown;
-    public position(vector: XR_vector): unknown;
-    public input(EInputKeys: unknown): unknown;
-    public patrol(patrolPath: unknown, shared_str: unknown): unknown;
-    public object(game_object: XR_game_object): unknown;
-    public body(EBodyState: unknown): unknown;
-  }
-
-  export type TXR_moves = typeof XR_move;
-
-  export type TXR_move = TXR_moves[Exclude<keyof TXR_moves, "constructor" | "prototype">]
-
-  /**
-   * C++ class anim {
-   * @customConstructor anim
-   */
-  export class XR_anim {
-    // Mental state:
-    public static danger: 0;
-    public static free: 1;
-    public static panic: 2;
-
-    public static stand_idle: 0;
-    public static capture_prepare: 1;
-    public static sit_idle: 2;
-    public static lie_idle: 3;
-    public static eat: 4;
-    public static sleep: 5;
-    public static rest: 6;
-    public static attack: 7;
-    public static look_around: 8;
-    public static turn: 9;
-
-    public constructor ();
-    public constructor (value: string);
-    public constructor (value1: string, value2: boolean);
-    public constructor (state: number /* enum MonsterSpace::EMentalState */);
-    public constructor (state: number /* enum MonsterSpace::EMentalState */, value: number);
-
-    public completed(): boolean;
-
-    public type(state: unknown /* enum MonsterSpace::EMentalState */): unknown;
-
-    public anim(value: string): unknown;
-  }
-
-  export type TXR_animations = typeof XR_anim;
-
-  export type TXR_animation_key = Exclude<keyof TXR_animations, "prototype" | "constructor">;
-
-  export type TXR_animation = TXR_animations[TXR_animation_key]
-
-  /**
-   * C++ class patrol {
-   * @customConstructor patrol
-   */
-  export class XR_patrol {
-    // EPatrolRouteType:
-    // public static stop: 0;
-    public static continue: 1;
-
-    // EPatrolStartType:
-    public static start : 0;
-    public static stop: 1;
-    public static nearest: 2;
-    public static custom : 3;
-    public static next : 4;
-    public static dummy:-1;
-
-    public constructor (value: string);
-    public constructor (value: string);
-    public constructor (value: string, startType: unknown);
-    public constructor (value: string, startType: unknown, routeType: unknown);
-    public constructor (values: string, startType: unknown, routeType: unknown, valueb: boolean)
-    public constructor (valueS: string, startType: unknown, routeType: unknown, valueB: boolean, valueN: number);
-
-    public level_vertex_id(value: number): number;
-    public point(value: number): XR_vector;
-    public flag(value1: number, value2: number): unknown;
-    public game_vertex_id(value: number): number;
-    public flags(point_index: number): XR_flags32;
-    public name(point_index: number): string;
-    public index(value: string): unknown;
-    public terminal(point_index: number): boolean;
-    public count(): number;
-    public get_nearest(vector: XR_vector): unknown;
-  }
-
-  /**
-   * C++ class look {
-   * @customConstructor look
-   */
-  export class XR_look {
-    public static cur_dir: 0;
-    public static danger: 5;
-    public static direction: 2;
-    public static fire_point: 10;
-    public static path_dir: 1;
-    public static point: 3;
-    public static search: 6;
-
-    public constructor ();
-    public constructor (sight_type: TXR_SightType);
-    public constructor (sight_type: TXR_SightType, vector: XR_vector);
-    public constructor (sight_type: TXR_SightType, game_object: XR_game_object);
-    public constructor (sight_type: TXR_SightType, game_object: XR_game_object, value: string);
-    public constructor (vector: XR_vector, value1: number, value2: number);
-    public constructor (game_object: XR_game_object, value1: number, value2: number);
-
-    public completed(): unknown;
-    public type(sight_type: TXR_SightType): unknown;
-    public object(game_object: XR_game_object): unknown;
-    public bone(value: string): unknown;
-    public direct(vector: XR_vector): unknown;
-  }
-
-  export type TXR_looks = typeof XR_look;
-
-  export type TXR_look = TXR_looks[Exclude<keyof TXR_looks, "prototype"| "constructor">]
-
-  /**
    * C++ class holder {
    * @customConstructor holder
    */
@@ -510,5 +293,22 @@ declare module "xray16" {
     public engaged(): boolean;
     public Action(value1: u16, value2: u32): void;
     public SetParam(value: i32, vector: XR_vector): void;
+  }
+
+  /**
+   * C++ class game_GameState : DLL_Pure
+   * @customConstructor game_GameState
+   */
+  export class XR_game_GameState extends XR_DLL_Pure {
+    public round: i32;
+    public start_time: u32;
+    public type: number; /* EGameIDs */
+
+    public constructor();
+
+    public StartTime(): u32;
+    public Round(): i32;
+    public Phase(): u16;
+    public Type(): number; /* EGameIDs */
   }
 }
