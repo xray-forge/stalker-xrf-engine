@@ -11,6 +11,7 @@ local ActionGatherItems = require("scripts.core.logic.ActionGatherItems").Action
 local ActionCorpseDetect = require("scripts.core.logic.ActionCorpseDetect").ActionCorpseDetect
 local ActionDanger = require("scripts.core.logic.ActionDanger").ActionDanger
 local ActionOnHit = require("scripts.core.logic.ActionOnHit").ActionOnHit
+local ActionDeath = require("scripts.core.logic.ActionDeath").ActionDeath
 local utilsAlife = require("scripts.utils.alife")
 local utilsConfigs = require("scripts.utils.configs")
 local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
@@ -312,7 +313,7 @@ function enable_generic_schemes(ini, npc, stype, section)
     xr_meet.set_meet(npc, ini, "meet", meet_section)
 
     local death_section = utils.cfg_get_string(ini, section, "on_death", npc, false, "")
-    xr_death.set_death(npc, ini, "death", death_section)
+    ActionDeath:set_death(npc, ini, "death", death_section)
 
     xr_combat_ignore.set_combat_ignore_checker(npc, ini, "combat_ignore")
     xr_reach_task.set_reach_task(npc, ini, "reach_task")
@@ -459,7 +460,7 @@ function reset_generic_schemes_on_scheme_switch(npc, scheme, section)
     ActionCorpseDetect:reset_corpse_detection(npc, scheme, st, section)
     AbuseManager:reset_abuse(npc, scheme, st, section)
     xr_wounded.reset_wounded(npc, scheme, st, section)
-    xr_death.reset_death(npc, scheme, st, section)
+    ActionDeath:reset_death(npc, scheme, st, section)
     ActionDanger:reset_danger(npc, scheme, st, section)
     ActionGatherItems:reset_gather_items(npc, scheme, st, section)
     xr_combat_ignore.reset_combat_ignore_checker(npc, scheme, st, section)
@@ -503,7 +504,7 @@ function reset_generic_schemes_on_scheme_switch(npc, scheme, section)
 end
 
 function assign_storage_and_bind(npc, ini, scheme, section)
-  log:info("Assign storage and bind:", npc:name(), scheme, section)
+  log:info("Assign storage and bind:", npc:name(), "->", scheme, "->", section)
 
   local npc_id = npc:id()
   local st

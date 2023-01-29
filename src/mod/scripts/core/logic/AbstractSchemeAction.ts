@@ -1,5 +1,6 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
+import { TScheme, TSection } from "@/mod/lib/types/configuration";
 import { IStoredObject } from "@/mod/scripts/core/db";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -15,8 +16,8 @@ export abstract class AbstractSchemeAction {
   public static add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: string,
-    section: string,
+    scheme: TScheme,
+    section: TSection,
     state: IStoredObject
   ): void {
     abort("Called not implemented add_to_binder method: %s, %s", object.name(), scheme);
@@ -25,8 +26,8 @@ export abstract class AbstractSchemeAction {
   public static set_scheme(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: string,
-    section: string,
+    scheme: TScheme,
+    section: TSection,
     additional: string
   ): void {
     abort("Called not implemented set_scheme method: %s, %s", object.name(), scheme);

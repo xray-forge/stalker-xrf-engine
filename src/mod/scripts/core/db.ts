@@ -78,7 +78,7 @@ export interface IStoredObject<T = XR_game_object> {
   section_logic?: string;
   post_combat_wait?: unknown;
   pstor?: Record<string, any>;
-  death?: { killer: number; killer_name: Optional<string> };
+  death?: { killer: number; killer_name: Optional<string>; info: any; info2: any };
   mob_death?: any;
   disable_input_time?: any;
   disable_input_idle?: any;

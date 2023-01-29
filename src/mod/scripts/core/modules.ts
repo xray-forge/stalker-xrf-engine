@@ -4,6 +4,7 @@ import { ActionCodepad } from "@/mod/scripts/core/logic/ActionCodepad";
 import { ActionCorpseDetect } from "@/mod/scripts/core/logic/ActionCorpseDetect";
 import { ActionCrowSpawner } from "@/mod/scripts/core/logic/ActionCrowSpawner";
 import { ActionDanger } from "@/mod/scripts/core/logic/ActionDanger";
+import { ActionDeath } from "@/mod/scripts/core/logic/ActionDeath";
 import { ActionDeimos } from "@/mod/scripts/core/logic/ActionDeimos";
 import { ActionDoor } from "@/mod/scripts/core/logic/ActionDoor";
 import { ActionGatherItems } from "@/mod/scripts/core/logic/ActionGatherItems";
@@ -53,7 +54,7 @@ export function initializeModules(): void {
   loadScheme("xr_meet", "meet", ESchemeType.STALKER);
   loadScheme("xr_help_wounded", "help_wounded", ESchemeType.STALKER);
   loadScheme("xr_combat", "combat", ESchemeType.STALKER);
-  loadScheme("xr_death", "death", ESchemeType.STALKER);
+  loadScheme(ActionDeath, ActionDeath.SCHEME_SECTION, ESchemeType.STALKER);
   loadScheme(ActionProcessHit, ActionProcessHit.SCHEME_SECTION, ESchemeType.STALKER);
   loadScheme("xr_wounded", "wounded", ESchemeType.STALKER);
   loadScheme("xr_meet", "actor_dialogs", ESchemeType.STALKER);
