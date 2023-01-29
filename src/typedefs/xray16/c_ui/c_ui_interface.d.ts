@@ -307,7 +307,7 @@ declare module "xray16" {
    * @customConstructor CUIMessageBoxEx
    */
   export class XR_CUIMessageBoxEx extends XR_CUIDialogWnd {
-    public InitMessageBox(value: string): void;
+    public InitMessageBox(selector: string): void;
     public SetText(text: string): void;
     public GetPassword(): string;
     public GetHost(): string;

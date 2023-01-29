@@ -1,5 +1,6 @@
 -- 3364
 
+local FreeplayDialog = require("scripts.ui.game.FreeplayDialog")
 local GlobalSound = require("scripts.core.logic.GlobalSound").GlobalSound
 local SurgeManager = require("scripts.core.SurgeManager")
 local WeatherManager = require("scripts.core.WeatherManager")
@@ -2971,9 +2972,9 @@ end
 
 function show_freeplay_dialog(actor, npc, p)
   if p[1] and p[2] and p[2] == "true" then
-    ui_freeplay_dialog.show("message_box_yes_no", p[1])
+    FreeplayDialog.show("message_box_yes_no", p[1])
   elseif p[1] then
-    ui_freeplay_dialog.show("message_box_ok", p[1])
+    FreeplayDialog.show("message_box_ok", p[1])
   end
 end
 
