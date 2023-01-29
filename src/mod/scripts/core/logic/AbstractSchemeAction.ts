@@ -28,8 +28,7 @@ export abstract class AbstractSchemeAction {
     scheme: string,
     section: string,
     additional: string
-  ): void;
-  public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
+  ): void {
     abort("Called not implemented set_scheme method: %s, %s", object.name(), scheme);
   }
 

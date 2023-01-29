@@ -786,7 +786,7 @@ declare module "xray16" {
     public set_smart_cover_target_fire_no_lookout(): unknown;
     public set_sound_mask(value: u32): void;
     public set_start_dialog(value: string): void;
-    public set_tip_text(value: string): void;
+    public set_tip_text(text: string): void;
     public set_tip_text_default(): void;
     public set_trader_global_anim(value: string): void;
     public set_vis_state(value: f32): void;

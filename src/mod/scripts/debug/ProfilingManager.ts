@@ -1,7 +1,7 @@
 import { profile_timer, XR_profile_timer } from "xray16";
 
 import { AnyCallable, Optional } from "@/mod/lib/types";
-import { AbstractCoreManager } from "@/mod/scripts/core/AbstractCoreManager";
+import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("ProfilingManager");

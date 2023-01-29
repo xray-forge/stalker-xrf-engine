@@ -9,6 +9,7 @@ declare module "xray16" {
   export const CServerList: typeof XR_CServerList;
   export const CSightParams: typeof XR_CSightParams;
   export const CTime: typeof XR_CTime;
+  export const CCar: typeof XR_CCar;
 
   export const CUI3tButton: typeof XR_CUI3tButton;
   export const CUIButton: typeof XR_CUIButton;

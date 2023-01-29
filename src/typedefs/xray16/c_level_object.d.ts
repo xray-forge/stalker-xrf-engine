@@ -76,8 +76,10 @@ declare module "xray16" {
 
     public engaged(): boolean;
     public Action(value1: u16, value2: u32): void;
-    public SetParam(value: i32, vector: XR_vector): void;
+    public SetParam(value: TXR_CCar_weapon_param, vector: XR_vector): void;
   }
+
+  export type TXR_CCar_weapon_param = EnumerateStaticsValues<typeof XR_CCar>;
 
   /**
    * C++ class CHelicopter : CGameObject {

@@ -1,4 +1,4 @@
-import { AbstractCoreManager } from "@/mod/scripts/core/AbstractCoreManager";
+import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("LoadScreenManager");

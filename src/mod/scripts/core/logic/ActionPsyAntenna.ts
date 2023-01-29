@@ -5,7 +5,7 @@ import { AnyCallablesModule } from "@/mod/lib/types";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { ActionPostProcess } from "@/mod/scripts/core/logic/ActionPostProcess";
-import { PsyAntennaManager } from "@/mod/scripts/core/PsyAntennaManager";
+import { PsyAntennaManager } from "@/mod/scripts/core/managers/PsyAntennaManager";
 import { getConfigBoolean, getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

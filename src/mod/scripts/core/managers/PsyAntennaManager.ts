@@ -15,10 +15,10 @@ import {
 
 import { sounds } from "@/mod/globals/sound/sounds";
 import { Optional } from "@/mod/lib/types";
-import { AbstractCoreManager } from "@/mod/scripts/core/AbstractCoreManager";
 import { getActor } from "@/mod/scripts/core/db";
 import { getWeakManagerInstance, isManagerInitialized } from "@/mod/scripts/core/db/ManagersRegistry";
-import { PhantomManager } from "@/mod/scripts/core/PhantomManager";
+import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
+import { PhantomManager } from "@/mod/scripts/core/managers/PhantomManager";
 import { isLevelChanging } from "@/mod/scripts/utils/checkers";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";

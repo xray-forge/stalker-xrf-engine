@@ -1,6 +1,6 @@
 import { level, XR_vector } from "xray16";
 
-import { AbstractCoreManager } from "@/mod/scripts/core/AbstractCoreManager";
+import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 
 export class PhantomManager extends AbstractCoreManager {
   public phantom_count: number = 0;

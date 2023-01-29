@@ -32,8 +32,8 @@ import {
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
-import { EGameEvent } from "@/mod/scripts/core/events/EGameEvent";
-import { EventsManager } from "@/mod/scripts/core/events/EventsManager";
+import { EGameEvent } from "@/mod/scripts/core/managers/events/EGameEvent";
+import { EventsManager } from "@/mod/scripts/core/managers/events/EventsManager";
 import { DebugDialog, IDebugDialog } from "@/mod/scripts/ui/debug/DebugDialog";
 import { ILoadDialog, LoadDialog } from "@/mod/scripts/ui/menu/LoadDialog";
 import { IMultiplayerGameSpy, MultiplayerGameSpy } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerGamespy";

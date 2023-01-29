@@ -5,7 +5,7 @@ import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { AnyArgs, AnyCallablesModule, AnyObject } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
 import { inventory_upgrades_functors } from "@/mod/scripts/core/inventory_upgrades";
-import { loadScreenManager } from "@/mod/scripts/core/LoadScreenManager";
+import { loadScreenManager } from "@/mod/scripts/core/managers/LoadScreenManager";
 import { startGame } from "@/mod/scripts/core/start_game";
 import { sleep_cam_eff_id, SurgeManager } from "@/mod/scripts/core/SurgeManager";
 import { get_buy_discount, get_sell_discount } from "@/mod/scripts/core/TradeManager";

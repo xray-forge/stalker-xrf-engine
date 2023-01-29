@@ -33,12 +33,12 @@ import {
 import { addActor, deleteActor, getActor, IStoredObject, scriptIds, storage, zoneByName } from "@/mod/scripts/core/db";
 import { destroyManager, getWeakManagerInstance, isManagerInitialized } from "@/mod/scripts/core/db/ManagersRegistry";
 import { initDropSettings } from "@/mod/scripts/core/DropManager";
-import { EGameEvent } from "@/mod/scripts/core/events/EGameEvent";
-import { EventsManager } from "@/mod/scripts/core/events/EventsManager";
 import { ActionDeimos } from "@/mod/scripts/core/logic/ActionDeimos";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
+import { EGameEvent } from "@/mod/scripts/core/managers/events/EGameEvent";
+import { EventsManager } from "@/mod/scripts/core/managers/events/EventsManager";
+import { PsyAntennaManager } from "@/mod/scripts/core/managers/PsyAntennaManager";
 import { send_task } from "@/mod/scripts/core/NewsManager";
-import { PsyAntennaManager } from "@/mod/scripts/core/PsyAntennaManager";
 import { get_release_body_manager } from "@/mod/scripts/core/ReleaseBodyManager";
 import { DynamicMusicManager } from "@/mod/scripts/core/sound/DynamicMusicManager";
 import { SurgeManager } from "@/mod/scripts/core/SurgeManager";

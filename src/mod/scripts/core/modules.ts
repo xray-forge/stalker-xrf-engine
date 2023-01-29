@@ -10,6 +10,7 @@ import { ActionGatherItems } from "@/mod/scripts/core/logic/ActionGatherItems";
 import { ActionHit } from "@/mod/scripts/core/logic/ActionHit";
 import { ActionIdle } from "@/mod/scripts/core/logic/ActionIdle";
 import { ActionLight } from "@/mod/scripts/core/logic/ActionLight";
+import { ActionMiniGun } from "@/mod/scripts/core/logic/ActionMiniGun";
 import { ActionMonster } from "@/mod/scripts/core/logic/ActionMonster";
 import { ActionNoWeapon } from "@/mod/scripts/core/logic/ActionNoWeapon";
 import { ActionOnDeath } from "@/mod/scripts/core/logic/ActionOnDeath";
@@ -78,7 +79,7 @@ export function initializeModules(): void {
   loadScheme(ActionButton, ActionButton.SCHEME_SECTION, ESchemeType.ITEM);
   loadScheme(ActionCodepad, ActionCodepad.SCHEME_SECTION, ESchemeType.ITEM);
   loadScheme(ActionOnDeath, ActionOnDeath.SCHEME_SECTION, ESchemeType.ITEM);
-  loadScheme("ph_minigun", "ph_minigun", ESchemeType.ITEM);
+  loadScheme(ActionMiniGun, ActionMiniGun.SCHEME_SECTION, ESchemeType.ITEM);
   // -- loadScheme("ph_target", "ph_target", ESchemeType.ITEM);
   loadScheme(ActionOscillate, ActionOscillate.SCHEME_SECTION, ESchemeType.ITEM);
 

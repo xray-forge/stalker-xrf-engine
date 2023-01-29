@@ -1,4 +1,4 @@
-import { AbstractCoreManager } from "@/mod/scripts/core/AbstractCoreManager";
+import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 
 export type AnyObject = Record<string, any>;
 

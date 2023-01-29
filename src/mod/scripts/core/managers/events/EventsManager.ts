@@ -1,5 +1,5 @@
 import { AnyArgs, AnyCallable, AnyObject, Optional } from "@/mod/lib/types";
-import { EGameEvent } from "@/mod/scripts/core/events/EGameEvent";
+import { EGameEvent } from "@/mod/scripts/core/managers/events/EGameEvent";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
