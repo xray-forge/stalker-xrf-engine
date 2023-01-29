@@ -16,7 +16,7 @@ local log = create_ts_class_instance(LuaLogger, "xr_wounded");
 ----------------------------------------------------------------------------------------------------------------------
 class "evaluator_wound"(property_evaluator)
 function evaluator_wound:__init(name, storage)
-  super(nil, name)
+  property_evaluator.__init(self, nil, name)
   self.a = storage
 end
 function evaluator_wound:evaluate ()
@@ -45,7 +45,7 @@ end
 
 class "evaluator_can_fight"(property_evaluator)
 function evaluator_can_fight:__init(name, storage)
-  super(nil, name)
+  property_evaluator.__init(self, nil, name)
   self.a = storage
 end
 function evaluator_can_fight:evaluate ()
@@ -61,7 +61,7 @@ end
 ----------------------------------------------------------------------------------------------------------------------
 class "action_wounded"(action_base)
 function action_wounded:__init(name, storage)
-  super(nil, name)
+  action_base.__init(self, nil, name)
   self.a = storage
 end
 function action_wounded:initialize ()

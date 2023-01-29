@@ -25,7 +25,7 @@ local k, v, kk, vv = 0, 0, 0, 0
 --' ������� ���������� �������
 class "evaluator_kamp_end"(property_evaluator)
 function evaluator_kamp_end:__init(name, storage)
-  super(nil, name)
+  property_evaluator.__init(self, nil, name)
   self.a = storage
 end
 function evaluator_kamp_end:evaluate()
@@ -34,7 +34,7 @@ end
 --' ��������� �� �� �� �������� �������
 class "evaluator_on_position"(property_evaluator)
 function evaluator_on_position:__init(name, storage)
-  super(nil, name)
+  property_evaluator.__init(self, nil, name)
   self.a = storage
 end
 function evaluator_on_position:evaluate()
@@ -49,7 +49,7 @@ end
 --' ���� � �������� �������
 class "action_go_position"(action_base)
 function action_go_position:__init (npc_name, action_name, storage)
-  super(nil, action_name)
+  action_base.__init(self, nil, action_name)
   self.a = storage
 end
 function action_go_position:initialize()
@@ -101,7 +101,7 @@ end
 --' ������ ����� � �������
 class "action_wait"(action_base)
 function action_wait:__init (npc_name, action_name, storage)
-  super(nil, action_name)
+  action_base.__init(self, nil, action_name)
   self.a = storage
 end
 function action_wait:initialize()

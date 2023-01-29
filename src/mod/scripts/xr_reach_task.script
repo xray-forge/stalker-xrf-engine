@@ -285,7 +285,7 @@ end
 class "evaluator_reached_task_location"(property_evaluator)
 
 function evaluator_reached_task_location:__init(name, storage)
-  super(nil, name)
+  property_evaluator.__init(self, nil, name)
   self.st = storage
 end
 
@@ -307,7 +307,7 @@ end
 class "action_reach_task_location"(action_base)
 
 function action_reach_task_location:__init(name, storage)
-  super(nil, name)
+  action_base.__init(self, nil, name)
   self.st = storage
 end
 function action_reach_task_location:initialize()

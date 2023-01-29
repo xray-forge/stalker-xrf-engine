@@ -33,7 +33,7 @@ local mt_sprint = 3
 class "evaluator_need_companion"(property_evaluator)
 
 function evaluator_need_companion:__init(storage, name)
-  super(nil, name)
+  property_evaluator.__init(self, nil, name)
   self.st = storage
 end
 
@@ -45,7 +45,7 @@ end
 class "action_companion_activity"(action_base)
 
 function action_companion_activity:__init(npc_name, action_name, storage)
-  super(nil, action_name)
+  action_base.__init(self, nil, action_name)
   self.st = storage
 end
 

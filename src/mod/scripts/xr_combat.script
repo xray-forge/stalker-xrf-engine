@@ -30,7 +30,7 @@ end
 class "evaluator_check_combat"(property_evaluator)
 
 function evaluator_check_combat:__init(name, storage)
-  super(nil, name)
+  property_evaluator.__init(self, nil, name)
   self.st = storage
 end
 function evaluator_check_combat:evaluate()
@@ -51,7 +51,7 @@ end
 class "evaluator_enemy"(property_evaluator)
 
 function evaluator_enemy:__init(name)
-  super(nil, name)
+  property_evaluator.__init(self, nil, name)
 end
 
 function evaluator_enemy:evaluate()

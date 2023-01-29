@@ -39,7 +39,7 @@ net_spawn
 class "motivator_binder"(object_binder)
 
 function motivator_binder:__init (obj)
-  super(obj)
+  object_binder.__init(self, obj)
   log:info("Init motivator binder")
 
   self.loaded = false

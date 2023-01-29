@@ -22,7 +22,7 @@ local act_look_around = base + 1
 class "evaluator_combat_camper"(property_evaluator)
 
 function evaluator_combat_camper:__init(name, storage)
-  super(nil, name)
+  property_evaluator.__init(self, nil, name)
   self.st = storage
 end
 
@@ -34,7 +34,7 @@ end
 class "evaluator_see"(property_evaluator)
 
 function evaluator_see:__init(name, storage)
-  super(nil, name)
+  property_evaluator.__init(self, nil, name)
   self.st = storage
 end
 
@@ -53,7 +53,7 @@ end
 class "action_shoot"(action_base)
 
 function action_shoot:__init(name, storage)
-  super(nil, name)
+  action_base.__init(self, nil, name)
   self.st = storage
 end
 
@@ -79,7 +79,7 @@ end
 class "action_look_around"(action_base)
 
 function action_look_around:__init(name, storage)
-  super(nil, name)
+  action_base.__init(self, nil, name)
   self.st = storage
 end
 

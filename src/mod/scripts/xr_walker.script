@@ -13,7 +13,7 @@ local log = create_ts_class_instance(LuaLogger, "xr_walker");
 class "evaluator_need_walker"(property_evaluator)
 
 function evaluator_need_walker:__init(storage, name)
-  super(nil, name)
+  property_evaluator.__init(self, nil, name)
   self.st = storage
 end
 
@@ -33,7 +33,7 @@ local assoc_tbl = {
 class "action_walker_activity"(action_base)
 
 function action_walker_activity:__init (npc, action_name, storage)
-  super(nil, action_name)
+  action_base.__init(self, nil, action_name)
   self.st = storage
   self.move_mgr = db.storage[npc:id()].move_mgr
 

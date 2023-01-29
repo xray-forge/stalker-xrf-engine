@@ -287,7 +287,7 @@ end
 --'--------------------------------------------------------------------------------------------------------------------
 class "evaluator_patrol_end"(property_evaluator)
 function evaluator_patrol_end:__init(name, storage)
-  super(nil, name)
+  property_evaluator.__init(self, nil, name)
   self.st = storage
 end
 function evaluator_patrol_end:evaluate()
@@ -296,7 +296,7 @@ end
 
 class "evaluator_patrol_comm"(property_evaluator)
 function evaluator_patrol_comm:__init(name, storage)
-  super(nil, name)
+  property_evaluator.__init(self, nil, name)
   self.st = storage
 end
 function evaluator_patrol_comm:evaluate()
@@ -308,7 +308,7 @@ end
 --'--------------------------------------------------------------------------------------------------------------------
 class "action_commander"(action_base)
 function action_commander:__init(npc, action_name, storage)
-  super(nil, action_name)
+  action_base.__init(self, nil, action_name)
   self.st = storage
   self.move_mgr = db.storage[npc:id()].move_mgr
   self.was_reset = false
@@ -402,7 +402,7 @@ end
 
 class "action_patrol"(action_base)
 function action_patrol:__init (npc, action_name, storage)
-  super(nil, action_name)
+  action_base.__init(self, nil, action_name)
   self.st = storage
   self.move_mgr = db.storage[npc:id()].move_mgr
   self.l_vid = -1

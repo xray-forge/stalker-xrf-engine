@@ -20,7 +20,7 @@ local act_danger = 2
 class "evaluator_combat_zombied"(property_evaluator)
 
 function evaluator_combat_zombied:__init(name, glob_storage)
-  super(nil, name)
+  property_evaluator.__init(self, nil, name)
   self.gst = glob_storage
 end
 
@@ -33,7 +33,7 @@ end
 class "action_zombie_shoot"(action_base)
 
 function action_zombie_shoot:__init(name, storage)
-  super(nil, name)
+  action_base.__init(self, nil, name)
   self.st = storage
   self.t = {}
   self.was_hit = false
@@ -176,7 +176,7 @@ end
 class "action_zombie_go_to_danger"(action_base)
 
 function action_zombie_go_to_danger:__init(name, storage)
-  super(nil, name)
+  action_base.__init(self, nil, name)
   self.st = storage
   self.t = {}
   self.was_hit = false

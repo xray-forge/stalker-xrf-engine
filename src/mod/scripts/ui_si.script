@@ -243,7 +243,8 @@ local ammo_table = {
 
 class "spawn_item" (CUIListBoxItem)
 
-function spawn_item:__init(height) super(height)
+function spawn_item:__init(height)
+	CUIListBoxItem.__init(self, height)
 	self.text					= self:GetTextItem()
 	self:SetTextColor			(GetARGB(255, 210, 210, 210))
 	self.text:SetFont			(GetFontLetterica18Russian())
@@ -254,10 +255,11 @@ end
 
 class "spawn_item_dialog" (CUIScriptWnd)
 
-function spawn_item_dialog:__init() super()
-	 self:InitControls	()
-	 self:InitCallBacks	()
-	 self:FillList		(weapons_table)
+function spawn_item_dialog:__init()
+	CUIScriptWnd.__init(self)
+	self:InitControls	()
+	self:InitCallBacks	()
+	self:FillList		(weapons_table)
 end
 
 function spawn_item_dialog:__finalize()
@@ -265,7 +267,7 @@ end
 
 function spawn_item_dialog:FillList(tbl)
 	self.list:Clear()
-	
+
 	for i = 1, #tbl do
 		self:AddItemToList(tbl[i])
 	end
@@ -317,7 +319,7 @@ function spawn_item_dialog:InitCallBacks()
 	self:AddCallback("btn_create",		ui_events.BUTTON_CLICKED,             self.OnButton_create_clicked,	self)
 	self:AddCallback("btn_close",		ui_events.BUTTON_CLICKED,             self.OnButton_close_clicked,	self)
 	self:AddCallback("list_window",		ui_events.WINDOW_LBUTTON_DB_CLICK,	  self.OnButton_create_clicked,	self)
-	
+
 	self:AddCallback("btn_artefacts",	ui_events.BUTTON_CLICKED,            self.OnButton_artefacts_clicked,	self)
 	self:AddCallback("btn_outfits",		ui_events.BUTTON_CLICKED,            self.OnButton_outfits_clicked,	self)
 	self:AddCallback("btn_devices",		ui_events.BUTTON_CLICKED,            self.OnButton_devices_clicked,	self)

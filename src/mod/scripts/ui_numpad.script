@@ -13,7 +13,8 @@ end
 
 class "numpad" (CUIScriptWnd)
 
-function numpad:__init(owner) super()
+function numpad:__init(owner)
+	CUIScriptWnd.__init(self)
 	self.owner = owner
 	self:InitControls()
 	self:InitCallBacks()
@@ -70,7 +71,7 @@ function numpad:InitCallBacks()
 end
 
 function numpad:AddNumber(number)
-	
+
 	local text = self.st:TextControl():GetText()
 
 	if text == nil then

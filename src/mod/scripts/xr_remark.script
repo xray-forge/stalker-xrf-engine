@@ -23,7 +23,7 @@ local body_state_danger = 1
 ---------------------------------------------------------------------------------------------------------------------
 class "evaluator_need_remark"(property_evaluator)
 function evaluator_need_remark:__init(storage, name)
-  super(nil, name)
+  property_evaluator.__init(self, nil, name)
   self.st = storage
 end
 function evaluator_need_remark:evaluate()
@@ -33,7 +33,7 @@ end
 ----------------------------------------------------------------------------------------------------------------------
 class "action_remark_activity"(action_base)
 function action_remark_activity:__init (npc_name, action_name, storage)
-  super(nil, action_name)
+  action_base.__init(self, nil, action_name)
   self.st = storage
 end
 function action_remark_activity:initialize()

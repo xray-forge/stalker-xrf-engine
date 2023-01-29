@@ -29,7 +29,7 @@ end
 --' ������� ���������� �������
 class "evaluator_end"(property_evaluator)
 function evaluator_end:__init(name, storage)
-  super(nil, name)
+  property_evaluator.__init(self, nil, name)
   self.a = storage
 end
 function evaluator_end:evaluate()
@@ -39,7 +39,7 @@ end
 --' ������� ������ ��� ����������
 class "evaluator_close_combat"(property_evaluator)
 function evaluator_close_combat:__init(name, storage)
-  super(nil, name)
+  property_evaluator.__init(self, nil, name)
   self.a = storage
   self.close_combat = false
 end
@@ -94,7 +94,7 @@ end
 
 class "action_patrol"(action_base)
 function action_patrol:__init (npc, action_name, storage)
-  super(nil, action_name)
+  action_base.__init(self, nil, action_name)
   self.a = storage
   self.move_mgr = db.storage[npc:id()].move_mgr
   self.a.scan_table = {}

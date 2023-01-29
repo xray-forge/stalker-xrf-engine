@@ -22,7 +22,7 @@ cover_substate_table["lookout_target"] = "idle"
 
 class "evaluator_use_smartcover_in_combat"(property_evaluator)
 function evaluator_use_smartcover_in_combat:__init(storage, name)
-  super(nil, name)
+  property_evaluator.__init(self, nil, name)
   self.st = storage
 end
 function evaluator_use_smartcover_in_combat:evaluate()
@@ -34,7 +34,7 @@ end
 
 class "evaluator_need_smartcover"(property_evaluator)
 function evaluator_need_smartcover:__init(storage, name)
-  super(nil, name)
+  property_evaluator.__init(self, nil, name)
   self.st = storage
 end
 function evaluator_need_smartcover:evaluate()
@@ -44,7 +44,7 @@ end
 ----------------------------------------------------------------------------------------------------------------------
 class "action_smartcover_activity"(action_base)
 function action_smartcover_activity:__init (npc, action_name, storage)
-  super(nil, action_name)
+  action_base.__init(self, nil, action_name)
   self.st = storage
 end
 function action_smartcover_activity:initialize()

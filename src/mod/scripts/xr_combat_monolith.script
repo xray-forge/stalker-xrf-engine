@@ -25,7 +25,7 @@ local act_go_to_pos = base + 3
 class "evaluator_combat_monolith"(property_evaluator)
 
 function evaluator_combat_monolith:__init(name, storage)
-  super(nil, name)
+  property_evaluator.__init(self, nil, name)
   self.st = storage
 end
 
@@ -37,7 +37,7 @@ end
 class "evaluator_see"(property_evaluator)
 
 function evaluator_see:__init(name, storage)
-  super(nil, name)
+  property_evaluator.__init(self, nil, name)
   self.st = storage
 end
 
@@ -56,7 +56,7 @@ end
 class "evaluator_close"(property_evaluator)
 
 function evaluator_close:__init(name, storage)
-  super(nil, name)
+  property_evaluator.__init(self, nil, name)
   self.st = storage
   self.close_dist_sqr = math.random(20 * 20, 35 * 35)
 end
@@ -70,7 +70,7 @@ end
 class "evaluator_on_pos"(property_evaluator)
 
 function evaluator_on_pos:__init(name, storage)
-  super(nil, name)
+  property_evaluator.__init(self, nil, name)
   self.st = storage
 end
 
@@ -84,7 +84,7 @@ end
 class "action_fight_close"(action_base)
 
 function action_fight_close:__init(name, storage)
-  super(nil, name)
+  action_base.__init(self, nil, name)
   self.st = storage
 end
 
@@ -120,7 +120,7 @@ end
 class "action_fight_far"(action_base)
 
 function action_fight_far:__init(name, storage)
-  super(nil, name)
+  action_base.__init(self, nil, name)
   self.st = storage
 end
 
@@ -151,7 +151,7 @@ end
 class "action_look_around"(action_base)
 
 function action_look_around:__init(name, storage)
-  super(nil, name)
+  action_base.__init(self, nil, name)
   self.st = storage
 end
 
@@ -192,7 +192,7 @@ end
 class "action_go_to_pos"(action_base)
 
 function action_go_to_pos:__init(name, storage)
-  super(nil, name)
+  action_base.__init(self, nil, name)
   self.st = storage
   self.t = {}
 end

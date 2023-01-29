@@ -23,7 +23,7 @@ local assoc_tbl = {
 --------------------------------------------------------------------------------
 class "evaluator_need_animpoint"(property_evaluator)
 function evaluator_need_animpoint:__init(storage, name)
-  super(nil, name)
+  property_evaluator.__init(self, nil, name)
   self.st = storage
 end
 function evaluator_need_animpoint:evaluate()
@@ -32,7 +32,7 @@ end
 
 class "evaluator_reach_animpoint"(property_evaluator)
 function evaluator_reach_animpoint:__init(storage, name)
-  super(nil, name)
+  property_evaluator.__init(self, nil, name)
   self.st = storage
 end
 function evaluator_reach_animpoint:evaluate()
@@ -41,7 +41,7 @@ end
 --------------------------------------------------------------------------------
 class "action_reach_animpoint"(action_base)
 function action_reach_animpoint:__init (npc, action_name, storage)
-  super(nil, action_name)
+  action_base.__init(self, nil, action_name)
   self.st = storage
 end
 function action_reach_animpoint:initialize()
@@ -72,7 +72,7 @@ end
 --------------------------------------------------------------------------------
 class "action_animpoint"(action_base)
 function action_animpoint:__init (npc, action_name, storage)
-  super(nil, action_name)
+  action_base.__init(self, nil, action_name)
   self.st = storage
 end
 function action_animpoint:initialize()

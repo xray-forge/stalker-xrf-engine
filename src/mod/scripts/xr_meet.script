@@ -23,7 +23,7 @@ local log = create_ts_class_instance(LuaLogger, "xr_meet");
 --' ���������� ���� �� � ��� ������� � ������ ���������
 class "evaluator_contact"(property_evaluator)
 function evaluator_contact:__init(name, storage)
-  super(nil, name)
+  property_evaluator.__init(self, nil, name)
   self.a = storage
 end
 function evaluator_contact:evaluate()
@@ -67,7 +67,7 @@ end
 --' ����������� � ���������
 class "action_meet_wait"(action_base)
 function action_meet_wait:__init (npc_name, action_name, storage, char_ini)
-  super(nil, action_name)
+  action_base.__init(self, nil, action_name)
   self.char_ini = char_ini
   self.a = storage
 end

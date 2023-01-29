@@ -24,7 +24,7 @@ local state_sleeping = 1
 -- ���������
 class "evaluator_need_sleeper"(property_evaluator)
 function evaluator_need_sleeper:__init(name, storage)
-  super(nil, name)
+  property_evaluator.__init(self, nil, name)
   self.st = storage
 end
 
@@ -38,7 +38,7 @@ end
 -- ������� ���������
 class "action_sleeper_activity"(action_base)
 function action_sleeper_activity:__init (npc, action_name, storage)
-  super(nil, action_name)
+  action_base.__init(self, nil, action_name)
   self.st = storage
 
   self.move_mgr = db.storage[npc:id()].move_mgr

@@ -37,7 +37,7 @@ local overrides
 class "evaluator_shoot"(property_evaluator)
 
 function evaluator_shoot:__init(name, a)
-  super(nil, name)
+  property_evaluator.__init(self, nil, name)
   self.a = a
 end
 
@@ -109,7 +109,7 @@ end
 class "action_shoot"(action_base)
 
 function action_shoot:__init(name, a)
-  super(nil, name)
+  action_base.__init(self, nil, name)
   self.a = a
 end
 
