@@ -10,7 +10,6 @@ import {
 
 import { Optional } from "@/mod/lib/types";
 import { TScheme, TSection } from "@/mod/lib/types/configuration";
-import { ActorProxy, IActorProxy } from "@/mod/scripts/core/ActorProxy";
 import { ISignalLightBinder } from "@/mod/scripts/core/binders/SignalLightBinder";
 import { ActionLight } from "@/mod/scripts/core/logic/ActionLight";
 import { ITeleportPoint } from "@/mod/scripts/core/logic/ActionTeleport";
@@ -93,7 +92,6 @@ export interface IStoredObject<T = XR_game_object> {
 }
 
 export const storage: LuaTable<number, IStoredObject> = new LuaTable();
-export const actorProxy: IActorProxy = create_xr_class_instance(ActorProxy);
 export const heli: LuaTable<number, XR_game_object> = new LuaTable();
 export const smartTerrainById: LuaTable<number, XR_cse_alife_object> = new LuaTable();
 export const animObjByName: LuaTable<string, IStoredObject> = new LuaTable();
@@ -180,7 +178,6 @@ export function addActor(object: XR_game_object): void {
   // @ts-ignore todo: TEMP
   db.actor = object;
 
-  actorProxy.net_spawn(object);
   addObject(object);
 }
 
@@ -188,7 +185,6 @@ export function deleteActor(): void {
   log.info("Delete actor");
 
   deleteObject(actor as any);
-  actorProxy.net_destroy();
 
   actor = null;
   // @ts-ignore todo: TEMP
@@ -235,7 +231,6 @@ declare_global("db", {
   script_ids: scriptIds,
   storage: storage,
   actor: actor,
-  actor_proxy: actorProxy,
   heli: heli,
   camp_storage: campStorage,
   smart_terrain_by_id: smartTerrainById,
