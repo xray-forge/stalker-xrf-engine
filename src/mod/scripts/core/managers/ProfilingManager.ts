@@ -1,8 +1,11 @@
 import { profile_timer, XR_profile_timer } from "xray16";
 
+import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { AnyCallable, Optional } from "@/mod/lib/types";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
+import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { getLuaMemoryUsed } from "@/mod/scripts/utils/ram";
 
 const log: LuaLogger = new LuaLogger("ProfilingManager");
 
@@ -13,39 +16,73 @@ export interface IProfileSnapshotDescriptor {
 }
 
 export class ProfilingManager extends AbstractCoreManager {
-  public Counters: LuaTable<AnyCallable, IProfileSnapshotDescriptor> = new LuaTable();
-  public Names: LuaTable<AnyCallable, debug.FunctionInfo> = new LuaTable();
+  public countersMap: LuaTable<AnyCallable, IProfileSnapshotDescriptor> = new LuaTable();
+  public namesMap: LuaTable<AnyCallable, debug.FunctionInfo> = new LuaTable();
+  public callsCountMap: LuaTable<AnyCallable, { info: debug.FunctionInfo; count: number }> = new LuaTable();
+
   public profilingTimer = new profile_timer();
   public isProfilingStarted: boolean = false;
 
-  public getFunctionName(func: AnyCallable): string {
-    const n = this.Names.get(func);
-    const loc = string.format("[%s]:%s", n.short_src, n.linedefined);
+  /**
+   * todo: fix xray profiling
+   * c - call statements profiling, currently will not work with x-ray for some reasons.
+   * r - return statements profiling to count function returns.
+   */
+  public mode: string = "r";
 
-    if (n.namewhat !== "") {
-      return string.format("%s (%s)", loc, n.name);
+  /**
+   * Initialize profiling manager automatically based on set preferences.
+   * Print warnings about state of 'debug', 'jit' and profiling.
+   */
+  public initialize(): void {
+    if (!gameConfig.DEBUG.IS_PROFILING_ENABLED) {
+      return;
+    }
+
+    log.info("Initialize profiling manager in mode:", this.mode);
+
+    if (jit !== null) {
+      log.warn("Take care, jit is enabled so profiling stats may be incorrect");
+      log.warn("Fore correct profiling run game with '-nojit' flag");
+    }
+
+    // Ensure all conditions for profiling start are met
+    if (debug !== null) {
+      log.info("Profiling enabled, JIT disabled, going to setup hook");
+      this.setupHook();
     } else {
-      return string.format("%s", loc);
+      log.info("Debug is not enabled, skip profiling");
     }
   }
 
+  /**
+   * Destroy manager - clear data and bound hooks.
+   */
+  public destroy(): void {
+    this.clear();
+  }
+
+  public getFunctionName(info: debug.FunctionInfo): string {
+    return string.format("[%s]:%s (%s:%s)", info.short_src, info.linedefined, info.what, info.name);
+  }
+
+  /**
+   * Reset stats and clear hook if it is enabled.
+   */
   public clear(): void {
     if (this.isProfilingStarted === true) {
       this.clearHook();
     }
 
-    this.Counters = new LuaTable();
-    this.Names = new LuaTable();
+    this.callsCountMap = new LuaTable();
+    this.countersMap = new LuaTable();
+    this.namesMap = new LuaTable();
     this.profilingTimer = new profile_timer();
-
-    this.setupHook(true);
   }
 
   public logProfilingStats(): void {
-    if (this.isProfilingStarted === false) {
-      log.info("Profiler hook wasn't setup!");
-
-      return;
+    if (!this.isProfilingStarted) {
+      return log.warn("Profiler hook wasn't setup, no stats found");
     }
 
     this.clearHook();
@@ -54,8 +91,8 @@ export class ProfilingManager extends AbstractCoreManager {
 
     const sort_stats: LuaTable<string, IProfileSnapshotDescriptor> = new LuaTable();
 
-    for (const [func, snapshot] of this.Counters) {
-      const n = this.getFunctionName(func);
+    for (const [func, snapshot] of this.countersMap) {
+      const n = this.getFunctionName(this.namesMap.get(func));
       const existingSnapshot: Optional<IProfileSnapshotDescriptor> = sort_stats.get(n);
 
       if (existingSnapshot === null) {
@@ -115,21 +152,86 @@ export class ProfilingManager extends AbstractCoreManager {
     );
     log.info("call count: ", count);
 
-    this.setupHook(true);
+    this.setupHook(this.mode, true);
   }
 
-  public setupHook(skipLogs?: boolean): void {
+  /**
+   * Print calls measurement stats.
+   */
+  public logCallsCountStats(limit: number = 64): void {
+    if (!this.isProfilingStarted) {
+      return log.warn("Profiler hook wasn't setup, no stats found");
+    }
+
+    this.clearHook();
+
+    const sortedStats: LuaTable<string, number> = new LuaTable();
+
+    for (const [func, funcDetails] of this.callsCountMap) {
+      const name = this.getFunctionName(funcDetails.info);
+      const count: Optional<number> = sortedStats.get(name);
+
+      sortedStats.set(name, count === null ? funcDetails.count : count + funcDetails.count);
+    }
+
+    let totalCallsCount: number = 0;
+    const outStats: LuaTable<number, { name: string; count: number }> = new LuaTable();
+
+    for (const [name, count] of sortedStats) {
+      table.insert(outStats, { name: name === "[[C]]:-1" ? "#uncrecognized C/C++ stuff" : name, count: count });
+      totalCallsCount = totalCallsCount + count;
+    }
+
+    table.sort(outStats, (left, right) => left.count > right.count);
+
+    /**
+     * Print summary of profiled calls count data:
+     */
+
+    log.pushEmptyLine();
+    log.info("==================================================================================================");
+    log.info("Total calls stat, limit:", limit);
+    log.info("==================================================================================================");
+
+    let printedCount: number = 0;
+
+    // Print top stats from list (controlled by limit)
+    for (const [n, c] of outStats) {
+      if (printedCount <= limit) {
+        log.info(string.format("%6d (%5.2f%%) : %s", c.count, (c.count * 100) / totalCallsCount, c.name));
+        printedCount++;
+      } else {
+        break;
+      }
+    }
+
+    log.info("==================================================================================================");
+    log.info("Total function calls count:", totalCallsCount);
+    log.info("Total unique LUA functions called:", outStats.length());
+    log.info("Profiling time:", this.profilingTimer.time() / 1000);
+    log.info("RAM used:", getLuaMemoryUsed() / 1024, "MB");
+    log.info("==================================================================================================");
+    log.pushEmptyLine();
+
+    this.setupHook(this.mode, true);
+  }
+
+  public setupHook(mode: string = this.mode, skipLogs?: boolean): void {
+    this.mode = mode;
+
     if (this.isProfilingStarted === true) {
       log.info("Skip setup, already started");
 
       return;
     } else if (!debug) {
       log.warn("Tried to setup hook, but debug is not enabled");
+      abort("Tried to setup hook when debug is not enabled, got 'null' at debug place.");
     }
 
     this.profilingTimer.start();
 
-    debug.sethook((context, lineNumber) => this.hook(context, lineNumber), "cr");
+    debug.sethook();
+    debug.sethook((context, lineNumber) => this.hook(context, lineNumber), this.mode);
 
     this.isProfilingStarted = true;
 
@@ -146,25 +248,27 @@ export class ProfilingManager extends AbstractCoreManager {
     }
 
     debug.sethook();
-    this.profilingTimer.stop();
 
+    this.profilingTimer.stop();
     this.isProfilingStarted = false;
   }
 
   protected hook(context: string, line_number?: number): void {
     const caller = debug.getinfo(3, "f")!;
-    const functionRef: AnyCallable = debug.getinfo(2, "f")!.func! as AnyCallable;
+    const functionInfo: debug.FunctionInfo = debug.getinfo(2)!;
+    const functionRef: AnyCallable = functionInfo.func! as AnyCallable;
     const callerRef: Optional<AnyCallable> = caller === null ? null : (caller.func! as AnyCallable);
 
     switch (context) {
       case "return": {
-        const object = this.Counters.get(functionRef);
+        const countersRecord = this.countersMap.get(functionRef);
 
-        if (object !== null) {
-          object.currentTimer.stop();
-          object.childTimer.stop();
+        if (countersRecord !== null) {
+          countersRecord.currentTimer.stop();
+          countersRecord.childTimer.stop();
+
           if (callerRef !== null) {
-            const object = this.Counters.get(callerRef);
+            const object = this.countersMap.get(callerRef);
 
             if (object !== null) {
               object.currentTimer.start();
@@ -172,44 +276,56 @@ export class ProfilingManager extends AbstractCoreManager {
           }
         }
 
+        // Count number of returns from function.
+        const record = this.callsCountMap.get(functionRef) || { count: 0, info: functionInfo };
+
+        record.count += 1;
+        this.callsCountMap.set(functionRef, record);
+
         return;
       }
 
       case "tail return": {
         if (callerRef !== null) {
-          const object = this.Counters.get(callerRef());
+          const object = this.countersMap.get(callerRef);
 
           if (object !== null) {
             object.currentTimer.start();
           }
         }
 
+        // Count number of returns from function.
+        const record = this.callsCountMap.get(functionRef) || { count: 0, info: functionInfo };
+
+        record.count += 1;
+        this.callsCountMap.set(functionRef, record);
+
         return;
       }
 
       case "call": {
         if (callerRef !== null) {
-          const object = this.Counters.get(callerRef!);
+          const object = this.countersMap.get(callerRef);
 
           if (object !== null) {
             object.currentTimer.stop();
           }
         }
 
-        if (this.Counters.get(functionRef) === null) {
-          this.Counters.set(functionRef, {
+        if (this.countersMap.get(functionRef) === null) {
+          this.countersMap.set(functionRef, {
             count: 1,
             currentTimer: new profile_timer(),
             childTimer: new profile_timer()
           });
 
-          const object = this.Counters.get(functionRef);
+          const object = this.countersMap.get(functionRef);
 
           object.childTimer.start();
           object.currentTimer.start();
-          this.Names.set(functionRef, debug.getinfo(2, "Sn") as debug.FunctionInfo);
+          this.namesMap.set(functionRef, debug.getinfo(2, "Sn") as debug.FunctionInfo);
         } else {
-          const object = this.Counters.get(functionRef);
+          const object = this.countersMap.get(functionRef);
 
           object.count = object.count + 1;
           object.childTimer.start();

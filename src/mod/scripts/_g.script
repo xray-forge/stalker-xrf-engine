@@ -7,6 +7,8 @@ package.path = package.path .. string.format("%sgamedata\\?.script;", getFS():up
 
 --- --------------------------------------------------------------------------------------------------------------------
 
+require("scripts.core.managers.ProfilingManager").ProfilingManager:getInstance():initialize();
+
 require("scripts.inject.lua_globals")
 require("scripts.inject.declaration")
 

@@ -85,7 +85,6 @@ Core of this project is [TypeScriptToLua](https://github.com/TypeScriptToLua/Typ
 
 To work correctly with conflicting keywords and luabind classes custom utils are provided:
 
-- Build [plugin](cli/build/plugins) to support keyword `super` as `xr_class_super`
 - `lua_globals.script` and `_g.script` to supply global functions that can be used from global context by typescript
 - Custom [typedefs](src/typedefs) to support functions call from Lua global context (xray engine, lua libs)
 

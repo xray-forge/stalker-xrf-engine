@@ -30,15 +30,22 @@ export function init_smart_names_table(): void {
       }
     }
   }
+
+  log.table(smart_names_table);
 }
 
-export function get_smart_terrain_name(smart: ISmartTerrain): Optional<string> {
-  const level_name = alife().level_name(game_graph().vertex(smart.m_game_vertex_id).level_id());
-  const smart_name = smart.name();
+/**
+ * Get smart terrain name string.
+ */
+export function get_smart_terrain_name(smartTerrain: ISmartTerrain): string {
+  const smartLevelName: string = alife().level_name(game_graph().vertex(smartTerrain.m_game_vertex_id).level_id());
+  const smartName: string = smartTerrain.name();
 
-  if (smart_names_table.get(level_name) !== null) {
-    return game.translate_string(smart_names_table.get(level_name).get(smart_name));
+  if (smart_names_table.get(smartLevelName) !== null) {
+    const smartString: Optional<string> = smart_names_table.get(smartLevelName).get(smartName);
+
+    return smartString === null ? smartName : game.translate_string(smartString);
   }
 
-  return smart_name;
+  return smartName;
 }

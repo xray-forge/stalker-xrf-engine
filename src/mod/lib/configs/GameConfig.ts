@@ -24,6 +24,10 @@ export const gameConfig = {
      */
     IS_STATE_MANAGEMENT_DEBUG_ENABLED: true,
     /**
+     * Enable profiling manager utils.
+     */
+    IS_PROFILING_ENABLED: true,
+    /**
      * Enable debugging log modules.
      */
     IS_LOG_ENABLED: true,
@@ -36,7 +40,7 @@ export const gameConfig = {
     /**
      * Global prefix for lua debug logger in project.
      */
-    GLOBAL_LOG_PREFIX: "[XR]"
+    GLOBAL_LOG_PREFIX: "XR"
   },
   /**
    * Base sizing for templates in UI.

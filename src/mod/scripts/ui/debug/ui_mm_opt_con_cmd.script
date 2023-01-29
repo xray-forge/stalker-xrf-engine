@@ -1,6 +1,7 @@
 class "opt_con_cmd" (CUIWindow)
 
-function opt_con_cmd:__init() super()
+function opt_con_cmd:__init()
+	CUIWindow.__init(self)
 end
 
 function opt_con_cmd:__finalize()
