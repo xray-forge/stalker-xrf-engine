@@ -75,7 +75,7 @@ export class ActionMobHome extends AbstractSchemeAction {
     if (this.state.home_min_radius !== null) {
       minr = this.state.home_min_radius;
     } else {
-      r = path_info.get("minr");
+      r = path_info.minr;
       if (r !== null) {
         r = tonumber(r)!;
         if (r !== null) {
@@ -87,7 +87,7 @@ export class ActionMobHome extends AbstractSchemeAction {
     if (this.state.home_max_radius !== null) {
       maxr = this.state.home_max_radius;
     } else {
-      r = path_info.get("maxr");
+      r = path_info.maxr;
       if (r !== null) {
         r = tonumber(r)!;
         if (r !== null) {
