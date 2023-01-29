@@ -4,7 +4,7 @@ import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { ActionSearchCorpse } from "@/mod/scripts/core/logic/ActionSearchCorpse";
-import { EvaluatorCorpseDetect } from "@/mod/scripts/core/logic/EvaluatorCorpseDetect";
+import { EvaluatorCorpseDetect } from "@/mod/scripts/core/logic/evaluators/EvaluatorCorpseDetect";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { isLootableItem } from "@/mod/scripts/utils/checkers";
 import { getConfigBoolean } from "@/mod/scripts/utils/configs";

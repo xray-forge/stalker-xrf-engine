@@ -34,7 +34,7 @@ export class ActionDanger extends AbstractSchemeAction {
     log.info("Add to binder:", object.name());
 
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const { EvaluatorDanger } = require("@/mod/scripts/core/logic/EvaluatorDanger");
+    const { EvaluatorDanger } = require("@/mod/scripts/core/logic/evaluators/EvaluatorDanger");
 
     const manager = object.motivation_action_manager();
     const danger_action: XR_action_base = manager.action(stalker_ids.action_danger_planner);

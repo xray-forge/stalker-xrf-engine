@@ -2,6 +2,7 @@ import { AbuseManager } from "@/mod/scripts/core/logic/AbuseManager";
 import { ActionButton } from "@/mod/scripts/core/logic/ActionButton";
 import { ActionCodepad } from "@/mod/scripts/core/logic/ActionCodepad";
 import { ActionCorpseDetect } from "@/mod/scripts/core/logic/ActionCorpseDetect";
+import { ActionCover } from "@/mod/scripts/core/logic/ActionCover";
 import { ActionCrowSpawner } from "@/mod/scripts/core/logic/ActionCrowSpawner";
 import { ActionDanger } from "@/mod/scripts/core/logic/ActionDanger";
 import { ActionDeath } from "@/mod/scripts/core/logic/ActionDeath";
@@ -47,7 +48,7 @@ export function initializeModules(): void {
   loadScheme(AbuseManager, AbuseManager.SCHEME_SECTION, ESchemeType.STALKER);
   loadScheme("xr_walker", "walker", ESchemeType.STALKER);
   loadScheme("xr_remark", "remark", ESchemeType.STALKER);
-  loadScheme("xr_cover", "cover", ESchemeType.STALKER);
+  loadScheme(ActionCover, ActionCover.SCHEME_SECTION, ESchemeType.STALKER);
   loadScheme("xr_sleeper", "sleeper", ESchemeType.STALKER);
   loadScheme("xr_kamp", "kamp", ESchemeType.STALKER);
   loadScheme("xr_camper", "camper", ESchemeType.STALKER);

@@ -89,7 +89,7 @@ declare module "xray16" {
     set_active_cam(this: void, id: u8): void;
     game_id(this: void): unknown;
     vertex_id(this: void, vector: XR_vector): u32;
-    vertex_in_direction(this: void, num1: number, vector: XR_vector, num2: number): unknown;
+    vertex_in_direction(this: void, num1: number, vector: XR_vector, num2: number): number;
     change_game_time(this: void, num1: number, num2: number, num3: number): unknown;
     remove_complex_effector(this: void, id: number): void;
     get_time_days(this: void): unknown;

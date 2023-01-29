@@ -4,7 +4,7 @@ import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { ActionAbuseHit } from "@/mod/scripts/core/logic/ActionAbuseHit";
-import { EvaluatorAbuse } from "@/mod/scripts/core/logic/EvaluatorAbuse";
+import { EvaluatorAbuse } from "@/mod/scripts/core/logic/evaluators/EvaluatorAbuse";
 
 export class AbuseManager extends AbstractSchemeAction {
   public static readonly SCHEME_SECTION: string = "abuse";

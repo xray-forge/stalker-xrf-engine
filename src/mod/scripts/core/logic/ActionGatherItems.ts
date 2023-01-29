@@ -3,7 +3,7 @@ import { stalker_ids, XR_game_object, XR_ini_file } from "xray16";
 import { AnyCallablesModule } from "@/mod/lib/types";
 import { IStoredObject } from "@/mod/scripts/core/db";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
-import { EvaluatorGatherItems } from "@/mod/scripts/core/logic/EvaluatorGatherItems";
+import { EvaluatorGatherItems } from "@/mod/scripts/core/logic/evaluators/EvaluatorGatherItems";
 import { getConfigBoolean } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
