@@ -159,7 +159,7 @@ export interface IMultiplayerMenu extends XR_CUIScriptWnd {
 
 export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMenu", CUIScriptWnd, {
   __init(isOnlineMode: boolean): void {
-    xr_class_super();
+    CUIScriptWnd.__init(this);
 
     log.info("Init");
 

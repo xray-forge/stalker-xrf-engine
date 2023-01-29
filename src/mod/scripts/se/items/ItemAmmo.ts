@@ -1,6 +1,7 @@
 import { cse_alife_item_ammo, XR_cse_alife_item_ammo } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
+import { TSection } from "@/mod/lib/types/configuration";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
@@ -13,8 +14,8 @@ export interface IItemAmmo extends XR_cse_alife_item_ammo {
 }
 
 export const ItemAmmo: IItemAmmo = declare_xr_class("ItemAmmo", cse_alife_item_ammo, {
-  __init(section: string): void {
-    xr_class_super(section);
+  __init(section: TSection): void {
+    cse_alife_item_ammo.__init(this, section);
 
     this.secret_item = false;
   },

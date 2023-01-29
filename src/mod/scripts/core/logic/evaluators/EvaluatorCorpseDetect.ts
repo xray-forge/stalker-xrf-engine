@@ -15,7 +15,7 @@ export const EvaluatorCorpseDetect: IEvaluatorCorpseDetect = declare_xr_class(
   property_evaluator,
   {
     __init(name: string, state: IStoredObject): void {
-      xr_class_super(null, name);
+      property_evaluator.__init(this, null, name);
       this.state = state;
     },
     evaluate(): boolean {

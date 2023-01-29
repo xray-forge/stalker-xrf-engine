@@ -10,7 +10,8 @@ import {
 } from "xray16";
 
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
-import { AnyCallable, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
+import { TSection } from "@/mod/lib/types/configuration";
 import { offlineObjects } from "@/mod/scripts/core/db";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { get_sim_board } from "@/mod/scripts/se/SimBoard";
@@ -39,8 +40,8 @@ export interface IMonster extends XR_cse_alife_monster_base {
 }
 
 export const Monster: IMonster = declare_xr_class("Monster", cse_alife_monster_base, {
-  __init(section: string) {
-    xr_class_super(section);
+  __init(section: TSection) {
+    cse_alife_monster_base.__init(this, section);
 
     this.ini = null;
     this.ini_initialized = false;

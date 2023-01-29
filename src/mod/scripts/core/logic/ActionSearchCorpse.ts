@@ -11,7 +11,7 @@ export interface IActionSearchCorpse extends XR_action_base {
 
 export const ActionSearchCorpse: IActionSearchCorpse = declare_xr_class("ActionSearchCorpse", action_base, {
   __init(npc_name: string, action_name: string, state: IStoredObject): void {
-    xr_class_super(null, action_name);
+    action_base.__init(this, null, action_name);
     this.state = state;
   },
   __finalize(): void {

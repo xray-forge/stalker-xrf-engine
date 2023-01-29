@@ -101,7 +101,7 @@ export interface IMainMenu extends XR_CUIScriptWnd {
 
 export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
   __init(this: IMainMenu): void {
-    xr_class_super();
+    CUIScriptWnd.__init(this);
 
     log.info("Init");
 
@@ -112,7 +112,6 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
 
     EventsManager.getInstance().emitEvent(EGameEvent.MAIN_MENU_ON);
   },
-  __finalize(): void {},
   InitControls(): void {
     log.info("Init controls");
 

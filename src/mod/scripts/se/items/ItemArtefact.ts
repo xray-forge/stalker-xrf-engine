@@ -1,6 +1,7 @@
 import { alife, cse_alife_item_artefact, XR_cse_alife_creature_actor, XR_cse_alife_item_artefact } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
+import { TSection } from "@/mod/lib/types/configuration";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -10,8 +11,8 @@ const log: LuaLogger = new LuaLogger("ItemArtefact");
 export interface IItemArtefact extends XR_cse_alife_item_artefact {}
 
 export const ItemArtefact: IItemArtefact = declare_xr_class("ItemArtefact", cse_alife_item_artefact, {
-  __init(section: string): void {
-    xr_class_super(section);
+  __init(section: TSection): void {
+    cse_alife_item_artefact.__init(this, section);
   },
   on_register(): void {
     cse_alife_item_artefact.on_register(this);

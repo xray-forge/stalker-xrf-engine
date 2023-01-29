@@ -15,7 +15,7 @@ export interface IDevDebugSoundSection extends XR_CUIScriptWnd {
 
 export const DevDebugSoundSection: IDevDebugSoundSection = declare_xr_class("DevDebugSoundSection", CUIWindow, {
   __init(this: IDevDebugSoundSection): void {
-    xr_class_super();
+    CUIWindow.__init(this);
 
     log.info("Init");
 

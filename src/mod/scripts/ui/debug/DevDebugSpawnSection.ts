@@ -15,7 +15,7 @@ export interface IDevDebugSpawnSection extends XR_CUIScriptWnd {
 
 export const DevDebugSpawnSection: IDevDebugSpawnSection = declare_xr_class("DevDebugSpawnSection", CUIWindow, {
   __init(this: IDevDebugSpawnSection): void {
-    xr_class_super();
+    CUIWindow.__init(this);
 
     log.info("Init");
 

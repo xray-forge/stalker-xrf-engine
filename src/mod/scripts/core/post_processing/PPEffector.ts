@@ -10,7 +10,7 @@ export interface IPPEffector extends XR_effector {
 
 export const PPEffector: IPPEffector = declare_xr_class("PPEffector", effector, {
   __init(id_number: number): void {
-    xr_class_super(id_number, 10000000);
+    effector.__init(this, id_number, 10000000);
     this.params = new effector_params();
   },
   process(effector_params: XR_effector_params): boolean {

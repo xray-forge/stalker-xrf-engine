@@ -11,7 +11,7 @@ export interface IOptionsGameplay extends XR_CUIWindow {
 
 export const OptionsGameplay: IOptionsGameplay = declare_xr_class("OptionsGameplay", CUIWindow, {
   __init(): void {
-    xr_class_super();
+    CUIWindow.__init(this);
     log.info("Init");
   },
   __finalize(): void {

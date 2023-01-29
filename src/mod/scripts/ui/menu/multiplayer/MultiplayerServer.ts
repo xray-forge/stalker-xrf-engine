@@ -11,7 +11,7 @@ export interface IMultiplayerServer extends XR_CUIWindow {
 
 export const MultiplayerServer: IMultiplayerServer = declare_xr_class("MultiplayerServer", CUIWindow, {
   __init(): void {
-    xr_class_super();
+    CUIWindow.__init(this);
   },
   __finalize(): void {},
   InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IMultiplayerMenu): void {

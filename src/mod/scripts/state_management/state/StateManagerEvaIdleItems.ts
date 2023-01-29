@@ -18,7 +18,8 @@ export const StateManagerEvaIdleItems: IStateManagerEvaIdleItems = declare_xr_cl
   property_evaluator,
   {
     __init(name: string, state_manager: StateManager): void {
-      xr_class_super(null, name);
+      property_evaluator.__init(this, null, name);
+
       this.st = state_manager;
       this.t = null;
     },

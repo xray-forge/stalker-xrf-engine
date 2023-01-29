@@ -11,7 +11,7 @@ export interface IOptionsSound extends XR_CUIWindow {
 
 export const OptionsSound: IOptionsSound = declare_xr_class("OptionsSound", CUIWindow, {
   __init(): void {
-    xr_class_super();
+    CUIWindow.__init(this);
     log.info("Init");
   },
   __finalize(): void {

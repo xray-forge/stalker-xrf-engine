@@ -1,4 +1,4 @@
-import { anim, property_evaluator, XR_property_evaluator } from "xray16";
+import { action_base, anim, property_evaluator, XR_property_evaluator } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
@@ -18,7 +18,8 @@ export const StateManagerEvaMentalPanicNow: IStateManagerEvaMentalPanicNow = dec
   property_evaluator,
   {
     __init(name: string, st: StateManager) {
-      xr_class_super(null, name);
+      property_evaluator.__init(this, null, name);
+
       this.st = st;
     },
     evaluate(): boolean {

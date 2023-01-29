@@ -8,7 +8,7 @@ export interface IEvaluatorAbuse extends XR_property_evaluator {
 
 export const EvaluatorAbuse: IEvaluatorAbuse = declare_xr_class("EvaluatorAbuse", property_evaluator, {
   __init(name: string, storage: IStoredObject): void {
-    xr_class_super(null, name);
+    property_evaluator.__init(this, null, name);
     this.state = storage;
   },
   evaluate(): boolean {

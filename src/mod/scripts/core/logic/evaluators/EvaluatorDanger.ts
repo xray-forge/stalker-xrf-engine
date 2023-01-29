@@ -23,7 +23,7 @@ export interface IEvaluatorDanger extends XR_property_evaluator {
 
 export const EvaluatorDanger: IEvaluatorDanger = declare_xr_class("DangerEvaluator", property_evaluator, {
   __init(npc: XR_game_object, name: string, storage: IStoredObject): void {
-    xr_class_super(null, name);
+    property_evaluator.__init(this, null, name);
     this.state = storage;
   },
   evaluate(): boolean {

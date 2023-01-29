@@ -1,4 +1,4 @@
-import { property_evaluator, XR_property_evaluator } from "xray16";
+import { action_base, property_evaluator, XR_property_evaluator } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
@@ -19,7 +19,8 @@ export const StateManagerEvaSmartCoverNeed: IStateManagerEvaSmartCoverNeed = dec
   property_evaluator,
   {
     __init(name: string, st: IStoredObject): void {
-      xr_class_super(null, name);
+      property_evaluator.__init(this, null, name);
+
       this.st = st;
     },
     evaluate(): boolean {

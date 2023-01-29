@@ -125,7 +125,7 @@ export interface IActionBaseCover extends XR_action_base {
 
 const ActionBaseCover: IActionBaseCover = declare_xr_class("ActionBaseCover", action_base, {
   __init(action_name: string, state: IStoredObject): void {
-    xr_class_super(null, action_name);
+    action_base.__init(this, null, action_name);
     this.state = state;
   },
   initialize(): void {

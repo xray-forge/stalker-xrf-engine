@@ -40,7 +40,7 @@ export const PostCombatIdleEnemyEvaluator: IPostCombatIdleEnemyEvaluator = decla
   property_evaluator,
   {
     __init(storage: IPostCombatSharedState, action_name: string): void {
-      xr_class_super(null, action_name);
+      property_evaluator.__init(this, null, action_name);
 
       this.st = storage;
 
@@ -110,7 +110,7 @@ export interface IPostCombatIdleWait extends XR_action_base {
 
 export const PostCombatIdleWait: IPostCombatIdleWait = declare_xr_class("PostCombatIdleWait", action_base, {
   __init(npc: XR_game_object, storage: IPostCombatSharedState, action_name: string): void {
-    xr_class_super(null, action_name);
+    action_base.__init(this, null, action_name);
     this.st = storage;
   },
   initialize(): void {

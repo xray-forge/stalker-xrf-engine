@@ -109,6 +109,7 @@ declare module "xray16" {
 
     public angle: XR_vector;
 
+    public static __init(this: void, target: XR_cse_abstract, section: string): void;
     public __init(section: string): void;
     public constructor(section: string);
 

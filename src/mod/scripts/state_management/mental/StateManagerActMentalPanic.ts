@@ -1,4 +1,4 @@
-import { action_base, anim, XR_action_base } from "xray16";
+import { action_base, anim, property_evaluator, XR_action_base } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
@@ -15,7 +15,8 @@ export const StateManagerActMentalPanic: IStateManagerActMentalPanic = declare_x
   action_base,
   {
     __init(name: string, st: StateManager): void {
-      xr_class_super(null, name);
+      action_base.__init(this, null, name);
+
       this.st = st;
     },
     initialize(): void {

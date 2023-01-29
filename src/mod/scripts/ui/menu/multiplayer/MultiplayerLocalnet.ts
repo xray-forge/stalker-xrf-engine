@@ -53,7 +53,7 @@ export interface IMultiplayerLocalnet extends XR_CUIScriptWnd {
 
 export const MultiplayerLocalnet: IMultiplayerLocalnet = declare_xr_class("MultiplayerLocalnet", CUIScriptWnd, {
   __init(): void {
-    xr_class_super();
+    CUIScriptWnd.__init(this);
 
     this.InitControls();
     this.InitCallbacks();

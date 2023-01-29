@@ -50,7 +50,7 @@ export interface ILabX8DoorBinder extends XR_object_binder {
 
 export const LabX8DoorBinder: ILabX8DoorBinder = declare_xr_class("LabX8DoorBinder", object_binder, {
   __init(object: XR_game_object): void {
-    xr_class_super(object);
+    object_binder.__init(this, object);
 
     let ini: XR_ini_file = object.spawn_ini()!;
 

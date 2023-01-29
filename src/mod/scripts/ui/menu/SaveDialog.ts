@@ -55,7 +55,7 @@ interface ISaveItem extends XR_CUIListBoxItem {
 
 const SaveItem = declare_xr_class("SaveItem", CUIListBoxItem, {
   __init(height: number): void {
-    xr_class_super(height);
+    CUIListBoxItem.__init(this, height);
 
     this.SetTextColor(GetARGB(255, 170, 170, 170));
     this.innerNameText = this.GetTextItem();
@@ -99,7 +99,7 @@ export interface ISaveDialog extends XR_CUIScriptWnd {
 
 export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptWnd, {
   __init(): void {
-    xr_class_super();
+    CUIScriptWnd.__init(this);
 
     log.info("Init");
 

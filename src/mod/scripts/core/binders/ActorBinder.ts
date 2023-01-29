@@ -108,7 +108,7 @@ export interface IActorBinder extends XR_object_binder {
 
 export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_binder, {
   __init(object: XR_game_object): void {
-    xr_class_super(object);
+    object_binder.__init(this, object);
 
     log.info("Init new actor binder:", object.name());
 

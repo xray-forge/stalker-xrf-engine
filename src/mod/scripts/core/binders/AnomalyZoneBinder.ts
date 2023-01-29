@@ -110,9 +110,7 @@ export interface IAnomalyZoneBinder extends XR_object_binder {
 export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZoneBinder", object_binder, {
   delta: UPDATE_THROTTLE,
   __init(object: XR_game_object): void {
-    xr_class_super(object);
-
-    log.info("Init anomaly zone:", object.name());
+    object_binder.__init(this, object);
 
     this.ini = object.spawn_ini()!;
 

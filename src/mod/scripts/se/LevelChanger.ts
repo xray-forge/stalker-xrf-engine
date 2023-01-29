@@ -1,5 +1,6 @@
 import { XR_cse_alife_level_changer, cse_alife_level_changer, XR_net_packet, editor } from "xray16";
 
+import { TSection } from "@/mod/lib/types/configuration";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
@@ -13,8 +14,8 @@ export interface ILevelChanger extends XR_cse_alife_level_changer {
 }
 
 export const LevelChanger: ILevelChanger = declare_xr_class("LevelChanger", cse_alife_level_changer, {
-  __init(section: string): void {
-    xr_class_super(section);
+  __init(section: TSection): void {
+    cse_alife_level_changer.__init(this, section);
 
     this.enabled = true;
     this.hint = "level_changer_invitation";

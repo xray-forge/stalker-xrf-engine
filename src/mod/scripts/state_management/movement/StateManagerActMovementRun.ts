@@ -15,7 +15,8 @@ export const StateManagerActMovementRun: IStateManagerActMovementRun = declare_x
   action_base,
   {
     __init(name: string, st: StateManager) {
-      xr_class_super(null, name);
+      action_base.__init(this, null, name);
+
       this.st = st;
     },
     initialize(): void {

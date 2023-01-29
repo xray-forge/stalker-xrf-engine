@@ -1,4 +1,4 @@
-import { property_evaluator, XR_game_object, XR_property_evaluator } from "xray16";
+import { property_evaluator, XR_property_evaluator } from "xray16";
 
 import { IStoredObject } from "@/mod/scripts/core/db";
 
@@ -10,8 +10,8 @@ export const EvaluatorGatherItems: IEvaluatorGatherItems = declare_xr_class(
   "EvaluatorGatherItems",
   property_evaluator,
   {
-    __init(name: string, state: IStoredObject, npc: XR_game_object): void {
-      xr_class_super(null, name);
+    __init(name: string, state: IStoredObject): void {
+      property_evaluator.__init(this, null, name);
       this.state = state;
     },
     evaluate(): boolean {

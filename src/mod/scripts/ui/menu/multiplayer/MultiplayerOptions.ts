@@ -16,7 +16,7 @@ export interface IMultiplayerOptions extends XR_CUIWindow {
 
 export const MultiplayerOptions: IMultiplayerOptions = declare_xr_class("MultiplayerOptions", CUIWindow, {
   __init(online_mode: boolean): void {
-    xr_class_super();
+    CUIWindow.__init(this);
 
     this.online = online_mode;
   },

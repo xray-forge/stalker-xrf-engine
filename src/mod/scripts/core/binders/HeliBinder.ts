@@ -51,9 +51,8 @@ export interface IHeliBinder extends XR_object_binder {
 
 export const HeliBinder: IHeliBinder = declare_xr_class("HeliBinder", object_binder, {
   __init(object: XR_game_object, ini: XR_ini_file): void {
-    log.info("Init new heli binder:", object.name());
+    object_binder.__init(this, object);
 
-    xr_class_super(object);
     this.ini = ini;
     this.initialized = false;
     this.loaded = false;

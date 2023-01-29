@@ -67,13 +67,11 @@ interface IDemoLoadItem extends XR_CUIListBoxItemMsgChain {
   fn: XR_CUITextWnd;
   fage: XR_CUITextWnd;
   delete_button: XR_CUI3tButton;
-
-  __init(owner: IMultiplayerDemo, h: number, w1: number, w2: number): void;
 }
 
 const DemoLoadItem: IDemoLoadItem = declare_xr_class("DemoLoadItem", CUIListBoxItemMsgChain, {
-  __init(owner, h, w1, w2): void {
-    xr_class_super(h);
+  __init(owner: IMultiplayerDemo, h: number, w1: number, w2: number): void {
+    CUIListBoxItemMsgChain.__init(this, h);
 
     const handler = owner.owner;
 
@@ -110,7 +108,7 @@ interface IPlayerStatsItem extends XR_CUIListBoxItem {
 
 const PlayerStatsItem: IPlayerStatsItem = declare_xr_class("PlayerStatsItem", CUIListBoxItem, {
   __init(h: number, w1: number, w2: number): void {
-    xr_class_super(h);
+    CUIListBoxItem.__init(this, h);
     this.SetTextColor(GetARGB(255, 255, 255, 255));
 
     this.name = this.GetTextItem();
@@ -191,7 +189,7 @@ export interface IMultiplayerDemo extends XR_CUIWindow {
 
 export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDemo", CUIWindow, {
   __init(): void {
-    xr_class_super();
+    CUIWindow.__init(this);
   },
   __finalize(): void {},
   InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IMultiplayerMenu): void {

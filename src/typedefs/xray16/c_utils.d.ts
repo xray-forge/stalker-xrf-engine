@@ -326,15 +326,16 @@ declare module "xray16" {
    * @customConstructor effector
    */
   export class XR_effector extends XR_LuaBindBase {
-    public constructor(int: number, float: number);
+    public static __init(this: void, target: XR_effector, int: i32, float: f32): void;
+    public constructor(int: i32, float: f32);
 
-    public static start(this: void, effector: XR_effector): void;
+    public static start(this: void, target: XR_effector): void;
     public start(): void;
 
-    public static process(this: void, effector: XR_effector, effector_params: XR_effector_params): void
+    public static process(this: void, target: XR_effector, effector_params: XR_effector_params): void
     public process(effector_params: XR_effector_params): boolean;
 
-    public static finish(this: void, effector: XR_effector): void;
+    public static finish(this: void, target: XR_effector): void;
     public finish(): void;
   }
 

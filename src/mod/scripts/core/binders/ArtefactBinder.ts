@@ -31,9 +31,8 @@ export interface IArtefactBinder extends XR_object_binder {
 export const ArtefactBinder: IArtefactBinder = declare_xr_class("ArtefactBinder", object_binder, {
   delta: UPDATE_THROTTLE,
   __init(object: XR_game_object): void {
-    log.info("Init:", object.name());
+    object_binder.__init(this, object);
 
-    xr_class_super(object);
     storage.set(object.id(), {});
   },
   net_spawn(object: XR_cse_alife_object): boolean {

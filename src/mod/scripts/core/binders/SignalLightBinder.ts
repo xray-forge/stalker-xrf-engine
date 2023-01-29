@@ -32,7 +32,8 @@ export interface ISignalLightBinder extends XR_object_binder {
 
 export const SignalLightBinder: ISignalLightBinder = declare_xr_class("SignalLightBinder", object_binder, {
   __init(object: XR_game_object): void {
-    xr_class_super(object);
+    object_binder.__init(this, object);
+
     this.need_turn_off = true;
     // --  this.initialized = false
     this.loaded = false;

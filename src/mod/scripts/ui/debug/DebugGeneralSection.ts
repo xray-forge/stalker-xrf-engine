@@ -1,6 +1,7 @@
 import {
   command_line,
   CScriptXmlInit,
+  CUIScriptWnd,
   CUIWindow,
   ui_events,
   XR_CScriptXmlInit,
@@ -33,7 +34,7 @@ export interface IDebugGeneralSection extends XR_CUIScriptWnd {
 
 export const DebugGeneralSection: IDebugGeneralSection = declare_xr_class("DebugGeneralSection", CUIWindow, {
   __init(this: IDebugGeneralSection, owner: XR_CUIScriptWnd): void {
-    xr_class_super();
+    CUIScriptWnd.__init(this);
 
     log.info("Init");
 

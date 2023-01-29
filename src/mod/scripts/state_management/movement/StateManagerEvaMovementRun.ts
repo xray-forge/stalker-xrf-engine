@@ -16,7 +16,8 @@ export const StateManagerEvaMovementRun: IStateManagerEvaMovementRun = declare_x
   property_evaluator,
   {
     __init(name: string, st: StateManager) {
-      xr_class_super(null, name);
+      property_evaluator.__init(this, null, name);
+
       this.st = st;
     },
     evaluate(): boolean {

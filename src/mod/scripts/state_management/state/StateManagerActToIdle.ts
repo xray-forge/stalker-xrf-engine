@@ -13,7 +13,8 @@ export interface IStateManagerActToIdle extends XR_action_base {
 
 export const StateManagerActToIdle: IStateManagerActToIdle = declare_xr_class("StateManagerActToIdle", action_base, {
   __init(name: string, st: StateManager): void {
-    xr_class_super(null, name);
+    action_base.__init(this, null, name);
+
     this.st = st;
   },
   initialize(): void {

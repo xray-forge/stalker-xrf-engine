@@ -9,7 +9,7 @@ export interface IEvaluatorNeedCover extends XR_property_evaluator {
 
 export const EvaluatorNeedCover: IEvaluatorNeedCover = declare_xr_class("EvaluatorNeedCover", property_evaluator, {
   __init(state: IStoredObject, name: string): void {
-    xr_class_super(null, name);
+    property_evaluator.__init(this, null, name);
     this.state = state;
   },
   evaluate(): boolean {

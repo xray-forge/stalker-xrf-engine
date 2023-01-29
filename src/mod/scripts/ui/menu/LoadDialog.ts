@@ -55,7 +55,7 @@ interface ILoadItem extends XR_CUIListBoxItem {
 
 const LoadItem: ILoadItem = declare_xr_class("LoadItem", CUIListBoxItem, {
   __init(height: number): void {
-    xr_class_super(height);
+    CUIListBoxItem.__init(this, height);
 
     this.SetTextColor(GetARGB(255, 170, 170, 170));
 
@@ -100,7 +100,7 @@ export interface ILoadDialog extends XR_CUIScriptWnd {
 
 export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptWnd, {
   __init(): void {
-    xr_class_super();
+    CUIScriptWnd.__init(this);
 
     log.info("Init");
 

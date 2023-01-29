@@ -70,7 +70,8 @@ export interface IMonsterBinder extends XR_object_binder {
 
 export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", object_binder, {
   __init(object: XR_game_object): void {
-    xr_class_super(object);
+    object_binder.__init(this, object);
+
     this.loaded = false;
   },
   reload(section: string): void {

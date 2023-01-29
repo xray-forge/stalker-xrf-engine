@@ -22,7 +22,7 @@ export interface ICampBinder extends XR_object_binder {}
 
 export const CampBinder: ICampBinder = declare_xr_class("CampBinder", object_binder, {
   __init(object: XR_game_object): void {
-    xr_class_super(object);
+    object_binder.__init(this, object);
   },
   reload(section: string): void {
     object_binder.reload(this, section);

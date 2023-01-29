@@ -1,7 +1,7 @@
 import { cse_alife_item_grenade, XR_cse_alife_item_grenade } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { REGISTERED_ITEMS } from "@/mod/scripts/core/db";
+import { TSection } from "@/mod/lib/types/configuration";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
@@ -14,8 +14,8 @@ export interface IItemGrenade extends XR_cse_alife_item_grenade {
 }
 
 export const ItemGrenade: IItemGrenade = declare_xr_class("ItemGrenade", cse_alife_item_grenade, {
-  __init(section: string): void {
-    xr_class_super(section);
+  __init(section: TSection): void {
+    cse_alife_item_grenade.__init(this, section);
 
     this.secret_item = false;
   },

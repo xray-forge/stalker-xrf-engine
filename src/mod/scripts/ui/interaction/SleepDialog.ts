@@ -62,7 +62,7 @@ export interface ISleepDialog extends XR_CUIScriptWnd {
 
 export const SleepDialog = declare_xr_class("SleepDialog", CUIScriptWnd, {
   __init(): void {
-    xr_class_super();
+    CUIScriptWnd.__init(this);
 
     this.InitControls();
     this.InitCallbacks();

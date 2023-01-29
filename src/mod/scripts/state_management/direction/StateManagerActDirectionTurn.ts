@@ -1,4 +1,4 @@
-import { action_base, CSightParams, level, look, vector, XR_action_base, XR_vector } from "xray16";
+import { action_base, CSightParams, level, look, property_evaluator, vector, XR_action_base, XR_vector } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { look_at_object, look_object_type } from "@/mod/scripts/state_management/direction/StateManagerDirection";
@@ -23,7 +23,8 @@ export const StateManagerActDirectionTurn: IStateManagerActDirectionTurn = decla
   action_base,
   {
     __init(name: string, st: StateManager) {
-      xr_class_super(null, name);
+      action_base.__init(this, null, name);
+
       this.st = st;
     },
     initialize(): void {

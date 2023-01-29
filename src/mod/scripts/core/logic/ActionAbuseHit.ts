@@ -10,7 +10,7 @@ export interface IActionAbuseHit extends XR_action_base {
 
 export const ActionAbuseHit: IActionAbuseHit = declare_xr_class("ActionAbuseHit", action_base, {
   __init(npc_name: string, action_name: string, storage: IStoredObject): void {
-    xr_class_super(null, action_name);
+    action_base.__init(this, null, action_name);
     this.state = storage;
   },
   __finalize(): void {

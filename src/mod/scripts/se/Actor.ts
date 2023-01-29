@@ -12,6 +12,7 @@ import {
 } from "xray16";
 
 import { AnyCallable, AnyObject } from "@/mod/lib/types";
+import { TSection } from "@/mod/lib/types/configuration";
 import { getActor, offlineObjects, zoneByName } from "@/mod/scripts/core/db";
 import { getStoryObjectsRegistry } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { simulation_activities } from "@/mod/scripts/se/SimActivity";
@@ -44,8 +45,8 @@ export interface IActor extends XR_cse_alife_creature_actor {
 }
 
 export const Actor: IActor = declare_xr_class("Actor", cse_alife_creature_actor, {
-  __init(section: string): void {
-    xr_class_super(section);
+  __init(section: TSection): void {
+    cse_alife_creature_actor.__init(this, section);
 
     this.m_registred = false;
     this.start_position_filled = false;

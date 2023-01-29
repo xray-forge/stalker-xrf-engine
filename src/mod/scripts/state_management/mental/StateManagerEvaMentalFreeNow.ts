@@ -18,7 +18,8 @@ export const StateManagerEvaMentalFreeNow: IStateManagerEvaMentalFreeNow = decla
   property_evaluator,
   {
     __init(name: string, st: StateManager) {
-      xr_class_super(null, name);
+      property_evaluator.__init(this, null, name);
+
       this.st = st;
     },
     evaluate(): boolean {

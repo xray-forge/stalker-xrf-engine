@@ -12,7 +12,8 @@ export interface IStateManagerActLocked extends XR_action_base {
 
 export const StateManagerActLocked: IStateManagerActLocked = declare_xr_class("StateManagerActLocked", action_base, {
   __init(name: string, st: StateManager): void {
-    xr_class_super(null, name);
+    action_base.__init(this, null, name);
+
     this.st = st;
   },
   initialize(): void {

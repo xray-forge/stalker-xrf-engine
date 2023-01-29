@@ -236,7 +236,7 @@ declare module "xray16" {
    * @customConstructor object_binder
    */
   export class XR_object_binder<T = XR_game_object> extends XR_LuaBindBase {
-    public static __init(this: void, target: XR_object_binder, object: XR_object): void
+    public static __init(this: void, target: XR_object_binder, object: XR_game_object): void
     public __init(object: T): void
 
     public object: T;

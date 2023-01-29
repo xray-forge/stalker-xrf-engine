@@ -14,7 +14,7 @@ export interface IOptionsVideoAdvanced extends XR_CUIWindow {
 
 export const OptionsVideoAdvanced: IOptionsVideoAdvanced = declare_xr_class("OptionsVideoAdvanced", CUIWindow, {
   __init(): void {
-    xr_class_super();
+    CUIWindow.__init(this);
     log.info("Init");
   },
   __finalize(): void {

@@ -26,6 +26,7 @@ import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { relations, TRelation } from "@/mod/globals/relations";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { AnyCallable, AnyCallablesModule, AnyObject, Optional } from "@/mod/lib/types";
+import { TSection } from "@/mod/lib/types/configuration";
 import {
   getActor,
   goodwill as dbGoodwill,
@@ -174,8 +175,8 @@ export interface ISimSquad extends XR_cse_alife_online_offline_group {
 }
 
 export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online_offline_group, {
-  __init(section: string): void {
-    xr_class_super(section);
+  __init(section: TSection): void {
+    cse_alife_online_offline_group.__init(this, section);
 
     this.smart_id = null;
     this.board = get_sim_board();

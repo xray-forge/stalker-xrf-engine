@@ -1,6 +1,7 @@
 import { cse_anomalous_zone, editor, game, system_ini, XR_cse_anomalous_zone, XR_CTime, XR_net_packet } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
+import { TSection } from "@/mod/lib/types/configuration";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { getConfigNumber } from "@/mod/scripts/utils/configs";
 import { isSinglePlayerGame } from "@/mod/scripts/utils/general";
@@ -18,8 +19,8 @@ export interface IAnomalousZone extends XR_cse_anomalous_zone {
 }
 
 export const AnomalousZone = declare_xr_class("AnomalousZone", cse_anomalous_zone, {
-  __init(section: string): void {
-    xr_class_super(section);
+  __init(section: TSection): void {
+    cse_anomalous_zone.__init(this, section);
 
     this.m_registred = false;
   },

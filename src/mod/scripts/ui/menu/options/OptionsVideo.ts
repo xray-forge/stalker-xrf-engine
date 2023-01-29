@@ -11,7 +11,7 @@ export interface IOptionsVideo extends XR_CUIWindow {
 
 export const OptionsVideo: IOptionsVideo = declare_xr_class("OptionsVideo", CUIWindow, {
   __init(): void {
-    xr_class_super();
+    CUIWindow.__init(this);
     log.info("Init");
   },
   __finalize(): void {

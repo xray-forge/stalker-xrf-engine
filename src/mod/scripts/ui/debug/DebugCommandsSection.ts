@@ -34,7 +34,7 @@ export interface IDebugCommandsSection extends XR_CUIScriptWnd {
 
 export const DebugCommandsSection: IDebugCommandsSection = declare_xr_class("DebugCommandsSection", CUIWindow, {
   __init(this: IDebugCommandsSection, owner: XR_CUIScriptWnd): void {
-    xr_class_super();
+    CUIWindow.__init(this);
 
     log.info("Init");
 

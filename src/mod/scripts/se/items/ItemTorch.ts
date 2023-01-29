@@ -1,6 +1,7 @@
 import { cse_alife_item_torch, XR_cse_alife_item_torch } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
+import { TSection } from "@/mod/lib/types/configuration";
 import { REGISTERED_ITEMS } from "@/mod/scripts/core/db";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
@@ -14,8 +15,8 @@ export interface IItemTorch extends XR_cse_alife_item_torch {
 }
 
 export const ItemTorch: IItemTorch = declare_xr_class("ItemTorch", cse_alife_item_torch, {
-  __init(section: string): void {
-    xr_class_super(section);
+  __init(section: TSection): void {
+    cse_alife_item_torch.__init(this, section);
 
     this.secret_item = false;
   },

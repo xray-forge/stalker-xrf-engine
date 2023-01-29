@@ -18,7 +18,8 @@ export const StateManagerEvaAnimationStateIdleNow: IStateManagerEvaAnimationStat
   property_evaluator,
   {
     __init(name: string, st: StateManager): void {
-      xr_class_super(null, name);
+      property_evaluator.__init(this, null, name);
+
       this.st = st;
     },
     evaluate(): boolean {

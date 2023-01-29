@@ -18,7 +18,7 @@ export const DevDebugPositionSection: IDevDebugPositionSection = declare_xr_clas
   CUIWindow,
   {
     __init(this: IDevDebugPositionSection): void {
-      xr_class_super();
+      CUIWindow.__init(this);
 
       log.info("Init");
 

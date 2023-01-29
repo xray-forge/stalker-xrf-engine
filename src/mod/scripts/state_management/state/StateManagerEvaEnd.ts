@@ -15,7 +15,8 @@ export interface IStateManagerEvaEnd extends XR_property_evaluator {
 
 export const StateManagerEvaEnd: IStateManagerEvaEnd = declare_xr_class("StateManagerEvaEnd", property_evaluator, {
   __init(name: string, st: StateManager): void {
-    xr_class_super(null, name);
+    property_evaluator.__init(this, null, name);
+
     this.st = st;
     this.mgr = null;
   },

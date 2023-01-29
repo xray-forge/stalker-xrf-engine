@@ -15,8 +15,9 @@ export interface IStateManagerActWeaponDrop extends XR_action_base {
 }
 
 export const StateManagerActWeaponDrop = declare_xr_class("StateManagerActWeaponDrop", action_base, {
-  __init(name, st: StateManager): void {
-    xr_class_super(null, name);
+  __init(name: string, st: StateManager): void {
+    action_base.__init(this, null, name);
+
     this.st = st;
   },
   initialize(): void {

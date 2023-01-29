@@ -1,4 +1,4 @@
-import { move, property_evaluator, XR_property_evaluator } from "xray16";
+import { action_base, move, property_evaluator, XR_property_evaluator } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { states } from "@/mod/scripts/state_management/lib/state_lib";
@@ -16,7 +16,8 @@ export const StateManagerEvaMovementWalk: IStateManagerEvaMovementWalk = declare
   property_evaluator,
   {
     __init(name: string, st: StateManager) {
-      xr_class_super(null, name);
+      property_evaluator.__init(this, null, name);
+
       this.st = st;
     },
     evaluate(): boolean {

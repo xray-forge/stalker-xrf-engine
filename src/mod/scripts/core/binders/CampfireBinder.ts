@@ -14,7 +14,7 @@ export interface ICampfireBinder extends XR_object_binder {
 
 export const CampfireBinder: ICampfireBinder = declare_xr_class("CampfireBinder", object_binder, {
   __init(object: XR_game_object): void {
-    xr_class_super(object);
+    object_binder.__init(this, object);
 
     this.campfire = object.get_campfire();
 

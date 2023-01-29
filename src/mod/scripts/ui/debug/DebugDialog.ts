@@ -58,7 +58,7 @@ export interface IDebugDialog extends XR_CUIScriptWnd {
 
 export const DebugDialog: IDebugDialog = declare_xr_class("DebugDialog", CUIScriptWnd, {
   __init(this: IDebugDialog): void {
-    xr_class_super();
+    CUIScriptWnd.__init(this);
 
     this.InitControls();
     this.InitSections();

@@ -12,7 +12,7 @@ export interface ISmartCoverBinder extends XR_object_binder {}
 
 export const SmartCoverBinder: ISmartCoverBinder = declare_xr_class("SmartCoverBinder", object_binder, {
   __init(object: XR_game_object): void {
-    xr_class_super(object);
+    object_binder.__init(this, object);
   },
   net_spawn(object: XR_cse_alife_object): boolean {
     if (!object_binder.net_spawn(this, object)) {

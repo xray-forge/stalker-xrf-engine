@@ -16,7 +16,8 @@ export const StateManagerEvaLogicActive: IStateManagerEvaLogicActive = declare_x
   property_evaluator,
   {
     __init(name: string, state_manager: StateManager): void {
-      xr_class_super(null, name);
+      property_evaluator.__init(this, null, name);
+
       this.st = state_manager;
     },
     evaluate(): boolean {

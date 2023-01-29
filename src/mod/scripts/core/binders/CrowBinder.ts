@@ -27,7 +27,7 @@ export interface ICrowBinder extends XR_object_binder {
 
 export const CrowBinder: ICrowBinder = declare_xr_class("CrowBinder", object_binder, {
   __init(object: XR_game_object): void {
-    xr_class_super(object);
+    object_binder.__init(this, object);
 
     this.bodyDisposalTimer = 0;
 

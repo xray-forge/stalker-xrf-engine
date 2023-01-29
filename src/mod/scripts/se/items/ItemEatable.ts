@@ -1,6 +1,7 @@
 import { cse_alife_item, XR_cse_alife_item } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
+import { TSection } from "@/mod/lib/types/configuration";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
@@ -13,8 +14,8 @@ export interface IItemEatable extends XR_cse_alife_item {
 }
 
 export const ItemEatable: IItemEatable = declare_xr_class("ItemEatable", cse_alife_item, {
-  __init(section: string): void {
-    xr_class_super(section);
+  __init(section: TSection): void {
+    cse_alife_item.__init(this, section);
 
     this.secret_item = false;
   },

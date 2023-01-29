@@ -1,6 +1,7 @@
 import { cse_zone_visual, editor, game, system_ini, XR_cse_zone_visual, XR_CTime, XR_net_packet } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
+import { TSection } from "@/mod/lib/types/configuration";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { getConfigNumber } from "@/mod/scripts/utils/configs";
 import { isSinglePlayerGame } from "@/mod/scripts/utils/general";
@@ -16,8 +17,8 @@ export interface IZoneVisual extends XR_cse_zone_visual {
 }
 
 export const ZoneVisual: IZoneVisual = declare_xr_class("ZoneVisual", cse_zone_visual, {
-  __init(section: string) {
-    xr_class_super(section);
+  __init(section: TSection) {
+    cse_zone_visual.__init(this, section);
   },
   on_register(): void {
     cse_zone_visual.on_register(this);

@@ -89,7 +89,8 @@ export interface IOptionsDialog extends XR_CUIScriptWnd {
 
 export const OptionsDialog: IOptionsDialog = declare_xr_class("OptionsDialog", CUIScriptWnd, {
   __init(): void {
-    xr_class_super();
+    CUIScriptWnd.__init(this);
+
     log.info("Init");
 
     this.m_preconditions = {};

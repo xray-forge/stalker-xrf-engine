@@ -10,6 +10,7 @@ import {
 
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { Optional } from "@/mod/lib/types";
+import { TSection } from "@/mod/lib/types/configuration";
 import { offlineObjects } from "@/mod/scripts/core/db";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { get_sim_board } from "@/mod/scripts/se/SimBoard";
@@ -39,8 +40,8 @@ export interface IStalker extends XR_cse_alife_human_stalker {
 }
 
 export const Stalker: IStalker = declare_xr_class("Stalker", cse_alife_human_stalker, {
-  __init(section: string): void {
-    xr_class_super(section);
+  __init(section: TSection): void {
+    cse_alife_human_stalker.__init(this, section);
 
     this.ini = null;
     this.ini_initialized = false;

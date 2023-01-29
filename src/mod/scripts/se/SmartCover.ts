@@ -22,7 +22,7 @@ export interface ISmartCover extends XR_cse_smart_cover {
 
 export const SmartCover: ISmartCover = declare_xr_class("SmartCover", cse_smart_cover, {
   __init(section: string): void {
-    xr_class_super(section);
+    cse_smart_cover.__init(this, section);
 
     this.loopholes = new LuaTable();
     this.last_description = "";

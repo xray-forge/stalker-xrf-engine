@@ -235,7 +235,8 @@ declare module "xray16" {
    * @customConstructor CUIListBoxItem
    */
   export class XR_CUIListBoxItem extends XR_CUIFrameLineWnd {
-    // public constructor(index: number);
+    public static __init(this: void, target: XR_CUIListBoxItem, height: f32): void;
+    public constructor(height: f32);
 
     public AddIconField(value: f32): XR_CUIStatic;
     public SetTextColor(color: u32): void;

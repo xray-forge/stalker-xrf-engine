@@ -1,5 +1,6 @@
 import { cse_alife_space_restrictor, XR_cse_alife_space_restrictor } from "xray16";
 
+import { TSection } from "@/mod/lib/types/configuration";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -9,8 +10,8 @@ const log: LuaLogger = new LuaLogger("ZoneRestrictor");
 export interface IZoneRestrictor extends XR_cse_alife_space_restrictor {}
 
 export const ZoneRestrictor: IZoneRestrictor = declare_xr_class("ZoneRestrictor", cse_alife_space_restrictor, {
-  __init(section: string): void {
-    xr_class_super(section);
+  __init(section: TSection): void {
+    cse_alife_space_restrictor.__init(this, section);
   },
   on_register(): void {
     cse_alife_space_restrictor.on_register(this);

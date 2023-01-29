@@ -130,7 +130,7 @@ let focused_eb: number = 0;
 
 export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("MultiplayerGameSpy", CUIScriptWnd, {
   __init(): void {
-    xr_class_super();
+    CUIScriptWnd.__init(this);
 
     log.info("Init");
 

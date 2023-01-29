@@ -20,9 +20,7 @@ export interface ILevelChangerBinder extends XR_object_binder {}
 
 export const LevelChangerBinder: ILevelChangerBinder = declare_xr_class("LevelChangerBinder", object_binder, {
   __init(object: XR_game_object): void {
-    xr_class_super(object);
-
-    log.info("Init:", object.name());
+    object_binder.__init(this, object);
   },
   update(delta: number): void {
     object_binder.update(this, delta);

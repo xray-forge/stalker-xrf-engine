@@ -14,7 +14,7 @@ export interface IMultiplayerJoin extends XR_CUIWindow {
 
 export const MultiplayerJoin: IMultiplayerJoin = declare_xr_class("MultiplayerJoin", CUIWindow, {
   __init(online_mode: boolean): void {
-    xr_class_super();
+    CUIWindow.__init(this);
     this.online = online_mode;
   },
   __finalize(): void {},

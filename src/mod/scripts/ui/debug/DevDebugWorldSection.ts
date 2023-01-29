@@ -15,7 +15,7 @@ export interface IDevDebugWorldSection extends XR_CUIScriptWnd {
 
 export const DevDebugWorldSection: IDevDebugWorldSection = declare_xr_class("DevDebugWorldSection", CUIWindow, {
   __init(this: IDevDebugWorldSection): void {
-    xr_class_super();
+    CUIWindow.__init(this);
 
     log.info("Init");
 

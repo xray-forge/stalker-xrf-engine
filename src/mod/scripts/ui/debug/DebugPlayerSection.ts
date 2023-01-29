@@ -15,7 +15,7 @@ export interface IDebugPlayerSection extends XR_CUIScriptWnd {
 
 export const DebugPlayerSection: IDebugPlayerSection = declare_xr_class("DebugPlayerSection", CUIWindow, {
   __init(this: IDebugPlayerSection): void {
-    xr_class_super();
+    CUIWindow.__init(this);
 
     log.info("Init");
 

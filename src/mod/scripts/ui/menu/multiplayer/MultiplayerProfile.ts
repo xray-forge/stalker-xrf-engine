@@ -59,7 +59,7 @@ export interface IMultiplayerProfile extends XR_CUIWindow {
 
 export const MultiplayerProfile: IMultiplayerProfile = declare_xr_class("MultiplayerProfile", CUIWindow, {
   __init(): void {
-    xr_class_super();
+    CUIWindow.__init(this);
     awards_xml.ParseFile(resolveXmlFormPath(base));
   },
   __finalize(): void {},

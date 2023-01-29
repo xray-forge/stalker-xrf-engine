@@ -30,7 +30,8 @@ export interface IArenaZoneBinder extends XR_object_binder {
 
 export const ArenaZoneBinder: IArenaZoneBinder = declare_xr_class("ArenaZoneBinder", object_binder, {
   __init(object: XR_game_object): void {
-    xr_class_super(object);
+    object_binder.__init(this, object);
+
     this.saved_obj = new LuaTable();
     arena_zones.set(object.name(), this);
   },

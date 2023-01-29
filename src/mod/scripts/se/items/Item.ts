@@ -1,6 +1,7 @@
 import { cse_alife_item, XR_cse_alife_item } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
+import { TSection } from "@/mod/lib/types/configuration";
 import { REGISTERED_ITEMS } from "@/mod/scripts/core/db";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
@@ -14,8 +15,8 @@ export interface IItem extends XR_cse_alife_item {
 }
 
 export const Item: IItem = declare_xr_class("Item", cse_alife_item, {
-  __init(section: string): void {
-    xr_class_super(section);
+  __init(section: TSection): void {
+    cse_alife_item.__init(this, section);
 
     this.secret_item = false;
   },

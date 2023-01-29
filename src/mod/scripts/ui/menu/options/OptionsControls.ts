@@ -11,7 +11,7 @@ export interface IOptionsControls extends XR_CUIWindow {
 
 export const OptionsControls: IOptionsControls = declare_xr_class("OptionsControls", CUIWindow, {
   __init(): void {
-    xr_class_super();
+    CUIWindow.__init(this);
     log.info("Init");
   },
   __finalize(): void {

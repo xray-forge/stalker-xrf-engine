@@ -1,6 +1,7 @@
 import { cse_alife_item_weapon_auto_shotgun, XR_cse_alife_item_weapon_auto_shotgun } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
+import { TSection } from "@/mod/lib/types/configuration";
 import { REGISTERED_ITEMS } from "@/mod/scripts/core/db";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
@@ -17,8 +18,8 @@ export const ItemWeaponAutomaticShotgun: IItemWeaponAutomaticShotgun = declare_x
   "ItemWeaponAutomaticShotgun",
   cse_alife_item_weapon_auto_shotgun,
   {
-    __init(section: string): void {
-      xr_class_super(section);
+    __init(section: TSection): void {
+      cse_alife_item_weapon_auto_shotgun.__init(this, section);
 
       this.secret_item = false;
     },

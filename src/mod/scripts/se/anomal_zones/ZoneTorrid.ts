@@ -1,6 +1,7 @@
 import { cse_torrid_zone, editor, game, system_ini, XR_cse_torrid_zone, XR_CTime, XR_net_packet } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
+import { TSection } from "@/mod/lib/types/configuration";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { getConfigNumber } from "@/mod/scripts/utils/configs";
 import { isSinglePlayerGame } from "@/mod/scripts/utils/general";
@@ -18,8 +19,8 @@ export interface IZoneTorrid extends XR_cse_torrid_zone {
 }
 
 export const ZoneTorrid: IZoneTorrid = declare_xr_class("ZoneTorrid", cse_torrid_zone, {
-  __init(section: string) {
-    xr_class_super(section);
+  __init(section: TSection) {
+    cse_torrid_zone.__init(this, section);
 
     this.m_registred = false;
   },

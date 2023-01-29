@@ -16,7 +16,8 @@ export interface IStateManagerEvaIdle extends XR_property_evaluator {
 
 export const StateManagerEvaIdle: IStateManagerEvaIdle = declare_xr_class("StateManagerEvaIdle", property_evaluator, {
   __init(name: string, st: StateManager): void {
-    xr_class_super(null, name);
+    property_evaluator.__init(this, null, name);
+
     this.st = st;
     this.mgr = null;
   },

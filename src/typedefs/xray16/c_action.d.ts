@@ -356,6 +356,9 @@ declare module "xray16" {
     public constructor(game_object: XR_game_object);
     public constructor(game_object: XR_game_object, value: string);
 
+    public static __init(
+      this: void, target: XR_action_base, game_object: XR_game_object | null, value: string | null
+    ): void;
     public __init(): void;
     public __init(game_object: XR_game_object): void;
     public __init(game_object: XR_game_object, value: string): void;
@@ -461,9 +464,9 @@ declare module "xray16" {
     public constructor(game_object: XR_game_object);
     public constructor(game_object: XR_CGameObject, name: string);
 
-    public static __init(): void;
-    public static __init(game_object: XR_CGameObject): void;
-    public static __init(game_object: XR_CGameObject, name: string): void;
+    public static __init(
+      this: void, target: XR_property_evaluator, game_object?: XR_CGameObject | null, name?: string
+    ): void;
 
     public static evaluate(this: void, target: XR_property_evaluator): boolean;
     public evaluate(): boolean;

@@ -24,6 +24,7 @@ import {
 import { MAX_UNSIGNED_16_BIT, MAX_UNSIGNED_8_BIT } from "@/mod/globals/memory";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { AnyCallable, AnyObject, Optional } from "@/mod/lib/types";
+import { TSection } from "@/mod/lib/types/configuration";
 import {
   turn_off_campfires_by_smart_name,
   turn_on_campfires_by_smart_name
@@ -184,8 +185,8 @@ export interface ISmartTerrain extends XR_cse_alife_smart_zone {
 }
 
 export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_alife_smart_zone, {
-  __init(section: string): void {
-    xr_class_super(section);
+  __init(section: TSection): void {
+    cse_alife_smart_zone.__init(this, section);
 
     this.initialized = false;
     this.b_registred = false;

@@ -19,7 +19,7 @@ export interface IFreeplayDialog extends XR_CUIScriptWnd {
 
 export const FreeplayDialog: IFreeplayDialog = declare_xr_class("FreeplayDialog", CUIScriptWnd, {
   __init(): void {
-    xr_class_super();
+    CUIScriptWnd.__init(this);
 
     this.SetWndRect(new Frect().set(0, 0, 1024, 768));
     this.freeplay_mb = new CUIMessageBoxEx();

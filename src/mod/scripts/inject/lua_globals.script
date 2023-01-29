@@ -9,11 +9,9 @@
 -- @param implementation - optional object with class implementation
 -- ---------------------------------------------------------------------------------------------------------------------
 _G.declare_xr_class = function(name, base, implementation)
-  local is_declared = false;
-
   if (_G[name]) then
     log:warn("Skip declaring class name that is already used in globals: " .. name)
-    is_declared = true;
+    abort("Re-declaring global luabind class")
   end
 
   if base then
