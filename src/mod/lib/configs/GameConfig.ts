@@ -24,9 +24,9 @@ export const gameConfig = {
      */
     IS_STATE_MANAGEMENT_DEBUG_ENABLED: true,
     /**
-     * Enable profiling manager utils.
+     * Enable profiling manager utils at game init.
      */
-    IS_PROFILING_ENABLED: true,
+    IS_PROFILING_ENABLED: false,
     /**
      * Enable debugging log modules.
      */
