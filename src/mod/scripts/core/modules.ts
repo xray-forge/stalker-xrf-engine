@@ -24,6 +24,7 @@ import { ActionPostProcess } from "@/mod/scripts/core/logic/ActionPostProcess";
 import { ActionProcessHit } from "@/mod/scripts/core/logic/ActionProcessHit";
 import { ActionPsyAntenna } from "@/mod/scripts/core/logic/ActionPsyAntenna";
 import { ActionSilence } from "@/mod/scripts/core/logic/ActionSilence";
+import { ActionSleeper } from "@/mod/scripts/core/logic/ActionSleeper";
 import { ActionTeleport } from "@/mod/scripts/core/logic/ActionTeleport";
 import { ActionTimer } from "@/mod/scripts/core/logic/ActionTimer";
 import { ActionHeliMove } from "@/mod/scripts/core/logic/heli/ActionHeliMove";
@@ -42,67 +43,66 @@ const log: LuaLogger = new LuaLogger("modules");
 export function initializeModules(): void {
   log.info("Initialize modules");
 
-  loadScheme(ActionDanger, ActionDanger.SCHEME_SECTION, ESchemeType.STALKER);
-  loadScheme(ActionGatherItems, ActionGatherItems.SCHEME_SECTION, ESchemeType.STALKER);
-  loadScheme(ActionCorpseDetect, ActionCorpseDetect.SCHEME_SECTION, ESchemeType.STALKER);
-  loadScheme(AbuseManager, AbuseManager.SCHEME_SECTION, ESchemeType.STALKER);
-  loadScheme("xr_walker", "walker", ESchemeType.STALKER);
-  loadScheme("xr_remark", "remark", ESchemeType.STALKER);
-  loadScheme(ActionCover, ActionCover.SCHEME_SECTION, ESchemeType.STALKER);
-  loadScheme("xr_sleeper", "sleeper", ESchemeType.STALKER);
-  loadScheme("xr_kamp", "kamp", ESchemeType.STALKER);
+  loadScheme("xr_animpoint", "animpoint", ESchemeType.STALKER);
   loadScheme("xr_camper", "camper", ESchemeType.STALKER);
-  loadScheme("xr_meet", "meet", ESchemeType.STALKER);
-  loadScheme("xr_help_wounded", "help_wounded", ESchemeType.STALKER);
   loadScheme("xr_combat", "combat", ESchemeType.STALKER);
-  loadScheme(ActionDeath, ActionDeath.SCHEME_SECTION, ESchemeType.STALKER);
-  loadScheme(ActionProcessHit, ActionProcessHit.SCHEME_SECTION, ESchemeType.STALKER);
-  loadScheme("xr_wounded", "wounded", ESchemeType.STALKER);
-  loadScheme("xr_meet", "actor_dialogs", ESchemeType.STALKER);
   loadScheme("xr_combat_ignore", "combat_ignore", ESchemeType.STALKER);
   loadScheme("xr_combat_zombied", "combat_zombied", ESchemeType.STALKER);
-  loadScheme("xr_patrol", "patrol", ESchemeType.STALKER);
-  loadScheme("xr_smartcover", "smartcover", ESchemeType.STALKER);
   loadScheme("xr_companion", "companion", ESchemeType.STALKER);
-  loadScheme("xr_animpoint", "animpoint", ESchemeType.STALKER);
+  loadScheme("xr_help_wounded", "help_wounded", ESchemeType.STALKER);
+  loadScheme("xr_kamp", "kamp", ESchemeType.STALKER);
+  loadScheme("xr_meet", "actor_dialogs", ESchemeType.STALKER);
+  loadScheme("xr_meet", "meet", ESchemeType.STALKER);
+  loadScheme("xr_patrol", "patrol", ESchemeType.STALKER);
   loadScheme("xr_reach_task", "reach_task", ESchemeType.STALKER);
+  loadScheme("xr_remark", "remark", ESchemeType.STALKER);
+  loadScheme("xr_smartcover", "smartcover", ESchemeType.STALKER);
+  loadScheme("xr_walker", "walker", ESchemeType.STALKER);
+  loadScheme("xr_wounded", "wounded", ESchemeType.STALKER);
+  loadScheme(AbuseManager, AbuseManager.SCHEME_SECTION, ESchemeType.STALKER);
+  loadScheme(ActionCorpseDetect, ActionCorpseDetect.SCHEME_SECTION, ESchemeType.STALKER);
+  loadScheme(ActionCover, ActionCover.SCHEME_SECTION, ESchemeType.STALKER);
+  loadScheme(ActionDanger, ActionDanger.SCHEME_SECTION, ESchemeType.STALKER);
+  loadScheme(ActionDeath, ActionDeath.SCHEME_SECTION, ESchemeType.STALKER);
+  loadScheme(ActionGatherItems, ActionGatherItems.SCHEME_SECTION, ESchemeType.STALKER);
+  loadScheme(ActionProcessHit, ActionProcessHit.SCHEME_SECTION, ESchemeType.STALKER);
+  loadScheme(ActionSleeper, ActionSleeper.SCHEME_SECTION, ESchemeType.STALKER);
 
-  loadScheme(ActionMobRemark, ActionMobRemark.SCHEME_SECTION, ESchemeType.MOBILE);
-  loadScheme(ActionMobWalker, ActionMobWalker.SCHEME_SECTION, ESchemeType.MOBILE);
   loadScheme(ActionMobCombat, ActionMobCombat.SCHEME_SECTION, ESchemeType.MOBILE);
   loadScheme(ActionMobDeath, ActionMobDeath.SCHEME_SECTION, ESchemeType.MOBILE);
-  loadScheme(ActionMobJump, ActionMobJump.SCHEME_SECTION, ESchemeType.MOBILE);
   loadScheme(ActionMobHome, ActionMobHome.SCHEME_SECTION, ESchemeType.MOBILE);
+  loadScheme(ActionMobJump, ActionMobJump.SCHEME_SECTION, ESchemeType.MOBILE);
+  loadScheme(ActionMobRemark, ActionMobRemark.SCHEME_SECTION, ESchemeType.MOBILE);
+  loadScheme(ActionMobWalker, ActionMobWalker.SCHEME_SECTION, ESchemeType.MOBILE);
 
-  loadScheme(ActionDoor, ActionDoor.SCHEME_SECTION, ESchemeType.ITEM);
-  loadScheme(ActionPhysicalIdle, ActionPhysicalIdle.SCHEME_SECTION, ESchemeType.ITEM);
-  loadScheme(ActionHit, ActionHit.SCHEME_SECTION, ESchemeType.ITEM);
-  loadScheme(ActionOnHit, ActionOnHit.SCHEME_SECTION, ESchemeType.ITEM);
+  // -- loadScheme("ph_target", "ph_target", ESchemeType.ITEM);
   loadScheme(ActionButton, ActionButton.SCHEME_SECTION, ESchemeType.ITEM);
   loadScheme(ActionCodepad, ActionCodepad.SCHEME_SECTION, ESchemeType.ITEM);
-  loadScheme(ActionOnDeath, ActionOnDeath.SCHEME_SECTION, ESchemeType.ITEM);
-  loadScheme(ActionMiniGun, ActionMiniGun.SCHEME_SECTION, ESchemeType.ITEM);
-  // -- loadScheme("ph_target", "ph_target", ESchemeType.ITEM);
-  loadScheme(ActionOscillate, ActionOscillate.SCHEME_SECTION, ESchemeType.ITEM);
-
+  loadScheme(ActionDoor, ActionDoor.SCHEME_SECTION, ESchemeType.ITEM);
   loadScheme(ActionHeliMove, ActionHeliMove.SCHEME_SECTION, ESchemeType.HELI);
+  loadScheme(ActionHit, ActionHit.SCHEME_SECTION, ESchemeType.ITEM);
+  loadScheme(ActionMiniGun, ActionMiniGun.SCHEME_SECTION, ESchemeType.ITEM);
+  loadScheme(ActionOnDeath, ActionOnDeath.SCHEME_SECTION, ESchemeType.ITEM);
+  loadScheme(ActionOnHit, ActionOnHit.SCHEME_SECTION, ESchemeType.ITEM);
+  loadScheme(ActionOscillate, ActionOscillate.SCHEME_SECTION, ESchemeType.ITEM);
+  loadScheme(ActionPhysicalIdle, ActionPhysicalIdle.SCHEME_SECTION, ESchemeType.ITEM);
 
-  loadScheme(ActionNoWeapon, ActionNoWeapon.SCHEME_SECTION, ESchemeType.RESTRICTOR);
-  loadScheme(ActionTeleport, ActionTeleport.SCHEME_SECTION, ESchemeType.RESTRICTOR);
-  loadScheme(ActionIdle, ActionIdle.SCHEME_SECTION, ESchemeType.RESTRICTOR);
-  loadScheme(ActionLight, ActionLight.SCHEME_SECTION, ESchemeType.RESTRICTOR);
-  loadScheme(ActionTimer, ActionTimer.SCHEME_SECTION, ESchemeType.RESTRICTOR);
-  loadScheme(ActionPsyAntenna, ActionPsyAntenna.SCHEME_SECTION, ESchemeType.RESTRICTOR);
-  loadScheme(ActionPostProcess, ActionPostProcess.SCHEME_SECTION, ESchemeType.RESTRICTOR);
-  loadScheme(ActionParticle, ActionParticle.SCHEME_SECTION, ESchemeType.RESTRICTOR);
-  loadScheme(ActionCutscene, ActionCutscene.SCHEME_SECTION, ESchemeType.RESTRICTOR);
   // --loadScheme("sr_bloodsucker", "sr_bloodsucker", ESchemeType.RESTRICTOR)
-  loadScheme(ActionMonster, ActionMonster.SCHEME_SECTION, ESchemeType.RESTRICTOR);
+  // --loadScheme("sr_recoveritem", "sr_recoveritem", ESchemeType.RESTRICTOR)
   // --loadScheme("sr_robbery", "sr_robbery", ESchemeType.RESTRICTOR)
+  // --loadScheme("sr_shooting", "sr_shooting", ESchemeType.RESTRICTOR)
   // --loadScheme("sr_survival", "sr_survival", ESchemeType.RESTRICTOR)
   loadScheme(ActionCrowSpawner, ActionCrowSpawner.SCHEME_SECTION, ESchemeType.RESTRICTOR);
-  // --loadScheme("sr_shooting", "sr_shooting", ESchemeType.RESTRICTOR)
-  // --loadScheme("sr_recoveritem", "sr_recoveritem", ESchemeType.RESTRICTOR)
-  loadScheme(ActionSilence, ActionSilence.SCHEME_SECTION, ESchemeType.RESTRICTOR);
+  loadScheme(ActionCutscene, ActionCutscene.SCHEME_SECTION, ESchemeType.RESTRICTOR);
   loadScheme(ActionDeimos, ActionDeimos.SCHEME_SECTION, ESchemeType.RESTRICTOR);
+  loadScheme(ActionIdle, ActionIdle.SCHEME_SECTION, ESchemeType.RESTRICTOR);
+  loadScheme(ActionLight, ActionLight.SCHEME_SECTION, ESchemeType.RESTRICTOR);
+  loadScheme(ActionMonster, ActionMonster.SCHEME_SECTION, ESchemeType.RESTRICTOR);
+  loadScheme(ActionNoWeapon, ActionNoWeapon.SCHEME_SECTION, ESchemeType.RESTRICTOR);
+  loadScheme(ActionParticle, ActionParticle.SCHEME_SECTION, ESchemeType.RESTRICTOR);
+  loadScheme(ActionPostProcess, ActionPostProcess.SCHEME_SECTION, ESchemeType.RESTRICTOR);
+  loadScheme(ActionPsyAntenna, ActionPsyAntenna.SCHEME_SECTION, ESchemeType.RESTRICTOR);
+  loadScheme(ActionSilence, ActionSilence.SCHEME_SECTION, ESchemeType.RESTRICTOR);
+  loadScheme(ActionTeleport, ActionTeleport.SCHEME_SECTION, ESchemeType.RESTRICTOR);
+  loadScheme(ActionTimer, ActionTimer.SCHEME_SECTION, ESchemeType.RESTRICTOR);
 }

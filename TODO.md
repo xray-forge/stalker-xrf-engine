@@ -14,6 +14,7 @@
 - Re-architecture lua core of the game, use external lua libs for serialization of LUA tables
 - Implement OXR versions window and other script additions
 - Separate debug menu and profiling section in it
+- Fix typing for IStoredObject
 
 ## 🧰 Requests to open x-ray
 
