@@ -135,6 +135,8 @@ declare module "xray16" {
    */
   export class XR_spawn_story_ids {
     public static readonly INVALID_SPAWN_STORY_ID: -1;
+
+    private constructor();
   }
 
   /**
@@ -598,9 +600,9 @@ declare module "xray16" {
     public static readonly zone_torrid_s: 203;
   }
 
-  type TXR_cls_ids = typeof XR_clsid;
-  type TXR_cls_key = Exclude<keyof TXR_cls_ids, "prototype" | "constructor">;
-  type TXR_cls_id = TXR_cls_ids[TXR_cls_key];
+  type TXR_cls_key = EnumerateStaticsKeys<typeof XR_clsid>;
+
+  type TXR_cls_id = EnumerateStaticsValues<typeof XR_clsid>;
 
   /**
    * C++ class MonsterSpace {
@@ -909,6 +911,8 @@ declare module "xray16" {
     public static readonly MOUSE_3: 514;
     public static readonly MOUSE_4: 516;
     public static readonly MOUSE_5: 517;
+
+    protected constructor();
   }
 
   type TXR_DIK_key_name = EnumerateStaticsKeys<typeof DIK_keys>;
@@ -920,27 +924,29 @@ declare module "xray16" {
    * @customConstructor FactionState
    */
   export class XR_FactionState {
-    public actor_goodwill: unknown;
-    public bonus: unknown;
-    public faction_id: unknown;
-    public icon: unknown;
-    public icon_big: unknown;
-    public location: unknown;
-    public member_count: unknown;
-    public name: unknown;
-    public power: unknown;
-    public resource: unknown;
-    public target: unknown;
-    public target_desc: unknown;
-    public war_state1: unknown;
-    public war_state2: unknown;
-    public war_state3: unknown;
-    public war_state4: unknown;
-    public war_state5: unknown;
-    public war_state_hint1: unknown;
-    public war_state_hint2: unknown;
-    public war_state_hint3: unknown;
-    public war_state_hint4: unknown;
-    public war_state_hint5: unknown;
+    public actor_goodwill: i32;
+    public bonus: i32;
+    public faction_id: string;
+    public icon: string;
+    public icon_big: string;
+    public location: string;
+    public member_count: i32;
+    public name: string;
+    public power: f32;
+    public resource: f32;
+    public target: string;
+    public target_desc: string;
+    public war_state1: string;
+    public war_state2: string;
+    public war_state3: string;
+    public war_state4: string;
+    public war_state5: string;
+    public war_state_hint1: string;
+    public war_state_hint2: string;
+    public war_state_hint3: string;
+    public war_state_hint4: string;
+    public war_state_hint5: string;
+
+    protected constructor();
   }
 }

@@ -66,8 +66,8 @@ declare module "xray16" {
    * C++ class ClientID {
    */
   export class XR_ClientID {
-    public value(): unknown;
-    public set(value: number): unknown;
+    public value(): u32;
+    public set(value: u32): void;
   }
 
   /**
@@ -75,8 +75,10 @@ declare module "xray16" {
    * @customConstructor memory_object
    */
   export class XR_memory_object extends XR_LuaBindBase {
-    public last_level_time: u32;
-    public level_time: u32;
+    public readonly last_level_time: u32;
+    public readonly level_time: u32;
+
+    protected constructor();
   }
 
   /**
@@ -84,27 +86,27 @@ declare module "xray16" {
    * @customConstructor object
    */
   export class XR_object {
-    public static activate: 16;
-    public static aim1: 4;
-    public static aim2: 5;
-    public static deactivate: 17;
-    public static drop: 11;
-    public static dummy: -1;
-    public static fire1: 6;
-    public static fire2: 8;
-    public static hide: 22;
-    public static idle: 9;
-    public static reload: 2;
-    public static reload1: 2;
-    public static reload2: 3;
-    public static show: 21;
-    public static strap: 10;
-    public static switch1: 0;
-    public static switch2: 1;
-    public static take: 23;
-    public static turn_off: 20;
-    public static turn_on: 19;
-    public static use: 18;
+    public static readonly activate: 16;
+    public static readonly aim1: 4;
+    public static readonly aim2: 5;
+    public static readonly deactivate: 17;
+    public static readonly drop: 11;
+    public static readonly dummy: -1;
+    public static readonly fire1: 6;
+    public static readonly fire2: 8;
+    public static readonly hide: 22;
+    public static readonly idle: 9;
+    public static readonly reload: 2;
+    public static readonly reload1: 2;
+    public static readonly reload2: 3;
+    public static readonly show: 21;
+    public static readonly strap: 10;
+    public static readonly switch1: 0;
+    public static readonly switch2: 1;
+    public static readonly take: 23;
+    public static readonly turn_off: 20;
+    public static readonly turn_on: 19;
+    public static readonly use: 18;
 
     public constructor(value: string);
     public constructor(value: string, type: number /* MonsterSpace::EObjectAction */);
@@ -114,16 +116,14 @@ declare module "xray16" {
     public completed(): boolean;
   }
 
-  export type TXR_object_states = typeof XR_object;
-
-  export type TXR_object_state = TXR_object_states[Exclude<keyof TXR_object_states, "constructor" | "prototype">];
+  export type TXR_object_state = EnumerateStaticsValues<typeof XR_object>;
 
   /**
    * C++ class entity_memory_object : memory_object {
    */
   export class XR_entity_memory_object extends XR_memory_object {
-    public readonly object_info: unknown; // struct MemorySpace::CObjectParams<class CEntityAlive>
-    public readonly self_info: unknown; // struct MemorySpace::CObjectParams<class CEntityAlive>
+    public readonly object_info: object;
+    public readonly self_info: object;
 
     public object(): XR_game_object;
   }
@@ -132,9 +132,9 @@ declare module "xray16" {
    * C++ class hit_memory_object : entity_memory_object {
    */
   export class XR_hit_memory_object extends XR_entity_memory_object {
-    public amount: unknown;
-    public bone_index: unknown;
-    public direction: unknown;
+    public readonly amount: f32;
+    public readonly bone_index: u16;
+    public readonly direction: XR_vector;
   }
 
   /**
@@ -157,16 +157,16 @@ declare module "xray16" {
   /**
    * C++ class visible_memory_object {
    */
-  export class XR_visible_memory_object extends XR_game_memory_object{
+  export class XR_visible_memory_object extends XR_game_memory_object {
   }
 
   /**
    * C++ class memory_info : visible_memory_object {
    * */
   export class XR_memory_info extends XR_visible_memory_object{
-    public hit_info: unknown;
-    public sound_info: unknown;
-    public visual_info: unknown;
+    public readonly hit_info: boolean;
+    public readonly sound_info: boolean;
+    public readonly visual_info: boolean;
   }
 
   /**
@@ -182,33 +182,38 @@ declare module "xray16" {
     public static TimeToMinutes: 1;
     public static TimeToSeconds: 2;
 
-    public sub(time: XR_CTime): unknown;
-    public timeToString(time: number): unknown;
-    public dateToString(time: number): unknown;
-    public get(y: number, m: number, d: number, h: number, min: number, sec: number, ms: number):
-        LuaMultiReturn<[number, number, number, number, number, number, number ]>;
-    public set(y: number, m: number, d: number, h: number, min: number, sec: number, ms: number): void;
-    public setHMSms(a: number, b: number, c: number, d: number): unknown;
-    public diffSec(time: XR_CTime): number;
-    public setHMS(a: number, b: number, c: number): unknown;
-    public add(time: XR_CTime): unknown;
+    public constructor();
+    public constructor(time: XR_CTime);
+
+    public add(time: XR_CTime): void;
+    public dateToString(time: i32): string;
+    public diffSec(time: XR_CTime): f32;
+    public get(y: u32, m: u32, d: u32, h: u32, min: u32, sec: u32, ms: u32):
+      LuaMultiReturn<[u32, u32, u32, u32, u32, u32, u32 ]>;
+    public set(y: i32, m: i32, d: i32, h: i32, min: i32, sec: i32, ms: i32): void;
+    public setHMS(a: i32, b: i32, c: i32): void;
+    public setHMSms(a: i32, b: i32, c: i32, d: i32): void;
+    public sub(time: XR_CTime): void;
+    public timeToString(time: i32): string;
   }
 
   /**
    * C++ class CConsole {
    */
   export class XR_CConsole {
+    protected constructor();
+
     public execute(cmd: string): void;
-    public execute_script(script: string): void;
     public execute_deferred(cmd: string): void;
+    public execute_script(script: string): void;
 
     public show(): void;
     public hide(): void;
 
-    public get_string(key: string): string;
-    public get_integer(key: string): i32;
-    public get_float(key: string): f32;
     public get_bool(key: string): boolean;
+    public get_float(key: string): f32;
+    public get_integer(key: string): i32;
+    public get_string(key: string): string;
     public get_token(key: string): string;
   }
 
@@ -217,6 +222,8 @@ declare module "xray16" {
    * @customConstructor object_factory
    */
   export class XR_object_factory {
+    protected constructor();
+
     public register(
       client_object_class: string,
       server_object_class: string,
@@ -236,30 +243,30 @@ declare module "xray16" {
    * @customConstructor object_binder
    */
   export class XR_object_binder<T = XR_game_object> extends XR_LuaBindBase {
-    public static __init(this: void, target: XR_object_binder, object: XR_game_object): void
-    public __init(object: T): void
-
-    public object: T;
+    public readonly object: T;
 
     public constructor(object: T);
+
+    public static __init(this: void, target: XR_object_binder, object: XR_game_object): void
+    public __init(object: T): void
 
     public static save(this: void, target: XR_object_binder, packet: XR_net_packet): void;
     public save(packet: XR_net_packet): void;
 
-    public static update(this: void, target: XR_object_binder, value: number): void;
-    public update(delta: number): void;
+    public static update(this: void, target: XR_object_binder, delta: u32): void;
+    public update(delta: u32): void;
 
     public static reload(this: void, target: XR_object_binder, section: string): void;
     public reload(section: string): void;
 
-    public static net_export(this: void, target: XR_object_binder, net_packet: XR_net_packet): unknown;
-    public net_export(net_packet: XR_net_packet): unknown;
+    public static net_export(this: void, target: XR_object_binder, net_packet: XR_net_packet): void;
+    public net_export(net_packet: XR_net_packet): void;
 
     public net_save_relevant(this: void, target: XR_object_binder): boolean;
     public net_save_relevant(): boolean;
 
-    public static load(this: void, target: XR_object_binder, packet: XR_net_packet): void;
-    public load(packet: XR_net_packet): void;
+    public static load(this: void, target: XR_object_binder, reader: XR_reader): void;
+    public load(reader: XR_reader): void;
 
     public static net_destroy(this: void, target: XR_object_binder): void;
     public net_destroy(): void;
@@ -281,8 +288,8 @@ declare module "xray16" {
       ): boolean;
     public net_spawn(object: XR_cse_alife_object): boolean;
 
-    public static net_import(this: void, target: XR_object_binder, net_packet: XR_net_packet): unknown
-    public net_import(net_packet: XR_net_packet): unknown;
+    public static net_import(this: void, target: XR_object_binder, net_packet: XR_net_packet): void
+    public net_import(net_packet: XR_net_packet): void;
   }
 
   /**
@@ -310,5 +317,16 @@ declare module "xray16" {
     public Round(): i32;
     public Phase(): u16;
     public Type(): number; /* EGameIDs */
+  }
+
+  /**
+   * C++ class class_info_data
+   */
+  export class XR_class_info_data {
+    public readonly methods: object;
+    public readonly attributes: object;
+    public readonly name: string;
+
+    protected constructor();
   }
 }

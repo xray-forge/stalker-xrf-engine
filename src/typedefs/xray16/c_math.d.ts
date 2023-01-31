@@ -123,4 +123,35 @@ declare module "xray16" {
 
     public constructor();
   }
+
+  /**
+   * C++ class matrix {
+   * @customConstructor matrix
+   */
+  export class XR_matrix {
+    public _14_: f32;
+    public _24_: f32;
+    public _34_: f32;
+    public _44_: f32;
+    public c: XR_vector;
+    public i: XR_vector;
+    public j: XR_vector;
+    public k: XR_vector;
+
+    public constructor();
+
+    public mk_xform(x: unknown /* _quaternion<float> */, vector: XR_vector): XR_matrix;
+    public set(matix: XR_matrix): XR_matrix;
+    public set(vector1: XR_vector, vector2: XR_vector, vector3: XR_vector, vector4: XR_vector): XR_matrix;
+    public div(matix: XR_matrix, number: f32): XR_matrix;
+    public div(number: f32): XR_matrix;
+    public identity(): XR_matrix;
+    public setHPB(number1: f32, number2: f32, number3: f32): XR_matrix;
+    public setXYZ(x: f32, y: f32, z: f32): XR_matrix;
+    public getHPB(matrix: XR_matrix, number1: f32, number2: f32, number3: f32): XR_matrix;
+    public mul(matix1: XR_matrix, matix2: XR_matrix): XR_matrix;
+    public mul(matix: XR_matrix, number: f32): XR_matrix;
+    public mul(number: f32): XR_matrix;
+    public setXYZi(number1: f32, number2: f32, number3: f32): XR_matrix;
+  }
 }

@@ -4,95 +4,53 @@ declare module "xray16" {
    * @customConstructor alife_simulator
    */
   export class XR_alife_simulator {
-    public set_interactive(value1: number, value2: boolean): unknown;
-    public switch_distance(): number;
-    public switch_distance(value: number): number;
-    public set_switch_online(value1: number, value2: boolean): unknown;
-    public set_switch_offline(value1: number, value2: boolean): unknown;
-    public remove_all_restrictions(
-      value: number,
-      type: unknown /* enum RestrictionSpace::ERestrictorTypes */
-    ): unknown;
+    public actor(): XR_cse_alife_creature_actor;
+    public add_in_restriction(monster: XR_cse_alife_monster_abstract, value: u16): void;
+    public add_out_restriction(monster: XR_cse_alife_monster_abstract, value: u16): void;
+    public create_ammo(section: string, vector: XR_vector, lvi: u32, gvi: u16, pid: u16, num: i32): XR_cse_abstract;
+    public dont_has_info(value: u16, str: string): boolean;
+    public has_info(objectId: u16, infoId: string): boolean;
+    public iterate_objects(cb: () => boolean): void;
+    public level_id(): u32;
+    public level_name<T extends string = string>(value: i32): T;
+    public release(cse_abstract: XR_cse_alife_object | null, flag: boolean): void;
+    public remove_all_restrictions(value: u16, type: i32 /* enum RestrictionSpace::ERestrictorTypes */): void;
+    public remove_in_restriction(monster: XR_cse_alife_monster_abstract, value: u16): void;
+    public remove_out_restriction(monster: XR_cse_alife_monster_abstract, value: u16): void;
+    public set_interactive(value1: u16, value2: boolean): void;
+    public set_switch_distance(distance: f32): void;
+    public set_switch_offline(value1: u16, value2: boolean): void;
+    public set_switch_online(value1: u16, value2: boolean): void;
+    public spawn_id(value: u32): u16;
+    public story_object(value: u32): XR_cse_alife_object;
+    public switch_distance(): f32;
+    public switch_distance(value: f32): void;
+    public teleport_object(lvi: u16, gvi: u16, int: u32, vector: XR_vector): void;
+    public valid_object_id(value: u16): boolean;
 
-    /**
-     * Methods.
-     */
-
-    public add_in_restriction(
-      monster: unknown /* cse_alife_monster_abstract */,
-      value: number
-    ): unknown;
-
-    public remove_in_restriction(
-      monster: unknown /* cse_alife_monster_abstract */,
-      value: number
-    ): unknown;
-
-    public level_name<T extends string = string>(value: number): T;
-
-    public dont_has_info(value: number, str: string): unknown;
-
-    public create_ammo(
-      section: string,
-      vector: XR_vector,
-      lvi: number,
-      gvi: number,
-      pid: number,
-      num: number
-    ): XR_cse_abstract;
-
-    public add_out_restriction(
-      monster: unknown /* cse_alife_monster_abstract */,
-      value: number
-    ): unknown;
-
-    public level_id(): number;
-
-    public valid_object_id(value: number): unknown;
-
-    public remove_out_restriction(
-      life: XR_alife_simulator,
-      monster: unknown /* cse_alife_monster_abstract */,
-      value: number
-    ): unknown;
-
-    public kill_entity(cse_alife_monster_abstract: any, value: number): unknown;
-    public kill_entity(cse_alife_monster_abstract: any): unknown;
+    public kill_entity(monster: XR_cse_alife_monster_abstract): void;
+    public kill_entity(monster: XR_cse_alife_monster_abstract, value: u16): void;
     public kill_entity(
-      this: void,
-      monster1: unknown /* cse_alife_monster_abstract */,
-      value: number,
-      monster2: unknown /* cse_alife_monster_abstract */
-    ): unknown;
-
-    public has_info(objectId: number, infoId: string): boolean;
+      monster1: XR_cse_alife_monster_abstract, value: u16, monster2: XR_cse_alife_monster_abstract
+    ): void;
 
     public object<T extends XR_cse_alife_object = XR_cse_alife_object>(id: number): T | null;
     public object<T extends XR_cse_alife_object = XR_cse_alife_object>(id: number, value2: boolean): T | null;
 
-    public actor(): XR_cse_alife_creature_actor;
-
-    public story_object(value: number): XR_cse_alife_object;
-
-    public spawn_id(value: number): unknown;
-
-    public release(cse_abstract: XR_cse_alife_object | null, flag: boolean): unknown;
-
-    public create<T extends XR_cse_alife_object = XR_cse_alife_object>(value: number): T;
+    public create<T extends XR_cse_alife_object = XR_cse_alife_object>(value: u32): T;
     public create<T extends XR_cse_alife_object = XR_cse_alife_object>(
       section: string,
       position: XR_vector,
-      lvi: number,
-      gvi: number,
-      pid: number,
+      lvi: u32,
+      gvi: u32,
+      pid: i32,
     ): T;
     public create<T extends XR_cse_alife_object = XR_cse_alife_object>(
       section: string | number,
       position: XR_vector,
-      lvi: number,
-      gvi: number
+      lvi: u32,
+      gvi: u16
     ): T;
-
   }
 
   /**

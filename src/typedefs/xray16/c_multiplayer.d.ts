@@ -4,13 +4,15 @@ declare module "xray16" {
    * @customConstructor demo_info
    */
   export class XR_demo_info {
-    public get_map_name(): string;
-    public get_player(value: number): XR_demo_player_info;
-    public get_game_type(): string;
-    public get_players_count(): number;
-    public get_map_version(): string;
-    public get_author_name(): unknown;
+    protected constructor();
+
+    public get_author_name(): string;
     public get_game_score(): string;
+    public get_game_type(): string;
+    public get_map_name(): string;
+    public get_map_version(): string;
+    public get_player(value: u32): XR_demo_player_info;
+    public get_players_count(): u32;
   }
 
   /**
@@ -18,14 +20,15 @@ declare module "xray16" {
    * @customConstructor demo_player_info
    */
   export class XR_demo_player_info {
-    public get_spots(): number;
+    public get_artefacts(): u16;
+    public get_deaths(): i16;
+    public get_frags(): i16;
     public get_name() : string;
-    public get_rank(): number;
-    public get_artefacts(): number;
-    public get_team(): number;
-    public get_deaths(): number;
-    public get_frags(): number;
+    public get_rank(): u8;
+    public get_spots(): i16;
+    public get_team(): u8;
   }
+
   /**
    * C++ class SServerFilters {
    * @customConstructor SServerFilters
@@ -37,10 +40,13 @@ declare module "xray16" {
     public with_pass: boolean;
     public without_ff: boolean;
     public without_pass: boolean;
+
+    public constructor();
   }
 
   /**
    * C++ class profile {
+   * @customConstructor XR_profile
    */
   export class XR_profile {
     public unique_nick(): string;
@@ -49,44 +55,51 @@ declare module "xray16" {
 
   /**
    * C++ class account_manager {
+   * @customConstructor account_manager
    */
   export class XR_account_manager {
-    public get_account_profiles(a: string, b: string, cb: XR_account_profiles_cb): unknown;
-    public create_profile(a: string, b: string, c: string, d: string, cb: XR_account_profiles_cb): unknown;
+    private constructor();
+
+    public create_profile(acc: string, nick: string, mail: string, password: string, cb: XR_account_profiles_cb): void;
+    public delete_profile(operation: XR_account_operation_cb): void;
+    public get_account_profiles(email: string, password: string, cb: XR_account_profiles_cb): unknown;
+    public get_found_profiles(): LuaIterable<string>;
     public get_suggested_unicks(): LuaIterable<string>;
-    public stop_suggest_unique_nicks(): unknown;
+    public get_verify_error_descr(): string;
+    public search_for_email(email: string, cb: XR_found_email_cb): void;
+    public stop_fetching_account_profiles(): void;
+    public stop_searching_email(): void;
+    public stop_suggest_unique_nicks(): void;
+    public suggest_unique_nicks(nick: string, b: XR_suggest_nicks_cb): void;
+    public verify_email(email: string): boolean;
     public verify_password(password: string): boolean;
     public verify_unique_nick(nick: string): boolean;
-    public stop_searching_email(): void;
-    public verify_email(email: string): boolean;
-    public search_for_email(email: string, cb: XR_found_email_cb): void;
-    public suggest_unique_nicks(nick: string, b: XR_suggest_nicks_cb): void;
-    public get_verify_error_descr(): string;
-    public delete_profile(operation: XR_account_operation_cb): void;
-    public stop_fetching_account_profiles(): unknown;
-    public get_found_profiles(): LuaIterable<string>;
+    public is_get_account_profiles_active(): boolean;
+    public is_email_searching_active(): boolean;
   }
 
   /**
-   *  C++ class login_manager {
+   * C++ class login_manager {
    */
   export class XR_login_manager {
-    public save_nick_to_registry(nick: string): void;
-    public forgot_password(url: string): unknown;
-    public get_nick_from_registry(): string;
+    private constructor();
+
+    public forgot_password(url: string): void;
     public get_current_profile(): XR_profile;
-    public get_remember_me_from_registry(): boolean;
-    public stop_login(): void;
-    public save_password_to_registry(password: string): unknown;
-    public login_offline(nick: string, cb: XR_login_operation_cb): unknown;
-    public set_unique_nick(nick: string, cb: XR_login_operation_cb): unknown;
-    public login(a: string, b: string, c: string, cb: XR_login_operation_cb): unknown;
-    public save_remember_me_to_registry(value: boolean): void;
     public get_email_from_registry(): string;
-    public logout(): void;
+    public get_nick_from_registry(): string;
     public get_password_from_registry(): string;
-    public save_email_to_registry(email: string): unknown;
-    public stop_setting_unique_nick(): unknown;
+    public get_remember_me_from_registry(): boolean;
+    public login(mail: string, profile: string, password: string, cb: XR_login_operation_cb): void;
+    public login_offline(nick: string, cb: XR_login_operation_cb): void;
+    public logout(): void;
+    public save_email_to_registry(email: string): void;
+    public save_nick_to_registry(nick: string): void;
+    public save_password_to_registry(password: string): void;
+    public save_remember_me_to_registry(remember_me: boolean): void;
+    public set_unique_nick(nick: string, cb: XR_login_operation_cb): void;
+    public stop_login(): void;
+    public stop_setting_unique_nick(): void;
   }
 
   /**
@@ -94,8 +107,8 @@ declare module "xray16" {
    * @constructor award_pair_t
    */
   export class XR_award_pair_t {
-    public first: XR_award_data;
-    public second: XR_award_data;
+    public readonly first: XR_award_data;
+    public readonly second: XR_award_data;
   }
 
   /**
@@ -187,9 +200,10 @@ declare module "xray16" {
 
   /**
    * C++ class Patch_Dawnload_Progress {
+   * @customConstructor Patch_Dawnload_Progress
    */
   export class XR_Patch_Dawnload_Progress {
-    public GetProgress(): number;
+    public GetProgress(): f32;
     public GetInProgress(): boolean;
     public GetStatus(): string;
     public GetFlieName(): string;
@@ -197,23 +211,26 @@ declare module "xray16" {
 
   /**
    * C++ class profile_store {
+   * @customConstructor profile_store
    */
   export class XR_profile_store {
-    public static at_award_massacre: 0;
-    public static at_awards_count: 30;
-    public static bst_backstabs_in_row: 2;
-    public static bst_bleed_kills_in_row: 2;
-    public static bst_explosive_kills_in_row: 3;
-    public static bst_eye_kills_in_row: 4;
-    public static bst_head_shots_in_row: 3;
-    public static bst_kills_in_row: 0;
-    public static bst_kinife_kills_in_row: 1;
-    public static bst_score_types_count: 7;
+    public static readonly at_award_massacre: 0;
+    public static readonly at_awards_count: 30;
+    public static readonly bst_backstabs_in_row: 2;
+    public static readonly bst_bleed_kills_in_row: 2;
+    public static readonly bst_explosive_kills_in_row: 3;
+    public static readonly bst_eye_kills_in_row: 4;
+    public static readonly bst_head_shots_in_row: 3;
+    public static readonly bst_kills_in_row: 0;
+    public static readonly bst_kinife_kills_in_row: 1;
+    public static readonly bst_score_types_count: 7;
 
-    public get_best_scores(): LuaIterable<XR_best_scores_pair_t>;
+    protected constructor();
+
     public get_awards(): LuaIterable<XR_award_pair_t>;
-    public stop_loading(): unknown;
-    public load_current_profile(onProgress: XR_store_operation_cb, onComlete: XR_store_operation_cb): unknown;
+    public get_best_scores(): LuaIterable<XR_best_scores_pair_t>;
+    public load_current_profile(onProgress: XR_store_operation_cb, onComlete: XR_store_operation_cb): void;
+    public stop_loading(): void;
   }
 
   /**
@@ -252,9 +269,9 @@ declare module "xray16" {
     public static GAME_EVENT_SCRIPT_BEGINS_FROM: 46;
     public static GAME_EVENT_SKIN_MENU_CLOSED: 25;
     public static GAME_EVENT_TEAM_MENU_CLOSED: 24;
+
+    protected constructor();
   }
 
-  export type TXR_game_messages = typeof XR_game_messages;
-
-  export type TXR_game_message = TXR_game_messages[Exclude<keyof TXR_game_messages, "prototype" | "constructor">]
+  export type TXR_game_message = EnumerateStaticsValues<XR_game_messages>
 }

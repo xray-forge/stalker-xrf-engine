@@ -1,12 +1,14 @@
 declare module "xray16" {
   /**
    * C++ class CArtefact : CGameObject {
-   * @customContructor CArtefact
+   * @customConstructor CArtefact
    */
   export class XR_CArtefact extends XR_CGameObject {
+    public constructor();
+
+    public FollowByPath(a: string, b: i32, c: XR_vector): void;
+    public GetAfRank(): u8;
     public SwitchVisibility(to: boolean): void;
-    public FollowByPath(a: string, b: number, c: XR_vector): void;
-    public GetAfRank(): number;
   }
 
   /**

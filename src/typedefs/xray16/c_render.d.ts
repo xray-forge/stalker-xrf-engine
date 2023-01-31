@@ -59,34 +59,34 @@ declare module "xray16" {
    * @customConstructor cef_storage
    */
   export class XR_cef_storage {
-    public evaluate(str: string, game_object: XR_game_object): number;
-    public evaluate(str: string, game_object1: XR_game_object, game_object2: XR_game_object): number;
+    public evaluate(str: string, game_object: XR_game_object): f32;
+    public evaluate(str: string, game_object1: XR_game_object, game_object2: XR_game_object): f32;
     public evaluate(
       str: string, game_object1: XR_game_object, game_object2: XR_game_object, game_object3: XR_game_object
-    ): number;
+    ): f32;
     public evaluate(
       str: string,
       game_object1: XR_game_object,
       game_object2: XR_game_object,
       game_object3: XR_game_object,
       game_object4: XR_game_object
-    ): number;
-    public evaluate(str: string, cse_alife_object: XR_cse_alife_object): number;
+    ): f32;
+    public evaluate(str: string, cse_alife_object: XR_cse_alife_object): f32;
     public evaluate(
       str: string, cse_alife_object1: XR_cse_alife_object, cse_alife_object2: XR_cse_alife_object
-    ): number;
+    ): f32;
     public evaluate(
       str: string,
       cse_alife_object1: XR_cse_alife_object,
       cse_alife_object2: XR_cse_alife_object,
       cse_alife_object3: XR_cse_alife_object
-    ): number;
+    ): f32;
     public evaluate(
       str: string,
       cse_alife_object1: XR_cse_alife_object,
       cse_alife_object2: XR_cse_alife_object,
       cse_alife_object3: XR_cse_alife_object,
       cse_alife_object4: XR_cse_alife_object
-    ): number;
+    ): f32;
   }
 }

@@ -1,11 +1,12 @@
-import { TXR_CGameFont_alignment } from "xray16";
-
 declare module "xray16" {
   /**
    * C++ class CUIWindow {
    * @customConstructor CUIWindow
    */
   export class XR_CUIWindow extends XR_LuaBindBase {
+    public static __init(this: void, target: XR_CUIWindow): void;
+    public constructor();
+
     public IsShown(): boolean;
     public IsEnabled(): boolean;
     public IsAutoDelete(): boolean;
@@ -46,14 +47,17 @@ declare module "xray16" {
    * @customConstructor CServerList
    */
   export class XR_CServerList extends XR_CUIWindow {
+    public static readonly ece_unique_nick_expired: 2;
+    public static readonly ece_unique_nick_not_registred: 1;
+
     public SetPlayerName(name: string): void;
-    public SetFilters(filsters: XR_SServerFilters): void;
+    public SetFilters(filters: XR_SServerFilters): void;
     public RefreshList(value: boolean): void;
     public SetSortFunc(a: string, b: boolean): void;
-    public NetRadioChanged(value: boolean): unknown;
-    public ShowServerInfo(): unknown;
+    public NetRadioChanged(value: boolean): void;
+    public ShowServerInfo(): void;
     public RefreshQuick(): void;
-    public ConnectToSelected(): unknown;
+    public ConnectToSelected(): void;
     public SetConnectionErrCb(cb: XR_connect_error_cb): void;
   }
 
@@ -103,9 +107,9 @@ declare module "xray16" {
    * @customConstructor CUICustomEdit
    */
   export class XR_CUICustomEdit extends XR_CUIWindow {
+    public GetText(): string;
     public SetText(text: string): void;
     public SetNextFocusCapturer(edit: XR_CUICustomEdit): void;
-    public GetText(): string;
     public CaptureFocus(value: boolean): void;
   }
 
@@ -201,16 +205,11 @@ declare module "xray16" {
    */
   export class XR_CUILines {
     public GetText(): string;
-    public SetTextST(text: string): void;
-    public SetTextColor(color_code: number): void;
-    public SetText(text: string): void;
-
-    /**
-     * Expects C pointer to the file.
-     * String enums or constants will not work.
-     */
-    public SetFont(value: unknown): void;
     public SetElipsis(value: boolean): void;
+    public SetFont(value: XR_CGameFont): void;
+    public SetText(text: string): void;
+    public SetTextColor(color_code: u32): void;
+    public SetTextST(text: string): void;
   }
 
   /**
@@ -218,16 +217,20 @@ declare module "xray16" {
    * @customConstructor CUIListBox
    */
   export class XR_CUIListBox<T extends XR_CUIListBoxItem = XR_CUIListBoxItem> extends XR_CUIScrollView {
-    public AddExistingItem(item: T): unknown;
-    public AddTextItem(text: string): unknown;
-    public RemoveItem(window: XR_CUIWindow): void;
-    public GetItemByIndex(index: number): T;
-    public GetSelectedIndex(): number;
+    public GetSize(): u32;
+    public GetItem(index: u32): XR_CUIWindow;
+    public GetItemByIndex(index: i32): T;
+    public GetSelectedIndex(): u32;
     public GetSelectedItem(): T | null;
-    public GetSize(): number;
+    public GetItemHeight(): f32;
+
+    public AddExistingItem(item: T): void;
+    public AddTextItem(text: string): T;
+    public RemoveItem(window: XR_CUIWindow): void;
     public RemoveAll(): void;
-    public ShowSelectedItem(value: boolean): unknown;
-    public GetItem(index: number): unknown;
+    public ShowSelectedItem(value: boolean): void;
+    public SetItemHeight(height: f32): void;
+    public SetSelectedIndex(index: u32): void;
   }
 
   /**
@@ -235,6 +238,7 @@ declare module "xray16" {
    * @customConstructor CUIListBoxItem
    */
   export class XR_CUIListBoxItem extends XR_CUIFrameLineWnd {
+    public static __init(this: void, target: XR_CUIListBoxItem): void;
     public static __init(this: void, target: XR_CUIListBoxItem, height: f32): void;
     public constructor(height: f32);
 
@@ -268,6 +272,7 @@ declare module "xray16" {
 
   /**
    * C++ class CUIMapInfo : CUIWindow {
+   * @customConstructor CUIMapInfo
    */
   export class XR_CUIMapInfo extends XR_CUIWindow {
     public InitMap(a: string, b: string): void;
@@ -278,19 +283,19 @@ declare module "xray16" {
    * @customConstructor CUIMapList
    */
   export class XR_CUIMapList extends XR_CUIWindow {
-    public IsEmpty(): boolean;
-    public StartDedicatedServer(): void;
-    public SetModeSelector(modeSelector: XR_CUISpinText): void;
     public ClearList(): void;
-    public SetMapInfo(info: unknown /* CUIMapInfo*/): void;
-    public OnModeChange(): void;
-    public LoadMapList(): void;
     public GetCommandLine(value: string): string;
-    public GetCurGameType(): XR_GAME_TYPE[keyof XR_GAME_TYPE];
+    public GetCurGameType(): TXR_GAME_TYPE;
+    public IsEmpty(): boolean;
+    public LoadMapList(): void;
+    public OnModeChange(): void;
     public SaveMapList(): void;
+    public SetMapInfo(info: XR_CUIMapInfo): void;
     public SetMapPic(picture: XR_CUIStatic): void;
+    public SetModeSelector(modeSelector: XR_CUISpinText): void;
     public SetServerParams(params: string): void;
     public SetWeatherSelector(selector: XR_CUIComboBox): void;
+    public StartDedicatedServer(): void;
   }
 
   /**
@@ -298,7 +303,7 @@ declare module "xray16" {
    * @customConstructor CUIMessageBox
    */
   export class XR_CUIMessageBox extends XR_CUIStatic {
-    public InitMessageBox(value: string): void;
+    public InitMessageBox(value: string): boolean;
     public GetPassword(): string;
     public GetHost(): string;
   }
@@ -358,15 +363,16 @@ declare module "xray16" {
    * @customConstructor CUIScrollView
    */
   export class XR_CUIScrollView extends XR_CUIWindow {
-    public SetScrollPos(position: number): unknown;
-    public RemoveWindow(window: XR_CUIWindow): unknown;
-    public ScrollToBegin(): unknown;
-    public GetCurrentScrollPos(): unknown;
-    public AddWindow(window: XR_CUIWindow, value: boolean): unknown;
-    public GetMaxScrollPos(): unknown;
-    public GetMinScrollPos(): unknown;
-    public ScrollToEnd(): unknown;
-    public Clear(): unknown;
+    public SetScrollPos(position: i32): void;
+    public RemoveWindow(window: XR_CUIWindow): void;
+    public ScrollToBegin(): void;
+    public GetCurrentScrollPos(): i32;
+    public AddWindow(window: XR_CUIWindow, value: boolean): void;
+    public GetMaxScrollPos(): i32;
+    public GetMinScrollPos(): i32;
+    public ScrollToEnd(): void;
+    public Clear(): void;
+    public SetFixedScrollBar(fixed: boolean): void
   }
 
   /**
@@ -439,12 +445,17 @@ declare module "xray16" {
    */
   export class XR_CUITabControl extends XR_CUIWindow {
     public GetActiveId(): string;
-    public SetActiveTab(id: string): string;
-    public GetTabsCount(): number;
-    public GetButtonById(value: string): XR_CUITabButton;
+    public SetActiveTab(id: string): void;
+    public SetActiveTab(id: u32): void;
+    public GetTabsCount(): u32;
+    public GetButtonById(id: string): XR_CUITabButton;
     public RemoveAll(): void;
     public AddItem(item: XR_CUITabButton): void;
-    public AddItem(id: string, name: string, a: XR_vector2, b: XR_vector2): void;
+    public AddItem(id: string, name: string, top_left: XR_vector2, bot_right: XR_vector2): void;
+    public RemoveItem(id: string): void;
+    public GetButtonByIndex(index: u32): XR_CUITabButton;
+    public SetNewActiveTab(index: u32): void;
+    public GetActiveIndex(): i32;
   }
 
   /**
@@ -512,13 +523,13 @@ declare module "xray16" {
    * @customConstructor CPhraseScript
    */
   export class XR_CPhraseScript {
-    public SetScriptText(value: string): void;
-    public AddHasInfo(value: string): void;
-    public AddGiveInfo(value: string): void;
+    public AddAction(value: string): void;
     public AddDisableInfo(value: string): void;
     public AddDontHasInfo(value: string): void;
-    public AddAction(value: string): void;
+    public AddGiveInfo(value: string): void;
+    public AddHasInfo(value: string): void;
     public AddPrecondition(value: string): void;
+    public SetScriptText(value: string): void;
   }
 
   /**

@@ -32,6 +32,8 @@ declare module "xray16" {
    * @customConstructor hanging_lamp
    */
   export class XR_hanging_lamp extends XR_CGameObject {
+    public constructor();
+
     public turn_on(): void;
     public turn_off(): void;
   }

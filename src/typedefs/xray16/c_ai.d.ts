@@ -7,11 +7,11 @@ declare module "xray16" {
     public constructor ();
     public constructor (world_state: XR_world_state);
 
-    public clear(): unknown;
-    public includes(world_state: XR_world_state): unknown;
-    public remove_property(value: number): unknown;
-    public add_property(world_property: XR_world_property): unknown;
-    public property(value: number): unknown;
+    public add_property(world_property: XR_world_property): void;
+    public clear(): void;
+    public includes(world_state: XR_world_state): boolean;
+    public property(value: u32): XR_world_property;
+    public remove_property(value: u32): void;
   }
 
   /**

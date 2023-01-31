@@ -632,7 +632,7 @@ declare module "xray16" {
     public aim_time(game_object: XR_game_object): u32;
     public aim_time(game_object: XR_game_object, value: u32): void;
     public allow_sprint(value: boolean): void;
-    public body_state(): unknown;
+    public body_state(): void;
     public change_team(value1: u8, value2: u8, value3: u8): void;
     public cost(): u32;
     public critically_wounded(): boolean;
@@ -650,7 +650,7 @@ declare module "xray16" {
     public see(value: string): boolean;
     public sell_condition(ini_file: XR_ini_file, value: string): void;
     public sell_condition(value1: f32, value2: f32): void;
-    public set__force(vector: XR_vector, value1: number, value2: number): unknown;
+    public set__force(vector: XR_vector, value1: number, value2: number): void;
     public set_character_community(value1: string, value2: u32, value3: i32): void;
     public set_trader_sound(value1: string, value2: string): void;
     public sight_params(): XR_CSightParams;

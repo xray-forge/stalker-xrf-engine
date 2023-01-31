@@ -119,19 +119,17 @@ declare module "xray16" {
     private constructor();
   }
 
-  export type TXR_snd_types = typeof XR_snd_type;
-
-  export type TXR_snd_type = TXR_snd_types[Exclude<keyof TXR_snd_types, "constructor" | "prototype">]
+  export type TXR_snd_type = EnumerateStaticsValues<typeof XR_snd_type>;
 
   /**
    * C++ class SoundInfo {
    * @customConstructor SoundInfo
    */
   export class XR_SoundInfo {
-    public danger: unknown;
+    public danger: i32;
     public position: XR_vector;
-    public power: number;
-    public time: unknown;
+    public power: f32;
+    public time: i32;
     public who: XR_game_object;
 
     private constructor();
@@ -142,9 +140,9 @@ declare module "xray16" {
    * @customConstructor sound_memory_object
    */
   export class XR_sound_memory_object extends XR_game_memory_object {
-    public power: number;
-    public type(): number;
+    public readonly power: f32;
+    public type(): i32;
 
-    private constructor();
+    protected constructor();
   }
 }

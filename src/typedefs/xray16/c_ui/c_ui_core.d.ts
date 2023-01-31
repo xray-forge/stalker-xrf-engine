@@ -4,6 +4,8 @@ declare module "xray16" {
    * @customConstructor COptionsManager
    */
   export class XR_COptionsManager {
+    public constructor();
+
     public SendMessage2Group(group: string, message: string): void;
     public UndoGroup(group: string): void;
     public SaveBackupValues(group: string): void;
@@ -38,20 +40,20 @@ declare module "xray16" {
    */
   export class XR_CUIGameCustom {
     public AddCustomStatic(id: string, b: boolean): XR_StaticDrawableWrapper;
-    public AddCustomStatic(id: string, b: boolean, n: number): XR_StaticDrawableWrapper;
+    public AddCustomStatic(id: string, b: boolean, n: f32): XR_StaticDrawableWrapper;
     public AddDialogToRender(window: XR_CUIWindow): void;
-    public GetCustomStatic(value: string): XR_StaticDrawableWrapper | null;
     public CurrentItemAtCell(): XR_game_object;
+    public GetCustomStatic(value: string): XR_StaticDrawableWrapper | null;
     public HideActorMenu(): void;
     public HidePdaMenu(): void;
     public RemoveCustomStatic(id: string): void;
     public RemoveDialogToRender(window: XR_CUIWindow): void;
     public UpdateActorMenu(): void;
     public enable_fake_indicators(enabled: boolean): void;
-    public update_fake_indicators(u8: number, enabled: boolean): void;
-    public update_fake_indicators(u8: number, value: i32): void;
     public hide_messages(): void;
     public show_messages(): void;
+    public update_fake_indicators(u8: number, enabled: boolean): void;
+    public update_fake_indicators(u8: number, value: f32): void;
   }
 
   /**

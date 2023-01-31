@@ -1,51 +1,12 @@
 declare module "xray16" {
   /**
-   * C++ class reader {
-   * @customConstructor reader
-   */
-  export class XR_reader {
-    public r_advance(value: number): unknown;
-    public r_u64(value: number): unknown;
-    public r_u64(): unknown;
-    public r_bool(reader: XR_reader): unknown;
-    public r_dir(vector: XR_vector): unknown;
-    public r_u8(value: number): unknown;
-    public r_u8(): unknown;
-    public r_eof(reader: XR_reader): unknown;
-    public r_float_q8(value1: number, value2: number): unknown;
-    public r_vec3(reader: XR_reader, vector: XR_vector): unknown;
-    public r_stringZ(reader: XR_reader): unknown;
-    public r_u16(value: number): unknown;
-    public r_u16(): unknown;
-    public r_float_q16(value1: number, value2: number): unknown;
-    public r_angle16(): unknown;
-    public r_s64(value: number): unknown;
-    public r_s64(): unknown;
-    public r_float(value: number): unknown;
-    public r_float(): unknown;
-    public r_s32(value: number): unknown;
-    public r_s32(): unknown;
-    public r_elapsed(): unknown;
-    public r_sdir(vector: XR_vector): unknown;
-    public r_tell(): unknown;
-    public r_s8(value: string): string;
-    public r_s8(): string;
-    public r_s16(value: number): unknown;
-    public r_s16(): unknown;
-    public r_seek(value: number): unknown;
-    public r_u32(value: number): unknown;
-    public r_u32(): unknown;
-    public r_angle8(): unknown;
-  }
-
-  /**
    * C++ class FS_file_list {
    * @customConstructor FS_file_list
    */
   export class XR_FS_file_list {
     public Free(): void;
-    public GetAt(number: number): XR_FS_item;
-    public Size(): number;
+    public GetAt(number: u32): XR_FS_item;
+    public Size(): u32;
   }
 
   /**
@@ -74,12 +35,14 @@ declare module "xray16" {
    * C++ class CSavedGameWrapper {
    * @customConstructor CSavedGameWrapper
    */
-  export class XR_CSavedGameWrapper {
+  export class XR_CSavedGameWrapper extends XR_LuaBindBase {
+    public __init(this: void, target: XR_CSavedGameWrapper, name: string): void;
     public constructor(name: string);
+
     public level_name(): string;
-    public level_id(): number;
-    public game_time(/* const CSavedGameWrapper*/): XR_CTime;
-    public actor_health(): number;
+    public level_id(): u8;
+    public game_time(): XR_CTime;
+    public actor_health(): f32;
   }
 
   /**
@@ -198,65 +161,106 @@ declare module "xray16" {
    * @customConstructor net_packet
    */
   export class XR_net_packet {
-    public r_advance(value: number): unknown;
-    public r_begin(value: number): unknown;
-    public w_chunk_open16(value: number): unknown;
-    public r_u32(value: number): number;
-    public r_u32(): number;
-    public w_begin(value: number): unknown;
-    public w_u32(value: number): unknown;
-    public r_u8(value: number): number;
-    public r_u8(): number;
-    public r_eof(): unknown;
-    public w_chunk_open8(value: number): unknown;
-    public r_vec3(vector: XR_vector): unknown;
-    public w_u8(value: number): unknown;
-    public r_u16(value: number): number;
-    public r_u16(): number;
-    public r_float_q16(value1: number, value2: number, value3: number): unknown;
-    public r_angle16(value: number): unknown;
-    public r_s64(value: number): unknown;
-    public r_s64(): unknown;
-    public w_angle16(value: number): unknown;
-    public r_tell(): number;
-    public r_s16(value: number): number;
-    public r_s16(): number;
-    public w_clientID(ClientID: XR_ClientID): void;
-    public r_elapsed(): unknown;
-    public r_u64(value: number): unknown;
-    public r_u64(): unknown;
-    public w_sdir(vector: XR_vector): unknown;
-    public r_clientID(): XR_ClientID;
-    public r_dir(vector: XR_vector): unknown;
-    public r_matrix(matrix: unknown): unknown;
-    public r_stringZ(): string;
-    public w_s16(value: number): unknown;
-    public r_sdir(vector: XR_vector): unknown;
-    public w_matrix(matrix: unknown): unknown;
-    public w_u16(value: number): number;
-    public r_float_q8(value1: number, value2: number, value3: number): unknown;
-    public w_s64(value: number): void;
+    public r_advance(value: u32): void;
+    public r_angle16(value: f32): void;
+    public r_angle8(value: f32): void;
+    public r_begin(value: u16): u32;
     public r_bool(): boolean;
+    public r_clientID(): XR_ClientID;
+    public r_dir(vector: XR_vector): void;
+    public r_elapsed(): u32;
+    public r_eof(): boolean;
+    public r_float(): f32;
+    public r_float(value: f32): f32;
+    public r_float_q16(value1: f32, value2: f32, value3: f32): f32;
+    public r_float_q8(value1: f32, value2: f32, value3: f32): f32;
+    public r_matrix(matrix: unknown): unknown;
+    public r_s16(): i16;
+    public r_s16(value: number): u16;
+    public r_s32(): i32;
+    public r_s32(value: i32): i32;
+    public r_s64(): i64;
+    public r_s64(value: i64): i64;
+    public r_s8(): i8;
+    public r_s8(value: i8): i8;
+    public r_sdir(vector: XR_vector): void;
+    public r_seek(value: u32): void;
+    public r_stringZ(): string;
+    public r_tell(): u32;
+    public r_u16(): u16;
+    public r_u16(value: u16): u16;
+    public r_u32(): u32;
+    public r_u32(value: u32): u32;
+    public r_u64(): u64;
+    public r_u64(value: u64): u64;
+    public r_u8(): u8;
+    public r_u8(value: u8): u8;
+    public r_vec3(vector: XR_vector): void;
+    public w_angle16(value: f32): void;
+    public w_angle8(value: f32): void;
+    public w_begin(value: u16): void;
     public w_bool(value: boolean): void;
-    public w_dir(vector: XR_vector): unknown;
-    public w_s32(value: number): unknown;
+    public w_chunk_close16(value: u32): void;
+    public w_chunk_close8(value: u32): void;
+    public w_chunk_open16(value: u32): void;
+    public w_chunk_open8(value: u32): void;
+    public w_clientID(ClientID: XR_ClientID): void;
+    public w_dir(vector: XR_vector): void;
+    public w_float(value: f32): void;
+    public w_float_q16(value1: f32, value2: f32, value3: f32): void;
+    public w_float_q8(value1: f32, value2: f32, value3: f32): void;
+    public w_matrix(matrix: XR_matrix): void;
+    public w_s16(value: i16): void;
+    public w_s32(value: i32): void;
+    public w_s64(value: i64): void;
+    public w_sdir(vector: XR_vector): void;
     public w_stringZ(value: string | null): void;
-    public w_float_q16(value1: number, value2: number, value3: number): unknown;
-    public r_s8(value: string): unknown;
-    public r_s8(): unknown;
-    public w_chunk_close8(value: number): unknown;
-    public r_float(value: number): unknown;
-    public r_float(): number;
-    public w_angle8(value: number): unknown;
-    public r_s32(value: number): number;
-    public r_s32(): number;
-    public w_float(value: number): void;
-    public w_tell(): number;
-    public r_seek(value: number): unknown;
-    public w_float_q8(value1: number, value2: number, value3: number): unknown;
-    public w_vec3(vector: XR_vector): unknown;
-    public w_chunk_close16(value: number): unknown;
-    public w_u64(value: number): unknown;
-    public r_angle8(value: number): unknown;
+    public w_tell(): u32;
+    public w_u16(value: u16): void;
+    public w_u32(value: u32): void;
+    public w_u64(value: u64): void;
+    public w_u8(value: u8): void;
+    public w_vec3(vector: XR_vector): void;
   }
+
+  /**
+   * C++ class reader {
+   * @customConstructor reader
+   */
+  export class XR_reader {
+    public r_advance(value: u64): void;
+    public r_angle16(): f32;
+    public r_angle8(): f32;
+    public r_bool(): boolean;
+    public r_dir(vector: XR_vector): void;
+    public r_elapsed(): i64;
+    public r_eof(): boolean;
+    public r_float(): f32;
+    public r_float(value: f32): f32;
+    public r_float_q16(value1: f32, value2: f32): f32;
+    public r_float_q8(value1: f32, value2: f32): f32;
+    public r_s16(): i16;
+    public r_s16(value: i16): void;
+    public r_s32(): i32;
+    public r_s32(value: i32): i32;
+    public r_s64(): i64;
+    public r_s64(value: number): i64;
+    public r_s8(): i8;
+    public r_s8(value: i8): i8;
+    public r_sdir(vector: XR_vector): void;
+    public r_seek(value: u64): void;
+    public r_stringZ(): string;
+    public r_tell(): u64;
+    public r_u16(): i16;
+    public r_u16(value: i16): i16;
+    public r_u32(): u32;
+    public r_u32(value: u32): u32;
+    public r_u64(): u64;
+    public r_u64(value: u64): u64;
+    public r_u8(): u8;
+    public r_u8(value: u8): u8;
+    public r_vec3(vector: XR_vector): void;
+  }
+
+  export type TXR_net_processor = XR_reader | XR_net_packet;
 }

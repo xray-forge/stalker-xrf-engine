@@ -102,88 +102,33 @@ declare module "xray16" {
   }
 
   /**
-   C++ class matrix {
-    property _14_;
-    property _24_;
-    property _34_;
-    property _44_;
-    property c;
-    property i;
-    property j;
-    property k;
-
-    matrix ();
-
-    function mk_xform(const struct _quaternion<number>&, const vector&);
-
-    function set(const matrix&);
-    function set(const vector&, const vector&, const vector&, const vector&);
-
-    function div(const matrix&, number);
-    function div(number);
-
-    function identity();
-
-    function setHPB(number, number, number);
-
-    function setXYZ(number, number, number);
-
-    function getHPB(matrix*, number*, number*, number*);
-
-    function mul(const matrix&, const matrix&);
-    function mul(const matrix&, number);
-    function mul(number);
-
-    function setXYZi(number, number, number);
-
-  };
-   *
-   */
-
-  /**
    * C++ class color {
    * @customConstructor color
    */
   export class XR_color {
-    public b: number;
-    public g: number;
-    public r: number;
+    public b: f32;
+    public g: f32;
+    public r: f32;
 
     public constructor();
-    public constructor(r: number, g: number, b: number);
+    public constructor(r: f32, g: f32, b: f32);
 
-    public set(r: number, g: number, b: number): void;
+    public set(r: f32, g: f32, b: f32): void;
   }
 
   /**
-
-   C++ class SDrawStaticStruct {
-    property m_endTime;
-
-    function wnd();
-
-  };
-   *
+   * C++ class duality {
+   * @customConstructor duality
    */
+  export class XR_duality {
+    public v: f32;
+    public h: f32;
 
-  // todo;
+    public constructor();
+    public constructor(v: f32, h: f32);
 
-  /**
-
-   C++ class duality {
-    property h;
-    property v;
-
-    duality ();
-    duality (number, number);
-
-    function set(number, number);
-
-  };
-   *
-   */
-
-  // todo;
+    public set(v: f32, h: f32): XR_duality;
+  }
 
   /**
    * C++ class noise {
@@ -205,8 +150,10 @@ declare module "xray16" {
    * @customConstructor object_params
    */
   export class XR_object_params {
-    public level_vertex: number;
+    public level_vertex: u32;
     public position: XR_vector;
+
+    private constructor();
   }
 
   /**
@@ -217,7 +164,7 @@ declare module "xray16" {
     public id: i32;
     public name: string;
 
-    public constructor();
+    private constructor();
   }
 
   /**
@@ -253,37 +200,36 @@ declare module "xray16" {
    * @customConstructor CGameGraph
    */
   export class XR_CGameGraph {
-    public valid_vertex_id(this: void, value: number): unknown;
+    public valid_vertex_id(value: u32): boolean;
+    public vertex(vertexId: u32): XR_GameGraph__CVertex;
+    public vertex_id(graph: XR_CGameGraph): u16;
 
-    public vertex(vertexId: number): XR_GameGraph__CVertex;
-
-    public accessible(value: number): unknown;
-    public accessible(value1: number, value2: boolean): unknown;
+    public accessible(value: u32): boolean;
+    public accessible(value1: u32, value2: boolean): void;
 
     public levels(): LuaIterable<XR_cse_abstract>
-
-    public vertex_id(): number;
-
   }
 
   /**
-   C++ class act {
-    const attack = 2;
-    const eat = 1;
-    const panic = 3;
-    const rest = 0;
-
-    act ();
-    act (enum MonsterSpace::EScriptMonsterGlobalAction);
-    act (enum MonsterSpace::EScriptMonsterGlobalAction, game_object*);
-
-  };
+   * C++ class act {
+   * @customConstructor act
    */
+  export class XR_act {
+    public static readonly attack: 2;
+    public static readonly eat: 1;
+    public static readonly panic: 3;
+    public static readonly rest: 0;
+
+    public constructor();
+    public constructor(EScriptMonsterGlobalAction: number);
+    public constructor(EScriptMonsterGlobalAction: number, game_object: XR_game_object);
+  }
 
   /**
    * C++ class MonsterHitInfo {
+   * @customConstructor MonsterHitInfo
    */
-  export class XR_MonsterHitInfo {
+  export class XR_MonsterHitInfo extends XR_LuaBindBase{
     private constructor();
 
     public direction: XR_vector;
@@ -292,33 +238,31 @@ declare module "xray16" {
   }
 
   /**
-
-   C++ class color_animator {
-    color_animator (string);
-
-    function calculate(number);
-
-    function load(string);
-
-    function length();
-
-  };
-   *
+   * C++ class color_animator {
+   * @customConstructor color_animator
    */
+  export class XR_color_animator extends XR_LuaBindBase {
+    public static __init(this: void, target: XR_color_animator, value: string): void;
+    public constructor(value: string);
 
-  // todo;
+    public length(): u32;
+    public load(value: string): void;
+    public calculate(value: f32): XR_fcolor;
+  }
 
   /**
    * C++ class profile_timer {
    * @customConstructor profile_timer
    */
-  export class XR_profile_timer {
+  export class XR_profile_timer extends XR_LuaBindBase {
     public constructor();
     public constructor(profile_timer: XR_profile_timer);
 
     public stop(): void;
     public start(): void;
-    public time(): number;
+    public time(): f32;
+
+    public __tostring(): string;
   }
 
   /**
@@ -343,13 +287,13 @@ declare module "xray16" {
    * C++ class effector_params {
    * @customConstructor effector_params
    */
-  export class XR_effector_params {
-    public blur: unknown;
-    public color_add: unknown;
-    public color_base: unknown;
-    public color_gray: unknown;
-    public dual: unknown;
-    public gray: unknown;
+  export class XR_effector_params extends XR_LuaBindBase {
+    public color_add: XR_color;
+    public color_base: XR_color;
+    public color_gray: XR_color;
+    public dual: XR_duality;
+    public blur: f32;
+    public gray: f32;
     public noise: XR_noise;
 
     public constructor();
@@ -361,7 +305,7 @@ declare module "xray16" {
    * C++ class properties_list_helper {
    * @customConstructor properties_list_helper
    */
-  export class XR_properties_list_helper {
+  export class XR_properties_list_helper extends XR_LuaBindBase {
     public create_vangle(): unknown;
     public create_vangle(): unknown;
     public create_vangle(): unknown;

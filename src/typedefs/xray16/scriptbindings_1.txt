@@ -85,12 +85,7 @@ class _dx10sampler
 {
 }
 [cpp]
-class class_info_data
-{
-    luabind::object methods { get; }
-    luabind::string name { get; }
-    luabind::object attributes { get; }
-}
+
 [cpp]
 class cmp_func
 {
