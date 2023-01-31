@@ -183,7 +183,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     this.AddCallback("msg_box", ui_events.MESSAGE_BOX_QUIT_WIN_CLICKED, () => this.OnMessageQuitWin(), this);
   },
   Show(value: boolean): void {
-    log.info("Show");
+    log.info("Show:", value);
     this.menuController.SetVisibleMagnifier(value);
   },
   OnMsgOk(): void {

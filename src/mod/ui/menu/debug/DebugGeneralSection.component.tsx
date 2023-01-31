@@ -22,7 +22,11 @@ export function create(): JSXNode {
         <XrText font={fonts.letterica16} align={"c"} vertAlign={"c"} />
       </XrStatic>
 
-      <XrStatic tag={"game_command_line"} x={160} y={12} width={60} height={16}>
+      <XrStatic tag={"lua_jit_label"} x={136} y={12} width={60} height={16}>
+        <XrText font={fonts.letterica16} align={"c"} vertAlign={"c"} />
+      </XrStatic>
+
+      <XrStatic tag={"game_command_line"} x={200} y={12} width={60} height={16}>
         <XrText font={fonts.letterica16} align={"c"} vertAlign={"c"} />
       </XrStatic>
 

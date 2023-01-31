@@ -27,6 +27,7 @@ import { ActionSilence } from "@/mod/scripts/core/logic/ActionSilence";
 import { ActionSleeper } from "@/mod/scripts/core/logic/ActionSleeper";
 import { ActionTeleport } from "@/mod/scripts/core/logic/ActionTeleport";
 import { ActionTimer } from "@/mod/scripts/core/logic/ActionTimer";
+import { ActionWalker } from "@/mod/scripts/core/logic/ActionWalker";
 import { ActionHeliMove } from "@/mod/scripts/core/logic/heli/ActionHeliMove";
 import { ActionMobCombat } from "@/mod/scripts/core/logic/mob/ActionMobCombat";
 import { ActionMobDeath } from "@/mod/scripts/core/logic/mob/ActionMobDeath";
@@ -57,7 +58,7 @@ export function initializeModules(): void {
   loadScheme("xr_reach_task", "reach_task", ESchemeType.STALKER);
   loadScheme("xr_remark", "remark", ESchemeType.STALKER);
   loadScheme("xr_smartcover", "smartcover", ESchemeType.STALKER);
-  loadScheme("xr_walker", "walker", ESchemeType.STALKER);
+  loadScheme(ActionWalker, ActionWalker.SCHEME_SECTION, ESchemeType.STALKER);
   loadScheme("xr_wounded", "wounded", ESchemeType.STALKER);
   loadScheme(AbuseManager, AbuseManager.SCHEME_SECTION, ESchemeType.STALKER);
   loadScheme(ActionCorpseDetect, ActionCorpseDetect.SCHEME_SECTION, ESchemeType.STALKER);

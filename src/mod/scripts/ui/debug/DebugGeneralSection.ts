@@ -1,7 +1,6 @@
 import {
   command_line,
   CScriptXmlInit,
-  CUIScriptWnd,
   CUIWindow,
   ui_events,
   XR_CScriptXmlInit,
@@ -21,6 +20,7 @@ export interface IDebugGeneralSection extends XR_CUIScriptWnd {
 
   luaVersionLabel: XR_CUIStatic;
   memoryUsageCountLabel: XR_CUIStatic;
+  juaJitLabel: XR_CUIStatic;
 
   InitControls(): void;
   InitCallBacks(): void;
@@ -34,9 +34,7 @@ export interface IDebugGeneralSection extends XR_CUIScriptWnd {
 
 export const DebugGeneralSection: IDebugGeneralSection = declare_xr_class("DebugGeneralSection", CUIWindow, {
   __init(this: IDebugGeneralSection, owner: XR_CUIScriptWnd): void {
-    CUIScriptWnd.__init(this);
-
-    log.info("Init");
+    CUIWindow.__init(this);
 
     this.owner = owner;
 
@@ -62,13 +60,12 @@ export const DebugGeneralSection: IDebugGeneralSection = declare_xr_class("Debug
 
     this.memoryUsageCountLabel = xml.InitStatic("memory_usage_count", this);
     this.luaVersionLabel = xml.InitStatic("lua_version_label", this);
+    this.juaJitLabel = xml.InitStatic("lua_jit_label", this);
 
     this.owner.Register(xml.Init3tButton("refresh_memory_button", this), "refresh_memory_button");
     this.owner.Register(xml.Init3tButton("collect_memory_button", this), "collect_memory_button");
   },
   InitCallBacks(): void {
-    log.info("Init callbacks");
-
     this.owner.AddCallback(
       "refresh_memory_button",
       ui_events.BUTTON_CLICKED,
@@ -84,10 +81,9 @@ export const DebugGeneralSection: IDebugGeneralSection = declare_xr_class("Debug
     );
   },
   InitState(): void {
-    log.info("Init state");
-
     this.memoryUsageCountLabel.TextControl().SetText(this.getUsedMemoryLabel());
     this.luaVersionLabel.TextControl().SetText("Lua version: " + (_VERSION || "unknown"));
+    this.juaJitLabel.TextControl().SetText("JIT " + (jit === null ? "disabled" : "enabled"));
   },
   onCollectMemoryButtonClick(): void {
     log.info("Collect memory garbage");

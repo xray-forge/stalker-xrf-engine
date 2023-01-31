@@ -196,9 +196,11 @@ export class ProfilingManager extends AbstractCoreManager {
     let printedCount: number = 0;
 
     // Print top stats from list (controlled by limit)
-    for (const [n, c] of outStats) {
+    for (const [idx, stat] of outStats) {
       if (printedCount <= limit) {
-        log.info(string.format("%6d (%5.2f%%) : %s", c.count, (c.count * 100) / totalCallsCount, c.name));
+        log.info(
+          string.format("[%2] %6d (%5.2f%%) : %s", idx, stat.count, (stat.count * 100) / totalCallsCount, stat.name)
+        );
         printedCount++;
       } else {
         break;

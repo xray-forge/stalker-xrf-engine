@@ -65,12 +65,7 @@ export const DebugDialog: IDebugDialog = declare_xr_class("DebugDialog", CUIScri
     this.InitCallBacks();
     this.InitState();
   },
-  __finalize(): void {
-    log.info("Finalize");
-  },
   InitControls(): void {
-    log.info("Init controls");
-
     this.SetWndRect(new Frect().set(0, 0, gameConfig.UI.BASE_WIDTH, gameConfig.UI.BASE_HEIGHT));
 
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
@@ -154,8 +149,6 @@ export const DebugDialog: IDebugDialog = declare_xr_class("DebugDialog", CUIScri
     xml.InitWindow("main_dialog:debug_section", 0, this.sectionWorld);
   },
   InitCallBacks(): void {
-    log.info("Init callbacks");
-
     this.AddCallback("btn_cancel", ui_events.BUTTON_CLICKED, () => this.onCancelButtonAction(), this);
     this.AddCallback("tab", ui_events.TAB_CHANGED, () => this.onTabChange(), this);
   },

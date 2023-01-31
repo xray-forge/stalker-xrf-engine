@@ -136,6 +136,7 @@ export const NumPadWindow: INumPadWindow = declare_xr_class("NumPadWindow", CUIS
   },
   OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
     CUIScriptWnd.OnKeyboard(this, key, event);
+
     if (event === ui_events.WINDOW_KEY_PRESSED) {
       if (key === DIK_keys.DIK_ESCAPE) {
         this.HideDialog();

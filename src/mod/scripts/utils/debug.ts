@@ -7,9 +7,7 @@ const log: LuaLogger = new LuaLogger("utils/debug");
  * Call game abort and print reason.
  */
 export function abort(format: string, ...rest: AnyArgs): never {
-  const reason: string = string.format(format, ...rest);
-
-  log.error("[abort] Aborting:", reason);
+  log.error("[abort] Aborting:", string.format(format, ...rest));
   log.printStack();
 
   return null as never;

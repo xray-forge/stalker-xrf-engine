@@ -1,3 +1,7 @@
+local LuaLogger = require("scripts.utils.logging").LuaLogger
+local create_ts_class_instance = require("lualib_bundle").__TS__New
+local log = create_ts_class_instance(LuaLogger, "global");
+
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Method to declare native C++ classes from lua
 -- Easier to declare it as LUA global and use than transpile from TS directly
@@ -12,6 +16,8 @@ _G.declare_xr_class = function(name, base, implementation)
   if (_G[name]) then
     log:warn("Skip declaring class name that is already used in globals: " .. name)
     abort("Re-declaring global luabind class")
+  else
+    log:info("Declare [C++] class:", name, type(base))
   end
 
   if base then

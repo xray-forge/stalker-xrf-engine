@@ -5,7 +5,7 @@ import { getActor } from "@/mod/scripts/core/db";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("utils/rendering");
+const log: LuaLogger = new LuaLogger("rendering");
 
 export function isWideScreen(): boolean {
   return device().width / device().height > 1024 / 768 + 0.01;
@@ -22,8 +22,6 @@ export function resolveXmlFormPath(path: string, hasWideScreenSupport: boolean =
   const base: string = path.endsWith(".xml") ? path.slice(0, path.length - 4) : path;
   const wideBase: string = base + ".16" + ".xml";
   const canBeWide: boolean = hasWideScreenSupport && isWideScreen();
-
-  log.info("Resolving XML form file:", path);
 
   /**
    * Warn about bad path in dev mode.

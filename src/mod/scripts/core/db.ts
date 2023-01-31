@@ -59,6 +59,7 @@ export interface ITradeManagerDescriptor {
 export interface IStoredObject<T = XR_game_object> {
   [index: string]: any;
 
+  approved_actions?: LuaTable;
   light?: boolean;
   points?: LuaTable<number, ITeleportPoint>;
   snd_close_start?: string;

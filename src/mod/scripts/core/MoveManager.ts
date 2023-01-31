@@ -119,7 +119,7 @@ export class MoveManager {
   public default_state_moving1!: string;
   public default_state_moving2!: string;
   public default_state_moving3!: string;
-  public move_cb_info!: { obj: AnyObject; func: AnyCallable };
+  public move_cb_info: Optional<{ obj: AnyObject; func: AnyCallable }> = null;
 
   public constructor(object: XR_game_object) {
     if (object === null) {
@@ -140,8 +140,8 @@ export class MoveManager {
     path_look_info: LuaTable<number, IWaypointData>,
     team: Optional<string>,
     suggested_state: Optional<any>,
-    move_cb_info: { obj: AnyObject; func: AnyCallable },
-    no_validation: boolean,
+    move_cb_info: Optional<{ obj: AnyObject; func: AnyCallable }>,
+    no_validation: Optional<boolean>,
     fplaceholder: Optional<any>,
     use_default_sound: Optional<boolean>
   ): void {
