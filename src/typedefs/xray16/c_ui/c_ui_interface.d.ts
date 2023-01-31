@@ -1,4 +1,6 @@
 declare module "xray16" {
+  import { AnyArgs } from "@/mod/lib/types";
+
   /**
    * C++ class CUIWindow {
    * @customConstructor CUIWindow
@@ -139,20 +141,25 @@ declare module "xray16" {
    */
 
   export class XR_CUIScriptWnd extends XR_CUIDialogWnd {
-    public _construct(): XR_CUIDialogWnd;
+    public constructor();
 
     public static OnKeyboard(this: void, base: XR_CUIWindow, key: number, message: TXR_ui_event): boolean;
     public OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean;
+
     public static Update(this: void, base: XR_CUIWindow): boolean;
     public Update(): void;
+
     public static AddCallback(
       this: void, base: XR_CUIWindow, name: string, event: number, cb: () => void, source?: XR_CUIWindow
     ): void;
     public AddCallback(name: string, event: number, cb: () => void, source?: XR_CUIWindow): void;
+
     public static Dispatch(this: void, base: XR_CUIWindow, cmd: number, param: number): boolean;
     public Dispatch(cmd: number, param: number): boolean;
+
     public static Register(this: void, base: XR_CUIWindow, window: XR_CUIWindow, name: string): void;
     public Register(window: XR_CUIWindow, name: string): void;
+
     public static Load(this: void, base: XR_CUIWindow, value: string): boolean;
     public Load(value: string): boolean;
 
