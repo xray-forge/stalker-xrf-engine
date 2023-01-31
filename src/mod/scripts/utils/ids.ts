@@ -8,6 +8,7 @@ import { getStoryObjectsRegistry } from "@/mod/scripts/core/StoryObjectsRegistry
  */
 export function getClsId(object: null): null;
 export function getClsId(object: XR_cse_abstract | XR_game_object): TXR_cls_id;
+export function getClsId(object: Optional<XR_game_object | XR_cse_abstract>): Optional<TXR_cls_id>;
 export function getClsId(object: Optional<XR_game_object | XR_cse_abstract>): Optional<TXR_cls_id> {
   return object ? object.clsid() : null;
 }

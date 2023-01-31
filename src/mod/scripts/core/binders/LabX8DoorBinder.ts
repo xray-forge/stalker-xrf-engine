@@ -9,6 +9,7 @@ import {
   XR_ini_file,
   XR_net_packet,
   XR_object_binder,
+  XR_reader,
   XR_sound_object
 } from "xray16";
 
@@ -293,23 +294,27 @@ export const LabX8DoorBinder: ILabX8DoorBinder = declare_xr_class("LabX8DoorBind
   },
   save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, LabX8DoorBinder.__name);
+
     object_binder.save(this, packet);
     get_global<AnyCallablesModule>("xr_logic").save_obj(this.object, packet);
     packet.w_bool(this.is_idle);
     packet.w_bool(this.is_play_fwd);
     // --    packet.w_u32(this.idle_end)
     packet.w_float(this.object.get_physics_object().anim_time_get());
+
     setSaveMarker(packet, true, LabX8DoorBinder.__name);
   },
-  load(packet: XR_net_packet): void {
-    setLoadMarker(packet, false, LabX8DoorBinder.__name);
-    object_binder.load(this, packet);
-    get_global<AnyCallablesModule>("xr_logic").load_obj(this.object, packet);
-    this.is_idle = packet.r_bool();
-    this.is_play_fwd = packet.r_bool();
+  load(reader: XR_reader): void {
+    setLoadMarker(reader, false, LabX8DoorBinder.__name);
+
+    object_binder.load(this, reader);
+    get_global<AnyCallablesModule>("xr_logic").load_obj(this.object, reader);
+    this.is_idle = reader.r_bool();
+    this.is_play_fwd = reader.r_bool();
     //    this.idle_end = packet.r_u32()
-    this.anim_time = packet.r_float();
+    this.anim_time = reader.r_float();
     this.loaded = true;
-    setLoadMarker(packet, true, LabX8DoorBinder.__name);
+
+    setLoadMarker(reader, true, LabX8DoorBinder.__name);
   }
 } as ILabX8DoorBinder);

@@ -10,7 +10,8 @@ import {
   level,
   sound_object,
   time_global,
-  vector
+  vector,
+  XR_reader
 } from "xray16";
 
 import { sounds } from "@/mod/globals/sound/sounds";
@@ -32,18 +33,18 @@ export interface IPsyPostProcessDescriptor {
 }
 
 export class PsyAntennaManager extends AbstractCoreManager {
-  public static load(net_packet: XR_net_packet): void {
-    setLoadMarker(net_packet, false, PsyAntennaManager.name + "_static");
+  public static load(reader: XR_reader): void {
+    setLoadMarker(reader, false, PsyAntennaManager.name + "_static");
 
-    if (net_packet.r_bool()) {
+    if (reader.r_bool()) {
       if (isManagerInitialized(PsyAntennaManager)) {
         abort("PsyAntennaManager already exists!");
       }
 
-      PsyAntennaManager.getInstance().load(net_packet);
+      PsyAntennaManager.getInstance().load(reader);
     }
 
-    setLoadMarker(net_packet, true, PsyAntennaManager.name + "_static");
+    setLoadMarker(reader, true, PsyAntennaManager.name + "_static");
   }
 
   public static save(net_packet: XR_net_packet): void {
@@ -280,31 +281,31 @@ export class PsyAntennaManager extends AbstractCoreManager {
     setSaveMarker(packet, true, PsyAntennaManager.name);
   }
 
-  public load(packet: XR_net_packet): void {
-    setLoadMarker(packet, false, PsyAntennaManager.name);
-    this.hit_intensity = packet.r_float();
-    this.sound_intensity = packet.r_float();
-    this.sound_intensity_base = packet.r_float();
-    this.mute_sound_threshold = packet.r_float();
-    this.no_static = packet.r_bool();
-    this.no_mumble = packet.r_bool();
-    this.hit_type = packet.r_stringZ();
-    this.hit_freq = packet.r_u32();
+  public load(reader: XR_reader): void {
+    setLoadMarker(reader, false, PsyAntennaManager.name);
+    this.hit_intensity = reader.r_float();
+    this.sound_intensity = reader.r_float();
+    this.sound_intensity_base = reader.r_float();
+    this.mute_sound_threshold = reader.r_float();
+    this.no_static = reader.r_bool();
+    this.no_mumble = reader.r_bool();
+    this.hit_type = reader.r_stringZ();
+    this.hit_freq = reader.r_u32();
 
-    this.postprocess_count = packet.r_u8();
+    this.postprocess_count = reader.r_u8();
 
     this.postprocess = new LuaTable();
     for (const i of $range(1, this.postprocess_count)) {
-      const k = packet.r_stringZ();
-      const ii = packet.r_float();
-      const ib = packet.r_float();
-      const idx = packet.r_u16();
+      const k = reader.r_stringZ();
+      const ii = reader.r_float();
+      const ib = reader.r_float();
+      const idx = reader.r_u16();
 
       this.postprocess.set(k, { intensity_base: ib, intensity: ii, idx: idx });
       level.add_pp_effector(k, idx, true);
       level.set_pp_effector_factor(idx, ii);
     }
 
-    setLoadMarker(packet, true, PsyAntennaManager.name);
+    setLoadMarker(reader, true, PsyAntennaManager.name);
   }
 }

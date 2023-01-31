@@ -72,6 +72,8 @@ export class ActionSleeper extends AbstractSchemeAction {
     section: TSection,
     gulag_name: string
   ): void {
+    log.info("Set scheme:", object.name());
+
     const st = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(object, ini, scheme, section);
 
     st.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, object);

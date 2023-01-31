@@ -1,4 +1,4 @@
-import { XR_ini_file, XR_net_packet, XR_sound_object } from "xray16";
+import { XR_ini_file, XR_net_packet, XR_reader, XR_sound_object } from "xray16";
 
 import { AnyArgs, Optional } from "@/mod/lib/types";
 import { TSection } from "@/mod/lib/types/configuration";
@@ -43,9 +43,9 @@ export abstract class AbstractPlayableSound {
 
   public save(net_packet: XR_net_packet): void {}
 
-  public load(net_packet: XR_net_packet): void {}
+  public load(reader: XR_reader): void {}
 
   public save_npc(net_packet: XR_net_packet, npcId: number): void {}
 
-  public load_npc(net_packet: XR_net_packet, npcId: number): void {}
+  public load_npc(net_packet: XR_reader, npcId: number): void {}
 }

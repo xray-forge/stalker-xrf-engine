@@ -1,4 +1,4 @@
-import { XR_net_packet, XR_sound_object } from "xray16";
+import { XR_net_packet, XR_reader, XR_sound_object } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { sound_themes } from "@/mod/scripts/core/db";
@@ -289,42 +289,42 @@ export class GlobalSound {
     GlobalSound.sound_table = new LuaTable();
   }
 
-  public static actor_load(packet: XR_net_packet): void {
-    setLoadMarker(packet, false, "sound_actor_save");
+  public static actor_load(reader: XR_reader): void {
+    setLoadMarker(reader, false, "sound_actor_save");
 
     for (const [k, v] of sound_themes) {
-      v.load(packet);
+      v.load(reader);
     }
 
     GlobalSound.sound_table = new LuaTable();
 
-    let n: number = packet.r_u16();
+    let n: number = reader.r_u16();
 
     for (const i of $range(1, n)) {
-      const id = packet.r_u16();
-      const theme = packet.r_stringZ();
+      const id = reader.r_u16();
+      const theme = reader.r_stringZ();
 
       // --        sound_table[id] = thread:r_stringZ()
       GlobalSound.sound_table.set(id, sound_themes.get(theme));
     }
 
     GlobalSound.looped_sound = new LuaTable();
-    n = packet.r_u16();
+    n = reader.r_u16();
 
     for (const i of $range(1, n)) {
-      const id = packet.r_u16();
+      const id = reader.r_u16();
 
       GlobalSound.looped_sound.set(id, new LuaTable());
-      n = packet.r_u16();
+      n = reader.r_u16();
       for (const j of $range(1, n)) {
-        const sound = packet.r_stringZ();
+        const sound = reader.r_stringZ();
 
         // --            looped_sound[id][sound] = thread:r_stringZ()
         GlobalSound.looped_sound.get(id).set(sound, sound_themes.get(sound));
       }
     }
 
-    setLoadMarker(packet, true, "sound_actor_save");
+    setLoadMarker(reader, true, "sound_actor_save");
   }
 
   public static save_npc(packet: XR_net_packet, npc_id: number): void {
@@ -337,13 +337,13 @@ export class GlobalSound {
     setSaveMarker(packet, true, "sound_npc_save");
   }
 
-  public static load_npc(packet: XR_net_packet, npc_id: number): void {
-    setLoadMarker(packet, false, "sound_npc_save");
+  public static load_npc(reader: XR_reader, npc_id: number): void {
+    setLoadMarker(reader, false, "sound_npc_save");
 
     for (const [k, v] of sound_themes) {
-      v.load_npc(packet, npc_id);
+      v.load_npc(reader, npc_id);
     }
 
-    setLoadMarker(packet, true, "sound_npc_save");
+    setLoadMarker(reader, true, "sound_npc_save");
   }
 }

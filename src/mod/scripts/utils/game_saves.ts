@@ -7,22 +7,27 @@ import {
   XR_CSavedGameWrapper,
   CSavedGameWrapper,
   game,
-  XR_net_packet
+  XR_net_packet,
+  TXR_net_processor
 } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
+import { SAVE_MARKERS } from "@/mod/scripts/core/db";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("utils/game_saves");
+const log: LuaLogger = new LuaLogger("game_saves");
 
-// todo: Move to DB.
-const SAVE_MARKERS: LuaTable<string, number> = new LuaTable();
-
+/**
+ * todo
+ */
 export function fileExists(folderAlias: string, filename: string): boolean {
   return getFS().exist(folderAlias, filename) !== null;
 }
 
+/**
+ * todo
+ */
 export function isGameSaveFileExist(filename: string): boolean {
   const fs: XR_FS = getFS();
   const flist: XR_FS_file_list_ex = fs.file_list_open_ex(
@@ -34,6 +39,9 @@ export function isGameSaveFileExist(filename: string): boolean {
   return flist.Size() > 0;
 }
 
+/**
+ * todo
+ */
 export function deleteGameSave(filename: string): void {
   const save_file: string = filename + gameConfig.GAME_SAVE_EXTENSION;
   const dds_file: string = filename + ".dds";
@@ -47,6 +55,9 @@ export function deleteGameSave(filename: string): void {
   }
 }
 
+/**
+ * todo
+ */
 function AddTimeDigit(str: string, dig: number): string {
   if (dig > 9) {
     return str + dig;
@@ -55,6 +66,9 @@ function AddTimeDigit(str: string, dig: number): string {
   }
 }
 
+/**
+ * todo
+ */
 export function gatFileDataForGameSave(filename: string) {
   const fs: XR_FS = getFS();
   const flist: XR_FS_file_list_ex = fs.file_list_open_ex(
@@ -103,16 +117,77 @@ export function gatFileDataForGameSave(filename: string) {
   }
 }
 
+/**
+ * todo
+ */
 export function setSaveMarker(packet: XR_net_packet, check: boolean, prefix: string): void {
-  return setMarker(packet, "save", check, prefix);
-}
+  const result = "_" + prefix;
 
-export function setLoadMarker(packet: XR_net_packet, check: boolean, prefix: string): void {
-  return setMarker(packet, "load", check, prefix);
+  if (check) {
+    if (SAVE_MARKERS.get(result) === null) {
+      abort("Trying to check without marker: " + result);
+    }
+
+    const dif = packet.w_tell() - SAVE_MARKERS.get(result);
+
+    // log.info("Set save marker result:", result, dif, mode);
+
+    if (dif >= 8000) {
+      log.info("Saving more than 8000:", prefix, dif);
+      // printf("WARNING! may be this is problem save point")
+    }
+
+    if (dif >= 10240) {
+      log.info("Saving more than 10240:", prefix, dif);
+      // --        abort("You are saving too much")
+    }
+
+    packet.w_u16(dif);
+
+    return;
+  } else {
+    // log.info("Set save marker result:", result, p.w_tell(), mode);
+    SAVE_MARKERS.set(result, packet.w_tell());
+
+    if (packet.w_tell() > 16_000) {
+      abort("You are saving too much in %s", prefix);
+    }
+  }
 }
 
 /**
- * todo: description.
+ * todo
+ */
+export function setLoadMarker(reader: TXR_net_processor, check: boolean, prefix: string): void {
+  const result = "_" + prefix;
+
+  if (check) {
+    if (SAVE_MARKERS.get(result) === null) {
+      abort("Trying to check without marker: " + result);
+    }
+
+    const c_dif: number = reader.r_tell() - SAVE_MARKERS.get(result);
+    const dif: number = reader.r_u16();
+
+    if (dif !== c_dif) {
+      abort("INCORRECT LOAD [%s].[%s][%s]", result, dif, c_dif);
+    } else {
+      // log.info("Set save marker result:", result, dif, mode);
+    }
+  } else {
+    // log.info("Set save marker result:", result, p.r_tell(), mode);
+    SAVE_MARKERS.set(result, reader.r_tell());
+  }
+}
+
+/**
+ * todo: DEPRECATED
+ * todo: DEPRECATED
+ * todo: DEPRECATED
+ * todo: DEPRECATED
+ * todo: DEPRECATED
+ * todo: DEPRECATED
+ * todo: DEPRECATED
  */
 export function setMarker(packet: XR_net_packet, mode: "save" | "load", check: boolean, prefix: string): void {
   const result = "_" + prefix;

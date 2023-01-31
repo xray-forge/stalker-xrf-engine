@@ -9,7 +9,8 @@ import {
   XR_CTime,
   XR_ini_file,
   XR_LuaBindBase,
-  XR_net_packet
+  XR_net_packet,
+  XR_reader
 } from "xray16";
 
 import { levels, TLevel } from "@/mod/globals/levels";
@@ -20,7 +21,7 @@ import { send_task } from "@/mod/scripts/core/NewsManager";
 import * as TaskFunctor from "@/mod/scripts/se/task/TaskFunctor";
 import { getConfigBoolean, getConfigNumber, getConfigString, parseNames } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
-import { setSaveMarker } from "@/mod/scripts/utils/game_saves";
+import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
@@ -113,7 +114,7 @@ export interface ITaskObject extends XR_LuaBindBase {
   check_level(target: Optional<number>): void;
   remove_guider_spot(): void;
   save(packet: XR_net_packet): void;
-  load(packet: XR_net_packet): void;
+  load(reader: XR_reader): void;
 }
 
 export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
@@ -458,7 +459,7 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
     }
   },
   save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, "TaskObject");
+    setSaveMarker(packet, false, TaskObject.__name);
 
     packet.w_u8(id_by_status[this.status]);
     writeCTimeToPacket(packet, this.inited_time);
@@ -466,16 +467,16 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
     packet.w_stringZ(this.current_descr);
     packet.w_stringZ(tostring(this.current_target));
 
-    setSaveMarker(packet, true, "TaskObject");
+    setSaveMarker(packet, true, TaskObject.__name);
   },
-  load(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, "TaskObject");
+  load(reader: XR_reader): void {
+    setLoadMarker(reader, false, TaskObject.__name);
 
-    this.status = status_by_id[packet.r_u8()];
-    this.inited_time = readCTimeFromPacket(packet);
-    this.current_title = packet.r_stringZ();
-    this.current_descr = packet.r_stringZ();
-    this.current_target = packet.r_stringZ();
+    this.status = status_by_id[reader.r_u8()];
+    this.inited_time = readCTimeFromPacket(reader);
+    this.current_title = reader.r_stringZ();
+    this.current_descr = reader.r_stringZ();
+    this.current_target = reader.r_stringZ();
 
     if (this.current_target === "nil") {
       this.current_target = null;
@@ -483,7 +484,7 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
       this.current_target = tonumber(this.current_target);
     }
 
-    setSaveMarker(packet, true, "TaskObject");
+    setLoadMarker(reader, true, TaskObject.__name);
   }
 } as ITaskObject);
 

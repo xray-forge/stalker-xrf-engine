@@ -7,6 +7,7 @@ import {
   XR_game_object,
   XR_ini_file,
   XR_net_packet,
+  XR_reader,
   XR_vector
 } from "xray16";
 
@@ -265,36 +266,36 @@ export class HeliCombat {
     setSaveMarker(packet, true, HeliCombat.name);
   }
 
-  public load(packet: XR_net_packet): void {
-    setLoadMarker(packet, false, HeliCombat.name);
+  public load(reader: XR_reader): void {
+    setLoadMarker(reader, false, HeliCombat.name);
 
-    this.initialized = packet.r_bool();
+    this.initialized = reader.r_bool();
 
     if (this.initialized) {
       const t = time_global();
 
       this.enemy_last_seen_pos = new vector();
 
-      this.enemy_id = packet.r_s16();
-      this.enemy_last_seen_time = t - packet.r_u32();
-      this.can_forget_enemy = packet.r_bool();
-      this.enemy_forgetable = packet.r_bool();
-      packet.r_vec3(this.enemy_last_seen_pos);
-      this.combat_type = packet.r_u8();
+      this.enemy_id = reader.r_s16();
+      this.enemy_last_seen_time = t - reader.r_u32();
+      this.can_forget_enemy = reader.r_bool();
+      this.enemy_forgetable = reader.r_bool();
+      reader.r_vec3(this.enemy_last_seen_pos);
+      this.combat_type = reader.r_u8();
 
       if (this.combat_type === combat_type_search) {
         this.center_pos = new vector();
 
-        this.change_dir_time = packet.r_u32() + t;
-        this.change_pos_time = packet.r_u32() + t;
-        this.flight_direction = packet.r_bool();
-        packet.r_vec3(this.center_pos);
+        this.change_dir_time = reader.r_u32() + t;
+        this.change_pos_time = reader.r_u32() + t;
+        this.flight_direction = reader.r_bool();
+        reader.r_vec3(this.center_pos);
       } else if (this.combat_type === combat_type_flyby) {
-        this.flyby_states_for_one_pass = packet.r_s16();
+        this.flyby_states_for_one_pass = reader.r_s16();
       }
     }
 
-    setLoadMarker(packet, true, HeliCombat.name);
+    setLoadMarker(reader, true, HeliCombat.name);
   }
 
   public waypoint_callback(): boolean {

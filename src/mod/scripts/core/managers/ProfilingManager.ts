@@ -207,6 +207,7 @@ export class ProfilingManager extends AbstractCoreManager {
 
     log.info("==================================================================================================");
     log.info("Total function calls count:", totalCallsCount);
+    log.info("Total function calls / sec:", totalCallsCount / (this.profilingTimer.time() / 1000 / 1000));
     log.info("Total unique LUA functions called:", outStats.length());
     log.info("Profiling time:", this.profilingTimer.time() / 1000);
     log.info("RAM used:", getLuaMemoryUsed() / 1024, "MB");

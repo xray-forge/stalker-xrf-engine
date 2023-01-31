@@ -98,7 +98,7 @@ export const Stalker: IStalker = declare_xr_class("Stalker", cse_alife_human_sta
         tostring(
           level !== null &&
             level.object_by_id(this.id) !== null &&
-            level.object_by_id(this.id).level_vertex_id() !== null
+            level.object_by_id(this.id)!.level_vertex_id() !== null
         )
       );
     } else {

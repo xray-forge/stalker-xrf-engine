@@ -75,9 +75,9 @@ export const Actor: IActor = declare_xr_class("Actor", cse_alife_creature_actor,
   STATE_Write(packet: XR_net_packet): void {
     cse_alife_creature_actor.STATE_Write(this, packet);
 
-    setSaveMarker(packet, false, "Actor");
+    setSaveMarker(packet, false, Actor.__name);
     packet.w_bool(this.start_position_filled);
-    setSaveMarker(packet, true, "Actor");
+    setSaveMarker(packet, true, Actor.__name);
   },
   STATE_Read(packet: XR_net_packet, size: number): void {
     cse_alife_creature_actor.STATE_Read(this, packet, size);
@@ -87,16 +87,16 @@ export const Actor: IActor = declare_xr_class("Actor", cse_alife_creature_actor,
     }
 
     if (getActor() === null) {
-      setLoadMarker(packet, false, "Actor");
+      setLoadMarker(packet, false, Actor.__name);
       this.start_position_filled = packet.r_bool();
-      setLoadMarker(packet, true, "Actor");
+      setLoadMarker(packet, true, Actor.__name);
     }
   },
   get_location(): LuaMultiReturn<[XR_vector, number, number]> {
     return $multi(this.position, this.m_level_vertex_id, this.m_game_vertex_id);
   },
   am_i_reached(): boolean {
-    return !level.object_by_id(this.id).alive();
+    return !level.object_by_id(this.id)!.alive();
   },
   on_after_reach(squad: any): void {
     /**

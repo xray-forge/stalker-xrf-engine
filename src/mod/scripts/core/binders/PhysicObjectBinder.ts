@@ -9,6 +9,7 @@ import {
   XR_net_packet,
   XR_object_binder,
   XR_particles_object,
+  XR_reader,
   XR_vector
 } from "xray16";
 
@@ -96,17 +97,19 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
   },
   save(packet: XR_net_packet): void {
     object_binder.save(this, packet);
+
     setSaveMarker(packet, false, PhysicObjectBinder.__name);
     get_global<AnyCallablesModule>("xr_logic").save_obj(this.object, packet);
     setSaveMarker(packet, true, PhysicObjectBinder.__name);
   },
-  load(packet: XR_net_packet): void {
+  load(reader: XR_reader): void {
     this.loaded = true;
 
-    object_binder.load(this, packet);
-    setLoadMarker(packet, false, PhysicObjectBinder.__name);
-    get_global<AnyCallablesModule>("xr_logic").load_obj(this.object, packet);
-    setLoadMarker(packet, true, PhysicObjectBinder.__name);
+    object_binder.load(this, reader);
+
+    setLoadMarker(reader, false, PhysicObjectBinder.__name);
+    get_global<AnyCallablesModule>("xr_logic").load_obj(this.object, reader);
+    setLoadMarker(reader, true, PhysicObjectBinder.__name);
   },
   use_callback(object: XR_game_object, who: XR_game_object): void {
     if (this.st.active_section) {

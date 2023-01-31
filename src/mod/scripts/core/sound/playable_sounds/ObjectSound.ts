@@ -1,4 +1,14 @@
-import { getFS, get_hud, sound_object, time_global, vector, XR_ini_file, XR_net_packet, XR_sound_object } from "xray16";
+import {
+  getFS,
+  get_hud,
+  sound_object,
+  time_global,
+  vector,
+  XR_ini_file,
+  XR_net_packet,
+  XR_sound_object,
+  XR_reader
+} from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { getActor, storage } from "@/mod/scripts/core/db";
@@ -146,8 +156,8 @@ export class ObjectSound extends AbstractPlayableSound {
     net_packet.w_stringZ(tostring(this.played_id));
   }
 
-  public load(net_packet: XR_net_packet): void {
-    const id = net_packet.r_stringZ();
+  public load(reader: XR_reader): void {
+    const id = reader.r_stringZ();
 
     if (id !== "nil") {
       this.played_id = tonumber(id)!;

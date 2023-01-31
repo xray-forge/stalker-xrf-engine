@@ -11,7 +11,8 @@ import {
   XR_sound_object,
   sound_object,
   vector,
-  game
+  game,
+  XR_reader
 } from "xray16";
 
 import { communities, TCommunity } from "@/mod/globals/communities";
@@ -405,13 +406,13 @@ export class NpcSound extends AbstractPlayableSound {
     }
   }
 
-  public load(net_packet: XR_net_packet): void {
-    const id: string = net_packet.r_stringZ();
+  public load(reader: XR_reader): void {
+    const id: string = reader.r_stringZ();
 
     this.played_id = id === "nil" ? null : tonumber(id)!;
 
     if (this.group_snd) {
-      this.can_play_group_sound = net_packet.r_bool();
+      this.can_play_group_sound = reader.r_bool();
     }
   }
 
@@ -421,9 +422,9 @@ export class NpcSound extends AbstractPlayableSound {
     }
   }
 
-  public load_npc(net_packet: XR_net_packet, npcId: number): void {
+  public load_npc(reader: XR_reader, npcId: number): void {
     if (!this.group_snd) {
-      this.can_play_sound.set(npcId, net_packet.r_bool());
+      this.can_play_sound.set(npcId, reader.r_bool());
     }
   }
 }

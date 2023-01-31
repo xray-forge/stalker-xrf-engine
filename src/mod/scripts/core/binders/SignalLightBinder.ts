@@ -5,7 +5,8 @@ import {
   XR_cse_alife_object,
   XR_game_object,
   XR_net_packet,
-  XR_object_binder
+  XR_object_binder,
+  XR_reader
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
@@ -176,21 +177,21 @@ export const SignalLightBinder: ISignalLightBinder = declare_xr_class("SignalLig
 
     setSaveMarker(packet, true, SignalLightBinder.__name);
   },
-  load(packet: XR_net_packet): void {
-    setLoadMarker(packet, false, SignalLightBinder.__name);
+  load(reader: XR_reader): void {
+    setLoadMarker(reader, false, SignalLightBinder.__name);
 
-    object_binder.load(this, packet);
+    object_binder.load(this, reader);
 
-    const time = packet.r_u32();
+    const time = reader.r_u32();
 
     if (time !== 4294967296) {
       this.start_time = time_global() - time;
     }
 
-    this.slow_fly_started = packet.r_bool();
+    this.slow_fly_started = reader.r_bool();
     this.loaded = true;
     this.delta_time = time_global();
 
-    setLoadMarker(packet, true, SignalLightBinder.__name);
+    setLoadMarker(reader, true, SignalLightBinder.__name);
   }
 } as ISignalLightBinder);

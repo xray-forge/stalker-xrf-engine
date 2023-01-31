@@ -1,10 +1,20 @@
-import { level, game, time_global, verify_if_thread_is_running, XR_net_packet, XR_CTime, CTime, editor } from "xray16";
+import {
+  level,
+  game,
+  time_global,
+  verify_if_thread_is_running,
+  XR_net_packet,
+  XR_CTime,
+  CTime,
+  editor,
+  XR_reader
+} from "xray16";
 
 import { MAX_UNSIGNED_8_BIT } from "@/mod/globals/memory";
 import { Optional } from "@/mod/lib/types";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("utils/time");
+const log: LuaLogger = new LuaLogger("time");
 
 /**
  * todo;
@@ -57,7 +67,7 @@ export function wait(timeToWait: Optional<number> = null): void {
 const CTime_0: Optional<XR_CTime> = editor() ? null : game.CTime();
 
 /**
- *
+ * todo;
  */
 export function writeCTimeToPacket(packet: XR_net_packet, time: Optional<XR_CTime>): void {
   if (time === null) {
@@ -82,10 +92,10 @@ export function writeCTimeToPacket(packet: XR_net_packet, time: Optional<XR_CTim
 }
 
 /**
- *
+ * todo;
  */
-export function readCTimeFromPacket(packet: XR_net_packet): Optional<XR_CTime> {
-  const Y = packet.r_u8();
+export function readCTimeFromPacket(reader: XR_reader | XR_net_packet): Optional<XR_CTime> {
+  const Y = reader.r_u8();
 
   if (Y === MAX_UNSIGNED_8_BIT) {
     return null;
@@ -94,12 +104,12 @@ export function readCTimeFromPacket(packet: XR_net_packet): Optional<XR_CTime> {
   if (Y !== 0) {
     const time: XR_CTime = game.CTime();
 
-    const M: number = packet.r_u8();
-    const D: number = packet.r_u8();
-    const h: number = packet.r_u8();
-    const m: number = packet.r_u8();
-    const s: number = packet.r_u8();
-    const ms: number = packet.r_u16();
+    const M: number = reader.r_u8();
+    const D: number = reader.r_u8();
+    const h: number = reader.r_u8();
+    const m: number = reader.r_u8();
+    const s: number = reader.r_u8();
+    const ms: number = reader.r_u16();
 
     time.set(Y + 2000, M, D, h, m, s, ms);
 

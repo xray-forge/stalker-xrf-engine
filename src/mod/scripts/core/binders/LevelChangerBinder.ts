@@ -5,7 +5,8 @@ import {
   XR_cse_alife_object,
   XR_game_object,
   XR_net_packet,
-  XR_object_binder
+  XR_object_binder,
+  XR_reader
 } from "xray16";
 
 import { AnyCallable } from "@/mod/lib/types";
@@ -63,15 +64,19 @@ export const LevelChangerBinder: ILevelChangerBinder = declare_xr_class("LevelCh
     return true;
   },
   save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, "LevelChangerBinder");
+    setSaveMarker(packet, false, LevelChangerBinder.__name);
+
     object_binder.save(this, packet);
     (get_global("xr_logic").save_obj as AnyCallable)(this.object, packet);
-    setSaveMarker(packet, true, "LevelChangerBinder");
+
+    setSaveMarker(packet, true, LevelChangerBinder.__name);
   },
-  load(packet: XR_net_packet): void {
-    setLoadMarker(packet, false, "LevelChangerBinder");
-    object_binder.load(this, packet);
-    (get_global("xr_logic").load_obj as AnyCallable)(this.object, packet);
-    setLoadMarker(packet, true, "LevelChangerBinder");
+  load(reader: XR_reader): void {
+    setLoadMarker(reader, false, LevelChangerBinder.__name);
+
+    object_binder.load(this, reader);
+    (get_global("xr_logic").load_obj as AnyCallable)(this.object, reader);
+
+    setLoadMarker(reader, true, LevelChangerBinder.__name);
   }
 } as ILevelChangerBinder);

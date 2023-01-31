@@ -7,7 +7,8 @@ import {
   XR_cse_alife_object,
   XR_game_object,
   XR_net_packet,
-  XR_object_binder
+  XR_object_binder,
+  XR_reader
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
@@ -73,18 +74,18 @@ export const ArenaZoneBinder: IArenaZoneBinder = declare_xr_class("ArenaZoneBind
 
     setSaveMarker(packet, true, ArenaZoneBinder.__name);
   },
-  load(packet: XR_net_packet): void {
-    object_binder.load(this, packet);
+  load(reader: XR_reader): void {
+    object_binder.load(this, reader);
 
-    setLoadMarker(packet, false, ArenaZoneBinder.__name);
+    setLoadMarker(reader, false, ArenaZoneBinder.__name);
 
-    const num = packet.r_u8();
+    const num = reader.r_u8();
 
     for (const i of $range(1, num)) {
-      this.saved_obj.set(packet.r_u16(), true);
+      this.saved_obj.set(reader.r_u16(), true);
     }
 
-    setLoadMarker(packet, false, ArenaZoneBinder.__name);
+    setLoadMarker(reader, false, ArenaZoneBinder.__name);
   },
   on_enter(zone: XR_game_object, object: XR_game_object): void {
     if (

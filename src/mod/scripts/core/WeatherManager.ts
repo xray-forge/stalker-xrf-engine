@@ -1,4 +1,4 @@
-import { ini_file, level, XR_ini_file, XR_net_packet } from "xray16";
+import { ini_file, level, XR_ini_file, XR_net_packet, XR_reader } from "xray16";
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
@@ -233,22 +233,22 @@ export class WeatherManager {
     return grn;
   }
 
-  public load(packet: XR_net_packet): void {
-    setLoadMarker(packet, false, "WeatherManager");
+  public load(reader: XR_reader): void {
+    setLoadMarker(reader, false, "WeatherManager");
 
-    const state_string = packet.r_stringZ();
+    const state_string = reader.r_stringZ();
 
     this.set_state_as_string(state_string);
-    this.update_time = packet.r_u32();
+    this.update_time = reader.r_u32();
 
-    const str = packet.r_stringZ();
+    const str = reader.r_stringZ();
 
     if (str !== "nil") {
       this.weather_fx = str;
-      this.wfx_time = packet.r_float();
+      this.wfx_time = reader.r_float();
     }
 
-    setLoadMarker(packet, true, "WeatherManager");
+    setLoadMarker(reader, true, "WeatherManager");
   }
 
   public save(packet: XR_net_packet): void {

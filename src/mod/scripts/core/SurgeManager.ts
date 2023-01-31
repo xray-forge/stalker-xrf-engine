@@ -11,7 +11,8 @@ import {
   XR_game_object,
   XR_hit,
   XR_ini_file,
-  XR_net_packet
+  XR_net_packet,
+  XR_reader
 } from "xray16";
 
 import { animations } from "@/mod/globals/animation/animations";
@@ -672,7 +673,7 @@ export class SurgeManager extends AbstractCoreManager {
   }
 
   public save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, "SurgeManager");
+    setSaveMarker(packet, false, SurgeManager.name);
     packet.w_bool(this.isFinished);
     packet.w_bool(this.isStarted);
     writeCTimeToPacket(packet, this.lastSurgeTime);
@@ -695,36 +696,36 @@ export class SurgeManager extends AbstractCoreManager {
     }
 
     packet.w_u32(this.nextScheduledSurgeDelay);
-    setSaveMarker(packet, true, "SurgeManager");
+    setSaveMarker(packet, true, SurgeManager.name);
   }
 
-  public load(packet: XR_net_packet): void {
-    setLoadMarker(packet, false, "SurgeManager");
+  public load(reader: XR_reader): void {
+    setLoadMarker(reader, false, SurgeManager.name);
     this.initialize();
-    this.isFinished = packet.r_bool();
-    this.isStarted = packet.r_bool();
-    this.lastSurgeTime = readCTimeFromPacket(packet)!;
+    this.isFinished = reader.r_bool();
+    this.isStarted = reader.r_bool();
+    this.lastSurgeTime = readCTimeFromPacket(reader)!;
 
     if (this.isStarted) {
-      this.initedTime = readCTimeFromPacket(packet)!;
+      this.initedTime = readCTimeFromPacket(reader)!;
 
-      this.levels_respawn.zaton = packet.r_bool();
-      this.levels_respawn.jupiter = packet.r_bool();
-      this.levels_respawn.pripyat = packet.r_bool();
+      this.levels_respawn.zaton = reader.r_bool();
+      this.levels_respawn.jupiter = reader.r_bool();
+      this.levels_respawn.pripyat = reader.r_bool();
 
-      this.task_given = packet.r_bool();
-      this.isEffectorSet = packet.r_bool();
-      this.second_message_given = packet.r_bool();
-      this.ui_disabled = packet.r_bool();
-      this.blowout_sound = packet.r_bool();
+      this.task_given = reader.r_bool();
+      this.isEffectorSet = reader.r_bool();
+      this.second_message_given = reader.r_bool();
+      this.ui_disabled = reader.r_bool();
+      this.blowout_sound = reader.r_bool();
 
-      this.surge_message = packet.r_stringZ();
-      this.surge_task_sect = packet.r_stringZ();
+      this.surge_message = reader.r_stringZ();
+      this.surge_task_sect = reader.r_stringZ();
     }
 
-    this.nextScheduledSurgeDelay = packet.r_u32();
+    this.nextScheduledSurgeDelay = reader.r_u32();
     this.loaded = true;
-    setLoadMarker(packet, true, "SurgeManager");
+    setLoadMarker(reader, true, SurgeManager.name);
   }
 }
 

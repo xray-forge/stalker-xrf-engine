@@ -8,7 +8,8 @@ import {
   XR_net_packet,
   sound_object,
   vector,
-  XR_game_object
+  XR_game_object,
+  XR_reader
 } from "xray16";
 
 import { TSection } from "@/mod/lib/types/configuration";
@@ -229,8 +230,8 @@ export class ActorSound extends AbstractPlayableSound {
     net_packet.w_stringZ(tostring(this.played_id));
   }
 
-  public load(net_packet: XR_net_packet): void {
-    const id = net_packet.r_stringZ();
+  public load(reader: XR_reader): void {
+    const id: string = reader.r_stringZ();
 
     if (id !== "nil") {
       this.played_id = tonumber(id)!;

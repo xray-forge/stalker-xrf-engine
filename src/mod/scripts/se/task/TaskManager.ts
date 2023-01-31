@@ -1,4 +1,4 @@
-import { ini_file, XR_CGameTask, XR_ini_file, XR_LuaBindBase, XR_net_packet } from "xray16";
+import { ini_file, XR_CGameTask, XR_ini_file, XR_LuaBindBase, XR_net_packet, XR_reader } from "xray16";
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { ITaskObject, TaskObject } from "@/mod/scripts/se/task/TaskObject";
@@ -15,7 +15,7 @@ export interface ITaskManager extends XR_LuaBindBase {
   task_info: LuaTable<string, ITaskObject>;
 
   save(packet: XR_net_packet): void;
-  load(packet: XR_net_packet): void;
+  load(reader: XR_reader): void;
   give_task(task_id: string): void;
   task_complete(task_id: string): boolean;
   task_fail(task_id: string): boolean;
@@ -41,20 +41,20 @@ export const TaskManager: ITaskManager = declare_xr_class("TaskManager", null, {
 
     setSaveMarker(packet, true, "TaskManager");
   },
-  load(packet: XR_net_packet): void {
-    setLoadMarker(packet, false, "TaskManager");
+  load(reader: XR_reader): void {
+    setLoadMarker(reader, false, "TaskManager");
 
-    const n = packet.r_u16();
+    const n = reader.r_u16();
 
     for (const i of $range(1, n)) {
-      const id: string = packet.r_stringZ();
+      const id: string = reader.r_stringZ();
       const obj: ITaskObject = create_xr_class_instance(TaskObject, this.task_ini, id);
 
-      obj.load(packet);
+      obj.load(reader);
       this.task_info.set(id, obj);
     }
 
-    setLoadMarker(packet, true, "TaskManager");
+    setLoadMarker(reader, true, "TaskManager");
   },
   give_task(task_id: string): void {
     log.info("Give task:", task_id);

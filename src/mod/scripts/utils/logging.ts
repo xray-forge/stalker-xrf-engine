@@ -69,7 +69,7 @@ export class LuaLogger {
   }
 
   public pushEmptyLine(): void {
-    return this.info("");
+    return this.info(" ");
   }
 
   public printStack(): void {

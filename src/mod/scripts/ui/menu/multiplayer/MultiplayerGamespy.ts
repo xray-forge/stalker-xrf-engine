@@ -482,6 +482,7 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
           this.gs_login_mb_cancel.SetText("ui_mp_gamespy_logining_to_profile");
           this.owner.loginManager.login(
             this.email,
+            // todo: Maybe typo.
             this.email,
             this.password,
             new login_operation_cb(this, (code, description) => this.LoginOperationResult(code, description))

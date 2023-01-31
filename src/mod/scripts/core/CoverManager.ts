@@ -200,7 +200,7 @@ export class CoverManager {
   }
 
   public save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, "CoverManager");
+    setSaveMarker(packet, false, CoverManager.name);
 
     packet.w_bool(this.is_valid);
 
@@ -220,11 +220,11 @@ export class CoverManager {
       packet.w_bool(v.is_smart_cover);
     }
 
-    setSaveMarker(packet, true, "CoverManager");
+    setSaveMarker(packet, true, CoverManager.name);
   }
 
   public load(packet: XR_net_packet): void {
-    setLoadMarker(packet, false, "CoverManager");
+    setLoadMarker(packet, false, CoverManager.name);
 
     this.is_valid = packet.r_bool();
 
@@ -255,6 +255,6 @@ export class CoverManager {
       });
     }
 
-    setLoadMarker(packet, true, "CoverManager");
+    setLoadMarker(packet, true, CoverManager.name);
   }
 }

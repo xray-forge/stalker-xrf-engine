@@ -5,7 +5,8 @@ import {
   XR_game_object,
   XR_ini_file,
   XR_net_packet,
-  XR_object_binder
+  XR_object_binder,
+  XR_reader
 } from "xray16";
 
 import { AnyCallable, Optional } from "@/mod/lib/types";
@@ -70,15 +71,15 @@ export const CampBinder: ICampBinder = declare_xr_class("CampBinder", object_bin
     return true;
   },
   save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, "CampBinder");
+    setSaveMarker(packet, false, CampBinder.__name);
     object_binder.save(this, packet);
 
-    setSaveMarker(packet, true, "CampBinder");
+    setSaveMarker(packet, true, CampBinder.__name);
   },
-  load(packet: XR_net_packet): void {
-    setLoadMarker(packet, false, "camp_binder");
-    object_binder.load(this, packet);
+  load(reader: XR_reader): void {
+    setLoadMarker(reader, false, CampBinder.__name);
+    object_binder.load(this, reader);
 
-    setLoadMarker(packet, true, "camp_binder");
+    setLoadMarker(reader, true, CampBinder.__name);
   }
 } as ICampBinder);

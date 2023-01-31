@@ -17,7 +17,8 @@ import {
   XR_cse_alife_creature_actor,
   XR_game_object,
   XR_net_packet,
-  XR_object_binder
+  XR_object_binder,
+  XR_reader
 } from "xray16";
 
 import { animations } from "@/mod/globals/animation/animations";
@@ -484,72 +485,72 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
 
     setSaveMarker(packet, true, ActorBinder.__name);
   },
-  load(packet: XR_net_packet): void {
-    setLoadMarker(packet, false, ActorBinder.__name);
+  load(reader: XR_reader): void {
+    setLoadMarker(reader, false, ActorBinder.__name);
 
-    object_binder.load(this, packet);
+    object_binder.load(this, reader);
 
-    const game_difficulty: number = packet.r_u8();
+    const game_difficulty: number = reader.r_u8();
 
     get_console().execute("g_game_difficulty " + game_difficulties_by_number[game_difficulty]);
 
-    const stored_input_time = packet.r_bool();
+    const stored_input_time = reader.r_bool();
 
     if (stored_input_time === true) {
-      this.st.disable_input_time = readCTimeFromPacket(packet);
+      this.st.disable_input_time = readCTimeFromPacket(reader);
     }
 
-    get_global<AnyCallablesModule>("xr_logic").pstor_load_all(this.object, packet);
-    weatherManager.load(packet);
-    get_release_body_manager().load(packet);
+    get_global<AnyCallablesModule>("xr_logic").pstor_load_all(this.object, reader);
+    weatherManager.load(reader);
+    get_release_body_manager().load(reader);
 
-    this.surgeManager.load(packet);
+    this.surgeManager.load(reader);
     this.isSurgeManagerLoaded = true;
-    PsyAntennaManager.load(packet);
-    get_sim_board().simulation_started = packet.r_bool();
+    PsyAntennaManager.load(reader);
+    get_sim_board().simulation_started = reader.r_bool();
 
-    GlobalSound.actor_load(packet);
+    GlobalSound.actor_load(reader);
 
-    const n = packet.r_stringZ();
+    const n = reader.r_stringZ();
 
     if (n !== "nil") {
       this.last_level_name = n;
     }
 
-    get_global<AnyCallablesModule>("xr_statistic").load(packet);
+    get_global<AnyCallablesModule>("xr_statistic").load(reader);
 
-    getTreasureManager().load(packet);
+    getTreasureManager().load(reader);
 
-    const count = packet.r_u8();
+    const count = reader.r_u8();
 
     for (const i of $range(1, count)) {
-      scriptIds.set(packet.r_u16(), packet.r_stringZ());
+      scriptIds.set(reader.r_u16(), reader.r_stringZ());
     }
 
-    get_task_manager().load(packet);
+    get_task_manager().load(reader);
 
-    this.loaded_active_slot = packet.r_u8();
+    this.loaded_active_slot = reader.r_u8();
     this.loaded_slot_applied = false;
 
-    const b = packet.r_bool();
+    const b = reader.r_bool();
 
     if (b) {
-      this.deimos_intensity = packet.r_float();
+      this.deimos_intensity = reader.r_float();
     }
 
-    let stored_achievement_time = packet.r_bool();
+    let stored_achievement_time = reader.r_bool();
 
     if (stored_achievement_time === true) {
-      this.last_detective_achievement_spawn_time = readCTimeFromPacket(packet);
+      this.last_detective_achievement_spawn_time = readCTimeFromPacket(reader);
     }
 
-    stored_achievement_time = packet.r_bool();
+    stored_achievement_time = reader.r_bool();
 
     if (stored_achievement_time === true) {
-      this.last_mutant_hunter_achievement_spawn_time = readCTimeFromPacket(packet);
+      this.last_mutant_hunter_achievement_spawn_time = readCTimeFromPacket(reader);
     }
 
-    setLoadMarker(packet, true, ActorBinder.__name);
+    setLoadMarker(reader, true, ActorBinder.__name);
   },
   check_detective_achievement(): void {
     if (!hasAlifeInfo("detective_achievement_gained")) {

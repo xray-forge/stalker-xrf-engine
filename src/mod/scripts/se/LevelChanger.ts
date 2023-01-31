@@ -33,10 +33,10 @@ export const LevelChanger: ILevelChanger = declare_xr_class("LevelChanger", cse_
   STATE_Write(packet: XR_net_packet): void {
     cse_alife_level_changer.STATE_Write(this, packet);
 
-    setSaveMarker(packet, false, "LevelChanger");
+    setSaveMarker(packet, false, LevelChanger.__name);
     packet.w_bool(this.enabled);
     packet.w_stringZ(this.hint);
-    setSaveMarker(packet, true, "LevelChanger");
+    setSaveMarker(packet, true, LevelChanger.__name);
   },
   STATE_Read(packet: XR_net_packet, size: number): void {
     cse_alife_level_changer.STATE_Read(this, packet, size);
@@ -45,9 +45,9 @@ export const LevelChanger: ILevelChanger = declare_xr_class("LevelChanger", cse_
       return;
     }
 
-    setLoadMarker(packet, false, "LevelChanger");
+    setLoadMarker(packet, false, LevelChanger.__name);
     this.enabled = packet.r_bool();
     this.hint = packet.r_stringZ();
-    setLoadMarker(packet, true, "LevelChanger");
+    setLoadMarker(packet, true, LevelChanger.__name);
   }
 } as ILevelChanger);

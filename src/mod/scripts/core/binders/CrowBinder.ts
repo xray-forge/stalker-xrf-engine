@@ -7,7 +7,8 @@ import {
   alife,
   callback,
   object_binder,
-  time_global
+  time_global,
+  XR_reader
 } from "xray16";
 
 import { AnyCallable } from "@/mod/lib/types";
@@ -98,20 +99,20 @@ export const CrowBinder: ICrowBinder = declare_xr_class("CrowBinder", object_bin
     return true;
   },
   save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, "CrowBinder");
+    setSaveMarker(packet, false, CrowBinder.__name);
 
     object_binder.save(this, packet);
     (get_global("xr_logic").save_obj as AnyCallable)(this.object, packet);
     packet.w_u32(this.bodyDisposalTimer);
 
-    setSaveMarker(packet, true, "CrowBinder");
+    setSaveMarker(packet, true, CrowBinder.__name);
   },
-  load(packet: XR_net_packet): void {
-    setLoadMarker(packet, false, "CrowBinder");
-    object_binder.load(this, packet);
-    (get_global("xr_logic").load_obj as AnyCallable)(this.object, packet);
+  load(reader: XR_reader): void {
+    setLoadMarker(reader, false, CrowBinder.__name);
+    object_binder.load(this, reader);
+    (get_global("xr_logic").load_obj as AnyCallable)(this.object, reader);
 
-    this.bodyDisposalTimer = packet.r_u32();
-    setLoadMarker(packet, true, "CrowBinder");
+    this.bodyDisposalTimer = reader.r_u32();
+    setLoadMarker(reader, true, CrowBinder.__name);
   }
 } as ICrowBinder);

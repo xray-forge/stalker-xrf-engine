@@ -13,9 +13,9 @@ export function look_at_object(npc: XR_game_object, st: StateManager): void {
   st.point_obj_dir = look_object_type(npc, st);
 
   if (st.point_obj_dir === true) {
-    npc.set_sight(level.object_by_id(st.look_object!), true, false, false);
+    npc.set_sight(level.object_by_id(st.look_object!)!, true, false, false);
   } else {
-    npc.set_sight(level.object_by_id(st.look_object!), true, true);
+    npc.set_sight(level.object_by_id(st.look_object!)!, true, true);
   }
 }
 

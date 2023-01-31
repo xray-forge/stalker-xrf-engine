@@ -17,6 +17,7 @@ import {
   XR_hit,
   XR_net_packet,
   XR_object_binder,
+  XR_reader,
   XR_vector
 } from "xray16";
 
@@ -202,16 +203,20 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
   },
   save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, "generic_object_binder");
+
     object_binder.save(this, packet);
     get_global<AnyCallablesModule>("xr_logic").save_obj(this.object, packet);
+
     setSaveMarker(packet, true, "generic_object_binder");
   },
-  load(packet: XR_net_packet): void {
+  load(reader: XR_reader): void {
     this.loaded = true;
-    setLoadMarker(packet, false, "generic_object_binder");
-    object_binder.load(this, packet);
-    get_global<AnyCallablesModule>("xr_logic").load_obj(this.object, packet);
-    setLoadMarker(packet, true, "generic_object_binder");
+
+    setLoadMarker(reader, false, "generic_object_binder");
+    object_binder.load(this, reader);
+    get_global<AnyCallablesModule>("xr_logic").load_obj(this.object, reader);
+
+    setLoadMarker(reader, true, "generic_object_binder");
   },
   net_spawn(object: XR_cse_alife_object): boolean {
     if (!object_binder.net_spawn(this, object)) {

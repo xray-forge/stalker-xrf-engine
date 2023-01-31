@@ -7,7 +7,8 @@ import {
   XR_game_object,
   XR_ini_file,
   XR_LuaBindBase,
-  XR_net_packet
+  XR_net_packet,
+  XR_reader
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
@@ -41,7 +42,7 @@ export interface IReleaseBodyManager extends XR_LuaBindBase {
   check_for_known_info(obj: XR_game_object): boolean;
   find_nearest_obj_to_release(release_tbl: LuaTable<number, IReleaseDescriptor>): Optional<number>;
   save(packet: XR_net_packet): void;
-  load(packet: XR_net_packet): void;
+  load(reader: XR_reader): void;
 }
 
 export const ReleaseBodyManager: IReleaseBodyManager = declare_xr_class("ReleaseBodyManager", null, {
@@ -186,7 +187,7 @@ export const ReleaseBodyManager: IReleaseBodyManager = declare_xr_class("Release
     return pos_in_table;
   },
   save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, "ReleaseBodyManager");
+    setSaveMarker(packet, false, ReleaseBodyManager.__name);
 
     const count = this.release_objects_table.length();
 
@@ -200,29 +201,29 @@ export const ReleaseBodyManager: IReleaseBodyManager = declare_xr_class("Release
 
     packet.w_u16(level_id);
 
-    setSaveMarker(packet, true, "ReleaseBodyManager");
+    setSaveMarker(packet, true, ReleaseBodyManager.__name);
   },
-  load(packet: XR_net_packet): void {
-    setLoadMarker(packet, false, "ReleaseBodyManager");
+  load(reader: XR_reader): void {
+    setLoadMarker(reader, false, ReleaseBodyManager.__name);
 
-    const count: number = packet.r_u16();
+    const count: number = reader.r_u16();
 
     this.release_objects_table = new LuaTable();
 
     for (const i of $range(1, count)) {
-      const vid = packet.r_u16();
+      const vid = reader.r_u16();
 
       this.release_objects_table.set(i, {} as any);
       this.release_objects_table.get(i).id = vid;
     }
 
-    const level_id = packet.r_u16();
+    const level_id = reader.r_u16();
 
     if (level_id !== game_graph().vertex(alife().object(0)!.m_game_vertex_id).level_id()) {
       this.release_objects_table = new LuaTable();
     }
 
-    setLoadMarker(packet, true, "ReleaseBodyManager");
+    setLoadMarker(reader, true, ReleaseBodyManager.__name);
   }
 } as IReleaseBodyManager);
 

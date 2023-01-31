@@ -7,7 +7,6 @@ import {
   XR_object_binder
 } from "xray16";
 
-import { AnyCallable } from "@/mod/lib/types";
 import { addSmartTerrain, addZone, deleteSmartTerrain, deleteZone } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

@@ -1,4 +1,4 @@
-import { object_binder, XR_cse_alife_object, XR_game_object, XR_net_packet, XR_object_binder } from "xray16";
+import { object_binder, XR_cse_alife_object, XR_game_object, XR_net_packet, XR_object_binder, XR_reader } from "xray16";
 
 import { AnyCallablesModule } from "@/mod/lib/types";
 import { addObject, addZone, deleteObject, deleteZone, getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
@@ -128,14 +128,14 @@ export const RestrictorBinder: IRestrictorBinder = declare_xr_class("RestrictorB
     get_global<AnyCallablesModule>("xr_logic").save_obj(this.object, packet);
     setSaveMarker(packet, true, RestrictorBinder.__name);
   },
-  load(packet: XR_net_packet): void {
-    setLoadMarker(packet, false, RestrictorBinder.__name);
+  load(reader: XR_reader): void {
+    setLoadMarker(reader, false, RestrictorBinder.__name);
 
     this.loaded = true;
 
-    object_binder.load(this, packet);
+    object_binder.load(this, reader);
 
-    get_global<AnyCallablesModule>("xr_logic").load_obj(this.object, packet);
-    setLoadMarker(packet, true, RestrictorBinder.__name);
+    get_global<AnyCallablesModule>("xr_logic").load_obj(this.object, reader);
+    setLoadMarker(reader, true, RestrictorBinder.__name);
   }
 } as IRestrictorBinder);

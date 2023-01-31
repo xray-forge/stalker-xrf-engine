@@ -4,7 +4,6 @@ import {
   level,
   XR_cse_alife_creature_abstract,
   XR_cse_alife_monster_base,
-  XR_cse_alife_smart_zone,
   XR_ini_file,
   XR_net_packet
 } from "xray16";
@@ -92,7 +91,9 @@ export const Monster: IMonster = declare_xr_class("Monster", cse_alife_monster_b
     cse_alife_monster_base.STATE_Write(this, packet);
 
     if (this.online) {
-      packet.w_stringZ(tostring(level && level.object_by_id(this.id) && level.object_by_id(this.id).level_vertex_id()));
+      packet.w_stringZ(
+        tostring(level && level.object_by_id(this.id) && level.object_by_id(this.id)!.level_vertex_id())
+      );
     } else {
       packet.w_stringZ(tostring(offlineObjects.get(this.id) && offlineObjects.get(this.id).level_vertex_id));
     }

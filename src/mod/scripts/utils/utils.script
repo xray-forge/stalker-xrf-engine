@@ -214,10 +214,8 @@ end
 -- todo: Moved
 -- ������ CTime � �����. ���� t=nil, �� ������� ���� ������� ����
 function export.w_CTime(p, t )
-	--set_save_marker(p, "save", false, "CTIME")
 	if t == nil then
 		p:w_u8(-1)
-		--set_save_marker(p, "save", true, "CTIME")
 		return
 	end
 
@@ -235,16 +233,13 @@ function export.w_CTime(p, t )
 	else
 		p:w_u8 ( 0 )
 	end
-	--set_save_marker(p, "save", true, "CTIME")
 end
 
 -- todo: Moved
 -- ������ CTime �� ������
 function export.r_CTime(p )
-	--set_save_marker(p, "load", false, "CTIME")
 	local Y = p:r_u8()
 	if Y == 255 then
-		--set_save_marker(p, "load", true, "CTIME")
 		return nil
 	end
 
@@ -252,10 +247,8 @@ function export.r_CTime(p )
 		local t = game.CTime()
 		local M, D, h, m, s, ms = p:r_u8(), p:r_u8(), p:r_u8(), p:r_u8(), p:r_u8(), p:r_u16()
 		t:set( Y + 2000,  M, D, h, m, s, ms)
-		--set_save_marker(p, "load", true, "CTIME")
 		return t
 	else
-		--set_save_marker(p, "load", true, "CTIME")
 		return 0
 	end
 end

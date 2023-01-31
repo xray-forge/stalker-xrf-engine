@@ -5,12 +5,14 @@ import {
   object_binder,
   system_ini,
   time_global,
+  TXR_cls_id,
   XR_CHelicopter,
   XR_cse_alife_object,
   XR_game_object,
   XR_ini_file,
   XR_net_packet,
   XR_object_binder,
+  XR_reader,
   XR_vector
 } from "xray16";
 
@@ -151,17 +153,17 @@ export const HeliBinder: IHeliBinder = declare_xr_class("HeliBinder", object_bin
     setSaveMarker(packet, true, HeliBinder.__name);
     this.st.combat!.save(packet);
   },
-  load(packet: XR_net_packet): void {
+  load(reader: XR_reader): void {
     this.loaded = true;
-    setLoadMarker(packet, false, HeliBinder.__name);
+    setLoadMarker(reader, false, HeliBinder.__name);
     // --printf("generic_object_binder:load(): this.object:name()='%s'", this.object:name())
-    object_binder.load(this, packet);
+    object_binder.load(this, reader);
 
     // --printf( "heli_binder: load")
 
-    get_global<AnyCallablesModule>("xr_logic").load_obj(this.object, packet);
-    setLoadMarker(packet, true, HeliBinder.__name);
-    this.st.combat!.load(packet);
+    get_global<AnyCallablesModule>("xr_logic").load_obj(this.object, reader);
+    setLoadMarker(reader, true, HeliBinder.__name);
+    this.st.combat!.load(reader);
   },
   check_health(): void {
     const heli = this.heliObject;
@@ -186,8 +188,8 @@ export const HeliBinder: IHeliBinder = declare_xr_class("HeliBinder", object_bin
     }
   },
   on_hit(power: number, impulse: number, hit_type: number, enemy_id: number): void {
-    const enemy = level.object_by_id(enemy_id);
-    const enemy_cls_id = getClsId(enemy);
+    const enemy: Optional<XR_game_object> = level.object_by_id(enemy_id);
+    const enemy_cls_id: Optional<TXR_cls_id> = getClsId(enemy);
 
     this.heli_fire.enemy = enemy;
     this.heli_fire.update_hit();

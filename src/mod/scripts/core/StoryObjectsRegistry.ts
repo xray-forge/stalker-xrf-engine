@@ -1,4 +1,12 @@
-import { alife, system_ini, XR_cse_abstract, XR_ini_file, XR_LuaBindBase, XR_net_packet } from "xray16";
+import {
+  alife,
+  system_ini,
+  TXR_net_processor,
+  XR_cse_abstract,
+  XR_ini_file,
+  XR_LuaBindBase,
+  XR_net_packet
+} from "xray16";
 
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { Optional } from "@/mod/lib/types";
@@ -20,7 +28,7 @@ export interface IStoryObjectsRegistry extends XR_LuaBindBase {
   get(story_obj_id: string): Optional<number>;
   get_story_id(obj_id: number): Optional<string>;
   save(packet: XR_net_packet): void;
-  load(packet: XR_net_packet): void;
+  load(packet: TXR_net_processor): void;
 }
 
 export const StoryObjectsRegistry: IStoryObjectsRegistry = declare_xr_class("StoryObjectsRegistry", null, {
@@ -75,7 +83,7 @@ export const StoryObjectsRegistry: IStoryObjectsRegistry = declare_xr_class("Sto
     return this.story_id_by_id.get(obj_id);
   },
   save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, "StoryObjectsRegistry");
+    setSaveMarker(packet, false, StoryObjectsRegistry.__name);
 
     let count = 0;
 
@@ -94,10 +102,10 @@ export const StoryObjectsRegistry: IStoryObjectsRegistry = declare_xr_class("Sto
       packet.w_u16(v);
     }
 
-    setSaveMarker(packet, true, "StoryObjectsRegistry");
+    setSaveMarker(packet, true, StoryObjectsRegistry.__name);
   },
-  load(packet: XR_net_packet): void {
-    setLoadMarker(packet, false, "StoryObjectsRegistry");
+  load(packet: TXR_net_processor): void {
+    setLoadMarker(packet, false, StoryObjectsRegistry.__name);
 
     const count: number = packet.r_u16();
 
@@ -109,7 +117,7 @@ export const StoryObjectsRegistry: IStoryObjectsRegistry = declare_xr_class("Sto
       this.story_id_by_id.set(obj_id, story_id);
     }
 
-    setLoadMarker(packet, true, "StoryObjectsRegistry");
+    setLoadMarker(packet, true, StoryObjectsRegistry.__name);
   }
 } as IStoryObjectsRegistry);
 

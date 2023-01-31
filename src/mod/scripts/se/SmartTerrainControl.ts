@@ -1,4 +1,4 @@
-import { game, XR_CTime, XR_ini_file, XR_LuaBindBase, XR_net_packet } from "xray16";
+import { game, TXR_net_processor, XR_CTime, XR_ini_file, XR_LuaBindBase, XR_net_packet, XR_reader } from "xray16";
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { getActor, zoneByName } from "@/mod/scripts/core/db";
@@ -38,7 +38,7 @@ export interface ISmartTerrainControl extends XR_LuaBindBase {
   actor_attack(): void;
   get_status(): ESmartTerrainStatus;
   save(packet: XR_net_packet): void;
-  load(packet: XR_net_packet): void;
+  load(packet: TXR_net_processor): void;
 }
 
 // CBaseOnActorControl
@@ -146,13 +146,13 @@ export const SmartTerrainControl: ISmartTerrainControl = declare_xr_class("Smart
 
     setSaveMarker(packet, true, "SmartTerrainControl");
   },
-  load(packet: XR_net_packet): void {
-    setLoadMarker(packet, false, "SmartTerrainControl");
+  load(reader: XR_reader | XR_reader): void {
+    setLoadMarker(reader, false, "SmartTerrainControl");
 
-    this.status = packet.r_u8();
-    this.alarm_time = readCTimeFromPacket(packet);
+    this.status = reader.r_u8();
+    this.alarm_time = readCTimeFromPacket(reader);
 
-    setLoadMarker(packet, true, "SmartTerrainControl");
+    setLoadMarker(reader, true, "SmartTerrainControl");
   }
 } as ISmartTerrainControl);
 

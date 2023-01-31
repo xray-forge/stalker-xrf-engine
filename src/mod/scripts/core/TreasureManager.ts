@@ -7,7 +7,8 @@ import {
   alife,
   ini_file,
   level,
-  time_global
+  time_global,
+  XR_reader
 } from "xray16";
 
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
@@ -58,7 +59,7 @@ export interface ITreasureManager extends XR_LuaBindBase {
   give_random(): void;
   on_item_take(obj_id: number): void;
   save(packet: XR_net_packet): void;
-  load(packet: XR_net_packet): void;
+  load(reader: XR_reader): void;
 }
 
 export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManager", null, {
@@ -390,25 +391,25 @@ export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManag
 
     setSaveMarker(packet, true, "TreasureManager");
   },
-  load(packet: XR_net_packet): void {
-    setLoadMarker(packet, false, "TreasureManager");
+  load(reader: XR_reader): void {
+    setLoadMarker(reader, false, "TreasureManager");
 
-    this.items_spawned = packet.r_bool();
+    this.items_spawned = reader.r_bool();
     this.items_from_secrets = new LuaTable();
 
-    const itemsCount = packet.r_u16();
+    const itemsCount = reader.r_u16();
 
     for (const it of $range(1, itemsCount)) {
-      const k: number = packet.r_u16();
-      const v: number = packet.r_u16();
+      const k: number = reader.r_u16();
+      const v: number = reader.r_u16();
 
       this.items_from_secrets.set(k, v);
     }
 
-    const secretsCount: number = packet.r_u16();
+    const secretsCount: number = reader.r_u16();
 
     for (const it of $range(1, secretsCount)) {
-      let id: number | string = packet.r_u16();
+      let id: number | string = reader.r_u16();
 
       for (const [k, v] of this.secret_restrs) {
         if (v === id) {
@@ -417,9 +418,9 @@ export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManag
         }
       }
 
-      const given = packet.r_bool();
-      const checked = packet.r_bool();
-      const to_find = packet.r_u8();
+      const given = reader.r_bool();
+      const checked = reader.r_bool();
+      const to_find = reader.r_u8();
 
       if (id !== MAX_UNSIGNED_16_BIT && this.secrets.get(id as any)) {
         const secret = this.secrets.get(id as any);
@@ -430,7 +431,7 @@ export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManag
       }
     }
 
-    setLoadMarker(packet, true, "TreasureManager");
+    setLoadMarker(reader, true, "TreasureManager");
   }
 } as ITreasureManager);
 

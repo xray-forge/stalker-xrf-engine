@@ -8,7 +8,8 @@ import {
   XR_ini_file,
   XR_net_packet,
   XR_object_binder,
-  XR_patrol
+  XR_patrol,
+  XR_reader
 } from "xray16";
 
 import { MAX_UNSIGNED_8_BIT } from "@/mod/globals/memory";
@@ -19,7 +20,7 @@ import { mapDisplayManager } from "@/mod/scripts/ui/game/MapDisplayManager";
 import { getStoryObject } from "@/mod/scripts/utils/alife";
 import { getConfigNumber, getConfigString, parseNames, parseNums } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
-import { setMarker } from "@/mod/scripts/utils/game_saves";
+import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("AnomalyZoneBinder");
@@ -639,7 +640,7 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     return true;
   },
   save(packet: XR_net_packet): void {
-    setMarker(packet, "save", false, "AnomalyZoneBinder");
+    setSaveMarker(packet, false, AnomalyZoneBinder.__name);
     object_binder.save(this, packet);
 
     let count: number = 0;
@@ -703,17 +704,18 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
 
     packet.w_bool(this.isTurnedOff);
 
-    setMarker(packet, "save", true, "AnomalyZoneBinder");
+    setSaveMarker(packet, true, AnomalyZoneBinder.__name);
   },
-  load(packet: XR_net_packet): void {
-    setMarker(packet, "load", false, "AnomalyZoneBinder");
-    object_binder.load(this, packet);
+  load(reader: XR_reader): void {
+    setLoadMarker(reader, false, AnomalyZoneBinder.__name);
 
-    const waysCount: number = packet.r_u16();
+    object_binder.load(this, reader);
+
+    const waysCount: number = reader.r_u16();
 
     for (const i of $range(1, waysCount)) {
-      const artefactId: number = packet.r_u16();
-      const wayName: string = packet.r_stringZ();
+      const artefactId: number = reader.r_u16();
+      const wayName: string = reader.r_stringZ();
 
       this.artefactWaysByArtefactId.set(artefactId, wayName);
 
@@ -721,31 +723,31 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
       PARENT_ZONES_BY_ARTEFACT_ID.set(artefactId, this);
     }
 
-    const pointsCount: number = packet.r_u16();
+    const pointsCount: number = reader.r_u16();
 
     for (const i of $range(1, pointsCount)) {
-      const artefactId: number = packet.r_u16();
-      const pointName: number = packet.r_u8();
+      const artefactId: number = reader.r_u16();
+      const pointName: number = reader.r_u8();
 
       ARTEFACT_POINTS_BY_ARTEFACT_ID.set(artefactId, pointName);
       this.artefactPointsByArtefactId.set(artefactId, pointName);
     }
 
-    this.spawnedArtefactsCount = packet.r_u8();
-    this.shouldRespawnArtefactsIfPossible = packet.r_bool();
-    this.isForcedToSpawn = packet.r_bool();
-    this.hasForcedSpawnOverride = packet.r_bool();
-    this.forcedArtefact = packet.r_stringZ();
+    this.spawnedArtefactsCount = reader.r_u8();
+    this.shouldRespawnArtefactsIfPossible = reader.r_bool();
+    this.isForcedToSpawn = reader.r_bool();
+    this.hasForcedSpawnOverride = reader.r_bool();
+    this.forcedArtefact = reader.r_stringZ();
 
-    const currentLayer: number = packet.r_u8();
+    const currentLayer: number = reader.r_u8();
 
     if (currentLayer !== MAX_UNSIGNED_8_BIT) {
       this.currentZoneLayer = ANOMAL_ZONE_LAYER + currentLayer;
     }
 
-    this.isTurnedOff = packet.r_bool();
+    this.isTurnedOff = reader.r_bool();
 
-    setMarker(packet, "load", true, "AnomalyZoneBinder");
+    setLoadMarker(reader, true, AnomalyZoneBinder.__name);
   },
   getArtefactsListForSection(section: string, defaultArtefacts: Optional<string>): LuaTable<number, string> {
     const baseArtefactsList: Optional<string> = getConfigString(
