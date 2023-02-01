@@ -10,6 +10,7 @@ local bind_state_manager = require("scripts.state_management.bind_state_manager"
 local schemes = require("scripts.core.schemes")
 local ReleaseBodyManager = require("scripts.core.ReleaseBodyManager")
 local ActionDanger = require("scripts.core.logic.ActionDanger").ActionDanger
+local ActionWoundManager = require("scripts.core.logic.ActionWoundManager").ActionWoundManager
 local DynamicMusicManager = require("scripts.core.sound.DynamicMusicManager").DynamicMusicManager
 local ActionLight = require("scripts.core.logic.ActionLight").ActionLight
 local DropManager = require("scripts.core.DropManager").DropManager
@@ -308,9 +309,8 @@ function motivator_binder:hit_callback(obj, amount, local_direction, who, bone_i
   end
 
   if amount > 0 then
-    printf("HIT_CALLBACK: %s amount=%s bone=%s", obj:name(), amount, tostring(bone_index))
     --		self.need_relation_update = who:id() == db.actor:id()
-    xr_wounded.hit_callback(obj:id())
+    ActionWoundManager:hit_callback(obj:id())
   end
 end
 

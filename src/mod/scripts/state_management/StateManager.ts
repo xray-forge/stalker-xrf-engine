@@ -12,6 +12,7 @@ import {
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { AnyCallable, AnyObject, Maybe, Optional } from "@/mod/lib/types";
+import { stringifyAsJson } from "@/mod/lib/utils/json";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import * as animationManagement from "@/mod/scripts/state_management/animation";
 import * as animationStateManagement from "@/mod/scripts/state_management/animation_state";
@@ -82,7 +83,7 @@ export class StateManager {
     // --callstack()
 
     if (states.get(state_name) === null) {
-      abort("ERROR: ILLEGAL SET STATE CALLED!!! %s fo %s", tostring(state_name), this.npc.name());
+      abort("ERROR: ILLEGAL SET STATE CALLED!!! %s fo %s", stringifyAsJson(state_name), this.npc.name());
     }
 
     /**

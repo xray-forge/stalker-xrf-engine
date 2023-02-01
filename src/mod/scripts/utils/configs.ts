@@ -719,6 +719,9 @@ export function path_parse_waypoints(pathname: Optional<string>): Optional<LuaTa
   return waypointsInfo;
 }
 
+/**
+ * todo;
+ */
 export function path_parse_waypoints_from_arglist(pathname: string, num_points: number, ...args: AnyArgs): unknown {
   if (!pathname) {
     return null;
@@ -754,4 +757,86 @@ export function path_parse_waypoints_from_arglist(pathname: string, num_points: 
   }
 
   return result;
+}
+
+/**
+ * todo;
+ */
+export function parse_data(
+  object: XR_game_object,
+  target: Optional<string>
+): LuaTable<number, { dist: Optional<number>; state: Optional<any>; sound: Optional<any> }> {
+  const collection: LuaTable<number> = new LuaTable();
+
+  if (target) {
+    for (const name of string.gfind(target, "(%|*%d+%|[^%|]+)%p*")) {
+      const dat = {
+        dist: null as Optional<number>,
+        state: null,
+        sound: null
+      };
+
+      const [t_pos] = string.find(name, "|", 1, true);
+      const [s_pos] = string.find(name, "@", 1, true);
+
+      const dist = string.sub(name, 1, t_pos - 1);
+
+      let state: Optional<string> = null;
+      let sound: Optional<string> = null;
+
+      if (s_pos !== null) {
+        state = string.sub(name, t_pos + 1);
+        sound = string.sub(name, s_pos + 1);
+      } else {
+        state = string.sub(name, t_pos + 1);
+      }
+
+      dat.dist = tonumber(dist)!;
+
+      if (state !== null) {
+        dat.state = parseCondList(object, dist, state, state);
+      }
+
+      if (sound !== null) {
+        dat.sound = parseCondList(object, dist, sound, sound);
+      }
+
+      table.insert(collection, dat);
+    }
+  }
+
+  return collection;
+}
+
+/**
+ * todo;
+ */
+export function parse_syn_data(
+  object: XR_game_object,
+  target: Optional<string>
+): LuaTable<number, { zone: null; state: string; sound: string }> {
+  const collection: LuaTable<number> = new LuaTable();
+
+  if (target) {
+    for (const name of string.gfind(target, "(%|*[^%|]+%|*)%p*")) {
+      const dat = {
+        zone: null,
+        state: null as Optional<string>,
+        sound: null as Optional<string>
+      };
+
+      const [t_pos] = string.find(name, "@", 1, true);
+      const [s_pos] = string.find(name, "|", 1, true);
+
+      const state = string.sub(name, 1, t_pos - 1);
+      const sound = s_pos !== null ? string.sub(name, t_pos + 1, s_pos - 1) : string.sub(name, t_pos + 1);
+
+      dat.state = state;
+      dat.sound = sound;
+
+      table.insert(collection, dat);
+    }
+  }
+
+  return collection;
 }

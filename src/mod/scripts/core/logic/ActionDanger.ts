@@ -16,6 +16,7 @@ import { logicsConfig } from "@/mod/lib/configs/LogicsConfig";
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { ActionWoundManager } from "@/mod/scripts/core/logic/ActionWoundManager";
 import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -144,7 +145,7 @@ export class ActionDanger extends AbstractSchemeAction {
       }
     }
 
-    if (get_global<AnyCallablesModule>("xr_wounded").is_heavy_wounded_by_id(npc.id())) {
+    if (ActionWoundManager.is_heavy_wounded_by_id(npc.id())) {
       return false;
     }
 

@@ -10,5 +10,6 @@ declare namespace string {
 }
 
 declare namespace math {
+  function mod(target: number, module: number): number;
   function atan2(first: number, second: number): number;
 }

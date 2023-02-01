@@ -1,8 +1,9 @@
 import { level, property_evaluator, XR_game_object, XR_property_evaluator, XR_vector } from "xray16";
 
 import { communities } from "@/mod/globals/communities";
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
+import { ActionWoundManager } from "@/mod/scripts/core/logic/ActionWoundManager";
 import { get_release_body_manager, IReleaseDescriptor } from "@/mod/scripts/core/ReleaseBodyManager";
 import { isLootableItem } from "@/mod/scripts/utils/checkers";
 
@@ -21,25 +22,15 @@ export const EvaluatorCorpseDetect: IEvaluatorCorpseDetect = declare_xr_class(
     evaluate(): boolean {
       if (!this.object.alive()) {
         return false;
-      }
-
-      if (this.object.best_enemy() !== null) {
+      } else if (this.object.best_enemy() !== null) {
         return false;
-      }
-
-      if (this.object.character_community() === communities.zombied) {
+      } else if (this.object.character_community() === communities.zombied) {
         return false;
-      }
-
-      if (this.state.corpse_detection_enabled === false) {
+      } else if (this.state.corpse_detection_enabled === false) {
         return false;
-      }
-
-      if (get_global<AnyCallablesModule>("xr_wounded").is_wounded(this.object)) {
+      } else if (ActionWoundManager.is_wounded(this.object)) {
         return false;
-      }
-
-      if (this.object.section() === "actor_visual_stalker") {
+      } else if (this.object.section() === "actor_visual_stalker") {
         return false;
       }
 

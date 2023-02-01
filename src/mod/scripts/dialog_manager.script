@@ -1,4 +1,5 @@
 -- 1007
+local ActionWoundManager = require("scripts.core.logic.ActionWoundManager").ActionWoundManager
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 local log = create_ts_class_instance(LuaLogger, "dialog_manager");
@@ -576,16 +577,16 @@ function calculate_priority(PRT_subtable, PTID_subtable, npc, phrase_id)
   end
 
   if (PTID_subtable.wounded == "true") then
-    --if not(xr_wounded.is_heavy_wounded_by_id(npc:id())) then
-    if not (xr_wounded.is_wounded(npc)) then
+    --if not(ActionWoundManager:is_heavy_wounded_by_id(npc:id())) then
+    if not (ActionWoundManager:is_wounded(npc)) then
       priority = -1
     else
       priority = priority + 1
     end
   else
 
-    --if(xr_wounded.is_heavy_wounded_by_id(npc:id())) then
-    if (xr_wounded.is_wounded(npc)) then
+    --if(ActionWoundManager:is_heavy_wounded_by_id(npc:id())) then
+    if (ActionWoundManager:is_wounded(npc)) then
       priority = -1
     else
       priority = priority + 1
@@ -943,7 +944,7 @@ end
 -- Precondition for simulation answer
 function precondition_sim_action_dialog(npc, actor, dialog_name)
 	local squad = get_object_squad(npc)
-	if(xr_wounded.is_heavy_wounded_by_id(npc:id())) then
+	if(ActionWoundManager:is_heavy_wounded_by_id(npc:id())) then
 		return false
 	end
 	if(squad~=nil) then

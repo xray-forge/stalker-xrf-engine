@@ -1,4 +1,13 @@
-export function stringifyAsJson(target: unknown, separator: string = " "): string {
+export function stringifyAsJson(
+  target: unknown,
+  separator: string = " ",
+  depth: number = 0,
+  maxDepth: number = 6
+): string {
+  if (depth >= maxDepth) {
+    return "<stack_limit>";
+  }
+
   if (type(target) === "string") {
     return `"${target}"`;
   } else if (type(target) === "number") {
@@ -15,7 +24,7 @@ export function stringifyAsJson(target: unknown, separator: string = " "): strin
     let result: string = "{";
 
     for (const [k, v] of pairs(target)) {
-      result += string.format("\"%s\": %s,%s", k, stringifyAsJson(v, separator), separator);
+      result += string.format("\"%s\": %s,%s", k, stringifyAsJson(v, separator, depth + 1, maxDepth), separator);
     }
 
     return result + "}";

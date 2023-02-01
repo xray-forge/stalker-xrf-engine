@@ -96,7 +96,7 @@ export class ActionPostProcess extends AbstractSchemeAction {
 
     const c_time: number = delta * 0.001;
 
-    if (this.actor_inside == true) {
+    if (this.actor_inside === true) {
       this.intensity = this.intensity + this.intensity_inertion * c_time;
       if (this.intensity_base < 0.0) {
         if (this.intensity < this.intensity_base) {

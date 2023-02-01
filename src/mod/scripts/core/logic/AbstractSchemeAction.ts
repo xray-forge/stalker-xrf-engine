@@ -48,18 +48,18 @@ export abstract class AbstractSchemeAction {
   public update(delta: number): void {}
 
   public reset_scheme(): void {
-    log.info("Reset scheme:", this.object.name());
+    log.info("Reset scheme:", this.constructor.prototype.SCHEME_SECTION, this.object.name());
   }
 
   public deactivate(): void {
-    log.info("Deactivate:", this.object.name());
+    log.info("Deactivate:", this.constructor.prototype.SCHEME_SECTION, this.object.name());
   }
 
   public net_spawn(): void {
-    log.info("Net spawn:", this.object.name());
+    log.info("Net spawn:", this.constructor.prototype.SCHEME_SECTION, this.object.name());
   }
 
   public net_destroy(): void {
-    log.info("Net destroy:", this.object.name());
+    log.info("Net destroy:", this.constructor.prototype.SCHEME_SECTION, this.object.name());
   }
 }

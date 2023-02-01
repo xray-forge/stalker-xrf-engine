@@ -1,5 +1,6 @@
 -- 1755
 
+local ActionWoundManager = require("scripts.core.logic.ActionWoundManager").ActionWoundManager
 local ActionDeimos = require("scripts.core.logic.ActionDeimos").ActionDeimos
 local GlobalSound = require("scripts.core.logic.GlobalSound").GlobalSound
 local SurgeManager = require("scripts.core.SurgeManager")
@@ -112,7 +113,7 @@ function npc_in_actor_frustum(actor, npc)
 end
 
 function is_wounded(actor, npc)
-  return xr_wounded.is_wounded(npc)
+  return ActionWoundManager:is_wounded(npc)
 end
 
 function dist_to_actor_le(actor, npc, p)
@@ -793,7 +794,7 @@ function actor_active_detector(actor, npc, p)
 end
 
 function heavy_wounded(actor, npc)
-  return xr_wounded.is_heavy_wounded_by_id(npc:id())
+  return ActionWoundManager:is_heavy_wounded_by_id(npc:id())
 end
 
 --[[

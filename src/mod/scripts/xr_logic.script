@@ -1,4 +1,5 @@
 -- 1517
+local ActionWoundManager = require("scripts.core.logic.ActionWoundManager").ActionWoundManager
 local TradeManager = require("scripts.core.TradeManager")
 local RestrictorManager = require("scripts.core.RestrictorManager").RestrictorManager
 local Hear = require("scripts.core.Hear").Hear
@@ -301,7 +302,7 @@ function enable_generic_schemes(ini, npc, stype, section)
     end
 
     local wounded_section = utils.cfg_get_string(ini, section, "wounded", npc, false, "")
-    xr_wounded.set_wounded(npc, ini, "wounded", wounded_section)
+    ActionWoundManager:set_wounded(npc, ini, "wounded", wounded_section)
 
     AbuseManager:set_abuse(npc, ini, "abuse", section)
 
@@ -459,7 +460,7 @@ function reset_generic_schemes_on_scheme_switch(npc, scheme, section)
     xr_help_wounded.reset_help_wounded(npc, scheme, st, section)
     ActionCorpseDetect:reset_corpse_detection(npc, scheme, st, section)
     AbuseManager:reset_abuse(npc, scheme, st, section)
-    xr_wounded.reset_wounded(npc, scheme, st, section)
+    ActionWoundManager:reset_wounded(npc, scheme, st, section)
     ActionDeath:reset_death(npc, scheme, st, section)
     ActionDanger:reset_danger(npc, scheme, st, section)
     ActionGatherItems:reset_gather_items(npc, scheme, st, section)
@@ -846,7 +847,7 @@ end
 
 function is_active(npc, st)
   if st.section == nil then
-    abort("npc '%s': st.section is nil", st.section)
+    abort("npc %s '%s': st.section is nil", npc:name(), st.section)
   end
   local is_act = (st.section == db.storage[npc:id()].active_section)
 
@@ -1286,9 +1287,11 @@ function pstor_store(obj, varname, val)
     db.storage[npc_id].pstor = {}
   end
   local tv = type(val)
+
   if val ~= nil and not pstor_is_registered_type(tv) then
-    abort("xr_logic: pstor_store: not registered type '%s' encountered", tv)
+    abort("xr_logic: pstor_store: not registered type '%s' encountered, %s", tv, varname)
   end
+
   db.storage[npc_id].pstor[varname] = val
 end
 

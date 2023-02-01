@@ -11,9 +11,10 @@ import {
 import { captions } from "@/mod/globals/captions";
 import { script_sounds } from "@/mod/globals/sound/script_sounds";
 import { texturesIngame } from "@/mod/globals/textures";
-import { AnyCallable, Maybe, Optional } from "@/mod/lib/types";
+import { Maybe, Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
 import { get_smart_terrain_name } from "@/mod/scripts/core/db/smart_names";
+import { ActionWoundManager } from "@/mod/scripts/core/logic/ActionWoundManager";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { isStalkerClassId } from "@/mod/scripts/utils/checkers";
@@ -222,7 +223,7 @@ export function send_tip(
 
       if (npc !== null) {
         if (npc.online) {
-          if ((get_global("xr_wounded").is_heavy_wounded_by_id as AnyCallable)(npc.id)) {
+          if (ActionWoundManager.is_heavy_wounded_by_id(npc.id)) {
             log.info("Cannot send tip, npc is wounded");
 
             return false;

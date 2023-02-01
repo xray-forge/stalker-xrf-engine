@@ -13,6 +13,7 @@ import { TScheme, TSection } from "@/mod/lib/types/configuration";
 import { ISignalLightBinder } from "@/mod/scripts/core/binders/SignalLightBinder";
 import { ActionLight } from "@/mod/scripts/core/logic/ActionLight";
 import { ITeleportPoint } from "@/mod/scripts/core/logic/ActionTeleport";
+import { ActionWoundManager } from "@/mod/scripts/core/logic/ActionWoundManager";
 import { HeliCombat } from "@/mod/scripts/core/logic/heli/HeliCombat";
 import { RestrictorManager } from "@/mod/scripts/core/RestrictorManager";
 import { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
@@ -59,6 +60,7 @@ export interface ITradeManagerDescriptor {
 export interface IStoredObject<T = XR_game_object> {
   [index: string]: any;
 
+  wounded?: { wound_manager: ActionWoundManager };
   approved_actions?: LuaTable;
   light?: boolean;
   points?: LuaTable<number, ITeleportPoint>;

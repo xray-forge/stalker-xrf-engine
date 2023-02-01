@@ -1,16 +1,18 @@
 import { AnyArgs } from "@/mod/lib/types";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("utils/debug");
+const log: LuaLogger = new LuaLogger("debug");
 
 /**
  * Call game abort and print reason.
  */
 export function abort(format: string, ...rest: AnyArgs): never {
-  log.error("[abort] Aborting:", string.format(format, ...rest));
+  const reason: string = string.format(format, ...rest);
+
+  log.error("[abort] Aborting:", reason);
   log.printStack();
 
-  return null as never;
+  error(reason, 1);
 }
 
 /**

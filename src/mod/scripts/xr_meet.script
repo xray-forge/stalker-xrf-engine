@@ -4,6 +4,7 @@ local GlobalSound = require("scripts.core.logic.GlobalSound").GlobalSound
 local utilsAlife = require("scripts.utils.alife")
 local StateManager = require("scripts.state_management.StateManager")
 local AbuseManager = require("scripts.core.logic.AbuseManager").AbuseManager
+local ActionWoundManager = require("scripts.core.logic.ActionWoundManager").ActionWoundManager
 local ActionCorpseDetect = require("scripts.core.logic.ActionCorpseDetect").ActionCorpseDetect
 local game_relations = require("scripts.core.game_relations")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
@@ -38,7 +39,7 @@ function evaluator_contact:evaluate()
 
     self.a.meet_manager:update()
 
-    if xr_wounded.is_wounded(self.object) then
+    if ActionWoundManager:is_wounded(self.object) then
       return false
     end
 
@@ -334,7 +335,7 @@ function Cmeet_manager:update()
   end
 
   -- ����������� ��������
-  if xr_wounded.is_wounded(self.npc) then
+  if ActionWoundManager:is_wounded(self.npc) then
     self.trade_enable = false
   else
     local trade_enable = xr_logic.pick_section_from_condlist(db.actor, self.npc, self.a.trade_enable)
@@ -618,7 +619,7 @@ function is_meet(npc)
 end
 
 function process_npc_usability(npc)
-  if xr_wounded.is_wounded(npc) then
+  if ActionWoundManager:is_wounded(npc) then
     if npc:relation(db.actor) == game_object.enemy then
       npc:disable_talk()
     else
