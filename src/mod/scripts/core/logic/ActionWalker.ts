@@ -2,7 +2,7 @@ import { level, stalker_ids, world_property, XR_action_base, XR_game_object, XR_
 
 import { AnyCallablesModule } from "@/mod/lib/types";
 import { TScheme, TSection } from "@/mod/lib/types/configuration";
-import { IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject } from "@/mod/scripts/core/db";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { ActionWalkerActivity } from "@/mod/scripts/core/logic/actions/ActionWalkerActivity";
 import { EvaluatorNeedWalker } from "@/mod/scripts/core/logic/evaluators/EvaluatorNeedWalker";
@@ -35,10 +35,10 @@ export class ActionWalker extends AbstractSchemeAction {
 
     manager.add_evaluator(
       properties["need_walker"],
-      create_xr_class_instance(EvaluatorNeedWalker, storage, "walker_need")
+      create_xr_class_instance(EvaluatorNeedWalker, state, "walker_need")
     );
 
-    const new_action = create_xr_class_instance(ActionWalkerActivity, object, "action_walker_activity", storage);
+    const new_action = create_xr_class_instance(ActionWalkerActivity, object, "action_walker_activity", state);
 
     new_action.add_precondition(new world_property(stalker_ids.property_alive, true));
     new_action.add_precondition(new world_property(stalker_ids.property_danger, false));
@@ -51,7 +51,7 @@ export class ActionWalker extends AbstractSchemeAction {
     new_action.add_effect(new world_property(properties["state_mgr_logic_active"], false));
     manager.add_action(operators["action_walker"], new_action);
 
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(object, storage, new_action);
+    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(object, state, new_action);
 
     const alifeAction: XR_action_base = manager.action(get_global("xr_actions_id").alife);
 

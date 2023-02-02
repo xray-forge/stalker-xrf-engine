@@ -5,6 +5,7 @@ local SoundManager = require("scripts.core.sound.SoundManager")
 local StateManager = require("scripts.state_management.StateManager")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
+
 local log = create_ts_class_instance(LuaLogger, "xr_kamp");
 
 ----------------------------------------------------------------------------------------------------------------------

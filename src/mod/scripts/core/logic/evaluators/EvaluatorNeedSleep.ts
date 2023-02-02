@@ -2,6 +2,9 @@ import { property_evaluator, XR_property_evaluator } from "xray16";
 
 import { AnyCallablesModule } from "@/mod/lib/types";
 import { IStoredObject } from "@/mod/scripts/core/db";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
+
+const log: LuaLogger = new LuaLogger("EvaluatorNeedSleep");
 
 export interface IEvaluatorNeedSleep extends XR_property_evaluator {
   state: IStoredObject;

@@ -16,6 +16,7 @@ local ActionDeath = require("scripts.core.logic.ActionDeath").ActionDeath
 local utilsAlife = require("scripts.utils.alife")
 local utilsConfigs = require("scripts.utils.configs")
 local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
+local json = require("lib.utils.json")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 
@@ -849,6 +850,7 @@ function is_active(npc, st)
   if st.section == nil then
     abort("npc %s '%s': st.section is nil", npc:name(), st.section)
   end
+
   local is_act = (st.section == db.storage[npc:id()].active_section)
 
   -- ������� ������ ������� � �� ��������� �� ���� �� ������� ������������ �� ������ ������

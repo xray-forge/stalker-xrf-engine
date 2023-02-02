@@ -15,7 +15,7 @@ import {
   XR_property_evaluator
 } from "xray16";
 
-import { AnyCallable, Optional } from "@/mod/lib/types";
+import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { getActor, storage as dbStorage } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { AnimationManager } from "@/mod/scripts/state_management/AnimationManager";
@@ -48,16 +48,11 @@ export const PostCombatIdleEnemyEvaluator: IPostCombatIdleEnemyEvaluator = decla
     },
     evaluate(): boolean {
       const best_enemy: Optional<XR_game_object> = this.object.best_enemy();
-      const xr_combat_ignore = get_global("xr_combat_ignore");
+      const xr_combat_ignore = get_global<AnyCallablesModule>("xr_combat_ignore");
 
       if (
         best_enemy !== null &&
-        !(xr_combat_ignore.is_enemy as AnyCallable)(
-          this.object,
-          best_enemy,
-          dbStorage.get(this.object.id()).combat_ignore,
-          true
-        )
+        !xr_combat_ignore.is_enemy(this.object, best_enemy, dbStorage.get(this.object.id()).combat_ignore, true)
       ) {
         return false;
       }

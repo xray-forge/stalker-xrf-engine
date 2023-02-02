@@ -4,6 +4,7 @@ local state_lib = require("scripts.state_management.lib.state_lib")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local SmartCover = require("scripts.se.SmartCover")
 local create_ts_class_instance = require("lualib_bundle").__TS__New
+
 local log = create_ts_class_instance(LuaLogger, "xr_animpoint");
 
 local function angle_to_direction(oangle)
