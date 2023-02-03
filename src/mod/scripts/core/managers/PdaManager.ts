@@ -1,9 +1,11 @@
 import { game } from "xray16";
 
-import { weapons } from "@/mod/globals/items/weapons";
+import { TWeapon, weapons } from "@/mod/globals/items/weapons";
 import { monsters, TMonster } from "@/mod/globals/monsters";
 import { texturesIngame, TTexture } from "@/mod/globals/textures";
 import { Optional, PartialRecord } from "@/mod/lib/types";
+import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
+import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const log: LuaLogger = new LuaLogger("PdaMenu");
@@ -43,48 +45,34 @@ enum EStatSection {
 
 /**
  */
-export class PdaMenu {
-  public static instance: Optional<PdaMenu> = null;
-
-  public static getInstance(): PdaMenu {
-    if (!this.instance) {
-      this.instance = new this();
-    }
-
-    return this.instance;
-  }
-
+export class PdaManager extends AbstractCoreManager {
   public getStat(index: EStatSection): string {
-    const stats: Record<string, any> = get_global("xr_statistic");
+    const statisticsManager: StatisticsManager = StatisticsManager.getInstance();
 
     switch (index) {
       case EStatSection.UNKNOWN:
         return "00:00:00";
       case EStatSection.SURGES:
-        return tostring(stats.actor_statistic.surges);
+        return tostring(statisticsManager.actor_statistic.surges);
       case EStatSection.COMPLETED_QUESTS:
-        return tostring(stats.actor_statistic.completed_quests);
+        return tostring(statisticsManager.actor_statistic.completed_quests);
       case EStatSection.KILLED_MONSTERS:
-        return tostring(stats.actor_statistic.killed_monsters);
+        return tostring(statisticsManager.actor_statistic.killed_monsters);
       case EStatSection.KILLED_STALKERS:
-        return tostring(stats.actor_statistic.killed_stalkers);
+        return tostring(statisticsManager.actor_statistic.killed_stalkers);
       case EStatSection.ARTEFACTS_FOUND:
-        return tostring(stats.actor_statistic.artefacts_founded);
+        return tostring(statisticsManager.actor_statistic.artefacts_founded);
       case EStatSection.SECRETS_FOUND:
-        return tostring(stats.actor_statistic.founded_secrets);
+        return tostring(statisticsManager.actor_statistic.founded_secrets);
       default:
         return "";
     }
   }
 
   public getBestKilledMonster() {
-    const bestKilledMonster: Optional<TMonster> = get_global("xr_statistic").actor_statistic.best_monster;
+    const bestKilledMonster: Optional<TMonster> = StatisticsManager.getInstance().actor_statistic.best_monster;
 
-    if (!bestKilledMonster || !killedMonsters[bestKilledMonster]) {
-      return null;
-    } else {
-      return killedMonsters[bestKilledMonster];
-    }
+    return bestKilledMonster && killedMonsters[bestKilledMonster] ? killedMonsters[bestKilledMonster] : null;
   }
 
   public getMonsterBackground(): string {
@@ -95,10 +83,8 @@ export class PdaMenu {
     return this.getBestKilledMonster()?.icon || "";
   }
 
-  public getFavoriteWeapon(): string {
-    const favoriteWeapon: Optional<TMonster> = get_global("xr_statistic").actor_statistic.favorite_weapon_sect;
-
-    return favoriteWeapon || weapons.wpn_knife;
+  public getFavoriteWeapon(): TWeapon {
+    return StatisticsManager.getInstance().actor_statistic.favorite_weapon_sect || weapons.wpn_knife;
   }
 
   public fillFactionState(state: Record<string, any>): void {
@@ -132,5 +118,3 @@ export class PdaMenu {
     state.bonus = 0;
   }
 }
-
-export const pdaMenu: PdaMenu = PdaMenu.getInstance();

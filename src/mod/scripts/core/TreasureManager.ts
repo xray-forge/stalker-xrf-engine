@@ -14,6 +14,7 @@ import {
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { AnyCallable, Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
+import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { send_treasure } from "@/mod/scripts/core/NewsManager";
 import { parseSpawns } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -217,7 +218,7 @@ export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManag
 
           if (sect === "true" && !v.checked) {
             level.map_remove_object_spot(this.secret_restrs.get(k), "treasure");
-            get_global("xr_statistic").inc_founded_secrets_counter();
+            StatisticsManager.getInstance().incrementCollectedSecretsCount();
             v.empty = null;
             v.checked = true;
 
@@ -341,7 +342,7 @@ export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManag
 
       if (this.secrets.get(treasureId).to_find === 0) {
         level.map_remove_object_spot(this.secret_restrs.get(treasureId), "treasure");
-        get_global("xr_statistic").inc_founded_secrets_counter();
+        StatisticsManager.getInstance().incrementCollectedSecretsCount();
         this.secrets.get(treasureId).checked = true;
         send_treasure(1);
 

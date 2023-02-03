@@ -30,7 +30,7 @@ export function stringifyAsJson(
 
     for (const [k, v] of pairs(target)) {
       result += string.format(
-        '"%s": %s,%s',
+        "\"%s\": %s,%s",
         stringifyKey(k),
         stringifyAsJson(v, separator, depth + 1, maxDepth),
         separator

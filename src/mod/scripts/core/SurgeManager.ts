@@ -24,6 +24,7 @@ import { anomalyByName, CROW_STORAGE, getActor, signalLight, storage, zoneByName
 import { getManagerInstance } from "@/mod/scripts/core/db/ManagersRegistry";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
+import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { send_tip } from "@/mod/scripts/core/NewsManager";
 import { get_weather_manager } from "@/mod/scripts/core/WeatherManager";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/se/SimBoard";
@@ -429,7 +430,7 @@ export class SurgeManager extends AbstractCoreManager {
     this.prev_sec = 0;
 
     this.respawnArtefactsAndReplaceAnomalyZones();
-    get_global<AnyCallablesModule>("xr_statistic").inc_surges_counter();
+    StatisticsManager.getInstance().incrementSurgesCount();
 
     if (!this.skipMessage) {
       send_tip(getActor()!, "st_surge_while_asleep", null, "recent_surge", null, null);
@@ -484,7 +485,7 @@ export class SurgeManager extends AbstractCoreManager {
     }
 
     this.respawnArtefactsAndReplaceAnomalyZones();
-    get_global<AnyCallablesModule>("xr_statistic").inc_surges_counter();
+    StatisticsManager.getInstance().incrementSurgesCount();
   }
 
   public kill_all_unhided(): void {

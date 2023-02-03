@@ -14,6 +14,7 @@ local ActionWoundManager = require("scripts.core.logic.ActionWoundManager").Acti
 local DynamicMusicManager = require("scripts.core.sound.DynamicMusicManager").DynamicMusicManager
 local ActionLight = require("scripts.core.logic.ActionLight").ActionLight
 local DropManager = require("scripts.core.DropManager").DropManager
+local StatisticsManager = require("scripts.core.managers.StatisticsManager").StatisticsManager
 local SimBoard = require("scripts.se.SimBoard")
 local SmartTerrain = require("scripts.se.SmartTerrain")
 local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
@@ -260,7 +261,7 @@ function motivator_binder:hit_callback(obj, amount, local_direction, who, bone_i
   -- FIXME: �������� ������� ���� �� �������������� � ����� storage, � �� ��������...
   -- ������ ������ ������� �� ��� ��������� ����� � ������� ��� ����������.
   if (who:id() == db.actor:id()) then
-    xr_statistic.set_best_weapon(amount)
+    StatisticsManager:getInstance():updateBestWeapon(amount)
 
     --[[
         local se_obj = alife():object(obj:id())
@@ -330,8 +331,9 @@ function motivator_binder:death_callback(victim, who)
 
   --' end  --
   if who:id() == db.actor:id() then
-    xr_statistic.inc_killed_stalkers_counter()
-    xr_statistic.set_best_monster(npc)
+    -- todo: Probably only for stalkers so should be called only for increment.
+    StatisticsManager:getInstance():incrementKilledStalkersCount()
+    StatisticsManager:getInstance():updateBestMonsterKilled(npc)
   end
 
   --' �������� ������� ��� ������.

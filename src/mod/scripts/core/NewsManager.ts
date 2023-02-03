@@ -203,15 +203,15 @@ export function send_task(actor: Optional<XR_game_object>, type: TActionType, ta
  */
 export function send_tip(
   actor: XR_game_object,
-  news_id: string,
+  news_id_string: string,
   timeout: Maybe<number>,
   sender: Optional<TIcon | XR_game_object>,
   showtime: Maybe<number>,
   sender_id: Optional<string>
 ): boolean {
-  log.info("Show send tip:", news_id, timeout, showtime, sender_id);
+  log.info("Show send tip:", news_id_string, timeout, showtime, sender_id);
 
-  if (news_id === null) {
+  if (news_id_string === null) {
     return false;
   }
 
@@ -254,7 +254,7 @@ export function send_tip(
   }
 
   const news_caption: string = game.translate_string(captions.st_tip);
-  const news_text: string = game.translate_string(news_id);
+  const news_text: string = game.translate_string(news_id_string);
   const showTimeout: number = !timeout ? 0 : timeout;
   const showTime: number = !showtime ? 5000 : showtime;
 

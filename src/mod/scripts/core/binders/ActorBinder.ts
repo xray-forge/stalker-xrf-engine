@@ -39,6 +39,7 @@ import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { EGameEvent } from "@/mod/scripts/core/managers/events/EGameEvent";
 import { EventsManager } from "@/mod/scripts/core/managers/events/EventsManager";
 import { PsyAntennaManager } from "@/mod/scripts/core/managers/PsyAntennaManager";
+import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { send_task } from "@/mod/scripts/core/NewsManager";
 import { get_release_body_manager } from "@/mod/scripts/core/ReleaseBodyManager";
 import { DynamicMusicManager } from "@/mod/scripts/core/sound/DynamicMusicManager";
@@ -241,25 +242,26 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
   },
   on_trade(item, sell_bye, money): void {},
   article_callback(): void {},
-  on_item_take(obj: XR_game_object): void {
-    log.info("On item take:", obj.name());
+  on_item_take(object: XR_game_object): void {
+    log.info("On item take:", object.name());
 
-    if (isArtefact(obj)) {
-      const anomal_zone = PARENT_ZONES_BY_ARTEFACT_ID.get(obj.id());
+    if (isArtefact(object)) {
+      const anomal_zone = PARENT_ZONES_BY_ARTEFACT_ID.get(object.id());
 
       if (anomal_zone !== null) {
-        anomal_zone.onArtefactTaken(obj);
+        anomal_zone.onArtefactTaken(object);
       } else {
-        ARTEFACT_WAYS_BY_ARTEFACT_ID.delete(obj.id());
+        ARTEFACT_WAYS_BY_ARTEFACT_ID.delete(object.id());
       }
 
-      const artefact = obj.get_artefact();
+      const artefact = object.get_artefact();
 
       artefact.FollowByPath("NULL", 0, new vector().set(500, 500, 500));
-      get_global<AnyCallablesModule>("xr_statistic").inc_founded_artefacts_counter(obj.id());
+
+      StatisticsManager.getInstance().incrementCollectedArtefactsCount(object);
     }
 
-    getTreasureManager().on_item_take(obj.id());
+    getTreasureManager().on_item_take(object.id());
   },
   on_item_drop(object: XR_game_object): void {},
   use_inventory_item(obj: XR_game_object): void {
@@ -439,7 +441,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
 
     GlobalSound.actor_save(packet);
     packet.w_stringZ(tostring(this.last_level_name));
-    get_global<AnyCallablesModule>("xr_statistic").save(packet);
+    StatisticsManager.getInstance().save(packet);
     getTreasureManager().save(packet);
 
     const n = getTableSize(scriptIds);
@@ -517,7 +519,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
       this.last_level_name = n;
     }
 
-    get_global<AnyCallablesModule>("xr_statistic").load(reader);
+    StatisticsManager.getInstance().load(reader);
 
     getTreasureManager().load(reader);
 

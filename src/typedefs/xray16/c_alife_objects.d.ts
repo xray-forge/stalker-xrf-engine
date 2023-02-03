@@ -116,7 +116,7 @@ declare module "xray16" {
     public name(): string;
     public clsid(): TXR_cls_id;
     public spawn_ini(): XR_ini_file;
-    public section_name(): string;
+    public section_name<T extends string>(): T;
 
     public static UPDATE_Read(this: void, target: XR_cse_abstract,packet: XR_net_packet): void;
     public UPDATE_Read(packet: XR_net_packet): void;

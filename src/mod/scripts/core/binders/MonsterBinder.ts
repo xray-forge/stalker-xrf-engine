@@ -34,6 +34,7 @@ import {
 } from "@/mod/scripts/core/db";
 import { Hear } from "@/mod/scripts/core/Hear";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
+import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { stype_mobile } from "@/mod/scripts/core/schemes";
 import { get_sim_obj_registry } from "@/mod/scripts/se/SimObjectsRegistry";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
@@ -342,8 +343,10 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     this.hit_callback(victim, 1, new vector().set(0, 0, 0), killer, "from_death_callback");
 
     if (killer.id() === getActor()!.id()) {
-      get_global<AnyCallablesModule>("xr_statistic").inc_killed_monsters_counter();
-      get_global<AnyCallablesModule>("xr_statistic").set_best_monster(this.object);
+      const statisticsManager: StatisticsManager = StatisticsManager.getInstance();
+
+      statisticsManager.incrementKilledMonstersCount();
+      statisticsManager.updateBestMonsterKilled(this.object);
     }
 
     if (this.st.mob_death) {
@@ -396,7 +399,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     bone_index: string | number
   ): void {
     if (who.id() === getActor()!.id()) {
-      get_global<AnyCallablesModule>("xr_statistic").set_best_weapon(amount);
+      StatisticsManager.getInstance().updateBestWeapon(amount);
     }
 
     if (this.st.hit) {

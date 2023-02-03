@@ -249,7 +249,7 @@ declare module "xray16" {
     public r_s8(value: i8): i8;
     public r_sdir(vector: XR_vector): void;
     public r_seek(value: u64): void;
-    public r_stringZ(): string;
+    public r_stringZ<T extends string>(): T ;
     public r_tell(): u64;
     public r_u16(): i16;
     public r_u16(value: i16): i16;

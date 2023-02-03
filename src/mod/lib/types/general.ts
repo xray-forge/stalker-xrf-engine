@@ -1,5 +1,3 @@
-import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
-
 export type AnyObject = Record<string, any>;
 
 export type Optional<T> = T | null;
@@ -7,6 +5,11 @@ export type Optional<T> = T | null;
 export type Definable<T> = T | undefined;
 
 export type Maybe<T> = T | undefined | null;
+
+/**
+ * Type-casted option that extends type with "nil" values.
+ */
+export type StringOptional<T extends string> = T | "nil";
 
 export type PartialRecord<K extends keyof any, T> = {
   [P in K]?: T;

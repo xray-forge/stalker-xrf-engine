@@ -1,7 +1,20 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error"*/
 
+// todo: Probably separate for quests and generic.
 export const info_portions = {
+  actor_information_dealer: "actor_information_dealer",
+  actor_marked_by_zone_3_times: "actor_marked_by_zone_3_times",
+  actor_was_in_many_bad_places: "actor_was_in_many_bad_places",
+  actor_wealthy: "actor_wealthy",
   balance_advocate_gained: "balance_advocate_gained",
+  battle_systems_master_achievement_gained: "battle_systems_master_achievement_gained",
+  detective_achievement_gained: "detective_achievement_gained",
+  diplomat_achievement_gained: "diplomat_achievement_gained",
+  herald_of_justice_achievement_gained: "herald_of_justice_achievement_gained",
+  high_tech_master_achievement_gained: "high_tech_master_achievement_gained",
+  /**
+   * Info up.
+   */
   info_up_a_novice_outfit: "info_up_a_novice_outfit",
   info_up_ab_pkm: "info_up_ab_pkm",
   info_up_ab_svu: "info_up_ab_svu",
@@ -20,10 +33,22 @@ export const info_portions = {
   info_up_cd_pkm: "info_up_cd_pkm",
   info_up_cd_svu: "info_up_cd_svu",
   info_up_fh_scientific_outfit: "info_up_fh_scientific_outfit",
+  /**
+   * Jupiter quests.
+   */
+  /**
+   * Jupiter a10.
+   */
   jup_a10_bandit_about_percent_asked: "jup_a10_bandit_about_percent_asked",
+  jup_a10_bandit_take_all_money: "jup_a10_bandit_take_all_money",
+  jup_a10_bandit_take_money: "jup_a10_bandit_take_money",
   jup_a10_debt_wo_percent: "jup_a10_debt_wo_percent",
   jup_a10_threatened: "jup_a10_threatened",
   jup_a10_vano_agree_go_und: "jup_a10_vano_agree_go_und",
+  jup_a10_vano_give_task_end: "jup_a10_vano_give_task_end",
+  /**
+   * Jupiter a12.
+   */
   jup_a12_actor_choose: "jup_a12_actor_choose",
   jup_a12_actor_choose_power: "jup_a12_actor_choose_power",
   jup_a12_actor_choose_ransom: "jup_a12_actor_choose_ransom",
@@ -71,6 +96,7 @@ export const info_portions = {
   jup_a12_stalker_prisoner_free: "jup_a12_stalker_prisoner_free",
   jup_a12_stalker_prisoner_free_dialog_done: "jup_a12_stalker_prisoner_free_dialog_done",
   jup_a12_stalker_prisoner_friends_talked: "jup_a12_stalker_prisoner_friends_talked",
+  jup_a12_stalker_prisoner_helped: "jup_a12_stalker_prisoner_helped",
   jup_a12_stalker_prisoner_hide_end: "jup_a12_stalker_prisoner_hide_end",
   jup_a12_stalker_prisoner_hit_by_actor: "jup_a12_stalker_prisoner_hit_by_actor",
   jup_a12_stalker_prisoner_out_of_containers: "jup_a12_stalker_prisoner_out_of_containers",
@@ -84,6 +110,10 @@ export const info_portions = {
   jup_a12_task_given: "jup_a12_task_given",
   jup_a12_task_start: "jup_a12_task_start",
   jup_a12_ui: "jup_a12_ui",
+  jup_a12_wo_shooting: "jup_a12_wo_shooting",
+  /**
+   * Jupiter a9.
+   */
   jup_a9_cam_1_end: "jup_a9_cam_1_end",
   jup_a9_cam_2_end: "jup_a9_cam_2_end",
   jup_a9_cam_3_end: "jup_a9_cam_3_end",
@@ -94,10 +124,20 @@ export const info_portions = {
   jup_a9_way_to_pripyat_power_info_started: "jup_a9_way_to_pripyat_power_info_started",
   jup_a9_way_to_pripyat_search_started: "jup_a9_way_to_pripyat_search_started",
   jup_a9_way_to_pripyat_way_info_started: "jup_a9_way_to_pripyat_way_info_started",
+  /**
+   * Jupiter b15.
+   */
   jup_b15_zulus_b301_after_fight_done: "jup_b15_zulus_b301_after_fight_done",
   jup_b15_zulus_b301_reward_dialog_done: "jup_b15_zulus_b301_reward_dialog_done",
+  /**
+   * Jupiter b16.
+   */
   jup_b16_oasis_artefact_to_scientist: "jup_b16_oasis_artefact_to_scientist",
   jup_b16_oasis_talked: "jup_b16_oasis_talked",
+  jup_b16_task_done: "jup_b16_task_done",
+  /**
+   * Jupiter b19.
+   */
   jup_b19_actor_damaged_zombied: "jup_b19_actor_damaged_zombied",
   jup_b19_agreed_to_go: "jup_b19_agreed_to_go",
   jup_b19_arrived: "jup_b19_arrived",
@@ -118,6 +158,14 @@ export const info_portions = {
   jup_b19_yar_in_pripyat_met: "jup_b19_yar_in_pripyat_met",
   jup_b19_yar_switch_smart_terrain: "jup_b19_yar_switch_smart_terrain",
   jup_b19_yar_teleport_actor_to_yanov: "jup_b19_yar_teleport_actor_to_yanov",
+  /**
+   * Jupiter b1.
+   */
+  jup_b1_complete_end: "jup_b1_complete_end",
+  jup_b1_task_done: "jup_b1_task_done",
+  /**
+   * Jupiter b206.
+   */
   jup_b206_anomalous_grove_done: "jup_b206_anomalous_grove_done",
   jup_b206_anomalous_grove_has_plant_done: "jup_b206_anomalous_grove_has_plant_done",
   jup_b206_anomalous_grove_started: "jup_b206_anomalous_grove_started",
@@ -125,10 +173,15 @@ export const info_portions = {
   jup_b206_play_particle: "jup_b206_play_particle",
   jup_b206_soldier_outfit_mentioned: "jup_b206_soldier_outfit_mentioned",
   jup_b206_spawn_plant: "jup_b206_spawn_plant",
+  jup_b206_task_done: "jup_b206_task_done",
+  /**
+   * Jupiter b207.
+   */
   jup_b207_about_dealers_pda_kardan: "jup_b207_about_dealers_pda_kardan",
   jup_b207_about_dealers_pda_novikov: "jup_b207_about_dealers_pda_novikov",
   jup_b207_attack_end: "jup_b207_attack_end",
   jup_b207_attack_started: "jup_b207_attack_started",
+  jup_b207_dealers_pda_sold_owl: "jup_b207_dealers_pda_sold_owl",
   jup_b207_duty_asked_to_leave: "jup_b207_duty_asked_to_leave",
   jup_b207_duty_knows_about_depot: "jup_b207_duty_knows_about_depot",
   jup_b207_duty_wins: "jup_b207_duty_wins",
@@ -140,7 +193,12 @@ export const info_portions = {
   jup_b207_morgan_blackmailed: "jup_b207_morgan_blackmailed",
   jup_b207_morgan_gived_blackmail_reward: "jup_b207_morgan_gived_blackmail_reward",
   jup_b207_morgan_gived_depot: "jup_b207_morgan_gived_depot",
+  jup_b207_sell_dealers_pda_duty: "jup_b207_sell_dealers_pda_duty",
+  jup_b207_sell_dealers_pda_freedom: "jup_b207_sell_dealers_pda_freedom",
   jup_b207_task_start: "jup_b207_task_start",
+  /**
+   * Jupiter b208.
+   */
   jup_b208_burer_1_dead: "jup_b208_burer_1_dead",
   jup_b208_burer_2_dead: "jup_b208_burer_2_dead",
   jup_b208_burers_dead: "jup_b208_burers_dead",
@@ -148,6 +206,14 @@ export const info_portions = {
   jup_b208_burers_hunt_done: "jup_b208_burers_hunt_done",
   jup_b208_burers_hunt_give: "jup_b208_burers_hunt_give",
   jup_b208_burers_hunt_started: "jup_b208_burers_hunt_started",
+  /**
+   * Jupiter b209.
+   */
+  jup_b209_task_done: "jup_b209_task_done",
+  /**
+   * Jupiter b211.
+   */
+  jup_b211_scene_done: "jup_b211_scene_done",
   jup_b212_jupiter_chimera_dead: "jup_b212_jupiter_chimera_dead",
   jup_b212_jupiter_chimera_free: "jup_b212_jupiter_chimera_free",
   jup_b212_jupiter_chimera_hunt_done: "jup_b212_jupiter_chimera_hunt_done",
@@ -160,14 +226,26 @@ export const info_portions = {
   jup_b217_stalker_tech_jupiter_meeting_done: "jup_b217_stalker_tech_jupiter_meeting_done",
   jup_b217_stalker_tech_jupiter_power_done: "jup_b217_stalker_tech_jupiter_power_done",
   jup_b217_stalker_tech_jupiter_way_done: "jup_b217_stalker_tech_jupiter_way_done",
+  jup_b217_tech_instrument_1_brought: "jup_b217_tech_instrument_1_brought",
+  jup_b217_tech_instrument_2_brought: "jup_b217_tech_instrument_2_brought",
+  jup_b217_tech_instrument_3_brought: "jup_b217_tech_instrument_3_brought",
   jup_b218_monolith_hired: "jup_b218_monolith_hired",
   jup_b218_soldier_hired: "jup_b218_soldier_hired",
   jup_b218_soldier_need_outfit: "jup_b218_soldier_need_outfit",
+  /**
+   * Jupiter b220.
+   */
   jup_b220_trapper_about_retire_told: "jup_b220_trapper_about_retire_told",
   jup_b220_trapper_jupiter_chimera_why_me_done: "jup_b220_trapper_jupiter_chimera_why_me_done",
+  jup_b220_trapper_zaton_chimera_hunted_told: "jup_b220_trapper_zaton_chimera_hunted_told",
+  /**
+   * Jupiter b25.
+   */
   jup_b25_accuse_flint_gived: "jup_b25_accuse_flint_gived",
   jup_b25_blame_story_end: "jup_b25_blame_story_end",
   jup_b25_first_blame: "jup_b25_first_blame",
+  jup_b25_flint_blame_done_to_duty: "jup_b25_flint_blame_done_to_duty",
+  jup_b25_flint_blame_done_to_freedom: "jup_b25_flint_blame_done_to_freedom",
   jup_b25_found_senya: "jup_b25_found_senya",
   jup_b25_play_reaction: "jup_b25_play_reaction",
   jup_b25_second_blame: "jup_b25_second_blame",
@@ -186,6 +264,9 @@ export const info_portions = {
   jup_b25_story_zaton_played: "jup_b25_story_zaton_played",
   jup_b25_third_blame: "jup_b25_third_blame",
   jup_b25_third_story: "jup_b25_third_story",
+  /**
+   * Jupiter b32.
+   */
   jup_b32_scanner_1_placed: "jup_b32_scanner_1_placed",
   jup_b32_scanner_2_placed: "jup_b32_scanner_2_placed",
   jup_b32_scanner_3_placed: "jup_b32_scanner_3_placed",
@@ -194,19 +275,52 @@ export const info_portions = {
   jup_b32_scanner_reward: "jup_b32_scanner_reward",
   jup_b32_scanners_tranferred: "jup_b32_scanners_tranferred",
   jup_b32_task_addon_start: "jup_b32_task_addon_start",
+  jup_b32_task_done: "jup_b32_task_done",
   jup_b32_task_end: "jup_b32_task_end",
   jup_b32_task_start: "jup_b32_task_start",
   jup_b32_tutorial_done: "jup_b32_tutorial_done",
   jup_b43_stalker_assistant_b301_about_zulus_done: "jup_b43_stalker_assistant_b301_about_zulus_done",
+  /**
+   * Jupiter b46.
+   */
+  jup_b46_duty_founder_pda_to_duty: "jup_b46_duty_founder_pda_to_duty",
+  jup_b46_duty_founder_pda_to_freedom: "jup_b46_duty_founder_pda_to_freedom",
+  jup_b46_duty_founder_pda_to_owl: "jup_b46_duty_founder_pda_to_owl",
+  jup_b46_task_done: "jup_b46_task_done",
+  /**
+   * Jupiter b47.
+   */
+  jup_b47_task_end: "jup_b47_task_end",
+  /**
+   * Jupiter b4.
+   */
+  jup_b4_monolith_squad_in_duty: "jup_b4_monolith_squad_in_duty",
+  jup_b4_monolith_squad_in_freedom: "jup_b4_monolith_squad_in_freedom",
+  /**
+   * Jupiter b6.
+   */
   jup_b6_scientist_biochemist_anomalous_grove_done: "jup_b6_scientist_biochemist_anomalous_grove_done",
   jup_b6_scientist_biochemist_anomalous_plant_done: "jup_b6_scientist_biochemist_anomalous_plant_done",
   jup_b6_scientist_biochemist_soldier_outfit_done: "jup_b6_scientist_biochemist_soldier_outfit_done",
   jup_b6_scientist_medic_soldier_outfit_done: "jup_b6_scientist_medic_soldier_outfit_done",
   jup_b6_scientist_nuclear_physicist_soldier_outfit_done: "jup_b6_scientist_nuclear_physicist_soldier_outfit_done",
+  jup_b6_task_done: "jup_b6_task_done",
+  /**
+   * Jupiter pri zulus death.
+   */
   jup_pri_zulus_death: "jup_pri_zulus_death",
+  /**
+   * Jupiter end.
+   */
+  keeper_of_secrets_achievement_gained: "keeper_of_secrets_achievement_gained",
   kingpin_gained: "kingpin_gained",
+  leader_achievement_gained: "leader_achievement_gained",
   mutant_hunter_achievement_gained: "mutant_hunter_achievement_gained",
   one_of_the_lads_gained: "one_of_the_lads_gained",
+  pioneer_achievement_gained: "pioneer_achievement_gained",
+  /**
+   * Pripyat quests.
+   */
   pri_a12_stalker_prisoner_free: "pri_a12_stalker_prisoner_free",
   pri_a16_vano_was_alive_when_removed: "pri_a16_vano_was_alive_when_removed",
   pri_a16_wanderer_was_alive_when_removed: "pri_a16_wanderer_was_alive_when_removed",
@@ -286,6 +400,7 @@ export const info_portions = {
   pri_b301_zulus_go_back: "pri_b301_zulus_go_back",
   pri_b301_zulus_spawn: "pri_b301_zulus_spawn",
   pri_b301_zulus_spawn_again: "pri_b301_zulus_spawn_again",
+  pri_b305_all_strelok_notes_given: "pri_b305_all_strelok_notes_given",
   pri_b306_lift_generator_started: "pri_b306_lift_generator_started",
   pri_b306_lift_used: "pri_b306_lift_used",
   pri_b306_task_end: "pri_b306_task_end",
@@ -316,10 +431,19 @@ export const info_portions = {
   pri_b35_task_start: "pri_b35_task_start",
   pri_b35_ui: "pri_b35_ui",
   pri_b36_ahtung: "pri_b36_ahtung",
+  /**
+   * Pripyat end.
+   */
   research_man_gained: "research_man_gained",
+  sim_bandit_attack_harder: "sim_bandit_attack_harder",
   sim_duty_help_harder: "sim_duty_help_harder",
   sim_freedom_help_harder: "sim_freedom_help_harder",
+  sim_stalker_help_harder: "sim_stalker_help_harder",
+  skilled_stalker_achievement_gained: "skilled_stalker_achievement_gained",
   stalkers_toolkit_dialog: "stalkers_toolkit_dialog",
+  /**
+   * Zaton quests.
+   */
   zat_a23_stalker_tech_told_about_battery: "zat_a23_stalker_tech_told_about_battery",
   zat_a2_linker_b14_quest_strange_item_done: "zat_a2_linker_b14_quest_strange_item_done",
   zat_a2_linker_b14_quest_strange_item_lost_artefact: "zat_a2_linker_b14_quest_strange_item_lost_artefact",
@@ -367,6 +491,7 @@ export const info_portions = {
   zat_b103_toolkit_known: "zat_b103_toolkit_known",
   zat_b104_task_end: "zat_b104_task_end",
   zat_b106_found_soroka: "zat_b106_found_soroka",
+  zat_b106_found_soroka_done: "zat_b106_found_soroka_done",
   zat_b106_stalker_gonta_b52_about_nimble_dialog_done: "zat_b106_stalker_gonta_b52_about_nimble_dialog_done",
   zat_b12_key_1_use: "zat_b12_key_1_use",
   zat_b12_key_2_use: "zat_b12_key_2_use",
@@ -516,6 +641,7 @@ export const info_portions = {
   zat_b30_second_detector: "zat_b30_second_detector",
   zat_b30_sultan_got_af: "zat_b30_sultan_got_af",
   zat_b30_sultan_know_about_detectors: "zat_b30_sultan_know_about_detectors",
+  zat_b30_sultan_loose: "zat_b30_sultan_loose",
   zat_b30_sultan_refuses_af: "zat_b30_sultan_refuses_af",
   zat_b30_task_percents_running: "zat_b30_task_percents_running",
   zat_b30_task_start: "zat_b30_task_start",
@@ -599,6 +725,7 @@ export const info_portions = {
   zat_b38_stalkers_den_of_the_bloodsucker_universal_dialog_done:
     "zat_b38_stalkers_den_of_the_bloodsucker_universal_dialog_done",
   zat_b38_underground_door_open: "zat_b38_underground_door_open",
+  zat_b3_all_instruments_brought: "zat_b3_all_instruments_brought",
   zat_b3_stalker_mechanic_b52_about_nimble_dialog_done: "zat_b3_stalker_mechanic_b52_about_nimble_dialog_done",
   zat_b44_tech_buddies_both_told: "zat_b44_tech_buddies_both_told",
   zat_b51_done_item_1_1: "zat_b51_done_item_1_1",
@@ -732,6 +859,9 @@ export const info_portions = {
   zat_b57_set_bloodsucker_attacker_2_state: "zat_b57_set_bloodsucker_attacker_2_state",
   zat_b57_set_bloodsucker_attacker_3_state: "zat_b57_set_bloodsucker_attacker_3_state",
   zat_b57_set_bloodsucker_state: "zat_b57_set_bloodsucker_state",
+  /**
+   * Zaton b5.
+   */
   zat_b5_actor_bandit_go_to_trader: "zat_b5_actor_bandit_go_to_trader",
   zat_b5_actor_go_to_trader: "zat_b5_actor_go_to_trader",
   zat_b5_actor_help_bandits: "zat_b5_actor_help_bandits",
@@ -765,6 +895,7 @@ export const info_portions = {
   zat_b5_stalker_attack_dealer: "zat_b5_stalker_attack_dealer",
   zat_b5_stalker_death: "zat_b5_stalker_death",
   zat_b5_stalker_hit: "zat_b5_stalker_hit",
+  zat_b5_stalker_leader_end: "zat_b5_stalker_leader_end",
   zat_b5_stalkers_death: "zat_b5_stalkers_death",
   zat_b5_start: "zat_b5_start",
   zat_b5_start_quest_stalkers: "zat_b5_start_quest_stalkers",
@@ -773,6 +904,9 @@ export const info_portions = {
   zat_b5_sultan_speak_for_stalkers: "zat_b5_sultan_speak_for_stalkers",
   zat_b5_trader_death: "zat_b5_trader_death",
   zat_b5_trader_death_info: "zat_b5_trader_death_info",
+  /**
+   * Zaton b7.
+   */
   zat_b7_actor_help_bandits: "zat_b7_actor_help_bandits",
   zat_b7_actor_help_stalkers: "zat_b7_actor_help_stalkers",
   zat_b7_actor_killed_victims_self: "zat_b7_actor_killed_victims_self",
@@ -803,4 +937,8 @@ export const info_portions = {
   zat_b7_stalkers_victims_task_given: "zat_b7_stalkers_victims_task_given",
   zat_b7_task_end: "zat_b7_task_end",
   zat_b7_victims_disappeared: "zat_b7_victims_disappeared"
-};
+} as const;
+
+export type TInfoPortions = typeof info_portions;
+
+export type TInfoPortion = TInfoPortions[keyof TInfoPortions];

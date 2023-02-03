@@ -1,11 +1,13 @@
 import { game, get_console, level, task, TXR_TaskState, XR_CGameTask } from "xray16";
 
 import { animations } from "@/mod/globals/animation/animations";
+import { TWeapon } from "@/mod/globals/items/weapons";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { AnyArgs, AnyCallablesModule, AnyObject } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
 import { inventory_upgrades_functors } from "@/mod/scripts/core/inventory_upgrades";
 import { loadScreenManager } from "@/mod/scripts/core/managers/LoadScreenManager";
+import { PdaManager } from "@/mod/scripts/core/managers/PdaManager";
 import { startGame } from "@/mod/scripts/core/start_game";
 import { sleep_cam_eff_id, SurgeManager } from "@/mod/scripts/core/SurgeManager";
 import { get_buy_discount, get_sell_discount } from "@/mod/scripts/core/TradeManager";
@@ -16,7 +18,6 @@ import { get_task_manager } from "@/mod/scripts/se/task/TaskManager";
 import { smart_covers_list } from "@/mod/scripts/smart_covers/smart_covers_list";
 import { EActorMenuMode } from "@/mod/scripts/ui/game/AbstractActorMenu";
 import { actorMenu } from "@/mod/scripts/ui/game/ActorMenu";
-import { pdaMenu } from "@/mod/scripts/ui/game/PdaMenu";
 import { WeaponParams } from "@/mod/scripts/ui/game/WeaponParams";
 import * as SleepDialogModule from "@/mod/scripts/ui/interaction/SleepDialog";
 import { disableInfo } from "@/mod/scripts/utils/actor";
@@ -188,7 +189,7 @@ declare_global("pda", {
     log.info("Set active subdialog", ...args);
   },
   fill_fraction_state(state: AnyObject): void {
-    return pdaMenu.fillFactionState(state);
+    return PdaManager.getInstance().fillFactionState(state);
   },
   get_max_resource(): number {
     return 10;
@@ -209,16 +210,16 @@ declare_global("pda", {
     log.info("Pda box property added:", ...args);
   },
   get_monster_back() {
-    return pdaMenu.getMonsterBackground();
+    return PdaManager.getInstance().getMonsterBackground();
   },
   get_monster_icon() {
-    return pdaMenu.getMonsterIcon();
+    return PdaManager.getInstance().getMonsterIcon();
   },
-  get_favorite_weapon(): string {
-    return pdaMenu.getFavoriteWeapon();
+  get_favorite_weapon(): TWeapon {
+    return PdaManager.getInstance().getFavoriteWeapon();
   },
   get_stat(index: number): string {
-    return pdaMenu.getStat(index);
+    return PdaManager.getInstance().getStat(index);
   }
 });
 
