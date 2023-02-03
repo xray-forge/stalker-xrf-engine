@@ -3,6 +3,7 @@ import {
   stalker_ids,
   time_global,
   world_property,
+  XR_action_planner,
   XR_alife_simulator,
   XR_game_object,
   XR_ini_file
@@ -11,11 +12,12 @@ import {
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { AnyCallablesModule, AnyObject, Optional } from "@/mod/lib/types";
 import { TScheme, TSection } from "@/mod/lib/types/configuration";
+import { stringifyAsJson } from "@/mod/lib/utils/json";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
-import { ActionWounded } from "@/mod/scripts/core/logic/actions/ActionWounded";
+import { ActionWounded, IActionWounded } from "@/mod/scripts/core/logic/actions/ActionWounded";
 import { EvaluatorCanFight } from "@/mod/scripts/core/logic/evaluators/EvaluatorCanFight";
 import { EvaluatorWounded } from "@/mod/scripts/core/logic/evaluators/EvaluatorWounded";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
@@ -58,37 +60,26 @@ export class ActionWoundManager extends AbstractSchemeAction {
       can_fight: evaluators_id.sidor_wounded_base + 1
     };
 
-    const manager = object.motivation_action_manager();
+    const manager: XR_action_planner = object.motivation_action_manager();
 
     manager.add_evaluator(properties.wounded, create_xr_class_instance(EvaluatorWounded, "wounded", state));
     manager.add_evaluator(properties.can_fight, create_xr_class_instance(EvaluatorCanFight, "can_fight", state));
 
-    const action = create_xr_class_instance(ActionWounded, "wounded_action", state);
+    const action: IActionWounded = create_xr_class_instance(ActionWounded, "wounded_action", state);
 
     action.add_precondition(new world_property(stalker_ids.property_alive, true));
-    action.add_precondition(new world_property(properties["wounded"], true));
-    action.add_effect(new world_property(properties["wounded"], false));
+    action.add_precondition(new world_property(properties.wounded, true));
+    action.add_effect(new world_property(properties.wounded, false));
     action.add_effect(new world_property(stalker_ids.property_enemy, false));
-    action.add_effect(new world_property(properties["can_fight"], true));
+    action.add_effect(new world_property(properties.can_fight, true));
+
     manager.add_action(operators.wounded, action);
 
-    manager
-      .action(get_global("xr_actions_id").alife)
-      .add_precondition(new world_property(properties["wounded"], false));
-
-    manager.action(stalker_ids.action_gather_items).add_precondition(new world_property(properties["wounded"], false));
-
-    manager
-      .action(stalker_ids.action_combat_planner)
-      .add_precondition(new world_property(properties["can_fight"], true));
-
-    manager
-      .action(stalker_ids.action_danger_planner)
-      .add_precondition(new world_property(properties["can_fight"], true));
-
-    manager
-      .action(stalker_ids.action_anomaly_planner)
-      .add_precondition(new world_property(properties["can_fight"], true));
+    manager.action(action_ids.alife).add_precondition(new world_property(properties.wounded, false));
+    manager.action(stalker_ids.action_gather_items).add_precondition(new world_property(properties.wounded, false));
+    manager.action(stalker_ids.action_combat_planner).add_precondition(new world_property(properties.can_fight, true));
+    manager.action(stalker_ids.action_danger_planner).add_precondition(new world_property(properties.can_fight, true));
+    manager.action(stalker_ids.action_anomaly_planner).add_precondition(new world_property(properties.can_fight, true));
   }
 
   public static set_wounded(object: XR_game_object, ini: XR_ini_file, scheme: TScheme, section: TSection): void {
@@ -117,6 +108,8 @@ export class ActionWoundManager extends AbstractSchemeAction {
     st: IStoredObject,
     scheme: TScheme
   ): void {
+    log.info("Init wounded:", npc.name(), section, scheme);
+
     if (tostring(section) === st.wounded_section && tostring(section) !== "nil") {
       return;
     }
@@ -283,7 +276,10 @@ export class ActionWoundManager extends AbstractSchemeAction {
     const hp = 100 * this.object.health;
     const psy = 100 * this.object.psy_health;
 
-    // this.state, this.sound = this.process_psy_wound(psy)
+    const [nState, nSound] = this.process_psy_wound(psy);
+
+    this.wound_state = nState;
+    this.sound = nSound;
 
     if (this.wound_state === "nil" && this.sound === "nil") {
       const [state, sound] = this.process_hp_wound(hp);
@@ -310,7 +306,7 @@ export class ActionWoundManager extends AbstractSchemeAction {
   }
 
   public eat_medkit(): void {
-    if (this.can_use_medkit === true) {
+    if (this.can_use_medkit) {
       if (this.object.object("medkit_script") !== null) {
         this.object.eat(this.object.object("medkit_script")!);
       }
@@ -336,11 +332,10 @@ export class ActionWoundManager extends AbstractSchemeAction {
       }
 
       get_global<AnyCallablesModule>("xr_logic").pstor_store(this.object, "begin_wounded", null);
-
-      this.can_use_medkit = false;
-      storage.get(this.object.id()).wounded_already_selected = null;
-      this.update();
     }
+
+    this.can_use_medkit = false;
+    this.update();
   }
 
   public process_fight(hp: number): string {

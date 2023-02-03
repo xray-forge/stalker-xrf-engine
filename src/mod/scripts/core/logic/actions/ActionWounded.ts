@@ -5,6 +5,9 @@ import { getActor, IStoredObject } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { set_state } from "@/mod/scripts/state_management/StateManager";
 import { abort } from "@/mod/scripts/utils/debug";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
+
+const log: LuaLogger = new LuaLogger("ActionWounded");
 
 export interface IActionWounded extends XR_action_base {
   a: IStoredObject;
@@ -30,6 +33,8 @@ export const ActionWounded: IActionWounded = declare_xr_class("ActionWounded", a
     this.object.wounded(true);
   },
   execute(): void {
+    log.info("Execute:", this.object.name());
+
     action_base.execute(this);
 
     const wound_manager = this.a.wound_manager;

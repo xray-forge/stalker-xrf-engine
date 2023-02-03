@@ -16,7 +16,7 @@ export const EvaluatorCanFight: IEvaluatorCanFight = declare_xr_class("Evaluator
     this.state = state;
   },
   evaluate(): boolean {
-    if (this.object.critically_wounded() === true) {
+    if (this.object.critically_wounded()) {
       return true;
     }
 

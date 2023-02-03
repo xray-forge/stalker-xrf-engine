@@ -22,7 +22,9 @@ export class LuaLogger {
       } else if (itType === "string") {
         args.set(idx, it === "" ? "<empty_str>" : it);
       } else if (itType === "number") {
-        // Nothing, leave as is
+        args.set(idx, it);
+      } else if (itType === "boolean") {
+        args.set(idx, string.format("<boolean: %s>", it === true ? "true" : "false"));
       } else {
         args.set(idx, string.format("<%s: %s>", itType, tostring(it)));
       }
