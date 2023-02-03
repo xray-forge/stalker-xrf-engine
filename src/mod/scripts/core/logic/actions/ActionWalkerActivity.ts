@@ -21,7 +21,7 @@ export interface IActionWalkerActivity extends XR_action_base {
   in_camp: Optional<boolean>;
   move_mgr: MoveManager;
   camp: any;
-  avail_actions: LuaTable<number, { predicate: (n: number) => boolean }>;
+  avail_actions: LuaTable<number, { predicate: (this: void, id: number) => boolean }>;
 
   activate_scheme(loading: boolean, npc: XR_game_object): void;
   reset_scheme(loading: Optional<boolean>, npc: XR_game_object): void;
@@ -53,9 +53,9 @@ export const ActionWalkerActivity: IActionWalkerActivity = declare_xr_class("Act
     this.object.set_desired_direction();
     this.reset_scheme(null, this.object);
   },
-  activate_scheme(loading: boolean, npc: XR_game_object): void {
+  activate_scheme(isLoading: boolean, object: XR_game_object): void {
     this.st.signals = new LuaTable();
-    this.reset_scheme(loading, npc);
+    this.reset_scheme(isLoading, object);
   },
   reset_scheme(loading: Optional<boolean>, npc: XR_game_object): void {
     if (this.st.path_walk_info === null) {
@@ -106,7 +106,9 @@ export const ActionWalkerActivity: IActionWalkerActivity = declare_xr_class("Act
       return;
     }
 
-    const [camp_action, is_director] = this.camp.get_camp_action(this.object.id()) as LuaMultiReturn<[string, boolean]>;
+    const [camp_action, is_director] = (this.camp.get_camp_action as (it: number) => LuaMultiReturn<[string, boolean]>)(
+      this.object.id()
+    );
 
     if (!is_director) {
       return;

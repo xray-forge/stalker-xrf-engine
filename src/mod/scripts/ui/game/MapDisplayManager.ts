@@ -14,7 +14,7 @@ import { info_portions } from "@/mod/globals/info_portions";
 import { levels } from "@/mod/globals/levels";
 import { map_mark_type, npc_map_marks } from "@/mod/globals/npc_map_marks";
 import { story_ids } from "@/mod/globals/story_ids";
-import { AnyCallable, AnyObject, Maybe, Optional } from "@/mod/lib/types";
+import { AnyArgs, AnyCallable, AnyCallablesModule, AnyObject, Maybe, Optional } from "@/mod/lib/types";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { getConfigString } from "@/mod/scripts/utils/configs";
@@ -316,11 +316,13 @@ export class MapDisplayManager {
 
           let hint: string = game.translate_string(v.hint) + "\\n" + " \\n";
           const actor: XR_game_object = getActor()!;
-          const [has_af, af_table] = get_global("xr_conditions").anomaly_has_artefact(actor, null, [v.zone]);
+
+          type TempType = (...args: AnyArgs) => LuaMultiReturn<[boolean, LuaTable<string, string>]>;
+          const [has_af, af_table] = get_global<TempType>("xr_conditions.anomaly_has_artefact")(actor, null, [v.zone]);
 
           if (has_af) {
             hint = hint + game.translate_string(captions.st_jup_b32_has_af);
-            for (const [k, v] of pairs(af_table as LuaIterable<string, any>)) {
+            for (const [k, v] of af_table) {
               hint = hint + "\\n" + game.translate_string("st_" + v + "_name");
             }
           } else {

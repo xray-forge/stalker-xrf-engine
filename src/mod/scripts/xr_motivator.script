@@ -406,6 +406,7 @@ function motivator_binder:update(delta)
     end
     self.first_update = true
   end
+
   if time_global() - self.last_update > 1000 then
     ActionLight:check_light(object)
     self.last_update = time_global()
@@ -448,9 +449,6 @@ function motivator_binder:update(delta)
     utilsAlife.update_invulnerability(self.object)
   end
 
-
-
-
   -- ������ ������
   local squad = get_object_squad(self.object)
   if squad ~= nil then
@@ -460,19 +458,26 @@ function motivator_binder:update(delta)
   end
 
   object:info_clear()
+
   if object_alive then
     local active_section = db.storage[object:id()].active_section
+
     if active_section then
       object:info_add("section: " .. active_section)
     end
+
     local best_enemy = object:best_enemy()
+
     if best_enemy then
       object:info_add("enemy: " .. best_enemy:name())
     end
+
     local best_danger = object:best_danger()
+
     if best_danger then
       object:info_add("danger: " .. ActionDanger:get_danger_name(best_danger))
     end
+
     object:info_add(object:name() .. " [" .. object:team() .. "][" .. object:squad() .. "][" .. object:group() .. "]")
 
     if alife():object(object:id()) == nil then
@@ -489,6 +494,7 @@ function motivator_binder:update(delta)
   else
     object:set_tip_text_default()
   end
+
   --[[
   -- ���������� � ������...
     if self.need_relation_update then
