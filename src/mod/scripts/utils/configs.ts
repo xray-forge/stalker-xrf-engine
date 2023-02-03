@@ -785,7 +785,7 @@ export function parse_data(
       let sound: Optional<string> = null;
 
       if (s_pos !== null) {
-        state = string.sub(name, t_pos + 1);
+        state = string.sub(name, t_pos + 1, s_pos - 1);
         sound = string.sub(name, s_pos + 1);
       } else {
         state = string.sub(name, t_pos + 1);
