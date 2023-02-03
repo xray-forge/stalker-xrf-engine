@@ -106,9 +106,9 @@ export const ActionWalkerActivity: IActionWalkerActivity = declare_xr_class("Act
       return;
     }
 
-    const [camp_action, is_director] = (this.camp.get_camp_action as (it: number) => LuaMultiReturn<[string, boolean]>)(
-      this.object.id()
-    );
+    const [camp_action, is_director] = (
+      this.camp.get_camp_action as (this: any, it: number) => LuaMultiReturn<[string, boolean]>
+    )(this.object.id());
 
     if (!is_director) {
       return;
