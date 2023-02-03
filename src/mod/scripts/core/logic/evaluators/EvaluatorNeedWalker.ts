@@ -1,8 +1,8 @@
 import { property_evaluator, XR_property_evaluator } from "xray16";
 
-import { AnyCallablesModule } from "@/mod/lib/types";
 import { IStoredObject } from "@/mod/scripts/core/db";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { isSchemeActive } from "@/mod/scripts/utils/scheme";
 
 const log: LuaLogger = new LuaLogger("EvaluatorNeedWalker");
 
@@ -16,6 +16,6 @@ export const EvaluatorNeedWalker: IEvaluatorNeedWalker = declare_xr_class("Evalu
     this.state = storage;
   },
   evaluate(): boolean {
-    return get_global<AnyCallablesModule>("xr_logic").is_active(this.object, this.state);
+    return isSchemeActive(this.object, this.state);
   }
 } as IEvaluatorNeedWalker);

@@ -11,7 +11,9 @@ import {
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { AnyCallablesModule, AnyObject, Optional } from "@/mod/lib/types";
 import { TScheme, TSection } from "@/mod/lib/types/configuration";
+import { action_ids } from "@/mod/scripts/core/actions_id";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { ActionWounded } from "@/mod/scripts/core/logic/actions/ActionWounded";
 import { EvaluatorCanFight } from "@/mod/scripts/core/logic/evaluators/EvaluatorCanFight";
@@ -43,32 +45,32 @@ export class ActionWoundManager extends AbstractSchemeAction {
     ini: XR_ini_file,
     scheme: TScheme,
     section: TSection,
-    st: IStoredObject
+    state: IStoredObject
   ): void {
     log.info("Add to binder:", object.name());
 
     const operators = {
-      wounded: get_global("xr_actions_id").sidor_act_wounded_base + 0
+      wounded: action_ids.sidor_act_wounded_base
     };
 
     const properties = {
-      wounded: get_global("xr_evaluators_id").sidor_wounded_base,
-      can_fight: get_global("xr_evaluators_id").sidor_wounded_base + 1
+      wounded: evaluators_id.sidor_wounded_base,
+      can_fight: evaluators_id.sidor_wounded_base + 1
     };
 
     const manager = object.motivation_action_manager();
 
-    manager.add_evaluator(properties["wounded"], create_xr_class_instance(EvaluatorWounded, "wounded", st));
-    manager.add_evaluator(properties["can_fight"], create_xr_class_instance(EvaluatorCanFight, "can_fight", st));
+    manager.add_evaluator(properties.wounded, create_xr_class_instance(EvaluatorWounded, "wounded", state));
+    manager.add_evaluator(properties.can_fight, create_xr_class_instance(EvaluatorCanFight, "can_fight", state));
 
-    const action = create_xr_class_instance(ActionWounded, "wounded_action", st);
+    const action = create_xr_class_instance(ActionWounded, "wounded_action", state);
 
     action.add_precondition(new world_property(stalker_ids.property_alive, true));
     action.add_precondition(new world_property(properties["wounded"], true));
     action.add_effect(new world_property(properties["wounded"], false));
     action.add_effect(new world_property(stalker_ids.property_enemy, false));
     action.add_effect(new world_property(properties["can_fight"], true));
-    manager.add_action(operators["wounded"], action);
+    manager.add_action(operators.wounded, action);
 
     manager
       .action(get_global("xr_actions_id").alife)

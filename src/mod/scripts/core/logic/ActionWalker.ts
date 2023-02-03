@@ -1,8 +1,18 @@
-import { level, stalker_ids, world_property, XR_action_base, XR_game_object, XR_ini_file } from "xray16";
+import {
+  level,
+  stalker_ids,
+  world_property,
+  XR_action_base,
+  XR_action_planner,
+  XR_game_object,
+  XR_ini_file
+} from "xray16";
 
 import { AnyCallablesModule } from "@/mod/lib/types";
 import { TScheme, TSection } from "@/mod/lib/types/configuration";
+import { action_ids } from "@/mod/scripts/core/actions_id";
 import { IStoredObject } from "@/mod/scripts/core/db";
+import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { ActionWalkerActivity } from "@/mod/scripts/core/logic/actions/ActionWalkerActivity";
 import { EvaluatorNeedWalker } from "@/mod/scripts/core/logic/evaluators/EvaluatorNeedWalker";
@@ -23,39 +33,42 @@ export class ActionWalker extends AbstractSchemeAction {
     state: IStoredObject
   ): void {
     const operators = {
-      action_walker: get_global("xr_actions_id").zmey_walker_base + 1
+      action_walker: action_ids.zmey_walker_base + 1
     };
+
     const properties = {
-      event: get_global("xr_evaluators_id").reaction,
-      need_walker: get_global("xr_evaluators_id").zmey_walker_base + 1,
-      state_mgr_logic_active: get_global("xr_evaluators_id").state_mgr + 4
+      event: evaluators_id.reaction,
+      need_walker: evaluators_id.zmey_walker_base + 1,
+      state_mgr_logic_active: evaluators_id.state_mgr + 4
     };
 
-    const manager = object.motivation_action_manager();
+    const actionPlanner: XR_action_planner = object.motivation_action_manager();
 
-    manager.add_evaluator(
-      properties["need_walker"],
-      create_xr_class_instance(EvaluatorNeedWalker, state, "walker_need")
+    actionPlanner.add_evaluator(
+      properties.need_walker,
+      create_xr_class_instance(EvaluatorNeedWalker, state, EvaluatorNeedWalker.__name)
     );
 
-    const new_action = create_xr_class_instance(ActionWalkerActivity, object, "action_walker_activity", state);
+    const new_action = create_xr_class_instance(ActionWalkerActivity, object, ActionWalkerActivity.__name, state);
 
     new_action.add_precondition(new world_property(stalker_ids.property_alive, true));
     new_action.add_precondition(new world_property(stalker_ids.property_danger, false));
     new_action.add_precondition(new world_property(stalker_ids.property_enemy, false));
     new_action.add_precondition(new world_property(stalker_ids.property_anomaly, false));
-    new_action.add_precondition(new world_property(properties["need_walker"], true));
+    new_action.add_precondition(new world_property(properties.need_walker, true));
+
     get_global<AnyCallablesModule>("xr_motivator").addCommonPrecondition(new_action);
 
-    new_action.add_effect(new world_property(properties["need_walker"], false));
-    new_action.add_effect(new world_property(properties["state_mgr_logic_active"], false));
-    manager.add_action(operators["action_walker"], new_action);
+    new_action.add_effect(new world_property(properties.need_walker, false));
+    new_action.add_effect(new world_property(properties.state_mgr_logic_active, false));
+
+    actionPlanner.add_action(operators.action_walker, new_action);
 
     get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(object, state, new_action);
 
-    const alifeAction: XR_action_base = manager.action(get_global("xr_actions_id").alife);
+    const alifeAction: XR_action_base = actionPlanner.action(action_ids.alife);
 
-    alifeAction.add_precondition(new world_property(properties["need_walker"], false));
+    alifeAction.add_precondition(new world_property(properties.need_walker, false));
   }
 
   public static set_scheme(

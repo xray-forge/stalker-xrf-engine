@@ -1,3 +1,6 @@
+/**
+ * JSON.stringify alternative for lua data types.
+ */
 export function stringifyAsJson(
   target: unknown,
   separator: string = " ",
@@ -5,30 +8,50 @@ export function stringifyAsJson(
   maxDepth: number = 6
 ): string {
   if (depth >= maxDepth) {
-    return "<stack_limit>";
+    return "<depth_limit>";
   }
 
-  if (type(target) === "string") {
+  const targetType: string = type(target);
+
+  if (targetType === "string") {
     return `"${target}"`;
-  } else if (type(target) === "number") {
+  } else if (targetType === "number") {
     return tostring(target);
-  } else if (type(target) === "nil") {
+  } else if (targetType === "nil") {
     return "<nil>";
-  } else if (type(target) === "boolean") {
-    return tostring(target);
-  } else if (type(target) === "function") {
+  } else if (targetType === "boolean") {
+    return `<bool: ${target === true ? "true" : "false"}>`;
+  } else if (targetType === "function") {
     return "<function>";
-  } else if (type(target) === "userdata") {
+  } else if (targetType === "userdata") {
     return "<userdata>";
-  } else if (type(target) === "table") {
+  } else if (targetType === "table") {
     let result: string = "{";
 
     for (const [k, v] of pairs(target)) {
-      result += string.format("\"%s\": %s,%s", k, stringifyAsJson(v, separator, depth + 1, maxDepth), separator);
+      result += string.format(
+        '"%s": %s,%s',
+        stringifyKey(k),
+        stringifyAsJson(v, separator, depth + 1, maxDepth),
+        separator
+      );
     }
 
     return result + "}";
   }
 
   return "<unknown>";
+}
+
+/**
+ * Key stringify.
+ */
+export function stringifyKey(target: unknown): string {
+  const targetType: string = type(target);
+
+  if (targetType === "string" || targetType === "number") {
+    return tostring(target);
+  } else {
+    return string.format("<k_%s>", targetType);
+  }
 }
