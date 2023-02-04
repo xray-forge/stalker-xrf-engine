@@ -308,9 +308,6 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
       travel_func();
     }
 
-    const time = time_global();
-
-    get_global<AnyCallablesModule>("game_stats").update(delta, this.object);
     weatherManager.update();
 
     this.check_detective_achievement();

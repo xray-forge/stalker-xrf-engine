@@ -3,9 +3,10 @@ import { game, get_console, level, task, TXR_TaskState, XR_CGameTask } from "xra
 import { animations } from "@/mod/globals/animation/animations";
 import { TWeapon } from "@/mod/globals/items/weapons";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
-import { AnyArgs, AnyCallablesModule, AnyObject } from "@/mod/lib/types";
+import { AnyArgs, AnyCallable, AnyCallablesModule, AnyObject, PartialRecord } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
 import { inventory_upgrades_functors } from "@/mod/scripts/core/inventory_upgrades";
+import { AchievementsManager, EAchievement } from "@/mod/scripts/core/managers/AchievementsManager";
 import { loadScreenManager } from "@/mod/scripts/core/managers/LoadScreenManager";
 import { PdaManager } from "@/mod/scripts/core/managers/PdaManager";
 import { startGame } from "@/mod/scripts/core/start_game";
@@ -179,46 +180,46 @@ declare_global("on_actor_psy", () => {
 });
 
 declare_global("actor_menu", {
-  actor_menu_mode(mode: EActorMenuMode): void {
+  actor_menu_mode: (mode: EActorMenuMode): void => {
     return actorMenu.setActiveMode(mode);
   }
 });
 
 declare_global("pda", {
-  set_active_subdialog(...args: AnyArgs): void {
+  set_active_subdialog: (...args: AnyArgs): void => {
     log.info("Set active subdialog", ...args);
   },
-  fill_fraction_state(state: AnyObject): void {
+  fill_fraction_state: (state: AnyObject): void => {
     return PdaManager.getInstance().fillFactionState(state);
   },
-  get_max_resource(): number {
+  get_max_resource: (): number => {
     return 10;
   },
-  get_max_power(): number {
+  get_max_power: (): number => {
     return 10;
   },
-  get_max_member_count(): number {
+  get_max_member_count: (): number => {
     return 10;
   },
-  actor_menu_mode(...args: AnyArgs): void {
+  actor_menu_mode: (...args: AnyArgs): void => {
     log.info("Pda actor menu mode:", ...args);
   },
-  property_box_clicked(...args: AnyArgs): void {
+  property_box_clicked: (...args: AnyArgs): void => {
     log.info("Pda box property clicked:", ...args);
   },
-  property_box_add_properties(...args: AnyArgs): void {
+  property_box_add_properties: (...args: AnyArgs): void => {
     log.info("Pda box property added:", ...args);
   },
-  get_monster_back() {
+  get_monster_back: () => {
     return PdaManager.getInstance().getMonsterBackground();
   },
-  get_monster_icon() {
+  get_monster_icon: () => {
     return PdaManager.getInstance().getMonsterIcon();
   },
-  get_favorite_weapon(): TWeapon {
+  get_favorite_weapon: (): TWeapon => {
     return PdaManager.getInstance().getFavoriteWeapon();
   },
-  get_stat(index: number): string {
+  get_stat: (index: number): string => {
     return PdaManager.getInstance().getStat(index);
   }
 });
@@ -233,3 +234,15 @@ declare_global("ui_wpn_params", {
   GetHandling: externClassMethod(WeaponParams, WeaponParams.GetHandling),
   GetAccuracy: externClassMethod(WeaponParams, WeaponParams.GetAccuracy)
 });
+
+/**
+ * Checkers for achievements called from C++.
+ */
+declare_global(
+  "_extern.check_achievement",
+  Object.values(EAchievement).reduce<PartialRecord<EAchievement, AnyCallable>>((acc, it) => {
+    acc[it] = () => AchievementsManager.getInstance().checkAchieved(it);
+
+    return acc;
+  }, {})
+);

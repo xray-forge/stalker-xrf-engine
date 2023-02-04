@@ -75,22 +75,6 @@ let weapons_table: LuaTable<string, number> = {
 
 let taken_artefacts = {} as unknown as LuaTable<number, number>;
 
-const monster_classes: PartialRecord<TXR_cls_id, string> = {
-  [clsid.bloodsucker_s]: "bloodsucker",
-  [clsid.boar_s]: "boar",
-  [clsid.burer_s]: "burer",
-  [clsid.chimera_s]: "chimera",
-  [clsid.controller_s]: "controller",
-  [clsid.dog_s]: "dog",
-  [clsid.flesh_s]: "flesh",
-  [clsid.gigant_s]: "gigant",
-  [clsid.poltergeist_s]: "poltergeist",
-  [clsid.psy_dog_s]: "psy_dog",
-  [clsid.pseudodog_s]: "pseudodog",
-  [clsid.snork_s]: "snork",
-  [clsid.tushkano_s]: "tushkano"
-};
-
 export class StatisticsManager extends AbstractCoreManager {
   public actor_statistic: IActorStatistics = {
     surges: 0,
@@ -129,6 +113,22 @@ export class StatisticsManager extends AbstractCoreManager {
     af_glass: false,
     af_ice: false
   } as unknown as LuaTable<TArtefact, boolean>;
+
+  public monster_classes: PartialRecord<TXR_cls_id, string> = {
+    [clsid.bloodsucker_s]: "bloodsucker",
+    [clsid.boar_s]: "boar",
+    [clsid.burer_s]: "burer",
+    [clsid.chimera_s]: "chimera",
+    [clsid.controller_s]: "controller",
+    [clsid.dog_s]: "dog",
+    [clsid.flesh_s]: "flesh",
+    [clsid.gigant_s]: "gigant",
+    [clsid.poltergeist_s]: "poltergeist",
+    [clsid.psy_dog_s]: "psy_dog",
+    [clsid.pseudodog_s]: "pseudodog",
+    [clsid.snork_s]: "snork",
+    [clsid.tushkano_s]: "tushkano"
+  };
 
   public load(reader: XR_reader): void {
     this.actor_statistic = {} as IActorStatistics;
@@ -303,7 +303,7 @@ export class StatisticsManager extends AbstractCoreManager {
     if (isStalker(object)) {
       // --        actor_statistic.best_monster = "stalker"
     } else {
-      let community = monster_classes[getClsId(object)];
+      let community = this.monster_classes[getClsId(object)];
 
       if (!community) {
         abort(
