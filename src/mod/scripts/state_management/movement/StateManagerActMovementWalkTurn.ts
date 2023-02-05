@@ -5,7 +5,7 @@ import { turn } from "@/mod/scripts/state_management/direction/StateManagerDirec
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger(
+const logger: LuaLogger = new LuaLogger(
   "StateManagerActMovementWalkTurn",
   gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
 );
@@ -33,7 +33,7 @@ export const StateManagerActMovementWalkTurn: IStateManagerActMovementWalkTurn =
       turn(this.object, this.st);
     },
     execute(): void {
-      log.info("Act movement walk turn");
+      logger.info("Act movement walk turn");
       action_base.execute(this);
     },
     finalize(): void {

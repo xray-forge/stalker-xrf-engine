@@ -5,7 +5,7 @@ import { look_position_type } from "@/mod/scripts/state_management/direction/Sta
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger(
+const logger: LuaLogger = new LuaLogger(
   "StateManagerActMovementStandSearch",
   gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
 );
@@ -31,7 +31,7 @@ export const StateManagerActMovementStandSearch: IStateManagerActMovementStandSe
       this.object.set_sight(look_position_type(this.object, this.st), null, 0);
     },
     execute(): void {
-      log.info("Act movement stand search");
+      logger.info("Act movement stand search");
       action_base.execute(this);
     },
     finalize(): void {

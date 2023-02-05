@@ -11,7 +11,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 const aim_ratio: number = 1000 / 50;
 const min_ratio: number = 1500;
 
-const log: LuaLogger = new LuaLogger("StateManagerActEnd", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
+const logger: LuaLogger = new LuaLogger("StateManagerActEnd", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
 export interface IStateManagerActEnd extends XR_action_base {
   st: StateManager;

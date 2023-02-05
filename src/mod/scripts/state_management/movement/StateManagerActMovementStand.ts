@@ -4,7 +4,7 @@ import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger(
+const logger: LuaLogger = new LuaLogger(
   "StateManagerActMovementStand",
   gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
 );
@@ -28,7 +28,7 @@ export const StateManagerActMovementStand: IStateManagerActMovementStand = decla
       this.object.set_movement_type(move.stand);
     },
     execute(): void {
-      log.info("Act movement standd");
+      logger.info("Act movement standd");
       action_base.execute(this);
     },
     finalize(): void {

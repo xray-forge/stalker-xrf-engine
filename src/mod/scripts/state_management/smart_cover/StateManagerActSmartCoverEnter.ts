@@ -5,7 +5,7 @@ import { storage } from "@/mod/scripts/core/db";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger(
+const logger: LuaLogger = new LuaLogger(
   "StateManagerActSmartCoverEnter",
   gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
 );
@@ -40,7 +40,7 @@ export const StateManagerActSmartCoverEnter: IStateManagerActSmartCoverEnter = d
       }
     },
     execute(): void {
-      log.info("Act smart cover enter");
+      logger.info("Act smart cover enter");
       action_base.execute(this);
     },
     finalize(): void {

@@ -5,7 +5,7 @@ import { Optional } from "@/mod/lib/types";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger(
+const logger: LuaLogger = new LuaLogger(
   "StateManagerEvaSmartCoverNeed",
   gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
 );

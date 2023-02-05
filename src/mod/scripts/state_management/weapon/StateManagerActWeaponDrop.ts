@@ -8,7 +8,10 @@ import { setItemCondition } from "@/mod/scripts/utils/alife";
 import { isStrappableWeapon } from "@/mod/scripts/utils/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("StateManagerActWeaponDrop", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
+const logger: LuaLogger = new LuaLogger(
+  "StateManagerActWeaponDrop",
+  gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
+);
 
 export interface IStateManagerActWeaponDrop extends XR_action_base {
   st: StateManager;
@@ -33,7 +36,7 @@ export const StateManagerActWeaponDrop = declare_xr_class("StateManagerActWeapon
     }
   },
   execute(): void {
-    log.info("Act weapon drop");
+    logger.info("Act weapon drop");
     action_base.execute(this);
   },
   finalize(): void {

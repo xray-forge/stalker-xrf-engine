@@ -5,7 +5,7 @@ import { states } from "@/mod/scripts/state_management/lib/state_lib";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("StateManagerEvaMovement", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
+const logger: LuaLogger = new LuaLogger("StateManagerEvaMovement", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
 export interface IStateManagerEvaMovement extends XR_property_evaluator {
   st: StateManager;

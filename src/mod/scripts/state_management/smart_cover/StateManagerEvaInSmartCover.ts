@@ -4,7 +4,10 @@ import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("StateManagerEvaInSmartCover", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
+const logger: LuaLogger = new LuaLogger(
+  "StateManagerEvaInSmartCover",
+  gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
+);
 
 export interface IStateManagerEvaInSmartCover extends XR_property_evaluator {
   st: StateManager;

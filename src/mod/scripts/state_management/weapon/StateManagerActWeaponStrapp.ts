@@ -7,7 +7,10 @@ import { get_weapon } from "@/mod/scripts/state_management/weapon/StateManagerWe
 import { isStrappableWeapon } from "@/mod/scripts/utils/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("StateManagerActWeaponStrapp", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
+const logger: LuaLogger = new LuaLogger(
+  "StateManagerActWeaponStrapp",
+  gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
+);
 
 export interface IStateManagerActWeaponStrapp extends XR_action_base {
   st: StateManager;
@@ -35,7 +38,7 @@ export const StateManagerActWeaponStrapp: IStateManagerActWeaponStrapp = declare
       }
     },
     execute(): void {
-      log.info("Act weapon strapp");
+      logger.info("Act weapon strapp");
       action_base.execute(this);
     },
     finalize(): void {

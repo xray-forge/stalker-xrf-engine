@@ -4,7 +4,7 @@ import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger(
+const logger: LuaLogger = new LuaLogger(
   "StateManagerActSmartCoverExit",
   gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
 );
@@ -46,7 +46,7 @@ export const StateManagerActSmartCoverExit: IStateManagerActSmartCoverExit = dec
       // printf("accesible position2 is %s", vectorToString(level.vertex_position(vertex)))
     },
     execute(): void {
-      log.info("Act smart cover exit");
+      logger.info("Act smart cover exit");
       action_base.execute(this);
     },
     finalize(): void {

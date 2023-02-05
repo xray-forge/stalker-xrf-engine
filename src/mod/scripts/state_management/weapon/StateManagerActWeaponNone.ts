@@ -4,7 +4,10 @@ import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("StateManagerActWeaponNone", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
+const logger: LuaLogger = new LuaLogger(
+  "StateManagerActWeaponNone",
+  gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
+);
 
 export interface IStateManagerActWeaponNone extends XR_action_base {
   st: StateManager;
@@ -21,7 +24,7 @@ export const StateManagerActWeaponNone = declare_xr_class("StateManagerActWeapon
     this.object.set_item(object.idle, null);
   },
   execute(): void {
-    log.info("Act weapon none");
+    logger.info("Act weapon none");
     action_base.execute(this);
   },
   finalize(): void {

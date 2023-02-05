@@ -4,7 +4,10 @@ import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("StateManagerActMovementRun", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
+const logger: LuaLogger = new LuaLogger(
+  "StateManagerActMovementRun",
+  gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
+);
 
 export interface IStateManagerActMovementRun extends XR_action_base {
   st: StateManager;
@@ -28,7 +31,6 @@ export const StateManagerActMovementRun: IStateManagerActMovementRun = declare_x
       // --printf("MOVEMENT TYPE IS --- %s setting MOVEMENT TYPE --- RUN", tostring(self.object:movement_type()))
     },
     execute(): void {
-      log.info("Act movement run");
       action_base.execute(this);
     },
     finalize(): void {
