@@ -44,5 +44,5 @@ export const OptionsVideo: IOptionsVideo = declare_xr_class("OptionsVideo", CUIW
 
     handler.Register(handler.combo_renderer, "combo_renderer");
     handler.Register(xml.Init3tButton("tab_video:btn_advanced", this), "btn_advanced_graphic");
-  }
+  },
 } as IOptionsVideo);

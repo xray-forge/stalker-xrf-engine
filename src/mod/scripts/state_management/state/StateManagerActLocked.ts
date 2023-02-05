@@ -24,5 +24,5 @@ export const StateManagerActLocked: IStateManagerActLocked = declare_xr_class("S
   },
   finalize(): void {
     action_base.finalize(this);
-  }
+  },
 } as IStateManagerActLocked);

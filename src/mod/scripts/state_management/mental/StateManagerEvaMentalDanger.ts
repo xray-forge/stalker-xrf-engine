@@ -25,6 +25,6 @@ export const StateManagerEvaMentalDanger: IStateManagerEvaMentalDanger = declare
     },
     evaluate(): boolean {
       return states.get(this.st.target_state).mental === anim.danger;
-    }
+    },
   } as IStateManagerEvaMentalDanger
 );

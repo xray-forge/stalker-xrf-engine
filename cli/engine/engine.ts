@@ -13,7 +13,7 @@ enum EEngineCmd {
   INFO = "info",
   ROLLBACK = "rollback",
   LIST = "list",
-  USE = "use"
+  USE = "use",
 }
 
 const cmd: string = process.argv[2];

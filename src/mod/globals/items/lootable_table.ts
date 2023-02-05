@@ -16,7 +16,7 @@ export const lootable_table = {
   ...helmets,
   ...outfits,
   ...weapon_addons,
-  ...weapons
+  ...weapons,
 } as const;
 
 export type TLootableItems = typeof lootable_table;
@@ -29,7 +29,7 @@ export const lootable_table_exclude = {
   [misc.harmonica_a]: misc.harmonica_a,
   [weapons.wpn_binoc]: weapons.wpn_binoc,
   [weapons.wpn_binocular]: weapons.wpn_binocular,
-  [weapons.wpn_binocular_s]: weapons.wpn_binocular_s
+  [weapons.wpn_binocular_s]: weapons.wpn_binocular_s,
 } as const;
 
 export type TLootableExcludeItems = typeof lootable_table_exclude;

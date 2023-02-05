@@ -105,7 +105,7 @@ export const TaskManager: ITaskManager = declare_xr_class("TaskManager", null, {
 
     this.task_info.get(task_id).deactivate_task(task);
     this.task_info.delete(task_id);
-  }
+  },
 } as ITaskManager);
 
 export function get_task_manager(): ITaskManager {

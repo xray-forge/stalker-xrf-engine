@@ -25,6 +25,6 @@ export const StateManagerEvaAnimationState: IStateManagerEvaAnimationState = dec
     },
     evaluate(): boolean {
       return states.get(this.st.target_state).animstate === this.st.animstate.states.current_state;
-    }
+    },
   } as IStateManagerEvaAnimationState
 );

@@ -1,15 +1,6 @@
 import {
-  CALifeSmartTerrainTask,
-  XR_CALifeSmartTerrainTask,
-  XR_CTime,
-  XR_cse_alife_creature_abstract,
-  XR_cse_alife_object,
-  XR_cse_alife_smart_zone,
-  XR_game_object,
-  XR_ini_file,
-  XR_net_packet,
-  XR_vector,
   alife,
+  CALifeSmartTerrainTask,
   cse_alife_smart_zone,
   editor,
   game,
@@ -18,7 +9,16 @@ import {
   ini_file,
   level,
   time_global,
-  XR_GameGraph__CVertex
+  XR_CALifeSmartTerrainTask,
+  XR_cse_alife_creature_abstract,
+  XR_cse_alife_object,
+  XR_cse_alife_smart_zone,
+  XR_CTime,
+  XR_game_object,
+  XR_GameGraph__CVertex,
+  XR_ini_file,
+  XR_net_packet,
+  XR_vector,
 } from "xray16";
 
 import { MAX_UNSIGNED_16_BIT, MAX_UNSIGNED_8_BIT } from "@/mod/globals/memory";
@@ -27,7 +27,7 @@ import { AnyCallable, AnyObject, Optional } from "@/mod/lib/types";
 import { TSection } from "@/mod/lib/types/configuration";
 import {
   turn_off_campfires_by_smart_name,
-  turn_on_campfires_by_smart_name
+  turn_on_campfires_by_smart_name,
 } from "@/mod/scripts/core/binders/CampfireBinder";
 import { getActor, offlineObjects, storage } from "@/mod/scripts/core/db";
 import { SMART_TERRAIN_SECT } from "@/mod/scripts/core/db/sections";
@@ -48,7 +48,7 @@ import {
   getConfigString,
   parseCondList,
   parseNames,
-  pickSectionFromCondList
+  pickSectionFromCondList,
 } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
@@ -85,7 +85,7 @@ export const valid_territory: LuaTable<string, boolean> = {
   default: true,
   base: true,
   resource: true,
-  territory: true
+  territory: true,
 } as any;
 
 export interface ISmartTerrain extends XR_cse_alife_smart_zone {
@@ -1388,7 +1388,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     }
 
     return false;
-  }
+  },
 } as ISmartTerrain);
 
 export function setup_gulag_and_logic_on_spawn(

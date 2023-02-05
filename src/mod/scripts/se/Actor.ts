@@ -8,7 +8,7 @@ import {
   XR_cse_abstract,
   XR_cse_alife_creature_actor,
   XR_net_packet,
-  XR_vector
+  XR_vector,
 } from "xray16";
 
 import { AnyCallable, AnyObject } from "@/mod/lib/types";
@@ -121,7 +121,7 @@ export const Actor: IActor = declare_xr_class("Actor", cse_alife_creature_actor,
     const smarts_by_no_assault_zones = {
       ["zat_a2_sr_no_assault"]: "zat_stalker_base_smart",
       ["jup_a6_sr_no_assault"]: "jup_a6",
-      ["jup_b41_sr_no_assault"]: "jup_b41"
+      ["jup_b41_sr_no_assault"]: "jup_b41",
     };
 
     if (nearest_to_actor_smart.dist < 50 && !get_sim_obj_registry().objects.has(nearest_to_actor_smart.id!)) {
@@ -171,5 +171,5 @@ export const Actor: IActor = declare_xr_class("Actor", cse_alife_creature_actor,
   },
   evaluate_prior(squad: ISimSquad): number {
     return evaluate_prior(this, squad);
-  }
+  },
 } as IActor);

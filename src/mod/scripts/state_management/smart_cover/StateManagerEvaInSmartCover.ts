@@ -24,6 +24,6 @@ export const StateManagerEvaInSmartCover: IStateManagerEvaInSmartCover = declare
     },
     evaluate(): boolean {
       return this.object.in_smart_cover();
-    }
+    },
   } as IStateManagerEvaInSmartCover
 );

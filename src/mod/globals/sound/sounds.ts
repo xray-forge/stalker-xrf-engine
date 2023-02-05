@@ -1817,7 +1817,7 @@ export const sounds = {
   weapons_whine_1: "weapons\\whine_1",
   weapons_whine_2: "weapons\\whine_2",
   weapons_whine_3: "weapons\\whine_3",
-  weapons_whine_4: "weapons\\whine_4"
+  weapons_whine_4: "weapons\\whine_4",
 } as const;
 
 export type TSounds = typeof sounds;

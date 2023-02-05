@@ -26,7 +26,7 @@ import {
   XR_game_object,
   XR_login_manager,
   XR_profile,
-  XR_profile_store
+  XR_profile_store,
 } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
@@ -436,5 +436,5 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     }
 
     return true;
-  }
+  },
 } as IMainMenu);

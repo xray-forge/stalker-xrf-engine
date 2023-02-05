@@ -7,7 +7,7 @@ import {
   XR_CUIEditBox,
   XR_CUIScriptWnd,
   XR_CUIStatic,
-  XR_CUIWindow
+  XR_CUIWindow,
 } from "xray16";
 
 import { textures } from "@/mod/globals/textures";
@@ -113,5 +113,5 @@ export const DevDebugUiSection: IDevDebugUiSection = declare_xr_class("DevDebugU
     this.texturesListSquareSmallDisplay.InitTexture(texture);
     this.texturesListSquareMiniDisplay.InitTexture(texture);
     this.texturesListLineDisplay.InitTexture(texture);
-  }
+  },
 } as IDevDebugUiSection);

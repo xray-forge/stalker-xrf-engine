@@ -159,5 +159,5 @@ export const SmartCover: ISmartCover = declare_xr_class("SmartCover", cse_smart_
         this.last_description = smart_cover_description;
       }
     }
-  }
+  },
 } as ISmartCover);

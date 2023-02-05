@@ -22,7 +22,7 @@ const community_list: LuaTable<number, string> = [
   "small_box_science",
   "big_box_generic",
   "big_box_dungeons",
-  "big_box_arsenal"
+  "big_box_arsenal",
 ] as any;
 
 export class ItemBox {
@@ -42,7 +42,7 @@ export class ItemBox {
       while (k <= n) {
         const item = {
           section: t.get(k),
-          count: null as unknown as number
+          count: null as unknown as number,
         };
 
         if (item_by_community.get("def_box").get(item.section) === null) {

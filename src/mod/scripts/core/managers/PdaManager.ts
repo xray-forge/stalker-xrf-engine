@@ -30,7 +30,7 @@ const killedMonsters: PartialRecord<TMonster, { back: TTexture; icon: string }> 
   [monsters.pseudodog_weak]: { back: texturesIngame.ui_inGame2_PseudoDog_1, icon: "" },
   [monsters.pseudodog_strong]: { back: texturesIngame.ui_inGame2_PseudoDog, icon: "" },
   [monsters.snork]: { back: texturesIngame.ui_inGame2_Snork, icon: "" },
-  [monsters.tushkano]: { back: texturesIngame.ui_inGame2_Tushkan, icon: "" }
+  [monsters.tushkano]: { back: texturesIngame.ui_inGame2_Tushkan, icon: "" },
 };
 
 enum EStatSection {
@@ -40,7 +40,7 @@ enum EStatSection {
   KILLED_MONSTERS,
   KILLED_STALKERS,
   ARTEFACTS_FOUND,
-  SECRETS_FOUND
+  SECRETS_FOUND,
 }
 
 /**

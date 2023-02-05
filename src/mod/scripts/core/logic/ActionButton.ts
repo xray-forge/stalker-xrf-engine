@@ -7,7 +7,7 @@ import {
   getConfigBoolean,
   getConfigCondList,
   getConfigString,
-  pickSectionFromCondList
+  pickSectionFromCondList,
 } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

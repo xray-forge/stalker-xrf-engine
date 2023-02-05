@@ -1,11 +1,21 @@
 import {
+  account_operation_cb,
+  account_profiles_cb,
   CScriptXmlInit,
-  CUIMMShniaga,
   CUIMessageBoxEx,
+  CUIMMShniaga,
   CUIScriptWnd,
   CUIWindow,
   DIK_keys,
+  dik_to_bind,
+  found_email_cb,
   Frect,
+  game,
+  get_console,
+  login_operation_cb,
+  store_operation_cb,
+  suggest_nicks_cb,
+  ui_events,
   XR_CConsole,
   XR_CScriptXmlInit,
   XR_CUI3tButton,
@@ -18,16 +28,6 @@ import {
   XR_CUITextWnd,
   XR_CUIWindow,
   XR_profile,
-  account_operation_cb,
-  account_profiles_cb,
-  dik_to_bind,
-  found_email_cb,
-  game,
-  get_console,
-  login_operation_cb,
-  store_operation_cb,
-  suggest_nicks_cb,
-  ui_events
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
@@ -856,5 +856,5 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
     }
 
     this.CheckAccCreationAbility();
-  }
+  },
 } as IMultiplayerGameSpy);

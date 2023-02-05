@@ -8,7 +8,7 @@ import {
   XR_CCar,
   XR_game_object,
   XR_ini_file,
-  XR_vector
+  XR_vector,
 } from "xray16";
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
@@ -21,7 +21,7 @@ import {
   getConfigNumber,
   getConfigString,
   getConfigStringAndCondList,
-  pickSectionFromCondList
+  pickSectionFromCondList,
 } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

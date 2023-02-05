@@ -5,7 +5,7 @@ export const levels = {
   jupiter_underground: "jupiter_underground",
   labx8: "labx8",
   pripyat: "pripyat",
-  zaton: "zaton"
+  zaton: "zaton",
 } as const;
 
 export type TLevels = typeof levels;

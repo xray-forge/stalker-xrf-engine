@@ -84,5 +84,5 @@ export const ZoneVisual: IZoneVisual = declare_xr_class("ZoneVisual", cse_zone_v
     if (flag === 1) {
       this.last_spawn_time = readCTimeFromPacket(packet);
     }
-  }
+  },
 } as IZoneVisual);

@@ -7,7 +7,7 @@ export const helmets = {
   helm_protective: "helm_protective",
   helm_respirator: "helm_respirator",
   helm_respirator_joker: "helm_respirator_joker",
-  helm_tactic: "helm_tactic"
+  helm_tactic: "helm_tactic",
 } as const;
 
 export type THelmets = typeof helmets;

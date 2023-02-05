@@ -54,7 +54,7 @@ export const ActionSleeperActivity: IActionSleeperActivity = declare_xr_class("A
       idle: null,
       maxidle: 10,
       sumidle: 20,
-      random: 50
+      random: 50,
     };
 
     this.state.signals = {};
@@ -153,5 +153,5 @@ export const ActionSleeperActivity: IActionSleeperActivity = declare_xr_class("A
     // --  GlobalSound:set_sound(this.object, null)
     this.move_mgr.finalize();
     action_base.finalize(this);
-  }
+  },
 } as IActionSleeperActivity);

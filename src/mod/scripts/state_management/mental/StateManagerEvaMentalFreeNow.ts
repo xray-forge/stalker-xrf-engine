@@ -24,6 +24,6 @@ export const StateManagerEvaMentalFreeNow: IStateManagerEvaMentalFreeNow = decla
     },
     evaluate(): boolean {
       return this.object.target_mental_state() === anim.free;
-    }
+    },
   } as IStateManagerEvaMentalFreeNow
 );

@@ -17,11 +17,11 @@ export class AbuseManager extends AbstractSchemeAction {
     state: IStoredObject
   ): void {
     const operators = {
-      abuse: get_global("xr_actions_id.abuse_base")
+      abuse: get_global("xr_actions_id.abuse_base"),
     };
     const properties = {
       abuse: get_global("xr_evaluators_id.abuse_base"),
-      wounded: get_global("xr_evaluators_id.sidor_wounded_base")
+      wounded: get_global("xr_evaluators_id.sidor_wounded_base"),
     };
 
     const manager: XR_action_planner = object.motivation_action_manager();

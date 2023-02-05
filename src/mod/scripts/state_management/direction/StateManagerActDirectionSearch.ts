@@ -42,6 +42,6 @@ export const StateManagerActDirectionSearch: IStateManagerActDirectionSearch = d
     },
     finalize(): void {
       action_base.finalize(this);
-    }
+    },
   } as IStateManagerActDirectionSearch
 );

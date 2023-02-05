@@ -25,6 +25,6 @@ export const StateManagerEvaWeaponDrop: IStateManagerEvaWeaponDrop = declare_xr_
     },
     evaluate(): boolean {
       return states.get(this.st.target_state).weapon === "drop";
-    }
+    },
   } as IStateManagerEvaWeaponDrop
 );

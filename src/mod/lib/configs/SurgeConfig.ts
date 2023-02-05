@@ -10,7 +10,7 @@ export const surgeConfig = {
     MIN_ON_FIRST_TIME: 2 * 60 * 60,
     MAX_ON_FIRST_TIME: 4 * 60 * 60,
     POST_TF_DELAY_MIN: 1 * 60 * 60,
-    POST_TF_DELAY_MAX: 3 * 60 * 60
+    POST_TF_DELAY_MAX: 3 * 60 * 60,
   },
   IMMUNE_SQUDS: {
     [communities.monster_predatory_day]: true,
@@ -20,10 +20,10 @@ export const surgeConfig = {
     [communities.monster_zombied_night]: true,
     [communities.monster_special]: true,
     [communities.monster]: true,
-    [communities.zombied]: true
+    [communities.zombied]: true,
   } as PartialRecord<TCommunity, boolean>,
   SURGE_DISABLED_LEVELS: {
     [levels.labx8]: true,
-    [levels.jupiter_underground]: true
-  } as PartialRecord<TLevel, boolean>
+    [levels.jupiter_underground]: true,
+  } as PartialRecord<TLevel, boolean>,
 };

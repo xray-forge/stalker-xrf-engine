@@ -32,6 +32,6 @@ export const StateManagerActBodyStateCrouch: IStateManagerActBodyStateCrouch = d
     },
     finalize(): void {
       action_base.finalize(this);
-    }
+    },
   } as IStateManagerActBodyStateCrouch
 );

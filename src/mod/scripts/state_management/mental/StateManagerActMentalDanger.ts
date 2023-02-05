@@ -33,6 +33,6 @@ export const StateManagerActMentalDanger: IStateManagerActMentalDanger = declare
     },
     finalize(): void {
       action_base.finalize(this);
-    }
+    },
   } as IStateManagerActMentalDanger
 );

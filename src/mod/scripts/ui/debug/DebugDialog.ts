@@ -10,7 +10,7 @@ import {
   XR_CUI3tButton,
   XR_CUIScriptWnd,
   XR_CUIStatic,
-  XR_CUITabControl
+  XR_CUITabControl,
 } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
@@ -211,5 +211,5 @@ export const DebugDialog: IDebugDialog = declare_xr_class("DebugDialog", CUIScri
     }
 
     return result;
-  }
+  },
 } as IDebugDialog);

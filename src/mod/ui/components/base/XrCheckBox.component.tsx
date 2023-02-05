@@ -28,12 +28,12 @@ export function XrCheckBox(props: IXrCheckBoxProps): JSXNode {
     texture = texturesIngame.ui_inGame2_checkbox,
     entry,
     group,
-    children = null
+    children = null,
   } = normalizeBaseNodeProps(props);
 
   return JSXXML(tag, { x, y, width, height, stretch: stretch === undefined ? "1" : stretch }, [
     <XrTexture>{texture}</XrTexture>,
     JSXXML(itemTag || tag + "_item", { entry, group }),
-    children
+    children,
   ]);
 }

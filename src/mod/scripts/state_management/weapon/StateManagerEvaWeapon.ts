@@ -75,6 +75,6 @@ export const StateManagerEvaWeapon: IStateManagerEvaWeapon = declare_xr_class(
       }
 
       return false;
-    }
+    },
   } as IStateManagerEvaWeapon
 );

@@ -39,5 +39,5 @@ export const ActionSearchCorpse: IActionSearchCorpse = declare_xr_class("ActionS
 
     set_state(this.object, "search_corpse", null, null, { look_position: this.state.vertex_position }, null);
     GlobalSound.set_sound_play(this.object.id(), "corpse_loot_begin", null, null);
-  }
+  },
 } as IActionSearchCorpse);

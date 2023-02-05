@@ -80,7 +80,7 @@ export const SimObjectsRegistry: ISimObjectsRegistry = declare_xr_class("SimObje
   },
   unregister(obj: XR_cse_alife_object): void {
     this.objects.delete(obj.id);
-  }
+  },
 } as ISimObjectsRegistry);
 
 export function get_sim_obj_registry() {

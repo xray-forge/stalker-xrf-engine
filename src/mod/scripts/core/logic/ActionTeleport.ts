@@ -13,7 +13,7 @@ const logger: LuaLogger = new LuaLogger("ActionTeleport");
 
 export enum ETeleportState {
   IDLE,
-  ACTIVATED
+  ACTIVATED,
 }
 
 export interface ITeleportPoint {
@@ -65,7 +65,7 @@ export class ActionTeleport extends AbstractSchemeAction {
       const teleportPoint: ITeleportPoint = {
         point: getConfigString(ini, section, "point" + tostring(i), object, false, "", "none"),
         look: getConfigString(ini, section, "look" + tostring(i), object, false, "", "none"),
-        prob: getConfigNumber(ini, section, "prob" + tostring(i), object, false, 100)
+        prob: getConfigNumber(ini, section, "prob" + tostring(i), object, false, 100),
       };
 
       // todo: Break or continue?

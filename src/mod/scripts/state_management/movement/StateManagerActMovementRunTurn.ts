@@ -38,6 +38,6 @@ export const StateManagerActMovementRunTurn: IStateManagerActMovementRunTurn = d
     },
     finalize(): void {
       action_base.finalize(this);
-    }
+    },
   } as IStateManagerActMovementRunTurn
 );

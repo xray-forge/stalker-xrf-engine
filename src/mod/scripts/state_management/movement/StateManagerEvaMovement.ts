@@ -30,6 +30,6 @@ export const StateManagerEvaMovement: IStateManagerEvaMovement = declare_xr_clas
         states.get(this.st.target_state).movement === this.object.target_movement_type()
       );
       // --           (state_lib.states[this.st.target_state].movement === this.object:movement_type())
-    }
+    },
   } as IStateManagerEvaMovement
 );

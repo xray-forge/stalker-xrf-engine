@@ -6,7 +6,7 @@ import {
   XR_cse_alife_object,
   XR_game_object,
   XR_net_packet,
-  XR_vector
+  XR_vector,
 } from "xray16";
 
 import { communities } from "@/mod/globals/communities";
@@ -190,7 +190,7 @@ export class CoverManager {
         cover_vertex_id: cover.level_vertex_id(),
         cover_position: cover.position(),
         look_pos: position,
-        is_smart_cover: cover.is_smart_cover()
+        is_smart_cover: cover.is_smart_cover(),
       });
     }
 
@@ -251,7 +251,7 @@ export class CoverManager {
         cover_vertex_id: cover_vertex_id,
         cover_position: cover_position,
         look_pos: look_pos,
-        is_smart_cover: is_smart_cover
+        is_smart_cover: is_smart_cover,
       });
     }
 

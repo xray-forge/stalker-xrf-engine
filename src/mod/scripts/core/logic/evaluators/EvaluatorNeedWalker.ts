@@ -17,5 +17,5 @@ export const EvaluatorNeedWalker: IEvaluatorNeedWalker = declare_xr_class("Evalu
   },
   evaluate(): boolean {
     return isSchemeActive(this.object, this.state);
-  }
+  },
 } as IEvaluatorNeedWalker);

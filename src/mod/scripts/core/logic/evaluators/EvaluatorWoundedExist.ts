@@ -99,6 +99,6 @@ export const EvaluatorWoundedExist: IEvaluatorWoundedExist = declare_xr_class(
       }
 
       return false;
-    }
+    },
   } as IEvaluatorWoundedExist
 );

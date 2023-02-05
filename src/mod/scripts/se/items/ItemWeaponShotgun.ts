@@ -46,6 +46,6 @@ export const ItemWeaponShotgun: IItemWeaponShotgun = declare_xr_class(
       }
 
       return cse_alife_item_weapon_shotgun.can_switch_online(this);
-    }
+    },
   } as IItemWeaponShotgun
 );

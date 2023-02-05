@@ -23,7 +23,7 @@ const look_direction_states: LuaTable<string, boolean> = {
   // --	threat = true,
   threat_na: true,
   wait_na: true,
-  guard_na: true
+  guard_na: true,
 } as any;
 
 export function look_object_type(npc: XR_game_object, st: StateManager): boolean {

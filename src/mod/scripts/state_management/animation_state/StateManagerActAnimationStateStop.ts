@@ -35,6 +35,6 @@ export const StateManagerActAnimationStateStop: IStateManagerActAnimationStateSt
     },
     finalize(): void {
       action_base.finalize(this);
-    }
+    },
   } as IStateManagerActAnimationStateStop
 );

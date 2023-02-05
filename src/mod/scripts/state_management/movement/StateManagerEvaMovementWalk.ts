@@ -25,6 +25,6 @@ export const StateManagerEvaMovementWalk: IStateManagerEvaMovementWalk = declare
     },
     evaluate(): boolean {
       return states.get(this.st.target_state).movement === move.walk;
-    }
+    },
   } as IStateManagerEvaMovementWalk
 );

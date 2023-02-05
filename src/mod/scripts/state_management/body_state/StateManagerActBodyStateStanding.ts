@@ -32,6 +32,6 @@ export const StateManagerActBodyStateStanding: IStateManagerActBodyStateStanding
     },
     finalize(): void {
       action_base.finalize(this);
-    }
+    },
   } as IStateManagerActBodyStateStanding
 );

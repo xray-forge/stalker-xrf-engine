@@ -8,7 +8,7 @@ import {
   XR_ini_file,
   XR_LuaBindBase,
   XR_net_packet,
-  XR_reader
+  XR_reader,
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
@@ -78,7 +78,7 @@ export const ReleaseBodyManager: IReleaseBodyManager = declare_xr_class("Release
 
       table.insert(this.release_objects_table, {
         id: obj.id(),
-        death_time: time_global()
+        death_time: time_global(),
       });
     }
   },
@@ -224,7 +224,7 @@ export const ReleaseBodyManager: IReleaseBodyManager = declare_xr_class("Release
     }
 
     setLoadMarker(reader, true, ReleaseBodyManager.__name);
-  }
+  },
 } as IReleaseBodyManager);
 
 let releaseBodyManager: Optional<IReleaseBodyManager> = null;

@@ -30,11 +30,11 @@ export class ActionSchemeHelpWounded extends AbstractSchemeAction {
 
     const operators = {
       help_wounded: action_ids.wounded_exist,
-      state_mgr_to_idle_alife: action_ids.state_mgr + 2
+      state_mgr_to_idle_alife: action_ids.state_mgr + 2,
     };
     const properties = {
       wounded_exist: evaluators_id.wounded_exist,
-      wounded: evaluators_id.sidor_wounded_base
+      wounded: evaluators_id.sidor_wounded_base,
     };
 
     const manager: XR_action_planner = npc.motivation_action_manager();

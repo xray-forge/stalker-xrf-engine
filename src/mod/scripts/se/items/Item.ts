@@ -43,5 +43,5 @@ export const Item: IItem = declare_xr_class("Item", cse_alife_item, {
     }
 
     return cse_alife_item.can_switch_online(this);
-  }
+  },
 } as IItem);

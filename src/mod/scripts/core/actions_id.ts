@@ -111,5 +111,5 @@ export const action_ids = {
   narrator_actions: jon_actions + 1024,
 
   peacemaker_actions: narrator_actions + 1024,
-  peace_sh_base: peacemaker_actions + 10
+  peace_sh_base: peacemaker_actions + 10,
 };

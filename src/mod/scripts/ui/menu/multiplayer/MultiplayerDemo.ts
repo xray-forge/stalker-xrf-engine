@@ -6,6 +6,7 @@ import {
   CUIMessageBoxEx,
   CUIWindow,
   Frect,
+  FS,
   game,
   get_console,
   GetARGB,
@@ -27,8 +28,7 @@ import {
   XR_CUIWindow,
   XR_FS,
   XR_LuaBindBase,
-  FS,
-  XR_vector2
+  XR_vector2,
 } from "xray16";
 
 import { textures } from "@/mod/globals/textures";
@@ -58,7 +58,7 @@ const PlayerInfo: IPlayerInfo = declare_xr_class("PlayerInfo", null, {
     this.rank = 0;
     this.frags = 0;
     this.spots = 0;
-  }
+  },
 } as IPlayerInfo);
 
 interface IDemoLoadItem extends XR_CUIListBoxItemMsgChain {
@@ -94,7 +94,7 @@ const DemoLoadItem: IDemoLoadItem = declare_xr_class("DemoLoadItem", CUIListBoxI
     handler.Register(this.delete_button, "delete_demo_button");
     handler.AddCallback("delete_demo_button", ui_events.BUTTON_CLICKED, () => owner.DeleteSelectedDemo(), owner);
   },
-  __finalize(): void {}
+  __finalize(): void {},
 } as IDemoLoadItem);
 
 interface IPlayerStatsItem extends XR_CUIListBoxItem {
@@ -142,7 +142,7 @@ const PlayerStatsItem: IPlayerStatsItem = declare_xr_class("PlayerStatsItem", CU
 
     this.rank.SetWndPos(new vector2().set(rank_pos.x + (w2 - 16) / 2, 0));
   },
-  __finalize(): void {}
+  __finalize(): void {},
 } as IPlayerStatsItem);
 
 export interface IMultiplayerDemo extends XR_CUIWindow {
@@ -539,5 +539,5 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
       player_info.rank = tmp_player.get_rank();
       this.AddPlayerToStats(player_info);
     }
-  }
+  },
 } as IMultiplayerDemo);

@@ -27,6 +27,6 @@ export const StateManagerEvaWeaponFire: IStateManagerEvaWeaponFire = declare_xr_
       return (
         states.get(this.st.target_state).weapon === "fire" || states.get(this.st.target_state).weapon === "sniper_fire"
       );
-    }
+    },
   } as IStateManagerEvaWeaponFire
 );

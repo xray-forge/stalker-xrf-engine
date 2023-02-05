@@ -36,6 +36,6 @@ export const StateManagerActMovementStandSearch: IStateManagerActMovementStandSe
     },
     finalize(): void {
       action_base.finalize(this);
-    }
+    },
   } as IStateManagerActMovementStandSearch
 );

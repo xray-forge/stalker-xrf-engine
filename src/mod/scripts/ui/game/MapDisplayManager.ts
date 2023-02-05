@@ -1,12 +1,12 @@
 import {
-  level,
   alife,
-  XR_cse_alife_object,
+  game,
+  level,
+  time_global,
   XR_alife_simulator,
+  XR_cse_alife_object,
   XR_game_object,
   XR_vector,
-  game,
-  time_global
 } from "xray16";
 
 import { captions } from "@/mod/globals/captions";
@@ -79,36 +79,36 @@ const primaryMapObjects = [
   { target: story_ids.pri_b35_spot, hint: captions.st_pri_b35_name },
   { target: story_ids.pri_a21_spot, hint: captions.st_pri_a21_name },
   { target: story_ids.pri_b304_spot, hint: captions.st_pri_b304_name },
-  { target: story_ids.pri_a18_spot, hint: captions.st_pri_a18_name }
+  { target: story_ids.pri_a18_spot, hint: captions.st_pri_a18_name },
 ];
 
 const sleepZones = [
   { target: story_ids.zat_a2_sr_sleep_id, hint: captions.st_ui_pda_sleep_place },
   { target: story_ids.jup_a6_sr_sleep_id, hint: captions.st_ui_pda_sleep_place },
-  { target: story_ids.pri_a16_sr_sleep_id, hint: captions.st_ui_pda_sleep_place }
+  { target: story_ids.pri_a16_sr_sleep_id, hint: captions.st_ui_pda_sleep_place },
 ];
 
 const npcMarks = {
   [map_mark_type.trader]: {
     map_location: npc_map_marks.ui_pda2_trader_location,
-    hint: captions.st_ui_pda_legend_trader
+    hint: captions.st_ui_pda_legend_trader,
   },
   [map_mark_type.mechanic]: {
     map_location: npc_map_marks.ui_pda2_mechanic_location,
-    hint: captions.st_ui_pda_legend_mechanic
+    hint: captions.st_ui_pda_legend_mechanic,
   },
   [map_mark_type.guider]: {
     map_location: npc_map_marks.ui_pda2_scout_location,
-    hint: captions.st_ui_pda_legend_scout
+    hint: captions.st_ui_pda_legend_scout,
   },
   [map_mark_type.quest_npc]: {
     map_location: npc_map_marks.ui_pda2_quest_npc_location,
-    hint: captions.st_ui_pda_legend_vip
+    hint: captions.st_ui_pda_legend_vip,
   },
   [map_mark_type.medic]: {
     map_location: npc_map_marks.ui_pda2_medic_location,
-    hint: captions.st_ui_pda_legend_medic
-  }
+    hint: captions.st_ui_pda_legend_medic,
+  },
 };
 
 const changeObjects: LuaTable<number, { target: string; hint: string; zone: string; group: string; enabled: boolean }> =
@@ -118,36 +118,36 @@ const changeObjects: LuaTable<number, { target: string; hint: string; zone: stri
       hint: captions.st_jup_b32_name,
       zone: "jup_b32_anomal_zone",
       group: info_portions.jup_b32_scanner_1_placed,
-      enabled: false
+      enabled: false,
     },
     {
       target: story_ids.jup_b201_spot,
       hint: captions.st_jup_b201_name,
       zone: "jup_b201_anomal_zone",
       group: info_portions.jup_b32_scanner_2_placed,
-      enabled: false
+      enabled: false,
     },
     {
       target: story_ids.jup_b209_spot,
       hint: captions.st_jup_b209_name,
       zone: "jup_b209_anomal_zone",
       group: info_portions.jup_b32_scanner_3_placed,
-      enabled: false
+      enabled: false,
     },
     {
       target: story_ids.jup_b211_spot,
       hint: captions.st_jup_b211_name,
       zone: "jup_b211_anomal_zone",
       group: info_portions.jup_b32_scanner_4_placed,
-      enabled: false
+      enabled: false,
     },
     {
       target: story_ids.jup_b1_spot,
       hint: captions.st_jup_b1_name,
       zone: "jup_b10_anomal_zone",
       group: info_portions.jup_b32_scanner_5_placed,
-      enabled: false
-    }
+      enabled: false,
+    },
   ] as any;
 
 export class MapDisplayManager {

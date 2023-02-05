@@ -1,4 +1,4 @@
-import { CUIWindow, GAME_TYPE, XR_CScriptXmlInit, XR_CUIWindow, TXR_GAME_TYPE } from "xray16";
+import { CUIWindow, GAME_TYPE, TXR_GAME_TYPE, XR_CScriptXmlInit, XR_CUIWindow } from "xray16";
 
 import { IMultiplayerMenu } from "@/mod/scripts/ui/menu/MultiplayerMenu";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -204,5 +204,5 @@ export const MultiplayerOptions: IMultiplayerOptions = declare_xr_class("Multipl
         handler.spin_frag_limit.Enable(false);
       }
     }
-  }
+  },
 } as IMultiplayerOptions);

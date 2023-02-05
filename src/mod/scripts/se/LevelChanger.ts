@@ -1,4 +1,4 @@
-import { XR_cse_alife_level_changer, cse_alife_level_changer, XR_net_packet, editor } from "xray16";
+import { cse_alife_level_changer, editor, XR_cse_alife_level_changer, XR_net_packet } from "xray16";
 
 import { TSection } from "@/mod/lib/types/configuration";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
@@ -49,5 +49,5 @@ export const LevelChanger: ILevelChanger = declare_xr_class("LevelChanger", cse_
     this.enabled = packet.r_bool();
     this.hint = packet.r_stringZ();
     setLoadMarker(packet, true, LevelChanger.__name);
-  }
+  },
 } as ILevelChanger);

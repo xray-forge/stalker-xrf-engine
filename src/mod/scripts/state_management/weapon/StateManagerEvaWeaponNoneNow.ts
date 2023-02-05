@@ -24,6 +24,6 @@ export const StateManagerEvaWeaponNoneNow: IStateManagerEvaWeaponNoneNow = decla
     },
     evaluate(): boolean {
       return this.object.active_item() === null;
-    }
+    },
   } as IStateManagerEvaWeaponNoneNow
 );

@@ -2,5 +2,5 @@
 list = {
   script_functor_true() {
     return true;
-  }
+  },
 };

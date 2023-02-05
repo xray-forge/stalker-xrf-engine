@@ -45,6 +45,6 @@ export const StateManagerActSmartCoverEnter: IStateManagerActSmartCoverEnter = d
     },
     finalize(): void {
       action_base.finalize(this);
-    }
+    },
   } as IStateManagerActSmartCoverEnter
 );

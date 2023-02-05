@@ -24,6 +24,6 @@ export const StateManagerEvaMentalDangerNow: IStateManagerEvaMentalDangerNow = d
     },
     evaluate(): boolean {
       return this.object.target_mental_state() === anim.danger;
-    }
+    },
   } as IStateManagerEvaMentalDangerNow
 );

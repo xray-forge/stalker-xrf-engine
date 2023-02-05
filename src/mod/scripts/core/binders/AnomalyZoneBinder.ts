@@ -1,15 +1,15 @@
 import {
   alife,
   ini_file,
-  XR_cse_alife_object,
   object_binder,
   patrol,
+  XR_cse_alife_object,
   XR_game_object,
   XR_ini_file,
   XR_net_packet,
   XR_object_binder,
   XR_patrol,
-  XR_reader
+  XR_reader,
 } from "xray16";
 
 import { MAX_UNSIGNED_8_BIT } from "@/mod/globals/memory";
@@ -230,7 +230,7 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
 
       this.layersForcesTable.set(section, {
         xz: getConfigNumber(ini, section, "applying_force_xz", null, false, defaultForceXZ),
-        y: getConfigNumber(ini, section, "applying_force_y", null, false, defaultForceY)
+        y: getConfigNumber(ini, section, "applying_force_y", null, false, defaultForceY),
       });
 
       const listOfAvailableArtefacts: LuaTable<number, string> = this.getArtefactsListForSection(
@@ -765,5 +765,5 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     }
 
     return parseNames(baseArtefactsList);
-  }
+  },
 } as IAnomalyZoneBinder);

@@ -36,5 +36,5 @@ export const InventoryBox: IInventoryBox = declare_xr_class("InventoryBox", cse_
     }
 
     return cse_alife_inventory_box.can_switch_online(this);
-  }
+  },
 } as IInventoryBox);

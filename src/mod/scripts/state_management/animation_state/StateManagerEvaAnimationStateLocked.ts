@@ -28,6 +28,6 @@ export const StateManagerEvaAnimationStateLocked: IStateManagerEvaAnimationState
       // --    end
 
       return this.st.animstate.states.anim_marker !== null && this.st.animstate.states.anim_marker !== anim.lie_idle;
-    }
+    },
   } as IStateManagerEvaAnimationStateLocked
 );

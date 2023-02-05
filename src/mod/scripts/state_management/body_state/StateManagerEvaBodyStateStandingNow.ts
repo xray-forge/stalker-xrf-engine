@@ -24,6 +24,6 @@ export const StateManagerEvaBodyStateStandingNow: IStateManagerEvaBodyStateStand
     },
     evaluate(): boolean {
       return this.object.target_body_state() === move.standing;
-    }
+    },
   } as IStateManagerEvaBodyStateStandingNow
 );

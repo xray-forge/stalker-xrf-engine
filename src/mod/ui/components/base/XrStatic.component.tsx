@@ -41,7 +41,7 @@ export function XrStatic(props: IXrStaticProps): JSXNode {
     textureWidth,
     textureHeight,
     stretch,
-    children = null
+    children = null,
   } = normalizeBaseNodeProps(props);
 
   return JSXXML(
@@ -52,11 +52,11 @@ export function XrStatic(props: IXrStaticProps): JSXNode {
       y,
       width,
       height,
-      stretch: stretch === undefined ? "1" : stretch
+      stretch: stretch === undefined ? "1" : stretch,
     },
     [
       texture ? <XrTexture id={texture} x={textureX} y={textureY} width={textureWidth} height={textureHeight} /> : null,
-      children
+      children,
     ]
   );
 }

@@ -33,7 +33,7 @@ let prev_fade_time: number = 0;
 export enum EDynamicMusicState {
   IDLE,
   START,
-  FINISH
+  FINISH,
 }
 
 export class DynamicMusicManager {

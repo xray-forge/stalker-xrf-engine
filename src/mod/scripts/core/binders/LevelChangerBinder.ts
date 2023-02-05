@@ -6,7 +6,7 @@ import {
   XR_game_object,
   XR_net_packet,
   XR_object_binder,
-  XR_reader
+  XR_reader,
 } from "xray16";
 
 import { AnyCallable } from "@/mod/lib/types";
@@ -78,5 +78,5 @@ export const LevelChangerBinder: ILevelChangerBinder = declare_xr_class("LevelCh
     (get_global("xr_logic").load_obj as AnyCallable)(this.object, reader);
 
     setLoadMarker(reader, true, LevelChangerBinder.__name);
-  }
+  },
 } as ILevelChangerBinder);

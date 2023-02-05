@@ -5,7 +5,7 @@ import {
   ui_events,
   XR_CScriptXmlInit,
   XR_CUIScriptWnd,
-  XR_CUIStatic
+  XR_CUIStatic,
 } from "xray16";
 
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -93,5 +93,5 @@ export const DebugGeneralSection: IDebugGeneralSection = declare_xr_class("Debug
   },
   getUsedMemoryLabel(): string {
     return string.format("RAM: %.03f MB", getLuaMemoryUsed() / 1024);
-  }
+  },
 } as IDebugGeneralSection);

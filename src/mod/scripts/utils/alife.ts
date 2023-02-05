@@ -11,7 +11,7 @@ import {
   XR_cse_alife_online_offline_group,
   XR_entity_action,
   XR_game_object,
-  XR_ini_file
+  XR_ini_file,
 } from "xray16";
 
 import { communities, TCommunity } from "@/mod/globals/communities";

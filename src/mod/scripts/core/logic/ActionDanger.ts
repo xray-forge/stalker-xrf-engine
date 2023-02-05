@@ -8,7 +8,7 @@ import {
   XR_action_planner,
   XR_danger_object,
   XR_game_object,
-  XR_ini_file
+  XR_ini_file,
 } from "xray16";
 
 import { communities } from "@/mod/globals/communities";

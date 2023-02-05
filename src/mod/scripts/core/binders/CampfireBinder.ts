@@ -43,7 +43,7 @@ export const CampfireBinder: ICampfireBinder = declare_xr_class("CampfireBinder"
   },
   update(delta: number): void {
     object_binder.update(this, delta);
-  }
+  },
 } as ICampfireBinder);
 
 export function turn_on_campfires_by_smart_name(smart_name: string): void {

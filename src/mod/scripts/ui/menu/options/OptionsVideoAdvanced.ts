@@ -193,7 +193,7 @@ export const OptionsVideoAdvanced: IOptionsVideoAdvanced = declare_xr_class("Opt
     const btn = xml.Init3tButton("video_adv:btn_to_simply", this);
 
     handler.Register(btn, "btn_simply_graphic");
-  }
+  },
 } as IOptionsVideoAdvanced);
 
 function only_1_mode(ctrl: IOptionsDialog, _id: number): void {

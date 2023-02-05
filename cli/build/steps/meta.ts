@@ -120,6 +120,6 @@ export function getBuildSystemInfo(): Record<string, string | number> {
     ["os_cpus_type"]: cpuInfos.length ? cpuInfos[0].model : "",
     ["os_ram_max"]: os.totalmem() / 1024 / 1024 + " MB",
     ["os_hostname"]: os.hostname(),
-    ["os_user"]: os.userInfo()?.username
+    ["os_user"]: os.userInfo()?.username,
   };
 }

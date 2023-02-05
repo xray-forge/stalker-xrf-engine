@@ -51,6 +51,6 @@ export const StateManagerActSmartCoverExit: IStateManagerActSmartCoverExit = dec
     },
     finalize(): void {
       action_base.finalize(this);
-    }
+    },
   } as IStateManagerActSmartCoverExit
 );

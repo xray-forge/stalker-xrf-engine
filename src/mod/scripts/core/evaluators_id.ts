@@ -104,5 +104,5 @@ export const evaluators_id = {
 
   narrator_evaluators: id_start + 6000,
 
-  peace_sh_base: id_start + 7000
+  peace_sh_base: id_start + 7000,
 };

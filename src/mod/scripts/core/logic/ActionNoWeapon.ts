@@ -5,7 +5,7 @@ import {
   XR_CUIGameCustom,
   XR_game_object,
   XR_ini_file,
-  XR_StaticDrawableWrapper
+  XR_StaticDrawableWrapper,
 } from "xray16";
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
@@ -19,7 +19,7 @@ const logger: LuaLogger = new LuaLogger("ActionNoWeapon");
 export enum EActorZoneState {
   NOWHERE,
   INSIDE,
-  OUTSIDE
+  OUTSIDE,
 }
 
 /**

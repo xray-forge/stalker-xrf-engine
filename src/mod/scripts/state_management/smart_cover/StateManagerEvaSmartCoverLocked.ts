@@ -36,6 +36,6 @@ export const StateManagerEvaSmartCoverLocked: IStateManagerEvaSmartCoverLocked =
       return (
         (in_smart_cover && state_descr.cover_name === null) || (!in_smart_cover && state_descr.cover_name !== null)
       );
-    }
+    },
   } as IStateManagerEvaSmartCoverLocked
 );

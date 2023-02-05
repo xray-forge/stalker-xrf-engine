@@ -26,7 +26,7 @@ export const artefacts = {
   af_compass: "af_compass",
   af_oasis_heart: "af_oasis_heart",
   jup_b1_half_artifact: "jup_b1_half_artifact",
-  af_quest_b14_twisted: "af_quest_b14_twisted"
+  af_quest_b14_twisted: "af_quest_b14_twisted",
 } as const;
 
 export type TArtefacts = typeof artefacts;

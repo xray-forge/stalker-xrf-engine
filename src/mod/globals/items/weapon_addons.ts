@@ -15,7 +15,7 @@ export const weapon_addons = {
   wpn_addon_scope_susat_night: "wpn_addon_scope_susat_night",
   "wpn_addon_scope_susat_x1.6": "wpn_addon_scope_susat_x1.6",
   "wpn_addon_scope_x2.7": "wpn_addon_scope_x2.7",
-  wpn_addon_silencer: "wpn_addon_silencer"
+  wpn_addon_silencer: "wpn_addon_silencer",
 } as const;
 
 export type TWeaponAddons = typeof weapon_addons;

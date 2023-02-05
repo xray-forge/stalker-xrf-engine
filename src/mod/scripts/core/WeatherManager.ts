@@ -188,7 +188,7 @@ export class WeatherManager {
           current_state: current_state as string,
           next_state: next_state as string,
           graph_name: graph_name,
-          graph: graph!
+          graph: graph!,
         });
       }
     }

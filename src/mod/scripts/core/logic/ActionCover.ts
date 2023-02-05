@@ -8,7 +8,7 @@ import {
   XR_action_base,
   XR_game_object,
   XR_ini_file,
-  XR_vector
+  XR_vector,
 } from "xray16";
 
 import { AnyCallablesModule } from "@/mod/lib/types";
@@ -24,7 +24,7 @@ import {
   getConfigNumber,
   getConfigString,
   parseCondList,
-  pickSectionFromCondList
+  pickSectionFromCondList,
 } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -48,12 +48,12 @@ export class ActionCover extends AbstractSchemeAction {
     logger.info("Add to binder:", object.name());
 
     const operators = {
-      action_cover: get_global("xr_actions_id").stohe_cover_base + 1
+      action_cover: get_global("xr_actions_id").stohe_cover_base + 1,
     };
     const properties = {
       event: get_global("xr_evaluators_id").reaction,
       need_cover: get_global("xr_evaluators_id").stohe_cover_base + 1,
-      state_mgr_logic_active: get_global("xr_evaluators_id").state_mgr + 4
+      state_mgr_logic_active: get_global("xr_evaluators_id").state_mgr + 4,
     };
 
     const manager = object.motivation_action_manager();
@@ -202,5 +202,5 @@ const ActionBaseCover: IActionBaseCover = declare_xr_class("ActionBaseCover", ac
   },
   position_reached(): boolean {
     return this.cover_position.distance_to_sqr(this.object.position()) <= 0.4;
-  }
+  },
 } as IActionBaseCover);

@@ -42,7 +42,7 @@ export const FreeplayDialog: IFreeplayDialog = declare_xr_class("FreeplayDialog"
   },
   OnMsgNo(): void {
     giveInfo("pri_a28_actor_in_zone_stay");
-  }
+  },
 } as IFreeplayDialog);
 
 let freeplay_control: Optional<IFreeplayDialog> = null;

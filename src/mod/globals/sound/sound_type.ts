@@ -17,5 +17,5 @@ export enum ESoundType {
   MST_step = "MST_step",
   MST_talk = "MST_talk",
   MST_attack = "MST_attack",
-  MST_eat = "MST_eat"
+  MST_eat = "MST_eat",
 }

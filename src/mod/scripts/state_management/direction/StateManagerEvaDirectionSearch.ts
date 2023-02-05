@@ -28,6 +28,6 @@ export const StateManagerEvaDirectionSearch: IStateManagerEvaDirectionSearch = d
       }
 
       return true;
-    }
+    },
   } as IStateManagerEvaDirectionSearch
 );

@@ -14,7 +14,7 @@ const logger: LuaLogger = new LuaLogger("game_relations");
 export enum ERelation {
   FRIENDS = 1000,
   NEUTRALS = 0,
-  ENEMIES = -1000
+  ENEMIES = -1000,
 }
 
 const temp_goodwill_table: { communities: Optional<LuaTable<TCommunity, LuaTable>> } = { communities: null };

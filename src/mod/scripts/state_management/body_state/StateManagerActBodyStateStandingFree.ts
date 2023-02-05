@@ -33,6 +33,6 @@ export const StateManagerActBodyStateStandingFree: IStateManagerActBodyStateStan
     },
     finalize(): void {
       action_base.finalize(this);
-    }
+    },
   } as IStateManagerActBodyStateStandingFree
 );

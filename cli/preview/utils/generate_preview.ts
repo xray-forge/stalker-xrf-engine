@@ -140,7 +140,7 @@ function generateDomClasses() {
     style,
     GENERIC,
     GRADIENT_BG_,
-    STATIC_ASSET
+    STATIC_ASSET,
   };
 }
 

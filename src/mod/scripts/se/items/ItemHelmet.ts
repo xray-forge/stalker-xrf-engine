@@ -43,5 +43,5 @@ export const ItemHelmet: IItemHelmet = declare_xr_class("ItemHelmet", cse_alife_
     }
 
     return cse_alife_item_helmet.can_switch_online(this);
-  }
+  },
 } as IItemHelmet);

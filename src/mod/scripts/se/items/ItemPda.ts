@@ -36,5 +36,5 @@ export const ItemPda: IItemPda = declare_xr_class("ItemPda", cse_alife_item_pda,
     }
 
     return cse_alife_item_pda.can_switch_online(this);
-  }
+  },
 } as IItemPda);

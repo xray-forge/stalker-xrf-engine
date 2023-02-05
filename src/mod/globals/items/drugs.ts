@@ -11,7 +11,7 @@ export const drugs = {
   drug_radioprotector: "drug_radioprotector",
   medkit: "medkit",
   medkit_army: "medkit_army",
-  medkit_scientic: "medkit_scientic"
+  medkit_scientic: "medkit_scientic",
 } as const;
 
 export type TDrugItems = typeof drugs;

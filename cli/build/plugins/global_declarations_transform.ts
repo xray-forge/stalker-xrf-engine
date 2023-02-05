@@ -17,8 +17,8 @@ const plugin: Plugin = {
       }
 
       return context.superTransformStatements(node);
-    }
-  }
+    },
+  },
 };
 
 export default plugin;

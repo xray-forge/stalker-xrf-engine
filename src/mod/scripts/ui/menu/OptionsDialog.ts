@@ -7,11 +7,11 @@ import {
   Frect,
   get_console,
   is_enough_address_space_available,
-  XR_CConsole,
   main_menu,
   TXR_DIK_key,
   TXR_ui_event,
   ui_events,
+  XR_CConsole,
   XR_CMainMenu,
   XR_COptionsManager,
   XR_CScriptXmlInit,
@@ -23,7 +23,7 @@ import {
   XR_CUIStatic,
   XR_CUITabControl,
   XR_CUITrackBar,
-  XR_Patch_Dawnload_Progress
+  XR_Patch_Dawnload_Progress,
 } from "xray16";
 
 import { option_groups, option_groups_messages } from "@/mod/globals/option_groups";
@@ -384,5 +384,5 @@ export const OptionsDialog: IOptionsDialog = declare_xr_class("OptionsDialog", C
     const mainMenu: XR_CMainMenu = main_menu.get_main_menu();
 
     mainMenu.CancelDownload();
-  }
+  },
 } as IOptionsDialog);

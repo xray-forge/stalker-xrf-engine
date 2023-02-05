@@ -5,7 +5,7 @@ import {
   XR_game_object,
   XR_ini_file,
   XR_object_binder,
-  XR_vector
+  XR_vector,
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
@@ -108,7 +108,7 @@ export const CAMPS: LuaTable<number, { object?: XR_game_object; camp?: any }> = 
 
 export const CROW_STORAGE = {
   STORAGE: new LuaTable<number, number>(),
-  COUNT: 0
+  COUNT: 0,
 };
 
 export const heliEnemies: LuaTable<number, XR_game_object> = new LuaTable();
@@ -269,5 +269,5 @@ declare_global("db", {
   add_smart_terrain: addSmartTerrain,
   del_smart_terrain: deleteSmartTerrain,
   add_anim_obj: addAnimationObject,
-  del_anim_obj: deleteAnimationObject
+  del_anim_obj: deleteAnimationObject,
 });

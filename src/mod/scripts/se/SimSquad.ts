@@ -1,22 +1,22 @@
 import {
-  CALifeSmartTerrainTask,
-  XR_CALifeSmartTerrainTask,
-  XR_cse_alife_creature_abstract,
-  XR_cse_alife_online_offline_group,
-  XR_net_packet,
-  XR_vector,
   alife,
   anim,
+  CALifeSmartTerrainTask,
+  clsid,
   cse_alife_online_offline_group,
+  game,
   game_graph,
   ini_file,
   level,
   move,
-  system_ini,
-  clsid,
   patrol,
-  game,
-  XR_game_object
+  system_ini,
+  XR_CALifeSmartTerrainTask,
+  XR_cse_alife_creature_abstract,
+  XR_cse_alife_online_offline_group,
+  XR_game_object,
+  XR_net_packet,
+  XR_vector,
 } from "xray16";
 
 import { squadCommunityByBehaviour } from "@/mod/globals/behaviours";
@@ -28,24 +28,24 @@ import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { AnyCallable, AnyCallablesModule, AnyObject, Optional } from "@/mod/lib/types";
 import { TSection } from "@/mod/lib/types/configuration";
 import {
-  getActor,
   goodwill as dbGoodwill,
+  getActor,
   offlineObjects,
   spawnedVertexById,
   storage,
-  zoneByName
+  zoneByName,
 } from "@/mod/scripts/core/db";
 import { SMART_TERRAIN_SECT } from "@/mod/scripts/core/db/sections";
 import {
   get_squad_relation_to_actor_by_id,
   is_factions_enemies,
   set_npc_sympathy,
-  set_npcs_relation
+  set_npcs_relation,
 } from "@/mod/scripts/core/game_relations";
 import { get_sound_manager, SoundManager } from "@/mod/scripts/core/sound/SoundManager";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { simulation_activities } from "@/mod/scripts/se/SimActivity";
-import { ISimBoard, get_sim_board, squad_ltx } from "@/mod/scripts/se/SimBoard";
+import { get_sim_board, ISimBoard, squad_ltx } from "@/mod/scripts/se/SimBoard";
 import { evaluate_prior, get_sim_obj_registry } from "@/mod/scripts/se/SimObjectsRegistry";
 import { SimSquadReachTargetAction } from "@/mod/scripts/se/SimSquadReachTargetAction";
 import { SimSquadStayOnTargetAction } from "@/mod/scripts/se/SimSquadStayOnTargetAction";
@@ -62,7 +62,7 @@ import {
   parseCondList,
   parseNames,
   pickSectionFromCondList,
-  r_2nums
+  r_2nums,
 } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setSaveMarker } from "@/mod/scripts/utils/game_saves";
@@ -76,7 +76,7 @@ const locations_ini = new ini_file("misc\\smart_terrain_masks.ltx");
 const smarts_by_no_assault_zones: LuaTable<string, string> = {
   ["zat_a2_sr_no_assault"]: "zat_stalker_base_smart",
   ["jup_a6_sr_no_assault"]: "jup_a6",
-  ["jup_b41_sr_no_assault"]: "jup_b41"
+  ["jup_b41_sr_no_assault"]: "jup_b41",
 } as any;
 
 export interface ISimSquad extends XR_cse_alife_online_offline_group {
@@ -674,7 +674,10 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     );
 
     if (custom_data !== "default_custom_data.ltx") {
-      logger.info("INCORRECT npc_spawn_section USED [%s]. You cannot use npc with custom_data in squads", spawn_section);
+      logger.info(
+        "INCORRECT npc_spawn_section USED [%s]. You cannot use npc with custom_data in squads",
+        spawn_section
+      );
     }
 
     const position = spawn_position;
@@ -1120,7 +1123,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
   },
   evaluate_prior(squad: ISimSquad): number {
     return evaluate_prior(this, squad);
-  }
+  },
 } as ISimSquad);
 
 export function get_help_target_id(squad: ISimSquad): Optional<number> {

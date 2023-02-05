@@ -29,5 +29,5 @@ export const ActionAbuseHit: IActionAbuseHit = declare_xr_class("ActionAbuseHit"
   },
   execute(): void {
     action_base.execute(this);
-  }
+  },
 } as IActionAbuseHit);

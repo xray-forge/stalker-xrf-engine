@@ -28,6 +28,6 @@ export const StateManagerEvaWeaponUnstrapped: IStateManagerEvaWeaponUnstrapped =
       const weapon: Optional<string> = states.get(this.st.target_state).weapon;
 
       return weapon === "unstrapped" || weapon === "fire" || weapon === "sniper_fire";
-    }
+    },
   } as IStateManagerEvaWeaponUnstrapped
 );

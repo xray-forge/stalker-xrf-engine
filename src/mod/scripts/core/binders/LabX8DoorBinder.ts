@@ -10,7 +10,7 @@ import {
   XR_net_packet,
   XR_object_binder,
   XR_reader,
-  XR_sound_object
+  XR_sound_object,
 } from "xray16";
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
@@ -316,5 +316,5 @@ export const LabX8DoorBinder: ILabX8DoorBinder = declare_xr_class("LabX8DoorBind
     this.loaded = true;
 
     setLoadMarker(reader, true, LabX8DoorBinder.__name);
-  }
+  },
 } as ILabX8DoorBinder);

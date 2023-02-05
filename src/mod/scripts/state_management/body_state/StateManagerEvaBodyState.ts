@@ -25,6 +25,6 @@ export const StateManagerEvaBodyState: IStateManagerEvaBodyState = declare_xr_cl
         states.get(this.st.target_state).bodystate === null ||
         states.get(this.st.target_state).bodystate === this.object.target_body_state()
       );
-    }
+    },
   } as IStateManagerEvaBodyState
 );

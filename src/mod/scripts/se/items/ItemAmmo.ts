@@ -36,5 +36,5 @@ export const ItemAmmo: IItemAmmo = declare_xr_class("ItemAmmo", cse_alife_item_a
     }
 
     return cse_alife_item_ammo.can_switch_online(this);
-  }
+  },
 } as IItemAmmo);

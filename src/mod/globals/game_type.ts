@@ -21,5 +21,5 @@ export const game_type = {
 
   // --script game types
   GAME_LASTSTANDING: 100,
-  GAME_DUMMY: 255 // --max(unsigned8)
+  GAME_DUMMY: 255, // --max(unsigned8)
 };

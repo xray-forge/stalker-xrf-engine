@@ -79,5 +79,5 @@ export const MultiplayerJoin: IMultiplayerJoin = declare_xr_class("MultiplayerJo
     handler.Register(xml.Init3tButton("tab_client:btn_refresh", this), "btn_refresh");
     handler.Register(xml.Init3tButton("tab_client:btn_quick_refresh", this), "btn_quick_refresh");
     handler.Register(xml.Init3tButton("tab_client:btn_server_info", this), "btn_server_info");
-  }
+  },
 } as IMultiplayerJoin);

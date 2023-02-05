@@ -43,5 +43,5 @@ export const ItemOutfit: IItemOutfit = declare_xr_class("ItemOutfit", cse_alife_
     }
 
     return cse_alife_item_custom_outfit.can_switch_online(this);
-  }
+  },
 } as IItemOutfit);

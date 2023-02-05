@@ -1,4 +1,4 @@
-import { JSXXML, JSXNode } from "jsx-xml";
+import { JSXNode, JSXXML } from "jsx-xml";
 
 import { captions } from "@/mod/globals/captions";
 import { fonts } from "@/mod/globals/fonts";

@@ -43,5 +43,5 @@ export const ItemDetector: IItemDetector = declare_xr_class("ItemDetector", cse_
     }
 
     return cse_alife_item_detector.can_switch_online(this);
-  }
+  },
 } as IItemDetector);

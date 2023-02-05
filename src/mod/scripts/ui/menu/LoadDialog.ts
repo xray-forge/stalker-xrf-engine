@@ -1,17 +1,27 @@
 import {
+  alife,
   bit_or,
   CScriptXmlInit,
   CUIListBoxItem,
   CUIMessageBoxEx,
   CUIScriptWnd,
   CUIWindow,
-  FS,
+  DIK_keys,
+  dik_to_bind,
   Frect,
+  FS,
+  get_console,
   GetARGB,
+  GetFontLetterica16Russian,
   GetFontLetterica18Russian,
   getFS,
+  key_bindings,
+  TXR_DIK_key,
+  TXR_ui_event,
   ui_events,
+  valid_saved_game,
   vector2,
+  XR_CConsole,
   XR_CScriptXmlInit,
   XR_CUIListBox,
   XR_CUIListBoxItem,
@@ -22,19 +32,9 @@ import {
   XR_CUIWindow,
   XR_FS,
   XR_FS_file_list_ex,
-  XR_vector2,
   XR_FS_item,
-  get_console,
-  XR_CConsole,
-  alife,
-  valid_saved_game,
   XR_game_object,
-  TXR_DIK_key,
-  TXR_ui_event,
-  dik_to_bind,
-  key_bindings,
-  GetFontLetterica16Russian,
-  DIK_keys
+  XR_vector2,
 } from "xray16";
 
 import { textures } from "@/mod/globals/textures";
@@ -63,7 +63,7 @@ const LoadItem: ILoadItem = declare_xr_class("LoadItem", CUIListBoxItem, {
     this.innerNameText.SetFont(GetFontLetterica18Russian());
     this.innerNameText.SetEllipsis(true);
   },
-  __finalize(): void {}
+  __finalize(): void {},
 } as ILoadItem);
 
 export interface ILoadDialog extends XR_CUIScriptWnd {
@@ -377,5 +377,5 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
     it.innerAgeText.SetWndSize(this.fileItemDdSz);
 
     this.listBox.AddExistingItem(it);
-  }
+  },
 } as ILoadDialog);

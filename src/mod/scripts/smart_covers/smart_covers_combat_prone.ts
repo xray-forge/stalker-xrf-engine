@@ -21,11 +21,11 @@ export function get_smart_cover_combat_prone(): ISmartCoverDescriptor {
                 animation: "loophole_9_in_front_0",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "prone",
@@ -40,12 +40,12 @@ export function get_smart_cover_combat_prone(): ISmartCoverDescriptor {
                 animation: "loophole_9_jump_1",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
-      }
-    ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
+      },
+    ],
   };
 }

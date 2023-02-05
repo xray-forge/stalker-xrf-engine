@@ -32,6 +32,6 @@ export const StateManagerActWeaponUnstrapp: IStateManagerActWeaponUnstrapp = dec
     },
     finalize(): void {
       action_base.finalize(this);
-    }
+    },
   } as IStateManagerActWeaponUnstrapp
 );

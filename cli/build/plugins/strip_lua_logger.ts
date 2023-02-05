@@ -7,7 +7,7 @@ import {
   Type,
   TypeChecker,
   VariableDeclaration,
-  VariableDeclarationList
+  VariableDeclarationList,
 } from "typescript";
 import { Plugin } from "typescript-to-lua";
 
@@ -66,8 +66,8 @@ const plugin: Plugin = {
       }
 
       return context.superTransformStatements(statement);
-    }
-  }
+    },
+  },
 };
 
 export default plugin;

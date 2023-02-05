@@ -5,7 +5,7 @@ export const food = {
   conserva: "conserva",
   energy_drink: "energy_drink",
   kolbasa: "kolbasa",
-  vodka: "vodka"
+  vodka: "vodka",
 } as const;
 
 export type TFoodItems = typeof food;

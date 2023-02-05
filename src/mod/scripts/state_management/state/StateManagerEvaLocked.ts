@@ -29,6 +29,6 @@ export const StateManagerEvaLocked: IStateManagerEvaLocked = declare_xr_class(
         this.st.planner!.initialized() &&
         (this.st.planner!.evaluator(EStateManagerProperty.weapon_locked).evaluate() || this.object.is_body_turning())
       );
-    }
+    },
   } as IStateManagerEvaLocked
 );

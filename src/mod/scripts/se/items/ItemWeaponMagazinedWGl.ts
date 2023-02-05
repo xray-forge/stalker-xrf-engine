@@ -46,6 +46,6 @@ export const ItemWeaponMagazinedWGl: IItemWeaponMagazinedWGl = declare_xr_class(
       }
 
       return cse_alife_item_weapon_magazined_w_gl.can_switch_online(this);
-    }
+    },
   } as IItemWeaponMagazinedWGl
 );

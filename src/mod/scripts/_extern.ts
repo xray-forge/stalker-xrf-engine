@@ -114,12 +114,12 @@ declare_global("_extern.task_callback", (target: XR_CGameTask, state: TXR_TaskSt
 
 declare_global("loadscreen", {
   get_tip_number: (levelName: string) => loadScreenManager.get_tip_number(levelName),
-  get_mp_tip_number: (levelName: string) => loadScreenManager.get_mp_tip_number(levelName)
+  get_mp_tip_number: (levelName: string) => loadScreenManager.get_mp_tip_number(levelName),
 });
 
 declare_global("trade_manager", {
   get_sell_discount: get_sell_discount,
-  get_buy_discount: get_buy_discount
+  get_buy_discount: get_buy_discount,
 });
 
 declare_global("inventory_upgrades", inventory_upgrades_functors);
@@ -142,7 +142,7 @@ declare_global("travel_manager", {
   get_travel_cost: externClassMethod(travelManager, travelManager.get_travel_cost),
   actor_have_money: externClassMethod(travelManager, travelManager.actor_have_money),
   actor_have_not_money: externClassMethod(travelManager, travelManager.actor_have_not_money),
-  squad_cannot_travel: externClassMethod(travelManager, travelManager.squad_cannot_travel)
+  squad_cannot_travel: externClassMethod(travelManager, travelManager.squad_cannot_travel),
 });
 
 declare_global("_extern.effector_callback", () => ActionCutscene.onCutsceneEnd());
@@ -182,7 +182,7 @@ declare_global("on_actor_psy", () => {
 declare_global("actor_menu", {
   actor_menu_mode: (mode: EActorMenuMode): void => {
     return actorMenu.setActiveMode(mode);
-  }
+  },
 });
 
 declare_global("pda", {
@@ -221,7 +221,7 @@ declare_global("pda", {
   },
   get_stat: (index: number): string => {
     return PdaManager.getInstance().getStat(index);
-  }
+  },
 });
 
 /**
@@ -232,7 +232,7 @@ declare_global("ui_wpn_params", {
   GetDamage: externClassMethod(WeaponParams, WeaponParams.GetDamage),
   GetDamageMP: externClassMethod(WeaponParams, WeaponParams.GetDamageMP),
   GetHandling: externClassMethod(WeaponParams, WeaponParams.GetHandling),
-  GetAccuracy: externClassMethod(WeaponParams, WeaponParams.GetAccuracy)
+  GetAccuracy: externClassMethod(WeaponParams, WeaponParams.GetAccuracy),
 });
 
 /**

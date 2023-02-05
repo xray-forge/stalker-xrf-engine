@@ -5,10 +5,10 @@ import {
   Frect,
   game,
   get_console,
-  XR_CConsole,
   level,
   ui_events,
   vector2,
+  XR_CConsole,
   XR_CScriptXmlInit,
   XR_CUI3tButton,
   XR_CUIMessageBoxEx,
@@ -16,7 +16,7 @@ import {
   XR_CUIStatic,
   XR_CUITrackBar,
   XR_Frect,
-  XR_game_object
+  XR_game_object,
 } from "xray16";
 
 import { captions } from "@/mod/globals/captions";
@@ -27,7 +27,7 @@ import { is_started, resurrect_skip_message, SurgeManager } from "@/mod/scripts/
 import { weatherManager } from "@/mod/scripts/core/WeatherManager";
 import { disableInfo } from "@/mod/scripts/utils/actor";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { resolveXmlFormPath, isWideScreen } from "@/mod/scripts/utils/ui";
+import { isWideScreen, resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
 const base: string = "interaction\\SleepDialog.component";
 const logger: LuaLogger = new LuaLogger("SleepDialog");
@@ -232,7 +232,7 @@ export const SleepDialog = declare_xr_class("SleepDialog", CUIScriptWnd, {
 
     (getActor() as XR_game_object).give_info_portion("tutorial_sleep");
     get_global("disable_info")("sleep_active");
-  }
+  },
 } as ISleepDialog);
 
 export function dream_callback(): void {

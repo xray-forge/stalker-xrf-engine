@@ -30,6 +30,6 @@ export const StateManagerEvaAnimationLocked: IStateManagerEvaAnimationLocked = d
       // --    end
 
       return this.st.animation.states.anim_marker !== null;
-    }
+    },
   } as IStateManagerEvaAnimationLocked
 );

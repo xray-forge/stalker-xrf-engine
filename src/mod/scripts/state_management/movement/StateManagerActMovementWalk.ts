@@ -35,6 +35,6 @@ export const StateManagerActMovementWalk: IStateManagerActMovementWalk = declare
     },
     finalize(): void {
       action_base.finalize(this);
-    }
+    },
   } as IStateManagerActMovementWalk
 );

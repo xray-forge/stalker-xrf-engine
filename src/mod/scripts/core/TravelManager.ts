@@ -1,4 +1,12 @@
 import {
+  alife,
+  clsid,
+  game,
+  ini_file,
+  level,
+  patrol,
+  relation_registry,
+  time_global,
   XR_CPhrase,
   XR_CPhraseDialog,
   XR_CPhraseScript,
@@ -7,14 +15,6 @@ import {
   XR_game_object,
   XR_ini_file,
   XR_patrol,
-  alife,
-  clsid,
-  game,
-  ini_file,
-  level,
-  patrol,
-  relation_registry,
-  time_global
 } from "xray16";
 
 import { post_processors } from "@/mod/globals/animation/post_processors";
@@ -88,7 +88,7 @@ export class TravelManager {
           "close_distance",
           ini.r_string(id, "condlist")
         ),
-        phrase_id: tostring(1000 + i)
+        phrase_id: tostring(1000 + i),
       };
 
       this.smart_travels.set(id, descriptor);

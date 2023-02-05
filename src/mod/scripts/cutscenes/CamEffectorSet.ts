@@ -6,7 +6,7 @@ import { getActor, IStoredObject } from "@/mod/scripts/core/db";
 import {
   EEffectorState,
   ICamEffectorSetDescriptorItem,
-  TCamEffectorSetDescriptor
+  TCamEffectorSetDescriptor,
 } from "@/mod/scripts/cutscenes/cam_effector_sets";
 import { parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

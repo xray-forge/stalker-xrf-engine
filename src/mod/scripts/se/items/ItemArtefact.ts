@@ -34,5 +34,5 @@ export const ItemArtefact: IItemArtefact = declare_xr_class("ItemArtefact", cse_
     }
 
     return cse_alife_item_artefact.can_switch_offline(this);
-  }
+  },
 } as IItemArtefact);

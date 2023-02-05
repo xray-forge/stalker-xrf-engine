@@ -33,6 +33,6 @@ export const StateManagerActMovementStand: IStateManagerActMovementStand = decla
     },
     finalize(): void {
       action_base.finalize(this);
-    }
+    },
   } as IStateManagerActMovementStand
 );

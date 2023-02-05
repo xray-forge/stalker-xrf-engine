@@ -1,14 +1,14 @@
 import {
-  XR_LuaBindBase,
-  XR_alife_simulator,
-  XR_cse_alife_object,
-  XR_ini_file,
-  XR_net_packet,
   alife,
   ini_file,
   level,
   time_global,
-  XR_reader
+  XR_alife_simulator,
+  XR_cse_alife_object,
+  XR_ini_file,
+  XR_LuaBindBase,
+  XR_net_packet,
+  XR_reader,
 } from "xray16";
 
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
@@ -88,7 +88,7 @@ export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManag
           empty: null,
           refreshing: false,
           checked: false,
-          to_find: 0
+          to_find: 0,
         });
 
         const items_count: number = ini.line_count(id);
@@ -433,7 +433,7 @@ export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManag
     }
 
     setLoadMarker(reader, true, "TreasureManager");
-  }
+  },
 } as ITreasureManager);
 
 export function getTreasureManager(): ITreasureManager {

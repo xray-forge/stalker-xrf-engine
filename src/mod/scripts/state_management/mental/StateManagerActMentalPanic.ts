@@ -33,6 +33,6 @@ export const StateManagerActMentalPanic: IStateManagerActMentalPanic = declare_x
     },
     finalize(): void {
       action_base.finalize(this);
-    }
+    },
   } as IStateManagerActMentalPanic
 );

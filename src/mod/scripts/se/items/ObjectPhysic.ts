@@ -39,5 +39,5 @@ export const ObjectPhysic: IObjectPhysic = declare_xr_class("ObjectPhysic", cse_
     }
 
     return cse_alife_object_physic.can_switch_online(this);
-  }
+  },
 } as IObjectPhysic);

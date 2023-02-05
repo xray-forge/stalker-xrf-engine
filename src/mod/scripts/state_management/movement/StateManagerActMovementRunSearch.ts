@@ -39,6 +39,6 @@ export const StateManagerActMovementRunSearch: IStateManagerActMovementRunSearch
     },
     finalize(): void {
       action_base.finalize(this);
-    }
+    },
   } as IStateManagerActMovementRunSearch
 );

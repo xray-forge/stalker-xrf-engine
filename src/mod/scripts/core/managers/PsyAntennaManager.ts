@@ -1,17 +1,17 @@
 import {
-  TXR_sound_object_type,
-  XR_CUIGameCustom,
-  XR_StaticDrawableWrapper,
-  XR_game_object,
-  XR_net_packet,
-  XR_sound_object,
   get_hud,
   hit,
   level,
   sound_object,
   time_global,
+  TXR_sound_object_type,
   vector,
-  XR_reader
+  XR_CUIGameCustom,
+  XR_game_object,
+  XR_net_packet,
+  XR_reader,
+  XR_sound_object,
+  XR_StaticDrawableWrapper,
 } from "xray16";
 
 import { sounds } from "@/mod/globals/sound/sounds";

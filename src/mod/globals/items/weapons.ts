@@ -98,7 +98,7 @@ export const weapons = {
   wpn_wincheaster1300: "wpn_wincheaster1300",
   wpn_wincheaster1300_trapper: "wpn_wincheaster1300_trapper",
   wpn_wmagaz: "wpn_wmagaz",
-  wpn_wmaggl: "wpn_wmaggl"
+  wpn_wmaggl: "wpn_wmaggl",
 } as const;
 
 export type TWeapons = typeof weapons;

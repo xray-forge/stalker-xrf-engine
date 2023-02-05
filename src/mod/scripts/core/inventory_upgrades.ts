@@ -314,5 +314,5 @@ export const inventory_upgrades_functors = {
   property_functor_a,
   property_functor_b,
   property_functor_c,
-  question_repair_item
+  question_repair_item,
 };

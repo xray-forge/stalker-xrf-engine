@@ -34,6 +34,6 @@ export const StateManagerActMovementStandTurn: IStateManagerActMovementStandTurn
     },
     finalize(): void {
       action_base.finalize(this);
-    }
+    },
   } as IStateManagerActMovementStandTurn
 );

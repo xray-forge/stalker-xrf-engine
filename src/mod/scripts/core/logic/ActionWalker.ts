@@ -5,7 +5,7 @@ import {
   XR_action_base,
   XR_action_planner,
   XR_game_object,
-  XR_ini_file
+  XR_ini_file,
 } from "xray16";
 
 import { AnyCallablesModule } from "@/mod/lib/types";
@@ -33,13 +33,13 @@ export class ActionWalker extends AbstractSchemeAction {
     state: IStoredObject
   ): void {
     const operators = {
-      action_walker: action_ids.zmey_walker_base + 1
+      action_walker: action_ids.zmey_walker_base + 1,
     };
 
     const properties = {
       event: evaluators_id.reaction,
       need_walker: evaluators_id.zmey_walker_base + 1,
-      state_mgr_logic_active: evaluators_id.state_mgr + 4
+      state_mgr_logic_active: evaluators_id.state_mgr + 4,
     };
 
     const actionPlanner: XR_action_planner = object.motivation_action_manager();

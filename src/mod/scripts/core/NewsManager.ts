@@ -1,11 +1,11 @@
 import {
-  XR_CGameTask,
-  XR_alife_simulator,
-  XR_cse_alife_human_stalker,
-  XR_game_object,
   alife,
   game,
-  system_ini
+  system_ini,
+  XR_alife_simulator,
+  XR_CGameTask,
+  XR_cse_alife_human_stalker,
+  XR_game_object,
 } from "xray16";
 
 import { captions } from "@/mod/globals/captions";
@@ -41,7 +41,7 @@ const tips_icons_old = {
   prizrak: [0, 658],
   killer: [0, 658],
   bandit: [0, 658],
-  renegade: [0, 658]
+  renegade: [0, 658],
 };
 
 const tips_icons = {
@@ -74,7 +74,7 @@ const tips_icons = {
   got_freedom_light_armor: texturesIngame.ui_inGame2_D_Vipolnil_2_zadaniya_dlya_Swobodi,
   got_freedom_heavy_armor: texturesIngame.ui_inGame2_D_Vipolnil_4_zadaniya_dlya_Swobodi,
   can_resupply: texturesIngame.ui_inGame2_Pered_zadaniyami_voennih,
-  recent_surge: texturesIngame.ui_inGame2_V_zone_nedavno_proshel_vibros
+  recent_surge: texturesIngame.ui_inGame2_V_zone_nedavno_proshel_vibros,
 };
 
 type TIcons = typeof tips_icons;
@@ -85,7 +85,7 @@ const actionDescriptionByTask = {
   complete: "general_complete_task",
   fail: "general_fail_task",
   reversed: "general_reverse_task",
-  updated: "general_update_task"
+  updated: "general_update_task",
 } as const;
 
 type TActionDescriptions = typeof actionDescriptionByTask;

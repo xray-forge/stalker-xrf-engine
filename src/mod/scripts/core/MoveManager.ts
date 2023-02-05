@@ -8,7 +8,7 @@ import {
   XR_flags32,
   XR_game_object,
   XR_patrol,
-  XR_vector
+  XR_vector,
 } from "xray16";
 
 import { AnyCallable, AnyObject, Optional } from "@/mod/lib/types";

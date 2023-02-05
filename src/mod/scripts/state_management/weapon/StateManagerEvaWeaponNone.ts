@@ -22,5 +22,5 @@ export const StateManagerEvaWeaponNone = declare_xr_class("StateManagerEvaWeapon
   },
   evaluate(): boolean {
     return states.get(this.st.target_state).weapon === "none";
-  }
+  },
 } as IStateManagerEvaWeaponNone);

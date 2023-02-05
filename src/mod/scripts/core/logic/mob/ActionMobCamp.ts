@@ -9,7 +9,7 @@ import {
   XR_game_object,
   XR_ini_file,
   XR_patrol,
-  XR_vector
+  XR_vector,
 } from "xray16";
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";

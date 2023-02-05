@@ -78,7 +78,7 @@ export class ActionParticle extends AbstractSchemeAction {
           snd: null,
           delay: d,
           time: time_global(),
-          played: false
+          played: false,
         });
       }
     } else {
@@ -87,7 +87,7 @@ export class ActionParticle extends AbstractSchemeAction {
         snd: null,
         delay: 0,
         time: time_global(),
-        played: false
+        played: false,
       });
       this.path = null;
     }

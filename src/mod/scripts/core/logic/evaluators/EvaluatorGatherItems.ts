@@ -20,6 +20,6 @@ export const EvaluatorGatherItems: IEvaluatorGatherItems = declare_xr_class(
       }
 
       return this.object.is_there_items_to_pickup();
-    }
+    },
   } as IEvaluatorGatherItems
 );

@@ -40,7 +40,7 @@ export const gameConfig = {
     /**
      * Global prefix for lua debug logger in project.
      */
-    GLOBAL_LOG_PREFIX: "XR"
+    GLOBAL_LOG_PREFIX: "XR",
   },
   /**
    * Base sizing for templates in UI.
@@ -48,10 +48,10 @@ export const gameConfig = {
   UI: {
     ARE_INTRO_VIDEOS_ENABLED: false,
     BASE_WIDTH: 1024,
-    BASE_HEIGHT: 768
+    BASE_HEIGHT: 768,
   },
   /**
    * Whether game intros are enabled.
    */
-  GAME_SAVE_EXTENSION: ".scop"
+  GAME_SAVE_EXTENSION: ".scop",
 };

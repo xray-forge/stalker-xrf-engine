@@ -101,5 +101,5 @@ export const ActionWounded: IActionWounded = declare_xr_class("ActionWounded", a
     // -- GlobalSound:set_sound(this.object, nil)
     this.object.wounded(false);
     this.object.movement_enabled(true);
-  }
+  },
 } as IActionWounded);

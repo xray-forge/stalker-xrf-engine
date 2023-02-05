@@ -86,5 +86,5 @@ export const ZoneTorrid: IZoneTorrid = declare_xr_class("ZoneTorrid", cse_torrid
     if (flag === 1) {
       this.last_spawn_time = readCTimeFromPacket(packet);
     }
-  }
+  },
 } as IZoneTorrid);

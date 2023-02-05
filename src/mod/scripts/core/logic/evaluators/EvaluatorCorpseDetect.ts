@@ -93,6 +93,6 @@ export const EvaluatorCorpseDetect: IEvaluatorCorpseDetect = declare_xr_class(
       }
 
       return false;
-    }
+    },
   } as IEvaluatorCorpseDetect
 );

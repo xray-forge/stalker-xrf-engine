@@ -24,6 +24,6 @@ export const StateManagerEvaAnimationNoneNow: IStateManagerEvaAnimationNoneNow =
     },
     evaluate(): boolean {
       return this.st.animation.states.current_state === null;
-    }
+    },
   } as IStateManagerEvaAnimationNoneNow
 );

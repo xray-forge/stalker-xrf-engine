@@ -1,16 +1,16 @@
 import {
+  alife,
+  clsid,
+  game_graph,
+  system_ini,
   TXR_cls_id,
+  XR_alife_simulator,
   XR_cse_abstract,
   XR_cse_alife_human_stalker,
   XR_cse_alife_item_artefact,
   XR_cse_alife_monster_abstract,
-  XR_game_object,
-  clsid,
-  system_ini,
   XR_cse_alife_object,
-  alife,
-  game_graph,
-  XR_alife_simulator
+  XR_game_object,
 } from "xray16";
 
 import { squadMonsters } from "@/mod/globals/behaviours";
@@ -21,7 +21,7 @@ import {
   lootable_table,
   lootable_table_exclude,
   TLootableExcludeItem,
-  TLootableItem
+  TLootableItem,
 } from "@/mod/globals/items/lootable_table";
 import { levels, TLevel } from "@/mod/globals/levels";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";

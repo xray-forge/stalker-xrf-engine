@@ -54,5 +54,5 @@ export const MultiplayerServer: IMultiplayerServer = declare_xr_class("Multiplay
     // -- EDIT BOXES
     handler.edit_server_name = xml.InitEditBox("tab_server:edit_server_name", this);
     handler.edit_password = xml.InitEditBox("tab_server:edit_password", this);
-  }
+  },
 } as IMultiplayerServer);

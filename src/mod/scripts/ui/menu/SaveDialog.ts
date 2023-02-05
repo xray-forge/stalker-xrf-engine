@@ -5,25 +5,26 @@ import {
   CUIScriptWnd,
   CUIWindow,
   DIK_keys,
+  dik_to_bind,
   Frect,
   FS,
-  dik_to_bind,
   get_console,
   GetARGB,
   GetFontLetterica16Russian,
   GetFontLetterica18Russian,
   GetFontMedium,
   getFS,
-  XR_CConsole,
   key_bindings,
   TXR_DIK_key,
   TXR_ui_event,
   ui_events,
   vector2,
+  XR_CConsole,
   XR_CGameFont,
   XR_CScriptXmlInit,
   XR_CUIEditBox,
   XR_CUIListBox,
+  XR_CUIListBoxItem,
   XR_CUIMessageBoxEx,
   XR_CUIScriptWnd,
   XR_CUIStatic,
@@ -33,8 +34,7 @@ import {
   XR_FS_file_list,
   XR_FS_file_list_ex,
   XR_FS_item,
-  XR_CUIListBoxItem,
-  XR_vector2
+  XR_vector2,
 } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
@@ -61,7 +61,7 @@ const SaveItem = declare_xr_class("SaveItem", CUIListBoxItem, {
     this.innerNameText = this.GetTextItem();
     this.innerNameText.SetFont(GetFontLetterica18Russian());
     this.innerNameText.SetEllipsis(true);
-  }
+  },
 } as ISaveItem);
 
 export interface ISaveDialog extends XR_CUIScriptWnd {
@@ -338,5 +338,5 @@ export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptW
 
       console.execute("save " + filename);
     }
-  }
+  },
 } as ISaveDialog);

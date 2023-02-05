@@ -3506,7 +3506,7 @@ export const textures = {
   "wpn_wpn_walter99_bump#": "wpn\\wpn_walter99_bump#",
   wpn_wpn_winchester1300: "wpn\\wpn_winchester1300",
   wpn_wpn_winchester1300_bump: "wpn\\wpn_winchester1300_bump",
-  "wpn_wpn_winchester1300_bump#": "wpn\\wpn_winchester1300_bump#"
+  "wpn_wpn_winchester1300_bump#": "wpn\\wpn_winchester1300_bump#",
 } as const;
 
 export const texturesIngame = {
@@ -3603,7 +3603,7 @@ export const texturesIngame = {
   ui_slider_button: "ui_slider_button",
   ui_slider_button_e: "ui_slider_button_e",
   ui_slider_d: "ui_slider_d",
-  ui_slider_e: "ui_slider_e"
+  ui_slider_e: "ui_slider_e",
 } as const;
 
 export type TTextures = typeof textures & typeof texturesIngame;

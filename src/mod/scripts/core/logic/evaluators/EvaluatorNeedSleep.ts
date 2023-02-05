@@ -17,5 +17,5 @@ export const EvaluatorNeedSleep: IEvaluatorNeedSleep = declare_xr_class("Evaluat
   },
   evaluate(): boolean {
     return isSchemeActive(this.object, this.state);
-  }
+  },
 } as IEvaluatorNeedSleep);

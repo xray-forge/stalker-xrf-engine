@@ -113,7 +113,7 @@ function parse_data(npc: XR_game_object, str: Optional<string>): LuaTable<number
 
       table.insert(data, {
         dist: tonumber(dist)!,
-        state: state === null ? null : parseCondList(npc, dist, state, state)
+        state: state === null ? null : parseCondList(npc, dist, state, state),
       });
     }
   }

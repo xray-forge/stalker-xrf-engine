@@ -47,5 +47,5 @@ export enum EStateManagerOperator {
   stand_search = 78,
 
   smartcover_enter = 80,
-  smartcover_exit = 81
+  smartcover_exit = 81,
 }

@@ -68,7 +68,7 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
       target_state: null,
       anim_marker: null,
       next_rnd: null,
-      seq_id: 1
+      seq_id: 1,
     };
 
     logger.info("Initialized new entry:", npc.name(), name, this.sid);
@@ -495,5 +495,5 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
       `#anim_marker: ${this.states.anim_marker} #seq_id: ${this.states.seq_id} #last_id: ${this.states.last_id}`;
 
     return `AnimationManager #name: ${this.name} #npc: ${this.npc.name()} #sid: ${this.sid} ${states}`;
-  }
+  },
 } as IAnimationManager);

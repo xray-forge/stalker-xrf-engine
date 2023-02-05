@@ -18,7 +18,7 @@ import {
   XR_net_packet,
   XR_object_binder,
   XR_reader,
-  XR_vector
+  XR_vector,
 } from "xray16";
 
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
@@ -30,7 +30,7 @@ import {
   IStoredObject,
   offlineObjects,
   spawnedVertexById,
-  storage
+  storage,
 } from "@/mod/scripts/core/db";
 import { Hear } from "@/mod/scripts/core/Hear";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
@@ -429,5 +429,5 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     if (source_id !== object.id()) {
       Hear.hear_callback(object, source_id, sound_type, sound_position, sound_power);
     }
-  }
+  },
 } as IMonsterBinder);

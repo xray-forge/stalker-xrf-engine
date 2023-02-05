@@ -1,14 +1,14 @@
 import {
+  alife,
+  callback,
+  object_binder,
+  time_global,
   XR_alife_simulator,
   XR_cse_alife_object,
   XR_game_object,
   XR_net_packet,
   XR_object_binder,
-  alife,
-  callback,
-  object_binder,
-  time_global,
-  XR_reader
+  XR_reader,
 } from "xray16";
 
 import { AnyCallable } from "@/mod/lib/types";
@@ -114,5 +114,5 @@ export const CrowBinder: ICrowBinder = declare_xr_class("CrowBinder", object_bin
 
     this.bodyDisposalTimer = reader.r_u32();
     setLoadMarker(reader, true, CrowBinder.__name);
-  }
+  },
 } as ICrowBinder);

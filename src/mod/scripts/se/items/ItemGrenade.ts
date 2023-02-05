@@ -36,5 +36,5 @@ export const ItemGrenade: IItemGrenade = declare_xr_class("ItemGrenade", cse_ali
     }
 
     return cse_alife_item_grenade.can_switch_online(this);
-  }
+  },
 } as IItemGrenade);

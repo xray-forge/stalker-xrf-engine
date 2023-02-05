@@ -6,7 +6,7 @@ import {
   XR_flags32,
   XR_game_object,
   XR_ini_file,
-  XR_patrol
+  XR_patrol,
 } from "xray16";
 
 import { AnyArgs, AnyCallablesModule, AnyObject, Maybe, Optional } from "@/mod/lib/types";
@@ -290,7 +290,7 @@ export function parseCondList(
       infop_set: LuaTable<number, IConfigCondition>;
     }
   > = new LuaTable();
-  let at, to, infop_check_lst, remainings, infop_set_lst, newsect;
+  let at, infop_check_lst, infop_set_lst, newsect, remainings, to;
 
   let n = 1;
 
@@ -433,7 +433,7 @@ export interface IWaypointData {
  */
 export function parse_waypoint_data(pathname: string, wpflags: XR_flags32, wpname: string): IWaypointData {
   const waypointData: IWaypointData = {
-    flags: wpflags
+    flags: wpflags,
   };
 
   if (string.find(wpname, "|", undefined, true) === null) {
@@ -632,7 +632,7 @@ export function getConfigCondList(
 
   return {
     name: field,
-    condlist: parseCondList(object, section, field, par.get(1))
+    condlist: parseCondList(object, section, field, par.get(1)),
   };
 }
 
@@ -664,7 +664,7 @@ export function getConfigStringAndCondList(
   return {
     name: field,
     v1: par.get(1),
-    condlist: parseCondList(object, section, field, par.get(2))
+    condlist: parseCondList(object, section, field, par.get(2)),
   };
 }
 
@@ -773,7 +773,7 @@ export function parse_data(
       const dat = {
         dist: null as Optional<number>,
         state: null,
-        sound: null
+        sound: null,
       };
 
       const [t_pos] = string.find(name, "|", 1, true);
@@ -822,7 +822,7 @@ export function parse_syn_data(
       const dat = {
         zone: null,
         state: null as Optional<string>,
-        sound: null as Optional<string>
+        sound: null as Optional<string>,
       };
 
       const [t_pos] = string.find(name, "@", 1, true);

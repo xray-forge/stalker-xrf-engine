@@ -25,6 +25,6 @@ export const StateManagerEvaMental: IStateManagerEvaMental = declare_xr_class(
         states.get(this.st.target_state).mental === null ||
         states.get(this.st.target_state).mental === this.object.target_mental_state()
       );
-    }
+    },
   } as IStateManagerEvaMental
 );

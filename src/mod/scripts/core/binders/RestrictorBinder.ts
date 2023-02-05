@@ -137,5 +137,5 @@ export const RestrictorBinder: IRestrictorBinder = declare_xr_class("RestrictorB
 
     get_global<AnyCallablesModule>("xr_logic").load_obj(this.object, reader);
     setLoadMarker(reader, true, RestrictorBinder.__name);
-  }
+  },
 } as IRestrictorBinder);

@@ -34,6 +34,6 @@ export const StateManagerActBodyStateCrouchDanger: IStateManagerActBodyStateCrou
     },
     finalize(): void {
       action_base.finalize(this);
-    }
+    },
   } as IStateManagerActBodyStateCrouchDanger
 );

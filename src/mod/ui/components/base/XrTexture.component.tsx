@@ -1,4 +1,4 @@
-import { JSXXML, JSXNode } from "jsx-xml";
+import { JSXNode, JSXXML } from "jsx-xml";
 
 import { TTexture } from "@/mod/globals/textures";
 import { IBaseXmlNode } from "@/mod/lib/types";
@@ -50,6 +50,6 @@ export function XrTexture(props: IXrTextureProps): JSXNode {
       <texture width={width} height={height} a={a} r={r} g={g} b={b}>
         {idHighlighted}
       </texture>
-    ) : null
+    ) : null,
   ];
 }

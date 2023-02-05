@@ -29,11 +29,11 @@ export function XrEditBox(props: IXrEditBoxProps): JSXNode {
     align,
     vertAlign,
     maxSymbolsCount,
-    color = { r: 170, g: 170, b: 170 }
+    color = { r: 170, g: 170, b: 170 },
   } = normalizeBaseNodeProps(props);
 
   return JSXXML(tag, { width, height, x, y, max_symb_count: maxSymbolsCount }, [
     <XrTexture id={texture} />,
-    <XrText x={4} font={font || fonts.letterica18} color={color} align={align} vertAlign={vertAlign} />
+    <XrText x={4} font={font || fonts.letterica18} color={color} align={align} vertAlign={vertAlign} />,
   ]);
 }

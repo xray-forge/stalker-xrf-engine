@@ -6,7 +6,7 @@ import {
   XR_action_planner,
   XR_alife_simulator,
   XR_game_object,
-  XR_ini_file
+  XR_ini_file,
 } from "xray16";
 
 import { communities, TCommunity } from "@/mod/globals/communities";
@@ -27,14 +27,14 @@ import {
   getConfigString,
   parse_data,
   parse_syn_data,
-  pickSectionFromCondList
+  pickSectionFromCondList,
 } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const wounded_by_state: Record<number, string> = {
   [0]: "wounded_heavy",
   [1]: "wounded_heavy_2",
-  [2]: "wounded_heavy_3"
+  [2]: "wounded_heavy_3",
 };
 
 const logger: LuaLogger = new LuaLogger("ActionWoundManager");
@@ -52,12 +52,12 @@ export class ActionWoundManager extends AbstractSchemeAction {
     logger.info("Add to binder:", object.name());
 
     const operators = {
-      wounded: action_ids.sidor_act_wounded_base
+      wounded: action_ids.sidor_act_wounded_base,
     };
 
     const properties = {
       wounded: evaluators_id.sidor_wounded_base,
-      can_fight: evaluators_id.sidor_wounded_base + 1
+      can_fight: evaluators_id.sidor_wounded_base + 1,
     };
 
     const manager: XR_action_planner = object.motivation_action_manager();

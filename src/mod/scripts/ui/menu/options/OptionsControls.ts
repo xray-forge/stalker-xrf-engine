@@ -32,5 +32,5 @@ export const OptionsControls: IOptionsControls = declare_xr_class("OptionsContro
     const btn: XR_CUI3tButton = xml.Init3tButton("tab_controls:btn_default", this);
 
     handler.Register(btn, "btn_keyb_default");
-  }
+  },
 } as IOptionsControls);

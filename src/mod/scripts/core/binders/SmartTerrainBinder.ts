@@ -4,7 +4,7 @@ import {
   XR_cse_alife_object,
   XR_cse_alife_smart_zone,
   XR_game_object,
-  XR_object_binder
+  XR_object_binder,
 } from "xray16";
 
 import { addSmartTerrain, addZone, deleteSmartTerrain, deleteZone } from "@/mod/scripts/core/db";
@@ -44,5 +44,5 @@ export const SmartTerrainBinder: ISmartTerrainBinder = declare_xr_class("SmartTe
   update(delta: number): void {
     object_binder.update(this, delta);
     this.se_smart_terrain.update();
-  }
+  },
 } as ISmartTerrainBinder);

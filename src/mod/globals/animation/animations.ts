@@ -261,7 +261,7 @@ export const animations = {
   camera_effects_weapon_walter99_reload: "camera_effects\\weapon\\walter99_reload.anm",
   camera_effects_weapon_winchester1300_reload: "camera_effects\\weapon\\winchester1300_reload.anm1",
   helicopter_aaa: "helicopter\\aaa.anm",
-  thermal_mine: "thermal_mine.ppe"
+  thermal_mine: "thermal_mine.ppe",
 } as const;
 
 export type TAnimations = typeof animations;

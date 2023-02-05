@@ -27,7 +27,7 @@ export class EventsManager {
     [EGameEvent.ACTOR_SEE_ENEMY]: new LuaTable(),
     [EGameEvent.NPC_SHOT_ACTOR]: new LuaTable(),
     [EGameEvent.MAIN_MENU_ON]: new LuaTable(),
-    [EGameEvent.MAIN_MENU_OFF]: new LuaTable()
+    [EGameEvent.MAIN_MENU_OFF]: new LuaTable(),
   };
 
   public registerCallback<T>(

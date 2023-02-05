@@ -1,13 +1,13 @@
 import {
-  level,
-  game,
-  time_global,
-  verify_if_thread_is_running,
-  XR_net_packet,
-  XR_CTime,
   CTime,
   editor,
-  XR_reader
+  game,
+  level,
+  time_global,
+  verify_if_thread_is_running,
+  XR_CTime,
+  XR_net_packet,
+  XR_reader,
 } from "xray16";
 
 import { MAX_UNSIGNED_8_BIT } from "@/mod/globals/memory";

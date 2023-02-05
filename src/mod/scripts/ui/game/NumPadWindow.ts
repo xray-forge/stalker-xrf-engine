@@ -7,7 +7,7 @@ import {
   ui_events,
   vector2,
   XR_CUIScriptWnd,
-  XR_CUIStatic
+  XR_CUIStatic,
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
@@ -172,5 +172,5 @@ export const NumPadWindow: INumPadWindow = declare_xr_class("NumPadWindow", CUIS
     }
 
     return true;
-  }
+  },
 } as INumPadWindow);

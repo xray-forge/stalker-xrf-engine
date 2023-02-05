@@ -62,7 +62,7 @@ export const script_sounds = {
   wood_small_close_start: "wood_small_close_start",
   wood_small_close_stop: "wood_small_close_stop",
   wood_small_open: "wood_small_open",
-  wounded_medkit: "wounded_medkit"
+  wounded_medkit: "wounded_medkit",
 } as const;
 
 export type TScriptSounds = typeof script_sounds;

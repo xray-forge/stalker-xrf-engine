@@ -25,6 +25,6 @@ export const StateManagerEvaMentalFree: IStateManagerEvaMentalFree = declare_xr_
     },
     evaluate(): boolean {
       return states.get(this.st.target_state).mental === anim.free;
-    }
+    },
   } as IStateManagerEvaMentalFree
 );

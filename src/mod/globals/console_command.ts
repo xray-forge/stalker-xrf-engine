@@ -524,5 +524,5 @@ export const console_command = {
    * todo: ???
    */
   start: "start",
-  wpn_aim_toggle: "wpn_aim_toggle"
+  wpn_aim_toggle: "wpn_aim_toggle",
 };

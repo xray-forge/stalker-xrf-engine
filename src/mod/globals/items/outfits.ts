@@ -12,7 +12,7 @@ export const outfits = {
   stalker_outfit: "stalker_outfit",
   stalker_outfit_barge: "stalker_outfit_barge",
   svoboda_heavy_outfit: "svoboda_heavy_outfit",
-  svoboda_light_outfit: "svoboda_light_outfit"
+  svoboda_light_outfit: "svoboda_light_outfit",
 } as const;
 
 export type TOutfits = typeof outfits;

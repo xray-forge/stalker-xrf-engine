@@ -2,6 +2,11 @@ import {
   CScriptXmlInit,
   CUIMessageBoxEx,
   CUIWindow,
+  game,
+  login_operation_cb,
+  suggest_nicks_cb,
+  ui_events,
+  vector2,
   XR_CScriptXmlInit,
   XR_CUI3tButton,
   XR_CUIComboBox,
@@ -12,11 +17,6 @@ import {
   XR_CUIWindow,
   XR_profile,
   XR_vector2,
-  game,
-  login_operation_cb,
-  suggest_nicks_cb,
-  ui_events,
-  vector2
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
@@ -273,5 +273,5 @@ export const MultiplayerProfile: IMultiplayerProfile = declare_xr_class("Multipl
     } else {
       abort("Profile not loaded!");
     }
-  }
+  },
 } as IMultiplayerProfile);

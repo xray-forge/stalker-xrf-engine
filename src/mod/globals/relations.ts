@@ -1,7 +1,7 @@
 export const relations = {
   enemy: "enemy",
   neutral: "neutral",
-  friend: "friend"
+  friend: "friend",
 } as const;
 
 export type TRelations = typeof relations;

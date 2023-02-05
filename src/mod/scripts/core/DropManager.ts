@@ -14,7 +14,7 @@ import {
   isExcludedFromLootDropItem,
   isGrenade,
   isLootableItem,
-  isWeapon
+  isWeapon,
 } from "@/mod/scripts/utils/checkers";
 import { parseNames, parseNums } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -40,8 +40,8 @@ export function initDropSettings(): void {
 
     if (death_ini.section_exist(v)) {
       const n = death_ini.line_count(v);
-      let result = "",
-        id = "",
+      let id = "",
+        result = "",
         value = "";
 
       for (const i of $range(0, n - 1)) {
@@ -286,5 +286,5 @@ export const DropManager: IDropManager = declare_xr_class("DropManager", null, {
     }
 
     return d_flag;
-  }
+  },
 } as IDropManager);

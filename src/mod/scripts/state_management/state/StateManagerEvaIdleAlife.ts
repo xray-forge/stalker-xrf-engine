@@ -74,6 +74,6 @@ export const StateManagerEvaIdleAlife: IStateManagerEvaIdleAlife = declare_xr_cl
       }
       // --    end
       // --    return true
-    }
+    },
   } as IStateManagerEvaIdleAlife
 );

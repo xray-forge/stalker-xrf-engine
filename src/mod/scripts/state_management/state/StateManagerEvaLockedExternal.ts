@@ -30,6 +30,6 @@ export const StateManagerEvaLockedExternal: IStateManagerEvaLockedExternal = dec
       }
 
       return false;
-    }
+    },
   } as IStateManagerEvaLockedExternal
 );

@@ -18,5 +18,5 @@ export const PPEffector: IPPEffector = declare_xr_class("PPEffector", effector, 
     effector.process(this, effector_params);
 
     return true;
-  }
+  },
 } as IPPEffector);

@@ -41,5 +41,5 @@ export const StateManagerActWeaponDrop = declare_xr_class("StateManagerActWeapon
   },
   finalize(): void {
     action_base.finalize(this);
-  }
+  },
 } as IStateManagerActWeaponDrop);

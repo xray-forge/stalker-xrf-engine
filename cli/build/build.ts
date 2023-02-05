@@ -5,14 +5,14 @@ import { default as chalk } from "chalk";
 import { default as pkg } from "#/../package.json";
 import { BUILD_PARAMS } from "#/build/build_params";
 import {
-  collectLog,
-  buildDynamicUi,
-  buildStaticConfigs,
   buildDynamicConfigs,
   buildDynamicScripts,
+  buildDynamicUi,
   buildMeta,
   buildResourcesStatics,
-  buildScriptsStatics
+  buildScriptsStatics,
+  buildStaticConfigs,
+  collectLog,
 } from "#/build/steps";
 import { buildStaticTranslations } from "#/build/steps/translations_statics";
 import { buildStaticUi } from "#/build/steps/ui_statics";

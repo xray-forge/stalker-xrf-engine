@@ -62,5 +62,5 @@ export const StateManagerEvaIdle: IStateManagerEvaIdle = declare_xr_class("State
     // --end
 
     return false;
-  }
+  },
 } as IStateManagerEvaIdle);

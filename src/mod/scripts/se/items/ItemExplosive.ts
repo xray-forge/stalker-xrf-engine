@@ -36,5 +36,5 @@ export const ItemExplosive: IItemExplosive = declare_xr_class("ItemExplosive", c
     }
 
     return cse_alife_item_explosive.can_switch_online(this);
-  }
+  },
 } as IItemExplosive);

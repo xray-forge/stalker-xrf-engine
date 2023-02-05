@@ -43,5 +43,5 @@ export const OptionsGameplay: IOptionsGameplay = declare_xr_class("OptionsGamepl
     const btn: XR_CUI3tButton = xml.Init3tButton("tab_gameplay:btn_check_updates", this);
 
     handler.Register(btn, "btn_check_updates");
-  }
+  },
 } as IOptionsGameplay);

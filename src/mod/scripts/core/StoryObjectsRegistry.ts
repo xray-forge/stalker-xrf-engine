@@ -5,7 +5,7 @@ import {
   XR_cse_abstract,
   XR_ini_file,
   XR_LuaBindBase,
-  XR_net_packet
+  XR_net_packet,
 } from "xray16";
 
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
@@ -118,7 +118,7 @@ export const StoryObjectsRegistry: IStoryObjectsRegistry = declare_xr_class("Sto
     }
 
     setLoadMarker(packet, true, StoryObjectsRegistry.__name);
-  }
+  },
 } as IStoryObjectsRegistry);
 
 export function getStoryObjectsRegistry(): IStoryObjectsRegistry {

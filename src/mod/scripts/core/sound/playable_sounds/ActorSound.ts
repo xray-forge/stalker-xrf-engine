@@ -1,15 +1,15 @@
 import { AnyObject, Optional } from "lib/types";
 import {
-  getFS,
   get_hud,
+  getFS,
+  sound_object,
   time_global,
+  vector,
   XR_FS,
+  XR_game_object,
   XR_ini_file,
   XR_net_packet,
-  sound_object,
-  vector,
-  XR_game_object,
-  XR_reader
+  XR_reader,
 } from "xray16";
 
 import { TSection } from "@/mod/lib/types/configuration";

@@ -23,5 +23,5 @@ export const ZoneRestrictor: IZoneRestrictor = declare_xr_class("ZoneRestrictor"
   },
   keep_saved_data_anyway(): boolean {
     return true;
-  }
+  },
 } as IZoneRestrictor);

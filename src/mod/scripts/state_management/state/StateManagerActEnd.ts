@@ -120,5 +120,5 @@ export const StateManagerActEnd: IStateManagerActEnd = declare_xr_class("StateMa
       // --printf("[%s] not shooting", this.object.name())
       this.object.set_item(get_idle_state(this.st.target_state!), this.object.best_weapon());
     }
-  }
+  },
 } as IStateManagerActEnd);

@@ -67,6 +67,6 @@ export const StateManagerEvaIdleItems: IStateManagerEvaIdleItems = declare_xr_cl
       }
       // --    end
       // --    return true
-    }
+    },
   } as IStateManagerEvaIdleItems
 );

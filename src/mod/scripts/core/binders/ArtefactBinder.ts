@@ -1,4 +1,6 @@
 import {
+  object_binder,
+  vector,
   XR_CArtefact,
   XR_cse_alife_object,
   XR_game_object,
@@ -6,8 +8,6 @@ import {
   XR_object_binder,
   XR_physics_element,
   XR_physics_shell,
-  object_binder,
-  vector
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
@@ -15,7 +15,7 @@ import {
   ARTEFACT_POINTS_BY_ARTEFACT_ID,
   ARTEFACT_WAYS_BY_ARTEFACT_ID,
   IAnomalyZoneBinder,
-  PARENT_ZONES_BY_ARTEFACT_ID
+  PARENT_ZONES_BY_ARTEFACT_ID,
 } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
 import { addObject, deleteObject, storage } from "@/mod/scripts/core/db";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -101,5 +101,5 @@ export const ArtefactBinder: IArtefactBinder = declare_xr_class("ArtefactBinder"
 
       this.isInitializing = false;
     }
-  }
+  },
 } as IArtefactBinder);

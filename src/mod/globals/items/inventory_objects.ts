@@ -19,7 +19,7 @@ export const inventory_objects = {
   obj_food_s: "obj_food_s",
   obj_medkit: "obj_medkit",
   obj_medkit_s: "obj_medkit_s",
-  obj_pda_s: "obj_pda_s"
+  obj_pda_s: "obj_pda_s",
 } as const;
 
 export type TInventoryObjects = typeof inventory_objects;

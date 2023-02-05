@@ -24,5 +24,5 @@ export const Heli: IHeli = declare_xr_class("Heli", cse_alife_helicopter, {
   },
   keep_saved_data_anyway(): boolean {
     return true;
-  }
+  },
 } as IHeli);

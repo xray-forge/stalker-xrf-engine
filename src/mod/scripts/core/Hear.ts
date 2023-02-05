@@ -23,7 +23,7 @@ export class Hear {
     state.hear_sounds[parsed_params.get(1)][parsed_params.get(2)] = {
       dist: tonumber(parsed_params.get(3)),
       power: tonumber(parsed_params.get(4)),
-      condlist: parseCondList(object, "hear_callback", "hear_callback", parsed_params.get(5))
+      condlist: parseCondList(object, "hear_callback", "hear_callback", parsed_params.get(5)),
     };
   }
 

@@ -31,5 +31,5 @@ export const ActionHelpWounded: IActionHelpWounded = declare_xr_class("ActionHel
     }
 
     set_state(this.object, "help_wounded", null, null, { look_position: this.state.vertex_position }, null);
-  }
+  },
 } as IActionHelpWounded);

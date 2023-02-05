@@ -10,7 +10,7 @@ import {
   XR_object_binder,
   XR_particles_object,
   XR_reader,
-  XR_vector
+  XR_vector,
 } from "xray16";
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
@@ -244,5 +244,5 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
     }
 
     GlobalSound.update(this.object.id());
-  }
+  },
 } as IPhysicObjectBinder);

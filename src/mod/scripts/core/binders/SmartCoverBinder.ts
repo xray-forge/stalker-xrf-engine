@@ -31,5 +31,5 @@ export const SmartCoverBinder: ISmartCoverBinder = declare_xr_class("SmartCoverB
   },
   update(delta: number): void {
     object_binder.update(this, delta);
-  }
+  },
 } as ISmartCoverBinder);

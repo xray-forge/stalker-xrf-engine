@@ -1,4 +1,4 @@
-import { action_base, property_evaluator, XR_property_evaluator } from "xray16";
+import { property_evaluator, XR_property_evaluator } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
@@ -35,6 +35,6 @@ export const StateManagerEvaSmartCoverNeed: IStateManagerEvaSmartCoverNeed = dec
       }
 
       return state_descr.cover_name !== null;
-    }
+    },
   } as IStateManagerEvaSmartCoverNeed
 );

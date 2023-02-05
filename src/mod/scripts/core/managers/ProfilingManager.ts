@@ -319,7 +319,7 @@ export class ProfilingManager extends AbstractCoreManager {
           this.countersMap.set(functionRef, {
             count: 1,
             currentTimer: new profile_timer(),
-            childTimer: new profile_timer()
+            childTimer: new profile_timer(),
           });
 
           const object = this.countersMap.get(functionRef);

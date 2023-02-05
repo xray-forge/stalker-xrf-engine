@@ -12,7 +12,7 @@ export function get_smart_cover_anim_pri_a22(): ISmartCoverDescriptor {
         new vector().set(0, 0, 0),
         new vector().set(0, 0, -1),
         new vector().set(0, 0, -1)
-      )
+      ),
     ] as any,
     transitions: [
       {
@@ -28,11 +28,11 @@ export function get_smart_cover_anim_pri_a22(): ISmartCoverDescriptor {
                 animation: "pri_a22_colonel_lean_on_tabl_in",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "anim_pri_a22",
@@ -47,12 +47,12 @@ export function get_smart_cover_anim_pri_a22(): ISmartCoverDescriptor {
                 animation: "pri_a22_colonel_lean_on_tabl_out",
                 position: new vector().set(0, 0, 0),
                 body_state: move.standing,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
-      }
-    ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
+      },
+    ],
   };
 }

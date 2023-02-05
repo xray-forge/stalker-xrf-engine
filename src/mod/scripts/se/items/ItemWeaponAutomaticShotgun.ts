@@ -46,6 +46,6 @@ export const ItemWeaponAutomaticShotgun: IItemWeaponAutomaticShotgun = declare_x
       }
 
       return cse_alife_item_weapon_auto_shotgun.can_switch_online(this);
-    }
+    },
   } as IItemWeaponAutomaticShotgun
 );

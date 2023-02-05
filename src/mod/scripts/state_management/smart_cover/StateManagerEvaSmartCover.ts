@@ -39,6 +39,6 @@ export const StateManagerEvaSmartCover: IStateManagerEvaSmartCover = declare_xr_
       }
 
       return dest_smart_cover_name === (state_descr.cover_name || "");
-    }
+    },
   } as IStateManagerEvaSmartCover
 );

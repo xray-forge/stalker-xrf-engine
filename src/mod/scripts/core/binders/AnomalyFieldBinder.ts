@@ -1,4 +1,4 @@
-import { XR_cse_alife_object, object_binder, XR_game_object, XR_object_binder, log } from "xray16";
+import { log, object_binder, XR_cse_alife_object, XR_game_object, XR_object_binder } from "xray16";
 
 import { addObject, addZone, deleteObject, deleteZone, storage } from "@/mod/scripts/core/db";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -74,5 +74,5 @@ export const AnomalyFieldBinder: IAnomalyFieldBinder = declare_xr_class("Anomaly
   },
   net_save_relevant(): boolean {
     return true;
-  }
+  },
 } as IAnomalyFieldBinder);

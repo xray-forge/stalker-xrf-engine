@@ -21,5 +21,5 @@ export const PhantomBinder: IPhantomBinder = declare_xr_class("PhantomBinder", o
   },
   phantom_count(): number {
     return PhantomManager.getInstance().phantom_count;
-  }
+  },
 } as IPhantomBinder);

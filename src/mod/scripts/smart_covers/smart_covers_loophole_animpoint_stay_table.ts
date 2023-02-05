@@ -22,69 +22,69 @@ export function get_animpoint_stay_table_loophole(
     actions: {
       idle: {
         animations: {
-          idle: ["animpoint_stay_table_idle_1"]
-        }
+          idle: ["animpoint_stay_table_idle_1"],
+        },
       },
       lookout: {
         animations: {
-          idle: ["animpoint_stay_table_idle_1"]
-        }
+          idle: ["animpoint_stay_table_idle_1"],
+        },
       },
       fire: {
         animations: {
           idle: ["animpoint_stay_table_idle_1"],
-          shoot: ["animpoint_stay_table_idle_1"]
-        }
+          shoot: ["animpoint_stay_table_idle_1"],
+        },
       },
       fire_no_lookout: {
         animations: {
           idle: ["animpoint_stay_table_idle_1"],
-          shoot: ["animpoint_stay_table_idle_1"]
-        }
+          shoot: ["animpoint_stay_table_idle_1"],
+        },
       },
       reload: {
         animations: {
-          idle: ["animpoint_stay_table_idle_1"]
-        }
-      }
+          idle: ["animpoint_stay_table_idle_1"],
+        },
+      },
     },
     transitions: [
       {
         action_from: "idle",
         action_to: "lookout",
         weight: 1.2,
-        animations: ["animpoint_stay_table_in_1"]
+        animations: ["animpoint_stay_table_in_1"],
       },
       {
         action_from: "lookout",
         action_to: "idle",
         weight: 1.2,
-        animations: ["animpoint_stay_table_in_1"]
+        animations: ["animpoint_stay_table_in_1"],
       },
       {
         action_from: "idle",
         action_to: "fire",
         weight: 1.2,
-        animations: ["animpoint_stay_table_in_1"]
+        animations: ["animpoint_stay_table_in_1"],
       },
       {
         action_from: "fire",
         action_to: "idle",
         weight: 1.2,
-        animations: ["animpoint_stay_table_in_1"]
+        animations: ["animpoint_stay_table_in_1"],
       },
       {
         action_from: "idle",
         action_to: "fire_no_lookout",
         weight: 1.2,
-        animations: ["animpoint_stay_table_in_1"]
+        animations: ["animpoint_stay_table_in_1"],
       },
       {
         action_from: "fire_no_lookout",
         action_to: "idle",
         weight: 1.2,
-        animations: ["animpoint_stay_table_in_1"]
-      }
-    ]
+        animations: ["animpoint_stay_table_in_1"],
+      },
+    ],
   };
 }

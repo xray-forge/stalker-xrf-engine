@@ -25,6 +25,6 @@ export const StateManagerEvaWeaponStrapped: IStateManagerEvaWeaponStrapped = dec
     },
     evaluate(): boolean {
       return states.get(this.st.target_state).weapon === "strapped";
-    }
+    },
   } as IStateManagerEvaWeaponStrapped
 );

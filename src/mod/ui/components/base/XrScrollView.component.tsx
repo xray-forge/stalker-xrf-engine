@@ -29,7 +29,7 @@ export function XrScrollView(props: IXrScrollViewProps): JSXNode {
     vertInterval,
     alwaysShowScroll,
     flipVert,
-    canSelect
+    canSelect,
   } = normalizeBaseNodeProps(props);
 
   return JSXXML(tag, {
@@ -44,6 +44,6 @@ export function XrScrollView(props: IXrScrollViewProps): JSXNode {
     vert_interval: vertInterval,
     always_show_scroll: alwaysShowScroll,
     flip_vert: flipVert,
-    can_select: canSelect
+    can_select: canSelect,
   });
 }

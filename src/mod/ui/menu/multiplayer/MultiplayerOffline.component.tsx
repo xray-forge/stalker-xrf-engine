@@ -1,4 +1,4 @@
-import { JSXXML, JSXNode } from "jsx-xml";
+import { JSXNode, JSXXML } from "jsx-xml";
 
 import { MultiplayerTabClient } from "@/mod/ui/menu/multiplayer/tabs/MultiplayerTabClient.part";
 import { MultiplayerTabDemo } from "@/mod/ui/menu/multiplayer/tabs/MultiplayerTabDemo.part";

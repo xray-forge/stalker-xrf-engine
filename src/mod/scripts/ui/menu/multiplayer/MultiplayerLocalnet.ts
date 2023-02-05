@@ -16,7 +16,7 @@ import {
   XR_CUIScriptWnd,
   XR_CUITextWnd,
   XR_CUIWindow,
-  XR_profile
+  XR_profile,
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
@@ -180,5 +180,5 @@ export const MultiplayerLocalnet: IMultiplayerLocalnet = declare_xr_class("Multi
     }
 
     return true;
-  }
+  },
 } as IMultiplayerLocalnet);

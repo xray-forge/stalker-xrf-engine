@@ -41,5 +41,5 @@ export const EvaluatorWounded: IEvaluatorWounded = declare_xr_class("EvaluatorWo
     }
 
     return tostring(get_global<AnyCallablesModule>("xr_logic").pstor_retrieve(this.object, "wounded_state")) !== "nil";
-  }
+  },
 } as IEvaluatorWounded);

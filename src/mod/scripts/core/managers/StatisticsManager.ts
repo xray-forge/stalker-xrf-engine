@@ -5,7 +5,7 @@ import {
   XR_cse_alife_creature_abstract,
   XR_game_object,
   XR_net_packet,
-  XR_reader
+  XR_reader,
 } from "xray16";
 
 import { TArtefact } from "@/mod/globals/items/artefacts";
@@ -70,7 +70,7 @@ let weapons_table: LuaTable<string, number> = {
   val: 0,
   vintorez: 0,
   walther: 0,
-  wincheaster1300: 0
+  wincheaster1300: 0,
 } as unknown as LuaTable<string, number>;
 
 let taken_artefacts = {} as unknown as LuaTable<number, number>;
@@ -85,7 +85,7 @@ export class StatisticsManager extends AbstractCoreManager {
     artefacts_founded: 0,
     best_monster: null,
     favorite_weapon_sect: null,
-    best_monster_rank: 0
+    best_monster_rank: 0,
   };
 
   public artefacts_table: LuaTable<TArtefact, boolean> = {
@@ -111,7 +111,7 @@ export class StatisticsManager extends AbstractCoreManager {
     af_gold_fish: false,
     af_fire: false,
     af_glass: false,
-    af_ice: false
+    af_ice: false,
   } as unknown as LuaTable<TArtefact, boolean>;
 
   public monster_classes: PartialRecord<TXR_cls_id, string> = {
@@ -127,7 +127,7 @@ export class StatisticsManager extends AbstractCoreManager {
     [clsid.psy_dog_s]: "psy_dog",
     [clsid.pseudodog_s]: "pseudodog",
     [clsid.snork_s]: "snork",
-    [clsid.tushkano_s]: "tushkano"
+    [clsid.tushkano_s]: "tushkano",
   };
 
   public load(reader: XR_reader): void {

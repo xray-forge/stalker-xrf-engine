@@ -21,7 +21,7 @@ export const monsters = {
   psy_dog_strong: "psy_dog_strong",
   psy_dog_weak: "psy_dog_weak",
   snork: "snork",
-  tushkano: "tushkano"
+  tushkano: "tushkano",
 } as const;
 
 export type TMonsters = typeof monsters;

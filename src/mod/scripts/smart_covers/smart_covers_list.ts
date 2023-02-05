@@ -541,7 +541,7 @@ export const smart_covers_list: LuaTable<string, ISmartCoverDescriptor> = {
   animpoint_sit_low: get_smart_cover_animpoint_sit_low(),
 
   animpoint_pri_a15: get_smart_cover_animpoint_pri_a15(),
-  anim_pri_a22: get_smart_cover_anim_pri_a22()
+  anim_pri_a22: get_smart_cover_anim_pri_a22(),
 
   // --cover_loophole_1: smart_covers_cover_loophole_1.get_smart_cover_cover_loophole_1(),
   // --cover_loophole_2: smart_covers_cover_loophole_2.get_smart_cover_cover_loophole_2(),

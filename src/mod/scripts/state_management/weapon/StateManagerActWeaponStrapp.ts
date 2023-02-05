@@ -43,6 +43,6 @@ export const StateManagerActWeaponStrapp: IStateManagerActWeaponStrapp = declare
     },
     finalize(): void {
       action_base.finalize(this);
-    }
+    },
   } as IStateManagerActWeaponStrapp
 );

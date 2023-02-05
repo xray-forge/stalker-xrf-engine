@@ -18,5 +18,5 @@ export const EvaluatorNeedCover: IEvaluatorNeedCover = declare_xr_class("Evaluat
   },
   evaluate(): boolean {
     return isSchemeActive(this.object, this.state);
-  }
+  },
 } as IEvaluatorNeedCover);

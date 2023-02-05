@@ -129,7 +129,7 @@ export class ActionPsyAntenna extends AbstractSchemeAction {
       this.antennaManager.postprocess.set(this.state.postprocess, {
         intensity_base: 0,
         intensity: 0,
-        idx: 1500 + this.antennaManager.postprocess_count
+        idx: 1500 + this.antennaManager.postprocess_count,
       });
 
       level.add_pp_effector(

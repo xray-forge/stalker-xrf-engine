@@ -9,7 +9,7 @@ import {
   getConfigNumber,
   getConfigString,
   IWaypointData,
-  parse_waypoint_data
+  parse_waypoint_data,
 } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

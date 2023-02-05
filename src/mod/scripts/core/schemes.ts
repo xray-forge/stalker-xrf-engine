@@ -16,7 +16,7 @@ export enum ESchemeType {
   MOBILE = 1,
   ITEM = 2,
   HELI = 3,
-  RESTRICTOR = 4
+  RESTRICTOR = 4,
 }
 
 export const schemes: LuaTable<string, string | AnyObject> = new LuaTable();

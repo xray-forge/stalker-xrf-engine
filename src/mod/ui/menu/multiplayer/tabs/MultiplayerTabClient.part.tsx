@@ -1,4 +1,4 @@
-import { JSXXML, JSXNode } from "jsx-xml";
+import { JSXNode, JSXXML } from "jsx-xml";
 
 export function MultiplayerTabClient(): JSXNode {
   return (

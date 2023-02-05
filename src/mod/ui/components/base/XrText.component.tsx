@@ -28,7 +28,7 @@ export function XrText(props: IXrTextProps): JSXNode {
     y,
     vertAlign,
     label = null,
-    children = null
+    children = null,
   } = normalizeBaseNodeProps(props);
 
   return JSXXML(
@@ -41,7 +41,7 @@ export function XrText(props: IXrTextProps): JSXNode {
       y,
       r: color?.r,
       g: color?.g,
-      b: color?.b
+      b: color?.b,
     },
     label || children
   );

@@ -27,12 +27,12 @@ export class ActionSleeper extends AbstractSchemeAction {
     logger.info("Add to binder:", object.name());
 
     const operators = {
-      action_sleeper: get_global("xr_actions_id").zmey_sleeper_base + 1
+      action_sleeper: get_global("xr_actions_id").zmey_sleeper_base + 1,
     };
 
     const properties = {
       need_sleeper: get_global("xr_evaluators_id").zmey_sleeper_base + 1,
-      state_mgr_logic_active: get_global("xr_evaluators_id").state_mgr + 4
+      state_mgr_logic_active: get_global("xr_evaluators_id").state_mgr + 4,
     };
 
     const manager = object.motivation_action_manager();

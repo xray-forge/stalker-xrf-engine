@@ -12,7 +12,7 @@ import {
   XR_hit,
   XR_ini_file,
   XR_net_packet,
-  XR_reader
+  XR_reader,
 } from "xray16";
 
 import { animations } from "@/mod/globals/animation/animations";

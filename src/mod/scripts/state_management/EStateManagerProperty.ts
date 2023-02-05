@@ -57,6 +57,6 @@ export enum EStateManagerProperty {
   // -- SMARTCOVER
   smartcover_need = 90,
   smartcover = 91,
-  in_smartcover = 92
+  in_smartcover = 92,
   // --    smartcover_locked]           = 92,
 }

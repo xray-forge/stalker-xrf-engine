@@ -50,6 +50,6 @@ export const StateManagerEvaWeaponLocked: IStateManagerEvaWeaponLocked = declare
       }
 
       return false;
-    }
+    },
   } as IStateManagerEvaWeaponLocked
 );

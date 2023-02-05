@@ -6,7 +6,7 @@ export enum EActorMenuMode {
   DEAD_BODY_SEARCH = 4,
   TALK_DIALOG = 9,
   TALK_DIALOG_SHOW = 10,
-  TALK_DIALOG_HIDE = 11
+  TALK_DIALOG_HIDE = 11,
 }
 
 export abstract class AbstractActorMenu {

@@ -34,6 +34,6 @@ export const StateManagerEvaWeaponUnstrappedNow: IStateManagerEvaWeaponUnstrappe
         !this.object.is_weapon_going_to_be_strapped(best_weapon) &&
         this.object.weapon_unstrapped()
       );
-    }
+    },
   } as IStateManagerEvaWeaponUnstrappedNow
 );

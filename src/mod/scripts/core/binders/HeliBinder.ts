@@ -13,7 +13,7 @@ import {
   XR_net_packet,
   XR_object_binder,
   XR_reader,
-  XR_vector
+  XR_vector,
 } from "xray16";
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
@@ -229,5 +229,5 @@ export const HeliBinder: IHeliBinder = declare_xr_class("HeliBinder", object_bin
         path_idx
       );
     }
-  }
+  },
 } as IHeliBinder);

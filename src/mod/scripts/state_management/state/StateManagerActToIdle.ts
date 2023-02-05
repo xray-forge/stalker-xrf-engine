@@ -71,5 +71,5 @@ export const StateManagerActToIdle: IStateManagerActToIdle = declare_xr_class("S
 
     this.st.set_state("idle", null, null, null, null);
     action_base.execute(this);
-  }
+  },
 } as IStateManagerActToIdle);

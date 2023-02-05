@@ -37,6 +37,6 @@ export const StateManagerEvaWeaponStrappedNow: IStateManagerEvaWeaponStrappedNow
         (!isStrappableWeapon(best_weapon) && active_item === null) ||
         (this.object.is_weapon_going_to_be_strapped(best_weapon) && this.object.weapon_strapped())
       );
-    }
+    },
   } as IStateManagerEvaWeaponStrappedNow
 );

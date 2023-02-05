@@ -5,7 +5,7 @@ import {
   vector,
   XR_CSightParams,
   XR_property_evaluator,
-  XR_vector
+  XR_vector,
 } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
@@ -100,6 +100,6 @@ export const StateManagerEvaDirection: IStateManagerEvaDirection = declare_xr_cl
           this.st.callback.turn_end_func = null;
         }
       }
-    }
+    },
   } as IStateManagerEvaDirection
 );

@@ -161,11 +161,11 @@ For examples check: `src/mod/ui`.
 
 After following steps you will be able to attach debugger to lua/c++ code:
 
- - Download visual studio
- - Install [LUA debug](https://github.com/WheretIB/LuaDkmDebugger) extension for visual studio (fixes [A](https://github.com/WheretIB/LuaDkmDebugger/pull/25) + [B](https://github.com/WheretIB/LuaDkmDebugger/pull/26) required)
- - Setup engine project, follow [OpenXray](https://github.com/OpenXRay/xray-16/wiki/%5BEN%5D-How-to-build-and-setup-on-Windows) instructions
- - Link game (npm run link) and target folder of xrts
- - Run game in debug mode directly from visual studio
+- Download visual studio
+- Install [LUA debug](https://github.com/WheretIB/LuaDkmDebugger) extension for visual studio (fixes [A](https://github.com/WheretIB/LuaDkmDebugger/pull/25) + [B](https://github.com/WheretIB/LuaDkmDebugger/pull/26) required)
+- Setup engine project, follow [OpenXray](https://github.com/OpenXRay/xray-16/wiki/%5BEN%5D-How-to-build-and-setup-on-Windows) instructions
+- Link game (npm run link) and target folder of xrts
+- Run game in debug mode directly from visual studio
 
 Note: attach breakpoint and observe transpiled LUA code. There is no way to debug typescript directly.
 

@@ -215,7 +215,7 @@ export const class_ids = {
   zone_radio_s: 202,
   zone_radioactive: 212,
   zone_rusty_hair: 213,
-  zone_torrid_s: 203
+  zone_torrid_s: 203,
 };
 
 export const monster_class_ids = {
@@ -235,12 +235,12 @@ export const monster_class_ids = {
   [class_ids.psy_dog_phantom_s]: true,
   [class_ids.psy_dog_s]: true,
   [class_ids.snork_s]: true,
-  [class_ids.tushkano_s]: true
+  [class_ids.tushkano_s]: true,
 } as const;
 
 export const stalker_class_ids = {
   [class_ids.script_actor]: true,
-  [class_ids.script_stalker]: true
+  [class_ids.script_stalker]: true,
 } as const;
 
 export const weapon_class_ids = {
@@ -264,7 +264,7 @@ export const weapon_class_ids = {
   [class_ids.wpn_grenade_f1_s]: true,
   [class_ids.wpn_grenade_rgd5_s]: true,
   [class_ids.wpn_grenade_launcher]: true,
-  [class_ids.wpn_grenade_fake]: true
+  [class_ids.wpn_grenade_fake]: true,
 } as const;
 
 export const artefact_class_ids = {
@@ -282,5 +282,5 @@ export const artefact_class_ids = {
   [class_ids.art_thorn]: true,
   [class_ids.art_zuda]: true,
   [class_ids.artefact]: true,
-  [class_ids.artefact_s]: true
+  [class_ids.artefact_s]: true,
 } as const;

@@ -11,7 +11,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_stay_wall",
       animation: "animpoint_stay_wall",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     animpoint_stay_table: {
@@ -21,7 +21,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_stay_table",
       animation: "animpoint_stay_table",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     animpoint_sit_high: {
@@ -31,7 +31,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_sit_high",
       animation: "animpoint_sit_high",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     animpoint_sit_normal: {
@@ -41,7 +41,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_sit_normal",
       animation: "animpoint_sit_normal",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     animpoint_sit_low: {
@@ -51,7 +51,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_sit_low",
       animation: "animpoint_sit_low",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     animpoint_stay_wall_eat_bread: {
@@ -61,7 +61,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_stay_wall",
       animation: "animpoint_stay_wall_eat_bread",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
     animpoint_stay_wall_eat_kolbasa: {
       weapon: "strapped",
@@ -70,7 +70,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_stay_wall",
       animation: "animpoint_stay_wall_eat_kolbasa",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     animpoint_stay_table_eat_bread: {
@@ -80,7 +80,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_stay_table",
       animation: "animpoint_stay_table_eat_bread",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
     animpoint_stay_table_eat_kolbasa: {
       weapon: "strapped",
@@ -89,7 +89,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_stay_table",
       animation: "animpoint_stay_table_eat_kolbasa",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     animpoint_sit_high_eat_bread: {
@@ -99,7 +99,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_sit_high",
       animation: "animpoint_sit_high_eat_bread",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
     animpoint_sit_high_eat_kolbasa: {
       weapon: "strapped",
@@ -108,7 +108,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_sit_high",
       animation: "animpoint_sit_high_eat_kolbasa",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     animpoint_sit_normal_eat_bread: {
@@ -118,7 +118,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_sit_normal",
       animation: "animpoint_sit_normal_eat_bread",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
     animpoint_sit_normal_eat_kolbasa: {
       weapon: "strapped",
@@ -127,7 +127,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_sit_normal",
       animation: "animpoint_sit_normal_eat_kolbasa",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     animpoint_sit_low_eat_bread: {
@@ -137,7 +137,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_sit_low",
       animation: "animpoint_sit_low_eat_bread",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
     animpoint_sit_low_eat_kolbasa: {
       weapon: "strapped",
@@ -146,7 +146,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_sit_low",
       animation: "animpoint_sit_low_eat_kolbasa",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     animpoint_stay_wall_drink_vodka: {
@@ -156,7 +156,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_stay_wall",
       animation: "animpoint_stay_wall_drink_vodka",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
     animpoint_stay_wall_drink_energy: {
       weapon: "strapped",
@@ -165,7 +165,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_stay_wall",
       animation: "animpoint_stay_wall_drink_energy",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     animpoint_stay_table_drink_vodka: {
@@ -175,7 +175,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_stay_table",
       animation: "animpoint_stay_table_drink_vodka",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
     animpoint_stay_table_drink_energy: {
       weapon: "strapped",
@@ -184,7 +184,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_stay_table",
       animation: "animpoint_stay_table_drink_energy",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     animpoint_sit_high_drink_vodka: {
@@ -194,7 +194,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_sit_high",
       animation: "animpoint_sit_high_drink_vodka",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
     animpoint_sit_high_drink_energy: {
       weapon: "strapped",
@@ -203,7 +203,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_sit_high",
       animation: "animpoint_sit_high_drink_energy",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     animpoint_sit_normal_drink_vodka: {
@@ -213,7 +213,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_sit_normal",
       animation: "animpoint_sit_normal_drink_vodka",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
     animpoint_sit_normal_drink_energy: {
       weapon: "strapped",
@@ -222,7 +222,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_sit_normal",
       animation: "animpoint_sit_normal_drink_energy",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     animpoint_sit_low_drink_vodka: {
@@ -232,7 +232,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_sit_low",
       animation: "animpoint_sit_low_drink_vodka",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
     animpoint_sit_low_drink_energy: {
       weapon: "strapped",
@@ -241,7 +241,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_sit_low",
       animation: "animpoint_sit_low_drink_energy",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     animpoint_stay_wall_guitar: {
@@ -251,7 +251,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_stay_wall",
       animation: "animpoint_stay_wall_guitar",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     animpoint_stay_table_guitar: {
@@ -261,7 +261,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_stay_table",
       animation: "animpoint_stay_table_guitar",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     animpoint_sit_high_guitar: {
@@ -271,7 +271,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_sit_high",
       animation: "animpoint_sit_high_guitar",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     animpoint_sit_normal_guitar: {
@@ -281,7 +281,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_sit_normal",
       animation: "animpoint_sit_normal_guitar",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     animpoint_sit_low_guitar: {
@@ -291,7 +291,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_sit_low",
       animation: "animpoint_sit_low_guitar",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     animpoint_stay_wall_harmonica: {
@@ -301,7 +301,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_stay_wall",
       animation: "animpoint_stay_wall_harmonica",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     animpoint_stay_table_harmonica: {
@@ -311,7 +311,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_stay_table",
       animation: "animpoint_stay_table_harmonica",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     animpoint_sit_high_harmonica: {
@@ -321,7 +321,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_sit_high",
       animation: "animpoint_sit_high_harmonica",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     animpoint_sit_normal_harmonica: {
@@ -331,7 +331,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_sit_normal",
       animation: "animpoint_sit_normal_harmonica",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     animpoint_sit_low_harmonica: {
@@ -341,7 +341,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_sit_low",
       animation: "animpoint_sit_low_harmonica",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     animpoint_stay_wall_weapon: {
@@ -351,7 +351,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_stay_wall_weapon",
       animation: null,
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     animpoint_stay_table_weapon: {
@@ -361,7 +361,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_stay_table_weapon",
       animation: null,
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     animpoint_sit_high_weapon: {
@@ -371,7 +371,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_sit_high_weapon",
       animation: null,
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     animpoint_sit_normal_weapon: {
@@ -381,7 +381,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_sit_normal_weapon",
       animation: null,
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     animpoint_sit_low_weapon: {
@@ -391,7 +391,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_sit_low_weapon",
       animation: null,
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     animpoint_stay_wall_no_rnd: {
@@ -401,7 +401,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_stay_wall",
       animation: null,
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     animpoint_stay_table_no_rnd: {
@@ -411,7 +411,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_stay_table",
       animation: null,
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     animpoint_sit_high_no_rnd: {
@@ -421,7 +421,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_sit_high",
       animation: null,
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     animpoint_sit_normal_no_rnd: {
@@ -431,7 +431,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_sit_normal",
       animation: null,
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     animpoint_sit_low_no_rnd: {
@@ -441,7 +441,7 @@ export function add_state_lib_animpoint(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: "animpoint_sit_low",
       animation: null,
-      direction: CSightParams.eSightTypeAnimationDirection
-    }
+      direction: CSightParams.eSightTypeAnimationDirection,
+    },
   } as any;
 }

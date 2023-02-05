@@ -936,7 +936,7 @@ export const info_portions = {
   zat_b7_stalkers_victims_reward_given: "zat_b7_stalkers_victims_reward_given",
   zat_b7_stalkers_victims_task_given: "zat_b7_stalkers_victims_task_given",
   zat_b7_task_end: "zat_b7_task_end",
-  zat_b7_victims_disappeared: "zat_b7_victims_disappeared"
+  zat_b7_victims_disappeared: "zat_b7_victims_disappeared",
 } as const;
 
 export type TInfoPortions = typeof info_portions;

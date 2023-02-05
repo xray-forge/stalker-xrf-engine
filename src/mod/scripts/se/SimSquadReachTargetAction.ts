@@ -66,6 +66,6 @@ export const SimSquadReachTargetAction: ISimSquadReachTargetAction = declare_xr_
           this.board.setup_squad_and_group(k.object);
         }
       }
-    }
+    },
   } as ISimSquadReachTargetAction
 );

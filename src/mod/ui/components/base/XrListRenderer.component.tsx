@@ -16,7 +16,7 @@ export function XrListRenderer(props: IXrListRendererComponentProps): JSXNode {
       x,
       y,
       width,
-      height
+      height,
     },
     [
       /* <!-- options_item entry={"renderer" group={"mm_opt_video"} depend="restart"}/ -->*/
@@ -28,7 +28,7 @@ export function XrListRenderer(props: IXrListRendererComponentProps): JSXNode {
       </text_color>,
 
       <list_font_s r={240} g={217} b={182} />,
-      <list_font r={216} g={186} b={140} font={fonts.letterica16} />
+      <list_font r={216} g={186} b={140} font={fonts.letterica16} />,
     ]
   );
 }

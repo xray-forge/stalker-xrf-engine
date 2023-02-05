@@ -12,7 +12,7 @@ const plugin: Plugin = {
     for (const file of result) {
       file.code = comment + file.code;
     }
-  }
+  },
 };
 
 export default plugin;

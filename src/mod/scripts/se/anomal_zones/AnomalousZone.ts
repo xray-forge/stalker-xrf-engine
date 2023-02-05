@@ -84,5 +84,5 @@ export const AnomalousZone = declare_xr_class("AnomalousZone", cse_anomalous_zon
     if (flag === 1) {
       this.last_spawn_time = readCTimeFromPacket(packet);
     }
-  }
+  },
 } as IAnomalousZone);

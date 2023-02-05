@@ -5,7 +5,7 @@ import {
   XR_cse_alife_creature_abstract,
   XR_cse_alife_monster_base,
   XR_ini_file,
-  XR_net_packet
+  XR_net_packet,
 } from "xray16";
 
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
@@ -180,5 +180,5 @@ export const Monster: IMonster = declare_xr_class("Monster", cse_alife_monster_b
 
       squad.on_npc_death(this);
     }
-  }
+  },
 } as IMonster);

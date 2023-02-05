@@ -26,11 +26,11 @@ export class ActionCorpseDetect extends AbstractSchemeAction {
 
     const operators = {
       search_corpse: get_global("xr_actions_id.corpse_exist"),
-      state_mgr_to_idle_alife: get_global("xr_actions_id.state_mgr") + 2
+      state_mgr_to_idle_alife: get_global("xr_actions_id.state_mgr") + 2,
     };
     const properties = {
       corpse_exist: get_global("xr_evaluators_id.corpse_exist"),
-      wounded: get_global("xr_evaluators_id.sidor_wounded_base")
+      wounded: get_global("xr_evaluators_id.sidor_wounded_base"),
     };
 
     const manager: XR_action_planner = object.motivation_action_manager();

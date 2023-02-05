@@ -6,7 +6,7 @@ import {
   level,
   system_ini,
   XR_cse_alife_creature_abstract,
-  XR_LuaBindBase
+  XR_LuaBindBase,
 } from "xray16";
 
 import { TCommunity } from "@/mod/globals/communities";
@@ -30,7 +30,7 @@ const group_id_by_levels: LuaTable<string, number> = {
   pripyat: 2,
   jupiter: 3,
   labx8: 4,
-  jupiter_underground: 5
+  jupiter_underground: 5,
 } as any;
 
 let board: Optional<ISimBoard> = null;
@@ -351,7 +351,7 @@ export const SimBoard: ISimBoard = declare_xr_class("SimBoard", null, {
     }
 
     return most_priority_task || (squad.smart_id && alife().object<ISmartTerrain>(squad.smart_id)) || squad;
-  }
+  },
 } as ISimBoard);
 
 export function get_sim_board(): ISimBoard {

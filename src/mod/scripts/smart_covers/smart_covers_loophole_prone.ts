@@ -27,69 +27,69 @@ export function get_prone_loophole(
     actions: {
       idle: {
         animations: {
-          idle: ["loophole_9_idle_0"]
-        }
+          idle: ["loophole_9_idle_0"],
+        },
       },
       lookout: {
         animations: {
-          idle: ["loophole_9_look_idle_0"]
-        }
+          idle: ["loophole_9_look_idle_0"],
+        },
       },
       fire: {
         animations: {
           idle: ["loophole_9_attack_idle_0"],
-          shoot: ["loophole_9_attack_shoot_0", "loophole_9_attack_shoot_1"]
-        }
+          shoot: ["loophole_9_attack_shoot_0", "loophole_9_attack_shoot_1"],
+        },
       },
       fire_no_lookout: {
         animations: {
           idle: ["loophole_9_attack_idle_0"],
-          shoot: ["loophole_9_attack_shoot_0", "loophole_9_attack_shoot_1"]
-        }
+          shoot: ["loophole_9_attack_shoot_0", "loophole_9_attack_shoot_1"],
+        },
       },
       reload: {
         animations: {
-          idle: ["loophole_9_reload_0"]
-        }
-      }
+          idle: ["loophole_9_reload_0"],
+        },
+      },
     },
     transitions: [
       {
         action_from: "idle",
         action_to: "lookout",
         weight: 1.2,
-        animations: ["loophole_9_look_in_0"]
+        animations: ["loophole_9_look_in_0"],
       },
       {
         action_from: "lookout",
         action_to: "idle",
         weight: 1.2,
-        animations: ["loophole_9_look_out_0"]
+        animations: ["loophole_9_look_out_0"],
       },
       {
         action_from: "idle",
         action_to: "fire",
         weight: 1.2,
-        animations: ["loophole_9_attack_in_0"]
+        animations: ["loophole_9_attack_in_0"],
       },
       {
         action_from: "fire",
         action_to: "idle",
         weight: 1.2,
-        animations: ["loophole_9_attack_out_0"]
+        animations: ["loophole_9_attack_out_0"],
       },
       {
         action_from: "idle",
         action_to: "fire_no_lookout",
         weight: 1.2,
-        animations: ["loophole_9_attack_in_0"]
+        animations: ["loophole_9_attack_in_0"],
       },
       {
         action_from: "fire_no_lookout",
         action_to: "idle",
         weight: 1.2,
-        animations: ["loophole_9_attack_out_0"]
-      }
-    ]
+        animations: ["loophole_9_attack_out_0"],
+      },
+    ],
   };
 }

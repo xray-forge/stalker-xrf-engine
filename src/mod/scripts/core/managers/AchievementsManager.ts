@@ -29,7 +29,7 @@ export enum EAchievement {
   KEEPER_OF_SECRETS = "keeper_of_secrets",
   MARKED_BY_ZONE = "marked_by_zone",
   INFORMATION_DEALER = "information_dealer",
-  FRIEND_OF_STALKERS = "friend_of_stalkers"
+  FRIEND_OF_STALKERS = "friend_of_stalkers",
 }
 
 export class AchievementsManager extends AbstractCoreManager {
@@ -179,7 +179,7 @@ export class AchievementsManager extends AbstractCoreManager {
     send_tip(getActor()!, captions.st_ach_seeker, null, EAchievement.SEEKER, null, null);
     get_global<AnyCallablesModule>("xr_effects").inc_faction_goodwill_to_actor(getActor(), null, [
       communities.stalker,
-      200
+      200,
     ]);
 
     return true;
@@ -254,19 +254,19 @@ export class AchievementsManager extends AbstractCoreManager {
         send_tip(getActor()!, captions.st_ach_diplomat, null, EAchievement.DIPLOMAT, null, null);
         get_global<AnyCallablesModule>("xr_effects").inc_faction_goodwill_to_actor(getActor(), null, [
           communities.stalker,
-          200
+          200,
         ]);
         get_global<AnyCallablesModule>("xr_effects").inc_faction_goodwill_to_actor(getActor(), null, [
           communities.freedom,
-          200
+          200,
         ]);
         get_global<AnyCallablesModule>("xr_effects").inc_faction_goodwill_to_actor(getActor(), null, [
           communities.dolg,
-          200
+          200,
         ]);
         get_global<AnyCallablesModule>("xr_effects").inc_faction_goodwill_to_actor(getActor(), null, [
           communities.bandit,
-          200
+          200,
         ]);
         giveInfo(info_portions.diplomat_achievement_gained);
       }
@@ -288,7 +288,7 @@ export class AchievementsManager extends AbstractCoreManager {
       [5]: info_portions.jup_b32_task_done,
       [6]: info_portions.jup_b6_task_done,
       [7]: info_portions.jup_b206_task_done,
-      [8]: info_portions.jup_b209_task_done
+      [8]: info_portions.jup_b209_task_done,
     } as unknown as LuaTable<number, string>;
 
     let count = 0;
@@ -418,7 +418,7 @@ export class AchievementsManager extends AbstractCoreManager {
       [13]: "zat_b40_notebook_saled",
       [14]: "device_flash_snag_sold",
       [15]: "device_pda_port_bandit_leader_sold",
-      [16]: "jup_b10_ufo_memory_2_sold"
+      [16]: "jup_b10_ufo_memory_2_sold",
     } as unknown as LuaTable<number, TInfoPortion>;
 
     let count: number = 0;
@@ -450,7 +450,7 @@ export class AchievementsManager extends AbstractCoreManager {
         send_tip(getActor()!, captions.st_ach_friend_of_stalkers, null, EAchievement.FRIEND_OF_STALKERS, null, null);
         get_global<AnyCallablesModule>("xr_effects").inc_faction_goodwill_to_actor(getActor(), null, [
           communities.stalker,
-          100
+          100,
         ]);
       }
     }

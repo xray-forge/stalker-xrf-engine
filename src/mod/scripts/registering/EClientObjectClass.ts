@@ -72,5 +72,5 @@ export enum EClientObjectClass {
   CZombie = "CZombie",
   ce_smart_zone = "ce_smart_zone",
   hanging_lamp = "hanging_lamp",
-  smart_cover_object = "smart_cover_object"
+  smart_cover_object = "smart_cover_object",
 }

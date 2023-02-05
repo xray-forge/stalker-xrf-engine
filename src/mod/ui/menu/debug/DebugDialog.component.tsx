@@ -66,7 +66,7 @@ export function create(): JSXNode {
           tabs={Object.entries(EDebugSection).map(([key, value]) => ({
             id: value,
             label: key,
-            texture: texturesIngame.ui_inGame2_Mp_bigbuttone
+            texture: texturesIngame.ui_inGame2_Mp_bigbuttone,
           }))}
         />
 

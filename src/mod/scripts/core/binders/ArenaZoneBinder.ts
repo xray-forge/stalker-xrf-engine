@@ -8,7 +8,7 @@ import {
   XR_game_object,
   XR_net_packet,
   XR_object_binder,
-  XR_reader
+  XR_reader,
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
@@ -110,7 +110,7 @@ export const ArenaZoneBinder: IArenaZoneBinder = declare_xr_class("ArenaZoneBind
     }
 
     this.saved_obj.delete(object.id());
-  }
+  },
 } as IArenaZoneBinder);
 
 export function purge_arena_items(name: string): void {

@@ -51,5 +51,5 @@ export const StateManagerEvaEnd: IStateManagerEvaEnd = declare_xr_class("StateMa
     }
 
     return false;
-  }
+  },
 } as IStateManagerEvaEnd);

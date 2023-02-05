@@ -21,5 +21,5 @@ export const EvaluatorCanFight: IEvaluatorCanFight = declare_xr_class("Evaluator
     }
 
     return get_global<AnyCallablesModule>("xr_logic").pstor_retrieve(this.object, "wounded_fight") !== "false";
-  }
+  },
 } as IEvaluatorCanFight);

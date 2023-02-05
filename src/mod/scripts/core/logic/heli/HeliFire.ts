@@ -8,7 +8,7 @@ import {
   XR_CUIProgressBar,
   XR_game_object,
   XR_StaticDrawableWrapper,
-  XR_vector
+  XR_vector,
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";

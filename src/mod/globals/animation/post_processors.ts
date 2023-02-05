@@ -39,7 +39,7 @@ export const post_processors = {
   surge_shock: "surge_shock.ppe",
   surge_shock_old: "surge_shock_old.ppe",
   teleport: "teleport.ppe",
-  thermal: "thermal.ppe"
+  thermal: "thermal.ppe",
 } as const;
 
 export type TPostProcessors = typeof post_processors;

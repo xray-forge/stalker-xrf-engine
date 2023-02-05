@@ -6,7 +6,7 @@ import {
   XR_game_object,
   XR_net_packet,
   XR_object_binder,
-  XR_reader
+  XR_reader,
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
@@ -193,5 +193,5 @@ export const SignalLightBinder: ISignalLightBinder = declare_xr_class("SignalLig
     this.delta_time = time_global();
 
     setLoadMarker(reader, true, SignalLightBinder.__name);
-  }
+  },
 } as ISignalLightBinder);

@@ -39,6 +39,6 @@ export const SimSquadStayOnTargetAction: ISimSquadStayOnTargetAction = declare_x
     },
     make(isUnderSimulation: boolean) {
       this.start_time = game.get_game_time();
-    }
+    },
   } as ISimSquadStayOnTargetAction
 );

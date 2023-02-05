@@ -16,7 +16,7 @@ const logger: LuaLogger = new LuaLogger("SmartTerrainControl");
 export enum ESmartTerrainStatus {
   NORMAL = 0,
   DANGER,
-  ALARM
+  ALARM,
 }
 
 export let current_smart_id: Optional<number> = null;
@@ -153,7 +153,7 @@ export const SmartTerrainControl: ISmartTerrainControl = declare_xr_class("Smart
     this.alarm_time = readCTimeFromPacket(reader);
 
     setLoadMarker(reader, true, "SmartTerrainControl");
-  }
+  },
 } as ISmartTerrainControl);
 
 export function getCurrentSmartId(): Optional<number> {

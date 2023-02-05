@@ -25,69 +25,69 @@ export function get_stand_right_loophole(
     actions: {
       idle: {
         animations: {
-          idle: ["loophole_stand_back_idle_0"]
-        }
+          idle: ["loophole_stand_back_idle_0"],
+        },
       },
       lookout: {
         animations: {
-          idle: ["loophole_stand_back_idle_0"]
-        }
+          idle: ["loophole_stand_back_idle_0"],
+        },
       },
       fire: {
         animations: {
           idle: ["loophole_stand_back_attack_idle_0"],
-          shoot: ["loophole_stand_back_attack_shoot_0", "loophole_stand_back_attack_shoot_1"]
-        }
+          shoot: ["loophole_stand_back_attack_shoot_0", "loophole_stand_back_attack_shoot_1"],
+        },
       },
       fire_no_lookout: {
         animations: {
           idle: ["loophole_stand_back_attack_idle_0"],
-          shoot: ["loophole_stand_back_attack_shoot_0", "loophole_stand_back_attack_shoot_1"]
-        }
+          shoot: ["loophole_stand_back_attack_shoot_0", "loophole_stand_back_attack_shoot_1"],
+        },
       },
       reload: {
         animations: {
-          idle: ["loophole_stand_back_reload_0"]
-        }
-      }
+          idle: ["loophole_stand_back_reload_0"],
+        },
+      },
     },
     transitions: [
       {
         action_from: "idle",
         action_to: "lookout",
         weight: 1.2,
-        animations: ["loophole_stand_back_idle_0"]
+        animations: ["loophole_stand_back_idle_0"],
       },
       {
         action_from: "lookout",
         action_to: "idle",
         weight: 1.2,
-        animations: ["loophole_stand_back_idle_0"]
+        animations: ["loophole_stand_back_idle_0"],
       },
       {
         action_from: "idle",
         action_to: "fire",
         weight: 1.2,
-        animations: ["loophole_stand_back_attack_in_0"]
+        animations: ["loophole_stand_back_attack_in_0"],
       },
       {
         action_from: "fire",
         action_to: "idle",
         weight: 1.2,
-        animations: ["loophole_stand_back_attack_out_0"]
+        animations: ["loophole_stand_back_attack_out_0"],
       },
       {
         action_from: "idle",
         action_to: "fire_no_lookout",
         weight: 1.2,
-        animations: ["loophole_stand_back_attack_in_0"]
+        animations: ["loophole_stand_back_attack_in_0"],
       },
       {
         action_from: "fire_no_lookout",
         action_to: "idle",
         weight: 1.2,
-        animations: ["loophole_stand_back_attack_out_0"]
-      }
-    ]
+        animations: ["loophole_stand_back_attack_out_0"],
+      },
+    ],
   };
 }

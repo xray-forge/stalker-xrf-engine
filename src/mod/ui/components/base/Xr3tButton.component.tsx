@@ -38,7 +38,7 @@ export function Xr3tButton(props: IXrButtonProps): JSXNode {
     font,
     label,
     textColor,
-    stretch = true
+    stretch = true,
   } = normalizeBaseNodeProps(props);
 
   return JSXXML(
@@ -49,14 +49,14 @@ export function Xr3tButton(props: IXrButtonProps): JSXNode {
       y,
       width,
       height,
-      stretch: stretch ? "1" : "0"
+      stretch: stretch ? "1" : "0",
     },
     [
       <text font={font} align={align}>
         {label}
       </text>,
       <XrTexture id={texture} />,
-      <XrTextColor textColor={textColor} />
+      <XrTextColor textColor={textColor} />,
     ]
   );
 }

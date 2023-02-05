@@ -26,5 +26,5 @@ export const DebugPlayerSection: IDebugPlayerSection = declare_xr_class("DebugPl
     xml.ParseFile(resolveXmlFormPath(base));
     xml.InitStatic("background", this);
   },
-  InitCallBacks(): void {}
+  InitCallBacks(): void {},
 } as IDebugPlayerSection);

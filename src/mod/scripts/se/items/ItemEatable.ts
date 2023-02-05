@@ -36,5 +36,5 @@ export const ItemEatable: IItemEatable = declare_xr_class("ItemEatable", cse_ali
     }
 
     return cse_alife_item.can_switch_online(this);
-  }
+  },
 } as IItemEatable);

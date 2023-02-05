@@ -10,14 +10,14 @@ const weap_table: LuaTable<number, string> = [
   "pri_a15_wpn_svu",
   "pri_a15_wpn_wincheaster1300",
   "pri_a15_wpn_ak74u",
-  "pri_a15_wpn_ak74"
+  "pri_a15_wpn_ak74",
 ] as any;
 
 const weap_table_unstrapped: LuaTable<number, string> = [
   "pri_a15_wpn_svu_unstrapped",
   "pri_a15_wpn_wincheaster1300_unstrapped",
   "pri_a15_wpn_ak74u_unstrapped",
-  "pri_a15_wpn_ak74_unstrapped"
+  "pri_a15_wpn_ak74_unstrapped",
 ] as any;
 
 function unstrap_weapon(npc: XR_game_object): void {
@@ -86,8 +86,8 @@ const cutscene = {
       military_tarasov: { a: "pri_a15_soldier_kam_cam1" },
       military_2: { a: "pri_a15_soldier_1_cam1" },
       military_3: { a: "pri_a15_soldier_2_cam1" },
-      military_4: { a: "pri_a15_soldier_3_cam1" }
-    }
+      military_4: { a: "pri_a15_soldier_3_cam1" },
+    },
   },
   [2]: {
     precondition: ["vano", "sokolov", "zulus", "wanderer", "actor"],
@@ -100,8 +100,8 @@ const cutscene = {
       military_tarasov: { a: "pri_a15_soldier_kam_cam2" },
       military_2: { a: "pri_a15_soldier_1_cam2" },
       military_3: { a: "pri_a15_soldier_2_cam2" },
-      military_4: { a: "pri_a15_soldier_3_cam2" }
-    }
+      military_4: { a: "pri_a15_soldier_3_cam2" },
+    },
   },
   [3]: {
     precondition: ["vano", "sokolov", "zulus", "wanderer", "actor"],
@@ -114,8 +114,8 @@ const cutscene = {
       military_tarasov: { a: "pri_a15_soldier_kam_cam3" },
       military_2: { a: "pri_a15_soldier_1_cam3" },
       military_3: { a: "pri_a15_soldier_2_cam3" },
-      military_4: { a: "pri_a15_soldier_3_cam3" }
-    }
+      military_4: { a: "pri_a15_soldier_3_cam3" },
+    },
   },
   [4]: {
     precondition: ["vano", "sokolov", "zulus", "wanderer", "actor"],
@@ -128,8 +128,8 @@ const cutscene = {
       military_tarasov: { a: "pri_a15_soldier_kam_cam4" },
       military_2: { a: "pri_a15_soldier_1_cam4" },
       military_3: { a: "pri_a15_soldier_2_cam4" },
-      military_4: { a: "pri_a15_soldier_3_cam4" }
-    }
+      military_4: { a: "pri_a15_soldier_3_cam4" },
+    },
   },
   [5]: {
     precondition: ["zulus"],
@@ -142,8 +142,8 @@ const cutscene = {
       military_tarasov: { a: "pri_a15_soldier_kam_cam5" },
       military_2: { a: "pri_a15_soldier_1_cam5" },
       military_3: { a: "pri_a15_soldier_2_cam5" },
-      military_4: { a: "pri_a15_soldier_3_cam5" }
-    }
+      military_4: { a: "pri_a15_soldier_3_cam5" },
+    },
   },
   [6]: {
     precondition: ["vano", "wanderer", "zulus"],
@@ -156,8 +156,8 @@ const cutscene = {
       military_tarasov: { a: "pri_a15_soldier_kam_cam6" },
       military_2: { a: "pri_a15_soldier_1_cam6" },
       military_3: { a: "pri_a15_soldier_2_cam6" },
-      military_4: { a: "pri_a15_soldier_3_cam6" }
-    }
+      military_4: { a: "pri_a15_soldier_3_cam6" },
+    },
   },
   [7]: {
     precondition: ["vano", "wanderer", "zulus"],
@@ -170,8 +170,8 @@ const cutscene = {
       military_tarasov: { a: "pri_a15_soldier_kam_cam7" },
       military_2: { a: "pri_a15_soldier_1_cam7" },
       military_3: { a: "pri_a15_soldier_2_cam7" },
-      military_4: { a: "pri_a15_soldier_3_cam7" }
-    }
+      military_4: { a: "pri_a15_soldier_3_cam7" },
+    },
   },
   [8]: {
     precondition: ["vano", "sokolov"],
@@ -184,8 +184,8 @@ const cutscene = {
       military_tarasov: { a: "pri_a15_soldier_kam_cam8" },
       military_2: { a: "pri_a15_soldier_1_cam8" },
       military_3: { a: "pri_a15_soldier_2_cam8" },
-      military_4: { a: "pri_a15_soldier_3_cam8" }
-    }
+      military_4: { a: "pri_a15_soldier_3_cam8" },
+    },
   },
   [9]: {
     precondition: ["vano", "sokolov", "zulus", "wanderer", "actor"],
@@ -198,8 +198,8 @@ const cutscene = {
       military_tarasov: { a: "pri_a15_soldier_kam_cam9", s: "pri_a15_army_hide_weapon" },
       military_2: { a: "pri_a15_soldier_1_cam9" },
       military_3: { a: "pri_a15_soldier_2_cam9" },
-      military_4: { a: "pri_a15_soldier_3_cam9" }
-    }
+      military_4: { a: "pri_a15_soldier_3_cam9" },
+    },
   },
   [10]: {
     precondition: ["vano", "sokolov", "zulus", "wanderer", "actor"],
@@ -212,8 +212,8 @@ const cutscene = {
       military_tarasov: { a: "pri_a15_soldier_kam_cam10", f1: lights_on },
       military_2: { a: "pri_a15_soldier_1_cam10" },
       military_3: { a: "pri_a15_soldier_2_cam10" },
-      military_4: { a: "pri_a15_soldier_3_cam10" }
-    }
+      military_4: { a: "pri_a15_soldier_3_cam10" },
+    },
   },
   [11]: {
     precondition: ["sokolov"],
@@ -223,7 +223,7 @@ const cutscene = {
         a: "pri_a15_cokolov_cam11_1",
         s: "pri_a15_sokolov_introduce",
         f: strap_weapon,
-        a2: "pri_a15_cokolov_cam11_2"
+        a2: "pri_a15_cokolov_cam11_2",
       },
       zulus: { a: "pri_a15_zulus_cam11" },
       wanderer: { a: "pri_a15_monolit_cam11" },
@@ -231,8 +231,8 @@ const cutscene = {
       military_tarasov: { a: "pri_a15_soldier_kam_cam11" },
       military_2: { a: "pri_a15_soldier_1_cam11" },
       military_3: { a: "pri_a15_soldier_2_cam11" },
-      military_4: { a: "pri_a15_soldier_3_cam11" }
-    }
+      military_4: { a: "pri_a15_soldier_3_cam11" },
+    },
   },
   [12]: {
     precondition: ["vano", "sokolov", "zulus", "wanderer", "actor"],
@@ -244,13 +244,13 @@ const cutscene = {
       actor: {
         a: "pri_a15_igrok_cam12",
         f: strap_weapon,
-        s: "pri_a15_actor_need_talk_with_commander"
+        s: "pri_a15_actor_need_talk_with_commander",
       },
       military_tarasov: { a: "pri_a15_soldier_kam_cam12" },
       military_2: { a: "pri_a15_soldier_1_cam12" },
       military_3: { a: "pri_a15_soldier_2_cam12" },
-      military_4: { a: "pri_a15_soldier_3_cam12" }
-    }
+      military_4: { a: "pri_a15_soldier_3_cam12" },
+    },
   },
   [13]: {
     precondition: ["vano", "sokolov", "zulus", "wanderer", "actor"],
@@ -263,8 +263,8 @@ const cutscene = {
       military_tarasov: { a: "pri_a15_soldier_kam_cam13" },
       military_2: { a: "pri_a15_soldier_1_cam13" },
       military_3: { a: "pri_a15_soldier_2_cam13" },
-      military_4: { a: "pri_a15_soldier_3_cam13" }
-    }
+      military_4: { a: "pri_a15_soldier_3_cam13" },
+    },
   },
   [14]: {
     precondition: ["vano", "sokolov", "zulus", "wanderer", "actor"],
@@ -277,8 +277,8 @@ const cutscene = {
       military_tarasov: { a: "pri_a15_soldier_kam_cam14", s: "pri_a15_army_who_a_you" },
       military_2: { a: "pri_a15_soldier_1_cam14" },
       military_3: { a: "pri_a15_soldier_2_cam14" },
-      military_4: { a: "pri_a15_soldier_3_cam14" }
-    }
+      military_4: { a: "pri_a15_soldier_3_cam14" },
+    },
   },
   [15]: {
     precondition: ["vano", "sokolov", "zulus", "wanderer", "actor"],
@@ -291,8 +291,8 @@ const cutscene = {
       military_tarasov: { a: "pri_a15_soldier_kam_cam15" },
       military_2: { a: "pri_a15_soldier_1_cam15" },
       military_3: { a: "pri_a15_soldier_2_cam15" },
-      military_4: { a: "pri_a15_soldier_3_cam15" }
-    }
+      military_4: { a: "pri_a15_soldier_3_cam15" },
+    },
   },
   [16]: {
     precondition: ["vano", "sokolov", "zulus", "wanderer", "actor"],
@@ -305,13 +305,13 @@ const cutscene = {
         a: "pri_a15_igrok_cam16_1",
         att: "pri_a15_documents",
         s: "pri_a15_actor_introduce",
-        a2: "pri_a15_igrok_cam16_2"
+        a2: "pri_a15_igrok_cam16_2",
       },
       military_tarasov: { a: "pri_a15_soldier_kam_cam16" },
       military_2: { a: "pri_a15_soldier_1_cam16" },
       military_3: { a: "pri_a15_soldier_2_cam16" },
-      military_4: { a: "pri_a15_soldier_3_cam16" }
-    }
+      military_4: { a: "pri_a15_soldier_3_cam16" },
+    },
   },
   [17]: {
     precondition: ["vano", "sokolov", "zulus", "wanderer", "actor"],
@@ -324,8 +324,8 @@ const cutscene = {
       military_tarasov: { a: "pri_a15_soldier_kam_cam17" },
       military_2: { a: "pri_a15_soldier_1_cam17" },
       military_3: { a: "pri_a15_soldier_2_cam17" },
-      military_4: { a: "pri_a15_soldier_3_cam17" }
-    }
+      military_4: { a: "pri_a15_soldier_3_cam17" },
+    },
   },
   [18]: {
     precondition: ["vano", "sokolov", "zulus", "wanderer"],
@@ -338,8 +338,8 @@ const cutscene = {
       military_tarasov: { a: "pri_a15_soldier_kam_cam17_1" },
       military_2: { a: "pri_a15_soldier_1_cam17_1" },
       military_3: { a: "pri_a15_soldier_2_cam17_1" },
-      military_4: { a: "pri_a15_soldier_3_cam17_1" }
-    }
+      military_4: { a: "pri_a15_soldier_3_cam17_1" },
+    },
   },
   [19]: {
     precondition: ["vano", "sokolov", "zulus", "wanderer"],
@@ -352,8 +352,8 @@ const cutscene = {
       military_tarasov: { a: "pri_a15_soldier_kam_cam18" },
       military_2: { a: "pri_a15_soldier_1_cam18" },
       military_3: { a: "pri_a15_soldier_2_cam18" },
-      military_4: { a: "pri_a15_soldier_3_cam18" }
-    }
+      military_4: { a: "pri_a15_soldier_3_cam18" },
+    },
   },
   [20]: {
     precondition: ["vano", "sokolov", "zulus", "wanderer", "actor"],
@@ -366,8 +366,8 @@ const cutscene = {
       military_tarasov: { a: "" },
       military_2: { a: "" },
       military_3: { a: "" },
-      military_4: { a: "" }
-    }
+      military_4: { a: "" },
+    },
   },
   [21]: {
     precondition: ["zulus"],
@@ -380,8 +380,8 @@ const cutscene = {
       military_tarasov: { a: "pri_a15_soldier_kam_cam19" },
       military_2: { a: "pri_a15_soldier_1_cam19" },
       military_3: { a: "pri_a15_soldier_2_cam19" },
-      military_4: { a: "pri_a15_soldier_3_cam19" }
-    }
+      military_4: { a: "pri_a15_soldier_3_cam19" },
+    },
   },
   [22]: {
     precondition: ["sokolov"],
@@ -394,8 +394,8 @@ const cutscene = {
       military_tarasov: { a: "pri_a15_soldier_kam_cam20", s: "pri_a15_army_joke" },
       military_2: { a: "pri_a15_soldier_1_cam20" },
       military_3: { a: "pri_a15_soldier_2_cam20" },
-      military_4: { a: "pri_a15_soldier_3_cam20" }
-    }
+      military_4: { a: "pri_a15_soldier_3_cam20" },
+    },
   },
   [23]: {
     precondition: ["sokolov", "zulus"],
@@ -408,8 +408,8 @@ const cutscene = {
       military_tarasov: { a: "pri_a15_soldier_kam_cam21" },
       military_2: { a: "pri_a15_soldier_1_cam21" },
       military_3: { a: "pri_a15_soldier_2_cam21" },
-      military_4: { a: "pri_a15_soldier_3_cam21" }
-    }
+      military_4: { a: "pri_a15_soldier_3_cam21" },
+    },
   },
   [24]: {
     precondition: ["vano"],
@@ -422,8 +422,8 @@ const cutscene = {
       military_tarasov: { a: "pri_a15_soldier_kam_cam22" },
       military_2: { a: "pri_a15_soldier_1_cam22" },
       military_3: { a: "pri_a15_soldier_2_cam22" },
-      military_4: { a: "pri_a15_soldier_3_cam22" }
-    }
+      military_4: { a: "pri_a15_soldier_3_cam22" },
+    },
   },
   [25]: {
     precondition: ["vano"],
@@ -436,8 +436,8 @@ const cutscene = {
       military_tarasov: { a: "pri_a15_soldier_kam_cam23" },
       military_2: { a: "pri_a15_soldier_1_cam23" },
       military_3: { a: "pri_a15_soldier_2_cam23" },
-      military_4: { a: "pri_a15_soldier_3_cam23" }
-    }
+      military_4: { a: "pri_a15_soldier_3_cam23" },
+    },
   },
   [26]: {
     precondition: ["vano"],
@@ -450,8 +450,8 @@ const cutscene = {
       military_tarasov: { a: "pri_a15_soldier_kam_cam24" },
       military_2: { a: "pri_a15_soldier_1_cam24" },
       military_3: { a: "pri_a15_soldier_2_cam24" },
-      military_4: { a: "pri_a15_soldier_3_cam24" }
-    }
+      military_4: { a: "pri_a15_soldier_3_cam24" },
+    },
   },
   [27]: {
     precondition: ["vano", "sokolov", "zulus", "wanderer", "actor"],
@@ -464,8 +464,8 @@ const cutscene = {
       military_tarasov: { a2: "pri_a15_soldier_kam_cam25", s: "pri_a15_army_go_with_me" },
       military_2: { a: "pri_a15_soldier_1_cam25" },
       military_3: { a: "pri_a15_soldier_2_cam25" },
-      military_4: { a: "pri_a15_soldier_3_cam25" }
-    }
+      military_4: { a: "pri_a15_soldier_3_cam25" },
+    },
   },
   [28]: {
     precondition: ["zulus"],
@@ -478,8 +478,8 @@ const cutscene = {
       military_tarasov: { a: "pri_a15_soldier_kam_cam25_1" },
       military_2: { a: "pri_a15_soldier_1_cam25_1" },
       military_3: { a: "pri_a15_soldier_2_cam25_1" },
-      military_4: { a: "pri_a15_soldier_3_cam25_1" }
-    }
+      military_4: { a: "pri_a15_soldier_3_cam25_1" },
+    },
   },
   [29]: {
     precondition: ["zulus"],
@@ -492,8 +492,8 @@ const cutscene = {
       military_tarasov: { a: "pri_a15_soldier_kam_cam26" },
       military_2: { a: "pri_a15_soldier_1_cam26" },
       military_3: { a: "pri_a15_soldier_2_cam26" },
-      military_4: { a: "pri_a15_soldier_3_cam26" }
-    }
+      military_4: { a: "pri_a15_soldier_3_cam26" },
+    },
   },
   [30]: {
     precondition: ["zulus"],
@@ -506,8 +506,8 @@ const cutscene = {
       military_tarasov: { a: "pri_a15_soldier_kam_cam27", s1: "pri_a15_army_stop" },
       military_2: { a: "pri_a15_soldier_1_cam27" },
       military_3: { a: "pri_a15_soldier_2_cam27" },
-      military_4: { a: "pri_a15_soldier_3_cam27" }
-    }
+      military_4: { a: "pri_a15_soldier_3_cam27" },
+    },
   },
   [31]: {
     precondition: ["zulus"],
@@ -520,8 +520,8 @@ const cutscene = {
       military_tarasov: { a: "pri_a15_soldier_kam_cam28", s: "pri_a15_army_leave" },
       military_2: { a: "pri_a15_soldier_1_cam28" },
       military_3: { a: "pri_a15_soldier_2_cam28" },
-      military_4: { a: "pri_a15_soldier_3_cam28" }
-    }
+      military_4: { a: "pri_a15_soldier_3_cam28" },
+    },
   },
   [32]: {
     precondition: ["zulus"],
@@ -534,8 +534,8 @@ const cutscene = {
       military_tarasov: { a: "pri_a15_soldier_kam_cam29", s: "pri_a15_army_go" },
       military_2: { a: "pri_a15_soldier_1_cam29" },
       military_3: { a: "pri_a15_soldier_2_cam29" },
-      military_4: { a: "pri_a15_soldier_3_cam29" }
-    }
+      military_4: { a: "pri_a15_soldier_3_cam29" },
+    },
   },
   [33]: {
     precondition: ["vano", "sokolov", "zulus", "wanderer", "actor"],
@@ -548,8 +548,8 @@ const cutscene = {
       military_tarasov: { a: "pri_a15_soldier_kam_cam30" },
       military_2: { a: "pri_a15_soldier_1_cam30" },
       military_3: { a: "pri_a15_soldier_2_cam30" },
-      military_4: { a: "pri_a15_soldier_3_cam30" }
-    }
+      military_4: { a: "pri_a15_soldier_3_cam30" },
+    },
   },
   [34]: {
     precondition: ["vano", "sokolov", "zulus", "wanderer", "actor"],
@@ -562,8 +562,8 @@ const cutscene = {
       military_tarasov: { a: "pri_a15_soldier_kam_cam31" },
       military_2: { a: "pri_a15_soldier_1_cam31" },
       military_3: { a: "pri_a15_soldier_2_cam31" },
-      military_4: { a: "pri_a15_soldier_3_cam31" }
-    }
+      military_4: { a: "pri_a15_soldier_3_cam31" },
+    },
   },
   [35]: {
     precondition: ["vano", "sokolov", "zulus", "wanderer", "actor"],
@@ -576,8 +576,8 @@ const cutscene = {
       military_tarasov: { a: "" },
       military_2: { a: "" },
       military_3: { a: "" },
-      military_4: { a: "" }
-    }
+      military_4: { a: "" },
+    },
   },
   [36]: {
     precondition: ["vano", "sokolov", "zulus", "wanderer", "actor"],
@@ -590,9 +590,9 @@ const cutscene = {
       military_tarasov: { a: "pri_a15_soldier_kam_cam32" },
       military_2: { a: "pri_a15_soldier_1_cam32" },
       military_3: { a: "pri_a15_soldier_2_cam32" },
-      military_4: { a: "pri_a15_soldier_3_cam32" }
-    }
-  }
+      military_4: { a: "pri_a15_soldier_3_cam32" },
+    },
+  },
 };
 
 function check_availability(precondition: LuaTable<number, string>, existing_npc: string): boolean {
@@ -683,7 +683,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_idle_none",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
     pri_a15_idle_strap: {
       weapon: "strapped",
@@ -692,7 +692,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_idle_none",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
     pri_a15_idle_unstrap: {
       weapon: "unstrapped",
@@ -701,7 +701,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_idle_unstrap",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
     // --Vano
     pri_a15_vano_all: {
@@ -711,7 +711,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_vano_all",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_vano_1_sokolov: {
@@ -721,7 +721,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_vano_1_sokolov",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_vano_1_zulus: {
@@ -731,7 +731,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_vano_1_zulus",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_vano_1_wanderer: {
@@ -741,7 +741,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_vano_1_wanderer",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_vano_2_sokolov_zulus: {
@@ -751,7 +751,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_vano_2_sokolov_zulus",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_vano_2_sokolov_wanderer: {
@@ -761,7 +761,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_vano_2_sokolov_wanderer",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_vano_2_zulus_wanderer: {
@@ -771,7 +771,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_vano_2_zulus_wanderer",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_vano_3_vano_alive: {
@@ -781,7 +781,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_vano_3_vano_alive",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
     // --Sokolov
     pri_a15_sokolov_all: {
@@ -791,7 +791,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_sokolov_all",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_sokolov_1_vano: {
@@ -801,7 +801,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_sokolov_1_vano",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_sokolov_1_zulus: {
@@ -811,7 +811,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_sokolov_1_zulus",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_sokolov_1_wanderer: {
@@ -821,7 +821,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_sokolov_1_wanderer",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_sokolov_2_vano_zulus: {
@@ -831,7 +831,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_sokolov_2_vano_zulus",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_sokolov_2_vano_wanderer: {
@@ -841,7 +841,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_sokolov_2_vano_wanderer",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_sokolov_2_zulus_wanderer: {
@@ -851,7 +851,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_sokolov_2_zulus_wanderer",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_sokolov_3_sokolov_alive: {
@@ -861,7 +861,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_sokolov_3_sokolov_alive",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
     // --Zulus
     pri_a15_zulus_all: {
@@ -871,7 +871,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_zulus_all",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_zulus_1_vano: {
@@ -881,7 +881,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_zulus_1_vano",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_zulus_1_sokolov: {
@@ -891,7 +891,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_zulus_1_sokolov",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_zulus_1_wanderer: {
@@ -901,7 +901,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_zulus_1_wanderer",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_zulus_2_vano_sokolov: {
@@ -911,7 +911,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_zulus_2_vano_sokolov",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_zulus_2_vano_wanderer: {
@@ -921,7 +921,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_zulus_2_vano_wanderer",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_zulus_2_sokolov_wanderer: {
@@ -931,7 +931,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_zulus_2_sokolov_wanderer",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_zulus_3_zulus_alive: {
@@ -941,7 +941,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_zulus_3_zulus_alive",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
     // --Wanderer
     pri_a15_wanderer_all: {
@@ -951,7 +951,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_wanderer_all",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_wanderer_1_vano: {
@@ -961,7 +961,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_wanderer_1_vano",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_wanderer_1_sokolov: {
@@ -971,7 +971,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_wanderer_1_sokolov",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_wanderer_1_zulus: {
@@ -981,7 +981,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_wanderer_1_zulus",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_wanderer_2_vano_sokolov: {
@@ -991,7 +991,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_wanderer_2_vano_sokolov",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_wanderer_2_vano_zulus: {
@@ -1001,7 +1001,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_wanderer_2_vano_zulus",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_wanderer_2_sokolov_zulus: {
@@ -1011,7 +1011,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_wanderer_2_sokolov_zulus",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_wanderer_3_wanderer_alive: {
@@ -1021,7 +1021,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_wanderer_3_wanderer_alive",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
     // -- Actor
     pri_a15_actor_all: {
@@ -1031,7 +1031,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_actor_all",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_actor_1_vano: {
@@ -1041,7 +1041,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_actor_1_vano",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_actor_1_sokolov: {
@@ -1051,7 +1051,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_actor_1_sokolov",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_actor_1_zulus: {
@@ -1061,7 +1061,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_actor_1_zulus",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_actor_1_wanderer: {
@@ -1071,7 +1071,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_actor_1_wanderer",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_actor_2_vano_sokolov: {
@@ -1081,7 +1081,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_actor_2_vano_sokolov",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_actor_2_vano_zulus: {
@@ -1091,7 +1091,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_actor_2_vano_zulus",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_actor_2_vano_wanderer: {
@@ -1101,7 +1101,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_actor_2_vano_wanderer",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
     pri_a15_actor_2_sokolov_zulus: {
       weapon: "none",
@@ -1110,7 +1110,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_actor_2_sokolov_zulus",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_actor_2_sokolov_wanderer: {
@@ -1120,7 +1120,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_actor_2_sokolov_wanderer",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_actor_2_zulus_wanderer: {
@@ -1130,7 +1130,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_actor_2_zulus_wanderer",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_actor_3_vano_alive: {
@@ -1140,7 +1140,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_actor_3_vano_alive",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_actor_3_sokolov_alive: {
@@ -1150,7 +1150,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_actor_3_sokolov_alive",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_actor_3_zulus_alive: {
@@ -1160,7 +1160,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_actor_3_zulus_alive",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_actor_3_wanderer_alive: {
@@ -1170,7 +1170,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_actor_3_wanderer_alive",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_actor_all_dead: {
@@ -1180,7 +1180,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_actor_all_dead",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
     // -- Military Tarasov
     pri_a15_military_tarasov_all: {
@@ -1190,7 +1190,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_tarasov_all",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_tarasov_1_vano: {
@@ -1200,7 +1200,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_tarasov_1_vano",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_tarasov_1_sokolov: {
@@ -1210,7 +1210,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_tarasov_1_sokolov",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_tarasov_1_zulus: {
@@ -1220,7 +1220,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_tarasov_1_zulus",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_tarasov_1_wanderer: {
@@ -1230,7 +1230,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_tarasov_1_wanderer",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_tarasov_2_vano_sokolov: {
@@ -1240,7 +1240,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_tarasov_2_vano_sokolov",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_tarasov_2_vano_zulus: {
@@ -1250,7 +1250,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_tarasov_2_vano_zulus",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_tarasov_2_vano_wanderer: {
@@ -1260,7 +1260,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_tarasov_2_vano_wanderer",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
     pri_a15_military_tarasov_2_sokolov_zulus: {
       weapon: "unstrapped",
@@ -1269,7 +1269,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_tarasov_2_sokolov_zulus",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_tarasov_2_sokolov_wanderer: {
@@ -1279,7 +1279,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_tarasov_2_sokolov_wanderer",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_tarasov_2_zulus_wanderer: {
@@ -1289,7 +1289,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_tarasov_2_zulus_wanderer",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_tarasov_3_vano_alive: {
@@ -1299,7 +1299,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_tarasov_3_vano_alive",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_tarasov_3_sokolov_alive: {
@@ -1309,7 +1309,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_tarasov_3_sokolov_alive",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_tarasov_3_zulus_alive: {
@@ -1319,7 +1319,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_tarasov_3_zulus_alive",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_tarasov_3_wanderer_alive: {
@@ -1329,7 +1329,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_tarasov_3_wanderer_alive",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_tarasov_all_dead: {
@@ -1339,7 +1339,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_tarasov_all_dead",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
     // -- Military 2
     pri_a15_military_2_all: {
@@ -1349,7 +1349,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_2_all",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_2_1_vano: {
@@ -1359,7 +1359,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_2_1_vano",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_2_1_sokolov: {
@@ -1369,7 +1369,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_2_1_sokolov",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_2_1_zulus: {
@@ -1379,7 +1379,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_2_1_zulus",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_2_1_wanderer: {
@@ -1389,7 +1389,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_2_1_wanderer",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_2_2_vano_sokolov: {
@@ -1399,7 +1399,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_2_2_vano_sokolov",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_2_2_vano_zulus: {
@@ -1409,7 +1409,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_2_2_vano_zulus",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_2_2_vano_wanderer: {
@@ -1419,7 +1419,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_2_2_vano_wanderer",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
     pri_a15_military_2_2_sokolov_zulus: {
       weapon: "unstrapped",
@@ -1428,7 +1428,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_2_2_sokolov_zulus",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_2_2_sokolov_wanderer: {
@@ -1438,7 +1438,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_2_2_sokolov_wanderer",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_2_2_zulus_wanderer: {
@@ -1448,7 +1448,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_2_2_zulus_wanderer",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_2_3_vano_alive: {
@@ -1458,7 +1458,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_2_3_vano_alive",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_2_3_sokolov_alive: {
@@ -1468,7 +1468,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_2_3_sokolov_alive",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_2_3_zulus_alive: {
@@ -1478,7 +1478,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_2_3_zulus_alive",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_2_3_wanderer_alive: {
@@ -1488,7 +1488,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_2_3_wanderer_alive",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_2_all_dead: {
@@ -1498,7 +1498,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_2_all_dead",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
     // -- Military 3
     pri_a15_military_3_all: {
@@ -1508,7 +1508,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_3_all",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_3_1_vano: {
@@ -1518,7 +1518,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_3_1_vano",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_3_1_sokolov: {
@@ -1528,7 +1528,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_3_1_sokolov",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_3_1_zulus: {
@@ -1538,7 +1538,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_3_1_zulus",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_3_1_wanderer: {
@@ -1548,7 +1548,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_3_1_wanderer",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_3_2_vano_sokolov: {
@@ -1558,7 +1558,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_3_2_vano_sokolov",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_3_2_vano_zulus: {
@@ -1568,7 +1568,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_3_2_vano_zulus",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_3_2_vano_wanderer: {
@@ -1578,7 +1578,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_3_2_vano_wanderer",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
     pri_a15_military_3_2_sokolov_zulus: {
       weapon: "unstrapped",
@@ -1587,7 +1587,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_3_2_sokolov_zulus",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_3_2_sokolov_wanderer: {
@@ -1597,7 +1597,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_3_2_sokolov_wanderer",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_3_2_zulus_wanderer: {
@@ -1607,7 +1607,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_3_2_zulus_wanderer",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_3_3_vano_alive: {
@@ -1617,7 +1617,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_3_3_vano_alive",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_3_3_sokolov_alive: {
@@ -1627,7 +1627,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_3_3_sokolov_alive",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_3_3_zulus_alive: {
@@ -1637,7 +1637,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_3_3_zulus_alive",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_3_3_wanderer_alive: {
@@ -1647,7 +1647,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_3_3_wanderer_alive",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_3_all_dead: {
@@ -1657,7 +1657,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_3_all_dead",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
     // -- Military 4
     pri_a15_military_4_all: {
@@ -1667,7 +1667,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_4_all",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_4_1_vano: {
@@ -1677,7 +1677,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_4_1_vano",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_4_1_sokolov: {
@@ -1687,7 +1687,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_4_1_sokolov",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_4_1_zulus: {
@@ -1697,7 +1697,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_4_1_zulus",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_4_1_wanderer: {
@@ -1707,7 +1707,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_4_1_wanderer",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_4_2_vano_sokolov: {
@@ -1717,7 +1717,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_4_2_vano_sokolov",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_4_2_vano_zulus: {
@@ -1727,7 +1727,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_4_2_vano_zulus",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_4_2_vano_wanderer: {
@@ -1737,7 +1737,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_4_2_vano_wanderer",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
     pri_a15_military_4_2_sokolov_zulus: {
       weapon: "unstrapped",
@@ -1746,7 +1746,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_4_2_sokolov_zulus",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_4_2_sokolov_wanderer: {
@@ -1756,7 +1756,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_4_2_sokolov_wanderer",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_4_2_zulus_wanderer: {
@@ -1766,7 +1766,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_4_2_zulus_wanderer",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_4_3_vano_alive: {
@@ -1776,7 +1776,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_4_3_vano_alive",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_4_3_sokolov_alive: {
@@ -1786,7 +1786,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_4_3_sokolov_alive",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_4_3_zulus_alive: {
@@ -1796,7 +1796,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_4_3_zulus_alive",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_4_3_wanderer_alive: {
@@ -1806,7 +1806,7 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_4_3_wanderer_alive",
-      direction: CSightParams.eSightTypeAnimationDirection
+      direction: CSightParams.eSightTypeAnimationDirection,
     },
 
     pri_a15_military_4_all_dead: {
@@ -1816,8 +1816,8 @@ export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
       bodystate: move.standing,
       animstate: null,
       animation: "pri_a15_military_4_all_dead",
-      direction: CSightParams.eSightTypeAnimationDirection
-    }
+      direction: CSightParams.eSightTypeAnimationDirection,
+    },
   } as any;
 }
 
@@ -1828,16 +1828,16 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: ["chest_0_idle_0"]
+        [0]: ["chest_0_idle_0"],
       },
       out: null,
       idle: {
-        [0]: "chest_0_idle_0"
+        [0]: "chest_0_idle_0",
       },
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_idle_unstrap: {
@@ -1845,16 +1845,16 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: ["chest_0_idle_0"]
+        [0]: ["chest_0_idle_0"],
       },
       out: null,
       idle: {
-        [0]: "chest_0_idle_0"
+        [0]: "chest_0_idle_0",
       },
-      rnd: null
+      rnd: null,
     },
     // -- Vano
     pri_a15_vano_all: {
@@ -1862,14 +1862,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("vano", "vano, sokolov, zulus, wanderer")
+        [0]: get_sequence_for_npc("vano", "vano, sokolov, zulus, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_vano_1_sokolov: {
@@ -1877,14 +1877,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("vano", "vano, zulus, wanderer")
+        [0]: get_sequence_for_npc("vano", "vano, zulus, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_vano_1_zulus: {
@@ -1892,14 +1892,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("vano", "vano, sokolov, wanderer")
+        [0]: get_sequence_for_npc("vano", "vano, sokolov, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_vano_1_wanderer: {
@@ -1907,14 +1907,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("vano", "vano, sokolov, zulus")
+        [0]: get_sequence_for_npc("vano", "vano, sokolov, zulus"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_vano_2_sokolov_zulus: {
@@ -1922,14 +1922,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("vano", "vano, wanderer")
+        [0]: get_sequence_for_npc("vano", "vano, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_vano_2_sokolov_wanderer: {
@@ -1937,14 +1937,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("vano", "vano, zulus")
+        [0]: get_sequence_for_npc("vano", "vano, zulus"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_vano_2_zulus_wanderer: {
@@ -1952,14 +1952,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("vano", "vano, sokolov")
+        [0]: get_sequence_for_npc("vano", "vano, sokolov"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_vano_3_vano_alive: {
@@ -1967,14 +1967,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("vano", "vano")
+        [0]: get_sequence_for_npc("vano", "vano"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
     // -- Sokolov
     pri_a15_sokolov_all: {
@@ -1982,14 +1982,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("sokolov", "vano, sokolov, zulus, wanderer")
+        [0]: get_sequence_for_npc("sokolov", "vano, sokolov, zulus, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_sokolov_1_vano: {
@@ -1997,14 +1997,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("sokolov", "sokolov, zulus, wanderer")
+        [0]: get_sequence_for_npc("sokolov", "sokolov, zulus, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_sokolov_1_zulus: {
@@ -2012,14 +2012,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("sokolov", "vano, sokolov, wanderer")
+        [0]: get_sequence_for_npc("sokolov", "vano, sokolov, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_sokolov_1_wanderer: {
@@ -2027,14 +2027,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("sokolov", "vano, sokolov, zulus")
+        [0]: get_sequence_for_npc("sokolov", "vano, sokolov, zulus"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_sokolov_2_vano_zulus: {
@@ -2042,14 +2042,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("sokolov", "sokolov, wanderer")
+        [0]: get_sequence_for_npc("sokolov", "sokolov, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_sokolov_2_vano_wanderer: {
@@ -2057,14 +2057,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("sokolov", "sokolov, zulus")
+        [0]: get_sequence_for_npc("sokolov", "sokolov, zulus"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_sokolov_2_zulus_wanderer: {
@@ -2072,14 +2072,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("sokolov", "vano, sokolov")
+        [0]: get_sequence_for_npc("sokolov", "vano, sokolov"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_sokolov_3_sokolov_alive: {
@@ -2087,14 +2087,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("sokolov", "sokolov")
+        [0]: get_sequence_for_npc("sokolov", "sokolov"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
     // -- Zulus
     pri_a15_zulus_all: {
@@ -2102,14 +2102,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("zulus", "vano, sokolov, zulus, wanderer")
+        [0]: get_sequence_for_npc("zulus", "vano, sokolov, zulus, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_zulus_1_vano: {
@@ -2117,14 +2117,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("zulus", "sokolov, zulus, wanderer")
+        [0]: get_sequence_for_npc("zulus", "sokolov, zulus, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_zulus_1_sokolov: {
@@ -2132,14 +2132,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("zulus", "vano, zulus, wanderer")
+        [0]: get_sequence_for_npc("zulus", "vano, zulus, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_zulus_1_wanderer: {
@@ -2147,14 +2147,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("zulus", "vano, sokolov, zulus")
+        [0]: get_sequence_for_npc("zulus", "vano, sokolov, zulus"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_zulus_2_vano_sokolov: {
@@ -2162,14 +2162,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("zulus", "zulus, wanderer")
+        [0]: get_sequence_for_npc("zulus", "zulus, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_zulus_2_vano_wanderer: {
@@ -2177,14 +2177,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("zulus", "sokolov, zulus")
+        [0]: get_sequence_for_npc("zulus", "sokolov, zulus"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_zulus_2_sokolov_wanderer: {
@@ -2192,14 +2192,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("zulus", "vano, zulus")
+        [0]: get_sequence_for_npc("zulus", "vano, zulus"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_zulus_3_zulus_alive: {
@@ -2207,28 +2207,28 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("zulus", "zulus")
+        [0]: get_sequence_for_npc("zulus", "zulus"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
     pri_a15_wanderer_all: {
       prop: {
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("wanderer", "vano, sokolov, zulus, wanderer")
+        [0]: get_sequence_for_npc("wanderer", "vano, sokolov, zulus, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_wanderer_1_vano: {
@@ -2236,14 +2236,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("wanderer", "sokolov, zulus, wanderer")
+        [0]: get_sequence_for_npc("wanderer", "sokolov, zulus, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_wanderer_1_sokolov: {
@@ -2251,14 +2251,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("wanderer", "vano, zulus, wanderer")
+        [0]: get_sequence_for_npc("wanderer", "vano, zulus, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_wanderer_1_zulus: {
@@ -2266,14 +2266,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("wanderer", "vano, sokolov, wanderer")
+        [0]: get_sequence_for_npc("wanderer", "vano, sokolov, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_wanderer_2_vano_sokolov: {
@@ -2281,14 +2281,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("wanderer", "zulus, wanderer")
+        [0]: get_sequence_for_npc("wanderer", "zulus, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_wanderer_2_vano_zulus: {
@@ -2296,14 +2296,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("wanderer", "sokolov, wanderer")
+        [0]: get_sequence_for_npc("wanderer", "sokolov, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_wanderer_2_sokolov_zulus: {
@@ -2311,14 +2311,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("wanderer", "vano, wanderer")
+        [0]: get_sequence_for_npc("wanderer", "vano, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_wanderer_3_wanderer_alive: {
@@ -2326,14 +2326,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("wanderer", "wanderer")
+        [0]: get_sequence_for_npc("wanderer", "wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
     // -- Actor
     pri_a15_actor_all: {
@@ -2341,14 +2341,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("actor", "vano, sokolov, zulus, wanderer")
+        [0]: get_sequence_for_npc("actor", "vano, sokolov, zulus, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_actor_1_vano: {
@@ -2356,14 +2356,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("actor", "sokolov, zulus, wanderer")
+        [0]: get_sequence_for_npc("actor", "sokolov, zulus, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_actor_1_sokolov: {
@@ -2371,14 +2371,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("actor", "vano, zulus, wanderer")
+        [0]: get_sequence_for_npc("actor", "vano, zulus, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_actor_1_zulus: {
@@ -2386,14 +2386,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("actor", "vano, sokolov, wanderer")
+        [0]: get_sequence_for_npc("actor", "vano, sokolov, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_actor_1_wanderer: {
@@ -2401,14 +2401,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("actor", "vano, sokolov, zulus")
+        [0]: get_sequence_for_npc("actor", "vano, sokolov, zulus"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_actor_2_vano_sokolov: {
@@ -2416,14 +2416,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("actor", "zulus, wanderer")
+        [0]: get_sequence_for_npc("actor", "zulus, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_actor_2_vano_zulus: {
@@ -2431,14 +2431,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("actor", "sokolov, wanderer")
+        [0]: get_sequence_for_npc("actor", "sokolov, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_actor_2_vano_wanderer: {
@@ -2446,28 +2446,28 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("actor", "sokolov, zulus")
+        [0]: get_sequence_for_npc("actor", "sokolov, zulus"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
     pri_a15_actor_2_sokolov_zulus: {
       prop: {
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("actor", "vano, wanderer")
+        [0]: get_sequence_for_npc("actor", "vano, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_actor_2_sokolov_wanderer: {
@@ -2475,14 +2475,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("actor", "vano, zulus")
+        [0]: get_sequence_for_npc("actor", "vano, zulus"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_actor_2_zulus_wanderer: {
@@ -2490,14 +2490,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("actor", "vano, sokolov")
+        [0]: get_sequence_for_npc("actor", "vano, sokolov"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_actor_3_vano_alive: {
@@ -2505,14 +2505,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("actor", "vano")
+        [0]: get_sequence_for_npc("actor", "vano"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_actor_3_sokolov_alive: {
@@ -2520,14 +2520,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("actor", "sokolov")
+        [0]: get_sequence_for_npc("actor", "sokolov"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_actor_3_zulus_alive: {
@@ -2535,14 +2535,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("actor", "zulus")
+        [0]: get_sequence_for_npc("actor", "zulus"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_actor_3_wanderer_alive: {
@@ -2550,14 +2550,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("actor", "wanderer")
+        [0]: get_sequence_for_npc("actor", "wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_actor_all_dead: {
@@ -2565,14 +2565,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("actor", "actor")
+        [0]: get_sequence_for_npc("actor", "actor"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
     // -- Military Tarasov
     pri_a15_military_tarasov_all: {
@@ -2580,14 +2580,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_tarasov", "vano, sokolov, zulus, wanderer")
+        [0]: get_sequence_for_npc("military_tarasov", "vano, sokolov, zulus, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_tarasov_1_vano: {
@@ -2595,14 +2595,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_tarasov", "sokolov, zulus, wanderer")
+        [0]: get_sequence_for_npc("military_tarasov", "sokolov, zulus, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_tarasov_1_sokolov: {
@@ -2610,14 +2610,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_tarasov", "vano, zulus, wanderer")
+        [0]: get_sequence_for_npc("military_tarasov", "vano, zulus, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_tarasov_1_zulus: {
@@ -2625,14 +2625,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_tarasov", "vano, sokolov, wanderer")
+        [0]: get_sequence_for_npc("military_tarasov", "vano, sokolov, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_tarasov_1_wanderer: {
@@ -2640,14 +2640,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_tarasov", "vano, sokolov, zulus")
+        [0]: get_sequence_for_npc("military_tarasov", "vano, sokolov, zulus"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_tarasov_2_vano_sokolov: {
@@ -2655,14 +2655,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_tarasov", "zulus, wanderer")
+        [0]: get_sequence_for_npc("military_tarasov", "zulus, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_tarasov_2_vano_zulus: {
@@ -2670,14 +2670,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_tarasov", "sokolov, wanderer")
+        [0]: get_sequence_for_npc("military_tarasov", "sokolov, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_tarasov_2_vano_wanderer: {
@@ -2685,28 +2685,28 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_tarasov", "sokolov, zulus")
+        [0]: get_sequence_for_npc("military_tarasov", "sokolov, zulus"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
     pri_a15_military_tarasov_2_sokolov_zulus: {
       prop: {
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_tarasov", "vano, wanderer")
+        [0]: get_sequence_for_npc("military_tarasov", "vano, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_tarasov_2_sokolov_wanderer: {
@@ -2714,14 +2714,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_tarasov", "vano, zulus")
+        [0]: get_sequence_for_npc("military_tarasov", "vano, zulus"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_tarasov_2_zulus_wanderer: {
@@ -2729,14 +2729,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_tarasov", "vano, sokolov")
+        [0]: get_sequence_for_npc("military_tarasov", "vano, sokolov"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_tarasov_3_vano_alive: {
@@ -2744,14 +2744,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_tarasov", "vano")
+        [0]: get_sequence_for_npc("military_tarasov", "vano"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_tarasov_3_sokolov_alive: {
@@ -2759,14 +2759,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_tarasov", "sokolov")
+        [0]: get_sequence_for_npc("military_tarasov", "sokolov"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_tarasov_3_zulus_alive: {
@@ -2774,14 +2774,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_tarasov", "zulus")
+        [0]: get_sequence_for_npc("military_tarasov", "zulus"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_tarasov_3_wanderer_alive: {
@@ -2789,14 +2789,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_tarasov", "wanderer")
+        [0]: get_sequence_for_npc("military_tarasov", "wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_tarasov_all_dead: {
@@ -2804,14 +2804,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_tarasov", "actor")
+        [0]: get_sequence_for_npc("military_tarasov", "actor"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
     // -- Military 2
     pri_a15_military_2_all: {
@@ -2819,14 +2819,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_2", "vano, sokolov, zulus, wanderer")
+        [0]: get_sequence_for_npc("military_2", "vano, sokolov, zulus, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_2_1_vano: {
@@ -2834,14 +2834,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_2", "sokolov, zulus, wanderer")
+        [0]: get_sequence_for_npc("military_2", "sokolov, zulus, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_2_1_sokolov: {
@@ -2849,14 +2849,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_2", "vano, zulus, wanderer")
+        [0]: get_sequence_for_npc("military_2", "vano, zulus, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_2_1_zulus: {
@@ -2864,14 +2864,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_2", "vano, sokolov, wanderer")
+        [0]: get_sequence_for_npc("military_2", "vano, sokolov, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_2_1_wanderer: {
@@ -2879,14 +2879,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_2", "vano, sokolov, zulus")
+        [0]: get_sequence_for_npc("military_2", "vano, sokolov, zulus"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_2_2_vano_sokolov: {
@@ -2894,14 +2894,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_2", "zulus, wanderer")
+        [0]: get_sequence_for_npc("military_2", "zulus, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_2_2_vano_zulus: {
@@ -2909,14 +2909,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_2", "sokolov, wanderer")
+        [0]: get_sequence_for_npc("military_2", "sokolov, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_2_2_vano_wanderer: {
@@ -2924,28 +2924,28 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_2", "sokolov, zulus")
+        [0]: get_sequence_for_npc("military_2", "sokolov, zulus"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
     pri_a15_military_2_2_sokolov_zulus: {
       prop: {
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_2", "vano, wanderer")
+        [0]: get_sequence_for_npc("military_2", "vano, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_2_2_sokolov_wanderer: {
@@ -2953,14 +2953,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_2", "vano, zulus")
+        [0]: get_sequence_for_npc("military_2", "vano, zulus"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_2_2_zulus_wanderer: {
@@ -2968,14 +2968,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_2", "vano, sokolov")
+        [0]: get_sequence_for_npc("military_2", "vano, sokolov"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_2_3_vano_alive: {
@@ -2983,14 +2983,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_2", "vano")
+        [0]: get_sequence_for_npc("military_2", "vano"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_2_3_sokolov_alive: {
@@ -2998,14 +2998,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_2", "sokolov")
+        [0]: get_sequence_for_npc("military_2", "sokolov"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_2_3_zulus_alive: {
@@ -3013,14 +3013,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_2", "zulus")
+        [0]: get_sequence_for_npc("military_2", "zulus"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_2_3_wanderer_alive: {
@@ -3028,14 +3028,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_2", "wanderer")
+        [0]: get_sequence_for_npc("military_2", "wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_2_all_dead: {
@@ -3043,14 +3043,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_2", "actor")
+        [0]: get_sequence_for_npc("military_2", "actor"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
     // -- Military 3
     pri_a15_military_3_all: {
@@ -3058,14 +3058,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_3", "vano, sokolov, zulus, wanderer")
+        [0]: get_sequence_for_npc("military_3", "vano, sokolov, zulus, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_3_1_vano: {
@@ -3073,14 +3073,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_3", "sokolov, zulus, wanderer")
+        [0]: get_sequence_for_npc("military_3", "sokolov, zulus, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_3_1_sokolov: {
@@ -3088,14 +3088,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_3", "vano, zulus, wanderer")
+        [0]: get_sequence_for_npc("military_3", "vano, zulus, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_3_1_zulus: {
@@ -3103,14 +3103,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_3", "vano, sokolov, wanderer")
+        [0]: get_sequence_for_npc("military_3", "vano, sokolov, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_3_1_wanderer: {
@@ -3118,14 +3118,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_3", "vano, sokolov, zulus")
+        [0]: get_sequence_for_npc("military_3", "vano, sokolov, zulus"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_3_2_vano_sokolov: {
@@ -3133,14 +3133,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_3", "zulus, wanderer")
+        [0]: get_sequence_for_npc("military_3", "zulus, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_3_2_vano_zulus: {
@@ -3148,14 +3148,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_3", "sokolov, wanderer")
+        [0]: get_sequence_for_npc("military_3", "sokolov, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_3_2_vano_wanderer: {
@@ -3163,28 +3163,28 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_3", "sokolov, zulus")
+        [0]: get_sequence_for_npc("military_3", "sokolov, zulus"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
     pri_a15_military_3_2_sokolov_zulus: {
       prop: {
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_3", "vano, wanderer")
+        [0]: get_sequence_for_npc("military_3", "vano, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_3_2_sokolov_wanderer: {
@@ -3192,14 +3192,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_3", "vano, zulus")
+        [0]: get_sequence_for_npc("military_3", "vano, zulus"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_3_2_zulus_wanderer: {
@@ -3207,14 +3207,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_3", "vano, sokolov")
+        [0]: get_sequence_for_npc("military_3", "vano, sokolov"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_3_3_vano_alive: {
@@ -3222,14 +3222,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_3", "vano")
+        [0]: get_sequence_for_npc("military_3", "vano"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_3_3_sokolov_alive: {
@@ -3237,14 +3237,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_3", "sokolov")
+        [0]: get_sequence_for_npc("military_3", "sokolov"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_3_3_zulus_alive: {
@@ -3252,14 +3252,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_3", "zulus")
+        [0]: get_sequence_for_npc("military_3", "zulus"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_3_3_wanderer_alive: {
@@ -3267,14 +3267,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_3", "wanderer")
+        [0]: get_sequence_for_npc("military_3", "wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_3_all_dead: {
@@ -3282,14 +3282,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_3", "actor")
+        [0]: get_sequence_for_npc("military_3", "actor"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
     // -- Military 4
     pri_a15_military_4_all: {
@@ -3297,14 +3297,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_4", "vano, sokolov, zulus, wanderer")
+        [0]: get_sequence_for_npc("military_4", "vano, sokolov, zulus, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_4_1_vano: {
@@ -3312,14 +3312,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_4", "sokolov, zulus, wanderer")
+        [0]: get_sequence_for_npc("military_4", "sokolov, zulus, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_4_1_sokolov: {
@@ -3327,14 +3327,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_4", "vano, zulus, wanderer")
+        [0]: get_sequence_for_npc("military_4", "vano, zulus, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_4_1_zulus: {
@@ -3342,14 +3342,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_4", "vano, sokolov, wanderer")
+        [0]: get_sequence_for_npc("military_4", "vano, sokolov, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_4_1_wanderer: {
@@ -3357,14 +3357,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_4", "vano, sokolov, zulus")
+        [0]: get_sequence_for_npc("military_4", "vano, sokolov, zulus"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_4_2_vano_sokolov: {
@@ -3372,14 +3372,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_4", "zulus, wanderer")
+        [0]: get_sequence_for_npc("military_4", "zulus, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_4_2_vano_zulus: {
@@ -3387,14 +3387,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_4", "sokolov, wanderer")
+        [0]: get_sequence_for_npc("military_4", "sokolov, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_4_2_vano_wanderer: {
@@ -3402,28 +3402,28 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_4", "sokolov, zulus")
+        [0]: get_sequence_for_npc("military_4", "sokolov, zulus"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
     pri_a15_military_4_2_sokolov_zulus: {
       prop: {
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_4", "vano, wanderer")
+        [0]: get_sequence_for_npc("military_4", "vano, wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_4_2_sokolov_wanderer: {
@@ -3431,14 +3431,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_4", "vano, zulus")
+        [0]: get_sequence_for_npc("military_4", "vano, zulus"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_4_2_zulus_wanderer: {
@@ -3446,14 +3446,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_4", "vano, sokolov")
+        [0]: get_sequence_for_npc("military_4", "vano, sokolov"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_4_3_vano_alive: {
@@ -3461,14 +3461,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_4", "vano")
+        [0]: get_sequence_for_npc("military_4", "vano"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_4_3_sokolov_alive: {
@@ -3476,14 +3476,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_4", "sokolov")
+        [0]: get_sequence_for_npc("military_4", "sokolov"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_4_3_zulus_alive: {
@@ -3491,14 +3491,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_4", "zulus")
+        [0]: get_sequence_for_npc("military_4", "zulus"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_4_3_wanderer_alive: {
@@ -3506,14 +3506,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_4", "wanderer")
+        [0]: get_sequence_for_npc("military_4", "wanderer"),
       },
       out: null,
       idle: null,
-      rnd: null
+      rnd: null,
     },
 
     pri_a15_military_4_all_dead: {
@@ -3521,14 +3521,14 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
         maxidle: 1,
         sumidle: 1,
         rnd: 100,
-        moving: true
+        moving: true,
       },
       into: {
-        [0]: get_sequence_for_npc("military_4", "actor")
+        [0]: get_sequence_for_npc("military_4", "actor"),
       },
       out: null,
       idle: null,
-      rnd: null
-    }
+      rnd: null,
+    },
   } as any;
 }

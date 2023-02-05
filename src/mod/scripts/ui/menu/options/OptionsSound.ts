@@ -34,5 +34,5 @@ export const OptionsSound: IOptionsSound = declare_xr_class("OptionsSound", CUIW
 
     xml.InitStatic("tab_sound:cap_snd_device", this);
     xml.InitComboBox("tab_sound:list_snd_device", this);
-  }
+  },
 } as IOptionsSound);

@@ -6,7 +6,7 @@ export const npc_map_marks = {
   ui_pda2_medic_location: "ui_pda2_medic_location",
   ui_pda2_quest_npc_location: "ui_pda2_quest_npc_location",
   ui_pda2_scout_location: "ui_pda2_scout_location",
-  ui_pda2_trader_location: "ui_pda2_trader_location"
+  ui_pda2_trader_location: "ui_pda2_trader_location",
 };
 
 export const map_mark_type = {
@@ -14,7 +14,7 @@ export const map_mark_type = {
   mechanic: "mechanic",
   medic: "medic",
   quest_npc: "quest_npc",
-  trader: "trader"
+  trader: "trader",
 };
 
 export type TMapMarks = typeof map_mark_type;

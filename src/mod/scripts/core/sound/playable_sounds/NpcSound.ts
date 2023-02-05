@@ -1,18 +1,18 @@
 import {
-  getFS,
+  game,
   get_hud,
+  getFS,
   snd_type,
+  sound_object,
   stalker_ids,
   time_global,
+  vector,
   XR_FS,
   XR_game_object,
   XR_ini_file,
   XR_net_packet,
+  XR_reader,
   XR_sound_object,
-  sound_object,
-  vector,
-  game,
-  XR_reader
 } from "xray16";
 
 import { communities, TCommunity } from "@/mod/globals/communities";

@@ -43,5 +43,5 @@ export const ItemTorch: IItemTorch = declare_xr_class("ItemTorch", cse_alife_ite
     }
 
     return cse_alife_item_torch.can_switch_online(this);
-  }
+  },
 } as IItemTorch);

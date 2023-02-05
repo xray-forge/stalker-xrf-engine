@@ -28,5 +28,5 @@ export const DevDebugSoundSection: IDevDebugSoundSection = declare_xr_class("Dev
     xml.ParseFile(resolveXmlFormPath(base));
     xml.InitStatic("background", this);
   },
-  InitCallBacks(): void {}
+  InitCallBacks(): void {},
 } as IDevDebugSoundSection);

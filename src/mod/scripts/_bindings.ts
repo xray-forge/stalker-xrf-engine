@@ -86,5 +86,5 @@ list = {
   },
   bindStalker: (object: XR_game_object) => {
     get_global<AnyCallablesModule>("xr_motivator").AddToMotivator(object);
-  }
+  },
 };

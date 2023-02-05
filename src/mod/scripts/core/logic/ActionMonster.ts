@@ -10,7 +10,7 @@ import {
   XR_game_object,
   XR_ini_file,
   XR_sound_object,
-  XR_vector
+  XR_vector,
 } from "xray16";
 
 import { sounds } from "@/mod/globals/sound/sounds";

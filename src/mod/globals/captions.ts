@@ -117,5 +117,5 @@ export const captions = {
   ui_mm_stalker: "ui_mm_stalker",
   ui_mm_veteran: "ui_mm_veteran",
   ui_mp_internet: "ui_mp_internet",
-  ui_mp_localnet: "ui_mp_localnet"
+  ui_mp_localnet: "ui_mp_localnet",
 };

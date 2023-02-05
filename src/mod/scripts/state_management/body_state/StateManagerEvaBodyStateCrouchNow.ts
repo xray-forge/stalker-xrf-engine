@@ -24,6 +24,6 @@ export const StateManagerEvaBodyStateCrouchNow: IStateManagerEvaBodyStateCrouchN
     },
     evaluate(): boolean {
       return this.object.target_body_state() === move.crouch;
-    }
+    },
   } as IStateManagerEvaBodyStateCrouchNow
 );

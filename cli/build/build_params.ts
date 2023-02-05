@@ -6,5 +6,5 @@ export const BUILD_PARAMS = {
   ARE_UI_RESOURCES_ENABLED: !process.argv.includes("--no-ui"),
   ARE_SCRIPT_RESOURCES_ENABLED: !process.argv.includes("--no-scripts"),
   ARE_CONFIG_RESOURCES_ENABLED: !process.argv.includes("--no-configs"),
-  ARE_TRANSLATION_RESOURCES_ENABLED: !process.argv.includes("--no-translations")
+  ARE_TRANSLATION_RESOURCES_ENABLED: !process.argv.includes("--no-translations"),
 };

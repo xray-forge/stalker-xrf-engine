@@ -18,7 +18,7 @@ import {
   XR_game_object,
   XR_net_packet,
   XR_object_binder,
-  XR_reader
+  XR_reader,
 } from "xray16";
 
 import { animations } from "@/mod/globals/animation/animations";
@@ -29,7 +29,7 @@ import { TLevel } from "@/mod/globals/levels";
 import { AnyCallable, AnyCallablesModule, Optional } from "@/mod/lib/types";
 import {
   ARTEFACT_WAYS_BY_ARTEFACT_ID,
-  PARENT_ZONES_BY_ARTEFACT_ID
+  PARENT_ZONES_BY_ARTEFACT_ID,
 } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
 import { addActor, deleteActor, getActor, IStoredObject, scriptIds, storage, zoneByName } from "@/mod/scripts/core/db";
 import { destroyManager, getWeakManagerInstance, isManagerInitialized } from "@/mod/scripts/core/db/ManagersRegistry";
@@ -69,7 +69,7 @@ const mutant_hunter_achievement_items: LuaTable<number, string> = [
   ammo["ammo_5.56x45_ap"],
   ammo.ammo_9x39_ap,
   ammo["ammo_5.56x45_ap"],
-  ammo.ammo_12x76_zhekan
+  ammo.ammo_12x76_zhekan,
 ] as any;
 
 export interface IActorBinder extends XR_object_binder {
@@ -580,7 +580,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
       get_global<AnyCallablesModule>("xr_effects").send_tip(getActor(), null, ["st_mutant_hunter_news", "got_ammo"]);
       this.last_mutant_hunter_achievement_spawn_time = game.get_game_time();
     }
-  }
+  },
 } as IActorBinder);
 
 export function check_for_weapon_hide_by_zones(): boolean {

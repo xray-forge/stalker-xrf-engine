@@ -27,7 +27,7 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
       get_stand_front_right_loophole("stand_front_right", new vector().set(-1, 0, 0.7)),
       get_stand_right_loophole("stand_right", new vector().set(0.2, 0, 1)),
       get_stand_back_loophole("stand_back", new vector().set(1, 0, 0)),
-      get_stand_left_loophole("stand_left", new vector().set(0.2, 0, -1))
+      get_stand_left_loophole("stand_left", new vector().set(0.2, 0, -1)),
     ] as any,
     transitions: [
       {
@@ -43,11 +43,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "loophole_crouch_in_front_left_0",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "",
@@ -62,11 +62,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "loophole_crouch_in_front_0",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "",
@@ -81,11 +81,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "loophole_crouch_in_front_right_0",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "",
@@ -100,11 +100,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "loophole_crouch_in_right_0",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
 
       {
@@ -120,11 +120,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "loophole_crouch_in_back_0",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
 
       {
@@ -140,11 +140,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "loophole_crouch_in_left_0",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "",
@@ -159,11 +159,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "loophole_stand_in_front_left_0",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
 
       {
@@ -179,11 +179,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "loophole_stand_in_front_right_0",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "",
@@ -198,11 +198,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "loophole_stand_in_right_0",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "",
@@ -217,11 +217,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "loophole_stand_in_back_0",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "",
@@ -236,11 +236,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "loophole_stand_in_left_0",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "crouch_front_left",
@@ -255,11 +255,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "loophole_crauch_transition_front_left_to_back",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
 
       {
@@ -275,11 +275,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "loophole_crouch_front_left_attack_idle_0",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
 
       {
@@ -295,11 +295,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "loophole_crauch_transition_front_right_to_back",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "crouch_front_right",
@@ -314,11 +314,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "loophole_crauch_transition_front_right_to_back",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "crouch_left",
@@ -333,11 +333,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "loophole_crauch_transition_left_to_back",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "crouch_right",
@@ -352,11 +352,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "loophole_crauch_transition_right_to_back",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "crouch_back",
@@ -371,11 +371,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "loophole_crauch_transition_back_to_front_left",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "crouch_back",
@@ -390,11 +390,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "loophole_crauch_transition_back_to_front_right",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "crouch_back",
@@ -409,11 +409,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "loophole_crauch_transition_back_to_front_right",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "crouch_back",
@@ -428,11 +428,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "loophole_crauch_transition_back_to_left",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "crouch_back",
@@ -447,11 +447,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "loophole_crauch_transition_back_to_right",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "stand_front_left",
@@ -466,11 +466,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "loophole_stand_transition_front_left_to_back",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "stand_front_right",
@@ -485,11 +485,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "loophole_stand_transition_front_right_to_back",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "stand_left",
@@ -504,11 +504,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "loophole_stand_transition_left_to_back",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "stand_right",
@@ -523,11 +523,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "loophole_stand_transition_right_to_back",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "stand_back",
@@ -542,11 +542,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "loophole_stand_transition_back_to_front_left",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "stand_back",
@@ -561,11 +561,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "loophole_stand_transition_back_to_front_right",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "stand_back",
@@ -580,11 +580,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "loophole_stand_transition_back_to_left",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "stand_back",
@@ -599,11 +599,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "loophole_stand_transition_back_to_right",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "stand_back",
@@ -618,11 +618,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "stand_to_crauth",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "crouch_back",
@@ -637,11 +637,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "crouch_to_stand",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "crouch_front_left",
@@ -656,9 +656,9 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "loophole_1_jump_0",
                 position: new vector().set(-3, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
+                movement_type: move.run,
+              },
+            ],
           },
           {
             precondition_functor: "_functors.list.script_functor_true",
@@ -668,11 +668,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "crouch_front",
@@ -687,9 +687,9 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "loophole_2_jump_0",
                 position: new vector().set(-3, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
+                movement_type: move.run,
+              },
+            ],
           },
           {
             precondition_functor: "_functors.list.script_functor_true",
@@ -699,11 +699,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "crouch_front_right",
@@ -718,9 +718,9 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "loophole_3_jump_0",
                 position: new vector().set(-3, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
+                movement_type: move.run,
+              },
+            ],
           },
           {
             precondition_functor: "_functors.list.script_functor_true",
@@ -730,11 +730,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "crouch_right",
@@ -749,11 +749,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "crouch_back",
@@ -768,11 +768,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "crouch_left",
@@ -787,11 +787,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "stand_front_left",
@@ -806,11 +806,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "stand_front_right",
@@ -825,11 +825,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "stand_right",
@@ -844,11 +844,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "stand_back",
@@ -863,11 +863,11 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "stand_left",
@@ -882,12 +882,12 @@ function get_smart_cover_combat(): ISmartCoverDescriptor {
                 animation: "",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
-      }
-    ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
+      },
+    ],
   };
 }

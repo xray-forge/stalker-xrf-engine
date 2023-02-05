@@ -18,7 +18,7 @@ export const squadCommunityByBehaviour: Record<TCommunity, TCommunity> = {
   [communities.monster_vegetarian]: communities.monster,
   [communities.monster_zombied_day]: communities.monster,
   [communities.monster_zombied_night]: communities.monster,
-  [communities.monster_special]: communities.monster
+  [communities.monster_special]: communities.monster,
 };
 
 export const squadMonsters: PartialRecord<TCommunity, boolean> = {
@@ -28,5 +28,5 @@ export const squadMonsters: PartialRecord<TCommunity, boolean> = {
   [communities.monster_zombied_day]: true,
   [communities.monster_zombied_night]: true,
   [communities.monster_special]: true,
-  [communities.monster]: true
+  [communities.monster]: true,
 };

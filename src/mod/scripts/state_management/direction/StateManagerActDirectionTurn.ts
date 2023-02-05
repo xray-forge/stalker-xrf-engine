@@ -83,6 +83,6 @@ export const StateManagerActDirectionTurn: IStateManagerActDirectionTurn = decla
         // --printf("SET_SIGHT!!!act_state_mgr_direction_turn:turn() %s", vec_to_str(dir))
         this.object.set_sight(look.direction, dir, true);
       }
-    }
+    },
   } as IStateManagerActDirectionTurn
 );

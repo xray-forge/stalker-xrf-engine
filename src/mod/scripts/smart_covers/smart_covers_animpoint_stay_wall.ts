@@ -12,7 +12,7 @@ export function get_smart_cover_animpoint_stay_wall(): ISmartCoverDescriptor {
         new vector().set(0, 0, 0),
         new vector().set(0, 0, -1),
         new vector().set(0, 0, -1)
-      )
+      ),
     ] as any,
     transitions: [
       {
@@ -28,11 +28,11 @@ export function get_smart_cover_animpoint_stay_wall(): ISmartCoverDescriptor {
                 animation: "animpoint_stay_wall_in_1",
                 position: new vector().set(0, 0, 0),
                 body_state: move.crouch,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
       },
       {
         vertex0: "animpoint_stay_wall",
@@ -47,12 +47,12 @@ export function get_smart_cover_animpoint_stay_wall(): ISmartCoverDescriptor {
                 animation: "animpoint_stay_wall_out_1",
                 position: new vector().set(0, 0, 0),
                 body_state: move.standing,
-                movement_type: move.run
-              }
-            ]
-          }
-        ]
-      }
-    ]
+                movement_type: move.run,
+              },
+            ],
+          },
+        ],
+      },
+    ],
   };
 }

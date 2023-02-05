@@ -14,7 +14,7 @@ const assoc_tbl = {
   idle: { director: ["wait"] },
   harmonica: { director: ["play_harmonica"] },
   guitar: { director: ["play_guitar"] },
-  story: { director: ["wait"] }
+  story: { director: ["wait"] },
 };
 
 export interface IActionWalkerActivity extends XR_action_base {
@@ -138,5 +138,5 @@ export const ActionWalkerActivity: IActionWalkerActivity = declare_xr_class("Act
       this.camp.unregister_npc(npc.id());
       this.in_camp = null;
     }
-  }
+  },
 } as IActionWalkerActivity);

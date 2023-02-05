@@ -42,6 +42,6 @@ export const ObjectHangingLamp: IObjectHangingLamp = declare_xr_class(
       }
 
       return cse_alife_object_hanging_lamp.can_switch_online(this);
-    }
+    },
   } as IObjectHangingLamp
 );

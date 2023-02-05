@@ -6,7 +6,7 @@ import {
   XR_action_planner,
   XR_cse_alife_creature_abstract,
   XR_game_object,
-  XR_property_evaluator
+  XR_property_evaluator,
 } from "xray16";
 
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
@@ -60,5 +60,5 @@ export const EvaluatorDanger: IEvaluatorDanger = declare_xr_class("DangerEvaluat
     }
 
     return true;
-  }
+  },
 } as IEvaluatorDanger);

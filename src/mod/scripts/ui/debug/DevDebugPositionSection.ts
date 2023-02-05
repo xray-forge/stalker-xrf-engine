@@ -31,6 +31,6 @@ export const DevDebugPositionSection: IDevDebugPositionSection = declare_xr_clas
     },
     InitCallBacks(): void {
       logger.info("Init callbacks");
-    }
+    },
   } as IDevDebugPositionSection
 );

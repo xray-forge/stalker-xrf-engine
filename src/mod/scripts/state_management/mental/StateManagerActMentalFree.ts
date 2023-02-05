@@ -49,6 +49,6 @@ export const StateManagerActMentalFree: IStateManagerActMentalFree = declare_xr_
     },
     finalize(): void {
       action_base.finalize(this);
-    }
+    },
   } as IStateManagerActMentalFree
 );

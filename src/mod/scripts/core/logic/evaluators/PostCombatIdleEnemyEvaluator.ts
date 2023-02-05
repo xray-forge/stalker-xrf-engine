@@ -12,11 +12,11 @@ import {
   XR_action_base,
   XR_action_planner,
   XR_game_object,
-  XR_property_evaluator
+  XR_property_evaluator,
 } from "xray16";
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
-import { getActor, storage as dbStorage } from "@/mod/scripts/core/db";
+import { storage as dbStorage, getActor } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { AnimationManager } from "@/mod/scripts/state_management/AnimationManager";
 import { animations } from "@/mod/scripts/state_management/lib/state_mgr_animation_list";
@@ -92,7 +92,7 @@ export const PostCombatIdleEnemyEvaluator: IPostCombatIdleEnemyEvaluator = decla
       this.st.animation.set_state(null);
 
       return this.st.animation.states.anim_marker !== null;
-    }
+    },
   } as IPostCombatIdleEnemyEvaluator
 );
 
@@ -151,7 +151,7 @@ export const PostCombatIdleWait: IPostCombatIdleWait = declare_xr_class("PostCom
 
     this.st.animation = null;
     action_base.finalize(this);
-  }
+  },
 } as IPostCombatIdleWait);
 
 export function weapon_locked(npc: XR_game_object): boolean {

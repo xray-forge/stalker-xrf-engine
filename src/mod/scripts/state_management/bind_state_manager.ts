@@ -18,13 +18,13 @@ export function bind_state_manager(object: XR_game_object): StateManager {
     state_mgr_idle_alife: get_global("xr_evaluators_id").state_mgr + 2,
     state_mgr_idle_smartcover: get_global("xr_evaluators_id").state_mgr + 3,
     state_mgr_logic_active: get_global("xr_evaluators_id").state_mgr + 4,
-    state_mgr_idle_items: get_global("xr_evaluators_id").state_mgr + 5
+    state_mgr_idle_items: get_global("xr_evaluators_id").state_mgr + 5,
   };
 
   const operators = {
     state_mgr_to_idle_combat: get_global("xr_actions_id").state_mgr + 1,
     state_mgr_to_idle_alife: get_global("xr_actions_id").state_mgr + 2,
-    state_mgr_to_idle_items: get_global("xr_actions_id").state_mgr + 3
+    state_mgr_to_idle_items: get_global("xr_actions_id").state_mgr + 3,
   };
 
   const state_manager: StateManager = new StateManager(object);

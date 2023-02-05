@@ -16,7 +16,7 @@ const state_queue_params: LuaTable<string, LuaTable<number, number>> = {
   cover_left_attack: [4, 830, 0],
   cover_right_attack: [4, 830, 0],
   cover_up_attack: [4, 830, 0],
-  bloodsucker_panic: [30, 100, 0]
+  bloodsucker_panic: [30, 100, 0],
 } as any;
 
 export function get_queue_params(

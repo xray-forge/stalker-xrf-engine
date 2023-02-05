@@ -35,6 +35,6 @@ export const StateManagerActAnimationStateStart: IStateManagerActAnimationStateS
     },
     finalize(): void {
       action_base.finalize(this);
-    }
+    },
   } as IStateManagerActAnimationStateStart
 );

@@ -5,7 +5,7 @@ import {
   XR_cse_alife_creature_abstract,
   XR_cse_alife_human_stalker,
   XR_ini_file,
-  XR_net_packet
+  XR_net_packet,
 } from "xray16";
 
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
@@ -203,5 +203,5 @@ export const Stalker: IStalker = declare_xr_class("Stalker", cse_alife_human_sta
   },
   update(): void {
     cse_alife_human_stalker.update(this);
-  }
+  },
 } as IStalker);

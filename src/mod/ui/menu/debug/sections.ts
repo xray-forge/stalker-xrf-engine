@@ -9,7 +9,7 @@ export enum EDebugSection {
   SOUND = "sound",
   SPAWN = "spawn",
   UI = "ui",
-  WORLD = "world"
+  WORLD = "world",
 }
 
 export const on_off_cmds = [
@@ -20,7 +20,7 @@ export const on_off_cmds = [
   console_command.hud_info,
   console_command.hud_crosshair_dist,
   console_command.hud_crosshair,
-  console_command.hud_draw
+  console_command.hud_draw,
 ];
 
 export const zero_one_cmds = [console_command.wpn_aim_toggle];

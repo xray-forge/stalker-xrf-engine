@@ -13,5 +13,5 @@ export const EvaluatorAbuse: IEvaluatorAbuse = declare_xr_class("EvaluatorAbuse"
   },
   evaluate(): boolean {
     return this.state.abuse_manager.update();
-  }
+  },
 } as IEvaluatorAbuse);

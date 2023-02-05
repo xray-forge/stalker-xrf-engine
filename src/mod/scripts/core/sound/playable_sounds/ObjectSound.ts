@@ -1,13 +1,13 @@
 import {
-  getFS,
   get_hud,
+  getFS,
   sound_object,
   time_global,
   vector,
   XR_ini_file,
   XR_net_packet,
+  XR_reader,
   XR_sound_object,
-  XR_reader
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";

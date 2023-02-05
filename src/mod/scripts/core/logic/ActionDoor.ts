@@ -9,7 +9,7 @@ import {
   getConfigBoolean,
   getConfigCondList,
   getConfigString,
-  pickSectionFromCondList
+  pickSectionFromCondList,
 } from "@/mod/scripts/utils/configs";
 
 export class ActionDoor extends AbstractSchemeAction {

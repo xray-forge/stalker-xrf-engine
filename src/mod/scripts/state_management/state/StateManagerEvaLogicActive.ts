@@ -31,6 +31,6 @@ export const StateManagerEvaLogicActive: IStateManagerEvaLogicActive = declare_x
       }
 
       return true;
-    }
+    },
   } as IStateManagerEvaLogicActive
 );

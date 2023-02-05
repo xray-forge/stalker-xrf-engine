@@ -7,7 +7,7 @@ import {
   XR_action_planner,
   XR_game_object,
   XR_vector,
-  XR_world_state
+  XR_world_state,
 } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
@@ -16,7 +16,7 @@ import { stringifyAsJson } from "@/mod/lib/utils/json";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import * as animationManagement from "@/mod/scripts/state_management/animation";
 import * as animationStateManagement from "@/mod/scripts/state_management/animation_state";
-import { IAnimationManager, AnimationManager } from "@/mod/scripts/state_management/AnimationManager";
+import { AnimationManager, IAnimationManager } from "@/mod/scripts/state_management/AnimationManager";
 import * as bodyStateManagement from "@/mod/scripts/state_management/body_state";
 import * as directionManagement from "@/mod/scripts/state_management/direction";
 import { EStateManagerOperator } from "@/mod/scripts/state_management/EStateManagerOperator";

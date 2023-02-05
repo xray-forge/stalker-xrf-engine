@@ -1,4 +1,4 @@
-import { get_console, XR_CConsole, system_ini, XR_game_object, XR_ini_file } from "xray16";
+import { get_console, system_ini, XR_CConsole, XR_game_object, XR_ini_file } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";

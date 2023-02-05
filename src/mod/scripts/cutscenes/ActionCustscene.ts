@@ -111,7 +111,7 @@ export class ActionCutscene extends AbstractSchemeAction {
 
     get_global<AnyCallablesModule>("xr_effects").teleport_actor(actor, this.object, [
       this.state.point,
-      this.state.look
+      this.state.look,
     ]);
 
     if (this.state.pp_effector !== post_processors.nil) {
@@ -145,7 +145,7 @@ export class ActionCutscene extends AbstractSchemeAction {
           start: new LuaTable(),
           idle: [{ anim: motion, looped: false, global_cameffect: this.state.global_cameffect }] as any,
           finish: new LuaTable(),
-          release: new LuaTable()
+          release: new LuaTable(),
         },
         this.state
       );

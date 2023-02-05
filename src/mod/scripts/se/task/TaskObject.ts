@@ -10,7 +10,7 @@ import {
   XR_ini_file,
   XR_LuaBindBase,
   XR_net_packet,
-  XR_reader
+  XR_reader,
 } from "xray16";
 
 import { levels, TLevel } from "@/mod/globals/levels";
@@ -31,22 +31,22 @@ const logger: LuaLogger = new LuaLogger("TaskObject");
 const guiders_by_level: LuaTable<TLevel, LuaTable<TLevel, string>> = {
   [levels.zaton]: {
     [levels.jupiter]: "zat_b215_stalker_guide_zaton",
-    [levels.pripyat]: "zat_b215_stalker_guide_zaton"
+    [levels.pripyat]: "zat_b215_stalker_guide_zaton",
   },
   [levels.jupiter]: {
     [levels.zaton]: "zat_b215_stalker_guide_jupiter",
-    [levels.pripyat]: "jup_b43_stalker_assistant"
+    [levels.pripyat]: "jup_b43_stalker_assistant",
   },
   [levels.pripyat]: {
     [levels.zaton]: "jup_b43_stalker_assistant_pri",
-    [levels.jupiter]: "jup_b43_stalker_assistant_pri"
-  }
+    [levels.jupiter]: "jup_b43_stalker_assistant_pri",
+  },
 } as any;
 
 const valid_values: LuaTable<string, boolean> = {
   complete: true,
   fail: true,
-  reversed: true
+  reversed: true,
 } as any;
 
 const status_by_id: Record<number, string> = {
@@ -54,7 +54,7 @@ const status_by_id: Record<number, string> = {
   1: "selected",
   2: "completed",
   3: "fail",
-  4: "reversed"
+  4: "reversed",
 };
 
 const id_by_status: Record<string, number> = {
@@ -62,7 +62,7 @@ const id_by_status: Record<string, number> = {
   selected: 1,
   completed: 2,
   fail: 3,
-  reversed: 4
+  reversed: 4,
 };
 
 export interface ITaskObject extends XR_LuaBindBase {
@@ -485,7 +485,7 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
     }
 
     setLoadMarker(reader, true, TaskObject.__name);
-  }
+  },
 } as ITaskObject);
 
 function get_guider(target_level: TLevel) {

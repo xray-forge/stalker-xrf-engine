@@ -39,6 +39,6 @@ export const StateManagerActMovementWalkSearch: IStateManagerActMovementWalkSear
     },
     finalize(): void {
       action_base.finalize(this);
-    }
+    },
   } as IStateManagerActMovementWalkSearch
 );
