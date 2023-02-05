@@ -4,7 +4,7 @@ import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger(
+const logger: LuaLogger = new LuaLogger(
   "StateManagerActBodyStateStandingFree",
   gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
 );
@@ -28,7 +28,7 @@ export const StateManagerActBodyStateStandingFree: IStateManagerActBodyStateStan
       this.object.set_mental_state(anim.free);
     },
     execute(): void {
-      log.info("Act body state standing free");
+      logger.info("Act body state standing free");
       action_base.execute(this);
     },
     finalize(): void {

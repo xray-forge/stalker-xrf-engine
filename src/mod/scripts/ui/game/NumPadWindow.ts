@@ -13,7 +13,7 @@ import {
 import { Optional } from "@/mod/lib/types";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("NumPadWindow");
+const logger: LuaLogger = new LuaLogger("NumPadWindow");
 
 export interface INumPadWindowOwner {
   OnNumberReceive(text: string): void;
@@ -37,7 +37,7 @@ export const NumPadWindow: INumPadWindow = declare_xr_class("NumPadWindow", CUIS
   __init(owner: Optional<INumPadWindowOwner>): void {
     CUIScriptWnd.__init(this);
 
-    log.info("Initialize new numpad");
+    logger.info("Initialize new numpad");
 
     this.owner = owner;
 
@@ -115,7 +115,7 @@ export const NumPadWindow: INumPadWindow = declare_xr_class("NumPadWindow", CUIS
     this.editBox.TextControl().SetText("");
   },
   OnButton_CANCEL_clicked(): void {
-    log.info("Cancel clicked");
+    logger.info("Cancel clicked");
 
     if (this.owner) {
       this.owner.OnNumberReceive("");
@@ -124,7 +124,7 @@ export const NumPadWindow: INumPadWindow = declare_xr_class("NumPadWindow", CUIS
     this.HideDialog();
   },
   OnButton_OK_clicked(): void {
-    log.info("OK clicked");
+    logger.info("OK clicked");
 
     this.HideDialog();
 

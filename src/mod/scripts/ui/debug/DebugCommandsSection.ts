@@ -17,7 +17,7 @@ import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 import { zero_one_cmds, on_off_cmds } from "@/mod/ui/menu/debug/sections";
 
 const base: string = "menu\\debug\\DebugCommandsSection.component";
-const log: LuaLogger = new LuaLogger("DebugCommandsSection");
+const logger: LuaLogger = new LuaLogger("DebugCommandsSection");
 
 export interface IDebugCommandsSection extends XR_CUIScriptWnd {
   owner: XR_CUIScriptWnd;
@@ -36,20 +36,13 @@ export const DebugCommandsSection: IDebugCommandsSection = declare_xr_class("Deb
   __init(this: IDebugCommandsSection, owner: XR_CUIScriptWnd): void {
     CUIWindow.__init(this);
 
-    log.info("Init");
-
     this.owner = owner;
 
     this.InitControls();
     this.InitCallBacks();
     this.InitState();
   },
-  __finalize(): void {
-    log.info("Finalize");
-  },
   InitControls(): void {
-    log.info("Init controls");
-
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
     const console: XR_CConsole = get_console();
 
@@ -60,14 +53,12 @@ export const DebugCommandsSection: IDebugCommandsSection = declare_xr_class("Deb
     zero_one_cmds.forEach((it) => this.InitEntry(it, xml, console, "numeric"));
     on_off_cmds.forEach((it) => this.InitEntry(it, xml, console, "boolean"));
   },
-  InitCallBacks(): void {
-    log.info("Init callbacks");
-  },
+  InitCallBacks(): void {},
   InitState(): void {
-    log.info("Init state");
+    logger.info("Init state");
   },
   InitEntry(name: string, xml: XR_CScriptXmlInit, console: XR_CConsole, type: "numeric" | "boolean"): void {
-    log.info("Init item:", name);
+    logger.info("Init item:", name);
 
     const item: XR_CUIStatic = xml.InitStatic("command_item", this.commandsList);
     const caption: XR_CUIStatic = xml.InitStatic("command_label", item);
@@ -75,7 +66,7 @@ export const DebugCommandsSection: IDebugCommandsSection = declare_xr_class("Deb
 
     const value: Optional<boolean> = console.get_bool(name);
 
-    log.info("Set item:", name, value);
+    logger.info("Set item:", name, value);
 
     check.SetCheck(value);
     caption.TextControl().SetText(name);
@@ -95,7 +86,7 @@ export const DebugCommandsSection: IDebugCommandsSection = declare_xr_class("Deb
       cmd += isEnabled ? "1" : "0";
     }
 
-    log.info("Value toggle:", type, cmd);
+    logger.info("Value toggle:", type, cmd);
     get_console().execute(cmd);
   }
 } as IDebugCommandsSection);

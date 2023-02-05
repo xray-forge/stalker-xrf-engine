@@ -30,7 +30,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resolveXmlFormPath, isWideScreen } from "@/mod/scripts/utils/ui";
 
 const base: string = "interaction\\SleepDialog.component";
-const log: LuaLogger = new LuaLogger("SleepDialog");
+const logger: LuaLogger = new LuaLogger("SleepDialog");
 
 let sleep_control: Optional<ISleepDialog> = null;
 const isWide: boolean = isWideScreen();
@@ -68,8 +68,6 @@ export const SleepDialog = declare_xr_class("SleepDialog", CUIScriptWnd, {
     this.InitCallbacks();
   },
   InitControls(): void {
-    log.info("Init controls");
-
     this.SetWndRect(new Frect().set(0, 0, gameConfig.UI.BASE_WIDTH, gameConfig.UI.BASE_HEIGHT));
 
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
@@ -103,15 +101,11 @@ export const SleepDialog = declare_xr_class("SleepDialog", CUIScriptWnd, {
     this.Register(this.sleep_mb, "sleep_mb");
   },
   InitCallbacks(): void {
-    log.info("Init callbacks");
-
     this.AddCallback("btn_sleep", ui_events.BUTTON_CLICKED, () => this.OnButtonSleep(), this);
     this.AddCallback("btn_cancel", ui_events.BUTTON_CLICKED, () => this.OnButtonCancel(), this);
     this.AddCallback("sleep_mb", ui_events.MESSAGE_BOX_OK_CLICKED, () => this.OnMessageBoxOk(), this);
   },
   Initialize(): void {
-    log.info("Initialize:", isWide);
-
     const cur_hours: number = level.get_time_hours();
 
     for (let it = 1; it <= 24; it += 1) {
@@ -154,7 +148,7 @@ export const SleepDialog = declare_xr_class("SleepDialog", CUIScriptWnd, {
     this.sleep_static2.SetWndPos(pos);
   },
   TestAndShow(): void {
-    log.info("Test and show");
+    logger.info("Test and show");
 
     const actor: XR_game_object = getActor()!;
 
@@ -192,10 +186,10 @@ export const SleepDialog = declare_xr_class("SleepDialog", CUIScriptWnd, {
     this.st_marker.SetWndPos(new vector2().set(x, 0));
   },
   OnTrackButton(): void {
-    log.info("On track button");
+    logger.info("On track button");
   },
   OnButtonCancel(): void {
-    log.info("On cancel");
+    logger.info("On cancel");
 
     this.HideDialog();
 
@@ -203,24 +197,24 @@ export const SleepDialog = declare_xr_class("SleepDialog", CUIScriptWnd, {
     get_global("disable_info")("sleep_active");
   },
   OnButtonSleep(): void {
-    log.info("On button sleep");
+    logger.info("On button sleep");
 
     const actor: XR_game_object = getActor()!;
 
     this.HideDialog();
 
-    log.info("Disable ui");
+    logger.info("Disable ui");
     get_global("xr_effects").disable_ui(actor, null);
 
-    log.info("Add effects");
+    logger.info("Add effects");
 
     level.add_cam_effector("camera_effects\\sleep.anm", 10, false, "_extern.dream_callback");
     level.add_pp_effector("sleep_fade.ppe", 11, false);
 
-    log.info("Give info portion");
+    logger.info("Give info portion");
     actor.give_info_portion("actor_is_sleeping");
 
-    log.info("Turn off volumes");
+    logger.info("Turn off volumes");
 
     const console: XR_CConsole = get_console();
 
@@ -230,11 +224,11 @@ export const SleepDialog = declare_xr_class("SleepDialog", CUIScriptWnd, {
     console.execute("snd_volume_music 0");
     console.execute("snd_volume_eff 0");
 
-    log.info("Surge manager update resurrect skip message");
+    logger.info("Surge manager update resurrect skip message");
     resurrect_skip_message();
   },
   OnMessageBoxOk(): void {
-    log.info("On message box OK");
+    logger.info("On message box OK");
 
     (getActor() as XR_game_object).give_info_portion("tutorial_sleep");
     get_global("disable_info")("sleep_active");
@@ -242,7 +236,7 @@ export const SleepDialog = declare_xr_class("SleepDialog", CUIScriptWnd, {
 } as ISleepDialog);
 
 export function dream_callback(): void {
-  log.info("Dream callback");
+  logger.info("Dream callback");
 
   level.add_cam_effector("camera_effects\\sleep.anm", 10, false, "_extern.dream_callback2");
 
@@ -264,7 +258,7 @@ export function dream_callback(): void {
 }
 
 export function dream_callback2(): void {
-  log.info("Dream callback 2");
+  logger.info("Dream callback 2");
 
   const actor: XR_game_object = getActor()!;
 
@@ -282,7 +276,7 @@ export function dream_callback2(): void {
 }
 
 export function sleep(): void {
-  log.info("Sleep called");
+  logger.info("Sleep called");
 
   if (sleep_control === null) {
     sleep_control = create_xr_class_instance(SleepDialog);
@@ -294,5 +288,5 @@ export function sleep(): void {
 
 // @ts-ignore Todo: Get rid of globals
 main = () => {
-  log.info("[main] Call sleep from main");
+  logger.info("[main] Call sleep from main");
 };

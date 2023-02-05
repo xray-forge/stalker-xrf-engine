@@ -4,7 +4,7 @@ import { Optional } from "@/mod/lib/types";
 import { giveInfo } from "@/mod/scripts/utils/actor";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("FreeplayDialog");
+const logger: LuaLogger = new LuaLogger("FreeplayDialog");
 
 export interface IFreeplayDialog extends XR_CUIScriptWnd {
   freeplay_mb: XR_CUIMessageBoxEx;

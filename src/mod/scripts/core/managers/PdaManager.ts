@@ -8,7 +8,7 @@ import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreMan
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("PdaManager");
+const logger: LuaLogger = new LuaLogger("PdaManager");
 
 const killedMonsters: PartialRecord<TMonster, { back: TTexture; icon: string }> = {
   [monsters.bloodsucker_weak]: { back: texturesIngame.ui_inGame2_Krovosos, icon: "" },
@@ -89,7 +89,7 @@ export class PdaManager extends AbstractCoreManager {
   }
 
   public fillFactionState(state: Record<string, any>): void {
-    log.info("Fill faction state");
+    logger.info("Fill faction state");
 
     // const board = get_global("sim_board").get_sim_board();
 

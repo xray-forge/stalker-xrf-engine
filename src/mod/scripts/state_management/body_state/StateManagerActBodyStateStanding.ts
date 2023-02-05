@@ -4,7 +4,7 @@ import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger(
+const logger: LuaLogger = new LuaLogger(
   "StateManagerActBodyStateStanding",
   gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
 );
@@ -27,7 +27,7 @@ export const StateManagerActBodyStateStanding: IStateManagerActBodyStateStanding
       this.object.set_body_state(move.standing);
     },
     execute(): void {
-      log.info("Act body state standing");
+      logger.info("Act body state standing");
       action_base.execute(this);
     },
     finalize(): void {

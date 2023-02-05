@@ -13,7 +13,7 @@ import { collectLuaGarbage, getLuaMemoryUsed } from "@/mod/scripts/utils/ram";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
 const base: string = "menu\\debug\\DebugGeneralSection.component";
-const log: LuaLogger = new LuaLogger("DebugGeneralSection");
+const logger: LuaLogger = new LuaLogger("DebugGeneralSection");
 
 export interface IDebugGeneralSection extends XR_CUIScriptWnd {
   owner: XR_CUIScriptWnd;
@@ -42,12 +42,7 @@ export const DebugGeneralSection: IDebugGeneralSection = declare_xr_class("Debug
     this.InitCallBacks();
     this.InitState();
   },
-  __finalize(): void {
-    log.info("Finalize");
-  },
   InitControls(): void {
-    log.info("Init controls");
-
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
     xml.ParseFile(resolveXmlFormPath(base));
@@ -86,13 +81,13 @@ export const DebugGeneralSection: IDebugGeneralSection = declare_xr_class("Debug
     this.juaJitLabel.TextControl().SetText("JIT " + (jit === null ? "disabled" : "enabled"));
   },
   onCollectMemoryButtonClick(): void {
-    log.info("Collect memory garbage");
+    logger.info("Collect memory garbage");
 
     collectLuaGarbage();
     this.memoryUsageCountLabel.TextControl().SetText(this.getUsedMemoryLabel());
   },
   onRefreshMemoryButtonClick(): void {
-    log.info("Collect memory usage");
+    logger.info("Collect memory usage");
 
     this.memoryUsageCountLabel.TextControl().SetText(this.getUsedMemoryLabel());
   },

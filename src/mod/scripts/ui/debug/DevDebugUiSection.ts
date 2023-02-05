@@ -15,7 +15,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
 const base: string = "menu\\debug\\DevDebugUiSection.component";
-const log: LuaLogger = new LuaLogger("DevDebugUiSection");
+const logger: LuaLogger = new LuaLogger("DevDebugUiSection");
 
 export interface IDevDebugUiSection extends XR_CUIWindow {
   owner: XR_CUIScriptWnd;
@@ -44,7 +44,7 @@ export const DevDebugUiSection: IDevDebugUiSection = declare_xr_class("DevDebugU
   __init(this: IDevDebugUiSection, owner: XR_CUIScriptWnd): void {
     CUIWindow.__init(this);
 
-    log.info("Init");
+    logger.info("Init");
 
     this.owner = owner;
 
@@ -53,10 +53,10 @@ export const DevDebugUiSection: IDevDebugUiSection = declare_xr_class("DevDebugU
     this.InitData();
   },
   __finalize(): void {
-    log.info("Finalize");
+    logger.info("Finalize");
   },
   InitControls(): void {
-    log.info("Init controls");
+    logger.info("Init controls");
 
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
@@ -75,20 +75,20 @@ export const DevDebugUiSection: IDevDebugUiSection = declare_xr_class("DevDebugU
     this.owner.Register(this.texturesListFilter, "textures_list_filter");
   },
   InitCallBacks(): void {
-    log.info("Init callbacks");
+    logger.info("Init callbacks");
 
     this.owner.AddCallback("textures_list", ui_events.LIST_ITEM_SELECT, () => this.onTextureListChange(), this);
     this.owner.AddCallback("textures_list_filter", ui_events.EDIT_TEXT_COMMIT, () => this.UpdateTexturesList(), this);
   },
   InitData(): void {
-    log.info("Init data");
+    logger.info("Init data");
     this.InitTexturesList();
   },
   InitTexturesList(): void {
     const filterMask: string = this.texturesListFilter.GetText();
     const hasMask: boolean = filterMask !== null && filterMask !== "";
 
-    log.info("Init textures list, filter:", filterMask);
+    logger.info("Init textures list, filter:", filterMask);
 
     Object.values(textures).forEach((it, index) => {
       // Filter items if filter exists.
@@ -106,7 +106,7 @@ export const DevDebugUiSection: IDevDebugUiSection = declare_xr_class("DevDebugU
   onTextureListChange(): void {
     const texture: string = this.texturesList.GetText();
 
-    log.info("Change texture to:", texture, " # ", this.texturesList.CurrentID());
+    logger.info("Change texture to:", texture, " # ", this.texturesList.CurrentID());
 
     this.texturesListSquareBigDisplay.InitTexture(texture);
     this.texturesListSquareMediumDisplay.InitTexture(texture);

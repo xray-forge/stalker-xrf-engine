@@ -6,7 +6,7 @@ import { AbstractActorMenu, EActorMenuMode } from "@/mod/scripts/ui/game/Abstrac
 import { getConfigString } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ActorMenu");
+const logger: LuaLogger = new LuaLogger("ActorMenu");
 
 class ActorMenu extends AbstractActorMenu {
   public static instance: Optional<ActorMenu> = null;
@@ -31,11 +31,11 @@ class ActorMenu extends AbstractActorMenu {
   }
 
   public onWindowOpen(mode: EActorMenuMode) {
-    log.info("Actor menu open:", EActorMenuMode[mode]);
+    logger.info("Actor menu open:", EActorMenuMode[mode]);
   }
 
   public onWindowClosed(mode: EActorMenuMode) {
-    log.info("Actor menu close:", EActorMenuMode[mode]);
+    logger.info("Actor menu close:", EActorMenuMode[mode]);
   }
 }
 

@@ -20,7 +20,7 @@ import { getClsId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { getTableSize } from "@/mod/scripts/utils/table";
 
-const log: LuaLogger = new LuaLogger("StatisticsManager");
+const logger: LuaLogger = new LuaLogger("StatisticsManager");
 
 export interface IActorStatistics {
   surges: number;
@@ -219,27 +219,27 @@ export class StatisticsManager extends AbstractCoreManager {
   }
 
   public incrementSurgesCount(): void {
-    log.info("Increment surges count");
+    logger.info("Increment surges count");
     this.actor_statistic.surges += 1;
   }
 
   public incrementCompletedQuestsCount(): void {
-    log.info("Increment completed quests count");
+    logger.info("Increment completed quests count");
     this.actor_statistic.completed_quests += 1;
   }
 
   public incrementKilledMonstersCount(): void {
-    log.info("Increment killed monsters count");
+    logger.info("Increment killed monsters count");
     this.actor_statistic.killed_monsters += 1;
   }
 
   public incrementKilledStalkersCount(): void {
-    log.info("Increment killed stalkers count");
+    logger.info("Increment killed stalkers count");
     this.actor_statistic.killed_stalkers += 1;
   }
 
   public incrementCollectedArtefactsCount(artefact: XR_game_object): void {
-    log.info("Increment collected artefacts count");
+    logger.info("Increment collected artefacts count");
     // todo: Probably section vs section name should be checked and simplified.
 
     const art_id: number = artefact.id();
@@ -257,7 +257,7 @@ export class StatisticsManager extends AbstractCoreManager {
   }
 
   public incrementCollectedSecretsCount(): void {
-    log.info("Increment collected secrets count");
+    logger.info("Increment collected secrets count");
     this.actor_statistic.founded_secrets += 1;
   }
 
@@ -355,7 +355,7 @@ export class StatisticsManager extends AbstractCoreManager {
         }
 
         if (rank > this.actor_statistic.best_monster_rank) {
-          log.info("Updated best monster killed:", community, rank);
+          logger.info("Updated best monster killed:", community, rank);
 
           this.actor_statistic.best_monster_rank = rank;
           this.actor_statistic.best_monster = community as TMonster;

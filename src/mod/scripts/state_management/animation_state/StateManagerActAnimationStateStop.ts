@@ -5,7 +5,7 @@ import { states } from "@/mod/scripts/state_management/lib/state_lib";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger(
+const logger: LuaLogger = new LuaLogger(
   "StateManagerActAnimationStateStop",
   gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
 );
@@ -30,7 +30,7 @@ export const StateManagerActAnimationStateStop: IStateManagerActAnimationStateSt
       this.st.animstate.set_control();
     },
     execute(): void {
-      log.info("Act animation state stop");
+      logger.info("Act animation state stop");
       action_base.execute(this);
     },
     finalize(): void {

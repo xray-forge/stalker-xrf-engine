@@ -6,7 +6,7 @@ import { storage } from "@/mod/scripts/core/db";
 import { IStateDescriptor, states } from "@/mod/scripts/state_management/lib/state_lib";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("StateManagerWeapon", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
+const logger: LuaLogger = new LuaLogger("StateManagerWeapon", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
 const state_queue_params: LuaTable<string, LuaTable<number, number>> = {
   barricade_0_attack: [5, 300, 0],

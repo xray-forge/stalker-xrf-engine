@@ -28,7 +28,7 @@ import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 import { EDebugSection } from "@/mod/ui/menu/debug/sections";
 
 const base: string = "menu\\debug\\DebugDialog.component";
-const log: LuaLogger = new LuaLogger("DebugDialog");
+const logger: LuaLogger = new LuaLogger("DebugDialog");
 
 export interface IDebugDialog extends XR_CUIScriptWnd {
   owner: XR_CUIScriptWnd;
@@ -156,7 +156,7 @@ export const DebugDialog: IDebugDialog = declare_xr_class("DebugDialog", CUIScri
     this.tab.SetActiveTab(EDebugSection.GENERAL);
   },
   onCancelButtonAction(): void {
-    log.info("Cancel action");
+    logger.info("Cancel action");
 
     this.owner.ShowDialog(true);
     this.owner.Show(true);
@@ -164,7 +164,7 @@ export const DebugDialog: IDebugDialog = declare_xr_class("DebugDialog", CUIScri
     this.HideDialog();
   },
   onTabChange(): void {
-    log.info("Tab change:", this.tab.GetActiveId());
+    logger.info("Tab change:", this.tab.GetActiveId());
 
     const id: string = this.tab.GetActiveId();
 
@@ -198,7 +198,7 @@ export const DebugDialog: IDebugDialog = declare_xr_class("DebugDialog", CUIScri
     } else if (id === EDebugSection.WORLD) {
       this.sectionWorld.Show(true);
     } else {
-      log.warn("Unknown section selected:", id);
+      logger.warn("Unknown section selected:", id);
     }
   },
   OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {

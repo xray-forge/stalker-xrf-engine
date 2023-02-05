@@ -4,7 +4,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
 const base: string = "menu\\debug\\DevDebugSoundSection.component";
-const log: LuaLogger = new LuaLogger("DevDebugSoundSection");
+const logger: LuaLogger = new LuaLogger("DevDebugSoundSection");
 
 export interface IDevDebugSoundSection extends XR_CUIScriptWnd {
   owner: XR_CUIScriptWnd;
@@ -17,23 +17,16 @@ export const DevDebugSoundSection: IDevDebugSoundSection = declare_xr_class("Dev
   __init(this: IDevDebugSoundSection): void {
     CUIWindow.__init(this);
 
-    log.info("Init");
-
     this.InitControls();
     this.InitCallBacks();
   },
-  __finalize(): void {
-    log.info("Finalize");
-  },
   InitControls(): void {
-    log.info("Init controls");
+    logger.info("Init controls");
 
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
     xml.ParseFile(resolveXmlFormPath(base));
     xml.InitStatic("background", this);
   },
-  InitCallBacks(): void {
-    log.info("Init callbacks");
-  }
+  InitCallBacks(): void {}
 } as IDevDebugSoundSection);
