@@ -7,7 +7,7 @@ import { getConfigBoolean, getConfigNumber, getConfigString, path_parse_waypoint
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ActionParticle");
+const logger: LuaLogger = new LuaLogger("ActionParticle");
 
 export class ActionParticle extends AbstractSchemeAction {
   public static readonly SCHEME_SECTION: string = "sr_particle";
@@ -22,7 +22,7 @@ export class ActionParticle extends AbstractSchemeAction {
     section: string,
     state: IStoredObject
   ): void {
-    log.info("Add to binder:", object.name());
+    logger.info("Add to binder:", object.name());
 
     get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(
       object,

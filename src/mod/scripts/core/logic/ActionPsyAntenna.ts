@@ -9,7 +9,7 @@ import { PsyAntennaManager } from "@/mod/scripts/core/managers/PsyAntennaManager
 import { getConfigBoolean, getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ActionPsyAntenna");
+const logger: LuaLogger = new LuaLogger("ActionPsyAntenna");
 
 const state_outside = 0;
 const state_inside = 1;

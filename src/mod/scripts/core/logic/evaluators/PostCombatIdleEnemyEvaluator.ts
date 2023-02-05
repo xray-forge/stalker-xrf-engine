@@ -22,7 +22,7 @@ import { AnimationManager } from "@/mod/scripts/state_management/AnimationManage
 import { animations } from "@/mod/scripts/state_management/lib/state_mgr_animation_list";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("PostCombatIdleEnemyEvaluator");
+const logger: LuaLogger = new LuaLogger("PostCombatIdleEnemyEvaluator");
 
 export interface IPostCombatSharedState {
   timer: Optional<number>;
@@ -187,7 +187,7 @@ export function weapon_locked(npc: XR_game_object): boolean {
 }
 
 export function add_post_combat_idle(npc: XR_game_object): void {
-  log.info("Add post-combat idle for:", npc.name());
+  logger.info("Add post-combat idle for:", npc.name());
 
   const manager: XR_action_planner = npc.motivation_action_manager();
   const combat_action: XR_action_base = manager.action(stalker_ids.action_combat_planner);

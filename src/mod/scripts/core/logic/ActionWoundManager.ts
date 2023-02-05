@@ -37,7 +37,7 @@ const wounded_by_state: Record<number, string> = {
   [2]: "wounded_heavy_3"
 };
 
-const log: LuaLogger = new LuaLogger("ActionWoundManager");
+const logger: LuaLogger = new LuaLogger("ActionWoundManager");
 
 export class ActionWoundManager extends AbstractSchemeAction {
   public static readonly SCHEME_SECTION: string = "wounded";
@@ -49,7 +49,7 @@ export class ActionWoundManager extends AbstractSchemeAction {
     section: TSection,
     state: IStoredObject
   ): void {
-    log.info("Add to binder:", object.name());
+    logger.info("Add to binder:", object.name());
 
     const operators = {
       wounded: action_ids.sidor_act_wounded_base
@@ -83,7 +83,7 @@ export class ActionWoundManager extends AbstractSchemeAction {
   }
 
   public static set_wounded(object: XR_game_object, ini: XR_ini_file, scheme: TScheme, section: TSection): void {
-    log.info("Set wounded:", object.name());
+    logger.info("Set wounded:", object.name());
 
     const state = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(object, ini, scheme, section);
 
@@ -108,7 +108,7 @@ export class ActionWoundManager extends AbstractSchemeAction {
     st: IStoredObject,
     scheme: TScheme
   ): void {
-    log.info("Init wounded:", npc.name(), section, scheme);
+    logger.info("Init wounded:", npc.name(), section, scheme);
 
     if (tostring(section) === st.wounded_section && tostring(section) !== "nil") {
       return;

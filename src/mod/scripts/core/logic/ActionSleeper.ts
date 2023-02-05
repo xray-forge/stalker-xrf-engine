@@ -9,7 +9,7 @@ import { EvaluatorNeedSleep } from "@/mod/scripts/core/logic/evaluators/Evaluato
 import { getConfigBoolean, getConfigString } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ActionSleeper");
+const logger: LuaLogger = new LuaLogger("ActionSleeper");
 
 export class ActionSleeper extends AbstractSchemeAction {
   public static readonly SCHEME_SECTION: string = "sleeper";
@@ -24,7 +24,7 @@ export class ActionSleeper extends AbstractSchemeAction {
     section: TSection,
     state: IStoredObject
   ): void {
-    log.info("Add to binder:", object.name());
+    logger.info("Add to binder:", object.name());
 
     const operators = {
       action_sleeper: get_global("xr_actions_id").zmey_sleeper_base + 1
@@ -72,7 +72,7 @@ export class ActionSleeper extends AbstractSchemeAction {
     section: TSection,
     gulag_name: string
   ): void {
-    log.info("Set scheme:", object.name());
+    logger.info("Set scheme:", object.name());
 
     const st = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(object, ini, scheme, section);
 

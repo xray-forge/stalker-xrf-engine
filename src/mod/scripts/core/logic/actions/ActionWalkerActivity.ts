@@ -8,7 +8,8 @@ import { set_state } from "@/mod/scripts/state_management/StateManager";
 import { path_parse_waypoints } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ActionWalkerActivity");
+const logger: LuaLogger = new LuaLogger("ActionWalkerActivity");
+
 const assoc_tbl = {
   idle: { director: ["wait"] },
   harmonica: { director: ["play_harmonica"] },

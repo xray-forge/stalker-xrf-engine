@@ -5,7 +5,7 @@ import { IStoredObject } from "@/mod/scripts/core/db";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { isSchemeActive } from "@/mod/scripts/utils/scheme";
 
-const log: LuaLogger = new LuaLogger("EvaluatorNeedCover");
+const logger: LuaLogger = new LuaLogger("EvaluatorNeedCover");
 
 export interface IEvaluatorNeedCover extends XR_property_evaluator {
   state: IStoredObject;

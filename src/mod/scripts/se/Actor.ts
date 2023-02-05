@@ -25,7 +25,7 @@ import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("Actor");
+const logger: LuaLogger = new LuaLogger("Actor");
 
 export interface IActor extends XR_cse_alife_creature_actor {
   m_registred: boolean;
@@ -53,7 +53,7 @@ export const Actor: IActor = declare_xr_class("Actor", cse_alife_creature_actor,
   },
   on_register(): void {
     cse_alife_creature_actor.on_register(this);
-    log.info("Register:", this.id, this.name(), this.section_name());
+    logger.info("Register:", this.id, this.name(), this.section_name());
     getStoryObjectsRegistry().register(this.id, "actor");
 
     get_sim_obj_registry().register(this);
@@ -66,7 +66,7 @@ export const Actor: IActor = declare_xr_class("Actor", cse_alife_creature_actor,
     }
   },
   on_unregister(): void {
-    log.info("Unregister");
+    logger.info("Unregister");
 
     cse_alife_creature_actor.on_unregister(this);
     unregisterStoryObjectById(this.id);

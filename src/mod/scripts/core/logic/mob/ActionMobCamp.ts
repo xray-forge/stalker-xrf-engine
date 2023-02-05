@@ -27,7 +27,7 @@ const STATE_CAMP: number = 1;
 const STATE_ALIFE: number = 2;
 const STATE_MOVE_HOME: number = 3;
 
-const log: LuaLogger = new LuaLogger("MobCamp");
+const logger: LuaLogger = new LuaLogger("MobCamp");
 
 export class ActionMobCamp extends AbstractSchemeAction {
   public static add_to_binder(
@@ -49,7 +49,7 @@ export class ActionMobCamp extends AbstractSchemeAction {
     section: string,
     gulag_name: string
   ): void {
-    log.info("Set scheme:", npc.name(), scheme, section);
+    logger.info("Set scheme:", npc.name(), scheme, section);
 
     const storage = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(npc, ini, scheme, section);
 

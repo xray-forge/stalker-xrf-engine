@@ -42,7 +42,7 @@ const state_none: number = 0;
 const state_firetarget_points: number = 1;
 const state_firetarget_enemy: number = 2;
 
-const log: LuaLogger = new LuaLogger("ActionMiniGun");
+const loggeru: LuaLogger = new LuaLogger("ActionMiniGun");
 
 export class ActionMiniGun extends AbstractSchemeAction {
   public static readonly SCHEME_SECTION: string = "ph_minigun";
@@ -54,7 +54,7 @@ export class ActionMiniGun extends AbstractSchemeAction {
     section: string,
     state: IStoredObject
   ): void {
-    log.info("Add to binder:", object.name());
+    loggeru.info("Add to binder:", object.name());
 
     get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(
       object,

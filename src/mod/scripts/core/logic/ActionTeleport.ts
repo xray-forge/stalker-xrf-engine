@@ -9,7 +9,7 @@ import { getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ActionTeleport");
+const logger: LuaLogger = new LuaLogger("ActionTeleport");
 
 export enum ETeleportState {
   IDLE,
@@ -32,7 +32,7 @@ export class ActionTeleport extends AbstractSchemeAction {
     section: string,
     state: IStoredObject
   ): void {
-    log.info("Add to binder:", object.name());
+    logger.info("Add to binder:", object.name());
     get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(
       object,
       state,
@@ -48,7 +48,7 @@ export class ActionTeleport extends AbstractSchemeAction {
     additional: string
   ): void;
   public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
-    log.info("Set scheme:", object.name());
+    logger.info("Set scheme:", object.name());
 
     const state: IStoredObject = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(
       object,
@@ -132,7 +132,7 @@ export class ActionTeleport extends AbstractSchemeAction {
   }
 
   public teleportActor(actor: XR_game_object, teleportPoint: ITeleportPoint): void {
-    log.info("Teleporting actor:", teleportPoint.point);
+    logger.info("Teleporting actor:", teleportPoint.point);
 
     const pointPatrolVector: XR_vector = new patrol(teleportPoint.point).point(0);
     const lookDirectionVector: XR_vector = new patrol(teleportPoint.look).point(0).sub(pointPatrolVector);

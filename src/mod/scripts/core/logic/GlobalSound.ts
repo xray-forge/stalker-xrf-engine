@@ -8,7 +8,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("GlobalSound");
+const logger: LuaLogger = new LuaLogger("GlobalSound");
 
 export class GlobalSound {
   public static sound_table: LuaTable<number, AbstractPlayableSound> = new LuaTable();
@@ -20,7 +20,7 @@ export class GlobalSound {
     faction: Optional<string>,
     point: Optional<number>
   ): Optional<XR_sound_object> {
-    log.info("Set sound play:", objectId);
+    logger.info("Set sound play:", objectId);
 
     if (sound === null) {
       return null;
@@ -44,10 +44,10 @@ export class GlobalSound {
       }
 
       if (playableSound.play(objectId, faction, point)) {
-        log.info("Play sound, store in table:", objectId);
+        logger.info("Play sound, store in table:", objectId);
         GlobalSound.sound_table.set(objectId, playableSound);
       } else {
-        log.info("Play was not successful:", objectId);
+        logger.info("Play was not successful:", objectId);
       }
     } else {
       return GlobalSound.sound_table.get(objectId).snd_obj;
@@ -57,7 +57,7 @@ export class GlobalSound {
   }
 
   public static stop_sounds_by_id(objectId: number): void {
-    log.info("Stop sound play:", objectId);
+    logger.info("Stop sound play:", objectId);
 
     const playableSound: Optional<AbstractPlayableSound> = GlobalSound.sound_table.get(objectId);
 
@@ -88,7 +88,7 @@ export class GlobalSound {
   }
 
   public static play_sound_looped(npc_id: number, sound: string): void {
-    log.info();
+    logger.info();
 
     const snd_theme = sound_themes.get(sound);
 

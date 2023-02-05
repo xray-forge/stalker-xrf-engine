@@ -18,7 +18,7 @@ const def_min_radius = 10;
 const def_mid_radius = 20;
 const def_max_radius = 70;
 
-const log: LuaLogger = new LuaLogger("MobHome");
+const logger: LuaLogger = new LuaLogger("MobHome");
 
 export class ActionMobHome extends AbstractSchemeAction {
   public static readonly SCHEME_SECTION: string = "mob_home";
@@ -42,7 +42,7 @@ export class ActionMobHome extends AbstractSchemeAction {
     section: string,
     gulag_name: string
   ): void {
-    log.info("Set scheme:", npc.name(), scheme, section);
+    logger.info("Set scheme:", npc.name(), scheme, section);
 
     const storage = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(npc, ini, scheme, section);
 

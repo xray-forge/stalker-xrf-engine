@@ -5,7 +5,7 @@ import { IStoredObject, silenceZones } from "@/mod/scripts/core/db";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ActionSilence");
+const logger: LuaLogger = new LuaLogger("ActionSilence");
 
 export class ActionSilence extends AbstractSchemeAction {
   public static SCHEME_SECTION: string = "sr_silence";

@@ -11,7 +11,7 @@ import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
 
-const log: LuaLogger = new LuaLogger("SmartTerrainControl");
+const logger: LuaLogger = new LuaLogger("SmartTerrainControl");
 
 export enum ESmartTerrainStatus {
   NORMAL = 0,
@@ -114,7 +114,7 @@ export const SmartTerrainControl: ISmartTerrainControl = declare_xr_class("Smart
     return false;
   },
   actor_attack(): void {
-    log.info("Actor attacked smart:", this.smart.name());
+    logger.info("Actor attacked smart:", this.smart.name());
 
     if (this.status !== ESmartTerrainStatus.ALARM) {
       const sound = get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(

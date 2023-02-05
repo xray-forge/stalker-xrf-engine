@@ -20,7 +20,7 @@ import { getConfigBoolean, getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ActionWalker");
+const logger: LuaLogger = new LuaLogger("ActionWalker");
 
 export class ActionWalker extends AbstractSchemeAction {
   public static readonly SCHEME_SECTION: string = "walker";

@@ -21,7 +21,7 @@ import { getIdBySid } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { distanceBetween2d } from "@/mod/scripts/utils/physics";
 
-const log: LuaLogger = new LuaLogger("HeliCombat");
+const logger: LuaLogger = new LuaLogger("HeliCombat");
 
 const combat_type_flyby = 0;
 const combat_type_round = 1;

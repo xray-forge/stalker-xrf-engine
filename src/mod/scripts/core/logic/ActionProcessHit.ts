@@ -6,7 +6,7 @@ import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAct
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ActionProcessHit");
+const logger: LuaLogger = new LuaLogger("ActionProcessHit");
 
 export class ActionProcessHit extends AbstractSchemeAction {
   public static SCHEME_SECTION: string = "hit";
@@ -18,12 +18,12 @@ export class ActionProcessHit extends AbstractSchemeAction {
     section: string,
     storage: IStoredObject
   ): void {
-    log.info("Add to binder:", npc.id());
+    logger.info("Add to binder:", npc.id());
     storage.action = new ActionProcessHit(npc, storage);
   }
 
   public static disable_scheme(npc: XR_game_object, scheme: string): void {
-    log.info("Disable scheme:", npc.id());
+    logger.info("Disable scheme:", npc.id());
 
     const st = storage.get(npc.id())[scheme];
 
@@ -33,7 +33,7 @@ export class ActionProcessHit extends AbstractSchemeAction {
   }
 
   public static set_hit_checker(npc: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
-    log.info("Set hit checker:", npc.id());
+    logger.info("Set hit checker:", npc.id());
 
     const st = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(npc, ini, scheme, section);
 
@@ -60,11 +60,11 @@ export class ActionProcessHit extends AbstractSchemeAction {
     }
 
     if (who) {
-      log.info("Object hit:", object.name(), "<-", who.name(), amount);
+      logger.info("Object hit:", object.name(), "<-", who.name(), amount);
 
       storage.get(object.id()).hit.who = who.id();
     } else {
-      log.info("Object hit:", object.name(), "<-", "unknown", amount);
+      logger.info("Object hit:", object.name(), "<-", "unknown", amount);
       storage.get(object.id()).hit.who = -1;
     }
 

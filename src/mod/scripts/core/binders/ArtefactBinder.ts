@@ -20,7 +20,7 @@ import {
 import { addObject, deleteObject, storage } from "@/mod/scripts/core/db";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ArtefactBinder");
+const logger: LuaLogger = new LuaLogger("ArtefactBinder");
 const UPDATE_THROTTLE: number = 1_000;
 
 export interface IArtefactBinder extends XR_object_binder {
@@ -40,7 +40,7 @@ export const ArtefactBinder: IArtefactBinder = declare_xr_class("ArtefactBinder"
       return false;
     }
 
-    log.info("Spawn artefact to network");
+    logger.info("Spawn artefact to network");
 
     addObject(this.object);
 

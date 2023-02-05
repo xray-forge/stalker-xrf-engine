@@ -12,7 +12,7 @@ const STATE_START_LOOK = 1;
 const STATE_WAIT_LOOK_END = 2;
 const STATE_JUMP = 3;
 
-const log: LuaLogger = new LuaLogger("MobJump");
+const logger: LuaLogger = new LuaLogger("MobJump");
 
 export class ActionMobJump extends AbstractSchemeAction {
   public static readonly SCHEME_SECTION: string = "mob_jump";
@@ -24,7 +24,7 @@ export class ActionMobJump extends AbstractSchemeAction {
     section: string,
     storage: IStoredObject
   ): void {
-    log.info("Add to binder:", npc.name(), scheme, section);
+    logger.info("Add to binder:", npc.name(), scheme, section);
 
     const new_action = new ActionMobJump(npc, storage);
 
@@ -38,7 +38,7 @@ export class ActionMobJump extends AbstractSchemeAction {
     section: string,
     gulag_name: string
   ): void {
-    log.info("Set scheme:", npc.name(), scheme, section);
+    logger.info("Set scheme:", npc.name(), scheme, section);
 
     const storage = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(npc, ini, scheme, section);
 

@@ -5,7 +5,7 @@ import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("MobCombat");
+const logger: LuaLogger = new LuaLogger("MobCombat");
 
 export class ActionMobCombat extends AbstractSchemeAction {
   public static readonly SCHEME_SECTION: string = "mob_combat";
@@ -31,7 +31,7 @@ export class ActionMobCombat extends AbstractSchemeAction {
     section: string,
     gulag_name: string
   ): void {
-    log.info("Set scheme:", npc?.name(), scheme, section);
+    logger.info("Set scheme:", npc?.name(), scheme, section);
 
     const st = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(npc, ini, scheme, section);
 

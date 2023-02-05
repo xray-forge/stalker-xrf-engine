@@ -4,7 +4,7 @@ import { AnyCallablesModule } from "@/mod/lib/types";
 import { IStoredObject } from "@/mod/scripts/core/db";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("EvaluatorWounded");
+const logger: LuaLogger = new LuaLogger("EvaluatorWounded");
 
 export interface IEvaluatorWounded extends XR_property_evaluator {
   actionPlanner: XR_action_planner;

@@ -8,7 +8,7 @@ import { path_parse_waypoints_from_arglist } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ActionSleeperActivity");
+const logger: LuaLogger = new LuaLogger("ActionSleeperActivity");
 
 const state_walking = 0;
 const state_sleeping = 1;

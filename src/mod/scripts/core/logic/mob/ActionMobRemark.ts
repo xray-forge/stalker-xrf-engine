@@ -10,7 +10,7 @@ import { getConfigBoolean, getConfigString, parseNames } from "@/mod/scripts/uti
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("MobRemark");
+const logger: LuaLogger = new LuaLogger("MobRemark");
 
 export class ActionMobRemark extends AbstractSchemeAction {
   public static readonly SCHEME_SECTION: string = "mob_remark";
@@ -34,7 +34,7 @@ export class ActionMobRemark extends AbstractSchemeAction {
     section: string,
     gulag_name: string
   ): void {
-    log.info("Set scheme:", npc.name(), scheme, section);
+    logger.info("Set scheme:", npc.name(), scheme, section);
 
     const st = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(npc, ini, scheme, section);
 

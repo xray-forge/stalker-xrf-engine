@@ -7,7 +7,7 @@ import { set_state } from "@/mod/scripts/state_management/StateManager";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ActionWounded");
+const logger: LuaLogger = new LuaLogger("ActionWounded");
 
 export interface IActionWounded extends XR_action_base {
   a: IStoredObject;
@@ -33,7 +33,7 @@ export const ActionWounded: IActionWounded = declare_xr_class("ActionWounded", a
     this.object.wounded(true);
   },
   execute(): void {
-    log.info("Execute:", this.object.name());
+    logger.info("Execute:", this.object.name());
 
     action_base.execute(this);
 

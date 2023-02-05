@@ -8,7 +8,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { timeToString } from "@/mod/scripts/utils/general";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ActionTimer");
+const logger: LuaLogger = new LuaLogger("ActionTimer");
 
 export class ActionTimer extends AbstractSchemeAction {
   public static readonly SCHEME_SECTION: string = "sr_timer";
@@ -23,7 +23,7 @@ export class ActionTimer extends AbstractSchemeAction {
     section: string,
     state: IStoredObject
   ): void {
-    log.info("Add to binder:", object.name());
+    logger.info("Add to binder:", object.name());
 
     get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(
       object,

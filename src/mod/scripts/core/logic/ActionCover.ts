@@ -30,7 +30,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { vectorCmp } from "@/mod/scripts/utils/physics";
 
-const log: LuaLogger = new LuaLogger("ActionCover");
+const logger: LuaLogger = new LuaLogger("ActionCover");
 
 export class ActionCover extends AbstractSchemeAction {
   public static readonly SCHEME_SECTION: string = "cover";
@@ -45,7 +45,7 @@ export class ActionCover extends AbstractSchemeAction {
     section: TSection,
     state: IStoredObject
   ): void {
-    log.info("Add to binder:", object.name());
+    logger.info("Add to binder:", object.name());
 
     const operators = {
       action_cover: get_global("xr_actions_id").stohe_cover_base + 1
@@ -86,7 +86,7 @@ export class ActionCover extends AbstractSchemeAction {
     section: TSection,
     additional: string
   ): void {
-    log.info("Set scheme:", object.name());
+    logger.info("Set scheme:", object.name());
 
     const state = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(object, ini, scheme, section);
 

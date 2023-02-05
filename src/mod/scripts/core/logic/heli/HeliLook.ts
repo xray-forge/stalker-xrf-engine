@@ -4,7 +4,7 @@ import { Optional } from "@/mod/lib/types";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const heli_looker: LuaTable<number, HeliLook> = new LuaTable();
-const log: LuaLogger = new LuaLogger("HeliLook");
+const logger: LuaLogger = new LuaLogger("HeliLook");
 
 export class HeliLook {
   public readonly object: XR_game_object;
