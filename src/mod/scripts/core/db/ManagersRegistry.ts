@@ -2,7 +2,7 @@ import { Optional } from "@/mod/lib/types";
 import { AbstractCoreManager, TAbstractCoreManagerConstructor } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ManagersRegistry");
+const logger: LuaLogger = new LuaLogger("ManagersRegistry");
 
 const managersRegistry: LuaTable<TAbstractCoreManagerConstructor, AbstractCoreManager> = new LuaTable();
 
@@ -11,7 +11,7 @@ const managersRegistry: LuaTable<TAbstractCoreManagerConstructor, AbstractCoreMa
  */
 export function getManagerInstance<T extends TAbstractCoreManagerConstructor>(it: T): InstanceType<T> {
   if (!managersRegistry.get(it)) {
-    log.info("Initialize manager:", it.name);
+    logger.info("Initialize manager:", it.name);
 
     const instance: AbstractCoreManager = new it();
 
@@ -44,13 +44,13 @@ export function destroyManager<T extends TAbstractCoreManagerConstructor>(it: T,
   const manager: Optional<AbstractCoreManager> = managersRegistry.get(it);
 
   if (manager !== null) {
-    log.info("Destroy manager:", it.name);
+    logger.info("Destroy manager:", it.name);
 
     manager.destroy();
     manager.isDestroyed = true;
 
     managersRegistry.delete(it);
   } else if (!force) {
-    log.warn("Manager already destroyed:", it.name);
+    logger.warn("Manager already destroyed:", it.name);
   }
 }

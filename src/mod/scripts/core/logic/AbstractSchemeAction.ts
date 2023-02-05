@@ -5,7 +5,7 @@ import { IStoredObject } from "@/mod/scripts/core/db";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("AbstractSchemeAction");
+const logger: LuaLogger = new LuaLogger("AbstractSchemeAction");
 
 export abstract class AbstractSchemeAction {
   public static readonly SCHEME_SECTION: string;
@@ -48,18 +48,18 @@ export abstract class AbstractSchemeAction {
   public update(delta: number): void {}
 
   public reset_scheme(): void {
-    log.info("Reset scheme:", this.constructor.prototype.SCHEME_SECTION, this.object.name());
+    logger.info("Reset scheme:", this.constructor.prototype.SCHEME_SECTION, this.object.name());
   }
 
   public deactivate(): void {
-    log.info("Deactivate:", this.constructor.prototype.SCHEME_SECTION, this.object.name());
+    logger.info("Deactivate:", this.constructor.prototype.SCHEME_SECTION, this.object.name());
   }
 
   public net_spawn(): void {
-    log.info("Net spawn:", this.constructor.prototype.SCHEME_SECTION, this.object.name());
+    logger.info("Net spawn:", this.constructor.prototype.SCHEME_SECTION, this.object.name());
   }
 
   public net_destroy(): void {
-    log.info("Net destroy:", this.constructor.prototype.SCHEME_SECTION, this.object.name());
+    logger.info("Net destroy:", this.constructor.prototype.SCHEME_SECTION, this.object.name());
   }
 }

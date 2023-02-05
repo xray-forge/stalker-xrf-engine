@@ -20,7 +20,7 @@ import { ActionWoundManager } from "@/mod/scripts/core/logic/ActionWoundManager"
 import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ActionDanger");
+const logger: LuaLogger = new LuaLogger("ActionDanger");
 
 export class ActionDanger extends AbstractSchemeAction {
   public static readonly SCHEME_SECTION: string = "danger";
@@ -32,7 +32,7 @@ export class ActionDanger extends AbstractSchemeAction {
     section: string,
     state: IStoredObject
   ): void {
-    log.info("Add to binder:", object.name());
+    logger.info("Add to binder:", object.name());
 
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const { EvaluatorDanger } = require("@/mod/scripts/core/logic/evaluators/EvaluatorDanger");
@@ -55,7 +55,7 @@ export class ActionDanger extends AbstractSchemeAction {
   }
 
   public static set_danger(object: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
-    log.info("Set danger:", object.name());
+    logger.info("Set danger:", object.name());
 
     const st = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(object, ini, scheme, section);
 
@@ -169,7 +169,7 @@ export class ActionDanger extends AbstractSchemeAction {
 
     const bestDangerName: string = best_danger_object === null ? "none" : best_danger_object.name();
 
-    log.info("Get danger name:", bestDangerName);
+    logger.info("Get danger name:", bestDangerName);
 
     return bestDangerName;
   }

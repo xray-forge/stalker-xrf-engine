@@ -6,7 +6,7 @@ import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAct
 import { getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ActionHit");
+const logger: LuaLogger = new LuaLogger("ActionHit");
 
 export class ActionHit extends AbstractSchemeAction {
   public static readonly SCHEME_SECTION: string = "ph_hit";

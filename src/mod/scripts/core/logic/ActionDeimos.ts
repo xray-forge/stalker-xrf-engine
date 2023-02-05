@@ -9,7 +9,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { clampNumber } from "@/mod/scripts/utils/number";
 import { on_off_cmds } from "@/mod/ui/menu/debug/sections";
 
-const log: LuaLogger = new LuaLogger("ActionDeimos");
+const logger: LuaLogger = new LuaLogger("ActionDeimos");
 
 const pp_effector_id = 5;
 const cam_effector_id = 6;
@@ -28,7 +28,7 @@ export class ActionDeimos extends AbstractSchemeAction {
     section: string,
     state: IStoredObject
   ): void {
-    log.info("Add to binder:", object.name());
+    logger.info("Add to binder:", object.name());
 
     get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(
       on_off_cmds,
@@ -123,7 +123,7 @@ export class ActionDeimos extends AbstractSchemeAction {
 
     const actorId: number = actor.id();
 
-    log.info("A");
+    logger.info("A");
 
     if ((actor as AnyObject).deimos_intensity) {
       this.state.intensity = (actor as AnyObject).deimos_intensity(actor as AnyObject).deimos_intensity = null;
@@ -140,7 +140,7 @@ export class ActionDeimos extends AbstractSchemeAction {
       }
     }
 
-    log.info("B");
+    logger.info("B");
 
     const vec: XR_vector = actor.get_movement_speed();
     const cur_speed: number = math.sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
@@ -210,7 +210,7 @@ export class ActionDeimos extends AbstractSchemeAction {
       }
     }
 
-    log.info("C");
+    logger.info("C");
 
     if (get_global<AnyCallablesModule>("xr_logic").try_switch_to_another_section(this.object, this.state, actor)) {
       if (this.phase > 0) {

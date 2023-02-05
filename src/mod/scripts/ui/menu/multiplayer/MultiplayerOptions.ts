@@ -3,12 +3,10 @@ import { CUIWindow, GAME_TYPE, XR_CScriptXmlInit, XR_CUIWindow, TXR_GAME_TYPE } 
 import { IMultiplayerMenu } from "@/mod/scripts/ui/menu/MultiplayerMenu";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("MultiplayerOptions");
+const logger: LuaLogger = new LuaLogger("MultiplayerOptions");
 
 export interface IMultiplayerOptions extends XR_CUIWindow {
   online: boolean;
-
-  __init(online_mode: boolean): void;
 
   InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IMultiplayerMenu): void;
   SetGameMode(gameType: TXR_GAME_TYPE, handler: IMultiplayerMenu): void;
@@ -22,7 +20,7 @@ export const MultiplayerOptions: IMultiplayerOptions = declare_xr_class("Multipl
   },
   __finalize(): void {},
   InitControls(x, y, xml: XR_CScriptXmlInit, handler: IMultiplayerMenu): void {
-    log.info("Init controls");
+    logger.info("Init controls");
 
     this.SetAutoDelete(true);
     xml.InitWindow("tab_options:main", 0, this);
@@ -115,7 +113,7 @@ export const MultiplayerOptions: IMultiplayerOptions = declare_xr_class("Multipl
     }
   },
   SetGameMode(mode: TXR_GAME_TYPE, handler: IMultiplayerMenu): void {
-    log.info("Set game mode");
+    logger.info("Set game mode");
 
     handler.spin_friendly_fire.Enable(true);
     handler.check_auto_team_balance.Enable(true);

@@ -3,12 +3,11 @@ import { CUIWindow, XR_CScriptXmlInit, XR_CUIWindow } from "xray16";
 import { IMultiplayerMenu } from "@/mod/scripts/ui/menu/MultiplayerMenu";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("MultiplayerJoin");
+const logger: LuaLogger = new LuaLogger("MultiplayerJoin");
 
 export interface IMultiplayerJoin extends XR_CUIWindow {
   online: boolean;
 
-  __init(online_mode: boolean): void;
   InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IMultiplayerMenu): void;
 }
 
@@ -17,9 +16,8 @@ export const MultiplayerJoin: IMultiplayerJoin = declare_xr_class("MultiplayerJo
     CUIWindow.__init(this);
     this.online = online_mode;
   },
-  __finalize(): void {},
   InitControls(x, y, xml, handler): void {
-    log.info("Init controls");
+    logger.info("Init controls");
 
     this.SetAutoDelete(true);
 

@@ -4,7 +4,7 @@ import { Optional } from "@/mod/lib/types";
 import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("smart_names");
+const logger: LuaLogger = new LuaLogger("smart_names");
 const names_ini: XR_ini_file = new ini_file("misc\\smart_names.ltx");
 
 export const smart_names_table: LuaTable<string, LuaTable<string, string>> = new LuaTable();
@@ -12,7 +12,7 @@ export const smart_names_table: LuaTable<string, LuaTable<string, string>> = new
 export function init_smart_names_table(): void {
   const levels_count: number = names_ini.line_count("levels");
 
-  log.info("Init smart names:", levels_count);
+  logger.info("Init smart names:", levels_count);
 
   for (const i of $range(0, levels_count - 1)) {
     const [temp1, level_name, temp2] = names_ini.r_line("levels", i, "", "");
@@ -31,7 +31,7 @@ export function init_smart_names_table(): void {
     }
   }
 
-  log.table(smart_names_table);
+  logger.table(smart_names_table);
 }
 
 /**

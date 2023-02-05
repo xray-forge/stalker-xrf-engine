@@ -7,7 +7,7 @@ import { getConfigNumber, getConfigString, parseNames } from "@/mod/scripts/util
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { copyTable } from "@/mod/scripts/utils/table";
 
-const log: LuaLogger = new LuaLogger("ActionCrowSpawner");
+const logger: LuaLogger = new LuaLogger("ActionCrowSpawner");
 
 export class ActionCrowSpawner extends AbstractSchemeAction {
   public static readonly SCHEME_SECTION: string = "sr_crow_spawner";
@@ -100,7 +100,7 @@ export class ActionCrowSpawner extends AbstractSchemeAction {
         if (ptr.point(0).distance_to(getActor()!.position()) > 100) {
           const obj = alife().create("m_crow", ptr.point(0), ptr.level_vertex_id(0), ptr.game_vertex_id(0));
 
-          log.info("Spawn new crow:", obj.id, selected_path);
+          logger.info("Spawn new crow:", obj.id, selected_path);
 
           this.spawn_points_idle.set(selected_path, time_global() + 10000);
 

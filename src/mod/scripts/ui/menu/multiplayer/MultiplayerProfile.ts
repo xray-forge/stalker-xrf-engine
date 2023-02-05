@@ -1,22 +1,22 @@
 import {
-  vector2,
+  CScriptXmlInit,
+  CUIMessageBoxEx,
+  CUIWindow,
   XR_CScriptXmlInit,
   XR_CUI3tButton,
   XR_CUIComboBox,
   XR_CUIEditBox,
   XR_CUIMessageBoxEx,
   XR_CUIScrollView,
+  XR_CUITextWnd,
+  XR_CUIWindow,
   XR_profile,
   XR_vector2,
-  XR_CUIWindow,
-  XR_CUITextWnd,
-  suggest_nicks_cb,
-  CScriptXmlInit,
-  CUIWindow,
-  ui_events,
-  CUIMessageBoxEx,
+  game,
   login_operation_cb,
-  game
+  suggest_nicks_cb,
+  ui_events,
+  vector2
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
@@ -26,7 +26,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { isWideScreen, resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
 const base: string = "menu\\multiplayer\\MultiplayerAwards.component";
-const log: LuaLogger = new LuaLogger("MultiplayerProfile");
+const logger: LuaLogger = new LuaLogger("MultiplayerProfile");
 const awards_xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
 export interface IMultiplayerProfile extends XR_CUIWindow {
@@ -62,10 +62,7 @@ export const MultiplayerProfile: IMultiplayerProfile = declare_xr_class("Multipl
     CUIWindow.__init(this);
     awards_xml.ParseFile(resolveXmlFormPath(base));
   },
-  __finalize(): void {},
   InitControls(x, y, xml, handler): void {
-    log.info("Init controls");
-
     this.handler = handler;
     this.xml = xml;
     this.SetAutoDelete(true);
@@ -126,7 +123,7 @@ export const MultiplayerProfile: IMultiplayerProfile = declare_xr_class("Multipl
     this.gs_change_nick_mb.InitMessageBox("message_box_ok");
   },
   InitBestScores(): void {
-    log.info("Init best scores");
+    logger.info("Init best scores");
 
     if (this.handler.owner.profile_store !== null) {
       for (const it of this.handler.owner.profile_store.get_best_scores()) {

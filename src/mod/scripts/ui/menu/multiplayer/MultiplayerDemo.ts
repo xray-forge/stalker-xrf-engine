@@ -37,7 +37,7 @@ import { IMultiplayerMenu } from "@/mod/scripts/ui/menu/MultiplayerMenu";
 import { fileExists } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("MultiplayerDemo");
+const logger: LuaLogger = new LuaLogger("MultiplayerDemo");
 
 interface IPlayerInfo extends XR_LuaBindBase {
   name: string;
@@ -193,7 +193,7 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
   },
   __finalize(): void {},
   InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IMultiplayerMenu): void {
-    log.info("Init controls");
+    logger.info("Init controls");
 
     this.SetAutoDelete(true);
     this.owner = handler;
@@ -257,7 +257,7 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
     handler.Register(this.demo_list, "demo_list_window");
   },
   FillList(): void {
-    log.info("Fill list");
+    logger.info("Fill list");
 
     this.demo_list.RemoveAll();
 
@@ -298,7 +298,7 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
     let texture_name = "ui_hud_status_";
 
     if (playerInfo.rank > 4 || playerInfo.rank < 0) {
-      log.error("! ERROR. bad player rank:", playerInfo.rank);
+      logger.error("! ERROR. bad player rank:", playerInfo.rank);
 
       return "";
     }
@@ -321,7 +321,7 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
     return textures.ui_ui_noise;
   },
   AddPlayerToStats(player_stats: IPlayerInfo): void {
-    log.info("Add player to stats");
+    logger.info("Add player to stats");
 
     const itm: IPlayerStatsItem = create_xr_class_instance(
       PlayerStatsItem,
@@ -348,19 +348,19 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
   },
 
   SelectDemoFile(): void {
-    log.info("Select demo file");
+    logger.info("Select demo file");
 
     const item: Optional<IDemoLoadItem> = this.demo_list.GetSelectedItem();
 
     if (item === null) {
-      log.info("No selected file");
+      logger.info("No selected file");
 
       return;
     }
 
     const filename: string = item.fn.GetText();
 
-    log.info("Selected demo file. " + filename + ".demo");
+    logger.info("Selected demo file. " + filename + ".demo");
     this.UpdateDemoInfo(filename);
   },
 
@@ -376,12 +376,12 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
     get_console().execute("start demo(" + filename + ".demo)");
   },
   DeleteSelectedDemo(): void {
-    log.info("Delete selected demo");
+    logger.info("Delete selected demo");
 
     const item = this.demo_list.GetSelectedItem();
 
     if (item === null) {
-      log.warn("Error, no demo selected");
+      logger.warn("Error, no demo selected");
       this.file_name_edit.SetText("");
 
       return;
@@ -397,12 +397,12 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
     this.message_box.ShowDialog(true);
   },
   OnRenameDemo(): void {
-    log.info("Rename demo");
+    logger.info("Rename demo");
 
     const item = this.demo_list.GetSelectedItem();
 
     if (item === null) {
-      log.info("No demo selected");
+      logger.info("No demo selected");
       this.file_name_edit.SetText("");
 
       return;
@@ -411,7 +411,7 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
     let new_file_name = this.file_name_edit.GetText();
 
     if (new_file_name === "") {
-      log.info("Bad file name to rename");
+      logger.info("Bad file name to rename");
 
       return;
     }
@@ -420,7 +420,7 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
 
     if (tmp_index !== null) {
       new_file_name = string.sub(new_file_name, 1, tmp_index - 1);
-      log.info("Rename to new file name:", new_file_name);
+      logger.info("Rename to new file name:", new_file_name);
     }
 
     [new_file_name] = string.gsub(new_file_name, "[^a-z0-9A-Z_]", "_");
@@ -436,13 +436,13 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
   },
 
   OnMsgBoxYes(): void {
-    log.info("Confirm message box");
+    logger.info("Confirm message box");
 
     const fs: XR_FS = getFS();
     const item: Optional<IDemoLoadItem> = this.demo_list.GetSelectedItem();
 
     if (item === null) {
-      log.info("Issue, no demo item selected");
+      logger.info("Issue, no demo item selected");
 
       return;
     }
@@ -502,7 +502,7 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
     const tmp_demoinfo = tmp_mm.GetDemoInfo(file_name + ".demo");
 
     if (tmp_demoinfo === null) {
-      log.info("Failed to read file:", file_name + ".demo");
+      logger.info("Failed to read file:", file_name + ".demo");
 
       return;
     }

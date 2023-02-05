@@ -5,7 +5,7 @@ import { getActor } from "@/mod/scripts/core/db";
 import { parseCondList, parseNames } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("inventory_upgrades");
+const logger: LuaLogger = new LuaLogger("inventory_upgrades");
 const char_ini: XR_ini_file = new ini_file("item_upgrades.ltx");
 const param_ini: XR_ini_file = new ini_file("misc\\stalkers_upgrade_info.ltx");
 

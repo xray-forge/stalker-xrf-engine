@@ -7,7 +7,7 @@ import { EvaluatorGatherItems } from "@/mod/scripts/core/logic/evaluators/Evalua
 import { getConfigBoolean } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ActionGatherItems");
+const logger: LuaLogger = new LuaLogger("ActionGatherItems");
 
 export class ActionGatherItems extends AbstractSchemeAction {
   public static readonly SCHEME_SECTION: string = "gather_items";
@@ -19,7 +19,7 @@ export class ActionGatherItems extends AbstractSchemeAction {
     section: string,
     state: IStoredObject
   ): void {
-    log.info("Add to binder:", object.name());
+    logger.info("Add to binder:", object.name());
 
     const manager = object.motivation_action_manager();
 
@@ -31,7 +31,7 @@ export class ActionGatherItems extends AbstractSchemeAction {
   }
 
   public static set_gather_items(object: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
-    log.info("Set gather items:", object.name());
+    logger.info("Set gather items:", object.name());
 
     get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(object, ini, scheme, section);
   }
@@ -42,7 +42,7 @@ export class ActionGatherItems extends AbstractSchemeAction {
     state: IStoredObject,
     section: string
   ): void {
-    log.info("Set gather items:", object.name());
+    logger.info("Set gather items:", object.name());
 
     state.gather_items.gather_items_enabled = getConfigBoolean(
       state.ini!,

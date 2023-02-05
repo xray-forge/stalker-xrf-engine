@@ -4,7 +4,7 @@ import { storage } from "@/mod/scripts/core/db";
 import { parseNames } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("combat_restrictor");
+const logger: LuaLogger = new LuaLogger("combat_restrictor");
 const combat_sectors: LuaTable<string, XR_game_object> = new LuaTable();
 
 export function register_combat_restrictor(restrictor: XR_game_object): void {

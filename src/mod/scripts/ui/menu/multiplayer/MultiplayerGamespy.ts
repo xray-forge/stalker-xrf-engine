@@ -1,33 +1,33 @@
 import {
   CScriptXmlInit,
+  CUIMMShniaga,
+  CUIMessageBoxEx,
   CUIScriptWnd,
   CUIWindow,
   DIK_keys,
-  found_email_cb,
   Frect,
-  game,
-  ui_events,
-  suggest_nicks_cb,
+  XR_CConsole,
   XR_CScriptXmlInit,
   XR_CUI3tButton,
   XR_CUICheckButton,
+  XR_CUIComboBox,
+  XR_CUIEditBox,
   XR_CUIMessageBoxEx,
   XR_CUIScriptWnd,
   XR_CUIStatic,
   XR_CUITextWnd,
   XR_CUIWindow,
   XR_profile,
-  get_console,
-  XR_CConsole,
-  dik_to_bind,
-  login_operation_cb,
-  CUIMMShniaga,
-  store_operation_cb,
-  account_profiles_cb,
   account_operation_cb,
-  CUIMessageBoxEx,
-  XR_CUIEditBox,
-  XR_CUIComboBox
+  account_profiles_cb,
+  dik_to_bind,
+  found_email_cb,
+  game,
+  get_console,
+  login_operation_cb,
+  store_operation_cb,
+  suggest_nicks_cb,
+  ui_events
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
@@ -36,7 +36,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
 const base: string = "menu\\multiplayer\\MultiplayerGamespy.component";
-const log: LuaLogger = new LuaLogger("MultiplayerGameSpy");
+const logger: LuaLogger = new LuaLogger("MultiplayerGameSpy");
 
 export interface IMultiplayerGameSpy extends XR_CUIScriptWnd {
   owner: IMainMenu;
@@ -132,14 +132,14 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
   __init(): void {
     CUIScriptWnd.__init(this);
 
-    log.info("Init");
+    logger.info("Init");
 
     this.InitControls();
     this.InitCallbacks();
   },
   __finalize(): void {},
   InitControls(): void {
-    log.info("Init controls");
+    logger.info("Init controls");
 
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
@@ -356,7 +356,7 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
     // --    this.ChangeActiveEditBox()
   },
   OnBtnCancel(): void {
-    log.info("Button cancel");
+    logger.info("Button cancel");
 
     if (this.active_page === "create_account_page") {
       this.ShowLoginPage();
@@ -367,7 +367,7 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
     }
   },
   OnBtnRememberMe(): void {
-    log.info("Button remember me");
+    logger.info("Button remember me");
     this.owner.loginManager.save_remember_me_to_registry(this.lp_check_remember_me.GetCheck());
   },
   CheckAccCreationAbility() {
@@ -458,7 +458,7 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
     );
   },
   GetAccountProfilesResult(profilesCount: number, description: string): void {
-    log.info("Got profiles response:", type(profilesCount), description);
+    logger.info("Got profiles response:", type(profilesCount), description);
 
     if (profilesCount === 0) {
       this.gs_login_mb_cancel.HideDialog();
@@ -468,7 +468,7 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
         description = game.translate_string("mp_gp_bad_password");
       }
 
-      log.info("Failed to login: ", description);
+      logger.info("Failed to login: ", description);
 
       this.gs_login_mb_result.SetText(description);
       this.gs_login_mb_result.ShowDialog(true);
@@ -502,11 +502,11 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
     }
   },
   LoginOperationResult(profile, description) {
-    log.info("Login operation result:", type(profile), description);
+    logger.info("Login operation result:", type(profile), description);
     this.gs_login_mb_cancel.HideDialog();
 
     if (profile === null) {
-      log.info("Login failed");
+      logger.info("Login failed");
 
       this.gs_login_mb_result.InitMessageBox("message_box_gs_result");
 
@@ -517,7 +517,7 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
       this.gs_login_mb_result.SetText(description);
       this.gs_login_mb_result.ShowDialog(true);
     } else {
-      log.info("Continue with profile info load");
+      logger.info("Continue with profile info load");
 
       this.owner.gameSpyProfile = profile;
       this.owner.menuController.SetPage(
@@ -538,7 +538,7 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
     }
   },
   TerminateLogin(): void {
-    log.info("Terminate login");
+    logger.info("Terminate login");
 
     if (this.owner.gameSpyProfile !== null) {
       this.owner.profile_store.stop_loading();
@@ -558,7 +558,7 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
     this.owner.gameSpyProfile = null;
   },
   LoginProfileUseExist(): void {
-    log.info("Profile use existing");
+    logger.info("Profile use existing");
 
     this.gs_login_mb_cancel.InitMessageBox("message_box_gs_info");
     this.gs_login_mb_cancel.SetText("ui_mp_gamespy_logining_to_profile");
@@ -815,7 +815,7 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
     }
   },
   OnNickSuggestionComplete(result: number, description: string): void {
-    log.info("On nick suggestion complete:", description);
+    logger.info("On nick suggestion complete:", description);
 
     this.gs_mb_create_vnick_cancel.HideDialog();
     this.btn_create_acc.Enable(false);

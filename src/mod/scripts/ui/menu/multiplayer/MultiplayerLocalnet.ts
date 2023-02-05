@@ -25,7 +25,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
 const base: string = "menu\\multiplayer\\MultiplayerLocalnet.component";
-const log: LuaLogger = new LuaLogger("MultiplayerLocalnet");
+const logger: LuaLogger = new LuaLogger("MultiplayerLocalnet");
 
 export interface IMultiplayerLocalnet extends XR_CUIScriptWnd {
   owner: IMainMenu;
@@ -60,7 +60,7 @@ export const MultiplayerLocalnet: IMultiplayerLocalnet = declare_xr_class("Multi
   },
   __finalize(): void {},
   InitControls(): void {
-    log.info("Init controls");
+    logger.info("Init controls");
 
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
@@ -71,14 +71,14 @@ export const MultiplayerLocalnet: IMultiplayerLocalnet = declare_xr_class("Multi
     xml.InitStatic("background", this);
 
     this.btn_login = xml.Init3tButton("button_login", this);
-    log.info("Init 1");
+    logger.info("Init 1");
 
     this.Register(this.btn_login, "btn_login");
 
     this.btn_cancel = xml.Init3tButton("button_cancel", this);
     this.Register(this.btn_cancel, "btn_cancel");
 
-    log.info("Init 2");
+    logger.info("Init 2");
 
     // --------------------------------------------------------------------------------
     this.login_page = new CUIWindow();
@@ -86,28 +86,28 @@ export const MultiplayerLocalnet: IMultiplayerLocalnet = declare_xr_class("Multi
     this.login_page.SetAutoDelete(true);
     this.AttachChild(this.login_page);
 
-    log.info("Init 3");
+    logger.info("Init 3");
     xml.InitWindow("login_page", 0, this.login_page);
     this.lp_header_login = xml.InitTextWnd("login_page:cap_header_login", this.login_page);
 
-    log.info("Init 4");
+    logger.info("Init 4");
     xml.InitTextWnd("login_page:cap_nickname", this.login_page);
     this.lp_nickname = xml.InitEditBox("login_page:edit_nickname", this.login_page);
     this.Register(this.lp_nickname, "lp_edit_nickname");
 
-    log.info("Init 5");
+    logger.info("Init 5");
     this.gs_login_message_box = new CUIMessageBoxEx();
     this.Register(this.gs_login_message_box, "gs_message_box");
 
-    log.info("Init 6");
+    logger.info("Init 6");
     this.lp_check_remember_me = xml.InitCheck("login_page:check_remember_me", this.login_page);
     this.Register(this.lp_check_remember_me, "lp_check_remember_me");
 
-    log.info("Init 7");
+    logger.info("Init 7");
     this.lp_nickname.CaptureFocus(true);
   },
   InitCallbacks(): void {
-    log.info("Init callbacks");
+    logger.info("Init callbacks");
 
     this.AddCallback("btn_login", ui_events.BUTTON_CLICKED, () => this.OnBtnLogin(), this);
     this.AddCallback("btn_cancel", ui_events.BUTTON_CLICKED, () => this.OnBtnCancel(), this);
@@ -117,7 +117,7 @@ export const MultiplayerLocalnet: IMultiplayerLocalnet = declare_xr_class("Multi
     this.AddCallback("gs_message_box", ui_events.MESSAGE_BOX_OK_CLICKED, () => this.OnMsgOk(), this);
   },
   OnBtnLogin(): void {
-    log.info("On button login");
+    logger.info("On button login");
 
     this.owner.loginManager.login_offline(
       this.lp_nickname.GetText(),
@@ -125,15 +125,15 @@ export const MultiplayerLocalnet: IMultiplayerLocalnet = declare_xr_class("Multi
     );
   },
   LoginOperationResult(profile: Optional<XR_profile>, description: string) {
-    log.info("Login operation result:", type(profile), type(description));
+    logger.info("Login operation result:", type(profile), type(description));
 
     if (profile === null) {
-      log.info("No profile");
+      logger.info("No profile");
       this.gs_login_message_box.InitMessageBox("message_box_gs_result");
       this.gs_login_message_box.SetText(description);
       this.gs_login_message_box.ShowDialog(true);
     } else {
-      log.info("With profile");
+      logger.info("With profile");
       this.owner.gameSpyProfile = profile;
 
       this.owner.menuController.SetPage(
@@ -144,7 +144,7 @@ export const MultiplayerLocalnet: IMultiplayerLocalnet = declare_xr_class("Multi
       this.owner.menuController.ShowPage(CUIMMShniaga.epi_main);
 
       if (this.lp_check_remember_me.GetCheck()) {
-        log.info("Saving to registry:", profile === null);
+        logger.info("Saving to registry:", profile === null);
         this.owner.loginManager.save_nick_to_registry(profile.unique_nick());
       }
 
@@ -155,16 +155,16 @@ export const MultiplayerLocalnet: IMultiplayerLocalnet = declare_xr_class("Multi
     }
   },
   OnMsgOk(): void {
-    log.info("On message ok");
+    logger.info("On message ok");
   },
   OnBtnCancel(): void {
-    log.info("On button cancel");
+    logger.info("On button cancel");
     this.HideDialog();
     this.owner.ShowDialog(true);
     this.owner.Show(true);
   },
   OnBtnRememberMe(): void {
-    log.info("On button remember me");
+    logger.info("On button remember me");
     this.owner.loginManager.save_remember_me_to_registry(this.lp_check_remember_me.GetCheck());
   },
   OnEditLPNicknameChanged(): void {

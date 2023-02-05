@@ -7,7 +7,7 @@ import { getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ActionApplyPhysicalForce");
+const logger: LuaLogger = new LuaLogger("ActionApplyPhysicalForce");
 
 export class ActionApplyPhysicalForce extends AbstractSchemeAction {
   public static readonly SCHEME_SECTION: string = "ph_force";
@@ -19,7 +19,7 @@ export class ActionApplyPhysicalForce extends AbstractSchemeAction {
     section: string,
     storage: IStoredObject
   ): void {
-    log.info("Add to binder:", npc.name());
+    logger.info("Add to binder:", npc.name());
 
     get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(
       npc,
@@ -29,7 +29,7 @@ export class ActionApplyPhysicalForce extends AbstractSchemeAction {
   }
 
   public static set_scheme(npc: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
-    log.info("Set scheme:", npc.name());
+    logger.info("Set scheme:", npc.name());
 
     const st = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(npc, ini, scheme, section);
 

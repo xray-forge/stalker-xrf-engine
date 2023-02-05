@@ -5,7 +5,7 @@ import { getActor, IStoredObject } from "@/mod/scripts/core/db";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ActionIdle");
+const logger: LuaLogger = new LuaLogger("ActionIdle");
 
 export class ActionIdle extends AbstractSchemeAction {
   public static SCHEME_SECTION: string = "sr_idle";

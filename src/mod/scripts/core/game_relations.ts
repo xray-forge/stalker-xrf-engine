@@ -9,7 +9,7 @@ import { getCharacterCommunity, getStorySquad } from "@/mod/scripts/utils/alife"
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("game_relations");
+const logger: LuaLogger = new LuaLogger("game_relations");
 
 export enum ERelation {
   FRIENDS = 1000,
@@ -55,7 +55,7 @@ export function change_factions_community_num(faction_name: Optional<TCommunity>
   if (faction_name !== null && faction_name !== communities.none && obj_id !== null) {
     relation_registry.change_community_goodwill(faction_name, obj_id, delta);
   } else {
-    log.warn("No such faction community: " + tostring(faction_name));
+    logger.warn("No such faction community: " + tostring(faction_name));
   }
 }
 export function get_factions_community(faction: Optional<TCommunity>, faction_to: TCommunity) {
@@ -128,13 +128,13 @@ export function set_npc_sympathy(npc: Optional<XR_game_object>, new_sympathy: nu
 }
 
 export function set_squad_goodwill(squad_id: string | number, new_goodwill: TRelation): void {
-  log.info("Applying new game relation between squad and actor:", squad_id, new_goodwill);
+  logger.info("Applying new game relation between squad and actor:", squad_id, new_goodwill);
 
   let squad: Optional<ISimSquad> = getStorySquad<ISimSquad>(squad_id as string);
 
   if (squad === null) {
     if (type(squad_id) === "string") {
-      log.warn("there is no story squad with id [%s]", squad_id);
+      logger.warn("there is no story squad with id [%s]", squad_id);
 
       return;
     } else {
@@ -153,7 +153,7 @@ export function set_squad_goodwill_to_npc(
   squad_id: string | number,
   new_goodwill: TRelation
 ): void {
-  log.info("Applying new game relation between squad and npc:", new_goodwill, squad_id, npc?.name());
+  logger.info("Applying new game relation between squad and npc:", new_goodwill, squad_id, npc?.name());
 
   let goodwill = 0;
 
@@ -167,7 +167,7 @@ export function set_squad_goodwill_to_npc(
 
   if (squad === null) {
     if (type(squad_id) === "string") {
-      log.info("there is no story squad with id [%s]", squad_id);
+      logger.info("there is no story squad with id [%s]", squad_id);
 
       return;
     } else {
@@ -204,7 +204,7 @@ export function set_squad_community_goodwill(
 
   if (squad === null) {
     if (type(squad_id) === "string") {
-      log.warn("There is no story squad with id", squad_id);
+      logger.warn("There is no story squad with id", squad_id);
 
       return;
     } else {

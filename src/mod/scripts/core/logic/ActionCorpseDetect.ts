@@ -10,7 +10,7 @@ import { isLootableItem } from "@/mod/scripts/utils/checkers";
 import { getConfigBoolean } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ActionCorpseDetect");
+const logger: LuaLogger = new LuaLogger("ActionCorpseDetect");
 
 export class ActionCorpseDetect extends AbstractSchemeAction {
   public static SCHEME_SECTION: string = "corpse_detection";
@@ -22,7 +22,7 @@ export class ActionCorpseDetect extends AbstractSchemeAction {
     section: string,
     state: IStoredObject
   ): void {
-    log.info("Add to binder:", object.name());
+    logger.info("Add to binder:", object.name());
 
     const operators = {
       search_corpse: get_global("xr_actions_id.corpse_exist"),

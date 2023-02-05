@@ -7,7 +7,7 @@ import { StateManager } from "@/mod/scripts/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { vectorCmp } from "@/mod/scripts/utils/physics";
 
-const log: LuaLogger = new LuaLogger("StateManagerDirection", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
+const logger: LuaLogger = new LuaLogger("StateManagerDirection", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
 export function look_at_object(npc: XR_game_object, st: StateManager): void {
   st.point_obj_dir = look_object_type(npc, st);
@@ -63,7 +63,7 @@ export function turn(npc: XR_game_object, st: StateManager): void {
   st.point_obj_dir = look_object_type(npc, st);
 
   if (st.look_object !== null && level.object_by_id(st.look_object) !== null) {
-    log.info("Look at object npc:", npc.name());
+    logger.info("Look at object npc:", npc.name());
     look_at_object(npc, st);
   } else if (st.look_position !== null) {
     let dir: XR_vector = new vector().sub(st.look_position!, npc.position());
@@ -89,6 +89,6 @@ export function turn(npc: XR_game_object, st: StateManager): void {
     }
 
     npc.set_sight(look.direction, dir, true);
-    log.info("Look at position:", npc.name());
+    logger.info("Look at position:", npc.name());
   }
 }

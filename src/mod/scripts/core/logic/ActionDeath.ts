@@ -8,7 +8,7 @@ import { getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/s
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ActionDeath");
+const logger: LuaLogger = new LuaLogger("ActionDeath");
 
 export class ActionDeath extends AbstractSchemeAction {
   public static readonly SCHEME_SECTION: string = "death";
@@ -20,7 +20,7 @@ export class ActionDeath extends AbstractSchemeAction {
     section: TSection,
     state: IStoredObject
   ): void {
-    log.info("Add to binder:", object.name());
+    logger.info("Add to binder:", object.name());
 
     get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(
       object,
@@ -40,7 +40,7 @@ export class ActionDeath extends AbstractSchemeAction {
   }
 
   public static set_death(object: XR_game_object, ini: XR_ini_file, scheme: TScheme, section: TSection): void {
-    log.info("Set death:", object.name());
+    logger.info("Set death:", object.name());
     get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(object, ini, scheme, section);
   }
 
@@ -56,7 +56,7 @@ export class ActionDeath extends AbstractSchemeAction {
     );
 
     if (death_section !== null) {
-      log.info("Reset death:", object.name());
+      logger.info("Reset death:", object.name());
 
       if (!state.ini!.section_exist(death_section)) {
         abort("There is no section [%s] for object [%s]", death_section, object.name());

@@ -11,7 +11,7 @@ import {
 } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ActionCodepad");
+const logger: LuaLogger = new LuaLogger("ActionCodepad");
 
 export class ActionCodepad extends AbstractSchemeAction {
   public static readonly SCHEME_SECTION: string = "ph_code";
@@ -61,7 +61,7 @@ export class ActionCodepad extends AbstractSchemeAction {
   }
 
   public use_callback(object: XR_game_object, who: XR_game_object): void {
-    log.info("Use codepad:", object.name(), who?.name());
+    logger.info("Use codepad:", object.name(), who?.name());
 
     const numpad = get_global("ui_numpad").numpad(this);
 

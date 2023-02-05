@@ -11,7 +11,7 @@ import {
 } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ActionButton");
+const logger: LuaLogger = new LuaLogger("ActionButton");
 
 export class ActionButton extends AbstractSchemeAction {
   public static readonly SCHEME_SECTION: string = "ph_button";
@@ -110,7 +110,7 @@ export class ActionButton extends AbstractSchemeAction {
   }
 
   public use_callback(object: XR_game_object, who: Optional<XR_game_object>): void {
-    log.info("Button used:", object.name(), who?.name());
+    logger.info("Button used:", object.name(), who?.name());
 
     this.try_switch();
   }

@@ -44,7 +44,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
 const base: string = "menu\\SaveDialog.component";
-const log: LuaLogger = new LuaLogger("SaveDialog");
+const logger: LuaLogger = new LuaLogger("SaveDialog");
 
 interface ISaveItem extends XR_CUIListBoxItem {
   owner: XR_CUIScriptWnd;
@@ -61,8 +61,7 @@ const SaveItem = declare_xr_class("SaveItem", CUIListBoxItem, {
     this.innerNameText = this.GetTextItem();
     this.innerNameText.SetFont(GetFontLetterica18Russian());
     this.innerNameText.SetEllipsis(true);
-  },
-  __finalize(): void {}
+  }
 } as ISaveItem);
 
 export interface ISaveDialog extends XR_CUIScriptWnd {
@@ -101,16 +100,11 @@ export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptW
   __init(): void {
     CUIScriptWnd.__init(this);
 
-    log.info("Init");
-
     this.InitControls();
     this.InitCallBacks();
     this.FillList();
   },
-  __finalize(): void {},
   InitControls(): void {
-    log.info("Init controls");
-
     this.SetWndRect(new Frect().set(0, 0, 1024, 768));
 
     this.listFileFont = GetFontMedium();
@@ -159,8 +153,6 @@ export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptW
     this.modalBoxMode = 0;
   },
   InitCallBacks(): void {
-    log.info("Init callbacks");
-
     this.AddCallback("button_ok", ui_events.BUTTON_CLICKED, () => this.OnButton_ok_clicked(), this);
     this.AddCallback("button_cancel", ui_events.BUTTON_CLICKED, () => this.OnButton_cancel_clicked(), this);
     this.AddCallback("button_del", ui_events.BUTTON_CLICKED, () => this.OnButton_del_clicked(), this);
@@ -169,7 +161,7 @@ export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptW
     this.AddCallback("list_window", ui_events.LIST_ITEM_CLICKED, () => this.OnListItemClicked(), this);
   },
   FillList(): void {
-    log.info("Fill list");
+    logger.info("Fill list");
 
     this.listBox.RemoveAll();
 
@@ -195,7 +187,7 @@ export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptW
     }
   },
   OnListItemClicked(): void {
-    log.info("List item clicked");
+    logger.info("List item clicked");
 
     if (this.listBox.GetSize() === 0) {
       return;
@@ -212,7 +204,7 @@ export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptW
     this.editBox.SetText(item_text);
   },
   OnMsgYes(): void {
-    log.info("Message yes clicked:", this.modalBoxMode);
+    logger.info("Message yes clicked:", this.modalBoxMode);
 
     if (this.modalBoxMode === 1) {
       this.SaveFile(this.newSave);
@@ -225,7 +217,7 @@ export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptW
     }
   },
   OnButton_del_clicked(): void {
-    log.info("Message delete clicked");
+    logger.info("Message delete clicked");
 
     if (this.listBox.GetSize() === 0) {
       return;
@@ -242,7 +234,7 @@ export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptW
     this.messageBox.ShowDialog(true);
   },
   delete_selected_file(): void {
-    log.info("Deleting selected file");
+    logger.info("Deleting selected file");
 
     if (this.listBox.GetSize() === 0) {
       return;
@@ -263,12 +255,12 @@ export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptW
     this.OnListItemClicked();
   },
   OnButton_ok_clicked(): void {
-    log.info("OK confirm clicked");
+    logger.info("OK confirm clicked");
 
     this.newSave = this.editBox.GetText();
 
     if (string.len(this.newSave) === 0) {
-      log.info("Save name is empty");
+      logger.info("Save name is empty");
 
       this.modalBoxMode = 0;
       this.messageBox.InitMessageBox("message_box_empty_file_name");
@@ -282,7 +274,7 @@ export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptW
     const file_struct: unknown = fs.exist("$game_saves$", this.newSave + gameConfig.GAME_SAVE_EXTENSION);
 
     if (file_struct !== null) {
-      log.info("File already exists");
+      logger.info("File already exists");
 
       this.modalBoxMode = 1;
       this.messageBox.InitMessageBox("message_box_file_already_exist");
@@ -300,10 +292,10 @@ export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptW
     this.HideDialog();
     this.owner.Show(true);
 
-    log.info("Saved");
+    logger.info("Saved");
   },
   OnButton_cancel_clicked(): void {
-    log.info("Cancel clicked");
+    logger.info("Cancel clicked");
     this.owner.ShowDialog(true);
     this.HideDialog();
     this.owner.Show(true);
@@ -339,7 +331,7 @@ export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptW
     this.listBox.AddExistingItem(it);
   },
   SaveFile(filename: string): void {
-    log.info("Save file:", filename);
+    logger.info("Save file:", filename);
 
     if (filename !== null) {
       const console: XR_CConsole = get_console();

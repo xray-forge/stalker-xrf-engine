@@ -20,7 +20,7 @@ import { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("db", false);
+const logger: LuaLogger = new LuaLogger("db", false);
 
 // todo: Separate file with DB objects
 // todo: Separate file with DB utils
@@ -126,7 +126,7 @@ export function getHeliEnemiesCount(): number {
 }
 
 export function addEnemy(object: XR_game_object): void {
-  log.info("Add heli enemy");
+  logger.info("Add heli enemy");
 
   heliEnemies.set(heliEnemyCount, object);
 
@@ -136,48 +136,48 @@ export function addEnemy(object: XR_game_object): void {
 }
 
 export function deleteEnemy(enemyIndex: number): void {
-  log.info("Delete enemy");
+  logger.info("Delete enemy");
   heliEnemies.delete(enemyIndex);
 }
 
 export function addObject(object: XR_game_object): void {
-  log.info("Add object:", object.name());
+  logger.info("Add object:", object.name());
 
   storage.get(object.id()).object = object;
 }
 
 export function deleteObject(object: XR_game_object): void {
-  log.info("Delete object:", object.name());
+  logger.info("Delete object:", object.name());
 
   storage.delete(object.id());
 }
 
 export function addZone(zone: XR_game_object): void {
-  log.info("Add zone:", zone.name());
+  logger.info("Add zone:", zone.name());
 
   zoneByName.set(zone.name(), zone);
 }
 
 export function deleteZone(zone: XR_game_object): void {
-  log.info("Delete zone:", zone.name());
+  logger.info("Delete zone:", zone.name());
 
   zoneByName.delete(zone.name());
 }
 
 export function addAnomaly(anomaly: XR_object_binder): void {
-  log.info("Add anomaly:", anomaly.object.name());
+  logger.info("Add anomaly:", anomaly.object.name());
 
   anomalyByName.set(anomaly.object.name(), anomaly);
 }
 
 export function deleteAnomaly(anomaly: XR_object_binder): void {
-  log.info("Delete anomaly:", anomaly.object.name());
+  logger.info("Delete anomaly:", anomaly.object.name());
 
   anomalyByName.delete(anomaly.object.name());
 }
 
 export function addActor(object: XR_game_object): void {
-  log.info("Add actor");
+  logger.info("Add actor");
 
   actor = object;
   // @ts-ignore todo: TEMP
@@ -187,7 +187,7 @@ export function addActor(object: XR_game_object): void {
 }
 
 export function deleteActor(): void {
-  log.info("Delete actor");
+  logger.info("Delete actor");
 
   deleteObject(actor as any);
 
@@ -197,25 +197,25 @@ export function deleteActor(): void {
 }
 
 export function addHeli(object: XR_game_object): void {
-  log.info("Add heli");
+  logger.info("Add heli");
 
   heli.set(object.id(), object);
 }
 
 export function deleteHeli(object: XR_game_object): void {
-  log.info("Delete heli");
+  logger.info("Delete heli");
 
   heli.delete(object.id());
 }
 
 export function addSmartTerrain(object: XR_cse_alife_object): void {
-  log.info("Add smart terrain:", object.id);
+  logger.info("Add smart terrain:", object.id);
 
   smartTerrainById.set(object.id, object);
 }
 
 export function deleteSmartTerrain(object: XR_cse_alife_object): void {
-  log.info("Delete smart terrain:", object.id);
+  logger.info("Delete smart terrain:", object.id);
 
   smartTerrainById.delete(object.id);
 }
