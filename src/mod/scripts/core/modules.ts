@@ -41,10 +41,10 @@ import { ESchemeType, loadScheme } from "@/mod/scripts/core/schemes";
 import { ActionCutscene } from "@/mod/scripts/cutscenes/ActionCustscene";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("modules");
+const logger: LuaLogger = new LuaLogger("modules");
 
 export function initializeModules(): void {
-  log.info("Initialize modules");
+  logger.info("Initialize modules");
 
   loadScheme("xr_animpoint", "animpoint", ESchemeType.STALKER);
   loadScheme("xr_camper", "camper", ESchemeType.STALKER);

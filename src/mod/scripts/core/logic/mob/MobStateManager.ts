@@ -6,7 +6,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { getClsId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("MobStateManager");
+const logger: LuaLogger = new LuaLogger("MobStateManager");
 
 export function get_state(ini: XR_ini_file, section: string, obj: XR_game_object): Optional<string> {
   const state: string = getConfigString(ini, section, "state", obj, false, "", "");

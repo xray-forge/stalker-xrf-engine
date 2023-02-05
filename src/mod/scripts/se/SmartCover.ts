@@ -7,7 +7,7 @@ import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("SmartCover");
+const logger: LuaLogger = new LuaLogger("SmartCover");
 
 // todo: Move to db.
 export const registered_smartcovers: LuaTable<string, ISmartCover> = new LuaTable();
@@ -37,7 +37,7 @@ export const SmartCover: ISmartCover = declare_xr_class("SmartCover", cse_smart_
   },
   on_register(): void {
     cse_smart_cover.on_register(this);
-    log.info("Register:", this.id, this.name(), this.section_name());
+    logger.info("Register:", this.id, this.name(), this.section_name());
     checkSpawnIniForStoryId(this);
 
     const level_id = game_graph().vertex(this.m_game_vertex_id).level_id();

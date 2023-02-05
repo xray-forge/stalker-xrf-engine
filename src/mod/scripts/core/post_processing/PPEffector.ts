@@ -2,7 +2,7 @@ import { effector, effector_params, XR_effector, XR_effector_params } from "xray
 
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("PPEffector");
+const logger: LuaLogger = new LuaLogger("PPEffector");
 
 export interface IPPEffector extends XR_effector {
   params: XR_effector_params;

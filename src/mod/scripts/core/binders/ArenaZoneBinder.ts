@@ -19,7 +19,7 @@ import { getTableSize } from "@/mod/scripts/utils/table";
 
 // todo: Move to db.
 const arena_zones: LuaTable<string, IArenaZoneBinder> = new LuaTable();
-const log: LuaLogger = new LuaLogger("ArenaZoneBinder");
+const logger: LuaLogger = new LuaLogger("ArenaZoneBinder");
 
 export interface IArenaZoneBinder extends XR_object_binder {
   saved_obj: LuaTable<number, boolean>;
@@ -114,7 +114,7 @@ export const ArenaZoneBinder: IArenaZoneBinder = declare_xr_class("ArenaZoneBind
 } as IArenaZoneBinder);
 
 export function purge_arena_items(name: string): void {
-  log.info("Purge are zone items:", name);
+  logger.info("Purge are zone items:", name);
 
   const arena_zone: Optional<IArenaZoneBinder> = arena_zones.get(name);
 

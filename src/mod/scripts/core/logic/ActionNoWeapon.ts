@@ -14,7 +14,7 @@ import { getActor, IStoredObject, noWeapZones } from "@/mod/scripts/core/db";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ActionNoWeapon");
+const logger: LuaLogger = new LuaLogger("ActionNoWeapon");
 
 export enum EActorZoneState {
   NOWHERE,
@@ -36,7 +36,7 @@ export class ActionNoWeapon extends AbstractSchemeAction {
     section: string,
     state: IStoredObject
   ): void {
-    log.info("Add to binder:", object.name());
+    logger.info("Add to binder:", object.name());
 
     get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(
       object,
@@ -107,7 +107,7 @@ export class ActionNoWeapon extends AbstractSchemeAction {
   }
 
   public onZoneEnter(): void {
-    log.info("Entering no weapon zone");
+    logger.info("Entering no weapon zone");
 
     this.currentActorState = EActorZoneState.INSIDE;
     hide_weapon(this.object.id());
@@ -116,7 +116,7 @@ export class ActionNoWeapon extends AbstractSchemeAction {
   }
 
   public onZoneLeave(): void {
-    log.info("Leaving no weapon zone");
+    logger.info("Leaving no weapon zone");
 
     this.currentActorState = EActorZoneState.OUTSIDE;
     restore_weapon(this.object.id());
@@ -139,7 +139,7 @@ export class ActionNoWeapon extends AbstractSchemeAction {
     const customStatic: Optional<XR_StaticDrawableWrapper> = hud.GetCustomStatic("can_use_weapon_now");
 
     if (customStatic === null) {
-      log.info("Show can use weapon label");
+      logger.info("Show can use weapon label");
       this.isNoWeaponZoneLeftLabelVisible = true;
       hud.AddCustomStatic("can_use_weapon_now", true).wnd().TextControl().SetTextST("st_can_use_weapon_now");
     }
@@ -154,7 +154,7 @@ export class ActionNoWeapon extends AbstractSchemeAction {
     const customStatic: Optional<XR_StaticDrawableWrapper> = hud.GetCustomStatic("can_use_weapon_now");
 
     if (customStatic !== null) {
-      log.info("Remove can use weapon label");
+      logger.info("Remove can use weapon label");
       this.isNoWeaponZoneLeftLabelVisible = false;
       hud.RemoveCustomStatic("can_use_weapon_now");
     }

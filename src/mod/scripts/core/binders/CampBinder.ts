@@ -15,7 +15,7 @@ import { getConfigString } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("CampBinder");
+const logger: LuaLogger = new LuaLogger("CampBinder");
 
 const CAMP_SECTION: string = "camp";
 
@@ -37,7 +37,7 @@ export const CampBinder: ICampBinder = declare_xr_class("CampBinder", object_bin
       return false;
     }
 
-    log.info("Spawn camp", this.object.id());
+    logger.info("Spawn camp", this.object.id());
 
     let ini: Optional<XR_ini_file> = this.object.spawn_ini()!;
 
@@ -54,7 +54,7 @@ export const CampBinder: ICampBinder = declare_xr_class("CampBinder", object_bin
     return true;
   },
   net_destroy(): void {
-    log.info("Destroy camp", this.object.id());
+    logger.info("Destroy camp", this.object.id());
 
     CAMPS.delete(this.object.id());
     object_binder.net_destroy(this);
@@ -63,7 +63,7 @@ export const CampBinder: ICampBinder = declare_xr_class("CampBinder", object_bin
     const camp = CAMPS.get(this.object.id());
 
     if (camp.camp !== null) {
-      log.info("Updating camp", camp.object?.id());
+      logger.info("Updating camp", camp.object?.id());
       camp.camp.update();
     }
   },

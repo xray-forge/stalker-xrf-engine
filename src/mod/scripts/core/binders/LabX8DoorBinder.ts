@@ -21,7 +21,7 @@ import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const ANIMATED_OBJECT_SECT: string = "animated_object";
-const log: LuaLogger = new LuaLogger("LabX8DoorBinder");
+const logger: LuaLogger = new LuaLogger("LabX8DoorBinder");
 
 export interface ILabX8DoorBinder extends XR_object_binder {
   loaded: boolean;
@@ -56,7 +56,7 @@ export const LabX8DoorBinder: ILabX8DoorBinder = declare_xr_class("LabX8DoorBind
     let ini: XR_ini_file = object.spawn_ini()!;
 
     if (!ini.section_exist(ANIMATED_OBJECT_SECT)) {
-      log.info("[animated object] no configuration!", object.name());
+      logger.info("[animated object] no configuration!", object.name());
 
       return;
     }

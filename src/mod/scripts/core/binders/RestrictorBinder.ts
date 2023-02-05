@@ -7,7 +7,7 @@ import { stype_restrictor } from "@/mod/scripts/core/schemes";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("RestrictorBinder");
+const logger: LuaLogger = new LuaLogger("RestrictorBinder");
 
 export interface IRestrictorBinder extends XR_object_binder {
   initialized: boolean;

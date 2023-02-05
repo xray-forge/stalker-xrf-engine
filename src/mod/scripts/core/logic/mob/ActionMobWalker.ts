@@ -32,7 +32,8 @@ const default_anim_standing: TXR_animation = anim.stand_idle;
 
 const state_moving: number = 0;
 const state_standing: number = 1;
-const log: LuaLogger = new LuaLogger("MobWalker");
+
+const logger: LuaLogger = new LuaLogger("MobWalker");
 
 export class ActionMobWalker extends AbstractSchemeAction {
   public static readonly SCHEME_SECTION: string = "mob_walker";
@@ -56,7 +57,7 @@ export class ActionMobWalker extends AbstractSchemeAction {
     section: string,
     gulag_name: string
   ): void {
-    log.info("Set scheme:", npc.name(), scheme, section);
+    logger.info("Set scheme:", npc.name(), scheme, section);
 
     const st = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(npc, ini, scheme, section);
 

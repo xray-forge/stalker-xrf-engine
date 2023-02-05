@@ -5,7 +5,7 @@ import { isStalker } from "@/mod/scripts/utils/checkers";
 import { parseNames } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ranks");
+const logger: LuaLogger = new LuaLogger("ranks");
 
 const stalker_rank_intervals: LuaTable<string, LuaTable<number, number>> = new LuaTable();
 const monster_rank_intervals: LuaTable<string, LuaTable<number, number>> = new LuaTable();
@@ -30,7 +30,7 @@ export function parse_ranks(s: string, tbl: LuaTable<string, LuaTable<number, nu
 }
 
 export function read_all_ranks(): void {
-  log.info("Read all ranks");
+  logger.info("Read all ranks");
 
   const ltx: XR_ini_file = system_ini();
 

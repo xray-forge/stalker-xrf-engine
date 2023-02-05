@@ -23,7 +23,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("AnomalyZoneBinder");
+const logger: LuaLogger = new LuaLogger("AnomalyZoneBinder");
 
 // todo: Move to db.
 export const ARTEFACT_WAYS_BY_ARTEFACT_ID: LuaTable<number, string> = new LuaTable();
@@ -118,12 +118,12 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     if (!this.ini.section_exist(ANOMAL_ZONE_SECTION)) {
       this.isDisabled = true;
 
-      return log.warn("Zone without configuration detected:", object.name());
+      return logger.warn("Zone without configuration detected:", object.name());
     }
 
     const filename: Optional<string> = getConfigString(this.ini, ANOMAL_ZONE_SECTION, "cfg", null, false, "", null);
 
-    log.info("Init anomaly zone from file:", object.name(), filename);
+    logger.info("Init anomaly zone from file:", object.name(), filename);
 
     if (filename !== null) {
       this.ini = new ini_file(filename);
@@ -206,12 +206,12 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
       "{+actor_was_in_many_bad_places} coeff2, coeff"
     );
 
-    log.info("Init zone layers (picked/count):", this.currentZoneLayer, this.zoneLayersCount);
+    logger.info("Init zone layers (picked/count):", this.currentZoneLayer, this.zoneLayersCount);
 
     for (const i of $range(1, this.zoneLayersCount)) {
       const section: string = ANOMAL_ZONE_LAYER + i;
 
-      log.info("Init layer:", section);
+      logger.info("Init layer:", section);
 
       this.layersRespawnTriesTable.set(
         section,
@@ -313,11 +313,11 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
         this.minesTable.set(section, new LuaTable());
 
         if (ini.line_count(mines_section) > 0) {
-          log.info("Init mines for section:", section, mines_section);
+          logger.info("Init mines for section:", section, mines_section);
           for (const i of $range(0, ini.line_count(mines_section) - 1)) {
             const [temp1, mine_name, temp2] = ini.r_line(mines_section, i, "", "");
 
-            log.info("Init mines for section:", section, mine_name);
+            logger.info("Init mines for section:", section, mine_name);
             table.insert(this.minesTable.get(section), mine_name);
           }
         }
@@ -333,7 +333,7 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     this.applyingForceY = this.layersForcesTable.get(this.currentZoneLayer).y;
   },
   turn_off(): void {
-    log.info("Turn off zone:", this.object.name());
+    logger.info("Turn off zone:", this.object.name());
 
     this.isTurnedOff = true;
     this.disableAnomalyFields();
@@ -350,7 +350,7 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     this.artefactPointsByArtefactId = new LuaTable();
   },
   turn_on(forceRespawn: Optional<boolean>): void {
-    log.info("Turn on zone:", this.object.name());
+    logger.info("Turn on zone:", this.object.name());
 
     this.isTurnedOff = false;
     this.disableAnomalyFields();
@@ -362,7 +362,7 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     }
   },
   disableAnomalyFields(): void {
-    log.info("Disable anomaly fields:", this.object.name());
+    logger.info("Disable anomaly fields:", this.object.name());
 
     if (!this.isCustomPlacement) {
       this.isDisabled = true;
@@ -418,7 +418,7 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     }
   },
   respawnArtefactsAndReplaceAnomalyZones(): void {
-    log.info("Respawn artefacts and replace anomaly zone:", this.object.name());
+    logger.info("Respawn artefacts and replace anomaly zone:", this.object.name());
 
     const anom_fields = FIELDS_BY_NAME;
 
@@ -461,7 +461,7 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     }
   },
   spawnRandomArtefact(): void {
-    log.info("Spawn random artefact:", this.object.name(), this.currentZoneLayer);
+    logger.info("Spawn random artefact:", this.object.name(), this.currentZoneLayer);
 
     const layer: string = this.currentZoneLayer;
     let randomArtefact: string = "";
@@ -522,10 +522,10 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     this.artefactPointsByArtefactId.set(artefactObject.id, randomPathPoint);
     this.spawnedArtefactsCount = this.spawnedArtefactsCount + 1;
 
-    log.info("Spawned random artefact:", randomArtefact, artefactObject.id);
+    logger.info("Spawned random artefact:", randomArtefact, artefactObject.id);
   },
   getRandomArtefactPath(): string {
-    log.info("Get artefact path:", this.object.name());
+    logger.info("Get artefact path:", this.object.name());
 
     const paths: LuaTable<number, string> = new LuaTable();
 
@@ -552,12 +552,12 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     return paths.get(math.random(1, paths.length()));
   },
   setForcedSpawnOverride(artefactName: string): void {
-    log.info("Set force override:", this.object.name());
+    logger.info("Set force override:", this.object.name());
 
     this.forcedArtefact = artefactName;
     this.hasForcedSpawnOverride = true;
 
-    log.info("Set forced override for zone/artefact:", this.object.name(), artefactName);
+    logger.info("Set forced override for zone/artefact:", this.object.name(), artefactName);
   },
   reload(section: string): void {
     object_binder.reload(this, section);
@@ -621,7 +621,7 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     }
   },
   onArtefactTaken(object: XR_game_object | XR_cse_alife_object): void {
-    log.info("On artefact take:", this.object.name());
+    logger.info("On artefact take:", this.object.name());
 
     const id: number =
       type(object.id) === "number" ? (object as XR_cse_alife_object).id : (object as XR_game_object).id();

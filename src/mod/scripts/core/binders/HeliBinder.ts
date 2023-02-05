@@ -27,7 +27,7 @@ import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { getClsId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("HeliBinder");
+const logger: LuaLogger = new LuaLogger("HeliBinder");
 
 export interface IHeliBinder extends XR_object_binder {
   st: IStoredObject;

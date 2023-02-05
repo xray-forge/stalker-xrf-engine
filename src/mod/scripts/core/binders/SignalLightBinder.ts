@@ -14,7 +14,7 @@ import { getActor, signalLight, storage } from "@/mod/scripts/core/db";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("SignalLightBinder");
+const logger: LuaLogger = new LuaLogger("SignalLightBinder");
 
 export interface ISignalLightBinder extends XR_object_binder {
   need_turn_off: boolean;
@@ -109,12 +109,12 @@ export const SignalLightBinder: ISignalLightBinder = declare_xr_class("SignalLig
       return false;
     }
 
-    log.info("Net spawn:", this.object.name());
+    logger.info("Net spawn:", this.object.name());
 
     return true;
   },
   net_destroy(): void {
-    log.info("Net destroy:", this.object.name());
+    logger.info("Net destroy:", this.object.name());
     signalLight.delete(this.object.name());
     object_binder.net_destroy(this);
   },

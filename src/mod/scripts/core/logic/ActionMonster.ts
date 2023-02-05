@@ -22,7 +22,7 @@ import { action } from "@/mod/scripts/utils/alife";
 import { getConfigNumber, getConfigString, parseNames } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ActionMonster");
+const logger: LuaLogger = new LuaLogger("ActionMonster");
 
 export class ActionMonster extends AbstractSchemeAction {
   public static readonly SCHEME_SECTION: string = "sr_monster";
@@ -34,7 +34,7 @@ export class ActionMonster extends AbstractSchemeAction {
     section: string,
     state: IStoredObject
   ): void {
-    log.info("Add to binder:", object.id());
+    logger.info("Add to binder:", object.id());
 
     get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(
       object,

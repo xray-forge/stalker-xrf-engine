@@ -8,7 +8,7 @@ import { getConfigNumber } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ActionPostProcess");
+const logger: LuaLogger = new LuaLogger("ActionPostProcess");
 
 export class ActionPostProcess extends AbstractSchemeAction {
   public static readonly SCHEME_SECTION: string = "sr_postprocess";
@@ -20,7 +20,7 @@ export class ActionPostProcess extends AbstractSchemeAction {
     section: string,
     state: IStoredObject
   ): void {
-    log.info("Add to binder:", object.name());
+    logger.info("Add to binder:", object.name());
 
     get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(
       object,

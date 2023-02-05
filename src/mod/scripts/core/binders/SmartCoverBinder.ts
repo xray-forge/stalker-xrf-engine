@@ -3,7 +3,7 @@ import { object_binder, XR_cse_alife_object, XR_game_object, XR_object_binder } 
 import { vectorToString } from "@/mod/scripts/utils/general";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("SmartCoverBinder");
+const logger: LuaLogger = new LuaLogger("SmartCoverBinder");
 
 // todo: Move to db.
 export const registered_smartcovers: LuaTable<string, XR_game_object> = new LuaTable();
@@ -19,13 +19,13 @@ export const SmartCoverBinder: ISmartCoverBinder = declare_xr_class("SmartCoverB
       return false;
     }
 
-    log.info("Smart cover net spawn:", this.object.name(), vectorToString(this.object.direction()));
+    logger.info("Smart cover net spawn:", this.object.name(), vectorToString(this.object.direction()));
     registered_smartcovers.set(this.object.name(), this.object);
 
     return true;
   },
   net_destroy(): void {
-    log.info("Smart cover net destroy:", this.object.name());
+    logger.info("Smart cover net destroy:", this.object.name());
     registered_smartcovers.delete(this.object.name());
     object_binder.net_destroy(this);
   },

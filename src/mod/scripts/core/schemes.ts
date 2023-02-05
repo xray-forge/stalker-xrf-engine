@@ -2,7 +2,7 @@ import { AnyObject } from "@/mod/lib/types";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("schemes");
+const logger: LuaLogger = new LuaLogger("schemes");
 
 // Todo: Enum and constant in each binder.
 export const stype_stalker = 0;
@@ -27,7 +27,7 @@ export function loadScheme(
   scheme: string,
   stype: ESchemeType
 ): void {
-  log.info("Loading scheme:", scheme, ESchemeType[1]);
+  logger.info("Loading scheme:", scheme, ESchemeType[1]);
 
   schemes.set(scheme, filenameOrModule);
   stypes.set(scheme, stype);

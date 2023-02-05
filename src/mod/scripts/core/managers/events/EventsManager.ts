@@ -3,7 +3,7 @@ import { EGameEvent } from "@/mod/scripts/core/managers/events/EGameEvent";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("CoreEventsManager");
+const logger: LuaLogger = new LuaLogger("CoreEventsManager");
 
 export class EventsManager {
   public static instance: Optional<EventsManager> = null;
@@ -35,14 +35,14 @@ export class EventsManager {
     func: (this: T, ...args: AnyArgs) => void,
     context: Optional<AnyObject>
   ): void {
-    log.info("Register callback:", event);
+    logger.info("Register callback:", event);
 
     this.assertEventIsDeclared(event);
     this.callbacks[event].set(func as any, { context: context });
   }
 
   public unregisterCallback(event: EGameEvent, func: AnyCallable): void {
-    log.info("Unregister callback:", event);
+    logger.info("Unregister callback:", event);
 
     this.assertEventIsDeclared(event);
     this.callbacks[event].delete(func);

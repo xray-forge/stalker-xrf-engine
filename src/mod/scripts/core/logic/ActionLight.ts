@@ -9,7 +9,7 @@ import { getConfigBoolean } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resetTable } from "@/mod/scripts/utils/table";
 
-const log: LuaLogger = new LuaLogger("ActionLight");
+const logger: LuaLogger = new LuaLogger("ActionLight");
 
 /**
  * todo;
@@ -25,7 +25,7 @@ export class ActionLight extends AbstractSchemeAction {
     section: string,
     state: IStoredObject
   ): void {
-    log.info("Add to binder:", object.name());
+    logger.info("Add to binder:", object.name());
 
     const new_action = new ActionLight(object, state);
 
@@ -40,7 +40,7 @@ export class ActionLight extends AbstractSchemeAction {
   }
 
   public static reset(): void {
-    log.info("Reset");
+    logger.info("Reset");
     resetTable(light_zones);
   }
 
@@ -124,7 +124,7 @@ export class ActionLight extends AbstractSchemeAction {
   }
 
   public reset_scheme(): void {
-    log.info("Reset scheme:", this.object.id());
+    logger.info("Reset scheme:", this.object.id());
     light_zones.set(this.object.id(), this);
   }
 

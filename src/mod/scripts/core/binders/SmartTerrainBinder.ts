@@ -11,7 +11,7 @@ import { addSmartTerrain, addZone, deleteSmartTerrain, deleteZone } from "@/mod/
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("core/binders/SmartTerrainBinder");
+const logger: LuaLogger = new LuaLogger("SmartTerrainBinder");
 
 export interface ISmartTerrainBinder extends XR_object_binder {
   se_smart_terrain: XR_cse_alife_smart_zone;

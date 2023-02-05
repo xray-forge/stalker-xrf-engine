@@ -22,7 +22,7 @@ import { stype_item } from "@/mod/scripts/core/schemes";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("PhysicObjectBinder");
+const logger: LuaLogger = new LuaLogger("PhysicObjectBinder");
 
 export interface IPhysicObjectBinder extends XR_object_binder {
   initialized: boolean;

@@ -6,7 +6,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const story_ltx: XR_ini_file = new ini_file("misc\\sound_stories.ltx");
 
-const log: LuaLogger = new LuaLogger("SoundStory");
+const logger: LuaLogger = new LuaLogger("SoundStory");
 
 export interface IReplicDescriptor {
   who: string;

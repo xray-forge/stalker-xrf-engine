@@ -16,7 +16,7 @@ import { addObject, CROW_STORAGE, deleteObject, storage } from "@/mod/scripts/co
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("CrowBinder");
+const logger: LuaLogger = new LuaLogger("CrowBinder");
 
 const CROW_DISPOSAL_TIMEOUT: number = 120_000;
 
@@ -32,7 +32,7 @@ export const CrowBinder: ICrowBinder = declare_xr_class("CrowBinder", object_bin
 
     this.bodyDisposalTimer = 0;
 
-    log.info("Crow init");
+    logger.info("Crow init");
   },
   update(delta: number): void {
     object_binder.update(this, delta);
@@ -44,7 +44,7 @@ export const CrowBinder: ICrowBinder = declare_xr_class("CrowBinder", object_bin
     ) {
       const sim: XR_alife_simulator = alife();
 
-      log.info("Release dead crow");
+      logger.info("Release dead crow");
       sim.release(sim.object(this.object.id()), true);
     }
   },
@@ -63,7 +63,7 @@ export const CrowBinder: ICrowBinder = declare_xr_class("CrowBinder", object_bin
       return false;
     }
 
-    log.info("Crow net spawn");
+    logger.info("Crow net spawn");
 
     const objectId: number = this.object.id();
 
@@ -77,7 +77,7 @@ export const CrowBinder: ICrowBinder = declare_xr_class("CrowBinder", object_bin
     return true;
   },
   net_destroy(): void {
-    log.info("Crow net destroy");
+    logger.info("Crow net destroy");
 
     this.object.set_callback(callback.death, null);
 
@@ -89,7 +89,7 @@ export const CrowBinder: ICrowBinder = declare_xr_class("CrowBinder", object_bin
     object_binder.net_destroy(this);
   },
   death_callback(victim: XR_game_object, killer: XR_game_object): void {
-    log.info("Crow death registered");
+    logger.info("Crow death registered");
 
     this.bodyDisposalTimer = time_global();
     CROW_STORAGE.STORAGE.delete(this.object.id());

@@ -13,7 +13,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { clampNumber } from "@/mod/scripts/utils/number";
 
-const log: LuaLogger = new LuaLogger("DynamicMusicManager");
+const logger: LuaLogger = new LuaLogger("DynamicMusicManager");
 
 // -- global variables (used from other scripts)
 
@@ -67,7 +67,7 @@ export class DynamicMusicManager {
   public wasInSilence: boolean = false;
 
   public initialize(): void {
-    log.info("Initialize dynamic music manager");
+    logger.info("Initialize dynamic music manager");
 
     const eventsManager: EventsManager = EventsManager.getInstance();
 
@@ -98,7 +98,7 @@ export class DynamicMusicManager {
   }
 
   public selectNextTrack(): void {
-    log.info("Select next track for playback");
+    logger.info("Select next track for playback");
 
     if (this.currentThemeNumber === null || themes.get(this.currentThemeNumber) === null) {
       abort("wrong theme number");
@@ -121,7 +121,7 @@ export class DynamicMusicManager {
   }
 
   public initializeThemes(): void {
-    log.info("Initialize themes");
+    logger.info("Initialize themes");
 
     const new_table: LuaTable<number, LuaTable<number, TSound>> = new LuaTable();
     const lname = level.name();
@@ -294,7 +294,7 @@ export class DynamicMusicManager {
   }
 
   public stopTheme(): void {
-    log.info("Stop theme");
+    logger.info("Stop theme");
 
     if (this.theme) {
       this.theme.stop();
@@ -312,7 +312,7 @@ export class DynamicMusicManager {
     this.currentThemeNumber = math.random(1, themes.length());
     this.currentTrackNumber = math.random(1, themes.get(this.currentThemeNumber).length());
 
-    log.info("Start theme:", this.currentThemeNumber, this.currentTrackNumber, m_theme_volume);
+    logger.info("Start theme:", this.currentThemeNumber, this.currentTrackNumber, m_theme_volume);
 
     if (this.theme === null) {
       this.theme = new StereoSound();
@@ -335,11 +335,11 @@ export class DynamicMusicManager {
    */
   public onActorNetDestroy(): void {
     if (this.theme && this.theme.isPlaying()) {
-      log.info("Stop theme");
+      logger.info("Stop theme");
       this.theme.stop();
     }
 
-    log.info("Toggle ambient volume:", ambientVolume);
+    logger.info("Toggle ambient volume:", ambientVolume);
     this.setSoundVolume(ambientVolume);
   }
 

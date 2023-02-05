@@ -5,7 +5,7 @@ import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ActionOnDeath");
+const logger: LuaLogger = new LuaLogger("ActionOnDeath");
 
 export class ActionOnDeath extends AbstractSchemeAction {
   public static readonly SCHEME_SECTION: string = "ph_on_death";
@@ -17,7 +17,7 @@ export class ActionOnDeath extends AbstractSchemeAction {
     section: string,
     storage: IStoredObject
   ): void {
-    log.info("Add to binder:", npc.name());
+    logger.info("Add to binder:", npc.name());
 
     const action: ActionOnDeath = new ActionOnDeath(npc, storage);
 
@@ -27,7 +27,7 @@ export class ActionOnDeath extends AbstractSchemeAction {
   }
 
   public static set_scheme(npc: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
-    log.info("Set scheme:", npc.name());
+    logger.info("Set scheme:", npc.name());
 
     const st = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(npc, ini, scheme, section);
 

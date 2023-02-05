@@ -5,7 +5,7 @@ import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ActionOnHit");
+const logger: LuaLogger = new LuaLogger("ActionOnHit");
 
 export class ActionOnHit extends AbstractSchemeAction {
   public static readonly SCHEME_SECTION: string = "ph_on_hit";
@@ -17,13 +17,13 @@ export class ActionOnHit extends AbstractSchemeAction {
     section: string,
     storage: IStoredObject
   ): void {
-    log.info("Add to binder:", npc.name());
+    logger.info("Add to binder:", npc.name());
 
     storage.action = new ActionOnHit(npc, storage);
   }
 
   public static set_scheme(npc: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
-    log.info("Set scheme:", npc.name());
+    logger.info("Set scheme:", npc.name());
 
     const st = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(npc, ini, scheme, section);
 
@@ -48,7 +48,7 @@ export class ActionOnHit extends AbstractSchemeAction {
   ): void {
     const who_name: string = who ? who.name() : "nil";
 
-    log.info("Object hit:", object.name(), "<-", who_name, amount);
+    logger.info("Object hit:", object.name(), "<-", who_name, amount);
 
     if (storage.get(this.object.id()).active_scheme) {
       if (get_global<AnyCallablesModule>("xr_logic").try_switch_to_another_section(object, this.state, getActor())) {

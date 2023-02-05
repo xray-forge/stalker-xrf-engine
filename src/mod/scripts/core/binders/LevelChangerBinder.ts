@@ -15,7 +15,7 @@ import { ILevelChanger } from "@/mod/scripts/se/LevelChanger";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("core/binders/LevelChangerBinder");
+const logger: LuaLogger = new LuaLogger("LevelChangerBinder");
 
 export interface ILevelChangerBinder extends XR_object_binder {}
 
@@ -51,12 +51,12 @@ export const LevelChangerBinder: ILevelChangerBinder = declare_xr_class("LevelCh
     this.object.enable_level_changer(s_obj.enabled);
     this.object.set_level_changer_invitation(s_obj.hint);
 
-    log.info("Net spawned:", this.object.id(), s_obj.enabled, s_obj.hint);
+    logger.info("Net spawned:", this.object.id(), s_obj.enabled, s_obj.hint);
 
     return true;
   },
   net_destroy(): void {
-    log.info("Destroy:", this.object.name());
+    logger.info("Destroy:", this.object.name());
     deleteObject(this.object);
     object_binder.net_destroy(this);
   },
