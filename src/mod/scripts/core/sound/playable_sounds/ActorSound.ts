@@ -21,7 +21,7 @@ import { getConfigBoolean, getConfigString, parseNames } from "@/mod/scripts/uti
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ActorSound");
+const logger: LuaLogger = new LuaLogger("ActorSound");
 
 export class ActorSound extends AbstractPlayableSound {
   public static readonly type: EPlayableSound = EPlayableSound.ACTOR;

@@ -6,7 +6,7 @@ import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ItemArtefact");
+const logger: LuaLogger = new LuaLogger("ItemArtefact");
 
 export interface IItemArtefact extends XR_cse_alife_item_artefact {}
 
@@ -16,7 +16,7 @@ export const ItemArtefact: IItemArtefact = declare_xr_class("ItemArtefact", cse_
   },
   on_register(): void {
     cse_alife_item_artefact.on_register(this);
-    log.info("Register:", this.id, this.name(), this.section_name());
+    logger.info("Register:", this.id, this.name(), this.section_name());
     checkSpawnIniForStoryId(this);
   },
   on_unregister(): void {

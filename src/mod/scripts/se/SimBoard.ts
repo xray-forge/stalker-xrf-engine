@@ -20,7 +20,7 @@ import { parseNames } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("SimBoard");
+const logger: LuaLogger = new LuaLogger("SimBoard");
 
 export const squad_ltx = system_ini();
 export const setting_ini = new ini_file("misc\\simulation.ltx");
@@ -140,7 +140,7 @@ export const SimBoard: ISimBoard = declare_xr_class("SimBoard", null, {
       spawn_smart.m_game_vertex_id
     );
 
-    log.info("Creating squad in smart:", squad.name(), spawn_smart.name());
+    logger.info("Creating squad in smart:", squad.name(), spawn_smart.name());
 
     squad.create_npc(spawn_smart);
     squad.set_squad_relation();
@@ -156,7 +156,7 @@ export const SimBoard: ISimBoard = declare_xr_class("SimBoard", null, {
     return squad;
   },
   remove_squad(squad: ISimSquad): void {
-    log.info("Remove squad:", squad.name());
+    logger.info("Remove squad:", squad.name());
 
     if (squad.current_action === null || squad.current_action.dest_smrt === null) {
       squad.board.exit_smart(squad, squad.smart_id);
@@ -356,7 +356,7 @@ export const SimBoard: ISimBoard = declare_xr_class("SimBoard", null, {
 
 export function get_sim_board(): ISimBoard {
   if (board === null) {
-    log.info("Init new board");
+    logger.info("Init new board");
     board = create_xr_class_instance(SimBoard);
   }
 
@@ -364,6 +364,6 @@ export function get_sim_board(): ISimBoard {
 }
 
 export function reset_sim_board(): void {
-  log.info("Clear board");
+  logger.info("Clear board");
   board = null;
 }

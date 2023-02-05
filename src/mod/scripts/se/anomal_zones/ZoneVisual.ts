@@ -8,7 +8,7 @@ import { isSinglePlayerGame } from "@/mod/scripts/utils/general";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
 
-const log: LuaLogger = new LuaLogger("ZoneVisual");
+const logger: LuaLogger = new LuaLogger("ZoneVisual");
 
 export interface IZoneVisual extends XR_cse_zone_visual {
   last_spawn_time: Optional<XR_CTime>;
@@ -23,7 +23,7 @@ export const ZoneVisual: IZoneVisual = declare_xr_class("ZoneVisual", cse_zone_v
   on_register(): void {
     cse_zone_visual.on_register(this);
 
-    log.info("Register:", this.id, this.name(), this.section_name());
+    logger.info("Register:", this.id, this.name(), this.section_name());
 
     checkSpawnIniForStoryId(this);
 
@@ -49,7 +49,7 @@ export const ZoneVisual: IZoneVisual = declare_xr_class("ZoneVisual", cse_zone_v
       this.last_spawn_time = game.get_game_time();
       if (math.random(100) <= this.artefact_spawn_rnd) {
         // todo: Commented in XR engine?
-        log.warn("Wanted to spawn artefacts, but missing in original engine functionality used");
+        logger.warn("Wanted to spawn artefacts, but missing in original engine functionality used");
         // this.spawn_artefacts();
       }
     }

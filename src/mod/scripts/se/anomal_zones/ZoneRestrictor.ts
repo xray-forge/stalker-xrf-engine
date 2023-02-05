@@ -5,7 +5,7 @@ import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry
 import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ZoneRestrictor");
+const logger: LuaLogger = new LuaLogger("ZoneRestrictor");
 
 export interface IZoneRestrictor extends XR_cse_alife_space_restrictor {}
 
@@ -16,7 +16,7 @@ export const ZoneRestrictor: IZoneRestrictor = declare_xr_class("ZoneRestrictor"
   on_register(): void {
     cse_alife_space_restrictor.on_register(this);
 
-    log.info("Register:", this.id, this.name(), this.section_name());
+    logger.info("Register:", this.id, this.name(), this.section_name());
 
     checkSpawnIniForStoryId(this);
     getTreasureManager().register_restrictor(this);

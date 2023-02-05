@@ -9,7 +9,7 @@ import { CamEffectorSet } from "@/mod/scripts/cutscenes/CamEffectorSet";
 import { getConfigBoolean, getConfigNumber, getConfigString, parseNames } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ActionCutscene");
+const logger: LuaLogger = new LuaLogger("ActionCutscene");
 
 let object_cutscene: Optional<XR_game_object> = null;
 let storage_scene: Optional<IStoredObject> = null;
@@ -24,7 +24,7 @@ export class ActionCutscene extends AbstractSchemeAction {
     section: string,
     storage: IStoredObject
   ): void {
-    log.info("Add cutscene to binder:", npc.name(), scheme, section);
+    logger.info("Add cutscene to binder:", npc.name(), scheme, section);
 
     const new_action = new ActionCutscene(npc, storage);
 
@@ -67,7 +67,7 @@ export class ActionCutscene extends AbstractSchemeAction {
   public constructor(object: XR_game_object, storage: IStoredObject) {
     super(object, storage);
 
-    log.info("Init new cutscene:", object.name());
+    logger.info("Init new cutscene:", object.name());
 
     this.ui_disabled = false;
     this.motion_id = 1;
@@ -103,7 +103,7 @@ export class ActionCutscene extends AbstractSchemeAction {
   }
 
   public zone_enter(): void {
-    log.info("Zone enter:", this.object.name());
+    logger.info("Zone enter:", this.object.name());
 
     const actor: Optional<XR_game_object> = getActor();
 
@@ -161,7 +161,7 @@ export class ActionCutscene extends AbstractSchemeAction {
   }
 
   public cutscene_callback(): void {
-    log.info("Cutscene callback:", this.object.name());
+    logger.info("Cutscene callback:", this.object.name());
 
     const actor: XR_game_object = getActor()!;
 

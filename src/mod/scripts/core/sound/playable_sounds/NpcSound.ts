@@ -26,7 +26,7 @@ import { getConfigBoolean, getConfigNumber, getConfigString, parseNames } from "
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("NpcSound");
+const logger: LuaLogger = new LuaLogger("NpcSound");
 const nstl = 64;
 
 export class NpcSound extends AbstractPlayableSound {
@@ -243,7 +243,7 @@ export class NpcSound extends AbstractPlayableSound {
   }
 
   public play(npc_id: number, faction: string, point: Optional<string>, msg: string): boolean {
-    log.info();
+    logger.info();
 
     const npc: Optional<XR_game_object> =
       storage.get(npc_id) && (storage.get(npc_id).object as Optional<XR_game_object>);

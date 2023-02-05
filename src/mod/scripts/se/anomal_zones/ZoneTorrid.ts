@@ -8,7 +8,7 @@ import { isSinglePlayerGame } from "@/mod/scripts/utils/general";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
 
-const log: LuaLogger = new LuaLogger("ZoneTorrid");
+const logger: LuaLogger = new LuaLogger("ZoneTorrid");
 
 export interface IZoneTorrid extends XR_cse_torrid_zone {
   m_registred: boolean;
@@ -27,7 +27,7 @@ export const ZoneTorrid: IZoneTorrid = declare_xr_class("ZoneTorrid", cse_torrid
   on_register(): void {
     cse_torrid_zone.on_register(this);
 
-    log.info("Register:", this.id, this.name(), this.section_name());
+    logger.info("Register:", this.id, this.name(), this.section_name());
 
     checkSpawnIniForStoryId(this);
 
@@ -55,7 +55,7 @@ export const ZoneTorrid: IZoneTorrid = declare_xr_class("ZoneTorrid", cse_torrid
 
       if (math.random(100) <= this.artefact_spawn_rnd) {
         // todo: Commented in XR engine?
-        log.warn("Wanted to spawn artefacts, but missing in original engine functionality used");
+        logger.warn("Wanted to spawn artefacts, but missing in original engine functionality used");
         // this.spawn_artefacts();
       }
     }

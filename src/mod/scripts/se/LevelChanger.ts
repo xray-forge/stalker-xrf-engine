@@ -6,7 +6,7 @@ import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("LevelChanger");
+const logger: LuaLogger = new LuaLogger("LevelChanger");
 
 export interface ILevelChanger extends XR_cse_alife_level_changer {
   enabled: boolean;
@@ -22,13 +22,13 @@ export const LevelChanger: ILevelChanger = declare_xr_class("LevelChanger", cse_
   },
   on_register(): void {
     cse_alife_level_changer.on_register(this);
-    log.info("Register:", this.id, this.name(), this.section_name());
+    logger.info("Register:", this.id, this.name(), this.section_name());
     checkSpawnIniForStoryId(this);
   },
   on_unregister(): void {
     unregisterStoryObjectById(this.id);
     cse_alife_level_changer.on_unregister(this);
-    log.info("Unregister:", this.name());
+    logger.info("Unregister:", this.name());
   },
   STATE_Write(packet: XR_net_packet): void {
     cse_alife_level_changer.STATE_Write(this, packet);

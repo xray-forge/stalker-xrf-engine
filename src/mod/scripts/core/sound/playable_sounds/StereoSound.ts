@@ -5,7 +5,7 @@ import { getActor } from "@/mod/scripts/core/db";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("StereoSound");
+const logger: LuaLogger = new LuaLogger("StereoSound");
 
 export class StereoSound {
   public soundObject: Optional<XR_sound_object> = null;
@@ -13,7 +13,7 @@ export class StereoSound {
   public soundEndTime: Optional<number> = null;
 
   public initialize(soundPath: string, volume: number): void {
-    log.info("Init sound object:", soundPath, volume);
+    logger.info("Init sound object:", soundPath, volume);
 
     if (this.soundObject) {
       this.stop();
@@ -46,13 +46,13 @@ export class StereoSound {
     this.soundObject.play(actor, 0, sound_object.s2d);
     this.soundEndTime = time_global() + this.soundObject.length();
 
-    log.info("Play sound:", this.soundPath, this.soundEndTime, this.soundObject.volume);
+    logger.info("Play sound:", this.soundPath, this.soundEndTime, this.soundObject.volume);
 
     return this.soundEndTime;
   }
 
   public playAtTime(time: number, sound: string, volume: Optional<number>): number {
-    log.info("Play sound at time:", sound);
+    logger.info("Play sound at time:", sound);
 
     this.soundEndTime = null;
     this.soundObject!.attach_tail(sound);

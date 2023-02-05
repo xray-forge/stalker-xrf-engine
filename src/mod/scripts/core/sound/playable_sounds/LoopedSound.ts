@@ -7,7 +7,7 @@ import { EPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/EPlayab
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("LoopedSound");
+const logger: LuaLogger = new LuaLogger("LoopedSound");
 
 export class LoopedSound extends AbstractPlayableSound {
   public static readonly type: EPlayableSound = EPlayableSound.LOOPED;

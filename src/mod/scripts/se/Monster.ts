@@ -20,7 +20,7 @@ import { getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("Monster");
+const logger: LuaLogger = new LuaLogger("Monster");
 
 export interface IMonster extends XR_cse_alife_monster_base {
   ini: Optional<XR_ini_file>;
@@ -77,11 +77,11 @@ export const Monster: IMonster = declare_xr_class("Monster", cse_alife_monster_b
     return cse_alife_monster_base.can_switch_online(this);
   },
   switch_online(): void {
-    log.info("Switch online:", this.name());
+    logger.info("Switch online:", this.name());
     cse_alife_monster_base.switch_online(this);
   },
   switch_offline(): void {
-    log.info("Switch offline:", this.name());
+    logger.info("Switch offline:", this.name());
     cse_alife_monster_base.switch_offline(this);
   },
   update(): void {
@@ -124,7 +124,7 @@ export const Monster: IMonster = declare_xr_class("Monster", cse_alife_monster_b
   on_before_register(): void {},
   on_register(): void {
     cse_alife_monster_base.on_register(this);
-    log.info("Register:", this.id, this.name(), this.section_name());
+    logger.info("Register:", this.id, this.name(), this.section_name());
     checkSpawnIniForStoryId(this);
 
     this.m_registred = true;
@@ -148,7 +148,7 @@ export const Monster: IMonster = declare_xr_class("Monster", cse_alife_monster_b
     alife().object<ISmartTerrain>(smart_obj.id)!.register_npc(this);
   },
   on_unregister(): void {
-    log.info("Unregister:", this.name());
+    logger.info("Unregister:", this.name());
 
     const strn_id = this.smart_terrain_id();
 
@@ -165,7 +165,7 @@ export const Monster: IMonster = declare_xr_class("Monster", cse_alife_monster_b
     cse_alife_monster_base.on_unregister(this);
   },
   on_death(killer: XR_cse_alife_creature_abstract): void {
-    log.info("On death:", this.name(), killer?.name());
+    logger.info("On death:", this.name(), killer?.name());
 
     cse_alife_monster_base.on_death(this, killer);
 

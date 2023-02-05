@@ -5,7 +5,7 @@ import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("Heli");
+const logger: LuaLogger = new LuaLogger("Heli");
 
 export interface IHeli extends XR_cse_alife_helicopter {}
 
@@ -15,7 +15,7 @@ export const Heli: IHeli = declare_xr_class("Heli", cse_alife_helicopter, {
   },
   on_register(): void {
     cse_alife_helicopter.on_register(this);
-    log.info("Register:", this.id, this.name(), this.section_name());
+    logger.info("Register:", this.id, this.name(), this.section_name());
     checkSpawnIniForStoryId(this);
   },
   on_unregister(): void {

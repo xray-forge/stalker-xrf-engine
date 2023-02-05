@@ -11,7 +11,7 @@ import {
 import { parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("CamEffectorSet");
+const logger: LuaLogger = new LuaLogger("CamEffectorSet");
 const CAM_EFFECTOR_SET_SECTION: string = "sr_cutscene";
 
 export class CamEffectorSet {
@@ -26,7 +26,7 @@ export class CamEffectorSet {
   public condlist!: LuaTable;
 
   public constructor(set: TCamEffectorSetDescriptor, storage: IStoredObject) {
-    log.info("Init new set:", stringifyAsJson(set));
+    logger.info("Init new set:", stringifyAsJson(set));
 
     this.set = set;
     this.state = EEffectorState.START;
@@ -38,7 +38,7 @@ export class CamEffectorSet {
   }
 
   public start_effect(effect: ICamEffectorSetDescriptorItem): void {
-    log.info("Start effect:", effect.anim);
+    logger.info("Start effect:", effect.anim);
     // --printf("playing effect [camera_effects\\"..eff.anim..".anm], time [%s]", device():time_global())
     // --callstack()
 
@@ -58,7 +58,7 @@ export class CamEffectorSet {
   }
 
   public stop_effect(): void {
-    log.info("Stop effect:", this.cur_effect, this.state);
+    logger.info("Stop effect:", this.cur_effect, this.state);
     level.remove_cam_effector(210408);
     this.playing = false;
     this.state = EEffectorState.RELEASE;

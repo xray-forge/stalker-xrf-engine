@@ -69,7 +69,7 @@ import { setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { isEmpty } from "@/mod/scripts/utils/table";
 
-const log: LuaLogger = new LuaLogger("SimSquad");
+const logger: LuaLogger = new LuaLogger("SimSquad");
 const squad_behaviour_ini = new ini_file("misc\\squad_behaviours.ltx");
 const locations_ini = new ini_file("misc\\smart_terrain_masks.ltx");
 
@@ -227,7 +227,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     this.set_squad_sympathy();
   },
   init_squad_on_load(): void {
-    log.info("Init squad on load:", this.name());
+    logger.info("Init squad on load:", this.name());
 
     this.set_squad_sympathy();
     this.board.assign_squad_to_smart(this, this.smart_id);
@@ -501,7 +501,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     }
   },
   remove_squad(): void {
-    log.info("Remove squad:", this.name());
+    logger.info("Remove squad:", this.name());
 
     const squad_npcs: LuaTable<number, boolean> = new LuaTable();
 
@@ -524,19 +524,19 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
   remove_npc(npc_id: number): void {
     const npc = alife().object<XR_cse_alife_creature_abstract>(npc_id)!;
 
-    log.info("Remove npc:", this.name(), npc.name());
+    logger.info("Remove npc:", this.name(), npc.name());
 
     this.on_npc_death(npc);
     alife().release(npc, true);
   },
   on_npc_death(npc: XR_cse_alife_creature_abstract): void {
-    log.info("On npc death:", this.name(), npc.name());
+    logger.info("On npc death:", this.name(), npc.name());
 
     this.soundManager.unregister_npc(npc.id);
     this.unregister_member(npc.id);
 
     if (this.npc_count() === 0) {
-      log.info("Removing dead squad:", this.name());
+      logger.info("Removing dead squad:", this.name());
 
       if (this.current_action !== null) {
         this.current_action.finalize();
@@ -559,7 +559,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     smart: Optional<ISmartTerrain>,
     old_smart_id: Optional<number>
   ): void {
-    log.info("Assign squad member to squad:", this.name(), smart?.name(), member_id);
+    logger.info("Assign squad member to squad:", this.name(), smart?.name(), member_id);
 
     const obj = alife().object<XR_cse_alife_creature_abstract>(member_id);
 
@@ -583,7 +583,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     }
   },
   assign_smart(smart: Optional<ISmartTerrain>) {
-    log.info("Assign smart:", this.name(), smart?.name());
+    logger.info("Assign smart:", this.name(), smart?.name());
 
     const old_smart = this.smart_id!;
 
@@ -619,7 +619,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
   },
   set_location_types_section(section: string): void {
     if (locations_ini.section_exist(section)) {
-      log.info("Set location types section:", this.name(), section);
+      logger.info("Set location types section:", this.name(), section);
 
       const [result, id, value] = locations_ini.r_line(section, 0, "", "");
 
@@ -627,7 +627,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     }
   },
   set_location_types(new_smart_name): void {
-    log.info("Set location types");
+    logger.info("Set location types");
 
     const default_location = "stalker_terrain";
 
@@ -660,7 +660,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     }
   },
   add_squad_member(spawn_section, spawn_position, lv_id, gv_id, sect_number): number {
-    log.info("Add squad member:", this.name());
+    logger.info("Add squad member:", this.name());
 
     const spawn_sections_ltx = system_ini();
     const custom_data = getConfigString(
@@ -674,7 +674,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     );
 
     if (custom_data !== "default_custom_data.ltx") {
-      log.info("INCORRECT npc_spawn_section USED [%s]. You cannot use npc with custom_data in squads", spawn_section);
+      logger.info("INCORRECT npc_spawn_section USED [%s]. You cannot use npc with custom_data in squads", spawn_section);
     }
 
     const position = spawn_position;
@@ -693,7 +693,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     return obj.id;
   },
   create_npc(spawn_smart: ISmartTerrain): void {
-    log.info("Create npc:", this.name(), spawn_smart?.name());
+    logger.info("Create npc:", this.name(), spawn_smart?.name());
 
     const ini = system_ini();
 
@@ -1177,7 +1177,7 @@ function set_relation(
   npc2: Optional<XR_cse_alife_creature_abstract>,
   new_relation: TRelation
 ): void {
-  log.info("Set relation:", npc1?.name(), npc2?.name(), new_relation);
+  logger.info("Set relation:", npc1?.name(), npc2?.name(), new_relation);
 
   let reputation: number = goodwill.neutral;
 

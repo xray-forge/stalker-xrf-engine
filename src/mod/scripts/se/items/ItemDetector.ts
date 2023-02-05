@@ -8,7 +8,7 @@ import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ItemDetector");
+const logger: LuaLogger = new LuaLogger("ItemDetector");
 
 export interface IItemDetector extends XR_cse_alife_item_detector {
   secret_item: Optional<boolean>;
@@ -22,7 +22,7 @@ export const ItemDetector: IItemDetector = declare_xr_class("ItemDetector", cse_
   },
   on_register(): void {
     cse_alife_item_detector.on_register(this);
-    log.info("Register:", this.id, this.name(), this.section_name());
+    logger.info("Register:", this.id, this.name(), this.section_name());
     checkSpawnIniForStoryId(this);
 
     if (REGISTERED_ITEMS.get(this.section_name()) === null) {

@@ -45,7 +45,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
  * script_clsid - key value from ClsId registry
  */
 
-const log: LuaLogger = new LuaLogger("class_registrator");
+const logger: LuaLogger = new LuaLogger("class_registrator");
 
 function clientServerRegister(
   factory: XR_object_factory,
@@ -54,7 +54,7 @@ function clientServerRegister(
   clsId: string,
   scriptClsId: TXR_cls_key
 ): void {
-  log.info(
+  logger.info(
     "[clientServerRegister] Registering:",
     string.format(
       "<C: %s>, <lua: %s>, <C clsid: %s>, <LUA clsid: %s>",
@@ -74,7 +74,7 @@ function clientRegister(
   scriptClsId: string
 ): void {
   if (!editor()) {
-    log.info("[clientRegister] Registering:", serverObjectClass, clsId, scriptClsId);
+    logger.info("[clientRegister] Registering:", serverObjectClass, clsId, scriptClsId);
     factory.register(serverObjectClass, clsId, scriptClsId as TXR_cls_key);
   }
 }
@@ -85,7 +85,7 @@ function serverRegister(
   clsId: string,
   scriptClsId: TXR_cls_key
 ): void {
-  log.info("[serverRegister] Registering:", serverObjectClass, clsId, scriptClsId);
+  logger.info("[serverRegister] Registering:", serverObjectClass, clsId, scriptClsId);
   factory.register(serverObjectClass, clsId, scriptClsId);
 }
 
@@ -94,7 +94,7 @@ function serverRegister(
  * src/xrServerEntities/clsid_game.h
  */
 export function registerGameClasses(factory: XR_object_factory): void {
-  log.info("Registering bindings:");
+  logger.info("Registering bindings:");
 
   // -- GENERAL --------------------------------------------------------------------------------------------------------
   clientRegister(factory, MainMenu.__name, "MAIN_MNU", "MainMenu");

@@ -19,7 +19,7 @@ import { getConfigString, parseNames } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ObjectSound");
+const logger: LuaLogger = new LuaLogger("ObjectSound");
 
 export class ObjectSound extends AbstractPlayableSound {
   public static readonly type: EPlayableSound = EPlayableSound["3D"];

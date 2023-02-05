@@ -12,14 +12,14 @@ import { clearTaskManager } from "@/mod/scripts/se/task/TaskManager";
 import { actorMenu } from "@/mod/scripts/ui/game/ActorMenu";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("start_game");
+const logger: LuaLogger = new LuaLogger("start_game");
 
 /**
  * Main start game callback.
  * Called when game is started
  */
 export function startGame(): void {
-  log.info("Start game callback");
+  logger.info("Start game callback");
 
   math.randomseed(device().time_global());
 
@@ -38,5 +38,5 @@ export function startGame(): void {
 
   actorMenu.initQuickSlotItems();
 
-  log.info("Initialized modules");
+  logger.info("Initialized modules");
 }

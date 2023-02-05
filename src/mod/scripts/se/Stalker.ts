@@ -20,7 +20,7 @@ import { getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("Stalker");
+const logger: LuaLogger = new LuaLogger("Stalker");
 
 export interface IStalker extends XR_cse_alife_human_stalker {
   ini: Optional<XR_ini_file>;
@@ -83,11 +83,11 @@ export const Stalker: IStalker = declare_xr_class("Stalker", cse_alife_human_sta
     return cse_alife_human_stalker.can_switch_online(this);
   },
   switch_online() {
-    log.info("Switch online:", this.name());
+    logger.info("Switch online:", this.name());
     cse_alife_human_stalker.switch_online(this);
   },
   switch_offline() {
-    log.info("Switch offline:", this.name());
+    logger.info("Switch offline:", this.name());
     cse_alife_human_stalker.switch_offline(this);
   },
   STATE_Write(packet: XR_net_packet) {
@@ -140,7 +140,7 @@ export const Stalker: IStalker = declare_xr_class("Stalker", cse_alife_human_sta
   on_before_register(): void {},
   on_register(): void {
     cse_alife_human_stalker.on_register(this);
-    log.info("Register:", this.id, this.name(), this.section_name());
+    logger.info("Register:", this.id, this.name(), this.section_name());
     checkSpawnIniForStoryId(this);
 
     const board = get_sim_board();
@@ -164,7 +164,7 @@ export const Stalker: IStalker = declare_xr_class("Stalker", cse_alife_human_sta
     alife()!.object<ISmartTerrain>(smart_obj.id)!.register_npc(this);
   },
   on_unregister(): void {
-    log.info("Unregister:", this.name());
+    logger.info("Unregister:", this.name());
 
     const strn_id = this.smart_terrain_id();
 
@@ -181,11 +181,11 @@ export const Stalker: IStalker = declare_xr_class("Stalker", cse_alife_human_sta
     cse_alife_human_stalker.on_unregister(this);
   },
   on_spawn(): void {
-    log.info("Spawn:", this.name());
+    logger.info("Spawn:", this.name());
     cse_alife_human_stalker.on_spawn(this);
   },
   on_death(killer: XR_cse_alife_creature_abstract): void {
-    log.info("On death:", this.name(), killer.id, killer?.name());
+    logger.info("On death:", this.name(), killer.id, killer?.name());
 
     cse_alife_human_stalker.on_death(this, killer);
 
