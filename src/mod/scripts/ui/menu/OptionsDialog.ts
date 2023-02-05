@@ -36,7 +36,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
 const base: string = "menu\\OptionsDialog.component";
-const log: LuaLogger = new LuaLogger("Options");
+const logger: LuaLogger = new LuaLogger("Options");
 
 export interface IOptionsDialog extends XR_CUIScriptWnd {
   owner: XR_CUIScriptWnd;
@@ -91,7 +91,7 @@ export const OptionsDialog: IOptionsDialog = declare_xr_class("OptionsDialog", C
   __init(): void {
     CUIScriptWnd.__init(this);
 
-    log.info("Init");
+    logger.info("Init");
 
     this.m_preconditions = {};
     this.InitControls();
@@ -99,10 +99,10 @@ export const OptionsDialog: IOptionsDialog = declare_xr_class("OptionsDialog", C
     this.tab?.SetActiveTab("video");
   },
   __finalize(): void {
-    log.info("Finalize");
+    logger.info("Finalize");
   },
   InitControls(): void {
-    log.info("Init controls");
+    logger.info("Init controls");
 
     this.SetWndRect(new Frect().set(0, 0, 1024, 768));
     this.Enable(true);
@@ -170,7 +170,7 @@ export const OptionsDialog: IOptionsDialog = declare_xr_class("OptionsDialog", C
     this.Register(this.btn_cancel_download, "btn_cancel_download");
   },
   SetCurrentValues(): void {
-    log.info("Set current values");
+    logger.info("Set current values");
 
     const opt = new COptionsManager();
 
@@ -323,12 +323,12 @@ export const OptionsDialog: IOptionsDialog = declare_xr_class("OptionsDialog", C
     }
   },
   OnBtnAdvGraphic(): void {
-    log.info("Show advanced graphics");
+    logger.info("Show advanced graphics");
     this.dlg_video.Show(false);
     this.dlg_video_adv.Show(true);
   },
   OnSimplyGraphic(): void {
-    log.info("Show simplified graphics");
+    logger.info("Show simplified graphics");
     this.dlg_video.Show(true);
     this.dlg_video_adv.Show(false);
   },
@@ -379,7 +379,7 @@ export const OptionsDialog: IOptionsDialog = declare_xr_class("OptionsDialog", C
     }
   },
   OnBtn_CancelDownload(): void {
-    log.info("Cancel patch download");
+    logger.info("Cancel patch download");
 
     const mainMenu: XR_CMainMenu = main_menu.get_main_menu();
 

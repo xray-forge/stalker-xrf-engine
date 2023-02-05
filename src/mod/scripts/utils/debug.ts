@@ -1,7 +1,7 @@
 import { AnyArgs } from "@/mod/lib/types";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("debug");
+const logger: LuaLogger = new LuaLogger("debug");
 
 /**
  * Call game abort and print reason.
@@ -9,8 +9,8 @@ const log: LuaLogger = new LuaLogger("debug");
 export function abort(format: string, ...rest: AnyArgs): never {
   const reason: string = string.format(format, ...rest);
 
-  log.error("[abort] Aborting:", reason);
-  log.printStack();
+  logger.error("[abort] Aborting:", reason);
+  logger.printStack();
 
   error(reason, 1);
 }
@@ -20,6 +20,6 @@ export function abort(format: string, ...rest: AnyArgs): never {
  */
 export function callstack(): void {
   if (debug !== null) {
-    log.info("[callstack][traceback]", debug.traceback(5));
+    logger.info("[callstack][traceback]", debug.traceback(5));
   }
 }

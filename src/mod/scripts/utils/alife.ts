@@ -29,7 +29,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { graphDistance } from "@/mod/scripts/utils/physics";
 import { wait } from "@/mod/scripts/utils/time";
 
-const log: LuaLogger = new LuaLogger("utils/alife");
+const logger: LuaLogger = new LuaLogger("alife");
 
 /**
  * todo;

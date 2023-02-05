@@ -45,7 +45,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
 export const base: string = "menu\\MainMenu.component";
-const log: LuaLogger = new LuaLogger("MainMenu");
+const logger: LuaLogger = new LuaLogger("MainMenu");
 
 export interface IMainMenu extends XR_CUIScriptWnd {
   menuController: XR_CUIMMShniaga;
@@ -103,8 +103,6 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
   __init(this: IMainMenu): void {
     CUIScriptWnd.__init(this);
 
-    log.info("Init");
-
     this.modalBoxMode = 0;
 
     this.InitControls();
@@ -113,8 +111,6 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     EventsManager.getInstance().emitEvent(EGameEvent.MAIN_MENU_ON);
   },
   InitControls(): void {
-    log.info("Init controls");
-
     this.SetWndRect(new Frect().set(0, 0, gameConfig.UI.BASE_WIDTH, gameConfig.UI.BASE_HEIGHT));
 
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
@@ -144,8 +140,6 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     }
   },
   InitCallBacks(): void {
-    log.info("Init callbacks");
-
     // -- new game
     this.AddCallback("btn_novice", ui_events.BUTTON_CLICKED, () => this.OnButton_new_novice_game(), this);
     this.AddCallback("btn_stalker", ui_events.BUTTON_CLICKED, () => this.OnButton_new_stalker_game(), this);
@@ -183,15 +177,15 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     this.AddCallback("msg_box", ui_events.MESSAGE_BOX_QUIT_WIN_CLICKED, () => this.OnMessageQuitWin(), this);
   },
   Show(value: boolean): void {
-    log.info("Show:", value);
+    logger.info("Show:", value);
     this.menuController.SetVisibleMagnifier(value);
   },
   OnMsgOk(): void {
-    log.info("Message OK clicked");
+    logger.info("Message OK clicked");
     this.modalBoxMode = 0;
   },
   OnMsgCancel(): void {
-    log.info("Message cancel clicked");
+    logger.info("Message cancel clicked");
     this.modalBoxMode = 0;
   },
   OnMsgYes(): void {
@@ -256,7 +250,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     get_console().execute("quit");
   },
   onButtonReturnToGameClick(): void {
-    log.info("Return to game");
+    logger.info("Return to game");
 
     get_console().execute("main_menu off");
     EventsManager.getInstance().emitEvent(EGameEvent.MAIN_MENU_OFF);
@@ -301,7 +295,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     this.Show(false);
   },
   OnButton_options_clicked(): void {
-    log.info("Activating options view");
+    logger.info("Activating options view");
 
     if (this.gameOptionsDialog === null) {
       this.gameOptionsDialog = create_xr_class_instance(OptionsDialog);
@@ -315,9 +309,9 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
   },
   OnButton_dev_debug_dialog(): void {
     if (gameConfig.DEBUG.IS_ENABLED) {
-      log.info("Activating debug settings view");
+      logger.info("Activating debug settings view");
     } else {
-      log.info("Debug settings are disabled");
+      logger.info("Debug settings are disabled");
 
       return;
     }
@@ -347,7 +341,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     this.menuController.ShowPage(CUIMMShniaga.epi_new_network_game);
   },
   OnButton_multiplayer_clicked(): void {
-    log.info("Button multiplayer clicked, profile");
+    logger.info("Button multiplayer clicked, profile");
 
     // -- assert(this.gs_profile)
 
@@ -362,7 +356,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
       }
     }
 
-    log.info("Updating multiplayer menu");
+    logger.info("Updating multiplayer menu");
 
     this.multiplayerMenuDialog.UpdateControls();
     this.multiplayerMenuDialog.ShowDialog(true);
@@ -373,7 +367,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     get_console().execute("check_for_updates 0");
   },
   OnButton_logout_clicked(): void {
-    log.info("Logout clicked, log out of profiles");
+    logger.info("Logout clicked, log out of profiles");
 
     // -- assert(this.gs_profile)
 
@@ -387,7 +381,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     this.menuController.ShowPage(CUIMMShniaga.epi_main);
   },
   OnButton_internet_clicked(): void {
-    log.info("Button internet clicked");
+    logger.info("Button internet clicked");
 
     if (!this.gamespyDialog) {
       this.gamespyDialog = create_xr_class_instance(MultiplayerGameSpy);

@@ -7,7 +7,7 @@ import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("items/ObjectPhysic");
+const logger: LuaLogger = new LuaLogger("ObjectPhysic");
 
 export interface IObjectPhysic extends XR_cse_alife_object_physic {
   secret_item: Optional<boolean>;
@@ -21,7 +21,7 @@ export const ObjectPhysic: IObjectPhysic = declare_xr_class("ObjectPhysic", cse_
   },
   on_register(): void {
     cse_alife_object_physic.on_register(this);
-    log.info("Register:", this.id, this.name(), this.section_name());
+    logger.info("Register:", this.id, this.name(), this.section_name());
     checkSpawnIniForStoryId(this);
 
     this.secret_item = getTreasureManager().register_item(this);

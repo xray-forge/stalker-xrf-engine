@@ -56,7 +56,7 @@ export interface ISmartCoverLoopholeDescriptor {
   }>;
 }
 
-const log: LuaLogger = new LuaLogger("smart_covers");
+const logger: LuaLogger = new LuaLogger("smart_covers");
 
 export const smart_covers_list: LuaTable<string, ISmartCoverDescriptor> = {
   /* --[[duplo: {

@@ -21,7 +21,7 @@ import { getConfigString } from "@/mod/scripts/utils/configs";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("MapDisplayManager");
+const logger: LuaLogger = new LuaLogger("MapDisplayManager");
 
 const primaryMapObjects = [
   { target: story_ids.zat_b55_spot, hint: captions.st_zat_b55_name },
@@ -168,7 +168,7 @@ export class MapDisplayManager {
   public lastUpdateAt: number = 0;
 
   public updateNpcSpot(npc: XR_game_object, scheme: string, st: any, section: string): void {
-    log.info("Update npc spot:", npc.name());
+    logger.info("Update npc spot:", npc.name());
 
     const npcId: number = npc.id();
     const sim: XR_alife_simulator = alife();
@@ -230,7 +230,7 @@ export class MapDisplayManager {
   }
 
   public removeNpcSpot(npc: XR_game_object, st: any): void {
-    log.info("Remove npc spot:", npc.name());
+    logger.info("Remove npc spot:", npc.name());
 
     const sim: XR_alife_simulator = alife();
 
@@ -264,7 +264,7 @@ export class MapDisplayManager {
   }
 
   public fillPrimaryObjects(): void {
-    log.info("Fill primary objects");
+    logger.info("Fill primary objects");
 
     primaryMapObjects.forEach((it) => {
       const objectId: Optional<number> = getStoryObjectId(it.target);

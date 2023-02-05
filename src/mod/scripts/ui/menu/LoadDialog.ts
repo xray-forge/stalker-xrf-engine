@@ -46,7 +46,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
 const base: string = "menu\\LoadDialog.component";
-const log: LuaLogger = new LuaLogger("LoadDialog");
+const logger: LuaLogger = new LuaLogger("LoadDialog");
 
 interface ILoadItem extends XR_CUIListBoxItem {
   innerNameText: XR_CUITextWnd;
@@ -102,15 +102,10 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
   __init(): void {
     CUIScriptWnd.__init(this);
 
-    log.info("Init");
-
     this.InitControls();
     this.InitCallBacks();
   },
-  __finalize(): void {},
   InitControls(): void {
-    log.info("Init controls");
-
     this.SetWndRect(new Frect().set(0, 0, 1024, 768));
 
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
@@ -155,8 +150,6 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
     this.Register(this.messageBox, "message_box");
   },
   InitCallBacks(): void {
-    log.info("Init callbacks");
-
     this.AddCallback("button_load", ui_events.BUTTON_CLICKED, () => this.OnButton_load_clicked(), this);
     this.AddCallback("button_back", ui_events.BUTTON_CLICKED, () => this.OnButton_back_clicked(), this);
     this.AddCallback("button_del", ui_events.BUTTON_CLICKED, () => this.OnButton_del_clicked(), this);
@@ -167,8 +160,6 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
     this.AddCallback("list_window", ui_events.WINDOW_LBUTTON_DB_CLICK, () => this.OnListItemDbClicked(), this);
   },
   FillList(): void {
-    log.info("Fill list");
-
     this.listBox.RemoveAll();
 
     const fs: XR_FS = getFS();
@@ -193,7 +184,7 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
     }
   },
   OnListItemClicked(): void {
-    log.info("List item selected");
+    logger.info("List item selected");
 
     if (this.listBox.GetSize() === 0) {
       return;
@@ -236,11 +227,11 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
     this.picture.SetTextureRect(new Frect().set(r.x1, r.y1, r.x2, r.y2));
   },
   OnListItemDbClicked(): void {
-    log.info("List item double-clicked");
+    logger.info("List item double-clicked");
     this.OnButton_load_clicked();
   },
   OnMsgYes(): void {
-    log.info("Message yes confirmed");
+    logger.info("Message yes confirmed");
 
     const index: number = this.listBox.GetSelectedIndex();
 
@@ -265,7 +256,7 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
     this.messageBoxId = 0;
   },
   load_game_internal(): void {
-    log.info("Load game internal");
+    logger.info("Load game internal");
 
     const console: XR_CConsole = get_console();
 
@@ -291,7 +282,7 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
     }
   },
   OnButton_load_clicked(): void {
-    log.info("Load game clicked");
+    logger.info("Load game clicked");
 
     if (this.listBox.GetSize() === 0) {
       return;
@@ -332,14 +323,14 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
     this.messageBox.ShowDialog(true);
   },
   OnButton_back_clicked(): void {
-    log.info("Back clicked");
+    logger.info("Back clicked");
 
     this.owner.ShowDialog(true);
     this.HideDialog();
     this.owner.Show(true);
   },
   OnButton_del_clicked(): void {
-    log.info("Delete clicked");
+    logger.info("Delete clicked");
 
     if (this.listBox.GetSize() === 0) {
       return;

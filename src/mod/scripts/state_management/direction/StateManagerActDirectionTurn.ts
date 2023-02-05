@@ -7,7 +7,7 @@ import { StateManager } from "@/mod/scripts/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { vectorCmp } from "@/mod/scripts/utils/physics";
 
-const log: LuaLogger = new LuaLogger(
+const logger: LuaLogger = new LuaLogger(
   "StateManagerActDirectionTurn",
   gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
 );
@@ -33,7 +33,7 @@ export const StateManagerActDirectionTurn: IStateManagerActDirectionTurn = decla
       this.turn();
     },
     execute(): void {
-      log.info("Act direction turn");
+      logger.info("Act direction turn");
       action_base.execute(this);
       this.turn();
     },
@@ -41,7 +41,7 @@ export const StateManagerActDirectionTurn: IStateManagerActDirectionTurn = decla
       action_base.finalize(this);
     },
     turn(): void {
-      log.info("Turn:", this.object.name());
+      logger.info("Turn:", this.object.name());
       this.st.point_obj_dir = look_object_type(this.object, this.st);
 
       if (this.st.look_object !== null && level.object_by_id(this.st.look_object as number) !== null) {

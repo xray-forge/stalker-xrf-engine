@@ -4,7 +4,10 @@ import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("StateManagerActMentalFree", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
+const logger: LuaLogger = new LuaLogger(
+  "StateManagerActMentalFree",
+  gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
+);
 
 export interface IStateManagerActMentalFree extends XR_action_base {
   st: StateManager;
@@ -40,7 +43,7 @@ export const StateManagerActMentalFree: IStateManagerActMentalFree = declare_xr_
       // --    printf("@@@sight_type %s", tostring(sight_type.m_sight_type))
     },
     execute(): void {
-      log.info("Act mental free");
+      logger.info("Act mental free");
       action_base.execute(this);
       this.object.set_mental_state(anim.free);
     },

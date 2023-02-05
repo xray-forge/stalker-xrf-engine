@@ -2,7 +2,7 @@ import { CSightParams, move, vector, XR_game_object, XR_patrol, XR_vector } from
 
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("utils/world");
+const logger: LuaLogger = new LuaLogger("world");
 
 /**
  * todo;

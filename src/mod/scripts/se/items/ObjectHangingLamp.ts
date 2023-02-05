@@ -7,7 +7,7 @@ import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ObjectHangingLamp");
+const logger: LuaLogger = new LuaLogger("ObjectHangingLamp");
 
 export interface IObjectHangingLamp extends XR_cse_alife_object_hanging_lamp {
   secret_item: Optional<boolean>;
@@ -24,7 +24,7 @@ export const ObjectHangingLamp: IObjectHangingLamp = declare_xr_class(
     },
     on_register(): void {
       cse_alife_object_hanging_lamp.on_register(this);
-      log.info("Register:", this.id, this.name(), this.section_name());
+      logger.info("Register:", this.id, this.name(), this.section_name());
       checkSpawnIniForStoryId(this);
 
       this.secret_item = getTreasureManager().register_item(this);

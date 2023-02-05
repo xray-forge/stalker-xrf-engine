@@ -16,7 +16,7 @@ import { SAVE_MARKERS } from "@/mod/scripts/core/db";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("game_saves");
+const logger: LuaLogger = new LuaLogger("game_saves");
 
 /**
  * todo
@@ -133,12 +133,12 @@ export function setSaveMarker(packet: XR_net_packet, check: boolean, prefix: str
     // log.info("Set save marker result:", result, dif, mode);
 
     if (dif >= 8000) {
-      log.info("Saving more than 8000:", prefix, dif);
+      logger.info("Saving more than 8000:", prefix, dif);
       // printf("WARNING! may be this is problem save point")
     }
 
     if (dif >= 10240) {
-      log.info("Saving more than 10240:", prefix, dif);
+      logger.info("Saving more than 10240:", prefix, dif);
       // --        abort("You are saving too much")
     }
 
@@ -213,12 +213,12 @@ export function setMarker(packet: XR_net_packet, mode: "save" | "load", check: b
       // log.info("Set save marker result:", result, dif, mode);
 
       if (dif >= 8000) {
-        log.info("Saving more than 8000:", prefix, dif);
+        logger.info("Saving more than 8000:", prefix, dif);
         // printf("WARNING! may be this is problem save point")
       }
 
       if (dif >= 10240) {
-        log.info("Saving more than 10240:", prefix, dif);
+        logger.info("Saving more than 10240:", prefix, dif);
         // --        abort("You are saving too much")
       }
 

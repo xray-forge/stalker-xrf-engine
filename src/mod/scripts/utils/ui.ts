@@ -5,7 +5,7 @@ import { getActor } from "@/mod/scripts/core/db";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("rendering");
+const logger: LuaLogger = new LuaLogger("rendering");
 
 export function isWideScreen(): boolean {
   return device().width / device().height > 1024 / 768 + 0.01;
@@ -36,7 +36,7 @@ export function resolveXmlFormPath(path: string, hasWideScreenSupport: boolean =
 
   const resolved: string = canBeWide && getFS().exist("$game_config$", "ui\\" + wideBase) ? wideBase : base + ".xml";
 
-  log.info("Resolved XML to:", resolved);
+  logger.info("Resolved XML to:", resolved);
 
   return resolved;
 }
@@ -46,7 +46,7 @@ export function setUiVisibility(isVisible: boolean): void {
   const actor: XR_game_object = getActor()!;
 
   if (isVisible) {
-    log.info("[setUiVisibility] Showing UI");
+    logger.info("[setUiVisibility] Showing UI");
 
     level.show_indicators();
 
@@ -55,7 +55,7 @@ export function setUiVisibility(isVisible: boolean): void {
     actor.disable_hit_marks(false);
     hud.show_messages();
   } else {
-    log.info("[setUiVisibility] Hiding UI");
+    logger.info("[setUiVisibility] Hiding UI");
 
     if (actor.is_talking()) {
       actor.stop_talk();
@@ -72,5 +72,5 @@ export function setUiVisibility(isVisible: boolean): void {
     actor.disable_hit_marks(true);
   }
 
-  log.info("[setUiVisibility] Completed");
+  logger.info("[setUiVisibility] Completed");
 }

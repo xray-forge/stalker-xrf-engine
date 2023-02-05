@@ -6,7 +6,7 @@ import { states } from "@/mod/scripts/state_management/lib/state_lib";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger(
+const logger: LuaLogger = new LuaLogger(
   "StateManagerActDirectionSearch",
   gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
 );
@@ -37,7 +37,7 @@ export const StateManagerActDirectionSearch: IStateManagerActDirectionSearch = d
       }
     },
     execute(): void {
-      log.info("Act direction search");
+      logger.info("Act direction search");
       action_base.execute(this);
     },
     finalize(): void {

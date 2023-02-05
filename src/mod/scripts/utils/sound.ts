@@ -3,7 +3,7 @@ import { bit_and, snd_type, TXR_snd_type } from "xray16";
 import { ESoundType } from "@/mod/globals/sound/sound_type";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("sound");
+const logger: LuaLogger = new LuaLogger("sound");
 
 export function mapSndTypeToSoundType(sound_type: TXR_snd_type): ESoundType {
   if (bit_and(sound_type, snd_type.weapon) === snd_type.weapon) {

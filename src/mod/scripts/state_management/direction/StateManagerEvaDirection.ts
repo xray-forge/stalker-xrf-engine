@@ -14,7 +14,7 @@ import { StateManager } from "@/mod/scripts/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { vectorCmpPrec } from "@/mod/scripts/utils/physics";
 
-const log: LuaLogger = new LuaLogger("StateManagerEvaDirection", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
+const logger: LuaLogger = new LuaLogger("StateManagerEvaDirection", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
 export interface IStateManagerEvaDirection extends XR_property_evaluator {
   st: StateManager;

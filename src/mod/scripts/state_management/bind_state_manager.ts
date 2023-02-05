@@ -8,7 +8,7 @@ import { StateManagerEvaLogicActive } from "@/mod/scripts/state_management/state
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("bind_state_manager");
+const logger: LuaLogger = new LuaLogger("bind_state_manager");
 
 export function bind_state_manager(object: XR_game_object): StateManager {
   const planner = object.motivation_action_manager();

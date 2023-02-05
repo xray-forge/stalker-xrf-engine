@@ -53,7 +53,7 @@ import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
 const baseOnline: string = "menu\\multiplayer\\MultiplayerOnline.component";
 const baseOffline: string = "menu\\multiplayer\\MultiplayerOffline.component";
-const log: LuaLogger = new LuaLogger("MultiplayerMenu");
+const logger: LuaLogger = new LuaLogger("MultiplayerMenu");
 
 export interface IMultiplayerMenu extends XR_CUIScriptWnd {
   owner: IMainMenu;
@@ -161,7 +161,7 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
   __init(isOnlineMode: boolean): void {
     CUIScriptWnd.__init(this);
 
-    log.info("Init");
+    logger.info("Init");
 
     this.InitControls(isOnlineMode);
     this.InitCallBacks();
@@ -170,7 +170,7 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
   },
   __finalize(): void {},
   InitControls(isOnlineMode: boolean): void {
-    log.info("Init controls");
+    logger.info("Init controls");
 
     this.online = isOnlineMode;
 
@@ -379,13 +379,13 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
     this.AddCallback("check_demosave", ui_events.BUTTON_CLICKED, () => this.OnDemoSaveChange(), this);
   },
   OnBtn_DirectIP(): void {
-    log.info("Button direct IP");
+    logger.info("Button direct IP");
 
     this.message_box.InitMessageBox("message_box_direct_ip");
     this.message_box.ShowDialog(true);
   },
   OnDirectIP_yes(): void {
-    log.info("On direct API confirm");
+    logger.info("On direct API confirm");
 
     if (string.len(this.message_box.GetHost()) !== 0) {
       // -- const cmd = "start client(" + this.message_box.GetHost() + "/name=" + this.player_name.GetText()
@@ -404,7 +404,7 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
     }
   },
   OnCDKeyChanged(): void {
-    log.info("CD key changed");
+    logger.info("CD key changed");
 
     const cdKey: string = this.cdkey.GetText();
     const console: XR_CConsole = get_console();
@@ -412,7 +412,7 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
     console.execute("cdkey " + (cdKey === "" ? "clear" : cdKey));
   },
   OnPlayerNameChanged(): void {
-    log.info("Player name changed");
+    logger.info("Player name changed");
 
     let tmp_player_name = this.player_name.GetText();
 
@@ -432,18 +432,18 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
     // -- assert(profile)
   },
   OnBtn_SrvInfo(): void {
-    log.info("Server info");
+    logger.info("Server info");
 
     this.server_list.ShowServerInfo();
   },
   OnGameModeChange(): void {
-    log.info("Game mode change");
+    logger.info("Game mode change");
 
     this.map_list.OnModeChange();
     this.dlg_options.SetGameMode(this.map_list.GetCurGameType(), this);
   },
   OnFilterChange(): void {
-    log.info("Filter change");
+    logger.info("Filter change");
 
     const sf: XR_SServerFilters = new SServerFilters();
 
@@ -457,7 +457,7 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
     this.server_list.SetFilters(sf);
   },
   OnDemoSaveChange(): void {
-    log.info("Demo save change");
+    logger.info("Demo save change");
 
     const console: XR_CConsole = get_console();
 
@@ -468,7 +468,7 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
     }
   },
   OnTabChange(): void {
-    log.info("Tab changed");
+    logger.info("Tab changed");
 
     this.dlg_join.Show(false);
     this.dlg_options.Show(false);
@@ -506,24 +506,24 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
     }
   },
   OnRadio_NetChanged(): void {
-    log.info("Radio net checked");
+    logger.info("Radio net checked");
 
     this.server_list.NetRadioChanged(!this.online);
     this.server_list.RefreshList(!this.online);
     this.OnFilterChange();
   },
   OnBtn_Refresh(): void {
-    log.info("Button refresh");
+    logger.info("Button refresh");
 
     this.server_list.RefreshList(!this.online);
     this.OnFilterChange();
   },
   OnBtn_RefreshQuick(): void {
-    log.info("Button quick refresh");
+    logger.info("Button quick refresh");
     this.server_list.RefreshQuick();
   },
   OnBtn_Calncel(): void {
-    log.info("Button cancel");
+    logger.info("Button cancel");
 
     const opt: XR_COptionsManager = new COptionsManager();
 
@@ -536,7 +536,7 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
     this.owner.Show(true);
   },
   OnBtn_Create(): void {
-    log.info("Button create");
+    logger.info("Button create");
 
     if (this.map_list.IsEmpty()) {
       this.message_box.InitMessageBox("select_map");
@@ -571,7 +571,7 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
     }
   },
   GatherServerData(): void {
-    log.info("Gather server data");
+    logger.info("Gather server data");
 
     let cmdstr = "";
     let tmpStr: string;
@@ -816,11 +816,11 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
     this.map_list.SetServerParams(cmdstr);
   },
   GoToProfileTab(): void {
-    log.info("Go to profile tab");
+    logger.info("Go to profile tab");
     this.tab.SetActiveTab("profile");
   },
   OnConnectError(code: number, description: string): void {
-    log.info("Connection error:", code, description);
+    logger.info("Connection error:", code, description);
 
     this.message_box.InitMessageBox("message_box_error");
 
@@ -836,7 +836,7 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
     this.message_box.ShowDialog(true);
   },
   OnBtn_Join(): void {
-    log.info("Join clicked");
+    logger.info("Join clicked");
 
     const opt: XR_COptionsManager = new COptionsManager();
 
@@ -848,7 +848,7 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
     this.server_list.ConnectToSelected();
   },
   OnBtn_CancelDownload(): void {
-    log.info("Cancel download");
+    logger.info("Cancel download");
 
     main_menu.get_main_menu().CancelDownload();
   },

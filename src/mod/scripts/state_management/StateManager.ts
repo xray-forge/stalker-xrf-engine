@@ -34,7 +34,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { vectorCmp } from "@/mod/scripts/utils/physics";
 
-const log: LuaLogger = new LuaLogger("StateManager", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
+const logger: LuaLogger = new LuaLogger("StateManager", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
 export class StateManager {
   public npc: XR_game_object;
@@ -69,7 +69,7 @@ export class StateManager {
 
     goap_graph(this, npc);
 
-    log.info("Construct state manager for:", this);
+    logger.info("Construct state manager for:", this);
   }
 
   public set_state(
@@ -120,7 +120,7 @@ export class StateManager {
     }
 
     if (this.target_state !== state_name) {
-      log.info("Set state:", this);
+      logger.info("Set state:", this);
 
       if (
         (states.get(this.target_state).weapon === "fire" || states.get(this.target_state).weapon === "sniper_fire") &&
@@ -200,10 +200,10 @@ export class StateManager {
       if (this.callback !== null && this.callback.func !== null) {
         if (this.callback.begin === null) {
           this.callback.begin = time_global();
-          log.info("Callback initialized:", this);
+          logger.info("Callback initialized:", this);
         } else {
           if (time_global() - this.callback.begin >= this.callback.timeout!) {
-            log.info("Callback called:", this);
+            logger.info("Callback called:", this);
 
             const a = this.callback.func;
             const b = this.callback.obj;

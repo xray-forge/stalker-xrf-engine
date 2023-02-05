@@ -14,7 +14,7 @@ const MARKER_IN: number = 1;
 const MARKER_OUT: number = 2;
 const MARKER_IDLE: number = 3;
 
-const log: LuaLogger = new LuaLogger("AnimationManager", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
+const logger: LuaLogger = new LuaLogger("AnimationManager", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
 export interface IAnimationManager extends XR_LuaBindBase {
   mgr: StateManager;
@@ -71,14 +71,14 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
       seq_id: 1
     };
 
-    log.info("Initialized new entry:", npc.name(), name, this.sid);
+    logger.info("Initialized new entry:", npc.name(), name, this.sid);
 
     if (collection === null) {
       abort("Provided null object for animation instance");
     }
   },
   set_control(): void {
-    log.info("Set control:", this);
+    logger.info("Set control:", this);
 
     this.npc.set_callback(callback.script_animation, this.animation_callback, this);
 
@@ -98,7 +98,7 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
     }
   },
   set_state(new_state: Optional<string>, fast_set: Optional<boolean>): void {
-    log.info("Setting state:", new_state, this);
+    logger.info("Setting state:", new_state, this);
 
     /**
      * Force animation over existing ones.
@@ -141,10 +141,10 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
     this.states.target_state = new_state;
     this.states.next_rnd = time_global();
 
-    log.info("Set state:", new_state, this);
+    logger.info("Set state:", new_state, this);
   },
   select_anim(): LuaMultiReturn<[Optional<string>, any]> {
-    log.info("Select animation:", this);
+    logger.info("Select animation:", this);
 
     const states = this.states;
 
@@ -157,7 +157,7 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
     // New animation detected:
     if (states.target_state !== states.current_state) {
       if (states.target_state === null) {
-        log.info("Reset animation:", this);
+        logger.info("Reset animation:", this);
 
         const state = this.animations.get(states.current_state!);
 
@@ -183,7 +183,7 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
         const next_anim = anim_for_slot.get(states.seq_id);
 
         if (type(next_anim) === "table") {
-          log.info("Preprocess special action:", states.current_state, states.seq_id, this);
+          logger.info("Preprocess special action:", states.current_state, states.seq_id, this);
           this.process_special_action(next_anim as any);
           this.animation_callback();
 
@@ -194,7 +194,7 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
       }
 
       if (states.current_state === null) {
-        log.info("New animation:", this);
+        logger.info("New animation:", this);
 
         const state = this.animations.get(states.target_state!);
 
@@ -233,7 +233,7 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
 
     // Same non-null animation:
     if (states.target_state === states.current_state && states.current_state !== null) {
-      log.info("Update animation:", this);
+      logger.info("Update animation:", this);
 
       // --printf("        select rnd")
       const wpn_slot: number = this.weapon_slot();
@@ -267,7 +267,7 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
     return weapon.animation_slot();
   },
   anim_for_slot(slot, t): LuaTable<number, string | LuaTable> {
-    log.info("Animation for slot:", slot, this);
+    logger.info("Animation for slot:", slot, this);
     // --    printf("ANIM [%s] for slot [%s]", this.name, tostring(slot))
     // --    print_table(t)
     // --    printf("-------------------------")
@@ -283,7 +283,7 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
       return null;
     }
 
-    log.info("Select RND animation:", wpn_slot, must_play);
+    logger.info("Select RND animation:", wpn_slot, must_play);
 
     const anima = this.anim_for_slot(wpn_slot, anim_state.rnd as any);
 
@@ -325,7 +325,7 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
     }
 
     if (animation_props === null || animation_props.moving !== true) {
-      log.info("No props animation addition:", this.npc.name(), anim);
+      logger.info("No props animation addition:", this.npc.name(), anim);
       npc.add_animation(anim, true, false);
 
       return;
@@ -334,7 +334,7 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
     if (this.mgr.animation_position === null || this.mgr.pos_direction_applied === true) {
       // --npc:set_sight(CSightParams.eSightTypeAnimationDirection, false,false)
       // --        printf("%s no pos", npc:name())
-      log.info("No position animation addition:", this.npc.name(), anim);
+      logger.info("No position animation addition:", this.npc.name(), anim);
       npc.add_animation(anim, true, true);
     } else {
       if (this.mgr.animation_direction === null) {
@@ -347,7 +347,7 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
       // math.deg(math.acos( (v1.x*v2.x + v1.y*v2.y)/math.sqrt((v1.x*v1.x + v1.y*v1.y)*(v2.x*v2.x + v2.y*v2.y))  ))
 
       // --printf("%s UGOL %s", npc:name(), rot_y)
-      log.info("Positional animation addition:", this.npc.name(), anim);
+      logger.info("Positional animation addition:", this.npc.name(), anim);
       npc.add_animation(anim, true, this.mgr.animation_position, new vector().set(0, rot_y, 0), false);
 
       this.mgr.pos_direction_applied = true;
@@ -361,7 +361,7 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
     const states = this.states;
 
     if (states.anim_marker === MARKER_IN) {
-      log.info("Animation callback:", this);
+      logger.info("Animation callback:", this);
 
       states.anim_marker = null;
 
@@ -389,7 +389,7 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
     }
 
     if (states.anim_marker === MARKER_IDLE) {
-      log.info("Animation callback:", this);
+      logger.info("Animation callback:", this);
 
       states.anim_marker = null;
 
@@ -407,7 +407,7 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
     }
 
     if (states.anim_marker === MARKER_OUT) {
-      log.info("Animation callback:", this.npc.name(), "OUT");
+      logger.info("Animation callback:", this.npc.name(), "OUT");
 
       states.anim_marker = null;
 
