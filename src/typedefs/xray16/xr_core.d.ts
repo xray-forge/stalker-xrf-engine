@@ -3,40 +3,65 @@ declare module "xray16" {
    * Base for bindings brought from LuaBind library.
    * todo: Correct signatures.
    */
-  export class XR_LuaBindBase {
+  export class XR_EngineBinding {
     public static __init(this: void, ...args: Array<any>): void;
-    public static __finalize(this: void): void;
-    public static __call(this: void): void;
-
-    public __name: string;
-
     public __init(...args: Array<any>): void;
+
+    public static __finalize(this: void): void;
     public __finalize(): void;
+
+    public static __call(this: void): void;
     public __call(args: Array<any>): void;
+
+    public static __tostring(this: void): string;
     public __tostring(): string;
+
+    public static __len(this: void): void;
     public __len(): void;
+
+    public static __unm(this: void): void;
     public __unm(): void;
+
+    public static __eq(this: void): void;
     public __eq(): void;
+
+    public static __le(this: void): void;
     public __le(): void;
+
+    public static __lt(this: void): void;
     public __lt(): void;
+
+    public static __pow(this: void): void;
     public __pow(): void;
+
+    public static __div(this: void): void;
     public __div(): void;
+
+    public static __mul(this: void): void;
     public __mul(): void;
+
+    public static __sub(this: void): void;
     public __sub(): void;
+
+    public static __add(this: void): void;
     public __add(): void;
+
+    public readonly __name: string;
   }
 
   /**
    * C++ class DLL_Pure {
    */
-  export class XR_DLL_Pure {
-    public _construct(): void;
+  export class XR_DLL_Pure extends XR_EngineBinding {
+    protected constructor();
   }
 
   /**
    * C++ class GameGraph__CVertex {
    */
-  export class XR_GameGraph__CVertex {
+  export class XR_GameGraph__CVertex extends XR_EngineBinding {
+    protected constructor();
+
     public level_vertex_id(): u32;
     public level_id(): u8;
     public game_point(): XR_vector;
@@ -47,25 +72,33 @@ declare module "xray16" {
    * C++ class ce_script_zone : DLL_Pure {
    */
   export class XR_ce_script_zone extends XR_DLL_Pure {
+    protected constructor();
   }
 
   /**
    * C++ class ce_smart_zone : DLL_Pure {
    */
   export class XR_ce_smart_zone extends XR_DLL_Pure {
+    protected constructor();
   }
 
   /**
    * C++ class explosive {
+   * @customConstructor explosive
    */
-  export class XR_explosive {
+  export class XR_explosive extends XR_EngineBinding{
+    protected constructor();
+
     public explode(): void;
   }
 
   /**
    * C++ class ClientID {
+   * @customConstructor ClientID
    */
-  export class XR_ClientID {
+  export class XR_ClientID extends XR_EngineBinding {
+    protected constructor();
+
     public value(): u32;
     public set(value: u32): void;
   }
@@ -74,7 +107,7 @@ declare module "xray16" {
    * C++ class memory_object {
    * @customConstructor memory_object
    */
-  export class XR_memory_object extends XR_LuaBindBase {
+  export class XR_memory_object extends XR_EngineBinding {
     public readonly last_level_time: u32;
     public readonly level_time: u32;
 
@@ -85,7 +118,7 @@ declare module "xray16" {
    * C++ class object {
    * @customConstructor object
    */
-  export class XR_object {
+  export class XR_object extends XR_EngineBinding {
     public static readonly activate: 16;
     public static readonly aim1: 4;
     public static readonly aim2: 5;
@@ -120,60 +153,77 @@ declare module "xray16" {
 
   /**
    * C++ class entity_memory_object : memory_object {
+   * @customConstructor entity_memory_object
    */
   export class XR_entity_memory_object extends XR_memory_object {
     public readonly object_info: object;
     public readonly self_info: object;
+
+    protected constructor();
 
     public object(): XR_game_object;
   }
 
   /**
    * C++ class hit_memory_object : entity_memory_object {
+   * @customConstructor hit_memory_object
    */
   export class XR_hit_memory_object extends XR_entity_memory_object {
     public readonly amount: f32;
     public readonly bone_index: u16;
     public readonly direction: XR_vector;
+
+    protected constructor();
   }
 
   /**
    * C++ class game_memory_object : memory_object {
+   * @customConstructor game_memory_object
    */
   export class XR_game_memory_object extends XR_memory_object {
     public object_info: unknown; /* MemorySpace::CObjectParams<class CGameObject>& */
     public self_info: unknown; /* MemorySpace::CObjectParams<class CGameObject>& */
     public object(): XR_game_object;
+
+    protected constructor();
   }
 
   /**
    * C++ class not_yet_visible_object {
+   * @customConstructor not_yet_visible_object
    */
-  export class XR_not_yet_visible_object {
+  export class XR_not_yet_visible_object extends XR_EngineBinding{
+    protected constructor();
+
     public value: f32;
     public object(): XR_game_object;
   }
 
   /**
    * C++ class visible_memory_object {
+   * @customConstructor visible_memory_object
    */
   export class XR_visible_memory_object extends XR_game_memory_object {
+    protected constructor();
   }
 
   /**
    * C++ class memory_info : visible_memory_object {
-   * */
-  export class XR_memory_info extends XR_visible_memory_object{
+   * @customConstructor visible_memory_object
+   */
+  export class XR_memory_info extends XR_visible_memory_object {
     public readonly hit_info: boolean;
     public readonly sound_info: boolean;
     public readonly visual_info: boolean;
+
+    protected constructor();
   }
 
   /**
    * C++ class CTime {
    * @customConstructor CTime
    */
-  export class XR_CTime {
+  export class XR_CTime extends XR_EngineBinding {
     public static DateToDay: 0;
     public static DateToMonth: 1;
     public static DateToYear: 2;
@@ -199,9 +249,10 @@ declare module "xray16" {
 
   /**
    * C++ class CConsole {
+   * @customConstructor CConsole
    */
-  export class XR_CConsole {
-    protected constructor();
+  export class XR_CConsole extends XR_EngineBinding {
+    private constructor();
 
     public execute(cmd: string): void;
     public execute_deferred(cmd: string): void;
@@ -236,17 +287,19 @@ declare module "xray16" {
 
   /**
    * C++ class class_info_data
+   * @customConstructor class_info_data
    */
-  export class XR_class_info_data {
+  export class XR_class_info_data extends XR_EngineBinding {
     public readonly methods: object;
     public readonly attributes: object;
     public readonly name: string;
 
-    protected constructor();
+    private constructor();
   }
 
   /**
    * C++ class render_device {
+   * @customConstructor render_device
    */
   export class XR_render_device {
     private constructor();
@@ -273,7 +326,9 @@ declare module "xray16" {
    * C++ class cef_storage {
    * @customConstructor cef_storage
    */
-  export class XR_cef_storage {
+  export class XR_cef_storage extends XR_EngineBinding {
+    private constructor();
+
     public evaluate(str: string, game_object: XR_game_object): f32;
     public evaluate(str: string, game_object1: XR_game_object, game_object2: XR_game_object): f32;
     public evaluate(

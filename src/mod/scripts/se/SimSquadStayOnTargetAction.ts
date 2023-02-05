@@ -1,4 +1,4 @@
-import { game, XR_CTime, XR_LuaBindBase } from "xray16";
+import { game, XR_CTime, XR_EngineBinding } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
@@ -6,7 +6,7 @@ import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 const STAY_POINT_IDLE_MIN = 180 * 60;
 const STAY_POINT_IDLE_MAX = 300 * 60;
 
-export interface ISimSquadStayOnTargetAction extends XR_LuaBindBase {
+export interface ISimSquadStayOnTargetAction extends XR_EngineBinding {
   name: string;
   start_time: Optional<XR_CTime>;
   idle_time: number;

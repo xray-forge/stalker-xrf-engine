@@ -1,4 +1,4 @@
-import { game, TXR_net_processor, XR_CTime, XR_ini_file, XR_LuaBindBase, XR_net_packet, XR_reader } from "xray16";
+import { game, TXR_net_processor, XR_CTime, XR_EngineBinding, XR_ini_file, XR_net_packet, XR_reader } from "xray16";
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { getActor, zoneByName } from "@/mod/scripts/core/db";
@@ -23,7 +23,7 @@ export let current_smart_id: Optional<number> = null;
 
 const ALARM_TIME = 2 * 60 * 60;
 
-export interface ISmartTerrainControl extends XR_LuaBindBase {
+export interface ISmartTerrainControl extends XR_EngineBinding {
   status: ESmartTerrainStatus;
   noweap_zone: string;
   ignore_zone: string;

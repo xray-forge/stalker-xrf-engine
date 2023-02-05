@@ -5,8 +5,8 @@ import {
   time_global,
   XR_alife_simulator,
   XR_cse_alife_object,
+  XR_EngineBinding,
   XR_ini_file,
-  XR_LuaBindBase,
   XR_net_packet,
   XR_reader,
 } from "xray16";
@@ -43,7 +43,7 @@ export interface ITreasureSecret {
   >;
 }
 
-export interface ITreasureManager extends XR_LuaBindBase {
+export interface ITreasureManager extends XR_EngineBinding {
   items_spawned: boolean;
   check_time: any;
   secrets: LuaTable<string, ITreasureSecret>;

@@ -1,4 +1,4 @@
-import { ini_file, XR_CGameTask, XR_ini_file, XR_LuaBindBase, XR_net_packet, XR_reader } from "xray16";
+import { ini_file, XR_CGameTask, XR_EngineBinding, XR_ini_file, XR_net_packet, XR_reader } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
@@ -11,7 +11,7 @@ import { getTableSize } from "@/mod/scripts/utils/table";
 let taskManager: Optional<ITaskManager> = null;
 const logger: LuaLogger = new LuaLogger("TaskManager");
 
-export interface ITaskManager extends XR_LuaBindBase {
+export interface ITaskManager extends XR_EngineBinding {
   task_ini: XR_ini_file;
   task_info: LuaTable<string, ITaskObject>;
 

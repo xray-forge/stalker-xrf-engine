@@ -3,8 +3,8 @@ import {
   system_ini,
   TXR_net_processor,
   XR_cse_abstract,
+  XR_EngineBinding,
   XR_ini_file,
-  XR_LuaBindBase,
   XR_net_packet,
 } from "xray16";
 
@@ -18,7 +18,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 const logger: LuaLogger = new LuaLogger("StoryObjectsRegistry");
 let storyObjectsRegistry: Optional<IStoryObjectsRegistry> = null;
 
-export interface IStoryObjectsRegistry extends XR_LuaBindBase {
+export interface IStoryObjectsRegistry extends XR_EngineBinding {
   id_by_story_id: LuaTable<string, number>;
   story_id_by_id: LuaTable<number, string>;
 

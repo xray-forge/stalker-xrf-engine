@@ -3,7 +3,7 @@ declare module "xray16" {
    * C++ class fcolor {
    * @customConstructor fcolor
    */
-  export class XR_fcolor extends XR_LuaBindBase {
+  export class XR_fcolor extends XR_EngineBinding {
     public a: f32;
     public b: f32;
     public g: f32;
@@ -229,7 +229,7 @@ declare module "xray16" {
    * C++ class MonsterHitInfo {
    * @customConstructor MonsterHitInfo
    */
-  export class XR_MonsterHitInfo extends XR_LuaBindBase{
+  export class XR_MonsterHitInfo extends XR_EngineBinding{
     private constructor();
 
     public direction: XR_vector;
@@ -241,7 +241,7 @@ declare module "xray16" {
    * C++ class color_animator {
    * @customConstructor color_animator
    */
-  export class XR_color_animator extends XR_LuaBindBase {
+  export class XR_color_animator extends XR_EngineBinding {
     public static __init(this: void, target: XR_color_animator, value: string): void;
     public constructor(value: string);
 
@@ -254,7 +254,7 @@ declare module "xray16" {
    * C++ class profile_timer {
    * @customConstructor profile_timer
    */
-  export class XR_profile_timer extends XR_LuaBindBase {
+  export class XR_profile_timer extends XR_EngineBinding {
     public constructor();
     public constructor(profile_timer: XR_profile_timer);
 
@@ -269,7 +269,7 @@ declare module "xray16" {
    * C++ class effector {
    * @customConstructor effector
    */
-  export class XR_effector extends XR_LuaBindBase {
+  export class XR_effector extends XR_EngineBinding {
     public static __init(this: void, target: XR_effector, int: i32, float: f32): void;
     public constructor(int: i32, float: f32);
 
@@ -287,7 +287,7 @@ declare module "xray16" {
    * C++ class effector_params {
    * @customConstructor effector_params
    */
-  export class XR_effector_params extends XR_LuaBindBase {
+  export class XR_effector_params extends XR_EngineBinding {
     public color_add: XR_color;
     public color_base: XR_color;
     public color_gray: XR_color;
@@ -305,7 +305,7 @@ declare module "xray16" {
    * C++ class properties_list_helper {
    * @customConstructor properties_list_helper
    */
-  export class XR_properties_list_helper extends XR_LuaBindBase {
+  export class XR_properties_list_helper extends XR_EngineBinding {
     public create_vangle(): unknown;
     public create_vangle(): unknown;
     public create_vangle(): unknown;

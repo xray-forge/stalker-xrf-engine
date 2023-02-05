@@ -35,7 +35,7 @@ declare module "xray16" {
    * C++ class CSavedGameWrapper {
    * @customConstructor CSavedGameWrapper
    */
-  export class XR_CSavedGameWrapper extends XR_LuaBindBase {
+  export class XR_CSavedGameWrapper extends XR_EngineBinding {
     public __init(this: void, target: XR_CSavedGameWrapper, name: string): void;
     public constructor(name: string);
 

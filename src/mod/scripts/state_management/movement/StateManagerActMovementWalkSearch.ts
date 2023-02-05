@@ -1,4 +1,4 @@
-import { action_base, move, property_evaluator, XR_action_base } from "xray16";
+import { action_base, move, XR_action_base } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { look_position_type } from "@/mod/scripts/state_management/direction/StateManagerDirection";

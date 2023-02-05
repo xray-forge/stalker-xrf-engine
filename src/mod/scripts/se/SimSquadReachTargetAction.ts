@@ -1,9 +1,9 @@
-import { alife, XR_LuaBindBase } from "xray16";
+import { alife, XR_EngineBinding } from "xray16";
 
 import { get_sim_obj_registry } from "@/mod/scripts/se/SimObjectsRegistry";
 import type { ISimSquad } from "@/mod/scripts/se/SimSquad";
 
-export interface ISimSquadReachTargetAction extends XR_LuaBindBase {
+export interface ISimSquadReachTargetAction extends XR_EngineBinding {
   name: string;
   board: any;
   squad_id: number;

@@ -1,4 +1,4 @@
-import { alife, ini_file, level, XR_game_object, XR_ini_file, XR_LuaBindBase } from "xray16";
+import { alife, ini_file, level, XR_EngineBinding, XR_game_object, XR_ini_file } from "xray16";
 
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { ammo, TAmmoItem } from "@/mod/globals/items/ammo";
@@ -121,7 +121,7 @@ export function initDropSettings(): void {
   logger.info("Initialized drop settings");
 }
 
-export interface IDropManager extends XR_LuaBindBase {
+export interface IDropManager extends XR_EngineBinding {
   npc: XR_game_object;
 
   create_release_item(): void;

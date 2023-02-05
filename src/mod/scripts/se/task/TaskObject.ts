@@ -7,8 +7,8 @@ import {
   time_global,
   XR_CGameTask,
   XR_CTime,
+  XR_EngineBinding,
   XR_ini_file,
-  XR_LuaBindBase,
   XR_net_packet,
   XR_reader,
 } from "xray16";
@@ -65,7 +65,7 @@ const id_by_status: Record<string, number> = {
   reversed: 4,
 };
 
-export interface ITaskObject extends XR_LuaBindBase {
+export interface ITaskObject extends XR_EngineBinding {
   task_ini: XR_ini_file;
   id: string;
   title: string;

@@ -2,8 +2,8 @@ declare module "xray16" {
   /**
    * C++ class world_state {
    * @customConstructor world_state
-   * */
-  export class XR_world_state extends XR_LuaBindBase {
+   */
+  export class XR_world_state extends XR_EngineBinding {
     public constructor ();
     public constructor (world_state: XR_world_state);
 
@@ -15,10 +15,10 @@ declare module "xray16" {
   }
 
   /**
-   * class entity_action {
+   * C++ class entity_action {
    * @customConstructor entity_action
    */
-  export class XR_entity_action {
+  export class XR_entity_action extends XR_EngineBinding {
     public constructor();
     public constructor(entity: XR_entity_action);
 
@@ -46,7 +46,7 @@ declare module "xray16" {
    * C++ class move {
    * @customConstructor move
    */
-  export class XR_move {
+  export class XR_move extends XR_EngineBinding {
     // todo: All enums are in one static, probably should declare few parent interfaces / classes with enums
     public static readonly crouch: 0;
 
@@ -161,7 +161,7 @@ declare module "xray16" {
    * C++ class patrol {
    * @customConstructor patrol
    */
-  export class XR_patrol {
+  export class XR_patrol extends XR_EngineBinding {
     // EPatrolRouteType:
     public static readonly stop: 0;
     // public static readonly stop: 1;
@@ -199,7 +199,7 @@ declare module "xray16" {
    * C++ class look {
    * @customConstructor look
    */
-  export class XR_look {
+  export class XR_look extends XR_EngineBinding {
     public static readonly cur_dir: 0;
     public static readonly danger: 5;
     public static readonly direction: 2;
@@ -229,7 +229,7 @@ declare module "xray16" {
    * C++ class anim {
    * @customConstructor anim
    */
-  export class XR_anim {
+  export class XR_anim extends XR_EngineBinding {
     // Mental state:
     public static readonly danger: 0;
     public static readonly free: 1;
@@ -266,7 +266,7 @@ declare module "xray16" {
    * C++ class sound {
    * @customConstructor sound
    */
-  export class XR_sound {
+  export class XR_sound extends XR_EngineBinding {
     public static readonly attack: 3;
     public static readonly attack_hit: 4;
     public static readonly die: 7;
@@ -315,41 +315,10 @@ declare module "xray16" {
   export type TXR_sound_type = EnumerateStaticsValues<typeof XR_sound>
 
   /**
-   * C++ class particle {
-   * @customConstructor particle
-   */
-  export class XR_particle {
-    public constructor();
-    public constructor(value1: string, value2: string);
-    public constructor(value1: string, value2: string, value3: XR_particle_params);
-    public constructor(value1: string, value2: string, particle_params: XR_particle_params, value3: boolean);
-    public constructor(value1: string, particle_params: XR_particle_params);
-    public constructor(value1: string, particle_params: XR_particle_params, value2: boolean);
-
-    public completed(): boolean;
-    public set_angles(vector: XR_vector): void;
-    public set_bone(bone_id: string): void;
-    public set_particle(value1: string, value2: boolean): void;
-    public set_position(vector: XR_vector): void;
-    public set_velocity(vector: XR_vector): void;
-  }
-
-  /**
-   * C++ class particle_params {
-   * @customConstructor particle_params
-   */
-  export class XR_particle_params {
-    public constructor();
-    public constructor(vector: XR_vector);
-    public constructor(vector1: XR_vector, vector2: XR_vector);
-    public constructor(vector1: XR_vector, vector2: XR_vector, vector3: XR_vector);
-  }
-
-  /**
    * C++ class cond {
    * @customConstructor cond
    */
-  export class XR_cond {
+  export class XR_cond extends XR_EngineBinding {
     public static readonly act_end: 128;
     public static readonly anim_end: 4;
     public static readonly look_end: 2;
@@ -369,7 +338,7 @@ declare module "xray16" {
    * C++ class action_base {
    * @customConstructor action_base
    */
-  export class XR_action_base extends XR_LuaBindBase {
+  export class XR_action_base extends XR_EngineBinding {
     public readonly object: XR_game_object;
     public readonly storage: XR_property_storage;
 
@@ -421,7 +390,7 @@ declare module "xray16" {
    * C++ class action_planner {
    * @customConstructor action_planner
    */
-  export class XR_action_planner {
+  export class XR_action_planner extends XR_EngineBinding {
     public readonly object: XR_game_object;
     public readonly storage: XR_property_storage;
 
@@ -468,7 +437,7 @@ declare module "xray16" {
    * C++ class property_storage {
    * @customConstructor property_storage
    */
-  export class XR_property_storage extends XR_LuaBindBase {
+  export class XR_property_storage extends XR_EngineBinding {
     public property(value: u32): boolean;
     public set_property(value1: u32, value2: boolean): void;
   }
@@ -477,7 +446,7 @@ declare module "xray16" {
    * C++ class property_evaluator {
    * @customConstructor property_evaluator
    */
-  export class XR_property_evaluator extends XR_LuaBindBase {
+  export class XR_property_evaluator extends XR_EngineBinding {
     public readonly object: XR_game_object;
     public readonly storage: XR_property_storage;
 
@@ -508,7 +477,7 @@ declare module "xray16" {
    * C++ class world_property {
    * @customConstructor world_property
    */
-  export class XR_world_property extends XR_LuaBindBase {
+  export class XR_world_property extends XR_EngineBinding {
     public static __init(this: void, target: XR_world_property, id: u32, enabled: boolean): void;
     public constructor(id: u32, enabled: boolean);
 

@@ -1,4 +1,4 @@
-import { callback, hit, time_global, vector, XR_game_object, XR_LuaBindBase } from "xray16";
+import { callback, hit, time_global, vector, XR_EngineBinding, XR_game_object } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { AnyCallable, AnyCallablesModule, Maybe, Optional } from "@/mod/lib/types";
@@ -16,7 +16,7 @@ const MARKER_IDLE: number = 3;
 
 const logger: LuaLogger = new LuaLogger("AnimationManager", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
-export interface IAnimationManager extends XR_LuaBindBase {
+export interface IAnimationManager extends XR_EngineBinding {
   mgr: StateManager;
   npc: XR_game_object;
   name: string;

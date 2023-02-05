@@ -24,6 +24,7 @@ import { ActionPostProcess } from "@/mod/scripts/core/logic/ActionPostProcess";
 import { ActionProcessHit } from "@/mod/scripts/core/logic/ActionProcessHit";
 import { ActionPsyAntenna } from "@/mod/scripts/core/logic/ActionPsyAntenna";
 import { ActionSchemeHelpWounded } from "@/mod/scripts/core/logic/ActionSchemeHelpWounded";
+import { ActionSchemeSmartCover } from "@/mod/scripts/core/logic/ActionSchemeSmartCover";
 import { ActionSilence } from "@/mod/scripts/core/logic/ActionSilence";
 import { ActionSleeper } from "@/mod/scripts/core/logic/ActionSleeper";
 import { ActionTeleport } from "@/mod/scripts/core/logic/ActionTeleport";
@@ -58,7 +59,7 @@ export function initializeModules(): void {
   loadScheme("xr_patrol", "patrol", ESchemeType.STALKER);
   loadScheme("xr_reach_task", "reach_task", ESchemeType.STALKER);
   loadScheme("xr_remark", "remark", ESchemeType.STALKER);
-  loadScheme("xr_smartcover", "smartcover", ESchemeType.STALKER);
+  loadScheme(ActionSchemeSmartCover, ActionSchemeSmartCover.SCHEME_SECTION, ESchemeType.STALKER);
   loadScheme(AbuseManager, AbuseManager.SCHEME_SECTION, ESchemeType.STALKER);
   loadScheme(ActionCorpseDetect, ActionCorpseDetect.SCHEME_SECTION, ESchemeType.STALKER);
   loadScheme(ActionCover, ActionCover.SCHEME_SECTION, ESchemeType.STALKER);

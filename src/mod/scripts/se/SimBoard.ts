@@ -6,7 +6,7 @@ import {
   level,
   system_ini,
   XR_cse_alife_creature_abstract,
-  XR_LuaBindBase,
+  XR_EngineBinding,
 } from "xray16";
 
 import { TCommunity } from "@/mod/globals/communities";
@@ -41,7 +41,7 @@ export interface ISimSmartDescriptor {
   stayed_squad_quan: number;
 }
 
-export interface ISimBoard extends XR_LuaBindBase {
+export interface ISimBoard extends XR_EngineBinding {
   simulation_started: boolean;
 
   players: Optional<LuaTable>;

@@ -6,7 +6,7 @@ declare module "xray16" {
    * C++ class Frect {
    * @customConstructor Frect
    */
-  export class XR_Frect extends XR_LuaBindBase {
+  export class XR_Frect extends XR_EngineBinding {
     public lt: XR_vector2;
     public rb: XR_vector2;
 

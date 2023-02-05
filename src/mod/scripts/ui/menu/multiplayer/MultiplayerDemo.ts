@@ -26,8 +26,8 @@ import {
   XR_CUIStatic,
   XR_CUITextWnd,
   XR_CUIWindow,
+  XR_EngineBinding,
   XR_FS,
-  XR_LuaBindBase,
   XR_vector2,
 } from "xray16";
 
@@ -39,7 +39,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("MultiplayerDemo");
 
-interface IPlayerInfo extends XR_LuaBindBase {
+interface IPlayerInfo extends XR_EngineBinding {
   name: string;
   death: number;
   artefacts: number;

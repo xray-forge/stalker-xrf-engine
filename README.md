@@ -169,6 +169,21 @@ After following steps you will be able to attach debugger to lua/c++ code:
 
 Note: attach breakpoint and observe transpiled LUA code. There is no way to debug typescript directly.
 
-## 🧰 Development utils
+## 🧰 Checking game logs
+
+To enable logging make sure `GameConfig` logging flag is set to true. <br/>
+Following approaches can be used depending on how you run the game:
+
+### Pre-built engine
+
+- Make sure you are using custom engine, if no - switch to mixed/release variant: `npm run engine use release`
+- Make sure you have linked application logs folder with target directory: `npm run link`
+- Start game (`npm run start_game`) and check logs files in `target/logs_link` directory
+
+### Visual studio custom build
+
+- Just run the project and check `Output` window of application
+
+## ️🏗️ Development utils
 
 [Can be checked here.](UTILS.md)

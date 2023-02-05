@@ -31,7 +31,7 @@ declare module "xray16" {
    * C++ class object_binder {
    * @customConstructor object_binder
    */
-  export class XR_object_binder<T = XR_game_object> extends XR_LuaBindBase {
+  export class XR_object_binder<T = XR_game_object> extends XR_EngineBinding {
     public readonly object: T;
 
     public constructor(object: T);
@@ -79,6 +79,37 @@ declare module "xray16" {
 
     public static net_import(this: void, target: XR_object_binder, net_packet: XR_net_packet): void
     public net_import(net_packet: XR_net_packet): void;
+  }
+
+  /**
+   * C++ class particle {
+   * @customConstructor particle
+   */
+  export class XR_particle extends XR_EngineBinding {
+    public constructor();
+    public constructor(value1: string, value2: string);
+    public constructor(value1: string, value2: string, value3: XR_particle_params);
+    public constructor(value1: string, value2: string, particle_params: XR_particle_params, value3: boolean);
+    public constructor(value1: string, particle_params: XR_particle_params);
+    public constructor(value1: string, particle_params: XR_particle_params, value2: boolean);
+
+    public completed(): boolean;
+    public set_angles(vector: XR_vector): void;
+    public set_bone(bone_id: string): void;
+    public set_particle(value1: string, value2: boolean): void;
+    public set_position(vector: XR_vector): void;
+    public set_velocity(vector: XR_vector): void;
+  }
+
+  /**
+   * C++ class particle_params {
+   * @customConstructor particle_params
+   */
+  export class XR_particle_params {
+    public constructor();
+    public constructor(vector: XR_vector);
+    public constructor(vector1: XR_vector, vector2: XR_vector);
+    public constructor(vector1: XR_vector, vector2: XR_vector, vector3: XR_vector);
   }
 
   /**
@@ -418,7 +449,7 @@ declare module "xray16" {
     public set_enemy_callback(cb: () => boolean, object: XR_game_object): void;
     public set_fastcall<T>(cb: (this: T) => boolean, object: T): void;
     public set_patrol_extrapolate_callback(cb?: () => boolean, object?: XR_game_object): void;
-    public set_smart_cover_target_selector(cb?: () => void, object?: XR_game_object): void;
+    public set_smart_cover_target_selector(cb?: (object: XR_game_object) => void, object?: object): void;
   }
 
   /**

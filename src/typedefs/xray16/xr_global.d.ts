@@ -52,7 +52,7 @@ declare module "xray16" {
   export function alife(this: void): XR_alife_simulator;
   export function flush(this: void): void;
   export function is_enough_address_space_available(this: void): boolean;
-  export function class_names(this: void, lua_state: unknown /* lua_State* */): object;
+  export function class_names(this: void, lua_state: unknown /* lua_State*/): object;
   export function class_info(this: void, arg: unknown /* luabind::argument */): XR_class_info_data
   /**
    * Is dev editor tool enabled currently used.

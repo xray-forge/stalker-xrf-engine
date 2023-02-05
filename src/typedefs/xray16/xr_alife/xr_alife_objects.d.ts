@@ -107,7 +107,7 @@ declare module "xray16" {
    * C++ class cse_abstract : cpure_server_object {
    * @customConstructor cse_abstract
    */
-  export class XR_cse_abstract extends XR_LuaBindBase implements IXR_cpure_server_object {
+  export class XR_cse_abstract extends XR_EngineBinding implements IXR_cpure_server_object {
     public readonly id: u16;
     public readonly parent_id: u16;
     public readonly position: XR_vector;
@@ -291,7 +291,7 @@ declare module "xray16" {
   /**
    * C++ class cse_alife_human_abstract : cse_alife_trader_abstract,cse_alife_monster_abstract {
    * @customConstructor XR_cse_alife_human_abstract
-   * */
+   */
   export class XR_cse_alife_human_abstract extends XR_cse_alife_monster_abstract {
     public profile_name(): string;
     public set_rank(rank: i32): void;

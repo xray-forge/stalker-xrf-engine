@@ -4,9 +4,9 @@ import {
   getFS,
   ini_file,
   time_global,
+  XR_EngineBinding,
   XR_game_object,
   XR_ini_file,
-  XR_LuaBindBase,
   XR_net_packet,
   XR_reader,
 } from "xray16";
@@ -30,7 +30,7 @@ export interface IReleaseDescriptor {
   id: number;
 }
 
-export interface IReleaseBodyManager extends XR_LuaBindBase {
+export interface IReleaseBodyManager extends XR_EngineBinding {
   release_objects_table: LuaTable<number, IReleaseDescriptor>;
   keep_items_table: LuaTable<number, string>;
   body_max_count: number;

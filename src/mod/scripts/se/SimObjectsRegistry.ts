@@ -1,4 +1,4 @@
-import { alife, clsid, ini_file, XR_cse_alife_object, XR_LuaBindBase } from "xray16";
+import { alife, clsid, ini_file, XR_cse_alife_object, XR_EngineBinding } from "xray16";
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
@@ -11,7 +11,7 @@ import { parseCondList } from "@/mod/scripts/utils/configs";
 let sim_objects_registry: Optional<ISimObjectsRegistry> = null;
 const props_ini = new ini_file("misc\\simulation_objects_props.ltx");
 
-export interface ISimObjectsRegistry extends XR_LuaBindBase {
+export interface ISimObjectsRegistry extends XR_EngineBinding {
   objects: LuaTable<number, IActor | ISimSquad | ISmartTerrain>;
   register(obj: XR_cse_alife_object): void;
   update_avaliability(obj: XR_cse_alife_object): void;

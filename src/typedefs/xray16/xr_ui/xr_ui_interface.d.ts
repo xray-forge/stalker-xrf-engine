@@ -3,7 +3,7 @@ declare module "xray16" {
    * C++ class CUIWindow {
    * @customConstructor CUIWindow
    */
-  export class XR_CUIWindow extends XR_LuaBindBase {
+  export class XR_CUIWindow extends XR_EngineBinding {
     public static __init(this: void, target: XR_CUIWindow): void;
     public constructor();
 

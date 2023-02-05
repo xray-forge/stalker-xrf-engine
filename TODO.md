@@ -11,6 +11,7 @@
 - Rework acdc perl script and add all.spawn editing utils
 - Unit tests and mocks
 - Add scripts to handle xrEngine tools
+- Interop with level editor tools etc
 - Re-architecture lua core of the game, use external lua libs for serialization of LUA tables
 - Implement OXR versions window and other script additions
 - Separate debug menu and profiling section in it
