@@ -104,13 +104,6 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class ICollidable {
-   * @customConstructor ICollidable
-   */
-  export class XR_ICollidable {
-  }
-
-  /**
    * C++ class IKinematicsAnimated {
    * @customConstructor IKinematicsAnimated
    */

@@ -23,6 +23,7 @@ import { ActionPhysicalIdle } from "@/mod/scripts/core/logic/ActionPhysicalIdle"
 import { ActionPostProcess } from "@/mod/scripts/core/logic/ActionPostProcess";
 import { ActionProcessHit } from "@/mod/scripts/core/logic/ActionProcessHit";
 import { ActionPsyAntenna } from "@/mod/scripts/core/logic/ActionPsyAntenna";
+import { ActionSchemeHelpWounded } from "@/mod/scripts/core/logic/ActionSchemeHelpWounded";
 import { ActionSilence } from "@/mod/scripts/core/logic/ActionSilence";
 import { ActionSleeper } from "@/mod/scripts/core/logic/ActionSleeper";
 import { ActionTeleport } from "@/mod/scripts/core/logic/ActionTeleport";
@@ -51,7 +52,6 @@ export function initializeModules(): void {
   loadScheme("xr_combat_ignore", "combat_ignore", ESchemeType.STALKER);
   loadScheme("xr_combat_zombied", "combat_zombied", ESchemeType.STALKER);
   loadScheme("xr_companion", "companion", ESchemeType.STALKER);
-  loadScheme("xr_help_wounded", "help_wounded", ESchemeType.STALKER);
   loadScheme("xr_kamp", "kamp", ESchemeType.STALKER);
   loadScheme("xr_meet", "actor_dialogs", ESchemeType.STALKER);
   loadScheme("xr_meet", "meet", ESchemeType.STALKER);
@@ -59,16 +59,17 @@ export function initializeModules(): void {
   loadScheme("xr_reach_task", "reach_task", ESchemeType.STALKER);
   loadScheme("xr_remark", "remark", ESchemeType.STALKER);
   loadScheme("xr_smartcover", "smartcover", ESchemeType.STALKER);
-  loadScheme(ActionWalker, ActionWalker.SCHEME_SECTION, ESchemeType.STALKER);
-  loadScheme(ActionWoundManager, ActionWoundManager.SCHEME_SECTION, ESchemeType.STALKER);
   loadScheme(AbuseManager, AbuseManager.SCHEME_SECTION, ESchemeType.STALKER);
   loadScheme(ActionCorpseDetect, ActionCorpseDetect.SCHEME_SECTION, ESchemeType.STALKER);
   loadScheme(ActionCover, ActionCover.SCHEME_SECTION, ESchemeType.STALKER);
   loadScheme(ActionDanger, ActionDanger.SCHEME_SECTION, ESchemeType.STALKER);
   loadScheme(ActionDeath, ActionDeath.SCHEME_SECTION, ESchemeType.STALKER);
   loadScheme(ActionGatherItems, ActionGatherItems.SCHEME_SECTION, ESchemeType.STALKER);
+  loadScheme(ActionSchemeHelpWounded, ActionSchemeHelpWounded.SCHEME_SECTION, ESchemeType.STALKER);
   loadScheme(ActionProcessHit, ActionProcessHit.SCHEME_SECTION, ESchemeType.STALKER);
   loadScheme(ActionSleeper, ActionSleeper.SCHEME_SECTION, ESchemeType.STALKER);
+  loadScheme(ActionWalker, ActionWalker.SCHEME_SECTION, ESchemeType.STALKER);
+  loadScheme(ActionWoundManager, ActionWoundManager.SCHEME_SECTION, ESchemeType.STALKER);
 
   loadScheme(ActionMobCombat, ActionMobCombat.SCHEME_SECTION, ESchemeType.MOBILE);
   loadScheme(ActionMobDeath, ActionMobDeath.SCHEME_SECTION, ESchemeType.MOBILE);

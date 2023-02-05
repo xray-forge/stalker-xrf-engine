@@ -218,91 +218,6 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class global {
-   * @customConstructor object_factory
-   */
-  export class XR_object_factory {
-    protected constructor();
-
-    public register(
-      client_object_class: string,
-      server_object_class: string,
-      clsid: string,
-      script_clsid: TXR_cls_key
-    ): void;
-
-    public register(
-      client_object_class: string,
-      clsid: string,
-      script_clsid: TXR_cls_key
-    ): void;
-  }
-
-  /**
-   * C++ class object_binder {
-   * @customConstructor object_binder
-   */
-  export class XR_object_binder<T = XR_game_object> extends XR_LuaBindBase {
-    public readonly object: T;
-
-    public constructor(object: T);
-
-    public static __init(this: void, target: XR_object_binder, object: XR_game_object): void
-    public __init(object: T): void
-
-    public static save(this: void, target: XR_object_binder, packet: XR_net_packet): void;
-    public save(packet: XR_net_packet): void;
-
-    public static update(this: void, target: XR_object_binder, delta: u32): void;
-    public update(delta: u32): void;
-
-    public static reload(this: void, target: XR_object_binder, section: string): void;
-    public reload(section: string): void;
-
-    public static net_export(this: void, target: XR_object_binder, net_packet: XR_net_packet): void;
-    public net_export(net_packet: XR_net_packet): void;
-
-    public net_save_relevant(this: void, target: XR_object_binder): boolean;
-    public net_save_relevant(): boolean;
-
-    public static load(this: void, target: XR_object_binder, reader: XR_reader): void;
-    public load(reader: XR_reader): void;
-
-    public static net_destroy(this: void, target: XR_object_binder): void;
-    public net_destroy(): void;
-
-    public static reinit(this: void, target: XR_object_binder): void;
-    public reinit(): void;
-
-    public static net_Relcase<ST extends XR_game_object = XR_game_object>(
-        this: void, target:
-          XR_object_binder,
-        game_object: ST
-      ): void;
-    public net_Relcase(object: T): void;
-
-    public static net_spawn<ST extends XR_game_object = XR_game_object>(
-        this: void,
-        target: XR_object_binder,
-        object: XR_cse_alife_object
-      ): boolean;
-    public net_spawn(object: XR_cse_alife_object): boolean;
-
-    public static net_import(this: void, target: XR_object_binder, net_packet: XR_net_packet): void
-    public net_import(net_packet: XR_net_packet): void;
-  }
-
-  /**
-   * C++ class holder {
-   * @customConstructor holder
-   */
-  export class XR_holder {
-    public engaged(): boolean;
-    public Action(value1: u16, value2: u32): void;
-    public SetParam(value: i32, vector: XR_vector): void;
-  }
-
-  /**
    * C++ class game_GameState : DLL_Pure
    * @customConstructor game_GameState
    */
@@ -328,5 +243,65 @@ declare module "xray16" {
     public readonly name: string;
 
     protected constructor();
+  }
+
+  /**
+   * C++ class render_device {
+   */
+  export class XR_render_device {
+    private constructor();
+
+    public readonly cam_dir: XR_vector;
+    public readonly cam_pos: XR_vector;
+    public readonly cam_right: XR_vector;
+    public readonly cam_top: XR_vector;
+    public readonly aspect_ratio: f32;
+    public readonly fov: f32;
+    public readonly precache_frame: u32;
+    public readonly frame: u32;
+    public readonly height: u32;
+    public readonly time_delta: u32;
+    public readonly f_time_delta: f32;
+    public readonly width: u32;
+
+    public time_global(): u32;
+    public is_paused(): boolean;
+    public pause(paused: boolean): void;
+  }
+
+  /**
+   * C++ class cef_storage {
+   * @customConstructor cef_storage
+   */
+  export class XR_cef_storage {
+    public evaluate(str: string, game_object: XR_game_object): f32;
+    public evaluate(str: string, game_object1: XR_game_object, game_object2: XR_game_object): f32;
+    public evaluate(
+      str: string, game_object1: XR_game_object, game_object2: XR_game_object, game_object3: XR_game_object
+    ): f32;
+    public evaluate(
+      str: string,
+      game_object1: XR_game_object,
+      game_object2: XR_game_object,
+      game_object3: XR_game_object,
+      game_object4: XR_game_object
+    ): f32;
+    public evaluate(str: string, cse_alife_object: XR_cse_alife_object): f32;
+    public evaluate(
+      str: string, cse_alife_object1: XR_cse_alife_object, cse_alife_object2: XR_cse_alife_object
+    ): f32;
+    public evaluate(
+      str: string,
+      cse_alife_object1: XR_cse_alife_object,
+      cse_alife_object2: XR_cse_alife_object,
+      cse_alife_object3: XR_cse_alife_object
+    ): f32;
+    public evaluate(
+      str: string,
+      cse_alife_object1: XR_cse_alife_object,
+      cse_alife_object2: XR_cse_alife_object,
+      cse_alife_object3: XR_cse_alife_object,
+      cse_alife_object4: XR_cse_alife_object
+    ): f32;
   }
 }

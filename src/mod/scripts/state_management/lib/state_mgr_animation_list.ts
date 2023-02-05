@@ -962,7 +962,14 @@ export const animations: LuaTable<string, IAnimationDescriptor> = {
     into: {
       [0]: [
         "dinamit_1",
-        { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_help_wounded").help_wounded(...args) }
+        {
+          f: (object: XR_game_object) => {
+            // eslint-disable-next-line @typescript-eslint/no-var-requires
+            const { ActionSchemeHelpWounded } = require("@/mod/scripts/core/logic/ActionSchemeHelpWounded");
+
+            ActionSchemeHelpWounded.help_wounded(object);
+          }
+        }
       ]
     },
     out: null,

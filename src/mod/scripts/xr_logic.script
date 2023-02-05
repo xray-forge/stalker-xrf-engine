@@ -10,6 +10,7 @@ local AbuseManager = require("scripts.core.logic.AbuseManager").AbuseManager
 local ActionProcessHit = require("scripts.core.logic.ActionProcessHit").ActionProcessHit
 local ActionGatherItems = require("scripts.core.logic.ActionGatherItems").ActionGatherItems
 local ActionCorpseDetect = require("scripts.core.logic.ActionCorpseDetect").ActionCorpseDetect
+local ActionSchemeHelpWounded = require("scripts.core.logic.ActionSchemeHelpWounded").ActionSchemeHelpWounded
 local ActionDanger = require("scripts.core.logic.ActionDanger").ActionDanger
 local ActionOnHit = require("scripts.core.logic.ActionOnHit").ActionOnHit
 local ActionDeath = require("scripts.core.logic.ActionDeath").ActionDeath
@@ -307,7 +308,7 @@ function enable_generic_schemes(ini, npc, stype, section)
 
     AbuseManager:set_abuse(npc, ini, "abuse", section)
 
-    xr_help_wounded.set_help_wounded(npc, ini, "help_wounded")
+    ActionSchemeHelpWounded:set_help_wounded(npc, ini, "help_wounded")
 
     ActionCorpseDetect:set_corpse_detection(npc, ini, "corpse_detection")
 
@@ -459,7 +460,7 @@ function reset_generic_schemes_on_scheme_switch(npc, scheme, section)
   if st.stype == schemes.stype_stalker then
     --xr_reactions.reset_reactions(npc, scheme, st, section)
     xr_meet.reset_meet(npc, scheme, st, section)
-    xr_help_wounded.reset_help_wounded(npc, scheme, st, section)
+    ActionSchemeHelpWounded:reset_help_wounded(npc, scheme, st, section)
     ActionCorpseDetect:reset_corpse_detection(npc, scheme, st, section)
     AbuseManager:reset_abuse(npc, scheme, st, section)
     ActionWoundManager:reset_wounded(npc, scheme, st, section)

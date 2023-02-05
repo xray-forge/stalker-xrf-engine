@@ -6,6 +6,12 @@ declare module "xray16" {
   }
 
   /**
+   * C++ class ipure_schedulable_object {
+   */
+  export interface IXR_ipure_schedulable_object {
+  }
+
+  /**
    * C++ class cse_alife_group_abstract {
    */
   export interface IXR_cse_alife_group_abstract {

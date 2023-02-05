@@ -1,5 +1,20 @@
 declare module "xray16" {
   /**
+   * C++ class world_state {
+   * @customConstructor world_state
+   * */
+  export class XR_world_state extends XR_LuaBindBase {
+    public constructor ();
+    public constructor (world_state: XR_world_state);
+
+    public add_property(world_property: XR_world_property): void;
+    public clear(): void;
+    public includes(world_state: XR_world_state): boolean;
+    public property(value: u32): XR_world_property;
+    public remove_property(value: u32): void;
+  }
+
+  /**
    * class entity_action {
    * @customConstructor entity_action
    */

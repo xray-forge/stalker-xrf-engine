@@ -174,9 +174,9 @@ declare module "xray16" {
     public r_float(value: f32): f32;
     public r_float_q16(value1: f32, value2: f32, value3: f32): f32;
     public r_float_q8(value1: f32, value2: f32, value3: f32): f32;
-    public r_matrix(matrix: unknown): unknown;
+    public r_matrix(matrix: XR_matrix): XR_matrix;
     public r_s16(): i16;
-    public r_s16(value: number): u16;
+    public r_s16(value: u16): u16;
     public r_s32(): i32;
     public r_s32(value: i32): i32;
     public r_s64(): i64;

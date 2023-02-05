@@ -69,67 +69,6 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class danger_object {
-   * @customConstructor danger_object
-   */
-  export class XR_danger_object {
-    public static attack_sound: 1;
-    public static attacked: 5;
-    public static bullet_ricochet: 0;
-    public static enemy_sound: 7;
-    public static entity_attacked: 2;
-    public static entity_corpse: 4;
-    public static entity_death: 3;
-    public static grenade: 6;
-    public static hit: 2;
-    public static sound: 1;
-    public static visual: 0;
-
-    public type(): TXR_danger_object;
-    public time(): u32;
-    public position(): XR_vector;
-    public object(): XR_game_object;
-    public perceive_type(): number; /* CDangerObject::EDangerPerceiveType */
-    public dependent_object(): XR_game_object;
-  }
-
-  export type TXR_danger_objects = typeof XR_danger_object;
-
-  export type TXR_danger_object = TXR_danger_objects[Exclude<keyof TXR_danger_objects, "constructor" | "prototype">];
-
-  /**
-   * C++ class hit {
-   * @customConstructor hit
-   */
-  export class XR_hit {
-    public static readonly burn = 0;
-    public static readonly chemical_burn = 2;
-    public static readonly dummy = 12;
-    public static readonly explosion = 7;
-    public static readonly fire_wound = 8;
-    public static readonly light_burn = 11;
-    public static readonly radiation = 3;
-    public static readonly shock = 1;
-    public static readonly strike = 5;
-    public static readonly telepatic = 4;
-    public static readonly wound = 6;
-
-    public direction: XR_vector;
-    public draftsman: XR_game_object | null;
-    public impulse: f32;
-    public power: f32;
-    public type: TXR_hit_type;
-
-    public constructor ();
-    public constructor (hit: XR_hit);
-
-    public bone(bone: string): void;
-  }
-
-  export type TXR_hit_types = typeof XR_hit;
-  export type TXR_hit_type = TXR_hit_types[Exclude<keyof TXR_hit_types, "prototype" | "constructor">];
-
-  /**
    * C++ class CALifeMonsterBrain {}
    */
   export class XR_CAILifeMonsterBrain {
@@ -159,5 +98,91 @@ declare module "xray16" {
     public object(): unknown;
     public movement(): unknown;
     public smart_terrain(): unknown;
+  }
+
+  /**
+   * C++ class CALifeMonsterBrain {
+   * @customConstructor CALifeMonsterBrain
+   */
+  export class XR_CALifeMonsterBrain {
+    public movement(): XR_CALifeMonsterMovementManager;
+    public update(): void;
+    public can_choose_alife_tasks(): boolean;
+    public can_choose_alife_tasks(can_choose: boolean): void;
+  }
+
+  /**
+   * C++ class CALifeHumanBrain : CALifeMonsterBrain {
+   * @customConstructor CALifeHumanBrain
+   */
+  export class XR_CALifeHumanBrain extends XR_CALifeMonsterBrain {
+  }
+
+  /**
+   * C++ class CALifeMonsterDetailPathManager {
+   * @customConstructor CALifeMonsterDetailPathManager
+   */
+  export class XR_CALifeMonsterDetailPathManager {
+    public completed(): boolean;
+    public target(a: number, b: number, vector: XR_vector): void;
+    public target(task_id: number): void;
+    public target(task: XR_CALifeSmartTerrainTask): void;
+    public failed(): boolean;
+    public speed(number: f32): f32;
+    public speed(): f32;
+    public actual(): boolean;
+  }
+
+  /**
+   * C++ class CALifeMonsterMovementManager {
+   * @customConstructor CALifeMonsterMovementManager
+   */
+  export class XR_CALifeMonsterMovementManager {
+    public completed(): boolean;
+    public patrol(): XR_CALifeMonsterPatrolPathManager;
+    public actual(): boolean;
+    public path_type(): number; /* EPathType */
+    public detail(): XR_CALifeMonsterDetailPathManager;
+  }
+
+  /**
+   * C++ class CALifeMonsterPatrolPathManager {
+   * @customConstructor CALifeMonsterPatrolPathManager
+   */
+  export class XR_CALifeMonsterPatrolPathManager {
+    public path(string: string): void;
+    public target_game_vertex_id(): u16;
+    public target_level_vertex_id(): u16;
+    public target_position(): XR_vector;
+    public completed(): boolean;
+    public route_type(type: u32 /* const enum PatrolPathManager::EPatrolRouteType */): u32;
+    public route_type(): u32;
+    public use_randomness(enabled: boolean): boolean;
+    public use_randomness(): boolean;
+    public start_type(type: u32 /* const enum PatrolPathManager::EPatrolStartType */): u32;
+    public start_type(): u32;
+    public start_vertex_index(index: u32): void;
+    public actual(): boolean;
+  }
+
+  /**
+   * C++ class cover_point
+   */
+  export class XR_cover_point {
+    private constructor();
+
+    public level_vertex_id(): u32;
+    public is_smart_cover(): boolean;
+    public position(): XR_vector;
+  }
+
+  /**
+   * C++ class client_spawn_manager {
+   * @customConstructor client_spawn_manager
+   */
+  export class XR_client_spawn_manager {
+    public remove(number1: u16, number2: u16): void;
+    public add(number1: u16, number2: u16, cb: () => void): void ;
+    public add(number1: u16, number2: u16, cb: () => void, object: XR_object): void ;
   }
 }

@@ -1,6 +1,96 @@
-import { TXR_TaskState } from "xray16";
-
 declare module "xray16" {
+  /**
+   * C++ class IRender_Visual {
+   */
+  export interface IXR_IRender_Visual {
+    dcast_PKinematicsAnimated(): XR_IKinematicsAnimated;
+  }
+
+  /**
+   * C++ class global {
+   * @customConstructor object_factory
+   */
+  export class XR_object_factory {
+    protected constructor();
+
+    public register(
+      client_object_class: string,
+      server_object_class: string,
+      clsid: string,
+      script_clsid: TXR_cls_key
+    ): void;
+
+    public register(
+      client_object_class: string,
+      clsid: string,
+      script_clsid: TXR_cls_key
+    ): void;
+  }
+
+  /**
+   * C++ class object_binder {
+   * @customConstructor object_binder
+   */
+  export class XR_object_binder<T = XR_game_object> extends XR_LuaBindBase {
+    public readonly object: T;
+
+    public constructor(object: T);
+
+    public static __init(this: void, target: XR_object_binder, object: XR_game_object): void
+    public __init(object: T): void
+
+    public static save(this: void, target: XR_object_binder, packet: XR_net_packet): void;
+    public save(packet: XR_net_packet): void;
+
+    public static update(this: void, target: XR_object_binder, delta: u32): void;
+    public update(delta: u32): void;
+
+    public static reload(this: void, target: XR_object_binder, section: string): void;
+    public reload(section: string): void;
+
+    public static net_export(this: void, target: XR_object_binder, net_packet: XR_net_packet): void;
+    public net_export(net_packet: XR_net_packet): void;
+
+    public net_save_relevant(this: void, target: XR_object_binder): boolean;
+    public net_save_relevant(): boolean;
+
+    public static load(this: void, target: XR_object_binder, reader: XR_reader): void;
+    public load(reader: XR_reader): void;
+
+    public static net_destroy(this: void, target: XR_object_binder): void;
+    public net_destroy(): void;
+
+    public static reinit(this: void, target: XR_object_binder): void;
+    public reinit(): void;
+
+    public static net_Relcase<ST extends XR_game_object = XR_game_object>(
+      this: void, target:
+        XR_object_binder,
+      game_object: ST
+    ): void;
+    public net_Relcase(object: T): void;
+
+    public static net_spawn<ST extends XR_game_object = XR_game_object>(
+      this: void,
+      target: XR_object_binder,
+      object: XR_cse_alife_object
+    ): boolean;
+    public net_spawn(object: XR_cse_alife_object): boolean;
+
+    public static net_import(this: void, target: XR_object_binder, net_packet: XR_net_packet): void
+    public net_import(net_packet: XR_net_packet): void;
+  }
+
+  /**
+   * C++ class holder {
+   * @customConstructor holder
+   */
+  export class XR_holder {
+    public engaged(): boolean;
+    public Action(value1: u16, value2: u32): void;
+    public SetParam(value: i32, vector: XR_vector): void;
+  }
+
   /**
    * C++ class CGameObject : DLL_Pure,ISheduled,ICollidable,IRenderable {
    * @customConstructor CGameObject
@@ -15,6 +105,67 @@ declare module "xray16" {
     public net_Spawn(cse_abstract: XR_cse_abstract): boolean;
     public use(object: XR_CGameObject): boolean;
   }
+
+  /**
+   * C++ class hit {
+   * @customConstructor hit
+   */
+  export class XR_hit {
+    public static readonly burn = 0;
+    public static readonly chemical_burn = 2;
+    public static readonly dummy = 12;
+    public static readonly explosion = 7;
+    public static readonly fire_wound = 8;
+    public static readonly light_burn = 11;
+    public static readonly radiation = 3;
+    public static readonly shock = 1;
+    public static readonly strike = 5;
+    public static readonly telepatic = 4;
+    public static readonly wound = 6;
+
+    public direction: XR_vector;
+    public draftsman: XR_game_object | null;
+    public impulse: f32;
+    public power: f32;
+    public type: TXR_hit_type;
+
+    public constructor ();
+    public constructor (hit: XR_hit);
+
+    public bone(bone: string): void;
+  }
+
+  export type TXR_hit_types = typeof XR_hit;
+  export type TXR_hit_type = TXR_hit_types[Exclude<keyof TXR_hit_types, "prototype" | "constructor">];
+
+  /**
+   * C++ class danger_object {
+   * @customConstructor danger_object
+   */
+  export class XR_danger_object {
+    public static attack_sound: 1;
+    public static attacked: 5;
+    public static bullet_ricochet: 0;
+    public static enemy_sound: 7;
+    public static entity_attacked: 2;
+    public static entity_corpse: 4;
+    public static entity_death: 3;
+    public static grenade: 6;
+    public static hit: 2;
+    public static sound: 1;
+    public static visual: 0;
+
+    public type(): TXR_danger_object;
+    public time(): u32;
+    public position(): XR_vector;
+    public object(): XR_game_object;
+    public perceive_type(): number; /* CDangerObject::EDangerPerceiveType */
+    public dependent_object(): XR_game_object;
+  }
+
+  export type TXR_danger_objects = typeof XR_danger_object;
+
+  export type TXR_danger_object = TXR_danger_objects[Exclude<keyof TXR_danger_objects, "constructor" | "prototype">];
 
   /**
    * Custom extension.
@@ -478,7 +629,7 @@ declare module "xray16" {
     public iterate_inventory_box(cb: () => void, object: XR_game_object): void;
     public lookout_max_time(): f32;
     public lookout_max_time(value: f32): void;
-    public memory_visible_objects(): LuaTable<number, XR_visible_memory_object>;
+    public memory_visible_objects(): LuaIterable<XR_visible_memory_object>;
     public mental_state(): number;
     public relation(game_object: XR_game_object): number;
     public set_enemy(object: XR_game_object): void;
