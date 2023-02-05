@@ -1,6 +1,6 @@
 import { ini_file, XR_CGameTask, XR_ini_file, XR_LuaBindBase, XR_net_packet, XR_reader } from "xray16";
 
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { ITaskObject, TaskObject } from "@/mod/scripts/se/task/TaskObject";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -9,7 +9,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { getTableSize } from "@/mod/scripts/utils/table";
 
 let taskManager: Optional<ITaskManager> = null;
-const log: LuaLogger = new LuaLogger("TaskManager");
+const logger: LuaLogger = new LuaLogger("TaskManager");
 
 export interface ITaskManager extends XR_LuaBindBase {
   task_ini: XR_ini_file;
@@ -58,7 +58,7 @@ export const TaskManager: ITaskManager = declare_xr_class("TaskManager", null, {
     setLoadMarker(reader, true, "TaskManager");
   },
   give_task(task_id: string): void {
-    log.info("Give task:", task_id);
+    logger.info("Give task:", task_id);
 
     if (!this.task_ini.section_exist(task_id)) {
       abort("There is no task [%s] in task ini_file or ini_file is not included!!!", task_id);

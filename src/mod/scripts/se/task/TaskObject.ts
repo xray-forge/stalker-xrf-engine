@@ -26,7 +26,7 @@ import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
 
-const log: LuaLogger = new LuaLogger("TaskObject");
+const logger: LuaLogger = new LuaLogger("TaskObject");
 
 const guiders_by_level: LuaTable<TLevel, LuaTable<TLevel, string>> = {
   [levels.zaton]: {
@@ -297,7 +297,7 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
     this.check_level(t_target);
 
     if (this.current_target !== t_target) {
-      log.info("Updated task dut to target change:", this.id, this.current_target, t_target);
+      logger.info("Updated task due to target change:", this.id, this.current_target, t_target);
 
       if (this.current_target === null) {
         task_updated = true;
@@ -346,7 +346,7 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
     }
   },
   give_reward(): void {
-    log.info("Give quest rewards:", this.id, this.t?.get_id());
+    logger.info("Give quest rewards:", this.id, this.t?.get_id());
 
     const xr_logic = get_global<AnyCallablesModule>("xr_logic");
 
@@ -381,7 +381,7 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
     this.last_check_task = "reversed";
   },
   deactivate_task(task: XR_CGameTask): void {
-    log.info("Deactivate task:", this.title);
+    logger.info("Deactivate task:", this.title);
     this.check_time = null;
 
     if (this.last_check_task === "fail") {

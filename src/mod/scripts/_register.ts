@@ -15,12 +15,12 @@ const log: LuaLogger = new LuaLogger("register");
  * Registration:
  */
 
-register_classes = (...args) => {
+register_classes = (object_factory) => {
   log.info("Register classes:");
 
   const { registerGameClasses } = require("@/mod/scripts/registering/class_registrator");
 
-  registerGameClasses(...args);
+  registerGameClasses(object_factory);
 };
 
 get_game_clsid = (...args) => {

@@ -16,21 +16,21 @@ export const gameConfig = {
      */
     IS_ENABLED: true,
     /**
-     * Is debug mode for smarts enabled (display on map).
+     * Enable debugging log modules.
      */
-    IS_SMARTS_DEBUG_ENABLED: true,
-    /**
-     * Is debug mode for state management / animations enabled.
-     */
-    IS_STATE_MANAGEMENT_DEBUG_ENABLED: true,
+    IS_LOG_ENABLED: true,
     /**
      * Enable profiling manager utils at game init.
      */
     IS_PROFILING_ENABLED: false,
     /**
-     * Enable debugging log modules.
+     * Is debug mode for smarts enabled (display on map).
      */
-    IS_LOG_ENABLED: true,
+    IS_SMARTS_DEBUG_ENABLED: false,
+    /**
+     * Is debug mode for state management / animations enabled.
+     */
+    IS_STATE_MANAGEMENT_DEBUG_ENABLED: false,
     /**
      * Is resolving debug enabled.
      * Printing messages each time logger instance is created.

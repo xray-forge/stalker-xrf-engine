@@ -7,7 +7,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { getLuaMemoryUsed } from "@/mod/scripts/utils/ram";
 
-const log: LuaLogger = new LuaLogger("ProfilingManager");
+const logger: LuaLogger = new LuaLogger("ProfilingManager");
 
 export interface IProfileSnapshotDescriptor {
   count: number;
@@ -39,19 +39,19 @@ export class ProfilingManager extends AbstractCoreManager {
       return;
     }
 
-    log.info("Initialize profiling manager in mode:", this.mode);
+    logger.info("Initialize profiling manager in mode:", this.mode);
 
     if (jit !== null) {
-      log.warn("Take care, jit is enabled so profiling stats may be incorrect");
-      log.warn("Fore correct profiling run game with '-nojit' flag");
+      logger.warn("Take care, jit is enabled so profiling stats may be incorrect");
+      logger.warn("For correct profiling run game with '-nojit' flag");
     }
 
     // Ensure all conditions for profiling start are met
     if (debug !== null) {
-      log.info("Profiling enabled, JIT disabled, going to setup hook");
+      logger.info("Profiling enabled, JIT disabled, going to setup hook");
       this.setupHook();
     } else {
-      log.info("Debug is not enabled, skip profiling");
+      logger.info("Debug is not enabled, skip profiling");
     }
   }
 
@@ -82,12 +82,12 @@ export class ProfilingManager extends AbstractCoreManager {
 
   public logProfilingStats(): void {
     if (!this.isProfilingStarted) {
-      return log.warn("Profiler hook wasn't setup, no stats found");
+      return logger.warn("Profiler hook wasn't setup, no stats found");
     }
 
     this.clearHook();
 
-    log.info("Profiler statistics");
+    logger.info("Profiler statistics");
 
     const sort_stats: LuaTable<string, IProfileSnapshotDescriptor> = new LuaTable();
 
@@ -123,10 +123,10 @@ export class ProfilingManager extends AbstractCoreManager {
 
     table.sort(out_stats, (a, b) => a.count.timer < b.count.timer);
 
-    log.info("Total_time (pecent)  child_time [total_call_count][average_call_time]");
+    logger.info("Total_time (pecent)  child_time [total_call_count][average_call_time]");
 
     for (const [n, c] of out_stats) {
-      log.info(
+      logger.info(
         string.format(
           "%9.2fms (%5.2f%%) %9.2fms [%8d][%9.2fmks] : %s",
           c.count.timer.time() / 1000,
@@ -139,18 +139,18 @@ export class ProfilingManager extends AbstractCoreManager {
       );
     }
 
-    log.info("");
-    log.info("pure time:   %%%%   :  children  :   count  : function name");
-    log.info("");
-    log.info(string.format("profile time: %8.2fms", this.profilingTimer.time() / 1000));
-    log.info(
+    logger.info("");
+    logger.info("pure time:   %%%%   :  children  :   count  : function name");
+    logger.info("");
+    logger.info(string.format("profile time: %8.2fms", this.profilingTimer.time() / 1000));
+    logger.info(
       string.format(
         "script time: %8.2fms (%5.2f%%)",
         script.time() / 1000,
         (script.time() * 100) / this.profilingTimer.time()
       )
     );
-    log.info("call count: ", count);
+    logger.info("call count: ", count);
 
     this.setupHook(this.mode, true);
   }
@@ -160,7 +160,7 @@ export class ProfilingManager extends AbstractCoreManager {
    */
   public logCallsCountStats(limit: number = 64): void {
     if (!this.isProfilingStarted) {
-      return log.warn("Profiler hook wasn't setup, no stats found");
+      return logger.warn("Profiler hook wasn't setup, no stats found");
     }
 
     this.clearHook();
@@ -188,18 +188,18 @@ export class ProfilingManager extends AbstractCoreManager {
      * Print summary of profiled calls count data:
      */
 
-    log.pushEmptyLine();
-    log.info("==================================================================================================");
-    log.info("Total calls stat, limit:", limit);
-    log.info("==================================================================================================");
+    logger.pushEmptyLine();
+    logger.info("==================================================================================================");
+    logger.info("Total calls stat, limit:", limit);
+    logger.info("==================================================================================================");
 
     let printedCount: number = 0;
 
     // Print top stats from list (controlled by limit)
     for (const [idx, stat] of outStats) {
       if (printedCount <= limit) {
-        log.info(
-          string.format("[%2] %6d (%5.2f%%) : %s", idx, stat.count, (stat.count * 100) / totalCallsCount, stat.name)
+        logger.info(
+          string.format("[%2d] %6d (%5.2f%%) : %s", idx, stat.count, (stat.count * 100) / totalCallsCount, stat.name)
         );
         printedCount++;
       } else {
@@ -207,14 +207,14 @@ export class ProfilingManager extends AbstractCoreManager {
       }
     }
 
-    log.info("==================================================================================================");
-    log.info("Total function calls count:", totalCallsCount);
-    log.info("Total function calls / sec:", totalCallsCount / (this.profilingTimer.time() / 1000 / 1000));
-    log.info("Total unique LUA functions called:", outStats.length());
-    log.info("Profiling time:", this.profilingTimer.time() / 1000);
-    log.info("RAM used:", getLuaMemoryUsed() / 1024, "MB");
-    log.info("==================================================================================================");
-    log.pushEmptyLine();
+    logger.info("==================================================================================================");
+    logger.info("Total function calls count:", totalCallsCount);
+    logger.info("Total function calls / sec:", totalCallsCount / (this.profilingTimer.time() / 1000 / 1000));
+    logger.info("Total unique LUA functions called:", outStats.length());
+    logger.info("Profiling time:", this.profilingTimer.time() / 1000);
+    logger.info("RAM used:", getLuaMemoryUsed() / 1024, "MB");
+    logger.info("==================================================================================================");
+    logger.pushEmptyLine();
 
     this.setupHook(this.mode, true);
   }
@@ -223,11 +223,11 @@ export class ProfilingManager extends AbstractCoreManager {
     this.mode = mode;
 
     if (this.isProfilingStarted === true) {
-      log.info("Skip setup, already started");
+      logger.info("Skip setup, already started");
 
       return;
     } else if (!debug) {
-      log.warn("Tried to setup hook, but debug is not enabled");
+      logger.warn("Tried to setup hook, but debug is not enabled");
       abort("Tried to setup hook when debug is not enabled, got 'null' at debug place.");
     }
 
@@ -239,13 +239,13 @@ export class ProfilingManager extends AbstractCoreManager {
     this.isProfilingStarted = true;
 
     if (!skipLogs) {
-      log.info("Profiler is activated");
+      logger.info("Profiler is activated");
     }
   }
 
   public clearHook(): void {
     if (this.isProfilingStarted === false) {
-      log.info("Profiler hook wasn't setup!");
+      logger.info("Profiler hook wasn't setup!");
 
       return;
     }

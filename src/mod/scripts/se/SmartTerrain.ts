@@ -55,7 +55,7 @@ import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
 
-const log: LuaLogger = new LuaLogger("SmartTerrain");
+const logger: LuaLogger = new LuaLogger("SmartTerrain");
 
 export const ALARM_TIMEOUT: number = 21600;
 export const DEATH_IDLE_TIME: number = 10 * 60;
@@ -207,7 +207,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
   },
   on_register(): void {
     cse_alife_smart_zone.on_register(this);
-    log.info("Register:", this.id, this.name(), this.section_name());
+    logger.info("Register:", this.id, this.name(), this.section_name());
     checkSpawnIniForStoryId(this);
 
     get_sim_obj_registry().register(this);
@@ -285,7 +285,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     this.no_mutant = getConfigBoolean(ini, SMART_TERRAIN_SECT, "no_mutant", this, false);
 
     if (this.no_mutant === true) {
-      log.info("Found no mutant point:", this.name());
+      logger.info("Found no mutant point:", this.name());
     }
 
     this.forbidden_point = getConfigString(ini, SMART_TERRAIN_SECT, "forbidden_point", this, false, "");
@@ -317,23 +317,23 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     }
 
     if (level.patrol_path_exists(this.name() + "_traveller_actor")) {
-      log.warn("No traveller_actor path:", this.name());
+      logger.warn("No traveller_actor path:", this.name());
       this.traveler_actor_path = this.name() + "_traveller_actor";
     }
 
     if (level.patrol_path_exists(this.name() + "_traveller_squad")) {
-      log.warn("No traveller_squad path:", this.name());
+      logger.warn("No traveller_squad path:", this.name());
       this.traveler_squad_path = this.name() + "_traveller_squad";
     }
 
     if (!locations_ini.section_exist(this.name())) {
-      log.info("No terrain_mask section in smart_terrain_masks.ltx:", this.name());
+      logger.info("No terrain_mask section in smart_terrain_masks.ltx:", this.name());
     }
   },
   fill_npc_info(obj: XR_cse_alife_creature_abstract): INpcInfo {
     const npc_info: INpcInfo = {} as any;
 
-    log.info("Filling npc_info for obj:", obj.name());
+    logger.info("Filling npc_info for obj:", obj.name());
 
     const is_stalker = isStalker(obj);
 
@@ -369,7 +369,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     );
   },
   register_npc(obj: XR_cse_alife_creature_abstract): void {
-    log.info("Register npc:", this.name(), obj.name());
+    logger.info("Register npc:", this.name(), obj.name());
     this.population = this.population + 1;
 
     if (this.b_registred === false) {
@@ -393,7 +393,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     }
   },
   register_delayed_npc(): void {
-    log.info("Registering delayed NPCs:", this.name(), this.npc_to_register.length);
+    logger.info("Registering delayed NPCs:", this.name(), this.npc_to_register.length);
 
     for (const [k, v] of this.npc_to_register) {
       this.register_npc(v);
@@ -402,7 +402,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     this.npc_to_register = new LuaTable();
   },
   unregister_npc(obj: XR_cse_alife_creature_abstract): void {
-    log.info("Unregister npc:", this.name(), obj.name());
+    logger.info("Unregister npc:", this.name(), obj.name());
 
     this.population = this.population - 1;
 
@@ -436,7 +436,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     abort("this.npc_info[obj.id] = null !!! obj.id=%d", obj.id);
   },
   clear_dead(obj: XR_cse_alife_creature_abstract): void {
-    log.info("Clear dead:", this.name(), obj.name());
+    logger.info("Clear dead:", this.name(), obj.name());
 
     if (this.npc_info.get(obj.id) !== null) {
       this.dead_time.set(this.npc_info.get(obj.id).job_id, game.get_game_time());
@@ -458,7 +458,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     abort("this.npc_info[obj.id] = null !!! obj.id=%d", obj.id);
   },
   task(obj: XR_cse_alife_creature_abstract): Optional<XR_CALifeSmartTerrainTask> {
-    log.info("Task:", this.name(), obj.name());
+    logger.info("Task:", this.name(), obj.name());
 
     if (this.arriving_npc.get(obj.id) !== null) {
       return this.smart_alife_task;
@@ -467,7 +467,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     return this.job_data.get(this.npc_info.get(obj.id).job_id).alife_task;
   },
   load_jobs(): void {
-    log.info("Load jobs:", this.name());
+    logger.info("Load jobs:", this.name());
 
     this.jobs = (get_global("gulag_general").load_job as AnyCallable)(this);
 
@@ -625,7 +625,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     if (npc_info.begin_job !== true) {
       const job_data = this.job_data.get(npc_info.job_id);
 
-      log.info("Begin job in gulag", this.name(), npc_info.se_obj.name(), job_data.section);
+      logger.info("Begin job in gulag", this.name(), npc_info.se_obj.name(), job_data.section);
       offlineObjects.set(npc_info.se_obj.id, {});
       npc_info.begin_job = true;
 
@@ -637,7 +637,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     }
   },
   setup_logic(obj: XR_game_object): void {
-    log.info("Setup logic:", this.name(), obj.name());
+    logger.info("Setup logic:", this.name(), obj.name());
 
     const npc_data: INpcInfo = this.npc_info.get(obj.id());
     const job = this.job_data.get(npc_data.job_id);
@@ -673,7 +673,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     return this.npc_by_job_section.get(job_name);
   },
   switch_to_desired_job(npc: any): void {
-    log.info("Switch to desired job:", this.name(), npc.name());
+    logger.info("Switch to desired job:", this.name(), npc.name());
 
     const npc_id = npc.id();
     const npc_info = this.npc_info.get(npc_id);
@@ -908,7 +908,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     setLoadMarker(packet, true, "SmartTerrain");
   },
   init_npc_after_load(): void {
-    log.info("Init npc after load:", this.name());
+    logger.info("Init npc after load:", this.name());
 
     const find_job = (jobs: LuaTable<number>, npc_info: INpcInfo) => {
       for (const [k, v] of jobs) {
@@ -1256,7 +1256,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     }
   },
   call_respawn(): void {
-    log.info("Call respawn:", this.name());
+    logger.info("Call respawn:", this.name());
 
     const available_sects: LuaTable<number> = new LuaTable();
 
@@ -1307,7 +1307,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
       const squad_count = smart_terrain_squad_count(this.board.smarts.get(this.id).squads);
 
       if (this.max_population <= squad_count) {
-        log.info("%s cannot respawn due to squad_count %s of %s", this.name(), this.max_population, squad_count);
+        logger.info("%s cannot respawn due to squad_count %s of %s", this.name(), this.max_population, squad_count);
 
         return;
       }
@@ -1315,7 +1315,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
       const dist_to_actor = alife().actor().position.distance_to_sqr(this.position);
 
       if (dist_to_actor < (RESPAWN_RADIUS && RESPAWN_RADIUS)) {
-        log.info("%s cannot respawn due to distance", this.name());
+        logger.info("%s cannot respawn due to distance", this.name());
 
         return;
       }
@@ -1398,7 +1398,7 @@ export function setup_gulag_and_logic_on_spawn(
   stype: any,
   loaded: boolean
 ): void {
-  log.info("Setup gulag logic on spawn:", obj.name(), stype);
+  logger.info("Setup gulag logic on spawn:", obj.name(), stype);
 
   const sim = alife();
 
@@ -1569,7 +1569,7 @@ export function on_death(obj: XR_cse_alife_creature_abstract): void {
     const strn_id: number = obj.smart_terrain_id();
 
     if (strn_id !== MAX_UNSIGNED_16_BIT) {
-      log.info("Clear dead object:", obj.name());
+      logger.info("Clear dead object:", obj.name());
       (sim.object(strn_id) as ISmartTerrain).clear_dead(obj);
     }
   }
