@@ -4,7 +4,7 @@ import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { isEmpty } from "@/mod/scripts/utils/table";
 
-const log: LuaLogger = new LuaLogger("core/binders/CampfireBinder");
+const logger: LuaLogger = new LuaLogger("CampfireBinder");
 
 export const campfire_table_by_smart_names: LuaTable<string, LuaTable<number, XR_CZoneCampfire>> = new LuaTable();
 
@@ -18,14 +18,14 @@ export const CampfireBinder: ICampfireBinder = declare_xr_class("CampfireBinder"
 
     this.campfire = object.get_campfire();
 
-    log.info("Init", object.name());
+    logger.info("Init", object.name());
   },
   net_spawn(object: XR_cse_alife_object): boolean {
     if (!object_binder.net_spawn(this, object)) {
       return false;
     }
 
-    log.info("Register", object.name());
+    logger.info("Register", object.name());
 
     const [smart_name] = string.gsub(this.object.name(), "_campfire_%d*", "");
 
@@ -47,7 +47,7 @@ export const CampfireBinder: ICampfireBinder = declare_xr_class("CampfireBinder"
 } as ICampfireBinder);
 
 export function turn_on_campfires_by_smart_name(smart_name: string): void {
-  log.info("Turn on campfires for:", smart_name);
+  logger.info("Turn on campfires for:", smart_name);
 
   const smart_campfires: LuaTable<number, XR_CZoneCampfire> = campfire_table_by_smart_names.get(smart_name);
 
@@ -61,7 +61,7 @@ export function turn_on_campfires_by_smart_name(smart_name: string): void {
 }
 
 export function turn_off_campfires_by_smart_name(smart_name: string): void {
-  log.info("Turn off campfires for:", smart_name);
+  logger.info("Turn off campfires for:", smart_name);
 
   const smart_campfires: LuaTable<number, XR_CZoneCampfire> = campfire_table_by_smart_names.get(smart_name);
 

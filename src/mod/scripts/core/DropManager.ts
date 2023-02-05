@@ -20,7 +20,7 @@ import { parseNames, parseNums } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("DropManager");
+const logger: LuaLogger = new LuaLogger("DropManager");
 
 const death_ini: XR_ini_file = new ini_file("misc\\death_generic.ltx");
 const item_by_community: LuaTable<TCommunity, LuaTable<string, number>> = new LuaTable();
@@ -30,9 +30,9 @@ const count_by_level: LuaTable<string, { min: number; max: number }> = new LuaTa
 const always_keep_item: LuaTable<string, boolean> = new LuaTable();
 
 export function initDropSettings(): void {
-  log.info("Init drop settings");
+  logger.info("Init drop settings");
 
-  log.info("Init drop settings for communities");
+  logger.info("Init drop settings for communities");
   for (const [k, v] of communities as any as LuaTable<TCommunity, TCommunity>) {
     const communityDrop: LuaTable<string, number> = new LuaTable();
 
@@ -51,7 +51,7 @@ export function initDropSettings(): void {
     }
   }
 
-  log.info("Init drop settings for item_dependence");
+  logger.info("Init drop settings for item_dependence");
 
   const dependence_count = death_ini.line_count("item_dependence");
 
@@ -74,7 +74,7 @@ export function initDropSettings(): void {
 
   const level_drops = death_ini.line_count(level_name);
 
-  log.info("Init drop settings for level", level_name);
+  logger.info("Init drop settings for level", level_name);
 
   for (const i of $range(0, level_drops - 1)) {
     const [result, id, value] = death_ini.r_line(level_name, i, "", "");
@@ -85,7 +85,7 @@ export function initDropSettings(): void {
   const item_count_section = "item_count_" + level.get_game_difficulty();
   const item_count_drops: number = death_ini.line_count(item_count_section);
 
-  log.info("Init drop settings for counts");
+  logger.info("Init drop settings for counts");
 
   for (const i of $range(0, item_count_drops - 1)) {
     const [result, id, value] = death_ini.r_line(item_count_section, i, "", "");
@@ -118,7 +118,7 @@ export function initDropSettings(): void {
     }
   }
 
-  log.info("Initialized drop settings");
+  logger.info("Initialized drop settings");
 }
 
 export interface IDropManager extends XR_LuaBindBase {
@@ -132,7 +132,7 @@ export interface IDropManager extends XR_LuaBindBase {
 
 export const DropManager: IDropManager = declare_xr_class("DropManager", null, {
   __init(npc: XR_game_object): void {
-    log.info("Init drop manager:", npc.name());
+    logger.info("Init drop manager:", npc.name());
     this.npc = npc;
   },
   create_release_item(): void {
@@ -190,32 +190,32 @@ export const DropManager: IDropManager = declare_xr_class("DropManager", null, {
     const ini: XR_ini_file = npc.spawn_ini();
 
     if (ini !== null && ini.section_exist("keep_items")) {
-      log.info("Keep item, listed in config:", npc.name(), item.name(), section);
+      logger.info("Keep item, listed in config:", npc.name(), item.name(), section);
 
       return;
     }
 
     if (isExcludedFromLootDropItem(item)) {
-      log.info("Release excluded from drop item:", npc.name(), item.name(), section);
+      logger.info("Release excluded from drop item:", npc.name(), item.name(), section);
       alife().release(alife().object(item.id()), true);
 
       return;
     }
 
     if (isArtefact(item)) {
-      log.info("Keep item, artefact:", npc.name(), item.name(), section);
+      logger.info("Keep item, artefact:", npc.name(), item.name(), section);
 
       return;
     }
 
     if (section === misc.bolt) {
-      log.info("Keep item, bolt:", npc.name(), item.name(), section);
+      logger.info("Keep item, bolt:", npc.name(), item.name(), section);
 
       return;
     }
 
     if (always_keep_item.get(section)) {
-      log.info("Keep item, always keep listed:", npc.name(), item.name(), section);
+      logger.info("Keep item, always keep listed:", npc.name(), item.name(), section);
 
       return;
     }
@@ -225,18 +225,18 @@ export const DropManager: IDropManager = declare_xr_class("DropManager", null, {
         setItemCondition(item, math.random(40, 80));
       }
 
-      log.info("Keep item, weapon", npc.name(), item.name(), item.clsid(), section);
+      logger.info("Keep item, weapon", npc.name(), item.name(), item.clsid(), section);
 
       return;
     }
 
     if (isLootableItem(item) && !isAmmoItem(item)) {
-      log.info("Keep item, misc lootable", npc.name(), item.name(), section);
+      logger.info("Keep item, misc lootable", npc.name(), item.name(), section);
 
       return;
     }
 
-    log.info("Release loot item:", npc.name(), item.name(), section);
+    logger.info("Release loot item:", npc.name(), item.name(), section);
     alife().release(alife().object(item.id()), true);
 
     /**

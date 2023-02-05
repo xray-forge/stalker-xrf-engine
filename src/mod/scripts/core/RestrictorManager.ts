@@ -4,11 +4,11 @@ import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import { getConfigString, getParamString, parseNames } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("RestrictorManager");
+const logger: LuaLogger = new LuaLogger("RestrictorManager");
 
 export class RestrictorManager {
   public static forNpc(npc: XR_game_object): RestrictorManager {
-    log.info("Get restrictor manager for npc:", npc.name());
+    logger.info("Get restrictor manager for npc:", npc.name());
 
     const st: IStoredObject = storage.get(npc.id());
 
@@ -44,7 +44,7 @@ export class RestrictorManager {
   }
 
   public reset_restrictions(st: IStoredObject, section: string): void {
-    log.info("Reset restrictions:", this.object.name(), section);
+    logger.info("Reset restrictions:", this.object.name(), section);
 
     const actual_ini: XR_ini_file = st.ini!;
     const [out_restr_string] = getParamString(

@@ -21,7 +21,7 @@ import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { getTableSize } from "@/mod/scripts/utils/table";
 
-const log: LuaLogger = new LuaLogger("CoverManager");
+const logger: LuaLogger = new LuaLogger("CoverManager");
 
 export interface ICoverPointDescriptor {
   cover_vertex_id: number;

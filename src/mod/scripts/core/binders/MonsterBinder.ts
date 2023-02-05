@@ -44,7 +44,7 @@ import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const last_update = 0;
-const log: LuaLogger = new LuaLogger("MonsterBinder");
+const logger: LuaLogger = new LuaLogger("MonsterBinder");
 
 export interface IMonsterBinder extends XR_object_binder {
   st: IStoredObject;
@@ -224,7 +224,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
       return false;
     }
 
-    log.info("Net spawn:", object.name());
+    logger.info("Net spawn:", object.name());
 
     const st = storage.get(this.object.id());
     const on_offline_condlist = st !== null && st.overrides && st.overrides.on_offline_condlist;
@@ -269,7 +269,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     return true;
   },
   net_destroy(): void {
-    log.info("Net destroy:", this.object.name());
+    logger.info("Net destroy:", this.object.name());
 
     this.object.set_callback(callback.death, null);
     this.object.set_callback(callback.patrol_path_in_point, null);
@@ -382,7 +382,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     const obj_clsid: TXR_cls_id = this.object.clsid();
 
     if (obj_clsid === clsid.poltergeist_s) {
-      log.info("Releasing poltergeist_s:", this.object.name());
+      logger.info("Releasing poltergeist_s:", this.object.name());
 
       const target_object: Optional<XR_cse_alife_object> = alife().object(this.object.id());
 
@@ -416,7 +416,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     }
 
     if (amount > 0) {
-      log.info("[hit] Hit done:", amount, who.name(), "->", obj.name());
+      logger.info("[hit] Hit done:", amount, who.name(), "->", obj.name());
     }
   },
   hear_callback(

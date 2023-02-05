@@ -3,7 +3,7 @@ import { CUIWindow, vector2, XR_CScriptXmlInit, XR_CUIScrollView, XR_CUITrackBar
 import { IOptionsDialog } from "@/mod/scripts/ui/menu/OptionsDialog";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("OptionsVideoAdvanced");
+const logger: LuaLogger = new LuaLogger("OptionsVideoAdvanced");
 
 export interface IOptionsVideoAdvanced extends XR_CUIWindow {
   scroll_v: XR_CUIScrollView;
@@ -15,13 +15,9 @@ export interface IOptionsVideoAdvanced extends XR_CUIWindow {
 export const OptionsVideoAdvanced: IOptionsVideoAdvanced = declare_xr_class("OptionsVideoAdvanced", CUIWindow, {
   __init(): void {
     CUIWindow.__init(this);
-    log.info("Init");
-  },
-  __finalize(): void {
-    log.info("Finalize");
   },
   InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IOptionsDialog): void {
-    log.info("Init controls");
+    logger.info("Init controls");
 
     let ctl: any;
 

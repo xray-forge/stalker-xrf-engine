@@ -25,9 +25,9 @@ import { disableInfo } from "@/mod/scripts/utils/actor";
 import { externClassMethod } from "@/mod/scripts/utils/general";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("_extern");
+const logger: LuaLogger = new LuaLogger("_extern");
 
-log.info("Resolve externals");
+logger.info("Resolve externals");
 
 declare_global("_extern", {});
 
@@ -148,35 +148,35 @@ declare_global("travel_manager", {
 declare_global("_extern.effector_callback", () => ActionCutscene.onCutsceneEnd());
 
 declare_global("on_actor_critical_power", () => {
-  log.info("Actor critical power");
+  logger.info("Actor critical power");
 });
 
 declare_global("on_actor_critical_max_power", () => {
-  log.info("Actor critical max power");
+  logger.info("Actor critical max power");
 });
 
 declare_global("on_actor_bleeding", () => {
-  log.info("Actor bleeding");
+  logger.info("Actor bleeding");
 });
 
 declare_global("on_actor_satiety", () => {
-  log.info("Actor satiety");
+  logger.info("Actor satiety");
 });
 
 declare_global("on_actor_radiation", () => {
-  log.info("Actor radiation");
+  logger.info("Actor radiation");
 });
 
 declare_global("on_actor_weapon_jammed", () => {
-  log.info("Actor weapon jammed");
+  logger.info("Actor weapon jammed");
 });
 
 declare_global("on_actor_cant_walk_weight", () => {
-  log.info("Actor cant walk weight");
+  logger.info("Actor cant walk weight");
 });
 
 declare_global("on_actor_psy", () => {
-  log.info("Actor psy");
+  logger.info("Actor psy");
 });
 
 declare_global("actor_menu", {
@@ -187,7 +187,7 @@ declare_global("actor_menu", {
 
 declare_global("pda", {
   set_active_subdialog: (...args: AnyArgs): void => {
-    log.info("Set active subdialog", ...args);
+    logger.info("Set active subdialog", ...args);
   },
   fill_fraction_state: (state: AnyObject): void => {
     return PdaManager.getInstance().fillFactionState(state);
@@ -202,13 +202,13 @@ declare_global("pda", {
     return 10;
   },
   actor_menu_mode: (...args: AnyArgs): void => {
-    log.info("Pda actor menu mode:", ...args);
+    logger.info("Pda actor menu mode:", ...args);
   },
   property_box_clicked: (...args: AnyArgs): void => {
-    log.info("Pda box property clicked:", ...args);
+    logger.info("Pda box property clicked:", ...args);
   },
   property_box_add_properties: (...args: AnyArgs): void => {
-    log.info("Pda box property added:", ...args);
+    logger.info("Pda box property added:", ...args);
   },
   get_monster_back: () => {
     return PdaManager.getInstance().getMonsterBackground();

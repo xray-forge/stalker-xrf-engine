@@ -17,7 +17,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { trimString } from "@/mod/scripts/utils/string";
 
-const log: LuaLogger = new LuaLogger("utils/configs");
+const logger: LuaLogger = new LuaLogger("configs");
 
 /**
  * todo: Description

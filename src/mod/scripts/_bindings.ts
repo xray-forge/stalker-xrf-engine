@@ -22,7 +22,7 @@ import { SmartTerrainBinder } from "@/mod/scripts/core/binders/SmartTerrainBinde
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("_bindings");
+const logger: LuaLogger = new LuaLogger("_bindings");
 
 function createBinder(target: XR_object_binder): (object: XR_game_object) => void {
   return (object: XR_game_object) => object.bind_object(create_xr_class_instance(target, object));
@@ -77,7 +77,7 @@ list = {
         if (alife() !== null) {
           object.bind_object(create_xr_class_instance(SmartTerrainBinder, object));
         } else {
-          log.info("No simulation, smart terrain will not be enabled:", object.name());
+          logger.info("No simulation, smart terrain will not be enabled:", object.name());
         }
       } else {
         abort("You must use SMART_TERRAIN instead of SCRIPT_ZONE %s", object.name());

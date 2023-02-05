@@ -19,7 +19,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { isStalkerAtWaypoint } from "@/mod/scripts/utils/world";
 
-const log: LuaLogger = new LuaLogger("MoveManager");
+const logger: LuaLogger = new LuaLogger("MoveManager");
 
 const dist_walk: number = 10;
 const dist_run: number = 2500;
@@ -304,7 +304,7 @@ export class MoveManager {
   }
 
   public finalize(): void {
-    log.info("Finalize:", this.object.name());
+    logger.info("Finalize:", this.object.name());
 
     if (this.team) {
       sync.get(this.team).delete(this.object.id());

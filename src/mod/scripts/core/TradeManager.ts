@@ -8,10 +8,10 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("TradeManager");
+const logger: LuaLogger = new LuaLogger("TradeManager");
 
 export function trade_init(npc: XR_game_object, cfg: string): void {
-  log.info("Init trade manager for:", npc.name(), cfg);
+  logger.info("Init trade manager for:", npc.name(), cfg);
   // --'    printf("TRADE INIT[%s]", npc.name())
   // --'    if (trade_manager.get(npc.id())] === null ) {
   tradeState.set(npc.id(), {} as any);

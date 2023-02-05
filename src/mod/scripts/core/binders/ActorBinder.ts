@@ -60,7 +60,7 @@ import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/tim
 let weapon_hide: LuaTable<number, boolean> = new LuaTable();
 let travel_func: Optional<AnyCallable> = null;
 
-const log: LuaLogger = new LuaLogger("ActorBinder");
+const logger: LuaLogger = new LuaLogger("ActorBinder");
 
 const detective_achievement_items: LuaTable<number, string> = ["medkit", "antirad", "bandage"] as any;
 
@@ -112,7 +112,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
   __init(object: XR_game_object): void {
     object_binder.__init(this, object);
 
-    log.info("Init new actor binder:", object.name());
+    logger.info("Init new actor binder:", object.name());
 
     this.bCheckStart = false;
     this.surgeManager = SurgeManager.getInstance();
@@ -126,7 +126,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     this.last_mutant_hunter_achievement_spawn_time = null;
   },
   net_spawn(data: XR_cse_alife_creature_actor): boolean {
-    log.info("Net spawn:", data.name());
+    logger.info("Net spawn:", data.name());
 
     level.show_indicators();
 
@@ -167,7 +167,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     return true;
   },
   net_destroy(): void {
-    log.info("Net destroy:", this.object.name());
+    logger.info("Net destroy:", this.object.name());
 
     GlobalSound.stop_sounds_by_id(this.object.id());
 
@@ -233,17 +233,17 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     this.object.set_callback(callback.use_object, this.use_inventory_item, this);
   },
   take_item_from_box(box: XR_game_object, item: XR_game_object): void {
-    log.info("Take item from box:", box.name(), item.name());
+    logger.info("Take item from box:", box.name(), item.name());
 
     const box_name = box.name();
   },
   info_callback(npc: XR_game_object, info_id: string): void {
-    log.info("[info callback]");
+    logger.info("[info callback]");
   },
   on_trade(item, sell_bye, money): void {},
   article_callback(): void {},
   on_item_take(object: XR_game_object): void {
-    log.info("On item take:", object.name());
+    logger.info("On item take:", object.name());
 
     if (isArtefact(object)) {
       const anomal_zone = PARENT_ZONES_BY_ARTEFACT_ID.get(object.id());
@@ -326,12 +326,12 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     if (this.object.is_talking()) {
       if (this.weapon_hide_in_dialog === false) {
         this.object.hide_weapon();
-        log.info("Hiding weapon in dialog");
+        logger.info("Hiding weapon in dialog");
         this.weapon_hide_in_dialog = true;
       }
     } else {
       if (this.weapon_hide_in_dialog === true) {
-        log.info("Restoring weapon in dialog");
+        logger.info("Restoring weapon in dialog");
         this.object.restore_weapon();
         this.weapon_hide_in_dialog = false;
       }
@@ -339,13 +339,13 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
 
     if (check_for_weapon_hide_by_zones() === true) {
       if (this.weapon_hide === false) {
-        log.info("Hiding weapon");
+        logger.info("Hiding weapon");
         this.object.hide_weapon();
         this.weapon_hide = true;
       }
     } else {
       if (this.weapon_hide === true) {
-        log.info("Restoring weapon");
+        logger.info("Restoring weapon");
         this.object.restore_weapon();
         this.weapon_hide = false;
       }
@@ -373,7 +373,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
      */
 
     if (this.bCheckStart) {
-      log.info("Set default infos");
+      logger.info("Set default infos");
 
       if (!hasAlifeInfo("global_dialogs")) {
         this.object.give_info_portion("global_dialogs");
@@ -606,7 +606,7 @@ export function spawn_achivement_items(
   count: number,
   inv_box_story_id: string
 ): void {
-  log.info("Spawn achievement items");
+  logger.info("Spawn achievement items");
 
   const inv_box = alife().object(getStoryObjectId(inv_box_story_id)!)!;
 

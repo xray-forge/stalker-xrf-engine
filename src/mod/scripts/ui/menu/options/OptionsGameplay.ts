@@ -3,7 +3,7 @@ import { CUIWindow, vector2, XR_CScriptXmlInit, XR_CUI3tButton, XR_CUIWindow } f
 import { IOptionsDialog } from "@/mod/scripts/ui/menu/OptionsDialog";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("OptionsGameplay");
+const logger: LuaLogger = new LuaLogger("OptionsGameplay");
 
 export interface IOptionsGameplay extends XR_CUIWindow {
   InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IOptionsDialog): void;
@@ -12,14 +12,8 @@ export interface IOptionsGameplay extends XR_CUIWindow {
 export const OptionsGameplay: IOptionsGameplay = declare_xr_class("OptionsGameplay", CUIWindow, {
   __init(): void {
     CUIWindow.__init(this);
-    log.info("Init");
-  },
-  __finalize(): void {
-    log.info("Finalize");
   },
   InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IOptionsDialog): void {
-    log.info("Init controls");
-
     this.SetWndPos(new vector2().set(x, y));
     this.SetWndSize(new vector2().set(738, 416));
     this.SetAutoDelete(true);

@@ -43,7 +43,7 @@ export const earthquake_cam_eff_id: number = 2;
 export const sleep_cam_eff_id: number = 3;
 export const sleep_fade_pp_eff_id: number = 4;
 
-const log: LuaLogger = new LuaLogger("SurgeManager");
+const logger: LuaLogger = new LuaLogger("SurgeManager");
 
 export class SurgeManager extends AbstractCoreManager {
   public ini: XR_ini_file = new ini_file("misc\\surge_manager.ltx");
@@ -146,7 +146,7 @@ export class SurgeManager extends AbstractCoreManager {
   }
 
   public getNearestAvailableCover(): Optional<number> {
-    log.info("Getting nearest cover");
+    logger.info("Getting nearest cover");
 
     if (this.loaded) {
       this.initializeSurgeCovers();
@@ -406,7 +406,7 @@ export class SurgeManager extends AbstractCoreManager {
   }
 
   public skipSurge(): void {
-    log.info("Skip surge");
+    logger.info("Skip surge");
 
     const [Y, M, D, h, m, s, ms] = this.initedTime.get(0, 0, 0, 0, 0, 0, 0);
 
@@ -475,7 +475,7 @@ export class SurgeManager extends AbstractCoreManager {
     this.prev_sec = 0;
 
     for (const [k, v] of signalLight) {
-      log.info("Stop signal light");
+      logger.info("Stop signal light");
       v.stop_light();
       v.stop();
     }
@@ -489,7 +489,7 @@ export class SurgeManager extends AbstractCoreManager {
   }
 
   public kill_all_unhided(): void {
-    log.info("Kill all surge unhided");
+    logger.info("Kill all surge unhided");
 
     const h: XR_hit = new hit();
 
@@ -500,7 +500,7 @@ export class SurgeManager extends AbstractCoreManager {
     h.draftsman = getActor();
 
     for (const [k, v] of CROW_STORAGE.STORAGE) {
-      log.info("Kill crows");
+      logger.info("Kill crows");
 
       const obj = alife().object(v);
 
@@ -516,14 +516,14 @@ export class SurgeManager extends AbstractCoreManager {
     const board: ISimBoard = get_sim_board();
     const levelName: TLevel = level.name();
 
-    log.info("Releasing squads:", board.squads.length());
+    logger.info("Releasing squads:", board.squads.length());
 
     for (const [squadId, squad] of board.squads) {
       if (isObjectOnLevel(squad, levelName) && !isImmuneToSurge(squad) && !isStoryObject(squad)) {
         for (const member of squad.squad_members()) {
           if (!isStoryObject(member.object)) {
             if (check_squad_smart_props(squad.id)) {
-              log.info("Releasing npc from squad because of surge:", member.object.name(), squad.name());
+              logger.info("Releasing npc from squad because of surge:", member.object.name(), squad.name());
 
               const cl_obj = level.object_by_id(member.object.id);
 
@@ -544,7 +544,7 @@ export class SurgeManager extends AbstractCoreManager {
               }
 
               if (release) {
-                log.info("Releasing npc from squad because of surge:", member.object.name(), squad.name());
+                logger.info("Releasing npc from squad because of surge:", member.object.name(), squad.name());
 
                 const cl_obj = level.object_by_id(member.object.id);
 
@@ -614,7 +614,7 @@ export class SurgeManager extends AbstractCoreManager {
           }
 
           if (!isInCover) {
-            log.info(
+            logger.info(
               "Releasing npc from squad after actors death because of surge:",
               member.object.name(),
               squad.name()
@@ -664,9 +664,9 @@ export class SurgeManager extends AbstractCoreManager {
   }
 
   public launch_rockets(): void {
-    log.info("Launch rockets");
+    logger.info("Launch rockets");
     for (const [k, v] of signalLight) {
-      log.info("Start signal light");
+      logger.info("Start signal light");
       if (!v.is_flying()) {
         v.launch();
       }
@@ -756,7 +756,7 @@ export function start_surge(): void {
   if (surgeManager.getNearestAvailableCover()) {
     surgeManager.start(true);
   } else {
-    log.info("Error: Surge covers are not set! Can't manually start");
+    logger.info("Error: Surge covers are not set! Can't manually start");
   }
 }
 

@@ -15,7 +15,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("StoryObjectsRegistry");
+const logger: LuaLogger = new LuaLogger("StoryObjectsRegistry");
 let storyObjectsRegistry: Optional<IStoryObjectsRegistry> = null;
 
 export interface IStoryObjectsRegistry extends XR_LuaBindBase {
@@ -33,12 +33,12 @@ export interface IStoryObjectsRegistry extends XR_LuaBindBase {
 
 export const StoryObjectsRegistry: IStoryObjectsRegistry = declare_xr_class("StoryObjectsRegistry", null, {
   __init(): void {
-    log.info("Init");
+    logger.info("Init");
     this.id_by_story_id = new LuaTable();
     this.story_id_by_id = new LuaTable();
   },
   register(objectId: number, storyObjectId: string): void {
-    log.info("Register:", objectId, storyObjectId);
+    logger.info("Register:", objectId, storyObjectId);
 
     if (this.id_by_story_id.get(storyObjectId) !== null) {
       if (objectId !== this.id_by_story_id.get(storyObjectId)) {
@@ -62,14 +62,14 @@ export const StoryObjectsRegistry: IStoryObjectsRegistry = declare_xr_class("Sto
     this.story_id_by_id.set(objectId, storyObjectId);
   },
   unregister_by_id(obj_id: number): void {
-    log.info("Unregister object id:", obj_id);
+    logger.info("Unregister object id:", obj_id);
     if (this.story_id_by_id.get(obj_id) !== null) {
       this.id_by_story_id.delete(this.story_id_by_id.get(obj_id));
       this.story_id_by_id.delete(obj_id);
     }
   },
   unregister_by_story_id(story_id: string): void {
-    log.info("Unregister story id:", story_id);
+    logger.info("Unregister story id:", story_id);
 
     if (this.id_by_story_id.get(story_id) !== null) {
       this.story_id_by_id.delete(this.id_by_story_id.get(story_id));

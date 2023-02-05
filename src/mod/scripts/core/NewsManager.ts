@@ -21,7 +21,7 @@ import { isStalkerClassId } from "@/mod/scripts/utils/checkers";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("NewsManager");
+const logger: LuaLogger = new LuaLogger("NewsManager");
 
 const tips_icons_old = {
   default: [0, 658],
@@ -95,7 +95,7 @@ type TActionType = keyof TActionDescriptions;
  * todo;
  */
 export function relocate_money(actor: Optional<XR_game_object>, type: "in" | "out", amount: number): void {
-  log.info("Show relocate money message:", type, amount, amount);
+  logger.info("Show relocate money message:", type, amount, amount);
 
   if (actor === null) {
     return;
@@ -138,7 +138,7 @@ export function get_inv_name(section: string): string {
  * todo;
  */
 export function send_treasure(param: 0 | 1 | 2): void {
-  log.info("Show send treasure:", param);
+  logger.info("Show send treasure:", param);
 
   let news_caption: string = "";
   const actor: XR_game_object = getActor()!;
@@ -167,7 +167,7 @@ export function send_treasure(param: 0 | 1 | 2): void {
  * todo;
  */
 export function send_task(actor: Optional<XR_game_object>, type: TActionType, task: XR_CGameTask): void {
-  log.info("Show send task:", type, task.get_id(), task.get_title());
+  logger.info("Show send task:", type, task.get_id(), task.get_title());
 
   // todo: Probably param check.
   if (getActor() === null || actor === null) {
@@ -209,7 +209,7 @@ export function send_tip(
   showtime: Maybe<number>,
   sender_id: Optional<string>
 ): boolean {
-  log.info("Show send tip:", news_id_string, timeout, showtime, sender_id);
+  logger.info("Show send tip:", news_id_string, timeout, showtime, sender_id);
 
   if (news_id_string === null) {
     return false;
@@ -224,14 +224,14 @@ export function send_tip(
       if (npc !== null) {
         if (npc.online) {
           if (ActionWoundManager.is_heavy_wounded_by_id(npc.id)) {
-            log.info("Cannot send tip, npc is wounded");
+            logger.info("Cannot send tip, npc is wounded");
 
             return false;
           }
         }
 
         if (!npc.alive()) {
-          log.info("Cannot send tip, npc is not alive");
+          logger.info("Cannot send tip, npc is not alive");
 
           return false;
         }
@@ -274,7 +274,7 @@ export function send_sound(
   str2: Optional<string>,
   delay: Optional<number>
 ): void {
-  log.info("Send sound:", npc?.id(), str, str2, faction);
+  logger.info("Send sound:", npc?.id(), str, str2, faction);
 
   if (faction === null) {
     return;
@@ -333,7 +333,7 @@ export function send_sound(
 }
 
 export function relocate_item(actor: XR_game_object, type: "in" | "out", item: string, amount: number = 1): void {
-  log.info("Show relocate item message:", type, item, amount);
+  logger.info("Show relocate item message:", type, item, amount);
 
   if (getActor() === null) {
     return;

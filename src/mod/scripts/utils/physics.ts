@@ -4,7 +4,7 @@ import { Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("utils/physics");
+const logger: LuaLogger = new LuaLogger("physics");
 
 // todo: Config constants?
 const PI_DEGREE: number = math.pi / 180;

@@ -33,7 +33,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { getObjectStoryId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("TravelManager");
+const logger: LuaLogger = new LuaLogger("TravelManager");
 
 let init_time: Optional<number> = null;
 let traveler_actor_path: Optional<string> = null;
@@ -66,7 +66,7 @@ export class TravelManager {
   public smart_by_phrase: LuaTable<string, string> = new LuaTable();
 
   public constructor() {
-    log.info("Initialize new travel manager");
+    logger.info("Initialize new travel manager");
 
     const ini: XR_ini_file = new ini_file("misc\\travel_manager.ltx");
 
@@ -209,7 +209,7 @@ export class TravelManager {
     }
 
     if (teleport_flag === false) {
-      log.info(
+      logger.info(
         "trvelling_squad_path [%s] travelling_actor_path [%s]!!!",
         tostring(traveler_squad_path),
         tostring(traveler_actor_path)
@@ -251,7 +251,7 @@ export class TravelManager {
 
       level.change_game_time(0, hours, minutes);
       SurgeManager.getInstance().isTimeForwarded = true;
-      log.info("traveling: time forwarded on [%d][%d]", hours, minutes);
+      logger.info("traveling: time forwarded on [%d][%d]", hours, minutes);
     }
 
     if (time_global() - init_time! < 6000) {
@@ -418,7 +418,7 @@ export class TravelManager {
     dialog_id: string,
     phrase_id: string
   ): void {
-    log.info("Actor travel with squad:", npc.name());
+    logger.info("Actor travel with squad:", npc.name());
 
     get_global<AnyCallablesModule>("xr_effects").scenario_autosave(actor, npc, ["st_save_uni_travel_generic"]);
 

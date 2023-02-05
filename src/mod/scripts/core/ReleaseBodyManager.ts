@@ -23,7 +23,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 const MAX_DISTANCE = 4900;
 const IDLE_AFTER_DEATH = 40_000;
 const MAX_BODY_COUNT = 15;
-const log: LuaLogger = new LuaLogger("ReleaseBodyManager");
+const logger: LuaLogger = new LuaLogger("ReleaseBodyManager");
 
 export interface IReleaseDescriptor {
   death_time?: number;
@@ -47,7 +47,7 @@ export interface IReleaseBodyManager extends XR_LuaBindBase {
 
 export const ReleaseBodyManager: IReleaseBodyManager = declare_xr_class("ReleaseBodyManager", null, {
   __init(): void {
-    log.info("Init");
+    logger.info("Init");
 
     this.release_objects_table = new LuaTable();
     this.keep_items_table = new LuaTable();
@@ -74,7 +74,7 @@ export const ReleaseBodyManager: IReleaseBodyManager = declare_xr_class("Release
         this.try_to_release();
       }
 
-      log.info("Add to release table:", obj.name());
+      logger.info("Add to release table:", obj.name());
 
       table.insert(this.release_objects_table, {
         id: obj.id(),
@@ -83,7 +83,7 @@ export const ReleaseBodyManager: IReleaseBodyManager = declare_xr_class("Release
     }
   },
   try_to_release(): void {
-    log.info("Try to release dead bodies:", this.release_objects_table.length(), this.body_max_count);
+    logger.info("Try to release dead bodies:", this.release_objects_table.length(), this.body_max_count);
 
     const overflow_count = this.release_objects_table.length() - this.body_max_count;
 
@@ -97,11 +97,11 @@ export const ReleaseBodyManager: IReleaseBodyManager = declare_xr_class("Release
       const release_object = alife().object(this.release_objects_table.get(pos_in_table).id);
 
       if (release_object !== null) {
-        log.info("Releasing object:", release_object.name());
+        logger.info("Releasing object:", release_object.name());
 
         if (isStalker(release_object) || isMonster(release_object)) {
           if (release_object.alive()) {
-            log.warn("Detected alive object in release table:", release_object.name());
+            logger.warn("Detected alive object in release table:", release_object.name());
           } else {
             alife().release(release_object, true);
           }
@@ -113,20 +113,20 @@ export const ReleaseBodyManager: IReleaseBodyManager = declare_xr_class("Release
   },
   inspection_result(obj: XR_game_object): boolean {
     if (getObjectStoryId(obj.id()) !== null) {
-      log.info("Ignore release, present in story:", obj.name());
+      logger.info("Ignore release, present in story:", obj.name());
 
       return false;
     }
 
     if (this.check_for_known_info(obj)) {
-      log.info("Ignore release, present in known info:", obj.name());
+      logger.info("Ignore release, present in known info:", obj.name());
 
       return false;
     }
 
     for (const [k, v] of this.keep_items_table) {
       if (obj.object(this.keep_items_table.get(k)) !== null) {
-        log.info("Ignore release, contains keep item:", obj.name(), k);
+        logger.info("Ignore release, contains keep item:", obj.name(), k);
 
         return false;
       }
@@ -180,7 +180,7 @@ export const ReleaseBodyManager: IReleaseBodyManager = declare_xr_class("Release
           pos_in_table = k;
         }
       } else {
-        log.warn("Captured not present in alife object for release:", v.id);
+        logger.warn("Captured not present in alife object for release:", v.id);
       }
     }
 

@@ -3,7 +3,7 @@ import { CUIWindow, vector2, XR_CScriptXmlInit, XR_CUIWindow } from "xray16";
 import { IOptionsDialog } from "@/mod/scripts/ui/menu/OptionsDialog";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("OptionsVideo");
+const logger: LuaLogger = new LuaLogger("OptionsVideo");
 
 export interface IOptionsVideo extends XR_CUIWindow {
   InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IOptionsDialog): void;
@@ -12,14 +12,8 @@ export interface IOptionsVideo extends XR_CUIWindow {
 export const OptionsVideo: IOptionsVideo = declare_xr_class("OptionsVideo", CUIWindow, {
   __init(): void {
     CUIWindow.__init(this);
-    log.info("Init");
-  },
-  __finalize(): void {
-    log.info("Finalize");
   },
   InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IOptionsDialog): void {
-    log.info("Init controls");
-
     this.SetWndPos(new vector2().set(x, y));
     this.SetWndSize(new vector2().set(738, 416));
     this.SetAutoDelete(true);

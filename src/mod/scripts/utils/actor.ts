@@ -4,13 +4,13 @@ import { TInfoPortion } from "@/mod/globals/info_portions";
 import { getActor } from "@/mod/scripts/core/db";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("actor");
+const logger: LuaLogger = new LuaLogger("actor");
 
 /**
  * todo;
  */
 export function giveInfo(infoId: string): void {
-  log.info("Give alife info:", infoId);
+  logger.info("Give alife info:", infoId);
   getActor()!.give_info_portion(infoId);
 }
 
@@ -18,7 +18,7 @@ export function giveInfo(infoId: string): void {
  * todo;
  */
 export function disableInfo(infoId: string): void {
-  log.info("Disable alife info:", infoId);
+  logger.info("Disable alife info:", infoId);
 
   if (hasAlifeInfo(infoId)) {
     getActor()!.disable_info_portion(infoId);

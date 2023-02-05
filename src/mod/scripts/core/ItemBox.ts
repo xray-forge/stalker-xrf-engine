@@ -7,7 +7,7 @@ import { getConfigString, parseNames, parseNums } from "@/mod/scripts/utils/conf
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const log: LuaLogger = new LuaLogger("ItemBox");
+const logger: LuaLogger = new LuaLogger("ItemBox");
 const item_by_community: LuaTable<string, LuaTable<string, number>> = new LuaTable();
 const mul_by_level: LuaTable<string, number> = new LuaTable();
 const count_by_level: LuaTable<string, { min: number; max: number }> = new LuaTable();
@@ -46,7 +46,7 @@ export class ItemBox {
         };
 
         if (item_by_community.get("def_box").get(item.section) === null) {
-          log.info("There is no such item [%s] for box [%s]", tostring(item.section), obj.name());
+          logger.info("There is no such item [%s] for box [%s]", tostring(item.section), obj.name());
         }
 
         if (t.get(k + 1) !== null) {
@@ -133,7 +133,7 @@ export class ItemBox {
   }
 
   public spawnBoxItems(): void {
-    log.info("Spawn items for:", this.object.name());
+    logger.info("Spawn items for:", this.object.name());
 
     const ini: XR_ini_file = this.object.spawn_ini();
     const currentBoxItems = ItemBox.readBoxItemList(ini, "drop_box", "items", this.object);
