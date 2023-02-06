@@ -7,6 +7,9 @@ import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreMan
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { send_tip } from "@/mod/scripts/core/NewsManager";
 import { giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
+
+const logger: LuaLogger = new LuaLogger("AchievementsManager");
 
 export enum EAchievement {
   PIONEER = "pioneer",

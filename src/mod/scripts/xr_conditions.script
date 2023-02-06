@@ -3,6 +3,7 @@
 local ActionWoundManager = require("scripts.core.logic.ActionWoundManager").ActionWoundManager
 local ActionDeimos = require("scripts.core.logic.ActionDeimos").ActionDeimos
 local GlobalSound = require("scripts.core.logic.GlobalSound").GlobalSound
+local AchievementsManager = require("scripts.core.managers.AchievementsManager").AchievementsManager
 local SurgeManager = require("scripts.core.SurgeManager")
 local InventoryUpgrades = require("scripts.core.inventory_upgrades")
 local SmartTerrainControl = require("scripts.se.SmartTerrainControl")
@@ -1714,4 +1715,10 @@ function upgrade_hint_kardan(actor, npc, p)
   InventoryUpgrades.cur_hint = hint_table
 
   return can_upgrade >= 2
+end
+
+--
+
+wealthy_functor = function ()
+  return AchievementsManager:getInstance():checkAchievedWealthy()
 end
