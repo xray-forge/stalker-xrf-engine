@@ -21,4 +21,6 @@
 ## 🧰 Requests to open x-ray
 
 - With lua bindings generation include all call overrides when output TXT
-- Fix profiling hook 'call' part
+- Fix profiling hook 'call' part and investigate it?
+- Export actor menu and actor menu item classes for overriding with lua
+- Fix numerous calls to disk with menu, implement caching for character menu and fix lags when opening inventory

@@ -85,7 +85,7 @@ export class ActionSchemeSmartCover extends AbstractSchemeAction {
     st.loophole_name = getConfigString(ini, section, "loophole_name", object, false, "", null);
     st.cover_state = getConfigString(ini, section, "cover_state", object, false, "", "default_behaviour");
     st.target_enemy = getConfigString(ini, section, "target_enemy", object, false, "", null);
-    st.target_path = getConfigString(ini, section, "target_path", object, false, "", "null");
+    st.target_path = getConfigString(ini, section, "target_path", object, false, "", "nil");
     st.idle_min_time = getConfigNumber(ini, section, "idle_min_time", object, false, 6);
     st.idle_max_time = getConfigNumber(ini, section, "idle_max_time", object, false, 10);
     st.lookout_min_time = getConfigNumber(ini, section, "lookout_min_time", object, false, 6);
