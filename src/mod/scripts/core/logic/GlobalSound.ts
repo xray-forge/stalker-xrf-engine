@@ -20,7 +20,7 @@ export class GlobalSound {
     faction: Optional<string>,
     point: Optional<number>
   ): Optional<XR_sound_object> {
-    logger.info("Set sound play:", objectId);
+    logger.info("Set sound play:", objectId, sound, faction, point);
 
     if (sound === null) {
       return null;
@@ -47,7 +47,7 @@ export class GlobalSound {
         logger.info("Play sound, store in table:", objectId);
         GlobalSound.sound_table.set(objectId, playableSound);
       } else {
-        logger.info("Play was not successful:", objectId);
+        logger.info("Play was not successful:", objectId, sound, faction, point);
       }
     } else {
       return GlobalSound.sound_table.get(objectId).snd_obj;

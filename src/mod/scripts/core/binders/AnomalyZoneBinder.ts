@@ -317,7 +317,6 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
           for (const i of $range(0, ini.line_count(mines_section) - 1)) {
             const [temp1, mine_name, temp2] = ini.r_line(mines_section, i, "", "");
 
-            logger.info("Init mines for section:", section, mine_name);
             table.insert(this.minesTable.get(section), mine_name);
           }
         }

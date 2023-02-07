@@ -11,13 +11,14 @@ local ActionProcessHit = require("scripts.core.logic.ActionProcessHit").ActionPr
 local ActionGatherItems = require("scripts.core.logic.ActionGatherItems").ActionGatherItems
 local ActionCorpseDetect = require("scripts.core.logic.ActionCorpseDetect").ActionCorpseDetect
 local ActionSchemeHelpWounded = require("scripts.core.logic.ActionSchemeHelpWounded").ActionSchemeHelpWounded
+local ActionSchemeCombat = require("scripts.core.logic.ActionSchemeCombat").ActionSchemeCombat
+local ActionSchemeCombatIgnore = require("scripts.core.logic.ActionSchemeCombatIgnore").ActionSchemeCombatIgnore
 local ActionDanger = require("scripts.core.logic.ActionDanger").ActionDanger
 local ActionOnHit = require("scripts.core.logic.ActionOnHit").ActionOnHit
 local ActionDeath = require("scripts.core.logic.ActionDeath").ActionDeath
 local utilsAlife = require("scripts.utils.alife")
 local utilsConfigs = require("scripts.utils.configs")
 local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
-local json = require("lib.utils.json")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 
@@ -258,14 +259,14 @@ end
 ------------------------------------------------------------------------------------------------------------
 function disable_generic_schemes(npc, stype)
   if stype == schemes.stype_stalker then
-    xr_combat.disable_scheme(npc, "combat")
+    ActionSchemeCombat:disable_scheme(npc, "combat")
     ActionProcessHit:disable_scheme(npc, ActionProcessHit.SCHEME_SECTION)
     xr_meet.disable_scheme(npc, "actor_dialogs")
-    xr_combat_ignore.disable_scheme(npc, "combat_ignore")
+    ActionSchemeCombatIgnore:disable_scheme(npc, "combat_ignore")
     utilsAlife.disable_invulnerability(npc)
   elseif stype == schemes.stype_mobile then
     ActionMobCombat.disable_scheme(npc, "mob_combat")
-    xr_combat_ignore.disable_scheme(npc, "combat_ignore")
+    ActionSchemeCombatIgnore:disable_scheme(npc, "combat_ignore")
     utilsAlife.disable_invulnerability(npc)
   elseif stype == schemes.stype_item then
     ActionOnHit:disable_scheme(npc, ActionOnHit.SCHEME_SECTION)
@@ -284,7 +285,7 @@ function enable_generic_schemes(ini, npc, stype, section)
     ActionGatherItems:set_gather_items(npc, ini, "gather_items", "gather_items")
 
     local combat_section = utils.cfg_get_string(ini, section, "on_combat", npc, false, "")
-    xr_combat.set_combat_checker(npc, ini, "combat", combat_section)
+    ActionSchemeCombat:set_combat_checker(npc, ini, "combat", combat_section)
 
     utilsAlife.reset_invulnerability(npc, ini, section)
 
@@ -318,7 +319,7 @@ function enable_generic_schemes(ini, npc, stype, section)
     local death_section = utils.cfg_get_string(ini, section, "on_death", npc, false, "")
     ActionDeath:set_death(npc, ini, "death", death_section)
 
-    xr_combat_ignore.set_combat_ignore_checker(npc, ini, "combat_ignore")
+    ActionSchemeCombatIgnore:set_combat_ignore_checker(npc, ini, "combat_ignore")
     xr_reach_task.set_reach_task(npc, ini, "reach_task")
 
   elseif stype == schemes.stype_mobile then
@@ -339,7 +340,7 @@ function enable_generic_schemes(ini, npc, stype, section)
       ActionProcessHit:set_hit_checker(npc, ini, ActionProcessHit.SCHEME_SECTION, hit_section)
     end
 
-    xr_combat_ignore.set_combat_ignore_checker(npc, ini, "combat_ignore")
+    ActionSchemeCombatIgnore:set_combat_ignore_checker(npc, ini, "combat_ignore")
 
   elseif stype == schemes.stype_item then
     local hit_section = utils.cfg_get_string(ini, section, "on_hit", npc, false, "")
@@ -467,7 +468,7 @@ function reset_generic_schemes_on_scheme_switch(npc, scheme, section)
     ActionDeath:reset_death(npc, scheme, st, section)
     ActionDanger:reset_danger(npc, scheme, st, section)
     ActionGatherItems:reset_gather_items(npc, scheme, st, section)
-    xr_combat_ignore.reset_combat_ignore_checker(npc, scheme, st, section)
+    ActionSchemeCombatIgnore:reset_combat_ignore_checker(npc, scheme, st, section)
 
     mapDisplayManager:updateNpcSpot(npc, scheme, st, section)
     utilsAlife.reset_threshold(npc, scheme, st, section)
@@ -492,7 +493,7 @@ function reset_generic_schemes_on_scheme_switch(npc, scheme, section)
         --npc:set_invisible(false)
       end
     end
-    xr_combat_ignore.reset_combat_ignore_checker(npc, scheme, st, section)
+    ActionSchemeCombatIgnore:reset_combat_ignore_checker(npc, scheme, st, section)
     utilsAlife.reset_invulnerability(npc, st.ini, section)
     RestrictorManager:forNpc(npc):reset_restrictions(st, section)
     Hear:reset_hear_callback(st, section)

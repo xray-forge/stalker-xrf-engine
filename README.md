@@ -168,6 +168,7 @@ After following steps you will be able to attach debugger to lua/c++ code:
 - Run game in debug mode directly from visual studio
 
 Note: attach breakpoint and observe transpiled LUA code. There is no way to debug typescript directly.
+Note: luabind declared classes and userdata cannot be debugged.
 
 ## 🧰 Checking game logs
 

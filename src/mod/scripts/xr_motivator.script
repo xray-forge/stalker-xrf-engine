@@ -1,5 +1,6 @@
 -- 605
 
+local ActionSchemeCombat = require("scripts.core.logic.ActionSchemeCombat").ActionSchemeCombat
 local GlobalSound = require("scripts.core.logic.GlobalSound").GlobalSound
 local SoundTheme = require("scripts.core.sound.SoundTheme").SoundTheme
 local InventoryUpgrades = require("scripts.core.inventory_upgrades")
@@ -215,7 +216,7 @@ function motivator_binder:net_destroy()
   --printf("motivator_binder:net_destroy(): self.object:name()='%s'", self.object:name())
   DynamicMusicManager.NPC_TABLE[self.object:id()] = nil
 
-  xr_combat_ignore.fighting_with_actor_npcs[self.object:id()] = nil
+  db.fighting_with_actor_npcs[self.object:id()] = nil
   --	DynamicMusicManager:stop_combat(self.object:id())
   GlobalSound:stop_sounds_by_id(self.object:id())
   local st = db.storage[self.object:id()]
@@ -321,7 +322,7 @@ function motivator_binder:death_callback(victim, who)
   self:hit_callback(victim, 1, vector():set(0, 0, 0), who, "from_death_callback")
 
   DynamicMusicManager.NPC_TABLE[self.object:id()] = nil
-  xr_combat_ignore.fighting_with_actor_npcs[self.object:id()] = nil
+  db.fighting_with_actor_npcs[self.object:id()] = nil
   --	DynamicMusicManager.stop_combat(self.object:id())
   --' ���� ����� ��� � ������� �� �������� - ������� ���
   local st = db.storage[self.object:id()]
@@ -391,8 +392,8 @@ end
 function motivator_binder:update(delta)
   object_binder.update(self, delta)
 
-  if xr_combat_ignore.fighting_with_actor_npcs[self.object:id()] and self.object:best_enemy() == nil then
-    xr_combat_ignore.fighting_with_actor_npcs[self.object:id()] = nil
+  if db.fighting_with_actor_npcs[self.object:id()] and self.object:best_enemy() == nil then
+    db.fighting_with_actor_npcs[self.object:id()] = nil
   end
 
   local object = self.object
@@ -618,7 +619,7 @@ function update_logic(object)
     end
   else
     -- ���� ��� �������� ������, �� ��� ��� ����� �� ������ on_combat
-    xr_combat.set_combat_type(object, actor, st_combat)
+    ActionSchemeCombat:set_combat_type(object, actor, st_combat)
   end
 end
 

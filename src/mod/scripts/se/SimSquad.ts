@@ -29,6 +29,7 @@ import { AnyCallable, AnyCallablesModule, AnyObject, Optional } from "@/mod/lib/
 import { TSection } from "@/mod/lib/types/configuration";
 import {
   goodwill as dbGoodwill,
+  fighting_with_actor_npcs,
   getActor,
   offlineObjects,
   spawnedVertexById,
@@ -1133,11 +1134,11 @@ export function get_help_target_id(squad: ISimSquad): Optional<number> {
     return null;
   }
 
-  for (const [k, v] of get_global("xr_combat_ignore").fighting_with_actor_npcs as LuaTable<number>) {
-    const enemy_squad_id = (alife().object(k) as XR_cse_alife_creature_abstract).group_id;
+  for (const [k, v] of fighting_with_actor_npcs) {
+    const enemy_squad_id: Optional<number> = alife().object<XR_cse_alife_creature_abstract>(k)!.group_id;
 
     if (enemy_squad_id !== null) {
-      const target_squad = alife().object(enemy_squad_id) as ISimSquad;
+      const target_squad = alife().object<ISimSquad>(enemy_squad_id);
 
       if (
         target_squad &&
@@ -1153,7 +1154,7 @@ export function get_help_target_id(squad: ISimSquad): Optional<number> {
 }
 
 export function can_help_actor(squad: ISimSquad): boolean {
-  if (isEmpty(get_global("xr_combat_ignore").fighting_with_actor_npcs)) {
+  if (isEmpty(fighting_with_actor_npcs)) {
     return false;
   }
 

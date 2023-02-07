@@ -13,9 +13,10 @@ import {
 
 import { communities } from "@/mod/globals/communities";
 import { logicsConfig } from "@/mod/lib/configs/LogicsConfig";
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { AnyCallablesModule, AnyObject, Optional } from "@/mod/lib/types";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { ActionProcessEnemy } from "@/mod/scripts/core/logic/actions/ActionProcessEnemy";
 import { ActionWoundManager } from "@/mod/scripts/core/logic/ActionWoundManager";
 import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -107,14 +108,7 @@ export class ActionDanger extends AbstractSchemeAction {
        */
     }
 
-    if (
-      !get_global<AnyCallablesModule>("xr_combat_ignore").is_enemy(
-        npc,
-        best_danger_object,
-        storage.get(npc.id()).combat_ignore,
-        true
-      )
-    ) {
+    if (!ActionProcessEnemy.isEnemy(npc, best_danger_object, storage.get(npc.id()).combat_ignore!, true)) {
       // --printf("[%s] check danger COMBAT IGNORE", npc:name())
       return false;
     }
@@ -167,11 +161,7 @@ export class ActionDanger extends AbstractSchemeAction {
       best_danger_object = best_danger.dependent_object();
     }
 
-    const bestDangerName: string = best_danger_object === null ? "none" : best_danger_object.name();
-
-    logger.info("Get danger name:", bestDangerName);
-
-    return bestDangerName;
+    return best_danger_object === null ? "none" : best_danger_object.name();
   }
 
   public static get_danger_time(danger: XR_danger_object): number {

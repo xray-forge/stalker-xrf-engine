@@ -21,7 +21,6 @@ export const ItemEatable: IItemEatable = declare_xr_class("ItemEatable", cse_ali
   },
   on_register(): void {
     cse_alife_item.on_register(this);
-    logger.info("Register:", this.id, this.name(), this.section_name());
     checkSpawnIniForStoryId(this);
 
     this.secret_item = getTreasureManager().register_item(this);

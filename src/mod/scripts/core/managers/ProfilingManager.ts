@@ -190,7 +190,7 @@ export class ProfilingManager extends AbstractCoreManager {
 
     logger.pushEmptyLine();
     logger.info("==================================================================================================");
-    logger.info("Total calls stat, limit:", limit);
+    logger.info("Total calls stat, limit:", limit, "JIT:", jit !== null);
     logger.info("==================================================================================================");
 
     let printedCount: number = 0;

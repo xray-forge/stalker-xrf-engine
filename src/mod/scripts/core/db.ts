@@ -8,7 +8,7 @@ import {
   XR_vector,
 } from "xray16";
 
-import { Optional } from "@/mod/lib/types";
+import { AnyObject, Optional } from "@/mod/lib/types";
 import { TScheme, TSection } from "@/mod/lib/types/configuration";
 import { ISignalLightBinder } from "@/mod/scripts/core/binders/SignalLightBinder";
 import { ActionLight } from "@/mod/scripts/core/logic/ActionLight";
@@ -37,6 +37,8 @@ export const offlineObjects: LuaTable<number, any> = new LuaTable();
 export const REGISTERED_ITEMS: LuaTable<string, number> = new LuaTable();
 export const tradeState: LuaTable<number, ITradeManagerDescriptor> = new LuaTable();
 export const silenceZones: LuaTable<number, string> = new LuaTable();
+
+export const fighting_with_actor_npcs: LuaTable<number, boolean> = new LuaTable();
 
 export const SAVE_MARKERS: LuaTable<string, number> = new LuaTable();
 
@@ -78,7 +80,7 @@ export interface IStoredObject<T = XR_game_object> {
   smartcover?: any;
   active_scheme?: TScheme;
   active_section?: TSection;
-  combat_ignore?: boolean;
+  combat_ignore?: AnyObject;
   section_logic?: string;
   post_combat_wait?: unknown;
   pstor?: Record<string, any>;
@@ -90,9 +92,11 @@ export interface IStoredObject<T = XR_game_object> {
   ui?: XR_CUIGameCustom;
   restrictor_manager?: Optional<RestrictorManager>;
   overrides?: {
+    combat_ignore_keep_when_attacked: number;
     on_offline_condlist: number;
     min_post_combat_time: number;
     max_post_combat_time: number;
+    combat_ignore: AnyObject;
   };
 }
 
@@ -250,6 +254,7 @@ declare_global("db", {
   level_doors: levelDoors,
   no_weap_zones: noWeapZones,
   spawned_vertex_by_id: spawnedVertexById,
+  fighting_with_actor_npcs: fighting_with_actor_npcs,
 
   CROW_STORAGE: CROW_STORAGE,
   CAMPS: CAMPS,

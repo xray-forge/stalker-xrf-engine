@@ -203,3 +203,10 @@ export function isLevelChanging(): boolean {
     ? false
     : game_graph().vertex(simulator.actor().m_game_vertex_id).level_id() !== simulator?.level_id();
 }
+
+/**
+ * @returns whether object is inside another object
+ */
+export function isObjectInZone(object: Optional<XR_game_object>, zone: Optional<XR_game_object>): boolean {
+  return object !== null && zone !== null && zone.inside(object.position());
+}

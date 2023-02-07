@@ -1261,10 +1261,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     const available_sects: LuaTable<number> = new LuaTable();
 
     for (const [k, v] of this.respawn_params) {
-      if (
-        tonumber((get_global("xr_logic").pick_section_from_condlist as AnyCallable)(getActor(), null, v.num))! >
-        this.already_spawned.get(k).num
-      ) {
+      if (tonumber(pickSectionFromCondList(getActor(), null, v.num as any))! > this.already_spawned.get(k).num) {
         table.insert(available_sects, k);
       }
     }
@@ -1293,14 +1290,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     if (this.last_respawn_update === null || curr_time.diffSec(this.last_respawn_update) > RESPAWN_IDLE) {
       this.last_respawn_update = curr_time;
 
-      if (
-        this.sim_avail !== null &&
-        (get_global("xr_logic").pick_section_from_condlist as AnyCallable)(
-          getActor() || alife().actor(),
-          this,
-          this.sim_avail
-        ) !== "true"
-      ) {
+      if (this.sim_avail !== null && pickSectionFromCondList(getActor(), this, this.sim_avail as any) !== "true") {
         return;
       }
 
