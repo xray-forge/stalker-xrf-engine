@@ -1,5 +1,6 @@
 -- 605
 
+local ActionSchemeMeet = require("scripts.core.logic.ActionSchemeMeet").ActionSchemeMeet
 local ActionSchemeCombat = require("scripts.core.logic.ActionSchemeCombat").ActionSchemeCombat
 local GlobalSound = require("scripts.core.logic.GlobalSound").GlobalSound
 local SoundTheme = require("scripts.core.sound.SoundTheme").SoundTheme
@@ -381,7 +382,7 @@ function motivator_binder:use_callback(obj, who)
   printf("motivator_binder:use_callback(obj, who)")
   if self.object:alive() then
     InventoryUpgrades.need_victim(obj)
-    xr_meet.notify_on_use(obj, who)
+    ActionSchemeMeet:notify_on_use(obj, who)
     dialog_manager.disabled_phrases[obj:id()] = nil
     if self.st.active_section then
       xr_logic.issue_event(self.object, self.st[self.st.active_scheme], "use_callback", obj, who)
@@ -446,7 +447,7 @@ function motivator_binder:update(delta)
     GlobalSound:update(object:id())
 
     --' ������ ��������� ���������
-    xr_meet.process_npc_usability(object)
+    ActionSchemeMeet:process_npc_usability(object)
 
     -- ������ ����������
     utilsAlife.update_invulnerability(self.object)

@@ -1,5 +1,7 @@
 -- 426
 
+local checkers = require("scripts.utils.checkers")
+local ActionSchemeMeet = require("scripts.core.logic.ActionSchemeMeet").ActionSchemeMeet
 local GlobalSound = require("scripts.core.logic.GlobalSound").GlobalSound
 local SoundManager = require("scripts.core.sound.SoundManager")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
@@ -34,7 +36,7 @@ function sr_camp_harmonica_precondition(camp)
         --printf("	is director %s", tostring(v.harmonica==npc_role.director))
         --printf("    base_action %s", tostring(scheme.base_action) )
         --printf("    description %s", tostring(scheme.description) )
-        if (v.harmonica == npc_role.director) and (scheme ~= nil and scheme.base_action == scheme.description) and npc ~= nil and not xr_meet.is_meet(npc) then
+        if (v.harmonica == npc_role.director) and (scheme ~= nil and scheme.base_action == scheme.description) and npc ~= nil and not checkers.isObjectMeeting(npc) then
           --if(v.harmonica==npc_role.director) then
           --printf("	return true [%s]", k)
           return true
@@ -62,7 +64,7 @@ function sr_camp_guitar_precondition(camp)
         --printf("    base_action %s", tostring(scheme.base_action) )
         --printf("    description %s", tostring(scheme.description) )
 
-        if (v.guitar == npc_role.director) and (scheme ~= nil and scheme.base_action == scheme.description) and npc ~= nil and not xr_meet.is_meet(npc) then
+        if (v.guitar == npc_role.director) and (scheme ~= nil and scheme.base_action == scheme.description) and npc ~= nil and not checkers.isObjectMeeting(npc) then
           --if(v.guitar==npc_role.director) then
           --printf("	return true [%s]", k)
           return true
@@ -80,7 +82,7 @@ function sr_camp_story_precondition(camp)
     for k, v in pairs(camp.npc) do
 
       local npc = db.storage[k] and db.storage[k].object
-      if npc ~= nil and not xr_meet.is_meet(npc) then
+      if npc ~= nil and not checkers.isObjectMeeting(npc) then
         n = n + 1
       end
     end
@@ -270,7 +272,7 @@ function CCampManager:get_director()
     if storage ~= nil then
       local scheme = storage.active_scheme and storage[storage.active_scheme]
       local npc = storage.object
-      if (v[self.active_state] == npc_role.director) and (scheme ~= nil and scheme.base_action == scheme.description) and not xr_meet.is_meet(npc) then
+      if (v[self.active_state] == npc_role.director) and (scheme ~= nil and scheme.base_action == scheme.description) and not checkers.isObjectMeeting(npc) then
         table.insert(directors, k)
       end
     end

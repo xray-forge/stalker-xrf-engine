@@ -27,6 +27,7 @@ import { ActionSchemeCombat } from "@/mod/scripts/core/logic/ActionSchemeCombat"
 import { ActionSchemeCombatIgnore } from "@/mod/scripts/core/logic/ActionSchemeCombatIgnore";
 import { ActionSchemeCombatZombied } from "@/mod/scripts/core/logic/ActionSchemeCombatZombied";
 import { ActionSchemeHelpWounded } from "@/mod/scripts/core/logic/ActionSchemeHelpWounded";
+import { ActionSchemeMeet } from "@/mod/scripts/core/logic/ActionSchemeMeet";
 import { ActionSchemeRemark } from "@/mod/scripts/core/logic/ActionSchemeRemark";
 import { ActionSchemeSmartCover } from "@/mod/scripts/core/logic/ActionSchemeSmartCover";
 import { ActionSilence } from "@/mod/scripts/core/logic/ActionSilence";
@@ -55,8 +56,6 @@ export function initializeModules(): void {
   loadScheme("xr_camper", "camper", ESchemeType.STALKER);
   loadScheme("xr_companion", "companion", ESchemeType.STALKER);
   loadScheme("xr_kamp", "kamp", ESchemeType.STALKER);
-  loadScheme("xr_meet", "actor_dialogs", ESchemeType.STALKER);
-  loadScheme("xr_meet", "meet", ESchemeType.STALKER);
   loadScheme("xr_patrol", "patrol", ESchemeType.STALKER);
   loadScheme("xr_reach_task", "reach_task", ESchemeType.STALKER);
   loadScheme(AbuseManager, AbuseManager.SCHEME_SECTION, ESchemeType.STALKER);
@@ -70,6 +69,8 @@ export function initializeModules(): void {
   loadScheme(ActionSchemeCombatIgnore, ActionSchemeCombatIgnore.SCHEME_SECTION, ESchemeType.STALKER);
   loadScheme(ActionSchemeCombatZombied, ActionSchemeCombatZombied.SCHEME_SECTION, ESchemeType.STALKER);
   loadScheme(ActionSchemeHelpWounded, ActionSchemeHelpWounded.SCHEME_SECTION, ESchemeType.STALKER);
+  loadScheme(ActionSchemeMeet, ActionSchemeMeet.SCHEME_SECTION, ESchemeType.STALKER);
+  loadScheme(ActionSchemeMeet, ActionSchemeMeet.SCHEME_SECTION_ADDITIONAL, ESchemeType.STALKER);
   loadScheme(ActionSchemeRemark, ActionSchemeRemark.SCHEME_SECTION, ESchemeType.STALKER);
   loadScheme(ActionSchemeSmartCover, ActionSchemeSmartCover.SCHEME_SECTION, ESchemeType.STALKER);
   loadScheme(ActionSleeper, ActionSleeper.SCHEME_SECTION, ESchemeType.STALKER);

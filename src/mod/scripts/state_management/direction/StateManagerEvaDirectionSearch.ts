@@ -1,4 +1,4 @@
-import { action_base, property_evaluator, XR_property_evaluator } from "xray16";
+import { property_evaluator, XR_property_evaluator } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";

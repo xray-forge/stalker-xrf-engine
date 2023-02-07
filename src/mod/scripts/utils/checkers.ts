@@ -4,6 +4,7 @@ import {
   game_graph,
   system_ini,
   TXR_cls_id,
+  XR_action_planner,
   XR_alife_simulator,
   XR_cse_abstract,
   XR_cse_alife_human_stalker,
@@ -27,6 +28,8 @@ import { levels, TLevel } from "@/mod/globals/levels";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { Maybe, Optional } from "@/mod/lib/types";
 import { TSection } from "@/mod/lib/types/configuration";
+import { action_ids } from "@/mod/scripts/core/actions_id";
+import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { getClsId, getObjectStoryId } from "@/mod/scripts/utils/ids";
 
@@ -205,8 +208,48 @@ export function isLevelChanging(): boolean {
 }
 
 /**
- * @returns whether object is inside another object
+ * @returns whether object is inside another object.
  */
 export function isObjectInZone(object: Optional<XR_game_object>, zone: Optional<XR_game_object>): boolean {
   return object !== null && zone !== null && zone.inside(object.position());
+}
+
+/**
+ * @returns whether object is wounded.
+ */
+export function isObjectWounded(object: XR_game_object): boolean {
+  const state = storage.get(object.id());
+
+  if (state === null) {
+    return false;
+  } else if (state.wounded !== null) {
+    return tostring(state.wounded!.wound_manager.wound_state) !== "nil";
+  } else {
+    return false;
+  }
+}
+
+/**
+ * @returns whether object is meeting with someone.
+ */
+export function isObjectMeeting(object: XR_game_object): boolean {
+  const actionPlanner: XR_action_planner = object.motivation_action_manager();
+
+  if (actionPlanner !== null && actionPlanner.initialized()) {
+    // todo: Hardcoded constant.
+    if (actionPlanner.current_action_id() === action_ids.stohe_meet_base + 1) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+/**
+ * @returns whether object is heavily wounded.
+ */
+export function isHeavilyWounded(npcId: number): boolean {
+  const state: Optional<IStoredObject> = storage.get(npcId);
+
+  return state.wounded !== null && tostring(state.wounded!.wound_manager.wound_state) !== "nil";
 }

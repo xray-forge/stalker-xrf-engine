@@ -1,4 +1,5 @@
 -- 999
+local ActionSchemeMeet = require("scripts.core.logic.ActionSchemeMeet").ActionSchemeMeet
 local ActionWoundManager = require("scripts.core.logic.ActionWoundManager").ActionWoundManager
 local SurgeManager = require("scripts.core.SurgeManager")
 local DropManager = require("scripts.core.DropManager")
@@ -6,6 +7,8 @@ local SimBoard = require("scripts.se.SimBoard")
 local NewsManager = require("scripts.core.NewsManager")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
+local checkers = require("scripts.utils.checkers")
+
 local log = create_ts_class_instance(LuaLogger, "dialogs");
 
 quest_section = {}
@@ -27,7 +30,7 @@ end
 function update_npc_dialog(first_speaker, second_speaker)
   local npc = who_is_npc(first_speaker, second_speaker)
   db.storage[npc:id()].meet.meet_manager:update()
-  xr_meet.process_npc_usability(npc)
+  ActionSchemeMeet:process_npc_usability(npc)
   xr_motivator.update_logic(npc)
 end
 
@@ -57,7 +60,7 @@ function is_wounded(first_speaker, second_speaker)
   --		return false
   --	end
   local npc = who_is_npc(first_speaker, second_speaker)
-  return ActionWoundManager:is_wounded(npc)
+  return checkers.isObjectWounded(npc)
 end
 --[[
 function is_opp_wounded(first_speaker, second_speaker, dialog_id)
@@ -66,7 +69,7 @@ function is_opp_wounded(first_speaker, second_speaker, dialog_id)
 		then
 				return false
 		end
-	return	ActionWoundManager:is_wounded(second_speaker)
+	return	checkers.isObjectWounded(second_speaker)
 end
 ]]--
 

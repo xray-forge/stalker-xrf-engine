@@ -33,7 +33,7 @@ export abstract class AbstractSchemeAction {
     abort("Called not implemented set_scheme method: %s, %s", object.name(), scheme);
   }
 
-  public static disable_scheme(object: XR_game_object, scheme: string): void {
+  public static disable_scheme(object: XR_game_object, scheme: TScheme): void {
     abort("Called not implemented disable_scheme method: %s, %s", object.name(), scheme);
   }
 

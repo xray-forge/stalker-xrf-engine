@@ -1,7 +1,8 @@
-import { game, TXR_net_processor, XR_CTime, XR_EngineBinding, XR_ini_file, XR_net_packet, XR_reader } from "xray16";
+import { game, TXR_net_processor, XR_CTime, XR_EngineBinding, XR_ini_file, XR_net_packet } from "xray16";
 
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { getActor, zoneByName } from "@/mod/scripts/core/db";
+import { set_squad_goodwill } from "@/mod/scripts/core/game_relations";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
@@ -76,7 +77,7 @@ export const SmartTerrainControl: ISmartTerrainControl = declare_xr_class("Smart
       }
 
       for (const [squad_id, squad] of get_sim_board().smarts.get(this.smart.id).squads) {
-        get_global<AnyCallablesModule>("game_relations").set_squad_goodwill(squad_id, "neutral");
+        set_squad_goodwill(squad_id, "neutral");
       }
     }
 
@@ -120,7 +121,7 @@ export const SmartTerrainControl: ISmartTerrainControl = declare_xr_class("Smart
       }
 
       for (const [squad_id, squad] of get_sim_board().smarts.get(this.smart.id).squads) {
-        get_global<AnyCallablesModule>("game_relations").set_squad_goodwill(squad_id, "enemy");
+        set_squad_goodwill(squad_id, "enemy");
       }
     }
 
@@ -131,20 +132,20 @@ export const SmartTerrainControl: ISmartTerrainControl = declare_xr_class("Smart
     return this.status;
   },
   save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, "SmartTerrainControl");
+    setSaveMarker(packet, false, SmartTerrainControl.__name);
 
     packet.w_u8(this.status);
     writeCTimeToPacket(packet, this.alarm_time);
 
-    setSaveMarker(packet, true, "SmartTerrainControl");
+    setSaveMarker(packet, true, SmartTerrainControl.__name);
   },
-  load(reader: XR_reader | XR_reader): void {
-    setLoadMarker(reader, false, "SmartTerrainControl");
+  load(reader: TXR_net_processor): void {
+    setLoadMarker(reader, false, SmartTerrainControl.__name);
 
     this.status = reader.r_u8();
     this.alarm_time = readCTimeFromPacket(reader);
 
-    setLoadMarker(reader, true, "SmartTerrainControl");
+    setLoadMarker(reader, true, SmartTerrainControl.__name);
   },
 } as ISmartTerrainControl);
 

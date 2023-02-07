@@ -62,7 +62,7 @@ export interface ITradeManagerDescriptor {
 export interface IStoredObject<T = XR_game_object> {
   [index: string]: any;
 
-  wounded?: { wound_manager: ActionWoundManager; not_for_help: boolean };
+  wounded?: { wound_manager: ActionWoundManager; not_for_help: boolean; enable_talk?: unknown };
   approved_actions?: LuaTable;
   light?: boolean;
   points?: LuaTable<number, ITeleportPoint>;

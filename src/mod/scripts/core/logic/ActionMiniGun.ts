@@ -14,8 +14,8 @@ import {
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
-import { ActionWoundManager } from "@/mod/scripts/core/logic/ActionWoundManager";
 import { getStoryObject } from "@/mod/scripts/utils/alife";
+import { isHeavilyWounded } from "@/mod/scripts/utils/checkers";
 import {
   getConfigBoolean,
   getConfigNumber,
@@ -414,7 +414,7 @@ export class ActionMiniGun extends AbstractSchemeAction {
             if (this.target_obj!.id() !== getActor()!.id()) {
               if (this.target_obj!.target_body_state() === move.crouch) {
                 this.target_fire_pt.y = this.target_fire_pt.y + 0.5;
-              } else if (!ActionWoundManager.is_heavy_wounded_by_id(this.target_obj!.id())) {
+              } else if (!isHeavilyWounded(this.target_obj!.id())) {
                 this.target_fire_pt.y = this.target_fire_pt.y + 1.2;
               } else {
                 this.target_fire_pt.y = this.target_fire_pt.y + 0.1;

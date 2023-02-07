@@ -2,6 +2,8 @@
 local SimObjectsRegistry = require("scripts.se.SimObjectsRegistry")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
+local ActionSchemeMeet = require("scripts.core.logic.ActionSchemeMeet").ActionSchemeMeet
+local checkers = require("scripts.utils.checkers")
 
 local log = create_ts_class_instance(LuaLogger, "xr_reach_task");
 
@@ -250,14 +252,14 @@ end
 function PatrolManager:is_commander(npc_id)
   return npc_id == self.commander_id
 end
---' ��������� �� �������� ������� � ����� XR_MEET
+--' ��������� �� �������� ������� � �����
 function PatrolManager:is_commander_in_meet()
   if self.commander_id == -1 then
     return false
   end
   local npc = level.object_by_id(self.npc_list[self.commander_id].soldier)
   if npc ~= nil and npc:alive() == true then
-    return xr_meet.is_meet(npc)
+    return checkers.isObjectMeeting(npc)
   end
   return false
 end

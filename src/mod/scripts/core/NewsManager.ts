@@ -14,10 +14,9 @@ import { texturesIngame } from "@/mod/globals/textures";
 import { Maybe, Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
 import { get_smart_terrain_name } from "@/mod/scripts/core/db/smart_names";
-import { ActionWoundManager } from "@/mod/scripts/core/logic/ActionWoundManager";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { get_sim_board } from "@/mod/scripts/se/SimBoard";
-import { isStalkerClassId } from "@/mod/scripts/utils/checkers";
+import { isHeavilyWounded, isStalkerClassId } from "@/mod/scripts/utils/checkers";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -223,7 +222,7 @@ export function send_tip(
 
       if (npc !== null) {
         if (npc.online) {
-          if (ActionWoundManager.is_heavy_wounded_by_id(npc.id)) {
+          if (isHeavilyWounded(npc.id)) {
             logger.info("Cannot send tip, npc is wounded");
 
             return false;

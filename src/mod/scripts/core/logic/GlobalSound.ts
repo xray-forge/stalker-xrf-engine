@@ -96,7 +96,7 @@ export class GlobalSound {
       abort("play_sound_looped. Wrong sound theme [%s], npc[%s]", tostring(sound), npc_id);
     }
 
-    if (snd_theme.type !== "looped_sound") {
+    if (snd_theme.type !== "looped") {
       abort("You trying to play sound [%s] which type is not looped", sound);
     }
 

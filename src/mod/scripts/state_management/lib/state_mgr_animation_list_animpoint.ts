@@ -1,3 +1,4 @@
+import { AnyArgs } from "@/mod/lib/types";
 import { IAnimationDescriptor } from "@/mod/scripts/state_management/lib/state_mgr_animation_list";
 
 export function add_animpoint_animation_list(): LuaTable<string, IAnimationDescriptor> {
@@ -685,13 +686,13 @@ export function add_animpoint_animation_list(): LuaTable<string, IAnimationDescr
         [0]: [
           "animpoint_sit_normal_guitar_in_1",
           { a: "guitar_a" },
-          { f: get_global("sr_camp").start_guitar },
+          { f: (...args: AnyArgs) => get_global("sr_camp").start_guitar(...args) },
           "animpoint_sit_normal_guitar_in_2",
         ],
         [1]: [
           "animpoint_sit_normal_guitar_in_1",
           { a: "guitar_a" },
-          { f: get_global("sr_camp").start_guitar },
+          { f: (...args: AnyArgs) => get_global("sr_camp").start_guitar(...args) },
           "animpoint_sit_normal_guitar_in_2",
         ],
       },
@@ -720,13 +721,13 @@ export function add_animpoint_animation_list(): LuaTable<string, IAnimationDescr
         [0]: [
           "animpoint_sit_low_guitar_in_1",
           { a: "guitar_a" },
-          { f: get_global("sr_camp").start_guitar },
+          { f: (...args: AnyArgs) => get_global("sr_camp").start_guitar(...args) },
           "animpoint_sit_low_guitar_in_2",
         ],
         [1]: [
           "animpoint_sit_low_guitar_in_1",
           { a: "guitar_a" },
-          { f: get_global("sr_camp").start_guitar },
+          { f: (...args: AnyArgs) => get_global("sr_camp").start_guitar(...args) },
           "animpoint_sit_low_guitar_in_2",
         ],
       },
@@ -793,13 +794,13 @@ export function add_animpoint_animation_list(): LuaTable<string, IAnimationDescr
         [0]: [
           "animpoint_sit_high_harmonica_in_1",
           { a: "harmonica_a" },
-          { f: get_global("sr_camp").start_harmonica },
+          { f: (...args: AnyArgs) => get_global("sr_camp").start_harmonica(...args) },
           "animpoint_sit_high_harmonica_in_2",
         ],
         [1]: [
           "animpoint_sit_high_harmonica_in_1",
           { a: "harmonica_a" },
-          { f: get_global("sr_camp").start_harmonica },
+          { f: (...args: AnyArgs) => get_global("sr_camp").start_harmonica(...args) },
           "animpoint_sit_high_harmonica_in_2",
         ],
       },
@@ -844,13 +845,13 @@ export function add_animpoint_animation_list(): LuaTable<string, IAnimationDescr
         [0]: [
           "animpoint_sit_low_harmonica_in_1",
           { a: "harmonica_a" },
-          { f: get_global("sr_camp").start_harmonica },
+          { f: (...args: AnyArgs) => get_global("sr_camp").start_harmonica(...args) },
           "animpoint_sit_low_harmonica_in_2",
         ],
         [1]: [
           "animpoint_sit_low_harmonica_in_1",
           { a: "harmonica_a" },
-          { f: get_global("sr_camp").start_harmonica },
+          { f: (...args: AnyArgs) => get_global("sr_camp").start_harmonica(...args) },
           "animpoint_sit_low_harmonica_in_2",
         ],
       },

@@ -17,8 +17,8 @@ import { AnyCallablesModule, AnyObject, Optional } from "@/mod/lib/types";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { ActionProcessEnemy } from "@/mod/scripts/core/logic/actions/ActionProcessEnemy";
-import { ActionWoundManager } from "@/mod/scripts/core/logic/ActionWoundManager";
 import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
+import { isHeavilyWounded } from "@/mod/scripts/utils/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ActionDanger");
@@ -139,7 +139,7 @@ export class ActionDanger extends AbstractSchemeAction {
       }
     }
 
-    if (ActionWoundManager.is_heavy_wounded_by_id(npc.id())) {
+    if (isHeavilyWounded(npc.id())) {
       return false;
     }
 

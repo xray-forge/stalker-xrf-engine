@@ -1,4 +1,6 @@
 -- 1517
+
+local ActionSchemeMeet = require("scripts.core.logic.ActionSchemeMeet").ActionSchemeMeet
 local ActionWoundManager = require("scripts.core.logic.ActionWoundManager").ActionWoundManager
 local TradeManager = require("scripts.core.TradeManager")
 local RestrictorManager = require("scripts.core.RestrictorManager").RestrictorManager
@@ -261,7 +263,7 @@ function disable_generic_schemes(npc, stype)
   if stype == schemes.stype_stalker then
     ActionSchemeCombat:disable_scheme(npc, "combat")
     ActionProcessHit:disable_scheme(npc, ActionProcessHit.SCHEME_SECTION)
-    xr_meet.disable_scheme(npc, "actor_dialogs")
+    ActionSchemeMeet:disable_scheme(npc, "actor_dialogs")
     ActionSchemeCombatIgnore:disable_scheme(npc, "combat_ignore")
     utilsAlife.disable_invulnerability(npc)
   elseif stype == schemes.stype_mobile then
@@ -301,7 +303,7 @@ function enable_generic_schemes(ini, npc, stype, section)
 
     local actor_dialogs_section = utils.cfg_get_string(ini, section, "actor_dialogs", npc, false, "")
     if actor_dialogs_section then
-      xr_meet.set_actor_dialogs(npc, ini, "actor_dialogs", actor_dialogs_section)
+      ActionSchemeMeet:set_actor_dialogs(npc, ini, "actor_dialogs", actor_dialogs_section)
     end
 
     local wounded_section = utils.cfg_get_string(ini, section, "wounded", npc, false, "")
@@ -314,7 +316,7 @@ function enable_generic_schemes(ini, npc, stype, section)
     ActionCorpseDetect:set_corpse_detection(npc, ini, "corpse_detection")
 
     local meet_section = utils.cfg_get_string(ini, section, "meet", npc, false, "")
-    xr_meet.set_meet(npc, ini, "meet", meet_section)
+    ActionSchemeMeet:set_meet(npc, ini, "meet", meet_section)
 
     local death_section = utils.cfg_get_string(ini, section, "on_death", npc, false, "")
     ActionDeath:set_death(npc, ini, "death", death_section)
@@ -460,7 +462,7 @@ function reset_generic_schemes_on_scheme_switch(npc, scheme, section)
 
   if st.stype == schemes.stype_stalker then
     --xr_reactions.reset_reactions(npc, scheme, st, section)
-    xr_meet.reset_meet(npc, scheme, st, section)
+    ActionSchemeMeet:reset_meet(npc, scheme, st, section)
     ActionSchemeHelpWounded:reset_help_wounded(npc, scheme, st, section)
     ActionCorpseDetect:reset_corpse_detection(npc, scheme, st, section)
     AbuseManager:reset_abuse(npc, scheme, st, section)

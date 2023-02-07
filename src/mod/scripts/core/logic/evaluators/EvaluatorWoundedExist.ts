@@ -2,7 +2,7 @@ import { level, property_evaluator, XR_property_evaluator } from "xray16";
 
 import { communities } from "@/mod/globals/communities";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
-import { ActionWoundManager } from "@/mod/scripts/core/logic/ActionWoundManager";
+import { isObjectWounded } from "@/mod/scripts/utils/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("EvaluatorWoundedExist");
@@ -38,7 +38,7 @@ export const EvaluatorWoundedExist: IEvaluatorWoundedExist = declare_xr_class(
         return false;
       }
 
-      if (ActionWoundManager.is_wounded(npc)) {
+      if (isObjectWounded(npc)) {
         return false;
       }
 
@@ -58,7 +58,7 @@ export const EvaluatorWoundedExist: IEvaluatorWoundedExist = declare_xr_class(
 
         if (
           npc.see(vo) &&
-          ActionWoundManager.is_wounded(vo) &&
+          isObjectWounded(vo) &&
           (storage.get(id).wounded_already_selected === null || storage.get(id).wounded_already_selected === npc_id) &&
           vo.alive()
         ) {

@@ -202,18 +202,6 @@ export class ActionWoundManager extends AbstractSchemeAction {
     st.wounded_set = true;
   }
 
-  public static is_wounded(npc: XR_game_object): boolean {
-    const state = storage.get(npc.id());
-
-    if (state === null) {
-      return false;
-    } else if (state.wounded !== null) {
-      return tostring(state.wounded!.wound_manager.wound_state) !== "nil";
-    } else {
-      return false;
-    }
-  }
-
   public static unlock_medkit(npc: XR_game_object): void {
     const state = storage.get(npc.id());
 
@@ -236,16 +224,6 @@ export class ActionWoundManager extends AbstractSchemeAction {
     if (state.wounded !== null) {
       state.wounded!.wound_manager.hit_callback();
     }
-  }
-
-  public static is_heavy_wounded_by_id(npcId: number): boolean {
-    const state: Optional<IStoredObject> = storage.get(npcId);
-
-    if (state.wounded !== null) {
-      return tostring(state.wounded!.wound_manager.wound_state) !== "nil";
-    }
-
-    return false;
   }
 
   public static is_psy_wounded_by_id(npc_id: number) {

@@ -3,9 +3,8 @@ import { level, property_evaluator, XR_game_object, XR_property_evaluator, XR_ve
 import { communities } from "@/mod/globals/communities";
 import { Optional } from "@/mod/lib/types";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
-import { ActionWoundManager } from "@/mod/scripts/core/logic/ActionWoundManager";
 import { get_release_body_manager, IReleaseDescriptor } from "@/mod/scripts/core/ReleaseBodyManager";
-import { isLootableItem } from "@/mod/scripts/utils/checkers";
+import { isLootableItem, isObjectWounded } from "@/mod/scripts/utils/checkers";
 
 export interface IEvaluatorCorpseDetect extends XR_property_evaluator {
   state: IStoredObject;
@@ -28,7 +27,7 @@ export const EvaluatorCorpseDetect: IEvaluatorCorpseDetect = declare_xr_class(
         return false;
       } else if (this.state.corpse_detection_enabled === false) {
         return false;
-      } else if (ActionWoundManager.is_wounded(this.object)) {
+      } else if (isObjectWounded(this.object)) {
         return false;
       } else if (this.object.section() === "actor_visual_stalker") {
         return false;
