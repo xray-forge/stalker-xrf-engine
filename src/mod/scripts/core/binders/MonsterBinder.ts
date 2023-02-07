@@ -41,6 +41,7 @@ import { get_sim_obj_registry } from "@/mod/scripts/se/SimObjectsRegistry";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { ISmartTerrain, setup_gulag_and_logic_on_spawn } from "@/mod/scripts/se/SmartTerrain";
 import { action, getObjectSquad } from "@/mod/scripts/utils/alife";
+import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -228,11 +229,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     const on_offline_condlist = st !== null && st.overrides && st.overrides.on_offline_condlist;
 
     if (on_offline_condlist !== null) {
-      get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(
-        getActor(),
-        this.object,
-        on_offline_condlist
-      );
+      pickSectionFromCondList(getActor(), this.object, on_offline_condlist as any);
     }
 
     if (!this.object.alive()) {

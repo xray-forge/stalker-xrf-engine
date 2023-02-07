@@ -2,6 +2,7 @@ import { property_evaluator, XR_property_evaluator } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { action_ids } from "@/mod/scripts/core/actions_id";
 import { EStateManagerProperty } from "@/mod/scripts/state_management/EStateManagerProperty";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -36,7 +37,7 @@ export const StateManagerEvaIdleAlife: IStateManagerEvaIdleAlife = declare_xr_cl
       if (mgr.initialized()) {
         this.t = mgr.current_action_id();
         // --printf("ACTION %s", utils.to_str(this.t))
-        if (this.t !== get_global("xr_actions_id").alife) {
+        if (this.t !== action_ids.alife) {
           this.st.alife = false;
         }
       }

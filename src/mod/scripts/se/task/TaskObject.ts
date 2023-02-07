@@ -19,7 +19,14 @@ import { getActor } from "@/mod/scripts/core/db";
 import { getInventoryVictim } from "@/mod/scripts/core/inventory_upgrades";
 import { send_task } from "@/mod/scripts/core/NewsManager";
 import * as TaskFunctor from "@/mod/scripts/se/task/TaskFunctor";
-import { getConfigBoolean, getConfigNumber, getConfigString, parseNames } from "@/mod/scripts/utils/configs";
+import {
+  getConfigBoolean,
+  getConfigNumber,
+  getConfigString,
+  parseCondList,
+  parseNames,
+  pickSectionFromCondList,
+} from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
@@ -119,8 +126,6 @@ export interface ITaskObject extends XR_EngineBinding {
 
 export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
   __init(task_ini: XR_ini_file, id: string): void {
-    const xr_logic = get_global<AnyCallablesModule>("xr_logic");
-
     this.task_ini = task_ini;
 
     this.id = id;
@@ -147,40 +152,37 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
     this.condlist = new LuaTable();
 
     while (task_ini.line_exist(id, "condlist_" + i)) {
-      this.condlist.set(
-        i,
-        xr_logic.parse_condlist(null, "task_manager", "condlist", task_ini.r_string(id, "condlist_" + i))
-      );
+      this.condlist.set(i, parseCondList(null, "task_manager", "condlist", task_ini.r_string(id, "condlist_" + i)));
 
       i = i + 1;
     }
 
-    this.on_init = xr_logic.parse_condlist(
+    this.on_init = parseCondList(
       null,
       "task_manager",
       "condlist",
       getConfigString(task_ini, id, "on_init", null, false, "", "")
     );
-    this.on_complete = xr_logic.parse_condlist(
+    this.on_complete = parseCondList(
       null,
       "task_manager",
       "condlist",
       getConfigString(task_ini, id, "on_complete", null, false, "", "")
     );
-    this.on_reversed = xr_logic.parse_condlist(
+    this.on_reversed = parseCondList(
       null,
       "task_manager",
       "condlist",
       getConfigString(task_ini, id, "on_reversed", null, false, "", "")
     );
 
-    this.reward_money = xr_logic.parse_condlist(
+    this.reward_money = parseCondList(
       null,
       "task_manager",
       "condlist",
       getConfigString(task_ini, id, "reward_money", null, false, "", "")
     );
-    this.reward_item = xr_logic.parse_condlist(
+    this.reward_item = parseCondList(
       null,
       "task_manager",
       "condlist",
@@ -243,7 +245,7 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
     t.add_complete_func("_extern.task_complete");
     t.add_fail_func("_extern.task_fail");
 
-    get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(getActor(), getActor(), this.on_init);
+    pickSectionFromCondList(getActor(), getActor(), this.on_init as any);
 
     if (this.current_target !== null) {
       t.set_map_location(this.spot);
@@ -332,7 +334,7 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
     }
 
     for (const [k, v] of this.condlist) {
-      const t = get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(getActor(), getActor(), v);
+      const t = pickSectionFromCondList(getActor(), getActor(), v as any);
 
       if (t !== null) {
         if (!valid_values.get(t)) {

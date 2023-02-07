@@ -1,10 +1,15 @@
 import { stalker_ids, time_global, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { action_ids } from "@/mod/scripts/core/actions_id";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
+import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { ActionAbuseHit } from "@/mod/scripts/core/logic/ActionAbuseHit";
 import { EvaluatorAbuse } from "@/mod/scripts/core/logic/evaluators/EvaluatorAbuse";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
+
+const logger: LuaLogger = new LuaLogger("AbuseManager");
 
 export class AbuseManager extends AbstractSchemeAction {
   public static readonly SCHEME_SECTION: string = "abuse";
@@ -16,32 +21,34 @@ export class AbuseManager extends AbstractSchemeAction {
     section: string,
     state: IStoredObject
   ): void {
+    logger.info("Add to binder:", object.name());
+
     const operators = {
-      abuse: get_global("xr_actions_id.abuse_base"),
+      abuse: action_ids.abuse_base,
     };
     const properties = {
-      abuse: get_global("xr_evaluators_id.abuse_base"),
-      wounded: get_global("xr_evaluators_id.sidor_wounded_base"),
+      abuse: evaluators_id.abuse_base,
+      wounded: evaluators_id.sidor_wounded_base,
     };
 
     const manager: XR_action_planner = object.motivation_action_manager();
 
     // -- Evaluators
-    manager.add_evaluator(properties["abuse"], create_xr_class_instance(EvaluatorAbuse, "evaluator_abuse", state));
+    manager.add_evaluator(properties.abuse, create_xr_class_instance(EvaluatorAbuse, EvaluatorAbuse.__name, state));
 
     // -- Actions
-    const action = create_xr_class_instance(ActionAbuseHit, object.name(), "action_abuse_hit", state, ini);
+    const action = create_xr_class_instance(ActionAbuseHit, object.name(), ActionAbuseHit.__name, state, ini);
 
     action.add_precondition(new world_property(stalker_ids.property_alive, true));
     action.add_precondition(new world_property(stalker_ids.property_danger, false));
-    action.add_precondition(new world_property(properties["wounded"], false));
-    action.add_precondition(new world_property(properties["abuse"], true));
-    action.add_effect(new world_property(properties["abuse"], false));
-    manager.add_action(operators["abuse"], action);
+    action.add_precondition(new world_property(properties.wounded, false));
+    action.add_precondition(new world_property(properties.abuse, true));
+    action.add_effect(new world_property(properties.abuse, false));
+    manager.add_action(operators.abuse, action);
 
-    const alifeAction = manager.action(get_global("xr_actions_id.alife"));
+    const alifeAction = manager.action(action_ids.alife);
 
-    alifeAction.add_precondition(new world_property(properties["abuse"], false));
+    alifeAction.add_precondition(new world_property(properties.abuse, false));
 
     state.abuse_manager = new AbuseManager(object, state);
   }

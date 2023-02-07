@@ -16,7 +16,7 @@ import { AnyCallable, Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { send_treasure } from "@/mod/scripts/core/NewsManager";
-import { parseSpawns } from "@/mod/scripts/utils/configs";
+import { parseCondList, parseSpawns, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -74,7 +74,6 @@ export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManag
   initialize(): void {
     const ini: XR_ini_file = new ini_file("misc\\secrets.ltx");
     const totalSecretsCount: number = ini.line_count("list");
-    const xr_logic = get_global("xr_logic");
 
     logger.info("Initialize secrets, expected:", totalSecretsCount);
 
@@ -98,21 +97,11 @@ export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManag
           const [result, item_section, str] = ini.r_line(id, i, "", "");
 
           if (item_section === "empty") {
-            const parsed_condlist = (xr_logic.parse_condlist as AnyCallable)(
-              null,
-              "treasure_manager",
-              "empty_cond",
-              str
-            );
+            const parsed_condlist = parseCondList(null, "treasure_manager", "empty_cond", str);
 
             this.secrets.get(id).empty = parsed_condlist;
           } else if (item_section === "refreshing") {
-            const parsed_condlist = (xr_logic.parse_condlist as AnyCallable)(
-              null,
-              "treasure_manager",
-              "refreshing_cond",
-              str
-            );
+            const parsed_condlist = parseCondList(null, "treasure_manager", "refreshing_cond", str);
 
             this.secrets.get(id).refreshing = parsed_condlist;
           } else {
@@ -203,7 +192,6 @@ export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManag
     }
 
     const global_time: number = time_global();
-    const xr_logic = get_global("xr_logic");
 
     if (this.check_time && global_time - this.check_time <= 500) {
       return;
@@ -214,7 +202,7 @@ export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManag
     for (const [k, v] of this.secrets) {
       if (v.given) {
         if (v.empty) {
-          const sect = (xr_logic.pick_section_from_condlist as AnyCallable)(getActor(), null, v.empty);
+          const sect = pickSectionFromCondList(getActor(), null, v.empty as any);
 
           if (sect === "true" && !v.checked) {
             level.map_remove_object_spot(this.secret_restrs.get(k), "treasure");
@@ -225,7 +213,7 @@ export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManag
             logger.info("Empty secret, remove map spot:", k);
           }
         } else if (v.refreshing && v.checked) {
-          const sect = (xr_logic.pick_section_from_condlist as AnyCallable)(getActor(), null, v.refreshing);
+          const sect = pickSectionFromCondList(getActor(), null, v.refreshing as any);
 
           if (sect === "true") {
             v.given = false;

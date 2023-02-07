@@ -18,7 +18,14 @@ import { FIELDS_BY_NAME } from "@/mod/scripts/core/binders/AnomalyFieldBinder";
 import { addAnomaly, addObject, deleteAnomaly, deleteObject, storage } from "@/mod/scripts/core/db";
 import { mapDisplayManager } from "@/mod/scripts/ui/game/MapDisplayManager";
 import { getStoryObject } from "@/mod/scripts/utils/alife";
-import { getConfigNumber, getConfigString, parseNames, parseNums } from "@/mod/scripts/utils/configs";
+import {
+  getConfigNumber,
+  getConfigString,
+  parseCondList,
+  parseNames,
+  parseNums,
+  pickSectionFromCondList,
+} from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -255,10 +262,6 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
         this.artefactsStartList.set(section, parseNames(initialArtefacts));
       }
 
-      /**
-       * todo: Parse coefficients from XR logic.
-       */
-      const xr_logic: AnyObject = get_global("xr_logic");
       const coeffsSection: string = getConfigString(
         ini,
         section,
@@ -268,17 +271,8 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
         "",
         defaultCoeffSectionName
       );
-      const parsedCondlist = (xr_logic.parse_condlist as AnyCallable)(
-        null,
-        "anomal_zone_binder",
-        "coeff_condlist",
-        coeffsSection
-      );
-      const coeffsSectionName = (xr_logic.pick_section_from_condlist as AnyCallable)(
-        getStoryObject("actor"),
-        null,
-        parsedCondlist
-      );
+      const parsedCondlist = parseCondList(null, "anomal_zone_binder", "coeff_condlist", coeffsSection);
+      const coeffsSectionName = pickSectionFromCondList(getStoryObject("actor"), null, parsedCondlist)!;
       const coeffs: Optional<string> = getConfigString(ini, section, coeffsSectionName, null, false, "", defaultCoeffs);
       /**
        * end todo;

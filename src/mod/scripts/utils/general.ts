@@ -92,9 +92,9 @@ export function timeToString(time: number): string {
  * todo
  */
 export function isSinglePlayerGame(): boolean {
-  if (get_global("alife") === null || alife() !== null) {
+  if (alife === null || alife() !== null) {
     return true;
-  } else if (get_global("IsGameTypeSingle") === null || IsGameTypeSingle()) {
+  } else if (IsGameTypeSingle === null || IsGameTypeSingle()) {
     return true;
   }
 

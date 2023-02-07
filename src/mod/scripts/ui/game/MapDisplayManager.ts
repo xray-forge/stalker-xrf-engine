@@ -15,9 +15,10 @@ import { levels } from "@/mod/globals/levels";
 import { map_mark_type, npc_map_marks } from "@/mod/globals/npc_map_marks";
 import { story_ids } from "@/mod/globals/story_ids";
 import { AnyArgs, AnyCallable, AnyCallablesModule, AnyObject, Maybe, Optional } from "@/mod/lib/types";
+import { TSection } from "@/mod/lib/types/configuration";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
-import { getConfigString } from "@/mod/scripts/utils/configs";
+import { getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -172,7 +173,6 @@ export class MapDisplayManager {
 
     const npcId: number = npc.id();
     const sim: XR_alife_simulator = alife();
-    const xrLogic: AnyObject = get_global("xr_logic");
 
     if (!sim) {
       return;
@@ -198,12 +198,12 @@ export class MapDisplayManager {
     }
 
     if (map_spot !== null) {
-      map_spot = (xrLogic.parse_condlist as AnyCallable)(npc, section, "level_spot", map_spot);
-      map_spot = (xrLogic.pick_section_from_condlist as AnyCallable)(actor, npc, map_spot);
+      map_spot = parseCondList(npc, section, "level_spot", map_spot);
+      map_spot = pickSectionFromCondList(actor, npc, map_spot as any);
     }
 
-    const spot_condlist = (xrLogic.parse_condlist as AnyCallable)(npc, section, "show_spot", spot_section);
-    const spot: string = (xrLogic.pick_section_from_condlist as AnyCallable)(actor, npc, spot_condlist);
+    const spot_condlist = parseCondList(npc, section, "show_spot", spot_section);
+    const spot: TSection = pickSectionFromCondList(actor, npc, spot_condlist)!;
     const obj: Optional<XR_cse_alife_object> = sim.object(npc.id());
 
     if (obj?.online) {
@@ -247,11 +247,10 @@ export class MapDisplayManager {
     }
 
     if (map_spot !== null) {
-      const xrLogic = get_global("xr_logic");
       const actor: XR_game_object = getActor()!;
 
-      map_spot = (xrLogic.parse_condlist as AnyCallable)(npc, st.active_section, "level_spot", map_spot);
-      map_spot = (xrLogic.pick_section_from_condlist as AnyCallable)(actor, npc, map_spot);
+      map_spot = parseCondList(npc, st.active_section, "level_spot", map_spot);
+      map_spot = pickSectionFromCondList(actor, npc, map_spot as any);
     }
 
     if (npcId && map_spot !== "" && map_spot !== null) {

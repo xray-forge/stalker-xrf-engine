@@ -19,13 +19,16 @@ import {
   XR_game_object,
 } from "xray16";
 
+import { animations } from "@/mod/globals/animation/animations";
+import { post_processors } from "@/mod/globals/animation/post_processors";
 import { captions } from "@/mod/globals/captions";
+import { info_portions } from "@/mod/globals/info_portions";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
-import { Optional } from "@/mod/lib/types";
+import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
 import { is_started, resurrect_skip_message, SurgeManager } from "@/mod/scripts/core/SurgeManager";
 import { weatherManager } from "@/mod/scripts/core/WeatherManager";
-import { disableInfo } from "@/mod/scripts/utils/actor";
+import { disableInfo, giveInfo } from "@/mod/scripts/utils/actor";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { isWideScreen, resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
@@ -193,28 +196,20 @@ export const SleepDialog = declare_xr_class("SleepDialog", CUIScriptWnd, {
 
     this.HideDialog();
 
-    (getActor() as XR_game_object).give_info_portion("tutorial_sleep");
-    get_global("disable_info")("sleep_active");
+    giveInfo(info_portions.tutorial_sleep);
+    disableInfo(info_portions.sleep_active);
   },
   OnButtonSleep(): void {
     logger.info("On button sleep");
 
-    const actor: XR_game_object = getActor()!;
-
     this.HideDialog();
 
-    logger.info("Disable ui");
-    get_global("xr_effects").disable_ui(actor, null);
+    get_global<AnyCallablesModule>("xr_effects").disable_ui(getActor(), null);
 
-    logger.info("Add effects");
+    level.add_cam_effector(animations.camera_effects_sleep, 10, false, "_extern.dream_callback");
+    level.add_pp_effector(post_processors.sleep_fade, 11, false);
 
-    level.add_cam_effector("camera_effects\\sleep.anm", 10, false, "_extern.dream_callback");
-    level.add_pp_effector("sleep_fade.ppe", 11, false);
-
-    logger.info("Give info portion");
-    actor.give_info_portion("actor_is_sleeping");
-
-    logger.info("Turn off volumes");
+    giveInfo(info_portions.actor_is_sleeping);
 
     const console: XR_CConsole = get_console();
 
@@ -230,15 +225,15 @@ export const SleepDialog = declare_xr_class("SleepDialog", CUIScriptWnd, {
   OnMessageBoxOk(): void {
     logger.info("On message box OK");
 
-    (getActor() as XR_game_object).give_info_portion("tutorial_sleep");
-    get_global("disable_info")("sleep_active");
+    giveInfo("tutorial_sleep");
+    disableInfo(info_portions.sleep_active);
   },
 } as ISleepDialog);
 
 export function dream_callback(): void {
   logger.info("Dream callback");
 
-  level.add_cam_effector("camera_effects\\sleep.anm", 10, false, "_extern.dream_callback2");
+  level.add_cam_effector(animations.camera_effects_sleep, 10, false, "_extern.dream_callback2");
 
   const actor: XR_game_object = getActor()!;
   const hours = sleep_control!.time_track.GetIValue();
@@ -260,19 +255,16 @@ export function dream_callback(): void {
 export function dream_callback2(): void {
   logger.info("Dream callback 2");
 
-  const actor: XR_game_object = getActor()!;
-
-  get_global("xr_effects").enable_ui(actor, null);
+  get_global<AnyCallablesModule>("xr_effects").enable_ui(getActor(), null);
   get_console().execute("snd_volume_music " + tostring(get_global("mus_vol")));
   get_console().execute("snd_volume_eff " + tostring(get_global("amb_vol")));
 
   declare_global("mus_vol", 0);
   declare_global("amb_vol", 0);
 
-  actor.give_info_portion("tutorial_sleep");
-
-  disableInfo("actor_is_sleeping");
-  disableInfo("sleep_active");
+  giveInfo(info_portions.tutorial_sleep);
+  disableInfo(info_portions.actor_is_sleeping);
+  disableInfo(info_portions.sleep_active);
 }
 
 export function sleep(): void {

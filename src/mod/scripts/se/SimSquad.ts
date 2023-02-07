@@ -265,10 +265,10 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     }
   },
   get_script_target(): Optional<number> {
-    const new_target: Optional<string> = (get_global("xr_logic").pick_section_from_condlist as AnyCallable)(
+    const new_target: Optional<string> = pickSectionFromCondList(
       getActor(),
       this,
-      this.action_condlist
+      this.action_condlist as LuaTable<any>
     );
 
     if (new_target === null) {

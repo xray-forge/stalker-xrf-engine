@@ -1,8 +1,9 @@
 import { game, ini_file, system_ini, XR_game_object, XR_ini_file } from "xray16";
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { TSection } from "@/mod/lib/types/configuration";
 import { getActor } from "@/mod/scripts/core/db";
-import { parseCondList, parseNames } from "@/mod/scripts/utils/configs";
+import { parseCondList, parseNames, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("inventory_upgrades");
@@ -23,11 +24,7 @@ export function precondition_functor_a(param1: unknown, section: string): 0 | 1 
         return 1;
       } else if (param !== "true") {
         const possibility_table = parseCondList(victim, mechanic_name + "_upgr", section, param);
-        const possibility = get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(
-          getActor(),
-          victim,
-          possibility_table
-        );
+        const possibility: Optional<TSection> = pickSectionFromCondList(getActor(), victim, possibility_table);
 
         if (!possibility || possibility === "false") {
           return 2;
@@ -107,11 +104,7 @@ export function prereq_functor_a(param3: unknown, section: string): string {
         cur_hint = null;
 
         const possibility_table = parseCondList(victim, mechanic_name + "_upgr", section, param);
-        const possibility = get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(
-          actor,
-          victim,
-          possibility_table
-        );
+        const possibility = pickSectionFromCondList(actor, victim, possibility_table);
 
         if (!possibility || possibility === "false") {
           str = str + get_possibility_string(mechanic_name, possibility_table);

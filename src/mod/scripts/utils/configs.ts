@@ -411,10 +411,10 @@ export function get_infos_from_data(npc: XR_game_object, str: Optional<string>):
 
   if (str !== null) {
     for (const name of string.gfind(str, "(%|*[^%|]+%|*)%p*")) {
-      const condlist = get_global<AnyCallablesModule>("xr_logic").parse_condlist(npc, "in", name, name);
+      const condlist = parseCondList(npc, "in", name, name);
 
       if (condlist !== null) {
-        table.insert(t, get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(actor, npc, condlist));
+        table.insert(t, pickSectionFromCondList(actor, npc, condlist)!);
       }
     }
   }
@@ -490,11 +490,11 @@ export function parse_waypoint_data(pathname: string, wpflags: XR_flags32, wpnam
 /**
  * @returns picked section based on condlist
  */
-export function pickSectionFromCondList(
+export function pickSectionFromCondList<T extends TSection>(
   actor: Optional<XR_game_object>,
   npc: Optional<XR_game_object | XR_cse_alife_object>,
   condlist: LuaTable
-): Optional<string> {
+): Optional<T> {
   let rval: Optional<number> = null; // -- math.random(100)
   // --printf("_bp: pick_section_from_condlist: rval = %d", rval)
 

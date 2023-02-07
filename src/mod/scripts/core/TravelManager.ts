@@ -29,6 +29,7 @@ import { get_sim_board, ISimBoard } from "@/mod/scripts/se/SimBoard";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
 import { getAlifeCharacterCommunity, getAlifeDistanceBetween, getObjectSquad } from "@/mod/scripts/utils/alife";
+import { parseCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { getObjectStoryId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -82,12 +83,7 @@ export class TravelManager {
       const descriptor: ITravelRouteDescriptor = {
         name: ini.r_string(id, "name"),
         level: ini.r_string(id, "level"),
-        condlist: get_global<AnyCallable>("xr_logic.parse_condlist")(
-          getActor(),
-          id,
-          "close_distance",
-          ini.r_string(id, "condlist")
-        ),
+        condlist: parseCondList(getActor(), id, "close_distance", ini.r_string(id, "condlist")),
         phrase_id: tostring(1000 + i),
       };
 

@@ -2,7 +2,9 @@ import { stalker_ids, world_property, XR_game_object, XR_ini_file } from "xray16
 
 import { AnyCallablesModule, AnyObject } from "@/mod/lib/types";
 import { TScheme, TSection } from "@/mod/lib/types/configuration";
+import { action_ids } from "@/mod/scripts/core/actions_id";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
+import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { ActionSleeperActivity } from "@/mod/scripts/core/logic/actions/ActionSleeperActivity";
 import { EvaluatorNeedSleep } from "@/mod/scripts/core/logic/evaluators/EvaluatorNeedSleep";
@@ -27,24 +29,24 @@ export class ActionSleeper extends AbstractSchemeAction {
     logger.info("Add to binder:", object.name());
 
     const operators = {
-      action_sleeper: get_global("xr_actions_id").zmey_sleeper_base + 1,
+      action_sleeper: action_ids.zmey_sleeper_base + 1,
     };
 
     const properties = {
-      need_sleeper: get_global("xr_evaluators_id").zmey_sleeper_base + 1,
-      state_mgr_logic_active: get_global("xr_evaluators_id").state_mgr + 4,
+      need_sleeper: evaluators_id.zmey_sleeper_base + 1,
+      state_mgr_logic_active: evaluators_id.state_mgr + 4,
     };
 
     const manager = object.motivation_action_manager();
 
     manager.add_evaluator(
-      properties["need_sleeper"],
-      create_xr_class_instance(EvaluatorNeedSleep, "sleeper_need_sleep", storage.get(object.id()).sleeper)
+      properties.need_sleeper,
+      create_xr_class_instance(EvaluatorNeedSleep, EvaluatorNeedSleep.__name, storage.get(object.id()).sleeper)
     );
 
     const action = create_xr_class_instance(
       ActionSleeperActivity,
-      "action_sleeper_activity",
+      ActionSleeperActivity.__name,
       storage.get(object.id()).sleeper
     );
 
@@ -52,17 +54,15 @@ export class ActionSleeper extends AbstractSchemeAction {
     action.add_precondition(new world_property(stalker_ids.property_danger, false));
     action.add_precondition(new world_property(stalker_ids.property_enemy, false));
     action.add_precondition(new world_property(stalker_ids.property_anomaly, false));
-    action.add_precondition(new world_property(properties["need_sleeper"], true));
+    action.add_precondition(new world_property(properties.need_sleeper, true));
     get_global<AnyCallablesModule>("xr_motivator").addCommonPrecondition(action);
-    action.add_effect(new world_property(properties["need_sleeper"], false));
-    action.add_effect(new world_property(properties["state_mgr_logic_active"], false));
-    manager.add_action(operators["action_sleeper"], action);
+    action.add_effect(new world_property(properties.need_sleeper, false));
+    action.add_effect(new world_property(properties.state_mgr_logic_active, false));
+    manager.add_action(operators.action_sleeper, action);
 
     get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(object, storage, action);
 
-    const alifeAction = manager.action(get_global("xr_actions_id").alife);
-
-    alifeAction.add_precondition(new world_property(properties["need_sleeper"], false));
+    manager.action(action_ids.alife).add_precondition(new world_property(properties.need_sleeper, false));
   }
 
   public static set_scheme(

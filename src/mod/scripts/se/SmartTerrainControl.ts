@@ -6,7 +6,7 @@ import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
 import { isWeapon } from "@/mod/scripts/utils/checkers";
-import { getConfigString, parseCondList } from "@/mod/scripts/utils/configs";
+import { getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
@@ -69,11 +69,7 @@ export const SmartTerrainControl: ISmartTerrainControl = declare_xr_class("Smart
         return;
       }
 
-      const sound = get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(
-        getActor(),
-        this.smart,
-        this.alarm_stop_sound
-      );
+      const sound = pickSectionFromCondList(getActor(), this.smart, this.alarm_stop_sound as any);
 
       if (sound !== null) {
         GlobalSound.set_sound_play(getActor()!.id(), sound, null, null);
@@ -117,11 +113,7 @@ export const SmartTerrainControl: ISmartTerrainControl = declare_xr_class("Smart
     logger.info("Actor attacked smart:", this.smart.name());
 
     if (this.status !== ESmartTerrainStatus.ALARM) {
-      const sound = get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(
-        getActor(),
-        this.smart,
-        this.alarm_start_sound
-      );
+      const sound = pickSectionFromCondList(getActor(), this.smart, this.alarm_start_sound as any);
 
       if (sound !== null) {
         GlobalSound.set_sound_play(getActor()!.id(), sound, null, null);

@@ -990,11 +990,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
             "] = " +
             v.num +
             "(" +
-            (get_global("xr_logic").pick_section_from_condlist as AnyCallable)(
-              getActor(),
-              null,
-              this.respawn_params.get(k).num
-            ) +
+            pickSectionFromCondList(getActor(), null, this.respawn_params.get(k).num as any) +
             ")\\n";
         }
 
@@ -1025,14 +1021,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
 
     let spot = "neutral";
 
-    if (
-      this.sim_avail === null ||
-      (get_global("xr_logic").pick_section_from_condlist as AnyCallable)(
-        getActor() || alife().actor(),
-        this,
-        this.sim_avail
-      ) === "true"
-    ) {
+    if (this.sim_avail === null || pickSectionFromCondList(getActor(), this, this.sim_avail as any) === "true") {
       spot = "friend";
     } else {
       spot = "enemy";

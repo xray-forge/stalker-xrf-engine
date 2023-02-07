@@ -2,7 +2,12 @@ import { ini_file, level, XR_ini_file, XR_net_packet, XR_reader } from "xray16";
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
-import { getConfigString, parseCondList, parseIniSectionToArray } from "@/mod/scripts/utils/configs";
+import {
+  getConfigString,
+  parseCondList,
+  parseIniSectionToArray,
+  pickSectionFromCondList,
+} from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 
@@ -87,11 +92,7 @@ export class WeatherManager {
   }
 
   public select_weather(now: boolean): void {
-    const weather = get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(
-      getActor(),
-      getActor(),
-      this.weather_list
-    );
+    const weather = pickSectionFromCondList(getActor(), getActor(), this.weather_list)!;
     const graph = this.get_graph_by_name(weather);
     let weather_section_name = "";
 

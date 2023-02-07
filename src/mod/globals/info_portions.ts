@@ -3,6 +3,7 @@
 // todo: Probably separate for quests and generic.
 export const info_portions = {
   actor_information_dealer: "actor_information_dealer",
+  actor_is_sleeping: "actor_is_sleeping",
   actor_marked_by_zone_3_times: "actor_marked_by_zone_3_times",
   actor_was_in_many_bad_places: "actor_was_in_many_bad_places",
   actor_wealthy: "actor_wealthy",
@@ -440,7 +441,9 @@ export const info_portions = {
   sim_freedom_help_harder: "sim_freedom_help_harder",
   sim_stalker_help_harder: "sim_stalker_help_harder",
   skilled_stalker_achievement_gained: "skilled_stalker_achievement_gained",
+  sleep_active: "sleep_active",
   stalkers_toolkit_dialog: "stalkers_toolkit_dialog",
+  tutorial_sleep: "tutorial_sleep",
   /**
    * Zaton quests.
    */

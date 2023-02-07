@@ -1,20 +1,17 @@
 import { game } from "xray16";
 
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
+import { TSection } from "@/mod/lib/types/configuration";
 import { actor_in_cover, get_task_target } from "@/mod/scripts/core/SurgeManager";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { getStoryObject } from "@/mod/scripts/utils/alife";
-import { parseCondList } from "@/mod/scripts/utils/configs";
+import { parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 
-export function condlist(id: string, field: string, p: string): void {
+export function condlist(id: string, field: string, p: string): Optional<TSection> {
   const parsed_condlist = parseCondList(null, "task", "task_condlist", p);
 
-  return get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(
-    getStoryObject("actor"),
-    null,
-    parsed_condlist
-  );
+  return pickSectionFromCondList(getStoryObject("actor"), null, parsed_condlist);
 }
 
 export function zat_b29_adv_title(id: string, field: string, p: string): Optional<string> {
@@ -117,11 +114,7 @@ export function surge_task_descr(id: string, field: string, p: string): Optional
 export function target_condlist(id: string, field: string, p: string) {
   const cond_string = p;
   const parsed_condlist = parseCondList(null, "task", "task_condlist", cond_string);
-  const value = get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(
-    getStoryObject("actor"),
-    null,
-    parsed_condlist
-  );
+  const value: Optional<TSection> = pickSectionFromCondList(getStoryObject("actor"), null, parsed_condlist);
 
   if (value === null) {
     return null;
