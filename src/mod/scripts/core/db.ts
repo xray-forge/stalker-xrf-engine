@@ -8,16 +8,17 @@ import {
   XR_vector,
 } from "xray16";
 
-import { AnyObject, Optional } from "@/mod/lib/types";
-import { TScheme, TSection } from "@/mod/lib/types/configuration";
-import { ISignalLightBinder } from "@/mod/scripts/core/binders/SignalLightBinder";
-import { ActionLight } from "@/mod/scripts/core/logic/ActionLight";
-import { ITeleportPoint } from "@/mod/scripts/core/logic/ActionTeleport";
-import { ActionWoundManager } from "@/mod/scripts/core/logic/ActionWoundManager";
-import { HeliCombat } from "@/mod/scripts/core/logic/heli/HeliCombat";
-import { RestrictorManager } from "@/mod/scripts/core/RestrictorManager";
-import { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
-import { StateManager } from "@/mod/scripts/state_management/StateManager";
+import type { AnyObject, Optional } from "@/mod/lib/types";
+import type { TScheme, TSection } from "@/mod/lib/types/configuration";
+import type { ISignalLightBinder } from "@/mod/scripts/core/binders/SignalLightBinder";
+import type { ActionLight } from "@/mod/scripts/core/logic/ActionLight";
+import type { ITeleportPoint } from "@/mod/scripts/core/logic/ActionTeleport";
+import type { ActionWoundManager } from "@/mod/scripts/core/logic/ActionWoundManager";
+import type { HeliCombat } from "@/mod/scripts/core/logic/heli/HeliCombat";
+import type { ReachTaskPatrolManager } from "@/mod/scripts/core/logic/ReachTaskPatrolManager";
+import type { RestrictorManager } from "@/mod/scripts/core/RestrictorManager";
+import type { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
+import type { StateManager } from "@/mod/scripts/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("db", false);
@@ -39,6 +40,7 @@ export const tradeState: LuaTable<number, ITradeManagerDescriptor> = new LuaTabl
 export const silenceZones: LuaTable<number, string> = new LuaTable();
 
 export const fighting_with_actor_npcs: LuaTable<number, boolean> = new LuaTable();
+export const reactTaskPatrols: LuaTable<string, ReachTaskPatrolManager> = new LuaTable();
 
 export const SAVE_MARKERS: LuaTable<string, number> = new LuaTable();
 

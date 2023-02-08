@@ -48,8 +48,8 @@ import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry
 import { simulation_activities } from "@/mod/scripts/se/SimActivity";
 import { get_sim_board, ISimBoard, squad_ltx } from "@/mod/scripts/se/SimBoard";
 import { evaluate_prior, get_sim_obj_registry } from "@/mod/scripts/se/SimObjectsRegistry";
-import { SimSquadReachTargetAction } from "@/mod/scripts/se/SimSquadReachTargetAction";
-import { SimSquadStayOnTargetAction } from "@/mod/scripts/se/SimSquadStayOnTargetAction";
+import { ISimSquadReachTargetAction, SimSquadReachTargetAction } from "@/mod/scripts/se/SimSquadReachTargetAction";
+import { ISimSquadStayOnTargetAction, SimSquadStayOnTargetAction } from "@/mod/scripts/se/SimSquadStayOnTargetAction";
 import type { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
 import { ESmartTerrainStatus } from "@/mod/scripts/se/SmartTerrainControl";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
@@ -101,7 +101,7 @@ export interface ISimSquad extends XR_cse_alife_online_offline_group {
   current_spot_id: Optional<number>;
   spot_section: Optional<string>;
 
-  current_action: any;
+  current_action: Optional<ISimSquadStayOnTargetAction | ISimSquadReachTargetAction>;
   current_target_id: Optional<any>;
   assigned_target_id: Optional<number>;
 
@@ -328,7 +328,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     return false;
   },
   update_current_action(): boolean {
-    const is_finished = this.current_action.update(false);
+    const is_finished = this.current_action!.update(false);
 
     if (!is_finished) {
       return false;
@@ -383,7 +383,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
       if (this.current_action === null) {
         need_to_find_new_action = true;
       } else {
-        if (this.current_action.major === true) {
+        if (this.current_action!.major === true) {
           if (this.update_current_action()) {
             this.check_squad_come_to_point();
             need_to_find_new_action = true;
@@ -1018,7 +1018,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
         t =
           t +
           "stay_on_point = [" +
-          tostring(this.current_action.idle_time - game.get_game_time().diffSec(this.current_action.start_time)) +
+          tostring(this.current_action.idle_time - game.get_game_time().diffSec(this.current_action.start_time!)) +
           "]";
       }
 

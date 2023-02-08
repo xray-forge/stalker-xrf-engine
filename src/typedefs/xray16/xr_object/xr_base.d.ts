@@ -661,7 +661,7 @@ declare module "xray16" {
     public lookout_max_time(): f32;
     public lookout_max_time(value: f32): void;
     public memory_visible_objects(): LuaIterable<XR_visible_memory_object>;
-    public mental_state(): number;
+    public mental_state<T extends number>(): T; // todo: unknown enum
     public relation(game_object: XR_game_object): number;
     public set_enemy(object: XR_game_object): void;
     public set_previous_point(point: i32): void;
@@ -751,7 +751,7 @@ declare module "xray16" {
     public lookout_min_time(): f32;
     public lookout_min_time(time: f32): void;
     public memory_sound_objects(): unknown;
-    public movement_type(): unknown;
+    public movement_type(): number; // todo: unknown enum
     public play_sound(value1: u32, value2?: u32, value3?: u32, value4?: u32, value5?: u32, value6?: u32): void;
     public register_door_for_npc(): void;
     public remove_home(): void;

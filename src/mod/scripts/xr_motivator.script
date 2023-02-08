@@ -1,5 +1,6 @@
 -- 605
 
+local ActionSchemeReachTask = require("scripts.core.logic.ActionSchemeReachTask").ActionSchemeReachTask
 local ActionSchemeMeet = require("scripts.core.logic.ActionSchemeMeet").ActionSchemeMeet
 local ActionSchemeCombat = require("scripts.core.logic.ActionSchemeCombat").ActionSchemeCombat
 local GlobalSound = require("scripts.core.logic.GlobalSound").GlobalSound
@@ -181,7 +182,7 @@ function motivator_binder:net_spawn(sobject)
     manager:add_evaluator(stalker_ids.property_anomaly, property_evaluator_const(false))
   end
 
-  xr_reach_task.add_reach_task_action(self.object)
+  ActionSchemeReachTask:add_reach_task_action(self.object)
   --******************************* �������� �� ������ ����� ���� ������ �������������...*****************************
   local se_obj = alife():object(self.object:id())
   if se_obj ~= nil then

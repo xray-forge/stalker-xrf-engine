@@ -10,6 +10,8 @@ export interface ISimSquadStayOnTargetAction extends XR_EngineBinding {
   name: string;
   start_time: Optional<XR_CTime>;
   idle_time: number;
+  major?: boolean;
+  dest_smrt: null;
 
   finalize(): void;
   save(): void;

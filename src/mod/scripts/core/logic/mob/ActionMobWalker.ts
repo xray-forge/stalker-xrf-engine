@@ -22,7 +22,7 @@ import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAct
 import { get_state, set_state } from "@/mod/scripts/core/logic/mob/MobStateManager";
 import { MoveManager } from "@/mod/scripts/core/MoveManager";
 import { action } from "@/mod/scripts/utils/alife";
-import { getConfigBoolean, getConfigString } from "@/mod/scripts/utils/configs";
+import { getConfigBoolean, getConfigString, IWaypointData } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { isStalkerAtWaypoint } from "@/mod/scripts/utils/world";
@@ -71,8 +71,8 @@ export class ActionMobWalker extends AbstractSchemeAction {
       abort("You are trying to set 'path_look' equal to 'path_walk' in section [%s] for npc [%s]", section, npc.name());
     }
 
-    st.path_walk_info = null; // -- ����� ���������������� � reset(), ������ ���� ����� ���� ���
-    st.path_look_info = null; // -- �� ���������.
+    st.path_walk_info = null;
+    st.path_look_info = null;
   }
 
   public last_index: Optional<number> = null;
@@ -89,7 +89,7 @@ export class ActionMobWalker extends AbstractSchemeAction {
   public running: Optional<boolean> = null;
   public mob_state: Optional<number> = null;
 
-  public path_look_info: Optional<any> = null;
+  public path_look_info: Optional<LuaTable<number, IWaypointData>> = null;
 
   public reset_scheme(): void {
     set_state(this.object, getActor()!, this.state.state);
@@ -232,10 +232,10 @@ export class ActionMobWalker extends AbstractSchemeAction {
       return;
     }
 
-    const [pt_chosen_idx] = MoveManager.choose_look_point(this.patrol_look!, this.path_look_info, search_for);
+    const [pt_chosen_idx] = MoveManager.choose_look_point(this.patrol_look!, this.path_look_info!, search_for);
 
     if (pt_chosen_idx) {
-      const suggested_wait_time = this.path_look_info.get(pt_chosen_idx)["t"];
+      const suggested_wait_time = this.path_look_info!.get(pt_chosen_idx)["t"];
 
       if (suggested_wait_time) {
         this.pt_wait_time = tonumber(suggested_wait_time)!;
@@ -249,7 +249,7 @@ export class ActionMobWalker extends AbstractSchemeAction {
         }
       }
 
-      let suggested_anim_set = this.path_look_info[pt_chosen_idx]["a"];
+      let suggested_anim_set = this.path_look_info!.get(pt_chosen_idx)["a"];
 
       if (suggested_anim_set) {
         if (suggested_anim_set === "nil") {

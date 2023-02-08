@@ -1,5 +1,6 @@
-import { alife, XR_EngineBinding } from "xray16";
+import { alife, XR_CTime, XR_EngineBinding } from "xray16";
 
+import { Optional } from "@/mod/lib/types";
 import { get_sim_obj_registry } from "@/mod/scripts/se/SimObjectsRegistry";
 import type { ISimSquad } from "@/mod/scripts/se/SimSquad";
 
@@ -7,6 +8,10 @@ export interface ISimSquadReachTargetAction extends XR_EngineBinding {
   name: string;
   board: any;
   squad_id: number;
+  start_time: Optional<XR_CTime>;
+  idle_time: number;
+  major?: boolean;
+  dest_smrt: null;
 
   finalize(): void;
   save(): void;

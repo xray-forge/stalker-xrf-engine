@@ -20,6 +20,8 @@ import { AnyArgs, AnyCallablesModule, Maybe, Optional } from "@/mod/lib/types";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { getStoryObjectsRegistry } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
+import { ISimSquadReachTargetAction } from "@/mod/scripts/se/SimSquadReachTargetAction";
+import { ISimSquadStayOnTargetAction } from "@/mod/scripts/se/SimSquadStayOnTargetAction";
 import { spawnItemsForObject } from "@/mod/scripts/utils/alife_spawn";
 import { isStalker } from "@/mod/scripts/utils/checkers";
 import { get_infos_from_data, getConfigBoolean, getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
@@ -85,6 +87,14 @@ export function getObjectSquad(object: Optional<XR_game_object | XR_cse_alife_cr
   }
 
   return null;
+}
+
+export function getObjectSquadAction(
+  object: XR_game_object
+): Optional<ISimSquadReachTargetAction | ISimSquadStayOnTargetAction> {
+  const squad: Optional<ISimSquad> = getObjectSquad(object);
+
+  return squad && squad.current_action;
 }
 
 /**

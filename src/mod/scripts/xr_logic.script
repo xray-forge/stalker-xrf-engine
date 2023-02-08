@@ -1,5 +1,6 @@
 -- 1517
 
+local ActionSchemeReachTask = require("scripts.core.logic.ActionSchemeReachTask").ActionSchemeReachTask
 local ActionSchemeMeet = require("scripts.core.logic.ActionSchemeMeet").ActionSchemeMeet
 local ActionWoundManager = require("scripts.core.logic.ActionWoundManager").ActionWoundManager
 local TradeManager = require("scripts.core.TradeManager")
@@ -322,7 +323,7 @@ function enable_generic_schemes(ini, npc, stype, section)
     ActionDeath:set_death(npc, ini, "death", death_section)
 
     ActionSchemeCombatIgnore:set_combat_ignore_checker(npc, ini, "combat_ignore")
-    xr_reach_task.set_reach_task(npc, ini, "reach_task")
+    ActionSchemeReachTask:set_reach_task(npc, ini, "reach_task")
 
   elseif stype == schemes.stype_mobile then
     local combat_section = utils.cfg_get_string(ini, section, "on_combat", npc, false, "")
