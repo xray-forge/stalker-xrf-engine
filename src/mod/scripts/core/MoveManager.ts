@@ -97,7 +97,7 @@ export class MoveManager {
   public path_walk: Optional<string> = null;
   public patrol_look: Optional<XR_patrol> = null;
   public path_look: Optional<string> = null;
-  public path_look_info!: LuaTable<number, IWaypointData>;
+  public path_look_info: Optional<LuaTable<number, IWaypointData>> = null;
   public path_walk_info!: LuaTable<number, IWaypointData>;
 
   public no_validation: Optional<boolean> = null;
@@ -136,8 +136,8 @@ export class MoveManager {
   public reset(
     path_walk: string,
     path_walk_info: LuaTable<number, IWaypointData>,
-    path_look: string,
-    path_look_info: LuaTable<number, IWaypointData>,
+    path_look: Optional<string>,
+    path_look_info: Optional<LuaTable<number, IWaypointData>>,
     team: Optional<string>,
     suggested_state: Optional<any>,
     move_cb_info: Optional<{ obj: AnyObject; func: AnyCallable }>,
@@ -379,7 +379,7 @@ export class MoveManager {
   }
 
   public time_callback(): void {
-    const sigtm = this.path_look_info.get(this.last_look_index!)["sigtm"];
+    const sigtm = this.path_look_info!.get(this.last_look_index!)["sigtm"];
 
     if (sigtm) {
       this.scheme_set_signal(sigtm);
@@ -411,7 +411,7 @@ export class MoveManager {
     } else {
       this.update_movement_state();
 
-      const syn = this.path_look_info.get(this.last_look_index!)["syn"];
+      const syn = this.path_look_info!.get(this.last_look_index!)["syn"];
 
       if (syn) {
         abort(
@@ -424,10 +424,10 @@ export class MoveManager {
   }
 
   public turn_end_callback(): void {
-    const syn = this.path_look_info.get(this.last_look_index!)["syn"];
+    const syn = this.path_look_info!.get(this.last_look_index!)["syn"];
 
     if (syn) {
-      this.syn_signal = this.path_look_info.get(this.last_look_index!)["sig"];
+      this.syn_signal = this.path_look_info!.get(this.last_look_index!)["sig"];
 
       if (!this.syn_signal) {
         abort("object '%s': path_look '%s': syn flag uset without sig flag", this.object.name(), this.path_look);
@@ -437,7 +437,7 @@ export class MoveManager {
         sync.get(this.team).set(this.object.id(), true);
       }
     } else {
-      const sig = this.path_look_info.get(this.last_look_index!)["sig"];
+      const sig = this.path_look_info!.get(this.last_look_index!)["sig"];
 
       if (sig) {
         this.scheme_set_signal(sig);
@@ -565,7 +565,7 @@ export class MoveManager {
     );
 
     if (pt_chosen_idx) {
-      const suggested_anim_set: Optional<string> = this.path_look_info.get(pt_chosen_idx)["a"];
+      const suggested_anim_set: Optional<string> = this.path_look_info!.get(pt_chosen_idx)["a"];
 
       this.cur_state_standing = pickSectionFromCondList(
         getActor(),
@@ -573,7 +573,7 @@ export class MoveManager {
         suggested_anim_set ? suggested_anim_set : (this.default_state_standing as any)
       )!;
 
-      const suggested_wait_time = this.path_look_info.get(pt_chosen_idx)["t"];
+      const suggested_wait_time = this.path_look_info!.get(pt_chosen_idx)["t"];
 
       if (suggested_wait_time) {
         if (suggested_wait_time === "*") {
@@ -596,7 +596,7 @@ export class MoveManager {
         this.pt_wait_time = default_wait_time;
       }
 
-      const retv = this.path_look_info.get(pt_chosen_idx)["ret"];
+      const retv = this.path_look_info!.get(pt_chosen_idx)["ret"];
 
       this.retval_after_rotation = retv ? tonumber(retv)! : null;
 

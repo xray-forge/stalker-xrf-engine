@@ -600,9 +600,10 @@ end
 -------------------------------------------------------------------------------------------------------
 -- ������� ��������� kamp
 function _kamp_talk(actor, npc)
-  if xr_kamp.kamp_stalkers[npc:id()] then
-    return xr_kamp.kamp_stalkers[npc:id()]
+  if db.kamp_stalkers[npc:id()] then
+    return db.kamp_stalkers[npc:id()]
   end
+
   return false
 end
 

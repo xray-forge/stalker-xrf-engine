@@ -1,4 +1,4 @@
-import { game, get_console, level, task, TXR_TaskState, XR_CGameTask } from "xray16";
+import { game, get_console, level, task, TXR_TaskState, XR_CGameTask, XR_game_object } from "xray16";
 
 import { animations } from "@/mod/globals/animation/animations";
 import { TWeapon } from "@/mod/globals/items/weapons";
@@ -7,6 +7,7 @@ import { AnyArgs, AnyCallable, AnyCallablesModule, AnyObject, PartialRecord } fr
 import { getActor } from "@/mod/scripts/core/db";
 import { inventory_upgrades_functors } from "@/mod/scripts/core/inventory_upgrades";
 import { AchievementsManager, EAchievement } from "@/mod/scripts/core/managers/AchievementsManager";
+import { ActorInventoryMenuManager, EActorMenuMode } from "@/mod/scripts/core/managers/ActorInventoryMenuManager";
 import { loadScreenManager } from "@/mod/scripts/core/managers/LoadScreenManager";
 import { PdaManager } from "@/mod/scripts/core/managers/PdaManager";
 import { startGame } from "@/mod/scripts/core/start_game";
@@ -17,8 +18,6 @@ import { weatherManager } from "@/mod/scripts/core/WeatherManager";
 import { ActionCutscene } from "@/mod/scripts/cutscenes/ActionCustscene";
 import { get_task_manager } from "@/mod/scripts/se/task/TaskManager";
 import { smart_covers_list } from "@/mod/scripts/smart_covers/smart_covers_list";
-import { EActorMenuMode } from "@/mod/scripts/ui/game/AbstractActorMenu";
-import { actorMenu } from "@/mod/scripts/ui/game/ActorMenu";
 import { WeaponParams } from "@/mod/scripts/ui/game/WeaponParams";
 import * as SleepDialogModule from "@/mod/scripts/ui/interaction/SleepDialog";
 import { disableInfo } from "@/mod/scripts/utils/actor";
@@ -181,7 +180,13 @@ declare_global("on_actor_psy", () => {
 
 declare_global("actor_menu", {
   actor_menu_mode: (mode: EActorMenuMode): void => {
-    return actorMenu.setActiveMode(mode);
+    return ActorInventoryMenuManager.getInstance().setActiveMode(mode);
+  },
+});
+
+declare_global("actor_menu_inventory", {
+  CUIActorMenu_OnItemDropped: (from: XR_game_object, to: XR_game_object, oldList: number, newList: number): void => {
+    return ActorInventoryMenuManager.getInstance().onItemDropped();
   },
 });
 

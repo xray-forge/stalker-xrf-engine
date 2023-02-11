@@ -4,6 +4,7 @@
 - After migration consider simplification and unification of some parts
 - Finish LTX generation tools
 - Finish translation generation tools
+- Build testing framework / use existing tools to test game functions
 - Scripts to unpack raw_gamedata for observation / usage
 - Script to verify integrity of assets and defined constants
 - Screenshots of some tools

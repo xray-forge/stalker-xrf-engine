@@ -11,7 +11,7 @@ import {
 } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
-import { AnyCallable, AnyObject, Maybe, Optional } from "@/mod/lib/types";
+import { AnyCallable, AnyObject, Optional } from "@/mod/lib/types";
 import { stringifyAsJson } from "@/mod/lib/utils/json";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import * as animationManagement from "@/mod/scripts/state_management/animation";
@@ -255,8 +255,8 @@ export function set_state(
   storage.get(npc.id()).state_mgr?.set_state(state_name, callback, timeout, target, extra);
 }
 
-export function get_state(npc: XR_game_object): Maybe<string> {
-  return storage.get(npc.id()).state_mgr?.get_state();
+export function get_state(npc: XR_game_object): Optional<string> {
+  return storage.get(npc.id()).state_mgr?.get_state() as Optional<string>;
 }
 
 export function goap_graph(st: StateManager, npc: XR_game_object): void {

@@ -23,11 +23,16 @@ import { ActionPhysicalIdle } from "@/mod/scripts/core/logic/ActionPhysicalIdle"
 import { ActionPostProcess } from "@/mod/scripts/core/logic/ActionPostProcess";
 import { ActionProcessHit } from "@/mod/scripts/core/logic/ActionProcessHit";
 import { ActionPsyAntenna } from "@/mod/scripts/core/logic/ActionPsyAntenna";
+import { ActionSchemeAnimpoint } from "@/mod/scripts/core/logic/ActionSchemeAnimpoint";
+import { ActionSchemeCamp } from "@/mod/scripts/core/logic/ActionSchemeCamp";
+import { ActionSchemeCamper } from "@/mod/scripts/core/logic/ActionSchemeCamper";
 import { ActionSchemeCombat } from "@/mod/scripts/core/logic/ActionSchemeCombat";
 import { ActionSchemeCombatIgnore } from "@/mod/scripts/core/logic/ActionSchemeCombatIgnore";
 import { ActionSchemeCombatZombied } from "@/mod/scripts/core/logic/ActionSchemeCombatZombied";
+import { ActionSchemeCompanion } from "@/mod/scripts/core/logic/ActionSchemeCompanion";
 import { ActionSchemeHelpWounded } from "@/mod/scripts/core/logic/ActionSchemeHelpWounded";
 import { ActionSchemeMeet } from "@/mod/scripts/core/logic/ActionSchemeMeet";
+import { ActionSchemePatrol } from "@/mod/scripts/core/logic/ActionSchemePatrol";
 import { ActionSchemeReachTask } from "@/mod/scripts/core/logic/ActionSchemeReachTask";
 import { ActionSchemeRemark } from "@/mod/scripts/core/logic/ActionSchemeRemark";
 import { ActionSchemeSmartCover } from "@/mod/scripts/core/logic/ActionSchemeSmartCover";
@@ -53,11 +58,6 @@ const logger: LuaLogger = new LuaLogger("modules");
 export function initializeModules(): void {
   logger.info("Initialize modules");
 
-  loadScheme("xr_animpoint", "animpoint", ESchemeType.STALKER);
-  loadScheme("xr_camper", "camper", ESchemeType.STALKER);
-  loadScheme("xr_companion", "companion", ESchemeType.STALKER);
-  loadScheme("xr_kamp", "kamp", ESchemeType.STALKER);
-  loadScheme("xr_patrol", "patrol", ESchemeType.STALKER);
   loadScheme(AbuseManager, AbuseManager.SCHEME_SECTION, ESchemeType.STALKER);
   loadScheme(ActionCorpseDetect, ActionCorpseDetect.SCHEME_SECTION, ESchemeType.STALKER);
   loadScheme(ActionCover, ActionCover.SCHEME_SECTION, ESchemeType.STALKER);
@@ -65,12 +65,17 @@ export function initializeModules(): void {
   loadScheme(ActionDeath, ActionDeath.SCHEME_SECTION, ESchemeType.STALKER);
   loadScheme(ActionGatherItems, ActionGatherItems.SCHEME_SECTION, ESchemeType.STALKER);
   loadScheme(ActionProcessHit, ActionProcessHit.SCHEME_SECTION, ESchemeType.STALKER);
+  loadScheme(ActionSchemeAnimpoint, ActionSchemeAnimpoint.SCHEME_SECTION, ESchemeType.STALKER);
+  loadScheme(ActionSchemeCamp, ActionSchemeCamp.SCHEME_SECTION, ESchemeType.STALKER);
+  loadScheme(ActionSchemeCamper, ActionSchemeCamper.SCHEME_SECTION, ESchemeType.STALKER);
   loadScheme(ActionSchemeCombat, ActionSchemeCombat.SCHEME_SECTION, ESchemeType.STALKER);
   loadScheme(ActionSchemeCombatIgnore, ActionSchemeCombatIgnore.SCHEME_SECTION, ESchemeType.STALKER);
   loadScheme(ActionSchemeCombatZombied, ActionSchemeCombatZombied.SCHEME_SECTION, ESchemeType.STALKER);
+  loadScheme(ActionSchemeCompanion, ActionSchemeCompanion.SCHEME_SECTION, ESchemeType.STALKER);
   loadScheme(ActionSchemeHelpWounded, ActionSchemeHelpWounded.SCHEME_SECTION, ESchemeType.STALKER);
   loadScheme(ActionSchemeMeet, ActionSchemeMeet.SCHEME_SECTION, ESchemeType.STALKER);
   loadScheme(ActionSchemeMeet, ActionSchemeMeet.SCHEME_SECTION_ADDITIONAL, ESchemeType.STALKER);
+  loadScheme(ActionSchemePatrol, ActionSchemePatrol.SCHEME_SECTION, ESchemeType.STALKER);
   loadScheme(ActionSchemeReachTask, ActionSchemeReachTask.SCHEME_SECTION, ESchemeType.STALKER);
   loadScheme(ActionSchemeRemark, ActionSchemeRemark.SCHEME_SECTION, ESchemeType.STALKER);
   loadScheme(ActionSchemeSmartCover, ActionSchemeSmartCover.SCHEME_SECTION, ESchemeType.STALKER);

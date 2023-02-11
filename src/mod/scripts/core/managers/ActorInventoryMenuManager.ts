@@ -1,3 +1,12 @@
+import { get_console, system_ini, XR_CConsole, XR_game_object, XR_ini_file } from "xray16";
+
+import { getActor } from "@/mod/scripts/core/db";
+import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
+import { getConfigString } from "@/mod/scripts/utils/configs";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
+
+const logger: LuaLogger = new LuaLogger("ActorInventoryMenuManager");
+
 export enum EActorMenuMode {
   UNDEFINED = 0,
   INVENTORY = 1,
@@ -9,7 +18,8 @@ export enum EActorMenuMode {
   TALK_DIALOG_HIDE = 11,
 }
 
-export abstract class AbstractActorMenu {
+// todo: .CUIActorMenu_OnItemDropped handler
+export class ActorInventoryMenuManager extends AbstractCoreManager {
   public activeMode: EActorMenuMode = EActorMenuMode.UNDEFINED;
 
   public setActiveMode(nextMode: EActorMenuMode): void {
@@ -58,7 +68,26 @@ export abstract class AbstractActorMenu {
     return this.activeMode === mode;
   }
 
-  public onWindowClosed(mode: EActorMenuMode): void {}
+  public initQuickSlotItems(): void {
+    const console: XR_CConsole = get_console();
+    const ini: XR_ini_file = system_ini();
+    const actor: XR_game_object = getActor()!;
 
-  public onWindowOpen(mode: EActorMenuMode): void {}
+    console.execute("slot_0 " + getConfigString(ini, "actor", "quick_item_1", actor, false, "", ""));
+    console.execute("slot_1 " + getConfigString(ini, "actor", "quick_item_2", actor, false, "", ""));
+    console.execute("slot_2 " + getConfigString(ini, "actor", "quick_item_3", actor, false, "", ""));
+    console.execute("slot_3 " + getConfigString(ini, "actor", "quick_item_4", actor, false, "", ""));
+  }
+
+  public onItemDropped(): void {
+    logger.info("Actor menu inventory item dropped");
+  }
+
+  public onWindowOpen(mode: EActorMenuMode) {
+    logger.info("Actor menu open:", EActorMenuMode[mode]);
+  }
+
+  public onWindowClosed(mode: EActorMenuMode) {
+    logger.info("Actor menu close:", EActorMenuMode[mode]);
+  }
 }

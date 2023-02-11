@@ -779,7 +779,7 @@ declare module "xray16" {
     public fake_death_stand_up(): void;
     public fov(): f32;
     public get_current_point_index(): u32;
-    public get_visual_name(): string;
+    public get_visual_name<T extends string>(): T;
     public hide_weapon(): void;
     public in_restrictions(): string;
     public inv_box_can_take(value: boolean): boolean;

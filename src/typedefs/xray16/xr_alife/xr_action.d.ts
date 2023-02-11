@@ -182,6 +182,7 @@ declare module "xray16" {
     public constructor(name: string, startType: TXR_patrol_type, routeType: TXR_patrol_type, bool: boolean, int: u32);
 
     public count(): u32;
+    public flag(value1: u32, value2: u8): boolean;
     public flag(value1: u32, value2: string): boolean;
     public flags(point_index: u32): XR_flags32;
     public game_vertex_id(value: u32): u16;

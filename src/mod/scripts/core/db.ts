@@ -2,16 +2,20 @@ import {
   TXR_MonsterBodyStateKey,
   XR_cse_alife_object,
   XR_CUIGameCustom,
+  XR_CZoneCampfire,
   XR_game_object,
   XR_ini_file,
   XR_object_binder,
   XR_vector,
 } from "xray16";
 
-import type { AnyObject, Optional } from "@/mod/lib/types";
+import type { AnyCallable, AnyObject, Optional } from "@/mod/lib/types";
 import type { TScheme, TSection } from "@/mod/lib/types/configuration";
 import type { ISignalLightBinder } from "@/mod/scripts/core/binders/SignalLightBinder";
 import type { ActionLight } from "@/mod/scripts/core/logic/ActionLight";
+import type { ActionSchemeAnimpoint } from "@/mod/scripts/core/logic/ActionSchemeAnimpoint";
+import type { CampManager } from "@/mod/scripts/core/logic/ActionSchemeCamp";
+import type { PatrolManager } from "@/mod/scripts/core/logic/ActionSchemePatrol";
 import type { ITeleportPoint } from "@/mod/scripts/core/logic/ActionTeleport";
 import type { ActionWoundManager } from "@/mod/scripts/core/logic/ActionWoundManager";
 import type { HeliCombat } from "@/mod/scripts/core/logic/heli/HeliCombat";
@@ -41,6 +45,10 @@ export const silenceZones: LuaTable<number, string> = new LuaTable();
 
 export const fighting_with_actor_npcs: LuaTable<number, boolean> = new LuaTable();
 export const reactTaskPatrols: LuaTable<string, ReachTaskPatrolManager> = new LuaTable();
+export const patrols: LuaTable<number, PatrolManager> = new LuaTable();
+export const kamps: LuaTable<string, CampManager> = new LuaTable();
+export const kamp_stalkers: LuaTable<number, boolean> = new LuaTable();
+export const campfire_table: LuaTable<string, XR_CZoneCampfire> = new LuaTable();
 
 export const SAVE_MARKERS: LuaTable<string, number> = new LuaTable();
 
@@ -64,8 +72,11 @@ export interface ITradeManagerDescriptor {
 export interface IStoredObject<T = XR_game_object> {
   [index: string]: any;
 
+  pp?: XR_vector;
+  animpoint?: ActionSchemeAnimpoint;
+  scan_table?: LuaTable<number, LuaTable<number, { key: number; pos: XR_vector }>>;
   wounded?: { wound_manager: ActionWoundManager; not_for_help: boolean; enable_talk?: unknown };
-  approved_actions?: LuaTable;
+  approved_actions?: LuaTable<number, { predicate: AnyCallable; name: string }>;
   light?: boolean;
   points?: LuaTable<number, ITeleportPoint>;
   snd_close_start?: string;
@@ -257,6 +268,7 @@ declare_global("db", {
   no_weap_zones: noWeapZones,
   spawned_vertex_by_id: spawnedVertexById,
   fighting_with_actor_npcs: fighting_with_actor_npcs,
+  kamp_stalkers: kamp_stalkers,
 
   CROW_STORAGE: CROW_STORAGE,
   CAMPS: CAMPS,

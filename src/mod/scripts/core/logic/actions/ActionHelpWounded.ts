@@ -17,6 +17,7 @@ export const ActionHelpWounded: IActionHelpWounded = declare_xr_class("ActionHel
   },
   initialize(): void {
     action_base.initialize(this);
+
     this.object.set_desired_position();
     this.object.set_desired_direction();
 
