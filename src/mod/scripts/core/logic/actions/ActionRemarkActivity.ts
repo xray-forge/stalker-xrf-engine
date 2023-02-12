@@ -7,6 +7,7 @@ import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
 import { set_state } from "@/mod/scripts/state_management/StateManager";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
+import { get_gulag_by_name } from "@/mod/scripts/utils/gulag";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -229,7 +230,7 @@ function init_target(
     }
   } else if (target_type === "job") {
     const [job, gulag] = parse_target(target);
-    const smartTerrain: ISmartTerrain = get_global<AnyCallablesModule>("xr_gulag").get_gulag_by_name(gulag);
+    const smartTerrain: ISmartTerrain = get_gulag_by_name(gulag!)!;
 
     target_id = smartTerrain.idNPCOnJob(job!);
     target_initialized = target_id !== null && true;

@@ -5,8 +5,10 @@ import { relations, TRelation } from "@/mod/globals/relations";
 import { AnyCallablesModule, Maybe, Optional } from "@/mod/lib/types";
 import { getActor, storage } from "@/mod/scripts/core/db";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
+import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
 import { getCharacterCommunity, getStorySquad } from "@/mod/scripts/utils/alife";
 import { abort } from "@/mod/scripts/utils/debug";
+import { get_gulag_by_name } from "@/mod/scripts/utils/gulag";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("game_relations");
@@ -349,8 +351,8 @@ export function is_squad_neutral_to_actor(squad_name: string): boolean {
 }
 
 export function set_gulag_relation_actor(smart_name: string, relation: TRelation): void {
-  const actor = getActor();
-  const gulag = get_global<AnyCallablesModule>("xr_gulag").get_gulag_by_name(smart_name);
+  const actor: XR_game_object = getActor()!;
+  const gulag: ISmartTerrain = get_gulag_by_name(smart_name)!;
 
   let goodwill: number = ERelation.NEUTRALS;
 
@@ -364,14 +366,14 @@ export function set_gulag_relation_actor(smart_name: string, relation: TRelation
     const object = storage.get(v.se_obj.id)?.object;
 
     if (object) {
-      object.force_set_goodwill(goodwill, actor!);
-      object.set_community_goodwill(getCharacterCommunity(actor!), goodwill);
+      object.force_set_goodwill(goodwill, actor);
+      object.set_community_goodwill(getCharacterCommunity(actor), goodwill);
     }
   }
 }
 
 export function get_gulag_relation_actor(smart_name: string, relation: TRelation) {
-  const gulag = get_global<AnyCallablesModule>("xr_gulag").get_gulag_by_name(smart_name);
+  const gulag = get_gulag_by_name(smart_name);
   const actor = getActor();
 
   if (gulag) {

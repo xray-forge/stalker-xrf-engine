@@ -52,6 +52,7 @@ import {
 } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
+import { loadLtx } from "@/mod/scripts/utils/gulag";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
 
@@ -163,7 +164,7 @@ export interface ISmartTerrain extends XR_cse_alife_smart_zone {
   setup_logic(obj: XR_game_object): void;
   getJob(obj_id: number): unknown;
   idNPCOnJob(jon_name: string): number;
-  switch_to_desired_job(npc: XR_cse_alife_object): void;
+  switch_to_desired_job(npc: XR_game_object): void;
   init_npc_after_load(): void;
   get_smart_props(): string;
   show(): void;
@@ -471,12 +472,10 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
 
     this.jobs = (get_global("gulag_general").load_job as AnyCallable)(this);
 
-    const [ltx, ltx_name] = (
-      get_global("xr_gulag").loadLtx as (this: void, name: string) => LuaMultiReturn<[XR_ini_file, string]>
-    )(this.name());
+    const [ltx, ltx_name] = loadLtx(this.name());
 
-    this.ltx = ltx;
-    this.ltx_name = ltx_name;
+    this.ltx = ltx!;
+    this.ltx_name = ltx_name!;
 
     const sort_jobs = (jobs: LuaTable<string>) => {
       for (const [k, v] of jobs) {
@@ -672,7 +671,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
   idNPCOnJob(job_name: string): number {
     return this.npc_by_job_section.get(job_name);
   },
-  switch_to_desired_job(npc: any): void {
+  switch_to_desired_job(npc: XR_game_object): void {
     logger.info("Switch to desired job:", this.name(), npc.name());
 
     const npc_id = npc.id();

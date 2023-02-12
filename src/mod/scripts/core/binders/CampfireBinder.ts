@@ -29,7 +29,7 @@ export const CampfireBinder: ICampfireBinder = declare_xr_class("CampfireBinder"
 
     const [smart_name] = string.gsub(this.object.name(), "_campfire_%d*", "");
 
-    if (get_sim_board().smarts_by_names[smart_name]) {
+    if (get_sim_board().smarts_by_names.get(smart_name) !== null) {
       this.campfire.turn_off();
 
       if (campfire_table_by_smart_names.get(smart_name) === null) {

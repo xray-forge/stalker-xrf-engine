@@ -31,7 +31,7 @@ export const LevelChangerBinder: ILevelChangerBinder = declare_xr_class("LevelCh
   },
   reinit(): void {
     object_binder.reinit(this);
-    storage.set(this.object.id(), {} as any);
+    storage.set(this.object.id(), {});
   },
   net_spawn(cse_object: XR_cse_alife_object): boolean {
     if (!object_binder.net_spawn(this, cse_object)) {

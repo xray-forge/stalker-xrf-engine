@@ -46,7 +46,7 @@ export interface ISimBoard extends XR_EngineBinding {
 
   players: Optional<LuaTable>;
   smarts: LuaTable<number, ISimSmartDescriptor>;
-  smarts_by_names: any;
+  smarts_by_names: LuaTable<string, ISmartTerrain>;
   squads: LuaTable<number, ISimSquad>;
   spawn_smarts: any;
   mutant_lair: any;
@@ -78,8 +78,7 @@ export const SimBoard: ISimBoard = declare_xr_class("SimBoard", null, {
     this.smarts = new LuaTable();
     this.simulation_started = true;
 
-    this.smarts_by_names = {};
-
+    this.smarts_by_names = new LuaTable();
     this.squads = new LuaTable();
 
     this.spawn_smarts = {};
@@ -105,7 +104,7 @@ export const SimBoard: ISimBoard = declare_xr_class("SimBoard", null, {
 
     this.smarts.set(obj.id, { smrt: obj, squads: new LuaTable(), stayed_squad_quan: 0 });
 
-    this.smarts_by_names[obj.name()] = obj;
+    this.smarts_by_names.set(obj.name(), obj);
   },
   init_smart(obj: ISmartTerrain): void {
     if (this.tmp_assigned_squad.has(obj.id)) {
@@ -302,7 +301,7 @@ export const SimBoard: ISimBoard = declare_xr_class("SimBoard", null, {
         const smrt_names = parseNames(value);
 
         for (const [k, v] of smrt_names) {
-          const smart = this.smarts_by_names[v];
+          const smart = this.smarts_by_names.get(v);
 
           if (smart === null) {
             abort("Wrong smart name [%s] in start position", tostring(v));
@@ -316,7 +315,7 @@ export const SimBoard: ISimBoard = declare_xr_class("SimBoard", null, {
     }
   },
   get_smart_by_name(name: string): Optional<ISmartTerrain> {
-    return this.smarts_by_names[name];
+    return this.smarts_by_names.get(name);
   },
   get_smart_population(smart: ISmartTerrain): number {
     return this.smarts.get(smart.id).stayed_squad_quan;

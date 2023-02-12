@@ -15,6 +15,7 @@ local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDispla
 local game_relations = require("scripts.core.game_relations")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
+local gulagUtils = require("scripts.utils.gulag")
 
 local log = create_ts_class_instance(LuaLogger, "xr_effects");
 
@@ -1155,10 +1156,10 @@ end
 
 -- ��� ����� ������
 function get_stalker_for_new_job(actor, npc, p)
-  xr_gulag.find_stalker_for_job(npc, p[1])
+  gulagUtils.find_stalker_for_job(npc, p[1])
 end
 function switch_to_desired_job(actor, npc, p)
-  xr_gulag.switch_to_desired_job(npc)
+  gulagUtils.switch_to_desired_job(npc)
 end
 
 --[[

@@ -19,7 +19,7 @@ import {
 
 import { post_processors } from "@/mod/globals/animation/post_processors";
 import { communities } from "@/mod/globals/communities";
-import { AnyCallable, AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { set_travel_func } from "@/mod/scripts/core/binders/ActorBinder";
 import { getActor } from "@/mod/scripts/core/db";
 import { ERelation } from "@/mod/scripts/core/game_relations";
@@ -31,6 +31,7 @@ import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
 import { getAlifeCharacterCommunity, getAlifeDistanceBetween, getObjectSquad } from "@/mod/scripts/utils/alife";
 import { parseCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
+import { get_npc_smart } from "@/mod/scripts/utils/gulag";
 import { getObjectStoryId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -177,7 +178,7 @@ export class TravelManager {
       return false;
     }
 
-    const smart: ISmartTerrain = get_global("xr_gulag.get_npc_smart")(npc);
+    const smart: Optional<ISmartTerrain> = get_npc_smart(npc);
 
     if (smart !== null) {
       if (smart.name() === "jup_b41") {

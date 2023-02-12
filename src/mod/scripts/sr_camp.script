@@ -1,7 +1,6 @@
 -- 426
 
 local checkers = require("scripts.utils.checkers")
-local ActionSchemeMeet = require("scripts.core.logic.ActionSchemeMeet").ActionSchemeMeet
 local GlobalSound = require("scripts.core.logic.GlobalSound").GlobalSound
 local SoundManager = require("scripts.core.sound.SoundManager")
 local LuaLogger = require("scripts.utils.logging").LuaLogger

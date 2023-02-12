@@ -5,6 +5,7 @@ local LuaLogger = require("scripts.utils.logging").LuaLogger
 local SmartCover = require("scripts.se.SmartCover")
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 local log = create_ts_class_instance(LuaLogger, "gulag_general");
+local gulagUtils = require("scripts.utils.gulag")
 
 local ltx
 
@@ -186,7 +187,7 @@ function load_job(smart)
 
     if smart.base_on_actor_control ~= nil and
         smart.base_on_actor_control.ignore_zone ~= nil and
-        xr_gulag.job_in_restrictor(smart, smart.base_on_actor_control.ignore_zone, way_name)
+        gulagUtils.job_in_restrictor(smart, smart.base_on_actor_control.ignore_zone, way_name)
     then
       job_ltx = job_ltx .. "combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true \n" ..
           "combat_ignore_keep_when_attacked = true \n"
@@ -235,7 +236,7 @@ function load_job(smart)
             end
 
             if precond_params.is_safe_job == nil then
-              precond_params.is_safe_job = xr_gulag.job_in_restrictor(smart, smart.safe_restr, way_name)
+              precond_params.is_safe_job = gulagUtils.job_in_restrictor(smart, smart.safe_restr, way_name)
             end
 
             return precond_params.is_safe_job ~= false
@@ -250,7 +251,7 @@ function load_job(smart)
         "[sleeper@" .. way_name .. "]\n" ..
         "path_main = sleep_" .. it .. "\n"
 
-    if smart.safe_restr ~= nil and xr_gulag.job_in_restrictor(smart, smart.safe_restr, way_name) then
+    if smart.safe_restr ~= nil and gulagUtils.job_in_restrictor(smart, smart.safe_restr, way_name) then
       job_ltx = job_ltx .. "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n"
     end
 
@@ -260,7 +261,7 @@ function load_job(smart)
 
     if smart.base_on_actor_control ~= nil and
         smart.base_on_actor_control.ignore_zone ~= nil and
-        xr_gulag.job_in_restrictor(smart, smart.base_on_actor_control.ignore_zone, way_name)
+        gulagUtils.job_in_restrictor(smart, smart.base_on_actor_control.ignore_zone, way_name)
     then
       job_ltx = job_ltx .. "combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true \n" ..
           "combat_ignore_keep_when_attacked = true \n"
@@ -336,7 +337,7 @@ function load_job(smart)
       job_ltx = job_ltx .. "path_look = collector_" .. it .. "_look\n"
     end
 
-    if smart.safe_restr ~= nil and xr_gulag.job_in_restrictor(smart, smart.safe_restr, way_name) then
+    if smart.safe_restr ~= nil and gulagUtils.job_in_restrictor(smart, smart.safe_restr, way_name) then
       job_ltx = job_ltx .. "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n"
     end
 
@@ -346,7 +347,7 @@ function load_job(smart)
 
     if smart.base_on_actor_control ~= nil and
         smart.base_on_actor_control.ignore_zone ~= nil and
-        xr_gulag.job_in_restrictor(smart, smart.base_on_actor_control.ignore_zone, way_name)
+        gulagUtils.job_in_restrictor(smart, smart.base_on_actor_control.ignore_zone, way_name)
     then
       job_ltx = job_ltx .. "combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true \n" ..
           "combat_ignore_keep_when_attacked = true \n"
@@ -388,7 +389,7 @@ function load_job(smart)
             end
 
             if precond_params.is_safe_job == nil then
-              precond_params.is_safe_job = xr_gulag.job_in_restrictor(smart, smart.safe_restr, way_name)
+              precond_params.is_safe_job = gulagUtils.job_in_restrictor(smart, smart.safe_restr, way_name)
             end
 
             return precond_params.is_safe_job ~= false
@@ -411,7 +412,7 @@ function load_job(smart)
       job_ltx = job_ltx .. "path_look = walker_" .. it .. "_look\n"
     end
 
-    if smart.safe_restr ~= nil and xr_gulag.job_in_restrictor(smart, smart.safe_restr, way_name) then
+    if smart.safe_restr ~= nil and gulagUtils.job_in_restrictor(smart, smart.safe_restr, way_name) then
       job_ltx = job_ltx .. "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n"
     end
 
@@ -421,7 +422,7 @@ function load_job(smart)
 
     if smart.base_on_actor_control ~= nil and
         smart.base_on_actor_control.ignore_zone ~= nil and
-        xr_gulag.job_in_restrictor(smart, smart.base_on_actor_control.ignore_zone, way_name)
+        gulagUtils.job_in_restrictor(smart, smart.base_on_actor_control.ignore_zone, way_name)
     then
       job_ltx = job_ltx .. "combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true \n" ..
           "combat_ignore_keep_when_attacked = true \n"
@@ -471,7 +472,7 @@ function load_job(smart)
               end
 
               if precond_params.is_safe_job == nil then
-                precond_params.is_safe_job = xr_gulag.job_in_restrictor(smart, smart.safe_restr, way_name)
+                precond_params.is_safe_job = gulagUtils.job_in_restrictor(smart, smart.safe_restr, way_name)
               end
 
               return precond_params.is_safe_job ~= false
@@ -494,7 +495,7 @@ function load_job(smart)
       job_ltx = job_ltx .. "path_look = patrol_" .. it .. "_look\n"
     end
 
-    if smart.safe_restr ~= nil and xr_gulag.job_in_restrictor(smart, smart.safe_restr, way_name) then
+    if smart.safe_restr ~= nil and gulagUtils.job_in_restrictor(smart, smart.safe_restr, way_name) then
       job_ltx = job_ltx .. "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n"
     end
 
@@ -539,7 +540,7 @@ function load_job(smart)
             end
 
             --if precond_params.is_safe_job == nil then
-            --	precond_params.is_safe_job = xr_gulag.job_in_restrictor(smart, smart.safe_restr, way_name)
+            --	precond_params.is_safe_job = gulagUtils.job_in_restrictor(smart, smart.safe_restr, way_name)
             --end
 
             --return precond_params.is_safe_job ~= false
@@ -561,7 +562,7 @@ function load_job(smart)
       job_ltx = job_ltx .. "out_restr = " .. smart.def_restr .. "\n"
     end
 
-    if smart.safe_restr ~= nil and xr_gulag.job_in_restrictor(smart, smart.safe_restr, way_name) then
+    if smart.safe_restr ~= nil and gulagUtils.job_in_restrictor(smart, smart.safe_restr, way_name) then
       job_ltx = job_ltx .. "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n"
     end
 
@@ -605,7 +606,7 @@ function load_job(smart)
             end
 
             if precond_params.is_safe_job == nil then
-              precond_params.is_safe_job = xr_gulag.job_in_restrictor(smart, smart.safe_restr, way_name)
+              precond_params.is_safe_job = gulagUtils.job_in_restrictor(smart, smart.safe_restr, way_name)
             end
 
             return precond_params.is_safe_job ~= false
@@ -622,7 +623,7 @@ function load_job(smart)
         "path_walk = guard_" .. it .. "_walk\n" ..
         "path_look = guard_" .. it .. "_look\n"
 
-    if smart.safe_restr ~= nil and xr_gulag.job_in_restrictor(smart, smart.safe_restr, way_name) then
+    if smart.safe_restr ~= nil and gulagUtils.job_in_restrictor(smart, smart.safe_restr, way_name) then
       job_ltx = job_ltx .. "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n"
     end
 
@@ -638,7 +639,7 @@ function load_job(smart)
         "on_info = {!is_obj_on_job(logic@follower_" .. way_name .. ":3)} walker@" .. way_name .. "\n" ..
         "on_info2 = {=distance_to_obj_on_job_le(logic@follower_" .. way_name .. ":3)} remark@" .. way_name .. "\n"
 
-    if smart.safe_restr ~= nil and xr_gulag.job_in_restrictor(smart, smart.safe_restr, way_name) then
+    if smart.safe_restr ~= nil and gulagUtils.job_in_restrictor(smart, smart.safe_restr, way_name) then
       job1_ltx = job1_ltx .. "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n"
     end
 

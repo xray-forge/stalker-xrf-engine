@@ -557,7 +557,7 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
   },
   reinit(): void {
     object_binder.reinit(this);
-    storage.set(this.object.id(), {} as any);
+    storage.set(this.object.id(), {});
   },
   net_spawn(object: XR_cse_alife_object): boolean {
     if (!object_binder.net_spawn(this, object)) {

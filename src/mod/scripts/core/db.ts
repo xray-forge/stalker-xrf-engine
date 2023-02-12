@@ -30,7 +30,7 @@ const logger: LuaLogger = new LuaLogger("db", false);
 // todo: Separate file with DB objects
 // todo: Separate file with DB utils
 
-export const infoRestr = {};
+export const infoRestr: LuaTable<number, string | XR_game_object> = new LuaTable();
 export const scriptIds: LuaTable<number> = new LuaTable();
 export const campStorage: LuaTable = new LuaTable();
 export const noWeapZones: LuaTable<string, boolean> = new LuaTable();
@@ -73,6 +73,7 @@ export interface IStoredObject<T = XR_game_object> {
   [index: string]: any;
 
   pp?: XR_vector;
+  avail_animations?: LuaTable<number, string>;
   animpoint?: ActionSchemeAnimpoint;
   scan_table?: LuaTable<number, LuaTable<number, { key: number; pos: XR_vector }>>;
   wounded?: { wound_manager: ActionWoundManager; not_for_help: boolean; enable_talk?: unknown };

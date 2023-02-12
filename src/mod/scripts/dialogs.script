@@ -9,6 +9,7 @@ local NewsManager = require("scripts.core.NewsManager")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 local checkers = require("scripts.utils.checkers")
+local gulagUtils = require("scripts.utils.gulag")
 
 local log = create_ts_class_instance(LuaLogger, "dialogs");
 
@@ -16,7 +17,7 @@ quest_section = {}
 
 function is_npc_in_current_smart(first_speaker, second_speaker, smart_name)
   local npc = who_is_npc(first_speaker, second_speaker)
-  local smart = xr_gulag.get_npc_smart(npc)
+  local smart = gulagUtils.get_npc_smart(npc)
   if not smart then
     return false
   end

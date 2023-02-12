@@ -23,7 +23,7 @@ export const ActionAnimpoint: IActionAnimpoint = declare_xr_class("ActionAnimpoi
   execute(): void {
     action_base.execute(this);
 
-    const [pos, dir] = this.state.animpoint!.get_animation_params() as LuaMultiReturn<[unknown, unknown]>;
+    const [pos, dir] = this.state.animpoint!.get_animation_params();
 
     if (!this.state.animpoint!.started) {
       this.state.animpoint!.start();

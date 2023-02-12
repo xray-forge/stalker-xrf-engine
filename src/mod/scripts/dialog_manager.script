@@ -1,8 +1,8 @@
 -- 1007
-local ActionWoundManager = require("scripts.core.logic.ActionWoundManager").ActionWoundManager
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 local checkers = require("scripts.utils.checkers")
+local gulagUtils = require("scripts.utils.gulag")
 
 local log = create_ts_class_instance(LuaLogger, "dialog_manager");
 
@@ -793,7 +793,7 @@ function precondition_anomalies_dialogs_do_not_know(npc, actor, dialog_name, par
 end
 -- Calculate preconditions for phrases in anomalies dialog
 function precondition_anomalies_dialogs(npc, actor, dialog_name, parent_id, id)
-  local smart = xr_gulag.get_npc_smart(npc)
+  local smart = gulagUtils.get_npc_smart(npc)
   if smart ~= nil and tostring(smart:name()) == phrase_table.anomalies[id].smart then
     priority_table.anomalies[npc:id()][id] = -1
     return false
@@ -805,56 +805,6 @@ function action_anomalies_dialogs(npc, actor, dialog_name, id)
   action(phrase_table.anomalies, priority_table.anomalies, id, npc)
   told(priority_table.anomalies, npc)
 end
-
---[[
--- Calculate precondition for default phrase in place dialog
-function precondition_place_dialogs_no_more(npc, actor, dialog_name, parent_id, id)
-	local f_place = false
-	if is_told(npc, "place") == true then
-		return true
-	end
-	local smart = xr_gulag.get_npc_smart(npc)
-	if not smart then
-		return true
-	end
-	for k,v in pairs(phrase_table.place) do
-		if smart:name() == v.smart then
-			for i = 1,#v.level do
-				if level.name() == v.level[i] then
-					f_place = true
-					break
-				end
-			end
-		end
-		if f_place == true then
-			break
-		end
-	end
-	if f_place == false then
-		return true
-	end
-	return precondition_no_more(npc, "place")
-end
--- Calculate preconditions for phrases in place dialog
-function precondition_place_dialogs(npc, actor, dialog_name, parent_id, id)
-	local smart = xr_gulag.get_npc_smart(npc)
-	if smart ~= nil then
-		if tostring(smart:name()) ~= phrase_table.place[id].smart then
-			priority_table.place[npc:id()][id] = -1
-			return false
-		end
-	else
-		priority_table.place[npc:id()][id] = -1
-		return false
-	end
-	return precondition(npc, phrase_table.place, priority_table.place, id)
-end
--- Set phrase end action for place dialog
-function action_place_dialogs(npc, actor, dialog_name, id)
-	action(phrase_table.place, priority_table.place, id, npc)
- 	told(priority_table.place, npc)
-end
-]]--
 
 -- Calculate precondition for default phrase in information dialog
 function precondition_information_dialogs_no_more(npc, actor, dialog_name, parent_id, id)
@@ -934,76 +884,3 @@ function uni_dialog_precond(first_speaker, second_speaker)
       character_community(npc) == "freedom" or
       character_community(npc) == "dolg"
 end
-
---[[
-function restore_npc_disabled_phrases(npc_id)
-	disabled_phrases[npc_id] = nil
-end
--- Set phrase end action for place dialog
-function action_sim_action_dialog(npc, actor, dialog_name, id)
-	rnd = 0
-end
--- Precondition for simulation answer
-function precondition_sim_action_dialog(npc, actor, dialog_name)
-	local squad = get_object_squad(npc)
-	if(ActionWoundManager:is_heavy_wounded_by_id(npc:id())) then
-		return false
-	end
-	if(squad~=nil) then
-		if(squad.current_action~=nil) then
-			if(rnd==0) then
-				rnd = math.random(1, 100)
-			end
-			if(rnd>0) then
-				return true
-			end
-		end
-	end
-	return false
-end
--- Precondition for simulation answer
-function precondition_not_sim_action_dialog(npc, actor, dialog_name)
-	return not(precondition_sim_action_dialog(npc, actor, dialog_name))
-end
--- Precondition for simulation answer
-function precondition_sim_action_attack_point_none(npc, actor, dialog_name)
-	local squad = get_object_squad(npc)
-		if(squad.current_action.name=="attack_point") then
-		local smart = SimBoard.get_sim_board().smarts[squad.current_action.dest_smrt_id].smrt
-		if(smart.player_name=="none") then
-			return true
-		end
-	end
-	return false
-end
--- Precondition for simulation answer
-function precondition_sim_action_attack_point_friend(npc, actor, dialog_name)
-	local squad = get_object_squad(npc)
-		if(squad.current_action.name=="attack_point") then
-		local smart = SimBoard.get_sim_board().smarts[squad.current_action.dest_smrt_id].smrt
-		if(smart.player_name==squad.player_id) then
-			return true
-		end
-	end
-	return false
-end
--- Precondition for simulation answer
-function precondition_sim_action_attack_point_enemy(npc, actor, dialog_name)
-	local squad = get_object_squad(npc)
-		if(squad.current_action.name=="attack_point") then
-		local smart = SimBoard.get_sim_board().smarts[squad.current_action.dest_smrt_id].smrt
-		if(smart.player_name~=squad.player_id) and (smart.player_name~="none") then
-			return true
-		end
-	end
-	return false
-end
--- Precondition for simulation answer
-function precondition_sim_action_stay_point_none_near(npc, actor, dialog_name)
-	return true
-end
--- Precondition for simulation answer
-function precondition_sim_action_stay_point_enemy_near(npc, actor, dialog_name)
-	return false
-end
-]]--

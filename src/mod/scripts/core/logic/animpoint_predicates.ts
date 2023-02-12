@@ -3,6 +3,8 @@
 import { misc } from "@/mod/globals/items/misc";
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { storage } from "@/mod/scripts/core/db";
+import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
+import { get_npc_smart } from "@/mod/scripts/utils/gulag";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("animpoint_predicates");
@@ -220,7 +222,7 @@ function animpoint_predicate_harmonica(npc_id: number, is_in_camp?: Optional<boo
 
 function animpoint_predicate_weapon(npc_id: number): boolean {
   if (storage.get(npc_id) && storage.get(npc_id).object) {
-    const smart = get_global<AnyCallablesModule>("xr_gulag").get_npc_smart(storage.get(npc_id).object);
+    const smart: Optional<ISmartTerrain> = get_npc_smart(storage.get(npc_id).object!);
 
     if (smart) {
       for (const [k, v] of smart_table) {

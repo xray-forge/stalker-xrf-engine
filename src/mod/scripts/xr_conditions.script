@@ -12,6 +12,7 @@ local game_relations = require("scripts.core.game_relations")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local checkers = require("scripts.utils.checkers")
 local create_ts_class_instance = require("lualib_bundle").__TS__New
+local gulagUtils = require("scripts.utils.gulag")
 
 local log = create_ts_class_instance(LuaLogger, "xr_conditions");
 
@@ -139,7 +140,7 @@ function is_obj_on_job(actor, npc, p)
   if p and p[2] then
     smart = SimBoard.get_sim_board():get_smart_by_name(p[2])
   else
-    smart = xr_gulag.get_npc_smart(npc)
+    smart = gulagUtils.get_npc_smart(npc)
   end
   if smart == nil then
     return false
@@ -157,7 +158,7 @@ end
 -- �������� ���� ��� ��������� �� ������� <= ��������
 -- ���������: [sid,dist]
 function distance_to_obj_on_job_le(actor, npc, p)
-  local smart = xr_gulag.get_npc_smart(npc)
+  local smart = gulagUtils.get_npc_smart(npc)
   for k, v in pairs(smart.npc_info) do
     local npc_job = smart.job_data[v.job_id]
     if npc_job.section == p[1] then
@@ -282,7 +283,7 @@ function enemy_group(actor, npc, p)
 end
 
 function gulag_state(actor, npc, p)
-	if xr_gulag.getGulagState(p[1]) == p[2] then
+	if gulagUtils.getGulagState(p[1]) == p[2] then
 		return true
 	end
 	return false
@@ -1536,7 +1537,7 @@ function check_enemy_smart(actor, npc, p)
   if enemy == nil or enemy_id == alife():actor().id then
     return false
   end
-  local enemy_smart = xr_gulag.get_npc_smart(enemy)
+  local enemy_smart = gulagUtils.get_npc_smart(enemy)
 
   if (enemy_smart ~= nil) and (enemy_smart:name() == p[1]) then
     return true

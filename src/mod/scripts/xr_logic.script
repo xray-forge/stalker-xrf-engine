@@ -23,6 +23,7 @@ local utilsAlife = require("scripts.utils.alife")
 local utilsConfigs = require("scripts.utils.configs")
 local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
 local LuaLogger = require("scripts.utils.logging").LuaLogger
+local gulagUtils = require("scripts.utils.gulag")
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 
 local log = create_ts_class_instance(LuaLogger, "xr_logic");
@@ -188,7 +189,7 @@ function configure_schemes(npc, ini, ini_filename, stype, section_logic, gulag_n
 
     else
       if stype == schemes.stype_stalker or stype == schemes.stype_mobile then
-        local current_smart = xr_gulag.get_npc_smart(npc)
+        local current_smart = gulagUtils.get_npc_smart(npc)
         if current_smart ~= nil then
           local t = current_smart:getJob(npc_id)
           if t then
@@ -387,7 +388,7 @@ function activate_by_section(npc, ini, section, gulag_name, loading)
   end
 
   if section == nil then
-    local current_gulag = xr_gulag.get_npc_smart(npc)
+    local current_gulag = gulagUtils.get_npc_smart(npc)
     if current_gulag == nil then
       abort("xr_logic: activate_by_section: section is NIL and NPC not in gulag.")
     end
@@ -1509,7 +1510,7 @@ function get_customdata_or_ini_file(npc, filename)
       return ini_file(st.job_ini)
     end
     --printf("custom_data_or_ini:4!!!")
-    return xr_gulag.loadLtx(string.sub(filename, 2))
+    return gulagUtils.loadLtx(string.sub(filename, 2))
   else
     --printf("custom_data_or_ini:5!!!")
     return ini_file(filename)

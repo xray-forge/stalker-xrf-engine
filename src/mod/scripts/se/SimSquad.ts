@@ -299,7 +299,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
       nt = this.pick_next_target();
     }
 
-    const point = this.board.smarts_by_names[nt];
+    const point = this.board.smarts_by_names.get(nt);
 
     if (point === null) {
       abort("Incorrect next point [%s] for squad [%s]", tostring(nt), tostring(this.id));

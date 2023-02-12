@@ -164,6 +164,12 @@ export class ActionSchemeAnimpoint extends AbstractSchemeAction {
   public npc_id: Optional<number> = null;
   public started: boolean = false;
 
+  public constructor(object: XR_game_object, state: IStoredObject) {
+    super(object, state);
+
+    this.npc_id = object.id();
+  }
+
   public initialize(): void {
     this.camp = null;
     this.state.base_action = null;
@@ -298,7 +304,7 @@ export class ActionSchemeAnimpoint extends AbstractSchemeAction {
     const is_in_camp = this.camp !== null;
 
     if (this.state.avail_animations !== null) {
-      for (const [k, v] of this.state.avail_animations) {
+      for (const [k, v] of this.state.avail_animations!) {
         table.insert(this.state.approved_actions!, {
           predicate: () => true,
           name: v,
@@ -367,7 +373,7 @@ export class ActionSchemeAnimpoint extends AbstractSchemeAction {
           table.insert(tmp_actions, v.name);
         }
       } else {
-        for (const [k, v] of this.state.avail_animations) {
+        for (const [k, v] of this.state.avail_animations!) {
           table.insert(tmp_actions, v);
         }
       }
@@ -381,7 +387,9 @@ export class ActionSchemeAnimpoint extends AbstractSchemeAction {
       abort("Trying to use destroyed object!");
     }
 
-    const [camp_action, is_director] = this.camp!.get_camp_action(this.npc_id);
+    const [camp_action, is_director] = (
+      this.camp as { get_camp_action: (npcId: number) => LuaMultiReturn<[string, boolean]> }
+    ).get_camp_action(this.npc_id);
     const tbl = is_director ? assoc_tbl.get(camp_action).director : assoc_tbl.get(camp_action).listener;
 
     let found = false;
