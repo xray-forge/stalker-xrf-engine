@@ -34,6 +34,7 @@ import { addCommonPrecondition } from "@/mod/scripts/utils/scheme";
 
 const logger: LuaLogger = new LuaLogger("ActionSchemeCamp");
 
+// todo: Rename to camp patrol?
 export class ActionSchemeCamp extends AbstractSchemeAction {
   public static readonly SCHEME_SECTION: string = "kamp";
 
@@ -116,7 +117,7 @@ export class ActionSchemeCamp extends AbstractSchemeAction {
     st.radius = getConfigNumber(ini, section, "radius", npc, false, 2);
 
     if (kamps.get(st.center_point) === null) {
-      kamps.set(st.center_point, new CampManager(st.center_point));
+      kamps.set(st.center_point, new CampPatrolManager(st.center_point));
     }
 
     kamps.get(st.center_point).addNpc(npc);
@@ -139,7 +140,7 @@ interface INpcDescriptor {
   states: Record<string, Optional<boolean>>;
 }
 
-export class CampManager {
+export class CampPatrolManager {
   public kamp_name: string;
   public patrol: XR_patrol;
   public position: LuaTable<number, { dir: XR_vector; used: Optional<number> }>;

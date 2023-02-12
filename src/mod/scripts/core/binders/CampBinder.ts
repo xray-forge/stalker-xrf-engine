@@ -9,15 +9,14 @@ import {
   XR_reader,
 } from "xray16";
 
-import { AnyCallable, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { CAMPS } from "@/mod/scripts/core/db";
+import { CampStoryManager } from "@/mod/scripts/core/logic/CampStoryManager";
 import { getConfigString } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("CampBinder");
-
-const CAMP_SECTION: string = "camp";
 
 export interface ICampBinder extends XR_object_binder {}
 
@@ -30,31 +29,41 @@ export const CampBinder: ICampBinder = declare_xr_class("CampBinder", object_bin
   },
   reinit(): void {
     object_binder.reinit(this);
-    CAMPS.set(this.object.id(), { object: this.object });
+
+    const camp = CAMPS.get(this.object.id());
+
+    // todo: Probably not needed.
+    if (camp !== null) {
+      camp.object = this.object;
+    }
   },
   net_spawn(object: XR_cse_alife_object): boolean {
     if (!object_binder.net_spawn(this, object)) {
       return false;
     }
 
-    logger.info("Spawn camp", this.object.id());
+    logger.info("Net spawn camp:", this.object.name());
 
-    let ini: Optional<XR_ini_file> = this.object.spawn_ini()!;
+    const ini: XR_ini_file = this.object.spawn_ini();
 
-    if (ini.section_exist(CAMP_SECTION)) {
-      const filename: Optional<string> = getConfigString(ini, CAMP_SECTION, "cfg", null, false, "", null);
+    if (ini.section_exist(CampStoryManager.SCHEME_SECTION)) {
+      const filename: Optional<string> = getConfigString(
+        ini,
+        CampStoryManager.SCHEME_SECTION,
+        "cfg",
+        null,
+        false,
+        "",
+        null
+      );
 
-      if (filename !== null) {
-        ini = new ini_file(filename);
-      }
-
-      CAMPS.set(this.object.id(), (get_global("sr_camp").CCampManager as AnyCallable)(this.object, ini));
+      CAMPS.set(this.object.id(), new CampStoryManager(this.object, filename === null ? ini : new ini_file(filename)));
     }
 
     return true;
   },
   net_destroy(): void {
-    logger.info("Destroy camp", this.object.id());
+    logger.info("Net destroy camp:", this.object.id());
 
     CAMPS.delete(this.object.id());
     object_binder.net_destroy(this);
@@ -62,9 +71,8 @@ export const CampBinder: ICampBinder = declare_xr_class("CampBinder", object_bin
   update(delta: number): void {
     const camp = CAMPS.get(this.object.id());
 
-    if (camp.camp !== null) {
-      logger.info("Updating camp", camp.object?.id());
-      camp.camp.update();
+    if (camp !== null) {
+      camp.update();
     }
   },
   net_save_relevant(target: XR_object_binder): boolean {

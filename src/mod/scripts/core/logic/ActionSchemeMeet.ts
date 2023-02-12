@@ -176,22 +176,22 @@ export class ActionSchemeMeet extends AbstractSchemeAction {
       def.use_text = "nil";
     } else {
       def.close_distance = "{=is_wounded} 0, {!is_squad_commander} 0, 3";
-      def.close_anim = "{=is_wounded} null, {!is_squad_commander} null, {=actor_has_weapon} threat_na, talk_default";
+      def.close_anim = "{=is_wounded} nil, {!is_squad_commander} nil, {=actor_has_weapon} threat_na, talk_default";
       def.close_snd_distance = "{=is_wounded} 0, {!is_squad_commander} 0, 3";
       def.close_snd_hello =
-        "{=is_wounded} null, {!is_squad_commander} null, {=actor_enemy} null," +
+        "{=is_wounded} nil, {!is_squad_commander} nil, {=actor_enemy} nil," +
         " {=actor_has_weapon} meet_hide_weapon, meet_hello";
       def.close_snd_bye =
-        "{=is_wounded} null, {!is_squad_commander} null, {=actor_enemy} null, {=actor_has_weapon} null, meet_hello";
-      def.close_victim = "{=is_wounded} null, {!is_squad_commander} null, actor";
+        "{=is_wounded} nil, {!is_squad_commander} nil, {=actor_enemy} nil, {=actor_has_weapon} nil, meet_hello";
+      def.close_victim = "{=is_wounded} nil, {!is_squad_commander} nil, actor";
       def.far_distance = "{=is_wounded} 0, {!is_squad_commander} 0, 5";
       def.far_anim = "nil";
       def.far_snd_distance = "{=is_wounded} 0, {!is_squad_commander} 0, 5";
       def.far_snd = "nil";
       def.far_victim = "nil";
       def.snd_on_use =
-        "{=is_wounded} null, {!is_squad_commander} meet_use_no_talk_leader, {=actor_enemy} null," +
-        " {=has_enemy} meet_use_no_fight, {=actor_has_weapon} meet_use_no_weapon, {!dist_to_actor_le(3)} null";
+        "{=is_wounded} nil, {!is_squad_commander} meet_use_no_talk_leader, {=actor_enemy} nil," +
+        " {=has_enemy} meet_use_no_fight, {=actor_has_weapon} meet_use_no_weapon, {!dist_to_actor_le(3)} v";
       def.use =
         "{=is_wounded} false, {!is_squad_commander} false, {=actor_enemy} false, {=has_enemy} false," +
         " {=actor_has_weapon} false, {=dist_to_actor_le(3)} true, false";

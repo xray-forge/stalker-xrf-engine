@@ -223,7 +223,14 @@ export const animations: LuaTable<string, IAnimationDescriptor> = {
       [0]: [
         "sit_1_guitar_0_0",
         { a: "guitar_a" },
-        { f: (...args: Array<any>) => get_global<AnyCallablesModule>("sr_camp").start_guitar(...args) },
+        {
+          f: (object: XR_game_object) => {
+            // eslint-disable-next-line @typescript-eslint/no-var-requires
+            const { CampStoryManager } = require("@/mod/scripts/core/logic/CampStoryManager");
+
+            CampStoryManager.start_guitar(object);
+          },
+        },
         "sit_1_guitar_0_1",
       ],
     },
@@ -241,7 +248,14 @@ export const animations: LuaTable<string, IAnimationDescriptor> = {
       [0]: [
         "sit_2_harmonica_1_0",
         { a: "harmonica_a" },
-        { f: (...args: Array<any>) => get_global<AnyCallablesModule>("sr_camp").start_harmonica(...args) },
+        {
+          f: (object: XR_game_object) => {
+            // eslint-disable-next-line @typescript-eslint/no-var-requires
+            const { CampStoryManager } = require("@/mod/scripts/core/logic/CampStoryManager");
+
+            CampStoryManager.start_harmonica(object);
+          },
+        },
         "sit_2_harmonica_1_1",
       ],
     },

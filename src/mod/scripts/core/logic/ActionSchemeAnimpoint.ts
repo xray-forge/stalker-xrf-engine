@@ -9,6 +9,7 @@ import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAct
 import { ActionAnimpoint, IActionAnimpoint } from "@/mod/scripts/core/logic/actions/ActionAnimpoint";
 import { ActionReachAnimpoint, IActionReachAnimpoint } from "@/mod/scripts/core/logic/actions/ActionReachAnimpoint";
 import { associations } from "@/mod/scripts/core/logic/animpoint_predicates";
+import { CampStoryManager } from "@/mod/scripts/core/logic/CampStoryManager";
 import { EvaluatorNeedAnimpoint } from "@/mod/scripts/core/logic/evaluators/EvaluatorNeedAnimpoint";
 import { EvaluatorReachAnimpoint } from "@/mod/scripts/core/logic/evaluators/EvaluatorReachAnimpoint";
 import { registered_smartcovers } from "@/mod/scripts/se/SmartCover";
@@ -152,7 +153,7 @@ export class ActionSchemeAnimpoint extends AbstractSchemeAction {
     }
   }
 
-  public camp: Optional<any> = null;
+  public camp: Optional<CampStoryManager> = null;
   public current_action: Optional<string> = null;
   public position: Optional<XR_vector> = null;
   public position_vertex: Optional<number> = null;
@@ -331,13 +332,13 @@ export class ActionSchemeAnimpoint extends AbstractSchemeAction {
 
   public start(): void {
     if (this.state.use_camp) {
-      this.camp = get_global<AnyCallablesModule>("sr_camp").get_current_camp(this.position);
+      this.camp = CampStoryManager.get_current_camp(this.position);
     }
 
     this.fill_approved_actions();
 
     if (this.camp !== null) {
-      this.camp.register_npc(this.npc_id);
+      this.camp.register_npc(this.npc_id!);
     } else {
       this.current_action = this.state.approved_actions!.get(math.random(this.state.approved_actions!.length())).name;
     }
@@ -348,7 +349,7 @@ export class ActionSchemeAnimpoint extends AbstractSchemeAction {
 
   public stop(): void {
     if (this.camp !== null) {
-      this.camp.unregister_npc(this.npc_id);
+      this.camp.unregister_npc(this.npc_id!);
     }
 
     this.started = false;

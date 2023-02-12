@@ -24,14 +24,26 @@ export async function buildDynamicScripts(): Promise<void> {
   });
 
   if (result.diagnostics?.length) {
-    log.warn(chalk.redBright("Lua build issues:"));
+    log.warn("Lua build issues:");
 
     result.diagnostics.forEach((it) => {
+      let errorLineStartPosition: number = it.start;
+      let errorLineStopPosition: number = it.start + it.length;
+
+      while (it.file.text[errorLineStartPosition - 1] !== "\n" && errorLineStartPosition > 0) {
+        errorLineStartPosition -= 1;
+      }
+
+      while (it.file.text[errorLineStopPosition + 1] !== "\n" && errorLineStopPosition < it.file.text.length) {
+        errorLineStopPosition += 1;
+      }
+
       log.error(
         chalk.red("Lua issue:"),
         it.code,
         it.category,
         chalk.yellowBright(it.file.fileName),
+        `"${it.file.text.slice(errorLineStartPosition, errorLineStopPosition)}"`,
         chalk.red(it.messageText)
       );
     });

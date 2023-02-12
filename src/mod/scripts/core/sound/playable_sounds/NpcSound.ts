@@ -243,7 +243,7 @@ export class NpcSound extends AbstractPlayableSound {
   }
 
   public play(npc_id: number, faction: string, point: Optional<string>, msg: string): boolean {
-    logger.info();
+    logger.info("Play:", npc_id, faction, point, msg);
 
     const npc: Optional<XR_game_object> =
       storage.get(npc_id) && (storage.get(npc_id).object as Optional<XR_game_object>);

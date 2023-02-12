@@ -1,8 +1,9 @@
 import { action_base, XR_action_base, XR_game_object } from "xray16";
 
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import { associations, IAnimpointDescriptor } from "@/mod/scripts/core/logic/animpoint_predicates";
+import { CampStoryManager } from "@/mod/scripts/core/logic/CampStoryManager";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { MoveManager } from "@/mod/scripts/core/MoveManager";
 import { set_state } from "@/mod/scripts/state_management/StateManager";
@@ -22,7 +23,7 @@ export interface IActionWalkerActivity extends XR_action_base {
   state: IStoredObject;
   in_camp: Optional<boolean>;
   move_mgr: MoveManager;
-  camp: any;
+  camp: Optional<CampStoryManager>;
   avail_actions: LuaTable<number, IAnimpointDescriptor>;
 
   activate_scheme(loading: boolean, npc: XR_game_object): void;
@@ -86,7 +87,7 @@ export const ActionWalkerActivity: IActionWalkerActivity = declare_xr_class("Act
 
     this.move_mgr.update();
 
-    const camp = get_global<AnyCallablesModule>("sr_camp").get_current_camp(this.object.position());
+    const camp = CampStoryManager.get_current_camp(this.object.position());
 
     if (camp !== null && this.state.use_camp === true) {
       this.camp = camp;
@@ -94,7 +95,7 @@ export const ActionWalkerActivity: IActionWalkerActivity = declare_xr_class("Act
       this.in_camp = true;
     } else {
       if (this.in_camp === true) {
-        this.camp.unregister_npc(this.object.id());
+        this.camp!.unregister_npc(this.object.id());
         this.in_camp = null;
       }
     }
@@ -125,7 +126,7 @@ export const ActionWalkerActivity: IActionWalkerActivity = declare_xr_class("Act
     this.move_mgr.finalize();
 
     if (this.in_camp === true) {
-      this.camp.unregister_npc(this.object.id());
+      this.camp!.unregister_npc(this.object.id());
       this.in_camp = null;
     }
 
@@ -136,7 +137,7 @@ export const ActionWalkerActivity: IActionWalkerActivity = declare_xr_class("Act
   },
   net_destroy(npc: XR_game_object): void {
     if (this.in_camp === true) {
-      this.camp.unregister_npc(npc.id());
+      this.camp!.unregister_npc(npc.id());
       this.in_camp = null;
     }
   },

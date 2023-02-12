@@ -6,48 +6,6 @@ log:info("Initialize utils")
 
 local export = {}
 
-local function door_default_callback(door, actor)
-	local ph_shell = door:get_physics_shell()
-	local joint = ph_shell:get_joint_by_bone_name("door")
-
-	local low_limit = 0
-	local hi_limit = 0
-	low_limit, hi_limit = joint:get_limits(low_limit, hi_limit, 0)
-
-	local angle = joint:get_axis_angle(0)
-	if angle-low_limit > hi_limit - angle
-	then
-		joint:set_max_force_and_velocity(100, -1.5, 0)
-	else
-		joint:set_max_force_and_velocity(100, 1.5, 0)
-	end
-end
-
-function export.door_init(door)
-	door:set_use_callback(door_default_callback)
-end
-
--- ����� door ��������� ����������� � ���������, ��� ��� ����� ���������� callback_fn
-function export.door_close_then_lock(door, callback_fn)
-	local ph_shell = door:get_physics_shell()
-	local joint = ph_shell:get_joint_by_bone_name("door")
-	local low_limit = 0
-	local hi_limit = 0
-	low_limit, hi_limit = joint:get_limits(low_limit, hi_limit, 0)
-	local angle = joint:get_axis_angle(0)
-	if angle-low_limit > hi_limit - angle
-	then
-		joint:set_max_force_and_velocity(1000000, 0, 0)
-	else
-		joint:set_max_force_and_velocity(1000000, 0, 0)
-	end
-end
-
---unlock_then_open(door) -- ����� ���������� � ��������� ���������
---locked(door) -- true, ���� ����� ������� � ��������
-
---��� ������� ������� ���������� ����� ��� ������ ����� ����������� �� ����������� ����������� ���������.
-
 function export.parse_waypoint_data(pathname, wpflags, wpname)
 	local rslt = {}
 

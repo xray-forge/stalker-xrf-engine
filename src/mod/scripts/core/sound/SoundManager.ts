@@ -56,7 +56,7 @@ export class SoundManager {
     }
   }
 
-  public set_storyteller(npc_id: number): void {
+  public set_storyteller(npc_id: Optional<number>): void {
     this.storyteller = npc_id;
   }
 

@@ -14,10 +14,11 @@ import type { TScheme, TSection } from "@/mod/lib/types/configuration";
 import type { ISignalLightBinder } from "@/mod/scripts/core/binders/SignalLightBinder";
 import type { ActionLight } from "@/mod/scripts/core/logic/ActionLight";
 import type { ActionSchemeAnimpoint } from "@/mod/scripts/core/logic/ActionSchemeAnimpoint";
-import type { CampManager } from "@/mod/scripts/core/logic/ActionSchemeCamp";
+import type { CampPatrolManager } from "@/mod/scripts/core/logic/ActionSchemeCamp";
 import type { PatrolManager } from "@/mod/scripts/core/logic/ActionSchemePatrol";
 import type { ITeleportPoint } from "@/mod/scripts/core/logic/ActionTeleport";
 import type { ActionWoundManager } from "@/mod/scripts/core/logic/ActionWoundManager";
+import type { CampStoryManager } from "@/mod/scripts/core/logic/CampStoryManager";
 import type { HeliCombat } from "@/mod/scripts/core/logic/heli/HeliCombat";
 import type { ReachTaskPatrolManager } from "@/mod/scripts/core/logic/ReachTaskPatrolManager";
 import type { RestrictorManager } from "@/mod/scripts/core/RestrictorManager";
@@ -46,8 +47,9 @@ export const silenceZones: LuaTable<number, string> = new LuaTable();
 export const fighting_with_actor_npcs: LuaTable<number, boolean> = new LuaTable();
 export const reactTaskPatrols: LuaTable<string, ReachTaskPatrolManager> = new LuaTable();
 export const patrols: LuaTable<number, PatrolManager> = new LuaTable();
-export const kamps: LuaTable<string, CampManager> = new LuaTable();
+export const kamps: LuaTable<string, CampPatrolManager> = new LuaTable(); // Camp patrols.
 export const kamp_stalkers: LuaTable<number, boolean> = new LuaTable();
+export const CAMPS: LuaTable<number, CampStoryManager> = new LuaTable(); // Camp stories.
 export const campfire_table: LuaTable<string, XR_CZoneCampfire> = new LuaTable();
 
 export const SAVE_MARKERS: LuaTable<string, number> = new LuaTable();
@@ -121,8 +123,6 @@ export const animObjByName: LuaTable<string, IStoredObject> = new LuaTable();
 export const anomalyByName: LuaTable<string, IStoredObject> = new LuaTable();
 export const sound_themes: LuaTable<string, AbstractPlayableSound> = new LuaTable();
 export const light_zones: LuaTable<number, ActionLight> = new LuaTable();
-
-export const CAMPS: LuaTable<number, { object?: XR_game_object; camp?: any }> = new LuaTable();
 
 export const CROW_STORAGE = {
   STORAGE: new LuaTable<number, number>(),

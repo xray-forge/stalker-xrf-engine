@@ -1,4 +1,7 @@
+import { XR_game_object } from "xray16";
+
 import { AnyArgs } from "@/mod/lib/types";
+import { CampStoryManager } from "@/mod/scripts/core/logic/CampStoryManager";
 import { IAnimationDescriptor } from "@/mod/scripts/state_management/lib/state_mgr_animation_list";
 
 export function add_animpoint_animation_list(): LuaTable<string, IAnimationDescriptor> {
@@ -686,13 +689,27 @@ export function add_animpoint_animation_list(): LuaTable<string, IAnimationDescr
         [0]: [
           "animpoint_sit_normal_guitar_in_1",
           { a: "guitar_a" },
-          { f: (...args: AnyArgs) => get_global("sr_camp").start_guitar(...args) },
+          {
+            f: (object: XR_game_object) => {
+              // eslint-disable-next-line @typescript-eslint/no-var-requires
+              const { CampStoryManager } = require("@/mod/scripts/core/logic/CampStoryManager");
+
+              CampStoryManager.start_guitar(object);
+            },
+          },
           "animpoint_sit_normal_guitar_in_2",
         ],
         [1]: [
           "animpoint_sit_normal_guitar_in_1",
           { a: "guitar_a" },
-          { f: (...args: AnyArgs) => get_global("sr_camp").start_guitar(...args) },
+          {
+            f: (object: XR_game_object) => {
+              // eslint-disable-next-line @typescript-eslint/no-var-requires
+              const { CampStoryManager } = require("@/mod/scripts/core/logic/CampStoryManager");
+
+              CampStoryManager.start_guitar(object);
+            },
+          },
           "animpoint_sit_normal_guitar_in_2",
         ],
       },
@@ -721,13 +738,27 @@ export function add_animpoint_animation_list(): LuaTable<string, IAnimationDescr
         [0]: [
           "animpoint_sit_low_guitar_in_1",
           { a: "guitar_a" },
-          { f: (...args: AnyArgs) => get_global("sr_camp").start_guitar(...args) },
+          {
+            f: (object: XR_game_object) => {
+              // eslint-disable-next-line @typescript-eslint/no-var-requires
+              const { CampStoryManager } = require("@/mod/scripts/core/logic/CampStoryManager");
+
+              CampStoryManager.start_guitar(object);
+            },
+          },
           "animpoint_sit_low_guitar_in_2",
         ],
         [1]: [
           "animpoint_sit_low_guitar_in_1",
           { a: "guitar_a" },
-          { f: (...args: AnyArgs) => get_global("sr_camp").start_guitar(...args) },
+          {
+            f: (object: XR_game_object) => {
+              // eslint-disable-next-line @typescript-eslint/no-var-requires
+              const { CampStoryManager } = require("@/mod/scripts/core/logic/CampStoryManager");
+
+              CampStoryManager.start_guitar(object);
+            },
+          },
           "animpoint_sit_low_guitar_in_2",
         ],
       },
@@ -794,13 +825,27 @@ export function add_animpoint_animation_list(): LuaTable<string, IAnimationDescr
         [0]: [
           "animpoint_sit_high_harmonica_in_1",
           { a: "harmonica_a" },
-          { f: (...args: AnyArgs) => get_global("sr_camp").start_harmonica(...args) },
+          {
+            f: (object: XR_game_object) => {
+              // eslint-disable-next-line @typescript-eslint/no-var-requires
+              const { CampStoryManager } = require("@/mod/scripts/core/logic/CampStoryManager");
+
+              CampStoryManager.start_harmonica(object);
+            },
+          },
           "animpoint_sit_high_harmonica_in_2",
         ],
         [1]: [
           "animpoint_sit_high_harmonica_in_1",
           { a: "harmonica_a" },
-          { f: (...args: AnyArgs) => get_global("sr_camp").start_harmonica(...args) },
+          {
+            f: (object: XR_game_object) => {
+              // eslint-disable-next-line @typescript-eslint/no-var-requires
+              const { CampStoryManager } = require("@/mod/scripts/core/logic/CampStoryManager");
+
+              CampStoryManager.start_harmonica(object);
+            },
+          },
           "animpoint_sit_high_harmonica_in_2",
         ],
       },
@@ -845,13 +890,27 @@ export function add_animpoint_animation_list(): LuaTable<string, IAnimationDescr
         [0]: [
           "animpoint_sit_low_harmonica_in_1",
           { a: "harmonica_a" },
-          { f: (...args: AnyArgs) => get_global("sr_camp").start_harmonica(...args) },
+          {
+            f: (object: XR_game_object) => {
+              // eslint-disable-next-line @typescript-eslint/no-var-requires
+              const { CampStoryManager } = require("@/mod/scripts/core/logic/CampStoryManager");
+
+              CampStoryManager.start_harmonica(object);
+            },
+          },
           "animpoint_sit_low_harmonica_in_2",
         ],
         [1]: [
           "animpoint_sit_low_harmonica_in_1",
           { a: "harmonica_a" },
-          { f: (...args: AnyArgs) => get_global("sr_camp").start_harmonica(...args) },
+          {
+            f: (object: XR_game_object) => {
+              // eslint-disable-next-line @typescript-eslint/no-var-requires
+              const { CampStoryManager } = require("@/mod/scripts/core/logic/CampStoryManager");
+
+              CampStoryManager.start_harmonica(object);
+            },
+          },
           "animpoint_sit_low_harmonica_in_2",
         ],
       },

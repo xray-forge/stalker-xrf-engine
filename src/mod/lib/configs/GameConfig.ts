@@ -36,7 +36,7 @@ export const gameConfig = {
      * Printing messages each time logger instance is created.
      * Useful to debug circular dependencies and resolving problems.
      */
-    IS_RESOLVE_LOG_ENABLED: false,
+    IS_RESOLVE_LOG_ENABLED: true,
     /**
      * Global prefix for lua debug logger in project.
      */
