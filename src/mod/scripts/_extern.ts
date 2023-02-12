@@ -18,9 +18,10 @@ import { weatherManager } from "@/mod/scripts/core/WeatherManager";
 import { ActionCutscene } from "@/mod/scripts/cutscenes/ActionCustscene";
 import { get_task_manager } from "@/mod/scripts/se/task/TaskManager";
 import { smart_covers_list } from "@/mod/scripts/smart_covers/smart_covers_list";
+import { GameOutroManager } from "@/mod/scripts/ui/game/GameOutroManager";
 import { WeaponParams } from "@/mod/scripts/ui/game/WeaponParams";
 import * as SleepDialogModule from "@/mod/scripts/ui/interaction/SleepDialog";
-import { disableInfo } from "@/mod/scripts/utils/actor";
+import { disableInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { externClassMethod } from "@/mod/scripts/utils/general";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -251,3 +252,14 @@ declare_global(
     return acc;
   }, {})
 );
+
+/**
+ * Outro conditions for game ending based on alife information.
+ */
+declare_global("outro", {
+  conditions: GameOutroManager.getInstance().conditions,
+  start_bk_sound: () => GameOutroManager.getInstance().start_bk_sound(),
+  stop_bk_sound: () => GameOutroManager.getInstance().stop_bk_sound(),
+  update_bk_sound_fade_start: (factor: number) => GameOutroManager.getInstance().update_bk_sound_fade_start(factor),
+  update_bk_sound_fade_stop: (factor: number) => GameOutroManager.getInstance().update_bk_sound_fade_stop(factor),
+});

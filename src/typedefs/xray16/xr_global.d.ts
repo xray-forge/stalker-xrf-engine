@@ -202,9 +202,14 @@ declare module "xray16" {
 
     translate_string(this: void, key: string): string;
     time(this: void): u32;
+    reload_language(this: void): void;
     get_game_time(this: void): XR_CTime;
-    start_tutorial(this: void, id: string): void;
+    log_stack_trace(this: void): void;
+    jump_to_level(this: void, level_name: string): void
+    jump_to_level(this: void, position: XR_vector, lvi: u32, gvi: u16): void
+    start_tutorial(this: void, tutorial_id: string): void;
     has_active_tutorial(this: void): boolean;
+    active_tutorial_name(this: void): string;
     stop_tutorial(this: void): void;
   }
 }

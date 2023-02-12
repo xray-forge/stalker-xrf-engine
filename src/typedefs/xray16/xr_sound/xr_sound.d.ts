@@ -44,9 +44,9 @@ declare module "xray16" {
     public set_position(vector: XR_vector): void;
     public attach_tail(sound_path: string): void;
 
-    public play(object: XR_game_object): void;
-    public play(object: XR_game_object, delay: f32): void;
-    public play(object: XR_game_object, delay: f32, type: TXR_sound_object_type): void;
+    public play(object: XR_game_object | null): void;
+    public play(object: XR_game_object | null, delay: f32): void;
+    public play(object: XR_game_object | null, delay: f32, type: TXR_sound_object_type): void;
     public play_at_pos(object: XR_game_object, position: XR_vector): void;
     public play_at_pos(object: XR_game_object, position: XR_vector, delay: f32): void;
     public play_at_pos(object: XR_game_object, position: XR_vector, delay: f32, type: TXR_sound_object_type): void;

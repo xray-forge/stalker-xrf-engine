@@ -31,6 +31,7 @@ export interface IStoryObjectsRegistry extends XR_EngineBinding {
   load(packet: TXR_net_processor): void;
 }
 
+// todo: Manager singleton.
 export const StoryObjectsRegistry: IStoryObjectsRegistry = declare_xr_class("StoryObjectsRegistry", null, {
   __init(): void {
     logger.info("Init");
@@ -38,8 +39,6 @@ export const StoryObjectsRegistry: IStoryObjectsRegistry = declare_xr_class("Sto
     this.story_id_by_id = new LuaTable();
   },
   register(objectId: number, storyObjectId: string): void {
-    logger.info("Register:", objectId, storyObjectId);
-
     if (this.id_by_story_id.get(storyObjectId) !== null) {
       if (objectId !== this.id_by_story_id.get(storyObjectId)) {
         const existingObjectName = alife().object(this.id_by_story_id.get(storyObjectId))?.name();
@@ -62,15 +61,12 @@ export const StoryObjectsRegistry: IStoryObjectsRegistry = declare_xr_class("Sto
     this.story_id_by_id.set(objectId, storyObjectId);
   },
   unregister_by_id(obj_id: number): void {
-    logger.info("Unregister object id:", obj_id);
     if (this.story_id_by_id.get(obj_id) !== null) {
       this.id_by_story_id.delete(this.story_id_by_id.get(obj_id));
       this.story_id_by_id.delete(obj_id);
     }
   },
   unregister_by_story_id(story_id: string): void {
-    logger.info("Unregister story id:", story_id);
-
     if (this.id_by_story_id.get(story_id) !== null) {
       this.story_id_by_id.delete(this.id_by_story_id.get(story_id));
       this.id_by_story_id.delete(story_id);
