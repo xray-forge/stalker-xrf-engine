@@ -1,6 +1,6 @@
 import { alife, clsid, XR_game_object, XR_ini_file, XR_object_binder } from "xray16";
 
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { ActorBinder } from "@/mod/scripts/core/binders/ActorBinder";
 import { AnomalyFieldBinder } from "@/mod/scripts/core/binders/AnomalyFieldBinder";
 import { AnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
@@ -19,6 +19,7 @@ import { RestrictorBinder } from "@/mod/scripts/core/binders/RestrictorBinder";
 import { SignalLightBinder } from "@/mod/scripts/core/binders/SignalLightBinder";
 import { SmartCoverBinder } from "@/mod/scripts/core/binders/SmartCoverBinder";
 import { SmartTerrainBinder } from "@/mod/scripts/core/binders/SmartTerrainBinder";
+import { StalkerBinder } from "@/mod/scripts/core/binders/StalkerBinder";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -84,7 +85,5 @@ list = {
       }
     }
   },
-  bindStalker: (object: XR_game_object) => {
-    get_global<AnyCallablesModule>("xr_motivator").AddToMotivator(object);
-  },
+  bindStalker: createBinder(StalkerBinder),
 };

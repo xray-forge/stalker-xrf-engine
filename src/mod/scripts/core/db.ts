@@ -101,7 +101,7 @@ export interface IStoredObject<T = XR_game_object> {
   mob_death?: any;
   disable_input_time?: any;
   disable_input_idle?: any;
-  state_mgr?: StateManager;
+  state_mgr?: Optional<StateManager>;
   ui?: XR_CUIGameCustom;
   restrictor_manager?: Optional<RestrictorManager>;
   overrides?: {

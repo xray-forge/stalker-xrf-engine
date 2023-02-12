@@ -19,6 +19,7 @@ import { EvaluatorNeedWalker } from "@/mod/scripts/core/logic/evaluators/Evaluat
 import { getConfigBoolean, getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { addCommonPrecondition } from "@/mod/scripts/utils/scheme";
 
 const logger: LuaLogger = new LuaLogger("ActionWalker");
 
@@ -57,7 +58,7 @@ export class ActionWalker extends AbstractSchemeAction {
     new_action.add_precondition(new world_property(stalker_ids.property_anomaly, false));
     new_action.add_precondition(new world_property(properties.need_walker, true));
 
-    get_global<AnyCallablesModule>("xr_motivator").addCommonPrecondition(new_action);
+    addCommonPrecondition(new_action);
 
     new_action.add_effect(new world_property(properties.need_walker, false));
     new_action.add_effect(new world_property(properties.state_mgr_logic_active, false));

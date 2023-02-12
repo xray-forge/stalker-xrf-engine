@@ -16,6 +16,7 @@ import { getConfigBoolean, getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { vectorCross, vectorRotateY, yawDegree } from "@/mod/scripts/utils/physics";
+import { addCommonPrecondition } from "@/mod/scripts/utils/scheme";
 
 const logger: LuaLogger = new LuaLogger("ActionSchemePatrol");
 
@@ -97,7 +98,7 @@ export class ActionSchemePatrol extends AbstractSchemeAction {
     actionCommander.add_precondition(new world_property(stalker_ids.property_danger, false));
     actionCommander.add_precondition(new world_property(stalker_ids.property_enemy, false));
     actionCommander.add_precondition(new world_property(stalker_ids.property_anomaly, false));
-    get_global<AnyCallablesModule>("xr_motivator").addCommonPrecondition(actionCommander);
+    addCommonPrecondition(actionCommander);
     actionCommander.add_precondition(new world_property(properties.patrol_end, false));
     actionCommander.add_precondition(new world_property(properties.patrol_comm, true));
     actionCommander.add_effect(new world_property(properties.patrol_end, true));
@@ -111,7 +112,7 @@ export class ActionSchemePatrol extends AbstractSchemeAction {
     actionPatrol.add_precondition(new world_property(stalker_ids.property_danger, false));
     actionPatrol.add_precondition(new world_property(stalker_ids.property_enemy, false));
     actionPatrol.add_precondition(new world_property(stalker_ids.property_anomaly, false));
-    get_global<AnyCallablesModule>("xr_motivator").addCommonPrecondition(actionPatrol);
+    addCommonPrecondition(actionPatrol);
     actionPatrol.add_precondition(new world_property(properties.patrol_end, false));
     actionPatrol.add_precondition(new world_property(properties.patrol_comm, false));
     actionPatrol.add_effect(new world_property(properties.patrol_end, true));

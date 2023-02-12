@@ -1,6 +1,7 @@
-import { XR_game_object } from "xray16";
+import { stalker_ids, world_property, XR_action_base, XR_game_object } from "xray16";
 
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
+import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
 import { abort } from "@/mod/scripts/utils/debug";
 
 /**
@@ -12,4 +13,16 @@ export function isSchemeActive(object: XR_game_object, state: IStoredObject): bo
   }
 
   return state.section === storage.get(object.id()).active_section;
+}
+
+/**
+ * Add common preconditions for base action to give priority for other default actions.
+ */
+export function addCommonPrecondition(action: XR_action_base): void {
+  action.add_precondition(new world_property(evaluators_id.stohe_meet_base + 1, false));
+  action.add_precondition(new world_property(evaluators_id.sidor_wounded_base + 0, false));
+  action.add_precondition(new world_property(evaluators_id.abuse_base, false));
+  action.add_precondition(new world_property(evaluators_id.wounded_exist, false));
+  action.add_precondition(new world_property(evaluators_id.corpse_exist, false));
+  action.add_precondition(new world_property(stalker_ids.property_items, false));
 }

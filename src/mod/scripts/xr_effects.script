@@ -7,6 +7,7 @@ local WeatherManager = require("scripts.core.WeatherManager")
 local InventoryUpgrades = require("scripts.core.inventory_upgrades")
 local TaskManager = require("scripts.se.task.TaskManager")
 local SimBoard = require("scripts.se.SimBoard")
+local StalkerBinder = require("scripts.core.binders.StalkerBinder")
 local NewsManager = require("scripts.core.NewsManager")
 local SleepDialog = require("scripts.ui.interaction.SleepDialog")
 local AbuseManager = require("scripts.core.logic.AbuseManager").AbuseManager
@@ -28,7 +29,7 @@ function update_npc_logic(actor, object, p)
     local npc = get_story_object(v)
     if npc ~= nil then
       log:info("Update npc logic:", npc:id())
-      xr_motivator.update_logic(npc)
+      StalkerBinder.update_logic(npc)
 
       local planner = npc:motivation_action_manager()
       planner:update()

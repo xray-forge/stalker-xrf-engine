@@ -35,7 +35,7 @@ export const StateManagerEvaIdleItems: IStateManagerEvaIdleItems = declare_xr_cl
       // --    if mgr:initialized() then
       //  --        this.t = mgr:current_action_id()
       //  --        --printf("ACTION %s", utils.to_str(this.t))
-      // --        if this.t ~= xr_actions_id.alife then
+      // --        if this.t ~= actions_ids.alife then
       //  --            this.st.alife = false
       //  --        end
       // --    end

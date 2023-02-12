@@ -16,6 +16,7 @@ import { states } from "@/mod/scripts/state_management/lib/state_lib";
 import { getConfigBoolean, getConfigNumber, getConfigString, parseNames } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { addCommonPrecondition } from "@/mod/scripts/utils/scheme";
 
 const logger: LuaLogger = new LuaLogger("ActionSchemeAnimpoint");
 
@@ -98,7 +99,7 @@ export class ActionSchemeAnimpoint extends AbstractSchemeAction {
     actionReachAnimpoint.add_precondition(new world_property(stalker_ids.property_enemy, false));
     actionReachAnimpoint.add_precondition(new world_property(properties.need_animpoint, true));
     actionReachAnimpoint.add_precondition(new world_property(properties.reach_animpoint, false));
-    get_global<AnyCallablesModule>("xr_motivator").addCommonPrecondition(actionReachAnimpoint);
+    addCommonPrecondition(actionReachAnimpoint);
     actionReachAnimpoint.add_effect(new world_property(properties.need_animpoint, false));
     actionReachAnimpoint.add_effect(new world_property(properties.state_mgr_logic_active, false));
     manager.add_action(operators.action_reach_animpoint, actionReachAnimpoint);
@@ -116,7 +117,7 @@ export class ActionSchemeAnimpoint extends AbstractSchemeAction {
     actionAnimpoint.add_precondition(new world_property(stalker_ids.property_enemy, false));
     actionAnimpoint.add_precondition(new world_property(properties.need_animpoint, true));
     actionAnimpoint.add_precondition(new world_property(properties.reach_animpoint, true));
-    get_global<AnyCallablesModule>("xr_motivator").addCommonPrecondition(actionAnimpoint);
+    addCommonPrecondition(actionAnimpoint);
     actionAnimpoint.add_effect(new world_property(properties.need_animpoint, false));
     actionAnimpoint.add_effect(new world_property(properties.state_mgr_logic_active, false));
     manager.add_action(operators.action_animpoint, actionAnimpoint);

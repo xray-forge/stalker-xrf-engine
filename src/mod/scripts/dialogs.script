@@ -3,6 +3,7 @@ local ActionSchemeMeet = require("scripts.core.logic.ActionSchemeMeet").ActionSc
 local ActionWoundManager = require("scripts.core.logic.ActionWoundManager").ActionWoundManager
 local SurgeManager = require("scripts.core.SurgeManager")
 local DropManager = require("scripts.core.DropManager")
+local StalkerBinder = require("scripts.core.binders.StalkerBinder")
 local SimBoard = require("scripts.se.SimBoard")
 local NewsManager = require("scripts.core.NewsManager")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
@@ -31,7 +32,7 @@ function update_npc_dialog(first_speaker, second_speaker)
   local npc = who_is_npc(first_speaker, second_speaker)
   db.storage[npc:id()].meet.meet_manager:update()
   ActionSchemeMeet:process_npc_usability(npc)
-  xr_motivator.update_logic(npc)
+  StalkerBinder.update_logic(npc)
 end
 
 function disable_talk_self(first_speaker, second_speaker)

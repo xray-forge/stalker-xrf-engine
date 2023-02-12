@@ -448,7 +448,7 @@ declare module "xray16" {
     public set_enemy_callback(cb: () => boolean): void;
     public set_enemy_callback(cb: () => boolean, object: XR_game_object): void;
     public set_fastcall<T>(cb: (this: T) => boolean, object: T): void;
-    public set_patrol_extrapolate_callback(cb?: () => boolean, object?: XR_game_object): void;
+    public set_patrol_extrapolate_callback(cb?: ((cur_pt: number) => boolean) | null, object?: object): void;
     public set_smart_cover_target_selector(cb?: (object: XR_game_object) => void, object?: object): void;
   }
 

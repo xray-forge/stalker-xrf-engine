@@ -10,6 +10,7 @@ import { ActionSleeperActivity } from "@/mod/scripts/core/logic/actions/ActionSl
 import { EvaluatorNeedSleep } from "@/mod/scripts/core/logic/evaluators/EvaluatorNeedSleep";
 import { getConfigBoolean, getConfigString } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { addCommonPrecondition } from "@/mod/scripts/utils/scheme";
 
 const logger: LuaLogger = new LuaLogger("ActionSleeper");
 
@@ -55,7 +56,7 @@ export class ActionSleeper extends AbstractSchemeAction {
     action.add_precondition(new world_property(stalker_ids.property_enemy, false));
     action.add_precondition(new world_property(stalker_ids.property_anomaly, false));
     action.add_precondition(new world_property(properties.need_sleeper, true));
-    get_global<AnyCallablesModule>("xr_motivator").addCommonPrecondition(action);
+    addCommonPrecondition(action);
     action.add_effect(new world_property(properties.need_sleeper, false));
     action.add_effect(new world_property(properties.state_mgr_logic_active, false));
     manager.add_action(operators.action_sleeper, action);

@@ -30,6 +30,7 @@ import { getCharacterCommunity, stopPlaySound } from "@/mod/scripts/utils/alife"
 import { getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { addCommonPrecondition } from "@/mod/scripts/utils/scheme";
 
 const logger: LuaLogger = new LuaLogger("ActionSchemeCamp");
 
@@ -70,7 +71,7 @@ export class ActionSchemeCamp extends AbstractSchemeAction {
     actionWait.add_precondition(new world_property(stalker_ids.property_danger, false));
     actionWait.add_precondition(new world_property(stalker_ids.property_enemy, false));
     actionWait.add_precondition(new world_property(stalker_ids.property_anomaly, false));
-    get_global<AnyCallablesModule>("xr_motivator").addCommonPrecondition(actionWait);
+    addCommonPrecondition(actionWait);
     actionWait.add_precondition(new world_property(properties.on_position, true));
     actionWait.add_effect(new world_property(properties.kamp_end, true));
     manager.add_action(operators.wait, actionWait);
@@ -87,7 +88,7 @@ export class ActionSchemeCamp extends AbstractSchemeAction {
     actionGoPosition.add_precondition(new world_property(stalker_ids.property_danger, false));
     actionGoPosition.add_precondition(new world_property(stalker_ids.property_enemy, false));
     actionGoPosition.add_precondition(new world_property(stalker_ids.property_anomaly, false));
-    get_global<AnyCallablesModule>("xr_motivator").addCommonPrecondition(actionGoPosition);
+    addCommonPrecondition(actionGoPosition);
     actionGoPosition.add_precondition(new world_property(properties.on_position, false));
     actionGoPosition.add_effect(new world_property(properties.on_position, true));
     manager.add_action(operators.go_position, actionGoPosition);

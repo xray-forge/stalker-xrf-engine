@@ -10,6 +10,7 @@ import { ActionRemarkActivity } from "@/mod/scripts/core/logic/actions/ActionRem
 import { EvaluatorNeedRemark } from "@/mod/scripts/core/logic/evaluators/EvaluatorNeedRemark";
 import { getConfigBoolean, getConfigString, parseCondList } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { addCommonPrecondition } from "@/mod/scripts/utils/scheme";
 
 const logger: LuaLogger = new LuaLogger("ActionSchemeRemark");
 
@@ -46,7 +47,7 @@ export class ActionSchemeRemark extends AbstractSchemeAction {
     new_action.add_precondition(new world_property(stalker_ids.property_enemy, false));
     new_action.add_precondition(new world_property(stalker_ids.property_anomaly, false));
     new_action.add_precondition(new world_property(properties.need_remark, true));
-    get_global<AnyCallablesModule>("xr_motivator").addCommonPrecondition(new_action);
+    addCommonPrecondition(new_action);
     new_action.add_effect(new world_property(properties.need_remark, false));
     new_action.add_effect(new world_property(properties.state_mgr_logic_active, false));
     manager.add_action(operators.action_remark, new_action);

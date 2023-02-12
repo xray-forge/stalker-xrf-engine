@@ -1,5 +1,5 @@
 // todo: Move to db
-import { ini_file, time_global, XR_game_object, XR_net_packet } from "xray16";
+import { ini_file, time_global, XR_game_object, XR_net_packet, XR_reader } from "xray16";
 
 import { AnyCallablesModule } from "@/mod/lib/types";
 import { getActor, ITradeManagerDescriptor, tradeState } from "@/mod/scripts/core/db";
@@ -54,7 +54,7 @@ export function trade_init(npc: XR_game_object, cfg: string): void {
   }
 }
 
-export function update(npc: XR_game_object): void {
+export function updateTradeManager(npc: XR_game_object): void {
   const tt = tradeState.get(npc.id());
 
   if (tt === null) {
@@ -119,7 +119,7 @@ export function update(npc: XR_game_object): void {
   }
 }
 
-export function save(obj: XR_game_object, packet: XR_net_packet): void {
+export function saveTradeManager(obj: XR_game_object, packet: XR_net_packet): void {
   const tt: ITradeManagerDescriptor = tradeState.get(obj.id());
 
   setSaveMarker(packet, false, "trade_manager");
@@ -169,7 +169,7 @@ export function save(obj: XR_game_object, packet: XR_net_packet): void {
   setSaveMarker(packet, true, "trade_manager");
 }
 
-export function load(obj: XR_game_object, packet: XR_net_packet): void {
+export function loadTradeManager(obj: XR_game_object, packet: XR_reader): void {
   setLoadMarker(packet, false, "trade_manager");
 
   const hasTrade = packet.r_bool();

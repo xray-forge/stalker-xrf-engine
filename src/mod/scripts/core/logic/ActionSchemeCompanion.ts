@@ -9,6 +9,7 @@ import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAct
 import { ActionCompanionActivity } from "@/mod/scripts/core/logic/actions/ActionCompanionActivity";
 import { EvaluatorNeedCompanion } from "@/mod/scripts/core/logic/evaluators/EvaluatorNeedCompanion";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { addCommonPrecondition } from "@/mod/scripts/utils/scheme";
 
 const logger: LuaLogger = new LuaLogger("ActionSchemeCompanion");
 
@@ -47,7 +48,7 @@ export class ActionSchemeCompanion extends AbstractSchemeAction {
     actionCompanionActivity.add_precondition(new world_property(stalker_ids.property_alive, true));
     actionCompanionActivity.add_precondition(new world_property(stalker_ids.property_enemy, false));
     actionCompanionActivity.add_precondition(new world_property(properties.need_companion, true));
-    get_global<AnyCallablesModule>("xr_motivator").addCommonPrecondition(actionCompanionActivity);
+    addCommonPrecondition(actionCompanionActivity);
     actionCompanionActivity.add_effect(new world_property(properties.need_companion, false));
     actionCompanionActivity.add_effect(new world_property(properties.state_mgr_logic_active, false));
     actionPlanner.add_action(operators.action_companion, actionCompanionActivity);
