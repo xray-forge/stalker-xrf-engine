@@ -9,12 +9,13 @@ import {
   XR_ini_file,
 } from "xray16";
 
-import { AnyCallablesModule, AnyObject, Optional } from "@/mod/lib/types";
+import { AnyObject, Optional } from "@/mod/lib/types";
 import { TScheme, TSection } from "@/mod/lib/types/configuration";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
 import { get_npcs_relation } from "@/mod/scripts/core/game_relations";
+import { assign_storage_and_bind, subscribe_action_for_events } from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { AbuseManager } from "@/mod/scripts/core/logic/AbuseManager";
 import { ActionCorpseDetect } from "@/mod/scripts/core/logic/ActionCorpseDetect";
@@ -91,11 +92,11 @@ export class ActionSchemeMeet extends AbstractSchemeAction {
 
     state.meet_manager = new ActionSchemeMeet(object, state);
 
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(object, state, state.meet_manager);
+    subscribe_action_for_events(object, state, state.meet_manager);
   }
 
   public static set_meet(npc: XR_game_object, ini: XR_ini_file, scheme: TScheme, section: TSection): void {
-    const st = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(npc, ini, scheme, section);
+    const st = assign_storage_and_bind(npc, ini, scheme, section);
   }
 
   public static reset_meet(npc: XR_game_object, scheme: TScheme, st: IStoredObject, section: TSection): void {

@@ -1,7 +1,8 @@
 import { stalker_ids, XR_game_object, XR_ini_file } from "xray16";
 
-import { AnyCallablesModule } from "@/mod/lib/types";
+import { TScheme, TSection } from "@/mod/lib/types/configuration";
 import { IStoredObject } from "@/mod/scripts/core/db";
+import { assign_storage_and_bind } from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { EvaluatorGatherItems } from "@/mod/scripts/core/logic/evaluators/EvaluatorGatherItems";
 import { getConfigBoolean } from "@/mod/scripts/utils/configs";
@@ -30,17 +31,17 @@ export class ActionGatherItems extends AbstractSchemeAction {
     );
   }
 
-  public static set_gather_items(object: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
+  public static set_gather_items(object: XR_game_object, ini: XR_ini_file, scheme: TScheme, section: TSection): void {
     logger.info("Set gather items:", object.name());
 
-    get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(object, ini, scheme, section);
+    assign_storage_and_bind(object, ini, scheme, section);
   }
 
   public static reset_gather_items(
     object: XR_game_object,
     scheme: string,
     state: IStoredObject,
-    section: string
+    section: TSection
   ): void {
     logger.info("Set gather items:", object.name());
 

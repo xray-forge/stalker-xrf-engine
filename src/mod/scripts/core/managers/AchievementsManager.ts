@@ -3,6 +3,7 @@ import { communities } from "@/mod/globals/communities";
 import { info_portions, TInfoPortion } from "@/mod/globals/info_portions";
 import { AnyCallablesModule } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
+import { pstor_retrieve } from "@/mod/scripts/core/db/pstor";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { send_tip } from "@/mod/scripts/core/NewsManager";
@@ -384,11 +385,7 @@ export class AchievementsManager extends AbstractCoreManager {
       return true;
     }
 
-    const cnt_value = get_global<AnyCallablesModule>("xr_logic").pstor_retrieve(
-      getActor(),
-      "actor_marked_by_zone_cnt",
-      0
-    );
+    const cnt_value = pstor_retrieve(getActor()!, "actor_marked_by_zone_cnt", 0);
 
     if (cnt_value > 2) {
       giveInfo(info_portions.actor_marked_by_zone_3_times);

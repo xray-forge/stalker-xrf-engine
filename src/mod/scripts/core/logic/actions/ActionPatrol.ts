@@ -1,9 +1,9 @@
 import { action_base, game_object, time_global, vector, XR_action_base, XR_game_object, XR_vector } from "xray16";
 
-import { AnyCallablesModule } from "@/mod/lib/types";
 import { IStoredObject, patrols } from "@/mod/scripts/core/db";
 import { MoveManager } from "@/mod/scripts/core/MoveManager";
 import { set_state } from "@/mod/scripts/state_management/StateManager";
+import { send_to_nearest_accessible_vertex } from "@/mod/scripts/utils/alife";
 import { path_parse_waypoints } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { vectorCmp } from "@/mod/scripts/utils/physics";
@@ -90,7 +90,7 @@ export const ActionPatrol: IActionPatrol = declare_xr_class("ActionPatrol", acti
     this.dir = dir;
     this.cur_state = cur_state;
 
-    this.l_vid = get_global<AnyCallablesModule>("utils").send_to_nearest_accessible_vertex(this.object, this.l_vid);
+    this.l_vid = send_to_nearest_accessible_vertex(this.object, this.l_vid);
 
     const desired_direction = this.dir;
 

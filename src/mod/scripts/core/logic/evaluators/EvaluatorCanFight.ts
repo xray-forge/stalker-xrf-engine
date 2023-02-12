@@ -1,7 +1,7 @@
 import { property_evaluator, XR_property_evaluator } from "xray16";
 
-import { AnyCallablesModule } from "@/mod/lib/types";
 import { IStoredObject } from "@/mod/scripts/core/db";
+import { pstor_retrieve } from "@/mod/scripts/core/db/pstor";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("EvaluatorCanFight");
@@ -20,6 +20,6 @@ export const EvaluatorCanFight: IEvaluatorCanFight = declare_xr_class("Evaluator
       return true;
     }
 
-    return get_global<AnyCallablesModule>("xr_logic").pstor_retrieve(this.object, "wounded_fight") !== "false";
+    return pstor_retrieve(this.object, "wounded_fight") !== "false";
   },
 } as IEvaluatorCanFight);

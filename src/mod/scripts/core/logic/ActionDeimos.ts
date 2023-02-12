@@ -1,13 +1,17 @@
 import { device, level, time_global, XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
-import { AnyCallablesModule, AnyObject, Optional } from "@/mod/lib/types";
+import { AnyObject, Optional } from "@/mod/lib/types";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import {
+  assign_storage_and_bind,
+  subscribe_action_for_events,
+  try_switch_to_another_section,
+} from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
-import { getConfigNumber } from "@/mod/scripts/utils/configs";
+import { cfg_get_switch_conditions, getConfigNumber } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { clampNumber } from "@/mod/scripts/utils/number";
-import { on_off_cmds } from "@/mod/ui/menu/debug/sections";
 
 const logger: LuaLogger = new LuaLogger("ActionDeimos");
 
@@ -30,18 +34,13 @@ export class ActionDeimos extends AbstractSchemeAction {
   ): void {
     logger.info("Add to binder:", object.name());
 
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(
-      on_off_cmds,
-      state,
-      new ActionDeimos(object, state)
-    );
+    subscribe_action_for_events(object, state, new ActionDeimos(object, state));
   }
 
   public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
-    const state = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(object, ini, scheme, section);
+    const state = assign_storage_and_bind(object, ini, scheme, section);
 
-    state.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, object);
-
+    state.logic = cfg_get_switch_conditions(ini, section, object);
     state.movement_speed = getConfigNumber(ini, section, "movement_speed", object, false, 100);
     state.growing_koef = getConfigNumber(ini, section, "growing_koef", object, false, 0.1);
     state.lowering_koef = getConfigNumber(ini, section, "lowering_koef", object, false, state.growing_koef);
@@ -123,8 +122,6 @@ export class ActionDeimos extends AbstractSchemeAction {
 
     const actorId: number = actor.id();
 
-    logger.info("A");
-
     if ((actor as AnyObject).deimos_intensity) {
       this.state.intensity = (actor as AnyObject).deimos_intensity(actor as AnyObject).deimos_intensity = null;
 
@@ -139,8 +136,6 @@ export class ActionDeimos extends AbstractSchemeAction {
         this.phase = 2;
       }
     }
-
-    logger.info("B");
 
     const vec: XR_vector = actor.get_movement_speed();
     const cur_speed: number = math.sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
@@ -210,9 +205,7 @@ export class ActionDeimos extends AbstractSchemeAction {
       }
     }
 
-    logger.info("C");
-
-    if (get_global<AnyCallablesModule>("xr_logic").try_switch_to_another_section(this.object, this.state, actor)) {
+    if (try_switch_to_another_section(this.object, this.state, actor)) {
       if (this.phase > 0) {
         GlobalSound.stop_sound_looped(actor.id(), this.state.noise_sound);
         level.remove_pp_effector(pp_effector_id);

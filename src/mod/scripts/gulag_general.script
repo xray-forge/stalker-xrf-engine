@@ -6,6 +6,7 @@ local SmartCover = require("scripts.se.SmartCover")
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 local log = create_ts_class_instance(LuaLogger, "gulag_general");
 local gulagUtils = require("scripts.utils.gulag")
+local configUtils = require("scripts.utils.configs")
 
 local ltx
 
@@ -446,7 +447,7 @@ function load_job(smart)
     -- ���������� �������� ���������� ����� �� �������� ����� ����.
     local way_name = gname .. "_patrol_" .. it .. "_walk"
     local ptr = patrol(way_name)
-    local wp_prop = utils.parse_waypoint_data(way_name, ptr:flags(0), ptr:name(0))
+    local wp_prop = configUtils.parse_waypoint_data(way_name, ptr:flags(0), ptr:name(0))
     local job_count = 3
     if wp_prop.count ~= nil then
       job_count = wp_prop.count
@@ -705,7 +706,7 @@ function load_job(smart)
     -- ���������� �������� ���������� ����� �� �������� ����� ����.
     local way_name = gname .. "_sniper_" .. it .. "_walk"
     local ptr = patrol(way_name)
-    local wp_prop = utils.parse_waypoint_data(way_name, ptr:flags(0), ptr:name(0))
+    local wp_prop = configUtils.parse_waypoint_data(way_name, ptr:flags(0), ptr:name(0))
     local state = "hide"
 
     if wp_prop.state ~= nil then
@@ -763,7 +764,7 @@ function load_job(smart)
     -- ���������� �������� ���������� ����� �� �������� ����� ����.
     local way_name = gname .. "_camper_" .. it .. "_walk"
     local ptr = patrol(way_name)
-    local wp_prop = utils.parse_waypoint_data(way_name, ptr:flags(0), ptr:name(0))
+    local wp_prop = configUtils.parse_waypoint_data(way_name, ptr:flags(0), ptr:name(0))
     local state = "hide"
     local radius = 0
     if wp_prop.state ~= nil then
@@ -900,7 +901,7 @@ local job_type_by_scheme = {
 }
 
 function add_exclusive_job(sect, work_field, smart_ini, job_table)
-  local work = utils.cfg_get_string(smart_ini, sect, work_field, nil, false, "")
+  local work = configUtils.getConfigString(smart_ini, sect, work_field, nil, false, "")
   if work == nil then
     return
   end
@@ -911,20 +912,20 @@ function add_exclusive_job(sect, work_field, smart_ini, job_table)
     abort("there is no configuration file [%s]", ini_path)
   end
   local job_ini_file = ini_file(ini_path)
-  local job_online = utils.cfg_get_string(job_ini_file, "logic@" .. work_field, "job_online", db.actor, false, "", nil)
+  local job_online = configUtils.getConfigString(job_ini_file, "logic@" .. work_field, "job_online", db.actor, false, "", nil)
 
   -- ��������� ����������� ������� ��������� ���������� ������ � ������ ������.(�� ������� � ��������� ����� 45-��)
-  local new_prior = utils.cfg_get_number(job_ini_file, "logic@" .. work_field, "prior", nil, false, 45)
+  local new_prior = configUtils.getConfigNumber(job_ini_file, "logic@" .. work_field, "prior", nil, false, 45)
 
   -- ��������� ���� �� � ������ ���� suitable. ���� ����, ��� ����� �������� ����������
-  local job_suitable = utils.cfg_get_string(job_ini_file, "logic@" .. work_field, "suitable", smart, false, "")
-  local is_monster = utils.cfg_get_bool(job_ini_file, "logic@" .. work_field, "monster_job", smart, false, false)
+  local job_suitable = configUtils.getConfigString(job_ini_file, "logic@" .. work_field, "suitable", smart, false, "")
+  local is_monster = configUtils.getConfigBoolean(job_ini_file, "logic@" .. work_field, "monster_job", smart, false, false)
 
-  local active_section = utils.cfg_get_string(job_ini_file, "logic@" .. work_field, "active", smart, false, "")
-  local scheme = utils.get_scheme_by_section(active_section)
+  local active_section = configUtils.getConfigString(job_ini_file, "logic@" .. work_field, "active", smart, false, "")
+  local scheme = configUtils.get_scheme_by_section(active_section)
   local job_type = job_type_by_scheme[scheme]
   if scheme == "mob_home" then
-    if utils.cfg_get_bool(job_ini_file, active_section, "gulag_point", smart, false, false) then
+    if configUtils.getConfigBoolean(job_ini_file, active_section, "gulag_point", smart, false, false) then
       job_type = "point_job"
     end
   end
@@ -942,7 +943,7 @@ function add_exclusive_job(sect, work_field, smart_ini, job_table)
     return
   end
 
-  local condlist = xr_logic.parse_condlist(smart, "logic@" .. work_field, "suitable", job_suitable)
+  local condlist = configUtils.parseCondList(smart, "logic@" .. work_field, "suitable", job_suitable)
   local t = { _prior = new_prior,
               _precondition_is_monster = is_monster,
               job_id = { section = "logic@" .. work_field,
@@ -952,7 +953,7 @@ function add_exclusive_job(sect, work_field, smart_ini, job_table)
                          job_type = job_type },
               _precondition_params = { condlist = condlist },
               _precondition_function = function(se_obj, smart, precond_params)
-                local result = xr_logic.pick_section_from_condlist(db.actor, se_obj, precond_params.condlist)
+                local result = configUtils.pickSectionFromCondList(db.actor, se_obj, precond_params.condlist)
                 if result == "false" or result == nil then
                   return false
                 end

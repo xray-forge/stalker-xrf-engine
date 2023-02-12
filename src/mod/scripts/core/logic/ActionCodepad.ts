@@ -1,13 +1,15 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
-import { AnyCallablesModule } from "@/mod/lib/types";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import { assign_storage_and_bind, subscribe_action_for_events } from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import {
+  cfg_get_switch_conditions,
   getConfigCondList,
   getConfigNumber,
   getConfigString,
   getConfigStringAndCondList,
+  pickSectionFromCondList,
 } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -23,17 +25,13 @@ export class ActionCodepad extends AbstractSchemeAction {
     section: string,
     storage: IStoredObject
   ): void {
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(
-      object,
-      storage,
-      new ActionCodepad(object, storage)
-    );
+    subscribe_action_for_events(object, storage, new ActionCodepad(object, storage));
   }
 
   public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
-    const state = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(object, ini, scheme, section);
+    const state = assign_storage_and_bind(object, ini, scheme, section);
 
-    state.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, object);
+    state.logic = cfg_get_switch_conditions(ini, section, object);
     state.tips = getConfigString(ini, section, "tips", object, false, "", "st_codelock");
 
     object.set_tip_text(state.tips);
@@ -72,18 +70,14 @@ export class ActionCodepad extends AbstractSchemeAction {
     if (this.state.code) {
       if (tonumber(text) === this.state.code) {
         if (this.state.on_code) {
-          get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(
-            getActor(),
-            this.object,
-            this.state.on_code.condlist
-          );
+          pickSectionFromCondList(getActor(), this.object, this.state.on_code.condlist);
         }
       }
     } else {
       const condlist = this.state.on_check_code[text];
 
       if (condlist) {
-        get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(getActor(), this.object, condlist);
+        pickSectionFromCondList(getActor(), this.object, condlist);
       }
     }
   }

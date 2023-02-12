@@ -1,7 +1,7 @@
 import { property_evaluator, XR_property_evaluator } from "xray16";
 
-import { AnyCallablesModule } from "@/mod/lib/types";
 import { IStoredObject } from "@/mod/scripts/core/db";
+import { isActiveSection } from "@/mod/scripts/utils/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("EvaluatorNeedAnimpoint");
@@ -19,7 +19,7 @@ export const EvaluatorNeedAnimpoint: IEvaluatorNeedAnimpoint = declare_xr_class(
       this.state = storage;
     },
     evaluate(): boolean {
-      return get_global<AnyCallablesModule>("xr_logic").is_active(this.object, this.state);
+      return isActiveSection(this.object, this.state.section);
     },
   } as IEvaluatorNeedAnimpoint
 );

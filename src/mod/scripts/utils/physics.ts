@@ -174,3 +174,11 @@ export function angleLeftXZ(dir1: XR_vector, dir2: XR_vector): boolean {
 
   return dir.y <= 0;
 }
+
+/**
+ * todo
+ * todo
+ */
+export function getDistanceBetween(first: XR_game_object, second: XR_game_object): number {
+  return first.position().distance_to(second.position());
+}

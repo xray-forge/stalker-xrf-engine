@@ -1,6 +1,8 @@
 import {
+  alife,
   flags32,
   patrol,
+  XR_alife_simulator,
   XR_cse_abstract,
   XR_cse_alife_object,
   XR_flags32,
@@ -9,9 +11,9 @@ import {
   XR_patrol,
 } from "xray16";
 
-import { AnyArgs, AnyCallablesModule, AnyObject, Maybe, Optional } from "@/mod/lib/types";
-import { TSection } from "@/mod/lib/types/configuration";
-import { getActor, scriptIds } from "@/mod/scripts/core/db";
+import { AnyArgs, AnyCallablesModule, AnyObject, Optional } from "@/mod/lib/types";
+import { TScheme, TSection } from "@/mod/lib/types/configuration";
+import { getActor, scriptIds, storage } from "@/mod/scripts/core/db";
 import { disableInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -212,28 +214,28 @@ export function parseSpawns(str: string): LuaTable<number, { section: string; pr
 }
 
 /**
- *
+ * todo: Casting verification.
  */
 export function r_2nums(
   spawn_ini: XR_ini_file,
   section: string,
   line: string,
-  def1: string,
-  def2: string
-): LuaMultiReturn<[string, string]> {
+  default1: number,
+  default2: number
+): LuaMultiReturn<[number, number]> {
   if (spawn_ini.line_exist(section, line)) {
     const t = parseNames(spawn_ini.r_string(section, line));
     const n = t.length();
 
     if (n === 0) {
-      return $multi(def1, def2);
+      return $multi(default1, default2);
     } else if (n === 1) {
-      return $multi(t.get(1), def2);
+      return $multi(t.get(1) as any, default2);
     } else {
-      return $multi(t.get(1), t.get(2));
+      return $multi(t.get(1) as any, t.get(2) as any);
     }
   } else {
-    return $multi(def1, def2);
+    return $multi(default1, default2);
   }
 }
 
@@ -385,12 +387,48 @@ export function parse_infop(rslt: LuaTable<number, IConfigCondition>, str: strin
 /**
  * todo;
  */
+
+/**
+ * todo
+ * todo
+ * todo
+ * todo
+ */
+export function parse_infop1(rslt: LuaTable, str: Optional<string>): void {
+  if (str) {
+    let infop_n = 1;
+
+    for (const s of string.gfind(str, "%s*([%-%+%~%=%!][^%-%+%~%=%!%s]+)%s*")) {
+      const sign: string = string.sub(s, 1, 1);
+      const infop_name: string = string.sub(s, 2);
+
+      if (sign === "+") {
+        rslt.set(infop_n, { name: infop_name, required: true });
+      } else if (sign === "-") {
+        rslt.set(infop_n, { name: infop_name, required: false });
+      } else if (sign === "~") {
+        rslt.set(infop_n, { prob: tonumber(infop_name) });
+      } else if (sign === "=") {
+        rslt.set(infop_n, { func: infop_name, expected: true });
+      } else if (sign === "!") {
+        rslt.set(infop_n, { func: infop_name, expected: false });
+      } else {
+        abort("Syntax error in condition: %s", str);
+      }
+
+      infop_n += 1;
+    }
+  }
+}
+
+/**
+ * todo;
+ */
 export function parse_func_params(str: string): LuaTable<number, string | number> {
   const lst: LuaTable<number, string | number> = new LuaTable();
-  let n: Maybe<number>;
 
   for (const par of string.gfind(str, "%s*([^:]+)%s*")) {
-    n = tonumber(par);
+    const n = tonumber(par);
 
     if (n !== null) {
       table.insert(lst, n!);
@@ -493,12 +531,9 @@ export function parse_waypoint_data(pathname: string, wpflags: XR_flags32, wpnam
 export function pickSectionFromCondList<T extends TSection>(
   actor: Optional<XR_game_object>,
   npc: Optional<XR_game_object | XR_cse_alife_object>,
-  condlist: LuaTable
+  condlist: LuaTable<any, any>
 ): Optional<T> {
   let rval: Optional<number> = null; // -- math.random(100)
-  // --printf("_bp: pick_section_from_condlist: rval = %d", rval)
-
-  const newsect = null;
   let infop_conditions_met;
 
   for (const [n, cond] of condlist) {
@@ -839,4 +874,315 @@ export function parse_syn_data(
   }
 
   return collection;
+}
+
+/**
+ * todo
+ * todo
+ * todo
+ * todo
+ */
+export function cfg_get_number_and_condlist(
+  ini: XR_ini_file,
+  section: TSection,
+  field: string,
+  npc: XR_game_object
+): Optional<{
+  name: string;
+  v1: number;
+  condlist: any;
+}> {
+  const str = getConfigString(ini, section, field, npc, false, "");
+
+  if (!str) {
+    return null;
+  }
+
+  const par = parseParams(str);
+
+  if (!par.get(1) || !par.get(2)) {
+    abort("Invalid condlist: %s", str);
+  }
+
+  return {
+    name: field,
+    v1: tonumber(par.get(1))!,
+    condlist: parseCondList(npc, section, field, par.get(2)),
+  };
+}
+
+/** *
+ * todo
+ * todo
+ * todo
+ */
+export function cfg_get_string_and_condlist(
+  ini: XR_ini_file,
+  section: TSection,
+  field: string,
+  npc: XR_game_object
+): Optional<{
+  name: string;
+  v1: string;
+  condlist: any;
+}> {
+  const str = getConfigString(ini, section, field, npc, false, "");
+
+  if (!str) {
+    return null;
+  }
+
+  const par = parseParams(str);
+
+  if (!par.get(1) || !par.get(2)) {
+    abort("Invalid condlist: %s, %s", field, section);
+  }
+
+  return {
+    name: field,
+    v1: par.get(1),
+    condlist: parseCondList(npc, section, field, par.get(2)),
+  };
+}
+
+/**
+ * todo
+ * todo
+ * todo
+ */
+export function cfg_get_two_strings_and_condlist(
+  ini: XR_ini_file,
+  section: TSection,
+  field: string,
+  npc: XR_game_object
+): Optional<{
+  name: string;
+  v1: string;
+  v2: string;
+  condlist: any;
+}> {
+  const str = getConfigString(ini, section, field, npc, false, "");
+
+  if (!str) {
+    return null;
+  }
+
+  const par = parseParams(str);
+
+  if (!par.get(1) || !par.get(2) || !par.get(3)) {
+    abort("Invalid condlist: %s, %s", field, section);
+  }
+
+  return {
+    name: field,
+    v1: par.get(1),
+    v2: par.get(2),
+    condlist: parseCondList(npc, section, field, par.get(3)),
+  };
+}
+
+/**
+ * todo
+ * todo
+ * todo
+ */
+export function cfg_get_switch_conditions(ini: XR_ini_file, section: TSection, npc: XR_game_object) {
+  const l: LuaTable<number> = new LuaTable();
+  let n: number = 1;
+
+  if (!ini.section_exist(tostring(section))) {
+    return;
+  }
+
+  const line_count = ini.line_count(section);
+
+  function add_conditions(
+    func: (ini: XR_ini_file, section: TSection, id: string, npc: XR_game_object) => any,
+    cond: string
+  ) {
+    for (const line_number of $range(0, line_count - 1)) {
+      const [result, id, value] = ini.r_line(section, line_number, "", "");
+
+      if (string.find(id, "^" + cond + "%d*$") !== null) {
+        const c = func(ini, section, id, npc);
+
+        n = add_condition(l, n, c);
+      }
+    }
+  }
+
+  add_conditions(cfg_get_number_and_condlist, "on_actor_dist_le");
+  add_conditions(cfg_get_number_and_condlist, "on_actor_dist_le_nvis");
+  add_conditions(cfg_get_number_and_condlist, "on_actor_dist_ge");
+  add_conditions(cfg_get_number_and_condlist, "on_actor_dist_ge_nvis");
+  add_conditions(cfg_get_string_and_condlist, "on_signal");
+  add_conditions(getConfigCondList, "on_info");
+  add_conditions(cfg_get_number_and_condlist, "on_timer");
+  add_conditions(cfg_get_number_and_condlist, "on_game_timer");
+  add_conditions(cfg_get_string_and_condlist, "on_actor_in_zone");
+  add_conditions(cfg_get_string_and_condlist, "on_actor_not_in_zone");
+  add_conditions(getConfigCondList, "on_actor_inside");
+  add_conditions(getConfigCondList, "on_actor_outside");
+  add_conditions(cfg_get_npc_and_zone, "on_npc_in_zone");
+  add_conditions(cfg_get_npc_and_zone, "on_npc_not_in_zone");
+
+  return l;
+}
+
+/**
+ * todo;
+ * todo;
+ * todo;
+ */
+export function add_condition(lst: LuaTable<number>, at: number, cond: any): number {
+  if (cond) {
+    lst.set(at, cond);
+
+    return at + 1;
+  }
+
+  return at;
+}
+
+/**
+ * todo;
+ * todo;
+ * todo;
+ */
+export function cfg_get_npc_and_zone(ini: XR_ini_file, section: TSection, field: string, npc: XR_game_object) {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const { getStoryObjectId } = require("@/mod/scripts/utils/ids");
+  const t: AnyObject = cfg_get_two_strings_and_condlist(ini, section, field, npc) as AnyObject;
+
+  if (t !== null) {
+    const sim: Optional<XR_alife_simulator> = alife();
+
+    if (sim !== null) {
+      const se_obj = sim.object(getStoryObjectId(t.v1)!);
+
+      if (se_obj) {
+        t.npc_id = se_obj.id;
+      } else {
+        t.npc_id = -1;
+        abort(
+          "object '%s': section '%s': field '%s': there is no object with story_id '%s'",
+          npc.name(),
+          section,
+          field,
+          t.v1
+        );
+      }
+    } else {
+      t.npc_id = -1;
+    }
+  }
+
+  return t;
+}
+
+/**
+ * todo;
+ * todo;
+ * todo;
+ * todo;
+ */
+export function cfg_get_overrides(ini: XR_ini_file, section: TSection, npc: XR_game_object) {
+  const l: AnyObject = {};
+  const tmp: Optional<string> = getConfigString(ini, section, "heli_hunter", npc, false, "");
+
+  if (tmp !== null) {
+    l.heli_hunter = parseCondList(npc, section, "heli_hunter", tmp);
+  }
+
+  l.combat_ignore = getConfigCondList(ini, section, "combat_ignore_cond", npc);
+  l.combat_ignore_keep_when_attacked = getConfigBoolean(ini, section, "combat_ignore_keep_when_attacked", npc, false);
+  l.combat_type = getConfigCondList(ini, section, "combat_type", npc);
+  l.on_combat = getConfigCondList(ini, section, "on_combat", npc);
+
+  const st = storage.get(npc.id());
+
+  if (ini.line_exist(st.section_logic!, "post_combat_time")) {
+    const [min_post_combat_time, max_post_combat_time] = r_2nums(ini, st.section_logic!, "post_combat_time", 10, 15);
+
+    l.min_post_combat_time = min_post_combat_time;
+    l.max_post_combat_time = max_post_combat_time;
+  } else {
+    const [min_post_combat_time, max_post_combat_time] = r_2nums(ini, section, "post_combat_time", 10, 15);
+
+    l.min_post_combat_time = min_post_combat_time;
+    l.max_post_combat_time = max_post_combat_time;
+  }
+
+  if (ini.line_exist(section, "on_offline")) {
+    l.on_offline_condlist = parseCondList(
+      npc,
+      section,
+      "on_offline",
+      getConfigString(ini, section, "on_offline", npc, false, "", "nil")
+    );
+  } else {
+    l.on_offline_condlist = parseCondList(
+      npc,
+      st.section_logic!,
+      "on_offline",
+      getConfigString(ini, st.section_logic!, "on_offline", npc, false, "", "nil")
+    );
+  }
+
+  if (string.find(section, "kamp") !== null) {
+    l.soundgroup = getConfigString(ini, section, "center_point", npc, false, "");
+  } else {
+    l.soundgroup = getConfigString(ini, section, "soundgroup", npc, false, "");
+  }
+
+  return l;
+}
+
+/**
+ * todo
+ * todo
+ * todo
+ */
+export function get_scheme_by_section(section: TSection): TScheme {
+  const [scheme] = string.gsub(section, "%d", "");
+  const [at, to] = string.find(scheme, "@", 1, true);
+
+  if (at !== null && to !== null) {
+    return string.sub(scheme, 1, at - 1);
+  }
+
+  return scheme;
+}
+
+/**
+ * todo;
+ * todo;
+ * todo;
+ */
+export function parse_data_1v(npc: XR_game_object, str: Optional<string>): LuaTable<number> {
+  const target: LuaTable<number> = new LuaTable();
+
+  if (str) {
+    for (const name of string.gfind(str, "(%|*%d+%|[^%|]+)%p*")) {
+      const dat = {
+        dist: null as Optional<number>,
+        state: null,
+      };
+
+      const [t_pos] = string.find(name, "|", 1, true);
+
+      const dist = string.sub(name, 1, t_pos - 1);
+      const state = string.sub(name, t_pos + 1);
+
+      dat.dist = tonumber(dist)!;
+
+      if (state !== null) {
+        dat.state = parseCondList(npc, dist, state, state);
+      }
+
+      target.set(tonumber(dist)!, dat);
+    }
+  }
+
+  return target;
 }

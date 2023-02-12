@@ -1,9 +1,20 @@
 import { particles_object, patrol, time_global, XR_game_object, XR_ini_file, XR_patrol } from "xray16";
 
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import {
+  assign_storage_and_bind,
+  subscribe_action_for_events,
+  try_switch_to_another_section,
+} from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
-import { getConfigBoolean, getConfigNumber, getConfigString, path_parse_waypoints } from "@/mod/scripts/utils/configs";
+import {
+  cfg_get_switch_conditions,
+  getConfigBoolean,
+  getConfigNumber,
+  getConfigString,
+  path_parse_waypoints,
+} from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -24,18 +35,13 @@ export class ActionParticle extends AbstractSchemeAction {
   ): void {
     logger.info("Add to binder:", object.name());
 
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(
-      object,
-      state,
-      new ActionParticle(object, state)
-    );
+    subscribe_action_for_events(object, state, new ActionParticle(object, state));
   }
 
   public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
-    const st = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(object, ini, scheme, section);
+    const st = assign_storage_and_bind(object, ini, scheme, section);
 
-    st.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, object);
-
+    st.logic = cfg_get_switch_conditions(ini, section, object);
     st.name = getConfigString(ini, section, "name", object, true, "", null);
     st.path = getConfigString(ini, section, "path", object, true, "", null);
     st.mode = getConfigNumber(ini, section, "mode", object, true);
@@ -136,7 +142,7 @@ export class ActionParticle extends AbstractSchemeAction {
 
     this.is_end();
 
-    get_global<AnyCallablesModule>("xr_logic").try_switch_to_another_section(this.object, this.state, getActor());
+    try_switch_to_another_section(this.object, this.state, getActor());
   }
 
   public is_end(): boolean {
@@ -203,7 +209,7 @@ export class ActionParticle extends AbstractSchemeAction {
   }
 
   public deactivate(): void {
-    const size = this.particles.length();
+    const size: number = this.particles.length();
 
     for (const it of $range(1, size)) {
       const particle = this.particles.get(it);

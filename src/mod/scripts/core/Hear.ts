@@ -1,8 +1,8 @@
 import { TXR_snd_type, XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
 import { ESoundType } from "@/mod/globals/sound/sound_type";
-import { AnyCallablesModule } from "@/mod/lib/types";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import { switch_to_section } from "@/mod/scripts/core/logic";
 import { parseCondList, parseParams, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { getObjectStoryId } from "@/mod/scripts/utils/ids";
 import { mapSndTypeToSoundType } from "@/mod/scripts/utils/sound";
@@ -73,7 +73,7 @@ export class Hear {
         const new_section = pickSectionFromCondList(getActor(), object, hear_sound_params.condlist);
 
         if (new_section !== null && new_section !== "") {
-          get_global<AnyCallablesModule>("xr_logic").switch_to_section(object, state.ini, new_section);
+          switch_to_section(object, state.ini!, new_section);
         } else if (new_section === "") {
           state.hear_sounds[story_id][s_type] = null;
         }

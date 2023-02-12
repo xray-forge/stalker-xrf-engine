@@ -267,10 +267,10 @@ declare module "xray16" {
       goodwill: number, npc_id: number
     ): void;
 
-    public clear_smart_terrain(cse_alife_monster_abstract: XR_cse_alife_monster_abstract): unknown;
+    public clear_smart_terrain(): void;
 
-    public travel_speed(cse_alife_monster_abstract: XR_cse_alife_monster_abstract): unknown;
-    public travel_speed(cse_alife_monster_abstract: XR_cse_alife_monster_abstract, value: number): unknown;
+    public travel_speed(): unknown;
+    public travel_speed(value: number): void;
 
     public smart_terrain_task_deactivate(cse_alife_monster_abstract: XR_cse_alife_monster_abstract): unknown;
     public smart_terrain_task_activate(cse_alife_monster_abstract: XR_cse_alife_monster_abstract): unknown;

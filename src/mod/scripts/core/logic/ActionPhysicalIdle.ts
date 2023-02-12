@@ -1,9 +1,17 @@
 import { XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { TSection } from "@/mod/lib/types/configuration";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import {
+  assign_storage_and_bind,
+  subscribe_action_for_events,
+  switch_to_section,
+  try_switch_to_another_section,
+} from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import {
+  cfg_get_switch_conditions,
   getConfigBoolean,
   getConfigCondList,
   getConfigString,
@@ -24,20 +32,15 @@ export class ActionPhysicalIdle extends AbstractSchemeAction {
     state: IStoredObject
   ): void {
     logger.info("Add to binder:", object.name());
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(
-      object,
-      state,
-      new ActionPhysicalIdle(object, state)
-    );
+    subscribe_action_for_events(object, state, new ActionPhysicalIdle(object, state));
   }
 
   public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
     logger.info("Set scheme:", object.name(), scheme, section);
 
-    const state = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(object, ini, scheme, section);
+    const state = assign_storage_and_bind(object, ini, scheme, section);
 
-    state.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, object);
-
+    state.logic = cfg_get_switch_conditions(ini, section, object);
     state.hit_on_bone = get_global<AnyCallablesModule>("utils").parse_data_1v(
       object,
       getConfigString(ini, section, "hit_on_bone", object, false, "")
@@ -55,7 +58,7 @@ export class ActionPhysicalIdle extends AbstractSchemeAction {
   }
 
   public update(delta: number): void {
-    get_global<AnyCallablesModule>("xr_logic").try_switch_to_another_section(this.object, this.state, getActor());
+    try_switch_to_another_section(this.object, this.state, getActor());
   }
 
   public deactivate(): void {
@@ -72,9 +75,13 @@ export class ActionPhysicalIdle extends AbstractSchemeAction {
     logger.info("Idle hit:", this.object.name());
 
     if (this.state.hit_on_bone[bone_index] !== null) {
-      const section = pickSectionFromCondList(getActor(), this.object, this.state.hit_on_bone[bone_index].state);
+      const section: TSection = pickSectionFromCondList(
+        getActor(),
+        this.object,
+        this.state.hit_on_bone[bone_index].state
+      )!;
 
-      get_global<AnyCallablesModule>("xr_logic").switch_to_section(object, this.state.ini, section);
+      switch_to_section(object, this.state.ini!, section);
     }
   }
 
@@ -83,10 +90,10 @@ export class ActionPhysicalIdle extends AbstractSchemeAction {
 
     if (this.state.on_use) {
       if (
-        get_global<AnyCallablesModule>("xr_logic").switch_to_section(
+        switch_to_section(
           this.object,
-          this.state.ini,
-          pickSectionFromCondList(getActor(), this.object, this.state.on_use.condlist)
+          this.state.ini!,
+          pickSectionFromCondList(getActor(), this.object, this.state.on_use.condlist)!
         )
       ) {
         return true;

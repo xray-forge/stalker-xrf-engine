@@ -3,6 +3,7 @@ local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 local checkers = require("scripts.utils.checkers")
 local gulagUtils = require("scripts.utils.gulag")
+local configUtils = require("scripts.utils.configs")
 
 local log = create_ts_class_instance(LuaLogger, "dialog_manager");
 
@@ -107,7 +108,7 @@ function fill_phrase_table()
       if dm_ini_file:line_exist(id, "info") then
         if dm_ini_file:r_string(id, "info") ~= "" then
           temp_table.info = {}
-          xr_logic.parse_infop1(temp_table.info, dm_ini_file:r_string(id, "info"))
+          configUtils.parse_infop1(temp_table.info, dm_ini_file:r_string(id, "info"))
         else
           temp_table.info = {}
         end
@@ -393,7 +394,6 @@ end
 ---- Initialize selected actor dialog
 --function init_actor_dialogs(dialog, str)
 --	printf(string.format("init_%s_dialogs", str))
----- add actor question
 --	local phrase = dialog:AddPhrase(string.format("dm_%s_general", str), tostring(0), "", -10000)
 --	local script = phrase:GetPhraseScript()
 ---- set fill priority callback
@@ -404,7 +404,6 @@ end
 --	local answer = dialog:AddPhrase(string.format("dm_%s_no_more", str), tostring(1), tostring(0), -10000)
 --	local script = answer:GetPhraseScript()
 --	script:AddPrecondition(string.format("dialog_manager.precondition_%s_dialogs_no_more", str))
----- add npc answers
 --	for k,v in pairs(phrase_table[str]) do
 --		phrase = dialog:AddPhrase(v.name, tostring(v.id), tostring(0), -10000)
 --		if(phrase) then

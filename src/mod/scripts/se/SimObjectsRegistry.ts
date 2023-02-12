@@ -1,12 +1,12 @@
-import { alife, clsid, ini_file, XR_cse_alife_object, XR_EngineBinding } from "xray16";
+import { clsid, ini_file, XR_cse_alife_object, XR_EngineBinding } from "xray16";
 
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
 import { IActor } from "@/mod/scripts/se/Actor";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
 import { areOnSameAlifeLevel, getAlifeDistanceBetween } from "@/mod/scripts/utils/alife";
-import { parseCondList } from "@/mod/scripts/utils/configs";
+import { parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 
 let sim_objects_registry: Optional<ISimObjectsRegistry> = null;
 const props_ini = new ini_file("misc\\simulation_objects_props.ltx");
@@ -28,14 +28,7 @@ export const SimObjectsRegistry: ISimObjectsRegistry = declare_xr_class("SimObje
     this.update_avaliability(obj);
   },
   update_avaliability(obj: ISmartTerrain): void {
-    if (
-      get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(
-        getActor() || alife().actor(),
-        obj,
-        obj.sim_avail
-      ) === "true" &&
-      obj.sim_available()
-    ) {
+    if (pickSectionFromCondList(getActor()!, obj, obj.sim_avail as any) === "true" && obj.sim_available()) {
       this.objects.set(obj.id, obj);
     } else {
       this.objects.delete(obj.id);

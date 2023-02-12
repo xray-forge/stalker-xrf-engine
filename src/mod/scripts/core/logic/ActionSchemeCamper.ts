@@ -1,15 +1,20 @@
 import { stalker_ids, world_property, XR_action_base, XR_game_object, XR_ini_file } from "xray16";
 
-import { AnyCallablesModule } from "@/mod/lib/types";
 import { TScheme, TSection } from "@/mod/lib/types/configuration";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { IStoredObject } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
+import { assign_storage_and_bind, subscribe_action_for_events } from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { ActionPatrol, IActionPatrol } from "@/mod/scripts/core/logic/actions/ActionPatrol";
 import { EvaluatorCloseCombat } from "@/mod/scripts/core/logic/evaluators/EvaluatorCloseCombat";
 import { EvaluatorEnd } from "@/mod/scripts/core/logic/evaluators/EvaluatorEnd";
-import { getConfigBoolean, getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
+import {
+  cfg_get_switch_conditions,
+  getConfigBoolean,
+  getConfigNumber,
+  getConfigString,
+} from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -64,7 +69,7 @@ export class ActionSchemeCamper extends AbstractSchemeAction {
     actionPatrol.add_effect(new world_property(stalker_ids.property_enemy, false));
     actionPatrol.add_effect(new world_property(properties.state_mgr_logic_active, false));
     manager.add_action(operators.patrol, actionPatrol);
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(object, storage, actionPatrol);
+    subscribe_action_for_events(object, storage, actionPatrol);
 
     manager.action(action_ids.alife).add_precondition(new world_property(properties.end, true));
     manager.action(stalker_ids.action_gather_items).add_precondition(new world_property(properties.end, true));
@@ -86,10 +91,9 @@ export class ActionSchemeCamper extends AbstractSchemeAction {
     section: TSection,
     gulag_name: string
   ): void {
-    const state = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(object, ini, scheme, section);
+    const state = assign_storage_and_bind(object, ini, scheme, section);
 
-    state.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, object);
-
+    state.logic = cfg_get_switch_conditions(ini, section, object);
     state.path_walk = getConfigString(ini, section, "path_walk", object, true, gulag_name);
     state.path_look = getConfigString(ini, section, "path_look", object, true, gulag_name);
 

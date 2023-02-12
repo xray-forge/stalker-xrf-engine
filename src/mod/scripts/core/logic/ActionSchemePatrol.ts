@@ -1,10 +1,11 @@
 import { level, stalker_ids, vector, world_property, XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { TScheme, TSection } from "@/mod/lib/types/configuration";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { IStoredObject, patrols } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
+import { assign_storage_and_bind, subscribe_action_for_events } from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { ActionCommander, IActionCommander } from "@/mod/scripts/core/logic/actions/ActionCommander";
 import { ActionPatrol, IActionPatrol } from "@/mod/scripts/core/logic/actions/ActionPatrol";
@@ -12,7 +13,7 @@ import { EvaluatorPatrolComm } from "@/mod/scripts/core/logic/evaluators/Evaluat
 import { EvaluatorPatrolEnd } from "@/mod/scripts/core/logic/evaluators/EvaluatorPatrolEnd";
 import { getObjectSquad } from "@/mod/scripts/utils/alife";
 import { isObjectMeeting } from "@/mod/scripts/utils/checkers";
-import { getConfigBoolean, getConfigString } from "@/mod/scripts/utils/configs";
+import { cfg_get_switch_conditions, getConfigBoolean, getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { vectorCross, vectorRotateY, yawDegree } from "@/mod/scripts/utils/physics";
@@ -104,7 +105,7 @@ export class ActionSchemePatrol extends AbstractSchemeAction {
     actionCommander.add_effect(new world_property(properties.patrol_end, true));
     actionCommander.add_effect(new world_property(properties.state_mgr_logic_active, false));
     manager.add_action(operators.action_commander, actionCommander);
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(object, storage, actionCommander);
+    subscribe_action_for_events(object, storage, actionCommander);
 
     const actionPatrol: IActionPatrol = create_xr_class_instance(ActionPatrol, object, ActionPatrol.__name, storage);
 
@@ -118,7 +119,7 @@ export class ActionSchemePatrol extends AbstractSchemeAction {
     actionPatrol.add_effect(new world_property(properties.patrol_end, true));
     actionPatrol.add_effect(new world_property(properties.state_mgr_logic_active, false));
     manager.add_action(operators.action_patrol, actionPatrol);
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(object, storage, actionPatrol);
+    subscribe_action_for_events(object, storage, actionPatrol);
 
     manager.action(action_ids.alife).add_precondition(new world_property(properties.patrol_end, true));
   }
@@ -130,10 +131,9 @@ export class ActionSchemePatrol extends AbstractSchemeAction {
     section: TSection,
     gulag_name: string
   ): void {
-    const st = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(npc, ini, scheme, section);
+    const st = assign_storage_and_bind(npc, ini, scheme, section);
 
-    st.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, npc);
-
+    st.logic = cfg_get_switch_conditions(ini, section, npc);
     st.path_name = getConfigString(ini, section, "path_walk", npc, true, gulag_name);
     st.path_walk = st.path_name;
     st.path_look = getConfigString(ini, section, "path_look", npc, false, gulag_name);
@@ -165,13 +165,9 @@ export class ActionSchemePatrol extends AbstractSchemeAction {
       "",
       st.suggested_state.moving
     );
-    // --'    st.animation = getConfigString(ini, section, "animation", npc, false, "")
-
     st.path_walk_info = null;
     st.path_look_info = null;
-
     st.commander = getConfigBoolean(ini, section, "commander", npc, false, false);
-
     st.patrol_key = st.path_name;
 
     const squad = getObjectSquad(npc);

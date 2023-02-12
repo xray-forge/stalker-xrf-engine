@@ -599,9 +599,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
       return;
     }
 
-    const invulnerability: boolean =
-      (get_global("xr_logic").pick_section_from_condlist as AnyCallable)(getActor(), this, this.invulnerability) ===
-      "true";
+    const invulnerability: boolean = pickSectionFromCondList(getActor(), this, this.invulnerability as any) === "true";
 
     for (const k of this.squad_members()) {
       const npc_st = storage.get(k.id);
@@ -708,7 +706,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
       getConfigString(spawn_smart.ini, SMART_TERRAIN_SECT, "spawn_point", this, false, "", "self");
 
     spawn_point = parseCondList(this, "spawn_point", "spawn_point", spawn_point);
-    spawn_point = get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(getActor(), this, spawn_point);
+    spawn_point = pickSectionFromCondList(getActor(), this, spawn_point as any)!;
 
     let base_spawn_position: XR_vector = spawn_smart.position;
     let base_lvi = spawn_smart.m_level_vertex_id;

@@ -13,8 +13,9 @@ import {
   XR_sound_object,
 } from "xray16";
 
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { addAnimationObject, deleteAnimationObject, storage } from "@/mod/scripts/core/db";
+import { load_obj, save_obj } from "@/mod/scripts/core/logic";
 import { getStoryObject } from "@/mod/scripts/utils/alife";
 import { getConfigNumber, getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
@@ -296,7 +297,7 @@ export const LabX8DoorBinder: ILabX8DoorBinder = declare_xr_class("LabX8DoorBind
     setSaveMarker(packet, false, LabX8DoorBinder.__name);
 
     object_binder.save(this, packet);
-    get_global<AnyCallablesModule>("xr_logic").save_obj(this.object, packet);
+    save_obj(this.object, packet);
     packet.w_bool(this.is_idle);
     packet.w_bool(this.is_play_fwd);
     // --    packet.w_u32(this.idle_end)
@@ -308,7 +309,7 @@ export const LabX8DoorBinder: ILabX8DoorBinder = declare_xr_class("LabX8DoorBind
     setLoadMarker(reader, false, LabX8DoorBinder.__name);
 
     object_binder.load(this, reader);
-    get_global<AnyCallablesModule>("xr_logic").load_obj(this.object, reader);
+    load_obj(this.object, reader);
     this.is_idle = reader.r_bool();
     this.is_play_fwd = reader.r_bool();
     //    this.idle_end = packet.r_u32()

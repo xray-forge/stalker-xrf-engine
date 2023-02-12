@@ -14,11 +14,12 @@ import {
 
 import { communities } from "@/mod/globals/communities";
 import { MAX_UNSIGNED_32_BIT } from "@/mod/globals/memory";
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { TScheme, TSection } from "@/mod/lib/types/configuration";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { campfire_table, IStoredObject, kamp_stalkers, kamps } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
+import { assign_storage_and_bind, subscribe_action_for_events } from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { ActionGoPosition } from "@/mod/scripts/core/logic/actions/ActionGoPosition";
 import { ActionWait, IActionWait } from "@/mod/scripts/core/logic/actions/ActionWait";
@@ -27,7 +28,7 @@ import { EvaluatorOnPosition } from "@/mod/scripts/core/logic/evaluators/Evaluat
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { get_sound_manager, SoundManager } from "@/mod/scripts/core/sound/SoundManager";
 import { getCharacterCommunity, stopPlaySound } from "@/mod/scripts/utils/alife";
-import { getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
+import { cfg_get_switch_conditions, getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { addCommonPrecondition } from "@/mod/scripts/utils/scheme";
@@ -76,7 +77,7 @@ export class ActionSchemeCamp extends AbstractSchemeAction {
     actionWait.add_precondition(new world_property(properties.on_position, true));
     actionWait.add_effect(new world_property(properties.kamp_end, true));
     manager.add_action(operators.wait, actionWait);
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(object, storage, actionWait);
+    subscribe_action_for_events(object, storage, actionWait);
 
     const actionGoPosition = create_xr_class_instance(
       ActionGoPosition,
@@ -104,15 +105,9 @@ export class ActionSchemeCamp extends AbstractSchemeAction {
     section: TSection,
     gulag_name: string
   ): void {
-    const st: IStoredObject = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(
-      npc,
-      ini,
-      scheme,
-      section
-    );
+    const st: IStoredObject = assign_storage_and_bind(npc, ini, scheme, section);
 
-    st.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, npc);
-
+    st.logic = cfg_get_switch_conditions(ini, section, npc);
     st.center_point = getConfigString(ini, section, "center_point", npc, true, gulag_name);
     st.radius = getConfigNumber(ini, section, "radius", npc, false, 2);
 

@@ -11,7 +11,6 @@ import {
   time_global,
   XR_CALifeSmartTerrainTask,
   XR_cse_alife_creature_abstract,
-  XR_cse_alife_object,
   XR_cse_alife_smart_zone,
   XR_CTime,
   XR_game_object,
@@ -29,10 +28,17 @@ import {
   turn_off_campfires_by_smart_name,
   turn_on_campfires_by_smart_name,
 } from "@/mod/scripts/core/binders/CampfireBinder";
-import { getActor, offlineObjects, storage } from "@/mod/scripts/core/db";
+import { getActor, IStoredObject, offlineObjects, storage } from "@/mod/scripts/core/db";
 import { SMART_TERRAIN_SECT } from "@/mod/scripts/core/db/sections";
 import { get_smart_terrain_name } from "@/mod/scripts/core/db/smart_names";
-import { stype_mobile, stype_stalker } from "@/mod/scripts/core/schemes";
+import {
+  activate_by_section,
+  configure_schemes,
+  determine_section_to_activate,
+  initialize_obj,
+  switch_to_section,
+} from "@/mod/scripts/core/logic";
+import { ESchemeType, stype_mobile, stype_stalker } from "@/mod/scripts/core/schemes";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { simulation_activities } from "@/mod/scripts/se/SimActivity";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/se/SimBoard";
@@ -43,6 +49,7 @@ import { ESmartTerrainStatus, ISmartTerrainControl, SmartTerrainControl } from "
 import { areOnSameAlifeLevel, getStoryObject, unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { isMonster, isStalker } from "@/mod/scripts/utils/checkers";
 import {
+  get_scheme_by_section,
   getConfigBoolean,
   getConfigNumber,
   getConfigString,
@@ -361,13 +368,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
       stype = stype_stalker;
     }
 
-    (get_global("xr_logic").initialize_obj as AnyCallable)(
-      storage.get(object.id).object,
-      storage.get(object.id),
-      false,
-      getActor(),
-      stype
-    );
+    initialize_obj(storage.get(object.id).object!, storage.get(object.id), false, getActor()!, stype);
   },
   register_npc(obj: XR_cse_alife_creature_abstract): void {
     logger.info("Register npc:", this.name(), obj.name());
@@ -411,17 +412,17 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
       this.npc_info.get(obj.id).job_link.npc_id = null;
       this.npc_info.delete(obj.id);
 
-      (obj as any).clear_smart_terrain();
+      obj.clear_smart_terrain();
 
       if (storage.get(obj.id) !== null) {
-        const object = storage.get(obj.id).object;
+        const object = storage.get(obj.id).object!;
         let stype = stype_mobile;
 
         if (isStalker(obj)) {
           stype = stype_stalker;
         }
 
-        (get_global("xr_logic").initialize_obj as AnyCallable)(object, storage.get(obj.id), false, getActor(), stype);
+        initialize_obj(object, storage.get(obj.id), false, getActor()!, stype);
       }
 
       return;
@@ -429,7 +430,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
 
     if (this.arriving_npc.get(obj.id) !== null) {
       this.arriving_npc.delete(obj.id);
-      (obj as any).clear_smart_terrain();
+      obj.clear_smart_terrain();
 
       return;
     }
@@ -444,14 +445,14 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
 
       this.npc_info.get(obj.id).job_link.npc_id = null;
       this.npc_info.delete(obj.id);
-      (obj as any).clear_smart_terrain();
+      obj.clear_smart_terrain();
 
       return;
     }
 
     if (this.arriving_npc.get(obj.id) !== null) {
       this.arriving_npc.delete(obj.id);
-      (obj as any).clear_smart_terrain();
+      obj.clear_smart_terrain();
 
       return;
     }
@@ -617,7 +618,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
       const obj_storage = storage.get(npc_info.se_obj.id);
 
       if (obj_storage !== null) {
-        (get_global("xr_logic").switch_to_section as AnyCallable)(obj_storage.object, this.ltx, "nil");
+        switch_to_section(obj_storage.object!, this.ltx, "nil");
       }
     }
 
@@ -643,27 +644,15 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     const ltx = job.ini_file || this.ltx;
     const ltx_name = job.ini_path || this.ltx_name;
 
-    (get_global("xr_logic").configure_schemes as AnyCallable)(
-      obj,
-      ltx,
-      ltx_name,
-      npc_data.stype,
-      job.section,
-      job.prefix_name || this.name()
-    );
+    configure_schemes(obj, ltx, ltx_name, npc_data.stype, job.section, job.prefix_name || this.name());
 
-    const sect = (get_global("xr_logic").determine_section_to_activate as AnyCallable)(
-      obj,
-      ltx,
-      job.section,
-      getActor()
-    );
+    const sect: TSection = determine_section_to_activate(obj, ltx, job.section, getActor()!);
 
-    if ((get_global("utils").get_scheme_by_section as AnyCallable)(job.section) === "nil") {
+    if (get_scheme_by_section(job.section) === "nil") {
       abort("[smart_terrain %s] section=%s, don't use section 'null'!", this.name(), sect);
     }
 
-    (get_global("xr_logic").activate_by_section as AnyCallable)(obj, ltx, sect, job.prefix_name || this.name(), false);
+    activate_by_section(obj, ltx, sect, job.prefix_name || this.name(), false);
   },
   getJob(obj_id: number): unknown {
     return this.npc_info.get(obj_id) && this.job_data.get(this.npc_info.get(obj_id).job_id);
@@ -734,7 +723,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
   STATE_Write(packet: XR_net_packet): void {
     cse_alife_smart_zone.STATE_Write(this, packet);
 
-    setSaveMarker(packet, false, "SmartTerrain");
+    setSaveMarker(packet, false, SmartTerrain.__name);
 
     let n = 0;
 
@@ -815,7 +804,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
 
     packet.w_u8(this.population);
 
-    setSaveMarker(packet, true, "SmartTerrain");
+    setSaveMarker(packet, true, SmartTerrain.__name);
   },
   STATE_Read(packet: XR_net_packet, size: number): void {
     cse_alife_smart_zone.STATE_Read(this, packet, size);
@@ -824,7 +813,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
       return;
     }
 
-    setLoadMarker(packet, false, "SmartTerrain");
+    setLoadMarker(packet, false, SmartTerrain.__name);
     this.read_params();
 
     let n = packet.r_u8();
@@ -904,7 +893,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     }
 
     this.population = packet.r_u8();
-    setLoadMarker(packet, true, "SmartTerrain");
+    setLoadMarker(packet, true, SmartTerrain.__name);
   },
   init_npc_after_load(): void {
     logger.info("Init npc after load:", this.name());
@@ -1371,9 +1360,9 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
 
 export function setup_gulag_and_logic_on_spawn(
   obj: XR_game_object,
-  st: any,
+  st: IStoredObject,
   sobject: any,
-  stype: any,
+  stype: ESchemeType,
   loaded: boolean
 ): void {
   logger.info("Setup gulag logic on spawn:", obj.name(), stype);
@@ -1381,8 +1370,6 @@ export function setup_gulag_and_logic_on_spawn(
   const sim = alife();
 
   sobject = alife()!.object(obj.id());
-
-  const initialize_obj = get_global("xr_logic").initialize_obj as AnyCallable;
 
   if (sim !== null && sobject !== null) {
     const strn_id = sobject.m_smart_terrain_id;
@@ -1394,13 +1381,13 @@ export function setup_gulag_and_logic_on_spawn(
       if (need_setup_logic) {
         strn.setup_logic(obj);
       } else {
-        initialize_obj(obj, st, loaded, getActor(), stype);
+        initialize_obj(obj, st, loaded, getActor()!, stype);
       }
     } else {
-      initialize_obj(obj, st, loaded, getActor(), stype);
+      initialize_obj(obj, st, loaded, getActor()!, stype);
     }
   } else {
-    initialize_obj(obj, st, loaded, getActor(), stype);
+    initialize_obj(obj, st, loaded, getActor()!, stype);
   }
 }
 

@@ -11,12 +11,21 @@ import {
   XR_vector,
 } from "xray16";
 
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import {
+  assign_storage_and_bind,
+  mob_captured,
+  mob_release,
+  subscribe_action_for_events,
+  switch_to_section,
+  try_switch_to_another_section,
+} from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { getStoryObject } from "@/mod/scripts/utils/alife";
 import { isHeavilyWounded } from "@/mod/scripts/utils/checkers";
 import {
+  cfg_get_switch_conditions,
   getConfigBoolean,
   getConfigNumber,
   getConfigString,
@@ -42,7 +51,7 @@ const state_none: number = 0;
 const state_firetarget_points: number = 1;
 const state_firetarget_enemy: number = 2;
 
-const loggeru: LuaLogger = new LuaLogger("ActionMiniGun");
+const logger: LuaLogger = new LuaLogger("ActionMiniGun");
 
 export class ActionMiniGun extends AbstractSchemeAction {
   public static readonly SCHEME_SECTION: string = "ph_minigun";
@@ -54,13 +63,9 @@ export class ActionMiniGun extends AbstractSchemeAction {
     section: string,
     state: IStoredObject
   ): void {
-    loggeru.info("Add to binder:", object.name());
+    logger.info("Add to binder:", object.name());
 
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(
-      object,
-      state,
-      new ActionMiniGun(object, state)
-    );
+    subscribe_action_for_events(object, state, new ActionMiniGun(object, state));
   }
 
   public static set_scheme(
@@ -70,9 +75,9 @@ export class ActionMiniGun extends AbstractSchemeAction {
     section: string,
     gulag_name: string
   ): void {
-    const state = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(object, ini, scheme, section);
+    const state = assign_storage_and_bind(object, ini, scheme, section);
 
-    state.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, object);
+    state.logic = cfg_get_switch_conditions(ini, section, object);
     state.path_fire = getConfigString(ini, section, "path_fire", object, false, gulag_name, null);
     state.auto_fire = getConfigBoolean(ini, section, "auto_fire", object, false, false);
     state.fire_time = getConfigNumber(ini, section, "fire_time", object, false, def_min_fire_time);
@@ -82,7 +87,6 @@ export class ActionMiniGun extends AbstractSchemeAction {
     state.fire_track_target = getConfigBoolean(ini, section, "track_target", object, false, false);
     state.fire_angle = getConfigNumber(ini, section, "fire_angle", object, false, def_fire_angle);
     state.shoot_only_on_visible = getConfigBoolean(ini, section, "shoot_only_on_visible", object, false, true);
-
     state.on_target_vis = getConfigStringAndCondList(ini, section, "on_target_vis", object);
     state.on_target_nvis = getConfigStringAndCondList(ini, section, "on_target_nvis", object);
   }
@@ -309,12 +313,12 @@ export class ActionMiniGun extends AbstractSchemeAction {
   }
 
   public update(delta: number): void {
-    if (get_global<AnyCallablesModule>("xr_logic").try_switch_to_another_section(this.object, this.state, getActor())) {
+    if (try_switch_to_another_section(this.object, this.state, getActor())) {
       return;
     }
 
     if (this.destroyed) {
-      get_global<AnyCallablesModule>("xr_logic").switch_to_section(this.object, this.state.ini, "nil");
+      switch_to_section(this.object, this.state.ini!, "nil");
 
       return;
     }
@@ -349,7 +353,7 @@ export class ActionMiniGun extends AbstractSchemeAction {
     }
 
     if (this.state_cannon === state_cannon_stop && this.state_firetarget === state_none) {
-      if (get_global<AnyCallablesModule>("xr_logic").mob_captured(this.object) && !this.object.action()) {
+      if (mob_captured(this.object) && !this.object.action()) {
         this.destroy_car();
 
         return true;
@@ -363,7 +367,7 @@ export class ActionMiniGun extends AbstractSchemeAction {
         const new_section = pickSectionFromCondList(getActor(), this.object, this.on_target_vis.condlist);
 
         if (new_section) {
-          get_global<AnyCallablesModule>("xr_logic").switch_to_section(this.object, this.state.ini, new_section);
+          switch_to_section(this.object, this.state.ini!, new_section);
         }
       }
 
@@ -371,7 +375,7 @@ export class ActionMiniGun extends AbstractSchemeAction {
         const new_section = pickSectionFromCondList(getActor(), this.object, this.on_target_nvis.condlist);
 
         if (new_section) {
-          get_global<AnyCallablesModule>("xr_logic").switch_to_section(this.object, this.state.ini, new_section);
+          switch_to_section(this.object, this.state.ini!, new_section);
         }
       }
 
@@ -466,7 +470,7 @@ export class ActionMiniGun extends AbstractSchemeAction {
     this.mgun.Action(CCar.eWpnAutoFire, 0);
     this.set_shooting(this.state_shooting);
 
-    get_global<AnyCallablesModule>("xr_logic").mob_release(this.object);
+    mob_release(this.object);
 
     if (this.state.on_death_info !== null) {
       getActor()!.give_info_portion(this.state.on_death_info);

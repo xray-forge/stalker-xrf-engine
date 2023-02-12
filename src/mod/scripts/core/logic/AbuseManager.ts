@@ -1,9 +1,11 @@
 import { stalker_ids, time_global, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
+import { TScheme, TSection } from "@/mod/lib/types/configuration";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
+import { assign_storage_and_bind } from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { ActionAbuseHit } from "@/mod/scripts/core/logic/ActionAbuseHit";
 import { EvaluatorAbuse } from "@/mod/scripts/core/logic/evaluators/EvaluatorAbuse";
@@ -54,7 +56,7 @@ export class AbuseManager extends AbstractSchemeAction {
   }
 
   public static set_abuse(npc: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
-    const st = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(npc, ini, scheme, section);
+    const st = assign_storage_and_bind(npc, ini, scheme, section);
   }
 
   public static add_abuse(npc: XR_game_object, value: number): void {
@@ -65,7 +67,7 @@ export class AbuseManager extends AbstractSchemeAction {
     }
   }
 
-  public static reset_abuse(): void {}
+  public static reset_abuse(object: XR_game_object, scheme: TScheme, state: IStoredObject, section: TSection): void {}
 
   public static clear_abuse(object: XR_game_object): void {
     const state = storage.get(object.id()).abuse;

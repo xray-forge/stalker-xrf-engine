@@ -2,11 +2,22 @@ import { level, patrol, XR_CHelicopter, XR_game_object, XR_ini_file, XR_patrol, 
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
+import {
+  assign_storage_and_bind,
+  subscribe_action_for_events,
+  try_switch_to_another_section,
+} from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { get_heli_firer, HeliFire } from "@/mod/scripts/core/logic/heli/HeliFire";
 import { get_heli_flyer, HeliFly } from "@/mod/scripts/core/logic/heli/HeliFly";
 import { get_heli_looker, HeliLook } from "@/mod/scripts/core/logic/heli/HeliLook";
-import { getConfigBoolean, getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
+import {
+  cfg_get_switch_conditions,
+  getConfigBoolean,
+  getConfigNumber,
+  getConfigString,
+} from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 
 const state_move: number = 0;
@@ -23,13 +34,13 @@ export class ActionHeliMove extends AbstractSchemeAction {
   ): void {
     const new_action = new ActionHeliMove(npc, storage);
 
-    get_global<AnyCallablesModule>("xr_logic.").subscribe_action_for_events(npc, storage, new_action);
+    subscribe_action_for_events(npc, storage, new_action);
   }
 
   public static set_scheme(npc: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
-    const a = get_global<AnyCallablesModule>("xr_logic.").assign_storage_and_bind(npc, ini, scheme, section);
+    const a = assign_storage_and_bind(npc, ini, scheme, section);
 
-    a.logic = get_global<AnyCallablesModule>("xr_logic.").cfg_get_switch_conditions(ini, section, npc);
+    a.logic = cfg_get_switch_conditions(ini, section, npc);
 
     a.path_move = getConfigString(ini, section, "path_move", npc, true, "");
     a.path_look = getConfigString(ini, section, "path_look", npc, false, "");
@@ -114,12 +125,12 @@ export class ActionHeliMove extends AbstractSchemeAction {
     this.max_velocity = this.state.max_velocity;
 
     if (loading) {
-      this.heliState = get_global<AnyCallablesModule>("xr_logic.").pstor_retrieve(this.object, "st");
+      this.heliState = pstor_retrieve(this.object, "st");
 
-      this.last_index = get_global<AnyCallablesModule>("xr_logic.").pstor_retrieve(this.object, "li") || null;
-      this.next_index = get_global<AnyCallablesModule>("xr_logic.").pstor_retrieve(this.object, "ni") || null;
+      this.last_index = pstor_retrieve(this.object, "li") || null;
+      this.next_index = pstor_retrieve(this.object, "ni") || null;
 
-      this.was_callback = get_global<AnyCallablesModule>("xr_logic.").pstor_retrieve(this.object, "wc");
+      this.was_callback = pstor_retrieve(this.object, "wc");
     } else {
       this.last_index = null;
       this.next_index = null;
@@ -190,18 +201,18 @@ export class ActionHeliMove extends AbstractSchemeAction {
   }
 
   public save(): void {
-    get_global<AnyCallablesModule>("xr_logic").pstor_store(this.object, "st", this.heliState);
+    pstor_store(this.object, "st", this.heliState);
     // ---
-    get_global<AnyCallablesModule>("xr_logic").pstor_store(this.object, "li", this.last_index || false);
-    get_global<AnyCallablesModule>("xr_logic").pstor_store(this.object, "ni", this.next_index || false);
+    pstor_store(this.object, "li", this.last_index || false);
+    pstor_store(this.object, "ni", this.next_index || false);
     // ---
-    get_global<AnyCallablesModule>("xr_logic").pstor_store(this.object, "wc", this.was_callback);
+    pstor_store(this.object, "wc", this.was_callback);
   }
 
   public update(delta: number): void {
     const actor: XR_game_object = getActor()!;
 
-    if (get_global<AnyCallablesModule>("xr_logic.").try_switch_to_another_section(this.object, this.state, actor)) {
+    if (try_switch_to_another_section(this.object, this.state, actor)) {
       return;
     }
 

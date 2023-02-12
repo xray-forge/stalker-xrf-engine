@@ -12,14 +12,21 @@ import {
   XR_vector,
 } from "xray16";
 
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { campStorage, getActor, IStoredObject } from "@/mod/scripts/core/db";
+import {
+  assign_storage_and_bind,
+  mob_capture,
+  mob_release,
+  subscribe_action_for_events,
+  try_switch_to_another_section,
+} from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { ActionMobCombat } from "@/mod/scripts/core/logic/mob/ActionMobCombat";
 import { get_state, set_state } from "@/mod/scripts/core/logic/mob/MobStateManager";
 import { action } from "@/mod/scripts/utils/alife";
 import { isMonster, isStalker } from "@/mod/scripts/utils/checkers";
-import { getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
+import { cfg_get_switch_conditions, getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -39,7 +46,7 @@ export class ActionMobCamp extends AbstractSchemeAction {
   ): void {
     const new_action = new ActionMobCombat(npc, storage);
 
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(npc, storage, new_action);
+    subscribe_action_for_events(npc, storage, new_action);
   }
 
   public static set_scheme(
@@ -51,12 +58,10 @@ export class ActionMobCamp extends AbstractSchemeAction {
   ): void {
     logger.info("Set scheme:", npc.name(), scheme, section);
 
-    const storage = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(npc, ini, scheme, section);
+    const storage = assign_storage_and_bind(npc, ini, scheme, section);
 
-    storage.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, npc);
-
+    storage.logic = cfg_get_switch_conditions(ini, section, npc);
     storage.state = get_state(ini, section, npc);
-
     storage.look_point = getConfigString(ini, section, "path_look", npc, false, gulag_name);
     storage.home_point = getConfigString(ini, section, "path_home", npc, false, gulag_name);
     storage.time_change_point = getConfigNumber(ini, section, "time_change_point", npc, false, 10000);
@@ -88,7 +93,7 @@ export class ActionMobCamp extends AbstractSchemeAction {
   public prev_enemy!: boolean;
 
   public reset_scheme(): void {
-    get_global<AnyCallablesModule>("xr_logic").mob_capture(this.object, true);
+    mob_capture(this.object, true);
 
     set_state(this.object, getActor()!, this.state.state);
 
@@ -136,12 +141,12 @@ export class ActionMobCamp extends AbstractSchemeAction {
   }
 
   public update(delta: number): void {
-    if (get_global<AnyCallablesModule>("xr_logic").try_switch_to_another_section(this.object, this.state, getActor())) {
+    if (try_switch_to_another_section(this.object, this.state, getActor())) {
       return;
     }
 
     if (!this.object.alive()) {
-      get_global<AnyCallablesModule>("xr_logic").mob_release(this.object);
+      mob_release(this.object);
 
       return;
     }
@@ -280,13 +285,13 @@ export class ActionMobCamp extends AbstractSchemeAction {
     }
 
     if (this.state_current === STATE_ALIFE && this.state_prev !== STATE_ALIFE) {
-      get_global<AnyCallablesModule>("xr_logic").mob_release(this.object);
+      mob_release(this.object);
 
       return;
     }
 
     if (this.state_current !== STATE_ALIFE && this.state_prev === STATE_ALIFE) {
-      get_global<AnyCallablesModule>("xr_logic").mob_capture(this.object, true);
+      mob_capture(this.object, true);
     }
 
     if (this.state_current === STATE_CAMP) {

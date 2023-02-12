@@ -29,17 +29,6 @@ export const StateManagerEvaIdleItems: IStateManagerEvaIdleItems = declare_xr_cl
         return true;
       }
 
-      // --    printf("SECTION %s", utils.to_str(db.storage[this.st.npc:id()].active_section))
-      // --    mgr = this.object:motivation_action_manager()
-      //  --    this.t = null
-      // --    if mgr:initialized() then
-      //  --        this.t = mgr:current_action_id()
-      //  --        --printf("ACTION %s", utils.to_str(this.t))
-      // --        if this.t ~= actions_ids.alife then
-      //  --            this.st.alife = false
-      //  --        end
-      // --    end
-
       //  --    if (db.storage[this.st.npc:id()].active_section === null) {
       if (!isObjectMeeting(this.object)) {
         const t =
@@ -52,16 +41,6 @@ export const StateManagerEvaIdleItems: IStateManagerEvaIdleItems = declare_xr_cl
           this.st.planner.evaluator(EStateManagerProperty.animation).evaluate() &&
           this.st.planner.evaluator(EStateManagerProperty.smartcover).evaluate();
 
-        // --        printf("[%s] %s", this.object:name(), utils.to_str(this.st.target_state))
-        // --        printf("%s", utils.to_str(this.st.planner.evaluator(this.st.properties["locked"]).evaluate()))
-        // --        printf("%s", utils.to_str(this.st.planner.evaluator(this.st.properties["movement"]).evaluate()))
-        // --        printf("%s", utils.to_str(this.st.planner.evaluator(this.st.properties["animstate"]).evaluate()))
-        // --        printf("%s", utils.to_str(this.st.planner.evaluator(this.st.properties["animation"]).evaluate()))
-
-        // --            if (t === true) { this.st.alife = true }
-        // --            if (this.st.alife) === true {
-        // --                return true
-        // --            }
         return t;
       } else {
         return false;

@@ -350,13 +350,10 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
   give_reward(): void {
     logger.info("Give quest rewards:", this.id, this.t?.get_id());
 
-    const xr_logic = get_global<AnyCallablesModule>("xr_logic");
+    pickSectionFromCondList(getActor(), getActor(), this.on_complete as any);
 
-    xr_logic.pick_section_from_condlist(getActor(), getActor(), this.on_complete);
-
-    const money = xr_logic.pick_section_from_condlist(getActor(), getActor(), this.reward_money);
-    const items = xr_logic.pick_section_from_condlist(getActor(), getActor(), this.reward_item);
-
+    const money = pickSectionFromCondList(getActor(), getActor(), this.reward_money as any);
+    const items = pickSectionFromCondList(getActor(), getActor(), this.reward_item as any);
     const npc = getInventoryVictim();
 
     if (money !== null) {
@@ -389,7 +386,7 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
     if (this.last_check_task === "fail") {
       send_task(getActor(), "fail", task);
     } else if (this.last_check_task === "reversed") {
-      get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(getActor(), getActor(), this.on_reversed);
+      pickSectionFromCondList(getActor(), getActor(), this.on_reversed as any);
       send_task(getActor(), "reversed", task);
     }
 

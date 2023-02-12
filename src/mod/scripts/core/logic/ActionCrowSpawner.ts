@@ -2,8 +2,13 @@ import { alife, patrol, time_global, XR_game_object, XR_ini_file } from "xray16"
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { CROW_STORAGE, getActor, IStoredObject } from "@/mod/scripts/core/db";
+import {
+  assign_storage_and_bind,
+  subscribe_action_for_events,
+  try_switch_to_another_section,
+} from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
-import { getConfigNumber, getConfigString, parseNames } from "@/mod/scripts/utils/configs";
+import { cfg_get_switch_conditions, getConfigNumber, getConfigString, parseNames } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { copyTable } from "@/mod/scripts/utils/table";
 
@@ -19,27 +24,16 @@ export class ActionCrowSpawner extends AbstractSchemeAction {
     section: string,
     state: IStoredObject
   ): void {
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(
-      object,
-      state,
-      new ActionCrowSpawner(object, state)
-    );
+    subscribe_action_for_events(object, state, new ActionCrowSpawner(object, state));
   }
 
   public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
     // -- standart lines: assigning new storage and binding our space restrictor
-    const state: IStoredObject = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(
-      object,
-      ini,
-      scheme,
-      section
-    );
+    const state: IStoredObject = assign_storage_and_bind(object, ini, scheme, section);
 
-    state.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, object);
-    // -- getting maximum number of crows on level
+    state.logic = cfg_get_switch_conditions(ini, section, object);
     state.max_crows_on_level = getConfigNumber(ini, section, "max_crows_on_level", object, false, 16);
 
-    // -- getting path names from custom_data
     const path = getConfigString(ini, section, "spawn_path", object, false, "", null);
 
     state.path_table = parseNames(path!);
@@ -78,7 +72,7 @@ export class ActionCrowSpawner extends AbstractSchemeAction {
       }
     }
 
-    if (get_global<AnyCallablesModule>("xr_logic").try_switch_to_another_section(this.object, this.state, getActor())) {
+    if (try_switch_to_another_section(this.object, this.state, getActor())) {
       return;
     }
   }

@@ -1,10 +1,10 @@
 import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
-import { AnyCallablesModule } from "@/mod/lib/types";
 import { TScheme, TSection } from "@/mod/lib/types/configuration";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { IStoredObject } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
+import { subscribe_action_for_events } from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { ActionLookAround, IActionLookAround } from "@/mod/scripts/core/logic/actions/ActionLookAround";
 import { ActionShoot, IActionShoot } from "@/mod/scripts/core/logic/actions/ActionShoot";
@@ -73,7 +73,7 @@ export class ActionSchemeCombatCamper extends AbstractSchemeAction {
     lookAroundAction.add_effect(new world_property(properties.state_mgr_logic_active, false));
     planner.add_action(act_look_around, lookAroundAction);
 
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(object, state, lookAroundAction);
+    subscribe_action_for_events(object, state, lookAroundAction);
 
     state.camper_combat_action = false;
   }

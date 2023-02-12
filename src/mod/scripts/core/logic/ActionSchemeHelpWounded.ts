@@ -1,11 +1,12 @@
 import { alife, stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
 import { script_sounds } from "@/mod/globals/sound/script_sounds";
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { TScheme, TSection } from "@/mod/lib/types/configuration";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
+import { assign_storage_and_bind } from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { ActionHelpWounded } from "@/mod/scripts/core/logic/actions/ActionHelpWounded";
 import { ActionWoundManager } from "@/mod/scripts/core/logic/ActionWoundManager";
@@ -40,7 +41,7 @@ export class ActionSchemeHelpWounded extends AbstractSchemeAction {
     const manager: XR_action_planner = npc.motivation_action_manager();
 
     manager.add_evaluator(
-      properties["wounded_exist"],
+      properties.wounded_exist,
       create_xr_class_instance(EvaluatorWoundedExist, "wounded_exist", state)
     );
 
@@ -76,8 +77,13 @@ export class ActionSchemeHelpWounded extends AbstractSchemeAction {
     return actionManager.current_action_id() === action_ids.wounded_exist;
   }
 
-  public static set_help_wounded(object: XR_game_object, ini: XR_ini_file, scheme: TScheme, section: TSection) {
-    get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(object, ini, scheme, section);
+  public static set_help_wounded(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: TScheme,
+    section: Optional<TSection>
+  ) {
+    assign_storage_and_bind(object, ini, scheme, section);
   }
 
   public static help_wounded(object: XR_game_object): void {

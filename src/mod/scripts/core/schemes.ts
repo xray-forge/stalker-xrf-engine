@@ -19,15 +19,11 @@ export enum ESchemeType {
   RESTRICTOR = 4,
 }
 
-export const schemes: LuaTable<string, string | AnyObject> = new LuaTable();
+export const schemes: LuaTable<string, typeof AbstractSchemeAction> = new LuaTable();
 export const stypes: LuaTable<string, number> = new LuaTable();
 
-export function loadScheme(
-  filenameOrModule: string | typeof AbstractSchemeAction,
-  scheme: string,
-  stype: ESchemeType
-): void {
-  logger.info("Loading scheme:", scheme, ESchemeType[1]);
+export function loadScheme(filenameOrModule: typeof AbstractSchemeAction, scheme: string, stype: ESchemeType): void {
+  logger.info("Loading scheme:", scheme, ESchemeType[stype]);
 
   schemes.set(scheme, filenameOrModule);
   stypes.set(scheme, stype);

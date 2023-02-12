@@ -1,9 +1,10 @@
 import { device, time_global, vector, XR_game_object, XR_ini_file, XR_physics_joint, XR_vector } from "xray16";
 
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { IStoredObject } from "@/mod/scripts/core/db";
+import { assign_storage_and_bind, subscribe_action_for_events } from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
-import { getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
+import { cfg_get_switch_conditions, getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { vectorRotateY } from "@/mod/scripts/utils/physics";
 
@@ -17,7 +18,7 @@ export class ActionOscillate extends AbstractSchemeAction {
     section: string,
     state: IStoredObject
   ): void {
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(npc, state, new ActionOscillate(npc, state));
+    subscribe_action_for_events(npc, state, new ActionOscillate(npc, state));
   }
 
   public static set_scheme(
@@ -27,14 +28,9 @@ export class ActionOscillate extends AbstractSchemeAction {
     section: string,
     gulag_name: string
   ): void {
-    const state: IStoredObject = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(
-      object,
-      ini,
-      scheme,
-      section
-    );
+    const state: IStoredObject = assign_storage_and_bind(object, ini, scheme, section);
 
-    state.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, object);
+    state.logic = cfg_get_switch_conditions(ini, section, object);
     state.joint = getConfigString(ini, section, "joint", object, true, gulag_name);
 
     if (state.joint === null) {

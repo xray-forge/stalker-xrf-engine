@@ -1,8 +1,15 @@
 import { XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import {
+  assign_storage_and_bind,
+  subscribe_action_for_events,
+  try_switch_to_another_section,
+  unsubscribe_action_from_events,
+} from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { cfg_get_switch_conditions } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ActionOnHit");
@@ -25,17 +32,17 @@ export class ActionOnHit extends AbstractSchemeAction {
   public static set_scheme(npc: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
     logger.info("Set scheme:", npc.name());
 
-    const st = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(npc, ini, scheme, section);
+    const st = assign_storage_and_bind(npc, ini, scheme, section);
 
-    st.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, npc);
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(npc, st, st.action);
+    st.logic = cfg_get_switch_conditions(ini, section, npc);
+    subscribe_action_for_events(npc, st, st.action);
   }
 
   public static disable_scheme(npc: XR_game_object, scheme: string): void {
     const st = storage.get(npc.id())[scheme];
 
     if (st) {
-      get_global<AnyCallablesModule>("xr_logic").unsubscribe_action_from_events(npc, st, st.action);
+      unsubscribe_action_from_events(npc, st, st.action);
     }
   }
 
@@ -51,7 +58,7 @@ export class ActionOnHit extends AbstractSchemeAction {
     logger.info("Object hit:", object.name(), "<-", who_name, amount);
 
     if (storage.get(this.object.id()).active_scheme) {
-      if (get_global<AnyCallablesModule>("xr_logic").try_switch_to_another_section(object, this.state, getActor())) {
+      if (try_switch_to_another_section(object, this.state, getActor())) {
         return;
       }
     }

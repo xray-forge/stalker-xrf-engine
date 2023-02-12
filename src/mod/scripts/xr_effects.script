@@ -16,6 +16,10 @@ local game_relations = require("scripts.core.game_relations")
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
 local gulagUtils = require("scripts.utils.gulag")
+local configUtils = require("scripts.utils.configs")
+local checkers = require("scripts.utils.checkers")
+local coreLogic = require("scripts.core.logic")
+local pstor = require("scripts.core.db.pstor")
 
 local log = create_ts_class_instance(LuaLogger, "xr_effects");
 
@@ -56,7 +60,7 @@ function update_obj_logic(actor, object, p)
       log:info("Update obj logic:", obj:id())
 
       local st = db.storage[obj:id()]
-      xr_logic.try_switch_to_another_section(obj, st[st.active_scheme], actor)
+      coreLogic.try_switch_to_another_section(obj, st[st.active_scheme], actor)
     end
   end
 end
@@ -332,7 +336,7 @@ function teleport_actor(actor, npc, p)
 
   for k, v in pairs(db.no_weap_zones) do
     local zone = db.zone_by_name[k]
-    if utils.npc_in_zone(db.actor, zone) then
+    if checkers.isNpcInZone(db.actor, zone) then
       db.no_weap_zones[k] = true
     end
   end
@@ -822,24 +826,24 @@ end
 function inc_counter(actor, npc, p)
   if p and p[1] then
     local inc_value = p[2] or 1
-    local new_value = xr_logic.pstor_retrieve(actor, p[1], 0) + inc_value
+    local new_value = pstor.pstor_retrieve(actor, p[1], 0) + inc_value
     if npc and npc:name() then
       printf("inc_counter '%s'  to value [%s], by [%s]", p[1], tostring(new_value), tostring(npc:name()))
     end
-    xr_logic.pstor_store(actor, p[1], new_value)
+    pstor.pstor_store(actor, p[1], new_value)
   end
 end
 
 function dec_counter(actor, npc, p)
   if p and p[1] then
     local dec_value = p[2] or 1
-    local new_value = xr_logic.pstor_retrieve(actor, p[1], 0) - dec_value
+    local new_value = pstor.pstor_retrieve(actor, p[1], 0) - dec_value
     if new_value < 0 then
       new_value = 0
     end
-    xr_logic.pstor_store(actor, p[1], new_value)
+    pstor.pstor_store(actor, p[1], new_value)
     if npc and npc:name() then
-      printf("dec_counter [%s] value [%s] by [%s]", p[1], xr_logic.pstor_retrieve(actor, p[1], 0), tostring(npc:name()))
+      printf("dec_counter [%s] value [%s] by [%s]", p[1], pstor.pstor_retrieve(actor, p[1], 0), tostring(npc:name()))
     end
   end
 end
@@ -847,9 +851,7 @@ end
 function set_counter(actor, npc, p)
   if p and p[1] then
     local count = p[2] or 0
-    --		printf( "set_counter '%s' %s", p[1], count)
-    xr_logic.pstor_store(actor, p[1], count)
-    --		printf("counter [%s] value [%s]", p[1], xr_logic.pstor_retrieve(actor, p[1], 0))
+    pstor.pstor_store(actor, p[1], count)
   end
 end
 
@@ -1521,13 +1523,13 @@ function create_squad_member(actor, obj, p)
   if p[3] ~= nil then
     local spawn_point
     if p[3] == "simulation_point" then
-      spawn_point = utils.cfg_get_string(SimBoard.squad_ltx, squad:section_name(), "spawn_point", obj, false, "")
+      spawn_point = configUtils.getConfigString(SimBoard.squad_ltx, squad:section_name(), "spawn_point", obj, false, "")
       if spawn_point == "" or spawn_point == nil then
-        spawn_point = xr_logic.parse_condlist(obj, "spawn_point", "spawn_point", squad_smart.spawn_point)
+        spawn_point = configUtils.parseCondList(obj, "spawn_point", "spawn_point", squad_smart.spawn_point)
       else
-        spawn_point = xr_logic.parse_condlist(obj, "spawn_point", "spawn_point", spawn_point)
+        spawn_point = configUtils.parseCondList(obj, "spawn_point", "spawn_point", spawn_point)
       end
-      spawn_point = xr_logic.pick_section_from_condlist(db.actor, obj, spawn_point)
+      spawn_point = configUtils.pickSectionFromCondList(db.actor, obj, spawn_point)
     else
       spawn_point = p[3]
     end
@@ -2557,7 +2559,7 @@ function jup_b10_spawn_drunk_dead_items(actor, npc, p)
   }
 
   if p and p[1] ~= nil then
-    local cnt = xr_logic.pstor_retrieve(actor, "jup_b10_ufo_counter", 0)
+    local cnt = pstor.pstor_retrieve(actor, "jup_b10_ufo_counter", 0)
     if cnt > 2 then
       return
     end
@@ -2814,7 +2816,7 @@ function jup_b221_play_main(actor, npc, p)
     disable_info(info_need_reply)
     theme_to_play = reachable_theme[math.random(1, #reachable_theme)]
     --		printf("jup_b221_play_main: variable theme_to_play ------------------------------> [%s]", tostring(theme_to_play))
-    xr_logic.pstor_store(actor, "jup_b221_played_main_theme", tostring(theme_to_play))
+    pstor.pstor_store(actor, "jup_b221_played_main_theme", tostring(theme_to_play))
     db.actor:give_info_portion(main_theme .. tostring(theme_to_play) .. "_played")
     if theme_to_play ~= 0 then
       play_sound(actor, npc, { main_theme .. tostring(theme_to_play) })
@@ -2823,13 +2825,13 @@ function jup_b221_play_main(actor, npc, p)
     end
   else
     db.actor:give_info_portion(info_need_reply)
-    theme_to_play = tonumber(xr_logic.pstor_retrieve(actor, "jup_b221_played_main_theme", 0))
+    theme_to_play = tonumber(pstor.pstor_retrieve(actor, "jup_b221_played_main_theme", 0))
     if theme_to_play ~= 0 then
       play_sound(actor, npc, { reply_theme .. tostring(theme_to_play) })
     else
       abort("No such theme_to_play in function 'jup_b221_play_main'")
     end
-    xr_logic.pstor_store(actor, "jup_b221_played_main_theme", "0")
+    pstor.pstor_store(actor, "jup_b221_played_main_theme", "0")
   end
 end
 
@@ -2910,7 +2912,7 @@ function sleep(actor, npc)
   }
 
   for k, v in pairs(sleep_zones) do
-    if utils.npc_in_zone(db.actor, db.zone_by_name[v]) then
+    if checkers.isNpcInZone(db.actor, db.zone_by_name[v]) then
       SleepDialog.sleep()
       give_info("sleep_active")
     end
@@ -3438,6 +3440,6 @@ function jup_b200_count_found(actor)
     end
   end
 
-  cnt = cnt + xr_logic.pstor_retrieve(actor, "jup_b200_tech_materials_brought_counter", 0)
-  xr_logic.pstor_store(actor, "jup_b200_tech_materials_found_counter", cnt)
+  cnt = cnt + pstor.pstor_retrieve(actor, "jup_b200_tech_materials_brought_counter", 0)
+  pstor.pstor_store(actor, "jup_b200_tech_materials_found_counter", cnt)
 end

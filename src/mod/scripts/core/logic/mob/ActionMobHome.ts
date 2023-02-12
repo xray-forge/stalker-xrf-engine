@@ -1,10 +1,11 @@
 import { alife, patrol, XR_cse_alife_creature_abstract, XR_game_object, XR_ini_file } from "xray16";
 
-import { AnyCallablesModule } from "@/mod/lib/types";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import { assign_storage_and_bind, subscribe_action_for_events } from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { get_state, set_state } from "@/mod/scripts/core/logic/mob/MobStateManager";
 import {
+  cfg_get_switch_conditions,
   getConfigBoolean,
   getConfigNumber,
   getConfigString,
@@ -30,9 +31,7 @@ export class ActionMobHome extends AbstractSchemeAction {
     section: string,
     storage: IStoredObject
   ): void {
-    const new_action: ActionMobHome = new ActionMobHome(npc, storage);
-
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(npc, storage, new_action);
+    subscribe_action_for_events(npc, storage, new ActionMobHome(npc, storage));
   }
 
   public static set_scheme(
@@ -44,9 +43,9 @@ export class ActionMobHome extends AbstractSchemeAction {
   ): void {
     logger.info("Set scheme:", npc.name(), scheme, section);
 
-    const storage = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(npc, ini, scheme, section);
+    const storage = assign_storage_and_bind(npc, ini, scheme, section);
 
-    storage.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, npc);
+    storage.logic = cfg_get_switch_conditions(ini, section, npc);
     storage.state = get_state(ini, section, npc);
     storage.home = getConfigString(ini, section, "path_home", npc, false, gulag_name, null);
     storage.gulag_point = getConfigBoolean(ini, section, "gulag_point", npc, false, false);
@@ -101,7 +100,6 @@ export class ActionMobHome extends AbstractSchemeAction {
       abort("Mob_Home : Home Min Radius MUST be < Max Radius. Got: min radius = %d, max radius = %d.", minr, maxr);
     }
 
-    // --printf("DEBUG: reset_scheme: [%s] setting home path [%s]", this.object.name(), this.state.home)
     if (this.state.home_mid_radius !== null) {
       midr = this.state.home_mid_radius;
       if (midr <= minr || midr >= maxr) {
@@ -113,7 +111,7 @@ export class ActionMobHome extends AbstractSchemeAction {
 
     if (this.state.gulag_point !== null) {
       const smrttrn = alife().object(
-        alife().object<XR_cse_alife_creature_abstract>(this.object.id()!)!.m_smart_terrain_id
+        alife().object<XR_cse_alife_creature_abstract>(this.object.id())!.m_smart_terrain_id
       );
       const lvid = smrttrn ? smrttrn.m_level_vertex_id : null;
 

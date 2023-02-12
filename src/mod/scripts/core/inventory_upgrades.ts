@@ -1,6 +1,6 @@
 import { game, ini_file, system_ini, XR_game_object, XR_ini_file } from "xray16";
 
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { TSection } from "@/mod/lib/types/configuration";
 import { getActor } from "@/mod/scripts/core/db";
 import { parseCondList, parseNames, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
@@ -47,8 +47,7 @@ export function precondition_functor_a(param1: unknown, section: string): 0 | 1 
   return 0;
 }
 
-export function effect_functor_a(param2: unknown, section: string, loading: number): void {
-  // --( string, string, int )
+export function effect_functor_a(param2: unknown, section: TSection, loading: number): void {
   if (loading === 0) {
     const money = char_ini.r_u32(section, "cost");
 
@@ -288,7 +287,7 @@ export function setup_discounts(): void {
     const condlist = param_ini.r_string(mechanic_name, "discount_condlist");
     const parsed = parseCondList(getActor(), null, null, condlist);
 
-    get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(getActor(), null, parsed);
+    pickSectionFromCondList(getActor(), null, parsed);
   }
 }
 

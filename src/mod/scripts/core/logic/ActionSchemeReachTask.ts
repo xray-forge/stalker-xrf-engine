@@ -11,6 +11,7 @@ import {
 import { AnyCallablesModule } from "@/mod/lib/types";
 import { TScheme, TSection } from "@/mod/lib/types/configuration";
 import { IStoredObject } from "@/mod/scripts/core/db";
+import { assign_storage_and_bind, subscribe_action_for_events } from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import {
   ActionReachTaskLocation,
@@ -38,11 +39,11 @@ export class ActionSchemeReachTask extends AbstractSchemeAction {
     const alife_action_planner: XR_action_planner = cast_planner(alife_action);
     const new_action: XR_action_base = alife_action_planner.action(stalker_ids.action_smart_terrain_task);
 
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(object, state, new_action);
+    subscribe_action_for_events(object, state, new_action);
   }
 
   public static set_reach_task(npc: XR_game_object, ini: XR_ini_file, scheme: TScheme): void {
-    const st = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(npc, ini, scheme);
+    const st = assign_storage_and_bind(npc, ini, scheme, null);
   }
 
   public static add_reach_task_action(npc: XR_game_object): void {

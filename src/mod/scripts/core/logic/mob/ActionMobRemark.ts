@@ -2,11 +2,19 @@ import { anim, cond, MonsterSpace, sound, XR_cond, XR_game_object, XR_ini_file }
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import { assign_storage_and_bind, mob_capture, subscribe_action_for_events } from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { get_state, set_state } from "@/mod/scripts/core/logic/mob/MobStateManager";
 import { send_tip } from "@/mod/scripts/core/NewsManager";
 import { action } from "@/mod/scripts/utils/alife";
-import { getConfigBoolean, getConfigString, parseNames } from "@/mod/scripts/utils/configs";
+import {
+  cfg_get_switch_conditions,
+  getConfigBoolean,
+  getConfigCondList,
+  getConfigString,
+  parseNames,
+  pickSectionFromCondList,
+} from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -22,9 +30,7 @@ export class ActionMobRemark extends AbstractSchemeAction {
     section: string,
     storage: IStoredObject
   ): void {
-    const new_action = new ActionMobRemark(npc, storage);
-
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(npc, storage, new_action);
+    subscribe_action_for_events(npc, storage, new ActionMobRemark(npc, storage));
   }
 
   public static set_scheme(
@@ -36,15 +42,11 @@ export class ActionMobRemark extends AbstractSchemeAction {
   ): void {
     logger.info("Set scheme:", npc.name(), scheme, section);
 
-    const st = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(npc, ini, scheme, section);
+    const st = assign_storage_and_bind(npc, ini, scheme, section);
 
-    st.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, npc);
-
+    st.logic = cfg_get_switch_conditions(ini, section, npc);
     st.state = get_state(ini, section, npc);
-
-    st.dialog_cond = get_global<AnyCallablesModule>("xr_logic").cfg_get_condlist(ini, section, "dialog_cond", npc);
-
-    // --st.no_reset       = utils.cfg_get_bool(ini, section, "no_reset", npc, false)
+    st.dialog_cond = getConfigCondList(ini, section, "dialog_cond", npc);
     st.no_reset = true;
     st.anim = getConfigString(ini, section, "anim", npc, false, "");
     st.anim_movement = getConfigBoolean(ini, section, "anim_movement", npc, false, false);
@@ -62,7 +64,7 @@ export class ActionMobRemark extends AbstractSchemeAction {
 
     this.object.disable_talk();
 
-    get_global<AnyCallablesModule>("xr_logic").mob_capture(this.object, !this.state.no_reset);
+    mob_capture(this.object, !this.state.no_reset);
 
     const anims = parseNames(this.state.anim);
 
@@ -95,7 +97,7 @@ export class ActionMobRemark extends AbstractSchemeAction {
       }
 
       if (sndset && an) {
-        // todo: Never defined anywhere.
+        // todo: Never defined anywhere. Probably remove?
         const snd = get_global<AnyCallablesModule>("mob_sound").pick_sound_from_set(this.object, sndset, {});
 
         if (!snd) {
@@ -131,20 +133,11 @@ export class ActionMobRemark extends AbstractSchemeAction {
           cnd = new cond(cond.time_end, tm);
         }
 
-        // --printf("__bp: action set: %d", time_global())
         if (this.state.anim_movement === true) {
-          // const pos = this.object.position();
-          // const dir = this.object.direction();
-
           action(this.object, new anim(an, true), cnd);
         } else {
           action(this.object, new anim(an), cnd);
         }
-
-        // --else
-        // --    if (npc.get_script()) {
-        // --        npc:script(false, script_name())
-        // --    }
       }
     }
 
@@ -152,30 +145,14 @@ export class ActionMobRemark extends AbstractSchemeAction {
 
     this.state.signals = {};
     this.action_end_signalled = false;
-    // --printf("_bp: mob_remark:reset_scheme end")
   }
 
   public update(delta: number): void {
-    // --printf("__bp: mob_remark update: %d", time_global())
-    // --if !xr_logic.is_active(this.object, this.state) then
-    // --    return
-    // --end
-
     const actor = getActor()!;
-
-    /* --[[
-        if xr_logic.try_switch_to_another_section(this.object, this.state, actor) then
-          return
-        end
-    ]]*/
 
     if (
       this.state.dialog_cond &&
-      get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(
-        actor,
-        this.object,
-        this.state.dialog_cond.condlist
-      ) !== null
+      pickSectionFromCondList(actor, this.object, this.state.dialog_cond.condlist) !== null
     ) {
       // --printf("_bp: enable talk")
       if (!this.object.is_talk_enabled()) {

@@ -1,7 +1,7 @@
 import { property_evaluator, XR_property_evaluator } from "xray16";
 
-import { AnyCallablesModule } from "@/mod/lib/types";
 import { IStoredObject } from "@/mod/scripts/core/db";
+import { isActiveSection } from "@/mod/scripts/utils/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("EvaluatorUseSmartCoverInCombat");
@@ -19,7 +19,7 @@ export const EvaluatorUseSmartCoverInCombat: IEvaluatorUseSmartCoverInCombat = d
       this.state = state;
     },
     evaluate(): boolean {
-      if (get_global<AnyCallablesModule>("xr_logic").is_active(this.object, this.state)) {
+      if (isActiveSection(this.object, this.state.section)) {
         return this.state.use_in_combat;
       }
 

@@ -1,7 +1,7 @@
 import { property_evaluator, stalker_ids, XR_action_planner, XR_property_evaluator } from "xray16";
 
-import { AnyCallablesModule } from "@/mod/lib/types";
 import { IStoredObject } from "@/mod/scripts/core/db";
+import { pstor_retrieve } from "@/mod/scripts/core/db/pstor";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("EvaluatorWounded");
@@ -35,11 +35,11 @@ export const EvaluatorWounded: IEvaluatorWounded = declare_xr_class("EvaluatorWo
 
     if (
       this.actionPlanner.evaluator(stalker_ids.property_enemy).evaluate() &&
-      get_global<AnyCallablesModule>("xr_logic").pstor_retrieve(this.object, "wounded_fight") === "true"
+      pstor_retrieve(this.object, "wounded_fight") === "true"
     ) {
       return false;
     }
 
-    return tostring(get_global<AnyCallablesModule>("xr_logic").pstor_retrieve(this.object, "wounded_state")) !== "nil";
+    return tostring(pstor_retrieve(this.object, "wounded_state")) !== "nil";
   },
 } as IEvaluatorWounded);

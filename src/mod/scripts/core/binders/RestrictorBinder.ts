@@ -2,6 +2,7 @@ import { object_binder, XR_cse_alife_object, XR_game_object, XR_net_packet, XR_o
 
 import { AnyCallablesModule } from "@/mod/lib/types";
 import { addObject, addZone, deleteObject, deleteZone, getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import { initialize_obj, issue_event, load_obj, save_obj } from "@/mod/scripts/core/logic";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { stype_restrictor } from "@/mod/scripts/core/schemes";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
@@ -55,6 +56,7 @@ export const RestrictorBinder: IRestrictorBinder = declare_xr_class("RestrictorB
     }
 
     if (ini.section_exist("information_sector")) {
+      // todo: Does not exist. Remove?
       get_global<AnyCallablesModule>("sr_danger").register_new_sector(this.object);
     }
 
@@ -70,11 +72,7 @@ export const RestrictorBinder: IRestrictorBinder = declare_xr_class("RestrictorB
     const st = storage.get(this.object.id());
 
     if (st.active_scheme !== null) {
-      get_global<AnyCallablesModule>("xr_logic").issue_event(
-        this.object,
-        st[st.active_scheme as string],
-        "net_destroy"
-      );
+      issue_event(this.object, st[st.active_scheme as string], "net_destroy");
     }
 
     deleteZone(this.object);
@@ -88,13 +86,7 @@ export const RestrictorBinder: IRestrictorBinder = declare_xr_class("RestrictorB
     if (!this.initialized && getActor() !== null) {
       this.initialized = true;
 
-      get_global<AnyCallablesModule>("xr_logic").initialize_obj(
-        this.object,
-        this.st,
-        this.loaded,
-        getActor(),
-        stype_restrictor
-      );
+      initialize_obj(this.object, this.st, this.loaded, getActor()!, stype_restrictor);
     }
 
     this.object.info_clear();
@@ -108,12 +100,7 @@ export const RestrictorBinder: IRestrictorBinder = declare_xr_class("RestrictorB
     this.object.info_add("name: [" + this.object.name() + "] id [" + this.object.id() + "]");
 
     if (this.st.active_section !== null) {
-      get_global<AnyCallablesModule>("xr_logic").issue_event(
-        this.object,
-        this.st[this.st.active_scheme as string],
-        "update",
-        delta
-      );
+      issue_event(this.object, this.st[this.st.active_scheme as string], "update", delta);
     }
 
     GlobalSound.update(this.object.id());
@@ -125,7 +112,7 @@ export const RestrictorBinder: IRestrictorBinder = declare_xr_class("RestrictorB
     setSaveMarker(packet, false, RestrictorBinder.__name);
     object_binder.save(this, packet);
 
-    get_global<AnyCallablesModule>("xr_logic").save_obj(this.object, packet);
+    save_obj(this.object, packet);
     setSaveMarker(packet, true, RestrictorBinder.__name);
   },
   load(reader: XR_reader): void {
@@ -135,7 +122,7 @@ export const RestrictorBinder: IRestrictorBinder = declare_xr_class("RestrictorB
 
     object_binder.load(this, reader);
 
-    get_global<AnyCallablesModule>("xr_logic").load_obj(this.object, reader);
+    load_obj(this.object, reader);
     setLoadMarker(reader, true, RestrictorBinder.__name);
   },
 } as IRestrictorBinder);

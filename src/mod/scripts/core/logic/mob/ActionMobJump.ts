@@ -1,10 +1,16 @@
 import { cond, look, patrol, vector, XR_game_object, XR_ini_file, XR_patrol, XR_vector } from "xray16";
 
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { IStoredObject } from "@/mod/scripts/core/db";
+import {
+  assign_storage_and_bind,
+  mob_capture,
+  mob_release,
+  subscribe_action_for_events,
+} from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { action } from "@/mod/scripts/utils/alife";
-import { getConfigNumber, getConfigString, parseNames } from "@/mod/scripts/utils/configs";
+import { cfg_get_switch_conditions, getConfigNumber, getConfigString, parseNames } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -18,36 +24,33 @@ export class ActionMobJump extends AbstractSchemeAction {
   public static readonly SCHEME_SECTION: string = "mob_jump";
 
   public static add_to_binder(
-    npc: XR_game_object,
+    object: XR_game_object,
     ini: XR_ini_file,
     scheme: string,
     section: string,
     storage: IStoredObject
   ): void {
-    logger.info("Add to binder:", npc.name(), scheme, section);
+    logger.info("Add to binder:", object.name(), scheme, section);
 
-    const new_action = new ActionMobJump(npc, storage);
-
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(npc, storage, new_action);
+    subscribe_action_for_events(object, storage, new ActionMobJump(object, storage));
   }
 
   public static set_scheme(
-    npc: XR_game_object,
+    object: XR_game_object,
     ini: XR_ini_file,
     scheme: string,
     section: string,
     gulag_name: string
   ): void {
-    logger.info("Set scheme:", npc.name(), scheme, section);
+    logger.info("Set scheme:", object.name(), scheme, section);
 
-    const storage = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(npc, ini, scheme, section);
+    const storage = assign_storage_and_bind(object, ini, scheme, section);
 
-    storage.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, npc);
+    storage.logic = cfg_get_switch_conditions(ini, section, object);
+    storage.jump_path_name = getConfigString(ini, section, "path_jump", object, false, gulag_name);
+    storage.ph_jump_factor = getConfigNumber(ini, section, "ph_jump_factor", object, false, 1.8);
 
-    storage.jump_path_name = getConfigString(ini, section, "path_jump", npc, false, gulag_name);
-    storage.ph_jump_factor = getConfigNumber(ini, section, "ph_jump_factor", npc, false, 1.8);
-
-    const offset_str = getConfigString(ini, section, "offset", npc, true, "");
+    const offset_str = getConfigString(ini, section, "offset", object, true, "");
     const elems = parseNames(offset_str);
 
     storage.offset = new vector().set(tonumber(elems.get(1))!, tonumber(elems.get(2))!, tonumber(elems.get(3))!);
@@ -62,7 +65,7 @@ export class ActionMobJump extends AbstractSchemeAction {
   public state_current: Optional<number> = null;
 
   public reset_scheme(): void {
-    get_global<AnyCallablesModule>("xr_logic").mob_capture(this.object, true);
+    mob_capture(this.object, true);
 
     // -- reset signals
     this.state.signals = {};
@@ -101,7 +104,7 @@ export class ActionMobJump extends AbstractSchemeAction {
     if (this.state_current === STATE_JUMP) {
       this.object.jump(this.point!, this.state.ph_jump_factor);
       this.state.signals["jumped"] = true;
-      get_global<AnyCallablesModule>("xr_logic").mob_release(this.object);
+      mob_release(this.object);
     }
   }
 }

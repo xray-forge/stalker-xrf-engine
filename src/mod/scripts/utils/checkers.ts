@@ -31,6 +31,7 @@ import { TSection } from "@/mod/lib/types/configuration";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
+import { abort } from "@/mod/scripts/utils/debug";
 import { getClsId, getObjectStoryId } from "@/mod/scripts/utils/ids";
 
 /**
@@ -252,4 +253,26 @@ export function isHeavilyWounded(npcId: number): boolean {
   const state: Optional<IStoredObject> = storage.get(npcId);
 
   return state.wounded !== null && tostring(state.wounded!.wound_manager.wound_state) !== "nil";
+}
+
+/**
+ * todo;
+ * todo;
+ * todo;
+ */
+export function isNpcInZone(npc: Optional<XR_game_object>, zone: Optional<XR_game_object>): boolean {
+  return npc !== null && zone !== null && zone.inside(npc.position());
+}
+
+/**
+ * todo;
+ * todo;
+ * todo;
+ */
+export function isActiveSection(object: XR_game_object, section: Maybe<TSection>): boolean {
+  if (!section) {
+    abort("Object %s '%s': section is null", object.name(), section);
+  }
+
+  return section === storage.get(object.id()).active_section;
 }

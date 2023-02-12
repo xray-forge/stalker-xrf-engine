@@ -3,9 +3,16 @@ import { XR_game_object, XR_ini_file, XR_physics_joint, XR_physics_shell, XR_vec
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import {
+  assign_storage_and_bind,
+  subscribe_action_for_events,
+  switch_to_section,
+  try_switch_to_another_section,
+} from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import {
+  cfg_get_switch_conditions,
   getConfigBoolean,
   getConfigCondList,
   getConfigString,
@@ -24,30 +31,22 @@ export class ActionDoor extends AbstractSchemeAction {
   ): void {
     object.register_door_for_npc();
 
-    const new_action = new ActionDoor(object, state);
-
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(object, state, new_action);
+    subscribe_action_for_events(object, state, new ActionDoor(object, state));
   }
 
   public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
-    const state = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(object, ini, scheme, section);
+    const state = assign_storage_and_bind(object, ini, scheme, section);
 
-    state.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, object);
-
+    state.logic = cfg_get_switch_conditions(ini, section, object);
     state.closed = getConfigBoolean(ini, section, "closed", object, false, true);
     state.locked = getConfigBoolean(ini, section, "locked", object, false);
     state.no_force = getConfigBoolean(ini, section, "no_force", object, false, false);
-
     state.not_for_npc = getConfigBoolean(ini, section, "not_for_npc", object, false, false);
-
     state.show_tips = getConfigBoolean(ini, section, "show_tips", object, false, true);
-
     state.tip_open = getConfigString(ini, section, "tip_open", object, false, "", "tip_door_open");
     state.tip_unlock = getConfigString(ini, section, "tip_open", object, false, "", "tip_door_locked");
     state.tip_close = getConfigString(ini, section, "tip_close", object, false, "", "tip_door_close");
-
     state.slider = getConfigBoolean(ini, section, "slider", object, false, false);
-
     // --    st.snd_init        = getConfigString(ini, section, "snd_init", npc, false, "")
     state.snd_open_start = getConfigString(ini, section, "snd_open_start", object, false, "", "trader_door_open_start");
     state.snd_close_start = getConfigString(
@@ -60,7 +59,6 @@ export class ActionDoor extends AbstractSchemeAction {
       "trader_door_close_start"
     );
     state.snd_close_stop = getConfigString(ini, section, "snd_close_stop", object, false, "", "trader_door_close_stop");
-
     state.on_use = getConfigCondList(ini, section, "on_use", object);
 
     if (state.locked === true || state.not_for_npc === true) {
@@ -138,7 +136,7 @@ export class ActionDoor extends AbstractSchemeAction {
       abort("object '%s': door failed to initialize", this.object.name());
     }
 
-    if (get_global<AnyCallablesModule>("xr_logic").try_switch_to_another_section(this.object, this.state, getActor())) {
+    if (try_switch_to_another_section(this.object, this.state, getActor())) {
       return;
     }
   }
@@ -284,10 +282,10 @@ export class ActionDoor extends AbstractSchemeAction {
   public try_switch(): boolean {
     if (this.state.on_use) {
       if (
-        get_global<AnyCallablesModule>("xr_logic").switch_to_section(
+        switch_to_section(
           this.object,
-          this.state.ini,
-          pickSectionFromCondList(getActor(), this.object, this.state.on_use.condlist)
+          this.state.ini!,
+          pickSectionFromCondList(getActor(), this.object, this.state.on_use.condlist)!
         )
       ) {
         return true;
@@ -317,7 +315,7 @@ export class ActionDoor extends AbstractSchemeAction {
     if (this.state.hit_on_bone[bone_index] !== null) {
       const section = pickSectionFromCondList(getActor(), this.object, this.state.hit_on_bone[bone_index].state);
 
-      get_global<AnyCallablesModule>("xr_logic").switch_to_section(object, this.state.ini, section);
+      switch_to_section(object, this.state.ini!, section!);
 
       return;
     }

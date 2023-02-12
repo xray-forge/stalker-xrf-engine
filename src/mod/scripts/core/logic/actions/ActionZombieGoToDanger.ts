@@ -9,9 +9,10 @@ import {
   XR_vector,
 } from "xray16";
 
-import { AnyCallablesModule, AnyObject, Optional } from "@/mod/lib/types";
+import { AnyObject, Optional } from "@/mod/lib/types";
 import { IStoredObject } from "@/mod/scripts/core/db";
 import { set_state } from "@/mod/scripts/state_management/StateManager";
+import { send_to_nearest_accessible_vertex } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ActionZombieGoToDanger");
@@ -94,7 +95,7 @@ export const ActionZombieGoToDanger: IActionZombieGoToDanger = declare_xr_class(
 
         if (this.bdo_vert_id !== this.last_sent_vert_id) {
           this.last_sent_vert_id = this.bdo_vert_id;
-          get_global<AnyCallablesModule>("utils").send_to_nearest_accessible_vertex(this.object, this.bdo_vert_id);
+          send_to_nearest_accessible_vertex(this.object, this.bdo_vert_id!);
         }
 
         this.set_state("raid", null, bd.position());

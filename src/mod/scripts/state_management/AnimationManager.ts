@@ -148,12 +148,6 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
 
     const states = this.states;
 
-    // --printf("[%s] [%s] select anim [%s], current_state [%s]", this.npc:name(), this.name,
-    // tostring(states.target_state), tostring(states.current_state))
-    // --printf("        time %s", time_global())
-    // --printf("        current state %s", utils.to_str(states.current_state))
-    // --printf("        target state %s", utils.to_str(states.target_state))
-
     // New animation detected:
     if (states.target_state !== states.current_state) {
       if (states.target_state === null) {
@@ -268,10 +262,6 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
   },
   anim_for_slot(slot, t): LuaTable<number, string | LuaTable> {
     logger.info("Animation for slot:", slot, this);
-    // --    printf("ANIM [%s] for slot [%s]", this.name, tostring(slot))
-    // --    print_table(t)
-    // --    printf("-------------------------")
-
     if (t.get(slot) === null) {
       slot = 0;
     }
@@ -445,8 +435,6 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
 
     // Attach.
     if (action_table.get("a") !== null) {
-      // -- printf("item [%s] attach", utils.to_str(action_table.a))
-
       const obj = this.npc.object(action_table.get("a"));
 
       if (obj !== null) {
@@ -456,7 +444,6 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
 
     // Detach.
     if (action_table.get("d") !== null) {
-      // -- printf("item [%s] detach", utils.to_str(action_table.d))
       const obj = this.npc.object(action_table.get("d"));
 
       if (obj !== null) {

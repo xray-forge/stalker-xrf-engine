@@ -16,11 +16,13 @@ import {
   XR_vector,
 } from "xray16";
 
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { addHeli, addObject, deleteHeli, deleteObject, getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import { initialize_obj, issue_event, load_obj, save_obj } from "@/mod/scripts/core/logic";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { get_heli_health } from "@/mod/scripts/core/logic/heli/heli_utils";
 import { HeliCombat } from "@/mod/scripts/core/logic/heli/HeliCombat";
+import { get_heli_firer } from "@/mod/scripts/core/logic/heli/HeliFire";
 import { stype_heli } from "@/mod/scripts/core/schemes";
 import { getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
@@ -58,7 +60,7 @@ export const HeliBinder: IHeliBinder = declare_xr_class("HeliBinder", object_bin
     this.ini = ini;
     this.initialized = false;
     this.loaded = false;
-    this.heli_fire = get_global<AnyCallablesModule>("heli_fire").get_heli_firer(object);
+    this.heli_fire = get_heli_firer(object);
   },
   reload(section: string): void {
     object_binder.reload(this, section);
@@ -94,23 +96,15 @@ export const HeliBinder: IHeliBinder = declare_xr_class("HeliBinder", object_bin
   update(delta: number): void {
     object_binder.update(this, delta);
 
-    // --printf( "heli_binder update" )
-    // --    printf( "%d", this.object:level_vertex_light( db.actor:level_vertex_id() ) )
-
     const actor: Optional<XR_game_object> = getActor();
 
     if (!this.initialized && actor) {
       this.initialized = true;
-      get_global<AnyCallablesModule>("xr_logic").initialize_obj(this.object, this.st, this.loaded, actor, stype_heli);
+      initialize_obj(this.object, this.st, this.loaded, actor, stype_heli);
     }
 
     if (this.st.active_section !== null) {
-      get_global<AnyCallablesModule>("xr_logic").issue_event(
-        this.object,
-        this.st[this.st.active_scheme!],
-        "update",
-        delta
-      );
+      issue_event(this.object, this.st[this.st.active_scheme!], "update", delta);
     }
 
     this.object.info_clear();
@@ -149,7 +143,7 @@ export const HeliBinder: IHeliBinder = declare_xr_class("HeliBinder", object_bin
     setSaveMarker(packet, false, HeliBinder.__name);
     // --printf( "heli_binder: save")
 
-    get_global<AnyCallablesModule>("xr_logic").save_obj(this.object, packet);
+    save_obj(this.object, packet);
     setSaveMarker(packet, true, HeliBinder.__name);
     this.st.combat!.save(packet);
   },
@@ -161,7 +155,7 @@ export const HeliBinder: IHeliBinder = declare_xr_class("HeliBinder", object_bin
 
     // --printf( "heli_binder: load")
 
-    get_global<AnyCallablesModule>("xr_logic").load_obj(this.object, reader);
+    load_obj(this.object, reader);
     setLoadMarker(reader, true, HeliBinder.__name);
     this.st.combat!.load(reader);
   },
@@ -195,21 +189,8 @@ export const HeliBinder: IHeliBinder = declare_xr_class("HeliBinder", object_bin
     this.heli_fire.update_hit();
 
     if (enemy_cls_id === clsid.actor || enemy_cls_id === clsid.script_stalker) {
-      // --        if (!this.st.combat.enemy_id) {
-      // --            this.st.combat.enemy_id = enemy_id
-      // --        }
-
       if (this.st.hit) {
-        get_global<AnyCallablesModule>("xr_logic").issue_event(
-          this.object,
-          this.st.hit,
-          "hit_callback",
-          this.object,
-          power,
-          null,
-          enemy,
-          null
-        );
+        issue_event(this.object, this.st.hit, "hit_callback", this.object, power, null, enemy, null);
       }
     }
 
@@ -220,14 +201,7 @@ export const HeliBinder: IHeliBinder = declare_xr_class("HeliBinder", object_bin
   },
   on_point(distance: number, position: XR_vector, path_idx: number): void {
     if (this.st.active_section !== null) {
-      get_global<AnyCallablesModule>("xr_logic").issue_event(
-        this.object,
-        this.st[this.st.active_scheme!],
-        "waypoint_callback",
-        this.object,
-        null,
-        path_idx
-      );
+      issue_event(this.object, this.st[this.st.active_scheme!], "waypoint_callback", this.object, null, path_idx);
     }
   },
 } as IHeliBinder);

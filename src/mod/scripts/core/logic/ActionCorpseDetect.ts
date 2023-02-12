@@ -1,9 +1,11 @@
 import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
+import { TScheme, TSection } from "@/mod/lib/types/configuration";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
+import { assign_storage_and_bind } from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { ActionSearchCorpse, IActionSearchCorpse } from "@/mod/scripts/core/logic/ActionSearchCorpse";
 import { EvaluatorCorpseDetect } from "@/mod/scripts/core/logic/evaluators/EvaluatorCorpseDetect";
@@ -70,8 +72,13 @@ export class ActionCorpseDetect extends AbstractSchemeAction {
       .add_precondition(new world_property(properties.corpse_exist, false));
   }
 
-  public static set_corpse_detection(object: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
-    const st = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(object, ini, scheme, section);
+  public static set_corpse_detection(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: TScheme,
+    section: Optional<TSection>
+  ): void {
+    assign_storage_and_bind(object, ini, scheme, section);
   }
 
   public static reset_corpse_detection(

@@ -1,10 +1,10 @@
 import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
-import { AnyCallablesModule } from "@/mod/lib/types";
 import { TScheme, TSection } from "@/mod/lib/types/configuration";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
+import { subscribe_action_for_events } from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { ActionZombieGoToDanger } from "@/mod/scripts/core/logic/actions/ActionZombieGoToDanger";
 import { ActionZombieShoot } from "@/mod/scripts/core/logic/actions/ActionZombieShoot";
@@ -47,7 +47,7 @@ export class ActionSchemeCombatZombied extends AbstractSchemeAction {
     actionZombieShoot.add_effect(new world_property(properties.state_mgr_logic_active, false));
     planner.add_action(action_ids.combat_zombied_base, actionZombieShoot);
 
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(object, state, actionZombieShoot);
+    subscribe_action_for_events(object, state, actionZombieShoot);
 
     const actionZombieGoToDanger = create_xr_class_instance(
       ActionZombieGoToDanger,
@@ -63,6 +63,6 @@ export class ActionSchemeCombatZombied extends AbstractSchemeAction {
     actionZombieGoToDanger.add_effect(new world_property(properties.state_mgr_logic_active, false));
     planner.add_action(action_ids.combat_zombied_base + 1, actionZombieGoToDanger);
 
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(object, state, actionZombieGoToDanger);
+    subscribe_action_for_events(object, state, actionZombieGoToDanger);
   }
 }

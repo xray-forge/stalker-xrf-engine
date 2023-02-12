@@ -1,9 +1,13 @@
 import { patrol, time_global, XR_game_object, XR_ini_file } from "xray16";
 
-import { AnyCallablesModule } from "@/mod/lib/types";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import {
+  assign_storage_and_bind,
+  subscribe_action_for_events,
+  try_switch_to_another_section,
+} from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
-import { getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
+import { cfg_get_switch_conditions, getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -21,20 +25,15 @@ export class ActionApplyPhysicalForce extends AbstractSchemeAction {
   ): void {
     logger.info("Add to binder:", npc.name());
 
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(
-      npc,
-      storage,
-      new ActionApplyPhysicalForce(npc, storage)
-    );
+    subscribe_action_for_events(npc, storage, new ActionApplyPhysicalForce(npc, storage));
   }
 
   public static set_scheme(npc: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
     logger.info("Set scheme:", npc.name());
 
-    const st = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(npc, ini, scheme, section);
+    const st = assign_storage_and_bind(npc, ini, scheme, section);
 
-    st.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, npc);
-
+    st.logic = cfg_get_switch_conditions(ini, section, npc);
     st.force = getConfigNumber(ini, section, "force", npc, true, 0);
     st.time = getConfigNumber(ini, section, "time", npc, true, 0);
     st.delay = getConfigNumber(ini, section, "delay", npc, false, 0);
@@ -81,7 +80,7 @@ export class ActionApplyPhysicalForce extends AbstractSchemeAction {
   }
 
   public update(delta: number): void {
-    if (get_global<AnyCallablesModule>("xr_logic").try_switch_to_another_section(this.object, this.state, getActor())) {
+    if (try_switch_to_another_section(this.object, this.state, getActor())) {
       return;
     }
 

@@ -22,7 +22,8 @@ import {
 } from "xray16";
 
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
+import { TScheme } from "@/mod/lib/types/configuration";
 import {
   addObject,
   deleteObject,
@@ -34,6 +35,15 @@ import {
   storage,
 } from "@/mod/scripts/core/db";
 import { Hear } from "@/mod/scripts/core/Hear";
+import {
+  issue_event,
+  load_obj,
+  mob_capture,
+  mob_captured,
+  mob_release,
+  save_obj,
+  try_switch_to_another_section,
+} from "@/mod/scripts/core/logic";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { stype_mobile } from "@/mod/scripts/core/schemes";
@@ -112,11 +122,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     const st = storage.get(this.object.id());
 
     if (st !== null && st.active_scheme !== null) {
-      get_global<AnyCallablesModule>("xr_logic").try_switch_to_another_section(
-        this.object,
-        st[st.active_scheme!],
-        getActor()
-      );
+      try_switch_to_another_section(this.object, st[st.active_scheme!], getActor());
     }
 
     if (squad !== null && squad.commander_id() === this.object.id()) {
@@ -159,8 +165,8 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     }
 
     if (this.object.get_enemy()) {
-      if (get_global<AnyCallablesModule>("xr_logic").mob_captured(this.object)) {
-        get_global<AnyCallablesModule>("xr_logic").mob_release(this.object);
+      if (mob_captured(this.object)) {
+        mob_release(this.object);
       }
 
       return;
@@ -175,7 +181,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
 
       const [target_pos, target_lv_id, target_gv_id] = squad_target.get_location();
 
-      get_global<AnyCallablesModule>("xr_logic").mob_capture(this.object, true);
+      mob_capture(this.object, true);
 
       if (squad.commander_id() === this.object.id()) {
         action(this.object, new move(move.walk_with_leader, target_pos), new cond(cond.move_end));
@@ -193,30 +199,25 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     }
 
     if (this.st.active_section !== null) {
-      get_global<AnyCallablesModule>("xr_logic").issue_event(
-        this.object,
-        this.st[this.st.active_scheme as string],
-        "update",
-        delta
-      );
+      issue_event(this.object, this.st[this.st.active_scheme as string], "update", delta);
     }
   },
   save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, "generic_object_binder");
+    setSaveMarker(packet, false, MonsterBinder.__name);
 
     object_binder.save(this, packet);
-    get_global<AnyCallablesModule>("xr_logic").save_obj(this.object, packet);
+    save_obj(this.object, packet);
 
-    setSaveMarker(packet, true, "generic_object_binder");
+    setSaveMarker(packet, true, MonsterBinder.__name);
   },
   load(reader: XR_reader): void {
     this.loaded = true;
 
-    setLoadMarker(reader, false, "generic_object_binder");
+    setLoadMarker(reader, false, MonsterBinder.__name);
     object_binder.load(this, reader);
-    get_global<AnyCallablesModule>("xr_logic").load_obj(this.object, reader);
+    load_obj(this.object, reader);
 
-    setLoadMarker(reader, true, "generic_object_binder");
+    setLoadMarker(reader, true, MonsterBinder.__name);
   },
   net_spawn(object: XR_cse_alife_object): boolean {
     if (!object_binder.net_spawn(this, object)) {
@@ -277,11 +278,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     const st = storage.get(this.object.id());
 
     if (st !== null && st.active_scheme !== null) {
-      get_global<AnyCallablesModule>("xr_logic").issue_event(
-        this.object,
-        st[st.active_scheme as string],
-        "net_destroy"
-      );
+      issue_event(this.object, st[st.active_scheme as string], "net_destroy");
     }
 
     const offlineObject = offlineObjects.get(this.object.id());
@@ -322,14 +319,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
   },
   waypoint_callback(obj: XR_game_object, action_type: number, index: number): void {
     if (this.st.active_section !== null) {
-      get_global<AnyCallablesModule>("xr_logic").issue_event(
-        this.object,
-        this.st[this.st.active_scheme as string],
-        "waypoint_callback",
-        obj,
-        action_type,
-        index
-      );
+      issue_event(this.object, this.st[this.st.active_scheme as string], "waypoint_callback", obj, action_type, index);
     }
   },
   death_callback(victim: XR_game_object, killer: XR_game_object): void {
@@ -345,23 +335,11 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     }
 
     if (this.st.mob_death) {
-      get_global<AnyCallablesModule>("xr_logic").issue_event(
-        this.object,
-        this.st.mob_death,
-        "death_callback",
-        victim,
-        killer
-      );
+      issue_event(this.object, this.st.mob_death, "death_callback", victim, killer);
     }
 
     if (this.st.active_section) {
-      get_global<AnyCallablesModule>("xr_logic").issue_event(
-        this.object,
-        this.st[this.st.active_scheme as string],
-        "death_callback",
-        victim,
-        killer
-      );
+      issue_event(this.object, this.st[this.st.active_scheme as TScheme], "death_callback", victim, killer);
     }
 
     const h: XR_hit = new hit();
@@ -398,16 +376,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     }
 
     if (this.st.hit) {
-      get_global<AnyCallablesModule>("xr_logic").issue_event(
-        this.object,
-        this.st.hit,
-        "hit_callback",
-        obj,
-        amount,
-        const_direction,
-        who,
-        bone_index
-      );
+      issue_event(this.object, this.st.hit, "hit_callback", obj, amount, const_direction, who, bone_index);
     }
 
     if (amount > 0) {

@@ -14,12 +14,20 @@ import {
 } from "xray16";
 
 import { sounds } from "@/mod/globals/sound/sounds";
-import { AnyCallablesModule, AnyObject, Optional } from "@/mod/lib/types";
+import { AnyObject, Optional } from "@/mod/lib/types";
+import { TScheme, TSection } from "@/mod/lib/types/configuration";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import {
+  assign_storage_and_bind,
+  mob_capture,
+  mob_release,
+  subscribe_action_for_events,
+  try_switch_to_another_section,
+} from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { action } from "@/mod/scripts/utils/alife";
-import { getConfigNumber, getConfigString, parseNames } from "@/mod/scripts/utils/configs";
+import { cfg_get_switch_conditions, getConfigNumber, getConfigString, parseNames } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ActionMonster");
@@ -30,24 +38,19 @@ export class ActionMonster extends AbstractSchemeAction {
   public static add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: string,
-    section: string,
+    scheme: TScheme,
+    section: TSection,
     state: IStoredObject
   ): void {
     logger.info("Add to binder:", object.id());
 
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(
-      object,
-      state,
-      new ActionMonster(object, state)
-    );
+    subscribe_action_for_events(object, state, new ActionMonster(object, state));
   }
 
   public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
-    const st = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(object, ini, scheme, section);
+    const st = assign_storage_and_bind(object, ini, scheme, section);
 
-    st.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, object);
-
+    st.logic = cfg_get_switch_conditions(ini, section, object);
     st.snd_obj = getConfigString(ini, section, "snd", object, false, "", null);
     st.delay = getConfigNumber(ini, section, "delay", object, false, 0);
     st.idle = getConfigNumber(ini, section, "idle", object, false, 30) * 10000;
@@ -117,7 +120,7 @@ export class ActionMonster extends AbstractSchemeAction {
         this.monster_obj!.position().distance_to(this.state.path.point(this.state.path.count() - 1)) <= 1)
     ) {
       if (storage.has(this.monster!.id)) {
-        get_global<AnyCallablesModule>("xr_logic").mob_release(this.monster_obj);
+        mob_release(this.monster_obj!);
       }
 
       alife().release(this.monster, true);
@@ -156,7 +159,7 @@ export class ActionMonster extends AbstractSchemeAction {
     ) {
       this.monster_obj = storage.get(this.monster.id).object!;
 
-      get_global<AnyCallablesModule>("xr_logic").mob_capture(this.monster_obj, true);
+      mob_capture(this.monster_obj, true);
 
       action(
         this.monster_obj,
@@ -166,7 +169,7 @@ export class ActionMonster extends AbstractSchemeAction {
       this.final_action = true;
     }
 
-    get_global<AnyCallablesModule>("xr_logic").try_switch_to_another_section(this.object, this.state, getActor());
+    try_switch_to_another_section(this.object, this.state, getActor());
   }
 
   public on_enter(): void {

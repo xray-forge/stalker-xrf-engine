@@ -1,9 +1,16 @@
 import { time_global, XR_game_object, XR_ini_file, XR_object, XR_vector } from "xray16";
 
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import {
+  assign_storage_and_bind,
+  subscribe_action_for_events,
+  switch_to_section,
+  try_switch_to_another_section,
+} from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import {
+  cfg_get_switch_conditions,
   getConfigBoolean,
   getConfigCondList,
   getConfigString,
@@ -23,21 +30,16 @@ export class ActionButton extends AbstractSchemeAction {
     section: string,
     state: IStoredObject
   ): void {
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(
-      object,
-      state,
-      new ActionButton(object, state)
-    );
+    subscribe_action_for_events(object, state, new ActionButton(object, state));
   }
 
   public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
-    const st = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(object, ini, scheme, section);
+    const st = assign_storage_and_bind(object, ini, scheme, section);
 
-    st.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, object);
-
+    st.logic = cfg_get_switch_conditions(ini, section, object);
     st.on_press = getConfigCondList(ini, section, "on_press", object);
-
     st.tooltip = getConfigString(ini, section, "tooltip", object, false, "");
+
     if (st.tooltip) {
       object.set_tip_text(st.tooltip);
     } else {
@@ -60,19 +62,18 @@ export class ActionButton extends AbstractSchemeAction {
   }
 
   public update(delta: number): void {
-    get_global<AnyCallablesModule>("xr_logic").try_switch_to_another_section(this.object, this.state, getActor());
+    try_switch_to_another_section(this.object, this.state, getActor());
   }
 
   public try_switch(): boolean {
     const st = storage.get(this.object.id());
 
     if (st.active_scheme && st.active_scheme === ActionButton.SCHEME_SECTION && this.state.on_press) {
-      // --if xr_logic.try_switch_to_another_section(obj, this.st, db.actor) {
       if (
-        get_global<AnyCallablesModule>("xr_logic").switch_to_section(
+        switch_to_section(
           this.object,
-          this.state.ini,
-          pickSectionFromCondList(getActor(), this.object, this.state.on_press.condlist)
+          this.state.ini!,
+          pickSectionFromCondList(getActor(), this.object, this.state.on_press.condlist)!
         )
       ) {
         return true;

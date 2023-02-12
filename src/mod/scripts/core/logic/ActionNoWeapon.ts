@@ -8,10 +8,16 @@ import {
   XR_StaticDrawableWrapper,
 } from "xray16";
 
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { hide_weapon, restore_weapon } from "@/mod/scripts/core/binders/ActorBinder";
 import { getActor, IStoredObject, noWeapZones } from "@/mod/scripts/core/db";
+import {
+  assign_storage_and_bind,
+  subscribe_action_for_events,
+  try_switch_to_another_section,
+} from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { cfg_get_switch_conditions } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ActionNoWeapon");
@@ -38,22 +44,13 @@ export class ActionNoWeapon extends AbstractSchemeAction {
   ): void {
     logger.info("Add to binder:", object.name());
 
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(
-      object,
-      state,
-      new ActionNoWeapon(object, state)
-    );
+    subscribe_action_for_events(object, state, new ActionNoWeapon(object, state));
   }
 
   public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
-    const state: IStoredObject = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(
-      object,
-      ini,
-      scheme,
-      section
-    );
+    const state: IStoredObject = assign_storage_and_bind(object, ini, scheme, section);
 
-    state.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, object);
+    state.logic = cfg_get_switch_conditions(ini, section, object);
   }
 
   public currentActorState: EActorZoneState = EActorZoneState.NOWHERE;
@@ -74,7 +71,7 @@ export class ActionNoWeapon extends AbstractSchemeAction {
   public update(delta: number): void {
     const actor: XR_game_object = getActor()!;
 
-    if (get_global<AnyCallablesModule>("xr_logic").try_switch_to_another_section(this.object, this.state, actor)) {
+    if (try_switch_to_another_section(this.object, this.state, actor)) {
       if (this.currentActorState === EActorZoneState.INSIDE) {
         this.onZoneLeave();
       }

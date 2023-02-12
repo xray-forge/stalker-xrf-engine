@@ -1,6 +1,6 @@
 import { ini_file, level, XR_ini_file, XR_net_packet, XR_reader } from "xray16";
 
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
 import {
   getConfigString,

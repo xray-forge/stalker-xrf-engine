@@ -3,10 +3,22 @@ import { level, patrol, XR_game_object, XR_ini_file } from "xray16";
 import { post_processors } from "@/mod/globals/animation/post_processors";
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import {
+  assign_storage_and_bind,
+  issue_event,
+  subscribe_action_for_events,
+  try_switch_to_another_section,
+} from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { EEffectorState, effector_sets } from "@/mod/scripts/cutscenes/cam_effector_sets";
 import { CamEffectorSet } from "@/mod/scripts/cutscenes/CamEffectorSet";
-import { getConfigBoolean, getConfigNumber, getConfigString, parseNames } from "@/mod/scripts/utils/configs";
+import {
+  cfg_get_switch_conditions,
+  getConfigBoolean,
+  getConfigNumber,
+  getConfigString,
+  parseNames,
+} from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ActionCutscene");
@@ -26,10 +38,10 @@ export class ActionCutscene extends AbstractSchemeAction {
   ): void {
     logger.info("Add cutscene to binder:", npc.name(), scheme, section);
 
-    const new_action = new ActionCutscene(npc, storage);
+    const new_action: ActionCutscene = new ActionCutscene(npc, storage);
 
     storage.cutscene_action = new_action;
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(npc, storage, new_action);
+    subscribe_action_for_events(npc, storage, new_action);
   }
 
   public static set_scheme(
@@ -39,23 +51,21 @@ export class ActionCutscene extends AbstractSchemeAction {
     section: string,
     gulag_name: string
   ): void {
-    const st = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(obj, ini, scheme, section);
+    const st = assign_storage_and_bind(obj, ini, scheme, section);
 
-    st.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, obj);
-
+    st.logic = cfg_get_switch_conditions(ini, section, obj);
     st.point = getConfigString(ini, section, "point", obj, true, "", "none");
     st.look = getConfigString(ini, section, "look", obj, true, "", "none");
     st.global_cameffect = getConfigBoolean(ini, section, "global_cameffect", obj, false, false);
     st.pp_effector = getConfigString(ini, section, "pp_effector", obj, false, "", "nil") + ".ppe";
     st.cam_effector = parseNames(getConfigString(ini, section, "cam_effector", obj, true, ""));
     st.fov = getConfigNumber(ini, section, "fov", obj, true);
-
     st.enable_ui_on_end = getConfigBoolean(ini, section, "enable_ui_on_end", obj, false, true);
     st.outdoor = getConfigBoolean(ini, section, "outdoor", obj, false, false);
   }
 
   public static onCutsceneEnd(): void {
-    get_global<AnyCallablesModule>("xr_logic").issue_event(object_cutscene, storage_scene, "cutscene_callback");
+    issue_event(object_cutscene!, storage_scene!, "cutscene_callback");
   }
 
   public ui_disabled: boolean;
@@ -97,7 +107,7 @@ export class ActionCutscene extends AbstractSchemeAction {
       }
     }
 
-    if (get_global<AnyCallablesModule>("xr_logic").try_switch_to_another_section(this.object, this.state, getActor())) {
+    if (try_switch_to_another_section(this.object, this.state, getActor())) {
       return;
     }
   }

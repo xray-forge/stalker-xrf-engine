@@ -19,7 +19,6 @@ import type { PatrolManager } from "@/mod/scripts/core/logic/ActionSchemePatrol"
 import type { ITeleportPoint } from "@/mod/scripts/core/logic/ActionTeleport";
 import type { ActionWoundManager } from "@/mod/scripts/core/logic/ActionWoundManager";
 import type { CampStoryManager } from "@/mod/scripts/core/logic/CampStoryManager";
-import type { HeliCombat } from "@/mod/scripts/core/logic/heli/HeliCombat";
 import type { ReachTaskPatrolManager } from "@/mod/scripts/core/logic/ReachTaskPatrolManager";
 import type { RestrictorManager } from "@/mod/scripts/core/RestrictorManager";
 import type { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
@@ -67,13 +66,15 @@ export interface ITradeManagerDescriptor {
   resuply_time: number;
   current_buy_condition: string;
   current_sell_condition: string;
-  current_buy_item_condition_factor: string;
+  current_buy_item_condition_factor: number;
   current_buy_supplies: string;
 }
 
 export interface IStoredObject<T = XR_game_object> {
   [index: string]: any;
 
+  section?: TSection;
+  actions?: LuaTable<LuaTable<string, AnyCallable>, boolean>;
   pp?: XR_vector;
   avail_animations?: LuaTable<number, string>;
   animpoint?: ActionSchemeAnimpoint;
@@ -85,7 +86,6 @@ export interface IStoredObject<T = XR_game_object> {
   snd_close_start?: string;
   path_table?: LuaTable<number, string>;
   cam_effector?: LuaTable<number, string>;
-  combat?: HeliCombat;
   anim_head?: TXR_MonsterBodyStateKey;
   action?: any;
   ini?: XR_ini_file;
@@ -94,12 +94,12 @@ export interface IStoredObject<T = XR_game_object> {
   hit?: any;
   timeout?: number;
   smartcover?: any;
-  active_scheme?: TScheme;
-  active_section?: TSection;
+  active_scheme?: Optional<TScheme>;
+  active_section?: Optional<TSection>;
   combat_ignore?: AnyObject;
   section_logic?: string;
   post_combat_wait?: unknown;
-  pstor?: Record<string, any>;
+  pstor?: LuaTable<string>;
   death?: { killer: number; killer_name: Optional<string>; info: any; info2: any };
   mob_death?: any;
   disable_input_time?: any;
@@ -107,13 +107,13 @@ export interface IStoredObject<T = XR_game_object> {
   state_mgr?: Optional<StateManager>;
   ui?: XR_CUIGameCustom;
   restrictor_manager?: Optional<RestrictorManager>;
-  overrides?: {
+  overrides?: Optional<{
     combat_ignore_keep_when_attacked: number;
     on_offline_condlist: number;
     min_post_combat_time: number;
     max_post_combat_time: number;
     combat_ignore: AnyObject;
-  };
+  }>;
 }
 
 export const storage: LuaTable<number, IStoredObject> = new LuaTable();

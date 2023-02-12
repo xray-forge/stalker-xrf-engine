@@ -1,12 +1,22 @@
 import { get_hud, level, XR_game_object, XR_ini_file } from "xray16";
 
 import { post_processors } from "@/mod/globals/animation/post_processors";
-import { AnyCallablesModule } from "@/mod/lib/types";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
+import {
+  assign_storage_and_bind,
+  subscribe_action_for_events,
+  try_switch_to_another_section,
+} from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { ActionPostProcess } from "@/mod/scripts/core/logic/ActionPostProcess";
 import { PsyAntennaManager } from "@/mod/scripts/core/managers/PsyAntennaManager";
-import { getConfigBoolean, getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
+import {
+  cfg_get_switch_conditions,
+  getConfigBoolean,
+  getConfigNumber,
+  getConfigString,
+} from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ActionPsyAntenna");
@@ -28,26 +38,18 @@ export class ActionPsyAntenna extends AbstractSchemeAction {
     section: string,
     state: IStoredObject
   ): void {
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(
-      object,
-      state,
-      new ActionPostProcess(object, state)
-    );
+    subscribe_action_for_events(object, state, new ActionPostProcess(object, state));
   }
 
   public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
-    const st = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(object, ini, scheme, section);
+    const st = assign_storage_and_bind(object, ini, scheme, section);
 
-    st.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, object);
-
+    st.logic = cfg_get_switch_conditions(ini, section, object);
     st.intensity = getConfigNumber(ini, section, "eff_intensity", object, true) * 0.01;
     st.postprocess = getConfigString(ini, section, "postprocess", object, false, "", post_processors.psy_antenna);
-
     st.hit_intensity = getConfigNumber(ini, section, "hit_intensity", object, true) * 0.01;
     st.phantom_prob = getConfigNumber(ini, section, "phantom_prob", object, false, 0) * 0.01;
-
     st.mute_sound_threshold = getConfigNumber(ini, section, "mute_sound_threshold", object, false, 0);
-
     st.no_static = getConfigBoolean(ini, section, "no_static", object, false, false);
     st.no_mumble = getConfigBoolean(ini, section, "no_mumble", object, false, false);
     st.hit_type = getConfigString(ini, section, "hit_type", object, false, "", "wound");
@@ -59,7 +61,7 @@ export class ActionPsyAntenna extends AbstractSchemeAction {
 
   public reset_scheme(loading?: boolean): void {
     if (loading) {
-      this.antennaState = get_global<AnyCallablesModule>("xr_logic").pstor_retrieve(this.object, "inside");
+      this.antennaState = pstor_retrieve(this.object, "inside")!;
     }
 
     if (this.antennaState === state_inside) {
@@ -80,7 +82,7 @@ export class ActionPsyAntenna extends AbstractSchemeAction {
   public update(delta: number): void {
     const actor = getActor()!;
 
-    if (get_global<AnyCallablesModule>("xr_logic").try_switch_to_another_section(this.object, this.state, actor)) {
+    if (try_switch_to_another_section(this.object, this.state, actor)) {
       return;
     }
 
@@ -168,6 +170,6 @@ export class ActionPsyAntenna extends AbstractSchemeAction {
   }
 
   public save(): void {
-    get_global<AnyCallablesModule>("xr_logic").pstor_store(this.object, "inside", this.antennaState);
+    pstor_store(this.object, "inside", this.antennaState);
   }
 }

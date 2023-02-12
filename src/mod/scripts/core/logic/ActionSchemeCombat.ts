@@ -1,16 +1,22 @@
 import { stalker_ids, world_property, XR_action_base, XR_game_object, XR_ini_file } from "xray16";
 
 import { communities } from "@/mod/globals/communities";
-import { AnyCallablesModule, AnyObject, Optional } from "@/mod/lib/types";
+import { AnyObject, Optional } from "@/mod/lib/types";
 import { TScheme, TSection } from "@/mod/lib/types/configuration";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
+import { assign_storage_and_bind } from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { ActionSchemeCombatCamper } from "@/mod/scripts/core/logic/ActionSchemeCombatCamper";
 import { ActionSchemeCombatZombied } from "@/mod/scripts/core/logic/ActionSchemeCombatZombied";
 import { EvaluatorCheckCombat } from "@/mod/scripts/core/logic/evaluators/EvaluatorCheckCombat";
 import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
-import { getConfigCondList, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
+import {
+  cfg_get_switch_conditions,
+  getConfigCondList,
+  parseCondList,
+  pickSectionFromCondList,
+} from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ActionSchemeCombat");
@@ -77,19 +83,19 @@ export class ActionSchemeCombat extends AbstractSchemeAction {
     const is_zombied: boolean = getCharacterCommunity(object) === communities.zombied;
 
     if (section || is_zombied) {
-      const st = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(object, ini, scheme, section);
+      const st = assign_storage_and_bind(object, ini, scheme, section);
 
-      st.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, object);
+      st.logic = cfg_get_switch_conditions(ini, section, object);
       st.enabled = true;
 
       st.combat_type = getConfigCondList(ini, section, "combat_type", object);
 
-      if (st.combat_type === "monolith") {
+      if (st.combat_type === communities.monolith) {
         st.combat_type = null;
       }
 
       if (!st.combat_type && is_zombied) {
-        st.combat_type = { condlist: parseCondList(object, section, "", "zombied") };
+        st.combat_type = { condlist: parseCondList(object, section, "", communities.zombied) };
       }
 
       if (st.combat_type) {

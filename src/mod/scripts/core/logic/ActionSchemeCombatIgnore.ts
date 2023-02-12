@@ -1,8 +1,13 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
-import { AnyCallablesModule } from "@/mod/lib/types";
 import { TScheme, TSection } from "@/mod/lib/types/configuration";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
+import {
+  assign_storage_and_bind,
+  generic_scheme_overrides,
+  subscribe_action_for_events,
+  unsubscribe_action_from_events,
+} from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { ActionProcessEnemy } from "@/mod/scripts/core/logic/actions/ActionProcessEnemy";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -24,7 +29,7 @@ export class ActionSchemeCombatIgnore extends AbstractSchemeAction {
   }
 
   public static set_combat_ignore_checker(npc: XR_game_object, ini: XR_ini_file, scheme: TScheme): void {
-    get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(npc, ini, scheme);
+    assign_storage_and_bind(npc, ini, scheme, null);
   }
 
   public static disable_scheme(npc: XR_game_object, scheme: TScheme): void {
@@ -33,7 +38,7 @@ export class ActionSchemeCombatIgnore extends AbstractSchemeAction {
     const schemeState = storage.get(npc.id())[scheme];
 
     if (schemeState) {
-      get_global<AnyCallablesModule>("xr_logic").unsubscribe_action_from_events(npc, schemeState, schemeState.action);
+      unsubscribe_action_from_events(npc, schemeState, schemeState.action);
     }
   }
 
@@ -47,9 +52,9 @@ export class ActionSchemeCombatIgnore extends AbstractSchemeAction {
 
     npc.set_enemy_callback(schemeState.action.enemy_callback, schemeState.action);
 
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(npc, schemeState, schemeState.action);
+    subscribe_action_for_events(npc, schemeState, schemeState.action);
 
-    schemeState.overrides = get_global<AnyCallablesModule>("xr_logic").generic_scheme_overrides(npc);
+    schemeState.overrides = generic_scheme_overrides(npc);
 
     schemeState.enabled = true;
   }

@@ -1,10 +1,11 @@
 import { level, stalker_ids, vector, world_property, XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { TScheme, TSection } from "@/mod/lib/types/configuration";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
+import { assign_storage_and_bind, subscribe_action_for_events } from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { ActionAnimpoint, IActionAnimpoint } from "@/mod/scripts/core/logic/actions/ActionAnimpoint";
 import { ActionReachAnimpoint, IActionReachAnimpoint } from "@/mod/scripts/core/logic/actions/ActionReachAnimpoint";
@@ -14,7 +15,13 @@ import { EvaluatorNeedAnimpoint } from "@/mod/scripts/core/logic/evaluators/Eval
 import { EvaluatorReachAnimpoint } from "@/mod/scripts/core/logic/evaluators/EvaluatorReachAnimpoint";
 import { registered_smartcovers } from "@/mod/scripts/se/SmartCover";
 import { states } from "@/mod/scripts/state_management/lib/state_lib";
-import { getConfigBoolean, getConfigNumber, getConfigString, parseNames } from "@/mod/scripts/utils/configs";
+import {
+  cfg_get_switch_conditions,
+  getConfigBoolean,
+  getConfigNumber,
+  getConfigString,
+  parseNames,
+} from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { addCommonPrecondition } from "@/mod/scripts/utils/scheme";
@@ -86,7 +93,7 @@ export class ActionSchemeAnimpoint extends AbstractSchemeAction {
 
     state.animpoint = new ActionSchemeAnimpoint(npc, state);
 
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(npc, state, state.animpoint);
+    subscribe_action_for_events(npc, state, state.animpoint);
 
     const actionReachAnimpoint: IActionReachAnimpoint = create_xr_class_instance(
       ActionReachAnimpoint,
@@ -104,7 +111,7 @@ export class ActionSchemeAnimpoint extends AbstractSchemeAction {
     actionReachAnimpoint.add_effect(new world_property(properties.need_animpoint, false));
     actionReachAnimpoint.add_effect(new world_property(properties.state_mgr_logic_active, false));
     manager.add_action(operators.action_reach_animpoint, actionReachAnimpoint);
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(npc, state, actionReachAnimpoint);
+    subscribe_action_for_events(npc, state, actionReachAnimpoint);
 
     const actionAnimpoint: IActionAnimpoint = create_xr_class_instance(
       ActionAnimpoint,
@@ -122,7 +129,7 @@ export class ActionSchemeAnimpoint extends AbstractSchemeAction {
     actionAnimpoint.add_effect(new world_property(properties.need_animpoint, false));
     actionAnimpoint.add_effect(new world_property(properties.state_mgr_logic_active, false));
     manager.add_action(operators.action_animpoint, actionAnimpoint);
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(npc, state, actionAnimpoint);
+    subscribe_action_for_events(npc, state, actionAnimpoint);
 
     manager.action(action_ids.alife).add_precondition(new world_property(properties.need_animpoint, false));
   }
@@ -134,9 +141,9 @@ export class ActionSchemeAnimpoint extends AbstractSchemeAction {
     section: TSection,
     additional: string
   ): void {
-    const st = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(object, ini, scheme, section);
+    const st = assign_storage_and_bind(object, ini, scheme, section);
 
-    st.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, object);
+    st.logic = cfg_get_switch_conditions(ini, section, object);
     st.cover_name = getConfigString(ini, section, "cover_name", object, false, "", "$script_id$_cover");
     st.use_camp = getConfigBoolean(ini, section, "use_camp", object, false, true);
     st.reach_distance = getConfigNumber(ini, section, "reach_distance", object, false, 0.75);
@@ -405,15 +412,6 @@ export class ActionSchemeAnimpoint extends AbstractSchemeAction {
     }
 
     if (!found) {
-      /* --[[
-        printf("***")
-        print_table(this.state.approved_actions)
-        printf("***")
-        print_table(tbl)
-        printf("***")
-        abort("No actions found %s %s", this.npc_id)
-      ]]*/
-
       table.insert(tmp_actions, descr);
     }
 

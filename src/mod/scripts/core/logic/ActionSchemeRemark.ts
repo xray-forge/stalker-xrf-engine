@@ -5,10 +5,16 @@ import { TScheme, TSection } from "@/mod/lib/types/configuration";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { IStoredObject } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
+import { assign_storage_and_bind, subscribe_action_for_events } from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { ActionRemarkActivity } from "@/mod/scripts/core/logic/actions/ActionRemarkActivity";
 import { EvaluatorNeedRemark } from "@/mod/scripts/core/logic/evaluators/EvaluatorNeedRemark";
-import { getConfigBoolean, getConfigString, parseCondList } from "@/mod/scripts/utils/configs";
+import {
+  cfg_get_switch_conditions,
+  getConfigBoolean,
+  getConfigString,
+  parseCondList,
+} from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { addCommonPrecondition } from "@/mod/scripts/utils/scheme";
 
@@ -52,7 +58,7 @@ export class ActionSchemeRemark extends AbstractSchemeAction {
     new_action.add_effect(new world_property(properties.state_mgr_logic_active, false));
     manager.add_action(operators.action_remark, new_action);
 
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(object, state, new_action);
+    subscribe_action_for_events(object, state, new_action);
     manager.action(action_ids.alife).add_precondition(new world_property(properties.need_remark, false));
   }
 
@@ -63,9 +69,9 @@ export class ActionSchemeRemark extends AbstractSchemeAction {
     section: TSection,
     additional: string
   ): void {
-    const state = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(object, ini, scheme, section);
+    const state = assign_storage_and_bind(object, ini, scheme, section);
 
-    state.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, object);
+    state.logic = cfg_get_switch_conditions(ini, section, object);
     state.snd_anim_sync = getConfigBoolean(ini, section, "snd_anim_sync", object, false);
     state.snd = getConfigString(ini, section, "snd", object, false, "", null);
     state.anim = parseCondList(

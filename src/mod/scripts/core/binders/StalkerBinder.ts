@@ -45,6 +45,13 @@ import { DropManager } from "@/mod/scripts/core/DropManager";
 import { set_npc_sympathy, set_npcs_relation } from "@/mod/scripts/core/game_relations";
 import { Hear } from "@/mod/scripts/core/Hear";
 import { need_victim } from "@/mod/scripts/core/inventory_upgrades";
+import {
+  generic_scheme_overrides,
+  issue_event,
+  load_obj,
+  save_obj,
+  try_switch_to_another_section,
+} from "@/mod/scripts/core/logic";
 import { ActionDanger } from "@/mod/scripts/core/logic/ActionDanger";
 import { ActionLight } from "@/mod/scripts/core/logic/ActionLight";
 import { ActionSchemeCombat } from "@/mod/scripts/core/logic/ActionSchemeCombat";
@@ -123,11 +130,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
   },
   extrapolate_callback(cur_pt: number): boolean {
     if (this.state.active_section) {
-      get_global<AnyCallablesModule>("xr_logic").issue_event(
-        this.object,
-        this.state[this.state.active_scheme!],
-        "extrapolate_callback"
-      );
+      issue_event(this.object, this.state[this.state.active_scheme!], "extrapolate_callback");
       this.state.move_mgr.extrapolate_callback(this.object);
     }
 
@@ -256,21 +259,11 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
     const st: IStoredObject = storage.get(this.object.id());
 
     if (st.active_scheme) {
-      get_global<AnyCallablesModule>("xr_logic").issue_event(
-        this.object,
-        st[st.active_scheme],
-        "net_destroy",
-        this.object
-      );
+      issue_event(this.object, st[st.active_scheme], "net_destroy", this.object);
     }
 
     if (this.state.reach_task) {
-      get_global<AnyCallablesModule>("xr_logic").issue_event(
-        this.object,
-        this.state.reach_task,
-        "net_destroy",
-        this.object
-      );
+      issue_event(this.object, this.state.reach_task, "net_destroy", this.object);
     }
 
     const on_offline_condlist =
@@ -347,7 +340,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
     }
 
     if (this.state.active_section) {
-      get_global<AnyCallablesModule>("xr_logic").issue_event(
+      issue_event(
         this.object,
         this.state[this.state.active_scheme!],
         "hit_callback",
@@ -360,42 +353,15 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
     }
 
     if (this.state.combat_ignore) {
-      get_global<AnyCallablesModule>("xr_logic").issue_event(
-        this.object,
-        this.state.combat_ignore,
-        "hit_callback",
-        obj,
-        amount,
-        local_direction,
-        who,
-        bone_index
-      );
+      issue_event(this.object, this.state.combat_ignore, "hit_callback", obj, amount, local_direction, who, bone_index);
     }
 
     if (this.state.combat) {
-      get_global<AnyCallablesModule>("xr_logic").issue_event(
-        this.object,
-        this.state.combat,
-        "hit_callback",
-        obj,
-        amount,
-        local_direction,
-        who,
-        bone_index
-      );
+      issue_event(this.object, this.state.combat, "hit_callback", obj, amount, local_direction, who, bone_index);
     }
 
     if (this.state.hit) {
-      get_global<AnyCallablesModule>("xr_logic").issue_event(
-        this.object,
-        this.state.hit,
-        "hit_callback",
-        obj,
-        amount,
-        local_direction,
-        who,
-        bone_index
-      );
+      issue_event(this.object, this.state.hit, "hit_callback", obj, amount, local_direction, who, bone_index);
     }
 
     if (bone_index !== 15 && amount > this.object.health * 100) {
@@ -438,33 +404,15 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
     }
 
     if (this.state.reach_task) {
-      get_global<AnyCallablesModule>("xr_logic").issue_event(
-        this.object,
-        this.state.reach_task,
-        "death_callback",
-        victim,
-        who
-      );
+      issue_event(this.object, this.state.reach_task, "death_callback", victim, who);
     }
 
     if (this.state.death) {
-      get_global<AnyCallablesModule>("xr_logic").issue_event(
-        this.object,
-        this.state.death,
-        "death_callback",
-        victim,
-        who
-      );
+      issue_event(this.object, this.state.death, "death_callback", victim, who);
     }
 
     if (this.state.active_section) {
-      get_global<AnyCallablesModule>("xr_logic").issue_event(
-        this.object,
-        this.state[this.state.active_scheme!],
-        "death_callback",
-        victim,
-        who
-      );
+      issue_event(this.object, this.state[this.state.active_scheme!], "death_callback", victim, who);
     }
 
     ActionLight.check_light(this.object);
@@ -493,13 +441,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
 
       get_global("dialog_manager").disabled_phrases[obj.id()] = null;
       if (this.state.active_section) {
-        get_global<AnyCallablesModule>("xr_logic").issue_event(
-          this.object,
-          this.state[this.state.active_scheme!],
-          "use_callback",
-          obj,
-          who
-        );
+        issue_event(this.object, this.state[this.state.active_scheme!], "use_callback", obj, who);
       }
     }
   },
@@ -605,7 +547,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
     setSaveMarker(packet, false, StalkerBinder.__name);
 
     object_binder.save(this, packet);
-    get_global<AnyCallablesModule>("xr_logic").save_obj(this.object, packet);
+    save_obj(this.object, packet);
     saveTradeManager(this.object, packet);
     GlobalSound.save_npc(packet, this.object.id());
     get_global<AnyCallablesModule>("dialog_manager").save_npc(packet, this.object.id());
@@ -618,7 +560,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
     setLoadMarker(reader, false, StalkerBinder.__name);
 
     object_binder.load(this, reader);
-    get_global<AnyCallablesModule>("xr_logic").load_obj(this.object, reader);
+    load_obj(this.object, reader);
     loadTradeManager(this.object, reader);
     GlobalSound.load_npc(reader, this.object.id());
     get_global<AnyCallablesModule>("dialog_manager").load_npc(reader, this.object.id());
@@ -651,16 +593,16 @@ export function update_logic(object: XR_game_object): void {
     const manager = object.motivation_action_manager();
 
     if (manager.initialized() && manager.current_action_id() === stalker_ids.action_combat_planner) {
-      const overrides = get_global<AnyCallablesModule>("xr_logic").generic_scheme_overrides(object);
+      const overrides = generic_scheme_overrides(object);
 
-      if (overrides) {
-        if (overrides.on_combat) {
-          pickSectionFromCondList(actor, object, overrides.on_combat.condlist);
+      if (overrides !== null) {
+        if (overrides.get("on_combat")) {
+          pickSectionFromCondList(actor, object, overrides.get("on_combat").condlist);
         }
 
         if (st_combat && (st_combat as any).logic) {
-          if (!get_global<AnyCallablesModule>("xr_logic").try_switch_to_another_section(object, st_combat, actor)) {
-            if (overrides.combat_type) {
+          if (!try_switch_to_another_section(object, st_combat, actor)) {
+            if (overrides.get("combat_type")) {
               ActionSchemeCombat.set_combat_type(object, actor, overrides);
             }
           } else {
@@ -673,7 +615,7 @@ export function update_logic(object: XR_game_object): void {
     }
 
     if (!switched) {
-      get_global<AnyCallablesModule>("xr_logic").try_switch_to_another_section(object, st[st.active_scheme!], actor);
+      try_switch_to_another_section(object, st[st.active_scheme!], actor);
     }
   } else {
     ActionSchemeCombat.set_combat_type(object, actor, st_combat);

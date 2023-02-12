@@ -1,11 +1,17 @@
 import { level, XR_game_object, XR_ini_file } from "xray16";
 
 import { misc } from "@/mod/globals/items/misc";
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
+import { TScheme, TSection } from "@/mod/lib/types/configuration";
 import { getActor, IStoredObject, light_zones, storage } from "@/mod/scripts/core/db";
+import {
+  assign_storage_and_bind,
+  subscribe_action_for_events,
+  try_switch_to_another_section,
+} from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { isUndergroundLevel } from "@/mod/scripts/utils/checkers";
-import { getConfigBoolean } from "@/mod/scripts/utils/configs";
+import { cfg_get_switch_conditions, getConfigBoolean } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resetTable } from "@/mod/scripts/utils/table";
 
@@ -21,21 +27,19 @@ export class ActionLight extends AbstractSchemeAction {
   public static add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: string,
-    section: string,
+    scheme: TScheme,
+    section: TSection,
     state: IStoredObject
   ): void {
     logger.info("Add to binder:", object.name());
 
-    const new_action = new ActionLight(object, state);
-
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(object, state, new_action);
+    subscribe_action_for_events(object, state, new ActionLight(object, state));
   }
 
-  public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
-    const state = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(object, ini, scheme, section);
+  public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: TScheme, section: TSection): void {
+    const state = assign_storage_and_bind(object, ini, scheme, section);
 
-    state.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, object);
+    state.logic = cfg_get_switch_conditions(ini, section, object);
     state.light = getConfigBoolean(ini, section, "light_on", object, false, false);
   }
 
@@ -129,7 +133,7 @@ export class ActionLight extends AbstractSchemeAction {
   }
 
   public update(delta: number): void {
-    if (get_global<AnyCallablesModule>("xr_logic").try_switch_to_another_section(this.object, this.state, getActor())) {
+    if (try_switch_to_another_section(this.object, this.state, getActor())) {
       this.active = false;
 
       light_zones.delete(this.object.id());

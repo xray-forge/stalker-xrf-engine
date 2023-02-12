@@ -21,7 +21,7 @@ import { levels, TLevel } from "@/mod/globals/levels";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { AnyCallablesModule, Optional, PartialRecord } from "@/mod/lib/types";
 import { anomalyByName, CROW_STORAGE, getActor, signalLight, storage, zoneByName } from "@/mod/scripts/core/db";
-import { getManagerInstance } from "@/mod/scripts/core/db/ManagersRegistry";
+import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
@@ -566,9 +566,9 @@ export class SurgeManager extends AbstractCoreManager {
       if (!(cover && storage.get(cover) && storage.get(cover).object!.inside(getActor()!.position()))) {
         if (hasAlifeInfo("anabiotic_in_process")) {
           const counter_name = "actor_marked_by_zone_cnt";
-          const cnt_value = get_global<AnyCallablesModule>("xr_logic").pstor_retrieve(getActor(), counter_name, 0);
+          const cnt_value: number = pstor_retrieve(getActor()!, counter_name, 0);
 
-          get_global<AnyCallablesModule>("xr_logic").pstor_store(getActor(), counter_name, cnt_value + 1);
+          pstor_store(getActor()!, counter_name, cnt_value + 1);
         }
 
         /* --[[

@@ -3,14 +3,13 @@ import {
   command_line,
   object_binder,
   XR_cse_alife_object,
-  XR_game_object,
   XR_net_packet,
   XR_object_binder,
   XR_reader,
 } from "xray16";
 
-import { AnyCallable } from "@/mod/lib/types";
 import { addObject, deleteObject, storage } from "@/mod/scripts/core/db";
+import { load_obj, save_obj } from "@/mod/scripts/core/logic";
 import { ILevelChanger } from "@/mod/scripts/se/LevelChanger";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -20,15 +19,6 @@ const logger: LuaLogger = new LuaLogger("LevelChangerBinder");
 export interface ILevelChangerBinder extends XR_object_binder {}
 
 export const LevelChangerBinder: ILevelChangerBinder = declare_xr_class("LevelChangerBinder", object_binder, {
-  __init(object: XR_game_object): void {
-    object_binder.__init(this, object);
-  },
-  update(delta: number): void {
-    object_binder.update(this, delta);
-  },
-  reload(section: string): void {
-    object_binder.reload(this, section);
-  },
   reinit(): void {
     object_binder.reinit(this);
     storage.set(this.object.id(), {});
@@ -67,7 +57,7 @@ export const LevelChangerBinder: ILevelChangerBinder = declare_xr_class("LevelCh
     setSaveMarker(packet, false, LevelChangerBinder.__name);
 
     object_binder.save(this, packet);
-    (get_global("xr_logic").save_obj as AnyCallable)(this.object, packet);
+    save_obj(this.object, packet);
 
     setSaveMarker(packet, true, LevelChangerBinder.__name);
   },
@@ -75,7 +65,7 @@ export const LevelChangerBinder: ILevelChangerBinder = declare_xr_class("LevelCh
     setLoadMarker(reader, false, LevelChangerBinder.__name);
 
     object_binder.load(this, reader);
-    (get_global("xr_logic").load_obj as AnyCallable)(this.object, reader);
+    load_obj(this.object, reader);
 
     setLoadMarker(reader, true, LevelChangerBinder.__name);
   },

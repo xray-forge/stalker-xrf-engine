@@ -1,8 +1,9 @@
 -- 1657
+
 local NewsManager = require("scripts.core.NewsManager")
-local mapDisplayManager = require("scripts.ui.game.MapDisplayManager").mapDisplayManager
 local LuaLogger = require("scripts.utils.logging").LuaLogger
 local create_ts_class_instance = require("lualib_bundle").__TS__New
+local pstor = require("scripts.core.db.pstor")
 
 local log = create_ts_class_instance(LuaLogger, "dialogs_zaton");
 
@@ -830,22 +831,22 @@ end
 
 function zat_b30_barmen_has_percent(first_speaker, second_speaker)
   local actor = dialogs.who_is_actor(first_speaker, second_speaker)
-  local cnt = xr_logic.pstor_retrieve(actor, "zat_b30_days_cnt", 0)
+  local cnt = pstor.pstor_retrieve(actor, "zat_b30_days_cnt", 0)
   return cnt > 0
 end
 
 function zat_b30_barmen_do_not_has_percent(first_speaker, second_speaker)
   local actor = dialogs.who_is_actor(first_speaker, second_speaker)
-  local cnt = xr_logic.pstor_retrieve(actor, "zat_b30_days_cnt", 0)
+  local cnt = pstor.pstor_retrieve(actor, "zat_b30_days_cnt", 0)
   return cnt < 1
 end
 
 function zat_b30_transfer_percent(first_speaker, second_speaker)
   local amount = math.random(5, 25) * 100
-  local days = xr_logic.pstor_retrieve(db.actor, "zat_b30_days_cnt", 0)
+  local days = pstor.pstor_retrieve(db.actor, "zat_b30_days_cnt", 0)
   amount = amount * days
   dialogs.relocate_money_to_actor(first_speaker, second_speaker, amount)
-  xr_logic.pstor_store(db.actor, "zat_b30_days_cnt", 0)
+  pstor.pstor_store(db.actor, "zat_b30_days_cnt", 0)
 end
 
 function zat_b30_npc_has_detector(first_speaker, second_speaker)

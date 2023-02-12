@@ -1,10 +1,14 @@
 import { color, hit, noise, time_global, vector, XR_game_object, XR_ini_file, XR_noise } from "xray16";
 
-import { AnyCallablesModule } from "@/mod/lib/types";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import {
+  assign_storage_and_bind,
+  subscribe_action_for_events,
+  try_switch_to_another_section,
+} from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { IPPEffector, PPEffector } from "@/mod/scripts/core/post_processing/PPEffector";
-import { getConfigNumber } from "@/mod/scripts/utils/configs";
+import { cfg_get_switch_conditions, getConfigNumber } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -22,11 +26,7 @@ export class ActionPostProcess extends AbstractSchemeAction {
   ): void {
     logger.info("Add to binder:", object.name());
 
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(
-      object,
-      state,
-      new ActionPostProcess(object, state)
-    );
+    subscribe_action_for_events(object, state, new ActionPostProcess(object, state));
   }
 
   public static set_scheme(
@@ -37,9 +37,9 @@ export class ActionPostProcess extends AbstractSchemeAction {
     additional: string
   ): void;
   public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
-    const state = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(object, ini, scheme, section);
+    const state = assign_storage_and_bind(object, ini, scheme, section);
 
-    state.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, object);
+    state.logic = cfg_get_switch_conditions(ini, section, object);
     state.intensity = getConfigNumber(ini, section, "intensity", object, true) * 0.01;
     state.intensity_speed = getConfigNumber(ini, section, "intensity_speed", object, true) * 0.01;
     state.hit_intensity = getConfigNumber(ini, section, "hit_intensity", object, true);
@@ -88,7 +88,7 @@ export class ActionPostProcess extends AbstractSchemeAction {
   public update(delta: number): void {
     const actor = getActor()!;
 
-    if (get_global<AnyCallablesModule>("xr_logic").try_switch_to_another_section(this.object, this.state, actor)) {
+    if (try_switch_to_another_section(this.object, this.state, actor)) {
       return;
     }
 

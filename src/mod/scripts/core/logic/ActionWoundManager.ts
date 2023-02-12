@@ -10,12 +10,13 @@ import {
 } from "xray16";
 
 import { communities, TCommunity } from "@/mod/globals/communities";
-import { AnyCallablesModule, AnyObject, Optional } from "@/mod/lib/types";
+import { AnyObject, Optional } from "@/mod/lib/types";
 import { TScheme, TSection } from "@/mod/lib/types/configuration";
-import { stringifyAsJson } from "@/mod/lib/utils/json";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
+import { assign_storage_and_bind } from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { ActionWounded, IActionWounded } from "@/mod/scripts/core/logic/actions/ActionWounded";
 import { EvaluatorCanFight } from "@/mod/scripts/core/logic/evaluators/EvaluatorCanFight";
@@ -85,7 +86,7 @@ export class ActionWoundManager extends AbstractSchemeAction {
   public static set_wounded(object: XR_game_object, ini: XR_ini_file, scheme: TScheme, section: TSection): void {
     logger.info("Set wounded:", object.name());
 
-    const state = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(object, ini, scheme, section);
+    const state = assign_storage_and_bind(object, ini, scheme, section);
 
     state.wound_manager = new ActionWoundManager(object, state);
   }
@@ -273,10 +274,10 @@ export class ActionWoundManager extends AbstractSchemeAction {
       this.victim = "nil";
     }
 
-    get_global<AnyCallablesModule>("xr_logic").pstor_store(this.object, "wounded_state", this.wound_state);
-    get_global<AnyCallablesModule>("xr_logic").pstor_store(this.object, "wounded_sound", this.sound);
-    get_global<AnyCallablesModule>("xr_logic").pstor_store(this.object, "wounded_fight", this.fight);
-    get_global<AnyCallablesModule>("xr_logic").pstor_store(this.object, "wounded_victim", this.victim);
+    pstor_store(this.object, "wounded_state", this.wound_state);
+    pstor_store(this.object, "wounded_sound", this.sound);
+    pstor_store(this.object, "wounded_fight", this.fight);
+    pstor_store(this.object, "wounded_victim", this.victim);
   }
 
   public unlock_medkit(): void {
@@ -300,16 +301,13 @@ export class ActionWoundManager extends AbstractSchemeAction {
       }
 
       const current_time: number = time_global();
-      const begin_wounded: Optional<number> = get_global<AnyCallablesModule>("xr_logic").pstor_retrieve(
-        this.object,
-        "begin_wounded"
-      );
+      const begin_wounded: Optional<number> = pstor_retrieve(this.object, "begin_wounded");
 
       if (begin_wounded !== null && current_time - begin_wounded <= 60000) {
         GlobalSound.set_sound_play(this.object.id(), "help_thanks", null, null);
       }
 
-      get_global<AnyCallablesModule>("xr_logic").pstor_store(this.object, "begin_wounded", null);
+      pstor_store(this.object, "begin_wounded", null);
     }
 
     this.can_use_medkit = false;

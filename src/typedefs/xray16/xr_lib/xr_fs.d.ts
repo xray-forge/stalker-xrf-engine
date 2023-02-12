@@ -114,6 +114,7 @@ declare module "xray16" {
    * @customConstructor ini_file
    */
   export class XR_ini_file {
+    public constructor();
     public constructor(path: string);
 
     public line_count(section: string): u32;

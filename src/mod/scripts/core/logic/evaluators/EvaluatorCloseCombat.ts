@@ -1,8 +1,8 @@
 import { property_evaluator, stalker_ids, time_global, XR_action_planner, XR_property_evaluator } from "xray16";
 
-import { AnyCallablesModule } from "@/mod/lib/types";
 import { IStoredObject } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
+import { isActiveSection } from "@/mod/scripts/utils/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("EvaluatorCloseCombat");
@@ -23,7 +23,7 @@ export const EvaluatorCloseCombat: IEvaluatorCloseCombat = declare_xr_class(
       this.isCloseCombat = false;
     },
     evaluate(): boolean {
-      if (!get_global<AnyCallablesModule>("xr_logic").is_active(this.object, this.state)) {
+      if (!isActiveSection(this.object, this.state.section)) {
         return true;
       }
 

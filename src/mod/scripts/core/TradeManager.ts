@@ -2,8 +2,9 @@
 import { ini_file, time_global, XR_game_object, XR_net_packet, XR_reader } from "xray16";
 
 import { AnyCallablesModule } from "@/mod/lib/types";
+import { TSection } from "@/mod/lib/types/configuration";
 import { getActor, ITradeManagerDescriptor, tradeState } from "@/mod/scripts/core/db";
-import { getConfigNumber, getConfigString, parseCondList } from "@/mod/scripts/utils/configs";
+import { getConfigNumber, getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -67,55 +68,55 @@ export function updateTradeManager(npc: XR_game_object): void {
 
   tt.update_time = time_global() + 3600000;
 
-  let str = get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(getActor(), npc, tt.buy_condition);
+  const buy_condition = pickSectionFromCondList(getActor(), npc, tt.buy_condition);
 
-  if (str === "" || str === null) {
+  if (buy_condition === "" || buy_condition === null) {
     abort("Wrong section in buy_condition condlist for npc [%s]!", npc.name());
   }
 
-  if (tt.current_buy_condition !== str) {
-    // --'printf("TRADE [%s]: buy condition = %s", npc.name(), str)
-    npc.buy_condition(tt.config, str);
-    tt.current_buy_condition = str;
+  if (tt.current_buy_condition !== buy_condition) {
+    npc.buy_condition(tt.config, buy_condition);
+    tt.current_buy_condition = buy_condition;
   }
 
-  str = get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(getActor(), npc, tt.sell_condition);
-  if (str === "" || str === null) {
+  const sell_condition = pickSectionFromCondList(getActor(), npc, tt.sell_condition);
+
+  if (sell_condition === "" || sell_condition === null) {
     abort("Wrong section in buy_condition condlist for npc [%s]!", npc.name());
   }
 
-  if (tt.current_sell_condition !== str) {
+  if (tt.current_sell_condition !== sell_condition) {
     // --'printf("TRADE [%s]: sell condition = %s", npc.name(), str)
-    npc.sell_condition(tt.config, str);
-    tt.current_sell_condition = str;
+    npc.sell_condition(tt.config, sell_condition);
+    tt.current_sell_condition = sell_condition;
   }
 
-  str = tonumber(
-    get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(getActor(), npc, tt.buy_item_condition_factor)
-  )!;
-  if (tt.current_buy_item_condition_factor !== str) {
-    npc.buy_item_condition_factor(str);
-    tt.current_buy_item_condition_factor = str;
+  const buy_item_condition_factor = tonumber(pickSectionFromCondList(getActor(), npc, tt.buy_item_condition_factor))!;
+
+  if (tt.current_buy_item_condition_factor !== buy_item_condition_factor) {
+    npc.buy_item_condition_factor(buy_item_condition_factor);
+    tt.current_buy_item_condition_factor = buy_item_condition_factor;
   }
 
   if (tt.buy_supplies === null) {
     return;
   }
 
-  str = get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(getActor(), npc, tt.buy_supplies);
-  if (str === "" || str === null) {
+  const buy_supplies = pickSectionFromCondList(getActor(), npc, tt.buy_supplies);
+
+  if (buy_supplies === "" || buy_supplies === null) {
     abort("Wrong section in buy_condition condlist for npc [%s]!", npc.name());
   }
 
-  if (tt.current_buy_supplies !== str) {
+  if (tt.current_buy_supplies !== buy_supplies) {
     if (tt.resuply_time !== null && tt.resuply_time < time_global()) {
       return;
     }
 
     // --'printf("TRADE [%s]: buy_supplies = %s", npc.name(), str)
-    npc.buy_supplies(tt.config, str);
-    tt.current_buy_supplies = str;
-    tt.resuply_time = time_global() + 24 * 3600000;
+    npc.buy_supplies(tt.config, buy_supplies);
+    tt.current_buy_supplies = buy_supplies;
+    tt.resuply_time = time_global() + 24 * 3600_000;
   }
 }
 
@@ -230,11 +231,11 @@ export function get_buy_discount(npc_id: number): number {
     return 1;
   }
 
-  const sect = get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(
+  const sect: TSection = pickSectionFromCondList(
     getActor(),
     null,
     parseCondList(null, "trade_manager", "discounts", str)
-  );
+  )!;
 
   return getConfigNumber(tt.config, sect, "buy", null, false, 1);
 }
@@ -247,11 +248,11 @@ export function get_sell_discount(npc_id: number): number {
     return 1;
   }
 
-  const sect = get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(
+  const sect: TSection = pickSectionFromCondList(
     getActor(),
     null,
     parseCondList(null, "trade_manager", "discounts", str)
-  );
+  )!;
 
   return getConfigNumber(tt.config, sect, "sell", null, false, 1);
 }

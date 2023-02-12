@@ -11,8 +11,8 @@ import {
   XR_reader,
 } from "xray16";
 
-import { AnyCallable } from "@/mod/lib/types";
 import { addObject, CROW_STORAGE, deleteObject, storage } from "@/mod/scripts/core/db";
+import { load_obj, save_obj } from "@/mod/scripts/core/logic";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -102,7 +102,7 @@ export const CrowBinder: ICrowBinder = declare_xr_class("CrowBinder", object_bin
     setSaveMarker(packet, false, CrowBinder.__name);
 
     object_binder.save(this, packet);
-    (get_global("xr_logic").save_obj as AnyCallable)(this.object, packet);
+    save_obj(this.object, packet);
     packet.w_u32(this.bodyDisposalTimer);
 
     setSaveMarker(packet, true, CrowBinder.__name);
@@ -110,7 +110,7 @@ export const CrowBinder: ICrowBinder = declare_xr_class("CrowBinder", object_bin
   load(reader: XR_reader): void {
     setLoadMarker(reader, false, CrowBinder.__name);
     object_binder.load(this, reader);
-    (get_global("xr_logic").load_obj as AnyCallable)(this.object, reader);
+    load_obj(this.object, reader);
 
     this.bodyDisposalTimer = reader.r_u32();
     setLoadMarker(reader, true, CrowBinder.__name);

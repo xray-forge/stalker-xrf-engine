@@ -8,15 +8,15 @@ import {
   XR_ini_file,
 } from "xray16";
 
-import { AnyCallablesModule } from "@/mod/lib/types";
 import { TScheme, TSection } from "@/mod/lib/types/configuration";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { IStoredObject } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
+import { assign_storage_and_bind, subscribe_action_for_events } from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { ActionWalkerActivity } from "@/mod/scripts/core/logic/actions/ActionWalkerActivity";
 import { EvaluatorNeedWalker } from "@/mod/scripts/core/logic/evaluators/EvaluatorNeedWalker";
-import { getConfigBoolean, getConfigString } from "@/mod/scripts/utils/configs";
+import { cfg_get_switch_conditions, getConfigBoolean, getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { addCommonPrecondition } from "@/mod/scripts/utils/scheme";
@@ -65,7 +65,7 @@ export class ActionWalker extends AbstractSchemeAction {
 
     actionPlanner.add_action(operators.action_walker, new_action);
 
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(object, state, new_action);
+    subscribe_action_for_events(object, state, new_action);
 
     const alifeAction: XR_action_base = actionPlanner.action(action_ids.alife);
 
@@ -79,10 +79,9 @@ export class ActionWalker extends AbstractSchemeAction {
     section: TSection,
     gulag_name: string
   ): void {
-    const state = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(object, ini, scheme, section);
+    const state = assign_storage_and_bind(object, ini, scheme, section);
 
-    state.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, object);
-
+    state.logic = cfg_get_switch_conditions(ini, section, object);
     state.path_walk = getConfigString(ini, section, "path_walk", object, true, gulag_name);
 
     if (!level.patrol_path_exists(state.path_walk)) {

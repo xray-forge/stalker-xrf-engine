@@ -58,6 +58,7 @@ export class ActionProcessEnemy {
     const active_sector = state.active_sector;
 
     if (active_sector !== null) {
+      // todo: Does not exist.
       // if (sr_danger.check_danger_position(enemy.position(), active_sector) == false) {
       //  return false;
       // }

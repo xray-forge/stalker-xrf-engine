@@ -1,9 +1,21 @@
 import { get_hud, time_global, XR_CUIStatic, XR_game_object, XR_ini_file } from "xray16";
 
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import {
+  assign_storage_and_bind,
+  subscribe_action_for_events,
+  switch_to_section,
+  try_switch_to_another_section,
+} from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
-import { getConfigNumber, getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
+import {
+  cfg_get_switch_conditions,
+  getConfigNumber,
+  getConfigString,
+  parseCondList,
+  pickSectionFromCondList,
+} from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { timeToString } from "@/mod/scripts/utils/general";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -25,17 +37,13 @@ export class ActionTimer extends AbstractSchemeAction {
   ): void {
     logger.info("Add to binder:", object.name());
 
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(
-      object,
-      state,
-      new ActionTimer(object, state)
-    );
+    subscribe_action_for_events(object, state, new ActionTimer(object, state));
   }
 
   public static set_scheme(obj: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
-    const st = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(obj, ini, scheme, section);
+    const st = assign_storage_and_bind(obj, ini, scheme, section);
 
-    st.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, obj);
+    st.logic = cfg_get_switch_conditions(ini, section, obj);
     st.type = getConfigString(ini, section, "type", obj, false, "", "inc");
 
     if (st.type !== "inc" && st.type !== "dec") {
@@ -68,7 +76,7 @@ export class ActionTimer extends AbstractSchemeAction {
   public update(delta: number): void {
     const actor = getActor();
 
-    if (get_global<AnyCallablesModule>("xr_logic").try_switch_to_another_section(this.object, this.state, actor)) {
+    if (try_switch_to_another_section(this.object, this.state, actor)) {
       return;
     }
 
@@ -84,11 +92,7 @@ export class ActionTimer extends AbstractSchemeAction {
 
     for (const [k, v] of this.state.on_value as LuaTable) {
       if ((this.state.type === "dec" && value_time <= v.dist) || (this.state.type === "inc" && value_time >= v.dist)) {
-        get_global<AnyCallablesModule>("xr_logic").switch_to_section(
-          this.object,
-          this.state.ini,
-          pickSectionFromCondList(getActor(), this.object, v.state)
-        );
+        switch_to_section(this.object, this.state.ini!, pickSectionFromCondList(getActor(), this.object, v.state)!);
       }
     }
   }

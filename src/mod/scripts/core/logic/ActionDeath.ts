@@ -1,8 +1,9 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { TScheme, TSection } from "@/mod/lib/types/configuration";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import { assign_storage_and_bind, subscribe_action_for_events } from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -22,11 +23,7 @@ export class ActionDeath extends AbstractSchemeAction {
   ): void {
     logger.info("Add to binder:", object.name());
 
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(
-      object,
-      state,
-      new ActionDeath(object, state)
-    );
+    subscribe_action_for_events(object, state, new ActionDeath(object, state));
   }
 
   public static set_scheme(
@@ -41,7 +38,7 @@ export class ActionDeath extends AbstractSchemeAction {
 
   public static set_death(object: XR_game_object, ini: XR_ini_file, scheme: TScheme, section: TSection): void {
     logger.info("Set death:", object.name());
-    get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(object, ini, scheme, section);
+    assign_storage_and_bind(object, ini, scheme, section);
   }
 
   public static reset_death(object: XR_game_object, scheme: TScheme, state: IStoredObject, section: TSection): void {

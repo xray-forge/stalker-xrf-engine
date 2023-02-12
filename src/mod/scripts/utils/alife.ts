@@ -5,6 +5,7 @@ import {
   game_graph,
   level,
   stalker_ids,
+  vector,
   XR_cse_alife_creature_abstract,
   XR_cse_alife_human_abstract,
   XR_cse_alife_object,
@@ -16,7 +17,8 @@ import {
 
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
-import { AnyArgs, AnyCallablesModule, Maybe, Optional } from "@/mod/lib/types";
+import { AnyArgs, Maybe, Optional } from "@/mod/lib/types";
+import { TSection } from "@/mod/lib/types/configuration";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { getStoryObjectsRegistry } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
@@ -24,7 +26,14 @@ import { ISimSquadReachTargetAction } from "@/mod/scripts/se/SimSquadReachTarget
 import { ISimSquadStayOnTargetAction } from "@/mod/scripts/se/SimSquadStayOnTargetAction";
 import { spawnItemsForObject } from "@/mod/scripts/utils/alife_spawn";
 import { isStalker } from "@/mod/scripts/utils/checkers";
-import { get_infos_from_data, getConfigBoolean, getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
+import {
+  get_infos_from_data,
+  getConfigBoolean,
+  getConfigNumber,
+  getConfigString,
+  parseCondList,
+  pickSectionFromCondList,
+} from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -331,8 +340,8 @@ export function can_select_weapon(npc: XR_game_object, scheme: string, st: IStor
     str = getConfigString(st.ini!, st.section_logic!, "can_select_weapon", npc, false, "", "true");
   }
 
-  const cond = get_global<AnyCallablesModule>("xr_logic").parse_condlist(npc, section, "can_select_weapon", str);
-  const can = get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(getActor(), npc, cond);
+  const cond = parseCondList(npc, section, "can_select_weapon", str);
+  const can: TSection = pickSectionFromCondList(getActor(), npc, cond)!;
 
   npc.can_select_weapon(can === "true");
 }
@@ -356,17 +365,9 @@ export function is_need_invulnerability(npc: XR_game_object): boolean {
     return false;
   }
 
-  const invulnerability_condlist = get_global<AnyCallablesModule>("xr_logic").parse_condlist(
-    npc,
-    "invulnerability",
-    "invulnerability",
-    invulnerability
-  );
+  const invulnerability_condlist = parseCondList(npc, "invulnerability", "invulnerability", invulnerability);
 
-  return (
-    get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(getActor(), npc, invulnerability_condlist) ===
-    "true"
-  );
+  return pickSectionFromCondList(getActor(), npc, invulnerability_condlist) === "true";
 }
 
 /**
@@ -472,4 +473,24 @@ export function spawnDefaultNpcItems(npc: XR_game_object, state: IStoredObject):
       spawnItemsForObject(npc, k, v);
     }
   }
+}
+
+/**
+ * todo: description
+ */
+export function see_actor(npc: XR_game_object): boolean {
+  return npc.alive() && npc.see(getActor()!);
+}
+
+/**
+ * todo: description
+ */
+export function send_to_nearest_accessible_vertex(npc: XR_game_object, v_id: number): number {
+  if (!npc.accessible(v_id)) {
+    v_id = npc.accessible_nearest(level.vertex_position(v_id), new vector());
+  }
+
+  npc.set_dest_level_vertex_id(v_id);
+
+  return v_id;
 }

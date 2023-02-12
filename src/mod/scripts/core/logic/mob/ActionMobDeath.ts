@@ -1,8 +1,14 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import {
+  assign_storage_and_bind,
+  subscribe_action_for_events,
+  try_switch_to_another_section,
+} from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { cfg_get_switch_conditions } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("MobDeath");
@@ -17,9 +23,7 @@ export class ActionMobDeath extends AbstractSchemeAction {
     section: string,
     storage: IStoredObject
   ): void {
-    const action = new ActionMobDeath(npc, storage);
-
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(npc, storage, action);
+    subscribe_action_for_events(npc, storage, new ActionMobDeath(npc, storage));
   }
 
   public static set_scheme(
@@ -27,13 +31,13 @@ export class ActionMobDeath extends AbstractSchemeAction {
     ini: XR_ini_file,
     scheme: string,
     section: string,
-    gulag_name: string
+    gulag_name?: string
   ): void {
     logger.info("Set scheme:", npc.name(), scheme, section);
 
-    const state = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(npc, ini, scheme, section);
+    const state = assign_storage_and_bind(npc, ini, scheme, section);
 
-    state.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, npc);
+    state.logic = cfg_get_switch_conditions(ini, section, npc);
   }
 
   public death_callback(victim: XR_game_object, who: Optional<XR_game_object>): void {
@@ -52,7 +56,7 @@ export class ActionMobDeath extends AbstractSchemeAction {
       death.killer_name = null;
     }
 
-    if (get_global<AnyCallablesModule>("xr_logic").try_switch_to_another_section(victim, this.state, getActor())) {
+    if (try_switch_to_another_section(victim, this.state, getActor())) {
       return;
     }
   }

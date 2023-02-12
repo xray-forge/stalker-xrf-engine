@@ -29,7 +29,7 @@ import { get_sim_board, ISimBoard } from "@/mod/scripts/se/SimBoard";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
 import { getAlifeCharacterCommunity, getAlifeDistanceBetween, getObjectSquad } from "@/mod/scripts/utils/alife";
-import { parseCondList } from "@/mod/scripts/utils/configs";
+import { parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { get_npc_smart } from "@/mod/scripts/utils/gulag";
 import { getObjectStoryId } from "@/mod/scripts/utils/ids";
@@ -385,10 +385,7 @@ export class TravelManager {
       abort("Error in travel manager. Smart [%s] doesnt exist.", tostring(smart_name));
     }
 
-    if (
-      get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(getActor(), smart, smart_table.condlist) !==
-      "true"
-    ) {
+    if (pickSectionFromCondList(getActor(), smart, smart_table.condlist) !== "true") {
       return false;
     }
 

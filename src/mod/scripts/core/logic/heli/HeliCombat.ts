@@ -14,7 +14,13 @@ import {
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { get_heli_health } from "@/mod/scripts/core/logic/heli/heli_utils";
-import { getConfigBoolean, getConfigNumber, getConfigString, parseCondList } from "@/mod/scripts/utils/configs";
+import {
+  getConfigBoolean,
+  getConfigNumber,
+  getConfigString,
+  parseCondList,
+  pickSectionFromCondList,
+} from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { randomChoice } from "@/mod/scripts/utils/general";
 import { getIdBySid } from "@/mod/scripts/utils/ids";
@@ -143,7 +149,6 @@ export class HeliCombat {
   public read_custom_data(ini: XR_ini_file, section: string): void {
     this.combat_use_rocket = getConfigBoolean(ini, section, "combat_use_rocket", this.object, false, true);
     this.combat_use_mgun = getConfigBoolean(ini, section, "combat_use_mgun", this.object, false, true);
-    // -- this.combat_ignore  = utils.cfg_get_bool  ( ini, section, "combat_ignore",     this.object, false, false )
 
     const combat_ignore: Optional<string> = getConfigString(
       ini,
@@ -404,14 +409,7 @@ export class HeliCombat {
   }
 
   public combat_ignore_check(): boolean {
-    return (
-      this.combat_ignore !== null &&
-      get_global<AnyCallablesModule>("xr_logic").pick_section_from_condlist(
-        getActor(),
-        this.object,
-        this.combat_ignore
-      ) !== null
-    );
+    return this.combat_ignore !== null && pickSectionFromCondList(getActor(), this.object, this.combat_ignore) !== null;
   }
 
   public fastcall(): boolean {

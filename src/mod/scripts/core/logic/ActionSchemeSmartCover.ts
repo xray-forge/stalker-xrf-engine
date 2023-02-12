@@ -1,15 +1,20 @@
 import { stalker_ids, world_property, XR_game_object, XR_ini_file } from "xray16";
 
-import { AnyCallablesModule } from "@/mod/lib/types";
 import { TScheme, TSection } from "@/mod/lib/types/configuration";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { IStoredObject } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
+import { assign_storage_and_bind, subscribe_action_for_events } from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { ActionSmartCoverActivity } from "@/mod/scripts/core/logic/actions/ActionSmartCoverActivity";
 import { EvaluatorNeedSmartCover } from "@/mod/scripts/core/logic/evaluators/EvaluatorNeedSmartCover";
 import { EvaluatorUseSmartCoverInCombat } from "@/mod/scripts/core/logic/evaluators/EvaluatorUseSmartCoverInCombat";
-import { getConfigBoolean, getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
+import {
+  cfg_get_switch_conditions,
+  getConfigBoolean,
+  getConfigNumber,
+  getConfigString,
+} from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ActionSchemeSmartCover");
@@ -62,7 +67,7 @@ export class ActionSchemeSmartCover extends AbstractSchemeAction {
     // --new_action.add_effect (new world_property(stalker_ids.property_danger,false))
     manager.add_action(operators.action_smartcover, new_action);
 
-    get_global<AnyCallablesModule>("xr_logic").subscribe_action_for_events(object, state, new_action);
+    subscribe_action_for_events(object, state, new_action);
 
     manager.action(action_ids.alife).add_precondition(new world_property(properties.need_smartcover, false));
     manager
@@ -77,10 +82,9 @@ export class ActionSchemeSmartCover extends AbstractSchemeAction {
     section: TSection,
     additional: string
   ): void {
-    const st = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(object, ini, scheme, section);
+    const st = assign_storage_and_bind(object, ini, scheme, section);
 
-    st.logic = get_global<AnyCallablesModule>("xr_logic").cfg_get_switch_conditions(ini, section, object);
-
+    st.logic = cfg_get_switch_conditions(ini, section, object);
     st.cover_name = getConfigString(ini, section, "cover_name", object, false, "", "$script_id$_cover");
     st.loophole_name = getConfigString(ini, section, "loophole_name", object, false, "", null);
     st.cover_state = getConfigString(ini, section, "cover_state", object, false, "", "default_behaviour");

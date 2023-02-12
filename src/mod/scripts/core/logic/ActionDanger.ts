@@ -13,8 +13,9 @@ import {
 
 import { communities } from "@/mod/globals/communities";
 import { logicsConfig } from "@/mod/lib/configs/LogicsConfig";
-import { AnyCallablesModule, AnyObject, Optional } from "@/mod/lib/types";
+import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
+import { assign_storage_and_bind } from "@/mod/scripts/core/logic";
 import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
 import { ActionProcessEnemy } from "@/mod/scripts/core/logic/actions/ActionProcessEnemy";
 import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
@@ -58,7 +59,7 @@ export class ActionDanger extends AbstractSchemeAction {
   public static set_danger(object: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
     logger.info("Set danger:", object.name());
 
-    const st = get_global<AnyCallablesModule>("xr_logic").assign_storage_and_bind(object, ini, scheme, section);
+    assign_storage_and_bind(object, ini, scheme, section);
 
     storage.get(object.id()).danger_flag = false;
   }

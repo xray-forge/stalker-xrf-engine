@@ -10,7 +10,6 @@ import {
   level,
   object_binder,
   task,
-  time_global,
   TXR_TaskState,
   vector,
   XR_CGameTask,
@@ -32,7 +31,8 @@ import {
   PARENT_ZONES_BY_ARTEFACT_ID,
 } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
 import { addActor, deleteActor, getActor, IStoredObject, scriptIds, storage, zoneByName } from "@/mod/scripts/core/db";
-import { destroyManager, getWeakManagerInstance, isManagerInitialized } from "@/mod/scripts/core/db/ManagersRegistry";
+import { destroyManager, getWeakManagerInstance } from "@/mod/scripts/core/db/ManagersRegistry";
+import { pstor_load_all, pstor_save_all } from "@/mod/scripts/core/db/pstor";
 import { initDropSettings } from "@/mod/scripts/core/DropManager";
 import { ActionDeimos } from "@/mod/scripts/core/logic/ActionDeimos";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
@@ -150,8 +150,9 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
       level.enable_input();
     }
 
+    // todo: If needed
     if (this.st.pstor === null) {
-      this.st.pstor = {};
+      this.st.pstor = new LuaTable();
     }
 
     weatherManager.reset();
@@ -429,7 +430,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
       writeCTimeToPacket(packet, this.st.disable_input_time);
     }
 
-    get_global<AnyCallablesModule>("xr_logic").pstor_save_all(this.object, packet);
+    pstor_save_all(this.object, packet);
     weatherManager.save(packet);
     get_release_body_manager().save(packet);
     this.surgeManager.save(packet);
@@ -499,7 +500,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
       this.st.disable_input_time = readCTimeFromPacket(reader);
     }
 
-    get_global<AnyCallablesModule>("xr_logic").pstor_load_all(this.object, reader);
+    pstor_load_all(this.object, reader);
     weatherManager.load(reader);
     get_release_body_manager().load(reader);
 
