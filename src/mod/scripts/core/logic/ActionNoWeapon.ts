@@ -9,14 +9,13 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { hide_weapon, restore_weapon } from "@/mod/scripts/core/binders/ActorBinder";
 import { getActor, IStoredObject, noWeapZones } from "@/mod/scripts/core/db";
-import {
-  assign_storage_and_bind,
-  subscribe_action_for_events,
-  try_switch_to_another_section,
-} from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
+import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
+import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { cfg_get_switch_conditions } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -31,24 +30,25 @@ export enum EActorZoneState {
 /**
  * Observe whether actor is in no-weapon zone or not and allow usage of weapons.
  */
-export class ActionNoWeapon extends AbstractSchemeAction {
-  public static readonly SCHEME_SECTION: string = "sr_no_weapon";
+export class ActionNoWeapon extends AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.SR_NO_WEAPON;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
   public static readonly SHOW_CAN_USE_WEAPON_DURATION_SEC: number = 30;
 
   public static add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: string,
-    section: string,
+    scheme: EScheme,
+    section: TSection,
     state: IStoredObject
   ): void {
     logger.info("Add to binder:", object.name());
 
-    subscribe_action_for_events(object, state, new ActionNoWeapon(object, state));
+    subscribeActionForEvents(object, state, new ActionNoWeapon(object, state));
   }
 
-  public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
-    const state: IStoredObject = assign_storage_and_bind(object, ini, scheme, section);
+  public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const state: IStoredObject = assignStorageAndBind(object, ini, scheme, section);
 
     state.logic = cfg_get_switch_conditions(ini, section, object);
   }
@@ -71,7 +71,7 @@ export class ActionNoWeapon extends AbstractSchemeAction {
   public update(delta: number): void {
     const actor: XR_game_object = getActor()!;
 
-    if (try_switch_to_another_section(this.object, this.state, actor)) {
+    if (trySwitchToAnotherSection(this.object, this.state, actor)) {
       if (this.currentActorState === EActorZoneState.INSIDE) {
         this.onZoneLeave();
       }

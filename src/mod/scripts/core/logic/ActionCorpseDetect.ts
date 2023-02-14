@@ -1,23 +1,24 @@
 import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { TScheme, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
-import { assign_storage_and_bind } from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { ActionSearchCorpse, IActionSearchCorpse } from "@/mod/scripts/core/logic/ActionSearchCorpse";
 import { EvaluatorCorpseDetect } from "@/mod/scripts/core/logic/evaluators/EvaluatorCorpseDetect";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { isLootableItem } from "@/mod/scripts/utils/checkers";
 import { getConfigBoolean } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ActionCorpseDetect");
 
-export class ActionCorpseDetect extends AbstractSchemeAction {
-  public static SCHEME_SECTION: string = "corpse_detection";
+export class ActionCorpseDetect extends AbstractSchemeImplementation {
+  public static SCHEME_SECTION: EScheme = EScheme.CORPSE_DETECTION;
+  public static SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   public static add_to_binder(
     object: XR_game_object,
@@ -75,18 +76,13 @@ export class ActionCorpseDetect extends AbstractSchemeAction {
   public static set_corpse_detection(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: TScheme,
+    scheme: EScheme,
     section: Optional<TSection>
   ): void {
-    assign_storage_and_bind(object, ini, scheme, section);
+    assignStorageAndBind(object, ini, scheme, section);
   }
 
-  public static reset_corpse_detection(
-    npc: XR_game_object,
-    scheme: string,
-    state: IStoredObject,
-    section: string
-  ): void {
+  public static resetScheme(npc: XR_game_object, scheme: EScheme, state: IStoredObject, section: TSection): void {
     state.corpse_detection.corpse_detection_enabled = getConfigBoolean(
       state.ini!,
       section,

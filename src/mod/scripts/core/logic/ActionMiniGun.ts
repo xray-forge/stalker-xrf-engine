@@ -12,16 +12,15 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
-import {
-  assign_storage_and_bind,
-  mob_captured,
-  mob_release,
-  subscribe_action_for_events,
-  switch_to_section,
-  try_switch_to_another_section,
-} from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
+import { mob_captured } from "@/mod/scripts/core/schemes/mob_captured";
+import { mob_release } from "@/mod/scripts/core/schemes/mob_release";
+import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
+import { switchToSection } from "@/mod/scripts/core/schemes/switchToSection";
+import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { getStoryObject } from "@/mod/scripts/utils/alife";
 import { isHeavilyWounded } from "@/mod/scripts/utils/checkers";
 import {
@@ -53,29 +52,30 @@ const state_firetarget_enemy: number = 2;
 
 const logger: LuaLogger = new LuaLogger("ActionMiniGun");
 
-export class ActionMiniGun extends AbstractSchemeAction {
-  public static readonly SCHEME_SECTION: string = "ph_minigun";
+export class ActionMiniGun extends AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.PH_MINIGUN;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.ITEM;
 
   public static add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: string,
-    section: string,
+    scheme: EScheme,
+    section: TSection,
     state: IStoredObject
   ): void {
     logger.info("Add to binder:", object.name());
 
-    subscribe_action_for_events(object, state, new ActionMiniGun(object, state));
+    subscribeActionForEvents(object, state, new ActionMiniGun(object, state));
   }
 
   public static set_scheme(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: string,
-    section: string,
+    scheme: EScheme,
+    section: TSection,
     gulag_name: string
   ): void {
-    const state = assign_storage_and_bind(object, ini, scheme, section);
+    const state = assignStorageAndBind(object, ini, scheme, section);
 
     state.logic = cfg_get_switch_conditions(ini, section, object);
     state.path_fire = getConfigString(ini, section, "path_fire", object, false, gulag_name, null);
@@ -313,12 +313,12 @@ export class ActionMiniGun extends AbstractSchemeAction {
   }
 
   public update(delta: number): void {
-    if (try_switch_to_another_section(this.object, this.state, getActor())) {
+    if (trySwitchToAnotherSection(this.object, this.state, getActor())) {
       return;
     }
 
     if (this.destroyed) {
-      switch_to_section(this.object, this.state.ini!, "nil");
+      switchToSection(this.object, this.state.ini!, "nil");
 
       return;
     }
@@ -367,7 +367,7 @@ export class ActionMiniGun extends AbstractSchemeAction {
         const new_section = pickSectionFromCondList(getActor(), this.object, this.on_target_vis.condlist);
 
         if (new_section) {
-          switch_to_section(this.object, this.state.ini!, new_section);
+          switchToSection(this.object, this.state.ini!, new_section);
         }
       }
 
@@ -375,7 +375,7 @@ export class ActionMiniGun extends AbstractSchemeAction {
         const new_section = pickSectionFromCondList(getActor(), this.object, this.on_target_nvis.condlist);
 
         if (new_section) {
-          switch_to_section(this.object, this.state.ini!, new_section);
+          switchToSection(this.object, this.state.ini!, new_section);
         }
       }
 

@@ -1,16 +1,15 @@
 import { get_hud, level, XR_game_object, XR_ini_file } from "xray16";
 
 import { post_processors } from "@/mod/globals/animation/post_processors";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
-import {
-  assign_storage_and_bind,
-  subscribe_action_for_events,
-  try_switch_to_another_section,
-} from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { ActionPostProcess } from "@/mod/scripts/core/logic/ActionPostProcess";
 import { PsyAntennaManager } from "@/mod/scripts/core/managers/PsyAntennaManager";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
+import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
+import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import {
   cfg_get_switch_conditions,
   getConfigBoolean,
@@ -25,8 +24,9 @@ const state_outside = 0;
 const state_inside = 1;
 const state_void = 2;
 
-export class ActionPsyAntenna extends AbstractSchemeAction {
-  public static readonly SCHEME_SECTION: string = "sr_psy_antenna";
+export class ActionPsyAntenna extends AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.SR_PSY_ANTENNA;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
   /**
    * Add scheme to object binder for initialization.
@@ -34,15 +34,15 @@ export class ActionPsyAntenna extends AbstractSchemeAction {
   public static add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: string,
-    section: string,
+    scheme: EScheme,
+    section: TSection,
     state: IStoredObject
   ): void {
-    subscribe_action_for_events(object, state, new ActionPostProcess(object, state));
+    subscribeActionForEvents(object, state, new ActionPostProcess(object, state));
   }
 
-  public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
-    const st = assign_storage_and_bind(object, ini, scheme, section);
+  public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const st = assignStorageAndBind(object, ini, scheme, section);
 
     st.logic = cfg_get_switch_conditions(ini, section, object);
     st.intensity = getConfigNumber(ini, section, "eff_intensity", object, true) * 0.01;
@@ -82,7 +82,7 @@ export class ActionPsyAntenna extends AbstractSchemeAction {
   public update(delta: number): void {
     const actor = getActor()!;
 
-    if (try_switch_to_another_section(this.object, this.state, actor)) {
+    if (trySwitchToAnotherSection(this.object, this.state, actor)) {
       return;
     }
 

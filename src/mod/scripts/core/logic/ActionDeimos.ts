@@ -1,14 +1,13 @@
 import { device, level, time_global, XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
 import { AnyObject, Optional } from "@/mod/lib/types";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
-import {
-  assign_storage_and_bind,
-  subscribe_action_for_events,
-  try_switch_to_another_section,
-} from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
+import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
+import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { cfg_get_switch_conditions, getConfigNumber } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { clampNumber } from "@/mod/scripts/utils/number";
@@ -22,23 +21,24 @@ const pp_effector2_id = 7;
 /**
  * Scheme only for 1 quest in the end of game? (pri_a28_sr_horror)
  */
-export class ActionDeimos extends AbstractSchemeAction {
-  public static readonly SCHEME_SECTION: string = "sr_deimos";
+export class ActionDeimos extends AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.SR_DEIMOS;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
   public static add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: string,
-    section: string,
+    scheme: EScheme,
+    section: TSection,
     state: IStoredObject
   ): void {
     logger.info("Add to binder:", object.name());
 
-    subscribe_action_for_events(object, state, new ActionDeimos(object, state));
+    subscribeActionForEvents(object, state, new ActionDeimos(object, state));
   }
 
-  public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
-    const state = assign_storage_and_bind(object, ini, scheme, section);
+  public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const state = assignStorageAndBind(object, ini, scheme, section);
 
     state.logic = cfg_get_switch_conditions(ini, section, object);
     state.movement_speed = getConfigNumber(ini, section, "movement_speed", object, false, 100);
@@ -205,7 +205,7 @@ export class ActionDeimos extends AbstractSchemeAction {
       }
     }
 
-    if (try_switch_to_another_section(this.object, this.state, actor)) {
+    if (trySwitchToAnotherSection(this.object, this.state, actor)) {
       if (this.phase > 0) {
         GlobalSound.stop_sound_looped(actor.id(), this.state.noise_sound);
         level.remove_pp_effector(pp_effector_id);

@@ -1,14 +1,13 @@
 import { cond, look, patrol, vector, XR_game_object, XR_ini_file, XR_patrol, XR_vector } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { IStoredObject } from "@/mod/scripts/core/db";
-import {
-  assign_storage_and_bind,
-  mob_capture,
-  mob_release,
-  subscribe_action_for_events,
-} from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
+import { mob_capture } from "@/mod/scripts/core/schemes/mob_capture";
+import { mob_release } from "@/mod/scripts/core/schemes/mob_release";
+import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { action } from "@/mod/scripts/utils/alife";
 import { cfg_get_switch_conditions, getConfigNumber, getConfigString, parseNames } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -20,31 +19,32 @@ const STATE_JUMP = 3;
 
 const logger: LuaLogger = new LuaLogger("MobJump");
 
-export class ActionMobJump extends AbstractSchemeAction {
-  public static readonly SCHEME_SECTION: string = "mob_jump";
+export class ActionMobJump extends AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.MOB_JUMP;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.MOBILE;
 
   public static add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: string,
-    section: string,
+    scheme: EScheme,
+    section: TSection,
     storage: IStoredObject
   ): void {
     logger.info("Add to binder:", object.name(), scheme, section);
 
-    subscribe_action_for_events(object, storage, new ActionMobJump(object, storage));
+    subscribeActionForEvents(object, storage, new ActionMobJump(object, storage));
   }
 
   public static set_scheme(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: string,
-    section: string,
+    scheme: EScheme,
+    section: TSection,
     gulag_name: string
   ): void {
     logger.info("Set scheme:", object.name(), scheme, section);
 
-    const storage = assign_storage_and_bind(object, ini, scheme, section);
+    const storage = assignStorageAndBind(object, ini, scheme, section);
 
     storage.logic = cfg_get_switch_conditions(ini, section, object);
     storage.jump_path_name = getConfigString(ini, section, "path_jump", object, false, gulag_name);

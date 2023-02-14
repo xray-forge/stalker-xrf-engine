@@ -12,7 +12,7 @@ import {
 } from "xray16";
 
 import { addObject, CROW_STORAGE, deleteObject, storage } from "@/mod/scripts/core/db";
-import { load_obj, save_obj } from "@/mod/scripts/core/logic";
+import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

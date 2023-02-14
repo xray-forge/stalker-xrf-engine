@@ -2,14 +2,13 @@ import { level, patrol, XR_game_object, XR_ini_file } from "xray16";
 
 import { post_processors } from "@/mod/globals/animation/post_processors";
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
-import {
-  assign_storage_and_bind,
-  issue_event,
-  subscribe_action_for_events,
-  try_switch_to_another_section,
-} from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
+import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
+import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
+import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { EEffectorState, effector_sets } from "@/mod/scripts/cutscenes/cam_effector_sets";
 import { CamEffectorSet } from "@/mod/scripts/cutscenes/CamEffectorSet";
 import {
@@ -26,14 +25,15 @@ const logger: LuaLogger = new LuaLogger("ActionCutscene");
 let object_cutscene: Optional<XR_game_object> = null;
 let storage_scene: Optional<IStoredObject> = null;
 
-export class ActionCutscene extends AbstractSchemeAction {
-  public static readonly SCHEME_SECTION: string = "sr_cutscene";
+export class ActionCutscene extends AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.SR_CUTSCENE;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
   public static add_to_binder(
     npc: XR_game_object,
     ini: XR_ini_file,
-    scheme: string,
-    section: string,
+    scheme: EScheme,
+    section: TSection,
     storage: IStoredObject
   ): void {
     logger.info("Add cutscene to binder:", npc.name(), scheme, section);
@@ -41,17 +41,17 @@ export class ActionCutscene extends AbstractSchemeAction {
     const new_action: ActionCutscene = new ActionCutscene(npc, storage);
 
     storage.cutscene_action = new_action;
-    subscribe_action_for_events(npc, storage, new_action);
+    subscribeActionForEvents(npc, storage, new_action);
   }
 
   public static set_scheme(
     obj: XR_game_object,
     ini: XR_ini_file,
-    scheme: string,
-    section: string,
+    scheme: EScheme,
+    section: TSection,
     gulag_name: string
   ): void {
-    const st = assign_storage_and_bind(obj, ini, scheme, section);
+    const st = assignStorageAndBind(obj, ini, scheme, section);
 
     st.logic = cfg_get_switch_conditions(ini, section, obj);
     st.point = getConfigString(ini, section, "point", obj, true, "", "none");
@@ -65,7 +65,7 @@ export class ActionCutscene extends AbstractSchemeAction {
   }
 
   public static onCutsceneEnd(): void {
-    issue_event(object_cutscene!, storage_scene!, "cutscene_callback");
+    issueEvent(object_cutscene!, storage_scene!, "cutscene_callback");
   }
 
   public ui_disabled: boolean;
@@ -107,7 +107,7 @@ export class ActionCutscene extends AbstractSchemeAction {
       }
     }
 
-    if (try_switch_to_another_section(this.object, this.state, getActor())) {
+    if (trySwitchToAnotherSection(this.object, this.state, getActor())) {
       return;
     }
   }

@@ -1,48 +1,50 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { TScheme, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
-import { assign_storage_and_bind, subscribe_action_for_events } from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
+import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ActionDeath");
 
-export class ActionDeath extends AbstractSchemeAction {
-  public static readonly SCHEME_SECTION: string = "death";
+export class ActionDeath extends AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.DEATH;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   public static add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: TScheme,
+    scheme: EScheme,
     section: TSection,
     state: IStoredObject
   ): void {
     logger.info("Add to binder:", object.name());
 
-    subscribe_action_for_events(object, state, new ActionDeath(object, state));
+    subscribeActionForEvents(object, state, new ActionDeath(object, state));
   }
 
   public static set_scheme(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: TScheme,
+    scheme: EScheme,
     section: TSection,
     additional: string
   ): void {
     abort("Called not implemented set_scheme method: %s, %s", object.name(), scheme);
   }
 
-  public static set_death(object: XR_game_object, ini: XR_ini_file, scheme: TScheme, section: TSection): void {
+  public static set_death(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     logger.info("Set death:", object.name());
-    assign_storage_and_bind(object, ini, scheme, section);
+    assignStorageAndBind(object, ini, scheme, section);
   }
 
-  public static reset_death(object: XR_game_object, scheme: TScheme, state: IStoredObject, section: TSection): void {
-    const death_section: Optional<string> = getConfigString(
+  public static resetScheme(object: XR_game_object, scheme: EScheme, state: IStoredObject, section: TSection): void {
+    const death_section: Optional<TSection> = getConfigString(
       state.ini!,
       state.section_logic!,
       "on_death",

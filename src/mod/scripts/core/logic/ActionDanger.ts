@@ -14,24 +14,26 @@ import {
 import { communities } from "@/mod/globals/communities";
 import { logicsConfig } from "@/mod/lib/configs/LogicsConfig";
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
-import { assign_storage_and_bind } from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { ActionProcessEnemy } from "@/mod/scripts/core/logic/actions/ActionProcessEnemy";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
 import { isHeavilyWounded } from "@/mod/scripts/utils/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ActionDanger");
 
-export class ActionDanger extends AbstractSchemeAction {
-  public static readonly SCHEME_SECTION: string = "danger";
+export class ActionDanger extends AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.DANGER;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   public static add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: string,
-    section: string,
+    scheme: EScheme,
+    section: TSection,
     state: IStoredObject
   ): void {
     logger.info("Add to binder:", object.name());
@@ -56,15 +58,15 @@ export class ActionDanger extends AbstractSchemeAction {
     );
   }
 
-  public static set_danger(object: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
+  public static set_danger(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: string): void {
     logger.info("Set danger:", object.name());
 
-    assign_storage_and_bind(object, ini, scheme, section);
+    assignStorageAndBind(object, ini, scheme, section);
 
     storage.get(object.id()).danger_flag = false;
   }
 
-  public static reset_danger(npc: XR_game_object, scheme: string, state: IStoredObject, section: string): void {}
+  public static resetScheme(object: XR_game_object, scheme: EScheme, state: IStoredObject, section: TSection): void {}
 
   public static is_danger(npc: XR_game_object): boolean {
     const best_danger: Optional<XR_danger_object> = npc.best_danger();

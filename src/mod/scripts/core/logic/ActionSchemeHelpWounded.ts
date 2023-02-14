@@ -2,28 +2,29 @@ import { alife, stalker_ids, world_property, XR_action_planner, XR_game_object, 
 
 import { script_sounds } from "@/mod/globals/sound/script_sounds";
 import { Optional } from "@/mod/lib/types";
-import { TScheme, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
-import { assign_storage_and_bind } from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { ActionHelpWounded } from "@/mod/scripts/core/logic/actions/ActionHelpWounded";
 import { ActionWoundManager } from "@/mod/scripts/core/logic/ActionWoundManager";
 import { EvaluatorWoundedExist } from "@/mod/scripts/core/logic/evaluators/EvaluatorWoundedExist";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { getConfigBoolean } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ActionSchemeHelpWounded");
 
-export class ActionSchemeHelpWounded extends AbstractSchemeAction {
-  public static readonly SCHEME_SECTION: string = "help_wounded";
+export class ActionSchemeHelpWounded extends AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.HELP_WOUNDED;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   public static add_to_binder(
     npc: XR_game_object,
     ini: XR_ini_file,
-    scheme: TScheme,
+    scheme: EScheme,
     section: TSection,
     state: IStoredObject
   ): void {
@@ -63,7 +64,7 @@ export class ActionSchemeHelpWounded extends AbstractSchemeAction {
       .add_precondition(new world_property(properties.wounded_exist, false));
   }
 
-  public static reset_help_wounded(npc: XR_game_object, scheme: TScheme, st: IStoredObject, section: TSection) {
+  public static resetScheme(npc: XR_game_object, scheme: EScheme, st: IStoredObject, section: TSection) {
     st.help_wounded.help_wounded_enabled = getConfigBoolean(st.ini!, section, "help_wounded_enabled", npc, false, true);
   }
 
@@ -80,10 +81,10 @@ export class ActionSchemeHelpWounded extends AbstractSchemeAction {
   public static set_help_wounded(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: TScheme,
+    scheme: EScheme,
     section: Optional<TSection>
   ) {
-    assign_storage_and_bind(object, ini, scheme, section);
+    assignStorageAndBind(object, ini, scheme, section);
   }
 
   public static help_wounded(object: XR_game_object): void {

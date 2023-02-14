@@ -1,13 +1,12 @@
 import { particles_object, patrol, time_global, XR_game_object, XR_ini_file, XR_patrol } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
-import {
-  assign_storage_and_bind,
-  subscribe_action_for_events,
-  try_switch_to_another_section,
-} from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
+import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
+import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import {
   cfg_get_switch_conditions,
   getConfigBoolean,
@@ -20,8 +19,9 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ActionParticle");
 
-export class ActionParticle extends AbstractSchemeAction {
-  public static readonly SCHEME_SECTION: string = "sr_particle";
+export class ActionParticle extends AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.SR_PARTICLE;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
   /**
    * Add scheme to object binder for initialization.
@@ -29,17 +29,17 @@ export class ActionParticle extends AbstractSchemeAction {
   public static add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: string,
-    section: string,
+    scheme: EScheme,
+    section: TSection,
     state: IStoredObject
   ): void {
     logger.info("Add to binder:", object.name());
 
-    subscribe_action_for_events(object, state, new ActionParticle(object, state));
+    subscribeActionForEvents(object, state, new ActionParticle(object, state));
   }
 
-  public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
-    const st = assign_storage_and_bind(object, ini, scheme, section);
+  public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const st = assignStorageAndBind(object, ini, scheme, section);
 
     st.logic = cfg_get_switch_conditions(ini, section, object);
     st.name = getConfigString(ini, section, "name", object, true, "", null);
@@ -142,7 +142,7 @@ export class ActionParticle extends AbstractSchemeAction {
 
     this.is_end();
 
-    try_switch_to_another_section(this.object, this.state, getActor());
+    trySwitchToAnotherSection(this.object, this.state, getActor());
   }
 
   public is_end(): boolean {

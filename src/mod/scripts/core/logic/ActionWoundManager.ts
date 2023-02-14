@@ -11,17 +11,17 @@ import {
 
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { AnyObject, Optional } from "@/mod/lib/types";
-import { TScheme, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TScheme, TSection } from "@/mod/lib/types/configuration";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
-import { assign_storage_and_bind } from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { ActionWounded, IActionWounded } from "@/mod/scripts/core/logic/actions/ActionWounded";
 import { EvaluatorCanFight } from "@/mod/scripts/core/logic/evaluators/EvaluatorCanFight";
 import { EvaluatorWounded } from "@/mod/scripts/core/logic/evaluators/EvaluatorWounded";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
 import {
   getConfigBoolean,
@@ -40,13 +40,14 @@ const wounded_by_state: Record<number, string> = {
 
 const logger: LuaLogger = new LuaLogger("ActionWoundManager");
 
-export class ActionWoundManager extends AbstractSchemeAction {
-  public static readonly SCHEME_SECTION: string = "wounded";
+export class ActionWoundManager extends AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.WOUNDED;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   public static add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: TScheme,
+    scheme: EScheme,
     section: TSection,
     state: IStoredObject
   ): void {
@@ -83,17 +84,17 @@ export class ActionWoundManager extends AbstractSchemeAction {
     manager.action(stalker_ids.action_anomaly_planner).add_precondition(new world_property(properties.can_fight, true));
   }
 
-  public static set_wounded(object: XR_game_object, ini: XR_ini_file, scheme: TScheme, section: TSection): void {
+  public static set_wounded(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     logger.info("Set wounded:", object.name());
 
-    const state = assign_storage_and_bind(object, ini, scheme, section);
+    const state = assignStorageAndBind(object, ini, scheme, section);
 
     state.wound_manager = new ActionWoundManager(object, state);
   }
 
-  public static reset_wounded(npc: XR_game_object, scheme: TScheme, state: IStoredObject, section: TSection): void {
+  public static resetScheme(npc: XR_game_object, scheme: EScheme, state: IStoredObject, section: TSection): void {
     const wounded_section: TSection =
-      scheme === null || scheme === "nil"
+      scheme === null || scheme === EScheme.NIL
         ? getConfigString(state.ini!, state.section_logic!, "wounded", npc, false, "")
         : getConfigString(state.ini!, section, "wounded", npc, false, "");
 
@@ -107,7 +108,7 @@ export class ActionWoundManager extends AbstractSchemeAction {
     ini: XR_ini_file,
     section: TSection,
     st: IStoredObject,
-    scheme: TScheme
+    scheme: EScheme
   ): void {
     logger.info("Init wounded:", npc.name(), section, scheme);
 

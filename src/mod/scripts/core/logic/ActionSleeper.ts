@@ -1,22 +1,24 @@
 import { stalker_ids, world_property, XR_game_object, XR_ini_file } from "xray16";
 
 import { AnyObject } from "@/mod/lib/types";
-import { TScheme, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TScheme, TSection } from "@/mod/lib/types/configuration";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
-import { assign_storage_and_bind, subscribe_action_for_events } from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { ActionSleeperActivity } from "@/mod/scripts/core/logic/actions/ActionSleeperActivity";
 import { EvaluatorNeedSleep } from "@/mod/scripts/core/logic/evaluators/EvaluatorNeedSleep";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
+import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { cfg_get_switch_conditions, getConfigBoolean, getConfigString } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { addCommonPrecondition } from "@/mod/scripts/utils/scheme";
 
 const logger: LuaLogger = new LuaLogger("ActionSleeper");
 
-export class ActionSleeper extends AbstractSchemeAction {
-  public static readonly SCHEME_SECTION: string = "sleeper";
+export class ActionSleeper extends AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.SLEEPER;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   public static add_to_binder(
     object: XR_game_object,
@@ -59,7 +61,7 @@ export class ActionSleeper extends AbstractSchemeAction {
     action.add_effect(new world_property(properties.state_mgr_logic_active, false));
     manager.add_action(operators.action_sleeper, action);
 
-    subscribe_action_for_events(object, storage, action);
+    subscribeActionForEvents(object, storage, action);
 
     manager.action(action_ids.alife).add_precondition(new world_property(properties.need_sleeper, false));
   }
@@ -67,13 +69,13 @@ export class ActionSleeper extends AbstractSchemeAction {
   public static set_scheme(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: TScheme,
+    scheme: EScheme,
     section: TSection,
     gulag_name: string
   ): void {
     logger.info("Set scheme:", object.name());
 
-    const st = assign_storage_and_bind(object, ini, scheme, section);
+    const st = assignStorageAndBind(object, ini, scheme, section);
 
     st.logic = cfg_get_switch_conditions(ini, section, object);
     st.path_main = getConfigString(ini, section, "path_main", object, true, gulag_name);

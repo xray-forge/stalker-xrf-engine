@@ -13,17 +13,16 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
+import { EScheme, TSection } from "@/mod/lib/types/configuration";
 import { campStorage, getActor, IStoredObject } from "@/mod/scripts/core/db";
-import {
-  assign_storage_and_bind,
-  mob_capture,
-  mob_release,
-  subscribe_action_for_events,
-  try_switch_to_another_section,
-} from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { ActionMobCombat } from "@/mod/scripts/core/logic/mob/ActionMobCombat";
 import { get_state, set_state } from "@/mod/scripts/core/logic/mob/MobStateManager";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
+import { mob_capture } from "@/mod/scripts/core/schemes/mob_capture";
+import { mob_release } from "@/mod/scripts/core/schemes/mob_release";
+import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
+import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { action } from "@/mod/scripts/utils/alife";
 import { isMonster, isStalker } from "@/mod/scripts/utils/checkers";
 import { cfg_get_switch_conditions, getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
@@ -36,29 +35,29 @@ const STATE_MOVE_HOME: number = 3;
 
 const logger: LuaLogger = new LuaLogger("MobCamp");
 
-export class ActionMobCamp extends AbstractSchemeAction {
+export class ActionMobCamp extends AbstractSchemeImplementation {
   public static add_to_binder(
     npc: XR_game_object,
     ini: XR_ini_file,
-    scheme: string,
-    section: string,
+    scheme: EScheme,
+    section: TSection,
     storage: IStoredObject
   ): void {
     const new_action = new ActionMobCombat(npc, storage);
 
-    subscribe_action_for_events(npc, storage, new_action);
+    subscribeActionForEvents(npc, storage, new_action);
   }
 
   public static set_scheme(
     npc: XR_game_object,
     ini: XR_ini_file,
-    scheme: string,
-    section: string,
+    scheme: EScheme,
+    section: TSection,
     gulag_name: string
   ): void {
     logger.info("Set scheme:", npc.name(), scheme, section);
 
-    const storage = assign_storage_and_bind(npc, ini, scheme, section);
+    const storage = assignStorageAndBind(npc, ini, scheme, section);
 
     storage.logic = cfg_get_switch_conditions(ini, section, npc);
     storage.state = get_state(ini, section, npc);
@@ -141,7 +140,7 @@ export class ActionMobCamp extends AbstractSchemeAction {
   }
 
   public update(delta: number): void {
-    if (try_switch_to_another_section(this.object, this.state, getActor())) {
+    if (trySwitchToAnotherSection(this.object, this.state, getActor())) {
       return;
     }
 

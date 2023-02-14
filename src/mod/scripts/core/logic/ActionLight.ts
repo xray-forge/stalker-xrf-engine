@@ -2,14 +2,12 @@ import { level, XR_game_object, XR_ini_file } from "xray16";
 
 import { misc } from "@/mod/globals/items/misc";
 import { Optional } from "@/mod/lib/types";
-import { TScheme, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { getActor, IStoredObject, light_zones, storage } from "@/mod/scripts/core/db";
-import {
-  assign_storage_and_bind,
-  subscribe_action_for_events,
-  try_switch_to_another_section,
-} from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
+import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
+import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { isUndergroundLevel } from "@/mod/scripts/utils/checkers";
 import { cfg_get_switch_conditions, getConfigBoolean } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -21,23 +19,24 @@ const logger: LuaLogger = new LuaLogger("ActionLight");
  * todo;
  * Class managing torches used by stalkers during night hours / in underground levels.
  */
-export class ActionLight extends AbstractSchemeAction {
-  public static SCHEME_SECTION: string = "sr_light";
+export class ActionLight extends AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.SR_LIGHT;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
   public static add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: TScheme,
+    scheme: EScheme,
     section: TSection,
     state: IStoredObject
   ): void {
     logger.info("Add to binder:", object.name());
 
-    subscribe_action_for_events(object, state, new ActionLight(object, state));
+    subscribeActionForEvents(object, state, new ActionLight(object, state));
   }
 
-  public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: TScheme, section: TSection): void {
-    const state = assign_storage_and_bind(object, ini, scheme, section);
+  public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const state = assignStorageAndBind(object, ini, scheme, section);
 
     state.logic = cfg_get_switch_conditions(ini, section, object);
     state.light = getConfigBoolean(ini, section, "light_on", object, false, false);
@@ -133,7 +132,7 @@ export class ActionLight extends AbstractSchemeAction {
   }
 
   public update(delta: number): void {
-    if (try_switch_to_another_section(this.object, this.state, getActor())) {
+    if (trySwitchToAnotherSection(this.object, this.state, getActor())) {
       this.active = false;
 
       light_zones.delete(this.object.id());

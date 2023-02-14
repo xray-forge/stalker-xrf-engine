@@ -27,6 +27,7 @@ import {
 import { communities } from "@/mod/globals/communities";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { ESchemeType } from "@/mod/lib/types/configuration";
 import {
   addEnemy,
   addObject,
@@ -45,13 +46,6 @@ import { DropManager } from "@/mod/scripts/core/DropManager";
 import { set_npc_sympathy, set_npcs_relation } from "@/mod/scripts/core/game_relations";
 import { Hear } from "@/mod/scripts/core/Hear";
 import { need_victim } from "@/mod/scripts/core/inventory_upgrades";
-import {
-  generic_scheme_overrides,
-  issue_event,
-  load_obj,
-  save_obj,
-  try_switch_to_another_section,
-} from "@/mod/scripts/core/logic";
 import { ActionDanger } from "@/mod/scripts/core/logic/ActionDanger";
 import { ActionLight } from "@/mod/scripts/core/logic/ActionLight";
 import { ActionSchemeCombat } from "@/mod/scripts/core/logic/ActionSchemeCombat";
@@ -63,7 +57,10 @@ import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { MoveManager } from "@/mod/scripts/core/MoveManager";
 import { get_release_body_manager } from "@/mod/scripts/core/ReleaseBodyManager";
-import { stype_stalker } from "@/mod/scripts/core/schemes";
+import { generic_scheme_overrides } from "@/mod/scripts/core/schemes/generic_scheme_overrides";
+import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
+import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
+import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { DynamicMusicManager } from "@/mod/scripts/core/sound/DynamicMusicManager";
 import { SoundTheme } from "@/mod/scripts/core/sound/SoundTheme";
 import { loadTradeManager, saveTradeManager, updateTradeManager } from "@/mod/scripts/core/TradeManager";
@@ -130,7 +127,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
   },
   extrapolate_callback(cur_pt: number): boolean {
     if (this.state.active_section) {
-      issue_event(this.object, this.state[this.state.active_scheme!], "extrapolate_callback");
+      issueEvent(this.object, this.state[this.state.active_scheme!], "extrapolate_callback");
       this.state.move_mgr.extrapolate_callback(this.object);
     }
 
@@ -240,7 +237,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
       }
     }
 
-    setup_gulag_and_logic_on_spawn(this.object, this.state, obj, stype_stalker, this.loaded);
+    setup_gulag_and_logic_on_spawn(this.object, this.state, obj, ESchemeType.STALKER, this.loaded);
 
     if (getCharacterCommunity(this.object) !== communities.zombied) {
       add_post_combat_idle(this.object);
@@ -259,11 +256,11 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
     const st: IStoredObject = storage.get(this.object.id());
 
     if (st.active_scheme) {
-      issue_event(this.object, st[st.active_scheme], "net_destroy", this.object);
+      issueEvent(this.object, st[st.active_scheme], "net_destroy", this.object);
     }
 
     if (this.state.reach_task) {
-      issue_event(this.object, this.state.reach_task, "net_destroy", this.object);
+      issueEvent(this.object, this.state.reach_task, "net_destroy", this.object);
     }
 
     const on_offline_condlist =
@@ -340,7 +337,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
     }
 
     if (this.state.active_section) {
-      issue_event(
+      issueEvent(
         this.object,
         this.state[this.state.active_scheme!],
         "hit_callback",
@@ -353,15 +350,15 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
     }
 
     if (this.state.combat_ignore) {
-      issue_event(this.object, this.state.combat_ignore, "hit_callback", obj, amount, local_direction, who, bone_index);
+      issueEvent(this.object, this.state.combat_ignore, "hit_callback", obj, amount, local_direction, who, bone_index);
     }
 
     if (this.state.combat) {
-      issue_event(this.object, this.state.combat, "hit_callback", obj, amount, local_direction, who, bone_index);
+      issueEvent(this.object, this.state.combat, "hit_callback", obj, amount, local_direction, who, bone_index);
     }
 
     if (this.state.hit) {
-      issue_event(this.object, this.state.hit, "hit_callback", obj, amount, local_direction, who, bone_index);
+      issueEvent(this.object, this.state.hit, "hit_callback", obj, amount, local_direction, who, bone_index);
     }
 
     if (bone_index !== 15 && amount > this.object.health * 100) {
@@ -404,15 +401,15 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
     }
 
     if (this.state.reach_task) {
-      issue_event(this.object, this.state.reach_task, "death_callback", victim, who);
+      issueEvent(this.object, this.state.reach_task, "death_callback", victim, who);
     }
 
     if (this.state.death) {
-      issue_event(this.object, this.state.death, "death_callback", victim, who);
+      issueEvent(this.object, this.state.death, "death_callback", victim, who);
     }
 
     if (this.state.active_section) {
-      issue_event(this.object, this.state[this.state.active_scheme!], "death_callback", victim, who);
+      issueEvent(this.object, this.state[this.state.active_scheme!], "death_callback", victim, who);
     }
 
     ActionLight.check_light(this.object);
@@ -441,7 +438,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
 
       get_global("dialog_manager").disabled_phrases[obj.id()] = null;
       if (this.state.active_section) {
-        issue_event(this.object, this.state[this.state.active_scheme!], "use_callback", obj, who);
+        issueEvent(this.object, this.state[this.state.active_scheme!], "use_callback", obj, who);
       }
     }
   },
@@ -601,7 +598,7 @@ export function update_logic(object: XR_game_object): void {
         }
 
         if (st_combat && (st_combat as any).logic) {
-          if (!try_switch_to_another_section(object, st_combat, actor)) {
+          if (!trySwitchToAnotherSection(object, st_combat, actor)) {
             if (overrides.get("combat_type")) {
               ActionSchemeCombat.set_combat_type(object, actor, overrides);
             }
@@ -615,7 +612,7 @@ export function update_logic(object: XR_game_object): void {
     }
 
     if (!switched) {
-      try_switch_to_another_section(object, st[st.active_scheme!], actor);
+      trySwitchToAnotherSection(object, st[st.active_scheme!], actor);
     }
   } else {
     ActionSchemeCombat.set_combat_type(object, actor, st_combat);

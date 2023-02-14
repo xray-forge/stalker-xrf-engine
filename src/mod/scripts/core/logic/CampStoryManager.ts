@@ -2,8 +2,8 @@ import { time_global, XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { CAMPS, storage } from "@/mod/scripts/core/db";
-import { issue_event } from "@/mod/scripts/core/logic";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
+import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
 import { get_sound_manager, SoundManager } from "@/mod/scripts/core/sound/SoundManager";
 import { isObjectMeeting } from "@/mod/scripts/utils/checkers";
 import { getConfigString, parseNames } from "@/mod/scripts/utils/configs";
@@ -197,7 +197,7 @@ export class CampStoryManager {
       for (const [k, v] of this.npc) {
         if (storage.get(k) !== null) {
           // todo: Optimize call.
-          issue_event(storage.get(k).object!, storage.get(k)[storage.get(k).active_scheme!], "update");
+          issueEvent(storage.get(k).object!, storage.get(k)[storage.get(k).active_scheme!], "update");
         }
 
         // todo: Optimize call.
@@ -338,7 +338,7 @@ export class CampStoryManager {
     this.sound_manager.register_npc(npc_id);
 
     // todo: Optimize.
-    issue_event(storage.get(npc_id).object!, storage.get(npc_id)[storage.get(npc_id).active_scheme!], "update");
+    issueEvent(storage.get(npc_id).object!, storage.get(npc_id)[storage.get(npc_id).active_scheme!], "update");
   }
 
   public unregister_npc(npc_id: number): void {

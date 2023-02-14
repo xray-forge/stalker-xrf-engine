@@ -1,26 +1,28 @@
 import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
-import { TScheme, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { IStoredObject } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
-import { assign_storage_and_bind, subscribe_action_for_events } from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { ActionCompanionActivity } from "@/mod/scripts/core/logic/actions/ActionCompanionActivity";
 import { EvaluatorNeedCompanion } from "@/mod/scripts/core/logic/evaluators/EvaluatorNeedCompanion";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
+import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { cfg_get_switch_conditions } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { addCommonPrecondition } from "@/mod/scripts/utils/scheme";
 
 const logger: LuaLogger = new LuaLogger("ActionSchemeCompanion");
 
-export class ActionSchemeCompanion extends AbstractSchemeAction {
-  public static readonly SCHEME_SECTION: string = "companion";
+export class ActionSchemeCompanion extends AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.COMPANION;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   public static add_to_binder(
     npc: XR_game_object,
     ini: XR_ini_file,
-    scheme: TScheme,
+    scheme: EScheme,
     section: TSection,
     storage: IStoredObject
   ): void {
@@ -54,7 +56,7 @@ export class ActionSchemeCompanion extends AbstractSchemeAction {
     actionCompanionActivity.add_effect(new world_property(properties.state_mgr_logic_active, false));
     actionPlanner.add_action(operators.action_companion, actionCompanionActivity);
 
-    subscribe_action_for_events(npc, storage, actionCompanionActivity);
+    subscribeActionForEvents(npc, storage, actionCompanionActivity);
 
     actionPlanner.action(action_ids.alife).add_precondition(new world_property(properties.need_companion, false));
   }
@@ -62,11 +64,11 @@ export class ActionSchemeCompanion extends AbstractSchemeAction {
   public static set_scheme(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: TScheme,
+    scheme: EScheme,
     section: TSection,
     additional: string
   ): void {
-    const st = assign_storage_and_bind(object, ini, scheme, section);
+    const st = assignStorageAndBind(object, ini, scheme, section);
 
     st.logic = cfg_get_switch_conditions(ini, section, object);
     st.behavior = 0; // beh_walk_simple

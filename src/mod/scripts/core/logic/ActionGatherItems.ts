@@ -1,17 +1,18 @@
 import { stalker_ids, XR_game_object, XR_ini_file } from "xray16";
 
-import { TScheme, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { IStoredObject } from "@/mod/scripts/core/db";
-import { assign_storage_and_bind } from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { EvaluatorGatherItems } from "@/mod/scripts/core/logic/evaluators/EvaluatorGatherItems";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { getConfigBoolean } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ActionGatherItems");
 
-export class ActionGatherItems extends AbstractSchemeAction {
-  public static readonly SCHEME_SECTION: string = "gather_items";
+export class ActionGatherItems extends AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.GATHER_ITEMS;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   public static add_to_binder(
     object: XR_game_object,
@@ -31,20 +32,13 @@ export class ActionGatherItems extends AbstractSchemeAction {
     );
   }
 
-  public static set_gather_items(object: XR_game_object, ini: XR_ini_file, scheme: TScheme, section: TSection): void {
+  public static set_gather_items(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     logger.info("Set gather items:", object.name());
 
-    assign_storage_and_bind(object, ini, scheme, section);
+    assignStorageAndBind(object, ini, scheme, section);
   }
 
-  public static reset_gather_items(
-    object: XR_game_object,
-    scheme: string,
-    state: IStoredObject,
-    section: TSection
-  ): void {
-    logger.info("Set gather items:", object.name());
-
+  public static resetScheme(object: XR_game_object, scheme: EScheme, state: IStoredObject, section: TSection): void {
     state.gather_items.gather_items_enabled = getConfigBoolean(
       state.ini!,
       section,

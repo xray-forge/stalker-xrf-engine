@@ -1,41 +1,42 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
-import {
-  assign_storage_and_bind,
-  subscribe_action_for_events,
-  try_switch_to_another_section,
-} from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
+import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
+import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { cfg_get_switch_conditions } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("MobDeath");
 
-export class ActionMobDeath extends AbstractSchemeAction {
-  public static readonly SCHEME_SECTION = "mob_death";
+export class ActionMobDeath extends AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.MOB_DEATH;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.MOBILE;
 
   public static add_to_binder(
     npc: XR_game_object,
     ini: XR_ini_file,
-    scheme: string,
-    section: string,
+    scheme: EScheme,
+    section: TSection,
     storage: IStoredObject
   ): void {
-    subscribe_action_for_events(npc, storage, new ActionMobDeath(npc, storage));
+    logger.info("Add to binder:", npc.name());
+    subscribeActionForEvents(npc, storage, new ActionMobDeath(npc, storage));
   }
 
   public static set_scheme(
     npc: XR_game_object,
     ini: XR_ini_file,
-    scheme: string,
-    section: string,
+    scheme: EScheme,
+    section: TSection,
     gulag_name?: string
   ): void {
     logger.info("Set scheme:", npc.name(), scheme, section);
 
-    const state = assign_storage_and_bind(npc, ini, scheme, section);
+    const state = assignStorageAndBind(npc, ini, scheme, section);
 
     state.logic = cfg_get_switch_conditions(ini, section, npc);
   }
@@ -56,7 +57,7 @@ export class ActionMobDeath extends AbstractSchemeAction {
       death.killer_name = null;
     }
 
-    if (try_switch_to_another_section(victim, this.state, getActor())) {
+    if (trySwitchToAnotherSection(victim, this.state, getActor())) {
       return;
     }
   }

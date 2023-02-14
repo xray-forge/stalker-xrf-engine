@@ -1,9 +1,11 @@
 import { alife, patrol, XR_cse_alife_creature_abstract, XR_game_object, XR_ini_file } from "xray16";
 
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
-import { assign_storage_and_bind, subscribe_action_for_events } from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { get_state, set_state } from "@/mod/scripts/core/logic/mob/MobStateManager";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
+import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import {
   cfg_get_switch_conditions,
   getConfigBoolean,
@@ -21,29 +23,30 @@ const def_max_radius = 70;
 
 const logger: LuaLogger = new LuaLogger("MobHome");
 
-export class ActionMobHome extends AbstractSchemeAction {
-  public static readonly SCHEME_SECTION: string = "mob_home";
+export class ActionMobHome extends AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.MOB_HOME;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.MOBILE;
 
   public static add_to_binder(
     npc: XR_game_object,
     ini: XR_ini_file,
-    scheme: string,
-    section: string,
+    scheme: EScheme,
+    section: TSection,
     storage: IStoredObject
   ): void {
-    subscribe_action_for_events(npc, storage, new ActionMobHome(npc, storage));
+    subscribeActionForEvents(npc, storage, new ActionMobHome(npc, storage));
   }
 
   public static set_scheme(
     npc: XR_game_object,
     ini: XR_ini_file,
-    scheme: string,
-    section: string,
+    scheme: EScheme,
+    section: TSection,
     gulag_name: string
   ): void {
     logger.info("Set scheme:", npc.name(), scheme, section);
 
-    const storage = assign_storage_and_bind(npc, ini, scheme, section);
+    const storage = assignStorageAndBind(npc, ini, scheme, section);
 
     storage.logic = cfg_get_switch_conditions(ini, section, npc);
     storage.state = get_state(ini, section, npc);

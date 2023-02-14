@@ -1,14 +1,17 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
-import { TScheme, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { IStoredObject } from "@/mod/scripts/core/db";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("AbstractSchemeAction");
 
-export abstract class AbstractSchemeAction {
-  public static readonly SCHEME_SECTION: string;
+export type TAbstractSchemeConstructor = typeof AbstractSchemeImplementation;
+
+export abstract class AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme;
+  public static readonly SCHEME_TYPE: ESchemeType;
 
   /**
    * Add scheme to object binder for initialization.
@@ -16,7 +19,7 @@ export abstract class AbstractSchemeAction {
   public static add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: TScheme,
+    scheme: EScheme,
     section: TSection,
     state: IStoredObject
   ): void {
@@ -26,14 +29,18 @@ export abstract class AbstractSchemeAction {
   public static set_scheme(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: TScheme,
+    scheme: EScheme,
     section: TSection,
     additional: string
   ): void {
     abort("Called not implemented set_scheme method: %s, %s", object.name(), scheme);
   }
 
-  public static disable_scheme(object: XR_game_object, scheme: TScheme): void {
+  public static resetScheme(object: XR_game_object, scheme: EScheme, state: IStoredObject, section: TSection): void {
+    abort("Called not implemented resetScheme method: %s, %s", object.name(), scheme);
+  }
+
+  public static disable_scheme(object: XR_game_object, scheme: EScheme): void {
     abort("Called not implemented disable_scheme method: %s, %s", object.name(), scheme);
   }
 

@@ -12,7 +12,7 @@ import {
 } from "xray16";
 
 import { AnyArgs, AnyCallablesModule, AnyObject, Optional } from "@/mod/lib/types";
-import { TScheme, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, TScheme, TSection } from "@/mod/lib/types/configuration";
 import { getActor, scriptIds, storage } from "@/mod/scripts/core/db";
 import { disableInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -1143,15 +1143,15 @@ export function cfg_get_overrides(ini: XR_ini_file, section: TSection, npc: XR_g
  * todo
  * todo
  */
-export function get_scheme_by_section(section: TSection): TScheme {
+export function get_scheme_by_section(section: TSection): EScheme {
   const [scheme] = string.gsub(section, "%d", "");
   const [at, to] = string.find(scheme, "@", 1, true);
 
   if (at !== null && to !== null) {
-    return string.sub(scheme, 1, at - 1);
+    return string.sub(scheme, 1, at - 1) as EScheme;
   }
 
-  return scheme;
+  return scheme as EScheme;
 }
 
 /**

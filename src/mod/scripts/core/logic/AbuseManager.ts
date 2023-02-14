@@ -1,26 +1,27 @@
 import { stalker_ids, time_global, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { TScheme, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TScheme, TSection } from "@/mod/lib/types/configuration";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
-import { assign_storage_and_bind } from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { ActionAbuseHit } from "@/mod/scripts/core/logic/ActionAbuseHit";
 import { EvaluatorAbuse } from "@/mod/scripts/core/logic/evaluators/EvaluatorAbuse";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("AbuseManager");
 
-export class AbuseManager extends AbstractSchemeAction {
-  public static readonly SCHEME_SECTION: string = "abuse";
+export class AbuseManager extends AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.ABUSE;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   public static add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: string,
-    section: string,
+    scheme: EScheme,
+    section: TSection,
     state: IStoredObject
   ): void {
     logger.info("Add to binder:", object.name());
@@ -55,8 +56,8 @@ export class AbuseManager extends AbstractSchemeAction {
     state.abuse_manager = new AbuseManager(object, state);
   }
 
-  public static set_abuse(npc: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
-    const st = assign_storage_and_bind(npc, ini, scheme, section);
+  public static set_abuse(npc: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const st = assignStorageAndBind(npc, ini, scheme, section);
   }
 
   public static add_abuse(npc: XR_game_object, value: number): void {
@@ -67,7 +68,7 @@ export class AbuseManager extends AbstractSchemeAction {
     }
   }
 
-  public static reset_abuse(object: XR_game_object, scheme: TScheme, state: IStoredObject, section: TSection): void {}
+  public static resetScheme(object: XR_game_object, scheme: EScheme, state: IStoredObject, section: TSection): void {}
 
   public static clear_abuse(object: XR_game_object): void {
     const state = storage.get(object.id()).abuse;

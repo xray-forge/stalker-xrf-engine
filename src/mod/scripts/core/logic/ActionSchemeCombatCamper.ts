@@ -1,15 +1,15 @@
 import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
-import { TScheme, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TScheme, TSection } from "@/mod/lib/types/configuration";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { IStoredObject } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
-import { subscribe_action_for_events } from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { ActionLookAround, IActionLookAround } from "@/mod/scripts/core/logic/actions/ActionLookAround";
 import { ActionShoot, IActionShoot } from "@/mod/scripts/core/logic/actions/ActionShoot";
 import { EvaluatorCombatCamper } from "@/mod/scripts/core/logic/evaluators/EvaluatorCombatCamper";
 import { EvaluatorSee } from "@/mod/scripts/core/logic/evaluators/EvaluatorSee";
+import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -20,8 +20,9 @@ const prop_see = evaluators_id.combat_camper_base + 1;
 const act_shoot = action_ids.combat_camper_base + 0;
 const act_look_around = action_ids.combat_camper_base + 1;
 
-export class ActionSchemeCombatCamper extends AbstractSchemeAction {
-  public static readonly SCHEME_SECTION: string = "combat_camper";
+export class ActionSchemeCombatCamper extends AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.COMBAT_CAMPER;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   public static add_to_binder(
     object: XR_game_object,
@@ -73,7 +74,7 @@ export class ActionSchemeCombatCamper extends AbstractSchemeAction {
     lookAroundAction.add_effect(new world_property(properties.state_mgr_logic_active, false));
     planner.add_action(act_look_around, lookAroundAction);
 
-    subscribe_action_for_events(object, state, lookAroundAction);
+    subscribeActionForEvents(object, state, lookAroundAction);
 
     state.camper_combat_action = false;
   }

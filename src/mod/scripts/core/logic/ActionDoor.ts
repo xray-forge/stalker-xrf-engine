@@ -2,15 +2,14 @@ import { abort } from "scripts/utils/debug";
 import { XR_game_object, XR_ini_file, XR_physics_joint, XR_physics_shell, XR_vector } from "xray16";
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
-import {
-  assign_storage_and_bind,
-  subscribe_action_for_events,
-  switch_to_section,
-  try_switch_to_another_section,
-} from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
+import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
+import { switchToSection } from "@/mod/scripts/core/schemes/switchToSection";
+import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import {
   cfg_get_switch_conditions,
   getConfigBoolean,
@@ -19,23 +18,24 @@ import {
   pickSectionFromCondList,
 } from "@/mod/scripts/utils/configs";
 
-export class ActionDoor extends AbstractSchemeAction {
-  public static readonly SCHEME_SECTION: string = "ph_door";
+export class ActionDoor extends AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.PH_DOOR;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.ITEM;
 
   public static add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: string,
-    section: string,
+    scheme: EScheme,
+    section: TSection,
     state: IStoredObject
   ): void {
     object.register_door_for_npc();
 
-    subscribe_action_for_events(object, state, new ActionDoor(object, state));
+    subscribeActionForEvents(object, state, new ActionDoor(object, state));
   }
 
-  public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
-    const state = assign_storage_and_bind(object, ini, scheme, section);
+  public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const state = assignStorageAndBind(object, ini, scheme, section);
 
     state.logic = cfg_get_switch_conditions(ini, section, object);
     state.closed = getConfigBoolean(ini, section, "closed", object, false, true);
@@ -136,7 +136,7 @@ export class ActionDoor extends AbstractSchemeAction {
       abort("object '%s': door failed to initialize", this.object.name());
     }
 
-    if (try_switch_to_another_section(this.object, this.state, getActor())) {
+    if (trySwitchToAnotherSection(this.object, this.state, getActor())) {
       return;
     }
   }
@@ -282,7 +282,7 @@ export class ActionDoor extends AbstractSchemeAction {
   public try_switch(): boolean {
     if (this.state.on_use) {
       if (
-        switch_to_section(
+        switchToSection(
           this.object,
           this.state.ini!,
           pickSectionFromCondList(getActor(), this.object, this.state.on_use.condlist)!
@@ -315,7 +315,7 @@ export class ActionDoor extends AbstractSchemeAction {
     if (this.state.hit_on_bone[bone_index] !== null) {
       const section = pickSectionFromCondList(getActor(), this.object, this.state.hit_on_bone[bone_index].state);
 
-      switch_to_section(object, this.state.ini!, section!);
+      switchToSection(object, this.state.ini!, section!);
 
       return;
     }

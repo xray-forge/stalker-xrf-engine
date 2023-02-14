@@ -1,26 +1,25 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
-import { TScheme, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
-import {
-  assign_storage_and_bind,
-  generic_scheme_overrides,
-  subscribe_action_for_events,
-  unsubscribe_action_from_events,
-} from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { ActionProcessEnemy } from "@/mod/scripts/core/logic/actions/ActionProcessEnemy";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
+import { generic_scheme_overrides } from "@/mod/scripts/core/schemes/generic_scheme_overrides";
+import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
+import { unsubscribeActionFromEvents } from "@/mod/scripts/core/schemes/unsubscribeActionFromEvents";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ActionSchemeCombatIgnore");
 
-export class ActionSchemeCombatIgnore extends AbstractSchemeAction {
-  public static readonly SCHEME_SECTION: string = "combat_ignore";
+export class ActionSchemeCombatIgnore extends AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.COMBAT_IGNORE;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   public static add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: TScheme,
+    scheme: EScheme,
     section: TSection,
     state: IStoredObject
   ): void {
@@ -28,34 +27,28 @@ export class ActionSchemeCombatIgnore extends AbstractSchemeAction {
     state.action = new ActionProcessEnemy(object, state);
   }
 
-  public static set_combat_ignore_checker(npc: XR_game_object, ini: XR_ini_file, scheme: TScheme): void {
-    assign_storage_and_bind(npc, ini, scheme, null);
+  public static set_combat_ignore_checker(npc: XR_game_object, ini: XR_ini_file, scheme: EScheme): void {
+    assignStorageAndBind(npc, ini, scheme, null);
   }
 
-  public static disable_scheme(npc: XR_game_object, scheme: TScheme): void {
+  public static disable_scheme(npc: XR_game_object, scheme: EScheme): void {
     npc.set_enemy_callback(null);
 
     const schemeState = storage.get(npc.id())[scheme];
 
     if (schemeState) {
-      unsubscribe_action_from_events(npc, schemeState, schemeState.action);
+      unsubscribeActionFromEvents(npc, schemeState, schemeState.action);
     }
   }
 
-  public static reset_combat_ignore_checker(
-    npc: XR_game_object,
-    scheme: TScheme,
-    st: IStoredObject,
-    section: TSection
-  ): void {
-    const schemeState = st.combat_ignore as any;
+  public static resetScheme(object: XR_game_object, scheme: EScheme, state: IStoredObject, section: TSection): void {
+    const schemeState = state.combat_ignore as any;
 
-    npc.set_enemy_callback(schemeState.action.enemy_callback, schemeState.action);
+    object.set_enemy_callback(schemeState.action.enemy_callback, schemeState.action);
 
-    subscribe_action_for_events(npc, schemeState, schemeState.action);
+    subscribeActionForEvents(object, schemeState, schemeState.action);
 
-    schemeState.overrides = generic_scheme_overrides(npc);
-
+    schemeState.overrides = generic_scheme_overrides(object);
     schemeState.enabled = true;
   }
 }

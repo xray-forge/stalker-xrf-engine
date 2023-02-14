@@ -17,13 +17,15 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
+import { ESchemeType } from "@/mod/lib/types/configuration";
 import { addHeli, addObject, deleteHeli, deleteObject, getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
-import { initialize_obj, issue_event, load_obj, save_obj } from "@/mod/scripts/core/logic";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { get_heli_health } from "@/mod/scripts/core/logic/heli/heli_utils";
 import { HeliCombat } from "@/mod/scripts/core/logic/heli/HeliCombat";
 import { get_heli_firer } from "@/mod/scripts/core/logic/heli/HeliFire";
-import { stype_heli } from "@/mod/scripts/core/schemes";
+import { initialize_obj } from "@/mod/scripts/core/schemes/initialize_obj";
+import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
+import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
 import { getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { getClsId } from "@/mod/scripts/utils/ids";
@@ -100,11 +102,11 @@ export const HeliBinder: IHeliBinder = declare_xr_class("HeliBinder", object_bin
 
     if (!this.initialized && actor) {
       this.initialized = true;
-      initialize_obj(this.object, this.st, this.loaded, actor, stype_heli);
+      initialize_obj(this.object, this.st, this.loaded, actor, ESchemeType.HELI);
     }
 
     if (this.st.active_section !== null) {
-      issue_event(this.object, this.st[this.st.active_scheme!], "update", delta);
+      issueEvent(this.object, this.st[this.st.active_scheme!], "update", delta);
     }
 
     this.object.info_clear();
@@ -190,7 +192,7 @@ export const HeliBinder: IHeliBinder = declare_xr_class("HeliBinder", object_bin
 
     if (enemy_cls_id === clsid.actor || enemy_cls_id === clsid.script_stalker) {
       if (this.st.hit) {
-        issue_event(this.object, this.st.hit, "hit_callback", this.object, power, null, enemy, null);
+        issueEvent(this.object, this.st.hit, "hit_callback", this.object, power, null, enemy, null);
       }
     }
 
@@ -201,7 +203,7 @@ export const HeliBinder: IHeliBinder = declare_xr_class("HeliBinder", object_bin
   },
   on_point(distance: number, position: XR_vector, path_idx: number): void {
     if (this.st.active_section !== null) {
-      issue_event(this.object, this.st[this.st.active_scheme!], "waypoint_callback", this.object, null, path_idx);
+      issueEvent(this.object, this.st[this.st.active_scheme!], "waypoint_callback", this.object, null, path_idx);
     }
   },
 } as IHeliBinder);

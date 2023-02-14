@@ -10,32 +10,34 @@ import {
 } from "xray16";
 
 import { AnyObject, Optional } from "@/mod/lib/types";
-import { TScheme, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
 import { get_npcs_relation } from "@/mod/scripts/core/game_relations";
-import { assign_storage_and_bind, subscribe_action_for_events } from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { AbuseManager } from "@/mod/scripts/core/logic/AbuseManager";
 import { ActionCorpseDetect } from "@/mod/scripts/core/logic/ActionCorpseDetect";
 import { ActionMeetWait, IActionMeetWait } from "@/mod/scripts/core/logic/actions/ActionMeetWait";
 import { ActionSchemeHelpWounded } from "@/mod/scripts/core/logic/ActionSchemeHelpWounded";
 import { EvaluatorContact } from "@/mod/scripts/core/logic/evaluators/EvaluatorContact";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
+import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { set_state } from "@/mod/scripts/state_management/StateManager";
 import { getStoryObject, is_npc_in_combat } from "@/mod/scripts/utils/alife";
 import { isObjectWounded } from "@/mod/scripts/utils/checkers";
 import { getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 
-export class ActionSchemeMeet extends AbstractSchemeAction {
-  public static readonly SCHEME_SECTION: string = "meet";
-  public static readonly SCHEME_SECTION_ADDITIONAL: string = "actor_dialogs";
+export class ActionSchemeMeet extends AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.MEET;
+  public static readonly SCHEME_SECTION_ADDITIONAL: EScheme = EScheme.ACTOR_DIALOGS;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   public static add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: TScheme,
+    scheme: EScheme,
     section: TSection,
     state: IStoredObject
   ): void {
@@ -92,14 +94,14 @@ export class ActionSchemeMeet extends AbstractSchemeAction {
 
     state.meet_manager = new ActionSchemeMeet(object, state);
 
-    subscribe_action_for_events(object, state, state.meet_manager);
+    subscribeActionForEvents(object, state, state.meet_manager);
   }
 
-  public static set_meet(npc: XR_game_object, ini: XR_ini_file, scheme: TScheme, section: TSection): void {
-    const st = assign_storage_and_bind(npc, ini, scheme, section);
+  public static set_meet(npc: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const st = assignStorageAndBind(npc, ini, scheme, section);
   }
 
-  public static reset_meet(npc: XR_game_object, scheme: TScheme, st: IStoredObject, section: TSection): void {
+  public static resetScheme(npc: XR_game_object, scheme: EScheme, st: IStoredObject, section: TSection): void {
     const meet_section: TSection =
       scheme === null || scheme === "nil"
         ? getConfigString(st.ini!, st.section_logic!, ActionSchemeMeet.SCHEME_SECTION, npc, false, "")
@@ -113,7 +115,7 @@ export class ActionSchemeMeet extends AbstractSchemeAction {
     ini: XR_ini_file,
     section: TSection,
     st: IStoredObject,
-    scheme: TScheme
+    scheme: EScheme
   ): void {
     if (tostring(section) === st.meet_section && tostring(section) !== "nil") {
       return;
@@ -350,7 +352,7 @@ export class ActionSchemeMeet extends AbstractSchemeAction {
     st.meet_set = true;
   }
 
-  public static disable_scheme(npc: XR_game_object, scheme: TScheme): void {
+  public static disable_scheme(npc: XR_game_object, scheme: EScheme): void {
     storage.get(npc.id()).actor_dialogs = null;
     storage.get(npc.id()).actor_disable = null;
   }

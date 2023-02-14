@@ -14,12 +14,14 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
+import { ESchemeType } from "@/mod/lib/types/configuration";
 import { addObject, deleteObject, getActor, IStoredObject, levelDoors, storage } from "@/mod/scripts/core/db";
 import { ItemBox } from "@/mod/scripts/core/ItemBox";
-import { initialize_obj, issue_event, load_obj, save_obj } from "@/mod/scripts/core/logic";
 import { ActionOnHit } from "@/mod/scripts/core/logic/ActionOnHit";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
-import { stype_item } from "@/mod/scripts/core/schemes";
+import { initialize_obj } from "@/mod/scripts/core/schemes/initialize_obj";
+import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
+import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -71,7 +73,7 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
     const st = storage.get(this.object.id());
 
     if (st.active_scheme) {
-      issue_event(this.object, st[st.active_scheme], "net_destroy");
+      issueEvent(this.object, st[st.active_scheme], "net_destroy");
     }
 
     const on_offline_condlist = st?.overrides?.on_offline_condlist;
@@ -112,7 +114,7 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
   },
   use_callback(object: XR_game_object, who: XR_game_object): void {
     if (this.st.active_section) {
-      issue_event(this.object, this.st[this.st.active_scheme as string], "use_callback", object, this);
+      issueEvent(this.object, this.st[this.st.active_scheme as string], "use_callback", object, this);
     }
   },
   hit_callback(
@@ -123,7 +125,7 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
     bone_index: number
   ): void {
     if (this.st[ActionOnHit.SCHEME_SECTION]) {
-      issue_event(
+      issueEvent(
         this.object,
         this.st[ActionOnHit.SCHEME_SECTION],
         "hit_callback",
@@ -136,7 +138,7 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
     }
 
     if (this.st.active_section) {
-      issue_event(
+      issueEvent(
         this.object,
         this.st[this.st.active_scheme as string],
         "hit_callback",
@@ -150,7 +152,7 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
   },
   death_callback(victim: XR_game_object, who: XR_game_object): void {
     if (this.st.active_section) {
-      issue_event(this.object, this.st[this.st.active_scheme as string], "death_callback", victim, who);
+      issueEvent(this.object, this.st[this.st.active_scheme as string], "death_callback", victim, who);
     }
 
     if (this.particle !== null) {
@@ -193,7 +195,7 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
 
     if (!this.initialized && getActor() !== null) {
       this.initialized = true;
-      initialize_obj(this.object, this.st, this.loaded, getActor()!, stype_item);
+      initialize_obj(this.object, this.st, this.loaded, getActor()!, ESchemeType.ITEM);
     }
 
     this.object.info_clear();
@@ -209,7 +211,7 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
     const spawn_ini: Optional<XR_ini_file> = this.object.spawn_ini();
 
     if (this.st.active_section !== null || (spawn_ini !== null && spawn_ini.section_exist("drop_box"))) {
-      issue_event(this.object, this.st[this.st.active_scheme as string], "update", delta);
+      issueEvent(this.object, this.st[this.st.active_scheme as string], "update", delta);
       this.object.set_callback(callback.hit, this.hit_callback, this);
       this.object.set_callback(callback.death, this.death_callback, this);
       this.object.set_callback(callback.use_object, this.use_callback, this);

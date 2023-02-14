@@ -8,27 +8,28 @@ import {
   XR_ini_file,
 } from "xray16";
 
-import { AnyCallablesModule } from "@/mod/lib/types";
-import { TScheme, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { IStoredObject } from "@/mod/scripts/core/db";
-import { assign_storage_and_bind, subscribe_action_for_events } from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import {
   ActionReachTaskLocation,
   IActionReachTaskLocation,
 } from "@/mod/scripts/core/logic/actions/ActionReachTaskLocation";
 import { EvaluatorReachedTaskLocation } from "@/mod/scripts/core/logic/evaluators/EvaluatorReachedTaskLocation";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
+import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ActionSchemeReachTask");
 
-export class ActionSchemeReachTask extends AbstractSchemeAction {
-  public static readonly SCHEME_SECTION: string = "reach_task";
+export class ActionSchemeReachTask extends AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.REACH_TASK;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   public static add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: TScheme,
+    scheme: EScheme,
     section: TSection,
     state: IStoredObject
   ): void {
@@ -39,11 +40,11 @@ export class ActionSchemeReachTask extends AbstractSchemeAction {
     const alife_action_planner: XR_action_planner = cast_planner(alife_action);
     const new_action: XR_action_base = alife_action_planner.action(stalker_ids.action_smart_terrain_task);
 
-    subscribe_action_for_events(object, state, new_action);
+    subscribeActionForEvents(object, state, new_action);
   }
 
-  public static set_reach_task(npc: XR_game_object, ini: XR_ini_file, scheme: TScheme): void {
-    const st = assign_storage_and_bind(npc, ini, scheme, null);
+  public static set_reach_task(npc: XR_game_object, ini: XR_ini_file, scheme: EScheme): void {
+    assignStorageAndBind(npc, ini, scheme, null);
   }
 
   public static add_reach_task_action(npc: XR_game_object): void {

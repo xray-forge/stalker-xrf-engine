@@ -1,16 +1,17 @@
 import { level, stalker_ids, vector, world_property, XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { TScheme, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { IStoredObject, patrols } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
-import { assign_storage_and_bind, subscribe_action_for_events } from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { ActionCommander, IActionCommander } from "@/mod/scripts/core/logic/actions/ActionCommander";
 import { ActionPatrol, IActionPatrol } from "@/mod/scripts/core/logic/actions/ActionPatrol";
 import { EvaluatorPatrolComm } from "@/mod/scripts/core/logic/evaluators/EvaluatorPatrolComm";
 import { EvaluatorPatrolEnd } from "@/mod/scripts/core/logic/evaluators/EvaluatorPatrolEnd";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
+import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { getObjectSquad } from "@/mod/scripts/utils/alife";
 import { isObjectMeeting } from "@/mod/scripts/utils/checkers";
 import { cfg_get_switch_conditions, getConfigBoolean, getConfigString } from "@/mod/scripts/utils/configs";
@@ -56,13 +57,14 @@ const accel_by_curtype = {
   sneak_run: "assault",
 };
 
-export class ActionSchemePatrol extends AbstractSchemeAction {
-  public static readonly SCHEME_SECTION: string = "patrol";
+export class ActionSchemePatrol extends AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.PATROL;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   public static add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: TScheme,
+    scheme: EScheme,
     section: TSection,
     storage: IStoredObject
   ): void {
@@ -105,7 +107,7 @@ export class ActionSchemePatrol extends AbstractSchemeAction {
     actionCommander.add_effect(new world_property(properties.patrol_end, true));
     actionCommander.add_effect(new world_property(properties.state_mgr_logic_active, false));
     manager.add_action(operators.action_commander, actionCommander);
-    subscribe_action_for_events(object, storage, actionCommander);
+    subscribeActionForEvents(object, storage, actionCommander);
 
     const actionPatrol: IActionPatrol = create_xr_class_instance(ActionPatrol, object, ActionPatrol.__name, storage);
 
@@ -119,7 +121,7 @@ export class ActionSchemePatrol extends AbstractSchemeAction {
     actionPatrol.add_effect(new world_property(properties.patrol_end, true));
     actionPatrol.add_effect(new world_property(properties.state_mgr_logic_active, false));
     manager.add_action(operators.action_patrol, actionPatrol);
-    subscribe_action_for_events(object, storage, actionPatrol);
+    subscribeActionForEvents(object, storage, actionPatrol);
 
     manager.action(action_ids.alife).add_precondition(new world_property(properties.patrol_end, true));
   }
@@ -127,11 +129,11 @@ export class ActionSchemePatrol extends AbstractSchemeAction {
   public static set_scheme(
     npc: XR_game_object,
     ini: XR_ini_file,
-    scheme: TScheme,
+    scheme: EScheme,
     section: TSection,
     gulag_name: string
   ): void {
-    const st = assign_storage_and_bind(npc, ini, scheme, section);
+    const st = assignStorageAndBind(npc, ini, scheme, section);
 
     st.logic = cfg_get_switch_conditions(ini, section, npc);
     st.path_name = getConfigString(ini, section, "path_walk", npc, true, gulag_name);

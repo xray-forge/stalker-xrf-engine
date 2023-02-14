@@ -1,34 +1,37 @@
 import { device, time_global, vector, XR_game_object, XR_ini_file, XR_physics_joint, XR_vector } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { IStoredObject } from "@/mod/scripts/core/db";
-import { assign_storage_and_bind, subscribe_action_for_events } from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
+import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { cfg_get_switch_conditions, getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { vectorRotateY } from "@/mod/scripts/utils/physics";
 
-export class ActionOscillate extends AbstractSchemeAction {
-  public static SCHEME_SECTION: string = "ph_oscillate";
+export class ActionOscillate extends AbstractSchemeImplementation {
+  public static SCHEME_SECTION: EScheme = EScheme.PH_OSCILLATE;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.ITEM;
 
   public static add_to_binder(
     npc: XR_game_object,
     ini: XR_ini_file,
-    scheme: string,
-    section: string,
+    scheme: EScheme,
+    section: TSection,
     state: IStoredObject
   ): void {
-    subscribe_action_for_events(npc, state, new ActionOscillate(npc, state));
+    subscribeActionForEvents(npc, state, new ActionOscillate(npc, state));
   }
 
   public static set_scheme(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: string,
-    section: string,
+    scheme: EScheme,
+    section: TSection,
     gulag_name: string
   ): void {
-    const state: IStoredObject = assign_storage_and_bind(object, ini, scheme, section);
+    const state: IStoredObject = assignStorageAndBind(object, ini, scheme, section);
 
     state.logic = cfg_get_switch_conditions(ini, section, object);
     state.joint = getConfigString(ini, section, "joint", object, true, gulag_name);

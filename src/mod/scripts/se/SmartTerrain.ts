@@ -23,7 +23,7 @@ import {
 import { MAX_UNSIGNED_16_BIT, MAX_UNSIGNED_8_BIT } from "@/mod/globals/memory";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { AnyCallable, AnyObject, Optional } from "@/mod/lib/types";
-import { TSection } from "@/mod/lib/types/configuration";
+import { ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import {
   turn_off_campfires_by_smart_name,
   turn_on_campfires_by_smart_name,
@@ -31,14 +31,11 @@ import {
 import { getActor, IStoredObject, offlineObjects, storage } from "@/mod/scripts/core/db";
 import { SMART_TERRAIN_SECT } from "@/mod/scripts/core/db/sections";
 import { get_smart_terrain_name } from "@/mod/scripts/core/db/smart_names";
-import {
-  activate_by_section,
-  configure_schemes,
-  determine_section_to_activate,
-  initialize_obj,
-  switch_to_section,
-} from "@/mod/scripts/core/logic";
-import { ESchemeType, stype_mobile, stype_stalker } from "@/mod/scripts/core/schemes";
+import { activateBySection } from "@/mod/scripts/core/schemes/activateBySection";
+import { configureSchemes } from "@/mod/scripts/core/schemes/configureSchemes";
+import { determine_section_to_activate } from "@/mod/scripts/core/schemes/determine_section_to_activate";
+import { initialize_obj } from "@/mod/scripts/core/schemes/initialize_obj";
+import { switchToSection } from "@/mod/scripts/core/schemes/switchToSection";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { simulation_activities } from "@/mod/scripts/se/SimActivity";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/se/SimBoard";
@@ -353,19 +350,19 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     npc_info.begin_job = false;
 
     if (is_stalker) {
-      npc_info.stype = stype_stalker;
+      npc_info.stype = ESchemeType.STALKER;
     } else {
-      npc_info.stype = stype_mobile;
+      npc_info.stype = ESchemeType.MOBILE;
     }
 
     return npc_info;
   },
   refresh_script_logic(obj_id: number): void {
     const object = alife().object(obj_id)!;
-    let stype = stype_mobile;
+    let stype: ESchemeType = ESchemeType.MOBILE;
 
     if (isStalker(object)) {
-      stype = stype_stalker;
+      stype = ESchemeType.STALKER;
     }
 
     initialize_obj(storage.get(object.id).object!, storage.get(object.id), false, getActor()!, stype);
@@ -416,10 +413,11 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
 
       if (storage.get(obj.id) !== null) {
         const object = storage.get(obj.id).object!;
-        let stype = stype_mobile;
+        // todo: Ternary.
+        let stype = ESchemeType.MOBILE;
 
         if (isStalker(obj)) {
-          stype = stype_stalker;
+          stype = ESchemeType.STALKER;
         }
 
         initialize_obj(object, storage.get(obj.id), false, getActor()!, stype);
@@ -618,7 +616,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
       const obj_storage = storage.get(npc_info.se_obj.id);
 
       if (obj_storage !== null) {
-        switch_to_section(obj_storage.object!, this.ltx, "nil");
+        switchToSection(obj_storage.object!, this.ltx, "nil");
       }
     }
 
@@ -644,7 +642,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     const ltx = job.ini_file || this.ltx;
     const ltx_name = job.ini_path || this.ltx_name;
 
-    configure_schemes(obj, ltx, ltx_name, npc_data.stype, job.section, job.prefix_name || this.name());
+    configureSchemes(obj, ltx, ltx_name, npc_data.stype, job.section, job.prefix_name || this.name());
 
     const sect: TSection = determine_section_to_activate(obj, ltx, job.section, getActor()!);
 
@@ -652,7 +650,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
       abort("[smart_terrain %s] section=%s, don't use section 'null'!", this.name(), sect);
     }
 
-    activate_by_section(obj, ltx, sect, job.prefix_name || this.name(), false);
+    activateBySection(obj, ltx, sect, job.prefix_name || this.name(), false);
   },
   getJob(obj_id: number): unknown {
     return this.npc_info.get(obj_id) && this.job_data.get(this.npc_info.get(obj_id).job_id);

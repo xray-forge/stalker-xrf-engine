@@ -1,14 +1,15 @@
 import { stalker_ids, world_property, XR_action_base, XR_game_object, XR_ini_file } from "xray16";
 
-import { TScheme, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { IStoredObject } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
-import { assign_storage_and_bind, subscribe_action_for_events } from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { ActionPatrol, IActionPatrol } from "@/mod/scripts/core/logic/actions/ActionPatrol";
 import { EvaluatorCloseCombat } from "@/mod/scripts/core/logic/evaluators/EvaluatorCloseCombat";
 import { EvaluatorEnd } from "@/mod/scripts/core/logic/evaluators/EvaluatorEnd";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
+import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import {
   cfg_get_switch_conditions,
   getConfigBoolean,
@@ -20,13 +21,14 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ActionSchemeCamper");
 
-export class ActionSchemeCamper extends AbstractSchemeAction {
-  public static readonly SCHEME_SECTION: string = "camper";
+export class ActionSchemeCamper extends AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.CAMPER;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   public static add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: TScheme,
+    scheme: EScheme,
     section: TSection,
     storage: IStoredObject
   ): void {
@@ -69,7 +71,7 @@ export class ActionSchemeCamper extends AbstractSchemeAction {
     actionPatrol.add_effect(new world_property(stalker_ids.property_enemy, false));
     actionPatrol.add_effect(new world_property(properties.state_mgr_logic_active, false));
     manager.add_action(operators.patrol, actionPatrol);
-    subscribe_action_for_events(object, storage, actionPatrol);
+    subscribeActionForEvents(object, storage, actionPatrol);
 
     manager.action(action_ids.alife).add_precondition(new world_property(properties.end, true));
     manager.action(stalker_ids.action_gather_items).add_precondition(new world_property(properties.end, true));
@@ -87,11 +89,11 @@ export class ActionSchemeCamper extends AbstractSchemeAction {
   public static set_scheme(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: TScheme,
+    scheme: EScheme,
     section: TSection,
     gulag_name: string
   ): void {
-    const state = assign_storage_and_bind(object, ini, scheme, section);
+    const state = assignStorageAndBind(object, ini, scheme, section);
 
     state.logic = cfg_get_switch_conditions(ini, section, object);
     state.path_walk = getConfigString(ini, section, "path_walk", object, true, gulag_name);

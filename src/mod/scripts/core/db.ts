@@ -10,8 +10,9 @@ import {
 } from "xray16";
 
 import type { AnyCallable, AnyObject, Optional } from "@/mod/lib/types";
-import type { TScheme, TSection } from "@/mod/lib/types/configuration";
+import type { ESchemeType, TScheme, TSection } from "@/mod/lib/types/configuration";
 import type { ISignalLightBinder } from "@/mod/scripts/core/binders/SignalLightBinder";
+import type { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import type { ActionLight } from "@/mod/scripts/core/logic/ActionLight";
 import type { ActionSchemeAnimpoint } from "@/mod/scripts/core/logic/ActionSchemeAnimpoint";
 import type { CampPatrolManager } from "@/mod/scripts/core/logic/ActionSchemeCamp";
@@ -29,6 +30,7 @@ const logger: LuaLogger = new LuaLogger("db", false);
 
 // todo: Separate file with DB objects
 // todo: Separate file with DB utils
+export const schemes: LuaTable<string, typeof AbstractSchemeImplementation> = new LuaTable();
 
 export const infoRestr: LuaTable<number, string | XR_game_object> = new LuaTable();
 export const scriptIds: LuaTable<number> = new LuaTable();
@@ -73,6 +75,7 @@ export interface ITradeManagerDescriptor {
 export interface IStoredObject<T = XR_game_object> {
   [index: string]: any;
 
+  stype?: ESchemeType;
   section?: TSection;
   actions?: LuaTable<LuaTable<string, AnyCallable>, boolean>;
   pp?: XR_vector;

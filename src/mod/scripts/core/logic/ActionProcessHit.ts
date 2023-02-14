@@ -1,22 +1,22 @@
 import { XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
-import {
-  assign_storage_and_bind,
-  subscribe_action_for_events,
-  try_switch_to_another_section,
-  unsubscribe_action_from_events,
-} from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
+import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
+import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
+import { unsubscribeActionFromEvents } from "@/mod/scripts/core/schemes/unsubscribeActionFromEvents";
 import { cfg_get_switch_conditions } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ActionProcessHit");
 
-export class ActionProcessHit extends AbstractSchemeAction {
-  public static SCHEME_SECTION: string = "hit";
+export class ActionProcessHit extends AbstractSchemeImplementation {
+  public static SCHEME_SECTION: EScheme = EScheme.HIT;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   public static add_to_binder(
     npc: XR_game_object,
@@ -29,20 +29,20 @@ export class ActionProcessHit extends AbstractSchemeAction {
     storage.action = new ActionProcessHit(npc, storage);
   }
 
-  public static disable_scheme(npc: XR_game_object, scheme: string): void {
+  public static disable_scheme(npc: XR_game_object, scheme: EScheme): void {
     logger.info("Disable scheme:", npc.id());
 
     const st = storage.get(npc.id())[scheme];
 
     if (st !== null) {
-      unsubscribe_action_from_events(npc, st, st.action);
+      unsubscribeActionFromEvents(npc, st, st.action);
     }
   }
 
-  public static set_hit_checker(npc: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
+  public static set_hit_checker(npc: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     logger.info("Set hit checker:", npc.id());
 
-    const st = assign_storage_and_bind(npc, ini, scheme, section);
+    const st = assignStorageAndBind(npc, ini, scheme, section);
 
     if (!ini.section_exist(section)) {
       abort("There is no section [%s] for npc [%s]", section, npc.name());
@@ -50,7 +50,7 @@ export class ActionProcessHit extends AbstractSchemeAction {
 
     st.logic = cfg_get_switch_conditions(ini, section, npc);
 
-    subscribe_action_for_events(npc, st, st.action);
+    subscribeActionForEvents(npc, st, st.action);
   }
 
   public hit_callback(
@@ -78,7 +78,7 @@ export class ActionProcessHit extends AbstractSchemeAction {
     if (storage.get(this.object.id()).active_scheme) {
       storage.get(this.object.id()).hit.deadly_hit = amount >= this.object.health * 100;
 
-      if (try_switch_to_another_section(object, storage.get(this.object.id()).hit, getActor())) {
+      if (trySwitchToAnotherSection(object, storage.get(this.object.id()).hit, getActor())) {
         storage.get(this.object.id()).hit.deadly_hit = false;
 
         return;

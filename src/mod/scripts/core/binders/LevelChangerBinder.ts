@@ -9,7 +9,7 @@ import {
 } from "xray16";
 
 import { addObject, deleteObject, storage } from "@/mod/scripts/core/db";
-import { load_obj, save_obj } from "@/mod/scripts/core/logic";
+import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
 import { ILevelChanger } from "@/mod/scripts/se/LevelChanger";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

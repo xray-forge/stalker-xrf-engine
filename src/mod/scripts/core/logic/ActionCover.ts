@@ -1,13 +1,14 @@
 import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
-import { TScheme, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { IStoredObject } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
-import { assign_storage_and_bind, subscribe_action_for_events } from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { ActionBaseCover, IActionBaseCover } from "@/mod/scripts/core/logic/actions/ActionBaseCover";
 import { EvaluatorNeedCover } from "@/mod/scripts/core/logic/evaluators/EvaluatorNeedCover";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
+import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import {
   cfg_get_switch_conditions,
   getConfigBoolean,
@@ -20,8 +21,9 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ActionCover");
 
-export class ActionCover extends AbstractSchemeAction {
-  public static readonly SCHEME_SECTION: string = "cover";
+export class ActionCover extends AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.COVER;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   /**
    * Add scheme to object binder for initialization.
@@ -29,7 +31,7 @@ export class ActionCover extends AbstractSchemeAction {
   public static add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: TScheme,
+    scheme: EScheme,
     section: TSection,
     state: IStoredObject
   ): void {
@@ -63,7 +65,7 @@ export class ActionCover extends AbstractSchemeAction {
     new_action.add_effect(new world_property(properties.state_mgr_logic_active, false));
     manager.add_action(operators.action_cover, new_action);
 
-    subscribe_action_for_events(object, state, new_action);
+    subscribeActionForEvents(object, state, new_action);
 
     manager.action(action_ids.alife).add_precondition(new world_property(properties.need_cover, false));
   }
@@ -71,13 +73,13 @@ export class ActionCover extends AbstractSchemeAction {
   public static set_scheme(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: TScheme,
+    scheme: EScheme,
     section: TSection,
     additional: string
   ): void {
     logger.info("Set scheme:", object.name());
 
-    const state = assign_storage_and_bind(object, ini, scheme, section);
+    const state = assignStorageAndBind(object, ini, scheme, section);
 
     state.logic = cfg_get_switch_conditions(ini, section, object);
     state.smart = getConfigString(ini, section, "smart", object, false, "");

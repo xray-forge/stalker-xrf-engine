@@ -1,14 +1,13 @@
 import { get_hud, time_global, XR_CUIStatic, XR_game_object, XR_ini_file } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
-import {
-  assign_storage_and_bind,
-  subscribe_action_for_events,
-  switch_to_section,
-  try_switch_to_another_section,
-} from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
+import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
+import { switchToSection } from "@/mod/scripts/core/schemes/switchToSection";
+import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import {
   cfg_get_switch_conditions,
   getConfigNumber,
@@ -22,8 +21,9 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ActionTimer");
 
-export class ActionTimer extends AbstractSchemeAction {
-  public static readonly SCHEME_SECTION: string = "sr_timer";
+export class ActionTimer extends AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.SR_TIMER;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
   /**
    * Add scheme to object binder for initialization.
@@ -31,17 +31,17 @@ export class ActionTimer extends AbstractSchemeAction {
   public static add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: string,
-    section: string,
+    scheme: EScheme,
+    section: TSection,
     state: IStoredObject
   ): void {
     logger.info("Add to binder:", object.name());
 
-    subscribe_action_for_events(object, state, new ActionTimer(object, state));
+    subscribeActionForEvents(object, state, new ActionTimer(object, state));
   }
 
-  public static set_scheme(obj: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
-    const st = assign_storage_and_bind(obj, ini, scheme, section);
+  public static set_scheme(obj: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const st = assignStorageAndBind(obj, ini, scheme, section);
 
     st.logic = cfg_get_switch_conditions(ini, section, obj);
     st.type = getConfigString(ini, section, "type", obj, false, "", "inc");
@@ -76,7 +76,7 @@ export class ActionTimer extends AbstractSchemeAction {
   public update(delta: number): void {
     const actor = getActor();
 
-    if (try_switch_to_another_section(this.object, this.state, actor)) {
+    if (trySwitchToAnotherSection(this.object, this.state, actor)) {
       return;
     }
 
@@ -92,7 +92,7 @@ export class ActionTimer extends AbstractSchemeAction {
 
     for (const [k, v] of this.state.on_value as LuaTable) {
       if ((this.state.type === "dec" && value_time <= v.dist) || (this.state.type === "inc" && value_time >= v.dist)) {
-        switch_to_section(this.object, this.state.ini!, pickSectionFromCondList(getActor(), this.object, v.state)!);
+        switchToSection(this.object, this.state.ini!, pickSectionFromCondList(getActor(), this.object, v.state)!);
       }
     }
   }

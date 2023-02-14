@@ -1,11 +1,14 @@
 import { anim, cond, MonsterSpace, sound, XR_cond, XR_game_object, XR_ini_file } from "xray16";
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
-import { assign_storage_and_bind, mob_capture, subscribe_action_for_events } from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { get_state, set_state } from "@/mod/scripts/core/logic/mob/MobStateManager";
 import { send_tip } from "@/mod/scripts/core/NewsManager";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
+import { mob_capture } from "@/mod/scripts/core/schemes/mob_capture";
+import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { action } from "@/mod/scripts/utils/alife";
 import {
   cfg_get_switch_conditions,
@@ -20,29 +23,30 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("MobRemark");
 
-export class ActionMobRemark extends AbstractSchemeAction {
-  public static readonly SCHEME_SECTION: string = "mob_remark";
+export class ActionMobRemark extends AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.MOB_REMARK;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.MOBILE;
 
   public static add_to_binder(
     npc: XR_game_object,
     ini: XR_ini_file,
-    scheme: string,
-    section: string,
+    scheme: EScheme,
+    section: TSection,
     storage: IStoredObject
   ): void {
-    subscribe_action_for_events(npc, storage, new ActionMobRemark(npc, storage));
+    subscribeActionForEvents(npc, storage, new ActionMobRemark(npc, storage));
   }
 
   public static set_scheme(
     npc: XR_game_object,
     ini: XR_ini_file,
-    scheme: string,
-    section: string,
+    scheme: EScheme,
+    section: TSection,
     gulag_name: string
   ): void {
     logger.info("Set scheme:", npc.name(), scheme, section);
 
-    const st = assign_storage_and_bind(npc, ini, scheme, section);
+    const st = assignStorageAndBind(npc, ini, scheme, section);
 
     st.logic = cfg_get_switch_conditions(ini, section, npc);
     st.state = get_state(ini, section, npc);

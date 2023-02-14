@@ -5,7 +5,7 @@ import { init_smart_names_table } from "@/mod/scripts/core/db/smart_names";
 import { ActionLight } from "@/mod/scripts/core/logic/ActionLight";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { ActorInventoryMenuManager } from "@/mod/scripts/core/managers/ActorInventoryMenuManager";
-import { initializeModules } from "@/mod/scripts/core/modules";
+import { initializeModules } from "@/mod/scripts/core/schemes/schemes_registering";
 import { DynamicMusicManager } from "@/mod/scripts/core/sound/DynamicMusicManager";
 import { SoundTheme } from "@/mod/scripts/core/sound/SoundTheme";
 import { reset_sim_board } from "@/mod/scripts/se/SimBoard";

@@ -1,10 +1,12 @@
 import { object_binder, XR_cse_alife_object, XR_game_object, XR_net_packet, XR_object_binder, XR_reader } from "xray16";
 
 import { AnyCallablesModule } from "@/mod/lib/types";
+import { ESchemeType } from "@/mod/lib/types/configuration";
 import { addObject, addZone, deleteObject, deleteZone, getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
-import { initialize_obj, issue_event, load_obj, save_obj } from "@/mod/scripts/core/logic";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
-import { stype_restrictor } from "@/mod/scripts/core/schemes";
+import { initialize_obj } from "@/mod/scripts/core/schemes/initialize_obj";
+import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
+import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -72,7 +74,7 @@ export const RestrictorBinder: IRestrictorBinder = declare_xr_class("RestrictorB
     const st = storage.get(this.object.id());
 
     if (st.active_scheme !== null) {
-      issue_event(this.object, st[st.active_scheme as string], "net_destroy");
+      issueEvent(this.object, st[st.active_scheme as string], "net_destroy");
     }
 
     deleteZone(this.object);
@@ -86,7 +88,7 @@ export const RestrictorBinder: IRestrictorBinder = declare_xr_class("RestrictorB
     if (!this.initialized && getActor() !== null) {
       this.initialized = true;
 
-      initialize_obj(this.object, this.st, this.loaded, getActor()!, stype_restrictor);
+      initialize_obj(this.object, this.st, this.loaded, getActor()!, ESchemeType.RESTRICTOR);
     }
 
     this.object.info_clear();
@@ -100,7 +102,7 @@ export const RestrictorBinder: IRestrictorBinder = declare_xr_class("RestrictorB
     this.object.info_add("name: [" + this.object.name() + "] id [" + this.object.id() + "]");
 
     if (this.st.active_section !== null) {
-      issue_event(this.object, this.st[this.st.active_scheme as string], "update", delta);
+      issueEvent(this.object, this.st[this.st.active_scheme as string], "update", delta);
     }
 
     GlobalSound.update(this.object.id());

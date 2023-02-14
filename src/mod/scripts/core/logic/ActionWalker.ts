@@ -8,14 +8,15 @@ import {
   XR_ini_file,
 } from "xray16";
 
-import { TScheme, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TScheme, TSection } from "@/mod/lib/types/configuration";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { IStoredObject } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
-import { assign_storage_and_bind, subscribe_action_for_events } from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { ActionWalkerActivity } from "@/mod/scripts/core/logic/actions/ActionWalkerActivity";
 import { EvaluatorNeedWalker } from "@/mod/scripts/core/logic/evaluators/EvaluatorNeedWalker";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
+import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { cfg_get_switch_conditions, getConfigBoolean, getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -23,8 +24,9 @@ import { addCommonPrecondition } from "@/mod/scripts/utils/scheme";
 
 const logger: LuaLogger = new LuaLogger("ActionWalker");
 
-export class ActionWalker extends AbstractSchemeAction {
-  public static readonly SCHEME_SECTION: string = "walker";
+export class ActionWalker extends AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.WALKER;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   public static add_to_binder(
     object: XR_game_object,
@@ -65,7 +67,7 @@ export class ActionWalker extends AbstractSchemeAction {
 
     actionPlanner.add_action(operators.action_walker, new_action);
 
-    subscribe_action_for_events(object, state, new_action);
+    subscribeActionForEvents(object, state, new_action);
 
     const alifeAction: XR_action_base = actionPlanner.action(action_ids.alife);
 
@@ -75,11 +77,11 @@ export class ActionWalker extends AbstractSchemeAction {
   public static set_scheme(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: TScheme,
+    scheme: EScheme,
     section: TSection,
     gulag_name: string
   ): void {
-    const state = assign_storage_and_bind(object, ini, scheme, section);
+    const state = assignStorageAndBind(object, ini, scheme, section);
 
     state.logic = cfg_get_switch_conditions(ini, section, object);
     state.path_walk = getConfigString(ini, section, "path_walk", object, true, gulag_name);

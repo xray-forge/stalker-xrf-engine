@@ -18,7 +18,7 @@ local create_ts_class_instance = require("lualib_bundle").__TS__New
 local gulagUtils = require("scripts.utils.gulag")
 local configUtils = require("scripts.utils.configs")
 local checkers = require("scripts.utils.checkers")
-local coreLogic = require("scripts.core.logic")
+local trySwitchToAnotherSection = require("scripts.core.schemes.trySwitchToAnotherSection").trySwitchToAnotherSection
 local pstor = require("scripts.core.db.pstor")
 
 local log = create_ts_class_instance(LuaLogger, "xr_effects");
@@ -60,7 +60,7 @@ function update_obj_logic(actor, object, p)
       log:info("Update obj logic:", obj:id())
 
       local st = db.storage[obj:id()]
-      coreLogic.try_switch_to_another_section(obj, st[st.active_scheme], actor)
+      trySwitchToAnotherSection(obj, st[st.active_scheme], actor)
     end
   end
 end

@@ -1,14 +1,14 @@
 import { stalker_ids, world_property, XR_game_object, XR_ini_file } from "xray16";
 
-import { AnyCallablesModule } from "@/mod/lib/types";
-import { TScheme, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { IStoredObject } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
-import { assign_storage_and_bind, subscribe_action_for_events } from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { ActionRemarkActivity } from "@/mod/scripts/core/logic/actions/ActionRemarkActivity";
 import { EvaluatorNeedRemark } from "@/mod/scripts/core/logic/evaluators/EvaluatorNeedRemark";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
+import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import {
   cfg_get_switch_conditions,
   getConfigBoolean,
@@ -20,13 +20,14 @@ import { addCommonPrecondition } from "@/mod/scripts/utils/scheme";
 
 const logger: LuaLogger = new LuaLogger("ActionSchemeRemark");
 
-export class ActionSchemeRemark extends AbstractSchemeAction {
-  public static readonly SCHEME_SECTION: string = "remark";
+export class ActionSchemeRemark extends AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.REMARK;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   public static add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: TScheme,
+    scheme: EScheme,
     section: TSection,
     state: IStoredObject
   ): void {
@@ -58,18 +59,18 @@ export class ActionSchemeRemark extends AbstractSchemeAction {
     new_action.add_effect(new world_property(properties.state_mgr_logic_active, false));
     manager.add_action(operators.action_remark, new_action);
 
-    subscribe_action_for_events(object, state, new_action);
+    subscribeActionForEvents(object, state, new_action);
     manager.action(action_ids.alife).add_precondition(new world_property(properties.need_remark, false));
   }
 
   public static set_scheme(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: TScheme,
+    scheme: EScheme,
     section: TSection,
     additional: string
   ): void {
-    const state = assign_storage_and_bind(object, ini, scheme, section);
+    const state = assignStorageAndBind(object, ini, scheme, section);
 
     state.logic = cfg_get_switch_conditions(ini, section, object);
     state.snd_anim_sync = getConfigBoolean(ini, section, "snd_anim_sync", object, false);

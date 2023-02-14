@@ -23,7 +23,7 @@ import {
 
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { Optional } from "@/mod/lib/types";
-import { TScheme } from "@/mod/lib/types/configuration";
+import { ESchemeType, TScheme } from "@/mod/lib/types/configuration";
 import {
   addObject,
   deleteObject,
@@ -35,18 +35,14 @@ import {
   storage,
 } from "@/mod/scripts/core/db";
 import { Hear } from "@/mod/scripts/core/Hear";
-import {
-  issue_event,
-  load_obj,
-  mob_capture,
-  mob_captured,
-  mob_release,
-  save_obj,
-  try_switch_to_another_section,
-} from "@/mod/scripts/core/logic";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
-import { stype_mobile } from "@/mod/scripts/core/schemes";
+import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
+import { mob_capture } from "@/mod/scripts/core/schemes/mob_capture";
+import { mob_captured } from "@/mod/scripts/core/schemes/mob_captured";
+import { mob_release } from "@/mod/scripts/core/schemes/mob_release";
+import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
+import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { get_sim_obj_registry } from "@/mod/scripts/se/SimObjectsRegistry";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { ISmartTerrain, setup_gulag_and_logic_on_spawn } from "@/mod/scripts/se/SmartTerrain";
@@ -122,7 +118,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     const st = storage.get(this.object.id());
 
     if (st !== null && st.active_scheme !== null) {
-      try_switch_to_another_section(this.object, st[st.active_scheme!], getActor());
+      trySwitchToAnotherSection(this.object, st[st.active_scheme!], getActor());
     }
 
     if (squad !== null && squad.commander_id() === this.object.id()) {
@@ -199,7 +195,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     }
 
     if (this.st.active_section !== null) {
-      issue_event(this.object, this.st[this.st.active_scheme as string], "update", delta);
+      issueEvent(this.object, this.st[this.st.active_scheme as string], "update", delta);
     }
   },
   save(packet: XR_net_packet): void {
@@ -260,7 +256,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
       }
     }
 
-    setup_gulag_and_logic_on_spawn(this.object, this.st, object, stype_mobile, this.loaded);
+    setup_gulag_and_logic_on_spawn(this.object, this.st, object, ESchemeType.MOBILE, this.loaded);
 
     return true;
   },
@@ -278,7 +274,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     const st = storage.get(this.object.id());
 
     if (st !== null && st.active_scheme !== null) {
-      issue_event(this.object, st[st.active_scheme as string], "net_destroy");
+      issueEvent(this.object, st[st.active_scheme as string], "net_destroy");
     }
 
     const offlineObject = offlineObjects.get(this.object.id());
@@ -319,7 +315,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
   },
   waypoint_callback(obj: XR_game_object, action_type: number, index: number): void {
     if (this.st.active_section !== null) {
-      issue_event(this.object, this.st[this.st.active_scheme as string], "waypoint_callback", obj, action_type, index);
+      issueEvent(this.object, this.st[this.st.active_scheme as string], "waypoint_callback", obj, action_type, index);
     }
   },
   death_callback(victim: XR_game_object, killer: XR_game_object): void {
@@ -335,11 +331,11 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     }
 
     if (this.st.mob_death) {
-      issue_event(this.object, this.st.mob_death, "death_callback", victim, killer);
+      issueEvent(this.object, this.st.mob_death, "death_callback", victim, killer);
     }
 
     if (this.st.active_section) {
-      issue_event(this.object, this.st[this.st.active_scheme as TScheme], "death_callback", victim, killer);
+      issueEvent(this.object, this.st[this.st.active_scheme as TScheme], "death_callback", victim, killer);
     }
 
     const h: XR_hit = new hit();
@@ -376,7 +372,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     }
 
     if (this.st.hit) {
-      issue_event(this.object, this.st.hit, "hit_callback", obj, amount, const_direction, who, bone_index);
+      issueEvent(this.object, this.st.hit, "hit_callback", obj, amount, const_direction, who, bone_index);
     }
 
     if (amount > 0) {

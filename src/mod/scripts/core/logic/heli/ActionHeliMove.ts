@@ -1,17 +1,16 @@
 import { level, patrol, XR_CHelicopter, XR_game_object, XR_ini_file, XR_patrol, XR_vector } from "xray16";
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
-import {
-  assign_storage_and_bind,
-  subscribe_action_for_events,
-  try_switch_to_another_section,
-} from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { get_heli_firer, HeliFire } from "@/mod/scripts/core/logic/heli/HeliFire";
 import { get_heli_flyer, HeliFly } from "@/mod/scripts/core/logic/heli/HeliFly";
 import { get_heli_looker, HeliLook } from "@/mod/scripts/core/logic/heli/HeliLook";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
+import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
+import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import {
   cfg_get_switch_conditions,
   getConfigBoolean,
@@ -22,23 +21,24 @@ import { abort } from "@/mod/scripts/utils/debug";
 
 const state_move: number = 0;
 
-export class ActionHeliMove extends AbstractSchemeAction {
-  public static SCHEME_SECTION: string = "heli_move";
+export class ActionHeliMove extends AbstractSchemeImplementation {
+  public static SCHEME_SECTION: EScheme = EScheme.HELI_MOVE;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.ITEM;
 
   public static add_to_binder(
     npc: XR_game_object,
     ini: XR_ini_file,
-    scheme: string,
-    section: string,
+    scheme: EScheme,
+    section: TSection,
     storage: IStoredObject
   ): void {
     const new_action = new ActionHeliMove(npc, storage);
 
-    subscribe_action_for_events(npc, storage, new_action);
+    subscribeActionForEvents(npc, storage, new_action);
   }
 
-  public static set_scheme(npc: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
-    const a = assign_storage_and_bind(npc, ini, scheme, section);
+  public static set_scheme(npc: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const a = assignStorageAndBind(npc, ini, scheme, section);
 
     a.logic = cfg_get_switch_conditions(ini, section, npc);
 
@@ -212,7 +212,7 @@ export class ActionHeliMove extends AbstractSchemeAction {
   public update(delta: number): void {
     const actor: XR_game_object = getActor()!;
 
-    if (try_switch_to_another_section(this.object, this.state, actor)) {
+    if (trySwitchToAnotherSection(this.object, this.state, actor)) {
       return;
     }
 

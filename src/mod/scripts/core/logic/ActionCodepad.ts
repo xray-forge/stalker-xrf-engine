@@ -1,8 +1,10 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
-import { assign_storage_and_bind, subscribe_action_for_events } from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
+import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import {
   cfg_get_switch_conditions,
   getConfigCondList,
@@ -15,21 +17,22 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ActionCodepad");
 
-export class ActionCodepad extends AbstractSchemeAction {
-  public static readonly SCHEME_SECTION: string = "ph_code";
+export class ActionCodepad extends AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.PH_CODE;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.ITEM;
 
   public static add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: string,
-    section: string,
+    scheme: EScheme,
+    section: TSection,
     storage: IStoredObject
   ): void {
-    subscribe_action_for_events(object, storage, new ActionCodepad(object, storage));
+    subscribeActionForEvents(object, storage, new ActionCodepad(object, storage));
   }
 
-  public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
-    const state = assign_storage_and_bind(object, ini, scheme, section);
+  public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const state = assignStorageAndBind(object, ini, scheme, section);
 
     state.logic = cfg_get_switch_conditions(ini, section, object);
     state.tips = getConfigString(ini, section, "tips", object, false, "", "st_codelock");

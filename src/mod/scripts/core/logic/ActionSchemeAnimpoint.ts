@@ -1,18 +1,19 @@
 import { level, stalker_ids, vector, world_property, XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { TScheme, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TScheme, TSection } from "@/mod/lib/types/configuration";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
-import { assign_storage_and_bind, subscribe_action_for_events } from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { ActionAnimpoint, IActionAnimpoint } from "@/mod/scripts/core/logic/actions/ActionAnimpoint";
 import { ActionReachAnimpoint, IActionReachAnimpoint } from "@/mod/scripts/core/logic/actions/ActionReachAnimpoint";
 import { associations } from "@/mod/scripts/core/logic/animpoint_predicates";
 import { CampStoryManager } from "@/mod/scripts/core/logic/CampStoryManager";
 import { EvaluatorNeedAnimpoint } from "@/mod/scripts/core/logic/evaluators/EvaluatorNeedAnimpoint";
 import { EvaluatorReachAnimpoint } from "@/mod/scripts/core/logic/evaluators/EvaluatorReachAnimpoint";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
+import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { registered_smartcovers } from "@/mod/scripts/se/SmartCover";
 import { states } from "@/mod/scripts/state_management/lib/state_lib";
 import {
@@ -60,8 +61,9 @@ const assoc_tbl: LuaTable<
   },
 } as any;
 
-export class ActionSchemeAnimpoint extends AbstractSchemeAction {
-  public static readonly SCHEME_SECTION: string = "animpoint";
+export class ActionSchemeAnimpoint extends AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.ANIMPOINT;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   public static add_to_binder(
     npc: XR_game_object,
@@ -93,7 +95,7 @@ export class ActionSchemeAnimpoint extends AbstractSchemeAction {
 
     state.animpoint = new ActionSchemeAnimpoint(npc, state);
 
-    subscribe_action_for_events(npc, state, state.animpoint);
+    subscribeActionForEvents(npc, state, state.animpoint);
 
     const actionReachAnimpoint: IActionReachAnimpoint = create_xr_class_instance(
       ActionReachAnimpoint,
@@ -111,7 +113,7 @@ export class ActionSchemeAnimpoint extends AbstractSchemeAction {
     actionReachAnimpoint.add_effect(new world_property(properties.need_animpoint, false));
     actionReachAnimpoint.add_effect(new world_property(properties.state_mgr_logic_active, false));
     manager.add_action(operators.action_reach_animpoint, actionReachAnimpoint);
-    subscribe_action_for_events(npc, state, actionReachAnimpoint);
+    subscribeActionForEvents(npc, state, actionReachAnimpoint);
 
     const actionAnimpoint: IActionAnimpoint = create_xr_class_instance(
       ActionAnimpoint,
@@ -129,7 +131,7 @@ export class ActionSchemeAnimpoint extends AbstractSchemeAction {
     actionAnimpoint.add_effect(new world_property(properties.need_animpoint, false));
     actionAnimpoint.add_effect(new world_property(properties.state_mgr_logic_active, false));
     manager.add_action(operators.action_animpoint, actionAnimpoint);
-    subscribe_action_for_events(npc, state, actionAnimpoint);
+    subscribeActionForEvents(npc, state, actionAnimpoint);
 
     manager.action(action_ids.alife).add_precondition(new world_property(properties.need_animpoint, false));
   }
@@ -137,11 +139,11 @@ export class ActionSchemeAnimpoint extends AbstractSchemeAction {
   public static set_scheme(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: TScheme,
+    scheme: EScheme,
     section: TSection,
     additional: string
   ): void {
-    const st = assign_storage_and_bind(object, ini, scheme, section);
+    const st = assignStorageAndBind(object, ini, scheme, section);
 
     st.logic = cfg_get_switch_conditions(ini, section, object);
     st.cover_name = getConfigString(ini, section, "cover_name", object, false, "", "$script_id$_cover");

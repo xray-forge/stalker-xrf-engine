@@ -1,37 +1,37 @@
 import { patrol, time_global, XR_game_object, XR_ini_file } from "xray16";
 
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
-import {
-  assign_storage_and_bind,
-  subscribe_action_for_events,
-  try_switch_to_another_section,
-} from "@/mod/scripts/core/logic";
-import { AbstractSchemeAction } from "@/mod/scripts/core/logic/AbstractSchemeAction";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
+import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
+import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { cfg_get_switch_conditions, getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ActionApplyPhysicalForce");
 
-export class ActionApplyPhysicalForce extends AbstractSchemeAction {
-  public static readonly SCHEME_SECTION: string = "ph_force";
+export class ActionApplyPhysicalForce extends AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.PH_FORCE;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.ITEM;
 
   public static add_to_binder(
     npc: XR_game_object,
     ini: XR_ini_file,
-    scheme: string,
-    section: string,
+    scheme: EScheme,
+    section: TSection,
     storage: IStoredObject
   ): void {
     logger.info("Add to binder:", npc.name());
 
-    subscribe_action_for_events(npc, storage, new ActionApplyPhysicalForce(npc, storage));
+    subscribeActionForEvents(npc, storage, new ActionApplyPhysicalForce(npc, storage));
   }
 
-  public static set_scheme(npc: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
+  public static set_scheme(npc: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     logger.info("Set scheme:", npc.name());
 
-    const st = assign_storage_and_bind(npc, ini, scheme, section);
+    const st = assignStorageAndBind(npc, ini, scheme, section);
 
     st.logic = cfg_get_switch_conditions(ini, section, npc);
     st.force = getConfigNumber(ini, section, "force", npc, true, 0);
@@ -80,7 +80,7 @@ export class ActionApplyPhysicalForce extends AbstractSchemeAction {
   }
 
   public update(delta: number): void {
-    if (try_switch_to_another_section(this.object, this.state, getActor())) {
+    if (trySwitchToAnotherSection(this.object, this.state, getActor())) {
       return;
     }
 
