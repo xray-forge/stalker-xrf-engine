@@ -1,7 +1,6 @@
 import { level, patrol, XR_CHelicopter, XR_game_object, XR_ini_file, XR_patrol, XR_vector } from "xray16";
 
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
-import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
+import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
 import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
@@ -16,32 +15,32 @@ import {
   getConfigBoolean,
   getConfigNumber,
   getConfigString,
+  path_parse_waypoints,
 } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
 
+const logger: LuaLogger = new LuaLogger("ActionHeliMove");
 const state_move: number = 0;
 
-export class ActionHeliMove extends AbstractSchemeImplementation {
+export class ActionSchemeHeliMove extends AbstractSchemeImplementation {
   public static SCHEME_SECTION: EScheme = EScheme.HELI_MOVE;
   public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.ITEM;
 
   public static add_to_binder(
-    npc: XR_game_object,
+    object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
     storage: IStoredObject
   ): void {
-    const new_action = new ActionHeliMove(npc, storage);
-
-    subscribeActionForEvents(npc, storage, new_action);
+    subscribeActionForEvents(object, storage, new ActionSchemeHeliMove(object, storage));
   }
 
   public static set_scheme(npc: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const a = assignStorageAndBind(npc, ini, scheme, section);
 
     a.logic = cfg_get_switch_conditions(ini, section, npc);
-
     a.path_move = getConfigString(ini, section, "path_move", npc, true, "");
     a.path_look = getConfigString(ini, section, "path_look", npc, false, "");
     a.enemy_ = getConfigString(ini, section, "enemy", npc, false, "");
@@ -104,7 +103,7 @@ export class ActionHeliMove extends AbstractSchemeImplementation {
     }
 
     this.patrol_move = new patrol(this.state.path_move);
-    this.patrol_move_info = get_global<AnyCallablesModule>("utils").path_parse_waypoints(this.state.path_move);
+    this.patrol_move_info = path_parse_waypoints(this.state.path_move)!;
 
     if (this.state.path_look) {
       if (this.state.path_look === "actor") {

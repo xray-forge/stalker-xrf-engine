@@ -15,7 +15,7 @@ import {
   XR_patrol,
 } from "xray16";
 
-import { AnyCallablesModule, EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
+import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { get_state, set_state } from "@/mod/scripts/core/logic/mob/MobStateManager";
@@ -30,6 +30,7 @@ import {
   getConfigBoolean,
   getConfigString,
   IWaypointData,
+  path_parse_waypoints,
   pickSectionFromCondList,
 } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -121,12 +122,12 @@ export class ActionMobWalker extends AbstractSchemeImplementation {
     }
 
     if (this.state.path_walk_info === null) {
-      this.state.path_walk_info = get_global<AnyCallablesModule>("utils").path_parse_waypoints(this.state.path_walk);
+      this.state.path_walk_info = path_parse_waypoints(this.state.path_walk);
       this.path_walk_info = this.state.path_walk_info;
     }
 
     if (this.state.path_look_info === null) {
-      this.state.path_look_info = get_global<AnyCallablesModule>("utils").path_parse_waypoints(this.state.path_look);
+      this.state.path_look_info = path_parse_waypoints(this.state.path_look);
       this.path_look_info = this.state.path_look_info;
     }
 

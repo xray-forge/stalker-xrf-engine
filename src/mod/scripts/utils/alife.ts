@@ -6,6 +6,7 @@ import {
   level,
   stalker_ids,
   vector,
+  XR_action_planner,
   XR_cse_alife_creature_abstract,
   XR_cse_alife_human_abstract,
   XR_cse_alife_object,
@@ -26,10 +27,10 @@ import { ISimSquadStayOnTargetAction } from "@/mod/scripts/se/SimSquadStayOnTarg
 import { spawnItemsForObject } from "@/mod/scripts/utils/alife_spawn";
 import { isStalker } from "@/mod/scripts/utils/checkers";
 import {
-  get_infos_from_data,
   getConfigBoolean,
   getConfigNumber,
   getConfigString,
+  getInfosFromData,
   parseCondList,
   pickSectionFromCondList,
 } from "@/mod/scripts/utils/configs";
@@ -294,27 +295,27 @@ export function areOnSameAlifeLevel(first: XR_cse_alife_object, second: XR_cse_a
 /**
  * todo;
  */
-export function set_npc_info(npc: XR_game_object, ini: XR_ini_file, scheme: string, section: string): void {
-  const in_info = get_infos_from_data(npc, getConfigString(ini, section, "in", npc, false, ""));
-  const out_info = get_infos_from_data(npc, getConfigString(ini, section, "out", npc, false, ""));
+export function setObjectInfo(object: XR_game_object, ini: XR_ini_file, section: TSection): void {
+  const in_info = getInfosFromData(object, getConfigString(ini, section, "in", object, false, ""));
+  const out_info = getInfosFromData(object, getConfigString(ini, section, "out", object, false, ""));
 
   for (const [k, v] of in_info) {
-    npc.give_info_portion(v);
+    object.give_info_portion(v);
   }
 
   for (const [k, v] of out_info) {
-    npc.disable_info_portion(v);
+    object.disable_info_portion(v);
   }
 }
 
 /**
  * todo: rename, update
  */
-export function reset_group(npc: XR_game_object, ini: XR_ini_file, section: string): void {
-  const group = getConfigNumber(ini, section, "group", npc, false, -1);
+export function resetObjectGroup(object: XR_game_object, ini: XR_ini_file, section: TSection): void {
+  const group = getConfigNumber(ini, section, "group", object, false, -1);
 
   if (group !== -1) {
-    npc.change_team(npc.team(), npc.squad(), group);
+    object.change_team(object.team(), object.squad(), group);
   }
 }
 
@@ -348,13 +349,13 @@ export function can_select_weapon(npc: XR_game_object, scheme: string, st: IStor
 /**
  * todo;
  */
-export function is_need_invulnerability(npc: XR_game_object): boolean {
-  const npc_st = storage.get(npc.id());
+export function isInvulnerabilityNeeded(object: XR_game_object): boolean {
+  const npc_st = storage.get(object.id());
   const invulnerability: Optional<string> = getConfigString(
     npc_st.ini!,
     npc_st.active_section!,
     "invulnerable",
-    npc,
+    object,
     false,
     "",
     null
@@ -364,16 +365,16 @@ export function is_need_invulnerability(npc: XR_game_object): boolean {
     return false;
   }
 
-  const invulnerability_condlist = parseCondList(npc, "invulnerability", "invulnerability", invulnerability);
+  const invulnerability_condlist = parseCondList(object, "invulnerability", "invulnerability", invulnerability);
 
-  return pickSectionFromCondList(getActor(), npc, invulnerability_condlist) === "true";
+  return pickSectionFromCondList(getActor(), object, invulnerability_condlist) === "true";
 }
 
 /**
  * todo;
  */
-export function reset_invulnerability(npc: XR_game_object, ini: XR_ini_file, section: string): void {
-  const invulnerability = is_need_invulnerability(npc);
+export function reset_invulnerability(npc: XR_game_object, ini: XR_ini_file, section: TSection): void {
+  const invulnerability = isInvulnerabilityNeeded(npc);
 
   if (npc.invulnerable() !== invulnerability) {
     npc.invulnerable(invulnerability);
@@ -383,18 +384,18 @@ export function reset_invulnerability(npc: XR_game_object, ini: XR_ini_file, sec
 /**
  * todo;
  */
-export function disable_invulnerability(npc: XR_game_object): void {
+export function disableInvulnerability(npc: XR_game_object): void {
   npc.invulnerable(false);
 }
 
 /**
  * todo;
  */
-export function update_invulnerability(npc: XR_game_object): void {
-  const invulnerability = is_need_invulnerability(npc);
+export function updateInvulnerability(ob: XR_game_object): void {
+  const invulnerability = isInvulnerabilityNeeded(ob);
 
-  if (npc.invulnerable() !== invulnerability) {
-    npc.invulnerable(invulnerability);
+  if (ob.invulnerable() !== invulnerability) {
+    ob.invulnerable(invulnerability);
   }
 }
 
@@ -434,14 +435,14 @@ export function reset_threshold(
 /**
  * todo;
  */
-export function is_npc_in_combat(npc: XR_game_object): boolean {
-  const mgr = npc.motivation_action_manager();
+export function isNpcInCombat(npc: XR_game_object): boolean {
+  const actionPlanner: XR_action_planner = npc.motivation_action_manager();
 
-  if (!mgr.initialized()) {
+  if (!actionPlanner.initialized()) {
     return false;
   }
 
-  const current_action_id = mgr.current_action_id();
+  const current_action_id: number = actionPlanner.current_action_id();
 
   return (
     current_action_id === stalker_ids.action_combat_planner || current_action_id === stalker_ids.action_post_combat_wait
@@ -477,22 +478,19 @@ export function spawnDefaultNpcItems(npc: XR_game_object, state: IStoredObject):
 /**
  * todo: description
  */
-export function isSeeingActor(npc: XR_game_object): boolean {
-  logger.info("CHECK SEE ACTOR:", type(npc));
-  logger.info("CHECK SEE ACTOR:", npc.name());
-
-  return npc.alive() && npc.see(getActor()!);
+export function isSeeingActor(object: XR_game_object): boolean {
+  return object.alive() && object.see(getActor()!);
 }
 
 /**
  * todo: description
  */
-export function send_to_nearest_accessible_vertex(npc: XR_game_object, v_id: number): number {
-  if (!npc.accessible(v_id)) {
-    v_id = npc.accessible_nearest(level.vertex_position(v_id), new vector());
+export function sendToNearestAccessibleVertex(object: XR_game_object, vertexId: number): number {
+  if (!object.accessible(vertexId)) {
+    vertexId = object.accessible_nearest(level.vertex_position(vertexId), new vector());
   }
 
-  npc.set_dest_level_vertex_id(v_id);
+  object.set_dest_level_vertex_id(vertexId);
 
-  return v_id;
+  return vertexId;
 }

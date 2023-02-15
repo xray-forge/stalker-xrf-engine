@@ -17,7 +17,7 @@ import { ActionSchemeReachTask } from "@/mod/scripts/core/logic/ActionSchemeReac
 import { ActionWoundManager } from "@/mod/scripts/core/logic/ActionWoundManager";
 import { ActionMobCombat } from "@/mod/scripts/core/logic/mob/ActionMobCombat";
 import { ActionMobDeath } from "@/mod/scripts/core/logic/mob/ActionMobDeath";
-import { reset_invulnerability, set_npc_info } from "@/mod/scripts/utils/alife";
+import { reset_invulnerability, setObjectInfo } from "@/mod/scripts/utils/alife";
 import { getConfigString } from "@/mod/scripts/utils/configs";
 
 /**
@@ -46,7 +46,7 @@ export function enable_generic_schemes(
       const info_section: Optional<string> = getConfigString(ini, section, "info", npc, false, "");
 
       if (info_section !== null) {
-        set_npc_info(npc, ini, "info", info_section);
+        setObjectInfo(npc, ini, info_section);
       }
 
       const hit_section: Optional<string> = getConfigString(ini, section, "on_hit", npc, false, "");

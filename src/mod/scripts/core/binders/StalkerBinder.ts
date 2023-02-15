@@ -69,7 +69,7 @@ import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { ISmartTerrain, setup_gulag_and_logic_on_spawn } from "@/mod/scripts/se/SmartTerrain";
 import { bind_state_manager } from "@/mod/scripts/state_management/bind_state_manager";
 import { mapDisplayManager } from "@/mod/scripts/ui/game/MapDisplayManager";
-import { getCharacterCommunity, getObjectSquad, update_invulnerability } from "@/mod/scripts/utils/alife";
+import { getCharacterCommunity, getObjectSquad, updateInvulnerability } from "@/mod/scripts/utils/alife";
 import { getConfigString, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { getObjectStoryId } from "@/mod/scripts/utils/ids";
@@ -485,7 +485,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
     if (object_alive) {
       GlobalSound.update(object.id());
       ActionSchemeMeet.process_npc_usability(object);
-      update_invulnerability(this.object);
+      updateInvulnerability(this.object);
     }
 
     const squad = getObjectSquad(this.object);

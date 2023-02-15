@@ -11,9 +11,10 @@ import {
   XR_vector,
 } from "xray16";
 
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { get_heli_health } from "@/mod/scripts/core/logic/heli/heli_utils";
+import { isLevelChanging } from "@/mod/scripts/utils/checkers";
 import {
   getConfigBoolean,
   getConfigNumber,
@@ -238,7 +239,7 @@ export class HeliCombat {
   public save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, HeliCombat.name);
 
-    if (get_global<AnyCallablesModule>("utils").level_changing()) {
+    if (isLevelChanging()) {
       packet.w_bool(false);
       setSaveMarker(packet, true, HeliCombat.name);
 

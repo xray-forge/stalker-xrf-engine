@@ -22,7 +22,7 @@ import { IActor } from "@/mod/scripts/se/Actor";
 import { get_sim_obj_registry } from "@/mod/scripts/se/SimObjectsRegistry";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
-import { getObjectSquad, send_to_nearest_accessible_vertex } from "@/mod/scripts/utils/alife";
+import { getObjectSquad, sendToNearestAccessibleVertex } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { vectorCmp } from "@/mod/scripts/utils/physics";
 
@@ -165,7 +165,7 @@ export const ActionReachTaskLocation: IActionReachTaskLocation = declare_xr_clas
       this.dir = dir;
       this.cur_state = cur_state!;
 
-      this.l_vid = send_to_nearest_accessible_vertex(this.object, this.l_vid);
+      this.l_vid = sendToNearestAccessibleVertex(this.object, this.l_vid);
 
       const desired_direction: XR_vector = this.dir;
 

@@ -15,6 +15,7 @@ import {
   getConfigBoolean,
   getConfigCondList,
   getConfigString,
+  parse_data_1v,
   pickSectionFromCondList,
 } from "@/mod/scripts/utils/configs";
 
@@ -71,10 +72,7 @@ export class ActionDoor extends AbstractSchemeImplementation {
       }
     }
 
-    state.hit_on_bone = get_global<AnyCallablesModule>("utils").parse_data_1v(
-      object,
-      getConfigString(ini, section, "hit_on_bone", object, false, "")
-    );
+    state.hit_on_bone = parse_data_1v(object, getConfigString(ini, section, "hit_on_bone", object, false, ""));
   }
 
   public snd_obj: Optional<unknown> = null;

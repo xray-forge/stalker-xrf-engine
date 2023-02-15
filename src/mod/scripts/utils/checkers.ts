@@ -1,6 +1,7 @@
 import {
   alife,
   clsid,
+  device,
   game_graph,
   system_ini,
   TXR_cls_id,
@@ -28,7 +29,8 @@ import { levels, TLevel } from "@/mod/globals/levels";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { Maybe, Optional, TSection } from "@/mod/lib/types";
 import { action_ids } from "@/mod/scripts/core/actions_id";
-import { IStoredObject, storage } from "@/mod/scripts/core/db";
+import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { abort } from "@/mod/scripts/utils/debug";
 import { getClsId, getObjectStoryId } from "@/mod/scripts/utils/ids";
@@ -259,8 +261,8 @@ export function isHeavilyWounded(npcId: number): boolean {
  * todo;
  * todo;
  */
-export function isNpcInZone(npc: Optional<XR_game_object>, zone: Optional<XR_game_object>): boolean {
-  return npc !== null && zone !== null && zone.inside(npc.position());
+export function isNpcInZone(object: Optional<XR_game_object>, zone: Optional<XR_game_object>): boolean {
+  return object !== null && zone !== null && zone.inside(object.position());
 }
 
 /**
@@ -274,4 +276,47 @@ export function isActiveSection(object: XR_game_object, section: Maybe<TSection>
   }
 
   return section === storage.get(object.id()).active_section;
+}
+
+/**
+ * @returns whether provided enemy object is actor.
+ */
+export function isActorEnemy(object: XR_game_object): boolean {
+  return object.id() === getActor()!.id();
+}
+
+/**
+ * @returns whether distance between objects greater or equal.
+ */
+export function isDistanceBetweenObjectsGreaterOrEqual(
+  first: XR_game_object,
+  second: XR_game_object,
+  distance: number
+): boolean {
+  return first.position().distance_to_sqr(second.position()) >= distance * distance;
+}
+
+/**
+ * @returns whether distance between objects less or equal.
+ */
+export function isDistanceBetweenObjectsLessOrEqual(
+  first: XR_game_object,
+  second: XR_game_object,
+  distance: number
+): boolean {
+  return first.position().distance_to_sqr(second.position()) <= distance * distance;
+}
+
+/**
+ * @returns whether currently black screen is visible and rendering is paused.
+ */
+export function isBlackScreen(): boolean {
+  return device().precache_frame > 1;
+}
+
+/**
+ * @returns whether currently sound is playing.
+ */
+export function isPlayingSound(object: XR_game_object): boolean {
+  return GlobalSound.sound_table.has(object.id());
 }

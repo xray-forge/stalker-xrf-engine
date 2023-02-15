@@ -8,9 +8,9 @@ import { resetScheme } from "@/mod/scripts/core/schemes/schemes_resetting";
 import { mapDisplayManager } from "@/mod/scripts/ui/game/MapDisplayManager";
 import {
   can_select_weapon,
-  reset_group,
   reset_invulnerability,
   reset_threshold,
+  resetObjectGroup,
   take_items_enabled,
 } from "@/mod/scripts/utils/alife";
 import { getClsId } from "@/mod/scripts/utils/ids";
@@ -50,7 +50,7 @@ export function resetGenericSchemesOnSchemeSwitch(
       mapDisplayManager.updateNpcSpot(object, schemeToSwitch, state, section);
       reset_threshold(object, schemeToSwitch, state, section);
       reset_invulnerability(object, state.ini!, section);
-      reset_group(object, state.ini!, section);
+      resetObjectGroup(object, state.ini!, section);
       take_items_enabled(object, schemeToSwitch, state, section);
       can_select_weapon(object, schemeToSwitch, state, section);
       RestrictorManager.forNpc(object).reset_restrictions(state, section);

@@ -7,7 +7,7 @@ import { ActionSchemeCombat } from "@/mod/scripts/core/logic/ActionSchemeCombat"
 import { ActionSchemeCombatIgnore } from "@/mod/scripts/core/logic/ActionSchemeCombatIgnore";
 import { ActionSchemeMeet } from "@/mod/scripts/core/logic/ActionSchemeMeet";
 import { ActionMobCombat } from "@/mod/scripts/core/logic/mob/ActionMobCombat";
-import { disable_invulnerability } from "@/mod/scripts/utils/alife";
+import { disableInvulnerability } from "@/mod/scripts/utils/alife";
 
 /**
  * todo;
@@ -21,14 +21,14 @@ export function disableGenericSchemes(object: XR_game_object, schemeType: ESchem
       ActionProcessHit.disable_scheme(object, ActionProcessHit.SCHEME_SECTION);
       ActionSchemeMeet.disable_scheme(object, EScheme.ACTOR_DIALOGS);
       ActionSchemeCombatIgnore.disable_scheme(object, EScheme.COMBAT_IGNORE);
-      disable_invulnerability(object);
+      disableInvulnerability(object);
 
       return;
 
     case ESchemeType.MONSTER:
       ActionMobCombat.disable_scheme(object, EScheme.MOB_COMBAT);
       ActionSchemeCombatIgnore.disable_scheme(object, EScheme.COMBAT_IGNORE);
-      disable_invulnerability(object);
+      disableInvulnerability(object);
 
       return;
 

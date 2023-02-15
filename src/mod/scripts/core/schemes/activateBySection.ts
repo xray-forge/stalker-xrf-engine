@@ -5,7 +5,7 @@ import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { schemes, storage } from "@/mod/scripts/core/db";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
 import { resetGenericSchemesOnSchemeSwitch } from "@/mod/scripts/core/schemes/resetGenericSchemesOnSchemeSwitch";
-import { send_to_nearest_accessible_vertex } from "@/mod/scripts/utils/alife";
+import { sendToNearestAccessibleVertex } from "@/mod/scripts/utils/alife";
 import { cfg_get_overrides, get_scheme_by_section } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { get_npc_smart } from "@/mod/scripts/utils/gulag";
@@ -89,7 +89,7 @@ export function activateBySection(
 
   if (storage.get(npc_id).stype === ESchemeType.STALKER) {
     // -- ����� �������� ����������� �������� �� ���� ��� ��������� ������������
-    send_to_nearest_accessible_vertex(npc, npc.level_vertex_id());
+    sendToNearestAccessibleVertex(npc, npc.level_vertex_id());
 
     issueEvent(npc, storage.get(npc_id)[scheme], "activate_scheme", loading, npc);
   } else {

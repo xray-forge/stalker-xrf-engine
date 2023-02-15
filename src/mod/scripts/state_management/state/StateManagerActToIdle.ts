@@ -2,7 +2,7 @@ import { action_base, game_object, XR_action_base } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
-import { send_to_nearest_accessible_vertex } from "@/mod/scripts/utils/alife";
+import { sendToNearestAccessibleVertex } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("StateManagerActToIdle", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
@@ -37,7 +37,7 @@ export const StateManagerActToIdle: IStateManagerActToIdle = declare_xr_class("S
 
     this.st.set_state("idle", null, null, null, null);
 
-    send_to_nearest_accessible_vertex(this.object, this.object.level_vertex_id());
+    sendToNearestAccessibleVertex(this.object, this.object.level_vertex_id());
 
     this.object.set_path_type(game_object.level_path);
   },
@@ -46,7 +46,7 @@ export const StateManagerActToIdle: IStateManagerActToIdle = declare_xr_class("S
     action_base.finalize(this);
   },
   execute(): void {
-    send_to_nearest_accessible_vertex(this.object, this.object.level_vertex_id());
+    sendToNearestAccessibleVertex(this.object, this.object.level_vertex_id());
     this.object.set_path_type(game_object.level_path);
 
     if (this.object.best_enemy()) {

@@ -25,7 +25,7 @@ import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { set_state } from "@/mod/scripts/state_management/StateManager";
-import { getStoryObject, is_npc_in_combat } from "@/mod/scripts/utils/alife";
+import { getStoryObject, isNpcInCombat } from "@/mod/scripts/utils/alife";
 import { isObjectWounded } from "@/mod/scripts/utils/checkers";
 import { getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 
@@ -520,7 +520,7 @@ export class ActionSchemeMeet extends AbstractSchemeImplementation {
         if (this.hello_passed === false) {
           const snd = pickSectionFromCondList(actor, this.object, this.state.close_snd_hello);
 
-          if (tostring(snd) !== "nil" && !is_npc_in_combat(this.object)) {
+          if (tostring(snd) !== "nil" && !isNpcInCombat(this.object)) {
             GlobalSound.set_sound_play(this.object.id(), snd, null, null);
           }
 
@@ -531,7 +531,7 @@ export class ActionSchemeMeet extends AbstractSchemeImplementation {
           if (this.bye_passed === false) {
             const snd = pickSectionFromCondList(actor, this.object, this.state.close_snd_bye);
 
-            if (tostring(snd) !== "nil" && !is_npc_in_combat(this.object)) {
+            if (tostring(snd) !== "nil" && !isNpcInCombat(this.object)) {
               GlobalSound.set_sound_play(this.object.id(), snd, null, null);
             }
 

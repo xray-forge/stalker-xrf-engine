@@ -46,7 +46,7 @@ import { ActionTeleport } from "@/mod/scripts/core/logic/ActionTeleport";
 import { ActionTimer } from "@/mod/scripts/core/logic/ActionTimer";
 import { ActionWalker } from "@/mod/scripts/core/logic/ActionWalker";
 import { ActionWoundManager } from "@/mod/scripts/core/logic/ActionWoundManager";
-import { ActionHeliMove } from "@/mod/scripts/core/logic/heli/ActionHeliMove";
+import { ActionSchemeHeliMove } from "@/mod/scripts/core/logic/heli/ActionSchemeHeliMove";
 import { ActionMobCombat } from "@/mod/scripts/core/logic/mob/ActionMobCombat";
 import { ActionMobDeath } from "@/mod/scripts/core/logic/mob/ActionMobDeath";
 import { ActionMobHome } from "@/mod/scripts/core/logic/mob/ActionMobHome";
@@ -134,7 +134,7 @@ export function initializeModules(): void {
     ActionButton,
     ActionCodepad,
     ActionDoor,
-    ActionHeliMove,
+    ActionSchemeHeliMove,
     ActionHit,
     ActionSchemeMiniGun,
     ActionOnDeath,

@@ -442,21 +442,21 @@ export function parse_func_params(str: string): LuaTable<number, string | number
 /**
  * todo;
  */
-export function get_infos_from_data(npc: XR_game_object, str: Optional<string>): LuaTable<number, string> {
-  const t: LuaTable<number, string> = new LuaTable();
+export function getInfosFromData(object: XR_game_object, data: Optional<string>): LuaTable<number, string> {
+  const infos: LuaTable<number, string> = new LuaTable();
   const actor = getActor();
 
-  if (str !== null) {
-    for (const name of string.gfind(str, "(%|*[^%|]+%|*)%p*")) {
-      const condlist = parseCondList(npc, "in", name, name);
+  if (data !== null) {
+    for (const name of string.gfind(data, "(%|*[^%|]+%|*)%p*")) {
+      const condlist = parseCondList(object, "in", name, name);
 
       if (condlist !== null) {
-        table.insert(t, pickSectionFromCondList(actor, npc, condlist)!);
+        table.insert(infos, pickSectionFromCondList(actor, object, condlist)!);
       }
     }
   }
 
-  return t;
+  return infos;
 }
 
 export interface IWaypointData {
