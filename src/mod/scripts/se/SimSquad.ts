@@ -26,7 +26,7 @@ import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { relations, TRelation } from "@/mod/globals/relations";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { AnyCallablesModule, AnyObject, Optional } from "@/mod/lib/types";
-import { TSection } from "@/mod/lib/types/configuration";
+import { TSection } from "@/mod/lib/types/scheme";
 import {
   goodwill as dbGoodwill,
   fighting_with_actor_npcs,

@@ -3,7 +3,7 @@ import { level, patrol, sound_object, time_global, vector, XR_game_object, XR_in
 import { post_processors } from "@/mod/globals/animation/post_processors";
 import { sounds } from "@/mod/globals/sound/sounds";
 import { Optional } from "@/mod/lib/types";
-import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
 import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";

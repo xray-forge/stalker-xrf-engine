@@ -9,7 +9,7 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { hide_weapon, restore_weapon } from "@/mod/scripts/core/binders/ActorBinder";
 import { getActor, IStoredObject, noWeapZones } from "@/mod/scripts/core/db";
 import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";

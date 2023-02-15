@@ -17,8 +17,7 @@ import {
 
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
-import { AnyArgs, Maybe, Optional } from "@/mod/lib/types";
-import { TSection } from "@/mod/lib/types/configuration";
+import { AnyArgs, Maybe, Optional, TSection } from "@/mod/lib/types";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { getStoryObjectsRegistry } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";

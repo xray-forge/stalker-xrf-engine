@@ -1,7 +1,7 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { AbuseManager } from "@/mod/scripts/core/logic/AbuseManager";
 import { ActionCorpseDetect } from "@/mod/scripts/core/logic/ActionCorpseDetect";
 import { ActionDanger } from "@/mod/scripts/core/logic/ActionDanger";

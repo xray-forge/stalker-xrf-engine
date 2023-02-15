@@ -12,12 +12,12 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
-import { mob_captured } from "@/mod/scripts/core/schemes/mob_captured";
-import { mob_release } from "@/mod/scripts/core/schemes/mob_release";
+import { mobCaptured } from "@/mod/scripts/core/schemes/mobCaptured";
+import { mobRelease } from "@/mod/scripts/core/schemes/mobRelease";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { switchToSection } from "@/mod/scripts/core/schemes/switchToSection";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
@@ -50,9 +50,9 @@ const state_none: number = 0;
 const state_firetarget_points: number = 1;
 const state_firetarget_enemy: number = 2;
 
-const logger: LuaLogger = new LuaLogger("ActionMiniGun");
+const logger: LuaLogger = new LuaLogger("ActionSchemeMiniGun");
 
-export class ActionMiniGun extends AbstractSchemeImplementation {
+export class ActionSchemeMiniGun extends AbstractSchemeImplementation {
   public static readonly SCHEME_SECTION: EScheme = EScheme.PH_MINIGUN;
   public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.ITEM;
 
@@ -65,7 +65,7 @@ export class ActionMiniGun extends AbstractSchemeImplementation {
   ): void {
     logger.info("Add to binder:", object.name());
 
-    subscribeActionForEvents(object, state, new ActionMiniGun(object, state));
+    subscribeActionForEvents(object, state, new ActionSchemeMiniGun(object, state));
   }
 
   public static set_scheme(
@@ -303,7 +303,7 @@ export class ActionMiniGun extends AbstractSchemeImplementation {
   }
 
   public fastcall(): boolean {
-    if (storage.get(this.object.id()).active_scheme !== ActionMiniGun.SCHEME_SECTION) {
+    if (storage.get(this.object.id()).active_scheme !== ActionSchemeMiniGun.SCHEME_SECTION) {
       this.set_shooting(0);
 
       return true;
@@ -353,7 +353,7 @@ export class ActionMiniGun extends AbstractSchemeImplementation {
     }
 
     if (this.state_cannon === state_cannon_stop && this.state_firetarget === state_none) {
-      if (mob_captured(this.object) && !this.object.action()) {
+      if (mobCaptured(this.object) && !this.object.action()) {
         this.destroy_car();
 
         return true;
@@ -470,7 +470,7 @@ export class ActionMiniGun extends AbstractSchemeImplementation {
     this.mgun.Action(CCar.eWpnAutoFire, 0);
     this.set_shooting(this.state_shooting);
 
-    mob_release(this.object);
+    mobRelease(this.object, ActionSchemeMiniGun.name);
 
     if (this.state.on_death_info !== null) {
       getActor()!.give_info_portion(this.state.on_death_info);

@@ -1,7 +1,6 @@
 import { ini_file, XR_game_object, XR_ini_file } from "xray16";
 
-import { Optional } from "@/mod/lib/types";
-import { ESchemeType, TSection } from "@/mod/lib/types/configuration";
+import { ESchemeType, Optional, TSection } from "@/mod/lib/types";
 import { storage } from "@/mod/scripts/core/db";
 import { disableGenericSchemes } from "@/mod/scripts/core/schemes/disableGenericSchemes";
 import { enable_generic_schemes } from "@/mod/scripts/core/schemes/enable_generic_schemes";

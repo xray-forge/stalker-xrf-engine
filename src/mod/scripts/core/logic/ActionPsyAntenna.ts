@@ -1,7 +1,7 @@
 import { get_hud, level, XR_game_object, XR_ini_file } from "xray16";
 
 import { post_processors } from "@/mod/globals/animation/post_processors";
-import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
 import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";

@@ -2,7 +2,7 @@ import { abort } from "scripts/utils/debug";
 import { XR_game_object, XR_ini_file, XR_physics_joint, XR_physics_shell, XR_vector } from "xray16";
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
-import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
 import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";

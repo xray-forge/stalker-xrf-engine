@@ -1,7 +1,7 @@
 import { level, stalker_ids, vector, world_property, XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { IStoredObject, patrols } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";

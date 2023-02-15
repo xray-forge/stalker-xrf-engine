@@ -1,12 +1,12 @@
 import { cond, look, patrol, vector, XR_game_object, XR_ini_file, XR_patrol, XR_vector } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { IStoredObject } from "@/mod/scripts/core/db";
 import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
-import { mob_capture } from "@/mod/scripts/core/schemes/mob_capture";
-import { mob_release } from "@/mod/scripts/core/schemes/mob_release";
+import { mobCapture } from "@/mod/scripts/core/schemes/mobCapture";
+import { mobRelease } from "@/mod/scripts/core/schemes/mobRelease";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { action } from "@/mod/scripts/utils/alife";
 import { cfg_get_switch_conditions, getConfigNumber, getConfigString, parseNames } from "@/mod/scripts/utils/configs";
@@ -17,9 +17,9 @@ const STATE_START_LOOK = 1;
 const STATE_WAIT_LOOK_END = 2;
 const STATE_JUMP = 3;
 
-const logger: LuaLogger = new LuaLogger("MobJump");
+const logger: LuaLogger = new LuaLogger("ActionSchemeMobJump");
 
-export class ActionMobJump extends AbstractSchemeImplementation {
+export class ActionSchemeMobJump extends AbstractSchemeImplementation {
   public static readonly SCHEME_SECTION: EScheme = EScheme.MOB_JUMP;
   public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
 
@@ -32,7 +32,7 @@ export class ActionMobJump extends AbstractSchemeImplementation {
   ): void {
     logger.info("Add to binder:", object.name(), scheme, section);
 
-    subscribeActionForEvents(object, storage, new ActionMobJump(object, storage));
+    subscribeActionForEvents(object, storage, new ActionSchemeMobJump(object, storage));
   }
 
   public static set_scheme(
@@ -65,7 +65,7 @@ export class ActionMobJump extends AbstractSchemeImplementation {
   public state_current: Optional<number> = null;
 
   public reset_scheme(): void {
-    mob_capture(this.object, true);
+    mobCapture(this.object, true, ActionSchemeMobJump.name);
 
     // -- reset signals
     this.state.signals = {};
@@ -104,7 +104,7 @@ export class ActionMobJump extends AbstractSchemeImplementation {
     if (this.state_current === STATE_JUMP) {
       this.object.jump(this.point!, this.state.ph_jump_factor);
       this.state.signals["jumped"] = true;
-      mob_release(this.object);
+      mobRelease(this.object, ActionSchemeMobJump.name);
     }
   }
 }

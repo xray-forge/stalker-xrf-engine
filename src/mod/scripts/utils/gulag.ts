@@ -1,21 +1,14 @@
-import {
-  alife,
-  create_ini_file,
-  game_object,
-  patrol,
-  XR_cse_alife_creature_abstract,
-  XR_game_object,
-  XR_ini_file,
-  XR_patrol,
-  XR_vector,
-} from "xray16";
+import { alife, game_object, XR_cse_alife_creature_abstract, XR_game_object, XR_vector } from "xray16";
 
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { infoRestr, zoneByName } from "@/mod/scripts/core/db";
 import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
+
+const logger: LuaLogger = new LuaLogger("gulag");
 
 /**
  * todo;
@@ -181,58 +174,4 @@ export function switch_to_desired_job(npc: XR_game_object): void {
   const smart = get_npc_smart(npc)!;
 
   smart.switch_to_desired_job(npc);
-}
-
-// todo: Move to db.
-const dynamic_ltx: LuaTable<string, XR_ini_file> = new LuaTable();
-
-/**
- * todo;
- * todo;
- */
-export function loadLtx(name: string): LuaMultiReturn<[Optional<XR_ini_file>, Optional<string>]> {
-  const h = "*" + name;
-  let dltx = dynamic_ltx.get(h);
-
-  if (dltx !== null) {
-    return $multi(dltx, h);
-  } else {
-    const ltxName: Optional<string> = get_global<AnyCallablesModule>("gulag_general").load_ltx(name);
-
-    if (ltxName !== null) {
-      dltx = create_ini_file(ltxName);
-      dynamic_ltx.set(h, dltx);
-
-      return $multi(dltx, h);
-    }
-
-    return $multi(null, null);
-  }
-}
-
-/**
- * todo;
- * todo;
- */
-export function job_in_restrictor(smart: ISmartTerrain, restrictorName: string, wayName: string): Optional<boolean> {
-  if (restrictorName === null) {
-    return null;
-  }
-
-  const restrictor: Optional<XR_game_object> = zoneByName.get(restrictorName);
-
-  if (restrictor === null) {
-    return null;
-  }
-
-  const ptrl: XR_patrol = new patrol(wayName);
-  const cnt: number = ptrl.count();
-
-  for (const pt of $range(0, cnt - 1)) {
-    if (!restrictor.inside(ptrl.point(pt))) {
-      return false;
-    }
-  }
-
-  return true;
 }

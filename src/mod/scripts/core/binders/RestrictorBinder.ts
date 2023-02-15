@@ -1,7 +1,7 @@
 import { object_binder, XR_cse_alife_object, XR_game_object, XR_net_packet, XR_object_binder, XR_reader } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { ESchemeType, TSection } from "@/mod/lib/types/configuration";
+import { ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { addObject, addZone, deleteObject, deleteZone, getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { initializeGameObject } from "@/mod/scripts/core/schemes/initializeGameObject";

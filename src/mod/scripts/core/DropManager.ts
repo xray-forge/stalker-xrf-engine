@@ -3,7 +3,7 @@ import { alife, ini_file, level, XR_EngineBinding, XR_game_object, XR_ini_file }
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { ammo, TAmmoItem } from "@/mod/globals/items/ammo";
 import { misc } from "@/mod/globals/items/misc";
-import { TSection } from "@/mod/lib/types/configuration";
+import { TSection } from "@/mod/lib/types";
 import { storage } from "@/mod/scripts/core/db";
 import { IStalker } from "@/mod/scripts/se/Stalker";
 import { getCharacterCommunity, setItemCondition } from "@/mod/scripts/utils/alife";

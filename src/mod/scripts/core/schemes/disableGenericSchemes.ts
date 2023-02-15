@@ -1,6 +1,6 @@
 import { XR_game_object } from "xray16";
 
-import { EScheme, ESchemeType } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType } from "@/mod/lib/types/scheme";
 import { ActionOnHit } from "@/mod/scripts/core/logic/ActionOnHit";
 import { ActionProcessHit } from "@/mod/scripts/core/logic/ActionProcessHit";
 import { ActionSchemeCombat } from "@/mod/scripts/core/logic/ActionSchemeCombat";

@@ -27,7 +27,7 @@ import {
 import { communities } from "@/mod/globals/communities";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
-import { ESchemeType } from "@/mod/lib/types/configuration";
+import { ESchemeType } from "@/mod/lib/types/scheme";
 import { ActionSchemeHear } from "@/mod/scripts/core/ActionSchemeHear";
 import {
   addEnemy,

@@ -19,7 +19,7 @@ declare module "xray16" {
   export function buy_condition(this: void, a: unknown, b: string): void;
   export function cast_planner(this: void, base_action: XR_action_base): XR_action_planner;
   export function command_line(this: void): string;
-  export function create_ini_file(this: void, name: string): XR_ini_file;
+  export function create_ini_file(this: void, content: string): XR_ini_file;
   export function game_ini(this: void): XR_ini_file;
   export function device(this: void): XR_render_device;
   export function dik_to_bind(this: void, keycode: i32): i32;

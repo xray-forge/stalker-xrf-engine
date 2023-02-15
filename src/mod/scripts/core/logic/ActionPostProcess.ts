@@ -1,6 +1,6 @@
 import { color, hit, noise, time_global, vector, XR_game_object, XR_ini_file, XR_noise } from "xray16";
 
-import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
 import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { IPPEffector, PPEffector } from "@/mod/scripts/core/post_processing/PPEffector";

@@ -1,7 +1,6 @@
 import { cse_alife_item_weapon_magazined_w_gl, XR_cse_alife_item_weapon_magazined_w_gl } from "xray16";
 
-import { Optional } from "@/mod/lib/types";
-import { TSection } from "@/mod/lib/types/configuration";
+import { Optional, TSection } from "@/mod/lib/types";
 import { REGISTERED_ITEMS } from "@/mod/scripts/core/db";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";

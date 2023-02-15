@@ -1,6 +1,6 @@
 import { cse_alife_helicopter, XR_cse_alife_helicopter } from "xray16";
 
-import { TSection } from "@/mod/lib/types/configuration";
+import { TSection } from "@/mod/lib/types";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

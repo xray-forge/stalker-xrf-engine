@@ -1,13 +1,13 @@
 import { anim, cond, MonsterSpace, sound, XR_cond, XR_game_object, XR_ini_file } from "xray16";
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
-import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
 import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { get_state, set_state } from "@/mod/scripts/core/logic/mob/MobStateManager";
 import { send_tip } from "@/mod/scripts/core/NewsManager";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
-import { mob_capture } from "@/mod/scripts/core/schemes/mob_capture";
+import { mobCapture } from "@/mod/scripts/core/schemes/mobCapture";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { action } from "@/mod/scripts/utils/alife";
 import {
@@ -68,7 +68,7 @@ export class ActionMobRemark extends AbstractSchemeImplementation {
 
     this.object.disable_talk();
 
-    mob_capture(this.object, !this.state.no_reset);
+    mobCapture(this.object, !this.state.no_reset);
 
     const anims = parseNames(this.state.anim);
 

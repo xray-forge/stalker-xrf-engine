@@ -12,7 +12,7 @@ import {
   XR_reader,
 } from "xray16";
 
-import { TSection } from "@/mod/lib/types/configuration";
+import { TSection } from "@/mod/lib/types";
 import { getActor, storage } from "@/mod/scripts/core/db";
 import { send_sound } from "@/mod/scripts/core/NewsManager";
 import { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";

@@ -11,8 +11,7 @@ import {
   XR_vector,
 } from "xray16";
 
-import { AnyCallable, AnyObject } from "@/mod/lib/types";
-import { TSection } from "@/mod/lib/types/configuration";
+import { AnyCallable, AnyObject, TSection } from "@/mod/lib/types";
 import { getActor, offlineObjects, zoneByName } from "@/mod/scripts/core/db";
 import { getStoryObjectsRegistry } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { simulation_activities } from "@/mod/scripts/se/SimActivity";

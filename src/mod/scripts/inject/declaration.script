@@ -65,8 +65,6 @@ get_story_object_id = utilsIds.getStoryObjectId
 npc_in_actor_frustrum = utilsPhysics.npcInActorFrustum
 distance_between = utilsPhysics.distanceBetween
 
-in_time_interval = utilsTime.isInTimeInterval
-
 IsMonster = coreCheckers.isMonster
 IsStalker = coreCheckers.isStalker
 isWeapon = coreCheckers.isWeapon

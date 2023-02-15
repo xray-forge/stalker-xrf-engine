@@ -1,7 +1,7 @@
 import { level, patrol, XR_CHelicopter, XR_game_object, XR_ini_file, XR_patrol, XR_vector } from "xray16";
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
-import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
 import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";

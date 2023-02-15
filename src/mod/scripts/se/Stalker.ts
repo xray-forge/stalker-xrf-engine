@@ -9,8 +9,7 @@ import {
 } from "xray16";
 
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
-import { Optional } from "@/mod/lib/types";
-import { TSection } from "@/mod/lib/types/configuration";
+import { Optional, TSection } from "@/mod/lib/types";
 import { offlineObjects } from "@/mod/scripts/core/db";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { get_sim_board } from "@/mod/scripts/se/SimBoard";

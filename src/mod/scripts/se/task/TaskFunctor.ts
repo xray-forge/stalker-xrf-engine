@@ -1,7 +1,6 @@
 import { game } from "xray16";
 
-import { Optional } from "@/mod/lib/types";
-import { TSection } from "@/mod/lib/types/configuration";
+import { Optional, TSection } from "@/mod/lib/types";
 import { actor_in_cover, get_task_target } from "@/mod/scripts/core/SurgeManager";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { getStoryObject } from "@/mod/scripts/utils/alife";

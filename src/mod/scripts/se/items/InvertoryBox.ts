@@ -1,7 +1,6 @@
 import { cse_alife_inventory_box, XR_cse_alife_inventory_box } from "xray16";
 
-import { Optional } from "@/mod/lib/types";
-import { TSection } from "@/mod/lib/types/configuration";
+import { Optional, TSection } from "@/mod/lib/types";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";

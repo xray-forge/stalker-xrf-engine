@@ -1,7 +1,6 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
-import { Maybe } from "@/mod/lib/types";
-import { TSection } from "@/mod/lib/types/configuration";
+import { Maybe, TSection } from "@/mod/lib/types";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import { activateBySection } from "@/mod/scripts/core/schemes/activateBySection";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";

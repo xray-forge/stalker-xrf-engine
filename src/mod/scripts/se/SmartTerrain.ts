@@ -22,15 +22,16 @@ import {
 
 import { MAX_UNSIGNED_16_BIT, MAX_UNSIGNED_8_BIT } from "@/mod/globals/memory";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
-import { AnyCallable, AnyObject, Optional } from "@/mod/lib/types";
-import { ESchemeType, TSection } from "@/mod/lib/types/configuration";
+import { AnyCallable, AnyObject, ESchemeType, Optional, TSection } from "@/mod/lib/types";
 import {
   turn_off_campfires_by_smart_name,
   turn_on_campfires_by_smart_name,
 } from "@/mod/scripts/core/binders/CampfireBinder";
 import { getActor, IStoredObject, offlineObjects, storage } from "@/mod/scripts/core/db";
+import { loadDynamicLtx } from "@/mod/scripts/core/db/IniFiles";
 import { SMART_TERRAIN_SECT } from "@/mod/scripts/core/db/sections";
 import { get_smart_terrain_name } from "@/mod/scripts/core/db/smart_names";
+import { loadGulagJobs } from "@/mod/scripts/core/gulag/gulag_general";
 import { activateBySection } from "@/mod/scripts/core/schemes/activateBySection";
 import { configureSchemes } from "@/mod/scripts/core/schemes/configureSchemes";
 import { determine_section_to_activate } from "@/mod/scripts/core/schemes/determine_section_to_activate";
@@ -56,7 +57,6 @@ import {
 } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
-import { loadLtx } from "@/mod/scripts/utils/gulag";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
 
@@ -469,12 +469,12 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
   load_jobs(): void {
     logger.info("Load jobs:", this.name());
 
-    this.jobs = (get_global("gulag_general").load_job as AnyCallable)(this);
+    const [jobs, ltxContent] = loadGulagJobs(this);
+    const [ltx, ltx_name] = loadDynamicLtx(this.name(), ltxContent);
 
-    const [ltx, ltx_name] = loadLtx(this.name());
-
-    this.ltx = ltx!;
-    this.ltx_name = ltx_name!;
+    this.jobs = jobs;
+    this.ltx = ltx;
+    this.ltx_name = ltx_name;
 
     const sort_jobs = (jobs: LuaTable<string>) => {
       for (const [k, v] of jobs) {

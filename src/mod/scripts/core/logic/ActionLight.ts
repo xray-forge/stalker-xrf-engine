@@ -2,7 +2,7 @@ import { level, XR_game_object, XR_ini_file } from "xray16";
 
 import { misc } from "@/mod/globals/items/misc";
 import { Optional } from "@/mod/lib/types";
-import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { getActor, IStoredObject, light_zones, storage } from "@/mod/scripts/core/db";
 import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";

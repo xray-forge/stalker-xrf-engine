@@ -15,7 +15,7 @@ import {
 import { communities } from "@/mod/globals/communities";
 import { MAX_UNSIGNED_32_BIT } from "@/mod/globals/memory";
 import { Optional } from "@/mod/lib/types";
-import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { campfire_table, IStoredObject, kamp_stalkers, kamps } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";

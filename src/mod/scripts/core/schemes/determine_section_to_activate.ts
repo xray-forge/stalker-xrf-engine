@@ -1,6 +1,6 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
-import { TSection } from "@/mod/lib/types/configuration";
+import { TSection } from "@/mod/lib/types/scheme";
 import { offlineObjects } from "@/mod/scripts/core/db";
 import { getConfigCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";

@@ -11,7 +11,7 @@ import {
 
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { AnyObject, Optional } from "@/mod/lib/types";
-import { EScheme, ESchemeType, TScheme, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";

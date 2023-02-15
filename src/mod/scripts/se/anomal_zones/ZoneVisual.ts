@@ -1,7 +1,6 @@
 import { cse_zone_visual, editor, game, system_ini, XR_cse_zone_visual, XR_CTime, XR_net_packet } from "xray16";
 
-import { Optional } from "@/mod/lib/types";
-import { TSection } from "@/mod/lib/types/configuration";
+import { Optional, TSection } from "@/mod/lib/types";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { getConfigNumber } from "@/mod/scripts/utils/configs";
 import { isSinglePlayerGame } from "@/mod/scripts/utils/general";

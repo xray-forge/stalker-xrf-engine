@@ -1,7 +1,7 @@
 import { device } from "xray16";
 
 import { AnyCallablesModule } from "@/mod/lib/types";
-import { EScheme } from "@/mod/lib/types/configuration";
+import { EScheme } from "@/mod/lib/types/scheme";
 import { init_smart_names_table } from "@/mod/scripts/core/db/smart_names";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { ActorInventoryMenuManager } from "@/mod/scripts/core/managers/ActorInventoryMenuManager";

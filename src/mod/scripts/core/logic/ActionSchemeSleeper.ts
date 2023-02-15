@@ -1,7 +1,7 @@
 import { stalker_ids, world_property, XR_game_object, XR_ini_file } from "xray16";
 
 import { AnyObject } from "@/mod/lib/types";
-import { EScheme, ESchemeType, TScheme, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
@@ -14,16 +14,16 @@ import { cfg_get_switch_conditions, getConfigBoolean, getConfigString } from "@/
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { addCommonPrecondition } from "@/mod/scripts/utils/scheme";
 
-const logger: LuaLogger = new LuaLogger("ActionSleeper");
+const logger: LuaLogger = new LuaLogger("ActionSchemeSleeper");
 
-export class ActionSleeper extends AbstractSchemeImplementation {
+export class ActionSchemeSleeper extends AbstractSchemeImplementation {
   public static readonly SCHEME_SECTION: EScheme = EScheme.SLEEPER;
   public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   public static add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: TScheme,
+    scheme: EScheme,
     section: TSection,
     state: IStoredObject
   ): void {
@@ -47,6 +47,7 @@ export class ActionSleeper extends AbstractSchemeImplementation {
 
     const action = create_xr_class_instance(
       ActionSleeperActivity,
+      object,
       ActionSleeperActivity.__name,
       storage.get(object.id()).sleeper
     );

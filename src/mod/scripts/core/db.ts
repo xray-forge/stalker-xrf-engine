@@ -9,8 +9,7 @@ import {
   XR_vector,
 } from "xray16";
 
-import type { AnyCallable, AnyObject, Optional } from "@/mod/lib/types";
-import type { ESchemeType, TScheme, TSection } from "@/mod/lib/types/configuration";
+import type { AnyCallable, AnyObject, EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
 import type { ISignalLightBinder } from "@/mod/scripts/core/binders/SignalLightBinder";
 import type { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import type { ActionLight } from "@/mod/scripts/core/logic/ActionLight";
@@ -97,7 +96,7 @@ export interface IStoredObject<T = XR_game_object> {
   hit?: any;
   timeout?: number;
   smartcover?: any;
-  active_scheme?: Optional<TScheme>;
+  active_scheme?: Optional<EScheme>;
   active_section?: Optional<TSection>;
   combat_ignore?: AnyObject;
   section_logic?: string;

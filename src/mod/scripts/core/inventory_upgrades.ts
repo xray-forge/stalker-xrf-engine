@@ -1,7 +1,7 @@
 import { game, ini_file, system_ini, XR_game_object, XR_ini_file } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { TSection } from "@/mod/lib/types/configuration";
+import { TSection } from "@/mod/lib/types/scheme";
 import { getActor } from "@/mod/scripts/core/db";
 import { parseCondList, parseNames, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

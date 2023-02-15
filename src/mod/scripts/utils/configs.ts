@@ -11,8 +11,7 @@ import {
   XR_patrol,
 } from "xray16";
 
-import { AnyArgs, AnyCallablesModule, AnyObject, Optional } from "@/mod/lib/types";
-import { EScheme, TScheme, TSection } from "@/mod/lib/types/configuration";
+import { AnyArgs, AnyCallablesModule, AnyObject, EScheme, Optional, TSection } from "@/mod/lib/types";
 import { getActor, scriptIds, storage } from "@/mod/scripts/core/db";
 import { disableInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -772,7 +771,7 @@ export function path_parse_waypoints_from_arglist(pathname: string, num_points: 
   const result: LuaTable<number, IWaypointData> = new LuaTable();
 
   for (const point of $range(0, count - 1)) {
-    const cur_arg = args[point + 1];
+    const cur_arg = args[point];
 
     if (!cur_arg) {
       abort("script error [1] while processing point %d of path '%s'", point, pathname);

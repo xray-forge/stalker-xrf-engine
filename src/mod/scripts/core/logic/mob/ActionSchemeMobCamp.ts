@@ -12,15 +12,14 @@ import {
   XR_vector,
 } from "xray16";
 
-import { Optional } from "@/mod/lib/types";
-import { EScheme, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, Optional, TSection } from "@/mod/lib/types";
 import { campStorage, getActor, IStoredObject } from "@/mod/scripts/core/db";
 import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { ActionMobCombat } from "@/mod/scripts/core/logic/mob/ActionMobCombat";
 import { get_state, set_state } from "@/mod/scripts/core/logic/mob/MobStateManager";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
-import { mob_capture } from "@/mod/scripts/core/schemes/mob_capture";
-import { mob_release } from "@/mod/scripts/core/schemes/mob_release";
+import { mobCapture } from "@/mod/scripts/core/schemes/mobCapture";
+import { mobRelease } from "@/mod/scripts/core/schemes/mobRelease";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { action } from "@/mod/scripts/utils/alife";
@@ -33,9 +32,10 @@ const STATE_CAMP: number = 1;
 const STATE_ALIFE: number = 2;
 const STATE_MOVE_HOME: number = 3;
 
-const logger: LuaLogger = new LuaLogger("MobCamp");
+const logger: LuaLogger = new LuaLogger("ActionSchemeMobCamp");
 
-export class ActionMobCamp extends AbstractSchemeImplementation {
+// todo: Probably not used.
+export class ActionSchemeMobCamp extends AbstractSchemeImplementation {
   public static add_to_binder(
     npc: XR_game_object,
     ini: XR_ini_file,
@@ -92,7 +92,7 @@ export class ActionMobCamp extends AbstractSchemeImplementation {
   public prev_enemy!: boolean;
 
   public reset_scheme(): void {
-    mob_capture(this.object, true);
+    mobCapture(this.object, true, ActionSchemeMobCamp.name);
 
     set_state(this.object, getActor()!, this.state.state);
 
@@ -145,7 +145,7 @@ export class ActionMobCamp extends AbstractSchemeImplementation {
     }
 
     if (!this.object.alive()) {
-      mob_release(this.object);
+      mobRelease(this.object, ActionSchemeMobCamp.name);
 
       return;
     }
@@ -284,13 +284,13 @@ export class ActionMobCamp extends AbstractSchemeImplementation {
     }
 
     if (this.state_current === STATE_ALIFE && this.state_prev !== STATE_ALIFE) {
-      mob_release(this.object);
+      mobRelease(this.object, ActionSchemeMobCamp.name);
 
       return;
     }
 
     if (this.state_current !== STATE_ALIFE && this.state_prev === STATE_ALIFE) {
-      mob_capture(this.object, true);
+      mobCapture(this.object, true, ActionSchemeMobCamp.name);
     }
 
     if (this.state_current === STATE_CAMP) {

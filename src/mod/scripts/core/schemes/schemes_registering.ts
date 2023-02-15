@@ -1,4 +1,4 @@
-import { EScheme, ESchemeType } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType } from "@/mod/lib/types/scheme";
 import { ActionSchemeHear } from "@/mod/scripts/core/ActionSchemeHear";
 import { schemes } from "@/mod/scripts/core/db";
 import { TAbstractSchemeConstructor } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
@@ -15,8 +15,6 @@ import { ActionDoor } from "@/mod/scripts/core/logic/ActionDoor";
 import { ActionGatherItems } from "@/mod/scripts/core/logic/ActionGatherItems";
 import { ActionHit } from "@/mod/scripts/core/logic/ActionHit";
 import { ActionLight } from "@/mod/scripts/core/logic/ActionLight";
-import { ActionMiniGun } from "@/mod/scripts/core/logic/ActionMiniGun";
-import { ActionMonster } from "@/mod/scripts/core/logic/ActionMonster";
 import { ActionNoWeapon } from "@/mod/scripts/core/logic/ActionNoWeapon";
 import { ActionOnDeath } from "@/mod/scripts/core/logic/ActionOnDeath";
 import { ActionOnHit } from "@/mod/scripts/core/logic/ActionOnHit";
@@ -36,12 +34,14 @@ import { ActionSchemeCompanion } from "@/mod/scripts/core/logic/ActionSchemeComp
 import { ActionSchemeHelpWounded } from "@/mod/scripts/core/logic/ActionSchemeHelpWounded";
 import { ActionSchemeIdle } from "@/mod/scripts/core/logic/ActionSchemeIdle";
 import { ActionSchemeMeet } from "@/mod/scripts/core/logic/ActionSchemeMeet";
+import { ActionSchemeMiniGun } from "@/mod/scripts/core/logic/ActionSchemeMiniGun";
+import { ActionSchemeMonster } from "@/mod/scripts/core/logic/ActionSchemeMonster";
 import { ActionSchemePatrol } from "@/mod/scripts/core/logic/ActionSchemePatrol";
 import { ActionSchemeReachTask } from "@/mod/scripts/core/logic/ActionSchemeReachTask";
 import { ActionSchemeRemark } from "@/mod/scripts/core/logic/ActionSchemeRemark";
+import { ActionSchemeSleeper } from "@/mod/scripts/core/logic/ActionSchemeSleeper";
 import { ActionSchemeSmartCover } from "@/mod/scripts/core/logic/ActionSchemeSmartCover";
 import { ActionSilence } from "@/mod/scripts/core/logic/ActionSilence";
-import { ActionSleeper } from "@/mod/scripts/core/logic/ActionSleeper";
 import { ActionTeleport } from "@/mod/scripts/core/logic/ActionTeleport";
 import { ActionTimer } from "@/mod/scripts/core/logic/ActionTimer";
 import { ActionWalker } from "@/mod/scripts/core/logic/ActionWalker";
@@ -50,9 +50,9 @@ import { ActionHeliMove } from "@/mod/scripts/core/logic/heli/ActionHeliMove";
 import { ActionMobCombat } from "@/mod/scripts/core/logic/mob/ActionMobCombat";
 import { ActionMobDeath } from "@/mod/scripts/core/logic/mob/ActionMobDeath";
 import { ActionMobHome } from "@/mod/scripts/core/logic/mob/ActionMobHome";
-import { ActionMobJump } from "@/mod/scripts/core/logic/mob/ActionMobJump";
 import { ActionMobRemark } from "@/mod/scripts/core/logic/mob/ActionMobRemark";
 import { ActionMobWalker } from "@/mod/scripts/core/logic/mob/ActionMobWalker";
+import { ActionSchemeMobJump } from "@/mod/scripts/core/logic/mob/ActionSchemeMobJump";
 import { ActionCutscene } from "@/mod/scripts/cutscenes/ActionCustscene";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -111,7 +111,7 @@ export function initializeModules(): void {
     ActionSchemeReachTask,
     ActionSchemeRemark,
     ActionSchemeSmartCover,
-    ActionSleeper,
+    ActionSchemeSleeper,
     ActionWalker,
     ActionWoundManager,
   ]);
@@ -124,7 +124,7 @@ export function initializeModules(): void {
     ActionMobCombat,
     ActionMobDeath,
     ActionMobHome,
-    ActionMobJump,
+    ActionSchemeMobJump,
     ActionMobRemark,
     ActionMobWalker,
   ]);
@@ -136,7 +136,7 @@ export function initializeModules(): void {
     ActionDoor,
     ActionHeliMove,
     ActionHit,
-    ActionMiniGun,
+    ActionSchemeMiniGun,
     ActionOnDeath,
     ActionOnHit,
     ActionOscillate,
@@ -150,7 +150,7 @@ export function initializeModules(): void {
     ActionDeimos,
     ActionSchemeIdle,
     ActionLight,
-    ActionMonster,
+    ActionSchemeMonster,
     ActionNoWeapon,
     ActionParticle,
     ActionPostProcess,

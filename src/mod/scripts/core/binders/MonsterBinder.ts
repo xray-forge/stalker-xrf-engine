@@ -22,8 +22,7 @@ import {
 } from "xray16";
 
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
-import { Optional } from "@/mod/lib/types";
-import { ESchemeType, TScheme } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, Optional } from "@/mod/lib/types";
 import { ActionSchemeHear } from "@/mod/scripts/core/ActionSchemeHear";
 import {
   addObject,
@@ -38,9 +37,9 @@ import {
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
-import { mob_capture } from "@/mod/scripts/core/schemes/mob_capture";
-import { mob_captured } from "@/mod/scripts/core/schemes/mob_captured";
-import { mob_release } from "@/mod/scripts/core/schemes/mob_release";
+import { mobCapture } from "@/mod/scripts/core/schemes/mobCapture";
+import { mobCaptured } from "@/mod/scripts/core/schemes/mobCaptured";
+import { mobRelease } from "@/mod/scripts/core/schemes/mobRelease";
 import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { get_sim_obj_registry } from "@/mod/scripts/se/SimObjectsRegistry";
@@ -51,7 +50,6 @@ import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const last_update = 0;
 const logger: LuaLogger = new LuaLogger("MonsterBinder");
 
 export interface IMonsterBinder extends XR_object_binder {
@@ -161,8 +159,8 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     }
 
     if (this.object.get_enemy()) {
-      if (mob_captured(this.object)) {
-        mob_release(this.object);
+      if (mobCaptured(this.object)) {
+        mobRelease(this.object, MonsterBinder.__name);
       }
 
       return;
@@ -177,7 +175,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
 
       const [target_pos, target_lv_id, target_gv_id] = squad_target.get_location();
 
-      mob_capture(this.object, true);
+      mobCapture(this.object, true, MonsterBinder.__name);
 
       if (squad.commander_id() === this.object.id()) {
         action(this.object, new move(move.walk_with_leader, target_pos), new cond(cond.move_end));
@@ -335,7 +333,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     }
 
     if (this.st.active_section) {
-      issueEvent(this.object, this.st[this.st.active_scheme as TScheme], "death_callback", victim, killer);
+      issueEvent(this.object, this.st[this.st.active_scheme as EScheme], "death_callback", victim, killer);
     }
 
     const h: XR_hit = new hit();

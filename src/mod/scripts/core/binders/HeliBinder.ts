@@ -16,8 +16,7 @@ import {
   XR_vector,
 } from "xray16";
 
-import { Optional } from "@/mod/lib/types";
-import { ESchemeType } from "@/mod/lib/types/configuration";
+import { ESchemeType, Optional } from "@/mod/lib/types";
 import { addHeli, addObject, deleteHeli, deleteObject, getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { get_heli_health } from "@/mod/scripts/core/logic/heli/heli_utils";

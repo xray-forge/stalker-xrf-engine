@@ -15,15 +15,14 @@ import {
   XR_patrol,
 } from "xray16";
 
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
-import { EScheme, ESchemeType, TScheme, TSection } from "@/mod/lib/types/configuration";
+import { AnyCallablesModule, EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { get_state, set_state } from "@/mod/scripts/core/logic/mob/MobStateManager";
 import { MoveManager } from "@/mod/scripts/core/MoveManager";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
-import { mob_capture } from "@/mod/scripts/core/schemes/mob_capture";
-import { mob_captured } from "@/mod/scripts/core/schemes/mob_captured";
+import { mobCapture } from "@/mod/scripts/core/schemes/mobCapture";
+import { mobCaptured } from "@/mod/scripts/core/schemes/mobCaptured";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { action } from "@/mod/scripts/utils/alife";
 import {
@@ -104,7 +103,7 @@ export class ActionMobWalker extends AbstractSchemeImplementation {
     set_state(this.object, getActor()!, this.state.state);
 
     this.state.signals = {};
-    mob_capture(this.object, true);
+    mobCapture(this.object, true);
 
     this.patrol_walk = new patrol(this.state.path_walk);
 
@@ -148,7 +147,7 @@ export class ActionMobWalker extends AbstractSchemeImplementation {
   }
 
   public update(): void {
-    if (!mob_captured(this.object)) {
+    if (!mobCaptured(this.object)) {
       this.reset_scheme();
 
       return;
@@ -208,7 +207,7 @@ export class ActionMobWalker extends AbstractSchemeImplementation {
     if (sig !== null) {
       // -- HACK, fixme:
       const npc_id = this.object.id();
-      const scheme: TScheme = storage.get(npc_id)["active_scheme"]!;
+      const scheme: EScheme = storage.get(npc_id)["active_scheme"]!;
       const signals: LuaTable = storage.get(npc_id)[scheme!].signals;
 
       signals.set(sig, true);
@@ -282,7 +281,7 @@ export class ActionMobWalker extends AbstractSchemeImplementation {
   }
 
   public update_movement_state(): void {
-    mob_capture(this.object, true);
+    mobCapture(this.object, true);
 
     let m;
 
@@ -312,7 +311,7 @@ export class ActionMobWalker extends AbstractSchemeImplementation {
   }
 
   public update_standing_state(): void {
-    mob_capture(this.object, true);
+    mobCapture(this.object, true);
 
     if (this.scheduled_snd) {
       action(
@@ -328,7 +327,7 @@ export class ActionMobWalker extends AbstractSchemeImplementation {
   }
 
   public deactivate(): void {
-    mob_capture(this.object, true);
+    mobCapture(this.object, true);
     action(this.object, new move(move.steal, this.patrol_walk!.point(0)), new cond(cond.move_end));
   }
 
@@ -342,7 +341,7 @@ export class ActionMobWalker extends AbstractSchemeImplementation {
     look_pt.normalize();
     // --this.object:set_sight(look.direction, look_pt, 0)
 
-    mob_capture(this.object, true);
+    mobCapture(this.object, true);
     action(this.object, new look(look.direction, look_pt), new cond(cond.look_end));
 
     this.last_look_index = pt;

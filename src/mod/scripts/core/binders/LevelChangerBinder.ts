@@ -9,7 +9,7 @@ import {
   XR_reader,
 } from "xray16";
 
-import { TSection } from "@/mod/lib/types/configuration";
+import { TSection } from "@/mod/lib/types/scheme";
 import { addObject, deleteObject, storage } from "@/mod/scripts/core/db";
 import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
 import { ILevelChanger } from "@/mod/scripts/se/LevelChanger";

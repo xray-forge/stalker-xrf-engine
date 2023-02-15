@@ -2,7 +2,7 @@ import { stalker_ids, world_property, XR_action_base, XR_game_object, XR_ini_fil
 
 import { communities } from "@/mod/globals/communities";
 import { AnyObject, Optional } from "@/mod/lib/types";
-import { EScheme, ESchemeType, TScheme, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
 import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";

@@ -26,8 +26,7 @@ import {
 } from "@/mod/globals/items/lootable_table";
 import { levels, TLevel } from "@/mod/globals/levels";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
-import { Maybe, Optional } from "@/mod/lib/types";
-import { TSection } from "@/mod/lib/types/configuration";
+import { Maybe, Optional, TSection } from "@/mod/lib/types";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";

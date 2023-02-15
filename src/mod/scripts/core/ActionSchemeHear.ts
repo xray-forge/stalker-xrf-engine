@@ -1,7 +1,7 @@
 import { TXR_snd_type, XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
 import { ESoundType } from "@/mod/globals/sound/sound_type";
-import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { switchToSection } from "@/mod/scripts/core/schemes/switchToSection";

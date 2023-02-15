@@ -14,7 +14,7 @@ import {
 import { communities } from "@/mod/globals/communities";
 import { logicsConfig } from "@/mod/lib/configs/LogicsConfig";
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
-import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { ActionProcessEnemy } from "@/mod/scripts/core/logic/actions/ActionProcessEnemy";

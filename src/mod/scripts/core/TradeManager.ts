@@ -1,8 +1,7 @@
 // todo: Move to db
 import { ini_file, time_global, XR_game_object, XR_net_packet, XR_reader } from "xray16";
 
-import { AnyCallablesModule } from "@/mod/lib/types";
-import { TSection } from "@/mod/lib/types/configuration";
+import { TSection } from "@/mod/lib/types";
 import { getActor, ITradeManagerDescriptor, tradeState } from "@/mod/scripts/core/db";
 import { getConfigNumber, getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";

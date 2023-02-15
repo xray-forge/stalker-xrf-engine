@@ -1,9 +1,9 @@
 import { callback, clsid, XR_game_object } from "xray16";
 
-import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import { RestrictorManager } from "@/mod/scripts/core/RestrictorManager";
-import { mob_release } from "@/mod/scripts/core/schemes/mob_release";
+import { mobRelease } from "@/mod/scripts/core/schemes/mobRelease";
 import { resetScheme } from "@/mod/scripts/core/schemes/schemes_resetting";
 import { mapDisplayManager } from "@/mod/scripts/ui/game/MapDisplayManager";
 import {
@@ -22,11 +22,11 @@ import { getClsId } from "@/mod/scripts/utils/ids";
  * todo;
  */
 export function resetGenericSchemesOnSchemeSwitch(
-  npc: XR_game_object,
+  object: XR_game_object,
   schemeToSwitch: EScheme,
   section: TSection
 ): void {
-  const state: IStoredObject = storage.get(npc.id());
+  const state: IStoredObject = storage.get(object.id());
 
   state.exit_from_smartcover_initialized = null;
 
@@ -36,52 +36,52 @@ export function resetGenericSchemesOnSchemeSwitch(
 
   switch (state.stype) {
     case ESchemeType.STALKER: {
-      resetScheme(EScheme.MEET, npc, schemeToSwitch, state, section);
-      resetScheme(EScheme.HELP_WOUNDED, npc, schemeToSwitch, state, section);
-      resetScheme(EScheme.CORPSE_DETECTION, npc, schemeToSwitch, state, section);
-      resetScheme(EScheme.ABUSE, npc, schemeToSwitch, state, section);
-      resetScheme(EScheme.WOUNDED, npc, schemeToSwitch, state, section);
-      resetScheme(EScheme.DEATH, npc, schemeToSwitch, state, section);
-      resetScheme(EScheme.DANGER, npc, schemeToSwitch, state, section);
-      resetScheme(EScheme.GATHER_ITEMS, npc, schemeToSwitch, state, section);
-      resetScheme(EScheme.COMBAT_IGNORE, npc, schemeToSwitch, state, section);
-      resetScheme(EScheme.HEAR, npc, schemeToSwitch, state, section);
+      resetScheme(EScheme.MEET, object, schemeToSwitch, state, section);
+      resetScheme(EScheme.HELP_WOUNDED, object, schemeToSwitch, state, section);
+      resetScheme(EScheme.CORPSE_DETECTION, object, schemeToSwitch, state, section);
+      resetScheme(EScheme.ABUSE, object, schemeToSwitch, state, section);
+      resetScheme(EScheme.WOUNDED, object, schemeToSwitch, state, section);
+      resetScheme(EScheme.DEATH, object, schemeToSwitch, state, section);
+      resetScheme(EScheme.DANGER, object, schemeToSwitch, state, section);
+      resetScheme(EScheme.GATHER_ITEMS, object, schemeToSwitch, state, section);
+      resetScheme(EScheme.COMBAT_IGNORE, object, schemeToSwitch, state, section);
+      resetScheme(EScheme.HEAR, object, schemeToSwitch, state, section);
 
-      mapDisplayManager.updateNpcSpot(npc, schemeToSwitch, state, section);
-      reset_threshold(npc, schemeToSwitch, state, section);
-      reset_invulnerability(npc, state.ini!, section);
-      reset_group(npc, state.ini!, section);
-      take_items_enabled(npc, schemeToSwitch, state, section);
-      can_select_weapon(npc, schemeToSwitch, state, section);
-      RestrictorManager.forNpc(npc).reset_restrictions(state, section);
+      mapDisplayManager.updateNpcSpot(object, schemeToSwitch, state, section);
+      reset_threshold(object, schemeToSwitch, state, section);
+      reset_invulnerability(object, state.ini!, section);
+      reset_group(object, state.ini!, section);
+      take_items_enabled(object, schemeToSwitch, state, section);
+      can_select_weapon(object, schemeToSwitch, state, section);
+      RestrictorManager.forNpc(object).reset_restrictions(state, section);
 
       return;
     }
 
     case ESchemeType.MONSTER: {
-      mob_release(npc);
-      if (getClsId(npc) === clsid.bloodsucker_s) {
+      mobRelease(object, ""); // ???
+      if (getClsId(object) === clsid.bloodsucker_s) {
         if (schemeToSwitch === EScheme.NIL) {
-          npc.set_manual_invisibility(false);
+          object.set_manual_invisibility(false);
         } else {
-          npc.set_manual_invisibility(true);
+          object.set_manual_invisibility(true);
         }
       }
 
-      resetScheme(EScheme.COMBAT_IGNORE, npc, schemeToSwitch, state, section);
-      resetScheme(EScheme.HEAR, npc, schemeToSwitch, state, section);
-      reset_invulnerability(npc, state.ini!, section);
-      RestrictorManager.forNpc(npc).reset_restrictions(state, section);
+      resetScheme(EScheme.COMBAT_IGNORE, object, schemeToSwitch, state, section);
+      resetScheme(EScheme.HEAR, object, schemeToSwitch, state, section);
+      reset_invulnerability(object, state.ini!, section);
+      RestrictorManager.forNpc(object).reset_restrictions(state, section);
 
       return;
     }
 
     case ESchemeType.ITEM: {
-      npc.set_callback(callback.use_object, null);
-      npc.set_nonscript_usable(true);
-      if (getClsId(npc) === clsid.car) {
-        (npc as any).destroy_car();
-        mob_release(npc);
+      object.set_callback(callback.use_object, null);
+      object.set_nonscript_usable(true);
+      if (getClsId(object) === clsid.car) {
+        (object as any).destroy_car();
+        mobRelease(object, "");
       }
 
       return;

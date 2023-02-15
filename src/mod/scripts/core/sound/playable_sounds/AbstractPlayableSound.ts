@@ -1,7 +1,7 @@
 import { XR_ini_file, XR_net_packet, XR_reader, XR_sound_object } from "xray16";
 
 import { AnyArgs, Optional } from "@/mod/lib/types";
-import { TSection } from "@/mod/lib/types/configuration";
+import { TSection } from "@/mod/lib/types/scheme";
 import { getConfigString } from "@/mod/scripts/utils/configs";
 
 export abstract class AbstractPlayableSound {

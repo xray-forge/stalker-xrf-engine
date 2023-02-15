@@ -13,8 +13,7 @@ import {
   XR_vector,
 } from "xray16";
 
-import { Optional } from "@/mod/lib/types";
-import { ESchemeType } from "@/mod/lib/types/configuration";
+import { ESchemeType, Optional } from "@/mod/lib/types";
 import { addObject, deleteObject, getActor, IStoredObject, levelDoors, storage } from "@/mod/scripts/core/db";
 import { ItemBox } from "@/mod/scripts/core/ItemBox";
 import { ActionOnHit } from "@/mod/scripts/core/logic/ActionOnHit";

@@ -1056,7 +1056,7 @@ declare module "xray16" {
     public position(): XR_vector;
     public register_in_combat(): void;
     public safe_cover(vector: XR_vector, value1: f32, value2: f32): XR_cover_point;
-    public script(value1: boolean, script_name: string): void;
+    public script(script_control: boolean, script_name: string): void;
     public set_desired_direction(): void;
     public set_desired_direction(vector: XR_vector): void;
     public set_manual_invisibility(value: boolean): void;

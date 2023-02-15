@@ -1,7 +1,7 @@
 import { game, level, time_global, XR_game_object } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { ESchemeCondition } from "@/mod/lib/types/configuration";
+import { ESchemeCondition } from "@/mod/lib/types/scheme";
 import { stringifyAsJson } from "@/mod/lib/utils/json";
 import { IStoredObject, storage, zoneByName } from "@/mod/scripts/core/db";
 import { switchToSection } from "@/mod/scripts/core/schemes/switchToSection";
@@ -47,8 +47,6 @@ export function trySwitchToAnotherSection(
   // todo: Use switch case.
   // todo: Examples: on_info5 on_actor_inside on_info2
   for (const [n, cond] of logic) {
-    logger.info("GG", cond.name);
-
     if (isSchemeCondition(cond.name, ESchemeCondition.ACTOR_DISTANCE_LESS_THAN)) {
       if (isSeeingActor(object) && getDistanceBetween(actor, object) <= cond.v1) {
         switched = switchToSection(object, state.ini!, pickSectionFromCondList(actor, object, cond.condlist)!);

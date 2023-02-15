@@ -1,6 +1,6 @@
 import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
-import { EScheme, ESchemeType, TScheme, TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
@@ -21,7 +21,7 @@ export class ActionSchemeCombatZombied extends AbstractSchemeImplementation {
   public static add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: TScheme,
+    scheme: EScheme,
     section: TSection,
     state: IStoredObject,
     planner?: XR_action_planner
