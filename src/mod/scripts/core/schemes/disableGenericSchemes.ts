@@ -12,33 +12,33 @@ import { disable_invulnerability } from "@/mod/scripts/utils/alife";
 /**
  * todo;
  * todo;
- * todo;
+ * todo; Use shared generic to disable schemes by type.
  */
-export function disable_generic_schemes(npc: XR_game_object, stype: ESchemeType): void {
-  switch (stype) {
+export function disableGenericSchemes(object: XR_game_object, schemeType: ESchemeType): void {
+  switch (schemeType) {
     case ESchemeType.STALKER:
-      ActionSchemeCombat.disable_scheme(npc, EScheme.COMBAT);
-      ActionProcessHit.disable_scheme(npc, ActionProcessHit.SCHEME_SECTION);
-      ActionSchemeMeet.disable_scheme(npc, EScheme.ACTOR_DIALOGS);
-      ActionSchemeCombatIgnore.disable_scheme(npc, EScheme.COMBAT_IGNORE);
-      disable_invulnerability(npc);
+      ActionSchemeCombat.disable_scheme(object, EScheme.COMBAT);
+      ActionProcessHit.disable_scheme(object, ActionProcessHit.SCHEME_SECTION);
+      ActionSchemeMeet.disable_scheme(object, EScheme.ACTOR_DIALOGS);
+      ActionSchemeCombatIgnore.disable_scheme(object, EScheme.COMBAT_IGNORE);
+      disable_invulnerability(object);
 
       return;
 
     case ESchemeType.MONSTER:
-      ActionMobCombat.disable_scheme(npc, EScheme.MOB_COMBAT);
-      ActionSchemeCombatIgnore.disable_scheme(npc, EScheme.COMBAT_IGNORE);
-      disable_invulnerability(npc);
+      ActionMobCombat.disable_scheme(object, EScheme.MOB_COMBAT);
+      ActionSchemeCombatIgnore.disable_scheme(object, EScheme.COMBAT_IGNORE);
+      disable_invulnerability(object);
 
       return;
 
     case ESchemeType.ITEM:
-      ActionOnHit.disable_scheme(npc, ActionOnHit.SCHEME_SECTION);
+      ActionOnHit.disable_scheme(object, ActionOnHit.SCHEME_SECTION);
 
       return;
 
     case ESchemeType.HELI:
-      ActionProcessHit.disable_scheme(npc, ActionProcessHit.SCHEME_SECTION);
+      ActionProcessHit.disable_scheme(object, ActionProcessHit.SCHEME_SECTION);
 
       return;
   }
