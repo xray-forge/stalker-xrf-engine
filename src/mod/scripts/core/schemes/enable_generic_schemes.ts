@@ -85,7 +85,7 @@ export function enable_generic_schemes(
       return;
     }
 
-    case ESchemeType.MOBILE: {
+    case ESchemeType.MONSTER: {
       const combat_section: Optional<string> = getConfigString(ini, section, "on_combat", npc, false, "");
 
       if (combat_section !== null) {

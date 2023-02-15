@@ -60,7 +60,7 @@ export function configureSchemes(
 
       return configureSchemes(npc, actual_ini, actual_ini_filename, stype, section_logic, gulag_name);
     } else {
-      if (stype === ESchemeType.STALKER || stype === ESchemeType.MOBILE) {
+      if (stype === ESchemeType.STALKER || stype === ESchemeType.MONSTER) {
         const current_smart = get_npc_smart(npc);
 
         if (current_smart !== null) {

@@ -70,7 +70,7 @@ Intention is to create template without introducing breaking changes to the orig
 - [build](cli/build/README.md) - build project gamedata with all assets
 - [build:clean](cli/build/README.md) - same as build, but with `--clean` flag
 - [build:scripts](cli/build/README.md) - build scripts only
-- [watch:scripts](cli/build/README.md) - build scripts in watch mode, recompile on changes [todo: fix extensions]
+- [watch:scripts](cli/build/README.md) - build scripts in watch mode, recompile on changes
 - `format` - reformat TS code and lint it
 - `lint` - lint TS code with eslint utils
 

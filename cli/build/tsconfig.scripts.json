@@ -13,6 +13,7 @@
   ],
   "tstl": {
     "buildMode": "default",
+    "extension": ".script",
     "luaTarget": "JIT",
     "noImplicitGlobalVariables": true,
     "noImplicitSelf": true,

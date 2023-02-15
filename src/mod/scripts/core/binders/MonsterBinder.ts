@@ -24,6 +24,7 @@ import {
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { Optional } from "@/mod/lib/types";
 import { ESchemeType, TScheme } from "@/mod/lib/types/configuration";
+import { ActionSchemeHear } from "@/mod/scripts/core/ActionSchemeHear";
 import {
   addObject,
   deleteObject,
@@ -34,7 +35,6 @@ import {
   spawnedVertexById,
   storage,
 } from "@/mod/scripts/core/db";
-import { Hear } from "@/mod/scripts/core/Hear";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
@@ -256,7 +256,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
       }
     }
 
-    setup_gulag_and_logic_on_spawn(this.object, this.st, object, ESchemeType.MOBILE, this.loaded);
+    setup_gulag_and_logic_on_spawn(this.object, this.st, object, ESchemeType.MONSTER, this.loaded);
 
     return true;
   },
@@ -387,7 +387,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     sound_power: number
   ): void {
     if (source_id !== object.id()) {
-      Hear.hear_callback(object, source_id, sound_type, sound_position, sound_power);
+      ActionSchemeHear.hear_callback(object, source_id, sound_type, sound_position, sound_power);
     }
   },
 } as IMonsterBinder);

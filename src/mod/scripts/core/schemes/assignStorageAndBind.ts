@@ -2,7 +2,7 @@ import { XR_game_object, XR_ini_file } from "xray16";
 
 import { AnyObject, Optional } from "@/mod/lib/types";
 import { EScheme, TSection } from "@/mod/lib/types/configuration";
-import { schemes, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, schemes, storage } from "@/mod/scripts/core/db";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("assignStorageAndBind");
@@ -14,29 +14,28 @@ const logger: LuaLogger = new LuaLogger("assignStorageAndBind");
  * todo
  */
 export function assignStorageAndBind(
-  npc: XR_game_object,
+  object: XR_game_object,
   ini: XR_ini_file,
   scheme: EScheme,
   section: Optional<TSection>
 ): AnyObject {
-  logger.info("Assign storage and bind:", npc.name(), "->", scheme, "->", section);
+  logger.info("Assign storage and bind:", object.name(), "->", scheme, "->", section);
 
-  const npc_id = npc.id();
-  let state: AnyObject;
+  const objectState: IStoredObject = storage.get(object.id());
+  let schemeState: AnyObject = objectState[scheme];
 
-  if (!storage.get(npc_id)[scheme]) {
-    storage.get(npc_id)[scheme] = {};
-    state = storage.get(npc_id)[scheme];
-    state["npc"] = npc;
+  if (!schemeState) {
+    schemeState = {};
+    schemeState.npc = object;
 
-    schemes.get(scheme).add_to_binder(npc, ini, scheme, section as TSection, state);
-  } else {
-    state = storage.get(npc_id)[scheme];
+    objectState[scheme] = schemeState;
+
+    schemes.get(scheme).add_to_binder(object, ini, scheme, section as TSection, schemeState);
   }
 
-  state["scheme"] = scheme;
-  state["section"] = section;
-  state["ini"] = ini;
+  schemeState.scheme = scheme;
+  schemeState.section = section;
+  schemeState.ini = ini;
 
-  return state;
+  return schemeState;
 }

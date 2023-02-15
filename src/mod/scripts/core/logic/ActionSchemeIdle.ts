@@ -9,10 +9,14 @@ import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchT
 import { cfg_get_switch_conditions } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("ActionIdle");
+const logger: LuaLogger = new LuaLogger("ActionSchemeIdle");
 
-export class ActionIdle extends AbstractSchemeImplementation {
-  public static SCHEME_SECTION: EScheme = EScheme.SR_IDLE;
+/**
+ * Action scheme to block NPCs from any action until some conditions are met.
+ * Example: objects wait for game intro to stop before doing something.
+ */
+export class ActionSchemeIdle extends AbstractSchemeImplementation {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.SR_IDLE;
   public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
   public static add_to_binder(
@@ -22,7 +26,8 @@ export class ActionIdle extends AbstractSchemeImplementation {
     section: TSection,
     state: IStoredObject
   ): void {
-    subscribeActionForEvents(object, state, new ActionIdle(object, state));
+    logger.info("Add to binder:", object.name());
+    subscribeActionForEvents(object, state, new ActionSchemeIdle(object, state));
   }
 
   public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {

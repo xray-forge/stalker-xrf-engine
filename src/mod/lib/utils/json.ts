@@ -5,7 +5,7 @@ export function stringifyAsJson(
   target: unknown,
   separator: string = " ",
   depth: number = 0,
-  maxDepth: number = 6
+  maxDepth: number = 7
 ): string {
   if (depth >= maxDepth) {
     return "<depth_limit>";
@@ -30,7 +30,7 @@ export function stringifyAsJson(
 
     for (const [k, v] of pairs(target)) {
       result += string.format(
-        "\"%s\": %s,%s",
+        '"%s": %s,%s',
         stringifyKey(k),
         stringifyAsJson(v, separator, depth + 1, maxDepth),
         separator

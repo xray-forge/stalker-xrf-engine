@@ -2,7 +2,6 @@ import { callback, clsid, XR_game_object } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
-import { Hear } from "@/mod/scripts/core/Hear";
 import { RestrictorManager } from "@/mod/scripts/core/RestrictorManager";
 import { mob_release } from "@/mod/scripts/core/schemes/mob_release";
 import { resetScheme } from "@/mod/scripts/core/schemes/schemes_resetting";
@@ -46,6 +45,7 @@ export function resetGenericSchemesOnSchemeSwitch(
       resetScheme(EScheme.DANGER, npc, schemeToSwitch, state, section);
       resetScheme(EScheme.GATHER_ITEMS, npc, schemeToSwitch, state, section);
       resetScheme(EScheme.COMBAT_IGNORE, npc, schemeToSwitch, state, section);
+      resetScheme(EScheme.HEAR, npc, schemeToSwitch, state, section);
 
       mapDisplayManager.updateNpcSpot(npc, schemeToSwitch, state, section);
       reset_threshold(npc, schemeToSwitch, state, section);
@@ -54,12 +54,11 @@ export function resetGenericSchemesOnSchemeSwitch(
       take_items_enabled(npc, schemeToSwitch, state, section);
       can_select_weapon(npc, schemeToSwitch, state, section);
       RestrictorManager.forNpc(npc).reset_restrictions(state, section);
-      Hear.reset_hear_callback(state, section);
 
       return;
     }
 
-    case ESchemeType.MOBILE: {
+    case ESchemeType.MONSTER: {
       mob_release(npc);
       if (getClsId(npc) === clsid.bloodsucker_s) {
         if (schemeToSwitch === EScheme.NIL) {
@@ -70,9 +69,9 @@ export function resetGenericSchemesOnSchemeSwitch(
       }
 
       resetScheme(EScheme.COMBAT_IGNORE, npc, schemeToSwitch, state, section);
+      resetScheme(EScheme.HEAR, npc, schemeToSwitch, state, section);
       reset_invulnerability(npc, state.ini!, section);
       RestrictorManager.forNpc(npc).reset_restrictions(state, section);
-      Hear.reset_hear_callback(state, section);
 
       return;
     }

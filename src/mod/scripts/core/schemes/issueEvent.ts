@@ -15,7 +15,7 @@ export function issueEvent(object: XR_game_object, state: AnyObject, event_fn: s
 
   let activation_count: number = 0;
 
-  for (const [action_ptr, is_active] of state.actions) {
+  for (const [action_ptr, is_active] of (state as { actions: LuaTable<LuaTable, boolean> }).actions) {
     if (is_active && action_ptr.get(event_fn)) {
       action_ptr.get(event_fn)(action_ptr, ...rest);
       activation_count = activation_count + 1;

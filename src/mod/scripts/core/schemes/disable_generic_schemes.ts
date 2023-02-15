@@ -25,7 +25,7 @@ export function disable_generic_schemes(npc: XR_game_object, stype: ESchemeType)
 
       return;
 
-    case ESchemeType.MOBILE:
+    case ESchemeType.MONSTER:
       ActionMobCombat.disable_scheme(npc, EScheme.MOB_COMBAT);
       ActionSchemeCombatIgnore.disable_scheme(npc, EScheme.COMBAT_IGNORE);
       disable_invulnerability(npc);

@@ -47,7 +47,7 @@ const logger: LuaLogger = new LuaLogger("MobWalker");
 
 export class ActionMobWalker extends AbstractSchemeImplementation {
   public static readonly SCHEME_SECTION: EScheme = EScheme.MOB_WALKER;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.MOBILE;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
 
   public static add_to_binder(
     npc: XR_game_object,

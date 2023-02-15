@@ -25,7 +25,7 @@ import { goodwill } from "@/mod/globals/goodwill";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { relations, TRelation } from "@/mod/globals/relations";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
-import { AnyCallable, AnyCallablesModule, AnyObject, Optional } from "@/mod/lib/types";
+import { AnyCallablesModule, AnyObject, Optional } from "@/mod/lib/types";
 import { TSection } from "@/mod/lib/types/configuration";
 import {
   goodwill as dbGoodwill,
@@ -36,6 +36,7 @@ import {
   storage,
   zoneByName,
 } from "@/mod/scripts/core/db";
+import { SYSTEM_INI } from "@/mod/scripts/core/db/IniFiles";
 import { SMART_TERRAIN_SECT } from "@/mod/scripts/core/db/sections";
 import {
   get_squad_relation_to_actor_by_id,
@@ -46,7 +47,7 @@ import {
 import { get_sound_manager, SoundManager } from "@/mod/scripts/core/sound/SoundManager";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { simulation_activities } from "@/mod/scripts/se/SimActivity";
-import { get_sim_board, ISimBoard, squad_ltx } from "@/mod/scripts/se/SimBoard";
+import { get_sim_board, ISimBoard } from "@/mod/scripts/se/SimBoard";
 import { evaluate_prior, get_sim_obj_registry } from "@/mod/scripts/se/SimObjectsRegistry";
 import { ISimSquadReachTargetAction, SimSquadReachTargetAction } from "@/mod/scripts/se/SimSquadReachTargetAction";
 import { ISimSquadStayOnTargetAction, SimSquadStayOnTargetAction } from "@/mod/scripts/se/SimSquadStayOnTargetAction";
@@ -193,37 +194,37 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     this.set_squad_behaviour();
   },
   init_squad(): void {
-    this.player_id = getConfigString(squad_ltx, this.settings_id, "faction", this, true, "") as TCommunity;
+    this.player_id = getConfigString(SYSTEM_INI, this.settings_id, "faction", this, true, "") as TCommunity;
     this.action_condlist = parseCondList(
       this,
       "assign_action",
       "target_smart",
-      getConfigString(squad_ltx, this.settings_id, "target_smart", this, false, "", "")
+      getConfigString(SYSTEM_INI, this.settings_id, "target_smart", this, false, "", "")
     );
     this.death_condlist = parseCondList(
       this,
       "death_condlist",
       "on_death",
-      getConfigString(squad_ltx, this.settings_id, "on_death", this, false, "", "")
+      getConfigString(SYSTEM_INI, this.settings_id, "on_death", this, false, "", "")
     );
     this.invulnerability = parseCondList(
       this,
       "invulnerability",
       "invulnerability",
-      getConfigString(squad_ltx, this.settings_id, "invulnerability", this, false, "", "")
+      getConfigString(SYSTEM_INI, this.settings_id, "invulnerability", this, false, "", "")
     );
     this.relationship =
-      this.relationship || getConfigString(squad_ltx, this.settings_id, "relationship", this, false, "", null);
-    this.sympathy = getConfigNumber(squad_ltx, this.settings_id, "sympathy", this, false, null);
+      this.relationship || getConfigString(SYSTEM_INI, this.settings_id, "relationship", this, false, "", null);
+    this.sympathy = getConfigNumber(SYSTEM_INI, this.settings_id, "sympathy", this, false, null);
     this.show_spot = parseCondList(
       this,
       "show_spot",
       "show_spot",
-      getConfigString(squad_ltx, this.settings_id, "show_spot", this, false, "", "false")
+      getConfigString(SYSTEM_INI, this.settings_id, "show_spot", this, false, "", "false")
     );
 
-    this.always_walk = getConfigBoolean(squad_ltx, this.settings_id, "always_walk", this, false);
-    this.always_arrived = getConfigBoolean(squad_ltx, this.settings_id, "always_arrived", this, false);
+    this.always_walk = getConfigBoolean(SYSTEM_INI, this.settings_id, "always_walk", this, false);
+    this.always_arrived = getConfigBoolean(SYSTEM_INI, this.settings_id, "always_arrived", this, false);
     this.set_location_types_section("stalker_terrain");
     this.set_squad_sympathy();
   },
@@ -243,7 +244,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     this.behaviour = new LuaTable();
 
     const behaviour_section = getConfigString(
-      squad_ltx,
+      SYSTEM_INI,
       this.settings_id,
       "behaviour",
       this,

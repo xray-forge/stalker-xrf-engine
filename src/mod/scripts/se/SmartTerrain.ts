@@ -34,7 +34,7 @@ import { get_smart_terrain_name } from "@/mod/scripts/core/db/smart_names";
 import { activateBySection } from "@/mod/scripts/core/schemes/activateBySection";
 import { configureSchemes } from "@/mod/scripts/core/schemes/configureSchemes";
 import { determine_section_to_activate } from "@/mod/scripts/core/schemes/determine_section_to_activate";
-import { initialize_obj } from "@/mod/scripts/core/schemes/initialize_obj";
+import { initializeGameObject } from "@/mod/scripts/core/schemes/initializeGameObject";
 import { switchToSection } from "@/mod/scripts/core/schemes/switchToSection";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { simulation_activities } from "@/mod/scripts/se/SimActivity";
@@ -352,20 +352,20 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     if (is_stalker) {
       npc_info.stype = ESchemeType.STALKER;
     } else {
-      npc_info.stype = ESchemeType.MOBILE;
+      npc_info.stype = ESchemeType.MONSTER;
     }
 
     return npc_info;
   },
   refresh_script_logic(obj_id: number): void {
     const object = alife().object(obj_id)!;
-    let stype: ESchemeType = ESchemeType.MOBILE;
+    let stype: ESchemeType = ESchemeType.MONSTER;
 
     if (isStalker(object)) {
       stype = ESchemeType.STALKER;
     }
 
-    initialize_obj(storage.get(object.id).object!, storage.get(object.id), false, getActor()!, stype);
+    initializeGameObject(storage.get(object.id).object!, storage.get(object.id), false, getActor()!, stype);
   },
   register_npc(obj: XR_cse_alife_creature_abstract): void {
     logger.info("Register npc:", this.name(), obj.name());
@@ -414,13 +414,13 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
       if (storage.get(obj.id) !== null) {
         const object = storage.get(obj.id).object!;
         // todo: Ternary.
-        let stype = ESchemeType.MOBILE;
+        let stype = ESchemeType.MONSTER;
 
         if (isStalker(obj)) {
           stype = ESchemeType.STALKER;
         }
 
-        initialize_obj(object, storage.get(obj.id), false, getActor()!, stype);
+        initializeGameObject(object, storage.get(obj.id), false, getActor()!, stype);
       }
 
       return;
@@ -1379,13 +1379,13 @@ export function setup_gulag_and_logic_on_spawn(
       if (need_setup_logic) {
         strn.setup_logic(obj);
       } else {
-        initialize_obj(obj, st, loaded, getActor()!, stype);
+        initializeGameObject(obj, st, loaded, getActor()!, stype);
       }
     } else {
-      initialize_obj(obj, st, loaded, getActor()!, stype);
+      initializeGameObject(obj, st, loaded, getActor()!, stype);
     }
   } else {
-    initialize_obj(obj, st, loaded, getActor()!, stype);
+    initializeGameObject(obj, st, loaded, getActor()!, stype);
   }
 }
 

@@ -15,12 +15,9 @@ export async function buildDynamicScripts(): Promise<void> {
   log.info(chalk.blueBright("Build lua scripts"));
 
   const startedAt: number = Date.now();
-  const scriptsExtension: string = "script";
   const result = tstl.transpileProject(BUILD_LUA_TSCONFIG, {
     noHeader: true,
     tstlVerbose: false,
-    // Issues of builder: breaks module resolution
-    // extension: "script"
   });
 
   if (result.diagnostics?.length) {
@@ -56,34 +53,4 @@ export async function buildDynamicScripts(): Promise<void> {
   }
 
   log.info("Built lua scripts:", (Date.now() - startedAt) / 1000, "sec");
-
-  const content: Array<string | Array<string>> = await readDirContent(TARGET_GAME_DATA_DIR);
-  const renamedFilesCount: number = await renameTargetScripts(content, /\.lua$/, `.${scriptsExtension}`);
-
-  log.info("Renamed lua scripts:", renamedFilesCount);
-}
-
-/**
- * In provided file matches pattern 'from', rename it to match 'to'.
- */
-async function renameTargetScripts(
-  contents: Array<string | Array<string>> | string,
-  from: RegExp,
-  to: string
-): Promise<number> {
-  let renamedFiles: number = 0;
-
-  const renameContents = (it: Array<string | Array<string>> | string) => {
-    if (Array.isArray(it)) {
-      return Promise.all(it.map(renameContents));
-    } else if (from.test(it)) {
-      renamedFiles += 1;
-
-      return fsPromises.rename(it, it.replace(from, to));
-    }
-  };
-
-  await renameContents(contents);
-
-  return renamedFiles;
 }

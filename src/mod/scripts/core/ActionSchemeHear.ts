@@ -1,14 +1,22 @@
 import { TXR_snd_type, XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
 import { ESoundType } from "@/mod/globals/sound/sound_type";
-import { TSection } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { switchToSection } from "@/mod/scripts/core/schemes/switchToSection";
 import { parseCondList, parseParams, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { getObjectStoryId } from "@/mod/scripts/utils/ids";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { mapSndTypeToSoundType } from "@/mod/scripts/utils/sound";
 
-export class Hear {
+const logger: LuaLogger = new LuaLogger("ActionSchemeHear");
+
+// Todo: move to scheme.
+export class ActionSchemeHear extends AbstractSchemeImplementation {
+  public static SCHEME_SECTION: EScheme = EScheme.HEAR;
+  public static SCHEME_TYPE: ESchemeType = ESchemeType.STALKER; // And monsters.
+
   public static is_on_sound_line(candidate: string): boolean {
     const [idx] = string.find(candidate, "^on_sound%d*$");
 
@@ -28,7 +36,7 @@ export class Hear {
     };
   }
 
-  public static reset_hear_callback(state: IStoredObject, section: TSection): void {
+  public static resetScheme(object: XR_game_object, scheme: EScheme, state: IStoredObject, section: TSection): void {
     const ini: XR_ini_file = state.ini!;
 
     if (!ini.section_exist(section)) {
@@ -42,8 +50,8 @@ export class Hear {
     for (const i of $range(0, n - 1)) {
       const [result, id, value] = ini.r_line(section, i, "", "");
 
-      if (Hear.is_on_sound_line(id)) {
-        Hear.add_parsed_data_to_storage(value, state);
+      if (ActionSchemeHear.is_on_sound_line(id)) {
+        ActionSchemeHear.add_parsed_data_to_storage(value, state);
       }
     }
   }

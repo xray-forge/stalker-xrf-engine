@@ -478,7 +478,10 @@ export function spawnDefaultNpcItems(npc: XR_game_object, state: IStoredObject):
 /**
  * todo: description
  */
-export function see_actor(npc: XR_game_object): boolean {
+export function isSeeingActor(npc: XR_game_object): boolean {
+  logger.info("CHECK SEE ACTOR:", type(npc));
+  logger.info("CHECK SEE ACTOR:", npc.name());
+
   return npc.alive() && npc.see(getActor()!);
 }
 

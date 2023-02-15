@@ -13,7 +13,7 @@ const logger: LuaLogger = new LuaLogger("MobCombat");
 
 export class ActionMobCombat extends AbstractSchemeImplementation {
   public static readonly SCHEME_SECTION: EScheme = EScheme.MOB_COMBAT;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.MOBILE;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
 
   public static add_to_binder(
     object: XR_game_object,

@@ -1,4 +1,5 @@
-import { EScheme } from "@/mod/lib/types/configuration";
+import { EScheme, ESchemeType } from "@/mod/lib/types/configuration";
+import { ActionSchemeHear } from "@/mod/scripts/core/ActionSchemeHear";
 import { schemes } from "@/mod/scripts/core/db";
 import { TAbstractSchemeConstructor } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import { AbuseManager } from "@/mod/scripts/core/logic/AbuseManager";
@@ -13,7 +14,6 @@ import { ActionDeimos } from "@/mod/scripts/core/logic/ActionDeimos";
 import { ActionDoor } from "@/mod/scripts/core/logic/ActionDoor";
 import { ActionGatherItems } from "@/mod/scripts/core/logic/ActionGatherItems";
 import { ActionHit } from "@/mod/scripts/core/logic/ActionHit";
-import { ActionIdle } from "@/mod/scripts/core/logic/ActionIdle";
 import { ActionLight } from "@/mod/scripts/core/logic/ActionLight";
 import { ActionMiniGun } from "@/mod/scripts/core/logic/ActionMiniGun";
 import { ActionMonster } from "@/mod/scripts/core/logic/ActionMonster";
@@ -34,6 +34,7 @@ import { ActionSchemeCombatIgnore } from "@/mod/scripts/core/logic/ActionSchemeC
 import { ActionSchemeCombatZombied } from "@/mod/scripts/core/logic/ActionSchemeCombatZombied";
 import { ActionSchemeCompanion } from "@/mod/scripts/core/logic/ActionSchemeCompanion";
 import { ActionSchemeHelpWounded } from "@/mod/scripts/core/logic/ActionSchemeHelpWounded";
+import { ActionSchemeIdle } from "@/mod/scripts/core/logic/ActionSchemeIdle";
 import { ActionSchemeMeet } from "@/mod/scripts/core/logic/ActionSchemeMeet";
 import { ActionSchemePatrol } from "@/mod/scripts/core/logic/ActionSchemePatrol";
 import { ActionSchemeReachTask } from "@/mod/scripts/core/logic/ActionSchemeReachTask";
@@ -67,7 +68,7 @@ export function loadSchemeImplementation(
 ): void {
   const targetSchemeName: EScheme = schemeNameOverride || schemeImplementation.SCHEME_SECTION;
 
-  logger.info("Loading scheme implementation:", targetSchemeName, schemeImplementation.SCHEME_TYPE);
+  logger.info("Loading scheme implementation:", targetSchemeName, ESchemeType[schemeImplementation.SCHEME_TYPE]);
 
   if (targetSchemeName === null) {
     abort("Invalid scheme section name provided: '%s'.", schemeImplementation.SCHEME_SECTION);
@@ -104,6 +105,7 @@ export function initializeModules(): void {
     ActionSchemeCombatIgnore,
     ActionSchemeCombatZombied,
     ActionSchemeCompanion,
+    ActionSchemeHear,
     ActionSchemeHelpWounded,
     ActionSchemePatrol,
     ActionSchemeReachTask,
@@ -146,7 +148,7 @@ export function initializeModules(): void {
     ActionCrowSpawner,
     ActionCutscene,
     ActionDeimos,
-    ActionIdle,
+    ActionSchemeIdle,
     ActionLight,
     ActionMonster,
     ActionNoWeapon,

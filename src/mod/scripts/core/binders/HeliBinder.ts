@@ -23,7 +23,7 @@ import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { get_heli_health } from "@/mod/scripts/core/logic/heli/heli_utils";
 import { HeliCombat } from "@/mod/scripts/core/logic/heli/HeliCombat";
 import { get_heli_firer } from "@/mod/scripts/core/logic/heli/HeliFire";
-import { initialize_obj } from "@/mod/scripts/core/schemes/initialize_obj";
+import { initializeGameObject } from "@/mod/scripts/core/schemes/initializeGameObject";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
 import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
 import { getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
@@ -102,7 +102,7 @@ export const HeliBinder: IHeliBinder = declare_xr_class("HeliBinder", object_bin
 
     if (!this.initialized && actor) {
       this.initialized = true;
-      initialize_obj(this.object, this.st, this.loaded, actor, ESchemeType.HELI);
+      initializeGameObject(this.object, this.st, this.loaded, actor, ESchemeType.HELI);
     }
 
     if (this.st.active_section !== null) {

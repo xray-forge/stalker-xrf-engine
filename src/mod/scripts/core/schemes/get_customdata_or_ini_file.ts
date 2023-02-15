@@ -2,6 +2,7 @@ import { ini_file, XR_game_object, XR_ini_file } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { storage } from "@/mod/scripts/core/db";
+import { DUMMY_LTX } from "@/mod/scripts/core/db/IniFiles";
 import { loadLtx } from "@/mod/scripts/utils/gulag";
 
 export function get_customdata_or_ini_file(npc: XR_game_object, filename: string): XR_ini_file {
@@ -10,7 +11,7 @@ export function get_customdata_or_ini_file(npc: XR_game_object, filename: string
   if (filename === "<customdata>") {
     const ini: Optional<XR_ini_file> = npc.spawn_ini();
 
-    return ini !== null ? ini : new ini_file();
+    return ini !== null ? ini : DUMMY_LTX;
   } else if ((string.find(filename, "*") as unknown as number) === 1) {
     if (st.job_ini !== null) {
       return new ini_file(st.job_ini);

@@ -19,7 +19,7 @@ import { addObject, deleteObject, getActor, IStoredObject, levelDoors, storage }
 import { ItemBox } from "@/mod/scripts/core/ItemBox";
 import { ActionOnHit } from "@/mod/scripts/core/logic/ActionOnHit";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
-import { initialize_obj } from "@/mod/scripts/core/schemes/initialize_obj";
+import { initializeGameObject } from "@/mod/scripts/core/schemes/initializeGameObject";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
 import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
@@ -195,7 +195,7 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
 
     if (!this.initialized && getActor() !== null) {
       this.initialized = true;
-      initialize_obj(this.object, this.st, this.loaded, getActor()!, ESchemeType.ITEM);
+      initializeGameObject(this.object, this.st, this.loaded, getActor()!, ESchemeType.ITEM);
     }
 
     this.object.info_clear();

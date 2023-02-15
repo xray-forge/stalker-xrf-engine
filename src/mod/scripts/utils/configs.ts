@@ -987,8 +987,8 @@ export function cfg_get_two_strings_and_condlist(
  * todo
  */
 export function cfg_get_switch_conditions(ini: XR_ini_file, section: TSection, npc: XR_game_object) {
-  const l: LuaTable<number> = new LuaTable();
-  let n: number = 1;
+  const conditionsList: LuaTable<number> = new LuaTable();
+  let index: number = 1;
 
   if (!ini.section_exist(tostring(section))) {
     return;
@@ -1002,15 +1002,15 @@ export function cfg_get_switch_conditions(ini: XR_ini_file, section: TSection, n
   ) {
     for (const line_number of $range(0, line_count - 1)) {
       const [result, id, value] = ini.r_line(section, line_number, "", "");
+      const [search_index] = string.find(id, "^" + cond + "%d*$");
 
-      if (string.find(id, "^" + cond + "%d*$") !== null) {
-        const c = func(ini, section, id, npc);
-
-        n = add_condition(l, n, c);
+      if (search_index !== null) {
+        index = add_condition(conditionsList, index, func(ini, section, id, npc));
       }
     }
   }
 
+  // todo: Move conditions to enum.
   add_conditions(cfg_get_number_and_condlist, "on_actor_dist_le");
   add_conditions(cfg_get_number_and_condlist, "on_actor_dist_le_nvis");
   add_conditions(cfg_get_number_and_condlist, "on_actor_dist_ge");
@@ -1026,7 +1026,7 @@ export function cfg_get_switch_conditions(ini: XR_ini_file, section: TSection, n
   add_conditions(cfg_get_npc_and_zone, "on_npc_in_zone");
   add_conditions(cfg_get_npc_and_zone, "on_npc_not_in_zone");
 
-  return l;
+  return conditionsList;
 }
 
 /**

@@ -21,7 +21,7 @@ export abstract class AbstractSchemeImplementation {
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
-    state: IStoredObject
+    schemeState: IStoredObject
   ): void {
     abort("Called not implemented add_to_binder method: %s, %s", object.name(), scheme);
   }

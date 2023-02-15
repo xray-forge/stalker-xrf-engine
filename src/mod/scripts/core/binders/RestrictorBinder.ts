@@ -1,10 +1,10 @@
 import { object_binder, XR_cse_alife_object, XR_game_object, XR_net_packet, XR_object_binder, XR_reader } from "xray16";
 
-import { AnyCallablesModule } from "@/mod/lib/types";
-import { ESchemeType } from "@/mod/lib/types/configuration";
+import { Optional } from "@/mod/lib/types";
+import { ESchemeType, TSection } from "@/mod/lib/types/configuration";
 import { addObject, addZone, deleteObject, deleteZone, getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
-import { initialize_obj } from "@/mod/scripts/core/schemes/initialize_obj";
+import { initializeGameObject } from "@/mod/scripts/core/schemes/initializeGameObject";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
 import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
@@ -13,101 +13,89 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 const logger: LuaLogger = new LuaLogger("RestrictorBinder");
 
 export interface IRestrictorBinder extends XR_object_binder {
-  initialized: boolean;
-  loaded: boolean;
-  st: IStoredObject;
+  isInitialized: boolean;
+  isLoaded: boolean;
+  state: IStoredObject;
 }
 
 export const RestrictorBinder: IRestrictorBinder = declare_xr_class("RestrictorBinder", object_binder, {
   __init(object: XR_game_object): void {
     object_binder.__init(this, object);
 
-    this.initialized = false;
-    this.loaded = false;
+    this.isInitialized = false;
+    this.isLoaded = false;
   },
-  reload(section: string): void {
+  reload(section: TSection): void {
     object_binder.reload(this, section);
   },
   reinit(): void {
     object_binder.reinit(this);
 
-    this.st = {};
-
-    storage.set(this.object.id(), this.st);
+    this.state = {};
+    storage.set(this.object.id(), this.state);
   },
   net_spawn(object: XR_cse_alife_object): boolean {
     if (!object_binder.net_spawn(this, object)) {
       return false;
     }
 
+    logger.info("Net spawn:", this.object.name());
+
     addZone(this.object);
     addObject(this.object);
 
-    const obj_id: number = this.object.id();
+    const objectId: number = this.object.id();
 
-    if (GlobalSound.looped_sound.get(obj_id) !== null) {
-      for (const [k, v] of pairs(GlobalSound.looped_sound.get(obj_id))) {
-        GlobalSound.play_sound_looped(obj_id, k);
+    if (GlobalSound.looped_sound.get(objectId) !== null) {
+      for (const [k, v] of GlobalSound.looped_sound.get(objectId)) {
+        GlobalSound.play_sound_looped(objectId, k);
       }
-    }
-
-    const ini = this.object.spawn_ini();
-
-    if (!ini) {
-      return true;
-    }
-
-    if (ini.section_exist("information_sector")) {
-      // todo: Does not exist. Remove?
-      get_global<AnyCallablesModule>("sr_danger").register_new_sector(this.object);
-    }
-
-    if (ini.section_exist("apply_on_combat")) {
-      get_global<AnyCallablesModule>("combat_restrictor").register_combat_restrictor(this.object);
     }
 
     return true;
   },
   net_destroy(): void {
+    logger.info("Net destroy:", this.object.name());
+
     GlobalSound.stop_sounds_by_id(this.object.id());
 
-    const st = storage.get(this.object.id());
+    const state: IStoredObject = this.state;
 
-    if (st.active_scheme !== null) {
-      issueEvent(this.object, st[st.active_scheme as string], "net_destroy");
+    if (state.active_scheme !== null) {
+      issueEvent(this.object, state[state.active_scheme as string], "net_destroy");
     }
 
     deleteZone(this.object);
     deleteObject(this.object);
 
     storage.delete(this.object.id());
-
     object_binder.net_destroy(this);
   },
   update(delta: number): void {
-    if (!this.initialized && getActor() !== null) {
-      this.initialized = true;
+    const activeSection: Optional<TSection> = this.state.active_section as Optional<TSection>;
+    const objectId: number = this.object.id();
 
-      initialize_obj(this.object, this.st, this.loaded, getActor()!, ESchemeType.RESTRICTOR);
+    if (!this.isInitialized && getActor() !== null) {
+      this.isInitialized = true;
+
+      initializeGameObject(this.object, this.state, this.isLoaded, getActor()!, ESchemeType.RESTRICTOR);
     }
 
     this.object.info_clear();
 
-    const active_section = storage.has(this.object.id()) && storage.get(this.object.id()).active_section;
-
-    if (active_section !== null) {
-      this.object.info_add("section: " + active_section);
+    if (activeSection !== null) {
+      this.object.info_add("section: " + activeSection);
     }
 
-    this.object.info_add("name: [" + this.object.name() + "] id [" + this.object.id() + "]");
+    this.object.info_add("name: [" + this.object.name() + "] id [" + objectId + "]");
 
-    if (this.st.active_section !== null) {
-      issueEvent(this.object, this.st[this.st.active_scheme as string], "update", delta);
+    if (this.state.active_section !== null) {
+      issueEvent(this.object, this.state[this.state.active_scheme as string], "update", delta);
     }
 
-    GlobalSound.update(this.object.id());
+    GlobalSound.update(objectId);
   },
-  net_save_relevant(target: XR_object_binder): boolean {
+  net_save_relevant(object: XR_object_binder): boolean {
     return true;
   },
   save(packet: XR_net_packet): void {
@@ -120,7 +108,7 @@ export const RestrictorBinder: IRestrictorBinder = declare_xr_class("RestrictorB
   load(reader: XR_reader): void {
     setLoadMarker(reader, false, RestrictorBinder.__name);
 
-    this.loaded = true;
+    this.isLoaded = true;
 
     object_binder.load(this, reader);
 

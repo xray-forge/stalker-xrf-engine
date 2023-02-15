@@ -20,6 +20,7 @@ local configUtils = require("scripts.utils.configs")
 local checkers = require("scripts.utils.checkers")
 local trySwitchToAnotherSection = require("scripts.core.schemes.trySwitchToAnotherSection").trySwitchToAnotherSection
 local pstor = require("scripts.core.db.pstor")
+local iniFiles = require('scripts.core.db.iniFiles')
 
 local log = create_ts_class_instance(LuaLogger, "xr_effects");
 
@@ -196,7 +197,7 @@ function run_postprocess(actor, npc, p)
   log:info("Run postprocess")
 
   if (p[1]) then
-    if (system_ini():section_exist(p[1])) then
+    if (iniFiles.SYSTEM_INI:section_exist(p[1])) then
       local num = 2000 + math.random(100)
       if (p[2] and type(p[2]) == "number" and p[2] > 0) then
         num = p[2]
@@ -1485,9 +1486,7 @@ function create_squad(actor, obj, p)
     abort("Wrong smart name [NIL] in create_squad function")
   end
 
-  local ltx = SimBoard.squad_ltx
-
-  if not ltx:section_exist(squad_id) then
+  if not iniFiles.SYSTEM_INI:section_exist(squad_id) then
     abort("Wrong squad identificator [%s]. Squad descr doesnt exist.", tostring(squad_id))
   end
 
@@ -1523,7 +1522,7 @@ function create_squad_member(actor, obj, p)
   if p[3] ~= nil then
     local spawn_point
     if p[3] == "simulation_point" then
-      spawn_point = configUtils.getConfigString(SimBoard.squad_ltx, squad:section_name(), "spawn_point", obj, false, "")
+      spawn_point = configUtils.getConfigString(iniFiles.SYSTEM_INI, squad:section_name(), "spawn_point", obj, false, "")
       if spawn_point == "" or spawn_point == nil then
         spawn_point = configUtils.parseCondList(obj, "spawn_point", "spawn_point", squad_smart.spawn_point)
       else

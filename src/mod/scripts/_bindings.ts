@@ -26,7 +26,9 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 const logger: LuaLogger = new LuaLogger("_bindings");
 
 function createBinder(target: XR_object_binder): (object: XR_game_object) => void {
-  return (object: XR_game_object) => object.bind_object(create_xr_class_instance(target, object));
+  return (object: XR_game_object) => {
+    object.bind_object(create_xr_class_instance(target, object));
+  };
 }
 
 // @ts-ignore, declare lua global

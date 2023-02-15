@@ -14,7 +14,7 @@ const logger: LuaLogger = new LuaLogger("MobDeath");
 
 export class ActionMobDeath extends AbstractSchemeImplementation {
   public static readonly SCHEME_SECTION: EScheme = EScheme.MOB_DEATH;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.MOBILE;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
 
   public static add_to_binder(
     npc: XR_game_object,

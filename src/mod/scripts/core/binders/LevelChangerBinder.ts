@@ -3,11 +3,13 @@ import {
   command_line,
   object_binder,
   XR_cse_alife_object,
+  XR_game_object,
   XR_net_packet,
   XR_object_binder,
   XR_reader,
 } from "xray16";
 
+import { TSection } from "@/mod/lib/types/configuration";
 import { addObject, deleteObject, storage } from "@/mod/scripts/core/db";
 import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
 import { ILevelChanger } from "@/mod/scripts/se/LevelChanger";
@@ -19,6 +21,15 @@ const logger: LuaLogger = new LuaLogger("LevelChangerBinder");
 export interface ILevelChangerBinder extends XR_object_binder {}
 
 export const LevelChangerBinder: ILevelChangerBinder = declare_xr_class("LevelChangerBinder", object_binder, {
+  __init(object: XR_game_object): void {
+    object_binder.__init(this, object);
+  },
+  update(delta: number): void {
+    object_binder.update(this, delta);
+  },
+  reload(section: TSection): void {
+    object_binder.reload(this, section);
+  },
   reinit(): void {
     object_binder.reinit(this);
     storage.set(this.object.id(), {});
@@ -46,7 +57,7 @@ export const LevelChangerBinder: ILevelChangerBinder = declare_xr_class("LevelCh
     return true;
   },
   net_destroy(): void {
-    logger.info("Destroy:", this.object.name());
+    logger.info("Net destroy:", this.object.name());
     deleteObject(this.object);
     object_binder.net_destroy(this);
   },

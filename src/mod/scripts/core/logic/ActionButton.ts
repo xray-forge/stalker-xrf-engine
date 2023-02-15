@@ -66,9 +66,9 @@ export class ActionButton extends AbstractSchemeImplementation {
   }
 
   public try_switch(): boolean {
-    const st = storage.get(this.object.id());
+    const state = storage.get(this.object.id());
 
-    if (st.active_scheme && st.active_scheme === ActionButton.SCHEME_SECTION && this.state.on_press) {
+    if (state.active_scheme && state.active_scheme === ActionButton.SCHEME_SECTION && this.state.on_press) {
       if (
         switchToSection(
           this.object,

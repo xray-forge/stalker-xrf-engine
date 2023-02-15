@@ -26,6 +26,7 @@ export enum EScheme {
   DANGER = "danger",
   DEATH = "death",
   GATHER_ITEMS = "gather_items",
+  HEAR = "HEAR",
   HELI_MOVE = "heli_move",
   HELP_WOUNDED = "help_wounded",
   HIT = "hit",
@@ -75,8 +76,28 @@ export enum EScheme {
  */
 export enum ESchemeType {
   STALKER = 0,
-  MOBILE = 1,
+  MONSTER = 1,
   ITEM = 2,
   HELI = 3,
   RESTRICTOR = 4,
+}
+
+/**
+ * todo;
+ */
+export enum ESchemeCondition {
+  ON_SIGNAL = "on_signal",
+  ON_INFO = "on_info",
+  ON_TIMER = "on_timer",
+  ON_GAME_TIMER = "on_game_timer",
+  ON_ACTOR_IN_ZONE = "on_actor_in_zone",
+  ON_ACTOR_NOT_IN_ZONE = "on_actor_not_in_zone",
+  ON_NPC_IN_ZONE = "on_npc_in_zone",
+  ON_NPC_NOT_IN_ZONE = "on_npc_not_in_zone",
+  ON_ACTOR_INSIDE = "on_actor_inside",
+  ON_ACTOR_OUTSIDE = "on_actor_outside",
+  ACTOR_DISTANCE_GREATER_THAN = "on_actor_dist_ge",
+  ACTOR_DISTANCE_GREATER_THAN_AND_VISIBLE = "on_actor_dist_ge_nvis",
+  ACTOR_DISTANCE_LESS_THAN = "on_actor_dist_le",
+  ACTOR_DISTANCE_LESS_THAN_AND_VISIBLE = "on_actor_dist_le_nvis",
 }

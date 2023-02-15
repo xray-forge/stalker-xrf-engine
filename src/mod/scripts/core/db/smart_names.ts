@@ -1,37 +1,35 @@
-import { alife, game, game_graph, ini_file, XR_ini_file } from "xray16";
+import { alife, game, game_graph } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
+import { SMART_NAMES_LTX } from "@/mod/scripts/core/db/IniFiles";
 import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("smart_names");
-const names_ini: XR_ini_file = new ini_file("misc\\smart_names.ltx");
 
 export const smart_names_table: LuaTable<string, LuaTable<string, string>> = new LuaTable();
 
 export function init_smart_names_table(): void {
-  const levels_count: number = names_ini.line_count("levels");
+  const levels_count: number = SMART_NAMES_LTX.line_count("levels");
 
   logger.info("Init smart names:", levels_count);
 
   for (const i of $range(0, levels_count - 1)) {
-    const [temp1, level_name, temp2] = names_ini.r_line("levels", i, "", "");
+    const [temp1, level_name, temp2] = SMART_NAMES_LTX.r_line("levels", i, "", "");
 
-    if (names_ini.section_exist(level_name)) {
+    if (SMART_NAMES_LTX.section_exist(level_name)) {
       const level_smarts: LuaTable<string, string> = new LuaTable();
-      const smarts_count: number = names_ini.line_count(level_name);
+      const smarts_count: number = SMART_NAMES_LTX.line_count(level_name);
 
       smart_names_table.set(level_name, level_smarts);
 
       for (const i of $range(0, smarts_count - 1)) {
-        const [result, smart_name, value] = names_ini.r_line(level_name, i, "", "");
+        const [result, smart_name, value] = SMART_NAMES_LTX.r_line(level_name, i, "", "");
 
         level_smarts.set(smart_name, value);
       }
     }
   }
-
-  logger.table(smart_names_table);
 }
 
 /**

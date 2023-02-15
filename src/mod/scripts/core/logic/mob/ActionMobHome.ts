@@ -25,7 +25,7 @@ const logger: LuaLogger = new LuaLogger("MobHome");
 
 export class ActionMobHome extends AbstractSchemeImplementation {
   public static readonly SCHEME_SECTION: EScheme = EScheme.MOB_HOME;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.MOBILE;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
 
   public static add_to_binder(
     npc: XR_game_object,

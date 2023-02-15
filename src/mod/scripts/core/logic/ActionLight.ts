@@ -42,7 +42,7 @@ export class ActionLight extends AbstractSchemeImplementation {
     state.light = getConfigBoolean(ini, section, "light_on", object, false, false);
   }
 
-  public static reset(): void {
+  public static resetScheme(): void {
     logger.info("Reset");
     resetTable(light_zones);
   }

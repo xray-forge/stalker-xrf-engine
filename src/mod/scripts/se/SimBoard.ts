@@ -1,17 +1,9 @@
-import {
-  alife,
-  clsid,
-  game_graph,
-  ini_file,
-  level,
-  system_ini,
-  XR_cse_alife_creature_abstract,
-  XR_EngineBinding,
-} from "xray16";
+import { alife, clsid, game_graph, level, XR_cse_alife_creature_abstract, XR_EngineBinding } from "xray16";
 
 import { TCommunity } from "@/mod/globals/communities";
 import { Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
+import { SIMULATION_LTX } from "@/mod/scripts/core/db/IniFiles";
 import { get_sim_obj_registry } from "@/mod/scripts/se/SimObjectsRegistry";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
@@ -21,9 +13,6 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("SimBoard");
-
-export const squad_ltx = system_ini();
-export const setting_ini = new ini_file("misc\\simulation.ltx");
 
 const group_id_by_levels: LuaTable<string, number> = {
   zaton: 1,
@@ -290,14 +279,14 @@ export const SimBoard: ISimBoard = declare_xr_class("SimBoard", null, {
     for (const level of game_graph().levels()) {
       const section_name = "start_position_" + alife().level_name(level.id);
 
-      if (!setting_ini.section_exist(section_name)) {
+      if (!SIMULATION_LTX.section_exist(section_name)) {
         return;
       }
 
-      const n = setting_ini.line_count(section_name);
+      const n = SIMULATION_LTX.line_count(section_name);
 
       for (const i of $range(0, n - 1)) {
-        const [result, id, value] = setting_ini.r_line(section_name, i, "", "");
+        const [result, id, value] = SIMULATION_LTX.r_line(section_name, i, "", "");
         const smrt_names = parseNames(value);
 
         for (const [k, v] of smrt_names) {

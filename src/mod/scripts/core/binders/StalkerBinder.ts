@@ -28,6 +28,7 @@ import { communities } from "@/mod/globals/communities";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { ESchemeType } from "@/mod/lib/types/configuration";
+import { ActionSchemeHear } from "@/mod/scripts/core/ActionSchemeHear";
 import {
   addEnemy,
   addObject,
@@ -42,9 +43,9 @@ import {
   spawnedVertexById,
   storage,
 } from "@/mod/scripts/core/db";
+import { DUMMY_LTX } from "@/mod/scripts/core/db/IniFiles";
 import { DropManager } from "@/mod/scripts/core/DropManager";
 import { set_npc_sympathy, set_npcs_relation } from "@/mod/scripts/core/game_relations";
-import { Hear } from "@/mod/scripts/core/Hear";
 import { need_victim } from "@/mod/scripts/core/inventory_upgrades";
 import { ActionDanger } from "@/mod/scripts/core/logic/ActionDanger";
 import { ActionLight } from "@/mod/scripts/core/logic/ActionLight";
@@ -178,7 +179,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
       if (filename !== null) {
         char_ini = new ini_file(filename);
       } else {
-        char_ini = this.object.spawn_ini() || new ini_file("scripts\\dummy.ltx");
+        char_ini = this.object.spawn_ini() || DUMMY_LTX;
       }
 
       loadInfo(this.object, char_ini, null);
@@ -575,7 +576,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
       return;
     }
 
-    Hear.hear_callback(target, who_id, sound_type, sound_position, sound_power);
+    ActionSchemeHear.hear_callback(target, who_id, sound_type, sound_position, sound_power);
   },
 } as IMotivatorBinder);
 

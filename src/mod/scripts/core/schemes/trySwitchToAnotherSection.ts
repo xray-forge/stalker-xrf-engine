@@ -1,14 +1,22 @@
 import { game, level, time_global, XR_game_object } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
+import { ESchemeCondition } from "@/mod/lib/types/configuration";
+import { stringifyAsJson } from "@/mod/lib/utils/json";
 import { IStoredObject, storage, zoneByName } from "@/mod/scripts/core/db";
-import { cond_name } from "@/mod/scripts/core/schemes/cond_name";
 import { switchToSection } from "@/mod/scripts/core/schemes/switchToSection";
-import { see_actor } from "@/mod/scripts/utils/alife";
+import { isSeeingActor } from "@/mod/scripts/utils/alife";
 import { isNpcInZone } from "@/mod/scripts/utils/checkers";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { getDistanceBetween } from "@/mod/scripts/utils/physics";
+
+const logger: LuaLogger = new LuaLogger("trySwitchToAnotherSection");
+
+export function isSchemeCondition(condition: string, conditionType: ESchemeCondition): boolean {
+  return string.find(condition, "^" + conditionType + "%d*$")[0] !== null;
+}
 
 /**
  * todo;
@@ -16,92 +24,97 @@ import { getDistanceBetween } from "@/mod/scripts/utils/physics";
  * todo;
  */
 export function trySwitchToAnotherSection(
-  npc: XR_game_object,
-  st: IStoredObject,
+  object: XR_game_object,
+  state: IStoredObject,
   actor: Optional<XR_game_object>
 ): boolean {
-  const l = st.logic;
-  const npc_id = npc.id();
+  const logic: LuaTable<number> = state.logic;
 
   if (!actor) {
-    abort("try_switch_to_another_section(): error in implementation of scheme '%s': actor is null", st.scheme);
+    abort("try_switch_to_another_section(): error in implementation of scheme '%s': actor is null", state.scheme);
   }
 
-  if (!l) {
-    abort("Can't find script switching information in storage, scheme '%s'", storage.get(npc.id()).active_scheme);
+  if (!logic) {
+    abort("Can't find script switching information in storage, scheme '%s'", storage.get(object.id()).active_scheme);
   }
 
+  const npcId = object.id();
   let switched: boolean = false;
 
-  for (const [n, c] of l) {
-    if (cond_name(c.name, "on_actor_dist_le")) {
-      if (see_actor(npc) && getDistanceBetween(actor, npc) <= c.v1) {
-        switched = switchToSection(npc, st.ini!, pickSectionFromCondList(actor, npc, c.condlist)!);
+  // todo: Parse once and then compare, do not do parsing in loop.
+  // todo: Parse once and then compare, do not do parsing in loop.
+  // todo: Parse once and then compare, do not do parsing in loop.
+  // todo: Use switch case.
+  // todo: Examples: on_info5 on_actor_inside on_info2
+  for (const [n, cond] of logic) {
+    logger.info("GG", cond.name);
+
+    if (isSchemeCondition(cond.name, ESchemeCondition.ACTOR_DISTANCE_LESS_THAN)) {
+      if (isSeeingActor(object) && getDistanceBetween(actor, object) <= cond.v1) {
+        switched = switchToSection(object, state.ini!, pickSectionFromCondList(actor, object, cond.condlist)!);
       }
-    } else if (cond_name(c.name, "on_actor_dist_le_nvis")) {
-      if (getDistanceBetween(actor, npc) <= c.v1) {
-        switched = switchToSection(npc, st.ini!, pickSectionFromCondList(actor, npc, c.condlist)!);
+    } else if (isSchemeCondition(cond.name, ESchemeCondition.ACTOR_DISTANCE_LESS_THAN_AND_VISIBLE)) {
+      if (getDistanceBetween(actor, object) <= cond.v1) {
+        switched = switchToSection(object, state.ini!, pickSectionFromCondList(actor, object, cond.condlist)!);
       }
-    } else if (cond_name(c.name, "on_actor_dist_ge")) {
-      if (see_actor(npc) && getDistanceBetween(actor, npc) > c.v1) {
-        switched = switchToSection(npc, st.ini!, pickSectionFromCondList(actor, npc, c.condlist)!);
+    } else if (isSchemeCondition(cond.name, ESchemeCondition.ACTOR_DISTANCE_GREATER_THAN)) {
+      if (isSeeingActor(object) && getDistanceBetween(actor, object) > cond.v1) {
+        switched = switchToSection(object, state.ini!, pickSectionFromCondList(actor, object, cond.condlist)!);
       }
-    } else if (cond_name(c.name, "on_actor_dist_ge_nvis")) {
-      if (getDistanceBetween(actor, npc) > c.v1) {
-        switched = switchToSection(npc, st.ini!, pickSectionFromCondList(actor, npc, c.condlist)!);
+    } else if (isSchemeCondition(cond.name, ESchemeCondition.ACTOR_DISTANCE_GREATER_THAN_AND_VISIBLE)) {
+      if (getDistanceBetween(actor, object) > cond.v1) {
+        switched = switchToSection(object, state.ini!, pickSectionFromCondList(actor, object, cond.condlist)!);
       }
-    } else if (cond_name(c.name, "on_signal")) {
-      if (st.signals && st.signals[c.v1]) {
-        switched = switchToSection(npc, st.ini!, pickSectionFromCondList(actor, npc, c.condlist)!);
+    } else if (isSchemeCondition(cond.name, ESchemeCondition.ON_SIGNAL)) {
+      if (state.signals && state.signals[cond.v1]) {
+        switched = switchToSection(object, state.ini!, pickSectionFromCondList(actor, object, cond.condlist)!);
       }
-      // -- FIXME: �� ����������� ��� �����, �������� ���� on_info, �� ��������� ��������� ��� ����������� � ������
-    } else if (cond_name(c.name, "on_info")) {
-      switched = switchToSection(npc, st.ini!, pickSectionFromCondList(actor, npc, c.condlist)!);
-    } else if (cond_name(c.name, "on_timer")) {
-      if (time_global() >= storage.get(npc_id).activation_time + c.v1) {
-        switched = switchToSection(npc, st.ini!, pickSectionFromCondList(actor, npc, c.condlist)!);
+    } else if (isSchemeCondition(cond.name, ESchemeCondition.ON_INFO)) {
+      switched = switchToSection(object, state.ini!, pickSectionFromCondList(actor, object, cond.condlist)!);
+    } else if (isSchemeCondition(cond.name, ESchemeCondition.ON_TIMER)) {
+      if (time_global() >= storage.get(npcId).activation_time + cond.v1) {
+        switched = switchToSection(object, state.ini!, pickSectionFromCondList(actor, object, cond.condlist)!);
       }
-    } else if (cond_name(c.name, "on_game_timer")) {
-      if (game.get_game_time().diffSec(storage.get(npc_id).activation_game_time) >= c.v1) {
-        switched = switchToSection(npc, st.ini!, pickSectionFromCondList(actor, npc, c.condlist)!);
+    } else if (isSchemeCondition(cond.name, ESchemeCondition.ON_GAME_TIMER)) {
+      if (game.get_game_time().diffSec(storage.get(npcId).activation_game_time) >= cond.v1) {
+        switched = switchToSection(object, state.ini!, pickSectionFromCondList(actor, object, cond.condlist)!);
       }
-    } else if (cond_name(c.name, "on_actor_in_zone")) {
-      if (isNpcInZone(actor, zoneByName.get(c.v1))) {
-        switched = switchToSection(npc, st.ini!, pickSectionFromCondList(actor, npc, c.condlist)!);
+    } else if (isSchemeCondition(cond.name, ESchemeCondition.ON_ACTOR_IN_ZONE)) {
+      if (isNpcInZone(actor, zoneByName.get(cond.v1))) {
+        switched = switchToSection(object, state.ini!, pickSectionFromCondList(actor, object, cond.condlist)!);
       }
-    } else if (cond_name(c.name, "on_actor_not_in_zone")) {
-      if (!isNpcInZone(actor, zoneByName.get(c.v1))) {
-        switched = switchToSection(npc, st.ini!, pickSectionFromCondList(actor, npc, c.condlist)!);
+    } else if (isSchemeCondition(cond.name, ESchemeCondition.ON_ACTOR_NOT_IN_ZONE)) {
+      if (!isNpcInZone(actor, zoneByName.get(cond.v1))) {
+        switched = switchToSection(object, state.ini!, pickSectionFromCondList(actor, object, cond.condlist)!);
       }
-    } else if (cond_name(c.name, "on_npc_in_zone")) {
-      if (isNpcInZone(level.object_by_id(c.npc_id), zoneByName.get(c.v2))) {
-        switched = switchToSection(npc, st.ini!, pickSectionFromCondList(actor, npc, c.condlist)!);
+    } else if (isSchemeCondition(cond.name, ESchemeCondition.ON_NPC_IN_ZONE)) {
+      if (isNpcInZone(level.object_by_id(cond.npc_id), zoneByName.get(cond.v2))) {
+        switched = switchToSection(object, state.ini!, pickSectionFromCondList(actor, object, cond.condlist)!);
       }
-    } else if (cond_name(c.name, "on_npc_not_in_zone")) {
-      if (!isNpcInZone(level.object_by_id(c.npc_id), zoneByName.get(c.v2))) {
-        switched = switchToSection(npc, st.ini!, pickSectionFromCondList(actor, npc, c.condlist)!);
+    } else if (isSchemeCondition(cond.name, ESchemeCondition.ON_NPC_NOT_IN_ZONE)) {
+      if (!isNpcInZone(level.object_by_id(cond.npc_id), zoneByName.get(cond.v2))) {
+        switched = switchToSection(object, state.ini!, pickSectionFromCondList(actor, object, cond.condlist)!);
       }
-    } else if (cond_name(c.name, "on_actor_inside")) {
-      if (isNpcInZone(actor, npc)) {
-        // --                printf("_bp: TRUE")
-        switched = switchToSection(npc, st.ini!, pickSectionFromCondList(actor, npc, c.condlist)!);
+    } else if (isSchemeCondition(cond.name, ESchemeCondition.ON_ACTOR_INSIDE)) {
+      if (isNpcInZone(actor, object)) {
+        switched = switchToSection(object, state.ini!, pickSectionFromCondList(actor, object, cond.condlist)!);
       }
-    } else if (cond_name(c.name, "on_actor_outside")) {
-      if (!isNpcInZone(actor, npc)) {
-        switched = switchToSection(npc, st.ini!, pickSectionFromCondList(actor, npc, c.condlist)!);
+    } else if (isSchemeCondition(cond.name, ESchemeCondition.ON_ACTOR_OUTSIDE)) {
+      if (!isNpcInZone(actor, object)) {
+        switched = switchToSection(object, state.ini!, pickSectionFromCondList(actor, object, cond.condlist)!);
       }
     } else {
       abort(
         "WARNING: object '%s': try_switch_to_another_section: unknown condition '%s' encountered",
-        npc.name(),
-        c.name
+        object.name(),
+        cond.name
       );
     }
 
-    if (switched === true) {
-      break;
+    if (switched) {
+      return true;
     }
   }
 
-  return switched;
+  return false;
 }
