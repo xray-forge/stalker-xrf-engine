@@ -286,6 +286,20 @@ export function isActorEnemy(object: XR_game_object): boolean {
 }
 
 /**
+ * @returns whether actor is alive.
+ */
+export function isActorAlive(): boolean {
+  return getActor()?.alive() === true;
+}
+
+/**
+ * @returns whether actor see the object.
+ */
+export function isSeenByActor(object: XR_game_object): boolean {
+  return getActor()!.see(object);
+}
+
+/**
  * @returns whether distance between objects greater or equal.
  */
 export function isDistanceBetweenObjectsGreaterOrEqual(
@@ -305,6 +319,20 @@ export function isDistanceBetweenObjectsLessOrEqual(
   distance: number
 ): boolean {
   return first.position().distance_to_sqr(second.position()) <= distance * distance;
+}
+
+/**
+ * @returns whether distance to actor greater or equal.
+ */
+export function isDistanceToActorGreaterOrEqual(object: XR_game_object, distance: number): boolean {
+  return object.position().distance_to_sqr(getActor()!.position()) >= distance * distance;
+}
+
+/**
+ * @returns whether distance to actor less or equal.
+ */
+export function isDistanceToActorLessOrEqual(object: XR_game_object, distance: number): boolean {
+  return object.position().distance_to_sqr(getActor()!.position()) <= distance * distance;
 }
 
 /**

@@ -10,7 +10,7 @@ const logger: LuaLogger = new LuaLogger("physics");
 const PI_DEGREE: number = math.pi / 180;
 const RADIAN: number = 57.2957;
 const ACTOR_VISIBILITY_FRUSTUM = 35; // todo: Probably should be configured + based on FOV settings.
-const MAX_DISTANCE: number = 100000;
+const MAX_DISTANCE: number = 100_000;
 
 /**
  * todo: Description
@@ -66,9 +66,9 @@ export function vectorRotateY(target: XR_vector, angleBase: number): XR_vector {
  todo: Description
  todo: Be more generic to object, do not rely on 'npc' part.
  */
-export function npcInActorFrustum(npc: XR_game_object): boolean {
+export function npcInActorFrustum(object: XR_game_object): boolean {
   const actorDirection: XR_vector = device().cam_dir;
-  const npcDirection: XR_vector = npc.position().sub(getActor()!.position());
+  const npcDirection: XR_vector = object.position().sub(getActor()!.position());
 
   return yawDegree3d(actorDirection, npcDirection) < ACTOR_VISIBILITY_FRUSTUM;
 }

@@ -327,7 +327,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     }
 
     if (level.patrol_path_exists(this.name() + "_traveller_squad")) {
-      logger.warn("No traveller_squad path:", this.name());
+      // logger.warn("No traveller_squad path:", this.name());
       this.traveler_squad_path = this.name() + "_traveller_squad";
     }
 
