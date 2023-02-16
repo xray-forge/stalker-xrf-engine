@@ -130,10 +130,12 @@ export const info_portions = {
    */
   jup_b15_zulus_b301_after_fight_done: "jup_b15_zulus_b301_after_fight_done",
   jup_b15_zulus_b301_reward_dialog_done: "jup_b15_zulus_b301_reward_dialog_done",
+
+  jup_b16_oasis_artefact_to_scientist: "jup_b16_oasis_artefact_to_scientist",
   /**
    * Jupiter b16.
    */
-  jup_b16_oasis_artefact_to_scientist: "jup_b16_oasis_artefact_to_scientist",
+  jup_b16_oasis_found: "jup_b16_oasis_found",
   jup_b16_oasis_talked: "jup_b16_oasis_talked",
   jup_b16_task_done: "jup_b16_task_done",
   /**
@@ -164,6 +166,10 @@ export const info_portions = {
    */
   jup_b1_complete_end: "jup_b1_complete_end",
   jup_b1_task_done: "jup_b1_task_done",
+  /**
+   * Jupiter b202.
+   */
+  jup_b202_actor_items_returned: "jup_b202_actor_items_returned",
   /**
    * Jupiter b206.
    */
@@ -298,8 +304,13 @@ export const info_portions = {
   jup_b4_monolith_squad_in_duty: "jup_b4_monolith_squad_in_duty",
   jup_b4_monolith_squad_in_freedom: "jup_b4_monolith_squad_in_freedom",
   /**
+   * Jupiter b52.
+   */
+  jup_b52_actor_items_can_be_stolen: "jup_b52_actor_items_can_be_stolen",
+  /**
    * Jupiter b6.
    */
+  jup_b6_complete_end: "jup_b6_complete_end",
   jup_b6_scientist_biochemist_anomalous_grove_done: "jup_b6_scientist_biochemist_anomalous_grove_done",
   jup_b6_scientist_biochemist_anomalous_plant_done: "jup_b6_scientist_biochemist_anomalous_plant_done",
   jup_b6_scientist_biochemist_soldier_outfit_done: "jup_b6_scientist_biochemist_soldier_outfit_done",
@@ -495,6 +506,7 @@ export const info_portions = {
   zat_b104_task_end: "zat_b104_task_end",
   zat_b106_found_soroka: "zat_b106_found_soroka",
   zat_b106_found_soroka_done: "zat_b106_found_soroka_done",
+  zat_b106_search_soroka: "zat_b106_search_soroka",
   zat_b106_stalker_gonta_b52_about_nimble_dialog_done: "zat_b106_stalker_gonta_b52_about_nimble_dialog_done",
   zat_b12_key_1_use: "zat_b12_key_1_use",
   zat_b12_key_2_use: "zat_b12_key_2_use",
@@ -554,6 +566,7 @@ export const info_portions = {
   zat_b18_noah_shot_door: "zat_b18_noah_shot_door",
   zat_b18_noah_told_about_arc: "zat_b18_noah_told_about_arc",
   zat_b18_reset_memory: "zat_b18_reset_memory",
+  zat_b215_gave_maps: "zat_b215_gave_maps",
   zat_b22_actor_gone: "zat_b22_actor_gone",
   zat_b22_actor_in: "zat_b22_actor_in",
   zat_b22_barmen_gave_reward: "zat_b22_barmen_gave_reward",
@@ -730,6 +743,12 @@ export const info_portions = {
   zat_b38_underground_door_open: "zat_b38_underground_door_open",
   zat_b3_all_instruments_brought: "zat_b3_all_instruments_brought",
   zat_b3_stalker_mechanic_b52_about_nimble_dialog_done: "zat_b3_stalker_mechanic_b52_about_nimble_dialog_done",
+  zat_b3_tech_have_couple_dose: "zat_b3_tech_have_couple_dose",
+  zat_b3_tech_have_one_dose: "zat_b3_tech_have_one_dose",
+  zat_b3_tech_instrument_1_brought: "zat_b3_tech_instrument_1_brought",
+  zat_b3_tech_instrument_2_brought: "zat_b3_tech_instrument_2_brought",
+  zat_b3_tech_instrument_3_brought: "zat_b3_tech_instrument_3_brought",
+  zat_b3_tech_see_produce_62: "zat_b3_tech_see_produce_62",
   zat_b44_tech_buddies_both_told: "zat_b44_tech_buddies_both_told",
   zat_b51_done_item_1_1: "zat_b51_done_item_1_1",
   zat_b51_done_item_1_2: "zat_b51_done_item_1_2",

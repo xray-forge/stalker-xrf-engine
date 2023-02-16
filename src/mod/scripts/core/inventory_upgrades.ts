@@ -15,6 +15,10 @@ let victim: Optional<XR_game_object> = null;
 let mechanic_name: string = "";
 let cur_price_percent = 1;
 
+export function setCurrentHint(hint: LuaTable): void {
+  cur_hint = hint;
+}
+
 export function precondition_functor_a(param1: unknown, section: string): 0 | 1 | 2 {
   if (param_ini.line_exist(mechanic_name + "_upgr", section)) {
     const param: string = param_ini.r_string(mechanic_name + "_upgr", section);
