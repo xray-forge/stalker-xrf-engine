@@ -74,6 +74,7 @@ export interface ITradeManagerDescriptor {
 export interface IStoredObject<T = XR_game_object> {
   [index: string]: any;
 
+  enemy_id?: number;
   stype?: ESchemeType;
   section?: TSection;
   actions?: LuaTable<LuaTable<string, AnyCallable>, boolean>;

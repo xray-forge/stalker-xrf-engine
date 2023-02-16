@@ -46,6 +46,7 @@ import {
 } from "@/mod/scripts/core/game_relations";
 import { get_sound_manager, SoundManager } from "@/mod/scripts/core/sound/SoundManager";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/StoryObjectsRegistry";
+import { IMonster } from "@/mod/scripts/se/Monster";
 import { simulation_activities } from "@/mod/scripts/se/SimActivity";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/se/SimBoard";
 import { evaluate_prior, get_sim_obj_registry } from "@/mod/scripts/se/SimObjectsRegistry";
@@ -53,6 +54,7 @@ import { ISimSquadReachTargetAction, SimSquadReachTargetAction } from "@/mod/scr
 import { ISimSquadStayOnTargetAction, SimSquadStayOnTargetAction } from "@/mod/scripts/se/SimSquadStayOnTargetAction";
 import type { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
 import { ESmartTerrainStatus } from "@/mod/scripts/se/SmartTerrainControl";
+import { IStalker } from "@/mod/scripts/se/Stalker";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { areOnSameAlifeLevel, unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
@@ -81,7 +83,8 @@ const smarts_by_no_assault_zones: LuaTable<string, string> = {
   ["jup_b41_sr_no_assault"]: "jup_b41",
 } as any;
 
-export interface ISimSquad extends XR_cse_alife_online_offline_group {
+export interface ISimSquad<T extends XR_cse_alife_creature_abstract = XR_cse_alife_creature_abstract>
+  extends XR_cse_alife_online_offline_group<T> {
   behaviour: LuaTable<string, string>;
 
   // todo: Rename.

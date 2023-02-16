@@ -113,6 +113,13 @@ export const info_portions = {
   jup_a12_ui: "jup_a12_ui",
   jup_a12_wo_shooting: "jup_a12_wo_shooting",
   /**
+   * Jupiter a6.
+   */
+  jup_a6_duty_leader_bunker_guards_work: "jup_a6_duty_leader_bunker_guards_work",
+  jup_a6_duty_leader_employ_work: "jup_a6_duty_leader_employ_work",
+  jup_a6_freedom_leader_bunker_guards_work: "jup_a6_freedom_leader_bunker_guards_work",
+  jup_a6_freedom_leader_employ_work: "jup_a6_freedom_leader_employ_work",
+  /**
    * Jupiter a9.
    */
   jup_a9_cam_1_end: "jup_a9_cam_1_end",
@@ -193,6 +200,7 @@ export const info_portions = {
   jup_b207_duty_knows_about_depot: "jup_b207_duty_knows_about_depot",
   jup_b207_duty_wins: "jup_b207_duty_wins",
   jup_b207_freedom_in_depot: "jup_b207_freedom_in_depot",
+  jup_b207_freedom_know_about_depot: "jup_b207_freedom_know_about_depot",
   jup_b207_freedom_knows_about_depot: "jup_b207_freedom_knows_about_depot",
   jup_b207_freedom_refused_to_leave: "jup_b207_freedom_refused_to_leave",
   jup_b207_freedom_wins: "jup_b207_freedom_wins",
@@ -254,6 +262,7 @@ export const info_portions = {
   jup_b25_flint_blame_done_to_duty: "jup_b25_flint_blame_done_to_duty",
   jup_b25_flint_blame_done_to_freedom: "jup_b25_flint_blame_done_to_freedom",
   jup_b25_found_senya: "jup_b25_found_senya",
+  jup_b25_freedom_flint_gone: "jup_b25_freedom_flint_gone",
   jup_b25_play_reaction: "jup_b25_play_reaction",
   jup_b25_second_blame: "jup_b25_second_blame",
   jup_b25_second_story: "jup_b25_second_story",
