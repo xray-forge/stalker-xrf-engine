@@ -12,6 +12,8 @@ import {
   XR_cse_alife_object,
   XR_cse_alife_online_offline_group,
   XR_game_object,
+  XR_MonsterHitInfo,
+  XR_vector,
 } from "xray16";
 
 import { captions } from "@/mod/globals/captions";
@@ -19,9 +21,18 @@ import { TCommunity } from "@/mod/globals/communities";
 import { info_portions } from "@/mod/globals/info_portions";
 import { relations } from "@/mod/globals/relations";
 import { AnyArgs, AnyCallablesModule, LuaArray, Maybe, Optional, TSection } from "@/mod/lib/types";
-import { ARTEFACT_WAYS_BY_ARTEFACT_ID } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
-import { anomalyByName, getActor, IStoredObject, storage, zoneByName } from "@/mod/scripts/core/db";
-import { check_all_squad_members } from "@/mod/scripts/core/game_relations";
+import {
+  anomalyByName,
+  ARTEFACT_WAYS_BY_ARTEFACT_ID,
+  getActor,
+  IStoredObject,
+  kamp_stalkers,
+  signalLight,
+  storage,
+  zoneByName,
+} from "@/mod/scripts/core/db";
+import { pstor_retrieve } from "@/mod/scripts/core/db/pstor";
+import * as game_relations from "@/mod/scripts/core/game_relations";
 import { setCurrentHint } from "@/mod/scripts/core/inventory_upgrades";
 import { ActionDeimos } from "@/mod/scripts/core/logic/ActionDeimos";
 import { AchievementsManager } from "@/mod/scripts/core/managers/AchievementsManager";
@@ -30,8 +41,15 @@ import { actor_in_cover, is_finished, is_killing_all, is_started } from "@/mod/s
 import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
+import { ESmartTerrainStatus, ISmartTerrainControl } from "@/mod/scripts/se/SmartTerrainControl";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
-import { getCharacterCommunity, getObjectSquad, getStoryObject, getStorySquad } from "@/mod/scripts/utils/alife";
+import {
+  anomalyHasArtefact,
+  getCharacterCommunity,
+  getObjectSquad,
+  getStoryObject,
+  getStorySquad,
+} from "@/mod/scripts/utils/alife";
 import {
   isActorAlive,
   isActorEnemy,
@@ -39,6 +57,7 @@ import {
   isDistanceBetweenObjectsGreaterOrEqual,
   isDistanceBetweenObjectsLessOrEqual,
   isHeavilyWounded,
+  isMonster,
   isNpcInZone,
   isObjectWounded,
   isPlayingSound,
@@ -400,16 +419,19 @@ export function npc_community(
     abort("Wrong number of params in npc_community");
   }
 
-  const npcObject: Optional<XR_game_object> =
-    type(npc.id) !== "function"
-      ? (npc as XR_game_object)
-      : (storage.get((npc as XR_cse_alife_human_abstract).id)?.object as Optional<XR_game_object>);
+  let npc_obj: Optional<XR_game_object> = null;
 
-  if (npcObject === null) {
-    return (npc as XR_cse_alife_human_abstract).community() === params[0];
+  if (type(npc.id) !== "function") {
+    npc_obj = storage.get((npc as XR_cse_alife_human_abstract).id)?.object as XR_game_object;
+
+    if (npc_obj === null) {
+      return (npc as XR_cse_alife_human_abstract).community() === params[0];
+    }
   } else {
-    return getCharacterCommunity(npcObject as XR_game_object) === params[0];
+    npc_obj = npc as XR_game_object;
   }
+
+  return getCharacterCommunity(npc_obj) === params[0];
 }
 
 /**
@@ -595,153 +617,191 @@ export function story_object_exist(actor: XR_game_object, npc: XR_game_object, p
 }
 
 /**
- * export function check_fighting(actor, npc, p){
- *    const enemy_id = db.storage[npc:id()].enemy_id
- *    const enemy = db.storage[enemy_id] && db.storage[enemy_id].object
- *    const sid
- *    if enemy && enemy:alive() {
- *            sid = enemy:story_id()
- *            for i, v in pairs(p) do
- *
- *                if type(v) === 'number' && sid === v {
- *
- *                    return true
- *                }
- *            }
- *    }
- *
- *    return false
- * }
- * ]]--
-
- *
- * export function actor_has_item(actor, npc, p){
- *   const story_actor = get_story_object("actor")
- *   return p[1] !== nil && story_actor && story_actor:object(p[1]) !== nil
- * }
- *
- * export function npc_has_item(actor, npc, p){
- *   return p[1] !== nil && npc:object(p[1]) !== nil
- * }
- *
- * export function actor_has_item_count(actor, npc, p){
- *   const item_section = p[1]
- *   const need_count = tonumber(p[2])
- *   const has_count = 0
- *   const function calc(temp, item){
- *
- *     if item:section() === item_section {
- *       has_count = has_count + 1
- *     }
- *   }
- *   actor:iterate_inventory(calc, actor)
- *   return has_count >= need_count
- * }
- export function signal(actor, npc, p){
- *   if p[1] {
- *     const st = db.storage[npc:id()]
- *     const sigs = st[st.active_scheme].signals
- *
- *     return sigs !== nil && sigs[p[1]] === true
- *   }else{
- *     return false
- *   }
- * }
- export function counter_greater(actor, npc, p){
- *   if p[1] && p[2] {
- *     const c = pstor.pstor_retrieve(actor, p[1], 0)
- *
- *     return c > p[2]
- *   }else{
- *     return false
- *   }
- * }
- * export function counter_equal(actor, npc, p){
- *   if p[1] && p[2] {
- *     const c = pstor.pstor_retrieve(actor, p[1], 0)
- *     return c === p[2]
- *   }else{
- *     return false
- *   }
- * }
-
- * export function odd_time_interval(actor, npc, p){
- *    return odd( game.time() / p[1] )
- * }
- * ]]--
- export function _kamp_talk(actor, npc){
- *   if db.kamp_stalkers[npc:id()] {
- *     return db.kamp_stalkers[npc:id()]
- *   }
- *
- *   return false
- * }
- *
- * export function _used(actor, npc){
- *   return npc:is_talking()
- * }
-
- * const alarm_statuses = {
- *   normal = SmartTerrainControl.ESmartTerrainStatus.NORMAL,
- *   danger = SmartTerrainControl.ESmartTerrainStatus.DANGER,
- *   alarm = SmartTerrainControl.ESmartTerrainStatus.ALARM
- * }
- export function check_smart_alarm_status(actor, npc, p){
- *   const smart_name = p[1]
- *   const status = alarm_statuses[p[2]]
- *
- *   if status === nil {
- *     abort("Wrong status[%s] in 'check_smart_alarm_status'", tostring(p[2]))
- *   }
- *
- *   const smart = SimBoard.get_sim_board():get_smart_by_name(smart_name)
- *   const smart_control = smart.base_on_actor_control
- *
- *   if smart_control === nil {
- *     abort("Cannot calculate 'check_smart_alarm_status' for smart %s", tostring(smart_name))
- *   }
- *
- *   return smart_control:get_status() === status
- * }
- export function has_enemy(actor, npc){
- *   return npc:best_enemy() !== nil
- * }
- *
- * export function has_actor_enemy(actor, npc){
- *   const best_enemy = npc:best_enemy()
- *   return best_enemy !== nil && best_enemy:id() === db.actor:id()
- * }
- *
- * export function see_enemy(actor, npc){
- *   const enemy = npc:best_enemy()
- *
- *   if enemy !== nil {
- *     return npc:see(enemy)
- *   }
- *   return false
- * }
-
- * export function is_factions_enemies(actor, npc, p){
- *   if (p[1] !== nil) {
- *     return game_relations.is_factions_enemies(character_community(actor), p[1])
- *   }else{
- *     return false
- *   }
- * }
- *
- * export function is_factions_neutrals(actor, npc, p){
- *   return !(is_factions_enemies(actor, npc, p) || is_factions_fri}s(actor, npc, p))
- * }
- *
- * export function is_factions_fri}s(actor, npc, p){
- *   if (p[1] !== nil) {
- *     return game_relations.is_factions_fri}s(character_community(actor), p[1])
- *   }else{
- *     return false
- *   }
- * }
-
+ * todo;
  */
+export function actor_has_item(actor: XR_game_object, npc: XR_game_object, params: [Optional<string>]): boolean {
+  const story_actor = getStoryObject("actor");
+
+  return params[0] !== null && story_actor !== null && story_actor.object(params[0]) !== null;
+}
+
+/**
+ * todo;
+ */
+export function npc_has_item(actor: XR_game_object, npc: XR_game_object, p: [string]): boolean {
+  return p[0] !== null && npc.object(p[0]) !== null;
+}
+
+/**
+ * todo;
+ */
+export function actor_has_item_count(actor: XR_game_object, npc: XR_game_object, p: [string, string]) {
+  const item_section: TSection = p[0];
+  const need_count: number = tonumber(p[1])!;
+  let has_count: number = 0;
+
+  actor.iterate_inventory((temp, item) => {
+    if (item.section() === item_section) {
+      has_count = has_count + 1;
+    }
+  }, actor);
+
+  return has_count >= need_count;
+}
+
+/**
+ * todo;
+ */
+export function signal(actor: XR_game_object, npc: XR_game_object, p: [string]): boolean {
+  if (p[0]) {
+    const st = storage.get(npc.id());
+    const sigs = st[st.active_scheme!].signals;
+
+    return sigs !== null && sigs[p[0]] === true;
+  } else {
+    return false;
+  }
+}
+
+/**
+ * todo;
+ */
+export function counter_greater(
+  actor: XR_game_object,
+  npc: XR_game_object,
+  p: [Optional<string>, Optional<number>]
+): boolean {
+  if (p[0] && p[1]) {
+    return pstor_retrieve(actor, p[0], 0) > p[1];
+  } else {
+    return false;
+  }
+}
+
+/**
+ * todo;
+ */
+export function counter_equal(
+  actor: XR_game_object,
+  npc: XR_game_object,
+  p: [Optional<string>, Optional<number>]
+): boolean {
+  if (p[0] && p[1]) {
+    return pstor_retrieve(actor, p[0], 0) === p[1];
+  } else {
+    return false;
+  }
+}
+
+/**
+ * todo;
+ */
+export function _used(actor: XR_game_object, npc: XR_game_object): boolean {
+  return npc.is_talking();
+}
+
+/**
+ * todo;
+ */
+export function has_enemy(actor: XR_game_object, npc: XR_game_object): boolean {
+  return npc.best_enemy() !== null;
+}
+
+/**
+ * todo;
+ */
+export function has_actor_enemy(actor: XR_game_object, npc: XR_game_object): boolean {
+  const best_enemy: Optional<XR_game_object> = npc.best_enemy();
+
+  return best_enemy !== null && best_enemy.id() === getActor()!.id();
+}
+
+/**
+ * todo;
+ */
+export function _kamp_talk(actor: XR_game_object, npc: XR_game_object): boolean {
+  if (kamp_stalkers.get(npc.id())) {
+    return kamp_stalkers.get(npc.id());
+  }
+
+  return false;
+}
+
+/**
+ * todo;
+ */
+export function see_enemy(actor: XR_game_object, npc: XR_game_object): boolean {
+  const enemy = npc.best_enemy();
+
+  if (enemy !== null) {
+    return npc.see(enemy);
+  }
+
+  return false;
+}
+
+/**
+ * todo;
+ */
+const alarm_statuses = {
+  normal: ESmartTerrainStatus.NORMAL,
+  danger: ESmartTerrainStatus.DANGER,
+  alarm: ESmartTerrainStatus.ALARM,
+};
+
+/**
+ * todo;
+ */
+export function check_smart_alarm_status(
+  actor: XR_game_object,
+  npc: XR_game_object,
+  params: [string, string]
+): boolean {
+  const smartName: string = params[0];
+  const status: ESmartTerrainStatus = alarm_statuses[params[1] as keyof typeof alarm_statuses];
+
+  if (status === null) {
+    abort("Wrong status[%s] in 'check_smart_alarm_status'", tostring(params[1]));
+  }
+
+  const smart: ISmartTerrain = get_sim_board().get_smart_by_name(smartName)!;
+  const smartControl: ISmartTerrainControl = smart.base_on_actor_control;
+
+  if (smartControl === null) {
+    abort("Cannot calculate 'check_smart_alarm_status' for smart %s", tostring(smartName));
+  }
+
+  return smartControl.get_status() === status;
+}
+
+/**
+ * todo;
+ */
+export function is_factions_enemies(actor: XR_game_object, npc: XR_game_object, p: [TCommunity]): boolean {
+  if (p[0] !== null) {
+    return game_relations.is_factions_enemies(getCharacterCommunity(actor), p[0]);
+  } else {
+    return false;
+  }
+}
+
+/**
+ * todo;
+ */
+export function is_factions_neutrals(actor: XR_game_object, npc: XR_game_object, p: [TCommunity]) {
+  return !(is_factions_enemies(actor, npc, p) || is_factions_friends(actor, npc, p));
+}
+
+/**
+ * todo;
+ */
+export function is_factions_friends(actor: XR_game_object, npc: XR_game_object, p: [TCommunity]) {
+  if (p[0] !== null) {
+    return game_relations.is_factions_friends(getCharacterCommunity(actor), p[0]);
+  } else {
+    return false;
+  }
+}
 
 /**
  * todo;
@@ -777,7 +837,7 @@ export function is_faction_neutral_to_actor(actor: XR_game_object, npc: XR_game_
  */
 export function is_squad_friend_to_actor(actor: XR_game_object, npc: XR_game_object, params: [string]): boolean {
   if (params[0] !== null) {
-    return check_all_squad_members(params[0], relations.friend);
+    return game_relations.check_all_squad_members(params[0], relations.friend);
   } else {
     return false;
   }
@@ -792,7 +852,7 @@ export function is_squad_enemy_to_actor(actor: XR_game_object, npc: XR_game_obje
   }
 
   for (const [k, v] of params as unknown as LuaArray<string>) {
-    if (check_all_squad_members(v, relations.enemy)) {
+    if (game_relations.check_all_squad_members(v, relations.enemy)) {
       return true;
     }
   }
@@ -893,214 +953,253 @@ export function mob_has_enemy(actor: XR_game_object, npc: XR_game_object): boole
 }
 
 /**
-/**
-
- * export function mob_was_hit(actor, npc){
- *   const h = npc:get_monster_hit_info()
- *   if h.who && h.time !== 0 {
- *     return true
- *   }
- *   return false
- * }
- *
- * export function actor_on_level(actor, npc, p){
- *   for k, v in pairs(p) do
- *
- *     if v === level.name() {
- *       return true
- *     }
- *   }
- *   return false
- * }
- *
- * export function treasure_exist(actor, npc, p){
- *
- *   return true
- * }
-
- * export function cover_attack(actor, npc){
- *
- *    const squad = get_object_squad(npc)
- *
- *    if squad === nil {
- *        return false
- *    }
- *
- *    return squad:cover_attack()
- * }
- * ]]--
-
- *
- * export function squad_in_zone(actor, npc, p){
- *   const story_id = p[1]
- *   const zone_name = p[2]
- *   if story_id === nil {
- *     abort("Insufficient params in squad_in_zone function. story_id[%s], zone_name[%s]", tostring(story_id), tostring(zone_name)){
- *   }
- *   if zone_name === nil {
- *     zone_name = npc:name()
- *   }
- *
- *   const squad = get_story_squad(story_id)
- *   if squad === nil {
- *
- *     return false
- *   }
- *
- *   const zone = db.zone_by_name[zone_name]
- *   if zone === nil {
- *
- *     return false
- *   }
- *
- *   for k in squad:squad_members() do
- *     const position = (db.storage[k.id] && db.storage[k.id].object && db.storage[k.id].object:position()) || k.object.position
- *     if zone:inside(position) {
- *       return true
- *     }
- *   }
- *   return false
- * }
- *
- * export function squad_has_enemy(actor, npc, p){
- *   const story_id = p[1]
- *
- *   if story_id === nil {
- *     abort("Insufficient params in squad_has_enemy function. story_id [%s]", tostring(story_id)){
- *   }
- *
- *   const squad = get_story_squad(story_id)
- *   if squad === nil {
- *
- *     return false
- *   }
- *
- *   const al = alife()
- *   for k in squad:squad_members() do
- *     const npc_obj = level.object_by_id(k.object.id)
- *     if npc_obj === nil {
- *       return false
- *     }
- *     if npc_obj:best_enemy() !== nil {
- *       return true
- *     }
- *   }
- *
- *   return false
- * }
- export function squad_in_zone_all(actor, npc, p){
- *   const story_id = p[1]
- *   const zone_name = p[2]
- *   if story_id === nil || zone_name === nil {
- *     abort("Insufficient params in squad_in_zone_all function. story_id[%s], zone_name[%s]", tostring(story_id), tostring(zone_name)){
- *   }
- *   const squad = get_story_squad(story_id)
- *   if squad === nil {
- *
- *     return false
- *   }
- *   const zone = db.zone_by_name[zone_name]
- *   if zone === nil {
- *
- *     return false
- *   }
- *   const al = alife()
- *   for k in squad:squad_members() do
- *     const position = (db.storage[k.id] && db.storage[k.id].object && db.storage[k.id].object:position()) || k.object.position
- *     if !zone:inside(position) {
- *       return false
- *     }
- *   }
- *   return true
- * }
- *
- * export function squads_in_zone_b41(actor, npc, p){
- *   const smart = SimBoard.get_sim_board():get_smart_by_name("jup_b41")
- *   const zone = db.zone_by_name["jup_b41_sr_light"]
- *
- *   if zone === nil {
- *     return false
- *   }
- *   if smart === nil {
- *     return false
- *   }
- *
- *   for k, v in pairs(SimBoard.get_sim_board().smarts[smart.id].squads) do
- *     if v !== nil {
- *       for j in v:squad_members() do
- *         if !zone:inside(j.object.position) {
- *           return false
- *         }
- *       }
- *     }
- *   }
- *
- *   return true
- * }
-
- * export function target_squad_name(actor, obj, p){
- *   if p[1] === nil {
- *     abort("Wrong parameters")
- *   }
- *   if !(obj) {
- *     return false
- *   }
- *
- *   if IsStalker(obj) || IsMonster(obj) {
- *     if alife():object(obj.group_id) === nil {
- *       return false
- *     }
- *     if string.find(alife():object(obj.group_id):section_name(), p[1]) !== nil {
- *       return true
- *     }
- *
- *   }
- *   return obj:section_name() === p[1]
- * }
- export function target_smart_name(actor, smart, p){
- *   if p[1] === nil {
- *     abort("Wrong parameters")
- *   }
- *
- *   return smart:name() === p[1]
- * }
- *
- export function squad_exist(actor, npc, p){
- *   const story_id = p[1]
- *   if story_id === nil {
- *     abort("Wrong parameter story_id[%s] in squad_exist function", tostring(story_id)){
- *   }
- *   const squad = get_story_squad(story_id)
-
- *
- *   return squad !== nil
- *
- * }
- *
- * export function is_squad_commander(actor, npc){
- *   if (type(npc.id) === "number") {
- *     npc_id = npc.id
- *   }else{
- *     npc_id = npc:id()
- *   }
- *   const squad = get_object_squad(npc)
- *   return squad !== nil && squad:commander_id() === npc_id
- * }
- *
- * export function squad_npc_count_ge(actor, npc, p){
- *   const story_id = p[1]
- *   if story_id === nil {
- *     abort("Wrong parameter squad_id[%s] in 'squad_npc_count_ge' function", tostring(squad_id)){
- *   }
- *   const squad = get_story_squad(story_id)
- *
- *   if squad {
- *     return squad:npc_count() > tonumber(p[2])
- *   }else{
- *     return false
- *   }
- * }
+ * todo;
  */
+export function mob_was_hit(actor: XR_game_object, npc: XR_game_object): boolean {
+  const h: XR_MonsterHitInfo = npc.get_monster_hit_info();
+
+  return h.who && h.time !== 0;
+}
+
+/**
+ * todo;
+ */
+export function actor_on_level(actor: XR_game_object, npc: XR_game_object, p: LuaArray<string>): boolean {
+  for (const [k, v] of p) {
+    if (v === level.name()) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+/**
+ * todo;
+ */
+export function treasure_exist(actor: XR_game_object, npc: XR_game_object) {
+  return true;
+}
+
+/**
+ * todo;
+ */
+export function squad_in_zone(actor: XR_game_object, npc: XR_game_object, p: [string, string]) {
+  const storyId: string = p[0];
+  let zoneName: string = p[1];
+
+  if (storyId === null) {
+    abort(
+      "Insufficient params in squad_in_zone function. story_id[%s], zone_name[%s]",
+      tostring(storyId),
+      tostring(zoneName)
+    );
+  }
+
+  if (zoneName === null) {
+    zoneName = npc.name();
+  }
+
+  const squad = getStorySquad(storyId);
+
+  if (squad === null) {
+    return false;
+  }
+
+  const zone = zoneByName.get(zoneName);
+
+  if (zone === null) {
+    return false;
+  }
+
+  for (const squadMember of squad.squad_members()) {
+    const position: XR_vector = storage.get(squadMember.id)?.object?.position() || squadMember.object.position;
+
+    if (zone.inside(position)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+/**
+ * todo;
+ */
+export function squad_has_enemy(actor: XR_game_object, npc: XR_game_object, p: [string]): boolean {
+  const storyId: string = p[0];
+
+  if (storyId === null) {
+    abort("Insufficient params in squad_has_enemy function. story_id [%s]", tostring(storyId));
+  }
+
+  const squad = getStorySquad(storyId);
+
+  if (squad === null) {
+    return false;
+  }
+
+  for (const squadMember of squad.squad_members()) {
+    const npc_obj = level.object_by_id(squadMember.object.id);
+
+    if (npc_obj === null) {
+      return false;
+    }
+
+    if (npc_obj.best_enemy() !== null) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+/**
+ * todo;
+ */
+export function squad_in_zone_all(actor: XR_game_object, npc: XR_game_object, p: [string, string]): boolean {
+  const story_id = p[0];
+  const zone_name = p[1];
+
+  if (story_id === null || zone_name === null) {
+    abort(
+      "Insufficient params in squad_in_zone_all function. story_id[%s], zone_name[%s]",
+      tostring(story_id),
+      tostring(zone_name)
+    );
+  }
+
+  const squad = getStorySquad(story_id);
+
+  if (squad === null) {
+    return false;
+  }
+
+  const zone = zoneByName.get(zone_name);
+
+  if (zone === null) {
+    return false;
+  }
+
+  for (const squadMember of squad.squad_members()) {
+    const position: XR_vector = storage.get(squadMember.id)?.object?.position() || squadMember.object.position;
+
+    if (!zone.inside(position)) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+/**
+ * todo;
+ */
+export function squads_in_zone_b41(actor: XR_game_object, npc: XR_game_object): boolean {
+  const smart = get_sim_board().get_smart_by_name("jup_b41");
+  const zone = zoneByName.get("jup_b41_sr_light");
+
+  if (zone === null) {
+    return false;
+  }
+
+  if (smart === null) {
+    return false;
+  }
+
+  for (const [k, v] of get_sim_board().smarts.get(smart.id).squads) {
+    if (v !== null) {
+      for (const j of v.squad_members()) {
+        if (!zone.inside(j.object.position)) {
+          return false;
+        }
+      }
+    }
+  }
+
+  return true;
+}
+
+/**
+ * todo;
+ */
+export function target_squad_name(actor: XR_game_object, obj: XR_cse_alife_creature_abstract, p: [string]) {
+  if (p[0] === null) {
+    abort("Wrong parameters for 'target_squad_name'.");
+  }
+
+  if (!obj) {
+    return false;
+  }
+
+  if (isStalker(obj) || isMonster(obj)) {
+    if (alife().object(obj.group_id) === null) {
+      return false;
+    }
+
+    if (string.find(alife().object(obj.group_id)!.section_name(), p[0])[0] !== null) {
+      return true;
+    }
+  }
+
+  return obj.section_name() === p[0];
+}
+
+/**
+ * todo;
+ */
+export function target_smart_name(actor: XR_game_object, smart: XR_game_object, p: [string]): boolean {
+  if (p[0] === null) {
+    abort("Wrong parameters");
+  }
+
+  return smart.name() === p[0];
+}
+
+/**
+ * todo;
+ */
+export function squad_exist(actor: XR_game_object, npc: XR_game_object, p: [Optional<string>]): boolean {
+  const storyId: Optional<string> = p[0];
+
+  if (storyId === null) {
+    abort("Wrong parameter story_id[%s] in squad_exist function", tostring(storyId));
+  }
+
+  return getStorySquad(storyId) !== null;
+}
+
+/**
+ * todo;
+ */
+export function is_squad_commander(
+  actor: XR_game_object,
+  npc: XR_game_object | XR_cse_alife_creature_abstract
+): boolean {
+  const npc_id: number = type(npc.id) === "number" ? (npc as XR_cse_alife_object).id : (npc as XR_game_object).id();
+  const squad: Optional<ISimSquad> = getObjectSquad(npc);
+
+  return squad !== null && squad.commander_id() === npc_id;
+}
+
+/**
+ * todo;
+ */
+export function squad_npc_count_ge(actor: XR_game_object, npc: XR_game_object, p: [string, string]) {
+  const story_id: Optional<string> = p[0];
+
+  if (story_id === null) {
+    abort("Wrong parameter squad_id[%s] in 'squad_npc_count_ge' function", tostring(story_id));
+  }
+
+  const squad: Optional<ISimSquad> = getStorySquad(story_id) as Optional<ISimSquad>;
+
+  if (squad) {
+    return squad.npc_count() > tonumber(p[1])!;
+  } else {
+    return false;
+  }
+}
 
 /**
  * todo;
@@ -1124,241 +1223,319 @@ export function surge_kill_all() {
 }
 
 /**
-
- * export function signal_rocket_flying(actor, npc, p){
- *   if p === nil {
- *     abort("Signal rocket name is !set!")
- *   }
- *   if db.signal_light[p[1]] {
- *     return db.signal_light[p[1]]:is_flying()
- *   }else{
- *     abort("No such signal rocket: [%s] on level", tostring(p[1]))
- *   }
- *   return false
- * }
- *
- * export function quest_npc_enemy_actor(actor, npc, p){
- *   if p[1] === nil {
- *     abort("wrong story id")
- *   }else{
- *     const obj = get_story_object(p[1])
- *     if obj && IsStalker(obj) {
- *       if db.actor && obj:general_goodwill(db.actor) <= -1000 {
- *         return true
- *       }
- *     }
- *   }
- *   return false
- * }
- *
- * export function animpoint_reached(actor, npc){
- *   const animpoint_storage = db.storage[npc:id()].animpoint
- *
- *   if animpoint_storage === nil {
- *     return false
- *   }
- *
- *   const animpoint_class = animpoint_storage.animpoint
- *
- *   return animpoint_class:position_riched()
- * }
- export function npc_stay_offline(actor, npc, p){
- *    if p === nil {
- *        abort("Wrong parameter!!!")
- *    }
- *    if npc && db.actor {
- *        if is_smart_in_combat(actor, npc, p) {
- *            if npc.position:distance_to(db.actor:position())>=30 || game_relations.get_gulag_relation_actor(p[1], "enemy") {
- *                return true
- *            }
- *        }
- *    }
- *    return false
- * }
- * ]]--
-
- * export function distance_to_obj_ge(actor, npc, p){
- *   const npc_id = get_story_object_id(p[1])
- *   const npc1 = npc_id && alife():object(npc_id)
- *   if npc1 {
- *     return db.actor:position():distance_to_sqr(npc1.position) >= p[2] * p[2]
- *   }
- *   return false
- * }
- *
- * export function distance_to_obj_le(actor, npc, p){
- *   const npc_id = get_story_object_id(p[1])
- *   const npc1 = npc_id && alife():object(npc_id)
- *   if npc1 {
- *     return db.actor:position():distance_to_sqr(npc1.position) < p[2] * p[2]
- *   }
- *   return false
- * }
- *
- * export function in_dest_smart_cover(actor, npc, p){
- *   return npc:in_smart_cover()
- * }
- *
- * export function active_item(actor, npc, p){
- *   if p && p[1] {
- *     for k, v in pairs(p) do
- *       if actor:item_in_slot(3) !== nil && actor:item_in_slot(3):section() === v {
- *         return true
- *       }
- *     }
- *   }
- *   return false
- * }
- *
- * export function actor_nomove_nowpn(){
- *   if (! isWeapon(db.actor:active_item())) || db.actor:is_talking() {
- *     return true
- *   }
- *   return false
- * }
- *
-
- export function check_bloodsucker_state(actor, npc, p){
- *   if (p && p[1]) === nil {
- *     abort("Wrong parameters in function 'check_bloodsucker_state'!!!"){
- *   }
- *   const state = p[1]
- *   if p[2] !== nil {
- *     state = p[2]
- *     npc = get_story_object(p[1])
- *   }
- *   if npc !== nil {
- *     return npc:get_visibility_state() === tonumber(state)
- *   }
- *   return false
- * }
- *
- * export function dist_to_story_obj_ge(actor, npc, p){
- *   const story_id = p && p[1]
- *   const story_obj_id = get_story_object_id(story_id)
- *   if story_obj_id === nil {
- *     return true
- *   }
- *   const se_obj = alife():object(story_obj_id)
- *   return se_obj.position:distance_to(db.actor:position()) > p[2]
- * }
- *
- * export function actor_has_nimble_weapon(actor, npc){
- *   const need_item = {}
- *   need_item["wpn_groza_nimble"] = true
- *   need_item["wpn_desert_eagle_nimble"] = true
- *   need_item["wpn_fn2000_nimble"] = true
- *   need_item["wpn_g36_nimble"] = true
- *   need_item["wpn_protecta_nimble"] = true
- *   need_item["wpn_mp5_nimble"] = true
- *   need_item["wpn_sig220_nimble"] = true
- *   need_item["wpn_spas12_nimble"] = true
- *   need_item["wpn_usp_nimble"] = true
- *   need_item["wpn_vintorez_nimble"] = true
- *   need_item["wpn_svu_nimble"] = true
- *   need_item["wpn_svd_nimble"] = true
- *   for k, v in pairs(need_item) do
- *     if actor:object(k) !== nil {
- *       return true
- *     }
- *   }
- *   return false
- * }
- *
- * export function actor_has_active_nimble_weapon(actor, npc){
- *   const need_item = {}
- *   need_item["wpn_groza_nimble"] = true
- *   need_item["wpn_desert_eagle_nimble"] = true
- *   need_item["wpn_fn2000_nimble"] = true
- *   need_item["wpn_g36_nimble"] = true
- *   need_item["wpn_protecta_nimble"] = true
- *   need_item["wpn_mp5_nimble"] = true
- *   need_item["wpn_sig220_nimble"] = true
- *   need_item["wpn_spas12_nimble"] = true
- *   need_item["wpn_usp_nimble"] = true
- *   need_item["wpn_vintorez_nimble"] = true
- *   need_item["wpn_svu_nimble"] = true
- *   need_item["wpn_svd_nimble"] = true
- *
- *   if actor:item_in_slot(2) !== nil && need_item[actor:item_in_slot(2):section()] === true {
- *     return true
- *   }
- *   if actor:item_in_slot(3) !== nil && need_item[actor:item_in_slot(3):section()] === true {
- *     return true
- *   }
- *   return false
- * }
- *
- * export function jup_b202_inventory_box_empty(actor, npc){
- *   const inv_box = get_story_object("jup_b202_actor_treasure")
- *   return inv_box:is_inv_box_empty()
- * }
- *
- * export function jup_b46_actor_has_active_science_detector(actor, npc){
- *    if actor:item_in_slot(9) !== nil && actor:item_in_slot(9):section() === "detector_scientific" { return true }
- *    return false
- * }
- * ]]--
+ * todo;
  */
+export function signal_rocket_flying(actor: XR_game_object, npc: XR_game_object, p: [string]): boolean {
+  if (p === null) {
+    abort("Signal rocket name is !set!");
+  }
 
+  if (signalLight.get(p[0]) !== null) {
+    return signalLight.get(p[0]).is_flying();
+  } else {
+    abort("No such signal rocket: [%s] on level", tostring(p[0]));
+  }
+
+  return false;
+}
+
+/**
+ * todo;
+ */
+export function quest_npc_enemy_actor(actor: XR_game_object, npc: XR_game_object, p: [string]) {
+  if (p[0] === null) {
+    abort("wrong story id");
+  } else {
+    const obj = getStoryObject(p[0]);
+
+    if (obj && isStalker(obj)) {
+      const actor: Optional<XR_game_object> = getActor();
+
+      if (actor && obj.general_goodwill(actor) <= -1000) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
+/**
+ * todo;
+ */
+export function animpoint_reached(actor: XR_game_object, npc: XR_game_object): boolean {
+  const animpoint_storage: Optional<IStoredObject> = storage.get(npc.id()).animpoint as Optional<IStoredObject>;
+
+  if (animpoint_storage === null) {
+    return false;
+  }
+
+  return animpoint_storage.animpoint!.position_riched();
+}
+
+/**
+ * todo;
+ */
+export function in_dest_smart_cover(actor: XR_game_object, npc: XR_game_object): boolean {
+  return npc.in_smart_cover();
+}
+
+/**
+ * todo;
+ */
+export function distance_to_obj_ge(actor: XR_game_object, npc: XR_game_object, p: [string, number]): boolean {
+  const npc_id: Optional<number> = getStoryObjectId(p[0]);
+  const npc1: Optional<XR_cse_alife_object> = npc_id ? alife().object(npc_id) : null;
+
+  if (npc1) {
+    return getActor()!.position().distance_to_sqr(npc1.position) >= p[1] * p[1];
+  }
+
+  return false;
+}
+
+/**
+ * todo;
+ */
+export function distance_to_obj_le(actor: XR_game_object, npc: XR_game_object, p: [string, number]): boolean {
+  const npc_id: Optional<number> = getStoryObjectId(p[0]);
+  const npc1: Optional<XR_cse_alife_object> = npc_id ? alife().object(npc_id) : null;
+
+  if (npc1) {
+    return getActor()!.position().distance_to_sqr(npc1.position) < p[1] * p[1];
+  }
+
+  return false;
+}
+
+/**
+ * todo;
+ */
+export function active_item(actor: XR_game_object, npc: XR_game_object, params: LuaArray<TSection>): boolean {
+  if (params && params.has(1)) {
+    for (const [k, section] of params) {
+      if (actor.item_in_slot(3) !== null && actor.item_in_slot(3)!.section() === section) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
+/**
+ * todo;
+ */
+export function check_bloodsucker_state(
+  actor: XR_game_object,
+  npc: Optional<XR_game_object>,
+  p: [string, string]
+): boolean {
+  if ((p && p[0]) === null) {
+    abort("Wrong parameters in function 'check_bloodsucker_state'!!!");
+  }
+
+  let state: string = p[0];
+
+  if (p[1] !== null) {
+    state = p[1];
+    npc = getStoryObject(p[1]);
+  }
+
+  if (npc !== null) {
+    return npc.get_visibility_state() === tonumber(state)!;
+  }
+
+  return false;
+}
+
+/**
+ * todo;
+ */
+export function actor_nomove_nowpn() {
+  return !isWeapon(getActor()!.active_item()) || getActor()!.is_talking();
+}
+
+/**
+ * todo;
+ */
+export function dist_to_story_obj_ge(actor: XR_game_object, npc: XR_game_object, p: [string, number]) {
+  const story_id: string = p && p[0];
+  const story_obj_id: Optional<number> = getStoryObjectId(story_id);
+
+  if (story_obj_id === null) {
+    return true;
+  }
+
+  return alife().object(story_obj_id)!.position.distance_to(getActor()!.position()) > p[1];
+}
+
+/**
+ * todo;
+ */
+export function actor_has_nimble_weapon(actor: XR_game_object, npc: XR_game_object): boolean {
+  const need_item: LuaTable<string, boolean> = {
+    wpn_groza_nimble: true,
+    wpn_desert_eagle_nimble: true,
+    wpn_fn2000_nimble: true,
+    wpn_g36_nimble: true,
+    wpn_protecta_nimble: true,
+    wpn_mp5_nimble: true,
+    wpn_sig220_nimble: true,
+    wpn_spas12_nimble: true,
+    wpn_usp_nimble: true,
+    wpn_vintorez_nimble: true,
+    wpn_svu_nimble: true,
+    wpn_svd_nimble: true,
+  } as unknown as LuaTable<string, boolean>;
+
+  for (const [k, v] of need_item) {
+    if (actor.object(k) !== null) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+/**
+ * todo;
+ */
+export function actor_has_active_nimble_weapon(actor: XR_game_object, npc: XR_game_object): boolean {
+  const need_item: Record<string, boolean> = {
+    wpn_groza_nimble: true,
+    wpn_desert_eagle_nimble: true,
+    wpn_fn2000_nimble: true,
+    wpn_g36_nimble: true,
+    wpn_protecta_nimble: true,
+    wpn_mp5_nimble: true,
+    wpn_sig220_nimble: true,
+    wpn_spas12_nimble: true,
+    wpn_usp_nimble: true,
+    wpn_vintorez_nimble: true,
+    wpn_svu_nimble: true,
+    wpn_svd_nimble: true,
+  };
+
+  if (actor.item_in_slot(2) !== null && need_item[actor.item_in_slot(2)!.section()] === true) {
+    return true;
+  } else if (actor.item_in_slot(3) !== null && need_item[actor.item_in_slot(3)!.section()] === true) {
+    return true;
+  }
+
+  return false;
+}
+
+/**
+ * todo;
+ */
+export function jup_b202_inventory_box_empty(actor: XR_game_object, npc: XR_game_object): boolean {
+  return getStoryObject("jup_b202_actor_treasure")!.is_inv_box_empty();
+}
+
+/**
+ * todo;
+ */
 export function has_enemy_in_current_loopholes_fov(actor: XR_game_object, npc: XR_game_object): boolean {
   return npc.in_smart_cover() && npc.best_enemy() !== null && npc.in_current_loophole_fov(npc.best_enemy()!.position());
 }
 
+/**
+ * todo;
+ */
 export function talking(actor: XR_game_object): boolean {
   return actor.is_talking();
 }
 
+/**
+ * todo;
+ */
 export function npc_talking(actor: XR_game_object, npc: XR_game_object): boolean {
   return npc.is_talking();
 }
 
+/**
+ * todo;
+ */
 export function see_actor(actor: XR_game_object, npc: XR_game_object): boolean {
   return npc.alive() && npc.see(actor);
 }
 
+/**
+ * todo;
+ */
 export function actor_enemy(actor: XR_game_object, npc: XR_game_object): boolean {
   const t = storage.get(npc.id()).death;
 
   return npc.relation(actor) === game_object.enemy || t?.killer === actor.id();
 }
 
+/**
+ * todo;
+ */
 export function actor_friend(actor: XR_game_object, npc: XR_game_object): boolean {
   return npc.relation(actor) === game_object.friend;
 }
 
+/**
+ * todo;
+ */
 export function actor_neutral(actor: XR_game_object, npc: XR_game_object): boolean {
   return npc.relation(actor) === game_object.neutral;
 }
 
+/**
+ * todo;
+ */
 export function is_rain(): boolean {
   return getActor() !== null && level.rain_factor() > 0;
 }
 
+/**
+ * todo;
+ */
 export function is_heavy_rain(): boolean {
   return getActor() !== null && level.rain_factor() >= 0.5;
 }
 
+/**
+ * todo;
+ */
 export function is_day(): boolean {
   return getActor() !== null && level.get_time_hours() >= 6 && level.get_time_hours() < 21;
 }
 
+/**
+ * todo;
+ */
 export function is_dark_night(): boolean {
   return getActor() !== null && (level.get_time_hours() < 3 || level.get_time_hours() > 22);
 }
 
+/**
+ * todo;
+ */
 export function is_jup_a12_mercs_time(): boolean {
   return getActor() !== null && level.get_time_hours() >= 1 && level.get_time_hours() < 5;
 }
 
+/**
+ * todo;
+ */
 export function zat_b7_is_night(): boolean {
   return getActor() !== null && (level.get_time_hours() >= 23 || level.get_time_hours() < 5);
 }
 
+/**
+ * todo;
+ */
 export function zat_b7_is_late_attack_time(): boolean {
   return getActor() !== null && (level.get_time_hours() >= 23 || level.get_time_hours() < 9);
 }
 
+/**
+ * todo;
+ */
 export function is_in_danger(
   actor: XR_game_object,
   npc: XR_game_object,
@@ -1367,54 +1544,93 @@ export function is_in_danger(
   return storage.get(params && params[0] ? getStoryObject(params[0])!.id() : npc.id()).danger_flag;
 }
 
+/**
+ * todo;
+ */
 export function object_exist(actor: XR_game_object, npc: XR_game_object, params: [string]): boolean {
   return getStoryObject(params[0]) !== null;
 }
 
+/**
+ * todo;
+ */
 export function squad_curr_action(actor: XR_game_object, npc: XR_game_object, p: [string]): boolean {
   return getObjectSquad(npc)!.current_action?.name === p[0];
 }
 
+/**
+ * todo;
+ */
 export function is_monster_snork(actor: XR_game_object, npc: XR_game_object): boolean {
   return npc.clsid() === clsid.snork_s;
 }
 
+/**
+ * todo;
+ */
 export function is_monster_dog(actor: XR_game_object, npc: XR_game_object): boolean {
   return npc.clsid() === clsid.dog_s;
 }
 
+/**
+ * todo;
+ */
 export function is_monster_psy_dog(actor: XR_game_object, npc: XR_game_object): boolean {
   return npc.clsid() === clsid.psy_dog_s;
 }
 
+/**
+ * todo;
+ */
 export function is_monster_polter(actor: XR_game_object, npc: XR_game_object): boolean {
   return npc.clsid() === clsid.poltergeist_s;
 }
 
+/**
+ * todo;
+ */
 export function is_monster_tushkano(actor: XR_game_object, npc: XR_game_object): boolean {
   return npc.clsid() === clsid.tushkano_s;
 }
 
+/**
+ * todo;
+ */
 export function is_monster_burer(actor: XR_game_object, npc: XR_game_object): boolean {
   return npc.clsid() === clsid.burer_s;
 }
 
+/**
+ * todo;
+ */
 export function is_monster_controller(actor: XR_game_object, npc: XR_game_object): boolean {
   return npc.clsid() === clsid.controller_s;
 }
 
+/**
+ * todo;
+ */
 export function is_monster_flesh(actor: XR_game_object, npc: XR_game_object): boolean {
   return npc.clsid() === clsid.flesh_s;
 }
 
+/**
+ * todo;
+ */
 export function is_monster_boar(actor: XR_game_object, npc: XR_game_object): boolean {
   return npc.clsid() === clsid.boar_s;
 }
 
+/**
+ * todo;
+ */
 export function dead_body_searching(actor: XR_game_object, npc: XR_game_object): boolean {
   return ActorInventoryMenuManager.getInstance().isActiveMode(EActorMenuMode.DEAD_BODY_SEARCH);
 }
 
+/**
+ * todo;
+ */
 export function jup_b47_npc_online(actor: XR_game_object, npc: XR_game_object, params: [string]) {
   const story_obj = getStoryObject(params[0]);
 
@@ -1433,40 +1649,9 @@ export function anomaly_has_artefact(
   npc: XR_game_object,
   p: [string, string]
 ): LuaMultiReturn<[boolean, Optional<LuaArray<string>>]> {
-  const az_name = p && p[0];
-  const af_name = p && p[1];
+  const [artefact, details] = anomalyHasArtefact(actor, npc, p);
 
-  const anomal_zone = anomalyByName.get(az_name);
-
-  if (anomal_zone === null) {
-    return $multi(false, null);
-  }
-
-  if (anomal_zone.spawned_count < 1) {
-    return $multi(false, null);
-  }
-
-  if (af_name === null) {
-    const af_table: LuaArray<string> = new LuaTable();
-
-    for (const [k, v] of ARTEFACT_WAYS_BY_ARTEFACT_ID) {
-      const artefactObject: Optional<XR_cse_alife_object> = alife().object(tonumber(k)!);
-
-      if (artefactObject) {
-        table.insert(af_table, artefactObject.section_name());
-      }
-    }
-
-    return $multi(true, af_table);
-  }
-
-  for (const [k, v] of ARTEFACT_WAYS_BY_ARTEFACT_ID) {
-    if (alife().object(tonumber(k)!) && af_name === alife().object(tonumber(k)!)!.section_name()) {
-      return $multi(true, null);
-    }
-  }
-
-  return $multi(false, null);
+  return $multi(artefact, details);
 }
 
 /**
@@ -1503,7 +1688,7 @@ export function zat_b29_anomaly_has_af(actor: XR_game_object, npc: XR_game_objec
 /**
  * todo;
  */
-export function jup_b221_who_will_start(actor: XR_game_object, npc: XR_game_object, p): boolean {
+export function jup_b221_who_will_start(actor: XR_game_object, npc: XR_game_object, p: [string]): boolean {
   const reachable_theme: LuaArray<number> = new LuaTable();
   const info_table: LuaArray<string> = [
     info_portions.jup_b25_freedom_flint_gone,
@@ -1541,13 +1726,13 @@ export function jup_b221_who_will_start(actor: XR_game_object, npc: XR_game_obje
     }
   }
 
-  if ((p && p[1]) === null) {
+  if ((p && p[0]) === null) {
     abort("No such parameters in function 'jup_b221_who_will_start'");
   }
 
-  if (tostring(p[1]) === "ability") {
+  if (tostring(p[0]) === "ability") {
     return reachable_theme.length() !== 0;
-  } else if (tostring(p[1]) === "choose") {
+  } else if (tostring(p[0]) === "choose") {
     return reachable_theme.get(math.random(1, reachable_theme.length())) <= 6;
   } else {
     abort("Wrong parameters in function 'jup_b221_who_will_start'");
@@ -1677,14 +1862,14 @@ export function zat_b29_rivals_dialog_precond(actor: XR_game_object, npc: XR_gam
     "zat_b29_stalker_rival_default_2_squad",
     "zat_b29_stalker_rival_1_squad",
     "zat_b29_stalker_rival_2_squad",
-  ] as unknown as LuaTable<number, string>;
+  ] as unknown as LuaArray<string>;
   const zones_table = [
     "zat_b29_sr_1",
     "zat_b29_sr_2",
     "zat_b29_sr_3",
     "zat_b29_sr_4",
     "zat_b29_sr_5",
-  ] as unknown as LuaTable<number, string>;
+  ] as unknown as LuaArray<string>;
 
   let f_squad: boolean = false;
 

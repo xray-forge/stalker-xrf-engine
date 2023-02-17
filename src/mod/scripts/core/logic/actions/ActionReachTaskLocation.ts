@@ -15,9 +15,9 @@ import {
   XR_vector,
 } from "xray16";
 
-import { AnyCallablesModule } from "@/mod/lib/types";
 import { reactTaskPatrols } from "@/mod/scripts/core/db";
 import { ReachTaskPatrolManager } from "@/mod/scripts/core/logic/ReachTaskPatrolManager";
+import { is_started } from "@/mod/scripts/core/SurgeManager";
 import { IActor } from "@/mod/scripts/se/Actor";
 import { get_sim_obj_registry } from "@/mod/scripts/se/SimObjectsRegistry";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
@@ -176,11 +176,7 @@ export const ActionReachTaskLocation: IActionReachTaskLocation = declare_xr_clas
 
       this.object.set_path_type(game_object.level_path);
 
-      if (
-        squad_target === null ||
-        squad_target.clsid() === clsid.online_offline_group_s ||
-        get_global<AnyCallablesModule>("xr_conditions").surge_started()
-      ) {
+      if (squad_target === null || squad_target.clsid() === clsid.online_offline_group_s || is_started()) {
         this.object.set_movement_type(level.object_by_id(squad.commander_id())!.movement_type());
         this.object.set_mental_state(level.object_by_id(squad.commander_id())!.mental_state());
 
@@ -214,8 +210,7 @@ export const ActionReachTaskLocation: IActionReachTaskLocation = declare_xr_clas
 
 function update_movement(target: IActor | ISimSquad | ISmartTerrain, object: XR_game_object): void {
   if (target !== null && !object.is_talking()) {
-    // todo: Get from manager?
-    if (get_global<AnyCallablesModule>("xr_conditions").surge_started()) {
+    if (is_started()) {
       object.set_movement_type(move.run);
       object.set_mental_state(anim.free);
 

@@ -10,6 +10,7 @@ import {
 } from "xray16";
 
 import type { AnyCallable, AnyObject, EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
+import type { IAnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
 import type { ISignalLightBinder } from "@/mod/scripts/core/binders/SignalLightBinder";
 import type { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
 import type { ActionLight } from "@/mod/scripts/core/logic/ActionLight";
@@ -51,6 +52,16 @@ export const kamps: LuaTable<string, CampPatrolManager> = new LuaTable(); // Cam
 export const kamp_stalkers: LuaTable<number, boolean> = new LuaTable();
 export const CAMPS: LuaTable<number, CampStoryManager> = new LuaTable(); // Camp stories.
 export const campfire_table: LuaTable<string, XR_CZoneCampfire> = new LuaTable();
+
+// todo: Move to db.
+export const ARTEFACT_WAYS_BY_ARTEFACT_ID: LuaTable<number, string> = new LuaTable();
+// todo: Move to db.
+export const ARTEFACT_POINTS_BY_ARTEFACT_ID: LuaTable<number, number> = new LuaTable();
+/**
+ * todo: Move to DB.
+ * Ownership of artefacts linking.
+ */
+export const PARENT_ZONES_BY_ARTEFACT_ID: LuaTable<number, IAnomalyZoneBinder> = new LuaTable();
 
 export const SAVE_MARKERS: LuaTable<string, number> = new LuaTable();
 

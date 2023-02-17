@@ -18,8 +18,8 @@ import {
 
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
-import { AnyArgs, Maybe, Optional, TSection } from "@/mod/lib/types";
-import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import { AnyArgs, LuaArray, Maybe, Optional, TSection } from "@/mod/lib/types";
+import { anomalyByName, ARTEFACT_WAYS_BY_ARTEFACT_ID, getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { getStoryObjectsRegistry } from "@/mod/scripts/core/StoryObjectsRegistry";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { ISimSquadReachTargetAction } from "@/mod/scripts/se/SimSquadReachTargetAction";
@@ -493,4 +493,47 @@ export function sendToNearestAccessibleVertex(object: XR_game_object, vertexId: 
   object.set_dest_level_vertex_id(vertexId);
 
   return vertexId;
+}
+
+/**
+ * todo;
+ */
+export function anomalyHasArtefact(
+  actor: XR_game_object,
+  npc: Optional<XR_game_object>,
+  params: [string, Optional<string>]
+): LuaMultiReturn<[boolean, Optional<LuaArray<string>>]> {
+  const az_name = params && params[0];
+  const af_name = params && params[1];
+  const anomal_zone = anomalyByName.get(az_name);
+
+  if (anomal_zone === null) {
+    return $multi(false, null);
+  }
+
+  if (anomal_zone.spawned_count < 1) {
+    return $multi(false, null);
+  }
+
+  if (af_name === null) {
+    const af_table: LuaArray<string> = new LuaTable();
+
+    for (const [k, v] of ARTEFACT_WAYS_BY_ARTEFACT_ID) {
+      const artefactObject: Optional<XR_cse_alife_object> = alife().object(tonumber(k)!);
+
+      if (artefactObject) {
+        table.insert(af_table, artefactObject.section_name());
+      }
+    }
+
+    return $multi(true, af_table);
+  }
+
+  for (const [k, v] of ARTEFACT_WAYS_BY_ARTEFACT_ID) {
+    if (alife().object(tonumber(k)!) && af_name === alife().object(tonumber(k)!)!.section_name()) {
+      return $multi(true, null);
+    }
+  }
+
+  return $multi(false, null);
 }

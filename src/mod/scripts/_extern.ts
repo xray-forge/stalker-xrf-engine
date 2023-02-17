@@ -21,7 +21,7 @@ import { smart_covers_list } from "@/mod/scripts/smart_covers/smart_covers_list"
 import { GameOutroManager } from "@/mod/scripts/ui/game/GameOutroManager";
 import { WeaponParams } from "@/mod/scripts/ui/game/WeaponParams";
 import * as SleepDialogModule from "@/mod/scripts/ui/interaction/SleepDialog";
-import { disableInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
+import { disableInfo } from "@/mod/scripts/utils/actor";
 import { externClassMethod } from "@/mod/scripts/utils/general";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -30,6 +30,9 @@ const logger: LuaLogger = new LuaLogger("_extern");
 logger.info("Resolve externals");
 
 declare_global("_extern", {});
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+declare_global("xr_conditions", require("@/mod/scripts/_conditions"));
 
 declare_global("smart_covers", {});
 declare_global("smart_covers.descriptions", smart_covers_list);

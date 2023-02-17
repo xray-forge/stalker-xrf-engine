@@ -11,13 +11,15 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
+import { IAnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
 import {
+  addObject,
   ARTEFACT_POINTS_BY_ARTEFACT_ID,
   ARTEFACT_WAYS_BY_ARTEFACT_ID,
-  IAnomalyZoneBinder,
+  deleteObject,
   PARENT_ZONES_BY_ARTEFACT_ID,
-} from "@/mod/scripts/core/binders/AnomalyZoneBinder";
-import { addObject, deleteObject, storage } from "@/mod/scripts/core/db";
+  storage,
+} from "@/mod/scripts/core/db";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ArtefactBinder");

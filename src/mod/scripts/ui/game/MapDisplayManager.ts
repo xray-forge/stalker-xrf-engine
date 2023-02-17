@@ -17,6 +17,7 @@ import { story_ids } from "@/mod/globals/story_ids";
 import { AnyArgs, Maybe, Optional, TSection } from "@/mod/lib/types";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
+import { anomalyHasArtefact } from "@/mod/scripts/utils/alife";
 import { getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -315,12 +316,11 @@ export class MapDisplayManager {
           let hint: string = game.translate_string(v.hint) + "\\n" + " \\n";
           const actor: XR_game_object = getActor()!;
 
-          type TempType = (...args: AnyArgs) => LuaMultiReturn<[boolean, LuaTable<string, string>]>;
-          const [has_af, af_table] = get_global<TempType>("xr_conditions.anomaly_has_artefact")(actor, null, [v.zone]);
+          const [has_af, af_table] = anomalyHasArtefact(actor, null, [v.zone, null]);
 
           if (has_af) {
             hint = hint + game.translate_string(captions.st_jup_b32_has_af);
-            for (const [k, v] of af_table) {
+            for (const [k, v] of af_table!) {
               hint = hint + "\\n" + game.translate_string("st_" + v + "_name");
             }
           } else {

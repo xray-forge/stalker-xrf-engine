@@ -15,6 +15,7 @@ import { AnyCallablesModule, AnyObject, EJobType, EScheme, JobTypeByScheme, Opti
 import { accessible_job, get_job_restrictor } from "@/mod/scripts/core/combat_restrictor";
 import { getActor, storage, zoneByName } from "@/mod/scripts/core/db";
 import { SMART_TERRAIN_SECT } from "@/mod/scripts/core/db/sections";
+import { is_started } from "@/mod/scripts/core/SurgeManager";
 import { registered_smartcovers } from "@/mod/scripts/se/SmartCover";
 import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
 import {
@@ -160,7 +161,7 @@ export function loadGulagJobs(smart: ISmartTerrain): LuaMultiReturn<[LuaTable, s
       },
       _precondition_params: {},
       _precondition_function: function () {
-        return get_global<AnyCallablesModule>("xr_conditions").surge_started();
+        return is_started();
       },
     });
 

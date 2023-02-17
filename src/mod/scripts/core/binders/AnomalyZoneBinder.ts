@@ -13,9 +13,18 @@ import {
 } from "xray16";
 
 import { MAX_UNSIGNED_8_BIT } from "@/mod/globals/memory";
-import { AnyCallable, AnyObject, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { FIELDS_BY_NAME } from "@/mod/scripts/core/binders/AnomalyFieldBinder";
-import { addAnomaly, addObject, deleteAnomaly, deleteObject, storage } from "@/mod/scripts/core/db";
+import {
+  addAnomaly,
+  addObject,
+  ARTEFACT_POINTS_BY_ARTEFACT_ID,
+  ARTEFACT_WAYS_BY_ARTEFACT_ID,
+  deleteAnomaly,
+  deleteObject,
+  PARENT_ZONES_BY_ARTEFACT_ID,
+  storage,
+} from "@/mod/scripts/core/db";
 import { mapDisplayManager } from "@/mod/scripts/ui/game/MapDisplayManager";
 import { getStoryObject } from "@/mod/scripts/utils/alife";
 import {
@@ -31,16 +40,6 @@ import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("AnomalyZoneBinder");
-
-// todo: Move to db.
-export const ARTEFACT_WAYS_BY_ARTEFACT_ID: LuaTable<number, string> = new LuaTable();
-// todo: Move to db.
-export const ARTEFACT_POINTS_BY_ARTEFACT_ID: LuaTable<number, number> = new LuaTable();
-/**
- * todo: Move to DB.
- * Ownership of artefacts linking.
- */
-export const PARENT_ZONES_BY_ARTEFACT_ID: LuaTable<number, IAnomalyZoneBinder> = new LuaTable();
 
 /**
  * Section name in ini file, contains configuration

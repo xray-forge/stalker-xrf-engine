@@ -27,10 +27,16 @@ import { ammo } from "@/mod/globals/items/ammo";
 import { TLevel } from "@/mod/globals/levels";
 import { AnyCallable, AnyCallablesModule, Optional } from "@/mod/lib/types";
 import {
+  addActor,
   ARTEFACT_WAYS_BY_ARTEFACT_ID,
+  deleteActor,
+  getActor,
+  IStoredObject,
   PARENT_ZONES_BY_ARTEFACT_ID,
-} from "@/mod/scripts/core/binders/AnomalyZoneBinder";
-import { addActor, deleteActor, getActor, IStoredObject, scriptIds, storage, zoneByName } from "@/mod/scripts/core/db";
+  scriptIds,
+  storage,
+  zoneByName,
+} from "@/mod/scripts/core/db";
 import { destroyManager, getWeakManagerInstance } from "@/mod/scripts/core/db/ManagersRegistry";
 import { pstor_load_all, pstor_save_all } from "@/mod/scripts/core/db/pstor";
 import { initDropSettings } from "@/mod/scripts/core/DropManager";
