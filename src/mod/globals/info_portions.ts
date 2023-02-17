@@ -338,11 +338,19 @@ export const info_portions = {
   leader_achievement_gained: "leader_achievement_gained",
   mutant_hunter_achievement_gained: "mutant_hunter_achievement_gained",
   one_of_the_lads_gained: "one_of_the_lads_gained",
+  /**
+   * Pas.
+   */
+  pas_b400_sokolov_dead: "pas_b400_sokolov_dead",
+  /**
+   * Pas end.
+   */
   pioneer_achievement_gained: "pioneer_achievement_gained",
   /**
    * Pripyat quests.
    */
   pri_a12_stalker_prisoner_free: "pri_a12_stalker_prisoner_free",
+  pri_a15_sokolov_out: "pri_a15_sokolov_out",
   pri_a16_vano_was_alive_when_removed: "pri_a16_vano_was_alive_when_removed",
   pri_a16_wanderer_was_alive_when_removed: "pri_a16_wanderer_was_alive_when_removed",
   pri_a17_actor_attack_bad: "pri_a17_actor_attack_bad",
@@ -402,6 +410,8 @@ export const info_portions = {
   pri_a17_val_dead: "pri_a17_val_dead",
   pri_a17_val_final_talk: "pri_a17_val_final_talk",
   pri_a17_val_in_cover_1: "pri_a17_val_in_cover_1",
+  pri_a25_actor_needs_medikit_advanced_supply: "pri_a25_actor_needs_medikit_advanced_supply",
+  pri_a25_actor_needs_medikit_elite_supply: "pri_a25_actor_needs_medikit_elite_supply",
   pri_a28_actor_in_zone_stay: "pri_a28_actor_in_zone_stay",
   pri_a28_army_leaved_alive: "pri_a28_army_leaved_alive",
   pri_a28_koval_dead: "pri_a28_koval_dead",
