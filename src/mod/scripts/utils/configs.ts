@@ -525,7 +525,7 @@ export function parse_waypoint_data(pathname: string, wpflags: XR_flags32, wpnam
 }
 
 /**
- * @returns picked section based on condlist
+ * @returns picked section based on condlist.
  */
 export function pickSectionFromCondList<T extends TSection>(
   actor: Optional<XR_game_object>,
@@ -548,7 +548,6 @@ export function pickSectionFromCondList<T extends TSection>(
           break;
         }
       } else if (infop.func) {
-        // --printf("_bp: infop.func = %s", infop.func)
         if (!get_global<AnyCallablesModule>("xr_conditions")[infop.func]) {
           abort(
             "object '%s': pick_section_from_condlist: function '%s' is " + "not defined in xr_conditions.script",
@@ -557,7 +556,6 @@ export function pickSectionFromCondList<T extends TSection>(
           );
         }
 
-        // --if xr_conditions[infop.func](actor, npc) {
         if (infop.params) {
           if (get_global<AnyCallablesModule>("xr_conditions")[infop.func](actor, npc, infop.params)) {
             if (!infop.expected) {

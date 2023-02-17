@@ -1955,7 +1955,7 @@ export function jup_b25_flint_gone_condition(): boolean {
 /**
  * todo;
  */
-function check_deimos_phase(actor: XR_game_object, npc: XR_game_object, params: AnyArgs): boolean {
+export function check_deimos_phase(actor: XR_game_object, npc: XR_game_object, params: AnyArgs): boolean {
   if (params[0] && params[1]) {
     const obj: IStoredObject = storage.get(npc.id());
     const delta: boolean = ActionDeimos.check_intensity_delta(obj);
@@ -1999,7 +1999,7 @@ function check_deimos_phase(actor: XR_game_object, npc: XR_game_object, params: 
 /**
  * todo;
  */
-function upgrade_hint_kardan(actor: XR_game_object, npc: XR_game_object, params: AnyArgs): boolean {
+export function upgrade_hint_kardan(actor: XR_game_object, npc: XR_game_object, params: AnyArgs): boolean {
   const hint_table = new LuaTable();
   const tools: number = (params && tonumber(params[0])) || 0;
   let can_upgrade = 0;
@@ -2046,21 +2046,21 @@ function upgrade_hint_kardan(actor: XR_game_object, npc: XR_game_object, params:
 /**
  * todo;
  */
-function actor_in_surge_cover(actor: XR_game_object, npc: XR_game_object): boolean {
+export function actor_in_surge_cover(actor: XR_game_object, npc: XR_game_object): boolean {
   return actor_in_cover();
 }
 
 /**
  * todo;
  */
-function is_door_blocked_by_npc(actor: XR_game_object, obj: XR_game_object) {
+export function is_door_blocked_by_npc(actor: XR_game_object, obj: XR_game_object) {
   return obj.is_door_blocked_by_npc();
 }
 
 /**
  * todo;
  */
-function has_active_tutorial(): boolean {
+export function has_active_tutorial(): boolean {
   return game.has_active_tutorial();
 }
 

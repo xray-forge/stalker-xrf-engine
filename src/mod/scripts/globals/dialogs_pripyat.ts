@@ -1,13 +1,18 @@
+/* eslint @typescript-eslint/explicit-function-return-type: "error" */
+
 import { XR_game_object } from "xray16";
 
 import { info_portions } from "@/mod/globals/info_portions";
-import { TAmmoItem } from "@/mod/globals/items/ammo";
+import { ammo, TAmmoItem } from "@/mod/globals/items/ammo";
+import { artefacts } from "@/mod/globals/items/artefacts";
 import { drugs } from "@/mod/globals/items/drugs";
 import { food } from "@/mod/globals/items/food";
-import { AnyCallablesModule, LuaArray } from "@/mod/lib/types";
+import { weapons } from "@/mod/globals/items/weapons";
+import { LuaArray } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
-import { disableInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
+import { disableInfo, giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { giveItemsToActor, giveMoneyToActor, takeItemsFromActor, takeMoneyFromActor } from "@/mod/scripts/utils/quests";
 
 const log: LuaLogger = new LuaLogger("dialogs_pripyat");
 
@@ -15,11 +20,7 @@ const log: LuaLogger = new LuaLogger("dialogs_pripyat");
  * todo;
  */
 export function pri_b301_zulus_reward(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  get_global<AnyCallablesModule>("dialogs").relocate_item_section_to_actor(
-    first_speaker,
-    second_speaker,
-    "wpn_pkm_zulus"
-  );
+  giveItemsToActor(first_speaker, second_speaker, weapons.wpn_pkm_zulus);
 }
 
 /**
@@ -27,11 +28,11 @@ export function pri_b301_zulus_reward(first_speaker: XR_game_object, second_spea
  */
 export function pri_a17_reward(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   if (hasAlifeInfo(info_portions.pri_a17_reward_well)) {
-    get_global<AnyCallablesModule>("dialogs").relocate_money_to_actor(first_speaker, second_speaker, 7500);
+    giveMoneyToActor(7500);
   } else if (hasAlifeInfo(info_portions.pri_a17_reward_norm)) {
-    get_global<AnyCallablesModule>("dialogs").relocate_money_to_actor(first_speaker, second_speaker, 4000);
+    giveMoneyToActor(4000);
   } else if (hasAlifeInfo(info_portions.pri_a17_reward_bad)) {
-    get_global<AnyCallablesModule>("dialogs").relocate_money_to_actor(first_speaker, second_speaker, 3000);
+    giveMoneyToActor(3000);
   }
 }
 
@@ -56,7 +57,7 @@ export function actor_hasnt_pri_a17_gauss_rifle(
  * todo;
  */
 export function transfer_artifact_af_baloon(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  get_global<AnyCallablesModule>("dialogs").relocate_item_section_to_actor(first_speaker, second_speaker, "af_baloon");
+  giveItemsToActor(first_speaker, second_speaker, artefacts.af_baloon);
 }
 
 /**
@@ -64,9 +65,9 @@ export function transfer_artifact_af_baloon(first_speaker: XR_game_object, secon
  */
 export function pay_cost_to_guide_to_zaton(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   if (hasAlifeInfo(info_portions.zat_b215_gave_maps)) {
-    get_global<AnyCallablesModule>("dialogs").relocate_money_from_actor(first_speaker, second_speaker, 1000);
+    takeMoneyFromActor(first_speaker, second_speaker, 1000);
   } else {
-    get_global<AnyCallablesModule>("dialogs").relocate_money_from_actor(first_speaker, second_speaker, 3000);
+    takeMoneyFromActor(first_speaker, second_speaker, 3000);
   }
 }
 
@@ -95,7 +96,7 @@ export function jup_b43_actor_do_not_has_10000_money(
  * todo;
  */
 export function pay_cost_to_guide_to_jupiter(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  get_global<AnyCallablesModule>("dialogs").relocate_money_from_actor(first_speaker, second_speaker, 7000);
+  takeMoneyFromActor(first_speaker, second_speaker, 7000);
 }
 
 /**
@@ -118,27 +119,18 @@ export function jup_b43_actor_do_not_has_7000_money(
 /**
  * todo;
  */
-export function pri_b35_transfer_svd(first_speaker: XR_game_object, second_speaker: XR_game_object) {
-  get_global<AnyCallablesModule>("dialogs").relocate_item_section_to_actor(first_speaker, second_speaker, "wpn_svd");
-  get_global<AnyCallablesModule>("dialogs").relocate_item_section_to_actor(
-    first_speaker,
-    second_speaker,
-    "ammo_7.62x54_7h1"
-  );
+export function pri_b35_transfer_svd(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+  giveItemsToActor(first_speaker, second_speaker, weapons.wpn_svd);
+  giveItemsToActor(first_speaker, second_speaker, ammo["ammo_7.62x54_7h1"]);
 }
 
 /**
  * todo;
  */
-export function pri_b35_give_actor_reward(first_speaker: XR_game_object, second_speaker: XR_game_object) {
-  const amount = hasAlifeInfo("pri_b35_secondary") ? 3 : 1;
+export function pri_b35_give_actor_reward(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+  const amount = hasAlifeInfo(info_portions.pri_b35_secondary) ? 3 : 1;
 
-  get_global<AnyCallablesModule>("dialogs").relocate_item_section_to_actor(
-    first_speaker,
-    second_speaker,
-    "ammo_7.62x54_7h1",
-    amount
-  );
+  giveItemsToActor(first_speaker, second_speaker, ammo["ammo_7.62x54_7h1"], amount);
 }
 
 /**
@@ -168,7 +160,7 @@ const medic_items_table = {
 /**
  * todo;
  */
-export function pri_a25_medic_give_kit(first_speaker: XR_game_object, second_speaker: XR_game_object) {
+export function pri_a25_medic_give_kit(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   let kit = "basic";
 
   if (hasAlifeInfo(info_portions.pri_a25_actor_needs_medikit_advanced_supply)) {
@@ -180,7 +172,7 @@ export function pri_a25_medic_give_kit(first_speaker: XR_game_object, second_spe
   for (const [k, v] of medic_items_table) {
     if (k === kit) {
       for (const [kk, vv] of v) {
-        get_global<AnyCallablesModule>("dialogs").relocate_item_section_to_actor(first_speaker, second_speaker, kk, vv);
+        giveItemsToActor(first_speaker, second_speaker, kk, vv);
       }
 
       disableInfo(k);
@@ -203,11 +195,11 @@ const supp_table = {
   ["supply_grenade_3"]: { ["ammo_m209"]: 3 },
 } as unknown as LuaTable<string, LuaTable<TAmmoItem, number>>;
 
-export function pri_a22_army_signaller_supply(first_speaker: XR_game_object, second_speaker: XR_game_object) {
+export function pri_a22_army_signaller_supply(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   for (const [k, v] of supp_table) {
     if (hasAlifeInfo(k)) {
       for (const [kk, vv] of v) {
-        get_global<AnyCallablesModule>("dialogs").relocate_item_section_to_actor(first_speaker, second_speaker, kk, vv);
+        giveItemsToActor(first_speaker, second_speaker, kk, vv);
       }
 
       disableInfo(k);
@@ -218,17 +210,9 @@ export function pri_a22_army_signaller_supply(first_speaker: XR_game_object, sec
 /**
  * todo;
  */
-export function pri_a22_give_actor_outfit(first_speaker: XR_game_object, second_speaker: XR_game_object) {
-  get_global<AnyCallablesModule>("dialogs").relocate_item_section_to_actor(
-    first_speaker,
-    second_speaker,
-    "military_outfit"
-  );
-  get_global<AnyCallablesModule>("dialogs").relocate_item_section_to_actor(
-    first_speaker,
-    second_speaker,
-    "helm_battle"
-  );
+export function pri_a22_give_actor_outfit(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+  giveItemsToActor(first_speaker, second_speaker, "military_outfit");
+  giveItemsToActor(first_speaker, second_speaker, "helm_battle");
 }
 
 /**
@@ -346,34 +330,24 @@ export function pri_b305_sell_strelok_notes(first_speaker: XR_game_object, secon
 
   for (const [k, v] of items_table) {
     if (actor.object(v) !== null) {
-      get_global<AnyCallablesModule>("dialogs").relocate_item_section_from_actor(first_speaker, second_speaker, v);
+      takeItemsFromActor(first_speaker, second_speaker, v);
       amount = amount + 1;
     }
   }
 
-  if (actor.object("wpn_gauss") !== null) {
-    get_global<AnyCallablesModule>("dialogs").relocate_item_section_to_actor(
-      first_speaker,
-      second_speaker,
-      "ammo_gauss",
-      2
-    );
+  if (actor.object(weapons.wpn_gauss) !== null) {
+    giveItemsToActor(first_speaker, second_speaker, ammo.ammo_gauss, 2);
   } else {
-    get_global<AnyCallablesModule>("dialogs").relocate_item_section_to_actor(
-      first_speaker,
-      second_speaker,
-      "medkit_scientic",
-      3
-    );
+    giveItemsToActor(first_speaker, second_speaker, drugs.medkit_scientic, 3);
   }
 
   if (amount > 1) {
-    get_global<AnyCallablesModule>("dialogs").relocate_item_section_to_actor(first_speaker, second_speaker, "af_fire");
+    giveItemsToActor(first_speaker, second_speaker, artefacts.af_fire);
   }
 
   if (amount > 2) {
-    get_global<AnyCallablesModule>("dialogs").relocate_item_section_to_actor(first_speaker, second_speaker, "af_glass");
-    actor.give_info_portion("pri_b305_all_strelok_notes_given");
+    giveItemsToActor(first_speaker, second_speaker, artefacts.af_glass);
+    giveInfo(info_portions.pri_b305_all_strelok_notes_given);
   }
 }
 

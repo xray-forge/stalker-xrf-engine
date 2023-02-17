@@ -1,3 +1,6 @@
+/**
+ * todo;
+ */
 export function normalizeBaseNodeProps<T extends object>(props: T): T {
   const nextProps: T = { ...props };
 

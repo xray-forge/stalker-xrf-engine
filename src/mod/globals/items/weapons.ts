@@ -1,4 +1,4 @@
-/* eslint sort-keys-fix/sort-keys-fix: "error"*/
+/* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 export const weapons = {
   grenade_f1: "grenade_f1",
@@ -32,6 +32,7 @@ export const weapons = {
   wpn_fort_snag: "wpn_fort_snag",
   wpn_g36: "wpn_g36",
   wpn_g36_nimble: "wpn_g36_nimble",
+  wpn_gauss: "wpn_gauss",
   wpn_grenade_f1: "wpn_grenade_f1",
   wpn_grenade_f1_s: "wpn_grenade_f1_s",
   wpn_grenade_fake: "wpn_grenade_fake",
@@ -58,6 +59,7 @@ export const weapons = {
   wpn_pm: "wpn_pm",
   wpn_pm_actor: "wpn_pm_actor",
   wpn_pm_s: "wpn_pm_s",
+  wpn_protecta: "wpn_protecta",
   wpn_protecta_nimble: "wpn_protecta_nimble",
   "wpn_rg-6": "wpn_rg-6",
   wpn_rg6: "wpn_rg6",
