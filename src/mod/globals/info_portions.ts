@@ -1,6 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error"*/
 
-// todo: Probably separate for quests and generic.
+// todo: Probably separate for quests and generic collections.
+// todo: Probably do nested objects to store quest infos in one pack.
 export const info_portions = {
   actor_information_dealer: "actor_information_dealer",
   actor_is_sleeping: "actor_is_sleeping",
@@ -10,6 +11,8 @@ export const info_portions = {
   balance_advocate_gained: "balance_advocate_gained",
   battle_systems_master_achievement_gained: "battle_systems_master_achievement_gained",
   detective_achievement_gained: "detective_achievement_gained",
+  device_flash_snag_sold: "device_flash_snag_sold",
+  device_pda_port_bandit_leader_sold: "device_pda_port_bandit_leader_sold",
   diplomat_achievement_gained: "diplomat_achievement_gained",
   herald_of_justice_achievement_gained: "herald_of_justice_achievement_gained",
   high_tech_master_achievement_gained: "high_tech_master_achievement_gained",
@@ -126,7 +129,9 @@ export const info_portions = {
   jup_a9_cam_1_end: "jup_a9_cam_1_end",
   jup_a9_cam_2_end: "jup_a9_cam_2_end",
   jup_a9_cam_3_end: "jup_a9_cam_3_end",
+  jup_a9_delivery_info_sold: "jup_a9_delivery_info_sold",
   jup_a9_evacuation_info_sold: "jup_a9_evacuation_info_sold",
+  jup_a9_losses_info_sold: "jup_a9_losses_info_sold",
   jup_a9_meeting_info_sold: "jup_a9_meeting_info_sold",
   jup_a9_set_default_counter: "jup_a9_set_default_counter",
   jup_a9_tech_conservation_info: "jup_a9_tech_conservation_info",
@@ -135,6 +140,10 @@ export const info_portions = {
   jup_a9_way_to_pripyat_power_info_started: "jup_a9_way_to_pripyat_power_info_started",
   jup_a9_way_to_pripyat_search_started: "jup_a9_way_to_pripyat_search_started",
   jup_a9_way_to_pripyat_way_info_started: "jup_a9_way_to_pripyat_way_info_started",
+  /**
+   * Jupiter b10.
+   */
+  jup_b10_ufo_memory_2_sold: "jup_b10_ufo_memory_2_sold",
   /**
    * Jupiter b15.
    */
@@ -182,6 +191,9 @@ export const info_portions = {
    * Jupiter b202.
    */
   jup_b202_actor_items_returned: "jup_b202_actor_items_returned",
+  jup_b202_bandit_hited: "jup_b202_bandit_hited",
+  jup_b202_bandit_hited_by_actor: "jup_b202_bandit_hited_by_actor",
+  jup_b202_polustanok: "jup_b202_polustanok",
   /**
    * Jupiter b206.
    */
@@ -209,6 +221,7 @@ export const info_portions = {
   jup_b207_freedom_knows_about_depot: "jup_b207_freedom_knows_about_depot",
   jup_b207_freedom_refused_to_leave: "jup_b207_freedom_refused_to_leave",
   jup_b207_freedom_wins: "jup_b207_freedom_wins",
+  jup_b207_merc_pda_with_contract_sold: "jup_b207_merc_pda_with_contract_sold",
   jup_b207_morgan_ambush: "jup_b207_morgan_ambush",
   jup_b207_morgan_blackmailed: "jup_b207_morgan_blackmailed",
   jup_b207_morgan_gived_blackmail_reward: "jup_b207_morgan_gived_blackmail_reward",
@@ -250,6 +263,7 @@ export const info_portions = {
   jup_b217_tech_instrument_1_brought: "jup_b217_tech_instrument_1_brought",
   jup_b217_tech_instrument_2_brought: "jup_b217_tech_instrument_2_brought",
   jup_b217_tech_instrument_3_brought: "jup_b217_tech_instrument_3_brought",
+  jup_b218_gather_squad_complete: "jup_b218_gather_squad_complete",
   jup_b218_monolith_hired: "jup_b218_monolith_hired",
   jup_b218_soldier_hired: "jup_b218_soldier_hired",
   jup_b218_soldier_need_outfit: "jup_b218_soldier_need_outfit",
@@ -332,6 +346,7 @@ export const info_portions = {
    * Jupiter b52.
    */
   jup_b52_actor_items_can_be_stolen: "jup_b52_actor_items_can_be_stolen",
+  jup_b52_medic_testimony: "jup_b52_medic_testimony",
   /**
    * Jupiter b6.
    */
@@ -540,6 +555,7 @@ export const info_portions = {
   zat_b100_poltergeist_spawned_01: "zat_b100_poltergeist_spawned_01",
   zat_b100_poltergeist_spawned_02: "zat_b100_poltergeist_spawned_02",
   zat_b100_sound_played: "zat_b100_sound_played",
+  zat_b101_heli_5_searched: "zat_b101_heli_5_searched",
   zat_b103_actor_take_toolkit: "zat_b103_actor_take_toolkit",
   zat_b103_actor_took_kardan_task: "zat_b103_actor_took_kardan_task",
   zat_b103_actor_warned_by_merc: "zat_b103_actor_warned_by_merc",
@@ -557,8 +573,15 @@ export const info_portions = {
   zat_b106_chimera_dead: "zat_b106_chimera_dead",
   zat_b106_found_soroka: "zat_b106_found_soroka",
   zat_b106_found_soroka_done: "zat_b106_found_soroka_done",
+  zat_b106_one_hit: "zat_b106_one_hit",
   zat_b106_search_soroka: "zat_b106_search_soroka",
   zat_b106_stalker_gonta_b52_about_nimble_dialog_done: "zat_b106_stalker_gonta_b52_about_nimble_dialog_done",
+  /**
+   * Zaton b12.
+   */
+  zat_b12_documents_sold_1: "zat_b12_documents_sold_1",
+  zat_b12_documents_sold_2: "zat_b12_documents_sold_2",
+  zat_b12_documents_sold_3: "zat_b12_documents_sold_3",
   zat_b12_key_1_use: "zat_b12_key_1_use",
   zat_b12_key_2_use: "zat_b12_key_2_use",
   zat_b14_actor_enemy: "zat_b14_actor_enemy",
@@ -626,6 +649,7 @@ export const info_portions = {
   zat_b22_medic_dialog_info_1: "zat_b22_medic_dialog_info_1",
   zat_b22_medic_dialog_info_2: "zat_b22_medic_dialog_info_2",
   zat_b22_medic_dialog_info_3: "zat_b22_medic_dialog_info_3",
+  zat_b22_medic_pda: "zat_b22_medic_pda",
   zat_b22_questline_reversed: "zat_b22_questline_reversed",
   zat_b22_stalker_cop_place: "zat_b22_stalker_cop_place",
   zat_b22_stalker_medic_b52_about_nimble_dialog_done: "zat_b22_stalker_medic_b52_about_nimble_dialog_done",
@@ -633,6 +657,7 @@ export const info_portions = {
   zat_b22_stalker_medic_wounded_heavy: "zat_b22_stalker_medic_wounded_heavy",
   zat_b22_stalker_vampire: "zat_b22_stalker_vampire",
   zat_b22_stalker_vampire_story: "zat_b22_stalker_vampire_story",
+  zat_b28_heli_3_searched: "zat_b28_heli_3_searched",
   zat_b29_adv_task_given: "zat_b29_adv_task_given",
   zat_b29_adv_task_timeout: "zat_b29_adv_task_timeout",
   zat_b29_af_16: "zat_b29_af_16",
@@ -678,6 +703,9 @@ export const info_portions = {
   zat_b29_stalkers_rivals_found_af: "zat_b29_stalkers_rivals_found_af",
   zat_b29_task_fail: "zat_b29_task_fail",
   zat_b29_task_start: "zat_b29_task_start",
+  /**
+   * Zaton b30.
+   */
   zat_b30_about_compass_told: "zat_b30_about_compass_told",
   zat_b30_actor_against_barmen: "zat_b30_actor_against_barmen",
   zat_b30_actor_against_owl: "zat_b30_actor_against_owl",
@@ -701,6 +729,12 @@ export const info_portions = {
   zat_b30_owl_in_trouble: "zat_b30_owl_in_trouble",
   zat_b30_owl_in_trouble_dialog_done: "zat_b30_owl_in_trouble_dialog_done",
   zat_b30_owl_quest_done: "zat_b30_owl_quest_done",
+  zat_b30_owl_scat_1: "zat_b30_owl_scat_1",
+  zat_b30_owl_scat_2: "zat_b30_owl_scat_2",
+  zat_b30_owl_scat_3: "zat_b30_owl_scat_3",
+  zat_b30_owl_stalker_about_halfart_jup_b6_asked: "zat_b30_owl_stalker_about_halfart_jup_b6_asked",
+  zat_b30_owl_stalker_about_halfart_zat_b14_asked: "zat_b30_owl_stalker_about_halfart_zat_b14_asked",
+  zat_b30_owl_stalker_trader_about_osis_art: "zat_b30_owl_stalker_trader_about_osis_art",
   zat_b30_owl_stalker_trader_more_documets_done: "zat_b30_owl_stalker_trader_more_documets_done",
   zat_b30_owl_to_sultan: "zat_b30_owl_to_sultan",
   zat_b30_rival_1_wo_detector: "zat_b30_rival_1_wo_detector",
@@ -792,15 +826,34 @@ export const info_portions = {
   zat_b38_stalkers_den_of_the_bloodsucker_universal_dialog_done:
     "zat_b38_stalkers_den_of_the_bloodsucker_universal_dialog_done",
   zat_b38_underground_door_open: "zat_b38_underground_door_open",
+  /**
+   * Zaton b3.
+   */
   zat_b3_all_instruments_brought: "zat_b3_all_instruments_brought",
+  zat_b3_gauss_repaired: "zat_b3_gauss_repaired",
   zat_b3_stalker_mechanic_b52_about_nimble_dialog_done: "zat_b3_stalker_mechanic_b52_about_nimble_dialog_done",
+  zat_b3_tech_discount_1: "zat_b3_tech_discount_1",
+  zat_b3_tech_drink_no_more: "zat_b3_tech_drink_no_more",
   zat_b3_tech_have_couple_dose: "zat_b3_tech_have_couple_dose",
   zat_b3_tech_have_one_dose: "zat_b3_tech_have_one_dose",
   zat_b3_tech_instrument_1_brought: "zat_b3_tech_instrument_1_brought",
   zat_b3_tech_instrument_2_brought: "zat_b3_tech_instrument_2_brought",
   zat_b3_tech_instrument_3_brought: "zat_b3_tech_instrument_3_brought",
   zat_b3_tech_see_produce_62: "zat_b3_tech_see_produce_62",
+  /**
+   * Zaton b40.
+   */
+  zat_b40_all_item_saled: "zat_b40_all_item_saled",
+  zat_b40_notebook_saled: "zat_b40_notebook_saled",
+  zat_b40_pda_1_saled: "zat_b40_pda_1_saled",
+  zat_b40_pda_2_saled: "zat_b40_pda_2_saled",
+  /**
+   * Zaton b44.
+   */
   zat_b44_tech_buddies_both_told: "zat_b44_tech_buddies_both_told",
+  /**
+   * Zaton b51.
+   */
   zat_b51_done_item_1_1: "zat_b51_done_item_1_1",
   zat_b51_done_item_1_2: "zat_b51_done_item_1_2",
   zat_b51_done_item_1_3: "zat_b51_done_item_1_3",

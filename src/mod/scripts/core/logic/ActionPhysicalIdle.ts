@@ -1,6 +1,6 @@
 import { XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
 import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
@@ -13,6 +13,7 @@ import {
   getConfigBoolean,
   getConfigCondList,
   getConfigString,
+  parse_data_1v,
   pickSectionFromCondList,
 } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -40,10 +41,7 @@ export class ActionPhysicalIdle extends AbstractSchemeImplementation {
     const state = assignStorageAndBind(object, ini, scheme, section);
 
     state.logic = cfg_get_switch_conditions(ini, section, object);
-    state.hit_on_bone = get_global<AnyCallablesModule>("utils").parse_data_1v(
-      object,
-      getConfigString(ini, section, "hit_on_bone", object, false, "")
-    );
+    state.hit_on_bone = parse_data_1v(object, getConfigString(ini, section, "hit_on_bone", object, false, ""));
     state.nonscript_usable = getConfigBoolean(ini, section, "nonscript_usable", object, false);
     state.on_use = getConfigCondList(ini, section, "on_use", object);
 

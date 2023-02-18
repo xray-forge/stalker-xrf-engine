@@ -19,6 +19,7 @@ export const ammo = {
   ammo_9x39_ap: "ammo_9x39_ap",
   ammo_9x39_pab9: "ammo_9x39_pab9",
   ammo_gauss: "ammo_gauss",
+  ammo_gauss_cardan: "ammo_gauss_cardan",
   ammo_m209: "ammo_m209",
   "ammo_og-7b": "ammo_og-7b",
   ammo_pkm_100: "ammo_pkm_100",

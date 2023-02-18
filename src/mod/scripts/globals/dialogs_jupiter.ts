@@ -7,8 +7,11 @@ import { ammo } from "@/mod/globals/items/ammo";
 import { artefacts, TArtefact } from "@/mod/globals/items/artefacts";
 import { detectors } from "@/mod/globals/items/detectors";
 import { drugs } from "@/mod/globals/items/drugs";
+import { food } from "@/mod/globals/items/food";
 import { helmets, THelmet } from "@/mod/globals/items/helmets";
+import { misc } from "@/mod/globals/items/misc";
 import { outfits, TOutfit } from "@/mod/globals/items/outfits";
+import { quest_items } from "@/mod/globals/items/quest_items";
 import { weapons } from "@/mod/globals/items/weapons";
 import { AnyCallablesModule, AnyObject, LuaArray, Optional } from "@/mod/lib/types";
 import { anomalyByName, getActor, IStoredObject } from "@/mod/scripts/core/db";
@@ -54,9 +57,9 @@ export function jupiter_a9_actor_has_all_mail_items(
   const actor: XR_game_object = getActor() as XR_game_object;
 
   return (
-    actor.object("jup_a9_conservation_info") !== null &&
-    actor.object("jup_a9_power_info") !== null &&
-    actor.object("jup_a9_way_info") !== null
+    actor.object(quest_items.jup_a9_conservation_info) !== null &&
+    actor.object(quest_items.jup_a9_power_info) !== null &&
+    actor.object(quest_items.jup_a9_way_info) !== null
   );
 }
 
@@ -64,13 +67,13 @@ export function jupiter_a9_actor_has_any_items(first_speaker: XR_game_object, se
   const actor: XR_game_object = getActor() as XR_game_object;
 
   return (
-    actor.object("jup_a9_delivery_info") !== null ||
-    actor.object("jup_a9_evacuation_info") !== null ||
-    actor.object("jup_a9_losses_info") !== null ||
-    actor.object("jup_a9_power_info") !== null ||
-    actor.object("jup_a9_conservation_info") !== null ||
-    actor.object("jup_a9_way_info") !== null ||
-    actor.object("jup_a9_meeting_info") !== null
+    actor.object(quest_items.jup_a9_delivery_info) !== null ||
+    actor.object(quest_items.jup_a9_evacuation_info) !== null ||
+    actor.object(quest_items.jup_a9_losses_info) !== null ||
+    actor.object(quest_items.jup_a9_power_info) !== null ||
+    actor.object(quest_items.jup_a9_conservation_info) !== null ||
+    actor.object(quest_items.jup_a9_way_info) !== null ||
+    actor.object(quest_items.jup_a9_meeting_info) !== null
   );
 }
 
@@ -81,9 +84,9 @@ export function jupiter_a9_actor_has_any_mail_items(
   const actor: XR_game_object = getActor() as XR_game_object;
 
   return (
-    actor.object("jup_a9_conservation_info") !== null ||
-    actor.object("jup_a9_power_info") !== null ||
-    actor.object("jup_a9_way_info") !== null
+    actor.object(quest_items.jup_a9_conservation_info) !== null ||
+    actor.object(quest_items.jup_a9_power_info) !== null ||
+    actor.object(quest_items.jup_a9_way_info) !== null
   );
 }
 
@@ -94,10 +97,10 @@ export function jupiter_a9_actor_has_any_secondary_items(
   const actor: XR_game_object = getActor() as XR_game_object;
 
   return (
-    actor.object("jup_a9_delivery_info") !== null ||
-    actor.object("jup_a9_evacuation_info") !== null ||
-    actor.object("jup_a9_losses_info") !== null ||
-    actor.object("jup_a9_meeting_info") !== null
+    actor.object(quest_items.jup_a9_delivery_info) !== null ||
+    actor.object(quest_items.jup_a9_evacuation_info) !== null ||
+    actor.object(quest_items.jup_a9_losses_info) !== null ||
+    actor.object(quest_items.jup_a9_meeting_info) !== null
   );
 }
 
@@ -108,9 +111,9 @@ export function jupiter_a9_actor_hasnt_any_mail_items(
   const actor: XR_game_object = getActor() as XR_game_object;
 
   return (
-    actor.object("jup_a9_conservation_info") === null ||
-    actor.object("jup_a9_power_info") === null ||
-    actor.object("jup_a9_way_info") === null
+    actor.object(quest_items.jup_a9_conservation_info) === null ||
+    actor.object(quest_items.jup_a9_power_info) === null ||
+    actor.object(quest_items.jup_a9_way_info) === null
   );
 }
 
@@ -174,7 +177,7 @@ export function jup_a9_owl_stalker_trader_sell_jup_a9_evacuation_info(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): void {
-  takeItemsFromActor(first_speaker, second_speaker, "jup_a9_evacuation_info");
+  takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_a9_evacuation_info);
   giveMoneyToActor(750);
   giveInfo(info_portions.jup_a9_evacuation_info_sold);
 }
@@ -183,7 +186,7 @@ export function jup_a9_owl_stalker_trader_sell_jup_a9_meeting_info(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): void {
-  takeItemsFromActor(first_speaker, second_speaker, "jup_a9_meeting_info");
+  takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_a9_meeting_info);
   giveMoneyToActor(750);
   giveInfo(info_portions.jup_a9_meeting_info_sold);
 }
@@ -192,18 +195,18 @@ export function jup_a9_owl_stalker_trader_sell_jup_a9_losses_info(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): void {
-  takeItemsFromActor(first_speaker, second_speaker, "jup_a9_losses_info");
+  takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_a9_losses_info);
   giveMoneyToActor(750);
-  giveInfo("jup_a9_losses_info_sold");
+  giveInfo(info_portions.jup_a9_losses_info_sold);
 }
 
 export function jup_a9_owl_stalker_trader_sell_jup_a9_delivery_info(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): void {
-  takeItemsFromActor(first_speaker, second_speaker, "jup_a9_delivery_info");
+  takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_a9_delivery_info);
   giveMoneyToActor(750);
-  giveInfo("jup_a9_delivery_info_sold");
+  giveInfo(info_portions.jup_a9_delivery_info_sold);
 }
 
 export function jupiter_a9_dolg_leader_jupiter_sell_all_secondary_items(
@@ -259,7 +262,7 @@ export function jup_a9_actor_has_conservation_info(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return getActor()!.object("jup_a9_conservation_info") !== null;
+  return getActor()!.object(quest_items.jup_a9_conservation_info) !== null;
 }
 
 export function jup_a9_actor_hasnt_conservation_info(
@@ -270,11 +273,11 @@ export function jup_a9_actor_hasnt_conservation_info(
 }
 
 export function actor_relocate_conservation_info(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeItemsFromActor(first_speaker, second_speaker, "jup_a9_conservation_info");
+  takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_a9_conservation_info);
 }
 
 export function jup_a9_actor_has_power_info(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return getActor()!.object("jup_a9_power_info") !== null;
+  return getActor()!.object(quest_items.jup_a9_power_info) !== null;
 }
 
 export function jup_a9_actor_hasnt_power_info(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
@@ -282,11 +285,11 @@ export function jup_a9_actor_hasnt_power_info(first_speaker: XR_game_object, sec
 }
 
 export function actor_relocate_power_info(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeItemsFromActor(first_speaker, second_speaker, "jup_a9_power_info");
+  takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_a9_power_info);
 }
 
 export function jup_a9_actor_has_way_info(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return getActor()!.object("jup_a9_way_info") !== null;
+  return getActor()!.object(quest_items.jup_a9_way_info) !== null;
 }
 
 export function jup_a9_actor_hasnt_way_info(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
@@ -294,11 +297,11 @@ export function jup_a9_actor_hasnt_way_info(first_speaker: XR_game_object, secon
 }
 
 export function actor_relocate_way_info(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeItemsFromActor(first_speaker, second_speaker, "jup_a9_way_info");
+  takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_a9_way_info);
 }
 
 export function jup_a9_actor_has_meeting_info(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return getActor()!.object("jup_a9_meeting_info") !== null;
+  return getActor()!.object(quest_items.jup_a9_meeting_info) !== null;
 }
 
 export function jup_a9_actor_hasnt_meeting_info(
@@ -309,12 +312,12 @@ export function jup_a9_actor_hasnt_meeting_info(
 }
 
 export function actor_relocate_meeting_info(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeItemsFromActor(first_speaker, second_speaker, "jup_a9_meeting_info");
-  giveInfo("jup_a9_meeting_info_sold");
+  takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_a9_meeting_info);
+  giveInfo(info_portions.jup_a9_meeting_info_sold);
 }
 
 export function jup_a9_actor_has_delivery_info(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return getActor()!.object("jup_a9_delivery_info") !== null;
+  return getActor()!.object(quest_items.jup_a9_delivery_info) !== null;
 }
 
 export function jup_a9_actor_hasnt_delivery_info(
@@ -328,7 +331,7 @@ export function jup_a9_actor_has_evacuation_info(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return getActor()!.object("jup_a9_evacuation_info") !== null;
+  return getActor()!.object(quest_items.jup_a9_evacuation_info) !== null;
 }
 
 export function jup_a9_actor_hasnt_evacuation_info(
@@ -339,17 +342,17 @@ export function jup_a9_actor_hasnt_evacuation_info(
 }
 
 export function actor_relocate_evacuation_info(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeItemsFromActor(first_speaker, second_speaker, "jup_a9_evacuation_info");
-  giveInfo("jup_a9_evacuation_info_sold");
+  takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_a9_evacuation_info);
+  giveInfo(info_portions.jup_a9_evacuation_info_sold);
 }
 
 export function actor_relocate_delivery_info(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeItemsFromActor(first_speaker, second_speaker, "jup_a9_delivery_info");
-  giveInfo("jup_a9_delivery_info_sold");
+  takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_a9_delivery_info);
+  giveInfo(info_portions.jup_a9_delivery_info_sold);
 }
 
 export function jup_a9_actor_has_losses_info(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return getActor()!.object("jup_a9_losses_info") !== null;
+  return getActor()!.object(quest_items.jup_a9_losses_info) !== null;
 }
 
 export function jup_a9_actor_hasnt_losses_info(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
@@ -358,26 +361,26 @@ export function jup_a9_actor_hasnt_losses_info(first_speaker: XR_game_object, se
 
 // --------------------------------------------------
 export function actor_relocate_losses_info(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeItemsFromActor(first_speaker, second_speaker, "jup_a9_losses_info");
-  giveInfo("jup_a9_losses_info_sold");
+  takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_a9_losses_info);
+  giveInfo(info_portions.jup_a9_losses_info_sold);
 }
 
 // -- b206
 export function actor_has_plant(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return getActor()!.object("jup_b206_plant") !== null;
+  return getActor()!.object(quest_items.jup_b206_plant) !== null;
 }
 
 export function actor_relocate_plant(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeItemsFromActor(first_speaker, second_speaker, "jup_b206_plant");
+  takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_b206_plant);
 }
 
 // -- b212
 export function actor_relocate_trapper_reward(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  giveItemsToActor(first_speaker, second_speaker, "wpn_wincheaster1300_trapper");
+  giveItemsToActor(first_speaker, second_speaker, weapons.wpn_wincheaster1300_trapper);
 }
 
 export function zat_b106_trapper_reward(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  if (hasAlifeInfo("zat_b106_one_hit")) {
+  if (hasAlifeInfo(info_portions.zat_b106_one_hit)) {
     giveMoneyToActor(3000);
   } else {
     giveMoneyToActor(2000);
@@ -442,7 +445,7 @@ export function jup_a10_actor_has_not_money(first_speaker: XR_game_object, secon
 }
 
 export function jup_a10_actor_give_money(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  if (hasAlifeInfo("jup_a10_debt_wo_percent")) {
+  if (hasAlifeInfo(info_portions.jup_a10_debt_wo_percent)) {
     takeMoneyFromActor(first_speaker, second_speaker, 5000);
     giveInfo(info_portions.jup_a10_bandit_take_money);
   } else {
@@ -475,7 +478,7 @@ export function if_actor_has_jup_b16_oasis_artifact(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return first_speaker.object("af_oasis_heart") !== null;
+  return first_speaker.object(artefacts.af_oasis_heart) !== null;
 }
 
 export function if_actor_hasnt_jup_b16_oasis_artifact(
@@ -490,7 +493,7 @@ export function jupiter_b16_reward(first_speaker: XR_game_object, second_speaker
 }
 
 export function give_jup_b16_oasis_artifact(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeItemsFromActor(first_speaker, second_speaker, "af_oasis_heart");
+  takeItemsFromActor(first_speaker, second_speaker, artefacts.af_oasis_heart);
 }
 
 export function jup_a12_actor_has_15000_money(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
@@ -868,10 +871,10 @@ export function jup_b6_all_reward_for_actor_extra(first_speaker: XR_game_object,
 }
 
 export function jup_b6_reward_actor_by_detector(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  giveItemsToActor(first_speaker, second_speaker, "detector_elite");
+  giveItemsToActor(first_speaker, second_speaker, detectors.detector_elite);
 }
 
-export function jup_b1_actor_have_good_suit(first_speaker: XR_game_object, second_speaker: XR_game_object) {
+export function jup_b1_actor_have_good_suit(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
   const suits_tbl = {
     [outfits.scientific_outfit]: true,
     [outfits.military_outfit]: true,
@@ -922,20 +925,22 @@ export function jup_b6_actor_can_start(first_speaker: XR_game_object, second_spe
 }
 
 export function jup_b1_stalker_squad_thanks(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  giveItemsToActor(first_speaker, second_speaker, "medkit_scientic", 3);
-  giveItemsToActor(first_speaker, second_speaker, "antirad", 5);
-  giveItemsToActor(first_speaker, second_speaker, "drug_psy_blockade", 2);
-  giveItemsToActor(first_speaker, second_speaker, "drug_antidot", 2);
-  giveItemsToActor(first_speaker, second_speaker, "drug_radioprotector", 2);
-  giveItemsToActor(first_speaker, second_speaker, "drug_anabiotic");
-  giveItemsToActor(first_speaker, second_speaker, "helm_protective");
+  giveItemsToActor(first_speaker, second_speaker, drugs.medkit_scientic, 3);
+  giveItemsToActor(first_speaker, second_speaker, drugs.antirad, 5);
+  giveItemsToActor(first_speaker, second_speaker, drugs.drug_psy_blockade, 2);
+  giveItemsToActor(first_speaker, second_speaker, drugs.drug_antidot, 2);
+  giveItemsToActor(first_speaker, second_speaker, drugs.drug_radioprotector, 2);
+  giveItemsToActor(first_speaker, second_speaker, drugs.drug_anabiotic);
+  giveItemsToActor(first_speaker, second_speaker, helmets.helm_protective);
 }
 
 export function jup_b202_actor_has_medkit(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
   const actor = getActorSpeaker(first_speaker, second_speaker);
 
   return (
-    actor.object("medkit") !== null || actor.object("medkit_army") !== null || actor.object("medkit_scientic") !== null
+    actor.object(drugs.medkit) !== null ||
+    actor.object(drugs.medkit_army) !== null ||
+    actor.object(drugs.medkit_scientic) !== null
   );
 }
 
@@ -943,8 +948,8 @@ export function jup_b202_hit_bandit_from_actor(first_speaker: XR_game_object, se
   const npc = getNpcSpeaker(first_speaker, second_speaker);
   const actor = getActorSpeaker(first_speaker, second_speaker);
 
-  giveInfo("jup_b202_bandit_hited");
-  giveInfo("jup_b202_bandit_hited_by_actor");
+  giveInfo(info_portions.jup_b202_bandit_hited);
+  giveInfo(info_portions.jup_b202_bandit_hited_by_actor);
   get_global<AnyCallablesModule>("xr_effects").set_squad_goodwill(actor, npc, ["jup_b202_bandit_squad", "enemy"]);
   // --xr_effects.hit_npc_from_actor(actor,npc,{"jup_b202_bandit"})
 }
@@ -953,10 +958,10 @@ export function jup_b202_medic_dialog_precondition(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  if (hasAlifeInfo("jup_b218_gather_squad_complete")) {
-    return !hasAlifeInfo("jup_b202_polustanok");
+  if (hasAlifeInfo(info_portions.jup_b218_gather_squad_complete)) {
+    return !hasAlifeInfo(info_portions.jup_b202_polustanok);
   } else {
-    return !hasAlifeInfo("jup_b52_medic_testimony");
+    return !hasAlifeInfo(info_portions.jup_b52_medic_testimony);
   }
 }
 
@@ -1011,9 +1016,9 @@ export function jup_b217_actor_got_toolkit(first_speaker: XR_game_object, second
     const section = item.section();
 
     if (
-      (section === "toolkit_1" && !hasAlifeInfo(info_portions.jup_b217_tech_instrument_1_brought)) ||
-      (section === "toolkit_2" && !hasAlifeInfo(info_portions.jup_b217_tech_instrument_2_brought)) ||
-      (section === "toolkit_3" && !hasAlifeInfo(info_portions.jup_b217_tech_instrument_3_brought))
+      (section === misc.toolkit_1 && !hasAlifeInfo(info_portions.jup_b217_tech_instrument_1_brought)) ||
+      (section === misc.toolkit_2 && !hasAlifeInfo(info_portions.jup_b217_tech_instrument_2_brought)) ||
+      (section === misc.toolkit_3 && !hasAlifeInfo(info_portions.jup_b217_tech_instrument_3_brought))
     ) {
       (actor as AnyObject).toolkit = section;
 
@@ -1036,11 +1041,11 @@ export function jupiter_b200_tech_materials_relocate(
   second_speaker: XR_game_object
 ): void {
   const need_items = {
-    ["jup_b200_tech_materials_wire"]: true,
-    ["jup_b200_tech_materials_acetone"]: true,
-    ["jup_b200_tech_materials_textolite"]: true,
-    ["jup_b200_tech_materials_transistor"]: true,
-    ["jup_b200_tech_materials_capacitor"]: true,
+    [quest_items.jup_b200_tech_materials_wire]: true,
+    [quest_items.jup_b200_tech_materials_acetone]: true,
+    [quest_items.jup_b200_tech_materials_textolite]: true,
+    [quest_items.jup_b200_tech_materials_transistor]: true,
+    [quest_items.jup_b200_tech_materials_capacitor]: true,
   } as unknown as LuaTable<string, boolean>;
 
   const actor: XR_game_object = getActor() as XR_game_object;
@@ -1168,7 +1173,7 @@ export function jupiter_b9_relocate_money(first_speaker: XR_game_object, second_
 }
 
 export function give_jup_b9_blackbox(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeItemsFromActor(first_speaker, second_speaker, "jup_b9_blackbox");
+  takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_b9_blackbox);
 }
 
 export function jup_b9_actor_has_not_money(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
@@ -1176,7 +1181,7 @@ export function jup_b9_actor_has_not_money(first_speaker: XR_game_object, second
 }
 
 export function if_actor_has_jup_b9_blackbox(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return getActor()!.object("jup_b9_blackbox") !== null;
+  return getActor()!.object(quest_items.jup_b9_blackbox) !== null;
 }
 
 export function if_actor_has_af_mincer_meat(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
@@ -1228,8 +1233,8 @@ export function jup_b46_sell_duty_founder_pda(first_speaker: XR_game_object, sec
 export function jup_b46_transfer_duty_founder_pda(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   const npc: XR_game_object = getNpcSpeaker(first_speaker, second_speaker);
 
-  if (getActor()!.object("jup_b46_duty_founder_pda") !== null) {
-    relocateQuestItemSection(npc, "jup_b46_duty_founder_pda", "out");
+  if (getActor()!.object(quest_items.jup_b46_duty_founder_pda) !== null) {
+    relocateQuestItemSection(npc, quest_items.jup_b46_duty_founder_pda, "out");
   }
 }
 
@@ -1237,14 +1242,14 @@ export function jup_b46_sell_duty_founder_pda_to_owl(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): void {
-  takeItemsFromActor(first_speaker, second_speaker, "jup_b46_duty_founder_pda");
+  takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_b46_duty_founder_pda);
   giveMoneyToActor(2500);
   giveInfo(info_portions.jup_b46_duty_founder_pda_sold);
   giveInfo(info_portions.jup_b46_duty_founder_pda_to_stalkers);
 }
 
 export function jup_b46_actor_has_founder_pda(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return getActor()!.object("jup_b46_duty_founder_pda") !== null;
+  return getActor()!.object(quest_items.jup_b46_duty_founder_pda) !== null;
 }
 
 // -------------------------- Jupiter b47 --------------------------------------
@@ -1457,14 +1462,14 @@ export function jup_b47_jupiter_products_info_enabled(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return getActor()!.object("jup_b47_jupiter_products_info") !== null;
+  return getActor()!.object(quest_items.jup_b47_jupiter_products_info) !== null;
 }
 
 export function jup_b47_jupiter_products_info_disabled(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return getActor()!.object("jup_b47_jupiter_products_info") === null;
+  return getActor()!.object(quest_items.jup_b47_jupiter_products_info) === null;
 }
 
 export function jup_b47_jupiter_products_info_revard(
@@ -1474,13 +1479,13 @@ export function jup_b47_jupiter_products_info_revard(
   const npc = getNpcSpeaker(first_speaker, second_speaker);
   const actor = getActorSpeaker(first_speaker, second_speaker);
 
-  relocateQuestItemSection(npc, "jup_b47_jupiter_products_info", "out");
+  relocateQuestItemSection(npc, quest_items.jup_b47_jupiter_products_info, "out");
   giveMoneyToActor(7000);
-  relocateQuestItemSection(actor, "medkit_scientic", "in", 3);
-  relocateQuestItemSection(actor, "antirad", "in", 5);
-  relocateQuestItemSection(actor, "drug_psy_blockade", "in", 2);
-  relocateQuestItemSection(actor, "drug_antidot", "in", 2);
-  relocateQuestItemSection(actor, "drug_radioprotector", "in", 2);
+  relocateQuestItemSection(actor, drugs.medkit_scientic, "in", 3);
+  relocateQuestItemSection(actor, drugs.antirad, "in", 5);
+  relocateQuestItemSection(actor, drugs.drug_psy_blockade, "in", 2);
+  relocateQuestItemSection(actor, drugs.drug_antidot, "in", 2);
+  relocateQuestItemSection(actor, drugs.drug_radioprotector, "in", 2);
 }
 
 export function jup_b47_actor_has_merc_pda(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
@@ -1494,7 +1499,7 @@ export function jup_b47_actor_has_not_merc_pda(first_speaker: XR_game_object, se
 export function jup_b47_merc_pda_revard(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   const npc = getNpcSpeaker(first_speaker, second_speaker);
 
-  relocateQuestItemSection(npc, "jup_b47_merc_pda", "out");
+  relocateQuestItemSection(npc, quest_items.jup_b47_merc_pda, "out");
   giveMoneyToActor(2500);
 }
 
@@ -1518,9 +1523,9 @@ export function jup_b47_bunker_guard_revard(first_speaker: XR_game_object, secon
   const actor = getActorSpeaker(first_speaker, second_speaker);
 
   giveMoneyToActor(4000);
-  relocateQuestItemSection(actor, "drug_psy_blockade", "in", 2);
-  relocateQuestItemSection(actor, "drug_antidot", "in", 3);
-  relocateQuestItemSection(actor, "drug_radioprotector", "in", 3);
+  relocateQuestItemSection(actor, drugs.drug_psy_blockade, "in", 2);
+  relocateQuestItemSection(actor, drugs.drug_antidot, "in", 3);
+  relocateQuestItemSection(actor, drugs.drug_radioprotector, "in", 3);
 }
 
 export function jup_b47_gauss_rifle_revard(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
@@ -1531,26 +1536,26 @@ export function jup_b47_actor_has_hauss_rifle_docs(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return getActor()!.object("zat_a23_gauss_rifle_docs") !== null;
+  return getActor()!.object(quest_items.zat_a23_gauss_rifle_docs) !== null;
 }
 
 // -- Jupiter B10 --------------------------------------------------------------
 export function jup_b10_ufo_memory_give_to_npc(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeItemsFromActor(first_speaker, second_speaker, "jup_b10_ufo_memory");
+  takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_b10_ufo_memory);
 }
 
 export function jup_b10_ufo_memory_give_to_actor(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return first_speaker.object("jup_b10_ufo_memory") !== null;
+  return first_speaker.object(quest_items.jup_b10_ufo_memory) !== null;
 }
 
 export function jup_b10_ufo_memory_2_give_to_actor(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): void {
-  giveItemsToActor(first_speaker, second_speaker, "jup_b10_ufo_memory_2");
+  giveItemsToActor(first_speaker, second_speaker, quest_items.jup_b10_ufo_memory_2);
 }
 
 export function jup_b10_ufo_has_money_1000(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
@@ -1578,7 +1583,7 @@ export function jup_b10_ufo_relocate_money_3000(first_speaker: XR_game_object, s
 }
 
 export function jup_b10_actor_has_ufo_memory(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return getActor()!.object("jup_b10_ufo_memory") !== null;
+  return getActor()!.object(quest_items.jup_b10_ufo_memory) !== null;
 }
 
 // -------------- jup_b211 ---------------------
@@ -1590,7 +1595,7 @@ export function jup_b19_transfer_conserva_to_actor(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): void {
-  giveItemsToActor(first_speaker, second_speaker, "conserva");
+  giveItemsToActor(first_speaker, second_speaker, food.conserva);
 }
 // ----------------------------------
 export function jupiter_b6_sell_halfartefact(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
@@ -1599,7 +1604,7 @@ export function jupiter_b6_sell_halfartefact(first_speaker: XR_game_object, seco
 // -----------------------------------
 
 export function pri_a15_sokolov_actor_has_note(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return getActor()!.object("jup_b205_sokolov_note") !== null;
+  return getActor()!.object(quest_items.jup_b205_sokolov_note) !== null;
 }
 
 export function pri_a15_sokolov_actor_has_not_note(
@@ -1609,8 +1614,8 @@ export function pri_a15_sokolov_actor_has_not_note(
   return !pri_a15_sokolov_actor_has_note(first_speaker, second_speaker);
 }
 export function pri_a15_sokolov_actor_give_note(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeItemsFromActor(first_speaker, second_speaker, "jup_b205_sokolov_note");
-  giveItemsToActor(first_speaker, second_speaker, "medkit_army");
+  takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_b205_sokolov_note);
+  giveItemsToActor(first_speaker, second_speaker, drugs.medkit_army);
 }
 
 export function jup_b47_actor_not_enemy_to_freedom(
@@ -1634,11 +1639,11 @@ export function jup_b47_actor_not_enemy_to_dolg(
 }
 
 export function jup_b15_actor_sci_outfit(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return getActor()!.object("scientific_outfit") !== null;
+  return getActor()!.object(outfits.scientific_outfit) !== null;
 }
 
 export function jup_b15_no_actor_sci_outfit(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return getActor()!.object("scientific_outfit") === null;
+  return getActor()!.object(outfits.scientific_outfit) === null;
 }
 
 export function jup_b19_reward(first_speaker: XR_game_object, second_speaker: XR_game_object): void {

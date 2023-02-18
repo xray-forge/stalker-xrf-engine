@@ -1,7 +1,7 @@
 import { alife, XR_game_object } from "xray16";
 
 import { ammo, TAmmoItem } from "@/mod/globals/items/ammo";
-import { Optional, TSection } from "@/mod/lib/types";
+import { LuaArray, Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
 import { SYSTEM_INI } from "@/mod/scripts/core/db/IniFiles";
 import { relocate_item, relocate_money } from "@/mod/scripts/core/NewsManager";
@@ -61,17 +61,17 @@ export function getNpcSpeaker(first: XR_game_object, second: XR_game_object): XR
 export function takeItemsFromActor(
   first: XR_game_object,
   second: XR_game_object,
-  section: string,
+  itemSection: string,
   amount: number | "all" = 1
 ): void {
-  logger.info("Take items from actor:", section, amount);
+  logger.info("Take items from actor:", itemSection, amount);
 
   const npc = getNpcSpeaker(first, second);
   const actor: XR_game_object = getActorSpeaker(first, second);
   let i = 0;
 
   const transfer_object_item = (owner: XR_game_object, item: XR_game_object) => {
-    if (item.section() === section && i !== 0) {
+    if (item.section() === itemSection && i !== 0) {
       actor.transfer_item(item, npc);
       i = i - 1;
     }
@@ -88,7 +88,7 @@ export function takeItemsFromActor(
   } else if (amount < 1) {
     abort("Wrong parameters in function 'relocate_item_section_from_actor'!");
   } else {
-    actor.transfer_item(actor.object(section)!, npc);
+    actor.transfer_item(actor.object(itemSection)!, npc);
   }
 
   if (i !== 0) {
@@ -96,25 +96,25 @@ export function takeItemsFromActor(
   }
 
   // Get ammo with box sizes, not one by one.
-  if (ammo[section as TAmmoItem] !== null) {
-    const box_size = SYSTEM_INI.r_s32(section, "box_size");
+  if (ammo[itemSection as TAmmoItem] !== null) {
+    const box_size = SYSTEM_INI.r_s32(itemSection, "box_size");
 
     amount = amount * box_size;
   }
 
-  relocate_item(actor, "out", section, amount - i);
+  relocate_item(actor, "out", itemSection, amount - i);
 }
 
 /**
  * todo;
  */
 export function giveItemsToActor(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object,
-  section: string,
+  first: XR_game_object,
+  second: XR_game_object,
+  itemSection: string,
   amount: number = 1
 ): void {
-  const npc = getNpcSpeaker(first_speaker, second_speaker);
+  const npc: XR_game_object = getNpcSpeaker(first, second);
   const actor: XR_game_object = getActor() as XR_game_object;
   let v = 0;
 
@@ -123,7 +123,7 @@ export function giveItemsToActor(
   }
 
   const transfer_object_item = (owner: XR_game_object, item: XR_game_object) => {
-    if (item.section() === section && v !== 0) {
+    if (item.section() === itemSection && v !== 0) {
       npc.transfer_item(item, actor);
       v = v - 1;
     }
@@ -133,26 +133,26 @@ export function giveItemsToActor(
     v = amount;
     npc.iterate_inventory(transfer_object_item, actor);
   } else {
-    if (npc.object(section) !== null) {
-      npc.transfer_item(npc.object(section)!, actor);
+    if (npc.object(itemSection) !== null) {
+      npc.transfer_item(npc.object(itemSection)!, actor);
     } else {
-      alife().create(section, actor.position(), actor.level_vertex_id(), actor.game_vertex_id(), actor.id());
+      alife().create(itemSection, actor.position(), actor.level_vertex_id(), actor.game_vertex_id(), actor.id());
     }
   }
 
   if (v !== 0) {
     for (const i of $range(1, v)) {
-      alife().create(section, actor.position(), actor.level_vertex_id(), actor.game_vertex_id(), actor.id());
+      alife().create(itemSection, actor.position(), actor.level_vertex_id(), actor.game_vertex_id(), actor.id());
     }
   }
 
-  if (ammo[section as TAmmoItem] !== null) {
-    const box_size = SYSTEM_INI.r_s32(section, "box_size");
+  if (ammo[itemSection as TAmmoItem] !== null) {
+    const box_size = SYSTEM_INI.r_s32(itemSection, "box_size");
 
     amount = amount * box_size;
   }
 
-  relocate_item(actor, "in", section, amount);
+  relocate_item(actor, "in", itemSection, amount);
 }
 
 /**
@@ -160,7 +160,7 @@ export function giveItemsToActor(
  */
 export function relocateQuestItemSection(
   victim: XR_game_object,
-  section: string,
+  itemSection: string,
   type: "in" | "out",
   amount: number = 1
 ): void {
@@ -172,19 +172,83 @@ export function relocateQuestItemSection(
 
   for (const i of $range(1, amount)) {
     if (type === "in") {
-      alife().create(section, actor.position(), actor.level_vertex_id(), actor.game_vertex_id(), actor.id());
+      alife().create(itemSection, actor.position(), actor.level_vertex_id(), actor.game_vertex_id(), actor.id());
     } else if (type === "out") {
       if (victim === null) {
         abort("Couldn't relocate item to NULL");
       }
 
-      actor.transfer_item(actor.object(section)!, victim);
+      actor.transfer_item(actor.object(itemSection)!, victim);
     }
   }
 
-  if (ammo[section as TAmmoItem] !== null) {
-    amount = amount * SYSTEM_INI.r_s32(section, "box_size");
+  if (ammo[itemSection as TAmmoItem] !== null) {
+    amount = amount * SYSTEM_INI.r_s32(itemSection, "box_size");
   }
 
-  relocate_item(actor, type, section, amount);
+  relocate_item(actor, type, itemSection, amount);
+}
+
+/**
+ * Check whether actor has item in inventory.
+ * @param itemSection - list of item sections to check in the inventory.
+ * @param actor - target object to check, gets actor from registry by default.
+ * @returns whether actor has all of provided items.
+ */
+export function actorHasItem(itemSection: string, actor: XR_game_object = getActor()!): boolean {
+  return actor.object(itemSection) !== null;
+}
+
+/**
+ * Check whether actor has all items from provided list.
+ * @param itemSections - list of item sections to check in the inventory.
+ * @param actor - target object to check, gets actor from registry by default.
+ * @returns whether actor has all of provided items.
+ */
+export function actorHasItems(itemSections: Array<string>, actor: XR_game_object = getActor()!): boolean {
+  for (const [index, section] of itemSections as unknown as LuaArray<string>) {
+    if (actor.object(section) === null) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+/**
+ * Check whether actor has at least one item from the list.
+ * @param itemSections - list of item sections to check in the inventory.
+ * @param actor - target object to check, gets actor from registry by default.
+ * @returns whether actor has at least one of provided items.
+ */
+export function actorHasAtLeastOneItem(itemSections: Array<string>, actor: XR_game_object = getActor()!): boolean {
+  for (const [index, section] of itemSections as unknown as LuaArray<string>) {
+    if (actor.object(section) !== null) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+/**
+ * Check whether npc has item in inventory.
+ * @param npc - target object to check inventory.
+ * @param itemSection - list of item sections to check in the inventory.
+ * @returns whether npc has item in inventory.
+ */
+export function npcHasItem(npc: XR_game_object, itemSection: string): boolean {
+  return npc.object(itemSection) !== null;
+}
+
+/**
+ * Check whether NPC name matches provided parameter.
+ * @param object - target object to check name.
+ * @param name - target name to check.
+ * @returns whether object name is matching provided string.
+ */
+export function isNpcName(object: XR_game_object, name: string): boolean {
+  const npcName: Optional<string> = object.name();
+
+  return npcName !== null && string.find(npcName, name)[0] !== null;
 }

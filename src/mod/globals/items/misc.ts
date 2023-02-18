@@ -7,6 +7,9 @@ export const misc = {
   device_torch_s: "device_torch_s",
   guitar_a: "guitar_a",
   harmonica_a: "harmonica_a",
+  toolkit_1: "toolkit_1",
+  toolkit_2: "toolkit_2",
+  toolkit_3: "toolkit_3",
 } as const;
 
 export type TMiscItems = typeof misc;

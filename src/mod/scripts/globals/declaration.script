@@ -22,8 +22,6 @@ local utilsControls = require("scripts.utils.controls")
 local debugUtils = require("scripts.utils.debug")
 local utilsGameSaves = require("scripts.utils.game_saves")
 local utilsIds = require("scripts.utils.ids")
-local utilsPhysics = require("scripts.utils.physics")
-local utilsTime = require("scripts.utils.time")
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -49,7 +47,6 @@ has_alife_info = utilsActor.hasAlifeInfo
 
 get_story_object = utilsAlife.getStoryObject
 get_story_squad = utilsAlife.getStorySquad
-get_object_squad = utilsAlife.getObjectSquad
 action = utilsAlife.action;
 character_community = utilsAlife.getCharacterCommunity
 
@@ -62,12 +59,7 @@ set_save_marker = utilsGameSaves.setMarker
 get_object_story_id = utilsIds.getObjectStoryId
 get_story_object_id = utilsIds.getStoryObjectId
 
-npc_in_actor_frustrum = utilsPhysics.npcInActorFrustum
-distance_between = utilsPhysics.distanceBetween
-
-IsMonster = coreCheckers.isMonster
 IsStalker = coreCheckers.isStalker
-isWeapon = coreCheckers.isWeapon
 
 -- ---------------------------------------------------------------------------------------------------------------------
 

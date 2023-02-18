@@ -29,17 +29,20 @@ const logger: LuaLogger = new LuaLogger("_extern");
 
 logger.info("Resolve externals");
 
-declare_global("_extern", {});
-
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 declare_global("xr_conditions", require("@/mod/scripts/_conditions"));
+
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 declare_global("dialogs_pripyat", require("@/mod/scripts/globals/dialogs_pripyat"));
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 declare_global("dialogs_jupiter", require("@/mod/scripts/globals/dialogs_jupiter"));
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+declare_global("dialogs_zaton", require("@/mod/scripts/globals/dialogs_zaton"));
 
 declare_global("smart_covers", {});
 declare_global("smart_covers.descriptions", smart_covers_list);
+
+declare_global("_extern", {});
 
 /**
  * Called by game engine on game start
