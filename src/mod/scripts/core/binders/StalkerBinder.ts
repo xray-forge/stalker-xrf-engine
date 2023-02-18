@@ -65,6 +65,7 @@ import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchT
 import { DynamicMusicManager } from "@/mod/scripts/core/sound/DynamicMusicManager";
 import { SoundTheme } from "@/mod/scripts/core/sound/SoundTheme";
 import { loadTradeManager, saveTradeManager, updateTradeManager } from "@/mod/scripts/core/TradeManager";
+import { disabled_phrases, loadNpcDialogs, saveNpcDialogs } from "@/mod/scripts/globals/dialog_manager";
 import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { ISmartTerrain, setup_gulag_and_logic_on_spawn } from "@/mod/scripts/se/SmartTerrain";
 import { bind_state_manager } from "@/mod/scripts/state_management/bind_state_manager";
@@ -437,7 +438,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
 
       ActionSchemeMeet.notify_on_use(obj, who);
 
-      get_global("dialog_manager").disabled_phrases[obj.id()] = null;
+      disabled_phrases.delete(obj.id());
       if (this.state.active_section) {
         issueEvent(this.object, this.state[this.state.active_scheme!], "use_callback", obj, who);
       }
@@ -548,7 +549,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
     save_obj(this.object, packet);
     saveTradeManager(this.object, packet);
     GlobalSound.save_npc(packet, this.object.id());
-    get_global<AnyCallablesModule>("dialog_manager").save_npc(packet, this.object.id());
+    saveNpcDialogs(packet, this.object.id());
 
     setSaveMarker(packet, true, StalkerBinder.__name);
   },
@@ -561,7 +562,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
     load_obj(this.object, reader);
     loadTradeManager(this.object, reader);
     GlobalSound.load_npc(reader, this.object.id());
-    get_global<AnyCallablesModule>("dialog_manager").load_npc(reader, this.object.id());
+    loadNpcDialogs(reader, this.object.id());
 
     setLoadMarker(reader, true, StalkerBinder.__name);
   },

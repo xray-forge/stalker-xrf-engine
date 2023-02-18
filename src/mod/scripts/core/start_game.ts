@@ -9,6 +9,7 @@ import { initializeModules } from "@/mod/scripts/core/schemes/schemes_registerin
 import { resetSchemeHard } from "@/mod/scripts/core/schemes/schemes_resetting";
 import { DynamicMusicManager } from "@/mod/scripts/core/sound/DynamicMusicManager";
 import { SoundTheme } from "@/mod/scripts/core/sound/SoundTheme";
+import { fillPhrasesTable } from "@/mod/scripts/globals/dialog_manager";
 import { reset_sim_board } from "@/mod/scripts/se/SimBoard";
 import { clearTaskManager } from "@/mod/scripts/se/task/TaskManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -32,7 +33,7 @@ export function startGame(): void {
   SoundTheme.load_sound();
   GlobalSound.reset();
 
-  get_global<AnyCallablesModule>("dialog_manager").fill_phrase_table();
+  fillPhrasesTable();
   DynamicMusicManager.getInstance().initialize();
 
   resetSchemeHard(EScheme.SR_LIGHT);

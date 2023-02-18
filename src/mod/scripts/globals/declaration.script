@@ -35,10 +35,6 @@ getTreasureManager = coreTreasureManager.getTreasureManager
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-parse_names = utilsConfigs.parseNames
-
--- ---------------------------------------------------------------------------------------------------------------------
-
 give_info = utilsActor.giveInfo
 disable_info = utilsActor.disableInfo
 has_alife_info = utilsActor.hasAlifeInfo
@@ -48,13 +44,11 @@ has_alife_info = utilsActor.hasAlifeInfo
 get_story_object = utilsAlife.getStoryObject
 get_story_squad = utilsAlife.getStorySquad
 action = utilsAlife.action;
-character_community = utilsAlife.getCharacterCommunity
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
 set_inactivate_input_time = utilsControls.setInactiveInputTime
 abort = debugUtils.abort
-set_save_marker = utilsGameSaves.setMarker
 
 get_object_story_id = utilsIds.getObjectStoryId
 get_story_object_id = utilsIds.getStoryObjectId

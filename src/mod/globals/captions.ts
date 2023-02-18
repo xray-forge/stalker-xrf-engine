@@ -5,6 +5,9 @@
  * todo: Include all translations, build translation collecting script.
  */
 export const captions = {
+  actor_break_dialog_1: "actor_break_dialog_1",
+  actor_break_dialog_2: "actor_break_dialog_2",
+  actor_break_dialog_3: "actor_break_dialog_3",
   general_in_item: "general_in_item",
   general_in_money: "general_in_money",
   general_out_item: "general_out_item",

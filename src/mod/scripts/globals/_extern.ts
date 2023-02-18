@@ -40,6 +40,8 @@ declare_global("dialogs_jupiter", require("@/mod/scripts/globals/dialogs_jupiter
 declare_global("dialogs_zaton", require("@/mod/scripts/globals/dialogs_zaton"));
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 declare_global("dialogs", require("@/mod/scripts/globals/dialogs"));
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+declare_global("dialog_manager", require("@/mod/scripts/globals/dialog_manager"));
 
 declare_global("smart_covers", {});
 declare_global("smart_covers.descriptions", smart_covers_list);
