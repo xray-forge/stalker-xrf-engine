@@ -15,11 +15,11 @@ import { outfits } from "@/mod/globals/items/outfits";
 import { quest_items } from "@/mod/globals/items/quest_items";
 import { TWeapon, weapons } from "@/mod/globals/items/weapons";
 import { AnyCallablesModule, AnyObject, LuaArray, Optional } from "@/mod/lib/types";
-import { counter_greater } from "@/mod/scripts/_conditions";
 import { anomalyByName, getActor } from "@/mod/scripts/core/db";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
 import { relocate_item } from "@/mod/scripts/core/NewsManager";
 import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
+import { counter_greater } from "@/mod/scripts/globals/conditions";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import {

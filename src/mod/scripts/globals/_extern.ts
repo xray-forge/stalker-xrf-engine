@@ -30,7 +30,7 @@ const logger: LuaLogger = new LuaLogger("_extern");
 logger.info("Resolve externals");
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-declare_global("xr_conditions", require("@/mod/scripts/_conditions"));
+declare_global("xr_conditions", require("@/mod/scripts/globals/conditions"));
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 declare_global("dialogs_pripyat", require("@/mod/scripts/globals/dialogs_pripyat"));

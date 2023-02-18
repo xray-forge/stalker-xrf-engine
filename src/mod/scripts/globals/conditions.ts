@@ -68,8 +68,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { get_npc_smart } from "@/mod/scripts/utils/gulag";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-
-import { distanceBetween, npcInActorFrustum } from "./utils/physics";
+import { distanceBetween, npcInActorFrustum } from "@/mod/scripts/utils/physics";
 
 const logger: LuaLogger = new LuaLogger("xr_conditions");
 
@@ -2069,4 +2068,11 @@ export function has_active_tutorial(): boolean {
  */
 export function wealthy_functor(): boolean {
   return AchievementsManager.getInstance().checkAchievedWealthy();
+}
+
+/**
+ * todo;
+ */
+export function information_dealer_functor(): boolean {
+  return AchievementsManager.getInstance().checkAchievedInformationDealer();
 }
