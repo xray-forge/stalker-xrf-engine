@@ -8,6 +8,7 @@ import {
   XR_CGameTask,
   XR_CTime,
   XR_EngineBinding,
+  XR_game_object,
   XR_ini_file,
   XR_net_packet,
   XR_reader,
@@ -31,6 +32,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { relocateQuestItemSection } from "@/mod/scripts/utils/quests";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
 
 const logger: LuaLogger = new LuaLogger("TaskObject");
@@ -372,7 +374,7 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
       }
 
       for (const [k, v] of ancillary_item_table) {
-        get_global<AnyCallablesModule>("dialogs").relocate_item_section(npc, k, "in", v);
+        relocateQuestItemSection(npc as XR_game_object, k, "in", v);
       }
     }
   },

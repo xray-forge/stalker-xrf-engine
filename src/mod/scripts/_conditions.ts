@@ -18,7 +18,7 @@ import {
 
 import { captions } from "@/mod/globals/captions";
 import { TCommunity } from "@/mod/globals/communities";
-import { info_portions } from "@/mod/globals/info_portions";
+import { info_portions } from "@/mod/globals/info_portions/info_portions";
 import { relations } from "@/mod/globals/relations";
 import { AnyArgs, AnyCallablesModule, LuaArray, Maybe, Optional, TSection } from "@/mod/lib/types";
 import {
@@ -544,11 +544,11 @@ export function is_alive_one(actor: XR_game_object, npc: XR_game_object, p: LuaA
 /**
  * todo;
  */
-export function is_alive(actor: XR_game_object, npc: XR_game_object | XR_cse_abstract, p: [string]): boolean {
+export function is_alive(actor: XR_game_object, npc: XR_game_object | XR_cse_abstract, params: [string]): boolean {
   let npc1: Optional<number>;
 
-  if (npc === null || (p && p[0])) {
-    npc1 = getStoryObjectId(p[0]);
+  if (npc === null || (params && params[0])) {
+    npc1 = getStoryObjectId(params[0]);
   } else if (type(npc.id) === "number") {
     npc1 = (npc as XR_cse_abstract).id;
   } else {

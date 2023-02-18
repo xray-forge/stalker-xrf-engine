@@ -2,7 +2,7 @@
 
 import { alife, game_object, XR_cse_alife_creature_abstract, XR_game_object } from "xray16";
 
-import { info_portions, TInfoPortion } from "@/mod/globals/info_portions";
+import { info_portions, TInfoPortion } from "@/mod/globals/info_portions/info_portions";
 import { ammo } from "@/mod/globals/items/ammo";
 import { artefacts, TArtefact } from "@/mod/globals/items/artefacts";
 import { detectors } from "@/mod/globals/items/detectors";

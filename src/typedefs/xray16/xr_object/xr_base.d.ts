@@ -1028,7 +1028,7 @@ declare module "xray16" {
     public command(entity_action: XR_entity_action, value: boolean): void;
     public hit(hit: XR_hit): void;
     public inactualize_patrol_path(): void;
-    public iterate_inventory(cb: (npc: XR_game_object, item: XR_game_object) => void, object: XR_game_object): void;
+    public iterate_inventory(cb: (owner: XR_game_object, item: XR_game_object) => void, object: XR_game_object): void;
     public movement_enabled(): boolean;
     public movement_enabled(value: boolean): void;
     public set_condition(condition: f32): void;

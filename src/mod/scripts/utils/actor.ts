@@ -1,6 +1,6 @@
 import { alife, XR_alife_simulator } from "xray16";
 
-import { TInfoPortion } from "@/mod/globals/info_portions";
+import { TInfoPortion } from "@/mod/globals/info_portions/info_portions";
 import { getActor } from "@/mod/scripts/core/db";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

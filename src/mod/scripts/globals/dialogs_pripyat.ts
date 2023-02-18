@@ -2,7 +2,7 @@
 
 import { XR_game_object } from "xray16";
 
-import { info_portions } from "@/mod/globals/info_portions";
+import { info_portions } from "@/mod/globals/info_portions/info_portions";
 import { ammo, TAmmoItem } from "@/mod/globals/items/ammo";
 import { artefacts } from "@/mod/globals/items/artefacts";
 import { drugs } from "@/mod/globals/items/drugs";

@@ -1,8 +1,9 @@
 import { alife, XR_game_object } from "xray16";
 
 import { ammo, TAmmoItem } from "@/mod/globals/items/ammo";
+import { drugs, medkits, TDrugItem, TMedkit } from "@/mod/globals/items/drugs";
 import { LuaArray, Optional } from "@/mod/lib/types";
-import { getActor } from "@/mod/scripts/core/db";
+import { actor, getActor } from "@/mod/scripts/core/db";
 import { SYSTEM_INI } from "@/mod/scripts/core/db/IniFiles";
 import { relocate_item, relocate_money } from "@/mod/scripts/core/NewsManager";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -86,7 +87,7 @@ export function takeItemsFromActor(
     i = amount;
     actor.iterate_inventory(transfer_object_item, actor);
   } else if (amount < 1) {
-    abort("Wrong parameters in function 'relocate_item_section_from_actor'!");
+    abort("Wrong parameters in function 'takeItemsFromActor'!");
   } else {
     actor.transfer_item(actor.object(itemSection)!, npc);
   }
@@ -187,6 +188,36 @@ export function relocateQuestItemSection(
   }
 
   relocate_item(actor, type, itemSection, amount);
+}
+
+/**
+ * Get available medkit or null.
+ * @param actor - target object to get medkit, gets actor from registry by default.
+ * @returns get medkit or null.
+ */
+export function getActorAvailableMedKit(actor: XR_game_object = getActor()!): Optional<TMedkit> {
+  for (const [key, medkit] of medkits as unknown as LuaTable<TMedkit, TMedkit>) {
+    if (actor.object(medkit) !== null) {
+      return medkit;
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Check whether actor has at least one med kit.
+ * @param actor - target object to check, gets actor from registry by default.
+ * @returns whether actor has at least one med kit.
+ */
+export function actorHasMedKit(actor: XR_game_object = getActor()!): boolean {
+  for (const [key, medkit] of medkits as unknown as LuaTable<TMedkit, TMedkit>) {
+    if (actor.object(medkit) !== null) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 /**

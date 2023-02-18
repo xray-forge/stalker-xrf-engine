@@ -1,6 +1,6 @@
 import { captions } from "@/mod/globals/captions";
 import { communities } from "@/mod/globals/communities";
-import { info_portions, TInfoPortion } from "@/mod/globals/info_portions";
+import { info_portions, TInfoPortion } from "@/mod/globals/info_portions/info_portions";
 import { AnyCallablesModule } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
 import { pstor_retrieve } from "@/mod/scripts/core/db/pstor";

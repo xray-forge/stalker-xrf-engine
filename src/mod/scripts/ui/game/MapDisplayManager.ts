@@ -10,7 +10,7 @@ import {
 } from "xray16";
 
 import { captions } from "@/mod/globals/captions";
-import { info_portions } from "@/mod/globals/info_portions";
+import { info_portions } from "@/mod/globals/info_portions/info_portions";
 import { levels } from "@/mod/globals/levels";
 import { map_mark_type, npc_map_marks } from "@/mod/globals/npc_map_marks";
 import { story_ids } from "@/mod/globals/story_ids";

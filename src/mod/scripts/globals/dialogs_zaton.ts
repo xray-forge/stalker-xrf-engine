@@ -3,7 +3,7 @@
 import { alife, game, level, XR_game_object } from "xray16";
 
 import { captions } from "@/mod/globals/captions";
-import { info_portions } from "@/mod/globals/info_portions";
+import { info_portions } from "@/mod/globals/info_portions/info_portions";
 import { ammo } from "@/mod/globals/items/ammo";
 import { artefacts, TArtefact } from "@/mod/globals/items/artefacts";
 import { detectors } from "@/mod/globals/items/detectors";
@@ -21,6 +21,7 @@ import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
 import { relocate_item } from "@/mod/scripts/core/NewsManager";
 import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
 import {
   actorHasAtLeastOneItem,
   actorHasItem,
@@ -34,6 +35,8 @@ import {
   takeItemsFromActor,
   takeMoneyFromActor,
 } from "@/mod/scripts/utils/quests";
+
+const logger: LuaLogger = new LuaLogger("dialogs_zaton");
 
 /**
  * todo;

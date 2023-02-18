@@ -22,7 +22,7 @@ import {
 import { animations } from "@/mod/globals/animation/animations";
 import { post_processors } from "@/mod/globals/animation/post_processors";
 import { captions } from "@/mod/globals/captions";
-import { info_portions } from "@/mod/globals/info_portions";
+import { info_portions } from "@/mod/globals/info_portions/info_portions";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";

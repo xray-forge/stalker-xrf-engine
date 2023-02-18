@@ -93,7 +93,7 @@ export interface IStoredObject<T = XR_game_object> {
   avail_animations?: LuaTable<number, string>;
   animpoint?: ActionSchemeAnimpoint;
   scan_table?: LuaTable<number, LuaTable<number, { key: number; pos: XR_vector }>>;
-  wounded?: { wound_manager: ActionWoundManager; not_for_help: boolean; enable_talk?: unknown };
+  wounded?: { wound_manager: ActionWoundManager; not_for_help: boolean; enable_talk?: unknown; help_dialog?: unknown };
   approved_actions?: LuaTable<number, { predicate: AnyCallable; name: string }>;
   light?: boolean;
   points?: LuaTable<number, ITeleportPoint>;

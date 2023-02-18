@@ -1,6 +1,23 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
+export const pistols = {
+  wpn_beretta: "wpn_beretta",
+  wpn_colt1911: "wpn_colt1911",
+  wpn_desert_eagle: "wpn_desert_eagle",
+  wpn_fort: "wpn_fort",
+  wpn_hpsa: "wpn_hpsa",
+  wpn_pb: "wpn_pb",
+  wpn_pm: "wpn_pm",
+  wpn_usp: "wpn_usp",
+  wpn_walther: "wpn_walther",
+} as const;
+
+export type TPistols = typeof pistols;
+
+export type TPistol = TPistols[keyof TPistols];
+
 export const weapons = {
+  ...pistols,
   grenade_f1: "grenade_f1",
   grenade_rgd5: "grenade_rgd5",
   wpn_abakan: "wpn_abakan",
@@ -17,18 +34,14 @@ export const weapons = {
   wpn_ammo_vog25: "wpn_ammo_vog25",
   wpn_ammo_vog25_s: "wpn_ammo_vog25_s",
   wpn_auto_shotgun_s: "wpn_auto_shotgun_s",
-  wpn_beretta: "wpn_beretta",
   wpn_binoc: "wpn_binoc",
   wpn_binocular: "wpn_binocular",
   wpn_binocular_s: "wpn_binocular_s",
   wpn_bm16: "wpn_bm16",
   wpn_bm16_s: "wpn_bm16_s",
-  wpn_colt1911: "wpn_colt1911",
-  wpn_desert_eagle: "wpn_desert_eagle",
   wpn_desert_eagle_nimble: "wpn_desert_eagle_nimble",
   wpn_fn2000: "wpn_fn2000",
   wpn_fn2000_nimble: "wpn_fn2000_nimble",
-  wpn_fort: "wpn_fort",
   wpn_fort_snag: "wpn_fort_snag",
   wpn_g36: "wpn_g36",
   wpn_g36_nimble: "wpn_g36_nimble",
@@ -44,7 +57,6 @@ export const weapons = {
   wpn_groza: "wpn_groza",
   wpn_groza_nimble: "wpn_groza_nimble",
   wpn_groza_s: "wpn_groza_s",
-  wpn_hpsa: "wpn_hpsa",
   wpn_hpsa_s: "wpn_hpsa_s",
   wpn_knife: "wpn_knife",
   wpn_knife_s: "wpn_knife_s",
@@ -53,10 +65,8 @@ export const weapons = {
   wpn_lr300_s: "wpn_lr300_s",
   wpn_mp5: "wpn_mp5",
   wpn_mp5_nimble: "wpn_mp5_nimble",
-  wpn_pb: "wpn_pb",
   wpn_pkm: "wpn_pkm",
   wpn_pkm_zulus: "wpn_pkm_zulus",
-  wpn_pm: "wpn_pm",
   wpn_pm_actor: "wpn_pm_actor",
   wpn_pm_s: "wpn_pm_s",
   wpn_protecta: "wpn_protecta",
@@ -86,7 +96,6 @@ export const weapons = {
   wpn_svu_nimble: "wpn_svu_nimble",
   wpn_svu_s: "wpn_svu_s",
   wpn_toz34: "wpn_toz34",
-  wpn_usp: "wpn_usp",
   wpn_usp45: "wpn_usp45",
   wpn_usp45_s: "wpn_usp45_s",
   wpn_usp_nimble: "wpn_usp_nimble",
@@ -95,7 +104,6 @@ export const weapons = {
   wpn_vintorez: "wpn_vintorez",
   wpn_vintorez_nimble: "wpn_vintorez_nimble",
   wpn_vintorez_s: "wpn_vintorez_s",
-  wpn_walther: "wpn_walther",
   wpn_walther_s: "wpn_walther_s",
   wpn_wincheaster1300: "wpn_wincheaster1300",
   wpn_wincheaster1300_trapper: "wpn_wincheaster1300_trapper",
