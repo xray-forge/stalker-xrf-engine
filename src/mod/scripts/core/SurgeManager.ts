@@ -22,15 +22,15 @@ import { info_portions } from "@/mod/globals/info_portions";
 import { levels, TLevel } from "@/mod/globals/levels";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { AnyCallablesModule, Optional, PartialRecord } from "@/mod/lib/types";
+import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { anomalyByName, CROW_STORAGE, getActor, signalLight, storage, zoneByName } from "@/mod/scripts/core/db";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
+import { get_sim_board, ISimBoard } from "@/mod/scripts/core/db/SimBoard";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { send_tip } from "@/mod/scripts/core/NewsManager";
 import { get_weather_manager } from "@/mod/scripts/core/WeatherManager";
-import { get_sim_board, ISimBoard } from "@/mod/scripts/se/SimBoard";
-import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { isImmuneToSurge, isObjectOnLevel, isSurgeEnabledOnLevel } from "@/mod/scripts/utils/checkers/checkers";
 import { isStoryObject } from "@/mod/scripts/utils/checkers/is";
@@ -656,7 +656,7 @@ export class SurgeManager extends AbstractCoreManager {
   public giveSurgeHideTask(): void {
     if (this.surge_task_sect !== "empty") {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const { get_task_manager } = require("@/mod/scripts/se/task/TaskManager");
+      const { get_task_manager } = require("@/mod/scripts/core/task/TaskManager");
 
       if (this.surge_task_sect === "") {
         get_task_manager().give_task("hide_from_surge");

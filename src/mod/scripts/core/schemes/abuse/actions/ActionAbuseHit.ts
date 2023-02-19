@@ -20,7 +20,7 @@ export const ActionAbuseHit: IActionAbuseHit = declare_xr_class("ActionAbuseHit"
     this.object.set_desired_direction();
 
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const { set_state } = require("@/mod/scripts/state_management/StateManager");
+    const { set_state } = require("@/mod/scripts/core/state_management/StateManager");
 
     set_state(this.object, "punch", null, null, { look_object: getActor() }, { animation: true });
     // --    GlobalSound.set_sound_play(this.object.id(), "use_abuse")

@@ -9,16 +9,25 @@ import { abort } from "@/mod/scripts/utils/debug";
 export const DYNAMIC_LTX: LuaTable<string, XR_ini_file> = new LuaTable();
 
 /**
+ * Create shared registry of dynamic and static LTX.
+ * Force initial caching of system LTX/dymmy/etc and add enum to get predefined LTX from registry with some getter.
  * todo;
  * todo;
  * todo;
  */
 export const SYSTEM_INI: XR_ini_file = system_ini();
 export const DUMMY_LTX: XR_ini_file = new ini_file("scripts\\dummy.ltx");
+export const GAME_LTX: XR_ini_file = new ini_file("game.ltx");
 export const SIMULATION_LTX: XR_ini_file = new ini_file("misc\\simulation.ltx");
 export const SMART_NAMES_LTX: XR_ini_file = new ini_file("misc\\smart_names.ltx");
 export const DIALOG_MANAGER_LTX: XR_ini_file = new ini_file("misc\\dialog_manager.ltx");
 export const SCRIPT_SOUND_LTX: XR_ini_file = new ini_file("misc\\script_sound.ltx");
+export const PH_BOX_GENERIC_LTX: XR_ini_file = new ini_file("misc\\ph_box_generic.ltx");
+export const DYNAMIC_WEATHER_GRAPHS: XR_ini_file = new ini_file("environment\\dynamic_weather_graphs.ltx");
+export const SECRETS_LTX: XR_ini_file = new ini_file("misc\\secrets.ltx");
+export const DEATH_GENERIC_LTX: XR_ini_file = new ini_file("misc\\death_generic.ltx");
+export const ITEM_UPGRADES: XR_ini_file = new ini_file("item_upgrades.ltx");
+export const STALKER_UPGRADE_INFO: XR_ini_file = new ini_file("misc\\stalkers_upgrade_info.ltx");
 
 /**
  * todo;

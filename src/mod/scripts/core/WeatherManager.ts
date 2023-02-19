@@ -1,7 +1,8 @@
-import { ini_file, level, XR_game_object, XR_ini_file, XR_net_packet, XR_reader } from "xray16";
+import { level, XR_game_object, XR_net_packet, XR_reader } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
+import { DYNAMIC_WEATHER_GRAPHS, GAME_LTX } from "@/mod/scripts/core/db/IniFiles";
 import {
   getConfigString,
   parseCondList,
@@ -29,7 +30,6 @@ export class WeatherManager {
     return this.instance;
   }
 
-  public graphs_ini: XR_ini_file = new ini_file("environment\\dynamic_weather_graphs.ltx");
   public last_hour: number = 0;
   public wfx_time: number = 0;
   public update_time: number = 0;
@@ -41,15 +41,14 @@ export class WeatherManager {
   public graphs: LuaTable<string, LuaTable<string, number>> = new LuaTable();
 
   public constructor() {
-    if (!this.graphs_ini) {
+    if (!DYNAMIC_WEATHER_GRAPHS) {
       abort("error when open weather_dynamic_graphs.ltx");
     }
   }
 
   public reset(): void {
-    const ini: XR_ini_file = new ini_file("game.ltx");
-    const weather: string = getConfigString(ini, level.name(), "weathers", getActor(), false, "", "[default]");
-    const postprocess: string = getConfigString(ini, level.name(), "postprocess", getActor(), false, "");
+    const weather: string = getConfigString(GAME_LTX, level.name(), "weathers", getActor(), false, "", "[default]");
+    const postprocess: string = getConfigString(GAME_LTX, level.name(), "postprocess", getActor(), false, "");
 
     if (postprocess !== null) {
       level.add_pp_effector(postprocess, 999, true);
@@ -212,7 +211,7 @@ export class WeatherManager {
 
   public get_graph_by_name(name: string): LuaTable<string, number> {
     if (!this.graphs.has(name)) {
-      this.graphs.set(name, parseIniSectionToArray(this.graphs_ini, name) as any);
+      this.graphs.set(name, parseIniSectionToArray(DYNAMIC_WEATHER_GRAPHS, name) as any);
     }
 
     return this.graphs.get(name);
@@ -235,7 +234,7 @@ export class WeatherManager {
   }
 
   public load(reader: XR_reader): void {
-    setLoadMarker(reader, false, "WeatherManager");
+    setLoadMarker(reader, false, WeatherManager.name);
 
     const state_string = reader.r_stringZ();
 
@@ -249,11 +248,11 @@ export class WeatherManager {
       this.wfx_time = reader.r_float();
     }
 
-    setLoadMarker(reader, true, "WeatherManager");
+    setLoadMarker(reader, true, WeatherManager.name);
   }
 
   public save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, "WeatherManager");
+    setSaveMarker(packet, false, WeatherManager.name);
 
     packet.w_stringZ(this.get_state_as_string());
     packet.w_u32(this.update_time);
@@ -263,7 +262,7 @@ export class WeatherManager {
       packet.w_float(level.get_wfx_time());
     }
 
-    setSaveMarker(packet, true, "WeatherManager");
+    setSaveMarker(packet, true, WeatherManager.name);
   }
 }
 

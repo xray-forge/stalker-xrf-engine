@@ -15,13 +15,13 @@ import {
   XR_vector,
 } from "xray16";
 
+import { IActor } from "@/mod/scripts/core/alife/Actor";
+import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
+import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { reactTaskPatrols } from "@/mod/scripts/core/db";
+import { get_sim_obj_registry } from "@/mod/scripts/core/db/SimObjectsRegistry";
 import { ReachTaskPatrolManager } from "@/mod/scripts/core/schemes/reach_task/ReachTaskPatrolManager";
 import { is_started } from "@/mod/scripts/core/SurgeManager";
-import { IActor } from "@/mod/scripts/se/Actor";
-import { get_sim_obj_registry } from "@/mod/scripts/se/SimObjectsRegistry";
-import { ISimSquad } from "@/mod/scripts/se/SimSquad";
-import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
 import { getObjectSquad, sendToNearestAccessibleVertex } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { vectorCmp } from "@/mod/scripts/utils/physics";

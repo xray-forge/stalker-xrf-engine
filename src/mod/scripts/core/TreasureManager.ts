@@ -13,8 +13,9 @@ import {
 } from "xray16";
 
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
-import { AnyCallable, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
+import { SECRETS_LTX } from "@/mod/scripts/core/db/IniFiles";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { send_treasure } from "@/mod/scripts/core/NewsManager";
 import { parseCondList, parseSpawns, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
@@ -73,15 +74,14 @@ export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManag
     this.items_from_secrets = new LuaTable();
   },
   initialize(): void {
-    const ini: XR_ini_file = new ini_file("misc\\secrets.ltx");
-    const totalSecretsCount: number = ini.line_count("list");
+    const totalSecretsCount: number = SECRETS_LTX.line_count("list");
 
     logger.info("Initialize secrets, expected:", totalSecretsCount);
 
     for (const i of $range(0, totalSecretsCount - 1)) {
-      const [result, id, value] = ini.r_line("list", i, "", "");
+      const [result, id, value] = SECRETS_LTX.r_line("list", i, "", "");
 
-      if (ini.section_exist(id)) {
+      if (SECRETS_LTX.section_exist(id)) {
         this.secrets!.set(id, {
           items: new LuaTable(),
           given: false,
@@ -91,11 +91,11 @@ export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManag
           to_find: 0,
         });
 
-        const items_count: number = ini.line_count(id);
+        const items_count: number = SECRETS_LTX.line_count(id);
         const item_section: string = "";
 
         for (const i of $range(0, items_count - 1)) {
-          const [result, item_section, str] = ini.r_line(id, i, "", "");
+          const [result, item_section, str] = SECRETS_LTX.r_line(id, i, "", "");
 
           if (item_section === "empty") {
             const parsed_condlist = parseCondList(null, "treasure_manager", "empty_cond", str);

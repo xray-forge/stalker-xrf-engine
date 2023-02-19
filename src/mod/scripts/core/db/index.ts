@@ -12,18 +12,18 @@ import {
 import type { AnyCallable, AnyObject, EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
 import type { IAnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
 import type { ISignalLightBinder } from "@/mod/scripts/core/binders/SignalLightBinder";
-import type { RestrictorManager } from "@/mod/scripts/core/RestrictorManager";
 import type { SchemeAnimpoint } from "@/mod/scripts/core/schemes/animpoint/SchemeAnimpoint";
 import type { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import type { CampStoryManager } from "@/mod/scripts/core/schemes/base/CampStoryManager";
 import type { CampPatrolManager } from "@/mod/scripts/core/schemes/kamp/SchemeCamp";
 import type { PatrolManager } from "@/mod/scripts/core/schemes/patrol/SchemePatrol";
 import type { ReachTaskPatrolManager } from "@/mod/scripts/core/schemes/reach_task/ReachTaskPatrolManager";
+import type { RestrictorManager } from "@/mod/scripts/core/schemes/RestrictorManager";
 import type { SchemeLight } from "@/mod/scripts/core/schemes/sr_light/SchemeLight";
 import type { ITeleportPoint } from "@/mod/scripts/core/schemes/teleport/SchemeTeleport";
 import type { SchemeWounded } from "@/mod/scripts/core/schemes/wounded/SchemeWounded";
 import type { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
-import type { StateManager } from "@/mod/scripts/state_management/StateManager";
+import type { StateManager } from "@/mod/scripts/core/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("db", false);
@@ -34,7 +34,6 @@ export const schemes: LuaTable<string, typeof AbstractScheme> = new LuaTable();
 
 export const infoRestr: LuaTable<number, string | XR_game_object> = new LuaTable();
 export const scriptIds: LuaTable<number, string> = new LuaTable();
-export const campStorage: LuaTable = new LuaTable();
 export const noWeapZones: LuaTable<string, boolean> = new LuaTable();
 export const spawnedVertexById: LuaTable<number, number> = new LuaTable();
 export const levelDoors: LuaTable<number, XR_vector> = new LuaTable();
@@ -261,47 +260,3 @@ export function deleteAnimationObject(object: XR_game_object): void {
   animObjByName.delete(object.name());
   deleteObject(object);
 }
-
-// todo: Temporary for old lua compat
-declare_global("db", {
-  zone_by_name: zoneByName,
-  script_ids: scriptIds,
-  storage: storage,
-  actor: actor,
-  heli: heli,
-  camp_storage: campStorage,
-  smart_terrain_by_id: smartTerrainById,
-  info_restr: infoRestr,
-  heli_enemies: heliEnemies,
-  heli_enemy_count: heliEnemyCount,
-  anim_obj_by_name: animObjByName,
-  goodwill: goodwill,
-  signal_light: signalLight,
-  offline_objects: offlineObjects,
-  anomaly_by_name: anomalyByName,
-  level_doors: levelDoors,
-  no_weap_zones: noWeapZones,
-  spawned_vertex_by_id: spawnedVertexById,
-  fighting_with_actor_npcs: fighting_with_actor_npcs,
-  kamp_stalkers: kamp_stalkers,
-
-  CROW_STORAGE: CROW_STORAGE,
-  CAMPS: CAMPS,
-
-  add_enemy: addEnemy,
-  delete_enemy: deleteEnemy,
-  add_obj: addObject,
-  del_obj: deleteObject,
-  add_zone: addZone,
-  del_zone: deleteZone,
-  add_anomaly: addAnomaly,
-  del_anomaly: deleteAnomaly,
-  add_actor: addActor,
-  del_actor: deleteActor,
-  add_heli: addHeli,
-  del_heli: deleteHeli,
-  add_smart_terrain: addSmartTerrain,
-  del_smart_terrain: deleteSmartTerrain,
-  add_anim_obj: addAnimationObject,
-  del_anim_obj: deleteAnimationObject,
-});

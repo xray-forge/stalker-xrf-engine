@@ -12,7 +12,7 @@ import {
 
 import { AnyObject, Optional } from "@/mod/lib/types";
 import { IStoredObject } from "@/mod/scripts/core/db";
-import { set_state } from "@/mod/scripts/state_management/StateManager";
+import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ActionZombieShoot");

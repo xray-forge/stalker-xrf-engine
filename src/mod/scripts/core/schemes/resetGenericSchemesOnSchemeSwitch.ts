@@ -2,8 +2,8 @@ import { callback, clsid, XR_game_object } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
-import { RestrictorManager } from "@/mod/scripts/core/RestrictorManager";
 import { mobRelease } from "@/mod/scripts/core/schemes/mobRelease";
+import { RestrictorManager } from "@/mod/scripts/core/schemes/RestrictorManager";
 import { resetScheme } from "@/mod/scripts/core/schemes/schemes_resetting";
 import { mapDisplayManager } from "@/mod/scripts/ui/game/MapDisplayManager";
 import {

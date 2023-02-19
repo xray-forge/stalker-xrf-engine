@@ -27,7 +27,7 @@ export const ActionSearchCorpse: IActionSearchCorpse = declare_xr_class("ActionS
     this.object.set_dest_level_vertex_id(this.state.vertex_id);
 
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const { set_state } = require("@/mod/scripts/state_management/StateManager");
+    const { set_state } = require("@/mod/scripts/core/state_management/StateManager");
 
     // --StateManager.set_state(this.object, "patrol", null, null, {look_position = this.a.vertex_position})
     set_state(this.object, "patrol", null, null, null, null);
@@ -40,7 +40,7 @@ export const ActionSearchCorpse: IActionSearchCorpse = declare_xr_class("ActionS
     }
 
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const { set_state } = require("@/mod/scripts/state_management/StateManager");
+    const { set_state } = require("@/mod/scripts/core/state_management/StateManager");
 
     set_state(this.object, "search_corpse", null, null, { look_position: this.state.vertex_position }, null);
     GlobalSound.set_sound_play(this.object.id(), "corpse_loot_begin", null, null);

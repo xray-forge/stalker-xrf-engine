@@ -2,7 +2,7 @@ import { action_base, game_object, level, time_global, XR_action_base, XR_game_o
 
 import { Optional } from "@/mod/lib/types";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
-import { set_state } from "@/mod/scripts/state_management/StateManager";
+import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { getStoryObject } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { vectorRotateY } from "@/mod/scripts/utils/physics";

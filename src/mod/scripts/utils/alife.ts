@@ -19,11 +19,11 @@ import {
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { AnyArgs, LuaArray, Maybe, Optional, TSection } from "@/mod/lib/types";
+import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
+import { ISimSquadReachTargetAction } from "@/mod/scripts/core/alife/SimSquadReachTargetAction";
+import { ISimSquadStayOnTargetAction } from "@/mod/scripts/core/alife/SimSquadStayOnTargetAction";
 import { anomalyByName, ARTEFACT_WAYS_BY_ARTEFACT_ID, getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
-import { getStoryObjectsRegistry } from "@/mod/scripts/core/StoryObjectsRegistry";
-import { ISimSquad } from "@/mod/scripts/se/SimSquad";
-import { ISimSquadReachTargetAction } from "@/mod/scripts/se/SimSquadReachTargetAction";
-import { ISimSquadStayOnTargetAction } from "@/mod/scripts/se/SimSquadStayOnTargetAction";
+import { getStoryObjectsRegistry } from "@/mod/scripts/core/db/StoryObjectsRegistry";
 import { spawnItemsForObject } from "@/mod/scripts/utils/alife_spawn";
 import { isStalker } from "@/mod/scripts/utils/checkers/is";
 import {

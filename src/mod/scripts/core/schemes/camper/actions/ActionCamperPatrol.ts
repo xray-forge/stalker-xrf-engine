@@ -15,7 +15,7 @@ import { IStoredObject } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { MoveManager } from "@/mod/scripts/core/MoveManager";
 import { SchemeDanger } from "@/mod/scripts/core/schemes/danger/SchemeDanger";
-import { set_state } from "@/mod/scripts/state_management/StateManager";
+import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { path_parse_waypoints } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { isStalkerAtWaypoint } from "@/mod/scripts/utils/world";

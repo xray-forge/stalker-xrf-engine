@@ -21,6 +21,9 @@ import { TCommunity } from "@/mod/globals/communities";
 import { info_portions } from "@/mod/globals/info_portions/info_portions";
 import { relations } from "@/mod/globals/relations";
 import { AnyArgs, AnyCallablesModule, LuaArray, Maybe, Optional, TSection } from "@/mod/lib/types";
+import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
+import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
+import { ESmartTerrainStatus, ISmartTerrainControl } from "@/mod/scripts/core/alife/SmartTerrainControl";
 import {
   anomalyByName,
   ARTEFACT_WAYS_BY_ARTEFACT_ID,
@@ -32,16 +35,13 @@ import {
   zoneByName,
 } from "@/mod/scripts/core/db";
 import { pstor_retrieve } from "@/mod/scripts/core/db/pstor";
-import * as game_relations from "@/mod/scripts/core/game_relations";
+import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
+import * as game_relations from "@/mod/scripts/core/GameRelationsManager";
 import { setCurrentHint } from "@/mod/scripts/core/inventory_upgrades";
 import { AchievementsManager } from "@/mod/scripts/core/managers/AchievementsManager";
 import { ActorInventoryMenuManager, EActorMenuMode } from "@/mod/scripts/core/managers/ActorInventoryMenuManager";
 import { SchemeDeimos } from "@/mod/scripts/core/schemes/sr_deimos/SchemeDeimos";
 import { actor_in_cover, is_finished, is_killing_all, is_started } from "@/mod/scripts/core/SurgeManager";
-import { get_sim_board } from "@/mod/scripts/se/SimBoard";
-import { ISimSquad } from "@/mod/scripts/se/SimSquad";
-import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
-import { ESmartTerrainStatus, ISmartTerrainControl } from "@/mod/scripts/se/SmartTerrainControl";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import {
   anomalyHasArtefact,

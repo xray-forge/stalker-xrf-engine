@@ -19,8 +19,8 @@ import { Optional } from "@/mod/lib/types";
 import { storage as dbStorage, getActor } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { ActionProcessEnemy } from "@/mod/scripts/core/schemes/danger/actions/ActionProcessEnemy";
-import { AnimationManager } from "@/mod/scripts/state_management/AnimationManager";
-import { animations } from "@/mod/scripts/state_management/lib/state_mgr_animation_list";
+import { AnimationManager } from "@/mod/scripts/core/state_management/AnimationManager";
+import { animations } from "@/mod/scripts/core/state_management/lib/state_mgr_animation_list";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("PostCombatIdleEnemyEvaluator");

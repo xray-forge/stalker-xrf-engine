@@ -28,6 +28,7 @@ import { communities } from "@/mod/globals/communities";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { ESchemeType } from "@/mod/lib/types/scheme";
+import { ISmartTerrain, setup_gulag_and_logic_on_spawn } from "@/mod/scripts/core/alife/SmartTerrain";
 import {
   addEnemy,
   addObject,
@@ -43,8 +44,9 @@ import {
   storage,
 } from "@/mod/scripts/core/db";
 import { DUMMY_LTX } from "@/mod/scripts/core/db/IniFiles";
+import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
 import { DropManager } from "@/mod/scripts/core/DropManager";
-import { set_npc_sympathy, set_npcs_relation } from "@/mod/scripts/core/game_relations";
+import { set_npc_sympathy, set_npcs_relation } from "@/mod/scripts/core/GameRelationsManager";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { need_victim } from "@/mod/scripts/core/inventory_upgrades";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
@@ -64,11 +66,9 @@ import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchT
 import { SchemeWounded } from "@/mod/scripts/core/schemes/wounded/SchemeWounded";
 import { DynamicMusicManager } from "@/mod/scripts/core/sound/DynamicMusicManager";
 import { SoundTheme } from "@/mod/scripts/core/sound/SoundTheme";
+import { bind_state_manager } from "@/mod/scripts/core/state_management/bind_state_manager";
 import { loadTradeManager, saveTradeManager, updateTradeManager } from "@/mod/scripts/core/TradeManager";
 import { disabled_phrases, loadNpcDialogs, saveNpcDialogs } from "@/mod/scripts/globals/dialog_manager";
-import { get_sim_board } from "@/mod/scripts/se/SimBoard";
-import { ISmartTerrain, setup_gulag_and_logic_on_spawn } from "@/mod/scripts/se/SmartTerrain";
-import { bind_state_manager } from "@/mod/scripts/state_management/bind_state_manager";
 import { mapDisplayManager } from "@/mod/scripts/ui/game/MapDisplayManager";
 import { getCharacterCommunity, getObjectSquad, updateInvulnerability } from "@/mod/scripts/utils/alife";
 import { getConfigString, pickSectionFromCondList } from "@/mod/scripts/utils/configs";

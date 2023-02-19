@@ -13,6 +13,7 @@ import {
 
 import { Optional } from "@/mod/lib/types";
 import { getActor, storage } from "@/mod/scripts/core/db";
+import { DEATH_GENERIC_LTX, DUMMY_LTX } from "@/mod/scripts/core/db/IniFiles";
 import { isMonster, isStalker } from "@/mod/scripts/utils/checkers/is";
 import { getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -54,16 +55,14 @@ export const ReleaseBodyManager: IReleaseBodyManager = declare_xr_class("Release
     this.body_max_count = MAX_BODY_COUNT;
     this.current_object_id = 0;
 
-    const snd_ini = new ini_file("misc\\death_generic.ltx");
-
-    if (!snd_ini.section_exist("keep_items")) {
+    if (!DEATH_GENERIC_LTX.section_exist("keep_items")) {
       abort("There is no section [keep_items] in death_generic.ltx");
     }
 
-    const n = snd_ini.line_count("keep_items");
+    const n = DEATH_GENERIC_LTX.line_count("keep_items");
 
     for (const i of $range(0, n - 1)) {
-      const [result, section, value] = snd_ini.r_line("keep_items", i, "", "");
+      const [result, section, value] = DEATH_GENERIC_LTX.r_line("keep_items", i, "", "");
 
       table.insert(this.keep_items_table, section);
     }
@@ -147,7 +146,7 @@ export const ReleaseBodyManager: IReleaseBodyManager = declare_xr_class("Release
 
       char_ini = new ini_file(filename);
     } else {
-      char_ini = obj.spawn_ini() || new ini_file("scripts\\dummy.ltx");
+      char_ini = obj.spawn_ini() || DUMMY_LTX;
     }
 
     const st = storage.get(obj.id());

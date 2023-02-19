@@ -14,9 +14,9 @@ import {
 } from "xray16";
 
 import { ESchemeType, Optional } from "@/mod/lib/types";
+import { PhysicObjectItemBox } from "@/mod/scripts/core/binders/PhysicObjectItemBox";
 import { addObject, deleteObject, getActor, IStoredObject, levelDoors, storage } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
-import { ItemBox } from "@/mod/scripts/core/ItemBox";
 import { initializeGameObject } from "@/mod/scripts/core/schemes/initializeGameObject";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
 import { SchemePhysicalOnHit } from "@/mod/scripts/core/schemes/ph_on_hit/SchemePhysicalOnHit";
@@ -33,7 +33,7 @@ export interface IPhysicObjectBinder extends XR_object_binder {
   particle: Optional<XR_particles_object>;
   st: IStoredObject;
 
-  itemBox: Optional<ItemBox>;
+  itemBox: Optional<PhysicObjectItemBox>;
 
   use_callback(object: XR_game_object, who: XR_game_object): void;
   hit_callback(
@@ -174,7 +174,7 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
 
     if (spawn_ini !== null) {
       if (spawn_ini.section_exist("drop_box")) {
-        this.itemBox = new ItemBox(this.object);
+        this.itemBox = new PhysicObjectItemBox(this.object);
       }
 
       if (spawn_ini.section_exist("level_spot")) {

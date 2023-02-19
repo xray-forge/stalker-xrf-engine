@@ -1,21 +1,14 @@
-import {
-  alife,
-  game,
-  system_ini,
-  XR_alife_simulator,
-  XR_CGameTask,
-  XR_cse_alife_human_stalker,
-  XR_game_object,
-} from "xray16";
+import { alife, game, XR_alife_simulator, XR_CGameTask, XR_cse_alife_human_stalker, XR_game_object } from "xray16";
 
 import { captions } from "@/mod/globals/captions";
 import { script_sounds } from "@/mod/globals/sound/script_sounds";
 import { texturesIngame } from "@/mod/globals/textures";
 import { Maybe, Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
+import { SYSTEM_INI } from "@/mod/scripts/core/db/IniFiles";
+import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
 import { get_smart_terrain_name } from "@/mod/scripts/core/db/smart_names";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
-import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { isHeavilyWounded } from "@/mod/scripts/utils/checkers/checkers";
 import { isStalkerClassId } from "@/mod/scripts/utils/checkers/is";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
@@ -131,7 +124,7 @@ export function relocate_money(actor: Optional<XR_game_object>, type: "in" | "ou
  * todo;
  */
 export function get_inv_name(section: string): string {
-  return system_ini().r_string(section, "inv_name");
+  return SYSTEM_INI.r_string(section, "inv_name");
 }
 
 /**

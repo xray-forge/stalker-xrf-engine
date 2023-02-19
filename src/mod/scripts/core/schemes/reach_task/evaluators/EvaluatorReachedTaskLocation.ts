@@ -1,8 +1,8 @@
 import { alife, property_evaluator, XR_property_evaluator } from "xray16";
 
-import type { IActor } from "@/mod/scripts/se/Actor";
-import type { ISimSquad } from "@/mod/scripts/se/SimSquad";
-import type { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
+import type { IActor } from "@/mod/scripts/core/alife/Actor";
+import type { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
+import type { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { getObjectSquad } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

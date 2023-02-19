@@ -1,14 +1,15 @@
-import { game, ini_file, system_ini, XR_game_object, XR_ini_file } from "xray16";
+import { game, system_ini, XR_game_object, XR_ini_file } from "xray16";
 
+import { captions } from "@/mod/globals/captions";
+import { quest_items } from "@/mod/globals/items/quest_items";
 import { Optional } from "@/mod/lib/types";
 import { TSection } from "@/mod/lib/types/scheme";
 import { getActor } from "@/mod/scripts/core/db";
+import { ITEM_UPGRADES, STALKER_UPGRADE_INFO } from "@/mod/scripts/core/db/IniFiles";
 import { parseCondList, parseNames, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("inventory_upgrades");
-const char_ini: XR_ini_file = new ini_file("item_upgrades.ltx");
-const param_ini: XR_ini_file = new ini_file("misc\\stalkers_upgrade_info.ltx");
 
 export let cur_hint: Optional<LuaTable> = null;
 let victim: Optional<XR_game_object> = null;
@@ -20,8 +21,8 @@ export function setCurrentHint(hint: LuaTable): void {
 }
 
 export function precondition_functor_a(param1: unknown, section: string): 0 | 1 | 2 {
-  if (param_ini.line_exist(mechanic_name + "_upgr", section)) {
-    const param: string = param_ini.r_string(mechanic_name + "_upgr", section);
+  if (STALKER_UPGRADE_INFO.line_exist(mechanic_name + "_upgr", section)) {
+    const param: string = STALKER_UPGRADE_INFO.r_string(mechanic_name + "_upgr", section);
 
     if (param !== null) {
       if (param === "false") {
@@ -44,7 +45,7 @@ export function precondition_functor_a(param1: unknown, section: string): 0 | 1 
   const actor = getActor();
 
   if (actor !== null) {
-    const price: number = math.floor(char_ini.r_u32(section, "cost") * cur_price_percent);
+    const price: number = math.floor(ITEM_UPGRADES.r_u32(section, "cost") * cur_price_percent);
     const cash: number = actor.money();
 
     if (cash < price) {
@@ -57,7 +58,7 @@ export function precondition_functor_a(param1: unknown, section: string): 0 | 1 
 
 export function effect_functor_a(param2: unknown, section: TSection, loading: number): void {
   if (loading === 0) {
-    const money = char_ini.r_u32(section, "cost");
+    const money = ITEM_UPGRADES.r_u32(section, "cost");
 
     getActor()!.give_money(math.floor(money * -1 * cur_price_percent));
   }
@@ -73,7 +74,7 @@ export function effect_repair_item(item_name: string, item_condition: number): v
 
 export function get_upgrade_cost(section: string): string {
   if (getActor() !== null) {
-    const price = math.floor(char_ini.r_u32(section, "cost") * cur_price_percent);
+    const price = math.floor(ITEM_UPGRADES.r_u32(section, "cost") * cur_price_percent);
 
     return game.translate_string("st_upgr_cost") + ": " + price;
   }
@@ -101,8 +102,8 @@ export function prereq_functor_a(param3: unknown, section: string): string {
   const actor: XR_game_object = getActor() as XR_game_object;
   let str: string = "";
 
-  if (param_ini.line_exist(mechanic_name + "_upgr", section)) {
-    const param: string = param_ini.r_string(mechanic_name + "_upgr", section);
+  if (STALKER_UPGRADE_INFO.line_exist(mechanic_name + "_upgr", section)) {
+    const param: string = STALKER_UPGRADE_INFO.r_string(mechanic_name + "_upgr", section);
 
     if (param !== null) {
       if (param === "false") {
@@ -121,11 +122,11 @@ export function prereq_functor_a(param3: unknown, section: string): string {
   }
 
   if (actor !== null) {
-    const price = math.floor(char_ini.r_u32(section, "cost") * cur_price_percent);
+    const price = math.floor(ITEM_UPGRADES.r_u32(section, "cost") * cur_price_percent);
     const cash = actor.money();
 
     if (cash < price) {
-      return str + "\\n - " + game.translate_string("st_upgr_enough_money"); // --.." "..price-cash.." RU"
+      return str + "\\n - " + game.translate_string(captions.st_upgr_enough_money); // --.." "..price-cash.." RU"
     }
   }
 
@@ -133,7 +134,7 @@ export function prereq_functor_a(param3: unknown, section: string): string {
 }
 
 export function property_functor_a(param1: string, name: string): string {
-  const prorerty_name = char_ini.r_string(name, "name");
+  const prorerty_name = ITEM_UPGRADES.r_string(name, "name");
   const t_prorerty_name = game.translate_string(prorerty_name);
   const section_table: LuaTable<number, string> = parseNames(param1);
   const section_table_n = section_table.length();
@@ -146,11 +147,14 @@ export function property_functor_a(param1: string, name: string): string {
   let sum = 0;
 
   for (const i of $range(1, section_table_n)) {
-    if (!char_ini.line_exist(section_table.get(i), "value") || !char_ini.r_string(section_table.get(i), "value")) {
+    if (
+      !ITEM_UPGRADES.line_exist(section_table.get(i), "value") ||
+      !ITEM_UPGRADES.r_string(section_table.get(i), "value")
+    ) {
       return t_prorerty_name;
     }
 
-    value = char_ini.r_string(section_table.get(i), "value");
+    value = ITEM_UPGRADES.r_string(section_table.get(i), "value");
     if (name !== "prop_night_vision") {
       sum = sum + tonumber(value)!;
     } else {
@@ -204,17 +208,17 @@ export function need_victim(obj: XR_game_object): void {
 }
 
 export function issue_property(param1: string, name: string) {
-  const prorerty_name = char_ini.r_string(name, "name");
+  const prorerty_name = ITEM_UPGRADES.r_string(name, "name");
   const t_prorerty_name = game.translate_string(prorerty_name);
   const value_table = parseNames(param1);
   const section = value_table.get(1);
 
   if (section !== null) {
-    if (!char_ini.line_exist(section, "value") || !char_ini.r_string(section, "value")) {
+    if (!ITEM_UPGRADES.line_exist(section, "value") || !ITEM_UPGRADES.r_string(section, "value")) {
       return t_prorerty_name;
     }
 
-    const value = char_ini.r_string(section, "value");
+    const value = ITEM_UPGRADES.r_string(section, "value");
 
     return t_prorerty_name + " " + string.sub(value, 2, -2);
   } else {
@@ -234,7 +238,7 @@ export function how_much_repair(item_name: string, item_condition: number): numb
 
 export function can_repair_item(item_name: string, item_condition: number, mechanic: string): boolean {
   // --( string, float, string )
-  if (item_name === "pri_a17_gauss_rifle") {
+  if (item_name === quest_items.pri_a17_gauss_rifle) {
     return false;
   }
 
@@ -250,8 +254,8 @@ export function question_repair_item(
   mechanic: string
 ): string {
   // --( string, float, bool, string )
-  if (item_name === "pri_a17_gauss_rifle") {
-    return game.translate_string("st_gauss_cannot_be_repaired");
+  if (item_name === quest_items.pri_a17_gauss_rifle) {
+    return game.translate_string(captions.st_gauss_cannot_be_repaired);
   }
 
   const price = how_much_repair(item_name, item_condition);
@@ -279,11 +283,11 @@ export function mech_discount(perc: number) {
 export function can_upgrade_item(item_name: string, mechanic: string) {
   mechanic_name = mechanic;
   setup_discounts();
-  if (param_ini.line_exist(mechanic, "he_upgrade_nothing")) {
+  if (STALKER_UPGRADE_INFO.line_exist(mechanic, "he_upgrade_nothing")) {
     return false;
   }
 
-  if (!param_ini.line_exist(mechanic, item_name)) {
+  if (!STALKER_UPGRADE_INFO.line_exist(mechanic, item_name)) {
     return false;
   }
 
@@ -291,8 +295,8 @@ export function can_upgrade_item(item_name: string, mechanic: string) {
 }
 
 export function setup_discounts(): void {
-  if (param_ini.line_exist(mechanic_name, "discount_condlist")) {
-    const condlist = param_ini.r_string(mechanic_name, "discount_condlist");
+  if (STALKER_UPGRADE_INFO.line_exist(mechanic_name, "discount_condlist")) {
+    const condlist = STALKER_UPGRADE_INFO.r_string(mechanic_name, "discount_condlist");
     const parsed = parseCondList(getActor(), null, null, condlist);
 
     pickSectionFromCondList(getActor() as XR_game_object, null, parsed);

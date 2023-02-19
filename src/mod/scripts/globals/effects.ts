@@ -47,10 +47,13 @@ import { outfits } from "@/mod/globals/items/outfits";
 import { quest_items } from "@/mod/globals/items/quest_items";
 import { weapons } from "@/mod/globals/items/weapons";
 import { MAX_UNSIGNED_16_BIT, MAX_UNSIGNED_32_BIT } from "@/mod/globals/memory";
-import { relations, TRelation } from "@/mod/globals/relations";
+import { ERelation, relations, TRelation } from "@/mod/globals/relations";
 import { script_sounds } from "@/mod/globals/sound/script_sounds";
 import { TZone, zones } from "@/mod/globals/zones";
 import { AnyCallablesModule, AnyObject, LuaArray, Optional } from "@/mod/lib/types";
+import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
+import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
+import { IStalker } from "@/mod/scripts/core/alife/Stalker";
 import { update_logic } from "@/mod/scripts/core/binders/StalkerBinder";
 import {
   animObjByName,
@@ -66,7 +69,7 @@ import {
 } from "@/mod/scripts/core/db";
 import { SYSTEM_INI } from "@/mod/scripts/core/db/IniFiles";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
-import { ERelation } from "@/mod/scripts/core/ERelation";
+import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
 import {
   change_factions_community_num,
   set_level_faction_community as setLevelFactionCommunity,
@@ -74,7 +77,7 @@ import {
   set_squad_goodwill as setSquadGoodwill,
   set_squad_goodwill_to_npc as setSquadGoodwillToNpc,
   temp_goodwill_table,
-} from "@/mod/scripts/core/game_relations";
+} from "@/mod/scripts/core/GameRelationsManager";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { mech_discount as getMechDiscount, setCurrentHint } from "@/mod/scripts/core/inventory_upgrades";
 import { relocate_item as relocateItem, send_tip as sendPdaTip, TIcon } from "@/mod/scripts/core/NewsManager";
@@ -88,13 +91,9 @@ import {
   start_surge as startSurge,
   stop_surge as stopSurge,
 } from "@/mod/scripts/core/SurgeManager";
+import { get_task_manager } from "@/mod/scripts/core/task/TaskManager";
 import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
 import { get_weather_manager } from "@/mod/scripts/core/WeatherManager";
-import { get_sim_board } from "@/mod/scripts/se/SimBoard";
-import { ISimSquad } from "@/mod/scripts/se/SimSquad";
-import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
-import { IStalker } from "@/mod/scripts/se/Stalker";
-import { get_task_manager } from "@/mod/scripts/se/task/TaskManager";
 import { FreeplayDialog, showFreeplayDialog } from "@/mod/scripts/ui/game/FreeplayDialog";
 import { mapDisplayManager } from "@/mod/scripts/ui/game/MapDisplayManager";
 import { sleep as startSleeping } from "@/mod/scripts/ui/interaction/SleepDialog";

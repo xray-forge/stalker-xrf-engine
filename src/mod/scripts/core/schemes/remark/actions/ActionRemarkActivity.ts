@@ -1,10 +1,10 @@
 import { action_base, level, patrol, XR_action_base, XR_game_object, XR_sound_object, XR_vector } from "xray16";
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
-import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
-import { set_state } from "@/mod/scripts/state_management/StateManager";
+import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { get_gulag_by_name } from "@/mod/scripts/utils/gulag";

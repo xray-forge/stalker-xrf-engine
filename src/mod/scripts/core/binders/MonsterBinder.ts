@@ -23,6 +23,8 @@ import {
 
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { EScheme, ESchemeType, Optional } from "@/mod/lib/types";
+import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
+import { ISmartTerrain, setup_gulag_and_logic_on_spawn } from "@/mod/scripts/core/alife/SmartTerrain";
 import {
   addObject,
   deleteObject,
@@ -33,6 +35,7 @@ import {
   spawnedVertexById,
   storage,
 } from "@/mod/scripts/core/db";
+import { get_sim_obj_registry } from "@/mod/scripts/core/db/SimObjectsRegistry";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { ActionSchemeHear } from "@/mod/scripts/core/schemes/hear/ActionSchemeHear";
@@ -42,9 +45,6 @@ import { mobCaptured } from "@/mod/scripts/core/schemes/mobCaptured";
 import { mobRelease } from "@/mod/scripts/core/schemes/mobRelease";
 import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
-import { get_sim_obj_registry } from "@/mod/scripts/se/SimObjectsRegistry";
-import { ISimSquad } from "@/mod/scripts/se/SimSquad";
-import { ISmartTerrain, setup_gulag_and_logic_on_spawn } from "@/mod/scripts/se/SmartTerrain";
 import { action, getObjectSquad } from "@/mod/scripts/utils/alife";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";

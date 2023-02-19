@@ -2,8 +2,8 @@
 
 import { misc } from "@/mod/globals/items/misc";
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { storage } from "@/mod/scripts/core/db";
-import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
 import { get_npc_smart } from "@/mod/scripts/utils/gulag";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

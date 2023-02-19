@@ -17,7 +17,7 @@ import { weapons } from "@/mod/globals/items/weapons";
 import { AnyCallablesModule, AnyObject, LuaArray, Optional } from "@/mod/lib/types";
 import { anomalyByName, getActor, IStoredObject } from "@/mod/scripts/core/db";
 import { pstor_retrieve } from "@/mod/scripts/core/db/pstor";
-import { get_npcs_relation } from "@/mod/scripts/core/game_relations";
+import { get_npcs_relation } from "@/mod/scripts/core/GameRelationsManager";
 import { getTreasureManager, ITreasureManager } from "@/mod/scripts/core/TreasureManager";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { isActorEnemyWithFaction } from "@/mod/scripts/utils/checkers/checkers";

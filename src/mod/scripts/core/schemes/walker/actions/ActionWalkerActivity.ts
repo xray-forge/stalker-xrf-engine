@@ -6,7 +6,7 @@ import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { MoveManager } from "@/mod/scripts/core/MoveManager";
 import { associations, IAnimpointDescriptor } from "@/mod/scripts/core/schemes/animpoint/animpoint_predicates";
 import { CampStoryManager } from "@/mod/scripts/core/schemes/base/CampStoryManager";
-import { set_state } from "@/mod/scripts/state_management/StateManager";
+import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { path_parse_waypoints } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

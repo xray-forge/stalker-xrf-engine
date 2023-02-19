@@ -1,10 +1,10 @@
 import { action_base, level, patrol, XR_action_base, XR_game_object, XR_vector } from "xray16";
 
 import { Optional, StringOptional } from "@/mod/lib/types";
+import { registered_smartcovers } from "@/mod/scripts/core/alife/SmartCover";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
-import { registered_smartcovers } from "@/mod/scripts/se/SmartCover";
-import { set_state } from "@/mod/scripts/state_management/StateManager";
+import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { getStoryObject } from "@/mod/scripts/utils/alife";
 import { getParamString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";

@@ -39,6 +39,8 @@ import {
 } from "@/mod/scripts/core/db";
 import { destroyManager, getWeakManagerInstance } from "@/mod/scripts/core/db/ManagersRegistry";
 import { pstor_load_all, pstor_save_all } from "@/mod/scripts/core/db/pstor";
+import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
+import { get_sim_obj_registry } from "@/mod/scripts/core/db/SimObjectsRegistry";
 import { initDropSettings } from "@/mod/scripts/core/DropManager";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { EGameEvent } from "@/mod/scripts/core/managers/events/EGameEvent";
@@ -50,11 +52,9 @@ import { get_release_body_manager } from "@/mod/scripts/core/ReleaseBodyManager"
 import { SchemeDeimos } from "@/mod/scripts/core/schemes/sr_deimos/SchemeDeimos";
 import { DynamicMusicManager } from "@/mod/scripts/core/sound/DynamicMusicManager";
 import { SurgeManager } from "@/mod/scripts/core/SurgeManager";
+import { get_task_manager, ITaskManager } from "@/mod/scripts/core/task/TaskManager";
 import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
 import { weatherManager } from "@/mod/scripts/core/WeatherManager";
-import { get_sim_board } from "@/mod/scripts/se/SimBoard";
-import { get_sim_obj_registry } from "@/mod/scripts/se/SimObjectsRegistry";
-import { get_task_manager, ITaskManager } from "@/mod/scripts/se/task/TaskManager";
 import { giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { isArtefact } from "@/mod/scripts/utils/checkers/is";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";

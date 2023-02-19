@@ -2,6 +2,7 @@ import { level, stalker_ids, vector, world_property, XR_game_object, XR_ini_file
 
 import { Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
+import { registered_smartcovers } from "@/mod/scripts/core/alife/SmartCover";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import { ActionAnimpoint, IActionAnimpoint } from "@/mod/scripts/core/schemes/animpoint/actions/ActionAnimpoint";
 import {
@@ -14,8 +15,7 @@ import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAn
 import { AbstractScheme, action_ids, evaluators_id } from "@/mod/scripts/core/schemes/base";
 import { CampStoryManager } from "@/mod/scripts/core/schemes/base/CampStoryManager";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
-import { registered_smartcovers } from "@/mod/scripts/se/SmartCover";
-import { states } from "@/mod/scripts/state_management/lib/state_lib";
+import { states } from "@/mod/scripts/core/state_management/lib/state_lib";
 import {
   cfg_get_switch_conditions,
   getConfigBoolean,

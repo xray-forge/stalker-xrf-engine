@@ -13,13 +13,13 @@ import {
 import { TCommunity } from "@/mod/globals/communities";
 import { lootable_table_exclude, TLootableExcludeItem } from "@/mod/globals/items/lootable_table";
 import { TLevel } from "@/mod/globals/levels";
+import { ERelation } from "@/mod/globals/relations";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { Optional } from "@/mod/lib/types";
+import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { getActor, IStoredObject, storage, zoneByName } from "@/mod/scripts/core/db";
-import { ERelation } from "@/mod/scripts/core/ERelation";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { action_ids } from "@/mod/scripts/core/schemes/base/actions_id";
-import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { getStorySquad } from "@/mod/scripts/utils/alife";
 import { isStalker } from "@/mod/scripts/utils/checkers/is";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";

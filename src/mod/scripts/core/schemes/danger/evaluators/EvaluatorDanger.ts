@@ -12,9 +12,9 @@ import {
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { logicsConfig } from "@/mod/lib/configs/LogicsConfig";
 import { Optional } from "@/mod/lib/types";
+import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import { SchemeDanger } from "@/mod/scripts/core/schemes/danger/SchemeDanger";
-import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
 
 export interface IEvaluatorDanger extends XR_property_evaluator {
   state: IStoredObject;

@@ -11,7 +11,7 @@ import {
 
 import { AnyObject, EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
-import { get_npcs_relation } from "@/mod/scripts/core/game_relations";
+import { get_npcs_relation } from "@/mod/scripts/core/GameRelationsManager";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { SchemeAbuse } from "@/mod/scripts/core/schemes/abuse/SchemeAbuse";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
@@ -23,7 +23,7 @@ import { SchemeHelpWounded } from "@/mod/scripts/core/schemes/help_wounded/Schem
 import { ActionMeetWait, IActionMeetWait } from "@/mod/scripts/core/schemes/meet/actions/ActionMeetWait";
 import { EvaluatorContact } from "@/mod/scripts/core/schemes/meet/evaluators/EvaluatorContact";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
-import { set_state } from "@/mod/scripts/state_management/StateManager";
+import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { getStoryObject, isNpcInCombat } from "@/mod/scripts/utils/alife";
 import { isObjectWounded } from "@/mod/scripts/utils/checkers/checkers";
 import { getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";

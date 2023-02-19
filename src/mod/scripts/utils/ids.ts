@@ -1,7 +1,7 @@
 import { alife, level, TXR_cls_id, XR_cse_abstract, XR_game_object } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { getStoryObjectsRegistry } from "@/mod/scripts/core/StoryObjectsRegistry";
+import { getStoryObjectsRegistry } from "@/mod/scripts/core/db/StoryObjectsRegistry";
 
 /**
  * todo;
