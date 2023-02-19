@@ -1,4 +1,3 @@
-import { mapDisplayManager } from "scripts/ui/game/MapDisplayManager";
 import {
   actor_stats,
   alife,
@@ -45,16 +44,17 @@ import { initDropSettings } from "@/mod/scripts/core/DropManager";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { EGameEvent } from "@/mod/scripts/core/managers/events/EGameEvent";
 import { EventsManager } from "@/mod/scripts/core/managers/events/EventsManager";
+import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
 import { PsyAntennaManager } from "@/mod/scripts/core/managers/PsyAntennaManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
+import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
+import { WeatherManager } from "@/mod/scripts/core/managers/WeatherManager";
 import { send_task } from "@/mod/scripts/core/NewsManager";
 import { get_release_body_manager } from "@/mod/scripts/core/ReleaseBodyManager";
 import { SchemeDeimos } from "@/mod/scripts/core/schemes/sr_deimos/SchemeDeimos";
 import { DynamicMusicManager } from "@/mod/scripts/core/sound/DynamicMusicManager";
-import { SurgeManager } from "@/mod/scripts/core/SurgeManager";
 import { get_task_manager, ITaskManager } from "@/mod/scripts/core/task/TaskManager";
 import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
-import { weatherManager } from "@/mod/scripts/core/WeatherManager";
 import { giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { isArtefact } from "@/mod/scripts/utils/checkers/is";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
@@ -85,6 +85,7 @@ export interface IActorBinder extends XR_object_binder {
   task_manager: ITaskManager;
   surgeManager: SurgeManager;
   eventsManager: EventsManager;
+  weatherManager: WeatherManager;
 
   loaded: boolean;
   spawn_frame: number;
@@ -123,6 +124,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     this.bCheckStart = false;
     this.surgeManager = SurgeManager.getInstance();
     this.eventsManager = EventsManager.getInstance();
+    this.weatherManager = WeatherManager.getInstance();
     this.last_level_name = null;
     this.deimos_intensity = null;
     this.loaded_active_slot = 3;
@@ -161,7 +163,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
       this.st.pstor = new LuaTable();
     }
 
-    weatherManager.reset();
+    this.weatherManager.reset();
 
     initDropSettings();
 
@@ -315,7 +317,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
       travel_func();
     }
 
-    weatherManager.update();
+    this.weatherManager.update();
 
     this.check_detective_achievement();
     this.check_mutant_hunter_achievement();
@@ -437,7 +439,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     }
 
     pstor_save_all(this.object, packet);
-    weatherManager.save(packet);
+    this.weatherManager.save(packet);
     get_release_body_manager().save(packet);
     this.surgeManager.save(packet);
     PsyAntennaManager.save(packet);
@@ -507,7 +509,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     }
 
     pstor_load_all(this.object, reader);
-    weatherManager.load(reader);
+    this.weatherManager.load(reader);
     get_release_body_manager().load(reader);
 
     this.surgeManager.load(reader);

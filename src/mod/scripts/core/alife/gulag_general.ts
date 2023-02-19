@@ -17,7 +17,7 @@ import { registered_smartcovers } from "@/mod/scripts/core/alife/SmartCover";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { getActor, storage, zoneByName } from "@/mod/scripts/core/db";
 import { SMART_TERRAIN_SECT } from "@/mod/scripts/core/db/sections";
-import { is_started } from "@/mod/scripts/core/SurgeManager";
+import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import {
   get_scheme_by_section,
   getConfigBoolean,
@@ -161,7 +161,7 @@ export function loadGulagJobs(smart: ISmartTerrain): LuaMultiReturn<[LuaTable, s
       },
       _precondition_params: {},
       _precondition_function: function () {
-        return is_started();
+        return SurgeManager.getInstance().isStarted;
       },
     });
 

@@ -40,8 +40,8 @@ import * as game_relations from "@/mod/scripts/core/GameRelationsManager";
 import { setCurrentHint } from "@/mod/scripts/core/inventory_upgrades";
 import { AchievementsManager } from "@/mod/scripts/core/managers/AchievementsManager";
 import { ActorInventoryMenuManager, EActorMenuMode } from "@/mod/scripts/core/managers/ActorInventoryMenuManager";
+import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { SchemeDeimos } from "@/mod/scripts/core/schemes/sr_deimos/SchemeDeimos";
-import { actor_in_cover, is_finished, is_killing_all, is_started } from "@/mod/scripts/core/SurgeManager";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import {
   anomalyHasArtefact,
@@ -1174,7 +1174,7 @@ export function is_squad_commander(
 /**
  * todo;
  */
-export function squad_npc_count_ge(actor: XR_game_object, npc: XR_game_object, p: [string, string]) {
+export function squad_npc_count_ge(actor: XR_game_object, npc: XR_game_object, p: [string, string]): boolean {
   const story_id: Optional<string> = p[0];
 
   if (story_id === null) {
@@ -1193,22 +1193,22 @@ export function squad_npc_count_ge(actor: XR_game_object, npc: XR_game_object, p
 /**
  * todo;
  */
-export function surge_complete() {
-  return is_finished();
+export function surge_complete(): boolean {
+  return SurgeManager.getInstance().isFinished;
 }
 
 /**
  * todo;
  */
-export function surge_started() {
-  return is_started();
+export function surge_started(): boolean {
+  return SurgeManager.getInstance().isStarted;
 }
 
 /**
  * todo;
  */
-export function surge_kill_all() {
-  return is_killing_all();
+export function surge_kill_all(): boolean {
+  return SurgeManager.getInstance().isKillingAll();
 }
 
 /**
@@ -1231,7 +1231,7 @@ export function signal_rocket_flying(actor: XR_game_object, npc: XR_game_object,
 /**
  * todo;
  */
-export function quest_npc_enemy_actor(actor: XR_game_object, npc: XR_game_object, p: [string]) {
+export function quest_npc_enemy_actor(actor: XR_game_object, npc: XR_game_object, p: [string]): boolean {
   if (p[0] === null) {
     abort("wrong story id");
   } else {
@@ -1341,14 +1341,14 @@ export function check_bloodsucker_state(
 /**
  * todo;
  */
-export function actor_nomove_nowpn() {
+export function actor_nomove_nowpn(): boolean {
   return !isWeapon(getActor()!.active_item()) || getActor()!.is_talking();
 }
 
 /**
  * todo;
  */
-export function dist_to_story_obj_ge(actor: XR_game_object, npc: XR_game_object, p: [string, number]) {
+export function dist_to_story_obj_ge(actor: XR_game_object, npc: XR_game_object, p: [string, number]): boolean {
   const story_id: string = p && p[0];
   const story_obj_id: Optional<number> = getStoryObjectId(story_id);
 
@@ -2036,7 +2036,7 @@ export function upgrade_hint_kardan(actor: XR_game_object, npc: XR_game_object, 
  * todo;
  */
 export function actor_in_surge_cover(actor: XR_game_object, npc: XR_game_object): boolean {
-  return actor_in_cover();
+  return SurgeManager.getInstance().isActorInCover();
 }
 
 /**

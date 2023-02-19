@@ -12,10 +12,10 @@ import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { update_logic } from "@/mod/scripts/core/binders/StalkerBinder";
 import { getActor, storage } from "@/mod/scripts/core/db";
 import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
+import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { relocate_item } from "@/mod/scripts/core/NewsManager";
 import { SchemeMeet } from "@/mod/scripts/core/schemes/meet/SchemeMeet";
 import { SchemeWounded } from "@/mod/scripts/core/schemes/wounded/SchemeWounded";
-import { get_surge_manager } from "@/mod/scripts/core/SurgeManager";
 import { giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
 import { isObjectWounded, isStalkerAlive } from "@/mod/scripts/utils/checkers/checkers";
@@ -498,14 +498,14 @@ export function disable_ui_only(first_speaker: XR_game_object, second_speaker: X
  * todo;
  */
 export function is_surge_running(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return get_surge_manager().isStarted === true;
+  return SurgeManager.getInstance().isStarted;
 }
 
 /**
  * todo;
  */
 export function is_surge_not_running(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return get_surge_manager().isFinished === true;
+  return SurgeManager.getInstance().isFinished;
 }
 
 /**

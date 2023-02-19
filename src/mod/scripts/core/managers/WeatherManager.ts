@@ -3,6 +3,7 @@ import { level, XR_game_object, XR_net_packet, XR_reader } from "xray16";
 import { Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
 import { DYNAMIC_WEATHER_GRAPHS, GAME_LTX } from "@/mod/scripts/core/db/IniFiles";
+import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import {
   getConfigString,
   parseCondList,
@@ -11,6 +12,9 @@ import {
 } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
+
+const logger: LuaLogger = new LuaLogger("WeatherManager");
 
 export interface IWeatherState {
   current_state: Optional<string>;
@@ -19,17 +23,10 @@ export interface IWeatherState {
   graph: LuaTable<string, number>;
 }
 
-export class WeatherManager {
-  public static instance: Optional<WeatherManager> = null;
-
-  public static getInstance(): WeatherManager {
-    if (!this.instance) {
-      this.instance = new this();
-    }
-
-    return this.instance;
-  }
-
+/**
+ * todo;
+ */
+export class WeatherManager extends AbstractCoreManager {
   public last_hour: number = 0;
   public wfx_time: number = 0;
   public update_time: number = 0;
@@ -39,12 +36,6 @@ export class WeatherManager {
 
   public state: LuaTable<string, IWeatherState> = new LuaTable();
   public graphs: LuaTable<string, LuaTable<string, number>> = new LuaTable();
-
-  public constructor() {
-    if (!DYNAMIC_WEATHER_GRAPHS) {
-      abort("error when open weather_dynamic_graphs.ltx");
-    }
-  }
 
   public reset(): void {
     const weather: string = getConfigString(GAME_LTX, level.name(), "weathers", getActor(), false, "", "[default]");
@@ -67,6 +58,7 @@ export class WeatherManager {
   }
 
   public forced_weather_change(): void {
+    logger.info("Force weather change");
     this.forced_weather_change_on_time_change = true;
   }
 
@@ -264,10 +256,4 @@ export class WeatherManager {
 
     setSaveMarker(packet, true, WeatherManager.name);
   }
-}
-
-export const weatherManager: WeatherManager = WeatherManager.getInstance();
-
-export function get_weather_manager(): WeatherManager {
-  return WeatherManager.getInstance();
 }

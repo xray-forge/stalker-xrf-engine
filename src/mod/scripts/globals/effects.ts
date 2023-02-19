@@ -46,11 +46,11 @@ import { misc } from "@/mod/globals/items/misc";
 import { outfits } from "@/mod/globals/items/outfits";
 import { quest_items } from "@/mod/globals/items/quest_items";
 import { weapons } from "@/mod/globals/items/weapons";
-import { MAX_UNSIGNED_16_BIT, MAX_UNSIGNED_32_BIT } from "@/mod/globals/memory";
-import { ERelation, relations, TRelation } from "@/mod/globals/relations";
+import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
+import { relations, TRelation } from "@/mod/globals/relations";
 import { script_sounds } from "@/mod/globals/sound/script_sounds";
 import { TZone, zones } from "@/mod/globals/zones";
-import { AnyCallablesModule, AnyObject, LuaArray, Optional } from "@/mod/lib/types";
+import { AnyObject, LuaArray, Optional } from "@/mod/lib/types";
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { IStalker } from "@/mod/scripts/core/alife/Stalker";
@@ -80,22 +80,16 @@ import {
 } from "@/mod/scripts/core/GameRelationsManager";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { mech_discount as getMechDiscount, setCurrentHint } from "@/mod/scripts/core/inventory_upgrades";
+import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
+import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
+import { WeatherManager } from "@/mod/scripts/core/managers/WeatherManager";
 import { relocate_item as relocateItem, send_tip as sendPdaTip, TIcon } from "@/mod/scripts/core/NewsManager";
 import { SchemeAbuse } from "@/mod/scripts/core/schemes/abuse/SchemeAbuse";
 import { init_target } from "@/mod/scripts/core/schemes/remark/actions/ActionRemarkActivity";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
-import {
-  get_surge_manager,
-  set_surge_message,
-  set_surge_task,
-  start_surge as startSurge,
-  stop_surge as stopSurge,
-} from "@/mod/scripts/core/SurgeManager";
 import { get_task_manager } from "@/mod/scripts/core/task/TaskManager";
 import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
-import { get_weather_manager } from "@/mod/scripts/core/WeatherManager";
-import { FreeplayDialog, showFreeplayDialog } from "@/mod/scripts/ui/game/FreeplayDialog";
-import { mapDisplayManager } from "@/mod/scripts/ui/game/MapDisplayManager";
+import { showFreeplayDialog } from "@/mod/scripts/ui/game/FreeplayDialog";
 import { sleep as startSleeping } from "@/mod/scripts/ui/interaction/SleepDialog";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { getStoryObject, getStorySquad } from "@/mod/scripts/utils/alife";
@@ -1758,21 +1752,36 @@ export function give_treasure(actor: XR_game_object, npc: XR_game_object, p: Lua
   }
 }
 
-export function start_surge(actor: XR_game_object, npc: XR_game_object, p: []) {
+/**
+ * todo;
+ */
+export function start_surge(actor: XR_game_object, npc: XR_game_object, p: []): void {
   logger.info("Start surge");
-  startSurge();
+  SurgeManager.getInstance().requestSurgeStart();
 }
 
-export function stop_surge(actor: XR_game_object, npc: XR_game_object, p: []) {
+/**
+ * todo;
+ */
+export function stop_surge(actor: XR_game_object, npc: XR_game_object, p: []): void {
   logger.info("Stop surge");
-  stopSurge();
+  SurgeManager.getInstance().requestSurgeStop();
 }
 
-export function set_surge_mess_and_task(actor: XR_game_object, npc: XR_game_object, p: [string, string]) {
-  set_surge_message(p[0]);
+/**
+ * todo;
+ */
+export function set_surge_mess_and_task(
+  actor: XR_game_object,
+  npc: XR_game_object,
+  p: [string, Optional<string>]
+): void {
+  const surgeManager: SurgeManager = SurgeManager.getInstance();
+
+  surgeManager.setSurgeMessage(p[0]);
 
   if (p[1]) {
-    set_surge_task(p[1]);
+    surgeManager.setSurgeTask(p[1]);
   }
 }
 
@@ -2259,8 +2268,8 @@ export function set_game_time(actor: XR_game_object, npc: XR_game_object, params
   }
 
   level.change_game_time(0, hours_to_change, minutes_to_change);
-  get_weather_manager().forced_weather_change();
-  get_surge_manager().isTimeForwarded = true;
+  WeatherManager.getInstance().forced_weather_change();
+  SurgeManager.getInstance().isTimeForwarded = true;
 }
 
 export function forward_game_time(actor: XR_game_object, npc: XR_game_object, p: [string, string]) {
@@ -2278,8 +2287,8 @@ export function forward_game_time(actor: XR_game_object, npc: XR_game_object, p:
   }
 
   level.change_game_time(0, hours, minutes);
-  get_weather_manager().forced_weather_change();
-  get_surge_manager().isTimeForwarded = true;
+  WeatherManager.getInstance().forced_weather_change();
+  SurgeManager.getInstance().isTimeForwarded = true;
 }
 
 export function stop_tutorial(): void {

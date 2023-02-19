@@ -1,16 +1,13 @@
-import { mapDisplayManager } from "scripts/ui/game/MapDisplayManager";
 import {
   alife,
   device,
   game,
   hit,
-  ini_file,
   level,
   vector,
   XR_CTime,
   XR_game_object,
   XR_hit,
-  XR_ini_file,
   XR_net_packet,
   XR_reader,
 } from "xray16";
@@ -24,13 +21,15 @@ import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { AnyCallablesModule, Optional, PartialRecord } from "@/mod/lib/types";
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { anomalyByName, CROW_STORAGE, getActor, signalLight, storage, zoneByName } from "@/mod/scripts/core/db";
+import { SURGE_MANAGER_LTX } from "@/mod/scripts/core/db/IniFiles";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/core/db/SimBoard";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
+import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
+import { WeatherManager } from "@/mod/scripts/core/managers/WeatherManager";
 import { send_tip } from "@/mod/scripts/core/NewsManager";
-import { get_weather_manager } from "@/mod/scripts/core/WeatherManager";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { isImmuneToSurge, isObjectOnLevel, isSurgeEnabledOnLevel } from "@/mod/scripts/utils/checkers/checkers";
 import { isStoryObject } from "@/mod/scripts/utils/checkers/is";
@@ -48,7 +47,24 @@ export const sleep_fade_pp_eff_id: number = 4;
 const logger: LuaLogger = new LuaLogger("SurgeManager");
 
 export class SurgeManager extends AbstractCoreManager {
-  public ini: XR_ini_file = new ini_file("misc\\surge_manager.ltx");
+  private static check_squad_smart_props(squad_id: number): boolean {
+    const squad: Optional<ISimSquad> = alife().object(squad_id);
+
+    if (squad) {
+      const board = get_sim_board();
+
+      if (board && squad.smart_id && board.smarts.get(squad.smart_id)) {
+        const smart = board.smarts.get(squad.smart_id).smrt;
+
+        if (tonumber(smart.props["surge"])! <= 0) {
+          return true;
+        }
+      }
+    }
+
+    return false; // -- can't delete squad in his smart if squad is in cover
+  }
+
   public levels_respawn: PartialRecord<TLevel, boolean> = { zaton: false, jupiter: false, pripyat: false };
 
   public isStarted: boolean = false;
@@ -105,16 +121,16 @@ export class SurgeManager extends AbstractCoreManager {
 
     let cond_string: string = "true";
 
-    if (this.ini.line_exist("settings", "condlist")) {
-      cond_string = this.ini.r_string("settings", "condlist");
+    if (SURGE_MANAGER_LTX.line_exist("settings", "condlist")) {
+      cond_string = SURGE_MANAGER_LTX.r_string("settings", "condlist");
     }
 
     this.surgeManagerCondlist = parseCondList(null, "surge_manager", "condlist", cond_string);
 
     cond_string = "false";
 
-    if (this.ini.line_exist("settings", "survive")) {
-      cond_string = this.ini.r_string("settings", "survive");
+    if (SURGE_MANAGER_LTX.line_exist("settings", "survive")) {
+      cond_string = SURGE_MANAGER_LTX.r_string("settings", "survive");
     }
 
     this.surgeSurviveCondlist = parseCondList(null, "surge_manager", "survive_condlist", cond_string);
@@ -127,20 +143,20 @@ export class SurgeManager extends AbstractCoreManager {
   }
 
   public initializeSurgeCovers(): void {
-    for (const i of $range(0, this.ini.line_count("list") - 1)) {
-      const [temp1, id, temp2] = this.ini.r_line("list", i, "", "");
+    for (const i of $range(0, SURGE_MANAGER_LTX.line_count("list") - 1)) {
+      const [temp1, id, temp2] = SURGE_MANAGER_LTX.r_line("list", i, "", "");
       const zone: Optional<XR_game_object> = zoneByName.get(id);
 
       if (zone !== null) {
         this.surgeCoversCount = this.surgeCoversCount + 1;
         this.covers.set(this.surgeCoversCount, zone);
 
-        if (this.ini.line_exist(id, "condlist")) {
+        if (SURGE_MANAGER_LTX.line_exist(id, "condlist")) {
           (this.covers.get(this.surgeCoversCount) as any).condlist = parseCondList(
             null,
             id,
             "condlist",
-            this.ini.r_string(id, "condlist")
+            SURGE_MANAGER_LTX.r_string(id, "condlist")
           );
         }
       }
@@ -209,6 +225,54 @@ export class SurgeManager extends AbstractCoreManager {
     } else {
       return null;
     }
+  }
+
+  /**
+   * todo;
+   */
+  public isActorInCover(): boolean {
+    const cover_id: Optional<number> = this.getNearestAvailableCover();
+
+    return cover_id !== null && storage.get(cover_id).object!.inside(getActor()!.position());
+  }
+
+  /**
+   * todo
+   */
+  public setSkipResurrectMessage(): void {
+    this.skipMessage = false;
+  }
+
+  /**
+   * todo;
+   */
+  public setSurgeTask(task: string): void {
+    this.surge_task_sect = task;
+  }
+
+  /**
+   * todo;
+   */
+  public setSurgeMessage(message: string): void {
+    this.surge_message = message;
+  }
+
+  /**
+   * todo;
+   */
+  public getTaskTarget(): Optional<number> {
+    if (this.isActorInCover()) {
+      return null;
+    }
+
+    return this.getNearestAvailableCover();
+  }
+
+  /**
+   * todo;
+   */
+  public isKillingAll(): boolean {
+    return this.isStarted && this.ui_disabled;
   }
 
   public update(): void {
@@ -376,7 +440,31 @@ export class SurgeManager extends AbstractCoreManager {
     }
   }
 
-  public start(manual?: boolean): void {
+  /**
+   * todo;
+   */
+  public requestSurgeStart(): void {
+    logger.info("Request surge start");
+
+    if (this.getNearestAvailableCover()) {
+      this.start(true);
+    } else {
+      logger.info("Error: Surge covers are not set! Can't manually start");
+    }
+  }
+
+  /**
+   * todo;
+   */
+  public requestSurgeStop(): void {
+    logger.info("Request surge stop");
+
+    if (this.isStarted) {
+      this.endSurge(true);
+    }
+  }
+
+  protected start(manual?: boolean): void {
     const [Y, M, D, h, m, s, ms] = this.lastSurgeTime.get(0, 0, 0, 0, 0, 0, 0);
 
     if (manual) {
@@ -444,6 +532,8 @@ export class SurgeManager extends AbstractCoreManager {
   }
 
   public endSurge(manual?: boolean): void {
+    logger.info("Ending surge:", manual);
+
     this.isStarted = false;
     this.isFinished = true;
     this.levels_respawn = { zaton: true, jupiter: true, pripyat: true };
@@ -467,10 +557,10 @@ export class SurgeManager extends AbstractCoreManager {
     level.remove_pp_effector(surge_shock_pp_eff_id);
     level.remove_cam_effector(earthquake_cam_eff_id);
 
-    if (manual || (this.isTimeForwarded && get_weather_manager().weather_fx)) {
+    if (manual || (this.isTimeForwarded && WeatherManager.getInstance().weather_fx)) {
       level.stop_weather_fx();
       // --        WeatherManager.get_weather_manager():select_weather(true)
-      get_weather_manager().forced_weather_change();
+      WeatherManager.getInstance().forced_weather_change();
     }
 
     this.isEffectorSet = false;
@@ -527,7 +617,7 @@ export class SurgeManager extends AbstractCoreManager {
       if (isObjectOnLevel(squad, levelName) && !isImmuneToSurge(squad) && !isStoryObject(squad)) {
         for (const member of squad.squad_members()) {
           if (!isStoryObject(member.object)) {
-            if (check_squad_smart_props(squad.id)) {
+            if (SurgeManager.check_squad_smart_props(squad.id)) {
               logger.info("Releasing npc from squad because of surge:", member.object.name(), squad.name());
 
               const cl_obj = level.object_by_id(member.object.id);
@@ -600,7 +690,7 @@ export class SurgeManager extends AbstractCoreManager {
     }
   }
 
-  public kill_all_unhided_after_actor_death(): void {
+  protected kill_all_unhided_after_actor_death(): void {
     const board: ISimBoard = get_sim_board();
     const levelName: TLevel = level.name();
 
@@ -653,7 +743,7 @@ export class SurgeManager extends AbstractCoreManager {
     mapDisplayManager.updateAnomaliesZones();
   }
 
-  public giveSurgeHideTask(): void {
+  protected giveSurgeHideTask(): void {
     if (this.surge_task_sect !== "empty") {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       const { get_task_manager } = require("@/mod/scripts/core/task/TaskManager");
@@ -668,7 +758,7 @@ export class SurgeManager extends AbstractCoreManager {
     }
   }
 
-  public launch_rockets(): void {
+  protected launch_rockets(): void {
     logger.info("Launch rockets");
     for (const [k, v] of signalLight) {
       logger.info("Start signal light");
@@ -733,94 +823,4 @@ export class SurgeManager extends AbstractCoreManager {
     this.loaded = true;
     setLoadMarker(reader, true, SurgeManager.name);
   }
-}
-
-export const surge_manager: SurgeManager = SurgeManager.getInstance();
-
-export function check_squad_smart_props(squad_id: number): boolean {
-  const squad: Optional<ISimSquad> = alife().object(squad_id);
-
-  if (squad) {
-    const board = get_sim_board();
-
-    if (board && squad.smart_id && board.smarts.get(squad.smart_id)) {
-      const smart = board.smarts.get(squad.smart_id).smrt;
-
-      if (tonumber(smart.props["surge"])! <= 0) {
-        return true;
-      }
-    }
-  }
-
-  return false; // -- can't delete squad in his smart if squad is in cover
-}
-
-export function start_surge(): void {
-  const surgeManager: SurgeManager = SurgeManager.getInstance();
-
-  if (surgeManager.getNearestAvailableCover()) {
-    surgeManager.start(true);
-  } else {
-    logger.info("Error: Surge covers are not set! Can't manually start");
-  }
-}
-
-export function actor_in_cover(): boolean {
-  const cover_id: Optional<number> = SurgeManager.getInstance().getNearestAvailableCover();
-
-  return cover_id !== null && storage.get(cover_id).object!.inside(getActor()!.position());
-}
-
-export function stop_surge(): void {
-  const m = get_surge_manager();
-
-  if (m.isStarted) {
-    m.endSurge(true);
-  }
-}
-
-export function get_task_target(): Optional<number> {
-  const m = get_surge_manager();
-
-  if (actor_in_cover()) {
-    return null;
-  }
-
-  return m.getNearestAvailableCover();
-}
-
-export function set_surge_message(message: string): void {
-  SurgeManager.getInstance().surge_message = message;
-}
-
-export function set_surge_task(task: string): void {
-  SurgeManager.getInstance().surge_task_sect = task;
-}
-
-export function is_killing_all(): boolean {
-  const m: SurgeManager = SurgeManager.getInstance();
-
-  return m.isStarted && m.ui_disabled;
-}
-
-export function is_started(): boolean {
-  return SurgeManager.getInstance().isStarted;
-}
-
-export function is_finished(): boolean {
-  return SurgeManager.getInstance().isFinished;
-}
-
-export function get_surge_manager(): SurgeManager {
-  return SurgeManager.getInstance();
-}
-
-export function resurrect_skip_message(): void {
-  SurgeManager.getInstance().skipMessage = false;
-}
-
-export function sound_started(): boolean {
-  const m: SurgeManager = SurgeManager.getInstance();
-
-  return m.isStarted && m.blowout_sound;
 }

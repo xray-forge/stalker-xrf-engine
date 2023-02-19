@@ -1,8 +1,9 @@
 import { game, XR_game_object } from "xray16";
 
+import { captions } from "@/mod/globals/captions";
 import { Optional, TSection } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
-import { actor_in_cover, get_task_target } from "@/mod/scripts/core/SurgeManager";
+import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { getStoryObject } from "@/mod/scripts/utils/alife";
 import { parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
@@ -101,14 +102,22 @@ export function zat_b29_adv_descr(id: string, field: string, p: string) {
   return descr;
 }
 
-export function surge_task_title(id: string, field: string, p: string): string {
-  return actor_in_cover() ? "hide_from_surge_name_2" : "hide_from_surge_name_1";
+/**
+ * todo;
+ */
+export function surge_task_title(): string {
+  return SurgeManager.getInstance().isActorInCover()
+    ? captions.hide_from_surge_name_2
+    : captions.hide_from_surge_name_1;
 }
 
-export function surge_task_descr(id: string, field: string, p: string): Optional<string> {
-  return actor_in_cover()
-    ? game.translate_string("hide_from_surge_descr_2_a")
-    : game.translate_string("hide_from_surge_descr_1_a");
+/**
+ * todo;
+ */
+export function surge_task_descr(): Optional<string> {
+  return SurgeManager.getInstance().isActorInCover()
+    ? game.translate_string(captions.hide_from_surge_descr_2_a)
+    : game.translate_string(captions.hide_from_surge_descr_1_a);
 }
 
 export function target_condlist(id: string, field: string, p: string) {
@@ -180,5 +189,5 @@ export function zat_b29_adv_target(id: string, field: string, p: string) {
 }
 
 export function surge_task_target(id: string, field: string, p: string): Optional<number> {
-  return get_task_target();
+  return SurgeManager.getInstance().getTaskTarget();
 }

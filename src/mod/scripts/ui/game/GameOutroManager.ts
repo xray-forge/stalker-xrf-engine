@@ -12,6 +12,9 @@ const logger: LuaLogger = new LuaLogger("GameOutroManager");
 const volume_max: number = 1.0;
 const volume_min: number = 0.3;
 
+/**
+ * todo
+ */
 export class GameOutroManager extends AbstractCoreManager {
   public static calc_fade(
     factor: number,

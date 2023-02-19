@@ -20,8 +20,8 @@ import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { reactTaskPatrols } from "@/mod/scripts/core/db";
 import { get_sim_obj_registry } from "@/mod/scripts/core/db/SimObjectsRegistry";
+import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { ReachTaskPatrolManager } from "@/mod/scripts/core/schemes/reach_task/ReachTaskPatrolManager";
-import { is_started } from "@/mod/scripts/core/SurgeManager";
 import { getObjectSquad, sendToNearestAccessibleVertex } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { vectorCmp } from "@/mod/scripts/utils/physics";
@@ -176,7 +176,11 @@ export const ActionReachTaskLocation: IActionReachTaskLocation = declare_xr_clas
 
       this.object.set_path_type(game_object.level_path);
 
-      if (squad_target === null || squad_target.clsid() === clsid.online_offline_group_s || is_started()) {
+      if (
+        squad_target === null ||
+        squad_target.clsid() === clsid.online_offline_group_s ||
+        SurgeManager.getInstance().isStarted
+      ) {
         this.object.set_movement_type(level.object_by_id(squad.commander_id())!.movement_type());
         this.object.set_mental_state(level.object_by_id(squad.commander_id())!.mental_state());
 
@@ -210,7 +214,7 @@ export const ActionReachTaskLocation: IActionReachTaskLocation = declare_xr_clas
 
 function update_movement(target: IActor | ISimSquad | ISmartTerrain, object: XR_game_object): void {
   if (target !== null && !object.is_talking()) {
-    if (is_started()) {
+    if (SurgeManager.getInstance().isStarted) {
       object.set_movement_type(move.run);
       object.set_mental_state(anim.free);
 

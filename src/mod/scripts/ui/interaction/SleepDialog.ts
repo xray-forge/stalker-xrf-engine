@@ -26,8 +26,8 @@ import { info_portions } from "@/mod/globals/info_portions/info_portions";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
-import { is_started, resurrect_skip_message, SurgeManager } from "@/mod/scripts/core/SurgeManager";
-import { weatherManager } from "@/mod/scripts/core/WeatherManager";
+import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
+import { WeatherManager } from "@/mod/scripts/core/managers/WeatherManager";
 import { disableInfo, giveInfo } from "@/mod/scripts/utils/actor";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { isWideScreen, resolveXmlFormPath } from "@/mod/scripts/utils/ui";
@@ -212,6 +212,7 @@ export const SleepDialog = declare_xr_class("SleepDialog", CUIScriptWnd, {
     giveInfo(info_portions.actor_is_sleeping);
 
     const console: XR_CConsole = get_console();
+    const surgeManager = SurgeManager.getInstance();
 
     declare_global("mus_vol", console.get_float("snd_volume_music"));
     declare_global("amb_vol", console.get_float("snd_volume_eff"));
@@ -220,7 +221,7 @@ export const SleepDialog = declare_xr_class("SleepDialog", CUIScriptWnd, {
     console.execute("snd_volume_eff 0");
 
     logger.info("Surge manager update resurrect skip message");
-    resurrect_skip_message();
+    surgeManager.setSkipResurrectMessage();
   },
   OnMessageBoxOk(): void {
     logger.info("On message box OK");
@@ -237,13 +238,15 @@ export function dream_callback(): void {
 
   const actor: XR_game_object = getActor()!;
   const hours = sleep_control!.time_track.GetIValue();
+  const weatherManager = WeatherManager.getInstance();
+  const surgeManager = SurgeManager.getInstance();
 
   level.change_game_time(0, hours, 0);
 
   weatherManager.forced_weather_change();
   SurgeManager.getInstance().isTimeForwarded = true;
 
-  if (is_started() && weatherManager.weather_fx) {
+  if (surgeManager.isStarted && weatherManager.weather_fx) {
     level.stop_weather_fx();
     // --    WeatherManager.get_weather_manager().select_weather(true)
     weatherManager.forced_weather_change();

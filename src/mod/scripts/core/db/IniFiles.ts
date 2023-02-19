@@ -28,6 +28,7 @@ export const SECRETS_LTX: XR_ini_file = new ini_file("misc\\secrets.ltx");
 export const DEATH_GENERIC_LTX: XR_ini_file = new ini_file("misc\\death_generic.ltx");
 export const ITEM_UPGRADES: XR_ini_file = new ini_file("item_upgrades.ltx");
 export const STALKER_UPGRADE_INFO: XR_ini_file = new ini_file("misc\\stalkers_upgrade_info.ltx");
+export const SURGE_MANAGER_LTX: XR_ini_file = new ini_file("misc\\surge_manager.ltx");
 
 /**
  * todo;

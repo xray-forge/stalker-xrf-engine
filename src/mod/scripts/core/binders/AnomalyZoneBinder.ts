@@ -26,7 +26,7 @@ import {
   PARENT_ZONES_BY_ARTEFACT_ID,
   storage,
 } from "@/mod/scripts/core/db";
-import { mapDisplayManager } from "@/mod/scripts/ui/game/MapDisplayManager";
+import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
 import { getStoryObject } from "@/mod/scripts/utils/alife";
 import {
   getConfigNumber,

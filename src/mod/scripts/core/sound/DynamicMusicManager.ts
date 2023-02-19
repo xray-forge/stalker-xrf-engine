@@ -6,9 +6,9 @@ import { Optional } from "@/mod/lib/types";
 import { getActor, silenceZones, storage, zoneByName } from "@/mod/scripts/core/db";
 import { EGameEvent } from "@/mod/scripts/core/managers/events/EGameEvent";
 import { EventsManager } from "@/mod/scripts/core/managers/events/EventsManager";
+import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { dynamicMusicThemes } from "@/mod/scripts/core/sound/dynamic_music_themes";
 import { StereoSound } from "@/mod/scripts/core/sound/playable_sounds/StereoSound";
-import { is_killing_all, sound_started } from "@/mod/scripts/core/SurgeManager";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { clampNumber } from "@/mod/scripts/utils/number";
@@ -355,8 +355,10 @@ export class DynamicMusicManager {
       return;
     }
 
-    if (sound_started()) {
-      if (is_killing_all()) {
+    const surgeManager: SurgeManager = SurgeManager.getInstance();
+
+    if (surgeManager.isStarted && surgeManager.blowout_sound) {
+      if (surgeManager.isKillingAll()) {
         this.forceFade = true;
         FadeTo_ambient = ambientVolume;
         this.fadeAmbient();
