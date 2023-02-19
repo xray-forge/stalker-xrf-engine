@@ -1,7 +1,7 @@
 import { alife, XR_alife_simulator } from "xray16";
 
 import { TInfoPortion } from "@/mod/globals/info_portions/info_portions";
-import { getActor } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("actor");
@@ -11,7 +11,7 @@ const logger: LuaLogger = new LuaLogger("actor");
  */
 export function giveInfo(infoId: string): void {
   logger.info("Give alife info:", infoId);
-  getActor()!.give_info_portion(infoId);
+  registry.actor.give_info_portion(infoId);
 }
 
 /**
@@ -21,7 +21,7 @@ export function disableInfo(infoId: string): void {
   logger.info("Disable alife info:", infoId);
 
   if (hasAlifeInfo(infoId)) {
-    getActor()!.disable_info_portion(infoId);
+    registry.actor.disable_info_portion(infoId);
   }
 }
 

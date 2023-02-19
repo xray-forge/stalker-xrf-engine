@@ -12,7 +12,7 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry, storage } from "@/mod/scripts/core/db";
 import { get_heli_health } from "@/mod/scripts/core/schemes/heli_move/heli_utils";
 import { isLevelChanging } from "@/mod/scripts/utils/checkers/checkers";
 import {
@@ -183,8 +183,8 @@ export class HeliCombat {
       this.enemy_forgetable = true;
     } else {
       if (combat_enemy === "actor") {
-        if (getActor()) {
-          this.enemy_id = getActor()!.id();
+        if (registry.actor !== null) {
+          this.enemy_id = registry.actor.id();
         } else {
           this.forget_enemy();
         }
@@ -411,8 +411,7 @@ export class HeliCombat {
 
   public combat_ignore_check(): boolean {
     return (
-      this.combat_ignore !== null &&
-      pickSectionFromCondList(getActor() as XR_game_object, this.object, this.combat_ignore) !== null
+      this.combat_ignore !== null && pickSectionFromCondList(registry.actor, this.object, this.combat_ignore) !== null
     );
   }
 

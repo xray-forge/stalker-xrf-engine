@@ -7,9 +7,12 @@ import { ammo, TAmmoItem } from "@/mod/globals/items/ammo";
 import { artefacts } from "@/mod/globals/items/artefacts";
 import { drugs } from "@/mod/globals/items/drugs";
 import { food } from "@/mod/globals/items/food";
+import { helmets } from "@/mod/globals/items/helmets";
+import { outfits } from "@/mod/globals/items/outfits";
+import { quest_items } from "@/mod/globals/items/quest_items";
 import { weapons } from "@/mod/globals/items/weapons";
 import { LuaArray } from "@/mod/lib/types";
-import { getActor } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { giveItemsToActor, giveMoneyToActor, takeItemsFromActor, takeMoneyFromActor } from "@/mod/scripts/utils/quests";
@@ -40,7 +43,7 @@ export function pri_a17_reward(first_speaker: XR_game_object, second_speaker: XR
  * todo;
  */
 export function actor_has_pri_a17_gauss_rifle(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return getActor()!.object("pri_a17_gauss_rifle") !== null;
+  return registry.actor.object("pri_a17_gauss_rifle") !== null;
 }
 
 /**
@@ -76,10 +79,10 @@ export function pay_cost_to_guide_to_zaton(first_speaker: XR_game_object, second
  */
 export function jup_b43_actor_has_10000_money(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
   if (hasAlifeInfo(info_portions.zat_b215_gave_maps)) {
-    return getActor()!.money() >= 3000;
+    return registry.actor.money() >= 3000;
   }
 
-  return getActor()!.money() >= 5000;
+  return registry.actor.money() >= 5000;
 }
 
 /**
@@ -103,7 +106,7 @@ export function pay_cost_to_guide_to_jupiter(first_speaker: XR_game_object, seco
  * todo;
  */
 export function jup_b43_actor_has_7000_money(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return getActor()!.money() >= 7000;
+  return registry.actor.money() >= 7000;
 }
 
 /**
@@ -113,7 +116,7 @@ export function jup_b43_actor_do_not_has_7000_money(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return getActor()!.money() < 7000;
+  return registry.actor.money() < 7000;
 }
 
 /**
@@ -211,20 +214,20 @@ export function pri_a22_army_signaller_supply(first_speaker: XR_game_object, sec
  * todo;
  */
 export function pri_a22_give_actor_outfit(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  giveItemsToActor(first_speaker, second_speaker, "military_outfit");
-  giveItemsToActor(first_speaker, second_speaker, "helm_battle");
+  giveItemsToActor(first_speaker, second_speaker, outfits.military_outfit);
+  giveItemsToActor(first_speaker, second_speaker, helmets.helm_battle);
 }
 
 /**
  * todo;
  */
 export function pri_b305_actor_has_strelok_notes(): boolean {
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const actor: XR_game_object = registry.actor;
 
   return (
-    actor.object("jup_b10_notes_01") !== null ||
-    actor.object("jup_b10_notes_02") !== null ||
-    actor.object("jup_b10_notes_03") !== null
+    actor.object(quest_items.jup_b10_notes_01) !== null ||
+    actor.object(quest_items.jup_b10_notes_02) !== null ||
+    actor.object(quest_items.jup_b10_notes_03) !== null
   );
 }
 
@@ -232,12 +235,12 @@ export function pri_b305_actor_has_strelok_notes(): boolean {
  * todo;
  */
 export function pri_b305_actor_has_strelok_note_1(): boolean {
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const actor: XR_game_object = registry.actor;
 
   return (
-    actor.object("jup_b10_notes_01") !== null &&
-    actor.object("jup_b10_notes_02") === null &&
-    actor.object("jup_b10_notes_03") === null
+    actor.object(quest_items.jup_b10_notes_01) !== null &&
+    actor.object(quest_items.jup_b10_notes_02) === null &&
+    actor.object(quest_items.jup_b10_notes_03) === null
   );
 }
 
@@ -245,12 +248,12 @@ export function pri_b305_actor_has_strelok_note_1(): boolean {
  * todo;
  */
 export function pri_b305_actor_has_strelok_note_2(): boolean {
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const actor: XR_game_object = registry.actor;
 
   return (
-    actor.object("jup_b10_notes_02") !== null &&
-    actor.object("jup_b10_notes_01") === null &&
-    actor.object("jup_b10_notes_03") === null
+    actor.object(quest_items.jup_b10_notes_02) !== null &&
+    actor.object(quest_items.jup_b10_notes_01) === null &&
+    actor.object(quest_items.jup_b10_notes_03) === null
   );
 }
 
@@ -258,12 +261,12 @@ export function pri_b305_actor_has_strelok_note_2(): boolean {
  * todo;
  */
 export function pri_b305_actor_has_strelok_note_3(): boolean {
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const actor: XR_game_object = registry.actor;
 
   return (
-    actor.object("jup_b10_notes_03") !== null &&
-    actor.object("jup_b10_notes_01") === null &&
-    actor.object("jup_b10_notes_02") === null
+    actor.object(quest_items.jup_b10_notes_03) !== null &&
+    actor.object(quest_items.jup_b10_notes_01) === null &&
+    actor.object(quest_items.jup_b10_notes_02) === null
   );
 }
 
@@ -271,12 +274,12 @@ export function pri_b305_actor_has_strelok_note_3(): boolean {
  * todo;
  */
 export function pri_b305_actor_has_strelok_note_12(): boolean {
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const actor: XR_game_object = registry.actor;
 
   return (
-    actor.object("jup_b10_notes_01") !== null &&
-    actor.object("jup_b10_notes_02") !== null &&
-    actor.object("jup_b10_notes_03") === null
+    actor.object(quest_items.jup_b10_notes_01) !== null &&
+    actor.object(quest_items.jup_b10_notes_02) !== null &&
+    actor.object(quest_items.jup_b10_notes_03) === null
   );
 }
 
@@ -284,12 +287,12 @@ export function pri_b305_actor_has_strelok_note_12(): boolean {
  * todo;
  */
 export function pri_b305_actor_has_strelok_note_13(): boolean {
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const actor: XR_game_object = registry.actor;
 
   return (
-    actor.object("jup_b10_notes_01") !== null &&
-    actor.object("jup_b10_notes_03") !== null &&
-    actor.object("jup_b10_notes_02") === null
+    actor.object(quest_items.jup_b10_notes_01) !== null &&
+    actor.object(quest_items.jup_b10_notes_03) !== null &&
+    actor.object(quest_items.jup_b10_notes_02) === null
   );
 }
 
@@ -297,12 +300,12 @@ export function pri_b305_actor_has_strelok_note_13(): boolean {
  * todo;
  */
 export function pri_b305_actor_has_strelok_note_23(): boolean {
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const actor: XR_game_object = registry.actor;
 
   return (
-    actor.object("jup_b10_notes_02") !== null &&
-    actor.object("jup_b10_notes_03") !== null &&
-    actor.object("jup_b10_notes_01") === null
+    actor.object(quest_items.jup_b10_notes_02) !== null &&
+    actor.object(quest_items.jup_b10_notes_03) !== null &&
+    actor.object(quest_items.jup_b10_notes_01) === null
   );
 }
 
@@ -310,12 +313,12 @@ export function pri_b305_actor_has_strelok_note_23(): boolean {
  * todo;
  */
 export function pri_b305_actor_has_strelok_note_all(): boolean {
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const actor: XR_game_object = registry.actor;
 
   return (
-    actor.object("jup_b10_notes_01") !== null &&
-    actor.object("jup_b10_notes_02") !== null &&
-    actor.object("jup_b10_notes_03") !== null
+    actor.object(quest_items.jup_b10_notes_01) !== null &&
+    actor.object(quest_items.jup_b10_notes_02) !== null &&
+    actor.object(quest_items.jup_b10_notes_03) !== null
   );
 }
 
@@ -323,8 +326,12 @@ export function pri_b305_actor_has_strelok_note_all(): boolean {
  * todo;
  */
 export function pri_b305_sell_strelok_notes(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  const items_table = ["jup_b10_notes_01", "jup_b10_notes_02", "jup_b10_notes_03"] as unknown as LuaArray<string>;
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const items_table = [
+    quest_items.jup_b10_notes_01,
+    quest_items.jup_b10_notes_02,
+    quest_items.jup_b10_notes_03,
+  ] as unknown as LuaArray<string>;
+  const actor: XR_game_object = registry.actor;
 
   let amount: number = 0;
 

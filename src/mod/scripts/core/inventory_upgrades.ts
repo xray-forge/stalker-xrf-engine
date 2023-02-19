@@ -4,7 +4,7 @@ import { captions } from "@/mod/globals/captions";
 import { quest_items } from "@/mod/globals/items/quest_items";
 import { Optional } from "@/mod/lib/types";
 import { TSection } from "@/mod/lib/types/scheme";
-import { getActor } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { ITEM_UPGRADES, STALKER_UPGRADE_INFO } from "@/mod/scripts/core/db/IniFiles";
 import { parseCondList, parseNames, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -29,11 +29,7 @@ export function precondition_functor_a(param1: unknown, section: string): 0 | 1 
         return 1;
       } else if (param !== "true") {
         const possibility_table = parseCondList(victim, mechanic_name + "_upgr", section, param);
-        const possibility: Optional<TSection> = pickSectionFromCondList(
-          getActor() as XR_game_object,
-          victim,
-          possibility_table
-        );
+        const possibility: Optional<TSection> = pickSectionFromCondList(registry.actor, victim, possibility_table);
 
         if (!possibility || possibility === "false") {
           return 2;
@@ -42,7 +38,7 @@ export function precondition_functor_a(param1: unknown, section: string): 0 | 1 
     }
   }
 
-  const actor = getActor();
+  const actor = registry.actor;
 
   if (actor !== null) {
     const price: number = math.floor(ITEM_UPGRADES.r_u32(section, "cost") * cur_price_percent);
@@ -60,7 +56,7 @@ export function effect_functor_a(param2: unknown, section: TSection, loading: nu
   if (loading === 0) {
     const money = ITEM_UPGRADES.r_u32(section, "cost");
 
-    getActor()!.give_money(math.floor(money * -1 * cur_price_percent));
+    registry.actor.give_money(math.floor(money * -1 * cur_price_percent));
   }
 }
 
@@ -68,12 +64,12 @@ export function effect_repair_item(item_name: string, item_condition: number): v
   if (mechanic_name !== "kat_cs_commander") {
     const price = how_much_repair(item_name, item_condition);
 
-    getActor()!.give_money(-price);
+    registry.actor.give_money(-price);
   }
 }
 
 export function get_upgrade_cost(section: string): string {
-  if (getActor() !== null) {
+  if (registry.actor !== null) {
     const price = math.floor(ITEM_UPGRADES.r_u32(section, "cost") * cur_price_percent);
 
     return game.translate_string("st_upgr_cost") + ": " + price;
@@ -99,7 +95,7 @@ export function get_possibility_string(mechanic_name: string, possibility_table:
 }
 
 export function prereq_functor_a(param3: unknown, section: string): string {
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const actor: XR_game_object = registry.actor;
   let str: string = "";
 
   if (STALKER_UPGRADE_INFO.line_exist(mechanic_name + "_upgr", section)) {
@@ -244,7 +240,7 @@ export function can_repair_item(item_name: string, item_condition: number, mecha
 
   const price = how_much_repair(item_name, item_condition);
 
-  return getActor()!.money() >= price;
+  return registry.actor.money() >= price;
 }
 
 export function question_repair_item(
@@ -260,7 +256,7 @@ export function question_repair_item(
 
   const price = how_much_repair(item_name, item_condition);
 
-  if (getActor()!.money() < price) {
+  if (registry.actor.money() < price) {
     return (
       game.translate_string("st_upgr_cost") +
       ": " +
@@ -268,7 +264,7 @@ export function question_repair_item(
       " RU\\n" +
       game.translate_string("ui_inv_not_enought_money") +
       ": " +
-      (price - getActor()!.money()) +
+      (price - registry.actor.money()) +
       " RU"
     );
   }
@@ -297,9 +293,9 @@ export function can_upgrade_item(item_name: string, mechanic: string) {
 export function setup_discounts(): void {
   if (STALKER_UPGRADE_INFO.line_exist(mechanic_name, "discount_condlist")) {
     const condlist = STALKER_UPGRADE_INFO.r_string(mechanic_name, "discount_condlist");
-    const parsed = parseCondList(getActor(), null, null, condlist);
+    const parsed = parseCondList(registry.actor, null, null, condlist);
 
-    pickSectionFromCondList(getActor() as XR_game_object, null, parsed);
+    pickSectionFromCondList(registry.actor, null, parsed);
   }
 }
 

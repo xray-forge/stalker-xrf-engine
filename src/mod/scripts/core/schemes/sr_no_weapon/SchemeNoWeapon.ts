@@ -10,7 +10,7 @@ import {
 
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
 import { hide_weapon, restore_weapon } from "@/mod/scripts/core/binders/ActorBinder";
-import { getActor, IStoredObject, noWeapZones } from "@/mod/scripts/core/db";
+import { IStoredObject, noWeapZones, registry } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
@@ -59,7 +59,7 @@ export class SchemeNoWeapon extends AbstractScheme {
   public reset_scheme(): void {
     this.currentActorState = EActorZoneState.NOWHERE;
 
-    this.checkActorState(getActor()!);
+    this.checkActorState(registry.actor);
 
     noWeapZones.set(this.object.name(), false);
   }
@@ -68,7 +68,7 @@ export class SchemeNoWeapon extends AbstractScheme {
    * todo: Check frequency of calls.
    */
   public update(delta: number): void {
-    const actor: XR_game_object = getActor()!;
+    const actor: XR_game_object = registry.actor;
 
     if (trySwitchToAnotherSection(this.object, this.state, actor)) {
       if (this.currentActorState === EActorZoneState.INSIDE) {

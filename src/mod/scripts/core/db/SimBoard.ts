@@ -4,7 +4,7 @@ import { TCommunity } from "@/mod/globals/communities";
 import { Optional } from "@/mod/lib/types";
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { getActor } from "@/mod/scripts/core/db/index";
+import { registry } from "@/mod/scripts/core/db/index";
 import { SIMULATION_LTX } from "@/mod/scripts/core/db/IniFiles";
 import { get_sim_obj_registry } from "@/mod/scripts/core/db/SimObjectsRegistry";
 import { changeTeamSquadGroup } from "@/mod/scripts/utils/alife";
@@ -84,7 +84,7 @@ export const SimBoard: ISimBoard = declare_xr_class("SimBoard", null, {
   },
   set_actor_community(community: TCommunity): void {
     // May be broken?
-    getActor()!.set_character_community(get_global("actor_communitites")[community], 0, 0);
+    registry.actor.set_character_community(get_global("actor_communitites")[community], 0, 0);
   },
   register_smart(obj: ISmartTerrain): void {
     if (this.smarts.get(obj.id) !== null) {

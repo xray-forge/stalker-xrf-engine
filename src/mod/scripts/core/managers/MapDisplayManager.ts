@@ -15,7 +15,7 @@ import { levels } from "@/mod/globals/levels";
 import { map_mark_type, npc_map_marks } from "@/mod/globals/npc_map_marks";
 import { story_ids } from "@/mod/globals/story_ids";
 import { Maybe, Optional, TSection } from "@/mod/lib/types";
-import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry, storage } from "@/mod/scripts/core/db";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { anomalyHasArtefact } from "@/mod/scripts/utils/alife";
@@ -181,7 +181,7 @@ export class MapDisplayManager extends AbstractCoreManager {
       spot_section = "true";
     }
 
-    const actor: XR_game_object = getActor()!;
+    const actor: XR_game_object = registry.actor;
     let map_spot: Optional<string> = getConfigString(st.ini, st.section_logic, "level_spot", npc, false, "");
 
     if (map_spot === null) {
@@ -238,7 +238,7 @@ export class MapDisplayManager extends AbstractCoreManager {
     }
 
     if (map_spot !== null) {
-      const actor: XR_game_object = getActor()!;
+      const actor: XR_game_object = registry.actor;
 
       map_spot = parseCondList(npc, st.active_section, "level_spot", map_spot);
       map_spot = pickSectionFromCondList(actor, npc, map_spot as any);
@@ -274,7 +274,7 @@ export class MapDisplayManager extends AbstractCoreManager {
       const storedObject: Optional<IStoredObject> = objectId ? storage.get(objectId) : null;
 
       if (objectId && storedObject && storedObject.object) {
-        const actorPosition: XR_vector = getActor()!.position();
+        const actorPosition: XR_vector = registry.actor.position();
         const distanceFromActor: number = storedObject.object.position().distance_to(actorPosition);
         const hasSleepSpot: boolean =
           level.map_has_object_spot(objectId, npc_map_marks.ui_pda2_actor_sleep_location) !== 0;
@@ -305,7 +305,7 @@ export class MapDisplayManager extends AbstractCoreManager {
           const objectId: Optional<number> = getStoryObjectId(v.target);
 
           let hint: string = game.translate_string(v.hint) + "\\n" + " \\n";
-          const actor: XR_game_object = getActor()!;
+          const actor: XR_game_object = registry.actor;
 
           const [has_af, af_table] = anomalyHasArtefact(actor, null, [v.zone, null]);
 

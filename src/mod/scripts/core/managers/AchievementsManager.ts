@@ -2,7 +2,7 @@ import { captions } from "@/mod/globals/captions";
 import { communities } from "@/mod/globals/communities";
 import { info_portions, TInfoPortion } from "@/mod/globals/info_portions/info_portions";
 import { AnyCallablesModule } from "@/mod/lib/types";
-import { getActor } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { pstor_retrieve } from "@/mod/scripts/core/db/pstor";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
@@ -94,7 +94,7 @@ export class AchievementsManager extends AbstractCoreManager {
         hasAlifeInfo(info_portions.jup_b206_anomalous_grove_done)
       ) {
         giveInfo(info_portions.pioneer_achievement_gained);
-        send_tip(getActor()!, captions.st_ach_pioneer, null, EAchievement.PIONEER, null, null);
+        send_tip(registry.actor, captions.st_ach_pioneer, null, EAchievement.PIONEER, null, null);
       }
     }
 
@@ -109,7 +109,7 @@ export class AchievementsManager extends AbstractCoreManager {
         hasAlifeInfo(info_portions.jup_b212_jupiter_chimera_hunt_done)
       ) {
         giveInfo(info_portions.mutant_hunter_achievement_gained);
-        send_tip(getActor()!, captions.st_ach_mutant_hunter, null, EAchievement.MUTANT_HUNTER, null, null);
+        send_tip(registry.actor, captions.st_ach_mutant_hunter, null, EAchievement.MUTANT_HUNTER, null, null);
       }
     }
 
@@ -119,8 +119,8 @@ export class AchievementsManager extends AbstractCoreManager {
   public checkAchievedDetective(): boolean {
     if (!hasAlifeInfo(info_portions.detective_achievement_gained)) {
       if (hasAlifeInfo(info_portions.zat_b22_barmen_gave_reward)) {
-        getActor()!.give_info_portion(info_portions.detective_achievement_gained);
-        send_tip(getActor()!, captions.st_ach_detective, null, EAchievement.DETECTIVE, null, null);
+        registry.actor.give_info_portion(info_portions.detective_achievement_gained);
+        send_tip(registry.actor, captions.st_ach_detective, null, EAchievement.DETECTIVE, null, null);
       }
     }
 
@@ -130,8 +130,8 @@ export class AchievementsManager extends AbstractCoreManager {
   public checkAchievedOneOfLads(): boolean {
     if (!hasAlifeInfo(info_portions.one_of_the_lads_gained)) {
       if (hasAlifeInfo(info_portions.zat_b30_sultan_loose) && hasAlifeInfo(info_portions.zat_b7_actor_help_stalkers)) {
-        getActor()!.give_info_portion(info_portions.one_of_the_lads_gained);
-        send_tip(getActor()!, captions.st_ach_one_of_the_lads, null, EAchievement.ONE_OF_THE_LADS, null, null);
+        registry.actor.give_info_portion(info_portions.one_of_the_lads_gained);
+        send_tip(registry.actor, captions.st_ach_one_of_the_lads, null, EAchievement.ONE_OF_THE_LADS, null, null);
       }
     }
 
@@ -144,8 +144,8 @@ export class AchievementsManager extends AbstractCoreManager {
         hasAlifeInfo(info_portions.zat_b30_barmen_under_sultan) &&
         hasAlifeInfo(info_portions.zat_b7_actor_help_bandits)
       ) {
-        getActor()!.give_info_portion(info_portions.kingpin_gained);
-        send_tip(getActor()!, captions.st_ach_kingpin, null, EAchievement.KINGPIN, null, null);
+        registry.actor.give_info_portion(info_portions.kingpin_gained);
+        send_tip(registry.actor, captions.st_ach_kingpin, null, EAchievement.KINGPIN, null, null);
       }
     }
 
@@ -159,8 +159,8 @@ export class AchievementsManager extends AbstractCoreManager {
         hasAlifeInfo(info_portions.jup_b25_flint_blame_done_to_freedom) ||
         hasAlifeInfo(info_portions.zat_b106_found_soroka_done)
       ) {
-        getActor()!.give_info_portion(info_portions.herald_of_justice_achievement_gained);
-        send_tip(getActor()!, captions.st_ach_herald_of_justice, null, EAchievement.HERALD_OF_JUSTICE, null, null);
+        registry.actor.give_info_portion(info_portions.herald_of_justice_achievement_gained);
+        send_tip(registry.actor, captions.st_ach_herald_of_justice, null, EAchievement.HERALD_OF_JUSTICE, null, null);
       }
     }
 
@@ -178,10 +178,10 @@ export class AchievementsManager extends AbstractCoreManager {
       }
     }
 
-    getActor()!.give_info_portion(info_portions.sim_bandit_attack_harder);
+    registry.actor.give_info_portion(info_portions.sim_bandit_attack_harder);
 
-    send_tip(getActor()!, captions.st_ach_seeker, null, EAchievement.SEEKER, null, null);
-    get_global<AnyCallablesModule>("xr_effects").inc_faction_goodwill_to_actor(getActor(), null, [
+    send_tip(registry.actor, captions.st_ach_seeker, null, EAchievement.SEEKER, null, null);
+    get_global<AnyCallablesModule>("xr_effects").inc_faction_goodwill_to_actor(registry.actor, null, [
       communities.stalker,
       200,
     ]);
@@ -193,7 +193,7 @@ export class AchievementsManager extends AbstractCoreManager {
     if (!hasAlifeInfo(info_portions.battle_systems_master_achievement_gained)) {
       if (hasAlifeInfo(info_portions.zat_b3_all_instruments_brought)) {
         send_tip(
-          getActor()!,
+          registry.actor,
           captions.st_ach_battle_systems_master,
           null,
           EAchievement.BATTLE_SYSTEMS_MASTER,
@@ -214,7 +214,7 @@ export class AchievementsManager extends AbstractCoreManager {
         hasAlifeInfo(info_portions.jup_b217_tech_instrument_2_brought) &&
         hasAlifeInfo(info_portions.jup_b217_tech_instrument_3_brought)
       ) {
-        send_tip(getActor()!, captions.st_ach_high_tech_master, null, EAchievement.HIGH_TECH_MASTER, null, null);
+        send_tip(registry.actor, captions.st_ach_high_tech_master, null, EAchievement.HIGH_TECH_MASTER, null, null);
         giveInfo(info_portions.high_tech_master_achievement_gained);
       }
     }
@@ -225,7 +225,7 @@ export class AchievementsManager extends AbstractCoreManager {
   public checkAchievedSkilledStalker(): boolean {
     if (!hasAlifeInfo(info_portions.skilled_stalker_achievement_gained)) {
       if (hasAlifeInfo(info_portions.actor_was_in_many_bad_places)) {
-        send_tip(getActor()!, captions.st_ach_skilled_stalker, null, EAchievement.SKILLED_STALKER, null, null);
+        send_tip(registry.actor, captions.st_ach_skilled_stalker, null, EAchievement.SKILLED_STALKER, null, null);
         giveInfo(info_portions.skilled_stalker_achievement_gained);
       }
     }
@@ -240,7 +240,7 @@ export class AchievementsManager extends AbstractCoreManager {
         hasAlifeInfo(info_portions.jup_b218_soldier_hired) &&
         hasAlifeInfo(info_portions.jup_b218_monolith_hired)
       ) {
-        send_tip(getActor()!, captions.st_ach_leader, null, EAchievement.LEADER, null, null);
+        send_tip(registry.actor, captions.st_ach_leader, null, EAchievement.LEADER, null, null);
         giveInfo(info_portions.leader_achievement_gained);
       }
     }
@@ -255,20 +255,20 @@ export class AchievementsManager extends AbstractCoreManager {
         (hasAlifeInfo(info_portions.jup_a10_bandit_take_all_money) ||
           hasAlifeInfo(info_portions.jup_a10_bandit_take_money))
       ) {
-        send_tip(getActor()!, captions.st_ach_diplomat, null, EAchievement.DIPLOMAT, null, null);
-        get_global<AnyCallablesModule>("xr_effects").inc_faction_goodwill_to_actor(getActor(), null, [
+        send_tip(registry.actor, captions.st_ach_diplomat, null, EAchievement.DIPLOMAT, null, null);
+        get_global<AnyCallablesModule>("xr_effects").inc_faction_goodwill_to_actor(registry.actor, null, [
           communities.stalker,
           200,
         ]);
-        get_global<AnyCallablesModule>("xr_effects").inc_faction_goodwill_to_actor(getActor(), null, [
+        get_global<AnyCallablesModule>("xr_effects").inc_faction_goodwill_to_actor(registry.actor, null, [
           communities.freedom,
           200,
         ]);
-        get_global<AnyCallablesModule>("xr_effects").inc_faction_goodwill_to_actor(getActor(), null, [
+        get_global<AnyCallablesModule>("xr_effects").inc_faction_goodwill_to_actor(registry.actor, null, [
           communities.dolg,
           200,
         ]);
-        get_global<AnyCallablesModule>("xr_effects").inc_faction_goodwill_to_actor(getActor(), null, [
+        get_global<AnyCallablesModule>("xr_effects").inc_faction_goodwill_to_actor(registry.actor, null, [
           communities.bandit,
           200,
         ]);
@@ -304,7 +304,7 @@ export class AchievementsManager extends AbstractCoreManager {
 
       if (count >= 4) {
         giveInfo(info_portions.research_man_gained);
-        send_tip(getActor()!, captions.st_ach_research_man, null, EAchievement.RESEARCH_MAN, null, null);
+        send_tip(registry.actor, captions.st_ach_research_man, null, EAchievement.RESEARCH_MAN, null, null);
 
         return true;
       }
@@ -322,7 +322,7 @@ export class AchievementsManager extends AbstractCoreManager {
         hasAlifeInfo(info_portions.jup_b25_flint_blame_done_to_duty)
       ) {
         giveInfo(info_portions.sim_duty_help_harder);
-        send_tip(getActor()!, captions.st_ach_friend_of_duty, null, EAchievement.FRIEND_OF_DUTY, null, null);
+        send_tip(registry.actor, captions.st_ach_friend_of_duty, null, EAchievement.FRIEND_OF_DUTY, null, null);
       }
     }
 
@@ -338,7 +338,7 @@ export class AchievementsManager extends AbstractCoreManager {
         hasAlifeInfo(info_portions.jup_b25_flint_blame_done_to_freedom)
       ) {
         giveInfo(info_portions.sim_freedom_help_harder);
-        send_tip(getActor()!, captions.st_ach_friend_of_freedom, null, EAchievement.FRIEND_OF_FREEDOM, null, null);
+        send_tip(registry.actor, captions.st_ach_friend_of_freedom, null, EAchievement.FRIEND_OF_FREEDOM, null, null);
       }
     }
 
@@ -353,7 +353,7 @@ export class AchievementsManager extends AbstractCoreManager {
         hasAlifeInfo(info_portions.zat_b106_found_soroka_done)
       ) {
         giveInfo(info_portions.balance_advocate_gained);
-        send_tip(getActor()!, captions.st_ach_balance_advocate, null, EAchievement.BALANCE_ADVOCATE, null, null);
+        send_tip(registry.actor, captions.st_ach_balance_advocate, null, EAchievement.BALANCE_ADVOCATE, null, null);
       }
     }
 
@@ -361,9 +361,9 @@ export class AchievementsManager extends AbstractCoreManager {
   }
 
   public checkAchievedWealthy(): boolean {
-    if (getActor()!.money() >= 100_000 && !hasAlifeInfo(info_portions.actor_wealthy)) {
+    if (registry.actor.money() >= 100_000 && !hasAlifeInfo(info_portions.actor_wealthy)) {
       giveInfo(info_portions.actor_wealthy);
-      send_tip(getActor()!, captions.st_ach_wealthy, null, EAchievement.WEALTHY, null, null);
+      send_tip(registry.actor, captions.st_ach_wealthy, null, EAchievement.WEALTHY, null, null);
     }
 
     return hasAlifeInfo(info_portions.actor_wealthy);
@@ -373,7 +373,7 @@ export class AchievementsManager extends AbstractCoreManager {
     if (!hasAlifeInfo(info_portions.keeper_of_secrets_achievement_gained)) {
       if (hasAlifeInfo(info_portions.pri_b305_all_strelok_notes_given)) {
         giveInfo(info_portions.keeper_of_secrets_achievement_gained);
-        send_tip(getActor()!, captions.st_ach_keeper_of_secrets, null, EAchievement.KEEPER_OF_SECRETS, null, null);
+        send_tip(registry.actor, captions.st_ach_keeper_of_secrets, null, EAchievement.KEEPER_OF_SECRETS, null, null);
       }
     }
 
@@ -385,11 +385,11 @@ export class AchievementsManager extends AbstractCoreManager {
       return true;
     }
 
-    const cnt_value = pstor_retrieve(getActor()!, "actor_marked_by_zone_cnt", 0);
+    const cnt_value = pstor_retrieve(registry.actor, "actor_marked_by_zone_cnt", 0);
 
     if (cnt_value > 2) {
       giveInfo(info_portions.actor_marked_by_zone_3_times);
-      send_tip(getActor()!, captions.st_ach_marked_by_zone, null, EAchievement.MARKED_BY_ZONE, null, null);
+      send_tip(registry.actor, captions.st_ach_marked_by_zone, null, EAchievement.MARKED_BY_ZONE, null, null);
 
       return true;
     }
@@ -429,7 +429,7 @@ export class AchievementsManager extends AbstractCoreManager {
       }
 
       if (count >= 10) {
-        send_tip(getActor()!, captions.st_ach_information_dealer, null, EAchievement.INFORMATION_DEALER, null, null);
+        send_tip(registry.actor, captions.st_ach_information_dealer, null, EAchievement.INFORMATION_DEALER, null, null);
         giveInfo(info_portions.actor_information_dealer);
       }
     }
@@ -447,8 +447,8 @@ export class AchievementsManager extends AbstractCoreManager {
         hasAlifeInfo(info_portions.zat_b7_task_end)
       ) {
         giveInfo(info_portions.sim_stalker_help_harder);
-        send_tip(getActor()!, captions.st_ach_friend_of_stalkers, null, EAchievement.FRIEND_OF_STALKERS, null, null);
-        get_global<AnyCallablesModule>("xr_effects").inc_faction_goodwill_to_actor(getActor(), null, [
+        send_tip(registry.actor, captions.st_ach_friend_of_stalkers, null, EAchievement.FRIEND_OF_STALKERS, null, null);
+        get_global<AnyCallablesModule>("xr_effects").inc_faction_goodwill_to_actor(registry.actor, null, [
           communities.stalker,
           100,
         ]);

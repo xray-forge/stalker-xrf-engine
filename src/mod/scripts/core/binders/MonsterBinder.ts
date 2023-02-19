@@ -29,9 +29,9 @@ import {
   addObject,
   deleteObject,
   fighting_with_actor_npcs,
-  getActor,
   IStoredObject,
   offlineObjects,
+  registry,
   spawnedVertexById,
   storage,
 } from "@/mod/scripts/core/db";
@@ -116,7 +116,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     const st = storage.get(this.object.id());
 
     if (st !== null && st.active_scheme !== null) {
-      trySwitchToAnotherSection(this.object, st[st.active_scheme!], getActor());
+      trySwitchToAnotherSection(this.object, st[st.active_scheme!], registry.actor);
     }
 
     if (squad !== null && squad.commander_id() === this.object.id()) {
@@ -224,7 +224,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     const on_offline_condlist = st !== null && st.overrides && st.overrides.on_offline_condlist;
 
     if (on_offline_condlist !== null) {
-      pickSectionFromCondList(getActor() as XR_game_object, this.object, on_offline_condlist as any);
+      pickSectionFromCondList(registry.actor, this.object, on_offline_condlist as any);
     }
 
     if (!this.object.alive()) {
@@ -321,7 +321,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
 
     this.hit_callback(victim, 1, new vector().set(0, 0, 0), killer, "from_death_callback");
 
-    if (killer.id() === getActor()!.id()) {
+    if (killer.id() === registry.actor.id()) {
       const statisticsManager: StatisticsManager = StatisticsManager.getInstance();
 
       statisticsManager.incrementKilledMonstersCount();
@@ -340,7 +340,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
 
     h.draftsman = this.object;
     h.type = hit.fire_wound;
-    h.direction = getActor()!.position().sub(this.object.position());
+    h.direction = registry.actor.position().sub(this.object.position());
     h.bone("pelvis");
     h.power = 1;
     h.impulse = 10;
@@ -365,7 +365,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     who: XR_game_object,
     bone_index: string | number
   ): void {
-    if (who.id() === getActor()!.id()) {
+    if (who.id() === registry.actor.id()) {
       StatisticsManager.getInstance().updateBestWeapon(amount);
     }
 

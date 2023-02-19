@@ -1,7 +1,7 @@
 import { level, patrol, XR_CHelicopter, XR_game_object, XR_ini_file, XR_patrol, XR_vector } from "xray16";
 
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry, storage } from "@/mod/scripts/core/db";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
@@ -110,7 +110,7 @@ export class SchemeHeliMove extends AbstractScheme {
 
     if (this.state.path_look) {
       if (this.state.path_look === "actor") {
-        this.heli_fly.set_look_point(getActor()!.position());
+        this.heli_fly.set_look_point(registry.actor.position());
         this.update_look_state();
       } else {
         this.patrol_look = new patrol(this.state.path_look);
@@ -212,7 +212,7 @@ export class SchemeHeliMove extends AbstractScheme {
   }
 
   public update(delta: number): void {
-    const actor: XR_game_object = getActor()!;
+    const actor: XR_game_object = registry.actor;
 
     if (trySwitchToAnotherSection(this.object, this.state, actor)) {
       return;

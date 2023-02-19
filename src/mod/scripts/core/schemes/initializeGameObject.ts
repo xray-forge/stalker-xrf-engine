@@ -2,7 +2,7 @@ import { game_object, XR_game_object, XR_ini_file } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { activateBySection } from "@/mod/scripts/core/schemes/activateBySection";
 import { configureSchemes } from "@/mod/scripts/core/schemes/configureSchemes";
 import { determine_section_to_activate } from "@/mod/scripts/core/schemes/determine_section_to_activate";
@@ -45,7 +45,7 @@ export function initializeGameObject(
 
     if (relation !== null) {
       // todo: NO index of global?
-      object.set_relation((game_object as any)[relation], getActor()!);
+      object.set_relation((game_object as any)[relation], registry.actor);
     }
 
     const sympathy = getConfigNumber(ini, "logic", "sympathy", object, false);

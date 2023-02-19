@@ -1,7 +1,7 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
@@ -76,14 +76,14 @@ export class SchemeCode extends AbstractScheme {
     if (this.state.code) {
       if (tonumber(text) === this.state.code) {
         if (this.state.on_code) {
-          pickSectionFromCondList(getActor() as XR_game_object, this.object, this.state.on_code.condlist);
+          pickSectionFromCondList(registry.actor, this.object, this.state.on_code.condlist);
         }
       }
     } else {
       const condlist = this.state.on_check_code[text];
 
       if (condlist) {
-        pickSectionFromCondList(getActor() as XR_game_object, this.object, condlist);
+        pickSectionFromCondList(registry.actor, this.object, condlist);
       }
     }
   }

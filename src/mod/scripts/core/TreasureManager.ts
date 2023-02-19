@@ -1,12 +1,10 @@
 import {
   alife,
-  ini_file,
   level,
   time_global,
   XR_alife_simulator,
   XR_cse_alife_object,
   XR_EngineBinding,
-  XR_game_object,
   XR_ini_file,
   XR_net_packet,
   XR_reader,
@@ -14,7 +12,7 @@ import {
 
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { Optional } from "@/mod/lib/types";
-import { getActor } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { SECRETS_LTX } from "@/mod/scripts/core/db/IniFiles";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { send_treasure } from "@/mod/scripts/core/NewsManager";
@@ -203,7 +201,7 @@ export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManag
     for (const [k, v] of this.secrets) {
       if (v.given) {
         if (v.empty) {
-          const sect = pickSectionFromCondList(getActor() as XR_game_object, null, v.empty as any);
+          const sect = pickSectionFromCondList(registry.actor, null, v.empty as any);
 
           if (sect === "true" && !v.checked) {
             level.map_remove_object_spot(this.secret_restrs.get(k), "treasure");
@@ -214,7 +212,7 @@ export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManag
             logger.info("Empty secret, remove map spot:", k);
           }
         } else if (v.refreshing && v.checked) {
-          const sect = pickSectionFromCondList(getActor() as XR_game_object, null, v.refreshing as any);
+          const sect = pickSectionFromCondList(registry.actor, null, v.refreshing as any);
 
           if (sect === "true") {
             v.given = false;

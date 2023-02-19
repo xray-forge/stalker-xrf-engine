@@ -1,7 +1,7 @@
 import { device, level, time_global, XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
 import { AnyObject, EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
@@ -60,7 +60,7 @@ export class SchemeDeimos extends AbstractScheme {
   public static check_intensity_delta(state: IStoredObject): boolean {
     if (state.active_scheme === SchemeDeimos.SCHEME_SECTION) {
       const st = state[state.active_scheme];
-      const speedVector: XR_vector = getActor()!.get_movement_speed();
+      const speedVector: XR_vector = registry.actor.get_movement_speed();
       const currentSpeed: number = math.sqrt(
         speedVector.x * speedVector.x + speedVector.y * speedVector.y + speedVector.z * speedVector.z
       );
@@ -114,7 +114,7 @@ export class SchemeDeimos extends AbstractScheme {
   }
 
   public update(delta: number): void {
-    const actor: Optional<XR_game_object> = getActor();
+    const actor: Optional<XR_game_object> = registry.actor;
 
     if (!actor || device().precache_frame > 1) {
       return;

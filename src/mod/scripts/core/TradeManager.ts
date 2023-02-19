@@ -2,7 +2,7 @@
 import { ini_file, time_global, XR_game_object, XR_net_packet, XR_reader } from "xray16";
 
 import { TSection } from "@/mod/lib/types";
-import { getActor, ITradeManagerDescriptor, tradeState } from "@/mod/scripts/core/db";
+import { ITradeManagerDescriptor, registry, tradeState } from "@/mod/scripts/core/db";
 import { getConfigNumber, getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
@@ -12,11 +12,8 @@ const logger: LuaLogger = new LuaLogger("TradeManager");
 
 export function trade_init(npc: XR_game_object, cfg: string): void {
   logger.info("Init trade manager for:", npc.name(), cfg);
-  // --'    printf("TRADE INIT[%s]", npc.name())
-  // --'    if (trade_manager.get(npc.id())] === null ) {
-  tradeState.set(npc.id(), {} as any);
-  // --'    }
 
+  tradeState.set(npc.id(), {} as any);
   tradeState.get(npc.id()).cfg_ltx = cfg;
   tradeState.get(npc.id()).config = new ini_file(cfg);
 
@@ -67,7 +64,7 @@ export function updateTradeManager(npc: XR_game_object): void {
 
   tt.update_time = time_global() + 3600000;
 
-  const buy_condition = pickSectionFromCondList(getActor() as XR_game_object, npc, tt.buy_condition);
+  const buy_condition = pickSectionFromCondList(registry.actor, npc, tt.buy_condition);
 
   if (buy_condition === "" || buy_condition === null) {
     abort("Wrong section in buy_condition condlist for npc [%s]!", npc.name());
@@ -78,7 +75,7 @@ export function updateTradeManager(npc: XR_game_object): void {
     tt.current_buy_condition = buy_condition;
   }
 
-  const sell_condition = pickSectionFromCondList(getActor() as XR_game_object, npc, tt.sell_condition);
+  const sell_condition = pickSectionFromCondList(registry.actor, npc, tt.sell_condition);
 
   if (sell_condition === "" || sell_condition === null) {
     abort("Wrong section in buy_condition condlist for npc [%s]!", npc.name());
@@ -91,7 +88,7 @@ export function updateTradeManager(npc: XR_game_object): void {
   }
 
   const buy_item_condition_factor = tonumber(
-    pickSectionFromCondList(getActor() as XR_game_object, npc, tt.buy_item_condition_factor)
+    pickSectionFromCondList(registry.actor, npc, tt.buy_item_condition_factor)
   )!;
 
   if (tt.current_buy_item_condition_factor !== buy_item_condition_factor) {
@@ -103,7 +100,7 @@ export function updateTradeManager(npc: XR_game_object): void {
     return;
   }
 
-  const buy_supplies = pickSectionFromCondList(getActor() as XR_game_object, npc, tt.buy_supplies);
+  const buy_supplies = pickSectionFromCondList(registry.actor, npc, tt.buy_supplies);
 
   if (buy_supplies === "" || buy_supplies === null) {
     abort("Wrong section in buy_condition condlist for npc [%s]!", npc.name());
@@ -233,7 +230,7 @@ export function get_buy_discount(npc_id: number): number {
   }
 
   const sect: TSection = pickSectionFromCondList(
-    getActor() as XR_game_object,
+    registry.actor,
     null,
     parseCondList(null, "trade_manager", "discounts", str)
   )!;
@@ -250,7 +247,7 @@ export function get_sell_discount(npc_id: number): number {
   }
 
   const sect: TSection = pickSectionFromCondList(
-    getActor() as XR_game_object,
+    registry.actor,
     null,
     parseCondList(null, "trade_manager", "discounts", str)
   )!;

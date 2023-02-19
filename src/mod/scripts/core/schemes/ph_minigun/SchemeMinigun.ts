@@ -12,7 +12,7 @@ import {
 } from "xray16";
 
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry, storage } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { mobCaptured } from "@/mod/scripts/core/schemes/mobCaptured";
@@ -171,7 +171,7 @@ export class SchemeMinigun extends AbstractScheme {
     this.on_target_vis = null;
     this.on_target_nvis = null;
 
-    const actor: XR_game_object = getActor()!;
+    const actor: XR_game_object = registry.actor;
 
     if (this.hasWeapon) {
       if (this.state.fire_target === "points") {
@@ -312,7 +312,7 @@ export class SchemeMinigun extends AbstractScheme {
   }
 
   public update(delta: number): void {
-    if (trySwitchToAnotherSection(this.object, this.state, getActor())) {
+    if (trySwitchToAnotherSection(this.object, this.state, registry.actor)) {
       return;
     }
 
@@ -363,11 +363,7 @@ export class SchemeMinigun extends AbstractScheme {
 
     if (this.hasWeapon) {
       if (this.on_target_vis && this.on_target_vis.v1.alive() && this.mgun.IsObjectVisible(this.on_target_vis.v1)) {
-        const new_section = pickSectionFromCondList(
-          getActor() as XR_game_object,
-          this.object,
-          this.on_target_vis.condlist
-        );
+        const new_section = pickSectionFromCondList(registry.actor, this.object, this.on_target_vis.condlist);
 
         if (new_section) {
           switchToSection(this.object, this.state.ini!, new_section);
@@ -375,11 +371,7 @@ export class SchemeMinigun extends AbstractScheme {
       }
 
       if (this.on_target_nvis && this.on_target_nvis.v1.alive() && !this.mgun.IsObjectVisible(this.on_target_nvis.v1)) {
-        const new_section = pickSectionFromCondList(
-          getActor() as XR_game_object,
-          this.object,
-          this.on_target_nvis.condlist
-        );
+        const new_section = pickSectionFromCondList(registry.actor, this.object, this.on_target_nvis.condlist);
 
         if (new_section) {
           switchToSection(this.object, this.state.ini!, new_section);
@@ -422,7 +414,7 @@ export class SchemeMinigun extends AbstractScheme {
         ) {
           if (!this.state_delaying) {
             this.target_fire_pt = this.target_obj!.position();
-            if (this.target_obj!.id() !== getActor()!.id()) {
+            if (this.target_obj!.id() !== registry.actor.id()) {
               if (this.target_obj!.target_body_state() === move.crouch) {
                 this.target_fire_pt.y = this.target_fire_pt.y + 0.5;
               } else if (!isHeavilyWounded(this.target_obj!.id())) {
@@ -480,7 +472,7 @@ export class SchemeMinigun extends AbstractScheme {
     mobRelease(this.object, SchemeMinigun.name);
 
     if (this.state.on_death_info !== null) {
-      getActor()!.give_info_portion(this.state.on_death_info);
+      registry.actor.give_info_portion(this.state.on_death_info);
     }
 
     this.destroyed = true;

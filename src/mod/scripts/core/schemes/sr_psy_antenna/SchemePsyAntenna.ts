@@ -2,7 +2,7 @@ import { get_hud, level, XR_game_object, XR_ini_file } from "xray16";
 
 import { post_processors } from "@/mod/globals/animation/post_processors";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
 import { PsyAntennaManager } from "@/mod/scripts/core/managers/PsyAntennaManager";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
@@ -70,7 +70,7 @@ export class SchemePsyAntenna extends AbstractScheme {
 
     this.antennaState = state_void;
 
-    this.switch_state(getActor()!);
+    this.switch_state(registry.actor);
   }
 
   public deactivate(): void {
@@ -80,7 +80,7 @@ export class SchemePsyAntenna extends AbstractScheme {
   }
 
   public update(delta: number): void {
-    const actor = getActor()!;
+    const actor = registry.actor;
 
     if (trySwitchToAnotherSection(this.object, this.state, actor)) {
       return;

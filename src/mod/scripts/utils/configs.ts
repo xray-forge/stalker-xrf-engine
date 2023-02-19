@@ -12,7 +12,7 @@ import {
 } from "xray16";
 
 import { AnyArgs, AnyCallablesModule, AnyObject, EScheme, Optional, TSection } from "@/mod/lib/types";
-import { getActor, scriptIds, storage } from "@/mod/scripts/core/db";
+import { registry, scriptIds, storage } from "@/mod/scripts/core/db";
 import { disableInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -444,7 +444,7 @@ export function parse_func_params(str: string): LuaTable<number, string | number
  */
 export function getInfosFromData(object: XR_game_object, data: Optional<string>): LuaTable<number, string> {
   const infos: LuaTable<number, string> = new LuaTable();
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const actor: XR_game_object = registry.actor;
 
   if (data !== null) {
     for (const name of string.gfind(data, "(%|*[^%|]+%|*)%p*")) {
@@ -512,7 +512,7 @@ export function parse_waypoint_data(pathname: string, wpflags: XR_flags32, wpnam
       }
 
       if (fld === "a") {
-        waypointData[fld] = parseCondList(getActor(), "waypoint_data", "anim_state", val);
+        waypointData[fld] = parseCondList(registry.actor, "waypoint_data", "anim_state", val);
       } else {
         waypointData[fld] = val;
       }

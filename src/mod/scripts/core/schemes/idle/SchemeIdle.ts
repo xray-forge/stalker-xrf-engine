@@ -1,7 +1,7 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
@@ -41,6 +41,6 @@ export class SchemeIdle extends AbstractScheme {
   }
 
   public update(delta: number): void {
-    trySwitchToAnotherSection(this.object, this.state, getActor()!);
+    trySwitchToAnotherSection(this.object, this.state, registry.actor);
   }
 }

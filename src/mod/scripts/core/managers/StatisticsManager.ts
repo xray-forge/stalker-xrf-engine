@@ -12,7 +12,7 @@ import { TArtefact } from "@/mod/globals/items/artefacts";
 import { TWeapon } from "@/mod/globals/items/weapons";
 import { TMonster } from "@/mod/globals/monsters";
 import { Optional, PartialRecord, StringOptional } from "@/mod/lib/types";
-import { getActor } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { isStalker } from "@/mod/scripts/utils/checkers/is";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -262,7 +262,7 @@ export class StatisticsManager extends AbstractCoreManager {
   }
 
   public updateBestWeapon(hitAmount: number): void {
-    const active_item = getActor()!.active_item();
+    const active_item = registry.actor.active_item();
 
     if (active_item) {
       const s_obj = alife().object(active_item.id());

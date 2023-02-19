@@ -16,7 +16,7 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { storage as dbStorage, getActor } from "@/mod/scripts/core/db";
+import { storage as dbStorage, registry } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { ActionProcessEnemy } from "@/mod/scripts/core/schemes/danger/actions/ActionProcessEnemy";
 import { AnimationManager } from "@/mod/scripts/core/state_management/AnimationManager";
@@ -70,7 +70,7 @@ export const PostCombatIdleEnemyEvaluator: IPostCombatIdleEnemyEvaluator = decla
         const min = (overrides && overrides.min_post_combat_time * 1000) || 10000;
         const max = (overrides && overrides.max_post_combat_time * 1000) || 15000;
 
-        if (this.st.last_best_enemy_id === getActor()!.id()) {
+        if (this.st.last_best_enemy_id === registry.actor.id()) {
           this.st.timer = time_global();
         } else {
           this.st.timer = time_global() + math.random(min, max);

@@ -17,7 +17,7 @@ import { ERelation } from "@/mod/globals/relations";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { Optional } from "@/mod/lib/types";
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
-import { getActor, IStoredObject, storage, zoneByName } from "@/mod/scripts/core/db";
+import { IStoredObject, registry, storage, zoneByName } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { action_ids } from "@/mod/scripts/core/schemes/base/actions_id";
 import { getStorySquad } from "@/mod/scripts/utils/alife";
@@ -57,30 +57,21 @@ export function isStalkerAlive(targetObject: XR_game_object | XR_cse_alife_human
 /**
  * todo;
  */
-export function isActorEnemyWithFaction(
-  faction: TCommunity,
-  actor: XR_game_object = getActor() as XR_game_object
-): boolean {
+export function isActorEnemyWithFaction(faction: TCommunity, actor: XR_game_object = registry.actor): boolean {
   return relation_registry.community_goodwill(faction, actor.id()) <= ERelation.ENEMIES;
 }
 
 /**
  * todo;
  */
-export function isActorFriendWithFaction(
-  faction: TCommunity,
-  actor: XR_game_object = getActor() as XR_game_object
-): boolean {
+export function isActorFriendWithFaction(faction: TCommunity, actor: XR_game_object = registry.actor): boolean {
   return relation_registry.community_goodwill(faction, actor.id()) >= ERelation.FRIENDS;
 }
 
 /**
  * todo;
  */
-export function isActorNeutralWithFaction(
-  faction: TCommunity,
-  actor: XR_game_object = getActor() as XR_game_object
-): boolean {
+export function isActorNeutralWithFaction(faction: TCommunity, actor: XR_game_object = registry.actor): boolean {
   const goodwill: number = relation_registry.community_goodwill(faction, actor.id());
 
   return goodwill > ERelation.ENEMIES && goodwill < ERelation.FRIENDS;
@@ -187,7 +178,7 @@ export function isNpcInZone(object: Optional<XR_game_object>, zone: Optional<XR_
  * todo;
  */
 export function isActorInZone(zone: Optional<XR_game_object>): boolean {
-  const actor: Optional<XR_game_object> = getActor();
+  const actor: Optional<XR_game_object> = registry.actor;
 
   return actor !== null && zone !== null && zone.inside(actor.position());
 }
@@ -197,7 +188,7 @@ export function isActorInZone(zone: Optional<XR_game_object>): boolean {
  * todo;
  * todo;
  */
-export function isActorInZoneWithName(zoneName: string, actor: Optional<XR_game_object> = getActor()): boolean {
+export function isActorInZoneWithName(zoneName: string, actor: Optional<XR_game_object> = registry.actor): boolean {
   const zone: Optional<XR_game_object> = zoneByName.get(zoneName);
 
   return actor !== null && zone !== null && zone.inside(actor.position());
@@ -207,21 +198,21 @@ export function isActorInZoneWithName(zoneName: string, actor: Optional<XR_game_
  * @returns whether provided enemy object is actor.
  */
 export function isActorEnemy(object: XR_game_object): boolean {
-  return object.id() === getActor()!.id();
+  return object.id() === registry.actor.id();
 }
 
 /**
  * @returns whether actor is alive.
  */
 export function isActorAlive(): boolean {
-  return getActor()?.alive() === true;
+  return registry.actor?.alive() === true;
 }
 
 /**
  * @returns whether actor see the object.
  */
 export function isSeenByActor(object: XR_game_object): boolean {
-  return getActor()!.see(object);
+  return registry.actor.see(object);
 }
 
 /**
@@ -250,14 +241,14 @@ export function isDistanceBetweenObjectsLessOrEqual(
  * @returns whether distance to actor greater or equal.
  */
 export function isDistanceToActorGreaterOrEqual(object: XR_game_object, distance: number): boolean {
-  return object.position().distance_to_sqr(getActor()!.position()) >= distance * distance;
+  return object.position().distance_to_sqr(registry.actor.position()) >= distance * distance;
 }
 
 /**
  * @returns whether distance to actor less or equal.
  */
 export function isDistanceToActorLessOrEqual(object: XR_game_object, distance: number): boolean {
-  return object.position().distance_to_sqr(getActor()!.position()) <= distance * distance;
+  return object.position().distance_to_sqr(registry.actor.position()) <= distance * distance;
 }
 
 /**

@@ -1,7 +1,7 @@
 import { XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry, storage } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
@@ -57,7 +57,7 @@ export class SchemePhysicalOnHit extends AbstractScheme {
     logger.info("Object hit:", object.name(), "<-", who_name, amount);
 
     if (storage.get(this.object.id()).active_scheme) {
-      if (trySwitchToAnotherSection(object, this.state, getActor())) {
+      if (trySwitchToAnotherSection(object, this.state, registry.actor)) {
         return;
       }
     }

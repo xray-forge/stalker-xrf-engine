@@ -15,7 +15,7 @@ import { AnyObject, EJobType, EScheme, JobTypeByScheme, Optional, TSection } fro
 import { accessible_job, get_job_restrictor } from "@/mod/scripts/core/alife/combat_restrictor";
 import { registered_smartcovers } from "@/mod/scripts/core/alife/SmartCover";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { getActor, storage, zoneByName } from "@/mod/scripts/core/db";
+import { registry, storage, zoneByName } from "@/mod/scripts/core/db";
 import { SMART_TERRAIN_SECT } from "@/mod/scripts/core/db/sections";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import {
@@ -1092,7 +1092,15 @@ function add_exclusive_job(sect: TSection, work_field: string, smart_ini: XR_ini
   }
 
   const job_ini_file = new ini_file(ini_path);
-  const job_online = getConfigString(job_ini_file, "logic@" + work_field, "job_online", getActor(), false, "", null);
+  const job_online = getConfigString(
+    job_ini_file,
+    "logic@" + work_field,
+    "job_online",
+    registry.actor,
+    false,
+    "",
+    null
+  );
   const new_prior = getConfigNumber(job_ini_file, "logic@" + work_field, "prior", null, false, 45);
   const job_suitable = getConfigString(job_ini_file, "logic@" + work_field, "suitable", null, false, "");
   const is_monster = getConfigBoolean(job_ini_file, "logic@" + work_field, "monster_job", null, false, false);
@@ -1143,11 +1151,7 @@ function add_exclusive_job(sect: TSection, work_field: string, smart_ini: XR_ini
       smart: ISmartTerrain,
       precond_params: AnyObject
     ) {
-      const result: Optional<string> = pickSectionFromCondList(
-        getActor() as XR_game_object,
-        se_obj,
-        precond_params.condlist
-      );
+      const result: Optional<string> = pickSectionFromCondList(registry.actor, se_obj, precond_params.condlist);
 
       if (result === "false" || result === null) {
         return false;

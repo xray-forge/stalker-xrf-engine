@@ -15,7 +15,7 @@ import {
 
 import { sounds } from "@/mod/globals/sound/sounds";
 import { AnyObject, EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry, storage } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
@@ -92,7 +92,7 @@ export class SchemeMonster extends AbstractScheme {
   }
 
   public update(delta: number): void {
-    const actor = getActor()!;
+    const actor = registry.actor;
 
     if (this.idle_state) {
       if (this.state.idle_end <= game.time()) {
@@ -170,7 +170,7 @@ export class SchemeMonster extends AbstractScheme {
       this.final_action = true;
     }
 
-    trySwitchToAnotherSection(this.object, this.state, getActor());
+    trySwitchToAnotherSection(this.object, this.state, registry.actor);
   }
 
   public on_enter(): void {
@@ -221,7 +221,7 @@ export class SchemeMonster extends AbstractScheme {
         (this.monster as AnyObject).sim_forced_online = true;
       }
 
-      this.appear_snd.play_at_pos(getActor()!, this.current, 0, sound_object.s3d);
+      this.appear_snd.play_at_pos(registry.actor, this.current, 0, sound_object.s3d);
 
       if (this.snd_obj !== null) {
         this.snd_obj.stop();

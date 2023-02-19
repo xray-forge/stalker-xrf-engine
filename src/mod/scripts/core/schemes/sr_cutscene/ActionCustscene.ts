@@ -1,9 +1,8 @@
 import { level, patrol, XR_game_object, XR_ini_file } from "xray16";
 
 import { post_processors } from "@/mod/globals/animation/post_processors";
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
-import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import { AnyCallablesModule, EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
@@ -110,7 +109,7 @@ export class SchemeCutscene extends AbstractScheme {
       }
     }
 
-    if (trySwitchToAnotherSection(this.object, this.state, getActor())) {
+    if (trySwitchToAnotherSection(this.object, this.state, registry.actor)) {
       return;
     }
   }
@@ -118,7 +117,7 @@ export class SchemeCutscene extends AbstractScheme {
   public zone_enter(): void {
     logger.info("Zone enter:", this.object.name());
 
-    const actor: Optional<XR_game_object> = getActor();
+    const actor: Optional<XR_game_object> = registry.actor;
 
     this.sceneState = "run";
 
@@ -176,7 +175,7 @@ export class SchemeCutscene extends AbstractScheme {
   public cutscene_callback(): void {
     logger.info("Cutscene callback:", this.object.name());
 
-    const actor: XR_game_object = getActor()!;
+    const actor: XR_game_object = registry.actor;
 
     if (this.motion!.state === EEffectorState.RELEASE) {
       this.motion = null;

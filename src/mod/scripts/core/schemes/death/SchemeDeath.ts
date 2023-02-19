@@ -1,7 +1,7 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry, storage } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
@@ -80,17 +80,12 @@ export class SchemeDeath extends AbstractScheme {
   public death_callback(victim: XR_game_object, who: Optional<XR_game_object>): void {
     storage.get(victim.id()).death!.killer = who === null ? -1 : who.id();
 
-    // todo: Does it make sense? No side effects from picking?
-    const actor: Optional<XR_game_object> = getActor();
+    if (this.state.info) {
+      pickSectionFromCondList(registry.actor, this.object, this.state.info);
+    }
 
-    if (actor) {
-      if (this.state.info) {
-        pickSectionFromCondList(actor, this.object, this.state.info);
-      }
-
-      if (this.state.info2) {
-        pickSectionFromCondList(actor, this.object, this.state.info2);
-      }
+    if (this.state.info2) {
+      pickSectionFromCondList(registry.actor, this.object, this.state.info2);
     }
   }
 }

@@ -3,7 +3,7 @@ import { game, level, XR_CPhraseDialog, XR_CPhraseScript, XR_game_object, XR_net
 import { captions } from "@/mod/globals/captions";
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { LuaArray, Optional } from "@/mod/lib/types";
-import { getActor } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { DIALOG_MANAGER_LTX } from "@/mod/scripts/core/db/IniFiles";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
@@ -407,7 +407,7 @@ export function calculate_priority(
     priority = priority + 1;
   } else {
     for (const i of $range(1, PTID_subtable.actor_community.length())) {
-      if (PTID_subtable.actor_community.get(i) === getCharacterCommunity(getActor() as XR_game_object)) {
+      if (PTID_subtable.actor_community.get(i) === getCharacterCommunity(registry.actor)) {
         priority = priority + 2;
         break;
       }

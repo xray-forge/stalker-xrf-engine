@@ -1,7 +1,7 @@
-import { level, XR_game_object, XR_net_packet, XR_reader } from "xray16";
+import { level, XR_net_packet, XR_reader } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { getActor } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { DYNAMIC_WEATHER_GRAPHS, GAME_LTX } from "@/mod/scripts/core/db/IniFiles";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import {
@@ -38,8 +38,8 @@ export class WeatherManager extends AbstractCoreManager {
   public graphs: LuaTable<string, LuaTable<string, number>> = new LuaTable();
 
   public reset(): void {
-    const weather: string = getConfigString(GAME_LTX, level.name(), "weathers", getActor(), false, "", "[default]");
-    const postprocess: string = getConfigString(GAME_LTX, level.name(), "postprocess", getActor(), false, "");
+    const weather: string = getConfigString(GAME_LTX, level.name(), "weathers", registry.actor, false, "", "[default]");
+    const postprocess: string = getConfigString(GAME_LTX, level.name(), "postprocess", registry.actor, false, "");
 
     if (postprocess !== null) {
       level.add_pp_effector(postprocess, 999, true);
@@ -48,9 +48,9 @@ export class WeatherManager extends AbstractCoreManager {
     }
 
     if (weather === "[default]") {
-      this.weather_list = parseCondList(getActor(), level.name(), "weather", "[default]");
+      this.weather_list = parseCondList(registry.actor, level.name(), "weather", "[default]");
     } else {
-      this.weather_list = parseCondList(getActor(), level.name(), "weather", weather);
+      this.weather_list = parseCondList(registry.actor, level.name(), "weather", weather);
     }
 
     this.select_weather(true);
@@ -83,7 +83,7 @@ export class WeatherManager extends AbstractCoreManager {
   }
 
   public select_weather(now: boolean): void {
-    const weather = pickSectionFromCondList(getActor() as XR_game_object, getActor(), this.weather_list)!;
+    const weather = pickSectionFromCondList(registry.actor, registry.actor, this.weather_list)!;
     const graph = this.get_graph_by_name(weather);
     let weather_section_name = "";
 

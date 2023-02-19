@@ -29,9 +29,9 @@ import {
   addActor,
   ARTEFACT_WAYS_BY_ARTEFACT_ID,
   deleteActor,
-  getActor,
   IStoredObject,
   PARENT_ZONES_BY_ARTEFACT_ID,
+  registry,
   scriptIds,
   storage,
   zoneByName,
@@ -150,7 +150,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
 
     addActor(this.object);
 
-    (getActor() as unknown as IActorBinder).deimos_intensity = this.deimos_intensity;
+    (registry.actor as unknown as IActorBinder).deimos_intensity = this.deimos_intensity;
 
     this.deimos_intensity = null;
 
@@ -278,7 +278,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
       const s_obj = alife().object(obj.id());
 
       if (s_obj && s_obj.section_name() === "drug_anabiotic") {
-        get_global<AnyCallablesModule>("xr_effects").disable_ui_only(getActor(), null);
+        get_global<AnyCallablesModule>("xr_effects").disable_ui_only(registry.actor, null);
 
         level.add_cam_effector(animations.camera_effects_surge_02, 10, false, "extern.anabiotic_callback");
         level.add_pp_effector(post_processors.surge_fade, 11, false);
@@ -296,9 +296,9 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
   task_callback(task_object, _state: TXR_TaskState): void {
     if (_state !== task.fail) {
       if (_state === task.completed) {
-        send_task(getActor(), "complete", task_object);
+        send_task(registry.actor, "complete", task_object);
       } else {
-        send_task(getActor(), "new", task_object);
+        send_task(registry.actor, "new", task_object);
       }
     }
 
@@ -571,7 +571,10 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
 
     if (game.get_game_time().diffSec(this.last_detective_achievement_spawn_time) > 43200) {
       spawn_achivement_items(detective_achievement_items, 4, "zat_a2_actor_treasure");
-      get_global<AnyCallablesModule>("xr_effects").send_tip(getActor(), null, ["st_detective_news", "got_medicine"]);
+      get_global<AnyCallablesModule>("xr_effects").send_tip(registry.actor, null, [
+        "st_detective_news",
+        "got_medicine",
+      ]);
       this.last_detective_achievement_spawn_time = game.get_game_time();
     }
   },
@@ -586,7 +589,10 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
 
     if (game.get_game_time().diffSec(this.last_mutant_hunter_achievement_spawn_time) > 43200) {
       spawn_achivement_items(mutant_hunter_achievement_items, 5, "jup_b202_actor_treasure");
-      get_global<AnyCallablesModule>("xr_effects").send_tip(getActor(), null, ["st_mutant_hunter_news", "got_ammo"]);
+      get_global<AnyCallablesModule>("xr_effects").send_tip(registry.actor, null, [
+        "st_mutant_hunter_news",
+        "got_ammo",
+      ]);
       this.last_mutant_hunter_achievement_spawn_time = game.get_game_time();
     }
   },

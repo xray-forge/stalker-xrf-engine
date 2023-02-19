@@ -1,9 +1,9 @@
 import { alife, XR_game_object } from "xray16";
 
 import { ammo, TAmmoItem } from "@/mod/globals/items/ammo";
-import { drugs, medkits, TDrugItem, TMedkit } from "@/mod/globals/items/drugs";
+import { medkits, TMedkit } from "@/mod/globals/items/drugs";
 import { LuaArray, Optional } from "@/mod/lib/types";
-import { actor, getActor } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { SYSTEM_INI } from "@/mod/scripts/core/db/IniFiles";
 import { relocate_item, relocate_money } from "@/mod/scripts/core/NewsManager";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -17,7 +17,7 @@ const logger: LuaLogger = new LuaLogger("quests");
 export function giveMoneyToActor(amount: number): void {
   logger.info("Award actor with money:", amount);
 
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const actor: XR_game_object = registry.actor;
 
   actor.give_money(amount);
   relocate_money(actor, "in", amount);
@@ -32,7 +32,7 @@ export function takeMoneyFromActor(
   amount: number
 ): void {
   const victim = getNpcSpeaker(first_speaker, second_speaker);
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const actor: XR_game_object = registry.actor;
 
   if (victim === null) {
     abort("Couldn't relocate money to NULL.");
@@ -46,14 +46,14 @@ export function takeMoneyFromActor(
  * todo;
  */
 export function getActorSpeaker(first: XR_game_object, second: XR_game_object): XR_game_object {
-  return getActor()!.id() !== second.id() ? first : second;
+  return registry.actor.id() !== second.id() ? first : second;
 }
 
 /**
  * todo;
  */
 export function getNpcSpeaker(first: XR_game_object, second: XR_game_object): XR_game_object {
-  return getActor()!.id() === second.id() ? first : second;
+  return registry.actor.id() === second.id() ? first : second;
 }
 
 /**
@@ -116,7 +116,7 @@ export function giveItemsToActor(
   amount: number = 1
 ): void {
   const npc: XR_game_object = getNpcSpeaker(first, second);
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const actor: XR_game_object = registry.actor;
   let v = 0;
 
   if (!amount) {
@@ -165,11 +165,7 @@ export function relocateQuestItemSection(
   type: "in" | "out",
   amount: number = 1
 ): void {
-  const actor: Optional<XR_game_object> = getActor();
-
-  if (actor === null) {
-    return;
-  }
+  const actor: XR_game_object = registry.actor;
 
   for (const i of $range(1, amount)) {
     if (type === "in") {
@@ -195,7 +191,7 @@ export function relocateQuestItemSection(
  * @param actor - target object to get medkit, gets actor from registry by default.
  * @returns get medkit or null.
  */
-export function getActorAvailableMedKit(actor: XR_game_object = getActor()!): Optional<TMedkit> {
+export function getActorAvailableMedKit(actor: XR_game_object = registry.actor): Optional<TMedkit> {
   for (const [key, medkit] of medkits as unknown as LuaTable<TMedkit, TMedkit>) {
     if (actor.object(medkit) !== null) {
       return medkit;
@@ -210,7 +206,7 @@ export function getActorAvailableMedKit(actor: XR_game_object = getActor()!): Op
  * @param actor - target object to check, gets actor from registry by default.
  * @returns whether actor has at least one med kit.
  */
-export function actorHasMedKit(actor: XR_game_object = getActor()!): boolean {
+export function actorHasMedKit(actor: XR_game_object = registry.actor): boolean {
   for (const [key, medkit] of medkits as unknown as LuaTable<TMedkit, TMedkit>) {
     if (actor.object(medkit) !== null) {
       return true;
@@ -226,7 +222,7 @@ export function actorHasMedKit(actor: XR_game_object = getActor()!): boolean {
  * @param actor - target object to check, gets actor from registry by default.
  * @returns whether actor has all of provided items.
  */
-export function actorHasItem(itemSection: string, actor: XR_game_object = getActor()!): boolean {
+export function actorHasItem(itemSection: string, actor: XR_game_object = registry.actor): boolean {
   return actor.object(itemSection) !== null;
 }
 
@@ -236,7 +232,7 @@ export function actorHasItem(itemSection: string, actor: XR_game_object = getAct
  * @param actor - target object to check, gets actor from registry by default.
  * @returns whether actor has all of provided items.
  */
-export function actorHasItems(itemSections: Array<string>, actor: XR_game_object = getActor()!): boolean {
+export function actorHasItems(itemSections: Array<string>, actor: XR_game_object = registry.actor): boolean {
   for (const [index, section] of itemSections as unknown as LuaArray<string>) {
     if (actor.object(section) === null) {
       return false;
@@ -252,7 +248,7 @@ export function actorHasItems(itemSections: Array<string>, actor: XR_game_object
  * @param actor - target object to check, gets actor from registry by default.
  * @returns whether actor has at least one of provided items.
  */
-export function actorHasAtLeastOneItem(itemSections: Array<string>, actor: XR_game_object = getActor()!): boolean {
+export function actorHasAtLeastOneItem(itemSections: Array<string>, actor: XR_game_object = registry.actor): boolean {
   for (const [index, section] of itemSections as unknown as LuaArray<string>) {
     if (actor.object(section) !== null) {
       return true;

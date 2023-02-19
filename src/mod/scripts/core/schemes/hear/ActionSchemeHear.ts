@@ -2,7 +2,7 @@ import { TXR_snd_type, XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
 import { ESoundType } from "@/mod/globals/sound/sound_type";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry, storage } from "@/mod/scripts/core/db";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { switchToSection } from "@/mod/scripts/core/schemes/switchToSection";
 import { parseCondList, parseParams, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
@@ -79,7 +79,7 @@ export class ActionSchemeHear extends AbstractScheme {
         hear_sound_params.dist >= sound_position.distance_to(object.position()) &&
         sound_power >= hear_sound_params.power
       ) {
-        const new_section = pickSectionFromCondList(getActor() as XR_game_object, object, hear_sound_params.condlist);
+        const new_section = pickSectionFromCondList(registry.actor, object, hear_sound_params.condlist);
 
         if (new_section !== null && new_section !== "") {
           switchToSection(object, state.ini!, new_section);

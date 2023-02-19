@@ -27,9 +27,9 @@ import { ESmartTerrainStatus, ISmartTerrainControl } from "@/mod/scripts/core/al
 import {
   anomalyByName,
   ARTEFACT_WAYS_BY_ARTEFACT_ID,
-  getActor,
   IStoredObject,
   kamp_stalkers,
+  registry,
   signalLight,
   storage,
   zoneByName,
@@ -339,7 +339,7 @@ export function story_obj_in_zone_by_name(
  * todo;
  */
 export function actor_in_zone(actor: XR_game_object, npc: XR_game_object, params: [string]): boolean {
-  return isNpcInZone(getActor(), zoneByName.get(params[0]));
+  return isNpcInZone(registry.actor, zoneByName.get(params[0]));
 }
 
 /**
@@ -617,7 +617,7 @@ export function story_object_exist(actor: XR_game_object, npc: XR_game_object, p
  * todo;
  */
 export function actor_has_item(actor: XR_game_object, npc: XR_game_object, params: [Optional<string>]): boolean {
-  const story_actor = getStoryObject("actor");
+  const story_actor = registry.actor;
 
   return params[0] !== null && story_actor !== null && story_actor.object(params[0]) !== null;
 }
@@ -710,7 +710,7 @@ export function has_enemy(actor: XR_game_object, npc: XR_game_object): boolean {
 export function has_actor_enemy(actor: XR_game_object, npc: XR_game_object): boolean {
   const best_enemy: Optional<XR_game_object> = npc.best_enemy();
 
-  return best_enemy !== null && best_enemy.id() === getActor()!.id();
+  return best_enemy !== null && best_enemy.id() === registry.actor.id();
 }
 
 /**
@@ -905,7 +905,7 @@ export function actor_active_detector(actor: XR_game_object, npc: XR_game_object
     abort("Wrong parameters in function 'actor_active_detector'");
   }
 
-  const activeDetector = getActor()!.active_detector();
+  const activeDetector = registry.actor.active_detector();
 
   return activeDetector !== null && activeDetector.section() === detector_section;
 }
@@ -923,7 +923,7 @@ export function heavy_wounded(actor: XR_game_object, npc: XR_game_object): boole
 export function time_period(actor: XR_game_object, npc: XR_game_object, p: [number, number]): boolean {
   const [tshift, period] = p;
 
-  if (tshift !== null && period !== null && getActor() !== null) {
+  if (tshift !== null && period !== null && registry.actor !== null) {
     return tshift > period && level.get_time_minutes() % tshift <= period;
   }
 
@@ -1238,7 +1238,7 @@ export function quest_npc_enemy_actor(actor: XR_game_object, npc: XR_game_object
     const obj = getStoryObject(p[0]);
 
     if (obj && isStalker(obj)) {
-      const actor: Optional<XR_game_object> = getActor();
+      const actor: Optional<XR_game_object> = registry.actor;
 
       if (actor && obj.general_goodwill(actor) <= -1000) {
         return true;
@@ -1277,7 +1277,7 @@ export function distance_to_obj_ge(actor: XR_game_object, npc: XR_game_object, p
   const npc1: Optional<XR_cse_alife_object> = npc_id ? alife().object(npc_id) : null;
 
   if (npc1) {
-    return getActor()!.position().distance_to_sqr(npc1.position) >= p[1] * p[1];
+    return registry.actor.position().distance_to_sqr(npc1.position) >= p[1] * p[1];
   }
 
   return false;
@@ -1291,7 +1291,7 @@ export function distance_to_obj_le(actor: XR_game_object, npc: XR_game_object, p
   const npc1: Optional<XR_cse_alife_object> = npc_id ? alife().object(npc_id) : null;
 
   if (npc1) {
-    return getActor()!.position().distance_to_sqr(npc1.position) < p[1] * p[1];
+    return registry.actor.position().distance_to_sqr(npc1.position) < p[1] * p[1];
   }
 
   return false;
@@ -1342,7 +1342,7 @@ export function check_bloodsucker_state(
  * todo;
  */
 export function actor_nomove_nowpn(): boolean {
-  return !isWeapon(getActor()!.active_item()) || getActor()!.is_talking();
+  return !isWeapon(registry.actor.active_item()) || registry.actor.is_talking();
 }
 
 /**
@@ -1356,7 +1356,7 @@ export function dist_to_story_obj_ge(actor: XR_game_object, npc: XR_game_object,
     return true;
   }
 
-  return alife().object(story_obj_id)!.position.distance_to(getActor()!.position()) > p[1];
+  return alife().object(story_obj_id)!.position.distance_to(registry.actor.position()) > p[1];
 }
 
 /**
@@ -1477,49 +1477,49 @@ export function actor_neutral(actor: XR_game_object, npc: XR_game_object): boole
  * todo;
  */
 export function is_rain(): boolean {
-  return getActor() !== null && level.rain_factor() > 0;
+  return registry.actor !== null && level.rain_factor() > 0;
 }
 
 /**
  * todo;
  */
 export function is_heavy_rain(): boolean {
-  return getActor() !== null && level.rain_factor() >= 0.5;
+  return registry.actor !== null && level.rain_factor() >= 0.5;
 }
 
 /**
  * todo;
  */
 export function is_day(): boolean {
-  return getActor() !== null && level.get_time_hours() >= 6 && level.get_time_hours() < 21;
+  return registry.actor !== null && level.get_time_hours() >= 6 && level.get_time_hours() < 21;
 }
 
 /**
  * todo;
  */
 export function is_dark_night(): boolean {
-  return getActor() !== null && (level.get_time_hours() < 3 || level.get_time_hours() > 22);
+  return registry.actor !== null && (level.get_time_hours() < 3 || level.get_time_hours() > 22);
 }
 
 /**
  * todo;
  */
 export function is_jup_a12_mercs_time(): boolean {
-  return getActor() !== null && level.get_time_hours() >= 1 && level.get_time_hours() < 5;
+  return registry.actor !== null && level.get_time_hours() >= 1 && level.get_time_hours() < 5;
 }
 
 /**
  * todo;
  */
 export function zat_b7_is_night(): boolean {
-  return getActor() !== null && (level.get_time_hours() >= 23 || level.get_time_hours() < 5);
+  return registry.actor !== null && (level.get_time_hours() >= 23 || level.get_time_hours() < 5);
 }
 
 /**
  * todo;
  */
 export function zat_b7_is_late_attack_time(): boolean {
-  return getActor() !== null && (level.get_time_hours() >= 23 || level.get_time_hours() < 9);
+  return registry.actor !== null && (level.get_time_hours() >= 23 || level.get_time_hours() < 9);
 }
 
 /**
@@ -1665,7 +1665,7 @@ export function zat_b29_anomaly_has_af(actor: XR_game_object, npc: XR_game_objec
 
   for (const [k, v] of ARTEFACT_WAYS_BY_ARTEFACT_ID) {
     if (alife().object(tonumber(k)!) && af_name === alife().object(tonumber(k)!)!.section_name()) {
-      getActor()!.give_info_portion(az_name);
+      registry.actor.give_info_portion(az_name);
 
       return true;
     }
@@ -1735,7 +1735,7 @@ export function pas_b400_actor_far_forward(actor: XR_game_object, npc: XR_game_o
   const fwd_obj = getStoryObject("pas_b400_fwd");
 
   if (fwd_obj) {
-    if (distanceBetween(fwd_obj, getActor()!) > distanceBetween(fwd_obj, npc)) {
+    if (distanceBetween(fwd_obj, registry.actor) > distanceBetween(fwd_obj, npc)) {
       return false;
     }
   } else {
@@ -1770,7 +1770,7 @@ export function pas_b400_actor_far_backward(actor: XR_game_object, npc: XR_game_
   const bwd_obj: Optional<XR_game_object> = getStoryObject("pas_b400_bwd");
 
   if (bwd_obj !== null) {
-    if (distanceBetween(bwd_obj, getActor()!) > distanceBetween(bwd_obj, npc)) {
+    if (distanceBetween(bwd_obj, registry.actor) > distanceBetween(bwd_obj, npc)) {
       return false;
     }
   } else {

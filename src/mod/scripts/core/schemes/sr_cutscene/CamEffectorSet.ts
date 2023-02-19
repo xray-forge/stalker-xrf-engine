@@ -2,7 +2,7 @@ import { device, level, XR_game_object } from "xray16";
 
 import { EScheme, Optional } from "@/mod/lib/types";
 import { stringifyAsJson } from "@/mod/lib/utils/json";
-import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import {
   EEffectorState,
   ICamEffectorSetDescriptorItem,
@@ -50,7 +50,7 @@ export class CamEffectorSet {
         210408,
         false,
         "extern.effector_callback",
-        this.st.fov || getActor()!.fov() * 0.75
+        this.st.fov || registry.actor.fov() * 0.75
       );
     }
 
@@ -74,7 +74,7 @@ export class CamEffectorSet {
       const eff = this.set[this.state].get(this.cur_effect);
 
       if (eff && eff.looped !== false) {
-        const cond = pickSectionFromCondList(getActor() as XR_game_object, null, this.condlist);
+        const cond = pickSectionFromCondList(registry.actor, null, this.condlist);
 
         if (cond === "false") {
           this.looped = false;
@@ -92,7 +92,7 @@ export class CamEffectorSet {
 
   public select_effect(): Optional<ICamEffectorSetDescriptorItem> {
     const state = this.state;
-    const actor: XR_game_object = getActor() as XR_game_object;
+    const actor: XR_game_object = registry.actor;
     let cur_effect = this.cur_effect;
 
     if (this.looped) {

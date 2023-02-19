@@ -1,7 +1,7 @@
 import { device, game_graph, vector, XR_game_object, XR_vector } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { getActor } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("physics");
@@ -68,7 +68,7 @@ export function vectorRotateY(target: XR_vector, angleBase: number): XR_vector {
  */
 export function npcInActorFrustum(object: XR_game_object): boolean {
   const actorDirection: XR_vector = device().cam_dir;
-  const npcDirection: XR_vector = object.position().sub(getActor()!.position());
+  const npcDirection: XR_vector = object.position().sub(registry.actor.position());
 
   return yawDegree3d(actorDirection, npcDirection) < ACTOR_VISIBILITY_FRUSTUM;
 }

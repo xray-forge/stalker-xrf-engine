@@ -1,7 +1,7 @@
 import { time_global, XR_game_object, XR_ini_file, XR_object, XR_vector } from "xray16";
 
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry, storage } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
@@ -64,7 +64,7 @@ export class SchemePhysicalButton extends AbstractScheme {
   }
 
   public update(delta: number): void {
-    trySwitchToAnotherSection(this.object, this.state, getActor());
+    trySwitchToAnotherSection(this.object, this.state, registry.actor);
   }
 
   public try_switch(): boolean {
@@ -75,7 +75,7 @@ export class SchemePhysicalButton extends AbstractScheme {
         switchToSection(
           this.object,
           this.state.ini!,
-          pickSectionFromCondList(getActor() as XR_game_object, this.object, this.state.on_press.condlist)!
+          pickSectionFromCondList(registry.actor, this.object, this.state.on_press.condlist)!
         )
       ) {
         return true;

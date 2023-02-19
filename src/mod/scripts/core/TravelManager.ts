@@ -25,7 +25,7 @@ import { Optional } from "@/mod/lib/types";
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { set_travel_func } from "@/mod/scripts/core/binders/ActorBinder";
-import { getActor } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/core/db/SimBoard";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { relocate_money } from "@/mod/scripts/core/NewsManager";
@@ -86,7 +86,7 @@ export class TravelManager {
       const descriptor: ITravelRouteDescriptor = {
         name: ini.r_string(id, "name"),
         level: ini.r_string(id, "level"),
-        condlist: parseCondList(getActor(), id, "close_distance", ini.r_string(id, "condlist")),
+        condlist: parseCondList(registry.actor, id, "close_distance", ini.r_string(id, "condlist")),
         phrase_id: tostring(1000 + i),
       };
 
@@ -215,8 +215,6 @@ export class TravelManager {
       );
 
       const point: XR_patrol = new patrol(traveler_actor_path!);
-      // -- const dir = vector():sub( point:point(0), point:point(1) ):getH()
-      // -- const dir = vector():sub( point:point(1), point:point(0) ):normalize():getH()
       const dir = -point.point(1).sub(point.point(0)).getH();
 
       const board = get_sim_board();
@@ -240,8 +238,8 @@ export class TravelManager {
       traveler_squad!.set_squad_position(position!);
       teleport_flag! = true;
 
-      getActor()!.set_actor_direction(dir);
-      getActor()!.set_actor_position(point.point(0));
+      registry.actor.set_actor_direction(dir);
+      registry.actor.set_actor_position(point.point(0));
 
       let minutes = traveler_distance! / 10;
       const hours = math.floor(minutes / 60);
@@ -387,7 +385,7 @@ export class TravelManager {
       abort("Error in travel manager. Smart [%s] doesnt exist.", tostring(smart_name));
     }
 
-    if (pickSectionFromCondList(getActor() as XR_game_object, smart, smart_table.condlist) !== "true") {
+    if (pickSectionFromCondList(registry.actor, smart, smart_table.condlist) !== "true") {
       return false;
     }
 
@@ -515,7 +513,7 @@ export class TravelManager {
     const distance = squad_position.distance_to(smart_position);
     const price = this.get_price_by_distance(distance);
 
-    return price <= getActor()!.money();
+    return price <= registry.actor.money();
   }
 
   public actor_have_not_money(

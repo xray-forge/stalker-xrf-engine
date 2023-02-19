@@ -4,7 +4,7 @@ import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { Optional } from "@/mod/lib/types";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { ESmartTerrainStatus } from "@/mod/scripts/core/alife/SmartTerrainControl";
-import { fighting_with_actor_npcs, getActor, IStoredObject, storage, zoneByName } from "@/mod/scripts/core/db";
+import { fighting_with_actor_npcs, IStoredObject, registry, storage, zoneByName } from "@/mod/scripts/core/db";
 import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
 import { get_sim_obj_registry, ISimObjectsRegistry } from "@/mod/scripts/core/db/SimObjectsRegistry";
 import { isObjectInZone } from "@/mod/scripts/utils/checkers/checkers";
@@ -64,7 +64,7 @@ export class ActionProcessEnemy {
       // }
     }
 
-    if (enemy.id() !== getActor()!.id()) {
+    if (enemy.id() !== registry.actor.id()) {
       for (const [k, v] of smarts_by_no_assault_zones) {
         const zone = zoneByName.get(k);
 
@@ -116,7 +116,7 @@ export class ActionProcessEnemy {
   }
 
   public enemy_callback(object: XR_game_object, enemy: XR_game_object): boolean {
-    if (enemy.id() === getActor()!.id()) {
+    if (enemy.id() === registry.actor.id()) {
       fighting_with_actor_npcs.set(object.id(), true);
     }
 
@@ -135,7 +135,7 @@ export class ActionProcessEnemy {
 
         smartTerrain.set_alarm();
 
-        if (enemy.id() === getActor()!.id() && smartTerrain.base_on_actor_control !== null) {
+        if (enemy.id() === registry.actor.id() && smartTerrain.base_on_actor_control !== null) {
           smartTerrain.base_on_actor_control.actor_attack();
         }
       }
@@ -173,7 +173,7 @@ export class ActionProcessEnemy {
       return;
     }
 
-    if (who.id() === getActor()!.id()) {
+    if (who.id() === registry.actor.id()) {
       if (!this.state.overrides?.combat_ignore_keep_when_attacked) {
         this.state.enabled = false;
       }

@@ -1,7 +1,7 @@
 import { device, get_hud, getFS, level, XR_CUIGameCustom, XR_game_object } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
-import { getActor } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -43,7 +43,7 @@ export function resolveXmlFormPath(path: string, hasWideScreenSupport: boolean =
 
 export function setUiVisibility(isVisible: boolean): void {
   const hud: XR_CUIGameCustom = get_hud();
-  const actor: XR_game_object = getActor()!;
+  const actor: XR_game_object = registry.actor;
 
   if (isVisible) {
     logger.info("[setUiVisibility] Showing UI");

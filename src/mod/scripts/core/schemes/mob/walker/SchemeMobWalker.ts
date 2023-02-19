@@ -16,7 +16,7 @@ import {
 } from "xray16";
 
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry, storage } from "@/mod/scripts/core/db";
 import { MoveManager } from "@/mod/scripts/core/MoveManager";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
@@ -39,7 +39,6 @@ import { isStalkerAtWaypoint } from "@/mod/scripts/utils/world";
 
 const default_wait_time: number = 5000;
 const default_anim_standing: TXR_animation = anim.stand_idle;
-
 const state_moving: number = 0;
 const state_standing: number = 1;
 
@@ -104,7 +103,7 @@ export class SchemeMobWalker extends AbstractScheme {
   public path_look_info: Optional<LuaTable<number, IWaypointData>> = null;
 
   public reset_scheme(): void {
-    setMobState(this.object, getActor()!, this.state.state);
+    setMobState(this.object, registry.actor, this.state.state);
 
     this.state.signals = {};
     mobCapture(this.object, true);
@@ -220,9 +219,9 @@ export class SchemeMobWalker extends AbstractScheme {
     const beh = this.path_walk_info.get(index).get("b");
 
     if (beh) {
-      setMobState(this.object, getActor()!, beh);
+      setMobState(this.object, registry.actor, beh);
     } else {
-      setMobState(this.object, getActor()!, this.state.state);
+      setMobState(this.object, registry.actor, this.state.state);
     }
 
     const search_for = this.path_walk_info.get(index).get("flags") as XR_flags32;
@@ -258,7 +257,7 @@ export class SchemeMobWalker extends AbstractScheme {
         }
 
         this.cur_anim_set =
-          anim[pickSectionFromCondList(getActor()!, this.object, suggested_anim_set) as TXR_animation_key];
+          anim[pickSectionFromCondList(registry.actor, this.object, suggested_anim_set) as TXR_animation_key];
       } else {
         this.cur_anim_set = default_anim_standing;
       }
@@ -266,9 +265,9 @@ export class SchemeMobWalker extends AbstractScheme {
       const beh = this.path_walk_info.get(index).get("b");
 
       if (beh) {
-        setMobState(this.object, getActor()!, beh);
+        setMobState(this.object, registry.actor, beh);
       } else {
-        setMobState(this.object, getActor()!, this.state.state);
+        setMobState(this.object, registry.actor, this.state.state);
       }
 
       if (pt_chosen_idx !== this.last_look_index) {

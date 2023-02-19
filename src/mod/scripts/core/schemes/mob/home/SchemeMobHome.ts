@@ -1,7 +1,7 @@
 import { alife, patrol, XR_cse_alife_creature_abstract, XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { getMobState, setMobState } from "@/mod/scripts/core/schemes/mob/MobStateManager";
@@ -62,7 +62,7 @@ export class SchemeMobHome extends AbstractScheme {
   }
 
   public reset_scheme(): void {
-    setMobState(this.object, getActor()!, this.state.state);
+    setMobState(this.object, registry.actor, this.state.state);
 
     let minr = def_min_radius;
     let maxr = def_max_radius;

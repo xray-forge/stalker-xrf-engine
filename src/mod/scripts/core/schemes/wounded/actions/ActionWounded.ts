@@ -1,6 +1,6 @@
 import { action_base, alife, hit, time_global, XR_action_base, XR_alife_simulator } from "xray16";
 
-import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
@@ -67,7 +67,7 @@ export const ActionWounded: IActionWounded = declare_xr_class("ActionWounded", a
       h.power = 0;
       h.direction = this.object.direction();
       h.bone("bip01_spine");
-      h.draftsman = getActor();
+      h.draftsman = registry.actor;
       h.impulse = 0;
       h.type = hit.wound;
       this.object.hit(h);

@@ -13,7 +13,7 @@ import {
 } from "xray16";
 
 import { TSection } from "@/mod/lib/types";
-import { getActor, storage } from "@/mod/scripts/core/db";
+import { registry, storage } from "@/mod/scripts/core/db";
 import { send_sound } from "@/mod/scripts/core/NewsManager";
 import { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
 import { EPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/EPlayableSound";
@@ -113,7 +113,7 @@ export class ActorSound extends AbstractPlayableSound {
 
     this.snd_obj = new sound_object(snd);
     this.snd_obj.volume = 0.8;
-    this.snd_obj.play_at_pos(getActor()!, new vector().set(0, 0, 0), 0, sound_object.s2d);
+    this.snd_obj.play_at_pos(registry.actor, new vector().set(0, 0, 0), 0, sound_object.s2d);
     this.snd_obj.volume = 0.8;
 
     /**

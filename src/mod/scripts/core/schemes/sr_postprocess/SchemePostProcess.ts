@@ -1,7 +1,7 @@
-import { color, hit, noise, time_global, vector, XR_game_object, XR_ini_file, XR_noise } from "xray16";
+import { color, hit, noise, time_global, vector, XR_game_object, XR_hit, XR_ini_file, XR_noise } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { IPPEffector, PPEffector } from "@/mod/scripts/core/schemes/sr_postprocess/PPEffector";
@@ -89,7 +89,7 @@ export class SchemePostProcess extends AbstractScheme {
   }
 
   public update(delta: number): void {
-    const actor = getActor()!;
+    const actor = registry.actor;
 
     if (trySwitchToAnotherSection(this.object, this.state, actor)) {
       return;
@@ -153,15 +153,15 @@ export class SchemePostProcess extends AbstractScheme {
 
     this.hit_time = time_global();
 
-    const actor = getActor()!;
-    const h = new hit();
+    const actor: XR_game_object = registry.actor;
+    const h: XR_hit = new hit();
 
     h.power = this.hit_power;
     h.direction = new vector().set(0, 0, 0);
     h.impulse = 0;
-    h.draftsman = getActor();
+    h.draftsman = registry.actor;
     h.type = hit.radiation;
-    getActor()!.hit(h);
+    registry.actor.hit(h);
 
     h.type = hit.shock;
     actor.hit(h);

@@ -4,7 +4,7 @@ import { captions } from "@/mod/globals/captions";
 import { script_sounds } from "@/mod/globals/sound/script_sounds";
 import { texturesIngame } from "@/mod/globals/textures";
 import { Maybe, Optional } from "@/mod/lib/types";
-import { getActor } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { SYSTEM_INI } from "@/mod/scripts/core/db/IniFiles";
 import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
 import { get_smart_terrain_name } from "@/mod/scripts/core/db/smart_names";
@@ -134,7 +134,7 @@ export function send_treasure(param: 0 | 1 | 2): void {
   logger.info("Show send treasure:", param);
 
   let news_caption: string = "";
-  const actor: XR_game_object = getActor()!;
+  const actor: XR_game_object = registry.actor;
 
   if (param === 0) {
     news_caption = game.translate_string(captions.st_found_new_treasure);
@@ -162,11 +162,6 @@ export function send_treasure(param: 0 | 1 | 2): void {
 export function send_task(actor: Optional<XR_game_object>, type: TActionType, task: XR_CGameTask): void {
   logger.info("Show send task:", type, task.get_id(), task.get_title());
 
-  // todo: Probably param check.
-  if (getActor() === null || actor === null) {
-    return;
-  }
-
   // todo: Move to configs.
   let time_on_screen = 10000;
 
@@ -174,7 +169,7 @@ export function send_task(actor: Optional<XR_game_object>, type: TActionType, ta
     time_on_screen = 5000;
   }
 
-  GlobalSound.set_sound_play(actor.id(), script_sounds.pda_task, null, null);
+  GlobalSound.set_sound_play(registry.actor.id(), script_sounds.pda_task, null, null);
 
   const news_caption: string = game.translate_string(actionDescriptionByTask[type]);
   const news_text: string = game.translate_string(task.get_title());
@@ -184,10 +179,10 @@ export function send_task(actor: Optional<XR_game_object>, type: TActionType, ta
     icon = texturesIngame.ui_iconsTotal_storyline;
   }
 
-  if (actor.is_talking()) {
-    actor.give_talk_message2(news_caption, news_text + ".", icon, "iconed_answer_item");
+  if (registry.actor.is_talking()) {
+    registry.actor.give_talk_message2(news_caption, news_text + ".", icon, "iconed_answer_item");
   } else {
-    actor.give_game_news(news_caption, news_text + ".", icon, 0, time_on_screen);
+    registry.actor.give_game_news(news_caption, news_text + ".", icon, 0, time_on_screen);
   }
 }
 
@@ -322,15 +317,11 @@ export function send_sound(
     news_caption = news_caption + ":";
   }
 
-  getActor()!.give_game_news(news_caption, news_text, texture, delay! + 1000, 5000, 1);
+  registry.actor.give_game_news(news_caption, news_text, texture, delay! + 1000, 5000, 1);
 }
 
 export function relocate_item(actor: XR_game_object, type: "in" | "out", item: string, amount: number = 1): void {
   logger.info("Show relocate item message:", type, item, amount);
-
-  if (getActor() === null) {
-    return;
-  }
 
   let news_caption = "";
   let news_text = "";

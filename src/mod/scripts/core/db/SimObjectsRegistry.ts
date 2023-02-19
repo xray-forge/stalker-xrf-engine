@@ -4,7 +4,7 @@ import { Optional } from "@/mod/lib/types";
 import { IActor } from "@/mod/scripts/core/alife/Actor";
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { getActor } from "@/mod/scripts/core/db/index";
+import { registry } from "@/mod/scripts/core/db/index";
 import { areOnSameAlifeLevel, getAlifeDistanceBetween } from "@/mod/scripts/utils/alife";
 import { parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 
@@ -28,7 +28,7 @@ export const SimObjectsRegistry: ISimObjectsRegistry = declare_xr_class("SimObje
     this.update_avaliability(obj);
   },
   update_avaliability(obj: ISmartTerrain): void {
-    if (pickSectionFromCondList(getActor()!, obj, obj.sim_avail as any) === "true" && obj.sim_available()) {
+    if (pickSectionFromCondList(registry.actor, obj, obj.sim_avail as any) === "true" && obj.sim_available()) {
       this.objects.set(obj.id, obj);
     } else {
       this.objects.delete(obj.id);

@@ -15,7 +15,7 @@ import {
 
 import { ESchemeType, Optional } from "@/mod/lib/types";
 import { PhysicObjectItemBox } from "@/mod/scripts/core/binders/PhysicObjectItemBox";
-import { addObject, deleteObject, getActor, IStoredObject, levelDoors, storage } from "@/mod/scripts/core/db";
+import { addObject, deleteObject, IStoredObject, levelDoors, registry, storage } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { initializeGameObject } from "@/mod/scripts/core/schemes/initializeGameObject";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
@@ -78,7 +78,7 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
     const on_offline_condlist = st?.overrides?.on_offline_condlist;
 
     if (on_offline_condlist !== null) {
-      pickSectionFromCondList(getActor() as XR_game_object, this.object, on_offline_condlist as any);
+      pickSectionFromCondList(registry.actor, this.object, on_offline_condlist as any);
     }
 
     if (this.particle !== null) {
@@ -191,9 +191,9 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
   update(delta: number): void {
     object_binder.update(this, delta);
 
-    if (!this.initialized && getActor() !== null) {
+    if (!this.initialized) {
       this.initialized = true;
-      initializeGameObject(this.object, this.st, this.loaded, getActor()!, ESchemeType.ITEM);
+      initializeGameObject(this.object, this.st, this.loaded, registry.actor, ESchemeType.ITEM);
     }
 
     this.object.info_clear();

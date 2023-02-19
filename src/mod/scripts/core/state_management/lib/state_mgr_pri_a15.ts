@@ -1,7 +1,7 @@
 import { anim, CSightParams, move, XR_game_object } from "xray16";
 
 import { AnyObject, Optional } from "@/mod/lib/types";
-import { animObjByName, getActor } from "@/mod/scripts/core/db";
+import { animObjByName, registry } from "@/mod/scripts/core/db";
 import { IStateDescriptor } from "@/mod/scripts/core/state_management/lib/state_lib";
 import { parseNames } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -63,15 +63,15 @@ function break_fence(): void {
 }
 
 function lights_off(): void {
-  getActor()!.give_info_portion("pri_a15_lights_off");
+  registry.actor.give_info_portion("pri_a15_lights_off");
 }
 
 function lights_on(): void {
-  getActor()!.disable_info_portion("pri_a15_lights_off");
+  registry.actor.disable_info_portion("pri_a15_lights_off");
 }
 
 function end_scene(): void {
-  getActor()!.give_info_portion("pri_a15_cutscene_end");
+  registry.actor.give_info_portion("pri_a15_cutscene_end");
 }
 
 const cutscene = {

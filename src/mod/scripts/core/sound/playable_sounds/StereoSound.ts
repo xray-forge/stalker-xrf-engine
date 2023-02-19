@@ -1,7 +1,7 @@
 import { sound_object, time_global, XR_game_object, XR_sound_object } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { getActor } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -35,7 +35,7 @@ export class StereoSound {
   }
 
   public play(): number {
-    const actor: Optional<XR_game_object> = getActor();
+    const actor: Optional<XR_game_object> = registry.actor;
 
     if (!actor) {
       abort("Unexpected play theme call: no actor present");

@@ -10,7 +10,7 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { getActor, signalLight, storage } from "@/mod/scripts/core/db";
+import { registry, signalLight, storage } from "@/mod/scripts/core/db";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -119,7 +119,7 @@ export const SignalLightBinder: ISignalLightBinder = declare_xr_class("SignalLig
     object_binder.net_destroy(this);
   },
   launch(): boolean {
-    const actor: Optional<XR_game_object> = getActor();
+    const actor: Optional<XR_game_object> = registry.actor;
 
     if (actor === null) {
       return false;

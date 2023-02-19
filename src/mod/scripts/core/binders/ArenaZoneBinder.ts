@@ -12,7 +12,7 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { getActor } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { getTableSize } from "@/mod/scripts/utils/table";
@@ -89,7 +89,7 @@ export const ArenaZoneBinder: IArenaZoneBinder = declare_xr_class("ArenaZoneBind
   },
   on_enter(zone: XR_game_object, object: XR_game_object): void {
     if (
-      object.id() === getActor()!.id() ||
+      object.id() === registry.actor.id() ||
       object.clsid() === clsid.obj_physic ||
       object.clsid() === clsid.hanging_lamp ||
       object.clsid() === clsid.obj_phys_destroyable
@@ -101,7 +101,7 @@ export const ArenaZoneBinder: IArenaZoneBinder = declare_xr_class("ArenaZoneBind
   },
   on_exit(zone: XR_game_object, object: XR_game_object): void {
     if (
-      object.id() === getActor()!.id() ||
+      object.id() === registry.actor.id() ||
       object.clsid() === clsid.obj_physic ||
       object.clsid() === clsid.hanging_lamp ||
       object.clsid() === clsid.obj_phys_destroyable

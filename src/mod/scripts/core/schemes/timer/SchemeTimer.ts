@@ -2,7 +2,7 @@ import { get_hud, time_global, XR_CUIStatic, XR_game_object, XR_ini_file } from 
 
 import { Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry, storage } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
@@ -77,7 +77,7 @@ export class SchemeTimer extends AbstractScheme {
   }
 
   public update(delta: number): void {
-    const actor = getActor();
+    const actor = registry.actor;
 
     if (trySwitchToAnotherSection(this.object, this.state, actor)) {
       return;
@@ -95,11 +95,7 @@ export class SchemeTimer extends AbstractScheme {
 
     for (const [k, v] of this.state.on_value as LuaTable) {
       if ((this.state.type === "dec" && value_time <= v.dist) || (this.state.type === "inc" && value_time >= v.dist)) {
-        switchToSection(
-          this.object,
-          this.state.ini!,
-          pickSectionFromCondList(getActor() as XR_game_object, this.object, v.state)!
-        );
+        switchToSection(this.object, this.state.ini!, pickSectionFromCondList(registry.actor, this.object, v.state)!);
       }
     }
   }

@@ -12,7 +12,7 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { getActor, getHeliEnemiesCount, heliEnemies, heliEnemyCount } from "@/mod/scripts/core/db";
+import { getHeliEnemiesCount, heliEnemies, heliEnemyCount, registry } from "@/mod/scripts/core/db";
 import { randomChoice } from "@/mod/scripts/utils/general";
 import { getIdBySid } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -156,9 +156,7 @@ export class HeliFire {
       } else {
         if (this.enemy_) {
           if (this.enemy_ === "actor") {
-            if (getActor()) {
-              this.enemy = getActor();
-            }
+            this.enemy = registry.actor;
           } else {
             if (this.enemy_ === "all") {
               this.update_enemy_arr();
@@ -231,7 +229,7 @@ export class HeliFire {
       index = index + 1;
     }
 
-    const actor: XR_game_object = getActor()!;
+    const actor: XR_game_object = registry.actor;
 
     if ((heli.isVisible(actor) && randomChoice(false, true)) || heliEnemyCount === 0) {
       if (distanceBetween2d(this.object.position(), actor.position()) <= min_dist2D * 2) {

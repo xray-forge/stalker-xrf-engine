@@ -2,7 +2,8 @@ import { object_binder, XR_cse_alife_object, XR_game_object, XR_net_packet, XR_o
 
 import { Optional } from "@/mod/lib/types";
 import { ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { addObject, addZone, deleteObject, deleteZone, getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import { addObject, addZone, deleteObject, deleteZone, IStoredObject, storage } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db/registry";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { initializeGameObject } from "@/mod/scripts/core/schemes/initializeGameObject";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
@@ -75,10 +76,10 @@ export const RestrictorBinder: IRestrictorBinder = declare_xr_class("RestrictorB
     const activeSection: Optional<TSection> = this.state.active_section as Optional<TSection>;
     const objectId: number = this.object.id();
 
-    if (!this.isInitialized && getActor() !== null) {
+    if (!this.isInitialized) {
       this.isInitialized = true;
 
-      initializeGameObject(this.object, this.state, this.isLoaded, getActor()!, ESchemeType.RESTRICTOR);
+      initializeGameObject(this.object, this.state, this.isLoaded, registry.actor, ESchemeType.RESTRICTOR);
     }
 
     this.object.info_clear();

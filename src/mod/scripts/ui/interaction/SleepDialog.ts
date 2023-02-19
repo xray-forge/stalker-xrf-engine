@@ -25,7 +25,7 @@ import { captions } from "@/mod/globals/captions";
 import { info_portions } from "@/mod/globals/info_portions/info_portions";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
-import { getActor } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { WeatherManager } from "@/mod/scripts/core/managers/WeatherManager";
 import { disableInfo, giveInfo } from "@/mod/scripts/utils/actor";
@@ -153,7 +153,7 @@ export const SleepDialog = declare_xr_class("SleepDialog", CUIScriptWnd, {
   TestAndShow(): void {
     logger.info("Test and show");
 
-    const actor: XR_game_object = getActor()!;
+    const actor: XR_game_object = registry.actor;
 
     if (actor.bleeding > 0 || actor.radiation > 0) {
       this.sleep_mb.InitMessageBox("message_box_ok");
@@ -204,7 +204,7 @@ export const SleepDialog = declare_xr_class("SleepDialog", CUIScriptWnd, {
 
     this.HideDialog();
 
-    get_global<AnyCallablesModule>("xr_effects").disable_ui(getActor(), null);
+    get_global<AnyCallablesModule>("xr_effects").disable_ui(registry.actor, null);
 
     level.add_cam_effector(animations.camera_effects_sleep, 10, false, "extern.dream_callback");
     level.add_pp_effector(post_processors.sleep_fade, 11, false);
@@ -236,7 +236,7 @@ export function dream_callback(): void {
 
   level.add_cam_effector(animations.camera_effects_sleep, 10, false, "extern.dream_callback2");
 
-  const actor: XR_game_object = getActor()!;
+  const actor: XR_game_object = registry.actor;
   const hours = sleep_control!.time_track.GetIValue();
   const weatherManager = WeatherManager.getInstance();
   const surgeManager = SurgeManager.getInstance();
@@ -258,7 +258,7 @@ export function dream_callback(): void {
 export function dream_callback2(): void {
   logger.info("Dream callback 2");
 
-  get_global<AnyCallablesModule>("xr_effects").enable_ui(getActor(), null);
+  get_global<AnyCallablesModule>("xr_effects").enable_ui(registry.actor, null);
   get_console().execute("snd_volume_music " + tostring(get_global("mus_vol")));
   get_console().execute("snd_volume_eff " + tostring(get_global("amb_vol")));
 

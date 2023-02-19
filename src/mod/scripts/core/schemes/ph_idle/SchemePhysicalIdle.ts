@@ -1,7 +1,7 @@
 import { XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
@@ -57,7 +57,7 @@ export class SchemePhysicalIdle extends AbstractScheme {
   }
 
   public update(delta: number): void {
-    trySwitchToAnotherSection(this.object, this.state, getActor());
+    trySwitchToAnotherSection(this.object, this.state, registry.actor);
   }
 
   public deactivate(): void {
@@ -75,7 +75,7 @@ export class SchemePhysicalIdle extends AbstractScheme {
 
     if (this.state.hit_on_bone[bone_index] !== null) {
       const section: TSection = pickSectionFromCondList(
-        getActor() as XR_game_object,
+        registry.actor,
         this.object,
         this.state.hit_on_bone[bone_index].state
       )!;
@@ -92,7 +92,7 @@ export class SchemePhysicalIdle extends AbstractScheme {
         switchToSection(
           this.object,
           this.state.ini!,
-          pickSectionFromCondList(getActor() as XR_game_object, this.object, this.state.on_use.condlist)!
+          pickSectionFromCondList(registry.actor, this.object, this.state.on_use.condlist)!
         )
       ) {
         return true;

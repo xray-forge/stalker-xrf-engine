@@ -15,11 +15,10 @@ import { outfits } from "@/mod/globals/items/outfits";
 import { quest_items } from "@/mod/globals/items/quest_items";
 import { TWeapon, weapons } from "@/mod/globals/items/weapons";
 import { AnyCallablesModule, AnyObject, LuaArray, Optional } from "@/mod/lib/types";
-import { anomalyByName, getActor } from "@/mod/scripts/core/db";
+import { anomalyByName, registry } from "@/mod/scripts/core/db";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
 import { relocate_item } from "@/mod/scripts/core/NewsManager";
 import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
-import { counter_greater } from "@/mod/scripts/globals/conditions";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { isSquadExisting } from "@/mod/scripts/utils/checkers/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -83,7 +82,7 @@ export function zat_b30_owl_stalker_trader_actor_has_item_to_sell(
     [detectors.detector_scientific]: info_portions.zat_b30_owl_detectors_approached,
   } as unknown as LuaTable<string, string>;
 
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const actor: XR_game_object = registry.actor;
 
   for (const [k, v] of items_table) {
     if (actor.object(v) !== null) {
@@ -135,14 +134,14 @@ export function zat_b30_owl_can_say_about_heli(first_speaker: XR_game_object, se
  * todo;
  */
 export function zat_b30_actor_has_1000(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return getActor()!.money() >= 1000;
+  return registry.actor.money() >= 1000;
 }
 
 /**
  * todo;
  */
 export function zat_b30_actor_has_200(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return getActor()!.money() >= 200;
+  return registry.actor.money() >= 200;
 }
 
 /**
@@ -152,7 +151,7 @@ export function zat_b30_actor_has_pri_b36_monolith_hiding_place_pda(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return getActor()!.object(quest_items.pri_b36_monolith_hiding_place_pda) !== null;
+  return registry.actor.object(quest_items.pri_b36_monolith_hiding_place_pda) !== null;
 }
 
 /**
@@ -162,7 +161,7 @@ export function zat_b30_actor_has_pri_b306_envoy_pda(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return getActor()!.object(quest_items.pri_b306_envoy_pda) !== null;
+  return registry.actor.object(quest_items.pri_b306_envoy_pda) !== null;
 }
 
 /**
@@ -172,7 +171,7 @@ export function zat_b30_actor_has_jup_b10_strelok_notes_1(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return getActor()!.object(quest_items.jup_b10_notes_01) !== null;
+  return registry.actor.object(quest_items.jup_b10_notes_01) !== null;
 }
 
 /**
@@ -182,7 +181,7 @@ export function zat_b30_actor_has_jup_b10_strelok_notes_2(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return getActor()!.object(quest_items.jup_b10_notes_02) !== null;
+  return registry.actor.object(quest_items.jup_b10_notes_02) !== null;
 }
 
 /**
@@ -192,7 +191,7 @@ export function zat_b30_actor_has_jup_b10_strelok_notes_3(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return getActor()!.object(quest_items.jup_b10_notes_03) !== null;
+  return registry.actor.object(quest_items.jup_b10_notes_03) !== null;
 }
 
 /**
@@ -202,7 +201,7 @@ export function zat_b30_actor_has_detector_scientific(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return getActor()!.object(detectors.detector_scientific) !== null;
+  return registry.actor.object(detectors.detector_scientific) !== null;
 }
 
 /**
@@ -212,7 +211,7 @@ export function zat_b30_actor_has_device_flash_snag(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return getActor()!.object(quest_items.device_flash_snag) !== null;
+  return registry.actor.object(quest_items.device_flash_snag) !== null;
 }
 
 /**
@@ -222,7 +221,7 @@ export function zat_b30_actor_has_device_pda_port_bandit_leader(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return getActor()!.object(quest_items.device_pda_port_bandit_leader) !== null;
+  return registry.actor.object(quest_items.device_pda_port_bandit_leader) !== null;
 }
 
 /**
@@ -232,7 +231,7 @@ export function zat_b30_actor_has_jup_b10_ufo_memory(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return getActor()!.object(quest_items.jup_b10_ufo_memory_2) !== null;
+  return registry.actor.object(quest_items.jup_b10_ufo_memory_2) !== null;
 }
 
 /**
@@ -242,7 +241,7 @@ export function zat_b30_actor_has_jup_b202_bandit_pda(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return getActor()!.object(quest_items.jup_b202_bandit_pda) !== null;
+  return registry.actor.object(quest_items.jup_b202_bandit_pda) !== null;
 }
 
 /**
@@ -380,7 +379,7 @@ export function zat_b30_owl_stalker_trader_sell_device_flash_snag(
 ): void {
   takeItemsFromActor(first_speaker, second_speaker, quest_items.device_flash_snag);
   giveMoneyToActor(200);
-  getActor()!.give_info_portion(info_portions.device_flash_snag_sold);
+  registry.actor.give_info_portion(info_portions.device_flash_snag_sold);
 }
 
 /**
@@ -500,10 +499,10 @@ export function zat_b7_give_stalker_reward_2_to_actor(
  * todo;
  */
 export function zat_b7_rob_actor(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  let amount = math.floor((getActor()!.money() * math.random(75, 100)) / 100);
+  let amount = math.floor((registry.actor.money() * math.random(75, 100)) / 100);
 
-  if (getActor()!.money() < amount) {
-    amount = getActor()!.money();
+  if (registry.actor.money() < amount) {
+    amount = registry.actor.money();
   }
 
   takeMoneyFromActor(first_speaker, second_speaker, amount);
@@ -735,7 +734,7 @@ export function zat_b33_transfer_safe_container(first_speaker: XR_game_object, s
  * todo;
  */
 export function zat_b33_aractor_has_habar(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return getActor()!.object(quest_items.zat_b33_safe_container) !== null;
+  return registry.actor.object(quest_items.zat_b33_safe_container) !== null;
 }
 
 /**
@@ -749,7 +748,7 @@ export function zat_b33_actor_hasnt_habar(first_speaker: XR_game_object, second_
  * todo;
  */
 export function zat_b33_actor_has_needed_money(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return getActor()!.money() >= 500;
+  return registry.actor.money() >= 500;
 }
 
 /**
@@ -911,7 +910,7 @@ export function zat_b29_actor_do_not_has_adv_task_af(
   second_speaker: XR_game_object
 ): boolean {
   for (const i of $range(16, 23)) {
-    if (hasAlifeInfo(zat_b29_infop_bring_table.get(i)) && getActor()!.object(zat_b29_af_table.get(i))) {
+    if (hasAlifeInfo(zat_b29_infop_bring_table.get(i)) && registry.actor.object(zat_b29_af_table.get(i))) {
       return false;
     }
   }
@@ -924,7 +923,7 @@ export function zat_b29_actor_do_not_has_adv_task_af(
  */
 export function zat_b29_actor_has_adv_task_af(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
   for (const i of $range(16, 23)) {
-    if (hasAlifeInfo(zat_b29_infop_bring_table.get(i)) && getActor()!.object(zat_b29_af_table.get(i))) {
+    if (hasAlifeInfo(zat_b29_infop_bring_table.get(i)) && registry.actor.object(zat_b29_af_table.get(i))) {
       return true;
     }
   }
@@ -994,7 +993,7 @@ export function zat_b29_actor_has_exchange_item(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const actor: XR_game_object = registry.actor;
   const actor_wpn_table = getGoodGunsInInventory(actor);
 
   if (actor_wpn_table.length() > 0) {
@@ -1008,7 +1007,7 @@ export function zat_b29_actor_has_exchange_item(
  * todo;
  */
 export function zat_b29_actor_exchange(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const actor: XR_game_object = registry.actor;
 
   for (const i of $range(16, 23)) {
     if (hasAlifeInfo(zat_b29_infop_bring_table.get(i))) {
@@ -1027,7 +1026,7 @@ export function zat_b29_actor_exchange(first_speaker: XR_game_object, second_spe
  * todo;
  */
 export function zat_b30_transfer_percent(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const actor: XR_game_object = registry.actor;
   const amount: number = math.random(5, 25) * 100;
   const days: number = pstor_retrieve(actor, "zat_b30_days_cnt", 0);
 
@@ -1053,7 +1052,7 @@ export function zat_b30_actor_second_exchange(first_speaker: XR_game_object, sec
  * todo;
  */
 export function zat_b30_actor_exchange(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const actor: XR_game_object = registry.actor;
 
   if ((actor as AnyObject).good_gun !== null) {
     takeItemsFromActor(first_speaker, second_speaker, (actor as AnyObject).good_gun);
@@ -1075,7 +1074,7 @@ export function zat_b30_actor_has_two_detectors(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const actor: XR_game_object = registry.actor;
   let cnt: number = 0;
 
   actor.iterate_inventory((npc, item) => {
@@ -1110,7 +1109,7 @@ export function actor_has_nimble_weapon(first_speaker: XR_game_object, second_sp
  * todo;
  */
 export function zat_b51_robbery(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const actor: XR_game_object = registry.actor;
   let amount: number = math.floor((actor.money() * math.random(35, 50)) / 100);
 
   if (amount > actor.money()) {
@@ -1161,7 +1160,7 @@ export function zat_b51_robbery(first_speaker: XR_game_object, second_speaker: X
  * todo;
  */
 export function zat_b51_rob_nimble_weapon(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const actor: XR_game_object = registry.actor;
   const actor_has_item: LuaArray<TWeapon> = new LuaTable();
   const need_item = {
     [weapons.wpn_groza_nimble]: true,
@@ -1275,7 +1274,7 @@ export function zat_b51_give_prepay(first_speaker: XR_game_object, second_speake
  * todo;
  */
 export function zat_b51_has_prepay(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const actor: XR_game_object = registry.actor;
 
   for (const i of $range(1, 7)) {
     if (hasAlifeInfo("zat_b51_processing_category_" + tostring(i))) {
@@ -1372,7 +1371,7 @@ export function zat_b51_refuse_item(first_speaker: XR_game_object, second_speake
  * todo;
  */
 export function zat_b51_has_item_cost(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const actor: XR_game_object = registry.actor;
 
   for (const i of $range(1, 7)) {
     if (hasAlifeInfo("zat_b51_processing_category_" + tostring(i))) {
@@ -1405,7 +1404,7 @@ export function zat_b12_actor_transfer_documents(
   second_speaker: XR_game_object
 ): boolean {
   const npc: XR_game_object = getNpcSpeaker(first_speaker, second_speaker);
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const actor: XR_game_object = registry.actor;
 
   const amount_doc1: number = 1000;
   const amount_doc2: number = 600;
@@ -1458,7 +1457,7 @@ export function zat_b12_actor_transfer_documents(
  * todo;
  */
 export function zat_b3_actor_got_toolkit(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const actor: XR_game_object = registry.actor;
 
   actor.iterate_inventory((npc: XR_game_object, item: XR_game_object) => {
     const section = item.section();
@@ -1482,7 +1481,7 @@ export function zat_b3_actor_got_toolkit(first_speaker: XR_game_object, second_s
  */
 export function give_toolkit_3(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   takeItemsFromActor(first_speaker, second_speaker, misc.toolkit_3);
-  (getActor() as AnyObject).toolkit = null;
+  (registry.actor as AnyObject).toolkit = null;
   giveMoneyToActor(1500);
 }
 
@@ -1491,7 +1490,7 @@ export function give_toolkit_3(first_speaker: XR_game_object, second_speaker: XR
  */
 export function give_toolkit_1(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   takeItemsFromActor(first_speaker, second_speaker, misc.toolkit_1);
-  (getActor() as AnyObject).toolkit = null;
+  (registry.actor as AnyObject).toolkit = null;
   giveMoneyToActor(1000);
 }
 
@@ -1499,7 +1498,7 @@ export function give_toolkit_1(first_speaker: XR_game_object, second_speaker: XR
  * todo;
  */
 export function if_actor_has_toolkit_1(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return getActor()!.object(misc.toolkit_1) !== null;
+  return registry.actor.object(misc.toolkit_1) !== null;
 }
 
 /**
@@ -1507,7 +1506,7 @@ export function if_actor_has_toolkit_1(first_speaker: XR_game_object, second_spe
  */
 export function give_toolkit_2(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   takeItemsFromActor(first_speaker, second_speaker, misc.toolkit_2);
-  (getActor() as AnyObject).toolkit = null;
+  (registry.actor as AnyObject).toolkit = null;
   giveMoneyToActor(1200);
 }
 
@@ -1515,7 +1514,7 @@ export function give_toolkit_2(first_speaker: XR_game_object, second_speaker: XR
  * todo;
  */
 export function if_actor_has_toolkit_2(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return getActor()!.object(misc.toolkit_2) !== null;
+  return registry.actor.object(misc.toolkit_2) !== null;
 }
 
 /**
@@ -1577,7 +1576,7 @@ export function zat_b29_actor_do_not_has_adv_task_af_1(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return hasAlifeInfo(zat_b29_infop_table.get(16)) && !getActor()!.object(zat_b29_af_table.get(16));
+  return hasAlifeInfo(zat_b29_infop_table.get(16)) && !registry.actor.object(zat_b29_af_table.get(16));
 }
 
 /**
@@ -1587,7 +1586,7 @@ export function zat_b29_actor_do_not_has_adv_task_af_2(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return hasAlifeInfo(zat_b29_infop_table.get(17)) && !getActor()!.object(zat_b29_af_table.get(17));
+  return hasAlifeInfo(zat_b29_infop_table.get(17)) && !registry.actor.object(zat_b29_af_table.get(17));
 }
 
 /**
@@ -1597,7 +1596,7 @@ export function zat_b29_actor_do_not_has_adv_task_af_3(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return hasAlifeInfo(zat_b29_infop_table.get(18)) && !getActor()!.object(zat_b29_af_table.get(18));
+  return hasAlifeInfo(zat_b29_infop_table.get(18)) && !registry.actor.object(zat_b29_af_table.get(18));
 }
 
 /**
@@ -1607,7 +1606,7 @@ export function zat_b29_actor_do_not_has_adv_task_af_4(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return hasAlifeInfo(zat_b29_infop_table.get(19)) && !getActor()!.object(zat_b29_af_table.get(19));
+  return hasAlifeInfo(zat_b29_infop_table.get(19)) && !registry.actor.object(zat_b29_af_table.get(19));
 }
 
 /**
@@ -1617,7 +1616,7 @@ export function zat_b29_actor_do_not_has_adv_task_af_5(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return hasAlifeInfo(zat_b29_infop_table.get(20)) && !getActor()!.object(zat_b29_af_table.get(20));
+  return hasAlifeInfo(zat_b29_infop_table.get(20)) && !registry.actor.object(zat_b29_af_table.get(20));
 }
 
 /**
@@ -1627,7 +1626,7 @@ export function zat_b29_actor_do_not_has_adv_task_af_6(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return hasAlifeInfo(zat_b29_infop_table.get(21)) && !getActor()!.object(zat_b29_af_table.get(21));
+  return hasAlifeInfo(zat_b29_infop_table.get(21)) && !registry.actor.object(zat_b29_af_table.get(21));
 }
 
 /**
@@ -1637,7 +1636,7 @@ export function zat_b29_actor_do_not_has_adv_task_af_7(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return hasAlifeInfo(zat_b29_infop_table.get(22)) && !getActor()!.object(zat_b29_af_table.get(22));
+  return hasAlifeInfo(zat_b29_infop_table.get(22)) && !registry.actor.object(zat_b29_af_table.get(22));
 }
 
 /**
@@ -1647,7 +1646,7 @@ export function zat_b29_actor_do_not_has_adv_task_af_8(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return hasAlifeInfo(zat_b29_infop_table.get(23)) && !getActor()!.object(zat_b29_af_table.get(23));
+  return hasAlifeInfo(zat_b29_infop_table.get(23)) && !registry.actor.object(zat_b29_af_table.get(23));
 }
 
 /**
@@ -1657,7 +1656,7 @@ export function zat_b29_actor_has_adv_task_af_1(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return hasAlifeInfo(zat_b29_infop_table.get(16)) && getActor()!.object(zat_b29_af_table.get(16)) !== null;
+  return hasAlifeInfo(zat_b29_infop_table.get(16)) && registry.actor.object(zat_b29_af_table.get(16)) !== null;
 }
 
 /**
@@ -1667,7 +1666,7 @@ export function zat_b29_actor_has_adv_task_af_2(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return hasAlifeInfo(zat_b29_infop_table.get(17)) && getActor()!.object(zat_b29_af_table.get(17)) !== null;
+  return hasAlifeInfo(zat_b29_infop_table.get(17)) && registry.actor.object(zat_b29_af_table.get(17)) !== null;
 }
 
 /**
@@ -1677,7 +1676,7 @@ export function zat_b29_actor_has_adv_task_af_3(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return hasAlifeInfo(zat_b29_infop_table.get(18)) && getActor()!.object(zat_b29_af_table.get(18)) !== null;
+  return hasAlifeInfo(zat_b29_infop_table.get(18)) && registry.actor.object(zat_b29_af_table.get(18)) !== null;
 }
 
 /**
@@ -1687,7 +1686,7 @@ export function zat_b29_actor_has_adv_task_af_4(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return hasAlifeInfo(zat_b29_infop_table.get(19)) && getActor()!.object(zat_b29_af_table.get(19)) !== null;
+  return hasAlifeInfo(zat_b29_infop_table.get(19)) && registry.actor.object(zat_b29_af_table.get(19)) !== null;
 }
 
 /**
@@ -1697,7 +1696,7 @@ export function zat_b29_actor_has_adv_task_af_5(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return hasAlifeInfo(zat_b29_infop_table.get(20)) && getActor()!.object(zat_b29_af_table.get(20)) !== null;
+  return hasAlifeInfo(zat_b29_infop_table.get(20)) && registry.actor.object(zat_b29_af_table.get(20)) !== null;
 }
 
 /**
@@ -1707,7 +1706,7 @@ export function zat_b29_actor_has_adv_task_af_6(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return hasAlifeInfo(zat_b29_infop_table.get(21)) && getActor()!.object(zat_b29_af_table.get(21)) !== null;
+  return hasAlifeInfo(zat_b29_infop_table.get(21)) && registry.actor.object(zat_b29_af_table.get(21)) !== null;
 }
 
 /**
@@ -1717,7 +1716,7 @@ export function zat_b29_actor_has_adv_task_af_7(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return hasAlifeInfo(zat_b29_infop_table.get(22)) && getActor()!.object(zat_b29_af_table.get(22)) !== null;
+  return hasAlifeInfo(zat_b29_infop_table.get(22)) && registry.actor.object(zat_b29_af_table.get(22)) !== null;
 }
 
 /**
@@ -1727,7 +1726,7 @@ export function zat_b29_actor_has_adv_task_af_8(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return hasAlifeInfo(zat_b29_infop_table.get(23)) && getActor()!.object(zat_b29_af_table.get(23)) !== null;
+  return hasAlifeInfo(zat_b29_infop_table.get(23)) && registry.actor.object(zat_b29_af_table.get(23)) !== null;
 }
 
 /**
@@ -1751,7 +1750,7 @@ export function zat_b30_give_owls_share_to_actor(first_speaker: XR_game_object, 
  * todo;
  */
 export function zat_b30_actor_has_compass(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return getActor()!.object(artefacts.af_compass) !== null;
+  return registry.actor.object(artefacts.af_compass) !== null;
 }
 
 /**
@@ -1791,7 +1790,7 @@ export function zat_b30_barmen_do_not_has_percent(
  * todo;
  */
 export function zat_b30_actor_has_noah_pda(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return getActor()!.object(quest_items.zat_b20_noah_pda) !== null;
+  return registry.actor.object(quest_items.zat_b20_noah_pda) !== null;
 }
 
 /**
@@ -1806,28 +1805,28 @@ export function zat_b30_sell_noah_pda(first_speaker: XR_game_object, second_spea
  * todo;
  */
 export function zat_b40_actor_has_notebook(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return getActor()!.object(quest_items.zat_b40_notebook) !== null;
+  return registry.actor.object(quest_items.zat_b40_notebook) !== null;
 }
 
 /**
  * todo;
  */
 export function zat_b40_actor_has_merc_pda_1(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return getActor()!.object(quest_items.zat_b40_pda_1) !== null;
+  return registry.actor.object(quest_items.zat_b40_pda_1) !== null;
 }
 
 /**
  * todo;
  */
 export function zat_b40_actor_has_merc_pda_2(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return getActor()!.object(quest_items.zat_b40_pda_2) !== null;
+  return registry.actor.object(quest_items.zat_b40_pda_2) !== null;
 }
 
 /**
  * todo;
  */
 export function if_actor_has_toolkit_3(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return getActor()!.object(misc.toolkit_3) !== null;
+  return registry.actor.object(misc.toolkit_3) !== null;
 }
 
 /**
@@ -1841,7 +1840,7 @@ export function give_vodka(first_speaker: XR_game_object, second_speaker: XR_gam
  * todo;
  */
 export function if_actor_has_vodka(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return getActor()!.object(food.vodka) !== null;
+  return registry.actor.object(food.vodka) !== null;
 }
 
 /**
@@ -1851,7 +1850,7 @@ export function actor_has_more_then_need_money_to_buy_battery(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return getActor()!.money() >= 2000;
+  return registry.actor.money() >= 2000;
 }
 
 /**
@@ -1861,7 +1860,7 @@ export function actor_has_less_then_need_money_to_buy_battery(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return getActor()!.money() < 2000;
+  return registry.actor.money() < 2000;
 }
 
 /**
@@ -1937,7 +1936,7 @@ export function give_actor_repaired_gauss_rifle(first_speaker: XR_game_object, s
  * todo;
  */
 export function zat_b215_actor_has_money_poor(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return getActor()!.money() >= 1000;
+  return registry.actor.money() >= 1000;
 }
 
 /**
@@ -1947,7 +1946,7 @@ export function zat_b215_actor_has_no_money_poor(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return getActor()!.money() < 1000;
+  return registry.actor.money() < 1000;
 }
 
 /**
@@ -1957,7 +1956,7 @@ export function zat_b215_actor_has_money_poor_pripyat(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return getActor()!.money() >= 4000;
+  return registry.actor.money() >= 4000;
 }
 
 /**
@@ -1967,14 +1966,14 @@ export function zat_b215_actor_has_no_money_poor_pripyat(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return getActor()!.money() < 4000;
+  return registry.actor.money() < 4000;
 }
 
 /**
  * todo;
  */
 export function zat_b215_actor_has_money_rich(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return getActor()!.money() >= 3000;
+  return registry.actor.money() >= 3000;
 }
 
 /**
@@ -1984,7 +1983,7 @@ export function zat_b215_actor_has_no_money_rich(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return getActor()!.money() < 3000;
+  return registry.actor.money() < 3000;
 }
 
 /**
@@ -1994,7 +1993,7 @@ export function zat_b215_actor_has_money_rich_pripyat(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return getActor()!.money() >= 6000;
+  return registry.actor.money() >= 6000;
 }
 
 /**
@@ -2004,7 +2003,7 @@ export function zat_b215_actor_has_no_money_rich_pripyat(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return getActor()!.money() < 6000;
+  return registry.actor.money() < 6000;
 }
 
 /**
@@ -2046,8 +2045,8 @@ export function zat_b215_relocate_money_rich_pripyat(
  */
 export function zat_b44_actor_has_pda_global(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
   return (
-    getActor()!.object(quest_items.zat_b39_joker_pda) !== null ||
-    getActor()!.object(quest_items.zat_b44_barge_pda) !== null
+    registry.actor.object(quest_items.zat_b39_joker_pda) !== null ||
+    registry.actor.object(quest_items.zat_b44_barge_pda) !== null
   );
 }
 
@@ -2059,8 +2058,8 @@ export function zat_b44_actor_has_not_pda_global(
   second_speaker: XR_game_object
 ): boolean {
   return (
-    getActor()!.object(quest_items.zat_b39_joker_pda) === null ||
-    getActor()!.object(quest_items.zat_b44_barge_pda) === null
+    registry.actor.object(quest_items.zat_b39_joker_pda) === null ||
+    registry.actor.object(quest_items.zat_b44_barge_pda) === null
   );
 }
 
@@ -2068,14 +2067,14 @@ export function zat_b44_actor_has_not_pda_global(
  * todo;
  */
 export function zat_b44_actor_has_pda_barge(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return getActor()!.object(quest_items.zat_b44_barge_pda) !== null;
+  return registry.actor.object(quest_items.zat_b44_barge_pda) !== null;
 }
 
 /**
  * todo;
  */
 export function zat_b44_actor_has_pda_joker(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return getActor()!.object(quest_items.zat_b39_joker_pda) !== null;
+  return registry.actor.object(quest_items.zat_b39_joker_pda) !== null;
 }
 
 /**
@@ -2083,8 +2082,8 @@ export function zat_b44_actor_has_pda_joker(first_speaker: XR_game_object, secon
  */
 export function zat_b44_actor_has_pda_both(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
   return (
-    getActor()!.object(quest_items.zat_b39_joker_pda) !== null &&
-    getActor()!.object(quest_items.zat_b44_barge_pda) !== null
+    registry.actor.object(quest_items.zat_b39_joker_pda) !== null &&
+    registry.actor.object(quest_items.zat_b44_barge_pda) !== null
   );
 }
 
@@ -2140,7 +2139,7 @@ export function zat_b53_if_actor_has_detector_advanced(
  */
 export function zat_b53_transfer_medkit_to_npc(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   let section: Optional<TDrugItem> = null;
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const actor: XR_game_object = registry.actor;
 
   if (actorHasItem(drugs.medkit)) {
     section = drugs.medkit;
@@ -2244,14 +2243,13 @@ export function zat_b106_soroka_reward(first_speaker: XR_game_object, second_spe
  * todo;
  */
 export function zat_b103_actor_has_needed_food(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+  const actor: XR_game_object = registry.actor;
   const item_sections = [food.bread, food.kolbasa, food.conserva] as unknown as LuaArray<TFoodItem>;
 
   let count = 0;
 
-  const actor: XR_game_object = getActor() as XR_game_object;
-
   for (const [k, item_section] of item_sections) {
-    getActor()!.iterate_inventory((temp, item) => {
+    registry.actor.iterate_inventory((temp, item) => {
       if (item.section() === item_section) {
         count = count + 1;
       }
@@ -2353,7 +2351,7 @@ export function zat_b5_bandits_revard(first_speaker: XR_game_object, second_spea
  * todo;
  */
 export function zat_a23_actor_has_access_card(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return getActor()!.object(quest_items.zat_a23_access_card) !== null;
+  return registry.actor.object(quest_items.zat_a23_access_card) !== null;
 }
 
 /**
@@ -2383,7 +2381,7 @@ export function zat_b57_stalker_reward_to_actor_detector(
  * todo;
  */
 export function actor_has_gas(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return getActor()!.object(quest_items.zat_b57_gas) !== null;
+  return registry.actor.object(quest_items.zat_b57_gas) !== null;
 }
 
 /**
@@ -2397,7 +2395,7 @@ export function actor_has_not_gas(first_speaker: XR_game_object, second_speaker:
  * todo;
  */
 export function zat_b57_actor_has_money(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return getActor()!.money() >= 2000;
+  return registry.actor.money() >= 2000;
 }
 
 /**

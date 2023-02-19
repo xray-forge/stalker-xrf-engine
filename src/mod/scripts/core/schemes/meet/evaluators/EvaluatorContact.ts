@@ -1,7 +1,7 @@
 import { property_evaluator, stalker_ids, XR_action_planner, XR_game_object, XR_property_evaluator } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { isObjectWounded } from "@/mod/scripts/utils/checkers/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -22,7 +22,7 @@ export const EvaluatorContact: IEvaluatorContact = declare_xr_class("EvaluatorCo
       return false;
     }
 
-    const actor: Optional<XR_game_object> = getActor();
+    const actor: Optional<XR_game_object> = registry.actor;
 
     if (actor === null || !actor.alive()) {
       return false;

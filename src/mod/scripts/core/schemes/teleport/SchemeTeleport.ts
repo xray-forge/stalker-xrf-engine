@@ -4,7 +4,7 @@ import { post_processors } from "@/mod/globals/animation/post_processors";
 import { sounds } from "@/mod/globals/sound/sounds";
 import { Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
@@ -74,7 +74,7 @@ export class SchemeTeleport extends AbstractScheme {
   public timer: Optional<number> = null;
 
   public update(delta: number): void {
-    const actor: Optional<XR_game_object> = getActor();
+    const actor: Optional<XR_game_object> = registry.actor;
 
     if (!actor) {
       return;

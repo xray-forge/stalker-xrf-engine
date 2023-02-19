@@ -16,7 +16,7 @@ import {
 
 import { levels, TLevel } from "@/mod/globals/levels";
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
-import { getActor } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { getInventoryVictim } from "@/mod/scripts/core/inventory_upgrades";
 import { send_task } from "@/mod/scripts/core/NewsManager";
 import * as TaskFunctor from "@/mod/scripts/core/task/TaskFunctor";
@@ -247,7 +247,7 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
     t.add_complete_func("extern.task_complete");
     t.add_fail_func("extern.task_fail");
 
-    pickSectionFromCondList(getActor() as XR_game_object, getActor(), this.on_init as any);
+    pickSectionFromCondList(registry.actor, registry.actor, this.on_init as any);
 
     if (this.current_target !== null) {
       t.set_map_location(this.spot);
@@ -269,7 +269,7 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
     this.status = "selected";
     this.inited_time = game.get_game_time();
 
-    getActor()!.give_task(t, time * 10, false, time);
+    registry.actor.give_task(t, time * 10, false, time);
     this.t = t;
   },
   check_task(): void {
@@ -281,7 +281,7 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
     }
 
     if (this.t === null) {
-      this.t = getActor()?.get_task(this.id, true) as XR_CGameTask;
+      this.t = registry.actor?.get_task(this.id, true) as XR_CGameTask;
 
       return;
     }
@@ -332,11 +332,11 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
     }
 
     if (task_updated && !this.dont_send_update_news) {
-      send_task(getActor(), "updated", this.t);
+      send_task(registry.actor, "updated", this.t);
     }
 
     for (const [k, v] of this.condlist) {
-      const t = pickSectionFromCondList(getActor() as XR_game_object, getActor(), v as any);
+      const t = pickSectionFromCondList(registry.actor, registry.actor, v as any);
 
       if (t !== null) {
         if (!valid_values.get(t)) {
@@ -352,10 +352,10 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
   give_reward(): void {
     logger.info("Give quest rewards:", this.id, this.t?.get_id());
 
-    pickSectionFromCondList(getActor() as XR_game_object, getActor(), this.on_complete as any);
+    pickSectionFromCondList(registry.actor, registry.actor, this.on_complete as any);
 
-    const money = pickSectionFromCondList(getActor() as XR_game_object, getActor(), this.reward_money as any);
-    const items = pickSectionFromCondList(getActor() as XR_game_object, getActor(), this.reward_item as any);
+    const money = pickSectionFromCondList(registry.actor, registry.actor, this.reward_money as any);
+    const items = pickSectionFromCondList(registry.actor, registry.actor, this.reward_item as any);
     const npc = getInventoryVictim();
 
     if (money !== null) {
@@ -386,17 +386,17 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
     this.check_time = null;
 
     if (this.last_check_task === "fail") {
-      send_task(getActor(), "fail", task);
+      send_task(registry.actor, "fail", task);
     } else if (this.last_check_task === "reversed") {
-      pickSectionFromCondList(getActor() as XR_game_object, getActor(), this.on_reversed as any);
-      send_task(getActor(), "reversed", task);
+      pickSectionFromCondList(registry.actor, registry.actor, this.on_reversed as any);
+      send_task(registry.actor, "reversed", task);
     }
 
     this.last_check_task = null;
     this.status = "normal";
   },
   check_level(target: Optional<number>): void {
-    if (!target || getActor()!.is_active_task(this.t)) {
+    if (!target || registry.actor.is_active_task(this.t)) {
       return;
     }
 

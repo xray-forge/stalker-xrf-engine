@@ -59,9 +59,9 @@ import {
   animObjByName,
   anomalyByName,
   deleteHeli,
-  getActor,
   IStoredObject,
   noWeapZones,
+  registry,
   scriptIds,
   signalLight,
   storage,
@@ -212,7 +212,6 @@ export function disable_ui_only(actor: XR_game_object, npc: XR_game_object): voi
 
 export function enable_ui(actor: XR_game_object, npc: XR_game_object, p: [string]) {
   logger.info("Enable UI");
-  // --getActor().restore_weapon()
 
   if (!p || (p && p[0] !== "true")) {
     if (ui_active_slot !== 0 && actor.item_in_slot(ui_active_slot) !== null) {
@@ -894,7 +893,7 @@ export function set_counter(
 }
 
 export function actor_punch(npc: XR_game_object): void {
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const actor: XR_game_object = registry.actor;
 
   if (actor.position().distance_to_sqr(npc.position()) > 4) {
     return;
@@ -2434,7 +2433,7 @@ export function pick_artefact_from_anomaly(
   anomal_zone.onArtefactTaken(af_obj);
 
   alife().release(af_obj!, true);
-  give_item(getActor()!, npc, [af_name, params[0]]);
+  give_item(registry.actor, npc, [af_name, params[0]]);
 }
 
 export function zat_b202_spawn_random_loot(actor: XR_game_object, npc: XR_game_object, p: []) {
@@ -2619,7 +2618,7 @@ export function zat_a1_tutorial_end_give(actor: XR_game_object, npc: XR_game_obj
 
 // todo: Fix if used, should increment values probably with +=.
 export function oasis_heal(): void {
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const actor: XR_game_object = registry.actor;
 
   const d_health = 0.005;
   const d_power = 0.01;
@@ -2657,11 +2656,11 @@ export function damage_actor_items_on_start(actor: XR_game_object, npc: XR_game_
 }
 
 export function pas_b400_play_particle(actor: XR_game_object, npc: XR_game_object, p: []) {
-  getActor()!.start_particles("zones\\zone_acidic_idle", "bip01_head");
+  registry.actor.start_particles("zones\\zone_acidic_idle", "bip01_head");
 }
 
 export function pas_b400_stop_particle(actor: XR_game_object, npc: XR_game_object, p: []) {
-  getActor()!.stop_particles("zones\\zone_acidic_idle", "bip01_head");
+  registry.actor.stop_particles("zones\\zone_acidic_idle", "bip01_head");
 }
 
 export function damage_pri_a17_gauss() {
@@ -2910,7 +2909,7 @@ export function create_cutscene_actor_with_weapon(
 
   const slot_override = params[4] || 0;
 
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const actor: XR_game_object = registry.actor;
   let slot: number;
   let active_item: Optional<XR_game_object> = null;
 
@@ -3046,11 +3045,11 @@ export function clear_monster_animation(actor: XR_game_object, npc: XR_game_obje
 let actor_position_for_restore: Optional<XR_vector> = null;
 
 export function save_actor_position(): void {
-  actor_position_for_restore = getActor()!.position();
+  actor_position_for_restore = registry.actor.position();
 }
 
 export function restore_actor_position(): void {
-  getActor()!.set_actor_position(actor_position_for_restore!);
+  registry.actor.set_actor_position(actor_position_for_restore!);
 }
 
 export function upgrade_hint(actor: XR_game_object, npc: XR_game_object, p: Optional<LuaTable>): void {
@@ -3082,7 +3081,7 @@ export function force_obj(actor: XR_game_object, npc: XR_game_object, p: [string
 }
 
 export function pri_a28_check_zones(): void {
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const actor: XR_game_object = registry.actor;
   let story_obj_id: Optional<number> = null;
   let dist: number = 0;
   let index: number = 0;
@@ -3140,7 +3139,7 @@ export function pri_a28_check_zones(): void {
 }
 
 export function eat_vodka_script() {
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const actor: XR_game_object = registry.actor;
 
   if (actor.object("vodka_script") !== null) {
     actor.eat(actor.object("vodka_script")!);

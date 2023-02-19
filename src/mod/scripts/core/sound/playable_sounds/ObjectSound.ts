@@ -11,7 +11,7 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { getActor, storage } from "@/mod/scripts/core/db";
+import { registry, storage } from "@/mod/scripts/core/db";
 import { send_sound } from "@/mod/scripts/core/NewsManager";
 import { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
 import { EPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/EPlayableSound";
@@ -112,10 +112,10 @@ export class ObjectSound extends AbstractPlayableSound {
     if (
       snd &&
       f.exist("$game_sounds$", snd + "_pda.ogg") !== null &&
-      obj.position().distance_to_sqr(getActor()!.position()) >= 5
+      obj.position().distance_to_sqr(registry.actor.position()) >= 5
     ) {
       this.pda_snd_obj = new sound_object(snd + "_pda");
-      this.pda_snd_obj.play_at_pos(getActor()!, new vector().set(0, 0, 0), 0, sound_object.s2d);
+      this.pda_snd_obj.play_at_pos(registry.actor, new vector().set(0, 0, 0), 0, sound_object.s2d);
       this.pda_snd_obj.volume = 0.8;
     }
 

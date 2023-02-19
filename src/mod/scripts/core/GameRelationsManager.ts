@@ -5,7 +5,7 @@ import { ERelation, relations, TRelation } from "@/mod/globals/relations";
 import { Maybe, Optional } from "@/mod/lib/types";
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { getActor, storage } from "@/mod/scripts/core/db";
+import { registry, storage } from "@/mod/scripts/core/db";
 import { getCharacterCommunity, getStorySquad } from "@/mod/scripts/utils/alife";
 import { abort } from "@/mod/scripts/utils/debug";
 import { get_gulag_by_name } from "@/mod/scripts/utils/gulag";
@@ -228,10 +228,10 @@ export function set_level_faction_community(obj: XR_game_object) {
     for (const [k, v] of temp_goodwill_table.communities) {
       if (getCharacterCommunity(obj) === k) {
         for (const [kk, vv] of v) {
-          if (kk === obj.id() && getActor()) {
-            relation_registry.set_community_goodwill(k, getActor()!.id(), vv);
+          if (kk === obj.id()) {
+            relation_registry.set_community_goodwill(k, registry.actor.id(), vv);
             // -- run_string xr_effects.set_level_faction_community(null, null, {"bandit", "peacemaker_selo", "friend"})
-            obj.force_set_goodwill(vv, getActor()!);
+            obj.force_set_goodwill(vv, registry.actor);
             v.delete(kk);
           }
         }
@@ -242,7 +242,7 @@ export function set_level_faction_community(obj: XR_game_object) {
 
 export function check_all_squad_members(squad_name: string, goodwill: TRelation): boolean {
   const squad = getStorySquad(squad_name);
-  const actor = getActor();
+  const actor = registry.actor;
 
   if (squad === null) {
     return false;
@@ -347,7 +347,7 @@ export function is_squad_neutral_to_actor(squad_name: string): boolean {
 }
 
 export function set_gulag_relation_actor(smart_name: string, relation: TRelation): void {
-  const actor: XR_game_object = getActor()!;
+  const actor: XR_game_object = registry.actor;
   const gulag: ISmartTerrain = get_gulag_by_name(smart_name)!;
 
   let goodwill: number = ERelation.NEUTRALS;
@@ -370,7 +370,7 @@ export function set_gulag_relation_actor(smart_name: string, relation: TRelation
 
 export function get_gulag_relation_actor(smart_name: string, relation: TRelation) {
   const gulag = get_gulag_by_name(smart_name);
-  const actor = getActor();
+  const actor: XR_game_object = registry.actor;
 
   if (gulag) {
     let goodwill = 0;
@@ -402,7 +402,7 @@ export function get_gulag_relation_actor(smart_name: string, relation: TRelation
 }
 
 export function get_squad_relation_to_actor_by_id(squad_id: number): TRelation {
-  const actor: Optional<XR_game_object> = getActor();
+  const actor: Optional<XR_game_object> = registry.actor;
   const squad: Optional<ISimSquad> = alife().object<ISimSquad>(squad_id);
 
   if (squad === null) {

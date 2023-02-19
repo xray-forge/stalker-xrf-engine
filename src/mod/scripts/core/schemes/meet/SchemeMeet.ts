@@ -10,7 +10,7 @@ import {
 } from "xray16";
 
 import { AnyObject, EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry, storage } from "@/mod/scripts/core/db";
 import { get_npcs_relation } from "@/mod/scripts/core/GameRelationsManager";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { SchemeAbuse } from "@/mod/scripts/core/schemes/abuse/SchemeAbuse";
@@ -162,7 +162,7 @@ export class SchemeMeet extends AbstractScheme {
 
     const def: AnyObject = {};
 
-    const relation = get_npcs_relation(npc, getActor());
+    const relation = get_npcs_relation(npc, registry.actor);
 
     if (relation === game_object.enemy) {
       def.close_distance = "0";
@@ -366,7 +366,7 @@ export class SchemeMeet extends AbstractScheme {
 
   public static process_npc_usability(npc: XR_game_object): void {
     if (isObjectWounded(npc)) {
-      if (npc.relation(getActor()!) === game_object.enemy) {
+      if (npc.relation(registry.actor) === game_object.enemy) {
         npc.disable_talk();
       } else {
         const wounded = storage.get(npc.id()).wounded!;
@@ -409,7 +409,7 @@ export class SchemeMeet extends AbstractScheme {
       return;
     }
 
-    const actor: XR_game_object = getActor() as XR_game_object;
+    const actor: XR_game_object = registry.actor;
     const snd = pickSectionFromCondList(actor, victim, st.snd_on_use);
 
     if (tostring(snd) !== "nil") {
@@ -421,7 +421,7 @@ export class SchemeMeet extends AbstractScheme {
     if (
       meet_manager.use === "false" &&
       meet_manager.abuse_mode === "true" &&
-      get_npcs_relation(victim, getActor()) === game_object.friend
+      get_npcs_relation(victim, registry.actor) === game_object.friend
     ) {
       SchemeAbuse.add_abuse(victim, 1);
     }
@@ -438,7 +438,7 @@ export class SchemeMeet extends AbstractScheme {
   public current_distance: Optional<string> = null;
 
   public update_state(): void {
-    const actor: XR_game_object = getActor() as XR_game_object;
+    const actor: XR_game_object = registry.actor;
     let state: Optional<string> = null;
     let victim = null;
 
@@ -474,7 +474,7 @@ export class SchemeMeet extends AbstractScheme {
   }
 
   public set_start_distance(): void {
-    const actor: Optional<XR_game_object> = getActor();
+    const actor: Optional<XR_game_object> = registry.actor;
 
     if (actor === null) {
       this.hello_passed = false;
@@ -518,7 +518,7 @@ export class SchemeMeet extends AbstractScheme {
   }
 
   public update(): void {
-    const actor = getActor()!;
+    const actor = registry.actor;
     const distance = this.object.position().distance_to(actor.position());
     const actor_visible = this.object.see(actor);
 

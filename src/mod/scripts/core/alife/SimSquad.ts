@@ -27,7 +27,6 @@ import { relations, TRelation } from "@/mod/globals/relations";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { AnyCallablesModule, AnyObject, Optional } from "@/mod/lib/types";
 import { TSection } from "@/mod/lib/types/scheme";
-import { IMonster } from "@/mod/scripts/core/alife/Monster";
 import { simulation_activities } from "@/mod/scripts/core/alife/SimActivity";
 import {
   ISimSquadReachTargetAction,
@@ -39,12 +38,11 @@ import {
 } from "@/mod/scripts/core/alife/SimSquadStayOnTargetAction";
 import type { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { ESmartTerrainStatus } from "@/mod/scripts/core/alife/SmartTerrainControl";
-import { IStalker } from "@/mod/scripts/core/alife/Stalker";
 import {
   goodwill as dbGoodwill,
   fighting_with_actor_npcs,
-  getActor,
   offlineObjects,
+  registry,
   spawnedVertexById,
   storage,
   zoneByName,
@@ -270,7 +268,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
   },
   get_script_target(): Optional<number> {
     const new_target: Optional<string> = pickSectionFromCondList(
-      getActor() as XR_game_object,
+      registry.actor,
       this,
       this.action_condlist as LuaTable<any>
     );
@@ -549,7 +547,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
       }
 
       if (this.death_condlist !== null) {
-        pickSectionFromCondList(getActor() as XR_game_object, this, this.death_condlist as any);
+        pickSectionFromCondList(registry.actor, this, this.death_condlist as any);
       }
 
       this.board.remove_squad(this);
@@ -604,7 +602,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     }
 
     const invulnerability: boolean =
-      pickSectionFromCondList(getActor() as XR_game_object, this, this.invulnerability as any) === "true";
+      pickSectionFromCondList(registry.actor, this, this.invulnerability as any) === "true";
 
     for (const k of this.squad_members()) {
       const npc_st = storage.get(k.id);
@@ -711,7 +709,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
       getConfigString(spawn_smart.ini, SMART_TERRAIN_SECT, "spawn_point", this, false, "", "self");
 
     spawn_point = parseCondList(this, "spawn_point", "spawn_point", spawn_point);
-    spawn_point = pickSectionFromCondList(getActor() as XR_game_object, this, spawn_point as any)!;
+    spawn_point = pickSectionFromCondList(registry.actor, this, spawn_point as any)!;
 
     let base_spawn_position: XR_vector = spawn_smart.position;
     let base_lvi = spawn_smart.m_level_vertex_id;
@@ -791,7 +789,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
         const npc: Optional<XR_game_object> = storage.get(k.id) && storage.get(k.id).object!;
 
         if (npc !== null) {
-          set_npcs_relation(npc, getActor(), rel);
+          set_npcs_relation(npc, registry.actor, rel);
         } else {
           set_relation(alife().object(k.id), alife().actor(), rel);
         }

@@ -2,7 +2,7 @@ import { XR_game_object, XR_ini_file, XR_physics_joint, XR_physics_shell, XR_vec
 
 import { Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
@@ -138,7 +138,7 @@ export class SchemePhysicalDoor extends AbstractScheme {
       abort("object '%s': door failed to initialize", this.object.name());
     }
 
-    if (trySwitchToAnotherSection(this.object, this.state, getActor())) {
+    if (trySwitchToAnotherSection(this.object, this.state, registry.actor)) {
       return;
     }
   }
@@ -287,7 +287,7 @@ export class SchemePhysicalDoor extends AbstractScheme {
         switchToSection(
           this.object,
           this.state.ini!,
-          pickSectionFromCondList(getActor() as XR_game_object, this.object, this.state.on_use.condlist)!
+          pickSectionFromCondList(registry.actor, this.object, this.state.on_use.condlist)!
         )
       ) {
         return true;
@@ -315,11 +315,7 @@ export class SchemePhysicalDoor extends AbstractScheme {
     bone_index: number
   ): void {
     if (this.state.hit_on_bone[bone_index] !== null) {
-      const section = pickSectionFromCondList(
-        getActor() as XR_game_object,
-        this.object,
-        this.state.hit_on_bone[bone_index].state
-      );
+      const section = pickSectionFromCondList(registry.actor, this.object, this.state.hit_on_bone[bone_index].state);
 
       switchToSection(object, this.state.ini!, section!);
 

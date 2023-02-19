@@ -1,7 +1,7 @@
 import { patrol, time_global, XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
@@ -83,7 +83,7 @@ export class SchemePhysicalForce extends AbstractScheme {
   }
 
   public update(delta: number): void {
-    if (trySwitchToAnotherSection(this.object, this.state, getActor())) {
+    if (trySwitchToAnotherSection(this.object, this.state, registry.actor)) {
       return;
     }
 

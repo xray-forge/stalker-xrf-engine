@@ -12,7 +12,7 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { getActor, storage } from "@/mod/scripts/core/db";
+import { registry, storage } from "@/mod/scripts/core/db";
 import { DEATH_GENERIC_LTX, DUMMY_LTX } from "@/mod/scripts/core/db/IniFiles";
 import { isMonster, isStalker } from "@/mod/scripts/utils/checkers/is";
 import { getConfigString } from "@/mod/scripts/utils/configs";
@@ -159,7 +159,7 @@ export const ReleaseBodyManager: IReleaseBodyManager = declare_xr_class("Release
     return false;
   },
   find_nearest_obj_to_release(release_tbl: LuaTable<number, IReleaseDescriptor>): Optional<number> {
-    const actor = getActor()!;
+    const actor = registry.actor;
     const actor_pos = actor.position();
 
     let pos_in_table = null;

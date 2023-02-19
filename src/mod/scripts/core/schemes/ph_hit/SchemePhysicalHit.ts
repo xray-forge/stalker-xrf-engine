@@ -1,7 +1,7 @@
-import { hit, patrol, vector, XR_game_object, XR_ini_file } from "xray16";
+import { hit, patrol, vector, XR_game_object, XR_hit, XR_ini_file, XR_vector } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
@@ -39,10 +39,10 @@ export class SchemePhysicalHit extends AbstractScheme {
   }
 
   public reset_scheme(): void {
-    const p1 = new patrol(this.state.dir_path).point(0);
-    const p2 = this.object.position();
+    const p1: XR_vector = new patrol(this.state.dir_path).point(0);
+    const p2: XR_vector = this.object.position();
 
-    const h = new hit();
+    const h: XR_hit = new hit();
 
     h.power = this.state.power;
     h.impulse = this.state.impulse;
@@ -54,11 +54,7 @@ export class SchemePhysicalHit extends AbstractScheme {
   }
 
   public update(delta: number): void {
-    const actor = getActor();
-
-    if (actor) {
-      trySwitchToAnotherSection(this.object, this.state, actor);
-    }
+    trySwitchToAnotherSection(this.object, this.state, registry.actor);
   }
 
   /**

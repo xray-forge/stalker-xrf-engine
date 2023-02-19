@@ -17,7 +17,7 @@ import {
 
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { AnyObject, Optional } from "@/mod/lib/types";
-import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry, storage } from "@/mod/scripts/core/db";
 import { send_sound } from "@/mod/scripts/core/NewsManager";
 import { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
 import { EPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/EPlayableSound";
@@ -291,7 +291,7 @@ export class NpcSound extends AbstractPlayableSound {
     if (
       snd &&
       fs.exist("$game_sounds$", snd + "_pda.ogg") !== null &&
-      npc.position().distance_to_sqr(getActor()!.position()) >= 100
+      npc.position().distance_to_sqr(registry.actor.position()) >= 100
     ) {
       if (this.pda_snd_obj !== null && this.pda_snd_obj.playing()) {
         this.pda_snd_obj.stop();
@@ -299,7 +299,7 @@ export class NpcSound extends AbstractPlayableSound {
 
       this.pda_snd_obj = new sound_object(snd + "_pda");
       // --play_at_pos(CScriptGameObject *object, const Fvector &position, float delay, int flags)
-      this.pda_snd_obj.play_at_pos(getActor()!, new vector().set(0, 0, 0), this.delay_sound, sound_object.s2d);
+      this.pda_snd_obj.play_at_pos(registry.actor, new vector().set(0, 0, 0), this.delay_sound, sound_object.s2d);
       this.pda_snd_obj.volume = 0.8;
     }
 

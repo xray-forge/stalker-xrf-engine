@@ -10,7 +10,7 @@ import { pistols, TPistol } from "@/mod/globals/items/weapons";
 import { levels } from "@/mod/globals/levels";
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { update_logic } from "@/mod/scripts/core/binders/StalkerBinder";
-import { getActor, storage } from "@/mod/scripts/core/db";
+import { registry, storage } from "@/mod/scripts/core/db";
 import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { relocate_item } from "@/mod/scripts/core/NewsManager";
@@ -446,7 +446,7 @@ export function has_2000_money(first_speaker: XR_game_object, second_speaker: XR
  * todo;
  */
 export function transfer_any_pistol_from_actor(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const actor: XR_game_object = registry.actor;
   const npc = getNpcSpeaker(first_speaker, second_speaker);
   const pistol: Optional<TPistol> = get_npc_pistol(actor);
 
@@ -477,7 +477,7 @@ export function get_npc_pistol(npc: XR_game_object): Optional<TPistol> {
  * todo;
  */
 export function have_actor_any_pistol(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return get_npc_pistol(getActor() as XR_game_object) !== null;
+  return get_npc_pistol(registry.actor) !== null;
 }
 
 /**
@@ -837,7 +837,7 @@ export function monolith_leader_dead_or_freedom(
  * todo;
  */
 export function medic_magic_potion(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const actor: XR_game_object = registry.actor;
 
   actor.health = 1;
   actor.power = 1;
@@ -849,7 +849,7 @@ export function medic_magic_potion(first_speaker: XR_game_object, second_speaker
  * todo;
  */
 export function actor_needs_bless(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  const actor: XR_game_object = getActor() as XR_game_object;
+  const actor: XR_game_object = registry.actor;
 
   return actor.health < 1 || actor.radiation > 0 || actor.bleeding > 0;
 }
@@ -969,5 +969,7 @@ export function save_zat_b106_arrived_to_chimera_lair(
  * todo;
  */
 export function save_zat_b5_met_with_others(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  get_global<AnyCallablesModule>("xr_effects").scenario_autosave(getActor(), null, ["st_save_zat_b5_met_with_others"]);
+  get_global<AnyCallablesModule>("xr_effects").scenario_autosave(registry.actor, null, [
+    "st_save_zat_b5_met_with_others",
+  ]);
 }

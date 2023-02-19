@@ -36,7 +36,7 @@ import {
   turn_off_campfires_by_smart_name,
   turn_on_campfires_by_smart_name,
 } from "@/mod/scripts/core/binders/CampfireBinder";
-import { getActor, IStoredObject, offlineObjects, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, offlineObjects, registry, storage } from "@/mod/scripts/core/db";
 import { loadDynamicLtx } from "@/mod/scripts/core/db/IniFiles";
 import { SMART_TERRAIN_SECT } from "@/mod/scripts/core/db/sections";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/core/db/SimBoard";
@@ -73,6 +73,7 @@ export const RESPAWN_RADIUS: number = 150;
 
 export const smart_terrains_by_name: LuaTable<string, ISmartTerrain> = new LuaTable();
 
+// todo: Ini registry.
 export const locations_ini = new ini_file("misc\\smart_terrain_masks.ltx");
 
 export const nearest_to_actor_smart = { id: null as Optional<number>, dist: math.huge };
@@ -307,7 +308,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     const max_population: string = getConfigString(ini, SMART_TERRAIN_SECT, "max_population", this, false, "", "0");
     const parsed_condlist = parseCondList(null, SMART_TERRAIN_SECT, "max_population", max_population);
 
-    this.max_population = tonumber(pickSectionFromCondList(getActor() as XR_game_object, null, parsed_condlist))!;
+    this.max_population = tonumber(pickSectionFromCondList(registry.actor, null, parsed_condlist))!;
 
     const respawn_params = getConfigString(ini, SMART_TERRAIN_SECT, "respawn_params", this, false, "", null);
 
@@ -369,7 +370,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
       stype = ESchemeType.STALKER;
     }
 
-    initializeGameObject(storage.get(object.id).object!, storage.get(object.id), false, getActor()!, stype);
+    initializeGameObject(storage.get(object.id).object!, storage.get(object.id), false, registry.actor, stype);
   },
   register_npc(obj: XR_cse_alife_creature_abstract): void {
     logger.info("Register npc:", this.name(), obj.name());
@@ -424,7 +425,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
           stype = ESchemeType.STALKER;
         }
 
-        initializeGameObject(object, storage.get(obj.id), false, getActor()!, stype);
+        initializeGameObject(object, storage.get(obj.id), false, registry.actor, stype);
       }
 
       return;
@@ -648,7 +649,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
 
     configureSchemes(obj, ltx, ltx_name, npc_data.stype, job.section, job.prefix_name || this.name());
 
-    const sect: TSection = determine_section_to_activate(obj, ltx, job.section, getActor()!);
+    const sect: TSection = determine_section_to_activate(obj, ltx, job.section, registry.actor);
 
     if (get_scheme_by_section(job.section) === "nil") {
       abort("[smart_terrain %s] section=%s, don't use section 'null'!", this.name(), sect);
@@ -980,7 +981,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
             "] = " +
             v.num +
             "(" +
-            pickSectionFromCondList(getActor() as XR_game_object, null, this.respawn_params.get(k).num as any) +
+            pickSectionFromCondList(registry.actor, null, this.respawn_params.get(k).num as any) +
             ")\\n";
         }
 
@@ -1011,10 +1012,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
 
     let spot = "neutral";
 
-    if (
-      this.sim_avail === null ||
-      pickSectionFromCondList(getActor() as XR_game_object, this, this.sim_avail as any) === "true"
-    ) {
+    if (this.sim_avail === null || pickSectionFromCondList(registry.actor, this, this.sim_avail as any) === "true") {
       spot = "friend";
     } else {
       spot = "enemy";
@@ -1103,7 +1101,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
       this.campfires_on = true;
     }
 
-    const actor = getActor();
+    const actor = registry.actor;
 
     if (actor !== null) {
       const distance = actor.position().distance_to_sqr(this.position);
@@ -1243,10 +1241,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     const available_sects: LuaTable<number> = new LuaTable();
 
     for (const [k, v] of this.respawn_params) {
-      if (
-        tonumber(pickSectionFromCondList(getActor() as XR_game_object, null, v.num as any))! >
-        this.already_spawned.get(k).num
-      ) {
+      if (tonumber(pickSectionFromCondList(registry.actor, null, v.num as any))! > this.already_spawned.get(k).num) {
         table.insert(available_sects, k);
       }
     }
@@ -1275,10 +1270,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     if (this.last_respawn_update === null || curr_time.diffSec(this.last_respawn_update) > RESPAWN_IDLE) {
       this.last_respawn_update = curr_time;
 
-      if (
-        this.sim_avail !== null &&
-        pickSectionFromCondList(getActor() as XR_game_object, this, this.sim_avail as any) !== "true"
-      ) {
+      if (this.sim_avail !== null && pickSectionFromCondList(registry.actor, this, this.sim_avail as any) !== "true") {
         return;
       }
 
@@ -1392,13 +1384,13 @@ export function setup_gulag_and_logic_on_spawn(
       if (need_setup_logic) {
         strn.setup_logic(obj);
       } else {
-        initializeGameObject(obj, st, loaded, getActor()!, stype);
+        initializeGameObject(obj, st, loaded, registry.actor, stype);
       }
     } else {
-      initializeGameObject(obj, st, loaded, getActor()!, stype);
+      initializeGameObject(obj, st, loaded, registry.actor, stype);
     }
   } else {
-    initializeGameObject(obj, st, loaded, getActor()!, stype);
+    initializeGameObject(obj, st, loaded, registry.actor, stype);
   }
 }
 

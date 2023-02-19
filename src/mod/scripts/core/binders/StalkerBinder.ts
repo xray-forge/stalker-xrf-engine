@@ -35,11 +35,11 @@ import {
   deleteEnemy,
   deleteObject,
   fighting_with_actor_npcs,
-  getActor,
   getHeliEnemiesCount,
   goodwill,
   IStoredObject,
   offlineObjects,
+  registry,
   spawnedVertexById,
   storage,
 } from "@/mod/scripts/core/db";
@@ -141,7 +141,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
   },
   net_spawn(obj: XR_cse_alife_object): boolean {
     const visual = getConfigString(system_ini(), this.object.section(), "set_visual", obj, false, "");
-    const actor: Optional<XR_game_object> = getActor()!;
+    const actor: XR_game_object = registry.actor;
 
     if (visual !== null && visual !== "") {
       if (visual === "actor_visual") {
@@ -271,7 +271,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
       storage.get(this.object.id()).overrides!.on_offline_condlist;
 
     if (on_offline_condlist !== null) {
-      pickSectionFromCondList(getActor() as XR_game_object, this.object, on_offline_condlist as any);
+      pickSectionFromCondList(registry.actor, this.object, on_offline_condlist as any);
     }
 
     if (offlineObjects.get(this.object.id())) {
@@ -302,7 +302,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
     who: Optional<XR_game_object>,
     bone_index: string | number
   ): void {
-    const actor: XR_game_object = getActor()!;
+    const actor: XR_game_object = registry.actor;
 
     // -- FIXME: �������� ������� ���� �� �������������� � ����� storage, � �� ��������...
     if (who?.id() === actor.id()) {
@@ -379,7 +379,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
 
     const st = storage.get(this.object.id());
     const npc = this.object;
-    const actor = getActor()!;
+    const actor = registry.actor;
 
     mapDisplayManager.removeNpcSpot(npc, st);
 
@@ -453,7 +453,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
 
     const object = this.object;
     const object_alive = object.alive();
-    const actor = getActor();
+    const actor = registry.actor;
 
     update_logic(object);
 
@@ -584,7 +584,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
 export function update_logic(object: XR_game_object): void {
   const object_alive = object.alive();
   const st = storage.get(object.id());
-  const actor = getActor()!;
+  const actor = registry.actor;
   const st_combat = st.combat!;
 
   if (st !== null && st.active_scheme !== null && object_alive) {

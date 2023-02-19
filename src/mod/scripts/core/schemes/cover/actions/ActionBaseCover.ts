@@ -1,6 +1,6 @@
 import { action_base, game_object, level, vector, XR_action_base, XR_game_object, XR_vector } from "xray16";
 
-import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/core/db/SimBoard";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
@@ -82,7 +82,7 @@ export const ActionBaseCover: IActionBaseCover = declare_xr_class("ActionBaseCov
   },
   execute(): void {
     if (this.cover_position.distance_to_sqr(this.object.position()) <= 0.4) {
-      const anim = pickSectionFromCondList(getActor() as XR_game_object, this.object, this.state.anim);
+      const anim = pickSectionFromCondList(registry.actor, this.object, this.state.anim);
 
       set_state(this.object, anim!, null, null, { look_position: this.enemy_random_position }, null);
     } else {

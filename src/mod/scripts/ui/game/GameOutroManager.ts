@@ -3,7 +3,7 @@ import { game, get_hud, sound_object, XR_CUIGameCustom, XR_sound_object } from "
 import { game_tutorials } from "@/mod/globals/game_tutorials";
 import { sounds } from "@/mod/globals/sound/sounds";
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
-import { getActor } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -151,7 +151,7 @@ export class GameOutroManager extends AbstractCoreManager {
     const hud: XR_CUIGameCustom = get_hud();
 
     hud.AddCustomStatic("blackscreen", true);
-    get_global<AnyCallablesModule>("xr_effects").disable_ui_only(getActor(), null);
+    get_global<AnyCallablesModule>("xr_effects").disable_ui_only(registry.actor, null);
   }
 
   public stop_bk_sound(): void {

@@ -1,6 +1,6 @@
 import { property_evaluator, XR_property_evaluator } from "xray16";
 
-import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("EvaluatorCheckCombat");
@@ -21,7 +21,7 @@ export const EvaluatorCheckCombat: IEvaluatorCheckCombat = declare_xr_class(
       const state = this.state;
 
       if (state.enabled && this.object.best_enemy()) {
-        const actor = getActor();
+        const actor = registry.actor;
 
         if (!actor) {
           return false;

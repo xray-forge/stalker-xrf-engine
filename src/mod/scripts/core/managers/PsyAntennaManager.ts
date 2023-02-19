@@ -16,7 +16,7 @@ import {
 
 import { sounds } from "@/mod/globals/sound/sounds";
 import { Optional } from "@/mod/lib/types";
-import { getActor } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { getWeakManagerInstance, isManagerInitialized } from "@/mod/scripts/core/db/ManagersRegistry";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { PhantomManager } from "@/mod/scripts/core/managers/PhantomManager";
@@ -132,7 +132,7 @@ export class PsyAntennaManager extends AbstractCoreManager {
       const power: number = this.hit_amplitude * this.hit_intensity;
 
       if (power > 0.0001) {
-        const actor: XR_game_object = getActor()!;
+        const actor: XR_game_object = registry.actor;
         const psy_hit = new hit();
 
         psy_hit.power = power;
@@ -169,7 +169,7 @@ export class PsyAntennaManager extends AbstractCoreManager {
       this.phantom_idle = math.random(5000, 10000);
 
       if (math.random() < this.phantom_spawn_probability) {
-        const actor = getActor()!;
+        const actor = registry.actor;
         const phantomManager: PhantomManager = PhantomManager.getInstance();
 
         if (phantomManager.phantom_count < this.phantom_max) {
@@ -186,13 +186,13 @@ export class PsyAntennaManager extends AbstractCoreManager {
   public update_sound(): void {
     if (!this.sound_initialized) {
       this.sound_obj_left.play_at_pos(
-        getActor()!,
+        registry.actor,
         new vector().set(-1, 0, 1),
         0,
         (sound_object.s2d + sound_object.looped) as TXR_sound_object_type
       );
       this.sound_obj_right.play_at_pos(
-        getActor()!,
+        registry.actor,
         new vector().set(1, 0, 1),
         0,
         (sound_object.s2d + sound_object.looped) as TXR_sound_object_type

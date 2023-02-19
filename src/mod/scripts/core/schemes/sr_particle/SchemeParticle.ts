@@ -1,7 +1,7 @@
 import { particles_object, patrol, time_global, XR_game_object, XR_ini_file, XR_patrol } from "xray16";
 
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
@@ -141,7 +141,7 @@ export class SchemeParticle extends AbstractScheme {
 
     this.is_end();
 
-    trySwitchToAnotherSection(this.object, this.state, getActor());
+    trySwitchToAnotherSection(this.object, this.state, registry.actor);
   }
 
   public is_end(): boolean {

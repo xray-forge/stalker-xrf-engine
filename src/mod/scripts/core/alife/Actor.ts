@@ -16,7 +16,7 @@ import { simulation_activities } from "@/mod/scripts/core/alife/SimActivity";
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { ISmartTerrain, nearest_to_actor_smart } from "@/mod/scripts/core/alife/SmartTerrain";
 import { ESmartTerrainStatus, getCurrentSmartId } from "@/mod/scripts/core/alife/SmartTerrainControl";
-import { getActor, offlineObjects, zoneByName } from "@/mod/scripts/core/db";
+import { offlineObjects, registry, zoneByName } from "@/mod/scripts/core/db";
 import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
 import { evaluate_prior, get_sim_obj_registry } from "@/mod/scripts/core/db/SimObjectsRegistry";
 import { getStoryObjectsRegistry } from "@/mod/scripts/core/db/StoryObjectsRegistry";
@@ -85,7 +85,7 @@ export const Actor: IActor = declare_xr_class("Actor", cse_alife_creature_actor,
       return;
     }
 
-    if (getActor() === null) {
+    if (registry.actor === null) {
       setLoadMarker(packet, false, Actor.__name);
       this.start_position_filled = packet.r_bool();
       setLoadMarker(packet, true, Actor.__name);

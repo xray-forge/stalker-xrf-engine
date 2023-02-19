@@ -1,9 +1,8 @@
 import { action_base, game_object, level, time_global, XR_action_base, XR_game_object } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
-import { getStoryObject } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { vectorRotateY } from "@/mod/scripts/utils/physics";
 
@@ -65,7 +64,7 @@ export const ActionCompanionActivity: IActionCompanionActivity = declare_xr_clas
     },
 
     beh_walk_simple(): void {
-      const actor: Optional<XR_game_object> = getActor()!;
+      const actor: Optional<XR_game_object> = registry.actor;
       let select_new_pt: boolean = false;
       const dist_from_self_to_actor: number = this.object.position().distance_to(actor.position());
       const dist_from_assist_pt_to_actor: Optional<number> = this.assist_point
@@ -97,7 +96,7 @@ export const ActionCompanionActivity: IActionCompanionActivity = declare_xr_clas
 
       if (this.object.level_vertex_id() === this.assist_point) {
         new_state = "threat";
-        target = { look_object: getStoryObject("actor") };
+        target = { look_object: registry.actor };
       } else {
         const t = time_global();
 
@@ -106,7 +105,7 @@ export const ActionCompanionActivity: IActionCompanionActivity = declare_xr_clas
 
           if (dist_to_assist_pt <= dist_walk) {
             new_state = "raid";
-            target = { look_object: getStoryObject("actor") };
+            target = { look_object: registry.actor };
           } else if (dist_to_assist_pt <= dist_run) {
             new_state = "rush";
           } else {
@@ -127,7 +126,7 @@ export const ActionCompanionActivity: IActionCompanionActivity = declare_xr_clas
       const new_state = "threat";
 
       if (new_state !== this.last_state) {
-        set_state(this.object, new_state, null, null, { look_object: getStoryObject("actor") }, { animation: true });
+        set_state(this.object, new_state, null, null, { look_object: registry.actor }, { animation: true });
         this.last_state = new_state;
       }
 
@@ -154,7 +153,7 @@ function select_position(npc: XR_game_object, st: IStoredObject) {
   let node_1_distance = null;
   let node_2_vertex_id = null;
   let node_2_distance = null;
-  const actor = getActor()!;
+  const actor = registry.actor;
 
   let desired_direction = vectorRotateY(actor.direction(), math.random(50, 60));
 

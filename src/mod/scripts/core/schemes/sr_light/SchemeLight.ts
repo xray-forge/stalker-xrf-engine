@@ -2,7 +2,7 @@ import { level, XR_game_object, XR_ini_file } from "xray16";
 
 import { misc } from "@/mod/globals/items/misc";
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { getActor, IStoredObject, light_zones, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, light_zones, registry, storage } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
@@ -131,7 +131,7 @@ export class SchemeLight extends AbstractScheme {
   }
 
   public update(delta: number): void {
-    if (trySwitchToAnotherSection(this.object, this.state, getActor())) {
+    if (trySwitchToAnotherSection(this.object, this.state, registry.actor)) {
       this.active = false;
 
       light_zones.delete(this.object.id());

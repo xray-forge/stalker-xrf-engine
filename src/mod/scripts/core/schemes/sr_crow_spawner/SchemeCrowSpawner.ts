@@ -1,7 +1,7 @@
 import { alife, patrol, time_global, XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { CROW_STORAGE, getActor, IStoredObject } from "@/mod/scripts/core/db";
+import { CROW_STORAGE, IStoredObject, registry } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
@@ -74,7 +74,7 @@ export class SchemeCrowSpawner extends AbstractScheme {
       }
     }
 
-    if (trySwitchToAnotherSection(this.object, this.state, getActor())) {
+    if (trySwitchToAnotherSection(this.object, this.state, registry.actor)) {
       return;
     }
   }
@@ -93,7 +93,7 @@ export class SchemeCrowSpawner extends AbstractScheme {
         // -- if we have not spawned already in this point
         const ptr = new patrol(selected_path);
 
-        if (ptr.point(0).distance_to(getActor()!.position()) > 100) {
+        if (ptr.point(0).distance_to(registry.actor.position()) > 100) {
           const obj = alife().create("m_crow", ptr.point(0), ptr.level_vertex_id(0), ptr.game_vertex_id(0));
 
           logger.info("Spawn new crow:", obj.id, selected_path);

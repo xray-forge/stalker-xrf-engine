@@ -4,7 +4,7 @@ import { animations } from "@/mod/globals/animation/animations";
 import { TWeapon } from "@/mod/globals/items/weapons";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { AnyArgs, AnyCallable, AnyCallablesModule, AnyObject, PartialRecord } from "@/mod/lib/types";
-import { getActor } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { inventory_upgrades_functors } from "@/mod/scripts/core/inventory_upgrades";
 import { AchievementsManager, EAchievement } from "@/mod/scripts/core/managers/AchievementsManager";
 import { ActorInventoryMenuManager, EActorMenuMode } from "@/mod/scripts/core/managers/ActorInventoryMenuManager";
@@ -87,7 +87,7 @@ declare_global("extern.anabiotic_callback", () => {
 });
 
 declare_global("extern.anabiotic_callback2", () => {
-  get_global<AnyCallablesModule>("xr_effects").enable_ui(getActor(), null);
+  get_global<AnyCallablesModule>("xr_effects").enable_ui(registry.actor, null);
 
   get_console().execute("snd_volume_music " + tostring(get_global("mus_vol")));
   get_console().execute("snd_volume_eff " + tostring(get_global("amb_vol")));
@@ -106,11 +106,11 @@ declare_global("extern.surge_callback", () => {
 });
 
 declare_global("extern.surge_callback", () => {
-  get_global<AnyCallablesModule>("xr_effects").enable_ui(getActor(), null);
+  get_global<AnyCallablesModule>("xr_effects").enable_ui(registry.actor, null);
   /* --[[
     level.enable_input()
     level.show_indicators()
-    getActor():restore_weapon()
+    registry.actor:restore_weapon()
   ]]-- */
 });
 

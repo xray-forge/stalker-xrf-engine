@@ -2,7 +2,7 @@ import { anim, cond, MonsterSpace, sound, XR_cond, XR_game_object, XR_ini_file }
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { send_tip } from "@/mod/scripts/core/NewsManager";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
@@ -67,7 +67,7 @@ export class SchemeMobRemark extends AbstractScheme {
   public action_end_signalled: Optional<boolean> = null;
 
   public reset_scheme(): void {
-    setMobState(this.object, getActor()!, this.state.state);
+    setMobState(this.object, registry.actor, this.state.state);
 
     this.object.disable_talk();
 
@@ -155,7 +155,7 @@ export class SchemeMobRemark extends AbstractScheme {
   }
 
   public update(delta: number): void {
-    const actor = getActor()!;
+    const actor = registry.actor;
 
     if (
       this.state.dialog_cond &&

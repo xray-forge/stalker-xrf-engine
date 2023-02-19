@@ -12,6 +12,7 @@ import {
 import type { AnyCallable, AnyObject, EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
 import type { IAnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
 import type { ISignalLightBinder } from "@/mod/scripts/core/binders/SignalLightBinder";
+import { registry } from "@/mod/scripts/core/db/registry";
 import type { SchemeAnimpoint } from "@/mod/scripts/core/schemes/animpoint/SchemeAnimpoint";
 import type { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import type { CampStoryManager } from "@/mod/scripts/core/schemes/base/CampStoryManager";
@@ -27,6 +28,8 @@ import type { StateManager } from "@/mod/scripts/core/state_management/StateMana
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("db", false);
+
+export * from "@/mod/scripts/core/db/registry";
 
 // todo: Separate file with DB objects
 // todo: Separate file with DB utils
@@ -147,11 +150,6 @@ export const heliEnemies: LuaTable<number, XR_game_object> = new LuaTable();
 export let heliEnemyCount: number = 0;
 export let actor: Optional<XR_game_object> = null;
 
-// todo: Use wrapper and direct ref instead of getter?
-export function getActor(): Optional<XR_game_object> {
-  return actor;
-}
-
 export function getHeliEnemiesCount(): number {
   return heliEnemyCount;
 }
@@ -162,8 +160,6 @@ export function addEnemy(object: XR_game_object): void {
   heliEnemies.set(heliEnemyCount, object);
 
   heliEnemyCount = heliEnemyCount + 1;
-  // @ts-ignore todo: TEMP
-  db.heli_enemy_count = heliEnemyCount;
 }
 
 export function deleteEnemy(enemyIndex: number): void {
@@ -210,9 +206,8 @@ export function deleteAnomaly(anomaly: XR_object_binder): void {
 export function addActor(object: XR_game_object): void {
   logger.info("Add actor");
 
+  registry.actor = object;
   actor = object;
-  // @ts-ignore todo: TEMP
-  db.actor = object;
 
   addObject(object);
 }
@@ -221,10 +216,9 @@ export function deleteActor(): void {
   logger.info("Delete actor");
 
   deleteObject(actor as any);
+  registry.actor = null as unknown as XR_game_object;
 
   actor = null;
-  // @ts-ignore todo: TEMP
-  db.actor = null;
 }
 
 export function addHeli(object: XR_game_object): void {

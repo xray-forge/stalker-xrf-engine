@@ -20,7 +20,7 @@ import { levels, TLevel } from "@/mod/globals/levels";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { AnyCallablesModule, Optional, PartialRecord } from "@/mod/lib/types";
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
-import { anomalyByName, CROW_STORAGE, getActor, signalLight, storage, zoneByName } from "@/mod/scripts/core/db";
+import { anomalyByName, CROW_STORAGE, registry, signalLight, storage, zoneByName } from "@/mod/scripts/core/db";
 import { SURGE_MANAGER_LTX } from "@/mod/scripts/core/db/IniFiles";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/core/db/SimBoard";
@@ -178,7 +178,7 @@ export class SurgeManager extends AbstractCoreManager {
     if (this.surgeCoversCount > 0) {
       for (const [k, v] of hides) {
         if (v.condlist) {
-          const sect: Optional<string> = pickSectionFromCondList(getActor() as XR_game_object, null, v.condlist);
+          const sect: Optional<string> = pickSectionFromCondList(registry.actor, null, v.condlist);
 
           if (sect !== "true" && sect !== null) {
             table.remove(hides, k);
@@ -187,18 +187,18 @@ export class SurgeManager extends AbstractCoreManager {
       }
 
       let nearest_cover_id = hides.get(1).id();
-      let nearest_cover_dist = hides.get(1).position().distance_to(getActor()!.position());
+      let nearest_cover_dist = hides.get(1).position().distance_to(registry.actor.position());
 
       for (const [k, v] of hides) {
-        if (storage.get(v.id()).object!.inside(getActor()!.position())) {
+        if (storage.get(v.id()).object!.inside(registry.actor.position())) {
           return v.id();
         }
 
-        const dist = v.position().distance_to(getActor()!.position());
+        const dist = v.position().distance_to(registry.actor.position());
 
         if (dist < nearest_cover_dist) {
           if (v.condlist) {
-            const sect: Optional<string> = pickSectionFromCondList(getActor() as XR_game_object, null, v.condlist);
+            const sect: Optional<string> = pickSectionFromCondList(registry.actor, null, v.condlist);
 
             if (sect === "true") {
               nearest_cover_id = v.id();
@@ -213,7 +213,7 @@ export class SurgeManager extends AbstractCoreManager {
 
       if (nearest_cover_id === hides.get(1).id()) {
         if (hides.get(1).condlist) {
-          const sect = pickSectionFromCondList(getActor() as XR_game_object, null, hides.get(1).condlist);
+          const sect = pickSectionFromCondList(registry.actor, null, hides.get(1).condlist);
 
           if (sect !== "true" && sect !== null) {
             return null;
@@ -233,7 +233,7 @@ export class SurgeManager extends AbstractCoreManager {
   public isActorInCover(): boolean {
     const cover_id: Optional<number> = this.getNearestAvailableCover();
 
-    return cover_id !== null && storage.get(cover_id).object!.inside(getActor()!.position());
+    return cover_id !== null && storage.get(cover_id).object!.inside(registry.actor.position());
   }
 
   /**
@@ -298,7 +298,7 @@ export class SurgeManager extends AbstractCoreManager {
         return;
       }
 
-      if (pickSectionFromCondList(getActor() as XR_game_object, null, this.surgeManagerCondlist) !== "true") {
+      if (pickSectionFromCondList(registry.actor, null, this.surgeManagerCondlist) !== "true") {
         return;
       }
 
@@ -333,11 +333,11 @@ export class SurgeManager extends AbstractCoreManager {
       if (surgeDuration >= surgeConfig.DURATION) {
         if (level !== null) {
           if (level.name() === levels.zaton) {
-            GlobalSound.set_sound_play(getActor()!.id(), "zat_a2_stalker_barmen_after_surge", null, null);
+            GlobalSound.set_sound_play(registry.actor.id(), "zat_a2_stalker_barmen_after_surge", null, null);
           } else if (level.name() === levels.jupiter) {
-            GlobalSound.set_sound_play(getActor()!.id(), "jup_a6_stalker_medik_after_surge", null, null);
+            GlobalSound.set_sound_play(registry.actor.id(), "jup_a6_stalker_medik_after_surge", null, null);
           } else if (!hasAlifeInfo("pri_b305_fifth_cam_end")) {
-            GlobalSound.set_sound_play(getActor()!.id(), "pri_a17_kovalsky_after_surge", null, null);
+            GlobalSound.set_sound_play(registry.actor.id(), "pri_a17_kovalsky_after_surge", null, null);
           }
         }
 
@@ -345,7 +345,7 @@ export class SurgeManager extends AbstractCoreManager {
       } else {
         if (this.loaded) {
           if (this.blowout_sound) {
-            GlobalSound.play_sound_looped(getActor()!.id(), "blowout_rumble");
+            GlobalSound.play_sound_looped(registry.actor.id(), "blowout_rumble");
           }
 
           if (this.isEffectorSet) {
@@ -353,7 +353,7 @@ export class SurgeManager extends AbstractCoreManager {
           }
 
           if (this.second_message_given) {
-            GlobalSound.play_sound_looped(getActor()!.id(), "surge_earthquake_sound_looped");
+            GlobalSound.play_sound_looped(registry.actor.id(), "surge_earthquake_sound_looped");
             level.add_cam_effector(animations.camera_effects_earthquake, earthquake_cam_eff_id, true, "");
           }
 
@@ -366,13 +366,13 @@ export class SurgeManager extends AbstractCoreManager {
         }
 
         if (this.blowout_sound) {
-          GlobalSound.set_volume_sound_looped(getActor()!.id(), "blowout_rumble", surgeDuration / 180);
+          GlobalSound.set_volume_sound_looped(registry.actor.id(), "blowout_rumble", surgeDuration / 180);
         }
 
         if (
           surgeDuration >= 140 &&
           !this.ui_disabled &&
-          (cover === null || !storage.get(cover).object!.inside(getActor()!.position()))
+          (cover === null || !storage.get(cover).object!.inside(registry.actor.position()))
         ) {
           let att: number = 1 - (185 - surgeDuration) / (185 - 140);
 
@@ -384,18 +384,18 @@ export class SurgeManager extends AbstractCoreManager {
           h.power = att;
           h.impulse = 0.0;
           h.direction = new vector().set(0, 0, 1);
-          h.draftsman = getActor();
+          h.draftsman = registry.actor;
 
-          if (pickSectionFromCondList(getActor() as XR_game_object, null, this.surgeSurviveCondlist) === "true") {
-            if (getActor()!.health <= h.power) {
-              h.power = getActor()!.health - 0.05;
+          if (pickSectionFromCondList(registry.actor, null, this.surgeSurviveCondlist) === "true") {
+            if (registry.actor.health <= h.power) {
+              h.power = registry.actor.health - 0.05;
               if (h.power < 0) {
                 h.power = 0;
               }
             }
           }
 
-          getActor()!.hit(h);
+          registry.actor.hit(h);
         }
 
         if (surgeDuration >= 185 && !this.ui_disabled) {
@@ -404,15 +404,15 @@ export class SurgeManager extends AbstractCoreManager {
         } else if (surgeDuration >= 140 && !this.second_message_given) {
           if (level !== null) {
             if (level.name() === levels.zaton) {
-              GlobalSound.set_sound_play(getActor()!.id(), "zat_a2_stalker_barmen_surge_phase_2", null, null);
+              GlobalSound.set_sound_play(registry.actor.id(), "zat_a2_stalker_barmen_surge_phase_2", null, null);
             } else if (level.name() === levels.jupiter) {
-              GlobalSound.set_sound_play(getActor()!.id(), "jup_a6_stalker_medik_phase_2", null, null);
+              GlobalSound.set_sound_play(registry.actor.id(), "jup_a6_stalker_medik_phase_2", null, null);
             } else if (!hasAlifeInfo("pri_b305_fifth_cam_end")) {
-              GlobalSound.set_sound_play(getActor()!.id(), "pri_a17_kovalsky_surge_phase_2", null, null);
+              GlobalSound.set_sound_play(registry.actor.id(), "pri_a17_kovalsky_surge_phase_2", null, null);
             }
           }
 
-          GlobalSound.play_sound_looped(getActor()!.id(), "surge_earthquake_sound_looped");
+          GlobalSound.play_sound_looped(registry.actor.id(), "surge_earthquake_sound_looped");
           level.add_cam_effector(animations.camera_effects_earthquake, earthquake_cam_eff_id, true, "");
           this.second_message_given = true;
         } else if (surgeDuration >= 100 && !this.isEffectorSet) {
@@ -420,17 +420,17 @@ export class SurgeManager extends AbstractCoreManager {
           // --                level.set_pp_effector_factor(surge_shock_pp_eff, 0, 10)
           this.isEffectorSet = true;
         } else if (surgeDuration >= 35 && !this.blowout_sound) {
-          GlobalSound.set_sound_play(getActor()!.id(), "blowout_begin", null, null);
-          GlobalSound.play_sound_looped(getActor()!.id(), "blowout_rumble");
-          GlobalSound.set_volume_sound_looped(getActor()!.id(), "blowout_rumble", 0.25);
+          GlobalSound.set_sound_play(registry.actor.id(), "blowout_begin", null, null);
+          GlobalSound.play_sound_looped(registry.actor.id(), "blowout_rumble");
+          GlobalSound.set_volume_sound_looped(registry.actor.id(), "blowout_rumble", 0.25);
           this.blowout_sound = true;
         } else if (surgeDuration >= 0 && !this.task_given) {
           if (level.name() === levels.zaton) {
-            GlobalSound.set_sound_play(getActor()!.id(), "zat_a2_stalker_barmen_surge_phase_1", null, null);
+            GlobalSound.set_sound_play(registry.actor.id(), "zat_a2_stalker_barmen_surge_phase_1", null, null);
           } else if (level.name() === levels.jupiter) {
-            GlobalSound.set_sound_play(getActor()!.id(), "jup_a6_stalker_medik_phase_1", null, null);
+            GlobalSound.set_sound_play(registry.actor.id(), "jup_a6_stalker_medik_phase_1", null, null);
           } else if (!hasAlifeInfo("pri_b305_fifth_cam_end")) {
-            GlobalSound.set_sound_play(getActor()!.id(), "pri_a17_kovalsky_surge_phase_1", null, null);
+            GlobalSound.set_sound_play(registry.actor.id(), "pri_a17_kovalsky_surge_phase_1", null, null);
           }
 
           level.set_weather_fx("fx_surge_day_3");
@@ -526,7 +526,7 @@ export class SurgeManager extends AbstractCoreManager {
     StatisticsManager.getInstance().incrementSurgesCount();
 
     if (!this.skipMessage) {
-      send_tip(getActor()!, "st_surge_while_asleep", null, "recent_surge", null, null);
+      send_tip(registry.actor, "st_surge_while_asleep", null, "recent_surge", null, null);
       this.skipMessage = true;
     }
   }
@@ -547,11 +547,11 @@ export class SurgeManager extends AbstractCoreManager {
     this.task_given = false;
 
     if (this.isEffectorSet) {
-      GlobalSound.stop_sound_looped(getActor()!.id(), "blowout_rumble");
+      GlobalSound.stop_sound_looped(registry.actor.id(), "blowout_rumble");
     }
 
     if (this.second_message_given) {
-      GlobalSound.stop_sound_looped(getActor()!.id(), "surge_earthquake_sound_looped");
+      GlobalSound.stop_sound_looped(registry.actor.id(), "surge_earthquake_sound_looped");
     }
 
     level.remove_pp_effector(surge_shock_pp_eff_id);
@@ -592,7 +592,7 @@ export class SurgeManager extends AbstractCoreManager {
     h.power = 0.9;
     h.impulse = 0.0;
     h.direction = new vector().set(0, 0, 1);
-    h.draftsman = getActor();
+    h.draftsman = registry.actor;
 
     for (const [k, v] of CROW_STORAGE.STORAGE) {
       logger.info("Kill crows");
@@ -657,34 +657,25 @@ export class SurgeManager extends AbstractCoreManager {
 
     const cover = this.getNearestAvailableCover();
 
-    if (getActor() && getActor()!.alive()) {
-      if (!(cover && storage.get(cover) && storage.get(cover).object!.inside(getActor()!.position()))) {
+    if (registry.actor.alive()) {
+      if (!(cover && storage.get(cover) && storage.get(cover).object!.inside(registry.actor.position()))) {
         if (hasAlifeInfo("anabiotic_in_process")) {
           const counter_name = "actor_marked_by_zone_cnt";
-          const cnt_value: number = pstor_retrieve(getActor()!, counter_name, 0);
+          const cnt_value: number = pstor_retrieve(registry.actor, counter_name, 0);
 
-          pstor_store(getActor()!, counter_name, cnt_value + 1);
+          pstor_store(registry.actor, counter_name, cnt_value + 1);
         }
 
-        /* --[[
-      const hud = get_hud()
-      hud:HideActorMenu()
-      hud:HidePdaMenu()
-      getActor():stop_talk()
-      level.disable_input()
-      level.hide_indicators_safe()
-      getActor():hide_weapon()
-    ]]--*/
-        get_global<AnyCallablesModule>("xr_effects").disable_ui_only(getActor(), null);
-        if (pickSectionFromCondList(getActor() as XR_game_object, null, this.surgeSurviveCondlist) !== "true") {
+        get_global<AnyCallablesModule>("xr_effects").disable_ui_only(registry.actor, null);
+        if (pickSectionFromCondList(registry.actor, null, this.surgeSurviveCondlist) !== "true") {
           this.kill_all_unhided_after_actor_death();
-          getActor()!.kill(getActor()!);
+          registry.actor.kill(registry.actor);
 
           return;
         } else {
           level.add_cam_effector(animations.camera_effects_surge_02, sleep_cam_eff_id, false, "extern.surge_callback");
           level.add_pp_effector(post_processors.surge_fade, sleep_fade_pp_eff_id, false);
-          getActor()!.health = getActor()!.health - 0.05;
+          registry.actor.health = registry.actor.health - 0.05;
         }
       }
     }

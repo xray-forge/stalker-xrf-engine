@@ -1,7 +1,7 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry, storage } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
@@ -59,7 +59,7 @@ export class SchemeMobDeath extends AbstractScheme {
       death.killer_name = null;
     }
 
-    if (trySwitchToAnotherSection(victim, this.state, getActor())) {
+    if (trySwitchToAnotherSection(victim, this.state, registry.actor)) {
       return;
     }
   }

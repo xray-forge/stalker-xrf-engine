@@ -22,12 +22,11 @@ import {
   ARTEFACT_WAYS_BY_ARTEFACT_ID,
   deleteAnomaly,
   deleteObject,
-  getActor,
   PARENT_ZONES_BY_ARTEFACT_ID,
+  registry,
   storage,
 } from "@/mod/scripts/core/db";
 import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
-import { getStoryObject } from "@/mod/scripts/utils/alife";
 import {
   getConfigNumber,
   getConfigString,
@@ -272,7 +271,7 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
         defaultCoeffSectionName
       );
       const parsedCondlist = parseCondList(null, "anomal_zone_binder", "coeff_condlist", coeffsSection);
-      const coeffsSectionName = pickSectionFromCondList(getActor() as XR_game_object, null, parsedCondlist)!;
+      const coeffsSectionName = pickSectionFromCondList(registry.actor, null, parsedCondlist)!;
       const coeffs: Optional<string> = getConfigString(ini, section, coeffsSectionName, null, false, "", defaultCoeffs);
       /**
        * end todo;

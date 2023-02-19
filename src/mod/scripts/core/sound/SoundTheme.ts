@@ -1,6 +1,6 @@
 import { XR_game_object } from "xray16";
 
-import { getActor, sound_themes } from "@/mod/scripts/core/db";
+import { registry, sound_themes } from "@/mod/scripts/core/db";
 import { SCRIPT_SOUND_LTX } from "@/mod/scripts/core/db/IniFiles";
 import { ActorSound } from "@/mod/scripts/core/sound/playable_sounds/ActorSound";
 import { EPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/EPlayableSound";
@@ -32,7 +32,7 @@ export class SoundTheme {
         SCRIPT_SOUND_LTX,
         section,
         "type",
-        getActor(),
+        registry.actor,
         true,
         ""
       ) as EPlayableSound;

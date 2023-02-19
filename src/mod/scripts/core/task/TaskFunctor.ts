@@ -1,8 +1,8 @@
-import { game, XR_game_object } from "xray16";
+import { game } from "xray16";
 
 import { captions } from "@/mod/globals/captions";
 import { Optional, TSection } from "@/mod/lib/types";
-import { getActor } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { getStoryObject } from "@/mod/scripts/utils/alife";
@@ -12,11 +12,11 @@ import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 export function condlist(id: string, field: string, p: string): Optional<TSection> {
   const parsed_condlist = parseCondList(null, "task", "task_condlist", p);
 
-  return pickSectionFromCondList(getActor() as XR_game_object, null, parsed_condlist);
+  return pickSectionFromCondList(registry.actor, null, parsed_condlist);
 }
 
 export function zat_b29_adv_title(id: string, field: string, p: string): Optional<string> {
-  const actor = getStoryObject("actor")!;
+  const actor = registry.actor;
   let title: Optional<string> = null;
 
   for (const i of $range(16, 23)) {
@@ -38,7 +38,7 @@ export function zat_b29_adv_title(id: string, field: string, p: string): Optiona
 export function zat_b29_adv_descr(id: string, field: string, p: string) {
   let descr = "";
   let f_af = 0;
-  const actor = getStoryObject("actor")!;
+  const actor = registry.actor;
 
   for (const i of $range(16, 23)) {
     if (
@@ -123,7 +123,7 @@ export function surge_task_descr(): Optional<string> {
 export function target_condlist(id: string, field: string, p: string) {
   const cond_string = p;
   const parsed_condlist = parseCondList(null, "task", "task_condlist", cond_string);
-  const value: Optional<TSection> = pickSectionFromCondList(getActor() as XR_game_object, null, parsed_condlist);
+  const value: Optional<TSection> = pickSectionFromCondList(registry.actor, null, parsed_condlist);
 
   if (value === null) {
     return null;
@@ -135,7 +135,7 @@ export function target_condlist(id: string, field: string, p: string) {
 export function zat_b29_adv_target(id: string, field: string, p: string) {
   let target_obj_id = "zat_a2_stalker_barmen";
   let af: Optional<string> = null;
-  const actor = getStoryObject("actor")!;
+  const actor = registry.actor;
 
   for (const i of $range(16, 23)) {
     if (

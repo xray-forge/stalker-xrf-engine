@@ -1,6 +1,6 @@
 import { action_base, XR_action_base } from "xray16";
 
-import { getActor, IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 
 export interface IActionAbuseHit extends XR_action_base {
   state: IStoredObject;
@@ -22,7 +22,7 @@ export const ActionAbuseHit: IActionAbuseHit = declare_xr_class("ActionAbuseHit"
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const { set_state } = require("@/mod/scripts/core/state_management/StateManager");
 
-    set_state(this.object, "punch", null, null, { look_object: getActor() }, { animation: true });
+    set_state(this.object, "punch", null, null, { look_object: registry.actor }, { animation: true });
     // --    GlobalSound.set_sound_play(this.object.id(), "use_abuse")
     this.hit_done = true;
   },

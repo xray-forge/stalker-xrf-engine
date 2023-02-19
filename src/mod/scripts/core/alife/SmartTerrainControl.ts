@@ -1,16 +1,8 @@
-import {
-  game,
-  TXR_net_processor,
-  XR_CTime,
-  XR_EngineBinding,
-  XR_game_object,
-  XR_ini_file,
-  XR_net_packet,
-} from "xray16";
+import { game, TXR_net_processor, XR_CTime, XR_EngineBinding, XR_ini_file, XR_net_packet } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { getActor, zoneByName } from "@/mod/scripts/core/db";
+import { registry, zoneByName } from "@/mod/scripts/core/db";
 import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
 import { set_squad_goodwill } from "@/mod/scripts/core/GameRelationsManager";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
@@ -78,10 +70,10 @@ export const SmartTerrainControl: ISmartTerrainControl = declare_xr_class("Smart
         return;
       }
 
-      const sound = pickSectionFromCondList(getActor() as XR_game_object, this.smart, this.alarm_stop_sound as any);
+      const sound = pickSectionFromCondList(registry.actor, this.smart, this.alarm_stop_sound as any);
 
       if (sound !== null) {
-        GlobalSound.set_sound_play(getActor()!.id(), sound, null, null);
+        GlobalSound.set_sound_play(registry.actor.id(), sound, null, null);
       }
 
       for (const [squad_id, squad] of get_sim_board().smarts.get(this.smart.id).squads) {
@@ -102,7 +94,7 @@ export const SmartTerrainControl: ISmartTerrainControl = declare_xr_class("Smart
       return false;
     }
 
-    if (!zone.inside(getActor()!.position())) {
+    if (!zone.inside(registry.actor.position())) {
       if (current_smart_id === this.smart.id) {
         current_smart_id = null;
       }
@@ -112,7 +104,7 @@ export const SmartTerrainControl: ISmartTerrainControl = declare_xr_class("Smart
       current_smart_id = this.smart.id;
     }
 
-    if (isWeapon(getActor()!.active_item())) {
+    if (isWeapon(registry.actor.active_item())) {
       return true;
     }
 
@@ -122,10 +114,10 @@ export const SmartTerrainControl: ISmartTerrainControl = declare_xr_class("Smart
     logger.info("Actor attacked smart:", this.smart.name());
 
     if (this.status !== ESmartTerrainStatus.ALARM) {
-      const sound = pickSectionFromCondList(getActor() as XR_game_object, this.smart, this.alarm_start_sound as any);
+      const sound = pickSectionFromCondList(registry.actor, this.smart, this.alarm_start_sound as any);
 
       if (sound !== null) {
-        GlobalSound.set_sound_play(getActor()!.id(), sound, null, null);
+        GlobalSound.set_sound_play(registry.actor.id(), sound, null, null);
       }
 
       for (const [squad_id, squad] of get_sim_board().smarts.get(this.smart.id).squads) {

@@ -31,7 +31,7 @@ import {
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
-import { getActor } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { EGameEvent } from "@/mod/scripts/core/managers/events/EGameEvent";
 import { EventsManager } from "@/mod/scripts/core/managers/events/EventsManager";
 import { DebugDialog, IDebugDialog } from "@/mod/scripts/ui/debug/DebugDialog";
@@ -211,7 +211,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
       return;
     }
 
-    const actor: Optional<XR_game_object> = getActor();
+    const actor: Optional<XR_game_object> = registry.actor;
 
     if (actor !== null && !actor.alive()) {
       this.LoadLastSave();
@@ -423,7 +423,7 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
 
     if (event === ui_events.WINDOW_KEY_PRESSED) {
       if (dik === DIK_keys.DIK_ESCAPE) {
-        const actor: Optional<XR_game_object> = getActor();
+        const actor: Optional<XR_game_object> = registry.actor;
 
         if (level.present() && ((actor !== null && actor.alive()) || IsGameTypeSingle() === false)) {
           this.onButtonReturnToGameClick();

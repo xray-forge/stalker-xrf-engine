@@ -22,7 +22,7 @@ import { AnyArgs, LuaArray, Maybe, Optional, TSection } from "@/mod/lib/types";
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { ISimSquadReachTargetAction } from "@/mod/scripts/core/alife/SimSquadReachTargetAction";
 import { ISimSquadStayOnTargetAction } from "@/mod/scripts/core/alife/SimSquadStayOnTargetAction";
-import { anomalyByName, ARTEFACT_WAYS_BY_ARTEFACT_ID, getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import { anomalyByName, ARTEFACT_WAYS_BY_ARTEFACT_ID, IStoredObject, registry, storage } from "@/mod/scripts/core/db";
 import { getStoryObjectsRegistry } from "@/mod/scripts/core/db/StoryObjectsRegistry";
 import { spawnItemsForObject } from "@/mod/scripts/utils/alife_spawn";
 import { isStalker } from "@/mod/scripts/utils/checkers/is";
@@ -341,7 +341,7 @@ export function can_select_weapon(npc: XR_game_object, scheme: string, st: IStor
   }
 
   const cond = parseCondList(npc, section, "can_select_weapon", str);
-  const can: TSection = pickSectionFromCondList(getActor() as XR_game_object, npc, cond)!;
+  const can: TSection = pickSectionFromCondList(registry.actor, npc, cond)!;
 
   npc.can_select_weapon(can === "true");
 }
@@ -367,7 +367,7 @@ export function isInvulnerabilityNeeded(object: XR_game_object): boolean {
 
   const invulnerability_condlist = parseCondList(object, "invulnerability", "invulnerability", invulnerability);
 
-  return pickSectionFromCondList(getActor() as XR_game_object, object, invulnerability_condlist) === "true";
+  return pickSectionFromCondList(registry.actor, object, invulnerability_condlist) === "true";
 }
 
 /**
@@ -479,7 +479,7 @@ export function spawnDefaultNpcItems(npc: XR_game_object, state: IStoredObject):
  * todo: description
  */
 export function isSeeingActor(object: XR_game_object): boolean {
-  return object.alive() && object.see(getActor()!);
+  return object.alive() && object.see(registry.actor);
 }
 
 /**

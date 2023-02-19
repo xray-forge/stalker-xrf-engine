@@ -1,6 +1,6 @@
 import { get_console, system_ini, XR_CConsole, XR_game_object, XR_ini_file } from "xray16";
 
-import { getActor } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { getConfigString } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -71,7 +71,7 @@ export class ActorInventoryMenuManager extends AbstractCoreManager {
   public initQuickSlotItems(): void {
     const console: XR_CConsole = get_console();
     const ini: XR_ini_file = system_ini();
-    const actor: XR_game_object = getActor()!;
+    const actor: XR_game_object = registry.actor;
 
     console.execute("slot_0 " + getConfigString(ini, "actor", "quick_item_1", actor, false, "", ""));
     console.execute("slot_1 " + getConfigString(ini, "actor", "quick_item_2", actor, false, "", ""));

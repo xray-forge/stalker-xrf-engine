@@ -1,8 +1,7 @@
 import { XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
-import { Optional } from "@/mod/lib/types";
-import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
+import { IStoredObject, registry, storage } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
@@ -81,7 +80,7 @@ export class SchemeHit extends AbstractScheme {
     if (storage.get(this.object.id()).active_scheme) {
       storage.get(this.object.id()).hit.deadly_hit = amount >= this.object.health * 100;
 
-      if (trySwitchToAnotherSection(object, storage.get(this.object.id()).hit, getActor())) {
+      if (trySwitchToAnotherSection(object, storage.get(this.object.id()).hit, registry.actor)) {
         storage.get(this.object.id()).hit.deadly_hit = false;
 
         return;

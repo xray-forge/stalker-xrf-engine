@@ -17,7 +17,7 @@ import {
 } from "xray16";
 
 import { ESchemeType, Optional } from "@/mod/lib/types";
-import { addHeli, addObject, deleteHeli, deleteObject, getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import { addHeli, addObject, deleteHeli, deleteObject, IStoredObject, registry, storage } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { get_heli_health } from "@/mod/scripts/core/schemes/heli_move/heli_utils";
 import { HeliCombat } from "@/mod/scripts/core/schemes/heli_move/HeliCombat";
@@ -97,7 +97,7 @@ export const HeliBinder: IHeliBinder = declare_xr_class("HeliBinder", object_bin
   update(delta: number): void {
     object_binder.update(this, delta);
 
-    const actor: Optional<XR_game_object> = getActor();
+    const actor: Optional<XR_game_object> = registry.actor;
 
     if (!this.initialized && actor) {
       this.initialized = true;
