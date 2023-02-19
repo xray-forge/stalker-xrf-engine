@@ -2,7 +2,7 @@ import { game, time_global, XR_game_object, XR_ini_file } from "xray16";
 
 import { AnyObject, Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { schemes, storage } from "@/mod/scripts/core/db";
+import { registry, storage } from "@/mod/scripts/core/db";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
 import { resetGenericSchemesOnSchemeSwitch } from "@/mod/scripts/core/schemes/resetGenericSchemesOnSchemeSwitch";
 import { sendToNearestAccessibleVertex } from "@/mod/scripts/utils/alife";
@@ -75,7 +75,7 @@ export function activateBySection(
 
   resetGenericSchemesOnSchemeSwitch(npc, scheme, section);
 
-  const filenameOrHandler = schemes.get(scheme);
+  const filenameOrHandler = registry.schemes.get(scheme);
 
   if (filenameOrHandler === null) {
     abort("core/logic: scheme '%s' is !registered in modules.script", scheme);

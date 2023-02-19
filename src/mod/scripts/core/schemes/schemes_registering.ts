@@ -1,5 +1,5 @@
 import { EScheme, ESchemeType } from "@/mod/lib/types/scheme";
-import { schemes } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { SchemeAbuse } from "@/mod/scripts/core/schemes/abuse/SchemeAbuse";
 import { SchemeAnimpoint } from "@/mod/scripts/core/schemes/animpoint/SchemeAnimpoint";
 import { TAbstractSchemeConstructor } from "@/mod/scripts/core/schemes/base/AbstractScheme";
@@ -57,7 +57,7 @@ import { SchemeWounded } from "@/mod/scripts/core/schemes/wounded/SchemeWounded"
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("modules");
+const logger: LuaLogger = new LuaLogger("schemes_registering");
 
 /**
  * todo;
@@ -76,7 +76,7 @@ export function loadSchemeImplementation(
     abort("Invalid scheme type provided: '%s'.", schemeImplementation.SCHEME_TYPE);
   }
 
-  schemes.set(schemeNameOverride || schemeImplementation.SCHEME_SECTION, schemeImplementation);
+  registry.schemes.set(schemeNameOverride || schemeImplementation.SCHEME_SECTION, schemeImplementation);
 }
 
 /**
@@ -159,6 +159,4 @@ export function initializeModules(): void {
     SchemeTeleport,
     SchemeTimer,
   ]);
-
-  logger.info("Currently declared schemes:", schemes.length());
 }

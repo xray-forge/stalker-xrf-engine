@@ -14,7 +14,6 @@ import type { IAnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneB
 import type { ISignalLightBinder } from "@/mod/scripts/core/binders/SignalLightBinder";
 import { registry } from "@/mod/scripts/core/db/registry";
 import type { SchemeAnimpoint } from "@/mod/scripts/core/schemes/animpoint/SchemeAnimpoint";
-import type { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import type { CampStoryManager } from "@/mod/scripts/core/schemes/base/CampStoryManager";
 import type { CampPatrolManager } from "@/mod/scripts/core/schemes/kamp/SchemeCamp";
 import type { PatrolManager } from "@/mod/scripts/core/schemes/patrol/SchemePatrol";
@@ -30,10 +29,6 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 const logger: LuaLogger = new LuaLogger("db", false);
 
 export * from "@/mod/scripts/core/db/registry";
-
-// todo: Separate file with DB objects
-// todo: Separate file with DB utils
-export const schemes: LuaTable<string, typeof AbstractScheme> = new LuaTable();
 
 export const infoRestr: LuaTable<number, string | XR_game_object> = new LuaTable();
 export const scriptIds: LuaTable<number, string> = new LuaTable();
