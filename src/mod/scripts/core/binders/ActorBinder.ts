@@ -56,7 +56,7 @@ import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { get_sim_obj_registry } from "@/mod/scripts/se/SimObjectsRegistry";
 import { get_task_manager, ITaskManager } from "@/mod/scripts/se/task/TaskManager";
 import { giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
-import { isArtefact } from "@/mod/scripts/utils/checkers";
+import { isArtefact } from "@/mod/scripts/utils/checkers/is";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

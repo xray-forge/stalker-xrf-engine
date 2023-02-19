@@ -1,8 +1,8 @@
 /* eslint @typescript-eslint/explicit-function-return-type: "error" */
 
-import { isObjectWounded, isStalkerAlive } from "scripts/utils/checkers";
 import { alife, game_object, level, XR_game_object } from "xray16";
 
+import { captions } from "@/mod/globals/captions";
 import { communities } from "@/mod/globals/communities";
 import { info_portions } from "@/mod/globals/info_portions/info_portions";
 import { drugs, TMedkit } from "@/mod/globals/items/drugs";
@@ -18,6 +18,8 @@ import { get_surge_manager } from "@/mod/scripts/core/SurgeManager";
 import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
+import { isObjectWounded, isStalkerAlive } from "@/mod/scripts/utils/checkers/checkers";
+import { createScenarioAutoSave } from "@/mod/scripts/utils/game_saves";
 import { get_npc_smart } from "@/mod/scripts/utils/gulag";
 import {
   actorHasMedKit,
@@ -598,19 +600,13 @@ export function monolith_leader_dead_or_hired(first_speaker: XR_game_object, sec
       hasAlifeInfo(info_portions.jup_b4_monolith_squad_in_duty)
     )
   ) {
-    return !get_global<AnyCallablesModule>("xr_conditions").is_alive(null, null, [
-      "jup_b4_monolith_squad_leader_monolith_skin",
-    ]);
+    return !isStalkerAlive("jup_b4_monolith_squad_leader_monolith_skin");
   }
 
   if (hasAlifeInfo(info_portions.jup_b4_monolith_squad_in_freedom)) {
-    return !get_global<AnyCallablesModule>("xr_conditions").is_alive(null, null, [
-      "jup_b4_monolith_squad_leader_freedom_skin",
-    ]);
+    return !isStalkerAlive("jup_b4_monolith_squad_leader_freedom_skin");
   } else if (hasAlifeInfo(info_portions.jup_b4_monolith_squad_in_duty)) {
-    return !get_global<AnyCallablesModule>("xr_conditions").is_alive(null, null, [
-      "jup_b4_monolith_squad_leader_duty_skin",
-    ]);
+    return !isStalkerAlive("jup_b4_monolith_squad_leader_duty_skin");
   }
 
   return true;
@@ -630,17 +626,13 @@ export function monolith_leader_dead_or_dolg(first_speaker: XR_game_object, seco
       hasAlifeInfo(info_portions.jup_b4_monolith_squad_in_duty)
     )
   ) {
-    return !get_global<AnyCallablesModule>("xr_conditions").is_alive(null, null, [
-      "jup_b4_monolith_squad_leader_monolith_skin",
-    ]);
+    return !isStalkerAlive("jup_b4_monolith_squad_leader_monolith_skin");
   }
 
   if (hasAlifeInfo(info_portions.jup_b4_monolith_squad_in_freedom)) {
     return true;
   } else if (hasAlifeInfo(info_portions.jup_b4_monolith_squad_in_duty)) {
-    return !get_global<AnyCallablesModule>("xr_conditions").is_alive(null, null, [
-      "jup_b4_monolith_squad_leader_duty_skin",
-    ]);
+    return !isStalkerAlive("jup_b4_monolith_squad_leader_duty_skin");
   }
 
   return true;
@@ -748,28 +740,28 @@ export function squad_in_smart_jup_b25(first_speaker: XR_game_object, second_spe
  * todo;
  */
 export function spartak_is_alive(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return get_global<AnyCallablesModule>("xr_conditions").is_alive(null, null, ["zat_b7_stalker_victim_1"]);
+  return isStalkerAlive("zat_b7_stalker_victim_1");
 }
 
 /**
  * todo;
  */
 export function tesak_is_alive(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return get_global<AnyCallablesModule>("xr_conditions").is_alive(null, null, ["zat_b103_lost_merc_leader"]);
+  return isStalkerAlive("zat_b103_lost_merc_leader");
 }
 
 /**
  * todo;
  */
 export function gonta_is_alive(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return get_global<AnyCallablesModule>("xr_conditions").is_alive(null, null, ["zat_b103_lost_merc_leader"]);
+  return isStalkerAlive("zat_b103_lost_merc_leader");
 }
 
 /**
  * todo;
  */
 export function mityay_is_alive(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return get_global<AnyCallablesModule>("xr_conditions").is_alive(null, null, ["jup_a12_stalker_assaulter"]);
+  return isStalkerAlive("jup_a12_stalker_assaulter");
 }
 
 /**
@@ -829,15 +821,11 @@ export function monolith_leader_dead_or_freedom(
       hasAlifeInfo(info_portions.jup_b4_monolith_squad_in_duty)
     )
   ) {
-    return !get_global<AnyCallablesModule>("xr_conditions").is_alive(null, null, [
-      "jup_b4_monolith_squad_leader_monolith_skin",
-    ]);
+    return !isStalkerAlive("jup_b4_monolith_squad_leader_monolith_skin");
   }
 
   if (hasAlifeInfo(info_portions.jup_b4_monolith_squad_in_freedom)) {
-    return !get_global<AnyCallablesModule>("xr_conditions").is_alive(null, null, [
-      "jup_b4_monolith_squad_leader_freedom_skin",
-    ]);
+    return !isStalkerAlive("jup_b4_monolith_squad_leader_freedom_skin");
   } else if (hasAlifeInfo(info_portions.jup_b4_monolith_squad_in_duty)) {
     return true;
   }
@@ -877,65 +865,63 @@ export function actor_is_damn_healthy(first_speaker: XR_game_object, second_spea
  * todo;
  */
 export function leave_zone_save(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  get_global<AnyCallablesModule>("xr_effects").scenario_autosave(getActor(), null, ["st_save_uni_zone_to_reality"]);
+  createScenarioAutoSave(captions.st_save_uni_zone_to_reality);
 }
 
 /**
  * todo;
  */
 export function save_uni_travel_zat_to_jup(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  get_global<AnyCallablesModule>("xr_effects").scenario_autosave(getActor(), null, ["st_save_uni_travel_zat_to_jup"]);
+  createScenarioAutoSave(captions.st_save_uni_travel_zat_to_jup);
 }
 
 /**
  * todo;
  */
 export function save_uni_travel_zat_to_pri(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  get_global<AnyCallablesModule>("xr_effects").scenario_autosave(getActor(), null, ["st_save_uni_travel_zat_to_pri"]);
+  createScenarioAutoSave(captions.st_save_uni_travel_zat_to_pri);
 }
 
 /**
  * todo;
  */
 export function save_uni_travel_jup_to_zat(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  get_global<AnyCallablesModule>("xr_effects").scenario_autosave(getActor(), null, ["st_save_uni_travel_jup_to_zat"]);
+  createScenarioAutoSave(captions.st_save_uni_travel_jup_to_zat);
 }
 
 /**
  * todo;
  */
 export function save_uni_travel_jup_to_pri(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  get_global<AnyCallablesModule>("xr_effects").scenario_autosave(getActor(), null, ["st_save_uni_travel_jup_to_pri"]);
+  createScenarioAutoSave(captions.st_save_uni_travel_jup_to_pri);
 }
 
 /**
  * todo;
  */
 export function save_uni_travel_pri_to_zat(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  get_global<AnyCallablesModule>("xr_effects").scenario_autosave(getActor(), null, ["st_save_uni_travel_pri_to_zat"]);
+  createScenarioAutoSave(captions.st_save_uni_travel_pri_to_zat);
 }
 
 /**
  * todo;
  */
 export function save_uni_travel_pri_to_jup(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  get_global<AnyCallablesModule>("xr_effects").scenario_autosave(getActor(), null, ["st_save_uni_travel_pri_to_jup"]);
+  createScenarioAutoSave(captions.st_save_uni_travel_pri_to_jup);
 }
 
 /**
  * todo;
  */
 export function save_jup_b218_travel_jup_to_pas(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  get_global<AnyCallablesModule>("xr_effects").scenario_autosave(getActor(), null, [
-    "st_save_jup_b218_travel_jup_to_pas",
-  ]);
+  createScenarioAutoSave(captions.st_save_jup_b218_travel_jup_to_pas);
 }
 
 /**
  * todo;
  */
 export function save_pri_a17_hospital_start(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  get_global<AnyCallablesModule>("xr_effects").scenario_autosave(getActor(), null, ["st_save_pri_a17_hospital_start"]);
+  createScenarioAutoSave(captions.st_save_pri_a17_hospital_start);
 }
 
 /**
@@ -943,9 +929,7 @@ export function save_pri_a17_hospital_start(first_speaker: XR_game_object, secon
  */
 export function save_jup_a10_gonna_return_debt(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   if (!hasAlifeInfo(info_portions.jup_a10_avtosave)) {
-    get_global<AnyCallablesModule>("xr_effects").scenario_autosave(getActor(), null, [
-      "st_save_jup_a10_gonna_return_debt",
-    ]);
+    createScenarioAutoSave(captions.st_save_jup_a10_gonna_return_debt);
     giveInfo(info_portions.jup_a10_avtosave);
   }
 }
@@ -954,25 +938,21 @@ export function save_jup_a10_gonna_return_debt(first_speaker: XR_game_object, se
  * todo;
  */
 export function save_jup_b6_arrived_to_fen(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  get_global<AnyCallablesModule>("xr_effects").scenario_autosave(getActor(), null, ["st_save_jup_b6_arrived_to_fen"]);
+  createScenarioAutoSave(captions.st_save_jup_b6_arrived_to_fen);
 }
 
 /**
  * todo;
  */
 export function save_jup_b6_arrived_to_ash_heap(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  get_global<AnyCallablesModule>("xr_effects").scenario_autosave(getActor(), null, [
-    "st_save_jup_b6_arrived_to_ash_heap",
-  ]);
+  createScenarioAutoSave(captions.st_save_jup_b6_arrived_to_ash_heap);
 }
 
 /**
  * todo;
  */
 export function save_jup_b19_arrived_to_kopachy(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  get_global<AnyCallablesModule>("xr_effects").scenario_autosave(getActor(), null, [
-    "st_save_jup_b19_arrived_to_kopachy",
-  ]);
+  createScenarioAutoSave(captions.st_save_jup_b19_arrived_to_kopachy);
 }
 
 /**
@@ -982,9 +962,7 @@ export function save_zat_b106_arrived_to_chimera_lair(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): void {
-  get_global<AnyCallablesModule>("xr_effects").scenario_autosave(getActor(), null, [
-    "st_save_zat_b106_arrived_to_chimera_lair",
-  ]);
+  createScenarioAutoSave(captions.st_save_zat_b106_arrived_to_chimera_lair);
 }
 
 /**

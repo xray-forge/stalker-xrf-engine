@@ -26,7 +26,7 @@ import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAn
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { set_state } from "@/mod/scripts/state_management/StateManager";
 import { getStoryObject, isNpcInCombat } from "@/mod/scripts/utils/alife";
-import { isObjectWounded } from "@/mod/scripts/utils/checkers";
+import { isObjectWounded } from "@/mod/scripts/utils/checkers/checkers";
 import { getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 
 export class ActionSchemeMeet extends AbstractSchemeImplementation {

@@ -2,7 +2,7 @@ import { level, property_evaluator, XR_property_evaluator } from "xray16";
 
 import { communities } from "@/mod/globals/communities";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
-import { isObjectWounded } from "@/mod/scripts/utils/checkers";
+import { isObjectWounded } from "@/mod/scripts/utils/checkers/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("EvaluatorWoundedExist");

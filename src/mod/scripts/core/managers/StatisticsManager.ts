@@ -14,7 +14,7 @@ import { TMonster } from "@/mod/globals/monsters";
 import { Optional, PartialRecord, StringOptional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
-import { isStalker } from "@/mod/scripts/utils/checkers";
+import { isStalker } from "@/mod/scripts/utils/checkers/is";
 import { abort } from "@/mod/scripts/utils/debug";
 import { getClsId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

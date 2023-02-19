@@ -5,7 +5,7 @@ import { CAMPS, storage } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
 import { get_sound_manager, SoundManager } from "@/mod/scripts/core/sound/SoundManager";
-import { isObjectMeeting } from "@/mod/scripts/utils/checkers";
+import { isObjectMeeting } from "@/mod/scripts/utils/checkers/checkers";
 import { getConfigString, parseNames } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

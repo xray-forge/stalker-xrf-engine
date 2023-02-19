@@ -25,7 +25,7 @@ import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { ISimSquadReachTargetAction } from "@/mod/scripts/se/SimSquadReachTargetAction";
 import { ISimSquadStayOnTargetAction } from "@/mod/scripts/se/SimSquadStayOnTargetAction";
 import { spawnItemsForObject } from "@/mod/scripts/utils/alife_spawn";
-import { isStalker } from "@/mod/scripts/utils/checkers";
+import { isStalker } from "@/mod/scripts/utils/checkers/is";
 import {
   getConfigBoolean,
   getConfigNumber,

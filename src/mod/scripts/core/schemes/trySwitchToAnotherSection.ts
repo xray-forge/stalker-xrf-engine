@@ -6,7 +6,7 @@ import { stringifyAsJson } from "@/mod/lib/utils/json";
 import { IStoredObject, storage, zoneByName } from "@/mod/scripts/core/db";
 import { switchToSection } from "@/mod/scripts/core/schemes/switchToSection";
 import { isSeeingActor } from "@/mod/scripts/utils/alife";
-import { isNpcInZone } from "@/mod/scripts/utils/checkers";
+import { isNpcInZone } from "@/mod/scripts/utils/checkers/checkers";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

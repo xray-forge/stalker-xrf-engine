@@ -20,7 +20,7 @@ import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractS
 import { ActionProcessEnemy } from "@/mod/scripts/core/logic/actions/ActionProcessEnemy";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
-import { isHeavilyWounded } from "@/mod/scripts/utils/checkers";
+import { isHeavilyWounded } from "@/mod/scripts/utils/checkers/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ActionDanger");

@@ -2,7 +2,7 @@ import { property_evaluator, stalker_ids, time_global, XR_action_planner, XR_pro
 
 import { IStoredObject } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
-import { isActiveSection } from "@/mod/scripts/utils/checkers";
+import { isActiveSection } from "@/mod/scripts/utils/checkers/is";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("EvaluatorCloseCombat");

@@ -3,7 +3,7 @@ import { alife, level, vector, XR_cse_alife_creature_abstract, XR_game_object, X
 import { Optional } from "@/mod/lib/types";
 import { reactTaskPatrols } from "@/mod/scripts/core/db";
 import { getObjectSquad } from "@/mod/scripts/utils/alife";
-import { isObjectMeeting } from "@/mod/scripts/utils/checkers";
+import { isObjectMeeting } from "@/mod/scripts/utils/checkers/checkers";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { vectorCross, vectorRotateY, yawDegree } from "@/mod/scripts/utils/physics";

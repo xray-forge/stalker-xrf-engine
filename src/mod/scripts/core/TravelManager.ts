@@ -18,11 +18,12 @@ import {
 } from "xray16";
 
 import { post_processors } from "@/mod/globals/animation/post_processors";
+import { captions } from "@/mod/globals/captions";
 import { communities } from "@/mod/globals/communities";
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { set_travel_func } from "@/mod/scripts/core/binders/ActorBinder";
 import { getActor } from "@/mod/scripts/core/db";
-import { ERelation } from "@/mod/scripts/core/game_relations";
+import { ERelation } from "@/mod/scripts/core/ERelation";
 import { relocate_money } from "@/mod/scripts/core/NewsManager";
 import { SurgeManager } from "@/mod/scripts/core/SurgeManager";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/se/SimBoard";
@@ -31,6 +32,7 @@ import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
 import { getAlifeCharacterCommunity, getAlifeDistanceBetween, getObjectSquad } from "@/mod/scripts/utils/alife";
 import { parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
+import { createScenarioAutoSave } from "@/mod/scripts/utils/game_saves";
 import { get_npc_smart } from "@/mod/scripts/utils/gulag";
 import { getObjectStoryId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -353,7 +355,7 @@ export class TravelManager {
   }
 
   public actor_go_with_squad(actor: XR_game_object, npc: XR_game_object, dialog_id: string, phrase_id: string): void {
-    get_global<AnyCallablesModule>("xr_effects").scenario_autosave(actor, npc, ["st_save_uni_travel_generic"]);
+    createScenarioAutoSave(captions.st_save_uni_travel_generic);
 
     const npc_squad = getObjectSquad(npc)!;
 
@@ -414,7 +416,7 @@ export class TravelManager {
   ): void {
     logger.info("Actor travel with squad:", npc.name());
 
-    get_global<AnyCallablesModule>("xr_effects").scenario_autosave(actor, npc, ["st_save_uni_travel_generic"]);
+    createScenarioAutoSave(captions.st_save_uni_travel_generic);
 
     const travel_phrase_id = string.sub(phrase_id, 1, string.len(phrase_id) - 3);
 

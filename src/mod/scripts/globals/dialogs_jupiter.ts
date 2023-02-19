@@ -2,6 +2,7 @@
 
 import { alife, game_object, XR_cse_alife_creature_abstract, XR_game_object } from "xray16";
 
+import { communities } from "@/mod/globals/communities";
 import { info_portions, TInfoPortion } from "@/mod/globals/info_portions/info_portions";
 import { ammo } from "@/mod/globals/items/ammo";
 import { artefacts, TArtefact } from "@/mod/globals/items/artefacts";
@@ -15,15 +16,18 @@ import { quest_items } from "@/mod/globals/items/quest_items";
 import { weapons } from "@/mod/globals/items/weapons";
 import { AnyCallablesModule, AnyObject, LuaArray, Optional } from "@/mod/lib/types";
 import { anomalyByName, getActor, IStoredObject } from "@/mod/scripts/core/db";
+import { pstor_retrieve } from "@/mod/scripts/core/db/pstor";
 import { get_npcs_relation } from "@/mod/scripts/core/game_relations";
 import { getTreasureManager, ITreasureManager } from "@/mod/scripts/core/TreasureManager";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
+import { isActorEnemyWithFaction } from "@/mod/scripts/utils/checkers/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import {
   getActorSpeaker,
   getNpcSpeaker,
   giveItemsToActor,
   giveMoneyToActor,
+  isNpcName,
   relocateQuestItemSection,
   takeItemsFromActor,
   takeMoneyFromActor,
@@ -751,10 +755,7 @@ export function jup_b207_generic_decrypt_need_dialog_precond(
     return true;
   }
 
-  if (
-    get_global<AnyCallablesModule>("xr_conditions").check_npc_name(first_speaker, second_speaker, ["mechanic"]) ||
-    get_global<AnyCallablesModule>("xr_conditions").check_npc_name(first_speaker, second_speaker, ["tech"])
-  ) {
+  if (isNpcName(second_speaker, "mechanic") || isNpcName(second_speaker, "tech")) {
     return false;
   }
 
@@ -1325,30 +1326,22 @@ export function jup_b43_reward_for_both_artefacts(first_speaker: XR_game_object,
 
 // -- Jupiter B218 functions ---------------------------------------------------
 export function jup_b218_counter_not_3(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  const npc = getNpcSpeaker(first_speaker, second_speaker);
   const actor = getActorSpeaker(first_speaker, second_speaker);
 
-  return !get_global<AnyCallablesModule>("xr_conditions").counter_equal(actor, npc, [
-    "jup_b218_squad_members_count",
-    3,
-  ]);
+  return pstor_retrieve(actor, "jup_b218_squad_members_count", 0 as number) !== 3;
 }
 
 export function jup_b218_counter_equal_3(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  const npc = getNpcSpeaker(first_speaker, second_speaker);
   const actor = getActorSpeaker(first_speaker, second_speaker);
 
-  return get_global<AnyCallablesModule>("xr_conditions").counter_equal(actor, npc, ["jup_b218_squad_members_count", 3]);
+  return pstor_retrieve(actor, "jup_b218_squad_members_count", 0 as number) === 3;
 }
 
 export function jup_b218_counter_not_0(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
   const npc = getNpcSpeaker(first_speaker, second_speaker);
   const actor = getActorSpeaker(first_speaker, second_speaker);
 
-  return !get_global<AnyCallablesModule>("xr_conditions").counter_equal(actor, npc, [
-    "jup_b218_squad_members_count",
-    0,
-  ]);
+  return pstor_retrieve(actor, "jup_b218_squad_members_count", 0 as number) !== 0;
 }
 
 // --------------------------- Jupiter b25 -------------------------------------
@@ -1622,20 +1615,14 @@ export function jup_b47_actor_not_enemy_to_freedom(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  const npc = getNpcSpeaker(first_speaker, second_speaker);
-  const actor = getActorSpeaker(first_speaker, second_speaker);
-
-  return !get_global<AnyCallablesModule>("xr_conditions").is_faction_enemy_to_actor(actor, npc, ["freedom"]);
+  return !isActorEnemyWithFaction(communities.freedom);
 }
 
 export function jup_b47_actor_not_enemy_to_dolg(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  const npc = getNpcSpeaker(first_speaker, second_speaker);
-  const actor = getActorSpeaker(first_speaker, second_speaker);
-
-  return !get_global<AnyCallablesModule>("xr_conditions").is_faction_enemy_to_actor(actor, npc, ["dolg"]);
+  return !isActorEnemyWithFaction(communities.dolg);
 }
 
 export function jup_b15_actor_sci_outfit(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {

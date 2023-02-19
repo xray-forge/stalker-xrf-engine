@@ -4,7 +4,8 @@ import { communities } from "@/mod/globals/communities";
 import { Optional } from "@/mod/lib/types";
 import { IStoredObject, storage } from "@/mod/scripts/core/db";
 import { get_release_body_manager, IReleaseDescriptor } from "@/mod/scripts/core/ReleaseBodyManager";
-import { isLootableItem, isObjectWounded } from "@/mod/scripts/utils/checkers";
+import { isObjectWounded } from "@/mod/scripts/utils/checkers/checkers";
+import { isLootableItem } from "@/mod/scripts/utils/checkers/is";
 
 export interface IEvaluatorCorpseDetect extends XR_property_evaluator {
   state: IStoredObject;

@@ -20,7 +20,7 @@ import { getActor } from "@/mod/scripts/core/db";
 import { getWeakManagerInstance, isManagerInitialized } from "@/mod/scripts/core/db/ManagersRegistry";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { PhantomManager } from "@/mod/scripts/core/managers/PhantomManager";
-import { isLevelChanging } from "@/mod/scripts/utils/checkers";
+import { isLevelChanging } from "@/mod/scripts/utils/checkers/checkers";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { clampNumber } from "@/mod/scripts/utils/number";

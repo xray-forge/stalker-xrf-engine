@@ -5,7 +5,7 @@ import { Optional } from "@/mod/lib/types";
 import { states } from "@/mod/scripts/state_management/lib/state_lib";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
 import { get_idle_state, get_queue_params } from "@/mod/scripts/state_management/weapon/StateManagerWeapon";
-import { isStalker, isWeapon } from "@/mod/scripts/utils/checkers";
+import { isStalker, isWeapon } from "@/mod/scripts/utils/checkers/is";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const aim_ratio: number = 1000 / 50;

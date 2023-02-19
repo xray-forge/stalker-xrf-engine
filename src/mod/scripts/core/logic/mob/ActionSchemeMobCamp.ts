@@ -23,7 +23,7 @@ import { mobRelease } from "@/mod/scripts/core/schemes/mobRelease";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { action } from "@/mod/scripts/utils/alife";
-import { isMonster, isStalker } from "@/mod/scripts/utils/checkers";
+import { isMonster, isStalker } from "@/mod/scripts/utils/checkers/is";
 import { cfg_get_switch_conditions, getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

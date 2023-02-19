@@ -21,6 +21,7 @@ import { relocate_item } from "@/mod/scripts/core/NewsManager";
 import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
 import { counter_greater } from "@/mod/scripts/globals/conditions";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
+import { isSquadExisting } from "@/mod/scripts/utils/checkers/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import {
   actorHasAtLeastOneItem,
@@ -519,22 +520,14 @@ export function zat_b7_killed_self_precond(first_speaker: XR_game_object, second
     return false;
   }
 
-  if (get_global<AnyCallablesModule>("xr_conditions").squad_exist(null, null, ["zat_b7_stalkers_victims_1"])) {
-    return false;
-  }
-
-  return true;
+  return !isSquadExisting("zat_b7_stalkers_victims_1");
 }
 
 /**
  * todo;
  */
 export function zat_b7_squad_alive(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  if (get_global<AnyCallablesModule>("xr_conditions").squad_exist(null, null, ["zat_b7_stalkers_victims_1"])) {
-    return true;
-  }
-
-  return false;
+  return isSquadExisting("zat_b7_stalkers_victims_1");
 }
 
 /**
@@ -578,7 +571,7 @@ export function zat_b33_set_counter_10(first_speaker: XR_game_object, second_spe
 export function zat_b33_counter_ge_2(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
   const actor = getActorSpeaker(first_speaker, second_speaker);
 
-  return get_global<AnyCallablesModule>("xr_conditions").counter_greater(actor, null, ["zat_b33_items", 1]);
+  return pstor_retrieve(actor, "zat_b33_items", 0 as number) >= 2;
 }
 
 /**
@@ -587,7 +580,7 @@ export function zat_b33_counter_ge_2(first_speaker: XR_game_object, second_speak
 export function zat_b33_counter_ge_4(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
   const actor = getActorSpeaker(first_speaker, second_speaker);
 
-  return get_global<AnyCallablesModule>("xr_conditions").counter_greater(actor, null, ["zat_b33_items", 3]);
+  return pstor_retrieve(actor, "zat_b33_items", 0 as number) >= 4;
 }
 
 /**
@@ -596,7 +589,7 @@ export function zat_b33_counter_ge_4(first_speaker: XR_game_object, second_speak
 export function zat_b33_counter_ge_8(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
   const actor = getActorSpeaker(first_speaker, second_speaker);
 
-  return get_global<AnyCallablesModule>("xr_conditions").counter_greater(actor, null, ["zat_b33_items", 7]);
+  return pstor_retrieve(actor, "zat_b33_items", 0 as number) >= 8;
 }
 
 /**
@@ -653,7 +646,7 @@ export function zat_b33_counter_de_8(first_speaker: XR_game_object, second_speak
 export function zat_b33_counter_eq_10(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
   const actor = getActorSpeaker(first_speaker, second_speaker);
 
-  return get_global<AnyCallablesModule>("xr_conditions").counter_equal(actor, null, ["zat_b33_items", 10]);
+  return pstor_retrieve(actor, "zat_b33_items", 0 as number) === 10;
 }
 
 /**
@@ -685,13 +678,11 @@ export function zat_b103_transfer_mechanic_toolkit_2(
  */
 export function check_npc_name_mechanics(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
   return (
-    !get_global<AnyCallablesModule>("xr_conditions").check_npc_name(first_speaker, second_speaker, ["mechanic"]) &&
-    !get_global<AnyCallablesModule>("xr_conditions").check_npc_name(first_speaker, second_speaker, [
-      "zat_b103_lost_merc",
-    ]) &&
-    !get_global<AnyCallablesModule>("xr_conditions").check_npc_name(first_speaker, second_speaker, ["tech"]) &&
-    !get_global<AnyCallablesModule>("xr_conditions").check_npc_name(first_speaker, second_speaker, ["zulus"]) &&
-    get_global<AnyCallablesModule>("xr_conditions").check_npc_name(first_speaker, second_speaker, ["stalker"])
+    !isNpcName(second_speaker, "mechanic") &&
+    !isNpcName(second_speaker, "zat_b103_lost_merc") &&
+    !isNpcName(second_speaker, "tech") &&
+    !isNpcName(second_speaker, "zulus") &&
+    isNpcName(second_speaker, "stalker")
   );
 }
 
@@ -1531,20 +1522,9 @@ export function if_actor_has_toolkit_2(first_speaker: XR_game_object, second_spe
  * todo;
  */
 export function zat_b215_counter_greater_3(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  const npc: XR_game_object = getNpcSpeaker(first_speaker, second_speaker);
   const actor: XR_game_object = getActorSpeaker(first_speaker, second_speaker);
 
-  return counter_greater(actor, npc, ["zat_a9_way_to_pripyat_counter", 3]);
-}
-
-/**
- * todo;
- */
-export function zat_b215_counter_less_4(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  const npc: XR_game_object = getNpcSpeaker(first_speaker, second_speaker);
-  const actor: XR_game_object = getActorSpeaker(first_speaker, second_speaker);
-
-  return !get_global<AnyCallablesModule>("xr_conditions").counter_greater(actor, npc, ["jup_a9_way_gates_counter", 4]);
+  return pstor_retrieve(actor, "zat_a9_way_to_pripyat_counter", 0 as number) > 3;
 }
 
 /**

@@ -7,7 +7,7 @@ import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { get_sim_obj_registry, ISimObjectsRegistry } from "@/mod/scripts/se/SimObjectsRegistry";
 import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
 import { ESmartTerrainStatus } from "@/mod/scripts/se/SmartTerrainControl";
-import { isObjectInZone } from "@/mod/scripts/utils/checkers";
+import { isObjectInZone } from "@/mod/scripts/utils/checkers/checkers";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

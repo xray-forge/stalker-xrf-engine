@@ -2,7 +2,7 @@ import { property_evaluator, stalker_ids, XR_action_planner, XR_game_object, XR_
 
 import { Optional } from "@/mod/lib/types";
 import { getActor, IStoredObject } from "@/mod/scripts/core/db";
-import { isObjectWounded } from "@/mod/scripts/utils/checkers";
+import { isObjectWounded } from "@/mod/scripts/utils/checkers/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("EvaluatorContact");

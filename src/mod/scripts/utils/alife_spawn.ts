@@ -2,7 +2,7 @@ import { alife, system_ini, XR_game_object, XR_ini_file, XR_vector } from "xray1
 
 import { TAmmoItem } from "@/mod/globals/items/ammo";
 import { TSection } from "@/mod/lib/types";
-import { isAmmoSection } from "@/mod/scripts/utils/checkers";
+import { isAmmoSection } from "@/mod/scripts/utils/checkers/is";
 
 /**
  * todo: description

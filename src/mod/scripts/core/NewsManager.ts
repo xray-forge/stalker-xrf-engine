@@ -16,7 +16,8 @@ import { getActor } from "@/mod/scripts/core/db";
 import { get_smart_terrain_name } from "@/mod/scripts/core/db/smart_names";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { get_sim_board } from "@/mod/scripts/se/SimBoard";
-import { isHeavilyWounded, isStalkerClassId } from "@/mod/scripts/utils/checkers";
+import { isHeavilyWounded } from "@/mod/scripts/utils/checkers/checkers";
+import { isStalkerClassId } from "@/mod/scripts/utils/checkers/is";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

@@ -5,7 +5,7 @@ import { Optional } from "@/mod/lib/types";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
 import { get_weapon } from "@/mod/scripts/state_management/weapon/StateManagerWeapon";
 import { setItemCondition } from "@/mod/scripts/utils/alife";
-import { isStrappableWeapon } from "@/mod/scripts/utils/checkers";
+import { isStrappableWeapon } from "@/mod/scripts/utils/checkers/is";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger(

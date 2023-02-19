@@ -14,7 +14,7 @@ import { set_squad_goodwill } from "@/mod/scripts/core/game_relations";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
-import { isWeapon } from "@/mod/scripts/utils/checkers";
+import { isWeapon } from "@/mod/scripts/utils/checkers/is";
 import { getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

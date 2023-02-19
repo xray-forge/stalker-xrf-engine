@@ -5,7 +5,7 @@ import { Optional } from "@/mod/lib/types";
 import { action_ids } from "@/mod/scripts/core/actions_id";
 import { EStateManagerProperty } from "@/mod/scripts/state_management/EStateManagerProperty";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
-import { isObjectMeeting } from "@/mod/scripts/utils/checkers";
+import { isObjectMeeting } from "@/mod/scripts/utils/checkers/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("StateManagerEvaIdleAlife", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);

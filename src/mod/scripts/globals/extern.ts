@@ -45,6 +45,9 @@ declare_global("dialogs", require("@/mod/scripts/globals/dialogs"));
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 declare_global("dialog_manager", require("@/mod/scripts/globals/dialog_manager"));
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+declare_global("functors", require("@/mod/scripts/globals/functors"));
+
 declare_global("smart_covers", {});
 declare_global("smart_covers.descriptions", smart_covers_list);
 

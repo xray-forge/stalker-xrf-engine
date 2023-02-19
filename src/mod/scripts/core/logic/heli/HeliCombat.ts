@@ -14,7 +14,7 @@ import {
 import { Optional } from "@/mod/lib/types";
 import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
 import { get_heli_health } from "@/mod/scripts/core/logic/heli/heli_utils";
-import { isLevelChanging } from "@/mod/scripts/utils/checkers";
+import { isLevelChanging } from "@/mod/scripts/utils/checkers/checkers";
 import {
   getConfigBoolean,
   getConfigNumber,

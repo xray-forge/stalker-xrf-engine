@@ -22,7 +22,7 @@ export function get_smart_cover_animpoint_sit_normal(): ISmartCoverDescriptor {
         weight: 1.0,
         actions: [
           {
-            precondition_functor: "_functors.list.script_functor_true",
+            precondition_functor: "functors.script_functor_true",
             precondition_params: "",
             actions: [
               {
@@ -41,7 +41,7 @@ export function get_smart_cover_animpoint_sit_normal(): ISmartCoverDescriptor {
         weight: 1.1,
         actions: [
           {
-            precondition_functor: "_functors.list.script_functor_true",
+            precondition_functor: "functors.script_functor_true",
             precondition_params: "",
             actions: [
               {

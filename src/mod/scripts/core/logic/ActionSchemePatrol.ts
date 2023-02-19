@@ -13,7 +13,7 @@ import { EvaluatorPatrolEnd } from "@/mod/scripts/core/logic/evaluators/Evaluato
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { getObjectSquad } from "@/mod/scripts/utils/alife";
-import { isObjectMeeting } from "@/mod/scripts/utils/checkers";
+import { isObjectMeeting } from "@/mod/scripts/utils/checkers/checkers";
 import { cfg_get_switch_conditions, getConfigBoolean, getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

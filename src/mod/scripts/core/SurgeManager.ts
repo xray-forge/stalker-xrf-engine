@@ -17,6 +17,8 @@ import {
 
 import { animations } from "@/mod/globals/animation/animations";
 import { post_processors } from "@/mod/globals/animation/post_processors";
+import { captions } from "@/mod/globals/captions";
+import { info_portions } from "@/mod/globals/info_portions";
 import { levels, TLevel } from "@/mod/globals/levels";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { AnyCallablesModule, Optional, PartialRecord } from "@/mod/lib/types";
@@ -31,9 +33,10 @@ import { get_sim_board, ISimBoard } from "@/mod/scripts/se/SimBoard";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { getStoryObject } from "@/mod/scripts/utils/alife";
-import { isImmuneToSurge, isObjectOnLevel, isStoryObject, isSurgeEnabledOnLevel } from "@/mod/scripts/utils/checkers";
+import { isImmuneToSurge, isObjectOnLevel, isSurgeEnabledOnLevel } from "@/mod/scripts/utils/checkers/checkers";
+import { isStoryObject } from "@/mod/scripts/utils/checkers/is";
 import { parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
-import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
+import { createScenarioAutoSave, setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { copyTable } from "@/mod/scripts/utils/table";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
@@ -399,8 +402,11 @@ export class SurgeManager extends AbstractCoreManager {
       this.isFinished = false;
 
       // -- autosave
-      if (!hasAlifeInfo("pri_b305_fifth_cam_end") || hasAlifeInfo("pri_a28_actor_in_zone_stay")) {
-        get_global<AnyCallablesModule>("xr_effects").scenario_autosave(null, null, ["st_save_uni_surge_start"]);
+      if (
+        !hasAlifeInfo(info_portions.pri_b305_fifth_cam_end) ||
+        hasAlifeInfo(info_portions.pri_a28_actor_in_zone_stay)
+      ) {
+        createScenarioAutoSave(captions.st_save_uni_surge_start);
       }
     }
   }

@@ -7,7 +7,7 @@ import { getActor } from "@/mod/scripts/core/db";
 import { DIALOG_MANAGER_LTX } from "@/mod/scripts/core/db/IniFiles";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
-import { isObjectWounded } from "@/mod/scripts/utils/checkers";
+import { isObjectWounded } from "@/mod/scripts/utils/checkers/checkers";
 import { parse_infop1, parseNames } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";

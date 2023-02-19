@@ -4,7 +4,7 @@ import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
 import { EStateManagerProperty } from "@/mod/scripts/state_management/EStateManagerProperty";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
-import { isObjectMeeting } from "@/mod/scripts/utils/checkers";
+import { isObjectMeeting } from "@/mod/scripts/utils/checkers/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("StateManagerEvaIdleItems", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);

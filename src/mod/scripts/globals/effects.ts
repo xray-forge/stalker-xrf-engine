@@ -66,9 +66,9 @@ import {
 } from "@/mod/scripts/core/db";
 import { SYSTEM_INI } from "@/mod/scripts/core/db/IniFiles";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
+import { ERelation } from "@/mod/scripts/core/ERelation";
 import {
   change_factions_community_num,
-  ERelation,
   set_level_faction_community as setLevelFactionCommunity,
   set_npc_sympathy as setNpcSympathy,
   set_squad_goodwill as setSquadGoodwill,
@@ -100,7 +100,8 @@ import { mapDisplayManager } from "@/mod/scripts/ui/game/MapDisplayManager";
 import { sleep as startSleeping } from "@/mod/scripts/ui/interaction/SleepDialog";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { getStoryObject, getStorySquad } from "@/mod/scripts/utils/alife";
-import { isActorInZoneWithName, isStalker } from "@/mod/scripts/utils/checkers";
+import { isActorInZoneWithName } from "@/mod/scripts/utils/checkers/checkers";
+import { isStalker } from "@/mod/scripts/utils/checkers/is";
 import { getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { setInactiveInputTime } from "@/mod/scripts/utils/controls";
 import { abort } from "@/mod/scripts/utils/debug";

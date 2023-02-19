@@ -1,7 +1,7 @@
 import { property_evaluator, XR_property_evaluator } from "xray16";
 
 import { IStoredObject } from "@/mod/scripts/core/db";
-import { isActiveSection } from "@/mod/scripts/utils/checkers";
+import { isActiveSection } from "@/mod/scripts/utils/checkers/is";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("EvaluatorCampEnd");

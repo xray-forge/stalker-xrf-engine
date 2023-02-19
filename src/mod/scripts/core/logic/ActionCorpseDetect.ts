@@ -10,7 +10,7 @@ import { ActionSearchCorpse, IActionSearchCorpse } from "@/mod/scripts/core/logi
 import { EvaluatorCorpseDetect } from "@/mod/scripts/core/logic/evaluators/EvaluatorCorpseDetect";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
-import { isLootableItem } from "@/mod/scripts/utils/checkers";
+import { isLootableItem } from "@/mod/scripts/utils/checkers/is";
 import { getConfigBoolean } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

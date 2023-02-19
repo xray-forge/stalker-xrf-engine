@@ -13,7 +13,7 @@ import {
 
 import { Optional } from "@/mod/lib/types";
 import { getActor, storage } from "@/mod/scripts/core/db";
-import { isMonster, isStalker } from "@/mod/scripts/utils/checkers";
+import { isMonster, isStalker } from "@/mod/scripts/utils/checkers/is";
 import { getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";

@@ -480,7 +480,7 @@ export const smart_covers_list: LuaTable<string, ISmartCoverDescriptor> = {
       actions: [
         {
           position: new vector().set(0, -0.67, 1),
-          precondition_functor: "_functors.list.script_functor_true",
+          precondition_functor: "functors.script_functor_true",
           precondition_params: "",
           animation: "loophole_1_in_front_0"
         }
@@ -493,7 +493,7 @@ export const smart_covers_list: LuaTable<string, ISmartCoverDescriptor> = {
       actions: [
         {
           position: new vector().set(0, 0, 1),
-          precondition_functor: "_functors.list.script_functor_true",
+          precondition_functor: "functors.script_functor_true",
           precondition_params: "",
           // --body_state: move.standing, movement_type: move.run,
           // --time: 5.0,
@@ -508,7 +508,7 @@ export const smart_covers_list: LuaTable<string, ISmartCoverDescriptor> = {
       actions: [
         {
           position: new vector().set(0, 0, 1),
-          precondition_functor: "_functors.list.script_functor_true",
+          precondition_functor: "functors.script_functor_true",
           precondition_params: "",
           animation: "loophole_transition_1_to_3"
         }
@@ -521,7 +521,7 @@ export const smart_covers_list: LuaTable<string, ISmartCoverDescriptor> = {
       actions: [
         {
           position: new vector().set(0, 0, 1),
-          precondition_functor: "_functors.list.script_functor_true",
+          precondition_functor: "functors.script_functor_true",
           precondition_params: "",
           animation: "loophole_transition_3_to_1"
         }

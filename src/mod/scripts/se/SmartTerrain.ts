@@ -45,7 +45,7 @@ import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { registered_smartcovers } from "@/mod/scripts/se/SmartCover";
 import { ESmartTerrainStatus, ISmartTerrainControl, SmartTerrainControl } from "@/mod/scripts/se/SmartTerrainControl";
 import { areOnSameAlifeLevel, getStoryObject, unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
-import { isMonster, isStalker } from "@/mod/scripts/utils/checkers";
+import { isMonster, isStalker } from "@/mod/scripts/utils/checkers/is";
 import {
   get_scheme_by_section,
   getConfigBoolean,

@@ -177,7 +177,7 @@ declare module "xray16" {
    */
   export interface IXR_relation_registry {
     change_community_goodwill(this: void, community_a: string, value2: i32, value3: i32): void;
-    community_goodwill(this: void, community: string, value2: i32): i32;
+    community_goodwill(this: void, community: string, object_id: i32): i32;
     community_relation(this: void, community_a: string, community_b: string): i32;
     get_general_goodwill_between(this: void, from_id: u16, to_id: u16): i32;
     set_community_goodwill(this: void, community_a: string, value2: i32, value3: i32): void;

@@ -2,8 +2,9 @@ import { alife, relation_registry, XR_cse_alife_creature_abstract, XR_game_objec
 
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { relations, TRelation } from "@/mod/globals/relations";
-import { AnyCallablesModule, Maybe, Optional } from "@/mod/lib/types";
+import { Maybe, Optional } from "@/mod/lib/types";
 import { getActor, storage } from "@/mod/scripts/core/db";
+import { ERelation } from "@/mod/scripts/core/ERelation";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
 import { getCharacterCommunity, getStorySquad } from "@/mod/scripts/utils/alife";
@@ -12,12 +13,6 @@ import { get_gulag_by_name } from "@/mod/scripts/utils/gulag";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("game_relations");
-
-export enum ERelation {
-  FRIENDS = 1000,
-  NEUTRALS = 0,
-  ENEMIES = -1000,
-}
 
 export const temp_goodwill_table: { communities: Optional<LuaTable<TCommunity, LuaTable<number, number>>> } = {
   communities: null,
@@ -162,9 +157,9 @@ export function set_squad_goodwill_to_npc(
   let goodwill = 0;
 
   if (new_goodwill === relations.enemy) {
-    goodwill = -1000;
+    goodwill = ERelation.ENEMIES;
   } else if (new_goodwill === relations.friend) {
-    goodwill = 1000;
+    goodwill = ERelation.FRIENDS;
   }
 
   let squad: Optional<ISimSquad> = getStorySquad(squad_id as string);

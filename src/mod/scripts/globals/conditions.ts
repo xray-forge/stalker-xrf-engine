@@ -53,17 +53,19 @@ import {
 import {
   isActorAlive,
   isActorEnemy,
+  isActorEnemyWithFaction,
+  isActorFriendWithFaction,
+  isActorNeutralWithFaction,
   isBlackScreen,
   isDistanceBetweenObjectsGreaterOrEqual,
   isDistanceBetweenObjectsLessOrEqual,
   isHeavilyWounded,
-  isMonster,
   isNpcInZone,
   isObjectWounded,
   isPlayingSound,
-  isStalker,
-  isWeapon,
-} from "@/mod/scripts/utils/checkers";
+  isSquadExisting,
+} from "@/mod/scripts/utils/checkers/checkers";
+import { isMonster, isStalker, isWeapon } from "@/mod/scripts/utils/checkers/is";
 import { abort } from "@/mod/scripts/utils/debug";
 import { get_npc_smart } from "@/mod/scripts/utils/gulag";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
@@ -801,30 +803,22 @@ export function is_factions_friends(actor: XR_game_object, npc: XR_game_object, 
 /**
  * todo;
  */
-export function is_faction_enemy_to_actor(actor: XR_game_object, npc: XR_game_object, p: [string]): boolean {
-  if (p[0] !== null) {
-    return relation_registry.community_goodwill(p[0], getActor()!.id()) <= -1000;
-  } else {
-    return false;
-  }
+export function is_faction_enemy_to_actor(actor: XR_game_object, npc: XR_game_object, p: [TCommunity]): boolean {
+  return p[0] === null ? false : isActorEnemyWithFaction(p[0]);
 }
 
 /**
  * todo;
  */
-export function is_faction_friend_to_actor(actor: XR_game_object, npc: XR_game_object, p: [string]): boolean {
-  if (p[0] !== null) {
-    return relation_registry.community_goodwill(p[0], getActor()!.id()) >= 1000;
-  } else {
-    return false;
-  }
+export function is_faction_friend_to_actor(actor: XR_game_object, npc: XR_game_object, p: [TCommunity]): boolean {
+  return p[0] === null ? false : isActorFriendWithFaction(p[0]);
 }
 
 /**
  * todo;
  */
-export function is_faction_neutral_to_actor(actor: XR_game_object, npc: XR_game_object, p: [string]): boolean {
-  return !(is_faction_enemy_to_actor(actor, npc, p) || is_faction_friend_to_actor(actor, npc, p));
+export function is_faction_neutral_to_actor(actor: XR_game_object, npc: XR_game_object, p: [TCommunity]): boolean {
+  return p[0] === null ? false : isActorNeutralWithFaction(p[0]);
 }
 
 /**
@@ -1159,9 +1153,9 @@ export function squad_exist(actor: XR_game_object, npc: XR_game_object, p: [Opti
 
   if (storyId === null) {
     abort("Wrong parameter story_id[%s] in squad_exist function", tostring(storyId));
+  } else {
+    return isSquadExisting(storyId);
   }
-
-  return getStorySquad(storyId) !== null;
 }
 
 /**

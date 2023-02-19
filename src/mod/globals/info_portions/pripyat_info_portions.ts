@@ -94,6 +94,7 @@ export const pripyat_info_portions = {
   pri_b301_zulus_spawn_again: "pri_b301_zulus_spawn_again",
   pri_b305_actor_wondered_done: "pri_b305_actor_wondered_done",
   pri_b305_all_strelok_notes_given: "pri_b305_all_strelok_notes_given",
+  pri_b305_fifth_cam_end: "pri_b305_fifth_cam_end",
   pri_b306_lift_generator_started: "pri_b306_lift_generator_started",
   pri_b306_lift_generator_used: "pri_b306_lift_generator_used",
   pri_b306_lift_used: "pri_b306_lift_used",

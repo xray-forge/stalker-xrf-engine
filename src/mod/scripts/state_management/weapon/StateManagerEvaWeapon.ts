@@ -3,7 +3,7 @@ import { property_evaluator, XR_property_evaluator } from "xray16";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { states } from "@/mod/scripts/state_management/lib/state_lib";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
-import { isStrappableWeapon, isWeapon } from "@/mod/scripts/utils/checkers";
+import { isStrappableWeapon, isWeapon } from "@/mod/scripts/utils/checkers/is";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("StateManagerEvaWeapon", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);

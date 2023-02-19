@@ -8,14 +8,8 @@ import { storage } from "@/mod/scripts/core/db";
 import { IStalker } from "@/mod/scripts/se/Stalker";
 import { getCharacterCommunity, setItemCondition } from "@/mod/scripts/utils/alife";
 import { spawnAmmoForObject, spawnItemsForObject } from "@/mod/scripts/utils/alife_spawn";
-import {
-  isAmmoItem,
-  isArtefact,
-  isExcludedFromLootDropItem,
-  isGrenade,
-  isLootableItem,
-  isWeapon,
-} from "@/mod/scripts/utils/checkers";
+import { isExcludedFromLootDropItem } from "@/mod/scripts/utils/checkers/checkers";
+import { isAmmoItem, isArtefact, isGrenade, isLootableItem, isWeapon } from "@/mod/scripts/utils/checkers/is";
 import { parseNames, parseNums } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

@@ -8,7 +8,7 @@ import { AbstractSchemeImplementation } from "@/mod/scripts/core/logic/AbstractS
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
-import { isUndergroundLevel } from "@/mod/scripts/utils/checkers";
+import { isUndergroundLevel } from "@/mod/scripts/utils/checkers/is";
 import { cfg_get_switch_conditions, getConfigBoolean } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resetTable } from "@/mod/scripts/utils/table";

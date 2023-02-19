@@ -22,7 +22,7 @@ import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeAc
 import { switchToSection } from "@/mod/scripts/core/schemes/switchToSection";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { getStoryObject } from "@/mod/scripts/utils/alife";
-import { isHeavilyWounded } from "@/mod/scripts/utils/checkers";
+import { isHeavilyWounded } from "@/mod/scripts/utils/checkers/checkers";
 import {
   cfg_get_switch_conditions,
   getConfigBoolean,

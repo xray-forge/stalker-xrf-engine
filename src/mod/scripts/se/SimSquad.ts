@@ -58,7 +58,7 @@ import { IStalker } from "@/mod/scripts/se/Stalker";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { areOnSameAlifeLevel, unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
-import { isSquadMonsterCommunity } from "@/mod/scripts/utils/checkers";
+import { isSquadMonsterCommunity } from "@/mod/scripts/utils/checkers/is";
 import {
   getConfigBoolean,
   getConfigNumber,
