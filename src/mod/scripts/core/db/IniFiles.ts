@@ -18,6 +18,7 @@ export const DUMMY_LTX: XR_ini_file = new ini_file("scripts\\dummy.ltx");
 export const SIMULATION_LTX: XR_ini_file = new ini_file("misc\\simulation.ltx");
 export const SMART_NAMES_LTX: XR_ini_file = new ini_file("misc\\smart_names.ltx");
 export const DIALOG_MANAGER_LTX: XR_ini_file = new ini_file("misc\\dialog_manager.ltx");
+export const SCRIPT_SOUND_LTX: XR_ini_file = new ini_file("misc\\script_sound.ltx");
 
 /**
  * todo;

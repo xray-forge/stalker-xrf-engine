@@ -593,7 +593,7 @@ export class SurgeManager extends AbstractCoreManager {
 
           return;
         } else {
-          level.add_cam_effector(animations.camera_effects_surge_02, sleep_cam_eff_id, false, "_extern.surge_callback");
+          level.add_cam_effector(animations.camera_effects_surge_02, sleep_cam_eff_id, false, "extern.surge_callback");
           level.add_pp_effector(post_processors.surge_fade, sleep_fade_pp_eff_id, false);
           getActor()!.health = getActor()!.health - 0.05;
         }

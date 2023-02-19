@@ -9,7 +9,7 @@ const logger: LuaLogger = new LuaLogger("smart_names");
 
 export const smart_names_table: LuaTable<string, LuaTable<string, string>> = new LuaTable();
 
-export function init_smart_names_table(): void {
+export function initSmartNamesTable(): void {
   const levels_count: number = SMART_NAMES_LTX.line_count("levels");
 
   logger.info("Init smart names:", levels_count);

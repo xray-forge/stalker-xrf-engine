@@ -278,7 +278,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
       if (s_obj && s_obj.section_name() === "drug_anabiotic") {
         get_global<AnyCallablesModule>("xr_effects").disable_ui_only(getActor(), null);
 
-        level.add_cam_effector(animations.camera_effects_surge_02, 10, false, "_extern.anabiotic_callback");
+        level.add_cam_effector(animations.camera_effects_surge_02, 10, false, "extern.anabiotic_callback");
         level.add_pp_effector(post_processors.surge_fade, 11, false);
 
         giveInfo("anabiotic_in_process");
@@ -300,7 +300,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
       }
     }
 
-    get_global<AnyCallablesModule>("_extern").task_callback(task_object, _state);
+    get_global<AnyCallablesModule>("extern").task_callback(task_object, _state);
   },
   update(delta: number): void {
     object_binder.update(this, delta);

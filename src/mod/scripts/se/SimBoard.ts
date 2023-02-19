@@ -351,7 +351,7 @@ export function get_sim_board(): ISimBoard {
   return board;
 }
 
-export function reset_sim_board(): void {
+export function resetSimBoard(): void {
   logger.info("Clear board");
   board = null;
 }

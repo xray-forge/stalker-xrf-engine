@@ -1,6 +1,7 @@
-import { ini_file, XR_game_object } from "xray16";
+import { XR_game_object } from "xray16";
 
 import { getActor, sound_themes } from "@/mod/scripts/core/db";
+import { SCRIPT_SOUND_LTX } from "@/mod/scripts/core/db/IniFiles";
 import { ActorSound } from "@/mod/scripts/core/sound/playable_sounds/ActorSound";
 import { EPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/EPlayableSound";
 import { LoopedSound } from "@/mod/scripts/core/sound/playable_sounds/LoopedSound";
@@ -15,22 +16,20 @@ import { resetTable } from "@/mod/scripts/utils/table";
 const logger: LuaLogger = new LuaLogger("SoundTheme");
 
 export class SoundTheme {
-  public static load_sound(): void {
-    const snd_ini = new ini_file("misc\\script_sound.ltx");
-
-    if (!snd_ini.section_exist("list")) {
+  public static loadSound(): void {
+    if (!SCRIPT_SOUND_LTX.section_exist("list")) {
       abort("There is no section [list] in script_sound.ltx");
     }
 
-    const n: number = snd_ini.line_count("list");
+    const n: number = SCRIPT_SOUND_LTX.line_count("list");
 
     resetTable(sound_themes);
 
     for (const i of $range(0, n - 1)) {
-      const [result, section, value] = snd_ini.r_line("list", i, "", "");
+      const [result, section, value] = SCRIPT_SOUND_LTX.r_line("list", i, "", "");
 
       const type: EPlayableSound = getConfigString<EPlayableSound>(
-        snd_ini,
+        SCRIPT_SOUND_LTX,
         section,
         "type",
         getActor(),
@@ -40,19 +39,19 @@ export class SoundTheme {
 
       switch (type) {
         case ObjectSound.type:
-          sound_themes.set(section, new ObjectSound(snd_ini, section));
+          sound_themes.set(section, new ObjectSound(SCRIPT_SOUND_LTX, section));
           break;
 
         case NpcSound.type:
-          sound_themes.set(section, new NpcSound(snd_ini, section));
+          sound_themes.set(section, new NpcSound(SCRIPT_SOUND_LTX, section));
           break;
 
         case ActorSound.type:
-          sound_themes.set(section, new ActorSound(snd_ini, section));
+          sound_themes.set(section, new ActorSound(SCRIPT_SOUND_LTX, section));
           break;
 
         case LoopedSound.type:
-          sound_themes.set(section, new LoopedSound(snd_ini, section));
+          sound_themes.set(section, new LoopedSound(SCRIPT_SOUND_LTX, section));
           break;
 
         default:

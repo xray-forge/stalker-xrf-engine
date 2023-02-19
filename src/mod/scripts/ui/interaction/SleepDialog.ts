@@ -206,7 +206,7 @@ export const SleepDialog = declare_xr_class("SleepDialog", CUIScriptWnd, {
 
     get_global<AnyCallablesModule>("xr_effects").disable_ui(getActor(), null);
 
-    level.add_cam_effector(animations.camera_effects_sleep, 10, false, "_extern.dream_callback");
+    level.add_cam_effector(animations.camera_effects_sleep, 10, false, "extern.dream_callback");
     level.add_pp_effector(post_processors.sleep_fade, 11, false);
 
     giveInfo(info_portions.actor_is_sleeping);
@@ -233,7 +233,7 @@ export const SleepDialog = declare_xr_class("SleepDialog", CUIScriptWnd, {
 export function dream_callback(): void {
   logger.info("Dream callback");
 
-  level.add_cam_effector(animations.camera_effects_sleep, 10, false, "_extern.dream_callback2");
+  level.add_cam_effector(animations.camera_effects_sleep, 10, false, "extern.dream_callback2");
 
   const actor: XR_game_object = getActor()!;
   const hours = sleep_control!.time_track.GetIValue();

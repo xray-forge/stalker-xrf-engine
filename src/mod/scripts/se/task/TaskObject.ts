@@ -244,8 +244,8 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
     t.set_description(this.current_descr);
     t.set_priority(this.prior);
     t.set_icon_name(this.icon);
-    t.add_complete_func("_extern.task_complete");
-    t.add_fail_func("_extern.task_fail");
+    t.add_complete_func("extern.task_complete");
+    t.add_fail_func("extern.task_fail");
 
     pickSectionFromCondList(getActor() as XR_game_object, getActor(), this.on_init as any);
 

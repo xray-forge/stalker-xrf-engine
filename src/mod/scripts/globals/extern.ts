@@ -10,7 +10,6 @@ import { AchievementsManager, EAchievement } from "@/mod/scripts/core/managers/A
 import { ActorInventoryMenuManager, EActorMenuMode } from "@/mod/scripts/core/managers/ActorInventoryMenuManager";
 import { loadScreenManager } from "@/mod/scripts/core/managers/LoadScreenManager";
 import { PdaManager } from "@/mod/scripts/core/managers/PdaManager";
-import { startGame } from "@/mod/scripts/core/start_game";
 import { sleep_cam_eff_id, SurgeManager } from "@/mod/scripts/core/SurgeManager";
 import { get_buy_discount, get_sell_discount } from "@/mod/scripts/core/TradeManager";
 import { travelManager } from "@/mod/scripts/core/TravelManager";
@@ -25,7 +24,7 @@ import { disableInfo } from "@/mod/scripts/utils/actor";
 import { externClassMethod } from "@/mod/scripts/utils/general";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("_extern");
+const logger: LuaLogger = new LuaLogger("extern");
 
 logger.info("Resolve externals");
 
@@ -51,28 +50,22 @@ declare_global("functors", require("@/mod/scripts/globals/functors"));
 declare_global("smart_covers", {});
 declare_global("smart_covers.descriptions", smart_covers_list);
 
-declare_global("_extern", {});
-
-/**
- * Called by game engine on game start
- */
-
-declare_global("_extern.start_game_callback", startGame);
+declare_global("extern", {});
 
 /**
  * Sleeping functionality.
  */
 
-declare_global("_extern.dream_callback", SleepDialogModule.dream_callback);
+declare_global("extern.dream_callback", SleepDialogModule.dream_callback);
 
-declare_global("_extern.dream_callback2", SleepDialogModule.dream_callback2);
+declare_global("extern.dream_callback2", SleepDialogModule.dream_callback2);
 
 /**
  * Anabiotic functionality.
  */
 
-declare_global("_extern.anabiotic_callback", () => {
-  level.add_cam_effector(animations.camera_effects_surge_01, 10, false, "_extern.anabiotic_callback2");
+declare_global("extern.anabiotic_callback", () => {
+  level.add_cam_effector(animations.camera_effects_surge_01, 10, false, "extern.anabiotic_callback2");
 
   const rnd = math.random(35, 45);
   const surgeManager: SurgeManager = SurgeManager.getInstance();
@@ -93,7 +86,7 @@ declare_global("_extern.anabiotic_callback", () => {
   weatherManager.forced_weather_change();
 });
 
-declare_global("_extern.anabiotic_callback2", () => {
+declare_global("extern.anabiotic_callback2", () => {
   get_global<AnyCallablesModule>("xr_effects").enable_ui(getActor(), null);
 
   get_console().execute("snd_volume_music " + tostring(get_global("mus_vol")));
@@ -105,14 +98,14 @@ declare_global("_extern.anabiotic_callback2", () => {
   disableInfo("anabiotic_in_process");
 });
 
-declare_global("_extern.surge_callback", () => {
-  level.add_cam_effector(animations.camera_effects_surge_01, sleep_cam_eff_id, false, "_extern.surge_callback2");
+declare_global("extern.surge_callback", () => {
+  level.add_cam_effector(animations.camera_effects_surge_01, sleep_cam_eff_id, false, "extern.surge_callback2");
   // --    level.stop_weather_fx()
   // --    level.change_game_time(0,0,15)
   // --    WeatherManager.get_weather_manager():forced_weather_change()
 });
 
-declare_global("_extern.surge_callback", () => {
+declare_global("extern.surge_callback", () => {
   get_global<AnyCallablesModule>("xr_effects").enable_ui(getActor(), null);
   /* --[[
     level.enable_input()
@@ -121,11 +114,11 @@ declare_global("_extern.surge_callback", () => {
   ]]-- */
 });
 
-declare_global("_extern.task_complete", (task_id: string): boolean => get_task_manager().task_complete(task_id));
+declare_global("extern.task_complete", (task_id: string): boolean => get_task_manager().task_complete(task_id));
 
-declare_global("_extern.task_fail", (task_id: string): boolean => get_task_manager().task_fail(task_id));
+declare_global("extern.task_fail", (task_id: string): boolean => get_task_manager().task_fail(task_id));
 
-declare_global("_extern.task_callback", (target: XR_CGameTask, state: TXR_TaskState): void => {
+declare_global("extern.task_callback", (target: XR_CGameTask, state: TXR_TaskState): void => {
   if (state === task.fail || state === task.completed) {
     get_task_manager().task_callback(target, state === task.completed);
   }
@@ -164,7 +157,7 @@ declare_global("travel_manager", {
   squad_cannot_travel: externClassMethod(travelManager, travelManager.squad_cannot_travel),
 });
 
-declare_global("_extern.effector_callback", () => ActionCutscene.onCutsceneEnd());
+declare_global("extern.effector_callback", () => ActionCutscene.onCutsceneEnd());
 
 declare_global("on_actor_critical_power", () => {
   logger.info("Actor critical power");
@@ -264,7 +257,7 @@ declare_global("ui_wpn_params", {
  * Checkers for achievements called from C++.
  */
 declare_global(
-  "_extern.check_achievement",
+  "extern.check_achievement",
   Object.values(EAchievement).reduce<PartialRecord<EAchievement, AnyCallable>>((acc, it) => {
     acc[it] = () => AchievementsManager.getInstance().checkAchieved(it);
 
