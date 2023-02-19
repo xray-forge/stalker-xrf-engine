@@ -34,9 +34,9 @@ import {
 import { pstor_retrieve } from "@/mod/scripts/core/db/pstor";
 import * as game_relations from "@/mod/scripts/core/game_relations";
 import { setCurrentHint } from "@/mod/scripts/core/inventory_upgrades";
-import { ActionDeimos } from "@/mod/scripts/core/logic/ActionDeimos";
 import { AchievementsManager } from "@/mod/scripts/core/managers/AchievementsManager";
 import { ActorInventoryMenuManager, EActorMenuMode } from "@/mod/scripts/core/managers/ActorInventoryMenuManager";
+import { SchemeDeimos } from "@/mod/scripts/core/schemes/sr_deimos/SchemeDeimos";
 import { actor_in_cover, is_finished, is_killing_all, is_started } from "@/mod/scripts/core/SurgeManager";
 import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
@@ -1947,7 +1947,7 @@ export function jup_b25_flint_gone_condition(): boolean {
 export function check_deimos_phase(actor: XR_game_object, npc: XR_game_object, params: AnyArgs): boolean {
   if (params[0] && params[1]) {
     const obj: IStoredObject = storage.get(npc.id());
-    const delta: boolean = ActionDeimos.check_intensity_delta(obj);
+    const delta: boolean = SchemeDeimos.check_intensity_delta(obj);
 
     if (params[1] === "increasing" && delta) {
       return false;
@@ -1957,27 +1957,27 @@ export function check_deimos_phase(actor: XR_game_object, npc: XR_game_object, p
 
     if (params[0] === "disable_bound") {
       if (params[1] === "increasing") {
-        if (!ActionDeimos.check_disable_bound(obj)) {
+        if (!SchemeDeimos.check_disable_bound(obj)) {
           return true;
         }
       } else if (params[1] === "decreasing") {
-        return ActionDeimos.check_disable_bound(obj);
+        return SchemeDeimos.check_disable_bound(obj);
       }
     } else if (params[0] === "lower_bound") {
       if (params[1] === "increasing") {
-        if (!ActionDeimos.check_lower_bound(obj)) {
+        if (!SchemeDeimos.check_lower_bound(obj)) {
           return true;
         }
       } else if (params[1] === "decreasing") {
-        return ActionDeimos.check_lower_bound(obj);
+        return SchemeDeimos.check_lower_bound(obj);
       }
     } else if (params[0] === "upper_bound") {
       if (params[1] === "increasing") {
-        if (!ActionDeimos.check_upper_bound(obj)) {
+        if (!SchemeDeimos.check_upper_bound(obj)) {
           return true;
         }
       } else if (params[1] === "decreasing") {
-        return ActionDeimos.check_upper_bound(obj);
+        return SchemeDeimos.check_upper_bound(obj);
       }
     }
   }

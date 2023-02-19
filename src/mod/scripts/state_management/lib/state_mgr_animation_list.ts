@@ -226,7 +226,7 @@ export const animations: LuaTable<string, IAnimationDescriptor> = {
         {
           f: (object: XR_game_object) => {
             // eslint-disable-next-line @typescript-eslint/no-var-requires
-            const { CampStoryManager } = require("@/mod/scripts/core/logic/CampStoryManager");
+            const { CampStoryManager } = require("@/mod/scripts/core/schemes/base/CampStoryManager");
 
             CampStoryManager.start_guitar(object);
           },
@@ -251,7 +251,7 @@ export const animations: LuaTable<string, IAnimationDescriptor> = {
         {
           f: (object: XR_game_object) => {
             // eslint-disable-next-line @typescript-eslint/no-var-requires
-            const { CampStoryManager } = require("@/mod/scripts/core/logic/CampStoryManager");
+            const { CampStoryManager } = require("@/mod/scripts/core/schemes/base/CampStoryManager");
 
             CampStoryManager.start_harmonica(object);
           },
@@ -955,9 +955,11 @@ export const animations: LuaTable<string, IAnimationDescriptor> = {
         {
           f: (object: XR_game_object) => {
             // eslint-disable-next-line @typescript-eslint/no-var-requires
-            const { ActionCorpseDetect } = require("@/mod/scripts/core/logic/ActionCorpseDetect");
+            const {
+              SchemeCorpseDetection,
+            } = require("@/mod/scripts/core/schemes/corpse_detection/SchemeCorpseDetection");
 
-            ActionCorpseDetect.get_all_from_corpse(object);
+            SchemeCorpseDetection.get_all_from_corpse(object);
           },
         },
       ],
@@ -979,9 +981,9 @@ export const animations: LuaTable<string, IAnimationDescriptor> = {
         {
           f: (object: XR_game_object) => {
             // eslint-disable-next-line @typescript-eslint/no-var-requires
-            const { ActionSchemeHelpWounded } = require("@/mod/scripts/core/logic/ActionSchemeHelpWounded");
+            const { SchemeHelpWounded } = require("@/mod/scripts/core/schemes/help_wounded/SchemeHelpWounded");
 
-            ActionSchemeHelpWounded.help_wounded(object);
+            SchemeHelpWounded.help_wounded(object);
           },
         },
       ],

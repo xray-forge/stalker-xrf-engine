@@ -11,7 +11,7 @@ import {
 } from "xray16";
 
 import { communities } from "@/mod/globals/communities";
-import { AnyCallablesModule, AnyObject, EJobType, EScheme, JobTypeByScheme, Optional, TSection } from "@/mod/lib/types";
+import { AnyObject, EJobType, EScheme, JobTypeByScheme, Optional, TSection } from "@/mod/lib/types";
 import { accessible_job, get_job_restrictor } from "@/mod/scripts/core/combat_restrictor";
 import { getActor, storage, zoneByName } from "@/mod/scripts/core/db";
 import { SMART_TERRAIN_SECT } from "@/mod/scripts/core/db/sections";

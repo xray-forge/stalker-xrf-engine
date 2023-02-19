@@ -2,7 +2,7 @@ import { callback, hit, time_global, vector, XR_EngineBinding, XR_game_object } 
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { AnyCallable, AnyCallablesModule, Maybe, Optional } from "@/mod/lib/types";
-import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
+import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { IAnimationDescriptor } from "@/mod/scripts/state_management/lib/state_mgr_animation_list";
 import { IAnimationStateDescriptor } from "@/mod/scripts/state_management/lib/state_mgr_animstate_list";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";

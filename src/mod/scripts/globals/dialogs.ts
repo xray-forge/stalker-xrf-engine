@@ -11,9 +11,9 @@ import { levels } from "@/mod/globals/levels";
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { update_logic } from "@/mod/scripts/core/binders/StalkerBinder";
 import { getActor, storage } from "@/mod/scripts/core/db";
-import { ActionSchemeMeet } from "@/mod/scripts/core/logic/ActionSchemeMeet";
-import { ActionWoundManager } from "@/mod/scripts/core/logic/ActionWoundManager";
 import { relocate_item } from "@/mod/scripts/core/NewsManager";
+import { SchemeMeet } from "@/mod/scripts/core/schemes/meet/SchemeMeet";
+import { SchemeWounded } from "@/mod/scripts/core/schemes/wounded/SchemeWounded";
 import { get_surge_manager } from "@/mod/scripts/core/SurgeManager";
 import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
@@ -61,7 +61,7 @@ export function update_npc_dialog(first_speaker: XR_game_object, second_speaker:
   const npc = getNpcSpeaker(first_speaker, second_speaker);
 
   storage.get(npc.id()).meet.meet_manager.update();
-  ActionSchemeMeet.process_npc_usability(npc);
+  SchemeMeet.process_npc_usability(npc);
   update_logic(npc);
 }
 
@@ -140,7 +140,7 @@ export function transfer_medkit(first_speaker: XR_game_object, second_speaker: X
     second_speaker.id()
   );
 
-  ActionWoundManager.unlock_medkit(second_speaker);
+  SchemeWounded.unlock_medkit(second_speaker);
 
   if (second_speaker.relation(first_speaker) !== game_object.enemy) {
     second_speaker.set_relation(game_object.friend, first_speaker);

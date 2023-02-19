@@ -15,10 +15,10 @@ import { lootable_table_exclude, TLootableExcludeItem } from "@/mod/globals/item
 import { TLevel } from "@/mod/globals/levels";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { Optional } from "@/mod/lib/types";
-import { action_ids } from "@/mod/scripts/core/actions_id";
 import { getActor, IStoredObject, storage, zoneByName } from "@/mod/scripts/core/db";
 import { ERelation } from "@/mod/scripts/core/ERelation";
-import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
+import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
+import { action_ids } from "@/mod/scripts/core/schemes/base/actions_id";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { getStorySquad } from "@/mod/scripts/utils/alife";
 import { isStalker } from "@/mod/scripts/utils/checkers/is";

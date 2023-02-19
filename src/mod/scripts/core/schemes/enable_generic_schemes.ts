@@ -2,21 +2,21 @@ import { XR_game_object, XR_ini_file } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { AbuseManager } from "@/mod/scripts/core/logic/AbuseManager";
-import { ActionCorpseDetect } from "@/mod/scripts/core/logic/ActionCorpseDetect";
-import { ActionDanger } from "@/mod/scripts/core/logic/ActionDanger";
-import { ActionDeath } from "@/mod/scripts/core/logic/ActionDeath";
-import { ActionGatherItems } from "@/mod/scripts/core/logic/ActionGatherItems";
-import { ActionOnHit } from "@/mod/scripts/core/logic/ActionOnHit";
-import { ActionProcessHit } from "@/mod/scripts/core/logic/ActionProcessHit";
-import { ActionSchemeCombat } from "@/mod/scripts/core/logic/ActionSchemeCombat";
-import { ActionSchemeCombatIgnore } from "@/mod/scripts/core/logic/ActionSchemeCombatIgnore";
-import { ActionSchemeHelpWounded } from "@/mod/scripts/core/logic/ActionSchemeHelpWounded";
-import { ActionSchemeMeet } from "@/mod/scripts/core/logic/ActionSchemeMeet";
-import { ActionSchemeReachTask } from "@/mod/scripts/core/logic/ActionSchemeReachTask";
-import { ActionWoundManager } from "@/mod/scripts/core/logic/ActionWoundManager";
-import { ActionMobCombat } from "@/mod/scripts/core/logic/mob/ActionMobCombat";
-import { ActionMobDeath } from "@/mod/scripts/core/logic/mob/ActionMobDeath";
+import { SchemeAbuse } from "@/mod/scripts/core/schemes/abuse/SchemeAbuse";
+import { SchemeCombat } from "@/mod/scripts/core/schemes/combat/SchemeCombat";
+import { SchemeCombatIgnore } from "@/mod/scripts/core/schemes/combat_ignore/SchemeCombatIgnore";
+import { SchemeCorpseDetection } from "@/mod/scripts/core/schemes/corpse_detection/SchemeCorpseDetection";
+import { SchemeDanger } from "@/mod/scripts/core/schemes/danger/SchemeDanger";
+import { SchemeDeath } from "@/mod/scripts/core/schemes/death/SchemeDeath";
+import { SchemeGatherItems } from "@/mod/scripts/core/schemes/gather_items/SchemeGatherItems";
+import { SchemeHelpWounded } from "@/mod/scripts/core/schemes/help_wounded/SchemeHelpWounded";
+import { SchemeHit } from "@/mod/scripts/core/schemes/hit/SchemeHit";
+import { SchemeMeet } from "@/mod/scripts/core/schemes/meet/SchemeMeet";
+import { SchemeMobCombat } from "@/mod/scripts/core/schemes/mob/combat/SchemeMobCombat";
+import { SchemeMobDeath } from "@/mod/scripts/core/schemes/mob/death/SchemeMobDeath";
+import { SchemePhysicalOnHit } from "@/mod/scripts/core/schemes/ph_on_hit/SchemePhysicalOnHit";
+import { SchemeReachTask } from "@/mod/scripts/core/schemes/reach_task/SchemeReachTask";
+import { SchemeWounded } from "@/mod/scripts/core/schemes/wounded/SchemeWounded";
 import { reset_invulnerability, setObjectInfo } from "@/mod/scripts/utils/alife";
 import { getConfigString } from "@/mod/scripts/utils/configs";
 
@@ -34,12 +34,12 @@ export function enable_generic_schemes(
 ): void {
   switch (stype) {
     case ESchemeType.STALKER: {
-      ActionDanger.set_danger(npc, ini, ActionDanger.SCHEME_SECTION, "danger");
-      ActionGatherItems.set_gather_items(npc, ini, ActionGatherItems.SCHEME_SECTION, "gather_items");
+      SchemeDanger.set_danger(npc, ini, SchemeDanger.SCHEME_SECTION, "danger");
+      SchemeGatherItems.set_gather_items(npc, ini, SchemeGatherItems.SCHEME_SECTION, "gather_items");
 
       const combat_section = getConfigString(ini, section, "on_combat", npc, false, "");
 
-      ActionSchemeCombat.set_combat_checker(npc, ini, EScheme.COMBAT, combat_section);
+      SchemeCombat.set_combat_checker(npc, ini, EScheme.COMBAT, combat_section);
 
       reset_invulnerability(npc, ini, section);
 
@@ -52,7 +52,7 @@ export function enable_generic_schemes(
       const hit_section: Optional<string> = getConfigString(ini, section, "on_hit", npc, false, "");
 
       if (hit_section !== null) {
-        ActionProcessHit.set_hit_checker(npc, ini, ActionProcessHit.SCHEME_SECTION, hit_section);
+        SchemeHit.set_hit_checker(npc, ini, SchemeHit.SCHEME_SECTION, hit_section);
       }
 
       /*
@@ -67,20 +67,20 @@ export function enable_generic_schemes(
 
       const wounded_section = getConfigString(ini, section, "wounded", npc, false, "");
 
-      ActionWoundManager.set_wounded(npc, ini, EScheme.WOUNDED, wounded_section);
-      AbuseManager.set_abuse(npc, ini, EScheme.ABUSE, section);
-      ActionSchemeHelpWounded.set_help_wounded(npc, ini, EScheme.HELP_WOUNDED, null);
-      ActionCorpseDetect.set_corpse_detection(npc, ini, EScheme.CORPSE_DETECTION, null);
+      SchemeWounded.set_wounded(npc, ini, EScheme.WOUNDED, wounded_section);
+      SchemeAbuse.set_abuse(npc, ini, EScheme.ABUSE, section);
+      SchemeHelpWounded.set_help_wounded(npc, ini, EScheme.HELP_WOUNDED, null);
+      SchemeCorpseDetection.set_corpse_detection(npc, ini, EScheme.CORPSE_DETECTION, null);
 
       const meet_section = getConfigString(ini, section, "meet", npc, false, "");
 
-      ActionSchemeMeet.set_meet(npc, ini, EScheme.MEET, meet_section);
+      SchemeMeet.set_meet(npc, ini, EScheme.MEET, meet_section);
 
       const death_section = getConfigString(ini, section, "on_death", npc, false, "");
 
-      ActionDeath.set_death(npc, ini, EScheme.DEATH, death_section);
-      ActionSchemeCombatIgnore.set_combat_ignore_checker(npc, ini, EScheme.COMBAT_IGNORE);
-      ActionSchemeReachTask.set_reach_task(npc, ini, EScheme.REACH_TASK);
+      SchemeDeath.set_death(npc, ini, EScheme.DEATH, death_section);
+      SchemeCombatIgnore.set_combat_ignore_checker(npc, ini, EScheme.COMBAT_IGNORE);
+      SchemeReachTask.set_reach_task(npc, ini, EScheme.REACH_TASK);
 
       return;
     }
@@ -89,13 +89,13 @@ export function enable_generic_schemes(
       const combat_section: Optional<string> = getConfigString(ini, section, "on_combat", npc, false, "");
 
       if (combat_section !== null) {
-        ActionMobCombat.set_scheme(npc, ini, EScheme.MOB_COMBAT, combat_section);
+        SchemeMobCombat.set_scheme(npc, ini, EScheme.MOB_COMBAT, combat_section);
       }
 
       const death_section: Optional<string> = getConfigString(ini, section, "on_death", npc, false, "");
 
       if (death_section !== null) {
-        ActionMobDeath.set_scheme(npc, ini, EScheme.MOB_DEATH, death_section);
+        SchemeMobDeath.set_scheme(npc, ini, EScheme.MOB_DEATH, death_section);
       }
 
       reset_invulnerability(npc, ini, section);
@@ -103,10 +103,10 @@ export function enable_generic_schemes(
       const hit_section: Optional<string> = getConfigString(ini, section, "on_hit", npc, false, "");
 
       if (hit_section !== null) {
-        ActionProcessHit.set_hit_checker(npc, ini, ActionProcessHit.SCHEME_SECTION, hit_section);
+        SchemeHit.set_hit_checker(npc, ini, SchemeHit.SCHEME_SECTION, hit_section);
       }
 
-      ActionSchemeCombatIgnore.set_combat_ignore_checker(npc, ini, EScheme.COMBAT_IGNORE);
+      SchemeCombatIgnore.set_combat_ignore_checker(npc, ini, EScheme.COMBAT_IGNORE);
 
       return;
     }
@@ -115,7 +115,7 @@ export function enable_generic_schemes(
       const hit_section: Optional<string> = getConfigString(ini, section, "on_hit", npc, false, "");
 
       if (hit_section !== null) {
-        ActionOnHit.set_scheme(npc, ini, ActionOnHit.SCHEME_SECTION, hit_section);
+        SchemePhysicalOnHit.set_scheme(npc, ini, SchemePhysicalOnHit.SCHEME_SECTION, hit_section);
       }
 
       return;
@@ -125,7 +125,7 @@ export function enable_generic_schemes(
       const hit_section: Optional<string> = getConfigString(ini, section, "on_hit", npc, false, "");
 
       if (hit_section !== null) {
-        ActionProcessHit.set_hit_checker(npc, ini, ActionProcessHit.SCHEME_SECTION, hit_section);
+        SchemeHit.set_hit_checker(npc, ini, SchemeHit.SCHEME_SECTION, hit_section);
       }
 
       return;

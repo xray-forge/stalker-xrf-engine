@@ -140,14 +140,6 @@ export const OptionsDialog: IOptionsDialog = declare_xr_class("OptionsDialog", C
     this.dialog.AttachChild(this.dlg_controls);
     xml.InitWindow("tab_size", 0, this.dlg_controls);
 
-    /*
-      this.dlg_con_cmd            = ui_mm_opt_con_cmd.opt_con_cmd()
-      this.dlg_con_cmd.InitControls(0,0, xml, this)
-      this.dlg_con_cmd.Show        (false)
-      this.dialog.AttachChild        (this.dlg_con_cmd)
-      xml.InitWindow                ("tab_size", 0, this.dlg_con_cmd)
-    */
-
     this.dlg_video_adv = create_xr_class_instance(OptionsVideoAdvanced);
     this.dlg_video_adv.InitControls(0, 0, xml, this);
     this.dlg_video_adv.Show(false);

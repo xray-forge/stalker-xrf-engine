@@ -3,7 +3,7 @@ import { object_binder, XR_cse_alife_object, XR_game_object, XR_net_packet, XR_o
 import { Optional } from "@/mod/lib/types";
 import { ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { addObject, addZone, deleteObject, deleteZone, getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
-import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
+import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { initializeGameObject } from "@/mod/scripts/core/schemes/initializeGameObject";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
 import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";

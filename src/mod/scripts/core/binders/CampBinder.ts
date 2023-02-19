@@ -11,7 +11,7 @@ import {
 
 import { Optional } from "@/mod/lib/types";
 import { CAMPS } from "@/mod/scripts/core/db";
-import { CampStoryManager } from "@/mod/scripts/core/logic/CampStoryManager";
+import { CampStoryManager } from "@/mod/scripts/core/schemes/base/CampStoryManager";
 import { getConfigString } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

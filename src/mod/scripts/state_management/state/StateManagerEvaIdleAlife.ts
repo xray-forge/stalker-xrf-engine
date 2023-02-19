@@ -2,7 +2,7 @@ import { property_evaluator, XR_property_evaluator } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
-import { action_ids } from "@/mod/scripts/core/actions_id";
+import { action_ids } from "@/mod/scripts/core/schemes/base/actions_id";
 import { EStateManagerProperty } from "@/mod/scripts/state_management/EStateManagerProperty";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
 import { isObjectMeeting } from "@/mod/scripts/utils/checkers/checkers";

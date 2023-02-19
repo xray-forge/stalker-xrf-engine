@@ -10,11 +10,11 @@ import { AchievementsManager, EAchievement } from "@/mod/scripts/core/managers/A
 import { ActorInventoryMenuManager, EActorMenuMode } from "@/mod/scripts/core/managers/ActorInventoryMenuManager";
 import { loadScreenManager } from "@/mod/scripts/core/managers/LoadScreenManager";
 import { PdaManager } from "@/mod/scripts/core/managers/PdaManager";
+import { SchemeCutscene } from "@/mod/scripts/core/schemes/sr_cutscene/ActionCustscene";
 import { sleep_cam_eff_id, SurgeManager } from "@/mod/scripts/core/SurgeManager";
 import { get_buy_discount, get_sell_discount } from "@/mod/scripts/core/TradeManager";
 import { travelManager } from "@/mod/scripts/core/TravelManager";
 import { weatherManager } from "@/mod/scripts/core/WeatherManager";
-import { ActionCutscene } from "@/mod/scripts/cutscenes/ActionCustscene";
 import { get_task_manager } from "@/mod/scripts/se/task/TaskManager";
 import { smart_covers_list } from "@/mod/scripts/smart_covers/smart_covers_list";
 import { GameOutroManager } from "@/mod/scripts/ui/game/GameOutroManager";
@@ -157,7 +157,7 @@ declare_global("travel_manager", {
   squad_cannot_travel: externClassMethod(travelManager, travelManager.squad_cannot_travel),
 });
 
-declare_global("extern.effector_callback", () => ActionCutscene.onCutsceneEnd());
+declare_global("extern.effector_callback", () => SchemeCutscene.onCutsceneEnd());
 
 declare_global("on_actor_critical_power", () => {
   logger.info("Actor critical power");

@@ -15,11 +15,11 @@ import {
 
 import { ESchemeType, Optional } from "@/mod/lib/types";
 import { addObject, deleteObject, getActor, IStoredObject, levelDoors, storage } from "@/mod/scripts/core/db";
+import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { ItemBox } from "@/mod/scripts/core/ItemBox";
-import { ActionOnHit } from "@/mod/scripts/core/logic/ActionOnHit";
-import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { initializeGameObject } from "@/mod/scripts/core/schemes/initializeGameObject";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
+import { SchemePhysicalOnHit } from "@/mod/scripts/core/schemes/ph_on_hit/SchemePhysicalOnHit";
 import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
@@ -122,10 +122,10 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
     who: XR_game_object,
     bone_index: number
   ): void {
-    if (this.st[ActionOnHit.SCHEME_SECTION]) {
+    if (this.st[SchemePhysicalOnHit.SCHEME_SECTION]) {
       issueEvent(
         this.object,
-        this.st[ActionOnHit.SCHEME_SECTION],
+        this.st[SchemePhysicalOnHit.SCHEME_SECTION],
         "hit_callback",
         obj,
         amount,

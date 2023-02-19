@@ -1,12 +1,12 @@
 import { XR_game_object } from "xray16";
 
 import { EScheme, ESchemeType } from "@/mod/lib/types/scheme";
-import { ActionOnHit } from "@/mod/scripts/core/logic/ActionOnHit";
-import { ActionProcessHit } from "@/mod/scripts/core/logic/ActionProcessHit";
-import { ActionSchemeCombat } from "@/mod/scripts/core/logic/ActionSchemeCombat";
-import { ActionSchemeCombatIgnore } from "@/mod/scripts/core/logic/ActionSchemeCombatIgnore";
-import { ActionSchemeMeet } from "@/mod/scripts/core/logic/ActionSchemeMeet";
-import { ActionMobCombat } from "@/mod/scripts/core/logic/mob/ActionMobCombat";
+import { SchemeCombat } from "@/mod/scripts/core/schemes/combat/SchemeCombat";
+import { SchemeCombatIgnore } from "@/mod/scripts/core/schemes/combat_ignore/SchemeCombatIgnore";
+import { SchemeHit } from "@/mod/scripts/core/schemes/hit/SchemeHit";
+import { SchemeMeet } from "@/mod/scripts/core/schemes/meet/SchemeMeet";
+import { SchemeMobCombat } from "@/mod/scripts/core/schemes/mob/combat/SchemeMobCombat";
+import { SchemePhysicalOnHit } from "@/mod/scripts/core/schemes/ph_on_hit/SchemePhysicalOnHit";
 import { disableInvulnerability } from "@/mod/scripts/utils/alife";
 
 /**
@@ -17,28 +17,28 @@ import { disableInvulnerability } from "@/mod/scripts/utils/alife";
 export function disableGenericSchemes(object: XR_game_object, schemeType: ESchemeType): void {
   switch (schemeType) {
     case ESchemeType.STALKER:
-      ActionSchemeCombat.disable_scheme(object, EScheme.COMBAT);
-      ActionProcessHit.disable_scheme(object, ActionProcessHit.SCHEME_SECTION);
-      ActionSchemeMeet.disable_scheme(object, EScheme.ACTOR_DIALOGS);
-      ActionSchemeCombatIgnore.disable_scheme(object, EScheme.COMBAT_IGNORE);
+      SchemeCombat.disable_scheme(object, EScheme.COMBAT);
+      SchemeHit.disable_scheme(object, SchemeHit.SCHEME_SECTION);
+      SchemeMeet.disable_scheme(object, EScheme.ACTOR_DIALOGS);
+      SchemeCombatIgnore.disable_scheme(object, EScheme.COMBAT_IGNORE);
       disableInvulnerability(object);
 
       return;
 
     case ESchemeType.MONSTER:
-      ActionMobCombat.disable_scheme(object, EScheme.MOB_COMBAT);
-      ActionSchemeCombatIgnore.disable_scheme(object, EScheme.COMBAT_IGNORE);
+      SchemeMobCombat.disable_scheme(object, EScheme.MOB_COMBAT);
+      SchemeCombatIgnore.disable_scheme(object, EScheme.COMBAT_IGNORE);
       disableInvulnerability(object);
 
       return;
 
     case ESchemeType.ITEM:
-      ActionOnHit.disable_scheme(object, ActionOnHit.SCHEME_SECTION);
+      SchemePhysicalOnHit.disable_scheme(object, SchemePhysicalOnHit.SCHEME_SECTION);
 
       return;
 
     case ESchemeType.HELI:
-      ActionProcessHit.disable_scheme(object, ActionProcessHit.SCHEME_SECTION);
+      SchemeHit.disable_scheme(object, SchemeHit.SCHEME_SECTION);
 
       return;
   }

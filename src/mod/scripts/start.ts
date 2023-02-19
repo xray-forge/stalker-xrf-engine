@@ -2,7 +2,7 @@ import { device } from "xray16";
 
 import { EScheme } from "@/mod/lib/types/scheme";
 import { initSmartNamesTable } from "@/mod/scripts/core/db/smart_names";
-import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
+import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { ActorInventoryMenuManager } from "@/mod/scripts/core/managers/ActorInventoryMenuManager";
 import { initializeModules } from "@/mod/scripts/core/schemes/schemes_registering";
 import { resetSchemeHard } from "@/mod/scripts/core/schemes/schemes_resetting";

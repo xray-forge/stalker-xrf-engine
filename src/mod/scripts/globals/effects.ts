@@ -75,11 +75,11 @@ import {
   set_squad_goodwill_to_npc as setSquadGoodwillToNpc,
   temp_goodwill_table,
 } from "@/mod/scripts/core/game_relations";
+import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { mech_discount as getMechDiscount, setCurrentHint } from "@/mod/scripts/core/inventory_upgrades";
-import { AbuseManager } from "@/mod/scripts/core/logic/AbuseManager";
-import { init_target } from "@/mod/scripts/core/logic/actions/ActionRemarkActivity";
-import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { relocate_item as relocateItem, send_tip as sendPdaTip, TIcon } from "@/mod/scripts/core/NewsManager";
+import { SchemeAbuse } from "@/mod/scripts/core/schemes/abuse/SchemeAbuse";
+import { init_target } from "@/mod/scripts/core/schemes/remark/actions/ActionRemarkActivity";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import {
   get_surge_manager,
@@ -924,7 +924,7 @@ export function actor_punch(npc: XR_game_object): void {
 }
 
 export function clearAbuse(npc: XR_game_object) {
-  AbuseManager.clear_abuse(npc);
+  SchemeAbuse.clear_abuse(npc);
 }
 
 export function turn_off_underpass_lamps(actor: XR_game_object, npc: XR_game_object): void {

@@ -1,59 +1,59 @@
 import { EScheme, ESchemeType } from "@/mod/lib/types/scheme";
-import { ActionSchemeHear } from "@/mod/scripts/core/ActionSchemeHear";
 import { schemes } from "@/mod/scripts/core/db";
-import { TAbstractSchemeConstructor } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
-import { AbuseManager } from "@/mod/scripts/core/logic/AbuseManager";
-import { ActionButton } from "@/mod/scripts/core/logic/ActionButton";
-import { ActionCodepad } from "@/mod/scripts/core/logic/ActionCodepad";
-import { ActionCorpseDetect } from "@/mod/scripts/core/logic/ActionCorpseDetect";
-import { ActionCover } from "@/mod/scripts/core/logic/ActionCover";
-import { ActionCrowSpawner } from "@/mod/scripts/core/logic/ActionCrowSpawner";
-import { ActionDanger } from "@/mod/scripts/core/logic/ActionDanger";
-import { ActionDeath } from "@/mod/scripts/core/logic/ActionDeath";
-import { ActionDeimos } from "@/mod/scripts/core/logic/ActionDeimos";
-import { ActionDoor } from "@/mod/scripts/core/logic/ActionDoor";
-import { ActionGatherItems } from "@/mod/scripts/core/logic/ActionGatherItems";
-import { ActionHit } from "@/mod/scripts/core/logic/ActionHit";
-import { ActionLight } from "@/mod/scripts/core/logic/ActionLight";
-import { ActionNoWeapon } from "@/mod/scripts/core/logic/ActionNoWeapon";
-import { ActionOnDeath } from "@/mod/scripts/core/logic/ActionOnDeath";
-import { ActionOnHit } from "@/mod/scripts/core/logic/ActionOnHit";
-import { ActionOscillate } from "@/mod/scripts/core/logic/ActionOscillate";
-import { ActionParticle } from "@/mod/scripts/core/logic/ActionParticle";
-import { ActionPhysicalIdle } from "@/mod/scripts/core/logic/ActionPhysicalIdle";
-import { ActionPostProcess } from "@/mod/scripts/core/logic/ActionPostProcess";
-import { ActionProcessHit } from "@/mod/scripts/core/logic/ActionProcessHit";
-import { ActionPsyAntenna } from "@/mod/scripts/core/logic/ActionPsyAntenna";
-import { ActionSchemeAnimpoint } from "@/mod/scripts/core/logic/ActionSchemeAnimpoint";
-import { ActionSchemeCamp } from "@/mod/scripts/core/logic/ActionSchemeCamp";
-import { ActionSchemeCamper } from "@/mod/scripts/core/logic/ActionSchemeCamper";
-import { ActionSchemeCombat } from "@/mod/scripts/core/logic/ActionSchemeCombat";
-import { ActionSchemeCombatIgnore } from "@/mod/scripts/core/logic/ActionSchemeCombatIgnore";
-import { ActionSchemeCombatZombied } from "@/mod/scripts/core/logic/ActionSchemeCombatZombied";
-import { ActionSchemeCompanion } from "@/mod/scripts/core/logic/ActionSchemeCompanion";
-import { ActionSchemeHelpWounded } from "@/mod/scripts/core/logic/ActionSchemeHelpWounded";
-import { ActionSchemeIdle } from "@/mod/scripts/core/logic/ActionSchemeIdle";
-import { ActionSchemeMeet } from "@/mod/scripts/core/logic/ActionSchemeMeet";
-import { ActionSchemeMiniGun } from "@/mod/scripts/core/logic/ActionSchemeMiniGun";
-import { ActionSchemeMonster } from "@/mod/scripts/core/logic/ActionSchemeMonster";
-import { ActionSchemePatrol } from "@/mod/scripts/core/logic/ActionSchemePatrol";
-import { ActionSchemeReachTask } from "@/mod/scripts/core/logic/ActionSchemeReachTask";
-import { ActionSchemeRemark } from "@/mod/scripts/core/logic/ActionSchemeRemark";
-import { ActionSchemeSleeper } from "@/mod/scripts/core/logic/ActionSchemeSleeper";
-import { ActionSchemeSmartCover } from "@/mod/scripts/core/logic/ActionSchemeSmartCover";
-import { ActionSilence } from "@/mod/scripts/core/logic/ActionSilence";
-import { ActionTeleport } from "@/mod/scripts/core/logic/ActionTeleport";
-import { ActionTimer } from "@/mod/scripts/core/logic/ActionTimer";
-import { ActionWalker } from "@/mod/scripts/core/logic/ActionWalker";
-import { ActionWoundManager } from "@/mod/scripts/core/logic/ActionWoundManager";
-import { ActionSchemeHeliMove } from "@/mod/scripts/core/logic/heli/ActionSchemeHeliMove";
-import { ActionMobCombat } from "@/mod/scripts/core/logic/mob/ActionMobCombat";
-import { ActionMobDeath } from "@/mod/scripts/core/logic/mob/ActionMobDeath";
-import { ActionMobHome } from "@/mod/scripts/core/logic/mob/ActionMobHome";
-import { ActionMobRemark } from "@/mod/scripts/core/logic/mob/ActionMobRemark";
-import { ActionMobWalker } from "@/mod/scripts/core/logic/mob/ActionMobWalker";
-import { ActionSchemeMobJump } from "@/mod/scripts/core/logic/mob/ActionSchemeMobJump";
-import { ActionCutscene } from "@/mod/scripts/cutscenes/ActionCustscene";
+import { SchemeAbuse } from "@/mod/scripts/core/schemes/abuse/SchemeAbuse";
+import { SchemeAnimpoint } from "@/mod/scripts/core/schemes/animpoint/SchemeAnimpoint";
+import { TAbstractSchemeConstructor } from "@/mod/scripts/core/schemes/base/AbstractScheme";
+import { SchemeCamper } from "@/mod/scripts/core/schemes/camper/SchemeCamper";
+import { SchemeCombat } from "@/mod/scripts/core/schemes/combat/SchemeCombat";
+import { SchemeCombatIgnore } from "@/mod/scripts/core/schemes/combat_ignore/SchemeCombatIgnore";
+import { SchemeCombatZombied } from "@/mod/scripts/core/schemes/combat_zombied/SchemeCombatZombied";
+import { SchemeCompanion } from "@/mod/scripts/core/schemes/companion/SchemeCompanion";
+import { SchemeCorpseDetection } from "@/mod/scripts/core/schemes/corpse_detection/SchemeCorpseDetection";
+import { SchemeCover } from "@/mod/scripts/core/schemes/cover/SchemeCover";
+import { SchemeDanger } from "@/mod/scripts/core/schemes/danger/SchemeDanger";
+import { SchemeDeath } from "@/mod/scripts/core/schemes/death/SchemeDeath";
+import { SchemeGatherItems } from "@/mod/scripts/core/schemes/gather_items/SchemeGatherItems";
+import { ActionSchemeHear } from "@/mod/scripts/core/schemes/hear/ActionSchemeHear";
+import { SchemeHeliMove } from "@/mod/scripts/core/schemes/heli_move/SchemeHeliMove";
+import { SchemeHelpWounded } from "@/mod/scripts/core/schemes/help_wounded/SchemeHelpWounded";
+import { SchemeHit } from "@/mod/scripts/core/schemes/hit/SchemeHit";
+import { SchemeIdle } from "@/mod/scripts/core/schemes/idle/SchemeIdle";
+import { SchemeCamp } from "@/mod/scripts/core/schemes/kamp/SchemeCamp";
+import { SchemeMeet } from "@/mod/scripts/core/schemes/meet/SchemeMeet";
+import { SchemeMobCombat } from "@/mod/scripts/core/schemes/mob/combat/SchemeMobCombat";
+import { SchemeMobDeath } from "@/mod/scripts/core/schemes/mob/death/SchemeMobDeath";
+import { SchemeMobHome } from "@/mod/scripts/core/schemes/mob/home/SchemeMobHome";
+import { SchemeMobJump } from "@/mod/scripts/core/schemes/mob/jump/SchemeMobJump";
+import { SchemeMobRemark } from "@/mod/scripts/core/schemes/mob/remark/SchemeMobRemark";
+import { SchemeMobWalker } from "@/mod/scripts/core/schemes/mob/walker/SchemeMobWalker";
+import { SchemePatrol } from "@/mod/scripts/core/schemes/patrol/SchemePatrol";
+import { SchemePhysicalButton } from "@/mod/scripts/core/schemes/ph_button/SchemePhysicalButton";
+import { SchemeCode } from "@/mod/scripts/core/schemes/ph_code/SchemeCode";
+import { SchemePhysicalDoor } from "@/mod/scripts/core/schemes/ph_door/SchemePhysicalDoor";
+import { SchemePhysicalHit } from "@/mod/scripts/core/schemes/ph_hit/SchemePhysicalHit";
+import { SchemePhysicalIdle } from "@/mod/scripts/core/schemes/ph_idle/SchemePhysicalIdle";
+import { SchemeMinigun } from "@/mod/scripts/core/schemes/ph_minigun/SchemeMinigun";
+import { SchemePhysicalOnDeath } from "@/mod/scripts/core/schemes/ph_on_death/SchemePhysicalOnDeath";
+import { SchemePhysicalOnHit } from "@/mod/scripts/core/schemes/ph_on_hit/SchemePhysicalOnHit";
+import { SchemeOscillate } from "@/mod/scripts/core/schemes/ph_oscillate/SchemeOscillate";
+import { SchemeReachTask } from "@/mod/scripts/core/schemes/reach_task/SchemeReachTask";
+import { SchemeRemark } from "@/mod/scripts/core/schemes/remark/SchemeRemark";
+import { SchemeSleeper } from "@/mod/scripts/core/schemes/sleeper/SchemeSleeper";
+import { SchemeSmartCover } from "@/mod/scripts/core/schemes/smartcover/SchemeSmartCover";
+import { SchemeCrowSpawner } from "@/mod/scripts/core/schemes/sr_crow_spawner/SchemeCrowSpawner";
+import { SchemeCutscene } from "@/mod/scripts/core/schemes/sr_cutscene/ActionCustscene";
+import { SchemeDeimos } from "@/mod/scripts/core/schemes/sr_deimos/SchemeDeimos";
+import { SchemeLight } from "@/mod/scripts/core/schemes/sr_light/SchemeLight";
+import { SchemeMonster } from "@/mod/scripts/core/schemes/sr_monster/SchemeMonster";
+import { SchemeNoWeapon } from "@/mod/scripts/core/schemes/sr_no_weapon/SchemeNoWeapon";
+import { SchemeParticle } from "@/mod/scripts/core/schemes/sr_particle/SchemeParticle";
+import { SchemePostProcess } from "@/mod/scripts/core/schemes/sr_postprocess/SchemePostProcess";
+import { SchemePsyAntenna } from "@/mod/scripts/core/schemes/sr_psy_antenna/SchemePsyAntenna";
+import { SchemeSilence } from "@/mod/scripts/core/schemes/sr_silence/SchemeSilence";
+import { SchemeTeleport } from "@/mod/scripts/core/schemes/teleport/SchemeTeleport";
+import { SchemeTimer } from "@/mod/scripts/core/schemes/timer/SchemeTimer";
+import { SchemeWalker } from "@/mod/scripts/core/schemes/walker/SchemeWalker";
+import { SchemeWounded } from "@/mod/scripts/core/schemes/wounded/SchemeWounded";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -91,73 +91,73 @@ export function initializeModules(): void {
 
   // Stalkers schemes.
   loadSchemeImplementations([
-    AbuseManager,
-    ActionCorpseDetect,
-    ActionCover,
-    ActionDanger,
-    ActionDeath,
-    ActionGatherItems,
-    ActionProcessHit,
-    ActionSchemeAnimpoint,
-    ActionSchemeCamp,
-    ActionSchemeCamper,
-    ActionSchemeCombat,
-    ActionSchemeCombatIgnore,
-    ActionSchemeCombatZombied,
-    ActionSchemeCompanion,
+    SchemeAbuse,
+    SchemeCorpseDetection,
+    SchemeCover,
+    SchemeDanger,
+    SchemeDeath,
+    SchemeGatherItems,
+    SchemeHit,
+    SchemeAnimpoint,
+    SchemeCamp,
+    SchemeCamper,
+    SchemeCombat,
+    SchemeCombatIgnore,
+    SchemeCombatZombied,
+    SchemeCompanion,
     ActionSchemeHear,
-    ActionSchemeHelpWounded,
-    ActionSchemePatrol,
-    ActionSchemeReachTask,
-    ActionSchemeRemark,
-    ActionSchemeSmartCover,
-    ActionSchemeSleeper,
-    ActionWalker,
-    ActionWoundManager,
+    SchemeHelpWounded,
+    SchemePatrol,
+    SchemeReachTask,
+    SchemeRemark,
+    SchemeSmartCover,
+    SchemeSleeper,
+    SchemeWalker,
+    SchemeWounded,
   ]);
 
-  loadSchemeImplementation(ActionSchemeMeet, ActionSchemeMeet.SCHEME_SECTION);
-  loadSchemeImplementation(ActionSchemeMeet, ActionSchemeMeet.SCHEME_SECTION_ADDITIONAL);
+  loadSchemeImplementation(SchemeMeet, SchemeMeet.SCHEME_SECTION);
+  loadSchemeImplementation(SchemeMeet, SchemeMeet.SCHEME_SECTION_ADDITIONAL);
 
   // Mob schemes.
   loadSchemeImplementations([
-    ActionMobCombat,
-    ActionMobDeath,
-    ActionMobHome,
-    ActionSchemeMobJump,
-    ActionMobRemark,
-    ActionMobWalker,
+    SchemeMobCombat,
+    SchemeMobDeath,
+    SchemeMobHome,
+    SchemeMobJump,
+    SchemeMobRemark,
+    SchemeMobWalker,
   ]);
 
   // Item schemes.
   loadSchemeImplementations([
-    ActionButton,
-    ActionCodepad,
-    ActionDoor,
-    ActionSchemeHeliMove,
-    ActionHit,
-    ActionSchemeMiniGun,
-    ActionOnDeath,
-    ActionOnHit,
-    ActionOscillate,
-    ActionPhysicalIdle,
+    SchemePhysicalButton,
+    SchemeCode,
+    SchemePhysicalDoor,
+    SchemeHeliMove,
+    SchemePhysicalHit,
+    SchemeMinigun,
+    SchemePhysicalOnDeath,
+    SchemePhysicalOnHit,
+    SchemeOscillate,
+    SchemePhysicalIdle,
   ]);
 
   // Restrictor schemes.
   loadSchemeImplementations([
-    ActionCrowSpawner,
-    ActionCutscene,
-    ActionDeimos,
-    ActionSchemeIdle,
-    ActionLight,
-    ActionSchemeMonster,
-    ActionNoWeapon,
-    ActionParticle,
-    ActionPostProcess,
-    ActionPsyAntenna,
-    ActionSilence,
-    ActionTeleport,
-    ActionTimer,
+    SchemeCrowSpawner,
+    SchemeCutscene,
+    SchemeDeimos,
+    SchemeIdle,
+    SchemeLight,
+    SchemeMonster,
+    SchemeNoWeapon,
+    SchemeParticle,
+    SchemePostProcess,
+    SchemePsyAntenna,
+    SchemeSilence,
+    SchemeTeleport,
+    SchemeTimer,
   ]);
 
   logger.info("Currently declared schemes:", schemes.length());

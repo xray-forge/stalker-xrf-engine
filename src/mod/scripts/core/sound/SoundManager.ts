@@ -2,7 +2,7 @@ import { alife, time_global, XR_cse_alife_creature_abstract } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { storage } from "@/mod/scripts/core/db";
-import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
+import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { SoundStory } from "@/mod/scripts/core/sound/SoundStory";
 import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { getObjectSquad } from "@/mod/scripts/utils/alife";

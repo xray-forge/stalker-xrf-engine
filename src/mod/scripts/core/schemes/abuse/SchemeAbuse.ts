@@ -1,0 +1,174 @@
+import { stalker_ids, time_global, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
+
+import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
+import { IStoredObject, storage } from "@/mod/scripts/core/db";
+import { ActionAbuseHit } from "@/mod/scripts/core/schemes/abuse/actions/ActionAbuseHit";
+import { EvaluatorAbuse } from "@/mod/scripts/core/schemes/abuse/evaluators/EvaluatorAbuse";
+import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
+import { AbstractScheme, action_ids, evaluators_id } from "@/mod/scripts/core/schemes/base";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
+
+const logger: LuaLogger = new LuaLogger("SchemeAbuse");
+
+/**
+ * todo;
+ */
+export class SchemeAbuse extends AbstractScheme {
+  public static readonly SCHEME_SECTION: EScheme = EScheme.ABUSE;
+  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
+
+  public static add_to_binder(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection,
+    state: IStoredObject
+  ): void {
+    logger.info("Add to binder:", object.name());
+
+    const operators = {
+      abuse: action_ids.abuse_base,
+    };
+    const properties = {
+      abuse: evaluators_id.abuse_base,
+      wounded: evaluators_id.sidor_wounded_base,
+    };
+
+    const manager: XR_action_planner = object.motivation_action_manager();
+
+    // -- Evaluators
+    manager.add_evaluator(properties.abuse, create_xr_class_instance(EvaluatorAbuse, EvaluatorAbuse.__name, state));
+
+    // -- Actions
+    const action = create_xr_class_instance(ActionAbuseHit, object.name(), ActionAbuseHit.__name, state, ini);
+
+    action.add_precondition(new world_property(stalker_ids.property_alive, true));
+    action.add_precondition(new world_property(stalker_ids.property_danger, false));
+    action.add_precondition(new world_property(properties.wounded, false));
+    action.add_precondition(new world_property(properties.abuse, true));
+    action.add_effect(new world_property(properties.abuse, false));
+    manager.add_action(operators.abuse, action);
+
+    const alifeAction = manager.action(action_ids.alife);
+
+    alifeAction.add_precondition(new world_property(properties.abuse, false));
+
+    state.abuse_manager = new SchemeAbuse(object, state);
+  }
+
+  public static set_abuse(npc: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const st = assignStorageAndBind(npc, ini, scheme, section);
+  }
+
+  public static add_abuse(npc: XR_game_object, value: number): void {
+    const t: Optional<{ abuse_manager: SchemeAbuse }> = storage.get(npc.id()).abuse;
+
+    if (t) {
+      t.abuse_manager.addAbuse(value);
+    }
+  }
+
+  public static resetScheme(object: XR_game_object, scheme: EScheme, state: IStoredObject, section: TSection): void {}
+
+  public static clear_abuse(object: XR_game_object): void {
+    const state = storage.get(object.id()).abuse;
+
+    if (state) {
+      state.abuse_manager.clearAbuse();
+    }
+  }
+
+  public static disable_abuse(object: XR_game_object): void {
+    const state = storage.get(object.id()).abuse;
+
+    if (state) {
+      state.abuse_manager.disableAbuse();
+    }
+  }
+
+  public static enable_abuse(object: XR_game_object): void {
+    const state = storage.get(object.id()).abuse;
+
+    if (state) {
+      state.abuse_manager.enableAbuse();
+    }
+  }
+
+  public static is_abuse(object: XR_game_object): boolean {
+    const state = storage.get(object.id()).abuse;
+
+    if (state === null) {
+      return false;
+    }
+
+    return state.abuse_manager.enable;
+  }
+
+  public enable: boolean;
+  public abuse_rate: number;
+  public abuse_value: number;
+  public abuse_threshold: number;
+  public last_update: Optional<number>;
+  public hit_done: boolean;
+
+  public constructor(object: XR_game_object, state: IStoredObject) {
+    super(object, state);
+
+    this.enable = true;
+    this.abuse_rate = 2;
+    this.abuse_value = 0;
+    this.abuse_threshold = 5;
+    this.last_update = null;
+    this.hit_done = false;
+  }
+
+  public SetAbuseRate(rate: number): void {
+    this.abuse_rate = rate;
+  }
+
+  public abused(): boolean {
+    return this.abuse_value >= this.abuse_threshold;
+  }
+
+  public update(): boolean {
+    if (this.last_update === null) {
+      this.last_update = time_global();
+    }
+
+    if (this.abuse_value > 0) {
+      this.abuse_value = this.abuse_value - (time_global() - this.last_update) * 0.00005;
+    } else {
+      this.abuse_value = 0;
+    }
+
+    if (this.abuse_value > this.abuse_threshold * 1.1) {
+      this.abuse_value = this.abuse_threshold * 1.1;
+    }
+
+    if (this.hit_done && this.abuse_value < (this.abuse_threshold * 2) / 3) {
+      this.hit_done = false;
+    }
+
+    this.last_update = time_global();
+
+    return this.abused();
+  }
+
+  public addAbuse(value: number): void {
+    if (this.enable) {
+      this.abuse_value = this.abuse_value + value * this.abuse_rate;
+    }
+  }
+
+  public clearAbuse(): void {
+    this.abuse_value = 0;
+  }
+
+  public disableAbuse(): void {
+    this.enable = false;
+  }
+
+  public enableAbuse(): void {
+    this.enable = true;
+  }
+}

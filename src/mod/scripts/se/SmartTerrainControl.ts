@@ -11,7 +11,7 @@ import {
 import { Optional } from "@/mod/lib/types";
 import { getActor, zoneByName } from "@/mod/scripts/core/db";
 import { set_squad_goodwill } from "@/mod/scripts/core/game_relations";
-import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
+import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
 import { isWeapon } from "@/mod/scripts/utils/checkers/is";

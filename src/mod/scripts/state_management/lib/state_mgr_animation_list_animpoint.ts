@@ -1,7 +1,7 @@
 import { XR_game_object } from "xray16";
 
 import { AnyArgs } from "@/mod/lib/types";
-import { CampStoryManager } from "@/mod/scripts/core/logic/CampStoryManager";
+import { CampStoryManager } from "@/mod/scripts/core/schemes/base/CampStoryManager";
 import { IAnimationDescriptor } from "@/mod/scripts/state_management/lib/state_mgr_animation_list";
 
 export function add_animpoint_animation_list(): LuaTable<string, IAnimationDescriptor> {
@@ -692,7 +692,7 @@ export function add_animpoint_animation_list(): LuaTable<string, IAnimationDescr
           {
             f: (object: XR_game_object) => {
               // eslint-disable-next-line @typescript-eslint/no-var-requires
-              const { CampStoryManager } = require("@/mod/scripts/core/logic/CampStoryManager");
+              const { CampStoryManager } = require("@/mod/scripts/core/schemes/base/CampStoryManager");
 
               CampStoryManager.start_guitar(object);
             },
@@ -705,7 +705,7 @@ export function add_animpoint_animation_list(): LuaTable<string, IAnimationDescr
           {
             f: (object: XR_game_object) => {
               // eslint-disable-next-line @typescript-eslint/no-var-requires
-              const { CampStoryManager } = require("@/mod/scripts/core/logic/CampStoryManager");
+              const { CampStoryManager } = require("@/mod/scripts/core/schemes/base/CampStoryManager");
 
               CampStoryManager.start_guitar(object);
             },
@@ -741,7 +741,7 @@ export function add_animpoint_animation_list(): LuaTable<string, IAnimationDescr
           {
             f: (object: XR_game_object) => {
               // eslint-disable-next-line @typescript-eslint/no-var-requires
-              const { CampStoryManager } = require("@/mod/scripts/core/logic/CampStoryManager");
+              const { CampStoryManager } = require("@/mod/scripts/core/schemes/base/CampStoryManager");
 
               CampStoryManager.start_guitar(object);
             },
@@ -754,7 +754,7 @@ export function add_animpoint_animation_list(): LuaTable<string, IAnimationDescr
           {
             f: (object: XR_game_object) => {
               // eslint-disable-next-line @typescript-eslint/no-var-requires
-              const { CampStoryManager } = require("@/mod/scripts/core/logic/CampStoryManager");
+              const { CampStoryManager } = require("@/mod/scripts/core/schemes/base/CampStoryManager");
 
               CampStoryManager.start_guitar(object);
             },
@@ -828,7 +828,7 @@ export function add_animpoint_animation_list(): LuaTable<string, IAnimationDescr
           {
             f: (object: XR_game_object) => {
               // eslint-disable-next-line @typescript-eslint/no-var-requires
-              const { CampStoryManager } = require("@/mod/scripts/core/logic/CampStoryManager");
+              const { CampStoryManager } = require("@/mod/scripts/core/schemes/base/CampStoryManager");
 
               CampStoryManager.start_harmonica(object);
             },
@@ -841,7 +841,7 @@ export function add_animpoint_animation_list(): LuaTable<string, IAnimationDescr
           {
             f: (object: XR_game_object) => {
               // eslint-disable-next-line @typescript-eslint/no-var-requires
-              const { CampStoryManager } = require("@/mod/scripts/core/logic/CampStoryManager");
+              const { CampStoryManager } = require("@/mod/scripts/core/schemes/base/CampStoryManager");
 
               CampStoryManager.start_harmonica(object);
             },
@@ -893,7 +893,7 @@ export function add_animpoint_animation_list(): LuaTable<string, IAnimationDescr
           {
             f: (object: XR_game_object) => {
               // eslint-disable-next-line @typescript-eslint/no-var-requires
-              const { CampStoryManager } = require("@/mod/scripts/core/logic/CampStoryManager");
+              const { CampStoryManager } = require("@/mod/scripts/core/schemes/base/CampStoryManager");
 
               CampStoryManager.start_harmonica(object);
             },
@@ -906,7 +906,7 @@ export function add_animpoint_animation_list(): LuaTable<string, IAnimationDescr
           {
             f: (object: XR_game_object) => {
               // eslint-disable-next-line @typescript-eslint/no-var-requires
-              const { CampStoryManager } = require("@/mod/scripts/core/logic/CampStoryManager");
+              const { CampStoryManager } = require("@/mod/scripts/core/schemes/base/CampStoryManager");
 
               CampStoryManager.start_harmonica(object);
             },

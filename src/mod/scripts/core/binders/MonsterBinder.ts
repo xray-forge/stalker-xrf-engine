@@ -23,7 +23,6 @@ import {
 
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { EScheme, ESchemeType, Optional } from "@/mod/lib/types";
-import { ActionSchemeHear } from "@/mod/scripts/core/ActionSchemeHear";
 import {
   addObject,
   deleteObject,
@@ -34,8 +33,9 @@ import {
   spawnedVertexById,
   storage,
 } from "@/mod/scripts/core/db";
-import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
+import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
+import { ActionSchemeHear } from "@/mod/scripts/core/schemes/hear/ActionSchemeHear";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
 import { mobCapture } from "@/mod/scripts/core/schemes/mobCapture";
 import { mobCaptured } from "@/mod/scripts/core/schemes/mobCaptured";

@@ -2,7 +2,7 @@ import { cast_planner, property_evaluator, stalker_ids, XR_action_planner, XR_pr
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
-import { action_ids } from "@/mod/scripts/core/actions_id";
+import { action_ids } from "@/mod/scripts/core/schemes/base/actions_id";
 import { EStateManagerProperty } from "@/mod/scripts/state_management/EStateManagerProperty";
 import { StateManager } from "@/mod/scripts/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

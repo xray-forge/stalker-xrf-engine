@@ -18,10 +18,10 @@ import {
 
 import { ESchemeType, Optional } from "@/mod/lib/types";
 import { addHeli, addObject, deleteHeli, deleteObject, getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
-import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
-import { get_heli_health } from "@/mod/scripts/core/logic/heli/heli_utils";
-import { HeliCombat } from "@/mod/scripts/core/logic/heli/HeliCombat";
-import { get_heli_firer } from "@/mod/scripts/core/logic/heli/HeliFire";
+import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
+import { get_heli_health } from "@/mod/scripts/core/schemes/heli_move/heli_utils";
+import { HeliCombat } from "@/mod/scripts/core/schemes/heli_move/HeliCombat";
+import { get_heli_firer } from "@/mod/scripts/core/schemes/heli_move/HeliFire";
 import { initializeGameObject } from "@/mod/scripts/core/schemes/initializeGameObject";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
 import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";

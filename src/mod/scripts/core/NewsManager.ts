@@ -14,7 +14,7 @@ import { texturesIngame } from "@/mod/globals/textures";
 import { Maybe, Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
 import { get_smart_terrain_name } from "@/mod/scripts/core/db/smart_names";
-import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
+import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { isHeavilyWounded } from "@/mod/scripts/utils/checkers/checkers";
 import { isStalkerClassId } from "@/mod/scripts/utils/checkers/is";

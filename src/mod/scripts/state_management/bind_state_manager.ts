@@ -1,7 +1,7 @@
 import { stalker_ids, world_property, XR_game_object } from "xray16";
 
-import { action_ids } from "@/mod/scripts/core/actions_id";
-import { evaluators_id } from "@/mod/scripts/core/evaluators_id";
+import { action_ids } from "@/mod/scripts/core/schemes/base/actions_id";
+import { evaluators_id } from "@/mod/scripts/core/schemes/base/evaluators_id";
 import { StateManagerActToIdle } from "@/mod/scripts/state_management/state/StateManagerActToIdle";
 import { StateManagerEvaIdle } from "@/mod/scripts/state_management/state/StateManagerEvaIdle";
 import { StateManagerEvaIdleAlife } from "@/mod/scripts/state_management/state/StateManagerEvaIdleAlife";

@@ -3,7 +3,7 @@ import { XR_game_object } from "xray16";
 import { AnyObject, Optional } from "@/mod/lib/types";
 import { EScheme, TSection } from "@/mod/lib/types/scheme";
 import { IStoredObject, schemes } from "@/mod/scripts/core/db";
-import { TAbstractSchemeConstructor } from "@/mod/scripts/core/logic/AbstractSchemeImplementation";
+import { TAbstractSchemeConstructor } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { abort } from "@/mod/scripts/utils/debug";
 
 /**

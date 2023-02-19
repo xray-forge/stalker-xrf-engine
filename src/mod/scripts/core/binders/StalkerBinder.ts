@@ -28,7 +28,6 @@ import { communities } from "@/mod/globals/communities";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { ESchemeType } from "@/mod/lib/types/scheme";
-import { ActionSchemeHear } from "@/mod/scripts/core/ActionSchemeHear";
 import {
   addEnemy,
   addObject,
@@ -46,22 +45,23 @@ import {
 import { DUMMY_LTX } from "@/mod/scripts/core/db/IniFiles";
 import { DropManager } from "@/mod/scripts/core/DropManager";
 import { set_npc_sympathy, set_npcs_relation } from "@/mod/scripts/core/game_relations";
+import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { need_victim } from "@/mod/scripts/core/inventory_upgrades";
-import { ActionDanger } from "@/mod/scripts/core/logic/ActionDanger";
-import { ActionLight } from "@/mod/scripts/core/logic/ActionLight";
-import { ActionSchemeCombat } from "@/mod/scripts/core/logic/ActionSchemeCombat";
-import { ActionSchemeMeet } from "@/mod/scripts/core/logic/ActionSchemeMeet";
-import { ActionSchemeReachTask } from "@/mod/scripts/core/logic/ActionSchemeReachTask";
-import { ActionWoundManager } from "@/mod/scripts/core/logic/ActionWoundManager";
-import { add_post_combat_idle } from "@/mod/scripts/core/logic/evaluators/PostCombatIdleEnemyEvaluator";
-import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { MoveManager } from "@/mod/scripts/core/MoveManager";
 import { get_release_body_manager } from "@/mod/scripts/core/ReleaseBodyManager";
+import { SchemeCombat } from "@/mod/scripts/core/schemes/combat/SchemeCombat";
+import { add_post_combat_idle } from "@/mod/scripts/core/schemes/danger/evaluators/PostCombatIdleEnemyEvaluator";
+import { SchemeDanger } from "@/mod/scripts/core/schemes/danger/SchemeDanger";
 import { generic_scheme_overrides } from "@/mod/scripts/core/schemes/generic_scheme_overrides";
+import { ActionSchemeHear } from "@/mod/scripts/core/schemes/hear/ActionSchemeHear";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
+import { SchemeMeet } from "@/mod/scripts/core/schemes/meet/SchemeMeet";
+import { SchemeReachTask } from "@/mod/scripts/core/schemes/reach_task/SchemeReachTask";
+import { SchemeLight } from "@/mod/scripts/core/schemes/sr_light/SchemeLight";
 import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
+import { SchemeWounded } from "@/mod/scripts/core/schemes/wounded/SchemeWounded";
 import { DynamicMusicManager } from "@/mod/scripts/core/sound/DynamicMusicManager";
 import { SoundTheme } from "@/mod/scripts/core/sound/SoundTheme";
 import { loadTradeManager, saveTradeManager, updateTradeManager } from "@/mod/scripts/core/TradeManager";
@@ -217,7 +217,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
       manager.add_evaluator(stalker_ids.property_anomaly, new property_evaluator_const(false));
     }
 
-    ActionSchemeReachTask.add_reach_task_action(this.object);
+    SchemeReachTask.add_reach_task_action(this.object);
 
     // todo: Why? Already same in callback?
     const se_obj = alife().object<XR_cse_alife_human_abstract>(this.object.id());
@@ -368,7 +368,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
     }
 
     if (amount > 0) {
-      ActionWoundManager.hit_callback(obj.id());
+      SchemeWounded.hit_callback(obj.id());
     }
   },
   death_callback(victim: XR_game_object, who: Optional<XR_game_object>): void {
@@ -414,7 +414,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
       issueEvent(this.object, this.state[this.state.active_scheme!], "death_callback", victim, who);
     }
 
-    ActionLight.check_light(this.object);
+    SchemeLight.check_light(this.object);
     create_xr_class_instance(DropManager, this.object).create_release_item();
     deleteEnemy(this.e_index!);
 
@@ -436,7 +436,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
     if (this.object.alive()) {
       need_victim(obj);
 
-      ActionSchemeMeet.notify_on_use(obj, who);
+      SchemeMeet.notify_on_use(obj, who);
 
       disabled_phrases.delete(obj.id());
       if (this.state.active_section) {
@@ -466,7 +466,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
     }
 
     if (time_global() - this.last_update > 1000) {
-      ActionLight.check_light(object);
+      SchemeLight.check_light(object);
       this.last_update = time_global();
     }
 
@@ -485,7 +485,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
 
     if (object_alive) {
       GlobalSound.update(object.id());
-      ActionSchemeMeet.process_npc_usability(object);
+      SchemeMeet.process_npc_usability(object);
       updateInvulnerability(this.object);
     }
 
@@ -515,7 +515,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
       const best_danger = object.best_danger();
 
       if (best_danger) {
-        object.info_add("danger: " + ActionDanger.get_danger_name(best_danger));
+        object.info_add("danger: " + SchemeDanger.get_danger_name(best_danger));
       }
 
       object.info_add(object.name() + " [" + object.team() + "][" + object.squad() + "][" + object.group() + "]");
@@ -602,14 +602,14 @@ export function update_logic(object: XR_game_object): void {
         if (st_combat && (st_combat as any).logic) {
           if (!trySwitchToAnotherSection(object, st_combat, actor)) {
             if (overrides.get("combat_type")) {
-              ActionSchemeCombat.set_combat_type(object, actor, overrides);
+              SchemeCombat.set_combat_type(object, actor, overrides);
             }
           } else {
             switched = true;
           }
         }
       } else {
-        ActionSchemeCombat.set_combat_type(object, actor, st_combat);
+        SchemeCombat.set_combat_type(object, actor, st_combat);
       }
     }
 
@@ -617,7 +617,7 @@ export function update_logic(object: XR_game_object): void {
       trySwitchToAnotherSection(object, st[st.active_scheme!], actor);
     }
   } else {
-    ActionSchemeCombat.set_combat_type(object, actor, st_combat);
+    SchemeCombat.set_combat_type(object, actor, st_combat);
   }
 }
 

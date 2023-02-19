@@ -40,14 +40,14 @@ import {
 import { destroyManager, getWeakManagerInstance } from "@/mod/scripts/core/db/ManagersRegistry";
 import { pstor_load_all, pstor_save_all } from "@/mod/scripts/core/db/pstor";
 import { initDropSettings } from "@/mod/scripts/core/DropManager";
-import { ActionDeimos } from "@/mod/scripts/core/logic/ActionDeimos";
-import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
+import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { EGameEvent } from "@/mod/scripts/core/managers/events/EGameEvent";
 import { EventsManager } from "@/mod/scripts/core/managers/events/EventsManager";
 import { PsyAntennaManager } from "@/mod/scripts/core/managers/PsyAntennaManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { send_task } from "@/mod/scripts/core/NewsManager";
 import { get_release_body_manager } from "@/mod/scripts/core/ReleaseBodyManager";
+import { SchemeDeimos } from "@/mod/scripts/core/schemes/sr_deimos/SchemeDeimos";
 import { DynamicMusicManager } from "@/mod/scripts/core/sound/DynamicMusicManager";
 import { SurgeManager } from "@/mod/scripts/core/SurgeManager";
 import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
@@ -464,10 +464,10 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     let deimos_exist = false;
 
     for (const [k, v] of zoneByName) {
-      if (storage.get(v.id()) && storage.get(v.id()).active_section === ActionDeimos.SCHEME_SECTION) {
+      if (storage.get(v.id()) && storage.get(v.id()).active_section === SchemeDeimos.SCHEME_SECTION) {
         deimos_exist = true;
         packet.w_bool(true);
-        packet.w_float(storage.get(v.id())[ActionDeimos.SCHEME_SECTION].intensity);
+        packet.w_float(storage.get(v.id())[SchemeDeimos.SCHEME_SECTION].intensity);
       }
     }
 

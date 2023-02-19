@@ -8,7 +8,7 @@ import {
 } from "xray16";
 
 import { addSmartTerrain, addZone, deleteSmartTerrain, deleteZone } from "@/mod/scripts/core/db";
-import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
+import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("SmartTerrainBinder");
