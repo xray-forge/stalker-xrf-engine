@@ -1,7 +1,7 @@
 import { time_global, XR_game_object, XR_ini_file, XR_object, XR_vector } from "xray16";
 
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { IStoredObject, registry, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
@@ -68,7 +68,7 @@ export class SchemePhysicalButton extends AbstractScheme {
   }
 
   public try_switch(): boolean {
-    const state = storage.get(this.object.id());
+    const state = registry.objects.get(this.object.id());
 
     if (state.active_scheme && state.active_scheme === SchemePhysicalButton.SCHEME_SECTION && this.state.on_press) {
       if (

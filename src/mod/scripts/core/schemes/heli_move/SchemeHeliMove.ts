@@ -1,7 +1,7 @@
 import { level, patrol, XR_CHelicopter, XR_game_object, XR_ini_file, XR_patrol, XR_vector } from "xray16";
 
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { IStoredObject, registry, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
@@ -61,7 +61,7 @@ export class SchemeHeliMove extends AbstractScheme {
     a.show_health = getConfigBoolean(ini, section, "show_health", npc, false, false);
     a.fire_trail = getConfigBoolean(ini, section, "fire_trail", npc, false, false);
 
-    const st = storage.get(npc.id());
+    const st = registry.objects.get(npc.id());
 
     st.invulnerable = getConfigBoolean(ini, section, "invulnerable", npc, false, false);
     st.immortal = getConfigBoolean(ini, section, "immortal", npc, false, false);

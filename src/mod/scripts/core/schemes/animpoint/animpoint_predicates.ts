@@ -3,7 +3,7 @@
 import { misc } from "@/mod/globals/items/misc";
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { storage } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { get_npc_smart } from "@/mod/scripts/utils/gulag";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -143,10 +143,10 @@ function const_predicate_true(npc_id: number) {
 // todo: Optimize.
 function animpoint_predicate_bread(npc_id: number): boolean {
   if (
-    storage.get(npc_id) &&
-    storage.get(npc_id).object &&
-    eatable_visuals[storage.get(npc_id).object!.get_visual_name<TEatableVisual>()] &&
-    storage.get(npc_id).object!.object("bread")
+    registry.objects.get(npc_id) &&
+    registry.objects.get(npc_id).object &&
+    eatable_visuals[registry.objects.get(npc_id).object!.get_visual_name<TEatableVisual>()] &&
+    registry.objects.get(npc_id).object!.object("bread")
   ) {
     return true;
   }
@@ -156,10 +156,10 @@ function animpoint_predicate_bread(npc_id: number): boolean {
 
 function animpoint_predicate_kolbasa(npc_id: number): boolean {
   if (
-    storage.get(npc_id) &&
-    storage.get(npc_id).object &&
-    eatable_visuals[storage.get(npc_id).object!.get_visual_name<TEatableVisual>()] &&
-    storage.get(npc_id).object!.object("kolbasa")
+    registry.objects.get(npc_id) &&
+    registry.objects.get(npc_id).object &&
+    eatable_visuals[registry.objects.get(npc_id).object!.get_visual_name<TEatableVisual>()] &&
+    registry.objects.get(npc_id).object!.object("kolbasa")
   ) {
     return true;
   }
@@ -169,10 +169,10 @@ function animpoint_predicate_kolbasa(npc_id: number): boolean {
 
 function animpoint_predicate_vodka(npc_id: number): boolean {
   if (
-    storage.get(npc_id) &&
-    storage.get(npc_id).object &&
-    eatable_visuals[storage.get(npc_id).object!.get_visual_name<TEatableVisual>()] &&
-    storage.get(npc_id).object!.object("vodka")
+    registry.objects.get(npc_id) &&
+    registry.objects.get(npc_id).object &&
+    eatable_visuals[registry.objects.get(npc_id).object!.get_visual_name<TEatableVisual>()] &&
+    registry.objects.get(npc_id).object!.object("vodka")
   ) {
     return true;
   }
@@ -182,10 +182,10 @@ function animpoint_predicate_vodka(npc_id: number): boolean {
 
 function animpoint_predicate_energy(npc_id: number): boolean {
   if (
-    storage.get(npc_id) &&
-    storage.get(npc_id).object &&
-    eatable_visuals[storage.get(npc_id).object!.get_visual_name<TEatableVisual>()] &&
-    storage.get(npc_id).object!.object("energy_drink")
+    registry.objects.get(npc_id) &&
+    registry.objects.get(npc_id).object &&
+    eatable_visuals[registry.objects.get(npc_id).object!.get_visual_name<TEatableVisual>()] &&
+    registry.objects.get(npc_id).object!.object("energy_drink")
   ) {
     return true;
   }
@@ -196,9 +196,9 @@ function animpoint_predicate_energy(npc_id: number): boolean {
 function animpoint_predicate_guitar(npc_id: number, is_in_camp?: Optional<boolean>): boolean {
   if (
     is_in_camp === true &&
-    storage.get(npc_id) &&
-    storage.get(npc_id).object &&
-    storage.get(npc_id).object!.object(misc.guitar_a)
+    registry.objects.get(npc_id) &&
+    registry.objects.get(npc_id).object &&
+    registry.objects.get(npc_id).object!.object(misc.guitar_a)
   ) {
     return true;
   }
@@ -209,10 +209,10 @@ function animpoint_predicate_guitar(npc_id: number, is_in_camp?: Optional<boolea
 function animpoint_predicate_harmonica(npc_id: number, is_in_camp?: Optional<boolean>): boolean {
   if (
     is_in_camp === true &&
-    storage.get(npc_id) &&
-    storage.get(npc_id).object &&
-    harmonica_visuals[storage.get(npc_id).object!.get_visual_name<TEatableVisual>()] &&
-    storage.get(npc_id).object!.object(misc.harmonica_a)
+    registry.objects.get(npc_id) &&
+    registry.objects.get(npc_id).object &&
+    harmonica_visuals[registry.objects.get(npc_id).object!.get_visual_name<TEatableVisual>()] &&
+    registry.objects.get(npc_id).object!.object(misc.harmonica_a)
   ) {
     return true;
   }
@@ -221,8 +221,8 @@ function animpoint_predicate_harmonica(npc_id: number, is_in_camp?: Optional<boo
 }
 
 function animpoint_predicate_weapon(npc_id: number): boolean {
-  if (storage.get(npc_id) && storage.get(npc_id).object) {
-    const smart: Optional<ISmartTerrain> = get_npc_smart(storage.get(npc_id).object!);
+  if (registry.objects.get(npc_id) && registry.objects.get(npc_id).object) {
+    const smart: Optional<ISmartTerrain> = get_npc_smart(registry.objects.get(npc_id).object!);
 
     if (smart) {
       for (const [k, v] of smart_table) {

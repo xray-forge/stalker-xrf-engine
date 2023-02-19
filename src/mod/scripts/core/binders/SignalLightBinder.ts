@@ -10,7 +10,7 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { registry, signalLight, storage } from "@/mod/scripts/core/db";
+import { registry, signalLight } from "@/mod/scripts/core/db";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -45,7 +45,7 @@ export const SignalLightBinder: ISignalLightBinder = declare_xr_class("SignalLig
   reinit(): void {
     object_binder.reinit(this);
 
-    storage.set(this.object.id(), {});
+    registry.objects.set(this.object.id(), {});
     signalLight.set(this.object.name(), this);
   },
   update(delta: number): void {

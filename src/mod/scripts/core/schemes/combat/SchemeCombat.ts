@@ -3,7 +3,7 @@ import { stalker_ids, world_property, XR_action_base, XR_game_object, XR_ini_fil
 import { communities } from "@/mod/globals/communities";
 import { AnyObject, Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { IStoredObject, registry, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme, evaluators_id } from "@/mod/scripts/core/schemes/base";
 import { EvaluatorCheckCombat } from "@/mod/scripts/core/schemes/combat/evaluators/EvaluatorCheckCombat";
@@ -52,7 +52,7 @@ export class SchemeCombat extends AbstractScheme {
   }
 
   public static disable_scheme(object: XR_game_object, scheme: EScheme): void {
-    const state = storage.get(object.id())[scheme];
+    const state = registry.objects.get(object.id())[scheme];
 
     if (state !== null) {
       state.enabled = false;
@@ -64,7 +64,7 @@ export class SchemeCombat extends AbstractScheme {
       return;
     }
 
-    const state = storage.get(npc.id());
+    const state = registry.objects.get(npc.id());
 
     state.enemy = npc.best_enemy();
 

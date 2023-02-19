@@ -2,7 +2,7 @@ import { anim, move, object, TXR_object_state, XR_game_object } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
-import { storage } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { IStateDescriptor, states } from "@/mod/scripts/core/state_management/lib/state_lib";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -33,22 +33,22 @@ export function get_queue_params(
       const old_aim_time = npc.aim_time(bestWeapon);
 
       if (old_aim_time !== a.get(3)) {
-        storage.get(npcId).old_aim_time = old_aim_time;
+        registry.objects.get(npcId).old_aim_time = old_aim_time;
         npc.aim_time(bestWeapon, a.get(3));
       }
     }
 
-    if (storage.get(npcId).old_aim_time !== null) {
-      npc.aim_time(bestWeapon, storage.get(npcId).old_aim_time);
-      storage.get(npcId).old_aim_time = null;
+    if (registry.objects.get(npcId).old_aim_time !== null) {
+      npc.aim_time(bestWeapon, registry.objects.get(npcId).old_aim_time);
+      registry.objects.get(npcId).old_aim_time = null;
     }
 
     return $multi(a.get(1), a.get(2));
   }
 
-  if (storage.get(npcId).old_aim_time !== null) {
-    npc.aim_time(bestWeapon, storage.get(npcId).old_aim_time);
-    storage.get(npcId).old_aim_time = null;
+  if (registry.objects.get(npcId).old_aim_time !== null) {
+    npc.aim_time(bestWeapon, registry.objects.get(npcId).old_aim_time);
+    registry.objects.get(npcId).old_aim_time = null;
   }
 
   return $multi(3, 1000);

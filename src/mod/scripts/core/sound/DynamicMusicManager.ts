@@ -3,7 +3,7 @@ import { get_console, IsDynamicMusic, level, time_global, XR_game_object, XR_vec
 import { console_command } from "@/mod/globals/console_command";
 import { TSound } from "@/mod/globals/sound/sounds";
 import { Optional } from "@/mod/lib/types";
-import { registry, silenceZones, storage, zoneByName } from "@/mod/scripts/core/db";
+import { registry, silenceZones, zoneByName } from "@/mod/scripts/core/db";
 import { EGameEvent } from "@/mod/scripts/core/managers/events/EGameEvent";
 import { EventsManager } from "@/mod/scripts/core/managers/events/EventsManager";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
@@ -164,7 +164,7 @@ export class DynamicMusicManager {
 
         // todo: No need to check every enemy, just find at least one who meets threshold and flag 'true'
         for (const [k, obj_id] of DynamicMusicManager.NPC_TABLE) {
-          const object = storage.get(obj_id) && storage.get(obj_id).object;
+          const object = registry.objects.get(obj_id) && registry.objects.get(obj_id).object;
 
           if (object) {
             const enemy: Optional<XR_game_object> = object.best_enemy();

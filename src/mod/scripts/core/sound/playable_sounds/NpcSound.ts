@@ -17,7 +17,7 @@ import {
 
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { AnyObject, Optional } from "@/mod/lib/types";
-import { IStoredObject, registry, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { send_sound } from "@/mod/scripts/core/NewsManager";
 import { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
 import { EPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/EPlayableSound";
@@ -123,7 +123,7 @@ export class NpcSound extends AbstractPlayableSound {
   }
 
   public reset(npcId: number): void {
-    const npc: Optional<XR_game_object> = storage.get(npcId) && storage.get(npcId).object!;
+    const npc: Optional<XR_game_object> = registry.objects.get(npcId) && registry.objects.get(npcId).object!;
 
     this.played_time = null;
     this.played_id = null;
@@ -142,7 +142,7 @@ export class NpcSound extends AbstractPlayableSound {
   }
 
   public is_playing(npc_id: number): boolean {
-    const obj: Optional<XR_game_object> = storage.get(npc_id) && storage.get(npc_id).object!;
+    const obj: Optional<XR_game_object> = registry.objects.get(npc_id) && registry.objects.get(npc_id).object!;
 
     if (obj === null) {
       return false;
@@ -218,7 +218,7 @@ export class NpcSound extends AbstractPlayableSound {
     // --    printf("npc_sound:callback!!!!!!!!")
     get_hud().RemoveCustomStatic("cs_subtitles_npc");
 
-    const st: IStoredObject = storage.get(npc_id);
+    const st: IStoredObject = registry.objects.get(npc_id);
 
     if (st.active_scheme === null) {
       return;
@@ -246,7 +246,7 @@ export class NpcSound extends AbstractPlayableSound {
     logger.info("Play:", npc_id, faction, point, msg);
 
     const npc: Optional<XR_game_object> =
-      storage.get(npc_id) && (storage.get(npc_id).object as Optional<XR_game_object>);
+      registry.objects.get(npc_id) && (registry.objects.get(npc_id).object as Optional<XR_game_object>);
 
     if (npc === null) {
       return false;
@@ -385,7 +385,7 @@ export class NpcSound extends AbstractPlayableSound {
   }
 
   public stop(obj_id: number): void {
-    const npc: Optional<XR_game_object> = storage.get(obj_id)?.object as Optional<XR_game_object>;
+    const npc: Optional<XR_game_object> = registry.objects.get(obj_id)?.object as Optional<XR_game_object>;
 
     if (npc !== null && npc.alive()) {
       npc.set_sound_mask(-1);

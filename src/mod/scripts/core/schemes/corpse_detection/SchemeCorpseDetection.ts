@@ -2,7 +2,7 @@ import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_
 
 import { Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
@@ -107,8 +107,9 @@ export class SchemeCorpseDetection extends AbstractScheme {
   }
 
   public static get_all_from_corpse(object: XR_game_object): void {
-    const corpse_npc_id: number = storage.get(object.id()).corpse_detection.selected_corpse_id;
-    const corpse_npc: Optional<XR_game_object> = storage.get(corpse_npc_id) && storage.get(corpse_npc_id).object!;
+    const corpse_npc_id: number = registry.objects.get(object.id()).corpse_detection.selected_corpse_id;
+    const corpse_npc: Optional<XR_game_object> =
+      registry.objects.get(corpse_npc_id) && registry.objects.get(corpse_npc_id).object!;
 
     if (corpse_npc === null) {
       return;

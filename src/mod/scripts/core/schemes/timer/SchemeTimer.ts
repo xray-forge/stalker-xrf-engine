@@ -2,7 +2,7 @@ import { get_hud, time_global, XR_CUIStatic, XR_game_object, XR_ini_file } from 
 
 import { Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { IStoredObject, registry, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
@@ -83,7 +83,7 @@ export class SchemeTimer extends AbstractScheme {
       return;
     }
 
-    const nn = time_global() - storage.get(this.object.id()).activation_time;
+    const nn = time_global() - registry.objects.get(this.object.id()).activation_time;
 
     let value_time = this.state.type === "inc" ? this.state.start_value + nn : this.state.start_value - nn;
 

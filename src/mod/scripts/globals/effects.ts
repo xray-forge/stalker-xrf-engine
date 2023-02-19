@@ -65,7 +65,6 @@ import {
   registry,
   scriptIds,
   signalLight,
-  storage,
   zoneByName,
 } from "@/mod/scripts/core/db";
 import { SYSTEM_INI } from "@/mod/scripts/core/db/IniFiles";
@@ -123,7 +122,7 @@ export function update_npc_logic(actor: XR_game_object, object: XR_game_object, 
       planner.update();
       planner.update();
 
-      const state: IStoredObject = storage.get(npc.id());
+      const state: IStoredObject = registry.objects.get(npc.id());
 
       // todo: Is it ok? Why?
       state.state_mgr!.update();
@@ -147,7 +146,7 @@ export function update_obj_logic(actor: XR_game_object, object: XR_game_object, 
     if (obj !== null) {
       logger.info("Update object logic:", obj.id());
 
-      const state: IStoredObject = storage.get(obj.id());
+      const state: IStoredObject = registry.objects.get(obj.id());
 
       trySwitchToAnotherSection(obj, state[state.active_scheme!], actor);
     }
@@ -343,7 +342,7 @@ export function cam_effector_callback() {
     return;
   }
 
-  const state = storage.get(cam_effector_playing_object_id);
+  const state = registry.objects.get(cam_effector_playing_object_id);
 
   if (state === null || state.active_scheme === null) {
     return;
@@ -501,7 +500,7 @@ export function teleport_actor(actor: XR_game_object, npc: XR_game_object, param
 }
 
 function reset_animation(npc: XR_game_object): void {
-  const stateManager = storage.get(npc.id()).state_mgr!;
+  const stateManager = registry.objects.get(npc.id()).state_mgr!;
 
   if (stateManager === null) {
     return;
@@ -726,13 +725,13 @@ export function hit_by_killer(actor: XR_game_object, npc: XR_game_object, p: [st
     return;
   }
 
-  const t = storage.get(npc.id()).death!;
+  const t = registry.objects.get(npc.id()).death!;
 
   if (t === null || t.killer === -1) {
     return;
   }
 
-  const killer = storage.get(t.killer);
+  const killer = registry.objects.get(t.killer);
 
   if (killer === null) {
     return;
@@ -1025,19 +1024,19 @@ export function turn_on(actor: XR_game_object, npc: XR_game_object, p: LuaArray<
 }
 
 export function disable_combat_handler(actor: XR_game_object, npc: XR_game_object): void {
-  if (storage.get(npc.id()).combat) {
-    storage.get(npc.id()).combat.enabled = false;
+  if (registry.objects.get(npc.id()).combat) {
+    registry.objects.get(npc.id()).combat.enabled = false;
   }
 
-  if (storage.get(npc.id()).mob_combat) {
-    storage.get(npc.id()).mob_combat.enabled = false;
+  if (registry.objects.get(npc.id()).mob_combat) {
+    registry.objects.get(npc.id()).mob_combat.enabled = false;
   }
 }
 
 // -- ����� ���� ������� �������� ���������� [combat_ignore] ��������� ��� ��� ���������.
 export function disable_combat_ignore_handler(actor: XR_game_object, npc: XR_game_object): void {
-  if (storage.get(npc.id()).combat_ignore) {
-    storage.get(npc.id()).combat_ignore!.enabled = false;
+  if (registry.objects.get(npc.id()).combat_ignore) {
+    registry.objects.get(npc.id()).combat_ignore!.enabled = false;
   }
 }
 
@@ -1047,7 +1046,7 @@ export function heli_start_flame(actor: XR_game_object, npc: XR_game_object): vo
 
 export function heli_die(actor: XR_game_object, npc: XR_game_object): void {
   const heli = npc.get_helicopter();
-  const st = storage.get(npc.id());
+  const st = registry.objects.get(npc.id());
 
   heli.Die();
   deleteHelicopter(npc);
@@ -1308,7 +1307,7 @@ export function destroy_object(
         "You are trying to set non-existant target [%s] for object [%s] in section [%s]:",
         target_str,
         target_id,
-        storage.get(obj.id()).active_section
+        registry.objects.get(obj.id()).active_section
       );
     }
 
@@ -1555,7 +1554,7 @@ export function kill_squad(actor: XR_game_object, obj: XR_game_object, p: [strin
   }
 
   for (const [k, v] of squad_npcs) {
-    const cl_obj = storage.get(k)?.object as Optional<XR_game_object>;
+    const cl_obj = registry.objects.get(k)?.object as Optional<XR_game_object>;
 
     if (cl_obj === null) {
       alife().object<XR_cse_alife_human_abstract>(tonumber(k)!)!.kill();
@@ -1584,7 +1583,7 @@ export function heal_squad(actor: XR_game_object, obj: XR_game_object, params: [
   }
 
   for (const k of squad.squad_members()) {
-    const cl_obj = storage.get(k.id)?.object as Optional<XR_game_object>;
+    const cl_obj = registry.objects.get(k.id)?.object as Optional<XR_game_object>;
 
     if (cl_obj !== null) {
       cl_obj.health = health_mod;
@@ -1819,8 +1818,8 @@ export function set_level_faction_community(
           }
 
           tbl.communities.get(params[0]).set(npc.id, goodwill);
-          if (storage.get(npc.id) !== null) {
-            setLevelFactionCommunity(storage.get(npc.id).object as XR_game_object);
+          if (registry.objects.get(npc.id) !== null) {
+            setLevelFactionCommunity(registry.objects.get(npc.id).object as XR_game_object);
           }
         }
       }
@@ -1846,7 +1845,7 @@ export function make_actor_visible_to_squad(actor: XR_game_object, npc: XR_game_
 }
 
 export function stop_sr_cutscene(actor: XR_game_object, npc: XR_game_object, p: []) {
-  const obj: IStoredObject = storage.get(npc.id());
+  const obj: IStoredObject = registry.objects.get(npc.id());
 
   if (obj.active_scheme !== null) {
     obj[obj.active_scheme!].signals["cam_effector_stop"] = true;
@@ -1981,11 +1980,11 @@ export function set_squads_enemies(actor: XR_game_object, npc: XR_game_object, p
   }
 
   for (const k of squad_1.squad_members()) {
-    const npc_obj_1 = storage.get(k.id)?.object as Optional<XR_game_object>;
+    const npc_obj_1 = registry.objects.get(k.id)?.object as Optional<XR_game_object>;
 
     if (npc_obj_1 !== null) {
       for (const kk of squad_2.squad_members()) {
-        const npc_obj_2 = storage.get(kk.id).object as Optional<XR_game_object>;
+        const npc_obj_2 = registry.objects.get(kk.id).object as Optional<XR_game_object>;
 
         if (npc_obj_2 !== null) {
           npc_obj_1.set_relation(game_object.enemy, npc_obj_2);
@@ -2674,9 +2673,9 @@ export function damage_pri_a17_gauss() {
 }
 
 export function pri_a17_hard_animation_reset(actor: XR_game_object, npc: XR_game_object, p: []) {
-  // --storage.get(npc.id()).state_mgr.set_state("pri_a17_fall_down", null, null, null, {fast_set = true})
+  // --registry.objects.get(npc.id()).state_mgr.set_state("pri_a17_fall_down", null, null, null, {fast_set = true})
 
-  const stateManager = storage.get(npc.id()).state_mgr!;
+  const stateManager = registry.objects.get(npc.id()).state_mgr!;
 
   stateManager.set_state("pri_a17_fall_down", null, null, null, null);
   stateManager.animation.set_state(null, true);
@@ -2685,7 +2684,7 @@ export function pri_a17_hard_animation_reset(actor: XR_game_object, npc: XR_game
 }
 
 export function jup_b217_hard_animation_reset(actor: XR_game_object, npc: XR_game_object): void {
-  const stateManager = storage.get(npc.id()).state_mgr!;
+  const stateManager = registry.objects.get(npc.id()).state_mgr!;
 
   stateManager.set_state("jup_b217_nitro_straight", null, null, null, null);
   stateManager.animation.set_state(null, true);

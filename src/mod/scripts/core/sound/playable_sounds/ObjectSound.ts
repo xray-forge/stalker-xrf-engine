@@ -11,7 +11,7 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { registry, storage } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { send_sound } from "@/mod/scripts/core/NewsManager";
 import { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
 import { EPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/EPlayableSound";
@@ -83,7 +83,7 @@ export class ObjectSound extends AbstractPlayableSound {
   }
 
   public play(obj_id: number, faction: string, point: string, msg: string): boolean {
-    const obj = storage.get(obj_id) && storage.get(obj_id).object!;
+    const obj = registry.objects.get(obj_id) && registry.objects.get(obj_id).object!;
 
     if (obj === null) {
       return false;
@@ -175,7 +175,7 @@ export class ObjectSound extends AbstractPlayableSound {
     // --    printf("object_sound:callback for object !!!!!!!!")
     get_hud().RemoveCustomStatic("cs_subtitles_object");
 
-    const st = storage.get(npc_id);
+    const st = registry.objects.get(npc_id);
 
     if (st.active_scheme === null) {
       return;

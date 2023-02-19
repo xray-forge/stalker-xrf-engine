@@ -17,7 +17,7 @@ import { ERelation } from "@/mod/globals/relations";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { Optional } from "@/mod/lib/types";
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
-import { IStoredObject, registry, storage, zoneByName } from "@/mod/scripts/core/db";
+import { IStoredObject, registry, zoneByName } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { action_ids } from "@/mod/scripts/core/schemes/base/actions_id";
 import { getStorySquad } from "@/mod/scripts/utils/alife";
@@ -127,7 +127,7 @@ export function isObjectInZone(object: Optional<XR_game_object>, zone: Optional<
  * @returns whether object is wounded.
  */
 export function isObjectWounded(object: XR_game_object): boolean {
-  const state = storage.get(object.id());
+  const state = registry.objects.get(object.id());
 
   if (state === null) {
     return false;
@@ -158,7 +158,7 @@ export function isObjectMeeting(object: XR_game_object): boolean {
  * @returns whether object is heavily wounded.
  */
 export function isHeavilyWounded(npcId: number): boolean {
-  const state: Optional<IStoredObject> = storage.get(npcId);
+  const state: Optional<IStoredObject> = registry.objects.get(npcId);
 
   return state.wounded !== null && tostring(state.wounded!.wound_manager.wound_state) !== "nil";
 }

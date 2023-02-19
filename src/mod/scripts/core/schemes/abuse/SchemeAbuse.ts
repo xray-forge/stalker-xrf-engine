@@ -1,7 +1,7 @@
 import { stalker_ids, time_global, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { ActionAbuseHit } from "@/mod/scripts/core/schemes/abuse/actions/ActionAbuseHit";
 import { EvaluatorAbuse } from "@/mod/scripts/core/schemes/abuse/evaluators/EvaluatorAbuse";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
@@ -61,7 +61,7 @@ export class SchemeAbuse extends AbstractScheme {
   }
 
   public static add_abuse(npc: XR_game_object, value: number): void {
-    const t: Optional<{ abuse_manager: SchemeAbuse }> = storage.get(npc.id()).abuse;
+    const t: Optional<{ abuse_manager: SchemeAbuse }> = registry.objects.get(npc.id()).abuse;
 
     if (t) {
       t.abuse_manager.addAbuse(value);
@@ -71,7 +71,7 @@ export class SchemeAbuse extends AbstractScheme {
   public static resetScheme(object: XR_game_object, scheme: EScheme, state: IStoredObject, section: TSection): void {}
 
   public static clear_abuse(object: XR_game_object): void {
-    const state = storage.get(object.id()).abuse;
+    const state = registry.objects.get(object.id()).abuse;
 
     if (state) {
       state.abuse_manager.clearAbuse();
@@ -79,7 +79,7 @@ export class SchemeAbuse extends AbstractScheme {
   }
 
   public static disable_abuse(object: XR_game_object): void {
-    const state = storage.get(object.id()).abuse;
+    const state = registry.objects.get(object.id()).abuse;
 
     if (state) {
       state.abuse_manager.disableAbuse();
@@ -87,7 +87,7 @@ export class SchemeAbuse extends AbstractScheme {
   }
 
   public static enable_abuse(object: XR_game_object): void {
-    const state = storage.get(object.id()).abuse;
+    const state = registry.objects.get(object.id()).abuse;
 
     if (state) {
       state.abuse_manager.enableAbuse();
@@ -95,7 +95,7 @@ export class SchemeAbuse extends AbstractScheme {
   }
 
   public static is_abuse(object: XR_game_object): boolean {
-    const state = storage.get(object.id()).abuse;
+    const state = registry.objects.get(object.id()).abuse;
 
     if (state === null) {
       return false;

@@ -1,6 +1,6 @@
 import { patrol, XR_cse_alife_object, XR_game_object, XR_vector } from "xray16";
 
-import { storage } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { parseNames } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -34,7 +34,7 @@ export function clear_combat_restrictor(npc: XR_game_object): void {
 }
 
 export function accessible_job(se_obj: XR_cse_alife_object, way_name: string): boolean {
-  const obj = storage.get(se_obj.id);
+  const obj = registry.objects.get(se_obj.id);
 
   if (obj === null) {
     return false;

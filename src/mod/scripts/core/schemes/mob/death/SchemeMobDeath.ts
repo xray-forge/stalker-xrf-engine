@@ -1,7 +1,7 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { IStoredObject, registry, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
@@ -44,11 +44,11 @@ export class SchemeMobDeath extends AbstractScheme {
   }
 
   public death_callback(victim: XR_game_object, who: Optional<XR_game_object>): void {
-    let death = storage.get(victim.id()).death!;
+    let death = registry.objects.get(victim.id()).death!;
 
     if (death === null) {
       death = {} as any;
-      storage.get(victim.id()).death = death;
+      registry.objects.get(victim.id()).death = death;
     }
 
     if (who !== null) {

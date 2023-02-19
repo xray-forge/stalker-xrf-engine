@@ -16,7 +16,7 @@ import {
 } from "xray16";
 
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { IStoredObject, registry, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { MoveManager } from "@/mod/scripts/core/MoveManager";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
@@ -210,8 +210,8 @@ export class SchemeMobWalker extends AbstractScheme {
     if (sig !== null) {
       // -- HACK, fixme:
       const npc_id = this.object.id();
-      const scheme: EScheme = storage.get(npc_id)["active_scheme"]!;
-      const signals: LuaTable = storage.get(npc_id)[scheme!].signals;
+      const scheme: EScheme = registry.objects.get(npc_id)["active_scheme"]!;
+      const signals: LuaTable = registry.objects.get(npc_id)[scheme!].signals;
 
       signals.set(sig, true);
     }

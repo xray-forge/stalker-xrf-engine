@@ -1,11 +1,11 @@
 import { XR_CHelicopter, XR_game_object } from "xray16";
 
-import { IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 
-export function get_heli_health(heli: XR_CHelicopter, st: IStoredObject): number {
+export function get_heli_health(heli: XR_CHelicopter, state: IStoredObject): number {
   let health: number;
 
-  if (st.invulnerable) {
+  if (state.invulnerable) {
     health = 1;
     heli.SetfHealth(health);
   } else {
@@ -21,5 +21,5 @@ export function get_heli_health(heli: XR_CHelicopter, st: IStoredObject): number
 }
 
 export function is_heli_alive(obj: XR_game_object): boolean {
-  return get_heli_health(obj.get_helicopter(), storage.get(obj.id())) > 0.005;
+  return get_heli_health(obj.get_helicopter(), registry.objects.get(obj.id())) > 0.005;
 }

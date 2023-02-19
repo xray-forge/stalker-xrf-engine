@@ -4,7 +4,7 @@ import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { Optional } from "@/mod/lib/types";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { ESmartTerrainStatus } from "@/mod/scripts/core/alife/SmartTerrainControl";
-import { fighting_with_actor_npcs, IStoredObject, registry, storage, zoneByName } from "@/mod/scripts/core/db";
+import { fighting_with_actor_npcs, IStoredObject, registry, zoneByName } from "@/mod/scripts/core/db";
 import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
 import { get_sim_obj_registry, ISimObjectsRegistry } from "@/mod/scripts/core/db/SimObjectsRegistry";
 import { isObjectInZone } from "@/mod/scripts/utils/checkers/checkers";
@@ -47,7 +47,7 @@ export class ActionProcessEnemy {
 
     const overrides = st.overrides;
     const obj_id = object.id();
-    const state = storage.get(obj_id);
+    const state = registry.objects.get(obj_id);
 
     if (state === null) {
       return true;

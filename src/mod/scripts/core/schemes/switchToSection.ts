@@ -1,7 +1,7 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { Maybe, TSection } from "@/mod/lib/types";
-import { IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { activateBySection } from "@/mod/scripts/core/schemes/activateBySection";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
 
@@ -16,7 +16,7 @@ export function switchToSection(object: XR_game_object, ini: XR_ini_file, sectio
     return false;
   }
 
-  const state: IStoredObject = storage.get(object.id());
+  const state: IStoredObject = registry.objects.get(object.id());
   const activeSection: Maybe<TSection> = state.active_section;
 
   if (activeSection === section) {

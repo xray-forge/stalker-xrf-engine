@@ -22,6 +22,9 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("SchemeSmartCover");
 
+/**
+ * todo;
+ */
 export class SchemeSmartCover extends AbstractScheme {
   public static readonly SCHEME_SECTION: EScheme = EScheme.SMARTCOVER;
   public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;

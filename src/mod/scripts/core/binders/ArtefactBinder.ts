@@ -18,7 +18,7 @@ import {
   ARTEFACT_WAYS_BY_ARTEFACT_ID,
   deleteObject,
   PARENT_ZONES_BY_ARTEFACT_ID,
-  storage,
+  registry,
 } from "@/mod/scripts/core/db";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -35,7 +35,7 @@ export const ArtefactBinder: IArtefactBinder = declare_xr_class("ArtefactBinder"
   __init(object: XR_game_object): void {
     object_binder.__init(this, object);
 
-    storage.set(object.id(), {});
+    registry.objects.set(object.id(), {});
   },
   net_spawn(object: XR_cse_alife_object): boolean {
     if (!object_binder.net_spawn(this, object)) {

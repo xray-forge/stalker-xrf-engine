@@ -10,7 +10,7 @@ import { pistols, TPistol } from "@/mod/globals/items/weapons";
 import { levels } from "@/mod/globals/levels";
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { update_logic } from "@/mod/scripts/core/binders/StalkerBinder";
-import { registry, storage } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { relocate_item } from "@/mod/scripts/core/NewsManager";
@@ -60,7 +60,7 @@ export function break_dialog(first_speaker: XR_game_object, second_speaker: XR_g
 export function update_npc_dialog(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   const npc = getNpcSpeaker(first_speaker, second_speaker);
 
-  storage.get(npc.id()).meet.meet_manager.update();
+  registry.objects.get(npc.id()).meet.meet_manager.update();
   SchemeMeet.process_npc_usability(npc);
   update_logic(npc);
 }
@@ -83,15 +83,15 @@ export function disable_talk_victim(first_speaker: XR_game_object, second_speake
  * todo;
  */
 export function punch(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  storage.get(second_speaker.id()).punch.enabled = true;
+  registry.objects.get(second_speaker.id()).punch.enabled = true;
 }
 
 /**
  * todo;
  */
 export function get_money_then_leave(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  storage.get(first_speaker.id()).meet.enabled = false;
-  storage.get(first_speaker.id()).robber.enabled = true;
+  registry.objects.get(first_speaker.id()).meet.enabled = false;
+  registry.objects.get(first_speaker.id()).robber.enabled = true;
 }
 
 /**
@@ -175,7 +175,7 @@ export function kill_yourself(npc: XR_game_object, actor: XR_game_object): void 
  * todo;
  */
 export function allow_wounded_dialog(object: XR_game_object, victim: XR_game_object, id: number): boolean {
-  return storage.get(victim.id()).wounded?.help_dialog === id;
+  return registry.objects.get(victim.id()).wounded?.help_dialog === id;
 }
 
 /**

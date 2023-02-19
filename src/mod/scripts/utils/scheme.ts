@@ -1,6 +1,6 @@
 import { stalker_ids, world_property, XR_action_base, XR_game_object } from "xray16";
 
-import { IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { evaluators_id } from "@/mod/scripts/core/schemes/base/evaluators_id";
 import { abort } from "@/mod/scripts/utils/debug";
 
@@ -12,7 +12,7 @@ export function isSchemeActive(object: XR_game_object, state: IStoredObject): bo
     abort("Object %s '%s': state.section is null.", object.name(), state.section);
   }
 
-  return state.section === storage.get(object.id()).active_section;
+  return state.section === registry.objects.get(object.id()).active_section;
 }
 
 /**

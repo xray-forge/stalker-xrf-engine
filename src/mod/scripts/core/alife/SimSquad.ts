@@ -45,7 +45,6 @@ import {
   offlineObjects,
   registry,
   spawnedVertexById,
-  storage,
   zoneByName,
 } from "@/mod/scripts/core/db";
 import { SYSTEM_INI } from "@/mod/scripts/core/db/IniFiles";
@@ -605,7 +604,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
       pickSectionFromCondList(registry.actor, this, this.invulnerability as any) === "true";
 
     for (const k of this.squad_members()) {
-      const npc_st = storage.get(k.id);
+      const npc_st = registry.objects.get(k.id);
 
       if (npc_st !== null) {
         const npc = npc_st.object!;
@@ -767,7 +766,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
 
     if (symp !== null) {
       for (const k of this.squad_members()) {
-        const npc: Optional<XR_game_object> = storage.get(k.id) && storage.get(k.id).object!;
+        const npc: Optional<XR_game_object> = registry.objects.get(k.id) && registry.objects.get(k.id).object!;
 
         if (npc !== null) {
           set_npc_sympathy(npc, symp);
@@ -786,7 +785,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
 
     if (rel !== null) {
       for (const k of this.squad_members()) {
-        const npc: Optional<XR_game_object> = storage.get(k.id) && storage.get(k.id).object!;
+        const npc: Optional<XR_game_object> = registry.objects.get(k.id) && registry.objects.get(k.id).object!;
 
         if (npc !== null) {
           set_npcs_relation(npc, registry.actor, rel);
@@ -1200,7 +1199,7 @@ function set_relation(
 }
 
 function reset_animation(npc: XR_game_object): void {
-  const stateManager: Optional<StateManager> = storage.get(npc.id()).state_mgr!;
+  const stateManager: Optional<StateManager> = registry.objects.get(npc.id()).state_mgr!;
 
   if (stateManager === null) {
     return;

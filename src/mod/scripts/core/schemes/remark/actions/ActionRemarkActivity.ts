@@ -2,7 +2,7 @@ import { action_base, level, patrol, XR_action_base, XR_game_object, XR_sound_ob
 
 import { Optional } from "@/mod/lib/types";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { IStoredObject, registry, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
@@ -251,7 +251,7 @@ function instruction(obj: XR_game_object, target_str: string): never {
       "Your target field:\n" +
       "   target = %s",
     obj.name(),
-    storage.get(obj.id()).active_section,
+    registry.objects.get(obj.id()).active_section,
     target_str
   );
 }

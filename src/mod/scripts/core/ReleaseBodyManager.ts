@@ -12,7 +12,7 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { registry, storage } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { DEATH_GENERIC_LTX, DUMMY_LTX } from "@/mod/scripts/core/db/IniFiles";
 import { isMonster, isStalker } from "@/mod/scripts/utils/checkers/is";
 import { getConfigString } from "@/mod/scripts/utils/configs";
@@ -149,7 +149,7 @@ export const ReleaseBodyManager: IReleaseBodyManager = declare_xr_class("Release
       char_ini = obj.spawn_ini() || DUMMY_LTX;
     }
 
-    const st = storage.get(obj.id());
+    const st = registry.objects.get(obj.id());
     const known_info = getConfigString(char_ini, st.section_logic!, "known_info", obj, false, "", null) || "known_info";
 
     if (char_ini.section_exist(known_info)) {

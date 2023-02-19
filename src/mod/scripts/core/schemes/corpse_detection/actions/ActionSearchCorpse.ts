@@ -1,6 +1,6 @@
 import { action_base, XR_action_base } from "xray16";
 
-import { IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 
 export interface IActionSearchCorpse extends XR_action_base {
@@ -13,8 +13,8 @@ export const ActionSearchCorpse: IActionSearchCorpse = declare_xr_class("ActionS
     this.state = state;
   },
   __finalize(): void {
-    if (this.state.selected_corpse_id !== null && storage.has(this.state.selected_corpse_id)) {
-      storage.get(this.state.selected_corpse_id).corpse_already_selected = null;
+    if (this.state.selected_corpse_id !== null && registry.objects.has(this.state.selected_corpse_id)) {
+      registry.objects.get(this.state.selected_corpse_id).corpse_already_selected = null;
     }
 
     action_base.finalize(this);

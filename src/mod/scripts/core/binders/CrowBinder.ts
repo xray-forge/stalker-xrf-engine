@@ -11,7 +11,7 @@ import {
   XR_reader,
 } from "xray16";
 
-import { addObject, deleteObject, registry, storage } from "@/mod/scripts/core/db";
+import { addObject, deleteObject, registry } from "@/mod/scripts/core/db";
 import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -56,7 +56,7 @@ export const CrowBinder: ICrowBinder = declare_xr_class("CrowBinder", object_bin
 
     this.bodyDisposalTimer = 0;
 
-    storage.set(this.object.id(), {});
+    registry.objects.set(this.object.id(), {});
   },
   net_spawn(object: XR_cse_alife_object): boolean {
     if (!object_binder.net_spawn(this, object)) {

@@ -13,7 +13,7 @@ import {
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { AnyCallable, AnyObject, Optional } from "@/mod/lib/types";
 import { stringifyAsJson } from "@/mod/lib/utils/json";
-import { IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import * as animationManagement from "@/mod/scripts/core/state_management/animation";
 import * as animationStateManagement from "@/mod/scripts/core/state_management/animation_state";
 import { AnimationManager, IAnimationManager } from "@/mod/scripts/core/state_management/AnimationManager";
@@ -252,11 +252,11 @@ export function set_state(
   target: Optional<AnyObject>,
   extra: Optional<AnyObject>
 ): void {
-  storage.get(npc.id()).state_mgr?.set_state(state_name, callback, timeout, target, extra);
+  registry.objects.get(npc.id()).state_mgr?.set_state(state_name, callback, timeout, target, extra);
 }
 
 export function get_state(npc: XR_game_object): Optional<string> {
-  return storage.get(npc.id()).state_mgr?.get_state() as Optional<string>;
+  return registry.objects.get(npc.id()).state_mgr?.get_state() as Optional<string>;
 }
 
 export function goap_graph(st: StateManager, npc: XR_game_object): void {

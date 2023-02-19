@@ -12,7 +12,7 @@ import {
 } from "xray16";
 
 import { AnyArgs, AnyCallablesModule, AnyObject, EScheme, Optional, TSection } from "@/mod/lib/types";
-import { registry, scriptIds, storage } from "@/mod/scripts/core/db";
+import { registry, scriptIds } from "@/mod/scripts/core/db";
 import { disableInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -1096,7 +1096,7 @@ export function cfg_get_overrides(ini: XR_ini_file, section: TSection, npc: XR_g
   l.combat_type = getConfigCondList(ini, section, "combat_type", npc);
   l.on_combat = getConfigCondList(ini, section, "on_combat", npc);
 
-  const st = storage.get(npc.id());
+  const st = registry.objects.get(npc.id());
 
   if (ini.line_exist(st.section_logic!, "post_combat_time")) {
     const [min_post_combat_time, max_post_combat_time] = r_2nums(ini, st.section_logic!, "post_combat_time", 10, 15);

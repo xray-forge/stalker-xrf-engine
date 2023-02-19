@@ -1,7 +1,7 @@
 import { level, property_evaluator, XR_property_evaluator } from "xray16";
 
 import { communities } from "@/mod/globals/communities";
-import { IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { isObjectWounded } from "@/mod/scripts/utils/checkers/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -59,10 +59,11 @@ export const EvaluatorWoundedExist: IEvaluatorWoundedExist = declare_xr_class(
         if (
           npc.see(vo) &&
           isObjectWounded(vo) &&
-          (storage.get(id).wounded_already_selected === null || storage.get(id).wounded_already_selected === npc_id) &&
+          (registry.objects.get(id).wounded_already_selected === null ||
+            registry.objects.get(id).wounded_already_selected === npc_id) &&
           vo.alive()
         ) {
-          if (storage.get(id).wounded!.not_for_help !== true) {
+          if (registry.objects.get(id).wounded!.not_for_help !== true) {
             const npc_position = npc.position();
             const vo_position = vo.position();
 
@@ -87,13 +88,13 @@ export const EvaluatorWoundedExist: IEvaluatorWoundedExist = declare_xr_class(
         if (
           this.a.selected_id !== null &&
           this.a.selected_id !== selected_id &&
-          storage.get(this.a.selected_id) !== null
+          registry.objects.get(this.a.selected_id) !== null
         ) {
-          storage.get(this.a.selected_id).wounded_already_selected = null;
+          registry.objects.get(this.a.selected_id).wounded_already_selected = null;
         }
 
         this.a.selected_id = selected_id;
-        storage.get(this.a.selected_id!).wounded_already_selected = npc.id();
+        registry.objects.get(this.a.selected_id!).wounded_already_selected = npc.id();
 
         return true;
       }

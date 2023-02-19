@@ -24,7 +24,6 @@ import {
   deleteObject,
   IStoredObject,
   registry,
-  storage,
 } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { get_heli_health } from "@/mod/scripts/core/schemes/heli_move/heli_utils";
@@ -78,7 +77,7 @@ export const HeliBinder: IHeliBinder = declare_xr_class("HeliBinder", object_bin
     object_binder.reinit(this);
 
     this.st = {};
-    storage.set(this.object.id(), this.st);
+    registry.objects.set(this.object.id(), this.st);
 
     this.heliObject = this.object.get_helicopter();
 
@@ -118,7 +117,7 @@ export const HeliBinder: IHeliBinder = declare_xr_class("HeliBinder", object_bin
 
     this.object.info_clear();
 
-    const active_section = storage.get(this.object.id()).active_section;
+    const active_section = registry.objects.get(this.object.id()).active_section;
 
     if (active_section) {
       this.object.info_add("section -- " + active_section);

@@ -24,7 +24,6 @@ import {
   deleteObject,
   PARENT_ZONES_BY_ARTEFACT_ID,
   registry,
-  storage,
 } from "@/mod/scripts/core/db";
 import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
 import {
@@ -556,7 +555,7 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
   },
   reinit(): void {
     object_binder.reinit(this);
-    storage.set(this.object.id(), {});
+    registry.objects.set(this.object.id(), {});
   },
   net_spawn(object: XR_cse_alife_object): boolean {
     if (!object_binder.net_spawn(this, object)) {
@@ -572,7 +571,7 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     deleteAnomaly(this);
     deleteObject(this.object);
 
-    storage.delete(this.object.id());
+    registry.objects.delete(this.object.id());
     object_binder.net_destroy(this);
   },
   update(delta: number): void {

@@ -15,7 +15,7 @@ import {
 
 import { sounds } from "@/mod/globals/sound/sounds";
 import { AnyObject, EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { IStoredObject, registry, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
@@ -117,10 +117,10 @@ export class SchemeMonster extends AbstractScheme {
 
     if (
       this.final_action &&
-      (storage.get(this.monster!.id) === null ||
+      (registry.objects.get(this.monster!.id) === null ||
         this.monster_obj!.position().distance_to(this.state.path.point(this.state.path.count() - 1)) <= 1)
     ) {
-      if (storage.has(this.monster!.id)) {
+      if (registry.objects.has(this.monster!.id)) {
         mobRelease(this.monster_obj!, SchemeMonster.name);
       }
 
@@ -155,10 +155,10 @@ export class SchemeMonster extends AbstractScheme {
     } else if (
       this.monster_obj === null &&
       this.monster !== null &&
-      storage.get(this.monster.id) !== null &&
+      registry.objects.get(this.monster.id) !== null &&
       !this.final_action
     ) {
-      this.monster_obj = storage.get(this.monster.id).object!;
+      this.monster_obj = registry.objects.get(this.monster.id).object!;
 
       mobCapture(this.monster_obj, true, SchemeMonster.name);
 

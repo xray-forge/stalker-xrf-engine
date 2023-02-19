@@ -12,7 +12,7 @@ import {
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { AnyObject, Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { IStoredObject, registry, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
@@ -202,7 +202,7 @@ export class SchemeWounded extends AbstractScheme {
   }
 
   public static unlock_medkit(npc: XR_game_object): void {
-    const state = storage.get(npc.id());
+    const state = registry.objects.get(npc.id());
 
     if (state.wounded !== null) {
       state.wounded!.wound_manager.unlock_medkit();
@@ -210,7 +210,7 @@ export class SchemeWounded extends AbstractScheme {
   }
 
   public static eat_medkit(npc: XR_game_object): void {
-    const state: Optional<IStoredObject> = storage.get(npc.id());
+    const state: Optional<IStoredObject> = registry.objects.get(npc.id());
 
     if (state.wounded !== null) {
       state.wounded!.wound_manager.eat_medkit();
@@ -218,7 +218,7 @@ export class SchemeWounded extends AbstractScheme {
   }
 
   public static hit_callback(npcId: number): void {
-    const state: Optional<IStoredObject> = storage.get(npcId);
+    const state: Optional<IStoredObject> = registry.objects.get(npcId);
 
     if (state.wounded !== null) {
       state.wounded!.wound_manager.hit_callback();
@@ -226,7 +226,7 @@ export class SchemeWounded extends AbstractScheme {
   }
 
   public static is_psy_wounded_by_id(npc_id: number) {
-    const state: Optional<IStoredObject> = storage.get(npc_id);
+    const state: Optional<IStoredObject> = registry.objects.get(npc_id);
 
     if (state.wounded !== null) {
       return (

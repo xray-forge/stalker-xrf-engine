@@ -20,7 +20,7 @@ import { levels, TLevel } from "@/mod/globals/levels";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { AnyCallablesModule, Optional, PartialRecord } from "@/mod/lib/types";
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
-import { anomalyByName, registry, signalLight, storage, zoneByName } from "@/mod/scripts/core/db";
+import { anomalyByName, registry, signalLight, zoneByName } from "@/mod/scripts/core/db";
 import { SURGE_MANAGER_LTX } from "@/mod/scripts/core/db/IniFiles";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/core/db/SimBoard";
@@ -190,7 +190,7 @@ export class SurgeManager extends AbstractCoreManager {
       let nearest_cover_dist = hides.get(1).position().distance_to(registry.actor.position());
 
       for (const [k, v] of hides) {
-        if (storage.get(v.id()).object!.inside(registry.actor.position())) {
+        if (registry.objects.get(v.id()).object!.inside(registry.actor.position())) {
           return v.id();
         }
 
@@ -233,7 +233,7 @@ export class SurgeManager extends AbstractCoreManager {
   public isActorInCover(): boolean {
     const cover_id: Optional<number> = this.getNearestAvailableCover();
 
-    return cover_id !== null && storage.get(cover_id).object!.inside(registry.actor.position());
+    return cover_id !== null && registry.objects.get(cover_id).object!.inside(registry.actor.position());
   }
 
   /**
@@ -372,7 +372,7 @@ export class SurgeManager extends AbstractCoreManager {
         if (
           surgeDuration >= 140 &&
           !this.ui_disabled &&
-          (cover === null || !storage.get(cover).object!.inside(registry.actor.position()))
+          (cover === null || !registry.objects.get(cover).object!.inside(registry.actor.position()))
         ) {
           let att: number = 1 - (185 - surgeDuration) / (185 - 140);
 
@@ -657,7 +657,9 @@ export class SurgeManager extends AbstractCoreManager {
     const cover = this.getNearestAvailableCover();
 
     if (registry.actor.alive()) {
-      if (!(cover && storage.get(cover) && storage.get(cover).object!.inside(registry.actor.position()))) {
+      if (
+        !(cover && registry.objects.get(cover) && registry.objects.get(cover).object!.inside(registry.actor.position()))
+      ) {
         if (hasAlifeInfo("anabiotic_in_process")) {
           const counter_name = "actor_marked_by_zone_cnt";
           const cnt_value: number = pstor_retrieve(registry.actor, counter_name, 0);

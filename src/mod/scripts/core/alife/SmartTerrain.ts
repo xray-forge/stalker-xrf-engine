@@ -37,7 +37,7 @@ import {
   turn_off_campfires_by_smart_name,
   turn_on_campfires_by_smart_name,
 } from "@/mod/scripts/core/binders/CampfireBinder";
-import { IStoredObject, offlineObjects, registry, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, offlineObjects, registry } from "@/mod/scripts/core/db";
 import { loadDynamicLtx } from "@/mod/scripts/core/db/IniFiles";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/core/db/SimBoard";
 import { evaluate_prior, get_sim_obj_registry } from "@/mod/scripts/core/db/SimObjectsRegistry";
@@ -370,7 +370,13 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
       stype = ESchemeType.STALKER;
     }
 
-    initializeGameObject(storage.get(object.id).object!, storage.get(object.id), false, registry.actor, stype);
+    initializeGameObject(
+      registry.objects.get(object.id).object!,
+      registry.objects.get(object.id),
+      false,
+      registry.actor,
+      stype
+    );
   },
   register_npc(obj: XR_cse_alife_creature_abstract): void {
     logger.info("Register npc:", this.name(), obj.name());
@@ -416,8 +422,8 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
 
       obj.clear_smart_terrain();
 
-      if (storage.get(obj.id) !== null) {
-        const object = storage.get(obj.id).object!;
+      if (registry.objects.get(obj.id) !== null) {
+        const object = registry.objects.get(obj.id).object!;
         // todo: Ternary.
         let stype = ESchemeType.MONSTER;
 
@@ -425,7 +431,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
           stype = ESchemeType.STALKER;
         }
 
-        initializeGameObject(object, storage.get(obj.id), false, registry.actor, stype);
+        initializeGameObject(object, registry.objects.get(obj.id), false, registry.actor, stype);
       }
 
       return;
@@ -618,7 +624,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
       npc_info.begin_job = false;
       npc_info.job_link = selected_job_link;
 
-      const obj_storage = storage.get(npc_info.se_obj.id);
+      const obj_storage = registry.objects.get(npc_info.se_obj.id);
 
       if (obj_storage !== null) {
         switchToSection(obj_storage.object!, this.ltx, "nil");
@@ -632,7 +638,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
       offlineObjects.set(npc_info.se_obj.id, {});
       npc_info.begin_job = true;
 
-      const obj_storage = storage.get(npc_info.se_obj.id);
+      const obj_storage = registry.objects.get(npc_info.se_obj.id);
 
       if (obj_storage !== null) {
         this.setup_logic(obj_storage.object!);
@@ -709,7 +715,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     npc_info.job_link = selected_job_link;
     npc_info.need_job = "nil";
 
-    const obj_storage = storage.get(npc_id);
+    const obj_storage = registry.objects.get(npc_id);
 
     if (obj_storage !== null) {
       this.setup_logic(obj_storage.object!);
@@ -1472,7 +1478,7 @@ function job_iterator(
 }
 
 function arrived_to_smart(obj: XR_cse_alife_creature_abstract, smart: ISmartTerrain): boolean {
-  const st = storage.get(obj.id);
+  const st = registry.objects.get(obj.id);
 
   let obj_gv;
   let obj_pos;
@@ -1481,7 +1487,7 @@ function arrived_to_smart(obj: XR_cse_alife_creature_abstract, smart: ISmartTerr
     obj_gv = game_graph().vertex(obj.m_game_vertex_id);
     obj_pos = obj.position;
   } else {
-    const it = storage.get(obj.id).object!;
+    const it = registry.objects.get(obj.id).object!;
 
     obj_gv = game_graph().vertex(it.game_vertex_id());
     obj_pos = it.position();

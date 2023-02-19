@@ -14,7 +14,7 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { addAnimationObject, deleteAnimationObject, registry, storage } from "@/mod/scripts/core/db";
+import { addAnimationObject, deleteAnimationObject, registry } from "@/mod/scripts/core/db";
 import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
 import { getConfigNumber, getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
@@ -148,7 +148,7 @@ export const LabX8DoorBinder: ILabX8DoorBinder = declare_xr_class("LabX8DoorBind
   },
   reinit(): void {
     object_binder.reinit(this);
-    storage.set(this.object.id(), {});
+    registry.objects.set(this.object.id(), {});
   },
   net_spawn(object: XR_cse_alife_object): boolean {
     if (!object_binder.net_spawn(this, object)) {

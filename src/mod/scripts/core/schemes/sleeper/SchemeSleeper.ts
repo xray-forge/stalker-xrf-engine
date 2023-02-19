@@ -2,7 +2,7 @@ import { stalker_ids, world_property, XR_game_object, XR_ini_file } from "xray16
 
 import { AnyObject } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { action_ids } from "@/mod/scripts/core/schemes/base/actions_id";
@@ -42,14 +42,14 @@ export class SchemeSleeper extends AbstractScheme {
 
     manager.add_evaluator(
       properties.need_sleeper,
-      create_xr_class_instance(EvaluatorNeedSleep, EvaluatorNeedSleep.__name, storage.get(object.id()).sleeper)
+      create_xr_class_instance(EvaluatorNeedSleep, EvaluatorNeedSleep.__name, registry.objects.get(object.id()).sleeper)
     );
 
     const action = create_xr_class_instance(
       ActionSleeperActivity,
       object,
       ActionSleeperActivity.__name,
-      storage.get(object.id()).sleeper
+      registry.objects.get(object.id()).sleeper
     );
 
     action.add_precondition(new world_property(stalker_ids.property_alive, true));
@@ -62,7 +62,7 @@ export class SchemeSleeper extends AbstractScheme {
     action.add_effect(new world_property(properties.state_mgr_logic_active, false));
     manager.add_action(operators.action_sleeper, action);
 
-    subscribeActionForEvents(object, storage, action);
+    subscribeActionForEvents(object, state, action);
 
     manager.action(action_ids.alife).add_precondition(new world_property(properties.need_sleeper, false));
   }
@@ -89,5 +89,5 @@ export class SchemeSleeper extends AbstractScheme {
 }
 
 export function is_npc_asleep(npc: XR_game_object): boolean {
-  return (storage.get(npc.id())!.state_mgr!.animstate as AnyObject).current_state === "sleep";
+  return (registry.objects.get(npc.id())!.state_mgr!.animstate as AnyObject).current_state === "sleep";
 }

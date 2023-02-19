@@ -3,7 +3,7 @@ import { alife, stalker_ids, world_property, XR_action_planner, XR_game_object, 
 import { script_sounds } from "@/mod/globals/sound/script_sounds";
 import { Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme, action_ids, evaluators_id } from "@/mod/scripts/core/schemes/base";
@@ -89,8 +89,9 @@ export class SchemeHelpWounded extends AbstractScheme {
   }
 
   public static help_wounded(object: XR_game_object): void {
-    const selected_id: number = storage.get(object.id()).help_wounded.selected_id;
-    const selected_npc: Optional<XR_game_object> = storage.get(selected_id) && storage.get(selected_id).object!;
+    const selected_id: number = registry.objects.get(object.id()).help_wounded.selected_id;
+    const selected_npc: Optional<XR_game_object> =
+      registry.objects.get(selected_id) && registry.objects.get(selected_id).object!;
 
     if (selected_npc === null) {
       return;
@@ -106,7 +107,7 @@ export class SchemeHelpWounded extends AbstractScheme {
 
     SchemeWounded.unlock_medkit(selected_npc);
 
-    storage.get(selected_id).wounded_already_selected = -1;
+    registry.objects.get(selected_id).wounded_already_selected = -1;
 
     GlobalSound.set_sound_play(object.id(), script_sounds.wounded_medkit, null, null);
   }

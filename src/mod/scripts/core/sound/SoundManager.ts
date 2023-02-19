@@ -1,7 +1,7 @@
 import { alife, time_global, XR_cse_alife_creature_abstract } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { storage } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { SoundStory } from "@/mod/scripts/core/sound/SoundStory";
@@ -68,7 +68,7 @@ export class SoundManager {
     if (GlobalSound.sound_table.get(this.last_playing_npc!) !== null) {
       // --printf("wait sound")
 
-      if (storage.get(this.last_playing_npc!) && storage.get(this.last_playing_npc!).object!.best_enemy() !== null) {
+      if (registry.objects.get(this.last_playing_npc!)?.object?.best_enemy() !== null) {
         this.story = null;
         GlobalSound.sound_table.get(this.last_playing_npc!).stop(this.last_playing_npc);
       }
@@ -146,11 +146,11 @@ export class SoundManager {
       npc_id = this.npc.get(math.random(1, this.npc.length())).npc_id;
     }
 
-    if (npc_id === null || storage.get(npc_id) === null) {
+    if (npc_id === null || registry.objects.get(npc_id) === null) {
       return;
     }
 
-    if (storage.get(npc_id).object!.best_enemy() !== null && GlobalSound.sound_table.get(npc_id) !== null) {
+    if (registry.objects.get(npc_id).object!.best_enemy() !== null && GlobalSound.sound_table.get(npc_id) !== null) {
       this.story = null;
       GlobalSound.sound_table.get(npc_id).stop(npc_id);
 

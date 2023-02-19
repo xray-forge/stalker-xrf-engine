@@ -1,7 +1,7 @@
 import { action_base, patrol, XR_action_base, XR_game_object } from "xray16";
 
 import { AnyCallable, Optional } from "@/mod/lib/types";
-import { IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { MoveManager } from "@/mod/scripts/core/MoveManager";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { path_parse_waypoints_from_arglist } from "@/mod/scripts/utils/configs";
@@ -37,7 +37,7 @@ export const ActionSleeperActivity: IActionSleeperActivity = declare_xr_class("A
     action_base.__init(this, null, action_name);
     this.state = state;
 
-    this.move_mgr = storage.get(npc.id()).move_mgr;
+    this.move_mgr = registry.objects.get(npc.id()).move_mgr;
     this.was_reset = false;
   },
   initialize(): void {

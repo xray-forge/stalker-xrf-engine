@@ -1,7 +1,7 @@
 import { XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { IStoredObject, registry, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
@@ -38,7 +38,7 @@ export class SchemePhysicalOnHit extends AbstractScheme {
   }
 
   public static disable_scheme(npc: XR_game_object, scheme: string): void {
-    const st = storage.get(npc.id())[scheme];
+    const st = registry.objects.get(npc.id())[scheme];
 
     if (st) {
       unsubscribeActionFromEvents(npc, st, st.action);
@@ -56,7 +56,7 @@ export class SchemePhysicalOnHit extends AbstractScheme {
 
     logger.info("Object hit:", object.name(), "<-", who_name, amount);
 
-    if (storage.get(this.object.id()).active_scheme) {
+    if (registry.objects.get(this.object.id()).active_scheme) {
       if (trySwitchToAnotherSection(object, this.state, registry.actor)) {
         return;
       }

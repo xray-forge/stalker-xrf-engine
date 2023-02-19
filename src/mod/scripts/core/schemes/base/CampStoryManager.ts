@@ -1,7 +1,7 @@
 import { time_global, XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
 import { EScheme, Optional } from "@/mod/lib/types";
-import { CAMPS, storage } from "@/mod/scripts/core/db";
+import { CAMPS, registry } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
 import { get_sound_manager, SoundManager } from "@/mod/scripts/core/sound/SoundManager";
@@ -34,7 +34,7 @@ export class CampStoryManager {
   }
 
   public static start_guitar(npc: XR_game_object): void {
-    const camp_id = storage.get(npc.id()).registred_camp;
+    const camp_id = registry.objects.get(npc.id()).registred_camp;
 
     if (camp_id === null) {
       return;
@@ -49,7 +49,7 @@ export class CampStoryManager {
   }
 
   public static start_harmonica(npc: XR_game_object): void {
-    const camp_id = storage.get(npc.id()).registred_camp;
+    const camp_id = registry.objects.get(npc.id()).registred_camp;
 
     if (camp_id === null) {
       return;
@@ -195,13 +195,18 @@ export class CampStoryManager {
 
       this.sound_manager_started = false;
       for (const [k, v] of this.npc) {
-        if (storage.get(k) !== null) {
+        if (registry.objects.get(k) !== null) {
           // todo: Optimize call.
-          issueEvent(storage.get(k).object!, storage.get(k)[storage.get(k).active_scheme!], "update");
+          issueEvent(
+            registry.objects.get(k).object!,
+            registry.objects.get(k)[registry.objects.get(k).active_scheme!],
+            "update"
+          );
         }
 
         // todo: Optimize call.
-        const meet = storage.get(k) && storage.get(k).meet && storage.get(k).meet.meet_manager;
+        const meet =
+          registry.objects.get(k) && registry.objects.get(k).meet && registry.objects.get(k).meet.meet_manager;
 
         if (meet) {
           meet.npc_is_camp_director = this.director === k;
@@ -269,7 +274,7 @@ export class CampStoryManager {
     for (const [k, v] of this.npc) {
       npc_count = npc_count + 1;
 
-      const st = storage.get(k);
+      const st = registry.objects.get(k);
 
       if (st !== null) {
         const scheme = st.active_scheme && st[st.active_scheme];
@@ -323,7 +328,7 @@ export class CampStoryManager {
 
   public register_npc(npc_id: number): void {
     this.npc.set(npc_id, { state: this.active_state });
-    storage.get(npc_id).registred_camp = this.object.id();
+    registry.objects.get(npc_id).registred_camp = this.object.id();
 
     for (const [k, v] of this.states) {
       const role = this.get_npc_role(npc_id, k);
@@ -338,7 +343,11 @@ export class CampStoryManager {
     this.sound_manager.register_npc(npc_id);
 
     // todo: Optimize.
-    issueEvent(storage.get(npc_id).object!, storage.get(npc_id)[storage.get(npc_id).active_scheme!], "update");
+    issueEvent(
+      registry.objects.get(npc_id).object!,
+      registry.objects.get(npc_id)[registry.objects.get(npc_id).active_scheme!],
+      "update"
+    );
   }
 
   public unregister_npc(npc_id: number): void {
@@ -353,13 +362,13 @@ export class CampStoryManager {
       }
     }
 
-    storage.get(npc_id).registred_camp = null;
+    registry.objects.get(npc_id).registred_camp = null;
     this.npc.delete(npc_id);
     this.sound_manager.unregister_npc(npc_id);
   }
 
   public get_npc_role(npc_id: number, state: string): number {
-    const scheme = storage.get(npc_id)[storage.get(npc_id).active_scheme!];
+    const scheme = registry.objects.get(npc_id)[registry.objects.get(npc_id).active_scheme!];
 
     if (scheme === null) {
       return npc_role.noone;
@@ -415,8 +424,11 @@ function sr_camp_guitar_precondition(camp: CampStoryManager): boolean {
     if (n > 1) {
       for (const [k, v] of camp.npc) {
         // todo: Optimize checkers with constant GET.
-        const scheme = storage.get(k) && storage.get(k).active_scheme && storage.get(k)[storage.get(k).active_scheme!];
-        const npc: Optional<XR_game_object> = storage.get(k) && storage.get(k).object!;
+        const scheme =
+          registry.objects.get(k) &&
+          registry.objects.get(k).active_scheme &&
+          registry.objects.get(k)[registry.objects.get(k).active_scheme!];
+        const npc: Optional<XR_game_object> = registry.objects.get(k) && registry.objects.get(k).object!;
 
         if (
           v.guitar === npc_role.director &&
@@ -440,7 +452,7 @@ function sr_camp_story_precondition(camp: CampStoryManager): boolean {
 
     for (const [k, v] of camp.npc) {
       // todo: Optimize checkers with constant GET.
-      const npc: Optional<XR_game_object> = storage.get(k) && storage.get(k).object!;
+      const npc: Optional<XR_game_object> = registry.objects.get(k) && registry.objects.get(k).object!;
 
       if (npc !== null && !isObjectMeeting(npc)) {
         n = n + 1;
@@ -468,8 +480,11 @@ function sr_camp_harmonica_precondition(camp: CampStoryManager): boolean {
     if (n > 1) {
       for (const [k, v] of camp.npc) {
         // todo: Simplify.
-        const scheme = storage.get(k) && storage.get(k).active_scheme && storage.get(k)[storage.get(k).active_scheme!];
-        const npc: Optional<XR_game_object> = storage.get(k) && storage.get(k).object!;
+        const scheme =
+          registry.objects.get(k) &&
+          registry.objects.get(k).active_scheme &&
+          registry.objects.get(k)[registry.objects.get(k).active_scheme!];
+        const npc: Optional<XR_game_object> = registry.objects.get(k) && registry.objects.get(k).object!;
 
         if (
           v.harmonica === npc_role.director &&

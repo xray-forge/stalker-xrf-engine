@@ -1,7 +1,7 @@
 import { XR_game_object, XR_net_packet, XR_reader } from "xray16";
 
 import { Maybe, Optional } from "@/mod/lib/types";
-import { storage } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db/registry";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -28,8 +28,8 @@ export function pstor_is_registered_type(tv: unknown): boolean {
 export function pstor_store<T>(object: XR_game_object, varname: string, val: T): void {
   const npc_id = object.id();
 
-  if (storage.get(npc_id).pstor === null) {
-    storage.get(npc_id).pstor = new LuaTable();
+  if (registry.objects.get(npc_id).pstor === null) {
+    registry.objects.get(npc_id).pstor = new LuaTable();
   }
 
   const tv = type(val);
@@ -38,7 +38,7 @@ export function pstor_store<T>(object: XR_game_object, varname: string, val: T):
     abort("db/pstor: pstor_store: !registered type '%s' encountered, %s", tv, varname);
   }
 
-  storage.get(npc_id)!.pstor!.set(varname, val);
+  registry.objects.get(npc_id)!.pstor!.set(varname, val);
 }
 
 /**
@@ -51,8 +51,8 @@ export function pstor_retrieve<T>(obj: XR_game_object, varname: string, defval: 
 export function pstor_retrieve<T>(obj: XR_game_object, varname: string, defval?: T): Optional<T> {
   const npc_id = obj.id();
 
-  if (storage.get(npc_id).pstor !== null) {
-    const val = storage.get(npc_id).pstor!.get(varname);
+  if (registry.objects.get(npc_id).pstor !== null) {
+    const val = registry.objects.get(npc_id).pstor!.get(varname);
 
     if (val !== null) {
       return val;
@@ -74,11 +74,11 @@ export function pstor_retrieve<T>(obj: XR_game_object, varname: string, defval?:
  */
 export function pstor_save_all(obj: XR_game_object, packet: XR_net_packet): void {
   const npc_id = obj.id();
-  let pstor: Maybe<LuaTable<string>> = storage.get(npc_id).pstor;
+  let pstor: Maybe<LuaTable<string>> = registry.objects.get(npc_id).pstor;
 
   if (!pstor) {
     pstor = new LuaTable<string>();
-    storage.get(npc_id).pstor = pstor;
+    registry.objects.get(npc_id).pstor = pstor;
   }
 
   let ctr: number = 0;
@@ -117,11 +117,11 @@ export function pstor_save_all(obj: XR_game_object, packet: XR_net_packet): void
  */
 export function pstor_load_all(obj: XR_game_object, reader: XR_reader) {
   const npc_id = obj.id();
-  let pstor = storage.get(npc_id).pstor;
+  let pstor = registry.objects.get(npc_id).pstor;
 
   if (!pstor) {
     pstor = new LuaTable();
-    storage.get(npc_id).pstor = pstor;
+    registry.objects.get(npc_id).pstor = pstor;
   }
 
   const ctr = reader.r_u32();

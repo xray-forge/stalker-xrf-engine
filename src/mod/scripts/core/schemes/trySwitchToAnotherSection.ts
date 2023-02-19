@@ -3,7 +3,7 @@ import { game, level, time_global, XR_game_object } from "xray16";
 import { Optional } from "@/mod/lib/types";
 import { ESchemeCondition } from "@/mod/lib/types/scheme";
 import { stringifyAsJson } from "@/mod/lib/utils/json";
-import { IStoredObject, storage, zoneByName } from "@/mod/scripts/core/db";
+import { IStoredObject, registry, zoneByName } from "@/mod/scripts/core/db";
 import { switchToSection } from "@/mod/scripts/core/schemes/switchToSection";
 import { isSeeingActor } from "@/mod/scripts/utils/alife";
 import { isNpcInZone } from "@/mod/scripts/utils/checkers/checkers";
@@ -35,7 +35,10 @@ export function trySwitchToAnotherSection(
   }
 
   if (!logic) {
-    abort("Can't find script switching information in storage, scheme '%s'", storage.get(object.id()).active_scheme);
+    abort(
+      "Can't find script switching information in storage, scheme '%s'",
+      registry.objects.get(object.id()).active_scheme
+    );
   }
 
   const npcId = object.id();
@@ -70,11 +73,11 @@ export function trySwitchToAnotherSection(
     } else if (isSchemeCondition(cond.name, ESchemeCondition.ON_INFO)) {
       switched = switchToSection(object, state.ini!, pickSectionFromCondList(actor, object, cond.condlist)!);
     } else if (isSchemeCondition(cond.name, ESchemeCondition.ON_TIMER)) {
-      if (time_global() >= storage.get(npcId).activation_time + cond.v1) {
+      if (time_global() >= registry.objects.get(npcId).activation_time + cond.v1) {
         switched = switchToSection(object, state.ini!, pickSectionFromCondList(actor, object, cond.condlist)!);
       }
     } else if (isSchemeCondition(cond.name, ESchemeCondition.ON_GAME_TIMER)) {
-      if (game.get_game_time().diffSec(storage.get(npcId).activation_game_time) >= cond.v1) {
+      if (game.get_game_time().diffSec(registry.objects.get(npcId).activation_game_time) >= cond.v1) {
         switched = switchToSection(object, state.ini!, pickSectionFromCondList(actor, object, cond.condlist)!);
       }
     } else if (isSchemeCondition(cond.name, ESchemeCondition.ON_ACTOR_IN_ZONE)) {

@@ -5,7 +5,7 @@ import { ERelation, relations, TRelation } from "@/mod/globals/relations";
 import { Maybe, Optional } from "@/mod/lib/types";
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { registry, storage } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { getCharacterCommunity, getStorySquad } from "@/mod/scripts/utils/alife";
 import { abort } from "@/mod/scripts/utils/debug";
 import { get_gulag_by_name } from "@/mod/scripts/utils/gulag";
@@ -212,7 +212,7 @@ export function set_squad_community_goodwill(
 
   if (squad) {
     for (const k of squad.squad_members()) {
-      const obj: Optional<XR_game_object> = storage.get(k.id)?.object as Optional<XR_game_object>;
+      const obj: Optional<XR_game_object> = registry.objects.get(k.id)?.object as Optional<XR_game_object>;
 
       if (obj !== null) {
         obj.set_community_goodwill(community, goodwill);
@@ -256,7 +256,7 @@ export function check_all_squad_members(squad_name: string, goodwill: TRelation)
     let is_enemy;
 
     if (goodwill === relations.enemy) {
-      const goodwill: Maybe<number> = storage.get(k.id)?.object?.general_goodwill(actor);
+      const goodwill: Maybe<number> = registry.objects.get(k.id)?.object?.general_goodwill(actor);
 
       // --printf("npc id  = [%s]", k)
       // --    if (db.storage[k] !== null) && (db.storage[k].object !== null) {
@@ -265,7 +265,7 @@ export function check_all_squad_members(squad_name: string, goodwill: TRelation)
 
       is_enemy = goodwill ? goodwill <= ERelation.ENEMIES : false;
     } else {
-      const goodwill: Maybe<number> = storage.get(k.id)?.object?.general_goodwill(actor);
+      const goodwill: Maybe<number> = registry.objects.get(k.id)?.object?.general_goodwill(actor);
 
       is_enemy = goodwill ? goodwill >= ERelation.ENEMIES : false;
     }
@@ -359,7 +359,7 @@ export function set_gulag_relation_actor(smart_name: string, relation: TRelation
   }
 
   for (const [k, v] of gulag.npc_info) {
-    const object = storage.get(v.se_obj.id)?.object;
+    const object = registry.objects.get(v.se_obj.id)?.object;
 
     if (object) {
       object.force_set_goodwill(goodwill, actor);
@@ -377,7 +377,7 @@ export function get_gulag_relation_actor(smart_name: string, relation: TRelation
     let npc_count = 0;
 
     for (const [k, v] of gulag.npc_info) {
-      const object = storage.get(v.se_obj.id)?.object;
+      const object = registry.objects.get(v.se_obj.id)?.object;
 
       if (object && actor) {
         goodwill = goodwill + object.general_goodwill(actor);
@@ -413,7 +413,7 @@ export function get_squad_relation_to_actor_by_id(squad_id: number): TRelation {
   let npc_count: number = 0;
 
   for (const k of squad.squad_members()) {
-    const object: Maybe<XR_game_object> = storage.get(k.id)?.object;
+    const object: Maybe<XR_game_object> = registry.objects.get(k.id)?.object;
 
     if (object && actor) {
       goodwill = goodwill + object.general_goodwill(actor);

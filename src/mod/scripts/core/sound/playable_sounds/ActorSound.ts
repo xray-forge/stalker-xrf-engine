@@ -13,7 +13,7 @@ import {
 } from "xray16";
 
 import { TSection } from "@/mod/lib/types";
-import { registry, storage } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { send_sound } from "@/mod/scripts/core/NewsManager";
 import { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
 import { EPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/EPlayableSound";
@@ -149,7 +149,7 @@ export class ActorSound extends AbstractPlayableSound {
 
     get_hud().RemoveCustomStatic("cs_subtitles_actor");
 
-    const state = storage.get(npc_id);
+    const state = registry.objects.get(npc_id);
 
     if (!state.active_scheme) {
       return;

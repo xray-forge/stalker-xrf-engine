@@ -2,7 +2,7 @@ import { XR_game_object, XR_ini_file } from "xray16";
 
 import { AnyObject, Optional } from "@/mod/lib/types";
 import { EScheme, TSection } from "@/mod/lib/types/scheme";
-import { IStoredObject, registry, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("assignStorageAndBind");
@@ -21,7 +21,7 @@ export function assignStorageAndBind(
 ): AnyObject {
   logger.info("Assign storage and bind:", object.name(), "->", scheme, "->", section);
 
-  const objectState: IStoredObject = storage.get(object.id());
+  const objectState: IStoredObject = registry.objects.get(object.id());
   let schemeState: AnyObject = objectState[scheme];
 
   if (!schemeState) {

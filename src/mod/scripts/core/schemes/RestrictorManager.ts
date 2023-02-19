@@ -1,6 +1,6 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
-import { IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { getConfigString, getParamString, parseNames } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -10,7 +10,7 @@ export class RestrictorManager {
   public static forNpc(npc: XR_game_object): RestrictorManager {
     logger.info("Get restrictor manager for npc:", npc.name());
 
-    const st: IStoredObject = storage.get(npc.id());
+    const st: IStoredObject = registry.objects.get(npc.id());
 
     if (st.restrictor_manager === null) {
       st.restrictor_manager = new RestrictorManager(npc);

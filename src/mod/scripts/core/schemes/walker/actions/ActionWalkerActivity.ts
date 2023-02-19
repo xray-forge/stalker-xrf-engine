@@ -1,7 +1,7 @@
 import { action_base, XR_action_base, XR_game_object } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { MoveManager } from "@/mod/scripts/core/MoveManager";
 import { associations, IAnimpointDescriptor } from "@/mod/scripts/core/schemes/animpoint/animpoint_predicates";
@@ -38,7 +38,7 @@ export const ActionWalkerActivity: IActionWalkerActivity = declare_xr_class("Act
     action_base.__init(this, null, action_name);
 
     this.state = state;
-    this.move_mgr = storage.get(object.id()).move_mgr;
+    this.move_mgr = registry.objects.get(object.id()).move_mgr;
 
     this.state.description = "walker_camp";
     this.avail_actions = associations.get(this.state.description);

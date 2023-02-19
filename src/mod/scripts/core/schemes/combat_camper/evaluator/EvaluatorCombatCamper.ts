@@ -1,6 +1,6 @@
 import { property_evaluator, XR_property_evaluator } from "xray16";
 
-import { IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("EvaluatorCombatCamper");
@@ -18,7 +18,7 @@ export const EvaluatorCombatCamper: IEvaluatorCombatCamper = declare_xr_class(
       this.state = storage;
     },
     evaluate(): boolean {
-      return storage.get(this.object.id()).script_combat_type === "camper";
+      return registry.objects.get(this.object.id()).script_combat_type === "camper";
     },
   } as IEvaluatorCombatCamper
 );

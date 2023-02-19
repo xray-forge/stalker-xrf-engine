@@ -12,7 +12,7 @@ import {
 } from "xray16";
 
 import { AnyCallable, AnyObject, Optional } from "@/mod/lib/types";
-import { registry, storage } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { IWaypointData, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -383,7 +383,7 @@ export class MoveManager {
 
   public scheme_set_signal(sig: string): void {
     const npc_id = this.object.id();
-    const stor = storage.get(npc_id);
+    const stor = registry.objects.get(npc_id);
 
     if (stor !== null && stor[stor.active_scheme!] !== null) {
       const signals = stor[stor.active_scheme!].signals;
@@ -401,7 +401,7 @@ export class MoveManager {
       this.scheme_set_signal(sigtm);
     }
 
-    if (storage.get(this.object.id()).active_scheme === null) {
+    if (registry.objects.get(this.object.id()).active_scheme === null) {
       return;
     }
 

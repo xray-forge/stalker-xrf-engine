@@ -1,7 +1,7 @@
 import { action_base, move, XR_action_base } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
-import { storage } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -26,7 +26,7 @@ export const StateManagerActSmartCoverEnter: IStateManagerActSmartCoverEnter = d
     initialize(): void {
       action_base.initialize(this);
 
-      const state_descr = storage.get(this.object.id())["smartcover"];
+      const state_descr = registry.objects.get(this.object.id())["smartcover"];
 
       // printf("setting smartcover [%s] for stalker [%s] ", tostring(state_descr.cover_name), this.object.name())
       this.object.use_smart_covers_only(true);

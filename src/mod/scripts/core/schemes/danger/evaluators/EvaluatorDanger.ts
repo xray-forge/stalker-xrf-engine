@@ -13,7 +13,7 @@ import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { logicsConfig } from "@/mod/lib/configs/LogicsConfig";
 import { Optional } from "@/mod/lib/types";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { SchemeDanger } from "@/mod/scripts/core/schemes/danger/SchemeDanger";
 
 export interface IEvaluatorDanger extends XR_property_evaluator {
@@ -36,13 +36,13 @@ export const EvaluatorDanger: IEvaluatorDanger = declare_xr_class("DangerEvaluat
       this.object.best_danger() !== null &&
       time_global() - this.state.danger_time < logicsConfig.DANGER_INERTION_TIME
     ) {
-      storage.get(this.object.id()).danger_flag = true;
+      registry.objects.get(this.object.id()).danger_flag = true;
 
       return true;
     }
 
     if (!SchemeDanger.is_danger(this.object)) {
-      storage.get(this.object.id()).danger_flag = false;
+      registry.objects.get(this.object.id()).danger_flag = false;
 
       return false;
     }
@@ -51,7 +51,7 @@ export const EvaluatorDanger: IEvaluatorDanger = declare_xr_class("DangerEvaluat
       this.state.danger_time = SchemeDanger.get_danger_time(this.object.best_danger()!);
     }
 
-    storage.get(this.object.id()).danger_flag = true;
+    registry.objects.get(this.object.id()).danger_flag = true;
 
     const se_obj = alife().object<XR_cse_alife_creature_abstract>(this.object.id());
 

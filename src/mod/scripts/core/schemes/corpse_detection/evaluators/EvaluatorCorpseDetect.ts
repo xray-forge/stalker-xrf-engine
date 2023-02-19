@@ -2,7 +2,7 @@ import { level, property_evaluator, XR_game_object, XR_property_evaluator, XR_ve
 
 import { communities } from "@/mod/globals/communities";
 import { Optional } from "@/mod/lib/types";
-import { IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { get_release_body_manager, IReleaseDescriptor } from "@/mod/scripts/core/ReleaseBodyManager";
 import { isObjectWounded } from "@/mod/scripts/utils/checkers/checkers";
 import { isLootableItem } from "@/mod/scripts/utils/checkers/is";
@@ -50,7 +50,7 @@ export const EvaluatorCorpseDetect: IEvaluatorCorpseDetect = declare_xr_class(
 
       for (const it of $range(1, corpses.length())) {
         const id = corpses.get(it).id;
-        const state: Optional<IStoredObject> = storage.get(id);
+        const state: Optional<IStoredObject> = registry.objects.get(id);
         const corpse_npc: Optional<XR_game_object> = state !== null ? state.object! : null;
 
         if (
@@ -81,13 +81,13 @@ export const EvaluatorCorpseDetect: IEvaluatorCorpseDetect = declare_xr_class(
         this.state.vertex_position = nearest_corpse_position;
 
         if (this.state.selected_corpse_id !== null && this.state.selected_corpse_id !== corpse_id) {
-          if (storage.get(this.state.selected_corpse_id) !== null) {
-            storage.get(this.state.selected_corpse_id).corpse_already_selected = null;
+          if (registry.objects.get(this.state.selected_corpse_id) !== null) {
+            registry.objects.get(this.state.selected_corpse_id).corpse_already_selected = null;
           }
         }
 
         this.state.selected_corpse_id = corpse_id;
-        storage.get(this.state.selected_corpse_id).corpse_already_selected = this.object.id();
+        registry.objects.get(this.state.selected_corpse_id).corpse_already_selected = this.object.id();
 
         return true;
       }

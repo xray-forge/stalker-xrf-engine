@@ -15,7 +15,7 @@ import {
 
 import { ESchemeType, Optional } from "@/mod/lib/types";
 import { PhysicObjectItemBox } from "@/mod/scripts/core/binders/PhysicObjectItemBox";
-import { addObject, deleteObject, IStoredObject, levelDoors, registry, storage } from "@/mod/scripts/core/db";
+import { addObject, deleteObject, IStoredObject, levelDoors, registry } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { initializeGameObject } from "@/mod/scripts/core/schemes/initializeGameObject";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
@@ -60,7 +60,7 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
     object_binder.reinit(this);
 
     this.st = {};
-    storage.set(this.object.id(), this.st);
+    registry.objects.set(this.object.id(), this.st);
   },
   net_destroy(): void {
     if (level.map_has_object_spot(this.object.id(), "ui_pda2_actor_box_location") !== 0) {
@@ -69,7 +69,7 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
 
     GlobalSound.stop_sounds_by_id(this.object.id());
 
-    const st = storage.get(this.object.id());
+    const st = registry.objects.get(this.object.id());
 
     if (st.active_scheme) {
       issueEvent(this.object, st[st.active_scheme], "net_destroy");
@@ -87,7 +87,7 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
 
     deleteObject(this.object);
 
-    storage.delete(this.object.id());
+    registry.objects.delete(this.object.id());
 
     object_binder.net_destroy(this);
   },
@@ -198,7 +198,7 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
 
     this.object.info_clear();
 
-    const active_section = storage.get(this.object.id()).active_section;
+    const active_section = registry.objects.get(this.object.id()).active_section;
 
     if (!active_section !== null) {
       this.object.info_add("section: " + active_section);

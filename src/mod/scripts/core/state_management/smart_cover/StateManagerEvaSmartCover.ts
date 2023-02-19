@@ -2,7 +2,7 @@ import { property_evaluator, XR_property_evaluator } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
-import { storage } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -29,7 +29,7 @@ export const StateManagerEvaSmartCover: IStateManagerEvaSmartCover = declare_xr_
         return true;
       }
 
-      const state_descr: any = storage.get(this.object.id())["smartcover"];
+      const state_descr: any = registry.objects.get(this.object.id())["smartcover"];
       const dest_smart_cover_name: Optional<string> = this.object.get_dest_smart_cover_name();
 
       // -- printf("SC %s [%s] [%s]", tostring(dest_smart_cover_name === (state_descr.smartcover_name or "")),

@@ -1,7 +1,7 @@
 import { ini_file, XR_game_object, XR_ini_file } from "xray16";
 
 import { ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { storage } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { disableGenericSchemes } from "@/mod/scripts/core/schemes/disableGenericSchemes";
 import { enable_generic_schemes } from "@/mod/scripts/core/schemes/enable_generic_schemes";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
@@ -26,7 +26,7 @@ export function configureSchemes(
   gulag_name: string
 ): XR_ini_file {
   const npc_id = object.id();
-  const st = storage.get(npc_id);
+  const st = registry.objects.get(npc_id);
 
   if (st.active_section) {
     issueEvent(object, st[st.active_scheme!], "deactivate", object);

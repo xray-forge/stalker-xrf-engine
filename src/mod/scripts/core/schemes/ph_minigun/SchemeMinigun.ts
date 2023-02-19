@@ -12,7 +12,7 @@ import {
 } from "xray16";
 
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { IStoredObject, registry, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { mobCaptured } from "@/mod/scripts/core/schemes/mobCaptured";
@@ -296,13 +296,13 @@ export class SchemeMinigun extends AbstractScheme {
   }
 
   public set_signal(sig: number): void {
-    const stor = storage.get(this.object.id());
+    const stor = registry.objects.get(this.object.id());
 
     stor[stor.active_scheme!].signals[sig] = true;
   }
 
   public fastcall(): boolean {
-    if (storage.get(this.object.id()).active_scheme !== SchemeMinigun.SCHEME_SECTION) {
+    if (registry.objects.get(this.object.id()).active_scheme !== SchemeMinigun.SCHEME_SECTION) {
       this.set_shooting(0);
 
       return true;

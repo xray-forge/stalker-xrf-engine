@@ -33,7 +33,6 @@ import {
   offlineObjects,
   registry,
   spawnedVertexById,
-  storage,
 } from "@/mod/scripts/core/db";
 import { get_sim_obj_registry } from "@/mod/scripts/core/db/SimObjectsRegistry";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
@@ -89,8 +88,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     object_binder.reinit(this);
 
     this.st = {};
-
-    storage.set(this.object.id(), this.st);
+    registry.objects.set(this.object.id(), this.st);
 
     this.object.set_callback(callback.patrol_path_in_point, this.waypoint_callback, this);
     this.object.set_callback(callback.hit, this.hit_callback, this);
@@ -113,7 +111,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
 
     this.object.set_tip_text("");
 
-    const st = storage.get(this.object.id());
+    const st = registry.objects.get(this.object.id());
 
     if (st !== null && st.active_scheme !== null) {
       trySwitchToAnotherSection(this.object, st[st.active_scheme!], registry.actor);
@@ -220,7 +218,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
 
     logger.info("Net spawn:", object.name());
 
-    const st = storage.get(this.object.id());
+    const st = registry.objects.get(this.object.id());
     const on_offline_condlist = st !== null && st.overrides && st.overrides.on_offline_condlist;
 
     if (on_offline_condlist !== null) {
@@ -269,7 +267,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     GlobalSound.stop_sounds_by_id(this.object.id());
     fighting_with_actor_npcs.delete(this.object.id());
 
-    const st = storage.get(this.object.id());
+    const st = registry.objects.get(this.object.id());
 
     if (st !== null && st.active_scheme !== null) {
       issueEvent(this.object, st[st.active_scheme as string], "net_destroy");
@@ -283,14 +281,14 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     }
 
     deleteObject(this.object);
-    storage.delete(this.object.id());
+    registry.objects.delete(this.object.id());
     object_binder.net_destroy(this);
   },
   net_save_relevant(): boolean {
     return true;
   },
   extrapolate_callback(): Optional<boolean> {
-    if (storage.get(this.object.id()) === null || storage.get(this.object.id()).object === null) {
+    if (registry.objects.get(this.object.id()) === null || registry.objects.get(this.object.id()).object === null) {
       return null;
     }
 

@@ -10,7 +10,7 @@ import {
 } from "xray16";
 
 import { AnyObject, EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { IStoredObject, registry, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { get_npcs_relation } from "@/mod/scripts/core/GameRelationsManager";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { SchemeAbuse } from "@/mod/scripts/core/schemes/abuse/SchemeAbuse";
@@ -360,8 +360,8 @@ export class SchemeMeet extends AbstractScheme {
   }
 
   public static disable_scheme(npc: XR_game_object, scheme: EScheme): void {
-    storage.get(npc.id()).actor_dialogs = null;
-    storage.get(npc.id()).actor_disable = null;
+    registry.objects.get(npc.id()).actor_dialogs = null;
+    registry.objects.get(npc.id()).actor_disable = null;
   }
 
   public static process_npc_usability(npc: XR_game_object): void {
@@ -369,7 +369,7 @@ export class SchemeMeet extends AbstractScheme {
       if (npc.relation(registry.actor) === game_object.enemy) {
         npc.disable_talk();
       } else {
-        const wounded = storage.get(npc.id()).wounded!;
+        const wounded = registry.objects.get(npc.id()).wounded!;
 
         if (wounded.enable_talk) {
           npc.enable_talk();
@@ -381,7 +381,7 @@ export class SchemeMeet extends AbstractScheme {
       return;
     }
 
-    const meet = storage.get(npc.id()).meet;
+    const meet = registry.objects.get(npc.id()).meet;
     const use = meet.meet_manager.use;
 
     if (use === "true") {
@@ -403,7 +403,7 @@ export class SchemeMeet extends AbstractScheme {
       return;
     }
 
-    const st = storage.get(victim.id()).meet;
+    const st = registry.objects.get(victim.id()).meet;
 
     if (st === null) {
       return;

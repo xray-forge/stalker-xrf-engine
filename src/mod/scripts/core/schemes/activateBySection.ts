@@ -2,7 +2,7 @@ import { game, time_global, XR_game_object, XR_ini_file } from "xray16";
 
 import { AnyObject, Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { registry, storage } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
 import { resetGenericSchemesOnSchemeSwitch } from "@/mod/scripts/core/schemes/resetGenericSchemesOnSchemeSwitch";
 import { sendToNearestAccessibleVertex } from "@/mod/scripts/utils/alife";
@@ -35,16 +35,16 @@ export function activateBySection(
   const npc_id = npc.id();
 
   if (!loading) {
-    storage.get(npc_id).activation_time = time_global();
+    registry.objects.get(npc_id).activation_time = time_global();
     // -- GAMETIME added by Stohe.
-    storage.get(npc_id).activation_game_time = game.get_game_time();
+    registry.objects.get(npc_id).activation_game_time = game.get_game_time();
   }
 
   if (section === "nil") {
-    storage.get(npc_id).overrides = null;
+    registry.objects.get(npc_id).overrides = null;
     resetGenericSchemesOnSchemeSwitch(npc, EScheme.NIL, "nil");
-    storage.get(npc_id).active_section = null;
-    storage.get(npc_id).active_scheme = null;
+    registry.objects.get(npc_id).active_section = null;
+    registry.objects.get(npc_id).active_scheme = null;
 
     return;
   }
@@ -71,7 +71,7 @@ export function activateBySection(
     abort("object '%s': unable to determine scheme name from section name '%s'", npc.name(), section);
   }
 
-  storage.get(npc_id).overrides = cfg_get_overrides(ini, section, npc) as any;
+  registry.objects.get(npc_id).overrides = cfg_get_overrides(ini, section, npc) as any;
 
   resetGenericSchemesOnSchemeSwitch(npc, scheme, section);
 
@@ -84,15 +84,15 @@ export function activateBySection(
   logger.info("Set active scheme:", npc.name(), scheme, section, gulag_name);
   filenameOrHandler.set_scheme(npc, ini, scheme, section, gulag_name);
 
-  storage.get(npc_id).active_section = section;
-  storage.get(npc_id).active_scheme = scheme;
+  registry.objects.get(npc_id).active_section = section;
+  registry.objects.get(npc_id).active_scheme = scheme;
 
-  if (storage.get(npc_id).stype === ESchemeType.STALKER) {
+  if (registry.objects.get(npc_id).stype === ESchemeType.STALKER) {
     // -- ����� �������� ����������� �������� �� ���� ��� ��������� ������������
     sendToNearestAccessibleVertex(npc, npc.level_vertex_id());
 
-    issueEvent(npc, storage.get(npc_id)[scheme], "activate_scheme", loading, npc);
+    issueEvent(npc, registry.objects.get(npc_id)[scheme], "activate_scheme", loading, npc);
   } else {
-    issueEvent(npc, storage.get(npc_id)[scheme], "reset_scheme", loading, npc);
+    issueEvent(npc, registry.objects.get(npc_id)[scheme], "reset_scheme", loading, npc);
   }
 }

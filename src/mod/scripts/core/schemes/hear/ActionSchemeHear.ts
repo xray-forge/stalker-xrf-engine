@@ -2,7 +2,7 @@ import { TXR_snd_type, XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
 import { ESoundType } from "@/mod/globals/sound/sound_type";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { IStoredObject, registry, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { switchToSection } from "@/mod/scripts/core/schemes/switchToSection";
 import { parseCondList, parseParams, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
@@ -63,7 +63,7 @@ export class ActionSchemeHear extends AbstractScheme {
     sound_position: XR_vector,
     sound_power: number
   ): void {
-    const state = storage.get(object.id());
+    const state = registry.objects.get(object.id());
 
     if (state.hear_sounds === null) {
       return;

@@ -22,7 +22,7 @@ import { AnyArgs, LuaArray, Maybe, Optional, TSection } from "@/mod/lib/types";
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { ISimSquadReachTargetAction } from "@/mod/scripts/core/alife/SimSquadReachTargetAction";
 import { ISimSquadStayOnTargetAction } from "@/mod/scripts/core/alife/SimSquadStayOnTargetAction";
-import { anomalyByName, ARTEFACT_WAYS_BY_ARTEFACT_ID, IStoredObject, registry, storage } from "@/mod/scripts/core/db";
+import { anomalyByName, ARTEFACT_WAYS_BY_ARTEFACT_ID, IStoredObject, registry } from "@/mod/scripts/core/db";
 import { getStoryObjectsRegistry } from "@/mod/scripts/core/db/StoryObjectsRegistry";
 import { spawnItemsForObject } from "@/mod/scripts/utils/alife_spawn";
 import { isStalker } from "@/mod/scripts/utils/checkers/is";
@@ -54,7 +54,7 @@ export function addStoryObject(objectId: number, storyObjectId: string): void {
  */
 export function getStoryObject(storyObjectId: string): Optional<XR_game_object> {
   const objectId: Optional<number> = getStoryObjectsRegistry().get(storyObjectId);
-  const possibleObject: Maybe<XR_game_object> = objectId ? storage.get(objectId)?.object : null;
+  const possibleObject: Maybe<XR_game_object> = objectId ? registry.objects.get(objectId)?.object : null;
 
   if (possibleObject) {
     return possibleObject;
@@ -180,7 +180,7 @@ export function changeTeamSquadGroup(
   squad: number,
   group: number
 ): void {
-  const clientObject: Maybe<XR_game_object> = storage.get(serverObject.id) && storage.get(serverObject.id).object;
+  const clientObject: Maybe<XR_game_object> = registry.objects.get(serverObject.id)?.object;
 
   if (clientObject) {
     clientObject.change_team(team, squad, group);
@@ -350,7 +350,7 @@ export function can_select_weapon(npc: XR_game_object, scheme: string, st: IStor
  * todo;
  */
 export function isInvulnerabilityNeeded(object: XR_game_object): boolean {
-  const npc_st = storage.get(object.id());
+  const npc_st = registry.objects.get(object.id());
   const invulnerability: Optional<string> = getConfigString(
     npc_st.ini!,
     npc_st.active_section!,

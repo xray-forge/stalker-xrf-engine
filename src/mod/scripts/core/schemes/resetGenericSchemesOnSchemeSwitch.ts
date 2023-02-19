@@ -1,7 +1,7 @@
 import { callback, clsid, XR_game_object } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
 import { mobRelease } from "@/mod/scripts/core/schemes/mobRelease";
 import { RestrictorManager } from "@/mod/scripts/core/schemes/RestrictorManager";
@@ -26,7 +26,7 @@ export function resetGenericSchemesOnSchemeSwitch(
   schemeToSwitch: EScheme,
   section: TSection
 ): void {
-  const state: IStoredObject = storage.get(object.id());
+  const state: IStoredObject = registry.objects.get(object.id());
 
   state.exit_from_smartcover_initialized = null;
 

@@ -2,7 +2,7 @@ import { level, XR_game_object, XR_ini_file } from "xray16";
 
 import { misc } from "@/mod/globals/items/misc";
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { IStoredObject, light_zones, registry, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, light_zones, registry } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
@@ -98,7 +98,7 @@ export class SchemeLight extends AbstractScheme {
     }
 
     if (!forced && light === true) {
-      const scheme = storage.get(object.id()).active_scheme!;
+      const scheme = registry.objects.get(object.id()).active_scheme!;
 
       if (scheme === "kamp" || scheme === "camper" || scheme === "sleeper") {
         light = false;

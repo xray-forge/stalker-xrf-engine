@@ -1,7 +1,7 @@
 import { time_global, XR_game_object, XR_net_packet, XR_reader } from "xray16";
 
 import { Optional, StringOptional } from "@/mod/lib/types";
-import { IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { pstor_load_all, pstor_save_all } from "@/mod/scripts/core/db/pstor";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
@@ -16,7 +16,7 @@ export function save_logic(obj: XR_game_object, packet: XR_net_packet): void {
   const npc_id = obj.id();
   const cur_tm = time_global();
 
-  let activation_time: number = storage.get(npc_id).activation_time;
+  let activation_time: number = registry.objects.get(npc_id).activation_time;
 
   if (!activation_time) {
     activation_time = 0;
@@ -25,7 +25,7 @@ export function save_logic(obj: XR_game_object, packet: XR_net_packet): void {
   packet.w_s32(activation_time - cur_tm);
 
   // -- GAMETIME added by Stohe.
-  writeCTimeToPacket(packet, storage.get(npc_id).activation_game_time);
+  writeCTimeToPacket(packet, registry.objects.get(npc_id).activation_game_time);
 }
 
 /**
@@ -37,8 +37,8 @@ export function load_logic(obj: XR_game_object, reader: XR_reader): void {
   const npc_id = obj.id();
   const cur_tm = time_global();
 
-  storage.get(npc_id).activation_time = reader.r_s32() + cur_tm;
-  storage.get(npc_id).activation_game_time = readCTimeFromPacket(reader);
+  registry.objects.get(npc_id).activation_time = reader.r_s32() + cur_tm;
+  registry.objects.get(npc_id).activation_game_time = readCTimeFromPacket(reader);
 }
 
 /**
@@ -50,7 +50,7 @@ export function save_obj(obj: XR_game_object, packet: XR_net_packet): void {
   setSaveMarker(packet, false, "object" + obj.name());
 
   const npc_id = obj.id();
-  const st = storage.get(npc_id);
+  const st = registry.objects.get(npc_id);
 
   if (st.job_ini) {
     packet.w_stringZ(st.job_ini);
@@ -87,7 +87,7 @@ export function save_obj(obj: XR_game_object, packet: XR_net_packet): void {
   save_logic(obj, packet);
 
   if (st.active_scheme) {
-    issueEvent(obj, storage.get(npc_id)[st.active_scheme], "save");
+    issueEvent(obj, registry.objects.get(npc_id)[st.active_scheme], "save");
   }
 
   pstor_save_all(obj, packet);
@@ -103,7 +103,7 @@ export function load_obj(obj: XR_game_object, reader: XR_reader): void {
   setLoadMarker(reader, false, "object" + obj.name());
 
   const npc_id: number = obj.id();
-  const st: IStoredObject = storage.get(npc_id);
+  const st: IStoredObject = registry.objects.get(npc_id);
   let job_ini: Optional<string> = reader.r_stringZ();
 
   if (job_ini === "") {

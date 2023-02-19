@@ -3,7 +3,7 @@ import { level, stalker_ids, vector, world_property, XR_game_object, XR_ini_file
 import { Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { registered_smartcovers } from "@/mod/scripts/core/alife/SmartCover";
-import { IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { ActionAnimpoint, IActionAnimpoint } from "@/mod/scripts/core/schemes/animpoint/actions/ActionAnimpoint";
 import {
   ActionReachAnimpoint,
@@ -294,7 +294,7 @@ export class SchemeAnimpoint extends AbstractScheme {
       return false;
     }
 
-    const npc: XR_game_object = storage.get(this.npc_id!).object!;
+    const npc: XR_game_object = registry.objects.get(this.npc_id!).object!;
 
     if (npc === null) {
       return false;
@@ -333,7 +333,7 @@ export class SchemeAnimpoint extends AbstractScheme {
     if (this.state.approved_actions!.length() === 0) {
       abort(
         "There is no approved actions for stalker[%s] in animpoint[%s]",
-        storage.get(this.npc_id!).object!.name(),
+        registry.objects.get(this.npc_id!).object!.name(),
         this.object.name()
       );
     }

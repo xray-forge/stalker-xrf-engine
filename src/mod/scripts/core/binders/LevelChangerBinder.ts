@@ -11,7 +11,7 @@ import {
 
 import { TSection } from "@/mod/lib/types/scheme";
 import { ILevelChanger } from "@/mod/scripts/core/alife/LevelChanger";
-import { addObject, deleteObject, storage } from "@/mod/scripts/core/db";
+import { addObject, deleteObject, registry } from "@/mod/scripts/core/db";
 import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -32,7 +32,7 @@ export const LevelChangerBinder: ILevelChangerBinder = declare_xr_class("LevelCh
   },
   reinit(): void {
     object_binder.reinit(this);
-    storage.set(this.object.id(), {});
+    registry.objects.set(this.object.id(), {});
   },
   net_spawn(cse_object: XR_cse_alife_object): boolean {
     if (!object_binder.net_spawn(this, cse_object)) {

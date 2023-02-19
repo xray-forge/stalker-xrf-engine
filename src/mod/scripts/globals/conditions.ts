@@ -31,7 +31,6 @@ import {
   kamp_stalkers,
   registry,
   signalLight,
-  storage,
   zoneByName,
 } from "@/mod/scripts/core/db";
 import { pstor_retrieve } from "@/mod/scripts/core/db/pstor";
@@ -138,8 +137,8 @@ export function check_npc_name(actor: XR_game_object, npc: XR_game_object, param
  * todo;
  */
 export function check_enemy_name(actor: XR_game_object, npc: XR_game_object, params: LuaArray<string>): boolean {
-  const enemy_id: number = storage.get(npc.id()).enemy_id!;
-  const enemy: Maybe<XR_game_object> = storage.get(enemy_id)?.object;
+  const enemy_id: number = registry.objects.get(npc.id()).enemy_id!;
+  const enemy: Maybe<XR_game_object> = registry.objects.get(enemy_id)?.object;
 
   if (enemy && enemy.alive()) {
     const name: string = enemy.name();
@@ -350,7 +349,7 @@ export function npc_in_zone(actor: XR_game_object, npc: XR_game_object | XR_cse_
   let npc_obj: Optional<XR_game_object> = null;
 
   if (type(npc.id) !== "function") {
-    npc_obj = storage.get((npc as XR_cse_abstract).id)?.object as Optional<XR_game_object>;
+    npc_obj = registry.objects.get((npc as XR_cse_abstract).id)?.object as Optional<XR_game_object>;
 
     if (zone === null) {
       return true;
@@ -395,8 +394,8 @@ export function heli_see_actor(actor: XR_game_object, object: XR_game_object): b
  * todo;
  */
 export function enemy_group(actor: XR_game_object, npc: XR_game_object, params: LuaTable<number>): boolean {
-  const enemyId: number = storage.get(npc.id()).enemy_id as number;
-  const enemy: XR_game_object = storage.get(enemyId)?.object as XR_game_object;
+  const enemyId: number = registry.objects.get(npc.id()).enemy_id as number;
+  const enemy: XR_game_object = registry.objects.get(enemyId)?.object as XR_game_object;
   const enemyGroup = enemy?.group();
 
   for (const [i, v] of params) {
@@ -423,7 +422,7 @@ export function npc_community(
   let npc_obj: Optional<XR_game_object> = null;
 
   if (type(npc.id) !== "function") {
-    npc_obj = storage.get((npc as XR_cse_alife_human_abstract).id)?.object as XR_game_object;
+    npc_obj = registry.objects.get((npc as XR_cse_alife_human_abstract).id)?.object as XR_game_object;
 
     if (npc_obj === null) {
       return (npc as XR_cse_alife_human_abstract).community() === params[0];
@@ -439,7 +438,7 @@ export function npc_community(
  * todo;
  */
 export function hitted_by(actor: XR_game_object, npc: XR_game_object, params: LuaTable<string>): boolean {
-  const hit = storage.get(npc.id()).hit;
+  const hit = registry.objects.get(npc.id()).hit;
 
   if (hit !== null) {
     for (const [i, v] of params) {
@@ -459,7 +458,7 @@ export function hitted_by(actor: XR_game_object, npc: XR_game_object, params: Lu
  */
 export function hitted_on_bone(actor: XR_game_object, npc: XR_game_object, p: LuaArray<string>): boolean {
   for (const [k, v] of p) {
-    if (storage.get(npc.id()).hit.bone_index === npc.get_bone_id(v)) {
+    if (registry.objects.get(npc.id()).hit.bone_index === npc.get_bone_id(v)) {
       return true;
     }
   }
@@ -478,14 +477,14 @@ export function best_pistol(actor: XR_game_object, npc: XR_game_object): boolean
  * todo;
  */
 export function deadly_hit(actor: XR_game_object, npc: XR_game_object): boolean {
-  return storage.get(npc.id())?.hit?.deadly_hit === true;
+  return registry.objects.get(npc.id())?.hit?.deadly_hit === true;
 }
 
 /**
  * todo;
  */
 export function killed_by(actor: XR_game_object, npc: XR_game_object, p: LuaArray<string>) {
-  const target = storage.get(npc.id()).death;
+  const target = registry.objects.get(npc.id()).death;
 
   if (target) {
     for (const [i, v] of p) {
@@ -651,7 +650,7 @@ export function actor_has_item_count(actor: XR_game_object, npc: XR_game_object,
  */
 export function signal(actor: XR_game_object, npc: XR_game_object, p: [string]): boolean {
   if (p[0]) {
-    const st = storage.get(npc.id());
+    const st = registry.objects.get(npc.id());
     const sigs = st[st.active_scheme!].signals;
 
     return sigs !== null && sigs[p[0]] === true;
@@ -860,8 +859,8 @@ export function is_squad_neutral_to_actor(actor: XR_game_object, npc: XR_game_ob
  * todo;
  */
 export function fighting_actor(actor: XR_game_object, npc: XR_game_object): boolean {
-  const enemy_id: number = storage.get(npc.id()).enemy_id!;
-  const enemy: Optional<XR_game_object> = storage.get(enemy_id)?.object as Optional<XR_game_object>;
+  const enemy_id: number = registry.objects.get(npc.id()).enemy_id!;
+  const enemy: Optional<XR_game_object> = registry.objects.get(enemy_id)?.object as Optional<XR_game_object>;
 
   return enemy !== null && enemy.id() === actor.id();
 }
@@ -870,7 +869,7 @@ export function fighting_actor(actor: XR_game_object, npc: XR_game_object): bool
  * todo;
  */
 export function hit_by_actor(actor: XR_game_object, npc: XR_game_object): boolean {
-  const t = storage.get(npc.id()).hit;
+  const t = registry.objects.get(npc.id()).hit;
 
   return t !== null && t.who === actor.id();
 }
@@ -879,7 +878,7 @@ export function hit_by_actor(actor: XR_game_object, npc: XR_game_object): boolea
  * todo;
  */
 export function killed_by_actor(actor: XR_game_object, npc: XR_game_object): boolean {
-  return storage.get(npc.id()).death?.killer === actor.id();
+  return registry.objects.get(npc.id()).death?.killer === actor.id();
 }
 
 /**
@@ -1002,7 +1001,7 @@ export function squad_in_zone(actor: XR_game_object, npc: XR_game_object, p: [st
   }
 
   for (const squadMember of squad.squad_members()) {
-    const position: XR_vector = storage.get(squadMember.id)?.object?.position() || squadMember.object.position;
+    const position: XR_vector = registry.objects.get(squadMember.id)?.object?.position() || squadMember.object.position;
 
     if (zone.inside(position)) {
       return true;
@@ -1071,7 +1070,7 @@ export function squad_in_zone_all(actor: XR_game_object, npc: XR_game_object, p:
   }
 
   for (const squadMember of squad.squad_members()) {
-    const position: XR_vector = storage.get(squadMember.id)?.object?.position() || squadMember.object.position;
+    const position: XR_vector = registry.objects.get(squadMember.id)?.object?.position() || squadMember.object.position;
 
     if (!zone.inside(position)) {
       return false;
@@ -1253,7 +1252,8 @@ export function quest_npc_enemy_actor(actor: XR_game_object, npc: XR_game_object
  * todo;
  */
 export function animpoint_reached(actor: XR_game_object, npc: XR_game_object): boolean {
-  const animpoint_storage: Optional<IStoredObject> = storage.get(npc.id()).animpoint as Optional<IStoredObject>;
+  const animpoint_storage: Optional<IStoredObject> = registry.objects.get(npc.id())
+    .animpoint as Optional<IStoredObject>;
 
   if (animpoint_storage === null) {
     return false;
@@ -1454,7 +1454,7 @@ export function see_actor(actor: XR_game_object, npc: XR_game_object): boolean {
  * todo;
  */
 export function actor_enemy(actor: XR_game_object, npc: XR_game_object): boolean {
-  const t = storage.get(npc.id()).death;
+  const t = registry.objects.get(npc.id()).death;
 
   return npc.relation(actor) === game_object.enemy || t?.killer === actor.id();
 }
@@ -1530,7 +1530,7 @@ export function is_in_danger(
   npc: XR_game_object,
   params: Optional<[Optional<string>]>
 ): boolean {
-  return storage.get(params && params[0] ? getStoryObject(params[0])!.id() : npc.id()).danger_flag;
+  return registry.objects.get(params && params[0] ? getStoryObject(params[0])!.id() : npc.id()).danger_flag;
 }
 
 /**
@@ -1820,8 +1820,8 @@ export function pri_a28_actor_is_far(actor: XR_game_object, npc: XR_game_object)
  * todo;
  */
 export function check_enemy_smart(actor: XR_game_object, npc: XR_game_object, params: [string]) {
-  const enemy_id: number = storage.get(npc.id()).enemy_id as number;
-  const enemy: Optional<XR_game_object> = storage.get(enemy_id)?.object as Optional<XR_game_object>;
+  const enemy_id: number = registry.objects.get(npc.id()).enemy_id as number;
+  const enemy: Optional<XR_game_object> = registry.objects.get(enemy_id)?.object as Optional<XR_game_object>;
 
   if (enemy === null || enemy_id === alife().actor().id) {
     return false;
@@ -1946,7 +1946,7 @@ export function jup_b25_flint_gone_condition(): boolean {
  */
 export function check_deimos_phase(actor: XR_game_object, npc: XR_game_object, params: AnyArgs): boolean {
   if (params[0] && params[1]) {
-    const obj: IStoredObject = storage.get(npc.id());
+    const obj: IStoredObject = registry.objects.get(npc.id());
     const delta: boolean = SchemeDeimos.check_intensity_delta(obj);
 
     if (params[1] === "increasing" && delta) {

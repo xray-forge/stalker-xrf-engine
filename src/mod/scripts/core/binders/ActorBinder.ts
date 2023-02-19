@@ -26,16 +26,14 @@ import { ammo } from "@/mod/globals/items/ammo";
 import { TLevel } from "@/mod/globals/levels";
 import { AnyCallable, AnyCallablesModule, Optional } from "@/mod/lib/types";
 import {
-  addActor,
   ARTEFACT_WAYS_BY_ARTEFACT_ID,
-  deleteActor,
   IStoredObject,
   PARENT_ZONES_BY_ARTEFACT_ID,
   registry,
   scriptIds,
-  storage,
   zoneByName,
 } from "@/mod/scripts/core/db";
+import { addActor, deleteActor } from "@/mod/scripts/core/db/actor";
 import { destroyManager, getWeakManagerInstance } from "@/mod/scripts/core/db/ManagersRegistry";
 import { pstor_load_all, pstor_save_all } from "@/mod/scripts/core/db/pstor";
 import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
@@ -228,9 +226,9 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
 
     const npc_id = this.object.id();
 
-    storage.set(npc_id, {});
+    registry.objects.set(npc_id, {});
 
-    this.st = storage.get(npc_id);
+    this.st = registry.objects.get(npc_id);
     this.st.pstor = null!;
 
     this.object.set_callback(callback.inventory_info, this.info_callback, this);
@@ -466,10 +464,10 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     let deimos_exist = false;
 
     for (const [k, v] of zoneByName) {
-      if (storage.get(v.id()) && storage.get(v.id()).active_section === SchemeDeimos.SCHEME_SECTION) {
+      if (registry.objects.get(v.id()) && registry.objects.get(v.id()).active_section === SchemeDeimos.SCHEME_SECTION) {
         deimos_exist = true;
         packet.w_bool(true);
-        packet.w_float(storage.get(v.id())[SchemeDeimos.SCHEME_SECTION].intensity);
+        packet.w_float(registry.objects.get(v.id())[SchemeDeimos.SCHEME_SECTION].intensity);
       }
     }
 

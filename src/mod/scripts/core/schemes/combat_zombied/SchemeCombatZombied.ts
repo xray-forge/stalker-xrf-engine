@@ -1,7 +1,7 @@
 import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { action_ids } from "@/mod/scripts/core/schemes/base/actions_id";
 import { evaluators_id } from "@/mod/scripts/core/schemes/base/evaluators_id";
@@ -41,7 +41,7 @@ export class SchemeCombatZombied extends AbstractScheme {
 
     planner.add_evaluator(
       evaluators_id.combat_zombied_base,
-      create_xr_class_instance(EvaluatorCombatZombied, EvaluatorCombatZombied.__name, storage.get(object.id()))
+      create_xr_class_instance(EvaluatorCombatZombied, EvaluatorCombatZombied.__name, registry.objects.get(object.id()))
     );
 
     const actionZombieShoot = create_xr_class_instance(ActionZombieShoot, ActionZombieShoot.__name, state);

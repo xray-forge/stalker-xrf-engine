@@ -1,7 +1,7 @@
 import { XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { IStoredObject, registry, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
@@ -34,7 +34,7 @@ export class SchemeHit extends AbstractScheme {
   public static disable_scheme(npc: XR_game_object, scheme: EScheme): void {
     logger.info("Disable scheme:", npc.id());
 
-    const st = storage.get(npc.id())[scheme];
+    const st = registry.objects.get(npc.id())[scheme];
 
     if (st !== null) {
       unsubscribeActionFromEvents(npc, st, st.action);
@@ -62,7 +62,7 @@ export class SchemeHit extends AbstractScheme {
     who: Optional<XR_game_object>,
     bone_index: number
   ): void {
-    storage.get(this.object.id()).hit.bone_index = bone_index;
+    registry.objects.get(this.object.id()).hit.bone_index = bone_index;
 
     if (amount === 0 && !object.invulnerable()) {
       return;
@@ -71,22 +71,22 @@ export class SchemeHit extends AbstractScheme {
     if (who) {
       logger.info("Object hit:", object.name(), "<-", who.name(), amount);
 
-      storage.get(object.id()).hit.who = who.id();
+      registry.objects.get(object.id()).hit.who = who.id();
     } else {
       logger.info("Object hit:", object.name(), "<-", "unknown", amount);
-      storage.get(object.id()).hit.who = -1;
+      registry.objects.get(object.id()).hit.who = -1;
     }
 
-    if (storage.get(this.object.id()).active_scheme) {
-      storage.get(this.object.id()).hit.deadly_hit = amount >= this.object.health * 100;
+    if (registry.objects.get(this.object.id()).active_scheme) {
+      registry.objects.get(this.object.id()).hit.deadly_hit = amount >= this.object.health * 100;
 
-      if (trySwitchToAnotherSection(object, storage.get(this.object.id()).hit, registry.actor)) {
-        storage.get(this.object.id()).hit.deadly_hit = false;
+      if (trySwitchToAnotherSection(object, registry.objects.get(this.object.id()).hit, registry.actor)) {
+        registry.objects.get(this.object.id()).hit.deadly_hit = false;
 
         return;
       }
 
-      storage.get(this.object.id()).hit.deadly_hit = false;
+      registry.objects.get(this.object.id()).hit.deadly_hit = false;
     }
   }
 }

@@ -1,7 +1,7 @@
 import { getFS, sound_object, TXR_sound_object_type, XR_game_object, XR_ini_file } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { storage } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
 import { EPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/EPlayableSound";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -27,7 +27,7 @@ export class LoopedSound extends AbstractPlayableSound {
   }
 
   public play(objectId: number): boolean {
-    const object: Optional<XR_game_object> = storage.get(objectId).object!;
+    const object: Optional<XR_game_object> = registry.objects.get(objectId).object!;
 
     if (object === null) {
       return false;

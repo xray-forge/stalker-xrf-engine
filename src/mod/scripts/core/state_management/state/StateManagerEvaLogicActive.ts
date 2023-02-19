@@ -1,7 +1,7 @@
 import { property_evaluator, XR_property_evaluator } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
-import { storage } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -24,9 +24,7 @@ export const StateManagerEvaLogicActive: IStateManagerEvaLogicActive = declare_x
       this.st = state_manager;
     },
     evaluate(): boolean {
-      // --printf("evaluator_state_mgr_logic_active [%s] active_section[%s]",
-      // self.object:name(), tostring(db.storage[self.object:id()].active_section))
-      if (storage.get(this.object.id()).active_section === null) {
+      if (registry.objects.get(this.object.id()).active_section === null) {
         return false;
       }
 

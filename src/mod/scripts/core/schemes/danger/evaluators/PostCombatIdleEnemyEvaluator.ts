@@ -16,7 +16,7 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { storage as dbStorage, registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { ActionProcessEnemy } from "@/mod/scripts/core/schemes/danger/actions/ActionProcessEnemy";
 import { AnimationManager } from "@/mod/scripts/core/state_management/AnimationManager";
@@ -52,7 +52,12 @@ export const PostCombatIdleEnemyEvaluator: IPostCombatIdleEnemyEvaluator = decla
 
       if (
         best_enemy !== null &&
-        !ActionProcessEnemy.isEnemy(this.object, best_enemy, dbStorage.get(this.object.id()).combat_ignore!, true)
+        !ActionProcessEnemy.isEnemy(
+          this.object,
+          best_enemy,
+          registry.objects.get(this.object.id()).combat_ignore!,
+          true
+        )
       ) {
         return false;
       }
@@ -66,7 +71,7 @@ export const PostCombatIdleEnemyEvaluator: IPostCombatIdleEnemyEvaluator = decla
       }
 
       if (best_enemy === null && this.st.timer === null) {
-        const overrides = dbStorage.get(this.object.id()).overrides;
+        const overrides = registry.objects.get(this.object.id()).overrides;
         const min = (overrides && overrides.min_post_combat_time * 1000) || 10000;
         const max = (overrides && overrides.max_post_combat_time * 1000) || 15000;
 
@@ -195,7 +200,7 @@ export function add_post_combat_idle(npc: XR_game_object): void {
 
   const state = {};
 
-  dbStorage.get(npc.id()).post_combat_wait = state;
+  registry.objects.get(npc.id()).post_combat_wait = state;
 
   manager.remove_evaluator(stalker_ids.property_enemy);
   manager.add_evaluator(

@@ -14,7 +14,7 @@ import {
 import { communities } from "@/mod/globals/communities";
 import { logicsConfig } from "@/mod/lib/configs/LogicsConfig";
 import { AnyCallablesModule, EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { ActionProcessEnemy } from "@/mod/scripts/core/schemes/danger/actions/ActionProcessEnemy";
@@ -65,7 +65,7 @@ export class SchemeDanger extends AbstractScheme {
 
     assignStorageAndBind(object, ini, scheme, section);
 
-    storage.get(object.id()).danger_flag = false;
+    registry.objects.get(object.id()).danger_flag = false;
   }
 
   public static resetScheme(object: XR_game_object, scheme: EScheme, state: IStoredObject, section: TSection): void {}
@@ -113,7 +113,7 @@ export class SchemeDanger extends AbstractScheme {
        */
     }
 
-    if (!ActionProcessEnemy.isEnemy(npc, best_danger_object, storage.get(npc.id()).combat_ignore!, true)) {
+    if (!ActionProcessEnemy.isEnemy(npc, best_danger_object, registry.objects.get(npc.id()).combat_ignore!, true)) {
       // --printf("[%s] check danger COMBAT IGNORE", npc:name())
       return false;
     }
@@ -132,7 +132,7 @@ export class SchemeDanger extends AbstractScheme {
       return false;
     }
 
-    const active_sector = storage.get(npc.id()).active_sector;
+    const active_sector = registry.objects.get(npc.id()).active_sector;
 
     if (active_sector !== null) {
       // todo: Does not exist.

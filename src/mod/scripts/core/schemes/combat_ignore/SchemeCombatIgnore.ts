@@ -1,7 +1,7 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { IStoredObject, storage } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { ActionProcessEnemy } from "@/mod/scripts/core/schemes/danger/actions/ActionProcessEnemy";
@@ -10,7 +10,7 @@ import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeAc
 import { unsubscribeActionFromEvents } from "@/mod/scripts/core/schemes/unsubscribeActionFromEvents";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("ActionSchemeCombatIgnore");
+const logger: LuaLogger = new LuaLogger("SchemeCombatIgnore");
 
 /**
  * todo
@@ -37,7 +37,7 @@ export class SchemeCombatIgnore extends AbstractScheme {
   public static disable_scheme(npc: XR_game_object, scheme: EScheme): void {
     npc.set_enemy_callback(null);
 
-    const schemeState = storage.get(npc.id())[scheme];
+    const schemeState = registry.objects.get(npc.id())[scheme];
 
     if (schemeState) {
       unsubscribeActionFromEvents(npc, schemeState, schemeState.action);

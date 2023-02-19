@@ -40,7 +40,6 @@ import {
   offlineObjects,
   registry,
   spawnedVertexById,
-  storage,
 } from "@/mod/scripts/core/db";
 import { DUMMY_LTX } from "@/mod/scripts/core/db/IniFiles";
 import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
@@ -118,8 +117,8 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
   reinit(): void {
     object_binder.reinit(this);
 
-    storage.set(this.object.id(), { followers: {} });
-    this.state = storage.get(this.object.id());
+    registry.objects.set(this.object.id(), { followers: {} });
+    this.state = registry.objects.get(this.object.id());
 
     this.state.state_mgr = bind_state_manager(this.object);
 
@@ -254,7 +253,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
     fighting_with_actor_npcs.delete(this.object.id());
     GlobalSound.stop_sounds_by_id(this.object.id());
 
-    const st: IStoredObject = storage.get(this.object.id());
+    const st: IStoredObject = registry.objects.get(this.object.id());
 
     if (st.active_scheme) {
       issueEvent(this.object, st[st.active_scheme], "net_destroy", this.object);
@@ -265,9 +264,9 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
     }
 
     const on_offline_condlist =
-      storage.get(this.object.id()) &&
-      storage.get(this.object.id()).overrides &&
-      storage.get(this.object.id()).overrides!.on_offline_condlist;
+      registry.objects.get(this.object.id()) &&
+      registry.objects.get(this.object.id()).overrides &&
+      registry.objects.get(this.object.id()).overrides!.on_offline_condlist;
 
     if (on_offline_condlist !== null) {
       pickSectionFromCondList(registry.actor, this.object, on_offline_condlist as any);
@@ -275,7 +274,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
 
     if (offlineObjects.get(this.object.id())) {
       offlineObjects.get(this.object.id()).level_vertex_id = this.object.level_vertex_id();
-      offlineObjects.get(this.object.id()).active_section = storage.get(this.object.id()).active_section;
+      offlineObjects.get(this.object.id()).active_section = registry.objects.get(this.object.id()).active_section;
     }
 
     deleteObject(this.object);
@@ -376,7 +375,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
     DynamicMusicManager.NPC_TABLE.delete(this.object.id());
     fighting_with_actor_npcs.delete(this.object.id());
 
-    const st = storage.get(this.object.id());
+    const st = registry.objects.get(this.object.id());
     const npc = this.object;
     const actor = registry.actor;
 
@@ -499,7 +498,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
     object.info_clear();
 
     if (object_alive) {
-      const active_section = storage.get(object.id()).active_section;
+      const active_section = registry.objects.get(object.id()).active_section;
 
       if (active_section) {
         object.info_add("section: " + active_section);
@@ -582,7 +581,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
 
 export function update_logic(object: XR_game_object): void {
   const object_alive = object.alive();
-  const st = storage.get(object.id());
+  const st = registry.objects.get(object.id());
   const actor = registry.actor;
   const st_combat = st.combat!;
 
