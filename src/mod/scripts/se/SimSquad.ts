@@ -152,13 +152,7 @@ export interface ISimSquad<T extends XR_cse_alife_creature_abstract = XR_cse_ali
   check_invulnerability(): void;
   set_location_types_section(section: string): void;
   set_location_types(new_smart_name?: string): void;
-  add_squad_member(
-    spawn_section: string,
-    spawn_position: XR_vector,
-    lv_id: number,
-    gv_id: number,
-    sect_number: number
-  ): number;
+  add_squad_member(spawn_section: string, spawn_position: XR_vector, lv_id: number, gv_id: number): number;
   create_npc(smart: ISmartTerrain): void;
   set_squad_sympathy(sympathy?: number): void;
   set_squad_relation(relation?: TRelation): void;
@@ -663,7 +657,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
       }
     }
   },
-  add_squad_member(spawn_section, spawn_position, lv_id, gv_id, sect_number): number {
+  add_squad_member(spawn_section, spawn_position, lv_id, gv_id): number {
     logger.info("Add squad member:", this.name());
 
     const spawn_sections_ltx = system_ini();
@@ -735,7 +729,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
 
     if (spawn_sections.length() !== 0) {
       for (const [k, v] of spawn_sections) {
-        this.add_squad_member(v, base_spawn_position, base_lvi, base_gvi, k);
+        this.add_squad_member(v, base_spawn_position, base_lvi, base_gvi);
       }
     }
 
@@ -755,7 +749,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
       for (const i of $range(1, random_count)) {
         const random_id = math.random(1, random_spawn!.length());
 
-        this.add_squad_member(random_spawn!.get(random_id), base_spawn_position, base_lvi, base_gvi, random_id);
+        this.add_squad_member(random_spawn!.get(random_id), base_spawn_position, base_lvi, base_gvi);
       }
     } else if (spawn_sections.length() === 0) {
       abort("You are trying to spawn an empty squad [%s]!", this.settings_id);

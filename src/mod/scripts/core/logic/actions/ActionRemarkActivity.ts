@@ -169,7 +169,7 @@ export const ActionRemarkActivity: IActionRemarkActivity = declare_xr_class("Act
 /**
  * todo
  */
-function init_target(
+export function init_target(
   obj: XR_game_object,
   targetString: string
 ): LuaMultiReturn<[Optional<XR_vector>, Optional<number>, Optional<boolean>]> {

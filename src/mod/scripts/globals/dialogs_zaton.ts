@@ -36,7 +36,7 @@ import {
   takeMoneyFromActor,
 } from "@/mod/scripts/utils/quests";
 
-const logger: LuaLogger = new LuaLogger("dialogs_zaton");
+const logger: LuaLogger = new LuaLogger("dialogs_zaton2");
 
 /**
  * todo;

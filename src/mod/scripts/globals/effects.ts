@@ -4,65 +4,104 @@ import {
   clsid,
   device,
   game,
+  game_graph,
+  game_object,
   get_console,
   get_hud,
   hit,
+  IsImportantSave,
   level,
   move,
   particles_object,
   patrol,
+  sound_object,
   time_global,
+  user_name,
   vector,
+  XR_CGameTask,
   XR_cse_alife_creature_abstract,
+  XR_cse_alife_human_abstract,
   XR_cse_alife_item_weapon,
   XR_cse_alife_object,
   XR_cse_alife_object_physic,
   XR_CUIGameCustom,
   XR_game_object,
+  XR_particles_object,
   XR_patrol,
+  XR_sound_object,
   XR_vector,
 } from "xray16";
 
 import { animations } from "@/mod/globals/animation/animations";
 import { captions } from "@/mod/globals/captions";
+import { TCommunity } from "@/mod/globals/communities";
 import { info_portions, TInfoPortion } from "@/mod/globals/info_portions";
+import { ammo } from "@/mod/globals/items/ammo";
 import { artefacts } from "@/mod/globals/items/artefacts";
 import { detectors, TDetector } from "@/mod/globals/items/detectors";
 import { drugs } from "@/mod/globals/items/drugs";
+import { food } from "@/mod/globals/items/food";
 import { helmets } from "@/mod/globals/items/helmets";
 import { misc } from "@/mod/globals/items/misc";
 import { outfits } from "@/mod/globals/items/outfits";
 import { quest_items } from "@/mod/globals/items/quest_items";
 import { weapons } from "@/mod/globals/items/weapons";
 import { MAX_UNSIGNED_16_BIT, MAX_UNSIGNED_32_BIT } from "@/mod/globals/memory";
+import { relations, TRelation } from "@/mod/globals/relations";
 import { script_sounds } from "@/mod/globals/sound/script_sounds";
 import { TZone, zones } from "@/mod/globals/zones";
-import { AnyObject, LuaArray, Optional } from "@/mod/lib/types";
+import { AnyCallablesModule, AnyObject, LuaArray, Optional } from "@/mod/lib/types";
 import { update_logic } from "@/mod/scripts/core/binders/StalkerBinder";
 import {
+  animObjByName,
   anomalyByName,
   deleteHeli,
   getActor,
   IStoredObject,
   noWeapZones,
   scriptIds,
+  signalLight,
   storage,
   zoneByName,
 } from "@/mod/scripts/core/db";
 import { SYSTEM_INI } from "@/mod/scripts/core/db/IniFiles";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
+import {
+  change_factions_community_num,
+  ERelation,
+  set_level_faction_community as setLevelFactionCommunity,
+  set_npc_sympathy as setNpcSympathy,
+  set_squad_goodwill as setSquadGoodwill,
+  set_squad_goodwill_to_npc as setSquadGoodwillToNpc,
+  temp_goodwill_table,
+} from "@/mod/scripts/core/game_relations";
 import { mech_discount as getMechDiscount, setCurrentHint } from "@/mod/scripts/core/inventory_upgrades";
 import { AbuseManager } from "@/mod/scripts/core/logic/AbuseManager";
-import { send_tip as sendPdaTip, TIcon } from "@/mod/scripts/core/NewsManager";
+import { init_target } from "@/mod/scripts/core/logic/actions/ActionRemarkActivity";
+import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
+import { relocate_item as relocateItem, send_tip as sendPdaTip, TIcon } from "@/mod/scripts/core/NewsManager";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
+import {
+  get_surge_manager,
+  set_surge_message,
+  set_surge_task,
+  start_surge as startSurge,
+  stop_surge as stopSurge,
+} from "@/mod/scripts/core/SurgeManager";
+import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
+import { get_weather_manager } from "@/mod/scripts/core/WeatherManager";
+import { get_sim_board } from "@/mod/scripts/se/SimBoard";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
+import { ISmartTerrain } from "@/mod/scripts/se/SmartTerrain";
 import { IStalker } from "@/mod/scripts/se/Stalker";
+import { get_task_manager } from "@/mod/scripts/se/task/TaskManager";
 import { FreeplayDialog, showFreeplayDialog } from "@/mod/scripts/ui/game/FreeplayDialog";
 import { mapDisplayManager } from "@/mod/scripts/ui/game/MapDisplayManager";
 import { sleep as startSleeping } from "@/mod/scripts/ui/interaction/SleepDialog";
-import { giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
+import { disableInfo, giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { getStoryObject, getStorySquad } from "@/mod/scripts/utils/alife";
 import { isActorInZoneWithName, isStalker } from "@/mod/scripts/utils/checkers";
+import { getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { setInactiveInputTime } from "@/mod/scripts/utils/controls";
 import { abort } from "@/mod/scripts/utils/debug";
 import { createScenarioAutoSave } from "@/mod/scripts/utils/game_saves";
@@ -148,8 +187,8 @@ export function disable_ui(actor: XR_game_object, npc: XR_game_object, p: [strin
   hud.HideActorMenu();
   hud.HidePdaMenu();
 
-  disable_actor_nightvision(actor, npc);
-  disable_actor_torch(actor, npc);
+  disable_actor_nightvision(actor);
+  disable_actor_torch(actor);
 }
 
 export function disable_ui_only(actor: XR_game_object, npc: XR_game_object): void {
@@ -191,8 +230,9 @@ export function enable_ui(actor: XR_game_object, npc: XR_game_object, p: [string
   level.show_weapon(true);
   level.enable_input();
   level.show_indicators();
-  enable_actor_nightvision(null, null);
-  enable_actor_torch(null, null);
+
+  enable_actor_nightvision(actor);
+  enable_actor_torch(actor);
 }
 
 let cam_effector_playing_object_id: Optional<number> = null;
@@ -229,7 +269,10 @@ export function stop_cam_effector(actor: XR_game_object, npc: XR_game_object, p:
 let actor_nightvision: boolean = false;
 let actor_torch: boolean = false;
 
-export function disable_actor_nightvision(actor: XR_game_object, npc: XR_game_object): void {
+/**
+ * todo;
+ */
+export function disable_actor_nightvision(actor: XR_game_object): void {
   const nightvision = actor.object(misc.device_torch);
 
   if (nightvision !== null && nightvision.night_vision_enabled()) {
@@ -238,7 +281,10 @@ export function disable_actor_nightvision(actor: XR_game_object, npc: XR_game_ob
   }
 }
 
-export function enable_actor_nightvision(actor: XR_game_object, npc: XR_game_object): void {
+/**
+ * todo;
+ */
+export function enable_actor_nightvision(actor: XR_game_object): void {
   const nightvision = actor.object(misc.device_torch);
 
   if (nightvision !== null && !nightvision.night_vision_enabled() && actor_nightvision) {
@@ -247,7 +293,10 @@ export function enable_actor_nightvision(actor: XR_game_object, npc: XR_game_obj
   }
 }
 
-export function disable_actor_torch(actor: XR_game_object, npc: XR_game_object): void {
+/**
+ * todo;
+ */
+export function disable_actor_torch(actor: XR_game_object): void {
   const torch = actor.object(misc.device_torch);
 
   if (torch !== null && torch.torch_enabled()) {
@@ -256,7 +305,10 @@ export function disable_actor_torch(actor: XR_game_object, npc: XR_game_object):
   }
 }
 
-export function enable_actor_torch(actor: XR_game_object, npc: XR_game_object): void {
+/**
+ * todo;
+ */
+export function enable_actor_torch(actor: XR_game_object): void {
   const torch = actor.object(misc.device_torch);
 
   if (torch !== null && !torch.torch_enabled() && actor_torch) {
@@ -265,6 +317,9 @@ export function enable_actor_torch(actor: XR_game_object, npc: XR_game_object): 
   }
 }
 
+/**
+ * todo;
+ */
 export function run_cam_effector_global(
   actor: XR_game_object,
   npc: XR_game_object,
@@ -347,7 +402,7 @@ export function jup_b32_place_scanner(actor: XR_game_object, npc: XR_game_object
       giveInfo("jup_b32_scanner_" + i + "_placed");
       giveInfo(info_portions.jup_b32_tutorial_done);
       remove_item(actor, npc, ["jup_b32_scanner_device"]);
-      spawn_object(actor, null, ["jup_b32_ph_scanner", "jup_b32_scanner_place_" + i]);
+      spawn_object(actor, null, ["jup_b32_ph_scanner", "jup_b32_scanner_place_" + i, null, null]);
     }
   }
 }
@@ -366,7 +421,7 @@ export function jup_b206_get_plant(actor: XR_game_object, npc: XR_game_object): 
   if (isActorInZoneWithName(zones.jup_b206_sr_quest_line, actor)) {
     giveInfo(info_portions.jup_b206_anomalous_grove_has_plant);
     give_actor(actor, npc, ["jup_b206_plant"]);
-    destroy_object(actor, npc, ["story", "jup_b206_plant_ph"]);
+    destroy_object(actor, npc, ["story", "jup_b206_plant_ph", null]);
   }
 }
 
@@ -381,7 +436,7 @@ export function jup_b209_place_scanner(actor: XR_game_object, npc: XR_game_objec
     createScenarioAutoSave(captions.st_save_jup_b209_placed_mutant_scanner);
     giveInfo("jup_b209_scanner_placed");
     remove_item(actor, npc, ["jup_b209_monster_scanner"]);
-    spawn_object(actor, null, ["jup_b209_ph_scanner", "jup_b209_scanner_place_point"]);
+    spawn_object(actor, null, ["jup_b209_ph_scanner", "jup_b209_scanner_place_point", null, null]);
   }
 }
 
@@ -392,7 +447,7 @@ export function jup_b9_heli_1_searching(actor: XR_game_object, npc: XR_game_obje
 }
 
 export function pri_a18_use_idol(actor: XR_game_object, npc: XR_game_object): void {
-  if ((isActorInZoneWithName(zones.pri_a18_use_idol_restrictor), actor)) {
+  if (isActorInZoneWithName(zones.pri_a18_use_idol_restrictor, actor)) {
     giveInfo(info_portions.pri_a18_run_cam);
   }
 }
@@ -406,7 +461,7 @@ export function jup_b8_heli_4_searching(actor: XR_game_object, npc: XR_game_obje
 export function jup_b10_ufo_searching(actor: XR_game_object, npc: XR_game_object): void {
   if (isActorInZoneWithName(zones.jup_b10_ufo_restrictor)) {
     giveInfo(info_portions.jup_b10_ufo_memory_started);
-    give_actor(getActor(), null, ["jup_b10_ufo_memory"]);
+    give_actor(actor, null, ["jup_b10_ufo_memory"]);
   }
 }
 
@@ -463,7 +518,7 @@ function reset_animation(npc: XR_game_object): void {
   stateManager.animstate.set_state(null, true);
   stateManager.animstate.set_control();
 
-  stateManager.set_state("idle", null, null, null, { fast_set = true });
+  stateManager.set_state("idle", null, null, null, { fast_set: true });
 
   stateManager.update();
   stateManager.update();
@@ -559,16 +614,15 @@ export function give_items(actor: XR_game_object, npc: XR_game_object, params: L
 }
 
 // todo: Probably simplify, why accessing alife?
-export function give_item(actor: XR_game_object, npc: XR_game_object, p: [string, Optional<string>]) {
-  logger.info("Give item");
-
-  let npc_id = npc.id();
-
-  if (p[1] !== null) {
-    npc_id = getStoryObjectId(p[1])!;
-  }
-
+export function give_item(
+  actor: XR_game_object,
+  npc: Optional<XR_game_object> | XR_cse_alife_human_abstract,
+  p: [string, Optional<string>]
+) {
+  const npc_id = p[1] === null ? (npc as XR_game_object).id() : getStoryObjectId(p[1])!;
   const alifeNpc: XR_cse_alife_object = alife().object(npc_id)!;
+
+  logger.info("Give item:", npc_id, p[0]);
 
   alife().create(p[0], alifeNpc.position, alifeNpc.m_level_vertex_id, alifeNpc.m_game_vertex_id, alifeNpc.id);
 }
@@ -704,14 +758,14 @@ export function hit_by_killer(actor: XR_game_object, npc: XR_game_object, p: [st
   npc.hit(h);
 }
 
-export function hit_npc_from_actor(actor: XR_game_object, npc: XR_game_object, p: [string]) {
+export function hit_npc_from_actor(actor: XR_game_object, npc: XR_game_object, p: [Optional<string>]) {
   const h = new hit();
   let sid: Optional<XR_game_object> = null;
 
   h.draftsman = actor;
   h.type = hit.wound;
 
-  if (p && p[0]) {
+  if (p[0]) {
     sid = getStoryObject(p[0]);
 
     if (sid) {
@@ -807,8 +861,8 @@ export function remove_npc(actor: XR_game_object, npc: XR_game_object, p: [Optio
 /**
  * todo;
  */
-export function inc_counter(actor: XR_game_object, npc: XR_game_object, p: [string, number]) {
-  if (p && p[0]) {
+export function inc_counter(actor: XR_game_object, npc: XR_game_object, p: [Optional<string>, number]) {
+  if (p[0]) {
     const inc_value = p[1] || 1;
     const new_value = pstor_retrieve(actor, p[0], 0) + inc_value;
 
@@ -819,8 +873,8 @@ export function inc_counter(actor: XR_game_object, npc: XR_game_object, p: [stri
 /**
  * todo;
  */
-export function dec_counter(actor: XR_game_object, npc: XR_game_object, p: [string, number]) {
-  if (p && p[0]) {
+export function dec_counter(actor: XR_game_object, npc: XR_game_object, p: [Optional<string>, number]) {
+  if (p[0]) {
     const dec_value = p[1] || 1;
     let new_value = pstor_retrieve(actor, p[0], 0) - dec_value;
 
@@ -832,8 +886,15 @@ export function dec_counter(actor: XR_game_object, npc: XR_game_object, p: [stri
   }
 }
 
-export function set_counter(actor: XR_game_object, npc: XR_game_object, params: [string, number]) {
-  if (params && params[0]) {
+/**
+ * todo;
+ */
+export function set_counter(
+  actor: XR_game_object,
+  npc: XR_game_object,
+  params: [Optional<string>, Optional<number>]
+): void {
+  if (params[0]) {
     pstor_store(actor, params[0], params[1] || 0);
   }
 }
@@ -1064,25 +1125,25 @@ export function switch_to_desired_job(actor: XR_game_object, npc: XR_game_object
 
 export function spawn_object(
   actor: XR_game_object,
-  obj: XR_game_object,
-  params: [string, string, number, number]
+  obj: Optional<XR_game_object>,
+  params: [string, string, Optional<number>, Optional<number>]
 ): void {
   logger.info("Spawn object");
 
   const spawn_sect = params[0];
 
   if (spawn_sect === null) {
-    abort("Wrong spawn section for 'spawn_object' function %s. For object %s", tostring(spawn_sect), obj.name());
+    abort("Wrong spawn section for 'spawn_object' function %s. For object %s", tostring(spawn_sect), obj?.name());
   }
 
   const path_name = params[1];
 
   if (path_name === null) {
-    abort("Wrong path_name for 'spawn_object' function %s. For object %s", tostring(path_name), obj.name());
+    abort("Wrong path_name for 'spawn_object' function %s. For object %s", tostring(path_name), obj?.name());
   }
 
   if (!level.patrol_path_exists(path_name)) {
-    abort("Path %s doesnt exist. Function 'spawn_object' for object %s ", tostring(path_name), obj.name());
+    abort("Path %s doesnt exist. Function 'spawn_object' for object %s ", tostring(path_name), obj?.name());
   }
 
   const ptr = new patrol(path_name);
@@ -1230,466 +1291,527 @@ export function spawn_npc_in_zone(actor: XR_game_object, obj: XR_game_object, pa
   scriptIds.set(spawned_obj.id, zone_name);
 }
 
+export function destroy_object(
+  actor: XR_game_object,
+  obj: XR_game_object,
+  p: [string, string, Optional<string>]
+): void {
+  let sobj: Optional<XR_cse_alife_object> = null;
+
+  if (p === null) {
+    sobj = alife().object(obj.id());
+  } else {
+    if (p[0] === null || p[1] === null) {
+      abort("Wrong parameters in destroy_object function!!!");
+    }
+
+    const target_str = p[2] !== null ? [0] + "|" + p[1] + "," + p[2] : p[0] + "|" + p[1];
+
+    const [target_position, target_id, target_init] = init_target(obj, target_str);
+
+    if (target_id === null) {
+      logger.info(
+        "You are trying to set non-existant target [%s] for object [%s] in section [%s]:",
+        target_str,
+        target_id,
+        storage.get(obj.id()).active_section
+      );
+    }
+
+    sobj = alife().object(target_id as number);
+  }
+
+  if (sobj === null) {
+    return;
+  }
+
+  alife().release(sobj, true);
+}
+
+export function give_actor(actor: XR_game_object, npc: Optional<XR_game_object>, p: Array<string>): void;
+export function give_actor(
+  actor: XR_game_object,
+  npc: Optional<XR_game_object>,
+  p: LuaArray<string> | Array<string>
+): void {
+  for (const [k, v] of p as LuaArray<string>) {
+    alife().create(v, actor.position(), actor.level_vertex_id(), actor.game_vertex_id(), actor.id());
+    relocateItem(actor, "in", v);
+  }
+}
+
+export function activate_weapon_slot(actor: XR_game_object, npc: XR_game_object, p: [number]): void {
+  actor.activate_slot(p[0]);
+}
+
+export function anim_obj_forward(actor: XR_game_object, npc: XR_game_object, p: LuaArray<string>): void {
+  for (const [k, v] of p) {
+    if (v !== null) {
+      animObjByName.get(v).anim_forward();
+    }
+  }
+}
+
+export function anim_obj_backward(actor: XR_game_object, npc: XR_game_object, p: [string]): void {
+  if (p[0] !== null) {
+    animObjByName.get(p[0]).anim_backward();
+  }
+}
+
+export function anim_obj_stop(actor: XR_game_object, npc: XR_game_object, p: [string]): void {
+  if (p[0] !== null) {
+    animObjByName.get(p[0]).anim_stop();
+  }
+}
+
 /**
+ * todo;
+ */
+export function play_sound(
+  actor: XR_game_object,
+  obj: XR_game_object,
+  p: [Optional<string>, Optional<TCommunity>, Optional<string | number>]
+): void {
+  logger.info("Play sound");
 
-export function destroy_object(actor, obj, p){
-  const sobj
-  if( p === null ){
-    sobj = alife().object(obj.id())
-  }else{
-    if( p[1] === null || p[2] === null ){
-      abort("Wrong parameters in destroy_object function!!!")
-    }
-    const target_str = null
-    if( p[3] !== null ){
-      target_str = p[1]..
-      "|"..p[2]..
-      ","..p[3]
-    }else{
-      target_str = p[1] + "|" + p[2]
-    }
-    const target_position, target_id, target_init = xr_remark.init_target(obj, target_str)
-    if( target_id === null ){
-      printf("You are trying to set non-existant target [%s] for object [%s] in section [%s]", target_str, npc.name(), storage.get(npc.id()).active_section)
-    }
-    sobj = alife().object(target_id)
-  }
-  if( sobj === null ){
-    return
-  }
-  printf("releasing object [" + sobj.name() + "]")
-  alife().release(sobj, true)
-}
+  const theme = p[0];
+  const faction: Optional<TCommunity> = p[1];
+  const point: ISmartTerrain = get_sim_board().smarts_by_names.get(p[2] as string);
+  const pointId = point !== null ? point.id : (p[2] as number);
 
-export function give_actor(actor: XR_game_object, npc: XR_game_object, p: []){
-  for (const [k, v] of p) {
-    alife().create(v,
-        getActor().position(),
-        getActor().level_vertex_id(),
-        getActor().game_vertex_id(),
-        getActor().id())
-    NewsManager.relocate_item(getActor(), "in", v)
-  }
-}
-
-export function activate_weapon_slot(actor: XR_game_object, npc: XR_game_object, p: []){
-  getActor().activate_slot(p[1])
-}
-
-export function anim_obj_forward(actor: XR_game_object, npc: XR_game_object, p: []){
-  for (const [k, v] of p) {
-    if( v !== null ){
-      db.anim_obj_by_name[v].anim_forward()
-    }
-  }
-}
-
-export function anim_obj_backward(actor: XR_game_object, npc: XR_game_object, p: []){
-  if( p[1] !== null ){
-    db.anim_obj_by_name[p[1]].anim_backward()
-  }
-}
-
-export function anim_obj_stop(actor: XR_game_object, npc: XR_game_object, p: []){
-  if( p[1] !== null ){
-    db.anim_obj_by_name[p[1]].anim_stop()
-  }
-}
-
-//--'//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//---
-//--' ������� ��� ����������� �����
-//--'//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//---
-export function play_sound(actor, obj, p){
-  logger.info("Play sound")
-
-  const theme = p[1]
-  const faction = p[2]
-  const point = SimBoard.get_sim_board().smarts_by_names[p[3]]
-  if( point !== null ) {
-    point = point.id
-  }else if( p[3] !== null ){
-    point = p[3]
-  }
-
-  if( obj && IsStalker(obj) ){
-    if( ! obj.alive() ){
-      abort("Stalker [%s][%s] is dead, but you wants to say something for you. [%s]!", tostring(obj.id()), tostring(obj.name()), p[1])
+  if (obj && isStalker(obj)) {
+    if (!obj.alive()) {
+      abort(
+        "Stalker [%s][%s] is dead, but you wants to say something for you. [%s]!",
+        tostring(obj.id()),
+        tostring(obj.name()),
+        p[0]
+      );
     }
   }
 
-  GlobalSound.set_sound_play(obj.id(), theme, faction, point)
-}
-
-export function play_sound_by_story(actor, obj, p){
-  const story_obj = getStoryObjectId(p[1])
-  const theme = p[2]
-  const faction = p[3]
-  const point = SimBoard.get_sim_board().smarts_by_names[p[4]]
-  if( point !== null ) {
-    point = point.id
-  }else if( p[4] !== null ){
-    point = p[4]
-  }
-  GlobalSound.set_sound_play(story_obj, theme, faction, point)
+  GlobalSound.set_sound_play(obj.id(), theme, faction, pointId);
 }
 
 export function stop_sound(actor: XR_game_object, npc: XR_game_object): void {
-  GlobalSound.stop_sounds_by_id(npc.id())
+  GlobalSound.stop_sounds_by_id(npc.id());
 }
 
-export function play_sound_looped(actor, obj, p){
-  const theme = p[1]
-  GlobalSound.play_sound_looped(obj.id(), theme)
+/**
+ * todo;
+ */
+export function play_sound_looped(actor: XR_game_object, obj: XR_game_object, params: [string]): void {
+  GlobalSound.play_sound_looped(obj.id(), params[0]);
 }
 
-export function stop_sound_looped(actor, obj){
-  GlobalSound.stop_sound_looped(obj.id())
+/**
+ * todo;
+ */
+export function stop_sound_looped(actor: XR_game_object, obj: XR_game_object) {
+  GlobalSound.stop_sound_looped(obj.id(), null);
 }
 
-export function barrel_explode (actor: XR_game_object, npc: XR_game_object, p: []){
-  const expl_obj = getStoryObject(p[1])
-  if( expl_obj !== null ){
-    expl_obj.explode(0)
+export function play_sound_by_story(
+  actor: XR_game_object,
+  obj: XR_game_object,
+  p: [string, string, string, string | number]
+) {
+  const story_obj = getStoryObjectId(p[0]);
+  const theme = p[1];
+  const faction = p[2];
+  const point: ISmartTerrain = get_sim_board().smarts_by_names.get(p[3] as string);
+  const pointId: number = point !== null ? point.id : (p[3] as number);
+
+  GlobalSound.set_sound_play(story_obj as number, theme, faction, pointId);
+}
+
+export function barrel_explode(actor: XR_game_object, npc: XR_game_object, p: [string]) {
+  const expl_obj = getStoryObject(p[0]);
+
+  if (expl_obj !== null) {
+    expl_obj.explode(0);
   }
 }
 
-//--'//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//---
-//--' Alife support
-//--'//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//---
+export function create_squad(actor: XR_game_object, obj: Optional<XR_game_object>, params: [string, string]): void {
+  const squad_id = params[0];
 
-export function create_squad(actor, obj, p){
-  if( obj !== null ){
-    printf("pl.creating_squad from obj [%s] in section [%s]", tostring(obj.name()), tostring(storage[obj.id()].active_section))
-  }
-  const squad_id = p[1]
-  if( squad_id === null ){
-    abort("Wrong squad identificator [NIL] in create_squad function")
-  }
-  const smart_name = p[2]
-  if( smart_name === null ){
-    abort("Wrong smart name [NIL] in create_squad function")
+  if (squad_id === null) {
+    abort("Wrong squad identificator [NIL] in create_squad function");
   }
 
-  if( ! iniFiles.SYSTEM_INI.section_exist(squad_id) ){
-    abort("Wrong squad identificator [%s]. Squad descr doesnt exist.", tostring(squad_id))
+  const smart_name = params[1];
+
+  if (smart_name === null) {
+    abort("Wrong smart name [NIL] in create_squad function");
   }
 
-  const board = SimBoard.get_sim_board()
-  const smart = board.smarts_by_names[smart_name]
-  if( smart === null ){
-    abort("Wrong smart_name [%s] for [%s] faction in create_squad function", tostring(smart_name), tostring(player_name))
+  if (!SYSTEM_INI.section_exist(squad_id)) {
+    abort("Wrong squad identificator [%s]. Squad descr doesnt exist.", tostring(squad_id));
   }
 
-  const squad = board.create_squad(smart, squad_id)
+  const board = get_sim_board();
+  const smart = board.smarts_by_names.get(smart_name);
 
-  board.enter_smart(squad, smart.id)
-
-  for k in squad.squad_members() {
-    board.setup_squad_and_group(k.object)
+  if (smart === null) {
+    abort("Wrong smart_name [%s] for faction in create_squad function", tostring(smart_name));
   }
 
-  squad.update()
+  const squad = board.create_squad(smart, squad_id);
+
+  board.enter_smart(squad, smart.id);
+
+  for (const k of squad.squad_members()) {
+    board.setup_squad_and_group(k.object);
+  }
+
+  squad.update();
 }
 
-export function create_squad_member(actor, obj, p){
-  const squad_member_sect = p[1]
-  const story_id = p[2]
-  const position = null
-  const level_vertex_id = null
-  const game_vertex_id = null
-  if( story_id === null ){
-    abort("Wrong squad identificator [NIL] in 'create_squad_member' function")
+export function create_squad_member(
+  actor: XR_game_object,
+  obj: XR_game_object,
+  params: [string, string, string]
+): void {
+  const squad_member_sect = params[0];
+  const story_id = params[1];
+
+  let position = null;
+  let level_vertex_id = null;
+  let game_vertex_id = null;
+
+  if (story_id === null) {
+    abort("Wrong squad identificator [NIL] in 'create_squad_member' function");
   }
-  const board = SimBoard.get_sim_board()
-  const squad = getStorySquad(story_id)
-  const squad_smart = board.smarts[squad.smart_id].smrt
-  if( p[3] !== null ){
-    const spawn_point
-    if( p[3] === "simulation_point" ){
-      spawn_point = configUtils.getConfigString(iniFiles.SYSTEM_INI, squad.section_name(), "spawn_point", obj, false, "")
-      if( spawn_point === "" || spawn_point === null
-      {
-        spawn_point = configUtils.parseCondList(obj, "spawn_point", "spawn_point", squad_smart.spawn_point)
-      }else{
-        spawn_point = configUtils.parseCondList(obj, "spawn_point", "spawn_point", spawn_point)
+
+  const board = get_sim_board();
+  const squad: ISimSquad = getStorySquad(story_id) as ISimSquad;
+  const squad_smart = board.smarts.get(squad.smart_id as number).smrt;
+
+  if (params[2] !== null) {
+    let spawn_point: Optional<string> = null;
+
+    if (params[2] === "simulation_point") {
+      spawn_point = getConfigString(SYSTEM_INI, squad.section_name(), "spawn_point", obj, false, "");
+      if (spawn_point === "" || spawn_point === null) {
+        spawn_point = parseCondList(obj, "spawn_point", "spawn_point", squad_smart.spawn_point as string);
+      } else {
+        spawn_point = parseCondList(obj, "spawn_point", "spawn_point", spawn_point);
       }
-      spawn_point = configUtils.pickSectionFromCondList(getActor(), obj, spawn_point)
-  }else{
-      spawn_point = p[3]
+
+      spawn_point = pickSectionFromCondList(actor, obj, spawn_point as any);
+    } else {
+      spawn_point = params[2];
     }
-    position = patrol(spawn_point).point(0)
-    level_vertex_id = patrol(spawn_point).level_vertex_id(0)
-    game_vertex_id = patrol(spawn_point).game_vertex_id(0)
-}else{
-    const commander = alife().object(squad.commander_id())
-    position = commander.position
-    level_vertex_id = commander.m_level_vertex_id
-    game_vertex_id = commander.m_game_vertex_id
+
+    const point = new patrol(spawn_point as string);
+
+    position = point.point(0);
+    level_vertex_id = point.level_vertex_id(0);
+    game_vertex_id = point.game_vertex_id(0);
+  } else {
+    const commander: XR_cse_alife_human_abstract = alife().object(squad.commander_id()) as XR_cse_alife_human_abstract;
+
+    position = commander.position;
+    level_vertex_id = commander.m_level_vertex_id;
+    game_vertex_id = commander.m_game_vertex_id;
   }
-  const new_member_id = squad.add_squad_member(squad_member_sect, position, level_vertex_id, game_vertex_id)
-  squad.assign_squad_member_to_smart(new_member_id, squad_smart)
-  board.setup_squad_and_group(alife().object(new_member_id))
-  //--squad_smart.refresh()
-  squad.update()
+
+  const new_member_id = squad.add_squad_member(squad_member_sect, position, level_vertex_id, game_vertex_id);
+
+  squad.assign_squad_member_to_smart(new_member_id, squad_smart, null);
+  board.setup_squad_and_group(alife().object(new_member_id));
+  // --squad_smart.refresh()
+  squad.update();
 }
 
-export function remove_squad(actor, obj, p){
-  const story_id = p[1]
-  if( story_id === null ){
-    abort("Wrong squad identificator [NIL] in remove_squad function")
+export function remove_squad(actor: XR_game_object, obj: XR_game_object, p: [string]): void {
+  const story_id = p[0];
+
+  if (story_id === null) {
+    abort("Wrong squad identificator [NIL] in remove_squad function");
   }
-  const squad = getStorySquad(story_id)
-  if( squad === null ){
-    assert("Wrong squad identificator [%s]. squad doesnt exist", tostring(story_id))
-    return
+
+  const squad: Optional<ISimSquad> = getStorySquad(story_id);
+
+  if (squad === null) {
+    abort("Wrong squad identificator [%s]. squad doesnt exist", tostring(story_id));
   }
-  const board = SimBoard.get_sim_board()
-  board.remove_squad(squad)
+
+  get_sim_board().remove_squad(squad);
 }
 
-export function kill_squad(actor, obj, p){
-  const story_id = p[1]
-  if( story_id === null ){
-    abort("Wrong squad identificator [NIL] in kill_squad function")
+export function kill_squad(actor: XR_game_object, obj: XR_game_object, p: [string]): void {
+  const story_id = p[0];
+
+  if (story_id === null) {
+    abort("Wrong squad identificator [NIL] in kill_squad function");
   }
-  const squad = getStorySquad(story_id)
-  if( squad === null ){
-    return
+
+  const squad = getStorySquad(story_id);
+
+  if (squad === null) {
+    return;
   }
-  const squad_npcs = {}
-  for k in squad.squad_members() {
-    squad_npcs[k.id] = true
+
+  const squad_npcs: LuaTable<number, boolean> = new LuaTable();
+
+  for (const k of squad.squad_members()) {
+    squad_npcs.set(k.id, true);
   }
 
   for (const [k, v] of squad_npcs) {
-    const cl_obj = storage[k] && storage[k].object
-    if( cl_obj === null ){
-      alife().object(tonumber(k)).kill()
-    }else{
-      cl_obj.kill(cl_obj)
+    const cl_obj = storage.get(k)?.object as Optional<XR_game_object>;
+
+    if (cl_obj === null) {
+      alife().object<XR_cse_alife_human_abstract>(tonumber(k)!)!.kill();
+    } else {
+      cl_obj.kill(cl_obj);
     }
   }
 }
 
-export function heal_squad(actor, obj, p){
-  const story_id = p[1]
-  const health_mod = 1
-  if( p[2] && p[2] !== null ){
-    health_mod = math.ceil(p[2] / 100)
+export function heal_squad(actor: XR_game_object, obj: XR_game_object, params: [string, number]) {
+  const story_id = params[0];
+  let health_mod = 1;
+
+  if (params[1] && params[1] !== null) {
+    health_mod = math.ceil(params[1] / 100);
   }
-  if( story_id === null ){
-    abort("Wrong squad identificator [NIL] in heal_squad function")
+
+  if (story_id === null) {
+    abort("Wrong squad identificator [NIL] in heal_squad function");
   }
-  const squad = getStorySquad(story_id)
-  if( squad === null ){
-    return
+
+  const squad = getStorySquad(story_id);
+
+  if (squad === null) {
+    return;
   }
-  for k in squad.squad_members() {
-    const cl_obj = storage[k.id] && storage[k.id].object
-    if( cl_obj !== null ){
-      cl_obj.health = health_mod
+
+  for (const k of squad.squad_members()) {
+    const cl_obj = storage.get(k.id)?.object as Optional<XR_game_object>;
+
+    if (cl_obj !== null) {
+      cl_obj.health = health_mod;
     }
   }
 }
 
-export function clear_smart_terrain(actor, obj, p){
-  logger.info("Clear smart terrain")
+export function clear_smart_terrain(actor: XR_game_object, obj: XR_game_object, p: [string, string]) {
+  logger.info("Clear smart terrain");
 
-  const smart_name = p[1]
-  if( smart_name === null ){
-    abort("Wrong squad identificator [NIL] in clear_smart_terrain function")
+  const smart_name = p[0];
+
+  if (smart_name === null) {
+    abort("Wrong squad identificator [NIL] in clear_smart_terrain function");
   }
 
-  const board = SimBoard.get_sim_board()
-  const smart = board.smarts_by_names[smart_name]
-  const smart_id = smart.id
-  for (const [k, v] of board.smarts[smart_id].squads) {
-    if( p[2] && p[2] === "false" ){
-      if( ! get_object_story_id(v.id) ){
-        board.exit_smart(v, smart_id)
-        board.remove_squad(v)
+  const board = get_sim_board();
+  const smart = board.smarts_by_names.get(smart_name);
+  const smart_id = smart.id;
+
+  for (const [k, v] of board.smarts.get(smart_id).squads) {
+    if (p[1] && p[1] === "false") {
+      if (!getStoryObjectId(v.id as unknown as string)) {
+        board.exit_smart(v, smart_id);
+        board.remove_squad(v);
       }
-    }else{
-      board.exit_smart(v, smart_id)
-      board.remove_squad(v)
+    } else {
+      board.exit_smart(v, smart_id);
+      board.remove_squad(v);
     }
   }
 }
 
-//--'//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//---
-//--' Quest support
-//--'//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//---
-export function give_task(actor, obj, p){
-  logger.info("Give task")
+export function give_task(actor: XR_game_object, obj: XR_game_object, p: [Optional<string>]) {
+  logger.info("Give task");
 
-  if( p[1] === null ){
-    abort("No parameter in give_task function.")
+  if (p[0] === null) {
+    abort("No parameter in give_task function.");
   }
-  TaskManager.get_task_manager().give_task(p[1])
+
+  get_task_manager().give_task(p[0]);
 }
 
-export function set_active_task(actor: XR_game_object, npc: XR_game_object, p: []){
-  logger.info("Set active task")
+export function set_active_task(actor: XR_game_object, npc: XR_game_object, p: [string]): void {
+  logger.info("Set active task");
 
-  if( (p[1]) ){
-    const t = getActor().get_task(tostring(p[1]), true)
-    if( (t) ){
-      getActor().set_active_task(t)
+  if (p[0]) {
+    const t: Optional<XR_CGameTask> = actor.get_task(tostring(p[0]), true);
+
+    if (t) {
+      actor.set_active_task(t);
     }
   }
 }
-
-//-- ������� ��� ������ � �����������
 
 export function actor_friend(actor: XR_game_object, npc: XR_game_object): void {
-  printf("_bp. xr_effects. actor_friend(). npc='%s'. time=%d", npc.name(), time_global())
-  npc.force_set_goodwill(1000, actor)
+  npc.force_set_goodwill(1000, actor);
 }
 
 export function actor_neutral(actor: XR_game_object, npc: XR_game_object): void {
-  npc.force_set_goodwill(0, actor)
+  npc.force_set_goodwill(0, actor);
 }
 
 export function actor_enemy(actor: XR_game_object, npc: XR_game_object): void {
-  npc.force_set_goodwill(-1000, actor)
+  npc.force_set_goodwill(-1000, actor);
 }
 
-export function set_squad_neutral_to_actor(actor: XR_game_object, npc: XR_game_object, p: []){
-  const story_id = p[1]
-  const squad = getStorySquad(story_id)
-  if( squad === null ){
-    printf("There is no squad with id[%s]", tostring(story_id))
-    return
-  }
-  squad.set_squad_relation("neutral")
-}
+export function set_squad_neutral_to_actor(actor: XR_game_object, npc: XR_game_object, p: [string]): void {
+  const squad: Optional<ISimSquad> = getStorySquad(p[0]);
 
-export function set_squad_friend_to_actor(actor: XR_game_object, npc: XR_game_object, p: []){
-  const story_id = p[1]
-  const squad = getStorySquad(story_id)
-  if( squad === null ){
-    printf("There is no squad with id[%s]", tostring(story_id))
-    return
-  }
-  squad.set_squad_relation("friend")
-}
-
-//--������� ������ ������ � ������, ���������� ��� ������
-export function set_squad_enemy_to_actor(actor: XR_game_object, npc: XR_game_object, p: []){
-  const story_id = p[1]
-  const squad = getStorySquad(story_id)
-  if( squad === null ){
-    printf("There is no squad with id[%s]", tostring(story_id))
-    return
-  }
-  squad.set_squad_relation("enemy")
-}
-
-//--sets NPC relation to actor
-//--set_npc_sympathy(number)
-//--call only from npc`s logic
-export function set_npc_sympathy(actor: XR_game_object, npc: XR_game_object, p: []){
-  if( (p[1] !== null) ){
-    game_relations.set_npc_sympathy(npc, p[1])
+  if (squad === null) {
+    return;
+  } else {
+    squad.set_squad_relation(relations.neutral);
   }
 }
 
-//--sets SQUAD relation to actor
-//--set_squad_goodwill(faction.number)
-export function set_squad_goodwill(actor: XR_game_object, npc: XR_game_object, p: []){
-  if( (p[1] !== null) && (p[2] !== null) ){
-    game_relations.set_squad_goodwill(p[1], p[2])
+export function set_squad_friend_to_actor(actor: XR_game_object, npc: XR_game_object, p: [string]): void {
+  const squad: Optional<ISimSquad> = getStorySquad(p[0]);
+
+  if (squad === null) {
+    return;
+  } else {
+    squad.set_squad_relation(relations.friend);
   }
 }
 
-export function set_squad_goodwill_to_npc(actor: XR_game_object, npc: XR_game_object, p: []){
-  if( (p[1] !== null) && (p[2] !== null) ){
-    game_relations.set_squad_goodwill_to_npc(npc, p[1], p[2])
+export function set_squad_enemy_to_actor(actor: XR_game_object, npc: XR_game_object, p: [string]): void {
+  const squad: Optional<ISimSquad> = getStorySquad(p[0]);
+
+  if (squad === null) {
+    return;
+  } else {
+    squad.set_squad_relation("enemy");
   }
 }
 
-export function inc_faction_goodwill_to_actor(actor: XR_game_object, npc: XR_game_object, p: []){
-  const community = p[1]
-  const delta = p[2]
-  if( delta && community ){
-    game_relations.change_factions_community_num(community, actor.id(), tonumber(delta))
-  }else{
-    abort("Wrong parameters in function 'inc_faction_goodwill_to_actor'")
+export function set_npc_sympathy(actor: XR_game_object, npc: XR_game_object, p: [number]): void {
+  if (p[0] !== null) {
+    setNpcSympathy(npc, p[0]);
   }
 }
 
-export function dec_faction_goodwill_to_actor(actor: XR_game_object, npc: XR_game_object, p: []){
-  const community = p[1]
-  const delta = p[2]
-  if( delta && community ){
-    game_relations.change_factions_community_num(community, actor.id(), -tonumber(delta))
-  }else{
-    abort("Wrong parameters in function 'dec_faction_goodwill_to_actor'")
+export function set_squad_goodwill(actor: XR_game_object, npc: XR_game_object, p: [string, TRelation]): void {
+  if (p[0] !== null && p[1] !== null) {
+    setSquadGoodwill(p[0], p[1]);
+  }
+}
+
+export function set_squad_goodwill_to_npc(actor: XR_game_object, npc: XR_game_object, p: [string, TRelation]): void {
+  if (p[0] !== null && p[1] !== null) {
+    setSquadGoodwillToNpc(npc, p[0], p[1]);
+  }
+}
+
+/**
+ * todo;
+ */
+export function inc_faction_goodwill_to_actor(
+  actor: XR_game_object,
+  npc: XR_game_object,
+  p: [Optional<TCommunity>, Optional<number>]
+): void {
+  const community = p[0];
+  const delta = p[1];
+
+  if (delta && community) {
+    change_factions_community_num(community, actor.id(), tonumber(delta)!);
+  } else {
+    abort("Wrong parameters in function 'inc_faction_goodwill_to_actor'");
+  }
+}
+
+export function dec_faction_goodwill_to_actor(
+  actor: XR_game_object,
+  npc: XR_game_object,
+  params: [Optional<TCommunity>, Optional<number>]
+): void {
+  const community: Optional<TCommunity> = params[0];
+  const delta: Optional<number> = params[1];
+
+  if (delta && community) {
+    change_factions_community_num(community, actor.id(), -tonumber(delta)!);
+  } else {
+    abort("Wrong parameters in function 'dec_faction_goodwill_to_actor'");
   }
 }
 
 export function kill_actor(actor: XR_game_object, npc: XR_game_object): void {
-  logger.info("Kill actor")
-  getActor().kill(getActor())
+  logger.info("Kill actor");
+  actor.kill(actor);
 }
 
-//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//---
-//--  Treasures support
-//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//---
-export function give_treasure (actor: XR_game_object, npc: XR_game_object, p: []){
-  logger.info("Give treasure")
+export function give_treasure(actor: XR_game_object, npc: XR_game_object, p: LuaArray<string>) {
+  logger.info("Give treasure");
 
-  if( p === null ){
-    abort("Required parameter is [NIL]")
+  if (p === null) {
+    abort("Required parameter is [NIL]");
   }
+
+  const treasureManager = getTreasureManager();
+
   for (const [k, v] of p) {
-    getTreasureManager().give_treasure(v)
+    treasureManager.give_treasure(v);
   }
 }
 
-export function start_surge(actor: XR_game_object, npc: XR_game_object, p: []){
-  logger.info("Start surge")
-  SurgeManager.start_surge(p)
+export function start_surge(actor: XR_game_object, npc: XR_game_object, p: []) {
+  logger.info("Start surge");
+  startSurge();
 }
 
-export function stop_surge(actor: XR_game_object, npc: XR_game_object, p: []){
-  logger.info("Stop surge")
-  SurgeManager.stop_surge()
+export function stop_surge(actor: XR_game_object, npc: XR_game_object, p: []) {
+  logger.info("Stop surge");
+  stopSurge();
 }
 
-export function set_surge_mess_and_task(actor: XR_game_object, npc: XR_game_object, p: []){
-  if( (p) ){
-    SurgeManager.set_surge_message(p[1])
-    if( (p[2]) ){
-      SurgeManager.set_surge_task(p[2])
-    }
+export function set_surge_mess_and_task(actor: XR_game_object, npc: XR_game_object, p: [string, string]) {
+  set_surge_message(p[0]);
+
+  if (p[1]) {
+    set_surge_task(p[1]);
   }
 }
 
-export function set_level_faction_community(actor: XR_game_object, npc: XR_game_object, p: []){
-  if( (p[1] !== null) && (p[2] !== null) && (p[3] !== null) ){
-    const faction = SimBoard.get_sim_board().players[p[1]]
-    const goodwill = 0
-    if( (p[3] === "enemy") ) {
-      goodwill = -3000
-    }else if( (p[3] === "friend") ){
-      goodwill = 1000
+export function set_level_faction_community(
+  actor: XR_game_object,
+  npc: XR_game_object,
+  params: [TCommunity, string, TRelation]
+) {
+  if (params[0] !== null && params[1] !== null && params[2] !== null) {
+    const faction = get_sim_board().players!.get(params[0]);
+    let goodwill = 0;
+
+    if (params[2] === "enemy") {
+      goodwill = -3000;
+    } else if (params[2] === "friend") {
+      goodwill = 1000;
     }
+
     for (const [k, v] of faction.squads) {
-      const squad_level = alife().level_name(game_graph().vertex(alife().object(v.commander_id()).m_game_vertex_id).level_id())
-      if( (squad_level === p[2]) ){
-        for kk in v.squad_members() {
-          const npc = kk.object
-          const tbl = game_relations.temp_goodwill_table
-          if( (tbl.communities === null) ){
-            tbl.communities = {}
+      const squad_level = alife().level_name(
+        game_graph().vertex(alife().object(v.commander_id())!.m_game_vertex_id).level_id()
+      );
+
+      if (squad_level === params[1]) {
+        for (const [kk] of v.squad_members()) {
+          const npc = kk.object;
+          const tbl = temp_goodwill_table;
+
+          if (tbl.communities === null) {
+            tbl.communities = new LuaTable();
           }
-          if( (tbl.communities[p[1]] === null) ){
-            tbl.communities[p[1]] = {}
+
+          if (tbl.communities.get(params[0]) === null) {
+            tbl.communities.set(params[0], new LuaTable());
           }
-          tbl.communities[p[1]][npc.id] = goodwill
-          if( (storage[npc.id] !== null) ){
-            game_relations.set_level_faction_community(storage[npc.id].object)
+
+          tbl.communities.get(params[0]).set(npc.id, goodwill);
+          if (storage.get(npc.id) !== null) {
+            setLevelFactionCommunity(storage.get(npc.id).object as XR_game_object);
           }
         }
       }
@@ -1697,734 +1819,765 @@ export function set_level_faction_community(actor: XR_game_object, npc: XR_game_
   }
 }
 
-export function make_actor_visible_to_squad(actor: XR_game_object, npc: XR_game_object, p: []){
-  const story_id = p && p[1]
-  const squad = getStorySquad(story_id)
-  if( squad === null ){
-    abort("There is no squad with id[%s]", story_id)
+export function make_actor_visible_to_squad(actor: XR_game_object, npc: XR_game_object, p: [string]): void {
+  const story_id = p && p[0];
+  const squad = getStorySquad(story_id);
+
+  if (squad === null) {
+    abort("There is no squad with id[%s]", story_id);
   }
-  for k in squad.squad_members() {
-    const obj = level.object_by_id(k.id)
-    if( obj !== null ){
-      obj.make_object_visible_somewhen(getActor())
+
+  for (const k of squad.squad_members()) {
+    const obj = level.object_by_id(k.id);
+
+    if (obj !== null) {
+      obj.make_object_visible_somewhen(actor);
     }
   }
 }
 
-export function stop_sr_cutscene(actor: XR_game_object, npc: XR_game_object, p: []){
-  const obj = storage.get(npc.id())
-  if( (obj.active_scheme !== null) ){
-    obj[obj.active_scheme].signals["cam_effector_stop"] = true
+export function stop_sr_cutscene(actor: XR_game_object, npc: XR_game_object, p: []) {
+  const obj: IStoredObject = storage.get(npc.id());
+
+  if (obj.active_scheme !== null) {
+    obj[obj.active_scheme!].signals["cam_effector_stop"] = true;
   }
 }
 
-//-- Anomal fields support
-export function enable_anomaly(actor: XR_game_object, npc: XR_game_object, p: []){
-  if( p[1] === null ){
-    abort("Story id for enable_anomaly function is ! set")
+// -- Anomal fields support
+export function enable_anomaly(actor: XR_game_object, npc: XR_game_object, p: [string]) {
+  if (p[0] === null) {
+    abort("Story id for enable_anomaly function is ! set");
   }
 
-  const obj = getStoryObject(p[1])
-  if( ! obj ){
-    abort("There is no object with story_id %s for enable_anomaly function", tostring(p[1]))
+  const obj: Optional<XR_game_object> = getStoryObject(p[0]);
+
+  if (!obj) {
+    abort("There is no object with story_id %s for enable_anomaly function", tostring(p[0]));
   }
-  obj.enable_anomaly()
+
+  obj.enable_anomaly();
 }
 
-export function disable_anomaly(actor: XR_game_object, npc: XR_game_object, p: []){
-  if( p[1] === null ){
-    abort("Story id for disable_anomaly function is ! set")
+export function disable_anomaly(actor: XR_game_object, npc: XR_game_object, p: [string]): void {
+  if (p[0] === null) {
+    abort("Story id for disable_anomaly function is ! set");
   }
 
-  const obj = getStoryObject(p[1])
-  if( ! obj ){
-    abort("There is no object with story_id %s for disable_anomaly function", tostring(p[1]))
+  const obj = getStoryObject(p[0]);
+
+  if (!obj) {
+    abort("There is no object with story_id %s for disable_anomaly function", tostring(p[0]));
   }
-  obj.disable_anomaly()
+
+  obj.disable_anomaly();
 }
 
-export function launch_signal_rocket(actor, obj, p){
-  if( p === null ){
-    abort("Signal rocket name is ! set!")
+export function launch_signal_rocket(actor: XR_game_object, obj: XR_game_object, p: [string]): void {
+  if (p === null) {
+    abort("Signal rocket name is ! set!");
   }
-  if( db.signal_light[p[1]] ){
-    db.signal_light[p[1]].launch()
-  }else{
-    abort("No such signal rocket. [%s] on level", tostring(p[1]))
+
+  if (signalLight.get(p[0]) !== null) {
+    signalLight.get(p[0]).launch();
+  } else {
+    abort("No such signal rocket. [%s] on level", tostring(p[0]));
   }
 }
 
-export function add_cs_text(actor: XR_game_object, npc: XR_game_object, p: []){
-  if( p[1] ){
-    const hud = get_hud()
-    const cs_text = hud.GetCustomStatic("text_on_screen_center")
-    if( cs_text ){
-      hud.RemoveCustomStatic("text_on_screen_center")
+export function add_cs_text(actor: XR_game_object, npc: XR_game_object, p: [string]) {
+  if (p[0]) {
+    const hud = get_hud();
+    let cs_text = hud.GetCustomStatic("text_on_screen_center");
+
+    if (cs_text) {
+      hud.RemoveCustomStatic("text_on_screen_center");
     }
-    hud.AddCustomStatic("text_on_screen_center", true)
-    cs_text = hud.GetCustomStatic("text_on_screen_center")
-    cs_text.wnd().TextControl().SetText(game.translate_string(p[1]))
+
+    hud.AddCustomStatic("text_on_screen_center", true);
+    cs_text = hud.GetCustomStatic("text_on_screen_center");
+    cs_text!.wnd().TextControl().SetText(game.translate_string(p[0]));
   }
 }
 
-export function del_cs_text(actor: XR_game_object, npc: XR_game_object, p: []){
-  const hud = get_hud()
-  cs_text = hud.GetCustomStatic("text_on_screen_center")
-  if( cs_text ){
-    hud.RemoveCustomStatic("text_on_screen_center")
+export function del_cs_text(actor: XR_game_object, npc: XR_game_object, p: []) {
+  const hud = get_hud();
+  const cs_text = hud.GetCustomStatic("text_on_screen_center");
+
+  if (cs_text) {
+    hud.RemoveCustomStatic("text_on_screen_center");
   }
 }
 
-export function spawn_item_to_npc(actor: XR_game_object, npc: XR_game_object, p: []){
-  const new_item = p[1]
-  if( p[1] ){
-    alife().create(new_item,
-        npc.position(),
-        npc.level_vertex_id(),
-        npc.game_vertex_id(),
-        npc.id())
+export function spawn_item_to_npc(actor: XR_game_object, npc: XR_game_object, p: [Optional<string>]) {
+  const new_item = p[0];
+
+  if (new_item) {
+    alife().create(new_item, npc.position(), npc.level_vertex_id(), npc.game_vertex_id(), npc.id());
   }
 }
 
-export function give_money_to_npc(actor: XR_game_object, npc: XR_game_object, p: []){
-  const money = p[1]
-  if( p[1] ){
-    npc.give_money(money)
+export function give_money_to_npc(actor: XR_game_object, npc: XR_game_object, p: [Optional<number>]) {
+  const money = p[0];
+
+  if (money) {
+    npc.give_money(money);
   }
 }
 
-export function seize_money_to_npc(actor: XR_game_object, npc: XR_game_object, p: []){
-  const money = p[1]
-  if( p[1] ){
-    npc.give_money(-money)
+export function seize_money_to_npc(actor: XR_game_object, npc: XR_game_object, p: [Optional<number>]) {
+  const money = p[0];
+
+  if (money) {
+    npc.give_money(-money);
   }
 }
 
-//-- �������� �������� �� ������ � ������
-//-- relocate_item(item_name.story_id_from.story_id_to)
-export function relocate_item(actor: XR_game_object, npc: XR_game_object, p: []){
+// -- relocate_item(item_name.story_id_from.story_id_to)
+export function relocate_item(actor: XR_game_object, npc: XR_game_object, params: [string, string, string]) {
   logger.info("Relocate item");
 
-  const item = p && p[1]
-  const from_obj = p && getStoryObject(p[2])
-  const to_obj = p && getStoryObject(p[3])
-  if( to_obj !== null ){
-    if( from_obj !== null && from_obj.object(item) !== null ){
-      from_obj.transfer_item(from_obj.object(item), to_obj)
-    }else{
-      alife().create(item,
-          to_obj.position(),
-          to_obj.level_vertex_id(),
-          to_obj.game_vertex_id(),
-          to_obj.id())
+  const item = params && params[0];
+  const from_obj = params && getStoryObject(params[1]);
+  const to_obj = params && getStoryObject(params[2]);
+
+  if (to_obj !== null) {
+    if (from_obj !== null && from_obj.object(item) !== null) {
+      from_obj.transfer_item(from_obj.object(item)!, to_obj);
+    } else {
+      alife().create(item, to_obj.position(), to_obj.level_vertex_id(), to_obj.game_vertex_id(), to_obj.id());
     }
-}else{
-    abort("Couldn't relocate item to NULL")
+  } else {
+    abort("Couldn't relocate item to NULL");
   }
 }
 
-//-- ������� ������ �������, ���������� ��� ������ set_squads_enemies(squad_name_1.squad_name_2)
-export function set_squads_enemies(actor: XR_game_object, npc: XR_game_object, p: []){
-  if( (p[1] === null || p[2] === null) ){
-    abort("Wrong parameters in function set_squad_enemies")
-    return
+// -- ������� ������ �������, ���������� ��� ������ set_squads_enemies(squad_name_1.squad_name_2)
+export function set_squads_enemies(actor: XR_game_object, npc: XR_game_object, p: [string, string]) {
+  if (p[0] === null || p[1] === null) {
+    abort("Wrong parameters in function set_squad_enemies");
+
+    return;
   }
 
-  const squad_1 = getStorySquad(p[1])
-  const squad_2 = getStorySquad(p[2])
+  const squad_1 = getStorySquad(p[0]);
+  const squad_2 = getStorySquad(p[1]);
 
-  if( squad_1 === null ){
-    assert("There is no squad with id[%s]", tostring(p[1]))
-    return
-  }
-  if( squad_2 === null ){
-    assert("There is no squad with id[%s]", tostring(p[2]))
-    return
+  if (squad_1 === null) {
+    abort("There is no squad with id[%s]", tostring(p[0]));
   }
 
-  for k in squad_1.squad_members() {
-    const npc_obj_1 = storage[k.id] && storage[k.id].object
-    if( npc_obj_1 !== null ){
-      for kk in squad_2.squad_members() {
-        const npc_obj_2 = storage[kk.id] && storage[kk.id].object
-        if( npc_obj_2 !== null ){
-          npc_obj_1.set_relation(game_object.enemy, npc_obj_2)
-          npc_obj_2.set_relation(game_object.enemy, npc_obj_1)
-          printf("set_squads_enemies. %d.set_enemy(%d)", npc_obj_1.id(), npc_obj_2.id())
+  if (squad_2 === null) {
+    abort("There is no squad with id[%s]", tostring(p[1]));
+  }
+
+  for (const k of squad_1.squad_members()) {
+    const npc_obj_1 = storage.get(k.id)?.object as Optional<XR_game_object>;
+
+    if (npc_obj_1 !== null) {
+      for (const kk of squad_2.squad_members()) {
+        const npc_obj_2 = storage.get(kk.id).object as Optional<XR_game_object>;
+
+        if (npc_obj_2 !== null) {
+          npc_obj_1.set_relation(game_object.enemy, npc_obj_2);
+          npc_obj_2.set_relation(game_object.enemy, npc_obj_1);
         }
       }
     }
   }
 }
 
-particles_table = null
+let particles_table: Optional<LuaArray<{ particle: XR_particles_object; sound: XR_sound_object }>> = null;
 
-export function jup_b16_play_particle_and_sound(actor: XR_game_object, npc: XR_game_object, p: []){
-  if( particles_table === null ){
-    particles_table = {
-      [1] = { particle = particles_object("anomaly2\\teleport_out_00"), sound = sound_object("anomaly\\teleport_incoming") },
-      [2] = { particle = particles_object("anomaly2\\teleport_out_00"), sound = sound_object("anomaly\\teleport_incoming") },
-      [3] = { particle = particles_object("anomaly2\\teleport_out_00"), sound = sound_object("anomaly\\teleport_incoming") },
-      [4] = { particle = particles_object("anomaly2\\teleport_out_00"), sound = sound_object("anomaly\\teleport_incoming") },
+export function jup_b16_play_particle_and_sound(actor: XR_game_object, npc: XR_game_object, p: [number]) {
+  if (particles_table === null) {
+    particles_table = [
+      {
+        particle: new particles_object("anomaly2\\teleport_out_00"),
+        sound: new sound_object("anomaly\\teleport_incoming"),
+      },
+      {
+        particle: new particles_object("anomaly2\\teleport_out_00"),
+        sound: new sound_object("anomaly\\teleport_incoming"),
+      },
+      {
+        particle: new particles_object("anomaly2\\teleport_out_00"),
+        sound: new sound_object("anomaly\\teleport_incoming"),
+      },
+      {
+        particle: new particles_object("anomaly2\\teleport_out_00"),
+        sound: new sound_object("anomaly\\teleport_incoming"),
+      },
+    ] as unknown as LuaArray<any>;
+  }
+
+  particles_table.get(p[0]).particle.play_at_pos(new patrol(npc.name() + "_particle").point(0));
+}
+
+export function set_bloodsucker_state(actor: XR_game_object, npc: XR_game_object, p: [string, string]): void {
+  if ((p && p[0]) === null) {
+    abort("Wrong parameters in function 'set_bloodsucker_state'!!!");
+  }
+
+  let state = p[0];
+
+  if (p[1] !== null) {
+    state = p[1];
+    npc = getStoryObject(p[1]) as XR_game_object;
+  }
+
+  if (npc !== null) {
+    if (state === "default") {
+      npc.force_visibility_state(-1);
+    } else {
+      npc.force_visibility_state(tonumber(state)!);
     }
   }
-
-  particles_table[p[1]].particle.play_at_pos(patrol(npc.name() + "_particle").point(0))
-  //--particles_table[p[1]].sound    .play_at_pos(actor, patrol(npc.name().."_particle").point(0), 0, sound_object.s3d)
-}
-//--������� ��������� ��������� ��������� ���������.
-//-- ��������� ����� ���������� //--> story_id.visibility_state(����� �������� ������ ������) ��� visibility_state(���� ���������� �� ���������� ���������)
-//--  visibility_state //-->
-//--						0 - ���������
-//--						1 - �����������
-//--						2 - ��������� �������
-
-export function set_bloodsucker_state(actor: XR_game_object, npc: XR_game_object, p: []){
-  if( (p && p[1]) === null ){
-    abort("Wrong parameters in function 'set_bloodsucker_state'!!!")
-  }
-  const state = p[1]
-  if( p[2] !== null ){
-    state = p[2]
-    npc = getStoryObject(p[1])
-  }
-  if( npc !== null ){
-    if( state === "default" ){
-      npc.force_visibility_state(-1)
-    }else{
-      npc.force_visibility_state(tonumber(state))
-    }
-  }
 }
 
-//--������� ������� �������� � ������������ �����, ������ ��� ����� �57
-export function drop_object_item_on_point(actor: XR_game_object, npc: XR_game_object, p: []){
-  const drop_object = getActor().object(p[1])
-  const drop_point = patrol(p[2]).point(0)
-  getActor().drop_item_and_teleport(drop_object, drop_point)
+export function drop_object_item_on_point(actor: XR_game_object, npc: XR_game_object, p: [number, string]) {
+  const drop_object: XR_game_object = actor.object(p[0]) as XR_game_object;
+  const drop_point: XR_vector = new patrol(p[1]).point(0);
+
+  actor.drop_item_and_teleport(drop_object, drop_point);
 }
 
-//--������� ������� �������� � ������
-export function remove_item(actor: XR_game_object, npc: XR_game_object, p: []){
+// --������� ������� �������� � ������
+export function remove_item(actor: XR_game_object, npc: XR_game_object, p: [string]) {
   logger.info("Remove item");
 
-  if( (p && p[1]) === null ){
-    abort("Wrong parameters in function 'remove_item'!!!")
+  if ((p && p[0]) === null) {
+    abort("Wrong parameters in function 'remove_item'!!!");
   }
-  const item = p[1]
 
-  const obj = getActor().object(item)
-  if( obj !== null ){
-    alife().release(alife().object(obj.id()), true)
-  }else{
-    abort("Actor has no such item!")
+  const item = p[0];
+
+  const obj = actor.object(item);
+
+  if (obj !== null) {
+    alife().release(alife().object(obj.id()), true);
+  } else {
+    abort("Actor has no such item!");
   }
-  NewsManager.relocate_item(getActor(), "out", item)
+
+  relocateItem(actor, "out", item);
 }
 
-//-- �������� ���������� � ������ ������
-export function scenario_autosave(actor: XR_game_object, npc: XR_game_object, p: []){
-  const save_name = p[1]
+// -- �������� ���������� � ������ ������
+export function scenario_autosave(actor: XR_game_object, npc: XR_game_object, p: [string]) {
+  const save_name = p[0];
 
-  if( save_name === null ){
-    abort("You are trying to use scenario_autosave without save name")
+  if (save_name === null) {
+    abort("You are trying to use scenario_autosave without save name");
   }
 
-  if( IsImportantSave() ){
-    const save_param = user_name()..
-    " - "..game.translate_string(save_name)
+  if (IsImportantSave()) {
+    const save_param = user_name() + " - " + game.translate_string(save_name);
+
     logger.info("Performing auto-save, detected as important.", save_name, save_param);
 
-    get_console().execute("save "..save_param)
-  }else{
+    get_console().execute("save " + save_param);
+  } else {
     logger.info("Not important save, skip.", save_name);
   }
 }
 
-export function zat_b29_create_random_infop(actor: XR_game_object, npc: XR_game_object, p: []){
-  if( p[2] === null ){
-    abort("Not enough parameters for zat_b29_create_random_infop!")
+export function zat_b29_create_random_infop(actor: XR_game_object, npc: XR_game_object, p: LuaArray<string>) {
+  if (p.get(2) === null) {
+    abort("Not enough parameters for zat_b29_create_random_infop!");
   }
 
-  const amount_needed = p[1]
-  const current_infop = 0
-  const total_infop = 0
+  let amount_needed: number = p.get(1) as unknown as number;
+  let current_infop: number = 0;
+  let total_infop: number = 0;
 
-  if( (! amount_needed || amount_needed === null) ){
-    amount_needed = 1
+  if (!amount_needed || amount_needed === null) {
+    amount_needed = 1;
   }
 
   for (const [k, v] of p) {
-    if( k > 1 ){
-      total_infop = total_infop + 1
-      disable_info(v)
+    if (k > 1) {
+      total_infop = total_infop + 1;
+      disableInfo(v);
     }
   }
 
-  if( amount_needed > total_infop ){
-    amount_needed = total_infop
+  if (amount_needed > total_infop) {
+    amount_needed = total_infop;
   }
 
-  for (const i of $range(1, amount_needed {
-    current_infop = math.random(1, total_infop)
+  for (const i of $range(1, amount_needed)) {
+    current_infop = math.random(1, total_infop);
     for (const [k, v] of p) {
-      if( k > 1 ){
-        if( (k === current_infop + 1 && (! hasAlifeInfo(v))) ){
-          giveInfo(v)
-          break
+      if (k > 1) {
+        if (k === current_infop + 1 && !hasAlifeInfo(v)) {
+          giveInfo(v);
+          break;
         }
       }
     }
   }
 }
 
-export function give_item_b29(actor: XR_game_object, npc: XR_game_object, p: []){
-  //--	const story_object = p && getStoryObject(p[1])
-  const az_name
-  const az_table = {
+export function give_item_b29(actor: XR_game_object, npc: XR_game_object, p: [string]) {
+  // --	const story_object = p && getStoryObject(p[1])
+  const az_table = [
     "zat_b55_anomal_zone",
     "zat_b54_anomal_zone",
     "zat_b53_anomal_zone",
     "zat_b39_anomal_zone",
     "zaton_b56_anomal_zone",
-  }
+  ];
 
-  for (const i of $range(16, 23 {
-    if( hasAlifeInfo(dialogs_zaton.zat_b29_infop_bring_table[i]) ){
+  for (const i of $range(16, 23)) {
+    if (hasAlifeInfo(get_global("dialogs_zaton").zat_b29_infop_bring_table[i])) {
+      let az_name: Optional<string> = null;
+
       for (const [k, v] of az_table) {
-        if( hasAlifeInfo(v) ){
-          az_name = v
-          disable_info(az_name)
-          break
+        if (hasAlifeInfo(v)) {
+          az_name = v;
+          disableInfo(az_name);
+          break;
         }
       }
-      pick_artefact_from_anomaly(null, null, { p[1], az_name, dialogs_zaton.zat_b29_af_table[i] })
-      break
+
+      pick_artefact_from_anomaly(actor, null, [p[0], az_name, get_global("dialogs_zaton").zat_b29_af_table[i]]);
+      break;
     }
   }
 }
 
-export function relocate_item_b29(actor: XR_game_object, npc: XR_game_object, p: []){
-  const item
-  for (const i of $range(16, 23 {
-    if( hasAlifeInfo(dialogs_zaton.zat_b29_infop_bring_table[i]) ){
-      item = dialogs_zaton.zat_b29_af_table[i]
-      break
+export function relocate_item_b29(actor: XR_game_object, npc: XR_game_object, p: [string, string]) {
+  let item: Optional<string> = null;
+
+  for (const i of $range(16, 23)) {
+    if (hasAlifeInfo(get_global("dialogs_zaton").zat_b29_infop_bring_table[i])) {
+      item = get_global("dialogs_zaton").zat_b29_af_table[i];
+      break;
     }
   }
-  const from_obj = p && getStoryObject(p[1])
-  const to_obj = p && getStoryObject(p[2])
-  if( to_obj !== null ){
-    if( from_obj !== null && from_obj.object(item) !== null ){
-      from_obj.transfer_item(from_obj.object(item), to_obj)
-    }else{
-      alife().create(item,
-          to_obj.position(),
-          to_obj.level_vertex_id(),
-          to_obj.game_vertex_id(),
-          to_obj.id())
+
+  const from_obj = p && getStoryObject(p[0]);
+  const to_obj = p && getStoryObject(p[1]);
+
+  if (to_obj !== null) {
+    if (from_obj !== null && from_obj.object(item!) !== null) {
+      from_obj.transfer_item(from_obj.object(item!)!, to_obj);
+    } else {
+      alife().create(item!, to_obj.position(), to_obj.level_vertex_id(), to_obj.game_vertex_id(), to_obj.id());
     }
-}else{
-    abort("Couldn't relocate item to NULL")
+  } else {
+    abort("Couldn't relocate item to NULL");
   }
 }
 
-//-- ������� ������� ���������� �������� ���� � ������. by peacemaker, hein, redstain
-export function reset_sound_npc(actor: XR_game_object, npc: XR_game_object, p: []){
-  const obj_id = npc.id()
-  if( obj_id && GlobalSound.sound_table && GlobalSound.sound_table[obj_id] ){
-    GlobalSound.sound_table[obj_id].reset(obj_id)
+// -- ������� ������� ���������� �������� ���� � ������. by peacemaker, hein, redstain
+export function reset_sound_npc(actor: XR_game_object, npc: XR_game_object, p: []) {
+  const obj_id = npc.id();
+
+  if (GlobalSound.sound_table.get(obj_id) !== null) {
+    GlobalSound.sound_table.get(obj_id).reset(obj_id);
   }
 }
 
 export function jup_b202_inventory_box_relocate(actor: XR_game_object, npc: XR_game_object): void {
-  const inv_box_out = getStoryObject("jup_b202_actor_treasure")
-  const inv_box_in = getStoryObject("jup_b202_snag_treasure")
-  const items_to_relocate = {}
-  const function relocate(inv_box_out, item)
-    table.insert(items_to_relocate, item)
-  }
-  inv_box_out.iterate_inventory_box(relocate, inv_box_out)
+  const inv_box_out: XR_game_object = getStoryObject("jup_b202_actor_treasure") as XR_game_object;
+  const inv_box_in: XR_game_object = getStoryObject("jup_b202_snag_treasure") as XR_game_object;
+  const items_to_relocate: LuaArray<XR_game_object> = new LuaTable();
+
+  inv_box_out.iterate_inventory_box((inv_box_out: XR_game_object, item: XR_game_object) => {
+    table.insert(items_to_relocate, item);
+  }, inv_box_out);
+
   for (const [k, v] of items_to_relocate) {
-    inv_box_out.transfer_item(v, inv_box_in)
+    inv_box_out.transfer_item(v, inv_box_in);
   }
 }
 
-export function clear_box(actor: XR_game_object, npc: XR_game_object, p: []){
-  logger.info("Clear box")
+export function clear_box(actor: XR_game_object, npc: XR_game_object, p: [string]) {
+  logger.info("Clear box");
 
-  if( (p && p[1]) === null ){
-    abort("Wrong parameters in function 'clear_box'!!!")
+  if ((p && p[0]) === null) {
+    abort("Wrong parameters in function 'clear_box'!!!");
   }
 
-  const inv_box = getStoryObject(p[1])
+  const inv_box = getStoryObject(p[0]);
 
-  if( inv_box === null ){
-    abort("There is no object with story_id [%s]", tostring(p[1]))
+  if (inv_box === null) {
+    abort("There is no object with story_id [%s]", tostring(p[0]));
   }
 
-  const items_table = {}
+  const items_table: LuaArray<XR_game_object> = new LuaTable();
 
-  const function add_items(inv_box, item)
-    table.insert(items_table, item)
-  }
-
-  inv_box.iterate_inventory_box(add_items, inv_box)
+  inv_box.iterate_inventory_box((inv_box, item) => {
+    table.insert(items_table, item);
+  }, inv_box);
 
   for (const [k, v] of items_table) {
-    alife().release(alife().object(v.id()), true)
+    alife().release(alife().object(v.id()), true);
   }
 }
 
-export function activate_weapon(actor: XR_game_object, npc: XR_game_object, p: []){
-  const object = actor.object(p[1])
-  if( object === null ){
-    assert("Actor has no such weapon! [%s]", p[1])
+export function activate_weapon(actor: XR_game_object, npc: XR_game_object, p: [string]) {
+  const object: Optional<XR_game_object> = actor.object(p[0]);
+
+  if (object === null) {
+    assert("Actor has no such weapon! [%s]", p[0]);
   }
-  if( object !== null ){
-    actor.make_item_active(object)
+
+  if (object !== null) {
+    actor.make_item_active(object);
   }
 }
 
-export function set_game_time(actor: XR_game_object, npc: XR_game_object, p: []){
-  logger.info("Set game time")
+export function set_game_time(actor: XR_game_object, npc: XR_game_object, params: [string, string]) {
+  logger.info("Set game time:", params[0], params[1]);
 
-  const real_hours = level.get_time_hours()
-  const real_minutes = level.get_time_minutes()
-  const hours = tonumber(p[1])
-  const minutes = tonumber(p[2])
-  if( p[2] === null ){
-    minutes = 0
+  const real_hours = level.get_time_hours();
+  const real_minutes = level.get_time_minutes();
+
+  const hours: number = tonumber(params[0])!;
+  let minutes: number = tonumber(params[1])!;
+
+  if (params[1] === null) {
+    minutes = 0;
   }
-  const hours_to_change = hours - real_hours
-  if( hours_to_change <= 0 ){
-    hours_to_change = hours_to_change + 24
+
+  let hours_to_change: number = hours - real_hours;
+
+  if (hours_to_change <= 0) {
+    hours_to_change = hours_to_change + 24;
   }
-  const minutes_to_change = minutes - real_minutes
-  if( minutes_to_change <= 0 ) {
-    minutes_to_change = minutes_to_change + 60
-    hours_to_change = hours_to_change - 1
-  }else if( hours === real_hours ){
-    hours_to_change = hours_to_change - 24
+
+  let minutes_to_change = minutes - real_minutes;
+
+  if (minutes_to_change <= 0) {
+    minutes_to_change = minutes_to_change + 60;
+    hours_to_change = hours_to_change - 1;
+  } else if (hours === real_hours) {
+    hours_to_change = hours_to_change - 24;
   }
-  level.change_game_time(0, hours_to_change, minutes_to_change)
-  WeatherManager.get_weather_manager().forced_weather_change()
-  SurgeManager.get_surge_manager().isTimeForwarded = true
-  printf("set_game_time. time changed to [%d][%d]", hours_to_change, minutes_to_change)
+
+  level.change_game_time(0, hours_to_change, minutes_to_change);
+  get_weather_manager().forced_weather_change();
+  get_surge_manager().isTimeForwarded = true;
 }
 
-export function forward_game_time(actor: XR_game_object, npc: XR_game_object, p: []){
-  logger.info("Forward game time")
+export function forward_game_time(actor: XR_game_object, npc: XR_game_object, p: [string, string]) {
+  logger.info("Forward game time");
 
-  if( ! p ){
-    abort("Insufficient || invalid parameters in function 'forward_game_time'!")
+  if (!p) {
+    abort("Insufficient || invalid parameters in function 'forward_game_time'!");
   }
 
-  const hours = tonumber(p[1])
-  const minutes = tonumber(p[2])
+  const hours: number = tonumber(p[0])!;
+  let minutes: number = tonumber(p[1])!;
 
-  if( p[2] === null ){
-    minutes = 0
+  if (p[1] === null) {
+    minutes = 0;
   }
-  level.change_game_time(0, hours, minutes)
-  WeatherManager.get_weather_manager().forced_weather_change()
-  SurgeManager.get_surge_manager().isTimeForwarded = true
-  printf("forward_game_time. time forwarded on [%d][%d]", hours, minutes)
+
+  level.change_game_time(0, hours, minutes);
+  get_weather_manager().forced_weather_change();
+  get_surge_manager().isTimeForwarded = true;
 }
 
-export function stop_tutorial(){
-  printf("stop tutorial called")
-  game.stop_tutorial()
+export function stop_tutorial(): void {
+  logger.info("Stop tutorial");
+  game.stop_tutorial();
 }
 
-export function jup_b10_spawn_drunk_dead_items(actor: XR_game_object, npc: XR_game_object, p: []){
+export function jup_b10_spawn_drunk_dead_items(actor: XR_game_object, npc: XR_game_object, params: [string]): void {
   const items_all = {
-    ["wpn_ak74"] = 1,
-    ["ammo_5.45x39_fmj"] = 5,
-    ["ammo_5.45x39_ap"] = 3,
-    ["wpn_fort"] = 1,
-    ["ammo_9x18_fmj"] = 3,
-    ["ammo_12x70_buck"] = 5,
-    ["ammo_11.43x23_hydro"] = 2,
-    ["grenade_rgd5"] = 3,
-    ["grenade_f1"] = 2,
-    ["medkit_army"] = 2,
-    ["medkit"] = 4,
-    ["bandage"] = 4,
-    ["antirad"] = 2,
-    ["vodka"] = 3,
-    ["energy_drink"] = 2,
-    ["conserva"] = 1,
-    ["jup_b10_ufo_memory_2"] = 1,
-  }
+    [weapons.wpn_ak74]: 1,
+    [weapons.wpn_fort]: 1,
+    [ammo["ammo_5.45x39_fmj"]]: 5,
+    [ammo["ammo_5.45x39_ap"]]: 3,
+    [ammo.ammo_9x18_fmj]: 3,
+    [ammo.ammo_12x70_buck]: 5,
+    [ammo["ammo_11.43x23_hydro"]]: 2,
+    [weapons.grenade_rgd5]: 3,
+    [weapons.grenade_f1]: 2,
+    [drugs.medkit_army]: 2,
+    [drugs.medkit]: 4,
+    [drugs.bandage]: 4,
+    [drugs.antirad]: 2,
+    [food.vodka]: 3,
+    [food.energy_drink]: 2,
+    [food.conserva]: 1,
+    [quest_items.jup_b10_ufo_memory_2]: 1,
+  } as unknown as LuaTable<string, number>;
 
   const items = {
-    [2] = {
-      ["wpn_sig550_luckygun"] = 1,
+    [2]: {
+      [weapons.wpn_sig550_luckygun]: 1,
     },
-    [1] = {
-      ["ammo_5.45x39_fmj"] = 5,
-      ["ammo_5.45x39_ap"] = 3,
-      ["wpn_fort"] = 1,
-      ["ammo_9x18_fmj"] = 3,
-      ["ammo_12x70_buck"] = 5,
-      ["ammo_11.43x23_hydro"] = 2,
-      ["grenade_rgd5"] = 3,
-      ["grenade_f1"] = 2,
+    [1]: {
+      [ammo["ammo_5.45x39_fmj"]]: 5,
+      [ammo["ammo_5.45x39_ap"]]: 3,
+      [weapons.wpn_fort]: 1,
+      [ammo.ammo_9x18_fmj]: 3,
+      [ammo.ammo_12x70_buck]: 5,
+      [ammo["ammo_11.43x23_hydro"]]: 2,
+      [weapons.grenade_rgd5]: 3,
+      [weapons.grenade_f1]: 2,
     },
-    [0] = {
-      ["medkit_army"] = 2,
-      ["medkit"] = 4,
-      ["bandage"] = 4,
-      ["antirad"] = 2,
-      ["vodka"] = 3,
-      ["energy_drink"] = 2,
-      ["conserva"] = 1,
+    [0]: {
+      [drugs.medkit_army]: 2,
+      [drugs.medkit]: 4,
+      [drugs.bandage]: 4,
+      [drugs.antirad]: 2,
+      [food.vodka]: 3,
+      [food.energy_drink]: 2,
+      [food.conserva]: 1,
     },
-  }
+  } as unknown as LuaArray<LuaTable<string, number>>;
 
-  if( p && p[1] !== null ){
-    const cnt = pstor.pstor_retrieve(actor, "jup_b10_ufo_counter", 0)
-    if( cnt > 2 ){
-      return
+  if (params && params[0] !== null) {
+    const cnt = pstor_retrieve(actor, "jup_b10_ufo_counter", 0);
+
+    if (cnt > 2) {
+      return;
     }
-    for (const [k, v] of items[cnt]) {
-      const target_obj_id = getStoryObjectId(p[1])
-      if( target_obj_id !== null ){
-        box = alife().object(target_obj_id)
-        if( box === null ){
-          abort("There is no such object %s", p[1])
+
+    for (const [k, v] of items.get(cnt)) {
+      const target_obj_id = getStoryObjectId(params[0]);
+
+      if (target_obj_id !== null) {
+        const box = alife().object(target_obj_id);
+
+        if (box === null) {
+          abort("There is no such object %s", params[0]);
         }
-        for (const i of $range(1, v {
-          alife().create(k, vector(), 0, 0, target_obj_id)
+
+        for (const i of $range(1, v)) {
+          alife().create(k, new vector(), 0, 0, target_obj_id);
         }
-      }else{
-        abort("object is null %s", tostring(p[1]))
+      } else {
+        abort("object is null %s", tostring(params[0]));
       }
     }
-}else{
+  } else {
     for (const [k, v] of items_all) {
-      for (const i of $range(1, v {
-        alife().create(k,
-            npc.position(),
-            npc.level_vertex_id(),
-            npc.game_vertex_id(),
-            npc.id())
+      for (const i of $range(1, v)) {
+        alife().create(k, npc.position(), npc.level_vertex_id(), npc.game_vertex_id(), npc.id());
       }
     }
   }
-
 }
 
-export function pick_artefact_from_anomaly(actor: XR_game_object, npc: XR_game_object, p: []){
-  logger.info("Pick artefact from anomaly")
+// todo: Rework, looks bad
+export function pick_artefact_from_anomaly(
+  actor: XR_game_object,
+  npc: Optional<XR_game_object | XR_cse_alife_human_abstract>,
+  params: [Optional<string>, Optional<string>, string]
+) {
+  logger.info("Pick artefact from anomaly");
 
-  const npc
-  const az_name = p && p[2]
-  const af_name = p && p[3]
-  const af_id
-  const af_obj
-  const anomal_zone = db.anomaly_by_name[az_name]
+  const az_name: Optional<string> = params && params[1];
+  let af_name: string = params && params[2];
 
-  if( p && p[1] ){
-    //--		if( p[1] === "actor" ){
-    //--			npc = getActor()
-    //--		}else{
-    //--			npc = getStoryObject(p[1])
-    //--		}
+  const anomal_zone = anomalyByName.get(az_name as string);
 
-    const npc_id = getStoryObjectId(p[1])
-    if( npc_id === null ){
-      abort("Couldn't relocate item to NULL in function 'pick_artefact_from_anomaly!'")
+  if (params && params[0]) {
+    const npc_id = getStoryObjectId(params[0]);
+
+    if (npc_id === null) {
+      abort("Couldn't relocate item to NULL in function 'pick_artefact_from_anomaly!'");
     }
-    npc = alife().object(npc_id)
-    if( npc && (! IsStalker(npc) || ! npc.alive()) ){
-      abort("Couldn't relocate item to NULL (dead || ! stalker) in function 'pick_artefact_from_anomaly!'")
+
+    npc = alife().object<XR_cse_alife_human_abstract>(npc_id);
+    if (npc && (!isStalker(npc) || !npc.alive())) {
+      abort("Couldn't relocate item to NULL (dead || ! stalker) in function 'pick_artefact_from_anomaly!'");
     }
   }
 
-  if( anomal_zone === null ){
-    abort("No such anomal zone in function 'pick_artefact_from_anomaly!'")
+  if (anomal_zone === null) {
+    abort("No such anomal zone in function 'pick_artefact_from_anomaly!'");
   }
 
-  if( anomal_zone.spawned_count < 1 ){
-    printf("No artefacts in anomal zone [%s]", az_name)
-    return
+  if (anomal_zone.spawned_count < 1) {
+    return;
   }
+
+  let af_id: Optional<number> = null;
+  let af_obj: Optional<XR_cse_alife_object> = null;
 
   for (const [k, v] of anomal_zone.artefact_ways_by_id) {
-    if( alife().object(tonumber(k)) && af_name === alife().object(tonumber(k)).section_name() ){
-      af_id = tonumber(k)
-      af_obj = alife().object(tonumber(k))
-      break
+    if (alife().object(tonumber(k)!) && af_name === alife().object(tonumber(k)!)!.section_name()) {
+      af_id = tonumber(k)!;
+      af_obj = alife().object(tonumber(k)!);
+      break;
     }
-    if( af_name === null ){
-      af_id = tonumber(k)
-      af_obj = alife().object(tonumber(k))
-      af_name = af_obj.section_name()
-      break
+
+    if (af_name === null) {
+      af_id = tonumber(k)!;
+      af_obj = alife().object(tonumber(k)!);
+      af_name = af_obj!.section_name();
+      break;
     }
   }
 
-  if( af_id === null ){
-    printf("No such artefact [%s] found in anomal zone [%s]", tostring(af_name), az_name)
-    return
+  if (af_id === null) {
+    return;
   }
 
-  anomal_zone.onArtefactTaken(af_obj)
+  anomal_zone.onArtefactTaken(af_obj);
 
-  alife().release(af_obj, true)
-  give_item(getActor(), npc, { af_name, p[1] })
-  //--	alife().create(af_name,
-  //--		npc.position,
-  //--		npc.level_vertex_id,
-  //--		npc.game_vertex_id,
-  //--		npc.id)
+  alife().release(af_obj!, true);
+  give_item(getActor()!, npc, [af_name, params[0]]);
 }
 
-export function zat_b202_spawn_random_loot(actor: XR_game_object, npc: XR_game_object, p: []){
-  const si_table = {}
-  si_table[1] = {
-    [1] = { item = { "bandage", "bandage", "bandage", "bandage", "bandage", "medkit", "medkit", "medkit", "conserva", "conserva" } },
-    [2] = { item = { "medkit", "medkit", "medkit", "medkit", "medkit", "vodka", "vodka", "vodka", "kolbasa", "kolbasa" } },
-    [3] = { item = { "antirad", "antirad", "antirad", "medkit", "medkit", "bandage", "kolbasa", "kolbasa", "conserva" } },
-  }
-  si_table[2] = {
-    [1] = { item = { "grenade_f1", "grenade_f1", "grenade_f1" } },
-    [2] = { item = { "grenade_rgd5", "grenade_rgd5", "grenade_rgd5", "grenade_rgd5", "grenade_rgd5" } }
-  }
-  si_table[3] = {
-    [1] = { item = { "detector_elite" } },
-    [2] = { item = { "detector_advanced" } }
-  }
-  si_table[4] = {
-    [1] = { item = { "helm_hardhat" } },
-    [2] = { item = { "helm_respirator" } }
-  }
-  si_table[5] = {
-    [1] = { item = { "wpn_val", "ammo_9x39_ap", "ammo_9x39_ap", "ammo_9x39_ap" } },
-    [2] = { item = { "wpn_spas12", "ammo_12x70_buck", "ammo_12x70_buck", "ammo_12x70_buck", "ammo_12x70_buck" } },
-    [3] = { item = { "wpn_desert_eagle", "ammo_11.43x23_fmj", "ammo_11.43x23_fmj", "ammo_11.43x23_hydro", "ammo_11.43x23_hydro" } },
-    [4] = { item = { "wpn_abakan", "ammo_5.45x39_ap", "ammo_5.45x39_ap" } },
-    [5] = { item = { "wpn_sig550", "ammo_5.56x45_ap", "ammo_5.56x45_ap" } },
-    [6] = { item = { "wpn_ak74", "ammo_5.45x39_fmj", "ammo_5.45x39_fmj" } },
-    [7] = { item = { "wpn_l85", "ammo_5.56x45_ss190", "ammo_5.56x45_ss190" } }
-  }
-  si_table[6] = {
-    [1] = { item = { "specops_outfit" } },
-    [2] = { item = { "stalker_outfit" } }
-  }
-  weight_table = {}
-  weight_table[1] = 2
-  weight_table[2] = 2
-  weight_table[3] = 2
-  weight_table[4] = 2
-  weight_table[5] = 4
-  weight_table[6] = 4
-  const spawned_item = {}
-  const max_weight = 12
-  repeat
-    const n = 0
-    repeat
-      n = math.random(1, #weight_table)
-      const prap = true
+export function zat_b202_spawn_random_loot(actor: XR_game_object, npc: XR_game_object, p: []) {
+  const si_table = [
+    [
+      {
+        item: [
+          "bandage",
+          "bandage",
+          "bandage",
+          "bandage",
+          "bandage",
+          "medkit",
+          "medkit",
+          "medkit",
+          "conserva",
+          "conserva",
+        ],
+      },
+      { item: ["medkit", "medkit", "medkit", "medkit", "medkit", "vodka", "vodka", "vodka", "kolbasa", "kolbasa"] },
+      { item: ["antirad", "antirad", "antirad", "medkit", "medkit", "bandage", "kolbasa", "kolbasa", "conserva"] },
+    ],
+    [
+      { item: ["grenade_f1", "grenade_f1", "grenade_f1"] },
+      { item: ["grenade_rgd5", "grenade_rgd5", "grenade_rgd5", "grenade_rgd5", "grenade_rgd5"] },
+    ],
+    [{ item: ["detector_elite"] }, { item: ["detector_advanced"] }],
+    [{ item: ["helm_hardhat"] }, { item: ["helm_respirator"] }],
+    [
+      { item: ["wpn_val", "ammo_9x39_ap", "ammo_9x39_ap", "ammo_9x39_ap"] },
+      { item: ["wpn_spas12", "ammo_12x70_buck", "ammo_12x70_buck", "ammo_12x70_buck", "ammo_12x70_buck"] },
+      {
+        item: [
+          "wpn_desert_eagle",
+          "ammo_11.43x23_fmj",
+          "ammo_11.43x23_fmj",
+          "ammo_11.43x23_hydro",
+          "ammo_11.43x23_hydro",
+        ],
+      },
+      { item: ["wpn_abakan", "ammo_5.45x39_ap", "ammo_5.45x39_ap"] },
+      { item: ["wpn_sig550", "ammo_5.56x45_ap", "ammo_5.56x45_ap"] },
+      { item: ["wpn_ak74", "ammo_5.45x39_fmj", "ammo_5.45x39_fmj"] },
+      { item: ["wpn_l85", "ammo_5.56x45_ss190", "ammo_5.56x45_ss190"] },
+    ],
+    [{ item: ["specops_outfit"] }, { item: ["stalker_outfit"] }],
+  ] as unknown as LuaArray<LuaArray<{ item: LuaArray<string> }>>;
+
+  const weight_table = [2, 2, 2, 2, 4, 4] as unknown as LuaArray<number>;
+
+  const spawned_item = new LuaTable();
+  let max_weight = 12;
+
+  // todo: Simplify, seems like too complex...
+  while (max_weight > 0) {
+    let n: number = 0;
+    let prap: boolean = true;
+
+    do {
+      prap = true;
+      n = math.random(1, weight_table.length());
+
       for (const [k, v] of spawned_item) {
-        if( v === n ){
-          prap = false
-          break
+        if (v === n) {
+          prap = false;
+          break;
         }
       }
-    until (prap) && ((max_weight - weight_table[n]) >= 0)
-    max_weight = max_weight - weight_table[n]
-    table.insert(spawned_item, n)
-    const item = math.random(1, #si_table[n])
-    for (const [k, v] of si_table[n][item].item) {
-      spawn_object_in(actor, npc, { tostring(v), "jup_b202_snag_treasure" })
+    } while (!(prap && max_weight - weight_table.get(n) >= 0));
+
+    max_weight = max_weight - weight_table.get(n);
+    table.insert(spawned_item, n);
+
+    const item = math.random(1, si_table.get(n).length());
+
+    for (const [k, v] of si_table.get(n).get(item).item) {
+      spawn_object_in(actor, npc, [tostring(v), "jup_b202_snag_treasure"]);
     }
-  until max_weight <= 0
+  }
 }
 
- //--������� ��������� ������ ���� ��������, ������������ ��� ����� ���������� �����������. ��������� �������� [duty, freedom]
- export function jup_b221_play_main(actor: XR_game_object, npc: XR_game_object, p: []){
-  const info_table = {}
-  const main_theme
-  const reply_theme
-  const info_need_reply
-  const reachable_theme = {}
-  const theme_to_play = 0
+export function jup_b221_play_main(actor: XR_game_object, npc: XR_game_object, p: [string]) {
+  let info_table: LuaArray<string> = new LuaTable();
+  let main_theme: string;
+  let reply_theme: string;
+  let info_need_reply: string;
+  const reachable_theme: LuaTable = new LuaTable();
 
-  if( (p && p[1]) === null ){
-    abort("No such parameters in function 'jup_b221_play_main'")
+  if ((p && p[0]) === null) {
+    abort("No such parameters in function 'jup_b221_play_main'");
   }
-  //--���������� ������� ������������ ������������ ����������� ��� ��� ���� ����, ���������� �������� ����, ������ � �������, �������������� ��� ����� ��� ��� �������.
-  if( tostring(p[1]) === "duty" ) {
-    info_table = {
-      [1] = "jup_b25_freedom_flint_gone",
-      [2] = "jup_b25_flint_blame_done_to_duty",
-      [3] = "jup_b4_monolith_squad_in_duty",
-      [4] = "jup_a6_duty_leader_bunker_guards_work",
-      [5] = "jup_a6_duty_leader_employ_work",
-      [6] = "jup_b207_duty_wins"
-    }
-    main_theme = "jup_b221_duty_main_"
-    reply_theme = "jup_b221_duty_reply_"
-    info_need_reply = "jup_b221_duty_reply"
-  }else if() tostring(p[1]) === "freedom"
-    {
-      info_table = {
-        [1] = "jup_b207_freedom_know_about_depot",
-        [2] = "jup_b46_duty_founder_pda_to_freedom",
-        [3] = "jup_b4_monolith_squad_in_freedom",
-        [4] = "jup_a6_freedom_leader_bunker_guards_work",
-        [5] = "jup_a6_freedom_leader_employ_work",
-        [6] = "jup_b207_freedom_wins"
-      }
-      main_theme = "jup_b221_freedom_main_"
-      reply_theme = "jup_b221_freedom_reply_"
-      info_need_reply = "jup_b221_freedom_reply"
-    }else{
-    abort("Wrong parameters in function 'jup_b221_play_main'")
+
+  if (tostring(p[0]) === "duty") {
+    info_table = [
+      "jup_b25_freedom_flint_gone",
+      "jup_b25_flint_blame_done_to_duty",
+      "jup_b4_monolith_squad_in_duty",
+      "jup_a6_duty_leader_bunker_guards_work",
+      "jup_a6_duty_leader_employ_work",
+      "jup_b207_duty_wins",
+    ] as unknown as LuaArray<string>;
+    main_theme = "jup_b221_duty_main_";
+    reply_theme = "jup_b221_duty_reply_";
+    info_need_reply = "jup_b221_duty_reply";
+  } else if (tostring(p[0]) === "freedom") {
+    info_table = [
+      "jup_b207_freedom_know_about_depot",
+      "jup_b46_duty_founder_pda_to_freedom",
+      "jup_b4_monolith_squad_in_freedom",
+      "jup_a6_freedom_leader_bunker_guards_work",
+      "jup_a6_freedom_leader_employ_work",
+      "jup_b207_freedom_wins",
+    ] as unknown as LuaArray<string>;
+    main_theme = "jup_b221_freedom_main_";
+    reply_theme = "jup_b221_freedom_reply_";
+    info_need_reply = "jup_b221_freedom_reply";
+  } else {
+    abort("Wrong parameters in function 'jup_b221_play_main'");
   }
-  //--���������� ������� ��������� ���(����� ������ ���).
+
   for (const [k, v] of info_table) {
-    if( (hasAlifeInfo(v)) && (! hasAlifeInfo(main_theme + tostring(k) + "_played")) ){
-      table.insert(reachable_theme, k)
-      //--			printf("jup_b221_play_main. table reachable_theme //--//--//--//--//--//--//--//--//--//--//--//--//--//--//--> [%s]", tostring(k))
+    if (hasAlifeInfo(v) && !hasAlifeInfo(main_theme + tostring(k) + "_played")) {
+      table.insert(reachable_theme, k);
     }
   }
-  //--���� ������� ��������� ��� ����� ������ �����. ���� �� ��� �� ����� ������ �������� ����. ���� ������ �������� ���� ������� �������� �������� ��� ���������� ���������� �������. ���� �������� �� �������.
-  if( #reachable_theme !== 0 ){
-    disable_info(info_need_reply)
-    theme_to_play = reachable_theme[math.random(1, #reachable_theme)]
-    //--		printf("jup_b221_play_main. variable theme_to_play //--//--//--//--//--//--//--//--//--//--//--//--//--//--//--> [%s]", tostring(theme_to_play))
-    pstor.pstor_store(actor, "jup_b221_played_main_theme", tostring(theme_to_play))
-    giveInfo(main_theme + tostring(theme_to_play) + "_played")
-    if( theme_to_play !== 0 ){
-      play_sound(actor, npc, {
-        main_theme
-        .
-        . tostring(theme_to_play)
-      })
-    }else{
-      abort("No such theme_to_play in function 'jup_b221_play_main'")
+
+  if (reachable_theme.length() !== 0) {
+    const theme_to_play = reachable_theme.get(math.random(1, reachable_theme.length()));
+
+    disableInfo(info_need_reply);
+    pstor_store(actor, "jup_b221_played_main_theme", tostring(theme_to_play));
+    giveInfo(main_theme + tostring(theme_to_play) + "_played");
+
+    if (theme_to_play !== 0) {
+      play_sound(actor, npc, [main_theme + tostring(theme_to_play), null, null]);
+    } else {
+      abort("No such theme_to_play in function 'jup_b221_play_main'");
     }
-}else{
-    giveInfo(info_need_reply)
-    theme_to_play = tonumber(pstor.pstor_retrieve(actor, "jup_b221_played_main_theme", 0))
-    if( theme_to_play !== 0 ){
-      play_sound(actor, npc, {
-        reply_theme
-        .
-        . tostring(theme_to_play)
-      })
-    }else{
-      abort("No such theme_to_play in function 'jup_b221_play_main'")
+  } else {
+    const theme_to_play = tonumber(pstor_retrieve(actor, "jup_b221_played_main_theme", 0))!;
+
+    giveInfo(info_need_reply);
+
+    if (theme_to_play !== 0) {
+      play_sound(actor, npc, [reply_theme + tostring(theme_to_play), null, null]);
+    } else {
+      abort("No such theme_to_play in function 'jup_b221_play_main'");
     }
-    pstor.pstor_store(actor, "jup_b221_played_main_theme", "0")
+
+    pstor_store(actor, "jup_b221_played_main_theme", "0");
   }
 }
-
-*/
 
 export function anomaly_turn_off(actor: XR_game_object, npc: XR_game_object, p: [string]) {
   const anomal_zone = anomalyByName.get(p[0]);
@@ -2810,7 +2963,7 @@ export function zat_b33_pic_snag_container(actor: XR_game_object, npc: XR_game_o
     give_actor(actor, npc, [quest_items.zat_b33_safe_container]);
     giveInfo("zat_b33_find_package");
     if (!hasAlifeInfo(info_portions.zat_b33_safe_container)) {
-      play_sound(actor, zoneByName.get(zones.zat_b33_tutor), [script_sounds.pda_news]);
+      play_sound(actor, zoneByName.get(zones.zat_b33_tutor), [script_sounds.pda_news, null, null]);
     }
   }
 }
@@ -2974,7 +3127,7 @@ export function pri_a28_check_zones(): void {
     giveInfo(info_tbl.get(index));
   }
 
-  create_squad(getActor(), null, [squad_tbl.get(index), "pri_a28_heli"]);
+  create_squad(actor, null, [squad_tbl.get(index), "pri_a28_heli"]);
 }
 
 export function eat_vodka_script() {

@@ -1,6 +1,6 @@
 /* eslint @typescript-eslint/explicit-function-return-type: "error" */
 
-import { isObjectWounded } from "scripts/utils/checkers";
+import { isObjectWounded, isStalkerAlive } from "scripts/utils/checkers";
 import { alife, game_object, level, XR_game_object } from "xray16";
 
 import { communities } from "@/mod/globals/communities";
@@ -572,19 +572,13 @@ export function monolith_leader_is_alive(first_speaker: XR_game_object, second_s
       hasAlifeInfo(info_portions.jup_b4_monolith_squad_in_duty)
     )
   ) {
-    return get_global<AnyCallablesModule>("xr_conditions").is_alive(null, null, [
-      "jup_b4_monolith_squad_leader_monolith_skin",
-    ]);
+    return isStalkerAlive("jup_b4_monolith_squad_leader_monolith_skin");
   }
 
   if (hasAlifeInfo(info_portions.jup_b4_monolith_squad_in_freedom)) {
-    return get_global<AnyCallablesModule>("xr_conditions").is_alive(null, null, [
-      "jup_b4_monolith_squad_leader_freedom_skin",
-    ]);
+    return isStalkerAlive("jup_b4_monolith_squad_leader_freedom_skin");
   } else if (hasAlifeInfo(info_portions.jup_b4_monolith_squad_in_duty)) {
-    return get_global<AnyCallablesModule>("xr_conditions").is_alive(null, null, [
-      "jup_b4_monolith_squad_leader_duty_skin",
-    ]);
+    return isStalkerAlive("jup_b4_monolith_squad_leader_duty_skin");
   }
 
   return false;

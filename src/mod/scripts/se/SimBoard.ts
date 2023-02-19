@@ -50,7 +50,7 @@ export interface ISimBoard extends XR_EngineBinding {
   register_smart(obj: ISmartTerrain): void;
   init_smart(obj: ISmartTerrain): void;
   unregister_smart(obj: ISmartTerrain): void;
-  create_squad(spawn_smart: ISmartTerrain, sq_id: number): ISimSquad;
+  create_squad(spawn_smart: ISmartTerrain, sq_id: string): ISimSquad;
   remove_squad(squad: ISimSquad): void;
   assign_squad_to_smart(squad: ISimSquad, smart_id: Optional<number>): void;
   exit_smart(squad: ISimSquad, smart_id: Optional<number>): void;
@@ -119,7 +119,7 @@ export const SimBoard: ISimBoard = declare_xr_class("SimBoard", null, {
 
     this.smarts.delete(obj.id);
   },
-  create_squad(spawn_smart: ISmartTerrain, sq_id: number): ISimSquad {
+  create_squad(spawn_smart: ISmartTerrain, sq_id: string): ISimSquad {
     const squad_id = tostring(sq_id);
     const squad = alife().create<ISimSquad>(
       squad_id,

@@ -675,7 +675,7 @@ declare module "xray16" {
     public is_door_blocked_by_npc(): boolean;
     public is_talk_enabled(): boolean;
     public is_weapon_going_to_be_strapped(weapon: XR_game_object | null): boolean;
-    public iterate_inventory_box(cb: () => void, object: XR_game_object): void;
+    public iterate_inventory_box(cb: (box: XR_game_object, item: XR_game_object) => void, object: XR_game_object): void;
     public lookout_max_time(): f32;
     public lookout_max_time(value: f32): void;
     public max_ignore_monster_distance(): f32;
@@ -909,7 +909,7 @@ declare module "xray16" {
     public get_enemy_strength(): i32;
     public get_physics_shell(): XR_physics_shell | null;
     public get_start_dialog(): void;
-    public get_task(task_id: string, value2: boolean): XR_CGameTask;
+    public get_task(task_id: string, value2: boolean): XR_CGameTask | null;
     public get_task_state(value: string): unknown;
     public give_info_portion(value: string): boolean;
     public give_money(value: i32): void;

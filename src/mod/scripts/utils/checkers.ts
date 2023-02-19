@@ -8,6 +8,7 @@ import {
   XR_action_planner,
   XR_alife_simulator,
   XR_cse_abstract,
+  XR_cse_alife_human_abstract,
   XR_cse_alife_human_stalker,
   XR_cse_alife_item_artefact,
   XR_cse_alife_monster_abstract,
@@ -33,7 +34,7 @@ import { getActor, IStoredObject, storage, zoneByName } from "@/mod/scripts/core
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { abort } from "@/mod/scripts/utils/debug";
-import { getClsId, getObjectStoryId } from "@/mod/scripts/utils/ids";
+import { getClsId, getObjectStoryId, getStoryObjectId } from "@/mod/scripts/utils/ids";
 
 /**
  * todo;
@@ -109,6 +110,29 @@ export function isArtefact(
   const id: TXR_cls_id = class_id || getClsId(object);
 
   return artefact_class_ids[id] === true;
+}
+
+/**
+ * Is provided target stalker and alive.
+ */
+export function isStalkerAlive(targetObject: XR_game_object | XR_cse_alife_human_abstract | string): boolean {
+  let targetId: Optional<number> = null;
+
+  if (type(targetObject) === "string") {
+    targetId = getStoryObjectId(targetObject as string);
+  } else if (type((targetObject as XR_cse_alife_human_abstract).id) === "number") {
+    targetId = (targetObject as XR_cse_alife_human_abstract).id;
+  } else {
+    targetId = (targetObject as XR_game_object).id();
+  }
+
+  if (targetId === null) {
+    return false;
+  } else {
+    const object: Optional<XR_cse_alife_human_abstract> = alife().object(targetId);
+
+    return object !== null && isStalker(object) && object.alive();
+  }
 }
 
 /**

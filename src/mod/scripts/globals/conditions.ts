@@ -560,11 +560,7 @@ export function is_alive(actor: XR_game_object, npc: XR_game_object | XR_cse_abs
 
   const object = alife().object(npc1);
 
-  if (object && isStalker(object) && object.alive()) {
-    return true;
-  }
-
-  return false;
+  return object !== null && isStalker(object) && object.alive();
 }
 
 /**

@@ -19,7 +19,9 @@ export enum ERelation {
   ENEMIES = -1000,
 }
 
-const temp_goodwill_table: { communities: Optional<LuaTable<TCommunity, LuaTable>> } = { communities: null };
+export const temp_goodwill_table: { communities: Optional<LuaTable<TCommunity, LuaTable<number, number>>> } = {
+  communities: null,
+};
 
 export function set_factions_community(
   faction: Optional<TCommunity>,

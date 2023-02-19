@@ -118,9 +118,9 @@ export class GlobalSound {
     }
   }
 
-  public static stop_sound_looped(npc_id: number, sound: string): void {
+  public static stop_sound_looped(npc_id: number, sound: Optional<string>): void {
     const looped_item = GlobalSound.looped_sound.get(npc_id);
-    const looped_sound_item = looped_item.get(sound);
+    const looped_sound_item = looped_item.get(sound as string);
 
     if (sound !== null) {
       if (type(looped_sound_item) !== "string") {
