@@ -20,7 +20,7 @@ import { levels, TLevel } from "@/mod/globals/levels";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { AnyCallablesModule, Optional, PartialRecord } from "@/mod/lib/types";
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
-import { anomalyByName, CROW_STORAGE, registry, signalLight, storage, zoneByName } from "@/mod/scripts/core/db";
+import { anomalyByName, registry, signalLight, storage, zoneByName } from "@/mod/scripts/core/db";
 import { SURGE_MANAGER_LTX } from "@/mod/scripts/core/db/IniFiles";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/core/db/SimBoard";
@@ -594,9 +594,8 @@ export class SurgeManager extends AbstractCoreManager {
     h.direction = new vector().set(0, 0, 1);
     h.draftsman = registry.actor;
 
-    for (const [k, v] of CROW_STORAGE.STORAGE) {
-      logger.info("Kill crows");
-
+    logger.info("Kill crows");
+    for (const [k, v] of registry.crows.storage) {
       const obj = alife().object(v);
 
       if (obj) {

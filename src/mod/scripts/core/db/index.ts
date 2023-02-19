@@ -135,11 +135,6 @@ export const anomalyByName: LuaTable<string, IStoredObject> = new LuaTable();
 export const sound_themes: LuaTable<string, AbstractPlayableSound> = new LuaTable();
 export const light_zones: LuaTable<number, SchemeLight> = new LuaTable();
 
-export const CROW_STORAGE = {
-  STORAGE: new LuaTable<number, number>(),
-  COUNT: 0,
-};
-
 export const heliEnemies: LuaTable<number, XR_game_object> = new LuaTable();
 
 export let heliEnemyCount: number = 0;

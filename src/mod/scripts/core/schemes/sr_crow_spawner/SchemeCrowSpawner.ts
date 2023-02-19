@@ -1,7 +1,7 @@
 import { alife, patrol, time_global, XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { CROW_STORAGE, IStoredObject, registry } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
@@ -64,7 +64,7 @@ export class SchemeCrowSpawner extends AbstractScheme {
   public update(delta: number): void {
     // -- check for spawn crows on level
     if (this.time_for_spawn < time_global()) {
-      this.spawned_count = CROW_STORAGE.COUNT;
+      this.spawned_count = registry.crows.count;
       if (this.spawned_count < this.state.max_crows_on_level!) {
         // -- need to spawn
         this.check_for_spawn_new_crow();

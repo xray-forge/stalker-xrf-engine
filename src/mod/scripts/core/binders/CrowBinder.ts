@@ -11,7 +11,7 @@ import {
   XR_reader,
 } from "xray16";
 
-import { addObject, CROW_STORAGE, deleteObject, storage } from "@/mod/scripts/core/db";
+import { addObject, deleteObject, registry, storage } from "@/mod/scripts/core/db";
 import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -69,8 +69,8 @@ export const CrowBinder: ICrowBinder = declare_xr_class("CrowBinder", object_bin
 
     addObject(this.object);
 
-    CROW_STORAGE.STORAGE.set(objectId, objectId);
-    CROW_STORAGE.COUNT = CROW_STORAGE.COUNT + 1;
+    registry.crows.storage.set(objectId, objectId);
+    registry.crows.count += 1;
 
     this.object.set_callback(callback.death, this.death_callback, this);
 
@@ -81,8 +81,8 @@ export const CrowBinder: ICrowBinder = declare_xr_class("CrowBinder", object_bin
 
     this.object.set_callback(callback.death, null);
 
-    CROW_STORAGE.STORAGE.delete(this.object.id());
-    CROW_STORAGE.COUNT = CROW_STORAGE.COUNT - 1;
+    registry.crows.storage.delete(this.object.id());
+    registry.crows.count -= 1;
 
     deleteObject(this.object);
 
@@ -92,8 +92,8 @@ export const CrowBinder: ICrowBinder = declare_xr_class("CrowBinder", object_bin
     logger.info("Crow death registered");
 
     this.bodyDisposalTimer = time_global();
-    CROW_STORAGE.STORAGE.delete(this.object.id());
-    CROW_STORAGE.COUNT = CROW_STORAGE.COUNT - 1;
+    registry.crows.storage.delete(this.object.id());
+    registry.crows.count -= 1;
   },
   net_save_relevant(target: XR_object_binder): boolean {
     return true;
