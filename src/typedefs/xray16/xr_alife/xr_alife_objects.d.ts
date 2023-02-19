@@ -221,6 +221,7 @@ declare module "xray16" {
    * @customConstructor cse_alife_dynamic_object_visual
    */
   export class XR_cse_alife_dynamic_object_visual extends XR_cse_alife_dynamic_object implements IXR_cse_visual {
+    public set_yaw(yaw: number): void
   }
 
   /**

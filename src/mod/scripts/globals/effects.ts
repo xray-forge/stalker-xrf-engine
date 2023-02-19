@@ -1,18 +1,22 @@
 import {
   alife,
   anim,
+  clsid,
   device,
   game,
+  get_console,
   get_hud,
   hit,
   level,
   move,
   particles_object,
   patrol,
+  time_global,
   vector,
+  XR_cse_alife_creature_abstract,
   XR_cse_alife_item_weapon,
-  XR_cse_alife_item_weapon_magazined,
   XR_cse_alife_object,
+  XR_cse_alife_object_physic,
   XR_CUIGameCustom,
   XR_game_object,
   XR_patrol,
@@ -23,31 +27,46 @@ import { animations } from "@/mod/globals/animation/animations";
 import { captions } from "@/mod/globals/captions";
 import { info_portions, TInfoPortion } from "@/mod/globals/info_portions";
 import { artefacts } from "@/mod/globals/items/artefacts";
+import { detectors, TDetector } from "@/mod/globals/items/detectors";
 import { drugs } from "@/mod/globals/items/drugs";
 import { helmets } from "@/mod/globals/items/helmets";
 import { misc } from "@/mod/globals/items/misc";
+import { outfits } from "@/mod/globals/items/outfits";
 import { quest_items } from "@/mod/globals/items/quest_items";
 import { weapons } from "@/mod/globals/items/weapons";
 import { MAX_UNSIGNED_16_BIT, MAX_UNSIGNED_32_BIT } from "@/mod/globals/memory";
 import { script_sounds } from "@/mod/globals/sound/script_sounds";
-import { zones } from "@/mod/globals/zones";
+import { TZone, zones } from "@/mod/globals/zones";
 import { AnyObject, LuaArray, Optional } from "@/mod/lib/types";
 import { update_logic } from "@/mod/scripts/core/binders/StalkerBinder";
-import { getActor, IStoredObject, noWeapZones, storage, zoneByName } from "@/mod/scripts/core/db";
+import {
+  anomalyByName,
+  deleteHeli,
+  getActor,
+  IStoredObject,
+  noWeapZones,
+  scriptIds,
+  storage,
+  zoneByName,
+} from "@/mod/scripts/core/db";
 import { SYSTEM_INI } from "@/mod/scripts/core/db/IniFiles";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
-import { setCurrentHint } from "@/mod/scripts/core/inventory_upgrades";
+import { mech_discount as getMechDiscount, setCurrentHint } from "@/mod/scripts/core/inventory_upgrades";
 import { AbuseManager } from "@/mod/scripts/core/logic/AbuseManager";
 import { send_tip as sendPdaTip, TIcon } from "@/mod/scripts/core/NewsManager";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
+import { IStalker } from "@/mod/scripts/se/Stalker";
+import { FreeplayDialog, showFreeplayDialog } from "@/mod/scripts/ui/game/FreeplayDialog";
 import { mapDisplayManager } from "@/mod/scripts/ui/game/MapDisplayManager";
+import { sleep as startSleeping } from "@/mod/scripts/ui/interaction/SleepDialog";
 import { giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { getStoryObject, getStorySquad } from "@/mod/scripts/utils/alife";
 import { isActorInZoneWithName, isStalker } from "@/mod/scripts/utils/checkers";
 import { setInactiveInputTime } from "@/mod/scripts/utils/controls";
 import { abort } from "@/mod/scripts/utils/debug";
 import { createScenarioAutoSave } from "@/mod/scripts/utils/game_saves";
+import { find_stalker_for_job, switch_to_desired_job as switchToGulagDesiredJob } from "@/mod/scripts/utils/gulag";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -846,370 +865,372 @@ export function clearAbuse(npc: XR_game_object) {
   AbuseManager.clear_abuse(npc);
 }
 
-/**
-
 export function turn_off_underpass_lamps(actor: XR_game_object, npc: XR_game_object): void {
   const lamps_table = {
-    ["pas_b400_lamp_start_flash"] = true,
-    ["pas_b400_lamp_start_red"] = true,
-    ["pas_b400_lamp_elevator_green"] = true,
-    ["pas_b400_lamp_elevator_flash"] = true,
-    ["pas_b400_lamp_elevator_green_1"] = true,
-    ["pas_b400_lamp_elevator_flash_1"] = true,
-    ["pas_b400_lamp_track_green"] = true,
-    ["pas_b400_lamp_track_flash"] = true,
-    ["pas_b400_lamp_downstairs_green"] = true,
-    ["pas_b400_lamp_downstairs_flash"] = true,
-    ["pas_b400_lamp_tunnel_green"] = true,
-    ["pas_b400_lamp_tunnel_flash"] = true,
-    ["pas_b400_lamp_tunnel_green_1"] = true,
-    ["pas_b400_lamp_tunnel_flash_1"] = true,
-    ["pas_b400_lamp_control_down_green"] = true,
-    ["pas_b400_lamp_control_down_flash"] = true,
-    ["pas_b400_lamp_control_up_green"] = true,
-    ["pas_b400_lamp_control_up_flash"] = true,
-    ["pas_b400_lamp_hall_green"] = true,
-    ["pas_b400_lamp_hall_flash"] = true,
-    ["pas_b400_lamp_way_green"] = true,
-    ["pas_b400_lamp_way_flash"] = true,
-  }
-  const obj
-  for (const [k, v] of lamps_table) {
-    obj = getStoryObject(k)
+    ["pas_b400_lamp_start_flash"]: true,
+    ["pas_b400_lamp_start_red"]: true,
+    ["pas_b400_lamp_elevator_green"]: true,
+    ["pas_b400_lamp_elevator_flash"]: true,
+    ["pas_b400_lamp_elevator_green_1"]: true,
+    ["pas_b400_lamp_elevator_flash_1"]: true,
+    ["pas_b400_lamp_track_green"]: true,
+    ["pas_b400_lamp_track_flash"]: true,
+    ["pas_b400_lamp_downstairs_green"]: true,
+    ["pas_b400_lamp_downstairs_flash"]: true,
+    ["pas_b400_lamp_tunnel_green"]: true,
+    ["pas_b400_lamp_tunnel_flash"]: true,
+    ["pas_b400_lamp_tunnel_green_1"]: true,
+    ["pas_b400_lamp_tunnel_flash_1"]: true,
+    ["pas_b400_lamp_control_down_green"]: true,
+    ["pas_b400_lamp_control_down_flash"]: true,
+    ["pas_b400_lamp_control_up_green"]: true,
+    ["pas_b400_lamp_control_up_flash"]: true,
+    ["pas_b400_lamp_hall_green"]: true,
+    ["pas_b400_lamp_hall_flash"]: true,
+    ["pas_b400_lamp_way_green"]: true,
+    ["pas_b400_lamp_way_flash"]: true,
+  } as unknown as LuaTable<string, boolean>;
 
-    if( obj ){
-      obj.get_hanging_lamp().turn_off()
-    }else{
-      printf("function 'turn_off_underpass_lamps' lamp [%s] does ! exist", tostring(k))
-      //--abort("function 'turn_off_underpass_lamps' lamp [%s] does ! exist", tostring(k))
+  for (const [k, v] of lamps_table) {
+    const obj = getStoryObject(k);
+
+    if (obj) {
+      obj.get_hanging_lamp().turn_off();
+    } else {
+      logger.warn("function 'turn_off_underpass_lamps' lamp [%s] does ! exist", tostring(k));
     }
   }
 }
 
-//---���������� ������������ �������� (hanging_lamp)
-export function turn_off(actor: XR_game_object, npc: XR_game_object, p: []){
-  const obj
+export function turn_off(actor: XR_game_object, npc: XR_game_object, p: LuaArray<string>): void {
   for (const [k, v] of p) {
-    obj = getStoryObject(v)
+    const obj = getStoryObject(v);
 
-    if( ! obj ){
-      abort("TURN_OFF. Target object with story_id [%s] does ! exist", v)
-      return
+    if (!obj) {
+      abort("TURN_OFF. Target object with story_id [%s] does ! exist", v);
     }
-    obj.get_hanging_lamp().turn_off()
-    //--printf("TURN_OFF. Target object with story_id [%s] turned off.", v)
+
+    obj.get_hanging_lamp().turn_off();
   }
 }
 
 export function turn_off_object(actor: XR_game_object, npc: XR_game_object): void {
-  npc.get_hanging_lamp().turn_off()
+  npc.get_hanging_lamp().turn_off();
 }
 
-//---��������� ������������ �������� (hanging_lamp)
-export function turn_on(actor: XR_game_object, npc: XR_game_object, p: []){
-  const obj
-  for (const [k, v] of p) {
-    obj = getStoryObject(v)
+export function turn_on_and_force(actor: XR_game_object, npc: XR_game_object, params: [string, number, number]) {
+  const obj = getStoryObject(params[0]);
 
-    if( ! obj ){
-      abort("TURN_ON [%s]. Target object does ! exist", npc.name())
-      return
-    }
-    obj.get_hanging_lamp().turn_on()
+  if (!obj) {
+    abort("TURN_ON_AND_FORCE. Target object does ! exist");
+
+    return;
   }
+
+  if (params[1] === null) {
+    params[1] = 55;
+  }
+
+  if (params[2] === null) {
+    params[2] = 14000;
+  }
+
+  obj.set_const_force(new vector().set(0, 1, 0), params[1], params[2]);
+  obj.start_particles("weapons\\light_signal", "link");
+  obj.get_hanging_lamp().turn_on();
 }
 
-//---��������� � ������ ������������ �������� (hanging_lamp)
-export function turn_on_and_force(actor: XR_game_object, npc: XR_game_object, p: []){
-  const obj = getStoryObject(p[1])
-  if( ! obj ){
-    abort("TURN_ON_AND_FORCE. Target object does ! exist")
-    return
-  }
-  if( p[2] === null ){
-    p[2] = 55
-  }
-  if( p[3] === null ){
-    p[3] = 14000
-  }
-  obj.set_const_force(vector().set(0, 1, 0), p[2], p[3])
-  obj.start_particles("weapons\\light_signal", "link")
-  obj.get_hanging_lamp().turn_on()
-}
+// ---���������� ������������ �������� � ��������� (hanging_lamp)
+export function turn_off_and_force(actor: XR_game_object, npc: XR_game_object, p: [string]) {
+  const obj = getStoryObject(p[0]);
 
-//---���������� ������������ �������� � ��������� (hanging_lamp)
-export function turn_off_and_force(actor: XR_game_object, npc: XR_game_object, p: []){
-  const obj = getStoryObject(p[1])
-  if( ! obj ){
-    abort("TURN_OFF [%s]. Target object does ! exist", npc.name())
-    return
+  if (!obj) {
+    abort("TURN_OFF [%s]. Target object does ! exist", npc.name());
   }
-  obj.stop_particles("weapons\\light_signal", "link")
-  obj.get_hanging_lamp().turn_off()
+
+  obj.stop_particles("weapons\\light_signal", "link");
+  obj.get_hanging_lamp().turn_off();
 }
 
 export function turn_on_object(actor: XR_game_object, npc: XR_game_object): void {
-  npc.get_hanging_lamp().turn_on()
+  npc.get_hanging_lamp().turn_on();
 }
 
-export function turn_off_object(actor: XR_game_object, npc: XR_game_object): void {
-  npc.get_hanging_lamp().turn_off()
+// ---��������� ������������ �������� (hanging_lamp)
+export function turn_on(actor: XR_game_object, npc: XR_game_object, p: LuaArray<string>) {
+  for (const [k, v] of p) {
+    const obj = getStoryObject(v);
+
+    if (!obj) {
+      abort("TURN_ON [%s]. Target object does ! exist", npc.name());
+    }
+
+    obj.get_hanging_lamp().turn_on();
+  }
 }
 
-//-- ����� ���� ������� �������� ���������� [combat] ��� ��� ���������.
-//-- ������������ � �������, ����� ��� ����������� ��������, ����� ��� ������������ �� ������ ������,
-//-- ��� ���������, � �������� ��������� �� �� ����� ��� ������ (� ������� ������ [combat] ����������� �� ������
-//-- �������, ����� �������� � ���, ����, �������, �� ��������� ������� ���� �������).
 export function disable_combat_handler(actor: XR_game_object, npc: XR_game_object): void {
-  if( storage.get(npc.id()).combat ){
-    storage.get(npc.id()).combat.enabled = false
+  if (storage.get(npc.id()).combat) {
+    storage.get(npc.id()).combat.enabled = false;
   }
 
-  if( storage.get(npc.id()).mob_combat ){
-    storage.get(npc.id()).mob_combat.enabled = false
+  if (storage.get(npc.id()).mob_combat) {
+    storage.get(npc.id()).mob_combat.enabled = false;
   }
 }
 
-//-- ����� ���� ������� �������� ���������� [combat_ignore] ��������� ��� ��� ���������.
+// -- ����� ���� ������� �������� ���������� [combat_ignore] ��������� ��� ��� ���������.
 export function disable_combat_ignore_handler(actor: XR_game_object, npc: XR_game_object): void {
-  if( storage.get(npc.id()).combat_ignore ){
-    storage.get(npc.id()).combat_ignore.enabled = false
+  if (storage.get(npc.id()).combat_ignore) {
+    storage.get(npc.id()).combat_ignore!.enabled = false;
   }
 }
 
 export function heli_start_flame(actor: XR_game_object, npc: XR_game_object): void {
-  npc.get_helicopter().StartFlame()
+  npc.get_helicopter().StartFlame();
 }
 
 export function heli_die(actor: XR_game_object, npc: XR_game_object): void {
-  const heli = npc.get_helicopter()
-  const st   = storage.get(npc.id())
+  const heli = npc.get_helicopter();
+  const st = storage.get(npc.id());
 
-  heli.Die()
-  db.del_heli(npc)
+  heli.Die();
+  deleteHeli(npc);
 
-  st.last_alt       = heli.GetRealAltitude()
-  st.alt_check_time = time_global() + 1000
+  st.last_alt = heli.GetRealAltitude();
+  st.alt_check_time = time_global() + 1000;
 }
 
-//--'//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//---
-//--' ������� ��� ������ � ��������� ���������
-//--'//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//---
+export function set_weather(actor: XR_game_object, npc: XR_game_object, p: [string, string]) {
+  logger.info("Set weather:", p[0]);
 
-//-- �������������� ��������� �������� �������
-//-- =set_weather(<������ ������>.true) - ��������� ������ �����, false - ����� ��������� �����
-//-- ����� �������������� �� ������ ���� ��� ������� � � ����� jup_b15 - ���� ����� ������ � �������
-export function set_weather(actor: XR_game_object, npc: XR_game_object, p: []){
-  logger.info("Set weather")
-
-  if( (p[1]) ){
-    if( (p[2] === "true") ){
-      level.set_weather(p[1], true)
-    }else{
-      level.set_weather(p[1], false)
+  if (p[0]) {
+    if (p[1] === "true") {
+      level.set_weather(p[0], true);
+    } else {
+      level.set_weather(p[0], false);
     }
   }
 }
 
 export function game_disconnect(actor: XR_game_object, npc: XR_game_object): void {
-  logger.info("Game disconnect")
-  const c = get_console()
-  c.execute("disconnect")
-  //--	c.execute_deferred("main_menu off")
-  //--	c.execute_deferred("hide")
+  logger.info("Game disconnect");
+  get_console().execute("disconnect");
 }
 
-export function game_credits(actor: XR_game_object, npc: XR_game_object): void {
-  logger.info("Game credits")
+let gameover_credits_started: boolean = false;
 
-  db.gameover_credits_started = true
-  game.start_tutorial("credits_seq")
+export function game_credits(actor: XR_game_object, npc: XR_game_object): void {
+  logger.info("Game credits");
+
+  gameover_credits_started = true;
+  game.start_tutorial("credits_seq");
 }
 
 export function game_over(actor: XR_game_object, npc: XR_game_object): void {
-  logger.info("Game over")
+  logger.info("Game over");
 
-  if( db.gameover_credits_started !== true ){
-    return
+  if (gameover_credits_started !== true) {
+    return;
   }
-  const c = get_console()
-  printf("main_menu on console command is executed")
-  c.execute("main_menu on")
+
+  get_console().execute("main_menu on");
 }
 
 export function after_credits(actor: XR_game_object, npc: XR_game_object): void {
-  get_console().execute("main_menu on")
+  get_console().execute("main_menu on");
 }
 
 export function before_credits(actor: XR_game_object, npc: XR_game_object): void {
-  get_console().execute("main_menu off")
+  get_console().execute("main_menu off");
 }
 
-export function on_tutor_gameover_stop(){
-  const c = get_console()
-  printf("main_menu on console command is executed")
-  c.execute("main_menu on")
+export function on_tutor_gameover_stop() {
+  get_console().execute("main_menu on");
 }
 
-export function on_tutor_gameover_quickload(){
-  const c = get_console()
-  c.execute("load_last_save")
+export function on_tutor_gameover_quickload() {
+  get_console().execute("load_last_save");
 }
 
-//-- ��� ����� ������
-export function get_stalker_for_new_job(actor: XR_game_object, npc: XR_game_object, p: []){
-  gulagUtils.find_stalker_for_job(npc, p[1])
-}
-export function switch_to_desired_job(actor: XR_game_object, npc: XR_game_object, p: []){
-  gulagUtils.switch_to_desired_job(npc)
+// -- ��� ����� ������
+export function get_stalker_for_new_job(actor: XR_game_object, npc: XR_game_object, p: [string]) {
+  find_stalker_for_job(npc, p[0]);
 }
 
-//--'//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//---
-//--' ������� ��� ������ � ����������
-//--'//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//---
-export function spawn_object(actor, obj, p){
-  logger.info("Spawn object")
-  //--' p[1] - ������ ���� ��������
-  //--' p[2] - ��� ����������� ���� ��� ��� �����.
-  const spawn_sect = p[1]
-  if( spawn_sect === null ){
-    abort("Wrong spawn section for 'spawn_object' function %s. For object %s", tostring(spawn_sect), obj.name())
+export function switch_to_desired_job(actor: XR_game_object, npc: XR_game_object, p: []) {
+  switchToGulagDesiredJob(npc);
+}
+
+export function spawn_object(
+  actor: XR_game_object,
+  obj: XR_game_object,
+  params: [string, string, number, number]
+): void {
+  logger.info("Spawn object");
+
+  const spawn_sect = params[0];
+
+  if (spawn_sect === null) {
+    abort("Wrong spawn section for 'spawn_object' function %s. For object %s", tostring(spawn_sect), obj.name());
   }
 
-  const path_name = p[2]
-  if( path_name === null ){
-    abort("Wrong path_name for 'spawn_object' function %s. For object %s", tostring(path_name), obj.name())
+  const path_name = params[1];
+
+  if (path_name === null) {
+    abort("Wrong path_name for 'spawn_object' function %s. For object %s", tostring(path_name), obj.name());
   }
 
-  if( ! level.patrol_path_exists(path_name) ){
-    abort("Path %s doesnt exist. Function 'spawn_object' for object %s ", tostring(path_name), obj.name())
+  if (!level.patrol_path_exists(path_name)) {
+    abort("Path %s doesnt exist. Function 'spawn_object' for object %s ", tostring(path_name), obj.name());
   }
-  const ptr = patrol(path_name)
-  const index = p[3] || 0
-  const yaw = p[4] || 0
 
-  //--' printf("Spawning %s at %s, %s", tostring(p[1]), tostring(p[2]), tostring(p[3]))
-  const se_obj = alife().create(spawn_sect,
-      ptr.point(index),
-      ptr.level_vertex_id(0),
-      ptr.game_vertex_id(0))
-  if( IsStalker(null, se_obj.clsid()) ) {
-    se_obj.o_torso().yaw = yaw * math.pi / 180
-  }else if( se_obj.clsid() === clsid.script_phys ){
-    se_obj.set_yaw(yaw * math.pi / 180)
-  }
-}
+  const ptr = new patrol(path_name);
+  const index = params[2] || 0;
+  const yaw = params[3] || 0;
 
-const jup_b219_position
-const jup_b219_lvid
-const jup_b219_gvid
+  // --' printf("Spawning %s at %s, %s", tostring(p[1]), tostring(p[2]), tostring(p[3]))
+  const se_obj = alife().create<XR_cse_alife_object_physic>(
+    spawn_sect,
+    ptr.point(index),
+    ptr.level_vertex_id(0),
+    ptr.game_vertex_id(0)
+  );
 
-export function jup_b219_save_pos(){
-  const obj = getStoryObject("jup_b219_gate_id")
-  if( obj && obj.position() ){
-    jup_b219_position = obj.position()
-    jup_b219_lvid = obj.level_vertex_id()
-    jup_b219_gvid = obj.game_vertex_id()
-  }else{
-    return
-  }
-  sobj = alife().object(obj.id())
-  if( sobj ){
-    alife().release(sobj, true)
+  if (isStalker(se_obj, se_obj.clsid())) {
+    se_obj.o_torso().yaw = (yaw * math.pi) / 180;
+  } else if (se_obj.clsid() === clsid.script_phys) {
+    se_obj.set_yaw((yaw * math.pi) / 180);
   }
 }
 
-export function jup_b219_restore_gate(){
-  const yaw = 0
-  const spawn_sect = "jup_b219_gate"
-  if( jup_b219_position ){
-    const se_obj = alife().create(spawn_sect,
-        vector().set(jup_b219_position),
-        jup_b219_lvid,
-        jup_b219_gvid)
-    se_obj.set_yaw(yaw * math.pi / 180)
+let jup_b219_position: Optional<XR_vector> = null;
+let jup_b219_lvid: Optional<number> = null;
+let jup_b219_gvid: Optional<number> = null;
+
+export function jup_b219_save_pos() {
+  const obj = getStoryObject("jup_b219_gate_id");
+
+  if (obj && obj.position()) {
+    jup_b219_position = obj.position();
+    jup_b219_lvid = obj.level_vertex_id();
+    jup_b219_gvid = obj.game_vertex_id();
+  } else {
+    return;
+  }
+
+  const sobj = alife().object(obj.id());
+
+  if (sobj) {
+    alife().release(sobj, true);
   }
 }
 
-export function spawn_corpse(actor, obj, p){
-  logger.info("Spawn corpse")
+export function jup_b219_restore_gate() {
+  const yaw = 0;
+  const spawn_sect = "jup_b219_gate";
 
-  //--' p[1] - ������ ���� ��������
-  //--' p[2] - ��� ����������� ���� ��� ��������.
-  const spawn_sect = p[1]
-  if( spawn_sect === null ){
-    abort("Wrong spawn section for 'spawn_corpse' function %s. For object %s", tostring(spawn_sect), obj.name())
+  if (jup_b219_position) {
+    const se_obj = alife().create<XR_cse_alife_object_physic>(
+      spawn_sect,
+      new vector().set(jup_b219_position),
+      jup_b219_lvid!,
+      jup_b219_gvid!
+    );
+
+    se_obj.set_yaw((yaw * math.pi) / 180);
   }
-
-  const path_name = p[2]
-  if( path_name === null ){
-    abort("Wrong path_name for 'spawn_corpse' function %s. For object %s", tostring(path_name), obj.name())
-  }
-
-  if( ! level.patrol_path_exists(path_name) ){
-    abort("Path %s doesnt exist. Function 'spawn_corpse' for object %s ", tostring(path_name), obj.name())
-  }
-  const ptr = patrol(path_name)
-  const index = p[3] || 0
-
-  const se_obj = alife().create(spawn_sect,
-      ptr.point(index),
-      ptr.level_vertex_id(0),
-      ptr.game_vertex_id(0))
-  se_obj.kill()
 }
 
-export function spawn_object_in(actor, obj, p){
-  //--' p[1] - ������ ���� ��������
-  //--' p[2] - ����� ���� ������� � ������� ��������
-  const spawn_sect = p[1]
-  if( spawn_sect === null ){
-    abort("Wrong spawn section for 'spawn_object' function %s. For object %s", tostring(spawn_sect), obj.name())
-  }
-  if( p[2] === null ){
-    abort("Wrong target_name for 'spawn_object_in' function %s. For object %s", tostring(target_name), obj.name())
-  }
-  //--	const box = alife().object(target_name)
-  //--	if((box==null) ){
+export function spawn_corpse(actor: XR_game_object, obj: XR_game_object, params: [string, string, number]): void {
+  logger.info("Spawn corpse:", params[0]);
 
-  printf("trying to find object %s", tostring(p[2]))
+  const spawn_sect = params[0];
 
-  const target_obj_id = getStoryObjectId(p[2])
-  if( target_obj_id !== null ){
-    box = alife().object(target_obj_id)
-    if( box === null ){
-      abort("There is no such object %s", p[2])
+  if (spawn_sect === null) {
+    abort("Wrong spawn section for 'spawn_corpse' function %s. For object %s", tostring(spawn_sect), obj.name());
+  }
+
+  const path_name = params[1];
+
+  if (path_name === null) {
+    abort("Wrong path_name for 'spawn_corpse' function %s. For object %s", tostring(path_name), obj.name());
+  }
+
+  if (!level.patrol_path_exists(path_name)) {
+    abort("Path %s doesnt exist. Function 'spawn_corpse' for object %s ", tostring(path_name), obj.name());
+  }
+
+  const ptr: XR_patrol = new patrol(path_name);
+  const index = params[2] || 0;
+
+  const se_obj: XR_cse_alife_creature_abstract = alife().create(
+    spawn_sect,
+    ptr.point(index),
+    ptr.level_vertex_id(0),
+    ptr.game_vertex_id(0)
+  );
+
+  se_obj.kill();
+}
+
+export function spawn_object_in(actor: XR_game_object, obj: XR_game_object, p: [string, string]): void {
+  const spawn_sect = p[0];
+
+  if (spawn_sect === null) {
+    abort("Wrong spawn section for 'spawn_object' function %s. For object %s", tostring(spawn_sect), obj.name());
+  }
+
+  if (p[1] === null) {
+    abort("Wrong target_name for 'spawn_object_in' function %s. For object %s", tostring(p[1]), obj.name());
+  }
+
+  const target_obj_id = getStoryObjectId(p[1]);
+
+  if (target_obj_id !== null) {
+    const box = alife().object(target_obj_id);
+
+    if (box === null) {
+      abort("There is no such object %s", p[1]);
     }
-    alife().create(spawn_sect, vector(), 0, 0, target_obj_id)
-  }else{
-    abort("object is null %s", tostring(p[2]))
+
+    alife().create(spawn_sect, new vector(), 0, 0, target_obj_id);
+  } else {
+    abort("object is null %s", tostring(p[1]));
   }
 }
 
-export function spawn_npc_in_zone(actor, obj, p){
-  //--' p[1] - ������ ���� ��������
-  //--' p[2] - ��� ���� � ������� ��������.
-  const spawn_sect = p[1]
-  if( spawn_sect === null ){
-    abort("Wrong spawn section for 'spawn_object' function %s. For object %s", tostring(spawn_sect), obj.name())
+export function spawn_npc_in_zone(actor: XR_game_object, obj: XR_game_object, params: [string, string]): void {
+  const spawn_sect = params[0];
+
+  if (spawn_sect === null) {
+    abort("Wrong spawn section for 'spawn_object' function %s. For object %s", tostring(spawn_sect), obj.name());
   }
-  const zone_name = p[2]
-  if( zone_name === null ){
-    abort("Wrong zone_name for 'spawn_object' function %s. For object %s", tostring(zone_name), obj.name())
+
+  const zone_name = params[1];
+
+  if (zone_name === null) {
+    abort("Wrong zone_name for 'spawn_object' function %s. For object %s", tostring(zone_name), obj.name());
   }
-  if( db.zone_by_name[zone_name] === null ){
-    abort("Zone %s doesnt exist. Function 'spawn_object' for object %s ", tostring(zone_name), obj.name())
+
+  if (zoneByName.get(zone_name) === null) {
+    abort("Zone %s doesnt exist. Function 'spawn_object' for object %s ", tostring(zone_name), obj.name());
   }
-  const zone = db.zone_by_name[zone_name]
-  //--	printf("spawn_npc_in_zone. spawning %s at zone %s, squad %s", tostring(p[1]), tostring(p[2]), tostring(p[3]))
-  const spawned_obj = alife().create(spawn_sect,
-      zone.position(),
-      zone.level_vertex_id(),
-      zone.game_vertex_id())
-  spawned_obj.sim_forced_online = true
-  spawned_obj.squad = 1 || p[3]
-  db.script_ids[spawned_obj.id] = zone_name
+
+  const zone = zoneByName.get(zone_name);
+  const spawned_obj: IStalker = alife().create(
+    spawn_sect,
+    zone.position(),
+    zone.level_vertex_id(),
+    zone.game_vertex_id()
+  );
+
+  spawned_obj.sim_forced_online = true;
+  spawned_obj.squad = 1;
+  scriptIds.set(spawned_obj.id, zone_name);
 }
+
+/**
 
 export function destroy_object(actor, obj, p){
   const sobj
@@ -2261,26 +2282,6 @@ export function pick_artefact_from_anomaly(actor: XR_game_object, npc: XR_game_o
   //--		npc.id)
 }
 
-export function anomaly_turn_off (actor: XR_game_object, npc: XR_game_object, p: []){
-  const anomal_zone = db.anomaly_by_name[p[1]]
-  if( anomal_zone === null ){
-    abort("No such anomal zone in function 'anomaly_turn_off!'")
-  }
-  anomal_zone.turn_off()
-}
-
-export function anomaly_turn_on (actor: XR_game_object, npc: XR_game_object, p: []){
-  const anomal_zone = db.anomaly_by_name[p[1]]
-  if( anomal_zone === null ){
-    abort("No such anomal zone in function 'anomaly_turn_on!'")
-  }
-  if( p[2] ){
-    anomal_zone.turn_on(true)
-  }else{
-    anomal_zone.turn_on(false)
-  }
-}
-
 export function zat_b202_spawn_random_loot(actor: XR_game_object, npc: XR_game_object, p: []){
   const si_table = {}
   si_table[1] = {
@@ -2343,33 +2344,8 @@ export function zat_b202_spawn_random_loot(actor: XR_game_object, npc: XR_game_o
   until max_weight <= 0
 }
 
-export function zat_a1_tutorial_end_give(actor: XR_game_object, npc: XR_game_object): void {
-  //--	level.add_pp_effector("black.ppe", 1313, true) //---{ ! stop on r1 !
-  giveInfo("zat_a1_tutorial_end")
-}
-
-export function oasis_heal(){
-  const d_health = 0.005
-  const d_power = 0.01
-  const d_bleeding = 0.05
-  const d_radiation = -0.05
-  if( (getActor().health < 1) ){
-    getActor().health = d_health
-  }
-  if( (getActor().power < 1) ){
-    getActor().power = d_power
-  }
-  if( (getActor().radiation > 0) ){
-    getActor().radiation = d_radiation
-  }
-  if( (getActor().bleeding > 0) ){
-    getActor().bleeding = d_bleeding
-  }
-  getActor().satiety = 0.01
-}
-
-//--������� ��������� ������ ���� ��������, ������������ ��� ����� ���������� �����������. ��������� �������� [duty, freedom]
-export function jup_b221_play_main(actor: XR_game_object, npc: XR_game_object, p: []){
+ //--������� ��������� ������ ���� ��������, ������������ ��� ����� ���������� �����������. ��������� �������� [duty, freedom]
+ export function jup_b221_play_main(actor: XR_game_object, npc: XR_game_object, p: []){
   const info_table = {}
   const main_theme
   const reply_theme
@@ -2448,146 +2424,191 @@ export function jup_b221_play_main(actor: XR_game_object, npc: XR_game_object, p
   }
 }
 
-export function pas_b400_play_particle(actor: XR_game_object, npc: XR_game_object, p: []){
-  getActor().start_particles("zones\\zone_acidic_idle", "bip01_head")
+*/
+
+export function anomaly_turn_off(actor: XR_game_object, npc: XR_game_object, p: [string]) {
+  const anomal_zone = anomalyByName.get(p[0]);
+
+  if (anomal_zone === null) {
+    abort("No such anomal zone in function 'anomaly_turn_off!'");
+  }
+
+  anomal_zone.turn_off();
 }
 
-export function pas_b400_stop_particle(actor: XR_game_object, npc: XR_game_object, p: []){
-  getActor().stop_particles("zones\\zone_acidic_idle", "bip01_head")
+export function anomaly_turn_on(actor: XR_game_object, npc: XR_game_object, p: [string, Optional<string>]) {
+  const anomal_zone = anomalyByName.get(p[0]);
+
+  if (anomal_zone === null) {
+    abort("No such anomal zone in function 'anomaly_turn_on!'");
+  }
+
+  if (p[1]) {
+    anomal_zone.turn_on(true);
+  } else {
+    anomal_zone.turn_on(false);
+  }
 }
 
+export function zat_a1_tutorial_end_give(actor: XR_game_object, npc: XR_game_object): void {
+  // --	level.add_pp_effector("black.ppe", 1313, true) //---{ ! stop on r1 !
+  giveInfo(info_portions.zat_a1_tutorial_end);
+}
+
+// todo: Fix if used, should increment values probably with +=.
+export function oasis_heal(): void {
+  const actor: XR_game_object = getActor() as XR_game_object;
+
+  const d_health = 0.005;
+  const d_power = 0.01;
+  const d_bleeding = 0.05;
+  const d_radiation = -0.05;
+
+  // todo: Maybe increment?
+  if (actor.health < 1) {
+    actor.health = d_health;
+  }
+
+  if (actor.power < 1) {
+    actor.power = d_power;
+  }
+
+  if (actor.radiation > 0) {
+    actor.radiation = d_radiation;
+  }
+
+  if (actor.bleeding > 0) {
+    actor.bleeding = d_bleeding;
+  }
+
+  actor.satiety = 0.01;
+}
+
+// todo: To be more generic, pick items from slots and add randomization.
 export function damage_actor_items_on_start(actor: XR_game_object, npc: XR_game_object): void {
-  logger.info("Damage actor items on start")
+  logger.info("Damage actor items on start");
 
-  const actor = getActor()
-
-  const obj = actor.object("helm_respirator")
-  if( obj !== null ){
-    obj.set_condition(0.8)
-  }
-
-  obj = actor.object("stalker_outfit")
-  if( obj !== null ){
-    obj.set_condition(0.76)
-  }
-
-  obj = actor.object("wpn_pm_actor")
-  if( obj !== null ){
-    obj.set_condition(0.9)
-  }
-
-  obj = actor.object("wpn_ak74u")
-  if( obj !== null ){
-    obj.set_condition(0.7)
-  }
-
+  actor.object(helmets.helm_respirator)?.set_condition(0.8);
+  actor.object(outfits.stalker_outfit)?.set_condition(0.76);
+  actor.object(weapons.wpn_pm_actor)?.set_condition(0.9);
+  actor.object(weapons.wpn_ak74u)?.set_condition(0.7);
 }
 
-export function damage_pri_a17_gauss(){
-  const obj = getStoryObject("pri_a17_gauss_rifle")
-  //--const obj = npc.object("pri_a17_gauss_rifle")
-  if( obj !== null ){
-    obj.set_condition(0.0)
+export function pas_b400_play_particle(actor: XR_game_object, npc: XR_game_object, p: []) {
+  getActor()!.start_particles("zones\\zone_acidic_idle", "bip01_head");
+}
+
+export function pas_b400_stop_particle(actor: XR_game_object, npc: XR_game_object, p: []) {
+  getActor()!.stop_particles("zones\\zone_acidic_idle", "bip01_head");
+}
+
+export function damage_pri_a17_gauss() {
+  const obj = getStoryObject(quest_items.pri_a17_gauss_rifle);
+
+  // --const obj = npc.object("pri_a17_gauss_rifle")
+  if (obj !== null) {
+    obj.set_condition(0.0);
   }
 }
 
-export function pri_a17_hard_animation_reset(actor: XR_game_object, npc: XR_game_object, p: []){
-  //--storage.get(npc.id()).state_mgr.set_state("pri_a17_fall_down", null, null, null, {fast_set = true})
-  storage.get(npc.id()).state_mgr.set_state("pri_a17_fall_down")
+export function pri_a17_hard_animation_reset(actor: XR_game_object, npc: XR_game_object, p: []) {
+  // --storage.get(npc.id()).state_mgr.set_state("pri_a17_fall_down", null, null, null, {fast_set = true})
 
-  const stateManager = storage.get(npc.id()).state_mgr
-  if( stateManager !== null ){
-    stateManager.animation.set_state(null, true)
-    stateManager.animation.set_state("pri_a17_fall_down")
-    stateManager.animation.set_control()
-  }
+  const stateManager = storage.get(npc.id()).state_mgr!;
+
+  stateManager.set_state("pri_a17_fall_down", null, null, null, null);
+  stateManager.animation.set_state(null, true);
+  stateManager.animation.set_state("pri_a17_fall_down", null);
+  stateManager.animation.set_control();
 }
 
-export function jup_b217_hard_animation_reset(actor: XR_game_object, npc: XR_game_object, p: []){
-  storage.get(npc.id()).state_mgr.set_state("jup_b217_nitro_straight")
+export function jup_b217_hard_animation_reset(actor: XR_game_object, npc: XR_game_object): void {
+  const stateManager = storage.get(npc.id()).state_mgr!;
 
-  const stateManager = storage.get(npc.id()).state_mgr
-  if( stateManager !== null ){
-    stateManager.animation.set_state(null, true)
-    stateManager.animation.set_state("jup_b217_nitro_straight")
-    stateManager.animation.set_control()
-  }
+  stateManager.set_state("jup_b217_nitro_straight", null, null, null, null);
+  stateManager.animation.set_state(null, true);
+  stateManager.animation.set_state("jup_b217_nitro_straight", null);
+  stateManager.animation.set_control();
 }
 
 export function sleep(actor: XR_game_object, npc: XR_game_object): void {
-  logger.info("Sleep")
+  logger.info("Sleep effect");
 
-  const sleep_zones = {
-    "zat_a2_sr_sleep",
-    "jup_a6_sr_sleep",
-    "pri_a16_sr_sleep",
-    "actor_surge_hide_2"
-  }
+  const sleep_zones = [
+    zones.zat_a2_sr_sleep,
+    zones.jup_a6_sr_sleep,
+    zones.pri_a16_sr_sleep,
+    zones.actor_surge_hide_2,
+  ] as unknown as LuaArray<TZone>;
 
   for (const [k, v] of sleep_zones) {
-    if( checkers.isNpcInZone(getActor(), db.zone_by_name[v]) ){
-      SleepDialogger.sleep()
-      giveInfo("sleep_active")
+    if (isActorInZoneWithName(v, actor)) {
+      startSleeping();
+      giveInfo(info_portions.sleep_active);
     }
   }
-
 }
 
-export function mech_discount(actor: XR_game_object, npc: XR_game_object, p: []){
-  if( (p[1]) ){
-    InventoryUpgrades.mech_discount(tonumber(p[1]))
+export function mech_discount(actor: XR_game_object, npc: XR_game_object, p: [string]) {
+  if (p[0]) {
+    getMechDiscount(tonumber(p[0])!);
   }
 }
 
-export function polter_actor_ignore(actor: XR_game_object, npc: XR_game_object, p: []){
-  if( p[1] && p[1] === "true" ) {
-    npc.poltergeist_set_actor_ignore(true)
-  }else if( p[1] && p[1] === "false" ){
-    npc.poltergeist_set_actor_ignore(false)
+export function polter_actor_ignore(actor: XR_game_object, npc: XR_game_object, p: [string]) {
+  if (p[0] === "true") {
+    npc.poltergeist_set_actor_ignore(true);
+  } else if (p[0] === "false") {
+    npc.poltergeist_set_actor_ignore(false);
   }
 }
 
 export function burer_force_gravi_attack(actor: XR_game_object, npc: XR_game_object): void {
-  npc.burer_set_force_gravi_attack(true)
+  npc.burer_set_force_gravi_attack(true);
 }
 
 export function burer_force_anti_aim(actor: XR_game_object, npc: XR_game_object): void {
-  npc.set_force_anti_aim(true)
+  npc.set_force_anti_aim(true);
 }
 
-export function show_freeplay_dialog(actor: XR_game_object, npc: XR_game_object, p: []){
-  if( p[1] && p[2] && p[2] === "true" ) {
-    FreeplayDialogger.show("message_box_yes_no", p[1])
-  }else if( p[1] ){
-    FreeplayDialogger.show("message_box_ok", p[1])
+export function show_freeplay_dialog(actor: XR_game_object, npc: XR_game_object, p: [string, Optional<"true">]) {
+  if (p[0] && p[1] && p[1] === "true") {
+    showFreeplayDialog("message_box_yes_no", p[0]);
+  } else if (p[0]) {
+    showFreeplayDialog("message_box_ok", p[0]);
   }
 }
+const detectorsOrder = [
+  detectors.detector_simple,
+  detectors.detector_advanced,
+  detectors.detector_elite,
+  detectors.detector_scientific,
+] as unknown as LuaArray<TDetector>;
 
-const detectors = { "detector_simple", "detector_advanced", "detector_elite", "detector_scientific" }
+// -- ������ ��� state_mgr
+export function get_best_detector(npc: XR_game_object): void {
+  for (const [k, v] of detectorsOrder) {
+    const obj = npc.object(v);
 
-//-- ������ ��� state_mgr
-export function get_best_detector(npc){
-  for (const [k, v] of detectors) {
-    const obj = npc.object(v)
-    if( obj !== null ){
-      obj.enable_attachable_item(true)
-      return
+    if (obj !== null) {
+      obj.enable_attachable_item(true);
+
+      return;
     }
   }
 }
 
-export function hide_best_detector(npc){
-  for (const [k, v] of detectors) {
-    const obj = npc.object(v)
-    if( obj !== null ){
-      obj.enable_attachable_item(false)
-      return
+export function hide_best_detector(npc: XR_game_object): void {
+  for (const [k, v] of detectorsOrder) {
+    const item = npc.object(v);
+
+    if (item !== null) {
+      item.enable_attachable_item(false);
+
+      return;
     }
   }
 }
-
-*/
-
 export function pri_a18_radio_start(actor: XR_game_object, npc: XR_game_object): void {
   giveInfo(info_portions.pri_a18_radio_start);
 }

@@ -33,7 +33,7 @@ const logger: LuaLogger = new LuaLogger("db", false);
 export const schemes: LuaTable<string, typeof AbstractSchemeImplementation> = new LuaTable();
 
 export const infoRestr: LuaTable<number, string | XR_game_object> = new LuaTable();
-export const scriptIds: LuaTable<number> = new LuaTable();
+export const scriptIds: LuaTable<number, string> = new LuaTable();
 export const campStorage: LuaTable = new LuaTable();
 export const noWeapZones: LuaTable<string, boolean> = new LuaTable();
 export const spawnedVertexById: LuaTable<number, number> = new LuaTable();
