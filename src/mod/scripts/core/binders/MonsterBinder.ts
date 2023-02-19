@@ -224,7 +224,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     const on_offline_condlist = st !== null && st.overrides && st.overrides.on_offline_condlist;
 
     if (on_offline_condlist !== null) {
-      pickSectionFromCondList(getActor(), this.object, on_offline_condlist as any);
+      pickSectionFromCondList(getActor() as XR_game_object, this.object, on_offline_condlist as any);
     }
 
     if (!this.object.alive()) {

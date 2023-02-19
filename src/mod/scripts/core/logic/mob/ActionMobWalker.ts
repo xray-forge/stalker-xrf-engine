@@ -241,7 +241,7 @@ export class ActionMobWalker extends AbstractSchemeImplementation {
         const patrol_walk_count = this.patrol_walk!.count();
 
         if (patrol_walk_count === 1 && isStalkerAtWaypoint(this.object, this.patrol_walk!, 0)) {
-          this.pt_wait_time = get_global("time_infinite");
+          this.pt_wait_time = 100_000_000;
         } else {
           this.pt_wait_time = default_wait_time;
         }

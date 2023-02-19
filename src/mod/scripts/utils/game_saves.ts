@@ -3,15 +3,20 @@ import {
   CSavedGameWrapper,
   FS,
   game,
+  get_console,
   getFS,
+  IsImportantSave,
   TXR_net_processor,
+  user_name,
   XR_CSavedGameWrapper,
   XR_FS,
   XR_FS_file_list_ex,
+  XR_game_object,
   XR_net_packet,
 } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
+import { Optional } from "@/mod/lib/types";
 import { SAVE_MARKERS } from "@/mod/scripts/core/db";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -247,5 +252,22 @@ export function setMarker(packet: XR_net_packet, mode: "save" | "load", check: b
   } else {
     // log.info("Set save marker result:", result, p.r_tell(), mode);
     SAVE_MARKERS.set(result, packet.r_tell());
+  }
+}
+
+/**
+ * Save game on some scenario moments automatically.
+ * @param saveName - name of the file / record to save, will be translated.
+ */
+export function createScenarioAutoSave(saveName: Optional<string>): void {
+  if (saveName === null) {
+    abort("You are trying to use scenario_autosave without save name.");
+  }
+
+  if (IsImportantSave()) {
+    logger.info("Performing auto-save, detected as important:", saveName);
+    get_console().execute("save " + user_name() + " - " + game.translate_string(saveName));
+  } else {
+    logger.info("Not important save, skip.", saveName);
   }
 }

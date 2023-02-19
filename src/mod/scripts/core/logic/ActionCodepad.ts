@@ -73,14 +73,14 @@ export class ActionCodepad extends AbstractSchemeImplementation {
     if (this.state.code) {
       if (tonumber(text) === this.state.code) {
         if (this.state.on_code) {
-          pickSectionFromCondList(getActor(), this.object, this.state.on_code.condlist);
+          pickSectionFromCondList(getActor() as XR_game_object, this.object, this.state.on_code.condlist);
         }
       }
     } else {
       const condlist = this.state.on_check_code[text];
 
       if (condlist) {
-        pickSectionFromCondList(getActor(), this.object, condlist);
+        pickSectionFromCondList(getActor() as XR_game_object, this.object, condlist);
       }
     }
   }

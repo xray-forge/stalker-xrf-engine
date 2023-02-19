@@ -110,9 +110,9 @@ declare module "xray16" {
   export class XR_cse_abstract extends XR_EngineBinding implements IXR_cpure_server_object {
     public readonly id: u16;
     public readonly parent_id: u16;
-    public readonly position: XR_vector;
     public readonly script_version: u16;
 
+    public position: XR_vector;
     public angle: XR_vector;
 
     public static __init(this: void, target: XR_cse_abstract, section: string): void;
@@ -257,7 +257,7 @@ declare module "xray16" {
     public g_group(): u8;
     public g_squad(): u8;
 
-    public o_torso(cse_alife_creature_abstract: XR_cse_alife_creature_abstract): XR_rotation;
+    public o_torso(): XR_rotation;
 
     public static smart_terrain_id(this: void, target: XR_cse_alife_monster_abstract): number;
     public smart_terrain_id(): number;

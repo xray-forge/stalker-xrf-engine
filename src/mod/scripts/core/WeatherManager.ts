@@ -1,4 +1,4 @@
-import { ini_file, level, XR_ini_file, XR_net_packet, XR_reader } from "xray16";
+import { ini_file, level, XR_game_object, XR_ini_file, XR_net_packet, XR_reader } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { getActor } from "@/mod/scripts/core/db";
@@ -92,7 +92,7 @@ export class WeatherManager {
   }
 
   public select_weather(now: boolean): void {
-    const weather = pickSectionFromCondList(getActor(), getActor(), this.weather_list)!;
+    const weather = pickSectionFromCondList(getActor() as XR_game_object, getActor(), this.weather_list)!;
     const graph = this.get_graph_by_name(weather);
     let weather_section_name = "";
 

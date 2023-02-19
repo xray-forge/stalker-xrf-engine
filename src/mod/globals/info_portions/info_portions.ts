@@ -49,6 +49,7 @@ export const info_portions = {
   mutant_hunter_achievement_gained: "mutant_hunter_achievement_gained",
   one_of_the_lads_gained: "one_of_the_lads_gained",
   pas_b400_sokolov_dead: "pas_b400_sokolov_dead",
+  pas_b400_switcher_use: "pas_b400_switcher_use",
   pioneer_achievement_gained: "pioneer_achievement_gained",
   research_man_gained: "research_man_gained",
   sim_bandit_attack_harder: "sim_bandit_attack_harder",

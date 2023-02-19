@@ -28,7 +28,11 @@ export function precondition_functor_a(param1: unknown, section: string): 0 | 1 
         return 1;
       } else if (param !== "true") {
         const possibility_table = parseCondList(victim, mechanic_name + "_upgr", section, param);
-        const possibility: Optional<TSection> = pickSectionFromCondList(getActor(), victim, possibility_table);
+        const possibility: Optional<TSection> = pickSectionFromCondList(
+          getActor() as XR_game_object,
+          victim,
+          possibility_table
+        );
 
         if (!possibility || possibility === "false") {
           return 2;
@@ -94,7 +98,7 @@ export function get_possibility_string(mechanic_name: string, possibility_table:
 }
 
 export function prereq_functor_a(param3: unknown, section: string): string {
-  const actor: Optional<XR_game_object> = getActor();
+  const actor: XR_game_object = getActor() as XR_game_object;
   let str: string = "";
 
   if (param_ini.line_exist(mechanic_name + "_upgr", section)) {
@@ -291,7 +295,7 @@ export function setup_discounts(): void {
     const condlist = param_ini.r_string(mechanic_name, "discount_condlist");
     const parsed = parseCondList(getActor(), null, null, condlist);
 
-    pickSectionFromCondList(getActor(), null, parsed);
+    pickSectionFromCondList(getActor() as XR_game_object, null, parsed);
   }
 }
 

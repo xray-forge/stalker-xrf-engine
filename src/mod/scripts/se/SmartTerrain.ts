@@ -303,7 +303,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     const max_population: string = getConfigString(ini, SMART_TERRAIN_SECT, "max_population", this, false, "", "0");
     const parsed_condlist = parseCondList(null, SMART_TERRAIN_SECT, "max_population", max_population);
 
-    this.max_population = tonumber(pickSectionFromCondList(getStoryObject("actor"), null, parsed_condlist))!;
+    this.max_population = tonumber(pickSectionFromCondList(getActor() as XR_game_object, null, parsed_condlist))!;
 
     const respawn_params = getConfigString(ini, SMART_TERRAIN_SECT, "respawn_params", this, false, "", null);
 
@@ -976,7 +976,7 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
             "] = " +
             v.num +
             "(" +
-            pickSectionFromCondList(getActor(), null, this.respawn_params.get(k).num as any) +
+            pickSectionFromCondList(getActor() as XR_game_object, null, this.respawn_params.get(k).num as any) +
             ")\\n";
         }
 
@@ -1007,7 +1007,10 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
 
     let spot = "neutral";
 
-    if (this.sim_avail === null || pickSectionFromCondList(getActor(), this, this.sim_avail as any) === "true") {
+    if (
+      this.sim_avail === null ||
+      pickSectionFromCondList(getActor() as XR_game_object, this, this.sim_avail as any) === "true"
+    ) {
       spot = "friend";
     } else {
       spot = "enemy";
@@ -1236,7 +1239,10 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     const available_sects: LuaTable<number> = new LuaTable();
 
     for (const [k, v] of this.respawn_params) {
-      if (tonumber(pickSectionFromCondList(getActor(), null, v.num as any))! > this.already_spawned.get(k).num) {
+      if (
+        tonumber(pickSectionFromCondList(getActor() as XR_game_object, null, v.num as any))! >
+        this.already_spawned.get(k).num
+      ) {
         table.insert(available_sects, k);
       }
     }
@@ -1265,7 +1271,10 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     if (this.last_respawn_update === null || curr_time.diffSec(this.last_respawn_update) > RESPAWN_IDLE) {
       this.last_respawn_update = curr_time;
 
-      if (this.sim_avail !== null && pickSectionFromCondList(getActor(), this, this.sim_avail as any) !== "true") {
+      if (
+        this.sim_avail !== null &&
+        pickSectionFromCondList(getActor() as XR_game_object, this, this.sim_avail as any) !== "true"
+      ) {
         return;
       }
 

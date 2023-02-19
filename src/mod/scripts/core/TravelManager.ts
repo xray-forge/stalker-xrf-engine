@@ -385,7 +385,7 @@ export class TravelManager {
       abort("Error in travel manager. Smart [%s] doesnt exist.", tostring(smart_name));
     }
 
-    if (pickSectionFromCondList(getActor(), smart, smart_table.condlist) !== "true") {
+    if (pickSectionFromCondList(getActor() as XR_game_object, smart, smart_table.condlist) !== "true") {
       return false;
     }
 

@@ -1,4 +1,12 @@
-import { game, TXR_net_processor, XR_CTime, XR_EngineBinding, XR_ini_file, XR_net_packet } from "xray16";
+import {
+  game,
+  TXR_net_processor,
+  XR_CTime,
+  XR_EngineBinding,
+  XR_game_object,
+  XR_ini_file,
+  XR_net_packet,
+} from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { getActor, zoneByName } from "@/mod/scripts/core/db";
@@ -70,7 +78,7 @@ export const SmartTerrainControl: ISmartTerrainControl = declare_xr_class("Smart
         return;
       }
 
-      const sound = pickSectionFromCondList(getActor(), this.smart, this.alarm_stop_sound as any);
+      const sound = pickSectionFromCondList(getActor() as XR_game_object, this.smart, this.alarm_stop_sound as any);
 
       if (sound !== null) {
         GlobalSound.set_sound_play(getActor()!.id(), sound, null, null);
@@ -114,7 +122,7 @@ export const SmartTerrainControl: ISmartTerrainControl = declare_xr_class("Smart
     logger.info("Actor attacked smart:", this.smart.name());
 
     if (this.status !== ESmartTerrainStatus.ALARM) {
-      const sound = pickSectionFromCondList(getActor(), this.smart, this.alarm_start_sound as any);
+      const sound = pickSectionFromCondList(getActor() as XR_game_object, this.smart, this.alarm_start_sound as any);
 
       if (sound !== null) {
         GlobalSound.set_sound_play(getActor()!.id(), sound, null, null);

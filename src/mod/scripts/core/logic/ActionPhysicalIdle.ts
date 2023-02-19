@@ -73,7 +73,7 @@ export class ActionPhysicalIdle extends AbstractSchemeImplementation {
 
     if (this.state.hit_on_bone[bone_index] !== null) {
       const section: TSection = pickSectionFromCondList(
-        getActor(),
+        getActor() as XR_game_object,
         this.object,
         this.state.hit_on_bone[bone_index].state
       )!;
@@ -90,7 +90,7 @@ export class ActionPhysicalIdle extends AbstractSchemeImplementation {
         switchToSection(
           this.object,
           this.state.ini!,
-          pickSectionFromCondList(getActor(), this.object, this.state.on_use.condlist)!
+          pickSectionFromCondList(getActor() as XR_game_object, this.object, this.state.on_use.condlist)!
         )
       ) {
         return true;

@@ -90,6 +90,7 @@ export const jupiter_info_portions = {
   /**
    * Jupiter a9.
    */
+  jup_a9_cam1_actor_anim_end: "jup_a9_cam1_actor_anim_end",
   jup_a9_cam_1_end: "jup_a9_cam_1_end",
   jup_a9_cam_2_end: "jup_a9_cam_2_end",
   jup_a9_cam_3_end: "jup_a9_cam_3_end",
@@ -108,11 +109,13 @@ export const jupiter_info_portions = {
    * Jupiter b10.
    */
   jup_b10_ufo_memory_2_sold: "jup_b10_ufo_memory_2_sold",
+  jup_b10_ufo_memory_started: "jup_b10_ufo_memory_started",
   /**
    * Jupiter b15.
    */
   jup_b15_zulus_b301_after_fight_done: "jup_b15_zulus_b301_after_fight_done",
   jup_b15_zulus_b301_reward_dialog_done: "jup_b15_zulus_b301_reward_dialog_done",
+  jup_b15_zulus_drink_anim_info: "jup_b15_zulus_drink_anim_info",
 
   jup_b16_oasis_artefact_to_scientist: "jup_b16_oasis_artefact_to_scientist",
   /**
@@ -162,6 +165,7 @@ export const jupiter_info_portions = {
    * Jupiter b206.
    */
   jup_b206_anomalous_grove_done: "jup_b206_anomalous_grove_done",
+  jup_b206_anomalous_grove_has_plant: "jup_b206_anomalous_grove_has_plant",
   jup_b206_anomalous_grove_has_plant_done: "jup_b206_anomalous_grove_has_plant_done",
   jup_b206_anomalous_grove_started: "jup_b206_anomalous_grove_started",
   jup_b206_nuclear_physicist_get_outfit_done: "jup_b206_nuclear_physicist_get_outfit_done",
@@ -239,6 +243,11 @@ export const jupiter_info_portions = {
   jup_b218_monolith_hired: "jup_b218_monolith_hired",
   jup_b218_soldier_hired: "jup_b218_soldier_hired",
   jup_b218_soldier_need_outfit: "jup_b218_soldier_need_outfit",
+  /**
+   * Jupiter b218 - underpass travel.
+   */
+  jup_b219_entering_underpass: "jup_b219_entering_underpass",
+  jup_b219_opening: "jup_b219_opening",
   /**
    * Jupiter b220 - mutant hunt quests.
    */
@@ -344,9 +353,17 @@ export const jupiter_info_portions = {
   jup_b6_stalker_gonta_squad: "jup_b6_stalker_gonta_squad",
   jup_b6_task_done: "jup_b6_task_done",
   jup_b6_task_fail: "jup_b6_task_fail",
+  /**
+   * Jupiter b8 - heli crash in factory.
+   */
   jup_b8_heli_4_searched: "jup_b8_heli_4_searched",
+  jup_b8_heli_4_searching: "jup_b8_heli_4_searching",
+  /**
+   * Jupiter b9 - heli minefield crash.
+   */
   jup_b9_blackbox_decrypted: "jup_b9_blackbox_decrypted",
   jup_b9_heli_1_searched: "jup_b9_heli_1_searched",
+  jup_b9_heli_1_searching: "jup_b9_heli_1_searching",
   /**
    * Jupiter pri zulus death.
    */

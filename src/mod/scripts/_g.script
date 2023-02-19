@@ -7,9 +7,15 @@ package.path = package.path .. string.format("%sgamedata\\?.script;", getFS():up
 
 --- --------------------------------------------------------------------------------------------------------------------
 
-require("scripts.globals.lua_globals")
-require("scripts.globals.declaration")
+-- todo: Remove
+mus_vol = 0
+amb_vol = 0
 
+--- --------------------------------------------------------------------------------------------------------------------
+
+require("scripts.globals.lua_globals")
 require("scripts.globals._extern")
+
+--- --------------------------------------------------------------------------------------------------------------------
 
 require("scripts.core.managers.ProfilingManager").ProfilingManager:getInstance():initialize();

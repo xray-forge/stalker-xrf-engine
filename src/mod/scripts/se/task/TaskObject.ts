@@ -247,7 +247,7 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
     t.add_complete_func("_extern.task_complete");
     t.add_fail_func("_extern.task_fail");
 
-    pickSectionFromCondList(getActor(), getActor(), this.on_init as any);
+    pickSectionFromCondList(getActor() as XR_game_object, getActor(), this.on_init as any);
 
     if (this.current_target !== null) {
       t.set_map_location(this.spot);
@@ -336,7 +336,7 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
     }
 
     for (const [k, v] of this.condlist) {
-      const t = pickSectionFromCondList(getActor(), getActor(), v as any);
+      const t = pickSectionFromCondList(getActor() as XR_game_object, getActor(), v as any);
 
       if (t !== null) {
         if (!valid_values.get(t)) {
@@ -352,10 +352,10 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
   give_reward(): void {
     logger.info("Give quest rewards:", this.id, this.t?.get_id());
 
-    pickSectionFromCondList(getActor(), getActor(), this.on_complete as any);
+    pickSectionFromCondList(getActor() as XR_game_object, getActor(), this.on_complete as any);
 
-    const money = pickSectionFromCondList(getActor(), getActor(), this.reward_money as any);
-    const items = pickSectionFromCondList(getActor(), getActor(), this.reward_item as any);
+    const money = pickSectionFromCondList(getActor() as XR_game_object, getActor(), this.reward_money as any);
+    const items = pickSectionFromCondList(getActor() as XR_game_object, getActor(), this.reward_item as any);
     const npc = getInventoryVictim();
 
     if (money !== null) {
@@ -388,7 +388,7 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
     if (this.last_check_task === "fail") {
       send_task(getActor(), "fail", task);
     } else if (this.last_check_task === "reversed") {
-      pickSectionFromCondList(getActor(), getActor(), this.on_reversed as any);
+      pickSectionFromCondList(getActor() as XR_game_object, getActor(), this.on_reversed as any);
       send_task(getActor(), "reversed", task);
     }
 

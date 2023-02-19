@@ -15,7 +15,6 @@ local log = create_ts_class_instance(LuaLogger, "global");
 _G.declare_xr_class = function(name, base, implementation)
   if (_G[name]) then
     log:warn("Skip declaring class name that is already used in globals: " .. name)
-    abort("Re-declaring global luabind class")
   else
     log:info("Declare [C++] class:", name, type(base))
   end

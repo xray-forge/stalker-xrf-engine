@@ -410,7 +410,10 @@ export class HeliCombat {
   }
 
   public combat_ignore_check(): boolean {
-    return this.combat_ignore !== null && pickSectionFromCondList(getActor(), this.object, this.combat_ignore) !== null;
+    return (
+      this.combat_ignore !== null &&
+      pickSectionFromCondList(getActor() as XR_game_object, this.object, this.combat_ignore) !== null
+    );
   }
 
   public fastcall(): boolean {

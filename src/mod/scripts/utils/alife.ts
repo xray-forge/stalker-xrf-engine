@@ -341,7 +341,7 @@ export function can_select_weapon(npc: XR_game_object, scheme: string, st: IStor
   }
 
   const cond = parseCondList(npc, section, "can_select_weapon", str);
-  const can: TSection = pickSectionFromCondList(getActor(), npc, cond)!;
+  const can: TSection = pickSectionFromCondList(getActor() as XR_game_object, npc, cond)!;
 
   npc.can_select_weapon(can === "true");
 }
@@ -367,7 +367,7 @@ export function isInvulnerabilityNeeded(object: XR_game_object): boolean {
 
   const invulnerability_condlist = parseCondList(object, "invulnerability", "invulnerability", invulnerability);
 
-  return pickSectionFromCondList(getActor(), object, invulnerability_condlist) === "true";
+  return pickSectionFromCondList(getActor() as XR_game_object, object, invulnerability_condlist) === "true";
 }
 
 /**

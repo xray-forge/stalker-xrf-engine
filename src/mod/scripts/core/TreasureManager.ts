@@ -6,6 +6,7 @@ import {
   XR_alife_simulator,
   XR_cse_alife_object,
   XR_EngineBinding,
+  XR_game_object,
   XR_ini_file,
   XR_net_packet,
   XR_reader,
@@ -202,7 +203,7 @@ export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManag
     for (const [k, v] of this.secrets) {
       if (v.given) {
         if (v.empty) {
-          const sect = pickSectionFromCondList(getActor(), null, v.empty as any);
+          const sect = pickSectionFromCondList(getActor() as XR_game_object, null, v.empty as any);
 
           if (sect === "true" && !v.checked) {
             level.map_remove_object_spot(this.secret_restrs.get(k), "treasure");
@@ -213,7 +214,7 @@ export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManag
             logger.info("Empty secret, remove map spot:", k);
           }
         } else if (v.refreshing && v.checked) {
-          const sect = pickSectionFromCondList(getActor(), null, v.refreshing as any);
+          const sect = pickSectionFromCondList(getActor() as XR_game_object, null, v.refreshing as any);
 
           if (sect === "true") {
             v.given = false;

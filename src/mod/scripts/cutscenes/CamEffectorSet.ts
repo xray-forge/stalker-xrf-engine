@@ -1,4 +1,4 @@
-import { device, level } from "xray16";
+import { device, level, XR_game_object } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { stringifyAsJson } from "@/mod/lib/utils/json";
@@ -74,7 +74,7 @@ export class CamEffectorSet {
       const eff = this.set[this.state].get(this.cur_effect);
 
       if (eff && eff.looped !== false) {
-        const cond = pickSectionFromCondList(getActor(), null, this.condlist);
+        const cond = pickSectionFromCondList(getActor() as XR_game_object, null, this.condlist);
 
         if (cond === "false") {
           this.looped = false;
@@ -92,7 +92,7 @@ export class CamEffectorSet {
 
   public select_effect(): Optional<ICamEffectorSetDescriptorItem> {
     const state = this.state;
-    const actor = getActor();
+    const actor: XR_game_object = getActor() as XR_game_object;
     let cur_effect = this.cur_effect;
 
     if (this.looped) {

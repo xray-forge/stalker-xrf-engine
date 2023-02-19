@@ -67,7 +67,7 @@ export function updateTradeManager(npc: XR_game_object): void {
 
   tt.update_time = time_global() + 3600000;
 
-  const buy_condition = pickSectionFromCondList(getActor(), npc, tt.buy_condition);
+  const buy_condition = pickSectionFromCondList(getActor() as XR_game_object, npc, tt.buy_condition);
 
   if (buy_condition === "" || buy_condition === null) {
     abort("Wrong section in buy_condition condlist for npc [%s]!", npc.name());
@@ -78,7 +78,7 @@ export function updateTradeManager(npc: XR_game_object): void {
     tt.current_buy_condition = buy_condition;
   }
 
-  const sell_condition = pickSectionFromCondList(getActor(), npc, tt.sell_condition);
+  const sell_condition = pickSectionFromCondList(getActor() as XR_game_object, npc, tt.sell_condition);
 
   if (sell_condition === "" || sell_condition === null) {
     abort("Wrong section in buy_condition condlist for npc [%s]!", npc.name());
@@ -90,7 +90,9 @@ export function updateTradeManager(npc: XR_game_object): void {
     tt.current_sell_condition = sell_condition;
   }
 
-  const buy_item_condition_factor = tonumber(pickSectionFromCondList(getActor(), npc, tt.buy_item_condition_factor))!;
+  const buy_item_condition_factor = tonumber(
+    pickSectionFromCondList(getActor() as XR_game_object, npc, tt.buy_item_condition_factor)
+  )!;
 
   if (tt.current_buy_item_condition_factor !== buy_item_condition_factor) {
     npc.buy_item_condition_factor(buy_item_condition_factor);
@@ -101,7 +103,7 @@ export function updateTradeManager(npc: XR_game_object): void {
     return;
   }
 
-  const buy_supplies = pickSectionFromCondList(getActor(), npc, tt.buy_supplies);
+  const buy_supplies = pickSectionFromCondList(getActor() as XR_game_object, npc, tt.buy_supplies);
 
   if (buy_supplies === "" || buy_supplies === null) {
     abort("Wrong section in buy_condition condlist for npc [%s]!", npc.name());
@@ -231,7 +233,7 @@ export function get_buy_discount(npc_id: number): number {
   }
 
   const sect: TSection = pickSectionFromCondList(
-    getActor(),
+    getActor() as XR_game_object,
     null,
     parseCondList(null, "trade_manager", "discounts", str)
   )!;
@@ -248,7 +250,7 @@ export function get_sell_discount(npc_id: number): number {
   }
 
   const sect: TSection = pickSectionFromCondList(
-    getActor(),
+    getActor() as XR_game_object,
     null,
     parseCondList(null, "trade_manager", "discounts", str)
   )!;

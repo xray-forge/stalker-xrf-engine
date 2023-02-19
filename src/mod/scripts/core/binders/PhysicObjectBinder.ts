@@ -78,8 +78,7 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
     const on_offline_condlist = st?.overrides?.on_offline_condlist;
 
     if (on_offline_condlist !== null) {
-      // todo ??? no assign
-      pickSectionFromCondList(getActor(), this.object, on_offline_condlist as any);
+      pickSectionFromCondList(getActor() as XR_game_object, this.object, on_offline_condlist as any);
     }
 
     if (this.particle !== null) {

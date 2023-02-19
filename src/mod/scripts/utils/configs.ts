@@ -444,7 +444,7 @@ export function parse_func_params(str: string): LuaTable<number, string | number
  */
 export function getInfosFromData(object: XR_game_object, data: Optional<string>): LuaTable<number, string> {
   const infos: LuaTable<number, string> = new LuaTable();
-  const actor = getActor();
+  const actor: XR_game_object = getActor() as XR_game_object;
 
   if (data !== null) {
     for (const name of string.gfind(data, "(%|*[^%|]+%|*)%p*")) {
@@ -528,7 +528,7 @@ export function parse_waypoint_data(pathname: string, wpflags: XR_flags32, wpnam
  * @returns picked section based on condlist.
  */
 export function pickSectionFromCondList<T extends TSection>(
-  actor: Optional<XR_game_object>,
+  actor: XR_game_object,
   npc: Optional<XR_game_object | XR_cse_alife_object>,
   condlist: LuaTable<any, any>
 ): Optional<T> {

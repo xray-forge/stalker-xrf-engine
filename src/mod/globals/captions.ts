@@ -78,6 +78,7 @@ export const captions = {
   st_pri_b306_name: "st_pri_b306_name",
   st_pri_b35_name: "st_pri_b35_name",
   st_pri_b36_name: "st_pri_b36_name",
+  st_save_jup_b209_placed_mutant_scanner: "st_save_jup_b209_placed_mutant_scanner",
   st_sleep_hours: "st_sleep_hours",
   st_tip: "st_tip",
   st_ui_pda_legend_mechanic: "st_ui_pda_legend_mechanic",

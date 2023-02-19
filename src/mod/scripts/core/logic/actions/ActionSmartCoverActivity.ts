@@ -113,7 +113,11 @@ export const ActionSmartCoverActivity: IActionSmartCoverActivity = declare_xr_cl
 
         // --' ���������� �������� ������� ������ ��������� ������ � �����������.
         this.cover_condlist = parseCondList(object, this.st.active_section!, "cover_state", this.st.cover_state);
-        this.cover_state = pickSectionFromCondList(getActor(), object, this.cover_condlist) as ECoverState;
+        this.cover_state = pickSectionFromCondList(
+          getActor() as XR_game_object,
+          object,
+          this.cover_condlist
+        ) as ECoverState;
         this.target_selector(this.object);
         this.check_target_selector();
 
@@ -141,7 +145,11 @@ export const ActionSmartCoverActivity: IActionSmartCoverActivity = declare_xr_cl
     check_target(): boolean {
       const object = this.object;
 
-      const target_path_section = pickSectionFromCondList(getActor(), this.object, this.target_path_condlist);
+      const target_path_section = pickSectionFromCondList(
+        getActor() as XR_game_object,
+        this.object,
+        this.target_path_condlist
+      );
 
       if (target_path_section !== "nil" && target_path_section !== null) {
         const [target_path, used] = getParamString(target_path_section, object);
@@ -183,7 +191,11 @@ export const ActionSmartCoverActivity: IActionSmartCoverActivity = declare_xr_cl
     execute(): void {
       action_base.execute(this);
 
-      const need_cover_state = pickSectionFromCondList(getActor(), this.object, this.cover_condlist) as ECoverState;
+      const need_cover_state = pickSectionFromCondList(
+        getActor() as XR_game_object,
+        this.object,
+        this.cover_condlist
+      ) as ECoverState;
 
       if (
         need_cover_state === ("default_behaviour" as any) ||

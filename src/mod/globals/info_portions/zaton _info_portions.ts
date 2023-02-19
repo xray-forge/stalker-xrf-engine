@@ -230,20 +230,25 @@ export const zaton_info_portions = {
    */
   zat_b33_actor_is_down: "zat_b33_actor_is_down",
   zat_b33_fifth_item: "zat_b33_fifth_item",
+  zat_b33_fifth_item_gived: "zat_b33_fifth_item_gived",
   zat_b33_find_package: "zat_b33_find_package",
   zat_b33_first_item: "zat_b33_first_item",
+  zat_b33_first_item_gived: "zat_b33_first_item_gived",
   zat_b33_fourth_item: "zat_b33_fourth_item",
+  zat_b33_fourth_item_gived: "zat_b33_fourth_item_gived",
   zat_b33_package_returned: "zat_b33_package_returned",
   zat_b33_refuse_task: "zat_b33_refuse_task",
   zat_b33_safe_container: "zat_b33_safe_container",
   zat_b33_second_item: "zat_b33_second_item",
+  zat_b33_second_item_gived: "zat_b33_second_item_gived",
   zat_b33_share_start: "zat_b33_share_start",
   zat_b33_snork_jump_05: "zat_b33_snork_jump_05",
   zat_b33_stalker_snag_b52_my_gun_dialog_done: "zat_b33_stalker_snag_b52_my_gun_dialog_done",
   zat_b33_task_gived: "zat_b33_task_gived",
   zat_b33_third_item: "zat_b33_third_item",
+  zat_b33_third_item_gived: "zat_b33_third_item_gived",
   /**
-   * Zaton b38 - bloodsuckers lair.
+   * Zaton b38 - bloodsuckers lair, disappearing stalkers.
    */
   zat_b38_actor_know_about_lair: "zat_b38_actor_know_about_lair",
   zat_b38_bloodscuker_1_death: "zat_b38_bloodscuker_1_death",
@@ -257,6 +262,7 @@ export const zaton_info_portions = {
   zat_b38_bloodsucker_2_set_state: "zat_b38_bloodsucker_2_set_state",
   zat_b38_bloodsucker_fear_1_play: "zat_b38_bloodsucker_fear_1_play",
   zat_b38_cop_about_lair_dialog_done: "zat_b38_cop_about_lair_dialog_done",
+  zat_b38_cop_dead: "zat_b38_cop_dead",
   zat_b38_cop_hit_from_actor: "zat_b38_cop_hit_from_actor",
   zat_b38_cop_spawn_again: "zat_b38_cop_spawn_again",
   zat_b38_cop_spawn_again2: "zat_b38_cop_spawn_again2",
@@ -289,9 +295,11 @@ export const zaton_info_portions = {
   zat_b38_disappearance_stalkers_reversed: "zat_b38_disappearance_stalkers_reversed",
   zat_b38_disappearance_stalkers_tell_barmen_about_medic_give:
     "zat_b38_disappearance_stalkers_tell_barmen_about_medic_give",
+  zat_b38_jump_tonnel_info: "zat_b38_jump_tonnel_info",
   zat_b38_lift_open: "zat_b38_lift_open",
   zat_b38_lock_sound_play: "zat_b38_lock_sound_play",
   zat_b38_lock_sound_stop: "zat_b38_lock_sound_stop",
+  zat_b38_open_info: "zat_b38_open_info",
   zat_b38_show_spot_dead_body: "zat_b38_show_spot_dead_body",
   zat_b38_spawn_all: "zat_b38_spawn_all",
   zat_b38_spawn_npc_cop_again: "zat_b38_spawn_npc_cop_again",
@@ -310,6 +318,7 @@ export const zaton_info_portions = {
   zat_b38_stalker_medic_setup: "zat_b38_stalker_medic_setup",
   zat_b38_stalkers_den_of_the_bloodsucker_universal_dialog_done:
     "zat_b38_stalkers_den_of_the_bloodsucker_universal_dialog_done",
+  zat_b38_switch_info: "zat_b38_switch_info",
   zat_b38_underground_door_open: "zat_b38_underground_door_open",
   /**
    * Zaton b3 - tech quests.
@@ -320,12 +329,15 @@ export const zaton_info_portions = {
   zat_b3_task_end: "zat_b3_task_end",
   zat_b3_tech_discount_1: "zat_b3_tech_discount_1",
   zat_b3_tech_drink_no_more: "zat_b3_tech_drink_no_more",
+  zat_b3_tech_drinked_out: "zat_b3_tech_drinked_out",
   zat_b3_tech_have_couple_dose: "zat_b3_tech_have_couple_dose",
   zat_b3_tech_have_one_dose: "zat_b3_tech_have_one_dose",
   zat_b3_tech_instrument_1_brought: "zat_b3_tech_instrument_1_brought",
   zat_b3_tech_instrument_2_brought: "zat_b3_tech_instrument_2_brought",
   zat_b3_tech_instrument_3_brought: "zat_b3_tech_instrument_3_brought",
   zat_b3_tech_see_produce_62: "zat_b3_tech_see_produce_62",
+  zat_b3_tech_surprise_anim_end: "zat_b3_tech_surprise_anim_end",
+  zat_b3_tech_waked_up: "zat_b3_tech_waked_up",
   /**
    * Zaton b40.
    */

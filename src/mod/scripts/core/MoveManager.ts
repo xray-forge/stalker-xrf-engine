@@ -226,8 +226,16 @@ export class MoveManager {
 
       this.at_terminal_waypoint_flag = false;
 
-      this.cur_state_standing = pickSectionFromCondList(getActor(), this.object, this.default_state_standing as any)!;
-      this.cur_state_moving = pickSectionFromCondList(getActor(), this.object, this.default_state_moving1 as any)!;
+      this.cur_state_standing = pickSectionFromCondList(
+        getActor() as XR_game_object,
+        this.object,
+        this.default_state_standing as any
+      )!;
+      this.cur_state_moving = pickSectionFromCondList(
+        getActor() as XR_game_object,
+        this.object,
+        this.default_state_moving1 as any
+      )!;
 
       this.retval_after_rotation = null;
 
@@ -270,11 +278,23 @@ export class MoveManager {
         const dist = this.object.position().distance_to(this.patrol_walk!.point(cur_pt));
 
         if (dist <= dist_walk || t < this.walk_until) {
-          this.cur_state_moving = pickSectionFromCondList(getActor(), this.object, this.default_state_moving1 as any)!;
+          this.cur_state_moving = pickSectionFromCondList(
+            getActor() as XR_game_object,
+            this.object,
+            this.default_state_moving1 as any
+          )!;
         } else if (dist <= dist_run || t < this.run_until) {
-          this.cur_state_moving = pickSectionFromCondList(getActor(), this.object, this.default_state_moving2 as any)!;
+          this.cur_state_moving = pickSectionFromCondList(
+            getActor() as XR_game_object,
+            this.object,
+            this.default_state_moving2 as any
+          )!;
         } else {
-          this.cur_state_moving = pickSectionFromCondList(getActor(), this.object, this.default_state_moving3 as any)!;
+          this.cur_state_moving = pickSectionFromCondList(
+            getActor() as XR_game_object,
+            this.object,
+            this.default_state_moving3 as any
+          )!;
         }
 
         this.update_movement_state();
@@ -504,12 +524,20 @@ export class MoveManager {
     const suggested_state_moving = this.path_walk_info.get(index)["a"];
 
     if (suggested_state_moving) {
-      this.cur_state_moving = pickSectionFromCondList(getActor(), this.object, suggested_state_moving as any)!;
+      this.cur_state_moving = pickSectionFromCondList(
+        getActor() as XR_game_object,
+        this.object,
+        suggested_state_moving as any
+      )!;
       if (tostring(this.cur_state_moving) === "true") {
         abort("!!!!!");
       }
     } else {
-      this.cur_state_moving = pickSectionFromCondList(getActor(), this.object, this.default_state_moving1 as any)!;
+      this.cur_state_moving = pickSectionFromCondList(
+        getActor() as XR_game_object,
+        this.object,
+        this.default_state_moving1 as any
+      )!;
       if (tostring(this.cur_state_moving) === "true") {
         abort("!!!!!");
       }
@@ -568,7 +596,7 @@ export class MoveManager {
       const suggested_anim_set: Optional<string> = this.path_look_info!.get(pt_chosen_idx)["a"];
 
       this.cur_state_standing = pickSectionFromCondList(
-        getActor(),
+        getActor() as XR_game_object,
         this.object,
         suggested_anim_set ? suggested_anim_set : (this.default_state_standing as any)
       )!;

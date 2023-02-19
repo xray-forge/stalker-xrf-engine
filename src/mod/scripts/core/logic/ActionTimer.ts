@@ -92,7 +92,11 @@ export class ActionTimer extends AbstractSchemeImplementation {
 
     for (const [k, v] of this.state.on_value as LuaTable) {
       if ((this.state.type === "dec" && value_time <= v.dist) || (this.state.type === "inc" && value_time >= v.dist)) {
-        switchToSection(this.object, this.state.ini!, pickSectionFromCondList(getActor(), this.object, v.state)!);
+        switchToSection(
+          this.object,
+          this.state.ini!,
+          pickSectionFromCondList(getActor() as XR_game_object, this.object, v.state)!
+        );
       }
     }
   }

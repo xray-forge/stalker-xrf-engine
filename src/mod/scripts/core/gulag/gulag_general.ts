@@ -1143,7 +1143,11 @@ function add_exclusive_job(sect: TSection, work_field: string, smart_ini: XR_ini
       smart: ISmartTerrain,
       precond_params: AnyObject
     ) {
-      const result: Optional<string> = pickSectionFromCondList(getActor(), se_obj, precond_params.condlist);
+      const result: Optional<string> = pickSectionFromCondList(
+        getActor() as XR_game_object,
+        se_obj,
+        precond_params.condlist
+      );
 
       if (result === "false" || result === null) {
         return false;

@@ -39,14 +39,14 @@ declare module "xray16" {
 
     public create<T extends XR_cse_alife_object = XR_cse_alife_object>(value: u32): T;
     public create<T extends XR_cse_alife_object = XR_cse_alife_object>(
-      section: string,
+      item_section: string,
       position: XR_vector,
       lvi: u32,
       gvi: u32,
       pid: i32,
     ): T;
     public create<T extends XR_cse_alife_object = XR_cse_alife_object>(
-      section: string | number,
+      item_section: string | number,
       position: XR_vector,
       lvi: u32,
       gvi: u16

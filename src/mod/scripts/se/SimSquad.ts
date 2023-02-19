@@ -270,7 +270,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
   },
   get_script_target(): Optional<number> {
     const new_target: Optional<string> = pickSectionFromCondList(
-      getActor(),
+      getActor() as XR_game_object,
       this,
       this.action_condlist as LuaTable<any>
     );
@@ -549,7 +549,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
       }
 
       if (this.death_condlist !== null) {
-        pickSectionFromCondList(getActor(), this, this.death_condlist as any);
+        pickSectionFromCondList(getActor() as XR_game_object, this, this.death_condlist as any);
       }
 
       this.board.remove_squad(this);
@@ -603,7 +603,8 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
       return;
     }
 
-    const invulnerability: boolean = pickSectionFromCondList(getActor(), this, this.invulnerability as any) === "true";
+    const invulnerability: boolean =
+      pickSectionFromCondList(getActor() as XR_game_object, this, this.invulnerability as any) === "true";
 
     for (const k of this.squad_members()) {
       const npc_st = storage.get(k.id);
@@ -710,7 +711,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
       getConfigString(spawn_smart.ini, SMART_TERRAIN_SECT, "spawn_point", this, false, "", "self");
 
     spawn_point = parseCondList(this, "spawn_point", "spawn_point", spawn_point);
-    spawn_point = pickSectionFromCondList(getActor(), this, spawn_point as any)!;
+    spawn_point = pickSectionFromCondList(getActor() as XR_game_object, this, spawn_point as any)!;
 
     let base_spawn_position: XR_vector = spawn_smart.position;
     let base_lvi = spawn_smart.m_level_vertex_id;

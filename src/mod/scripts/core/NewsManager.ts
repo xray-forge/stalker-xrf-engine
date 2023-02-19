@@ -76,8 +76,8 @@ const tips_icons = {
   recent_surge: texturesIngame.ui_inGame2_V_zone_nedavno_proshel_vibros,
 };
 
-type TIcons = typeof tips_icons;
-type TIcon = keyof TIcons;
+export type TIcons = typeof tips_icons;
+export type TIcon = keyof TIcons;
 
 const actionDescriptionByTask = {
   new: "general_new_task",

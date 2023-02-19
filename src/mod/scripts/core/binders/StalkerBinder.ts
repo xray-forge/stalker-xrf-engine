@@ -271,7 +271,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
       storage.get(this.object.id()).overrides!.on_offline_condlist;
 
     if (on_offline_condlist !== null) {
-      pickSectionFromCondList(getActor(), this.object, on_offline_condlist as any);
+      pickSectionFromCondList(getActor() as XR_game_object, this.object, on_offline_condlist as any);
     }
 
     if (offlineObjects.get(this.object.id())) {

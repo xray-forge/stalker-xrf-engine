@@ -29,7 +29,7 @@ import { levels, TLevel } from "@/mod/globals/levels";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { Maybe, Optional, TSection } from "@/mod/lib/types";
 import { action_ids } from "@/mod/scripts/core/actions_id";
-import { getActor, IStoredObject, storage } from "@/mod/scripts/core/db";
+import { getActor, IStoredObject, storage, zoneByName } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/logic/GlobalSound";
 import { ISimSquad } from "@/mod/scripts/se/SimSquad";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -263,6 +263,28 @@ export function isHeavilyWounded(npcId: number): boolean {
  */
 export function isNpcInZone(object: Optional<XR_game_object>, zone: Optional<XR_game_object>): boolean {
   return object !== null && zone !== null && zone.inside(object.position());
+}
+
+/**
+ * todo;
+ * todo;
+ * todo;
+ */
+export function isActorInZone(zone: Optional<XR_game_object>): boolean {
+  const actor: Optional<XR_game_object> = getActor();
+
+  return actor !== null && zone !== null && zone.inside(actor.position());
+}
+
+/**
+ * todo;
+ * todo;
+ * todo;
+ */
+export function isActorInZoneWithName(zoneName: string, actor: Optional<XR_game_object> = getActor()): boolean {
+  const zone: Optional<XR_game_object> = zoneByName.get(zoneName);
+
+  return actor !== null && zone !== null && zone.inside(actor.position());
 }
 
 /**

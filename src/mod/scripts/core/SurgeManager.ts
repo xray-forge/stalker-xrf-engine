@@ -160,7 +160,7 @@ export class SurgeManager extends AbstractCoreManager {
     if (this.surgeCoversCount > 0) {
       for (const [k, v] of hides) {
         if (v.condlist) {
-          const sect: Optional<string> = pickSectionFromCondList(getActor(), null, v.condlist);
+          const sect: Optional<string> = pickSectionFromCondList(getActor() as XR_game_object, null, v.condlist);
 
           if (sect !== "true" && sect !== null) {
             table.remove(hides, k);
@@ -180,7 +180,7 @@ export class SurgeManager extends AbstractCoreManager {
 
         if (dist < nearest_cover_dist) {
           if (v.condlist) {
-            const sect: Optional<string> = pickSectionFromCondList(getActor(), null, v.condlist);
+            const sect: Optional<string> = pickSectionFromCondList(getActor() as XR_game_object, null, v.condlist);
 
             if (sect === "true") {
               nearest_cover_id = v.id();
@@ -195,7 +195,7 @@ export class SurgeManager extends AbstractCoreManager {
 
       if (nearest_cover_id === hides.get(1).id()) {
         if (hides.get(1).condlist) {
-          const sect = pickSectionFromCondList(getActor(), null, hides.get(1).condlist);
+          const sect = pickSectionFromCondList(getActor() as XR_game_object, null, hides.get(1).condlist);
 
           if (sect !== "true" && sect !== null) {
             return null;
@@ -232,7 +232,7 @@ export class SurgeManager extends AbstractCoreManager {
         return;
       }
 
-      if (pickSectionFromCondList(getStoryObject("actor"), null, this.surgeManagerCondlist) !== "true") {
+      if (pickSectionFromCondList(getActor() as XR_game_object, null, this.surgeManagerCondlist) !== "true") {
         return;
       }
 
@@ -320,7 +320,7 @@ export class SurgeManager extends AbstractCoreManager {
           h.direction = new vector().set(0, 0, 1);
           h.draftsman = getActor();
 
-          if (pickSectionFromCondList(getStoryObject("actor"), null, this.surgeSurviveCondlist) === "true") {
+          if (pickSectionFromCondList(getActor() as XR_game_object, null, this.surgeSurviveCondlist) === "true") {
             if (getActor()!.health <= h.power) {
               h.power = getActor()!.health - 0.05;
               if (h.power < 0) {
@@ -581,7 +581,7 @@ export class SurgeManager extends AbstractCoreManager {
       getActor():hide_weapon()
     ]]--*/
         get_global<AnyCallablesModule>("xr_effects").disable_ui_only(getActor(), null);
-        if (pickSectionFromCondList(getActor(), null, this.surgeSurviveCondlist) !== "true") {
+        if (pickSectionFromCondList(getActor() as XR_game_object, null, this.surgeSurviveCondlist) !== "true") {
           this.kill_all_unhided_after_actor_death();
           getActor()!.kill(getActor()!);
 

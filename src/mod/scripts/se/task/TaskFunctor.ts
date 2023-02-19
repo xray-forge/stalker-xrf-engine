@@ -1,6 +1,7 @@
-import { game } from "xray16";
+import { game, XR_game_object } from "xray16";
 
 import { Optional, TSection } from "@/mod/lib/types";
+import { getActor } from "@/mod/scripts/core/db";
 import { actor_in_cover, get_task_target } from "@/mod/scripts/core/SurgeManager";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { getStoryObject } from "@/mod/scripts/utils/alife";
@@ -10,7 +11,7 @@ import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 export function condlist(id: string, field: string, p: string): Optional<TSection> {
   const parsed_condlist = parseCondList(null, "task", "task_condlist", p);
 
-  return pickSectionFromCondList(getStoryObject("actor"), null, parsed_condlist);
+  return pickSectionFromCondList(getActor() as XR_game_object, null, parsed_condlist);
 }
 
 export function zat_b29_adv_title(id: string, field: string, p: string): Optional<string> {
@@ -113,7 +114,7 @@ export function surge_task_descr(id: string, field: string, p: string): Optional
 export function target_condlist(id: string, field: string, p: string) {
   const cond_string = p;
   const parsed_condlist = parseCondList(null, "task", "task_condlist", cond_string);
-  const value: Optional<TSection> = pickSectionFromCondList(getStoryObject("actor"), null, parsed_condlist);
+  const value: Optional<TSection> = pickSectionFromCondList(getActor() as XR_game_object, null, parsed_condlist);
 
   if (value === null) {
     return null;

@@ -402,7 +402,7 @@ export class ActionSchemeMeet extends AbstractSchemeImplementation {
       return;
     }
 
-    const actor = getActor();
+    const actor: XR_game_object = getActor() as XR_game_object;
     const snd = pickSectionFromCondList(actor, victim, st.snd_on_use);
 
     if (tostring(snd) !== "nil") {
@@ -431,16 +431,16 @@ export class ActionSchemeMeet extends AbstractSchemeImplementation {
   public current_distance: Optional<string> = null;
 
   public update_state(): void {
-    const actor: Optional<XR_game_object> = getActor();
+    const actor: XR_game_object = getActor() as XR_game_object;
     let state: Optional<string> = null;
     let victim = null;
 
     if (this.current_distance === "close") {
-      state = pickSectionFromCondList(actor, this.object, this.state.close_anim);
-      victim = pickSectionFromCondList(actor, this.object, this.state.close_victim);
+      state = pickSectionFromCondList(actor as XR_game_object, this.object, this.state.close_anim);
+      victim = pickSectionFromCondList(actor as XR_game_object, this.object, this.state.close_victim);
     } else if (this.current_distance === "far") {
-      state = pickSectionFromCondList(actor, this.object, this.state.far_anim);
-      victim = pickSectionFromCondList(actor, this.object, this.state.far_victim);
+      state = pickSectionFromCondList(actor as XR_game_object, this.object, this.state.far_anim);
+      victim = pickSectionFromCondList(actor as XR_game_object, this.object, this.state.far_victim);
     }
 
     if (tostring(victim) === "nil") {

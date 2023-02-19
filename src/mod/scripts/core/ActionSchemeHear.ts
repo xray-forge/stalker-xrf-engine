@@ -79,7 +79,7 @@ export class ActionSchemeHear extends AbstractSchemeImplementation {
         hear_sound_params.dist >= sound_position.distance_to(object.position()) &&
         sound_power >= hear_sound_params.power
       ) {
-        const new_section = pickSectionFromCondList(getActor(), object, hear_sound_params.condlist);
+        const new_section = pickSectionFromCondList(getActor() as XR_game_object, object, hear_sound_params.condlist);
 
         if (new_section !== null && new_section !== "") {
           switchToSection(object, state.ini!, new_section);

@@ -109,7 +109,7 @@ export const ActionRemarkActivity: IActionRemarkActivity = declare_xr_class("Act
       const target = this.get_target();
 
       if (target === null) {
-        const anim = pickSectionFromCondList(getActor(), this.object, this.st.anim)!;
+        const anim = pickSectionFromCondList(getActor() as XR_game_object, this.object, this.st.anim)!;
 
         set_state(this.object, anim, cb, 0, null, null);
         this.state = state_animation;
@@ -117,7 +117,7 @@ export const ActionRemarkActivity: IActionRemarkActivity = declare_xr_class("Act
         return;
       }
 
-      const anim = pickSectionFromCondList(getActor(), this.object, this.st.anim)!;
+      const anim = pickSectionFromCondList(getActor() as XR_game_object, this.object, this.st.anim)!;
 
       set_state(this.object, anim, cb, 0, target, null);
       this.state = state_animation;

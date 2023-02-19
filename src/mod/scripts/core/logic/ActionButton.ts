@@ -72,7 +72,7 @@ export class ActionButton extends AbstractSchemeImplementation {
         switchToSection(
           this.object,
           this.state.ini!,
-          pickSectionFromCondList(getActor(), this.object, this.state.on_press.condlist)!
+          pickSectionFromCondList(getActor() as XR_game_object, this.object, this.state.on_press.condlist)!
         )
       ) {
         return true;

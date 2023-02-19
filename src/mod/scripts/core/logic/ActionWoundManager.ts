@@ -320,7 +320,9 @@ export class ActionWoundManager extends AbstractSchemeImplementation {
 
     if (key !== null) {
       if (this.state.hp_fight[key].state) {
-        return tostring(pickSectionFromCondList(getActor(), this.object, this.state.hp_fight[key].state));
+        return tostring(
+          pickSectionFromCondList(getActor() as XR_game_object, this.object, this.state.hp_fight[key].state)
+        );
       }
     }
 
@@ -332,7 +334,9 @@ export class ActionWoundManager extends AbstractSchemeImplementation {
 
     if (key !== null) {
       if (this.state.hp_victim[key].state) {
-        return tostring(pickSectionFromCondList(getActor(), this.object, this.state.hp_victim[key].state));
+        return tostring(
+          pickSectionFromCondList(getActor() as XR_game_object, this.object, this.state.hp_victim[key].state)
+        );
       }
     }
 
@@ -348,19 +352,19 @@ export class ActionWoundManager extends AbstractSchemeImplementation {
 
       if (this.object.see(getActor()!)) {
         if (this.state.hp_state_see[key].state) {
-          r1 = pickSectionFromCondList(getActor(), this.object, this.state.hp_state_see[key].state);
+          r1 = pickSectionFromCondList(getActor() as XR_game_object, this.object, this.state.hp_state_see[key].state);
         }
 
         if (this.state.hp_state_see[key].sound) {
-          r2 = pickSectionFromCondList(getActor(), this.object, this.state.hp_state_see[key].sound);
+          r2 = pickSectionFromCondList(getActor() as XR_game_object, this.object, this.state.hp_state_see[key].sound);
         }
       } else {
         if (this.state.hp_state[key].state) {
-          r1 = pickSectionFromCondList(getActor(), this.object, this.state.hp_state[key].state);
+          r1 = pickSectionFromCondList(getActor() as XR_game_object, this.object, this.state.hp_state[key].state);
         }
 
         if (this.state.hp_state[key].sound) {
-          r2 = pickSectionFromCondList(getActor(), this.object, this.state.hp_state[key].sound);
+          r2 = pickSectionFromCondList(getActor() as XR_game_object, this.object, this.state.hp_state[key].sound);
         }
       }
 
@@ -378,11 +382,11 @@ export class ActionWoundManager extends AbstractSchemeImplementation {
       let r2: Optional<string> = null;
 
       if (this.state.psy_state[key].state) {
-        r1 = pickSectionFromCondList(getActor(), this.object, this.state.psy_state[key].state);
+        r1 = pickSectionFromCondList(getActor() as XR_game_object, this.object, this.state.psy_state[key].state);
       }
 
       if (this.state.psy_state[key].sound) {
-        r2 = pickSectionFromCondList(getActor(), this.object, this.state.psy_state[key].sound);
+        r2 = pickSectionFromCondList(getActor() as XR_game_object, this.object, this.state.psy_state[key].sound);
       }
 
       return $multi(tostring(r1), tostring(r2));

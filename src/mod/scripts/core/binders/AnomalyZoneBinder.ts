@@ -22,6 +22,7 @@ import {
   ARTEFACT_WAYS_BY_ARTEFACT_ID,
   deleteAnomaly,
   deleteObject,
+  getActor,
   PARENT_ZONES_BY_ARTEFACT_ID,
   storage,
 } from "@/mod/scripts/core/db";
@@ -271,7 +272,7 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
         defaultCoeffSectionName
       );
       const parsedCondlist = parseCondList(null, "anomal_zone_binder", "coeff_condlist", coeffsSection);
-      const coeffsSectionName = pickSectionFromCondList(getStoryObject("actor"), null, parsedCondlist)!;
+      const coeffsSectionName = pickSectionFromCondList(getActor() as XR_game_object, null, parsedCondlist)!;
       const coeffs: Optional<string> = getConfigString(ini, section, coeffsSectionName, null, false, "", defaultCoeffs);
       /**
        * end todo;

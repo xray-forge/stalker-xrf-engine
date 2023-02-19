@@ -364,7 +364,11 @@ export class ActionSchemeMiniGun extends AbstractSchemeImplementation {
 
     if (this.hasWeapon) {
       if (this.on_target_vis && this.on_target_vis.v1.alive() && this.mgun.IsObjectVisible(this.on_target_vis.v1)) {
-        const new_section = pickSectionFromCondList(getActor(), this.object, this.on_target_vis.condlist);
+        const new_section = pickSectionFromCondList(
+          getActor() as XR_game_object,
+          this.object,
+          this.on_target_vis.condlist
+        );
 
         if (new_section) {
           switchToSection(this.object, this.state.ini!, new_section);
@@ -372,7 +376,11 @@ export class ActionSchemeMiniGun extends AbstractSchemeImplementation {
       }
 
       if (this.on_target_nvis && this.on_target_nvis.v1.alive() && !this.mgun.IsObjectVisible(this.on_target_nvis.v1)) {
-        const new_section = pickSectionFromCondList(getActor(), this.object, this.on_target_nvis.condlist);
+        const new_section = pickSectionFromCondList(
+          getActor() as XR_game_object,
+          this.object,
+          this.on_target_nvis.condlist
+        );
 
         if (new_section) {
           switchToSection(this.object, this.state.ini!, new_section);

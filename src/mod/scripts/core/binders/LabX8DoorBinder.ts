@@ -14,7 +14,7 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { addAnimationObject, deleteAnimationObject, storage } from "@/mod/scripts/core/db";
+import { addAnimationObject, deleteAnimationObject, getActor, storage } from "@/mod/scripts/core/db";
 import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
 import { getStoryObject } from "@/mod/scripts/utils/alife";
 import { getConfigNumber, getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
@@ -209,7 +209,7 @@ export const LabX8DoorBinder: ILabX8DoorBinder = declare_xr_class("LabX8DoorBind
       }
     }
 
-    const tip_string: string = pickSectionFromCondList(getStoryObject("actor"), null, this.tip)!;
+    const tip_string: string = pickSectionFromCondList(getActor() as XR_game_object, null, this.tip)!;
 
     if (tip_string !== "none") {
       this.object.set_tip_text(tip_string);
@@ -240,7 +240,7 @@ export const LabX8DoorBinder: ILabX8DoorBinder = declare_xr_class("LabX8DoorBind
     this.is_idle = false;
     this.is_play_fwd = true;
 
-    pickSectionFromCondList(getStoryObject("actor"), this.object, this.on_start);
+    pickSectionFromCondList(getActor() as XR_game_object, this.object, this.on_start);
   },
   anim_backward(): void {
     if (this.idle_snd) {
@@ -264,7 +264,7 @@ export const LabX8DoorBinder: ILabX8DoorBinder = declare_xr_class("LabX8DoorBind
 
     this.is_idle = false;
     this.is_play_fwd = false;
-    pickSectionFromCondList(getStoryObject("actor"), this.object, this.on_start);
+    pickSectionFromCondList(getActor() as XR_game_object, this.object, this.on_start);
   },
   anim_stop(): void {
     this.object.get_physics_object().stop_anim();
@@ -274,7 +274,7 @@ export const LabX8DoorBinder: ILabX8DoorBinder = declare_xr_class("LabX8DoorBind
     }
 
     this.anim_time = this.object.get_physics_object().anim_time_get();
-    pickSectionFromCondList(getStoryObject("actor"), this.object, this.on_stop);
+    pickSectionFromCondList(getActor() as XR_game_object, this.object, this.on_stop);
   },
   animation_end_callback(is_end?: boolean): void {
     if (is_end) {
@@ -284,11 +284,11 @@ export const LabX8DoorBinder: ILabX8DoorBinder = declare_xr_class("LabX8DoorBind
 
       this.is_idle = true;
       this.anim_time = this.object.get_physics_object().anim_time_get();
-      pickSectionFromCondList(getStoryObject("actor"), this.object, this.on_stop);
+      pickSectionFromCondList(getActor() as XR_game_object, this.object, this.on_stop);
     }
   },
   use_callback(object): void {
-    pickSectionFromCondList(getStoryObject("actor"), object, this.on_use);
+    pickSectionFromCondList(getActor() as XR_game_object, object, this.on_use);
   },
   net_save_relevant(): boolean {
     return true;
