@@ -21,6 +21,7 @@ import {
 } from "xray16";
 
 import { MAX_UNSIGNED_16_BIT, MAX_UNSIGNED_8_BIT } from "@/mod/globals/memory";
+import { SMART_TERRAIN_SECT } from "@/mod/globals/sections";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { AnyCallable, AnyObject, ESchemeType, Optional, TSection } from "@/mod/lib/types";
 import { loadGulagJobs } from "@/mod/scripts/core/alife/gulag_general";
@@ -38,7 +39,6 @@ import {
 } from "@/mod/scripts/core/binders/CampfireBinder";
 import { IStoredObject, offlineObjects, registry, storage } from "@/mod/scripts/core/db";
 import { loadDynamicLtx } from "@/mod/scripts/core/db/IniFiles";
-import { SMART_TERRAIN_SECT } from "@/mod/scripts/core/db/sections";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/core/db/SimBoard";
 import { evaluate_prior, get_sim_obj_registry } from "@/mod/scripts/core/db/SimObjectsRegistry";
 import { get_smart_terrain_name } from "@/mod/scripts/core/db/smart_names";

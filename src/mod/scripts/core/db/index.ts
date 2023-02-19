@@ -29,6 +29,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 const logger: LuaLogger = new LuaLogger("db", false);
 
 export * from "@/mod/scripts/core/db/registry";
+export * from "@/mod/scripts/core/db/helicopter";
 
 export const infoRestr: LuaTable<number, string | XR_game_object> = new LuaTable();
 export const scriptIds: LuaTable<number, string> = new LuaTable();
@@ -128,34 +129,13 @@ export interface IStoredObject<T = XR_game_object> {
 }
 
 export const storage: LuaTable<number, IStoredObject> = new LuaTable();
-export const heli: LuaTable<number, XR_game_object> = new LuaTable();
 export const smartTerrainById: LuaTable<number, XR_cse_alife_object> = new LuaTable();
 export const animObjByName: LuaTable<string, IStoredObject> = new LuaTable();
 export const anomalyByName: LuaTable<string, IStoredObject> = new LuaTable();
 export const sound_themes: LuaTable<string, AbstractPlayableSound> = new LuaTable();
 export const light_zones: LuaTable<number, SchemeLight> = new LuaTable();
 
-export const heliEnemies: LuaTable<number, XR_game_object> = new LuaTable();
-
-export let heliEnemyCount: number = 0;
 export let actor: Optional<XR_game_object> = null;
-
-export function getHeliEnemiesCount(): number {
-  return heliEnemyCount;
-}
-
-export function addEnemy(object: XR_game_object): void {
-  logger.info("Add heli enemy");
-
-  heliEnemies.set(heliEnemyCount, object);
-
-  heliEnemyCount = heliEnemyCount + 1;
-}
-
-export function deleteEnemy(enemyIndex: number): void {
-  logger.info("Delete enemy");
-  heliEnemies.delete(enemyIndex);
-}
 
 export function addObject(object: XR_game_object): void {
   logger.info("Add object:", object.name());
@@ -209,18 +189,6 @@ export function deleteActor(): void {
   registry.actor = null as unknown as XR_game_object;
 
   actor = null;
-}
-
-export function addHeli(object: XR_game_object): void {
-  logger.info("Add heli");
-
-  heli.set(object.id(), object);
-}
-
-export function deleteHeli(object: XR_game_object): void {
-  logger.info("Delete heli");
-
-  heli.delete(object.id());
 }
 
 export function addSmartTerrain(object: XR_cse_alife_object): void {

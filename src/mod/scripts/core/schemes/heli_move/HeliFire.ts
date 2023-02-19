@@ -11,8 +11,9 @@ import {
   XR_vector,
 } from "xray16";
 
+import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { Optional } from "@/mod/lib/types";
-import { getHeliEnemiesCount, heliEnemies, heliEnemyCount, registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { randomChoice } from "@/mod/scripts/utils/general";
 import { getIdBySid } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -213,14 +214,16 @@ export class HeliFire {
   public update_enemy_arr(): void {
     const heli: XR_CHelicopter = this.object.get_helicopter();
     let index: number = 0;
-    let min_dist2D: number = 65000;
+    let min_dist2D: number = MAX_UNSIGNED_16_BIT;
 
-    while (index < getHeliEnemiesCount()) {
-      if (heliEnemies.get(index) !== null) {
-        if (heli.isVisible(heliEnemies.get(index))) {
-          if (distanceBetween2d(this.object.position(), heliEnemies.get(index).position()) < min_dist2D) {
-            this.enemy = heliEnemies.get(index);
-            min_dist2D = distanceBetween2d(this.object.position(), heliEnemies.get(index).position());
+    while (index < registry.helicopter.enemiesCount) {
+      if (registry.helicopter.enemies.has(index)) {
+        const enemy: XR_game_object = registry.helicopter.enemies.get(index);
+
+        if (heli.isVisible(enemy)) {
+          if (distanceBetween2d(this.object.position(), enemy.position()) < min_dist2D) {
+            this.enemy = enemy;
+            min_dist2D = distanceBetween2d(this.object.position(), enemy.position());
             this.flag_by_enemy = true;
           }
         }
@@ -231,7 +234,7 @@ export class HeliFire {
 
     const actor: XR_game_object = registry.actor;
 
-    if ((heli.isVisible(actor) && randomChoice(false, true)) || heliEnemyCount === 0) {
+    if ((heli.isVisible(actor) && randomChoice(false, true)) || registry.helicopter.enemiesCount === 0) {
       if (distanceBetween2d(this.object.position(), actor.position()) <= min_dist2D * 2) {
         this.enemy = actor;
       }

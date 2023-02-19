@@ -17,7 +17,15 @@ import {
 } from "xray16";
 
 import { ESchemeType, Optional } from "@/mod/lib/types";
-import { addHeli, addObject, deleteHeli, deleteObject, IStoredObject, registry, storage } from "@/mod/scripts/core/db";
+import {
+  addHelicopter,
+  addObject,
+  deleteHelicopter,
+  deleteObject,
+  IStoredObject,
+  registry,
+  storage,
+} from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { get_heli_health } from "@/mod/scripts/core/schemes/heli_move/heli_utils";
 import { HeliCombat } from "@/mod/scripts/core/schemes/heli_move/HeliCombat";
@@ -126,13 +134,13 @@ export const HeliBinder: IHeliBinder = declare_xr_class("HeliBinder", object_bin
     }
 
     addObject(this.object);
-    addHeli(this.object);
+    addHelicopter(this.object);
 
     return true;
   },
   net_destroy(): void {
     deleteObject(this.object);
-    deleteHeli(this.object);
+    deleteHelicopter(this.object);
 
     object_binder.net_destroy(this);
   },
@@ -175,7 +183,7 @@ export const HeliBinder: IHeliBinder = declare_xr_class("HeliBinder", object_bin
 
       if (health <= 0.005 && !this.st.immortal) {
         this.heliObject.Die();
-        deleteHeli(this.object);
+        deleteHelicopter(this.object);
         this.st.last_alt = heli.GetRealAltitude();
         this.st.alt_check_time = time_global() + 1000;
         // --            GlobalSound.set_sound_play(this.object:id(), this.snd_down)

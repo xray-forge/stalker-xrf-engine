@@ -11,12 +11,12 @@ import {
 } from "xray16";
 
 import { communities } from "@/mod/globals/communities";
+import { SMART_TERRAIN_SECT } from "@/mod/globals/sections";
 import { AnyObject, EJobType, EScheme, JobTypeByScheme, Optional, TSection } from "@/mod/lib/types";
 import { accessible_job, get_job_restrictor } from "@/mod/scripts/core/alife/combat_restrictor";
 import { registered_smartcovers } from "@/mod/scripts/core/alife/SmartCover";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { registry, storage, zoneByName } from "@/mod/scripts/core/db";
-import { SMART_TERRAIN_SECT } from "@/mod/scripts/core/db/sections";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import {
   get_scheme_by_section,

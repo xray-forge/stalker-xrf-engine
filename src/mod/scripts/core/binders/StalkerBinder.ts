@@ -26,16 +26,15 @@ import {
 
 import { communities } from "@/mod/globals/communities";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { ESchemeType } from "@/mod/lib/types/scheme";
 import { ISmartTerrain, setup_gulag_and_logic_on_spawn } from "@/mod/scripts/core/alife/SmartTerrain";
 import {
-  addEnemy,
+  addHelicopterEnemy,
   addObject,
-  deleteEnemy,
+  deleteHelicopterEnemy,
   deleteObject,
   fighting_with_actor_npcs,
-  getHeliEnemiesCount,
   goodwill,
   IStoredObject,
   offlineObjects,
@@ -205,8 +204,8 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
       set_npc_sympathy(this.object, sympathy);
     }
 
-    addEnemy(this.object);
-    this.e_index = getHeliEnemiesCount() - 1;
+    addHelicopterEnemy(this.object);
+    this.e_index = registry.helicopter.enemiesCount - 1;
 
     SoundTheme.init_npc_sound(this.object);
 
@@ -284,7 +283,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
     this.clear_callbacks();
 
     if (this.e_index !== null) {
-      deleteEnemy(this.e_index);
+      deleteHelicopterEnemy(this.e_index);
     }
 
     object_binder.net_destroy(this);
@@ -416,7 +415,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
 
     SchemeLight.check_light(this.object);
     create_xr_class_instance(DropManager, this.object).create_release_item();
-    deleteEnemy(this.e_index!);
+    deleteHelicopterEnemy(this.e_index!);
 
     this.clear_callbacks();
     // --' ������� ��������� ������� ������.

@@ -1,4 +1,4 @@
-import type { XR_game_object } from "xray16";
+import { XR_game_object } from "xray16";
 
 import type { TAbstractSchemeConstructor } from "@/mod/scripts/core/schemes/base";
 
@@ -21,5 +21,13 @@ export const registry = {
   crows: {
     storage: new LuaTable<number, number>(),
     count: 0,
+  },
+  /**
+   * List of data for game helicopters.
+   */
+  helicopter: {
+    storage: new LuaTable<number, XR_game_object>(),
+    enemies: new LuaTable<number, XR_game_object>(),
+    enemiesCount: 0,
   },
 };

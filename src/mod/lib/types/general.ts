@@ -40,3 +40,13 @@ export type LuaArray<T> = LuaTable<number, T>;
 export type AnyArgs = Array<any>;
 
 export type LuaAnyArgs = LuaArray<any>;
+
+/**
+ * Number based identifier.
+ */
+export type TNumberId = number;
+
+/**
+ * String based identifier.
+ */
+export type TStringId = string;

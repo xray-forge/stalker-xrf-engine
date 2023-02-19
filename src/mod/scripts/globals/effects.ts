@@ -18,6 +18,7 @@ import {
   time_global,
   user_name,
   vector,
+  XR_action_planner,
   XR_CGameTask,
   XR_cse_alife_creature_abstract,
   XR_cse_alife_human_abstract,
@@ -58,7 +59,7 @@ import { update_logic } from "@/mod/scripts/core/binders/StalkerBinder";
 import {
   animObjByName,
   anomalyByName,
-  deleteHeli,
+  deleteHelicopter,
   IStoredObject,
   noWeapZones,
   registry,
@@ -116,7 +117,7 @@ export function update_npc_logic(actor: XR_game_object, object: XR_game_object, 
       logger.info("Update npc logic:", npc.id());
       update_logic(npc);
 
-      const planner = npc.motivation_action_manager();
+      const planner: XR_action_planner = npc.motivation_action_manager();
 
       planner.update();
       planner.update();
@@ -1049,7 +1050,7 @@ export function heli_die(actor: XR_game_object, npc: XR_game_object): void {
   const st = storage.get(npc.id());
 
   heli.Die();
-  deleteHeli(npc);
+  deleteHelicopter(npc);
 
   st.last_alt = heli.GetRealAltitude();
   st.alt_check_time = time_global() + 1000;

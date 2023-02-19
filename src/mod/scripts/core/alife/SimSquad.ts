@@ -24,6 +24,7 @@ import { communities, TCommunity } from "@/mod/globals/communities";
 import { goodwill } from "@/mod/globals/goodwill";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { relations, TRelation } from "@/mod/globals/relations";
+import { SMART_TERRAIN_SECT } from "@/mod/globals/sections";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { AnyCallablesModule, AnyObject, Optional } from "@/mod/lib/types";
 import { TSection } from "@/mod/lib/types/scheme";
@@ -48,7 +49,6 @@ import {
   zoneByName,
 } from "@/mod/scripts/core/db";
 import { SYSTEM_INI } from "@/mod/scripts/core/db/IniFiles";
-import { SMART_TERRAIN_SECT } from "@/mod/scripts/core/db/sections";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/core/db/SimBoard";
 import { evaluate_prior, get_sim_obj_registry } from "@/mod/scripts/core/db/SimObjectsRegistry";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/db/StoryObjectsRegistry";
