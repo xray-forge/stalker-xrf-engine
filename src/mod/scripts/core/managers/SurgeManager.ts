@@ -20,7 +20,7 @@ import { levels, TLevel } from "@/mod/globals/levels";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { AnyCallablesModule, Optional, PartialRecord } from "@/mod/lib/types";
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
-import { registry, signalLight } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { SURGE_MANAGER_LTX } from "@/mod/scripts/core/db/IniFiles";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/core/db/SimBoard";
@@ -569,7 +569,7 @@ export class SurgeManager extends AbstractCoreManager {
     this.blowout_sound = false;
     this.prev_sec = 0;
 
-    for (const [k, v] of signalLight) {
+    for (const [k, v] of registry.signalLights) {
       logger.info("Stop signal light");
       v.stop_light();
       v.stop();
@@ -751,7 +751,7 @@ export class SurgeManager extends AbstractCoreManager {
 
   protected launch_rockets(): void {
     logger.info("Launch rockets");
-    for (const [k, v] of signalLight) {
+    for (const [k, v] of registry.signalLights) {
       logger.info("Start signal light");
       if (!v.is_flying()) {
         v.launch();

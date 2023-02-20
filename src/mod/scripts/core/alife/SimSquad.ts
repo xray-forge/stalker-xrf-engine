@@ -39,13 +39,7 @@ import {
 } from "@/mod/scripts/core/alife/SimSquadStayOnTargetAction";
 import type { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { ESmartTerrainStatus } from "@/mod/scripts/core/alife/SmartTerrainControl";
-import {
-  goodwill as dbGoodwill,
-  fighting_with_actor_npcs,
-  offlineObjects,
-  registry,
-  spawnedVertexById,
-} from "@/mod/scripts/core/db";
+import { goodwill as dbGoodwill, offlineObjects, registry, spawnedVertexById } from "@/mod/scripts/core/db";
 import { SMART_TERRAIN_MASKS_LTX, SQUAD_BEHAVIOURS_LTX, SYSTEM_INI } from "@/mod/scripts/core/db/IniFiles";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/core/db/SimBoard";
 import { evaluate_prior, get_sim_obj_registry } from "@/mod/scripts/core/db/SimObjectsRegistry";
@@ -1131,7 +1125,7 @@ export function get_help_target_id(squad: ISimSquad): Optional<number> {
     return null;
   }
 
-  for (const [k, v] of fighting_with_actor_npcs) {
+  for (const [k, v] of registry.actorCombat) {
     const enemy_squad_id: Optional<number> = alife().object<XR_cse_alife_creature_abstract>(k)!.group_id;
 
     if (enemy_squad_id !== null) {
@@ -1151,7 +1145,7 @@ export function get_help_target_id(squad: ISimSquad): Optional<number> {
 }
 
 export function can_help_actor(squad: ISimSquad): boolean {
-  if (isEmpty(fighting_with_actor_npcs)) {
+  if (isEmpty(registry.actorCombat)) {
     return false;
   }
 

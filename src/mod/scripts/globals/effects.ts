@@ -57,15 +57,7 @@ import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { IStalker } from "@/mod/scripts/core/alife/Stalker";
 import { update_logic } from "@/mod/scripts/core/binders/StalkerBinder";
-import {
-  animObjByName,
-  deleteHelicopter,
-  IStoredObject,
-  noWeapZones,
-  registry,
-  scriptIds,
-  signalLight,
-} from "@/mod/scripts/core/db";
+import { deleteHelicopter, IStoredObject, noWeapZones, registry } from "@/mod/scripts/core/db";
 import { SYSTEM_INI } from "@/mod/scripts/core/db/IniFiles";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
 import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
@@ -1280,7 +1272,7 @@ export function spawn_npc_in_zone(actor: XR_game_object, obj: XR_game_object, pa
 
   spawned_obj.sim_forced_online = true;
   spawned_obj.squad = 1;
-  scriptIds.set(spawned_obj.id, zone_name);
+  registry.scriptSpawned.set(spawned_obj.id, zone_name);
 }
 
 export function destroy_object(
@@ -1339,20 +1331,20 @@ export function activate_weapon_slot(actor: XR_game_object, npc: XR_game_object,
 export function anim_obj_forward(actor: XR_game_object, npc: XR_game_object, p: LuaArray<string>): void {
   for (const [k, v] of p) {
     if (v !== null) {
-      animObjByName.get(v).anim_forward();
+      registry.animatedDoors.get(v).anim_forward();
     }
   }
 }
 
 export function anim_obj_backward(actor: XR_game_object, npc: XR_game_object, p: [string]): void {
   if (p[0] !== null) {
-    animObjByName.get(p[0]).anim_backward();
+    registry.animatedDoors.get(p[0]).anim_backward();
   }
 }
 
 export function anim_obj_stop(actor: XR_game_object, npc: XR_game_object, p: [string]): void {
   if (p[0] !== null) {
-    animObjByName.get(p[0]).anim_stop();
+    registry.animatedDoors.get(p[0]).anim_stop();
   }
 }
 
@@ -1885,8 +1877,8 @@ export function launch_signal_rocket(actor: XR_game_object, obj: XR_game_object,
     abort("Signal rocket name is ! set!");
   }
 
-  if (signalLight.get(p[0]) !== null) {
-    signalLight.get(p[0]).launch();
+  if (registry.signalLights.get(p[0]) !== null) {
+    registry.signalLights.get(p[0]).launch();
   } else {
     abort("No such signal rocket. [%s] on level", tostring(p[0]));
   }

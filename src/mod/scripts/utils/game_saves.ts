@@ -11,13 +11,12 @@ import {
   XR_CSavedGameWrapper,
   XR_FS,
   XR_FS_file_list_ex,
-  XR_game_object,
   XR_net_packet,
 } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
-import { Optional } from "@/mod/lib/types";
-import { SAVE_MARKERS } from "@/mod/scripts/core/db";
+import { Optional, TName } from "@/mod/lib/types";
+import { registry } from "@/mod/scripts/core/db";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -125,15 +124,15 @@ export function gatFileDataForGameSave(filename: string) {
 /**
  * todo
  */
-export function setSaveMarker(packet: XR_net_packet, check: boolean, prefix: string): void {
-  const result = "_" + prefix;
+export function setSaveMarker(packet: XR_net_packet, check: boolean, prefix: TName): void {
+  const result: TName = "_" + prefix;
 
   if (check) {
-    if (SAVE_MARKERS.get(result) === null) {
+    if (registry.saveMarkers.get(result) === null) {
       abort("Trying to check without marker: " + result);
     }
 
-    const dif = packet.w_tell() - SAVE_MARKERS.get(result);
+    const dif = packet.w_tell() - registry.saveMarkers.get(result);
 
     // log.info("Set save marker result:", result, dif, mode);
 
@@ -152,7 +151,7 @@ export function setSaveMarker(packet: XR_net_packet, check: boolean, prefix: str
     return;
   } else {
     // log.info("Set save marker result:", result, p.w_tell(), mode);
-    SAVE_MARKERS.set(result, packet.w_tell());
+    registry.saveMarkers.set(result, packet.w_tell());
 
     if (packet.w_tell() > 16_000) {
       abort("You are saving too much in %s", prefix);
@@ -163,15 +162,15 @@ export function setSaveMarker(packet: XR_net_packet, check: boolean, prefix: str
 /**
  * todo
  */
-export function setLoadMarker(reader: TXR_net_processor, check: boolean, prefix: string): void {
-  const result = "_" + prefix;
+export function setLoadMarker(reader: TXR_net_processor, check: boolean, prefix: TName): void {
+  const result: TName = "_" + prefix;
 
   if (check) {
-    if (SAVE_MARKERS.get(result) === null) {
+    if (registry.saveMarkers.get(result) === null) {
       abort("Trying to check without marker: " + result);
     }
 
-    const c_dif: number = reader.r_tell() - SAVE_MARKERS.get(result);
+    const c_dif: number = reader.r_tell() - registry.saveMarkers.get(result);
     const dif: number = reader.r_u16();
 
     if (dif !== c_dif) {
@@ -181,77 +180,7 @@ export function setLoadMarker(reader: TXR_net_processor, check: boolean, prefix:
     }
   } else {
     // log.info("Set save marker result:", result, p.r_tell(), mode);
-    SAVE_MARKERS.set(result, reader.r_tell());
-  }
-}
-
-/**
- * todo: DEPRECATED
- * todo: DEPRECATED
- * todo: DEPRECATED
- * todo: DEPRECATED
- * todo: DEPRECATED
- * todo: DEPRECATED
- * todo: DEPRECATED
- */
-export function setMarker(packet: XR_net_packet, mode: "save" | "load", check: boolean, prefix: string): void {
-  const result = "_" + prefix;
-  // --  if debug ~= nil then
-  // --    local info_table = debug.getinfo(2)
-  // --    local script_name = string.gsub(info_table.short_src, "%.script", "")
-  // --    script_name = string.gsub(script_name, "gamedata\\scripts\\", "")
-  // --    result = script_name
-  // --  end
-
-  // --  if prefix ~= nil then
-  // result = result + "_" + prefix;
-  // --  end
-
-  if (check === true) {
-    if (SAVE_MARKERS.get(result) === null) {
-      abort("Trying to check without marker: " + result);
-    }
-
-    if (mode === "save") {
-      const dif = packet.w_tell() - SAVE_MARKERS.get(result);
-
-      // log.info("Set save marker result:", result, dif, mode);
-
-      if (dif >= 8000) {
-        logger.info("Saving more than 8000:", prefix, dif);
-        // printf("WARNING! may be this is problem save point")
-      }
-
-      if (dif >= 10240) {
-        logger.info("Saving more than 10240:", prefix, dif);
-        // --        abort("You are saving too much")
-      }
-
-      packet.w_u16(dif);
-    } else {
-      const c_dif = packet.r_tell() - SAVE_MARKERS.get(result);
-      const dif = packet.r_u16();
-
-      if (dif !== c_dif) {
-        abort("INCORRECT LOAD [%s].[%s][%s]", result, dif, c_dif);
-      } else {
-        // log.info("Set save marker result:", result, dif, mode);
-      }
-    }
-
-    return;
-  }
-
-  if (mode === "save") {
-    // log.info("Set save marker result:", result, p.w_tell(), mode);
-    SAVE_MARKERS.set(result, packet.w_tell());
-
-    if (packet.w_tell() > 16_000) {
-      abort("You are saving too much in %s", prefix);
-    }
-  } else {
-    // log.info("Set save marker result:", result, p.r_tell(), mode);
-    SAVE_MARKERS.set(result, packet.r_tell());
+    registry.saveMarkers.set(result, reader.r_tell());
   }
 }
 

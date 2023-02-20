@@ -1,11 +1,4 @@
-import type {
-  TXR_MonsterBodyStateKey,
-  XR_CUIGameCustom,
-  XR_game_object,
-  XR_ini_file,
-  XR_object_binder,
-  XR_vector,
-} from "xray16";
+import type { TXR_MonsterBodyStateKey, XR_CUIGameCustom, XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
 import type {
   AnyCallable,
@@ -19,6 +12,8 @@ import type {
 } from "@/mod/lib/types";
 import type { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import type { IAnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
+import type { ILabX8DoorBinder } from "@/mod/scripts/core/binders/LabX8DoorBinder";
+import type { ISignalLightBinder } from "@/mod/scripts/core/binders/SignalLightBinder";
 import type { SchemeAnimpoint } from "@/mod/scripts/core/schemes/animpoint/SchemeAnimpoint";
 import type { TAbstractSchemeConstructor } from "@/mod/scripts/core/schemes/base";
 import type { RestrictorManager } from "@/mod/scripts/core/schemes/RestrictorManager";
@@ -88,6 +83,10 @@ export const registry = {
    */
   schemes: new LuaTable<EScheme, TAbstractSchemeConstructor>(),
   /**
+   * Set of objects in combat with actor.
+   */
+  actorCombat: new LuaTable<TNumberId, boolean>(),
+  /**
    * List of active objects.
    */
   objects: new LuaTable<TNumberId, IStoredObject>(),
@@ -119,4 +118,21 @@ export const registry = {
    * List of active smart terrains.
    */
   smartTerrains: new LuaTable<TNumberId, ISmartTerrain>(),
+  /**
+   * List of objects spawned by scripts execution.
+   * $ key - object id, value - zone name.
+   */
+  scriptSpawned: new LuaTable<TNumberId, TName>(),
+  /**
+   * List of active scripted animated doors.
+   */
+  animatedDoors: new LuaTable<TName, ILabX8DoorBinder>(),
+  /**
+   * List of save markers.
+   */
+  saveMarkers: new LuaTable<TName, number>(),
+  /**
+   * List of signal lights existing.
+   */
+  signalLights: new LuaTable<TName, ISignalLightBinder>(),
 };

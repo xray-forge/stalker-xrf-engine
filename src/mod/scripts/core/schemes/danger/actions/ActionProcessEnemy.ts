@@ -4,7 +4,7 @@ import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { Optional, TName } from "@/mod/lib/types";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { ESmartTerrainStatus } from "@/mod/scripts/core/alife/SmartTerrainControl";
-import { fighting_with_actor_npcs, IStoredObject, registry } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
 import { get_sim_obj_registry, ISimObjectsRegistry } from "@/mod/scripts/core/db/SimObjectsRegistry";
 import { isObjectInZone } from "@/mod/scripts/utils/checkers/checkers";
@@ -117,7 +117,7 @@ export class ActionProcessEnemy {
 
   public enemy_callback(object: XR_game_object, enemy: XR_game_object): boolean {
     if (enemy.id() === registry.actor.id()) {
-      fighting_with_actor_npcs.set(object.id(), true);
+      registry.actorCombat.set(object.id(), true);
     }
 
     const isObjectEnemy: boolean = ActionProcessEnemy.isEnemy(object, enemy, this.state, false);

@@ -15,7 +15,7 @@ import {
 
 import { ESchemeType, Optional } from "@/mod/lib/types";
 import { PhysicObjectItemBox } from "@/mod/scripts/core/binders/PhysicObjectItemBox";
-import { addObject, deleteObject, IStoredObject, levelDoors, registry, resetObject } from "@/mod/scripts/core/db";
+import { addObject, deleteObject, IStoredObject, registry, resetObject } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { initializeGameObject } from "@/mod/scripts/core/schemes/initializeGameObject";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
@@ -162,10 +162,6 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
   net_spawn(object: XR_cse_alife_object): boolean {
     if (!object_binder.net_spawn(this, object)) {
       return false;
-    }
-
-    if (this.object.section() === "physic_door") {
-      levelDoors.set(this.object.id(), this.object.position());
     }
 
     const spawn_ini: Optional<XR_ini_file> = this.object.spawn_ini();

@@ -25,13 +25,7 @@ import { AnyArgs, AnyCallablesModule, LuaArray, Maybe, Optional, TName, TSection
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { ESmartTerrainStatus, ISmartTerrainControl } from "@/mod/scripts/core/alife/SmartTerrainControl";
-import {
-  ARTEFACT_WAYS_BY_ARTEFACT_ID,
-  IStoredObject,
-  kamp_stalkers,
-  registry,
-  signalLight,
-} from "@/mod/scripts/core/db";
+import { ARTEFACT_WAYS_BY_ARTEFACT_ID, IStoredObject, kamp_stalkers, registry } from "@/mod/scripts/core/db";
 import { pstor_retrieve } from "@/mod/scripts/core/db/pstor";
 import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
 import * as game_relations from "@/mod/scripts/core/GameRelationsManager";
@@ -1217,8 +1211,8 @@ export function signal_rocket_flying(actor: XR_game_object, npc: XR_game_object,
     abort("Signal rocket name is !set!");
   }
 
-  if (signalLight.get(p[0]) !== null) {
-    return signalLight.get(p[0]).is_flying();
+  if (registry.signalLights.get(p[0]) !== null) {
+    return registry.signalLights.get(p[0]).is_flying();
   } else {
     abort("No such signal rocket: [%s] on level", tostring(p[0]));
   }

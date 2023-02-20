@@ -1,9 +1,8 @@
 import { alife, game_object, XR_cse_alife_creature_abstract, XR_game_object, XR_vector } from "xray16";
 
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
-import { Optional, TName } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { infoRestr, registry } from "@/mod/scripts/core/db";
 import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -120,30 +119,6 @@ export function free_object(obj: XR_game_object): void {
     (gulag as any).free_obj(obj.id());
     // --gulag:update()
   }
-}
-
-/**
- * todo;
- * todo;
- */
-export function is_info_restricted(obj_id: number, info_pos: XR_vector) {
-  let r = infoRestr.get(obj_id);
-
-  if (r === null) {
-    return false;
-  }
-
-  if (type(r) === "string") {
-    r = registry.zones.get(r as TName);
-
-    if (r === null) {
-      return false;
-    }
-
-    infoRestr.set(obj_id, r);
-  }
-
-  return !(r as XR_game_object).inside(info_pos);
 }
 
 /**

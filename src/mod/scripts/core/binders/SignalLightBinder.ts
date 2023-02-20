@@ -10,7 +10,7 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { registry, signalLight } from "@/mod/scripts/core/db";
+import { addObject, deleteObject, registry, resetObject } from "@/mod/scripts/core/db";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -45,8 +45,8 @@ export const SignalLightBinder: ISignalLightBinder = declare_xr_class("SignalLig
   reinit(): void {
     object_binder.reinit(this);
 
-    registry.objects.set(this.object.id(), {});
-    signalLight.set(this.object.name(), this);
+    resetObject(this.object);
+    registry.signalLights.set(this.object.name(), this);
   },
   update(delta: number): void {
     object_binder.update(this, delta);
@@ -115,7 +115,8 @@ export const SignalLightBinder: ISignalLightBinder = declare_xr_class("SignalLig
   },
   net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
-    signalLight.delete(this.object.name());
+    registry.signalLights.delete(this.object.name());
+    deleteObject(this.object);
     object_binder.net_destroy(this);
   },
   launch(): boolean {

@@ -34,7 +34,6 @@ import {
   addObject,
   deleteHelicopterEnemy,
   deleteObject,
-  fighting_with_actor_npcs,
   goodwill,
   IStoredObject,
   offlineObjects,
@@ -249,7 +248,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
   net_destroy(): void {
     DynamicMusicManager.NPC_TABLE.delete(this.object.id());
 
-    fighting_with_actor_npcs.delete(this.object.id());
+    registry.actorCombat.delete(this.object.id());
     GlobalSound.stop_sounds_by_id(this.object.id());
 
     const st: IStoredObject = registry.objects.get(this.object.id());
@@ -372,7 +371,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
     this.hit_callback(victim, 1, new vector().set(0, 0, 0), who, "from_death_callback");
 
     DynamicMusicManager.NPC_TABLE.delete(this.object.id());
-    fighting_with_actor_npcs.delete(this.object.id());
+    registry.actorCombat.delete(this.object.id());
 
     const st = registry.objects.get(this.object.id());
     const npc = this.object;
@@ -444,13 +443,12 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
   update(delta: number): void {
     object_binder.update(this, delta);
 
-    if (fighting_with_actor_npcs.get(this.object.id()) && this.object.best_enemy() === null) {
-      fighting_with_actor_npcs.delete(this.object.id());
+    if (registry.actorCombat.get(this.object.id()) && this.object.best_enemy() === null) {
+      registry.actorCombat.delete(this.object.id());
     }
 
     const object = this.object;
     const object_alive = object.alive();
-    const actor = registry.actor;
 
     update_logic(object);
 

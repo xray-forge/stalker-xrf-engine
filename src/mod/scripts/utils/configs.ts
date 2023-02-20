@@ -12,7 +12,7 @@ import {
 } from "xray16";
 
 import { AnyArgs, AnyCallablesModule, AnyObject, EScheme, Optional, TSection } from "@/mod/lib/types";
-import { registry, scriptIds } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { disableInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -117,7 +117,7 @@ export function getConfigBoolean(
  * todo;
  */
 export function getParamString(srcString: string, obj: XR_game_object): LuaMultiReturn<[string, boolean]> {
-  const scriptId = scriptIds.get(obj.id());
+  const scriptId = registry.scriptSpawned.get(obj.id());
   const [outString, num] = string.gsub(srcString, "%$script_id%$", tostring(scriptId));
 
   if (num > 0) {

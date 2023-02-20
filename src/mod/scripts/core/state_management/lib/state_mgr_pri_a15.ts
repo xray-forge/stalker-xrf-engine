@@ -1,7 +1,9 @@
 import { anim, CSightParams, move, XR_game_object } from "xray16";
 
+import { info_portions } from "@/mod/globals/info_portions";
+import { names } from "@/mod/globals/names";
 import { AnyObject, Optional } from "@/mod/lib/types";
-import { animObjByName, registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { IStateDescriptor } from "@/mod/scripts/core/state_management/lib/state_lib";
 import { parseNames } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -59,19 +61,19 @@ function strap_weapon(npc: XR_game_object): void {
 }
 
 function break_fence(): void {
-  animObjByName.get("pri_a15_door").anim_forward();
+  registry.animatedDoors.get(names.pri_a15_door).anim_forward();
 }
 
 function lights_off(): void {
-  registry.actor.give_info_portion("pri_a15_lights_off");
+  registry.actor.give_info_portion(info_portions.pri_a15_lights_off);
 }
 
 function lights_on(): void {
-  registry.actor.disable_info_portion("pri_a15_lights_off");
+  registry.actor.disable_info_portion(info_portions.pri_a15_lights_off);
 }
 
 function end_scene(): void {
-  registry.actor.give_info_portion("pri_a15_cutscene_end");
+  registry.actor.give_info_portion(info_portions.pri_a15_cutscene_end);
 }
 
 const cutscene = {

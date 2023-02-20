@@ -30,7 +30,6 @@ import {
   IStoredObject,
   PARENT_ZONES_BY_ARTEFACT_ID,
   registry,
-  scriptIds,
 } from "@/mod/scripts/core/db";
 import { addActor, deleteActor } from "@/mod/scripts/core/db/actor";
 import { destroyManager, getWeakManagerInstance } from "@/mod/scripts/core/db/ManagersRegistry";
@@ -447,11 +446,11 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     StatisticsManager.getInstance().save(packet);
     getTreasureManager().save(packet);
 
-    const n = getTableSize(scriptIds);
+    const n = getTableSize(registry.scriptSpawned);
 
     packet.w_u8(n);
 
-    for (const [k, v] of scriptIds) {
+    for (const [k, v] of registry.scriptSpawned) {
       packet.w_u16(k);
       packet.w_stringZ(v);
     }
@@ -529,7 +528,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     const count = reader.r_u8();
 
     for (const i of $range(1, count)) {
-      scriptIds.set(reader.r_u16(), reader.r_stringZ());
+      registry.scriptSpawned.set(reader.r_u16(), reader.r_stringZ());
     }
 
     get_task_manager().load(reader);

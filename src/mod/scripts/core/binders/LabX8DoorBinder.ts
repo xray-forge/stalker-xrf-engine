@@ -14,7 +14,8 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { addAnimationObject, deleteAnimationObject, registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
+import { addDoorObject, deleteDoorObject } from "@/mod/scripts/core/db/doors";
 import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
 import { getConfigNumber, getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
@@ -155,7 +156,7 @@ export const LabX8DoorBinder: ILabX8DoorBinder = declare_xr_class("LabX8DoorBind
       return false;
     }
 
-    addAnimationObject(this.object, this);
+    addDoorObject(this.object, this);
 
     this.object.get_physics_object().stop_anim();
     this.object.get_physics_object().anim_time_set(0);
@@ -178,7 +179,7 @@ export const LabX8DoorBinder: ILabX8DoorBinder = declare_xr_class("LabX8DoorBind
     }
 
     this.object.set_callback(callback.script_animation, null);
-    deleteAnimationObject(this.object);
+    deleteDoorObject(this.object);
     object_binder.net_destroy(this);
   },
   update(delta: number): void {

@@ -28,7 +28,6 @@ import { ISmartTerrain, setup_gulag_and_logic_on_spawn } from "@/mod/scripts/cor
 import {
   addObject,
   deleteObject,
-  fighting_with_actor_npcs,
   IStoredObject,
   offlineObjects,
   registry,
@@ -98,8 +97,8 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
   update(delta: number): void {
     object_binder.update(this, delta);
 
-    if (fighting_with_actor_npcs.get(this.object.id()) && this.object.best_enemy() === null) {
-      fighting_with_actor_npcs.delete(this.object.id());
+    if (registry.actorCombat.get(this.object.id()) && this.object.best_enemy() === null) {
+      registry.actorCombat.delete(this.object.id());
     }
 
     const squad: Optional<ISimSquad> = getObjectSquad(this.object);
@@ -265,7 +264,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     this.object.set_callback(callback.sound, null);
 
     GlobalSound.stop_sounds_by_id(this.object.id());
-    fighting_with_actor_npcs.delete(this.object.id());
+    registry.actorCombat.delete(this.object.id());
 
     const st = registry.objects.get(this.object.id());
 
@@ -315,7 +314,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     }
   },
   death_callback(victim: XR_game_object, killer: XR_game_object): void {
-    fighting_with_actor_npcs.delete(this.object.id());
+    registry.actorCombat.delete(this.object.id());
 
     this.hit_callback(victim, 1, new vector().set(0, 0, 0), killer, "from_death_callback");
 
