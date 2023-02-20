@@ -40,4 +40,3 @@ export interface ITradeManagerDescriptor {
 }
 
 export const sound_themes: LuaTable<string, AbstractPlayableSound> = new LuaTable();
-export const light_zones: LuaTable<number, SchemeLight> = new LuaTable();

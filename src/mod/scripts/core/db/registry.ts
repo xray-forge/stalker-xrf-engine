@@ -18,6 +18,7 @@ import type { ISignalLightBinder } from "@/mod/scripts/core/binders/SignalLightB
 import type { SchemeAnimpoint } from "@/mod/scripts/core/schemes/animpoint/SchemeAnimpoint";
 import type { TAbstractSchemeConstructor } from "@/mod/scripts/core/schemes/base";
 import type { RestrictorManager } from "@/mod/scripts/core/schemes/RestrictorManager";
+import { SchemeLight } from "@/mod/scripts/core/schemes/sr_light/SchemeLight";
 import type { ITeleportPoint } from "@/mod/scripts/core/schemes/teleport/SchemeTeleport";
 import type { SchemeWounded } from "@/mod/scripts/core/schemes/wounded/SchemeWounded";
 import type { StateManager } from "@/mod/scripts/core/state_management/StateManager";
@@ -150,6 +151,10 @@ export const registry = {
    * Set of zones under no weapon restriction.
    */
   noWeaponZones: new LuaTable<TName, boolean>(),
+  /**
+   * List of light active.
+   */
+  lightZones: new LuaTable<number, SchemeLight>(),
   /**
    * List of active smart terrains.
    */

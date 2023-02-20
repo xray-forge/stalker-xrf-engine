@@ -2,7 +2,7 @@ import { level, XR_game_object, XR_ini_file } from "xray16";
 
 import { misc } from "@/mod/globals/items/misc";
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { IStoredObject, light_zones, registry } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
@@ -42,8 +42,8 @@ export class SchemeLight extends AbstractScheme {
   }
 
   public static resetScheme(): void {
-    logger.info("Reset");
-    resetTable(light_zones);
+    logger.info("Reset light zones");
+    resetTable(registry.lightZones);
   }
 
   public static check_light(object: XR_game_object): void {
@@ -74,7 +74,7 @@ export class SchemeLight extends AbstractScheme {
     }
 
     if (!forced) {
-      for (const [k, v] of light_zones) {
+      for (const [k, v] of registry.lightZones) {
         [light, forced] = v.check_stalker(object);
 
         if (forced === true) {
@@ -127,14 +127,14 @@ export class SchemeLight extends AbstractScheme {
 
   public reset_scheme(): void {
     logger.info("Reset scheme:", this.object.id());
-    light_zones.set(this.object.id(), this);
+    registry.lightZones.set(this.object.id(), this);
   }
 
   public update(delta: number): void {
     if (trySwitchToAnotherSection(this.object, this.state, registry.actor)) {
       this.active = false;
 
-      light_zones.delete(this.object.id());
+      registry.lightZones.delete(this.object.id());
 
       return;
     }
