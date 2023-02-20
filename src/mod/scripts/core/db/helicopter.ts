@@ -1,5 +1,6 @@
 import { XR_game_object } from "xray16";
 
+import { addObject, deleteObject } from "@/mod/scripts/core/db/objects";
 import { registry } from "@/mod/scripts/core/db/registry";
 
 /**
@@ -21,6 +22,7 @@ export function deleteHelicopterEnemy(enemyIndex: number): void {
  * todo;
  */
 export function addHelicopter(object: XR_game_object): void {
+  addObject(object);
   registry.helicopter.storage.set(object.id(), object);
 }
 
@@ -28,5 +30,6 @@ export function addHelicopter(object: XR_game_object): void {
  * todo;
  */
 export function deleteHelicopter(object: XR_game_object): void {
+  deleteObject(object);
   registry.helicopter.storage.delete(object.id());
 }

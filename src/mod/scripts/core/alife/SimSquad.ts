@@ -6,7 +6,6 @@ import {
   cse_alife_online_offline_group,
   game,
   game_graph,
-  ini_file,
   level,
   move,
   patrol,
@@ -22,6 +21,7 @@ import {
 import { squadCommunityByBehaviour } from "@/mod/globals/behaviours";
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { goodwill } from "@/mod/globals/goodwill";
+import { info_portions } from "@/mod/globals/info_portions";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { relations, TRelation } from "@/mod/globals/relations";
 import { SMART_TERRAIN_SECT } from "@/mod/globals/sections";
@@ -45,9 +45,8 @@ import {
   offlineObjects,
   registry,
   spawnedVertexById,
-  zoneByName,
 } from "@/mod/scripts/core/db";
-import { SYSTEM_INI } from "@/mod/scripts/core/db/IniFiles";
+import { SMART_TERRAIN_MASKS_LTX, SQUAD_BEHAVIOURS_LTX, SYSTEM_INI } from "@/mod/scripts/core/db/IniFiles";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/core/db/SimBoard";
 import { evaluate_prior, get_sim_obj_registry } from "@/mod/scripts/core/db/SimObjectsRegistry";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/db/StoryObjectsRegistry";
@@ -77,8 +76,6 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { isEmpty } from "@/mod/scripts/utils/table";
 
 const logger: LuaLogger = new LuaLogger("SimSquad");
-const squad_behaviour_ini = new ini_file("misc\\squad_behaviours.ltx");
-const locations_ini = new ini_file("misc\\smart_terrain_masks.ltx");
 
 const smarts_by_no_assault_zones: LuaTable<string, string> = {
   ["zat_a2_sr_no_assault"]: "zat_stalker_base_smart",
@@ -253,14 +250,14 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
       this.player_id
     );
 
-    if (!squad_behaviour_ini.section_exist(behaviour_section)) {
-      abort("There is no section [" + behaviour_section + "] in 'misc\\squad_behaviours.ltx'");
+    if (!SQUAD_BEHAVIOURS_LTX.section_exist(behaviour_section)) {
+      abort("There is no section [" + behaviour_section + "] in 'squad_behaviours.ltx'");
     }
 
-    const n = squad_behaviour_ini.line_count(behaviour_section);
+    const n = SQUAD_BEHAVIOURS_LTX.line_count(behaviour_section);
 
     for (const j of $range(0, n - 1)) {
-      const [result, prop_name, prop_condlist] = squad_behaviour_ini.r_line(behaviour_section, j, "", "");
+      const [result, prop_name, prop_condlist] = SQUAD_BEHAVIOURS_LTX.r_line(behaviour_section, j, "", "");
 
       this.behaviour.set(prop_name, prop_condlist);
     }
@@ -619,10 +616,10 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     }
   },
   set_location_types_section(section: string): void {
-    if (locations_ini.section_exist(section)) {
+    if (SMART_TERRAIN_MASKS_LTX.section_exist(section)) {
       logger.info("Set location types section:", this.name(), section);
 
-      const [result, id, value] = locations_ini.r_line(section, 0, "", "");
+      const [result, id, value] = SMART_TERRAIN_MASKS_LTX.r_line(section, 0, "", "");
 
       this.add_location_type(id);
     }
@@ -1070,7 +1067,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
   },
   sim_available(): boolean {
     for (const [k, v] of smarts_by_no_assault_zones) {
-      const zone = zoneByName.get(k);
+      const zone = registry.zones.get(k);
 
       if (zone && zone.inside(this.position)) {
         const smart = get_sim_board().get_smart_by_name(v);
@@ -1098,8 +1095,8 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
 
     if (smart.base_on_actor_control !== null && smart.base_on_actor_control.status !== ESmartTerrainStatus.NORMAL) {
       if (
-        zoneByName.get(smart.base_on_actor_control.noweap_zone) === null ||
-        !zoneByName.get(smart.base_on_actor_control.noweap_zone).inside(this.position)
+        registry.zones.get(smart.base_on_actor_control.noweap_zone) === null ||
+        !registry.zones.get(smart.base_on_actor_control.noweap_zone).inside(this.position)
       ) {
         return false;
       }
@@ -1165,11 +1162,17 @@ export function can_help_actor(squad: ISimSquad): boolean {
     return false;
   }
 
-  if (hasAlifeInfo("sim_duty_help_harder") && squad.get_squad_community() === communities.dolg) {
+  if (hasAlifeInfo(info_portions.sim_duty_help_harder) && squad.get_squad_community() === communities.dolg) {
     return true;
-  } else if (hasAlifeInfo("sim_freedom_help_harder") && squad.get_squad_community() === communities.freedom) {
+  } else if (
+    hasAlifeInfo(info_portions.sim_freedom_help_harder) &&
+    squad.get_squad_community() === communities.freedom
+  ) {
     return true;
-  } else if (hasAlifeInfo("sim_stalker_help_harder") && squad.get_squad_community() === communities.stalker) {
+  } else if (
+    hasAlifeInfo(info_portions.sim_stalker_help_harder) &&
+    squad.get_squad_community() === communities.stalker
+  ) {
     return true;
   }
 

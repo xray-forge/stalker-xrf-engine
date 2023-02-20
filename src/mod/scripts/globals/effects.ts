@@ -65,7 +65,6 @@ import {
   registry,
   scriptIds,
   signalLight,
-  zoneByName,
 } from "@/mod/scripts/core/db";
 import { SYSTEM_INI } from "@/mod/scripts/core/db/IniFiles";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
@@ -1254,7 +1253,7 @@ export function spawn_object_in(actor: XR_game_object, obj: XR_game_object, p: [
   }
 }
 
-export function spawn_npc_in_zone(actor: XR_game_object, obj: XR_game_object, params: [string, string]): void {
+export function spawn_npc_in_zone(actor: XR_game_object, obj: XR_game_object, params: [string, TName]): void {
   const spawn_sect = params[0];
 
   if (spawn_sect === null) {
@@ -1267,11 +1266,11 @@ export function spawn_npc_in_zone(actor: XR_game_object, obj: XR_game_object, pa
     abort("Wrong zone_name for 'spawn_object' function %s. For object %s", tostring(zone_name), obj.name());
   }
 
-  if (zoneByName.get(zone_name) === null) {
+  if (registry.zones.get(zone_name) === null) {
     abort("Zone %s doesnt exist. Function 'spawn_object' for object %s ", tostring(zone_name), obj.name());
   }
 
-  const zone = zoneByName.get(zone_name);
+  const zone = registry.zones.get(zone_name);
   const spawned_obj: IStalker = alife().create(
     spawn_sect,
     zone.position(),
@@ -2987,9 +2986,9 @@ export function release_force_sleep_animation(actor: XR_game_object, npc: XR_gam
 export function zat_b33_pic_snag_container(actor: XR_game_object, npc: XR_game_object): void {
   if (isActorInZoneWithName(zones.zat_b33_tutor)) {
     give_actor(actor, npc, [quest_items.zat_b33_safe_container]);
-    giveInfo("zat_b33_find_package");
+    giveInfo(info_portions.zat_b33_find_package);
     if (!hasAlifeInfo(info_portions.zat_b33_safe_container)) {
-      play_sound(actor, zoneByName.get(zones.zat_b33_tutor), [script_sounds.pda_news, null, null]);
+      play_sound(actor, registry.zones.get(zones.zat_b33_tutor), [script_sounds.pda_news, null, null]);
     }
   }
 }

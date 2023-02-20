@@ -20,7 +20,7 @@ import { levels, TLevel } from "@/mod/globals/levels";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { AnyCallablesModule, Optional, PartialRecord } from "@/mod/lib/types";
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
-import { registry, signalLight, zoneByName } from "@/mod/scripts/core/db";
+import { registry, signalLight } from "@/mod/scripts/core/db";
 import { SURGE_MANAGER_LTX } from "@/mod/scripts/core/db/IniFiles";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/core/db/SimBoard";
@@ -145,7 +145,7 @@ export class SurgeManager extends AbstractCoreManager {
   public initializeSurgeCovers(): void {
     for (const i of $range(0, SURGE_MANAGER_LTX.line_count("list") - 1)) {
       const [temp1, id, temp2] = SURGE_MANAGER_LTX.r_line("list", i, "", "");
-      const zone: Optional<XR_game_object> = zoneByName.get(id);
+      const zone: Optional<XR_game_object> = registry.zones.get(id);
 
       if (zone !== null) {
         this.surgeCoversCount = this.surgeCoversCount + 1;

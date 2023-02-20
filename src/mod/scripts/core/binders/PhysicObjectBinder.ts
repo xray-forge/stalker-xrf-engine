@@ -15,7 +15,7 @@ import {
 
 import { ESchemeType, Optional } from "@/mod/lib/types";
 import { PhysicObjectItemBox } from "@/mod/scripts/core/binders/PhysicObjectItemBox";
-import { addObject, deleteObject, IStoredObject, levelDoors, registry } from "@/mod/scripts/core/db";
+import { addObject, deleteObject, IStoredObject, levelDoors, registry, resetObject } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { initializeGameObject } from "@/mod/scripts/core/schemes/initializeGameObject";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
@@ -58,9 +58,7 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
   },
   reinit(): void {
     object_binder.reinit(this);
-
-    this.st = {};
-    registry.objects.set(this.object.id(), this.st);
+    this.st = resetObject(this.object);
   },
   net_destroy(): void {
     if (level.map_has_object_spot(this.object.id(), "ui_pda2_actor_box_location") !== 0) {

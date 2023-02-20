@@ -34,8 +34,6 @@ export const ArtefactBinder: IArtefactBinder = declare_xr_class("ArtefactBinder"
   delta: UPDATE_THROTTLE,
   __init(object: XR_game_object): void {
     object_binder.__init(this, object);
-
-    registry.objects.set(object.id(), {});
   },
   net_spawn(object: XR_cse_alife_object): boolean {
     if (!object_binder.net_spawn(this, object)) {

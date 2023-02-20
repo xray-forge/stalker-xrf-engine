@@ -2,8 +2,7 @@ import { object_binder, XR_cse_alife_object, XR_game_object, XR_net_packet, XR_o
 
 import { Optional } from "@/mod/lib/types";
 import { ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { addObject, addZone, deleteObject, deleteZone, IStoredObject } from "@/mod/scripts/core/db";
-import { registry } from "@/mod/scripts/core/db/registry";
+import { addZone, deleteZone, IStoredObject, registry } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { initializeGameObject } from "@/mod/scripts/core/schemes/initializeGameObject";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
@@ -43,7 +42,6 @@ export const RestrictorBinder: IRestrictorBinder = declare_xr_class("RestrictorB
     logger.info("Net spawn:", this.object.name());
 
     addZone(this.object);
-    addObject(this.object);
 
     const objectId: number = this.object.id();
 
@@ -67,7 +65,6 @@ export const RestrictorBinder: IRestrictorBinder = declare_xr_class("RestrictorB
     }
 
     deleteZone(this.object);
-    deleteObject(this.object);
 
     registry.objects.delete(this.object.id());
     object_binder.net_destroy(this);

@@ -1,4 +1,11 @@
-import type { TXR_MonsterBodyStateKey, XR_CUIGameCustom, XR_game_object, XR_ini_file, XR_vector } from "xray16";
+import type {
+  TXR_MonsterBodyStateKey,
+  XR_CUIGameCustom,
+  XR_game_object,
+  XR_ini_file,
+  XR_object_binder,
+  XR_vector,
+} from "xray16";
 
 import type {
   AnyCallable,
@@ -10,6 +17,7 @@ import type {
   TNumberId,
   TSection,
 } from "@/mod/lib/types";
+import type { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import type { IAnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
 import type { SchemeAnimpoint } from "@/mod/scripts/core/schemes/animpoint/SchemeAnimpoint";
 import type { TAbstractSchemeConstructor } from "@/mod/scripts/core/schemes/base";
@@ -103,4 +111,12 @@ export const registry = {
    * List active anomalies by name.
    */
   anomalies: new LuaTable<TName, IAnomalyZoneBinder>(),
+  /**
+   * List of active zones by name.
+   */
+  zones: new LuaTable<TName, XR_game_object>(),
+  /**
+   * List of active smart terrains.
+   */
+  smartTerrains: new LuaTable<TNumberId, ISmartTerrain>(),
 };

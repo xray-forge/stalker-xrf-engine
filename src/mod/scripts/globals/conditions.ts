@@ -20,6 +20,7 @@ import { captions } from "@/mod/globals/captions";
 import { TCommunity } from "@/mod/globals/communities";
 import { info_portions } from "@/mod/globals/info_portions/info_portions";
 import { relations } from "@/mod/globals/relations";
+import { zones } from "@/mod/globals/zones";
 import { AnyArgs, AnyCallablesModule, LuaArray, Maybe, Optional, TName, TSection } from "@/mod/lib/types";
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
@@ -30,7 +31,6 @@ import {
   kamp_stalkers,
   registry,
   signalLight,
-  zoneByName,
 } from "@/mod/scripts/core/db";
 import { pstor_retrieve } from "@/mod/scripts/core/db/pstor";
 import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
@@ -97,7 +97,7 @@ export function fighting_dist_le(first: XR_game_object, second: XR_game_object, 
  * todo;
  */
 export function enemy_in_zone(enemy: XR_game_object, npc: XR_game_object, params: AnyArgs): boolean {
-  const zone: Optional<XR_game_object> = zoneByName.get(params[0]);
+  const zone: Optional<XR_game_object> = registry.zones.get(params[0]);
 
   if (zone === null) {
     abort("Wrong zone name '%s' in enemy_in_zone function.", tostring(params[0]));
@@ -324,7 +324,7 @@ export function story_obj_in_zone_by_name(
   params: [string, string]
 ): boolean {
   const object = getStoryObjectId(params[0]);
-  const zone = zoneByName.get(params[1]);
+  const zone = registry.zones.get(params[1]);
 
   if (object && zone) {
     return zone.inside(alife().object(object)!.position);
@@ -337,14 +337,14 @@ export function story_obj_in_zone_by_name(
  * todo;
  */
 export function actor_in_zone(actor: XR_game_object, npc: XR_game_object, params: [string]): boolean {
-  return isNpcInZone(registry.actor, zoneByName.get(params[0]));
+  return isNpcInZone(registry.actor, registry.zones.get(params[0]));
 }
 
 /**
  * todo;
  */
 export function npc_in_zone(actor: XR_game_object, npc: XR_game_object | XR_cse_abstract, params: [string]): boolean {
-  const zone = zoneByName.get(params[0]);
+  const zone = registry.zones.get(params[0]);
   let npc_obj: Optional<XR_game_object> = null;
 
   if (type(npc.id) !== "function") {
@@ -993,7 +993,7 @@ export function squad_in_zone(actor: XR_game_object, npc: XR_game_object, p: [st
     return false;
   }
 
-  const zone = zoneByName.get(zoneName);
+  const zone = registry.zones.get(zoneName);
 
   if (zone === null) {
     return false;
@@ -1062,7 +1062,7 @@ export function squad_in_zone_all(actor: XR_game_object, npc: XR_game_object, p:
     return false;
   }
 
-  const zone = zoneByName.get(zone_name);
+  const zone = registry.zones.get(zone_name);
 
   if (zone === null) {
     return false;
@@ -1084,7 +1084,7 @@ export function squad_in_zone_all(actor: XR_game_object, npc: XR_game_object, p:
  */
 export function squads_in_zone_b41(actor: XR_game_object, npc: XR_game_object): boolean {
   const smart = get_sim_board().get_smart_by_name("jup_b41");
-  const zone = zoneByName.get("jup_b41_sr_light");
+  const zone = registry.zones.get("jup_b41_sr_light");
 
   if (zone === null) {
     return false;
@@ -1852,12 +1852,12 @@ export function zat_b29_rivals_dialog_precond(actor: XR_game_object, npc: XR_gam
     "zat_b29_stalker_rival_2_squad",
   ] as unknown as LuaArray<string>;
   const zones_table = [
-    "zat_b29_sr_1",
+    zones.zat_b29_sr_1,
     "zat_b29_sr_2",
     "zat_b29_sr_3",
     "zat_b29_sr_4",
     "zat_b29_sr_5",
-  ] as unknown as LuaArray<string>;
+  ] as unknown as LuaArray<TName>;
 
   let f_squad: boolean = false;
 
@@ -1873,7 +1873,7 @@ export function zat_b29_rivals_dialog_precond(actor: XR_game_object, npc: XR_gam
   }
 
   for (const [k, v] of zones_table) {
-    if (isNpcInZone(npc, zoneByName.get(v))) {
+    if (isNpcInZone(npc, registry.zones.get(v))) {
       return true;
     }
   }

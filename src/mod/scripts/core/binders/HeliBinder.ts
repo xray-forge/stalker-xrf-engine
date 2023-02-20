@@ -24,6 +24,7 @@ import {
   deleteObject,
   IStoredObject,
   registry,
+  resetObject,
 } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { get_heli_health } from "@/mod/scripts/core/schemes/heli_move/heli_utils";
@@ -76,9 +77,7 @@ export const HeliBinder: IHeliBinder = declare_xr_class("HeliBinder", object_bin
   reinit(): void {
     object_binder.reinit(this);
 
-    this.st = {};
-    registry.objects.set(this.object.id(), this.st);
-
+    this.st = resetObject(this.object);
     this.heliObject = this.object.get_helicopter();
 
     this.object.set_callback(callback.helicopter_on_point, this.on_point, this);
@@ -132,13 +131,11 @@ export const HeliBinder: IHeliBinder = declare_xr_class("HeliBinder", object_bin
       return false;
     }
 
-    addObject(this.object);
     addHelicopter(this.object);
 
     return true;
   },
   net_destroy(): void {
-    deleteObject(this.object);
     deleteHelicopter(this.object);
 
     object_binder.net_destroy(this);

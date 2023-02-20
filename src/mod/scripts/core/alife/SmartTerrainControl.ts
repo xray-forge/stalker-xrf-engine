@@ -1,8 +1,8 @@
 import { game, TXR_net_processor, XR_CTime, XR_EngineBinding, XR_ini_file, XR_net_packet } from "xray16";
 
-import { Optional } from "@/mod/lib/types";
+import { Optional, TName } from "@/mod/lib/types";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { registry, zoneByName } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
 import { set_squad_goodwill } from "@/mod/scripts/core/GameRelationsManager";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
@@ -26,7 +26,7 @@ const ALARM_TIME = 2 * 60 * 60;
 
 export interface ISmartTerrainControl extends XR_EngineBinding {
   status: ESmartTerrainStatus;
-  noweap_zone: string;
+  noweap_zone: TName;
   ignore_zone: string;
   alarm_start_sound: string;
   alarm_stop_sound: string;
@@ -88,7 +88,7 @@ export const SmartTerrainControl: ISmartTerrainControl = declare_xr_class("Smart
     }
   },
   get_actor_treat(): boolean {
-    const zone = zoneByName.get(this.noweap_zone);
+    const zone = registry.zones.get(this.noweap_zone);
 
     if (zone === null) {
       return false;

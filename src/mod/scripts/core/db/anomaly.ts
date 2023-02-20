@@ -1,5 +1,6 @@
 import { IAnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
-import { addObject, deleteObject, registry } from "@/mod/scripts/core/db/index";
+import { addObject, deleteObject } from "@/mod/scripts/core/db/objects";
+import { registry } from "@/mod/scripts/core/db/registry";
 
 /**
  * todo;

@@ -31,7 +31,6 @@ import {
   PARENT_ZONES_BY_ARTEFACT_ID,
   registry,
   scriptIds,
-  zoneByName,
 } from "@/mod/scripts/core/db";
 import { addActor, deleteActor } from "@/mod/scripts/core/db/actor";
 import { destroyManager, getWeakManagerInstance } from "@/mod/scripts/core/db/ManagersRegistry";
@@ -463,7 +462,7 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
 
     let deimos_exist = false;
 
-    for (const [k, v] of zoneByName) {
+    for (const [k, v] of registry.zones) {
       if (registry.objects.get(v.id()) && registry.objects.get(v.id()).active_section === SchemeDeimos.SCHEME_SECTION) {
         deimos_exist = true;
         packet.w_bool(true);

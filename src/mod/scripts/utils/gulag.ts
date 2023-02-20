@@ -1,9 +1,9 @@
 import { alife, game_object, XR_cse_alife_creature_abstract, XR_game_object, XR_vector } from "xray16";
 
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
-import { Optional } from "@/mod/lib/types";
+import { Optional, TName } from "@/mod/lib/types";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { infoRestr, zoneByName } from "@/mod/scripts/core/db";
+import { infoRestr, registry } from "@/mod/scripts/core/db";
 import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -134,7 +134,7 @@ export function is_info_restricted(obj_id: number, info_pos: XR_vector) {
   }
 
   if (type(r) === "string") {
-    r = zoneByName.get(r as string);
+    r = registry.zones.get(r as TName);
 
     if (r === null) {
       return false;

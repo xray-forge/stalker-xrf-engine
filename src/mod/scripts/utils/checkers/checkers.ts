@@ -17,7 +17,7 @@ import { ERelation } from "@/mod/globals/relations";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { Optional } from "@/mod/lib/types";
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
-import { IStoredObject, registry, zoneByName } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { action_ids } from "@/mod/scripts/core/schemes/base/actions_id";
 import { getStorySquad } from "@/mod/scripts/utils/alife";
@@ -189,7 +189,7 @@ export function isActorInZone(zone: Optional<XR_game_object>): boolean {
  * todo;
  */
 export function isActorInZoneWithName(zoneName: string, actor: Optional<XR_game_object> = registry.actor): boolean {
-  const zone: Optional<XR_game_object> = zoneByName.get(zoneName);
+  const zone: Optional<XR_game_object> = registry.zones.get(zoneName);
 
   return actor !== null && zone !== null && zone.inside(actor.position());
 }

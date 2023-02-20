@@ -2,8 +2,7 @@ import { game, level, time_global, XR_game_object } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { ESchemeCondition } from "@/mod/lib/types/scheme";
-import { stringifyAsJson } from "@/mod/lib/utils/json";
-import { IStoredObject, registry, zoneByName } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { switchToSection } from "@/mod/scripts/core/schemes/switchToSection";
 import { isSeeingActor } from "@/mod/scripts/utils/alife";
 import { isNpcInZone } from "@/mod/scripts/utils/checkers/checkers";
@@ -81,19 +80,19 @@ export function trySwitchToAnotherSection(
         switched = switchToSection(object, state.ini!, pickSectionFromCondList(actor, object, cond.condlist)!);
       }
     } else if (isSchemeCondition(cond.name, ESchemeCondition.ON_ACTOR_IN_ZONE)) {
-      if (isNpcInZone(actor, zoneByName.get(cond.v1))) {
+      if (isNpcInZone(actor, registry.zones.get(cond.v1))) {
         switched = switchToSection(object, state.ini!, pickSectionFromCondList(actor, object, cond.condlist)!);
       }
     } else if (isSchemeCondition(cond.name, ESchemeCondition.ON_ACTOR_NOT_IN_ZONE)) {
-      if (!isNpcInZone(actor, zoneByName.get(cond.v1))) {
+      if (!isNpcInZone(actor, registry.zones.get(cond.v1))) {
         switched = switchToSection(object, state.ini!, pickSectionFromCondList(actor, object, cond.condlist)!);
       }
     } else if (isSchemeCondition(cond.name, ESchemeCondition.ON_NPC_IN_ZONE)) {
-      if (isNpcInZone(level.object_by_id(cond.npc_id), zoneByName.get(cond.v2))) {
+      if (isNpcInZone(level.object_by_id(cond.npc_id), registry.zones.get(cond.v2))) {
         switched = switchToSection(object, state.ini!, pickSectionFromCondList(actor, object, cond.condlist)!);
       }
     } else if (isSchemeCondition(cond.name, ESchemeCondition.ON_NPC_NOT_IN_ZONE)) {
-      if (!isNpcInZone(level.object_by_id(cond.npc_id), zoneByName.get(cond.v2))) {
+      if (!isNpcInZone(level.object_by_id(cond.npc_id), registry.zones.get(cond.v2))) {
         switched = switchToSection(object, state.ini!, pickSectionFromCondList(actor, object, cond.condlist)!);
       }
     } else if (isSchemeCondition(cond.name, ESchemeCondition.ON_ACTOR_INSIDE)) {

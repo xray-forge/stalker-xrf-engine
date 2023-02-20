@@ -1,10 +1,10 @@
 import { alife, XR_cse_alife_creature_abstract, XR_game_object, XR_vector } from "xray16";
 
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
-import { Optional } from "@/mod/lib/types";
+import { Optional, TName } from "@/mod/lib/types";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { ESmartTerrainStatus } from "@/mod/scripts/core/alife/SmartTerrainControl";
-import { fighting_with_actor_npcs, IStoredObject, registry, zoneByName } from "@/mod/scripts/core/db";
+import { fighting_with_actor_npcs, IStoredObject, registry } from "@/mod/scripts/core/db";
 import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
 import { get_sim_obj_registry, ISimObjectsRegistry } from "@/mod/scripts/core/db/SimObjectsRegistry";
 import { isObjectInZone } from "@/mod/scripts/utils/checkers/checkers";
@@ -13,11 +13,11 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ActionProcessEnemy");
 
-const smarts_by_no_assault_zones: LuaTable<string, string> = {
+const smarts_by_no_assault_zones: LuaTable<TName, string> = {
   ["zat_a2_sr_no_assault"]: "zat_stalker_base_smart",
   ["jup_a6_sr_no_assault"]: "jup_a6",
   ["jup_b41_sr_no_assault"]: "jup_b41",
-} as unknown as LuaTable<string, string>;
+} as unknown as LuaTable<TName, string>;
 
 const ignored_smart = {
   zat_stalker_base_smart: true,
@@ -66,7 +66,7 @@ export class ActionProcessEnemy {
 
     if (enemy.id() !== registry.actor.id()) {
       for (const [k, v] of smarts_by_no_assault_zones) {
-        const zone = zoneByName.get(k);
+        const zone = registry.zones.get(k);
 
         if (zone && (isObjectInZone(object, zone) || isObjectInZone(enemy, zone))) {
           const smart = get_sim_board().get_smart_by_name(v);

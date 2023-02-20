@@ -16,6 +16,7 @@ export const zones = {
   zat_b100_heli_2: "zat_b100_heli_2",
   zat_b101_heli_5: "zat_b101_heli_5",
   zat_b28_heli_3: "zat_b28_heli_3",
+  zat_b29_sr_1: "zat_b29_sr_1",
   zat_b33_tutor: "zat_b33_tutor",
 } as const;
 

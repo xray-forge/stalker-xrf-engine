@@ -12,11 +12,11 @@ import {
 
 import { communities } from "@/mod/globals/communities";
 import { SMART_TERRAIN_SECT } from "@/mod/globals/sections";
-import { AnyObject, EJobType, EScheme, JobTypeByScheme, Optional, TSection } from "@/mod/lib/types";
+import { AnyObject, EJobType, EScheme, JobTypeByScheme, Optional, TName, TSection } from "@/mod/lib/types";
 import { accessible_job, get_job_restrictor } from "@/mod/scripts/core/alife/combat_restrictor";
 import { registered_smartcovers } from "@/mod/scripts/core/alife/SmartCover";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { registry, zoneByName } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import {
   get_scheme_by_section,
@@ -1176,12 +1176,12 @@ function add_exclusive_job(sect: TSection, work_field: string, smart_ini: XR_ini
  * todo;
  * todo;
  */
-export function isJobInRestrictor(smart: ISmartTerrain, restrictorName: string, wayName: string): Optional<boolean> {
+export function isJobInRestrictor(smart: ISmartTerrain, restrictorName: TName, wayName: string): Optional<boolean> {
   if (restrictorName === null) {
     return null;
   }
 
-  const restrictor: Optional<XR_game_object> = zoneByName.get(restrictorName);
+  const restrictor: Optional<XR_game_object> = registry.zones.get(restrictorName);
 
   if (restrictor === null) {
     return null;

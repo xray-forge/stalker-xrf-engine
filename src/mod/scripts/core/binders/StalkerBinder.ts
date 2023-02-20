@@ -39,6 +39,7 @@ import {
   IStoredObject,
   offlineObjects,
   registry,
+  resetObject,
   spawnedVertexById,
 } from "@/mod/scripts/core/db";
 import { DUMMY_LTX } from "@/mod/scripts/core/db/IniFiles";
@@ -117,9 +118,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
   reinit(): void {
     object_binder.reinit(this);
 
-    registry.objects.set(this.object.id(), { followers: {} });
-    this.state = registry.objects.get(this.object.id());
-
+    this.state = resetObject(this.object, { followers: {} });
     this.state.state_mgr = bind_state_manager(this.object);
 
     this.state.move_mgr = new MoveManager(this.object);

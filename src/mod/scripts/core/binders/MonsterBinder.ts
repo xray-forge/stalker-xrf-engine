@@ -32,6 +32,7 @@ import {
   IStoredObject,
   offlineObjects,
   registry,
+  resetObject,
   spawnedVertexById,
 } from "@/mod/scripts/core/db";
 import { get_sim_obj_registry } from "@/mod/scripts/core/db/SimObjectsRegistry";
@@ -87,8 +88,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
   reinit(): void {
     object_binder.reinit(this);
 
-    this.st = {};
-    registry.objects.set(this.object.id(), this.st);
+    this.st = resetObject(this.object);
 
     this.object.set_callback(callback.patrol_path_in_point, this.waypoint_callback, this);
     this.object.set_callback(callback.hit, this.hit_callback, this);

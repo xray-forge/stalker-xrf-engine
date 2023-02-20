@@ -1,5 +1,6 @@
-import { XR_cse_alife_object, XR_CZoneCampfire, XR_game_object, XR_ini_file, XR_vector } from "xray16";
+import { XR_CZoneCampfire, XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
+import { TName } from "@/mod/lib/types";
 import type { IAnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
 import type { ISignalLightBinder } from "@/mod/scripts/core/binders/SignalLightBinder";
 import { addObject, deleteObject } from "@/mod/scripts/core/db/objects";
@@ -19,6 +20,8 @@ export * from "@/mod/scripts/core/db/objects";
 export * from "@/mod/scripts/core/db/actor";
 export * from "@/mod/scripts/core/db/helicopter";
 export * from "@/mod/scripts/core/db/anomaly";
+export * from "@/mod/scripts/core/db/zones";
+export * from "@/mod/scripts/core/db/smart_terrains";
 
 export const infoRestr: LuaTable<number, string | XR_game_object> = new LuaTable();
 export const scriptIds: LuaTable<number, string> = new LuaTable();
@@ -30,7 +33,7 @@ export const goodwill = { sympathy: new LuaTable(), relations: new LuaTable() };
 export const offlineObjects: LuaTable<number, any> = new LuaTable();
 export const REGISTERED_ITEMS: LuaTable<string, number> = new LuaTable();
 export const tradeState: LuaTable<number, ITradeManagerDescriptor> = new LuaTable();
-export const silenceZones: LuaTable<number, string> = new LuaTable();
+export const silenceZones: LuaTable<number, TName> = new LuaTable();
 
 export const fighting_with_actor_npcs: LuaTable<number, boolean> = new LuaTable();
 export const reactTaskPatrols: LuaTable<string, ReachTaskPatrolManager> = new LuaTable();
@@ -52,8 +55,6 @@ export const PARENT_ZONES_BY_ARTEFACT_ID: LuaTable<number, IAnomalyZoneBinder> =
 
 export const SAVE_MARKERS: LuaTable<string, number> = new LuaTable();
 
-export const zoneByName: LuaTable<string, XR_game_object> = new LuaTable();
-
 export interface ITradeManagerDescriptor {
   cfg_ltx: string;
   config: XR_ini_file;
@@ -69,34 +70,9 @@ export interface ITradeManagerDescriptor {
   current_buy_supplies: string;
 }
 
-export const smartTerrainById: LuaTable<number, XR_cse_alife_object> = new LuaTable();
 export const animObjByName: LuaTable<string, IStoredObject> = new LuaTable();
 export const sound_themes: LuaTable<string, AbstractPlayableSound> = new LuaTable();
 export const light_zones: LuaTable<number, SchemeLight> = new LuaTable();
-
-export function addZone(zone: XR_game_object): void {
-  logger.info("Add zone:", zone.name());
-
-  zoneByName.set(zone.name(), zone);
-}
-
-export function deleteZone(zone: XR_game_object): void {
-  logger.info("Delete zone:", zone.name());
-
-  zoneByName.delete(zone.name());
-}
-
-export function addSmartTerrain(object: XR_cse_alife_object): void {
-  logger.info("Add smart terrain:", object.id);
-
-  smartTerrainById.set(object.id, object);
-}
-
-export function deleteSmartTerrain(object: XR_cse_alife_object): void {
-  logger.info("Delete smart terrain:", object.id);
-
-  smartTerrainById.delete(object.id);
-}
 
 export function addAnimationObject(object: XR_game_object, storedObject: IStoredObject): void {
   animObjByName.set(object.name(), storedObject);

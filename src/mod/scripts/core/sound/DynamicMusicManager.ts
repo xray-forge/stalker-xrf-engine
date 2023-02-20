@@ -3,7 +3,7 @@ import { get_console, IsDynamicMusic, level, time_global, XR_game_object, XR_vec
 import { console_command } from "@/mod/globals/console_command";
 import { TSound } from "@/mod/globals/sound/sounds";
 import { Optional } from "@/mod/lib/types";
-import { registry, silenceZones, zoneByName } from "@/mod/scripts/core/db";
+import { registry, silenceZones } from "@/mod/scripts/core/db";
 import { EGameEvent } from "@/mod/scripts/core/managers/events/EGameEvent";
 import { EventsManager } from "@/mod/scripts/core/managers/events/EventsManager";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
@@ -89,7 +89,7 @@ export class DynamicMusicManager {
     const actorPosition: XR_vector = registry.actor.position();
 
     for (const [zoneId, zoneName] of silenceZones) {
-      if (zoneByName.get(zoneName).inside(actorPosition)) {
+      if (registry.zones.get(zoneName).inside(actorPosition)) {
         return true;
       }
     }

@@ -1,6 +1,6 @@
 import { object_binder, XR_cse_alife_object, XR_game_object, XR_object_binder } from "xray16";
 
-import { addObject, addZone, deleteObject, deleteZone, registry } from "@/mod/scripts/core/db";
+import { addZone, deleteZone, registry } from "@/mod/scripts/core/db";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("AnomalyFieldBinder");
@@ -37,7 +37,6 @@ export const AnomalyFieldBinder: IAnomalyFieldBinder = declare_xr_class("Anomaly
     logger.info("Net spawn:", object.name());
 
     addZone(this.object);
-    addObject(this.object);
 
     FIELDS_BY_NAME.set(this.object.name(), this);
 
@@ -47,7 +46,6 @@ export const AnomalyFieldBinder: IAnomalyFieldBinder = declare_xr_class("Anomaly
     logger.info("Net destroy:", this.object.name());
 
     deleteZone(this.object);
-    deleteObject(this.object);
 
     registry.objects.delete(this.object.id());
     FIELDS_BY_NAME.delete(this.object.name());
