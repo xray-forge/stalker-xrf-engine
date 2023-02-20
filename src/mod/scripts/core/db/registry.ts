@@ -1,5 +1,6 @@
 import type { TXR_MonsterBodyStateKey, XR_CUIGameCustom, XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
+import { TRelation } from "@/mod/globals/relations";
 import type {
   AnyCallable,
   AnyObject,
@@ -118,6 +119,10 @@ export const registry = {
     points: new LuaTable<TNumberId, number>(),
     parentZones: new LuaTable<TNumberId, IAnomalyZoneBinder>(),
   },
+  /**
+   * Goodwill state.
+   */
+  goodwill: { sympathy: new LuaTable<TNumberId, number>(), relations: new LuaTable<TNumberId, TRelation>() },
   /**
    * List of active zones by name.
    */

@@ -39,7 +39,7 @@ import {
 } from "@/mod/scripts/core/alife/SimSquadStayOnTargetAction";
 import type { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { ESmartTerrainStatus } from "@/mod/scripts/core/alife/SmartTerrainControl";
-import { goodwill as dbGoodwill, offlineObjects, registry } from "@/mod/scripts/core/db";
+import { offlineObjects, registry } from "@/mod/scripts/core/db";
 import { SMART_TERRAIN_MASKS_LTX, SQUAD_BEHAVIOURS_LTX, SYSTEM_INI } from "@/mod/scripts/core/db/IniFiles";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/core/db/SimBoard";
 import { evaluate_prior, get_sim_obj_registry } from "@/mod/scripts/core/db/SimObjectsRegistry";
@@ -763,11 +763,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
         if (npc !== null) {
           set_npc_sympathy(npc, symp);
         } else {
-          if (dbGoodwill.sympathy === null) {
-            dbGoodwill.sympathy = new LuaTable();
-          }
-
-          dbGoodwill.sympathy.set(k.id, symp);
+          registry.goodwill.sympathy.set(k.id, symp);
         }
       }
     }

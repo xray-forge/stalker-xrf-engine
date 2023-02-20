@@ -34,7 +34,6 @@ import {
   addObject,
   deleteHelicopterEnemy,
   deleteObject,
-  goodwill,
   IStoredObject,
   offlineObjects,
   registry,
@@ -188,13 +187,13 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
       return true;
     }
 
-    const relation = goodwill.relations && goodwill.relations.get(this.object.id());
+    const relation = registry.goodwill.relations.get(this.object.id());
 
     if (relation !== null && actor) {
       set_npcs_relation(this.object, actor, relation);
     }
 
-    const sympathy = goodwill.sympathy && goodwill.sympathy.get(this.object.id());
+    const sympathy = registry.goodwill.sympathy.get(this.object.id());
 
     if (sympathy !== null) {
       set_npc_sympathy(this.object, sympathy);
@@ -260,10 +259,8 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
       issueEvent(this.object, this.state.reach_task, "net_destroy", this.object);
     }
 
-    const on_offline_condlist =
-      registry.objects.get(this.object.id()) &&
-      registry.objects.get(this.object.id()).overrides &&
-      registry.objects.get(this.object.id()).overrides!.on_offline_condlist;
+    const on_offline_condlist = registry.objects.get(this.object.id())?.overrides
+      ?.on_offline_condlist as Optional<number>;
 
     if (on_offline_condlist !== null) {
       pickSectionFromCondList(registry.actor, this.object, on_offline_condlist as any);
