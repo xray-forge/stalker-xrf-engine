@@ -1,7 +1,7 @@
 import { action_base, XR_action_base, XR_game_object } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { IStoredObject, patrols } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { MoveManager } from "@/mod/scripts/core/MoveManager";
 import { get_state } from "@/mod/scripts/core/state_management/StateManager";
@@ -63,7 +63,7 @@ export const ActionCommander: IActionCommander = declare_xr_class("ActionCommand
       null
     );
 
-    patrols.get(this.state.patrol_key).set_command(this.object, this.cur_state, this.state.formation);
+    registry.patrols.generic.get(this.state.patrol_key).set_command(this.object, this.cur_state, this.state.formation);
   },
   execute(): void {
     action_base.execute(this);
@@ -100,22 +100,22 @@ export const ActionCommander: IActionCommander = declare_xr_class("ActionCommand
       this.old_state = new_state;
     }
 
-    patrols.get(this.state.patrol_key).set_command(this.object, new_state, this.state.formation);
+    registry.patrols.generic.get(this.state.patrol_key).set_command(this.object, new_state, this.state.formation);
   },
   finalize(): void {
     if (this.object.alive() === true) {
       // --printf ("ACTION_COMMANDER:FINALIZE CALLED")
-      patrols.get(this.state.patrol_key).set_command(this.object, "guard", this.state.formation);
+      registry.patrols.generic.get(this.state.patrol_key).set_command(this.object, "guard", this.state.formation);
       this.move_mgr.finalize();
     }
 
     action_base.finalize(this);
   },
   deactivate(npc: XR_game_object): void {
-    patrols.get(this.state.patrol_key).remove_npc(npc);
+    registry.patrols.generic.get(this.state.patrol_key).remove_npc(npc);
   },
   death_callback(npc: XR_game_object): void {
-    patrols.get(this.state.patrol_key).remove_npc(npc);
+    registry.patrols.generic.get(this.state.patrol_key).remove_npc(npc);
   },
   net_destroy(npc: XR_game_object): void {
     this.deactivate(npc);

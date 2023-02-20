@@ -1,6 +1,6 @@
 import { action_base, game_object, time_global, vector, XR_action_base, XR_game_object, XR_vector } from "xray16";
 
-import { IStoredObject, patrols } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { MoveManager } from "@/mod/scripts/core/MoveManager";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { sendToNearestAccessibleVertex } from "@/mod/scripts/utils/alife";
@@ -84,7 +84,7 @@ export const ActionPatrol: IActionPatrol = declare_xr_class("ActionPatrol", acti
 
     this.time_to_update = time_global() + 1000;
 
-    const [l_vid, dir, cur_state] = patrols.get(this.state.patrol_key).get_npc_command(this.object);
+    const [l_vid, dir, cur_state] = registry.patrols.generic.get(this.state.patrol_key).get_npc_command(this.object);
 
     this.l_vid = l_vid;
     this.dir = dir;
@@ -112,10 +112,10 @@ export const ActionPatrol: IActionPatrol = declare_xr_class("ActionPatrol", acti
   },
   formation_callback(mode: number, number: number, index: number): void {},
   death_callback(npc: XR_game_object): void {
-    patrols.get(this.state.patrol_key).remove_npc(npc);
+    registry.patrols.generic.get(this.state.patrol_key).remove_npc(npc);
   },
   deactivate(npc: XR_game_object): void {
-    patrols.get(this.state.patrol_key).remove_npc(npc);
+    registry.patrols.generic.get(this.state.patrol_key).remove_npc(npc);
   },
   net_destroy(npc: XR_game_object): void {
     this.deactivate(npc);

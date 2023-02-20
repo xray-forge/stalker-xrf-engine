@@ -1,6 +1,6 @@
 import { property_evaluator, XR_property_evaluator } from "xray16";
 
-import { IStoredObject, patrols } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("EvaluatorPatrolComm");
@@ -15,6 +15,6 @@ export const EvaluatorPatrolComm: IEvaluatorPatrolComm = declare_xr_class("Evalu
     this.state = storage;
   },
   evaluate(): boolean {
-    return patrols.get(this.state.patrol_key).is_commander(this.object.id());
+    return registry.patrols.generic.get(this.state.patrol_key).is_commander(this.object.id());
   },
 } as IEvaluatorPatrolComm);

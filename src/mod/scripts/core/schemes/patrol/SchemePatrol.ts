@@ -2,7 +2,7 @@ import { level, stalker_ids, vector, world_property, XR_game_object, XR_ini_file
 
 import { Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { IStoredObject, patrols } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { action_ids } from "@/mod/scripts/core/schemes/base/actions_id";
@@ -182,11 +182,11 @@ export class SchemePatrol extends AbstractScheme {
       st.patrol_key = st.patrol_key + tostring(squad.id);
     }
 
-    if (patrols.get(st.patrol_key) === null) {
-      patrols.set(st.patrol_key, new PatrolManager(st.path_name));
+    if (registry.patrols.generic.get(st.patrol_key) === null) {
+      registry.patrols.generic.set(st.patrol_key, new PatrolManager(st.path_name));
     }
 
-    patrols.get(st.patrol_key).add_npc(npc, st.commander);
+    registry.patrols.generic.get(st.patrol_key).add_npc(npc, st.commander);
   }
 }
 
