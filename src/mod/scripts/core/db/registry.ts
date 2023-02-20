@@ -115,6 +115,10 @@ export const registry = {
    */
   zones: new LuaTable<TName, XR_game_object>(),
   /**
+   * List of zones under silence restriction, no music is allowed.
+   */
+  silenceZones: new LuaTable<TNumberId, TName>(),
+  /**
    * List of active smart terrains.
    */
   smartTerrains: new LuaTable<TNumberId, ISmartTerrain>(),

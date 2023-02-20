@@ -1,7 +1,7 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { IStoredObject, silenceZones } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
@@ -10,8 +10,11 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("SchemeSilence");
 
+/**
+ * Scheme to implement zones where playing dynamic music is restricted.
+ */
 export class SchemeSilence extends AbstractScheme {
-  public static SCHEME_SECTION: EScheme = EScheme.SR_SILENCE;
+  public static readonly SCHEME_SECTION: EScheme = EScheme.SR_SILENCE;
   public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
   public static add_to_binder(
@@ -30,6 +33,6 @@ export class SchemeSilence extends AbstractScheme {
 
     state.logic = cfg_get_switch_conditions(ini, section, object);
 
-    silenceZones.set(object.id(), object.name());
+    registry.silenceZones.set(object.id(), object.name());
   }
 }

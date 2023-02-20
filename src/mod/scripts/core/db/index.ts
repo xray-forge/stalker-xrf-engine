@@ -1,6 +1,5 @@
 import { XR_CZoneCampfire, XR_ini_file } from "xray16";
 
-import { TName } from "@/mod/lib/types";
 import type { IAnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
 import type { CampStoryManager } from "@/mod/scripts/core/schemes/base/CampStoryManager";
 import type { CampPatrolManager } from "@/mod/scripts/core/schemes/kamp/SchemeCamp";
@@ -18,6 +17,8 @@ export * from "@/mod/scripts/core/db/anomaly";
 export * from "@/mod/scripts/core/db/zones";
 export * from "@/mod/scripts/core/db/smart_terrains";
 
+// todo: Move game volume to db.
+
 export const noWeapZones: LuaTable<string, boolean> = new LuaTable();
 export const spawnedVertexById: LuaTable<number, number> = new LuaTable();
 
@@ -25,8 +26,6 @@ export const goodwill = { sympathy: new LuaTable(), relations: new LuaTable() };
 export const offlineObjects: LuaTable<number, any> = new LuaTable();
 export const REGISTERED_ITEMS: LuaTable<string, number> = new LuaTable();
 export const tradeState: LuaTable<number, ITradeManagerDescriptor> = new LuaTable();
-
-export const silenceZones: LuaTable<number, TName> = new LuaTable();
 
 export const reactTaskPatrols: LuaTable<string, ReachTaskPatrolManager> = new LuaTable();
 export const patrols: LuaTable<number, PatrolManager> = new LuaTable();
