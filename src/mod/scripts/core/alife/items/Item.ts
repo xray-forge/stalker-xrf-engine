@@ -1,7 +1,6 @@
 import { cse_alife_item, XR_cse_alife_item } from "xray16";
 
 import { Optional, TSection } from "@/mod/lib/types";
-import { REGISTERED_ITEMS } from "@/mod/scripts/core/db";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/db/StoryObjectsRegistry";
 import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
@@ -16,20 +15,11 @@ export interface IItem extends XR_cse_alife_item {
 export const Item: IItem = declare_xr_class("Item", cse_alife_item, {
   __init(section: TSection): void {
     cse_alife_item.__init(this, section);
-
     this.secret_item = false;
   },
   on_register(): void {
     cse_alife_item.on_register(this);
-    logger.info("Register:", this.id, this.name(), this.section_name());
     checkSpawnIniForStoryId(this);
-
-    if (REGISTERED_ITEMS.get(this.section_name()) === null) {
-      REGISTERED_ITEMS.set(this.section_name(), 1);
-    } else {
-      REGISTERED_ITEMS.set(this.section_name(), REGISTERED_ITEMS.get(this.section_name()) + 1);
-    }
-
     this.secret_item = getTreasureManager().register_item(this);
   },
   on_unregister(): void {

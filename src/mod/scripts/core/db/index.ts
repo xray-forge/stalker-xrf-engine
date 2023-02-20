@@ -18,9 +18,7 @@ export * from "@/mod/scripts/core/db/offline";
 
 // todo: Move game volume to db.
 
-export const REGISTERED_ITEMS: LuaTable<string, number> = new LuaTable();
 export const tradeState: LuaTable<number, ITradeManagerDescriptor> = new LuaTable();
-
 export const reactTaskPatrols: LuaTable<string, ReachTaskPatrolManager> = new LuaTable();
 export const patrols: LuaTable<number, PatrolManager> = new LuaTable();
 export const kamp_stalkers: LuaTable<number, boolean> = new LuaTable();
