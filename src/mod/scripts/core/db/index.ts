@@ -19,9 +19,6 @@ export * from "@/mod/scripts/core/db/smart_terrains";
 
 // todo: Move game volume to db.
 
-export const noWeapZones: LuaTable<string, boolean> = new LuaTable();
-export const spawnedVertexById: LuaTable<number, number> = new LuaTable();
-
 export const goodwill = { sympathy: new LuaTable(), relations: new LuaTable() };
 export const offlineObjects: LuaTable<number, any> = new LuaTable();
 export const REGISTERED_ITEMS: LuaTable<string, number> = new LuaTable();

@@ -39,7 +39,6 @@ import {
   offlineObjects,
   registry,
   resetObject,
-  spawnedVertexById,
 } from "@/mod/scripts/core/db";
 import { DUMMY_LTX } from "@/mod/scripts/core/db/IniFiles";
 import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
@@ -219,9 +218,9 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
     const se_obj = alife().object<XR_cse_alife_human_abstract>(this.object.id());
 
     if (se_obj !== null) {
-      if (spawnedVertexById.get(se_obj.id) !== null) {
-        this.object.set_npc_position(level.vertex_position(spawnedVertexById.get(se_obj.id)));
-        spawnedVertexById.delete(se_obj.id);
+      if (registry.spawnedVertexes.get(se_obj.id) !== null) {
+        this.object.set_npc_position(level.vertex_position(registry.spawnedVertexes.get(se_obj.id)));
+        registry.spawnedVertexes.delete(se_obj.id);
       } else if (offlineObjects.get(se_obj.id) !== null && offlineObjects.get(se_obj.id).level_vertex_id !== null) {
         this.object.set_npc_position(level.vertex_position(offlineObjects.get(se_obj.id).level_vertex_id));
       } else if (se_obj.m_smart_terrain_id !== MAX_UNSIGNED_16_BIT) {

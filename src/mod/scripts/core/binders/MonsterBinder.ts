@@ -25,15 +25,7 @@ import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { EScheme, ESchemeType, Optional } from "@/mod/lib/types";
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { ISmartTerrain, setup_gulag_and_logic_on_spawn } from "@/mod/scripts/core/alife/SmartTerrain";
-import {
-  addObject,
-  deleteObject,
-  IStoredObject,
-  offlineObjects,
-  registry,
-  resetObject,
-  spawnedVertexById,
-} from "@/mod/scripts/core/db";
+import { addObject, deleteObject, IStoredObject, offlineObjects, registry, resetObject } from "@/mod/scripts/core/db";
 import { get_sim_obj_registry } from "@/mod/scripts/core/db/SimObjectsRegistry";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
@@ -236,9 +228,9 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
 
     const se_obj = alife().object<XR_cse_alife_creature_abstract>(this.object.id())!;
 
-    if (spawnedVertexById.has(se_obj.id)) {
-      this.object.set_npc_position(level.vertex_position(spawnedVertexById.get(se_obj.id)));
-      spawnedVertexById.delete(se_obj.id);
+    if (registry.spawnedVertexes.has(se_obj.id)) {
+      this.object.set_npc_position(level.vertex_position(registry.spawnedVertexes.get(se_obj.id)));
+      registry.spawnedVertexes.delete(se_obj.id);
     } else if (offlineObjects.has(se_obj.id) && offlineObjects.get(se_obj.id).level_vertex_id !== null) {
       this.object.set_npc_position(level.vertex_position(offlineObjects.get(se_obj.id).level_vertex_id));
     } else if (se_obj.m_smart_terrain_id !== MAX_UNSIGNED_16_BIT) {

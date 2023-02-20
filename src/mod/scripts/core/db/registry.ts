@@ -119,6 +119,10 @@ export const registry = {
    */
   silenceZones: new LuaTable<TNumberId, TName>(),
   /**
+   * Set of zones under no weapon restriction.
+   */
+  noWeaponZones: new LuaTable<TName, boolean>(),
+  /**
    * List of active smart terrains.
    */
   smartTerrains: new LuaTable<TNumberId, ISmartTerrain>(),
@@ -139,4 +143,8 @@ export const registry = {
    * List of signal lights existing.
    */
   signalLights: new LuaTable<TName, ISignalLightBinder>(),
+  /**
+   * List of vertexes with matching IDs of existing objects.
+   */
+  spawnedVertexes: new LuaTable<TNumberId, TNumberId>(),
 };

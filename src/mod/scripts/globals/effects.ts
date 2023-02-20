@@ -57,7 +57,7 @@ import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { IStalker } from "@/mod/scripts/core/alife/Stalker";
 import { update_logic } from "@/mod/scripts/core/binders/StalkerBinder";
-import { deleteHelicopter, IStoredObject, noWeapZones, registry } from "@/mod/scripts/core/db";
+import { deleteHelicopter, IStoredObject, registry } from "@/mod/scripts/core/db";
 import { SYSTEM_INI } from "@/mod/scripts/core/db/IniFiles";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
 import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
@@ -477,9 +477,9 @@ export function teleport_actor(actor: XR_game_object, npc: XR_game_object, param
     actor.set_actor_direction(dir);
   }
 
-  for (const [k, v] of noWeapZones) {
+  for (const [k, v] of registry.noWeaponZones) {
     if (isActorInZoneWithName(k, actor)) {
-      noWeapZones.set(k, true);
+      registry.noWeaponZones.set(k, true);
     }
   }
 

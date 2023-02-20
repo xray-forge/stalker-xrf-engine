@@ -10,7 +10,7 @@ import {
 
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
 import { hide_weapon, restore_weapon } from "@/mod/scripts/core/binders/ActorBinder";
-import { IStoredObject, noWeapZones, registry } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
@@ -58,10 +58,9 @@ export class SchemeNoWeapon extends AbstractScheme {
 
   public reset_scheme(): void {
     this.currentActorState = EActorZoneState.NOWHERE;
-
     this.checkActorState(registry.actor);
 
-    noWeapZones.set(this.object.name(), false);
+    registry.noWeaponZones.set(this.object.name(), false);
   }
 
   /**
@@ -117,8 +116,8 @@ export class SchemeNoWeapon extends AbstractScheme {
     this.currentActorState = EActorZoneState.OUTSIDE;
     restore_weapon(this.object.id());
 
-    if (noWeapZones.get(this.object.name())) {
-      noWeapZones.set(this.object.name(), false);
+    if (registry.noWeaponZones.get(this.object.name())) {
+      registry.noWeaponZones.set(this.object.name(), false);
     } else {
       this.showCanUseWeaponLabelOnUI();
     }

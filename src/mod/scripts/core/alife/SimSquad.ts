@@ -39,7 +39,7 @@ import {
 } from "@/mod/scripts/core/alife/SimSquadStayOnTargetAction";
 import type { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { ESmartTerrainStatus } from "@/mod/scripts/core/alife/SmartTerrainControl";
-import { goodwill as dbGoodwill, offlineObjects, registry, spawnedVertexById } from "@/mod/scripts/core/db";
+import { goodwill as dbGoodwill, offlineObjects, registry } from "@/mod/scripts/core/db";
 import { SMART_TERRAIN_MASKS_LTX, SQUAD_BEHAVIOURS_LTX, SYSTEM_INI } from "@/mod/scripts/core/db/IniFiles";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/core/db/SimBoard";
 import { evaluate_prior, get_sim_obj_registry } from "@/mod/scripts/core/db/SimObjectsRegistry";
@@ -682,7 +682,8 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
       areOnSameAlifeLevel(obj, alife().actor()) &&
       position.distance_to_sqr(alife().actor().position) <= alife().switch_distance() * alife().switch_distance()
     ) {
-      spawnedVertexById.set(obj.id, lv_id);
+      // todo: Delete also, same as with stalkers and monsters??? Memory leak probable
+      registry.spawnedVertexes.set(obj.id, lv_id);
     }
 
     return obj.id;
