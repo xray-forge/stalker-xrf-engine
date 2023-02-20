@@ -1,6 +1,6 @@
 import type { TXR_MonsterBodyStateKey, XR_CUIGameCustom, XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
-import { TRelation } from "@/mod/globals/relations";
+import type { TRelation } from "@/mod/globals/relations";
 import type {
   AnyCallable,
   AnyObject,
@@ -15,10 +15,11 @@ import type { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import type { IAnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
 import type { ILabX8DoorBinder } from "@/mod/scripts/core/binders/LabX8DoorBinder";
 import type { ISignalLightBinder } from "@/mod/scripts/core/binders/SignalLightBinder";
+import type { ITradeManagerDescriptor } from "@/mod/scripts/core/managers/TradeManager";
 import type { SchemeAnimpoint } from "@/mod/scripts/core/schemes/animpoint/SchemeAnimpoint";
 import type { TAbstractSchemeConstructor } from "@/mod/scripts/core/schemes/base";
 import type { RestrictorManager } from "@/mod/scripts/core/schemes/RestrictorManager";
-import { SchemeLight } from "@/mod/scripts/core/schemes/sr_light/SchemeLight";
+import type { SchemeLight } from "@/mod/scripts/core/schemes/sr_light/SchemeLight";
 import type { ITeleportPoint } from "@/mod/scripts/core/schemes/teleport/SchemeTeleport";
 import type { SchemeWounded } from "@/mod/scripts/core/schemes/wounded/SchemeWounded";
 import type { StateManager } from "@/mod/scripts/core/state_management/StateManager";
@@ -104,6 +105,10 @@ export const registry = {
    * List of offline objects.
    */
   offlineObjects: new LuaTable<TNumberId, IStoredOfflineObject>(),
+  /**
+   * State of trade.
+   */
+  trade: new LuaTable<TNumberId, ITradeManagerDescriptor>(),
   /**
    * List of current zone crows spawned.
    */

@@ -11,11 +11,11 @@ import { ActorInventoryMenuManager, EActorMenuMode } from "@/mod/scripts/core/ma
 import { loadScreenManager } from "@/mod/scripts/core/managers/LoadScreenManager";
 import { PdaManager } from "@/mod/scripts/core/managers/PdaManager";
 import { sleep_cam_eff_id, SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
+import { TradeManager } from "@/mod/scripts/core/managers/TradeManager";
 import { WeatherManager } from "@/mod/scripts/core/managers/WeatherManager";
 import { SchemeCutscene } from "@/mod/scripts/core/schemes/sr_cutscene/ActionCustscene";
 import { smart_covers_list } from "@/mod/scripts/core/smart_covers/smart_covers_list";
 import { get_task_manager } from "@/mod/scripts/core/task/TaskManager";
-import { get_buy_discount, get_sell_discount } from "@/mod/scripts/core/TradeManager";
 import { travelManager } from "@/mod/scripts/core/TravelManager";
 import { GameOutroManager } from "@/mod/scripts/ui/game/GameOutroManager";
 import { WeaponParams } from "@/mod/scripts/ui/game/WeaponParams";
@@ -130,8 +130,8 @@ declare_global("loadscreen", {
 });
 
 declare_global("trade_manager", {
-  get_sell_discount: get_sell_discount,
-  get_buy_discount: get_buy_discount,
+  get_sell_discount: (objectId: number) => TradeManager.getInstance().getSellDiscountForObject(objectId),
+  get_buy_discount: (objectId: number) => TradeManager.getInstance().getBuyDiscountForObject(objectId),
 });
 
 declare_global("inventory_upgrades", inventory_upgrades_functors);

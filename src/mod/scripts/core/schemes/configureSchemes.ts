@@ -2,10 +2,10 @@ import { ini_file, XR_game_object, XR_ini_file } from "xray16";
 
 import { ESchemeType, Optional, TSection } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/db";
+import { TradeManager } from "@/mod/scripts/core/managers/TradeManager";
 import { disableGenericSchemes } from "@/mod/scripts/core/schemes/disableGenericSchemes";
 import { enable_generic_schemes } from "@/mod/scripts/core/schemes/enable_generic_schemes";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
-import { trade_init } from "@/mod/scripts/core/TradeManager";
 import { spawnDefaultNpcItems } from "@/mod/scripts/utils/alife";
 import { getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -101,7 +101,7 @@ export function configureSchemes(
       "misc\\trade\\trade_generic.ltx"
     );
 
-    trade_init(object, trade_ini);
+    TradeManager.getInstance().initForObject(object, trade_ini);
     spawnDefaultNpcItems(object, st);
   }
 

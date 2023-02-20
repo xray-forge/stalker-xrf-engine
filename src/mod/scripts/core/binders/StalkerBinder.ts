@@ -46,6 +46,7 @@ import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { need_victim } from "@/mod/scripts/core/inventory_upgrades";
 import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
+import { TradeManager } from "@/mod/scripts/core/managers/TradeManager";
 import { MoveManager } from "@/mod/scripts/core/MoveManager";
 import { get_release_body_manager } from "@/mod/scripts/core/ReleaseBodyManager";
 import { SchemeCombat } from "@/mod/scripts/core/schemes/combat/SchemeCombat";
@@ -63,7 +64,6 @@ import { SchemeWounded } from "@/mod/scripts/core/schemes/wounded/SchemeWounded"
 import { DynamicMusicManager } from "@/mod/scripts/core/sound/DynamicMusicManager";
 import { SoundTheme } from "@/mod/scripts/core/sound/SoundTheme";
 import { bind_state_manager } from "@/mod/scripts/core/state_management/bind_state_manager";
-import { loadTradeManager, saveTradeManager, updateTradeManager } from "@/mod/scripts/core/TradeManager";
 import { disabled_phrases, loadNpcDialogs, saveNpcDialogs } from "@/mod/scripts/globals/dialog_manager";
 import { getCharacterCommunity, getObjectSquad, updateInvulnerability } from "@/mod/scripts/utils/alife";
 import { getConfigString, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
@@ -469,7 +469,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
 
         if (this.state.state_mgr.combat === false && this.state.state_mgr.alife === false) {
           // --and this.st.state_mgr.planner:current_action_id() == this.st.state_mgr.operators["}"]
-          updateTradeManager(object);
+          TradeManager.getInstance().updateForObject(object);
         }
       } else {
         this.state.state_mgr = null;
@@ -540,7 +540,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
 
     object_binder.save(this, packet);
     save_obj(this.object, packet);
-    saveTradeManager(this.object, packet);
+    TradeManager.getInstance().saveObjectState(this.object, packet);
     GlobalSound.save_npc(packet, this.object.id());
     saveNpcDialogs(packet, this.object.id());
 
@@ -553,7 +553,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
 
     object_binder.load(this, reader);
     load_obj(this.object, reader);
-    loadTradeManager(this.object, reader);
+    TradeManager.getInstance().loadObjectState(this.object, reader);
     GlobalSound.load_npc(reader, this.object.id());
     loadNpcDialogs(reader, this.object.id());
 
