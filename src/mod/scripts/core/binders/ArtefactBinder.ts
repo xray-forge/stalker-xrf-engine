@@ -12,14 +12,7 @@ import {
 
 import { Optional } from "@/mod/lib/types";
 import { IAnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
-import {
-  addObject,
-  ARTEFACT_POINTS_BY_ARTEFACT_ID,
-  ARTEFACT_WAYS_BY_ARTEFACT_ID,
-  deleteObject,
-  PARENT_ZONES_BY_ARTEFACT_ID,
-  registry,
-} from "@/mod/scripts/core/db";
+import { addObject, deleteObject, registry } from "@/mod/scripts/core/db";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ArtefactBinder");
@@ -47,14 +40,14 @@ export const ArtefactBinder: IArtefactBinder = declare_xr_class("ArtefactBinder"
     const artefact: XR_CArtefact = this.object.get_artefact();
     const id: number = this.object.id();
 
-    if (ARTEFACT_WAYS_BY_ARTEFACT_ID.get(id) !== null) {
-      const anomalyZone: IAnomalyZoneBinder = PARENT_ZONES_BY_ARTEFACT_ID.get(id);
+    if (registry.artefacts.ways.get(id) !== null) {
+      const anomalyZone: IAnomalyZoneBinder = registry.artefacts.parentZones.get(id);
       const forceXZ: number = anomalyZone.applyingForceXZ;
       const forceY: number = anomalyZone.applyingForceY;
 
       artefact.FollowByPath(
-        ARTEFACT_WAYS_BY_ARTEFACT_ID.get(id),
-        ARTEFACT_POINTS_BY_ARTEFACT_ID.get(id),
+        registry.artefacts.ways.get(id),
+        registry.artefacts.points.get(id),
         new vector().set(forceXZ, forceY, forceXZ)
       );
     }

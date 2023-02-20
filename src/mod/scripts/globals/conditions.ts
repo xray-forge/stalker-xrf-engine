@@ -25,7 +25,7 @@ import { AnyArgs, AnyCallablesModule, LuaArray, Maybe, Optional, TName, TSection
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { ESmartTerrainStatus, ISmartTerrainControl } from "@/mod/scripts/core/alife/SmartTerrainControl";
-import { ARTEFACT_WAYS_BY_ARTEFACT_ID, IStoredObject, kamp_stalkers, registry } from "@/mod/scripts/core/db";
+import { IStoredObject, kamp_stalkers, registry } from "@/mod/scripts/core/db";
 import { pstor_retrieve } from "@/mod/scripts/core/db/pstor";
 import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
 import * as game_relations from "@/mod/scripts/core/GameRelationsManager";
@@ -1656,8 +1656,8 @@ export function zat_b29_anomaly_has_af(actor: XR_game_object, npc: XR_game_objec
     }
   }
 
-  for (const [k, v] of ARTEFACT_WAYS_BY_ARTEFACT_ID) {
-    if (alife().object(tonumber(k)!) && af_name === alife().object(tonumber(k)!)!.section_name()) {
+  for (const [artefactId] of registry.artefacts.ways) {
+    if (alife().object(tonumber(artefactId)!) && af_name === alife().object(tonumber(artefactId)!)!.section_name()) {
       registry.actor.give_info_portion(az_name);
 
       return true;

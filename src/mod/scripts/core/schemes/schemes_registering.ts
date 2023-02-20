@@ -18,7 +18,6 @@ import { SchemeHeliMove } from "@/mod/scripts/core/schemes/heli_move/SchemeHeliM
 import { SchemeHelpWounded } from "@/mod/scripts/core/schemes/help_wounded/SchemeHelpWounded";
 import { SchemeHit } from "@/mod/scripts/core/schemes/hit/SchemeHit";
 import { SchemeIdle } from "@/mod/scripts/core/schemes/idle/SchemeIdle";
-import { SchemeCamp } from "@/mod/scripts/core/schemes/kamp/SchemeCamp";
 import { SchemeMeet } from "@/mod/scripts/core/schemes/meet/SchemeMeet";
 import { SchemeMobCombat } from "@/mod/scripts/core/schemes/mob/combat/SchemeMobCombat";
 import { SchemeMobDeath } from "@/mod/scripts/core/schemes/mob/death/SchemeMobDeath";
@@ -99,7 +98,6 @@ export function initializeModules(): void {
     SchemeGatherItems,
     SchemeHit,
     SchemeAnimpoint,
-    SchemeCamp,
     SchemeCamper,
     SchemeCombat,
     SchemeCombatIgnore,

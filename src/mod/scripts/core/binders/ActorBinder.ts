@@ -25,12 +25,7 @@ import { game_difficulties_by_number } from "@/mod/globals/game_difficulties";
 import { ammo } from "@/mod/globals/items/ammo";
 import { TLevel } from "@/mod/globals/levels";
 import { AnyCallable, AnyCallablesModule, Optional } from "@/mod/lib/types";
-import {
-  ARTEFACT_WAYS_BY_ARTEFACT_ID,
-  IStoredObject,
-  PARENT_ZONES_BY_ARTEFACT_ID,
-  registry,
-} from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { addActor, deleteActor } from "@/mod/scripts/core/db/actor";
 import { destroyManager, getWeakManagerInstance } from "@/mod/scripts/core/db/ManagersRegistry";
 import { pstor_load_all, pstor_save_all } from "@/mod/scripts/core/db/pstor";
@@ -239,8 +234,6 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
   },
   take_item_from_box(box: XR_game_object, item: XR_game_object): void {
     logger.info("Take item from box:", box.name(), item.name());
-
-    const box_name = box.name();
   },
   info_callback(npc: XR_game_object, info_id: string): void {
     logger.info("[info callback]");
@@ -251,12 +244,12 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     logger.info("On item take:", object.name());
 
     if (isArtefact(object)) {
-      const anomal_zone = PARENT_ZONES_BY_ARTEFACT_ID.get(object.id());
+      const anomal_zone = registry.artefacts.parentZones.get(object.id());
 
       if (anomal_zone !== null) {
         anomal_zone.onArtefactTaken(object);
       } else {
-        ARTEFACT_WAYS_BY_ARTEFACT_ID.delete(object.id());
+        registry.artefacts.ways.delete(object.id());
       }
 
       const artefact = object.get_artefact();

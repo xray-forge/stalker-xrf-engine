@@ -111,6 +111,14 @@ export const registry = {
    */
   anomalies: new LuaTable<TName, IAnomalyZoneBinder>(),
   /**
+   * List of data for game artefacts.
+   */
+  artefacts: {
+    ways: new LuaTable<TNumberId, TName>(),
+    points: new LuaTable<TNumberId, number>(),
+    parentZones: new LuaTable<TNumberId, IAnomalyZoneBinder>(),
+  },
+  /**
    * List of active zones by name.
    */
   zones: new LuaTable<TName, XR_game_object>(),

@@ -22,7 +22,7 @@ import { AnyArgs, LuaArray, Maybe, Optional, TName, TSection } from "@/mod/lib/t
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { ISimSquadReachTargetAction } from "@/mod/scripts/core/alife/SimSquadReachTargetAction";
 import { ISimSquadStayOnTargetAction } from "@/mod/scripts/core/alife/SimSquadStayOnTargetAction";
-import { ARTEFACT_WAYS_BY_ARTEFACT_ID, IStoredObject, registry } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { getStoryObjectsRegistry } from "@/mod/scripts/core/db/StoryObjectsRegistry";
 import { spawnItemsForObject } from "@/mod/scripts/utils/alife_spawn";
 import { isStalker } from "@/mod/scripts/utils/checkers/is";
@@ -502,7 +502,7 @@ export function anomalyHasArtefact(
   actor: XR_game_object,
   npc: Optional<XR_game_object>,
   params: [TName, Optional<TName>]
-): LuaMultiReturn<[boolean, Optional<LuaArray<string>>]> {
+): LuaMultiReturn<[boolean, Optional<LuaArray<TName>>]> {
   const az_name = params && params[0];
   const af_name = params && params[1];
   const anomalyZone = registry.anomalies.get(az_name);
@@ -518,7 +518,7 @@ export function anomalyHasArtefact(
   if (af_name === null) {
     const af_table: LuaArray<string> = new LuaTable();
 
-    for (const [k, v] of ARTEFACT_WAYS_BY_ARTEFACT_ID) {
+    for (const [k, v] of registry.artefacts.ways) {
       const artefactObject: Optional<XR_cse_alife_object> = alife().object(tonumber(k)!);
 
       if (artefactObject) {
@@ -529,8 +529,8 @@ export function anomalyHasArtefact(
     return $multi(true, af_table);
   }
 
-  for (const [k, v] of ARTEFACT_WAYS_BY_ARTEFACT_ID) {
-    if (alife().object(tonumber(k)!) && af_name === alife().object(tonumber(k)!)!.section_name()) {
+  for (const [artefactId] of registry.artefacts.ways) {
+    if (alife().object(tonumber(artefactId)!) && af_name === alife().object(tonumber(artefactId)!)!.section_name()) {
       return $multi(true, null);
     }
   }

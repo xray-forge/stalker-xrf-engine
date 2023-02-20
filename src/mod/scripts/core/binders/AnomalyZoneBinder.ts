@@ -16,14 +16,7 @@ import {
 import { MAX_UNSIGNED_8_BIT } from "@/mod/globals/memory";
 import { Optional } from "@/mod/lib/types";
 import { FIELDS_BY_NAME } from "@/mod/scripts/core/binders/AnomalyFieldBinder";
-import {
-  addAnomaly,
-  ARTEFACT_POINTS_BY_ARTEFACT_ID,
-  ARTEFACT_WAYS_BY_ARTEFACT_ID,
-  deleteAnomaly,
-  PARENT_ZONES_BY_ARTEFACT_ID,
-  registry,
-} from "@/mod/scripts/core/db";
+import { addAnomaly, deleteAnomaly, registry } from "@/mod/scripts/core/db";
 import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
 import {
   getConfigNumber,
@@ -328,11 +321,11 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     this.isTurnedOff = true;
     this.disableAnomalyFields();
 
-    for (const [k, v] of this.artefactWaysByArtefactId) {
-      alife().release(alife().object(tonumber(k) as number), true);
-      ARTEFACT_WAYS_BY_ARTEFACT_ID.delete(k);
-      ARTEFACT_POINTS_BY_ARTEFACT_ID.delete(k);
-      PARENT_ZONES_BY_ARTEFACT_ID.delete(k);
+    for (const [artefactId, artefactWay] of this.artefactWaysByArtefactId) {
+      alife().release(alife().object(tonumber(artefactId) as number), true);
+      registry.artefacts.ways.delete(artefactId);
+      registry.artefacts.points.delete(artefactId);
+      registry.artefacts.parentZones.delete(artefactId);
     }
 
     this.spawnedArtefactsCount = 0;
@@ -504,9 +497,9 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
       this.object.game_vertex_id()
     );
 
-    PARENT_ZONES_BY_ARTEFACT_ID.set(artefactObject.id, this);
-    ARTEFACT_WAYS_BY_ARTEFACT_ID.set(artefactObject.id, randomPathName);
-    ARTEFACT_POINTS_BY_ARTEFACT_ID.set(artefactObject.id, randomPathPoint);
+    registry.artefacts.parentZones.set(artefactObject.id, this);
+    registry.artefacts.ways.set(artefactObject.id, randomPathName);
+    registry.artefacts.points.set(artefactObject.id, randomPathPoint);
 
     this.artefactWaysByArtefactId.set(artefactObject.id, randomPathName);
     this.artefactPointsByArtefactId.set(artefactObject.id, randomPathPoint);
@@ -614,8 +607,8 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     const id: number =
       type(object.id) === "number" ? (object as XR_cse_alife_object).id : (object as XR_game_object).id();
 
-    ARTEFACT_WAYS_BY_ARTEFACT_ID.delete(id);
-    ARTEFACT_POINTS_BY_ARTEFACT_ID.delete(id);
+    registry.artefacts.ways.delete(id);
+    registry.artefacts.points.delete(id);
 
     this.artefactWaysByArtefactId.delete(id);
     this.artefactPointsByArtefactId.delete(id);
@@ -707,8 +700,8 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
 
       this.artefactWaysByArtefactId.set(artefactId, wayName);
 
-      ARTEFACT_WAYS_BY_ARTEFACT_ID.set(artefactId, wayName);
-      PARENT_ZONES_BY_ARTEFACT_ID.set(artefactId, this);
+      registry.artefacts.ways.set(artefactId, wayName);
+      registry.artefacts.parentZones.set(artefactId, this);
     }
 
     const pointsCount: number = reader.r_u16();
@@ -717,7 +710,7 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
       const artefactId: number = reader.r_u16();
       const pointName: number = reader.r_u8();
 
-      ARTEFACT_POINTS_BY_ARTEFACT_ID.set(artefactId, pointName);
+      registry.artefacts.points.set(artefactId, pointName);
       this.artefactPointsByArtefactId.set(artefactId, pointName);
     }
 

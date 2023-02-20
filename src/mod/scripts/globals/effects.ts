@@ -205,8 +205,8 @@ export function enable_ui(actor: XR_game_object, npc: XR_game_object, p: [string
   logger.info("Enable UI");
 
   if (!p || (p && p[0] !== "true")) {
-    if (ui_active_slot !== 0 && actor.item_in_slot(ui_active_slot) !== null) {
-      actor.activate_slot(ui_active_slot);
+    if (ui_active_slot !== 0 && registry.actor.item_in_slot(ui_active_slot) !== null) {
+      registry.actor.activate_slot(ui_active_slot);
     }
   }
 
@@ -215,8 +215,8 @@ export function enable_ui(actor: XR_game_object, npc: XR_game_object, p: [string
   level.enable_input();
   level.show_indicators();
 
-  enable_actor_nightvision(actor);
-  enable_actor_torch(actor);
+  enable_actor_nightvision(registry.actor);
+  enable_actor_torch(registry.actor);
 }
 
 let cam_effector_playing_object_id: Optional<number> = null;
