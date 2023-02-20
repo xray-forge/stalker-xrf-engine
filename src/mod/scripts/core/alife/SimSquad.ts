@@ -39,7 +39,7 @@ import {
 } from "@/mod/scripts/core/alife/SimSquadStayOnTargetAction";
 import type { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { ESmartTerrainStatus } from "@/mod/scripts/core/alife/SmartTerrainControl";
-import { offlineObjects, registry } from "@/mod/scripts/core/db";
+import { registry, softResetOfflineObject } from "@/mod/scripts/core/db";
 import { SMART_TERRAIN_MASKS_LTX, SQUAD_BEHAVIOURS_LTX, SYSTEM_INI } from "@/mod/scripts/core/db/IniFiles";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/core/db/SimBoard";
 import { evaluate_prior, get_sim_obj_registry } from "@/mod/scripts/core/db/SimObjectsRegistry";
@@ -791,7 +791,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     for (const k of this.squad_members()) {
       const cl_object = level.object_by_id(k.id);
 
-      offlineObjects.get(k.id).level_vertex_id = level.vertex_id(position);
+      registry.offlineObjects.get(k.id).level_vertex_id = level.vertex_id(position);
 
       if (cl_object !== null) {
         reset_animation(cl_object);
@@ -1045,10 +1045,8 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
   on_reach_target(squad: ISimSquad): void {
     squad.set_location_types();
 
-    for (const k of squad.squad_members()) {
-      if (offlineObjects.get(k.id) !== null) {
-        offlineObjects.set(k.id, {});
-      }
+    for (const it of squad.squad_members()) {
+      softResetOfflineObject(it.id);
     }
 
     this.board.assign_squad_to_smart(squad, null);

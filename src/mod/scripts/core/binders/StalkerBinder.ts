@@ -26,7 +26,7 @@ import {
 
 import { communities } from "@/mod/globals/communities";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
-import { Optional } from "@/mod/lib/types";
+import { Optional, TNumberId, TSection } from "@/mod/lib/types";
 import { ESchemeType } from "@/mod/lib/types/scheme";
 import { ISmartTerrain, setup_gulag_and_logic_on_spawn } from "@/mod/scripts/core/alife/SmartTerrain";
 import {
@@ -35,7 +35,6 @@ import {
   deleteHelicopterEnemy,
   deleteObject,
   IStoredObject,
-  offlineObjects,
   registry,
   resetObject,
 } from "@/mod/scripts/core/db";
@@ -220,8 +219,10 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
       if (registry.spawnedVertexes.get(se_obj.id) !== null) {
         this.object.set_npc_position(level.vertex_position(registry.spawnedVertexes.get(se_obj.id)));
         registry.spawnedVertexes.delete(se_obj.id);
-      } else if (offlineObjects.get(se_obj.id) !== null && offlineObjects.get(se_obj.id).level_vertex_id !== null) {
-        this.object.set_npc_position(level.vertex_position(offlineObjects.get(se_obj.id).level_vertex_id));
+      } else if (registry.offlineObjects.get(se_obj.id)?.level_vertex_id !== null) {
+        this.object.set_npc_position(
+          level.vertex_position(registry.offlineObjects.get(se_obj.id).level_vertex_id as TNumberId)
+        );
       } else if (se_obj.m_smart_terrain_id !== MAX_UNSIGNED_16_BIT) {
         const smart_terrain = alife().object<ISmartTerrain>(se_obj.m_smart_terrain_id)!;
 
@@ -266,9 +267,10 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
       pickSectionFromCondList(registry.actor, this.object, on_offline_condlist as any);
     }
 
-    if (offlineObjects.get(this.object.id())) {
-      offlineObjects.get(this.object.id()).level_vertex_id = this.object.level_vertex_id();
-      offlineObjects.get(this.object.id()).active_section = registry.objects.get(this.object.id()).active_section;
+    if (registry.offlineObjects.get(this.object.id()) !== null) {
+      registry.offlineObjects.get(this.object.id()).level_vertex_id = this.object.level_vertex_id();
+      registry.offlineObjects.get(this.object.id()).active_section = registry.objects.get(this.object.id())
+        .active_section as TSection;
     }
 
     deleteObject(this.object);

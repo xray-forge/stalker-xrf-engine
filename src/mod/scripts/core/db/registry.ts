@@ -71,6 +71,14 @@ export interface IStoredObject<T = XR_game_object> {
 }
 
 /**
+ * todo;
+ */
+export interface IStoredOfflineObject {
+  level_vertex_id: Optional<TNumberId>;
+  active_section: Optional<TSection>;
+}
+
+/**
  * Global-level registry of objects and references.
  * Stores up-to-date game state.
  */
@@ -91,6 +99,10 @@ export const registry = {
    * List of active objects.
    */
   objects: new LuaTable<TNumberId, IStoredObject>(),
+  /**
+   * List of offline objects.
+   */
+  offlineObjects: new LuaTable<TNumberId, IStoredOfflineObject>(),
   /**
    * List of current zone crows spawned.
    */
@@ -122,7 +134,10 @@ export const registry = {
   /**
    * Goodwill state.
    */
-  goodwill: { sympathy: new LuaTable<TNumberId, number>(), relations: new LuaTable<TNumberId, TRelation>() },
+  goodwill: {
+    sympathy: new LuaTable<TNumberId, number>(),
+    relations: new LuaTable<TNumberId, TRelation>(),
+  },
   /**
    * List of active zones by name.
    */

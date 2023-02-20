@@ -37,7 +37,7 @@ import {
   turn_off_campfires_by_smart_name,
   turn_on_campfires_by_smart_name,
 } from "@/mod/scripts/core/binders/CampfireBinder";
-import { IStoredObject, offlineObjects, registry } from "@/mod/scripts/core/db";
+import { hardResetOfflineObject, IStoredObject, registry, softResetOfflineObject } from "@/mod/scripts/core/db";
 import { loadDynamicLtx } from "@/mod/scripts/core/db/IniFiles";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/core/db/SimBoard";
 import { evaluate_prior, get_sim_obj_registry } from "@/mod/scripts/core/db/SimObjectsRegistry";
@@ -635,7 +635,9 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
       const job_data = this.job_data.get(npc_info.job_id);
 
       logger.info("Begin job in gulag", this.name(), npc_info.se_obj.name(), job_data.section);
-      offlineObjects.set(npc_info.se_obj.id, {});
+
+      hardResetOfflineObject(npc_info.se_obj.id);
+
       npc_info.begin_job = true;
 
       const obj_storage = registry.objects.get(npc_info.se_obj.id);
@@ -1176,10 +1178,8 @@ export const SmartTerrain: ISmartTerrain = declare_xr_class("SmartTerrain", cse_
     squad.set_location_types(this.name());
     this.board.assign_squad_to_smart(squad, this.id);
 
-    for (const k of squad.squad_members()) {
-      if (offlineObjects.get(k.id) !== null) {
-        offlineObjects.set(k.id, {});
-      }
+    for (const it of squad.squad_members()) {
+      softResetOfflineObject(it.id);
     }
   },
   get_alife_task(): Optional<XR_CALifeSmartTerrainTask> {

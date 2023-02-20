@@ -16,7 +16,7 @@ import { simulation_activities } from "@/mod/scripts/core/alife/SimActivity";
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { ISmartTerrain, nearest_to_actor_smart } from "@/mod/scripts/core/alife/SmartTerrain";
 import { ESmartTerrainStatus, getCurrentSmartId } from "@/mod/scripts/core/alife/SmartTerrainControl";
-import { offlineObjects, registry } from "@/mod/scripts/core/db";
+import { registry, softResetOfflineObject } from "@/mod/scripts/core/db";
 import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
 import { evaluate_prior, get_sim_obj_registry } from "@/mod/scripts/core/db/SimObjectsRegistry";
 import { getStoryObjectsRegistry } from "@/mod/scripts/core/db/StoryObjectsRegistry";
@@ -105,10 +105,8 @@ export const Actor: IActor = declare_xr_class("Actor", cse_alife_creature_actor,
   on_reach_target(squad: any): void {
     squad.set_location_types();
 
-    for (const k of squad.squadMembers() as LuaIterable<XR_cse_abstract>) {
-      if (offlineObjects.get(k.id) !== null) {
-        offlineObjects.set(k.id as number, {});
-      }
+    for (const it of squad.squadMembers() as LuaIterable<XR_cse_abstract>) {
+      softResetOfflineObject(it.id);
     }
 
     get_sim_board().assign_squad_to_smart(squad, null);
@@ -121,13 +119,13 @@ export const Actor: IActor = declare_xr_class("Actor", cse_alife_creature_actor,
       ["zat_a2_sr_no_assault"]: "zat_stalker_base_smart",
       ["jup_a6_sr_no_assault"]: "jup_a6",
       ["jup_b41_sr_no_assault"]: "jup_b41",
-    };
+    } as unknown as LuaTable<string, string>;
 
     if (nearest_to_actor_smart.dist < 50 && !get_sim_obj_registry().objects.has(nearest_to_actor_smart.id!)) {
       return false;
     }
 
-    for (const [k, v] of pairs(smarts_by_no_assault_zones)) {
+    for (const [k, v] of smarts_by_no_assault_zones) {
       const zone = registry.zones.get(k);
 
       if (zone !== null && zone.inside(this.position)) {

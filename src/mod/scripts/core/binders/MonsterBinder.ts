@@ -22,10 +22,10 @@ import {
 } from "xray16";
 
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
-import { EScheme, ESchemeType, Optional } from "@/mod/lib/types";
+import { EScheme, ESchemeType, Optional, TNumberId, TSection } from "@/mod/lib/types";
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { ISmartTerrain, setup_gulag_and_logic_on_spawn } from "@/mod/scripts/core/alife/SmartTerrain";
-import { addObject, deleteObject, IStoredObject, offlineObjects, registry, resetObject } from "@/mod/scripts/core/db";
+import { addObject, deleteObject, IStoredObject, registry, resetObject } from "@/mod/scripts/core/db";
 import { get_sim_obj_registry } from "@/mod/scripts/core/db/SimObjectsRegistry";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
@@ -231,8 +231,10 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     if (registry.spawnedVertexes.has(se_obj.id)) {
       this.object.set_npc_position(level.vertex_position(registry.spawnedVertexes.get(se_obj.id)));
       registry.spawnedVertexes.delete(se_obj.id);
-    } else if (offlineObjects.has(se_obj.id) && offlineObjects.get(se_obj.id).level_vertex_id !== null) {
-      this.object.set_npc_position(level.vertex_position(offlineObjects.get(se_obj.id).level_vertex_id));
+    } else if (registry.offlineObjects.get(se_obj.id)?.level_vertex_id !== null) {
+      this.object.set_npc_position(
+        level.vertex_position(registry.offlineObjects.get(se_obj.id).level_vertex_id as TNumberId)
+      );
     } else if (se_obj.m_smart_terrain_id !== MAX_UNSIGNED_16_BIT) {
       const smart_terrain = alife().object<ISmartTerrain>(se_obj.m_smart_terrain_id);
 
@@ -264,11 +266,11 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
       issueEvent(this.object, st[st.active_scheme as string], "net_destroy");
     }
 
-    const offlineObject = offlineObjects.get(this.object.id());
+    const offlineObject = registry.offlineObjects.get(this.object.id());
 
     if (offlineObject !== null) {
       offlineObject.level_vertex_id = this.object.level_vertex_id();
-      offlineObject.active_section = st.active_section;
+      offlineObject.active_section = st.active_section as TSection;
     }
 
     deleteObject(this.object);

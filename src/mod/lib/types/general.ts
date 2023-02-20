@@ -13,7 +13,7 @@ export type Maybe<T> = T | undefined | null;
 /**
  * Type-casted option that extends type with "nil" values.
  */
-export type StringOptional<T extends string> = T | "nil";
+export type StringOptional<T extends string = string> = T | "nil";
 
 /**
  * Record partial to support enum implementations with subsets of available keys.

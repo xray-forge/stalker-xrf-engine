@@ -8,10 +8,11 @@ import {
   XR_net_packet,
 } from "xray16";
 
+import { STRINGIFIED_NIL } from "@/mod/globals/lua";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
-import { Optional, TSection } from "@/mod/lib/types";
+import { Optional, StringOptional, TSection } from "@/mod/lib/types";
 import { ISmartTerrain, on_death } from "@/mod/scripts/core/alife/SmartTerrain";
-import { offlineObjects } from "@/mod/scripts/core/db";
+import { initializeOfflineObject, IStoredOfflineObject, registry } from "@/mod/scripts/core/db";
 import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/db/StoryObjectsRegistry";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
@@ -57,9 +58,7 @@ export const Stalker: IStalker = declare_xr_class("Stalker", cse_alife_human_sta
 
     this.sim_forced_online = false;
 
-    if (offlineObjects.get(this.id) === null) {
-      offlineObjects.set(this.id, {});
-    }
+    initializeOfflineObject(this.id);
   },
   get_ini(): void {
     if (!this.ini_initialized) {
@@ -93,45 +92,24 @@ export const Stalker: IStalker = declare_xr_class("Stalker", cse_alife_human_sta
     cse_alife_human_stalker.STATE_Write(this, packet);
 
     if (this.online) {
-      packet.w_stringZ(
-        tostring(
-          level !== null &&
-            level.object_by_id(this.id) !== null &&
-            level.object_by_id(this.id)!.level_vertex_id() !== null
-        )
-      );
+      packet.w_stringZ(tostring(level?.object_by_id(this.id)?.level_vertex_id() !== null));
     } else {
-      packet.w_stringZ(
-        tostring(offlineObjects.get(this.id) !== null && offlineObjects.get(this.id).level_vertex_id !== null)
-      );
+      packet.w_stringZ(tostring(registry.offlineObjects.get(this.id).level_vertex_id !== null));
     }
 
-    packet.w_stringZ(
-      tostring(offlineObjects.get(this.id) !== null && offlineObjects.get(this.id).active_section !== null)
-    );
+    packet.w_stringZ(tostring(registry.offlineObjects.get(this.id).active_section !== null));
     packet.w_bool(this.death_droped);
   },
   STATE_Read(packet: XR_net_packet, size: number) {
     cse_alife_human_stalker.STATE_Read(this, packet, size);
 
     if (this.script_version > 10) {
-      const old_lvid = packet.r_stringZ();
+      const oldLevelId: StringOptional = packet.r_stringZ();
+      const oldSection: StringOptional = packet.r_stringZ();
+      const offlineObject: IStoredOfflineObject = initializeOfflineObject(this.id);
 
-      if (offlineObjects.get(this.id) === null) {
-        offlineObjects.set(this.id, {});
-      }
-
-      const target = offlineObjects.get(this.id);
-
-      target.active_section = packet.r_stringZ();
-
-      if (target.active_section === "nil") {
-        target.active_section = null;
-      }
-
-      if (old_lvid !== null) {
-        target.level_vertex_id = tonumber(old_lvid);
-      }
+      offlineObject.active_section = oldSection === STRINGIFIED_NIL ? null : oldSection;
+      offlineObject.level_vertex_id = oldSection === STRINGIFIED_NIL ? null : (tonumber(oldLevelId) as number);
     }
 
     this.death_droped = packet.r_bool();
@@ -147,9 +125,7 @@ export const Stalker: IStalker = declare_xr_class("Stalker", cse_alife_human_sta
 
     this.m_registred = true;
 
-    if (offlineObjects.get(this.id) === null) {
-      offlineObjects.set(this.id, {});
-    }
+    initializeOfflineObject(this.id);
 
     this.brain().can_choose_alife_tasks(false);
 
@@ -175,7 +151,7 @@ export const Stalker: IStalker = declare_xr_class("Stalker", cse_alife_human_sta
       }
     }
 
-    offlineObjects.delete(this.id);
+    registry.offlineObjects.delete(this.id);
     unregisterStoryObjectById(this.id);
     cse_alife_human_stalker.on_unregister(this);
   },

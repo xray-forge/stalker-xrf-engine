@@ -8,10 +8,11 @@ import {
   XR_net_packet,
 } from "xray16";
 
+import { STRINGIFIED_NIL } from "@/mod/globals/lua";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
-import { Optional, TSection } from "@/mod/lib/types";
+import { Optional, StringOptional, TSection } from "@/mod/lib/types";
 import { ISmartTerrain, on_death } from "@/mod/scripts/core/alife/SmartTerrain";
-import { offlineObjects } from "@/mod/scripts/core/db";
+import { hardResetOfflineObject, initializeOfflineObject, IStoredOfflineObject, registry } from "@/mod/scripts/core/db";
 import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/db/StoryObjectsRegistry";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
@@ -53,7 +54,7 @@ export const Monster: IMonster = declare_xr_class("Monster", cse_alife_monster_b
     this.job_online_condlist = null;
     this.m_registred = false;
 
-    offlineObjects.set(this.id, {});
+    hardResetOfflineObject(this.id);
   },
   get_ini(): void {
     if (!this.ini_initialized) {
@@ -94,30 +95,21 @@ export const Monster: IMonster = declare_xr_class("Monster", cse_alife_monster_b
         tostring(level && level.object_by_id(this.id) && level.object_by_id(this.id)!.level_vertex_id())
       );
     } else {
-      packet.w_stringZ(tostring(offlineObjects.get(this.id) && offlineObjects.get(this.id).level_vertex_id));
+      packet.w_stringZ(tostring(registry.offlineObjects.get(this.id)?.level_vertex_id));
     }
 
-    packet.w_stringZ(tostring(offlineObjects.get(this.id) && offlineObjects.get(this.id).active_section));
+    packet.w_stringZ(tostring(registry.offlineObjects.get(this.id)?.active_section));
   },
   STATE_Read(packet: XR_net_packet, size: number): void {
     cse_alife_monster_base.STATE_Read(this, packet, size);
 
     if (this.script_version > 10) {
-      const old_lvid = packet.r_stringZ();
+      const oldLevelId: StringOptional = packet.r_stringZ();
+      const oldSection: StringOptional = packet.r_stringZ();
+      const offlineObject: IStoredOfflineObject = initializeOfflineObject(this.id);
 
-      if (offlineObjects.get(this.id) === null) {
-        offlineObjects.set(this.id, {});
-      }
-
-      offlineObjects.get(this.id).active_section = packet.r_stringZ();
-
-      if (offlineObjects.get(this.id).active_section === "nil") {
-        offlineObjects.get(this.id).active_section = null;
-      }
-
-      if (old_lvid !== "nil") {
-        offlineObjects.get(this.id).level_vertex_id = tonumber(old_lvid);
-      }
+      offlineObject.active_section = oldSection === STRINGIFIED_NIL ? null : oldSection;
+      offlineObject.level_vertex_id = oldLevelId === STRINGIFIED_NIL ? null : (tonumber(oldLevelId) as number);
     }
   },
   on_before_register(): void {},
@@ -130,9 +122,7 @@ export const Monster: IMonster = declare_xr_class("Monster", cse_alife_monster_b
 
     const board = get_sim_board();
 
-    if (offlineObjects.get(this.id) === null) {
-      offlineObjects.set(this.id, {});
-    }
+    initializeOfflineObject(this.id);
 
     this.brain().can_choose_alife_tasks(false);
 
@@ -159,7 +149,7 @@ export const Monster: IMonster = declare_xr_class("Monster", cse_alife_monster_b
       }
     }
 
-    offlineObjects.delete(this.id);
+    registry.offlineObjects.delete(this.id);
     unregisterStoryObjectById(this.id);
     cse_alife_monster_base.on_unregister(this);
   },

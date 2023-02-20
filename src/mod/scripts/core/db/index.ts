@@ -14,10 +14,10 @@ export * from "@/mod/scripts/core/db/helicopters";
 export * from "@/mod/scripts/core/db/anomalies";
 export * from "@/mod/scripts/core/db/zones";
 export * from "@/mod/scripts/core/db/smart_terrains";
+export * from "@/mod/scripts/core/db/offline";
 
 // todo: Move game volume to db.
 
-export const offlineObjects: LuaTable<number, any> = new LuaTable();
 export const REGISTERED_ITEMS: LuaTable<string, number> = new LuaTable();
 export const tradeState: LuaTable<number, ITradeManagerDescriptor> = new LuaTable();
 

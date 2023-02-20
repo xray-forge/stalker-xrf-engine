@@ -1,7 +1,8 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
+import { STRINGIFIED_NIL } from "@/mod/globals/lua";
 import { TSection } from "@/mod/lib/types/scheme";
-import { offlineObjects } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { getConfigCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 
@@ -18,13 +19,13 @@ export function determine_section_to_activate(
   actor: XR_game_object
 ): TSection {
   if (!ini.section_exist(section_logic)) {
-    return "nil";
+    return STRINGIFIED_NIL;
   }
 
-  if (offlineObjects.get(npc.id()) && offlineObjects.get(npc.id()).active_section !== null) {
-    const sect_to_retr = offlineObjects.get(npc.id()).active_section;
+  if (registry.offlineObjects.get(npc.id())?.active_section !== null) {
+    const sect_to_retr = registry.offlineObjects.get(npc.id()).active_section as TSection;
 
-    offlineObjects.get(npc.id()).active_section = null;
+    registry.offlineObjects.get(npc.id()).active_section = null;
     if (ini.section_exist(sect_to_retr)) {
       return sect_to_retr;
     }
@@ -45,6 +46,6 @@ export function determine_section_to_activate(
 
     return section;
   } else {
-    return "nil";
+    return STRINGIFIED_NIL;
   }
 }
