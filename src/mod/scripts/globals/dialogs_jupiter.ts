@@ -15,7 +15,7 @@ import { outfits, TOutfit } from "@/mod/globals/items/outfits";
 import { quest_items } from "@/mod/globals/items/quest_items";
 import { weapons } from "@/mod/globals/items/weapons";
 import { AnyCallablesModule, AnyObject, LuaArray, Optional } from "@/mod/lib/types";
-import { anomalyByName, IStoredObject, registry } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { pstor_retrieve } from "@/mod/scripts/core/db/pstor";
 import { get_npcs_relation } from "@/mod/scripts/core/GameRelationsManager";
 import { getTreasureManager, ITreasureManager } from "@/mod/scripts/core/TreasureManager";
@@ -727,7 +727,7 @@ export function jup_b32_anomaly_do_not_has_af(first_speaker: XR_game_object, sec
     return true;
   }
 
-  const anomal_zone: IStoredObject = anomalyByName.get(az_table.get(index));
+  const anomal_zone: IStoredObject = registry.anomalies.get(az_table.get(index));
 
   if (anomal_zone === null) {
     disableInfo(infop_table.get(index));
@@ -1381,13 +1381,13 @@ export function jup_b32_anomaly_has_af(first_speaker: XR_game_object, second_spe
     return false;
   }
 
-  const anomal_zone = anomalyByName.get(az_table.get(index));
+  const anomal_zone = registry.anomalies.get(az_table.get(index));
 
   if (anomal_zone === null) {
     return false;
   }
 
-  if (anomal_zone.spawned_count > 0) {
+  if (anomal_zone.spawnedArtefactsCount > 0) {
     disableInfo(infop_table.get(index));
     giveInfo(info_portions.jup_b32_anomaly_true);
 

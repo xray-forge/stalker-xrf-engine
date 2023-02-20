@@ -20,12 +20,11 @@ import { captions } from "@/mod/globals/captions";
 import { TCommunity } from "@/mod/globals/communities";
 import { info_portions } from "@/mod/globals/info_portions/info_portions";
 import { relations } from "@/mod/globals/relations";
-import { AnyArgs, AnyCallablesModule, LuaArray, Maybe, Optional, TSection } from "@/mod/lib/types";
+import { AnyArgs, AnyCallablesModule, LuaArray, Maybe, Optional, TName, TSection } from "@/mod/lib/types";
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { ESmartTerrainStatus, ISmartTerrainControl } from "@/mod/scripts/core/alife/SmartTerrainControl";
 import {
-  anomalyByName,
   ARTEFACT_WAYS_BY_ARTEFACT_ID,
   IStoredObject,
   kamp_stalkers,
@@ -1650,9 +1649,9 @@ export function zat_b29_anomaly_has_af(actor: XR_game_object, npc: XR_game_objec
   const az_name = p && p[0];
   let af_name: Optional<string> = null;
 
-  const anomal_zone = anomalyByName.get(az_name as string);
+  const anomal_zone = registry.anomalies.get(az_name as TName);
 
-  if (az_name === null || anomal_zone === null || anomal_zone.spawned_count < 1) {
+  if (az_name === null || anomal_zone === null || anomal_zone.spawnedArtefactsCount < 1) {
     return false;
   }
 

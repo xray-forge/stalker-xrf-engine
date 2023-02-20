@@ -22,6 +22,7 @@ import {
   XR_CGameTask,
   XR_cse_alife_creature_abstract,
   XR_cse_alife_human_abstract,
+  XR_cse_alife_item_artefact,
   XR_cse_alife_item_weapon,
   XR_cse_alife_object,
   XR_cse_alife_object_physic,
@@ -51,14 +52,13 @@ import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { relations, TRelation } from "@/mod/globals/relations";
 import { script_sounds } from "@/mod/globals/sound/script_sounds";
 import { TZone, zones } from "@/mod/globals/zones";
-import { AnyObject, LuaArray, Optional } from "@/mod/lib/types";
+import { AnyObject, LuaArray, Optional, TName } from "@/mod/lib/types";
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { IStalker } from "@/mod/scripts/core/alife/Stalker";
 import { update_logic } from "@/mod/scripts/core/binders/StalkerBinder";
 import {
   animObjByName,
-  anomalyByName,
   deleteHelicopter,
   IStoredObject,
   noWeapZones,
@@ -2378,14 +2378,14 @@ export function jup_b10_spawn_drunk_dead_items(actor: XR_game_object, npc: XR_ga
 export function pick_artefact_from_anomaly(
   actor: XR_game_object,
   npc: Optional<XR_game_object | XR_cse_alife_human_abstract>,
-  params: [Optional<string>, Optional<string>, string]
+  params: [Optional<string>, Optional<string>, TName]
 ) {
   logger.info("Pick artefact from anomaly");
 
   const az_name: Optional<string> = params && params[1];
   let af_name: string = params && params[2];
 
-  const anomal_zone = anomalyByName.get(az_name as string);
+  const anomal_zone = registry.anomalies.get(az_name as TName);
 
   if (params && params[0]) {
     const npc_id = getStoryObjectId(params[0]);
@@ -2404,14 +2404,14 @@ export function pick_artefact_from_anomaly(
     abort("No such anomal zone in function 'pick_artefact_from_anomaly!'");
   }
 
-  if (anomal_zone.spawned_count < 1) {
+  if (anomal_zone.spawnedArtefactsCount < 1) {
     return;
   }
 
   let af_id: Optional<number> = null;
-  let af_obj: Optional<XR_cse_alife_object> = null;
+  let af_obj: Optional<XR_cse_alife_item_artefact> = null;
 
-  for (const [k, v] of anomal_zone.artefact_ways_by_id) {
+  for (const [k, v] of anomal_zone.artefactWaysByArtefactId) {
     if (alife().object(tonumber(k)!) && af_name === alife().object(tonumber(k)!)!.section_name()) {
       af_id = tonumber(k)!;
       af_obj = alife().object(tonumber(k)!);
@@ -2430,7 +2430,7 @@ export function pick_artefact_from_anomaly(
     return;
   }
 
-  anomal_zone.onArtefactTaken(af_obj);
+  anomal_zone.onArtefactTaken(af_obj as XR_cse_alife_item_artefact);
 
   alife().release(af_obj!, true);
   give_item(registry.actor, npc, [af_name, params[0]]);
@@ -2587,8 +2587,11 @@ export function jup_b221_play_main(actor: XR_game_object, npc: XR_game_object, p
   }
 }
 
-export function anomaly_turn_off(actor: XR_game_object, npc: XR_game_object, p: [string]) {
-  const anomal_zone = anomalyByName.get(p[0]);
+/**
+ * todo
+ */
+export function anomaly_turn_off(actor: XR_game_object, npc: XR_game_object, p: [string]): void {
+  const anomal_zone = registry.anomalies.get(p[0]);
 
   if (anomal_zone === null) {
     abort("No such anomal zone in function 'anomaly_turn_off!'");
@@ -2597,8 +2600,11 @@ export function anomaly_turn_off(actor: XR_game_object, npc: XR_game_object, p: 
   anomal_zone.turn_off();
 }
 
-export function anomaly_turn_on(actor: XR_game_object, npc: XR_game_object, p: [string, Optional<string>]) {
-  const anomal_zone = anomalyByName.get(p[0]);
+/**
+ * todo
+ */
+export function anomaly_turn_on(actor: XR_game_object, npc: XR_game_object, p: [string, Optional<string>]): void {
+  const anomal_zone = registry.anomalies.get(p[0]);
 
   if (anomal_zone === null) {
     abort("No such anomal zone in function 'anomaly_turn_on!'");
@@ -2611,6 +2617,9 @@ export function anomaly_turn_on(actor: XR_game_object, npc: XR_game_object, p: [
   }
 }
 
+/**
+ * todo
+ */
 export function zat_a1_tutorial_end_give(actor: XR_game_object, npc: XR_game_object): void {
   // --	level.add_pp_effector("black.ppe", 1313, true) //---{ ! stop on r1 !
   giveInfo(info_portions.zat_a1_tutorial_end);
@@ -2655,14 +2664,23 @@ export function damage_actor_items_on_start(actor: XR_game_object, npc: XR_game_
   actor.object(weapons.wpn_ak74u)?.set_condition(0.7);
 }
 
+/**
+ * todo
+ */
 export function pas_b400_play_particle(actor: XR_game_object, npc: XR_game_object, p: []) {
   registry.actor.start_particles("zones\\zone_acidic_idle", "bip01_head");
 }
 
+/**
+ * todo
+ */
 export function pas_b400_stop_particle(actor: XR_game_object, npc: XR_game_object, p: []) {
   registry.actor.stop_particles("zones\\zone_acidic_idle", "bip01_head");
 }
 
+/**
+ * todo
+ */
 export function damage_pri_a17_gauss() {
   const obj = getStoryObject(quest_items.pri_a17_gauss_rifle);
 

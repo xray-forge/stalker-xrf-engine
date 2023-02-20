@@ -42,6 +42,11 @@ export type AnyArgs = Array<any>;
 export type LuaAnyArgs = LuaArray<any>;
 
 /**
+ * String based name.
+ */
+export type TName = string;
+
+/**
  * Number based identifier.
  */
 export type TNumberId = number;

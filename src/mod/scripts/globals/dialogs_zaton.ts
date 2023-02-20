@@ -15,7 +15,7 @@ import { outfits } from "@/mod/globals/items/outfits";
 import { quest_items } from "@/mod/globals/items/quest_items";
 import { TWeapon, weapons } from "@/mod/globals/items/weapons";
 import { AnyCallablesModule, AnyObject, LuaArray, Optional } from "@/mod/lib/types";
-import { anomalyByName, registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
 import { relocate_item } from "@/mod/scripts/core/NewsManager";
 import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
@@ -877,7 +877,7 @@ export function zat_b29_create_af_in_anomaly(first_speaker: XR_game_object, seco
 
   zone_name = anomalies_names_tbl.get(zone).get(math.random(1, anomalies_names_tbl.get(zone).length()));
 
-  anomalyByName.get(zone_name).setForcedSpawnOverride(zat_b29_af_table.get(key as number));
+  registry.anomalies.get(zone_name).setForcedSpawnOverride(zat_b29_af_table.get(key as number));
 }
 
 /**

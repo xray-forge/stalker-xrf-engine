@@ -1,6 +1,16 @@
 import type { TXR_MonsterBodyStateKey, XR_CUIGameCustom, XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
-import type { AnyCallable, AnyObject, EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
+import type {
+  AnyCallable,
+  AnyObject,
+  EScheme,
+  ESchemeType,
+  Optional,
+  TName,
+  TNumberId,
+  TSection,
+} from "@/mod/lib/types";
+import type { IAnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
 import type { SchemeAnimpoint } from "@/mod/scripts/core/schemes/animpoint/SchemeAnimpoint";
 import type { TAbstractSchemeConstructor } from "@/mod/scripts/core/schemes/base";
 import type { RestrictorManager } from "@/mod/scripts/core/schemes/RestrictorManager";
@@ -68,24 +78,29 @@ export const registry = {
   /**
    * List of activated schemes in game.
    */
-  schemes: new LuaTable<string, TAbstractSchemeConstructor>(),
+  schemes: new LuaTable<EScheme, TAbstractSchemeConstructor>(),
   /**
    * List of active objects.
    */
-  objects: new LuaTable<number, IStoredObject>(),
+  objects: new LuaTable<TNumberId, IStoredObject>(),
   /**
    * List of current zone crows spawned.
    */
   crows: {
-    storage: new LuaTable<number, number>(),
+    // Used as set.
+    storage: new LuaTable<TNumberId, TNumberId>(),
     count: 0,
   },
   /**
    * List of data for game helicopters.
    */
   helicopter: {
-    storage: new LuaTable<number, XR_game_object>(),
-    enemies: new LuaTable<number, XR_game_object>(),
+    storage: new LuaTable<TNumberId, XR_game_object>(),
+    enemies: new LuaTable<TNumberId, XR_game_object>(),
     enemiesCount: 0,
   },
+  /**
+   * List active anomalies by name.
+   */
+  anomalies: new LuaTable<TName, IAnomalyZoneBinder>(),
 };

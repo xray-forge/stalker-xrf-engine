@@ -3,6 +3,7 @@ import {
   ini_file,
   object_binder,
   patrol,
+  XR_cse_alife_item_artefact,
   XR_cse_alife_object,
   XR_game_object,
   XR_ini_file,
@@ -17,11 +18,9 @@ import { Optional } from "@/mod/lib/types";
 import { FIELDS_BY_NAME } from "@/mod/scripts/core/binders/AnomalyFieldBinder";
 import {
   addAnomaly,
-  addObject,
   ARTEFACT_POINTS_BY_ARTEFACT_ID,
   ARTEFACT_WAYS_BY_ARTEFACT_ID,
   deleteAnomaly,
-  deleteObject,
   PARENT_ZONES_BY_ARTEFACT_ID,
   registry,
 } from "@/mod/scripts/core/db";
@@ -107,7 +106,7 @@ export interface IAnomalyZoneBinder extends XR_object_binder {
   respawnArtefactsAndReplaceAnomalyZones(): void;
   setForcedSpawnOverride(artefactName: string): void;
 
-  onArtefactTaken(object: XR_game_object): void;
+  onArtefactTaken(object: XR_game_object | XR_cse_alife_item_artefact): void;
 }
 
 /**
@@ -563,13 +562,11 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     }
 
     addAnomaly(this);
-    addObject(this.object);
 
     return true;
   },
   net_destroy(): void {
     deleteAnomaly(this);
-    deleteObject(this.object);
 
     registry.objects.delete(this.object.id());
     object_binder.net_destroy(this);
@@ -611,7 +608,7 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
       this.disableAnomalyFields();
     }
   },
-  onArtefactTaken(object: XR_game_object | XR_cse_alife_object): void {
+  onArtefactTaken(object: XR_game_object | XR_cse_alife_item_artefact): void {
     logger.info("On artefact take:", this.object.name());
 
     const id: number =

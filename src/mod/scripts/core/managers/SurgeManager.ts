@@ -20,7 +20,7 @@ import { levels, TLevel } from "@/mod/globals/levels";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { AnyCallablesModule, Optional, PartialRecord } from "@/mod/lib/types";
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
-import { anomalyByName, registry, signalLight, zoneByName } from "@/mod/scripts/core/db";
+import { registry, signalLight, zoneByName } from "@/mod/scripts/core/db";
 import { SURGE_MANAGER_LTX } from "@/mod/scripts/core/db/IniFiles";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/core/db/SimBoard";
@@ -727,9 +727,8 @@ export class SurgeManager extends AbstractCoreManager {
       this.levels_respawn[lvl_nm] = false;
     }
 
-    for (const [k, v] of anomalyByName) {
+    for (const [k, v] of registry.anomalies) {
       v.respawnArtefactsAndReplaceAnomalyZones();
-      // --printf("respawn artefacts in anomal zone [%s]", tostring(k))
     }
 
     mapDisplayManager.updateAnomaliesZones();

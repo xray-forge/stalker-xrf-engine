@@ -1,11 +1,4 @@
-import {
-  XR_cse_alife_object,
-  XR_CZoneCampfire,
-  XR_game_object,
-  XR_ini_file,
-  XR_object_binder,
-  XR_vector,
-} from "xray16";
+import { XR_cse_alife_object, XR_CZoneCampfire, XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
 import type { IAnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
 import type { ISignalLightBinder } from "@/mod/scripts/core/binders/SignalLightBinder";
@@ -25,6 +18,7 @@ export * from "@/mod/scripts/core/db/registry";
 export * from "@/mod/scripts/core/db/objects";
 export * from "@/mod/scripts/core/db/actor";
 export * from "@/mod/scripts/core/db/helicopter";
+export * from "@/mod/scripts/core/db/anomaly";
 
 export const infoRestr: LuaTable<number, string | XR_game_object> = new LuaTable();
 export const scriptIds: LuaTable<number, string> = new LuaTable();
@@ -77,7 +71,6 @@ export interface ITradeManagerDescriptor {
 
 export const smartTerrainById: LuaTable<number, XR_cse_alife_object> = new LuaTable();
 export const animObjByName: LuaTable<string, IStoredObject> = new LuaTable();
-export const anomalyByName: LuaTable<string, IStoredObject> = new LuaTable();
 export const sound_themes: LuaTable<string, AbstractPlayableSound> = new LuaTable();
 export const light_zones: LuaTable<number, SchemeLight> = new LuaTable();
 
@@ -91,18 +84,6 @@ export function deleteZone(zone: XR_game_object): void {
   logger.info("Delete zone:", zone.name());
 
   zoneByName.delete(zone.name());
-}
-
-export function addAnomaly(anomaly: XR_object_binder): void {
-  logger.info("Add anomaly:", anomaly.object.name());
-
-  anomalyByName.set(anomaly.object.name(), anomaly);
-}
-
-export function deleteAnomaly(anomaly: XR_object_binder): void {
-  logger.info("Delete anomaly:", anomaly.object.name());
-
-  anomalyByName.delete(anomaly.object.name());
 }
 
 export function addSmartTerrain(object: XR_cse_alife_object): void {

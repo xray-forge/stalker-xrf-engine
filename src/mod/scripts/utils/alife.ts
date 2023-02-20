@@ -18,11 +18,11 @@ import {
 
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
-import { AnyArgs, LuaArray, Maybe, Optional, TSection } from "@/mod/lib/types";
+import { AnyArgs, LuaArray, Maybe, Optional, TName, TSection } from "@/mod/lib/types";
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { ISimSquadReachTargetAction } from "@/mod/scripts/core/alife/SimSquadReachTargetAction";
 import { ISimSquadStayOnTargetAction } from "@/mod/scripts/core/alife/SimSquadStayOnTargetAction";
-import { anomalyByName, ARTEFACT_WAYS_BY_ARTEFACT_ID, IStoredObject, registry } from "@/mod/scripts/core/db";
+import { ARTEFACT_WAYS_BY_ARTEFACT_ID, IStoredObject, registry } from "@/mod/scripts/core/db";
 import { getStoryObjectsRegistry } from "@/mod/scripts/core/db/StoryObjectsRegistry";
 import { spawnItemsForObject } from "@/mod/scripts/utils/alife_spawn";
 import { isStalker } from "@/mod/scripts/utils/checkers/is";
@@ -501,17 +501,17 @@ export function sendToNearestAccessibleVertex(object: XR_game_object, vertexId: 
 export function anomalyHasArtefact(
   actor: XR_game_object,
   npc: Optional<XR_game_object>,
-  params: [string, Optional<string>]
+  params: [TName, Optional<TName>]
 ): LuaMultiReturn<[boolean, Optional<LuaArray<string>>]> {
   const az_name = params && params[0];
   const af_name = params && params[1];
-  const anomal_zone = anomalyByName.get(az_name);
+  const anomalyZone = registry.anomalies.get(az_name);
 
-  if (anomal_zone === null) {
+  if (anomalyZone === null) {
     return $multi(false, null);
   }
 
-  if (anomal_zone.spawned_count < 1) {
+  if (anomalyZone.spawnedArtefactsCount < 1) {
     return $multi(false, null);
   }
 
