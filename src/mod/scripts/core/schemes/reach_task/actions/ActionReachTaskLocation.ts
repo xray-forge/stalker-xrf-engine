@@ -18,7 +18,7 @@ import {
 import { IActor } from "@/mod/scripts/core/alife/Actor";
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { reactTaskPatrols } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { get_sim_obj_registry } from "@/mod/scripts/core/db/SimObjectsRegistry";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { ReachTaskPatrolManager } from "@/mod/scripts/core/schemes/reach_task/ReachTaskPatrolManager";
@@ -117,7 +117,7 @@ export const ActionReachTaskLocation: IActionReachTaskLocation = declare_xr_clas
           this.object.set_sight(look.path_dir, null, 0);
           update_movement(squad_target, this.object);
 
-          reactTaskPatrols
+          registry.patrols.reachTask
             .get(this.target_id + "_to_" + this.squad_id)
             .set_command(this.object, this.cur_state, this.formation);
 
@@ -139,7 +139,7 @@ export const ActionReachTaskLocation: IActionReachTaskLocation = declare_xr_clas
 
       update_movement(squad_target, this.object);
 
-      reactTaskPatrols
+      registry.patrols.reachTask
         .get(this.target_id + "_to_" + this.squad_id)
         .set_command(this.object, this.cur_state, this.formation);
     },
@@ -157,7 +157,7 @@ export const ActionReachTaskLocation: IActionReachTaskLocation = declare_xr_clas
 
       this.time_to_update = time_global() + 1000;
 
-      const [l_vid, dir, cur_state] = reactTaskPatrols
+      const [l_vid, dir, cur_state] = registry.patrols.reachTask
         .get(this.target_id + "_to_" + this.squad_id)
         .get_npc_command(this.object);
 
@@ -201,12 +201,12 @@ export const ActionReachTaskLocation: IActionReachTaskLocation = declare_xr_clas
     },
     death_callback(object: XR_game_object): void {
       if (this.target_id !== null) {
-        reactTaskPatrols.get(this.target_id + "_to_" + this.squad_id).remove_npc(object);
+        registry.patrols.reachTask.get(this.target_id + "_to_" + this.squad_id).remove_npc(object);
       }
     },
     net_destroy(object: XR_game_object): void {
       if (this.target_id !== null) {
-        reactTaskPatrols.get(this.target_id + "_to_" + this.squad_id).remove_npc(object);
+        registry.patrols.reachTask.get(this.target_id + "_to_" + this.squad_id).remove_npc(object);
       }
     },
   } as IActionReachTaskLocation

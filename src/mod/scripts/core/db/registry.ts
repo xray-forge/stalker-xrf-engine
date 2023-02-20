@@ -18,6 +18,7 @@ import type { ISignalLightBinder } from "@/mod/scripts/core/binders/SignalLightB
 import type { ITradeManagerDescriptor } from "@/mod/scripts/core/managers/TradeManager";
 import type { SchemeAnimpoint } from "@/mod/scripts/core/schemes/animpoint/SchemeAnimpoint";
 import type { TAbstractSchemeConstructor } from "@/mod/scripts/core/schemes/base";
+import type { ReachTaskPatrolManager } from "@/mod/scripts/core/schemes/reach_task/ReachTaskPatrolManager";
 import type { RestrictorManager } from "@/mod/scripts/core/schemes/RestrictorManager";
 import type { SchemeLight } from "@/mod/scripts/core/schemes/sr_light/SchemeLight";
 import type { ITeleportPoint } from "@/mod/scripts/core/schemes/teleport/SchemeTeleport";
@@ -185,4 +186,10 @@ export const registry = {
    * List of vertexes with matching IDs of existing objects.
    */
   spawnedVertexes: new LuaTable<TNumberId, TNumberId>(),
+  /**
+   * List of active patrols and actions.
+   */
+  patrols: {
+    reachTask: new LuaTable<string, ReachTaskPatrolManager>(),
+  },
 };

@@ -1,7 +1,7 @@
 import { alife, level, vector, XR_cse_alife_creature_abstract, XR_game_object, XR_vector } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { reactTaskPatrols } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { getObjectSquad } from "@/mod/scripts/utils/alife";
 import { isObjectMeeting } from "@/mod/scripts/utils/checkers/checkers";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -44,11 +44,11 @@ export class ReachTaskPatrolManager {
     const squadId: number = getObjectSquad(object)!.id;
     const patrolId: string = targetId + "_to_" + squadId;
 
-    if (reactTaskPatrols.get(patrolId) === null) {
-      reactTaskPatrols.set(patrolId, new ReachTaskPatrolManager(targetId));
+    if (registry.patrols.reachTask.get(patrolId) === null) {
+      registry.patrols.reachTask.set(patrolId, new ReachTaskPatrolManager(targetId));
     }
 
-    reactTaskPatrols.get(patrolId).add_npc(object);
+    registry.patrols.reachTask.get(patrolId).add_npc(object);
   }
 
   public npc_list: LuaTable<
