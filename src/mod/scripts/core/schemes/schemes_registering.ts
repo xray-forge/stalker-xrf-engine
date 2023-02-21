@@ -1,5 +1,5 @@
 import { EScheme, ESchemeType } from "@/mod/lib/types/scheme";
-import { registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/database";
 import { SchemeAbuse } from "@/mod/scripts/core/schemes/abuse/SchemeAbuse";
 import { SchemeAnimpoint } from "@/mod/scripts/core/schemes/animpoint/SchemeAnimpoint";
 import { TAbstractSchemeConstructor } from "@/mod/scripts/core/schemes/base/AbstractScheme";

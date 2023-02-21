@@ -1,6 +1,6 @@
 import { property_evaluator, XR_property_evaluator } from "xray16";
 
-import { IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject } from "@/mod/scripts/core/database";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { isSchemeActive } from "@/mod/scripts/utils/scheme";
 

@@ -1,8 +1,8 @@
 import { level, patrol, XR_CHelicopter, XR_game_object, XR_ini_file, XR_patrol, XR_vector } from "xray16";
 
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/db";
-import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
+import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { get_heli_firer, HeliFire } from "@/mod/scripts/core/schemes/heli_move/HeliFire";

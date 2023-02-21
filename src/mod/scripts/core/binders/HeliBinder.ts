@@ -25,7 +25,7 @@ import {
   IStoredObject,
   registry,
   resetObject,
-} from "@/mod/scripts/core/db";
+} from "@/mod/scripts/core/database";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { get_heli_health } from "@/mod/scripts/core/schemes/heli_move/heli_utils";
 import { HeliCombat } from "@/mod/scripts/core/schemes/heli_move/HeliCombat";

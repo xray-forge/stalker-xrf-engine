@@ -2,7 +2,7 @@ import { game, level, time_global, XR_game_object } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { ESchemeCondition } from "@/mod/lib/types/scheme";
-import { IStoredObject, registry } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { switchToSection } from "@/mod/scripts/core/schemes/switchToSection";
 import { isSeeingActor } from "@/mod/scripts/utils/alife";
 import { isNpcInZone } from "@/mod/scripts/utils/checkers/checkers";

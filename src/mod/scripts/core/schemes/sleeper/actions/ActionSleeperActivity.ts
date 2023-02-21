@@ -1,7 +1,7 @@
 import { action_base, patrol, XR_action_base, XR_game_object } from "xray16";
 
 import { AnyCallable, Optional } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { MoveManager } from "@/mod/scripts/core/MoveManager";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { path_parse_waypoints_from_arglist } from "@/mod/scripts/utils/configs";

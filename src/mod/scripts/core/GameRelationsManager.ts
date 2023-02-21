@@ -5,7 +5,7 @@ import { ERelation, relations, TRelation } from "@/mod/globals/relations";
 import { Maybe, Optional } from "@/mod/lib/types";
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/database";
 import { getCharacterCommunity, getStorySquad } from "@/mod/scripts/utils/alife";
 import { abort } from "@/mod/scripts/utils/debug";
 import { get_gulag_by_name } from "@/mod/scripts/utils/gulag";

@@ -16,7 +16,7 @@ import {
 import { MAX_UNSIGNED_8_BIT } from "@/mod/globals/memory";
 import { Optional } from "@/mod/lib/types";
 import { FIELDS_BY_NAME } from "@/mod/scripts/core/binders/AnomalyFieldBinder";
-import { addAnomaly, deleteAnomaly, registry } from "@/mod/scripts/core/db";
+import { addAnomaly, deleteAnomaly, registry } from "@/mod/scripts/core/database";
 import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
 import {
   getConfigNumber,

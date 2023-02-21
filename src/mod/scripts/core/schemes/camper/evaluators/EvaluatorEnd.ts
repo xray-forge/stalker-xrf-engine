@@ -1,6 +1,6 @@
 import { property_evaluator, XR_property_evaluator } from "xray16";
 
-import { IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject } from "@/mod/scripts/core/database";
 import { isActiveSection } from "@/mod/scripts/utils/checkers/is";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

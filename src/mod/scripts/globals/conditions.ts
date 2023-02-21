@@ -25,9 +25,9 @@ import { AnyArgs, AnyCallablesModule, LuaArray, Maybe, Optional, TName, TSection
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { ESmartTerrainStatus, ISmartTerrainControl } from "@/mod/scripts/core/alife/SmartTerrainControl";
-import { IStoredObject, registry } from "@/mod/scripts/core/db";
-import { pstor_retrieve } from "@/mod/scripts/core/db/pstor";
-import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
+import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { pstor_retrieve } from "@/mod/scripts/core/database/pstor";
+import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
 import * as game_relations from "@/mod/scripts/core/GameRelationsManager";
 import { setCurrentHint } from "@/mod/scripts/core/inventory_upgrades";
 import { AchievementsManager } from "@/mod/scripts/core/managers/AchievementsManager";

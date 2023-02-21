@@ -2,7 +2,7 @@ import { device, level, XR_game_object } from "xray16";
 
 import { EScheme, Optional } from "@/mod/lib/types";
 import { stringifyAsJson } from "@/mod/lib/utils/json";
-import { IStoredObject, registry } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import {
   EEffectorState,
   ICamEffectorSetDescriptorItem,

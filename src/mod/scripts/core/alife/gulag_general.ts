@@ -16,7 +16,7 @@ import { AnyObject, EJobType, EScheme, JobTypeByScheme, Optional, TName, TSectio
 import { accessible_job, get_job_restrictor } from "@/mod/scripts/core/alife/combat_restrictor";
 import { registered_smartcovers } from "@/mod/scripts/core/alife/SmartCover";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/database";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import {
   get_scheme_by_section,

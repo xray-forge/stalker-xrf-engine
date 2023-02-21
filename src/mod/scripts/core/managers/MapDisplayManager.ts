@@ -15,7 +15,7 @@ import { levels } from "@/mod/globals/levels";
 import { map_mark_type, npc_map_marks } from "@/mod/globals/npc_map_marks";
 import { story_ids } from "@/mod/globals/story_ids";
 import { Maybe, Optional, TSection } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { anomalyHasArtefact } from "@/mod/scripts/utils/alife";

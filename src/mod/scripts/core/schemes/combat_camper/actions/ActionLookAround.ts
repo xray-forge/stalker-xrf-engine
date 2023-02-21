@@ -1,6 +1,6 @@
 import { action_base, device, vector, XR_action_base, XR_game_object, XR_vector } from "xray16";
 
-import { IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject } from "@/mod/scripts/core/database";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

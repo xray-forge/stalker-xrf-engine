@@ -1,6 +1,6 @@
 import { action_base, XR_action_base } from "xray16";
 
-import { IStoredObject, registry } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/database";
 
 export interface IActionAbuseHit extends XR_action_base {
   state: IStoredObject;

@@ -1,7 +1,7 @@
 import { property_evaluator, XR_game_object, XR_property_evaluator } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject } from "@/mod/scripts/core/database";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("EvaluatorSee");

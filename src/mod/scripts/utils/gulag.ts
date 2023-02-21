@@ -3,7 +3,7 @@ import { alife, game_object, XR_cse_alife_creature_abstract, XR_game_object, XR_
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { Optional } from "@/mod/lib/types";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
+import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

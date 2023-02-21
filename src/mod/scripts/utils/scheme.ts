@@ -1,6 +1,6 @@
 import { stalker_ids, world_property, XR_action_base, XR_game_object } from "xray16";
 
-import { IStoredObject, registry } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { evaluators_id } from "@/mod/scripts/core/schemes/base/evaluators_id";
 import { abort } from "@/mod/scripts/utils/debug";
 

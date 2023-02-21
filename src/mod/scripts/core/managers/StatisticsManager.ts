@@ -12,7 +12,7 @@ import { TArtefact } from "@/mod/globals/items/artefacts";
 import { TWeapon } from "@/mod/globals/items/weapons";
 import { TMonster } from "@/mod/globals/monsters";
 import { Optional, PartialRecord, StringOptional } from "@/mod/lib/types";
-import { registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/database";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { isStalker } from "@/mod/scripts/utils/checkers/is";
 import { abort } from "@/mod/scripts/utils/debug";

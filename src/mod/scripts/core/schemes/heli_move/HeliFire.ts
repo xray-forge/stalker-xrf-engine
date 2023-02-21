@@ -13,7 +13,7 @@ import {
 
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { Optional } from "@/mod/lib/types";
-import { registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/database";
 import { randomChoice } from "@/mod/scripts/utils/general";
 import { getIdBySid } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

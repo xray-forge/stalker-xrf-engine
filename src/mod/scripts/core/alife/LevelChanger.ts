@@ -1,7 +1,7 @@
 import { cse_alife_level_changer, editor, XR_cse_alife_level_changer, XR_net_packet } from "xray16";
 
 import { TSection } from "@/mod/lib/types";
-import { checkSpawnIniForStoryId } from "@/mod/scripts/core/db/StoryObjectsRegistry";
+import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

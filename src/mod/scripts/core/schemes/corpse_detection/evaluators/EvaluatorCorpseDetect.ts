@@ -2,7 +2,7 @@ import { level, property_evaluator, XR_game_object, XR_property_evaluator, XR_ve
 
 import { communities } from "@/mod/globals/communities";
 import { Optional } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { get_release_body_manager, IReleaseDescriptor } from "@/mod/scripts/core/ReleaseBodyManager";
 import { isObjectWounded } from "@/mod/scripts/utils/checkers/checkers";
 import { isLootableItem } from "@/mod/scripts/utils/checkers/is";

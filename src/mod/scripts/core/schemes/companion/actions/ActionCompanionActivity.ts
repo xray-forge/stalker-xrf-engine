@@ -1,7 +1,7 @@
 import { action_base, game_object, level, time_global, XR_action_base, XR_game_object } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { vectorRotateY } from "@/mod/scripts/utils/physics";

@@ -2,7 +2,7 @@ import { level, patrol, XR_game_object, XR_ini_file } from "xray16";
 
 import { post_processors } from "@/mod/globals/animation/post_processors";
 import { AnyCallablesModule, EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";

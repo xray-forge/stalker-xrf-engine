@@ -1,7 +1,7 @@
 import { XR_game_object } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/db/registry";
+import { IStoredObject, registry } from "@/mod/scripts/core/database/registry";
 
 /**
  * todo;

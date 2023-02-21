@@ -2,7 +2,7 @@ import { game_object, XR_game_object, XR_ini_file } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { IStoredObject, registry } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { activateBySection } from "@/mod/scripts/core/schemes/activateBySection";
 import { configureSchemes } from "@/mod/scripts/core/schemes/configureSchemes";
 import { determine_section_to_activate } from "@/mod/scripts/core/schemes/determine_section_to_activate";

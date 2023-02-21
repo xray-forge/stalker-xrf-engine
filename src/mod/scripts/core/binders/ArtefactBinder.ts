@@ -12,7 +12,7 @@ import {
 
 import { Optional } from "@/mod/lib/types";
 import { IAnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
-import { addObject, deleteObject, registry } from "@/mod/scripts/core/db";
+import { addObject, deleteObject, registry } from "@/mod/scripts/core/database";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ArtefactBinder");

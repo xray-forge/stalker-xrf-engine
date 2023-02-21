@@ -4,8 +4,8 @@ import { captions } from "@/mod/globals/captions";
 import { quest_items } from "@/mod/globals/items/quest_items";
 import { Optional } from "@/mod/lib/types";
 import { TSection } from "@/mod/lib/types/scheme";
-import { registry } from "@/mod/scripts/core/db";
-import { ITEM_UPGRADES, STALKER_UPGRADE_INFO } from "@/mod/scripts/core/db/IniFiles";
+import { registry } from "@/mod/scripts/core/database";
+import { ITEM_UPGRADES, STALKER_UPGRADE_INFO } from "@/mod/scripts/core/database/IniFiles";
 import { parseCondList, parseNames, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

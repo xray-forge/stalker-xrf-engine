@@ -1,7 +1,7 @@
 import { ini_file, XR_game_object, XR_ini_file } from "xray16";
 
 import { ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/database";
 import { TradeManager } from "@/mod/scripts/core/managers/TradeManager";
 import { disableGenericSchemes } from "@/mod/scripts/core/schemes/disableGenericSchemes";
 import { enable_generic_schemes } from "@/mod/scripts/core/schemes/enable_generic_schemes";

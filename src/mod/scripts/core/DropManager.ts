@@ -5,7 +5,7 @@ import { ammo, TAmmoItem } from "@/mod/globals/items/ammo";
 import { misc } from "@/mod/globals/items/misc";
 import { TSection } from "@/mod/lib/types";
 import { IStalker } from "@/mod/scripts/core/alife/Stalker";
-import { registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/database";
 import { getCharacterCommunity, setItemCondition } from "@/mod/scripts/utils/alife";
 import { spawnAmmoForObject, spawnItemsForObject } from "@/mod/scripts/utils/alife_spawn";
 import { isExcludedFromLootDropItem } from "@/mod/scripts/utils/checkers/checkers";

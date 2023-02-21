@@ -2,7 +2,7 @@ import { game, time_global, XR_game_object, XR_ini_file } from "xray16";
 
 import { AnyObject, Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/database";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
 import { resetGenericSchemesOnSchemeSwitch } from "@/mod/scripts/core/schemes/resetGenericSchemesOnSchemeSwitch";
 import { sendToNearestAccessibleVertex } from "@/mod/scripts/utils/alife";

@@ -1,7 +1,7 @@
 import { device, game_graph, vector, XR_game_object, XR_vector } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/database";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("physics");

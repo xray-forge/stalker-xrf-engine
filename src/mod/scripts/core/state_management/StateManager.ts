@@ -13,7 +13,7 @@ import {
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { AnyCallable, AnyObject, Optional } from "@/mod/lib/types";
 import { stringifyAsJson } from "@/mod/lib/utils/json";
-import { IStoredObject, registry } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import * as animationManagement from "@/mod/scripts/core/state_management/animation";
 import * as animationStateManagement from "@/mod/scripts/core/state_management/animation_state";
 import { AnimationManager, IAnimationManager } from "@/mod/scripts/core/state_management/AnimationManager";

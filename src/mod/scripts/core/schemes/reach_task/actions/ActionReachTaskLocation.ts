@@ -18,8 +18,8 @@ import {
 import { IActor } from "@/mod/scripts/core/alife/Actor";
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { registry } from "@/mod/scripts/core/db";
-import { get_sim_obj_registry } from "@/mod/scripts/core/db/SimObjectsRegistry";
+import { registry } from "@/mod/scripts/core/database";
+import { get_sim_obj_registry } from "@/mod/scripts/core/database/SimObjectsRegistry";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { ReachTaskPatrolManager } from "@/mod/scripts/core/schemes/reach_task/ReachTaskPatrolManager";
 import { getObjectSquad, sendToNearestAccessibleVertex } from "@/mod/scripts/utils/alife";

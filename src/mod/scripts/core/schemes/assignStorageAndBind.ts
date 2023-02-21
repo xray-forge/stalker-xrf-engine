@@ -2,7 +2,7 @@ import { XR_game_object, XR_ini_file } from "xray16";
 
 import { AnyObject, Optional } from "@/mod/lib/types";
 import { EScheme, TSection } from "@/mod/lib/types/scheme";
-import { IStoredObject, registry } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("assignStorageAndBind");

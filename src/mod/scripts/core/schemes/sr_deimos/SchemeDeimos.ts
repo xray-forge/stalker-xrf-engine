@@ -1,7 +1,7 @@
 import { device, level, time_global, XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
 import { AnyObject, EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";

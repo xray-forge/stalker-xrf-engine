@@ -12,8 +12,8 @@ import {
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { AnyObject, Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { IStoredObject, registry } from "@/mod/scripts/core/db";
-import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
+import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme, action_ids, evaluators_id } from "@/mod/scripts/core/schemes/base";

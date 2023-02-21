@@ -1,7 +1,7 @@
 import { XR_net_packet, XR_reader, XR_sound_object } from "xray16";
 
 import { Optional, TName, TNumberId } from "@/mod/lib/types";
-import { registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/database";
 import { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
 import { LoopedSound } from "@/mod/scripts/core/sound/playable_sounds/LoopedSound";
 import { abort } from "@/mod/scripts/utils/debug";

@@ -2,7 +2,7 @@ import { alife, TXR_net_processor, XR_cse_abstract, XR_EngineBinding, XR_ini_fil
 
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { Optional } from "@/mod/lib/types";
-import { SYSTEM_INI } from "@/mod/scripts/core/db/IniFiles";
+import { SYSTEM_INI } from "@/mod/scripts/core/database/IniFiles";
 import { getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";

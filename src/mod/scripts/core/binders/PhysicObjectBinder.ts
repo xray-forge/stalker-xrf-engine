@@ -15,7 +15,7 @@ import {
 
 import { ESchemeType, Optional } from "@/mod/lib/types";
 import { PhysicObjectItemBox } from "@/mod/scripts/core/binders/PhysicObjectItemBox";
-import { addObject, deleteObject, IStoredObject, registry, resetObject } from "@/mod/scripts/core/db";
+import { addObject, deleteObject, IStoredObject, registry, resetObject } from "@/mod/scripts/core/database";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { initializeGameObject } from "@/mod/scripts/core/schemes/initializeGameObject";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";

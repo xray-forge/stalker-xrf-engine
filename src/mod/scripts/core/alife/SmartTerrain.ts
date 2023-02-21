@@ -37,12 +37,12 @@ import {
   turn_off_campfires_by_smart_name,
   turn_on_campfires_by_smart_name,
 } from "@/mod/scripts/core/binders/CampfireBinder";
-import { hardResetOfflineObject, IStoredObject, registry, softResetOfflineObject } from "@/mod/scripts/core/db";
-import { loadDynamicLtx } from "@/mod/scripts/core/db/IniFiles";
-import { get_sim_board, ISimBoard } from "@/mod/scripts/core/db/SimBoard";
-import { evaluate_prior, get_sim_obj_registry } from "@/mod/scripts/core/db/SimObjectsRegistry";
-import { get_smart_terrain_name } from "@/mod/scripts/core/db/smart_names";
-import { checkSpawnIniForStoryId } from "@/mod/scripts/core/db/StoryObjectsRegistry";
+import { hardResetOfflineObject, IStoredObject, registry, softResetOfflineObject } from "@/mod/scripts/core/database";
+import { loadDynamicLtx } from "@/mod/scripts/core/database/IniFiles";
+import { get_sim_board, ISimBoard } from "@/mod/scripts/core/database/SimBoard";
+import { evaluate_prior, get_sim_obj_registry } from "@/mod/scripts/core/database/SimObjectsRegistry";
+import { get_smart_terrain_name } from "@/mod/scripts/core/database/smart_names";
+import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";
 import { activateBySection } from "@/mod/scripts/core/schemes/activateBySection";
 import { configureSchemes } from "@/mod/scripts/core/schemes/configureSchemes";
 import { determine_section_to_activate } from "@/mod/scripts/core/schemes/determine_section_to_activate";

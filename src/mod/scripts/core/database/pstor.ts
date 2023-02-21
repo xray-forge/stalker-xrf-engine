@@ -1,7 +1,7 @@
 import { XR_game_object, XR_net_packet, XR_reader } from "xray16";
 
 import { Maybe, Optional } from "@/mod/lib/types";
-import { registry } from "@/mod/scripts/core/db/registry";
+import { registry } from "@/mod/scripts/core/database/registry";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

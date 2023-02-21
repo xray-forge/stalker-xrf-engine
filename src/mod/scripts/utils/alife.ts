@@ -22,8 +22,8 @@ import { AnyArgs, LuaArray, Maybe, Optional, TName, TSection } from "@/mod/lib/t
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { ISimSquadReachTargetAction } from "@/mod/scripts/core/alife/SimSquadReachTargetAction";
 import { ISimSquadStayOnTargetAction } from "@/mod/scripts/core/alife/SimSquadStayOnTargetAction";
-import { IStoredObject, registry } from "@/mod/scripts/core/db";
-import { getStoryObjectsRegistry } from "@/mod/scripts/core/db/StoryObjectsRegistry";
+import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { getStoryObjectsRegistry } from "@/mod/scripts/core/database/StoryObjectsRegistry";
 import { spawnItemsForObject } from "@/mod/scripts/utils/alife_spawn";
 import { isStalker } from "@/mod/scripts/utils/checkers/is";
 import {

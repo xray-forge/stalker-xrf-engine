@@ -2,7 +2,7 @@ import { anim, move, object, TXR_object_state, XR_game_object } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
-import { registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/database";
 import { IStateDescriptor, states } from "@/mod/scripts/core/state_management/lib/state_lib";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

@@ -1,6 +1,6 @@
 import { object_binder, XR_cse_alife_object, XR_game_object, XR_object_binder } from "xray16";
 
-import { addZone, deleteZone, registry } from "@/mod/scripts/core/db";
+import { addZone, deleteZone, registry } from "@/mod/scripts/core/database";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("AnomalyFieldBinder");

@@ -1,7 +1,7 @@
 import { alife, object_binder, XR_cse_alife_object, XR_game_object, XR_object_binder } from "xray16";
 
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { addSmartTerrain, deleteSmartTerrain } from "@/mod/scripts/core/db";
+import { addSmartTerrain, deleteSmartTerrain } from "@/mod/scripts/core/database";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

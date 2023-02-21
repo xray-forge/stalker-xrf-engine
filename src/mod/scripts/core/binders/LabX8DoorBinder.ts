@@ -14,8 +14,8 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { registry } from "@/mod/scripts/core/db";
-import { addDoorObject, deleteDoorObject } from "@/mod/scripts/core/db/doors";
+import { registry } from "@/mod/scripts/core/database";
+import { addDoorObject, deleteDoorObject } from "@/mod/scripts/core/database/doors";
 import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
 import { getConfigNumber, getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";

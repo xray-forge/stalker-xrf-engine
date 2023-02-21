@@ -25,7 +25,7 @@ import { captions } from "@/mod/globals/captions";
 import { info_portions } from "@/mod/globals/info_portions/info_portions";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
-import { registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/database";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { WeatherManager } from "@/mod/scripts/core/managers/WeatherManager";
 import { disableInfo, giveInfo } from "@/mod/scripts/utils/actor";

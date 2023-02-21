@@ -1,8 +1,8 @@
 import { XR_game_object } from "xray16";
 
 import type { ILabX8DoorBinder } from "@/mod/scripts/core/binders/LabX8DoorBinder";
-import { addObject, deleteObject } from "@/mod/scripts/core/db/objects";
-import { registry } from "@/mod/scripts/core/db/registry";
+import { addObject, deleteObject } from "@/mod/scripts/core/database/objects";
+import { registry } from "@/mod/scripts/core/database/registry";
 
 /**
  * todo;

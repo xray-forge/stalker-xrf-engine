@@ -1,8 +1,8 @@
 import { time_global, XR_game_object, XR_net_packet, XR_reader } from "xray16";
 
 import { Optional, StringOptional } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/db";
-import { pstor_load_all, pstor_save_all } from "@/mod/scripts/core/db/pstor";
+import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { pstor_load_all, pstor_save_all } from "@/mod/scripts/core/database/pstor";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";

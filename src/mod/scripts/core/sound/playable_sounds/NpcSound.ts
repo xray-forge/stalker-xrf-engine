@@ -17,7 +17,7 @@ import {
 
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { AnyObject, Optional } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { send_sound } from "@/mod/scripts/core/NewsManager";
 import { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
 import { EPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/EPlayableSound";

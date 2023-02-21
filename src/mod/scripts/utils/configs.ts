@@ -12,7 +12,7 @@ import {
 } from "xray16";
 
 import { AnyArgs, AnyCallablesModule, AnyObject, EScheme, Optional, TSection } from "@/mod/lib/types";
-import { registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/database";
 import { disableInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

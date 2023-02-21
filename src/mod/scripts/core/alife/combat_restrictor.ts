@@ -1,6 +1,6 @@
 import { patrol, XR_cse_alife_object, XR_game_object, XR_vector } from "xray16";
 
-import { registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/database";
 import { parseNames } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

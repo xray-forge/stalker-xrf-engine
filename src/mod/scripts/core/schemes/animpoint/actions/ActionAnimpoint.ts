@@ -1,6 +1,6 @@
 import { action_base, XR_action_base, XR_game_object } from "xray16";
 
-import { IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject } from "@/mod/scripts/core/database";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

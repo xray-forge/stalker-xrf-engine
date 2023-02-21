@@ -1,7 +1,7 @@
 import { cse_alife_item_weapon_magazined_w_gl, XR_cse_alife_item_weapon_magazined_w_gl } from "xray16";
 
 import { Optional, TSection } from "@/mod/lib/types";
-import { checkSpawnIniForStoryId } from "@/mod/scripts/core/db/StoryObjectsRegistry";
+import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";
 import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

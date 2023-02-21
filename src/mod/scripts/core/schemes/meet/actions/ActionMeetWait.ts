@@ -1,6 +1,6 @@
 import { action_base, XR_action_base, XR_ini_file } from "xray16";
 
-import { IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject } from "@/mod/scripts/core/database";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ActionMeetWait");

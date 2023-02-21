@@ -1,7 +1,7 @@
 import { alife, XR_alife_simulator } from "xray16";
 
 import { TInfoPortion } from "@/mod/globals/info_portions/info_portions";
-import { registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/database";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("actor");

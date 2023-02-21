@@ -2,8 +2,8 @@ import { get_hud, level, XR_game_object, XR_ini_file } from "xray16";
 
 import { post_processors } from "@/mod/globals/animation/post_processors";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/db";
-import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
+import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
 import { PsyAntennaManager } from "@/mod/scripts/core/managers/PsyAntennaManager";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";

@@ -2,7 +2,7 @@ import { alife, game, game_graph } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { SMART_NAMES_LTX } from "@/mod/scripts/core/db/IniFiles";
+import { SMART_NAMES_LTX } from "@/mod/scripts/core/database/IniFiles";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("smart_names");

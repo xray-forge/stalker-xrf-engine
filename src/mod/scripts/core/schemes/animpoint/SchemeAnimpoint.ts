@@ -3,7 +3,7 @@ import { level, stalker_ids, vector, world_property, XR_game_object, XR_ini_file
 import { Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { registered_smartcovers } from "@/mod/scripts/core/alife/SmartCover";
-import { IStoredObject, registry } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { ActionAnimpoint, IActionAnimpoint } from "@/mod/scripts/core/schemes/animpoint/actions/ActionAnimpoint";
 import {
   ActionReachAnimpoint,

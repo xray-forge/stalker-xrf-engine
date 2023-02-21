@@ -1,7 +1,7 @@
 import { cond, look, patrol, vector, XR_game_object, XR_ini_file, XR_patrol, XR_vector } from "xray16";
 
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { mobCapture } from "@/mod/scripts/core/schemes/mobCapture";

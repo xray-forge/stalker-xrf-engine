@@ -1,5 +1,5 @@
 import { Optional, TNumberId } from "@/mod/lib/types";
-import { IStoredOfflineObject, registry } from "@/mod/scripts/core/db/registry";
+import { IStoredOfflineObject, registry } from "@/mod/scripts/core/database/registry";
 
 /**
  * todo;

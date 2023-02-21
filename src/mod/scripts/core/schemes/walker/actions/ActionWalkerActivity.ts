@@ -1,7 +1,7 @@
 import { action_base, XR_action_base, XR_game_object } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { MoveManager } from "@/mod/scripts/core/MoveManager";
 import { associations, IAnimpointDescriptor } from "@/mod/scripts/core/schemes/animpoint/animpoint_predicates";

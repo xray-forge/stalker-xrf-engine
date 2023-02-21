@@ -3,7 +3,7 @@ import { get_console, IsDynamicMusic, level, time_global, XR_game_object, XR_vec
 import { console_command } from "@/mod/globals/console_command";
 import { TSound } from "@/mod/globals/sound/sounds";
 import { Optional } from "@/mod/lib/types";
-import { registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/database";
 import { EGameEvent } from "@/mod/scripts/core/managers/events/EGameEvent";
 import { EventsManager } from "@/mod/scripts/core/managers/events/EventsManager";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";

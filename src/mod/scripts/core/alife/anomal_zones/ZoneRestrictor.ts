@@ -1,7 +1,7 @@
 import { cse_alife_space_restrictor, XR_cse_alife_space_restrictor } from "xray16";
 
 import { TSection } from "@/mod/lib/types";
-import { checkSpawnIniForStoryId } from "@/mod/scripts/core/db/StoryObjectsRegistry";
+import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";
 import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

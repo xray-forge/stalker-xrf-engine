@@ -2,7 +2,7 @@ import { XR_game_object, XR_ini_file } from "xray16";
 
 import { STRINGIFIED_NIL } from "@/mod/globals/lua";
 import { TSection } from "@/mod/lib/types/scheme";
-import { registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/database";
 import { getConfigCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 

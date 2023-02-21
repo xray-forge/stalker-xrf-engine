@@ -1,7 +1,7 @@
 import { property_evaluator, stalker_ids, XR_action_planner, XR_property_evaluator } from "xray16";
 
-import { IStoredObject } from "@/mod/scripts/core/db";
-import { pstor_retrieve } from "@/mod/scripts/core/db/pstor";
+import { IStoredObject } from "@/mod/scripts/core/database";
+import { pstor_retrieve } from "@/mod/scripts/core/database/pstor";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("EvaluatorWounded");

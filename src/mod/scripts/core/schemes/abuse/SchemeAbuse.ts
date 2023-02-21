@@ -1,7 +1,7 @@
 import { stalker_ids, time_global, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { ActionAbuseHit } from "@/mod/scripts/core/schemes/abuse/actions/ActionAbuseHit";
 import { EvaluatorAbuse } from "@/mod/scripts/core/schemes/abuse/evaluators/EvaluatorAbuse";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";

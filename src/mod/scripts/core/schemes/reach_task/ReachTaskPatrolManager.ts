@@ -1,7 +1,7 @@
 import { alife, level, vector, XR_cse_alife_creature_abstract, XR_game_object, XR_vector } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/database";
 import { getObjectSquad } from "@/mod/scripts/utils/alife";
 import { isObjectMeeting } from "@/mod/scripts/utils/checkers/checkers";
 import { abort } from "@/mod/scripts/utils/debug";

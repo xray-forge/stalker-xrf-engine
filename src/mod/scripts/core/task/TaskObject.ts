@@ -16,7 +16,7 @@ import {
 
 import { levels, TLevel } from "@/mod/globals/levels";
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
-import { registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/database";
 import { getInventoryVictim } from "@/mod/scripts/core/inventory_upgrades";
 import { send_task } from "@/mod/scripts/core/NewsManager";
 import * as TaskFunctor from "@/mod/scripts/core/task/TaskFunctor";

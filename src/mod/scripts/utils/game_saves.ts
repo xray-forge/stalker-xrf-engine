@@ -16,7 +16,7 @@ import {
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional, TName } from "@/mod/lib/types";
-import { registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/database";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

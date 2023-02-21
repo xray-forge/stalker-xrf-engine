@@ -1,6 +1,6 @@
 import { property_evaluator, stalker_ids, time_global, XR_action_planner, XR_property_evaluator } from "xray16";
 
-import { IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject } from "@/mod/scripts/core/database";
 import { evaluators_id } from "@/mod/scripts/core/schemes/base/evaluators_id";
 import { isActiveSection } from "@/mod/scripts/utils/checkers/is";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

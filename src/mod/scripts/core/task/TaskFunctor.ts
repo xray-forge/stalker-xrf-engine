@@ -2,7 +2,7 @@ import { game } from "xray16";
 
 import { captions } from "@/mod/globals/captions";
 import { Optional, TSection } from "@/mod/lib/types";
-import { registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/database";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { getStoryObject } from "@/mod/scripts/utils/alife";

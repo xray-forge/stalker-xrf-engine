@@ -10,7 +10,7 @@ import {
 } from "xray16";
 
 import { AnyObject, Optional } from "@/mod/lib/types";
-import { IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject } from "@/mod/scripts/core/database";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { sendToNearestAccessibleVertex } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

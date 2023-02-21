@@ -10,7 +10,7 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/database";
 import { CampStoryManager } from "@/mod/scripts/core/schemes/base/CampStoryManager";
 import { getConfigString } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";

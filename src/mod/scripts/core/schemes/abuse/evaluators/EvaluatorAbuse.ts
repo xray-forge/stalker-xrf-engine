@@ -1,6 +1,6 @@
 import { property_evaluator, XR_property_evaluator } from "xray16";
 
-import { IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject } from "@/mod/scripts/core/database";
 
 export interface IEvaluatorAbuse extends XR_property_evaluator {
   state: IStoredObject;

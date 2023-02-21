@@ -1,7 +1,7 @@
 import { action_base, alife, hit, time_global, XR_action_base, XR_alife_simulator } from "xray16";
 
-import { IStoredObject, registry } from "@/mod/scripts/core/db";
-import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
+import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { abort } from "@/mod/scripts/utils/debug";

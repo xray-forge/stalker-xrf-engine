@@ -1,7 +1,7 @@
 import { stalker_ids, world_property, XR_action_base, XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme, action_ids, evaluators_id } from "@/mod/scripts/core/schemes/base";
 import { ActionCamperPatrol, IActionCamperPatrol } from "@/mod/scripts/core/schemes/camper/actions/ActionCamperPatrol";

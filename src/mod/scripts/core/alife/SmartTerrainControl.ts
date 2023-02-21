@@ -2,8 +2,8 @@ import { game, TXR_net_processor, XR_CTime, XR_EngineBinding, XR_ini_file, XR_ne
 
 import { Optional, TName } from "@/mod/lib/types";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { registry } from "@/mod/scripts/core/db";
-import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
+import { registry } from "@/mod/scripts/core/database";
+import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
 import { set_squad_goodwill } from "@/mod/scripts/core/GameRelationsManager";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { isWeapon } from "@/mod/scripts/utils/checkers/is";

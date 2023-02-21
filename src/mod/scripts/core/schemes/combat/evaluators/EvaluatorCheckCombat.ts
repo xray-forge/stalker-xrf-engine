@@ -1,6 +1,6 @@
 import { property_evaluator, XR_property_evaluator } from "xray16";
 
-import { IStoredObject, registry } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("EvaluatorCheckCombat");

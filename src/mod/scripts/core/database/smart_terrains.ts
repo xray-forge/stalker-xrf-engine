@@ -1,8 +1,8 @@
 import { XR_game_object } from "xray16";
 
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { registry } from "@/mod/scripts/core/db/registry";
-import { addZone, deleteZone } from "@/mod/scripts/core/db/zones";
+import { registry } from "@/mod/scripts/core/database/registry";
+import { addZone, deleteZone } from "@/mod/scripts/core/database/zones";
 
 /**
  * todo;

@@ -1,6 +1,6 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
-import { IStoredObject, registry } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { getConfigString, getParamString, parseNames } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

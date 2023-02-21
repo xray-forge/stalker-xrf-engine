@@ -3,7 +3,7 @@ import { game, get_hud, sound_object, XR_CUIGameCustom, XR_sound_object } from "
 import { game_tutorials } from "@/mod/globals/game_tutorials";
 import { sounds } from "@/mod/globals/sound/sounds";
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
-import { registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/database";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

@@ -1,7 +1,7 @@
 import { action_base, game_object, level, vector, XR_action_base, XR_game_object, XR_vector } from "xray16";
 
-import { IStoredObject, registry } from "@/mod/scripts/core/db";
-import { get_sim_board, ISimBoard } from "@/mod/scripts/core/db/SimBoard";
+import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { get_sim_board, ISimBoard } from "@/mod/scripts/core/database/SimBoard";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";

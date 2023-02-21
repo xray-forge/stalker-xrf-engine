@@ -1,7 +1,7 @@
 import { ini_file, time_global, XR_game_object, XR_ini_file, XR_net_packet, XR_reader } from "xray16";
 
 import { Optional, TNumberId, TSection } from "@/mod/lib/types";
-import { registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/database";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { getConfigNumber, getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";

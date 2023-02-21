@@ -3,7 +3,7 @@ import { anim, CSightParams, move, XR_game_object } from "xray16";
 import { info_portions } from "@/mod/globals/info_portions";
 import { names } from "@/mod/globals/names";
 import { AnyObject, Optional } from "@/mod/lib/types";
-import { registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/database";
 import { IStateDescriptor } from "@/mod/scripts/core/state_management/lib/state_lib";
 import { parseNames } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";

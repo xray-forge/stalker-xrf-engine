@@ -57,10 +57,10 @@ import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { IStalker } from "@/mod/scripts/core/alife/Stalker";
 import { update_logic } from "@/mod/scripts/core/binders/StalkerBinder";
-import { deleteHelicopter, IStoredObject, registry } from "@/mod/scripts/core/db";
-import { SYSTEM_INI } from "@/mod/scripts/core/db/IniFiles";
-import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/db/pstor";
-import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
+import { deleteHelicopter, IStoredObject, registry } from "@/mod/scripts/core/database";
+import { SYSTEM_INI } from "@/mod/scripts/core/database/IniFiles";
+import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
+import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
 import {
   change_factions_community_num,
   set_level_faction_community as setLevelFactionCommunity,

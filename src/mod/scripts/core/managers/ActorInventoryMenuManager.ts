@@ -1,6 +1,6 @@
 import { get_console, system_ini, XR_CConsole, XR_game_object, XR_ini_file } from "xray16";
 
-import { registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/database";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { getConfigString } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

@@ -1,7 +1,7 @@
 import { XR_game_object } from "xray16";
 
-import { registry } from "@/mod/scripts/core/db";
-import { SCRIPT_SOUND_LTX } from "@/mod/scripts/core/db/IniFiles";
+import { registry } from "@/mod/scripts/core/database";
+import { SCRIPT_SOUND_LTX } from "@/mod/scripts/core/database/IniFiles";
 import { ActorSound } from "@/mod/scripts/core/sound/playable_sounds/ActorSound";
 import { EPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/EPlayableSound";
 import { LoopedSound } from "@/mod/scripts/core/sound/playable_sounds/LoopedSound";

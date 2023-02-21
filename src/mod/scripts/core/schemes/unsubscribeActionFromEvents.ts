@@ -1,6 +1,6 @@
 import { XR_game_object } from "xray16";
 
-import { IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject } from "@/mod/scripts/core/database";
 
 /**
  * todo

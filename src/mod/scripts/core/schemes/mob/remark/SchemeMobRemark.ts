@@ -2,7 +2,7 @@ import { anim, cond, MonsterSpace, sound, XR_cond, XR_game_object, XR_ini_file }
 
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { IStoredObject, registry } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { send_tip } from "@/mod/scripts/core/NewsManager";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";

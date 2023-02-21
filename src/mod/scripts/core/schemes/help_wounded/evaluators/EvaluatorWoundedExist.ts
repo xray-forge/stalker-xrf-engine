@@ -1,7 +1,7 @@
 import { level, property_evaluator, XR_property_evaluator } from "xray16";
 
 import { communities } from "@/mod/globals/communities";
-import { IStoredObject, registry } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { isObjectWounded } from "@/mod/scripts/utils/checkers/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

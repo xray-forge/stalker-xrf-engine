@@ -954,9 +954,9 @@ export const animations: LuaTable<string, IAnimationDescriptor> = {
         "dinamit_1",
         {
           f: (object: XR_game_object) => {
-            // eslint-disable-next-line @typescript-eslint/no-var-requires
             const {
               SchemeCorpseDetection,
+              // eslint-disable-next-line @typescript-eslint/no-var-requires
             } = require("@/mod/scripts/core/schemes/corpse_detection/SchemeCorpseDetection");
 
             SchemeCorpseDetection.get_all_from_corpse(object);

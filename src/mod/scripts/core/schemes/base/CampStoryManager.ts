@@ -1,7 +1,7 @@
 import { time_global, XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
 import { EScheme, Optional } from "@/mod/lib/types";
-import { registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/database";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
 import { get_sound_manager, SoundManager } from "@/mod/scripts/core/sound/SoundManager";

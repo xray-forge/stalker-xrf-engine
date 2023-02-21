@@ -12,7 +12,7 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { get_heli_health } from "@/mod/scripts/core/schemes/heli_move/heli_utils";
 import { isLevelChanging } from "@/mod/scripts/utils/checkers/checkers";
 import {

@@ -5,7 +5,7 @@ import { info_portions } from "@/mod/globals/info_portions";
 import { TWeapon } from "@/mod/globals/items/weapons";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { AnyArgs, AnyCallable, AnyCallablesModule, AnyObject, PartialRecord } from "@/mod/lib/types";
-import { registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/database";
 import { inventory_upgrades_functors } from "@/mod/scripts/core/inventory_upgrades";
 import { AchievementsManager, EAchievement } from "@/mod/scripts/core/managers/AchievementsManager";
 import { ActorInventoryMenuManager, EActorMenuMode } from "@/mod/scripts/core/managers/ActorInventoryMenuManager";

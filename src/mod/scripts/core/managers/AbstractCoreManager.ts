@@ -1,5 +1,5 @@
 import { IConstructor } from "@/mod/lib/types";
-import { getManagerInstance } from "@/mod/scripts/core/db/ManagersRegistry";
+import { getManagerInstance } from "@/mod/scripts/core/database/ManagersRegistry";
 
 /**
  * Abstract class for core manager implementation.

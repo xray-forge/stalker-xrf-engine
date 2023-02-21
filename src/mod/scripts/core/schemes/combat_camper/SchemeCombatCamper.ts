@@ -1,7 +1,7 @@
 import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { IStoredObject } from "@/mod/scripts/core/db";
+import { IStoredObject } from "@/mod/scripts/core/database";
 import { AbstractScheme, action_ids, evaluators_id } from "@/mod/scripts/core/schemes/base";
 import { ActionLookAround, IActionLookAround } from "@/mod/scripts/core/schemes/combat_camper/actions/ActionLookAround";
 import { ActionShoot, IActionShoot } from "@/mod/scripts/core/schemes/combat_camper/actions/ActionShoot";

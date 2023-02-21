@@ -17,7 +17,7 @@ import { ammo, TAmmoItem } from "@/mod/globals/items/ammo";
 import { lootable_table, TLootableItem } from "@/mod/globals/items/lootable_table";
 import { levels, TLevel } from "@/mod/globals/levels";
 import { Maybe, Optional, TSection } from "@/mod/lib/types";
-import { registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/database";
 import { abort } from "@/mod/scripts/utils/debug";
 import { getClsId, getObjectStoryId } from "@/mod/scripts/utils/ids";
 

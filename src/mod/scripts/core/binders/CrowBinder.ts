@@ -11,7 +11,7 @@ import {
   XR_reader,
 } from "xray16";
 
-import { addObject, deleteObject, registry, resetObject } from "@/mod/scripts/core/db";
+import { addObject, deleteObject, registry, resetObject } from "@/mod/scripts/core/database";
 import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

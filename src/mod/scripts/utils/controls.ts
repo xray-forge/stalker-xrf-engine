@@ -1,6 +1,6 @@
 import { game, level, XR_game_object } from "xray16";
 
-import { registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/database";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("controls");
