@@ -12,8 +12,7 @@ import {
 
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { Optional } from "@/mod/lib/types";
-import { registry } from "@/mod/scripts/core/database";
-import { SECRETS_LTX } from "@/mod/scripts/core/database/IniFiles";
+import { registry, SECRETS_LTX } from "@/mod/scripts/core/database";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { send_treasure } from "@/mod/scripts/core/NewsManager";
 import { parseCondList, parseSpawns, pickSectionFromCondList } from "@/mod/scripts/utils/configs";

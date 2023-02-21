@@ -8,3 +8,4 @@ export * from "@/mod/scripts/core/database/offline";
 export * from "@/mod/scripts/core/database/registry";
 export * from "@/mod/scripts/core/database/smart_terrains";
 export * from "@/mod/scripts/core/database/zones";
+export * from "@/mod/scripts/core/database/ini";

@@ -34,11 +34,11 @@ import {
   addObject,
   deleteHelicopterEnemy,
   deleteObject,
+  DUMMY_LTX,
   IStoredObject,
   registry,
   resetObject,
 } from "@/mod/scripts/core/database";
-import { DUMMY_LTX } from "@/mod/scripts/core/database/IniFiles";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
 import { DropManager } from "@/mod/scripts/core/DropManager";
 import { set_npc_sympathy, set_npcs_relation } from "@/mod/scripts/core/GameRelationsManager";

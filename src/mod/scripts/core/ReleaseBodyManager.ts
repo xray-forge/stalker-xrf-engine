@@ -12,8 +12,7 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { registry } from "@/mod/scripts/core/database";
-import { DEATH_GENERIC_LTX, DUMMY_LTX } from "@/mod/scripts/core/database/IniFiles";
+import { DEATH_GENERIC_LTX, DUMMY_LTX, registry } from "@/mod/scripts/core/database";
 import { isMonster, isStalker } from "@/mod/scripts/utils/checkers/is";
 import { getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";

@@ -1,8 +1,7 @@
 import { ini_file, XR_game_object, XR_ini_file } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
-import { DUMMY_LTX, loadDynamicLtx } from "@/mod/scripts/core/database/IniFiles";
+import { DUMMY_LTX, IStoredObject, loadDynamicLtx, registry } from "@/mod/scripts/core/database";
 
 /**
  * todo;

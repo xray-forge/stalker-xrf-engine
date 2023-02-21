@@ -39,8 +39,13 @@ import {
 } from "@/mod/scripts/core/alife/SimSquadStayOnTargetAction";
 import type { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { ESmartTerrainStatus } from "@/mod/scripts/core/alife/SmartTerrainControl";
-import { registry, softResetOfflineObject } from "@/mod/scripts/core/database";
-import { SMART_TERRAIN_MASKS_LTX, SQUAD_BEHAVIOURS_LTX, SYSTEM_INI } from "@/mod/scripts/core/database/IniFiles";
+import {
+  registry,
+  SMART_TERRAIN_MASKS_LTX,
+  softResetOfflineObject,
+  SQUAD_BEHAVIOURS_LTX,
+  SYSTEM_INI,
+} from "@/mod/scripts/core/database";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/core/database/SimBoard";
 import { evaluate_prior, get_sim_obj_registry } from "@/mod/scripts/core/database/SimObjectsRegistry";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";

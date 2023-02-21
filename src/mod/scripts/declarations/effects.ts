@@ -57,8 +57,7 @@ import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { IStalker } from "@/mod/scripts/core/alife/Stalker";
 import { update_logic } from "@/mod/scripts/core/binders/StalkerBinder";
-import { deleteHelicopter, IStoredObject, registry } from "@/mod/scripts/core/database";
-import { SYSTEM_INI } from "@/mod/scripts/core/database/IniFiles";
+import { deleteHelicopter, IStoredObject, registry, SYSTEM_INI } from "@/mod/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
 import {

@@ -1,8 +1,7 @@
 import { level, XR_net_packet, XR_reader } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { registry } from "@/mod/scripts/core/database";
-import { DYNAMIC_WEATHER_GRAPHS, GAME_LTX } from "@/mod/scripts/core/database/IniFiles";
+import { DYNAMIC_WEATHER_GRAPHS, GAME_LTX, registry } from "@/mod/scripts/core/database";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import {
   getConfigString,

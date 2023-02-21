@@ -3,8 +3,7 @@ import { game, level, XR_CPhraseDialog, XR_CPhraseScript, XR_game_object, XR_net
 import { captions } from "@/mod/globals/captions";
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { LuaArray, Optional } from "@/mod/lib/types";
-import { registry } from "@/mod/scripts/core/database";
-import { DIALOG_MANAGER_LTX } from "@/mod/scripts/core/database/IniFiles";
+import { DIALOG_MANAGER_LTX, registry } from "@/mod/scripts/core/database";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
 import { isObjectWounded } from "@/mod/scripts/utils/checkers/checkers";

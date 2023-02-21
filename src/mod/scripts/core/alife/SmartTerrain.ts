@@ -37,8 +37,13 @@ import {
   turn_off_campfires_by_smart_name,
   turn_on_campfires_by_smart_name,
 } from "@/mod/scripts/core/binders/CampfireBinder";
-import { hardResetOfflineObject, IStoredObject, registry, softResetOfflineObject } from "@/mod/scripts/core/database";
-import { loadDynamicLtx } from "@/mod/scripts/core/database/IniFiles";
+import {
+  hardResetOfflineObject,
+  IStoredObject,
+  loadDynamicLtx,
+  registry,
+  softResetOfflineObject,
+} from "@/mod/scripts/core/database";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/core/database/SimBoard";
 import { evaluate_prior, get_sim_obj_registry } from "@/mod/scripts/core/database/SimObjectsRegistry";
 import { get_smart_terrain_name } from "@/mod/scripts/core/database/smart_names";
