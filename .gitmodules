@@ -1,3 +1,6 @@
 [submodule "bin"]
 	path = bin
 	url = https://github.com/stalker-xrts/stalker-xrts-bin.git
+[submodule "src/typedefs/xray16"]
+	path = src/typedefs/xray16
+	url = https://github.com/stalker-xrts/xray-16-types
