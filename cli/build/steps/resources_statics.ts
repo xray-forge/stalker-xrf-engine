@@ -4,7 +4,8 @@ import * as path from "path";
 
 import { default as chalk } from "chalk";
 
-import { RESOURCES_DIR, TARGET_GAME_DATA_DIR } from "#/globals";
+import { default as config } from "#/config.json";
+import { CLI_DIR, TARGET_GAME_DATA_DIR } from "#/globals";
 import { NodeLogger } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("BUILD_ASSET_STATICS");
@@ -12,14 +13,15 @@ const EXPECTED_FILES: Array<string> = ["README.md", ".git", ".gitignore", "LICEN
 const UNEXPECTED_DIRECTORIES: Array<string> = ["configs", "globals,", "lib", "scripts"];
 
 export async function buildResourcesStatics(): Promise<void> {
-  log.info(chalk.blueBright("Copy raw assets"));
+  const configuredPath: string = path.resolve(CLI_DIR, config.resources.MOD_ASSETS_FOLDER);
+  const resourcesExist: boolean = fs.existsSync(configuredPath);
 
-  const resourcesExist: boolean = fs.existsSync(RESOURCES_DIR);
+  log.info(chalk.blueBright("Copy raw assets from:", configuredPath));
 
   if (resourcesExist) {
     const contentFolders: Array<string> = await Promise.all(
       (
-        await fsPromises.readdir(RESOURCES_DIR, { withFileTypes: true })
+        await fsPromises.readdir(configuredPath, { withFileTypes: true })
       )
         .map((dirent) => {
           if (dirent.isDirectory()) {
@@ -27,7 +29,7 @@ export async function buildResourcesStatics(): Promise<void> {
               throw new Error("Provided not expected directory for resources copy.");
             }
 
-            return path.join(RESOURCES_DIR, dirent.name);
+            return path.join(configuredPath, dirent.name);
           }
 
           if (!EXPECTED_FILES.includes(dirent.name)) {
@@ -43,7 +45,7 @@ export async function buildResourcesStatics(): Promise<void> {
 
     await Promise.all(
       contentFolders.map(async (it) => {
-        const relativePath: string = it.slice(RESOURCES_DIR.length);
+        const relativePath: string = it.slice(configuredPath.length);
         const targetDir: string = path.join(TARGET_GAME_DATA_DIR, relativePath);
 
         log.debug("CP -R:", chalk.yellow(targetDir));
