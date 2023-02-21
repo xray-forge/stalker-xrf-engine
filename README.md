@@ -42,7 +42,7 @@ Intention is to create template without introducing breaking changes to the orig
 ## 💿 Start development
 
 - DOWNLOAD the game (stalker call of pripyat)
-- EDIT `cli/config.json` - correct paths to match your local system
+- EDIT `cli/config.json` - correct paths to match your local system (game path, logs path, resources path)
 - RUN `cd stalker-xrts-template` - cd to project folder
 - RUN `npm install` - install all the dependencies
 - RUN `npm run link` - link gamedata to the game folder

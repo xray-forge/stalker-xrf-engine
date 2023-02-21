@@ -5,6 +5,7 @@
     "STALKER_GAME_EXE_NAME": "Stalker-COP.exe"
   },
   "resources": {
-    "MOD_ASSETS_FOLDER": ".\\..\\src\\resources"
+    "MOD_ASSETS_FALLBACK_FOLDER": "..\\src\\resources",
+    "MOD_ASSETS_FOLDER": "F:\\Documents\\Projects\\gamedata_resources"
   }
 }
