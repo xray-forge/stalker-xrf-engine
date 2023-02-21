@@ -42,8 +42,15 @@ Intention is to create template without introducing breaking changes to the orig
 ## 💿 Start development
 
 - DOWNLOAD the game (stalker call of pripyat)
-- EDIT `cli/config.json` - correct paths to match your local system (game path, logs path, resources path)
+
+
+- RUN `git clone https://github.com/stalker-xrts/stalker-xrts-template.git` - clone repository
 - RUN `cd stalker-xrts-template` - cd to project folder
+- RUN `git submodule init` - init submodules
+- RUN `git submodule update` - update submodule
+
+
+- EDIT `cli/config.json` - correct paths to match your local system (game path, logs path, resources path)
 - RUN `npm install` - install all the dependencies
 - RUN `npm run link` - link gamedata to the game folder
 - RUN `npm run engine use release` - link open xray with game
