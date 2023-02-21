@@ -8,7 +8,8 @@ import { RESOURCES_DIR, TARGET_GAME_DATA_DIR } from "#/globals";
 import { NodeLogger } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("BUILD_ASSET_STATICS");
-const EXPECTED_FILES: Array<string> = ["README.md"];
+const EXPECTED_FILES: Array<string> = ["README.md", ".git", ".gitignore", "LICENSE"];
+const UNEXPECTED_DIRECTORIES: Array<string> = ["configs", "globals,", "lib", "scripts"];
 
 export async function buildResourcesStatics(): Promise<void> {
   log.info(chalk.blueBright("Copy raw assets"));
@@ -22,6 +23,10 @@ export async function buildResourcesStatics(): Promise<void> {
       )
         .map((dirent) => {
           if (dirent.isDirectory()) {
+            if (UNEXPECTED_DIRECTORIES.includes(dirent.name)) {
+              throw new Error("Provided not expected directory for resources copy.");
+            }
+
             return path.join(RESOURCES_DIR, dirent.name);
           }
 

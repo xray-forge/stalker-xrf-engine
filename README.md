@@ -94,12 +94,12 @@ To work correctly with conflicting keywords and luabind classes custom utils are
 
 ## 🏗️ Typedefs
 
-To use X-Ray engine globals direct import from "xray16" nodule required. <br/>
+To use X-Ray engine globals direct import from "xray16" module required. <br/>
 After transpiling process import statements will be stripped and transformed to globals.
 
-- [XRay typedefs](src/typedefs/xray16)
 - [Lua](https://www.npmjs.com/package/lua-types)
 - [TSTL language extension](https://www.npmjs.com/package/@typescript-to-lua/language-extensions)
+- [XRay typedefs](https://github.com/stalker-xrts/xray-16-types)
 
 For types correction and validation: [Open X-Ray source code](https://github.com/OpenXRay/xray-16)
 
@@ -122,7 +122,7 @@ todo: Describe structure of gamedata and intention of every folder
 
 ## 🧰 Project structure
 
-- [bin](bin/README.md)
+- [bin](https://github.com/stalker-xrts/stalker-xrts-bin) - submodule with binaries for development and testing
 - [cli](cli/README.md)
   - [build](cli/build/README.md)
   - [engine](cli/engine/README.md)
@@ -142,8 +142,10 @@ todo: Describe structure of gamedata and intention of every folder
     - [scripts](src/mod/scripts/README.md)
     - [translations](src/mod/translations/README.md)
     - [ui](src/mod/ui/README.md)
-  - [resources](src/resources/README.md)
+  - [resources](https://github.com/stalker-xrts/stalker-xrts-resources) - submodule with resources of the mod
   - [typedefs](src/typedefs/README.md)
+    - [luaJIT](src/typedefs/luaJIT/README.md)
+    - [xray16](https://github.com/stalker-xrts/xray-16-types) - submodule with type definitions for xray engine
 - [target](target/README.md)
 
 ## 🧰 Custom forms and UI
