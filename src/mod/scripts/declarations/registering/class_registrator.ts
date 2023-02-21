@@ -34,7 +34,7 @@ import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { SmartCover } from "@/mod/scripts/core/alife/SmartCover";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { Stalker } from "@/mod/scripts/core/alife/Stalker";
-import { EClientObjectClass } from "@/mod/scripts/globals/registering/EClientObjectClass";
+import { EClientObjectClass } from "@/mod/scripts/declarations/registering/EClientObjectClass";
 import { MainMenu } from "@/mod/scripts/ui/menu/MainMenu";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

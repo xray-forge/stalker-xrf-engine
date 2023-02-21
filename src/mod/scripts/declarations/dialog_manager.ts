@@ -16,6 +16,21 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { getNpcSpeaker } from "@/mod/scripts/utils/quests";
 
 // todo: Separate manager class.
+// todo: Separate manager class.
+// todo: Separate manager class.
+// todo: Simplify.
+// todo: Simplify.
+// todo: Move to core.
+// todo: Move to core.
+// todo: Move to core.
+// todo: Move to core.
+// todo: Move to core.
+// todo: Move to core.
+// todo: Move to core.
+// todo: Move to core.
+// todo: Move to core.
+// todo: Move to core.
+// todo: Move to core.
 
 const logger: LuaLogger = new LuaLogger("dialog_manager");
 

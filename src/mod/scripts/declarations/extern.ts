@@ -30,23 +30,23 @@ const logger: LuaLogger = new LuaLogger("extern");
 logger.info("Resolve externals");
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-declare_global("xr_conditions", require("@/mod/scripts/globals/conditions"));
+declare_global("xr_conditions", require("@/mod/scripts/declarations/conditions"));
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-declare_global("xr_effects", require("@/mod/scripts/globals/effects"));
+declare_global("xr_effects", require("@/mod/scripts/declarations/effects"));
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-declare_global("dialogs_pripyat", require("@/mod/scripts/globals/dialogs_pripyat"));
+declare_global("dialogs_pripyat", require("@/mod/scripts/declarations/dialogs_pripyat"));
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-declare_global("dialogs_jupiter", require("@/mod/scripts/globals/dialogs_jupiter"));
+declare_global("dialogs_jupiter", require("@/mod/scripts/declarations/dialogs_jupiter"));
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-declare_global("dialogs_zaton", require("@/mod/scripts/globals/dialogs_zaton"));
+declare_global("dialogs_zaton", require("@/mod/scripts/declarations/dialogs_zaton"));
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-declare_global("dialogs", require("@/mod/scripts/globals/dialogs"));
+declare_global("dialogs", require("@/mod/scripts/declarations/dialogs"));
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-declare_global("dialog_manager", require("@/mod/scripts/globals/dialog_manager"));
+declare_global("dialog_manager", require("@/mod/scripts/declarations/dialog_manager"));
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-declare_global("functors", require("@/mod/scripts/globals/functors"));
+declare_global("functors", require("@/mod/scripts/declarations/functors"));
 
 declare_global("smart_covers", {});
 declare_global("smart_covers.descriptions", smart_covers_list);

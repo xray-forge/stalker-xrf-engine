@@ -64,7 +64,7 @@ import { SchemeWounded } from "@/mod/scripts/core/schemes/wounded/SchemeWounded"
 import { DynamicMusicManager } from "@/mod/scripts/core/sound/DynamicMusicManager";
 import { SoundTheme } from "@/mod/scripts/core/sound/SoundTheme";
 import { bind_state_manager } from "@/mod/scripts/core/state_management/bind_state_manager";
-import { disabled_phrases, loadNpcDialogs, saveNpcDialogs } from "@/mod/scripts/globals/dialog_manager";
+import { disabled_phrases, loadNpcDialogs, saveNpcDialogs } from "@/mod/scripts/declarations/dialog_manager";
 import { getCharacterCommunity, getObjectSquad, updateInvulnerability } from "@/mod/scripts/utils/alife";
 import { getConfigString, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
