@@ -17,7 +17,7 @@ import {
 import { sounds } from "@/mod/globals/sound/sounds";
 import { Optional } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
-import { getWeakManagerInstance, isManagerInitialized } from "@/mod/scripts/core/database/ManagersRegistry";
+import { getWeakManagerInstance, isManagerInitialized } from "@/mod/scripts/core/database/managers";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { PhantomManager } from "@/mod/scripts/core/managers/PhantomManager";
 import { isLevelChanging } from "@/mod/scripts/utils/checkers/checkers";

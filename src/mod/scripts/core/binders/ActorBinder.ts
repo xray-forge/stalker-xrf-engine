@@ -28,7 +28,7 @@ import { TLevel } from "@/mod/globals/levels";
 import { AnyCallable, AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { addActor, deleteActor } from "@/mod/scripts/core/database/actor";
-import { destroyManager, getWeakManagerInstance } from "@/mod/scripts/core/database/ManagersRegistry";
+import { destroyManager, getWeakManagerInstance } from "@/mod/scripts/core/database/managers";
 import { pstor_load_all, pstor_save_all } from "@/mod/scripts/core/database/pstor";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
 import { get_sim_obj_registry } from "@/mod/scripts/core/database/SimObjectsRegistry";

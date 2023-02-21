@@ -15,6 +15,10 @@ import type { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import type { IAnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
 import type { ILabX8DoorBinder } from "@/mod/scripts/core/binders/LabX8DoorBinder";
 import type { ISignalLightBinder } from "@/mod/scripts/core/binders/SignalLightBinder";
+import type {
+  AbstractCoreManager,
+  TAbstractCoreManagerConstructor,
+} from "@/mod/scripts/core/managers/AbstractCoreManager";
 import type { ITradeManagerDescriptor } from "@/mod/scripts/core/managers/TradeManager";
 import type { SchemeAnimpoint } from "@/mod/scripts/core/schemes/animpoint/SchemeAnimpoint";
 import type { TAbstractSchemeConstructor } from "@/mod/scripts/core/schemes/base";
@@ -93,6 +97,10 @@ export const registry = {
    * Current actor, injected on game start.
    */
   actor: null as unknown as XR_game_object,
+  /**
+   * List of active game managers.
+   */
+  managers: new LuaTable<TAbstractCoreManagerConstructor, AbstractCoreManager>(),
   /**
    * List of activated schemes in game.
    */

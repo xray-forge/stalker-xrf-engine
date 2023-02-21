@@ -13,7 +13,7 @@ Engine command line flags: [link](https://github.com/OpenXRay/xray-16/wiki/%5BEN
 
 - `https://github.com/OpenXRay/luabind-deboostified/blob/xray/src/open.cpp#L138`
 
-Seems like it is 'luabind' part defined as globals
+It is 'luabind' part defined as globals
 
 ```c++
 lua_setglobal(L, "class");
@@ -28,3 +28,5 @@ lua_rawset(L, LUA_REGISTRYINDEX);
 lua_pushcclosure(L, &deprecated_super, 0);
 lua_setglobal(L, "super");
 ```
+
+In typescript counterpart methods are declare_xr_class and create_xr_class_instance.

@@ -1,7 +1,5 @@
 ## 🧰 Main todos
 
-- Move remaining logic and codebase to typescript
-- After migration consider simplification and unification of some parts
 - Finish LTX generation tools
 - Finish translation generation tools
 - Build testing framework / use existing tools to test game functions
