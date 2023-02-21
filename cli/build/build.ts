@@ -10,7 +10,6 @@ import {
   buildDynamicUi,
   buildMeta,
   buildResourcesStatics,
-  buildScriptsStatics,
   buildStaticConfigs,
   collectLog,
 } from "#/build/steps";
@@ -46,8 +45,6 @@ const log: NodeLogger = new NodeLogger("BUILD_ALL");
     if (BUILD_PARAMS.ARE_SCRIPT_RESOURCES_ENABLED) {
       await buildDynamicScripts();
       timeTracker.addMark("BUILT_DYNAMIC_SCRIPTS");
-      await buildScriptsStatics();
-      timeTracker.addMark("BUILT_STATIC_SCRIPTS");
     } else {
       log.info("Scripts build steps skipped");
       timeTracker.addMark("SKIP_SCRIPTS");
