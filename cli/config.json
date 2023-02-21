@@ -3,5 +3,8 @@
     "STALKER_GAME_FOLDER_PATH": "F:\\Applications\\Steam\\steamapps\\common\\Stalker Call of Pripyat",
     "STALKER_LOGS_FOLDER_PATH": "F:\\Applications\\Steam\\steamapps\\common\\Stalker Call of Pripyat\\_appdata_\\logs",
     "STALKER_GAME_EXE_NAME": "Stalker-COP.exe"
+  },
+  "resources": {
+    "MOD_ASSETS_FOLDER": ".\\..\\src\\resources"
   }
 }
