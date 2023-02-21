@@ -18,13 +18,14 @@ import type { ISignalLightBinder } from "@/mod/scripts/core/binders/SignalLightB
 import type { ITradeManagerDescriptor } from "@/mod/scripts/core/managers/TradeManager";
 import type { SchemeAnimpoint } from "@/mod/scripts/core/schemes/animpoint/SchemeAnimpoint";
 import type { TAbstractSchemeConstructor } from "@/mod/scripts/core/schemes/base";
-import { CampStoryManager } from "@/mod/scripts/core/schemes/base/CampStoryManager";
+import type { CampStoryManager } from "@/mod/scripts/core/schemes/base/CampStoryManager";
 import type { PatrolManager } from "@/mod/scripts/core/schemes/patrol/SchemePatrol";
 import type { ReachTaskPatrolManager } from "@/mod/scripts/core/schemes/reach_task/ReachTaskPatrolManager";
 import type { RestrictorManager } from "@/mod/scripts/core/schemes/RestrictorManager";
 import type { SchemeLight } from "@/mod/scripts/core/schemes/sr_light/SchemeLight";
 import type { ITeleportPoint } from "@/mod/scripts/core/schemes/teleport/SchemeTeleport";
 import type { SchemeWounded } from "@/mod/scripts/core/schemes/wounded/SchemeWounded";
+import type { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
 import type { StateManager } from "@/mod/scripts/core/state_management/StateManager";
 
 export interface IStoredObject<T = XR_game_object> {
@@ -200,5 +201,15 @@ export const registry = {
   patrols: {
     generic: new LuaTable<TNumberId, PatrolManager>(),
     reachTask: new LuaTable<TName, ReachTaskPatrolManager>(),
+  },
+  /**
+   * State of active sounds.
+   */
+  sounds: {
+    musicVolume: 0,
+    effectsVolume: 0,
+    generic: new LuaTable<TNumberId, AbstractPlayableSound>(),
+    looped: new LuaTable<TNumberId, LuaTable<TName, AbstractPlayableSound>>(),
+    themes: new LuaTable<TName, AbstractPlayableSound>(),
   },
 };

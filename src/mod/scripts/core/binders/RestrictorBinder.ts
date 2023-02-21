@@ -45,8 +45,8 @@ export const RestrictorBinder: IRestrictorBinder = declare_xr_class("RestrictorB
 
     const objectId: number = this.object.id();
 
-    if (GlobalSound.looped_sound.get(objectId) !== null) {
-      for (const [k, v] of GlobalSound.looped_sound.get(objectId)) {
+    if (registry.sounds.looped.get(objectId) !== null) {
+      for (const [k, v] of registry.sounds.looped.get(objectId)) {
         GlobalSound.play_sound_looped(objectId, k);
       }
     }

@@ -177,7 +177,7 @@ export class CampStoryManager {
     }
 
     if (this.idle_talker !== null) {
-      if (GlobalSound.sound_table.get(this.idle_talker) !== null) {
+      if (registry.sounds.generic.get(this.idle_talker) !== null) {
         return;
       } else {
         this.idle_talker = null;

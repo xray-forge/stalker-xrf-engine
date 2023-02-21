@@ -214,8 +214,8 @@ export const SleepDialog = declare_xr_class("SleepDialog", CUIScriptWnd, {
     const console: XR_CConsole = get_console();
     const surgeManager = SurgeManager.getInstance();
 
-    declare_global("mus_vol", console.get_float("snd_volume_music"));
-    declare_global("amb_vol", console.get_float("snd_volume_eff"));
+    registry.sounds.musicVolume = console.get_float("snd_volume_music");
+    registry.sounds.effectsVolume = console.get_float("snd_volume_eff");
 
     console.execute("snd_volume_music 0");
     console.execute("snd_volume_eff 0");
@@ -259,11 +259,11 @@ export function dream_callback2(): void {
   logger.info("Dream callback 2");
 
   get_global<AnyCallablesModule>("xr_effects").enable_ui(registry.actor, null);
-  get_console().execute("snd_volume_music " + tostring(get_global("mus_vol")));
-  get_console().execute("snd_volume_eff " + tostring(get_global("amb_vol")));
+  get_console().execute("snd_volume_music " + tostring(registry.sounds.musicVolume));
+  get_console().execute("snd_volume_eff " + tostring(registry.sounds.effectsVolume));
 
-  declare_global("mus_vol", 0);
-  declare_global("amb_vol", 0);
+  registry.sounds.musicVolume = 0;
+  registry.sounds.effectsVolume = 0;
 
   giveInfo(info_portions.tutorial_sleep);
   disableInfo(info_portions.actor_is_sleeping);

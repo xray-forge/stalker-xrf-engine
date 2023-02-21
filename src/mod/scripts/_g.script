@@ -7,12 +7,6 @@ package.path = package.path .. string.format("%sgamedata\\?.script;", getFS():up
 
 --- --------------------------------------------------------------------------------------------------------------------
 
--- todo: Remove
-mus_vol = 0
-amb_vol = 0
-
---- --------------------------------------------------------------------------------------------------------------------
-
 require("scripts.globals.lua_globals")
 require("scripts.globals.extern")
 

@@ -52,7 +52,7 @@ import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { relations, TRelation } from "@/mod/globals/relations";
 import { script_sounds } from "@/mod/globals/sound/script_sounds";
 import { TZone, zones } from "@/mod/globals/zones";
-import { AnyObject, LuaArray, Optional, TName } from "@/mod/lib/types";
+import { AnyObject, LuaArray, Optional, TName, TNumberId } from "@/mod/lib/types";
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { IStalker } from "@/mod/scripts/core/alife/Stalker";
@@ -2171,11 +2171,11 @@ export function relocate_item_b29(actor: XR_game_object, npc: XR_game_object, p:
 }
 
 // -- ������� ������� ���������� �������� ���� � ������. by peacemaker, hein, redstain
-export function reset_sound_npc(actor: XR_game_object, npc: XR_game_object, p: []) {
-  const obj_id = npc.id();
+export function reset_sound_npc(actor: XR_game_object, npc: XR_game_object): void {
+  const objectId: TNumberId = npc.id();
 
-  if (GlobalSound.sound_table.get(obj_id) !== null) {
-    GlobalSound.sound_table.get(obj_id).reset(obj_id);
+  if (registry.sounds.generic.get(objectId) !== null) {
+    registry.sounds.generic.get(objectId).reset(objectId);
   }
 }
 

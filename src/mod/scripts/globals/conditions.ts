@@ -25,7 +25,7 @@ import { AnyArgs, AnyCallablesModule, LuaArray, Maybe, Optional, TName, TSection
 import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { ESmartTerrainStatus, ISmartTerrainControl } from "@/mod/scripts/core/alife/SmartTerrainControl";
-import { IStoredObject, kamp_stalkers, registry } from "@/mod/scripts/core/db";
+import { IStoredObject, registry } from "@/mod/scripts/core/db";
 import { pstor_retrieve } from "@/mod/scripts/core/db/pstor";
 import { get_sim_board } from "@/mod/scripts/core/db/SimBoard";
 import * as game_relations from "@/mod/scripts/core/GameRelationsManager";
@@ -703,17 +703,6 @@ export function has_actor_enemy(actor: XR_game_object, npc: XR_game_object): boo
   const best_enemy: Optional<XR_game_object> = npc.best_enemy();
 
   return best_enemy !== null && best_enemy.id() === registry.actor.id();
-}
-
-/**
- * todo;
- */
-export function _kamp_talk(actor: XR_game_object, npc: XR_game_object): boolean {
-  if (kamp_stalkers.get(npc.id())) {
-    return kamp_stalkers.get(npc.id());
-  }
-
-  return false;
 }
 
 /**

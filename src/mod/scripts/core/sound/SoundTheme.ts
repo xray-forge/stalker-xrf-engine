@@ -1,6 +1,6 @@
 import { XR_game_object } from "xray16";
 
-import { registry, sound_themes } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { SCRIPT_SOUND_LTX } from "@/mod/scripts/core/db/IniFiles";
 import { ActorSound } from "@/mod/scripts/core/sound/playable_sounds/ActorSound";
 import { EPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/EPlayableSound";
@@ -23,7 +23,7 @@ export class SoundTheme {
 
     const n: number = SCRIPT_SOUND_LTX.line_count("list");
 
-    resetTable(sound_themes);
+    resetTable(registry.sounds.themes);
 
     for (const i of $range(0, n - 1)) {
       const [result, section, value] = SCRIPT_SOUND_LTX.r_line("list", i, "", "");
@@ -39,19 +39,19 @@ export class SoundTheme {
 
       switch (type) {
         case ObjectSound.type:
-          sound_themes.set(section, new ObjectSound(SCRIPT_SOUND_LTX, section));
+          registry.sounds.themes.set(section, new ObjectSound(SCRIPT_SOUND_LTX, section));
           break;
 
         case NpcSound.type:
-          sound_themes.set(section, new NpcSound(SCRIPT_SOUND_LTX, section));
+          registry.sounds.themes.set(section, new NpcSound(SCRIPT_SOUND_LTX, section));
           break;
 
         case ActorSound.type:
-          sound_themes.set(section, new ActorSound(SCRIPT_SOUND_LTX, section));
+          registry.sounds.themes.set(section, new ActorSound(SCRIPT_SOUND_LTX, section));
           break;
 
         case LoopedSound.type:
-          sound_themes.set(section, new LoopedSound(SCRIPT_SOUND_LTX, section));
+          registry.sounds.themes.set(section, new LoopedSound(SCRIPT_SOUND_LTX, section));
           break;
 
         default:
@@ -61,7 +61,7 @@ export class SoundTheme {
   }
 
   public static init_npc_sound(npc: XR_game_object): void {
-    for (const [key, sound] of sound_themes) {
+    for (const [key, sound] of registry.sounds.themes) {
       if (sound.type === NpcSound.type) {
         // --printf("checking %s for %s (%s)", v.section, npc:name(), character_community(npc))
         if ((sound as NpcSound).avail_communities.has(getCharacterCommunity(npc))) {

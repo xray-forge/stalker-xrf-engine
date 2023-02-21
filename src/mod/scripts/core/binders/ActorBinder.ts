@@ -22,6 +22,7 @@ import {
 import { animations } from "@/mod/globals/animation/animations";
 import { post_processors } from "@/mod/globals/animation/post_processors";
 import { game_difficulties_by_number } from "@/mod/globals/game_difficulties";
+import { info_portions } from "@/mod/globals/info_portions";
 import { ammo } from "@/mod/globals/items/ammo";
 import { TLevel } from "@/mod/globals/levels";
 import { AnyCallable, AnyCallablesModule, Optional } from "@/mod/lib/types";
@@ -196,14 +197,14 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     this.object.set_callback(callback.take_item_from_box, null);
     this.object.set_callback(callback.use_object, null);
 
-    if (get_global("amb_vol") !== 0) {
-      get_console().execute("snd_volume_eff " + tostring(get_global("amb_vol")));
-      declare_global("amb_vol", 0);
+    if (registry.sounds.effectsVolume !== 0) {
+      get_console().execute("snd_volume_eff " + tostring(registry.sounds.effectsVolume));
+      registry.sounds.effectsVolume = 0;
     }
 
-    if (get_global("mus_vol") !== 0) {
-      get_console().execute("snd_volume_music " + tostring(get_global("mus_vol")));
-      declare_global("mus_vol", 0);
+    if (registry.sounds.musicVolume !== 0) {
+      get_console().execute("snd_volume_music " + tostring(registry.sounds.musicVolume));
+      registry.sounds.musicVolume = 0;
     }
 
     destroyManager(PsyAntennaManager, true);
@@ -272,10 +273,10 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
         level.add_cam_effector(animations.camera_effects_surge_02, 10, false, "extern.anabiotic_callback");
         level.add_pp_effector(post_processors.surge_fade, 11, false);
 
-        giveInfo("anabiotic_in_process");
+        giveInfo(info_portions.anabiotic_in_process);
 
-        declare_global("mus_vol", get_console().get_float("snd_volume_music"));
-        declare_global("amb_vol", get_console().get_float("snd_volume_eff"));
+        registry.sounds.musicVolume = get_console().get_float("snd_volume_music");
+        registry.sounds.effectsVolume = get_console().get_float("snd_volume_eff");
 
         get_console().execute("snd_volume_music 0");
         get_console().execute("snd_volume_eff 0");

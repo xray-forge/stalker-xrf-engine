@@ -17,6 +17,7 @@ export const info_portions = {
   actor_marked_by_zone_3_times: "actor_marked_by_zone_3_times",
   actor_was_in_many_bad_places: "actor_was_in_many_bad_places",
   actor_wealthy: "actor_wealthy",
+  anabiotic_in_process: "anabiotic_in_process",
   balance_advocate_gained: "balance_advocate_gained",
   battle_systems_master_achievement_gained: "battle_systems_master_achievement_gained",
   detective_achievement_gained: "detective_achievement_gained",

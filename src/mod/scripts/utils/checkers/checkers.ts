@@ -262,5 +262,5 @@ export function isBlackScreen(): boolean {
  * @returns whether currently sound is playing.
  */
 export function isPlayingSound(object: XR_game_object): boolean {
-  return GlobalSound.sound_table.has(object.id());
+  return registry.sounds.generic.has(object.id());
 }

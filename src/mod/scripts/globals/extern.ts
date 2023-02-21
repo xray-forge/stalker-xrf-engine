@@ -1,6 +1,7 @@
 import { game, get_console, level, task, TXR_TaskState, XR_CGameTask, XR_game_object } from "xray16";
 
 import { animations } from "@/mod/globals/animation/animations";
+import { info_portions } from "@/mod/globals/info_portions";
 import { TWeapon } from "@/mod/globals/items/weapons";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { AnyArgs, AnyCallable, AnyCallablesModule, AnyObject, PartialRecord } from "@/mod/lib/types";
@@ -89,13 +90,13 @@ declare_global("extern.anabiotic_callback", () => {
 declare_global("extern.anabiotic_callback2", () => {
   get_global<AnyCallablesModule>("xr_effects").enable_ui(registry.actor, null);
 
-  get_console().execute("snd_volume_music " + tostring(get_global("mus_vol")));
-  get_console().execute("snd_volume_eff " + tostring(get_global("amb_vol")));
+  get_console().execute("snd_volume_music " + tostring(registry.sounds.musicVolume));
+  get_console().execute("snd_volume_eff " + tostring(registry.sounds.effectsVolume));
 
-  declare_global("amb_vol", 0);
-  declare_global("mus_vol", 0);
+  registry.sounds.effectsVolume = 0;
+  registry.sounds.musicVolume = 0;
 
-  disableInfo("anabiotic_in_process");
+  disableInfo(info_portions.anabiotic_in_process);
 });
 
 declare_global("extern.surge_callback", () => {

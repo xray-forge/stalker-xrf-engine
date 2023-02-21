@@ -7,6 +7,7 @@ import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { SoundStory } from "@/mod/scripts/core/sound/SoundStory";
 import { getObjectSquad } from "@/mod/scripts/utils/alife";
 
+// todo: Move to db.
 const sound_managers: LuaTable<string, SoundManager> = new LuaTable();
 
 export class SoundManager {
@@ -33,9 +34,9 @@ export class SoundManager {
   }
 
   public unregister_npc(npc_id: number): void {
-    if (this.last_playing_npc === npc_id && GlobalSound.sound_table.get(this.last_playing_npc)) {
+    if (this.last_playing_npc === npc_id && registry.sounds.generic.get(this.last_playing_npc)) {
       this.story = null;
-      GlobalSound.sound_table.get(this.last_playing_npc).stop(npc_id);
+      registry.sounds.generic.get(this.last_playing_npc).stop(npc_id);
     }
 
     if (this.storyteller === npc_id) {
@@ -65,12 +66,12 @@ export class SoundManager {
       return;
     }
 
-    if (GlobalSound.sound_table.get(this.last_playing_npc!) !== null) {
+    if (registry.sounds.generic.get(this.last_playing_npc!) !== null) {
       // --printf("wait sound")
 
       if (registry.objects.get(this.last_playing_npc!)?.object?.best_enemy() !== null) {
         this.story = null;
-        GlobalSound.sound_table.get(this.last_playing_npc!).stop(this.last_playing_npc);
+        registry.sounds.generic.get(this.last_playing_npc!).stop(this.last_playing_npc);
       }
 
       return;
@@ -150,9 +151,9 @@ export class SoundManager {
       return;
     }
 
-    if (registry.objects.get(npc_id).object!.best_enemy() !== null && GlobalSound.sound_table.get(npc_id) !== null) {
+    if (registry.objects.get(npc_id).object!.best_enemy() !== null && registry.sounds.generic.get(npc_id) !== null) {
       this.story = null;
-      GlobalSound.sound_table.get(npc_id).stop(npc_id);
+      registry.sounds.generic.get(npc_id).stop(npc_id);
 
       return;
     }
