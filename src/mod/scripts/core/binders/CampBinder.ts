@@ -10,7 +10,7 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { CAMPS } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { CampStoryManager } from "@/mod/scripts/core/schemes/base/CampStoryManager";
 import { getConfigString } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
@@ -30,7 +30,7 @@ export const CampBinder: ICampBinder = declare_xr_class("CampBinder", object_bin
   reinit(): void {
     object_binder.reinit(this);
 
-    const camp = CAMPS.get(this.object.id());
+    const camp = registry.camps.stories.get(this.object.id());
 
     // todo: Probably not needed.
     if (camp !== null) {
@@ -57,7 +57,10 @@ export const CampBinder: ICampBinder = declare_xr_class("CampBinder", object_bin
         null
       );
 
-      CAMPS.set(this.object.id(), new CampStoryManager(this.object, filename === null ? ini : new ini_file(filename)));
+      registry.camps.stories.set(
+        this.object.id(),
+        new CampStoryManager(this.object, filename === null ? ini : new ini_file(filename))
+      );
     }
 
     return true;
@@ -65,11 +68,11 @@ export const CampBinder: ICampBinder = declare_xr_class("CampBinder", object_bin
   net_destroy(): void {
     logger.info("Net destroy camp:", this.object.id());
 
-    CAMPS.delete(this.object.id());
+    registry.camps.stories.delete(this.object.id());
     object_binder.net_destroy(this);
   },
   update(delta: number): void {
-    const camp = CAMPS.get(this.object.id());
+    const camp = registry.camps.stories.get(this.object.id());
 
     if (camp !== null) {
       camp.update();

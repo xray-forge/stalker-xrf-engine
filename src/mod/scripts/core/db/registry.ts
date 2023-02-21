@@ -18,7 +18,8 @@ import type { ISignalLightBinder } from "@/mod/scripts/core/binders/SignalLightB
 import type { ITradeManagerDescriptor } from "@/mod/scripts/core/managers/TradeManager";
 import type { SchemeAnimpoint } from "@/mod/scripts/core/schemes/animpoint/SchemeAnimpoint";
 import type { TAbstractSchemeConstructor } from "@/mod/scripts/core/schemes/base";
-import { PatrolManager } from "@/mod/scripts/core/schemes/patrol/SchemePatrol";
+import { CampStoryManager } from "@/mod/scripts/core/schemes/base/CampStoryManager";
+import type { PatrolManager } from "@/mod/scripts/core/schemes/patrol/SchemePatrol";
 import type { ReachTaskPatrolManager } from "@/mod/scripts/core/schemes/reach_task/ReachTaskPatrolManager";
 import type { RestrictorManager } from "@/mod/scripts/core/schemes/RestrictorManager";
 import type { SchemeLight } from "@/mod/scripts/core/schemes/sr_light/SchemeLight";
@@ -111,6 +112,12 @@ export const registry = {
    * State of trade.
    */
   trade: new LuaTable<TNumberId, ITradeManagerDescriptor>(),
+  /**
+   * Camp related states.
+   */
+  camps: {
+    stories: new LuaTable<TNumberId, CampStoryManager>(),
+  },
   /**
    * List of current zone crows spawned.
    */

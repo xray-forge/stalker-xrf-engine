@@ -14,6 +14,4 @@ export * from "@/mod/scripts/core/db/offline";
 // todo: Move game volume to db.
 
 export const kamp_stalkers: LuaTable<number, boolean> = new LuaTable();
-export const CAMPS: LuaTable<number, CampStoryManager> = new LuaTable(); // Camp stories.
-
 export const sound_themes: LuaTable<string, AbstractPlayableSound> = new LuaTable();

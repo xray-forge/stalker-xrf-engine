@@ -1,7 +1,7 @@
 import { time_global, XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
 import { EScheme, Optional } from "@/mod/lib/types";
-import { CAMPS, registry } from "@/mod/scripts/core/db";
+import { registry } from "@/mod/scripts/core/db";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
 import { get_sound_manager, SoundManager } from "@/mod/scripts/core/sound/SoundManager";
@@ -24,7 +24,7 @@ export class CampStoryManager {
     }
 
     // todo: Is it too big scope to check?
-    for (const [k, v] of CAMPS) {
+    for (const [k, v] of registry.camps.stories) {
       if (v.object!.inside(position)) {
         return v;
       }
@@ -40,7 +40,7 @@ export class CampStoryManager {
       return;
     }
 
-    const camp = CAMPS.get(camp_id);
+    const camp = registry.camps.stories.get(camp_id);
 
     camp.sound_manager.set_storyteller(camp.director);
     camp.sound_manager.set_story(camp.guitar_table.get(math.random(camp.guitar_table.length())));
@@ -48,14 +48,14 @@ export class CampStoryManager {
     camp.sound_manager.update();
   }
 
-  public static start_harmonica(npc: XR_game_object): void {
-    const camp_id = registry.objects.get(npc.id()).registred_camp;
+  public static start_harmonica(object: XR_game_object): void {
+    const capmId = registry.objects.get(object.id()).registred_camp;
 
-    if (camp_id === null) {
+    if (capmId === null) {
       return;
     }
 
-    const camp = CAMPS.get(camp_id);
+    const camp = registry.camps.stories.get(capmId);
 
     camp.sound_manager.set_storyteller(camp.director);
     camp.sound_manager.set_story(camp.harmonica_table.get(math.random(camp.harmonica_table.length())));
