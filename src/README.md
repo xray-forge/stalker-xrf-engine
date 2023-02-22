@@ -1,11 +1,15 @@
 # [XRTS](../) / SRC
 
-todo.
+This directory contains the source code for the XRTS mod template.
 
 ## mod
 
-Source of the mod
+This directory contains the source code for the mod that you will be developing using the XRTS template.
 
-## root
+## resources
 
-All assets that should be copied to target root folder.
+This directory contains all assets that should be copied to the target root folder when building the mod.
+
+## typedefs
+
+This directory contains all types definitions used in project.

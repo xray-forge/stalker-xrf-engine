@@ -1,6 +1,37 @@
 # 🎮 [Stalker XR-TS template](README.md)
 
-Enabling power of typescript for mods creation. <br/>
+<sub> Enabling power of typescript for mods creation. </sub>
+
+<p>
+XRTS template for STALKER provides a solid foundation for creating mods that are more maintainable,
+efficient, and easier to develop. The template uses TypeScript and custom build tools to ensure type safety,
+unified development tools, automated builds and versioning systems, and a shared template for mods development.
+</p>
+
+<p>
+With documented and readable code, the mod template simplifies the development process and streamlines
+the creation of complex STALKER mods.
+</p>
+
+## 📍 Purpose
+
+- Ensure type safety
+- Provide unified development tools
+- Enable automated builds and versioning system
+- Provide a shared template for mods development
+- Produce documented and readable code
+- Simplify the development process
+
+---
+
+## 📦 Main differences with original
+
+The intention of this mod template is to allow easier mod development without introducing breaking changes to the original. <br/>
+Everything else can be added in your own mod.
+
+- Game codebase is refactored with TypeScript
+- Separate verification and preparation steps have been added
+- Tools have been added to make debugging and development easier
 
 ## 📌What is used
 
@@ -10,48 +41,22 @@ Enabling power of typescript for mods creation. <br/>
 - [Open-X-Ray](https://github.com/OpenXRay/xray-16)
 - Custom [build system](cli/README.md)
 
-## 📍 Purposes
-
-Main goals:
-
-- type safety
-- unified development tools
-- automated builds and versioning system
-- shared template for mods development
-- documented and readable code
-- simplification
-
----
-
-## 🥦 Main differences with original
-
-Intention is to create template without introducing breaking changes to the original game plot.
-
-- Game codebase is refactored with typescript
-- Separate verification and preparation steps added
-- Tools added for easier debugging and development
-
 # 🌓 Starting work
 
 ## 🧰 Pre-requirements
 
-- [NodeJS](https://nodejs.org/en/)
+- [NodeJS](https://nodejs.org/en/) 14 or later
 - [Stalker-COP](https://store.steampowered.com/app/41700/STALKER_Call_of_Pripyat/)
 - `cli/config.json` file should be edited to match your local system
 
 ## 💿 Start development
 
 - DOWNLOAD the game (stalker call of pripyat)
-
-
 - RUN `git clone https://github.com/stalker-xrts/stalker-xrts-template.git` - clone repository
 - RUN `cd stalker-xrts-template` - cd to project folder
-- RUN `git submodule init` - init submodules
-- RUN `git submodule update` - update submodule
-
-
 - EDIT `cli/config.json` - correct paths to match your local system (game path, logs path, resources path)
 - RUN `npm install` - install all the dependencies
+- RUN `npm run setup` - set up the project, install submodules
 - RUN `npm run link` - link gamedata to the game folder
 - RUN `npm run engine use release` - link open xray with game
 - RUN `npm run build:clean` - build gamedata to the destination
@@ -67,7 +72,7 @@ Intention is to create template without introducing breaking changes to the orig
 
 `$ npm run COMMAND_NAME`
 
-- [info](cli/info/README.md) - print general information about project and configuration
+- [info](cli/info/README.md) - print general information about the project and its configuration.
 - [verify](cli/verify/README.md) - verify project settings and readiness
 - [link](cli/link/README.md) - link target/gamedata and logs folder and stalker folder for faster development
 - [unlink](cli/build/README.md) - unlink target/gamedata and logs folder and stalker folder
@@ -83,19 +88,8 @@ Intention is to create template without introducing breaking changes to the orig
 
 ## 🏗️ Codestyle
 
-For code style unification and validation prettier and eslint are used. <br/>
-Line endings are set to CRLF to match windows system.
-
-## 🧰 Typescript
-
-Core of this project is [TypeScriptToLua](https://github.com/TypeScriptToLua/TypeScriptToLua). <br/>
-
----
-
-To work correctly with conflicting keywords and luabind classes custom utils are provided:
-
-- `lua_globals.script` and `_g.script` to supply global functions that can be used from global context by typescript
-- Custom [typedefs](src/typedefs) to support functions call from Lua global context (xray engine, lua libs)
+To ensure code style unification and validation, we use `prettier` and `eslint`. <br/>
+Additionally, we set the line endings to CRLF to match the Windows system.
 
 ---
 
@@ -113,8 +107,6 @@ For types correction and validation: [Open X-Ray source code](https://github.com
 ---
 
 ## 🏗️ Mod gamedata folder structure
-
-todo: Describe structure of gamedata and intention of every folder
 
 - `ai`
 - `anims`
@@ -168,29 +160,31 @@ For examples check: `src/mod/ui`.
 
 ## ️️🏗️ Debugging game
 
-After following steps you will be able to attach debugger to lua/c++ code:
+To attach a debugger to Lua/C++ code, follow these steps:
 
-- Download visual studio
-- Install [LUA debug](https://github.com/WheretIB/LuaDkmDebugger) extension for visual studio (fixes [A](https://github.com/WheretIB/LuaDkmDebugger/pull/25) + [B](https://github.com/WheretIB/LuaDkmDebugger/pull/26) required)
-- Setup engine project, follow [OpenXray](https://github.com/OpenXRay/xray-16/wiki/%5BEN%5D-How-to-build-and-setup-on-Windows) instructions
-- Link game (npm run link) and target folder of xrts
-- Run game in debug mode directly from visual studio
+- Download Visual Studio
+- Install the [LUA debug](https://github.com/WheretIB/LuaDkmDebugger) extension for Visual Studio. (fixes [A](https://github.com/WheretIB/LuaDkmDebugger/pull/25) + [B](https://github.com/WheretIB/LuaDkmDebugger/pull/26) required)
+- Set up the engine project by following the OpenXray instructions
+- Link the game by running npm run link and targeting the folder of xrts
+- Run the game in debug/release mode directly from Visual Studio
 
-Note: attach breakpoint and observe transpiled LUA code. There is no way to debug typescript directly.
-Note: luabind declared classes and userdata cannot be debugged.
+Note that it is not possible to debug TypeScript directly. <br/> 
+Instead, attach a breakpoint and observe the transpiled Lua code. <br/>
+Additionally, it is not possible to debug luabind declared classes and userdata.
 
 ## 🧰 Checking game logs
 
-To enable logging make sure `GameConfig` logging flag is set to true. <br/>
-Following approaches can be used depending on how you run the game:
+To enable loggingб make sure the `GameConfig` logging flag is set to true. <br/>
 
-### Pre-built engine
+Depending on how you run the game, you can use the following approaches to check the logs:
 
-- Make sure you are using custom engine, if no - switch to mixed/release variant: `npm run engine use release`
-- Make sure you have linked application logs folder with target directory: `npm run link`
-- Start game (`npm run start_game`) and check logs files in `target/logs_link` directory
+### With pre-built engine
 
-### Visual studio custom build
+- Make sure you are using the custom engine. If not, switch to the mixed/release variant:  `npm run engine use release`
+- Link the application logs folder with the target directory: `npm run link`
+- Start the game  (`npm run start_game`) and check the log files in `target/logs_link` directory
+
+### With visual studio
 
 - Just run the project and check `Output` window of application
 
