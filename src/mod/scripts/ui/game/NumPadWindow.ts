@@ -6,7 +6,6 @@ import {
   TXR_ui_event,
   ui_events,
   vector2,
-  XR_CUIScriptWnd,
   XR_CUIStatic,
 } from "xray16";
 
@@ -19,23 +18,14 @@ export interface INumPadWindowOwner {
   OnNumberReceive(text: string): void;
 }
 
-export interface INumPadWindow extends XR_CUIScriptWnd {
-  owner: Optional<INumPadWindowOwner>;
-  editBox: XR_CUIStatic;
+@LuabindClass()
+export class NumPadWindow extends CUIScriptWnd {
+  public owner: Optional<INumPadWindowOwner>;
 
-  InitControls(): void;
-  InitCallBacks(): void;
+  public editBox!: XR_CUIStatic;
 
-  AddNumber(number: number): void;
-  OnButton_c_clicked(): void;
-  OnButton_CANCEL_clicked(): void;
-  OnButton_OK_clicked(): void;
-  OnButton_backspace_clicked(): void;
-}
-
-export const NumPadWindow: INumPadWindow = declare_xr_class("NumPadWindow", CUIScriptWnd, {
-  __init(owner: Optional<INumPadWindowOwner>): void {
-    CUIScriptWnd.__init(this);
+  public constructor(owner: Optional<INumPadWindowOwner>) {
+    super();
 
     logger.info("Initialize new numpad");
 
@@ -43,8 +33,9 @@ export const NumPadWindow: INumPadWindow = declare_xr_class("NumPadWindow", CUIS
 
     this.InitControls();
     this.InitCallBacks();
-  },
-  InitControls(): void {
+  }
+
+  public InitControls(): void {
     this.SetWndPos(new vector2().set(342, 199));
     this.SetWndSize(new vector2().set(339, 369));
 
@@ -71,8 +62,9 @@ export const NumPadWindow: INumPadWindow = declare_xr_class("NumPadWindow", CUIS
     this.Register(xml.Init3tButton("btn_backspase", this), "btn_backspase");
     this.Register(xml.Init3tButton("btn_enter", this), "btn_enter");
     this.Register(xml.Init3tButton("btn_cancel", this), "btn_cancel");
-  },
-  InitCallBacks(): void {
+  }
+
+  public InitCallBacks(): void {
     this.AddCallback("btn_enter", ui_events.BUTTON_CLICKED, () => this.OnButton_OK_clicked(), this);
     this.AddCallback("btn_cancel", ui_events.BUTTON_CLICKED, () => this.OnButton_CANCEL_clicked(), this);
 
@@ -89,8 +81,9 @@ export const NumPadWindow: INumPadWindow = declare_xr_class("NumPadWindow", CUIS
 
     this.AddCallback("btn_c", ui_events.BUTTON_CLICKED, () => this.OnButton_c_clicked(), this);
     this.AddCallback("btn_backspase", ui_events.BUTTON_CLICKED, () => this.OnButton_backspace_clicked(), this);
-  },
-  AddNumber(number: number): void {
+  }
+
+  public AddNumber(number: number): void {
     const text = this.editBox.TextControl().GetText() || "";
 
     if (string.len(text) > 12) {
@@ -98,8 +91,9 @@ export const NumPadWindow: INumPadWindow = declare_xr_class("NumPadWindow", CUIS
     } else {
       this.editBox.TextControl().SetText(text + number);
     }
-  },
-  OnButton_backspace_clicked(): void {
+  }
+
+  public OnButton_backspace_clicked(): void {
     const text = this.editBox.TextControl().GetText();
 
     if (text === null) {
@@ -110,11 +104,13 @@ export const NumPadWindow: INumPadWindow = declare_xr_class("NumPadWindow", CUIS
     const e = string.len(text) - 1;
 
     this.editBox.TextControl().SetText(string.sub(text, b, e));
-  },
-  OnButton_c_clicked(): void {
+  }
+
+  public OnButton_c_clicked(): void {
     this.editBox.TextControl().SetText("");
-  },
-  OnButton_CANCEL_clicked(): void {
+  }
+
+  public OnButton_CANCEL_clicked(): void {
     logger.info("Cancel clicked");
 
     if (this.owner) {
@@ -122,8 +118,9 @@ export const NumPadWindow: INumPadWindow = declare_xr_class("NumPadWindow", CUIS
     }
 
     this.HideDialog();
-  },
-  OnButton_OK_clicked(): void {
+  }
+
+  public OnButton_OK_clicked(): void {
     logger.info("OK clicked");
 
     this.HideDialog();
@@ -133,9 +130,10 @@ export const NumPadWindow: INumPadWindow = declare_xr_class("NumPadWindow", CUIS
     if (this.owner) {
       this.owner.OnNumberReceive(text);
     }
-  },
-  OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
-    CUIScriptWnd.OnKeyboard(this, key, event);
+  }
+
+  public OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
+    super.OnKeyboard(key, event);
 
     if (event === ui_events.WINDOW_KEY_PRESSED) {
       if (key === DIK_keys.DIK_ESCAPE) {
@@ -172,5 +170,5 @@ export const NumPadWindow: INumPadWindow = declare_xr_class("NumPadWindow", CUIS
     }
 
     return true;
-  },
-} as INumPadWindow);
+  }
+}

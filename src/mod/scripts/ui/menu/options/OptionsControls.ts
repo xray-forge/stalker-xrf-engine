@@ -1,22 +1,18 @@
-import { CUIWindow, vector2, XR_CScriptXmlInit, XR_CUI3tButton, XR_CUIWindow } from "xray16";
+import { CUIWindow, vector2, XR_CScriptXmlInit } from "xray16";
 
-import { IOptionsDialog } from "@/mod/scripts/ui/menu/OptionsDialog";
+import { OptionsDialog } from "@/mod/scripts/ui/menu/options/OptionsDialog";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("OptionsControls");
 
-export interface IOptionsControls extends XR_CUIWindow {
-  InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IOptionsDialog): void;
-}
-
-export const OptionsControls: IOptionsControls = declare_xr_class("OptionsControls", CUIWindow, {
-  __init(): void {
-    CUIWindow.__init(this);
-  },
-  InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IOptionsDialog): void {
+/**
+ * todo;
+ */
+@LuabindClass()
+export class OptionsControls extends CUIWindow {
+  public initialize(x: number, y: number, xml: XR_CScriptXmlInit, owner: OptionsDialog): void {
     this.SetWndPos(new vector2().set(x, y));
     this.SetWndSize(new vector2().set(738, 416));
-
     this.SetAutoDelete(true);
 
     // -- this.bk = xml.InitFrame("frame", this)
@@ -29,8 +25,6 @@ export const OptionsControls: IOptionsControls = declare_xr_class("OptionsContro
     xml.InitCheck("tab_controls:check_mouseinvert", this);
     xml.InitKeyBinding("tab_controls:key_binding", this);
 
-    const btn: XR_CUI3tButton = xml.Init3tButton("tab_controls:btn_default", this);
-
-    handler.Register(btn, "btn_keyb_default");
-  },
-} as IOptionsControls);
+    owner.Register(xml.Init3tButton("tab_controls:btn_default", this), "btn_keyb_default");
+  }
+}

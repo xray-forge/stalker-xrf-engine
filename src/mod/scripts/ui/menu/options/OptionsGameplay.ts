@@ -1,19 +1,16 @@
-import { CUIWindow, vector2, XR_CScriptXmlInit, XR_CUI3tButton, XR_CUIWindow } from "xray16";
+import { CUIWindow, vector2, XR_CScriptXmlInit } from "xray16";
 
-import { IOptionsDialog } from "@/mod/scripts/ui/menu/OptionsDialog";
+import { OptionsDialog } from "@/mod/scripts/ui/menu/options/OptionsDialog";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("OptionsGameplay");
 
-export interface IOptionsGameplay extends XR_CUIWindow {
-  InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IOptionsDialog): void;
-}
-
-export const OptionsGameplay: IOptionsGameplay = declare_xr_class("OptionsGameplay", CUIWindow, {
-  __init(): void {
-    CUIWindow.__init(this);
-  },
-  InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IOptionsDialog): void {
+/**
+ * todo;
+ */
+@LuabindClass()
+export class OptionsGameplay extends CUIWindow {
+  public initialize(x: number, y: number, xml: XR_CScriptXmlInit, owner: OptionsDialog): void {
     this.SetWndPos(new vector2().set(x, y));
     this.SetWndSize(new vector2().set(738, 416));
     this.SetAutoDelete(true);
@@ -40,8 +37,6 @@ export const OptionsGameplay: IOptionsGameplay = declare_xr_class("OptionsGamepl
     xml.InitCheck("tab_gameplay:check_hud_draw", this);
     xml.InitComboBox("tab_gameplay:list_difficulty", this);
 
-    const btn: XR_CUI3tButton = xml.Init3tButton("tab_gameplay:btn_check_updates", this);
-
-    handler.Register(btn, "btn_check_updates");
-  },
-} as IOptionsGameplay);
+    owner.Register(xml.Init3tButton("tab_gameplay:btn_check_updates", this), "btn_check_updates");
+  }
+}

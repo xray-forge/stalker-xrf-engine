@@ -19,30 +19,26 @@ import { on_off_cmds, zero_one_cmds } from "@/mod/ui/menu/debug/sections";
 const base: string = "menu\\debug\\DebugCommandsSection.component";
 const logger: LuaLogger = new LuaLogger("DebugCommandsSection");
 
-export interface IDebugCommandsSection extends XR_CUIScriptWnd {
-  owner: XR_CUIScriptWnd;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class DebugCommandsSection extends CUIWindow {
+  public owner: XR_CUIScriptWnd;
 
-  commandsList: XR_CUIScrollView;
+  public commandsList!: XR_CUIScrollView;
 
-  InitControls(): void;
-  InitCallBacks(): void;
-  InitState(): void;
-  InitEntry(name: string, xml: XR_CScriptXmlInit, console: XR_CConsole, type: "numeric" | "boolean"): void;
-
-  onCheckboxChange(check: XR_CUICheckButton, name: string, type: "numeric" | "boolean"): void;
-}
-
-export const DebugCommandsSection: IDebugCommandsSection = declare_xr_class("DebugCommandsSection", CUIWindow, {
-  __init(this: IDebugCommandsSection, owner: XR_CUIScriptWnd): void {
-    CUIWindow.__init(this);
+  public constructor(owner: XR_CUIScriptWnd) {
+    super();
 
     this.owner = owner;
 
     this.InitControls();
     this.InitCallBacks();
     this.InitState();
-  },
-  InitControls(): void {
+  }
+
+  public InitControls(): void {
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
     const console: XR_CConsole = get_console();
 
@@ -52,12 +48,15 @@ export const DebugCommandsSection: IDebugCommandsSection = declare_xr_class("Deb
 
     zero_one_cmds.forEach((it) => this.InitEntry(it, xml, console, "numeric"));
     on_off_cmds.forEach((it) => this.InitEntry(it, xml, console, "boolean"));
-  },
-  InitCallBacks(): void {},
-  InitState(): void {
+  }
+
+  public InitCallBacks(): void {}
+
+  public InitState(): void {
     logger.info("Init state");
-  },
-  InitEntry(name: string, xml: XR_CScriptXmlInit, console: XR_CConsole, type: "numeric" | "boolean"): void {
+  }
+
+  public InitEntry(name: string, xml: XR_CScriptXmlInit, console: XR_CConsole, type: "numeric" | "boolean"): void {
     logger.info("Init item:", name);
 
     const item: XR_CUIStatic = xml.InitStatic("command_item", this.commandsList);
@@ -74,8 +73,9 @@ export const DebugCommandsSection: IDebugCommandsSection = declare_xr_class("Deb
     this.owner.Register(check, name);
     this.owner.AddCallback(name, ui_events.CHECK_BUTTON_SET, () => this.onCheckboxChange(check, name, type), this);
     this.owner.AddCallback(name, ui_events.CHECK_BUTTON_RESET, () => this.onCheckboxChange(check, name, type), this);
-  },
-  onCheckboxChange(check: XR_CUICheckButton, name: string, type: "numeric" | "boolean"): void {
+  }
+
+  public onCheckboxChange(check: XR_CUICheckButton, name: string, type: "numeric" | "boolean"): void {
     const isEnabled: boolean = check.GetCheck();
 
     let cmd: string = name + " ";
@@ -88,5 +88,5 @@ export const DebugCommandsSection: IDebugCommandsSection = declare_xr_class("Deb
 
     logger.info("Value toggle:", type, cmd);
     get_console().execute(cmd);
-  },
-} as IDebugCommandsSection);
+  }
+}

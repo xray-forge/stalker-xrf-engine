@@ -1,200 +1,67 @@
 import {
   bit_or,
-  CGameFont,
-  CUIListBoxItem,
-  CUIListBoxItemMsgChain,
   CUIMessageBoxEx,
   CUIWindow,
   Frect,
   FS,
   game,
   get_console,
-  GetARGB,
-  GetFontLetterica16Russian,
   getFS,
   main_menu,
-  ui_events,
   vector2,
   XR_CScriptXmlInit,
-  XR_CUI3tButton,
   XR_CUIEditBoxEx,
   XR_CUIListBox,
-  XR_CUIListBoxItem,
-  XR_CUIListBoxItemMsgChain,
   XR_CUIMapInfo,
   XR_CUIMessageBoxEx,
   XR_CUIStatic,
   XR_CUITextWnd,
   XR_CUIWindow,
-  XR_EngineBinding,
   XR_FS,
   XR_vector2,
 } from "xray16";
 
 import { textures } from "@/mod/globals/textures";
 import { Optional } from "@/mod/lib/types";
-import { IMultiplayerMenu } from "@/mod/scripts/ui/menu/MultiplayerMenu";
+import { MultiplayerDemoLoadItem } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerDemoLoadItem";
+import { MultiplayerDemoPlayerInfo } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerDemoPlayerInfo";
+import { MultiplayerDemoPlayerStatsItem } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerDemoPlayerStatsItem";
+import { MultiplayerMenu } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerMenu";
 import { fileExists } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("MultiplayerDemo");
 
-interface IPlayerInfo extends XR_EngineBinding {
-  name: string;
-  death: number;
-  artefacts: number;
-  team: number;
-  rank: number;
-  frags: number;
-  spots: number;
-}
+/**
+ * todo;
+ */
+@LuabindClass()
+export class MultiplayerDemo extends CUIWindow {
+  public owner!: MultiplayerMenu;
+  public xml!: XR_CScriptXmlInit;
 
-const PlayerInfo: IPlayerInfo = declare_xr_class("PlayerInfo", null, {
-  __init(): void {
-    this.name = "unknown_player";
-    this.death = 0;
-    this.artefacts = 0;
-    this.team = 0;
-    this.rank = 0;
-    this.frags = 0;
-    this.spots = 0;
-  },
-} as IPlayerInfo);
+  public on_yes_action: string = "";
+  public file_name_to_rename: string = "";
 
-interface IDemoLoadItem extends XR_CUIListBoxItemMsgChain {
-  file_name: string;
+  public file_item_main_sz!: XR_vector2;
+  public file_item_fn_sz!: XR_vector2;
+  public file_item_fd_sz!: XR_vector2;
 
-  fn: XR_CUITextWnd;
-  fage: XR_CUITextWnd;
-  delete_button: XR_CUI3tButton;
-}
+  public player_item_main_sz!: XR_vector2;
+  public player_item_name_sz!: XR_vector2;
+  public player_item_column_sz!: XR_vector2;
 
-const DemoLoadItem: IDemoLoadItem = declare_xr_class("DemoLoadItem", CUIListBoxItemMsgChain, {
-  __init(owner: IMultiplayerDemo, h: number, w1: number, w2: number): void {
-    CUIListBoxItemMsgChain.__init(this, h);
+  public map_pic!: XR_CUIStatic;
+  public map_info!: XR_CUIMapInfo;
+  public demo_list!: XR_CUIListBox<MultiplayerDemoLoadItem>;
+  public game_type!: XR_CUITextWnd;
+  public players_count!: XR_CUITextWnd;
+  public team_stats!: XR_CUITextWnd;
+  public file_name_edit!: XR_CUIEditBoxEx;
+  public message_box!: XR_CUIMessageBoxEx;
+  public players_list!: XR_CUIListBox;
 
-    const handler = owner.owner;
-
-    this.file_name = "filename";
-    this.SetTextColor(GetARGB(255, 255, 255, 255));
-
-    this.fn = this.GetTextItem();
-    this.fn.SetFont(GetFontLetterica16Russian());
-    this.fn.SetWndPos(new vector2().set(20, 0));
-    this.fn.SetWndSize(new vector2().set(w1, h));
-    this.fn.SetEllipsis(true);
-
-    this.fage = this.AddTextField("", w2);
-    this.fage.SetFont(GetFontLetterica16Russian());
-    this.fage.SetWndSize(new vector2().set(w2, h));
-
-    // --this.AttachChild                        (del_btn)
-    this.delete_button = owner.xml.Init3tButton("delete_demo_button", this);
-
-    handler.Register(this.delete_button, "delete_demo_button");
-    handler.AddCallback("delete_demo_button", ui_events.BUTTON_CLICKED, () => owner.DeleteSelectedDemo(), owner);
-  },
-  __finalize(): void {},
-} as IDemoLoadItem);
-
-interface IPlayerStatsItem extends XR_CUIListBoxItem {
-  name: XR_CUITextWnd;
-  frags: XR_CUITextWnd;
-  death: XR_CUITextWnd;
-  artefacts: XR_CUITextWnd;
-  spots: XR_CUITextWnd;
-  rank: XR_CUIStatic;
-}
-
-const PlayerStatsItem: IPlayerStatsItem = declare_xr_class("PlayerStatsItem", CUIListBoxItem, {
-  __init(h: number, w1: number, w2: number): void {
-    CUIListBoxItem.__init(this, h);
-    this.SetTextColor(GetARGB(255, 255, 255, 255));
-
-    this.name = this.GetTextItem();
-    this.name.SetWndSize(new vector2().set(w1, h));
-    this.name.SetFont(GetFontLetterica16Russian());
-    this.name.SetEllipsis(true);
-
-    this.frags = this.AddTextField("", w2);
-    this.frags.SetFont(GetFontLetterica16Russian());
-    this.frags.SetTextAlignment(CGameFont.alCenter);
-
-    this.death = this.AddTextField("", w2);
-    this.death.SetFont(GetFontLetterica16Russian());
-    this.death.SetTextAlignment(CGameFont.alCenter);
-
-    this.artefacts = this.AddTextField("", w2);
-    this.artefacts.SetFont(GetFontLetterica16Russian());
-    this.artefacts.SetTextAlignment(CGameFont.alCenter);
-
-    this.spots = this.AddTextField("", w2);
-    this.spots.SetFont(GetFontLetterica16Russian());
-    this.spots.SetTextAlignment(CGameFont.alCenter);
-
-    this.rank = this.AddIconField(w2);
-    this.rank.SetStretchTexture(true);
-
-    this.rank.SetWndSize(new vector2().set(16, 16));
-
-    // -- aligning rank icon to center
-    const rank_pos = this.rank.GetWndPos();
-
-    this.rank.SetWndPos(new vector2().set(rank_pos.x + (w2 - 16) / 2, 0));
-  },
-  __finalize(): void {},
-} as IPlayerStatsItem);
-
-export interface IMultiplayerDemo extends XR_CUIWindow {
-  owner: IMultiplayerMenu;
-  xml: XR_CScriptXmlInit;
-
-  map_pic: XR_CUIStatic;
-  map_info: XR_CUIMapInfo;
-  demo_list: XR_CUIListBox<IDemoLoadItem>;
-
-  file_item_main_sz: XR_vector2;
-  file_item_fn_sz: XR_vector2;
-  file_item_fd_sz: XR_vector2;
-
-  game_type: XR_CUITextWnd;
-  players_count: XR_CUITextWnd;
-  team_stats: XR_CUITextWnd;
-
-  file_name_edit: XR_CUIEditBoxEx;
-  message_box: XR_CUIMessageBoxEx;
-
-  players_list: XR_CUIListBox;
-
-  player_item_main_sz: XR_vector2;
-  player_item_name_sz: XR_vector2;
-  player_item_column_sz: XR_vector2;
-
-  on_yes_action: string;
-  file_name_to_rename: string;
-
-  InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IMultiplayerMenu): void;
-  FillList(): void;
-  AddItemToList(filename: string, datetime: string): void;
-  GetRankTextureName(playerInfo: IPlayerInfo): string;
-  GetMapTextureName(mapName: string): string;
-  AddPlayerToStats(playerInfo: IPlayerInfo): void;
-  SelectDemoFile(): void;
-  OnMsgBoxYes(): void;
-  OnRenameDemo(): void;
-  DeleteSelectedDemo(): void;
-  PlaySelectedDemo(): void;
-  UpdateDemoInfo(filename: string): void;
-}
-
-export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDemo", CUIWindow, {
-  __init(): void {
-    CUIWindow.__init(this);
-  },
-  __finalize(): void {},
-  InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IMultiplayerMenu): void {
-    logger.info("Init controls");
-
+  public InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: MultiplayerMenu): void {
     this.SetAutoDelete(true);
     this.owner = handler;
     this.xml = xml;
@@ -255,10 +122,9 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
     handler.Register(this.message_box, "demo_message_box");
     handler.Register(this.file_name_edit, "demo_file_name");
     handler.Register(this.demo_list, "demo_list_window");
-  },
-  FillList(): void {
-    logger.info("Fill list");
+  }
 
+  public FillList(): void {
     this.demo_list.RemoveAll();
 
     const f = getFS();
@@ -277,24 +143,25 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
     }
 
     this.UpdateDemoInfo("");
-  },
-  AddItemToList(file_name, date_time): void {
-    const it: IDemoLoadItem = create_xr_class_instance(
-      DemoLoadItem,
+  }
+
+  public AddItemToList(file_name: string, date_time: string): void {
+    const demoLoadItem: MultiplayerDemoLoadItem = new MultiplayerDemoLoadItem(
       this,
       this.file_item_fn_sz.y,
       this.file_item_fn_sz.x,
       this.file_item_fd_sz.x
     );
 
-    it.SetWndSize(this.file_item_main_sz);
+    demoLoadItem.SetWndSize(this.file_item_main_sz);
 
-    it.fn.SetText(file_name);
-    it.fage.SetText(date_time);
+    demoLoadItem.fn.SetText(file_name);
+    demoLoadItem.fage.SetText(date_time);
 
-    this.demo_list.AddExistingItem(it);
-  },
-  GetRankTextureName(playerInfo: IPlayerInfo): string {
+    this.demo_list.AddExistingItem(demoLoadItem);
+  }
+
+  public GetRankTextureName(playerInfo: MultiplayerDemoPlayerInfo): string {
     let texture_name = "ui_hud_status_";
 
     if (playerInfo.rank > 4 || playerInfo.rank < 0) {
@@ -310,8 +177,9 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
     }
 
     return texture_name;
-  },
-  GetMapTextureName(map_name: string): string {
+  }
+
+  public GetMapTextureName(map_name: string): string {
     const texture_name: string = "intro\\intro_map_pic_" + map_name;
 
     if (fileExists("$game_textures$", texture_name + ".dds")) {
@@ -319,12 +187,12 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
     }
 
     return textures.ui_ui_noise;
-  },
-  AddPlayerToStats(player_stats: IPlayerInfo): void {
+  }
+
+  public AddPlayerToStats(player_stats: MultiplayerDemoPlayerInfo): void {
     logger.info("Add player to stats");
 
-    const itm: IPlayerStatsItem = create_xr_class_instance(
-      PlayerStatsItem,
+    const itm: MultiplayerDemoPlayerStatsItem = new MultiplayerDemoPlayerStatsItem(
       this.player_item_name_sz.y,
       this.player_item_name_sz.x,
       this.player_item_column_sz.x
@@ -345,12 +213,12 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
     }
 
     this.players_list.AddExistingItem(itm);
-  },
+  }
 
-  SelectDemoFile(): void {
+  public SelectDemoFile(): void {
     logger.info("Select demo file");
 
-    const item: Optional<IDemoLoadItem> = this.demo_list.GetSelectedItem();
+    const item: Optional<MultiplayerDemoLoadItem> = this.demo_list.GetSelectedItem();
 
     if (item === null) {
       logger.info("No selected file");
@@ -362,10 +230,10 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
 
     logger.info("Selected demo file. " + filename + ".demo");
     this.UpdateDemoInfo(filename);
-  },
+  }
 
-  PlaySelectedDemo() {
-    const item: Optional<IDemoLoadItem> = this.demo_list.GetSelectedItem();
+  public PlaySelectedDemo() {
+    const item: Optional<MultiplayerDemoLoadItem> = this.demo_list.GetSelectedItem();
 
     if (item === null) {
       return;
@@ -374,8 +242,9 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
     const filename: string = item.fn.GetText();
 
     get_console().execute("start demo(" + filename + ".demo)");
-  },
-  DeleteSelectedDemo(): void {
+  }
+
+  public DeleteSelectedDemo(): void {
     logger.info("Delete selected demo");
 
     const item = this.demo_list.GetSelectedItem();
@@ -395,8 +264,9 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
     this.message_box.InitMessageBox("message_box_yes_no");
     this.message_box.SetText(delete_question);
     this.message_box.ShowDialog(true);
-  },
-  OnRenameDemo(): void {
+  }
+
+  public OnRenameDemo(): void {
     logger.info("Rename demo");
 
     const item = this.demo_list.GetSelectedItem();
@@ -433,13 +303,13 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
     this.message_box.InitMessageBox("message_box_yes_no");
     this.message_box.SetText(rename_question);
     this.message_box.ShowDialog(true);
-  },
+  }
 
-  OnMsgBoxYes(): void {
+  public OnMsgBoxYes(): void {
     logger.info("Confirm message box");
 
     const fs: XR_FS = getFS();
-    const item: Optional<IDemoLoadItem> = this.demo_list.GetSelectedItem();
+    const item: Optional<MultiplayerDemoLoadItem> = this.demo_list.GetSelectedItem();
 
     if (item === null) {
       logger.info("Issue, no demo item selected");
@@ -477,8 +347,9 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
     }
 
     this.on_yes_action = "";
-  },
-  UpdateDemoInfo(file_name) {
+  }
+
+  public UpdateDemoInfo(file_name: string) {
     this.players_list.RemoveAll();
     if (file_name === "") {
       this.map_info.InitMap("", "");
@@ -527,9 +398,10 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
 
     // -- calling C++ method
     for (let it = 0; it < players_count; it + 1) {
-      const player_info: IPlayerInfo = create_xr_class_instance(PlayerInfo);
+      const player_info: MultiplayerDemoPlayerInfo = new MultiplayerDemoPlayerInfo();
       const tmp_player = tmp_demoinfo.get_player(it);
 
+      // todo: Just assign in constructor probably.
       player_info.name = tmp_player.get_name();
       player_info.frags = tmp_player.get_frags();
       player_info.death = tmp_player.get_deaths();
@@ -539,5 +411,5 @@ export const MultiplayerDemo: IMultiplayerDemo = declare_xr_class("MultiplayerDe
       player_info.rank = tmp_player.get_rank();
       this.AddPlayerToStats(player_info);
     }
-  },
-} as IMultiplayerDemo);
+  }
+}

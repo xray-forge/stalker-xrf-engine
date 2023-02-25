@@ -1,27 +1,23 @@
-import { CUIWindow, GAME_TYPE, TXR_GAME_TYPE, XR_CScriptXmlInit, XR_CUIWindow } from "xray16";
+import { CUIWindow, GAME_TYPE, TXR_GAME_TYPE, XR_CScriptXmlInit } from "xray16";
 
-import { IMultiplayerMenu } from "@/mod/scripts/ui/menu/MultiplayerMenu";
+import { MultiplayerMenu } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerMenu";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("MultiplayerOptions");
 
-export interface IMultiplayerOptions extends XR_CUIWindow {
-  online: boolean;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class MultiplayerOptions extends CUIWindow {
+  public online: boolean;
 
-  InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IMultiplayerMenu): void;
-  SetGameMode(gameType: TXR_GAME_TYPE, handler: IMultiplayerMenu): void;
-}
-
-export const MultiplayerOptions: IMultiplayerOptions = declare_xr_class("MultiplayerOptions", CUIWindow, {
-  __init(online_mode: boolean): void {
-    CUIWindow.__init(this);
-
+  public constructor(online_mode: boolean) {
+    super();
     this.online = online_mode;
-  },
-  __finalize(): void {},
-  InitControls(x, y, xml: XR_CScriptXmlInit, handler: IMultiplayerMenu): void {
-    logger.info("Init controls");
+  }
 
+  public InitControls(x: number, y: number, xml: XR_CScriptXmlInit, owner: MultiplayerMenu): void {
     this.SetAutoDelete(true);
     xml.InitWindow("tab_options:main", 0, this);
 
@@ -60,49 +56,49 @@ export const MultiplayerOptions: IMultiplayerOptions = declare_xr_class("Multipl
     }
 
     // --    handler.check_public_server            = xml.InitCheck("tab_options:check_public_server",            this)
-    handler.check_spectator = xml.InitCheck("tab_options:check_spectator", this);
-    handler.check_allow_voting = xml.InitCheck("tab_options:check_allow_voting", this);
-    handler.spin_max_ping = xml.InitSpinNum("tab_options:spin_max_ping", this);
+    owner.check_spectator = xml.InitCheck("tab_options:check_spectator", this);
+    owner.check_allow_voting = xml.InitCheck("tab_options:check_allow_voting", this);
+    owner.spin_max_ping = xml.InitSpinNum("tab_options:spin_max_ping", this);
 
-    handler.check_damage_block = xml.InitCheck("tab_options:check_damage_block", this);
-    handler.check_auto_team_balance = xml.InitCheck("tab_options:check_auto_team_balance", this);
-    handler.check_auto_team_swap = xml.InitCheck("tab_options:check_auto_team_swap", this);
-    handler.check_friendly_indicators = xml.InitCheck("tab_options:check_friendly_indicators", this);
-    handler.check_friendly_names = xml.InitCheck("tab_options:check_friendly_names", this);
-    handler.check_no_anmalies = xml.InitCheck("tab_options:check_no_anmalies", this);
+    owner.check_damage_block = xml.InitCheck("tab_options:check_damage_block", this);
+    owner.check_auto_team_balance = xml.InitCheck("tab_options:check_auto_team_balance", this);
+    owner.check_auto_team_swap = xml.InitCheck("tab_options:check_auto_team_swap", this);
+    owner.check_friendly_indicators = xml.InitCheck("tab_options:check_friendly_indicators", this);
+    owner.check_friendly_names = xml.InitCheck("tab_options:check_friendly_names", this);
+    owner.check_no_anmalies = xml.InitCheck("tab_options:check_no_anmalies", this);
 
-    handler.check_spec_teamonly = xml.InitCheck("tab_options:check_spec_teamonly", this);
-    handler.check_spec_freefly = xml.InitCheck("tab_options:check_spec_freefly", this);
-    handler.check_spec_firsteye = xml.InitCheck("tab_options:check_spec_firsteye", this);
-    handler.check_spec_lookat = xml.InitCheck("tab_options:check_spec_lookat", this);
-    handler.check_spec_freelook = xml.InitCheck("tab_options:check_spec_freelook", this);
+    owner.check_spec_teamonly = xml.InitCheck("tab_options:check_spec_teamonly", this);
+    owner.check_spec_freefly = xml.InitCheck("tab_options:check_spec_freefly", this);
+    owner.check_spec_firsteye = xml.InitCheck("tab_options:check_spec_firsteye", this);
+    owner.check_spec_lookat = xml.InitCheck("tab_options:check_spec_lookat", this);
+    owner.check_spec_freelook = xml.InitCheck("tab_options:check_spec_freelook", this);
 
-    handler.check_demosave = xml.InitCheck("tab_options:check_demosave", this);
-    handler.Register(handler.check_demosave, "check_demosave");
+    owner.check_demosave = xml.InitCheck("tab_options:check_demosave", this);
+    owner.Register(owner.check_demosave, "check_demosave");
 
-    handler.tab_respawn = xml.InitTab("tab_options:radio_tab_respawn_options", this);
+    owner.tab_respawn = xml.InitTab("tab_options:radio_tab_respawn_options", this);
     // -- spin boxes
-    handler.spin_friendly_fire = xml.InitSpinFlt("tab_options:spin_friendly_fire", this);
-    handler.spin_artefacts_num = xml.InitSpinNum("tab_options:spin_artefacts_num", this);
-    handler.spin_spectator = xml.InitSpinNum("tab_options:spin_spectator", this);
-    handler.spin_force_respawn = xml.InitSpinNum("tab_options:spin_force_respawn", this);
-    handler.spin_reinforcement = xml.InitSpinNum("tab_options:spin_reinforcement", this);
+    owner.spin_friendly_fire = xml.InitSpinFlt("tab_options:spin_friendly_fire", this);
+    owner.spin_artefacts_num = xml.InitSpinNum("tab_options:spin_artefacts_num", this);
+    owner.spin_spectator = xml.InitSpinNum("tab_options:spin_spectator", this);
+    owner.spin_force_respawn = xml.InitSpinNum("tab_options:spin_force_respawn", this);
+    owner.spin_reinforcement = xml.InitSpinNum("tab_options:spin_reinforcement", this);
 
-    handler.spin_damage_block = xml.InitSpinNum("tab_options:spin_damage_block", this);
-    handler.spin_artreturn_time = xml.InitSpinNum("tab_options:spin_artreturn_time", this);
-    handler.check_activated_return = xml.InitCheck("tab_options:check_activated_return", this);
-    handler.spin_frag_limit = xml.InitSpinNum("tab_options:spin_frag_limit", this);
-    handler.spin_time_limit = xml.InitSpinNum("tab_options:spin_time_limit", this);
-    handler.spin_artefact_stay = xml.InitSpinNum("tab_options:spin_artefact_stay", this);
-    handler.spin_artefact_delay = xml.InitSpinNum("tab_options:spin_artefact_delay", this);
-    handler.spin_anomaly_time = xml.InitSpinNum("tab_options:spin_anomaly_time", this);
-    handler.spin_warm_up_time = xml.InitSpinNum("tab_options:spin_warm_up_time", this);
+    owner.spin_damage_block = xml.InitSpinNum("tab_options:spin_damage_block", this);
+    owner.spin_artreturn_time = xml.InitSpinNum("tab_options:spin_artreturn_time", this);
+    owner.check_activated_return = xml.InitCheck("tab_options:check_activated_return", this);
+    owner.spin_frag_limit = xml.InitSpinNum("tab_options:spin_frag_limit", this);
+    owner.spin_time_limit = xml.InitSpinNum("tab_options:spin_time_limit", this);
+    owner.spin_artefact_stay = xml.InitSpinNum("tab_options:spin_artefact_stay", this);
+    owner.spin_artefact_delay = xml.InitSpinNum("tab_options:spin_artefact_delay", this);
+    owner.spin_anomaly_time = xml.InitSpinNum("tab_options:spin_anomaly_time", this);
+    owner.spin_warm_up_time = xml.InitSpinNum("tab_options:spin_warm_up_time", this);
 
-    handler.check_pda_hunt = xml.InitCheck("tab_options:check_pda_hunt", this);
-    handler.spin_rate_of_change = xml.InitSpinFlt("tab_options:spin_rate_of_change", this);
-    handler.spin_weather = xml.InitComboBox("tab_options:spin_weather", this);
+    owner.check_pda_hunt = xml.InitCheck("tab_options:check_pda_hunt", this);
+    owner.spin_rate_of_change = xml.InitSpinFlt("tab_options:spin_rate_of_change", this);
+    owner.spin_weather = xml.InitComboBox("tab_options:spin_weather", this);
 
-    handler.check_spectator.SetDependControl(handler.spin_spectator);
+    owner.check_spectator.SetDependControl(owner.spin_spectator);
 
     // --    handler.check_public_server.SetDependControl(handler.check_verify_cdkey)
 
@@ -111,8 +107,9 @@ export const MultiplayerOptions: IMultiplayerOptions = declare_xr_class("Multipl
     } else {
       // --        handler.check_public_server.SetCheck(false)
     }
-  },
-  SetGameMode(mode: TXR_GAME_TYPE, handler: IMultiplayerMenu): void {
+  }
+
+  public SetGameMode(mode: TXR_GAME_TYPE, handler: MultiplayerMenu): void {
     logger.info("Set game mode");
 
     handler.spin_friendly_fire.Enable(true);
@@ -204,5 +201,5 @@ export const MultiplayerOptions: IMultiplayerOptions = declare_xr_class("Multipl
         handler.spin_frag_limit.Enable(false);
       }
     }
-  },
-} as IMultiplayerOptions);
+  }
+}

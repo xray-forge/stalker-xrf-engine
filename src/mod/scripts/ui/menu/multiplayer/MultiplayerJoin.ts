@@ -1,24 +1,23 @@
-import { CUIWindow, XR_CScriptXmlInit, XR_CUIWindow } from "xray16";
+import { CUIWindow, XR_CScriptXmlInit } from "xray16";
 
-import { IMultiplayerMenu } from "@/mod/scripts/ui/menu/MultiplayerMenu";
+import { MultiplayerMenu } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerMenu";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("MultiplayerJoin");
 
-export interface IMultiplayerJoin extends XR_CUIWindow {
-  online: boolean;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class MultiplayerJoin extends CUIWindow {
+  public online: boolean;
 
-  InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IMultiplayerMenu): void;
-}
-
-export const MultiplayerJoin: IMultiplayerJoin = declare_xr_class("MultiplayerJoin", CUIWindow, {
-  __init(online_mode: boolean): void {
-    CUIWindow.__init(this);
+  public constructor(online_mode: boolean) {
+    super();
     this.online = online_mode;
-  },
-  InitControls(x, y, xml, handler): void {
-    logger.info("Init controls");
+  }
 
+  public InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: MultiplayerMenu): void {
     this.SetAutoDelete(true);
 
     xml.InitWindow("tab_client:main", 0, this);
@@ -79,5 +78,5 @@ export const MultiplayerJoin: IMultiplayerJoin = declare_xr_class("MultiplayerJo
     handler.Register(xml.Init3tButton("tab_client:btn_refresh", this), "btn_refresh");
     handler.Register(xml.Init3tButton("tab_client:btn_quick_refresh", this), "btn_quick_refresh");
     handler.Register(xml.Init3tButton("tab_client:btn_server_info", this), "btn_server_info");
-  },
-} as IMultiplayerJoin);
+  }
+}

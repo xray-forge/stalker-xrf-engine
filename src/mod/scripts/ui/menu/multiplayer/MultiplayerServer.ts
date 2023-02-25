@@ -1,34 +1,30 @@
-import { CUIWindow, XR_CScriptXmlInit, XR_CUIMapInfo, XR_CUIStatic, XR_CUIWindow } from "xray16";
+import { CUIWindow, XR_CScriptXmlInit, XR_CUIMapInfo, XR_CUIStatic } from "xray16";
 
-import { IMultiplayerMenu } from "@/mod/scripts/ui/menu/MultiplayerMenu";
+import { MultiplayerMenu } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerMenu";
 
-export interface IMultiplayerServer extends XR_CUIWindow {
-  map_pic: XR_CUIStatic;
-  map_info: XR_CUIMapInfo;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class MultiplayerServer extends CUIWindow {
+  public map_pic!: XR_CUIStatic;
+  public map_info!: XR_CUIMapInfo;
 
-  InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IMultiplayerMenu): void;
-}
-
-export const MultiplayerServer: IMultiplayerServer = declare_xr_class("MultiplayerServer", CUIWindow, {
-  __init(): void {
-    CUIWindow.__init(this);
-  },
-  __finalize(): void {},
-  InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IMultiplayerMenu): void {
+  public initialize(x: number, y: number, xml: XR_CScriptXmlInit, owner: MultiplayerMenu): void {
     this.SetAutoDelete(true);
 
     xml.InitWindow("tab_server:main", 0, this);
 
     // -- SPIN BOXES
-    handler.spin_max_players = xml.InitSpinNum("tab_server:spin_max_players", this);
+    owner.spin_max_players = xml.InitSpinNum("tab_server:spin_max_players", this);
     // --    handler.spin_mode = xml.InitSpinText("tab_server:spin_game_mode", this)
-    handler.spin_mode = xml.InitComboBox("tab_server:spin_game_mode", this);
-    handler.Register(handler.spin_mode, "spin_game_mode");
+    owner.spin_mode = xml.InitComboBox("tab_server:spin_game_mode", this);
+    owner.Register(owner.spin_mode, "spin_game_mode");
 
     const map_list = xml.InitMapList("tab_server:map_list", this);
 
-    map_list.SetWeatherSelector(handler.spin_weather);
-    map_list.SetModeSelector(handler.spin_mode);
+    map_list.SetWeatherSelector(owner.spin_weather);
+    map_list.SetModeSelector(owner.spin_mode);
 
     xml.InitStatic("tab_server:static_map_pic_fore", this);
     this.map_pic = xml.InitStatic("tab_server:static_map_pic", this);
@@ -37,7 +33,7 @@ export const MultiplayerServer: IMultiplayerServer = declare_xr_class("Multiplay
     map_list.SetMapPic(this.map_pic);
     map_list.SetMapInfo(this.map_info);
 
-    handler.map_list = map_list;
+    owner.map_list = map_list;
     xml.InitFrameLine("tab_server:cap_server_settings", this);
     xml.InitStatic("tab_server:cap_server_name", this);
     xml.InitStatic("tab_server:cap_password", this);
@@ -50,9 +46,9 @@ export const MultiplayerServer: IMultiplayerServer = declare_xr_class("Multiplay
     xml.InitStatic("tab_server:btn_down_static", this);
 
     // -- CHECK BOXES
-    handler.check_dedicated = xml.InitCheck("tab_server:check_dedicated", this);
+    owner.check_dedicated = xml.InitCheck("tab_server:check_dedicated", this);
     // -- EDIT BOXES
-    handler.edit_server_name = xml.InitEditBox("tab_server:edit_server_name", this);
-    handler.edit_password = xml.InitEditBox("tab_server:edit_password", this);
-  },
-} as IMultiplayerServer);
+    owner.edit_server_name = xml.InitEditBox("tab_server:edit_server_name", this);
+    owner.edit_password = xml.InitEditBox("tab_server:edit_password", this);
+  }
+}

@@ -7,13 +7,14 @@ import {
   DIK_keys,
   Frect,
   login_operation_cb,
+  TXR_DIK_key,
+  TXR_ui_event,
   ui_events,
   XR_CScriptXmlInit,
   XR_CUI3tButton,
   XR_CUICheckButton,
   XR_CUIEditBox,
   XR_CUIMessageBoxEx,
-  XR_CUIScriptWnd,
   XR_CUITextWnd,
   XR_CUIWindow,
   XR_profile,
@@ -27,41 +28,31 @@ import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 const base: string = "menu\\multiplayer\\MultiplayerLocalnet.component";
 const logger: LuaLogger = new LuaLogger("MultiplayerLocalnet");
 
-export interface IMultiplayerLocalnet extends XR_CUIScriptWnd {
-  owner: MainMenu;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class MultiplayerLocalnet extends CUIScriptWnd {
+  public owner: MainMenu;
 
-  login_page: XR_CUIWindow;
+  public login_page!: XR_CUIWindow;
+  public btn_login!: XR_CUI3tButton;
+  public btn_cancel!: XR_CUI3tButton;
+  public lp_header_login!: XR_CUITextWnd;
+  public lp_nickname!: XR_CUIEditBox;
+  public gs_login_message_box!: XR_CUIMessageBoxEx;
+  public lp_check_remember_me!: XR_CUICheckButton;
 
-  btn_login: XR_CUI3tButton;
-  btn_cancel: XR_CUI3tButton;
+  public constructor(owner: MainMenu) {
+    super();
 
-  lp_header_login: XR_CUITextWnd;
-  lp_nickname: XR_CUIEditBox;
-  gs_login_message_box: XR_CUIMessageBoxEx;
-  lp_check_remember_me: XR_CUICheckButton;
-
-  InitControls(): void;
-  InitCallbacks(): void;
-  OnBtnLogin(): void;
-  OnMsgOk(): void;
-  OnBtnCancel(): void;
-  OnBtnRememberMe(): void;
-  OnEditLPNicknameChanged(): void;
-
-  LoginOperationResult(profile: Optional<XR_profile>, description: string): void;
-}
-
-export const MultiplayerLocalnet: IMultiplayerLocalnet = declare_xr_class("MultiplayerLocalnet", CUIScriptWnd, {
-  __init(): void {
-    CUIScriptWnd.__init(this);
+    this.owner = owner;
 
     this.InitControls();
     this.InitCallbacks();
-  },
-  __finalize(): void {},
-  InitControls(): void {
-    logger.info("Init controls");
+  }
 
+  public InitControls(): void {
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
     xml.ParseFile(resolveXmlFormPath(base));
@@ -71,60 +62,50 @@ export const MultiplayerLocalnet: IMultiplayerLocalnet = declare_xr_class("Multi
     xml.InitStatic("background", this);
 
     this.btn_login = xml.Init3tButton("button_login", this);
-    logger.info("Init 1");
-
     this.Register(this.btn_login, "btn_login");
 
     this.btn_cancel = xml.Init3tButton("button_cancel", this);
     this.Register(this.btn_cancel, "btn_cancel");
 
-    logger.info("Init 2");
-
-    // --------------------------------------------------------------------------------
     this.login_page = new CUIWindow();
     xml.InitWindow("login_page", 0, this.login_page);
     this.login_page.SetAutoDelete(true);
     this.AttachChild(this.login_page);
 
-    logger.info("Init 3");
     xml.InitWindow("login_page", 0, this.login_page);
     this.lp_header_login = xml.InitTextWnd("login_page:cap_header_login", this.login_page);
 
-    logger.info("Init 4");
     xml.InitTextWnd("login_page:cap_nickname", this.login_page);
     this.lp_nickname = xml.InitEditBox("login_page:edit_nickname", this.login_page);
     this.Register(this.lp_nickname, "lp_edit_nickname");
 
-    logger.info("Init 5");
     this.gs_login_message_box = new CUIMessageBoxEx();
     this.Register(this.gs_login_message_box, "gs_message_box");
 
-    logger.info("Init 6");
     this.lp_check_remember_me = xml.InitCheck("login_page:check_remember_me", this.login_page);
     this.Register(this.lp_check_remember_me, "lp_check_remember_me");
 
-    logger.info("Init 7");
     this.lp_nickname.CaptureFocus(true);
-  },
-  InitCallbacks(): void {
-    logger.info("Init callbacks");
+  }
 
+  public InitCallbacks(): void {
     this.AddCallback("btn_login", ui_events.BUTTON_CLICKED, () => this.OnBtnLogin(), this);
     this.AddCallback("btn_cancel", ui_events.BUTTON_CLICKED, () => this.OnBtnCancel(), this);
     this.AddCallback("lp_check_remember_me", ui_events.BUTTON_CLICKED, () => this.OnBtnRememberMe(), this);
-
     this.AddCallback("lp_edit_nickname", ui_events.EDIT_TEXT_COMMIT, () => this.OnEditLPNicknameChanged(), this);
     this.AddCallback("gs_message_box", ui_events.MESSAGE_BOX_OK_CLICKED, () => this.OnMsgOk(), this);
-  },
-  OnBtnLogin(): void {
+  }
+
+  public OnBtnLogin(): void {
     logger.info("On button login");
 
     this.owner.loginManager.login_offline(
       this.lp_nickname.GetText(),
       new login_operation_cb(this, (profile, description) => this.LoginOperationResult(profile, description))
     );
-  },
-  LoginOperationResult(profile: Optional<XR_profile>, description: string) {
+  }
+
+  public LoginOperationResult(profile: Optional<XR_profile>, description: string) {
     logger.info("Login operation result:", type(profile), type(description));
 
     if (profile === null) {
@@ -151,27 +132,32 @@ export const MultiplayerLocalnet: IMultiplayerLocalnet = declare_xr_class("Multi
       this.HideDialog();
       this.owner.ShowDialog(true);
       this.owner.Show(true);
-      this.owner.OnButton_multiplayer_clicked();
+      this.owner.onButtonClickMultiplayer();
     }
-  },
-  OnMsgOk(): void {
+  }
+
+  public OnMsgOk(): void {
     logger.info("On message ok");
-  },
-  OnBtnCancel(): void {
+  }
+
+  public OnBtnCancel(): void {
     logger.info("On button cancel");
     this.HideDialog();
     this.owner.ShowDialog(true);
     this.owner.Show(true);
-  },
-  OnBtnRememberMe(): void {
+  }
+
+  public OnBtnRememberMe(): void {
     logger.info("On button remember me");
     this.owner.loginManager.save_remember_me_to_registry(this.lp_check_remember_me.GetCheck());
-  },
-  OnEditLPNicknameChanged(): void {
+  }
+
+  public OnEditLPNicknameChanged(): void {
     this.OnBtnLogin();
-  },
-  OnKeyboard(key, event) {
-    CUIScriptWnd.OnKeyboard(this, key, event);
+  }
+
+  public OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event) {
+    super.OnKeyboard(key, event);
 
     if (event === ui_events.WINDOW_KEY_PRESSED) {
       if (key === DIK_keys.DIK_ESCAPE) {
@@ -180,5 +166,5 @@ export const MultiplayerLocalnet: IMultiplayerLocalnet = declare_xr_class("Multi
     }
 
     return true;
-  },
-} as IMultiplayerLocalnet);
+  }
+}

@@ -1,6 +1,5 @@
 import {
   CScriptXmlInit,
-  CUIListBoxItem,
   CUIMessageBoxEx,
   CUIScriptWnd,
   CUIWindow,
@@ -9,9 +8,6 @@ import {
   Frect,
   FS,
   get_console,
-  GetARGB,
-  GetFontLetterica16Russian,
-  GetFontLetterica18Russian,
   GetFontMedium,
   getFS,
   key_bindings,
@@ -24,11 +20,9 @@ import {
   XR_CScriptXmlInit,
   XR_CUIEditBox,
   XR_CUIListBox,
-  XR_CUIListBoxItem,
   XR_CUIMessageBoxEx,
   XR_CUIScriptWnd,
   XR_CUIStatic,
-  XR_CUITextWnd,
   XR_CUIWindow,
   XR_FS,
   XR_FS_file_list,
@@ -39,6 +33,7 @@ import {
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
+import { SaveItem } from "@/mod/scripts/ui/menu/save/SaveItem";
 import { deleteGameSave } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
@@ -46,69 +41,40 @@ import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 const base: string = "menu\\SaveDialog.component";
 const logger: LuaLogger = new LuaLogger("SaveDialog");
 
-interface ISaveItem extends XR_CUIListBoxItem {
-  owner: XR_CUIScriptWnd;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class SaveDialog extends CUIScriptWnd {
+  public owner: XR_CUIScriptWnd;
 
-  innerNameText: XR_CUITextWnd;
-  innerAgeText: XR_CUITextWnd;
-}
+  public readonly listFileFont: XR_CGameFont = GetFontMedium();
+  public readonly listDateFont: XR_CGameFont = GetFontMedium();
 
-const SaveItem = declare_xr_class("SaveItem", CUIListBoxItem, {
-  __init(height: number): void {
-    CUIListBoxItem.__init(this, height);
+  public fileItemMainSize!: XR_vector2;
+  public fileItemFnSize!: XR_vector2;
+  public fileItemFdSize!: XR_vector2;
 
-    this.SetTextColor(GetARGB(255, 170, 170, 170));
-    this.innerNameText = this.GetTextItem();
-    this.innerNameText.SetFont(GetFontLetterica18Russian());
-    this.innerNameText.SetEllipsis(true);
-  },
-} as ISaveItem);
+  public form!: XR_CUIStatic;
+  public editBox!: XR_CUIEditBox;
+  public listBox!: XR_CUIListBox<SaveItem>;
+  public messageBox!: XR_CUIMessageBoxEx;
 
-export interface ISaveDialog extends XR_CUIScriptWnd {
-  owner: XR_CUIScriptWnd;
+  public newSave: string = "";
+  public modalBoxMode: number = 0;
 
-  listFileFont: XR_CGameFont;
-  listDateFont: XR_CGameFont;
+  public constructor(owner: XR_CUIScriptWnd) {
+    super();
 
-  fileItemMainSize: XR_vector2;
-  fileItemFnSize: XR_vector2;
-  fileItemFdSize: XR_vector2;
-
-  form: XR_CUIStatic;
-  editBox: XR_CUIEditBox;
-  listBox: XR_CUIListBox<ISaveItem>;
-
-  messageBox: XR_CUIMessageBoxEx;
-
-  newSave: string;
-  modalBoxMode: number;
-
-  InitControls(): void;
-  InitCallBacks(): void;
-  FillList(): void;
-  OnListItemClicked(): void;
-  OnMsgYes(): void;
-  OnButton_del_clicked(): void;
-  delete_selected_file(): void;
-  OnButton_ok_clicked(): void;
-  OnButton_cancel_clicked(): void;
-  AddItemToList(filename: string, datetime: string): void;
-  SaveFile(filename: string): void;
-}
-
-export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptWnd, {
-  __init(): void {
-    CUIScriptWnd.__init(this);
+    this.owner = owner;
 
     this.InitControls();
     this.InitCallBacks();
     this.FillList();
-  },
-  InitControls(): void {
-    this.SetWndRect(new Frect().set(0, 0, 1024, 768));
+  }
 
-    this.listFileFont = GetFontMedium();
-    this.listDateFont = GetFontMedium();
+  public InitControls(): void {
+    this.SetWndRect(new Frect().set(0, 0, 1024, 768));
 
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
@@ -129,38 +95,34 @@ export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptW
     this.fileItemFdSize = new vector2().set(ctrl.GetWidth(), ctrl.GetHeight());
 
     this.form = xml.InitStatic("form", this);
-
     xml.InitTextWnd("form:caption", this.form);
 
     this.editBox = xml.InitEditBox("form:edit", this.form);
     this.Register(this.editBox, "edit_filename");
 
     xml.InitFrame("form:list_frame", this.form);
-
     this.listBox = xml.InitListBox("form:list", this.form);
     this.listBox.ShowSelectedItem(true);
     this.Register(this.listBox, "list_window");
 
     this.Register(xml.Init3tButton("form:btn_save", this.form), "button_ok");
-
     this.Register(xml.Init3tButton("form:btn_delete", this.form), "button_del");
-
     this.Register(xml.Init3tButton("form:btn_cancel", this.form), "button_cancel");
 
     this.messageBox = new CUIMessageBoxEx();
     this.Register(this.messageBox, "message_box");
+  }
 
-    this.modalBoxMode = 0;
-  },
-  InitCallBacks(): void {
+  public InitCallBacks(): void {
     this.AddCallback("button_ok", ui_events.BUTTON_CLICKED, () => this.OnButton_ok_clicked(), this);
     this.AddCallback("button_cancel", ui_events.BUTTON_CLICKED, () => this.OnButton_cancel_clicked(), this);
     this.AddCallback("button_del", ui_events.BUTTON_CLICKED, () => this.OnButton_del_clicked(), this);
 
     this.AddCallback("message_box", ui_events.MESSAGE_BOX_YES_CLICKED, () => this.OnMsgYes(), this);
     this.AddCallback("list_window", ui_events.LIST_ITEM_CLICKED, () => this.OnListItemClicked(), this);
-  },
-  FillList(): void {
+  }
+
+  public FillList(): void {
     logger.info("Fill list");
 
     this.listBox.RemoveAll();
@@ -185,8 +147,9 @@ export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptW
       // --menu_item =  +
       this.AddItemToList(file_name, date_time);
     }
-  },
-  OnListItemClicked(): void {
+  }
+
+  public OnListItemClicked(): void {
     logger.info("List item clicked");
 
     if (this.listBox.GetSize() === 0) {
@@ -202,8 +165,9 @@ export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptW
     const item_text: string = item.innerNameText.GetText();
 
     this.editBox.SetText(item_text);
-  },
-  OnMsgYes(): void {
+  }
+
+  public OnMsgYes(): void {
     logger.info("Message yes clicked:", this.modalBoxMode);
 
     if (this.modalBoxMode === 1) {
@@ -215,15 +179,16 @@ export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptW
     } else if (this.modalBoxMode === 2) {
       this.delete_selected_file();
     }
-  },
-  OnButton_del_clicked(): void {
+  }
+
+  public OnButton_del_clicked(): void {
     logger.info("Message delete clicked");
 
     if (this.listBox.GetSize() === 0) {
       return;
     }
 
-    const item: Optional<ISaveItem> = this.listBox.GetSelectedItem();
+    const item: Optional<SaveItem> = this.listBox.GetSelectedItem();
 
     if (item === null) {
       return;
@@ -232,8 +197,9 @@ export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptW
     this.modalBoxMode = 2;
     this.messageBox.InitMessageBox("message_box_delete_file_name");
     this.messageBox.ShowDialog(true);
-  },
-  delete_selected_file(): void {
+  }
+
+  public delete_selected_file(): void {
     logger.info("Deleting selected file");
 
     if (this.listBox.GetSize() === 0) {
@@ -246,15 +212,16 @@ export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptW
       return;
     }
 
-    const item: ISaveItem = this.listBox.GetItemByIndex(index);
+    const item: SaveItem = this.listBox.GetItemByIndex(index);
     const filename: string = item.innerNameText.GetText();
 
     deleteGameSave(filename);
 
     this.listBox.RemoveItem(item);
     this.OnListItemClicked();
-  },
-  OnButton_ok_clicked(): void {
+  }
+
+  public OnButton_ok_clicked(): void {
     logger.info("OK confirm clicked");
 
     this.newSave = this.editBox.GetText();
@@ -293,44 +260,41 @@ export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptW
     this.owner.Show(true);
 
     logger.info("Saved");
-  },
-  OnButton_cancel_clicked(): void {
+  }
+
+  public OnButton_cancel_clicked(): void {
     logger.info("Cancel clicked");
     this.owner.ShowDialog(true);
     this.HideDialog();
     this.owner.Show(true);
-  },
-  OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
-    CUIScriptWnd.OnKeyboard(this, key, event);
+  }
 
-    const bind: number = dik_to_bind(key);
+  public OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
+    super.OnKeyboard(key, event);
 
-    if (bind === key_bindings.kQUIT) {
+    if (dik_to_bind(key) === key_bindings.kQUIT) {
       this.OnButton_cancel_clicked();
-    } else {
-      if (key === DIK_keys.DIK_RETURN && event === ui_events.WINDOW_KEY_PRESSED) {
-        this.OnButton_ok_clicked();
-      }
+    } else if (key === DIK_keys.DIK_RETURN && event === ui_events.WINDOW_KEY_PRESSED) {
+      this.OnButton_ok_clicked();
     }
 
     return true;
-  },
-  AddItemToList(filename: string, datetime: string): void {
-    const it: ISaveItem = create_xr_class_instance(SaveItem, this.fileItemMainSize.y);
+  }
 
-    it.SetWndSize(this.fileItemMainSize);
+  public AddItemToList(filename: string, datetime: string): void {
+    const saveItem: SaveItem = new SaveItem(this.fileItemMainSize.y, this.fileItemFdSize.x, datetime);
 
-    it.innerNameText.SetWndPos(new vector2().set(0, 0));
-    it.innerNameText.SetWndSize(this.fileItemFnSize);
-    it.innerNameText.SetText(filename);
+    saveItem.SetWndSize(this.fileItemMainSize);
 
-    it.innerAgeText = it.AddTextField(datetime, this.fileItemFdSize.x);
-    it.innerAgeText.SetFont(GetFontLetterica16Russian());
-    it.innerAgeText.SetWndPos(new vector2().set(this.fileItemFnSize.x + 4, 0));
+    saveItem.innerNameText.SetWndPos(new vector2().set(0, 0));
+    saveItem.innerNameText.SetWndSize(this.fileItemFnSize);
+    saveItem.innerNameText.SetText(filename);
+    saveItem.innerAgeText.SetWndPos(new vector2().set(this.fileItemFnSize.x + 4, 0));
 
-    this.listBox.AddExistingItem(it);
-  },
-  SaveFile(filename: string): void {
+    this.listBox.AddExistingItem(saveItem);
+  }
+
+  public SaveFile(filename: string): void {
     logger.info("Save file:", filename);
 
     if (filename !== null) {
@@ -338,5 +302,5 @@ export const SaveDialog: ISaveDialog = declare_xr_class("SaveDialog", CUIScriptW
 
       console.execute("save " + filename);
     }
-  },
-} as ISaveDialog);
+  }
+}

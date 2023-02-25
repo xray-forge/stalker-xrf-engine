@@ -12,7 +12,6 @@ import {
   XR_CScriptXmlInit,
   XR_CUI3tButton,
   XR_CUIMessageBoxEx,
-  XR_CUIScriptWnd,
   XR_CUIStatic,
   XR_CUITrackBar,
   XR_Frect,
@@ -35,42 +34,33 @@ import { isWideScreen, resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 const base: string = "interaction\\SleepDialog.component";
 const logger: LuaLogger = new LuaLogger("SleepDialog");
 
-let sleep_control: Optional<ISleepDialog> = null;
+let sleep_control: Optional<SleepDialog> = null;
 const isWide: boolean = isWideScreen();
 
-export interface ISleepDialog extends XR_CUIScriptWnd {
-  back: XR_CUIStatic;
-  sleep_static: XR_CUIStatic;
-  sleep_static2: XR_CUIStatic;
-  static_cover: XR_CUIStatic;
-  st_marker: XR_CUIStatic;
-  time_track: XR_CUITrackBar;
-  btn_sleep: XR_CUI3tButton;
-  btn_cancel: XR_CUI3tButton;
-  sleep_mb: XR_CUIMessageBoxEx;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class SleepDialog extends CUIScriptWnd {
+  public back!: XR_CUIStatic;
+  public sleep_static!: XR_CUIStatic;
+  public sleep_static2!: XR_CUIStatic;
+  public static_cover!: XR_CUIStatic;
+  public st_marker!: XR_CUIStatic;
+  public time_track!: XR_CUITrackBar;
+  public btn_sleep!: XR_CUI3tButton;
+  public btn_cancel!: XR_CUI3tButton;
+  public sleep_mb!: XR_CUIMessageBoxEx;
+  public sleep_st_tbl!: Record<string, XR_CUIStatic>;
 
-  sleep_st_tbl: Record<string, XR_CUIStatic>;
-
-  InitControls(): void;
-  InitCallbacks(): void;
-  Initialize(): void;
-
-  TestAndShow(): void;
-  Update(): void;
-  OnTrackButton(): void;
-  OnButtonSleep(): void;
-  OnButtonCancel(): void;
-  OnMessageBoxOk(): void;
-}
-
-export const SleepDialog = declare_xr_class("SleepDialog", CUIScriptWnd, {
-  __init(): void {
-    CUIScriptWnd.__init(this);
+  public constructor() {
+    super();
 
     this.InitControls();
     this.InitCallbacks();
-  },
-  InitControls(): void {
+  }
+
+  public InitControls(): void {
     this.SetWndRect(new Frect().set(0, 0, gameConfig.UI.BASE_WIDTH, gameConfig.UI.BASE_HEIGHT));
 
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
@@ -102,13 +92,15 @@ export const SleepDialog = declare_xr_class("SleepDialog", CUIScriptWnd, {
 
     this.sleep_mb = new CUIMessageBoxEx();
     this.Register(this.sleep_mb, "sleep_mb");
-  },
-  InitCallbacks(): void {
+  }
+
+  public InitCallbacks(): void {
     this.AddCallback("btn_sleep", ui_events.BUTTON_CLICKED, () => this.OnButtonSleep(), this);
     this.AddCallback("btn_cancel", ui_events.BUTTON_CLICKED, () => this.OnButtonCancel(), this);
     this.AddCallback("sleep_mb", ui_events.MESSAGE_BOX_OK_CLICKED, () => this.OnMessageBoxOk(), this);
-  },
-  Initialize(): void {
+  }
+
+  public Initialize(): void {
     const cur_hours: number = level.get_time_hours();
 
     for (let it = 1; it <= 24; it += 1) {
@@ -149,8 +141,9 @@ export const SleepDialog = declare_xr_class("SleepDialog", CUIScriptWnd, {
 
     pos.x = this.sleep_static.GetWndPos().x + this.sleep_static.GetWidth();
     this.sleep_static2.SetWndPos(pos);
-  },
-  TestAndShow(): void {
+  }
+
+  public TestAndShow(): void {
     logger.info("Test and show");
 
     const actor: XR_game_object = registry.actor;
@@ -171,9 +164,10 @@ export const SleepDialog = declare_xr_class("SleepDialog", CUIScriptWnd, {
       this.Initialize();
       this.ShowDialog(true);
     }
-  },
-  Update(): void {
-    CUIScriptWnd.Update(this);
+  }
+
+  public Update(): void {
+    super.Update();
 
     const sleep_time: number = this.time_track.GetIValue() - 1;
     let x: number = math.floor((591 / 24) * sleep_time);
@@ -187,19 +181,22 @@ export const SleepDialog = declare_xr_class("SleepDialog", CUIScriptWnd, {
     }
 
     this.st_marker.SetWndPos(new vector2().set(x, 0));
-  },
-  OnTrackButton(): void {
+  }
+
+  public OnTrackButton(): void {
     logger.info("On track button");
-  },
-  OnButtonCancel(): void {
+  }
+
+  public OnButtonCancel(): void {
     logger.info("On cancel");
 
     this.HideDialog();
 
     giveInfo(info_portions.tutorial_sleep);
     disableInfo(info_portions.sleep_active);
-  },
-  OnButtonSleep(): void {
+  }
+
+  public OnButtonSleep(): void {
     logger.info("On button sleep");
 
     this.HideDialog();
@@ -222,14 +219,15 @@ export const SleepDialog = declare_xr_class("SleepDialog", CUIScriptWnd, {
 
     logger.info("Surge manager update resurrect skip message");
     surgeManager.setSkipResurrectMessage();
-  },
-  OnMessageBoxOk(): void {
+  }
+
+  public OnMessageBoxOk(): void {
     logger.info("On message box OK");
 
     giveInfo("tutorial_sleep");
     disableInfo(info_portions.sleep_active);
-  },
-} as ISleepDialog);
+  }
+}
 
 export function dream_callback(): void {
   logger.info("Dream callback");
@@ -274,7 +272,7 @@ export function sleep(): void {
   logger.info("Sleep called");
 
   if (sleep_control === null) {
-    sleep_control = create_xr_class_instance(SleepDialog);
+    sleep_control = new SleepDialog();
   }
 
   sleep_control.time_track.SetCurrentValue();

@@ -27,81 +27,56 @@ import {
 } from "xray16";
 
 import { option_groups, option_groups_messages } from "@/mod/globals/option_groups";
-import { IOptionsControls, OptionsControls } from "@/mod/scripts/ui/menu/options/OptionsControls";
-import { IOptionsGameplay, OptionsGameplay } from "@/mod/scripts/ui/menu/options/OptionsGameplay";
-import { IOptionsSound, OptionsSound } from "@/mod/scripts/ui/menu/options/OptionsSound";
-import { IOptionsVideo, OptionsVideo } from "@/mod/scripts/ui/menu/options/OptionsVideo";
-import { IOptionsVideoAdvanced, OptionsVideoAdvanced } from "@/mod/scripts/ui/menu/options/OptionsVideoAdvanced";
+import { OptionsControls } from "@/mod/scripts/ui/menu/options/OptionsControls";
+import { OptionsGameplay } from "@/mod/scripts/ui/menu/options/OptionsGameplay";
+import { OptionsSound } from "@/mod/scripts/ui/menu/options/OptionsSound";
+import { OptionsVideo } from "@/mod/scripts/ui/menu/options/OptionsVideo";
+import { OptionsVideoAdvanced } from "@/mod/scripts/ui/menu/options/OptionsVideoAdvanced";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
 const base: string = "menu\\OptionsDialog.component";
 const logger: LuaLogger = new LuaLogger("Options");
 
-export interface IOptionsDialog extends XR_CUIScriptWnd {
-  owner: XR_CUIScriptWnd;
+@LuabindClass()
+export class OptionsDialog extends CUIScriptWnd {
+  public owner: XR_CUIScriptWnd;
 
-  m_preconditions: Record<string, (ctrl: IOptionsDialog, id: number) => void>;
+  public m_preconditions: Record<string, (ctrl: OptionsDialog, id: number) => void>;
+  public b_restart_system_shown: boolean = false;
 
-  tab: XR_CUITabControl;
-  dialog: XR_CUIStatic;
-  message_box: XR_CUIMessageBoxEx;
+  public tab!: XR_CUITabControl;
+  public dialog!: XR_CUIStatic;
+  public message_box!: XR_CUIMessageBoxEx;
+  public cap_download!: XR_CUIStatic;
+  public text_download!: XR_CUIStatic;
+  public download_progress!: XR_CUIProgressBar;
+  public btn_cancel_download!: XR_CUI3tButton;
 
-  b_restart_system_shown: boolean;
-  cap_download: XR_CUIStatic;
-  text_download: XR_CUIStatic;
-  download_progress: XR_CUIProgressBar;
-  btn_cancel_download: XR_CUI3tButton;
-
-  dlg_video: IOptionsVideo;
-  dlg_video_adv: IOptionsVideoAdvanced;
-  dlg_sound: IOptionsSound;
-  dlg_gameplay: IOptionsGameplay;
-  dlg_controls: IOptionsControls;
+  public dialogVideoSettings!: OptionsVideo;
+  public dialogVideoAdvancedSettings!: OptionsVideoAdvanced;
+  public dialogSoundSettings!: OptionsSound;
+  public dialogGameplaySettings!: OptionsGameplay;
+  public dialogContolsSettings!: OptionsControls;
 
   // From child sections:
-  combo_preset: XR_CUIComboBox;
-  combo_renderer: XR_CUIComboBox;
+  public combo_preset!: XR_CUIComboBox;
+  public combo_renderer!: XR_CUIComboBox;
+  public texture_lod_track!: XR_CUITrackBar;
+  public ss_trb!: XR_CUITrackBar;
+  public ss_cb!: XR_CUIComboBox;
 
-  texture_lod_track: XR_CUITrackBar;
-  ss_trb: XR_CUITrackBar;
-  ss_cb: XR_CUIComboBox;
+  public constructor(owner: XR_CUIScriptWnd) {
+    super();
 
-  InitControls(): void;
-  SetCurrentValues(): void;
-  UpdateDependControls(): void;
-  InitCallBacks(): void;
-  OnBtnCheckUpdates(): void;
-  OnBtnKeybDefault(): void;
-  OnPresetChanged(): void;
-  OnPresetChanged(): void;
-  OnBtnDefGraph(): void;
-  OnBtnDefSound(): void;
-  OnBtnAccept(): void;
-  OnBtnCancel(): void;
-  OnTabChange(): void;
-  OnBtnAdvGraphic(): void;
-  OnSimplyGraphic(): void;
-  OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean;
-  Update(): void;
-  OnBtn_CancelDownload(): void;
-}
-
-export const OptionsDialog: IOptionsDialog = declare_xr_class("OptionsDialog", CUIScriptWnd, {
-  __init(): void {
-    CUIScriptWnd.__init(this);
-
-    logger.info("Init");
-
+    this.owner = owner;
     this.m_preconditions = {};
     this.InitControls();
     this.InitCallBacks();
-    this.tab?.SetActiveTab("video");
-  },
-  __finalize(): void {
-    logger.info("Finalize");
-  },
-  InitControls(): void {
+    this.tab.SetActiveTab("video");
+  }
+
+  public InitControls(): void {
     logger.info("Init controls");
 
     this.SetWndRect(new Frect().set(0, 0, 1024, 768));
@@ -116,35 +91,35 @@ export const OptionsDialog: IOptionsDialog = declare_xr_class("OptionsDialog", C
 
     // --    xml.InitStatic                ("main_dialog:cap_options", this.dialog)
 
-    this.dlg_video = create_xr_class_instance(OptionsVideo);
-    this.dlg_video.InitControls(0, 0, xml, this);
-    this.dlg_video.Show(false);
-    this.dialog.AttachChild(this.dlg_video);
-    xml.InitWindow("tab_size", 0, this.dlg_video);
+    this.dialogVideoSettings = new OptionsVideo();
+    this.dialogVideoSettings.initialize(0, 0, xml, this);
+    this.dialogVideoSettings.Show(false);
+    this.dialog.AttachChild(this.dialogVideoSettings);
+    xml.InitWindow("tab_size", 0, this.dialogVideoSettings);
 
-    this.dlg_sound = create_xr_class_instance(OptionsSound);
-    this.dlg_sound.InitControls(0, 0, xml, this);
-    this.dlg_sound.Show(false);
-    this.dialog.AttachChild(this.dlg_sound);
-    xml.InitWindow("tab_size", 0, this.dlg_sound);
+    this.dialogSoundSettings = new OptionsSound();
+    this.dialogSoundSettings.initialize(0, 0, xml);
+    this.dialogSoundSettings.Show(false);
+    this.dialog.AttachChild(this.dialogSoundSettings);
+    xml.InitWindow("tab_size", 0, this.dialogSoundSettings);
 
-    this.dlg_gameplay = create_xr_class_instance(OptionsGameplay);
-    this.dlg_gameplay.InitControls(0, 0, xml, this);
-    this.dlg_gameplay.Show(false);
-    this.dialog.AttachChild(this.dlg_gameplay);
-    xml.InitWindow("tab_size", 0, this.dlg_gameplay);
+    this.dialogGameplaySettings = new OptionsGameplay();
+    this.dialogGameplaySettings.initialize(0, 0, xml, this);
+    this.dialogGameplaySettings.Show(false);
+    this.dialog.AttachChild(this.dialogGameplaySettings);
+    xml.InitWindow("tab_size", 0, this.dialogGameplaySettings);
 
-    this.dlg_controls = create_xr_class_instance(OptionsControls);
-    this.dlg_controls.InitControls(0, 0, xml, this);
-    this.dlg_controls.Show(false);
-    this.dialog.AttachChild(this.dlg_controls);
-    xml.InitWindow("tab_size", 0, this.dlg_controls);
+    this.dialogContolsSettings = new OptionsControls();
+    this.dialogContolsSettings.initialize(0, 0, xml, this);
+    this.dialogContolsSettings.Show(false);
+    this.dialog.AttachChild(this.dialogContolsSettings);
+    xml.InitWindow("tab_size", 0, this.dialogContolsSettings);
 
-    this.dlg_video_adv = create_xr_class_instance(OptionsVideoAdvanced);
-    this.dlg_video_adv.InitControls(0, 0, xml, this);
-    this.dlg_video_adv.Show(false);
-    this.dialog.AttachChild(this.dlg_video_adv);
-    xml.InitWindow("tab_size", 0, this.dlg_video_adv);
+    this.dialogVideoAdvancedSettings = new OptionsVideoAdvanced();
+    this.dialogVideoAdvancedSettings.initialize(0, 0, xml, this);
+    this.dialogVideoAdvancedSettings.Show(false);
+    this.dialog.AttachChild(this.dialogVideoAdvancedSettings);
+    xml.InitWindow("tab_size", 0, this.dialogVideoAdvancedSettings);
 
     this.Register(xml.Init3tButton("main_dialog:btn_accept", this.dialog), "btn_accept");
     this.Register(xml.Init3tButton("main_dialog:btn_cancel", this.dialog), "btn_cancel");
@@ -153,15 +128,15 @@ export const OptionsDialog: IOptionsDialog = declare_xr_class("OptionsDialog", C
     this.Register(this.tab, "tab");
 
     this.message_box = new CUIMessageBoxEx();
-    this.b_restart_system_shown = false;
 
     this.cap_download = xml.InitStatic("download_static", this);
     this.text_download = xml.InitStatic("download_text", this);
     this.download_progress = xml.InitProgressBar("progress_download", this);
     this.btn_cancel_download = xml.Init3tButton("btn_cancel_download", this);
     this.Register(this.btn_cancel_download, "btn_cancel_download");
-  },
-  SetCurrentValues(): void {
+  }
+
+  public SetCurrentValues(): void {
     logger.info("Set current values");
 
     const opt = new COptionsManager();
@@ -186,8 +161,9 @@ export const OptionsDialog: IOptionsDialog = declare_xr_class("OptionsDialog", C
     opt.SetCurrentValues(option_groups.key_binding);
 
     this.UpdateDependControls();
-  },
-  UpdateDependControls(): void {
+  }
+
+  public UpdateDependControls(): void {
     const current_id: number = this.combo_renderer.CurrentID();
 
     Object.entries(this.m_preconditions).forEach(([key, value]) => {
@@ -204,8 +180,9 @@ export const OptionsDialog: IOptionsDialog = declare_xr_class("OptionsDialog", C
     }
 
     this.texture_lod_track.SetOptIBounds(min_texture_lod, max_texture_lod);
-  },
-  InitCallBacks(): void {
+  }
+
+  public InitCallBacks(): void {
     this.AddCallback("tab", ui_events.TAB_CHANGED, () => this.OnTabChange(), this);
     this.AddCallback("btn_advanced_graphic", ui_events.BUTTON_CLICKED, () => this.OnBtnAdvGraphic(), this);
     this.AddCallback("btn_accept", ui_events.BUTTON_CLICKED, () => this.OnBtnAccept(), this);
@@ -220,13 +197,15 @@ export const OptionsDialog: IOptionsDialog = declare_xr_class("OptionsDialog", C
     this.AddCallback("btn_cancel_download", ui_events.BUTTON_CLICKED, () => this.OnBtn_CancelDownload(), this);
     this.AddCallback("trb_ssample", ui_events.BUTTON_CLICKED, () => this.UpdateDependControls(), this);
     this.AddCallback("cb_ssample", ui_events.LIST_ITEM_SELECT, () => this.UpdateDependControls(), this);
-  },
-  OnBtnCheckUpdates(): void {
+  }
+
+  public OnBtnCheckUpdates(): void {
     const console: XR_CConsole = get_console();
 
     console.execute("check_for_updates 1");
-  },
-  OnBtnKeybDefault(): void {
+  }
+
+  public OnBtnKeybDefault(): void {
     const console: XR_CConsole = get_console();
 
     console.execute("default_controls");
@@ -235,23 +214,27 @@ export const OptionsDialog: IOptionsDialog = declare_xr_class("OptionsDialog", C
 
     opt.SetCurrentValues(option_groups.mm_opt_controls);
     opt.SetCurrentValues(option_groups.key_binding);
-  },
-  OnPresetChanged(): void {
+  }
+
+  public OnPresetChanged(): void {
     const opt: XR_COptionsManager = new COptionsManager();
 
     opt.SetCurrentValues(option_groups.mm_opt_video_adv);
-  },
-  OnBtnDefGraph(): void {
+  }
+
+  public OnBtnDefGraph(): void {
     const opt: XR_COptionsManager = new COptionsManager();
 
     opt.SendMessage2Group(option_groups.mm_opt_video, option_groups_messages.set_default_value);
-  },
-  OnBtnDefSound(): void {
+  }
+
+  public OnBtnDefSound(): void {
     const opt: XR_COptionsManager = new COptionsManager();
 
     opt.SendMessage2Group(option_groups.mm_opt_video, option_groups_messages.set_default_value);
-  },
-  OnBtnAccept(): void {
+  }
+
+  public OnBtnAccept(): void {
     const opt: XR_COptionsManager = new COptionsManager();
     const console: XR_CConsole = get_console();
 
@@ -280,8 +263,9 @@ export const OptionsDialog: IOptionsDialog = declare_xr_class("OptionsDialog", C
     }
 
     console.execute("cfg_save");
-  },
-  OnBtnCancel(): void {
+  }
+
+  public OnBtnCancel(): void {
     const opt: XR_COptionsManager = new COptionsManager();
 
     opt.UndoGroup(option_groups.mm_opt_video_preset);
@@ -293,46 +277,50 @@ export const OptionsDialog: IOptionsDialog = declare_xr_class("OptionsDialog", C
     this.owner.ShowDialog(true);
     this.HideDialog();
     this.owner.Show(true);
-  },
-  OnTabChange(): void {
-    this.dlg_video.Show(false);
-    this.dlg_sound.Show(false);
-    this.dlg_gameplay.Show(false);
-    this.dlg_controls.Show(false);
-    this.dlg_video_adv.Show(false);
+  }
+
+  public OnTabChange(): void {
+    this.dialogVideoSettings.Show(false);
+    this.dialogSoundSettings.Show(false);
+    this.dialogGameplaySettings.Show(false);
+    this.dialogContolsSettings.Show(false);
+    this.dialogVideoAdvancedSettings.Show(false);
 
     // todo: Use constants for JSX and checks.
     const id: string = this.tab.GetActiveId();
 
     if (id === "video") {
-      this.dlg_video.Show(true);
+      this.dialogVideoSettings.Show(true);
     } else if (id === "sound") {
-      this.dlg_sound.Show(true);
+      this.dialogSoundSettings.Show(true);
     } else if (id === "gameplay") {
-      this.dlg_gameplay.Show(true);
+      this.dialogGameplaySettings.Show(true);
     } else if (id === "controls") {
-      this.dlg_controls.Show(true);
+      this.dialogContolsSettings.Show(true);
     }
-  },
-  OnBtnAdvGraphic(): void {
+  }
+
+  public OnBtnAdvGraphic(): void {
     logger.info("Show advanced graphics");
-    this.dlg_video.Show(false);
-    this.dlg_video_adv.Show(true);
-  },
-  OnSimplyGraphic(): void {
+    this.dialogVideoSettings.Show(false);
+    this.dialogVideoAdvancedSettings.Show(true);
+  }
+
+  public OnSimplyGraphic(): void {
     logger.info("Show simplified graphics");
-    this.dlg_video.Show(true);
-    this.dlg_video_adv.Show(false);
-  },
-  OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
-    const res: boolean = CUIScriptWnd.OnKeyboard(this, key, event);
+    this.dialogVideoSettings.Show(true);
+    this.dialogVideoAdvancedSettings.Show(false);
+  }
+
+  public OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
+    const res: boolean = super.OnKeyboard(key, event);
 
     if (!res) {
       if (event === ui_events.WINDOW_KEY_PRESSED) {
         if (key === DIK_keys.DIK_ESCAPE) {
-          if (this.dlg_video_adv.IsShown()) {
-            this.dlg_video_adv.Show(false);
-            this.dlg_video.Show(true);
+          if (this.dialogVideoAdvancedSettings.IsShown()) {
+            this.dialogVideoAdvancedSettings.Show(false);
+            this.dialogVideoSettings.Show(true);
           } else {
             this.owner.ShowDialog(true);
             this.HideDialog();
@@ -343,9 +331,10 @@ export const OptionsDialog: IOptionsDialog = declare_xr_class("OptionsDialog", C
     }
 
     return res;
-  },
-  Update(): void {
-    CUIScriptWnd.Update(this);
+  }
+
+  public Update(): void {
+    super.Update();
 
     const mainMenu: XR_CMainMenu = main_menu.get_main_menu();
     const patchDownload: XR_Patch_Dawnload_Progress = mainMenu.GetPatchProgress();
@@ -369,12 +358,10 @@ export const OptionsDialog: IOptionsDialog = declare_xr_class("OptionsDialog", C
       this.download_progress.Show(false);
       this.btn_cancel_download.Show(false);
     }
-  },
-  OnBtn_CancelDownload(): void {
+  }
+
+  public OnBtn_CancelDownload(): void {
     logger.info("Cancel patch download");
-
-    const mainMenu: XR_CMainMenu = main_menu.get_main_menu();
-
-    mainMenu.CancelDownload();
-  },
-} as IOptionsDialog);
+    main_menu.get_main_menu().CancelDownload();
+  }
+}

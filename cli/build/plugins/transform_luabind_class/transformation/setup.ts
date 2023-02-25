@@ -117,12 +117,12 @@ function createLuabindClassStatement(
 }
 
 /**
- * Creates _G.name expression for luabind classes.
+ * Creates name expression for luabind classes.
  */
 function createLuabindClassGlobalClassRef(
   declaration: ClassLikeDeclarationBase,
   context: TransformationContext,
   className: tstl.Identifier
 ) {
-  return tstl.createTableIndexExpression(tstl.createIdentifier("_G"), tstl.createStringLiteral(className.text));
+  return className;
 }

@@ -140,11 +140,12 @@ export function transformClassLikeDeclaration(
     );
 
     if (constructorResult) result.push(constructorResult);
-  } else if (instanceFields.length > 0) {
+  } else {
     // Generate a constructor if none was defined in a class with instance fields that need initialization
     // localClassName.__init = function(self, ...)
     //     baseClassName.__init(self, ...)  // or unpack(arg) for Lua 5.0
     //     ...
+    // Also luabind always needs definition of call expression to use table as class.
     const constructorBody = transformClassInstanceFields(context, instanceFields);
     const argsExpression =
       context.luaTarget === LuaTarget.Lua50

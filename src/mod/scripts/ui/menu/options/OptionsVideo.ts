@@ -1,19 +1,16 @@
-import { CUIWindow, vector2, XR_CScriptXmlInit, XR_CUIWindow } from "xray16";
+import { CUIWindow, vector2, XR_CScriptXmlInit } from "xray16";
 
-import { IOptionsDialog } from "@/mod/scripts/ui/menu/OptionsDialog";
+import { OptionsDialog } from "@/mod/scripts/ui/menu/options/OptionsDialog";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("OptionsVideo");
 
-export interface IOptionsVideo extends XR_CUIWindow {
-  InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IOptionsDialog): void;
-}
-
-export const OptionsVideo: IOptionsVideo = declare_xr_class("OptionsVideo", CUIWindow, {
-  __init(): void {
-    CUIWindow.__init(this);
-  },
-  InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: IOptionsDialog): void {
+/**
+ * todo;
+ */
+@LuabindClass()
+export class OptionsVideo extends CUIWindow {
+  public initialize(x: number, y: number, xml: XR_CScriptXmlInit, owner: OptionsDialog): void {
     this.SetWndPos(new vector2().set(x, y));
     this.SetWndSize(new vector2().set(738, 416));
     this.SetAutoDelete(true);
@@ -36,13 +33,13 @@ export const OptionsVideo: IOptionsVideo = declare_xr_class("OptionsVideo", CUIW
     xml.InitComboBox("tab_video:list_resolution", this);
 
     xml.InitStatic("tab_video:cap_preset", this);
-    handler.combo_preset = xml.InitComboBox("tab_video:list_presets", this);
-    handler.Register(handler.combo_preset, "combo_preset");
+    owner.combo_preset = xml.InitComboBox("tab_video:list_presets", this);
+    owner.Register(owner.combo_preset, "combo_preset");
 
     xml.InitStatic("tab_video:cap_renderer", this);
-    handler.combo_renderer = xml.InitComboBox("tab_video:list_renderer", this);
+    owner.combo_renderer = xml.InitComboBox("tab_video:list_renderer", this);
 
-    handler.Register(handler.combo_renderer, "combo_renderer");
-    handler.Register(xml.Init3tButton("tab_video:btn_advanced", this), "btn_advanced_graphic");
-  },
-} as IOptionsVideo);
+    owner.Register(owner.combo_renderer, "combo_renderer");
+    owner.Register(xml.Init3tButton("tab_video:btn_advanced", this), "btn_advanced_graphic");
+  }
+}

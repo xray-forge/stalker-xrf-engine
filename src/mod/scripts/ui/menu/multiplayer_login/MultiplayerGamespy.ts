@@ -7,16 +7,15 @@ import {
   CUIScriptWnd,
   CUIWindow,
   DIK_keys,
-  dik_to_bind,
   found_email_cb,
   Frect,
   game,
-  get_console,
   login_operation_cb,
   store_operation_cb,
   suggest_nicks_cb,
+  TXR_DIK_key,
+  TXR_ui_event,
   ui_events,
-  XR_CConsole,
   XR_CScriptXmlInit,
   XR_CUI3tButton,
   XR_CUICheckButton,
@@ -38,109 +37,65 @@ import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 const base: string = "menu\\multiplayer\\MultiplayerGamespy.component";
 const logger: LuaLogger = new LuaLogger("MultiplayerGameSpy");
 
-export interface IMultiplayerGameSpy extends XR_CUIScriptWnd {
-  owner: MainMenu;
-
-  active_page: string;
-
-  ca_email_valid: boolean;
-  ca_passwords_valid: boolean;
-  ca_unique_nick_valid: boolean;
-
-  email: string;
-  password: string;
-  profile_name: string;
-
-  login_page: XR_CUIWindow;
-  create_account_page: XR_CUIWindow;
-
-  lp_header_login: XR_CUITextWnd;
-  lp_btn_forgot: XR_CUI3tButton;
-
-  lp_password: XR_CUIEditBox;
-  lp_email: XR_CUIEditBox;
-  lp_check_remember_me: XR_CUICheckButton;
-
-  ca_email: XR_CUIEditBox;
-  ca_header_create_acc: XR_CUITextWnd;
-  ca_error: XR_CUITextWnd;
-  ca_password: XR_CUIEditBox;
-  ca_st_password: XR_CUIStatic;
-  ca_st_email: XR_CUIStatic;
-  ca_confirm_password: XR_CUIEditBox;
-  ca_st_confirm_password: XR_CUIStatic;
-  ca_unique_nick: XR_CUIEditBox;
-  ca_st_unique_nick: XR_CUIStatic;
-  ca_combo_aval_unique_nick: XR_CUIComboBox;
-
-  btn_create_acc: XR_CUI3tButton;
-  btn_create: XR_CUI3tButton;
-  btn_login: XR_CUI3tButton;
-  btn_cancel: XR_CUI3tButton;
-
-  gs_message_box: XR_CUIMessageBoxEx;
-  gs_mb_create_vnick_cancel: XR_CUIMessageBoxEx;
-  gs_mb_create_vemail_cancel: XR_CUIMessageBoxEx;
-  gs_create_mb_result: XR_CUIMessageBoxEx;
-  gs_login_mb_result: XR_CUIMessageBoxEx;
-  gs_login_mb_profnotfound: XR_CUIMessageBoxEx;
-  gs_login_mb_cancel: XR_CUIMessageBoxEx;
-
-  InitCallbacks(): void;
-  InitControls(): void;
-
-  ShowLoginPage(): void;
-  LoginProfileUseExist(): void;
-  TerminateLogin(): void;
-  OnBtnCancel(): void;
-  OnBtnRememberMe(): void;
-  CheckAccCreationAbility(): void;
-  OnBtnCreateAccount(): void;
-  OnBtnShowCreateAccountPage(): void;
-  OnBtnLogin(): void;
-  OnUniqueNickSelect(): void;
-  LoginProfileNotFound(): void;
-  TerminateVerifyNick(): void;
-  OnLoginResultOk(): void;
-  CreatedAccount(): void;
-  OnMsgYes(): void;
-  OnMsgNo(): void;
-  OnEditLPEmailChanged(): void;
-  OnEditLPPasswordChanged(): void;
-  OnBtnLPForgotPassword(): void;
-  TerminateVerifyEmail(): void;
-  OnEditCAUniqueNickChanged(): void;
-  OnEditCAConfirmPasswordChanged(): void;
-  OnEditCAPasswordChanged(): void;
-  OnEditCAEmailChanged(): void;
-  LoadingProgress(): void;
-  LoadingComplete(): void;
-  ChangeActiveEditBox(): void;
-
-  OnLoginEmailSearchComplete(found: boolean, description: string): void;
-  GetAccountProfilesResult(error: number, description: string): void;
-  LoginOperationResult(profile: Optional<XR_profile>, description: string): void;
-  AccountCreationResult(error: number, description: string): void;
-  OnEmailSearchComplete(found: boolean, description: string): void;
-  OnNickSuggestionComplete(result: number, description: string): void;
-}
-
 let ctrl: boolean = false;
 let focused_eb: number = 0;
 
-export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("MultiplayerGameSpy", CUIScriptWnd, {
-  __init(): void {
-    CUIScriptWnd.__init(this);
+/**
+ * todo;
+ */
+@LuabindClass()
+export class MultiplayerGameSpy extends CUIScriptWnd {
+  public owner: MainMenu;
 
-    logger.info("Init");
+  public ca_email_valid: boolean = false;
+  public ca_passwords_valid: boolean = false;
+  public ca_unique_nick_valid: boolean = false;
+
+  public active_page: string = "login_page";
+  public email: string = "";
+  public password: string = "";
+  public profile_name: string = "";
+
+  public login_page!: XR_CUIWindow;
+  public create_account_page!: XR_CUIWindow;
+  public lp_header_login!: XR_CUITextWnd;
+  public lp_btn_forgot!: XR_CUI3tButton;
+  public lp_password!: XR_CUIEditBox;
+  public lp_email!: XR_CUIEditBox;
+  public lp_check_remember_me!: XR_CUICheckButton;
+  public ca_email!: XR_CUIEditBox;
+  public ca_header_create_acc!: XR_CUITextWnd;
+  public ca_error!: XR_CUITextWnd;
+  public ca_password!: XR_CUIEditBox;
+  public ca_st_password!: XR_CUIStatic;
+  public ca_st_email!: XR_CUIStatic;
+  public ca_confirm_password!: XR_CUIEditBox;
+  public ca_st_confirm_password!: XR_CUIStatic;
+  public ca_unique_nick!: XR_CUIEditBox;
+  public ca_st_unique_nick!: XR_CUIStatic;
+  public ca_combo_aval_unique_nick!: XR_CUIComboBox;
+  public btn_create_acc!: XR_CUI3tButton;
+  public btn_create!: XR_CUI3tButton;
+  public btn_login!: XR_CUI3tButton;
+  public btn_cancel!: XR_CUI3tButton;
+  public gs_message_box!: XR_CUIMessageBoxEx;
+  public gs_mb_create_vnick_cancel!: XR_CUIMessageBoxEx;
+  public gs_mb_create_vemail_cancel!: XR_CUIMessageBoxEx;
+  public gs_create_mb_result!: XR_CUIMessageBoxEx;
+  public gs_login_mb_result!: XR_CUIMessageBoxEx;
+  public gs_login_mb_profnotfound!: XR_CUIMessageBoxEx;
+  public gs_login_mb_cancel!: XR_CUIMessageBoxEx;
+
+  public constructor(owner: MainMenu) {
+    super();
+
+    this.owner = owner;
 
     this.InitControls();
     this.InitCallbacks();
-  },
-  __finalize(): void {},
-  InitControls(): void {
-    logger.info("Init controls");
+  }
 
+  public InitControls(): void {
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
     xml.ParseFile(resolveXmlFormPath(base));
@@ -209,13 +164,11 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
     this.ca_email = xml.InitEditBox("create_account_page:edit_email", this.create_account_page);
     this.Register(this.ca_email, "ca_edit_email");
     this.ca_st_email = xml.InitStatic("create_account_page:static_email", this.create_account_page);
-    this.ca_email_valid = false;
 
     xml.InitTextWnd("create_account_page:cap_password", this.create_account_page);
     this.ca_password = xml.InitEditBox("create_account_page:edit_password", this.create_account_page);
     this.Register(this.ca_password, "ca_edit_password");
     this.ca_st_password = xml.InitStatic("create_account_page:static_password", this.create_account_page);
-    this.ca_passwords_valid = false;
 
     xml.InitTextWnd("create_account_page:cap_confirm_password", this.create_account_page);
     this.ca_confirm_password = xml.InitEditBox("create_account_page:edit_confirm_password", this.create_account_page);
@@ -229,7 +182,6 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
     this.ca_unique_nick = xml.InitEditBox("create_account_page:edit_unique_nick", this.create_account_page);
     this.Register(this.ca_unique_nick, "ca_edit_unique_nick");
     this.ca_st_unique_nick = xml.InitStatic("create_account_page:static_unique_nick", this.create_account_page);
-    this.ca_unique_nick_valid = false;
 
     this.ca_combo_aval_unique_nick = xml.InitComboBox(
       "create_account_page:combo_aval_unique_nick",
@@ -269,17 +221,13 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
 
     this.create_account_page.Show(false);
 
-    this.active_page = "login_page";
     focused_eb = 0;
 
     this.ChangeActiveEditBox();
     this.CheckAccCreationAbility();
+  }
 
-    this.email = "";
-    this.password = "";
-    this.profile_name = "";
-  },
-  InitCallbacks(): void {
+  public InitCallbacks(): void {
     this.AddCallback("btn_create_acc", ui_events.BUTTON_CLICKED, () => this.OnBtnShowCreateAccountPage(), this);
     this.AddCallback("btn_create", ui_events.BUTTON_CLICKED, () => this.OnBtnCreateAccount(), this);
 
@@ -332,8 +280,9 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
       () => this.TerminateVerifyNick(),
       this
     );
-  },
-  ShowLoginPage(): void {
+  }
+
+  public ShowLoginPage(): void {
     const mail: string = this.owner.loginManager.get_email_from_registry();
     const pass: string = this.owner.loginManager.get_password_from_registry();
 
@@ -354,8 +303,9 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
 
     focused_eb = 0;
     // --    this.ChangeActiveEditBox()
-  },
-  OnBtnCancel(): void {
+  }
+
+  public OnBtnCancel(): void {
     logger.info("Button cancel");
 
     if (this.active_page === "create_account_page") {
@@ -365,19 +315,21 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
       this.owner.ShowDialog(true);
       this.owner.Show(true);
     }
-  },
-  OnBtnRememberMe(): void {
+  }
+
+  public OnBtnRememberMe(): void {
     logger.info("Button remember me");
     this.owner.loginManager.save_remember_me_to_registry(this.lp_check_remember_me.GetCheck());
-  },
-  CheckAccCreationAbility() {
+  }
+
+  public CheckAccCreationAbility() {
     this.btn_create.Enable(false);
     if (this.ca_email_valid === true && this.ca_passwords_valid === true && this.ca_unique_nick_valid === true) {
       this.btn_create.Enable(true);
     }
-  },
+  }
 
-  OnBtnCreateAccount() {
+  public OnBtnCreateAccount() {
     this.gs_message_box.InitMessageBox("message_box_gs_acc_creation");
     this.gs_message_box.SetText("ui_mp_gamespy_creating_new_profile");
     this.gs_message_box.ShowDialog(true);
@@ -388,8 +340,9 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
       this.ca_password.GetText(),
       new account_operation_cb(this, (code, description) => this.AccountCreationResult(code, description))
     );
-  },
-  OnBtnShowCreateAccountPage() {
+  }
+
+  public OnBtnShowCreateAccountPage() {
     const empty_text = "";
 
     this.ca_email.SetText(empty_text);
@@ -422,9 +375,9 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
 
     this.ChangeActiveEditBox();
     this.CheckAccCreationAbility();
-  },
+  }
 
-  OnBtnLogin(): void {
+  public OnBtnLogin(): void {
     this.email = this.lp_email.GetText();
     this.password = this.lp_password.GetText();
     this.gs_login_mb_cancel.InitMessageBox("message_box_gs_info");
@@ -435,9 +388,9 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
       this.email,
       new found_email_cb(this, (found, description) => this.OnLoginEmailSearchComplete(found, description))
     );
-  },
+  }
 
-  OnLoginEmailSearchComplete(found: boolean, description: string) {
+  public OnLoginEmailSearchComplete(found: boolean, description: string) {
     if (!found) {
       this.gs_login_mb_cancel.HideDialog();
       this.gs_login_mb_result.InitMessageBox("message_box_gs_result");
@@ -456,8 +409,9 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
       this.password,
       new account_profiles_cb(this, (code, description) => this.GetAccountProfilesResult(code, description))
     );
-  },
-  GetAccountProfilesResult(profilesCount: number, description: string): void {
+  }
+
+  public GetAccountProfilesResult(profilesCount: number, description: string): void {
     logger.info("Got profiles response:", type(profilesCount), description);
 
     if (profilesCount === 0) {
@@ -500,8 +454,9 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
       // " " + this.profile_name + "?");
       // --this.gs_login_mb_profnotfound.ShowDialog(true);
     }
-  },
-  LoginOperationResult(profile, description) {
+  }
+
+  public LoginOperationResult(profile: Optional<XR_profile>, description: string) {
     logger.info("Login operation result:", type(profile), description);
     this.gs_login_mb_cancel.HideDialog();
 
@@ -527,8 +482,8 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
       );
       this.owner.menuController.ShowPage(CUIMMShniaga.epi_main);
       this.owner.profile_store.load_current_profile(
-        new store_operation_cb(this, () => this.LoadingProgress()),
-        new store_operation_cb(this, () => this.LoadingComplete())
+        new store_operation_cb(this, (code, description) => this.LoadingProgress(code, description)),
+        new store_operation_cb(this, (code, description) => this.LoadingComplete(code, description))
       );
 
       if (this.lp_check_remember_me.GetCheck()) {
@@ -536,8 +491,9 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
         this.owner.loginManager.save_password_to_registry(this.password);
       }
     }
-  },
-  TerminateLogin(): void {
+  }
+
+  public TerminateLogin(): void {
     logger.info("Terminate login");
 
     if (this.owner.gameSpyProfile !== null) {
@@ -556,8 +512,9 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
     }
 
     this.owner.gameSpyProfile = null;
-  },
-  LoginProfileUseExist(): void {
+  }
+
+  public LoginProfileUseExist(): void {
     logger.info("Profile use existing");
 
     this.gs_login_mb_cancel.InitMessageBox("message_box_gs_info");
@@ -569,28 +526,29 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
       this.password,
       new login_operation_cb(this, (profile, description) => this.LoginOperationResult(profile, description))
     );
-  },
+  }
 
-  LoginProfileNotFound(): void {
+  public LoginProfileNotFound(): void {
     this.OnBtnShowCreateAccountPage();
-  },
-  OnLoginResultOk() {
+  }
+
+  public OnLoginResultOk() {
     if (this.owner.gameSpyProfile) {
       this.HideDialog();
       this.owner.ShowDialog(true);
       this.owner.Show(true);
-      this.owner.OnButton_multiplayer_clicked();
+      this.owner.onButtonClickMultiplayer();
     }
-  },
+  }
 
-  CreatedAccount() {
+  public CreatedAccount() {
     this.ShowLoginPage();
     this.lp_email.SetText(this.ca_email.GetText());
     this.lp_password.SetText(this.ca_password.GetText());
     // --this.OnBtnLogin();
-  },
+  }
 
-  OnMsgYes() {
+  public OnMsgYes() {
     this.gs_login_mb_cancel.InitMessageBox("message_box_gs_info");
     this.gs_login_mb_cancel.SetText("ui_mp_gamespy_logining_to_profile");
     this.gs_login_mb_cancel.ShowDialog(true);
@@ -600,8 +558,9 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
       this.password,
       new login_operation_cb(this, (profile, description) => this.LoginOperationResult(profile, description))
     );
-  },
-  OnMsgNo() {
+  }
+
+  public OnMsgNo() {
     this.ca_email.SetText(this.email);
     this.ca_st_email.InitTexture("ui_inGame2_lamp_GREEN");
     this.ca_password.SetText(this.password);
@@ -609,12 +568,10 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
     this.ca_confirm_password.SetText(this.password);
     this.ca_st_confirm_password.InitTexture("ui_inGame2_lamp_GREEN");
     this.OnBtnShowCreateAccountPage();
-  },
-  OnKeyboard(key, event) {
-    CUIScriptWnd.OnKeyboard(this, key, event);
+  }
 
-    const bind = dik_to_bind(key);
-    const console: XR_CConsole = get_console();
+  public OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
+    super.OnKeyboard(key, event);
 
     if (event === ui_events.WINDOW_KEY_RELEASED) {
       if (key === DIK_keys.DIK_LCONTROL) {
@@ -637,17 +594,21 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
     }
 
     return true;
-  },
-  OnEditLPEmailChanged(): void {
+  }
+
+  public OnEditLPEmailChanged(): void {
     // --this.OnBtnLogin();
-  },
-  OnEditLPPasswordChanged(): void {
+  }
+
+  public OnEditLPPasswordChanged(): void {
     // --this.OnBtnLogin();
-  },
-  OnBtnLPForgotPassword(): void {
+  }
+
+  public OnBtnLPForgotPassword(): void {
     this.owner.loginManager.forgot_password("https://login.gamespy.com/lostpassword.aspx");
-  },
-  LoadingProgress(fake_bool: any, progress_string: string) {
+  }
+
+  public LoadingProgress(fake_bool: any, progress_string: string) {
     if (this.gs_login_mb_cancel.IsShown()) {
       this.gs_login_mb_cancel.HideDialog();
     }
@@ -655,9 +616,9 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
     this.gs_login_mb_cancel.InitMessageBox("message_box_gs_info");
     this.gs_login_mb_cancel.SetText(progress_string);
     this.gs_login_mb_cancel.ShowDialog(true);
-  },
+  }
 
-  LoadingComplete(load_result: boolean, descr: string): void {
+  public LoadingComplete(load_result: number | boolean, descr: string): void {
     this.gs_login_mb_cancel.HideDialog();
     this.gs_login_mb_result.InitMessageBox("message_box_gs_result");
 
@@ -679,8 +640,9 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
     }
 
     this.gs_login_mb_result.ShowDialog(true);
-  },
-  ChangeActiveEditBox(): void {
+  }
+
+  public ChangeActiveEditBox(): void {
     this.lp_email.CaptureFocus(false);
     this.lp_password.CaptureFocus(false);
     this.ca_email.CaptureFocus(false);
@@ -693,8 +655,9 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
     } else {
       this.ca_password.CaptureFocus(true);
     }
-  },
-  OnEditCAEmailChanged() {
+  }
+
+  public OnEditCAEmailChanged() {
     const email = this.ca_email.GetText();
 
     if (email !== "") {
@@ -713,8 +676,9 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
     }
 
     this.CheckAccCreationAbility();
-  },
-  OnEditCAPasswordChanged() {
+  }
+
+  public OnEditCAPasswordChanged() {
     const pass = this.ca_password.GetText();
 
     if (this.owner.accountManager.verify_password(pass)) {
@@ -727,8 +691,9 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
     }
 
     this.CheckAccCreationAbility();
-  },
-  OnEditCAConfirmPasswordChanged() {
+  }
+
+  public OnEditCAConfirmPasswordChanged() {
     const pass = this.ca_password.GetText();
     const conf_pass = this.ca_confirm_password.GetText();
 
@@ -749,8 +714,9 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
     }
 
     this.CheckAccCreationAbility();
-  },
-  OnEditCAUniqueNickChanged() {
+  }
+
+  public OnEditCAUniqueNickChanged() {
     const nick = this.ca_unique_nick.GetText();
 
     if (this.owner.accountManager.verify_unique_nick(nick)) {
@@ -769,13 +735,15 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
       this.ca_st_unique_nick.InitTexture("ui_inGame2_lamp_RED");
       this.ca_error.SetText(game.translate_string(this.owner.accountManager.get_verify_error_descr()));
     }
-  },
-  TerminateVerifyEmail(): void {
+  }
+
+  public TerminateVerifyEmail(): void {
     this.owner.accountManager.stop_searching_email();
     this.ca_st_email.InitTexture("ui_inGame2_lamp_RED");
     this.ca_email_valid = false;
-  },
-  OnEmailSearchComplete(found: boolean, description: string): void {
+  }
+
+  public OnEmailSearchComplete(found: boolean, description: string): void {
     this.gs_mb_create_vemail_cancel.HideDialog();
 
     if (found) {
@@ -789,19 +757,21 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
     }
 
     this.CheckAccCreationAbility();
-  },
-  TerminateVerifyNick() {
+  }
+
+  public TerminateVerifyNick() {
     this.owner.accountManager.stop_suggest_unique_nicks();
     this.ca_st_unique_nick.InitTexture("ui_inGame2_lamp_RED");
     this.ca_unique_nick_valid = false;
-  },
-  OnUniqueNickSelect(): void {
+  }
+
+  public OnUniqueNickSelect(): void {
     this.ca_unique_nick.SetText(this.ca_combo_aval_unique_nick.GetText());
     this.OnEditCAUniqueNickChanged();
     this.CheckAccCreationAbility();
-  },
+  }
 
-  AccountCreationResult(tmp, descr): void {
+  public AccountCreationResult(tmp: number, descr: string): void {
     this.gs_message_box.HideDialog();
 
     if (descr === "") {
@@ -813,8 +783,9 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
       this.gs_message_box.SetText(descr);
       this.gs_message_box.ShowDialog(true);
     }
-  },
-  OnNickSuggestionComplete(result: number, description: string): void {
+  }
+
+  public OnNickSuggestionComplete(result: number, description: string): void {
     logger.info("On nick suggestion complete:", description);
 
     this.gs_mb_create_vnick_cancel.HideDialog();
@@ -856,5 +827,5 @@ export const MultiplayerGameSpy: IMultiplayerGameSpy = declare_xr_class("Multipl
     }
 
     this.CheckAccCreationAbility();
-  },
-} as IMultiplayerGameSpy);
+  }
+}

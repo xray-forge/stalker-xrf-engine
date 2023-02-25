@@ -2,7 +2,6 @@ import {
   alife,
   bit_or,
   CScriptXmlInit,
-  CUIListBoxItem,
   CUIMessageBoxEx,
   CUIScriptWnd,
   CUIWindow,
@@ -11,9 +10,6 @@ import {
   Frect,
   FS,
   get_console,
-  GetARGB,
-  GetFontLetterica16Russian,
-  GetFontLetterica18Russian,
   getFS,
   key_bindings,
   TXR_DIK_key,
@@ -24,7 +20,6 @@ import {
   XR_CConsole,
   XR_CScriptXmlInit,
   XR_CUIListBox,
-  XR_CUIListBoxItem,
   XR_CUIMessageBoxEx,
   XR_CUIScriptWnd,
   XR_CUIStatic,
@@ -41,6 +36,7 @@ import { textures } from "@/mod/globals/textures";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
+import { LoadItem } from "@/mod/scripts/ui/menu/load/LoadItem";
 import { deleteGameSave, gatFileDataForGameSave, isGameSaveFileExist } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
@@ -48,64 +44,35 @@ import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 const base: string = "menu\\LoadDialog.component";
 const logger: LuaLogger = new LuaLogger("LoadDialog");
 
-interface ILoadItem extends XR_CUIListBoxItem {
-  innerNameText: XR_CUITextWnd;
-  innerAgeText: XR_CUITextWnd;
-}
+/**
+ * todo;
+ */
+@LuabindClass()
+export class LoadDialog extends CUIScriptWnd {
+  public owner: XR_CUIScriptWnd;
 
-const LoadItem: ILoadItem = declare_xr_class("LoadItem", CUIListBoxItem, {
-  __init(height: number): void {
-    CUIListBoxItem.__init(this, height);
+  public fileItemMainSize!: XR_vector2;
+  public fileItemInnerNameTextSize!: XR_vector2;
+  public fileItemDdSize!: XR_vector2;
 
-    this.SetTextColor(GetARGB(255, 170, 170, 170));
+  public form!: XR_CUIStatic;
+  public picture!: XR_CUIStatic;
+  public fileCaption!: XR_CUITextWnd;
+  public fileData!: XR_CUITextWnd;
+  public listBox!: XR_CUIListBox<LoadItem>;
+  public messageBox!: XR_CUIMessageBoxEx;
+  public messageBoxMode: number = 0;
 
-    this.innerNameText = this.GetTextItem();
-    this.innerNameText.SetFont(GetFontLetterica18Russian());
-    this.innerNameText.SetEllipsis(true);
-  },
-  __finalize(): void {},
-} as ILoadItem);
+  public constructor(owner: XR_CUIScriptWnd) {
+    super();
 
-export interface ILoadDialog extends XR_CUIScriptWnd {
-  owner: XR_CUIScriptWnd;
-
-  messageBoxId: number;
-
-  form: XR_CUIStatic;
-  picture: XR_CUIStatic;
-
-  fileItemMainSize: XR_vector2;
-  fileItemInnerNameTextSize: XR_vector2;
-  fileItemDdSz: XR_vector2;
-
-  fileCaption: XR_CUITextWnd;
-  fileData: XR_CUITextWnd;
-
-  listBox: XR_CUIListBox<ILoadItem>;
-  messageBox: XR_CUIMessageBoxEx;
-
-  InitControls(): void;
-  InitCallBacks(): void;
-
-  FillList(): void;
-  OnListItemClicked(): void;
-  OnListItemDbClicked(): void;
-  OnMsgYes(): void;
-  load_game_internal(): void;
-  OnButton_load_clicked(): void;
-  OnButton_back_clicked(): void;
-  OnButton_del_clicked(): void;
-  AddItemToList(filename: string, datetime: string): void;
-}
-
-export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptWnd, {
-  __init(): void {
-    CUIScriptWnd.__init(this);
+    this.owner = owner;
 
     this.InitControls();
     this.InitCallBacks();
-  },
-  InitControls(): void {
+  }
+
+  public InitControls(): void {
     this.SetWndRect(new Frect().set(0, 0, 1024, 768));
 
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
@@ -116,17 +83,15 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
     const window: XR_CUIWindow = new CUIWindow();
 
     xml.InitWindow("file_item:main", 0, window);
-
     this.fileItemMainSize = new vector2().set(window.GetWidth(), window.GetHeight());
 
     xml.InitWindow("file_item:fn", 0, window);
     this.fileItemInnerNameTextSize = new vector2().set(window.GetWidth(), window.GetHeight());
 
     xml.InitWindow("file_item:fd", 0, window);
-    this.fileItemDdSz = new vector2().set(window.GetWidth(), window.GetHeight());
+    this.fileItemDdSize = new vector2().set(window.GetWidth(), window.GetHeight());
 
     this.form = xml.InitStatic("form", this);
-
     xml.InitStatic("form:caption", this.form);
 
     this.picture = xml.InitStatic("form:picture", this.form);
@@ -148,8 +113,9 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
 
     this.messageBox = new CUIMessageBoxEx();
     this.Register(this.messageBox, "message_box");
-  },
-  InitCallBacks(): void {
+  }
+
+  public InitCallBacks(): void {
     this.AddCallback("button_load", ui_events.BUTTON_CLICKED, () => this.OnButton_load_clicked(), this);
     this.AddCallback("button_back", ui_events.BUTTON_CLICKED, () => this.OnButton_back_clicked(), this);
     this.AddCallback("button_del", ui_events.BUTTON_CLICKED, () => this.OnButton_del_clicked(), this);
@@ -158,8 +124,9 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
 
     this.AddCallback("list_window", ui_events.LIST_ITEM_CLICKED, () => this.OnListItemClicked(), this);
     this.AddCallback("list_window", ui_events.WINDOW_LBUTTON_DB_CLICK, () => this.OnListItemDbClicked(), this);
-  },
-  FillList(): void {
+  }
+
+  public FillList(): void {
     this.listBox.RemoveAll();
 
     const fs: XR_FS = getFS();
@@ -182,15 +149,16 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
 
       this.AddItemToList(filename, datetime);
     }
-  },
-  OnListItemClicked(): void {
+  }
+
+  public OnListItemClicked(): void {
     logger.info("List item selected");
 
     if (this.listBox.GetSize() === 0) {
       return;
     }
 
-    const item: Optional<ILoadItem> = this.listBox.GetSelectedItem();
+    const item: Optional<LoadItem> = this.listBox.GetSelectedItem();
 
     if (item === null) {
       this.fileCaption.SetText("");
@@ -225,12 +193,14 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
     }
 
     this.picture.SetTextureRect(new Frect().set(r.x1, r.y1, r.x2, r.y2));
-  },
-  OnListItemDbClicked(): void {
+  }
+
+  public OnListItemDbClicked(): void {
     logger.info("List item double-clicked");
     this.OnButton_load_clicked();
-  },
-  OnMsgYes(): void {
+  }
+
+  public OnMsgYes(): void {
     logger.info("Message yes confirmed");
 
     const index: number = this.listBox.GetSelectedIndex();
@@ -239,9 +209,8 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
       return;
     }
 
-    if (this.messageBoxId === 1) {
-      const item: ILoadItem = this.listBox.GetItemByIndex(index);
-
+    if (this.messageBoxMode === 1) {
+      const item: LoadItem = this.listBox.GetItemByIndex(index);
       const innerNameTextame: string = item.innerNameText.GetText();
 
       deleteGameSave(innerNameTextame);
@@ -249,13 +218,14 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
       this.listBox.RemoveItem(item);
 
       this.OnListItemClicked();
-    } else if (this.messageBoxId === 2) {
+    } else if (this.messageBoxMode === 2) {
       this.load_game_internal();
     }
 
-    this.messageBoxId = 0;
-  },
-  load_game_internal(): void {
+    this.messageBoxMode = 0;
+  }
+
+  public load_game_internal(): void {
     logger.info("Load game internal");
 
     const console: XR_CConsole = get_console();
@@ -280,8 +250,9 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
     } else {
       console.execute("load " + innerNameTextame);
     }
-  },
-  OnButton_load_clicked(): void {
+  }
+
+  public OnButton_load_clicked(): void {
     logger.info("Load game clicked");
 
     if (this.listBox.GetSize() === 0) {
@@ -297,7 +268,7 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
     const innerNameTextame: string = item.innerNameText.GetText();
 
     if (!valid_saved_game(innerNameTextame)) {
-      this.messageBoxId = 0;
+      this.messageBoxMode = 0;
       this.messageBox.InitMessageBox("message_box_invalid_saved_game");
       this.messageBox.ShowDialog(true);
 
@@ -318,18 +289,20 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
       return;
     }
 
-    this.messageBoxId = 2;
+    this.messageBoxMode = 2;
     this.messageBox.InitMessageBox("message_box_confirm_load_save");
     this.messageBox.ShowDialog(true);
-  },
-  OnButton_back_clicked(): void {
+  }
+
+  public OnButton_back_clicked(): void {
     logger.info("Back clicked");
 
     this.owner.ShowDialog(true);
     this.HideDialog();
     this.owner.Show(true);
-  },
-  OnButton_del_clicked(): void {
+  }
+
+  public OnButton_del_clicked(): void {
     logger.info("Delete clicked");
 
     if (this.listBox.GetSize() === 0) {
@@ -342,13 +315,14 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
       return;
     }
 
-    this.messageBoxId = 1;
+    this.messageBoxMode = 1;
 
     this.messageBox.InitMessageBox("message_box_delete_file_name");
     this.messageBox.ShowDialog(true);
-  },
-  OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
-    CUIScriptWnd.OnKeyboard(this, key, event);
+  }
+
+  public OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
+    super.OnKeyboard(key, event);
 
     const bind: number = dik_to_bind(key);
 
@@ -361,21 +335,18 @@ export const LoadDialog: ILoadDialog = declare_xr_class("LoadDialog", CUIScriptW
     }
 
     return true;
-  },
-  AddItemToList(filename: string, datetime: string): void {
-    const it: ILoadItem = create_xr_class_instance(LoadItem, this.fileItemMainSize.y);
+  }
 
-    it.SetWndSize(this.fileItemMainSize);
+  public AddItemToList(filename: string, datetime: string): void {
+    const loadItem: LoadItem = new LoadItem(this.fileItemMainSize.y, this.fileItemDdSize.x, datetime);
 
-    it.innerNameText.SetWndPos(new vector2().set(0, 0));
-    it.innerNameText.SetWndSize(this.fileItemInnerNameTextSize);
-    it.innerNameText.SetText(filename);
+    loadItem.SetWndSize(this.fileItemMainSize);
+    loadItem.innerNameText.SetWndPos(new vector2().set(0, 0));
+    loadItem.innerNameText.SetWndSize(this.fileItemInnerNameTextSize);
+    loadItem.innerNameText.SetText(filename);
+    loadItem.innerAgeText.SetWndPos(new vector2().set(this.fileItemInnerNameTextSize.x + 4, 0));
+    loadItem.innerAgeText.SetWndSize(this.fileItemDdSize);
 
-    it.innerAgeText = it.AddTextField(datetime, this.fileItemDdSz.x);
-    it.innerAgeText.SetFont(GetFontLetterica16Russian());
-    it.innerAgeText.SetWndPos(new vector2().set(this.fileItemInnerNameTextSize.x + 4, 0));
-    it.innerAgeText.SetWndSize(this.fileItemDdSz);
-
-    this.listBox.AddExistingItem(it);
-  },
-} as ILoadDialog);
+    this.listBox.AddExistingItem(loadItem);
+  }
+}

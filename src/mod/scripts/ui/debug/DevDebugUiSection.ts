@@ -7,7 +7,6 @@ import {
   XR_CUIEditBox,
   XR_CUIScriptWnd,
   XR_CUIStatic,
-  XR_CUIWindow,
 } from "xray16";
 
 import { textures } from "@/mod/globals/textures";
@@ -17,45 +16,30 @@ import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 const base: string = "menu\\debug\\DevDebugUiSection.component";
 const logger: LuaLogger = new LuaLogger("DevDebugUiSection");
 
-export interface IDevDebugUiSection extends XR_CUIWindow {
-  owner: XR_CUIScriptWnd;
+@LuabindClass()
+export class DevDebugUiSection extends CUIWindow {
+  public owner: XR_CUIScriptWnd;
 
-  section: XR_CUIStatic;
+  public section!: XR_CUIStatic;
+  public texturesList!: XR_CUIComboBox;
+  public texturesListFilter!: XR_CUIEditBox;
+  public texturesListLineDisplay!: XR_CUIStatic;
+  public texturesListSquareBigDisplay!: XR_CUIStatic;
+  public texturesListSquareMediumDisplay!: XR_CUIStatic;
+  public texturesListSquareSmallDisplay!: XR_CUIStatic;
+  public texturesListSquareMiniDisplay!: XR_CUIStatic;
 
-  texturesList: XR_CUIComboBox;
-  texturesListFilter: XR_CUIEditBox;
-  texturesListLineDisplay: XR_CUIStatic;
-  texturesListSquareBigDisplay: XR_CUIStatic;
-  texturesListSquareMediumDisplay: XR_CUIStatic;
-  texturesListSquareSmallDisplay: XR_CUIStatic;
-  texturesListSquareMiniDisplay: XR_CUIStatic;
-
-  InitControls(): void;
-  InitCallBacks(): void;
-  InitData(): void;
-  InitTexturesList(): void;
-  UpdateTexturesList(): void;
-
-  onTextureListChange(): void;
-  onFontListChange(): void;
-}
-
-export const DevDebugUiSection: IDevDebugUiSection = declare_xr_class("DevDebugUiSection", CUIWindow, {
-  __init(this: IDevDebugUiSection, owner: XR_CUIScriptWnd): void {
-    CUIWindow.__init(this);
-
-    logger.info("Init");
+  public constructor(owner: XR_CUIScriptWnd) {
+    super();
 
     this.owner = owner;
 
     this.InitControls();
     this.InitCallBacks();
     this.InitData();
-  },
-  __finalize(): void {
-    logger.info("Finalize");
-  },
-  InitControls(): void {
+  }
+
+  public InitControls(): void {
     logger.info("Init controls");
 
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
@@ -73,18 +57,21 @@ export const DevDebugUiSection: IDevDebugUiSection = declare_xr_class("DevDebugU
 
     this.owner.Register(this.texturesList, "textures_list");
     this.owner.Register(this.texturesListFilter, "textures_list_filter");
-  },
-  InitCallBacks(): void {
+  }
+
+  public InitCallBacks(): void {
     logger.info("Init callbacks");
 
     this.owner.AddCallback("textures_list", ui_events.LIST_ITEM_SELECT, () => this.onTextureListChange(), this);
     this.owner.AddCallback("textures_list_filter", ui_events.EDIT_TEXT_COMMIT, () => this.UpdateTexturesList(), this);
-  },
-  InitData(): void {
+  }
+
+  public InitData(): void {
     logger.info("Init data");
     this.InitTexturesList();
-  },
-  InitTexturesList(): void {
+  }
+
+  public InitTexturesList(): void {
     const filterMask: string = this.texturesListFilter.GetText();
     const hasMask: boolean = filterMask !== null && filterMask !== "";
 
@@ -98,12 +85,14 @@ export const DevDebugUiSection: IDevDebugUiSection = declare_xr_class("DevDebugU
 
       this.texturesList.AddItem(it, index + 1);
     });
-  },
-  UpdateTexturesList(): void {
+  }
+
+  public UpdateTexturesList(): void {
     this.texturesList.ClearList();
     this.InitTexturesList();
-  },
-  onTextureListChange(): void {
+  }
+
+  public onTextureListChange(): void {
     const texture: string = this.texturesList.GetText();
 
     logger.info("Change texture to:", texture, " # ", this.texturesList.CurrentID());
@@ -113,5 +102,5 @@ export const DevDebugUiSection: IDevDebugUiSection = declare_xr_class("DevDebugU
     this.texturesListSquareSmallDisplay.InitTexture(texture);
     this.texturesListSquareMiniDisplay.InitTexture(texture);
     this.texturesListLineDisplay.InitTexture(texture);
-  },
-} as IDevDebugUiSection);
+  }
+}

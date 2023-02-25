@@ -15,34 +15,28 @@ import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 const base: string = "menu\\debug\\DebugGeneralSection.component";
 const logger: LuaLogger = new LuaLogger("DebugGeneralSection");
 
-export interface IDebugGeneralSection extends XR_CUIScriptWnd {
-  owner: XR_CUIScriptWnd;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class DebugGeneralSection extends CUIWindow {
+  public owner: XR_CUIScriptWnd;
 
-  luaVersionLabel: XR_CUIStatic;
-  memoryUsageCountLabel: XR_CUIStatic;
-  juaJitLabel: XR_CUIStatic;
+  public luaVersionLabel!: XR_CUIStatic;
+  public memoryUsageCountLabel!: XR_CUIStatic;
+  public juaJitLabel!: XR_CUIStatic;
 
-  InitControls(): void;
-  InitCallBacks(): void;
-  InitState(): void;
-
-  onRefreshMemoryButtonClick(): void;
-  onCollectMemoryButtonClick(): void;
-
-  getUsedMemoryLabel(): string;
-}
-
-export const DebugGeneralSection: IDebugGeneralSection = declare_xr_class("DebugGeneralSection", CUIWindow, {
-  __init(this: IDebugGeneralSection, owner: XR_CUIScriptWnd): void {
-    CUIWindow.__init(this);
+  public constructor(owner: XR_CUIScriptWnd) {
+    super();
 
     this.owner = owner;
 
     this.InitControls();
     this.InitCallBacks();
     this.InitState();
-  },
-  InitControls(): void {
+  }
+
+  public InitControls(): void {
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
     xml.ParseFile(resolveXmlFormPath(base));
@@ -59,8 +53,9 @@ export const DebugGeneralSection: IDebugGeneralSection = declare_xr_class("Debug
 
     this.owner.Register(xml.Init3tButton("refresh_memory_button", this), "refresh_memory_button");
     this.owner.Register(xml.Init3tButton("collect_memory_button", this), "collect_memory_button");
-  },
-  InitCallBacks(): void {
+  }
+
+  public InitCallBacks(): void {
     this.owner.AddCallback(
       "refresh_memory_button",
       ui_events.BUTTON_CLICKED,
@@ -74,24 +69,28 @@ export const DebugGeneralSection: IDebugGeneralSection = declare_xr_class("Debug
       () => this.onCollectMemoryButtonClick(),
       this
     );
-  },
-  InitState(): void {
+  }
+
+  public InitState(): void {
     this.memoryUsageCountLabel.TextControl().SetText(this.getUsedMemoryLabel());
     this.luaVersionLabel.TextControl().SetText("Lua version: " + (_VERSION || "unknown"));
     this.juaJitLabel.TextControl().SetText("JIT " + (jit === null ? "disabled" : "enabled"));
-  },
-  onCollectMemoryButtonClick(): void {
+  }
+
+  public onCollectMemoryButtonClick(): void {
     logger.info("Collect memory garbage");
 
     collectLuaGarbage();
     this.memoryUsageCountLabel.TextControl().SetText(this.getUsedMemoryLabel());
-  },
-  onRefreshMemoryButtonClick(): void {
+  }
+
+  public onRefreshMemoryButtonClick(): void {
     logger.info("Collect memory usage");
 
     this.memoryUsageCountLabel.TextControl().SetText(this.getUsedMemoryLabel());
-  },
-  getUsedMemoryLabel(): string {
+  }
+
+  public getUsedMemoryLabel(): string {
     return string.format("RAM: %.03f MB", getLuaMemoryUsed() / 1024);
-  },
-} as IDebugGeneralSection);
+  }
+}
