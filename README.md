@@ -72,6 +72,7 @@ Everything else can be added in your own mod.
 
 `$ npm run COMMAND_NAME`
 
+- [setup](cli/info/README.md) - setup project and submodules.
 - [info](cli/info/README.md) - print general information about the project and its configuration.
 - [verify](cli/verify/README.md) - verify project settings and readiness
 - [link](cli/link/README.md) - link target/gamedata and logs folder and stalker folder for faster development
