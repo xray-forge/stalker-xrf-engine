@@ -22,6 +22,7 @@
       "xray16"
     ],
     "luaPlugins": [
+      { "name": "./plugins/transform_luabind_class/plugin.ts" },
       { "name": "./plugins/global_declarations_transform.ts" },
       { "name": "./plugins/built_at_info.ts" },
       { "name": "./plugins/strip_lua_logger.ts" }

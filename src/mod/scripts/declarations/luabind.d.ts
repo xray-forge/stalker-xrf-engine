@@ -26,3 +26,5 @@ declare const declare_xr_class: <T, B extends abstract new (...args: Array<any>)
  * todo: Infer + InstanceType<T> generic.
  */
 declare const create_xr_class_instance: <T>(it: T, ...params: Array<any>) => T;
+
+declare const LuabindClass: () => ClassDecorator;

@@ -168,7 +168,7 @@ To attach a debugger to Lua/C++ code, follow these steps:
 - Link the game by running npm run link and targeting the folder of xrts
 - Run the game in debug/release mode directly from Visual Studio
 
-Note that it is not possible to debug TypeScript directly. <br/> 
+Note that it is not possible to debug TypeScript directly. <br/>
 Instead, attach a breakpoint and observe the transpiled Lua code. <br/>
 Additionally, it is not possible to debug luabind declared classes and userdata.
 
@@ -180,9 +180,9 @@ Depending on how you run the game, you can use the following approaches to check
 
 ### With pre-built engine
 
-- Make sure you are using the custom engine. If not, switch to the mixed/release variant:  `npm run engine use release`
+- Make sure you are using the custom engine. If not, switch to the mixed/release variant: `npm run engine use release`
 - Link the application logs folder with the target directory: `npm run link`
-- Start the game  (`npm run start_game`) and check the log files in `target/logs_link` directory
+- Start the game (`npm run start_game`) and check the log files in `target/logs_link` directory
 
 ### With visual studio
 
