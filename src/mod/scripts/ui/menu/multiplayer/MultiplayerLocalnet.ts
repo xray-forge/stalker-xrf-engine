@@ -20,7 +20,7 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { IMainMenu } from "@/mod/scripts/ui/menu/MainMenu";
+import { MainMenu } from "@/mod/scripts/ui/menu/MainMenu";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
@@ -28,7 +28,7 @@ const base: string = "menu\\multiplayer\\MultiplayerLocalnet.component";
 const logger: LuaLogger = new LuaLogger("MultiplayerLocalnet");
 
 export interface IMultiplayerLocalnet extends XR_CUIScriptWnd {
-  owner: IMainMenu;
+  owner: MainMenu;
 
   login_page: XR_CUIWindow;
 

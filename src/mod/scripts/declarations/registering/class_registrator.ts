@@ -97,7 +97,7 @@ export function registerGameClasses(factory: XR_object_factory): void {
   logger.info("Registering bindings:");
 
   // -- GENERAL --------------------------------------------------------------------------------------------------------
-  clientRegister(factory, MainMenu.__name, "MAIN_MNU", "MainMenu");
+  clientRegister(factory, MainMenu.__name, "MAIN_MNU", MainMenu.__name);
   clientServerRegister(factory, EClientObjectClass.ce_smart_zone, SmartTerrain.__name, "SMRTTRRN", "smart_terrain");
   clientServerRegister(factory, EClientObjectClass.ce_smart_zone, ZoneRestrictor.__name, "SPC_RS_S", "script_restr");
   clientServerRegister(factory, EClientObjectClass.CLevelChanger, LevelChanger.__name, "LVL_CHNG", "level_changer_s");

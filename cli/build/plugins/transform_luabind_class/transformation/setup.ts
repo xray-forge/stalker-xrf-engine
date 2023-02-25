@@ -22,21 +22,25 @@ export function createClassSetup(
   statement: ClassLikeDeclarationBase,
   className: tstl.Identifier,
   localClassName: tstl.Identifier
-): Array<tstl.Statement> {
+) {
   const result: tstl.Statement[] = [];
 
   // class("name")(base)
   const classInitializer = createLuabindClassStatement(statement, context, localClassName);
 
+  result.push(tstl.createExpressionStatement(classInitializer));
+
+  const classReference = createLuabindClassGlobalClassRef(statement, context, localClassName);
+
   const defaultExportLeftHandSide = hasDefaultExportModifier(statement)
     ? tstl.createTableIndexExpression(createExportsIdentifier(), createDefaultExportStringLiteral(statement))
     : undefined;
 
-  // [____exports.]className = __TS__Class()
+  // [____exports.]className = class()
   if (defaultExportLeftHandSide) {
-    result.push(tstl.createAssignmentStatement(defaultExportLeftHandSide, classInitializer, statement));
+    result.push(tstl.createAssignmentStatement(defaultExportLeftHandSide, classReference, statement));
   } else {
-    result.push(...createLocalOrExportedOrGlobalDeclaration(context, className, classInitializer, statement));
+    result.push(...createLocalOrExportedOrGlobalDeclaration(context, className, classReference, statement));
   }
 
   if (defaultExportLeftHandSide) {
@@ -110,4 +114,15 @@ function createLuabindClassStatement(
   }
 
   return classDeclaration;
+}
+
+/**
+ * Creates _G.name expression for luabind classes.
+ */
+function createLuabindClassGlobalClassRef(
+  declaration: ClassLikeDeclarationBase,
+  context: TransformationContext,
+  className: tstl.Identifier
+) {
+  return tstl.createTableIndexExpression(tstl.createIdentifier("_G"), tstl.createStringLiteral(className.text));
 }

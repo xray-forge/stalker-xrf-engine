@@ -42,7 +42,8 @@ import {
 
 import { option_groups } from "@/mod/globals/option_groups";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
-import { IMainMenu } from "@/mod/scripts/ui/menu/MainMenu";
+import { Optional } from "@/mod/lib/types";
+import { MainMenu } from "@/mod/scripts/ui/menu/MainMenu";
 import { IMultiplayerDemo, MultiplayerDemo } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerDemo";
 import { IMultiplayerJoin, MultiplayerJoin } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerJoin";
 import { IMultiplayerOptions, MultiplayerOptions } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerOptions";
@@ -56,7 +57,7 @@ const baseOffline: string = "menu\\multiplayer\\MultiplayerOffline.component";
 const logger: LuaLogger = new LuaLogger("MultiplayerMenu");
 
 export interface IMultiplayerMenu extends XR_CUIScriptWnd {
-  owner: IMainMenu;
+  owner: MainMenu;
 
   tab: XR_CUITabControl;
   message_box: XR_CUIMessageBoxEx;
@@ -546,7 +547,7 @@ export const MultiplayerMenu: IMultiplayerMenu = declare_xr_class("MultiplayerMe
     }
 
     const mm: XR_CMainMenu = main_menu.get_main_menu();
-    const gs_profile: XR_profile = this.owner.loginManager.get_current_profile();
+    const gs_profile: Optional<XR_profile> = this.owner.loginManager.get_current_profile();
 
     if (gs_profile && gs_profile.online() && mm.ValidateCDKey() === false) {
       return;

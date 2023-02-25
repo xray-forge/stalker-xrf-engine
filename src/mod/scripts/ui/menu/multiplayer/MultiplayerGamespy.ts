@@ -31,7 +31,7 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { IMainMenu } from "@/mod/scripts/ui/menu/MainMenu";
+import { MainMenu } from "@/mod/scripts/ui/menu/MainMenu";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
@@ -39,7 +39,7 @@ const base: string = "menu\\multiplayer\\MultiplayerGamespy.component";
 const logger: LuaLogger = new LuaLogger("MultiplayerGameSpy");
 
 export interface IMultiplayerGameSpy extends XR_CUIScriptWnd {
-  owner: IMainMenu;
+  owner: MainMenu;
 
   active_page: string;
 

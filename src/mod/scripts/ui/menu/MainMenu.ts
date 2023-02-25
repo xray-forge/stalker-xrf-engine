@@ -21,7 +21,6 @@ import {
   XR_CScriptXmlInit,
   XR_CUIMessageBoxEx,
   XR_CUIMMShniaga,
-  XR_CUIScriptWnd,
   XR_CUIStatic,
   XR_game_object,
   XR_login_manager,
@@ -47,70 +46,41 @@ import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 export const base: string = "menu\\MainMenu.component";
 const logger: LuaLogger = new LuaLogger("MainMenu");
 
-export interface IMainMenu extends XR_CUIScriptWnd {
-  menuController: XR_CUIMMShniaga;
+@LuabindClass()
+export class MainMenu extends CUIScriptWnd {
+  public readonly xrMainMenu: XR_CMainMenu = main_menu.get_main_menu();
+  public readonly accountManager: XR_account_manager;
+  public readonly profile_store: XR_profile_store;
+  public readonly loginManager: XR_login_manager;
+  public gameSpyProfile: Optional<XR_profile>;
 
-  modalBoxMode: number;
+  public menuController!: XR_CUIMMShniaga;
+  public modalBox!: XR_CUIMessageBoxEx;
+  public modalBoxMode: number = 0;
 
-  gameOptionsDialog: IOptionsDialog;
-  gameSavesSaveDialog: ISaveDialog;
-  gameSavesLoadDialog: ILoadDialog;
-  localnetDialog: IMultiplayerLocalnet;
-  gamespyDialog: IMultiplayerGameSpy;
-  multiplayerMenuDialog: Optional<IMultiplayerMenu>;
+  public multiplayerMenuDialog: Optional<IMultiplayerMenu> = null;
+  public gameOptionsDialog: Optional<IOptionsDialog> = null;
+  public gameSavesSaveDialog: Optional<ISaveDialog> = null;
+  public gameSavesLoadDialog: Optional<ILoadDialog> = null;
+  public localnetDialog: Optional<IMultiplayerLocalnet> = null;
+  public gamespyDialog: Optional<IMultiplayerGameSpy> = null;
+  public gameDebugDialog: Optional<IDebugDialog> = null;
 
-  gameDebugDialog: Optional<IDebugDialog>;
+  public constructor() {
+    super();
 
-  message_box: XR_CUIMessageBoxEx;
-  gameSpyProfile: Optional<XR_profile>;
+    this.loginManager = this.xrMainMenu.GetLoginMngr();
+    this.accountManager = this.xrMainMenu.GetAccountMngr();
+    this.profile_store = this.xrMainMenu.GetProfileStore();
+    this.gameSpyProfile = this.loginManager.get_current_profile();
 
-  accountManager: XR_account_manager;
-  profile_store: XR_profile_store;
-  loginManager: XR_login_manager;
-
-  InitControls(): void;
-  InitCallBacks(): void;
-
-  OnMsgOk(): void;
-  OnMsgCancel(): void;
-  OnMsgYes(): void;
-  OnMsgNo(): void;
-  LoadLastSave(): void;
-  OnButton_last_save(): void;
-  OnButton_credits_clicked(): void;
-  OnButton_quit_clicked(): void;
-  OnButton_disconnect_clicked(): void;
-  OnMessageQuitGame(): void;
-  OnMessageQuitWin(): void;
-  onButtonReturnToGameClick(): void;
-  OnButton_new_novice_game(): void;
-  OnButton_new_stalker_game(): void;
-  OnButton_new_veteran_game(): void;
-  OnButton_new_master_game(): void;
-  StartGame(): void;
-  OnButton_save_clicked(): void;
-  OnButton_options_clicked(): void;
-  OnButton_dev_debug_dialog(): void;
-  OnButton_load_clicked(): void;
-  OnButton_network_game_clicked(): void;
-  OnButton_multiplayer_clicked(): void;
-  OnButton_logout_clicked(): void;
-  OnButton_internet_clicked(): void;
-  OnButton_localnet_clicked(): void;
-}
-
-export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
-  __init(this: IMainMenu): void {
-    CUIScriptWnd.__init(this);
-
-    this.modalBoxMode = 0;
-
-    this.InitControls();
-    this.InitCallBacks();
+    this.initControls();
+    this.initCallBacks();
 
     EventsManager.getInstance().emitEvent(EGameEvent.MAIN_MENU_ON);
-  },
-  InitControls(): void {
+  }
+
+  public initControls(): void {
     this.SetWndRect(new Frect().set(0, 0, gameConfig.UI.BASE_WIDTH, gameConfig.UI.BASE_HEIGHT));
 
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
@@ -118,28 +88,23 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     xml.ParseFile(resolveXmlFormPath(base));
     xml.InitStatic("background", this);
 
+    this.modalBox = new CUIMessageBoxEx();
     this.menuController = xml.InitMMShniaga("shniaga_wnd", this);
 
-    this.message_box = new CUIMessageBoxEx();
-    this.Register(this.message_box, "msg_box");
+    this.Register(this.modalBox, "msg_box");
 
     const version: XR_CUIStatic = xml.InitStatic("static_version", this);
-    const xrMainMenu: XR_CMainMenu = main_menu.get_main_menu();
 
-    version.TextControl().SetText(string.format(gameConfig.VERSION, xrMainMenu.GetGSVer()));
-
-    this.loginManager = xrMainMenu.GetLoginMngr();
-    this.accountManager = xrMainMenu.GetAccountMngr();
-    this.profile_store = xrMainMenu.GetProfileStore();
-    this.gameSpyProfile = this.loginManager.get_current_profile();
+    version.TextControl().SetText(string.format(gameConfig.VERSION, this.xrMainMenu.GetGSVer()));
 
     if (this.gameSpyProfile && !level.present()) {
       this.menuController.ShowPage(CUIMMShniaga.epi_new_network_game); // --fake
       this.menuController.SetPage(CUIMMShniaga.epi_main, resolveXmlFormPath(base), "menu_main_logout");
       this.menuController.ShowPage(CUIMMShniaga.epi_main);
     }
-  },
-  InitCallBacks(): void {
+  }
+
+  public initCallBacks(): void {
     // -- new game
     this.AddCallback("btn_novice", ui_events.BUTTON_CLICKED, () => this.OnButton_new_novice_game(), this);
     this.AddCallback("btn_stalker", ui_events.BUTTON_CLICKED, () => this.OnButton_new_stalker_game(), this);
@@ -175,36 +140,43 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     this.AddCallback("msg_box", ui_events.MESSAGE_BOX_NO_CLICKED, () => this.OnMsgNo(), this);
     this.AddCallback("msg_box", ui_events.MESSAGE_BOX_QUIT_GAME_CLICKED, () => this.OnMessageQuitGame(), this);
     this.AddCallback("msg_box", ui_events.MESSAGE_BOX_QUIT_WIN_CLICKED, () => this.OnMessageQuitWin(), this);
-  },
-  Show(value: boolean): void {
+  }
+
+  public Show(value: boolean): void {
     logger.info("Show:", value);
     this.menuController.SetVisibleMagnifier(value);
-  },
-  OnMsgOk(): void {
+  }
+
+  public OnMsgOk(): void {
     logger.info("Message OK clicked");
     this.modalBoxMode = 0;
-  },
-  OnMsgCancel(): void {
+  }
+
+  public OnMsgCancel(): void {
     logger.info("Message cancel clicked");
     this.modalBoxMode = 0;
-  },
-  OnMsgYes(): void {
+  }
+
+  public OnMsgYes(): void {
     if (this.modalBoxMode === 1) {
       this.LoadLastSave();
     }
 
     this.modalBoxMode = 0;
-  },
-  OnMsgNo(): void {
+  }
+
+  public OnMsgNo(): void {
     this.modalBoxMode = 0;
-  },
-  LoadLastSave(): void {
+  }
+
+  public LoadLastSave(): void {
     const console: XR_CConsole = get_console();
 
     console.execute("main_menu off");
     console.execute("load_last_save");
-  },
-  OnButton_last_save(): void {
+  }
+
+  public OnButton_last_save(): void {
     if (alife() === null) {
       this.LoadLastSave();
 
@@ -220,58 +192,69 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     }
 
     this.modalBoxMode = 1;
-    this.message_box.InitMessageBox("message_box_confirm_load_save");
-    this.message_box.ShowDialog(true);
-  },
-  OnButton_credits_clicked(): void {
+    this.modalBox.InitMessageBox("message_box_confirm_load_save");
+    this.modalBox.ShowDialog(true);
+  }
+
+  public OnButton_credits_clicked(): void {
     // --  local console = get_console()
     // --  console.execute("main_menu off")
     game.start_tutorial("credits_seq");
-  },
-  OnButton_quit_clicked(): void {
-    this.message_box.InitMessageBox("message_box_quit_windows");
-    this.message_box.ShowDialog(true);
-  },
-  OnButton_disconnect_clicked(): void {
-    this.message_box.InitMessageBox("message_box_quit_game");
+  }
+
+  public OnButton_quit_clicked(): void {
+    this.modalBox.InitMessageBox("message_box_quit_windows");
+    this.modalBox.ShowDialog(true);
+  }
+
+  public OnButton_disconnect_clicked(): void {
+    this.modalBox.InitMessageBox("message_box_quit_game");
 
     if (level.game_id() !== 1) {
-      this.message_box.SetText("ui_mm_disconnect_message"); // -- MultiPlayer
+      this.modalBox.SetText("ui_mm_disconnect_message"); // -- MultiPlayer
     } else {
-      this.message_box.SetText("ui_mm_quit_game_message"); //  -- SinglePlayer
+      this.modalBox.SetText("ui_mm_quit_game_message"); //  -- SinglePlayer
     }
 
-    this.message_box.ShowDialog(true);
-  },
-  OnMessageQuitGame(): void {
+    this.modalBox.ShowDialog(true);
+  }
+
+  public OnMessageQuitGame(): void {
     get_console().execute("disconnect");
-  },
-  OnMessageQuitWin(): void {
+  }
+
+  public OnMessageQuitWin(): void {
     get_console().execute("quit");
-  },
-  onButtonReturnToGameClick(): void {
+  }
+
+  public onButtonReturnToGameClick(): void {
     logger.info("Return to game");
 
     get_console().execute("main_menu off");
     EventsManager.getInstance().emitEvent(EGameEvent.MAIN_MENU_OFF);
-  },
-  OnButton_new_novice_game(): void {
+  }
+
+  public OnButton_new_novice_game(): void {
     get_console().execute("g_game_difficulty gd_novice");
     this.StartGame();
-  },
-  OnButton_new_stalker_game(): void {
+  }
+
+  public OnButton_new_stalker_game(): void {
     get_console().execute("g_game_difficulty gd_stalker");
     this.StartGame();
-  },
-  OnButton_new_veteran_game(): void {
+  }
+
+  public OnButton_new_veteran_game(): void {
     get_console().execute("g_game_difficulty gd_veteran");
     this.StartGame();
-  },
-  OnButton_new_master_game(): void {
+  }
+
+  public OnButton_new_master_game(): void {
     get_console().execute("g_game_difficulty gd_master");
     this.StartGame();
-  },
-  StartGame(): void {
+  }
+
+  public StartGame(): void {
     const console: XR_CConsole = get_console();
 
     if (alife() !== null) {
@@ -282,8 +265,9 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
 
     console.execute("start server(all/single/alife/new) client(localhost)");
     console.execute("main_menu off");
-  },
-  OnButton_save_clicked(): void {
+  }
+
+  public OnButton_save_clicked(): void {
     if (this.gameSavesSaveDialog === null) {
       this.gameSavesSaveDialog = create_xr_class_instance(SaveDialog);
       this.gameSavesSaveDialog.owner = this;
@@ -293,8 +277,9 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     this.gameSavesSaveDialog.ShowDialog(true);
     this.HideDialog();
     this.Show(false);
-  },
-  OnButton_options_clicked(): void {
+  }
+
+  public OnButton_options_clicked(): void {
     logger.info("Activating options view");
 
     if (this.gameOptionsDialog === null) {
@@ -306,8 +291,9 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     this.gameOptionsDialog.ShowDialog(true);
     this.HideDialog();
     this.Show(false);
-  },
-  OnButton_dev_debug_dialog(): void {
+  }
+
+  public OnButton_dev_debug_dialog(): void {
     if (gameConfig.DEBUG.IS_ENABLED) {
       logger.info("Activating debug settings view");
     } else {
@@ -325,8 +311,9 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
 
     this.HideDialog();
     this.Show(false);
-  },
-  OnButton_load_clicked(): void {
+  }
+
+  public OnButton_load_clicked(): void {
     if (this.gameSavesLoadDialog === null) {
       this.gameSavesLoadDialog = create_xr_class_instance(LoadDialog);
       this.gameSavesLoadDialog.owner = this;
@@ -336,11 +323,13 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     this.gameSavesLoadDialog.ShowDialog(true);
     this.HideDialog();
     this.Show(false);
-  },
-  OnButton_network_game_clicked(): void {
+  }
+
+  public OnButton_network_game_clicked(): void {
     this.menuController.ShowPage(CUIMMShniaga.epi_new_network_game);
-  },
-  OnButton_multiplayer_clicked(): void {
+  }
+
+  public OnButton_multiplayer_clicked(): void {
     logger.info("Button multiplayer clicked, profile");
 
     // -- assert(this.gs_profile)
@@ -365,8 +354,9 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     this.Show(false);
 
     get_console().execute("check_for_updates 0");
-  },
-  OnButton_logout_clicked(): void {
+  }
+
+  public OnButton_logout_clicked(): void {
     logger.info("Logout clicked, log out of profiles");
 
     // -- assert(this.gs_profile)
@@ -379,8 +369,9 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
 
     this.menuController.SetPage(CUIMMShniaga.epi_main, resolveXmlFormPath(base), "menu_main");
     this.menuController.ShowPage(CUIMMShniaga.epi_main);
-  },
-  OnButton_internet_clicked(): void {
+  }
+
+  public OnButton_internet_clicked(): void {
     logger.info("Button internet clicked");
 
     if (!this.gamespyDialog) {
@@ -395,8 +386,9 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     this.Show(false);
 
     get_console().execute("check_for_updates 0");
-  },
-  OnButton_localnet_clicked(): void {
+  }
+
+  public OnButton_localnet_clicked(): void {
     if (!this.localnetDialog) {
       this.localnetDialog = create_xr_class_instance(MultiplayerLocalnet);
       this.localnetDialog.owner = this;
@@ -410,16 +402,18 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     this.Show(false);
 
     get_console().execute("check_for_updates 0");
-  },
-  Dispatch(cmd: number, param: number): boolean {
+  }
+
+  public Dispatch(cmd: number, param: number): boolean {
     if (cmd === 2) {
       this.OnButton_multiplayer_clicked();
     }
 
     return true;
-  },
-  OnKeyboard(dik: TXR_DIK_key, event: TXR_ui_event): boolean {
-    CUIScriptWnd.OnKeyboard(this, dik, event);
+  }
+
+  public OnKeyboard(dik: TXR_DIK_key, event: TXR_ui_event): boolean {
+    super.OnKeyboard(dik, event);
 
     if (event === ui_events.WINDOW_KEY_PRESSED) {
       if (dik === DIK_keys.DIK_ESCAPE) {
@@ -436,5 +430,5 @@ export const MainMenu: IMainMenu = declare_xr_class("MainMenu", CUIScriptWnd, {
     }
 
     return true;
-  },
-} as IMainMenu);
+  }
+}
