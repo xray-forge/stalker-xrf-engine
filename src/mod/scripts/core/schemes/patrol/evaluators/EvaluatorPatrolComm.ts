@@ -1,20 +1,23 @@
-import { property_evaluator, XR_property_evaluator } from "xray16";
+import { property_evaluator } from "xray16";
 
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("EvaluatorPatrolComm");
 
-export interface IEvaluatorPatrolComm extends XR_property_evaluator {
-  state: IStoredObject;
-}
+/**
+ * todo;
+ */
+@LuabindClass()
+export class EvaluatorPatrolComm extends property_evaluator {
+  public readonly state: IStoredObject;
 
-export const EvaluatorPatrolComm: IEvaluatorPatrolComm = declare_xr_class("EvaluatorPatrolComm", property_evaluator, {
-  __init(name, storage): void {
-    property_evaluator.__init(this, null, name);
+  public constructor(storage: IStoredObject) {
+    super(null, EvaluatorPatrolComm.__name);
     this.state = storage;
-  },
-  evaluate(): boolean {
+  }
+
+  public evaluate(): boolean {
     return registry.patrols.generic.get(this.state.patrol_key).is_commander(this.object.id());
-  },
-} as IEvaluatorPatrolComm);
+  }
+}

@@ -1,10 +1,10 @@
-import { stalker_ids, XR_game_object, XR_ini_file } from "xray16";
+import { stalker_ids, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
 import { IStoredObject } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
-import { EvaluatorGatherItems } from "@/mod/scripts/core/schemes/gather_items/evaluators/EvaluatorGatherItems";
+import { EvaluatorGatherItems } from "@/mod/scripts/core/schemes/gather_items/evaluators";
 import { getConfigBoolean } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -26,13 +26,10 @@ export class SchemeGatherItems extends AbstractScheme {
   ): void {
     logger.info("Add to binder:", object.name());
 
-    const manager = object.motivation_action_manager();
+    const manager: XR_action_planner = object.motivation_action_manager();
 
     manager.remove_evaluator(stalker_ids.property_items);
-    manager.add_evaluator(
-      stalker_ids.property_items,
-      create_xr_class_instance(EvaluatorGatherItems, "is_there_items_to_pickup", state, object)
-    );
+    manager.add_evaluator(stalker_ids.property_items, new EvaluatorGatherItems(state));
   }
 
   public static set_gather_items(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {

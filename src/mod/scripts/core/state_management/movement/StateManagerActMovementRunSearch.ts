@@ -1,4 +1,4 @@
-import { action_base, move, XR_action_base } from "xray16";
+import { action_base, move } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { look_position_type } from "@/mod/scripts/core/state_management/direction/StateManagerDirection";
@@ -10,35 +10,30 @@ const logger: LuaLogger = new LuaLogger(
   gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
 );
 
-export interface IStateManagerActMovementRunSearch extends XR_action_base {
-  st: StateManager;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class StateManagerActMovementRunSearch extends action_base {
+  public stateManager: StateManager;
+
+  public constructor(stateManager: StateManager) {
+    super(null, StateManagerActMovementRunSearch.__name);
+
+    this.stateManager = stateManager;
+  }
+
+  public initialize(): void {
+    super.initialize();
+    this.object.set_movement_type(move.run);
+    this.object.set_sight(look_position_type(this.object, this.stateManager), null, 0);
+  }
+
+  public execute(): void {
+    super.execute();
+  }
+
+  public finalize(): void {
+    super.finalize();
+  }
 }
-
-export const StateManagerActMovementRunSearch: IStateManagerActMovementRunSearch = declare_xr_class(
-  "StateManagerActMovementRunSearch",
-  action_base,
-  {
-    __init(name: string, st: StateManager) {
-      action_base.__init(this, null, name);
-
-      this.st = st;
-    },
-    initialize(): void {
-      action_base.initialize(this);
-      // --printf("MOVEMENT TYPE IS --- %s setting MOVEMENT TYPE --- RUN", tostring(this.object:movement_type()))
-      this.object.set_movement_type(move.run);
-      // --    printf("ENABLING MOVEMENT !!!!!")
-      // --'this.object:movement_enabled(true)
-      // --printf("MOVEMENT TYPE IS --- %s setting MOVEMENT TYPE --- RUN", tostring(this.object:movement_type()))
-      // printf("SET_SIGHT!!!act_state_mgr_movement_run_search:initialize()")
-      this.object.set_sight(look_position_type(this.object, this.st), null, 0);
-    },
-    execute(): void {
-      logger.info("Act movement run search");
-      action_base.execute(this);
-    },
-    finalize(): void {
-      action_base.finalize(this);
-    },
-  } as IStateManagerActMovementRunSearch
-);

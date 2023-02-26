@@ -40,29 +40,24 @@ export class SchemeSleeper extends AbstractScheme {
 
     const manager = object.motivation_action_manager();
 
-    manager.add_evaluator(
-      properties.need_sleeper,
-      create_xr_class_instance(EvaluatorNeedSleep, EvaluatorNeedSleep.__name, registry.objects.get(object.id()).sleeper)
+    manager.add_evaluator(properties.need_sleeper, new EvaluatorNeedSleep(registry.objects.get(object.id()).sleeper));
+
+    const actionSleeper: ActionSleeperActivity = new ActionSleeperActivity(
+      registry.objects.get(object.id()).sleeper,
+      object
     );
 
-    const action = create_xr_class_instance(
-      ActionSleeperActivity,
-      object,
-      ActionSleeperActivity.__name,
-      registry.objects.get(object.id()).sleeper
-    );
+    actionSleeper.add_precondition(new world_property(stalker_ids.property_alive, true));
+    actionSleeper.add_precondition(new world_property(stalker_ids.property_danger, false));
+    actionSleeper.add_precondition(new world_property(stalker_ids.property_enemy, false));
+    actionSleeper.add_precondition(new world_property(stalker_ids.property_anomaly, false));
+    actionSleeper.add_precondition(new world_property(properties.need_sleeper, true));
+    addCommonPrecondition(actionSleeper);
+    actionSleeper.add_effect(new world_property(properties.need_sleeper, false));
+    actionSleeper.add_effect(new world_property(properties.state_mgr_logic_active, false));
+    manager.add_action(operators.action_sleeper, actionSleeper);
 
-    action.add_precondition(new world_property(stalker_ids.property_alive, true));
-    action.add_precondition(new world_property(stalker_ids.property_danger, false));
-    action.add_precondition(new world_property(stalker_ids.property_enemy, false));
-    action.add_precondition(new world_property(stalker_ids.property_anomaly, false));
-    action.add_precondition(new world_property(properties.need_sleeper, true));
-    addCommonPrecondition(action);
-    action.add_effect(new world_property(properties.need_sleeper, false));
-    action.add_effect(new world_property(properties.state_mgr_logic_active, false));
-    manager.add_action(operators.action_sleeper, action);
-
-    subscribeActionForEvents(object, state, action);
+    subscribeActionForEvents(object, state, actionSleeper);
 
     manager.action(action_ids.alife).add_precondition(new world_property(properties.need_sleeper, false));
   }
@@ -76,15 +71,15 @@ export class SchemeSleeper extends AbstractScheme {
   ): void {
     logger.info("Set scheme:", object.name());
 
-    const st = assignStorageAndBind(object, ini, scheme, section);
+    const state = assignStorageAndBind(object, ini, scheme, section);
 
-    st.logic = cfg_get_switch_conditions(ini, section, object);
-    st.path_main = getConfigString(ini, section, "path_main", object, true, gulag_name);
-    st.wakeable = getConfigBoolean(ini, section, "wakeable", object, false);
-    st.path_walk = null;
-    st.path_walk_info = null;
-    st.path_look = null;
-    st.path_look_info = null;
+    state.logic = cfg_get_switch_conditions(ini, section, object);
+    state.path_main = getConfigString(ini, section, "path_main", object, true, gulag_name);
+    state.wakeable = getConfigBoolean(ini, section, "wakeable", object, false);
+    state.path_walk = null;
+    state.path_walk_info = null;
+    state.path_look = null;
+    state.path_look_info = null;
   }
 }
 

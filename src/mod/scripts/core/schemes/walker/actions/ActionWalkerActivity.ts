@@ -1,11 +1,11 @@
-import { action_base, XR_action_base, XR_game_object } from "xray16";
+import { action_base, XR_game_object } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { MoveManager } from "@/mod/scripts/core/MoveManager";
 import { associations, IAnimpointDescriptor } from "@/mod/scripts/core/schemes/animpoint/animpoint_predicates";
-import { CampStoryManager } from "@/mod/scripts/core/schemes/base/CampStoryManager";
+import { CampStoryManager } from "@/mod/scripts/core/schemes/camper/CampStoryManager";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { path_parse_waypoints } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -19,23 +19,20 @@ const assoc_tbl = {
   story: { director: ["wait"] },
 };
 
-export interface IActionWalkerActivity extends XR_action_base {
-  state: IStoredObject;
-  in_camp: Optional<boolean>;
-  move_mgr: MoveManager;
-  camp: Optional<CampStoryManager>;
-  avail_actions: LuaTable<number, IAnimpointDescriptor>;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class ActionWalkerActivity extends action_base {
+  public readonly state: IStoredObject;
+  public readonly move_mgr: MoveManager;
+  public avail_actions: LuaTable<number, IAnimpointDescriptor>;
 
-  activate_scheme(loading: boolean, npc: XR_game_object): void;
-  reset_scheme(loading: Optional<boolean>, npc: XR_game_object): void;
-  update(): void;
-  position_riched(): boolean;
-  net_destroy(npc: XR_game_object): void;
-}
+  public in_camp: Optional<boolean> = null;
+  public camp: Optional<CampStoryManager> = null;
 
-export const ActionWalkerActivity: IActionWalkerActivity = declare_xr_class("ActionWalkerActivity", action_base, {
-  __init(object: XR_game_object, action_name: string, state: IStoredObject): void {
-    action_base.__init(this, null, action_name);
+  public constructor(state: IStoredObject, object: XR_game_object) {
+    super(null, ActionWalkerActivity.__name);
 
     this.state = state;
     this.move_mgr = registry.objects.get(object.id()).move_mgr;
@@ -49,18 +46,21 @@ export const ActionWalkerActivity: IActionWalkerActivity = declare_xr_class("Act
         table.insert(this.state.approved_actions, v);
       }
     }
-  },
-  initialize(): void {
-    action_base.initialize(this);
+  }
+
+  public initialize(): void {
+    super.initialize();
     this.object.set_desired_position();
     this.object.set_desired_direction();
     this.reset_scheme(null, this.object);
-  },
-  activate_scheme(isLoading: boolean, object: XR_game_object): void {
+  }
+
+  public activate_scheme(isLoading: boolean, object: XR_game_object): void {
     this.state.signals = new LuaTable();
     this.reset_scheme(isLoading, object);
-  },
-  reset_scheme(loading: Optional<boolean>, npc: XR_game_object): void {
+  }
+
+  public reset_scheme(loading: Optional<boolean>, npc: XR_game_object): void {
     if (this.state.path_walk_info === null) {
       this.state.path_walk_info = path_parse_waypoints(this.state.path_walk);
     }
@@ -81,9 +81,10 @@ export const ActionWalkerActivity: IActionWalkerActivity = declare_xr_class("Act
       null,
       null
     );
-  },
-  execute(): void {
-    action_base.execute(this);
+  }
+
+  public execute(): void {
+    super.execute();
 
     this.move_mgr.update();
 
@@ -103,15 +104,14 @@ export const ActionWalkerActivity: IActionWalkerActivity = declare_xr_class("Act
     if (!this.in_camp && this.state.sound_idle !== null) {
       GlobalSound.set_sound_play(this.object.id(), this.state.sound_idle, null, null);
     }
-  },
-  update(): void {
+  }
+
+  public update(): void {
     if (this.camp === null) {
       return;
     }
 
-    const [camp_action, is_director] = (
-      this.camp.get_camp_action as (this: any, it: number) => LuaMultiReturn<[string, boolean]>
-    )(this.object.id());
+    const [camp_action, is_director] = this.camp.get_camp_action(this.object.id());
 
     if (!is_director) {
       return;
@@ -121,8 +121,9 @@ export const ActionWalkerActivity: IActionWalkerActivity = declare_xr_class("Act
     const anim = tbl.get(math.random(tbl.length()));
 
     set_state(this.object, anim, null, null, null, null);
-  },
-  finalize(): void {
+  }
+
+  public finalize(): void {
     this.move_mgr.finalize();
 
     if (this.in_camp === true) {
@@ -130,15 +131,17 @@ export const ActionWalkerActivity: IActionWalkerActivity = declare_xr_class("Act
       this.in_camp = null;
     }
 
-    action_base.finalize(this);
-  },
-  position_riched(): boolean {
+    super.finalize();
+  }
+
+  public position_riched(): boolean {
     return this.move_mgr.arrived_to_first_waypoint();
-  },
-  net_destroy(npc: XR_game_object): void {
+  }
+
+  public net_destroy(npc: XR_game_object): void {
     if (this.in_camp === true) {
       this.camp!.unregister_npc(npc.id());
       this.in_camp = null;
     }
-  },
-} as IActionWalkerActivity);
+  }
+}

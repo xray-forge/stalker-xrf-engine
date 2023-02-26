@@ -1,7 +1,7 @@
 // todo: Probably pick && move some to globals
 
 import { misc } from "@/mod/globals/items/misc";
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { registry } from "@/mod/scripts/core/database";
 import { get_npc_smart } from "@/mod/scripts/utils/gulag";

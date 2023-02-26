@@ -1,4 +1,4 @@
-import { action_base, patrol, XR_action_base, XR_game_object } from "xray16";
+import { action_base, patrol, XR_game_object } from "xray16";
 
 import { AnyCallable, Optional } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
@@ -13,13 +13,17 @@ const logger: LuaLogger = new LuaLogger("ActionSleeperActivity");
 const state_walking = 0;
 const state_sleeping = 1;
 
-export interface IActionSleeperActivity extends XR_action_base {
-  state: IStoredObject;
-  move_mgr: MoveManager;
-  was_reset: boolean;
-  sleeping_state: number;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class ActionSleeperActivity extends action_base {
+  public readonly state: IStoredObject;
+  public readonly move_mgr: MoveManager;
+  public was_reset: boolean = false;
+  public sleeping_state: number = state_walking;
 
-  timer: {
+  public timer!: {
     begin: Optional<number>;
     idle: Optional<number>;
     maxidle: number;
@@ -27,28 +31,24 @@ export interface IActionSleeperActivity extends XR_action_base {
     random: number;
   };
 
-  reset_scheme(): void;
-  activate_scheme(): void;
-  callback(mode: unknown, number: number): boolean;
-}
+  public constructor(state: IStoredObject, object: XR_game_object) {
+    super(null, ActionSleeperActivity.__name);
 
-export const ActionSleeperActivity: IActionSleeperActivity = declare_xr_class("ActionSleeperActivity", action_base, {
-  __init(npc: XR_game_object, action_name: string, state: IStoredObject): void {
-    action_base.__init(this, null, action_name);
     this.state = state;
-
-    this.move_mgr = registry.objects.get(npc.id()).move_mgr;
+    this.move_mgr = registry.objects.get(object.id()).move_mgr;
     this.was_reset = false;
-  },
-  initialize(): void {
-    action_base.initialize(this);
+  }
+
+  public initialize(): void {
+    super.initialize();
 
     this.object.set_desired_position();
     this.object.set_desired_direction();
 
     this.reset_scheme();
-  },
-  reset_scheme(): void {
+  }
+
+  public reset_scheme(): void {
     this.timer = {
       begin: null,
       idle: null,
@@ -113,11 +113,13 @@ export const ActionSleeperActivity: IActionSleeperActivity = declare_xr_class("A
       null
     );
     this.was_reset = true;
-  },
-  activate_scheme(): void {
+  }
+
+  public activate_scheme(): void {
     this.was_reset = false;
-  },
-  callback(mode, number: number): boolean {
+  }
+
+  public callback(mode: number, number: number): boolean {
     this.sleeping_state = state_sleeping;
 
     const sleepPatrol = new patrol(this.state.path_main);
@@ -130,9 +132,10 @@ export const ActionSleeperActivity: IActionSleeperActivity = declare_xr_class("A
     }
 
     return true;
-  },
-  execute(): void {
-    action_base.execute(this);
+  }
+
+  public execute(): void {
+    super.execute();
     if (!this.was_reset) {
       this.reset_scheme();
     }
@@ -148,10 +151,11 @@ export const ActionSleeperActivity: IActionSleeperActivity = declare_xr_class("A
      *    --        GlobalSound:set_sound(this.object, "sleep")
      *  end
      */
-  },
-  finalize(): void {
+  }
+
+  public finalize(): void {
     // --  GlobalSound:set_sound(this.object, null)
     this.move_mgr.finalize();
-    action_base.finalize(this);
-  },
-} as IActionSleeperActivity);
+    super.finalize();
+  }
+}

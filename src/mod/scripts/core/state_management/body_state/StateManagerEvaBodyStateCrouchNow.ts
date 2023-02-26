@@ -1,4 +1,4 @@
-import { move, property_evaluator, XR_property_evaluator } from "xray16";
+import { move, property_evaluator } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
@@ -9,21 +9,20 @@ const logger: LuaLogger = new LuaLogger(
   gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
 );
 
-export interface IStateManagerEvaBodyStateCrouchNow extends XR_property_evaluator {
-  st: StateManager;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class StateManagerEvaBodyStateCrouchNow extends property_evaluator {
+  public stateManager: StateManager;
+
+  public constructor(stateManager: StateManager) {
+    super(null, StateManagerEvaBodyStateCrouchNow.__name);
+
+    this.stateManager = stateManager;
+  }
+
+  public evaluate(): boolean {
+    return this.object.target_body_state() === move.crouch;
+  }
 }
-
-export const StateManagerEvaBodyStateCrouchNow: IStateManagerEvaBodyStateCrouchNow = declare_xr_class(
-  "StateManagerEvaBodyStateCrouchNow",
-  property_evaluator,
-  {
-    __init(name: string, st: StateManager): void {
-      property_evaluator.__init(this, null, name);
-
-      this.st = st;
-    },
-    evaluate(): boolean {
-      return this.object.target_body_state() === move.crouch;
-    },
-  } as IStateManagerEvaBodyStateCrouchNow
-);

@@ -47,24 +47,21 @@ export class SchemeRemark extends AbstractScheme {
 
     const manager = object.motivation_action_manager();
 
-    manager.add_evaluator(
-      properties.need_remark,
-      create_xr_class_instance(EvaluatorNeedRemark, EvaluatorNeedRemark.__name, state)
-    );
+    manager.add_evaluator(properties.need_remark, new EvaluatorNeedRemark(state));
 
-    const new_action = create_xr_class_instance(ActionRemarkActivity, ActionRemarkActivity.__name, state);
+    const actionRemarkActivity: ActionRemarkActivity = new ActionRemarkActivity(state);
 
-    new_action.add_precondition(new world_property(stalker_ids.property_alive, true));
-    new_action.add_precondition(new world_property(stalker_ids.property_danger, false));
-    new_action.add_precondition(new world_property(stalker_ids.property_enemy, false));
-    new_action.add_precondition(new world_property(stalker_ids.property_anomaly, false));
-    new_action.add_precondition(new world_property(properties.need_remark, true));
-    addCommonPrecondition(new_action);
-    new_action.add_effect(new world_property(properties.need_remark, false));
-    new_action.add_effect(new world_property(properties.state_mgr_logic_active, false));
-    manager.add_action(operators.action_remark, new_action);
+    actionRemarkActivity.add_precondition(new world_property(stalker_ids.property_alive, true));
+    actionRemarkActivity.add_precondition(new world_property(stalker_ids.property_danger, false));
+    actionRemarkActivity.add_precondition(new world_property(stalker_ids.property_enemy, false));
+    actionRemarkActivity.add_precondition(new world_property(stalker_ids.property_anomaly, false));
+    actionRemarkActivity.add_precondition(new world_property(properties.need_remark, true));
+    addCommonPrecondition(actionRemarkActivity);
+    actionRemarkActivity.add_effect(new world_property(properties.need_remark, false));
+    actionRemarkActivity.add_effect(new world_property(properties.state_mgr_logic_active, false));
+    manager.add_action(operators.action_remark, actionRemarkActivity);
 
-    subscribeActionForEvents(object, state, new_action);
+    subscribeActionForEvents(object, state, actionRemarkActivity);
     manager.action(action_ids.alife).add_precondition(new world_property(properties.need_remark, false));
   }
 

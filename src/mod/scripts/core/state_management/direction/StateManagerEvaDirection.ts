@@ -1,12 +1,4 @@
-import {
-  CSightParams,
-  property_evaluator,
-  TXR_SightType,
-  vector,
-  XR_CSightParams,
-  XR_property_evaluator,
-  XR_vector,
-} from "xray16";
+import { CSightParams, property_evaluator, TXR_SightType, vector, XR_CSightParams, XR_vector } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import {
@@ -19,90 +11,87 @@ import { vectorCmpPrec } from "@/mod/scripts/utils/physics";
 
 const logger: LuaLogger = new LuaLogger("StateManagerEvaDirection", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
-export interface IStateManagerEvaDirection extends XR_property_evaluator {
-  st: StateManager;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class StateManagerEvaDirection extends property_evaluator {
+  public stateManager: StateManager;
 
-  callback(): void;
-}
+  public constructor(stateManager: StateManager) {
+    super(null, StateManagerEvaDirection.__name);
 
-export const StateManagerEvaDirection: IStateManagerEvaDirection = declare_xr_class(
-  "StateManagerEvaDirection",
-  property_evaluator,
-  {
-    __init(name: string, st: StateManager): void {
-      property_evaluator.__init(this, null, name);
+    this.stateManager = stateManager;
+  }
 
-      this.st = st;
-    },
-    evaluate(): boolean {
-      if (this.st.target_state === "smartcover") {
-        return true;
-      }
+  public evaluate(): boolean {
+    if (this.stateManager.target_state === "smartcover") {
+      return true;
+    }
 
-      const sight_type: XR_CSightParams = this.object.sight_params();
+    const sight_type: XR_CSightParams = this.object.sight_params();
 
-      if (this.st.look_object !== null) {
-        if (
-          sight_type.m_object === null ||
-          sight_type.m_object.id() !== this.st.look_object ||
-          this.st.point_obj_dir !== look_object_type(this.object, this.st)
-        ) {
-          return false;
-        }
-
-        this.callback();
-
-        return true;
-      }
-
-      if (this.st.look_position !== null) {
-        if (sight_type.m_sight_type !== look_position_type(this.object, this.st)) {
-          // --printf("false type")
-          return false;
-        } else if ((sight_type.m_sight_type as TXR_SightType) === CSightParams.eSightTypeAnimationDirection) {
-          return true;
-        }
-
-        const dir: XR_vector = new vector().sub(this.st.look_position!, this.object.position());
-
-        if (look_object_type(this.object, this.st) === true) {
-          dir.y = 0;
-        }
-
-        dir.normalize();
-
-        if (vectorCmpPrec(sight_type.m_vector, dir, 0.01) !== true) {
-          // --printf("%s false vector", this.object:name())
-          // --printf("%s %s %s", sight_type.m_vector.x, sight_type.m_vector.y, sight_type.m_vector.z)
-          // --printf("%s %s %s", dir.x, dir.y, dir.z)
-          return false;
-        }
-
-        this.callback();
-
-        return true;
-      }
-
-      if (sight_type.m_object !== null) {
-        return false;
-      }
-
-      if (sight_type.m_sight_type !== look_position_type(this.object, this.st)) {
+    if (this.stateManager.look_object !== null) {
+      if (
+        sight_type.m_object === null ||
+        sight_type.m_object.id() !== this.stateManager.look_object ||
+        this.stateManager.point_obj_dir !== look_object_type(this.object, this.stateManager)
+      ) {
         return false;
       }
 
       this.callback();
 
       return true;
-    },
-    callback(): void {
-      if (this.st.callback !== null && this.st.callback.turn_end_func !== null) {
-        this.st.callback.turn_end_func(this.st.callback.obj);
+    }
 
-        if (this.st.callback !== null) {
-          this.st.callback.turn_end_func = null;
-        }
+    if (this.stateManager.look_position !== null) {
+      if (sight_type.m_sight_type !== look_position_type(this.object, this.stateManager)) {
+        return false;
+      } else if ((sight_type.m_sight_type as TXR_SightType) === CSightParams.eSightTypeAnimationDirection) {
+        return true;
       }
-    },
-  } as IStateManagerEvaDirection
-);
+
+      const dir: XR_vector = new vector().sub(this.stateManager.look_position!, this.object.position());
+
+      if (look_object_type(this.object, this.stateManager)) {
+        dir.y = 0;
+      }
+
+      dir.normalize();
+
+      if (!vectorCmpPrec(sight_type.m_vector, dir, 0.01)) {
+        // --printf("%s false vector", this.object:name())
+        // --printf("%s %s %s", sight_type.m_vector.x, sight_type.m_vector.y, sight_type.m_vector.z)
+        // --printf("%s %s %s", dir.x, dir.y, dir.z)
+        return false;
+      }
+
+      this.callback();
+
+      return true;
+    }
+
+    if (sight_type.m_object !== null) {
+      return false;
+    }
+
+    if (sight_type.m_sight_type !== look_position_type(this.object, this.stateManager)) {
+      return false;
+    }
+
+    this.callback();
+
+    return true;
+  }
+
+  public callback(): void {
+    if (this.stateManager.callback !== null && this.stateManager.callback.turn_end_func !== null) {
+      this.stateManager.callback.turn_end_func(this.stateManager.callback.obj);
+
+      if (this.stateManager.callback !== null) {
+        this.stateManager.callback.turn_end_func = null;
+      }
+    }
+  }
+}

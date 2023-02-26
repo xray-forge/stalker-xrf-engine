@@ -1,22 +1,24 @@
-import { property_evaluator, XR_property_evaluator } from "xray16";
+import { property_evaluator } from "xray16";
 
-import { AnyCallablesModule } from "@/mod/lib/types";
 import { IStoredObject } from "@/mod/scripts/core/database";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { isSchemeActive } from "@/mod/scripts/utils/scheme";
 
 const logger: LuaLogger = new LuaLogger("EvaluatorNeedCover");
 
-export interface IEvaluatorNeedCover extends XR_property_evaluator {
-  state: IStoredObject;
-}
+/**
+ * todo;
+ */
+@LuabindClass()
+export class EvaluatorNeedCover extends property_evaluator {
+  public state: IStoredObject;
 
-export const EvaluatorNeedCover: IEvaluatorNeedCover = declare_xr_class("EvaluatorNeedCover", property_evaluator, {
-  __init(state: IStoredObject, name: string): void {
-    property_evaluator.__init(this, null, name);
+  public constructor(state: IStoredObject) {
+    super(null, EvaluatorNeedCover.__name);
     this.state = state;
-  },
-  evaluate(): boolean {
+  }
+
+  public evaluate(): boolean {
     return isSchemeActive(this.object, this.state);
-  },
-} as IEvaluatorNeedCover);
+  }
+}

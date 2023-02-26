@@ -40,7 +40,7 @@ import { SchemeRemark } from "@/mod/scripts/core/schemes/remark/SchemeRemark";
 import { SchemeSleeper } from "@/mod/scripts/core/schemes/sleeper/SchemeSleeper";
 import { SchemeSmartCover } from "@/mod/scripts/core/schemes/smartcover/SchemeSmartCover";
 import { SchemeCrowSpawner } from "@/mod/scripts/core/schemes/sr_crow_spawner/SchemeCrowSpawner";
-import { SchemeCutscene } from "@/mod/scripts/core/schemes/sr_cutscene/ActionCustscene";
+import { SchemeCutscene } from "@/mod/scripts/core/schemes/sr_cutscene/SchemeCutscene";
 import { SchemeDeimos } from "@/mod/scripts/core/schemes/sr_deimos/SchemeDeimos";
 import { SchemeLight } from "@/mod/scripts/core/schemes/sr_light/SchemeLight";
 import { SchemeMonster } from "@/mod/scripts/core/schemes/sr_monster/SchemeMonster";

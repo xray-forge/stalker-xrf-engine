@@ -1,4 +1,4 @@
-import { action_base, device, vector, XR_action_base, XR_game_object, XR_vector } from "xray16";
+import { action_base, device, vector, XR_game_object, XR_vector } from "xray16";
 
 import { IStoredObject } from "@/mod/scripts/core/database";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
@@ -8,35 +8,29 @@ import { vectorRotateY } from "@/mod/scripts/utils/physics";
 
 const logger: LuaLogger = new LuaLogger("ActionLookAround");
 
-export interface IActionLookAround extends XR_action_base {
-  state: IStoredObject;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class ActionLookAround extends action_base {
+  public readonly state: IStoredObject;
+  public forget_time: number = 0;
+  public change_dir_time: number = 0;
 
-  forget_time: number;
-  change_dir_time: number;
-
-  reset(): void;
-  hit_callback(
-    object: XR_game_object,
-    amount: number,
-    const_direction: XR_vector,
-    who: XR_game_object,
-    bone_index: string
-  ): void;
-}
-
-export const ActionLookAround: IActionLookAround = declare_xr_class("ActionLookAround", action_base, {
-  __init(name: string, state: IStoredObject): void {
-    action_base.__init(this, null, name);
+  public constructor(state: IStoredObject) {
+    super(null, ActionLookAround.__name);
     this.state = state;
-  },
-  initialize(): void {
-    action_base.initialize(this);
+  }
+
+  public initialize(): void {
+    super.initialize();
 
     this.state.camper_combat_action = true;
 
     this.reset();
-  },
-  reset(): void {
+  }
+
+  public reset(): void {
     this.forget_time = device().time_global() + 30000;
     this.change_dir_time = device().time_global() + 15000;
 
@@ -45,13 +39,13 @@ export const ActionLookAround: IActionLookAround = declare_xr_class("ActionLookA
     }
 
     set_state(this.object, "hide", null, null, { look_position: this.state.last_seen_pos }, null);
-  },
-  execute(): void {
-    action_base.execute(this);
+  }
+
+  public execute(): void {
+    super.execute();
 
     if (this.forget_time < device().time_global()) {
       // --        this.object:enable_memory_object( this.object:best_enemy(), false )
-
       this.state.last_seen_pos = null;
 
       return;
@@ -72,15 +66,16 @@ export const ActionLookAround: IActionLookAround = declare_xr_class("ActionLookA
 
       set_state(this.object, "hide", null, null, { look_position: this.object.position().add(dir) }, null);
     }
-  },
-  finalize(): void {
-    action_base.finalize(this);
+  }
+
+  public finalize(): void {
+    super.finalize();
 
     this.state.last_seen_pos = null;
-
     this.state.camper_combat_action = false;
-  },
-  hit_callback(
+  }
+
+  public hit_callback(
     object: XR_game_object,
     amount: number,
     const_direction: XR_vector,
@@ -97,5 +92,5 @@ export const ActionLookAround: IActionLookAround = declare_xr_class("ActionLookA
       this.state.last_seen_pos = be.position();
       this.reset();
     }
-  },
-} as IActionLookAround);
+  }
+}

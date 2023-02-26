@@ -1,5 +1,6 @@
-import { action_base, alife, hit, time_global, XR_action_base, XR_alife_simulator } from "xray16";
+import { action_base, alife, hit, time_global, XR_alife_simulator } from "xray16";
 
+import { STRINGIFIED_NIL } from "@/mod/globals/lua";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
@@ -9,40 +10,42 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ActionWounded");
 
-export interface IActionWounded extends XR_action_base {
-  a: IStoredObject;
-}
+/**
+ * todo;
+ */
+@LuabindClass()
+export class ActionWounded extends action_base {
+  public readonly state: IStoredObject;
 
-export const ActionWounded: IActionWounded = declare_xr_class("ActionWounded", action_base, {
-  __init(name: string, storage: IStoredObject): void {
-    action_base.__init(this, null, name);
-    this.a = storage;
-  },
-  initialize(): void {
-    action_base.initialize(this);
+  public constructor(storage: IStoredObject) {
+    super(null, ActionWounded.__name);
+    this.state = storage;
+  }
+
+  public initialize(): void {
+    super.initialize();
 
     this.object.set_desired_position();
     this.object.set_desired_direction();
 
-    if (this.a.help_start_dialog) {
-      this.object.set_start_dialog(this.a.help_start_dialog);
+    if (this.state.help_start_dialog) {
+      this.object.set_start_dialog(this.state.help_start_dialog);
     }
 
     this.object.movement_enabled(false);
     this.object.disable_trade();
     this.object.wounded(true);
-  },
-  execute(): void {
-    logger.info("Execute:", this.object.name());
+  }
 
-    action_base.execute(this);
+  public execute(): void {
+    super.execute();
 
-    const wound_manager = this.a.wound_manager;
+    const wound_manager = this.state.wound_manager;
     const wound_manager_victim = pstor_retrieve(this.object, "wounded_victim");
 
     const sim: XR_alife_simulator = alife();
 
-    if (this.a.autoheal === true) {
+    if (this.state.autoheal === true) {
       if (wound_manager.can_use_medkit !== true) {
         const begin_wounded: number = pstor_retrieve(this.object, "begin_wounded")!;
         const current_time: number = time_global();
@@ -72,11 +75,11 @@ export const ActionWounded: IActionWounded = declare_xr_class("ActionWounded", a
       h.type = hit.wound;
       this.object.hit(h);
     } else {
-      if (this.a.use_medkit === true) {
+      if (this.state.use_medkit === true) {
         wound_manager.eat_medkit();
       }
 
-      if (tostring(wound_manager_state) === "nil") {
+      if (tostring(wound_manager_state) === STRINGIFIED_NIL) {
         abort("Wrong wounded animation %s", this.object.name());
       }
 
@@ -84,19 +87,20 @@ export const ActionWounded: IActionWounded = declare_xr_class("ActionWounded", a
       set_state(this.object, wound_manager_state, null, null, { look_object: null }, null);
     }
 
-    if (wound_manager_sound === "nil") {
+    if (wound_manager_sound === STRINGIFIED_NIL) {
       GlobalSound.set_sound_play(this.object.id(), null, null, null);
     } else {
       GlobalSound.set_sound_play(this.object.id(), wound_manager_sound, null, null);
     }
-  },
-  finalize(): void {
-    action_base.finalize(this);
+  }
+
+  public finalize(): void {
+    super.finalize();
 
     this.object.enable_trade();
     this.object.disable_talk();
     // -- GlobalSound:set_sound(this.object, nil)
     this.object.wounded(false);
     this.object.movement_enabled(true);
-  },
-} as IActionWounded);
+  }
+}

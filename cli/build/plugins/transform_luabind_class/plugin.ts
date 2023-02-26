@@ -1,3 +1,4 @@
+import { unsupportedStaticMethod } from "#/build/plugins/transform_luabind_class/transformation/errors";
 import {
   transformLuabindClassDeclaration,
   transformNewCallExpression,

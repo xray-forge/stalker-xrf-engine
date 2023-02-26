@@ -1,4 +1,4 @@
-import { anim, property_evaluator, XR_property_evaluator } from "xray16";
+import { anim, property_evaluator } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
@@ -9,21 +9,19 @@ const logger: LuaLogger = new LuaLogger(
   gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
 );
 
-export interface IStateManagerEvaMentalFreeNow extends XR_property_evaluator {
-  st: StateManager;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class StateManagerEvaMentalFreeNow extends property_evaluator {
+  public stateManager: StateManager;
+
+  public constructor(stateManager: StateManager) {
+    super(null, StateManagerEvaMentalFreeNow.__name);
+    this.stateManager = stateManager;
+  }
+
+  public evaluate(): boolean {
+    return this.object.target_mental_state() === anim.free;
+  }
 }
-
-export const StateManagerEvaMentalFreeNow: IStateManagerEvaMentalFreeNow = declare_xr_class(
-  "StateManagerEvaMentalFreeNow",
-  property_evaluator,
-  {
-    __init(name: string, st: StateManager) {
-      property_evaluator.__init(this, null, name);
-
-      this.st = st;
-    },
-    evaluate(): boolean {
-      return this.object.target_mental_state() === anim.free;
-    },
-  } as IStateManagerEvaMentalFreeNow
-);

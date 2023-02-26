@@ -1,4 +1,4 @@
-import { action_base, anim, move, XR_action_base } from "xray16";
+import { action_base, anim, move } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
@@ -9,31 +9,30 @@ const logger: LuaLogger = new LuaLogger(
   gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
 );
 
-export interface IStateManagerActBodyStateCrouchDanger extends XR_action_base {
-  st: StateManager;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class StateManagerActBodyStateCrouchDanger extends action_base {
+  private readonly stateManager: StateManager;
+
+  public constructor(stateManager: StateManager) {
+    super(null, StateManagerActBodyStateCrouchDanger.__name);
+    this.stateManager = stateManager;
+  }
+
+  public initialize(): void {
+    super.initialize();
+
+    this.object.set_mental_state(anim.danger);
+    this.object.set_body_state(move.crouch);
+  }
+
+  public execute(): void {
+    super.execute();
+  }
+
+  public finalize(): void {
+    super.finalize();
+  }
 }
-
-export const StateManagerActBodyStateCrouchDanger: IStateManagerActBodyStateCrouchDanger = declare_xr_class(
-  "StateManagerActBodyStateCrouchDanger",
-  action_base,
-  {
-    __init(name: string, st: StateManager): void {
-      action_base.__init(this, null, name);
-
-      this.st = st;
-    },
-    initialize(): void {
-      action_base.initialize(this);
-
-      this.object.set_mental_state(anim.danger);
-      this.object.set_body_state(move.crouch);
-    },
-    execute(): void {
-      logger.info("Act body state crouch danger");
-      action_base.execute(this);
-    },
-    finalize(): void {
-      action_base.finalize(this);
-    },
-  } as IStateManagerActBodyStateCrouchDanger
-);

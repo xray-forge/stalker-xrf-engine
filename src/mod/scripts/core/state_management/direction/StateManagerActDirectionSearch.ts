@@ -1,4 +1,4 @@
-import { action_base, CSightParams, XR_action_base } from "xray16";
+import { action_base, CSightParams } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { look_position_type } from "@/mod/scripts/core/state_management/direction/StateManagerDirection";
@@ -11,37 +11,37 @@ const logger: LuaLogger = new LuaLogger(
   gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
 );
 
-export interface IStateManagerActDirectionSearch extends XR_action_base {
-  st: StateManager;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class StateManagerActDirectionSearch extends action_base {
+  public readonly stateManager: StateManager;
+
+  public constructor(stateManager: StateManager) {
+    super(null, StateManagerActDirectionSearch.__name);
+
+    this.stateManager = stateManager;
+  }
+
+  public initialize(): void {
+    super.initialize();
+
+    if (
+      states.get(this.stateManager.target_state).direction &&
+      states.get(this.stateManager.target_state).direction === CSightParams.eSightTypeAnimationDirection
+    ) {
+      this.object.set_sight(CSightParams.eSightTypeAnimationDirection, false, false);
+    } else {
+      this.object.set_sight(look_position_type(this.object, this.stateManager), null, 0);
+    }
+  }
+
+  public execute(): void {
+    super.execute();
+  }
+
+  public finalize(): void {
+    super.finalize();
+  }
 }
-
-export const StateManagerActDirectionSearch: IStateManagerActDirectionSearch = declare_xr_class(
-  "StateManagerActDirectionSearch",
-  action_base,
-  {
-    __init(name: string, st: StateManager): void {
-      action_base.__init(this, null, name);
-
-      this.st = st;
-    },
-    initialize(): void {
-      action_base.initialize(this);
-
-      if (
-        states.get(this.st.target_state).direction &&
-        states.get(this.st.target_state).direction === CSightParams.eSightTypeAnimationDirection
-      ) {
-        this.object.set_sight(CSightParams.eSightTypeAnimationDirection, false, false);
-      } else {
-        this.object.set_sight(look_position_type(this.object, this.st), null, 0);
-      }
-    },
-    execute(): void {
-      logger.info("Act direction search");
-      action_base.execute(this);
-    },
-    finalize(): void {
-      action_base.finalize(this);
-    },
-  } as IStateManagerActDirectionSearch
-);

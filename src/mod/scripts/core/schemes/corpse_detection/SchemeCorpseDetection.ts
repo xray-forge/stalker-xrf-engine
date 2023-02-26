@@ -8,17 +8,17 @@ import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAn
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { action_ids } from "@/mod/scripts/core/schemes/base/actions_id";
 import { evaluators_id } from "@/mod/scripts/core/schemes/base/evaluators_id";
-import {
-  ActionSearchCorpse,
-  IActionSearchCorpse,
-} from "@/mod/scripts/core/schemes/corpse_detection/actions/ActionSearchCorpse";
-import { EvaluatorCorpseDetect } from "@/mod/scripts/core/schemes/corpse_detection/evaluators/EvaluatorCorpseDetect";
+import { ActionSearchCorpse } from "@/mod/scripts/core/schemes/corpse_detection/actions";
+import { EvaluatorCorpseDetect } from "@/mod/scripts/core/schemes/corpse_detection/evaluators";
 import { isLootableItem } from "@/mod/scripts/utils/checkers/is";
 import { getConfigBoolean } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("SchemeCorpseDetection");
 
+/**
+ * todo;
+ */
 export class SchemeCorpseDetection extends AbstractScheme {
   public static SCHEME_SECTION: EScheme = EScheme.CORPSE_DETECTION;
   public static SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
@@ -44,18 +44,10 @@ export class SchemeCorpseDetection extends AbstractScheme {
     const manager: XR_action_planner = object.motivation_action_manager();
 
     // Evaluators
-    manager.add_evaluator(
-      properties.corpse_exist,
-      create_xr_class_instance(EvaluatorCorpseDetect, EvaluatorCorpseDetect.__name, state)
-    );
+    manager.add_evaluator(properties.corpse_exist, new EvaluatorCorpseDetect(state));
 
     // Actions
-    const actionSearchCorpse: IActionSearchCorpse = create_xr_class_instance(
-      ActionSearchCorpse,
-      object.name(),
-      ActionSearchCorpse.__name,
-      state
-    );
+    const actionSearchCorpse: ActionSearchCorpse = new ActionSearchCorpse(state);
 
     actionSearchCorpse.add_precondition(new world_property(stalker_ids.property_alive, true));
     actionSearchCorpse.add_precondition(new world_property(stalker_ids.property_enemy, false));

@@ -1,4 +1,4 @@
-import { property_evaluator, stalker_ids, XR_action_planner, XR_game_object, XR_property_evaluator } from "xray16";
+import { property_evaluator, stalker_ids, XR_action_planner, XR_game_object } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
@@ -7,17 +7,20 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("EvaluatorContact");
 
-export interface IEvaluatorContact extends XR_property_evaluator {
-  state: IStoredObject;
-  actionPlanner: XR_action_planner;
-}
+/**
+ * todo;
+ */
+@LuabindClass()
+export class EvaluatorContact extends property_evaluator {
+  public readonly state: IStoredObject;
+  public actionPlanner: Optional<XR_action_planner> = null;
 
-export const EvaluatorContact: IEvaluatorContact = declare_xr_class("EvaluatorContact", property_evaluator, {
-  __init(name: string, state: IStoredObject): void {
-    property_evaluator.__init(this, null, name);
+  public constructor(state: IStoredObject) {
+    super(null, EvaluatorContact.__name);
     this.state = state;
-  },
-  evaluate(): boolean {
+  }
+
+  public evaluate(): boolean {
     if (this.state.meet_set !== true) {
       return false;
     }
@@ -50,5 +53,5 @@ export const EvaluatorContact: IEvaluatorContact = declare_xr_class("EvaluatorCo
 
       return this.state.meet_manager.current_distance !== null;
     }
-  },
-} as IEvaluatorContact);
+  }
+}

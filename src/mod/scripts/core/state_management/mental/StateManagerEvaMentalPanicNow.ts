@@ -1,7 +1,7 @@
-import { action_base, anim, property_evaluator, XR_property_evaluator } from "xray16";
+import { anim, property_evaluator } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
-import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
+import type { StateManager } from "@/mod/scripts/core/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger(
@@ -9,21 +9,19 @@ const logger: LuaLogger = new LuaLogger(
   gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
 );
 
-export interface IStateManagerEvaMentalPanicNow extends XR_property_evaluator {
-  st: StateManager;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class StateManagerEvaMentalPanicNow extends property_evaluator {
+  public readonly stateManager: StateManager;
+
+  public constructor(stateManager: StateManager) {
+    super(null, StateManagerEvaMentalPanicNow.__name);
+    this.stateManager = stateManager;
+  }
+
+  public evaluate(): boolean {
+    return this.object.target_mental_state() === anim.panic;
+  }
 }
-
-export const StateManagerEvaMentalPanicNow: IStateManagerEvaMentalPanicNow = declare_xr_class(
-  "StateManagerEvaMentalPanicNow",
-  property_evaluator,
-  {
-    __init(name: string, st: StateManager) {
-      property_evaluator.__init(this, null, name);
-
-      this.st = st;
-    },
-    evaluate(): boolean {
-      return this.object.target_mental_state() === anim.panic;
-    },
-  } as IStateManagerEvaMentalPanicNow
-);

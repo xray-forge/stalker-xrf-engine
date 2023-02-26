@@ -52,38 +52,42 @@ export class SchemeMobWalker extends AbstractScheme {
   public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
 
   public static add_to_binder(
-    npc: XR_game_object,
+    object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
     storage: IStoredObject
   ): void {
-    subscribeActionForEvents(npc, storage, new SchemeMobWalker(npc, storage));
+    subscribeActionForEvents(object, storage, new SchemeMobWalker(object, storage));
   }
 
   public static set_scheme(
-    npc: XR_game_object,
+    object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
     gulag_name: string
   ): void {
-    logger.info("Set scheme:", npc.name(), scheme, section);
+    logger.info("Set scheme:", object.name(), scheme, section);
 
-    const st: IStoredObject = assignStorageAndBind(npc, ini, scheme, section);
+    const state: IStoredObject = assignStorageAndBind(object, ini, scheme, section);
 
-    st.logic = cfg_get_switch_conditions(ini, section, npc);
-    st.state = getMobState(ini, section, npc);
-    st.no_reset = getConfigBoolean(ini, section, "no_reset", npc, false);
-    st.path_walk = getConfigString(ini, section, "path_walk", npc, true, gulag_name);
-    st.path_look = getConfigString(ini, section, "path_look", npc, false, gulag_name);
+    state.logic = cfg_get_switch_conditions(ini, section, object);
+    state.state = getMobState(ini, section, object);
+    state.no_reset = getConfigBoolean(ini, section, "no_reset", object, false);
+    state.path_walk = getConfigString(ini, section, "path_walk", object, true, gulag_name);
+    state.path_look = getConfigString(ini, section, "path_look", object, false, gulag_name);
 
-    if (st.path_walk === st.path_look) {
-      abort("You are trying to set 'path_look' equal to 'path_walk' in section [%s] for npc [%s]", section, npc.name());
+    if (state.path_walk === state.path_look) {
+      abort(
+        "You are trying to set 'path_look' equal to 'path_walk' in section [%s] for npc [%s]",
+        section,
+        object.name()
+      );
     }
 
-    st.path_walk_info = null;
-    st.path_look_info = null;
+    state.path_walk_info = null;
+    state.path_look_info = null;
   }
 
   public last_index: Optional<number> = null;

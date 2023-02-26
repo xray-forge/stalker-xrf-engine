@@ -1,4 +1,4 @@
-import { action_base, object, XR_action_base, XR_game_object } from "xray16";
+import { action_base, object, XR_game_object } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
@@ -13,33 +13,37 @@ const logger: LuaLogger = new LuaLogger(
   gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
 );
 
-export interface IStateManagerActWeaponDrop extends XR_action_base {
-  st: StateManager;
-}
+/**
+ * todo;
+ */
+@LuabindClass()
+export class StateManagerActWeaponDrop extends action_base {
+  private readonly stateManager: StateManager;
 
-export const StateManagerActWeaponDrop = declare_xr_class("StateManagerActWeaponDrop", action_base, {
-  __init(name: string, st: StateManager): void {
-    action_base.__init(this, null, name);
+  public constructor(stateManager: StateManager) {
+    super(null, StateManagerActWeaponDrop.__name);
+    this.stateManager = stateManager;
+  }
 
-    this.st = st;
-  },
-  initialize(): void {
-    action_base.initialize(this);
+  public initialize(): void {
+    super.initialize();
 
-    const weap: Optional<XR_game_object> = get_weapon(this.object, this.st.target_state);
+    const weapon: Optional<XR_game_object> = get_weapon(this.object, this.stateManager.target_state);
 
-    if (isStrappableWeapon(weap)) {
-      this.object.set_item(object.drop, weap);
-      setItemCondition(weap, math.random(40, 80));
+    if (isStrappableWeapon(weapon)) {
+      this.object.set_item(object.drop, weapon);
+      // todo: Configured condition in one place.
+      setItemCondition(weapon, math.random(40, 80));
     } else {
       this.object.set_item(object.idle, null);
     }
-  },
-  execute(): void {
-    logger.info("Act weapon drop");
-    action_base.execute(this);
-  },
-  finalize(): void {
-    action_base.finalize(this);
-  },
-} as IStateManagerActWeaponDrop);
+  }
+
+  public execute(): void {
+    super.execute();
+  }
+
+  public finalize(): void {
+    super.finalize();
+  }
+}

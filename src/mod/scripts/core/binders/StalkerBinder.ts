@@ -50,7 +50,7 @@ import { TradeManager } from "@/mod/scripts/core/managers/TradeManager";
 import { MoveManager } from "@/mod/scripts/core/MoveManager";
 import { get_release_body_manager } from "@/mod/scripts/core/ReleaseBodyManager";
 import { SchemeCombat } from "@/mod/scripts/core/schemes/combat/SchemeCombat";
-import { add_post_combat_idle } from "@/mod/scripts/core/schemes/danger/evaluators/PostCombatIdleEnemyEvaluator";
+import { PostCombatIdle } from "@/mod/scripts/core/schemes/danger/PostCombatIdle";
 import { SchemeDanger } from "@/mod/scripts/core/schemes/danger/SchemeDanger";
 import { generic_scheme_overrides } from "@/mod/scripts/core/schemes/generic_scheme_overrides";
 import { ActionSchemeHear } from "@/mod/scripts/core/schemes/hear/ActionSchemeHear";
@@ -237,7 +237,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
     setup_gulag_and_logic_on_spawn(this.object, this.state, obj, ESchemeType.STALKER, this.loaded);
 
     if (getCharacterCommunity(this.object) !== communities.zombied) {
-      add_post_combat_idle(this.object);
+      PostCombatIdle.add_post_combat_idle(this.object);
     }
 
     this.object.group_throw_time_interval(2000);

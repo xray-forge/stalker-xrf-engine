@@ -1,4 +1,4 @@
-import { action_base, XR_action_base } from "xray16";
+import { action_base } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { states } from "@/mod/scripts/core/state_management/lib/state_lib";
@@ -10,31 +10,30 @@ const logger: LuaLogger = new LuaLogger(
   gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
 );
 
-export interface IStateManagerActAnimationStateStart extends XR_action_base {
-  st: StateManager;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class StateManagerActAnimationStateStart extends action_base {
+  public readonly stateManager: StateManager;
+
+  public constructor(stateManager: StateManager) {
+    super(null, StateManagerActAnimationStateStart.__name);
+    this.stateManager = stateManager;
+  }
+
+  public initialize(): void {
+    super.initialize();
+
+    this.stateManager.animstate.set_state(states.get(this.stateManager.target_state).animstate, null);
+    this.stateManager.animstate.set_control();
+  }
+
+  public execute(): void {
+    super.execute();
+  }
+
+  public finalize(): void {
+    super.finalize();
+  }
 }
-
-export const StateManagerActAnimationStateStart: IStateManagerActAnimationStateStart = declare_xr_class(
-  "StateManagerActAnimationStateStart",
-  action_base,
-  {
-    __init(name: string, st: StateManager): void {
-      action_base.__init(this, null, name);
-
-      this.st = st;
-    },
-    initialize(): void {
-      action_base.initialize(this);
-
-      this.st.animstate.set_state(states.get(this.st.target_state).animstate, null);
-      this.st.animstate.set_control();
-    },
-    execute(): void {
-      logger.info("Act animation state start");
-      action_base.execute(this);
-    },
-    finalize(): void {
-      action_base.finalize(this);
-    },
-  } as IStateManagerActAnimationStateStart
-);

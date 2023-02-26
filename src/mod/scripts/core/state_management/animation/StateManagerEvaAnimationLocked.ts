@@ -1,4 +1,4 @@
-import { property_evaluator, XR_property_evaluator } from "xray16";
+import { property_evaluator } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
@@ -9,27 +9,25 @@ const logger: LuaLogger = new LuaLogger(
   gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
 );
 
-export interface IStateManagerEvaAnimationLocked extends XR_property_evaluator {
-  st: StateManager;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class StateManagerEvaAnimationLocked extends property_evaluator {
+  public readonly stateManager: StateManager;
+
+  public constructor(stateManager: StateManager) {
+    super(null, StateManagerEvaAnimationLocked.__name);
+
+    this.stateManager = stateManager;
+  }
+
+  public evaluate(): boolean {
+    // tostring(self.st.fast_set), tostring(self.st.animation.states.anim_marker), tostring(self.st.animation.sid))
+    // --    if self.st.fast_set === true then
+    // --        return false
+    // --    end
+
+    return this.stateManager.animation.states.anim_marker !== null;
+  }
 }
-
-export const StateManagerEvaAnimationLocked: IStateManagerEvaAnimationLocked = declare_xr_class(
-  "StateManagerEvaAnimationLocked",
-  property_evaluator,
-  {
-    __init(name: string, st: StateManager): void {
-      property_evaluator.__init(this, null, name);
-
-      this.st = st;
-    },
-    evaluate(): boolean {
-      // --printf("anim_locked [%s] fast_set[%s] anim_marker[%s] sid[%s]", self.object:name(),
-      // tostring(self.st.fast_set), tostring(self.st.animation.states.anim_marker), tostring(self.st.animation.sid))
-      // --    if self.st.fast_set === true then
-      // --        return false
-      // --    end
-
-      return this.st.animation.states.anim_marker !== null;
-    },
-  } as IStateManagerEvaAnimationLocked
-);

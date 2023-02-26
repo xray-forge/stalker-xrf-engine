@@ -17,7 +17,7 @@ import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme, action_ids, evaluators_id } from "@/mod/scripts/core/schemes/base";
-import { ActionWounded, IActionWounded } from "@/mod/scripts/core/schemes/wounded/actions/ActionWounded";
+import { ActionWounded } from "@/mod/scripts/core/schemes/wounded/actions";
 import { EvaluatorCanFight, EvaluatorWounded } from "@/mod/scripts/core/schemes/wounded/evaluators";
 import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
 import {
@@ -37,6 +37,9 @@ const wounded_by_state: Record<number, string> = {
 
 const logger: LuaLogger = new LuaLogger("SchemeWounded");
 
+/**
+ * todo;
+ */
 export class SchemeWounded extends AbstractScheme {
   public static readonly SCHEME_SECTION: EScheme = EScheme.WOUNDED;
   public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
@@ -61,10 +64,10 @@ export class SchemeWounded extends AbstractScheme {
 
     const manager: XR_action_planner = object.motivation_action_manager();
 
-    manager.add_evaluator(properties.wounded, create_xr_class_instance(EvaluatorWounded, "wounded", state));
-    manager.add_evaluator(properties.can_fight, create_xr_class_instance(EvaluatorCanFight, "can_fight", state));
+    manager.add_evaluator(properties.wounded, new EvaluatorWounded(state));
+    manager.add_evaluator(properties.can_fight, new EvaluatorCanFight(state));
 
-    const action: IActionWounded = create_xr_class_instance(ActionWounded, "wounded_action", state);
+    const action: ActionWounded = new ActionWounded(state);
 
     action.add_precondition(new world_property(stalker_ids.property_alive, true));
     action.add_precondition(new world_property(properties.wounded, true));

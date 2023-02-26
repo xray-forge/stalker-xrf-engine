@@ -21,38 +21,38 @@ export class SchemeHit extends AbstractScheme {
   public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   public static add_to_binder(
-    npc: XR_game_object,
+    object: XR_game_object,
     ini: XR_ini_file,
     scheme: string,
     section: string,
     storage: IStoredObject
   ): void {
-    logger.info("Add to binder:", npc.id());
-    storage.action = new SchemeHit(npc, storage);
+    logger.info("Add to binder:", object.id());
+    storage.action = new SchemeHit(object, storage);
   }
 
-  public static disable_scheme(npc: XR_game_object, scheme: EScheme): void {
-    logger.info("Disable scheme:", npc.id());
+  public static disable_scheme(object: XR_game_object, scheme: EScheme): void {
+    logger.info("Disable scheme:", object.id());
 
-    const st = registry.objects.get(npc.id())[scheme];
+    const st = registry.objects.get(object.id())[scheme];
 
     if (st !== null) {
-      unsubscribeActionFromEvents(npc, st, st.action);
+      unsubscribeActionFromEvents(object, st, st.action);
     }
   }
 
-  public static set_hit_checker(npc: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    logger.info("Set hit checker:", npc.id());
+  public static set_hit_checker(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    logger.info("Set hit checker:", object.id());
 
-    const st = assignStorageAndBind(npc, ini, scheme, section);
+    const st = assignStorageAndBind(object, ini, scheme, section);
 
     if (!ini.section_exist(section)) {
-      abort("There is no section [%s] for npc [%s]", section, npc.name());
+      abort("There is no section [%s] for npc [%s]", section, object.name());
     }
 
-    st.logic = cfg_get_switch_conditions(ini, section, npc);
+    st.logic = cfg_get_switch_conditions(ini, section, object);
 
-    subscribeActionForEvents(npc, st, st.action);
+    subscribeActionForEvents(object, st, st.action);
   }
 
   public hit_callback(

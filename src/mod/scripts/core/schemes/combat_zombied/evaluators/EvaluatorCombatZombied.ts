@@ -1,4 +1,4 @@
-import { property_evaluator, XR_property_evaluator } from "xray16";
+import { property_evaluator } from "xray16";
 
 import { communities } from "@/mod/globals/communities";
 import { IStoredObject } from "@/mod/scripts/core/database";
@@ -7,20 +7,19 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("EvaluatorCombatZombied");
 
-export interface IEvaluatorCombatZombied extends XR_property_evaluator {
-  state: IStoredObject;
-}
+/**
+ * todo;
+ */
+@LuabindClass()
+export class EvaluatorCombatZombied extends property_evaluator {
+  public readonly state: IStoredObject;
 
-export const EvaluatorCombatZombied: IEvaluatorCombatZombied = declare_xr_class(
-  "EvaluatorCombatZombied",
-  property_evaluator,
-  {
-    __init(name: string, state: IStoredObject): void {
-      property_evaluator.__init(this, null, name);
-      this.state = state;
-    },
-    evaluate(): boolean {
-      return getCharacterCommunity(this.object) === communities.zombied;
-    },
-  } as IEvaluatorCombatZombied
-);
+  public constructor(state: IStoredObject) {
+    super(null, EvaluatorCombatZombied.__name);
+    this.state = state;
+  }
+
+  public evaluate(): boolean {
+    return getCharacterCommunity(this.object) === communities.zombied;
+  }
+}

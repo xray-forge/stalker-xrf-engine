@@ -1,5 +1,6 @@
-import { action_base, game_object, level, vector, XR_action_base, XR_game_object, XR_vector } from "xray16";
+import { action_base, game_object, level, vector, XR_vector } from "xray16";
 
+import { Optional } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/core/database/SimBoard";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
@@ -7,28 +8,29 @@ import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { vectorCmp } from "@/mod/scripts/utils/physics";
 
-export interface IActionBaseCover extends XR_action_base {
-  state: IStoredObject;
-  board: ISimBoard;
-  enemy_random_position: XR_vector;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class ActionBaseCover extends action_base {
+  public readonly state: IStoredObject;
+  public board!: ISimBoard;
 
-  cover_vertex_id: number;
-  cover_position: XR_vector;
+  public enemy_random_position: Optional<XR_vector> = null;
+  public cover_vertex_id!: number;
+  public cover_position!: XR_vector;
 
-  position_reached(): boolean;
-  activate_scheme(): void;
-}
-
-export const ActionBaseCover: IActionBaseCover = declare_xr_class("ActionBaseCover", action_base, {
-  __init(action_name: string, state: IStoredObject): void {
-    action_base.__init(this, null, action_name);
+  public constructor(state: IStoredObject) {
+    super(null, ActionBaseCover.__name);
     this.state = state;
-  },
-  initialize(): void {
-    action_base.initialize(this);
+  }
+
+  public initialize(): void {
+    super.initialize();
     this.board = get_sim_board();
-  },
-  activate_scheme(): void {
+  }
+
+  public activate_scheme(): void {
     this.state.signals = {};
     this.board = get_sim_board();
 
@@ -79,8 +81,9 @@ export const ActionBaseCover: IActionBaseCover = declare_xr_class("ActionBaseCov
     this.object.set_dest_level_vertex_id(this.cover_vertex_id);
 
     set_state(this.object, "assault", null, null, null, null);
-  },
-  execute(): void {
+  }
+
+  public execute(): void {
     if (this.cover_position.distance_to_sqr(this.object.position()) <= 0.4) {
       const anim = pickSectionFromCondList(registry.actor, this.object, this.state.anim);
 
@@ -94,9 +97,10 @@ export const ActionBaseCover: IActionBaseCover = declare_xr_class("ActionBaseCov
       GlobalSound.set_sound_play(this.object.id(), this.state.sound_idle, null, null);
     }
 
-    action_base.execute(this);
-  },
-  position_reached(): boolean {
+    super.execute();
+  }
+
+  public position_reached(): boolean {
     return this.cover_position.distance_to_sqr(this.object.position()) <= 0.4;
-  },
-} as IActionBaseCover);
+  }
+}

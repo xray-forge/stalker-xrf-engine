@@ -36,6 +36,12 @@ import { vectorCmp } from "@/mod/scripts/utils/physics";
 
 const logger: LuaLogger = new LuaLogger("StateManager", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
+/**
+ * todo:
+ * - Refactor and simplify
+ * - Simplify creation of actions with some helper function and evaluators descriptor?
+ */
+
 export class StateManager {
   public npc: XR_game_object;
   public animation!: IAnimationManager;
@@ -260,209 +266,135 @@ export function get_state(npc: XR_game_object): Optional<string> {
 }
 
 export function goap_graph(st: StateManager, npc: XR_game_object): void {
-  st.planner.add_evaluator(
-    EStateManagerProperty.end,
-    create_xr_class_instance(stateManagement.StateManagerEvaEnd, "state_mgr_end", st)
-  );
-  st.planner.add_evaluator(
-    EStateManagerProperty.locked,
-    create_xr_class_instance(stateManagement.StateManagerEvaLocked, "state_mgr_locked", st)
-  );
+  st.planner.add_evaluator(EStateManagerProperty.end, new stateManagement.StateManagerEvaEnd(st));
+  st.planner.add_evaluator(EStateManagerProperty.locked, new stateManagement.StateManagerEvaLocked(st));
   st.planner.add_evaluator(
     EStateManagerProperty.locked_external,
-    create_xr_class_instance(stateManagement.StateManagerEvaLockedExternal, "state_mgr_locked_external", st)
+    new stateManagement.StateManagerEvaLockedExternal(st)
   );
 
-  st.planner.add_evaluator(
-    EStateManagerProperty.weapon,
-    create_xr_class_instance(weaponManagement.StateManagerEvaWeapon, "state_mgr_weapon", st)
-  );
-  st.planner.add_evaluator(
-    EStateManagerProperty.weapon_locked,
-    create_xr_class_instance(weaponManagement.StateManagerEvaWeaponLocked, "state_mgr_weapon_locked", st)
-  );
+  st.planner.add_evaluator(EStateManagerProperty.weapon, new weaponManagement.StateManagerEvaWeapon(st));
+  st.planner.add_evaluator(EStateManagerProperty.weapon_locked, new weaponManagement.StateManagerEvaWeaponLocked(st));
   st.planner.add_evaluator(
     EStateManagerProperty.weapon_strapped,
-    create_xr_class_instance(weaponManagement.StateManagerEvaWeaponStrapped, "state_mgr_weapon_strapped", st)
+    new weaponManagement.StateManagerEvaWeaponStrapped(st)
   );
   st.planner.add_evaluator(
     EStateManagerProperty.weapon_strapped_now,
-    create_xr_class_instance(weaponManagement.StateManagerEvaWeaponStrappedNow, "state_mgr_weapon_strapped_now", st)
+    new weaponManagement.StateManagerEvaWeaponStrappedNow(st)
   );
   st.planner.add_evaluator(
     EStateManagerProperty.weapon_unstrapped,
-    create_xr_class_instance(weaponManagement.StateManagerEvaWeaponUnstrapped, "state_mgr_weapon_unstrapped", st)
+    new weaponManagement.StateManagerEvaWeaponUnstrapped(st)
   );
   st.planner.add_evaluator(
     EStateManagerProperty.weapon_unstrapped_now,
-    create_xr_class_instance(weaponManagement.StateManagerEvaWeaponUnstrappedNow, "state_mgr_weapon_unstrapped_now", st)
+    new weaponManagement.StateManagerEvaWeaponUnstrappedNow(st)
   );
-  st.planner.add_evaluator(
-    EStateManagerProperty.weapon_none,
-    create_xr_class_instance(weaponManagement.StateManagerEvaWeaponNone, "state_mgr_weapon_none", st)
-  );
+  st.planner.add_evaluator(EStateManagerProperty.weapon_none, new weaponManagement.StateManagerEvaWeaponNone(st));
   st.planner.add_evaluator(
     EStateManagerProperty.weapon_none_now,
-    create_xr_class_instance(weaponManagement.StateManagerEvaWeaponNoneNow, "state_mgr_weapon_none_now", st)
+    new weaponManagement.StateManagerEvaWeaponNoneNow(st)
   );
-  st.planner.add_evaluator(
-    EStateManagerProperty.weapon_drop,
-    create_xr_class_instance(weaponManagement.StateManagerEvaWeaponDrop, "state_mgr_weapon_drop", st)
-  );
-  st.planner.add_evaluator(
-    EStateManagerProperty.weapon_fire,
-    create_xr_class_instance(weaponManagement.StateManagerEvaWeaponFire, "state_mgr_weapon_fire", st)
-  );
+  st.planner.add_evaluator(EStateManagerProperty.weapon_drop, new weaponManagement.StateManagerEvaWeaponDrop(st));
+  st.planner.add_evaluator(EStateManagerProperty.weapon_fire, new weaponManagement.StateManagerEvaWeaponFire(st));
 
-  st.planner.add_evaluator(
-    EStateManagerProperty.movement,
-    create_xr_class_instance(movementManagement.StateManagerEvaMovement, "state_mgr_movement", st)
-  );
-  st.planner.add_evaluator(
-    EStateManagerProperty.movement_walk,
-    create_xr_class_instance(movementManagement.StateManagerEvaMovementWalk, "state_mgr_movement_walk", st)
-  );
-  st.planner.add_evaluator(
-    EStateManagerProperty.movement_run,
-    create_xr_class_instance(movementManagement.StateManagerEvaMovementRun, "state_mgr_movement_run", st)
-  );
+  st.planner.add_evaluator(EStateManagerProperty.movement, new movementManagement.StateManagerEvaMovement(st));
+  st.planner.add_evaluator(EStateManagerProperty.movement_walk, new movementManagement.StateManagerEvaMovementWalk(st));
+  st.planner.add_evaluator(EStateManagerProperty.movement_run, new movementManagement.StateManagerEvaMovementRun(st));
   st.planner.add_evaluator(
     EStateManagerProperty.movement_stand,
-    create_xr_class_instance(movementManagement.StateManagerEvaMovementStand, "state_mgr_movement_stand", st)
+    new movementManagement.StateManagerEvaMovementStand(st)
   );
   st.planner.add_evaluator(
     EStateManagerProperty.movement_stand_now,
-    create_xr_class_instance(movementManagement.StateManagerEvaMovementStandNow, "state_mgr_movement_stand_now", st)
+    new movementManagement.StateManagerEvaMovementStandNow(st)
   );
 
-  st.planner.add_evaluator(
-    EStateManagerProperty.mental,
-    create_xr_class_instance(mentalManagement.StateManagerEvaMental, "state_mgr_mental", st)
-  );
-  st.planner.add_evaluator(
-    EStateManagerProperty.mental_free,
-    create_xr_class_instance(mentalManagement.StateManagerEvaMentalFree, "state_mgr_mental_free", st)
-  );
+  st.planner.add_evaluator(EStateManagerProperty.mental, new mentalManagement.StateManagerEvaMental(st));
+  st.planner.add_evaluator(EStateManagerProperty.mental_free, new mentalManagement.StateManagerEvaMentalFree(st));
   st.planner.add_evaluator(
     EStateManagerProperty.mental_free_now,
-    create_xr_class_instance(mentalManagement.StateManagerEvaMentalFreeNow, "state_mgr_mental_free_now", st)
+    new mentalManagement.StateManagerEvaMentalFreeNow(st)
   );
-  st.planner.add_evaluator(
-    EStateManagerProperty.mental_danger,
-    create_xr_class_instance(mentalManagement.StateManagerEvaMentalDanger, "state_mgr_mental_danger", st)
-  );
+  st.planner.add_evaluator(EStateManagerProperty.mental_danger, new mentalManagement.StateManagerEvaMentalDanger(st));
   st.planner.add_evaluator(
     EStateManagerProperty.mental_danger_now,
-    create_xr_class_instance(mentalManagement.StateManagerEvaMentalDangerNow, "state_mgr_mental_danger_now", st)
+    new mentalManagement.StateManagerEvaMentalDangerNow(st)
   );
-  st.planner.add_evaluator(
-    EStateManagerProperty.mental_panic,
-    create_xr_class_instance(mentalManagement.StateManagerEvaMentalPanic, "state_mgr_mental_panic", st)
-  );
+  st.planner.add_evaluator(EStateManagerProperty.mental_panic, new mentalManagement.StateManagerEvaMentalPanic(st));
   st.planner.add_evaluator(
     EStateManagerProperty.mental_panic_now,
-    create_xr_class_instance(mentalManagement.StateManagerEvaMentalPanicNow, "state_mgr_mental_panic_now", st)
+    new mentalManagement.StateManagerEvaMentalPanicNow(st)
   );
 
-  st.planner.add_evaluator(
-    EStateManagerProperty.bodystate,
-    create_xr_class_instance(bodyStateManagement.StateManagerEvaBodyState, "state_mgr_bodystate", st)
-  );
+  st.planner.add_evaluator(EStateManagerProperty.bodystate, new bodyStateManagement.StateManagerEvaBodyState(st));
   st.planner.add_evaluator(
     EStateManagerProperty.bodystate_crouch,
-    create_xr_class_instance(bodyStateManagement.StateManagerEvaBodyStateCrouch, "state_mgr_bodystate_crouch", st)
+    new bodyStateManagement.StateManagerEvaBodyStateCrouch(st)
   );
   st.planner.add_evaluator(
     EStateManagerProperty.bodystate_standing,
-    create_xr_class_instance(bodyStateManagement.StateManagerEvaBodyStateStanding, "state_mgr_bodystate_standing", st)
+    new bodyStateManagement.StateManagerEvaBodyStateStanding(st)
   );
   st.planner.add_evaluator(
     EStateManagerProperty.bodystate_crouch_now,
-    create_xr_class_instance(
-      bodyStateManagement.StateManagerEvaBodyStateCrouchNow,
-      "state_mgr_bodystate_crouch_now",
-      st
-    )
+    new bodyStateManagement.StateManagerEvaBodyStateCrouchNow(st)
   );
   st.planner.add_evaluator(
     EStateManagerProperty.bodystate_standing_now,
-    create_xr_class_instance(
-      bodyStateManagement.StateManagerEvaBodyStateStandingNow,
-      "state_mgr_bodystate_standing_now",
-      st
-    )
+    new bodyStateManagement.StateManagerEvaBodyStateStandingNow(st)
   );
 
-  st.planner.add_evaluator(
-    EStateManagerProperty.direction,
-    create_xr_class_instance(directionManagement.StateManagerEvaDirection, "state_mgr_direction", st)
-  );
+  st.planner.add_evaluator(EStateManagerProperty.direction, new directionManagement.StateManagerEvaDirection(st));
   st.planner.add_evaluator(
     EStateManagerProperty.direction_search,
-    create_xr_class_instance(directionManagement.StateManagerEvaDirectionSearch, "state_mgr_direction_search", st)
+    new directionManagement.StateManagerEvaDirectionSearch(st)
   );
 
   st.animstate = create_xr_class_instance(AnimationManager, npc, st, "state_mgr_animstate_list", animstates);
 
   st.planner.add_evaluator(
     EStateManagerProperty.animstate,
-    create_xr_class_instance(animationStateManagement.StateManagerEvaAnimationState, "state_mgr_animstate", st)
+    new animationStateManagement.StateManagerEvaAnimationState(st)
   );
   st.planner.add_evaluator(
     EStateManagerProperty.animstate_idle_now,
-    create_xr_class_instance(
-      animationStateManagement.StateManagerEvaAnimationStateIdleNow,
-      "state_mgr_animstate_idle_now",
-      st
-    )
+    new animationStateManagement.StateManagerEvaAnimationStateIdleNow(st)
   );
   st.planner.add_evaluator(
     EStateManagerProperty.animstate_play_now,
-    create_xr_class_instance(
-      animationStateManagement.StateManagerEvaAnimationStatePlayNow,
-      "state_mgr_animstate_play_now",
-      st
-    )
+    new animationStateManagement.StateManagerEvaAnimationStatePlayNow(st)
   );
   st.planner.add_evaluator(
     EStateManagerProperty.animstate_locked,
-    create_xr_class_instance(
-      animationStateManagement.StateManagerEvaAnimationStateLocked,
-      "state_mgr_animstate_locked",
-      st
-    )
+    new animationStateManagement.StateManagerEvaAnimationStateLocked(st)
   );
 
   st.animation = create_xr_class_instance(AnimationManager, npc, st, "state_mgr_animation_list", animations);
 
-  st.planner.add_evaluator(
-    EStateManagerProperty.animation,
-    create_xr_class_instance(animationManagement.StateManagerEvaAnimation, "state_mgr_animation", st)
-  );
+  st.planner.add_evaluator(EStateManagerProperty.animation, new animationManagement.StateManagerEvaAnimation(st));
   st.planner.add_evaluator(
     EStateManagerProperty.animation_play_now,
-    create_xr_class_instance(animationManagement.StateManagerEvaAnimationPlayNow, "state_mgr_animation_play_now", st)
+    new animationManagement.StateManagerEvaAnimationPlayNow(st)
   );
   st.planner.add_evaluator(
     EStateManagerProperty.animation_none_now,
-    create_xr_class_instance(animationManagement.StateManagerEvaAnimationNoneNow, "state_mgr_animation_none_now", st)
+    new animationManagement.StateManagerEvaAnimationNoneNow(st)
   );
   st.planner.add_evaluator(
     EStateManagerProperty.animation_locked,
-    create_xr_class_instance(animationManagement.StateManagerEvaAnimationLocked, "state_mgr_animation_locked", st)
+    new animationManagement.StateManagerEvaAnimationLocked(st)
   );
 
-  st.planner.add_evaluator(
-    EStateManagerProperty.smartcover,
-    create_xr_class_instance(smartCoverManagement.StateManagerEvaSmartCover, "state_mgr_smartcover", st)
-  );
+  st.planner.add_evaluator(EStateManagerProperty.smartcover, new smartCoverManagement.StateManagerEvaSmartCover(st));
   st.planner.add_evaluator(
     EStateManagerProperty.smartcover_need,
-    create_xr_class_instance(smartCoverManagement.StateManagerEvaSmartCoverNeed, "state_mgr_smartcover_need", st)
+    new smartCoverManagement.StateManagerEvaSmartCoverNeed(st)
   );
   st.planner.add_evaluator(
     EStateManagerProperty.in_smartcover,
-    create_xr_class_instance(smartCoverManagement.StateManagerEvaInSmartCover, "state_mgr_in_smartcover", st)
+    new smartCoverManagement.StateManagerEvaInSmartCover(st)
   );
 
   // --	st.planner.add_evaluator(EStateManagerProperty.smartcover_locked,
@@ -475,526 +407,490 @@ export function goap_graph(st: StateManager, npc: XR_game_object): void {
   // -- WEAPON
   // -- UNSTRAPP
 
-  let action = create_xr_class_instance(
-    weaponManagement.StateManagerActWeaponUnstrapp,
-    "state_mgr_weapon_unstrapp",
-    st
-  );
+  const unstrappAction = new weaponManagement.StateManagerActWeaponUnstrapp(st);
 
-  action.add_precondition(new world_property(EStateManagerProperty.locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animation_locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
-  action.add_precondition(new world_property(EStateManagerProperty.movement, true));
-  action.add_precondition(new world_property(EStateManagerProperty.bodystate, true));
-  action.add_precondition(new world_property(EStateManagerProperty.mental, true));
-  action.add_precondition(new world_property(EStateManagerProperty.weapon_unstrapped, true));
-  action.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
-  action.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
-  action.add_effect(new world_property(EStateManagerProperty.weapon, true));
-  st.planner.add_action(EStateManagerOperator.weapon_unstrapp, action);
+  unstrappAction.add_precondition(new world_property(EStateManagerProperty.locked, false));
+  unstrappAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
+  unstrappAction.add_precondition(new world_property(EStateManagerProperty.animation_locked, false));
+  unstrappAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
+  unstrappAction.add_precondition(new world_property(EStateManagerProperty.movement, true));
+  unstrappAction.add_precondition(new world_property(EStateManagerProperty.bodystate, true));
+  unstrappAction.add_precondition(new world_property(EStateManagerProperty.mental, true));
+  unstrappAction.add_precondition(new world_property(EStateManagerProperty.weapon_unstrapped, true));
+  unstrappAction.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
+  unstrappAction.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
+  unstrappAction.add_effect(new world_property(EStateManagerProperty.weapon, true));
+  st.planner.add_action(EStateManagerOperator.weapon_unstrapp, unstrappAction);
 
   // -- STRAPP
-  action = create_xr_class_instance(weaponManagement.StateManagerActWeaponStrapp, "state_mgr_weapon_strapp", st);
-  action.add_precondition(new world_property(EStateManagerProperty.locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animation_locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
-  action.add_precondition(new world_property(EStateManagerProperty.movement, true));
-  action.add_precondition(new world_property(EStateManagerProperty.bodystate, true));
-  action.add_precondition(new world_property(EStateManagerProperty.mental, true));
-  action.add_precondition(new world_property(EStateManagerProperty.weapon_strapped, true));
-  action.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
-  action.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
-  action.add_effect(new world_property(EStateManagerProperty.weapon, true));
-  st.planner.add_action(EStateManagerOperator.weapon_strapp, action);
+  const strappAction = new weaponManagement.StateManagerActWeaponStrapp(st);
+
+  strappAction.add_precondition(new world_property(EStateManagerProperty.locked, false));
+  strappAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
+  strappAction.add_precondition(new world_property(EStateManagerProperty.animation_locked, false));
+  strappAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
+  strappAction.add_precondition(new world_property(EStateManagerProperty.movement, true));
+  strappAction.add_precondition(new world_property(EStateManagerProperty.bodystate, true));
+  strappAction.add_precondition(new world_property(EStateManagerProperty.mental, true));
+  strappAction.add_precondition(new world_property(EStateManagerProperty.weapon_strapped, true));
+  strappAction.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
+  strappAction.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
+  strappAction.add_effect(new world_property(EStateManagerProperty.weapon, true));
+  st.planner.add_action(EStateManagerOperator.weapon_strapp, strappAction);
 
   // -- NONE
-  action = create_xr_class_instance(weaponManagement.StateManagerActWeaponNone, "state_mgr_weapon_none", st);
-  action.add_precondition(new world_property(EStateManagerProperty.locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animation_locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
-  action.add_precondition(new world_property(EStateManagerProperty.movement, true));
-  action.add_precondition(new world_property(EStateManagerProperty.bodystate, true));
-  action.add_precondition(new world_property(EStateManagerProperty.mental, true));
-  action.add_precondition(new world_property(EStateManagerProperty.weapon_none, true));
-  action.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
-  action.add_effect(new world_property(EStateManagerProperty.weapon, true));
-  st.planner.add_action(EStateManagerOperator.weapon_none, action);
+  const weaponNoneAction = new weaponManagement.StateManagerActWeaponNone(st);
+
+  weaponNoneAction.add_precondition(new world_property(EStateManagerProperty.locked, false));
+  weaponNoneAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
+  weaponNoneAction.add_precondition(new world_property(EStateManagerProperty.animation_locked, false));
+  weaponNoneAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
+  weaponNoneAction.add_precondition(new world_property(EStateManagerProperty.movement, true));
+  weaponNoneAction.add_precondition(new world_property(EStateManagerProperty.bodystate, true));
+  weaponNoneAction.add_precondition(new world_property(EStateManagerProperty.mental, true));
+  weaponNoneAction.add_precondition(new world_property(EStateManagerProperty.weapon_none, true));
+  weaponNoneAction.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
+  weaponNoneAction.add_effect(new world_property(EStateManagerProperty.weapon, true));
+  st.planner.add_action(EStateManagerOperator.weapon_none, weaponNoneAction);
 
   // -- DROP
-  action = create_xr_class_instance(weaponManagement.StateManagerActWeaponDrop, "state_mgr_weapon_drop", st);
-  action.add_precondition(new world_property(EStateManagerProperty.locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animation_locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
-  action.add_precondition(new world_property(EStateManagerProperty.movement, true));
-  action.add_precondition(new world_property(EStateManagerProperty.bodystate, true));
-  action.add_precondition(new world_property(EStateManagerProperty.mental, true));
-  action.add_precondition(new world_property(EStateManagerProperty.weapon_drop, true));
-  action.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
-  action.add_effect(new world_property(EStateManagerProperty.weapon, true));
-  st.planner.add_action(EStateManagerOperator.weapon_drop, action);
+  const weaponDropAction = new weaponManagement.StateManagerActWeaponDrop(st);
+
+  weaponDropAction.add_precondition(new world_property(EStateManagerProperty.locked, false));
+  weaponDropAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
+  weaponDropAction.add_precondition(new world_property(EStateManagerProperty.animation_locked, false));
+  weaponDropAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
+  weaponDropAction.add_precondition(new world_property(EStateManagerProperty.movement, true));
+  weaponDropAction.add_precondition(new world_property(EStateManagerProperty.bodystate, true));
+  weaponDropAction.add_precondition(new world_property(EStateManagerProperty.mental, true));
+  weaponDropAction.add_precondition(new world_property(EStateManagerProperty.weapon_drop, true));
+  weaponDropAction.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
+  weaponDropAction.add_effect(new world_property(EStateManagerProperty.weapon, true));
+  st.planner.add_action(EStateManagerOperator.weapon_drop, weaponDropAction);
 
   // -- WALK
-  action = create_xr_class_instance(movementManagement.StateManagerActMovementWalk, "state_mgr_movement_walk", st);
-  action.add_precondition(new world_property(EStateManagerProperty.locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animation_locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
-  action.add_precondition(new world_property(EStateManagerProperty.movement, false));
-  action.add_precondition(new world_property(EStateManagerProperty.bodystate, true));
-  action.add_precondition(new world_property(EStateManagerProperty.mental, true));
+  const movementWalkAction = new movementManagement.StateManagerActMovementWalk(st);
+
+  movementWalkAction.add_precondition(new world_property(EStateManagerProperty.locked, false));
+  movementWalkAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
+  movementWalkAction.add_precondition(new world_property(EStateManagerProperty.animation_locked, false));
+  movementWalkAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
+  movementWalkAction.add_precondition(new world_property(EStateManagerProperty.movement, false));
+  movementWalkAction.add_precondition(new world_property(EStateManagerProperty.bodystate, true));
+  movementWalkAction.add_precondition(new world_property(EStateManagerProperty.mental, true));
   // --	action.add_precondition    (new world_property(EStateManagerProperty.weapon,                 true))
-  action.add_precondition(new world_property(EStateManagerProperty.movement_walk, true));
-  action.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
-  action.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
-  action.add_effect(new world_property(EStateManagerProperty.movement, true));
-  st.planner.add_action(EStateManagerOperator.movement_walk, action);
+  movementWalkAction.add_precondition(new world_property(EStateManagerProperty.movement_walk, true));
+  movementWalkAction.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
+  movementWalkAction.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
+  movementWalkAction.add_effect(new world_property(EStateManagerProperty.movement, true));
+  st.planner.add_action(EStateManagerOperator.movement_walk, movementWalkAction);
 
   // -- WALK_turn
 
-  action = create_xr_class_instance(
-    movementManagement.StateManagerActMovementWalkTurn,
-    "state_mgr_movement_walk_turn",
-    st
-  );
-  action.add_precondition(new world_property(EStateManagerProperty.locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animation_locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
-  action.add_precondition(new world_property(EStateManagerProperty.movement, false));
-  action.add_precondition(new world_property(EStateManagerProperty.direction, false));
-  action.add_precondition(new world_property(EStateManagerProperty.direction_search, false));
-  action.add_precondition(new world_property(EStateManagerProperty.bodystate, true));
-  action.add_precondition(new world_property(EStateManagerProperty.mental, true));
+  const movementWalkTurnAction = new movementManagement.StateManagerActMovementWalkTurn(st);
+
+  movementWalkTurnAction.add_precondition(new world_property(EStateManagerProperty.locked, false));
+  movementWalkTurnAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
+  movementWalkTurnAction.add_precondition(new world_property(EStateManagerProperty.animation_locked, false));
+  movementWalkTurnAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
+  movementWalkTurnAction.add_precondition(new world_property(EStateManagerProperty.movement, false));
+  movementWalkTurnAction.add_precondition(new world_property(EStateManagerProperty.direction, false));
+  movementWalkTurnAction.add_precondition(new world_property(EStateManagerProperty.direction_search, false));
+  movementWalkTurnAction.add_precondition(new world_property(EStateManagerProperty.bodystate, true));
+  movementWalkTurnAction.add_precondition(new world_property(EStateManagerProperty.mental, true));
   // --	action.add_precondition    (new world_property(EStateManagerProperty.weapon,                 true))
-  action.add_precondition(new world_property(EStateManagerProperty.movement_walk, true));
-  action.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
-  action.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
-  action.add_effect(new world_property(EStateManagerProperty.movement, true));
-  action.add_effect(new world_property(EStateManagerProperty.direction, true));
-  st.planner.add_action(EStateManagerOperator.movement_walk_turn, action);
+  movementWalkTurnAction.add_precondition(new world_property(EStateManagerProperty.movement_walk, true));
+  movementWalkTurnAction.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
+  movementWalkTurnAction.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
+  movementWalkTurnAction.add_effect(new world_property(EStateManagerProperty.movement, true));
+  movementWalkTurnAction.add_effect(new world_property(EStateManagerProperty.direction, true));
+  st.planner.add_action(EStateManagerOperator.movement_walk_turn, movementWalkTurnAction);
 
   // -- WALK_search
-  action = create_xr_class_instance(
-    movementManagement.StateManagerActMovementWalkSearch,
-    "state_mgr_movement_walk_search",
-    st
-  );
-  action.add_precondition(new world_property(EStateManagerProperty.locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animation_locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
-  action.add_precondition(new world_property(EStateManagerProperty.movement, false));
-  action.add_precondition(new world_property(EStateManagerProperty.direction, false));
-  action.add_precondition(new world_property(EStateManagerProperty.direction_search, true));
-  action.add_precondition(new world_property(EStateManagerProperty.bodystate, true));
-  action.add_precondition(new world_property(EStateManagerProperty.mental, true));
+  const movementWalkSearchAction = new movementManagement.StateManagerActMovementWalkSearch(st);
+
+  movementWalkSearchAction.add_precondition(new world_property(EStateManagerProperty.locked, false));
+  movementWalkSearchAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
+  movementWalkSearchAction.add_precondition(new world_property(EStateManagerProperty.animation_locked, false));
+  movementWalkSearchAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
+  movementWalkSearchAction.add_precondition(new world_property(EStateManagerProperty.movement, false));
+  movementWalkSearchAction.add_precondition(new world_property(EStateManagerProperty.direction, false));
+  movementWalkSearchAction.add_precondition(new world_property(EStateManagerProperty.direction_search, true));
+  movementWalkSearchAction.add_precondition(new world_property(EStateManagerProperty.bodystate, true));
+  movementWalkSearchAction.add_precondition(new world_property(EStateManagerProperty.mental, true));
   // --	action.add_precondition    (new world_property(EStateManagerProperty.weapon,                 true))
-  action.add_precondition(new world_property(EStateManagerProperty.movement_walk, true));
-  action.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
-  action.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
-  action.add_effect(new world_property(EStateManagerProperty.movement, true));
-  action.add_effect(new world_property(EStateManagerProperty.direction, true));
-  st.planner.add_action(EStateManagerOperator.movement_walk_search, action);
+  movementWalkSearchAction.add_precondition(new world_property(EStateManagerProperty.movement_walk, true));
+  movementWalkSearchAction.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
+  movementWalkSearchAction.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
+  movementWalkSearchAction.add_effect(new world_property(EStateManagerProperty.movement, true));
+  movementWalkSearchAction.add_effect(new world_property(EStateManagerProperty.direction, true));
+  st.planner.add_action(EStateManagerOperator.movement_walk_search, movementWalkSearchAction);
 
   // -- RUN
-  action = create_xr_class_instance(movementManagement.StateManagerActMovementRun, "state_mgr_movement_run", st);
-  action.add_precondition(new world_property(EStateManagerProperty.locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animation_locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
-  action.add_precondition(new world_property(EStateManagerProperty.movement, false));
-  action.add_precondition(new world_property(EStateManagerProperty.bodystate, true));
-  action.add_precondition(new world_property(EStateManagerProperty.mental, true));
+  const movementRunAction = new movementManagement.StateManagerActMovementRun(st);
+
+  movementRunAction.add_precondition(new world_property(EStateManagerProperty.locked, false));
+  movementRunAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
+  movementRunAction.add_precondition(new world_property(EStateManagerProperty.animation_locked, false));
+  movementRunAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
+  movementRunAction.add_precondition(new world_property(EStateManagerProperty.movement, false));
+  movementRunAction.add_precondition(new world_property(EStateManagerProperty.bodystate, true));
+  movementRunAction.add_precondition(new world_property(EStateManagerProperty.mental, true));
   // --	action.add_precondition    (new world_property(EStateManagerProperty.weapon,                 true))
-  action.add_precondition(new world_property(EStateManagerProperty.movement_run, true));
-  action.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
-  action.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
-  action.add_effect(new world_property(EStateManagerProperty.movement, true));
-  st.planner.add_action(EStateManagerOperator.movement_run, action);
+  movementRunAction.add_precondition(new world_property(EStateManagerProperty.movement_run, true));
+  movementRunAction.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
+  movementRunAction.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
+  movementRunAction.add_effect(new world_property(EStateManagerProperty.movement, true));
+  st.planner.add_action(EStateManagerOperator.movement_run, movementRunAction);
 
   // -- RUN_turn
+  const movementRunTurnAction = new movementManagement.StateManagerActMovementRunTurn(st);
 
-  action = create_xr_class_instance(
-    movementManagement.StateManagerActMovementRunTurn,
-    "state_mgr_movement_run_turn",
-    st
-  );
-  action.add_precondition(new world_property(EStateManagerProperty.locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animation_locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
-  action.add_precondition(new world_property(EStateManagerProperty.movement, false));
-  action.add_precondition(new world_property(EStateManagerProperty.direction, false));
-  action.add_precondition(new world_property(EStateManagerProperty.direction_search, false));
-  action.add_precondition(new world_property(EStateManagerProperty.bodystate, true));
-  action.add_precondition(new world_property(EStateManagerProperty.mental, true));
+  movementRunTurnAction.add_precondition(new world_property(EStateManagerProperty.locked, false));
+  movementRunTurnAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
+  movementRunTurnAction.add_precondition(new world_property(EStateManagerProperty.animation_locked, false));
+  movementRunTurnAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
+  movementRunTurnAction.add_precondition(new world_property(EStateManagerProperty.movement, false));
+  movementRunTurnAction.add_precondition(new world_property(EStateManagerProperty.direction, false));
+  movementRunTurnAction.add_precondition(new world_property(EStateManagerProperty.direction_search, false));
+  movementRunTurnAction.add_precondition(new world_property(EStateManagerProperty.bodystate, true));
+  movementRunTurnAction.add_precondition(new world_property(EStateManagerProperty.mental, true));
   // --	action.add_precondition    (new world_property(EStateManagerProperty.weapon,                 true))
-  action.add_precondition(new world_property(EStateManagerProperty.movement_run, true));
-  action.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
-  action.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
-  action.add_effect(new world_property(EStateManagerProperty.movement, true));
-  action.add_effect(new world_property(EStateManagerProperty.direction, true));
-  st.planner.add_action(EStateManagerOperator.movement_run_turn, action);
+  movementRunTurnAction.add_precondition(new world_property(EStateManagerProperty.movement_run, true));
+  movementRunTurnAction.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
+  movementRunTurnAction.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
+  movementRunTurnAction.add_effect(new world_property(EStateManagerProperty.movement, true));
+  movementRunTurnAction.add_effect(new world_property(EStateManagerProperty.direction, true));
+  st.planner.add_action(EStateManagerOperator.movement_run_turn, movementRunTurnAction);
 
   // -- RUN_search
+  const movementRunSearchAction = new movementManagement.StateManagerActMovementRunSearch(st);
 
-  action = create_xr_class_instance(
-    movementManagement.StateManagerActMovementRunSearch,
-    "state_mgr_movement_run_search",
-    st
-  );
-  action.add_precondition(new world_property(EStateManagerProperty.locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animation_locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
-  action.add_precondition(new world_property(EStateManagerProperty.movement, false));
-  action.add_precondition(new world_property(EStateManagerProperty.direction, false));
-  action.add_precondition(new world_property(EStateManagerProperty.direction_search, true));
-  action.add_precondition(new world_property(EStateManagerProperty.bodystate, true));
-  action.add_precondition(new world_property(EStateManagerProperty.mental, true));
+  movementRunSearchAction.add_precondition(new world_property(EStateManagerProperty.locked, false));
+  movementRunSearchAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
+  movementRunSearchAction.add_precondition(new world_property(EStateManagerProperty.animation_locked, false));
+  movementRunSearchAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
+  movementRunSearchAction.add_precondition(new world_property(EStateManagerProperty.movement, false));
+  movementRunSearchAction.add_precondition(new world_property(EStateManagerProperty.direction, false));
+  movementRunSearchAction.add_precondition(new world_property(EStateManagerProperty.direction_search, true));
+  movementRunSearchAction.add_precondition(new world_property(EStateManagerProperty.bodystate, true));
+  movementRunSearchAction.add_precondition(new world_property(EStateManagerProperty.mental, true));
   // --	action.add_precondition    (new world_property(EStateManagerProperty.weapon,                 true))
-  action.add_precondition(new world_property(EStateManagerProperty.movement_run, true));
-  action.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
-  action.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
-  action.add_effect(new world_property(EStateManagerProperty.movement, true));
-  action.add_effect(new world_property(EStateManagerProperty.direction, true));
-  st.planner.add_action(EStateManagerOperator.movement_run_search, action);
+  movementRunSearchAction.add_precondition(new world_property(EStateManagerProperty.movement_run, true));
+  movementRunSearchAction.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
+  movementRunSearchAction.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
+  movementRunSearchAction.add_effect(new world_property(EStateManagerProperty.movement, true));
+  movementRunSearchAction.add_effect(new world_property(EStateManagerProperty.direction, true));
+  st.planner.add_action(EStateManagerOperator.movement_run_search, movementRunSearchAction);
 
   // -- STAND
+  const movementStandAction = new movementManagement.StateManagerActMovementStand(st);
 
-  action = create_xr_class_instance(movementManagement.StateManagerActMovementStand, "state_mgr_movement_stand", st);
-  action.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animation_locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.movement, false));
-  action.add_precondition(new world_property(EStateManagerProperty.movement_stand, true));
-  action.add_precondition(new world_property(EStateManagerProperty.mental, true));
-  action.add_effect(new world_property(EStateManagerProperty.movement, true));
-  st.planner.add_action(EStateManagerOperator.movement_stand, action);
+  movementStandAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
+  movementStandAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
+  movementStandAction.add_precondition(new world_property(EStateManagerProperty.animation_locked, false));
+  movementStandAction.add_precondition(new world_property(EStateManagerProperty.movement, false));
+  movementStandAction.add_precondition(new world_property(EStateManagerProperty.movement_stand, true));
+  movementStandAction.add_precondition(new world_property(EStateManagerProperty.mental, true));
+  movementStandAction.add_effect(new world_property(EStateManagerProperty.movement, true));
+  st.planner.add_action(EStateManagerOperator.movement_stand, movementStandAction);
 
   // -- STAND_turn
+  const standTurnAction = new movementManagement.StateManagerActMovementStandTurn(st);
 
-  action = create_xr_class_instance(
-    movementManagement.StateManagerActMovementStandTurn,
-    "state_mgr_movement_stand_turn",
-    st
-  );
-  action.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animation_locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.movement, false));
-  action.add_precondition(new world_property(EStateManagerProperty.direction, false));
-  action.add_precondition(new world_property(EStateManagerProperty.direction_search, false));
-  action.add_precondition(new world_property(EStateManagerProperty.movement_stand, true));
-  action.add_precondition(new world_property(EStateManagerProperty.mental, true));
-  action.add_effect(new world_property(EStateManagerProperty.movement, true));
-  action.add_effect(new world_property(EStateManagerProperty.direction, true));
-  st.planner.add_action(EStateManagerOperator.movement_stand_turn, action);
+  standTurnAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
+  standTurnAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
+  standTurnAction.add_precondition(new world_property(EStateManagerProperty.animation_locked, false));
+  standTurnAction.add_precondition(new world_property(EStateManagerProperty.movement, false));
+  standTurnAction.add_precondition(new world_property(EStateManagerProperty.direction, false));
+  standTurnAction.add_precondition(new world_property(EStateManagerProperty.direction_search, false));
+  standTurnAction.add_precondition(new world_property(EStateManagerProperty.movement_stand, true));
+  standTurnAction.add_precondition(new world_property(EStateManagerProperty.mental, true));
+  standTurnAction.add_effect(new world_property(EStateManagerProperty.movement, true));
+  standTurnAction.add_effect(new world_property(EStateManagerProperty.direction, true));
+  st.planner.add_action(EStateManagerOperator.movement_stand_turn, standTurnAction);
 
   // -- STAND_search
+  const movementStandSearchAction = new movementManagement.StateManagerActMovementStandSearch(st);
 
-  action = create_xr_class_instance(
-    movementManagement.StateManagerActMovementStandSearch,
-    "state_mgr_movement_stand_search",
-    st
-  );
-  action.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animation_locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.movement, false));
-  action.add_precondition(new world_property(EStateManagerProperty.direction, false));
-  action.add_precondition(new world_property(EStateManagerProperty.direction_search, true));
-  action.add_precondition(new world_property(EStateManagerProperty.movement_stand, true));
-  action.add_precondition(new world_property(EStateManagerProperty.mental, true));
-  action.add_effect(new world_property(EStateManagerProperty.movement, true));
-  action.add_effect(new world_property(EStateManagerProperty.direction, true));
-  st.planner.add_action(EStateManagerOperator.movement_stand_search, action);
+  movementStandSearchAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
+  movementStandSearchAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
+  movementStandSearchAction.add_precondition(new world_property(EStateManagerProperty.animation_locked, false));
+  movementStandSearchAction.add_precondition(new world_property(EStateManagerProperty.movement, false));
+  movementStandSearchAction.add_precondition(new world_property(EStateManagerProperty.direction, false));
+  movementStandSearchAction.add_precondition(new world_property(EStateManagerProperty.direction_search, true));
+  movementStandSearchAction.add_precondition(new world_property(EStateManagerProperty.movement_stand, true));
+  movementStandSearchAction.add_precondition(new world_property(EStateManagerProperty.mental, true));
+  movementStandSearchAction.add_effect(new world_property(EStateManagerProperty.movement, true));
+  movementStandSearchAction.add_effect(new world_property(EStateManagerProperty.direction, true));
+  st.planner.add_action(EStateManagerOperator.movement_stand_search, movementStandSearchAction);
 
   // -- DIRECTION
 
   // -- TURN
+  const directionTurnAction = new directionManagement.StateManagerActDirectionTurn(st);
 
-  action = create_xr_class_instance(directionManagement.StateManagerActDirectionTurn, "state_mgr_direction_turn", st);
   // --action.add_precondition    (new world_property(EStateManagerProperty.locked,                 false))
-  action.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animation_locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
-  action.add_precondition(new world_property(EStateManagerProperty.direction, false));
-  action.add_precondition(new world_property(EStateManagerProperty.direction_search, false));
-  action.add_precondition(new world_property(EStateManagerProperty.weapon, true)); // --!
-  action.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
-  action.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
-  action.add_precondition(new world_property(EStateManagerProperty.movement, true));
-  action.add_effect(new world_property(EStateManagerProperty.direction, true));
-  st.planner.add_action(EStateManagerOperator.direction_turn, action);
+  directionTurnAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
+  directionTurnAction.add_precondition(new world_property(EStateManagerProperty.animation_locked, false));
+  directionTurnAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
+  directionTurnAction.add_precondition(new world_property(EStateManagerProperty.direction, false));
+  directionTurnAction.add_precondition(new world_property(EStateManagerProperty.direction_search, false));
+  directionTurnAction.add_precondition(new world_property(EStateManagerProperty.weapon, true)); // --!
+  directionTurnAction.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
+  directionTurnAction.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
+  directionTurnAction.add_precondition(new world_property(EStateManagerProperty.movement, true));
+  directionTurnAction.add_effect(new world_property(EStateManagerProperty.direction, true));
+  st.planner.add_action(EStateManagerOperator.direction_turn, directionTurnAction);
 
   // -- SEARCH
+  const directionSearchAction = new directionManagement.StateManagerActDirectionSearch(st);
 
-  action = create_xr_class_instance(
-    directionManagement.StateManagerActDirectionSearch,
-    "state_mgr_direction_search",
-    st
-  );
   // --action.add_precondition    (new world_property(EStateManagerProperty.locked,                 false))
-  action.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animation_locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
-  action.add_precondition(new world_property(EStateManagerProperty.direction, false));
-  action.add_precondition(new world_property(EStateManagerProperty.direction_search, true));
-  action.add_precondition(new world_property(EStateManagerProperty.weapon, true)); // --!
-  action.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
-  action.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
-  action.add_precondition(new world_property(EStateManagerProperty.movement, true));
-  action.add_effect(new world_property(EStateManagerProperty.direction, true));
-  st.planner.add_action(EStateManagerOperator.direction_search, action);
+  directionSearchAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
+  directionSearchAction.add_precondition(new world_property(EStateManagerProperty.animation_locked, false));
+  directionSearchAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
+  directionSearchAction.add_precondition(new world_property(EStateManagerProperty.direction, false));
+  directionSearchAction.add_precondition(new world_property(EStateManagerProperty.direction_search, true));
+  directionSearchAction.add_precondition(new world_property(EStateManagerProperty.weapon, true)); // --!
+  directionSearchAction.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
+  directionSearchAction.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
+  directionSearchAction.add_precondition(new world_property(EStateManagerProperty.movement, true));
+  directionSearchAction.add_effect(new world_property(EStateManagerProperty.direction, true));
+  st.planner.add_action(EStateManagerOperator.direction_search, directionSearchAction);
 
   // -- MENTAL STATES
 
   // -- FREE
+  const mentalFreeAction = new mentalManagement.StateManagerActMentalFree(st);
 
-  action = create_xr_class_instance(mentalManagement.StateManagerActMentalFree, "state_mgr_mental_free", st);
-  action.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
-  action.add_precondition(new world_property(EStateManagerProperty.mental, false));
+  mentalFreeAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
+  mentalFreeAction.add_precondition(new world_property(EStateManagerProperty.mental, false));
   // --	action.add_precondition    (new world_property(EStateManagerProperty.weapon,                 true))
   // --'	action.add_precondition    (new world_property(EStateManagerProperty.movement,               true))
-  action.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
-  action.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
-  action.add_precondition(new world_property(EStateManagerProperty.mental_free, true));
-  action.add_precondition(new world_property(EStateManagerProperty.bodystate, true));
-  action.add_precondition(new world_property(EStateManagerProperty.bodystate_standing_now, true));
-  action.add_effect(new world_property(EStateManagerProperty.mental, true));
-  st.planner.add_action(EStateManagerOperator.mental_free, action);
+  mentalFreeAction.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
+  mentalFreeAction.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
+  mentalFreeAction.add_precondition(new world_property(EStateManagerProperty.mental_free, true));
+  mentalFreeAction.add_precondition(new world_property(EStateManagerProperty.bodystate, true));
+  mentalFreeAction.add_precondition(new world_property(EStateManagerProperty.bodystate_standing_now, true));
+  mentalFreeAction.add_effect(new world_property(EStateManagerProperty.mental, true));
+  st.planner.add_action(EStateManagerOperator.mental_free, mentalFreeAction);
 
   // -- DANGER
 
-  action = create_xr_class_instance(mentalManagement.StateManagerActMentalDanger, "state_mgr_mental_danger");
-  action.add_precondition(new world_property(EStateManagerProperty.mental, false));
-  action.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
+  const mentalDangerAction = new mentalManagement.StateManagerActMentalDanger(st);
+
+  mentalDangerAction.add_precondition(new world_property(EStateManagerProperty.mental, false));
+  mentalDangerAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
   // --	action.add_precondition    (new world_property(EStateManagerProperty.weapon,                 true))
   // --'	action.add_precondition    (new world_property(EStateManagerProperty.movement,               true))
-  action.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
-  action.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
-  action.add_precondition(new world_property(EStateManagerProperty.mental_danger, true));
-  action.add_effect(new world_property(EStateManagerProperty.mental, true));
-  action.add_effect(new world_property(EStateManagerProperty.mental_danger_now, true));
-  st.planner.add_action(EStateManagerOperator.mental_danger, action);
+  mentalDangerAction.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
+  mentalDangerAction.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
+  mentalDangerAction.add_precondition(new world_property(EStateManagerProperty.mental_danger, true));
+  mentalDangerAction.add_effect(new world_property(EStateManagerProperty.mental, true));
+  mentalDangerAction.add_effect(new world_property(EStateManagerProperty.mental_danger_now, true));
+  st.planner.add_action(EStateManagerOperator.mental_danger, mentalDangerAction);
 
   // -- PANIC
 
-  action = create_xr_class_instance(mentalManagement.StateManagerActMentalPanic, "state_mgr_mental_panic");
-  action.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
-  action.add_precondition(new world_property(EStateManagerProperty.mental, false));
+  const mentalPanicAction = new mentalManagement.StateManagerActMentalPanic(st);
+
+  mentalPanicAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
+  mentalPanicAction.add_precondition(new world_property(EStateManagerProperty.mental, false));
   // --	action.add_precondition    (new world_property(EStateManagerProperty.weapon,                 true))
-  action.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
-  action.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
-  action.add_precondition(new world_property(EStateManagerProperty.mental_panic, true));
-  action.add_effect(new world_property(EStateManagerProperty.mental, true));
-  st.planner.add_action(EStateManagerOperator.mental_panic, action);
+  mentalPanicAction.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
+  mentalPanicAction.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
+  mentalPanicAction.add_precondition(new world_property(EStateManagerProperty.mental_panic, true));
+  mentalPanicAction.add_effect(new world_property(EStateManagerProperty.mental, true));
+  st.planner.add_action(EStateManagerOperator.mental_panic, mentalPanicAction);
 
   // -- BODYSTATES
 
   // -- CROUCH
+  const bodyStateStateCrouch = new bodyStateManagement.StateManagerActBodyStateCrouch(st);
 
-  action = create_xr_class_instance(bodyStateManagement.StateManagerActBodyStateCrouch, "state_mgr_bodystate_crouch");
-  action.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
-  action.add_precondition(new world_property(EStateManagerProperty.bodystate, false));
+  bodyStateStateCrouch.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
+  bodyStateStateCrouch.add_precondition(new world_property(EStateManagerProperty.bodystate, false));
   // --	action.add_precondition    (new world_property(EStateManagerProperty.weapon,                 true))
   // --'	action.add_precondition    (new world_property(EStateManagerProperty.movement,               true))
-  action.add_precondition(new world_property(EStateManagerProperty.bodystate_crouch_now, false));
-  action.add_precondition(new world_property(EStateManagerProperty.bodystate_crouch, true));
-  action.add_precondition(new world_property(EStateManagerProperty.mental_danger_now, true));
-  action.add_effect(new world_property(EStateManagerProperty.bodystate, true));
-  st.planner.add_action(EStateManagerOperator.bodystate_crouch, action);
+  bodyStateStateCrouch.add_precondition(new world_property(EStateManagerProperty.bodystate_crouch_now, false));
+  bodyStateStateCrouch.add_precondition(new world_property(EStateManagerProperty.bodystate_crouch, true));
+  bodyStateStateCrouch.add_precondition(new world_property(EStateManagerProperty.mental_danger_now, true));
+  bodyStateStateCrouch.add_effect(new world_property(EStateManagerProperty.bodystate, true));
+  st.planner.add_action(EStateManagerOperator.bodystate_crouch, bodyStateStateCrouch);
 
   // -- CROUCH_danger
+  const bodyStateCrouchDangerAction = new bodyStateManagement.StateManagerActBodyStateCrouchDanger(st);
 
-  action = create_xr_class_instance(
-    bodyStateManagement.StateManagerActBodyStateCrouchDanger,
-    "state_mgr_bodystate_crouch_danger"
-  );
-  action.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
-  action.add_precondition(new world_property(EStateManagerProperty.bodystate, false));
-  action.add_precondition(new world_property(EStateManagerProperty.mental, false));
+  bodyStateCrouchDangerAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
+  bodyStateCrouchDangerAction.add_precondition(new world_property(EStateManagerProperty.bodystate, false));
+  bodyStateCrouchDangerAction.add_precondition(new world_property(EStateManagerProperty.mental, false));
   // --	action.add_precondition    (new world_property(EStateManagerProperty.weapon,                 true))
   // --'	action.add_precondition    (new world_property(EStateManagerProperty.movement,               true))
-  action.add_precondition(new world_property(EStateManagerProperty.bodystate_crouch_now, false));
-  action.add_precondition(new world_property(EStateManagerProperty.bodystate_crouch, true));
-  action.add_effect(new world_property(EStateManagerProperty.bodystate, true));
-  action.add_effect(new world_property(EStateManagerProperty.mental, true));
-  st.planner.add_action(EStateManagerOperator.bodystate_crouch_danger, action);
+  bodyStateCrouchDangerAction.add_precondition(new world_property(EStateManagerProperty.bodystate_crouch_now, false));
+  bodyStateCrouchDangerAction.add_precondition(new world_property(EStateManagerProperty.bodystate_crouch, true));
+  bodyStateCrouchDangerAction.add_effect(new world_property(EStateManagerProperty.bodystate, true));
+  bodyStateCrouchDangerAction.add_effect(new world_property(EStateManagerProperty.mental, true));
+  st.planner.add_action(EStateManagerOperator.bodystate_crouch_danger, bodyStateCrouchDangerAction);
 
   // --  STAND
 
-  action = create_xr_class_instance(
-    bodyStateManagement.StateManagerActBodyStateStanding,
-    "state_mgr_bodystate_standing",
-    st
-  );
-  action.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
-  action.add_precondition(new world_property(EStateManagerProperty.bodystate, false));
+  const bodyStateStandingAction = new bodyStateManagement.StateManagerActBodyStateStanding(st);
+
+  bodyStateStandingAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
+  bodyStateStandingAction.add_precondition(new world_property(EStateManagerProperty.bodystate, false));
   // --	action.add_precondition    (new world_property(EStateManagerProperty.weapon,                 true))
   // --'	action.add_precondition    (new world_property(EStateManagerProperty.movement,               true))
-  action.add_precondition(new world_property(EStateManagerProperty.bodystate_standing_now, false));
-  action.add_precondition(new world_property(EStateManagerProperty.bodystate_standing, true));
-  action.add_effect(new world_property(EStateManagerProperty.bodystate, true));
-  action.add_effect(new world_property(EStateManagerProperty.bodystate_standing_now, true));
-  st.planner.add_action(EStateManagerOperator.bodystate_standing, action);
+  bodyStateStandingAction.add_precondition(new world_property(EStateManagerProperty.bodystate_standing_now, false));
+  bodyStateStandingAction.add_precondition(new world_property(EStateManagerProperty.bodystate_standing, true));
+  bodyStateStandingAction.add_effect(new world_property(EStateManagerProperty.bodystate, true));
+  bodyStateStandingAction.add_effect(new world_property(EStateManagerProperty.bodystate_standing_now, true));
+  st.planner.add_action(EStateManagerOperator.bodystate_standing, bodyStateStandingAction);
 
   // --  STAND_free
 
-  action = create_xr_class_instance(
-    bodyStateManagement.StateManagerActBodyStateStandingFree,
-    "state_mgr_bodystate_standing_free",
-    st
-  );
-  action.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
-  action.add_precondition(new world_property(EStateManagerProperty.bodystate, false));
-  action.add_precondition(new world_property(EStateManagerProperty.mental, false));
+  const standingFreeAction = new bodyStateManagement.StateManagerActBodyStateStandingFree(st);
+
+  standingFreeAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
+  standingFreeAction.add_precondition(new world_property(EStateManagerProperty.bodystate, false));
+  standingFreeAction.add_precondition(new world_property(EStateManagerProperty.mental, false));
   // --	action.add_precondition    (new world_property(EStateManagerProperty.weapon,                 true))
   // --'	action.add_precondition    (new world_property(EStateManagerProperty.movement,               true))
-  action.add_precondition(new world_property(EStateManagerProperty.bodystate_standing_now, false));
-  action.add_precondition(new world_property(EStateManagerProperty.bodystate_standing, true));
-  action.add_precondition(new world_property(EStateManagerProperty.mental_free, false));
-  action.add_effect(new world_property(EStateManagerProperty.bodystate, true));
-  action.add_effect(new world_property(EStateManagerProperty.bodystate_standing_now, true));
-  action.add_effect(new world_property(EStateManagerProperty.mental, true));
-  st.planner.add_action(EStateManagerOperator.bodystate_standing_free, action);
+  standingFreeAction.add_precondition(new world_property(EStateManagerProperty.bodystate_standing_now, false));
+  standingFreeAction.add_precondition(new world_property(EStateManagerProperty.bodystate_standing, true));
+  standingFreeAction.add_precondition(new world_property(EStateManagerProperty.mental_free, false));
+  standingFreeAction.add_effect(new world_property(EStateManagerProperty.bodystate, true));
+  standingFreeAction.add_effect(new world_property(EStateManagerProperty.bodystate_standing_now, true));
+  standingFreeAction.add_effect(new world_property(EStateManagerProperty.mental, true));
+  st.planner.add_action(EStateManagerOperator.bodystate_standing_free, standingFreeAction);
 
   // -- ANIMSTATES
-  action = create_xr_class_instance(
-    animationStateManagement.StateManagerActAnimationStateStart,
-    "state_mgr_animstate_start",
-    st
-  );
-  action.add_precondition(new world_property(EStateManagerProperty.locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animstate, false));
-  action.add_precondition(new world_property(EStateManagerProperty.smartcover, true));
-  action.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
-  action.add_precondition(new world_property(EStateManagerProperty.direction, true));
-  action.add_precondition(new world_property(EStateManagerProperty.mental, true));
-  action.add_precondition(new world_property(EStateManagerProperty.weapon, true));
-  action.add_precondition(new world_property(EStateManagerProperty.movement, true));
-  action.add_precondition(new world_property(EStateManagerProperty.animstate_play_now, false));
-  action.add_effect(new world_property(EStateManagerProperty.animstate, true));
-  st.planner.add_action(EStateManagerOperator.animstate_start, action);
+  const animationStateStartAction = new animationStateManagement.StateManagerActAnimationStateStart(st);
 
-  action = create_xr_class_instance(
-    animationStateManagement.StateManagerActAnimationStateStop,
-    "state_mgr_animstate_stop",
-    st
-  );
-  action.add_precondition(new world_property(EStateManagerProperty.locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animation_locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false)); // --!
+  animationStateStartAction.add_precondition(new world_property(EStateManagerProperty.locked, false));
+  animationStateStartAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
+  animationStateStartAction.add_precondition(new world_property(EStateManagerProperty.animstate, false));
+  animationStateStartAction.add_precondition(new world_property(EStateManagerProperty.smartcover, true));
+  animationStateStartAction.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
+  animationStateStartAction.add_precondition(new world_property(EStateManagerProperty.direction, true));
+  animationStateStartAction.add_precondition(new world_property(EStateManagerProperty.mental, true));
+  animationStateStartAction.add_precondition(new world_property(EStateManagerProperty.weapon, true));
+  animationStateStartAction.add_precondition(new world_property(EStateManagerProperty.movement, true));
+  animationStateStartAction.add_precondition(new world_property(EStateManagerProperty.animstate_play_now, false));
+  animationStateStartAction.add_effect(new world_property(EStateManagerProperty.animstate, true));
+  st.planner.add_action(EStateManagerOperator.animstate_start, animationStateStartAction);
+
+  const animationStateStopAction = new animationStateManagement.StateManagerActAnimationStateStop(st);
+
+  animationStateStopAction.add_precondition(new world_property(EStateManagerProperty.locked, false));
+  animationStateStopAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
+  animationStateStopAction.add_precondition(new world_property(EStateManagerProperty.animation_locked, false));
+  animationStateStopAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
   // --action.add_precondition    (new world_property(EStateManagerProperty.animstate,              false))
-  action.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animation_play_now, false));
-  action.add_effect(new world_property(EStateManagerProperty.animstate, true));
-  action.add_effect(new world_property(EStateManagerProperty.animstate_play_now, false));
-  action.add_effect(new world_property(EStateManagerProperty.animstate_idle_now, true));
-  st.planner.add_action(EStateManagerOperator.animstate_stop, action);
+  animationStateStopAction.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, false));
+  animationStateStopAction.add_precondition(new world_property(EStateManagerProperty.animation_play_now, false));
+  animationStateStopAction.add_effect(new world_property(EStateManagerProperty.animstate, true));
+  animationStateStopAction.add_effect(new world_property(EStateManagerProperty.animstate_play_now, false));
+  animationStateStopAction.add_effect(new world_property(EStateManagerProperty.animstate_idle_now, true));
+  st.planner.add_action(EStateManagerOperator.animstate_stop, animationStateStopAction);
 
   // -- ANIMATION
 
   // -- START
-  action = create_xr_class_instance(animationManagement.StateManagerActAnimationStart, "state_mgr_animation_start", st);
-  action.add_precondition(new world_property(EStateManagerProperty.locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animstate, true));
-  action.add_precondition(new world_property(EStateManagerProperty.smartcover, true));
-  action.add_precondition(new world_property(EStateManagerProperty.in_smartcover, false));
-  action.add_precondition(new world_property(EStateManagerProperty.direction, true));
-  action.add_precondition(new world_property(EStateManagerProperty.weapon, true));
-  action.add_precondition(new world_property(EStateManagerProperty.movement, true));
-  action.add_precondition(new world_property(EStateManagerProperty.mental, true));
-  action.add_precondition(new world_property(EStateManagerProperty.bodystate, true));
-  action.add_precondition(new world_property(EStateManagerProperty.animation, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animation_play_now, false));
-  action.add_effect(new world_property(EStateManagerProperty.animation, true));
-  st.planner.add_action(EStateManagerOperator.animation_start, action);
+  const animationStartAction = new animationManagement.StateManagerActAnimationStart(st);
+
+  animationStartAction.add_precondition(new world_property(EStateManagerProperty.locked, false));
+  animationStartAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
+  animationStartAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
+  animationStartAction.add_precondition(new world_property(EStateManagerProperty.animstate, true));
+  animationStartAction.add_precondition(new world_property(EStateManagerProperty.smartcover, true));
+  animationStartAction.add_precondition(new world_property(EStateManagerProperty.in_smartcover, false));
+  animationStartAction.add_precondition(new world_property(EStateManagerProperty.direction, true));
+  animationStartAction.add_precondition(new world_property(EStateManagerProperty.weapon, true));
+  animationStartAction.add_precondition(new world_property(EStateManagerProperty.movement, true));
+  animationStartAction.add_precondition(new world_property(EStateManagerProperty.mental, true));
+  animationStartAction.add_precondition(new world_property(EStateManagerProperty.bodystate, true));
+  animationStartAction.add_precondition(new world_property(EStateManagerProperty.animation, false));
+  animationStartAction.add_precondition(new world_property(EStateManagerProperty.animation_play_now, false));
+  animationStartAction.add_effect(new world_property(EStateManagerProperty.animation, true));
+  st.planner.add_action(EStateManagerOperator.animation_start, animationStartAction);
 
   // -- STOP
-  action = create_xr_class_instance(animationManagement.StateManagerActAnimationStop, "state_mgr_animation_stop", st);
-  action.add_precondition(new world_property(EStateManagerProperty.locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
+  const animationStopAction = new animationManagement.StateManagerActAnimationStop(st);
+
+  animationStopAction.add_precondition(new world_property(EStateManagerProperty.locked, false));
+  animationStopAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
   // --action.add_precondition    (new world_property(EStateManagerProperty.animstate,              true))
   // --action.add_precondition    (new world_property(EStateManagerProperty.animation,              false))
-  action.add_precondition(new world_property(EStateManagerProperty.animation_play_now, true));
-  action.add_effect(new world_property(EStateManagerProperty.animation, true));
-  action.add_effect(new world_property(EStateManagerProperty.animation_play_now, false));
-  action.add_effect(new world_property(EStateManagerProperty.animation_none_now, true));
-  st.planner.add_action(EStateManagerOperator.animation_stop, action);
+  animationStopAction.add_precondition(new world_property(EStateManagerProperty.animation_play_now, true));
+  animationStopAction.add_effect(new world_property(EStateManagerProperty.animation, true));
+  animationStopAction.add_effect(new world_property(EStateManagerProperty.animation_play_now, false));
+  animationStopAction.add_effect(new world_property(EStateManagerProperty.animation_none_now, true));
+  st.planner.add_action(EStateManagerOperator.animation_stop, animationStopAction);
 
-  action = create_xr_class_instance(
-    smartCoverManagement.StateManagerActSmartCoverEnter,
-    "act_state_mgr_smartcover_enter",
-    st
-  );
-  action.add_precondition(new world_property(EStateManagerProperty.locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.weapon, true));
-  action.add_precondition(new world_property(EStateManagerProperty.smartcover_need, true));
-  action.add_precondition(new world_property(EStateManagerProperty.smartcover, false));
-  action.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
-  action.add_precondition(new world_property(EStateManagerProperty.animation_play_now, false));
-  action.add_effect(new world_property(EStateManagerProperty.smartcover, true));
-  st.planner.add_action(EStateManagerOperator.smartcover_enter, action);
+  const smartCoverEnterAction = new smartCoverManagement.StateManagerActSmartCoverEnter(st);
 
-  action = create_xr_class_instance(
-    smartCoverManagement.StateManagerActSmartCoverExit,
-    "act_state_mgr_smartcover_exit",
-    st
-  );
-  action.add_precondition(new world_property(EStateManagerProperty.locked, false));
-  action.add_precondition(new world_property(EStateManagerProperty.weapon, true));
-  action.add_precondition(new world_property(EStateManagerProperty.smartcover_need, false));
-  action.add_precondition(new world_property(EStateManagerProperty.smartcover, false));
-  action.add_effect(new world_property(EStateManagerProperty.smartcover, true));
-  st.planner.add_action(EStateManagerOperator.smartcover_exit, action);
+  smartCoverEnterAction.add_precondition(new world_property(EStateManagerProperty.locked, false));
+  smartCoverEnterAction.add_precondition(new world_property(EStateManagerProperty.weapon, true));
+  smartCoverEnterAction.add_precondition(new world_property(EStateManagerProperty.smartcover_need, true));
+  smartCoverEnterAction.add_precondition(new world_property(EStateManagerProperty.smartcover, false));
+  smartCoverEnterAction.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
+  smartCoverEnterAction.add_precondition(new world_property(EStateManagerProperty.animation_play_now, false));
+  smartCoverEnterAction.add_effect(new world_property(EStateManagerProperty.smartcover, true));
+  st.planner.add_action(EStateManagerOperator.smartcover_enter, smartCoverEnterAction);
 
-  action = create_xr_class_instance(stateManagement.StateManagerActLocked, "state_mgr_locked_smartcover", st);
-  action.add_precondition(new world_property(EStateManagerProperty.in_smartcover, true));
-  action.add_effect(new world_property(EStateManagerProperty.in_smartcover, false));
-  st.planner.add_action(EStateManagerOperator.locked_smartcover, action);
+  const smartCoverExitAction = new smartCoverManagement.StateManagerActSmartCoverExit(st);
 
-  action = create_xr_class_instance(stateManagement.StateManagerActLocked, "state_mgr_locked", st);
-  action.add_precondition(new world_property(EStateManagerProperty.locked, true));
-  action.add_effect(new world_property(EStateManagerProperty.locked, false));
-  st.planner.add_action(EStateManagerOperator.locked, action);
+  smartCoverExitAction.add_precondition(new world_property(EStateManagerProperty.locked, false));
+  smartCoverExitAction.add_precondition(new world_property(EStateManagerProperty.weapon, true));
+  smartCoverExitAction.add_precondition(new world_property(EStateManagerProperty.smartcover_need, false));
+  smartCoverExitAction.add_precondition(new world_property(EStateManagerProperty.smartcover, false));
+  smartCoverExitAction.add_effect(new world_property(EStateManagerProperty.smartcover, true));
+  st.planner.add_action(EStateManagerOperator.smartcover_exit, smartCoverExitAction);
 
-  action = create_xr_class_instance(stateManagement.StateManagerActLocked, "state_mgr_locked_animation", st);
-  action.add_precondition(new world_property(EStateManagerProperty.animation_locked, true));
-  action.add_effect(new world_property(EStateManagerProperty.animation_locked, false));
-  st.planner.add_action(EStateManagerOperator.locked_animation, action);
+  const lockedSmartCoverAction = new stateManagement.StateManagerActLocked(st, "lockedSmartCoverAction");
 
-  action = create_xr_class_instance(stateManagement.StateManagerActLocked, "state_mgr_locked_animstate", st);
-  action.add_precondition(new world_property(EStateManagerProperty.animstate_locked, true));
-  action.add_effect(new world_property(EStateManagerProperty.animstate_locked, false));
-  st.planner.add_action(EStateManagerOperator.locked_animstate, action);
+  lockedSmartCoverAction.add_precondition(new world_property(EStateManagerProperty.in_smartcover, true));
+  lockedSmartCoverAction.add_effect(new world_property(EStateManagerProperty.in_smartcover, false));
+  st.planner.add_action(EStateManagerOperator.locked_smartcover, lockedSmartCoverAction);
 
-  action = create_xr_class_instance(stateManagement.StateManagerActLocked, "state_mgr_locked_external", st);
-  action.add_precondition(new world_property(EStateManagerProperty.locked_external, true));
-  action.add_effect(new world_property(EStateManagerProperty.locked_external, false));
-  st.planner.add_action(EStateManagerOperator.locked_external, action);
+  const lockedAction = new stateManagement.StateManagerActLocked(st, "lockedAction");
 
-  action = create_xr_class_instance(stateManagement.StateManagerActEnd, "state_mgr_end", st);
-  action.add_precondition(new world_property(EStateManagerProperty.end, false));
-  action.add_precondition(new world_property(EStateManagerProperty.weapon, true));
-  action.add_precondition(new world_property(EStateManagerProperty.movement, true));
-  action.add_precondition(new world_property(EStateManagerProperty.mental, true));
-  action.add_precondition(new world_property(EStateManagerProperty.bodystate, true));
-  action.add_precondition(new world_property(EStateManagerProperty.direction, true));
-  action.add_precondition(new world_property(EStateManagerProperty.animstate, true));
-  action.add_precondition(new world_property(EStateManagerProperty.animation, true));
-  action.add_precondition(new world_property(EStateManagerProperty.smartcover, true));
-  action.add_effect(new world_property(EStateManagerProperty.end, true));
-  st.planner.add_action(EStateManagerOperator.end, action);
+  lockedAction.add_precondition(new world_property(EStateManagerProperty.locked, true));
+  lockedAction.add_effect(new world_property(EStateManagerProperty.locked, false));
+  st.planner.add_action(EStateManagerOperator.locked, lockedAction);
+
+  const lockedAnimationAction = new stateManagement.StateManagerActLocked(st, "lockedAnimationAction");
+
+  lockedAnimationAction.add_precondition(new world_property(EStateManagerProperty.animation_locked, true));
+  lockedAnimationAction.add_effect(new world_property(EStateManagerProperty.animation_locked, false));
+  st.planner.add_action(EStateManagerOperator.locked_animation, lockedAnimationAction);
+
+  const lockedAnimstateAction = new stateManagement.StateManagerActLocked(st, "lockedAnimstateAction");
+
+  lockedAnimstateAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, true));
+  lockedAnimstateAction.add_effect(new world_property(EStateManagerProperty.animstate_locked, false));
+  st.planner.add_action(EStateManagerOperator.locked_animstate, lockedAnimstateAction);
+
+  const lockedExternalAction = new stateManagement.StateManagerActLocked(st, "lockedExternalAction");
+
+  lockedExternalAction.add_precondition(new world_property(EStateManagerProperty.locked_external, true));
+  lockedExternalAction.add_effect(new world_property(EStateManagerProperty.locked_external, false));
+  st.planner.add_action(EStateManagerOperator.locked_external, lockedExternalAction);
+
+  const endStateAction = new stateManagement.StateManagerActEnd(st);
+
+  endStateAction.add_precondition(new world_property(EStateManagerProperty.end, false));
+  endStateAction.add_precondition(new world_property(EStateManagerProperty.weapon, true));
+  endStateAction.add_precondition(new world_property(EStateManagerProperty.movement, true));
+  endStateAction.add_precondition(new world_property(EStateManagerProperty.mental, true));
+  endStateAction.add_precondition(new world_property(EStateManagerProperty.bodystate, true));
+  endStateAction.add_precondition(new world_property(EStateManagerProperty.direction, true));
+  endStateAction.add_precondition(new world_property(EStateManagerProperty.animstate, true));
+  endStateAction.add_precondition(new world_property(EStateManagerProperty.animation, true));
+  endStateAction.add_precondition(new world_property(EStateManagerProperty.smartcover, true));
+  endStateAction.add_effect(new world_property(EStateManagerProperty.end, true));
+  st.planner.add_action(EStateManagerOperator.end, endStateAction);
 
   const goal: XR_world_state = new world_state();
 

@@ -4,8 +4,8 @@ import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
 import { IStoredObject } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme, action_ids, evaluators_id } from "@/mod/scripts/core/schemes/base";
-import { ActionBaseCover, IActionBaseCover } from "@/mod/scripts/core/schemes/cover/actions/ActionBaseCover";
-import { EvaluatorNeedCover } from "@/mod/scripts/core/schemes/cover/evaluators/EvaluatorNeedCover";
+import { ActionBaseCover } from "@/mod/scripts/core/schemes/cover/actions";
+import { EvaluatorNeedCover } from "@/mod/scripts/core/schemes/cover/evaluators";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import {
   cfg_get_switch_conditions,
@@ -46,12 +46,9 @@ export class SchemeCover extends AbstractScheme {
 
     const manager: XR_action_planner = object.motivation_action_manager();
 
-    manager.add_evaluator(
-      properties.need_cover,
-      create_xr_class_instance(EvaluatorNeedCover, state, EvaluatorNeedCover.__name)
-    );
+    manager.add_evaluator(properties.need_cover, new EvaluatorNeedCover(state));
 
-    const new_action: IActionBaseCover = create_xr_class_instance(ActionBaseCover, ActionBaseCover.__name, state);
+    const new_action: ActionBaseCover = new ActionBaseCover(state);
 
     new_action.add_precondition(new world_property(stalker_ids.property_alive, true));
     new_action.add_precondition(new world_property(stalker_ids.property_danger, false));

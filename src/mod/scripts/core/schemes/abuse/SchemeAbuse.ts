@@ -37,10 +37,10 @@ export class SchemeAbuse extends AbstractScheme {
     const manager: XR_action_planner = object.motivation_action_manager();
 
     // -- Evaluators
-    manager.add_evaluator(properties.abuse, create_xr_class_instance(EvaluatorAbuse, EvaluatorAbuse.__name, state));
+    manager.add_evaluator(properties.abuse, new EvaluatorAbuse(state));
 
     // -- Actions
-    const action = create_xr_class_instance(ActionAbuseHit, object.name(), ActionAbuseHit.__name, state, ini);
+    const action = new ActionAbuseHit(state);
 
     action.add_precondition(new world_property(stalker_ids.property_alive, true));
     action.add_precondition(new world_property(stalker_ids.property_danger, false));

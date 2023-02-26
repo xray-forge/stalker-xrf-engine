@@ -1,4 +1,4 @@
-import { action_base, move, XR_action_base } from "xray16";
+import { action_base, move } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { turn } from "@/mod/scripts/core/state_management/direction/StateManagerDirection";
@@ -10,34 +10,30 @@ const logger: LuaLogger = new LuaLogger(
   gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
 );
 
-export interface IStateManagerActMovementRunTurn extends XR_action_base {
-  st: StateManager;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class StateManagerActMovementRunTurn extends action_base {
+  public readonly stateManager: StateManager;
+
+  public constructor(stateManager: StateManager) {
+    super(null, StateManagerActMovementRunTurn.__name);
+    this.stateManager = stateManager;
+  }
+
+  public initialize(): void {
+    super.initialize();
+
+    this.object.set_movement_type(move.run);
+    turn(this.object, this.stateManager);
+  }
+
+  public execute(): void {
+    super.execute();
+  }
+
+  public finalize(): void {
+    super.finalize();
+  }
 }
-
-export const StateManagerActMovementRunTurn: IStateManagerActMovementRunTurn = declare_xr_class(
-  "StateManagerActMovementRunTurn",
-  action_base,
-  {
-    __init(name: string, st: StateManager) {
-      action_base.__init(this, null, name);
-
-      this.st = st;
-    },
-    initialize(): void {
-      action_base.initialize(this);
-      // --printf("MOVEMENT TYPE IS --- %s setting MOVEMENT TYPE --- RUN", tostring(this.object:movement_type()))
-      this.object.set_movement_type(move.run);
-      // --    printf("ENABLING MOVEMENT !!!!!")
-      // --'this.object:movement_enabled(true)
-      // --printf("MOVEMENT TYPE IS --- %s setting MOVEMENT TYPE --- RUN", tostring(this.object:movement_type()))
-      turn(this.object, this.st);
-    },
-    execute(): void {
-      logger.info("Act movement run turn");
-      action_base.execute(this);
-    },
-    finalize(): void {
-      action_base.finalize(this);
-    },
-  } as IStateManagerActMovementRunTurn
-);

@@ -1,4 +1,4 @@
-import { property_evaluator, XR_game_object, XR_property_evaluator } from "xray16";
+import { property_evaluator, XR_game_object } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { IStoredObject } from "@/mod/scripts/core/database";
@@ -6,16 +6,19 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("EvaluatorSee");
 
-export interface IEvaluatorSee extends XR_property_evaluator {
-  state: IStoredObject;
-}
+/**
+ * todo;
+ */
+@LuabindClass()
+export class EvaluatorSee extends property_evaluator {
+  public readonly state: IStoredObject;
 
-export const EvaluatorSee: IEvaluatorSee = declare_xr_class("EvaluatorSee", property_evaluator, {
-  __init(name: string, storage: IStoredObject): void {
-    property_evaluator.__init(this, null, name);
+  public constructor(storage: IStoredObject) {
+    super(null, EvaluatorSee.__name);
     this.state = storage;
-  },
-  evaluate(): boolean {
+  }
+
+  public evaluate(): boolean {
     const bestEnemy: Optional<XR_game_object> = this.object.best_enemy();
 
     if (bestEnemy !== null && this.object.alive() && this.object.see(bestEnemy)) {
@@ -25,5 +28,5 @@ export const EvaluatorSee: IEvaluatorSee = declare_xr_class("EvaluatorSee", prop
     } else {
       return false;
     }
-  },
-} as IEvaluatorSee);
+  }
+}

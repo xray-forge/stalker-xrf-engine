@@ -1,4 +1,4 @@
-import { action_base, level, patrol, XR_action_base, XR_game_object, XR_sound_object, XR_vector } from "xray16";
+import { action_base, level, patrol, XR_game_object, XR_sound_object, XR_vector } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
@@ -23,36 +23,35 @@ interface IDescriptor {
   look_position: Optional<XR_vector>;
 }
 
-export interface IActionRemarkActivity extends XR_action_base {
-  st: IStoredObject;
-  state: number;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class ActionRemarkActivity extends action_base {
+  public st: IStoredObject;
+  public state: number = state_initial;
 
-  sound_end_signalled: boolean;
-  action_end_signalled: boolean;
-  anim_end_signalled: boolean;
-  anim_scheduled: boolean;
-  snd_scheduled: boolean;
-  snd_started: boolean;
-  tips_sound: Optional<XR_sound_object>;
+  public sound_end_signalled: boolean = false;
+  public action_end_signalled: boolean = false;
+  public anim_end_signalled: boolean = false;
+  public anim_scheduled: boolean = false;
+  public snd_scheduled: boolean = false;
+  public snd_started: boolean = false;
+  public tips_sound: Optional<XR_sound_object> = null;
 
-  activate_scheme(): void;
-  get_target(): IDescriptor;
-  time_callback(): void;
-  update(): void;
-}
-
-export const ActionRemarkActivity: IActionRemarkActivity = declare_xr_class("ActionRemarkActivity", action_base, {
-  __init(name: string, state: IStoredObject): void {
-    action_base.__init(this, null, name);
+  public constructor(state: IStoredObject) {
+    super(null, ActionRemarkActivity.__name);
     this.st = state;
-  },
-  initialize(): void {
-    action_base.initialize(this);
+  }
+
+  public initialize(): void {
+    super.initialize();
     this.object.set_desired_position();
     this.object.set_desired_direction();
     // --    GlobalSound:set_sound(this.object, null)
-  },
-  activate_scheme(): void {
+  }
+
+  public activate_scheme(): void {
     this.st.signals = {};
     this.sound_end_signalled = false;
     this.action_end_signalled = false;
@@ -69,8 +68,9 @@ export const ActionRemarkActivity: IActionRemarkActivity = declare_xr_class("Act
 
     this.state = state_initial;
     this.tips_sound = null;
-  },
-  get_target(): Optional<IDescriptor> {
+  }
+
+  public get_target(): Optional<IDescriptor> {
     const look_tbl = {
       look_object: null as Optional<XR_game_object>,
       look_position: null as Optional<XR_vector>,
@@ -96,12 +96,14 @@ export const ActionRemarkActivity: IActionRemarkActivity = declare_xr_class("Act
     }
 
     return look_tbl;
-  },
-  time_callback(): void {
+  }
+
+  public time_callback(): void {
     this.state = state_sound;
     this.update();
-  },
-  update(): void {
+  }
+
+  public update(): void {
     // --' 1. �� ������ ����������� �� ������.
 
     if (this.state === state_initial) {
@@ -152,19 +154,21 @@ export const ActionRemarkActivity: IActionRemarkActivity = declare_xr_class("Act
         }
       }
     }
-  },
-  execute(): void {
-    action_base.execute(this);
+  }
+
+  public execute(): void {
+    super.execute();
     this.update();
-  },
-  finalize(): void {
+  }
+
+  public finalize(): void {
     if (this.tips_sound !== null) {
       this.tips_sound.stop();
     }
 
-    action_base.finalize(this);
-  },
-} as IActionRemarkActivity);
+    super.finalize();
+  }
+}
 
 /**
  * todo

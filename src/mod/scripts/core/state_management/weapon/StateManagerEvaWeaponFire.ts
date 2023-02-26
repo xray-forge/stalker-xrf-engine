@@ -1,4 +1,4 @@
-import { property_evaluator, XR_property_evaluator } from "xray16";
+import { property_evaluator } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { states } from "@/mod/scripts/core/state_management/lib/state_lib";
@@ -10,23 +10,22 @@ const logger: LuaLogger = new LuaLogger(
   gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
 );
 
-export interface IStateManagerEvaWeaponFire extends XR_property_evaluator {
-  st: StateManager;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class StateManagerEvaWeaponFire extends property_evaluator {
+  private readonly stateManager: StateManager;
+
+  public constructor(stateManager: StateManager) {
+    super(null, StateManagerEvaWeaponFire.__name);
+    this.stateManager = stateManager;
+  }
+
+  public evaluate(): boolean {
+    return (
+      states.get(this.stateManager.target_state).weapon === "fire" ||
+      states.get(this.stateManager.target_state).weapon === "sniper_fire"
+    );
+  }
 }
-
-export const StateManagerEvaWeaponFire: IStateManagerEvaWeaponFire = declare_xr_class(
-  "StateManagerEvaWeaponFire",
-  property_evaluator,
-  {
-    __init(name: string, st: StateManager): void {
-      property_evaluator.__init(this, null, name);
-
-      this.st = st;
-    },
-    evaluate(): boolean {
-      return (
-        states.get(this.st.target_state).weapon === "fire" || states.get(this.st.target_state).weapon === "sniper_fire"
-      );
-    },
-  } as IStateManagerEvaWeaponFire
-);

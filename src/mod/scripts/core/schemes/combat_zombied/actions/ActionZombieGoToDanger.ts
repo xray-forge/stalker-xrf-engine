@@ -1,13 +1,4 @@
-import {
-  action_base,
-  danger_object,
-  game_object,
-  move,
-  time_global,
-  XR_action_base,
-  XR_game_object,
-  XR_vector,
-} from "xray16";
+import { action_base, danger_object, game_object, move, time_global, XR_game_object, XR_vector } from "xray16";
 
 import { AnyObject, Optional } from "@/mod/lib/types";
 import { IStoredObject } from "@/mod/scripts/core/database";
@@ -20,41 +11,33 @@ const logger: LuaLogger = new LuaLogger("ActionZombieGoToDanger");
 const act_shoot = 1;
 const act_danger = 2;
 
-export interface IActionZombieGoToDanger extends XR_action_base {
-  st: IStoredObject;
-  t: AnyObject;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class ActionZombieGoToDanger extends action_base {
+  public state: IStoredObject;
+  public t: AnyObject = {};
 
-  was_hit: boolean;
-  hit_reaction_end_time: number;
+  public was_hit: boolean = false;
+  public hit_reaction_end_time: number = 0;
 
-  last_state: Optional<string>;
-  bdo_vert_id: Optional<number>;
-  last_sent_vert_id: Optional<number>;
-  bdo_id: Optional<number>;
+  public last_state: Optional<string> = null;
+  public bdo_vert_id: Optional<number> = null;
+  public last_sent_vert_id: Optional<number> = null;
+  public bdo_id: Optional<number> = null;
 
-  enemy_last_seen_pos: Optional<XR_vector>;
-  enemy_last_seen_vid: Optional<number>;
+  public enemy_last_seen_pos: Optional<XR_vector> = null;
+  public enemy_last_seen_vid: Optional<number> = null;
 
-  set_state(state: string, be: Optional<XR_game_object>, pos: Optional<XR_vector>): void;
-  hit_callback(
-    object: XR_game_object,
-    amount: number,
-    direction: XR_vector,
-    who: XR_game_object,
-    bone_id: number
-  ): void;
-}
+  public constructor(state: IStoredObject) {
+    super(null, ActionZombieGoToDanger.__name);
+    this.state = state;
+  }
 
-export const ActionZombieGoToDanger: IActionZombieGoToDanger = declare_xr_class("ActionZombieGoToDanger", action_base, {
-  __init(name: string, state: IStoredObject): void {
-    action_base.__init(this, null, name);
-    this.st = state;
-    this.t = {};
-    this.was_hit = false;
-    this.hit_reaction_end_time = 0;
-  },
-  initialize(): void {
-    action_base.initialize(this);
+  public initialize(): void {
+    super.initialize();
+
     // --    this.object.set_node_evaluator      ()
     // --    this.object.set_path_evaluator      ()
     this.object.set_desired_direction();
@@ -64,18 +47,20 @@ export const ActionZombieGoToDanger: IActionZombieGoToDanger = declare_xr_class(
     this.bdo_id = null;
     this.bdo_vert_id = null;
     this.last_sent_vert_id = null;
-    this.st.cur_act = act_danger;
-  },
-  set_state(state, be, pos): void {
+    this.state.cur_act = act_danger;
+  }
+
+  public set_state(state: string, bestEnemy: Optional<XR_game_object>, pos: Optional<XR_vector>): void {
     if (state !== this.last_state) {
-      this.t.look_object = be;
+      this.t.look_object = bestEnemy;
       this.t.look_position = pos;
       set_state(this.object, state, null, null, this.t, null);
       this.last_state = state;
     }
-  },
-  execute(): void {
-    action_base.execute(this);
+  }
+
+  public execute(): void {
+    super.execute();
 
     if (this.was_hit) {
       this.was_hit = false;
@@ -103,12 +88,14 @@ export const ActionZombieGoToDanger: IActionZombieGoToDanger = declare_xr_class(
         this.set_state("threat_na", null, bd.position());
       }
     }
-  },
-  finalize(): void {
-    action_base.finalize(this);
-    this.st.cur_act = null;
-  },
-  hit_callback(
+  }
+
+  public finalize(): void {
+    super.finalize();
+    this.state.cur_act = null;
+  }
+
+  public hit_callback(
     object: XR_game_object,
     amount: number,
     direction: XR_vector,
@@ -119,7 +106,7 @@ export const ActionZombieGoToDanger: IActionZombieGoToDanger = declare_xr_class(
       return;
     }
 
-    if (this.st.cur_act === act_danger) {
+    if (this.state.cur_act === act_danger) {
       const bd = this.object.best_danger();
 
       if (bd) {
@@ -132,5 +119,5 @@ export const ActionZombieGoToDanger: IActionZombieGoToDanger = declare_xr_class(
         }
       }
     }
-  },
-} as IActionZombieGoToDanger);
+  }
+}

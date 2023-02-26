@@ -1,4 +1,4 @@
-import { action_base, game_object, level, object, time_global, XR_action_base } from "xray16";
+import { action_base, game_object, level, object, time_global } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
@@ -13,44 +13,49 @@ const min_ratio: number = 1500;
 
 const logger: LuaLogger = new LuaLogger("StateManagerActEnd", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
-export interface IStateManagerActEnd extends XR_action_base {
-  st: StateManager;
-  weapon_update(): void;
-}
+/**
+ * todo;
+ */
+@LuabindClass()
+export class StateManagerActEnd extends action_base {
+  public readonly stateManager: StateManager;
 
-export const StateManagerActEnd: IStateManagerActEnd = declare_xr_class("StateManagerActEnd", action_base, {
-  __init(name: string, st: StateManager): void {
-    action_base.__init(this, null, name);
+  public constructor(stateManager: StateManager) {
+    super(null, StateManagerActEnd.__name);
 
-    this.st = st;
-  },
-  initialize(): void {
-    action_base.initialize(this);
-  },
-  execute(): void {
-    action_base.execute(this);
+    this.stateManager = stateManager;
+  }
+
+  public initialize(): void {
+    super.initialize();
+  }
+
+  public execute(): void {
+    super.execute();
 
     this.weapon_update();
-  },
-  finalize(): void {
-    action_base.finalize(this);
-  },
-  weapon_update(): void {
-    if (this.st.callback !== null) {
-      if (this.st.callback!.begin === null) {
-        this.st.callback!.begin = time_global();
+  }
+
+  public finalize(): void {
+    super.finalize();
+  }
+
+  public weapon_update(): void {
+    if (this.stateManager.callback !== null) {
+      if (this.stateManager.callback!.begin === null) {
+        this.stateManager.callback!.begin = time_global();
       }
 
-      if (time_global() - this.st.callback!.begin >= this.st.callback.timeout!) {
-        if (this.st.callback!.func !== null) {
-          this.st.callback!.func(this.st.callback!.obj);
+      if (time_global() - this.stateManager.callback!.begin >= this.stateManager.callback.timeout!) {
+        if (this.stateManager.callback!.func !== null) {
+          this.stateManager.callback!.func(this.stateManager.callback!.obj);
         }
 
-        this.st.callback = null;
+        this.stateManager.callback = null;
       }
     }
 
-    const t: Optional<string> = states.get(this.st.target_state!).weapon;
+    const t: Optional<string> = states.get(this.stateManager.target_state!).weapon;
     const w: boolean = isWeapon(this.object.best_weapon());
 
     if (!w) {
@@ -62,11 +67,11 @@ export const StateManagerActEnd: IStateManagerActEnd = declare_xr_class("StateMa
       // todo: Configurable
       let sniper_aim = 3000;
 
-      if (this.st.look_object !== null) {
-        const look_object = level.object_by_id(this.st.look_object as number);
+      if (this.stateManager.look_object !== null) {
+        const look_object = level.object_by_id(this.stateManager.look_object as number);
 
         if (look_object === null) {
-          this.st.look_object = null;
+          this.stateManager.look_object = null;
 
           return;
         }
@@ -86,7 +91,7 @@ export const StateManagerActEnd: IStateManagerActEnd = declare_xr_class("StateMa
 
             this.object.set_item(object.fire1, this.object.best_weapon(), 1, sniper_aim);
           } else {
-            const [value] = get_queue_params(this.object, look_object, states.get(this.st.target_state!));
+            const [value] = get_queue_params(this.object, look_object, states.get(this.stateManager.target_state!));
 
             this.object.set_item(object.fire1, this.object.best_weapon(), value);
           }
@@ -99,11 +104,11 @@ export const StateManagerActEnd: IStateManagerActEnd = declare_xr_class("StateMa
         }
       }
 
-      if (this.st.look_position !== null && this.st.look_object === null) {
+      if (this.stateManager.look_position !== null && this.stateManager.look_object === null) {
         if (t === "sniper_fire") {
           this.object.set_item(object.fire1, this.object.best_weapon(), 1, sniper_aim);
         } else {
-          const [value] = get_queue_params(this.object, null, states.get(this.st.target_state!));
+          const [value] = get_queue_params(this.object, null, states.get(this.stateManager.target_state!));
 
           this.object.set_item(object.fire1, this.object.best_weapon(), value);
         }
@@ -111,14 +116,14 @@ export const StateManagerActEnd: IStateManagerActEnd = declare_xr_class("StateMa
         return;
       }
 
-      const [value] = get_queue_params(this.object, null, states.get(this.st.target_state!));
+      const [value] = get_queue_params(this.object, null, states.get(this.stateManager.target_state!));
 
       this.object.set_item(object.fire1, this.object.best_weapon(), value);
 
       return;
     } else if (t === "unstrapped") {
       // --printf("[%s] not shooting", this.object.name())
-      this.object.set_item(get_idle_state(this.st.target_state!), this.object.best_weapon());
+      this.object.set_item(get_idle_state(this.stateManager.target_state!), this.object.best_weapon());
     }
-  },
-} as IStateManagerActEnd);
+  }
+}

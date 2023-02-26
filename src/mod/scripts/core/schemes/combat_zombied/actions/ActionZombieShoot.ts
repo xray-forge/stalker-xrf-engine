@@ -1,14 +1,4 @@
-import {
-  action_base,
-  game_object,
-  level,
-  move,
-  time_global,
-  vector,
-  XR_action_base,
-  XR_game_object,
-  XR_vector,
-} from "xray16";
+import { action_base, game_object, level, move, time_global, vector, XR_game_object, XR_vector } from "xray16";
 
 import { AnyObject, Optional } from "@/mod/lib/types";
 import { IStoredObject } from "@/mod/scripts/core/database";
@@ -20,43 +10,33 @@ const logger: LuaLogger = new LuaLogger("ActionZombieShoot");
 const act_shoot = 1;
 const act_danger = 2;
 
-export interface IActionZombieShoot extends XR_action_base {
-  st: IStoredObject;
-  t: AnyObject;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class ActionZombieShoot extends action_base {
+  public state: IStoredObject;
+  public t: AnyObject = {};
 
-  was_hit: boolean;
-  hit_reaction_end_time: number;
-  turn_time: number;
-  enemy_last_seen_vid: number;
-  valid_path: boolean;
-  last_state: Optional<string>;
-  last_vid: Optional<number>;
+  public enemy_last_seen_vid!: number;
+  public was_hit: boolean = false;
+  public hit_reaction_end_time: number = 0;
+  public turn_time: number = 0;
+  public valid_path: boolean = false;
+  public last_state: Optional<string> = null;
+  public last_vid: Optional<number> = null;
 
-  enemy_last_seen_pos: XR_vector;
-  enemy_last_accessible_vid: Optional<number>;
-  enemy_last_accessible_position: Optional<XR_vector>;
+  public enemy_last_seen_pos: Optional<XR_vector> = null;
+  public enemy_last_accessible_vid: Optional<number> = null;
+  public enemy_last_accessible_position: Optional<XR_vector> = null;
 
-  calc_random_direction(): XR_vector;
-  set_state(state: string, be: Optional<XR_game_object>, pos: Optional<XR_vector>): void;
-  hit_callback(
-    object: XR_game_object,
-    amount: number,
-    direction: XR_vector,
-    who: XR_game_object,
-    bone_id: number
-  ): void;
-}
+  public constructor(storage: IStoredObject) {
+    super(null, ActionZombieShoot.__name);
+    this.state = storage;
+  }
 
-export const ActionZombieShoot: IActionZombieShoot = declare_xr_class("ActionZombieShoot", action_base, {
-  __init(name: string, storage: IStoredObject): void {
-    action_base.__init(this, null, name);
-    this.st = storage;
-    this.t = {};
-    this.was_hit = false;
-    this.hit_reaction_end_time = 0;
-  },
-  initialize(): void {
-    action_base.initialize(this);
+  public initialize(): void {
+    super.initialize();
 
     // --    this.object:set_node_evaluator      ()
     // --    this.object:set_path_evaluator      ()
@@ -72,12 +52,13 @@ export const ActionZombieShoot: IActionZombieShoot = declare_xr_class("ActionZom
     this.last_vid = null;
     this.valid_path = false;
     this.turn_time = 0;
-    this.st.cur_act = act_shoot;
+    this.state.cur_act = act_shoot;
 
     // --    GlobalSound:set_sound_play(this.object:id(), "fight_enemy")
-  },
-  execute(): void {
-    action_base.execute(this);
+  }
+
+  public execute(): void {
+    super.execute();
 
     const bestEnemy: Optional<XR_game_object> = this.object.best_enemy()!;
     const see: boolean = this.object.see(bestEnemy);
@@ -142,8 +123,9 @@ export const ActionZombieShoot: IActionZombieShoot = declare_xr_class("ActionZom
         }
       }
     }
-  },
-  set_state(state, bestEnemy: Optional<XR_game_object>, position: Optional<XR_vector>): void {
+  }
+
+  public set_state(state: string, bestEnemy: Optional<XR_game_object>, position: Optional<XR_vector>): void {
     this.t.look_object = bestEnemy;
 
     if (bestEnemy) {
@@ -155,8 +137,9 @@ export const ActionZombieShoot: IActionZombieShoot = declare_xr_class("ActionZom
     set_state(this.object, state, null, null, this.t, null);
 
     this.last_state = state;
-  },
-  calc_random_direction(): XR_vector {
+  }
+
+  public calc_random_direction(): XR_vector {
     const ang = math.pi * 2 * math.random();
     const look_pos = new vector().set(this.object.position());
 
@@ -164,12 +147,14 @@ export const ActionZombieShoot: IActionZombieShoot = declare_xr_class("ActionZom
     look_pos.z = look_pos.z + math.sin(ang);
 
     return look_pos;
-  },
-  finalize(): void {
-    action_base.finalize(this);
-    this.st.cur_act = null;
-  },
-  hit_callback(
+  }
+
+  public finalize(): void {
+    super.finalize();
+    this.state.cur_act = null;
+  }
+
+  public hit_callback(
     object: XR_game_object,
     amount: number,
     direction: XR_vector,
@@ -180,7 +165,7 @@ export const ActionZombieShoot: IActionZombieShoot = declare_xr_class("ActionZom
       return;
     }
 
-    if (this.st.cur_act === act_shoot) {
+    if (this.state.cur_act === act_shoot) {
       const be = this.object && this.object.best_enemy();
 
       if (be && who.id() === be.id()) {
@@ -189,5 +174,5 @@ export const ActionZombieShoot: IActionZombieShoot = declare_xr_class("ActionZom
         this.was_hit = true;
       }
     }
-  },
-} as IActionZombieShoot);
+  }
+}

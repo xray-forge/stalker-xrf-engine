@@ -7,8 +7,8 @@ import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme, action_ids, evaluators_id } from "@/mod/scripts/core/schemes/base";
-import { ActionHelpWounded } from "@/mod/scripts/core/schemes/help_wounded/actions/ActionHelpWounded";
-import { EvaluatorWoundedExist } from "@/mod/scripts/core/schemes/help_wounded/evaluators/EvaluatorWoundedExist";
+import { ActionHelpWounded } from "@/mod/scripts/core/schemes/help_wounded/actions";
+import { EvaluatorWoundedExist } from "@/mod/scripts/core/schemes/help_wounded/evaluators";
 import { SchemeWounded } from "@/mod/scripts/core/schemes/wounded/SchemeWounded";
 import { getConfigBoolean } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -42,12 +42,9 @@ export class SchemeHelpWounded extends AbstractScheme {
 
     const manager: XR_action_planner = npc.motivation_action_manager();
 
-    manager.add_evaluator(
-      properties.wounded_exist,
-      create_xr_class_instance(EvaluatorWoundedExist, "wounded_exist", state)
-    );
+    manager.add_evaluator(properties.wounded_exist, new EvaluatorWoundedExist(state));
 
-    const action = create_xr_class_instance(ActionHelpWounded, ActionHelpWounded.__name, state);
+    const action: ActionHelpWounded = new ActionHelpWounded(state);
 
     action.add_precondition(new world_property(stalker_ids.property_alive, true));
     action.add_precondition(new world_property(stalker_ids.property_enemy, false));

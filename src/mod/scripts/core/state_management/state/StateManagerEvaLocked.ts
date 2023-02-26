@@ -1,4 +1,4 @@
-import { property_evaluator, XR_property_evaluator } from "xray16";
+import { property_evaluator } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { EStateManagerProperty } from "@/mod/scripts/core/state_management/EStateManagerProperty";
@@ -7,28 +7,23 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("StateManagerEvaLocked", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
-export interface IStateManagerEvaLocked extends XR_property_evaluator {
-  st: StateManager;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class StateManagerEvaLocked extends property_evaluator {
+  private readonly stateManager: StateManager;
+
+  public constructor(stateManager: StateManager) {
+    super(null, StateManagerEvaLocked.__name);
+    this.stateManager = stateManager;
+  }
+
+  public evaluate(): boolean {
+    return (
+      this.stateManager.planner!.initialized() &&
+      (this.stateManager.planner!.evaluator(EStateManagerProperty.weapon_locked).evaluate() ||
+        this.object.is_body_turning())
+    );
+  }
 }
-
-export const StateManagerEvaLocked: IStateManagerEvaLocked = declare_xr_class(
-  "StateManagerEvaLocked",
-  property_evaluator,
-  {
-    __init(name: string, st: StateManager): void {
-      property_evaluator.__init(this, null, name);
-
-      this.st = st;
-    },
-    evaluate(): boolean {
-      // --printf("%s weapon locked %s", self.object:name(),
-      // tostring(self.st.planner:evaluator(self.st.properties["weapon_locked"]):evaluate()))
-      // --printf("%s turning %s", self.object:name(), tostring(self.object:is_body_turning()))
-
-      return (
-        this.st.planner!.initialized() &&
-        (this.st.planner!.evaluator(EStateManagerProperty.weapon_locked).evaluate() || this.object.is_body_turning())
-      );
-    },
-  } as IStateManagerEvaLocked
-);

@@ -1,4 +1,4 @@
-import { property_evaluator, XR_property_evaluator } from "xray16";
+import { property_evaluator } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
@@ -9,21 +9,20 @@ const logger: LuaLogger = new LuaLogger(
   gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
 );
 
-export interface IStateManagerEvaAnimationNoneNow extends XR_property_evaluator {
-  st: StateManager;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class StateManagerEvaAnimationNoneNow extends property_evaluator {
+  public readonly stateManager: StateManager;
+
+  public constructor(stateManager: StateManager) {
+    super(null, StateManagerEvaAnimationNoneNow.__name);
+
+    this.stateManager = stateManager;
+  }
+
+  public evaluate(): boolean {
+    return this.stateManager.animation.states.current_state === null;
+  }
 }
-
-export const StateManagerEvaAnimationNoneNow: IStateManagerEvaAnimationNoneNow = declare_xr_class(
-  "StateManagerEvaAnimationNoneNow",
-  property_evaluator,
-  {
-    __init(name: string, st: StateManager): void {
-      property_evaluator.__init(this, null, name);
-
-      this.st = st;
-    },
-    evaluate(): boolean {
-      return this.st.animation.states.current_state === null;
-    },
-  } as IStateManagerEvaAnimationNoneNow
-);

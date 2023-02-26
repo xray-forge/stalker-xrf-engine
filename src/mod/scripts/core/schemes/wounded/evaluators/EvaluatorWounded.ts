@@ -1,22 +1,27 @@
-import { property_evaluator, stalker_ids, XR_action_planner, XR_property_evaluator } from "xray16";
+import { property_evaluator, stalker_ids, XR_action_planner } from "xray16";
 
+import { STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/mod/globals/lua";
+import { Optional } from "@/mod/lib/types";
 import { IStoredObject } from "@/mod/scripts/core/database";
 import { pstor_retrieve } from "@/mod/scripts/core/database/pstor";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("EvaluatorWounded");
 
-export interface IEvaluatorWounded extends XR_property_evaluator {
-  actionPlanner: XR_action_planner;
-  state: IStoredObject;
-}
+/**
+ * todo;
+ */
+@LuabindClass()
+export class EvaluatorWounded extends property_evaluator {
+  public readonly state: IStoredObject;
+  public actionPlanner: Optional<XR_action_planner> = null;
 
-export const EvaluatorWounded: IEvaluatorWounded = declare_xr_class("EvaluatorWounded", property_evaluator, {
-  __init(name: string, state: IStoredObject): void {
-    property_evaluator.__init(this, null, name);
+  public constructor(state: IStoredObject) {
+    super(null, EvaluatorWounded.__name);
     this.state = state;
-  },
-  evaluate(): boolean {
+  }
+
+  public evaluate(): boolean {
     if (this.object.in_smart_cover()) {
       return false;
     } else if (this.state.wounded_set !== true) {
@@ -29,17 +34,17 @@ export const EvaluatorWounded: IEvaluatorWounded = declare_xr_class("EvaluatorWo
       this.actionPlanner = this.object.motivation_action_manager();
     }
 
-    if (this.object.critically_wounded() === true) {
+    if (this.object.critically_wounded()) {
       return false;
     }
 
     if (
       this.actionPlanner.evaluator(stalker_ids.property_enemy).evaluate() &&
-      pstor_retrieve(this.object, "wounded_fight") === "true"
+      pstor_retrieve(this.object, "wounded_fight") === STRINGIFIED_TRUE
     ) {
       return false;
     }
 
-    return tostring(pstor_retrieve(this.object, "wounded_state")) !== "nil";
-  },
-} as IEvaluatorWounded);
+    return tostring(pstor_retrieve(this.object, "wounded_state")) !== STRINGIFIED_NIL;
+  }
+}

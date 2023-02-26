@@ -4,16 +4,12 @@ import { Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { registered_smartcovers } from "@/mod/scripts/core/alife/SmartCover";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
-import { ActionAnimpoint, IActionAnimpoint } from "@/mod/scripts/core/schemes/animpoint/actions/ActionAnimpoint";
-import {
-  ActionReachAnimpoint,
-  IActionReachAnimpoint,
-} from "@/mod/scripts/core/schemes/animpoint/actions/ActionReachAnimpoint";
+import { ActionAnimpoint, ActionReachAnimpoint } from "@/mod/scripts/core/schemes/animpoint/actions";
 import { associations } from "@/mod/scripts/core/schemes/animpoint/animpoint_predicates";
 import { EvaluatorNeedAnimpoint, EvaluatorReachAnimpoint } from "@/mod/scripts/core/schemes/animpoint/evaluators";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme, action_ids, evaluators_id } from "@/mod/scripts/core/schemes/base";
-import { CampStoryManager } from "@/mod/scripts/core/schemes/base/CampStoryManager";
+import { CampStoryManager } from "@/mod/scripts/core/schemes/camper/CampStoryManager";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { states } from "@/mod/scripts/core/state_management/lib/state_lib";
 import {
@@ -84,25 +80,14 @@ export class SchemeAnimpoint extends AbstractScheme {
 
     const manager = npc.motivation_action_manager();
 
-    manager.add_evaluator(
-      properties.need_animpoint,
-      create_xr_class_instance(EvaluatorNeedAnimpoint, state, EvaluatorNeedAnimpoint.__name)
-    );
-    manager.add_evaluator(
-      properties.reach_animpoint,
-      create_xr_class_instance(EvaluatorReachAnimpoint, state, EvaluatorReachAnimpoint.__name)
-    );
+    manager.add_evaluator(properties.need_animpoint, new EvaluatorNeedAnimpoint(state));
+    manager.add_evaluator(properties.reach_animpoint, new EvaluatorReachAnimpoint(state));
 
     state.animpoint = new SchemeAnimpoint(npc, state);
 
     subscribeActionForEvents(npc, state, state.animpoint);
 
-    const actionReachAnimpoint: IActionReachAnimpoint = create_xr_class_instance(
-      ActionReachAnimpoint,
-      npc,
-      ActionReachAnimpoint.__name,
-      state
-    );
+    const actionReachAnimpoint: ActionReachAnimpoint = new ActionReachAnimpoint(state);
 
     actionReachAnimpoint.add_precondition(new world_property(stalker_ids.property_alive, true));
     actionReachAnimpoint.add_precondition(new world_property(stalker_ids.property_anomaly, false));
@@ -115,12 +100,7 @@ export class SchemeAnimpoint extends AbstractScheme {
     manager.add_action(operators.action_reach_animpoint, actionReachAnimpoint);
     subscribeActionForEvents(npc, state, actionReachAnimpoint);
 
-    const actionAnimpoint: IActionAnimpoint = create_xr_class_instance(
-      ActionAnimpoint,
-      npc,
-      ActionAnimpoint.__name,
-      state
-    );
+    const actionAnimpoint: ActionAnimpoint = new ActionAnimpoint(state);
 
     actionAnimpoint.add_precondition(new world_property(stalker_ids.property_alive, true));
     actionAnimpoint.add_precondition(new world_property(stalker_ids.property_anomaly, false));

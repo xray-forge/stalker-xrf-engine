@@ -73,6 +73,7 @@ export const pripyat_info_portions = {
   pri_a22_kovalski_speak: "pri_a22_kovalski_speak",
   pri_a25_actor_needs_medikit_advanced_supply: "pri_a25_actor_needs_medikit_advanced_supply",
   pri_a25_actor_needs_medikit_elite_supply: "pri_a25_actor_needs_medikit_elite_supply",
+  pri_a28_actor_in_zone_leave: "pri_a28_actor_in_zone_leave",
   pri_a28_actor_in_zone_stay: "pri_a28_actor_in_zone_stay",
   pri_a28_army_leaved_alive: "pri_a28_army_leaved_alive",
   pri_a28_kirillov_hq_online: "pri_a28_kirillov_hq_online",

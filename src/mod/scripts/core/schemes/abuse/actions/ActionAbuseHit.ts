@@ -1,19 +1,24 @@
-import { action_base, XR_action_base } from "xray16";
+import { action_base } from "xray16";
 
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 
-export interface IActionAbuseHit extends XR_action_base {
-  state: IStoredObject;
-  hit_done: boolean;
-}
+/**
+ * todo
+ */
+@LuabindClass()
+export class ActionAbuseHit extends action_base {
+  public state: IStoredObject;
+  public hit_done: boolean = false;
 
-export const ActionAbuseHit: IActionAbuseHit = declare_xr_class("ActionAbuseHit", action_base, {
-  __init(npc_name: string, action_name: string, storage: IStoredObject): void {
-    action_base.__init(this, null, action_name);
+  public constructor(storage: IStoredObject) {
+    super(null, ActionAbuseHit.__name);
     this.state = storage;
-  },
-  initialize(): void {
-    action_base.initialize(this);
+  }
+
+  public initialize(): void {
+    super.initialize();
+
     // --    this.object.set_node_evaluator()
     // --    this.object.set_path_evaluator()
     this.object.set_desired_position();
@@ -25,8 +30,9 @@ export const ActionAbuseHit: IActionAbuseHit = declare_xr_class("ActionAbuseHit"
     set_state(this.object, "punch", null, null, { look_object: registry.actor }, { animation: true });
     // --    GlobalSound.set_sound_play(this.object.id(), "use_abuse")
     this.hit_done = true;
-  },
-  execute(): void {
-    action_base.execute(this);
-  },
-} as IActionAbuseHit);
+  }
+
+  public execute(): void {
+    super.execute();
+  }
+}

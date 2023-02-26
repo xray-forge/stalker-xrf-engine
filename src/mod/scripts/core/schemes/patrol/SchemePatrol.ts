@@ -7,8 +7,7 @@ import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAn
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { action_ids } from "@/mod/scripts/core/schemes/base/actions_id";
 import { evaluators_id } from "@/mod/scripts/core/schemes/base/evaluators_id";
-import { ActionCommander, IActionCommander } from "@/mod/scripts/core/schemes/patrol/actions/ActionCommander";
-import { ActionPatrol, IActionPatrol } from "@/mod/scripts/core/schemes/patrol/actions/ActionPatrol";
+import { ActionCommander, ActionPatrol } from "@/mod/scripts/core/schemes/patrol/actions";
 import { EvaluatorPatrolComm, EvaluatorPatrolEnd } from "@/mod/scripts/core/schemes/patrol/evaluators";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { getObjectSquad } from "@/mod/scripts/utils/alife";
@@ -85,21 +84,10 @@ export class SchemePatrol extends AbstractScheme {
 
     const manager = object.motivation_action_manager();
 
-    manager.add_evaluator(
-      properties.patrol_end,
-      create_xr_class_instance(EvaluatorPatrolEnd, EvaluatorPatrolEnd.__name, storage, EvaluatorPatrolEnd.__name)
-    );
-    manager.add_evaluator(
-      properties.patrol_comm,
-      create_xr_class_instance(EvaluatorPatrolComm, EvaluatorPatrolComm.__name, storage, EvaluatorPatrolComm.__name)
-    );
+    manager.add_evaluator(properties.patrol_end, new EvaluatorPatrolEnd(storage));
+    manager.add_evaluator(properties.patrol_comm, new EvaluatorPatrolComm(storage));
 
-    const actionCommander: IActionCommander = create_xr_class_instance(
-      ActionCommander,
-      object,
-      ActionCommander.__name,
-      storage
-    );
+    const actionCommander: ActionCommander = new ActionCommander(storage, object);
 
     actionCommander.add_precondition(new world_property(stalker_ids.property_alive, true));
     actionCommander.add_precondition(new world_property(stalker_ids.property_danger, false));
@@ -113,7 +101,7 @@ export class SchemePatrol extends AbstractScheme {
     manager.add_action(operators.action_commander, actionCommander);
     subscribeActionForEvents(object, storage, actionCommander);
 
-    const actionPatrol: IActionPatrol = create_xr_class_instance(ActionPatrol, object, ActionPatrol.__name, storage);
+    const actionPatrol: ActionPatrol = new ActionPatrol(storage, object);
 
     actionPatrol.add_precondition(new world_property(stalker_ids.property_alive, true));
     actionPatrol.add_precondition(new world_property(stalker_ids.property_danger, false));

@@ -1,4 +1,4 @@
-import { property_evaluator, XR_game_object, XR_property_evaluator } from "xray16";
+import { property_evaluator, XR_game_object } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
@@ -11,32 +11,30 @@ const logger: LuaLogger = new LuaLogger(
   gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
 );
 
-export interface IStateManagerEvaWeaponStrappedNow extends XR_property_evaluator {
-  st: StateManager;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class StateManagerEvaWeaponStrappedNow extends property_evaluator {
+  private readonly st: StateManager;
+
+  public constructor(st: StateManager) {
+    super(null, StateManagerEvaWeaponStrappedNow.__name);
+    this.st = st;
+  }
+
+  public evaluate(): boolean {
+    const bestWeapon: Optional<XR_game_object> = this.object.best_weapon();
+
+    if (!isWeapon(bestWeapon)) {
+      return true;
+    }
+
+    const active_item: Optional<XR_game_object> = this.object.active_item();
+
+    return (
+      (!isStrappableWeapon(bestWeapon) && active_item === null) ||
+      (this.object.is_weapon_going_to_be_strapped(bestWeapon) && this.object.weapon_strapped())
+    );
+  }
 }
-
-export const StateManagerEvaWeaponStrappedNow: IStateManagerEvaWeaponStrappedNow = declare_xr_class(
-  "StateManagerEvaWeaponStrappedNow",
-  property_evaluator,
-  {
-    __init(name: string, st: StateManager): void {
-      property_evaluator.__init(this, null, name);
-
-      this.st = st;
-    },
-    evaluate(): boolean {
-      const best_weapon: Optional<XR_game_object> = this.object.best_weapon();
-
-      if (!isWeapon(best_weapon)) {
-        return true;
-      }
-
-      const active_item: Optional<XR_game_object> = this.object.active_item();
-
-      return (
-        (!isStrappableWeapon(best_weapon) && active_item === null) ||
-        (this.object.is_weapon_going_to_be_strapped(best_weapon) && this.object.weapon_strapped())
-      );
-    },
-  } as IStateManagerEvaWeaponStrappedNow
-);

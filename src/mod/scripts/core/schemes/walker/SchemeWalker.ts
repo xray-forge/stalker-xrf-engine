@@ -1,12 +1,4 @@
-import {
-  level,
-  stalker_ids,
-  world_property,
-  XR_action_base,
-  XR_action_planner,
-  XR_game_object,
-  XR_ini_file,
-} from "xray16";
+import { level, stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { IStoredObject } from "@/mod/scripts/core/database";
@@ -15,8 +7,8 @@ import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { action_ids } from "@/mod/scripts/core/schemes/base/actions_id";
 import { evaluators_id } from "@/mod/scripts/core/schemes/base/evaluators_id";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
-import { ActionWalkerActivity } from "@/mod/scripts/core/schemes/walker/actions/ActionWalkerActivity";
-import { EvaluatorNeedWalker } from "@/mod/scripts/core/schemes/walker/evaluators/EvaluatorNeedWalker";
+import { ActionWalkerActivity } from "@/mod/scripts/core/schemes/walker/actions";
+import { EvaluatorNeedWalker } from "@/mod/scripts/core/schemes/walker/evaluators";
 import { cfg_get_switch_conditions, getConfigBoolean, getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -50,31 +42,26 @@ export class SchemeWalker extends AbstractScheme {
 
     const actionPlanner: XR_action_planner = object.motivation_action_manager();
 
-    actionPlanner.add_evaluator(
-      properties.need_walker,
-      create_xr_class_instance(EvaluatorNeedWalker, state, EvaluatorNeedWalker.__name)
-    );
+    actionPlanner.add_evaluator(properties.need_walker, new EvaluatorNeedWalker(state));
 
-    const new_action = create_xr_class_instance(ActionWalkerActivity, object, ActionWalkerActivity.__name, state);
+    const actionWalkerActivity: ActionWalkerActivity = new ActionWalkerActivity(state, object);
 
-    new_action.add_precondition(new world_property(stalker_ids.property_alive, true));
-    new_action.add_precondition(new world_property(stalker_ids.property_danger, false));
-    new_action.add_precondition(new world_property(stalker_ids.property_enemy, false));
-    new_action.add_precondition(new world_property(stalker_ids.property_anomaly, false));
-    new_action.add_precondition(new world_property(properties.need_walker, true));
+    actionWalkerActivity.add_precondition(new world_property(stalker_ids.property_alive, true));
+    actionWalkerActivity.add_precondition(new world_property(stalker_ids.property_danger, false));
+    actionWalkerActivity.add_precondition(new world_property(stalker_ids.property_enemy, false));
+    actionWalkerActivity.add_precondition(new world_property(stalker_ids.property_anomaly, false));
+    actionWalkerActivity.add_precondition(new world_property(properties.need_walker, true));
 
-    addCommonPrecondition(new_action);
+    addCommonPrecondition(actionWalkerActivity);
 
-    new_action.add_effect(new world_property(properties.need_walker, false));
-    new_action.add_effect(new world_property(properties.state_mgr_logic_active, false));
+    actionWalkerActivity.add_effect(new world_property(properties.need_walker, false));
+    actionWalkerActivity.add_effect(new world_property(properties.state_mgr_logic_active, false));
 
-    actionPlanner.add_action(operators.action_walker, new_action);
+    actionPlanner.add_action(operators.action_walker, actionWalkerActivity);
 
-    subscribeActionForEvents(object, state, new_action);
+    subscribeActionForEvents(object, state, actionWalkerActivity);
 
-    const alifeAction: XR_action_base = actionPlanner.action(action_ids.alife);
-
-    alifeAction.add_precondition(new world_property(properties.need_walker, false));
+    actionPlanner.action(action_ids.alife).add_precondition(new world_property(properties.need_walker, false));
   }
 
   public static set_scheme(

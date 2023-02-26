@@ -1,25 +1,24 @@
-import { property_evaluator, XR_property_evaluator } from "xray16";
+import { property_evaluator } from "xray16";
 
 import { IStoredObject } from "@/mod/scripts/core/database";
 
-export interface IEvaluatorGatherItems extends XR_property_evaluator {
-  state: IStoredObject;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class EvaluatorGatherItems extends property_evaluator {
+  public readonly state: IStoredObject;
+
+  public constructor(state: IStoredObject) {
+    super(null, EvaluatorGatherItems.__name);
+    this.state = state;
+  }
+
+  public evaluate(): boolean {
+    if (this.state.gather_items_enabled !== true) {
+      return false;
+    }
+
+    return this.object.is_there_items_to_pickup();
+  }
 }
-
-export const EvaluatorGatherItems: IEvaluatorGatherItems = declare_xr_class(
-  "EvaluatorGatherItems",
-  property_evaluator,
-  {
-    __init(name: string, state: IStoredObject): void {
-      property_evaluator.__init(this, null, name);
-      this.state = state;
-    },
-    evaluate(): boolean {
-      if (this.state.gather_items_enabled !== true) {
-        return false;
-      }
-
-      return this.object.is_there_items_to_pickup();
-    },
-  } as IEvaluatorGatherItems
-);

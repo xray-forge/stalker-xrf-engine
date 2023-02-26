@@ -6,16 +6,19 @@ import { isSchemeActive } from "@/mod/scripts/utils/scheme";
 
 const logger: LuaLogger = new LuaLogger("EvaluatorNeedWalker");
 
-export interface IEvaluatorNeedWalker extends XR_property_evaluator {
-  state: IStoredObject;
-}
+/**
+ * todo;
+ */
+@LuabindClass()
+export class EvaluatorNeedWalker extends property_evaluator {
+  public state: IStoredObject;
 
-export const EvaluatorNeedWalker: IEvaluatorNeedWalker = declare_xr_class("EvaluatorNeedWalker", property_evaluator, {
-  __init(storage: IStoredObject, name: string): void {
-    property_evaluator.__init(this, null, name);
+  public constructor(storage: IStoredObject) {
+    super(null, EvaluatorNeedWalker.__name);
     this.state = storage;
-  },
-  evaluate(): boolean {
+  }
+
+  public evaluate(): boolean {
     return isSchemeActive(this.object, this.state);
-  },
-} as IEvaluatorNeedWalker);
+  }
+}

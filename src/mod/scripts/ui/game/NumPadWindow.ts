@@ -18,6 +18,9 @@ export interface INumPadWindowOwner {
   OnNumberReceive(text: string): void;
 }
 
+/**
+ * todo;
+ */
 @LuabindClass()
 export class NumPadWindow extends CUIScriptWnd {
   public owner: Optional<INumPadWindowOwner>;

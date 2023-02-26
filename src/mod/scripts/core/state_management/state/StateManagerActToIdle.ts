@@ -1,4 +1,4 @@
-import { action_base, game_object, XR_action_base } from "xray16";
+import { action_base, game_object } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
@@ -7,63 +7,67 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("StateManagerActToIdle", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
-export interface IStateManagerActToIdle extends XR_action_base {
-  st: StateManager;
-}
+/**
+ * todo;
+ */
+@LuabindClass()
+export class StateManagerActToIdle extends action_base {
+  public readonly stateManager: StateManager;
 
-export const StateManagerActToIdle: IStateManagerActToIdle = declare_xr_class("StateManagerActToIdle", action_base, {
-  __init(name: string, st: StateManager): void {
-    action_base.__init(this, null, name);
+  public constructor(stateManager: StateManager, name?: string) {
+    super(null, name || StateManagerActToIdle.__name);
+    this.stateManager = stateManager;
+  }
 
-    this.st = st;
-  },
-  initialize(): void {
-    action_base.initialize(this);
+  public initialize(): void {
+    super.initialize();
     // --'    this.object:movement_enabled(true)
 
     this.object.inactualize_patrol_path();
 
     if (this.object.best_enemy() !== null) {
-      this.st.set_state("idle", null, null, null, { fast_set: true });
+      this.stateManager.set_state("idle", null, null, null, { fast_set: true });
 
       return;
     }
 
     if (this.object.best_danger() !== null) {
-      this.st.set_state("idle", null, null, null, { fast_set: true });
+      this.stateManager.set_state("idle", null, null, null, { fast_set: true });
 
       return;
     }
 
-    this.st.set_state("idle", null, null, null, null);
+    this.stateManager.set_state("idle", null, null, null, null);
 
     sendToNearestAccessibleVertex(this.object, this.object.level_vertex_id());
 
     this.object.set_path_type(game_object.level_path);
-  },
-  finalize(): void {
-    this.st.current_object = -1;
-    action_base.finalize(this);
-  },
-  execute(): void {
+  }
+
+  public finalize(): void {
+    this.stateManager.current_object = -1;
+    super.finalize();
+  }
+
+  public execute(): void {
     sendToNearestAccessibleVertex(this.object, this.object.level_vertex_id());
     this.object.set_path_type(game_object.level_path);
 
     if (this.object.best_enemy()) {
-      this.st.set_state("idle", null, null, null, { fast_set: true });
-      action_base.execute(this);
+      this.stateManager.set_state("idle", null, null, null, { fast_set: true });
+      super.execute();
 
       return;
     }
 
     if (this.object.best_danger()) {
-      this.st.set_state("idle", null, null, null, { fast_set: true });
-      action_base.execute(this);
+      this.stateManager.set_state("idle", null, null, null, { fast_set: true });
+      super.execute();
 
       return;
     }
 
-    this.st.set_state("idle", null, null, null, null);
-    action_base.execute(this);
-  },
-} as IStateManagerActToIdle);
+    this.stateManager.set_state("idle", null, null, null, null);
+    super.execute();
+  }
+}

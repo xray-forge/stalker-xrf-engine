@@ -1,4 +1,4 @@
-import { property_evaluator, XR_property_evaluator } from "xray16";
+import { property_evaluator } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { registry } from "@/mod/scripts/core/database";
@@ -10,25 +10,20 @@ const logger: LuaLogger = new LuaLogger(
   gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
 );
 
-export interface IStateManagerEvaLogicActive extends XR_property_evaluator {
-  st: StateManager;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class StateManagerEvaLogicActive extends property_evaluator {
+  private readonly stateManager: StateManager;
+
+  public constructor(state_manager: StateManager) {
+    super(null, StateManagerEvaLogicActive.__name);
+
+    this.stateManager = state_manager;
+  }
+
+  public evaluate(): boolean {
+    return registry.objects.get(this.object.id()).active_section !== null;
+  }
 }
-
-export const StateManagerEvaLogicActive: IStateManagerEvaLogicActive = declare_xr_class(
-  "StateManagerEvaLogicActive",
-  property_evaluator,
-  {
-    __init(name: string, state_manager: StateManager): void {
-      property_evaluator.__init(this, null, name);
-
-      this.st = state_manager;
-    },
-    evaluate(): boolean {
-      if (registry.objects.get(this.object.id()).active_section === null) {
-        return false;
-      }
-
-      return true;
-    },
-  } as IStateManagerEvaLogicActive
-);

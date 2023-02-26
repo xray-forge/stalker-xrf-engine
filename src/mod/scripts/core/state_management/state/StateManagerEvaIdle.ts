@@ -1,4 +1,4 @@
-import { cast_planner, property_evaluator, stalker_ids, XR_action_planner, XR_property_evaluator } from "xray16";
+import { cast_planner, property_evaluator, stalker_ids, XR_action_planner } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
@@ -9,53 +9,54 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("StateManagerEvaIdle", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
-export interface IStateManagerEvaIdle extends XR_property_evaluator {
-  st: StateManager;
-  mgr: Optional<XR_action_planner>;
-  combat_planner: Optional<XR_action_planner>;
-}
+/**
+ * todo;
+ */
+@LuabindClass()
+export class StateManagerEvaIdle extends property_evaluator {
+  private readonly stateManager: StateManager;
+  private actionPlanner: Optional<XR_action_planner> = null;
+  private combatPlanner: Optional<XR_action_planner> = null;
 
-export const StateManagerEvaIdle: IStateManagerEvaIdle = declare_xr_class("StateManagerEvaIdle", property_evaluator, {
-  __init(name: string, st: StateManager): void {
-    property_evaluator.__init(this, null, name);
+  public constructor(stateManager: StateManager) {
+    super(null, StateManagerEvaIdle.__name);
+    this.stateManager = stateManager;
+  }
 
-    this.st = st;
-    this.mgr = null;
-  },
-  evaluate(): boolean {
+  public evaluate(): boolean {
     const t =
-      this.st.target_state === "idle" &&
+      this.stateManager.target_state === "idle" &&
       // --!this.st.planner.evaluator(this.st.properties["locked"]).evaluate() &&
-      !this.st.planner.evaluator(EStateManagerProperty.animstate_locked).evaluate() &&
-      !this.st.planner.evaluator(EStateManagerProperty.animation_locked).evaluate() &&
-      this.st.planner.evaluator(EStateManagerProperty.movement).evaluate() &&
-      this.st.planner.evaluator(EStateManagerProperty.animstate).evaluate() &&
-      this.st.planner.evaluator(EStateManagerProperty.animation).evaluate() &&
-      this.st.planner.evaluator(EStateManagerProperty.smartcover).evaluate();
+      !this.stateManager.planner.evaluator(EStateManagerProperty.animstate_locked).evaluate() &&
+      !this.stateManager.planner.evaluator(EStateManagerProperty.animation_locked).evaluate() &&
+      this.stateManager.planner.evaluator(EStateManagerProperty.movement).evaluate() &&
+      this.stateManager.planner.evaluator(EStateManagerProperty.animstate).evaluate() &&
+      this.stateManager.planner.evaluator(EStateManagerProperty.animation).evaluate() &&
+      this.stateManager.planner.evaluator(EStateManagerProperty.smartcover).evaluate();
 
-    if (this.mgr === null) {
-      this.mgr = this.object.motivation_action_manager();
+    if (this.actionPlanner === null) {
+      this.actionPlanner = this.object.motivation_action_manager();
     }
 
-    if (!this.mgr.initialized()) {
+    if (!this.actionPlanner.initialized()) {
       return false;
     }
 
     if (t === true) {
-      if (this.mgr.current_action_id() === action_ids.state_mgr + 1) {
-        this.st.combat = true;
+      if (this.actionPlanner.current_action_id() === action_ids.state_mgr + 1) {
+        this.stateManager.combat = true;
       }
     }
 
-    if (this.st.combat === true) {
+    if (this.stateManager.combat === true) {
       return true;
     }
 
-    if (this.combat_planner === null) {
-      this.combat_planner = cast_planner(this.mgr.action(stalker_ids.action_combat_planner));
+    if (this.combatPlanner === null) {
+      this.combatPlanner = cast_planner(this.actionPlanner.action(stalker_ids.action_combat_planner));
     }
 
-    if (!this.combat_planner.initialized()) {
+    if (!this.combatPlanner.initialized()) {
       return false;
     }
     // --if this.combat_planner.current_action_id() === stalker_ids.action_post_combat_wait then
@@ -63,5 +64,5 @@ export const StateManagerEvaIdle: IStateManagerEvaIdle = declare_xr_class("State
     // --end
 
     return false;
-  },
-} as IStateManagerEvaIdle);
+  }
+}

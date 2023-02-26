@@ -6,7 +6,7 @@ import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAn
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { action_ids } from "@/mod/scripts/core/schemes/base/actions_id";
 import { evaluators_id } from "@/mod/scripts/core/schemes/base/evaluators_id";
-import { ActionSmartCoverActivity } from "@/mod/scripts/core/schemes/smartcover/actions/ActionSmartCoverActivity";
+import { ActionSmartCoverActivity } from "@/mod/scripts/core/schemes/smartcover/actions";
 import {
   EvaluatorNeedSmartCover,
   EvaluatorUseSmartCoverInCombat,
@@ -50,33 +50,27 @@ export class SchemeSmartCover extends AbstractScheme {
 
     const manager = object.motivation_action_manager();
 
-    manager.add_evaluator(
-      properties.need_smartcover,
-      create_xr_class_instance(EvaluatorNeedSmartCover, state, EvaluatorNeedSmartCover.__name)
-    );
-    manager.add_evaluator(
-      properties.use_smartcover_in_combat,
-      create_xr_class_instance(EvaluatorUseSmartCoverInCombat, state, EvaluatorUseSmartCoverInCombat.__name)
-    );
+    manager.add_evaluator(properties.need_smartcover, new EvaluatorNeedSmartCover(state));
+    manager.add_evaluator(properties.use_smartcover_in_combat, new EvaluatorUseSmartCoverInCombat(state));
 
-    const new_action = create_xr_class_instance(ActionSmartCoverActivity, ActionSmartCoverActivity.__name, state);
+    const actionSmartCoverActivity: ActionSmartCoverActivity = new ActionSmartCoverActivity(state);
 
-    new_action.add_precondition(new world_property(stalker_ids.property_alive, true));
-    new_action.add_precondition(new world_property(stalker_ids.property_anomaly, false));
-    new_action.add_precondition(new world_property(properties.need_smartcover, true));
-    new_action.add_precondition(new world_property(properties.use_smartcover_in_combat, false));
-    new_action.add_precondition(new world_property(stalker_ids.property_enemy, false));
+    actionSmartCoverActivity.add_precondition(new world_property(stalker_ids.property_alive, true));
+    actionSmartCoverActivity.add_precondition(new world_property(stalker_ids.property_anomaly, false));
+    actionSmartCoverActivity.add_precondition(new world_property(properties.need_smartcover, true));
+    actionSmartCoverActivity.add_precondition(new world_property(properties.use_smartcover_in_combat, false));
+    actionSmartCoverActivity.add_precondition(new world_property(stalker_ids.property_enemy, false));
 
-    new_action.add_precondition(new world_property(evaluators_id.stohe_meet_base + 1, false));
-    new_action.add_precondition(new world_property(evaluators_id.sidor_wounded_base, false));
-    new_action.add_precondition(new world_property(evaluators_id.abuse_base, false));
+    actionSmartCoverActivity.add_precondition(new world_property(evaluators_id.stohe_meet_base + 1, false));
+    actionSmartCoverActivity.add_precondition(new world_property(evaluators_id.sidor_wounded_base, false));
+    actionSmartCoverActivity.add_precondition(new world_property(evaluators_id.abuse_base, false));
 
-    new_action.add_effect(new world_property(properties.need_smartcover, false));
-    new_action.add_effect(new world_property(properties.state_mgr_logic_active, false));
+    actionSmartCoverActivity.add_effect(new world_property(properties.need_smartcover, false));
+    actionSmartCoverActivity.add_effect(new world_property(properties.state_mgr_logic_active, false));
     // --new_action.add_effect (new world_property(stalker_ids.property_danger,false))
-    manager.add_action(operators.action_smartcover, new_action);
+    manager.add_action(operators.action_smartcover, actionSmartCoverActivity);
 
-    subscribeActionForEvents(object, state, new_action);
+    subscribeActionForEvents(object, state, actionSmartCoverActivity);
 
     manager.action(action_ids.alife).add_precondition(new world_property(properties.need_smartcover, false));
     manager

@@ -201,7 +201,7 @@ export class CamEffectorSet {
         this.cur_effect = 0;
 
         // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const { SchemeCutscene } = require("@/mod/scripts/core/schemes/sr_cutscene/ActionCustscene");
+        const { SchemeCutscene } = require("@/mod/scripts/core/schemes/sr_cutscene/SchemeCutscene");
 
         SchemeCutscene.onCutsceneEnd();
 

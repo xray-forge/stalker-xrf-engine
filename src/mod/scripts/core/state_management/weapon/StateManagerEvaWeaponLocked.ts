@@ -1,4 +1,4 @@
-import { property_evaluator, XR_game_object, XR_property_evaluator } from "xray16";
+import { property_evaluator, XR_game_object } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
@@ -10,46 +10,42 @@ const logger: LuaLogger = new LuaLogger(
   gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
 );
 
-export interface IStateManagerEvaWeaponLocked extends XR_property_evaluator {
-  st: StateManager;
-}
+/**
+ * todo;
+ */
+@LuabindClass()
+export class StateManagerEvaWeaponLocked extends property_evaluator {
+  private readonly stateManager: StateManager;
 
-export const StateManagerEvaWeaponLocked: IStateManagerEvaWeaponLocked = declare_xr_class(
-  "StateManagerEvaWeaponLocked",
-  property_evaluator,
-  {
-    __init(name: string, st: StateManager): void {
-      property_evaluator.__init(this, null, name);
+  public constructor(stateManager: StateManager) {
+    super(null, StateManagerEvaWeaponLocked.__name);
+    this.stateManager = stateManager;
+  }
 
-      this.st = st;
-    },
-    evaluate(): boolean {
-      const weapon_strapped: boolean = this.object.weapon_strapped();
-      const weapon_unstrapped: boolean = this.object.weapon_unstrapped();
+  public evaluate(): boolean {
+    const weapon_strapped: boolean = this.object.weapon_strapped();
+    const weapon_unstrapped: boolean = this.object.weapon_unstrapped();
 
-      // --log(string.format("%s [%s] [%s]", this.object:name(),
-      // tostring(weapon_strapped), tostring(weapon_unstrapped)))
-      if (!(weapon_unstrapped || weapon_strapped)) {
-        return true;
-      }
+    if (!(weapon_unstrapped || weapon_strapped)) {
+      return true;
+    }
 
-      const bestweapon: Optional<XR_game_object> = this.object.best_weapon();
+    const bestWeapon: Optional<XR_game_object> = this.object.best_weapon();
 
-      if (bestweapon === null) {
-        return false;
-      }
-
-      const is_weapon_going_to_be_strapped: boolean = this.object.is_weapon_going_to_be_strapped(bestweapon);
-
-      if (is_weapon_going_to_be_strapped && !weapon_strapped) {
-        return true;
-      }
-
-      if (!is_weapon_going_to_be_strapped && !weapon_unstrapped && this.object.active_item() !== null) {
-        return true;
-      }
-
+    if (bestWeapon === null) {
       return false;
-    },
-  } as IStateManagerEvaWeaponLocked
-);
+    }
+
+    const is_weapon_going_to_be_strapped: boolean = this.object.is_weapon_going_to_be_strapped(bestWeapon);
+
+    if (is_weapon_going_to_be_strapped && !weapon_strapped) {
+      return true;
+    }
+
+    if (!is_weapon_going_to_be_strapped && !weapon_unstrapped && this.object.active_item() !== null) {
+      return true;
+    }
+
+    return false;
+  }
+}

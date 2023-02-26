@@ -14,7 +14,7 @@ import { PdaManager } from "@/mod/scripts/core/managers/PdaManager";
 import { sleep_cam_eff_id, SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { TradeManager } from "@/mod/scripts/core/managers/TradeManager";
 import { WeatherManager } from "@/mod/scripts/core/managers/WeatherManager";
-import { SchemeCutscene } from "@/mod/scripts/core/schemes/sr_cutscene/ActionCustscene";
+import { SchemeCutscene } from "@/mod/scripts/core/schemes/sr_cutscene/SchemeCutscene";
 import { smart_covers_list } from "@/mod/scripts/core/smart_covers/smart_covers_list";
 import { get_task_manager } from "@/mod/scripts/core/task/TaskManager";
 import { travelManager } from "@/mod/scripts/core/TravelManager";

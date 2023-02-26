@@ -1,4 +1,4 @@
-import { action_base, game_object, level, time_global, XR_action_base, XR_game_object } from "xray16";
+import { action_base, game_object, level, time_global, XR_game_object } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
@@ -29,124 +29,123 @@ const dist_run = 20;
 
 const sound_wait = "weather,state";
 
-export interface IActionCompanionActivity extends XR_action_base {
-  state: IStoredObject;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class ActionCompanionActivity extends action_base {
+  public state: IStoredObject;
 
-  assist_point: Optional<number>;
-  keep_state_until: number;
-  last_state: string;
+  public assist_point: Optional<number> = null;
+  public keep_state_until: number = 0;
+  public last_state: string = "guard_na";
 
-  beh_walk_simple(): void;
-  beh_wait_simple(): void;
-}
+  public constructor(storage: IStoredObject) {
+    super(null, ActionCompanionActivity.__name);
+    this.state = storage;
+  }
 
-export const ActionCompanionActivity: IActionCompanionActivity = declare_xr_class(
-  "ActionCompanionActivity",
-  action_base,
-  {
-    __init(npc_name: string, action_name: string, storage: IStoredObject): void {
-      action_base.__init(this, null, action_name);
-      this.state = storage;
-    },
-    initialize(): void {
-      action_base.initialize(this);
+  public initialize(): void {
+    super.initialize();
 
-      this.object.set_desired_position();
-      this.object.set_desired_direction();
-      this.object.enable_talk();
+    this.object.set_desired_position();
+    this.object.set_desired_direction();
+    this.object.enable_talk();
 
-      this.assist_point = null;
-      this.last_state = "guard_na";
+    this.assist_point = null;
+    this.last_state = "guard_na";
 
-      set_state(this.object, this.last_state, null, null, null, { animation: true });
+    set_state(this.object, this.last_state, null, null, null, { animation: true });
 
-      this.keep_state_until = time_global();
-    },
+    this.keep_state_until = time_global();
+  }
 
-    beh_walk_simple(): void {
-      const actor: Optional<XR_game_object> = registry.actor;
-      let select_new_pt: boolean = false;
-      const dist_from_self_to_actor: number = this.object.position().distance_to(actor.position());
-      const dist_from_assist_pt_to_actor: Optional<number> = this.assist_point
-        ? level.vertex_position(this.assist_point).distance_to(actor.position())
-        : null;
+  public beh_walk_simple(): void {
+    const actor: Optional<XR_game_object> = registry.actor;
+    let select_new_pt: boolean = false;
+    const dist_from_self_to_actor: number = this.object.position().distance_to(actor.position());
+    const dist_from_assist_pt_to_actor: Optional<number> = this.assist_point
+      ? level.vertex_position(this.assist_point).distance_to(actor.position())
+      : null;
 
-      if (
-        dist_from_self_to_actor >= desired_distance &&
-        (!dist_from_assist_pt_to_actor || dist_from_assist_pt_to_actor >= desired_distance * 2)
-      ) {
-        select_new_pt = true;
-      }
+    if (
+      dist_from_self_to_actor >= desired_distance &&
+      (!dist_from_assist_pt_to_actor || dist_from_assist_pt_to_actor >= desired_distance * 2)
+    ) {
+      select_new_pt = true;
+    }
 
-      if (select_new_pt) {
-        this.assist_point = select_position(this.object, this.state);
-        if (!this.assist_point) {
-          return;
-        }
-      } else if (!this.assist_point) {
+    if (select_new_pt) {
+      this.assist_point = select_position(this.object, this.state);
+      if (!this.assist_point) {
         return;
       }
+    } else if (!this.assist_point) {
+      return;
+    }
 
-      this.object.set_path_type(game_object.level_path);
-      this.object.set_dest_level_vertex_id(this.assist_point);
+    this.object.set_path_type(game_object.level_path);
+    this.object.set_dest_level_vertex_id(this.assist_point);
 
-      const dist_to_assist_pt = level.vertex_position(this.assist_point).distance_to(this.object.position());
-      let new_state: Optional<string> = null;
-      let target = null;
+    const dist_to_assist_pt = level.vertex_position(this.assist_point).distance_to(this.object.position());
+    let new_state: Optional<string> = null;
+    let target = null;
 
-      if (this.object.level_vertex_id() === this.assist_point) {
-        new_state = "threat";
-        target = { look_object: registry.actor };
-      } else {
-        const t = time_global();
+    if (this.object.level_vertex_id() === this.assist_point) {
+      new_state = "threat";
+      target = { look_object: registry.actor };
+    } else {
+      const t = time_global();
 
-        if (t >= this.keep_state_until) {
-          this.keep_state_until = t + keep_state_min_time;
+      if (t >= this.keep_state_until) {
+        this.keep_state_until = t + keep_state_min_time;
 
-          if (dist_to_assist_pt <= dist_walk) {
-            new_state = "raid";
-            target = { look_object: registry.actor };
-          } else if (dist_to_assist_pt <= dist_run) {
-            new_state = "rush";
-          } else {
-            new_state = "assault";
-          }
+        if (dist_to_assist_pt <= dist_walk) {
+          new_state = "raid";
+          target = { look_object: registry.actor };
+        } else if (dist_to_assist_pt <= dist_run) {
+          new_state = "rush";
+        } else {
+          new_state = "assault";
         }
       }
+    }
 
-      if (new_state !== null && new_state !== this.last_state) {
-        set_state(this.object, new_state, null, null, target, { animation: true });
-        this.last_state = new_state;
-      }
+    if (new_state !== null && new_state !== this.last_state) {
+      set_state(this.object, new_state, null, null, target, { animation: true });
+      this.last_state = new_state;
+    }
 
-      // -- 4. ���� ����� �� ����� - ���� ������� � ������ �����
-      // --    GlobalSound:set_sound(this.object, sound_wait)
-    },
-    beh_wait_simple(): void {
-      const new_state = "threat";
+    // -- 4. ���� ����� �� ����� - ���� ������� � ������ �����
+    // --    GlobalSound:set_sound(this.object, sound_wait)
+  }
 
-      if (new_state !== this.last_state) {
-        set_state(this.object, new_state, null, null, { look_object: registry.actor }, { animation: true });
-        this.last_state = new_state;
-      }
+  public beh_wait_simple(): void {
+    const new_state = "threat";
 
-      // -- 4. ���� ����� �� ����� - ���� ������� � ������ �����
-      // --    GlobalSound:set_sound(this.object, sound_wait)
-    },
-    execute(): void {
-      action_base.execute(this);
+    if (new_state !== this.last_state) {
+      set_state(this.object, new_state, null, null, { look_object: registry.actor }, { animation: true });
+      this.last_state = new_state;
+    }
 
-      if (this.state.behavior === beh_walk_simple) {
-        this.beh_walk_simple();
-      } else if (this.state.behavior === beh_wait_simple) {
-        this.beh_wait_simple();
-      }
-    },
-    finalize(): void {
-      action_base.finalize(this);
-    },
-  } as IActionCompanionActivity
-);
+    // -- 4. ���� ����� �� ����� - ���� ������� � ������ �����
+    // --    GlobalSound:set_sound(this.object, sound_wait)
+  }
+
+  public execute(): void {
+    super.execute();
+
+    if (this.state.behavior === beh_walk_simple) {
+      this.beh_walk_simple();
+    } else if (this.state.behavior === beh_wait_simple) {
+      this.beh_wait_simple();
+    }
+  }
+
+  public finalize(): void {
+    super.finalize();
+  }
+}
 
 function select_position(npc: XR_game_object, st: IStoredObject) {
   let node_1_vertex_id = null;

@@ -1,4 +1,4 @@
-import { property_evaluator, XR_property_evaluator } from "xray16";
+import { property_evaluator } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
@@ -11,34 +11,30 @@ const logger: LuaLogger = new LuaLogger(
   gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
 );
 
-export interface IStateManagerEvaSmartCover extends XR_property_evaluator {
-  st: StateManager;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class StateManagerEvaSmartCover extends property_evaluator {
+  private readonly stateManager: StateManager;
+
+  public constructor(stateManager: StateManager) {
+    super(null, StateManagerEvaSmartCover.__name);
+    this.stateManager = stateManager;
+  }
+
+  public evaluate(): boolean {
+    if (this.stateManager.target_state !== "smartcover") {
+      return true;
+    }
+
+    const stateDescription: any = registry.objects.get(this.object.id())["smartcover"];
+    const destinationSmartCoverName: Optional<string> = this.object.get_dest_smart_cover_name();
+
+    if (stateDescription === null) {
+      return true;
+    }
+
+    return destinationSmartCoverName === (stateDescription.cover_name || "");
+  }
 }
-
-export const StateManagerEvaSmartCover: IStateManagerEvaSmartCover = declare_xr_class(
-  "StateManagerEvaSmartCover",
-  property_evaluator,
-  {
-    __init(name: string, st: StateManager): void {
-      property_evaluator.__init(this, null, name);
-
-      this.st = st;
-    },
-    evaluate(): boolean {
-      if (this.st.target_state !== "smartcover") {
-        return true;
-      }
-
-      const state_descr: any = registry.objects.get(this.object.id())["smartcover"];
-      const dest_smart_cover_name: Optional<string> = this.object.get_dest_smart_cover_name();
-
-      // -- printf("SC %s [%s] [%s]", tostring(dest_smart_cover_name === (state_descr.smartcover_name or "")),
-      // -- tostring(dest_smart_cover_name), tostring((state_descr.smartcover_name or "")))
-      if (state_descr === null) {
-        return true;
-      }
-
-      return dest_smart_cover_name === (state_descr.cover_name || "");
-    },
-  } as IStateManagerEvaSmartCover
-);

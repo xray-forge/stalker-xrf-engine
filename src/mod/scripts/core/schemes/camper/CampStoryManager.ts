@@ -15,6 +15,7 @@ const npc_role = { noone: 0, listener: 1, director: 2 };
 
 // todo: Implement as scheme.
 // todo: Rename to camp story?
+// todo: Move?
 export class CampStoryManager {
   public static readonly SCHEME_SECTION: string = EScheme.CAMP;
 

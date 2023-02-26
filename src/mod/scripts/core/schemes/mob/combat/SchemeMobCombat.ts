@@ -35,25 +35,25 @@ export class SchemeMobCombat extends AbstractScheme {
   }
 
   public static set_scheme(
-    npc: XR_game_object,
+    object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
     gulag_name?: string
   ): void {
-    logger.info("Set scheme:", npc?.name(), scheme, section);
+    logger.info("Set scheme:", object?.name(), scheme, section);
 
-    const state = assignStorageAndBind(npc, ini, scheme, section);
+    const state = assignStorageAndBind(object, ini, scheme, section);
 
-    state.logic = cfg_get_switch_conditions(ini, section, npc);
+    state.logic = cfg_get_switch_conditions(ini, section, object);
     state.enabled = true;
   }
 
-  public static disable_scheme(this: void, npc: XR_game_object, scheme: EScheme): void {
-    const st = registry.objects.get(npc.id())[scheme];
+  public static disable_scheme(this: void, object: XR_game_object, scheme: EScheme): void {
+    const state = registry.objects.get(object.id())[scheme];
 
-    if (st !== null) {
-      st.enabled = false;
+    if (state !== null) {
+      state.enabled = false;
     }
   }
 

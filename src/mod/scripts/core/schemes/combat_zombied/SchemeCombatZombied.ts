@@ -5,9 +5,8 @@ import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { action_ids } from "@/mod/scripts/core/schemes/base/actions_id";
 import { evaluators_id } from "@/mod/scripts/core/schemes/base/evaluators_id";
-import { ActionZombieGoToDanger } from "@/mod/scripts/core/schemes/combat_zombied/actions/ActionZombieGoToDanger";
-import { ActionZombieShoot } from "@/mod/scripts/core/schemes/combat_zombied/actions/ActionZombieShoot";
-import { EvaluatorCombatZombied } from "@/mod/scripts/core/schemes/combat_zombied/evaluators/EvaluatorCombatZombied";
+import { ActionZombieGoToDanger, ActionZombieShoot } from "@/mod/scripts/core/schemes/combat_zombied/actions";
+import { EvaluatorCombatZombied } from "@/mod/scripts/core/schemes/combat_zombied/evaluators";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -41,10 +40,10 @@ export class SchemeCombatZombied extends AbstractScheme {
 
     planner.add_evaluator(
       evaluators_id.combat_zombied_base,
-      create_xr_class_instance(EvaluatorCombatZombied, EvaluatorCombatZombied.__name, registry.objects.get(object.id()))
+      new EvaluatorCombatZombied(registry.objects.get(object.id()))
     );
 
-    const actionZombieShoot = create_xr_class_instance(ActionZombieShoot, ActionZombieShoot.__name, state);
+    const actionZombieShoot: ActionZombieShoot = new ActionZombieShoot(state);
 
     actionZombieShoot.add_precondition(new world_property(stalker_ids.property_alive, true));
     actionZombieShoot.add_precondition(new world_property(evaluators_id.combat_zombied_base, true));
@@ -55,11 +54,7 @@ export class SchemeCombatZombied extends AbstractScheme {
 
     subscribeActionForEvents(object, state, actionZombieShoot);
 
-    const actionZombieGoToDanger = create_xr_class_instance(
-      ActionZombieGoToDanger,
-      ActionZombieGoToDanger.__name,
-      state
-    );
+    const actionZombieGoToDanger: ActionZombieGoToDanger = new ActionZombieGoToDanger(state);
 
     actionZombieGoToDanger.add_precondition(new world_property(stalker_ids.property_alive, true));
     actionZombieGoToDanger.add_precondition(new world_property(evaluators_id.combat_zombied_base, true));

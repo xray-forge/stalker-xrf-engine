@@ -1,4 +1,4 @@
-import { action_base, object, XR_action_base } from "xray16";
+import { action_base, object } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
@@ -9,25 +9,28 @@ const logger: LuaLogger = new LuaLogger(
   gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
 );
 
-export interface IStateManagerActWeaponNone extends XR_action_base {
-  st: StateManager;
-}
+/**
+ * todo;
+ */
+@LuabindClass()
+export class StateManagerActWeaponNone extends action_base {
+  private readonly stateManager: StateManager;
 
-export const StateManagerActWeaponNone = declare_xr_class("StateManagerActWeaponNone", action_base, {
-  __init(name: string, st: StateManager): void {
-    action_base.__init(this, null, name);
+  public constructor(stateManager: StateManager) {
+    super(null, StateManagerActWeaponNone.__name);
+    this.stateManager = stateManager;
+  }
 
-    this.st = st;
-  },
-  initialize(): void {
-    action_base.initialize(this);
+  public initialize(): void {
+    super.initialize();
     this.object.set_item(object.idle, null);
-  },
-  execute(): void {
-    logger.info("Act weapon none");
-    action_base.execute(this);
-  },
-  finalize(): void {
-    action_base.finalize(this);
-  },
-} as IStateManagerActWeaponNone);
+  }
+
+  public execute(): void {
+    super.execute();
+  }
+
+  public finalize(): void {
+    super.finalize();
+  }
+}

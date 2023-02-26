@@ -4,7 +4,7 @@ import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
 import { IStoredObject } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme, action_ids, evaluators_id } from "@/mod/scripts/core/schemes/base";
-import { ActionCamperPatrol, IActionCamperPatrol } from "@/mod/scripts/core/schemes/camper/actions/ActionCamperPatrol";
+import { ActionCamperPatrol } from "@/mod/scripts/core/schemes/camper/actions";
 import { EvaluatorCloseCombat, EvaluatorEnd } from "@/mod/scripts/core/schemes/camper/evaluators";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import {
@@ -45,18 +45,10 @@ export class SchemeCamper extends AbstractScheme {
 
     const manager = object.motivation_action_manager();
 
-    manager.add_evaluator(properties.end, create_xr_class_instance(EvaluatorEnd, EvaluatorEnd.__name, storage));
-    manager.add_evaluator(
-      properties.close_combat,
-      create_xr_class_instance(EvaluatorCloseCombat, EvaluatorCloseCombat.__name, storage)
-    );
+    manager.add_evaluator(properties.end, new EvaluatorEnd(storage));
+    manager.add_evaluator(properties.close_combat, new EvaluatorCloseCombat(storage));
 
-    const actionPatrol: IActionCamperPatrol = create_xr_class_instance(
-      ActionCamperPatrol,
-      object,
-      ActionCamperPatrol.__name,
-      storage
-    );
+    const actionPatrol: ActionCamperPatrol = new ActionCamperPatrol(storage, object);
 
     actionPatrol.add_precondition(new world_property(stalker_ids.property_alive, true));
     actionPatrol.add_precondition(new world_property(properties.end, false));

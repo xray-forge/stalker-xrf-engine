@@ -1,4 +1,4 @@
-import { property_evaluator, XR_property_evaluator } from "xray16";
+import { property_evaluator } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
@@ -10,31 +10,30 @@ const logger: LuaLogger = new LuaLogger(
   gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
 );
 
-export interface IStateManagerEvaSmartCoverNeed extends XR_property_evaluator {
-  st: IStoredObject;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class StateManagerEvaSmartCoverNeed extends property_evaluator {
+  public stateManager: IStoredObject;
+
+  public constructor(stateManager: IStoredObject) {
+    super(null, StateManagerEvaSmartCoverNeed.__name);
+
+    this.stateManager = stateManager;
+  }
+
+  public evaluate(): boolean {
+    if (this.stateManager.target_state !== "smartcover") {
+      return false;
+    }
+
+    const state_descr: Optional<any> = registry.objects.get(this.object.id())["smartcover"];
+
+    if (state_descr === null) {
+      return false;
+    }
+
+    return state_descr.cover_name !== null;
+  }
 }
-
-export const StateManagerEvaSmartCoverNeed: IStateManagerEvaSmartCoverNeed = declare_xr_class(
-  "StateManagerEvaSmartCoverNeed",
-  property_evaluator,
-  {
-    __init(name: string, st: IStoredObject): void {
-      property_evaluator.__init(this, null, name);
-
-      this.st = st;
-    },
-    evaluate(): boolean {
-      if (this.st.target_state !== "smartcover") {
-        return false;
-      }
-
-      const state_descr: Optional<any> = registry.objects.get(this.object.id())["smartcover"];
-
-      if (state_descr === null) {
-        return false;
-      }
-
-      return state_descr.cover_name !== null;
-    },
-  } as IStateManagerEvaSmartCoverNeed
-);

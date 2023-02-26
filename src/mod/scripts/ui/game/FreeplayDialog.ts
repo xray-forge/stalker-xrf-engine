@@ -1,25 +1,21 @@
-import { CUIMessageBoxEx, CUIScriptWnd, Frect, ui_events, XR_CUIMessageBoxEx, XR_CUIScriptWnd } from "xray16";
+import { CUIMessageBoxEx, CUIScriptWnd, Frect, ui_events, XR_CUIMessageBoxEx } from "xray16";
 
+import { info_portions } from "@/mod/globals/info_portions";
 import { Optional } from "@/mod/lib/types";
 import { giveInfo } from "@/mod/scripts/utils/actor";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("FreeplayDialog");
 
-export interface IFreeplayDialog extends XR_CUIScriptWnd {
-  freeplay_mb: XR_CUIMessageBoxEx;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class FreeplayDialog extends CUIScriptWnd {
+  public readonly freeplay_mb: XR_CUIMessageBoxEx;
 
-  Show(mb_type: boolean): void;
-  Show(mb_type: string, text: string): void;
-
-  OnMsgOk(): void;
-  OnMsgYes(): void;
-  OnMsgNo(): void;
-}
-
-export const FreeplayDialog: IFreeplayDialog = declare_xr_class("FreeplayDialog", CUIScriptWnd, {
-  __init(): void {
-    CUIScriptWnd.__init(this);
+  public constructor() {
+    super();
 
     this.SetWndRect(new Frect().set(0, 0, 1024, 768));
     this.freeplay_mb = new CUIMessageBoxEx();
@@ -28,28 +24,32 @@ export const FreeplayDialog: IFreeplayDialog = declare_xr_class("FreeplayDialog"
     this.AddCallback("freeplay_mb", ui_events.MESSAGE_BOX_OK_CLICKED, () => this.OnMsgOk(), this);
     this.AddCallback("freeplay_mb", ui_events.MESSAGE_BOX_YES_CLICKED, () => this.OnMsgYes(), this);
     this.AddCallback("freeplay_mb", ui_events.MESSAGE_BOX_NO_CLICKED, () => this.OnMsgNo(), this);
-  },
-  Show(selector, text): void {
-    this.freeplay_mb.InitMessageBox(tostring(selector));
-    this.freeplay_mb.SetText(text);
-    this.freeplay_mb.ShowDialog(true);
-  },
-  OnMsgYes(): void {
-    giveInfo("pri_a28_actor_in_zone_leave");
-  },
-  OnMsgOk(): void {
-    giveInfo("pri_a28_actor_in_zone_stay");
-  },
-  OnMsgNo(): void {
-    giveInfo("pri_a28_actor_in_zone_stay");
-  },
-} as IFreeplayDialog);
+  }
 
-let freeplay_control: Optional<IFreeplayDialog> = null;
+  public Show(selector: boolean | string, text?: string): void {
+    this.freeplay_mb.InitMessageBox(tostring(selector));
+    this.freeplay_mb.SetText(text || "");
+    this.freeplay_mb.ShowDialog(true);
+  }
+
+  public OnMsgYes(): void {
+    giveInfo(info_portions.pri_a28_actor_in_zone_leave);
+  }
+
+  public OnMsgOk(): void {
+    giveInfo(info_portions.pri_a28_actor_in_zone_stay);
+  }
+
+  public OnMsgNo(): void {
+    giveInfo(info_portions.pri_a28_actor_in_zone_stay);
+  }
+}
+
+let freeplay_control: Optional<FreeplayDialog> = null;
 
 export function showFreeplayDialog(selector: string, text: string): void {
   if (freeplay_control === null) {
-    freeplay_control = create_xr_class_instance(FreeplayDialog);
+    freeplay_control = new FreeplayDialog();
   }
 
   freeplay_control.Show(selector, text);

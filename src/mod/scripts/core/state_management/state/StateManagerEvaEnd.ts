@@ -1,4 +1,4 @@
-import { cast_planner, property_evaluator, stalker_ids, XR_action_planner, XR_property_evaluator } from "xray16";
+import { cast_planner, property_evaluator, stalker_ids, XR_action_planner } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
@@ -7,36 +7,37 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("StateManagerEvaEnd", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
-export interface IStateManagerEvaEnd extends XR_property_evaluator {
-  st: StateManager;
-  mgr: Optional<XR_action_planner>;
-  combat_planner: Optional<XR_action_planner>;
-}
+/**
+ * todo;
+ */
+@LuabindClass()
+export class StateManagerEvaEnd extends property_evaluator {
+  private readonly stateManager: StateManager;
+  private actionPlanner: Optional<XR_action_planner> = null;
+  private combatPlanner: Optional<XR_action_planner> = null;
 
-export const StateManagerEvaEnd: IStateManagerEvaEnd = declare_xr_class("StateManagerEvaEnd", property_evaluator, {
-  __init(name: string, st: StateManager): void {
-    property_evaluator.__init(this, null, name);
+  public constructor(stateManager: StateManager) {
+    super(null, StateManagerEvaEnd.__name);
+    this.stateManager = stateManager;
+  }
 
-    this.st = st;
-    this.mgr = null;
-  },
-  evaluate(): boolean {
-    if (this.mgr === null) {
-      this.mgr = this.object.motivation_action_manager();
+  public evaluate(): boolean {
+    if (this.actionPlanner === null) {
+      this.actionPlanner = this.object.motivation_action_manager();
     }
 
-    if (this.combat_planner === null) {
-      this.combat_planner = cast_planner(this.mgr.action(stalker_ids.action_combat_planner));
+    if (this.combatPlanner === null) {
+      this.combatPlanner = cast_planner(this.actionPlanner.action(stalker_ids.action_combat_planner));
     }
 
-    if (!this.mgr.initialized()) {
+    if (!this.actionPlanner.initialized()) {
       return false;
     }
 
-    const current_action_id: number = this.mgr.current_action_id();
+    const current_action_id: number = this.actionPlanner.current_action_id();
 
     if (current_action_id === stalker_ids.action_combat_planner) {
-      if (!this.combat_planner.initialized()) {
+      if (!this.combatPlanner.initialized()) {
         return false;
       }
 
@@ -47,9 +48,9 @@ export const StateManagerEvaEnd: IStateManagerEvaEnd = declare_xr_class("StateMa
       current_action_id !== stalker_ids.action_danger_planner &&
       current_action_id !== stalker_ids.action_anomaly_planner
     ) {
-      this.st.combat = false;
+      this.stateManager.combat = false;
     }
 
     return false;
-  },
-} as IStateManagerEvaEnd);
+  }
+}

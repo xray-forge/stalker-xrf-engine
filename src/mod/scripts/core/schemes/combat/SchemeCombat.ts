@@ -1,6 +1,7 @@
-import { stalker_ids, world_property, XR_action_base, XR_game_object, XR_ini_file } from "xray16";
+import { stalker_ids, world_property, XR_action_base, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
 import { communities } from "@/mod/globals/communities";
+import { STRINGIFIED_NIL } from "@/mod/globals/lua";
 import { AnyObject, Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
@@ -36,12 +37,9 @@ export class SchemeCombat extends AbstractScheme {
   ): void {
     logger.info("Add to binder:", object.name());
 
-    const manager = object.motivation_action_manager();
+    const manager: XR_action_planner = object.motivation_action_manager();
 
-    manager.add_evaluator(
-      evaluators_id.script_combat,
-      create_xr_class_instance(EvaluatorCheckCombat, EvaluatorCheckCombat.__name, state)
-    );
+    manager.add_evaluator(evaluators_id.script_combat, new EvaluatorCheckCombat(state));
 
     const action: XR_action_base = manager.action(stalker_ids.action_combat_planner);
 
@@ -73,7 +71,7 @@ export class SchemeCombat extends AbstractScheme {
     if (target.combat_type !== null) {
       script_combat_type = pickSectionFromCondList(actor, npc, target.combat_type.condlist);
 
-      if (script_combat_type === "nil") {
+      if (script_combat_type === STRINGIFIED_NIL) {
         script_combat_type = null;
       }
     }

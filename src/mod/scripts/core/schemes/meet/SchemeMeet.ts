@@ -9,6 +9,7 @@ import {
   XR_ini_file,
 } from "xray16";
 
+import { STRINGIFIED_FALSE, STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/mod/globals/lua";
 import { AnyObject, EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { get_npcs_relation } from "@/mod/scripts/core/GameRelationsManager";
@@ -20,8 +21,8 @@ import { action_ids } from "@/mod/scripts/core/schemes/base/actions_id";
 import { evaluators_id } from "@/mod/scripts/core/schemes/base/evaluators_id";
 import { SchemeCorpseDetection } from "@/mod/scripts/core/schemes/corpse_detection/SchemeCorpseDetection";
 import { SchemeHelpWounded } from "@/mod/scripts/core/schemes/help_wounded/SchemeHelpWounded";
-import { ActionMeetWait, IActionMeetWait } from "@/mod/scripts/core/schemes/meet/actions/ActionMeetWait";
-import { EvaluatorContact } from "@/mod/scripts/core/schemes/meet/evaluators/EvaluatorContact";
+import { ActionMeetWait } from "@/mod/scripts/core/schemes/meet/actions";
+import { EvaluatorContact } from "@/mod/scripts/core/schemes/meet/evaluators";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { getStoryObject, isNpcInCombat } from "@/mod/scripts/utils/alife";
@@ -64,19 +65,10 @@ export class SchemeMeet extends AbstractScheme {
     const actionPlanner: XR_action_planner = object.motivation_action_manager();
 
     // -- Evaluators
-    actionPlanner.add_evaluator(
-      properties.contact,
-      create_xr_class_instance(EvaluatorContact, EvaluatorContact.__name, state)
-    );
+    actionPlanner.add_evaluator(properties.contact, new EvaluatorContact(state));
 
     // -- Actions
-    const actionMeetWait: IActionMeetWait = create_xr_class_instance(
-      ActionMeetWait,
-      object.name(),
-      ActionMeetWait.__name,
-      state,
-      ini
-    );
+    const actionMeetWait: ActionMeetWait = new ActionMeetWait(state, ini);
 
     actionMeetWait.add_precondition(new world_property(stalker_ids.property_alive, true));
     actionMeetWait.add_precondition(new world_property(stalker_ids.property_enemy, false));
@@ -110,7 +102,7 @@ export class SchemeMeet extends AbstractScheme {
 
   public static resetScheme(npc: XR_game_object, scheme: EScheme, st: IStoredObject, section: TSection): void {
     const meet_section: TSection =
-      scheme === null || scheme === "nil"
+      scheme === null || scheme === STRINGIFIED_NIL
         ? getConfigString(st.ini!, st.section_logic!, SchemeMeet.SCHEME_SECTION, npc, false, "")
         : getConfigString(st.ini!, section, SchemeMeet.SCHEME_SECTION, npc, false, "");
 
@@ -124,7 +116,7 @@ export class SchemeMeet extends AbstractScheme {
     st: IStoredObject,
     scheme: EScheme
   ): void {
-    if (tostring(section) === st.meet_section && tostring(section) !== "nil") {
+    if (tostring(section) === st.meet_section && tostring(section) !== STRINGIFIED_NIL) {
       return;
     }
 
@@ -166,24 +158,24 @@ export class SchemeMeet extends AbstractScheme {
 
     if (relation === game_object.enemy) {
       def.close_distance = "0";
-      def.close_anim = "nil";
+      def.close_anim = STRINGIFIED_NIL;
       def.close_snd_distance = "0";
-      def.close_snd_hello = "nil";
-      def.close_snd_bye = "nil";
-      def.close_victim = "nil";
+      def.close_snd_hello = STRINGIFIED_NIL;
+      def.close_snd_bye = STRINGIFIED_NIL;
+      def.close_victim = STRINGIFIED_NIL;
       def.far_distance = "0";
-      def.far_anim = "nil";
+      def.far_anim = STRINGIFIED_NIL;
       def.far_snd_distance = "0";
-      def.far_snd = "nil";
-      def.far_victim = "nil";
-      def.snd_on_use = "nil";
-      def.use = "false";
-      def.meet_dialog = "nil";
-      def.abuse = "false";
-      def.trade_enable = "true";
-      def.allow_break = "true";
-      def.meet_on_talking = "false";
-      def.use_text = "nil";
+      def.far_snd = STRINGIFIED_NIL;
+      def.far_victim = STRINGIFIED_NIL;
+      def.snd_on_use = STRINGIFIED_NIL;
+      def.use = STRINGIFIED_FALSE;
+      def.meet_dialog = STRINGIFIED_NIL;
+      def.abuse = STRINGIFIED_FALSE;
+      def.trade_enable = STRINGIFIED_TRUE;
+      def.allow_break = STRINGIFIED_TRUE;
+      def.meet_on_talking = STRINGIFIED_FALSE;
+      def.use_text = STRINGIFIED_NIL;
     } else {
       def.close_distance = "{=is_wounded} 0, {!is_squad_commander} 0, 3";
       def.close_anim = "{=is_wounded} nil, {!is_squad_commander} nil, {=actor_has_weapon} threat_na, talk_default";
@@ -195,22 +187,22 @@ export class SchemeMeet extends AbstractScheme {
         "{=is_wounded} nil, {!is_squad_commander} nil, {=actor_enemy} nil, {=actor_has_weapon} nil, meet_hello";
       def.close_victim = "{=is_wounded} nil, {!is_squad_commander} nil, actor";
       def.far_distance = "{=is_wounded} 0, {!is_squad_commander} 0, 5";
-      def.far_anim = "nil";
+      def.far_anim = STRINGIFIED_NIL;
       def.far_snd_distance = "{=is_wounded} 0, {!is_squad_commander} 0, 5";
-      def.far_snd = "nil";
-      def.far_victim = "nil";
+      def.far_snd = STRINGIFIED_NIL;
+      def.far_victim = STRINGIFIED_NIL;
       def.snd_on_use =
         "{=is_wounded} nil, {!is_squad_commander} meet_use_no_talk_leader, {=actor_enemy} nil," +
         " {=has_enemy} meet_use_no_fight, {=actor_has_weapon} meet_use_no_weapon, {!dist_to_actor_le(3)} v";
       def.use =
         "{=is_wounded} false, {!is_squad_commander} false, {=actor_enemy} false, {=has_enemy} false," +
         " {=actor_has_weapon} false, {=dist_to_actor_le(3)} true, false";
-      def.meet_dialog = "nil";
+      def.meet_dialog = STRINGIFIED_NIL;
       def.abuse = "{=has_enemy} false, true";
-      def.trade_enable = "true";
-      def.allow_break = "true";
-      def.meet_on_talking = "true";
-      def.use_text = "nil";
+      def.trade_enable = STRINGIFIED_TRUE;
+      def.allow_break = STRINGIFIED_TRUE;
+      def.meet_on_talking = STRINGIFIED_TRUE;
+      def.use_text = STRINGIFIED_NIL;
     }
 
     if (tostring(section) === "no_meet)") {
@@ -228,12 +220,12 @@ export class SchemeMeet extends AbstractScheme {
       st.far_victim = parseCondList(npc, section, "far_victim", "nil");
 
       st.snd_on_use = parseCondList(npc, section, "snd_on_use", "nil");
-      st.use = parseCondList(npc, section, "use", "false");
+      st.use = parseCondList(npc, section, "use", STRINGIFIED_FALSE);
       st.meet_dialog = parseCondList(npc, section, "meet_dialog", "nil");
-      st.abuse = parseCondList(npc, section, "abuse", "false");
-      st.trade_enable = parseCondList(npc, section, "trade_enable", "true");
-      st.allow_break = parseCondList(npc, section, "allow_break", "true");
-      st.meet_on_talking = parseCondList(npc, section, "meet_on_talking", "false");
+      st.abuse = parseCondList(npc, section, "abuse", STRINGIFIED_FALSE);
+      st.trade_enable = parseCondList(npc, section, "trade_enable", STRINGIFIED_TRUE);
+      st.allow_break = parseCondList(npc, section, "allow_break", STRINGIFIED_TRUE);
+      st.meet_on_talking = parseCondList(npc, section, "meet_on_talking", STRINGIFIED_FALSE);
       st.use_text = parseCondList(npc, section, "use_text", "nil");
 
       st.reset_distance = 30;
@@ -384,13 +376,13 @@ export class SchemeMeet extends AbstractScheme {
     const meet = registry.objects.get(npc.id()).meet;
     const use = meet.meet_manager.use;
 
-    if (use === "true") {
+    if (use === STRINGIFIED_TRUE) {
       if (SchemeCorpseDetection.is_under_corpse_detection(npc) || SchemeHelpWounded.is_under_help_wounded(npc)) {
         npc.disable_talk();
       } else {
         npc.enable_talk();
       }
-    } else if (use === "false") {
+    } else if (use === STRINGIFIED_FALSE) {
       npc.disable_talk();
       if (npc.is_talking()) {
         npc.stop_talk();
@@ -412,15 +404,15 @@ export class SchemeMeet extends AbstractScheme {
     const actor: XR_game_object = registry.actor;
     const snd = pickSectionFromCondList(actor, victim, st.snd_on_use);
 
-    if (tostring(snd) !== "nil") {
+    if (tostring(snd) !== STRINGIFIED_NIL) {
       GlobalSound.set_sound_play(victim.id(), snd, null, null);
     }
 
     const meet_manager = st.meet_manager;
 
     if (
-      meet_manager.use === "false" &&
-      meet_manager.abuse_mode === "true" &&
+      meet_manager.use === STRINGIFIED_FALSE &&
+      meet_manager.abuse_mode === STRINGIFIED_TRUE &&
       get_npcs_relation(victim, registry.actor) === game_object.friend
     ) {
       SchemeAbuse.add_abuse(victim, 1);
@@ -450,7 +442,7 @@ export class SchemeMeet extends AbstractScheme {
       victim = pickSectionFromCondList(actor as XR_game_object, this.object, this.state.far_victim);
     }
 
-    if (tostring(victim) === "nil") {
+    if (tostring(victim) === STRINGIFIED_NIL) {
       victim = null;
     } else {
       if (alife() !== null) {
@@ -458,7 +450,7 @@ export class SchemeMeet extends AbstractScheme {
       }
     }
 
-    if (tostring(state) !== "nil") {
+    if (tostring(state) !== STRINGIFIED_NIL) {
       if (victim === null) {
         set_state(this.object, state!, null, null, null, null);
       } else {
@@ -468,7 +460,7 @@ export class SchemeMeet extends AbstractScheme {
 
     const snd = pickSectionFromCondList(actor, this.object, this.state.far_snd);
 
-    if (tostring(snd) !== "nil") {
+    if (tostring(snd) !== STRINGIFIED_NIL) {
       GlobalSound.set_sound_play(this.object.id(), snd, null, null);
     }
   }
@@ -527,7 +519,7 @@ export class SchemeMeet extends AbstractScheme {
         if (this.hello_passed === false) {
           const snd = pickSectionFromCondList(actor, this.object, this.state.close_snd_hello);
 
-          if (tostring(snd) !== "nil" && !isNpcInCombat(this.object)) {
+          if (tostring(snd) !== STRINGIFIED_NIL && !isNpcInCombat(this.object)) {
             GlobalSound.set_sound_play(this.object.id(), snd, null, null);
           }
 
@@ -538,7 +530,7 @@ export class SchemeMeet extends AbstractScheme {
           if (this.bye_passed === false) {
             const snd = pickSectionFromCondList(actor, this.object, this.state.close_snd_bye);
 
-            if (tostring(snd) !== "nil" && !isNpcInCombat(this.object)) {
+            if (tostring(snd) !== STRINGIFIED_NIL && !isNpcInCombat(this.object)) {
               GlobalSound.set_sound_play(this.object.id(), snd, null, null);
             }
 
@@ -571,8 +563,8 @@ export class SchemeMeet extends AbstractScheme {
 
     const allow_break = pickSectionFromCondList(actor, this.object, this.state.allow_break);
 
-    if (this.allow_break !== (allow_break === "true")) {
-      this.allow_break = allow_break === "true";
+    if (this.allow_break !== (allow_break === STRINGIFIED_TRUE)) {
+      this.allow_break = allow_break === STRINGIFIED_TRUE;
     }
 
     if (this.state.meet_dialog !== null) {
@@ -580,7 +572,7 @@ export class SchemeMeet extends AbstractScheme {
 
       if (this.startdialog !== start_dialog) {
         this.startdialog = start_dialog;
-        if (start_dialog === null || start_dialog === "nil") {
+        if (start_dialog === null || start_dialog === STRINGIFIED_NIL) {
           this.object.restore_default_start_dialog();
         } else {
           this.object.set_start_dialog(start_dialog);
@@ -595,7 +587,7 @@ export class SchemeMeet extends AbstractScheme {
     let use = pickSectionFromCondList(actor, this.object, this.state.use);
 
     if (this.npc_is_camp_director === true) {
-      use = "false";
+      use = STRINGIFIED_FALSE;
     }
 
     if (this.use !== use) {
@@ -614,7 +606,7 @@ export class SchemeMeet extends AbstractScheme {
 
     const use_text = pickSectionFromCondList(actor, this.object, this.state.use_text)!;
 
-    if (use_text !== "nil") {
+    if (use_text !== STRINGIFIED_NIL) {
       this.object.set_tip_text(use_text);
     } else {
       if (this.object.is_talk_enabled()) {
@@ -637,7 +629,7 @@ export class SchemeMeet extends AbstractScheme {
     const abuse = pickSectionFromCondList(actor, this.object, this.state.abuse);
 
     if (this.abuse_mode !== abuse) {
-      if (abuse === "true") {
+      if (abuse === STRINGIFIED_TRUE) {
         SchemeAbuse.enable_abuse(this.object);
       } else {
         SchemeAbuse.disable_abuse(this.object);

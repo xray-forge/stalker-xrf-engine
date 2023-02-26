@@ -4,8 +4,8 @@ import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
 import { IStoredObject } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme, action_ids, evaluators_id } from "@/mod/scripts/core/schemes/base";
-import { ActionCompanionActivity } from "@/mod/scripts/core/schemes/companion/actions/ActionCompanionActivity";
-import { EvaluatorNeedCompanion } from "@/mod/scripts/core/schemes/companion/evaluators/EvaluatorNeedCompanion";
+import { ActionCompanionActivity } from "@/mod/scripts/core/schemes/companion/actions";
+import { EvaluatorNeedCompanion } from "@/mod/scripts/core/schemes/companion/evaluators";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { cfg_get_switch_conditions } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -25,7 +25,7 @@ export class SchemeCompanion extends AbstractScheme {
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
-    storage: IStoredObject
+    state: IStoredObject
   ): void {
     const operators = {
       action_companion: action_ids.zmey_companion_base + 1,
@@ -37,17 +37,9 @@ export class SchemeCompanion extends AbstractScheme {
 
     const actionPlanner: XR_action_planner = npc.motivation_action_manager();
 
-    actionPlanner.add_evaluator(
-      properties.need_companion,
-      create_xr_class_instance(EvaluatorNeedCompanion, storage, EvaluatorNeedCompanion.__name)
-    );
+    actionPlanner.add_evaluator(properties.need_companion, new EvaluatorNeedCompanion(state));
 
-    const actionCompanionActivity = create_xr_class_instance(
-      ActionCompanionActivity,
-      npc,
-      ActionCompanionActivity.__name,
-      storage
-    );
+    const actionCompanionActivity: ActionCompanionActivity = new ActionCompanionActivity(state);
 
     actionCompanionActivity.add_precondition(new world_property(stalker_ids.property_alive, true));
     actionCompanionActivity.add_precondition(new world_property(stalker_ids.property_enemy, false));
@@ -57,7 +49,7 @@ export class SchemeCompanion extends AbstractScheme {
     actionCompanionActivity.add_effect(new world_property(properties.state_mgr_logic_active, false));
     actionPlanner.add_action(operators.action_companion, actionCompanionActivity);
 
-    subscribeActionForEvents(npc, storage, actionCompanionActivity);
+    subscribeActionForEvents(npc, state, actionCompanionActivity);
 
     actionPlanner.action(action_ids.alife).add_precondition(new world_property(properties.need_companion, false));
   }

@@ -32,38 +32,38 @@ export class SchemeCutscene extends AbstractScheme {
   public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
   public static add_to_binder(
-    npc: XR_game_object,
+    object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
     storage: IStoredObject
   ): void {
-    logger.info("Add to binder:", npc.name(), scheme, section);
+    logger.info("Add to binder:", object.name(), scheme, section);
 
-    const new_action: SchemeCutscene = new SchemeCutscene(npc, storage);
+    const new_action: SchemeCutscene = new SchemeCutscene(object, storage);
 
     storage.cutscene_action = new_action;
-    subscribeActionForEvents(npc, storage, new_action);
+    subscribeActionForEvents(object, storage, new_action);
   }
 
   public static set_scheme(
-    obj: XR_game_object,
+    object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
     gulag_name: string
   ): void {
-    const st = assignStorageAndBind(obj, ini, scheme, section);
+    const st = assignStorageAndBind(object, ini, scheme, section);
 
-    st.logic = cfg_get_switch_conditions(ini, section, obj);
-    st.point = getConfigString(ini, section, "point", obj, true, "", "none");
-    st.look = getConfigString(ini, section, "look", obj, true, "", "none");
-    st.global_cameffect = getConfigBoolean(ini, section, "global_cameffect", obj, false, false);
-    st.pp_effector = getConfigString(ini, section, "pp_effector", obj, false, "", "nil") + ".ppe";
-    st.cam_effector = parseNames(getConfigString(ini, section, "cam_effector", obj, true, ""));
-    st.fov = getConfigNumber(ini, section, "fov", obj, true);
-    st.enable_ui_on_end = getConfigBoolean(ini, section, "enable_ui_on_end", obj, false, true);
-    st.outdoor = getConfigBoolean(ini, section, "outdoor", obj, false, false);
+    st.logic = cfg_get_switch_conditions(ini, section, object);
+    st.point = getConfigString(ini, section, "point", object, true, "", "none");
+    st.look = getConfigString(ini, section, "look", object, true, "", "none");
+    st.global_cameffect = getConfigBoolean(ini, section, "global_cameffect", object, false, false);
+    st.pp_effector = getConfigString(ini, section, "pp_effector", object, false, "", "nil") + ".ppe";
+    st.cam_effector = parseNames(getConfigString(ini, section, "cam_effector", object, true, ""));
+    st.fov = getConfigNumber(ini, section, "fov", object, true);
+    st.enable_ui_on_end = getConfigBoolean(ini, section, "enable_ui_on_end", object, false, true);
+    st.outdoor = getConfigBoolean(ini, section, "outdoor", object, false, false);
   }
 
   public static onCutsceneEnd(): void {

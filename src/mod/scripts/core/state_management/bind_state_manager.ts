@@ -12,6 +12,10 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("bind_state_manager");
 
+/**
+ * todo;
+ * @param object
+ */
 export function bind_state_manager(object: XR_game_object): StateManager {
   const planner = object.motivation_action_manager();
 
@@ -31,30 +35,18 @@ export function bind_state_manager(object: XR_game_object): StateManager {
 
   const stateManager: StateManager = new StateManager(object);
 
-  planner.add_evaluator(
-    properties.state_mgr_idle_combat,
-    create_xr_class_instance(StateManagerEvaIdle, StateManagerEvaIdle.__name, stateManager)
-  );
-  planner.add_evaluator(
-    properties.state_mgr_idle_alife,
-    create_xr_class_instance(StateManagerEvaIdleAlife, StateManagerEvaIdleAlife.__name, stateManager)
-  );
-  planner.add_evaluator(
-    properties.state_mgr_idle_items,
-    create_xr_class_instance(StateManagerEvaIdleItems, StateManagerEvaIdleItems.__name, stateManager)
-  );
-  planner.add_evaluator(
-    properties.state_mgr_logic_active,
-    create_xr_class_instance(StateManagerEvaLogicActive, StateManagerEvaLogicActive.__name, stateManager)
-  );
+  planner.add_evaluator(properties.state_mgr_idle_combat, new StateManagerEvaIdle(stateManager));
+  planner.add_evaluator(properties.state_mgr_idle_alife, new StateManagerEvaIdleAlife(stateManager));
+  planner.add_evaluator(properties.state_mgr_idle_items, new StateManagerEvaIdleItems(stateManager));
+  planner.add_evaluator(properties.state_mgr_logic_active, new StateManagerEvaLogicActive(stateManager));
 
-  let action = create_xr_class_instance(StateManagerActToIdle, StateManagerActToIdle.__name, stateManager);
+  let action = new StateManagerActToIdle(stateManager);
 
   action.add_precondition(new world_property(properties.state_mgr_idle_combat, false));
   action.add_effect(new world_property(properties.state_mgr_idle_combat, true));
   planner.add_action(operators.state_mgr_to_idle_combat, action);
 
-  action = create_xr_class_instance(StateManagerActToIdle, StateManagerActToIdle.__name, stateManager);
+  action = new StateManagerActToIdle(stateManager);
 
   action.add_precondition(new world_property(properties.state_mgr_idle_items, false));
   action.add_precondition(new world_property(stalker_ids.property_items, true));
@@ -62,7 +54,7 @@ export function bind_state_manager(object: XR_game_object): StateManager {
   action.add_effect(new world_property(properties.state_mgr_idle_items, true));
   planner.add_action(operators.state_mgr_to_idle_items, action);
 
-  action = create_xr_class_instance(StateManagerActToIdle, StateManagerActToIdle.__name, stateManager);
+  action = new StateManagerActToIdle(stateManager);
 
   action.add_precondition(new world_property(stalker_ids.property_enemy, false));
   action.add_precondition(new world_property(stalker_ids.property_danger, false));

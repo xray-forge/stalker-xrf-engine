@@ -5,8 +5,6 @@ import {
   time_global,
   XR_action_planner,
   XR_cse_alife_creature_abstract,
-  XR_game_object,
-  XR_property_evaluator,
 } from "xray16";
 
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
@@ -16,17 +14,20 @@ import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { SchemeDanger } from "@/mod/scripts/core/schemes/danger/SchemeDanger";
 
-export interface IEvaluatorDanger extends XR_property_evaluator {
-  state: IStoredObject;
-  manager: Optional<XR_action_planner>;
-}
+/**
+ * todo;
+ */
+@LuabindClass()
+export class EvaluatorDanger extends property_evaluator {
+  public readonly state: IStoredObject;
+  public manager: Optional<XR_action_planner> = null;
 
-export const EvaluatorDanger: IEvaluatorDanger = declare_xr_class("DangerEvaluator", property_evaluator, {
-  __init(npc: XR_game_object, name: string, storage: IStoredObject): void {
-    property_evaluator.__init(this, null, name);
+  public constructor(storage: IStoredObject) {
+    super(null, EvaluatorDanger.__name);
     this.state = storage;
-  },
-  evaluate(): boolean {
+  }
+
+  public evaluate(): boolean {
     if (this.manager === null) {
       this.manager = this.object.motivation_action_manager();
     }
@@ -60,5 +61,5 @@ export const EvaluatorDanger: IEvaluatorDanger = declare_xr_class("DangerEvaluat
     }
 
     return true;
-  },
-} as IEvaluatorDanger);
+  }
+}

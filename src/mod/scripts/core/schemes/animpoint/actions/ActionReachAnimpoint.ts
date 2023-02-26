@@ -1,4 +1,4 @@
-import { action_base, game_object, XR_action_base, XR_game_object } from "xray16";
+import { action_base, game_object } from "xray16";
 
 import { IStoredObject } from "@/mod/scripts/core/database";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
@@ -6,21 +6,25 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ActionReachAnimpoint");
 
-export interface IActionReachAnimpoint extends XR_action_base {
-  state: IStoredObject;
-}
+/**
+ * todo;
+ */
+@LuabindClass()
+export class ActionReachAnimpoint extends action_base {
+  public readonly state: IStoredObject;
 
-export const ActionReachAnimpoint: IActionReachAnimpoint = declare_xr_class("ActionReachAnimpoint", action_base, {
-  __init(npc: XR_game_object, action_name: string, state: IStoredObject): void {
-    action_base.__init(this, null, action_name);
+  public constructor(state: IStoredObject) {
+    super(null, ActionReachAnimpoint.__name);
     this.state = state;
-  },
-  initialize(): void {
-    action_base.initialize(this);
+  }
+
+  public initialize(): void {
+    super.initialize();
     this.state.animpoint!.calculate_position();
-  },
-  execute(): void {
-    action_base.execute(this);
+  }
+
+  public execute(): void {
+    super.execute();
 
     this.object.set_dest_level_vertex_id(this.state.animpoint!.position_vertex!);
     this.object.set_desired_direction(this.state.animpoint!.smart_direction!);
@@ -41,5 +45,5 @@ export const ActionReachAnimpoint: IActionReachAnimpoint = declare_xr_class("Act
     } else {
       set_state(this.object, this.state.reach_movement, null, null, null, null);
     }
-  },
-} as IActionReachAnimpoint);
+  }
+}

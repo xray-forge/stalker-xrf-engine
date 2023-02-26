@@ -5,7 +5,6 @@ import {
   stalker_ids,
   time_global,
   vector,
-  XR_action_base,
   XR_game_object,
   XR_vector,
 } from "xray16";
@@ -20,56 +19,52 @@ import { path_parse_waypoints } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { isStalkerAtWaypoint } from "@/mod/scripts/utils/world";
 
-export interface IActionCamperPatrol extends XR_action_base {
-  state: IStoredObject;
-  move_mgr: MoveManager;
-  flag: number;
-  danger: boolean;
-  next_point: Optional<ICampPoint>;
-
-  scantime: Optional<number>;
-  direction: XR_vector;
-  position: XR_vector;
-  look_position: XR_vector;
-  dest_position: XR_vector;
-  look_point: XR_vector;
-  point_0: XR_vector;
-  point_2: XR_vector;
-  enemy: Optional<XR_game_object>;
-  enemy_position: Optional<XR_vector>;
-
-  reset_scheme(): void;
-  activate_scheme(): void;
-  can_shoot(): boolean;
-  scan(flag: number): void;
-  process_danger(): boolean;
-  get_next_point(flag: number): ICampPoint;
-  process_point(): boolean;
-  on_place(): boolean;
-}
-
 interface ICampPoint {
   key: number;
   pos: XR_vector;
 }
 
-export const ActionCamperPatrol: IActionCamperPatrol = declare_xr_class("ActionCamperPatrol", action_base, {
-  __init(npc: XR_game_object, action_name: string, storage: IStoredObject): void {
-    action_base.__init(this, null, action_name);
+/**
+ * todo;
+ */
+@LuabindClass()
+export class ActionCamperPatrol extends action_base {
+  public state: IStoredObject;
+  public move_mgr: MoveManager;
+
+  public flag: Optional<number> = null;
+  public danger: boolean = false;
+  public next_point: Optional<ICampPoint> = null;
+  public scantime: Optional<number> = null;
+  public direction: Optional<XR_vector> = null;
+  public position: Optional<XR_vector> = null;
+  public look_position: Optional<XR_vector> = null;
+  public dest_position: Optional<XR_vector> = null;
+  public look_point: Optional<XR_vector> = null;
+  public point_0: Optional<XR_vector> = null;
+  public point_2: Optional<XR_vector> = null;
+  public enemy: Optional<XR_game_object> = null;
+  public enemy_position: Optional<XR_vector> = null;
+
+  public constructor(storage: IStoredObject, npc: XR_game_object) {
+    super(null, ActionCamperPatrol.__name);
+
     this.state = storage;
     this.move_mgr = storage[npc.id()].move_mgr;
     this.state.scan_table = new LuaTable();
-  },
-  initialize(): void {
-    action_base.initialize(this);
+  }
+
+  public initialize(): void {
+    super.initialize();
 
     this.object.set_desired_position();
     this.object.set_desired_direction();
 
     this.reset_scheme();
     this.enemy_position = null;
-  },
-  reset_scheme(): void {
+  }
+
+  public reset_scheme(): void {
     set_state(this.object, "patrol", null, null, null, null);
     this.state.signals = {};
     this.state.scan_table = new LuaTable();
@@ -129,11 +124,13 @@ export const ActionCamperPatrol: IActionCamperPatrol = declare_xr_class("ActionC
     this.state.last_look_point = null;
     this.state.cur_look_point = null;
     this.state.scan_begin = null;
-  },
-  activate_scheme(): void {
+  }
+
+  public activate_scheme(): void {
     this.reset_scheme();
-  },
-  can_shoot(): boolean {
+  }
+
+  public can_shoot(): boolean {
     if (this.state.shoot === "always") {
       return true;
     }
@@ -151,9 +148,10 @@ export const ActionCamperPatrol: IActionCamperPatrol = declare_xr_class("ActionC
     abort("Camper: unrecognized shoot type [%s] for [%s]", tostring(this.state.shoot), this.object.name());
 
     return true;
-  },
-  execute(): void {
-    action_base.execute(this);
+  }
+
+  public execute(): void {
+    super.execute();
     this.enemy = this.object.best_enemy();
 
     if (this.enemy !== null) {
@@ -298,7 +296,7 @@ export const ActionCamperPatrol: IActionCamperPatrol = declare_xr_class("ActionC
       return;
     }
 
-    if (this.danger === true) {
+    if (this.danger) {
       this.danger = false;
       this.move_mgr.continue();
     }
@@ -327,8 +325,9 @@ export const ActionCamperPatrol: IActionCamperPatrol = declare_xr_class("ActionC
     } else {
       this.move_mgr.update();
     }
-  },
-  process_danger(): boolean {
+  }
+
+  public process_danger(): boolean {
     if (!SchemeDanger.is_danger(this.object)) {
       return false;
     }
@@ -344,7 +343,7 @@ export const ActionCamperPatrol: IActionCamperPatrol = declare_xr_class("ActionC
     const passed_time = time_global() - best_danger.time();
     const position = { look_position: best_danger.position() };
 
-    if (this.danger !== true) {
+    if (!this.danger) {
       this.object.play_sound(stalker_ids.sound_alarm, 1, 0, 1, 0);
     }
 
@@ -372,8 +371,9 @@ export const ActionCamperPatrol: IActionCamperPatrol = declare_xr_class("ActionC
     }
 
     return true;
-  },
-  scan(flag: number): void {
+  }
+
+  public scan(flag: number): void {
     if (this.state.scan_table!.get(flag) === null) {
       return;
     }
@@ -398,12 +398,12 @@ export const ActionCamperPatrol: IActionCamperPatrol = declare_xr_class("ActionC
       this.look_position = this.state.last_look_point.pos;
       this.dest_position = this.next_point.pos;
       this.look_point = new vector().set(
-        this.look_position.x +
-          (this.state.cur_look_point * (this.dest_position.x - this.look_position.x)) / this.state.scandelta,
-        this.look_position.y +
-          (this.state.cur_look_point * (this.dest_position.y - this.look_position.y)) / this.state.scandelta,
-        this.look_position.z +
-          (this.state.cur_look_point * (this.dest_position.z - this.look_position.z)) / this.state.scandelta
+        this.look_position!.x +
+          (this.state.cur_look_point * (this.dest_position.x - this.look_position!.x)) / this.state.scandelta,
+        this.look_position!.y +
+          (this.state.cur_look_point * (this.dest_position.y - this.look_position!.y)) / this.state.scandelta,
+        this.look_position!.z +
+          (this.state.cur_look_point * (this.dest_position.z - this.look_position!.z)) / this.state.scandelta
       );
       if (this.state.suggested_state.campering) {
         set_state(
@@ -432,8 +432,9 @@ export const ActionCamperPatrol: IActionCamperPatrol = declare_xr_class("ActionC
 
       this.state.scan_begin = time_global();
     }
-  },
-  get_next_point(flag: number): ICampPoint {
+  }
+
+  public get_next_point(flag: number): ICampPoint {
     let next = false;
 
     if (this.state.last_look_point === null) {
@@ -469,15 +470,18 @@ export const ActionCamperPatrol: IActionCamperPatrol = declare_xr_class("ActionC
     }
 
     return this.state.last_look_point;
-  },
-  process_point(): boolean {
+  }
+
+  public process_point(): boolean {
     return false;
-  },
-  finalize(): void {
+  }
+
+  public finalize(): void {
     this.move_mgr.finalize();
-    action_base.finalize(this);
-  },
-  on_place(): boolean {
+    super.finalize();
+  }
+
+  public on_place(): boolean {
     if (this.state.no_retreat === true) {
       return false;
     }
@@ -507,5 +511,5 @@ export const ActionCamperPatrol: IActionCamperPatrol = declare_xr_class("ActionC
     }
 
     return false;
-  },
-} as IActionCamperPatrol);
+  }
+}

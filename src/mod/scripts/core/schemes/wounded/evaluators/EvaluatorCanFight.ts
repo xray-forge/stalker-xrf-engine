@@ -1,25 +1,29 @@
-import { property_evaluator, XR_property_evaluator } from "xray16";
+import { property_evaluator } from "xray16";
 
+import { STRINGIFIED_FALSE } from "@/mod/globals/lua";
 import { IStoredObject } from "@/mod/scripts/core/database";
 import { pstor_retrieve } from "@/mod/scripts/core/database/pstor";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("EvaluatorCanFight");
 
-export interface IEvaluatorCanFight extends XR_property_evaluator {
-  state: IStoredObject;
-}
+/**
+ * todo;
+ */
+@LuabindClass()
+export class EvaluatorCanFight extends property_evaluator {
+  public state: IStoredObject;
 
-export const EvaluatorCanFight: IEvaluatorCanFight = declare_xr_class("EvaluatorCanFight", property_evaluator, {
-  __init(name: string, state: IStoredObject): void {
-    property_evaluator.__init(this, null, name);
+  public constructor(state: IStoredObject) {
+    super(null, EvaluatorCanFight.__name);
     this.state = state;
-  },
-  evaluate(): boolean {
+  }
+
+  public evaluate(): boolean {
     if (this.object.critically_wounded()) {
       return true;
     }
 
-    return pstor_retrieve(this.object, "wounded_fight") !== "false";
-  },
-} as IEvaluatorCanFight);
+    return pstor_retrieve(this.object, "wounded_fight") !== STRINGIFIED_FALSE;
+  }
+}
