@@ -1,4 +1,4 @@
-import { cse_alife_level_changer, editor, XR_cse_alife_level_changer, XR_net_packet } from "xray16";
+import { cse_alife_level_changer, editor, XR_net_packet } from "xray16";
 
 import { TSection } from "@/mod/lib/types";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";
@@ -8,38 +8,41 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("LevelChanger");
 
-export interface ILevelChanger extends XR_cse_alife_level_changer {
-  enabled: boolean;
-  hint: string;
-}
+/**
+ * todo;
+ */
+@LuabindClass()
+export class LevelChanger extends cse_alife_level_changer {
+  public enabled: boolean = true;
+  public hint: string = "level_changer_invitation";
 
-export const LevelChanger: ILevelChanger = declare_xr_class("LevelChanger", cse_alife_level_changer, {
-  __init(section: TSection): void {
-    cse_alife_level_changer.__init(this, section);
+  public constructor(section: TSection) {
+    super(section);
+  }
 
-    this.enabled = true;
-    this.hint = "level_changer_invitation";
-  },
-  on_register(): void {
-    cse_alife_level_changer.on_register(this);
+  public on_register(): void {
+    super.on_register();
     logger.info("Register:", this.id, this.name(), this.section_name());
     checkSpawnIniForStoryId(this);
-  },
-  on_unregister(): void {
+  }
+
+  public on_unregister(): void {
     unregisterStoryObjectById(this.id);
-    cse_alife_level_changer.on_unregister(this);
+    super.on_unregister();
     logger.info("Unregister:", this.name());
-  },
-  STATE_Write(packet: XR_net_packet): void {
-    cse_alife_level_changer.STATE_Write(this, packet);
+  }
+
+  public STATE_Write(packet: XR_net_packet): void {
+    super.STATE_Write(packet);
 
     setSaveMarker(packet, false, LevelChanger.__name);
     packet.w_bool(this.enabled);
     packet.w_stringZ(this.hint);
     setSaveMarker(packet, true, LevelChanger.__name);
-  },
-  STATE_Read(packet: XR_net_packet, size: number): void {
-    cse_alife_level_changer.STATE_Read(this, packet, size);
+  }
+
+  public STATE_Read(packet: XR_net_packet, size: number): void {
+    super.STATE_Read(packet, size);
 
     if (editor()) {
       return;
@@ -49,5 +52,5 @@ export const LevelChanger: ILevelChanger = declare_xr_class("LevelChanger", cse_
     this.enabled = packet.r_bool();
     this.hint = packet.r_stringZ();
     setLoadMarker(packet, true, LevelChanger.__name);
-  },
-} as ILevelChanger);
+  }
+}

@@ -12,7 +12,6 @@ import {
   system_ini,
   XR_CALifeSmartTerrainTask,
   XR_cse_alife_creature_abstract,
-  XR_cse_alife_online_offline_group,
   XR_game_object,
   XR_net_packet,
   XR_vector,
@@ -37,7 +36,7 @@ import {
   ISimSquadStayOnTargetAction,
   SimSquadStayOnTargetAction,
 } from "@/mod/scripts/core/alife/SimSquadStayOnTargetAction";
-import type { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
+import type { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { ESmartTerrainStatus } from "@/mod/scripts/core/alife/SmartTerrainControl";
 import {
   registry,
@@ -82,114 +81,67 @@ const smarts_by_no_assault_zones: LuaTable<string, string> = {
   ["jup_b41_sr_no_assault"]: "jup_b41",
 } as any;
 
-export interface ISimSquad<T extends XR_cse_alife_creature_abstract = XR_cse_alife_creature_abstract>
-  extends XR_cse_alife_online_offline_group<T> {
-  behaviour: LuaTable<string, string>;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class SimSquad<
+  T extends XR_cse_alife_creature_abstract = XR_cse_alife_creature_abstract
+> extends cse_alife_online_offline_group<T> {
+  public behaviour: LuaTable<string, string> = new LuaTable();
 
   // todo: Rename.
-  player_id: TCommunity;
-  smart_id: Optional<number>;
-  board: ISimBoard;
-  sim_avail: boolean;
+  public player_id!: TCommunity;
+  public smart_id: Optional<number> = null;
+  public board: ISimBoard = get_sim_board();
+  public sim_avail: Optional<boolean> = null;
+  public squad_online: boolean = false;
+  public show_disabled: boolean = false;
 
-  squad_online: boolean;
-  show_disabled: boolean;
+  public entered_smart: Optional<number> = null;
+  public items_spawned: Optional<boolean> = null;
 
-  entered_smart: Optional<number>;
-  items_spawned: Optional<boolean>;
+  public respawn_point_id: Optional<number> = null;
+  public respawn_point_prop_section: Optional<string> = null;
 
-  respawn_point_id: Optional<number>;
-  respawn_point_prop_section: Optional<string>;
+  public current_spot_id: Optional<number> = null;
+  public spot_section: Optional<string> = null;
 
-  current_spot_id: Optional<number>;
-  spot_section: Optional<string>;
+  public current_action: Optional<ISimSquadStayOnTargetAction | ISimSquadReachTargetAction> = null;
+  public current_target_id: Optional<any> = null;
+  public assigned_target_id: Optional<number> = null;
 
-  current_action: Optional<ISimSquadStayOnTargetAction | ISimSquadReachTargetAction>;
-  current_target_id: Optional<any>;
-  assigned_target_id: Optional<number>;
+  public soundManager: SoundManager = get_sound_manager("squad_" + this.section_name());
+  public settings_id: TSection = this.section_name();
 
-  soundManager: SoundManager;
-  settings_id: any;
-  init_squad: any;
-  set_squad_behaviour: any;
+  public need_free_update: boolean = false;
+  public next_target: Optional<number> = null;
+  public parsed_targets: LuaTable<number, string> = new LuaTable();
 
-  need_free_update: boolean;
-  next_target: number;
-  parsed_targets: LuaTable<number, string>;
+  public invulnerability: boolean = false;
+  public last_target: Optional<string> = null;
 
-  invulnerability: boolean;
+  public action_condlist: LuaTable<string> = new LuaTable();
+  public death_condlist: LuaTable<string> = new LuaTable();
 
-  last_target: Optional<string>;
+  public sympathy: Optional<number> = null;
+  public show_spot: boolean = false;
+  public relationship: Optional<TRelation> = null;
 
-  action_condlist: LuaTable<string>;
-  death_condlist: LuaTable<string>;
+  public always_walk: boolean = false;
+  public always_arrived: boolean = false;
+  public need_to_reset_location_masks: boolean = true;
 
-  sympathy: Optional<number>;
-  show_spot: boolean;
-  relationship: TRelation;
+  public props!: AnyObject;
 
-  always_walk: boolean;
-  always_arrived: boolean;
-  need_to_reset_location_masks: boolean;
+  public constructor(section: TSection) {
+    super(section);
 
-  props: AnyObject;
-
-  init_squad_on_load(): void;
-  pick_next_target(): string;
-  check_squad_come_to_point(): boolean;
-  update_current_action(): boolean;
-  clear_assigned_target(): void;
-  assigned_target_avaliable(): boolean;
-  generic_update(): void;
-  get_script_target(): Optional<number>;
-  get_next_action(under_simulation: boolean): unknown;
-  remove_npc(npc_id: number): void;
-  remove_squad(): void;
-  on_npc_death(npc: XR_cse_alife_creature_abstract): void;
-  assign_squad_member_to_smart(member_id: number, smart: Optional<ISmartTerrain>, old_smart_id: Optional<number>): void;
-  assign_smart(smart: Optional<ISmartTerrain>): unknown;
-  check_invulnerability(): void;
-  set_location_types_section(section: string): void;
-  set_location_types(new_smart_name?: string): void;
-  add_squad_member(spawn_section: string, spawn_position: XR_vector, lv_id: number, gv_id: number): number;
-  create_npc(smart: ISmartTerrain): void;
-  set_squad_sympathy(sympathy?: number): void;
-  set_squad_relation(relation?: TRelation): void;
-  set_squad_position(position: XR_vector): void;
-  has_detector(): boolean;
-  get_squad_community(): TCommunity;
-  refresh(): void;
-  hide(): void;
-  show(): void;
-  get_squad_props(): string;
-  get_location(): LuaMultiReturn<[XR_vector, number, number]>;
-  am_i_reached(squad: ISimSquad): boolean;
-  on_after_reach(squad: ISimSquad): void;
-  on_reach_target(squad: ISimSquad): void;
-  get_alife_task(): XR_CALifeSmartTerrainTask;
-  sim_available(): boolean;
-  target_precondition(squad: ISimSquad): boolean;
-  evaluate_prior(squad: ISimSquad): number;
-}
-
-export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online_offline_group, {
-  __init(section: TSection): void {
-    cse_alife_online_offline_group.__init(this, section);
-
-    this.smart_id = null;
-    this.board = get_sim_board();
-    this.current_spot_id = null;
-
-    this.current_action = null;
-    this.current_target_id = null;
-    this.assigned_target_id = null;
-
-    this.soundManager = get_sound_manager("squad_" + this.section_name());
-    this.settings_id = this.section_name();
     this.init_squad();
     this.set_squad_behaviour();
-  },
-  init_squad(): void {
+  }
+
+  public init_squad(): void {
     this.player_id = getConfigString(SYSTEM_INI, this.settings_id, "faction", this, true, "") as TCommunity;
     this.action_condlist = parseCondList(
       this,
@@ -210,7 +162,8 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
       getConfigString(SYSTEM_INI, this.settings_id, "invulnerability", this, false, "", "")
     );
     this.relationship =
-      this.relationship || getConfigString(SYSTEM_INI, this.settings_id, "relationship", this, false, "", null);
+      this.relationship ||
+      (getConfigString(SYSTEM_INI, this.settings_id, "relationship", this, false, "", null) as TRelation);
     this.sympathy = getConfigNumber(SYSTEM_INI, this.settings_id, "sympathy", this, false, null);
     this.show_spot = parseCondList(
       this,
@@ -223,8 +176,9 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     this.always_arrived = getConfigBoolean(SYSTEM_INI, this.settings_id, "always_arrived", this, false);
     this.set_location_types_section("stalker_terrain");
     this.set_squad_sympathy();
-  },
-  init_squad_on_load(): void {
+  }
+
+  public init_squad_on_load(): void {
     logger.info("Init squad on load:", this.name());
 
     this.set_squad_sympathy();
@@ -235,8 +189,9 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     }
 
     this.need_to_reset_location_masks = true;
-  },
-  set_squad_behaviour(): void {
+  }
+
+  public set_squad_behaviour(): void {
     this.behaviour = new LuaTable();
 
     const behaviour_section = getConfigString(
@@ -260,8 +215,9 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
 
       this.behaviour.set(prop_name, prop_condlist);
     }
-  },
-  get_script_target(): Optional<number> {
+  }
+
+  public get_script_target(): Optional<number> {
     const new_target: Optional<string> = pickSectionFromCondList(
       registry.actor,
       this,
@@ -283,7 +239,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
       }
     }
 
-    if (this.parsed_targets.get(this.next_target) === null) {
+    if (this.parsed_targets.get(this.next_target as number) === null) {
       this.next_target = 1;
     }
 
@@ -303,11 +259,13 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     }
 
     return point.id;
-  },
-  pick_next_target(): string {
-    return this.parsed_targets.get(this.next_target);
-  },
-  check_squad_come_to_point(): boolean {
+  }
+
+  public pick_next_target(): string {
+    return this.parsed_targets.get(this.next_target as number);
+  }
+
+  public check_squad_come_to_point(): boolean {
     if (this.parsed_targets === null) {
       return true;
     }
@@ -323,8 +281,9 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     }
 
     return false;
-  },
-  update_current_action(): boolean {
+  }
+
+  public update_current_action(): boolean {
     const is_finished = this.current_action!.update(false);
 
     if (!is_finished) {
@@ -332,9 +291,10 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     }
 
     return true;
-  },
-  update(): void {
-    cse_alife_online_offline_group.update(this);
+  }
+
+  public update(): void {
+    super.update();
     this.refresh();
 
     get_sim_obj_registry().update_avaliability(this);
@@ -406,20 +366,23 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
       this.set_location_types();
       this.need_to_reset_location_masks = false;
     }
-  },
-  clear_assigned_target(): void {
+  }
+
+  public clear_assigned_target(): void {
     this.assigned_target_id = null;
-  },
-  assigned_target_avaliable(): boolean {
-    const target_obj = (this.assigned_target_id && alife().object(this.assigned_target_id)) as ISmartTerrain;
+  }
+
+  public assigned_target_avaliable(): boolean {
+    const target_obj = (this.assigned_target_id && alife().object(this.assigned_target_id)) as SmartTerrain;
 
     if (target_obj === null) {
       return false;
     }
 
     return target_obj.target_precondition(this, true);
-  },
-  generic_update(): void {
+  }
+
+  public generic_update(): void {
     this.soundManager.update();
     this.refresh();
 
@@ -470,9 +433,10 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     }
 
     this.get_next_action(true);
-  },
-  get_next_action(under_simulation: boolean): void {
-    const squad_target = alife().object<ISmartTerrain>(this.assigned_target_id!);
+  }
+
+  public get_next_action(under_simulation: boolean): void {
+    const squad_target = alife().object<SmartTerrain>(this.assigned_target_id!);
 
     if (this.current_target_id === null) {
       if (squad_target === null || squad_target.am_i_reached(this)) {
@@ -497,8 +461,9 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
       this.current_action = create_xr_class_instance(SimSquadReachTargetAction, this);
       this.current_action.make(under_simulation);
     }
-  },
-  remove_squad(): void {
+  }
+
+  public remove_squad(): void {
     logger.info("Remove squad:", this.name());
 
     const squad_npcs: LuaTable<number, boolean> = new LuaTable();
@@ -518,16 +483,18 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     }
 
     this.hide();
-  },
-  remove_npc(npc_id: number): void {
+  }
+
+  public remove_npc(npc_id: number): void {
     const npc = alife().object<XR_cse_alife_creature_abstract>(npc_id)!;
 
     logger.info("Remove npc:", this.name(), npc.name());
 
     this.on_npc_death(npc);
     alife().release(npc, true);
-  },
-  on_npc_death(npc: XR_cse_alife_creature_abstract): void {
+  }
+
+  public on_npc_death(npc: XR_cse_alife_creature_abstract): void {
     logger.info("On npc death:", this.name(), npc.name());
 
     this.soundManager.unregister_npc(npc.id);
@@ -551,10 +518,11 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     }
 
     this.refresh();
-  },
-  assign_squad_member_to_smart(
+  }
+
+  public assign_squad_member_to_smart(
     member_id: number,
-    smart: Optional<ISmartTerrain>,
+    smart: Optional<SmartTerrain>,
     old_smart_id: Optional<number>
   ): void {
     logger.info("Assign squad member to squad:", this.name(), smart?.name(), member_id);
@@ -579,8 +547,9 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
         smart.register_npc(obj);
       }
     }
-  },
-  assign_smart(smart: Optional<ISmartTerrain>) {
+  }
+
+  public assign_smart(smart: Optional<SmartTerrain>) {
     logger.info("Assign smart:", this.name(), smart?.name());
 
     const old_smart = this.smart_id!;
@@ -590,8 +559,9 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     for (const k of this.squad_members()) {
       this.assign_squad_member_to_smart(k.id, smart, old_smart);
     }
-  },
-  check_invulnerability(): void {
+  }
+
+  public check_invulnerability(): void {
     if (this.squad_online !== true) {
       return;
     }
@@ -613,8 +583,9 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
         }
       }
     }
-  },
-  set_location_types_section(section: string): void {
+  }
+
+  public set_location_types_section(section: string): void {
     if (SMART_TERRAIN_MASKS_LTX.section_exist(section)) {
       logger.info("Set location types section:", this.name(), section);
 
@@ -622,8 +593,9 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
 
       this.add_location_type(id);
     }
-  },
-  set_location_types(new_smart_name): void {
+  }
+
+  public set_location_types(new_smart_name?: string): void {
     logger.info("Set location types");
 
     const default_location = "stalker_terrain";
@@ -647,7 +619,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
 
       for (const [k, v] of get_sim_obj_registry().objects) {
         if (alife().object(k)?.clsid() === clsid.smart_terrain) {
-          const props_base = alife().object<ISmartTerrain>(k)!.props && alife().object<ISmartTerrain>(k)!.props["base"];
+          const props_base = alife().object<SmartTerrain>(k)!.props && alife().object<SmartTerrain>(k)!.props["base"];
 
           if (props_base && tonumber(props_base) === 0) {
             this.set_location_types_section(alife().object(k)!.name());
@@ -655,8 +627,9 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
         }
       }
     }
-  },
-  add_squad_member(spawn_section, spawn_position, lv_id, gv_id): number {
+  }
+
+  public add_squad_member(spawn_section: TSection, spawn_position: XR_vector, lv_id: number, gv_id: number): number {
     logger.info("Add squad member:", this.name());
 
     const spawn_sections_ltx = system_ini();
@@ -692,8 +665,9 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     }
 
     return obj.id;
-  },
-  create_npc(spawn_smart: ISmartTerrain): void {
+  }
+
+  public create_npc(spawn_smart: SmartTerrain): void {
     logger.info("Create npc:", this.name(), spawn_smart?.name());
 
     const ini = system_ini();
@@ -757,8 +731,9 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
 
     this.smart_id = spawn_smart.id;
     this.refresh();
-  },
-  set_squad_sympathy(sympathy?: Optional<number>): void {
+  }
+
+  public set_squad_sympathy(sympathy?: Optional<number>): void {
     const symp = sympathy || this.sympathy;
 
     if (symp !== null) {
@@ -772,8 +747,9 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
         }
       }
     }
-  },
-  set_squad_relation(relation?: Optional<TRelation>): void {
+  }
+
+  public set_squad_relation(relation?: Optional<TRelation>): void {
     const rel = relation || this.relationship;
 
     if (rel !== null) {
@@ -787,8 +763,9 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
         }
       }
     }
-  },
-  set_squad_position(position: XR_vector): void {
+  }
+
+  public set_squad_position(position: XR_vector): void {
     if (this.online === false) {
       this.force_change_position(position);
     }
@@ -805,8 +782,9 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
         (k as any).object.position = position;
       }
     }
-  },
-  has_detector(): boolean {
+  }
+
+  public has_detector(): boolean {
     for (const k of this.squad_members()) {
       const target = alife().object<XR_cse_alife_creature_abstract>(k.id);
 
@@ -816,8 +794,9 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     }
 
     return false;
-  },
-  get_squad_community(): string {
+  }
+
+  public get_squad_community(): TCommunity {
     const squad_community = squadCommunityByBehaviour[this.player_id as any as TCommunity];
 
     if (squad_community === null) {
@@ -825,9 +804,10 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     }
 
     return squad_community;
-  },
-  STATE_Write(packet: XR_net_packet): void {
-    cse_alife_online_offline_group.STATE_Write(this, packet);
+  }
+
+  public STATE_Write(packet: XR_net_packet): void {
+    super.STATE_Write(packet);
 
     setSaveMarker(packet, false, "sim_squad_scripted");
 
@@ -837,9 +817,10 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     packet.w_stringZ(tostring(this.smart_id));
 
     setSaveMarker(packet, true, "sim_squad_scripted");
-  },
-  STATE_Read(packet: XR_net_packet, size: number): void {
-    cse_alife_online_offline_group.STATE_Read(this, packet, size);
+  }
+
+  public STATE_Read(packet: XR_net_packet, size: number): void {
+    super.STATE_Read(packet, size);
 
     setSaveMarker(packet, false, "sim_squad_scripted");
 
@@ -875,23 +856,25 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
 
     this.init_squad_on_load();
     setSaveMarker(packet, true, "sim_squad_scripted");
-  },
-  on_register(): void {
-    cse_alife_online_offline_group.on_register(this);
+  }
+
+  public on_register(): void {
+    super.on_register();
     this.board.squads.set(this.id, this);
     checkSpawnIniForStoryId(this);
     get_sim_obj_registry().register(this);
-  },
-  on_unregister(): void {
+  }
+
+  public on_unregister(): void {
     unregisterStoryObjectById(this.id);
 
     this.board.squads.delete(this.id);
     this.board.assign_squad_to_smart(this, null);
-    cse_alife_online_offline_group.on_unregister(this);
+    super.on_unregister();
     get_sim_obj_registry().unregister(this);
 
     if (this.respawn_point_id !== null) {
-      const smart = alife().object<ISmartTerrain>(this.respawn_point_id)!;
+      const smart = alife().object<SmartTerrain>(this.respawn_point_id)!;
 
       if (smart === null) {
         return;
@@ -900,14 +883,17 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
       smart.already_spawned.get(this.respawn_point_prop_section!).num =
         smart.already_spawned.get(this.respawn_point_prop_section!).num - 1;
     }
-  },
-  can_switch_offline(): boolean {
-    return cse_alife_online_offline_group.can_switch_offline(this);
-  },
-  can_switch_online(): boolean {
-    return cse_alife_online_offline_group.can_switch_online(this);
-  },
-  refresh(): void {
+  }
+
+  public can_switch_offline(): boolean {
+    return super.can_switch_offline();
+  }
+
+  public can_switch_online(): boolean {
+    return super.can_switch_online();
+  }
+
+  public refresh(): void {
     if (this.commander_id() === null) {
       this.hide();
 
@@ -915,8 +901,9 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     }
 
     this.show();
-  },
-  hide(): void {
+  }
+
+  public hide(): void {
     if (this.current_spot_id === null || this.spot_section === null) {
       return;
     }
@@ -925,9 +912,10 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
 
     this.current_spot_id = null;
     this.spot_section = null;
-  },
+  }
+
   // Showing minimap star / dots icons.
-  show(): void {
+  public show(): void {
     if (this.show_disabled) {
       this.hide();
 
@@ -985,8 +973,9 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
       level.map_remove_object_spot(this.current_spot_id, this.spot_section);
       this.spot_section = null;
     }
-  },
-  get_squad_props() {
+  }
+
+  public get_squad_props() {
     if (gameConfig.DEBUG.IS_SMARTS_DEBUG_ENABLED) {
       let t: string =
         "[" +
@@ -1019,13 +1008,15 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     } else {
       return "";
     }
-  },
-  get_location(): LuaMultiReturn<[XR_vector, number, number]> {
+  }
+
+  public get_location(): LuaMultiReturn<[XR_vector, number, number]> {
     return $multi(this.position, this.m_level_vertex_id, this.m_game_vertex_id);
-  },
-  get_current_task() {
+  }
+
+  public get_current_task() {
     if (this.assigned_target_id !== null && alife().object(this.assigned_target_id) !== null) {
-      const smart_terrain = alife().object<ISmartTerrain>(this.assigned_target_id)!;
+      const smart_terrain = alife().object<SmartTerrain>(this.assigned_target_id)!;
 
       if (
         smart_terrain.arriving_npc !== null &&
@@ -1038,16 +1029,19 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
         return smart_terrain.job_data.get(smart_terrain.npc_info.get(this.commander_id()).job_id).alife_task;
       }
 
-      return alife().object<ISimSquad>(this.assigned_target_id)!.get_alife_task();
+      return alife().object<SimSquad>(this.assigned_target_id)!.get_alife_task();
     }
 
     return this.get_alife_task();
-  },
-  am_i_reached(squad: ISimSquad): boolean {
+  }
+
+  public am_i_reached(squad: SimSquad): boolean {
     return this.npc_count() === 0;
-  },
-  on_after_reach(squad: ISimSquad): void {},
-  on_reach_target(squad: ISimSquad): void {
+  }
+
+  public on_after_reach(squad: SimSquad): void {}
+
+  public on_reach_target(squad: SimSquad): void {
     squad.set_location_types();
 
     for (const it of squad.squad_members()) {
@@ -1055,11 +1049,13 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     }
 
     this.board.assign_squad_to_smart(squad, null);
-  },
-  get_alife_task(): XR_CALifeSmartTerrainTask {
+  }
+
+  public get_alife_task(): XR_CALifeSmartTerrainTask {
     return new CALifeSmartTerrainTask(this.m_game_vertex_id, this.m_level_vertex_id);
-  },
-  sim_available(): boolean {
+  }
+
+  public sim_available(): boolean {
     for (const [k, v] of smarts_by_no_assault_zones) {
       const zone = registry.zones.get(k);
 
@@ -1080,7 +1076,7 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
       return true;
     }
 
-    const smart: ISmartTerrain = alife().object<ISmartTerrain>(this.smart_id)!;
+    const smart: SmartTerrain = alife().object(this.smart_id) as SmartTerrain;
     const props_base = smart!.props && smart!.props["base"];
 
     if (props_base !== null && tonumber(props_base)! > 0) {
@@ -1097,8 +1093,9 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     }
 
     return true;
-  },
-  target_precondition(squad: ISimSquad): boolean {
+  }
+
+  public target_precondition(squad: SimSquad): boolean {
     const squad_params = simulation_activities[squad.player_id];
 
     if (squad_params === null || squad_params.squad === null) {
@@ -1112,13 +1109,14 @@ export const SimSquad: ISimSquad = declare_xr_class("SimSquad", cse_alife_online
     }
 
     return true;
-  },
-  evaluate_prior(squad: ISimSquad): number {
-    return evaluate_prior(this, squad);
-  },
-} as ISimSquad);
+  }
 
-export function get_help_target_id(squad: ISimSquad): Optional<number> {
+  public evaluate_prior(squad: SimSquad): number {
+    return evaluate_prior(this, squad);
+  }
+}
+
+export function get_help_target_id(squad: SimSquad): Optional<number> {
   // log.info("Get help target id:", squad.name());
 
   if (!can_help_actor(squad)) {
@@ -1129,7 +1127,7 @@ export function get_help_target_id(squad: ISimSquad): Optional<number> {
     const enemy_squad_id: Optional<number> = alife().object<XR_cse_alife_creature_abstract>(k)!.group_id;
 
     if (enemy_squad_id !== null) {
-      const target_squad = alife().object<ISimSquad>(enemy_squad_id);
+      const target_squad = alife().object<SimSquad>(enemy_squad_id);
 
       if (
         target_squad &&
@@ -1144,7 +1142,7 @@ export function get_help_target_id(squad: ISimSquad): Optional<number> {
   return null;
 }
 
-export function can_help_actor(squad: ISimSquad): boolean {
+export function can_help_actor(squad: SimSquad): boolean {
   if (isEmpty(registry.actorCombat)) {
     return false;
   }

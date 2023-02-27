@@ -53,9 +53,9 @@ import { relations, TRelation } from "@/mod/globals/relations";
 import { script_sounds } from "@/mod/globals/sound/script_sounds";
 import { TZone, zones } from "@/mod/globals/zones";
 import { AnyObject, LuaArray, Optional, TName, TNumberId } from "@/mod/lib/types";
-import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
-import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { IStalker } from "@/mod/scripts/core/alife/Stalker";
+import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
+import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
+import { Stalker } from "@/mod/scripts/core/alife/Stalker";
 import { update_logic } from "@/mod/scripts/core/binders/StalkerBinder";
 import { deleteHelicopter, IStoredObject, registry, SYSTEM_INI } from "@/mod/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
@@ -566,7 +566,7 @@ export function teleport_squad(actor: XR_game_object, npc: XR_game_object, param
   }
 
   const position: XR_vector = new patrol(patrol_point).point(patrol_point_index);
-  const squad: Optional<ISimSquad> = getStorySquad(squad_story_id);
+  const squad: Optional<SimSquad> = getStorySquad(squad_story_id);
 
   if (squad === null) {
     abort("There is no squad with story id [%s]", squad_story_id);
@@ -1262,7 +1262,7 @@ export function spawn_npc_in_zone(actor: XR_game_object, obj: XR_game_object, pa
   }
 
   const zone = registry.zones.get(zone_name);
-  const spawned_obj: IStalker = alife().create(
+  const spawned_obj: Stalker = alife().create(
     spawn_sect,
     zone.position(),
     zone.level_vertex_id(),
@@ -1359,7 +1359,7 @@ export function play_sound(
 
   const theme = p[0];
   const faction: Optional<TCommunity> = p[1];
-  const point: ISmartTerrain = get_sim_board().smarts_by_names.get(p[2] as string);
+  const point: SmartTerrain = get_sim_board().smarts_by_names.get(p[2] as string);
   const pointId = point !== null ? point.id : (p[2] as number);
 
   if (obj && isStalker(obj)) {
@@ -1402,7 +1402,7 @@ export function play_sound_by_story(
   const story_obj = getStoryObjectId(p[0]);
   const theme = p[1];
   const faction = p[2];
-  const point: ISmartTerrain = get_sim_board().smarts_by_names.get(p[3] as string);
+  const point: SmartTerrain = get_sim_board().smarts_by_names.get(p[3] as string);
   const pointId: number = point !== null ? point.id : (p[3] as number);
 
   GlobalSound.set_sound_play(story_obj as number, theme, faction, pointId);
@@ -1468,7 +1468,7 @@ export function create_squad_member(
   }
 
   const board = get_sim_board();
-  const squad: ISimSquad = getStorySquad(story_id) as ISimSquad;
+  const squad: SimSquad = getStorySquad(story_id) as SimSquad;
   const squad_smart = board.smarts.get(squad.smart_id as number).smrt;
 
   if (params[2] !== null) {
@@ -1515,7 +1515,7 @@ export function remove_squad(actor: XR_game_object, obj: XR_game_object, p: [str
     abort("Wrong squad identificator [NIL] in remove_squad function");
   }
 
-  const squad: Optional<ISimSquad> = getStorySquad(story_id);
+  const squad: Optional<SimSquad> = getStorySquad(story_id);
 
   if (squad === null) {
     abort("Wrong squad identificator [%s]. squad doesnt exist", tostring(story_id));
@@ -1642,7 +1642,7 @@ export function actor_enemy(actor: XR_game_object, npc: XR_game_object): void {
 }
 
 export function set_squad_neutral_to_actor(actor: XR_game_object, npc: XR_game_object, p: [string]): void {
-  const squad: Optional<ISimSquad> = getStorySquad(p[0]);
+  const squad: Optional<SimSquad> = getStorySquad(p[0]);
 
   if (squad === null) {
     return;
@@ -1652,7 +1652,7 @@ export function set_squad_neutral_to_actor(actor: XR_game_object, npc: XR_game_o
 }
 
 export function set_squad_friend_to_actor(actor: XR_game_object, npc: XR_game_object, p: [string]): void {
-  const squad: Optional<ISimSquad> = getStorySquad(p[0]);
+  const squad: Optional<SimSquad> = getStorySquad(p[0]);
 
   if (squad === null) {
     return;
@@ -1662,7 +1662,7 @@ export function set_squad_friend_to_actor(actor: XR_game_object, npc: XR_game_ob
 }
 
 export function set_squad_enemy_to_actor(actor: XR_game_object, npc: XR_game_object, p: [string]): void {
-  const squad: Optional<ISimSquad> = getStorySquad(p[0]);
+  const squad: Optional<SimSquad> = getStorySquad(p[0]);
 
   if (squad === null) {
     return;

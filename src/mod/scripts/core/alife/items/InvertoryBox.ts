@@ -1,4 +1,4 @@
-import { cse_alife_inventory_box, XR_cse_alife_inventory_box } from "xray16";
+import { cse_alife_inventory_box } from "xray16";
 
 import { Optional, TSection } from "@/mod/lib/types";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";
@@ -8,32 +8,33 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("InventoryBox");
 
-export interface IInventoryBox extends XR_cse_alife_inventory_box {
-  secret_item: Optional<boolean>;
-}
+/**
+ * todo;
+ */
+@LuabindClass()
+export class InventoryBox extends cse_alife_inventory_box {
+  public secret_item: Optional<boolean> = false;
 
-export const InventoryBox: IInventoryBox = declare_xr_class("InventoryBox", cse_alife_inventory_box, {
-  __init(section: TSection): void {
-    cse_alife_inventory_box.__init(this, section);
-
+  public constructor(section: TSection) {
+    super(section);
     this.secret_item = false;
-  },
-  on_register(): void {
-    cse_alife_inventory_box.on_register(this);
-    logger.info("Register:", this.id, this.name(), this.section_name());
-    checkSpawnIniForStoryId(this);
+  }
 
+  public on_register(): void {
+    super.on_register();
+    checkSpawnIniForStoryId(this);
     this.secret_item = getTreasureManager().register_item(this);
-  },
-  on_unregister(): void {
+  }
+
+  public on_unregister(): void {
     unregisterStoryObjectById(this.id);
-    cse_alife_inventory_box.on_unregister(this);
-  },
-  can_switch_online(): boolean {
+    super.on_unregister();
+  }
+  public can_switch_online(): boolean {
     if (this.secret_item) {
       return false;
     }
 
-    return cse_alife_inventory_box.can_switch_online(this);
-  },
-} as IInventoryBox);
+    return super.can_switch_online();
+  }
+}

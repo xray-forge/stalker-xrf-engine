@@ -1,7 +1,7 @@
 import { alife, XR_CTime, XR_EngineBinding } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import type { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
+import type { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { get_sim_obj_registry } from "@/mod/scripts/core/database/SimObjectsRegistry";
 
 export interface ISimSquadReachTargetAction extends XR_EngineBinding {
@@ -24,7 +24,7 @@ export const SimSquadReachTargetAction: ISimSquadReachTargetAction = declare_xr_
   "SimSquadReachTargetAction",
   null,
   {
-    __init(squad: ISimSquad): void {
+    __init(squad: SimSquad): void {
       this.name = "reach_target";
       this.board = squad.board;
       this.squad_id = squad.id;
@@ -33,7 +33,7 @@ export const SimSquadReachTargetAction: ISimSquadReachTargetAction = declare_xr_
     save(): void {},
     load(): void {},
     update(isUnderSimulation): boolean {
-      const squad = alife().object<ISimSquad>(this.squad_id)!;
+      const squad = alife().object<SimSquad>(this.squad_id)!;
       let squad_target = get_sim_obj_registry().objects.get(squad.assigned_target_id!);
 
       if (!isUnderSimulation) {
@@ -55,7 +55,7 @@ export const SimSquadReachTargetAction: ISimSquadReachTargetAction = declare_xr_
       return false;
     },
     make(isUnderSimulation: boolean): void {
-      const squad = alife().object<ISimSquad>(this.squad_id)!;
+      const squad = alife().object<SimSquad>(this.squad_id)!;
       let squad_target = get_sim_obj_registry().objects.get(squad.assigned_target_id!);
 
       if (!isUnderSimulation) {

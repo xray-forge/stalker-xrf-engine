@@ -1,9 +1,9 @@
 import { clsid, ini_file, XR_cse_alife_object, XR_EngineBinding } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { IActor } from "@/mod/scripts/core/alife/Actor";
-import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
-import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
+import { Actor } from "@/mod/scripts/core/alife/Actor";
+import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
+import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { registry } from "@/mod/scripts/core/database/index";
 import { areOnSameAlifeLevel, getAlifeDistanceBetween } from "@/mod/scripts/utils/alife";
 import { parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
@@ -12,7 +12,7 @@ let sim_objects_registry: Optional<ISimObjectsRegistry> = null;
 const props_ini = new ini_file("misc\\simulation_objects_props.ltx");
 
 export interface ISimObjectsRegistry extends XR_EngineBinding {
-  objects: LuaTable<number, IActor | ISimSquad | ISmartTerrain>;
+  objects: LuaTable<number, Actor | SimSquad | SmartTerrain>;
   register(obj: XR_cse_alife_object): void;
   update_avaliability(obj: XR_cse_alife_object): void;
   get_props(obj: XR_cse_alife_object): void;
@@ -27,14 +27,14 @@ export const SimObjectsRegistry: ISimObjectsRegistry = declare_xr_class("SimObje
     this.get_props(obj);
     this.update_avaliability(obj);
   },
-  update_avaliability(obj: ISmartTerrain): void {
+  update_avaliability(obj: SmartTerrain): void {
     if (pickSectionFromCondList(registry.actor, obj, obj.sim_avail as any) === "true" && obj.sim_available()) {
       this.objects.set(obj.id, obj);
     } else {
       this.objects.delete(obj.id);
     }
   },
-  get_props(obj: ISmartTerrain | ISimSquad | IActor) {
+  get_props(obj: SmartTerrain | SimSquad | Actor) {
     obj.props = new LuaTable();
 
     let props_section: string = obj.name();
@@ -84,13 +84,13 @@ export function get_sim_obj_registry() {
   return sim_objects_registry;
 }
 
-export function evaluate_prior_by_dist(target: ISmartTerrain | IActor | ISimSquad, squad: ISimSquad): number {
+export function evaluate_prior_by_dist(target: SmartTerrain | Actor | SimSquad, squad: SimSquad): number {
   const dist = math.max(getAlifeDistanceBetween(target, squad), 1);
 
   return 1 + 1 / dist;
 }
 
-export function evaluate_prior(target: ISmartTerrain | IActor | ISimSquad, squad: ISimSquad): number {
+export function evaluate_prior(target: SmartTerrain | Actor | SimSquad, squad: SimSquad): number {
   let prior = 0;
 
   if (!target.target_precondition(squad) || !areOnSameAlifeLevel(target, squad)) {

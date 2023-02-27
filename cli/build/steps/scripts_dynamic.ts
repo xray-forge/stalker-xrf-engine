@@ -1,10 +1,8 @@
-import * as fsPromises from "fs/promises";
-
 import { default as chalk } from "chalk";
 import * as tstl from "typescript-to-lua";
 
-import { BUILD_LUA_TSCONFIG, TARGET_GAME_DATA_DIR } from "#/globals";
-import { NodeLogger, readDirContent } from "#/utils";
+import { BUILD_LUA_TSCONFIG } from "#/globals";
+import { NodeLogger } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("BUILD_LUA_SCRIPTS");
 
@@ -21,7 +19,7 @@ export async function buildDynamicScripts(): Promise<void> {
   });
 
   if (result.diagnostics?.length) {
-    log.warn("Lua build issues:");
+    log.warn("Lua build issues:", result.diagnostics.length);
 
     result.diagnostics.forEach((it) => {
       let errorLineStartPosition: number = it.start;
@@ -40,7 +38,7 @@ export async function buildDynamicScripts(): Promise<void> {
         it.code,
         it.category,
         chalk.yellowBright(it.file.fileName),
-        `"${it.file.text.slice(errorLineStartPosition, errorLineStopPosition)}"`,
+        `"${it.file.text.slice(errorLineStartPosition, errorLineStopPosition).trim()}"`,
         chalk.red(it.messageText)
       );
     });

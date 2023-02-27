@@ -2,7 +2,7 @@ import { alife, XR_cse_alife_creature_abstract, XR_game_object, XR_vector } from
 
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { Optional, TName } from "@/mod/lib/types";
-import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
+import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { ESmartTerrainStatus } from "@/mod/scripts/core/alife/SmartTerrainControl";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
@@ -26,6 +26,9 @@ const ignored_smart = {
   pri_a16: true,
 } as unknown as LuaTable<string, boolean>;
 
+/**
+ * todo;
+ */
 export class ActionProcessEnemy {
   public static isEnemy(
     object: XR_game_object,
@@ -85,7 +88,7 @@ export class ActionProcessEnemy {
     const se_enemy = alife().object<XR_cse_alife_creature_abstract>(enemy.id());
 
     if (se_enemy !== null && se_enemy.m_smart_terrain_id !== null && se_enemy.m_smart_terrain_id !== 65535) {
-      const enemy_smart: ISmartTerrain = alife().object<ISmartTerrain>(se_enemy.m_smart_terrain_id) as ISmartTerrain;
+      const enemy_smart: SmartTerrain = alife().object<SmartTerrain>(se_enemy.m_smart_terrain_id) as SmartTerrain;
       const smart_name: string = enemy_smart.name();
 
       if (ignored_smart.get(smart_name) === true) {
@@ -131,7 +134,7 @@ export class ActionProcessEnemy {
        * Set alarm if object is in smart zone.
        */
       if (seObject && seObject.m_smart_terrain_id !== MAX_UNSIGNED_16_BIT) {
-        const smartTerrain: ISmartTerrain = alife().object<ISmartTerrain>(seObject.m_smart_terrain_id)!;
+        const smartTerrain: SmartTerrain = alife().object<SmartTerrain>(seObject.m_smart_terrain_id)!;
 
         smartTerrain.set_alarm();
 

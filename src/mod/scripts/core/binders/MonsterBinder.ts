@@ -23,8 +23,8 @@ import {
 
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { EScheme, ESchemeType, Optional, TNumberId, TSection } from "@/mod/lib/types";
-import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
-import { ISmartTerrain, setup_gulag_and_logic_on_spawn } from "@/mod/scripts/core/alife/SmartTerrain";
+import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
+import { setup_gulag_and_logic_on_spawn, SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { addObject, deleteObject, IStoredObject, registry, resetObject } from "@/mod/scripts/core/database";
 import { get_sim_obj_registry } from "@/mod/scripts/core/database/SimObjectsRegistry";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
@@ -93,7 +93,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
       registry.actorCombat.delete(this.object.id());
     }
 
-    const squad: Optional<ISimSquad> = getObjectSquad(this.object);
+    const squad: Optional<SimSquad> = getObjectSquad(this.object);
     const object_alive: boolean = this.object.alive();
 
     if (!object_alive) {
@@ -236,7 +236,7 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
         level.vertex_position(registry.offlineObjects.get(se_obj.id).level_vertex_id as TNumberId)
       );
     } else if (se_obj.m_smart_terrain_id !== MAX_UNSIGNED_16_BIT) {
-      const smart_terrain = alife().object<ISmartTerrain>(se_obj.m_smart_terrain_id);
+      const smart_terrain: Optional<SmartTerrain> = alife().object<SmartTerrain>(se_obj.m_smart_terrain_id);
 
       if (smart_terrain !== null && smart_terrain.arriving_npc.get(se_obj.id) === null) {
         const smart_task = smart_terrain.job_data.get(smart_terrain.npc_info.get(se_obj.id).job_id).alife_task;

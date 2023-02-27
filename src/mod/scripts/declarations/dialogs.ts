@@ -414,7 +414,7 @@ export function actor_set_bandit(actor: XR_game_object, npc: XR_game_object): bo
  */
 export function actor_in_stalker(actor: XR_game_object, npc: XR_game_object): boolean {
   for (const [k, v] of get_sim_board().players!) {
-    if (v.community_player === true && v.player_name === "stalker") {
+    if (v.community_player === true && v.player_name === communities.stalker) {
       return true;
     }
   }

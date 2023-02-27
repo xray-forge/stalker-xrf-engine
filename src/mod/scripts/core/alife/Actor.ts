@@ -6,15 +6,14 @@ import {
   level,
   XR_CALifeSmartTerrainTask,
   XR_cse_abstract,
-  XR_cse_alife_creature_actor,
   XR_net_packet,
   XR_vector,
 } from "xray16";
 
-import { AnyCallable, AnyObject, TSection } from "@/mod/lib/types";
+import { AnyCallable, AnyObject, Optional, TSection } from "@/mod/lib/types";
 import { simulation_activities } from "@/mod/scripts/core/alife/SimActivity";
-import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
-import { ISmartTerrain, nearest_to_actor_smart } from "@/mod/scripts/core/alife/SmartTerrain";
+import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
+import { nearest_to_actor_smart, SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { ESmartTerrainStatus, getCurrentSmartId } from "@/mod/scripts/core/alife/SmartTerrainControl";
 import { registry, softResetOfflineObject } from "@/mod/scripts/core/database";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
@@ -26,32 +25,23 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("Actor");
 
-export interface IActor extends XR_cse_alife_creature_actor {
-  m_registred: boolean;
-  start_position_filled: boolean;
-  sim_avail: boolean;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class Actor extends cse_alife_creature_actor {
+  public m_registred: boolean = false;
+  public start_position_filled: boolean = false;
+  public sim_avail: Optional<boolean> = null;
+  public props!: AnyObject;
 
-  props: AnyObject;
+  public constructor(section: TSection) {
+    super(section);
+  }
 
-  get_location(): LuaMultiReturn<[XR_vector, number, number]>;
-  am_i_reached(): boolean;
-  on_after_reach(squad: any): void;
-  on_reach_target(squad: any): void;
-  get_alife_task(): XR_CALifeSmartTerrainTask;
-  sim_available(): boolean;
-  target_precondition(squad: ISimSquad): boolean;
-  evaluate_prior(squad: ISimSquad): number;
-}
+  public on_register(): void {
+    super.on_register();
 
-export const Actor: IActor = declare_xr_class("Actor", cse_alife_creature_actor, {
-  __init(section: TSection): void {
-    cse_alife_creature_actor.__init(this, section);
-
-    this.m_registred = false;
-    this.start_position_filled = false;
-  },
-  on_register(): void {
-    cse_alife_creature_actor.on_register(this);
     logger.info("Register:", this.id, this.name(), this.section_name());
     getStoryObjectsRegistry().register(this.id, "actor");
 
@@ -63,23 +53,26 @@ export const Actor: IActor = declare_xr_class("Actor", cse_alife_creature_actor,
       get_sim_board().fill_start_position();
       this.start_position_filled = true;
     }
-  },
-  on_unregister(): void {
-    logger.info("Unregister");
+  }
 
-    cse_alife_creature_actor.on_unregister(this);
+  public on_unregister(): void {
+    logger.info("Unregister actor");
+
+    super.on_unregister();
     unregisterStoryObjectById(this.id);
     get_sim_obj_registry().unregister(this);
-  },
-  STATE_Write(packet: XR_net_packet): void {
-    cse_alife_creature_actor.STATE_Write(this, packet);
+  }
+
+  public STATE_Write(packet: XR_net_packet): void {
+    super.STATE_Write(packet);
 
     setSaveMarker(packet, false, Actor.__name);
     packet.w_bool(this.start_position_filled);
     setSaveMarker(packet, true, Actor.__name);
-  },
-  STATE_Read(packet: XR_net_packet, size: number): void {
-    cse_alife_creature_actor.STATE_Read(this, packet, size);
+  }
+
+  public STATE_Read(packet: XR_net_packet, size: number): void {
+    super.STATE_Read(packet, size);
 
     if (editor()) {
       return;
@@ -90,19 +83,23 @@ export const Actor: IActor = declare_xr_class("Actor", cse_alife_creature_actor,
       this.start_position_filled = packet.r_bool();
       setLoadMarker(packet, true, Actor.__name);
     }
-  },
-  get_location(): LuaMultiReturn<[XR_vector, number, number]> {
+  }
+
+  public get_location(): LuaMultiReturn<[XR_vector, number, number]> {
     return $multi(this.position, this.m_level_vertex_id, this.m_game_vertex_id);
-  },
-  am_i_reached(): boolean {
+  }
+
+  public am_i_reached(): boolean {
     return !level.object_by_id(this.id)!.alive();
-  },
-  on_after_reach(squad: any): void {
+  }
+
+  public on_after_reach(squad: any): void {
     /**
      *  --squad.current_target_id = squad.smart_id
      */
-  },
-  on_reach_target(squad: any): void {
+  }
+
+  public on_reach_target(squad: any): void {
     squad.set_location_types();
 
     for (const it of squad.squadMembers() as LuaIterable<XR_cse_abstract>) {
@@ -110,11 +107,13 @@ export const Actor: IActor = declare_xr_class("Actor", cse_alife_creature_actor,
     }
 
     get_sim_board().assign_squad_to_smart(squad, null);
-  },
-  get_alife_task(): XR_CALifeSmartTerrainTask {
+  }
+
+  public get_alife_task(): XR_CALifeSmartTerrainTask {
     return new CALifeSmartTerrainTask(this.m_game_vertex_id, this.m_level_vertex_id);
-  },
-  sim_available(): boolean {
+  }
+
+  public sim_available(): boolean {
     const smarts_by_no_assault_zones = {
       ["zat_a2_sr_no_assault"]: "zat_stalker_base_smart",
       ["jup_a6_sr_no_assault"]: "jup_a6",
@@ -141,7 +140,7 @@ export const Actor: IActor = declare_xr_class("Actor", cse_alife_creature_actor,
       return true;
     }
 
-    const smart: ISmartTerrain = alife().object<ISmartTerrain>(getCurrentSmartId()!)!;
+    const smart: SmartTerrain = alife().object<SmartTerrain>(getCurrentSmartId()!)!;
 
     if (
       smart.base_on_actor_control !== null &&
@@ -152,8 +151,9 @@ export const Actor: IActor = declare_xr_class("Actor", cse_alife_creature_actor,
     }
 
     return true;
-  },
-  target_precondition(squad: ISimSquad): boolean {
+  }
+
+  public target_precondition(squad: SimSquad): boolean {
     const squad_params = simulation_activities[squad.player_id];
 
     if (
@@ -165,8 +165,9 @@ export const Actor: IActor = declare_xr_class("Actor", cse_alife_creature_actor,
     }
 
     return true;
-  },
-  evaluate_prior(squad: ISimSquad): number {
+  }
+
+  public evaluate_prior(squad: SimSquad): number {
     return evaluate_prior(this, squad);
-  },
-} as IActor);
+  }
+}

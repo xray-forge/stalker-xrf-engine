@@ -22,8 +22,8 @@ import { captions } from "@/mod/globals/captions";
 import { communities } from "@/mod/globals/communities";
 import { ERelation } from "@/mod/globals/relations";
 import { Optional } from "@/mod/lib/types";
-import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
-import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
+import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
+import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { set_travel_func } from "@/mod/scripts/core/binders/ActorBinder";
 import { registry } from "@/mod/scripts/core/database";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/core/database/SimBoard";
@@ -42,7 +42,7 @@ const logger: LuaLogger = new LuaLogger("TravelManager");
 let init_time: Optional<number> = null;
 let traveler_actor_path: Optional<string> = null;
 let traveler_squad_path: Optional<string> = null;
-let traveler_squad: Optional<ISimSquad> = null;
+let traveler_squad: Optional<SimSquad> = null;
 let traveler_distance: Optional<number> = null;
 let teleport_flag: Optional<boolean> = null;
 let traveler_smart_id: Optional<number> = null;
@@ -54,6 +54,9 @@ export interface ITravelRouteDescriptor {
   condlist: LuaTable;
 }
 
+/**
+ * todo;
+ */
 export class TravelManager {
   public static instance: Optional<TravelManager> = null;
 
@@ -180,7 +183,7 @@ export class TravelManager {
       return false;
     }
 
-    const smart: Optional<ISmartTerrain> = get_npc_smart(npc);
+    const smart: Optional<SmartTerrain> = get_npc_smart(npc);
 
     if (smart !== null) {
       if (smart.name() === "jup_b41") {
@@ -191,7 +194,7 @@ export class TravelManager {
     return true;
   }
 
-  public check_squad_for_enemies(squad_obj: ISimSquad): boolean {
+  public check_squad_for_enemies(squad_obj: SimSquad): boolean {
     for (const k of squad_obj.squad_members()) {
       if (relation_registry.get_general_goodwill_between(k.id, alife().actor().id) <= ERelation.ENEMIES) {
         return true;
@@ -276,7 +279,7 @@ export class TravelManager {
     dialog_id: string,
     phrase_id: string
   ): string {
-    const npc_squad: ISimSquad = getObjectSquad(npc)!;
+    const npc_squad: SimSquad = getObjectSquad(npc)!;
 
     if (npc_squad.current_action === null || npc_squad.current_action.name === "stay_point") {
       return "dm_" + "stalker" + "_doing_nothing_" + tostring(math.random(1, 3)); // -- npc:character_community()
@@ -316,7 +319,7 @@ export class TravelManager {
   }
 
   public squad_on_move(actor: XR_game_object, npc: XR_game_object, dialog_id: string, phrase_id: string): boolean {
-    const npc_squad: ISimSquad = getObjectSquad(npc)!;
+    const npc_squad: SimSquad = getObjectSquad(npc)!;
 
     if (npc_squad.current_action === null || npc_squad.current_action.name === "stay_point") {
       return false;
@@ -331,7 +334,7 @@ export class TravelManager {
     dialog_id: string,
     phrase_id: string
   ): boolean {
-    const npc_squad: ISimSquad = getObjectSquad(npc)!;
+    const npc_squad: SimSquad = getObjectSquad(npc)!;
     const target_id: number = npc_squad.assigned_target_id!;
     const target_obj: XR_cse_alife_object = alife().object(target_id)!;
     const target_clsid: number = target_obj.clsid();
@@ -358,7 +361,7 @@ export class TravelManager {
     const npc_squad = getObjectSquad(npc)!;
 
     const target_id = npc_squad.assigned_target_id;
-    const smart = alife().object<ISmartTerrain>(target_id!)!;
+    const smart = alife().object<SmartTerrain>(target_id!)!;
 
     npc.stop_talk();
     // -- get_console():execute("hud_crosshair 0")
@@ -377,7 +380,7 @@ export class TravelManager {
     teleport_flag = false;
   }
 
-  public check_smart_availability(smart_name: string, smart_table: ITravelRouteDescriptor, squad: ISimSquad): boolean {
+  public check_smart_availability(smart_name: string, smart_table: ITravelRouteDescriptor, squad: SimSquad): boolean {
     const board = get_sim_board();
     const smart = board.get_smart_by_name(smart_name);
 
@@ -447,7 +450,7 @@ export class TravelManager {
   }
 
   public squad_can_travel(npc: XR_game_object, actor: XR_game_object, dialog_id: string, phrase_id: string): boolean {
-    const npc_squad: ISimSquad = getObjectSquad(npc)!;
+    const npc_squad: SimSquad = getObjectSquad(npc)!;
 
     for (const [id, smart_table] of pairs(this.smart_travels)) {
       if (this.check_smart_availability(id, smart_table, npc_squad)) {
@@ -506,7 +509,7 @@ export class TravelManager {
     const travel_phrase_id: string = string.sub(phrase_id, 1, string.len(phrase_id) - 2);
     const smart_name: string = this.smart_by_phrase.get(travel_phrase_id);
     const board: ISimBoard = get_sim_board();
-    const smart: Optional<ISmartTerrain> = board.get_smart_by_name(smart_name);
+    const smart: Optional<SmartTerrain> = board.get_smart_by_name(smart_name);
 
     const squad_position = npc.position();
     const smart_position = smart!.position;

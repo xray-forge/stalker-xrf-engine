@@ -22,8 +22,8 @@ import { info_portions } from "@/mod/globals/info_portions/info_portions";
 import { relations } from "@/mod/globals/relations";
 import { zones } from "@/mod/globals/zones";
 import { AnyArgs, AnyCallablesModule, LuaArray, Maybe, Optional, TName, TSection } from "@/mod/lib/types";
-import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
-import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
+import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
+import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { ESmartTerrainStatus, ISmartTerrainControl } from "@/mod/scripts/core/alife/SmartTerrainControl";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { pstor_retrieve } from "@/mod/scripts/core/database/pstor";
@@ -224,7 +224,7 @@ export function dist_to_actor_ge(actor: XR_game_object, npc: XR_game_object, par
  * todo;
  */
 export function distance_to_obj_on_job_le(actor: XR_game_object, npc: XR_game_object, params: AnyArgs): boolean {
-  const smart: ISmartTerrain = get_npc_smart(npc)!;
+  const smart: SmartTerrain = get_npc_smart(npc)!;
 
   for (const [k, v] of smart.npc_info) {
     const npc_job = smart.job_data.get(v.job_id);
@@ -742,7 +742,7 @@ export function check_smart_alarm_status(
     abort("Wrong status[%s] in 'check_smart_alarm_status'", tostring(params[1]));
   }
 
-  const smart: ISmartTerrain = get_sim_board().get_smart_by_name(smartName)!;
+  const smart: SmartTerrain = get_sim_board().get_smart_by_name(smartName)!;
   const smartControl: ISmartTerrainControl = smart.base_on_actor_control;
 
   if (smartControl === null) {
@@ -1147,7 +1147,7 @@ export function is_squad_commander(
   npc: XR_game_object | XR_cse_alife_creature_abstract
 ): boolean {
   const npc_id: number = type(npc.id) === "number" ? (npc as XR_cse_alife_object).id : (npc as XR_game_object).id();
-  const squad: Optional<ISimSquad> = getObjectSquad(npc);
+  const squad: Optional<SimSquad> = getObjectSquad(npc);
 
   return squad !== null && squad.commander_id() === npc_id;
 }
@@ -1162,7 +1162,7 @@ export function squad_npc_count_ge(actor: XR_game_object, npc: XR_game_object, p
     abort("Wrong parameter squad_id[%s] in 'squad_npc_count_ge' function", tostring(story_id));
   }
 
-  const squad: Optional<ISimSquad> = getStorySquad(story_id) as Optional<ISimSquad>;
+  const squad: Optional<SimSquad> = getStorySquad(story_id) as Optional<SimSquad>;
 
   if (squad) {
     return squad.npc_count() > tonumber(p[1])!;
@@ -1731,7 +1731,7 @@ export function pas_b400_actor_far_forward(actor: XR_game_object, npc: XR_game_o
     return false;
   }
 
-  const squad: ISimSquad = alife().object(alife().object<XR_cse_alife_creature_abstract>(npc.id())!.group_id)!;
+  const squad: SimSquad = alife().object(alife().object<XR_cse_alife_creature_abstract>(npc.id())!.group_id)!;
 
   for (const squadMember in squad.squad_members()) {
     // todo: Mistake or typedef upd needed.
@@ -1767,7 +1767,7 @@ export function pas_b400_actor_far_backward(actor: XR_game_object, npc: XR_game_
   }
 
   const sim: XR_alife_simulator = alife();
-  const squad: ISimSquad = sim.object<ISimSquad>(sim.object<XR_cse_alife_creature_abstract>(npc.id())!.group_id)!;
+  const squad: SimSquad = sim.object<SimSquad>(sim.object<XR_cse_alife_creature_abstract>(npc.id())!.group_id)!;
 
   for (const squadMember of squad.squad_members()) {
     const other_dist = squadMember.object.position.distance_to_sqr(actor.position());
@@ -1809,7 +1809,7 @@ export function check_enemy_smart(actor: XR_game_object, npc: XR_game_object, pa
     return false;
   }
 
-  const enemy_smart: Optional<ISmartTerrain> = get_npc_smart(enemy);
+  const enemy_smart: Optional<SmartTerrain> = get_npc_smart(enemy);
 
   return enemy_smart !== null && enemy_smart.name() === params[0];
 }

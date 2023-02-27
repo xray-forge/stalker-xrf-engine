@@ -1,6 +1,6 @@
-import { cse_smart_cover, game_graph, properties_helper, XR_cse_smart_cover, XR_net_packet } from "xray16";
+import { cse_smart_cover, game_graph, properties_helper, XR_net_packet } from "xray16";
 
-import { Optional } from "@/mod/lib/types";
+import { Optional, TSection } from "@/mod/lib/types";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";
 import { ISmartCoverLoopholeDescriptor, smart_covers_list } from "@/mod/scripts/core/smart_covers/smart_covers_list";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
@@ -10,33 +10,32 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 const logger: LuaLogger = new LuaLogger("SmartCover");
 
 // todo: Move to db.
-export const registered_smartcovers: LuaTable<string, ISmartCover> = new LuaTable();
+export const registered_smartcovers: LuaTable<string, SmartCover> = new LuaTable();
 export const registered_smartcovers_by_lv_id: LuaTable<number> = new LuaTable();
 
-export interface ISmartCover extends XR_cse_smart_cover {
-  loopholes: LuaTable<string>;
-  last_description: string;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class SmartCover extends cse_smart_cover {
+  public loopholes: LuaTable<string> = new LuaTable();
+  public last_description: string = "";
 
-  FillProps(pref: string, items: LuaTable<number, unknown>): void;
-}
-
-export const SmartCover: ISmartCover = declare_xr_class("SmartCover", cse_smart_cover, {
-  __init(section: string): void {
-    cse_smart_cover.__init(this, section);
-
-    this.loopholes = new LuaTable();
-    this.last_description = "";
+  public constructor(section: TSection) {
+    super(section);
 
     if (this.set_available_loopholes !== null) {
       this.set_available_loopholes(this.loopholes);
     }
-  },
-  on_before_register(): void {
-    cse_smart_cover.on_before_register(this);
+  }
+
+  public on_before_register(): void {
+    super.on_before_register();
     registered_smartcovers.set(this.name(), this);
-  },
-  on_register(): void {
-    cse_smart_cover.on_register(this);
+  }
+
+  public on_register(): void {
+    super.on_register();
     logger.info("Register:", this.id, this.name(), this.section_name());
     checkSpawnIniForStoryId(this);
 
@@ -47,18 +46,20 @@ export const SmartCover: ISmartCover = declare_xr_class("SmartCover", cse_smart_
     }
 
     registered_smartcovers_by_lv_id.get(level_id)[this.m_level_vertex_id] = this;
-  },
-  on_unregister(): void {
+  }
+
+  public on_unregister(): void {
     unregisterStoryObjectById(this.id);
     registered_smartcovers.delete(this.name());
 
     const level_id: number = game_graph().vertex(this.m_game_vertex_id).level_id();
 
     registered_smartcovers_by_lv_id.get(level_id)[this.m_level_vertex_id] = null;
-    cse_smart_cover.on_unregister(this);
-  },
-  FillProps(pref: string, items: LuaTable<number>): void {
-    cse_smart_cover.FillProps(this, pref, items);
+    super.on_unregister();
+  }
+
+  public FillProps(pref: string, items: LuaTable<number>): void {
+    super.FillProps(pref, items);
 
     const prefix = pref + "\\" + this.section_name() + "\\";
     const smart_cover_description = this.description();
@@ -90,12 +91,14 @@ export const SmartCover: ISmartCover = declare_xr_class("SmartCover", cse_smart_
         this.set_loopholes_table_checker(h);
       }
     }
-  },
-  update(): void {
-    cse_smart_cover.update(this);
-  },
-  STATE_Write(packet: XR_net_packet): void {
-    cse_smart_cover.STATE_Write(this, packet);
+  }
+
+  public update(): void {
+    super.update();
+  }
+
+  public STATE_Write(packet: XR_net_packet): void {
+    super.STATE_Write(packet);
 
     packet.w_stringZ(this.last_description);
 
@@ -111,9 +114,10 @@ export const SmartCover: ISmartCover = declare_xr_class("SmartCover", cse_smart_
       packet.w_stringZ(k);
       packet.w_bool(v);
     }
-  },
-  STATE_Read(packet: XR_net_packet, size: number): void {
-    cse_smart_cover.STATE_Read(this, packet, size);
+  }
+
+  public STATE_Read(packet: XR_net_packet, size: number): void {
+    super.STATE_Read(packet, size);
 
     if (this.script_version >= 9) {
       this.last_description = packet.r_stringZ();
@@ -159,5 +163,5 @@ export const SmartCover: ISmartCover = declare_xr_class("SmartCover", cse_smart_
         this.last_description = smart_cover_description;
       }
     }
-  },
-} as ISmartCover);
+  }
+}

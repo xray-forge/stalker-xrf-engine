@@ -19,7 +19,7 @@ import {
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { AnyArgs, LuaArray, Maybe, Optional, TName, TSection } from "@/mod/lib/types";
-import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
+import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { ISimSquadReachTargetAction } from "@/mod/scripts/core/alife/SimSquadReachTargetAction";
 import { ISimSquadStayOnTargetAction } from "@/mod/scripts/core/alife/SimSquadStayOnTargetAction";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
@@ -82,7 +82,7 @@ export function unregisterStoryId(id: string): void {
 /**
  * todo;
  */
-export function getObjectSquad(object: Optional<XR_game_object | XR_cse_alife_creature_abstract>): Optional<ISimSquad> {
+export function getObjectSquad(object: Optional<XR_game_object | XR_cse_alife_creature_abstract>): Optional<SimSquad> {
   if (object === null) {
     return abort("Attempt to get squad object from NIL.") as never;
   }
@@ -92,7 +92,7 @@ export function getObjectSquad(object: Optional<XR_game_object | XR_cse_alife_cr
   const se_obj: Optional<any> = alife().object(objectId);
 
   if (se_obj && se_obj.group_id !== MAX_UNSIGNED_16_BIT) {
-    return alife().object<ISimSquad>(se_obj.group_id);
+    return alife().object<SimSquad>(se_obj.group_id);
   }
 
   return null;
@@ -101,7 +101,7 @@ export function getObjectSquad(object: Optional<XR_game_object | XR_cse_alife_cr
 export function getObjectSquadAction(
   object: XR_game_object
 ): Optional<ISimSquadReachTargetAction | ISimSquadStayOnTargetAction> {
-  const squad: Optional<ISimSquad> = getObjectSquad(object);
+  const squad: Optional<SimSquad> = getObjectSquad(object);
 
   return squad && squad.current_action;
 }

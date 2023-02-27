@@ -2,7 +2,7 @@ import { alife, game_object, XR_cse_alife_creature_abstract, XR_game_object, XR_
 
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { Optional } from "@/mod/lib/types";
-import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
+import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -12,14 +12,14 @@ const logger: LuaLogger = new LuaLogger("gulag");
 /**
  * todo;
  */
-export function get_gulag_by_name(name: string): Optional<ISmartTerrain> {
+export function get_gulag_by_name(name: string): Optional<SmartTerrain> {
   return get_sim_board().smarts_by_names.get(name);
 }
 
 /**
  * todo;
  */
-export function get_gulag_by_sid(sid: string): Optional<ISmartTerrain> {
+export function get_gulag_by_sid(sid: string): Optional<SmartTerrain> {
   return alife().object(getStoryObjectId(sid)!);
 }
 
@@ -27,7 +27,7 @@ export function get_gulag_by_sid(sid: string): Optional<ISmartTerrain> {
  * todo;
  * todo: Fix SID number/string mismatch.
  */
-export function get_gulag(name_or_sid: string | number): Optional<ISmartTerrain> {
+export function get_gulag(name_or_sid: string | number): Optional<SmartTerrain> {
   return type(name_or_sid) === "number"
     ? get_gulag_by_sid(name_or_sid as string)
     : get_gulag_by_name(name_or_sid as string);
@@ -37,7 +37,7 @@ export function get_gulag(name_or_sid: string | number): Optional<ISmartTerrain>
  * todo;
  * todo;
  */
-export function get_npc_smart(obj: XR_game_object): Optional<ISmartTerrain> {
+export function get_npc_smart(obj: XR_game_object): Optional<SmartTerrain> {
   const se_obj: Optional<XR_cse_alife_creature_abstract> = alife().object(obj.id());
 
   if (se_obj === null) {

@@ -10,8 +10,8 @@ import {
 } from "xray16";
 
 import { TSection } from "@/mod/lib/types/scheme";
-import { ILevelChanger } from "@/mod/scripts/core/alife/LevelChanger";
-import { addObject, deleteObject, registry, resetObject } from "@/mod/scripts/core/database";
+import { LevelChanger } from "@/mod/scripts/core/alife/LevelChanger";
+import { addObject, deleteObject, resetObject } from "@/mod/scripts/core/database";
 import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -47,7 +47,7 @@ export const LevelChangerBinder: ILevelChangerBinder = declare_xr_class("LevelCh
 
     addObject(this.object);
 
-    const s_obj: ILevelChanger = alife().object(this.object.id()) as ILevelChanger;
+    const s_obj: LevelChanger = alife().object(this.object.id()) as LevelChanger;
 
     this.object.enable_level_changer(s_obj.enabled);
     this.object.set_level_changer_invitation(s_obj.hint);

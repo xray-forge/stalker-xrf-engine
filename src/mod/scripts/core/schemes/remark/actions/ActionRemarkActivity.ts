@@ -1,7 +1,7 @@
 import { action_base, level, patrol, XR_game_object, XR_sound_object, XR_vector } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
+import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
@@ -234,7 +234,7 @@ export function init_target(
     }
   } else if (target_type === "job") {
     const [job, gulag] = parse_target(target);
-    const smartTerrain: ISmartTerrain = get_gulag_by_name(gulag!)!;
+    const smartTerrain: SmartTerrain = get_gulag_by_name(gulag!)!;
 
     target_id = smartTerrain.idNPCOnJob(job!);
     target_initialized = target_id !== null && true;

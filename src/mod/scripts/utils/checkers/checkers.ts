@@ -16,9 +16,8 @@ import { TLevel } from "@/mod/globals/levels";
 import { ERelation } from "@/mod/globals/relations";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { Optional } from "@/mod/lib/types";
-import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
+import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
-import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { action_ids } from "@/mod/scripts/core/schemes/base/actions_id";
 import { getStorySquad } from "@/mod/scripts/utils/alife";
 import { isStalker } from "@/mod/scripts/utils/checkers/is";
@@ -87,7 +86,7 @@ export function isObjectOnLevel(object: Optional<XR_cse_alife_object>, levelName
 /**
  * @returns whether provided community squad is immune to surge.
  */
-export function isImmuneToSurge(object: ISimSquad): boolean {
+export function isImmuneToSurge(object: SimSquad): boolean {
   return surgeConfig.IMMUNE_SQUDS[object.player_id] === true;
 }
 

@@ -1,7 +1,7 @@
 import { alife, game, game_graph } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
+import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { SMART_NAMES_LTX } from "@/mod/scripts/core/database";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -35,7 +35,7 @@ export function initSmartNamesTable(): void {
 /**
  * Get smart terrain name string.
  */
-export function get_smart_terrain_name(smartTerrain: ISmartTerrain): string {
+export function get_smart_terrain_name(smartTerrain: SmartTerrain): string {
   const smartLevelName: string = alife().level_name(game_graph().vertex(smartTerrain.m_game_vertex_id).level_id());
   const smartName: string = smartTerrain.name();
 

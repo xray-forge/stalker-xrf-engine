@@ -11,7 +11,7 @@ import type {
   TNumberId,
   TSection,
 } from "@/mod/lib/types";
-import type { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
+import type { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import type { IAnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
 import type { ILabX8DoorBinder } from "@/mod/scripts/core/binders/LabX8DoorBinder";
 import type { ISignalLightBinder } from "@/mod/scripts/core/binders/SignalLightBinder";
@@ -181,7 +181,7 @@ export const registry = {
   /**
    * List of active smart terrains.
    */
-  smartTerrains: new LuaTable<TNumberId, ISmartTerrain>(),
+  smartTerrains: new LuaTable<TNumberId, SmartTerrain>(),
   /**
    * List of objects spawned by scripts execution.
    * $ key - object id, value - zone name.

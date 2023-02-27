@@ -28,7 +28,7 @@ import { communities } from "@/mod/globals/communities";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { Optional, TNumberId, TSection } from "@/mod/lib/types";
 import { ESchemeType } from "@/mod/lib/types/scheme";
-import { ISmartTerrain, setup_gulag_and_logic_on_spawn } from "@/mod/scripts/core/alife/SmartTerrain";
+import { setup_gulag_and_logic_on_spawn, SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import {
   addHelicopterEnemy,
   addObject,
@@ -224,7 +224,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
           level.vertex_position(registry.offlineObjects.get(se_obj.id).level_vertex_id as TNumberId)
         );
       } else if (se_obj.m_smart_terrain_id !== MAX_UNSIGNED_16_BIT) {
-        const smart_terrain = alife().object<ISmartTerrain>(se_obj.m_smart_terrain_id)!;
+        const smart_terrain: SmartTerrain = alife().object<SmartTerrain>(se_obj.m_smart_terrain_id)!;
 
         if (smart_terrain.arriving_npc.get(se_obj.id) === null) {
           const smart_task = smart_terrain.job_data.get(smart_terrain.npc_info.get(se_obj.id).job_id).alife_task;

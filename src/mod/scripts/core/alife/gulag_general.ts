@@ -15,7 +15,7 @@ import { SMART_TERRAIN_SECT } from "@/mod/globals/sections";
 import { AnyObject, EJobType, EScheme, JobTypeByScheme, Optional, TName, TSection } from "@/mod/lib/types";
 import { accessible_job, get_job_restrictor } from "@/mod/scripts/core/alife/combat_restrictor";
 import { registered_smartcovers } from "@/mod/scripts/core/alife/SmartCover";
-import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
+import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { registry } from "@/mod/scripts/core/database";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import {
@@ -38,7 +38,7 @@ const logger: LuaLogger = new LuaLogger("gulag_general");
  * todo;
  * todo;
  */
-export function loadGulagJobs(smart: ISmartTerrain): LuaMultiReturn<[LuaTable, string]> {
+export function loadGulagJobs(smart: SmartTerrain): LuaMultiReturn<[LuaTable, string]> {
   const smartName: string = smart.name();
   const gname: string = smartName;
   const job_table: LuaTable = new LuaTable();
@@ -51,15 +51,20 @@ export function loadGulagJobs(smart: ISmartTerrain): LuaMultiReturn<[LuaTable, s
     "[meet@generic_lager]\n" +
     "close_distance = {=is_wounded} 0, 2\n" +
     "close_anim = {=is_wounded} nil, {!is_squad_commander} nil, {=actor_has_weapon} threat_na, talk_default\n" +
-    "close_snd_hello = {=is_wounded} nil, {!is_squad_commander} nil, {=actor_enemy} nil, {=actor_has_weapon} meet_hide_weapon, meet_hello\n" +
-    "close_snd_bye = {=is_wounded} nil, {!is_squad_commander} nil, {=actor_enemy} nil, {=actor_has_weapon} nil, meet_hello\n" +
+    "close_snd_hello = {=is_wounded} nil, {!is_squad_commander} nil, {=actor_enemy} nil," +
+    " {=actor_has_weapon} meet_hide_weapon, meet_hello\n" +
+    "close_snd_bye = {=is_wounded} nil, {!is_squad_commander} nil," +
+    " {=actor_enemy} nil, {=actor_has_weapon} nil, meet_hello\n" +
     "close_victim = {=is_wounded} nil, {!is_squad_commander} nil, actor\n" +
     "far_distance = 0\n" +
     "far_anim = nil\n" +
     "far_snd = nil\n" +
     "far_victim = nil\n" +
-    "use = {=is_wounded} false, {!is_squad_commander} false, {=actor_enemy} false, {=has_enemy} false, {=actor_has_weapon} false, {=dist_to_actor_le(3)} true, false\n" +
-    "snd_on_use = {=is_wounded} nil, {=actor_enemy} nil, {!is_squad_commander} meet_use_no_talk_leader, {=actor_has_weapon} meet_use_no_weapon, {=has_enemy} meet_use_no_fight, {=dist_to_actor_le(3)} meet_use_no_default, nil\n" +
+    "use = {=is_wounded} false, {!is_squad_commander} false, {=actor_enemy} false, {=has_enemy} false," +
+    " {=actor_has_weapon} false, {=dist_to_actor_le(3)} true, false\n" +
+    "snd_on_use = {=is_wounded} nil, {=actor_enemy} nil, {!is_squad_commander} meet_use_no_talk_leader," +
+    " {=actor_has_weapon} meet_use_no_weapon, {=has_enemy} meet_use_no_fight," +
+    " {=dist_to_actor_le(3)} meet_use_no_default, nil\n" +
     "meet_dialog = nil\n" +
     "abuse = {=has_enemy} false, true\n" +
     "trade_enable = true\n" +
@@ -75,8 +80,11 @@ export function loadGulagJobs(smart: ISmartTerrain): LuaMultiReturn<[LuaTable, s
     "far_anim = nil\n" +
     "far_snd = nil\n" +
     "far_victim = nil\n" +
-    "use = {=is_wounded} false, {!is_squad_commander} false, {=actor_enemy} false, {=has_enemy} false, {=actor_has_weapon} false, {=dist_to_actor_le(3)} true, false\n" +
-    "snd_on_use = {=is_wounded} nil, {=actor_enemy} nil, {!is_squad_commander} meet_use_no_talk_leader, {=actor_has_weapon} meet_use_no_weapon, {=has_enemy} meet_use_no_fight, {=dist_to_actor_le(3)} meet_use_no_default, nil\n" +
+    "use = {=is_wounded} false, {!is_squad_commander} false, {=actor_enemy} false, {=has_enemy} false," +
+    " {=actor_has_weapon} false, {=dist_to_actor_le(3)} true, false\n" +
+    "snd_on_use = {=is_wounded} nil, {=actor_enemy} nil, {!is_squad_commander} meet_use_no_talk_leader," +
+    " {=actor_has_weapon} meet_use_no_weapon, {=has_enemy} meet_use_no_fight," +
+    " {=dist_to_actor_le(3)} meet_use_no_default, nil\n" +
     "meet_dialog = nil\n" +
     "abuse = {=has_enemy} false, true\n" +
     "trade_enable = true\n" +
@@ -234,7 +242,7 @@ export function loadGulagJobs(smart: ISmartTerrain): LuaMultiReturn<[LuaTable, s
       _precondition_params: {},
       _precondition_function: function (
         se_obj: XR_cse_alife_human_abstract,
-        smart: ISmartTerrain,
+        smart: SmartTerrain,
         precond_params: AnyObject
       ) {
         if (se_obj.community() === communities.zombied) {
@@ -327,7 +335,7 @@ export function loadGulagJobs(smart: ISmartTerrain): LuaMultiReturn<[LuaTable, s
       _precondition_params: {},
       _precondition_function: function (
         se_obj: XR_cse_alife_human_abstract,
-        smart: ISmartTerrain,
+        smart: SmartTerrain,
         precond_params: AnyObject
       ) {
         if (se_obj.community() === communities.zombied) {
@@ -433,7 +441,7 @@ export function loadGulagJobs(smart: ISmartTerrain): LuaMultiReturn<[LuaTable, s
         job_type: "path_job",
       },
       _precondition_params: {},
-      _precondition_function: function (se_obj: XR_cse_alife_object, smart: ISmartTerrain, precond_params: AnyObject) {
+      _precondition_function: function (se_obj: XR_cse_alife_object, smart: SmartTerrain, precond_params: AnyObject) {
         if (smart.smart_alarm_time === null) {
           return true;
         }
@@ -529,7 +537,7 @@ export function loadGulagJobs(smart: ISmartTerrain): LuaMultiReturn<[LuaTable, s
         _precondition_params: {},
         _precondition_function: function (
           se_obj: XR_cse_alife_human_abstract,
-          smart: ISmartTerrain,
+          smart: SmartTerrain,
           precond_params: AnyObject
         ) {
           if (se_obj.community() === communities.zombied) {
@@ -609,7 +617,7 @@ export function loadGulagJobs(smart: ISmartTerrain): LuaMultiReturn<[LuaTable, s
       _precondition_params: {},
       _precondition_function: function (
         se_obj: XR_cse_alife_human_abstract,
-        smart: ISmartTerrain,
+        smart: SmartTerrain,
         precond_params: AnyObject
       ) {
         return se_obj.community() !== communities.zombied;
@@ -672,7 +680,7 @@ export function loadGulagJobs(smart: ISmartTerrain): LuaMultiReturn<[LuaTable, s
       _precondition_params: {},
       _precondition_function: function (
         se_obj: XR_cse_alife_human_abstract,
-        smart: ISmartTerrain,
+        smart: SmartTerrain,
         precond_params: AnyObject
       ) {
         if (smart.smart_alarm_time === null) {
@@ -765,7 +773,7 @@ export function loadGulagJobs(smart: ISmartTerrain): LuaMultiReturn<[LuaTable, s
       _precondition_params: { changing_job: "logic@" + way_name },
       _precondition_function: function (
         se_obj: XR_cse_alife_human_abstract,
-        smart: ISmartTerrain,
+        smart: SmartTerrain,
         precond_params: AnyObject,
         npc_info: AnyObject
       ) {
@@ -854,7 +862,7 @@ export function loadGulagJobs(smart: ISmartTerrain): LuaMultiReturn<[LuaTable, s
       _precondition_params: { way_name: way_name },
       _precondition_function: function (
         se_obj: XR_cse_alife_human_abstract,
-        smart: ISmartTerrain,
+        smart: SmartTerrain,
         precond_params: AnyObject
       ) {
         if (se_obj.community() === communities.zombied) {
@@ -939,7 +947,7 @@ export function loadGulagJobs(smart: ISmartTerrain): LuaMultiReturn<[LuaTable, s
       _precondition_params: { way_name: way_name },
       _precondition_function: function (
         se_obj: XR_cse_alife_human_abstract,
-        smart: ISmartTerrain,
+        smart: SmartTerrain,
         precond_params: AnyObject
       ) {
         return accessible_job(se_obj, precond_params.way_name);
@@ -1148,7 +1156,7 @@ function add_exclusive_job(sect: TSection, work_field: string, smart_ini: XR_ini
     _precondition_params: { condlist: condlist },
     _precondition_function: function (
       se_obj: XR_cse_alife_human_abstract,
-      smart: ISmartTerrain,
+      smart: SmartTerrain,
       precond_params: AnyObject
     ) {
       const result: Optional<string> = pickSectionFromCondList(registry.actor, se_obj, precond_params.condlist);
@@ -1176,7 +1184,7 @@ function add_exclusive_job(sect: TSection, work_field: string, smart_ini: XR_ini
  * todo;
  * todo;
  */
-export function isJobInRestrictor(smart: ISmartTerrain, restrictorName: TName, wayName: string): Optional<boolean> {
+export function isJobInRestrictor(smart: SmartTerrain, restrictorName: TName, wayName: string): Optional<boolean> {
   if (restrictorName === null) {
     return null;
   }

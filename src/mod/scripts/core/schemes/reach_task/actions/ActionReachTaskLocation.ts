@@ -14,9 +14,9 @@ import {
   XR_vector,
 } from "xray16";
 
-import { IActor } from "@/mod/scripts/core/alife/Actor";
-import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
-import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
+import { Actor } from "@/mod/scripts/core/alife/Actor";
+import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
+import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { registry } from "@/mod/scripts/core/database";
 import { get_sim_obj_registry } from "@/mod/scripts/core/database/SimObjectsRegistry";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
@@ -52,7 +52,7 @@ export class ActionReachTaskLocation extends action_base {
   public initialize(): void {
     super.initialize();
 
-    const squad: ISimSquad = getObjectSquad(this.object)!;
+    const squad: SimSquad = getObjectSquad(this.object)!;
 
     this.target_id = squad.assigned_target_id!;
     this.squad_id = squad.id;
@@ -148,7 +148,7 @@ export class ActionReachTaskLocation extends action_base {
       return;
     }
 
-    const squad: ISimSquad = getObjectSquad(this.object)!;
+    const squad: SimSquad = getObjectSquad(this.object)!;
     let squad_target = get_sim_obj_registry().objects.get(squad.assigned_target_id!);
 
     if (squad_target === null && squad.get_script_target() !== null) {
@@ -213,7 +213,7 @@ export class ActionReachTaskLocation extends action_base {
   }
 }
 
-function update_movement(target: IActor | ISimSquad | ISmartTerrain, object: XR_game_object): void {
+function update_movement(target: Actor | SimSquad | SmartTerrain, object: XR_game_object): void {
   if (target !== null && !object.is_talking()) {
     if (SurgeManager.getInstance().isStarted) {
       object.set_movement_type(move.run);

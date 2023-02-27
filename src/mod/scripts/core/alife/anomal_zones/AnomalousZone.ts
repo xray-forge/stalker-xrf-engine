@@ -1,4 +1,4 @@
-import { cse_anomalous_zone, editor, game, system_ini, XR_cse_anomalous_zone, XR_CTime, XR_net_packet } from "xray16";
+import { cse_anomalous_zone, editor, game, system_ini, XR_CTime, XR_net_packet } from "xray16";
 
 import { Optional, TSection } from "@/mod/lib/types";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";
@@ -9,22 +9,24 @@ import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/tim
 
 const logger: LuaLogger = new LuaLogger("AnomalousZone");
 
-export interface IAnomalousZone extends XR_cse_anomalous_zone {
-  m_registred: boolean;
-  artefact_spawn_idle: number;
-  artefact_spawn_rnd: number;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class AnomalousZone extends cse_anomalous_zone {
+  public m_registred: boolean = false;
+  public artefact_spawn_idle: number = 0;
+  public artefact_spawn_rnd: number = 0;
 
-  last_spawn_time: Optional<XR_CTime>;
-}
+  public last_spawn_time: Optional<XR_CTime> = null;
 
-export const AnomalousZone = declare_xr_class("AnomalousZone", cse_anomalous_zone, {
-  __init(section: TSection): void {
-    cse_anomalous_zone.__init(this, section);
-
+  public constructor(section: TSection) {
+    super(section);
     this.m_registred = false;
-  },
-  on_register(): void {
-    cse_anomalous_zone.on_register(this);
+  }
+
+  public on_register(): void {
+    super.on_register();
 
     logger.info("Register:", this.id, this.name(), this.section_name());
 
@@ -41,9 +43,10 @@ export const AnomalousZone = declare_xr_class("AnomalousZone", cse_anomalous_zon
       false,
       100
     );
-  },
-  update(): void {
-    cse_anomalous_zone.update(this);
+  }
+
+  public update(): void {
+    super.update();
 
     if (this.last_spawn_time === null) {
       this.last_spawn_time = game.get_game_time();
@@ -56,9 +59,10 @@ export const AnomalousZone = declare_xr_class("AnomalousZone", cse_anomalous_zon
         // this.spawn_artefacts();
       }
     }
-  },
-  STATE_Write(packet: XR_net_packet): void {
-    cse_anomalous_zone.STATE_Write(this, packet);
+  }
+
+  public STATE_Write(packet: XR_net_packet): void {
+    super.STATE_Write(packet);
 
     if (!isSinglePlayerGame()) {
       return;
@@ -70,9 +74,10 @@ export const AnomalousZone = declare_xr_class("AnomalousZone", cse_anomalous_zon
       packet.w_u8(1);
       writeCTimeToPacket(packet, this.last_spawn_time);
     }
-  },
-  STATE_Read(packet: XR_net_packet, size: number): void {
-    cse_anomalous_zone.STATE_Read(this, packet, size);
+  }
+
+  public STATE_Read(packet: XR_net_packet, size: number): void {
+    super.STATE_Read(packet, size);
 
     if (editor() || !isSinglePlayerGame()) {
       return;
@@ -83,5 +88,5 @@ export const AnomalousZone = declare_xr_class("AnomalousZone", cse_anomalous_zon
     if (flag === 1) {
       this.last_spawn_time = readCTimeFromPacket(packet);
     }
-  },
-} as IAnomalousZone);
+  }
+}

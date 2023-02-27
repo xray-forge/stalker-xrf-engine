@@ -3,8 +3,8 @@ import { alife, ini_file, level, XR_EngineBinding, XR_game_object, XR_ini_file }
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { ammo, TAmmoItem } from "@/mod/globals/items/ammo";
 import { misc } from "@/mod/globals/items/misc";
-import { TSection } from "@/mod/lib/types";
-import { IStalker } from "@/mod/scripts/core/alife/Stalker";
+import { Optional, TSection } from "@/mod/lib/types";
+import { Stalker } from "@/mod/scripts/core/alife/Stalker";
 import { registry } from "@/mod/scripts/core/database";
 import { getCharacterCommunity, setItemCondition } from "@/mod/scripts/utils/alife";
 import { spawnAmmoForObject, spawnItemsForObject } from "@/mod/scripts/utils/alife_spawn";
@@ -130,7 +130,7 @@ export const DropManager: IDropManager = declare_xr_class("DropManager", null, {
     this.npc = npc;
   },
   create_release_item(): void {
-    const se_obj = alife().object<IStalker>(this.npc.id());
+    const se_obj: Optional<Stalker> = alife().object<Stalker>(this.npc.id());
 
     if (se_obj === null || se_obj.death_droped === true) {
       return;

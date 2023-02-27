@@ -3,8 +3,8 @@ import { alife, relation_registry, XR_cse_alife_creature_abstract, XR_game_objec
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { ERelation, relations, TRelation } from "@/mod/globals/relations";
 import { Maybe, Optional } from "@/mod/lib/types";
-import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
-import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
+import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
+import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { registry } from "@/mod/scripts/core/database";
 import { getCharacterCommunity, getStorySquad } from "@/mod/scripts/utils/alife";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -128,7 +128,7 @@ export function set_npc_sympathy(npc: Optional<XR_game_object>, new_sympathy: nu
 export function set_squad_goodwill(squad_id: string | number, new_goodwill: TRelation): void {
   logger.info("Applying new game relation between squad and actor:", squad_id, new_goodwill);
 
-  let squad: Optional<ISimSquad> = getStorySquad<ISimSquad>(squad_id as string);
+  let squad: Optional<SimSquad> = getStorySquad<SimSquad>(squad_id as string);
 
   if (squad === null) {
     if (type(squad_id) === "string") {
@@ -161,7 +161,7 @@ export function set_squad_goodwill_to_npc(
     goodwill = ERelation.FRIENDS;
   }
 
-  let squad: Optional<ISimSquad> = getStorySquad(squad_id as string);
+  let squad: Optional<SimSquad> = getStorySquad(squad_id as string);
 
   if (squad === null) {
     if (type(squad_id) === "string") {
@@ -198,7 +198,7 @@ export function set_squad_community_goodwill(
     goodwill = ERelation.FRIENDS;
   }
 
-  let squad: Optional<ISimSquad> = getStorySquad<ISimSquad>(squad_id as string);
+  let squad: Optional<SimSquad> = getStorySquad<SimSquad>(squad_id as string);
 
   if (squad === null) {
     if (type(squad_id) === "string") {
@@ -278,7 +278,7 @@ export function check_all_squad_members(squad_name: string, goodwill: TRelation)
   return false;
 }
 export function get_squad_goodwill_to_actor_by_id(squad_id: number): TRelation {
-  const squad: Optional<ISimSquad> = alife().object<ISimSquad>(squad_id);
+  const squad: Optional<SimSquad> = alife().object<SimSquad>(squad_id);
 
   if (squad === null) {
     abort("No such squad %s in board", tostring(squad_id));
@@ -306,7 +306,7 @@ export function get_squad_goodwill_to_actor_by_id(squad_id: number): TRelation {
   }
 }
 export function get_squad_goodwill_to_actor(squad_name: string): TRelation {
-  const squad: Optional<ISimSquad> = getStorySquad(squad_name);
+  const squad: Optional<SimSquad> = getStorySquad(squad_name);
 
   if (squad === null) {
     abort("No such squad %s in board", tostring(squad_name));
@@ -348,7 +348,7 @@ export function is_squad_neutral_to_actor(squad_name: string): boolean {
 
 export function set_gulag_relation_actor(smart_name: string, relation: TRelation): void {
   const actor: XR_game_object = registry.actor;
-  const gulag: ISmartTerrain = get_gulag_by_name(smart_name)!;
+  const gulag: SmartTerrain = get_gulag_by_name(smart_name)!;
 
   let goodwill: number = ERelation.NEUTRALS;
 
@@ -403,7 +403,7 @@ export function get_gulag_relation_actor(smart_name: string, relation: TRelation
 
 export function get_squad_relation_to_actor_by_id(squad_id: number): TRelation {
   const actor: Optional<XR_game_object> = registry.actor;
-  const squad: Optional<ISimSquad> = alife().object<ISimSquad>(squad_id);
+  const squad: Optional<SimSquad> = alife().object(squad_id);
 
   if (squad === null) {
     abort("No such squad %s in board", tostring(squad_id));

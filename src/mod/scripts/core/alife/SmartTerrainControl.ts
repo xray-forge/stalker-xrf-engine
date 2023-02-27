@@ -1,7 +1,7 @@
 import { game, TXR_net_processor, XR_CTime, XR_EngineBinding, XR_ini_file, XR_net_packet } from "xray16";
 
 import { Optional, TName } from "@/mod/lib/types";
-import { ISmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
+import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { registry } from "@/mod/scripts/core/database";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
 import { set_squad_goodwill } from "@/mod/scripts/core/GameRelationsManager";
@@ -30,7 +30,7 @@ export interface ISmartTerrainControl extends XR_EngineBinding {
   ignore_zone: string;
   alarm_start_sound: string;
   alarm_stop_sound: string;
-  smart: ISmartTerrain;
+  smart: SmartTerrain;
 
   alarm_time: Optional<XR_CTime>;
 
@@ -43,8 +43,12 @@ export interface ISmartTerrainControl extends XR_EngineBinding {
 }
 
 // CBaseOnActorControl
+/**
+ * todo;
+ * Do not use luabind for it
+ */
 export const SmartTerrainControl: ISmartTerrainControl = declare_xr_class("SmartTerrainControl", null, {
-  __init(smart: ISmartTerrain, ini: XR_ini_file, section: string): void {
+  __init(smart: SmartTerrain, ini: XR_ini_file, section: string): void {
     this.noweap_zone = getConfigString(ini, section, "noweap_zone", this, true, "");
     this.ignore_zone = getConfigString(ini, section, "ignore_zone", this, false, "");
 

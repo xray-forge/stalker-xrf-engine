@@ -1,7 +1,7 @@
 import { game, XR_CTime, XR_EngineBinding } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
+import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
 
 const STAY_POINT_IDLE_MIN = 180 * 60;
 const STAY_POINT_IDLE_MAX = 300 * 60;
@@ -24,7 +24,7 @@ export const SimSquadStayOnTargetAction: ISimSquadStayOnTargetAction = declare_x
   "SimSquadStayOnTargetAction",
   null,
   {
-    __init(squad: ISimSquad): void {
+    __init(squad: SimSquad): void {
       this.name = "stay_point";
       this.start_time = null;
       this.idle_time = math.random(STAY_POINT_IDLE_MIN, STAY_POINT_IDLE_MAX);

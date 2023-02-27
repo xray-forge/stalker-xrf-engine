@@ -1,4 +1,4 @@
-import { cse_alife_item_weapon, XR_cse_alife_item_weapon } from "xray16";
+import { cse_alife_item_weapon } from "xray16";
 
 import { Optional, TSection } from "@/mod/lib/types";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";
@@ -8,31 +8,34 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ItemWeapon");
 
-export interface IItemWeapon extends XR_cse_alife_item_weapon {
-  secret_item: Optional<boolean>;
-}
+/**
+ * todo;
+ */
+@LuabindClass()
+export class ItemWeapon extends cse_alife_item_weapon {
+  public secret_item: Optional<boolean> = false;
 
-export const ItemWeapon: IItemWeapon = declare_xr_class("ItemWeapon", cse_alife_item_weapon, {
-  __init(section: TSection): void {
-    cse_alife_item_weapon.__init(this, section);
+  public constructor(section: TSection) {
+    super(section);
+  }
 
-    this.secret_item = false;
-  },
-  on_register(): void {
-    cse_alife_item_weapon.on_register(this);
+  public on_register(): void {
+    super.on_register();
     checkSpawnIniForStoryId(this);
 
     this.secret_item = getTreasureManager().register_item(this);
-  },
-  on_unregister(): void {
+  }
+
+  public on_unregister(): void {
     unregisterStoryObjectById(this.id);
-    cse_alife_item_weapon.on_unregister(this);
-  },
-  can_switch_online(): boolean {
+    super.on_unregister();
+  }
+
+  public can_switch_online(): boolean {
     if (this.secret_item) {
       return false;
     }
 
-    return cse_alife_item_weapon.can_switch_online(this);
-  },
-} as IItemWeapon);
+    return super.can_switch_online();
+  }
+}

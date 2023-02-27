@@ -1,4 +1,4 @@
-import { cse_zone_visual, editor, game, system_ini, XR_cse_zone_visual, XR_CTime, XR_net_packet } from "xray16";
+import { cse_zone_visual, editor, game, system_ini, XR_CTime, XR_net_packet } from "xray16";
 
 import { Optional, TSection } from "@/mod/lib/types";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";
@@ -9,18 +9,21 @@ import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/tim
 
 const logger: LuaLogger = new LuaLogger("ZoneVisual");
 
-export interface IZoneVisual extends XR_cse_zone_visual {
-  last_spawn_time: Optional<XR_CTime>;
-  artefact_spawn_idle: number;
-  artefact_spawn_rnd: number;
-}
+/**
+ * todo;
+ */
+@LuabindClass()
+export class ZoneVisual extends cse_zone_visual {
+  public last_spawn_time: Optional<XR_CTime> = null;
+  public artefact_spawn_idle: number = 0;
+  public artefact_spawn_rnd: number = 0;
 
-export const ZoneVisual: IZoneVisual = declare_xr_class("ZoneVisual", cse_zone_visual, {
-  __init(section: TSection) {
-    cse_zone_visual.__init(this, section);
-  },
-  on_register(): void {
-    cse_zone_visual.on_register(this);
+  public constructor(section: TSection) {
+    super(section);
+  }
+
+  public on_register(): void {
+    super.on_register();
 
     logger.info("Register:", this.id, this.name(), this.section_name());
 
@@ -36,9 +39,10 @@ export const ZoneVisual: IZoneVisual = declare_xr_class("ZoneVisual", cse_zone_v
       false,
       100
     );
-  },
-  update(): void {
-    cse_zone_visual.update(this);
+  }
+
+  public update(): void {
+    super.update();
 
     if (this.last_spawn_time === null) {
       this.last_spawn_time = game.get_game_time();
@@ -52,9 +56,10 @@ export const ZoneVisual: IZoneVisual = declare_xr_class("ZoneVisual", cse_zone_v
         // this.spawn_artefacts();
       }
     }
-  },
-  STATE_Write(packet: XR_net_packet): void {
-    cse_zone_visual.STATE_Write(this, packet);
+  }
+
+  public STATE_Write(packet: XR_net_packet): void {
+    super.STATE_Write(packet);
 
     if (!isSinglePlayerGame()) {
       return;
@@ -66,22 +71,19 @@ export const ZoneVisual: IZoneVisual = declare_xr_class("ZoneVisual", cse_zone_v
       packet.w_u8(1);
       writeCTimeToPacket(packet, this.last_spawn_time);
     }
-  },
-  STATE_Read(packet: XR_net_packet, size: number): void {
-    cse_zone_visual.STATE_Read(this, packet, size);
+  }
 
-    if (editor()) {
+  public STATE_Read(packet: XR_net_packet, size: number): void {
+    super.STATE_Read(packet, size);
+
+    if (editor() || !isSinglePlayerGame()) {
       return;
     }
 
-    if (!isSinglePlayerGame()) {
-      return;
-    }
-
-    const flag = packet.r_u8();
+    const flag: number = packet.r_u8();
 
     if (flag === 1) {
       this.last_spawn_time = readCTimeFromPacket(packet);
     }
-  },
-} as IZoneVisual);
+  }
+}

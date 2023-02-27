@@ -19,7 +19,7 @@ import { info_portions } from "@/mod/globals/info_portions";
 import { levels, TLevel } from "@/mod/globals/levels";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { AnyCallablesModule, Optional, PartialRecord } from "@/mod/lib/types";
-import { ISimSquad } from "@/mod/scripts/core/alife/SimSquad";
+import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { registry, SURGE_MANAGER_LTX } from "@/mod/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
 import { get_sim_board, ISimBoard } from "@/mod/scripts/core/database/SimBoard";
@@ -45,9 +45,12 @@ export const sleep_fade_pp_eff_id: number = 4;
 
 const logger: LuaLogger = new LuaLogger("SurgeManager");
 
+/**
+ * todo;
+ */
 export class SurgeManager extends AbstractCoreManager {
   private static check_squad_smart_props(squad_id: number): boolean {
-    const squad: Optional<ISimSquad> = alife().object(squad_id);
+    const squad: Optional<SimSquad> = alife().object(squad_id);
 
     if (squad) {
       const board = get_sim_board();

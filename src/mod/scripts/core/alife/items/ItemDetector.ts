@@ -1,4 +1,4 @@
-import { cse_alife_item_detector, XR_cse_alife_item_detector } from "xray16";
+import { cse_alife_item_detector } from "xray16";
 
 import { Optional, TSection } from "@/mod/lib/types";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";
@@ -8,29 +8,33 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ItemDetector");
 
-export interface IItemDetector extends XR_cse_alife_item_detector {
-  secret_item: Optional<boolean>;
-}
+/**
+ * todo;
+ */
+@LuabindClass()
+export class ItemDetector extends cse_alife_item_detector {
+  public secret_item: Optional<boolean> = false;
 
-export const ItemDetector: IItemDetector = declare_xr_class("ItemDetector", cse_alife_item_detector, {
-  __init(section: TSection): void {
-    cse_alife_item_detector.__init(this, section);
-    this.secret_item = false;
-  },
-  on_register(): void {
-    cse_alife_item_detector.on_register(this);
+  public constructor(section: TSection) {
+    super(section);
+  }
+
+  public on_register(): void {
+    super.on_register();
     checkSpawnIniForStoryId(this);
     this.secret_item = getTreasureManager().register_item(this);
-  },
-  on_unregister(): void {
+  }
+
+  public on_unregister(): void {
     unregisterStoryObjectById(this.id);
-    cse_alife_item_detector.on_unregister(this);
-  },
-  can_switch_online(): boolean {
+    super.on_unregister();
+  }
+
+  public can_switch_online(): boolean {
     if (this.secret_item) {
       return false;
     }
 
-    return cse_alife_item_detector.can_switch_online(this);
-  },
-} as IItemDetector);
+    return super.can_switch_online();
+  }
+}
