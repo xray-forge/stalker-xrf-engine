@@ -34,13 +34,10 @@ export class Monster extends cse_alife_monster_base {
   public ini: Optional<XR_ini_file> = null;
   public ini_initialized: boolean = false;
 
-  public spawner_present: boolean = false;
-  public check_distance: boolean = false;
   public min_distance: number = 150;
   public m_registred: boolean = false;
 
   public job_online: Optional<number> = null;
-  public job_online_condlist: Optional<number> = null;
 
   public constructor(section: TSection) {
     super(section);

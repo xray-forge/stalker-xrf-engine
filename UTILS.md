@@ -28,5 +28,3 @@ lua_rawset(L, LUA_REGISTRYINDEX);
 lua_pushcclosure(L, &deprecated_super, 0);
 lua_setglobal(L, "super");
 ```
-
-In typescript counterpart methods are declare_xr_class and create_xr_class_instance.

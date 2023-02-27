@@ -30,7 +30,6 @@ export class Stalker extends cse_alife_human_stalker {
   public ini_initialized: boolean = false;
 
   public job_online: Optional<boolean> = null;
-  public job_online_condlist: Optional<boolean> = null;
   public death_droped: boolean = false;
   public m_registred: boolean = false;
   public sim_forced_online: boolean = false;

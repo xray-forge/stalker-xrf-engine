@@ -4,7 +4,7 @@ import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
-import { IPPEffector, PPEffector } from "@/mod/scripts/core/schemes/sr_postprocess/PPEffector";
+import { PPEffector } from "@/mod/scripts/core/schemes/sr_postprocess/PPEffector";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { cfg_get_switch_conditions, getConfigNumber } from "@/mod/scripts/utils/configs";
@@ -52,7 +52,7 @@ export class SchemePostProcess extends AbstractScheme {
   public gray: number = 1;
   public gray_amplitude: number = 1.0;
 
-  public pp!: IPPEffector;
+  public pp!: PPEffector;
   public noise!: XR_noise;
   public gray_color = new color(0.5, 0.5, 0.5);
   public base_color = new color(0.5, 0.5, 0.5);
@@ -76,7 +76,7 @@ export class SchemePostProcess extends AbstractScheme {
     this.hit_power = 0;
     this.intensity_inertion = this.intensity_base < 0.0 ? -this.state.intensity_speed : this.state.intensity_speed;
 
-    this.pp = create_xr_class_instance(PPEffector, this.object.id() + 2000);
+    this.pp = new PPEffector(this.object.id() + 2000);
     this.pp.params.noise = new noise();
     this.pp.start();
 
