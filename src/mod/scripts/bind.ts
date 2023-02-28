@@ -1,4 +1,4 @@
-import { alife, clsid, XR_game_object, XR_ini_file, XR_object_binder } from "xray16";
+import { alife, clsid, XR_game_object, XR_ini_file } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { ActorBinder } from "@/mod/scripts/core/binders/ActorBinder";
@@ -25,20 +25,11 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("_bindings");
 
-/**
- * todo;
- */
-function createBinder(target: typeof XR_object_binder<XR_game_object>): (object: XR_game_object) => void {
-  return (object: XR_game_object) => {
-    object.bind_object(new target(object));
-  };
-}
-
 // @ts-ignore, declare lua global
 list = {
-  bindActor: createBinder(ActorBinder),
-  bindAnomalyField: createBinder(AnomalyFieldBinder),
-  bindAnomalyZone: createBinder(AnomalyZoneBinder),
+  bindActor: (object: XR_game_object) => object.bind_object(new ActorBinder(object)),
+  bindAnomalyField: (object: XR_game_object) => object.bind_object(new AnomalyFieldBinder(object)),
+  bindAnomalyZone: (object: XR_game_object) => object.bind_object(new AnomalyZoneBinder(object)),
   bindArenaZone: (object: XR_game_object) => {
     const ini: Optional<XR_ini_file> = object.spawn_ini();
 
@@ -46,10 +37,10 @@ list = {
       object.bind_object(new ArenaZoneBinder(object));
     }
   },
-  bindArtefact: createBinder(ArtefactBinder),
-  bindCamp: createBinder(CampBinder),
-  bindCampfire: createBinder(CampfireBinder),
-  bindCrow: createBinder(CrowBinder),
+  bindArtefact: (object: XR_game_object) => object.bind_object(new ArtefactBinder(object)),
+  bindCamp: (object: XR_game_object) => object.bind_object(new CampBinder(object)),
+  bindCampfire: (object: XR_game_object) => object.bind_object(new CampfireBinder(object)),
+  bindCrow: (object: XR_game_object) => object.bind_object(new CrowBinder(object)),
   bindHeli: (object: XR_game_object) => {
     const ini: Optional<XR_ini_file> = object.spawn_ini();
 
@@ -57,10 +48,10 @@ list = {
       object.bind_object(new HeliBinder(object, ini));
     }
   },
-  bindLabX8Door: createBinder(LabX8DoorBinder),
-  bindLevelChanger: createBinder(LevelChangerBinder),
-  bindMonster: createBinder(MonsterBinder),
-  bindPhantom: createBinder(PhantomBinder),
+  bindLabX8Door: (object: XR_game_object) => object.bind_object(new LabX8DoorBinder(object)),
+  bindLevelChanger: (object: XR_game_object) => object.bind_object(new LevelChangerBinder(object)),
+  bindMonster: (object: XR_game_object) => object.bind_object(new MonsterBinder(object)),
+  bindPhantom: (object: XR_game_object) => object.bind_object(new PhantomBinder(object)),
   bindPhysicObject: (object: XR_game_object) => {
     const ini: Optional<XR_ini_file> = object.spawn_ini();
 
@@ -72,9 +63,9 @@ list = {
 
     object.bind_object(new PhysicObjectBinder(object));
   },
-  bindRestrictor: createBinder(RestrictorBinder),
-  bindSignalLight: createBinder(SignalLightBinder),
-  bindSmartCover: createBinder(SmartCoverBinder),
+  bindRestrictor: (object: XR_game_object) => object.bind_object(new RestrictorBinder(object)),
+  bindSignalLight: (object: XR_game_object) => object.bind_object(new SignalLightBinder(object)),
+  bindSmartCover: (object: XR_game_object) => object.bind_object(new SmartCoverBinder(object)),
   bindSmartTerrain: (object: XR_game_object) => {
     const ini: Optional<XR_ini_file> = object.spawn_ini();
 
@@ -90,5 +81,5 @@ list = {
       }
     }
   },
-  bindStalker: createBinder(StalkerBinder),
+  bindStalker: (object: XR_game_object) => object.bind_object(new StalkerBinder(object)),
 };
