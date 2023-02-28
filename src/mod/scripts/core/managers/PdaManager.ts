@@ -91,8 +91,6 @@ export class PdaManager extends AbstractCoreManager {
   public fillFactionState(state: Record<string, any>): void {
     logger.info("Fill faction state");
 
-    // const board = get_global("sim_board").get_sim_board();
-
     state.member_count = 0;
     state.resource = 0;
     state.power = 0;

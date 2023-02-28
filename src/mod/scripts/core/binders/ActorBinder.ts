@@ -15,7 +15,6 @@ import {
   XR_cse_alife_creature_actor,
   XR_game_object,
   XR_net_packet,
-  XR_object_binder,
   XR_reader,
 } from "xray16";
 
@@ -24,6 +23,7 @@ import { post_processors } from "@/mod/globals/animation/post_processors";
 import { game_difficulties_by_number } from "@/mod/globals/game_difficulties";
 import { info_portions } from "@/mod/globals/info_portions";
 import { ammo } from "@/mod/globals/items/ammo";
+import { drugs } from "@/mod/globals/items/drugs";
 import { TLevel } from "@/mod/globals/levels";
 import { AnyCallable, AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
@@ -60,7 +60,7 @@ let travel_func: Optional<AnyCallable> = null;
 
 const logger: LuaLogger = new LuaLogger("ActorBinder");
 
-const detective_achievement_items: LuaTable<number, string> = ["medkit", "antirad", "bandage"] as any;
+const detective_achievement_items: LuaTable<number, string> = [drugs.medkit, drugs.antirad, drugs.antirad] as any;
 
 const mutant_hunter_achievement_items: LuaTable<number, string> = [
   ammo["ammo_5.45x39_ap"],
@@ -70,62 +70,42 @@ const mutant_hunter_achievement_items: LuaTable<number, string> = [
   ammo.ammo_12x76_zhekan,
 ] as any;
 
-export interface IActorBinder extends XR_object_binder {
-  bCheckStart: boolean;
-  isSurgeManagerLoaded: boolean;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class ActorBinder extends object_binder {
+  public bCheckStart: boolean = false;
+  public isSurgeManagerLoaded: boolean = false;
 
-  task_manager: ITaskManager;
-  surgeManager: SurgeManager;
-  eventsManager: EventsManager;
-  weatherManager: WeatherManager;
+  public task_manager!: ITaskManager;
+  public readonly surgeManager: SurgeManager = SurgeManager.getInstance();
+  public readonly eventsManager: EventsManager = EventsManager.getInstance();
+  public readonly weatherManager: WeatherManager = WeatherManager.getInstance();
 
-  loaded: boolean;
-  spawn_frame: number;
+  public loaded: boolean = false;
+  public spawn_frame: number = 0;
 
-  last_level_name: Optional<string>;
-  deimos_intensity: Optional<number>;
-  loaded_active_slot: number;
-  loaded_slot_applied: boolean;
+  public last_level_name: Optional<string> = null;
+  public deimos_intensity: Optional<number> = null;
+  public loaded_active_slot: number = 3;
+  public loaded_slot_applied: boolean = false;
 
-  weapon_hide: boolean;
-  weapon_hide_in_dialog: boolean;
+  public weapon_hide: boolean = false;
+  public weapon_hide_in_dialog: boolean = false;
 
-  last_detective_achievement_spawn_time: Optional<any>;
-  last_mutant_hunter_achievement_spawn_time: Optional<any>;
+  public last_detective_achievement_spawn_time: Optional<any> = null;
+  public last_mutant_hunter_achievement_spawn_time: Optional<any> = null;
 
-  st: IStoredObject;
+  public st!: IStoredObject;
 
-  take_item_from_box(box: XR_game_object, item: XR_game_object): void;
-  info_callback(npc: XR_game_object, info_id: string): void;
-  on_trade(item: XR_game_object, sell_bye: boolean, money: number): void;
-  article_callback(): void;
-  on_item_take(obj: XR_game_object): void;
-  on_item_drop(object: XR_game_object): void;
-  use_inventory_item(obj: XR_game_object): void;
-  task_callback(_task: XR_CGameTask, _state: number): void;
-  check_detective_achievement(): void;
-  check_mutant_hunter_achievement(): void;
-}
-
-export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_binder, {
-  __init(object: XR_game_object): void {
-    object_binder.__init(this, object);
+  public constructor(object: XR_game_object) {
+    super(object);
 
     logger.info("Init new actor binder:", object.name());
+  }
 
-    this.bCheckStart = false;
-    this.surgeManager = SurgeManager.getInstance();
-    this.eventsManager = EventsManager.getInstance();
-    this.weatherManager = WeatherManager.getInstance();
-    this.last_level_name = null;
-    this.deimos_intensity = null;
-    this.loaded_active_slot = 3;
-    this.loaded_slot_applied = false;
-
-    this.last_detective_achievement_spawn_time = null;
-    this.last_mutant_hunter_achievement_spawn_time = null;
-  },
-  net_spawn(data: XR_cse_alife_creature_actor): boolean {
+  public net_spawn(data: XR_cse_alife_creature_actor): boolean {
     logger.info("Net spawn:", data.name());
 
     level.show_indicators();
@@ -136,13 +116,13 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
 
     weapon_hide = new LuaTable();
 
-    if (object_binder.net_spawn(this, data) === false) {
+    if (!super.net_spawn(data)) {
       return false;
     }
 
     addActor(this.object);
 
-    (registry.actor as unknown as IActorBinder).deimos_intensity = this.deimos_intensity;
+    (registry.actor as unknown as ActorBinder).deimos_intensity = this.deimos_intensity;
 
     this.deimos_intensity = null;
 
@@ -166,8 +146,9 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     this.eventsManager.emitEvent(EGameEvent.ACTOR_NET_SPAWN);
 
     return true;
-  },
-  net_destroy(): void {
+  }
+
+  public net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
 
     GlobalSound.stop_sounds_by_id(this.object.id());
@@ -213,10 +194,11 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
 
     this.eventsManager.emitEvent(EGameEvent.ACTOR_NET_DESTROY);
 
-    object_binder.net_destroy(this);
-  },
-  reinit(): void {
-    object_binder.reinit(this);
+    super.net_destroy();
+  }
+
+  public reinit(): void {
+    super.reinit();
 
     const npc_id = this.object.id();
 
@@ -232,16 +214,21 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     this.object.set_callback(callback.task_state, this.task_callback, this);
     this.object.set_callback(callback.take_item_from_box, this.take_item_from_box, this);
     this.object.set_callback(callback.use_object, this.use_inventory_item, this);
-  },
-  take_item_from_box(box: XR_game_object, item: XR_game_object): void {
+  }
+
+  public take_item_from_box(box: XR_game_object, item: XR_game_object): void {
     logger.info("Take item from box:", box.name(), item.name());
-  },
-  info_callback(npc: XR_game_object, info_id: string): void {
+  }
+
+  public info_callback(npc: XR_game_object, info_id: string): void {
     logger.info("[info callback]");
-  },
-  on_trade(item, sell_bye, money): void {},
-  article_callback(): void {},
-  on_item_take(object: XR_game_object): void {
+  }
+
+  public on_trade(item: XR_game_object, sell_bye: boolean, money: number): void {}
+
+  public article_callback(): void {}
+
+  public on_item_take(object: XR_game_object): void {
     logger.info("On item take:", object.name());
 
     if (isArtefact(object)) {
@@ -261,9 +248,11 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     }
 
     getTreasureManager().on_item_take(object.id());
-  },
-  on_item_drop(object: XR_game_object): void {},
-  use_inventory_item(obj: XR_game_object): void {
+  }
+
+  public on_item_drop(object: XR_game_object): void {}
+
+  public use_inventory_item(obj: XR_game_object): void {
     if (obj !== null) {
       const s_obj = alife().object(obj.id());
 
@@ -282,8 +271,9 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
         get_console().execute("snd_volume_eff 0");
       }
     }
-  },
-  task_callback(task_object, _state: TXR_TaskState): void {
+  }
+
+  public task_callback(task_object: XR_CGameTask, _state: TXR_TaskState): void {
     if (_state !== task.fail) {
       if (_state === task.completed) {
         send_task(registry.actor, "complete", task_object);
@@ -293,9 +283,10 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     }
 
     get_global<AnyCallablesModule>("extern").task_callback(task_object, _state);
-  },
-  update(delta: number): void {
-    object_binder.update(this, delta);
+  }
+
+  public update(delta: number): void {
+    super.update(delta);
 
     const [index] = string.find(command_line(), "-designer");
 
@@ -413,11 +404,12 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     getTreasureManager().update();
 
     mapDisplayManager.update();
-  },
-  save(packet: XR_net_packet): void {
+  }
+
+  public save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, ActorBinder.__name);
 
-    object_binder.save(this, packet);
+    super.save(packet);
 
     packet.w_u8(level.get_game_difficulty());
 
@@ -482,11 +474,12 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     }
 
     setSaveMarker(packet, true, ActorBinder.__name);
-  },
-  load(reader: XR_reader): void {
+  }
+
+  public load(reader: XR_reader): void {
     setLoadMarker(reader, false, ActorBinder.__name);
 
-    object_binder.load(this, reader);
+    super.load(reader);
 
     const game_difficulty: number = reader.r_u8();
 
@@ -549,9 +542,10 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
     }
 
     setLoadMarker(reader, true, ActorBinder.__name);
-  },
-  check_detective_achievement(): void {
-    if (!hasAlifeInfo("detective_achievement_gained")) {
+  }
+
+  public check_detective_achievement(): void {
+    if (!hasAlifeInfo(info_portions.detective_achievement_gained)) {
       return;
     }
 
@@ -567,9 +561,10 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
       ]);
       this.last_detective_achievement_spawn_time = game.get_game_time();
     }
-  },
-  check_mutant_hunter_achievement(): void {
-    if (!hasAlifeInfo("mutant_hunter_achievement_gained")) {
+  }
+
+  public check_mutant_hunter_achievement(): void {
+    if (!hasAlifeInfo(info_portions.mutant_hunter_achievement_gained)) {
       return;
     }
 
@@ -585,8 +580,8 @@ export const ActorBinder: IActorBinder = declare_xr_class("ActorBinder", object_
       ]);
       this.last_mutant_hunter_achievement_spawn_time = game.get_game_time();
     }
-  },
-} as IActorBinder);
+  }
+}
 
 export function check_for_weapon_hide_by_zones(): boolean {
   for (const [k, v] of weapon_hide) {

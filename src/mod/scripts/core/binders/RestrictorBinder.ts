@@ -1,4 +1,4 @@
-import { object_binder, XR_cse_alife_object, XR_game_object, XR_net_packet, XR_object_binder, XR_reader } from "xray16";
+import { object_binder, XR_cse_alife_object, XR_game_object, XR_net_packet, XR_reader } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { ESchemeType, TSection } from "@/mod/lib/types/scheme";
@@ -12,30 +12,32 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("RestrictorBinder");
 
-export interface IRestrictorBinder extends XR_object_binder {
-  isInitialized: boolean;
-  isLoaded: boolean;
-  state: IStoredObject;
-}
+/**
+ * todo;
+ */
+@LuabindClass()
+export class RestrictorBinder extends object_binder {
+  public isInitialized: boolean = false;
+  public isLoaded: boolean = false;
+  public state: IStoredObject = {};
 
-export const RestrictorBinder: IRestrictorBinder = declare_xr_class("RestrictorBinder", object_binder, {
-  __init(object: XR_game_object): void {
-    object_binder.__init(this, object);
+  public constructor(object: XR_game_object) {
+    super(object);
+  }
 
-    this.isInitialized = false;
-    this.isLoaded = false;
-  },
-  reload(section: TSection): void {
-    object_binder.reload(this, section);
-  },
-  reinit(): void {
-    object_binder.reinit(this);
+  public reload(section: TSection): void {
+    super.reload(section);
+  }
+
+  public reinit(): void {
+    super.reinit();
 
     this.state = {};
     registry.objects.set(this.object.id(), this.state);
-  },
-  net_spawn(object: XR_cse_alife_object): boolean {
-    if (!object_binder.net_spawn(this, object)) {
+  }
+
+  public net_spawn(object: XR_cse_alife_object): boolean {
+    if (!super.net_spawn(object)) {
       return false;
     }
 
@@ -52,8 +54,9 @@ export const RestrictorBinder: IRestrictorBinder = declare_xr_class("RestrictorB
     }
 
     return true;
-  },
-  net_destroy(): void {
+  }
+
+  public net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
 
     GlobalSound.stop_sounds_by_id(this.object.id());
@@ -67,9 +70,10 @@ export const RestrictorBinder: IRestrictorBinder = declare_xr_class("RestrictorB
     deleteZone(this.object);
 
     registry.objects.delete(this.object.id());
-    object_binder.net_destroy(this);
-  },
-  update(delta: number): void {
+    super.net_destroy();
+  }
+
+  public update(delta: number): void {
     const activeSection: Optional<TSection> = this.state.active_section as Optional<TSection>;
     const objectId: number = this.object.id();
 
@@ -92,25 +96,28 @@ export const RestrictorBinder: IRestrictorBinder = declare_xr_class("RestrictorB
     }
 
     GlobalSound.update(objectId);
-  },
-  net_save_relevant(object: XR_object_binder): boolean {
+  }
+
+  public net_save_relevant(): boolean {
     return true;
-  },
-  save(packet: XR_net_packet): void {
+  }
+
+  public save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, RestrictorBinder.__name);
-    object_binder.save(this, packet);
+    super.save(packet);
 
     save_obj(this.object, packet);
     setSaveMarker(packet, true, RestrictorBinder.__name);
-  },
-  load(reader: XR_reader): void {
+  }
+
+  public load(reader: XR_reader): void {
     setLoadMarker(reader, false, RestrictorBinder.__name);
 
     this.isLoaded = true;
 
-    object_binder.load(this, reader);
+    super.load(reader);
 
     load_obj(this.object, reader);
     setLoadMarker(reader, true, RestrictorBinder.__name);
-  },
-} as IRestrictorBinder);
+  }
+}

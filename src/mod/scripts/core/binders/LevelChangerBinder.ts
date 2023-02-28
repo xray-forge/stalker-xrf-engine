@@ -5,7 +5,6 @@ import {
   XR_cse_alife_object,
   XR_game_object,
   XR_net_packet,
-  XR_object_binder,
   XR_reader,
 } from "xray16";
 
@@ -18,24 +17,30 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("LevelChangerBinder");
 
-export interface ILevelChangerBinder extends XR_object_binder {}
+/**
+ * todo;
+ */
+@LuabindClass()
+export class LevelChangerBinder extends object_binder {
+  public constructor(object: XR_game_object) {
+    super(object);
+  }
 
-export const LevelChangerBinder: ILevelChangerBinder = declare_xr_class("LevelChangerBinder", object_binder, {
-  __init(object: XR_game_object): void {
-    object_binder.__init(this, object);
-  },
-  update(delta: number): void {
-    object_binder.update(this, delta);
-  },
-  reload(section: TSection): void {
-    object_binder.reload(this, section);
-  },
-  reinit(): void {
-    object_binder.reinit(this);
+  public update(delta: number): void {
+    super.update(delta);
+  }
+
+  public reload(section: TSection): void {
+    super.reload(section);
+  }
+
+  public reinit(): void {
+    super.reinit();
     resetObject(this.object);
-  },
-  net_spawn(cse_object: XR_cse_alife_object): boolean {
-    if (!object_binder.net_spawn(this, cse_object)) {
+  }
+
+  public net_spawn(cse_object: XR_cse_alife_object): boolean {
+    if (!super.net_spawn(cse_object)) {
       return false;
     }
 
@@ -55,29 +60,33 @@ export const LevelChangerBinder: ILevelChangerBinder = declare_xr_class("LevelCh
     logger.info("Net spawned:", this.object.id(), s_obj.enabled, s_obj.hint);
 
     return true;
-  },
-  net_destroy(): void {
+  }
+
+  public net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
     deleteObject(this.object);
-    object_binder.net_destroy(this);
-  },
-  net_save_relevant(target: XR_object_binder): boolean {
+    super.net_destroy();
+  }
+
+  public net_save_relevant(): boolean {
     return true;
-  },
-  save(packet: XR_net_packet): void {
+  }
+
+  public save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, LevelChangerBinder.__name);
 
-    object_binder.save(this, packet);
+    super.save(packet);
     save_obj(this.object, packet);
 
     setSaveMarker(packet, true, LevelChangerBinder.__name);
-  },
-  load(reader: XR_reader): void {
+  }
+
+  public load(reader: XR_reader): void {
     setLoadMarker(reader, false, LevelChangerBinder.__name);
 
-    object_binder.load(this, reader);
+    super.load(reader);
     load_obj(this.object, reader);
 
     setLoadMarker(reader, true, LevelChangerBinder.__name);
-  },
-} as ILevelChangerBinder);
+  }
+}

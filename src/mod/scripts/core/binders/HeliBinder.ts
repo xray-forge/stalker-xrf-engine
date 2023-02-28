@@ -16,20 +16,12 @@ import {
   XR_vector,
 } from "xray16";
 
-import { ESchemeType, Optional } from "@/mod/lib/types";
-import {
-  addHelicopter,
-  addObject,
-  deleteHelicopter,
-  deleteObject,
-  IStoredObject,
-  registry,
-  resetObject,
-} from "@/mod/scripts/core/database";
+import { ESchemeType, Optional, TSection } from "@/mod/lib/types";
+import { addHelicopter, deleteHelicopter, IStoredObject, registry, resetObject } from "@/mod/scripts/core/database";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { get_heli_health } from "@/mod/scripts/core/schemes/heli_move/heli_utils";
 import { HeliCombat } from "@/mod/scripts/core/schemes/heli_move/HeliCombat";
-import { get_heli_firer } from "@/mod/scripts/core/schemes/heli_move/HeliFire";
+import { get_heli_firer, HeliFire } from "@/mod/scripts/core/schemes/heli_move/HeliFire";
 import { initializeGameObject } from "@/mod/scripts/core/schemes/initializeGameObject";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
 import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
@@ -40,42 +32,39 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("HeliBinder");
 
-export interface IHeliBinder extends XR_object_binder {
-  st: IStoredObject;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class HeliBinder extends object_binder {
+  public readonly ini: XR_ini_file;
 
-  ini: XR_ini_file;
-  loaded: boolean;
-  initialized: boolean;
-  heli_fire: any;
-  last_hit_snd_timeout: number;
-  flame_start_health: number;
+  public st: IStoredObject = {};
+  public loaded: boolean = false;
+  public initialized: boolean = false;
+  public heli_fire: HeliFire;
+  public last_hit_snd_timeout: number = 0;
+  public flame_start_health: number = 0;
 
-  snd_hit: string;
-  snd_damage: string;
-  snd_down: string;
+  public snd_hit!: string;
+  public snd_damage!: string;
+  public snd_down!: string;
 
-  heliObject: XR_CHelicopter;
+  public heliObject!: XR_CHelicopter;
 
-  check_health(): void;
-
-  on_hit(power: number, impulse: number, hit_type: number, enemy_id: number): void;
-  on_point(distance: number, position: XR_vector, path_idx: number): void;
-}
-
-export const HeliBinder: IHeliBinder = declare_xr_class("HeliBinder", object_binder, {
-  __init(object: XR_game_object, ini: XR_ini_file): void {
-    object_binder.__init(this, object);
+  public constructor(object: XR_game_object, ini: XR_ini_file) {
+    super(object);
 
     this.ini = ini;
-    this.initialized = false;
-    this.loaded = false;
     this.heli_fire = get_heli_firer(object);
-  },
-  reload(section: string): void {
-    object_binder.reload(this, section);
-  },
-  reinit(): void {
-    object_binder.reinit(this);
+  }
+
+  public reload(section: TSection): void {
+    super.reload(section);
+  }
+
+  public reinit(): void {
+    super.reinit();
 
     this.st = resetObject(this.object);
     this.heliObject = this.object.get_helicopter();
@@ -99,9 +88,10 @@ export const HeliBinder: IHeliBinder = declare_xr_class("HeliBinder", object_bin
 
     this.st.last_alt = this.heliObject.GetRealAltitude();
     this.st.alt_check_time = time_global() + 1000;
-  },
-  update(delta: number): void {
-    object_binder.update(this, delta);
+  }
+
+  public update(delta: number): void {
+    super.update(delta);
 
     const actor: Optional<XR_game_object> = registry.actor;
 
@@ -125,46 +115,52 @@ export const HeliBinder: IHeliBinder = declare_xr_class("HeliBinder", object_bin
     this.check_health();
 
     GlobalSound.update(this.object.id());
-  },
-  net_spawn(object: XR_cse_alife_object): boolean {
-    if (!object_binder.net_spawn(this, object)) {
+  }
+
+  public net_spawn(object: XR_cse_alife_object): boolean {
+    if (!super.net_spawn(object)) {
       return false;
     }
 
     addHelicopter(this.object);
 
     return true;
-  },
-  net_destroy(): void {
+  }
+
+  public net_destroy(): void {
     deleteHelicopter(this.object);
 
-    object_binder.net_destroy(this);
-  },
-  net_save_relevant(target: XR_object_binder): boolean {
+    super.net_destroy();
+  }
+
+  public net_save_relevant(): boolean {
     return true;
-  },
-  save(packet: XR_net_packet): void {
-    object_binder.save(this, packet);
+  }
+
+  public save(packet: XR_net_packet): void {
+    super.save(packet);
     setSaveMarker(packet, false, HeliBinder.__name);
     // --printf( "heli_binder: save")
 
     save_obj(this.object, packet);
     setSaveMarker(packet, true, HeliBinder.__name);
     this.st.combat!.save(packet);
-  },
-  load(reader: XR_reader): void {
+  }
+
+  public load(reader: XR_reader): void {
     this.loaded = true;
     setLoadMarker(reader, false, HeliBinder.__name);
     // --printf("generic_object_binder:load(): this.object:name()='%s'", this.object:name())
-    object_binder.load(this, reader);
+    super.load(reader);
 
     // --printf( "heli_binder: load")
 
     load_obj(this.object, reader);
     setLoadMarker(reader, true, HeliBinder.__name);
     this.st.combat!.load(reader);
-  },
-  check_health(): void {
+  }
+
+  public check_health(): void {
     const heli = this.heliObject;
 
     // --printf( "heli health: %d", heli:GetfHealth() )
@@ -185,8 +181,9 @@ export const HeliBinder: IHeliBinder = declare_xr_class("HeliBinder", object_bin
         // --            GlobalSound.set_sound_play(this.object:id(), this.snd_down)
       }
     }
-  },
-  on_hit(power: number, impulse: number, hit_type: number, enemy_id: number): void {
+  }
+
+  public on_hit(power: number, impulse: number, hit_type: number, enemy_id: number): void {
     const enemy: Optional<XR_game_object> = level.object_by_id(enemy_id);
     const enemy_cls_id: Optional<TXR_cls_id> = getClsId(enemy);
 
@@ -203,10 +200,11 @@ export const HeliBinder: IHeliBinder = declare_xr_class("HeliBinder", object_bin
       // -- GlobalSound.set_sound_play(this.object:id(), this.snd_hit)
       this.last_hit_snd_timeout = time_global() + math.random(4000, 8000);
     }
-  },
-  on_point(distance: number, position: XR_vector, path_idx: number): void {
+  }
+
+  public on_point(distance: number, position: XR_vector, path_idx: number): void {
     if (this.st.active_section !== null) {
       issueEvent(this.object, this.st[this.st.active_scheme!], "waypoint_callback", this.object, null, path_idx);
     }
-  },
-} as IHeliBinder);
+  }
+}

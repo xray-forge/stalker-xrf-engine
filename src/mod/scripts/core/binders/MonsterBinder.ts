@@ -16,7 +16,6 @@ import {
   XR_game_object,
   XR_hit,
   XR_net_packet,
-  XR_object_binder,
   XR_reader,
   XR_vector,
 } from "xray16";
@@ -43,41 +42,24 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("MonsterBinder");
 
-export interface IMonsterBinder extends XR_object_binder {
-  st: IStoredObject;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class MonsterBinder extends object_binder {
+  public loaded: boolean = false;
+  public st: IStoredObject = {};
 
-  loaded: boolean;
+  public constructor(object: XR_game_object) {
+    super(object);
+  }
 
-  extrapolate_callback(): Optional<boolean>;
-  waypoint_callback(obj: XR_game_object, action_type: number, index: number): void;
-  death_callback(victim: XR_game_object, killer: XR_game_object): void;
-  hit_callback(
-    obj: XR_game_object,
-    amount: number,
-    const_direction: XR_vector,
-    who: XR_game_object,
-    bone_index: number | string
-  ): void;
-  hear_callback(
-    object: XR_game_object,
-    source_id: number,
-    sound_type: TXR_snd_type,
-    sound_position: XR_vector,
-    sound_power: number
-  ): void;
-}
+  public reload(section: TSection): void {
+    super.reload(section);
+  }
 
-export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", object_binder, {
-  __init(object: XR_game_object): void {
-    object_binder.__init(this, object);
-
-    this.loaded = false;
-  },
-  reload(section: string): void {
-    object_binder.reload(this, section);
-  },
-  reinit(): void {
-    object_binder.reinit(this);
+  public reinit(): void {
+    super.reinit();
 
     this.st = resetObject(this.object);
 
@@ -85,9 +67,10 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     this.object.set_callback(callback.hit, this.hit_callback, this);
     this.object.set_callback(callback.death, this.death_callback, this);
     this.object.set_callback(callback.sound, this.hear_callback, this);
-  },
-  update(delta: number): void {
-    object_binder.update(this, delta);
+  }
+
+  public update(delta: number): void {
+    super.update(delta);
 
     if (registry.actorCombat.get(this.object.id()) && this.object.best_enemy() === null) {
       registry.actorCombat.delete(this.object.id());
@@ -184,26 +167,29 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     if (this.st.active_section !== null) {
       issueEvent(this.object, this.st[this.st.active_scheme as string], "update", delta);
     }
-  },
-  save(packet: XR_net_packet): void {
+  }
+
+  public save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, MonsterBinder.__name);
 
-    object_binder.save(this, packet);
+    super.save(packet);
     save_obj(this.object, packet);
 
     setSaveMarker(packet, true, MonsterBinder.__name);
-  },
-  load(reader: XR_reader): void {
+  }
+
+  public load(reader: XR_reader): void {
     this.loaded = true;
 
     setLoadMarker(reader, false, MonsterBinder.__name);
-    object_binder.load(this, reader);
+    super.load(reader);
     load_obj(this.object, reader);
 
     setLoadMarker(reader, true, MonsterBinder.__name);
-  },
-  net_spawn(object: XR_cse_alife_object): boolean {
-    if (!object_binder.net_spawn(this, object)) {
+  }
+
+  public net_spawn(object: XR_cse_alife_object): boolean {
+    if (!super.net_spawn(object)) {
       return false;
     }
 
@@ -248,8 +234,9 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     setup_gulag_and_logic_on_spawn(this.object, this.st, object, ESchemeType.MONSTER, this.loaded);
 
     return true;
-  },
-  net_destroy(): void {
+  }
+
+  public net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
 
     this.object.set_callback(callback.death, null);
@@ -275,12 +262,14 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
 
     deleteObject(this.object);
     registry.objects.delete(this.object.id());
-    object_binder.net_destroy(this);
-  },
-  net_save_relevant(): boolean {
+    super.net_destroy();
+  }
+
+  public net_save_relevant(): boolean {
     return true;
-  },
-  extrapolate_callback(): Optional<boolean> {
+  }
+
+  public extrapolate_callback(): Optional<boolean> {
     if (registry.objects.get(this.object.id()) === null || registry.objects.get(this.object.id()).object === null) {
       return null;
     }
@@ -301,13 +290,15 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     }
 
     return false;
-  },
-  waypoint_callback(obj: XR_game_object, action_type: number, index: number): void {
+  }
+
+  public waypoint_callback(obj: XR_game_object, action_type: number, index: number): void {
     if (this.st.active_section !== null) {
       issueEvent(this.object, this.st[this.st.active_scheme as string], "waypoint_callback", obj, action_type, index);
     }
-  },
-  death_callback(victim: XR_game_object, killer: XR_game_object): void {
+  }
+
+  public death_callback(victim: XR_game_object, killer: XR_game_object): void {
     registry.actorCombat.delete(this.object.id());
 
     this.hit_callback(victim, 1, new vector().set(0, 0, 0), killer, "from_death_callback");
@@ -348,9 +339,10 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
         alife().release(target_object, true);
       }
     }
-  },
-  hit_callback(
-    obj: XR_game_object,
+  }
+
+  public hit_callback(
+    object: XR_game_object,
     amount: number,
     const_direction: XR_vector,
     who: XR_game_object,
@@ -361,14 +353,15 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     }
 
     if (this.st.hit) {
-      issueEvent(this.object, this.st.hit, "hit_callback", obj, amount, const_direction, who, bone_index);
+      issueEvent(this.object, this.st.hit, "hit_callback", object, amount, const_direction, who, bone_index);
     }
 
     if (amount > 0) {
-      logger.info("[hit] Hit done:", amount, who.name(), "->", obj.name());
+      logger.info("[hit] Hit done:", amount, who.name(), "->", object.name());
     }
-  },
-  hear_callback(
+  }
+
+  public hear_callback(
     object: XR_game_object,
     source_id: number,
     sound_type: TXR_snd_type,
@@ -378,5 +371,5 @@ export const MonsterBinder: IMonsterBinder = declare_xr_class("MonsterBinder", o
     if (source_id !== object.id()) {
       ActionSchemeHear.hear_callback(object, source_id, sound_type, sound_position, sound_power);
     }
-  },
-} as IMonsterBinder);
+  }
+}

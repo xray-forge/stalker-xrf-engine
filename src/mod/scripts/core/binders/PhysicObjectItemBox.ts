@@ -24,6 +24,9 @@ const community_list: LuaTable<number, string> = [
   "big_box_arsenal",
 ] as any;
 
+/**
+ * todo;
+ */
 export class PhysicObjectItemBox {
   public static readBoxItemList(
     spawn_ini: XR_ini_file,

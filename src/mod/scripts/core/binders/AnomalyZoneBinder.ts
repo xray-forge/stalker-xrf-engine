@@ -8,13 +8,12 @@ import {
   XR_game_object,
   XR_ini_file,
   XR_net_packet,
-  XR_object_binder,
   XR_patrol,
   XR_reader,
 } from "xray16";
 
 import { MAX_UNSIGNED_8_BIT } from "@/mod/globals/memory";
-import { Optional } from "@/mod/lib/types";
+import { Optional, TSection } from "@/mod/lib/types";
 import { FIELDS_BY_NAME } from "@/mod/scripts/core/binders/AnomalyFieldBinder";
 import { addAnomaly, deleteAnomaly, registry } from "@/mod/scripts/core/database";
 import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
@@ -40,82 +39,63 @@ const ANOMAL_ZONE_LAYER: string = "layer_";
 const ARTEFACT_SPAWN_CHANCE: number = 17;
 const UPDATE_THROTTLE: number = 5_000;
 
-export interface IAnomalyZoneBinder extends XR_object_binder {
-  ini: XR_ini_file;
+/**
+ * todo: Critically needs simplification of logic.
+ */
+@LuabindClass()
+export class AnomalyZoneBinder extends object_binder {
+  public readonly ini: XR_ini_file;
 
-  delta: number;
+  public delta: number = UPDATE_THROTTLE;
 
-  isDisabled: boolean;
-  isTurnedOff: boolean;
-  isCustomPlacement: boolean;
-  shouldRespawnArtefactsIfPossible: boolean;
+  public isDisabled: boolean = false;
+  public isTurnedOff: boolean = false;
+  public isCustomPlacement: boolean = false;
+  public shouldRespawnArtefactsIfPossible: boolean = true;
 
-  zoneLayersCount: number;
-  currentZoneLayer: string;
-
-  artefactWaysByArtefactId: LuaTable<number, string>;
-  artefactPointsByArtefactId: LuaTable<number, number>;
+  public artefactWaysByArtefactId: LuaTable<number, string> = new LuaTable();
+  public artefactPointsByArtefactId: LuaTable<number, number> = new LuaTable();
 
   /**
    * Current state description.
    */
-  spawnedArtefactsCount: number;
+  public spawnedArtefactsCount: number = 0;
 
-  respawnTries: number;
-  maxArtefactsInZone: number;
-  applyingForceXZ: number;
-  applyingForceY: number;
+  public respawnTries: number = -1;
+  public maxArtefactsInZone: number = -1;
+  public applyingForceXZ: number = -1;
+  public applyingForceY: number = -1;
 
-  hasForcedSpawnOverride: boolean;
-  isForcedToSpawn: boolean;
-  forcedArtefact: Optional<string>;
+  public hasForcedSpawnOverride: boolean = false;
+  public isForcedToSpawn: boolean = false;
+  public forcedArtefact: Optional<string> = null;
+  public zoneLayersCount: number = -1;
+  public currentZoneLayer: string = "";
 
   /**
    * Layers description.
    */
-  layersRespawnTriesTable: LuaTable<string, number>;
-  layersMaxArtefactsTable: LuaTable<string, number>;
-  layersForcesTable: LuaTable<string, { xz: number; y: number }>;
+  public layersRespawnTriesTable: LuaTable<string, number> = new LuaTable();
+  public layersMaxArtefactsTable: LuaTable<string, number> = new LuaTable();
+  public layersForcesTable: LuaTable<string, { xz: number; y: number }> = new LuaTable();
+  public artefactsStartList: LuaTable<string, LuaTable<number, string>> = new LuaTable();
+  public artefactsSpawnList: LuaTable<string, LuaTable<number, string>> = new LuaTable();
+  public artefactsSpawnCoefficients: LuaTable<string, LuaTable<number, number>> = new LuaTable();
+  public artefactsPathsList: LuaTable<string, LuaTable<number, string>> = new LuaTable();
+  public fieldsTable: LuaTable<string, LuaTable<number, string>> = new LuaTable();
+  public minesTable: LuaTable<string, LuaTable<number, string>> = new LuaTable();
 
-  artefactsStartList: LuaTable<string, LuaTable<number, string>>;
-  artefactsSpawnList: LuaTable<string, LuaTable<number, string>>;
-  artefactsSpawnCoefficients: LuaTable<string, LuaTable<number, number>>;
-  artefactsPathsList: LuaTable<string, LuaTable<number, string>>;
-
-  fieldsTable: LuaTable<string, LuaTable<number, string>>;
-  minesTable: LuaTable<string, LuaTable<number, string>>;
-
-  /**
-   * todo: used by effectors
-   */
-  turn_on(forceRespawn: boolean): void;
-  turn_off(): void;
-
-  getArtefactsListForSection(section: string, defaultList: Optional<string>): LuaTable<number, string>;
-
-  getRandomArtefactPath(): string;
-  disableAnomalyFields(): void;
-  spawnRandomArtefact(): void;
-  respawnArtefactsAndReplaceAnomalyZones(): void;
-  setForcedSpawnOverride(artefactName: string): void;
-
-  onArtefactTaken(object: XR_game_object | XR_cse_alife_item_artefact): void;
-}
-
-/**
- * todo: Critically needs simplification of logic.
- */
-export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZoneBinder", object_binder, {
-  delta: UPDATE_THROTTLE,
-  __init(object: XR_game_object): void {
-    object_binder.__init(this, object);
+  public constructor(object: XR_game_object) {
+    super(object);
 
     this.ini = object.spawn_ini()!;
 
     if (!this.ini.section_exist(ANOMAL_ZONE_SECTION)) {
       this.isDisabled = true;
 
-      return logger.warn("Zone without configuration detected:", object.name());
+      logger.warn("Zone without configuration detected:", object.name());
+
+      return;
     }
 
     const filename: Optional<string> = getConfigString(this.ini, ANOMAL_ZONE_SECTION, "cfg", null, false, "", null);
@@ -128,26 +108,6 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
 
     const ini: XR_ini_file = this.ini;
 
-    this.isDisabled = false;
-    this.isTurnedOff = false;
-
-    this.artefactWaysByArtefactId = new LuaTable();
-    this.artefactPointsByArtefactId = new LuaTable();
-    this.artefactsSpawnList = new LuaTable();
-    this.artefactsStartList = new LuaTable();
-    this.artefactsSpawnCoefficients = new LuaTable();
-    this.artefactsPathsList = new LuaTable();
-    this.fieldsTable = new LuaTable();
-    this.minesTable = new LuaTable();
-    this.layersRespawnTriesTable = new LuaTable();
-    this.layersMaxArtefactsTable = new LuaTable();
-    this.layersForcesTable = new LuaTable();
-    this.spawnedArtefactsCount = 0;
-
-    this.shouldRespawnArtefactsIfPossible = true;
-    this.isForcedToSpawn = false;
-    this.hasForcedSpawnOverride = false;
-    this.forcedArtefact = null;
     this.zoneLayersCount = getConfigNumber(ini, ANOMAL_ZONE_SECTION, "layers_count", null, false, 1);
     this.isCustomPlacement = this.zoneLayersCount > 1;
     this.currentZoneLayer = ANOMAL_ZONE_LAYER + math.random(1, this.zoneLayersCount); // Pick one of possible layers.
@@ -314,8 +274,9 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     this.maxArtefactsInZone = this.layersMaxArtefactsTable.get(this.currentZoneLayer);
     this.applyingForceXZ = this.layersForcesTable.get(this.currentZoneLayer).xz;
     this.applyingForceY = this.layersForcesTable.get(this.currentZoneLayer).y;
-  },
-  turn_off(): void {
+  }
+
+  public turn_off(): void {
     logger.info("Turn off zone:", this.object.name());
 
     this.isTurnedOff = true;
@@ -331,8 +292,9 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     this.spawnedArtefactsCount = 0;
     this.artefactWaysByArtefactId = new LuaTable();
     this.artefactPointsByArtefactId = new LuaTable();
-  },
-  turn_on(forceRespawn: Optional<boolean>): void {
+  }
+
+  public turn_on(forceRespawn: Optional<boolean>): void {
     logger.info("Turn on zone:", this.object.name());
 
     this.isTurnedOff = false;
@@ -343,8 +305,9 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     } else {
       this.shouldRespawnArtefactsIfPossible = false;
     }
-  },
-  disableAnomalyFields(): void {
+  }
+
+  public disableAnomalyFields(): void {
     logger.info("Disable anomaly fields:", this.object.name());
 
     if (!this.isCustomPlacement) {
@@ -399,8 +362,9 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
         }
       }
     }
-  },
-  respawnArtefactsAndReplaceAnomalyZones(): void {
+  }
+
+  public respawnArtefactsAndReplaceAnomalyZones(): void {
     logger.info("Respawn artefacts and replace anomaly zone:", this.object.name());
 
     const anom_fields = FIELDS_BY_NAME;
@@ -442,8 +406,9 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
       this.applyingForceXZ = this.layersForcesTable.get(this.currentZoneLayer).xz;
       this.applyingForceY = this.layersForcesTable.get(this.currentZoneLayer).y;
     }
-  },
-  spawnRandomArtefact(): void {
+  }
+
+  public spawnRandomArtefact(): void {
     logger.info("Spawn random artefact:", this.object.name(), this.currentZoneLayer);
 
     const layer: string = this.currentZoneLayer;
@@ -506,8 +471,9 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     this.spawnedArtefactsCount = this.spawnedArtefactsCount + 1;
 
     logger.info("Spawned random artefact:", randomArtefact, artefactObject.id);
-  },
-  getRandomArtefactPath(): string {
+  }
+
+  public getRandomArtefactPath(): string {
     logger.info("Get artefact path:", this.object.name());
 
     const paths: LuaTable<number, string> = new LuaTable();
@@ -533,42 +499,48 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     }
 
     return paths.get(math.random(1, paths.length()));
-  },
-  setForcedSpawnOverride(artefactName: string): void {
+  }
+
+  public setForcedSpawnOverride(artefactName: string): void {
     logger.info("Set force override:", this.object.name());
 
     this.forcedArtefact = artefactName;
     this.hasForcedSpawnOverride = true;
 
     logger.info("Set forced override for zone/artefact:", this.object.name(), artefactName);
-  },
-  reload(section: string): void {
-    object_binder.reload(this, section);
-  },
-  reinit(): void {
-    object_binder.reinit(this);
+  }
+
+  public reload(section: TSection): void {
+    super.reload(section);
+  }
+
+  public reinit(): void {
+    super.reinit();
     registry.objects.set(this.object.id(), {});
-  },
-  net_spawn(object: XR_cse_alife_object): boolean {
-    if (!object_binder.net_spawn(this, object)) {
+  }
+
+  public net_spawn(object: XR_cse_alife_object): boolean {
+    if (!super.net_spawn(object)) {
       return false;
     }
 
     addAnomaly(this);
 
     return true;
-  },
-  net_destroy(): void {
+  }
+
+  public net_destroy(): void {
     deleteAnomaly(this);
 
     registry.objects.delete(this.object.id());
-    object_binder.net_destroy(this);
-  },
-  update(delta: number): void {
+    super.net_destroy();
+  }
+
+  public update(delta: number): void {
     this.delta += delta;
 
     if (this.delta >= UPDATE_THROTTLE) {
-      object_binder.update(this, this.delta);
+      super.update(this.delta);
 
       this.delta = 0;
     } else {
@@ -600,8 +572,9 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     if (!this.isDisabled) {
       this.disableAnomalyFields();
     }
-  },
-  onArtefactTaken(object: XR_game_object | XR_cse_alife_item_artefact): void {
+  }
+
+  public onArtefactTaken(object: XR_game_object | XR_cse_alife_item_artefact): void {
     logger.info("On artefact take:", this.object.name());
 
     const id: number =
@@ -616,13 +589,15 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     this.spawnedArtefactsCount = this.spawnedArtefactsCount - 1;
 
     mapDisplayManager.updateAnomaliesZones();
-  },
-  net_save_relevant(): boolean {
+  }
+
+  public net_save_relevant(): boolean {
     return true;
-  },
-  save(packet: XR_net_packet): void {
+  }
+
+  public save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, AnomalyZoneBinder.__name);
-    object_binder.save(this, packet);
+    super.save(packet);
 
     let count: number = 0;
 
@@ -686,11 +661,12 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     packet.w_bool(this.isTurnedOff);
 
     setSaveMarker(packet, true, AnomalyZoneBinder.__name);
-  },
-  load(reader: XR_reader): void {
+  }
+
+  public load(reader: XR_reader): void {
     setLoadMarker(reader, false, AnomalyZoneBinder.__name);
 
-    object_binder.load(this, reader);
+    super.load(reader);
 
     const waysCount: number = reader.r_u16();
 
@@ -729,8 +705,9 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     this.isTurnedOff = reader.r_bool();
 
     setLoadMarker(reader, true, AnomalyZoneBinder.__name);
-  },
-  getArtefactsListForSection(section: string, defaultArtefacts: Optional<string>): LuaTable<number, string> {
+  }
+
+  public getArtefactsListForSection(section: string, defaultArtefacts: Optional<string>): LuaTable<number, string> {
     const baseArtefactsList: Optional<string> = getConfigString(
       this.ini,
       section,
@@ -746,5 +723,5 @@ export const AnomalyZoneBinder: IAnomalyZoneBinder = declare_xr_class("AnomalyZo
     }
 
     return parseNames(baseArtefactsList);
-  },
-} as IAnomalyZoneBinder);
+  }
+}

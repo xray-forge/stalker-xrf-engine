@@ -8,7 +8,6 @@ import {
   XR_game_object,
   XR_ini_file,
   XR_net_packet,
-  XR_object_binder,
   XR_reader,
   XR_sound_object,
 } from "xray16";
@@ -24,35 +23,31 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 const ANIMATED_OBJECT_SECT: string = "animated_object";
 const logger: LuaLogger = new LuaLogger("LabX8DoorBinder");
 
-export interface ILabX8DoorBinder extends XR_object_binder {
-  loaded: boolean;
-  anim_time: Optional<number>;
-  idle_delay: number;
-  start_delay: number;
+/**
+ * todo
+ */
+@LuabindClass()
+export class LabX8DoorBinder extends object_binder {
+  public loaded: boolean = false;
+  public anim_time: Optional<number> = 0;
 
-  is_idle: boolean;
-  is_play_fwd: boolean;
+  public is_idle: boolean = true;
+  public is_play_fwd: boolean = false;
 
-  idle_snd: Optional<XR_sound_object>;
-  start_snd: Optional<XR_sound_object>;
-  stop_snd: Optional<XR_sound_object>;
+  public idle_snd: Optional<XR_sound_object> = null;
+  public start_snd: Optional<XR_sound_object> = null;
+  public stop_snd: Optional<XR_sound_object> = null;
 
-  tip: LuaTable;
+  public idle_delay!: number;
+  public start_delay!: number;
+  public tip!: LuaTable;
 
-  on_use: LuaTable;
-  on_stop: LuaTable;
-  on_start: LuaTable;
+  public on_use!: LuaTable;
+  public on_stop!: LuaTable;
+  public on_start!: LuaTable;
 
-  anim_forward(): boolean;
-  anim_backward(): boolean;
-  anim_stop(): boolean;
-  animation_end_callback(): boolean;
-  use_callback(object: XR_game_object): boolean;
-}
-
-export const LabX8DoorBinder: ILabX8DoorBinder = declare_xr_class("LabX8DoorBinder", object_binder, {
-  __init(object: XR_game_object): void {
-    object_binder.__init(this, object);
+  public constructor(object: XR_game_object) {
+    super(object);
 
     let ini: XR_ini_file = object.spawn_ini()!;
 
@@ -69,11 +64,7 @@ export const LabX8DoorBinder: ILabX8DoorBinder = declare_xr_class("LabX8DoorBind
     }
 
     // -- this.idle = 5000
-    this.is_idle = true;
-    this.is_play_fwd = false;
     // -- this.idle_end = 0
-    this.loaded = false;
-    this.anim_time = 0;
 
     const idle_snd: string = getConfigString(
       ini,
@@ -146,13 +137,15 @@ export const LabX8DoorBinder: ILabX8DoorBinder = declare_xr_class("LabX8DoorBind
 
     this.idle_delay = getConfigNumber(ini, ANIMATED_OBJECT_SECT, "idle_delay", null, false, 2000);
     this.start_delay = getConfigNumber(ini, ANIMATED_OBJECT_SECT, "start_delay", null, false, 0);
-  },
-  reinit(): void {
-    object_binder.reinit(this);
+  }
+
+  public reinit(): void {
+    super.reinit();
     registry.objects.set(this.object.id(), {});
-  },
-  net_spawn(object: XR_cse_alife_object): boolean {
-    if (!object_binder.net_spawn(this, object)) {
+  }
+
+  public net_spawn(object: XR_cse_alife_object): boolean {
+    if (!super.net_spawn(object)) {
       return false;
     }
 
@@ -164,8 +157,9 @@ export const LabX8DoorBinder: ILabX8DoorBinder = declare_xr_class("LabX8DoorBind
     this.object.set_callback(callback.use_object, this.use_callback, this);
 
     return true;
-  },
-  net_destroy(): void {
+  }
+
+  public net_destroy(): void {
     if (this.idle_snd) {
       this.idle_snd.stop();
     }
@@ -180,10 +174,11 @@ export const LabX8DoorBinder: ILabX8DoorBinder = declare_xr_class("LabX8DoorBind
 
     this.object.set_callback(callback.script_animation, null);
     deleteDoorObject(this.object);
-    object_binder.net_destroy(this);
-  },
-  update(delta: number): void {
-    object_binder.update(this, delta);
+    super.net_destroy();
+  }
+
+  public update(delta: number): void {
+    super.update(delta);
 
     if (this.anim_time && this.loaded) {
       this.object.get_physics_object().anim_time_set(this.anim_time);
@@ -216,8 +211,9 @@ export const LabX8DoorBinder: ILabX8DoorBinder = declare_xr_class("LabX8DoorBind
     } else {
       this.object.set_tip_text("");
     }
-  },
-  anim_forward(): void {
+  }
+
+  public anim_forward(): void {
     if (this.idle_snd) {
       this.idle_snd.stop();
     }
@@ -241,8 +237,9 @@ export const LabX8DoorBinder: ILabX8DoorBinder = declare_xr_class("LabX8DoorBind
     this.is_play_fwd = true;
 
     pickSectionFromCondList(registry.actor, this.object, this.on_start);
-  },
-  anim_backward(): void {
+  }
+
+  public anim_backward(): void {
     if (this.idle_snd) {
       this.idle_snd.stop();
     }
@@ -265,8 +262,9 @@ export const LabX8DoorBinder: ILabX8DoorBinder = declare_xr_class("LabX8DoorBind
     this.is_idle = false;
     this.is_play_fwd = false;
     pickSectionFromCondList(registry.actor, this.object, this.on_start);
-  },
-  anim_stop(): void {
+  }
+
+  public anim_stop(): void {
     this.object.get_physics_object().stop_anim();
     this.is_idle = true;
     if (this.stop_snd) {
@@ -275,8 +273,9 @@ export const LabX8DoorBinder: ILabX8DoorBinder = declare_xr_class("LabX8DoorBind
 
     this.anim_time = this.object.get_physics_object().anim_time_get();
     pickSectionFromCondList(registry.actor, this.object, this.on_stop);
-  },
-  animation_end_callback(is_end?: boolean): void {
+  }
+
+  public animation_end_callback(is_end?: boolean): void {
     if (is_end) {
       if (this.stop_snd) {
         this.stop_snd.play_at_pos(this.object, this.object.position(), 0, sound_object.s3d);
@@ -286,17 +285,20 @@ export const LabX8DoorBinder: ILabX8DoorBinder = declare_xr_class("LabX8DoorBind
       this.anim_time = this.object.get_physics_object().anim_time_get();
       pickSectionFromCondList(registry.actor, this.object, this.on_stop);
     }
-  },
-  use_callback(object): void {
+  }
+
+  public use_callback(object: XR_game_object): void {
     pickSectionFromCondList(registry.actor, object, this.on_use);
-  },
-  net_save_relevant(): boolean {
+  }
+
+  public net_save_relevant(): boolean {
     return true;
-  },
-  save(packet: XR_net_packet): void {
+  }
+
+  public save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, LabX8DoorBinder.__name);
 
-    object_binder.save(this, packet);
+    super.save(packet);
     save_obj(this.object, packet);
     packet.w_bool(this.is_idle);
     packet.w_bool(this.is_play_fwd);
@@ -304,11 +306,12 @@ export const LabX8DoorBinder: ILabX8DoorBinder = declare_xr_class("LabX8DoorBind
     packet.w_float(this.object.get_physics_object().anim_time_get());
 
     setSaveMarker(packet, true, LabX8DoorBinder.__name);
-  },
-  load(reader: XR_reader): void {
+  }
+
+  public load(reader: XR_reader): void {
     setLoadMarker(reader, false, LabX8DoorBinder.__name);
 
-    object_binder.load(this, reader);
+    super.load(reader);
     load_obj(this.object, reader);
     this.is_idle = reader.r_bool();
     this.is_play_fwd = reader.r_bool();
@@ -317,5 +320,5 @@ export const LabX8DoorBinder: ILabX8DoorBinder = declare_xr_class("LabX8DoorBind
     this.loaded = true;
 
     setLoadMarker(reader, true, LabX8DoorBinder.__name);
-  },
-} as ILabX8DoorBinder);
+  }
+}

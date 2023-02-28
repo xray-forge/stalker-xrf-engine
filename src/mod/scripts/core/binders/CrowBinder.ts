@@ -7,10 +7,10 @@ import {
   XR_cse_alife_object,
   XR_game_object,
   XR_net_packet,
-  XR_object_binder,
   XR_reader,
 } from "xray16";
 
+import { TSection } from "@/mod/lib/types";
 import { addObject, deleteObject, registry, resetObject } from "@/mod/scripts/core/database";
 import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
@@ -20,22 +20,19 @@ const logger: LuaLogger = new LuaLogger("CrowBinder");
 
 const CROW_DISPOSAL_TIMEOUT: number = 120_000;
 
-export interface ICrowBinder extends XR_object_binder {
-  bodyDisposalTimer: number;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class CrowBinder extends object_binder {
+  public bodyDisposalTimer: number = 0;
 
-  death_callback(victim: XR_game_object, killer: XR_game_object): void;
-}
+  public constructor(object: XR_game_object) {
+    super(object);
+  }
 
-export const CrowBinder: ICrowBinder = declare_xr_class("CrowBinder", object_binder, {
-  __init(object: XR_game_object): void {
-    object_binder.__init(this, object);
-
-    this.bodyDisposalTimer = 0;
-
-    logger.info("Crow init");
-  },
-  update(delta: number): void {
-    object_binder.update(this, delta);
+  public update(delta: number): void {
+    super.update(delta);
 
     if (
       !this.object.alive() &&
@@ -47,19 +44,22 @@ export const CrowBinder: ICrowBinder = declare_xr_class("CrowBinder", object_bin
       logger.info("Release dead crow");
       sim.release(sim.object(this.object.id()), true);
     }
-  },
-  reload(section: string): void {
-    object_binder.reload(this, section);
-  },
-  reinit(): void {
-    object_binder.reinit(this);
+  }
+
+  public reload(section: TSection): void {
+    super.reload(section);
+  }
+
+  public reinit(): void {
+    super.reinit();
 
     this.bodyDisposalTimer = 0;
 
     resetObject(this.object);
-  },
-  net_spawn(object: XR_cse_alife_object): boolean {
-    if (!object_binder.net_spawn(this, object)) {
+  }
+
+  public net_spawn(object: XR_cse_alife_object): boolean {
+    if (!super.net_spawn(object)) {
       return false;
     }
 
@@ -75,8 +75,9 @@ export const CrowBinder: ICrowBinder = declare_xr_class("CrowBinder", object_bin
     this.object.set_callback(callback.death, this.death_callback, this);
 
     return true;
-  },
-  net_destroy(): void {
+  }
+
+  public net_destroy(): void {
     logger.info("Crow net destroy");
 
     this.object.set_callback(callback.death, null);
@@ -86,33 +87,37 @@ export const CrowBinder: ICrowBinder = declare_xr_class("CrowBinder", object_bin
 
     deleteObject(this.object);
 
-    object_binder.net_destroy(this);
-  },
-  death_callback(victim: XR_game_object, killer: XR_game_object): void {
+    super.net_destroy();
+  }
+
+  public death_callback(victim: XR_game_object, killer: XR_game_object): void {
     logger.info("Crow death registered");
 
     this.bodyDisposalTimer = time_global();
     registry.crows.storage.delete(this.object.id());
     registry.crows.count -= 1;
-  },
-  net_save_relevant(target: XR_object_binder): boolean {
+  }
+
+  public net_save_relevant(): boolean {
     return true;
-  },
-  save(packet: XR_net_packet): void {
+  }
+
+  public save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, CrowBinder.__name);
 
-    object_binder.save(this, packet);
+    super.save(packet);
     save_obj(this.object, packet);
     packet.w_u32(this.bodyDisposalTimer);
 
     setSaveMarker(packet, true, CrowBinder.__name);
-  },
-  load(reader: XR_reader): void {
+  }
+
+  public load(reader: XR_reader): void {
     setLoadMarker(reader, false, CrowBinder.__name);
-    object_binder.load(this, reader);
+    super.load(reader);
     load_obj(this.object, reader);
 
     this.bodyDisposalTimer = reader.r_u32();
     setLoadMarker(reader, true, CrowBinder.__name);
-  },
-} as ICrowBinder);
+  }
+}

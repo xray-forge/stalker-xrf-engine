@@ -1,36 +1,37 @@
-import { object_binder, XR_cse_alife_object, XR_game_object, XR_object_binder } from "xray16";
+import { object_binder, XR_cse_alife_object, XR_game_object } from "xray16";
 
+import { TSection } from "@/mod/lib/types";
 import { addZone, deleteZone, registry } from "@/mod/scripts/core/database";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("AnomalyFieldBinder");
 
 // todo: Move to db.
-export const FIELDS_BY_NAME: LuaTable<string, IAnomalyFieldBinder> = new LuaTable();
+export const FIELDS_BY_NAME: LuaTable<string, AnomalyFieldBinder> = new LuaTable();
 const UPDATE_THROTTLE: number = 5_000;
 
-export interface IAnomalyFieldBinder extends XR_object_binder {
-  delta: number;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class AnomalyFieldBinder extends object_binder {
+  public delta: number = UPDATE_THROTTLE;
+  public constructor(object: XR_game_object) {
+    super(object);
+  }
 
-  set_enable(isEnabled: boolean): void;
-}
+  public reload(section: TSection): void {
+    super.reload(section);
+  }
 
-export const AnomalyFieldBinder: IAnomalyFieldBinder = declare_xr_class("AnomalyFieldBinder", object_binder, {
-  delta: UPDATE_THROTTLE,
-  __init(object: XR_game_object): void {
-    object_binder.__init(this, object);
-  },
-  reload(section: string): void {
-    object_binder.reload(this, section);
-  },
-  reinit(): void {
-    object_binder.reinit(this);
+  public reinit(): void {
+    super.reinit();
 
     registry.objects.set(this.object.id(), {});
-  },
+  }
 
-  net_spawn(object: XR_cse_alife_object): boolean {
-    if (!object_binder.net_spawn(this, object)) {
+  public net_spawn(object: XR_cse_alife_object): boolean {
+    if (!super.net_spawn(object)) {
       return false;
     }
 
@@ -41,8 +42,9 @@ export const AnomalyFieldBinder: IAnomalyFieldBinder = declare_xr_class("Anomaly
     FIELDS_BY_NAME.set(this.object.name(), this);
 
     return true;
-  },
-  net_destroy(): void {
+  }
+
+  public net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
 
     deleteZone(this.object);
@@ -50,27 +52,30 @@ export const AnomalyFieldBinder: IAnomalyFieldBinder = declare_xr_class("Anomaly
     registry.objects.delete(this.object.id());
     FIELDS_BY_NAME.delete(this.object.name());
 
-    object_binder.net_destroy(this);
-  },
-  set_enable(enabled: boolean): void {
+    super.net_destroy();
+  }
+
+  public set_enable(enabled: boolean): void {
     if (enabled) {
       this.object.enable_anomaly();
     } else {
       this.object.disable_anomaly();
     }
-  },
-  update(delta: number): void {
+  }
+
+  public update(delta: number): void {
     this.delta += delta;
 
     if (this.delta >= UPDATE_THROTTLE) {
-      object_binder.update(this, this.delta);
+      super.update(this.delta);
 
       this.delta = 0;
     } else {
       return;
     }
-  },
-  net_save_relevant(): boolean {
+  }
+
+  public net_save_relevant(): boolean {
     return true;
-  },
-} as IAnomalyFieldBinder);
+  }
+}

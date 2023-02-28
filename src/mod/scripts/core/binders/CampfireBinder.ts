@@ -8,20 +8,20 @@ const logger: LuaLogger = new LuaLogger("CampfireBinder");
 
 export const campfire_table_by_smart_names: LuaTable<string, LuaTable<number, XR_CZoneCampfire>> = new LuaTable();
 
-export interface ICampfireBinder extends XR_object_binder {
-  campfire: XR_CZoneCampfire;
-}
+/**
+ * todo;
+ */
+@LuabindClass()
+export class CampfireBinder extends object_binder {
+  public readonly campfire: XR_CZoneCampfire;
 
-export const CampfireBinder: ICampfireBinder = declare_xr_class("CampfireBinder", object_binder, {
-  __init(object: XR_game_object): void {
-    object_binder.__init(this, object);
-
+  public constructor(object: XR_game_object) {
+    super(object);
     this.campfire = object.get_campfire();
+  }
 
-    logger.info("Init", object.name());
-  },
-  net_spawn(object: XR_cse_alife_object): boolean {
-    if (!object_binder.net_spawn(this, object)) {
+  public net_spawn(object: XR_cse_alife_object): boolean {
+    if (!super.net_spawn(object)) {
       return false;
     }
 
@@ -40,12 +40,12 @@ export const CampfireBinder: ICampfireBinder = declare_xr_class("CampfireBinder"
     }
 
     return true;
-  },
-  update(delta: number): void {
-    object_binder.update(this, delta);
-  },
-} as ICampfireBinder);
+  }
 
+  public update(delta: number): void {
+    super.update(delta);
+  }
+}
 export function turn_on_campfires_by_smart_name(smart_name: string): void {
   logger.info("Turn on campfires for:", smart_name);
 

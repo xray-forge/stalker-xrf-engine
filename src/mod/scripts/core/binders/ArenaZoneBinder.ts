@@ -7,7 +7,6 @@ import {
   XR_cse_alife_object,
   XR_game_object,
   XR_net_packet,
-  XR_object_binder,
   XR_reader,
 } from "xray16";
 
@@ -18,26 +17,23 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { getTableSize } from "@/mod/scripts/utils/table";
 
 // todo: Move to db.
-const arena_zones: LuaTable<string, IArenaZoneBinder> = new LuaTable();
+const arena_zones: LuaTable<string, ArenaZoneBinder> = new LuaTable();
 const logger: LuaLogger = new LuaLogger("ArenaZoneBinder");
 
-export interface IArenaZoneBinder extends XR_object_binder {
-  saved_obj: LuaTable<number, boolean>;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class ArenaZoneBinder extends object_binder {
+  public saved_obj: LuaTable<number, boolean> = new LuaTable();
 
-  purge_items(): void;
-  on_exit(zone: XR_game_object, object: XR_game_object): void;
-  on_enter(zone: XR_game_object, object: XR_game_object): void;
-}
-
-export const ArenaZoneBinder: IArenaZoneBinder = declare_xr_class("ArenaZoneBinder", object_binder, {
-  __init(object: XR_game_object): void {
-    object_binder.__init(this, object);
-
-    this.saved_obj = new LuaTable();
+  public constructor(object: XR_game_object) {
+    super(object);
     arena_zones.set(object.name(), this);
-  },
-  net_spawn(object: XR_cse_alife_object): boolean {
-    if (!object_binder.net_spawn(this, object)) {
+  }
+
+  public net_spawn(object: XR_cse_alife_object): boolean {
+    if (!super.net_spawn(object)) {
       return false;
     }
 
@@ -45,14 +41,16 @@ export const ArenaZoneBinder: IArenaZoneBinder = declare_xr_class("ArenaZoneBind
     this.object.set_callback(callback.zone_exit, this.on_exit, this);
 
     return true;
-  },
-  net_destroy(): void {
+  }
+
+  public net_destroy(): void {
     this.object.set_callback(callback.zone_enter, null);
     this.object.set_callback(callback.zone_exit, null);
 
-    object_binder.net_destroy(this);
-  },
-  purge_items(): void {
+    super.net_destroy();
+  }
+
+  public purge_items(): void {
     const sim: XR_alife_simulator = alife();
 
     for (const [k, v] of this.saved_obj) {
@@ -60,9 +58,10 @@ export const ArenaZoneBinder: IArenaZoneBinder = declare_xr_class("ArenaZoneBind
 
       sim.release(obj, true);
     }
-  },
-  save(packet: XR_net_packet): void {
-    object_binder.save(this, packet);
+  }
+
+  public save(packet: XR_net_packet): void {
+    super.save(packet);
 
     setSaveMarker(packet, false, ArenaZoneBinder.__name);
 
@@ -73,9 +72,10 @@ export const ArenaZoneBinder: IArenaZoneBinder = declare_xr_class("ArenaZoneBind
     }
 
     setSaveMarker(packet, true, ArenaZoneBinder.__name);
-  },
-  load(reader: XR_reader): void {
-    object_binder.load(this, reader);
+  }
+
+  public load(reader: XR_reader): void {
+    super.load(reader);
 
     setLoadMarker(reader, false, ArenaZoneBinder.__name);
 
@@ -86,8 +86,9 @@ export const ArenaZoneBinder: IArenaZoneBinder = declare_xr_class("ArenaZoneBind
     }
 
     setLoadMarker(reader, false, ArenaZoneBinder.__name);
-  },
-  on_enter(zone: XR_game_object, object: XR_game_object): void {
+  }
+
+  public on_enter(zone: XR_game_object, object: XR_game_object): void {
     if (
       object.id() === registry.actor.id() ||
       object.clsid() === clsid.obj_physic ||
@@ -98,8 +99,9 @@ export const ArenaZoneBinder: IArenaZoneBinder = declare_xr_class("ArenaZoneBind
     }
 
     this.saved_obj.set(object.id(), true);
-  },
-  on_exit(zone: XR_game_object, object: XR_game_object): void {
+  }
+
+  public on_exit(zone: XR_game_object, object: XR_game_object): void {
     if (
       object.id() === registry.actor.id() ||
       object.clsid() === clsid.obj_physic ||
@@ -110,13 +112,13 @@ export const ArenaZoneBinder: IArenaZoneBinder = declare_xr_class("ArenaZoneBind
     }
 
     this.saved_obj.delete(object.id());
-  },
-} as IArenaZoneBinder);
+  }
+}
 
 export function purge_arena_items(name: string): void {
   logger.info("Purge are zone items:", name);
 
-  const arena_zone: Optional<IArenaZoneBinder> = arena_zones.get(name);
+  const arena_zone: Optional<ArenaZoneBinder> = arena_zones.get(name);
 
   if (arena_zone !== null) {
     arena_zone.purge_items();

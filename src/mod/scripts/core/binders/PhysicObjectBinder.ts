@@ -7,7 +7,6 @@ import {
   XR_game_object,
   XR_ini_file,
   XR_net_packet,
-  XR_object_binder,
   XR_particles_object,
   XR_reader,
   XR_vector,
@@ -27,40 +26,33 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("PhysicObjectBinder");
 
-export interface IPhysicObjectBinder extends XR_object_binder {
-  initialized: boolean;
-  loaded: boolean;
-  particle: Optional<XR_particles_object>;
-  st: IStoredObject;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class PhysicObjectBinder extends object_binder {
+  public initialized: boolean = false;
+  public loaded: boolean = false;
 
-  itemBox: Optional<PhysicObjectItemBox>;
+  public particle: Optional<XR_particles_object> = null;
+  public itemBox: Optional<PhysicObjectItemBox> = null;
 
-  use_callback(object: XR_game_object, who: XR_game_object): void;
-  hit_callback(
-    object: XR_game_object,
-    damage: number,
-    direction: XR_vector,
-    who: XR_game_object,
-    bone_id: number
-  ): void;
-  death_callback(victim: XR_game_object, who: XR_game_object): void;
-}
+  public st!: IStoredObject;
 
-export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicObjectBinder", object_binder, {
-  __init(object: XR_game_object): void {
-    object_binder.__init(this, object);
+  public constructor(object: XR_game_object) {
+    super(object);
+  }
 
-    this.initialized = false;
-    this.loaded = false;
-  },
-  reload(section: string): void {
-    object_binder.reload(this, section);
-  },
-  reinit(): void {
-    object_binder.reinit(this);
+  public reload(section: string): void {
+    super.reload(section);
+  }
+
+  public reinit(): void {
+    super.reinit();
     this.st = resetObject(this.object);
-  },
-  net_destroy(): void {
+  }
+
+  public net_destroy(): void {
     if (level.map_has_object_spot(this.object.id(), "ui_pda2_actor_box_location") !== 0) {
       level.map_remove_object_spot(this.object.id(), "ui_pda2_actor_box_location");
     }
@@ -87,33 +79,38 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
 
     registry.objects.delete(this.object.id());
 
-    object_binder.net_destroy(this);
-  },
-  net_save_relevant(): boolean {
+    super.net_destroy();
+  }
+
+  public net_save_relevant(): boolean {
     return true;
-  },
-  save(packet: XR_net_packet): void {
-    object_binder.save(this, packet);
+  }
+
+  public save(packet: XR_net_packet): void {
+    super.save(packet);
 
     setSaveMarker(packet, false, PhysicObjectBinder.__name);
     save_obj(this.object, packet);
     setSaveMarker(packet, true, PhysicObjectBinder.__name);
-  },
-  load(reader: XR_reader): void {
+  }
+
+  public load(reader: XR_reader): void {
     this.loaded = true;
 
-    object_binder.load(this, reader);
+    super.load(reader);
 
     setLoadMarker(reader, false, PhysicObjectBinder.__name);
     load_obj(this.object, reader);
     setLoadMarker(reader, true, PhysicObjectBinder.__name);
-  },
-  use_callback(object: XR_game_object, who: XR_game_object): void {
+  }
+
+  public use_callback(object: XR_game_object, who: XR_game_object): void {
     if (this.st.active_section) {
       issueEvent(this.object, this.st[this.st.active_scheme as string], "use_callback", object, this);
     }
-  },
-  hit_callback(
+  }
+
+  public hit_callback(
     obj: XR_game_object,
     amount: number,
     const_direction: XR_vector,
@@ -145,8 +142,9 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
         bone_index
       );
     }
-  },
-  death_callback(victim: XR_game_object, who: XR_game_object): void {
+  }
+
+  public death_callback(victim: XR_game_object, who: XR_game_object): void {
     if (this.st.active_section) {
       issueEvent(this.object, this.st[this.st.active_scheme as string], "death_callback", victim, who);
     }
@@ -158,9 +156,10 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
     if (this.itemBox !== null) {
       this.itemBox.spawnBoxItems();
     }
-  },
-  net_spawn(object: XR_cse_alife_object): boolean {
-    if (!object_binder.net_spawn(this, object)) {
+  }
+
+  public net_spawn(object: XR_cse_alife_object): boolean {
+    if (!super.net_spawn(object)) {
       return false;
     }
 
@@ -181,9 +180,10 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
     addObject(this.object);
 
     return true;
-  },
-  update(delta: number): void {
-    object_binder.update(this, delta);
+  }
+
+  public update(delta: number): void {
+    super.update(delta);
 
     if (!this.initialized) {
       this.initialized = true;
@@ -214,5 +214,5 @@ export const PhysicObjectBinder: IPhysicObjectBinder = declare_xr_class("PhysicO
     }
 
     GlobalSound.update(this.object.id());
-  },
-} as IPhysicObjectBinder);
+  }
+}

@@ -5,31 +5,32 @@ import {
   XR_cse_alife_object,
   XR_game_object,
   XR_ini_file,
-  XR_object_binder,
   XR_physics_element,
   XR_physics_shell,
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { IAnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
+import { AnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
 import { addObject, deleteObject, registry } from "@/mod/scripts/core/database";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ArtefactBinder");
 const UPDATE_THROTTLE: number = 1_000;
 
-export interface IArtefactBinder extends XR_object_binder {
-  isInitializing: boolean;
-  delta: number;
-}
+/**
+ * todo;
+ */
+@LuabindClass()
+export class ArtefactBinder extends object_binder {
+  public delta: number = UPDATE_THROTTLE;
+  public isInitializing: boolean = false;
 
-export const ArtefactBinder: IArtefactBinder = declare_xr_class("ArtefactBinder", object_binder, {
-  delta: UPDATE_THROTTLE,
-  __init(object: XR_game_object): void {
-    object_binder.__init(this, object);
-  },
-  net_spawn(object: XR_cse_alife_object): boolean {
-    if (!object_binder.net_spawn(this, object)) {
+  public constructor(object: XR_game_object) {
+    super(object);
+  }
+
+  public net_spawn(object: XR_cse_alife_object): boolean {
+    if (!super.net_spawn(object)) {
       return false;
     }
 
@@ -41,7 +42,7 @@ export const ArtefactBinder: IArtefactBinder = declare_xr_class("ArtefactBinder"
     const id: number = this.object.id();
 
     if (registry.artefacts.ways.get(id) !== null) {
-      const anomalyZone: IAnomalyZoneBinder = registry.artefacts.parentZones.get(id);
+      const anomalyZone: AnomalyZoneBinder = registry.artefacts.parentZones.get(id);
       const forceXZ: number = anomalyZone.applyingForceXZ;
       const forceY: number = anomalyZone.applyingForceY;
 
@@ -55,16 +56,18 @@ export const ArtefactBinder: IArtefactBinder = declare_xr_class("ArtefactBinder"
     this.isInitializing = true;
 
     return true;
-  },
-  net_destroy(): void {
+  }
+
+  public net_destroy(): void {
     deleteObject(this.object);
-    object_binder.net_destroy(this);
-  },
-  update(delta: number): void {
+    super.net_destroy();
+  }
+
+  public update(delta: number): void {
     this.delta += delta;
 
     if (this.delta >= UPDATE_THROTTLE) {
-      object_binder.update(this, this.delta);
+      super.update(this.delta);
 
       this.delta = 0;
     } else {
@@ -94,5 +97,5 @@ export const ArtefactBinder: IArtefactBinder = declare_xr_class("ArtefactBinder"
 
       this.isInitializing = false;
     }
-  },
-} as IArtefactBinder);
+  }
+}

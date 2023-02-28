@@ -119,7 +119,7 @@ export class AchievementsManager extends AbstractCoreManager {
   public checkAchievedDetective(): boolean {
     if (!hasAlifeInfo(info_portions.detective_achievement_gained)) {
       if (hasAlifeInfo(info_portions.zat_b22_barmen_gave_reward)) {
-        registry.actor.give_info_portion(info_portions.detective_achievement_gained);
+        giveInfo(info_portions.detective_achievement_gained);
         send_tip(registry.actor, captions.st_ach_detective, null, EAchievement.DETECTIVE, null, null);
       }
     }
@@ -130,7 +130,7 @@ export class AchievementsManager extends AbstractCoreManager {
   public checkAchievedOneOfLads(): boolean {
     if (!hasAlifeInfo(info_portions.one_of_the_lads_gained)) {
       if (hasAlifeInfo(info_portions.zat_b30_sultan_loose) && hasAlifeInfo(info_portions.zat_b7_actor_help_stalkers)) {
-        registry.actor.give_info_portion(info_portions.one_of_the_lads_gained);
+        giveInfo(info_portions.one_of_the_lads_gained);
         send_tip(registry.actor, captions.st_ach_one_of_the_lads, null, EAchievement.ONE_OF_THE_LADS, null, null);
       }
     }
@@ -144,7 +144,7 @@ export class AchievementsManager extends AbstractCoreManager {
         hasAlifeInfo(info_portions.zat_b30_barmen_under_sultan) &&
         hasAlifeInfo(info_portions.zat_b7_actor_help_bandits)
       ) {
-        registry.actor.give_info_portion(info_portions.kingpin_gained);
+        giveInfo(info_portions.kingpin_gained);
         send_tip(registry.actor, captions.st_ach_kingpin, null, EAchievement.KINGPIN, null, null);
       }
     }
@@ -159,7 +159,7 @@ export class AchievementsManager extends AbstractCoreManager {
         hasAlifeInfo(info_portions.jup_b25_flint_blame_done_to_freedom) ||
         hasAlifeInfo(info_portions.zat_b106_found_soroka_done)
       ) {
-        registry.actor.give_info_portion(info_portions.herald_of_justice_achievement_gained);
+        giveInfo(info_portions.herald_of_justice_achievement_gained);
         send_tip(registry.actor, captions.st_ach_herald_of_justice, null, EAchievement.HERALD_OF_JUSTICE, null, null);
       }
     }
@@ -178,7 +178,7 @@ export class AchievementsManager extends AbstractCoreManager {
       }
     }
 
-    registry.actor.give_info_portion(info_portions.sim_bandit_attack_harder);
+    giveInfo(info_portions.sim_bandit_attack_harder);
 
     send_tip(registry.actor, captions.st_ach_seeker, null, EAchievement.SEEKER, null, null);
     get_global<AnyCallablesModule>("xr_effects").inc_faction_goodwill_to_actor(registry.actor, null, [
@@ -385,9 +385,7 @@ export class AchievementsManager extends AbstractCoreManager {
       return true;
     }
 
-    const cnt_value = pstor_retrieve(registry.actor, "actor_marked_by_zone_cnt", 0);
-
-    if (cnt_value > 2) {
+    if (pstor_retrieve(registry.actor, "actor_marked_by_zone_cnt", 0) > 2) {
       giveInfo(info_portions.actor_marked_by_zone_3_times);
       send_tip(registry.actor, captions.st_ach_marked_by_zone, null, EAchievement.MARKED_BY_ZONE, null, null);
 

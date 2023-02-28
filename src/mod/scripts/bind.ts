@@ -25,9 +25,12 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("_bindings");
 
-function createBinder(target: XR_object_binder): (object: XR_game_object) => void {
+/**
+ * todo;
+ */
+function createBinder(target: typeof XR_object_binder<XR_game_object>): (object: XR_game_object) => void {
   return (object: XR_game_object) => {
-    object.bind_object(create_xr_class_instance(target, object));
+    object.bind_object(new target(object));
   };
 }
 
@@ -40,7 +43,7 @@ list = {
     const ini: Optional<XR_ini_file> = object.spawn_ini();
 
     if (ini !== null && ini.section_exist("arena_zone") && alife() !== null) {
-      object.bind_object(create_xr_class_instance(ArenaZoneBinder, object));
+      object.bind_object(new ArenaZoneBinder(object));
     }
   },
   bindArtefact: createBinder(ArtefactBinder),
@@ -51,7 +54,7 @@ list = {
     const ini: Optional<XR_ini_file> = object.spawn_ini();
 
     if (ini !== null && ini.section_exist("logic")) {
-      object.bind_object(create_xr_class_instance(HeliBinder, object, ini));
+      object.bind_object(new HeliBinder(object, ini));
     }
   },
   bindLabX8Door: createBinder(LabX8DoorBinder),
@@ -67,7 +70,7 @@ list = {
       }
     }
 
-    object.bind_object(create_xr_class_instance(PhysicObjectBinder, object));
+    object.bind_object(new PhysicObjectBinder(object));
   },
   bindRestrictor: createBinder(RestrictorBinder),
   bindSignalLight: createBinder(SignalLightBinder),
@@ -78,7 +81,7 @@ list = {
     if (ini !== null && (ini.section_exist("gulag1") || ini.section_exist("smart_terrain"))) {
       if (object.clsid() === clsid.smart_terrain) {
         if (alife() !== null) {
-          object.bind_object(create_xr_class_instance(SmartTerrainBinder, object));
+          object.bind_object(new SmartTerrainBinder(object));
         } else {
           logger.info("No simulation, smart terrain will not be enabled:", object.name());
         }

@@ -12,9 +12,9 @@ import type {
   TSection,
 } from "@/mod/lib/types";
 import type { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import type { IAnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
-import type { ILabX8DoorBinder } from "@/mod/scripts/core/binders/LabX8DoorBinder";
-import type { ISignalLightBinder } from "@/mod/scripts/core/binders/SignalLightBinder";
+import type { AnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
+import type { LabX8DoorBinder } from "@/mod/scripts/core/binders/LabX8DoorBinder";
+import type { SignalLightBinder } from "@/mod/scripts/core/binders/SignalLightBinder";
 import type {
   AbstractCoreManager,
   TAbstractCoreManagerConstructor,
@@ -146,14 +146,14 @@ export const registry = {
   /**
    * List active anomalies by name.
    */
-  anomalies: new LuaTable<TName, IAnomalyZoneBinder>(),
+  anomalies: new LuaTable<TName, AnomalyZoneBinder>(),
   /**
    * List of data for game artefacts.
    */
   artefacts: {
     ways: new LuaTable<TNumberId, TName>(),
     points: new LuaTable<TNumberId, number>(),
-    parentZones: new LuaTable<TNumberId, IAnomalyZoneBinder>(),
+    parentZones: new LuaTable<TNumberId, AnomalyZoneBinder>(),
   },
   /**
    * Goodwill state.
@@ -190,7 +190,7 @@ export const registry = {
   /**
    * List of active scripted animated doors.
    */
-  animatedDoors: new LuaTable<TName, ILabX8DoorBinder>(),
+  animatedDoors: new LuaTable<TName, LabX8DoorBinder>(),
   /**
    * List of save markers.
    */
@@ -198,7 +198,7 @@ export const registry = {
   /**
    * List of signal lights existing.
    */
-  signalLights: new LuaTable<TName, ISignalLightBinder>(),
+  signalLights: new LuaTable<TName, SignalLightBinder>(),
   /**
    * List of vertexes with matching IDs of existing objects.
    */

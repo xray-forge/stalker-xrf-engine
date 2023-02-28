@@ -19,7 +19,6 @@ import {
   XR_game_object,
   XR_ini_file,
   XR_net_packet,
-  XR_object_binder,
   XR_reader,
   XR_vector,
 } from "xray16";
@@ -73,54 +72,31 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("MotivatorBinder");
 
-export interface IMotivatorBinder extends XR_object_binder {
-  state: IStoredObject;
-
-  loaded: boolean;
-  last_update: number;
-  first_update: boolean;
-  e_index: Optional<number>;
-
-  extrapolate_callback(cur_pt: number): boolean;
-  clear_callbacks(): void;
-  hit_callback(
-    object: XR_game_object,
-    amount: number,
-    local_direction: XR_vector,
-    who: Optional<XR_game_object>,
-    bone_index: string | number
-  ): void;
-  use_callback(obj: XR_game_object, who: XR_game_object): void;
-  death_callback(victim: XR_game_object, who: Optional<XR_game_object>): void;
-  hear_callback(
-    target: XR_game_object,
-    who_id: number,
-    sound_type: TXR_snd_type,
-    sound_position: XR_vector,
-    sound_power: number
-  ): void;
-}
-
 // todo: Rewrite with event emitting system
-export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder", object_binder, {
-  __init(object: XR_game_object): void {
-    object_binder.__init(this, object);
+@LuabindClass()
+export class StalkerBinder extends object_binder {
+  public state!: IStoredObject;
+  public loaded: boolean = false;
+  public last_update: number = 0;
+  public first_update: boolean = false;
+  public e_index: Optional<number> = null;
 
-    this.loaded = false;
-    this.last_update = 0;
-    this.first_update = false;
+  public constructor(object: XR_game_object) {
+    super(object);
     // --    this.need_relation_update = false
-  },
-  reinit(): void {
-    object_binder.reinit(this);
+  }
+
+  public reinit(): void {
+    super.reinit();
 
     this.state = resetObject(this.object, { followers: {} });
     this.state.state_mgr = bind_state_manager(this.object);
 
     this.state.move_mgr = new MoveManager(this.object);
     this.state.move_mgr.initialize();
-  },
-  extrapolate_callback(cur_pt: number): boolean {
+  }
+
+  public extrapolate_callback(cur_pt: number): boolean {
     if (this.state.active_section) {
       issueEvent(this.object, this.state[this.state.active_scheme!], "extrapolate_callback");
       this.state.move_mgr.extrapolate_callback(this.object);
@@ -131,8 +107,9 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
     }
 
     return false;
-  },
-  net_spawn(obj: XR_cse_alife_object): boolean {
+  }
+
+  public net_spawn(obj: XR_cse_alife_object): boolean {
     const visual = getConfigString(system_ini(), this.object.section(), "set_visual", obj, false, "");
     const actor: XR_game_object = registry.actor;
 
@@ -146,7 +123,7 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
 
     DynamicMusicManager.NPC_TABLE.set(this.object.id(), this.object.id());
 
-    if (!object_binder.net_spawn(this, obj)) {
+    if (!super.net_spawn(obj)) {
       return false;
     }
 
@@ -243,8 +220,9 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
     this.object.group_throw_time_interval(2000);
 
     return true;
-  },
-  net_destroy(): void {
+  }
+
+  public net_destroy(): void {
     DynamicMusicManager.NPC_TABLE.delete(this.object.id());
 
     registry.actorCombat.delete(this.object.id());
@@ -281,15 +259,17 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
       deleteHelicopterEnemy(this.e_index);
     }
 
-    object_binder.net_destroy(this);
-  },
-  clear_callbacks(): void {
+    super.net_destroy();
+  }
+
+  public clear_callbacks(): void {
     this.object.set_patrol_extrapolate_callback(null);
     this.object.set_callback(callback.hit, null);
     this.object.set_callback(callback.death, null);
     this.object.set_callback(callback.sound, null);
-  },
-  hit_callback(
+  }
+
+  public hit_callback(
     obj: XR_game_object,
     amount: number,
     local_direction: XR_vector,
@@ -364,8 +344,9 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
     if (amount > 0) {
       SchemeWounded.hit_callback(obj.id());
     }
-  },
-  death_callback(victim: XR_game_object, who: Optional<XR_game_object>): void {
+  }
+
+  public death_callback(victim: XR_game_object, who: Optional<XR_game_object>): void {
     this.hit_callback(victim, 1, new vector().set(0, 0, 0), who, "from_death_callback");
 
     DynamicMusicManager.NPC_TABLE.delete(this.object.id());
@@ -425,8 +406,9 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
     }
 
     get_release_body_manager().moving_dead_body(this.object);
-  },
-  use_callback(obj: XR_game_object, who: XR_game_object): void {
+  }
+
+  public use_callback(obj: XR_game_object, who: XR_game_object): void {
     if (this.object.alive()) {
       need_victim(obj);
 
@@ -437,9 +419,10 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
         issueEvent(this.object, this.state[this.state.active_scheme!], "use_callback", obj, who);
       }
     }
-  },
-  update(delta: number): void {
-    object_binder.update(this, delta);
+  }
+
+  public update(delta: number): void {
+    super.update(delta);
 
     if (registry.actorCombat.get(this.object.id()) && this.object.best_enemy() === null) {
       registry.actorCombat.delete(this.object.id());
@@ -531,35 +514,39 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
     } else {
       object.set_tip_text_default();
     }
-  },
-  net_save_relevant(target: XR_object_binder): boolean {
+  }
+
+  public net_save_relevant(): boolean {
     return true;
-  },
-  save(packet: XR_net_packet): void {
+  }
+
+  public save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, StalkerBinder.__name);
 
-    object_binder.save(this, packet);
+    super.save(packet);
     save_obj(this.object, packet);
     TradeManager.getInstance().saveObjectState(this.object, packet);
     GlobalSound.save_npc(packet, this.object.id());
     saveNpcDialogs(packet, this.object.id());
 
     setSaveMarker(packet, true, StalkerBinder.__name);
-  },
-  load(reader: XR_reader): void {
+  }
+
+  public load(reader: XR_reader): void {
     this.loaded = true;
 
     setLoadMarker(reader, false, StalkerBinder.__name);
 
-    object_binder.load(this, reader);
+    super.load(reader);
     load_obj(this.object, reader);
     TradeManager.getInstance().loadObjectState(this.object, reader);
     GlobalSound.load_npc(reader, this.object.id());
     loadNpcDialogs(reader, this.object.id());
 
     setLoadMarker(reader, true, StalkerBinder.__name);
-  },
-  hear_callback(
+  }
+
+  public hear_callback(
     target: XR_game_object,
     who_id: number,
     sound_type: TXR_snd_type,
@@ -571,8 +558,8 @@ export const StalkerBinder: IMotivatorBinder = declare_xr_class("StalkerBinder",
     }
 
     ActionSchemeHear.hear_callback(target, who_id, sound_type, sound_position, sound_power);
-  },
-} as IMotivatorBinder);
+  }
+}
 
 export function update_logic(object: XR_game_object): void {
   const object_alive = object.alive();

@@ -5,51 +5,45 @@ import {
   XR_cse_alife_object,
   XR_game_object,
   XR_net_packet,
-  XR_object_binder,
   XR_reader,
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { addObject, deleteObject, registry, resetObject } from "@/mod/scripts/core/database";
+import { deleteObject, registry, resetObject } from "@/mod/scripts/core/database";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("SignalLightBinder");
 
-export interface ISignalLightBinder extends XR_object_binder {
-  need_turn_off: boolean;
-  loaded: boolean;
-  slow_fly_started: boolean;
+/**
+ * todo;
+ */
+@LuabindClass()
+export class SignalLightBinder extends object_binder {
+  public need_turn_off: boolean = true;
+  public loaded: boolean = false;
+  public slow_fly_started: boolean = false;
 
-  delta_time: Optional<number>;
-  start_time: Optional<number>;
+  public delta_time: Optional<number> = null;
+  public start_time: Optional<number> = null;
 
-  launch(): boolean;
-  slow_fly(): void;
-  stop_light(): void;
-  stop(): void;
-  is_flying(): boolean;
-}
+  public constructor(object: XR_game_object) {
+    super(object);
+  }
 
-export const SignalLightBinder: ISignalLightBinder = declare_xr_class("SignalLightBinder", object_binder, {
-  __init(object: XR_game_object): void {
-    object_binder.__init(this, object);
+  public reload(section: string): void {
+    super.reload(section);
+  }
 
-    this.need_turn_off = true;
-    // --  this.initialized = false
-    this.loaded = false;
-  },
-  reload(section: string): void {
-    object_binder.reload(this, section);
-  },
-  reinit(): void {
-    object_binder.reinit(this);
+  public reinit(): void {
+    super.reinit();
 
     resetObject(this.object);
     registry.signalLights.set(this.object.name(), this);
-  },
-  update(delta: number): void {
-    object_binder.update(this, delta);
+  }
+
+  public update(delta: number): void {
+    super.update(delta);
 
     const obj = this.object;
 
@@ -103,23 +97,26 @@ export const SignalLightBinder: ISignalLightBinder = declare_xr_class("SignalLig
         obj.get_hanging_lamp().turn_on();
       }
     }
-  },
-  net_spawn(object: XR_cse_alife_object): boolean {
-    if (!object_binder.net_spawn(this, object)) {
+  }
+
+  public net_spawn(object: XR_cse_alife_object): boolean {
+    if (!super.net_spawn(object)) {
       return false;
     }
 
     logger.info("Net spawn:", this.object.name());
 
     return true;
-  },
-  net_destroy(): void {
+  }
+
+  public net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
     registry.signalLights.delete(this.object.name());
     deleteObject(this.object);
-    object_binder.net_destroy(this);
-  },
-  launch(): boolean {
+    super.net_destroy();
+  }
+
+  public launch(): boolean {
     const actor: Optional<XR_game_object> = registry.actor;
 
     if (actor === null) {
@@ -141,32 +138,38 @@ export const SignalLightBinder: ISignalLightBinder = declare_xr_class("SignalLig
     this.slow_fly_started = false;
 
     return true;
-  },
-  slow_fly(): void {
+  }
+
+  public slow_fly(): void {
     this.slow_fly_started = true;
     this.object.set_const_force(new vector().set(0, 1, 0), 30, 20000);
-  },
-  stop_light(): void {
+  }
+
+  public stop_light(): void {
     const obj: XR_game_object = this.object;
 
     this.slow_fly_started = false;
 
     obj.stop_particles("weapons\\light_signal", "link");
     obj.get_hanging_lamp().turn_off();
-  },
-  stop(): void {
+  }
+
+  public stop(): void {
     this.start_time = null;
-  },
-  is_flying(): boolean {
+  }
+
+  public is_flying(): boolean {
     return this.start_time !== null;
-  },
-  net_save_relevant(): boolean {
+  }
+
+  public net_save_relevant(): boolean {
     return true;
-  },
-  save(packet: XR_net_packet): void {
+  }
+
+  public save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, SignalLightBinder.__name);
 
-    object_binder.save(this, packet);
+    super.save(packet);
 
     if (this.start_time === null) {
       packet.w_u32(-1);
@@ -177,11 +180,12 @@ export const SignalLightBinder: ISignalLightBinder = declare_xr_class("SignalLig
     packet.w_bool(this.slow_fly_started === true);
 
     setSaveMarker(packet, true, SignalLightBinder.__name);
-  },
-  load(reader: XR_reader): void {
+  }
+
+  public load(reader: XR_reader): void {
     setLoadMarker(reader, false, SignalLightBinder.__name);
 
-    object_binder.load(this, reader);
+    super.load(reader);
 
     const time = reader.r_u32();
 
@@ -194,5 +198,5 @@ export const SignalLightBinder: ISignalLightBinder = declare_xr_class("SignalLig
     this.delta_time = time_global();
 
     setLoadMarker(reader, true, SignalLightBinder.__name);
-  },
-} as ISignalLightBinder);
+  }
+}

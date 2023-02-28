@@ -5,7 +5,6 @@ import {
   XR_game_object,
   XR_ini_file,
   XR_net_packet,
-  XR_object_binder,
   XR_reader,
 } from "xray16";
 
@@ -18,17 +17,21 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("CampBinder");
 
-export interface ICampBinder extends XR_object_binder {}
+/**
+ * todo;
+ */
+@LuabindClass()
+export class CampBinder extends object_binder {
+  public constructor(object: XR_game_object) {
+    super(object);
+  }
 
-export const CampBinder: ICampBinder = declare_xr_class("CampBinder", object_binder, {
-  __init(object: XR_game_object): void {
-    object_binder.__init(this, object);
-  },
-  reload(section: string): void {
-    object_binder.reload(this, section);
-  },
-  reinit(): void {
-    object_binder.reinit(this);
+  public reload(section: string): void {
+    super.reload(section);
+  }
+
+  public reinit(): void {
+    super.reinit();
 
     const camp = registry.camps.stories.get(this.object.id());
 
@@ -36,9 +39,10 @@ export const CampBinder: ICampBinder = declare_xr_class("CampBinder", object_bin
     if (camp !== null) {
       camp.object = this.object;
     }
-  },
-  net_spawn(object: XR_cse_alife_object): boolean {
-    if (!object_binder.net_spawn(this, object)) {
+  }
+
+  public net_spawn(object: XR_cse_alife_object): boolean {
+    if (!super.net_spawn(object)) {
       return false;
     }
 
@@ -64,33 +68,36 @@ export const CampBinder: ICampBinder = declare_xr_class("CampBinder", object_bin
     }
 
     return true;
-  },
-  net_destroy(): void {
+  }
+
+  public net_destroy(): void {
     logger.info("Net destroy camp:", this.object.id());
 
     registry.camps.stories.delete(this.object.id());
-    object_binder.net_destroy(this);
-  },
-  update(delta: number): void {
+    super.net_destroy();
+  }
+
+  public update(delta: number): void {
     const camp = registry.camps.stories.get(this.object.id());
 
     if (camp !== null) {
       camp.update();
     }
-  },
-  net_save_relevant(target: XR_object_binder): boolean {
+  }
+
+  public net_save_relevant(): boolean {
     return true;
-  },
-  save(packet: XR_net_packet): void {
+  }
+
+  public save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, CampBinder.__name);
-    object_binder.save(this, packet);
-
+    super.save(packet);
     setSaveMarker(packet, true, CampBinder.__name);
-  },
-  load(reader: XR_reader): void {
-    setLoadMarker(reader, false, CampBinder.__name);
-    object_binder.load(this, reader);
+  }
 
+  public load(reader: XR_reader): void {
+    setLoadMarker(reader, false, CampBinder.__name);
+    super.load(reader);
     setLoadMarker(reader, true, CampBinder.__name);
-  },
-} as ICampBinder);
+  }
+}
