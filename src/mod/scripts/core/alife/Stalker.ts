@@ -27,23 +27,15 @@ const logger: LuaLogger = new LuaLogger("Stalker");
 @LuabindClass()
 export class Stalker extends cse_alife_human_stalker {
   public ini: Optional<XR_ini_file> = null;
-  public ini_initialized: boolean = false;
 
   public job_online: Optional<boolean> = null;
-  public death_droped: boolean = false;
+  public isCorpseLootDropped: boolean = false;
   public m_registred: boolean = false;
   public sim_forced_online: boolean = false;
 
   public constructor(section: TSection) {
     super(section);
     initializeOfflineObject(this.id);
-  }
-
-  public get_ini(): void {
-    if (!this.ini_initialized) {
-      this.ini = this.spawn_ini();
-      this.ini_initialized = true;
-    }
   }
 
   public override can_switch_offline(): boolean {
@@ -82,7 +74,7 @@ export class Stalker extends cse_alife_human_stalker {
     }
 
     packet.w_stringZ(tostring(registry.offlineObjects.get(this.id).active_section !== null));
-    packet.w_bool(this.death_droped);
+    packet.w_bool(this.isCorpseLootDropped);
   }
 
   public override STATE_Read(packet: XR_net_packet, size: number) {
@@ -97,7 +89,7 @@ export class Stalker extends cse_alife_human_stalker {
       offlineObject.level_vertex_id = oldSection === STRINGIFIED_NIL ? null : (tonumber(oldLevelId) as number);
     }
 
-    this.death_droped = packet.r_bool();
+    this.isCorpseLootDropped = packet.r_bool();
   }
 
   public override on_before_register(): void {

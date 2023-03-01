@@ -3,7 +3,7 @@ import { level, XR_game_object, XR_ini_file } from "xray16";
 import { Optional, TSection } from "@/mod/lib/types";
 import { PH_BOX_GENERIC_LTX } from "@/mod/scripts/core/database";
 import { spawnItemsForObject } from "@/mod/scripts/utils/alife_spawn";
-import { getConfigString, parseNames, parseNums } from "@/mod/scripts/utils/configs";
+import { getConfigString, parseNames, parseNumbers } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -110,7 +110,7 @@ export class PhysicObjectItemBox {
     for (const i of $range(0, PH_BOX_GENERIC_LTX.line_count(item_count_section) - 1)) {
       const [result, id, value] = PH_BOX_GENERIC_LTX.r_line(item_count_section, i, "", "");
 
-      const nums = parseNums(value);
+      const nums = parseNumbers(value);
 
       if (nums.get(1) === null) {
         abort("Error on [PH_BOX_GENERIC_LTX] declaration. Section [%s], line [%s]", item_count_section, tostring(id));

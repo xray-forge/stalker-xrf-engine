@@ -11,7 +11,7 @@ import {
   XR_patrol,
 } from "xray16";
 
-import { AnyArgs, AnyCallablesModule, AnyObject, EScheme, Optional, TSection } from "@/mod/lib/types";
+import { AnyArgs, AnyCallablesModule, AnyObject, EScheme, LuaArray, Optional, TSection } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { disableInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -164,12 +164,16 @@ export function parseKeyValue(str: Optional<string>): Optional<Record<string, st
 }
 
 /**
- * todo;
+ * Parse util to transform string of numbers to array.
+ * Example: "1, 2, 3" -> [1, 2, 3].
+ * @param base - string to parse.
+ * @returns parsed array of numbers.
  */
-export function parseNums(str: string): LuaTable<number, number> {
-  const container: LuaTable<number, number> = new LuaTable();
+export function parseNumbers<T = LuaArray<number>>(base: string): T;
+export function parseNumbers(base: string): LuaArray<number> {
+  const container: LuaArray<number> = new LuaTable();
 
-  for (const it of string.gfind(str, "([%-%d%.]+)%,*")) {
+  for (const it of string.gfind(base, "([%-%d%.]+)%,*")) {
     table.insert(container, tonumber(it) as number);
   }
 

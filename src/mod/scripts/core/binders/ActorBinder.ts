@@ -33,8 +33,8 @@ import { destroyManager, getWeakManagerInstance } from "@/mod/scripts/core/datab
 import { pstor_load_all, pstor_save_all } from "@/mod/scripts/core/database/pstor";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
 import { get_sim_obj_registry } from "@/mod/scripts/core/database/SimObjectsRegistry";
-import { initDropSettings } from "@/mod/scripts/core/DropManager";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
+import { DropManager } from "@/mod/scripts/core/managers/DropManager";
 import { EGameEvent } from "@/mod/scripts/core/managers/events/EGameEvent";
 import { EventsManager } from "@/mod/scripts/core/managers/events/EventsManager";
 import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
@@ -83,6 +83,7 @@ export class ActorBinder extends object_binder {
   public readonly surgeManager: SurgeManager = SurgeManager.getInstance();
   public readonly eventsManager: EventsManager = EventsManager.getInstance();
   public readonly weatherManager: WeatherManager = WeatherManager.getInstance();
+  public readonly dropManager: DropManager = DropManager.getInstance();
 
   public loaded: boolean = false;
   public spawn_frame: number = 0;
@@ -137,8 +138,7 @@ export class ActorBinder extends object_binder {
     }
 
     this.weatherManager.reset();
-
-    initDropSettings();
+    this.dropManager.initializeDropSettings();
 
     this.task_manager = get_task_manager();
     this.spawn_frame = device().frame;

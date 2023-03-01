@@ -5,7 +5,7 @@ import { Optional } from "@/mod/lib/types";
 import { Actor } from "@/mod/scripts/core/alife/Actor";
 import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { registry } from "@/mod/scripts/core/database/index";
+import { registry } from "@/mod/scripts/core/database/registry";
 import { areOnSameAlifeLevel, getAlifeDistanceBetween } from "@/mod/scripts/utils/alife";
 import { parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 

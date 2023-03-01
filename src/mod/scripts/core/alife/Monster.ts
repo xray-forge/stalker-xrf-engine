@@ -32,7 +32,6 @@ const logger: LuaLogger = new LuaLogger("Monster");
 @LuabindClass()
 export class Monster extends cse_alife_monster_base {
   public ini: Optional<XR_ini_file> = null;
-  public ini_initialized: boolean = false;
 
   public min_distance: number = 150;
   public m_registred: boolean = false;
@@ -42,13 +41,6 @@ export class Monster extends cse_alife_monster_base {
   public constructor(section: TSection) {
     super(section);
     hardResetOfflineObject(this.id);
-  }
-
-  public get_ini(): void {
-    if (!this.ini_initialized) {
-      this.ini = this.spawn_ini();
-      this.ini_initialized = true;
-    }
   }
 
   public override can_switch_offline(): boolean {

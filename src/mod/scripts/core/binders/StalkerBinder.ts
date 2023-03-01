@@ -39,10 +39,10 @@ import {
   resetObject,
 } from "@/mod/scripts/core/database";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
-import { DropManager } from "@/mod/scripts/core/DropManager";
 import { set_npc_sympathy, set_npcs_relation } from "@/mod/scripts/core/GameRelationsManager";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { need_victim } from "@/mod/scripts/core/inventory_upgrades";
+import { DropManager } from "@/mod/scripts/core/managers/DropManager";
 import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { TradeManager } from "@/mod/scripts/core/managers/TradeManager";
@@ -390,7 +390,7 @@ export class StalkerBinder extends object_binder {
     }
 
     SchemeLight.check_light(this.object);
-    new DropManager(this.object).create_release_item();
+    DropManager.getInstance().createCorpseReleaseItems(this.object);
     deleteHelicopterEnemy(this.e_index!);
 
     this.clear_callbacks();
@@ -435,7 +435,7 @@ export class StalkerBinder extends object_binder {
 
     if (this.first_update === false) {
       if (object_alive === false) {
-        new DropManager(object).create_release_item();
+        DropManager.getInstance().createCorpseReleaseItems(this.object);
       }
 
       this.first_update = true;

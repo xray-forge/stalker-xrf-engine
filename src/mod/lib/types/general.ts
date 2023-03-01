@@ -8,6 +8,10 @@ export type AnyObject = Record<string, any>;
  */
 export type Optional<T> = T | null;
 
+/**
+ * Nullable value with support of undefined.
+ * Not recommended to use with lua since null and undefined are same after transformation.
+ */
 export type Maybe<T> = T | undefined | null;
 
 /**
@@ -38,20 +42,3 @@ export interface IConstructor<T> {
 export type LuaArray<T> = LuaTable<number, T>;
 
 export type AnyArgs = Array<any>;
-
-export type LuaAnyArgs = LuaArray<any>;
-
-/**
- * String based name.
- */
-export type TName = string;
-
-/**
- * Number based identifier.
- */
-export type TNumberId = number;
-
-/**
- * String based identifier.
- */
-export type TStringId = string;

@@ -22,7 +22,7 @@ import {
   getConfigString,
   parseCondList,
   parseNames,
-  parseNums,
+  parseNumbers,
   pickSectionFromCondList,
 } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -228,7 +228,7 @@ export class AnomalyZoneBinder extends object_binder {
        * end todo;
        */
 
-      this.artefactsSpawnCoefficients.set(section, coeffs === null ? new LuaTable() : parseNums(coeffs));
+      this.artefactsSpawnCoefficients.set(section, coeffs === null ? new LuaTable() : parseNumbers(coeffs));
 
       const path: Optional<string> = getConfigString(ini, section, "artefact_ways", null, false, "", defaultWays);
 
