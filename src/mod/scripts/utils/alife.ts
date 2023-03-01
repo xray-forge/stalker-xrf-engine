@@ -20,8 +20,8 @@ import { communities, TCommunity } from "@/mod/globals/communities";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { AnyArgs, LuaArray, Maybe, Optional, TName, TSection } from "@/mod/lib/types";
 import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
-import { ISimSquadReachTargetAction } from "@/mod/scripts/core/alife/SimSquadReachTargetAction";
-import { ISimSquadStayOnTargetAction } from "@/mod/scripts/core/alife/SimSquadStayOnTargetAction";
+import { SimSquadReachTargetAction } from "@/mod/scripts/core/alife/SimSquadReachTargetAction";
+import { SimSquadStayOnTargetAction } from "@/mod/scripts/core/alife/SimSquadStayOnTargetAction";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { getStoryObjectsRegistry } from "@/mod/scripts/core/database/StoryObjectsRegistry";
 import { spawnItemsForObject } from "@/mod/scripts/utils/alife_spawn";
@@ -100,10 +100,8 @@ export function getObjectSquad(object: Optional<XR_game_object | XR_cse_alife_cr
 
 export function getObjectSquadAction(
   object: XR_game_object
-): Optional<ISimSquadReachTargetAction | ISimSquadStayOnTargetAction> {
-  const squad: Optional<SimSquad> = getObjectSquad(object);
-
-  return squad && squad.current_action;
+): Optional<SimSquadReachTargetAction | SimSquadStayOnTargetAction> {
+  return getObjectSquad(object)?.current_action as Optional<SimSquadReachTargetAction | SimSquadStayOnTargetAction>;
 }
 
 /**

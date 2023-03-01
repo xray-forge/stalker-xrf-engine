@@ -390,7 +390,7 @@ export class StalkerBinder extends object_binder {
     }
 
     SchemeLight.check_light(this.object);
-    create_xr_class_instance(DropManager, this.object).create_release_item();
+    new DropManager(this.object).create_release_item();
     deleteHelicopterEnemy(this.e_index!);
 
     this.clear_callbacks();
@@ -435,7 +435,7 @@ export class StalkerBinder extends object_binder {
 
     if (this.first_update === false) {
       if (object_alive === false) {
-        create_xr_class_instance(DropManager, object).create_release_item();
+        new DropManager(object).create_release_item();
       }
 
       this.first_update = true;

@@ -26,7 +26,7 @@ import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { set_travel_func } from "@/mod/scripts/core/binders/ActorBinder";
 import { registry } from "@/mod/scripts/core/database";
-import { get_sim_board, ISimBoard } from "@/mod/scripts/core/database/SimBoard";
+import { get_sim_board, SimBoard } from "@/mod/scripts/core/database/SimBoard";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { relocate_money } from "@/mod/scripts/core/NewsManager";
 import { getAlifeCharacterCommunity, getAlifeDistanceBetween, getObjectSquad } from "@/mod/scripts/utils/alife";
@@ -508,7 +508,7 @@ export class TravelManager {
   public actor_have_money(actor: XR_game_object, npc: XR_game_object, dialog_id: string, phrase_id: string): boolean {
     const travel_phrase_id: string = string.sub(phrase_id, 1, string.len(phrase_id) - 2);
     const smart_name: string = this.smart_by_phrase.get(travel_phrase_id);
-    const board: ISimBoard = get_sim_board();
+    const board: SimBoard = get_sim_board();
     const smart: Optional<SmartTerrain> = board.get_smart_by_name(smart_name);
 
     const squad_position = npc.position();

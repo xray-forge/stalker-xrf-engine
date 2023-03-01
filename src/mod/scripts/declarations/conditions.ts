@@ -24,7 +24,7 @@ import { zones } from "@/mod/globals/zones";
 import { AnyArgs, AnyCallablesModule, LuaArray, Maybe, Optional, TName, TSection } from "@/mod/lib/types";
 import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { ESmartTerrainStatus, ISmartTerrainControl } from "@/mod/scripts/core/alife/SmartTerrainControl";
+import { ESmartTerrainStatus, SmartTerrainControl } from "@/mod/scripts/core/alife/SmartTerrainControl";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { pstor_retrieve } from "@/mod/scripts/core/database/pstor";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
@@ -743,7 +743,7 @@ export function check_smart_alarm_status(
   }
 
   const smart: SmartTerrain = get_sim_board().get_smart_by_name(smartName)!;
-  const smartControl: ISmartTerrainControl = smart.base_on_actor_control;
+  const smartControl: SmartTerrainControl = smart.base_on_actor_control;
 
   if (smartControl === null) {
     abort("Cannot calculate 'check_smart_alarm_status' for smart %s", tostring(smartName));

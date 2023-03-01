@@ -4,7 +4,6 @@ import {
   time_global,
   XR_alife_simulator,
   XR_cse_alife_object,
-  XR_EngineBinding,
   XR_ini_file,
   XR_net_packet,
   XR_reader,
@@ -21,7 +20,7 @@ import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("TreasureManager");
-let treasureManager: Optional<ITreasureManager> = null;
+let treasureManager: Optional<TreasureManager> = null;
 
 export interface ITreasureSecret {
   given: boolean;
@@ -42,35 +41,17 @@ export interface ITreasureSecret {
   >;
 }
 
-export interface ITreasureManager extends XR_EngineBinding {
-  items_spawned: boolean;
-  check_time: any;
-  secrets: LuaTable<string, ITreasureSecret>;
-  secret_restrs: LuaTable<string, number>;
-  items_from_secrets: LuaTable<number, number>;
+/**
+ * todo;
+ */
+export class TreasureManager {
+  public items_spawned: boolean = false;
+  public check_time: any = null;
+  public secrets: LuaTable<string, ITreasureSecret> = new LuaTable();
+  public secret_restrs: LuaTable<string, number> = new LuaTable();
+  public items_from_secrets: LuaTable<number, number> = new LuaTable();
 
-  initialize(): void;
-  fill(se_obj: XR_cse_alife_object, treasure_id: string): Optional<boolean>;
-  register_item(se_obj: XR_cse_alife_object): Optional<boolean>;
-  register_restrictor(se_obj: XR_cse_alife_object): void;
-  update(): void;
-  spawn_treasure(treasure_id: string): void;
-  give_treasure(treasure_id: string, spawn?: boolean): void;
-  give_random(): void;
-  on_item_take(obj_id: number): void;
-  save(packet: XR_net_packet): void;
-  load(reader: XR_reader): void;
-}
-
-export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManager", null, {
-  __init(): void {
-    this.items_spawned = false;
-    this.check_time = null;
-    this.secrets = new LuaTable();
-    this.secret_restrs = new LuaTable();
-    this.items_from_secrets = new LuaTable();
-  },
-  initialize(): void {
+  public initialize(): void {
     const totalSecretsCount: number = SECRETS_LTX.line_count("list");
 
     logger.info("Initialize secrets, expected:", totalSecretsCount);
@@ -124,8 +105,9 @@ export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManag
     }
 
     logger.info("Initialized");
-  },
-  fill(se_obj: XR_cse_alife_object, treasure_id: string): Optional<boolean> {
+  }
+
+  public fill(se_obj: XR_cse_alife_object, treasure_id: string): Optional<boolean> {
     logger.info("Fill:", se_obj.id, treasure_id);
 
     if (this.secrets.get(treasure_id) !== null) {
@@ -153,8 +135,9 @@ export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManag
     } else {
       abort("Attempt to register item [%s] in unexistent secret [%s]", se_obj.name(), treasure_id);
     }
-  },
-  register_item(se_obj: XR_cse_alife_object): Optional<boolean> {
+  }
+
+  public register_item(se_obj: XR_cse_alife_object): Optional<boolean> {
     const spawn_ini: XR_ini_file = se_obj.spawn_ini();
 
     if (spawn_ini.section_exist("secret")) {
@@ -172,15 +155,17 @@ export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManag
     } else {
       return null;
     }
-  },
-  register_restrictor(se_obj: XR_cse_alife_object): void {
+  }
+
+  public register_restrictor(se_obj: XR_cse_alife_object): void {
     const spawn_ini: XR_ini_file = se_obj.spawn_ini();
 
     if (spawn_ini.section_exist("secret")) {
       this.secret_restrs.set(se_obj.name(), se_obj.id);
     }
-  },
-  update(): void {
+  }
+
+  public update(): void {
     if (!this.items_spawned) {
       for (const [k, v] of this.secrets) {
         this.spawn_treasure(k);
@@ -222,8 +207,9 @@ export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManag
         }
       }
     }
-  },
-  spawn_treasure(treasure_id: string): void {
+  }
+
+  public spawn_treasure(treasure_id: string): void {
     logger.info("Spawn treasure ID:", treasure_id);
 
     if (!this.secrets.get(treasure_id)) {
@@ -262,8 +248,9 @@ export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManag
         }
       }
     }
-  },
-  give_treasure(treasure_id: string, spawn?: boolean): void {
+  }
+
+  public give_treasure(treasure_id: string, spawn?: boolean): void {
     logger.info("Give treasure:", treasure_id);
 
     if (!this.secrets.get(treasure_id)) {
@@ -290,8 +277,9 @@ export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManag
     send_treasure(0);
 
     logger.info("Give treasure:", treasure_id);
-  },
-  give_random(): void {
+  }
+
+  public give_random(): void {
     logger.info("Give random treasure");
 
     const rnd_tbl: LuaTable<number, string> = new LuaTable();
@@ -307,8 +295,9 @@ export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManag
     } else {
       logger.info("No available treasures to give random");
     }
-  },
-  on_item_take(obj_id: number): void {
+  }
+
+  public on_item_take(obj_id: number): void {
     const restrId: Optional<number> = this.items_from_secrets.get(obj_id);
     let treasureId = null;
 
@@ -337,9 +326,10 @@ export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManag
 
       this.items_from_secrets.delete(obj_id);
     }
-  },
-  save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, "TreasureManager");
+  }
+
+  public save(packet: XR_net_packet): void {
+    setSaveMarker(packet, false, TreasureManager.name);
 
     packet.w_bool(this.items_spawned);
 
@@ -376,10 +366,11 @@ export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManag
       packet.w_u8(v.to_find);
     }
 
-    setSaveMarker(packet, true, "TreasureManager");
-  },
-  load(reader: XR_reader): void {
-    setLoadMarker(reader, false, "TreasureManager");
+    setSaveMarker(packet, true, TreasureManager.name);
+  }
+
+  public load(reader: XR_reader): void {
+    setLoadMarker(reader, false, TreasureManager.name);
 
     this.items_spawned = reader.r_bool();
     this.items_from_secrets = new LuaTable();
@@ -418,13 +409,13 @@ export const TreasureManager: ITreasureManager = declare_xr_class("TreasureManag
       }
     }
 
-    setLoadMarker(reader, true, "TreasureManager");
-  },
-} as ITreasureManager);
+    setLoadMarker(reader, true, TreasureManager.name);
+  }
+}
 
-export function getTreasureManager(): ITreasureManager {
+export function getTreasureManager(): TreasureManager {
   if (treasureManager === null) {
-    treasureManager = create_xr_class_instance(TreasureManager);
+    treasureManager = new TreasureManager();
     treasureManager.initialize();
   }
 

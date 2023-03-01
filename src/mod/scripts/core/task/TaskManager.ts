@@ -1,34 +1,29 @@
-import { ini_file, XR_CGameTask, XR_EngineBinding, XR_ini_file, XR_net_packet, XR_reader } from "xray16";
+import { ini_file, XR_CGameTask, XR_ini_file, XR_net_packet, XR_reader } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
-import { ITaskObject, TaskObject } from "@/mod/scripts/core/task/TaskObject";
+import { TaskObject } from "@/mod/scripts/core/task/TaskObject";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { getTableSize } from "@/mod/scripts/utils/table";
 
-let taskManager: Optional<ITaskManager> = null;
+let taskManager: Optional<TaskManager> = null;
 const logger: LuaLogger = new LuaLogger("TaskManager");
 
-export interface ITaskManager extends XR_EngineBinding {
-  task_ini: XR_ini_file;
-  task_info: LuaTable<string, ITaskObject>;
+/**
+ * todo;
+ */
+export class TaskManager {
+  public readonly task_ini: XR_ini_file;
+  public readonly task_info: LuaTable<string, TaskObject>;
 
-  save(packet: XR_net_packet): void;
-  load(reader: XR_reader): void;
-  give_task(task_id: string): void;
-  task_complete(task_id: string): boolean;
-  task_fail(task_id: string): boolean;
-  task_callback(task: XR_CGameTask, completed: boolean): boolean;
-}
-
-export const TaskManager: ITaskManager = declare_xr_class("TaskManager", null, {
-  __init(): void {
+  public constructor() {
     this.task_ini = new ini_file("misc\\task_manager.ltx");
     this.task_info = new LuaTable();
-  },
-  save(packet: XR_net_packet): void {
+  }
+
+  public save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, "TaskManager");
 
     const n = getTableSize(this.task_info);
@@ -41,33 +36,36 @@ export const TaskManager: ITaskManager = declare_xr_class("TaskManager", null, {
     }
 
     setSaveMarker(packet, true, "TaskManager");
-  },
-  load(reader: XR_reader): void {
+  }
+
+  public load(reader: XR_reader): void {
     setLoadMarker(reader, false, "TaskManager");
 
     const n = reader.r_u16();
 
     for (const i of $range(1, n)) {
       const id: string = reader.r_stringZ();
-      const obj: ITaskObject = create_xr_class_instance(TaskObject, this.task_ini, id);
+      const obj: TaskObject = new TaskObject(this.task_ini, id);
 
       obj.load(reader);
       this.task_info.set(id, obj);
     }
 
     setLoadMarker(reader, true, "TaskManager");
-  },
-  give_task(task_id: string): void {
+  }
+
+  public give_task(task_id: string): void {
     logger.info("Give task:", task_id);
 
     if (!this.task_ini.section_exist(task_id)) {
       abort("There is no task [%s] in task ini_file or ini_file is not included!!!", task_id);
     }
 
-    this.task_info.set(task_id, create_xr_class_instance(TaskObject, this.task_ini, task_id));
+    this.task_info.set(task_id, new TaskObject(this.task_ini, task_id));
     this.task_info.get(task_id).give_task();
-  },
-  task_complete(task_id: string): boolean {
+  }
+
+  public task_complete(task_id: string): boolean {
     const task = this.task_info.get(task_id);
 
     if (task === null) {
@@ -84,8 +82,9 @@ export const TaskManager: ITaskManager = declare_xr_class("TaskManager", null, {
     } else {
       return false;
     }
-  },
-  task_fail(task_id: string): boolean {
+  }
+
+  public task_fail(task_id: string): boolean {
     const task = this.task_info.get(task_id);
 
     if (task === null) {
@@ -95,22 +94,23 @@ export const TaskManager: ITaskManager = declare_xr_class("TaskManager", null, {
     task.check_task();
 
     return task.last_check_task === "fail" || task.last_check_task === "reversed";
-  },
-  task_callback(task, completed): void {
-    const task_id: string = task.get_id();
+  }
 
-    if (!this.task_info.has(task_id)) {
+  public task_callback(task: XR_CGameTask, completed: boolean): void {
+    const taskId: string = task.get_id();
+
+    if (!this.task_info.has(taskId)) {
       return;
     }
 
-    this.task_info.get(task_id).deactivate_task(task);
-    this.task_info.delete(task_id);
-  },
-} as ITaskManager);
+    this.task_info.get(taskId).deactivate_task(task);
+    this.task_info.delete(taskId);
+  }
+}
 
-export function get_task_manager(): ITaskManager {
+export function get_task_manager(): TaskManager {
   if (taskManager === null) {
-    taskManager = create_xr_class_instance(TaskManager);
+    taskManager = new TaskManager();
   }
 
   return taskManager;

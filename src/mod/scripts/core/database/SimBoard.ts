@@ -1,7 +1,7 @@
 import { alife, clsid, game_graph, level, XR_cse_alife_creature_abstract, XR_EngineBinding } from "xray16";
 
 import { TCommunity } from "@/mod/globals/communities";
-import { Optional } from "@/mod/lib/types";
+import { Optional, TNumberId } from "@/mod/lib/types";
 import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { registry, SIMULATION_LTX } from "@/mod/scripts/core/database";
@@ -21,7 +21,7 @@ const group_id_by_levels: LuaTable<string, number> = {
   jupiter_underground: 5,
 } as any;
 
-let board: Optional<ISimBoard> = null;
+let board: Optional<SimBoard> = null;
 
 export interface ISimSmartDescriptor {
   smrt: SmartTerrain;
@@ -29,66 +29,45 @@ export interface ISimSmartDescriptor {
   stayed_squad_quan: number;
 }
 
-export interface ISimBoard extends XR_EngineBinding {
-  simulation_started: boolean;
-
-  players: Optional<LuaTable>;
-  smarts: LuaTable<number, ISimSmartDescriptor>;
-  smarts_by_names: LuaTable<string, SmartTerrain>;
-  squads: LuaTable<number, SimSquad>;
-  spawn_smarts: any;
-  mutant_lair: any;
-  tmp_assigned_squad: LuaTable<number, LuaTable<number, SimSquad>>;
-  tmp_entered_squad: LuaTable<number, LuaTable<number, SimSquad>>;
-
-  start_position_filled: boolean;
-
-  start_sim(): void;
-  stop_sim(): void;
-  set_actor_community(community: TCommunity): void;
-  register_smart(obj: SmartTerrain): void;
-  init_smart(obj: SmartTerrain): void;
-  unregister_smart(obj: SmartTerrain): void;
-  create_squad(spawn_smart: SmartTerrain, sq_id: string): SimSquad;
-  remove_squad(squad: SimSquad): void;
-  assign_squad_to_smart(squad: SimSquad, smart_id: Optional<number>): void;
-  exit_smart(squad: SimSquad, smart_id: Optional<number>): void;
-  enter_smart(squad: SimSquad, smart_id: number, after_load?: boolean): void;
-  setup_squad_and_group(obj: unknown): void;
-  fill_start_position(): void;
-  get_smart_by_name(name: string): Optional<SmartTerrain>;
-  get_smart_population(smart: SmartTerrain): number;
-  get_squad_target(squad: SimSquad): SmartTerrain | SimSquad;
-}
-
 /**
  * todo;
  */
-export const SimBoard: ISimBoard = declare_xr_class("SimBoard", null, {
-  __init(): void {
-    this.smarts = new LuaTable();
-    this.simulation_started = true;
+export class SimBoard {
+  public simulation_started: boolean = true;
 
-    this.smarts_by_names = new LuaTable();
-    this.squads = new LuaTable();
+  public players: Optional<LuaTable> = null;
+  public smarts: LuaTable<number, ISimSmartDescriptor> = new LuaTable();
+  public smarts_by_names: LuaTable<string, SmartTerrain> = new LuaTable();
+  public squads: LuaTable<number, SimSquad> = new LuaTable();
+  public spawn_smarts: any;
+  public mutant_lair: any;
+  public tmp_assigned_squad: LuaTable<number, LuaTable<number, SimSquad>>;
+  public tmp_entered_squad: LuaTable<number, LuaTable<number, SimSquad>>;
 
+  public start_position_filled: boolean = false;
+
+  public constructor() {
     this.spawn_smarts = {};
     this.mutant_lair = {};
 
     this.tmp_assigned_squad = new LuaTable();
     this.tmp_entered_squad = new LuaTable();
-  },
-  start_sim(): void {
+  }
+
+  public start_sim(): void {
     this.simulation_started = true;
-  },
-  stop_sim(): void {
+  }
+
+  public stop_sim(): void {
     this.simulation_started = false;
-  },
-  set_actor_community(community: TCommunity): void {
+  }
+
+  public set_actor_community(community: TCommunity): void {
     // May be broken?
     registry.actor.set_character_community(get_global("actor_communitites")[community], 0, 0);
-  },
-  register_smart(obj: SmartTerrain): void {
+  }
+
+  public register_smart(obj: SmartTerrain): void {
     if (this.smarts.get(obj.id) !== null) {
       abort("Smart already exist in list [%s]", obj.name());
     }
@@ -96,8 +75,9 @@ export const SimBoard: ISimBoard = declare_xr_class("SimBoard", null, {
     this.smarts.set(obj.id, { smrt: obj, squads: new LuaTable(), stayed_squad_quan: 0 });
 
     this.smarts_by_names.set(obj.name(), obj);
-  },
-  init_smart(obj: SmartTerrain): void {
+  }
+
+  public init_smart(obj: SmartTerrain): void {
     if (this.tmp_assigned_squad.has(obj.id)) {
       for (const [k, v] of this.tmp_assigned_squad.get(obj.id)) {
         this.assign_squad_to_smart(v, obj.id);
@@ -113,15 +93,17 @@ export const SimBoard: ISimBoard = declare_xr_class("SimBoard", null, {
 
       this.tmp_entered_squad.delete(obj.id);
     }
-  },
-  unregister_smart(obj: SmartTerrain): void {
+  }
+
+  public unregister_smart(obj: SmartTerrain): void {
     if (!this.smarts.has(obj.id)) {
       abort("Trying to unregister null smart [%s]", obj.name());
     }
 
     this.smarts.delete(obj.id);
-  },
-  create_squad(spawn_smart: SmartTerrain, sq_id: string): SimSquad {
+  }
+
+  public create_squad(spawn_smart: SmartTerrain, sq_id: string): SimSquad {
     const squad_id = tostring(sq_id);
     const squad = alife().create<SimSquad>(
       squad_id,
@@ -144,19 +126,19 @@ export const SimBoard: ISimBoard = declare_xr_class("SimBoard", null, {
     }
 
     return squad;
-  },
-  remove_squad(squad: SimSquad): void {
+  }
+
+  public remove_squad(squad: SimSquad): void {
     logger.info("Remove squad:", squad.name());
 
-    if (squad.current_action === null || squad.current_action.dest_smrt === null) {
-      squad.board.exit_smart(squad, squad.smart_id);
-    }
+    squad.board.exit_smart(squad, squad.smart_id);
 
     this.assign_squad_to_smart(squad, null);
 
     squad.remove_squad();
-  },
-  assign_squad_to_smart(squad: SimSquad, smart_id: Optional<number>): void {
+  }
+
+  public assign_squad_to_smart(squad: SimSquad, smart_id: Optional<number>): void {
     if (smart_id !== null && !this.smarts.has(smart_id)) {
       if (!this.tmp_assigned_squad.has(smart_id)) {
         this.tmp_assigned_squad.set(smart_id, new LuaTable());
@@ -189,8 +171,9 @@ export const SimBoard: ISimBoard = declare_xr_class("SimBoard", null, {
     squad.assign_smart(target.smrt);
     target.squads.set(squad.id, squad);
     target.smrt.refresh();
-  },
-  exit_smart(squad: SimSquad, smart_id: Optional<number>): void {
+  }
+
+  public exit_smart(squad: SimSquad, smart_id: Optional<number>): void {
     if (smart_id === null) {
       return;
     }
@@ -209,30 +192,32 @@ export const SimBoard: ISimBoard = declare_xr_class("SimBoard", null, {
 
     smart.stayed_squad_quan = smart.stayed_squad_quan - 1;
     smart.squads.delete(squad.id);
-  },
-  enter_smart(squad: SimSquad, smart_id: number, after_load: boolean): void {
-    if (!this.smarts.has(smart_id)) {
-      if (!this.tmp_entered_squad.has(smart_id)) {
-        this.tmp_entered_squad.set(smart_id, new LuaTable());
+  }
+
+  public enter_smart(squad: SimSquad, smartId: TNumberId): void {
+    if (!this.smarts.has(smartId)) {
+      if (!this.tmp_entered_squad.has(smartId)) {
+        this.tmp_entered_squad.set(smartId, new LuaTable());
       }
 
-      table.insert(this.tmp_entered_squad.get(smart_id), squad);
+      table.insert(this.tmp_entered_squad.get(smartId), squad);
 
       return;
     }
 
-    const smart = this.smarts.get(smart_id);
+    const smart = this.smarts.get(smartId);
 
     if (squad.entered_smart !== null) {
       abort("Couldn't enter smart, still in old one. Squad: [%s]", squad.name());
     }
 
-    squad.entered_smart = smart_id;
+    squad.entered_smart = smartId;
+    squad.items_spawned = false;
 
     smart.stayed_squad_quan = smart.stayed_squad_quan + 1;
-    squad.items_spawned = false;
-  },
-  setup_squad_and_group(obj: XR_cse_alife_creature_abstract): void {
+  }
+
+  public setup_squad_and_group(obj: XR_cse_alife_creature_abstract): void {
     const level_name: string = level.name();
 
     obj = alife().object(obj.id)!;
@@ -270,8 +255,9 @@ export const SimBoard: ISimBoard = declare_xr_class("SimBoard", null, {
     }
 
     changeTeamSquadGroup(obj, obj.team, obj_sq, obj.group);
-  },
-  fill_start_position(): void {
+  }
+
+  public fill_start_position(): void {
     if (this.start_position_filled === true) {
       return;
     }
@@ -304,14 +290,17 @@ export const SimBoard: ISimBoard = declare_xr_class("SimBoard", null, {
         }
       }
     }
-  },
-  get_smart_by_name(name: string): Optional<SmartTerrain> {
+  }
+
+  public get_smart_by_name(name: string): Optional<SmartTerrain> {
     return this.smarts_by_names.get(name);
-  },
-  get_smart_population(smart: SmartTerrain): number {
+  }
+
+  public get_smart_population(smart: SmartTerrain): number {
     return this.smarts.get(smart.id).stayed_squad_quan;
-  },
-  get_squad_target(squad: SimSquad) {
+  }
+
+  public get_squad_target(squad: SimSquad) {
     const available_targets: LuaTable<number, { prior: number; target: any }> = new LuaTable();
     let most_priority_task = null;
     const max_prior = 0;
@@ -341,13 +330,13 @@ export const SimBoard: ISimBoard = declare_xr_class("SimBoard", null, {
     }
 
     return most_priority_task || (squad.smart_id && alife().object<SmartTerrain>(squad.smart_id)) || squad;
-  },
-} as ISimBoard);
+  }
+}
 
-export function get_sim_board(): ISimBoard {
+export function get_sim_board(): SimBoard {
   if (board === null) {
     logger.info("Init new board");
-    board = create_xr_class_instance(SimBoard);
+    board = new SimBoard();
   }
 
   return board;

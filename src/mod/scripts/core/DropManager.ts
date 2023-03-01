@@ -1,4 +1,4 @@
-import { alife, ini_file, level, XR_EngineBinding, XR_game_object, XR_ini_file } from "xray16";
+import { alife, ini_file, level, XR_game_object, XR_ini_file } from "xray16";
 
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { ammo, TAmmoItem } from "@/mod/globals/items/ammo";
@@ -115,21 +115,18 @@ export function initDropSettings(): void {
   logger.info("Initialized drop settings");
 }
 
-export interface IDropManager extends XR_EngineBinding {
-  npc: XR_game_object;
+/**
+ * todo;
+ */
+export class DropManager {
+  public readonly npc: XR_game_object;
 
-  create_release_item(): void;
-  keep_item(npc: XR_game_object, item: XR_game_object): void;
-  create_items(npc: XR_game_object, section: string, count: number, probability: number): void;
-  check_item_dependence(npc: XR_game_object, section: string): boolean;
-}
-
-export const DropManager: IDropManager = declare_xr_class("DropManager", null, {
-  __init(npc: XR_game_object): void {
+  public constructor(npc: XR_game_object) {
     logger.info("Init drop manager:", npc.name());
     this.npc = npc;
-  },
-  create_release_item(): void {
+  }
+
+  public create_release_item(): void {
     const se_obj: Optional<Stalker> = alife().object<Stalker>(this.npc.id());
 
     if (se_obj === null || se_obj.death_droped === true) {
@@ -171,15 +168,17 @@ export const DropManager: IDropManager = declare_xr_class("DropManager", null, {
         this.create_items(this.npc, section, count, probability);
       }
     }
-  },
-  create_items(npc: XR_game_object, section: TSection, count: number, probability: number): void {
+  }
+
+  public create_items(npc: XR_game_object, section: TSection, count: number, probability: number): void {
     if (ammo[section as TAmmoItem]) {
       spawnAmmoForObject(npc, section as TAmmoItem, count);
     } else {
       spawnItemsForObject(npc, section, count, probability);
     }
-  },
-  keep_item(npc: XR_game_object, item: XR_game_object): void {
+  }
+
+  public keep_item(npc: XR_game_object, item: XR_game_object): void {
     const section: TSection = item.section();
     const ini: XR_ini_file = npc.spawn_ini();
 
@@ -261,8 +260,9 @@ export const DropManager: IDropManager = declare_xr_class("DropManager", null, {
      *     end
      *     ]]
      */
-  },
-  check_item_dependence(npc: XR_game_object, section: string): boolean {
+  }
+
+  public check_item_dependence(npc: XR_game_object, section: string): boolean {
     if (!item_dependence.has(section)) {
       return true;
     }
@@ -280,5 +280,5 @@ export const DropManager: IDropManager = declare_xr_class("DropManager", null, {
     }
 
     return d_flag;
-  },
-} as IDropManager);
+  }
+}

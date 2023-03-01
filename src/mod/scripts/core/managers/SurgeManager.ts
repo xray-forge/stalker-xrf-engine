@@ -17,12 +17,13 @@ import { post_processors } from "@/mod/globals/animation/post_processors";
 import { captions } from "@/mod/globals/captions";
 import { info_portions } from "@/mod/globals/info_portions";
 import { levels, TLevel } from "@/mod/globals/levels";
+import { STRINGIFIED_TRUE } from "@/mod/globals/lua";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { AnyCallablesModule, Optional, PartialRecord } from "@/mod/lib/types";
 import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { registry, SURGE_MANAGER_LTX } from "@/mod/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
-import { get_sim_board, ISimBoard } from "@/mod/scripts/core/database/SimBoard";
+import { get_sim_board, SimBoard } from "@/mod/scripts/core/database/SimBoard";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
@@ -609,7 +610,7 @@ export class SurgeManager extends AbstractCoreManager {
       }
     }
 
-    const board: ISimBoard = get_sim_board();
+    const board: SimBoard = get_sim_board();
     const levelName: TLevel = level.name();
 
     logger.info("Releasing squads:", board.squads.length());
@@ -670,7 +671,7 @@ export class SurgeManager extends AbstractCoreManager {
         }
 
         get_global<AnyCallablesModule>("xr_effects").disable_ui_only(registry.actor, null);
-        if (pickSectionFromCondList(registry.actor, null, this.surgeSurviveCondlist) !== "true") {
+        if (pickSectionFromCondList(registry.actor, null, this.surgeSurviveCondlist) !== STRINGIFIED_TRUE) {
           this.kill_all_unhided_after_actor_death();
           registry.actor.kill(registry.actor);
 
@@ -685,7 +686,7 @@ export class SurgeManager extends AbstractCoreManager {
   }
 
   protected kill_all_unhided_after_actor_death(): void {
-    const board: ISimBoard = get_sim_board();
+    const board: SimBoard = get_sim_board();
     const levelName: TLevel = level.name();
 
     for (const [squadId, squad] of board.squads) {

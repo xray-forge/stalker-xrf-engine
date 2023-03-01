@@ -41,8 +41,8 @@ export class SchemeHit extends AbstractScheme {
     }
   }
 
-  public static set_hit_checker(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    logger.info("Set hit checker:", object.id());
+  public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    logger.info("Set scheme:", object.id());
 
     const st = assignStorageAndBind(object, ini, scheme, section);
 

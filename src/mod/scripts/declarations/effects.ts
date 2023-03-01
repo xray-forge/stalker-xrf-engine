@@ -1503,7 +1503,7 @@ export function create_squad_member(
   const new_member_id = squad.add_squad_member(squad_member_sect, position, level_vertex_id, game_vertex_id);
 
   squad.assign_squad_member_to_smart(new_member_id, squad_smart, null);
-  board.setup_squad_and_group(alife().object(new_member_id));
+  board.setup_squad_and_group(alife().object(new_member_id) as XR_cse_alife_creature_abstract);
   // --squad_smart.refresh()
   squad.update();
 }

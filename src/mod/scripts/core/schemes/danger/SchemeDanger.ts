@@ -18,6 +18,7 @@ import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { ActionProcessEnemy } from "@/mod/scripts/core/schemes/danger/actions/ActionProcessEnemy";
+import { EvaluatorDanger } from "@/mod/scripts/core/schemes/danger/evaluators";
 import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
 import { isHeavilyWounded } from "@/mod/scripts/utils/checkers/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -40,24 +41,15 @@ export class SchemeDanger extends AbstractScheme {
   ): void {
     logger.info("Add to binder:", object.name());
 
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const { EvaluatorDanger } = require("@/mod/scripts/core/schemes/danger/evaluators/EvaluatorDanger");
-
     const manager = object.motivation_action_manager();
     const danger_action: XR_action_base = manager.action(stalker_ids.action_danger_planner);
     const danger_action_planner: XR_action_planner = cast_planner(danger_action);
 
     manager.remove_evaluator(stalker_ids.property_danger);
-    manager.add_evaluator(
-      stalker_ids.property_danger,
-      create_xr_class_instance(EvaluatorDanger, object, "danger", state)
-    );
+    manager.add_evaluator(stalker_ids.property_danger, new EvaluatorDanger(state, this));
 
     danger_action_planner.remove_evaluator(stalker_ids.property_danger);
-    danger_action_planner.add_evaluator(
-      stalker_ids.property_danger,
-      create_xr_class_instance(EvaluatorDanger, object, "danger", state)
-    );
+    danger_action_planner.add_evaluator(stalker_ids.property_danger, new EvaluatorDanger(state, this));
   }
 
   public static set_danger(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: string): void {
@@ -171,9 +163,7 @@ export class SchemeDanger extends AbstractScheme {
 
   public static get_danger_time(danger: XR_danger_object): number {
     if (danger.type() === danger_object.entity_corpse) {
-      const corpse_object = danger.object();
-
-      return corpse_object.death_time();
+      return danger.object().death_time();
     }
 
     return danger.time();

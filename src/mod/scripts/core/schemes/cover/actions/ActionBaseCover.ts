@@ -2,7 +2,7 @@ import { action_base, game_object, level, vector, XR_vector } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
-import { get_sim_board, ISimBoard } from "@/mod/scripts/core/database/SimBoard";
+import { get_sim_board, SimBoard } from "@/mod/scripts/core/database/SimBoard";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
@@ -14,7 +14,7 @@ import { vectorCmp } from "@/mod/scripts/utils/physics";
 @LuabindClass()
 export class ActionBaseCover extends action_base {
   public readonly state: IStoredObject;
-  public board!: ISimBoard;
+  public board!: SimBoard;
 
   public enemy_random_position: Optional<XR_vector> = null;
   public cover_vertex_id!: number;

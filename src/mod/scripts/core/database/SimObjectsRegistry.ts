@@ -1,5 +1,6 @@
-import { clsid, ini_file, XR_cse_alife_object, XR_EngineBinding } from "xray16";
+import { clsid, ini_file, XR_cse_alife_object } from "xray16";
 
+import { STRINGIFIED_TRUE } from "@/mod/globals/lua";
 import { Optional } from "@/mod/lib/types";
 import { Actor } from "@/mod/scripts/core/alife/Actor";
 import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
@@ -8,33 +9,32 @@ import { registry } from "@/mod/scripts/core/database/index";
 import { areOnSameAlifeLevel, getAlifeDistanceBetween } from "@/mod/scripts/utils/alife";
 import { parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 
-let sim_objects_registry: Optional<ISimObjectsRegistry> = null;
+let sim_objects_registry: Optional<SimObjectsRegistry> = null;
 const props_ini = new ini_file("misc\\simulation_objects_props.ltx");
 
-export interface ISimObjectsRegistry extends XR_EngineBinding {
-  objects: LuaTable<number, Actor | SimSquad | SmartTerrain>;
-  register(obj: XR_cse_alife_object): void;
-  update_avaliability(obj: XR_cse_alife_object): void;
-  get_props(obj: XR_cse_alife_object): void;
-  unregister(obj: XR_cse_alife_object): void;
-}
+/**
+ * todo;
+ */
+export class SimObjectsRegistry {
+  public readonly objects: LuaTable<number, Actor | SimSquad | SmartTerrain> = new LuaTable();
 
-export const SimObjectsRegistry: ISimObjectsRegistry = declare_xr_class("SimObjectsRegistry", null, {
-  __init(): void {
-    this.objects = new LuaTable();
-  },
-  register(obj: XR_cse_alife_object): void {
+  public register(obj: SmartTerrain | SimSquad | Actor): void {
     this.get_props(obj);
     this.update_avaliability(obj);
-  },
-  update_avaliability(obj: SmartTerrain): void {
-    if (pickSectionFromCondList(registry.actor, obj, obj.sim_avail as any) === "true" && obj.sim_available()) {
+  }
+
+  public update_avaliability(obj: SmartTerrain | SimSquad | Actor): void {
+    if (
+      pickSectionFromCondList(registry.actor, obj, obj.sim_avail as any) === STRINGIFIED_TRUE &&
+      obj.sim_available()
+    ) {
       this.objects.set(obj.id, obj);
     } else {
       this.objects.delete(obj.id);
     }
-  },
-  get_props(obj: SmartTerrain | SimSquad | Actor) {
+  }
+
+  public get_props(obj: SmartTerrain | SimSquad | Actor) {
     obj.props = new LuaTable();
 
     let props_section: string = obj.name();
@@ -70,15 +70,16 @@ export const SimObjectsRegistry: ISimObjectsRegistry = declare_xr_class("SimObje
     if (obj.sim_avail === null) {
       obj.sim_avail = parseCondList(null, "simulation_object", "sim_avail", "true");
     }
-  },
-  unregister(obj: XR_cse_alife_object): void {
+  }
+
+  public unregister(obj: XR_cse_alife_object): void {
     this.objects.delete(obj.id);
-  },
-} as ISimObjectsRegistry);
+  }
+}
 
 export function get_sim_obj_registry() {
   if (sim_objects_registry === null) {
-    sim_objects_registry = create_xr_class_instance(SimObjectsRegistry);
+    sim_objects_registry = new SimObjectsRegistry();
   }
 
   return sim_objects_registry;

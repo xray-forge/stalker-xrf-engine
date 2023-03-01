@@ -1,4 +1,4 @@
-import { alife, TXR_net_processor, XR_cse_abstract, XR_EngineBinding, XR_ini_file, XR_net_packet } from "xray16";
+import { alife, TXR_net_processor, XR_cse_abstract, XR_ini_file, XR_net_packet } from "xray16";
 
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { Optional } from "@/mod/lib/types";
@@ -9,29 +9,14 @@ import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("StoryObjectsRegistry");
-let storyObjectsRegistry: Optional<IStoryObjectsRegistry> = null;
-
-export interface IStoryObjectsRegistry extends XR_EngineBinding {
-  id_by_story_id: LuaTable<string, number>;
-  story_id_by_id: LuaTable<number, string>;
-
-  register(obj_id: number, story_obj_id: string): void;
-  unregister_by_id(obj_id: number): void;
-  unregister_by_story_id(story_id: string): void;
-  get(story_obj_id: string): Optional<number>;
-  get_story_id(obj_id: number): Optional<string>;
-  save(packet: XR_net_packet): void;
-  load(packet: TXR_net_processor): void;
-}
+let storyObjectsRegistry: Optional<StoryObjectsRegistry> = null;
 
 // todo: Manager singleton.
-export const StoryObjectsRegistry: IStoryObjectsRegistry = declare_xr_class("StoryObjectsRegistry", null, {
-  __init(): void {
-    logger.info("Init");
-    this.id_by_story_id = new LuaTable();
-    this.story_id_by_id = new LuaTable();
-  },
-  register(objectId: number, storyObjectId: string): void {
+export class StoryObjectsRegistry {
+  public readonly id_by_story_id: LuaTable<string, number> = new LuaTable();
+  public readonly story_id_by_id: LuaTable<number, string> = new LuaTable();
+
+  public register(objectId: number, storyObjectId: string): void {
     if (this.id_by_story_id.get(storyObjectId) !== null) {
       if (objectId !== this.id_by_story_id.get(storyObjectId)) {
         const existingObjectName = alife().object(this.id_by_story_id.get(storyObjectId))?.name();
@@ -52,27 +37,32 @@ export const StoryObjectsRegistry: IStoryObjectsRegistry = declare_xr_class("Sto
 
     this.id_by_story_id.set(storyObjectId, objectId);
     this.story_id_by_id.set(objectId, storyObjectId);
-  },
-  unregister_by_id(obj_id: number): void {
+  }
+
+  public unregister_by_id(obj_id: number): void {
     if (this.story_id_by_id.get(obj_id) !== null) {
       this.id_by_story_id.delete(this.story_id_by_id.get(obj_id));
       this.story_id_by_id.delete(obj_id);
     }
-  },
-  unregister_by_story_id(story_id: string): void {
+  }
+
+  public unregister_by_story_id(story_id: string): void {
     if (this.id_by_story_id.get(story_id) !== null) {
       this.story_id_by_id.delete(this.id_by_story_id.get(story_id));
       this.id_by_story_id.delete(story_id);
     }
-  },
-  get(story_obj_id: string): Optional<number> {
+  }
+
+  public get(story_obj_id: string): Optional<number> {
     return this.id_by_story_id.get(story_obj_id);
-  },
-  get_story_id(obj_id: number): Optional<string> {
+  }
+
+  public get_story_id(obj_id: number): Optional<string> {
     return this.story_id_by_id.get(obj_id);
-  },
-  save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, StoryObjectsRegistry.__name);
+  }
+
+  public save(packet: XR_net_packet): void {
+    setSaveMarker(packet, false, StoryObjectsRegistry.name);
 
     let count = 0;
 
@@ -91,10 +81,11 @@ export const StoryObjectsRegistry: IStoryObjectsRegistry = declare_xr_class("Sto
       packet.w_u16(v);
     }
 
-    setSaveMarker(packet, true, StoryObjectsRegistry.__name);
-  },
-  load(packet: TXR_net_processor): void {
-    setLoadMarker(packet, false, StoryObjectsRegistry.__name);
+    setSaveMarker(packet, true, StoryObjectsRegistry.name);
+  }
+
+  public load(packet: TXR_net_processor): void {
+    setLoadMarker(packet, false, StoryObjectsRegistry.name);
 
     const count: number = packet.r_u16();
 
@@ -106,13 +97,12 @@ export const StoryObjectsRegistry: IStoryObjectsRegistry = declare_xr_class("Sto
       this.story_id_by_id.set(obj_id, story_id);
     }
 
-    setLoadMarker(packet, true, StoryObjectsRegistry.__name);
-  },
-} as IStoryObjectsRegistry);
-
-export function getStoryObjectsRegistry(): IStoryObjectsRegistry {
+    setLoadMarker(packet, true, StoryObjectsRegistry.name);
+  }
+}
+export function getStoryObjectsRegistry(): StoryObjectsRegistry {
   if (storyObjectsRegistry === null) {
-    storyObjectsRegistry = create_xr_class_instance(StoryObjectsRegistry);
+    storyObjectsRegistry = new StoryObjectsRegistry();
   }
 
   return storyObjectsRegistry;

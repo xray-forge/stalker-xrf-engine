@@ -32,10 +32,9 @@ export class ActionPostCombatIdleWait extends action_base {
 
     this.anim_st = { animstate: { states: { anim_marker: null } } };
 
-    this.state.animation = create_xr_class_instance(
-      AnimationManager,
+    this.state.animation = new AnimationManager(
       this.object,
-      this.anim_st,
+      this.anim_st as any,
       "state_mgr_animation_list",
       animations
     );

@@ -4,7 +4,6 @@ import {
   getFS,
   ini_file,
   time_global,
-  XR_EngineBinding,
   XR_game_object,
   XR_ini_file,
   XR_net_packet,
@@ -20,39 +19,26 @@ import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { getObjectStoryId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const MAX_DISTANCE = 4900;
-const IDLE_AFTER_DEATH = 40_000;
-const MAX_BODY_COUNT = 15;
 const logger: LuaLogger = new LuaLogger("ReleaseBodyManager");
+const MAX_DISTANCE: number = 4900;
+const IDLE_AFTER_DEATH: number = 40_000;
+const MAX_BODY_COUNT: number = 15;
 
 export interface IReleaseDescriptor {
   death_time?: number;
   id: number;
 }
 
-export interface IReleaseBodyManager extends XR_EngineBinding {
-  release_objects_table: LuaTable<number, IReleaseDescriptor>;
-  keep_items_table: LuaTable<number, string>;
-  body_max_count: number;
-  current_object_id: number;
+/**
+ * todo;
+ */
+export class ReleaseBodyManager {
+  public release_objects_table: LuaTable<number, IReleaseDescriptor> = new LuaTable();
+  public keep_items_table: LuaTable<number, string> = new LuaTable();
+  public readonly body_max_count: number = MAX_BODY_COUNT;
 
-  moving_dead_body(obj: XR_game_object): void;
-  try_to_release(): void;
-  inspection_result(obj: XR_game_object): boolean;
-  check_for_known_info(obj: XR_game_object): boolean;
-  find_nearest_obj_to_release(release_tbl: LuaTable<number, IReleaseDescriptor>): Optional<number>;
-  save(packet: XR_net_packet): void;
-  load(reader: XR_reader): void;
-}
-
-export const ReleaseBodyManager: IReleaseBodyManager = declare_xr_class("ReleaseBodyManager", null, {
-  __init(): void {
-    logger.info("Init");
-
-    this.release_objects_table = new LuaTable();
-    this.keep_items_table = new LuaTable();
-    this.body_max_count = MAX_BODY_COUNT;
-    this.current_object_id = 0;
+  public constructor() {
+    logger.info("Initialize");
 
     if (!DEATH_GENERIC_LTX.section_exist("keep_items")) {
       abort("There is no section [keep_items] in death_generic.ltx");
@@ -65,8 +51,9 @@ export const ReleaseBodyManager: IReleaseBodyManager = declare_xr_class("Release
 
       table.insert(this.keep_items_table, section);
     }
-  },
-  moving_dead_body(obj: XR_game_object): void {
+  }
+
+  public moving_dead_body(obj: XR_game_object): void {
     if (this.inspection_result(obj)) {
       if (this.release_objects_table.length() > this.body_max_count) {
         this.try_to_release();
@@ -79,8 +66,9 @@ export const ReleaseBodyManager: IReleaseBodyManager = declare_xr_class("Release
         death_time: time_global(),
       });
     }
-  },
-  try_to_release(): void {
+  }
+
+  public try_to_release(): void {
     logger.info("Try to release dead bodies:", this.release_objects_table.length(), this.body_max_count);
 
     const overflow_count = this.release_objects_table.length() - this.body_max_count;
@@ -108,8 +96,9 @@ export const ReleaseBodyManager: IReleaseBodyManager = declare_xr_class("Release
 
       table.remove(this.release_objects_table, pos_in_table);
     }
-  },
-  inspection_result(obj: XR_game_object): boolean {
+  }
+
+  public inspection_result(obj: XR_game_object): boolean {
     if (getObjectStoryId(obj.id()) !== null) {
       logger.info("Ignore release, present in story:", obj.name());
 
@@ -131,8 +120,9 @@ export const ReleaseBodyManager: IReleaseBodyManager = declare_xr_class("Release
     }
 
     return true;
-  },
-  check_for_known_info(obj: XR_game_object): boolean {
+  }
+
+  public check_for_known_info(obj: XR_game_object): boolean {
     let char_ini: Optional<XR_ini_file> = null;
     const spawn_ini: Optional<XR_ini_file> = obj.spawn_ini();
     const filename: Optional<string> =
@@ -156,8 +146,9 @@ export const ReleaseBodyManager: IReleaseBodyManager = declare_xr_class("Release
     }
 
     return false;
-  },
-  find_nearest_obj_to_release(release_tbl: LuaTable<number, IReleaseDescriptor>): Optional<number> {
+  }
+
+  public find_nearest_obj_to_release(release_tbl: LuaTable<number, IReleaseDescriptor>): Optional<number> {
     const actor = registry.actor;
     const actor_pos = actor.position();
 
@@ -183,9 +174,10 @@ export const ReleaseBodyManager: IReleaseBodyManager = declare_xr_class("Release
     }
 
     return pos_in_table;
-  },
-  save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, ReleaseBodyManager.__name);
+  }
+
+  public save(packet: XR_net_packet): void {
+    setSaveMarker(packet, false, ReleaseBodyManager.name);
 
     const count = this.release_objects_table.length();
 
@@ -199,10 +191,11 @@ export const ReleaseBodyManager: IReleaseBodyManager = declare_xr_class("Release
 
     packet.w_u16(level_id);
 
-    setSaveMarker(packet, true, ReleaseBodyManager.__name);
-  },
-  load(reader: XR_reader): void {
-    setLoadMarker(reader, false, ReleaseBodyManager.__name);
+    setSaveMarker(packet, true, ReleaseBodyManager.name);
+  }
+
+  public load(reader: XR_reader): void {
+    setLoadMarker(reader, false, ReleaseBodyManager.name);
 
     const count: number = reader.r_u16();
 
@@ -221,15 +214,15 @@ export const ReleaseBodyManager: IReleaseBodyManager = declare_xr_class("Release
       this.release_objects_table = new LuaTable();
     }
 
-    setLoadMarker(reader, true, ReleaseBodyManager.__name);
-  },
-} as IReleaseBodyManager);
+    setLoadMarker(reader, true, ReleaseBodyManager.name);
+  }
+}
 
-let releaseBodyManager: Optional<IReleaseBodyManager> = null;
+let releaseBodyManager: Optional<ReleaseBodyManager> = null;
 
-export function get_release_body_manager(): IReleaseBodyManager {
+export function get_release_body_manager(): ReleaseBodyManager {
   if (!releaseBodyManager) {
-    releaseBodyManager = create_xr_class_instance(ReleaseBodyManager);
+    releaseBodyManager = new ReleaseBodyManager();
   }
 
   return releaseBodyManager;

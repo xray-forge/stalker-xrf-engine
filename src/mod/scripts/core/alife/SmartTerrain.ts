@@ -27,11 +27,7 @@ import { loadGulagJobs } from "@/mod/scripts/core/alife/gulag_general";
 import { simulation_activities } from "@/mod/scripts/core/alife/SimActivity";
 import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { registered_smartcovers } from "@/mod/scripts/core/alife/SmartCover";
-import {
-  ESmartTerrainStatus,
-  ISmartTerrainControl,
-  SmartTerrainControl,
-} from "@/mod/scripts/core/alife/SmartTerrainControl";
+import { ESmartTerrainStatus, SmartTerrainControl } from "@/mod/scripts/core/alife/SmartTerrainControl";
 import {
   turn_off_campfires_by_smart_name,
   turn_on_campfires_by_smart_name,
@@ -43,7 +39,7 @@ import {
   registry,
   softResetOfflineObject,
 } from "@/mod/scripts/core/database";
-import { get_sim_board, ISimBoard } from "@/mod/scripts/core/database/SimBoard";
+import { get_sim_board, SimBoard } from "@/mod/scripts/core/database/SimBoard";
 import { evaluate_prior, get_sim_obj_registry } from "@/mod/scripts/core/database/SimObjectsRegistry";
 import { get_smart_terrain_name } from "@/mod/scripts/core/database/smart_names";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";
@@ -144,7 +140,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   public safe_restr: Optional<string> = null;
   public spawn_point: Optional<string> = null;
 
-  public base_on_actor_control!: ISmartTerrainControl;
+  public base_on_actor_control!: SmartTerrainControl;
 
   public max_population: number = -1;
 
@@ -164,7 +160,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   public ltx_name!: string;
 
   public props!: AnyObject;
-  public board!: ISimBoard;
+  public board!: SimBoard;
   public smart_level: string = "";
 
   public respawn_params!: LuaTable<string, { squads: LuaTable<number, string>; num: number }>;
@@ -287,7 +283,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
     const smart_control_section = getConfigString(ini, SMART_TERRAIN_SECT, "smart_control", this, false, "", null);
 
     if (smart_control_section !== null) {
-      this.base_on_actor_control = create_xr_class_instance(SmartTerrainControl, this, ini, smart_control_section);
+      this.base_on_actor_control = new SmartTerrainControl(this, ini, smart_control_section);
     }
 
     this.respawn_point = false;

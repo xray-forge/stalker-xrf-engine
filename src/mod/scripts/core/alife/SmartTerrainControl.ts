@@ -1,6 +1,6 @@
-import { game, TXR_net_processor, XR_CTime, XR_EngineBinding, XR_ini_file, XR_net_packet } from "xray16";
+import { game, TXR_net_processor, XR_CTime, XR_ini_file, XR_net_packet } from "xray16";
 
-import { Optional, TName } from "@/mod/lib/types";
+import { Optional, TName, TSection } from "@/mod/lib/types";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { registry } from "@/mod/scripts/core/database";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
@@ -24,31 +24,20 @@ export let current_smart_id: Optional<number> = null;
 
 const ALARM_TIME = 2 * 60 * 60;
 
-export interface ISmartTerrainControl extends XR_EngineBinding {
-  status: ESmartTerrainStatus;
-  noweap_zone: TName;
-  ignore_zone: string;
-  alarm_start_sound: string;
-  alarm_stop_sound: string;
-  smart: SmartTerrain;
-
-  alarm_time: Optional<XR_CTime>;
-
-  update(): void;
-  get_actor_treat(): boolean;
-  actor_attack(): void;
-  get_status(): ESmartTerrainStatus;
-  save(packet: XR_net_packet): void;
-  load(packet: TXR_net_processor): void;
-}
-
 // CBaseOnActorControl
 /**
  * todo;
- * Do not use luabind for it
  */
-export const SmartTerrainControl: ISmartTerrainControl = declare_xr_class("SmartTerrainControl", null, {
-  __init(smart: SmartTerrain, ini: XR_ini_file, section: string): void {
+export class SmartTerrainControl {
+  public status: ESmartTerrainStatus;
+  public noweap_zone: TName;
+  public ignore_zone: string;
+  public alarm_start_sound: string;
+  public alarm_stop_sound: string;
+  public smart: SmartTerrain;
+  public alarm_time: Optional<XR_CTime> = null;
+
+  public constructor(smart: SmartTerrain, ini: XR_ini_file, section: TSection) {
     this.noweap_zone = getConfigString(ini, section, "noweap_zone", this, true, "");
     this.ignore_zone = getConfigString(ini, section, "ignore_zone", this, false, "");
 
@@ -67,8 +56,9 @@ export const SmartTerrainControl: ISmartTerrainControl = declare_xr_class("Smart
 
     this.smart = smart;
     this.status = ESmartTerrainStatus.NORMAL;
-  },
-  update(): void {
+  }
+
+  public update(): void {
     if (this.status === ESmartTerrainStatus.ALARM) {
       if (game.get_game_time().diffSec(this.alarm_time!) < ALARM_TIME) {
         return;
@@ -90,8 +80,9 @@ export const SmartTerrainControl: ISmartTerrainControl = declare_xr_class("Smart
     } else {
       this.status = ESmartTerrainStatus.NORMAL;
     }
-  },
-  get_actor_treat(): boolean {
+  }
+
+  public get_actor_treat(): boolean {
     const zone = registry.zones.get(this.noweap_zone);
 
     if (zone === null) {
@@ -113,8 +104,9 @@ export const SmartTerrainControl: ISmartTerrainControl = declare_xr_class("Smart
     }
 
     return false;
-  },
-  actor_attack(): void {
+  }
+
+  public actor_attack(): void {
     logger.info("Actor attacked smart:", this.smart.name());
 
     if (this.status !== ESmartTerrainStatus.ALARM) {
@@ -131,28 +123,30 @@ export const SmartTerrainControl: ISmartTerrainControl = declare_xr_class("Smart
 
     this.status = ESmartTerrainStatus.ALARM;
     this.alarm_time = game.get_game_time();
-  },
-  get_status(): ESmartTerrainStatus {
+  }
+
+  public get_status(): ESmartTerrainStatus {
     return this.status;
-  },
-  save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, SmartTerrainControl.__name);
+  }
+
+  public save(packet: XR_net_packet): void {
+    setSaveMarker(packet, false, SmartTerrainControl.name);
 
     packet.w_u8(this.status);
     writeCTimeToPacket(packet, this.alarm_time);
 
-    setSaveMarker(packet, true, SmartTerrainControl.__name);
-  },
-  load(reader: TXR_net_processor): void {
-    setLoadMarker(reader, false, SmartTerrainControl.__name);
+    setSaveMarker(packet, true, SmartTerrainControl.name);
+  }
+
+  public load(reader: TXR_net_processor): void {
+    setLoadMarker(reader, false, SmartTerrainControl.name);
 
     this.status = reader.r_u8();
     this.alarm_time = readCTimeFromPacket(reader);
 
-    setLoadMarker(reader, true, SmartTerrainControl.__name);
-  },
-} as ISmartTerrainControl);
-
+    setLoadMarker(reader, true, SmartTerrainControl.name);
+  }
+}
 export function getCurrentSmartId(): Optional<number> {
   return current_smart_id;
 }

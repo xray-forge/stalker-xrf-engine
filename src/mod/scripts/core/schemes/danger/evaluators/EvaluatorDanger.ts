@@ -19,12 +19,14 @@ import { SchemeDanger } from "@/mod/scripts/core/schemes/danger/SchemeDanger";
  */
 @LuabindClass()
 export class EvaluatorDanger extends property_evaluator {
-  public readonly state: IStoredObject;
+  private readonly state: IStoredObject;
+  private readonly schemeDanger: typeof SchemeDanger;
   public manager: Optional<XR_action_planner> = null;
 
-  public constructor(storage: IStoredObject) {
+  public constructor(state: IStoredObject, schemeDanger: typeof SchemeDanger) {
     super(null, EvaluatorDanger.__name);
-    this.state = storage;
+    this.state = state;
+    this.schemeDanger = schemeDanger;
   }
 
   public evaluate(): boolean {
@@ -42,14 +44,14 @@ export class EvaluatorDanger extends property_evaluator {
       return true;
     }
 
-    if (!SchemeDanger.is_danger(this.object)) {
+    if (!this.schemeDanger.is_danger(this.object)) {
       registry.objects.get(this.object.id()).danger_flag = false;
 
       return false;
     }
 
     if (this.manager.initialized() && this.manager.current_action_id() === stalker_ids.action_danger_planner) {
-      this.state.danger_time = SchemeDanger.get_danger_time(this.object.best_danger()!);
+      this.state.danger_time = this.schemeDanger.get_danger_time(this.object.best_danger()!);
     }
 
     registry.objects.get(this.object.id()).danger_flag = true;

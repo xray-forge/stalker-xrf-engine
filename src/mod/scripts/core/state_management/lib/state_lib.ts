@@ -16,7 +16,7 @@ export interface IStateDescriptor {
   weapon_slot?: Optional<number>;
   direction?: TXR_look | TXR_SightType;
   special_danger_move?: Optional<boolean>;
-  fast_set?: Optional<boolean>;
+  fast_set: Optional<boolean>;
 }
 
 export const states: LuaTable<string, IStateDescriptor> = {

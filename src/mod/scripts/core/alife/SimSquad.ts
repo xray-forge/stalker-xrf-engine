@@ -28,14 +28,8 @@ import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { AnyCallablesModule, AnyObject, Optional } from "@/mod/lib/types";
 import { TSection } from "@/mod/lib/types/scheme";
 import { simulation_activities } from "@/mod/scripts/core/alife/SimActivity";
-import {
-  ISimSquadReachTargetAction,
-  SimSquadReachTargetAction,
-} from "@/mod/scripts/core/alife/SimSquadReachTargetAction";
-import {
-  ISimSquadStayOnTargetAction,
-  SimSquadStayOnTargetAction,
-} from "@/mod/scripts/core/alife/SimSquadStayOnTargetAction";
+import { SimSquadReachTargetAction } from "@/mod/scripts/core/alife/SimSquadReachTargetAction";
+import { SimSquadStayOnTargetAction } from "@/mod/scripts/core/alife/SimSquadStayOnTargetAction";
 import type { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { ESmartTerrainStatus } from "@/mod/scripts/core/alife/SmartTerrainControl";
 import {
@@ -45,7 +39,7 @@ import {
   SQUAD_BEHAVIOURS_LTX,
   SYSTEM_INI,
 } from "@/mod/scripts/core/database";
-import { get_sim_board, ISimBoard } from "@/mod/scripts/core/database/SimBoard";
+import { get_sim_board, SimBoard } from "@/mod/scripts/core/database/SimBoard";
 import { evaluate_prior, get_sim_obj_registry } from "@/mod/scripts/core/database/SimObjectsRegistry";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";
 import {
@@ -93,7 +87,7 @@ export class SimSquad<
   // todo: Rename.
   public player_id!: TCommunity;
   public smart_id: Optional<number> = null;
-  public board: ISimBoard = get_sim_board();
+  public board: SimBoard = get_sim_board();
   public sim_avail: Optional<boolean> = null;
   public squad_online: boolean = false;
   public show_disabled: boolean = false;
@@ -107,7 +101,7 @@ export class SimSquad<
   public current_spot_id: Optional<number> = null;
   public spot_section: Optional<string> = null;
 
-  public current_action: Optional<ISimSquadStayOnTargetAction | ISimSquadReachTargetAction> = null;
+  public current_action: Optional<SimSquadStayOnTargetAction | SimSquadReachTargetAction> = null;
   public current_target_id: Optional<any> = null;
   public assigned_target_id: Optional<number> = null;
 
@@ -185,7 +179,7 @@ export class SimSquad<
     this.board.assign_squad_to_smart(this, this.smart_id);
 
     if (this.smart_id !== null) {
-      this.board.enter_smart(this, this.smart_id, true);
+      this.board.enter_smart(this, this.smart_id);
     }
 
     this.need_to_reset_location_masks = true;
@@ -337,21 +331,10 @@ export class SimSquad<
         need_to_find_new_action = true;
       }
     } else {
-      if (this.current_action === null) {
-        need_to_find_new_action = true;
-      } else {
-        if (this.current_action!.major === true) {
-          if (this.update_current_action()) {
-            this.check_squad_come_to_point();
-            need_to_find_new_action = true;
-          }
-        } else {
-          need_to_find_new_action = true;
-        }
-      }
+      need_to_find_new_action = true;
     }
 
-    if (need_to_find_new_action === true) {
+    if (need_to_find_new_action) {
       this.assigned_target_id = script_target;
 
       if (this.current_action !== null) {
@@ -445,7 +428,7 @@ export class SimSquad<
           squad_target.on_after_reach(this);
         }
 
-        this.current_action = create_xr_class_instance(SimSquadStayOnTargetAction, this);
+        this.current_action = new SimSquadStayOnTargetAction(this);
         this.current_target_id = this.assigned_target_id;
         this.current_action.make(under_simulation);
 
@@ -454,11 +437,11 @@ export class SimSquad<
     }
 
     if (this.assigned_target_id === this.current_target_id || this.assigned_target_id === null) {
-      this.current_action = create_xr_class_instance(SimSquadStayOnTargetAction, this);
+      this.current_action = new SimSquadStayOnTargetAction(this);
       this.current_target_id = this.assigned_target_id;
       this.current_action.make(under_simulation);
     } else {
-      this.current_action = create_xr_class_instance(SimSquadReachTargetAction, this);
+      this.current_action = new SimSquadReachTargetAction(this);
       this.current_action.make(under_simulation);
     }
   }

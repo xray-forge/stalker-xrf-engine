@@ -28,31 +28,31 @@ import { getConfigString } from "@/mod/scripts/utils/configs";
  */
 export function enable_generic_schemes(
   ini: XR_ini_file,
-  npc: XR_game_object,
-  stype: ESchemeType,
+  object: XR_game_object,
+  schemeType: ESchemeType,
   section: TSection
 ): void {
-  switch (stype) {
+  switch (schemeType) {
     case ESchemeType.STALKER: {
-      SchemeDanger.set_danger(npc, ini, SchemeDanger.SCHEME_SECTION, "danger");
-      SchemeGatherItems.set_gather_items(npc, ini, SchemeGatherItems.SCHEME_SECTION, "gather_items");
+      SchemeDanger.set_danger(object, ini, SchemeDanger.SCHEME_SECTION, "danger");
+      SchemeGatherItems.set_gather_items(object, ini, SchemeGatherItems.SCHEME_SECTION, "gather_items");
 
-      const combat_section = getConfigString(ini, section, "on_combat", npc, false, "");
+      const combat_section = getConfigString(ini, section, "on_combat", object, false, "");
 
-      SchemeCombat.set_combat_checker(npc, ini, EScheme.COMBAT, combat_section);
+      SchemeCombat.set_combat_checker(object, ini, EScheme.COMBAT, combat_section);
 
-      reset_invulnerability(npc, ini, section);
+      reset_invulnerability(object, ini, section);
 
-      const info_section: Optional<string> = getConfigString(ini, section, "info", npc, false, "");
+      const info_section: Optional<string> = getConfigString(ini, section, "info", object, false, "");
 
       if (info_section !== null) {
-        setObjectInfo(npc, ini, info_section);
+        setObjectInfo(object, ini, info_section);
       }
 
-      const hit_section: Optional<string> = getConfigString(ini, section, "on_hit", npc, false, "");
+      const hit_section: Optional<string> = getConfigString(ini, section, "on_hit", object, false, "");
 
       if (hit_section !== null) {
-        SchemeHit.set_hit_checker(npc, ini, SchemeHit.SCHEME_SECTION, hit_section);
+        SchemeHit.set_scheme(object, ini, SchemeHit.SCHEME_SECTION, hit_section);
       }
 
       /*
@@ -65,67 +65,67 @@ export function enable_generic_schemes(
       }
      */
 
-      const wounded_section = getConfigString(ini, section, "wounded", npc, false, "");
+      const wounded_section = getConfigString(ini, section, "wounded", object, false, "");
 
-      SchemeWounded.set_wounded(npc, ini, EScheme.WOUNDED, wounded_section);
-      SchemeAbuse.set_abuse(npc, ini, EScheme.ABUSE, section);
-      SchemeHelpWounded.set_help_wounded(npc, ini, EScheme.HELP_WOUNDED, null);
-      SchemeCorpseDetection.set_corpse_detection(npc, ini, EScheme.CORPSE_DETECTION, null);
+      SchemeWounded.set_wounded(object, ini, EScheme.WOUNDED, wounded_section);
+      SchemeAbuse.set_abuse(object, ini, EScheme.ABUSE, section);
+      SchemeHelpWounded.set_help_wounded(object, ini, EScheme.HELP_WOUNDED, null);
+      SchemeCorpseDetection.set_corpse_detection(object, ini, EScheme.CORPSE_DETECTION, null);
 
-      const meet_section = getConfigString(ini, section, "meet", npc, false, "");
+      const meet_section = getConfigString(ini, section, "meet", object, false, "");
 
-      SchemeMeet.set_meet(npc, ini, EScheme.MEET, meet_section);
+      SchemeMeet.set_meet(object, ini, EScheme.MEET, meet_section);
 
-      const death_section = getConfigString(ini, section, "on_death", npc, false, "");
+      const death_section = getConfigString(ini, section, "on_death", object, false, "");
 
-      SchemeDeath.set_death(npc, ini, EScheme.DEATH, death_section);
-      SchemeCombatIgnore.set_combat_ignore_checker(npc, ini, EScheme.COMBAT_IGNORE);
-      SchemeReachTask.set_reach_task(npc, ini, EScheme.REACH_TASK);
+      SchemeDeath.set_death(object, ini, EScheme.DEATH, death_section);
+      SchemeCombatIgnore.set_combat_ignore_checker(object, ini, EScheme.COMBAT_IGNORE);
+      SchemeReachTask.set_reach_task(object, ini, EScheme.REACH_TASK);
 
       return;
     }
 
     case ESchemeType.MONSTER: {
-      const combat_section: Optional<string> = getConfigString(ini, section, "on_combat", npc, false, "");
+      const combat_section: Optional<string> = getConfigString(ini, section, "on_combat", object, false, "");
 
       if (combat_section !== null) {
-        SchemeMobCombat.set_scheme(npc, ini, EScheme.MOB_COMBAT, combat_section);
+        SchemeMobCombat.set_scheme(object, ini, EScheme.MOB_COMBAT, combat_section);
       }
 
-      const death_section: Optional<string> = getConfigString(ini, section, "on_death", npc, false, "");
+      const death_section: Optional<string> = getConfigString(ini, section, "on_death", object, false, "");
 
       if (death_section !== null) {
-        SchemeMobDeath.set_scheme(npc, ini, EScheme.MOB_DEATH, death_section);
+        SchemeMobDeath.set_scheme(object, ini, EScheme.MOB_DEATH, death_section);
       }
 
-      reset_invulnerability(npc, ini, section);
+      reset_invulnerability(object, ini, section);
 
-      const hit_section: Optional<string> = getConfigString(ini, section, "on_hit", npc, false, "");
+      const hit_section: Optional<string> = getConfigString(ini, section, "on_hit", object, false, "");
 
       if (hit_section !== null) {
-        SchemeHit.set_hit_checker(npc, ini, SchemeHit.SCHEME_SECTION, hit_section);
+        SchemeHit.set_scheme(object, ini, SchemeHit.SCHEME_SECTION, hit_section);
       }
 
-      SchemeCombatIgnore.set_combat_ignore_checker(npc, ini, EScheme.COMBAT_IGNORE);
+      SchemeCombatIgnore.set_combat_ignore_checker(object, ini, EScheme.COMBAT_IGNORE);
 
       return;
     }
 
     case ESchemeType.ITEM: {
-      const hit_section: Optional<string> = getConfigString(ini, section, "on_hit", npc, false, "");
+      const hit_section: Optional<string> = getConfigString(ini, section, "on_hit", object, false, "");
 
       if (hit_section !== null) {
-        SchemePhysicalOnHit.set_scheme(npc, ini, SchemePhysicalOnHit.SCHEME_SECTION, hit_section);
+        SchemePhysicalOnHit.set_scheme(object, ini, SchemePhysicalOnHit.SCHEME_SECTION, hit_section);
       }
 
       return;
     }
 
     case ESchemeType.HELI: {
-      const hit_section: Optional<string> = getConfigString(ini, section, "on_hit", npc, false, "");
+      const hit_section: Optional<string> = getConfigString(ini, section, "on_hit", object, false, "");
 
       if (hit_section !== null) {
-        SchemeHit.set_hit_checker(npc, ini, SchemeHit.SCHEME_SECTION, hit_section);
+        SchemeHit.set_scheme(object, ini, SchemeHit.SCHEME_SECTION, hit_section);
       }
 
       return;

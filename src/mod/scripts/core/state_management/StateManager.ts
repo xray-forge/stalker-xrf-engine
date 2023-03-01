@@ -16,7 +16,7 @@ import { stringifyAsJson } from "@/mod/lib/utils/json";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import * as animationManagement from "@/mod/scripts/core/state_management/animation";
 import * as animationStateManagement from "@/mod/scripts/core/state_management/animation_state";
-import { AnimationManager, IAnimationManager } from "@/mod/scripts/core/state_management/AnimationManager";
+import { AnimationManager } from "@/mod/scripts/core/state_management/AnimationManager";
 import * as bodyStateManagement from "@/mod/scripts/core/state_management/body_state";
 import * as directionManagement from "@/mod/scripts/core/state_management/direction";
 import { EStateManagerOperator } from "@/mod/scripts/core/state_management/EStateManagerOperator";
@@ -44,8 +44,8 @@ const logger: LuaLogger = new LuaLogger("StateManager", gameConfig.DEBUG.IS_STAT
 
 export class StateManager {
   public npc: XR_game_object;
-  public animation!: IAnimationManager;
-  public animstate!: IAnimationManager;
+  public animation!: AnimationManager;
+  public animstate!: AnimationManager;
   public planner: XR_action_planner;
 
   public target_state: string = "idle";
@@ -352,7 +352,7 @@ export function goap_graph(st: StateManager, npc: XR_game_object): void {
     new directionManagement.StateManagerEvaDirectionSearch(st)
   );
 
-  st.animstate = create_xr_class_instance(AnimationManager, npc, st, "state_mgr_animstate_list", animstates);
+  st.animstate = new AnimationManager(npc, st, "state_mgr_animstate_list", animstates);
 
   st.planner.add_evaluator(
     EStateManagerProperty.animstate,
@@ -371,7 +371,7 @@ export function goap_graph(st: StateManager, npc: XR_game_object): void {
     new animationStateManagement.StateManagerEvaAnimationStateLocked(st)
   );
 
-  st.animation = create_xr_class_instance(AnimationManager, npc, st, "state_mgr_animation_list", animations);
+  st.animation = new AnimationManager(npc, st, "state_mgr_animation_list", animations);
 
   st.planner.add_evaluator(EStateManagerProperty.animation, new animationManagement.StateManagerEvaAnimation(st));
   st.planner.add_evaluator(

@@ -18,7 +18,7 @@ import { AnyCallablesModule, AnyObject, LuaArray, Optional } from "@/mod/lib/typ
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { pstor_retrieve } from "@/mod/scripts/core/database/pstor";
 import { get_npcs_relation } from "@/mod/scripts/core/GameRelationsManager";
-import { getTreasureManager, ITreasureManager } from "@/mod/scripts/core/TreasureManager";
+import { getTreasureManager, TreasureManager } from "@/mod/scripts/core/TreasureManager";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { isActorEnemyWithFaction } from "@/mod/scripts/utils/checkers/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -39,7 +39,7 @@ const logger: LuaLogger = new LuaLogger("dialogs_jupiter");
 export function jup_b208_give_reward(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   giveMoneyToActor(5000);
 
-  const treasureManager: ITreasureManager = getTreasureManager();
+  const treasureManager: TreasureManager = getTreasureManager();
 
   treasureManager.give_treasure("jup_hiding_place_18");
   treasureManager.give_treasure("jup_hiding_place_35");

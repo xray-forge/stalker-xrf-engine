@@ -26,6 +26,7 @@ import { ammo } from "@/mod/globals/items/ammo";
 import { drugs } from "@/mod/globals/items/drugs";
 import { TLevel } from "@/mod/globals/levels";
 import { AnyCallable, AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { Actor } from "@/mod/scripts/core/alife/Actor";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { addActor, deleteActor } from "@/mod/scripts/core/database/actor";
 import { destroyManager, getWeakManagerInstance } from "@/mod/scripts/core/database/managers";
@@ -45,7 +46,7 @@ import { send_task } from "@/mod/scripts/core/NewsManager";
 import { get_release_body_manager } from "@/mod/scripts/core/ReleaseBodyManager";
 import { SchemeDeimos } from "@/mod/scripts/core/schemes/sr_deimos/SchemeDeimos";
 import { DynamicMusicManager } from "@/mod/scripts/core/sound/DynamicMusicManager";
-import { get_task_manager, ITaskManager } from "@/mod/scripts/core/task/TaskManager";
+import { get_task_manager, TaskManager } from "@/mod/scripts/core/task/TaskManager";
 import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
 import { giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { isArtefact } from "@/mod/scripts/utils/checkers/is";
@@ -78,7 +79,7 @@ export class ActorBinder extends object_binder {
   public bCheckStart: boolean = false;
   public isSurgeManagerLoaded: boolean = false;
 
-  public task_manager!: ITaskManager;
+  public task_manager!: TaskManager;
   public readonly surgeManager: SurgeManager = SurgeManager.getInstance();
   public readonly eventsManager: EventsManager = EventsManager.getInstance();
   public readonly weatherManager: WeatherManager = WeatherManager.getInstance();
@@ -394,7 +395,7 @@ export class ActorBinder extends object_binder {
 
     this.surgeManager.update();
 
-    get_sim_obj_registry().update_avaliability(alife().actor());
+    get_sim_obj_registry().update_avaliability(alife().actor() as Actor);
 
     if (!this.loaded) {
       // get_console().execute("dump_infos")

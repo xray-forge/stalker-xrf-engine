@@ -6,7 +6,7 @@ import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { ESmartTerrainStatus } from "@/mod/scripts/core/alife/SmartTerrainControl";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
-import { get_sim_obj_registry, ISimObjectsRegistry } from "@/mod/scripts/core/database/SimObjectsRegistry";
+import { get_sim_obj_registry, SimObjectsRegistry } from "@/mod/scripts/core/database/SimObjectsRegistry";
 import { isObjectInZone } from "@/mod/scripts/utils/checkers/checkers";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -148,7 +148,7 @@ export class ActionProcessEnemy {
       );
 
       if (seObject && seEnemy) {
-        const sim_obj_registry: ISimObjectsRegistry = get_sim_obj_registry();
+        const sim_obj_registry: SimObjectsRegistry = get_sim_obj_registry();
 
         if (
           seObject.group_id !== MAX_UNSIGNED_16_BIT &&

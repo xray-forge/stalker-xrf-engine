@@ -1,6 +1,7 @@
 import { action_base } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
+import { Optional } from "@/mod/lib/types";
 import { states } from "@/mod/scripts/core/state_management/lib/state_lib";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -28,7 +29,7 @@ export class StateManagerActAnimationStop extends action_base {
 
     this.stateManager.animation.set_state(
       null,
-      this.stateManager.fast_set || states.get(this.stateManager.target_state).fast_set
+      (this.stateManager.fast_set || states.get(this.stateManager.target_state).fast_set) as Optional<boolean>
     );
     this.stateManager.animation.set_control();
   }

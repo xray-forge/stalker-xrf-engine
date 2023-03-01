@@ -1,7 +1,7 @@
-import { callback, hit, time_global, vector, XR_EngineBinding, XR_game_object } from "xray16";
+import { callback, hit, time_global, vector, XR_game_object } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
-import { AnyCallable, AnyCallablesModule, Maybe, Optional } from "@/mod/lib/types";
+import { AnyCallable, Optional } from "@/mod/lib/types";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { IAnimationDescriptor } from "@/mod/scripts/core/state_management/lib/state_mgr_animation_list";
 import { IAnimationStateDescriptor } from "@/mod/scripts/core/state_management/lib/state_mgr_animstate_list";
@@ -16,13 +16,16 @@ const MARKER_IDLE: number = 3;
 
 const logger: LuaLogger = new LuaLogger("AnimationManager", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
-export interface IAnimationManager extends XR_EngineBinding {
-  mgr: StateManager;
-  npc: XR_game_object;
-  name: string;
-  animations: LuaTable<string, IAnimationDescriptor>;
-  sid: number;
-  states: {
+/**
+ * todo;
+ */
+export class AnimationManager {
+  public mgr: StateManager;
+  public npc: XR_game_object;
+  public name: string;
+  public animations: LuaTable<string, IAnimationDescriptor> | LuaTable<string, IAnimationStateDescriptor>;
+  public sid: number;
+  public states: {
     last_id: Optional<number>;
     current_state: Optional<string>;
     target_state: Optional<string>;
@@ -31,28 +34,12 @@ export interface IAnimationManager extends XR_EngineBinding {
     seq_id: number;
   };
 
-  set_control(): void;
-  update_anim(): void;
-  set_state(new_state: Optional<string>, fast_set: Maybe<boolean>): void;
-  select_anim(): LuaMultiReturn<[Optional<string>, any]>;
-  weapon_slot(): number;
-  anim_for_slot(
-    slot: number,
-    t: LuaTable<number, LuaTable<number, string | LuaTable>>
-  ): LuaTable<number, string | LuaTable<string>>;
-  select_rnd(anim_state: IAnimationStateDescriptor, wpn_slot: number, must_play: boolean): Optional<LuaTable>;
-  add_anim(anim: Optional<string | number>, state: IAnimationDescriptor): void;
-  animation_callback(skip_multianim_check?: boolean): void;
-  process_special_action(action_table: LuaTable): void;
-}
-
-export const AnimationManager: IAnimationManager = declare_xr_class("AnimationManager", null, {
-  __init(
+  public constructor(
     npc: XR_game_object,
     mgr: StateManager,
     name: string,
-    collection: LuaTable<string, IAnimationDescriptor>
-  ): void {
+    collection: LuaTable<string, IAnimationDescriptor> | LuaTable<string, IAnimationStateDescriptor>
+  ) {
     this.mgr = mgr;
     this.npc = npc;
     this.name = name;
@@ -76,8 +63,9 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
     if (collection === null) {
       abort("Provided null object for animation instance");
     }
-  },
-  set_control(): void {
+  }
+
+  public set_control(): void {
     logger.info("Set control:", this);
 
     this.npc.set_callback(callback.script_animation, this.animation_callback, this);
@@ -89,15 +77,17 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
     if (this.states.anim_marker === null) {
       this.update_anim();
     }
-  },
-  update_anim(): void {
+  }
+
+  public update_anim(): void {
     const [anim, state] = this.select_anim();
 
     if (anim !== null) {
       this.add_anim(anim, state);
     }
-  },
-  set_state(new_state: Optional<string>, fast_set: Optional<boolean>): void {
+  }
+
+  public set_state(new_state: Optional<string>, fast_set: Optional<boolean>): void {
     logger.info("Setting state:", new_state, this);
 
     /**
@@ -142,8 +132,9 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
     this.states.next_rnd = time_global();
 
     logger.info("Set state:", new_state, this);
-  },
-  select_anim(): LuaMultiReturn<[Optional<string>, any]> {
+  }
+
+  public select_anim(): LuaMultiReturn<[Optional<string>, any]> {
     logger.info("Select animation:", this);
 
     const states = this.states;
@@ -231,7 +222,7 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
 
       // --printf("        select rnd")
       const wpn_slot: number = this.weapon_slot();
-      const state: IAnimationDescriptor = this.animations.get(states.current_state);
+      const state: IAnimationDescriptor | IAnimationStateDescriptor = this.animations.get(states.current_state);
       let anim;
 
       if (state.rnd !== null) {
@@ -250,8 +241,9 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
     }
 
     return $multi(null, null);
-  },
-  weapon_slot(): number {
+  }
+
+  public weapon_slot(): number {
     const weapon: Optional<XR_game_object> = this.npc.active_item();
 
     if (weapon === null || this.npc.weapon_strapped()) {
@@ -259,16 +251,25 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
     }
 
     return weapon.animation_slot();
-  },
-  anim_for_slot(slot, t): LuaTable<number, string | LuaTable> {
+  }
+
+  public anim_for_slot(
+    slot: number,
+    t: LuaTable<number, LuaTable<number, string | LuaTable>>
+  ): LuaTable<number, string | LuaTable> {
     logger.info("Animation for slot:", slot, this);
     if (t.get(slot) === null) {
       slot = 0;
     }
 
     return t.get(slot);
-  },
-  select_rnd(anim_state, wpn_slot, must_play): Optional<string | LuaTable> {
+  }
+
+  public select_rnd(
+    anim_state: IAnimationStateDescriptor,
+    wpn_slot: number,
+    must_play: boolean
+  ): Optional<string | LuaTable> {
     if (!must_play && math.random(100) > this.animations.get(this.states.current_state!).prop.rnd) {
       return null;
     }
@@ -301,8 +302,9 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
     }
 
     return anima.get(r) as any as string;
-  },
-  add_anim(anim: string, state: IAnimationDescriptor): void {
+  }
+
+  public add_anim(anim: string, state: IAnimationDescriptor): void {
     const npc: XR_game_object = this.npc;
     const animation_props = state.prop;
 
@@ -342,8 +344,9 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
 
       this.mgr.pos_direction_applied = true;
     }
-  },
-  animation_callback(skip_multianim_check?: boolean): void {
+  }
+
+  public animation_callback(skip_multianim_check?: boolean): void {
     if (this.states.anim_marker === null || this.npc.animation_count() !== 0) {
       return;
     }
@@ -429,8 +432,9 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
         }
       }
     }
-  },
-  process_special_action(action_table: LuaTable): void {
+  }
+
+  public process_special_action(action_table: LuaTable): void {
     // --printf("[%s] process_special_action", this.npc:name())
 
     // Attach.
@@ -475,12 +479,13 @@ export const AnimationManager: IAnimationManager = declare_xr_class("AnimationMa
       // --printf("called function [%s]", tostring(action_table.f))
       cb(this.npc);
     }
-  },
-  __tostring(): string {
+  }
+
+  public toString(): string {
     const states: string =
       `#current_state: ${this.states.current_state} #target_state: ${this.states.target_state} ` +
       `#anim_marker: ${this.states.anim_marker} #seq_id: ${this.states.seq_id} #last_id: ${this.states.last_id}`;
 
     return `AnimationManager #name: ${this.name} #npc: ${this.npc.name()} #sid: ${this.sid} ${states}`;
-  },
-} as IAnimationManager);
+  }
+}

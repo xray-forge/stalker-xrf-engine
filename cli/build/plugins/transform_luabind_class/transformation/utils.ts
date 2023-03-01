@@ -78,7 +78,12 @@ export function isLuabindClassType(
   const typeSymbol = typeAtLocation.symbol || typeAtLocation.aliasSymbol;
 
   if (typeSymbol) {
-    return (typeSymbol as {})[LUABIND_SYMBOL] === true;
+    const isMarked = (typeSymbol as {})[LUABIND_SYMBOL] === true;
+    if (isMarked) {
+      return true;
+    } else {
+      return isLuabindDecoratedClass(typeSymbol.declarations[0] as ClassLikeDeclaration);
+    }
   } else {
     return false;
   }

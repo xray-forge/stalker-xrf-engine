@@ -7,7 +7,6 @@ import {
   time_global,
   XR_CGameTask,
   XR_CTime,
-  XR_EngineBinding,
   XR_game_object,
   XR_ini_file,
   XR_net_packet,
@@ -15,7 +14,7 @@ import {
 } from "xray16";
 
 import { levels, TLevel } from "@/mod/globals/levels";
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { AnyCallablesModule, Optional, TStringId } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { getInventoryVictim } from "@/mod/scripts/core/inventory_upgrades";
 import { send_task } from "@/mod/scripts/core/NewsManager";
@@ -74,76 +73,62 @@ const id_by_status: Record<string, number> = {
   reversed: 4,
 };
 
-export interface ITaskObject extends XR_EngineBinding {
-  task_ini: XR_ini_file;
-  id: string;
-  title: string;
-  status: string;
-  last_check_task: Optional<string>;
-  check_time: Optional<number>;
-  t: XR_CGameTask;
+/**
+ * todo;
+ */
+export class TaskObject {
+  public task_ini: XR_ini_file;
+  public id: TStringId;
+  public title: string;
+  public status: string;
 
-  title_functor: string;
-  current_title: Optional<string>;
-  inited_time: Optional<XR_CTime>;
+  public last_check_task: Optional<string> = null;
+  public check_time: Optional<number> = null;
+  public t: Optional<XR_CGameTask> = null;
 
-  wait_time: number;
-  descr: any;
-  descr_functor: any;
-  current_descr: any;
+  public title_functor: string;
+  public current_title: Optional<string> = null;
+  public inited_time: Optional<XR_CTime> = null;
 
-  reward_money: number;
-  reward_item: unknown;
+  public wait_time: Optional<number> = null;
+  public descr: any;
+  public descr_functor: any;
+  public current_descr: any;
 
-  target: any;
-  target_functor: string;
-  current_target: any;
+  public reward_money: number;
+  public reward_item: unknown;
 
-  dont_send_update_news: boolean;
+  public target: any;
+  public target_functor: string;
+  public current_target: Optional<any> = null;
 
-  community_relation_delta_fail: number;
-  community_relation_delta_complete: number;
+  public dont_send_update_news: boolean;
 
-  icon: string;
-  prior: number;
-  spot: string;
-  storyline: boolean;
-  condlist: LuaTable<number, boolean>;
+  public community_relation_delta_fail: number;
+  public community_relation_delta_complete: number;
 
-  on_init: () => void;
-  on_complete: () => void;
-  on_reversed: () => void;
+  public icon: string;
+  public prior: number;
+  public spot: string;
+  public storyline: boolean;
+  public condlist: LuaTable<number, boolean>;
 
-  give_task(): void;
-  check_task(): void;
-  give_reward(): void;
-  give_reward(): void;
-  reverse_task(): void;
-  deactivate_task(task: XR_CGameTask): void;
-  check_level(target: Optional<number>): void;
-  remove_guider_spot(): void;
-  save(packet: XR_net_packet): void;
-  load(reader: XR_reader): void;
-}
+  public on_init: () => void;
+  public on_complete: () => void;
+  public on_reversed: () => void;
 
-export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
-  __init(task_ini: XR_ini_file, id: string): void {
+  public constructor(task_ini: XR_ini_file, id: string) {
     this.task_ini = task_ini;
-
     this.id = id;
 
     this.title = getConfigString(task_ini, id, "title", null, false, "", "TITLE_DOESNT_EXIST");
     this.title_functor = getConfigString(task_ini, id, "title_functor", null, false, "", "condlist");
 
-    this.current_title = null;
-
     this.descr = getConfigString(task_ini, id, "descr", null, false, "", "DESCR_DOESNT_EXIST");
     this.descr_functor = getConfigString(task_ini, id, "descr_functor", null, false, "", "condlist");
-    this.current_descr = null;
 
     this.target = getConfigString(task_ini, id, "target", null, false, "", "DESCR_DOESNT_EXIST");
     this.target_functor = getConfigString(task_ini, id, "target_functor", null, false, "", "target_condlist");
-    this.current_target = null;
 
     this.icon = getConfigString(task_ini, id, "icon", null, false, "", "ui_pda2_mtask_overlay");
     this.prior = getConfigNumber(task_ini, id, "prior", null, false, 0);
@@ -206,11 +191,7 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
     this.current_title = (TaskFunctor as AnyCallablesModule)[this.title_functor](this.id, "title", this.title);
     this.current_descr = (TaskFunctor as AnyCallablesModule)[this.descr_functor](this.id, "descr", this.descr);
 
-    let time = 0;
-
-    if (this.wait_time !== null) {
-      time = this.wait_time;
-    }
+    const time = 0;
 
     if (this.storyline) {
       if (time === 0) {
@@ -228,8 +209,9 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
 
     this.current_target = (TaskFunctor as AnyCallablesModule)[this.target_functor](this.id, "target", this.target);
     this.dont_send_update_news = getConfigBoolean(task_ini, id, "dont_send_update_news", null, false, false);
-  },
-  give_task(): void {
+  }
+
+  public give_task(): void {
     const t = new XR_CGameTask();
 
     t.set_id(tostring(this.id));
@@ -271,8 +253,9 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
 
     registry.actor.give_task(t, time * 10, false, time);
     this.t = t;
-  },
-  check_task(): void {
+  }
+
+  public check_task(): void {
     const global_time = time_global();
     let task_updated = false;
 
@@ -348,8 +331,9 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
         return;
       }
     }
-  },
-  give_reward(): void {
+  }
+
+  public give_reward(): void {
     logger.info("Give quest rewards:", this.id, this.t?.get_id());
 
     pickSectionFromCondList(registry.actor, registry.actor, this.on_complete as any);
@@ -377,11 +361,13 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
         relocateQuestItemSection(npc as XR_game_object, k, "in", v);
       }
     }
-  },
-  reverse_task(): void {
+  }
+
+  public reverse_task(): void {
     this.last_check_task = "reversed";
-  },
-  deactivate_task(task: XR_CGameTask): void {
+  }
+
+  public deactivate_task(task: XR_CGameTask): void {
     logger.info("Deactivate task:", this.title);
     this.check_time = null;
 
@@ -394,9 +380,10 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
 
     this.last_check_task = null;
     this.status = "normal";
-  },
-  check_level(target: Optional<number>): void {
-    if (!target || registry.actor.is_active_task(this.t)) {
+  }
+
+  public check_level(target: Optional<number>): void {
+    if (!target || registry.actor.is_active_task(this.t as XR_CGameTask)) {
       return;
     }
 
@@ -439,8 +426,9 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
         this.remove_guider_spot();
       }
     }
-  },
-  remove_guider_spot(): void {
+  }
+
+  public remove_guider_spot(): void {
     if (!guiders_by_level.get(level.name())) {
       return;
     }
@@ -458,9 +446,10 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
         }
       }
     }
-  },
-  save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, TaskObject.__name);
+  }
+
+  public save(packet: XR_net_packet): void {
+    setSaveMarker(packet, false, TaskObject.name);
 
     packet.w_u8(id_by_status[this.status]);
     writeCTimeToPacket(packet, this.inited_time);
@@ -468,10 +457,11 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
     packet.w_stringZ(this.current_descr);
     packet.w_stringZ(tostring(this.current_target));
 
-    setSaveMarker(packet, true, TaskObject.__name);
-  },
-  load(reader: XR_reader): void {
-    setLoadMarker(reader, false, TaskObject.__name);
+    setSaveMarker(packet, true, TaskObject.name);
+  }
+
+  public load(reader: XR_reader): void {
+    setLoadMarker(reader, false, TaskObject.name);
 
     this.status = status_by_id[reader.r_u8()];
     this.inited_time = readCTimeFromPacket(reader);
@@ -485,9 +475,9 @@ export const TaskObject: ITaskObject = declare_xr_class("TaskObject", null, {
       this.current_target = tonumber(this.current_target);
     }
 
-    setLoadMarker(reader, true, TaskObject.__name);
-  },
-} as ITaskObject);
+    setLoadMarker(reader, true, TaskObject.name);
+  }
+}
 
 function get_guider(target_level: TLevel) {
   const ln: TLevel = level.name() as TLevel;
