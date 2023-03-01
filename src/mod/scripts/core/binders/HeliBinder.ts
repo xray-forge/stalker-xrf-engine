@@ -59,11 +59,11 @@ export class HeliBinder extends object_binder {
     this.heli_fire = get_heli_firer(object);
   }
 
-  public reload(section: TSection): void {
+  public override reload(section: TSection): void {
     super.reload(section);
   }
 
-  public reinit(): void {
+  public override reinit(): void {
     super.reinit();
 
     this.st = resetObject(this.object);
@@ -90,7 +90,7 @@ export class HeliBinder extends object_binder {
     this.st.alt_check_time = time_global() + 1000;
   }
 
-  public update(delta: number): void {
+  public override update(delta: number): void {
     super.update(delta);
 
     const actor: Optional<XR_game_object> = registry.actor;
@@ -117,7 +117,7 @@ export class HeliBinder extends object_binder {
     GlobalSound.update(this.object.id());
   }
 
-  public net_spawn(object: XR_cse_alife_object): boolean {
+  public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
@@ -127,17 +127,17 @@ export class HeliBinder extends object_binder {
     return true;
   }
 
-  public net_destroy(): void {
+  public override net_destroy(): void {
     deleteHelicopter(this.object);
 
     super.net_destroy();
   }
 
-  public net_save_relevant(): boolean {
+  public override net_save_relevant(): boolean {
     return true;
   }
 
-  public save(packet: XR_net_packet): void {
+  public override save(packet: XR_net_packet): void {
     super.save(packet);
     setSaveMarker(packet, false, HeliBinder.__name);
     // --printf( "heli_binder: save")
@@ -147,7 +147,7 @@ export class HeliBinder extends object_binder {
     this.st.combat!.save(packet);
   }
 
-  public load(reader: XR_reader): void {
+  public override load(reader: XR_reader): void {
     this.loaded = true;
     setLoadMarker(reader, false, HeliBinder.__name);
     // --printf("generic_object_binder:load(): this.object:name()='%s'", this.object:name())

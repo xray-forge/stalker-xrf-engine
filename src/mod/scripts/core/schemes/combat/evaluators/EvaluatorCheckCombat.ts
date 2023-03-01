@@ -17,7 +17,7 @@ export class EvaluatorCheckCombat extends property_evaluator {
     this.state = state;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     const state = this.state;
 
     if (state.enabled && this.object.best_enemy()) {

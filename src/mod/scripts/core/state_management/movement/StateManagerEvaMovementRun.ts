@@ -15,14 +15,14 @@ const logger: LuaLogger = new LuaLogger(
  */
 @LuabindClass()
 export class StateManagerEvaMovementRun extends property_evaluator {
-  public stateManager: StateManager;
+  public readonly stateManager: StateManager;
 
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaMovementRun.__name);
     this.stateManager = stateManager;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     return states.get(this.stateManager.target_state).movement === move.run;
   }
 }

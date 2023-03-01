@@ -21,7 +21,7 @@ export class StateManagerEvaWeaponNoneNow extends property_evaluator {
     this.stateManager = stateManager;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     return this.object.active_item() === null;
   }
 }

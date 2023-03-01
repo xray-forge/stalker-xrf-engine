@@ -13,19 +13,19 @@ import { clampNumber } from "@/mod/scripts/utils/number";
 
 const logger: LuaLogger = new LuaLogger("SchemeDeimos");
 
-const pp_effector_id = 5;
-const cam_effector_id = 6;
-const pp_effector2_id = 7;
+const pp_effector_id: number = 5;
+const cam_effector_id: number = 6;
+const pp_effector2_id: number = 7;
 
 /**
  * todo;
  * Scheme only for 1 quest in the end of game? (pri_a28_sr_horror)
  */
 export class SchemeDeimos extends AbstractScheme {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.SR_DEIMOS;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_DEIMOS;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
-  public static add_to_binder(
+  public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -37,7 +37,12 @@ export class SchemeDeimos extends AbstractScheme {
     subscribeActionForEvents(object, state, new SchemeDeimos(object, state));
   }
 
-  public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+  public static override set_scheme(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection
+  ): void {
     const state = assignStorageAndBind(object, ini, scheme, section);
 
     state.logic = cfg_get_switch_conditions(ini, section, object);
@@ -113,7 +118,7 @@ export class SchemeDeimos extends AbstractScheme {
     this.state.intensity = 0;
   }
 
-  public update(delta: number): void {
+  public override update(delta: number): void {
     const actor: Optional<XR_game_object> = registry.actor;
 
     if (!actor || device().precache_frame > 1) {

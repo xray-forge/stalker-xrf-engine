@@ -20,7 +20,7 @@ export class StateManagerEvaWeapon extends property_evaluator {
     this.stateManager = stateManager;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     const weapon = states.get(this.stateManager.target_state).weapon;
 
     if (weapon === null) {

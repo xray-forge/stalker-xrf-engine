@@ -17,7 +17,7 @@ export class EvaluatorReachedTaskLocation extends property_evaluator {
     super(null, EvaluatorReachedTaskLocation.__name);
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     const squad = getObjectSquad(this.object);
 
     if (squad && squad.current_action && squad.current_action.name === "reach_target") {

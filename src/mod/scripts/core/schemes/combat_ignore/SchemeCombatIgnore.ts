@@ -16,10 +16,10 @@ const logger: LuaLogger = new LuaLogger("SchemeCombatIgnore");
  * todo
  */
 export class SchemeCombatIgnore extends AbstractScheme {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.COMBAT_IGNORE;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.COMBAT_IGNORE;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  public static add_to_binder(
+  public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -34,7 +34,7 @@ export class SchemeCombatIgnore extends AbstractScheme {
     assignStorageAndBind(npc, ini, scheme, null);
   }
 
-  public static disable_scheme(npc: XR_game_object, scheme: EScheme): void {
+  public static override disable_scheme(npc: XR_game_object, scheme: EScheme): void {
     npc.set_enemy_callback(null);
 
     const schemeState = registry.objects.get(npc.id())[scheme];
@@ -44,7 +44,12 @@ export class SchemeCombatIgnore extends AbstractScheme {
     }
   }
 
-  public static resetScheme(object: XR_game_object, scheme: EScheme, state: IStoredObject, section: TSection): void {
+  public static override resetScheme(
+    object: XR_game_object,
+    scheme: EScheme,
+    state: IStoredObject,
+    section: TSection
+  ): void {
     const schemeState = state.combat_ignore as any;
 
     object.set_enemy_callback(schemeState.action.enemy_callback, schemeState.action);

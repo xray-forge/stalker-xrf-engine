@@ -22,7 +22,7 @@ export class StateManagerEvaWeaponLocked extends property_evaluator {
     this.stateManager = stateManager;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     const weapon_strapped: boolean = this.object.weapon_strapped();
     const weapon_unstrapped: boolean = this.object.weapon_unstrapped();
 

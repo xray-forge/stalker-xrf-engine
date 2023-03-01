@@ -33,10 +33,10 @@ const logger: LuaLogger = new LuaLogger("SchemeMonster");
  * todo;
  */
 export class SchemeMonster extends AbstractScheme {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.SR_MONSTER;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_MONSTER;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
-  public static add_to_binder(
+  public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -48,7 +48,12 @@ export class SchemeMonster extends AbstractScheme {
     subscribeActionForEvents(object, state, new SchemeMonster(object, state));
   }
 
-  public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+  public static override set_scheme(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection
+  ): void {
     const st = assignStorageAndBind(object, ini, scheme, section);
 
     st.logic = cfg_get_switch_conditions(ini, section, object);
@@ -78,7 +83,7 @@ export class SchemeMonster extends AbstractScheme {
   public snd_obj: Optional<XR_sound_object> = null;
   public appear_snd!: XR_sound_object;
 
-  public reset_scheme(): void {
+  public override reset_scheme(): void {
     this.is_actor_inside = false;
 
     this.state.idle_end = 0;
@@ -91,7 +96,7 @@ export class SchemeMonster extends AbstractScheme {
     this.monster_obj = null;
   }
 
-  public update(delta: number): void {
+  public override update(delta: number): void {
     const actor = registry.actor;
 
     if (this.idle_state) {

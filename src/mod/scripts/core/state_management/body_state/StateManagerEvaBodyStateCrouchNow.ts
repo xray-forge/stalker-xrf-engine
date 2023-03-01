@@ -22,7 +22,7 @@ export class StateManagerEvaBodyStateCrouchNow extends property_evaluator {
     this.stateManager = stateManager;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     return this.object.target_body_state() === move.crouch;
   }
 }

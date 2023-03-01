@@ -19,7 +19,7 @@ export class EvaluatorCombatZombied extends property_evaluator {
     this.state = state;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     return getCharacterCommunity(this.object) === communities.zombied;
   }
 }

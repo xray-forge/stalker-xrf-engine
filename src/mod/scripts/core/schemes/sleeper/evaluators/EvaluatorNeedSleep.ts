@@ -18,7 +18,7 @@ export class EvaluatorNeedSleep extends property_evaluator {
     this.state = storage;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     return isSchemeActive(this.object, this.state);
   }
 }

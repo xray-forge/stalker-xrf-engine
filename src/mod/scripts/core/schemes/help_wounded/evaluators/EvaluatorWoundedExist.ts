@@ -19,7 +19,7 @@ export class EvaluatorWoundedExist extends property_evaluator {
     this.state = storage;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     const npc = this.object;
 
     if (!npc.alive()) {

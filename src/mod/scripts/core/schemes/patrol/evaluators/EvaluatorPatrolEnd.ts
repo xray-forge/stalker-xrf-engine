@@ -18,7 +18,7 @@ export class EvaluatorPatrolEnd extends property_evaluator {
     this.state = storage;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     return !isActiveSection(this.object, this.state.section);
   }
 }

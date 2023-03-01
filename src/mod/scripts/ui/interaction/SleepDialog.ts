@@ -166,7 +166,7 @@ export class SleepDialog extends CUIScriptWnd {
     }
   }
 
-  public Update(): void {
+  public override Update(): void {
     super.Update();
 
     const sleep_time: number = this.time_track.GetIValue() - 1;

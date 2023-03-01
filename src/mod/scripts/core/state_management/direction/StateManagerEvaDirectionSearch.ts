@@ -21,7 +21,7 @@ export class StateManagerEvaDirectionSearch extends property_evaluator {
     this.stateManager = stateManager;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     return !(this.stateManager.look_position !== null || this.stateManager.look_object !== null);
   }
 }

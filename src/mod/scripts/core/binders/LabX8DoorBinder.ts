@@ -139,12 +139,12 @@ export class LabX8DoorBinder extends object_binder {
     this.start_delay = getConfigNumber(ini, ANIMATED_OBJECT_SECT, "start_delay", null, false, 0);
   }
 
-  public reinit(): void {
+  public override reinit(): void {
     super.reinit();
     registry.objects.set(this.object.id(), {});
   }
 
-  public net_spawn(object: XR_cse_alife_object): boolean {
+  public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
@@ -159,7 +159,7 @@ export class LabX8DoorBinder extends object_binder {
     return true;
   }
 
-  public net_destroy(): void {
+  public override net_destroy(): void {
     if (this.idle_snd) {
       this.idle_snd.stop();
     }
@@ -177,7 +177,7 @@ export class LabX8DoorBinder extends object_binder {
     super.net_destroy();
   }
 
-  public update(delta: number): void {
+  public override update(delta: number): void {
     super.update(delta);
 
     if (this.anim_time && this.loaded) {
@@ -291,11 +291,11 @@ export class LabX8DoorBinder extends object_binder {
     pickSectionFromCondList(registry.actor, object, this.on_use);
   }
 
-  public net_save_relevant(): boolean {
+  public override net_save_relevant(): boolean {
     return true;
   }
 
-  public save(packet: XR_net_packet): void {
+  public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, LabX8DoorBinder.__name);
 
     super.save(packet);
@@ -308,7 +308,7 @@ export class LabX8DoorBinder extends object_binder {
     setSaveMarker(packet, true, LabX8DoorBinder.__name);
   }
 
-  public load(reader: XR_reader): void {
+  public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, LabX8DoorBinder.__name);
 
     super.load(reader);

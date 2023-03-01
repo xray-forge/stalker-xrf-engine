@@ -20,18 +20,21 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("SchemePsyAntenna");
 
-const state_outside = 0;
-const state_inside = 1;
-const state_void = 2;
+const state_outside: number = 0;
+const state_inside: number = 1;
+const state_void: number = 2;
 
+/**
+ * todo;
+ */
 export class SchemePsyAntenna extends AbstractScheme {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.SR_PSY_ANTENNA;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_PSY_ANTENNA;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
   /**
    * Add scheme to object binder for initialization.
    */
-  public static add_to_binder(
+  public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -41,7 +44,12 @@ export class SchemePsyAntenna extends AbstractScheme {
     subscribeActionForEvents(object, state, new SchemePostProcess(object, state));
   }
 
-  public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+  public static override set_scheme(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection
+  ): void {
     const st = assignStorageAndBind(object, ini, scheme, section);
 
     st.logic = cfg_get_switch_conditions(ini, section, object);
@@ -59,7 +67,7 @@ export class SchemePsyAntenna extends AbstractScheme {
   public antennaState = state_void;
   public antennaManager = PsyAntennaManager.getInstance();
 
-  public reset_scheme(loading?: boolean): void {
+  public override reset_scheme(loading?: boolean): void {
     if (loading) {
       this.antennaState = pstor_retrieve(this.object, "inside")!;
     }
@@ -73,13 +81,13 @@ export class SchemePsyAntenna extends AbstractScheme {
     this.switch_state(registry.actor);
   }
 
-  public deactivate(): void {
+  public override deactivate(): void {
     if (this.antennaState === state_inside) {
       this.zone_leave();
     }
   }
 
-  public update(delta: number): void {
+  public override update(delta: number): void {
     const actor = registry.actor;
 
     if (trySwitchToAnotherSection(this.object, this.state, actor)) {

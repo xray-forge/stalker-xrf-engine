@@ -16,11 +16,10 @@ export class StateManagerEvaMental extends property_evaluator {
 
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaMental.__name);
-
     this.stateManager = stateManager;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     return (
       states.get(this.stateManager.target_state).mental === null ||
       states.get(this.stateManager.target_state).mental === this.object.target_mental_state()

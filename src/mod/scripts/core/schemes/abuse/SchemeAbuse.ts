@@ -14,10 +14,10 @@ const logger: LuaLogger = new LuaLogger("SchemeAbuse");
  * todo;
  */
 export class SchemeAbuse extends AbstractScheme {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.ABUSE;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.ABUSE;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  public static add_to_binder(
+  public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -68,7 +68,12 @@ export class SchemeAbuse extends AbstractScheme {
     }
   }
 
-  public static resetScheme(object: XR_game_object, scheme: EScheme, state: IStoredObject, section: TSection): void {}
+  public static override resetScheme(
+    object: XR_game_object,
+    scheme: EScheme,
+    state: IStoredObject,
+    section: TSection
+  ): void {}
 
   public static clear_abuse(object: XR_game_object): void {
     const state = registry.objects.get(object.id()).abuse;
@@ -130,7 +135,7 @@ export class SchemeAbuse extends AbstractScheme {
     return this.abuse_value >= this.abuse_threshold;
   }
 
-  public update(): boolean {
+  public override update(): boolean {
     if (this.last_update === null) {
       this.last_update = time_global();
     }

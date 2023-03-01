@@ -22,11 +22,14 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("SchemePhysicalDoor");
 
+/**
+ * todo;
+ */
 export class SchemePhysicalDoor extends AbstractScheme {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.PH_DOOR;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.ITEM;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_DOOR;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.ITEM;
 
-  public static add_to_binder(
+  public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -39,7 +42,12 @@ export class SchemePhysicalDoor extends AbstractScheme {
     subscribeActionForEvents(object, state, new SchemePhysicalDoor(object, state));
   }
 
-  public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+  public static override set_scheme(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection
+  ): void {
     const state = assignStorageAndBind(object, ini, scheme, section);
 
     state.logic = cfg_get_switch_conditions(ini, section, object);
@@ -90,7 +98,7 @@ export class SchemePhysicalDoor extends AbstractScheme {
   public low_limits: number = 0;
   public hi_limits: number = 0;
 
-  public reset_scheme(loading?: boolean): void {
+  public override reset_scheme(loading?: boolean): void {
     this.state.signals = {};
 
     this.initialized = false;
@@ -132,7 +140,7 @@ export class SchemePhysicalDoor extends AbstractScheme {
     this.initialized = true;
   }
 
-  public update(delta: number): void {
+  public override update(delta: number): void {
     // --printf("_bp: action_door:update()", delta)
     if (!this.initialized) {
       abort("object '%s': door failed to initialize", this.object.name());
@@ -323,7 +331,7 @@ export class SchemePhysicalDoor extends AbstractScheme {
     }
   }
 
-  public deactivate(): void {
+  public override deactivate(): void {
     this.object.set_tip_text("");
   }
 }

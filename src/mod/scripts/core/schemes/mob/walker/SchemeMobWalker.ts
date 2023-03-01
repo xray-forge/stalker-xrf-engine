@@ -48,10 +48,10 @@ const logger: LuaLogger = new LuaLogger("SchemeMobWalker");
  * todo;
  */
 export class SchemeMobWalker extends AbstractScheme {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.MOB_WALKER;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.MOB_WALKER;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
 
-  public static add_to_binder(
+  public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -61,7 +61,7 @@ export class SchemeMobWalker extends AbstractScheme {
     subscribeActionForEvents(object, storage, new SchemeMobWalker(object, storage));
   }
 
-  public static set_scheme(
+  public static override set_scheme(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -106,7 +106,7 @@ export class SchemeMobWalker extends AbstractScheme {
 
   public path_look_info: Optional<LuaTable<number, IWaypointData>> = null;
 
-  public reset_scheme(): void {
+  public override reset_scheme(): void {
     setMobState(this.object, registry.actor, this.state.state);
 
     this.state.signals = {};
@@ -153,7 +153,7 @@ export class SchemeMobWalker extends AbstractScheme {
     );
   }
 
-  public update(): void {
+  public override update(): void {
     if (!mobCaptured(this.object)) {
       this.reset_scheme();
 
@@ -333,7 +333,7 @@ export class SchemeMobWalker extends AbstractScheme {
     }
   }
 
-  public deactivate(): void {
+  public override deactivate(): void {
     mobCapture(this.object, true);
     action(this.object, new move(move.steal, this.patrol_walk!.point(0)), new cond(cond.move_end));
   }

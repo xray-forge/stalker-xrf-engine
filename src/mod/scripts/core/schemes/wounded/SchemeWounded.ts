@@ -41,10 +41,10 @@ const logger: LuaLogger = new LuaLogger("SchemeWounded");
  * todo;
  */
 export class SchemeWounded extends AbstractScheme {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.WOUNDED;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.WOUNDED;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  public static add_to_binder(
+  public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -92,7 +92,12 @@ export class SchemeWounded extends AbstractScheme {
     state.wound_manager = new SchemeWounded(object, state);
   }
 
-  public static resetScheme(npc: XR_game_object, scheme: EScheme, state: IStoredObject, section: TSection): void {
+  public static override resetScheme(
+    npc: XR_game_object,
+    scheme: EScheme,
+    state: IStoredObject,
+    section: TSection
+  ): void {
     const wounded_section: TSection =
       scheme === null || scheme === EScheme.NIL
         ? getConfigString(state.ini!, state.section_logic!, "wounded", npc, false, "")
@@ -252,7 +257,7 @@ export class SchemeWounded extends AbstractScheme {
   public sound!: string;
   public wound_state!: string;
 
-  public update(): void {
+  public override update(): void {
     const hp = 100 * this.object.health;
     const psy = 100 * this.object.psy_health;
 

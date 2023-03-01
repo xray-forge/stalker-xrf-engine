@@ -19,10 +19,10 @@ const logger: LuaLogger = new LuaLogger("SchemeHelpWounded");
  * todo;
  */
 export class SchemeHelpWounded extends AbstractScheme {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.HELP_WOUNDED;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.HELP_WOUNDED;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  public static add_to_binder(
+  public static override add_to_binder(
     npc: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -62,7 +62,7 @@ export class SchemeHelpWounded extends AbstractScheme {
       .add_precondition(new world_property(properties.wounded_exist, false));
   }
 
-  public static resetScheme(npc: XR_game_object, scheme: EScheme, st: IStoredObject, section: TSection) {
+  public static override resetScheme(npc: XR_game_object, scheme: EScheme, st: IStoredObject, section: TSection) {
     st.help_wounded.help_wounded_enabled = getConfigBoolean(st.ini!, section, "help_wounded_enabled", npc, false, true);
   }
 

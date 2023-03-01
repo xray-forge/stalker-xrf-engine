@@ -22,10 +22,10 @@ const logger: LuaLogger = new LuaLogger("SchemeParticle");
  * todo;
  */
 export class SchemeParticle extends AbstractScheme {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.SR_PARTICLE;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_PARTICLE;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
-  public static add_to_binder(
+  public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -37,7 +37,12 @@ export class SchemeParticle extends AbstractScheme {
     subscribeActionForEvents(object, state, new SchemeParticle(object, state));
   }
 
-  public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+  public static override set_scheme(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection
+  ): void {
     const st = assignStorageAndBind(object, ini, scheme, section);
 
     st.logic = cfg_get_switch_conditions(ini, section, object);
@@ -61,7 +66,7 @@ export class SchemeParticle extends AbstractScheme {
   public started: boolean = false;
   public first_played: boolean = false;
 
-  public reset_scheme(): void {
+  public override reset_scheme(): void {
     if (this.state.mode === 2) {
       this.path = new patrol(this.state.path);
 
@@ -103,8 +108,8 @@ export class SchemeParticle extends AbstractScheme {
     this.first_played = false;
   }
 
-  public update(delta: number): void {
-    const time = time_global();
+  public override update(delta: number): void {
+    const time: number = time_global();
 
     if (this.last_update !== 0) {
       if (time - this.last_update < 50) {
@@ -207,7 +212,7 @@ export class SchemeParticle extends AbstractScheme {
     }
   }
 
-  public deactivate(): void {
+  public override deactivate(): void {
     const size: number = this.particles.length();
 
     for (const it of $range(1, size)) {

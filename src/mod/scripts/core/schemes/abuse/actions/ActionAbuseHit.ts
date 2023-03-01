@@ -8,7 +8,7 @@ import { set_state } from "@/mod/scripts/core/state_management/StateManager";
  */
 @LuabindClass()
 export class ActionAbuseHit extends action_base {
-  public state: IStoredObject;
+  public readonly state: IStoredObject;
   public hit_done: boolean = false;
 
   public constructor(storage: IStoredObject) {
@@ -16,7 +16,7 @@ export class ActionAbuseHit extends action_base {
     this.state = storage;
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
 
     // --    this.object.set_node_evaluator()
@@ -32,7 +32,7 @@ export class ActionAbuseHit extends action_base {
     this.hit_done = true;
   }
 
-  public execute(): void {
+  public override execute(): void {
     super.execute();
   }
 }

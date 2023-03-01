@@ -22,7 +22,7 @@ export class StateManagerEvaWeaponUnstrappedNow extends property_evaluator {
     this.stateManager = stateManager;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     const activeItem: Optional<XR_game_object> = this.object.active_item();
     const bestWeapon: Optional<XR_game_object> = this.object.best_weapon();
 

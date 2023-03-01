@@ -22,18 +22,18 @@ export class StateManagerActMovementStandSearch extends action_base {
     this.stateManager = stateManager;
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
 
     this.object.set_movement_type(move.stand);
     this.object.set_sight(look_position_type(this.object, this.stateManager), null, 0);
   }
 
-  public execute(): void {
+  public override execute(): void {
     super.execute();
   }
 
-  public finalize(): void {
+  public override finalize(): void {
     super.finalize();
   }
 }

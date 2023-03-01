@@ -21,16 +21,16 @@ export class StateManagerActBodyStateCrouch extends action_base {
     this.stateManager = stateManager;
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
     this.object.set_body_state(move.crouch);
   }
 
-  public execute(): void {
+  public override execute(): void {
     super.execute();
   }
 
-  public finalize(): void {
+  public override finalize(): void {
     super.finalize();
   }
 }

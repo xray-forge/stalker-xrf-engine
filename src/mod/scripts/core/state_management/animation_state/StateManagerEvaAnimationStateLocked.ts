@@ -18,11 +18,10 @@ export class StateManagerEvaAnimationStateLocked extends property_evaluator {
 
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaAnimationStateLocked.__name);
-
     this.stateManager = stateManager;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     return (
       this.stateManager.animstate.states.anim_marker !== null &&
       this.stateManager.animstate.states.anim_marker !== anim.lie_idle

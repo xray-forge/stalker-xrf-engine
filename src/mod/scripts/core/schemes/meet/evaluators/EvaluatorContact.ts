@@ -20,7 +20,7 @@ export class EvaluatorContact extends property_evaluator {
     this.state = state;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     if (this.state.meet_set !== true) {
       return false;
     }

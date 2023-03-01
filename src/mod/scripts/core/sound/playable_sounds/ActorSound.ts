@@ -1,4 +1,4 @@
-import { AnyObject, Optional } from "lib/types";
+import { AnyObject, Optional, StringOptional, TNumberId, TStringId } from "lib/types";
 import {
   get_hud,
   getFS,
@@ -12,6 +12,7 @@ import {
   XR_reader,
 } from "xray16";
 
+import { STRINGIFIED_NIL } from "@/mod/globals/lua";
 import { TSection } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { send_sound } from "@/mod/scripts/core/NewsManager";
@@ -23,6 +24,9 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ActorSound");
 
+/**
+ * todo;
+ */
 export class ActorSound extends AbstractPlayableSound {
   public static readonly type: EPlayableSound = EPlayableSound.ACTOR;
 
@@ -30,7 +34,7 @@ export class ActorSound extends AbstractPlayableSound {
 
   public stereo: boolean;
   public prefix: boolean;
-  public play_always: boolean;
+  public override play_always: boolean;
   public can_play_sound: boolean;
 
   public faction: string;
@@ -92,7 +96,7 @@ export class ActorSound extends AbstractPlayableSound {
     }
   }
 
-  public play(npc: XR_game_object, faction: string, point: string, msg: string): boolean {
+  public play(object: XR_game_object, faction: string, point: string, msg: string): boolean {
     if (!this.can_play_sound) {
       return false;
     }
@@ -141,7 +145,7 @@ export class ActorSound extends AbstractPlayableSound {
     return true;
   }
 
-  public callback(npc_id: number): void {
+  public override callback(objectId: TNumberId): void {
     this.played_time = time_global();
     this.idle_time = math.random(this.min_idle, this.max_idle) * 1000;
     this.snd_obj = null;
@@ -149,7 +153,7 @@ export class ActorSound extends AbstractPlayableSound {
 
     get_hud().RemoveCustomStatic("cs_subtitles_actor");
 
-    const state = registry.objects.get(npc_id);
+    const state = registry.objects.get(objectId);
 
     if (!state.active_scheme) {
       return;
@@ -221,19 +225,19 @@ export class ActorSound extends AbstractPlayableSound {
     return null;
   }
 
-  public reset(): void {
+  public override reset(): void {
     this.played_time = null;
     this.played_id = null;
   }
 
-  public save(net_packet: XR_net_packet): void {
+  public override save(net_packet: XR_net_packet): void {
     net_packet.w_stringZ(tostring(this.played_id));
   }
 
-  public load(reader: XR_reader): void {
-    const id: string = reader.r_stringZ();
+  public override load(reader: XR_reader): void {
+    const id: StringOptional<TStringId> = reader.r_stringZ();
 
-    if (id !== "nil") {
+    if (id !== STRINGIFIED_NIL) {
       this.played_id = tonumber(id)!;
     } else {
       this.played_id = null;

@@ -15,26 +15,25 @@ const logger: LuaLogger = new LuaLogger(
  */
 @LuabindClass()
 export class StateManagerActAnimationStart extends action_base {
-  public stateManager: StateManager;
+  public readonly stateManager: StateManager;
 
   public constructor(stateManager: StateManager) {
     super(null, StateManagerActAnimationStart.__name);
-
     this.stateManager = stateManager;
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
 
     this.stateManager.animation.set_state(states.get(this.stateManager.target_state).animation, null);
     this.stateManager.animation.set_control();
   }
 
-  public execute(): void {
+  public override execute(): void {
     super.execute();
   }
 
-  public finalize(): void {
+  public override finalize(): void {
     super.finalize();
   }
 }

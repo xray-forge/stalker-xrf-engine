@@ -45,7 +45,7 @@ export class ActionCompanionActivity extends action_base {
     this.state = storage;
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
 
     this.object.set_desired_position();
@@ -132,7 +132,7 @@ export class ActionCompanionActivity extends action_base {
     // --    GlobalSound:set_sound(this.object, sound_wait)
   }
 
-  public execute(): void {
+  public override execute(): void {
     super.execute();
 
     if (this.state.behavior === beh_walk_simple) {
@@ -142,7 +142,7 @@ export class ActionCompanionActivity extends action_base {
     }
   }
 
-  public finalize(): void {
+  public override finalize(): void {
     super.finalize();
   }
 }

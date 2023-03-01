@@ -16,11 +16,10 @@ export class StateManagerEvaBodyState extends property_evaluator {
 
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaBodyState.__name);
-
     this.stateManager = stateManager;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     return (
       states.get(this.stateManager.target_state).bodystate === null ||
       states.get(this.stateManager.target_state).bodystate === this.object.target_body_state()

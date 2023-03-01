@@ -32,7 +32,7 @@ export class ArenaZoneBinder extends object_binder {
     arena_zones.set(object.name(), this);
   }
 
-  public net_spawn(object: XR_cse_alife_object): boolean {
+  public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
@@ -43,7 +43,7 @@ export class ArenaZoneBinder extends object_binder {
     return true;
   }
 
-  public net_destroy(): void {
+  public override net_destroy(): void {
     this.object.set_callback(callback.zone_enter, null);
     this.object.set_callback(callback.zone_exit, null);
 
@@ -60,7 +60,7 @@ export class ArenaZoneBinder extends object_binder {
     }
   }
 
-  public save(packet: XR_net_packet): void {
+  public override save(packet: XR_net_packet): void {
     super.save(packet);
 
     setSaveMarker(packet, false, ArenaZoneBinder.__name);
@@ -74,7 +74,7 @@ export class ArenaZoneBinder extends object_binder {
     setSaveMarker(packet, true, ArenaZoneBinder.__name);
   }
 
-  public load(reader: XR_reader): void {
+  public override load(reader: XR_reader): void {
     super.load(reader);
 
     setLoadMarker(reader, false, ArenaZoneBinder.__name);

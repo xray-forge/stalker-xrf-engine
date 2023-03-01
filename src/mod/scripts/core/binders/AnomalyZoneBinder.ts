@@ -510,16 +510,16 @@ export class AnomalyZoneBinder extends object_binder {
     logger.info("Set forced override for zone/artefact:", this.object.name(), artefactName);
   }
 
-  public reload(section: TSection): void {
+  public override reload(section: TSection): void {
     super.reload(section);
   }
 
-  public reinit(): void {
+  public override reinit(): void {
     super.reinit();
     registry.objects.set(this.object.id(), {});
   }
 
-  public net_spawn(object: XR_cse_alife_object): boolean {
+  public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
@@ -529,14 +529,14 @@ export class AnomalyZoneBinder extends object_binder {
     return true;
   }
 
-  public net_destroy(): void {
+  public override net_destroy(): void {
     deleteAnomaly(this);
 
     registry.objects.delete(this.object.id());
     super.net_destroy();
   }
 
-  public update(delta: number): void {
+  public override update(delta: number): void {
     this.delta += delta;
 
     if (this.delta >= UPDATE_THROTTLE) {
@@ -591,11 +591,11 @@ export class AnomalyZoneBinder extends object_binder {
     mapDisplayManager.updateAnomaliesZones();
   }
 
-  public net_save_relevant(): boolean {
+  public override net_save_relevant(): boolean {
     return true;
   }
 
-  public save(packet: XR_net_packet): void {
+  public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, AnomalyZoneBinder.__name);
     super.save(packet);
 
@@ -663,7 +663,7 @@ export class AnomalyZoneBinder extends object_binder {
     setSaveMarker(packet, true, AnomalyZoneBinder.__name);
   }
 
-  public load(reader: XR_reader): void {
+  public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, AnomalyZoneBinder.__name);
 
     super.load(reader);

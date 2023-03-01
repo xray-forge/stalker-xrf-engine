@@ -15,10 +15,10 @@ const logger: LuaLogger = new LuaLogger("SchemeDeath");
  * todo;
  */
 export class SchemeDeath extends AbstractScheme {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.DEATH;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.DEATH;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  public static add_to_binder(
+  public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -30,7 +30,7 @@ export class SchemeDeath extends AbstractScheme {
     subscribeActionForEvents(object, state, new SchemeDeath(object, state));
   }
 
-  public static set_scheme(
+  public static override set_scheme(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -45,7 +45,12 @@ export class SchemeDeath extends AbstractScheme {
     assignStorageAndBind(object, ini, scheme, section);
   }
 
-  public static resetScheme(object: XR_game_object, scheme: EScheme, state: IStoredObject, section: TSection): void {
+  public static override resetScheme(
+    object: XR_game_object,
+    scheme: EScheme,
+    state: IStoredObject,
+    section: TSection
+  ): void {
     const death_section: Optional<TSection> = getConfigString(
       state.ini!,
       state.section_logic!,

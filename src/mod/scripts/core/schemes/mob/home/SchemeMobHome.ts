@@ -17,9 +17,9 @@ import {
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const def_min_radius = 10;
-const def_mid_radius = 20;
-const def_max_radius = 70;
+const def_min_radius: number = 10;
+const def_mid_radius: number = 20;
+const def_max_radius: number = 70;
 
 const logger: LuaLogger = new LuaLogger("SchemeMobHome");
 
@@ -27,10 +27,10 @@ const logger: LuaLogger = new LuaLogger("SchemeMobHome");
  * todo;
  */
 export class SchemeMobHome extends AbstractScheme {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.MOB_HOME;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.MOB_HOME;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
 
-  public static add_to_binder(
+  public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -40,7 +40,7 @@ export class SchemeMobHome extends AbstractScheme {
     subscribeActionForEvents(object, storage, new SchemeMobHome(object, storage));
   }
 
-  public static set_scheme(
+  public static override set_scheme(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -61,7 +61,7 @@ export class SchemeMobHome extends AbstractScheme {
     storage.aggressive = getConfigBoolean(ini, section, "aggressive", object, false, false);
   }
 
-  public reset_scheme(): void {
+  public override reset_scheme(): void {
     setMobState(this.object, registry.actor, this.state.state);
 
     let minr = def_min_radius;
@@ -129,7 +129,7 @@ export class SchemeMobHome extends AbstractScheme {
     // --this.object.set_home(this.state.home, minr, maxr, this.state.aggressive)
   }
 
-  public deactivate(): void {
+  public override deactivate(): void {
     this.object.remove_home();
   }
 }

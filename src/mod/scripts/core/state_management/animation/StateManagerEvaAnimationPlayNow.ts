@@ -18,11 +18,10 @@ export class StateManagerEvaAnimationPlayNow extends property_evaluator {
 
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaAnimationPlayNow.__name);
-
     this.stateManager = stateManager;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     return this.stateManager.animation.states.current_state !== null;
   }
 }

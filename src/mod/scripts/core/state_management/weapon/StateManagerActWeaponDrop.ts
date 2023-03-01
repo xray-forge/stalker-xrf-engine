@@ -25,7 +25,7 @@ export class StateManagerActWeaponDrop extends action_base {
     this.stateManager = stateManager;
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
 
     const weapon: Optional<XR_game_object> = get_weapon(this.object, this.stateManager.target_state);
@@ -39,11 +39,11 @@ export class StateManagerActWeaponDrop extends action_base {
     }
   }
 
-  public execute(): void {
+  public override execute(): void {
     super.execute();
   }
 
-  public finalize(): void {
+  public override finalize(): void {
     super.finalize();
   }
 }

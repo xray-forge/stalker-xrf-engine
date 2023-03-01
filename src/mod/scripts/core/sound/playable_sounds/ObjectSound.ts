@@ -10,7 +10,8 @@ import {
   XR_sound_object,
 } from "xray16";
 
-import { Optional } from "@/mod/lib/types";
+import { STRINGIFIED_NIL } from "@/mod/globals/lua";
+import { Optional, TNumberId } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { send_sound } from "@/mod/scripts/core/NewsManager";
 import { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
@@ -21,6 +22,9 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ObjectSound");
 
+/**
+ * todo;
+ */
 export class ObjectSound extends AbstractPlayableSound {
   public static readonly type: EPlayableSound = EPlayableSound["3D"];
 
@@ -143,7 +147,7 @@ export class ObjectSound extends AbstractPlayableSound {
     return true;
   }
 
-  public stop(): void {
+  public override stop(): void {
     super.stop();
 
     if (this.pda_snd_obj !== null && this.pda_snd_obj.playing()) {
@@ -152,21 +156,21 @@ export class ObjectSound extends AbstractPlayableSound {
     }
   }
 
-  public save(net_packet: XR_net_packet): void {
+  public override save(net_packet: XR_net_packet): void {
     net_packet.w_stringZ(tostring(this.played_id));
   }
 
-  public load(reader: XR_reader): void {
+  public override load(reader: XR_reader): void {
     const id = reader.r_stringZ();
 
-    if (id !== "nil") {
+    if (id !== STRINGIFIED_NIL) {
       this.played_id = tonumber(id)!;
     } else {
       this.played_id = null;
     }
   }
 
-  public callback(npc_id: number): void {
+  public override callback(objectId: TNumberId): void {
     this.played_time = time_global();
     this.idle_time = math.random(this.min_idle, this.max_idle) * 1000;
     this.snd_obj = null;
@@ -175,7 +179,7 @@ export class ObjectSound extends AbstractPlayableSound {
     // --    printf("object_sound:callback for object !!!!!!!!")
     get_hud().RemoveCustomStatic("cs_subtitles_object");
 
-    const st = registry.objects.get(npc_id);
+    const st = registry.objects.get(objectId);
 
     if (st.active_scheme === null) {
       return;

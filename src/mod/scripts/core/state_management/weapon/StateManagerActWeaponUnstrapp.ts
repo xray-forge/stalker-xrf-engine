@@ -22,7 +22,7 @@ export class StateManagerActWeaponUnstrapp extends action_base {
     this.stateManager = stateManager;
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
     this.object.set_item(
       get_idle_state(this.stateManager.target_state),
@@ -30,11 +30,11 @@ export class StateManagerActWeaponUnstrapp extends action_base {
     );
   }
 
-  public execute(): void {
+  public override execute(): void {
     super.execute();
   }
 
-  public finalize(): void {
+  public override finalize(): void {
     super.finalize();
   }
 }

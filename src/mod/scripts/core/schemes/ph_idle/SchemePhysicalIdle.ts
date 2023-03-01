@@ -23,10 +23,10 @@ const logger: LuaLogger = new LuaLogger("SchemePhysicalIdle");
  * todo;
  */
 export class SchemePhysicalIdle extends AbstractScheme {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.PH_IDLE;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.ITEM;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_IDLE;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.ITEM;
 
-  public static add_to_binder(
+  public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -37,7 +37,12 @@ export class SchemePhysicalIdle extends AbstractScheme {
     subscribeActionForEvents(object, state, new SchemePhysicalIdle(object, state));
   }
 
-  public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+  public static override set_scheme(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection
+  ): void {
     logger.info("Set scheme:", object.name(), scheme, section);
 
     const state = assignStorageAndBind(object, ini, scheme, section);
@@ -52,15 +57,15 @@ export class SchemePhysicalIdle extends AbstractScheme {
     object.set_tip_text(state.tips);
   }
 
-  public reset_scheme(): void {
+  public override reset_scheme(): void {
     this.object.set_nonscript_usable(this.state.nonscript_usable);
   }
 
-  public update(delta: number): void {
+  public override update(delta: number): void {
     trySwitchToAnotherSection(this.object, this.state, registry.actor);
   }
 
-  public deactivate(): void {
+  public override deactivate(): void {
     this.object.set_tip_text("");
   }
 

@@ -25,18 +25,18 @@ export class StateManagerActDirectionTurn extends action_base {
     this.st = st;
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     // --printf("turning object %s ",this.object:name())
     super.initialize();
     this.turn();
   }
 
-  public execute(): void {
+  public override execute(): void {
     super.execute();
     this.turn();
   }
 
-  public finalize(): void {
+  public override finalize(): void {
     super.finalize();
   }
 

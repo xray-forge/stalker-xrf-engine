@@ -22,7 +22,7 @@ export class StateManagerEvaWeaponFire extends property_evaluator {
     this.stateManager = stateManager;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     return (
       states.get(this.stateManager.target_state).weapon === "fire" ||
       states.get(this.stateManager.target_state).weapon === "sniper_fire"

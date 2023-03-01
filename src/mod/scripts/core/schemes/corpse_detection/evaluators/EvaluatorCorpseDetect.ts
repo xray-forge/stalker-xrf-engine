@@ -19,7 +19,7 @@ export class EvaluatorCorpseDetect extends property_evaluator {
     this.state = state;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     if (!this.object.alive()) {
       return false;
     } else if (this.object.best_enemy() !== null) {

@@ -25,7 +25,7 @@ export class ActionBaseCover extends action_base {
     this.state = state;
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
     this.board = get_sim_board();
   }
@@ -83,7 +83,7 @@ export class ActionBaseCover extends action_base {
     set_state(this.object, "assault", null, null, null, null);
   }
 
-  public execute(): void {
+  public override execute(): void {
     if (this.cover_position.distance_to_sqr(this.object.position()) <= 0.4) {
       const anim = pickSectionFromCondList(registry.actor, this.object, this.state.anim);
 

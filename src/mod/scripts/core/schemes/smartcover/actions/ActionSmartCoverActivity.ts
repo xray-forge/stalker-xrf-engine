@@ -50,7 +50,7 @@ export class ActionSmartCoverActivity extends action_base {
     this.st = state;
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
 
     this.initialized = true;
@@ -180,7 +180,7 @@ export class ActionSmartCoverActivity extends action_base {
     return false;
   }
 
-  public execute(): void {
+  public override execute(): void {
     super.execute();
 
     const need_cover_state = pickSectionFromCondList(registry.actor, this.object, this.cover_condlist) as ECoverState;
@@ -212,7 +212,7 @@ export class ActionSmartCoverActivity extends action_base {
     }
   }
 
-  public finalize(): void {
+  public override finalize(): void {
     this.initialized = false;
     super.finalize();
   }

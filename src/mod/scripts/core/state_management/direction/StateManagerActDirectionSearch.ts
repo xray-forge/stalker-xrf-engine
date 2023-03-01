@@ -20,11 +20,10 @@ export class StateManagerActDirectionSearch extends action_base {
 
   public constructor(stateManager: StateManager) {
     super(null, StateManagerActDirectionSearch.__name);
-
     this.stateManager = stateManager;
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
 
     if (
@@ -37,11 +36,11 @@ export class StateManagerActDirectionSearch extends action_base {
     }
   }
 
-  public execute(): void {
+  public override execute(): void {
     super.execute();
   }
 
-  public finalize(): void {
+  public override finalize(): void {
     super.finalize();
   }
 }

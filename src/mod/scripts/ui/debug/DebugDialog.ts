@@ -214,7 +214,7 @@ export class DebugDialog extends CUIScriptWnd {
     }
   }
 
-  public OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
+  public override OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
     const result: boolean = super.OnKeyboard(key, event);
 
     if (event === ui_events.WINDOW_KEY_PRESSED) {

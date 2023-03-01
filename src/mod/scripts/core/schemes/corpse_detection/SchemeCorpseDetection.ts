@@ -20,14 +20,14 @@ const logger: LuaLogger = new LuaLogger("SchemeCorpseDetection");
  * todo;
  */
 export class SchemeCorpseDetection extends AbstractScheme {
-  public static SCHEME_SECTION: EScheme = EScheme.CORPSE_DETECTION;
-  public static SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
+  public static override SCHEME_SECTION: EScheme = EScheme.CORPSE_DETECTION;
+  public static override SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  public static add_to_binder(
+  public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: string,
-    section: string,
+    scheme: EScheme,
+    section: TSection,
     state: IStoredObject
   ): void {
     logger.info("Add to binder:", object.name());
@@ -77,12 +77,17 @@ export class SchemeCorpseDetection extends AbstractScheme {
     assignStorageAndBind(object, ini, scheme, section);
   }
 
-  public static resetScheme(npc: XR_game_object, scheme: EScheme, state: IStoredObject, section: TSection): void {
+  public static override resetScheme(
+    object: XR_game_object,
+    scheme: EScheme,
+    state: IStoredObject,
+    section: TSection
+  ): void {
     state.corpse_detection.corpse_detection_enabled = getConfigBoolean(
       state.ini!,
       section,
       "corpse_detection_enabled",
-      npc,
+      object,
       false,
       true
     );

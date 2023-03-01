@@ -16,11 +16,10 @@ export class StateManagerEvaMovement extends property_evaluator {
 
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaMovement.__name);
-
     this.stateManager = stateManager;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     return (
       states.get(this.stateManager.target_state).movement === null ||
       states.get(this.stateManager.target_state).movement === this.object.target_movement_type()

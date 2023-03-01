@@ -22,21 +22,20 @@ export class StateManagerActEnd extends action_base {
 
   public constructor(stateManager: StateManager) {
     super(null, StateManagerActEnd.__name);
-
     this.stateManager = stateManager;
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
   }
 
-  public execute(): void {
+  public override execute(): void {
     super.execute();
 
     this.weapon_update();
   }
 
-  public finalize(): void {
+  public override finalize(): void {
     super.finalize();
   }
 

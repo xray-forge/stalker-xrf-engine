@@ -19,11 +19,10 @@ export class StateManagerEvaMentalDanger extends property_evaluator {
 
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaMentalDanger.__name);
-
     this.stateManager = stateManager;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     return states.get(this.stateManager.target_state).mental === anim.danger;
   }
 }

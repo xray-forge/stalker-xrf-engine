@@ -18,7 +18,7 @@ export class EvaluatorSee extends property_evaluator {
     this.state = storage;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     const bestEnemy: Optional<XR_game_object> = this.object.best_enemy();
 
     if (bestEnemy !== null && this.object.alive() && this.object.see(bestEnemy)) {

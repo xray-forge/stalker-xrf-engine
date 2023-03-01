@@ -14,14 +14,14 @@ const logger: LuaLogger = new LuaLogger(
  */
 @LuabindClass()
 export class StateManagerEvaMentalFreeNow extends property_evaluator {
-  public stateManager: StateManager;
+  public readonly stateManager: StateManager;
 
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaMentalFreeNow.__name);
     this.stateManager = stateManager;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     return this.object.target_mental_state() === anim.free;
   }
 }

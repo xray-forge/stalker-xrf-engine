@@ -21,7 +21,7 @@ export class StateManagerEvaEnd extends property_evaluator {
     this.stateManager = stateManager;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     if (this.actionPlanner === null) {
       this.actionPlanner = this.object.motivation_action_manager();
     }

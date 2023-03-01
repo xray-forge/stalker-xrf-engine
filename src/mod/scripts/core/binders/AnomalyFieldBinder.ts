@@ -20,17 +20,17 @@ export class AnomalyFieldBinder extends object_binder {
     super(object);
   }
 
-  public reload(section: TSection): void {
+  public override reload(section: TSection): void {
     super.reload(section);
   }
 
-  public reinit(): void {
+  public override reinit(): void {
     super.reinit();
 
     registry.objects.set(this.object.id(), {});
   }
 
-  public net_spawn(object: XR_cse_alife_object): boolean {
+  public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
@@ -44,7 +44,7 @@ export class AnomalyFieldBinder extends object_binder {
     return true;
   }
 
-  public net_destroy(): void {
+  public override net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
 
     deleteZone(this.object);
@@ -63,7 +63,7 @@ export class AnomalyFieldBinder extends object_binder {
     }
   }
 
-  public update(delta: number): void {
+  public override update(delta: number): void {
     this.delta += delta;
 
     if (this.delta >= UPDATE_THROTTLE) {
@@ -75,7 +75,7 @@ export class AnomalyFieldBinder extends object_binder {
     }
   }
 
-  public net_save_relevant(): boolean {
+  public override net_save_relevant(): boolean {
     return true;
   }
 }

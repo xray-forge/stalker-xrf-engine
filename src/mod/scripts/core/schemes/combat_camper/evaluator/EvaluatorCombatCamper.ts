@@ -17,7 +17,7 @@ export class EvaluatorCombatCamper extends property_evaluator {
     this.state = state;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     return registry.objects.get(this.object.id()).script_combat_type === "camper";
   }
 }

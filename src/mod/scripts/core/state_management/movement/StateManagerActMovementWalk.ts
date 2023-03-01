@@ -18,20 +18,19 @@ export class StateManagerActMovementWalk extends action_base {
 
   public constructor(stateManager: StateManager) {
     super(null, StateManagerActMovementWalk.__name);
-
     this.stateManager = stateManager;
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
     this.object.set_movement_type(move.walk);
   }
 
-  public execute(): void {
+  public override execute(): void {
     super.execute();
   }
 
-  public finalize(): void {
+  public override finalize(): void {
     super.finalize();
   }
 }

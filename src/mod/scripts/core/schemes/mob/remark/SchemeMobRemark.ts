@@ -27,10 +27,10 @@ const logger: LuaLogger = new LuaLogger("SchemeMobRemark");
  * todo;
  */
 export class SchemeMobRemark extends AbstractScheme {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.MOB_REMARK;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.MOB_REMARK;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
 
-  public static add_to_binder(
+  public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -40,7 +40,7 @@ export class SchemeMobRemark extends AbstractScheme {
     subscribeActionForEvents(object, storage, new SchemeMobRemark(object, storage));
   }
 
-  public static set_scheme(
+  public static override set_scheme(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -66,7 +66,7 @@ export class SchemeMobRemark extends AbstractScheme {
   public tip_sent: Optional<boolean> = null;
   public action_end_signalled: Optional<boolean> = null;
 
-  public reset_scheme(): void {
+  public override reset_scheme(): void {
     setMobState(this.object, registry.actor, this.state.state);
 
     this.object.disable_talk();
@@ -154,7 +154,7 @@ export class SchemeMobRemark extends AbstractScheme {
     this.action_end_signalled = false;
   }
 
-  public update(delta: number): void {
+  public override update(delta: number): void {
     const actor = registry.actor;
 
     if (

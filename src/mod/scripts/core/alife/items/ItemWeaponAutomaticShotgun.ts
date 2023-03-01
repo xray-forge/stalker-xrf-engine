@@ -19,19 +19,19 @@ export class ItemWeaponAutomaticShotgun extends cse_alife_item_weapon_auto_shotg
     super(section);
   }
 
-  public on_register(): void {
+  public override on_register(): void {
     super.on_register();
     logger.info("Register:", this.id, this.name(), this.section_name());
     checkSpawnIniForStoryId(this);
     this.secret_item = getTreasureManager().register_item(this);
   }
 
-  public on_unregister(): void {
+  public override on_unregister(): void {
     unregisterStoryObjectById(this.id);
     super.on_unregister();
   }
 
-  public can_switch_online(): boolean {
+  public override can_switch_online(): boolean {
     if (this.secret_item) {
       return false;
     }

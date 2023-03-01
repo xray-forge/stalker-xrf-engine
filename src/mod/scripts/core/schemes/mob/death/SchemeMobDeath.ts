@@ -15,10 +15,10 @@ const logger: LuaLogger = new LuaLogger("SchemeMobDeath");
  * todo;
  */
 export class SchemeMobDeath extends AbstractScheme {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.MOB_DEATH;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.MOB_DEATH;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
 
-  public static add_to_binder(
+  public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -29,7 +29,7 @@ export class SchemeMobDeath extends AbstractScheme {
     subscribeActionForEvents(object, storage, new SchemeMobDeath(object, storage));
   }
 
-  public static set_scheme(
+  public static override set_scheme(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,

@@ -16,7 +16,7 @@ export class ZoneRestrictor extends cse_alife_space_restrictor {
     super(section);
   }
 
-  public on_register(): void {
+  public override on_register(): void {
     super.on_register();
 
     logger.info("Register:", this.id, this.name(), this.section_name());
@@ -25,7 +25,7 @@ export class ZoneRestrictor extends cse_alife_space_restrictor {
     getTreasureManager().register_restrictor(this);
   }
 
-  public keep_saved_data_anyway(): boolean {
+  public override keep_saved_data_anyway(): boolean {
     return true;
   }
 }

@@ -18,11 +18,14 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("SchemeCamper");
 
+/**
+ * todo;
+ */
 export class SchemeCamper extends AbstractScheme {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.CAMPER;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.CAMPER;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  public static add_to_binder(
+  public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -80,7 +83,7 @@ export class SchemeCamper extends AbstractScheme {
     actionCombatPlanner.add_effect(new world_property(properties.end, true));
   }
 
-  public static set_scheme(
+  public static override set_scheme(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,

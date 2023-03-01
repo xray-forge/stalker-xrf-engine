@@ -19,7 +19,7 @@ export class StateManagerEvaMentalPanic extends property_evaluator {
     this.stateManager = stateManager;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     return states.get(this.stateManager.target_state).mental === anim.panic;
   }
 }

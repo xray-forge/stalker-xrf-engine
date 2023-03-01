@@ -23,7 +23,7 @@ export class StateManagerEvaSmartCover extends property_evaluator {
     this.stateManager = stateManager;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     if (this.stateManager.target_state !== "smartcover") {
       return true;
     }

@@ -14,8 +14,8 @@ const logger: LuaLogger = new LuaLogger("ActionSchemeHear");
 
 // Todo: move to scheme.
 export class ActionSchemeHear extends AbstractScheme {
-  public static SCHEME_SECTION: EScheme = EScheme.HEAR;
-  public static SCHEME_TYPE: ESchemeType = ESchemeType.STALKER; // And monsters.
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.HEAR;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER; // And monsters.
 
   public static is_on_sound_line(candidate: string): boolean {
     const [idx] = string.find(candidate, "^on_sound%d*$");
@@ -36,7 +36,12 @@ export class ActionSchemeHear extends AbstractScheme {
     };
   }
 
-  public static resetScheme(object: XR_game_object, scheme: EScheme, state: IStoredObject, section: TSection): void {
+  public static override resetScheme(
+    object: XR_game_object,
+    scheme: EScheme,
+    state: IStoredObject,
+    section: TSection
+  ): void {
     const ini: XR_ini_file = state.ini!;
 
     if (!ini.section_exist(section)) {

@@ -20,14 +20,14 @@ export class ActionMeetWait extends action_base {
     this.char_ini = char_ini;
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
 
     this.object.set_desired_position();
     this.object.set_desired_direction();
   }
 
-  public execute(): void {
+  public override execute(): void {
     super.execute();
 
     this.state.meet_manager.update_state();

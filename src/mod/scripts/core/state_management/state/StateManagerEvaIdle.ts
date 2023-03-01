@@ -23,7 +23,7 @@ export class StateManagerEvaIdle extends property_evaluator {
     this.stateManager = stateManager;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     const t =
       this.stateManager.target_state === "idle" &&
       // --!this.st.planner.evaluator(this.st.properties["locked"]).evaluate() &&

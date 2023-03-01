@@ -16,15 +16,14 @@ const logger: LuaLogger = new LuaLogger("StateManagerEvaDirection", gameConfig.D
  */
 @LuabindClass()
 export class StateManagerEvaDirection extends property_evaluator {
-  public stateManager: StateManager;
+  public readonly stateManager: StateManager;
 
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaDirection.__name);
-
     this.stateManager = stateManager;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     if (this.stateManager.target_state === "smartcover") {
       return true;
     }

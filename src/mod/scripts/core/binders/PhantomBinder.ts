@@ -9,11 +9,10 @@ import { PhantomManager } from "@/mod/scripts/core/managers/PhantomManager";
 export class PhantomBinder extends object_binder {
   public constructor(object: XR_game_object) {
     super(object);
-
     PhantomManager.getInstance().add_phantom();
   }
 
-  public net_destroy(): void {
+  public override net_destroy(): void {
     PhantomManager.getInstance().remove_phantom();
   }
 

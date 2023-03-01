@@ -16,10 +16,10 @@ const logger: LuaLogger = new LuaLogger("SchemeCrowSpawner");
  * todo;
  */
 export class SchemeCrowSpawner extends AbstractScheme {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.SR_CROW_SPAWNER;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_CROW_SPAWNER;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
-  public static add_to_binder(
+  public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -29,7 +29,12 @@ export class SchemeCrowSpawner extends AbstractScheme {
     subscribeActionForEvents(object, state, new SchemeCrowSpawner(object, state));
   }
 
-  public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+  public static override set_scheme(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection
+  ): void {
     // -- standart lines: assigning new storage and binding our space restrictor
     const state: IStoredObject = assignStorageAndBind(object, ini, scheme, section);
 
@@ -55,13 +60,13 @@ export class SchemeCrowSpawner extends AbstractScheme {
     this.spawned_count = null;
   }
 
-  public reset_scheme(): void {
+  public override reset_scheme(): void {
     for (const [k, v] of this.state.path_table!) {
       this.spawn_points_idle.set(v, time_global());
     }
   }
 
-  public update(delta: number): void {
+  public override update(delta: number): void {
     // -- check for spawn crows on level
     if (this.time_for_spawn < time_global()) {
       this.spawned_count = registry.crows.count;

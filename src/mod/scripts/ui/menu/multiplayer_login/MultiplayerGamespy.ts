@@ -570,7 +570,7 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
     this.OnBtnShowCreateAccountPage();
   }
 
-  public OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
+  public override OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
     super.OnKeyboard(key, event);
 
     if (event === ui_events.WINDOW_KEY_RELEASED) {

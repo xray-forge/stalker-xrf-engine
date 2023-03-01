@@ -58,10 +58,10 @@ const assoc_tbl: LuaTable<
 } as any;
 
 export class SchemeAnimpoint extends AbstractScheme {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.ANIMPOINT;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.ANIMPOINT;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  public static add_to_binder(
+  public static override add_to_binder(
     npc: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -116,7 +116,7 @@ export class SchemeAnimpoint extends AbstractScheme {
     manager.action(action_ids.alife).add_precondition(new world_property(properties.need_animpoint, false));
   }
 
-  public static set_scheme(
+  public static override set_scheme(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -174,7 +174,7 @@ export class SchemeAnimpoint extends AbstractScheme {
     this.cover_name = null;
   }
 
-  public activate_scheme(loading: boolean, npc: XR_game_object, switching_scheme: boolean): void {
+  public activate_scheme(loading: boolean, object: XR_game_object, switching_scheme: boolean): void {
     this.state.signals = {};
     this.calculate_position();
 
@@ -349,7 +349,7 @@ export class SchemeAnimpoint extends AbstractScheme {
     return this.current_action;
   }
 
-  public update(): void {
+  public override update(): void {
     const tmp_actions: LuaTable<number, string> = new LuaTable();
     const descr = this.state.description;
 

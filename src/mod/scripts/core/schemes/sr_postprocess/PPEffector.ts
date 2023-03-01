@@ -16,7 +16,7 @@ export class PPEffector extends effector {
     super(idNumber, 10000000);
   }
 
-  public process(effector_params: XR_effector_params): boolean {
+  public override process(effector_params: XR_effector_params): boolean {
     effector_params.assign(this.params);
     super.process(effector_params);
 

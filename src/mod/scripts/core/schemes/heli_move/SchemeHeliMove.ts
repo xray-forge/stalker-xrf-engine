@@ -27,10 +27,10 @@ const state_move: number = 0;
  * todo
  */
 export class SchemeHeliMove extends AbstractScheme {
-  public static SCHEME_SECTION: EScheme = EScheme.HELI_MOVE;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.ITEM;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.HELI_MOVE;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.ITEM;
 
-  public static add_to_binder(
+  public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -40,7 +40,7 @@ export class SchemeHeliMove extends AbstractScheme {
     subscribeActionForEvents(object, storage, new SchemeHeliMove(object, storage));
   }
 
-  public static set_scheme(npc: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+  public static override set_scheme(npc: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const a = assignStorageAndBind(npc, ini, scheme, section);
 
     a.logic = cfg_get_switch_conditions(ini, section, npc);
@@ -97,7 +97,7 @@ export class SchemeHeliMove extends AbstractScheme {
     this.heli_look = get_heli_looker(object);
   }
 
-  public reset_scheme(loading?: boolean): void {
+  public override reset_scheme(loading?: boolean): void {
     this.state.signals = {};
     this.heliObject.TurnEngineSound(this.state.engine_sound);
 
@@ -211,7 +211,7 @@ export class SchemeHeliMove extends AbstractScheme {
     pstor_store(this.object, "wc", this.was_callback);
   }
 
-  public update(delta: number): void {
+  public override update(delta: number): void {
     const actor: XR_game_object = registry.actor;
 
     if (trySwitchToAnotherSection(this.object, this.state, actor)) {

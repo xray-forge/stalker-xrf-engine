@@ -21,7 +21,7 @@ export class StateManagerEvaMentalDangerNow extends property_evaluator {
     this.stateManager = stateManager;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     return this.object.target_mental_state() === anim.danger;
   }
 }

@@ -3,6 +3,7 @@
     "experimentalDecorators": true,
     "target": "esnext",
     "lib": ["esnext"],
+    "noImplicitOverride": true,
     "moduleResolution": "node",
     "types": ["@typescript-to-lua/language-extensions", "lua-types/jit"],
     "jsx": "preserve",

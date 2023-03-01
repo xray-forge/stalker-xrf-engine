@@ -22,7 +22,7 @@ export class StateManagerEvaMovementStandNow extends property_evaluator {
     this.stateManager = stateManager;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     return this.object.target_movement_type() === move.stand;
   }
 }

@@ -54,7 +54,7 @@ export class ActionCamperPatrol extends action_base {
     this.state.scan_table = new LuaTable();
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
 
     this.object.set_desired_position();
@@ -150,7 +150,7 @@ export class ActionCamperPatrol extends action_base {
     return true;
   }
 
-  public execute(): void {
+  public override execute(): void {
     super.execute();
     this.enemy = this.object.best_enemy();
 
@@ -476,7 +476,7 @@ export class ActionCamperPatrol extends action_base {
     return false;
   }
 
-  public finalize(): void {
+  public override finalize(): void {
     this.move_mgr.finalize();
     super.finalize();
   }

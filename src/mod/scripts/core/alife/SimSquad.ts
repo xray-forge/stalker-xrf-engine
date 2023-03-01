@@ -287,7 +287,7 @@ export class SimSquad<
     return true;
   }
 
-  public update(): void {
+  public override update(): void {
     super.update();
     this.refresh();
 
@@ -789,7 +789,7 @@ export class SimSquad<
     return squad_community;
   }
 
-  public STATE_Write(packet: XR_net_packet): void {
+  public override STATE_Write(packet: XR_net_packet): void {
     super.STATE_Write(packet);
 
     setSaveMarker(packet, false, "sim_squad_scripted");
@@ -802,7 +802,7 @@ export class SimSquad<
     setSaveMarker(packet, true, "sim_squad_scripted");
   }
 
-  public STATE_Read(packet: XR_net_packet, size: number): void {
+  public override STATE_Read(packet: XR_net_packet, size: number): void {
     super.STATE_Read(packet, size);
 
     setSaveMarker(packet, false, "sim_squad_scripted");
@@ -841,14 +841,14 @@ export class SimSquad<
     setSaveMarker(packet, true, "sim_squad_scripted");
   }
 
-  public on_register(): void {
+  public override on_register(): void {
     super.on_register();
     this.board.squads.set(this.id, this);
     checkSpawnIniForStoryId(this);
     get_sim_obj_registry().register(this);
   }
 
-  public on_unregister(): void {
+  public override on_unregister(): void {
     unregisterStoryObjectById(this.id);
 
     this.board.squads.delete(this.id);
@@ -868,11 +868,11 @@ export class SimSquad<
     }
   }
 
-  public can_switch_offline(): boolean {
+  public override can_switch_offline(): boolean {
     return super.can_switch_offline();
   }
 
-  public can_switch_online(): boolean {
+  public override can_switch_online(): boolean {
     return super.can_switch_online();
   }
 
@@ -997,7 +997,7 @@ export class SimSquad<
     return $multi(this.position, this.m_level_vertex_id, this.m_game_vertex_id);
   }
 
-  public get_current_task() {
+  public override get_current_task() {
     if (this.assigned_target_id !== null && alife().object(this.assigned_target_id) !== null) {
       const smart_terrain = alife().object<SmartTerrain>(this.assigned_target_id)!;
 

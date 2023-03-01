@@ -21,7 +21,7 @@ export class StateManagerEvaLockedExternal extends property_evaluator {
     this.stateManager = stateManager;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     return this.stateManager.combat || this.stateManager.alife;
   }
 }

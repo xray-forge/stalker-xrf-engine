@@ -26,20 +26,20 @@ export class LevelChangerBinder extends object_binder {
     super(object);
   }
 
-  public update(delta: number): void {
+  public override update(delta: number): void {
     super.update(delta);
   }
 
-  public reload(section: TSection): void {
+  public override reload(section: TSection): void {
     super.reload(section);
   }
 
-  public reinit(): void {
+  public override reinit(): void {
     super.reinit();
     resetObject(this.object);
   }
 
-  public net_spawn(cse_object: XR_cse_alife_object): boolean {
+  public override net_spawn(cse_object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(cse_object)) {
       return false;
     }
@@ -62,17 +62,17 @@ export class LevelChangerBinder extends object_binder {
     return true;
   }
 
-  public net_destroy(): void {
+  public override net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
     deleteObject(this.object);
     super.net_destroy();
   }
 
-  public net_save_relevant(): boolean {
+  public override net_save_relevant(): boolean {
     return true;
   }
 
-  public save(packet: XR_net_packet): void {
+  public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, LevelChangerBinder.__name);
 
     super.save(packet);
@@ -81,7 +81,7 @@ export class LevelChangerBinder extends object_binder {
     setSaveMarker(packet, true, LevelChangerBinder.__name);
   }
 
-  public load(reader: XR_reader): void {
+  public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, LevelChangerBinder.__name);
 
     super.load(reader);

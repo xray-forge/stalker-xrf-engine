@@ -18,11 +18,10 @@ export class StateManagerEvaAnimationLocked extends property_evaluator {
 
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaAnimationLocked.__name);
-
     this.stateManager = stateManager;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     // tostring(self.st.fast_set), tostring(self.st.animation.states.anim_marker), tostring(self.st.animation.sid))
     // --    if self.st.fast_set === true then
     // --        return false

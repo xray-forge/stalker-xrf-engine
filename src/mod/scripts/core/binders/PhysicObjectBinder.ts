@@ -43,16 +43,16 @@ export class PhysicObjectBinder extends object_binder {
     super(object);
   }
 
-  public reload(section: string): void {
+  public override reload(section: string): void {
     super.reload(section);
   }
 
-  public reinit(): void {
+  public override reinit(): void {
     super.reinit();
     this.st = resetObject(this.object);
   }
 
-  public net_destroy(): void {
+  public override net_destroy(): void {
     if (level.map_has_object_spot(this.object.id(), "ui_pda2_actor_box_location") !== 0) {
       level.map_remove_object_spot(this.object.id(), "ui_pda2_actor_box_location");
     }
@@ -82,11 +82,11 @@ export class PhysicObjectBinder extends object_binder {
     super.net_destroy();
   }
 
-  public net_save_relevant(): boolean {
+  public override net_save_relevant(): boolean {
     return true;
   }
 
-  public save(packet: XR_net_packet): void {
+  public override save(packet: XR_net_packet): void {
     super.save(packet);
 
     setSaveMarker(packet, false, PhysicObjectBinder.__name);
@@ -94,7 +94,7 @@ export class PhysicObjectBinder extends object_binder {
     setSaveMarker(packet, true, PhysicObjectBinder.__name);
   }
 
-  public load(reader: XR_reader): void {
+  public override load(reader: XR_reader): void {
     this.loaded = true;
 
     super.load(reader);
@@ -158,7 +158,7 @@ export class PhysicObjectBinder extends object_binder {
     }
   }
 
-  public net_spawn(object: XR_cse_alife_object): boolean {
+  public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
@@ -182,7 +182,7 @@ export class PhysicObjectBinder extends object_binder {
     return true;
   }
 
-  public update(delta: number): void {
+  public override update(delta: number): void {
     super.update(delta);
 
     if (!this.initialized) {

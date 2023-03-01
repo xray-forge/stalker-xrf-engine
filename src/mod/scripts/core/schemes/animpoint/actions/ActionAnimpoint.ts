@@ -18,12 +18,12 @@ export class ActionAnimpoint extends action_base {
     this.state = state;
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
     this.state.animpoint!.start();
   }
 
-  public finalize(): void {
+  public override finalize(): void {
     this.state.animpoint!.stop();
     super.finalize();
   }
@@ -32,7 +32,7 @@ export class ActionAnimpoint extends action_base {
     this.state.animpoint!.stop();
   }
 
-  public execute(): void {
+  public override execute(): void {
     super.execute();
 
     const [pos, dir] = this.state.animpoint!.get_animation_params();

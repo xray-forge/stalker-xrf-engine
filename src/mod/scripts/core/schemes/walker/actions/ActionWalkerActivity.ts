@@ -48,7 +48,7 @@ export class ActionWalkerActivity extends action_base {
     }
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
     this.object.set_desired_position();
     this.object.set_desired_direction();
@@ -83,7 +83,7 @@ export class ActionWalkerActivity extends action_base {
     );
   }
 
-  public execute(): void {
+  public override execute(): void {
     super.execute();
 
     this.move_mgr.update();
@@ -123,7 +123,7 @@ export class ActionWalkerActivity extends action_base {
     set_state(this.object, anim, null, null, null, null);
   }
 
-  public finalize(): void {
+  public override finalize(): void {
     this.move_mgr.finalize();
 
     if (this.in_camp === true) {

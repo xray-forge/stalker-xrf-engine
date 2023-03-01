@@ -15,6 +15,9 @@ export interface IProfileSnapshotDescriptor {
   childTimer: XR_profile_timer;
 }
 
+/**
+ * todo;
+ */
 export class ProfilingManager extends AbstractCoreManager {
   public countersMap: LuaTable<AnyCallable, IProfileSnapshotDescriptor> = new LuaTable();
   public namesMap: LuaTable<AnyCallable, debug.FunctionInfo> = new LuaTable();
@@ -58,7 +61,7 @@ export class ProfilingManager extends AbstractCoreManager {
   /**
    * Destroy manager - clear data and bound hooks.
    */
-  public destroy(): void {
+  public override destroy(): void {
     this.clear();
   }
 

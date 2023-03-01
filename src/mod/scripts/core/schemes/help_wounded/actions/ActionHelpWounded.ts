@@ -1,4 +1,4 @@
-import { action_base, XR_action_base } from "xray16";
+import { action_base } from "xray16";
 
 import { IStoredObject } from "@/mod/scripts/core/database";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
@@ -18,7 +18,7 @@ export class ActionHelpWounded extends action_base {
     this.state = state;
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
 
     this.object.set_desired_position();
@@ -28,7 +28,7 @@ export class ActionHelpWounded extends action_base {
     set_state(this.object, "patrol", null, null, null, null);
   }
 
-  public execute(): void {
+  public override execute(): void {
     super.execute();
 
     if (this.object.position().distance_to_sqr(this.state.vertex_position) > 2) {

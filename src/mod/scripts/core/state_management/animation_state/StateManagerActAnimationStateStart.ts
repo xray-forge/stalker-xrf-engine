@@ -22,18 +22,18 @@ export class StateManagerActAnimationStateStart extends action_base {
     this.stateManager = stateManager;
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
 
     this.stateManager.animstate.set_state(states.get(this.stateManager.target_state).animstate, null);
     this.stateManager.animstate.set_control();
   }
 
-  public execute(): void {
+  public override execute(): void {
     super.execute();
   }
 
-  public finalize(): void {
+  public override finalize(): void {
     super.finalize();
   }
 }

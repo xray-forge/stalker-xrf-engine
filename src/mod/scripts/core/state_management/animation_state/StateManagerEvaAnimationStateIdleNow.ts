@@ -18,11 +18,10 @@ export class StateManagerEvaAnimationStateIdleNow extends property_evaluator {
 
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaAnimationStateIdleNow.__name);
-
     this.stateManager = stateManager;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     return this.stateManager.animstate.states.current_state === null;
   }
 }

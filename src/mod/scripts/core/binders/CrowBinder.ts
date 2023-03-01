@@ -10,7 +10,7 @@ import {
   XR_reader,
 } from "xray16";
 
-import { TSection } from "@/mod/lib/types";
+import { TNumberId, TSection } from "@/mod/lib/types";
 import { addObject, deleteObject, registry, resetObject } from "@/mod/scripts/core/database";
 import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
@@ -31,7 +31,7 @@ export class CrowBinder extends object_binder {
     super(object);
   }
 
-  public update(delta: number): void {
+  public override update(delta: number): void {
     super.update(delta);
 
     if (
@@ -46,11 +46,11 @@ export class CrowBinder extends object_binder {
     }
   }
 
-  public reload(section: TSection): void {
+  public override reload(section: TSection): void {
     super.reload(section);
   }
 
-  public reinit(): void {
+  public override reinit(): void {
     super.reinit();
 
     this.bodyDisposalTimer = 0;
@@ -58,14 +58,14 @@ export class CrowBinder extends object_binder {
     resetObject(this.object);
   }
 
-  public net_spawn(object: XR_cse_alife_object): boolean {
+  public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
 
     logger.info("Crow net spawn");
 
-    const objectId: number = this.object.id();
+    const objectId: TNumberId = this.object.id();
 
     addObject(this.object);
 
@@ -77,7 +77,7 @@ export class CrowBinder extends object_binder {
     return true;
   }
 
-  public net_destroy(): void {
+  public override net_destroy(): void {
     logger.info("Crow net destroy");
 
     this.object.set_callback(callback.death, null);
@@ -98,11 +98,11 @@ export class CrowBinder extends object_binder {
     registry.crows.count -= 1;
   }
 
-  public net_save_relevant(): boolean {
+  public override net_save_relevant(): boolean {
     return true;
   }
 
-  public save(packet: XR_net_packet): void {
+  public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, CrowBinder.__name);
 
     super.save(packet);
@@ -112,7 +112,7 @@ export class CrowBinder extends object_binder {
     setSaveMarker(packet, true, CrowBinder.__name);
   }
 
-  public load(reader: XR_reader): void {
+  public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, CrowBinder.__name);
     super.load(reader);
     load_obj(this.object, reader);

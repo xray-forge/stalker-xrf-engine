@@ -86,7 +86,7 @@ export class StalkerBinder extends object_binder {
     // --    this.need_relation_update = false
   }
 
-  public reinit(): void {
+  public override reinit(): void {
     super.reinit();
 
     this.state = resetObject(this.object, { followers: {} });
@@ -109,7 +109,7 @@ export class StalkerBinder extends object_binder {
     return false;
   }
 
-  public net_spawn(obj: XR_cse_alife_object): boolean {
+  public override net_spawn(obj: XR_cse_alife_object): boolean {
     const visual = getConfigString(system_ini(), this.object.section(), "set_visual", obj, false, "");
     const actor: XR_game_object = registry.actor;
 
@@ -222,7 +222,7 @@ export class StalkerBinder extends object_binder {
     return true;
   }
 
-  public net_destroy(): void {
+  public override net_destroy(): void {
     DynamicMusicManager.NPC_TABLE.delete(this.object.id());
 
     registry.actorCombat.delete(this.object.id());
@@ -421,7 +421,7 @@ export class StalkerBinder extends object_binder {
     }
   }
 
-  public update(delta: number): void {
+  public override update(delta: number): void {
     super.update(delta);
 
     if (registry.actorCombat.get(this.object.id()) && this.object.best_enemy() === null) {
@@ -516,11 +516,11 @@ export class StalkerBinder extends object_binder {
     }
   }
 
-  public net_save_relevant(): boolean {
+  public override net_save_relevant(): boolean {
     return true;
   }
 
-  public save(packet: XR_net_packet): void {
+  public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, StalkerBinder.__name);
 
     super.save(packet);
@@ -532,7 +532,7 @@ export class StalkerBinder extends object_binder {
     setSaveMarker(packet, true, StalkerBinder.__name);
   }
 
-  public load(reader: XR_reader): void {
+  public override load(reader: XR_reader): void {
     this.loaded = true;
 
     setLoadMarker(reader, false, StalkerBinder.__name);

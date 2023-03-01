@@ -26,7 +26,7 @@ export class FreeplayDialog extends CUIScriptWnd {
     this.AddCallback("freeplay_mb", ui_events.MESSAGE_BOX_NO_CLICKED, () => this.OnMsgNo(), this);
   }
 
-  public Show(selector: boolean | string, text?: string): void {
+  public override Show(selector: boolean | string, text?: string): void {
     this.freeplay_mb.InitMessageBox(tostring(selector));
     this.freeplay_mb.SetText(text || "");
     this.freeplay_mb.ShowDialog(true);

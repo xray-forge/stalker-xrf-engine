@@ -54,11 +54,11 @@ export class MonsterBinder extends object_binder {
     super(object);
   }
 
-  public reload(section: TSection): void {
+  public override reload(section: TSection): void {
     super.reload(section);
   }
 
-  public reinit(): void {
+  public override reinit(): void {
     super.reinit();
 
     this.st = resetObject(this.object);
@@ -69,7 +69,7 @@ export class MonsterBinder extends object_binder {
     this.object.set_callback(callback.sound, this.hear_callback, this);
   }
 
-  public update(delta: number): void {
+  public override update(delta: number): void {
     super.update(delta);
 
     if (registry.actorCombat.get(this.object.id()) && this.object.best_enemy() === null) {
@@ -169,7 +169,7 @@ export class MonsterBinder extends object_binder {
     }
   }
 
-  public save(packet: XR_net_packet): void {
+  public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, MonsterBinder.__name);
 
     super.save(packet);
@@ -178,7 +178,7 @@ export class MonsterBinder extends object_binder {
     setSaveMarker(packet, true, MonsterBinder.__name);
   }
 
-  public load(reader: XR_reader): void {
+  public override load(reader: XR_reader): void {
     this.loaded = true;
 
     setLoadMarker(reader, false, MonsterBinder.__name);
@@ -188,7 +188,7 @@ export class MonsterBinder extends object_binder {
     setLoadMarker(reader, true, MonsterBinder.__name);
   }
 
-  public net_spawn(object: XR_cse_alife_object): boolean {
+  public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
@@ -236,7 +236,7 @@ export class MonsterBinder extends object_binder {
     return true;
   }
 
-  public net_destroy(): void {
+  public override net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
 
     this.object.set_callback(callback.death, null);
@@ -265,7 +265,7 @@ export class MonsterBinder extends object_binder {
     super.net_destroy();
   }
 
-  public net_save_relevant(): boolean {
+  public override net_save_relevant(): boolean {
     return true;
   }
 
@@ -292,9 +292,16 @@ export class MonsterBinder extends object_binder {
     return false;
   }
 
-  public waypoint_callback(obj: XR_game_object, action_type: number, index: number): void {
+  public waypoint_callback(object: XR_game_object, action_type: number, index: number): void {
     if (this.st.active_section !== null) {
-      issueEvent(this.object, this.st[this.st.active_scheme as string], "waypoint_callback", obj, action_type, index);
+      issueEvent(
+        this.object,
+        this.st[this.st.active_scheme as string],
+        "waypoint_callback",
+        object,
+        action_type,
+        index
+      );
     }
   }
 

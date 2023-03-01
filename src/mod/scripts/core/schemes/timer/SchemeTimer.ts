@@ -25,13 +25,13 @@ const logger: LuaLogger = new LuaLogger("SchemeTimer");
  * todo;
  */
 export class SchemeTimer extends AbstractScheme {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.SR_TIMER;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_TIMER;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
   /**
    * Add scheme to object binder for initialization.
    */
-  public static add_to_binder(
+  public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -43,7 +43,7 @@ export class SchemeTimer extends AbstractScheme {
     subscribeActionForEvents(object, state, new SchemeTimer(object, state));
   }
 
-  public static set_scheme(obj: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+  public static override set_scheme(obj: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const st = assignStorageAndBind(obj, ini, scheme, section);
 
     st.logic = cfg_get_switch_conditions(ini, section, obj);
@@ -76,7 +76,7 @@ export class SchemeTimer extends AbstractScheme {
     }
   }
 
-  public update(delta: number): void {
+  public override update(delta: number): void {
     const actor = registry.actor;
 
     if (trySwitchToAnotherSection(this.object, this.state, actor)) {
@@ -100,7 +100,7 @@ export class SchemeTimer extends AbstractScheme {
     }
   }
 
-  public deactivate(): void {
+  public override deactivate(): void {
     this.state.ui!.RemoveCustomStatic(this.state.timer_id);
     if (this.state.string !== null) {
       this.state.ui!.RemoveCustomStatic("hud_timer_text");

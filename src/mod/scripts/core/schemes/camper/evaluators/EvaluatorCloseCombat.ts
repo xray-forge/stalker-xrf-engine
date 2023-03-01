@@ -1,4 +1,4 @@
-import { property_evaluator, stalker_ids, time_global, XR_action_planner, XR_property_evaluator } from "xray16";
+import { property_evaluator, stalker_ids, time_global, XR_action_planner } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { IStoredObject } from "@/mod/scripts/core/database";
@@ -22,7 +22,7 @@ export class EvaluatorCloseCombat extends property_evaluator {
     this.state = storage;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     if (!isActiveSection(this.object, this.state.section)) {
       return true;
     }

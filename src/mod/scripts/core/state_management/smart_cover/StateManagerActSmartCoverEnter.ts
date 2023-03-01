@@ -15,7 +15,7 @@ const logger: LuaLogger = new LuaLogger(
  */
 @LuabindClass()
 export class StateManagerActSmartCoverEnter extends action_base {
-  public stateManager: StateManager;
+  public readonly stateManager: StateManager;
 
   public constructor(st: StateManager) {
     super(null, StateManagerActSmartCoverEnter.__name);
@@ -23,7 +23,7 @@ export class StateManagerActSmartCoverEnter extends action_base {
     this.stateManager = st;
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
 
     const state_descr = registry.objects.get(this.object.id())["smartcover"];
@@ -40,11 +40,11 @@ export class StateManagerActSmartCoverEnter extends action_base {
     }
   }
 
-  public execute(): void {
+  public override execute(): void {
     super.execute();
   }
 
-  public finalize(): void {
+  public override finalize(): void {
     super.finalize();
   }
 }

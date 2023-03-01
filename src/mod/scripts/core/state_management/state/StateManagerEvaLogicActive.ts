@@ -23,7 +23,7 @@ export class StateManagerEvaLogicActive extends property_evaluator {
     this.stateManager = state_manager;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     return registry.objects.get(this.object.id()).active_section !== null;
   }
 }

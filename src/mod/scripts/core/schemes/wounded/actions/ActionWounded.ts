@@ -22,7 +22,7 @@ export class ActionWounded extends action_base {
     this.state = storage;
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
 
     this.object.set_desired_position();
@@ -37,7 +37,7 @@ export class ActionWounded extends action_base {
     this.object.wounded(true);
   }
 
-  public execute(): void {
+  public override execute(): void {
     super.execute();
 
     const wound_manager = this.state.wound_manager;
@@ -94,7 +94,7 @@ export class ActionWounded extends action_base {
     }
   }
 
-  public finalize(): void {
+  public override finalize(): void {
     super.finalize();
 
     this.object.enable_trade();

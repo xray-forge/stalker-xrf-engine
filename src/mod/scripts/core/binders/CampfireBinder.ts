@@ -20,7 +20,7 @@ export class CampfireBinder extends object_binder {
     this.campfire = object.get_campfire();
   }
 
-  public net_spawn(object: XR_cse_alife_object): boolean {
+  public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
@@ -42,7 +42,7 @@ export class CampfireBinder extends object_binder {
     return true;
   }
 
-  public update(delta: number): void {
+  public override update(delta: number): void {
     super.update(delta);
   }
 }

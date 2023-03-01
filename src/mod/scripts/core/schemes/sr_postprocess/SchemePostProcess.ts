@@ -17,10 +17,10 @@ const logger: LuaLogger = new LuaLogger("SchemePostProcess");
  * todo;
  */
 export class SchemePostProcess extends AbstractScheme {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.SR_POSTPROCESS;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_POSTPROCESS;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
-  public static add_to_binder(
+  public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -32,14 +32,19 @@ export class SchemePostProcess extends AbstractScheme {
     subscribeActionForEvents(object, state, new SchemePostProcess(object, state));
   }
 
-  public static set_scheme(
+  public static override set_scheme(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: string,
     section: string,
     additional: string
   ): void;
-  public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+  public static override set_scheme(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection
+  ): void {
     const state = assignStorageAndBind(object, ini, scheme, section);
 
     state.logic = cfg_get_switch_conditions(ini, section, object);
@@ -65,7 +70,7 @@ export class SchemePostProcess extends AbstractScheme {
   public hit_power: number = 0;
   public intensity_inertion: number = 0;
 
-  public reset_scheme(): void {
+  public override reset_scheme(): void {
     this.actor_inside = false;
 
     this.gray_amplitude = 1.0;
@@ -84,11 +89,11 @@ export class SchemePostProcess extends AbstractScheme {
     this.noise = new noise(1.0, 0.3, 30);
   }
 
-  public deactivate(): void {
+  public override deactivate(): void {
     abort("Called not expected method, not implemented originally");
   }
 
-  public update(delta: number): void {
+  public override update(delta: number): void {
     const actor = registry.actor;
 
     if (trySwitchToAnotherSection(this.object, this.state, actor)) {

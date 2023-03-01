@@ -49,7 +49,7 @@ export class ActionReachTaskLocation extends action_base {
     super(null, ActionReachTaskLocation.__name);
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
 
     const squad: SimSquad = getObjectSquad(this.object)!;
@@ -83,7 +83,7 @@ export class ActionReachTaskLocation extends action_base {
     ReachTaskPatrolManager.add_to_reach_patrol(this.object, this.target_id);
   }
 
-  public execute(): void {
+  public override execute(): void {
     if (this.object.id() === getObjectSquad(this.object)!.commander_id()) {
       this.commander_execute();
     } else {
@@ -93,7 +93,7 @@ export class ActionReachTaskLocation extends action_base {
     super.execute();
   }
 
-  public finalize(): void {
+  public override finalize(): void {
     this.object.set_movement_selection_type(game_object.alifeMovementTypeRandom);
     super.finalize();
   }

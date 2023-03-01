@@ -21,7 +21,7 @@ export class ActionPostCombatIdleWait extends action_base {
     this.state = state;
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
 
     this.object.set_item(object.idle, this.object.best_weapon());
@@ -42,7 +42,7 @@ export class ActionPostCombatIdleWait extends action_base {
     this.anim_started = false;
   }
 
-  public execute(): void {
+  public override execute(): void {
     super.execute();
 
     if (!this.object.in_smart_cover()) {
@@ -56,7 +56,7 @@ export class ActionPostCombatIdleWait extends action_base {
     GlobalSound.set_sound_play(this.object.id(), "post_combat_wait", null, null);
   }
 
-  public finalize(): void {
+  public override finalize(): void {
     GlobalSound.set_sound_play(this.object.id(), "post_combat_relax", null, null);
 
     if (this.anim_started === true) {

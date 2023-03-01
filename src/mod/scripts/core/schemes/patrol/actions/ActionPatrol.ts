@@ -32,7 +32,7 @@ export class ActionPatrol extends action_base {
     this.move_mgr = storage[object.id()].move_mgr;
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
 
     this.object.set_desired_position();
@@ -66,7 +66,7 @@ export class ActionPatrol extends action_base {
     );
   }
 
-  public execute(): void {
+  public override execute(): void {
     super.execute();
 
     if (this.time_to_update - time_global() > 0) {
@@ -95,7 +95,7 @@ export class ActionPatrol extends action_base {
     set_state(this.object, this.cur_state, null, null, null, null);
   }
 
-  public finalize(): void {
+  public override finalize(): void {
     if (this.object.alive()) {
       this.move_mgr.finalize();
     }

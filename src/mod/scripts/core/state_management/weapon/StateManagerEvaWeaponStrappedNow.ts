@@ -23,7 +23,7 @@ export class StateManagerEvaWeaponStrappedNow extends property_evaluator {
     this.st = st;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     const bestWeapon: Optional<XR_game_object> = this.object.best_weapon();
 
     if (!isWeapon(bestWeapon)) {

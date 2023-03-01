@@ -156,7 +156,7 @@ export class MultiplayerLocalnet extends CUIScriptWnd {
     this.OnBtnLogin();
   }
 
-  public OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event) {
+  public override OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event) {
     super.OnKeyboard(key, event);
 
     if (event === ui_events.WINDOW_KEY_PRESSED) {

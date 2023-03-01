@@ -14,7 +14,7 @@ export class EvaluatorGatherItems extends property_evaluator {
     this.state = state;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     if (this.state.gather_items_enabled !== true) {
       return false;
     }

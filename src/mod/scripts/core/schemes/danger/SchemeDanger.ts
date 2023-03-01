@@ -29,10 +29,10 @@ const logger: LuaLogger = new LuaLogger("SchemeDanger");
  * todo;
  */
 export class SchemeDanger extends AbstractScheme {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.DANGER;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.DANGER;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  public static add_to_binder(
+  public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -60,7 +60,12 @@ export class SchemeDanger extends AbstractScheme {
     registry.objects.get(object.id()).danger_flag = false;
   }
 
-  public static resetScheme(object: XR_game_object, scheme: EScheme, state: IStoredObject, section: TSection): void {}
+  public static override resetScheme(
+    object: XR_game_object,
+    scheme: EScheme,
+    state: IStoredObject,
+    section: TSection
+  ): void {}
 
   public static is_danger(npc: XR_game_object): boolean {
     const best_danger: Optional<XR_danger_object> = npc.best_danger();

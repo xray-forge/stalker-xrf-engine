@@ -19,7 +19,7 @@ export class StateManagerActToIdle extends action_base {
     this.stateManager = stateManager;
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
     // --'    this.object:movement_enabled(true)
 
@@ -44,12 +44,12 @@ export class StateManagerActToIdle extends action_base {
     this.object.set_path_type(game_object.level_path);
   }
 
-  public finalize(): void {
+  public override finalize(): void {
     this.stateManager.current_object = -1;
     super.finalize();
   }
 
-  public execute(): void {
+  public override execute(): void {
     sendToNearestAccessibleVertex(this.object, this.object.level_vertex_id());
     this.object.set_path_type(game_object.level_path);
 

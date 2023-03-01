@@ -21,7 +21,7 @@ export class EvaluatorWounded extends property_evaluator {
     this.state = state;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     if (this.object.in_smart_cover()) {
       return false;
     } else if (this.state.wounded_set !== true) {

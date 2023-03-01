@@ -46,7 +46,7 @@ export class Stalker extends cse_alife_human_stalker {
     }
   }
 
-  public can_switch_offline(): boolean {
+  public override can_switch_offline(): boolean {
     if (this.group_id !== MAX_UNSIGNED_16_BIT) {
       return true;
     }
@@ -54,7 +54,7 @@ export class Stalker extends cse_alife_human_stalker {
     return super.can_switch_offline();
   }
 
-  public can_switch_online(): boolean {
+  public override can_switch_online(): boolean {
     if (this.group_id !== MAX_UNSIGNED_16_BIT) {
       return true;
     }
@@ -62,17 +62,17 @@ export class Stalker extends cse_alife_human_stalker {
     return super.can_switch_online();
   }
 
-  public switch_online() {
+  public override switch_online() {
     logger.info("Switch online:", this.name());
     super.switch_online();
   }
 
-  public switch_offline() {
+  public override switch_offline() {
     logger.info("Switch offline:", this.name());
     super.switch_offline();
   }
 
-  public STATE_Write(packet: XR_net_packet) {
+  public override STATE_Write(packet: XR_net_packet) {
     super.STATE_Write(packet);
 
     if (this.online) {
@@ -85,7 +85,7 @@ export class Stalker extends cse_alife_human_stalker {
     packet.w_bool(this.death_droped);
   }
 
-  public STATE_Read(packet: XR_net_packet, size: number) {
+  public override STATE_Read(packet: XR_net_packet, size: number) {
     super.STATE_Read(packet, size);
 
     if (this.script_version > 10) {
@@ -100,12 +100,13 @@ export class Stalker extends cse_alife_human_stalker {
     this.death_droped = packet.r_bool();
   }
 
-  public on_before_register(): void {
+  public override on_before_register(): void {
     super.on_before_register();
   }
 
-  public on_register(): void {
+  public override on_register(): void {
     super.on_register();
+
     logger.info("Register:", this.id, this.name(), this.section_name());
     checkSpawnIniForStoryId(this);
 
@@ -128,7 +129,7 @@ export class Stalker extends cse_alife_human_stalker {
     alife()!.object<SmartTerrain>(smart_obj.id)!.register_npc(this);
   }
 
-  public on_unregister(): void {
+  public override on_unregister(): void {
     logger.info("Unregister:", this.name());
 
     const strn_id = this.smart_terrain_id();
@@ -146,12 +147,12 @@ export class Stalker extends cse_alife_human_stalker {
     super.on_unregister();
   }
 
-  public on_spawn(): void {
+  public override on_spawn(): void {
     logger.info("Spawn:", this.name());
     super.on_spawn();
   }
 
-  public on_death(killer: XR_cse_alife_creature_abstract): void {
+  public override on_death(killer: XR_cse_alife_creature_abstract): void {
     logger.info("On death:", this.name(), killer.id, killer?.name());
 
     super.on_death(killer);
@@ -169,7 +170,7 @@ export class Stalker extends cse_alife_human_stalker {
     }
   }
 
-  public update(): void {
+  public override update(): void {
     super.update();
   }
 }

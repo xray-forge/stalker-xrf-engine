@@ -16,11 +16,10 @@ export class StateManagerEvaAnimation extends property_evaluator {
 
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaAnimation.__name);
-
     this.stateManager = stateManager;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     // tostring(self.st.animation.states.current_state))
     return states.get(this.stateManager.target_state).animation === this.stateManager.animation.states.current_state;
   }

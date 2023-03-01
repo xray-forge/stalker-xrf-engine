@@ -16,18 +16,18 @@ export class Heli extends cse_alife_helicopter {
     super(section);
   }
 
-  public on_register(): void {
+  public override on_register(): void {
     super.on_register();
     logger.info("Register:", this.id, this.name(), this.section_name());
     checkSpawnIniForStoryId(this);
   }
 
-  public on_unregister(): void {
+  public override on_unregister(): void {
     unregisterStoryObjectById(this.id);
     super.on_unregister();
   }
 
-  public keep_saved_data_anyway(): boolean {
+  public override keep_saved_data_anyway(): boolean {
     return true;
   }
 }

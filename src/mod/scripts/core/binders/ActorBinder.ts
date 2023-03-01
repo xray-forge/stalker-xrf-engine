@@ -106,7 +106,7 @@ export class ActorBinder extends object_binder {
     logger.info("Init new actor binder:", object.name());
   }
 
-  public net_spawn(data: XR_cse_alife_creature_actor): boolean {
+  public override net_spawn(data: XR_cse_alife_creature_actor): boolean {
     logger.info("Net spawn:", data.name());
 
     level.show_indicators();
@@ -149,7 +149,7 @@ export class ActorBinder extends object_binder {
     return true;
   }
 
-  public net_destroy(): void {
+  public override net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
 
     GlobalSound.stop_sounds_by_id(this.object.id());
@@ -198,7 +198,7 @@ export class ActorBinder extends object_binder {
     super.net_destroy();
   }
 
-  public reinit(): void {
+  public override reinit(): void {
     super.reinit();
 
     const npc_id = this.object.id();
@@ -286,7 +286,7 @@ export class ActorBinder extends object_binder {
     get_global<AnyCallablesModule>("extern").task_callback(task_object, _state);
   }
 
-  public update(delta: number): void {
+  public override update(delta: number): void {
     super.update(delta);
 
     const [index] = string.find(command_line(), "-designer");
@@ -407,7 +407,7 @@ export class ActorBinder extends object_binder {
     mapDisplayManager.update();
   }
 
-  public save(packet: XR_net_packet): void {
+  public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, ActorBinder.__name);
 
     super.save(packet);
@@ -477,7 +477,7 @@ export class ActorBinder extends object_binder {
     setSaveMarker(packet, true, ActorBinder.__name);
   }
 
-  public load(reader: XR_reader): void {
+  public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, ActorBinder.__name);
 
     super.load(reader);

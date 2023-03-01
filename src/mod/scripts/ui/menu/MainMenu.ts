@@ -160,7 +160,7 @@ export class MainMenu extends CUIScriptWnd {
     console.execute("main_menu off");
   }
 
-  public Show(value: boolean): void {
+  public override Show(value: boolean): void {
     logger.info("Show:", value);
     this.menuController.SetVisibleMagnifier(value);
   }
@@ -394,7 +394,7 @@ export class MainMenu extends CUIScriptWnd {
     this.modalBoxMode = 0;
   }
 
-  public Dispatch(command: number, parameter: number): boolean {
+  public override Dispatch(command: number, parameter: number): boolean {
     if (command === 2) {
       this.onButtonClickMultiplayer();
     }
@@ -402,7 +402,7 @@ export class MainMenu extends CUIScriptWnd {
     return true;
   }
 
-  public OnKeyboard(dik: TXR_DIK_key, event: TXR_ui_event): boolean {
+  public override OnKeyboard(dik: TXR_DIK_key, event: TXR_ui_event): boolean {
     super.OnKeyboard(dik, event);
 
     if (event === ui_events.WINDOW_KEY_PRESSED) {

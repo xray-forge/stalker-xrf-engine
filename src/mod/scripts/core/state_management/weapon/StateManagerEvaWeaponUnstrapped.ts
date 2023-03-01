@@ -23,7 +23,7 @@ export class StateManagerEvaWeaponUnstrapped extends property_evaluator {
     this.stateManager = st;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     const weapon: Optional<string> = states.get(this.stateManager.target_state).weapon;
 
     return weapon !== null && (weapon === "unstrapped" || weapon === "fire" || weapon === "sniper_fire");

@@ -39,7 +39,7 @@ export class ActionSleeperActivity extends action_base {
     this.was_reset = false;
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
 
     this.object.set_desired_position();
@@ -134,7 +134,7 @@ export class ActionSleeperActivity extends action_base {
     return true;
   }
 
-  public execute(): void {
+  public override execute(): void {
     super.execute();
     if (!this.was_reset) {
       this.reset_scheme();
@@ -153,7 +153,7 @@ export class ActionSleeperActivity extends action_base {
      */
   }
 
-  public finalize(): void {
+  public override finalize(): void {
     // --  GlobalSound:set_sound(this.object, null)
     this.move_mgr.finalize();
     super.finalize();

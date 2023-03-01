@@ -840,7 +840,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
     main_menu.get_main_menu().CancelDownload();
   }
 
-  public OnKeyboard(key: TXR_DIK_key, action: TXR_ui_event): boolean {
+  public override OnKeyboard(key: TXR_DIK_key, action: TXR_ui_event): boolean {
     super.OnKeyboard(key, action);
 
     if (action === ui_events.WINDOW_KEY_PRESSED) {
@@ -854,7 +854,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
     return true;
   }
 
-  public Update(): void {
+  public override Update(): void {
     super.Update();
 
     const patchDownload: XR_Patch_Dawnload_Progress = main_menu.get_main_menu().GetPatchProgress();

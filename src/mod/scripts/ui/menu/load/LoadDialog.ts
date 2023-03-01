@@ -321,7 +321,7 @@ export class LoadDialog extends CUIScriptWnd {
     this.messageBox.ShowDialog(true);
   }
 
-  public OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
+  public override OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
     super.OnKeyboard(key, event);
 
     const bind: number = dik_to_bind(key);

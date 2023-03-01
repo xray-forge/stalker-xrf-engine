@@ -14,14 +14,14 @@ const logger: LuaLogger = new LuaLogger("SchemeGatherItems");
  * todo;
  */
 export class SchemeGatherItems extends AbstractScheme {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.GATHER_ITEMS;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.GATHER_ITEMS;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  public static add_to_binder(
+  public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
-    scheme: string,
-    section: string,
+    scheme: EScheme,
+    section: TSection,
     state: IStoredObject
   ): void {
     logger.info("Add to binder:", object.name());
@@ -38,7 +38,12 @@ export class SchemeGatherItems extends AbstractScheme {
     assignStorageAndBind(object, ini, scheme, section);
   }
 
-  public static resetScheme(object: XR_game_object, scheme: EScheme, state: IStoredObject, section: TSection): void {
+  public static override resetScheme(
+    object: XR_game_object,
+    scheme: EScheme,
+    state: IStoredObject,
+    section: TSection
+  ): void {
     state.gather_items.gather_items_enabled = getConfigBoolean(
       state.ini!,
       section,

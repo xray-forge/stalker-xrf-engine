@@ -25,18 +25,18 @@ export class RestrictorBinder extends object_binder {
     super(object);
   }
 
-  public reload(section: TSection): void {
+  public override reload(section: TSection): void {
     super.reload(section);
   }
 
-  public reinit(): void {
+  public override reinit(): void {
     super.reinit();
 
     this.state = {};
     registry.objects.set(this.object.id(), this.state);
   }
 
-  public net_spawn(object: XR_cse_alife_object): boolean {
+  public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
@@ -56,7 +56,7 @@ export class RestrictorBinder extends object_binder {
     return true;
   }
 
-  public net_destroy(): void {
+  public override net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
 
     GlobalSound.stop_sounds_by_id(this.object.id());
@@ -73,7 +73,7 @@ export class RestrictorBinder extends object_binder {
     super.net_destroy();
   }
 
-  public update(delta: number): void {
+  public override update(delta: number): void {
     const activeSection: Optional<TSection> = this.state.active_section as Optional<TSection>;
     const objectId: number = this.object.id();
 
@@ -98,11 +98,11 @@ export class RestrictorBinder extends object_binder {
     GlobalSound.update(objectId);
   }
 
-  public net_save_relevant(): boolean {
+  public override net_save_relevant(): boolean {
     return true;
   }
 
-  public save(packet: XR_net_packet): void {
+  public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, RestrictorBinder.__name);
     super.save(packet);
 
@@ -110,7 +110,7 @@ export class RestrictorBinder extends object_binder {
     setSaveMarker(packet, true, RestrictorBinder.__name);
   }
 
-  public load(reader: XR_reader): void {
+  public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, RestrictorBinder.__name);
 
     this.isLoaded = true;

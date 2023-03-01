@@ -51,11 +51,14 @@ const state_firetarget_enemy: number = 2;
 
 const logger: LuaLogger = new LuaLogger("SchemeMinigun");
 
+/**
+ * todo;
+ */
 export class SchemeMinigun extends AbstractScheme {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.PH_MINIGUN;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.ITEM;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_MINIGUN;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.ITEM;
 
-  public static add_to_binder(
+  public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -67,7 +70,7 @@ export class SchemeMinigun extends AbstractScheme {
     subscribeActionForEvents(object, state, new SchemeMinigun(object, state));
   }
 
-  public static set_scheme(
+  public static override set_scheme(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -135,7 +138,7 @@ export class SchemeMinigun extends AbstractScheme {
     this.start_look_pos.y = this.object.position().y;
   }
 
-  public reset_scheme(): void {
+  public override reset_scheme(): void {
     this.start_delaying_time = time_global();
     this.start_shooting_time = time_global();
 
@@ -311,7 +314,7 @@ export class SchemeMinigun extends AbstractScheme {
     return this.fast_update();
   }
 
-  public update(delta: number): void {
+  public override update(delta: number): void {
     if (trySwitchToAnotherSection(this.object, this.state, registry.actor)) {
       return;
     }

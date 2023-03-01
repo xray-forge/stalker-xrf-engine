@@ -29,7 +29,7 @@ export class EvaluatorDanger extends property_evaluator {
     this.schemeDanger = schemeDanger;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     if (this.manager === null) {
       this.manager = this.object.motivation_action_manager();
     }

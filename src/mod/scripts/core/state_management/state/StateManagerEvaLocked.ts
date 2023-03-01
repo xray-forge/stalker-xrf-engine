@@ -19,7 +19,7 @@ export class StateManagerEvaLocked extends property_evaluator {
     this.stateManager = stateManager;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     return (
       this.stateManager.planner!.initialized() &&
       (this.stateManager.planner!.evaluator(EStateManagerProperty.weapon_locked).evaluate() ||

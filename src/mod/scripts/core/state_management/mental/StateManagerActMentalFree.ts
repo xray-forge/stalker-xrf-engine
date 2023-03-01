@@ -22,17 +22,17 @@ export class StateManagerActMentalFree extends action_base {
     this.stateManager = stateManager;
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
     this.object.set_mental_state(anim.free);
   }
 
-  public execute(): void {
+  public override execute(): void {
     super.execute();
     this.object.set_mental_state(anim.free);
   }
 
-  public finalize(): void {
+  public override finalize(): void {
     super.finalize();
   }
 }

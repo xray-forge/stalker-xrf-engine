@@ -30,11 +30,11 @@ export enum EActorZoneState {
  * Observe whether actor is in no-weapon zone or not and allow usage of weapons.
  */
 export class SchemeNoWeapon extends AbstractScheme {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.SR_NO_WEAPON;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_NO_WEAPON;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
   public static readonly SHOW_CAN_USE_WEAPON_DURATION_SEC: number = 30;
 
-  public static add_to_binder(
+  public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -46,7 +46,12 @@ export class SchemeNoWeapon extends AbstractScheme {
     subscribeActionForEvents(object, state, new SchemeNoWeapon(object, state));
   }
 
-  public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+  public static override set_scheme(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection
+  ): void {
     const state: IStoredObject = assignStorageAndBind(object, ini, scheme, section);
 
     state.logic = cfg_get_switch_conditions(ini, section, object);
@@ -56,7 +61,7 @@ export class SchemeNoWeapon extends AbstractScheme {
   public noWeaponZoneLeftLabelShownAt: XR_CTime = game.CTime();
   public isNoWeaponZoneLeftLabelVisible: boolean = false;
 
-  public reset_scheme(): void {
+  public override reset_scheme(): void {
     this.currentActorState = EActorZoneState.NOWHERE;
     this.checkActorState(registry.actor);
 
@@ -66,7 +71,7 @@ export class SchemeNoWeapon extends AbstractScheme {
   /**
    * todo: Check frequency of calls.
    */
-  public update(delta: number): void {
+  public override update(delta: number): void {
     const actor: XR_game_object = registry.actor;
 
     if (trySwitchToAnotherSection(this.object, this.state, actor)) {

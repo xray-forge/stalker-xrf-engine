@@ -44,7 +44,7 @@ export class ActionRemarkActivity extends action_base {
     this.st = state;
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
     this.object.set_desired_position();
     this.object.set_desired_direction();
@@ -156,12 +156,12 @@ export class ActionRemarkActivity extends action_base {
     }
   }
 
-  public execute(): void {
+  public override execute(): void {
     super.execute();
     this.update();
   }
 
-  public finalize(): void {
+  public override finalize(): void {
     if (this.tips_sound !== null) {
       this.tips_sound.stop();
     }

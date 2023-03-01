@@ -22,7 +22,7 @@ export class EvaluatorPostCombatIdleEnemy extends property_evaluator {
     this.state.timer = time_global();
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     const best_enemy: Optional<XR_game_object> = this.object.best_enemy();
 
     if (

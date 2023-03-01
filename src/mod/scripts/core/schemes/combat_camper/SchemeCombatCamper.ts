@@ -20,10 +20,10 @@ const act_look_around = action_ids.combat_camper_base + 1;
  * todo
  */
 export class SchemeCombatCamper extends AbstractScheme {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.COMBAT_CAMPER;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.COMBAT_CAMPER;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  public static add_to_binder(
+  public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,

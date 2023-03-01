@@ -16,21 +16,21 @@ export class ItemArtefact extends cse_alife_item_artefact {
     super(section);
   }
 
-  public on_register(): void {
+  public override on_register(): void {
     super.on_register();
     checkSpawnIniForStoryId(this);
   }
 
-  public on_unregister(): void {
+  public override on_unregister(): void {
     unregisterStoryObjectById(this.id);
     super.on_unregister();
   }
 
-  public can_switch_online(): boolean {
+  public override can_switch_online(): boolean {
     return super.can_switch_online();
   }
 
-  public can_switch_offline(): boolean {
+  public override can_switch_offline(): boolean {
     const actor: Optional<XR_cse_alife_creature_actor> = alife()?.actor();
 
     if (actor !== null && actor.position.distance_to(this.position) <= 150) {

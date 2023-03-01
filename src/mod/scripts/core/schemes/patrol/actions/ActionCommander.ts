@@ -25,7 +25,7 @@ export class ActionCommander extends action_base {
     this.move_mgr = storage[object.id()].move_mgr;
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
 
     this.object.set_desired_position();
@@ -61,7 +61,7 @@ export class ActionCommander extends action_base {
     registry.patrols.generic.get(this.state.patrol_key).set_command(this.object, this.cur_state, this.state.formation);
   }
 
-  public execute(): void {
+  public override execute(): void {
     super.execute();
 
     this.move_mgr.update();
@@ -100,7 +100,7 @@ export class ActionCommander extends action_base {
     registry.patrols.generic.get(this.state.patrol_key).set_command(this.object, new_state, this.state.formation);
   }
 
-  public finalize(): void {
+  public override finalize(): void {
     if (this.object.alive() === true) {
       // --printf ("ACTION_COMMANDER:FINALIZE CALLED")
       registry.patrols.generic.get(this.state.patrol_key).set_command(this.object, "guard", this.state.formation);

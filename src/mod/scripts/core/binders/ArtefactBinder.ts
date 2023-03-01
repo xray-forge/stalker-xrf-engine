@@ -29,7 +29,7 @@ export class ArtefactBinder extends object_binder {
     super(object);
   }
 
-  public net_spawn(object: XR_cse_alife_object): boolean {
+  public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
@@ -58,12 +58,12 @@ export class ArtefactBinder extends object_binder {
     return true;
   }
 
-  public net_destroy(): void {
+  public override net_destroy(): void {
     deleteObject(this.object);
     super.net_destroy();
   }
 
-  public update(delta: number): void {
+  public override update(delta: number): void {
     this.delta += delta;
 
     if (this.delta >= UPDATE_THROTTLE) {

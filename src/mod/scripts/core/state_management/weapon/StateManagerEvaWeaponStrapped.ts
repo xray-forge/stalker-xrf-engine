@@ -19,11 +19,10 @@ export class StateManagerEvaWeaponStrapped extends property_evaluator {
 
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaWeaponStrapped.__name);
-
     this.stateManager = stateManager;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     return states.get(this.stateManager.target_state).weapon === "strapped";
   }
 }

@@ -21,7 +21,7 @@ export class StateManagerEvaAnimationStatePlayNow extends property_evaluator {
     this.stateManager = stateManager;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     return this.stateManager.animstate.states.current_state !== null;
   }
 }

@@ -18,12 +18,12 @@ export class ActionReachAnimpoint extends action_base {
     this.state = state;
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
     this.state.animpoint!.calculate_position();
   }
 
-  public execute(): void {
+  public override execute(): void {
     super.execute();
 
     this.object.set_dest_level_vertex_id(this.state.animpoint!.position_vertex!);

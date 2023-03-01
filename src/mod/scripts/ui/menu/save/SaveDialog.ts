@@ -269,7 +269,7 @@ export class SaveDialog extends CUIScriptWnd {
     this.owner.Show(true);
   }
 
-  public OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
+  public override OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
     super.OnKeyboard(key, event);
 
     if (dik_to_bind(key) === key_bindings.kQUIT) {

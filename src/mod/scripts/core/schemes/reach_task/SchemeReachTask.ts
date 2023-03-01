@@ -19,11 +19,14 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("SchemeReachTask");
 
+/**
+ * todo;
+ */
 export class SchemeReachTask extends AbstractScheme {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.REACH_TASK;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.REACH_TASK;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  public static add_to_binder(
+  public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,

@@ -15,15 +15,14 @@ const logger: LuaLogger = new LuaLogger(
  */
 @LuabindClass()
 export class StateManagerEvaSmartCoverNeed extends property_evaluator {
-  public stateManager: IStoredObject;
+  public readonly stateManager: IStoredObject;
 
   public constructor(stateManager: IStoredObject) {
     super(null, StateManagerEvaSmartCoverNeed.__name);
-
     this.stateManager = stateManager;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     if (this.stateManager.target_state !== "smartcover") {
       return false;
     }

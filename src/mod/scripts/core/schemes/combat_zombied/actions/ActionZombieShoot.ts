@@ -35,7 +35,7 @@ export class ActionZombieShoot extends action_base {
     this.state = storage;
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
 
     // --    this.object:set_node_evaluator      ()
@@ -57,7 +57,7 @@ export class ActionZombieShoot extends action_base {
     // --    GlobalSound:set_sound_play(this.object:id(), "fight_enemy")
   }
 
-  public execute(): void {
+  public override execute(): void {
     super.execute();
 
     const bestEnemy: Optional<XR_game_object> = this.object.best_enemy()!;
@@ -149,7 +149,7 @@ export class ActionZombieShoot extends action_base {
     return look_pos;
   }
 
-  public finalize(): void {
+  public override finalize(): void {
     super.finalize();
     this.state.cur_act = null;
   }

@@ -15,7 +15,7 @@ export class ActionSearchCorpse extends action_base {
     this.state = state;
   }
 
-  public finalize(): void {
+  public override finalize(): void {
     if (this.state.selected_corpse_id !== null && registry.objects.has(this.state.selected_corpse_id)) {
       registry.objects.get(this.state.selected_corpse_id).corpse_already_selected = null;
     }
@@ -23,7 +23,7 @@ export class ActionSearchCorpse extends action_base {
     super.finalize();
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
 
     this.object.set_desired_position();
@@ -38,7 +38,7 @@ export class ActionSearchCorpse extends action_base {
     set_state(this.object, "patrol", null, null, null, null);
   }
 
-  public execute(): void {
+  public override execute(): void {
     super.execute();
 
     if (this.object.position().distance_to_sqr(this.state.vertex_position) > 2) {

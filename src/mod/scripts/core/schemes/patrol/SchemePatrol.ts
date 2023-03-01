@@ -59,10 +59,10 @@ const accel_by_curtype = {
  * todo;
  */
 export class SchemePatrol extends AbstractScheme {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.PATROL;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.PATROL;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  public static add_to_binder(
+  public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -118,7 +118,7 @@ export class SchemePatrol extends AbstractScheme {
     manager.action(action_ids.alife).add_precondition(new world_property(properties.patrol_end, true));
   }
 
-  public static set_scheme(
+  public static override set_scheme(
     npc: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,

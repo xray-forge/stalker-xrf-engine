@@ -21,7 +21,7 @@ export class StateManagerEvaIdleItems extends property_evaluator {
     this.stateManager = stateManager;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     if (!this.object.alive()) {
       return true;
     }

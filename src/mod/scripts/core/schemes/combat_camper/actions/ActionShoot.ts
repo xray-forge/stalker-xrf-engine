@@ -11,20 +11,20 @@ const logger: LuaLogger = new LuaLogger("ActionShoot");
  */
 @LuabindClass()
 export class ActionShoot extends action_base {
-  public state: IStoredObject;
+  public readonly state: IStoredObject;
 
   public constructor(state: IStoredObject) {
     super(null, ActionShoot.__name);
     this.state = state;
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
     set_state(this.object, "hide_fire", null, null, { look_object: this.object.best_enemy() }, null);
     this.state.camper_combat_action = true;
   }
 
-  public finalize(): void {
+  public override finalize(): void {
     super.finalize();
     this.state.camper_combat_action = false;
   }

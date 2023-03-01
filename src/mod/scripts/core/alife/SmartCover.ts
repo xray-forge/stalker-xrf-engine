@@ -29,12 +29,12 @@ export class SmartCover extends cse_smart_cover {
     }
   }
 
-  public on_before_register(): void {
+  public override on_before_register(): void {
     super.on_before_register();
     registered_smartcovers.set(this.name(), this);
   }
 
-  public on_register(): void {
+  public override on_register(): void {
     super.on_register();
     logger.info("Register:", this.id, this.name(), this.section_name());
     checkSpawnIniForStoryId(this);
@@ -48,7 +48,7 @@ export class SmartCover extends cse_smart_cover {
     registered_smartcovers_by_lv_id.get(level_id)[this.m_level_vertex_id] = this;
   }
 
-  public on_unregister(): void {
+  public override on_unregister(): void {
     unregisterStoryObjectById(this.id);
     registered_smartcovers.delete(this.name());
 
@@ -58,7 +58,7 @@ export class SmartCover extends cse_smart_cover {
     super.on_unregister();
   }
 
-  public FillProps(pref: string, items: LuaTable<number>): void {
+  public override FillProps(pref: string, items: LuaTable<number>): void {
     super.FillProps(pref, items);
 
     const prefix = pref + "\\" + this.section_name() + "\\";
@@ -93,11 +93,11 @@ export class SmartCover extends cse_smart_cover {
     }
   }
 
-  public update(): void {
+  public override update(): void {
     super.update();
   }
 
-  public STATE_Write(packet: XR_net_packet): void {
+  public override STATE_Write(packet: XR_net_packet): void {
     super.STATE_Write(packet);
 
     packet.w_stringZ(this.last_description);
@@ -116,7 +116,7 @@ export class SmartCover extends cse_smart_cover {
     }
   }
 
-  public STATE_Read(packet: XR_net_packet, size: number): void {
+  public override STATE_Read(packet: XR_net_packet, size: number): void {
     super.STATE_Read(packet, size);
 
     if (this.script_version >= 9) {

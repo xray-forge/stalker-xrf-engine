@@ -11,14 +11,14 @@ const logger: LuaLogger = new LuaLogger("EvaluatorNeedWalker");
  */
 @LuabindClass()
 export class EvaluatorNeedWalker extends property_evaluator {
-  public state: IStoredObject;
+  public readonly state: IStoredObject;
 
   public constructor(storage: IStoredObject) {
     super(null, EvaluatorNeedWalker.__name);
     this.state = storage;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     return isSchemeActive(this.object, this.state);
   }
 }

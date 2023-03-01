@@ -23,7 +23,7 @@ export class ZoneTorrid extends cse_torrid_zone {
     super(section);
   }
 
-  public on_register(): void {
+  public override on_register(): void {
     super.on_register();
 
     logger.info("Register:", this.id, this.name(), this.section_name());
@@ -43,7 +43,7 @@ export class ZoneTorrid extends cse_torrid_zone {
     );
   }
 
-  public update(): void {
+  public override update(): void {
     super.update();
 
     if (this.last_spawn_time === null) {
@@ -61,7 +61,7 @@ export class ZoneTorrid extends cse_torrid_zone {
     }
   }
 
-  public STATE_Write(packet: XR_net_packet): void {
+  public override STATE_Write(packet: XR_net_packet): void {
     super.STATE_Write(packet);
 
     if (!isSinglePlayerGame()) {
@@ -76,7 +76,7 @@ export class ZoneTorrid extends cse_torrid_zone {
     }
   }
 
-  public STATE_Read(packet: XR_net_packet, size: number): void {
+  public override STATE_Read(packet: XR_net_packet, size: number): void {
     super.STATE_Read(packet, size);
 
     if (editor() || !isSinglePlayerGame()) {

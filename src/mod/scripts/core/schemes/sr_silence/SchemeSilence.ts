@@ -14,10 +14,10 @@ const logger: LuaLogger = new LuaLogger("SchemeSilence");
  * Scheme to implement zones where playing dynamic music is restricted.
  */
 export class SchemeSilence extends AbstractScheme {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.SR_SILENCE;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_SILENCE;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
-  public static add_to_binder(
+  public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -28,7 +28,12 @@ export class SchemeSilence extends AbstractScheme {
     subscribeActionForEvents(object, state, new SchemeSilence(object, state));
   }
 
-  public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+  public static override set_scheme(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection
+  ): void {
     const state: IStoredObject = assignStorageAndBind(object, ini, scheme, section);
 
     state.logic = cfg_get_switch_conditions(ini, section, object);

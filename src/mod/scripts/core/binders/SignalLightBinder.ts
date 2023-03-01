@@ -31,18 +31,18 @@ export class SignalLightBinder extends object_binder {
     super(object);
   }
 
-  public reload(section: string): void {
+  public override reload(section: string): void {
     super.reload(section);
   }
 
-  public reinit(): void {
+  public override reinit(): void {
     super.reinit();
 
     resetObject(this.object);
     registry.signalLights.set(this.object.name(), this);
   }
 
-  public update(delta: number): void {
+  public override update(delta: number): void {
     super.update(delta);
 
     const obj = this.object;
@@ -99,7 +99,7 @@ export class SignalLightBinder extends object_binder {
     }
   }
 
-  public net_spawn(object: XR_cse_alife_object): boolean {
+  public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
@@ -109,7 +109,7 @@ export class SignalLightBinder extends object_binder {
     return true;
   }
 
-  public net_destroy(): void {
+  public override net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
     registry.signalLights.delete(this.object.name());
     deleteObject(this.object);
@@ -162,11 +162,11 @@ export class SignalLightBinder extends object_binder {
     return this.start_time !== null;
   }
 
-  public net_save_relevant(): boolean {
+  public override net_save_relevant(): boolean {
     return true;
   }
 
-  public save(packet: XR_net_packet): void {
+  public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, SignalLightBinder.__name);
 
     super.save(packet);
@@ -182,7 +182,7 @@ export class SignalLightBinder extends object_binder {
     setSaveMarker(packet, true, SignalLightBinder.__name);
   }
 
-  public load(reader: XR_reader): void {
+  public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, SignalLightBinder.__name);
 
     super.load(reader);

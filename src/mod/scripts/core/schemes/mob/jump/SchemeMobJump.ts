@@ -22,10 +22,10 @@ const logger: LuaLogger = new LuaLogger("SchemeMobJump");
  * todo;
  */
 export class SchemeMobJump extends AbstractScheme {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.MOB_JUMP;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.MOB_JUMP;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
 
-  public static add_to_binder(
+  public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -37,7 +37,7 @@ export class SchemeMobJump extends AbstractScheme {
     subscribeActionForEvents(object, storage, new SchemeMobJump(object, storage));
   }
 
-  public static set_scheme(
+  public static override set_scheme(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -66,7 +66,7 @@ export class SchemeMobJump extends AbstractScheme {
   public point: Optional<XR_vector> = null;
   public state_current: Optional<number> = null;
 
-  public reset_scheme(): void {
+  public override reset_scheme(): void {
     mobCapture(this.object, true, SchemeMobJump.name);
 
     // -- reset signals
@@ -90,7 +90,7 @@ export class SchemeMobJump extends AbstractScheme {
     this.state_current = STATE_START_LOOK;
   }
 
-  public update(delta: number): void {
+  public override update(delta: number): void {
     if (this.state_current === STATE_START_LOOK) {
       if (!this.object.action()) {
         action(this.object, new look(look.point, this.point!), new cond(cond.look_end));

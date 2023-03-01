@@ -17,7 +17,7 @@ export class EvaluatorReachAnimpoint extends property_evaluator {
     this.state = storage;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     return this.state.animpoint!.position_riched();
   }
 }

@@ -21,7 +21,7 @@ export class StateManagerActSmartCoverExit extends action_base {
     this.stateManager = stateManager;
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
 
     const object = this.object;
@@ -43,11 +43,11 @@ export class StateManagerActSmartCoverExit extends action_base {
     object.set_dest_level_vertex_id(vertex);
   }
 
-  public execute(): void {
+  public override execute(): void {
     super.execute();
   }
 
-  public finalize(): void {
+  public override finalize(): void {
     super.finalize();
   }
 }

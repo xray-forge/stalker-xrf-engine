@@ -22,7 +22,7 @@ export class ActionLookAround extends action_base {
     this.state = state;
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
 
     this.state.camper_combat_action = true;
@@ -41,7 +41,7 @@ export class ActionLookAround extends action_base {
     set_state(this.object, "hide", null, null, { look_position: this.state.last_seen_pos }, null);
   }
 
-  public execute(): void {
+  public override execute(): void {
     super.execute();
 
     if (this.forget_time < device().time_global()) {
@@ -68,7 +68,7 @@ export class ActionLookAround extends action_base {
     }
   }
 
-  public finalize(): void {
+  public override finalize(): void {
     super.finalize();
 
     this.state.last_seen_pos = null;

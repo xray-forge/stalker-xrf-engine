@@ -170,7 +170,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
     super(section);
   }
 
-  public on_before_register(): void {
+  public override on_before_register(): void {
     super.on_before_register();
 
     this.board = get_sim_board();
@@ -178,7 +178,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
     this.smart_level = alife().level_name(game_graph().vertex(this.m_game_vertex_id).level_id());
   }
 
-  public on_register(): void {
+  public override on_register(): void {
     super.on_register();
 
     logger.info("Register:", this.id, this.name(), this.section_name());
@@ -208,7 +208,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
     this.check_time = time_global();
   }
 
-  public on_unregister(): void {
+  public override on_unregister(): void {
     super.on_unregister();
     this.board.unregister_smart(this);
     smart_terrains_by_name.delete(this.name());
@@ -347,7 +347,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
     );
   }
 
-  public register_npc(obj: XR_cse_alife_creature_abstract): void {
+  public override register_npc(obj: XR_cse_alife_creature_abstract): void {
     logger.info("Register npc:", this.name(), obj.name());
     this.population = this.population + 1;
 
@@ -382,7 +382,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
     this.npc_to_register = new LuaTable();
   }
 
-  public unregister_npc(obj: XR_cse_alife_creature_abstract): void {
+  public override unregister_npc(obj: XR_cse_alife_creature_abstract): void {
     logger.info("Unregister npc:", this.name(), obj.name());
 
     this.population = this.population - 1;
@@ -441,7 +441,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
     abort("this.npc_info[obj.id] = null !!! obj.id=%d", obj.id);
   }
 
-  public task(obj: XR_cse_alife_creature_abstract): Optional<XR_CALifeSmartTerrainTask> {
+  public override task(obj: XR_cse_alife_creature_abstract): Optional<XR_CALifeSmartTerrainTask> {
     logger.info("Task:", this.name(), obj.name());
 
     if (this.arriving_npc.get(obj.id) !== null) {
@@ -712,7 +712,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
     this.select_npc_job(changing_npc_info);
   }
 
-  public STATE_Write(packet: XR_net_packet): void {
+  public override STATE_Write(packet: XR_net_packet): void {
     super.STATE_Write(packet);
 
     setSaveMarker(packet, false, SmartTerrain.__name);
@@ -799,7 +799,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
     setSaveMarker(packet, true, SmartTerrain.__name);
   }
 
-  public STATE_Read(packet: XR_net_packet, size: number): void {
+  public override STATE_Read(packet: XR_net_packet, size: number): void {
     super.STATE_Read(packet, size);
 
     if (editor()) {
@@ -1060,7 +1060,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
     level.map_remove_object_spot(this.id, "alife_presentation_smart_" + this.sim_type + "_" + this.smrt_showed_spot);
   }
 
-  public update(): void {
+  public override update(): void {
     super.update();
 
     if (gameConfig.DEBUG.IS_SMARTS_DEBUG_ENABLED) {

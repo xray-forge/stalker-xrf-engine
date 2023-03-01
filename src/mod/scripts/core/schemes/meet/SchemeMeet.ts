@@ -36,11 +36,11 @@ const logger: LuaLogger = new LuaLogger("SchemeMeet");
  * todo;
  */
 export class SchemeMeet extends AbstractScheme {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.MEET;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.MEET;
   public static readonly SCHEME_SECTION_ADDITIONAL: EScheme = EScheme.ACTOR_DIALOGS;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  public static add_to_binder(
+  public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -100,13 +100,13 @@ export class SchemeMeet extends AbstractScheme {
     assignStorageAndBind(npc, ini, scheme, section);
   }
 
-  public static resetScheme(npc: XR_game_object, scheme: EScheme, st: IStoredObject, section: TSection): void {
-    const meet_section: TSection =
+  public static override resetScheme(npc: XR_game_object, scheme: EScheme, st: IStoredObject, section: TSection): void {
+    const meetSection: TSection =
       scheme === null || scheme === STRINGIFIED_NIL
         ? getConfigString(st.ini!, st.section_logic!, SchemeMeet.SCHEME_SECTION, npc, false, "")
         : getConfigString(st.ini!, section, SchemeMeet.SCHEME_SECTION, npc, false, "");
 
-    SchemeMeet.init_meet(npc, st.ini!, meet_section, st.meet, scheme);
+    SchemeMeet.init_meet(npc, st.ini!, meetSection, st.meet, scheme);
   }
 
   public static init_meet(
@@ -351,7 +351,7 @@ export class SchemeMeet extends AbstractScheme {
     st.meet_set = true;
   }
 
-  public static disable_scheme(npc: XR_game_object, scheme: EScheme): void {
+  public static override disable_scheme(npc: XR_game_object, scheme: EScheme): void {
     registry.objects.get(npc.id()).actor_dialogs = null;
     registry.objects.get(npc.id()).actor_disable = null;
   }
@@ -509,7 +509,7 @@ export class SchemeMeet extends AbstractScheme {
     }
   }
 
-  public update(): void {
+  public override update(): void {
     const actor = registry.actor;
     const distance = this.object.position().distance_to(actor.position());
     const actor_visible = this.object.see(actor);

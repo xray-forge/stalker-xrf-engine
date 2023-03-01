@@ -19,11 +19,10 @@ export class StateManagerActAnimationStateStop extends action_base {
 
   public constructor(stateManager: StateManager) {
     super(null, StateManagerActAnimationStateStop.__name);
-
     this.stateManager = stateManager;
   }
 
-  public initialize(): void {
+  public override initialize(): void {
     super.initialize();
 
     this.stateManager.animstate.set_state(
@@ -33,11 +32,11 @@ export class StateManagerActAnimationStateStop extends action_base {
     this.stateManager.animstate.set_control();
   }
 
-  public execute(): void {
+  public override execute(): void {
     super.execute();
   }
 
-  public finalize(): void {
+  public override finalize(): void {
     super.finalize();
   }
 }

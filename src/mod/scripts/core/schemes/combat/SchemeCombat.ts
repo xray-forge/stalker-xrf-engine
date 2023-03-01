@@ -25,10 +25,10 @@ const logger: LuaLogger = new LuaLogger("SchemeCombat");
  * todo;
  */
 export class SchemeCombat extends AbstractScheme {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.COMBAT;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.COMBAT;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  public static add_to_binder(
+  public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -49,7 +49,7 @@ export class SchemeCombat extends AbstractScheme {
     SchemeCombatCamper.add_to_binder(object, ini, scheme, section, state, manager);
   }
 
-  public static disable_scheme(object: XR_game_object, scheme: EScheme): void {
+  public static override disable_scheme(object: XR_game_object, scheme: EScheme): void {
     const state = registry.objects.get(object.id())[scheme];
 
     if (state !== null) {

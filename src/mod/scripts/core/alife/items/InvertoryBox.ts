@@ -20,17 +20,17 @@ export class InventoryBox extends cse_alife_inventory_box {
     this.secret_item = false;
   }
 
-  public on_register(): void {
+  public override on_register(): void {
     super.on_register();
     checkSpawnIniForStoryId(this);
     this.secret_item = getTreasureManager().register_item(this);
   }
 
-  public on_unregister(): void {
+  public override on_unregister(): void {
     unregisterStoryObjectById(this.id);
     super.on_unregister();
   }
-  public can_switch_online(): boolean {
+  public override can_switch_online(): boolean {
     if (this.secret_item) {
       return false;
     }

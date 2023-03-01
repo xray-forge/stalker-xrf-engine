@@ -312,7 +312,7 @@ export class OptionsDialog extends CUIScriptWnd {
     this.dialogVideoAdvancedSettings.Show(false);
   }
 
-  public OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
+  public override OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
     const res: boolean = super.OnKeyboard(key, event);
 
     if (!res) {
@@ -333,7 +333,7 @@ export class OptionsDialog extends CUIScriptWnd {
     return res;
   }
 
-  public Update(): void {
+  public override Update(): void {
     super.Update();
 
     const mainMenu: XR_CMainMenu = main_menu.get_main_menu();

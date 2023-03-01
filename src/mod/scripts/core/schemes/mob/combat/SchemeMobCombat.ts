@@ -15,10 +15,10 @@ const logger: LuaLogger = new LuaLogger("SchemeMobCombat");
  * todo
  */
 export class SchemeMobCombat extends AbstractScheme {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.MOB_COMBAT;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.MOB_COMBAT;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
 
-  public static add_to_binder(
+  public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -34,7 +34,7 @@ export class SchemeMobCombat extends AbstractScheme {
     subscribeActionForEvents(object, storage, new_action);
   }
 
-  public static set_scheme(
+  public static override set_scheme(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -49,7 +49,7 @@ export class SchemeMobCombat extends AbstractScheme {
     state.enabled = true;
   }
 
-  public static disable_scheme(this: void, object: XR_game_object, scheme: EScheme): void {
+  public static override disable_scheme(this: void, object: XR_game_object, scheme: EScheme): void {
     const state = registry.objects.get(object.id())[scheme];
 
     if (state !== null) {

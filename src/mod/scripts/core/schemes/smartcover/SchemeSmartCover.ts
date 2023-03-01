@@ -26,10 +26,10 @@ const logger: LuaLogger = new LuaLogger("SchemeSmartCover");
  * todo;
  */
 export class SchemeSmartCover extends AbstractScheme {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.SMARTCOVER;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.SMARTCOVER;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  public static add_to_binder(
+  public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -78,7 +78,7 @@ export class SchemeSmartCover extends AbstractScheme {
       .add_precondition(new world_property(properties.use_smartcover_in_combat, false));
   }
 
-  public static set_scheme(
+  public static override set_scheme(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,

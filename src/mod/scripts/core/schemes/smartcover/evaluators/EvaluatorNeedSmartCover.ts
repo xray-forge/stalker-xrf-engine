@@ -11,14 +11,14 @@ const logger: LuaLogger = new LuaLogger("EvaluatorNeedSmartCover");
  */
 @LuabindClass()
 export class EvaluatorNeedSmartCover extends property_evaluator {
-  public state: IStoredObject;
+  public readonly state: IStoredObject;
 
   public constructor(state: IStoredObject) {
     super(null, EvaluatorNeedSmartCover.__name);
     this.state = state;
   }
 
-  public evaluate(): boolean {
+  public override evaluate(): boolean {
     return isActiveSection(this.object, this.state.section);
   }
 }

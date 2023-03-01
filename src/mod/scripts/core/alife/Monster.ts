@@ -51,7 +51,7 @@ export class Monster extends cse_alife_monster_base {
     }
   }
 
-  public can_switch_offline(): boolean {
+  public override can_switch_offline(): boolean {
     if (this.group_id !== MAX_UNSIGNED_16_BIT) {
       return true;
     }
@@ -59,7 +59,7 @@ export class Monster extends cse_alife_monster_base {
     return super.can_switch_offline();
   }
 
-  public can_switch_online(): boolean {
+  public override can_switch_online(): boolean {
     if (this.group_id !== MAX_UNSIGNED_16_BIT) {
       return true;
     }
@@ -67,21 +67,21 @@ export class Monster extends cse_alife_monster_base {
     return super.can_switch_online();
   }
 
-  public switch_online(): void {
+  public override switch_online(): void {
     logger.info("Switch online:", this.name());
     super.switch_online();
   }
 
-  public switch_offline(): void {
+  public override switch_offline(): void {
     logger.info("Switch offline:", this.name());
     super.switch_offline();
   }
 
-  public update(): void {
+  public override update(): void {
     super.update();
   }
 
-  public STATE_Write(packet: XR_net_packet): void {
+  public override STATE_Write(packet: XR_net_packet): void {
     super.STATE_Write(packet);
 
     if (this.online) {
@@ -95,7 +95,7 @@ export class Monster extends cse_alife_monster_base {
     packet.w_stringZ(tostring(registry.offlineObjects.get(this.id)?.active_section));
   }
 
-  public STATE_Read(packet: XR_net_packet, size: number): void {
+  public override STATE_Read(packet: XR_net_packet, size: number): void {
     super.STATE_Read(packet, size);
 
     if (this.script_version > 10) {
@@ -108,9 +108,9 @@ export class Monster extends cse_alife_monster_base {
     }
   }
 
-  public on_before_register(): void {}
+  public override on_before_register(): void {}
 
-  public on_register(): void {
+  public override on_register(): void {
     super.on_register();
     logger.info("Register:", this.id, this.name(), this.section_name());
     checkSpawnIniForStoryId(this);
@@ -134,7 +134,7 @@ export class Monster extends cse_alife_monster_base {
     alife().object<SmartTerrain>(smart_obj.id)!.register_npc(this);
   }
 
-  public on_unregister(): void {
+  public override on_unregister(): void {
     logger.info("Unregister:", this.name());
 
     const strn_id = this.smart_terrain_id();
@@ -152,7 +152,7 @@ export class Monster extends cse_alife_monster_base {
     super.on_unregister();
   }
 
-  public on_death(killer: XR_cse_alife_creature_abstract): void {
+  public override on_death(killer: XR_cse_alife_creature_abstract): void {
     logger.info("On death:", this.name(), killer?.name());
 
     super.on_death(killer);

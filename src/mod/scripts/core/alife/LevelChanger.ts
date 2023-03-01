@@ -20,19 +20,19 @@ export class LevelChanger extends cse_alife_level_changer {
     super(section);
   }
 
-  public on_register(): void {
+  public override on_register(): void {
     super.on_register();
     logger.info("Register:", this.id, this.name(), this.section_name());
     checkSpawnIniForStoryId(this);
   }
 
-  public on_unregister(): void {
+  public override on_unregister(): void {
     unregisterStoryObjectById(this.id);
     super.on_unregister();
     logger.info("Unregister:", this.name());
   }
 
-  public STATE_Write(packet: XR_net_packet): void {
+  public override STATE_Write(packet: XR_net_packet): void {
     super.STATE_Write(packet);
 
     setSaveMarker(packet, false, LevelChanger.__name);
@@ -41,7 +41,7 @@ export class LevelChanger extends cse_alife_level_changer {
     setSaveMarker(packet, true, LevelChanger.__name);
   }
 
-  public STATE_Read(packet: XR_net_packet, size: number): void {
+  public override STATE_Read(packet: XR_net_packet, size: number): void {
     super.STATE_Read(packet, size);
 
     if (editor()) {

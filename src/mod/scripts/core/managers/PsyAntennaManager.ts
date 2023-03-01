@@ -104,7 +104,7 @@ export class PsyAntennaManager extends AbstractCoreManager {
     this.sound_obj_right.volume = 0;
   }
 
-  public destroy(): void {
+  public override destroy(): void {
     this.sound_obj_right.stop();
     this.sound_obj_left.stop();
     level.set_snd_volume(this.snd_volume);

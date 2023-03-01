@@ -16,7 +16,7 @@ import {
 } from "xray16";
 
 import { communities, TCommunity } from "@/mod/globals/communities";
-import { AnyObject, Optional } from "@/mod/lib/types";
+import { AnyObject, Optional, TNumberId } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { send_sound } from "@/mod/scripts/core/NewsManager";
 import { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
@@ -42,10 +42,10 @@ export class NpcSound extends AbstractPlayableSound {
   public static sound_base: number = stalker_ids.sound_script + 10_000;
   public static readonly type: EPlayableSound = EPlayableSound.NPC;
 
-  public readonly type: EPlayableSound = NpcSound.type;
+  public override readonly type: EPlayableSound = NpcSound.type;
 
   public readonly prefix: boolean;
-  public readonly play_always: boolean;
+  public override readonly play_always: boolean;
   public readonly is_combat_sound: boolean;
   public readonly group_snd: boolean;
   public readonly shuffle: string;
@@ -122,13 +122,13 @@ export class NpcSound extends AbstractPlayableSound {
     }
   }
 
-  public reset(npcId: number): void {
-    const npc: Optional<XR_game_object> = registry.objects.get(npcId) && registry.objects.get(npcId).object!;
+  public override reset(objectId: TNumberId): void {
+    const npc: Optional<XR_game_object> = registry.objects.get(objectId) && registry.objects.get(objectId).object!;
 
     this.played_time = null;
     this.played_id = null;
     this.can_play_group_sound = true;
-    this.can_play_sound.set(npcId, true);
+    this.can_play_sound.set(objectId, true);
 
     if (npc !== null) {
       npc.set_sound_mask(-1);
@@ -141,8 +141,8 @@ export class NpcSound extends AbstractPlayableSound {
     }
   }
 
-  public is_playing(npc_id: number): boolean {
-    const obj: Optional<XR_game_object> = registry.objects.get(npc_id) && registry.objects.get(npc_id).object!;
+  public override is_playing(objectId: TNumberId): boolean {
+    const obj: Optional<XR_game_object> = registry.objects.get(objectId) && registry.objects.get(objectId).object!;
 
     if (obj === null) {
       return false;
@@ -205,7 +205,7 @@ export class NpcSound extends AbstractPlayableSound {
     }
   }
 
-  public callback(npc_id: number): void {
+  public override callback(npc_id: number): void {
     this.played_time = time_global();
     this.idle_time = math.random(this.min_idle, this.max_idle) * 1000;
 
@@ -384,8 +384,8 @@ export class NpcSound extends AbstractPlayableSound {
     abort("Unexpected shuffle type provided: %s,", this.shuffle);
   }
 
-  public stop(obj_id: number): void {
-    const npc: Optional<XR_game_object> = registry.objects.get(obj_id)?.object as Optional<XR_game_object>;
+  public override stop(objectId: TNumberId): void {
+    const npc: Optional<XR_game_object> = registry.objects.get(objectId)?.object as Optional<XR_game_object>;
 
     if (npc !== null && npc.alive()) {
       npc.set_sound_mask(-1);
@@ -398,7 +398,7 @@ export class NpcSound extends AbstractPlayableSound {
     }
   }
 
-  public save(net_packet: XR_net_packet): void {
+  public override save(net_packet: XR_net_packet): void {
     net_packet.w_stringZ(tostring(this.played_id));
 
     if (this.group_snd) {
@@ -406,7 +406,7 @@ export class NpcSound extends AbstractPlayableSound {
     }
   }
 
-  public load(reader: XR_reader): void {
+  public override load(reader: XR_reader): void {
     const id: string = reader.r_stringZ();
 
     this.played_id = id === "nil" ? null : tonumber(id)!;
@@ -416,13 +416,13 @@ export class NpcSound extends AbstractPlayableSound {
     }
   }
 
-  public save_npc(net_packet: XR_net_packet, npcId: number): void {
+  public override save_npc(net_packet: XR_net_packet, npcId: number): void {
     if (!this.group_snd) {
       net_packet.w_bool(this.can_play_sound.get(npcId) === true);
     }
   }
 
-  public load_npc(reader: XR_reader, npcId: number): void {
+  public override load_npc(reader: XR_reader, npcId: number): void {
     if (!this.group_snd) {
       this.can_play_sound.set(npcId, reader.r_bool());
     }

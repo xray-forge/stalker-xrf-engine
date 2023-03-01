@@ -15,10 +15,10 @@ const logger: LuaLogger = new LuaLogger("SchemePhysicalHit");
  * todo;
  */
 export class SchemePhysicalHit extends AbstractScheme {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.PH_HIT;
-  public static readonly SCHEME_TYPE: ESchemeType = ESchemeType.ITEM;
+  public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_HIT;
+  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.ITEM;
 
-  public static add_to_binder(
+  public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -28,7 +28,12 @@ export class SchemePhysicalHit extends AbstractScheme {
     subscribeActionForEvents(object, storage, new SchemePhysicalHit(object, storage));
   }
 
-  public static set_scheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+  public static override set_scheme(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection
+  ): void {
     const st = assignStorageAndBind(object, ini, scheme, section);
 
     st.logic = cfg_get_switch_conditions(ini, section, object);
@@ -38,7 +43,7 @@ export class SchemePhysicalHit extends AbstractScheme {
     st.dir_path = getConfigString(ini, section, "dir_path", object, true, "");
   }
 
-  public reset_scheme(): void {
+  public override reset_scheme(): void {
     const p1: XR_vector = new patrol(this.state.dir_path).point(0);
     const p2: XR_vector = this.object.position();
 
@@ -53,7 +58,7 @@ export class SchemePhysicalHit extends AbstractScheme {
     this.object.hit(h);
   }
 
-  public update(delta: number): void {
+  public override update(delta: number): void {
     trySwitchToAnotherSection(this.object, this.state, registry.actor);
   }
 
