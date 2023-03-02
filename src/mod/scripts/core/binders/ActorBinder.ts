@@ -25,11 +25,11 @@ import { info_portions } from "@/mod/globals/info_portions";
 import { ammo } from "@/mod/globals/items/ammo";
 import { drugs } from "@/mod/globals/items/drugs";
 import { TLevel } from "@/mod/globals/levels";
+import { STRINGIFIED_NIL } from "@/mod/globals/lua";
 import { AnyCallable, AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { Actor } from "@/mod/scripts/core/alife/Actor";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { addActor, deleteActor } from "@/mod/scripts/core/database/actor";
-import { destroyManager, getWeakManagerInstance } from "@/mod/scripts/core/database/managers";
 import { pstor_load_all, pstor_save_all } from "@/mod/scripts/core/database/pstor";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
 import { get_sim_obj_registry } from "@/mod/scripts/core/database/SimObjectsRegistry";
@@ -42,12 +42,12 @@ import { PsyAntennaManager } from "@/mod/scripts/core/managers/PsyAntennaManager
 import { ReleaseBodyManager } from "@/mod/scripts/core/managers/ReleaseBodyManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
+import { TaskManager } from "@/mod/scripts/core/managers/tasks/TaskManager";
 import { TreasureManager } from "@/mod/scripts/core/managers/TreasureManager";
 import { WeatherManager } from "@/mod/scripts/core/managers/WeatherManager";
 import { send_task } from "@/mod/scripts/core/NewsManager";
 import { SchemeDeimos } from "@/mod/scripts/core/schemes/sr_deimos/SchemeDeimos";
 import { DynamicMusicManager } from "@/mod/scripts/core/sound/DynamicMusicManager";
-import { get_task_manager, TaskManager } from "@/mod/scripts/core/task/TaskManager";
 import { giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { isArtefact } from "@/mod/scripts/utils/checkers/is";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
@@ -79,7 +79,7 @@ export class ActorBinder extends object_binder {
   public bCheckStart: boolean = false;
   public isSurgeManagerLoaded: boolean = false;
 
-  public task_manager!: TaskManager;
+  public readonly taskManager: TaskManager = TaskManager.getInstance();
   public readonly dropManager: DropManager = DropManager.getInstance(false);
   public readonly eventsManager: EventsManager = EventsManager.getInstance();
   public readonly surgeManager: SurgeManager = SurgeManager.getInstance(false);
@@ -142,7 +142,6 @@ export class ActorBinder extends object_binder {
     this.weatherManager.reset();
     this.dropManager.initialize();
 
-    this.task_manager = get_task_manager();
     this.spawn_frame = device().frame;
     this.loaded = false;
 
@@ -191,7 +190,7 @@ export class ActorBinder extends object_binder {
       registry.sounds.musicVolume = 0;
     }
 
-    destroyManager(PsyAntennaManager, true);
+    PsyAntennaManager.dispose();
 
     DynamicMusicManager.getInstance().stopTheme();
 
@@ -344,7 +343,7 @@ export class ActorBinder extends object_binder {
       }
     }
 
-    getWeakManagerInstance(PsyAntennaManager)?.update(delta);
+    PsyAntennaManager.getWeakInstance()?.update(delta);
 
     /**
      * todo: Not implemented originally.
@@ -444,7 +443,7 @@ export class ActorBinder extends object_binder {
       packet.w_stringZ(v);
     }
 
-    get_task_manager().save(packet);
+    this.taskManager.save(packet);
 
     packet.w_u8(this.object.active_slot());
 
@@ -507,7 +506,7 @@ export class ActorBinder extends object_binder {
 
     const n = reader.r_stringZ();
 
-    if (n !== "nil") {
+    if (n !== STRINGIFIED_NIL) {
       this.last_level_name = n;
     }
 
@@ -517,11 +516,11 @@ export class ActorBinder extends object_binder {
 
     const count = reader.r_u8();
 
-    for (const i of $range(1, count)) {
+    for (const it of $range(1, count)) {
       registry.scriptSpawned.set(reader.r_u16(), reader.r_stringZ());
     }
 
-    get_task_manager().load(reader);
+    this.taskManager.load(reader);
 
     this.loaded_active_slot = reader.r_u8();
     this.loaded_slot_applied = false;

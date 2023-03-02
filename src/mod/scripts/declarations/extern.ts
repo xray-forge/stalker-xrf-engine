@@ -12,11 +12,11 @@ import { ActorInventoryMenuManager, EActorMenuMode } from "@/mod/scripts/core/ma
 import { loadScreenManager } from "@/mod/scripts/core/managers/LoadScreenManager";
 import { PdaManager } from "@/mod/scripts/core/managers/PdaManager";
 import { sleep_cam_eff_id, SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
+import { TaskManager } from "@/mod/scripts/core/managers/tasks";
 import { TradeManager } from "@/mod/scripts/core/managers/TradeManager";
 import { WeatherManager } from "@/mod/scripts/core/managers/WeatherManager";
 import { SchemeCutscene } from "@/mod/scripts/core/schemes/sr_cutscene/SchemeCutscene";
 import { smart_covers_list } from "@/mod/scripts/core/smart_covers/smart_covers_list";
-import { get_task_manager } from "@/mod/scripts/core/task/TaskManager";
 import { travelManager } from "@/mod/scripts/core/TravelManager";
 import { GameOutroManager } from "@/mod/scripts/ui/game/GameOutroManager";
 import { WeaponParams } from "@/mod/scripts/ui/game/WeaponParams";
@@ -115,13 +115,16 @@ declare_global("extern.surge_callback", () => {
   ]]-- */
 });
 
-declare_global("extern.task_complete", (task_id: string): boolean => get_task_manager().task_complete(task_id));
+declare_global("extern.task_complete", (task_id: string): boolean =>
+  TaskManager.getInstance().onTaskCompleted(task_id)
+);
 
-declare_global("extern.task_fail", (task_id: string): boolean => get_task_manager().task_fail(task_id));
+declare_global("extern.task_fail", (task_id: string): boolean => TaskManager.getInstance().onTaskFailed(task_id));
 
 declare_global("extern.task_callback", (target: XR_CGameTask, state: TXR_TaskState): void => {
   if (state === task.fail || state === task.completed) {
-    get_task_manager().task_callback(target, state === task.completed);
+    // todo: Supply task state enum.
+    TaskManager.getInstance().onTaskCallback(target, state === task.completed);
   }
 });
 

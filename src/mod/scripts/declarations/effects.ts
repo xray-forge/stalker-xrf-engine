@@ -73,13 +73,13 @@ import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { mech_discount as getMechDiscount, setCurrentHint } from "@/mod/scripts/core/inventory_upgrades";
 import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
+import { TaskManager } from "@/mod/scripts/core/managers/tasks";
 import { TreasureManager } from "@/mod/scripts/core/managers/TreasureManager";
 import { WeatherManager } from "@/mod/scripts/core/managers/WeatherManager";
 import { relocate_item as relocateItem, send_tip as sendPdaTip, TIcon } from "@/mod/scripts/core/NewsManager";
 import { SchemeAbuse } from "@/mod/scripts/core/schemes/abuse/SchemeAbuse";
 import { init_target } from "@/mod/scripts/core/schemes/remark/actions/ActionRemarkActivity";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
-import { get_task_manager } from "@/mod/scripts/core/task/TaskManager";
 import { showFreeplayDialog } from "@/mod/scripts/ui/game/FreeplayDialog";
 import { sleep as startSleeping } from "@/mod/scripts/ui/interaction/SleepDialog";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
@@ -1609,13 +1609,13 @@ export function clear_smart_terrain(actor: XR_game_object, obj: XR_game_object, 
 }
 
 export function give_task(actor: XR_game_object, obj: XR_game_object, p: [Optional<string>]) {
-  logger.info("Give task");
+  logger.info("Give actor task");
 
   if (p[0] === null) {
     abort("No parameter in give_task function.");
   }
 
-  get_task_manager().give_task(p[0]);
+  TaskManager.getInstance().giveTask(p[0]);
 }
 
 export function set_active_task(actor: XR_game_object, npc: XR_game_object, p: [string]): void {

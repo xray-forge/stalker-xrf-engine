@@ -49,17 +49,15 @@ export function isManagerInitialized<T extends TAbstractCoreManagerConstructor>(
 /**
  * Destroy and remove manager from registry.
  */
-export function destroyManager<T extends TAbstractCoreManagerConstructor>(it: T, force?: boolean): void {
+export function disposeManager<T extends TAbstractCoreManagerConstructor>(it: T): void {
   const manager: Optional<AbstractCoreManager> = registry.managers.get(it);
 
   if (manager !== null) {
-    logger.info("Destroy manager:", it.name);
+    logger.info("Dispose manager:", it.name);
 
     manager.destroy();
     manager.isDestroyed = true;
 
     registry.managers.delete(it);
-  } else if (!force) {
-    logger.warn("Manager already destroyed:", it.name);
   }
 }

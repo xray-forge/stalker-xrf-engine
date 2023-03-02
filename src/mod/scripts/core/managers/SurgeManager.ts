@@ -740,7 +740,7 @@ export class SurgeManager extends AbstractCoreManager {
   protected giveSurgeHideTask(): void {
     if (this.surge_task_sect !== "empty") {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const { get_task_manager } = require("@/mod/scripts/core/task/TaskManager");
+      const { get_task_manager } = require("@/mod/scripts/core/managers/tasks/TaskManager");
 
       if (this.surge_task_sect === "") {
         get_task_manager().give_task("hide_from_surge");

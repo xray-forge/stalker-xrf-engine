@@ -6,6 +6,7 @@ import {
   task,
   time_global,
   XR_CGameTask,
+  XR_cse_alife_object,
   XR_CTime,
   XR_game_object,
   XR_ini_file,
@@ -14,11 +15,13 @@ import {
 } from "xray16";
 
 import { levels, TLevel } from "@/mod/globals/levels";
-import { AnyCallablesModule, Optional, TStringId } from "@/mod/lib/types";
+import { STRINGIFIED_NIL } from "@/mod/globals/lua";
+import { AnyCallablesModule, Optional, TNumberId, TStringId } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { getInventoryVictim } from "@/mod/scripts/core/inventory_upgrades";
+import { ETaskState } from "@/mod/scripts/core/managers/tasks/ETaskState";
+import * as TaskFunctor from "@/mod/scripts/core/managers/tasks/TaskFunctor";
 import { send_task } from "@/mod/scripts/core/NewsManager";
-import * as TaskFunctor from "@/mod/scripts/core/task/TaskFunctor";
 import {
   getConfigBoolean,
   getConfigNumber,
@@ -60,7 +63,7 @@ const valid_values: LuaTable<string, boolean> = {
 const status_by_id: Record<number, string> = {
   0: "normal",
   1: "selected",
-  2: "completed",
+  2: "complete",
   3: "fail",
   4: "reversed",
 };
@@ -77,6 +80,17 @@ const id_by_status: Record<string, number> = {
  * todo;
  */
 export class TaskObject {
+  public static get_guider(target_level: TLevel) {
+    const ln: TLevel = level.name() as TLevel;
+    const target: string = guiders_by_level.get(ln) && guiders_by_level.get(ln).get(target_level);
+
+    if (target !== null) {
+      return getStoryObjectId(target);
+    }
+
+    return null;
+  }
+
   public task_ini: XR_ini_file;
   public id: TStringId;
   public title: string;
@@ -117,7 +131,10 @@ export class TaskObject {
   public on_complete: () => void;
   public on_reversed: () => void;
 
-  public constructor(task_ini: XR_ini_file, id: string) {
+  /**
+   * todo;
+   */
+  public constructor(task_ini: XR_ini_file, id: TStringId) {
     this.task_ini = task_ini;
     this.id = id;
 
@@ -211,6 +228,9 @@ export class TaskObject {
     this.dont_send_update_news = getConfigBoolean(task_ini, id, "dont_send_update_news", null, false, false);
   }
 
+  /**
+   * todo;
+   */
   public give_task(): void {
     const t = new XR_CGameTask();
 
@@ -255,6 +275,9 @@ export class TaskObject {
     this.t = t;
   }
 
+  /**
+   * todo;
+   */
   public check_task(): void {
     const global_time = time_global();
     let task_updated = false;
@@ -333,6 +356,9 @@ export class TaskObject {
     }
   }
 
+  /**
+   * todo;
+   */
   public give_reward(): void {
     logger.info("Give quest rewards:", this.id, this.t?.get_id());
 
@@ -363,26 +389,35 @@ export class TaskObject {
     }
   }
 
+  /**
+   * todo;
+   */
   public reverse_task(): void {
-    this.last_check_task = "reversed";
+    this.last_check_task = ETaskState.REVERSED;
   }
 
+  /**
+   * todo;
+   */
   public deactivate_task(task: XR_CGameTask): void {
     logger.info("Deactivate task:", this.title);
     this.check_time = null;
 
-    if (this.last_check_task === "fail") {
-      send_task(registry.actor, "fail", task);
-    } else if (this.last_check_task === "reversed") {
+    if (this.last_check_task === ETaskState.FAIL) {
+      send_task(registry.actor, ETaskState.FAIL, task);
+    } else if (this.last_check_task === ETaskState.REVERSED) {
       pickSectionFromCondList(registry.actor, registry.actor, this.on_reversed as any);
-      send_task(registry.actor, "reversed", task);
+      send_task(registry.actor, ETaskState.REVERSED, task);
     }
 
     this.last_check_task = null;
     this.status = "normal";
   }
 
-  public check_level(target: Optional<number>): void {
+  /**
+   * todo;
+   */
+  public check_level(target: Optional<TNumberId>): void {
     if (!target || registry.actor.is_active_task(this.t as XR_CGameTask)) {
       return;
     }
@@ -391,14 +426,14 @@ export class TaskObject {
       return;
     }
 
-    const s_obj = alife().object(target);
+    const alifeObject: Optional<XR_cse_alife_object> = alife().object(target);
 
-    if (s_obj !== null) {
-      const target_level: TLevel = alife().level_name(game_graph().vertex(s_obj.m_game_vertex_id).level_id());
+    if (alifeObject !== null) {
+      const target_level: TLevel = alife().level_name(game_graph().vertex(alifeObject.m_game_vertex_id).level_id());
       const level_name: TLevel = level.name();
 
       if (level_name !== target_level) {
-        const guider_id = get_guider(target_level);
+        const guider_id: Optional<TNumberId> = TaskObject.get_guider(target_level);
 
         if (guider_id === null) {
           return;
@@ -428,6 +463,9 @@ export class TaskObject {
     }
   }
 
+  /**
+   * todo;
+   */
   public remove_guider_spot(): void {
     if (!guiders_by_level.get(level.name())) {
       return;
@@ -448,6 +486,9 @@ export class TaskObject {
     }
   }
 
+  /**
+   * todo;
+   */
   public save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, TaskObject.name);
 
@@ -469,7 +510,7 @@ export class TaskObject {
     this.current_descr = reader.r_stringZ();
     this.current_target = reader.r_stringZ();
 
-    if (this.current_target === "nil") {
+    if (this.current_target === STRINGIFIED_NIL) {
       this.current_target = null;
     } else {
       this.current_target = tonumber(this.current_target);
@@ -477,15 +518,4 @@ export class TaskObject {
 
     setLoadMarker(reader, true, TaskObject.name);
   }
-}
-
-function get_guider(target_level: TLevel) {
-  const ln: TLevel = level.name() as TLevel;
-  const target: string = guiders_by_level.get(ln) && guiders_by_level.get(ln).get(target_level);
-
-  if (target !== null) {
-    return getStoryObjectId(target);
-  }
-
-  return null;
 }

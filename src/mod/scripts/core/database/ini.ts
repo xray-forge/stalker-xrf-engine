@@ -31,6 +31,7 @@ export const STALKER_UPGRADE_INFO: XR_ini_file = new ini_file("misc\\stalkers_up
 export const SURGE_MANAGER_LTX: XR_ini_file = new ini_file("misc\\surge_manager.ltx");
 export const SQUAD_BEHAVIOURS_LTX: XR_ini_file = new ini_file("misc\\squad_behaviours.ltx");
 export const SMART_TERRAIN_MASKS_LTX: XR_ini_file = new ini_file("misc\\smart_terrain_masks.ltx");
+export const TASK_MANAGER_LTX: XR_ini_file = new ini_file("misc\\task_manager.ltx");
 
 /**
  * todo;
