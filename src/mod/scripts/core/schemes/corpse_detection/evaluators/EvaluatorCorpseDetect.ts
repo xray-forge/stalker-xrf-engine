@@ -1,9 +1,9 @@
-import { level, property_evaluator, XR_game_object, XR_property_evaluator, XR_vector } from "xray16";
+import { level, property_evaluator, XR_game_object, XR_vector } from "xray16";
 
 import { communities } from "@/mod/globals/communities";
 import { Optional } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
-import { get_release_body_manager, IReleaseDescriptor } from "@/mod/scripts/core/ReleaseBodyManager";
+import { IReleaseDescriptor, ReleaseBodyManager } from "@/mod/scripts/core/managers/ReleaseBodyManager";
 import { isObjectWounded } from "@/mod/scripts/utils/checkers/checkers";
 import { isLootableItem } from "@/mod/scripts/utils/checkers/is";
 
@@ -34,7 +34,7 @@ export class EvaluatorCorpseDetect extends property_evaluator {
       return false;
     }
 
-    const corpses: LuaTable<number, IReleaseDescriptor> = get_release_body_manager().release_objects_table;
+    const corpses: LuaTable<number, IReleaseDescriptor> = ReleaseBodyManager.getInstance().releaseObjectRegistry;
 
     let nearest_corpse_dist_sqr: number = 400;
     let nearest_corpse_vertex: Optional<number> = null;

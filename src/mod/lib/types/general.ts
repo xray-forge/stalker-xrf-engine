@@ -1,3 +1,5 @@
+import { TIndex } from "@/mod/lib/types/alias";
+
 /**
  * Any object from JS record variant.
  */
@@ -39,6 +41,6 @@ export interface IConstructor<T> {
   new (): T;
 }
 
-export type LuaArray<T> = LuaTable<number, T>;
+export type LuaArray<T> = LuaTable<TIndex, T>;
 
 export type AnyArgs = Array<any>;

@@ -44,10 +44,10 @@ import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { need_victim } from "@/mod/scripts/core/inventory_upgrades";
 import { DropManager } from "@/mod/scripts/core/managers/DropManager";
 import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
+import { ReleaseBodyManager } from "@/mod/scripts/core/managers/ReleaseBodyManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { TradeManager } from "@/mod/scripts/core/managers/TradeManager";
 import { MoveManager } from "@/mod/scripts/core/MoveManager";
-import { get_release_body_manager } from "@/mod/scripts/core/ReleaseBodyManager";
 import { SchemeCombat } from "@/mod/scripts/core/schemes/combat/SchemeCombat";
 import { PostCombatIdle } from "@/mod/scripts/core/schemes/danger/PostCombatIdle";
 import { SchemeDanger } from "@/mod/scripts/core/schemes/danger/SchemeDanger";
@@ -137,7 +137,7 @@ export class StalkerBinder extends object_binder {
 
     this.object.apply_loophole_direction_distance(1.0);
 
-    if (this.loaded === false) {
+    if (!this.loaded) {
       let char_ini: Optional<XR_ini_file> = null;
       // todo: Can be null?
       const spawn_ini: Optional<XR_ini_file> = this.object.spawn_ini();
@@ -158,7 +158,7 @@ export class StalkerBinder extends object_binder {
 
     if (!this.object.alive()) {
       this.object.death_sound_enabled(false);
-      get_release_body_manager().moving_dead_body(this.object);
+      ReleaseBodyManager.getInstance().addDeadBody(this.object);
 
       return true;
     }
@@ -405,7 +405,7 @@ export class StalkerBinder extends object_binder {
       }
     }
 
-    get_release_body_manager().moving_dead_body(this.object);
+    ReleaseBodyManager.getInstance().addDeadBody(this.object);
   }
 
   public use_callback(obj: XR_game_object, who: XR_game_object): void {

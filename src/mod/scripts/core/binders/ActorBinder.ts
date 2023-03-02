@@ -39,12 +39,12 @@ import { EGameEvent } from "@/mod/scripts/core/managers/events/EGameEvent";
 import { EventsManager } from "@/mod/scripts/core/managers/events/EventsManager";
 import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
 import { PsyAntennaManager } from "@/mod/scripts/core/managers/PsyAntennaManager";
+import { ReleaseBodyManager } from "@/mod/scripts/core/managers/ReleaseBodyManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { TreasureManager } from "@/mod/scripts/core/managers/TreasureManager";
 import { WeatherManager } from "@/mod/scripts/core/managers/WeatherManager";
 import { send_task } from "@/mod/scripts/core/NewsManager";
-import { get_release_body_manager } from "@/mod/scripts/core/ReleaseBodyManager";
 import { SchemeDeimos } from "@/mod/scripts/core/schemes/sr_deimos/SchemeDeimos";
 import { DynamicMusicManager } from "@/mod/scripts/core/sound/DynamicMusicManager";
 import { get_task_manager, TaskManager } from "@/mod/scripts/core/task/TaskManager";
@@ -85,6 +85,7 @@ export class ActorBinder extends object_binder {
   public readonly surgeManager: SurgeManager = SurgeManager.getInstance(false);
   public readonly treasureManager: TreasureManager = TreasureManager.getInstance();
   public readonly weatherManager: WeatherManager = WeatherManager.getInstance();
+  public readonly releaseBodyManager: ReleaseBodyManager = ReleaseBodyManager.getInstance();
 
   public loaded: boolean = false;
   public spawn_frame: number = 0;
@@ -424,7 +425,7 @@ export class ActorBinder extends object_binder {
 
     pstor_save_all(this.object, packet);
     this.weatherManager.save(packet);
-    get_release_body_manager().save(packet);
+    this.releaseBodyManager.save(packet);
     this.surgeManager.save(packet);
     PsyAntennaManager.save(packet);
     packet.w_bool(get_sim_board().simulation_started);
@@ -495,7 +496,7 @@ export class ActorBinder extends object_binder {
 
     pstor_load_all(this.object, reader);
     this.weatherManager.load(reader);
-    get_release_body_manager().load(reader);
+    this.releaseBodyManager.load(reader);
 
     this.surgeManager.load(reader);
     this.isSurgeManagerLoaded = true;

@@ -12,9 +12,9 @@ import {
 import { STRINGIFIED_TRUE } from "@/mod/globals/lua";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { TTreasure } from "@/mod/globals/treasures";
-import { Optional, TSection } from "@/mod/lib/types";
+import { Optional, TCount, TProbability, TSection } from "@/mod/lib/types";
 import { registry, SECRETS_LTX } from "@/mod/scripts/core/database";
-import { AbstractCoreManager } from "@/mod/scripts/core/managers/index";
+import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { send_treasure } from "@/mod/scripts/core/NewsManager";
 import { parseCondList, parseSpawns, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
@@ -31,12 +31,12 @@ export interface ITreasureSecret {
   empty: Optional<boolean>;
   to_find: number;
   items: LuaTable<
-    string, // section
+    TSection, // section
     LuaTable<
       number,
       {
-        count: number;
-        prob: number;
+        count: TCount;
+        prob: TProbability;
         item_ids: Optional<LuaTable<number, number>>;
       }
     >
