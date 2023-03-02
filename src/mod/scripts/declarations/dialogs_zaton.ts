@@ -14,11 +14,12 @@ import { misc } from "@/mod/globals/items/misc";
 import { outfits } from "@/mod/globals/items/outfits";
 import { quest_items } from "@/mod/globals/items/quest_items";
 import { TWeapon, weapons } from "@/mod/globals/items/weapons";
+import { treasures } from "@/mod/globals/treasures";
 import { AnyCallablesModule, AnyObject, LuaArray, Optional } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
+import { TreasureManager } from "@/mod/scripts/core/managers/TreasureManager";
 import { relocate_item } from "@/mod/scripts/core/NewsManager";
-import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { isSquadExisting } from "@/mod/scripts/utils/checkers/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -453,7 +454,7 @@ export function zat_b7_give_bandit_reward_to_actor(
   second_speaker: XR_game_object
 ): void {
   giveMoneyToActor(math.random(15, 30) * 100);
-  getTreasureManager().give_treasure("zat_hiding_place_30");
+  TreasureManager.getInstance().giveActorTreasureCoordinates(treasures.zat_hiding_place_30);
 }
 
 /**
@@ -480,7 +481,7 @@ export function zat_b7_give_stalker_reward_to_actor(
     giveItemsToActor(first_speaker, second_speaker, food.vodka, 4);
   }
 
-  getTreasureManager().give_treasure("zat_hiding_place_29");
+  TreasureManager.giveActorTreasureCoordinates(treasures.zat_hiding_place_29);
 }
 
 /**
@@ -1759,8 +1760,11 @@ export function zat_b30_actor_has_compass(first_speaker: XR_game_object, second_
 export function zat_b30_transfer_af_from_actor(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   takeItemsFromActor(first_speaker, second_speaker, artefacts.af_compass);
   giveMoneyToActor(10_000);
-  getTreasureManager().give_treasure("zat_hiding_place_49");
-  getTreasureManager().give_treasure("zat_hiding_place_15");
+
+  const treasureManager: TreasureManager = TreasureManager.getInstance();
+
+  treasureManager.giveActorTreasureCoordinates(treasures.zat_hiding_place_49);
+  treasureManager.giveActorTreasureCoordinates(treasures.zat_hiding_place_15);
 }
 
 /**
@@ -2270,7 +2274,7 @@ export function zat_b106_transfer_weap_to_actor(first_speaker: XR_game_object, s
  * todo;
  */
 export function zat_b106_give_reward(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  getTreasureManager().give_treasure("zat_hiding_place_50");
+  TreasureManager.giveActorTreasureCoordinates(treasures.zat_hiding_place_50);
 }
 
 /**
@@ -2322,29 +2326,29 @@ export function zat_b22_transfer_proof(first_speaker: XR_game_object, second_spe
  */
 export function zat_b5_stalker_transfer_money(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   giveMoneyToActor(2500);
-  getTreasureManager().give_treasure("zat_hiding_place_7");
+  TreasureManager.giveActorTreasureCoordinates(treasures.zat_hiding_place_7);
 }
 
 /**
  * todo;
  */
 export function zat_b5_dealer_full_revard(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  giveMoneyToActor(6000);
+  giveMoneyToActor(6_000);
 }
 
 /**
  * todo;
  */
 export function zat_b5_dealer_easy_revard(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  giveMoneyToActor(3000);
+  giveMoneyToActor(3_000);
 }
 
 /**
  * todo;
  */
 export function zat_b5_bandits_revard(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  giveMoneyToActor(5000);
-  getTreasureManager().give_treasure("zat_hiding_place_20");
+  giveMoneyToActor(5_000);
+  TreasureManager.giveActorTreasureCoordinates(treasures.zat_hiding_place_20);
 }
 
 /**
@@ -2362,7 +2366,7 @@ export function zat_a23_transfer_access_card_to_tech(
   second_speaker: XR_game_object
 ): void {
   takeItemsFromActor(first_speaker, second_speaker, quest_items.zat_a23_access_card);
-  giveItemsToActor(second_speaker, first_speaker, "medkit_scientic", 3);
+  giveItemsToActor(second_speaker, first_speaker, drugs.medkit_scientic, 3);
 }
 
 /**
@@ -2374,7 +2378,7 @@ export function zat_b57_stalker_reward_to_actor_detector(
   second_speaker: XR_game_object
 ): void {
   giveItemsToActor(first_speaker, second_speaker, detectors.detector_elite);
-  getTreasureManager().give_treasure("zat_hiding_place_54");
+  TreasureManager.giveActorTreasureCoordinates(treasures.zat_hiding_place_54);
 }
 
 /**

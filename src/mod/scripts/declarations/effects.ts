@@ -51,6 +51,7 @@ import { weapons } from "@/mod/globals/items/weapons";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { relations, TRelation } from "@/mod/globals/relations";
 import { script_sounds } from "@/mod/globals/sound/script_sounds";
+import { TTreasure } from "@/mod/globals/treasures";
 import { TZone, zones } from "@/mod/globals/zones";
 import { AnyObject, LuaArray, Optional, TName, TNumberId } from "@/mod/lib/types";
 import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
@@ -72,13 +73,13 @@ import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { mech_discount as getMechDiscount, setCurrentHint } from "@/mod/scripts/core/inventory_upgrades";
 import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
+import { TreasureManager } from "@/mod/scripts/core/managers/TreasureManager";
 import { WeatherManager } from "@/mod/scripts/core/managers/WeatherManager";
 import { relocate_item as relocateItem, send_tip as sendPdaTip, TIcon } from "@/mod/scripts/core/NewsManager";
 import { SchemeAbuse } from "@/mod/scripts/core/schemes/abuse/SchemeAbuse";
 import { init_target } from "@/mod/scripts/core/schemes/remark/actions/ActionRemarkActivity";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { get_task_manager } from "@/mod/scripts/core/task/TaskManager";
-import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
 import { showFreeplayDialog } from "@/mod/scripts/ui/game/FreeplayDialog";
 import { sleep as startSleeping } from "@/mod/scripts/ui/interaction/SleepDialog";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
@@ -1727,17 +1728,17 @@ export function kill_actor(actor: XR_game_object, npc: XR_game_object): void {
   actor.kill(actor);
 }
 
-export function give_treasure(actor: XR_game_object, npc: XR_game_object, p: LuaArray<string>) {
+export function give_treasure(actor: XR_game_object, npc: XR_game_object, parameters: LuaArray<TTreasure>): void {
   logger.info("Give treasure");
 
-  if (p === null) {
-    abort("Required parameter is [NIL]");
+  if (parameters === null) {
+    abort("Required parameter is [NIL].");
   }
 
-  const treasureManager = getTreasureManager();
+  const treasureManager: TreasureManager = TreasureManager.getInstance();
 
-  for (const [k, v] of p) {
-    treasureManager.give_treasure(v);
+  for (const [index, value] of parameters) {
+    treasureManager.giveActorTreasureCoordinates(value);
   }
 }
 

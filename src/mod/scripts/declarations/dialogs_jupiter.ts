@@ -14,11 +14,12 @@ import { misc } from "@/mod/globals/items/misc";
 import { outfits, TOutfit } from "@/mod/globals/items/outfits";
 import { quest_items } from "@/mod/globals/items/quest_items";
 import { weapons } from "@/mod/globals/items/weapons";
+import { treasures } from "@/mod/globals/treasures";
 import { AnyCallablesModule, AnyObject, LuaArray, Optional } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { pstor_retrieve } from "@/mod/scripts/core/database/pstor";
 import { get_npcs_relation } from "@/mod/scripts/core/GameRelationsManager";
-import { getTreasureManager, TreasureManager } from "@/mod/scripts/core/TreasureManager";
+import { TreasureManager } from "@/mod/scripts/core/managers/TreasureManager";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { isActorEnemyWithFaction } from "@/mod/scripts/utils/checkers/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -39,11 +40,11 @@ const logger: LuaLogger = new LuaLogger("dialogs_jupiter");
 export function jup_b208_give_reward(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   giveMoneyToActor(5000);
 
-  const treasureManager: TreasureManager = getTreasureManager();
+  const treasureManager: TreasureManager = TreasureManager.getInstance();
 
-  treasureManager.give_treasure("jup_hiding_place_18");
-  treasureManager.give_treasure("jup_hiding_place_35");
-  treasureManager.give_treasure("jup_hiding_place_45");
+  treasureManager.giveActorTreasureCoordinates(treasures.jup_hiding_place_18);
+  treasureManager.giveActorTreasureCoordinates(treasures.jup_hiding_place_35);
+  treasureManager.giveActorTreasureCoordinates(treasures.jup_hiding_place_45);
 }
 
 // -- a9
@@ -588,9 +589,11 @@ export function jup_a12_transfer_5000_money_to_actor(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): void {
+  const treasureManager: TreasureManager = TreasureManager.getInstance();
+
   giveMoneyToActor(5000);
-  getTreasureManager().give_treasure("jup_hiding_place_40");
-  getTreasureManager().give_treasure("jup_hiding_place_34");
+  treasureManager.giveActorTreasureCoordinates(treasures.jup_hiding_place_40);
+  treasureManager.giveActorTreasureCoordinates(treasures.jup_hiding_place_34);
 }
 
 export function jup_a12_transfer_artefact_to_actor(
@@ -600,8 +603,10 @@ export function jup_a12_transfer_artefact_to_actor(
   giveItemsToActor(first_speaker, second_speaker, artefacts.af_gold_fish);
 
   if (hasAlifeInfo(info_portions.jup_a12_stalker_prisoner_free_dialog_done)) {
-    getTreasureManager().give_treasure("jup_hiding_place_40");
-    getTreasureManager().give_treasure("jup_hiding_place_34");
+    const treasureManager: TreasureManager = TreasureManager.getInstance();
+
+    treasureManager.giveActorTreasureCoordinates(treasures.jup_hiding_place_40);
+    treasureManager.giveActorTreasureCoordinates(treasures.jup_hiding_place_34);
   }
 }
 
@@ -1634,5 +1639,5 @@ export function jup_b15_no_actor_sci_outfit(first_speaker: XR_game_object, secon
 }
 
 export function jup_b19_reward(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  getTreasureManager().give_treasure("jup_hiding_place_38");
+  TreasureManager.giveActorTreasureCoordinates(treasures.jup_hiding_place_38);
 }

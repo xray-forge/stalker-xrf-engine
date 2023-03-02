@@ -41,13 +41,13 @@ import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager
 import { PsyAntennaManager } from "@/mod/scripts/core/managers/PsyAntennaManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
+import { TreasureManager } from "@/mod/scripts/core/managers/TreasureManager";
 import { WeatherManager } from "@/mod/scripts/core/managers/WeatherManager";
 import { send_task } from "@/mod/scripts/core/NewsManager";
 import { get_release_body_manager } from "@/mod/scripts/core/ReleaseBodyManager";
 import { SchemeDeimos } from "@/mod/scripts/core/schemes/sr_deimos/SchemeDeimos";
 import { DynamicMusicManager } from "@/mod/scripts/core/sound/DynamicMusicManager";
 import { get_task_manager, TaskManager } from "@/mod/scripts/core/task/TaskManager";
-import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
 import { giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { isArtefact } from "@/mod/scripts/utils/checkers/is";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
@@ -80,10 +80,11 @@ export class ActorBinder extends object_binder {
   public isSurgeManagerLoaded: boolean = false;
 
   public task_manager!: TaskManager;
-  public readonly surgeManager: SurgeManager = SurgeManager.getInstance();
+  public readonly dropManager: DropManager = DropManager.getInstance(false);
   public readonly eventsManager: EventsManager = EventsManager.getInstance();
+  public readonly surgeManager: SurgeManager = SurgeManager.getInstance(false);
+  public readonly treasureManager: TreasureManager = TreasureManager.getInstance();
   public readonly weatherManager: WeatherManager = WeatherManager.getInstance();
-  public readonly dropManager: DropManager = DropManager.getInstance();
 
   public loaded: boolean = false;
   public spawn_frame: number = 0;
@@ -138,7 +139,7 @@ export class ActorBinder extends object_binder {
     }
 
     this.weatherManager.reset();
-    this.dropManager.initializeDropSettings();
+    this.dropManager.initialize();
 
     this.task_manager = get_task_manager();
     this.spawn_frame = device().frame;
@@ -248,7 +249,7 @@ export class ActorBinder extends object_binder {
       StatisticsManager.getInstance().incrementCollectedArtefactsCount(object);
     }
 
-    getTreasureManager().on_item_take(object.id());
+    this.treasureManager.on_item_take(object.id());
   }
 
   public on_item_drop(object: XR_game_object): void {}
@@ -402,7 +403,7 @@ export class ActorBinder extends object_binder {
       this.loaded = true;
     }
 
-    getTreasureManager().update();
+    this.treasureManager.update();
 
     mapDisplayManager.update();
   }
@@ -431,7 +432,7 @@ export class ActorBinder extends object_binder {
     GlobalSound.actor_save(packet);
     packet.w_stringZ(tostring(this.last_level_name));
     StatisticsManager.getInstance().save(packet);
-    getTreasureManager().save(packet);
+    this.treasureManager.save(packet);
 
     const n = getTableSize(registry.scriptSpawned);
 
@@ -511,7 +512,7 @@ export class ActorBinder extends object_binder {
 
     StatisticsManager.getInstance().load(reader);
 
-    getTreasureManager().load(reader);
+    this.treasureManager.load(reader);
 
     const count = reader.r_u8();
 

@@ -37,7 +37,7 @@ export class ProfilingManager extends AbstractCoreManager {
    * Initialize profiling manager automatically based on set preferences.
    * Print warnings about state of 'debug', 'jit' and profiling.
    */
-  public initialize(): void {
+  public override initialize(): void {
     if (!gameConfig.DEBUG.IS_PROFILING_ENABLED) {
       return;
     }

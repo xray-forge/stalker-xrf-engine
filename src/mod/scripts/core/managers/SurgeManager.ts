@@ -17,7 +17,7 @@ import { post_processors } from "@/mod/globals/animation/post_processors";
 import { captions } from "@/mod/globals/captions";
 import { info_portions } from "@/mod/globals/info_portions";
 import { levels, TLevel } from "@/mod/globals/levels";
-import { STRINGIFIED_TRUE } from "@/mod/globals/lua";
+import { STRINGIFIED_FALSE, STRINGIFIED_TRUE } from "@/mod/globals/lua";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { AnyCallablesModule, Optional, PartialRecord } from "@/mod/lib/types";
 import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
@@ -97,7 +97,7 @@ export class SurgeManager extends AbstractCoreManager {
   public surge_message: string = "";
   public surge_task_sect: string = "";
 
-  public initialize(): void {
+  public override initialize(): void {
     this.isStarted = false;
     this.isFinished = true;
     this.isTimeForwarded = false;
@@ -122,7 +122,7 @@ export class SurgeManager extends AbstractCoreManager {
     this.surgeManagerCondlist = new LuaTable();
     this.surgeSurviveCondlist = new LuaTable();
 
-    let cond_string: string = "true";
+    let cond_string: string = STRINGIFIED_TRUE;
 
     if (SURGE_MANAGER_LTX.line_exist("settings", "condlist")) {
       cond_string = SURGE_MANAGER_LTX.r_string("settings", "condlist");
@@ -130,7 +130,7 @@ export class SurgeManager extends AbstractCoreManager {
 
     this.surgeManagerCondlist = parseCondList(null, "surge_manager", "condlist", cond_string);
 
-    cond_string = "false";
+    cond_string = STRINGIFIED_FALSE;
 
     if (SURGE_MANAGER_LTX.line_exist("settings", "survive")) {
       cond_string = SURGE_MANAGER_LTX.r_string("settings", "survive");

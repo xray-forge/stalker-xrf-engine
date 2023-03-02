@@ -29,6 +29,7 @@ export interface IItemDropAmountDescriptor {
 
 /**
  * todo;
+ * todo: Maybe add reset method and re-assign all 5 objects with info on each reset to clear information.
  */
 export class DropManager extends AbstractCoreManager {
   public static readonly DEPENDENT_ITEMS_LTX_SECTION: TSection = "item_dependence";
@@ -64,10 +65,11 @@ export class DropManager extends AbstractCoreManager {
   protected readonly itemsAlwaysKept: LuaTable<TStringId, boolean> = new LuaTable();
 
   /**
-   * todo;
+   * Initialize game drop settings.
+   * Expected to be called on each actor spawn event (level change, load, start game etc).
    */
-  public initializeDropSettings(): void {
-    logger.info("Init drop settings");
+  public override initialize(): void {
+    logger.info("Initialize drop settings");
 
     // Initialize communities drop.
     for (const [community] of communities as any as LuaTable<TCommunity, TCommunity>) {

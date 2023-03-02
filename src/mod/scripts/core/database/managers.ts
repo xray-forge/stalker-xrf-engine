@@ -11,13 +11,20 @@ const logger: LuaLogger = new LuaLogger("managers");
 /**
  * Get initialized manager singleton.
  */
-export function getManagerInstance<T extends TAbstractCoreManagerConstructor>(it: T): InstanceType<T> {
+export function getManagerInstance<T extends TAbstractCoreManagerConstructor>(
+  it: T,
+  initialize: boolean = true
+): InstanceType<T> {
   if (!registry.managers.get(it)) {
     logger.info("Initialize manager:", it.name);
 
     const instance: AbstractCoreManager = new it();
 
     registry.managers.set(it, instance);
+
+    if (initialize) {
+      instance.initialize();
+    }
 
     return instance as InstanceType<T>;
   }

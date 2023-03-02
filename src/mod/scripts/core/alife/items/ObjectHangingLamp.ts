@@ -2,7 +2,7 @@ import { cse_alife_object_hanging_lamp } from "xray16";
 
 import { Optional, TSection } from "@/mod/lib/types";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";
-import { getTreasureManager } from "@/mod/scripts/core/TreasureManager";
+import { TreasureManager } from "@/mod/scripts/core/managers/TreasureManager";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -24,7 +24,7 @@ export class ObjectHangingLamp extends cse_alife_object_hanging_lamp {
     logger.info("Register:", this.id, this.name(), this.section_name());
     checkSpawnIniForStoryId(this);
 
-    this.secret_item = getTreasureManager().register_item(this);
+    this.secret_item = TreasureManager.getInstance().registerAlifeItem(this);
   }
 
   public override on_unregister(): void {
