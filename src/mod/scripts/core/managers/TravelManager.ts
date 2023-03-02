@@ -41,8 +41,8 @@ import { TSimulationObject } from "@/mod/scripts/core/alife/types";
 import { registry, TRAVEL_MANAGER_LTX } from "@/mod/scripts/core/database";
 import { get_sim_board, SimBoard } from "@/mod/scripts/core/database/SimBoard";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
+import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
-import { relocate_money } from "@/mod/scripts/core/NewsManager";
 import { getAlifeCharacterCommunity, getAlifeDistanceBetween, getObjectSquad } from "@/mod/scripts/utils/alife";
 import { parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -473,7 +473,7 @@ export class TravelManager extends AbstractCoreManager {
     const price: TCount = this.getTravelPriceByDistance(distance);
 
     actor.give_money(-price);
-    relocate_money(actor, "out", price);
+    NotificationManager.getInstance().sendMoneyRelocatedNotification(actor, "out", price);
 
     this.isTravelTeleported = false;
     this.isTraveling = true;

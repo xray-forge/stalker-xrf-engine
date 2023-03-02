@@ -18,7 +18,7 @@ import {
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { AnyObject, Optional, TNumberId } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
-import { send_sound } from "@/mod/scripts/core/NewsManager";
+import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
 import { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
 import { EPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/EPlayableSound";
 import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
@@ -324,9 +324,9 @@ export class NpcSound extends AbstractPlayableSound {
         }
       }
 
-      send_sound(npc, faction, point, snd, snd_st, this.delay_sound);
+      NotificationManager.getInstance().sendSoundNotification(npc, faction, point, snd, snd_st, this.delay_sound);
     } else {
-      send_sound(npc, faction, point, snd, null, this.delay_sound);
+      NotificationManager.getInstance().sendSoundNotification(npc, faction, point, snd, null, this.delay_sound);
     }
 
     return true;

@@ -15,11 +15,11 @@ import { outfits } from "@/mod/globals/items/outfits";
 import { quest_items } from "@/mod/globals/items/quest_items";
 import { TWeapon, weapons } from "@/mod/globals/items/weapons";
 import { treasures } from "@/mod/globals/treasures";
-import { AnyCallablesModule, AnyObject, LuaArray, Optional } from "@/mod/lib/types";
+import { AnyCallablesModule, AnyObject, LuaArray, Optional, TCount } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
+import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
 import { TreasureManager } from "@/mod/scripts/core/managers/TreasureManager";
-import { relocate_item } from "@/mod/scripts/core/NewsManager";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { isSquadExisting } from "@/mod/scripts/utils/checkers/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -533,25 +533,26 @@ export function zat_b7_squad_alive(first_speaker: XR_game_object, second_speaker
 /**
  * todo;
  */
-export function zat_b103_transfer_merc_supplies(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  const npc = getNpcSpeaker(first_speaker, second_speaker);
-  const actor = getActorSpeaker(first_speaker, second_speaker);
-  let i = 6;
+export function zat_b103_transfer_merc_supplies(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  const npc: XR_game_object = getNpcSpeaker(firstSpeaker, secondSpeaker);
+  const actor: XR_game_object = getActorSpeaker(firstSpeaker, secondSpeaker);
+  let it: TCount = 6;
 
-  const item_sections = [food.conserva, food.kolbasa, food.bread];
+  const newsManager: NotificationManager = NotificationManager.getInstance();
+  const itemSections: LuaArray<TFoodItem> = [food.conserva, food.kolbasa, food.bread] as unknown as LuaArray<TFoodItem>;
 
-  for (const [k, section] of item_sections) {
-    const j = i;
+  for (const [k, section] of itemSections) {
+    const j = it;
 
     actor.iterate_inventory((temp, item) => {
-      if (item.section() === section && i !== 0) {
+      if (item.section() === section && it !== 0) {
         actor.transfer_item(item, npc);
-        i = i - 1;
+        it = it - 1;
       }
     }, actor);
 
-    if (j - i !== 0) {
-      relocate_item(actor, "out", section, j - i);
+    if (j - it !== 0) {
+      newsManager.sendItemRelocatedNotification(actor, "out", section, j - it);
     }
   }
 }
@@ -2158,7 +2159,7 @@ export function zat_b53_transfer_medkit_to_npc(first_speaker: XR_game_object, se
   }
 
   alife().release(alife().object(actor.object(section)!.id()), true);
-  relocate_item(actor, "out", section, 1);
+  NotificationManager.getInstance().sendItemRelocatedNotification(actor, "out", section, 1);
   actor.change_character_reputation(10);
 }
 

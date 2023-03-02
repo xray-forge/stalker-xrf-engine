@@ -12,8 +12,8 @@ import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { update_logic } from "@/mod/scripts/core/binders/StalkerBinder";
 import { registry } from "@/mod/scripts/core/database";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
+import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
-import { relocate_item } from "@/mod/scripts/core/NewsManager";
 import { SchemeMeet } from "@/mod/scripts/core/schemes/meet/SchemeMeet";
 import { SchemeWounded } from "@/mod/scripts/core/schemes/wounded/SchemeWounded";
 import { giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
@@ -452,7 +452,7 @@ export function transfer_any_pistol_from_actor(first_speaker: XR_game_object, se
 
   if (pistol !== null) {
     actor.transfer_item(actor.object(pistol)!, npc);
-    relocate_item(actor, "out", pistol);
+    NotificationManager.getInstance().sendItemRelocatedNotification(actor, "out", pistol);
   }
 }
 

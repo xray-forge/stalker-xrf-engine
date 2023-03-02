@@ -4,7 +4,7 @@ import { ammo, TAmmoItem } from "@/mod/globals/items/ammo";
 import { medkits, TMedkit } from "@/mod/globals/items/drugs";
 import { LuaArray, Optional } from "@/mod/lib/types";
 import { registry, SYSTEM_INI } from "@/mod/scripts/core/database";
-import { relocate_item, relocate_money } from "@/mod/scripts/core/NewsManager";
+import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -19,7 +19,7 @@ export function giveMoneyToActor(amount: number): void {
   const actor: XR_game_object = registry.actor;
 
   actor.give_money(amount);
-  relocate_money(actor, "in", amount);
+  NotificationManager.getInstance().sendMoneyRelocatedNotification(actor, "in", amount);
 }
 
 /**
@@ -38,7 +38,7 @@ export function takeMoneyFromActor(
   }
 
   actor.transfer_money(amount, victim);
-  relocate_money(actor, "out", amount);
+  NotificationManager.getInstance().sendMoneyRelocatedNotification(actor, "out", amount);
 }
 
 /**
@@ -102,7 +102,7 @@ export function takeItemsFromActor(
     amount = amount * box_size;
   }
 
-  relocate_item(actor, "out", itemSection, amount - i);
+  NotificationManager.getInstance().sendItemRelocatedNotification(actor, "out", itemSection, amount - i);
 }
 
 /**
@@ -152,7 +152,7 @@ export function giveItemsToActor(
     amount = amount * box_size;
   }
 
-  relocate_item(actor, "in", itemSection, amount);
+  NotificationManager.getInstance().sendItemRelocatedNotification(actor, "in", itemSection, amount);
 }
 
 /**
@@ -166,7 +166,7 @@ export function relocateQuestItemSection(
 ): void {
   const actor: XR_game_object = registry.actor;
 
-  for (const i of $range(1, amount)) {
+  for (const it of $range(1, amount)) {
     if (type === "in") {
       alife().create(itemSection, actor.position(), actor.level_vertex_id(), actor.game_vertex_id(), actor.id());
     } else if (type === "out") {
@@ -182,7 +182,7 @@ export function relocateQuestItemSection(
     amount = amount * SYSTEM_INI.r_s32(itemSection, "box_size");
   }
 
-  relocate_item(actor, type, itemSection, amount);
+  NotificationManager.getInstance().sendItemRelocatedNotification(actor, type, itemSection, amount);
 }
 
 /**

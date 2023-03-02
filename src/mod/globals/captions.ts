@@ -103,6 +103,7 @@ export const captions = {
   st_save_uni_zone_to_reality: "st_save_uni_zone_to_reality",
   st_save_zat_b106_arrived_to_chimera_lair: "st_save_zat_b106_arrived_to_chimera_lair",
   st_sleep_hours: "st_sleep_hours",
+  st_surge_while_asleep: "st_surge_while_asleep",
   st_tip: "st_tip",
   st_ui_pda_legend_mechanic: "st_ui_pda_legend_mechanic",
   st_ui_pda_legend_medic: "st_ui_pda_legend_medic",

@@ -26,7 +26,7 @@ import { ammo } from "@/mod/globals/items/ammo";
 import { drugs } from "@/mod/globals/items/drugs";
 import { TLevel } from "@/mod/globals/levels";
 import { STRINGIFIED_NIL } from "@/mod/globals/lua";
-import { AnyCallable, AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { Actor } from "@/mod/scripts/core/alife/Actor";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { addActor, deleteActor } from "@/mod/scripts/core/database/actor";
@@ -38,6 +38,7 @@ import { DropManager } from "@/mod/scripts/core/managers/DropManager";
 import { EGameEvent } from "@/mod/scripts/core/managers/events/EGameEvent";
 import { EventsManager } from "@/mod/scripts/core/managers/events/EventsManager";
 import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
+import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
 import { PsyAntennaManager } from "@/mod/scripts/core/managers/PsyAntennaManager";
 import { ReleaseBodyManager } from "@/mod/scripts/core/managers/ReleaseBodyManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
@@ -47,7 +48,6 @@ import { TaskManager } from "@/mod/scripts/core/managers/tasks/TaskManager";
 import { TravelManager } from "@/mod/scripts/core/managers/TravelManager";
 import { TreasureManager } from "@/mod/scripts/core/managers/TreasureManager";
 import { WeatherManager } from "@/mod/scripts/core/managers/WeatherManager";
-import { send_task } from "@/mod/scripts/core/NewsManager";
 import { SchemeDeimos } from "@/mod/scripts/core/schemes/sr_deimos/SchemeDeimos";
 import { DynamicMusicManager } from "@/mod/scripts/core/sound/DynamicMusicManager";
 import { giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
@@ -88,6 +88,7 @@ export class ActorBinder extends object_binder {
   public readonly weatherManager: WeatherManager = WeatherManager.getInstance();
   public readonly releaseBodyManager: ReleaseBodyManager = ReleaseBodyManager.getInstance();
   public readonly travelManager: TravelManager = TravelManager.getInstance();
+  public readonly newsManager: NotificationManager = NotificationManager.getInstance();
 
   public loaded: boolean = false;
   public spawn_frame: number = 0;
@@ -279,11 +280,11 @@ export class ActorBinder extends object_binder {
 
   public task_callback(task_object: XR_CGameTask, state: TXR_TaskState): void {
     if (state !== task.fail) {
-      if (state === task.completed) {
-        send_task(registry.actor, ETaskState.COMPLETE, task_object);
-      } else {
-        send_task(registry.actor, ETaskState.NEW, task_object);
-      }
+      this.newsManager.sendTaskNotification(
+        registry.actor,
+        state === task.completed ? ETaskState.COMPLETE : ETaskState.NEW,
+        task_object
+      );
     }
 
     get_global<AnyCallablesModule>("extern").task_callback(task_object, state);

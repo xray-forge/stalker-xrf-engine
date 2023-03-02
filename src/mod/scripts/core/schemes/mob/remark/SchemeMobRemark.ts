@@ -3,7 +3,7 @@ import { anim, cond, MonsterSpace, sound, XR_cond, XR_game_object, XR_ini_file }
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
-import { send_tip } from "@/mod/scripts/core/NewsManager";
+import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { getMobState, setMobState } from "@/mod/scripts/core/schemes/mob/MobStateManager";
@@ -154,6 +154,9 @@ export class SchemeMobRemark extends AbstractScheme {
     this.action_end_signalled = false;
   }
 
+  /**
+   * todo;
+   */
   public override update(delta: number): void {
     const actor = registry.actor;
 
@@ -175,7 +178,7 @@ export class SchemeMobRemark extends AbstractScheme {
     if (!this.tip_sent) {
       this.tip_sent = true;
       if (this.state.tip) {
-        send_tip(actor, this.state.tip, null, null, null, null);
+        NotificationManager.getInstance().sendTipNotification(actor, this.state.tip, null, null, null, null);
       }
     }
 

@@ -27,9 +27,9 @@ import { get_sim_board, SimBoard } from "@/mod/scripts/core/database/SimBoard";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
+import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { WeatherManager } from "@/mod/scripts/core/managers/WeatherManager";
-import { send_tip } from "@/mod/scripts/core/NewsManager";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { isImmuneToSurge, isObjectOnLevel, isSurgeEnabledOnLevel } from "@/mod/scripts/utils/checkers/checkers";
 import { isStoryObject } from "@/mod/scripts/utils/checkers/is";
@@ -529,7 +529,14 @@ export class SurgeManager extends AbstractCoreManager {
     StatisticsManager.getInstance().incrementSurgesCount();
 
     if (!this.skipMessage) {
-      send_tip(registry.actor, "st_surge_while_asleep", null, "recent_surge", null, null);
+      NotificationManager.getInstance().sendTipNotification(
+        registry.actor,
+        captions.st_surge_while_asleep,
+        null,
+        "recent_surge",
+        null,
+        null
+      );
       this.skipMessage = true;
     }
   }

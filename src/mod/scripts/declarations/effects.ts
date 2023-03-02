@@ -72,11 +72,11 @@ import {
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { mech_discount as getMechDiscount, setCurrentHint } from "@/mod/scripts/core/inventory_upgrades";
 import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
+import { NotificationManager, TNotificationIcon } from "@/mod/scripts/core/managers/notifications";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { TaskManager } from "@/mod/scripts/core/managers/tasks";
 import { TreasureManager } from "@/mod/scripts/core/managers/TreasureManager";
 import { WeatherManager } from "@/mod/scripts/core/managers/WeatherManager";
-import { relocate_item as relocateItem, send_tip as sendPdaTip, TIcon } from "@/mod/scripts/core/NewsManager";
 import { SchemeAbuse } from "@/mod/scripts/core/schemes/abuse/SchemeAbuse";
 import { init_target } from "@/mod/scripts/core/schemes/remark/actions/ActionRemarkActivity";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
@@ -101,7 +101,7 @@ const logger: LuaLogger = new LuaLogger("effects");
  */
 export function update_npc_logic(actor: XR_game_object, object: XR_game_object, params: LuaArray<string>): void {
   for (const [k, v] of params) {
-    const npc = getStoryObject(v);
+    const npc: Optional<XR_game_object> = getStoryObject(v);
 
     if (npc !== null) {
       logger.info("Update npc logic:", npc.id());
@@ -638,7 +638,14 @@ export function play_particle_on_path(actor: XR_game_object, npc: XR_game_object
 
 export function send_tip(actor: XR_game_object, npc: XR_game_object, params: [string, string, string]): void {
   logger.info("Send tip");
-  sendPdaTip(actor, params[0], null, params[1] as unknown as TIcon, null, params[2]);
+  NotificationManager.getInstance().sendTipNotification(
+    actor,
+    params[0],
+    null,
+    params[1] as unknown as TNotificationIcon,
+    null,
+    params[2]
+  );
 }
 
 export function hit_npc(
@@ -1320,7 +1327,7 @@ export function give_actor(
 ): void {
   for (const [k, v] of p as LuaArray<string>) {
     alife().create(v, actor.position(), actor.level_vertex_id(), actor.game_vertex_id(), actor.id());
-    relocateItem(actor, "in", v);
+    NotificationManager.getInstance().sendItemRelocatedNotification(actor, "in", v);
   }
 }
 
@@ -2059,7 +2066,7 @@ export function remove_item(actor: XR_game_object, npc: XR_game_object, p: [stri
     abort("Actor has no such item!");
   }
 
-  relocateItem(actor, "out", item);
+  NotificationManager.getInstance().sendItemRelocatedNotification(actor, "out", item);
 }
 
 // -- �������� ���������� � ������ ������

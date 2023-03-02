@@ -19,9 +19,9 @@ import { STRINGIFIED_NIL } from "@/mod/globals/lua";
 import { AnyCallablesModule, Optional, TNumberId, TStringId } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { getInventoryVictim } from "@/mod/scripts/core/inventory_upgrades";
+import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
 import { ETaskState } from "@/mod/scripts/core/managers/tasks/ETaskState";
 import * as TaskFunctor from "@/mod/scripts/core/managers/tasks/TaskFunctor";
-import { send_task } from "@/mod/scripts/core/NewsManager";
 import {
   getConfigBoolean,
   getConfigNumber,
@@ -338,7 +338,7 @@ export class TaskObject {
     }
 
     if (task_updated && !this.dont_send_update_news) {
-      send_task(registry.actor, "updated", this.t);
+      NotificationManager.getInstance().sendTaskNotification(registry.actor, "updated", this.t);
     }
 
     for (const [k, v] of this.condlist) {
@@ -404,10 +404,10 @@ export class TaskObject {
     this.check_time = null;
 
     if (this.last_check_task === ETaskState.FAIL) {
-      send_task(registry.actor, ETaskState.FAIL, task);
+      NotificationManager.getInstance().sendTaskNotification(registry.actor, ETaskState.FAIL, task);
     } else if (this.last_check_task === ETaskState.REVERSED) {
       pickSectionFromCondList(registry.actor, registry.actor, this.on_reversed as any);
-      send_task(registry.actor, ETaskState.REVERSED, task);
+      NotificationManager.getInstance().sendTaskNotification(registry.actor, ETaskState.REVERSED, task);
     }
 
     this.last_check_task = null;

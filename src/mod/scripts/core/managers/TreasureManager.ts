@@ -12,11 +12,11 @@ import {
 import { STRINGIFIED_TRUE } from "@/mod/globals/lua";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { TTreasure } from "@/mod/globals/treasures";
-import { Optional, TCount, TProbability, TSection } from "@/mod/lib/types";
+import { Optional, TCount, TNumberId, TProbability, TSection } from "@/mod/lib/types";
 import { registry, SECRETS_LTX } from "@/mod/scripts/core/database";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
+import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
-import { send_treasure } from "@/mod/scripts/core/NewsManager";
 import { parseCondList, parseSpawns, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
@@ -291,7 +291,7 @@ export class TreasureManager extends AbstractCoreManager {
     }
 
     if (this.secrets.get(treasureId).to_find === 0 && !this.secrets.get(treasureId).empty) {
-      send_treasure(2);
+      NotificationManager.getInstance().sendTreasureNotification(2);
 
       return logger.info("Already empty treasure:", treasureId);
     }
@@ -303,7 +303,7 @@ export class TreasureManager extends AbstractCoreManager {
     level.map_add_object_spot_ser(this.secret_restrs.get(treasureId), "treasure", "");
 
     this.secrets.get(treasureId).given = true;
-    send_treasure(0);
+    NotificationManager.getInstance().sendTreasureNotification(0);
   }
 
   /**
@@ -327,8 +327,8 @@ export class TreasureManager extends AbstractCoreManager {
     }
   }
 
-  public on_item_take(objectId: number): void {
-    const restrId: Optional<number> = this.items_from_secrets.get(objectId);
+  public on_item_take(objectId: TNumberId): void {
+    const restrId: Optional<TNumberId> = this.items_from_secrets.get(objectId);
     let treasureId: Optional<TTreasure> = null;
 
     for (const [k, v] of this.secret_restrs) {
@@ -349,7 +349,7 @@ export class TreasureManager extends AbstractCoreManager {
         level.map_remove_object_spot(this.secret_restrs.get(treasureId), "treasure");
         StatisticsManager.getInstance().incrementCollectedSecretsCount();
         this.secrets.get(treasureId).checked = true;
-        send_treasure(1);
+        NotificationManager.getInstance().sendTreasureNotification(1);
 
         logger.info("Secret now is empty:", treasureId);
       }

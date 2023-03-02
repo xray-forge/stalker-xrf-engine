@@ -13,7 +13,7 @@ import {
 import { STRINGIFIED_NIL } from "@/mod/globals/lua";
 import { Optional, TNumberId } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
-import { send_sound } from "@/mod/scripts/core/NewsManager";
+import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
 import { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
 import { EPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/EPlayableSound";
 import { getConfigString, parseNames } from "@/mod/scripts/utils/configs";
@@ -125,24 +125,9 @@ export class ObjectSound extends AbstractPlayableSound {
 
     this.snd_obj = new sound_object(snd);
     this.snd_obj.play_at_pos(obj, obj.position(), 0, sound_object.s3d);
-
-    const [snd_st, num_copy] = string.gsub(snd, "\\", "_");
-
-    /* --[[
-    if game.translate_string(snd_st) !== snd_st {
-      const hud_demo = get_hud()
-      --        printf("uraaaa!!!")
-      this.custom_static_demo = hud_demo:GetCustomStatic("cs_subtitles_object")
-      if this.custom_static_demo === null {
-        hud_demo:AddCustomStatic("cs_subtitles_object", true)
-        this.custom_static_demo = hud_demo:GetCustomStatic("cs_subtitles_object")
-      }
-      this.custom_static_demo:wnd():SetTextST(snd_st)
-    }
-  ]]*/
     this.can_play_sound = false;
 
-    send_sound(null, faction, point, snd, null, null);
+    NotificationManager.getInstance().sendSoundNotification(null, faction, point, snd, null, null);
 
     return true;
   }

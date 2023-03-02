@@ -15,7 +15,7 @@ import {
 import { STRINGIFIED_NIL } from "@/mod/globals/lua";
 import { TSection } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
-import { send_sound } from "@/mod/scripts/core/NewsManager";
+import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
 import { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
 import { EPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/EPlayableSound";
 import { getConfigBoolean, getConfigString, parseNames } from "@/mod/scripts/utils/configs";
@@ -140,7 +140,7 @@ export class ActorSound extends AbstractPlayableSound {
 
     this.can_play_sound = false;
 
-    send_sound(null, faction, point, snd, null, null);
+    NotificationManager.getInstance().sendSoundNotification(null, faction, point, snd, null, null);
 
     return true;
   }
