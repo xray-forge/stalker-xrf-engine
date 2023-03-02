@@ -31,6 +31,26 @@ export type TStringId = string;
 export type TProbability = number;
 
 /**
+ * Number based distance.
+ */
+export type TDistance = number;
+
+/**
+ * Number based direction.
+ */
+export type TDirection = number;
+
+/**
+ * Number based duration.
+ */
+export type TDuration = number;
+
+/**
  * Number based count.
  */
 export type TCount = number;
+
+/**
+ * String based label.
+ */
+export type TLabel = string;

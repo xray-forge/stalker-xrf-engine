@@ -224,7 +224,7 @@ export function actionFirst(obj: Optional<XR_game_object>, ...args: AnyArgs): XR
 /**
  * todo;
  */
-export function resetAction(npc: XR_game_object, scriptName: string): void {
+export function resetAction(npc: XR_game_object, scriptName: TName): void {
   if (npc.get_script()) {
     npc.script(false, scriptName);
   }
@@ -235,7 +235,7 @@ export function resetAction(npc: XR_game_object, scriptName: string): void {
 /**
  * todo;
  */
-export function interruptAction(npc: XR_game_object, scriptName: string): void {
+export function interruptAction(npc: XR_game_object, scriptName: TName): void {
   if (npc.get_script()) {
     npc.script(false, scriptName);
   }
@@ -266,7 +266,9 @@ export function getCharacterCommunity(object: XR_game_object): TCommunity {
 /**
  * todo;
  */
-export function getAlifeCharacterCommunity(object: XR_cse_alife_human_abstract): TCommunity {
+export function getAlifeCharacterCommunity(
+  object: XR_cse_alife_human_abstract | XR_cse_alife_online_offline_group
+): TCommunity {
   if (isStalker(object, object.clsid())) {
     return object.community() as TCommunity;
   }

@@ -2,6 +2,7 @@
  * todo;
  */
 export enum ETaskState {
+  NEW = "new",
   NORMAL = "normal",
   SELECTED = "selected",
   COMPLETE = "complete",

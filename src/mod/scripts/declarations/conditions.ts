@@ -59,7 +59,7 @@ import {
 } from "@/mod/scripts/utils/checkers/checkers";
 import { isMonster, isStalker, isWeapon } from "@/mod/scripts/utils/checkers/is";
 import { abort } from "@/mod/scripts/utils/debug";
-import { get_npc_smart } from "@/mod/scripts/utils/gulag";
+import { getObjectBoundSmart } from "@/mod/scripts/utils/gulag";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { distanceBetween, npcInActorFrustum } from "@/mod/scripts/utils/physics";
@@ -224,7 +224,7 @@ export function dist_to_actor_ge(actor: XR_game_object, npc: XR_game_object, par
  * todo;
  */
 export function distance_to_obj_on_job_le(actor: XR_game_object, npc: XR_game_object, params: AnyArgs): boolean {
-  const smart: SmartTerrain = get_npc_smart(npc)!;
+  const smart: SmartTerrain = getObjectBoundSmart(npc)!;
 
   for (const [k, v] of smart.npc_info) {
     const npc_job = smart.job_data.get(v.job_id);
@@ -241,7 +241,7 @@ export function distance_to_obj_on_job_le(actor: XR_game_object, npc: XR_game_ob
  * todo;
  */
 export function is_obj_on_job(actor: XR_game_object, npc: XR_game_object, params: AnyArgs): boolean {
-  const smart = params && params[1] ? get_sim_board().get_smart_by_name(params[1]) : get_npc_smart(npc);
+  const smart = params && params[1] ? get_sim_board().get_smart_by_name(params[1]) : getObjectBoundSmart(npc);
 
   if (smart === null) {
     return false;
@@ -1809,7 +1809,7 @@ export function check_enemy_smart(actor: XR_game_object, npc: XR_game_object, pa
     return false;
   }
 
-  const enemy_smart: Optional<SmartTerrain> = get_npc_smart(enemy);
+  const enemy_smart: Optional<SmartTerrain> = getObjectBoundSmart(enemy);
 
   return enemy_smart !== null && enemy_smart.name() === params[0];
 }

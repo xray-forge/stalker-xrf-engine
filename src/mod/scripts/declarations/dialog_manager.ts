@@ -10,7 +10,7 @@ import { isObjectWounded } from "@/mod/scripts/utils/checkers/checkers";
 import { parse_infop1, parseNames } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
-import { get_npc_smart } from "@/mod/scripts/utils/gulag";
+import { getObjectBoundSmart } from "@/mod/scripts/utils/gulag";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { getNpcSpeaker } from "@/mod/scripts/utils/quests";
 
@@ -783,7 +783,7 @@ export function precondition_anomalies_dialogs(
   parent_id: string,
   id: string
 ): boolean {
-  const smart = get_npc_smart(npc);
+  const smart = getObjectBoundSmart(npc);
 
   if (smart !== null && tostring(smart.name()) === phrase_table.get("anomalies").get(id).smart) {
     priority_table.get("anomalies").get(npc.id()).id = -1;

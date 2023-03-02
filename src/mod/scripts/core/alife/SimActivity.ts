@@ -4,7 +4,7 @@ import { communities, TCommunity } from "@/mod/globals/communities";
 import { Optional, PartialRecord } from "@/mod/lib/types";
 import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
-import { travelManager } from "@/mod/scripts/core/TravelManager";
+import { TravelManager } from "@/mod/scripts/core/managers/TravelManager";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { getAlifeDistanceBetween } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -39,7 +39,7 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
         prec: (squad: SimSquad, target: XR_cse_alife_object) =>
           isInTimeInterval(18, 8) &&
           !SurgeManager.getInstance().isStarted &&
-          !travelManager.check_squad_for_enemies(squad) &&
+          !TravelManager.getInstance().isEnemyWithSquadMember(squad) &&
           (target.name() === "zat_stalker_base_smart" || target.name() === "jup_a6" || target.name() === "pri_a16"),
       },
       surge: { prec: () => SurgeManager.getInstance().isStarted },
@@ -67,7 +67,7 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
         prec: (squad: SimSquad, target: XR_cse_alife_object) =>
           isInTimeInterval(21, 8) &&
           !SurgeManager.getInstance().isStarted &&
-          !travelManager.check_squad_for_enemies(squad) &&
+          !TravelManager.getInstance().isEnemyWithSquadMember(squad) &&
           (target.name() === "zat_stalker_base_smart" || target.name() === "jup_a10_smart_terrain"),
       },
       territory: {
@@ -125,7 +125,7 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
         prec: (squad: SimSquad, target: XR_cse_alife_object) =>
           isInTimeInterval(19, 8) &&
           !SurgeManager.getInstance().isStarted &&
-          !travelManager.check_squad_for_enemies(squad) &&
+          !TravelManager.getInstance().isEnemyWithSquadMember(squad) &&
           (target.name() === "zat_stalker_base_smart" || target.name() === "jup_a6" || target.name() === "pri_a16"),
       },
       territory: {
@@ -150,7 +150,7 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
         prec: (squad: SimSquad, target: XR_cse_alife_object) =>
           isInTimeInterval(19, 8) &&
           !SurgeManager.getInstance().isStarted &&
-          !travelManager.check_squad_for_enemies(squad) &&
+          !TravelManager.getInstance().isEnemyWithSquadMember(squad) &&
           (target.name() === "zat_stalker_base_smart" || target.name() === "jup_a6" || target.name() === "pri_a16"),
       },
       territory: {

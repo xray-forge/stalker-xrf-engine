@@ -9,7 +9,7 @@ import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
 import { spawnDefaultNpcItems } from "@/mod/scripts/utils/alife";
 import { getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
-import { get_npc_smart } from "@/mod/scripts/utils/gulag";
+import { getObjectBoundSmart } from "@/mod/scripts/utils/gulag";
 
 /**
  * todo;
@@ -60,7 +60,7 @@ export function configureSchemes(
       return configureSchemes(object, actual_ini, actual_ini_filename, schemeType, section_logic, gulag_name);
     } else {
       if (schemeType === ESchemeType.STALKER || schemeType === ESchemeType.MONSTER) {
-        const current_smart = get_npc_smart(object);
+        const current_smart = getObjectBoundSmart(object);
 
         if (current_smart !== null) {
           const t: any = current_smart.getJob(npc_id);

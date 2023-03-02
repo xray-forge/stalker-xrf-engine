@@ -20,7 +20,7 @@ import { giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
 import { isObjectWounded, isStalkerAlive } from "@/mod/scripts/utils/checkers/checkers";
 import { createScenarioAutoSave } from "@/mod/scripts/utils/game_saves";
-import { get_npc_smart } from "@/mod/scripts/utils/gulag";
+import { getObjectBoundSmart } from "@/mod/scripts/utils/gulag";
 import {
   actorHasMedKit,
   getActorAvailableMedKit,
@@ -37,7 +37,7 @@ export function is_npc_in_current_smart(
   smart_name: string
 ): boolean {
   const npc = getNpcSpeaker(first_speaker, second_speaker);
-  const smart = get_npc_smart(npc);
+  const smart = getObjectBoundSmart(npc);
 
   if (!smart) {
     return false;

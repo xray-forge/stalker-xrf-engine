@@ -22,3 +22,4 @@
 - Export actor menu and actor menu item classes for overriding with lua
 - Fix numerous calls to disk with menu, implement caching for character menu and fix lags when opening inventory
 - XR_CPhraseScript -> allow function references as preconditions, not only string values
+- XR_CPhraseScript -> allow function references to update text and react to dialogs

@@ -8,7 +8,7 @@ import { resetGenericSchemesOnSchemeSwitch } from "@/mod/scripts/core/schemes/re
 import { sendToNearestAccessibleVertex } from "@/mod/scripts/utils/alife";
 import { cfg_get_overrides, get_scheme_by_section } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
-import { get_npc_smart } from "@/mod/scripts/utils/gulag";
+import { getObjectBoundSmart } from "@/mod/scripts/utils/gulag";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("activateBySection");
@@ -50,7 +50,7 @@ export function activateBySection(
   }
 
   if (section === null) {
-    const current_gulag = get_npc_smart(npc);
+    const current_gulag = getObjectBoundSmart(npc);
 
     if (current_gulag === null) {
       abort("core/logic: activate_by_section: section is NIL && NPC !in gulag.");

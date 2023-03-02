@@ -37,7 +37,7 @@ export function get_gulag(name_or_sid: string | number): Optional<SmartTerrain> 
  * todo;
  * todo;
  */
-export function get_npc_smart(obj: XR_game_object): Optional<SmartTerrain> {
+export function getObjectBoundSmart(obj: XR_game_object): Optional<SmartTerrain> {
   const se_obj: Optional<XR_cse_alife_creature_abstract> = alife().object(obj.id());
 
   if (se_obj === null) {
@@ -98,7 +98,7 @@ export function setGulagNeutral(name_or_sid: string | number, target_obj: XR_gam
  * todo;
  */
 export function resetJob(obj: XR_game_object): void {
-  const gulag = get_npc_smart(obj);
+  const gulag = getObjectBoundSmart(obj);
 
   if (gulag) {
     // todo: check how is used, not valid typing or mistake?
@@ -113,7 +113,7 @@ export function resetJob(obj: XR_game_object): void {
  * todo;
  */
 export function free_object(obj: XR_game_object): void {
-  const gulag = get_npc_smart(obj);
+  const gulag = getObjectBoundSmart(obj);
 
   if (gulag) {
     (gulag as any).free_obj(obj.id());
@@ -126,7 +126,7 @@ export function free_object(obj: XR_game_object): void {
  * todo;
  */
 export function find_stalker_for_job(obj: XR_game_object, need_job: string): void {
-  const smart = get_npc_smart(obj)!;
+  const smart = getObjectBoundSmart(obj)!;
 
   for (const [k, v] of smart.npc_info) {
     const npc_job = smart.job_data.get(v.job_id);
@@ -146,7 +146,7 @@ export function find_stalker_for_job(obj: XR_game_object, need_job: string): voi
  * todo;
  */
 export function switch_to_desired_job(npc: XR_game_object): void {
-  const smart = get_npc_smart(npc)!;
+  const smart = getObjectBoundSmart(npc)!;
 
   smart.switch_to_desired_job(npc);
 }

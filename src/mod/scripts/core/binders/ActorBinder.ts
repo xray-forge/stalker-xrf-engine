@@ -42,7 +42,9 @@ import { PsyAntennaManager } from "@/mod/scripts/core/managers/PsyAntennaManager
 import { ReleaseBodyManager } from "@/mod/scripts/core/managers/ReleaseBodyManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
+import { ETaskState } from "@/mod/scripts/core/managers/tasks";
 import { TaskManager } from "@/mod/scripts/core/managers/tasks/TaskManager";
+import { TravelManager } from "@/mod/scripts/core/managers/TravelManager";
 import { TreasureManager } from "@/mod/scripts/core/managers/TreasureManager";
 import { WeatherManager } from "@/mod/scripts/core/managers/WeatherManager";
 import { send_task } from "@/mod/scripts/core/NewsManager";
@@ -57,7 +59,6 @@ import { getTableSize } from "@/mod/scripts/utils/table";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
 
 let weapon_hide: LuaTable<number, boolean> = new LuaTable();
-let travel_func: Optional<AnyCallable> = null;
 
 const logger: LuaLogger = new LuaLogger("ActorBinder");
 
@@ -86,6 +87,7 @@ export class ActorBinder extends object_binder {
   public readonly treasureManager: TreasureManager = TreasureManager.getInstance();
   public readonly weatherManager: WeatherManager = WeatherManager.getInstance();
   public readonly releaseBodyManager: ReleaseBodyManager = ReleaseBodyManager.getInstance();
+  public readonly travelManager: TravelManager = TravelManager.getInstance();
 
   public loaded: boolean = false;
   public spawn_frame: number = 0;
@@ -275,16 +277,16 @@ export class ActorBinder extends object_binder {
     }
   }
 
-  public task_callback(task_object: XR_CGameTask, _state: TXR_TaskState): void {
-    if (_state !== task.fail) {
-      if (_state === task.completed) {
-        send_task(registry.actor, "complete", task_object);
+  public task_callback(task_object: XR_CGameTask, state: TXR_TaskState): void {
+    if (state !== task.fail) {
+      if (state === task.completed) {
+        send_task(registry.actor, ETaskState.COMPLETE, task_object);
       } else {
-        send_task(registry.actor, "new", task_object);
+        send_task(registry.actor, ETaskState.NEW, task_object);
       }
     }
 
-    get_global<AnyCallablesModule>("extern").task_callback(task_object, _state);
+    get_global<AnyCallablesModule>("extern").task_callback(task_object, state);
   }
 
   public override update(delta: number): void {
@@ -296,8 +298,8 @@ export class ActorBinder extends object_binder {
       return;
     }
 
-    if (travel_func !== null) {
-      travel_func();
+    if (this.travelManager.isTraveling) {
+      this.travelManager.onActiveTravelUpdate();
     }
 
     this.weatherManager.update();
@@ -621,8 +623,4 @@ export function spawn_achivement_items(
       inv_box.id
     );
   }
-}
-
-export function set_travel_func(func: Optional<AnyCallable>): void {
-  travel_func = func;
 }

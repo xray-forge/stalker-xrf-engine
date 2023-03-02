@@ -6,6 +6,7 @@ export const zones = {
   jup_b10_ufo_restrictor: "jup_b10_ufo_restrictor",
   jup_b206_sr_quest_line: "jup_b206_sr_quest_line",
   jup_b209_hypotheses: "jup_b209_hypotheses",
+  jup_b41: "jup_b41",
   jup_b8_heli_4: "jup_b8_heli_4",
   jup_b9_heli_1: "jup_b9_heli_1",
   pas_b400_sr_switcher: "pas_b400_sr_switcher",

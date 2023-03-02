@@ -4,7 +4,7 @@ import { misc } from "@/mod/globals/items/misc";
 import { Optional } from "@/mod/lib/types";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { registry } from "@/mod/scripts/core/database";
-import { get_npc_smart } from "@/mod/scripts/utils/gulag";
+import { getObjectBoundSmart } from "@/mod/scripts/utils/gulag";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("animpoint_predicates");
@@ -222,7 +222,7 @@ function animpoint_predicate_harmonica(npc_id: number, is_in_camp?: Optional<boo
 
 function animpoint_predicate_weapon(npc_id: number): boolean {
   if (registry.objects.get(npc_id) && registry.objects.get(npc_id).object) {
-    const smart: Optional<SmartTerrain> = get_npc_smart(registry.objects.get(npc_id).object!);
+    const smart: Optional<SmartTerrain> = getObjectBoundSmart(registry.objects.get(npc_id).object!);
 
     if (smart) {
       for (const [k, v] of smart_table) {

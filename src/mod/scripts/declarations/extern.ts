@@ -1,10 +1,25 @@
-import { game, get_console, level, task, TXR_TaskState, XR_CGameTask, XR_game_object } from "xray16";
+/* eslint @typescript-eslint/no-var-requires: 0 */
+
+import { game, get_console, level, task, TXR_TaskState, XR_CGameTask, XR_CPhraseDialog, XR_game_object } from "xray16";
 
 import { animations } from "@/mod/globals/animation/animations";
 import { info_portions } from "@/mod/globals/info_portions";
 import { TWeapon } from "@/mod/globals/items/weapons";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
-import { AnyArgs, AnyCallable, AnyCallablesModule, AnyObject, PartialRecord } from "@/mod/lib/types";
+import {
+  AnyArgs,
+  AnyCallable,
+  AnyCallablesModule,
+  AnyObject,
+  PartialRecord,
+  TCount,
+  TDistance,
+  TIndex,
+  TLabel,
+  TName,
+  TStringId,
+} from "@/mod/lib/types";
+import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { registry } from "@/mod/scripts/core/database";
 import { inventory_upgrades_functors } from "@/mod/scripts/core/inventory_upgrades";
 import { AchievementsManager, EAchievement } from "@/mod/scripts/core/managers/AchievementsManager";
@@ -14,10 +29,10 @@ import { PdaManager } from "@/mod/scripts/core/managers/PdaManager";
 import { sleep_cam_eff_id, SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { TaskManager } from "@/mod/scripts/core/managers/tasks";
 import { TradeManager } from "@/mod/scripts/core/managers/TradeManager";
+import { ITravelRouteDescriptor, TravelManager } from "@/mod/scripts/core/managers/TravelManager";
 import { WeatherManager } from "@/mod/scripts/core/managers/WeatherManager";
 import { SchemeCutscene } from "@/mod/scripts/core/schemes/sr_cutscene/SchemeCutscene";
 import { smart_covers_list } from "@/mod/scripts/core/smart_covers/smart_covers_list";
-import { travelManager } from "@/mod/scripts/core/TravelManager";
 import { GameOutroManager } from "@/mod/scripts/ui/game/GameOutroManager";
 import { WeaponParams } from "@/mod/scripts/ui/game/WeaponParams";
 import * as SleepDialogModule from "@/mod/scripts/ui/interaction/SleepDialog";
@@ -27,29 +42,21 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("extern");
 
-logger.info("Resolve externals");
+logger.info("Resolve and bind externals");
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 declare_global("xr_conditions", require("@/mod/scripts/declarations/conditions"));
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 declare_global("xr_effects", require("@/mod/scripts/declarations/effects"));
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 declare_global("dialogs_pripyat", require("@/mod/scripts/declarations/dialogs_pripyat"));
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 declare_global("dialogs_jupiter", require("@/mod/scripts/declarations/dialogs_jupiter"));
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 declare_global("dialogs_zaton", require("@/mod/scripts/declarations/dialogs_zaton"));
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 declare_global("dialogs", require("@/mod/scripts/declarations/dialogs"));
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 declare_global("dialog_manager", require("@/mod/scripts/declarations/dialog_manager"));
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 declare_global("functors", require("@/mod/scripts/declarations/functors"));
 
-declare_global("smart_covers", {});
-declare_global("smart_covers.descriptions", smart_covers_list);
+// todo: Check if needed.
+declare_global("smart_covers", {
+  descriptions: smart_covers_list,
+});
 
 declare_global("extern", {});
 
@@ -115,11 +122,11 @@ declare_global("extern.surge_callback", () => {
   ]]-- */
 });
 
-declare_global("extern.task_complete", (task_id: string): boolean =>
-  TaskManager.getInstance().onTaskCompleted(task_id)
-);
+declare_global("extern.task_complete", (taskId: TStringId): boolean => {
+  return TaskManager.getInstance().onTaskCompleted(taskId);
+});
 
-declare_global("extern.task_fail", (task_id: string): boolean => TaskManager.getInstance().onTaskFailed(task_id));
+declare_global("extern.task_fail", (taskId: TStringId): boolean => TaskManager.getInstance().onTaskFailed(taskId));
 
 declare_global("extern.task_callback", (target: XR_CGameTask, state: TXR_TaskState): void => {
   if (state === task.fail || state === task.completed) {
@@ -140,25 +147,47 @@ declare_global("trade_manager", {
 
 declare_global("inventory_upgrades", inventory_upgrades_functors);
 
-declare_global("travel_manager", {
-  init_traveler_dialog: externClassMethod(travelManager, travelManager.init_traveler_dialog),
-  uni_traveler_precond: externClassMethod(travelManager, travelManager.uni_traveler_precond),
-  check_squad_for_enemies: externClassMethod(travelManager, travelManager.check_squad_for_enemies),
-  traveling: externClassMethod(travelManager, travelManager.traveling),
-  squad_action_description: externClassMethod(travelManager, travelManager.squad_action_description),
-  squad_on_move: externClassMethod(travelManager, travelManager.squad_on_move),
-  squad_can_take_actor: externClassMethod(travelManager, travelManager.squad_can_take_actor),
-  squad_cannot_take_actor: externClassMethod(travelManager, travelManager.squad_cannot_take_actor),
-  actor_go_with_squad: externClassMethod(travelManager, travelManager.actor_go_with_squad),
-  check_smart_availability: externClassMethod(travelManager, travelManager.check_smart_availability),
-  actor_travel_with_squad: externClassMethod(travelManager, travelManager.actor_travel_with_squad),
-  squad_can_travel: externClassMethod(travelManager, travelManager.squad_can_travel),
-  travel_condlist: externClassMethod(travelManager, travelManager.travel_condlist),
-  get_price_by_distance: externClassMethod(travelManager, travelManager.get_price_by_distance),
-  get_travel_cost: externClassMethod(travelManager, travelManager.get_travel_cost),
-  actor_have_money: externClassMethod(travelManager, travelManager.actor_have_money),
-  actor_have_not_money: externClassMethod(travelManager, travelManager.actor_have_not_money),
-  squad_cannot_travel: externClassMethod(travelManager, travelManager.squad_cannot_travel),
+/**
+ * todo;
+ */
+declare_global("travel_callbacks", {
+  initializeTravellerDialog: (dialog: XR_CPhraseDialog) =>
+    TravelManager.getInstance().initializeTravellerDialog(dialog),
+  canStartTravelingDialogs: (actor: XR_game_object, npc: XR_game_object) =>
+    TravelManager.getInstance().canStartTravelingDialogs(actor, npc),
+  getSquadCurrentActionDescription: (actor: XR_game_object, npc: XR_game_object): TLabel =>
+    TravelManager.getInstance().getSquadCurrentActionDescription(actor, npc),
+  canActorMoveWithSquad: (actor: XR_game_object, npc: XR_game_object): boolean =>
+    TravelManager.getInstance().canActorMoveWithSquad(actor, npc),
+  canSquadTakeActor: (actor: XR_game_object, npc: XR_game_object) =>
+    TravelManager.getInstance().canSquadTakeActor(actor, npc),
+  cannotSquadTakeActor: (npc: XR_game_object, actor: XR_game_object, dialogId: TStringId, phraseId: TStringId) =>
+    TravelManager.getInstance().cannotSquadTakeActor(npc, actor, dialogId, phraseId),
+  onTravelTogetherWithSquad: (npc: XR_game_object, actor: XR_game_object, dialogId: TStringId, phraseId: TStringId) =>
+    TravelManager.getInstance().onTravelTogetherWithSquad(npc, actor, dialogId, phraseId),
+  onTravelToSpecificSmartWithSquad: (
+    actor: XR_game_object,
+    npc: XR_game_object,
+    dialogId: TStringId,
+    phraseId: TStringId
+  ) => TravelManager.getInstance().onTravelToSpecificSmartWithSquad(actor, npc, dialogId, phraseId),
+  canSquadTravel: (npc: XR_game_object, actor: XR_game_object, dialogId: TStringId, phraseId: TStringId) =>
+    TravelManager.getInstance().canSquadTravel(npc, actor, dialogId, phraseId),
+  canNegotiateTravelToSmart: (
+    actor: XR_game_object,
+    npc: XR_game_object,
+    dialogId: TStringId,
+    prevPhraseId: TStringId,
+    phraseId: TStringId
+  ) => TravelManager.getInstance().canNegotiateTravelToSmart(actor, npc, dialogId, prevPhraseId, phraseId),
+  getTravelConst: (actor: XR_game_object, npc: XR_game_object, dialogId: TStringId, phraseId: TStringId): TLabel =>
+    TravelManager.getInstance().getTravelConst(actor, npc, dialogId, phraseId),
+  isEnoughMoneyToTravel: (actor: XR_game_object, npc: XR_game_object, dialogId: TStringId, phraseId: TStringId) =>
+    TravelManager.getInstance().isEnoughMoneyToTravel(actor, npc, dialogId, phraseId),
+  isNotEnoughMoneyToTravel: (actor: XR_game_object, npc: XR_game_object, dialogId: TStringId, phraseId: TStringId) =>
+    TravelManager.getInstance().isNotEnoughMoneyToTravel(actor, npc, dialogId, phraseId),
+  cannotSquadTravel: (npc: XR_game_object, actor: XR_game_object, dialogId: TStringId, phraseId: TStringId) =>
+    TravelManager.getInstance().cannotSquadTravel(npc, actor, dialogId, phraseId),
 });
 
 declare_global("extern.effector_callback", () => SchemeCutscene.onCutsceneEnd());
@@ -214,13 +243,13 @@ declare_global("pda", {
   fill_fraction_state: (state: AnyObject): void => {
     return PdaManager.getInstance().fillFactionState(state);
   },
-  get_max_resource: (): number => {
+  get_max_resource: (): TCount => {
     return 10;
   },
-  get_max_power: (): number => {
+  get_max_power: (): TCount => {
     return 10;
   },
-  get_max_member_count: (): number => {
+  get_max_member_count: (): TCount => {
     return 10;
   },
   actor_menu_mode: (...args: AnyArgs): void => {
@@ -241,7 +270,7 @@ declare_global("pda", {
   get_favorite_weapon: (): TWeapon => {
     return PdaManager.getInstance().getFavoriteWeapon();
   },
-  get_stat: (index: number): string => {
+  get_stat: (index: TIndex): TLabel => {
     return PdaManager.getInstance().getStat(index);
   },
 });

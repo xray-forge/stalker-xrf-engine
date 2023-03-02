@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="windows-1251" ?>
 <game_dialogs>
     <dialog id="dm_traveler_dialog">
-        <precondition>travel_manager.uni_traveler_precond</precondition>
-        <init_func>travel_manager.init_traveler_dialog</init_func>
+        <precondition>travel_callbacks.canStartTravelingDialogs</precondition>
+        <init_func>travel_callbacks.initializeTravellerDialog</init_func>
     </dialog>
     <dialog id="dm_universal_dialog">
         <precondition>dialog_manager.uni_dialog_precond</precondition>
