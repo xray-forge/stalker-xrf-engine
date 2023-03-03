@@ -16,9 +16,9 @@ import {
 
 import { levels, TLevel } from "@/mod/globals/levels";
 import { STRINGIFIED_NIL } from "@/mod/globals/lua";
-import { AnyCallablesModule, Optional, TNumberId, TStringId } from "@/mod/lib/types";
+import { AnyCallablesModule, Optional, TCount, TName, TNumberId, TStringId } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
-import { getInventoryVictim } from "@/mod/scripts/core/inventory_upgrades";
+import { ItemUpgradesManager } from "@/mod/scripts/core/managers/ItemUpgradesManager";
 import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
 import { ETaskState } from "@/mod/scripts/core/managers/tasks/ETaskState";
 import * as TaskFunctor from "@/mod/scripts/core/managers/tasks/TaskFunctor";
@@ -34,7 +34,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { relocateQuestItemSection } from "@/mod/scripts/utils/quests";
+import { giveMoneyToActor, relocateQuestItemSection, takeMoneyFromActor } from "@/mod/scripts/utils/quests";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
 
 const logger: LuaLogger = new LuaLogger("TaskObject");
@@ -364,27 +364,31 @@ export class TaskObject {
 
     pickSectionFromCondList(registry.actor, registry.actor, this.on_complete as any);
 
-    const money = pickSectionFromCondList(registry.actor, registry.actor, this.reward_money as any);
-    const items = pickSectionFromCondList(registry.actor, registry.actor, this.reward_item as any);
-    const npc = getInventoryVictim();
+    const money: Optional<string> = pickSectionFromCondList(registry.actor, registry.actor, this.reward_money as any);
+    const itemsList: Optional<string> = pickSectionFromCondList(
+      registry.actor,
+      registry.actor,
+      this.reward_item as any
+    );
+    const npc = ItemUpgradesManager.getInstance().getCurrentSpeaker();
 
     if (money !== null) {
-      get_global<AnyCallablesModule>("dialogs").relocate_money(npc, tonumber(money), "in");
+      giveMoneyToActor(tonumber(money) as TCount);
     }
 
-    if (items !== null) {
-      const ancillary_item_table: LuaTable<string, number> = new LuaTable();
+    if (itemsList !== null) {
+      const rewardItems: LuaTable<TName, TCount> = new LuaTable();
 
-      for (const [k, v] of parseNames(items)) {
-        if (!ancillary_item_table.has(v)) {
-          ancillary_item_table.set(v, 1);
+      for (const [index, name] of parseNames(itemsList)) {
+        if (!rewardItems.has(name)) {
+          rewardItems.set(name, 1);
         } else {
-          ancillary_item_table.set(v, ancillary_item_table.get(v) + 1);
+          rewardItems.set(name, rewardItems.get(name) + 1);
         }
       }
 
-      for (const [k, v] of ancillary_item_table) {
-        relocateQuestItemSection(npc as XR_game_object, k, "in", v);
+      for (const [item, count] of rewardItems) {
+        relocateQuestItemSection(npc as XR_game_object, item, "in", count);
       }
     }
   }

@@ -13,24 +13,24 @@ import {
   AnyObject,
   PartialRecord,
   TCount,
-  TDistance,
   TIndex,
   TLabel,
   TName,
+  TNumberId,
+  TSection,
   TStringId,
 } from "@/mod/lib/types";
-import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { registry } from "@/mod/scripts/core/database";
-import { inventory_upgrades_functors } from "@/mod/scripts/core/inventory_upgrades";
 import { AchievementsManager } from "@/mod/scripts/core/managers/achievements/AchievementsManager";
 import { EAchievement } from "@/mod/scripts/core/managers/achievements/EAchievement";
 import { ActorInventoryMenuManager, EActorMenuMode } from "@/mod/scripts/core/managers/ActorInventoryMenuManager";
+import { ItemUpgradesManager } from "@/mod/scripts/core/managers/ItemUpgradesManager";
 import { loadScreenManager } from "@/mod/scripts/core/managers/LoadScreenManager";
 import { PdaManager } from "@/mod/scripts/core/managers/PdaManager";
 import { sleep_cam_eff_id, SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { TaskManager } from "@/mod/scripts/core/managers/tasks";
 import { TradeManager } from "@/mod/scripts/core/managers/TradeManager";
-import { ITravelRouteDescriptor, TravelManager } from "@/mod/scripts/core/managers/TravelManager";
+import { TravelManager } from "@/mod/scripts/core/managers/TravelManager";
 import { WeatherManager } from "@/mod/scripts/core/managers/WeatherManager";
 import { SchemeCutscene } from "@/mod/scripts/core/schemes/sr_cutscene/SchemeCutscene";
 import { smart_covers_list } from "@/mod/scripts/core/smart_covers/smart_covers_list";
@@ -142,11 +142,36 @@ declare_global("loadscreen", {
 });
 
 declare_global("trade_manager", {
-  get_sell_discount: (objectId: number) => TradeManager.getInstance().getSellDiscountForObject(objectId),
-  get_buy_discount: (objectId: number) => TradeManager.getInstance().getBuyDiscountForObject(objectId),
+  get_sell_discount: (objectId: TNumberId) => TradeManager.getInstance().getSellDiscountForObject(objectId),
+  get_buy_discount: (objectId: TNumberId) => TradeManager.getInstance().getBuyDiscountForObject(objectId),
 });
 
-declare_global("inventory_upgrades", inventory_upgrades_functors);
+/**
+ * todo;
+ */
+declare_global("inventory_upgrades", {
+  get_upgrade_cost: (section: TSection): TLabel => ItemUpgradesManager.getInstance().getUpgradeCost(section),
+  can_repair_item: (itemName: TName, itemCondition: number, mechanicName: TName): boolean =>
+    ItemUpgradesManager.getInstance().isAbleToRepairItem(itemName, itemCondition, mechanicName),
+  can_upgrade_item: (itemName: TName, mechanicName: TName): boolean =>
+    ItemUpgradesManager.getInstance().canUpgradeItem(itemName, mechanicName),
+  effect_repair_item: (itemName: TName, itemCondition: number) =>
+    ItemUpgradesManager.getInstance().getRepairItemPayment(itemName, itemCondition),
+  effect_functor_a: (name: TName, section: TSection, loading: number) =>
+    ItemUpgradesManager.getInstance().useEffectFunctorA(name, section, loading),
+  prereq_functor_a: (name: TName, section: TSection): TLabel =>
+    ItemUpgradesManager.getInstance().getPreRequirementsFunctorA(name, section),
+  precondition_functor_a: (name: TName, section: TSection) =>
+    ItemUpgradesManager.getInstance().getPreconditionFunctorA(name, section),
+  property_functor_a: (data: string, name: TName): TLabel =>
+    ItemUpgradesManager.getInstance().getPropertyFunctorA(data, name),
+  property_functor_b: (data: string, name: TName): TName =>
+    ItemUpgradesManager.getInstance().getPropertyFunctorB(data, name),
+  property_functor_c: (data: string, name: TName): TName =>
+    ItemUpgradesManager.getInstance().getPropertyFunctorC(data, name),
+  question_repair_item: (itemName: TName, itemCondition: number, canRepair: boolean, mechanicName: TName): TLabel =>
+    ItemUpgradesManager.getInstance().getRepairItemAskReplicLabel(itemName, itemCondition, canRepair, mechanicName),
+});
 
 /**
  * todo;

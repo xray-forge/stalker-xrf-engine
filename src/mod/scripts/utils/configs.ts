@@ -130,7 +130,7 @@ export function getParamString(srcString: string, obj: XR_game_object): LuaMulti
 /**
  * todo;
  */
-export function parseNames<T extends string = string>(configString: string): LuaTable<number, T> {
+export function parseNames<T extends string = string>(configString: string): LuaArray<T> {
   const names: LuaTable<number, T> = new LuaTable();
 
   for (const it of string.gfind(configString, "([%w_%-.\\]+)%p*")) {

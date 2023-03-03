@@ -15,21 +15,21 @@ import {
   XR_vector,
 } from "xray16";
 
-import { captions } from "@/mod/globals/captions";
+import { captions, TCaption } from "@/mod/globals/captions";
 import { TCommunity } from "@/mod/globals/communities";
 import { info_portions } from "@/mod/globals/info_portions/info_portions";
 import { relations } from "@/mod/globals/relations";
 import { zones } from "@/mod/globals/zones";
-import { AnyArgs, AnyCallablesModule, LuaArray, Maybe, Optional, TName, TSection } from "@/mod/lib/types";
+import { AnyArgs, AnyCallablesModule, LuaArray, Maybe, Optional, TCount, TName, TSection } from "@/mod/lib/types";
 import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { ESmartTerrainStatus, SmartTerrainControl } from "@/mod/scripts/core/alife/SmartTerrainControl";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { pstor_retrieve } from "@/mod/scripts/core/database/pstor";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
-import { setCurrentHint } from "@/mod/scripts/core/inventory_upgrades";
 import { AchievementsManager } from "@/mod/scripts/core/managers/achievements/AchievementsManager";
 import { ActorInventoryMenuManager, EActorMenuMode } from "@/mod/scripts/core/managers/ActorInventoryMenuManager";
+import { ItemUpgradesManager } from "@/mod/scripts/core/managers/ItemUpgradesManager";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { SchemeDeimos } from "@/mod/scripts/core/schemes/sr_deimos/SchemeDeimos";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
@@ -1974,26 +1974,26 @@ export function check_deimos_phase(actor: XR_game_object, npc: XR_game_object, p
  * todo;
  */
 export function upgrade_hint_kardan(actor: XR_game_object, npc: XR_game_object, params: AnyArgs): boolean {
-  const hint_table = new LuaTable();
-  const tools: number = (params && tonumber(params[0])) || 0;
+  const itemUpgradeHints: LuaArray<TCaption> = new LuaTable();
+  const toolsCount: TCount = (params && tonumber(params[0])) || 0;
   let can_upgrade = 0;
 
   if (!hasAlifeInfo(info_portions.zat_b3_all_instruments_brought)) {
-    if (!hasAlifeInfo(info_portions.zat_b3_tech_instrument_1_brought) && (tools === 0 || tools === 1)) {
-      table.insert(hint_table, captions.st_upgr_toolkit_1);
-    } else if (tools === 1) {
+    if (!hasAlifeInfo(info_portions.zat_b3_tech_instrument_1_brought) && (toolsCount === 0 || toolsCount === 1)) {
+      table.insert(itemUpgradeHints, captions.st_upgr_toolkit_1);
+    } else if (toolsCount === 1) {
       can_upgrade = can_upgrade + 1;
     }
 
-    if (!hasAlifeInfo(info_portions.zat_b3_tech_instrument_2_brought) && (tools === 0 || tools === 2)) {
-      table.insert(hint_table, captions.st_upgr_toolkit_2);
-    } else if (tools === 2) {
+    if (!hasAlifeInfo(info_portions.zat_b3_tech_instrument_2_brought) && (toolsCount === 0 || toolsCount === 2)) {
+      table.insert(itemUpgradeHints, captions.st_upgr_toolkit_2);
+    } else if (toolsCount === 2) {
       can_upgrade = can_upgrade + 1;
     }
 
-    if (!hasAlifeInfo(info_portions.zat_b3_tech_instrument_3_brought) && (tools === 0 || tools === 3)) {
-      table.insert(hint_table, captions.st_upgr_toolkit_3);
-    } else if (tools === 3) {
+    if (!hasAlifeInfo(info_portions.zat_b3_tech_instrument_3_brought) && (toolsCount === 0 || toolsCount === 3)) {
+      table.insert(itemUpgradeHints, captions.st_upgr_toolkit_3);
+    } else if (toolsCount === 3) {
       can_upgrade = can_upgrade + 1;
     }
   } else {
@@ -2001,10 +2001,10 @@ export function upgrade_hint_kardan(actor: XR_game_object, npc: XR_game_object, 
   }
 
   if (!hasAlifeInfo(info_portions.zat_b3_tech_see_produce_62)) {
-    if (tools === 1 && !hasAlifeInfo(info_portions.zat_b3_tech_have_one_dose)) {
-      table.insert(hint_table, captions.st_upgr_vodka);
-    } else if (tools !== 1 && !hasAlifeInfo(info_portions.zat_b3_tech_have_couple_dose)) {
-      table.insert(hint_table, captions.st_upgr_vodka);
+    if (toolsCount === 1 && !hasAlifeInfo(info_portions.zat_b3_tech_have_one_dose)) {
+      table.insert(itemUpgradeHints, captions.st_upgr_vodka);
+    } else if (toolsCount !== 1 && !hasAlifeInfo(info_portions.zat_b3_tech_have_couple_dose)) {
+      table.insert(itemUpgradeHints, captions.st_upgr_vodka);
     } else {
       can_upgrade = can_upgrade + 1;
     }
@@ -2012,7 +2012,7 @@ export function upgrade_hint_kardan(actor: XR_game_object, npc: XR_game_object, 
     can_upgrade = can_upgrade + 1;
   }
 
-  setCurrentHint(hint_table);
+  ItemUpgradesManager.getInstance().setCurrentHints(itemUpgradeHints);
 
   return can_upgrade >= 2;
 }

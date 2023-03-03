@@ -4,6 +4,11 @@
 export type TName = string;
 
 /**
+ * String based label.
+ */
+export type TLabel = string;
+
+/**
  * Number based identifier.
  */
 export type TNumberId = number;
@@ -51,6 +56,6 @@ export type TDuration = number;
 export type TCount = number;
 
 /**
- * String based label.
+ * Number based rate.
  */
-export type TLabel = string;
+export type TRate = number;

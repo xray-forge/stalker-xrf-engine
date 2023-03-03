@@ -40,8 +40,8 @@ import {
 } from "@/mod/scripts/core/database";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
-import { need_victim } from "@/mod/scripts/core/inventory_upgrades";
 import { DropManager } from "@/mod/scripts/core/managers/DropManager";
+import { ItemUpgradesManager } from "@/mod/scripts/core/managers/ItemUpgradesManager";
 import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
 import { ReleaseBodyManager } from "@/mod/scripts/core/managers/ReleaseBodyManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
@@ -406,8 +406,7 @@ export class StalkerBinder extends object_binder {
 
   public use_callback(obj: XR_game_object, who: XR_game_object): void {
     if (this.object.alive()) {
-      need_victim(obj);
-
+      ItemUpgradesManager.getInstance().setCurrentTech(obj);
       SchemeMeet.notify_on_use(obj, who);
 
       disabled_phrases.delete(obj.id());

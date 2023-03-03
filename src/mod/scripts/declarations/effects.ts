@@ -34,7 +34,7 @@ import {
 } from "xray16";
 
 import { animations } from "@/mod/globals/animation/animations";
-import { captions } from "@/mod/globals/captions";
+import { captions, TCaption } from "@/mod/globals/captions";
 import { TCommunity } from "@/mod/globals/communities";
 import { info_portions, TInfoPortion } from "@/mod/globals/info_portions";
 import { ammo } from "@/mod/globals/items/ammo";
@@ -61,7 +61,7 @@ import { deleteHelicopter, IStoredObject, registry, SYSTEM_INI } from "@/mod/scr
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
-import { mech_discount as getMechDiscount, setCurrentHint } from "@/mod/scripts/core/inventory_upgrades";
+import { ItemUpgradesManager } from "@/mod/scripts/core/managers/ItemUpgradesManager";
 import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
 import { NotificationManager, TNotificationIcon } from "@/mod/scripts/core/managers/notifications";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
@@ -2725,9 +2725,12 @@ export function sleep(actor: XR_game_object, npc: XR_game_object): void {
   }
 }
 
+/**
+ * todo;
+ */
 export function mech_discount(actor: XR_game_object, npc: XR_game_object, p: [string]) {
   if (p[0]) {
-    getMechDiscount(tonumber(p[0])!);
+    ItemUpgradesManager.getInstance().setCurrentPriceDiscount(tonumber(p[0])!);
   }
 }
 
@@ -3067,9 +3070,16 @@ export function restore_actor_position(): void {
   registry.actor.set_actor_position(actor_position_for_restore!);
 }
 
-export function upgrade_hint(actor: XR_game_object, npc: XR_game_object, p: Optional<LuaTable>): void {
-  if (p) {
-    setCurrentHint(p);
+/**
+ * todo;
+ */
+export function upgrade_hint(
+  actor: XR_game_object,
+  npc: XR_game_object,
+  parameters: Optional<LuaArray<TCaption>>
+): void {
+  if (parameters) {
+    ItemUpgradesManager.getInstance().setCurrentHints(parameters);
   }
 }
 
