@@ -68,7 +68,6 @@ export class WeatherManager extends AbstractCoreManager {
       this.weather_fx = null;
     }
 
-    // if (!get_global("benchmark").weather) {
     if (this.last_hour !== level.get_time_hours()) {
       this.last_hour = level.get_time_hours();
       for (const [lvl, st] of this.state) {
@@ -78,7 +77,6 @@ export class WeatherManager extends AbstractCoreManager {
 
       this.select_weather(false);
     }
-    // }
   }
 
   public select_weather(now: boolean): void {
