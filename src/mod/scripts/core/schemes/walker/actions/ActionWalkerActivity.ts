@@ -3,9 +3,9 @@ import { action_base, XR_game_object } from "xray16";
 import { Optional } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
-import { MoveManager } from "@/mod/scripts/core/MoveManager";
 import { associations, IAnimpointDescriptor } from "@/mod/scripts/core/schemes/animpoint/animpoint_predicates";
 import { CampStoryManager } from "@/mod/scripts/core/schemes/camper/CampStoryManager";
+import { StalkerMoveManager } from "@/mod/scripts/core/state_management/StalkerMoveManager";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { path_parse_waypoints } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -25,7 +25,7 @@ const assoc_tbl = {
 @LuabindClass()
 export class ActionWalkerActivity extends action_base {
   public readonly state: IStoredObject;
-  public readonly move_mgr: MoveManager;
+  public readonly moveManager: StalkerMoveManager;
   public avail_actions: LuaTable<number, IAnimpointDescriptor>;
 
   public in_camp: Optional<boolean> = null;
@@ -35,7 +35,7 @@ export class ActionWalkerActivity extends action_base {
     super(null, ActionWalkerActivity.__name);
 
     this.state = state;
-    this.move_mgr = registry.objects.get(object.id()).move_mgr;
+    this.moveManager = registry.objects.get(object.id()).moveManager!;
 
     this.state.description = "walker_camp";
     this.avail_actions = associations.get(this.state.description);
@@ -69,7 +69,7 @@ export class ActionWalkerActivity extends action_base {
       this.state.path_look_info = path_parse_waypoints(this.state.path_look);
     }
 
-    this.move_mgr.reset(
+    this.moveManager.reset(
       this.state.path_walk,
       this.state.path_walk_info,
       this.state.path_look,
@@ -86,7 +86,7 @@ export class ActionWalkerActivity extends action_base {
   public override execute(): void {
     super.execute();
 
-    this.move_mgr.update();
+    this.moveManager.update();
 
     const camp = CampStoryManager.get_current_camp(this.object.position());
 
@@ -124,7 +124,7 @@ export class ActionWalkerActivity extends action_base {
   }
 
   public override finalize(): void {
-    this.move_mgr.finalize();
+    this.moveManager.finalize();
 
     if (this.in_camp === true) {
       this.camp!.unregister_npc(this.object.id());
@@ -135,7 +135,7 @@ export class ActionWalkerActivity extends action_base {
   }
 
   public position_riched(): boolean {
-    return this.move_mgr.arrived_to_first_waypoint();
+    return this.moveManager.arrived_to_first_waypoint();
   }
 
   public net_destroy(npc: XR_game_object): void {

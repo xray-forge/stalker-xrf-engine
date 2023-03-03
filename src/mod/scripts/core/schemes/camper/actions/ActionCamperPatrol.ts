@@ -12,8 +12,8 @@ import {
 import { Optional } from "@/mod/lib/types";
 import { IStoredObject } from "@/mod/scripts/core/database";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
-import { MoveManager } from "@/mod/scripts/core/MoveManager";
 import { SchemeDanger } from "@/mod/scripts/core/schemes/danger/SchemeDanger";
+import { StalkerMoveManager } from "@/mod/scripts/core/state_management/StalkerMoveManager";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { path_parse_waypoints } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -30,7 +30,7 @@ interface ICampPoint {
 @LuabindClass()
 export class ActionCamperPatrol extends action_base {
   public state: IStoredObject;
-  public move_mgr: MoveManager;
+  public moveManager: StalkerMoveManager;
 
   public flag: Optional<number> = null;
   public danger: boolean = false;
@@ -50,7 +50,7 @@ export class ActionCamperPatrol extends action_base {
     super(null, ActionCamperPatrol.__name);
 
     this.state = storage;
-    this.move_mgr = storage[npc.id()].move_mgr;
+    this.moveManager = storage[npc.id()].moveManager;
     this.state.scan_table = new LuaTable();
   }
 
@@ -70,7 +70,7 @@ export class ActionCamperPatrol extends action_base {
     this.state.scan_table = new LuaTable();
 
     if (this.state.sniper === true) {
-      this.move_mgr.reset(
+      this.moveManager.reset(
         this.state.path_walk,
         path_parse_waypoints(this.state.path_walk)!,
         null,
@@ -103,7 +103,7 @@ export class ActionCamperPatrol extends action_base {
         this.object.sniper_update_rate(true);
       }
     } else {
-      this.move_mgr.reset(
+      this.moveManager.reset(
         this.state.path_walk,
         path_parse_waypoints(this.state.path_walk)!,
         this.state.path_look,
@@ -140,7 +140,7 @@ export class ActionCamperPatrol extends action_base {
     }
 
     if (this.state.shoot === "terminal") {
-      const [isOnTerminalWaypoint] = this.move_mgr.standing_on_terminal_waypoint();
+      const [isOnTerminalWaypoint] = this.moveManager.standing_on_terminal_waypoint();
 
       return isOnTerminalWaypoint;
     }
@@ -160,12 +160,12 @@ export class ActionCamperPatrol extends action_base {
       if (this.state.mem_enemy === null || time_global() - this.state.mem_enemy > this.state.idle) {
         this.enemy = null;
         this.state.mem_enemy = null;
-        this.move_mgr.continue();
+        this.moveManager.continue();
       }
     } else {
       if (this.state.mem_enemy !== null) {
         this.state.mem_enemy = null;
-        this.move_mgr.continue();
+        this.moveManager.continue();
       }
     }
 
@@ -279,8 +279,8 @@ export class ActionCamperPatrol extends action_base {
               set_state(this.object, "hide", null, null, position, null);
             }
           } else {
-            this.move_mgr.continue();
-            this.move_mgr.update();
+            this.moveManager.continue();
+            this.moveManager.update();
           }
         }
       }
@@ -298,7 +298,7 @@ export class ActionCamperPatrol extends action_base {
 
     if (this.danger) {
       this.danger = false;
-      this.move_mgr.continue();
+      this.moveManager.continue();
     }
 
     if (this.state.sniper === true) {
@@ -309,21 +309,21 @@ export class ActionCamperPatrol extends action_base {
 
         this.scan(this.state.wp_flag);
 
-        const [isOnWaypoint] = this.move_mgr.standing_on_terminal_waypoint();
+        const [isOnWaypoint] = this.moveManager.standing_on_terminal_waypoint();
 
         if (isOnWaypoint) {
           return;
         }
 
         if (this.scantime !== null && time_global() - this.scantime >= this.state.scantime_free) {
-          this.move_mgr.continue();
+          this.moveManager.continue();
         }
       } else {
         this.scantime = null;
-        this.move_mgr.update();
+        this.moveManager.update();
       }
     } else {
-      this.move_mgr.update();
+      this.moveManager.update();
     }
   }
 
@@ -477,7 +477,7 @@ export class ActionCamperPatrol extends action_base {
   }
 
   public override finalize(): void {
-    this.move_mgr.finalize();
+    this.moveManager.finalize();
     super.finalize();
   }
 

@@ -1,7 +1,7 @@
 import { action_base, game_object, time_global, vector, XR_game_object, XR_vector } from "xray16";
 
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
-import { MoveManager } from "@/mod/scripts/core/MoveManager";
+import { StalkerMoveManager } from "@/mod/scripts/core/state_management/StalkerMoveManager";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { sendToNearestAccessibleVertex } from "@/mod/scripts/utils/alife";
 import { path_parse_waypoints } from "@/mod/scripts/utils/configs";
@@ -16,7 +16,7 @@ const logger: LuaLogger = new LuaLogger("ActionPatrol");
 @LuabindClass()
 export class ActionPatrol extends action_base {
   public readonly state: IStoredObject;
-  public readonly move_mgr: MoveManager;
+  public readonly moveManager: StalkerMoveManager;
 
   public l_vid: number = -1;
   public dist: number = 0;
@@ -29,7 +29,7 @@ export class ActionPatrol extends action_base {
     super(null, ActionPatrol.__name);
 
     this.state = storage;
-    this.move_mgr = storage[object.id()].move_mgr;
+    this.moveManager = storage[object.id()].move;
   }
 
   public override initialize(): void {
@@ -52,7 +52,7 @@ export class ActionPatrol extends action_base {
       this.state.path_look_info = path_parse_waypoints(this.state.path_look);
     }
 
-    this.move_mgr.reset(
+    this.moveManager.reset(
       this.state.path_walk,
       this.state.path_walk_info,
       this.state.path_look,
@@ -97,7 +97,7 @@ export class ActionPatrol extends action_base {
 
   public override finalize(): void {
     if (this.object.alive()) {
-      this.move_mgr.finalize();
+      this.moveManager.finalize();
     }
 
     super.finalize();

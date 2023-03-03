@@ -3,7 +3,7 @@ import { action_base, XR_game_object } from "xray16";
 import { Optional } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
-import { MoveManager } from "@/mod/scripts/core/MoveManager";
+import { StalkerMoveManager } from "@/mod/scripts/core/state_management/StalkerMoveManager";
 import { get_state } from "@/mod/scripts/core/state_management/StateManager";
 import { path_parse_waypoints } from "@/mod/scripts/utils/configs";
 
@@ -13,7 +13,7 @@ import { path_parse_waypoints } from "@/mod/scripts/utils/configs";
 @LuabindClass()
 export class ActionCommander extends action_base {
   public readonly state: IStoredObject;
-  public move_mgr: MoveManager;
+  public readonly moveManager: StalkerMoveManager;
 
   public cur_state: string = "patrol";
   public old_state: Optional<string> = null;
@@ -22,7 +22,7 @@ export class ActionCommander extends action_base {
     super(null, ActionCommander.__name);
 
     this.state = storage;
-    this.move_mgr = storage[object.id()].move_mgr;
+    this.moveManager = storage[object.id()].moveManager;
   }
 
   public override initialize(): void {
@@ -45,7 +45,7 @@ export class ActionCommander extends action_base {
       this.state.path_look_info = path_parse_waypoints(this.state.path_look);
     }
 
-    this.move_mgr.reset(
+    this.moveManager.reset(
       this.state.path_walk,
       this.state.path_walk_info,
       this.state.path_look,
@@ -64,7 +64,7 @@ export class ActionCommander extends action_base {
   public override execute(): void {
     super.execute();
 
-    this.move_mgr.update();
+    this.moveManager.update();
 
     const new_state = get_state(this.object)!;
     const old_state = this.old_state;
@@ -104,7 +104,7 @@ export class ActionCommander extends action_base {
     if (this.object.alive() === true) {
       // --printf ("ACTION_COMMANDER:FINALIZE CALLED")
       registry.patrols.generic.get(this.state.patrol_key).set_command(this.object, "guard", this.state.formation);
-      this.move_mgr.finalize();
+      this.moveManager.finalize();
     }
 
     super.finalize();

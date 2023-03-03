@@ -2,7 +2,7 @@ import { action_base, patrol, XR_game_object } from "xray16";
 
 import { AnyCallable, Optional } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
-import { MoveManager } from "@/mod/scripts/core/MoveManager";
+import { StalkerMoveManager } from "@/mod/scripts/core/state_management/StalkerMoveManager";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { path_parse_waypoints_from_arglist } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -19,7 +19,7 @@ const state_sleeping = 1;
 @LuabindClass()
 export class ActionSleeperActivity extends action_base {
   public readonly state: IStoredObject;
-  public readonly move_mgr: MoveManager;
+  public readonly moveManager: StalkerMoveManager;
   public was_reset: boolean = false;
   public sleeping_state: number = state_walking;
 
@@ -35,7 +35,7 @@ export class ActionSleeperActivity extends action_base {
     super(null, ActionSleeperActivity.__name);
 
     this.state = state;
-    this.move_mgr = registry.objects.get(object.id()).move_mgr;
+    this.moveManager = registry.objects.get(object.id()).moveManager!;
     this.was_reset = false;
   }
 
@@ -99,7 +99,7 @@ export class ActionSleeperActivity extends action_base {
       }
     }
 
-    this.move_mgr.reset(
+    this.moveManager.reset(
       this.state.path_walk,
       this.state.path_walk_info,
       this.state.path_look,
@@ -141,7 +141,7 @@ export class ActionSleeperActivity extends action_base {
     }
 
     if (this.sleeping_state === state_walking) {
-      this.move_mgr.update();
+      this.moveManager.update();
 
       return;
     }
@@ -155,7 +155,7 @@ export class ActionSleeperActivity extends action_base {
 
   public override finalize(): void {
     // --  GlobalSound:set_sound(this.object, null)
-    this.move_mgr.finalize();
+    this.moveManager.finalize();
     super.finalize();
   }
 }

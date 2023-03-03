@@ -17,13 +17,13 @@ import {
 
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
-import { MoveManager } from "@/mod/scripts/core/MoveManager";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { getMobState, setMobState } from "@/mod/scripts/core/schemes/mob/MobStateManager";
 import { mobCapture } from "@/mod/scripts/core/schemes/mobCapture";
 import { mobCaptured } from "@/mod/scripts/core/schemes/mobCaptured";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
+import { StalkerMoveManager } from "@/mod/scripts/core/state_management/StalkerMoveManager";
 import { action } from "@/mod/scripts/utils/alife";
 import {
   cfg_get_switch_conditions,
@@ -236,7 +236,7 @@ export class SchemeMobWalker extends AbstractScheme {
       return;
     }
 
-    const [pt_chosen_idx] = MoveManager.choose_look_point(this.patrol_look!, this.path_look_info!, search_for);
+    const [pt_chosen_idx] = StalkerMoveManager.choose_look_point(this.patrol_look!, this.path_look_info!, search_for);
 
     if (pt_chosen_idx) {
       const suggested_wait_time = this.path_look_info!.get(pt_chosen_idx)["t"];

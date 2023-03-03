@@ -46,7 +46,6 @@ import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager
 import { ReleaseBodyManager } from "@/mod/scripts/core/managers/ReleaseBodyManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { TradeManager } from "@/mod/scripts/core/managers/TradeManager";
-import { MoveManager } from "@/mod/scripts/core/MoveManager";
 import { SchemeCombat } from "@/mod/scripts/core/schemes/combat/SchemeCombat";
 import { PostCombatIdle } from "@/mod/scripts/core/schemes/danger/PostCombatIdle";
 import { SchemeDanger } from "@/mod/scripts/core/schemes/danger/SchemeDanger";
@@ -62,6 +61,7 @@ import { SchemeWounded } from "@/mod/scripts/core/schemes/wounded/SchemeWounded"
 import { DynamicMusicManager } from "@/mod/scripts/core/sound/DynamicMusicManager";
 import { SoundTheme } from "@/mod/scripts/core/sound/SoundTheme";
 import { bind_state_manager } from "@/mod/scripts/core/state_management/bind_state_manager";
+import { StalkerMoveManager } from "@/mod/scripts/core/state_management/StalkerMoveManager";
 import { disabled_phrases, loadNpcDialogs, saveNpcDialogs } from "@/mod/scripts/declarations/dialog_manager";
 import { getCharacterCommunity, getObjectSquad, updateInvulnerability } from "@/mod/scripts/utils/alife";
 import { getConfigString, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
@@ -92,21 +92,17 @@ export class StalkerBinder extends object_binder {
     this.state = resetObject(this.object, { followers: {} });
     this.state.state_mgr = bind_state_manager(this.object);
 
-    this.state.move_mgr = new MoveManager(this.object);
-    this.state.move_mgr.initialize();
+    this.state.moveManager = new StalkerMoveManager(this.object);
+    this.state.moveManager.initialize();
   }
 
   public extrapolate_callback(cur_pt: number): boolean {
     if (this.state.active_section) {
       issueEvent(this.object, this.state[this.state.active_scheme!], "extrapolate_callback");
-      this.state.move_mgr.extrapolate_callback(this.object);
+      this.state.moveManager!.extrapolate_callback(this.object);
     }
 
-    if (new patrol(this.object.patrol()!).flags(cur_pt).get() === 0) {
-      return true;
-    }
-
-    return false;
+    return new patrol(this.object.patrol()!).flags(cur_pt).get() === 0;
   }
 
   public override net_spawn(obj: XR_cse_alife_object): boolean {

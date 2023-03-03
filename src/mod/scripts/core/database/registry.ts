@@ -30,12 +30,14 @@ import type { SchemeLight } from "@/mod/scripts/core/schemes/sr_light/SchemeLigh
 import type { ITeleportPoint } from "@/mod/scripts/core/schemes/teleport/SchemeTeleport";
 import type { SchemeWounded } from "@/mod/scripts/core/schemes/wounded/SchemeWounded";
 import type { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
+import type { StalkerMoveManager } from "@/mod/scripts/core/state_management/StalkerMoveManager";
 import type { StateManager } from "@/mod/scripts/core/state_management/StateManager";
 
 export interface IStoredObject<T = XR_game_object> {
   [index: string]: any;
 
-  enemy_id?: number;
+  moveManager?: StalkerMoveManager;
+  enemy_id?: TNumberId;
   stype?: ESchemeType;
   section?: TSection;
   actions?: LuaTable<LuaTable<string, AnyCallable>, boolean>;

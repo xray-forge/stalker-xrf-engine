@@ -19,7 +19,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { isStalkerAtWaypoint } from "@/mod/scripts/utils/world";
 
-const logger: LuaLogger = new LuaLogger("MoveManager");
+const logger: LuaLogger = new LuaLogger("StalkerMoveManager");
 
 const dist_walk: number = 10;
 const dist_run: number = 2500;
@@ -42,7 +42,10 @@ const state_standing: number = 2;
 
 const sync: LuaTable<string, LuaTable<number, boolean>> = new LuaTable();
 
-export class MoveManager {
+/**
+ * todo;
+ */
+export class StalkerMoveManager {
   public static choose_look_point(
     patrol_look: XR_patrol,
     path_look_info: LuaTable<number, IWaypointData>,
@@ -80,7 +83,7 @@ export class MoveManager {
     return $multi(pt_chosen_idx, num_equal_pts);
   }
 
-  public object: XR_game_object;
+  public readonly object: XR_game_object;
 
   public state: Optional<number> = null;
   public cur_state_moving!: string;
@@ -574,7 +577,7 @@ export class MoveManager {
       return;
     }
 
-    const [pt_chosen_idx, num_equal_pts] = MoveManager.choose_look_point(
+    const [pt_chosen_idx, num_equal_pts] = StalkerMoveManager.choose_look_point(
       this.patrol_look,
       this.path_look_info!,
       search_for
