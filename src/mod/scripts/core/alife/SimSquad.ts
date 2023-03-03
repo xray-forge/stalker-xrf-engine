@@ -25,7 +25,7 @@ import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { relations, TRelation } from "@/mod/globals/relations";
 import { SMART_TERRAIN_SECT } from "@/mod/globals/sections";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
-import { AnyCallablesModule, AnyObject, Optional } from "@/mod/lib/types";
+import { AnyCallablesModule, AnyObject, Optional, TCount, TNumberId } from "@/mod/lib/types";
 import { TSection } from "@/mod/lib/types/scheme";
 import { simulation_activities } from "@/mod/scripts/core/alife/SimActivity";
 import { SimSquadReachTargetAction } from "@/mod/scripts/core/alife/SimSquadReachTargetAction";
@@ -42,12 +42,6 @@ import {
 import { get_sim_board, SimBoard } from "@/mod/scripts/core/database/SimBoard";
 import { evaluate_prior, get_sim_obj_registry } from "@/mod/scripts/core/database/SimObjectsRegistry";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";
-import {
-  get_squad_relation_to_actor_by_id,
-  is_factions_enemies,
-  set_npc_sympathy,
-  set_npcs_relation,
-} from "@/mod/scripts/core/GameRelationsManager";
 import { get_sound_manager, SoundManager } from "@/mod/scripts/core/sound/SoundManager";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
 import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
@@ -65,6 +59,12 @@ import {
 import { abort } from "@/mod/scripts/utils/debug";
 import { setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import {
+  getSquadIdRelationToActor,
+  isFactionsEnemies,
+  setObjectsRelation,
+  setObjectSympathy,
+} from "@/mod/scripts/utils/relations";
 import { isEmpty } from "@/mod/scripts/utils/table";
 
 const logger: LuaLogger = new LuaLogger("SimSquad");
@@ -716,33 +716,35 @@ export class SimSquad<
     this.refresh();
   }
 
-  public set_squad_sympathy(sympathy?: Optional<number>): void {
-    const symp = sympathy || this.sympathy;
+  public set_squad_sympathy(sympathy?: Optional<TCount>): void {
+    const squadSympathy = sympathy || this.sympathy;
 
-    if (symp !== null) {
-      for (const k of this.squad_members()) {
-        const npc: Optional<XR_game_object> = registry.objects.get(k.id) && registry.objects.get(k.id).object!;
+    if (squadSympathy !== null) {
+      for (const squadMembers of this.squad_members()) {
+        const object: Optional<XR_game_object> =
+          registry.objects.get(squadMembers.id) && registry.objects.get(squadMembers.id).object!;
 
-        if (npc !== null) {
-          set_npc_sympathy(npc, symp);
+        if (object !== null) {
+          setObjectSympathy(object, squadSympathy);
         } else {
-          registry.goodwill.sympathy.set(k.id, symp);
+          registry.goodwill.sympathy.set(squadMembers.id, squadSympathy);
         }
       }
     }
   }
 
   public set_squad_relation(relation?: Optional<TRelation>): void {
-    const rel = relation || this.relationship;
+    const squadRelation: Optional<TRelation> = relation || this.relationship;
 
-    if (rel !== null) {
-      for (const k of this.squad_members()) {
-        const npc: Optional<XR_game_object> = registry.objects.get(k.id) && registry.objects.get(k.id).object!;
+    if (squadRelation !== null) {
+      for (const squadMember of this.squad_members()) {
+        const object: Optional<XR_game_object> =
+          registry.objects.get(squadMember.id) && registry.objects.get(squadMember.id).object!;
 
-        if (npc !== null) {
-          set_npcs_relation(npc, registry.actor, rel);
+        if (object !== null) {
+          setObjectsRelation(object, registry.actor, squadRelation);
         } else {
-          set_relation(alife().object(k.id), alife().actor(), rel);
+          set_relation(alife().object(squadMember.id), alife().actor(), squadRelation);
         }
       }
     }
@@ -928,7 +930,7 @@ export class SimSquad<
     let spot: string = "";
 
     if (!isSquadMonsterCommunity(this.player_id as TCommunity)) {
-      const relation: TRelation = get_squad_relation_to_actor_by_id(this.id);
+      const relation: TRelation = getSquadIdRelationToActor(this.id);
 
       if (relation === relations.friend) {
         spot = "alife_presentation_squad_friend";
@@ -1099,15 +1101,15 @@ export class SimSquad<
   }
 }
 
-export function get_help_target_id(squad: SimSquad): Optional<number> {
+export function get_help_target_id(squad: SimSquad): Optional<TNumberId> {
   // log.info("Get help target id:", squad.name());
 
   if (!can_help_actor(squad)) {
     return null;
   }
 
-  for (const [k, v] of registry.actorCombat) {
-    const enemy_squad_id: Optional<number> = alife().object<XR_cse_alife_creature_abstract>(k)!.group_id;
+  for (const [id, v] of registry.actorCombat) {
+    const enemy_squad_id: Optional<number> = alife().object<XR_cse_alife_creature_abstract>(id)!.group_id;
 
     if (enemy_squad_id !== null) {
       const target_squad = alife().object<SimSquad>(enemy_squad_id);
@@ -1115,7 +1117,7 @@ export function get_help_target_id(squad: SimSquad): Optional<number> {
       if (
         target_squad &&
         squad.position.distance_to_sqr(target_squad.position) < 150 * 150 &&
-        is_factions_enemies(squad.get_squad_community(), target_squad.get_squad_community())
+        isFactionsEnemies(squad.get_squad_community(), target_squad.get_squad_community())
       ) {
         return enemy_squad_id;
       }

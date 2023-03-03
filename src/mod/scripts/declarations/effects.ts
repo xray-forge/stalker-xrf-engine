@@ -4,7 +4,6 @@ import {
   clsid,
   device,
   game,
-  game_graph,
   game_object,
   get_console,
   get_hud,
@@ -53,7 +52,7 @@ import { relations, TRelation } from "@/mod/globals/relations";
 import { script_sounds } from "@/mod/globals/sound/script_sounds";
 import { TTreasure } from "@/mod/globals/treasures";
 import { TZone, zones } from "@/mod/globals/zones";
-import { AnyObject, LuaArray, Optional, TName, TNumberId } from "@/mod/lib/types";
+import { AnyObject, LuaArray, Optional, TCount, TName, TNumberId } from "@/mod/lib/types";
 import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { Stalker } from "@/mod/scripts/core/alife/Stalker";
@@ -61,14 +60,6 @@ import { update_logic } from "@/mod/scripts/core/binders/StalkerBinder";
 import { deleteHelicopter, IStoredObject, registry, SYSTEM_INI } from "@/mod/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
-import {
-  change_factions_community_num,
-  set_level_faction_community as setLevelFactionCommunity,
-  set_npc_sympathy as setNpcSympathy,
-  set_squad_goodwill as setSquadGoodwill,
-  set_squad_goodwill_to_npc as setSquadGoodwillToNpc,
-  temp_goodwill_table,
-} from "@/mod/scripts/core/GameRelationsManager";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { mech_discount as getMechDiscount, setCurrentHint } from "@/mod/scripts/core/inventory_upgrades";
 import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
@@ -93,6 +84,12 @@ import { createScenarioAutoSave } from "@/mod/scripts/utils/game_saves";
 import { find_stalker_for_job, switch_to_desired_job as switchToGulagDesiredJob } from "@/mod/scripts/utils/gulag";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import {
+  increaseNumberRelationBetweenCommunityAndId,
+  setObjectSympathy,
+  setSquadGoodwill,
+  setSquadGoodwillToNpc,
+} from "@/mod/scripts/utils/relations";
 
 const logger: LuaLogger = new LuaLogger("effects");
 
@@ -1681,7 +1678,7 @@ export function set_squad_enemy_to_actor(actor: XR_game_object, npc: XR_game_obj
 
 export function set_npc_sympathy(actor: XR_game_object, npc: XR_game_object, p: [number]): void {
   if (p[0] !== null) {
-    setNpcSympathy(npc, p[0]);
+    setObjectSympathy(npc, p[0]);
   }
 }
 
@@ -1709,32 +1706,41 @@ export function inc_faction_goodwill_to_actor(
   const delta = p[1];
 
   if (delta && community) {
-    change_factions_community_num(community, actor.id(), tonumber(delta)!);
+    increaseNumberRelationBetweenCommunityAndId(community, actor.id(), tonumber(delta)!);
   } else {
     abort("Wrong parameters in function 'inc_faction_goodwill_to_actor'");
   }
 }
 
+/**
+ * todo;
+ */
 export function dec_faction_goodwill_to_actor(
   actor: XR_game_object,
   npc: XR_game_object,
-  params: [Optional<TCommunity>, Optional<number>]
+  params: [Optional<TCommunity>, Optional<TCount>]
 ): void {
   const community: Optional<TCommunity> = params[0];
-  const delta: Optional<number> = params[1];
+  const delta: Optional<TCount> = params[1];
 
   if (delta && community) {
-    change_factions_community_num(community, actor.id(), -tonumber(delta)!);
+    increaseNumberRelationBetweenCommunityAndId(community, actor.id(), -tonumber(delta)!);
   } else {
     abort("Wrong parameters in function 'dec_faction_goodwill_to_actor'");
   }
 }
 
+/**
+ * todo;
+ */
 export function kill_actor(actor: XR_game_object, npc: XR_game_object): void {
   logger.info("Kill actor");
   actor.kill(actor);
 }
 
+/**
+ * todo;
+ */
 export function give_treasure(actor: XR_game_object, npc: XR_game_object, parameters: LuaArray<TTreasure>): void {
   logger.info("Give treasure");
 
@@ -1782,49 +1788,9 @@ export function set_surge_mess_and_task(
   }
 }
 
-export function set_level_faction_community(
-  actor: XR_game_object,
-  npc: XR_game_object,
-  params: [TCommunity, string, TRelation]
-) {
-  if (params[0] !== null && params[1] !== null && params[2] !== null) {
-    const faction = get_sim_board().players!.get(params[0]);
-    let goodwill = 0;
-
-    if (params[2] === "enemy") {
-      goodwill = -3000;
-    } else if (params[2] === "friend") {
-      goodwill = 1000;
-    }
-
-    for (const [k, v] of faction.squads) {
-      const squad_level = alife().level_name(
-        game_graph().vertex(alife().object(v.commander_id())!.m_game_vertex_id).level_id()
-      );
-
-      if (squad_level === params[1]) {
-        for (const [kk] of v.squad_members()) {
-          const npc = kk.object;
-          const tbl = temp_goodwill_table;
-
-          if (tbl.communities === null) {
-            tbl.communities = new LuaTable();
-          }
-
-          if (tbl.communities.get(params[0]) === null) {
-            tbl.communities.set(params[0], new LuaTable());
-          }
-
-          tbl.communities.get(params[0]).set(npc.id, goodwill);
-          if (registry.objects.get(npc.id) !== null) {
-            setLevelFactionCommunity(registry.objects.get(npc.id).object as XR_game_object);
-          }
-        }
-      }
-    }
-  }
-}
-
+/**
+ * todo;
+ */
 export function make_actor_visible_to_squad(actor: XR_game_object, npc: XR_game_object, p: [string]): void {
   const story_id = p && p[0];
   const squad = getStorySquad(story_id);
@@ -1842,6 +1808,9 @@ export function make_actor_visible_to_squad(actor: XR_game_object, npc: XR_game_
   }
 }
 
+/**
+ * todo;
+ */
 export function stop_sr_cutscene(actor: XR_game_object, npc: XR_game_object, p: []) {
   const obj: IStoredObject = registry.objects.get(npc.id());
 
@@ -1850,21 +1819,26 @@ export function stop_sr_cutscene(actor: XR_game_object, npc: XR_game_object, p: 
   }
 }
 
-// -- Anomal fields support
+/**
+ * todo;
+ */
 export function enable_anomaly(actor: XR_game_object, npc: XR_game_object, p: [string]) {
   if (p[0] === null) {
     abort("Story id for enable_anomaly function is ! set");
   }
 
-  const obj: Optional<XR_game_object> = getStoryObject(p[0]);
+  const object: Optional<XR_game_object> = getStoryObject(p[0]);
 
-  if (!obj) {
+  if (!object) {
     abort("There is no object with story_id %s for enable_anomaly function", tostring(p[0]));
   }
 
-  obj.enable_anomaly();
+  object.enable_anomaly();
 }
 
+/**
+ * todo;
+ */
 export function disable_anomaly(actor: XR_game_object, npc: XR_game_object, p: [string]): void {
   if (p[0] === null) {
     abort("Story id for disable_anomaly function is ! set");
@@ -1879,6 +1853,9 @@ export function disable_anomaly(actor: XR_game_object, npc: XR_game_object, p: [
   obj.disable_anomaly();
 }
 
+/**
+ * todo;
+ */
 export function launch_signal_rocket(actor: XR_game_object, obj: XR_game_object, p: [string]): void {
   if (p === null) {
     abort("Signal rocket name is ! set!");
@@ -1891,6 +1868,9 @@ export function launch_signal_rocket(actor: XR_game_object, obj: XR_game_object,
   }
 }
 
+/**
+ * todo;
+ */
 export function add_cs_text(actor: XR_game_object, npc: XR_game_object, p: [string]) {
   if (p[0]) {
     const hud = get_hud();
@@ -1906,6 +1886,9 @@ export function add_cs_text(actor: XR_game_object, npc: XR_game_object, p: [stri
   }
 }
 
+/**
+ * todo;
+ */
 export function del_cs_text(actor: XR_game_object, npc: XR_game_object, p: []) {
   const hud = get_hud();
   const cs_text = hud.GetCustomStatic("text_on_screen_center");
@@ -1915,6 +1898,9 @@ export function del_cs_text(actor: XR_game_object, npc: XR_game_object, p: []) {
   }
 }
 
+/**
+ * todo;
+ */
 export function spawn_item_to_npc(actor: XR_game_object, npc: XR_game_object, p: [Optional<string>]) {
   const new_item = p[0];
 
@@ -1923,6 +1909,9 @@ export function spawn_item_to_npc(actor: XR_game_object, npc: XR_game_object, p:
   }
 }
 
+/**
+ * todo;
+ */
 export function give_money_to_npc(actor: XR_game_object, npc: XR_game_object, p: [Optional<number>]) {
   const money = p[0];
 
@@ -1931,6 +1920,9 @@ export function give_money_to_npc(actor: XR_game_object, npc: XR_game_object, p:
   }
 }
 
+/**
+ * todo;
+ */
 export function seize_money_to_npc(actor: XR_game_object, npc: XR_game_object, p: [Optional<number>]) {
   const money = p[0];
 
@@ -1939,7 +1931,9 @@ export function seize_money_to_npc(actor: XR_game_object, npc: XR_game_object, p
   }
 }
 
-// -- relocate_item(item_name.story_id_from.story_id_to)
+/**
+ * todo;
+ */
 export function relocate_item(actor: XR_game_object, npc: XR_game_object, params: [string, string, string]) {
   logger.info("Relocate item");
 
@@ -1958,7 +1952,9 @@ export function relocate_item(actor: XR_game_object, npc: XR_game_object, params
   }
 }
 
-// -- ������� ������ �������, ���������� ��� ������ set_squads_enemies(squad_name_1.squad_name_2)
+/**
+ * todo;
+ */
 export function set_squads_enemies(actor: XR_game_object, npc: XR_game_object, p: [string, string]) {
   if (p[0] === null || p[1] === null) {
     abort("Wrong parameters in function set_squad_enemies");
@@ -1995,6 +1991,9 @@ export function set_squads_enemies(actor: XR_game_object, npc: XR_game_object, p
 
 let particles_table: Optional<LuaArray<{ particle: XR_particles_object; sound: XR_sound_object }>> = null;
 
+/**
+ * todo;
+ */
 export function jup_b16_play_particle_and_sound(actor: XR_game_object, npc: XR_game_object, p: [number]) {
   if (particles_table === null) {
     particles_table = [

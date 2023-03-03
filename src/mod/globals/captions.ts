@@ -1,5 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error"*/
 
+import { game_difficulties } from "@/mod/globals/game_difficulties";
+
 /**
  * Translation enum captions.
  * todo: Include all translations, build translation collecting script.
@@ -160,3 +162,7 @@ export const captions = {
   ui_mp_internet: "ui_mp_internet",
   ui_mp_localnet: "ui_mp_localnet",
 };
+
+export type TCaptions = typeof captions;
+
+export type TCaption = TCaptions[keyof TCaptions];

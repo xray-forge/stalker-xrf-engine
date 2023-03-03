@@ -22,7 +22,8 @@ import {
 import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { registry } from "@/mod/scripts/core/database";
 import { inventory_upgrades_functors } from "@/mod/scripts/core/inventory_upgrades";
-import { AchievementsManager, EAchievement } from "@/mod/scripts/core/managers/AchievementsManager";
+import { AchievementsManager } from "@/mod/scripts/core/managers/achievements/AchievementsManager";
+import { EAchievement } from "@/mod/scripts/core/managers/achievements/EAchievement";
 import { ActorInventoryMenuManager, EActorMenuMode } from "@/mod/scripts/core/managers/ActorInventoryMenuManager";
 import { loadScreenManager } from "@/mod/scripts/core/managers/LoadScreenManager";
 import { PdaManager } from "@/mod/scripts/core/managers/PdaManager";

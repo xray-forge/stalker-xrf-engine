@@ -27,6 +27,7 @@ import { get_sim_board, SimBoard } from "@/mod/scripts/core/database/SimBoard";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
+import { notificationManagerIcons } from "@/mod/scripts/core/managers/notifications";
 import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { WeatherManager } from "@/mod/scripts/core/managers/WeatherManager";
@@ -533,7 +534,7 @@ export class SurgeManager extends AbstractCoreManager {
         registry.actor,
         captions.st_surge_while_asleep,
         null,
-        "recent_surge",
+        notificationManagerIcons.recent_surge,
         null,
         null
       );

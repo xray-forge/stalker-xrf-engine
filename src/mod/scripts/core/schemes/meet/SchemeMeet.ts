@@ -12,7 +12,6 @@ import {
 import { STRINGIFIED_FALSE, STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/mod/globals/lua";
 import { AnyObject, EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
-import { get_npcs_relation } from "@/mod/scripts/core/GameRelationsManager";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { SchemeAbuse } from "@/mod/scripts/core/schemes/abuse/SchemeAbuse";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
@@ -29,6 +28,7 @@ import { getStoryObject, isNpcInCombat } from "@/mod/scripts/utils/alife";
 import { isObjectWounded } from "@/mod/scripts/utils/checkers/checkers";
 import { getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { getObjectsRelationSafe } from "@/mod/scripts/utils/relations";
 
 const logger: LuaLogger = new LuaLogger("SchemeMeet");
 
@@ -154,7 +154,7 @@ export class SchemeMeet extends AbstractScheme {
 
     const def: AnyObject = {};
 
-    const relation = get_npcs_relation(npc, registry.actor);
+    const relation = getObjectsRelationSafe(npc, registry.actor);
 
     if (relation === game_object.enemy) {
       def.close_distance = "0";
@@ -413,7 +413,7 @@ export class SchemeMeet extends AbstractScheme {
     if (
       meet_manager.use === STRINGIFIED_FALSE &&
       meet_manager.abuse_mode === STRINGIFIED_TRUE &&
-      get_npcs_relation(victim, registry.actor) === game_object.friend
+      getObjectsRelationSafe(victim, registry.actor) === game_object.friend
     ) {
       SchemeAbuse.add_abuse(victim, 1);
     }

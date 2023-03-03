@@ -22,7 +22,7 @@ import {
 import { MAX_UNSIGNED_16_BIT, MAX_UNSIGNED_8_BIT } from "@/mod/globals/memory";
 import { SMART_TERRAIN_SECT } from "@/mod/globals/sections";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
-import { AnyCallable, AnyObject, ESchemeType, Optional, TSection } from "@/mod/lib/types";
+import { AnyCallable, AnyObject, ESchemeType, Optional, TNumberId, TSection } from "@/mod/lib/types";
 import { loadGulagJobs } from "@/mod/scripts/core/alife/gulag_general";
 import { simulation_activities } from "@/mod/scripts/core/alife/SimActivity";
 import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
@@ -148,7 +148,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   public npc_by_job_section: LuaTable<string, number> = new LuaTable();
   public dead_time: LuaTable<number, XR_CTime> = new LuaTable();
 
-  public npc_info: LuaTable<number, INpcInfo> = new LuaTable();
+  public npc_info: LuaTable<TNumberId, INpcInfo> = new LuaTable();
   public arriving_npc: LuaTable<number> = new LuaTable();
 
   public smart_alife_task: Optional<XR_CALifeSmartTerrainTask> = null;

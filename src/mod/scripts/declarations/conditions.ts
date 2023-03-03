@@ -4,7 +4,6 @@ import {
   game,
   game_object,
   level,
-  relation_registry,
   XR_alife_simulator,
   XR_cse_abstract,
   XR_cse_alife_creature_abstract,
@@ -28,9 +27,8 @@ import { ESmartTerrainStatus, SmartTerrainControl } from "@/mod/scripts/core/ali
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { pstor_retrieve } from "@/mod/scripts/core/database/pstor";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
-import * as game_relations from "@/mod/scripts/core/GameRelationsManager";
 import { setCurrentHint } from "@/mod/scripts/core/inventory_upgrades";
-import { AchievementsManager } from "@/mod/scripts/core/managers/AchievementsManager";
+import { AchievementsManager } from "@/mod/scripts/core/managers/achievements/AchievementsManager";
 import { ActorInventoryMenuManager, EActorMenuMode } from "@/mod/scripts/core/managers/ActorInventoryMenuManager";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { SchemeDeimos } from "@/mod/scripts/core/schemes/sr_deimos/SchemeDeimos";
@@ -63,6 +61,11 @@ import { getObjectBoundSmart } from "@/mod/scripts/utils/gulag";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { distanceBetween, npcInActorFrustum } from "@/mod/scripts/utils/physics";
+import {
+  isFactionsEnemies,
+  isFactionsFriends,
+  isSquadRelationBetweenActorAndRelation,
+} from "@/mod/scripts/utils/relations";
 
 const logger: LuaLogger = new LuaLogger("xr_conditions");
 
@@ -757,7 +760,7 @@ export function check_smart_alarm_status(
  */
 export function is_factions_enemies(actor: XR_game_object, npc: XR_game_object, p: [TCommunity]): boolean {
   if (p[0] !== null) {
-    return game_relations.is_factions_enemies(getCharacterCommunity(actor), p[0]);
+    return isFactionsEnemies(getCharacterCommunity(actor), p[0]);
   } else {
     return false;
   }
@@ -775,7 +778,7 @@ export function is_factions_neutrals(actor: XR_game_object, npc: XR_game_object,
  */
 export function is_factions_friends(actor: XR_game_object, npc: XR_game_object, p: [TCommunity]) {
   if (p[0] !== null) {
-    return game_relations.is_factions_friends(getCharacterCommunity(actor), p[0]);
+    return isFactionsFriends(getCharacterCommunity(actor), p[0]);
   } else {
     return false;
   }
@@ -807,7 +810,7 @@ export function is_faction_neutral_to_actor(actor: XR_game_object, npc: XR_game_
  */
 export function is_squad_friend_to_actor(actor: XR_game_object, npc: XR_game_object, params: [string]): boolean {
   if (params[0] !== null) {
-    return game_relations.check_all_squad_members(params[0], relations.friend);
+    return isSquadRelationBetweenActorAndRelation(params[0], relations.friend);
   } else {
     return false;
   }
@@ -822,7 +825,7 @@ export function is_squad_enemy_to_actor(actor: XR_game_object, npc: XR_game_obje
   }
 
   for (const [k, v] of params as unknown as LuaArray<string>) {
-    if (game_relations.check_all_squad_members(v, relations.enemy)) {
+    if (isSquadRelationBetweenActorAndRelation(v, relations.enemy)) {
       return true;
     }
   }
@@ -2024,8 +2027,8 @@ export function actor_in_surge_cover(actor: XR_game_object, npc: XR_game_object)
 /**
  * todo;
  */
-export function is_door_blocked_by_npc(actor: XR_game_object, obj: XR_game_object) {
-  return obj.is_door_blocked_by_npc();
+export function is_door_blocked_by_npc(actor: XR_game_object, object: XR_game_object): boolean {
+  return object.is_door_blocked_by_npc();
 }
 
 /**

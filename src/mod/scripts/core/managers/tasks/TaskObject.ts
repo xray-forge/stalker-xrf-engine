@@ -338,7 +338,7 @@ export class TaskObject {
     }
 
     if (task_updated && !this.dont_send_update_news) {
-      NotificationManager.getInstance().sendTaskNotification(registry.actor, "updated", this.t);
+      NotificationManager.getInstance().sendTaskNotification(registry.actor, ETaskState.UPDATED, this.t);
     }
 
     for (const [k, v] of this.condlist) {

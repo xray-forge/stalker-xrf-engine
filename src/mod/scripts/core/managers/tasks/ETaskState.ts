@@ -8,4 +8,5 @@ export enum ETaskState {
   COMPLETE = "complete",
   FAIL = "fail",
   REVERSED = "reversed",
+  UPDATED = "updated",
 }

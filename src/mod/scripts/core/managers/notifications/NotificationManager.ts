@@ -1,9 +1,9 @@
 import { alife, game, XR_alife_simulator, XR_CGameTask, XR_cse_alife_human_stalker, XR_game_object } from "xray16";
 
-import { captions } from "@/mod/globals/captions";
+import { captions, TCaption } from "@/mod/globals/captions";
 import { script_sounds } from "@/mod/globals/sound/script_sounds";
 import { texturesIngame } from "@/mod/globals/textures";
-import { Maybe, Optional, TCount, TLabel, TName, TSection } from "@/mod/lib/types";
+import { Maybe, Optional, TCount, TDuration, TLabel, TName, TSection, TStringId, TTimestamp } from "@/mod/lib/types";
 import { registry, SYSTEM_INI } from "@/mod/scripts/core/database";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
 import { get_smart_terrain_name } from "@/mod/scripts/core/database/smart_names";
@@ -12,7 +12,13 @@ import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreMan
 import {
   notificationManagerIcons,
   TNotificationIcon,
+  TNotificationIconKey,
 } from "@/mod/scripts/core/managers/notifications/NotificationManagerIcons";
+import {
+  notificationTaskDescription,
+  TNotificationTaskDescription,
+  TNotificationTaskDescriptionKey,
+} from "@/mod/scripts/core/managers/notifications/NotificationTaskDescription";
 import { isHeavilyWounded } from "@/mod/scripts/utils/checkers/checkers";
 import { isStalkerClassId } from "@/mod/scripts/utils/checkers/is";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
@@ -20,22 +26,13 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("NotificationManager");
 
-const actionDescriptionByTask = {
-  new: "general_new_task",
-  complete: "general_complete_task",
-  fail: "general_fail_task",
-  reversed: "general_reverse_task",
-  updated: "general_update_task",
-} as const;
-
-type TActionDescriptions = typeof actionDescriptionByTask;
-type TActionType = keyof TActionDescriptions;
-
 /**
  * todo;
  * todo: Handle notification events from app-level events without direct imports.
  */
 export class NotificationManager extends AbstractCoreManager {
+  public static readonly DEFAULT_NOTIFICATION_SHOW_DURATION: TDuration = 5_000;
+
   /**
    * todo;
    */
@@ -104,55 +101,60 @@ export class NotificationManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public sendTaskNotification(actor: Optional<XR_game_object>, type: TActionType, task: XR_CGameTask): void {
+  public sendTaskNotification(
+    actor: Optional<XR_game_object>,
+    type: TNotificationTaskDescriptionKey,
+    task: XR_CGameTask
+  ): void {
     logger.info("Show send task:", type, task.get_id(), task.get_title());
 
     // todo: Move to configs.
-    let time_on_screen = 10000;
+    let durationOnScreen = 10_000;
 
     if (type === "updated") {
-      time_on_screen = 5000;
+      durationOnScreen = NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION;
     }
 
     GlobalSound.set_sound_play(registry.actor.id(), script_sounds.pda_task, null, null);
 
-    const news_caption: string = game.translate_string(actionDescriptionByTask[type]);
-    const news_text: string = game.translate_string(task.get_title());
-    let icon: string = task.get_icon_name();
+    const notificationTitle: TLabel = game.translate_string(notificationTaskDescription[type]);
+    const notificationDescription: string = game.translate_string(task.get_title());
+    let icon: TName = task.get_icon_name();
 
     if (icon === null) {
       icon = texturesIngame.ui_iconsTotal_storyline;
     }
 
     if (registry.actor.is_talking()) {
-      registry.actor.give_talk_message2(news_caption, news_text + ".", icon, "iconed_answer_item");
+      registry.actor.give_talk_message2(notificationTitle, notificationDescription + ".", icon, "iconed_answer_item");
     } else {
-      registry.actor.give_game_news(news_caption, news_text + ".", icon, 0, time_on_screen);
+      registry.actor.give_game_news(notificationTitle, notificationDescription + ".", icon, 0, durationOnScreen);
     }
   }
 
   /**
    * todo;
+   * @param timeout - duration of notification display, in seconds.
    */
   public sendTipNotification(
     actor: XR_game_object,
-    news_id_string: string,
-    timeout: Maybe<number>,
+    caption: TCaption,
+    timeout: Maybe<TDuration>,
     sender: Optional<TNotificationIcon | XR_game_object>,
-    showtime: Maybe<number>,
-    sender_id: Optional<string>
+    showtime: Maybe<TTimestamp>,
+    senderId: Optional<TStringId>
   ): boolean {
-    logger.info("Show send tip:", news_id_string, timeout, showtime, sender_id);
+    logger.info("Show send tip:", caption, timeout, showtime, senderId);
 
-    if (news_id_string === null) {
+    if (caption === null) {
       return false;
     }
 
-    if (sender_id !== null) {
+    if (senderId !== null) {
       const sim: Optional<XR_alife_simulator> = alife();
 
       if (sim !== null) {
-        const npc: XR_cse_alife_human_stalker = sim.object(getStoryObjectId(sender_id)!) as XR_cse_alife_human_stalker;
+        const npc: XR_cse_alife_human_stalker = sim.object(getStoryObjectId(senderId)!) as XR_cse_alife_human_stalker;
 
         if (npc !== null) {
           if (npc.online) {
@@ -177,21 +179,15 @@ export class NotificationManager extends AbstractCoreManager {
     let texture: string = texturesIngame.ui_iconsTotal_grouping;
 
     if (sender !== null) {
-      if (type(sender) === "string") {
-        if (notificationManagerIcons[sender as TNotificationIcon]) {
-          texture = notificationManagerIcons[sender as TNotificationIcon];
-        }
-      } else if (isStalkerClassId((sender as XR_game_object).clsid())) {
-        texture = (sender as XR_game_object).character_icon();
-      }
+      texture = type(sender) === "string" ? (sender as TNotificationIcon) : (sender as XR_game_object).character_icon();
     }
 
-    const news_caption: string = game.translate_string(captions.st_tip);
-    const news_text: string = game.translate_string(news_id_string);
-    const showTimeout: number = !timeout ? 0 : timeout;
-    const showTime: number = !showtime ? 5000 : showtime;
+    const notificationTitle: TLabel = game.translate_string(captions.st_tip);
+    const notificationDescription: TLabel = game.translate_string(caption);
+    const showTimeout: TDuration = !timeout ? 0 : timeout;
+    const showTime: TDuration = !showtime ? NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION : showtime;
 
-    actor.give_game_news(news_caption, news_text, texture, showTimeout * 1000, showTime, 0);
+    actor.give_game_news(notificationTitle, notificationDescription, texture, showTimeout * 1000, showTime, 0);
 
     return true;
   }
@@ -205,7 +201,7 @@ export class NotificationManager extends AbstractCoreManager {
     point: Optional<string>,
     str: string,
     str2: Optional<string>,
-    delay: Optional<number>
+    delay: Optional<TDuration>
   ): void {
     logger.info("Send sound:", npc?.id(), str, str2, faction);
 
@@ -245,12 +241,8 @@ export class NotificationManager extends AbstractCoreManager {
     if (npc !== null && isStalkerClassId(npc.clsid())) {
       texture = npc.character_icon();
     } else {
-      if (notificationManagerIcons[faction as TNotificationIcon] !== null) {
-        texture = notificationManagerIcons[faction as TNotificationIcon];
-      }
-
-      if (notificationManagerIcons[point as TNotificationIcon] !== null) {
-        texture = notificationManagerIcons[point as TNotificationIcon];
+      if (notificationManagerIcons[faction as TNotificationIconKey] !== null) {
+        texture = notificationManagerIcons[faction as TNotificationIconKey];
       }
     }
 
@@ -262,7 +254,14 @@ export class NotificationManager extends AbstractCoreManager {
       news_caption = news_caption + ":";
     }
 
-    registry.actor.give_game_news(news_caption, news_text, texture, delay! + 1000, 5000, 1);
+    registry.actor.give_game_news(
+      news_caption,
+      news_text,
+      texture,
+      delay! + 1000,
+      NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION,
+      1
+    );
   }
 
   /**

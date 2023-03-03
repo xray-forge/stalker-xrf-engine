@@ -5,6 +5,8 @@ import { AnyCallablesModule } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { pstor_retrieve } from "@/mod/scripts/core/database/pstor";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
+import { achievementIcons } from "@/mod/scripts/core/managers/achievements/AchievementIcons";
+import { EAchievement } from "@/mod/scripts/core/managers/achievements/EAchievement";
 import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
@@ -12,31 +14,13 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("AchievementsManager");
 
-export enum EAchievement {
-  PIONEER = "pioneer",
-  MUTANT_HUNTER = "mutant_hunter",
-  DETECTIVE = "detective",
-  ONE_OF_THE_LADS = "one_of_the_lads",
-  KINGPIN = "kingpin",
-  HERALD_OF_JUSTICE = "herald_of_justice",
-  SEEKER = "seeker",
-  BATTLE_SYSTEMS_MASTER = "battle_systems_master",
-  HIGH_TECH_MASTER = "high_tech_master",
-  SKILLED_STALKER = "skilled_stalker",
-  LEADER = "leader",
-  DIPLOMAT = "diplomat",
-  RESEARCH_MAN = "research_man",
-  FRIEND_OF_DUTY = "friend_of_duty",
-  FRIEND_OF_FREEDOM = "friend_of_freedom",
-  BALANCE_ADVOCATE = "balance_advocate",
-  WEALTHY = "wealthy",
-  KEEPER_OF_SECRETS = "keeper_of_secrets",
-  MARKED_BY_ZONE = "marked_by_zone",
-  INFORMATION_DEALER = "information_dealer",
-  FRIEND_OF_STALKERS = "friend_of_stalkers",
-}
-
+/**
+ * todo;
+ */
 export class AchievementsManager extends AbstractCoreManager {
+  /**
+   * todo;
+   */
   public checkAchieved(achievement: EAchievement): boolean {
     switch (achievement) {
       case EAchievement.PIONEER:
@@ -86,6 +70,9 @@ export class AchievementsManager extends AbstractCoreManager {
     }
   }
 
+  /**
+   * todo;
+   */
   public checkAchievedPioneer(): boolean {
     if (!hasAlifeInfo(info_portions.pioneer_achievement_gained)) {
       if (
@@ -98,7 +85,7 @@ export class AchievementsManager extends AbstractCoreManager {
           registry.actor,
           captions.st_ach_pioneer,
           null,
-          EAchievement.PIONEER,
+          achievementIcons[EAchievement.PIONEER],
           null,
           null
         );
@@ -108,6 +95,9 @@ export class AchievementsManager extends AbstractCoreManager {
     return hasAlifeInfo(info_portions.pioneer_achievement_gained);
   }
 
+  /**
+   * todo;
+   */
   public checkAchievedMutantHunter(): boolean {
     if (!hasAlifeInfo(info_portions.mutant_hunter_achievement_gained)) {
       if (
@@ -120,7 +110,7 @@ export class AchievementsManager extends AbstractCoreManager {
           registry.actor,
           captions.st_ach_mutant_hunter,
           null,
-          EAchievement.MUTANT_HUNTER,
+          achievementIcons[EAchievement.MUTANT_HUNTER],
           null,
           null
         );
@@ -130,6 +120,9 @@ export class AchievementsManager extends AbstractCoreManager {
     return hasAlifeInfo(info_portions.mutant_hunter_achievement_gained);
   }
 
+  /**
+   * todo;
+   */
   public checkAchievedDetective(): boolean {
     if (!hasAlifeInfo(info_portions.detective_achievement_gained)) {
       if (hasAlifeInfo(info_portions.zat_b22_barmen_gave_reward)) {
@@ -138,7 +131,7 @@ export class AchievementsManager extends AbstractCoreManager {
           registry.actor,
           captions.st_ach_detective,
           null,
-          EAchievement.DETECTIVE,
+          achievementIcons[EAchievement.DETECTIVE],
           null,
           null
         );
@@ -148,6 +141,9 @@ export class AchievementsManager extends AbstractCoreManager {
     return hasAlifeInfo(info_portions.detective_achievement_gained);
   }
 
+  /**
+   * todo;
+   */
   public checkAchievedOneOfLads(): boolean {
     if (!hasAlifeInfo(info_portions.one_of_the_lads_gained)) {
       if (hasAlifeInfo(info_portions.zat_b30_sultan_loose) && hasAlifeInfo(info_portions.zat_b7_actor_help_stalkers)) {
@@ -156,7 +152,7 @@ export class AchievementsManager extends AbstractCoreManager {
           registry.actor,
           captions.st_ach_one_of_the_lads,
           null,
-          EAchievement.ONE_OF_THE_LADS,
+          achievementIcons[EAchievement.ONE_OF_THE_LADS],
           null,
           null
         );
@@ -166,6 +162,9 @@ export class AchievementsManager extends AbstractCoreManager {
     return hasAlifeInfo(info_portions.one_of_the_lads_gained);
   }
 
+  /**
+   * todo;
+   */
   public checkAchievedKingpin(): boolean {
     if (!hasAlifeInfo(info_portions.kingpin_gained)) {
       if (
@@ -177,7 +176,7 @@ export class AchievementsManager extends AbstractCoreManager {
           registry.actor,
           captions.st_ach_kingpin,
           null,
-          EAchievement.KINGPIN,
+          achievementIcons[EAchievement.KINGPIN],
           null,
           null
         );
@@ -187,6 +186,9 @@ export class AchievementsManager extends AbstractCoreManager {
     return hasAlifeInfo(info_portions.kingpin_gained);
   }
 
+  /**
+   * todo;
+   */
   public checkAchievedHeraldOfJustice(): boolean {
     if (!hasAlifeInfo(info_portions.herald_of_justice_achievement_gained)) {
       if (
@@ -199,7 +201,7 @@ export class AchievementsManager extends AbstractCoreManager {
           registry.actor,
           captions.st_ach_herald_of_justice,
           null,
-          EAchievement.HERALD_OF_JUSTICE,
+          achievementIcons[EAchievement.HERALD_OF_JUSTICE],
           null,
           null
         );
@@ -209,6 +211,9 @@ export class AchievementsManager extends AbstractCoreManager {
     return hasAlifeInfo(info_portions.herald_of_justice_achievement_gained);
   }
 
+  /**
+   * todo;
+   */
   public checkAchievedSeeker(): boolean {
     if (hasAlifeInfo(info_portions.sim_bandit_attack_harder)) {
       return true;
@@ -226,7 +231,7 @@ export class AchievementsManager extends AbstractCoreManager {
       registry.actor,
       captions.st_ach_seeker,
       null,
-      EAchievement.SEEKER,
+      achievementIcons[EAchievement.SEEKER],
       null,
       null
     );
@@ -238,6 +243,9 @@ export class AchievementsManager extends AbstractCoreManager {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public checkAchievedBattleSystemsMaster(): boolean {
     if (!hasAlifeInfo(info_portions.battle_systems_master_achievement_gained)) {
       if (hasAlifeInfo(info_portions.zat_b3_all_instruments_brought)) {
@@ -245,7 +253,7 @@ export class AchievementsManager extends AbstractCoreManager {
           registry.actor,
           captions.st_ach_battle_systems_master,
           null,
-          EAchievement.BATTLE_SYSTEMS_MASTER,
+          achievementIcons[EAchievement.BATTLE_SYSTEMS_MASTER],
           null,
           null
         );
@@ -256,6 +264,9 @@ export class AchievementsManager extends AbstractCoreManager {
     return hasAlifeInfo(info_portions.battle_systems_master_achievement_gained);
   }
 
+  /**
+   * todo;
+   */
   public checkAchievedHighTechMaster(): boolean {
     if (!hasAlifeInfo(info_portions.high_tech_master_achievement_gained)) {
       if (
@@ -267,7 +278,7 @@ export class AchievementsManager extends AbstractCoreManager {
           registry.actor,
           captions.st_ach_high_tech_master,
           null,
-          EAchievement.HIGH_TECH_MASTER,
+          achievementIcons[EAchievement.HIGH_TECH_MASTER],
           null,
           null
         );
@@ -278,6 +289,9 @@ export class AchievementsManager extends AbstractCoreManager {
     return hasAlifeInfo(info_portions.high_tech_master_achievement_gained);
   }
 
+  /**
+   * todo;
+   */
   public checkAchievedSkilledStalker(): boolean {
     if (!hasAlifeInfo(info_portions.skilled_stalker_achievement_gained)) {
       if (hasAlifeInfo(info_portions.actor_was_in_many_bad_places)) {
@@ -285,7 +299,7 @@ export class AchievementsManager extends AbstractCoreManager {
           registry.actor,
           captions.st_ach_skilled_stalker,
           null,
-          EAchievement.SKILLED_STALKER,
+          achievementIcons[EAchievement.SKILLED_STALKER],
           null,
           null
         );
@@ -296,6 +310,9 @@ export class AchievementsManager extends AbstractCoreManager {
     return hasAlifeInfo(info_portions.skilled_stalker_achievement_gained);
   }
 
+  /**
+   * todo;
+   */
   public checkAchievedLeader(): boolean {
     if (!hasAlifeInfo(info_portions.leader_achievement_gained)) {
       if (
@@ -307,7 +324,7 @@ export class AchievementsManager extends AbstractCoreManager {
           registry.actor,
           captions.st_ach_leader,
           null,
-          EAchievement.LEADER,
+          achievementIcons[EAchievement.LEADER],
           null,
           null
         );
@@ -318,6 +335,9 @@ export class AchievementsManager extends AbstractCoreManager {
     return hasAlifeInfo(info_portions.leader_achievement_gained);
   }
 
+  /**
+   * todo;
+   */
   public checkAchievedDiplomat(): boolean {
     if (!hasAlifeInfo(info_portions.diplomat_achievement_gained)) {
       if (
@@ -329,7 +349,7 @@ export class AchievementsManager extends AbstractCoreManager {
           registry.actor,
           captions.st_ach_diplomat,
           null,
-          EAchievement.DIPLOMAT,
+          achievementIcons[EAchievement.DIPLOMAT],
           null,
           null
         );
@@ -357,6 +377,9 @@ export class AchievementsManager extends AbstractCoreManager {
     return hasAlifeInfo(info_portions.diplomat_achievement_gained);
   }
 
+  /**
+   * todo;
+   */
   public checkAchievedResearchMan(): boolean {
     if (hasAlifeInfo(info_portions.research_man_gained)) {
       return true;
@@ -386,7 +409,7 @@ export class AchievementsManager extends AbstractCoreManager {
           registry.actor,
           captions.st_ach_research_man,
           null,
-          EAchievement.RESEARCH_MAN,
+          achievementIcons[EAchievement.RESEARCH_MAN],
           null,
           null
         );
@@ -398,6 +421,9 @@ export class AchievementsManager extends AbstractCoreManager {
     return false;
   }
 
+  /**
+   * todo;
+   */
   public checkAchievedFriendOfDuty(): boolean {
     if (!hasAlifeInfo(info_portions.sim_duty_help_harder)) {
       if (
@@ -411,7 +437,7 @@ export class AchievementsManager extends AbstractCoreManager {
           registry.actor,
           captions.st_ach_friend_of_duty,
           null,
-          EAchievement.FRIEND_OF_DUTY,
+          achievementIcons[EAchievement.FRIEND_OF_DUTY],
           null,
           null
         );
@@ -421,6 +447,9 @@ export class AchievementsManager extends AbstractCoreManager {
     return hasAlifeInfo(info_portions.sim_duty_help_harder);
   }
 
+  /**
+   * todo;
+   */
   public checkAchievedFriendOfFreedom(): boolean {
     if (!hasAlifeInfo(info_portions.sim_freedom_help_harder)) {
       if (
@@ -434,7 +463,7 @@ export class AchievementsManager extends AbstractCoreManager {
           registry.actor,
           captions.st_ach_friend_of_freedom,
           null,
-          EAchievement.FRIEND_OF_FREEDOM,
+          achievementIcons[EAchievement.FRIEND_OF_FREEDOM],
           null,
           null
         );
@@ -444,6 +473,9 @@ export class AchievementsManager extends AbstractCoreManager {
     return hasAlifeInfo(info_portions.sim_freedom_help_harder);
   }
 
+  /**
+   * todo;
+   */
   public checkAchievedBalanceAdvocate(): boolean {
     if (!hasAlifeInfo(info_portions.balance_advocate_gained)) {
       if (
@@ -456,7 +488,7 @@ export class AchievementsManager extends AbstractCoreManager {
           registry.actor,
           captions.st_ach_balance_advocate,
           null,
-          EAchievement.BALANCE_ADVOCATE,
+          achievementIcons[EAchievement.BALANCE_ADVOCATE],
           null,
           null
         );
@@ -466,6 +498,9 @@ export class AchievementsManager extends AbstractCoreManager {
     return hasAlifeInfo(info_portions.balance_advocate_gained);
   }
 
+  /**
+   * todo;
+   */
   public checkAchievedWealthy(): boolean {
     if (registry.actor.money() >= 100_000 && !hasAlifeInfo(info_portions.actor_wealthy)) {
       giveInfo(info_portions.actor_wealthy);
@@ -473,7 +508,7 @@ export class AchievementsManager extends AbstractCoreManager {
         registry.actor,
         captions.st_ach_wealthy,
         null,
-        EAchievement.WEALTHY,
+        achievementIcons[EAchievement.WEALTHY],
         null,
         null
       );
@@ -482,6 +517,9 @@ export class AchievementsManager extends AbstractCoreManager {
     return hasAlifeInfo(info_portions.actor_wealthy);
   }
 
+  /**
+   * todo;
+   */
   public checkAchievedKeeperOfSecrets(): boolean {
     if (!hasAlifeInfo(info_portions.keeper_of_secrets_achievement_gained)) {
       if (hasAlifeInfo(info_portions.pri_b305_all_strelok_notes_given)) {
@@ -490,7 +528,7 @@ export class AchievementsManager extends AbstractCoreManager {
           registry.actor,
           captions.st_ach_keeper_of_secrets,
           null,
-          EAchievement.KEEPER_OF_SECRETS,
+          achievementIcons[EAchievement.KEEPER_OF_SECRETS],
           null,
           null
         );
@@ -500,6 +538,9 @@ export class AchievementsManager extends AbstractCoreManager {
     return hasAlifeInfo(info_portions.keeper_of_secrets_achievement_gained);
   }
 
+  /**
+   * todo;
+   */
   public checkAchievedMarkedByZone(): boolean {
     if (hasAlifeInfo(info_portions.actor_marked_by_zone_3_times)) {
       return true;
@@ -511,7 +552,7 @@ export class AchievementsManager extends AbstractCoreManager {
         registry.actor,
         captions.st_ach_marked_by_zone,
         null,
-        EAchievement.MARKED_BY_ZONE,
+        achievementIcons[EAchievement.MARKED_BY_ZONE],
         null,
         null
       );
@@ -522,6 +563,9 @@ export class AchievementsManager extends AbstractCoreManager {
     return false;
   }
 
+  /**
+   * todo;
+   */
   public checkAchievedInformationDealer(): boolean {
     if (hasAlifeInfo(info_portions.actor_information_dealer)) {
       return true;
@@ -558,7 +602,7 @@ export class AchievementsManager extends AbstractCoreManager {
           registry.actor,
           captions.st_ach_information_dealer,
           null,
-          EAchievement.INFORMATION_DEALER,
+          achievementIcons[EAchievement.INFORMATION_DEALER],
           null,
           null
         );
@@ -569,6 +613,9 @@ export class AchievementsManager extends AbstractCoreManager {
     return hasAlifeInfo(info_portions.actor_information_dealer);
   }
 
+  /**
+   * todo;
+   */
   public checkAchievedFriendOfStalkers(): boolean {
     if (!hasAlifeInfo(info_portions.sim_stalker_help_harder)) {
       if (
@@ -583,7 +630,7 @@ export class AchievementsManager extends AbstractCoreManager {
           registry.actor,
           captions.st_ach_friend_of_stalkers,
           null,
-          EAchievement.FRIEND_OF_STALKERS,
+          achievementIcons[EAchievement.FRIEND_OF_STALKERS],
           null,
           null
         );

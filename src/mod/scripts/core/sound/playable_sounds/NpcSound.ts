@@ -16,7 +16,7 @@ import {
 } from "xray16";
 
 import { communities, TCommunity } from "@/mod/globals/communities";
-import { AnyObject, Optional, TNumberId } from "@/mod/lib/types";
+import { AnyObject, Optional, TLabel, TNumberId } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
 import { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
@@ -242,11 +242,11 @@ export class NpcSound extends AbstractPlayableSound {
     }
   }
 
-  public play(npc_id: number, faction: string, point: Optional<string>, msg: string): boolean {
-    logger.info("Play:", npc_id, faction, point, msg);
+  public play(objectId: TNumberId, faction: string, point: Optional<string>, msg: TLabel): boolean {
+    logger.info("Play:", objectId, faction, point, msg);
 
     const npc: Optional<XR_game_object> =
-      registry.objects.get(npc_id) && (registry.objects.get(npc_id).object as Optional<XR_game_object>);
+      registry.objects.get(objectId) && (registry.objects.get(objectId).object as Optional<XR_game_object>);
 
     if (npc === null) {
       return false;
@@ -257,7 +257,7 @@ export class NpcSound extends AbstractPlayableSound {
         return false;
       }
     } else {
-      if (!this.can_play_sound.get(npc_id)) {
+      if (!this.can_play_sound.get(objectId)) {
         return false;
       }
     }
@@ -268,14 +268,14 @@ export class NpcSound extends AbstractPlayableSound {
 
     this.played_time = null;
 
-    const npc_data = this.npc.get(npc_id);
+    const npc_data = this.npc.get(objectId);
 
     if (npc_data === null) {
       // --printf("coudnt play nodata!!!")
       return false;
     }
 
-    this.played_id = this.select_next_sound(npc_id);
+    this.played_id = this.select_next_sound(objectId);
 
     if (this.played_id === -1) {
       return false;
@@ -284,7 +284,7 @@ export class NpcSound extends AbstractPlayableSound {
     npc.play_sound(npc_data.id, this.delay_sound + 0.06, this.delay_sound + 0.05, 1, 0, this.played_id);
 
     const table_id = this.played_id + 1;
-    const snd = this.sound_path.get(npc_id)[table_id];
+    const snd = this.sound_path.get(objectId)[table_id];
 
     const fs: XR_FS = getFS();
 
@@ -308,7 +308,7 @@ export class NpcSound extends AbstractPlayableSound {
     if (this.group_snd) {
       this.can_play_group_sound = false;
     } else {
-      this.can_play_sound.set(npc_id, false);
+      this.can_play_sound.set(objectId, false);
     }
 
     if (game.translate_string(snd_st) !== snd_st) {

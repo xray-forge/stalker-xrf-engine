@@ -39,7 +39,6 @@ import {
   resetObject,
 } from "@/mod/scripts/core/database";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
-import { set_npc_sympathy, set_npcs_relation } from "@/mod/scripts/core/GameRelationsManager";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { need_victim } from "@/mod/scripts/core/inventory_upgrades";
 import { DropManager } from "@/mod/scripts/core/managers/DropManager";
@@ -69,6 +68,7 @@ import { getConfigString, pickSectionFromCondList } from "@/mod/scripts/utils/co
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { getObjectStoryId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { setObjectsRelation, setObjectSympathy } from "@/mod/scripts/utils/relations";
 
 const logger: LuaLogger = new LuaLogger("MotivatorBinder");
 
@@ -166,13 +166,13 @@ export class StalkerBinder extends object_binder {
     const relation = registry.goodwill.relations.get(this.object.id());
 
     if (relation !== null && actor) {
-      set_npcs_relation(this.object, actor, relation);
+      setObjectsRelation(this.object, actor, relation);
     }
 
     const sympathy = registry.goodwill.sympathy.get(this.object.id());
 
     if (sympathy !== null) {
-      set_npc_sympathy(this.object, sympathy);
+      setObjectSympathy(this.object, sympathy);
     }
 
     addHelicopterEnemy(this.object);

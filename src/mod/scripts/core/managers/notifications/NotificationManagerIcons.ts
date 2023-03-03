@@ -44,4 +44,9 @@ export type TNotificationIcons = typeof notificationManagerIcons;
 /**
  * todo;
  */
-export type TNotificationIcon = keyof TNotificationIcons;
+export type TNotificationIcon = TNotificationIcons[keyof TNotificationIcons];
+
+/**
+ * todo;
+ */
+export type TNotificationIconKey = keyof TNotificationIcons;

@@ -1,15 +1,16 @@
 import { game, TXR_net_processor, XR_CTime, XR_ini_file, XR_net_packet } from "xray16";
 
+import { relations } from "@/mod/globals/relations";
 import { Optional, TName, TSection } from "@/mod/lib/types";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { registry } from "@/mod/scripts/core/database";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
-import { set_squad_goodwill } from "@/mod/scripts/core/GameRelationsManager";
 import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
 import { isWeapon } from "@/mod/scripts/utils/checkers/is";
 import { getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { setSquadGoodwill } from "@/mod/scripts/utils/relations";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
 
 const logger: LuaLogger = new LuaLogger("SmartTerrainControl");
@@ -71,7 +72,7 @@ export class SmartTerrainControl {
       }
 
       for (const [squad_id, squad] of get_sim_board().smarts.get(this.smart.id).squads) {
-        set_squad_goodwill(squad_id, "neutral");
+        setSquadGoodwill(squad_id, relations.neutral);
       }
     }
 
@@ -117,7 +118,7 @@ export class SmartTerrainControl {
       }
 
       for (const [squad_id, squad] of get_sim_board().smarts.get(this.smart.id).squads) {
-        set_squad_goodwill(squad_id, "enemy");
+        setSquadGoodwill(squad_id, relations.enemy);
       }
     }
 
