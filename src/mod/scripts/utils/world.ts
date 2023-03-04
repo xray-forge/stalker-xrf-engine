@@ -1,5 +1,6 @@
 import { CSightParams, move, vector, XR_game_object, XR_patrol, XR_vector } from "xray16";
 
+import { TNumberId } from "@/mod/lib/types";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("world");
@@ -7,7 +8,7 @@ const logger: LuaLogger = new LuaLogger("world");
 /**
  * todo;
  */
-export function isStalkerAtWaypoint(stalker: XR_game_object, patrol_path: XR_patrol, path_point: number): boolean {
+export function isStalkerAtWaypoint(stalker: XR_game_object, patrol_path: XR_patrol, path_point: TNumberId): boolean {
   const stalker_pos: XR_vector = stalker.position();
   const distance: number = stalker_pos.distance_to_sqr(patrol_path.point(path_point));
 

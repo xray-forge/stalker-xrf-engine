@@ -5,6 +5,7 @@
     "lib": ["esnext"],
     "noImplicitOverride": true,
     "moduleResolution": "node",
+    "esModuleInterop": true,
     "types": ["@typescript-to-lua/language-extensions", "lua-types/jit"],
     "jsx": "preserve",
     "jsxFactory": "JSXXML",
