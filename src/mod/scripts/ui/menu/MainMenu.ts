@@ -25,8 +25,11 @@ import {
   XR_profile_store,
 } from "xray16";
 
+import { captions } from "@/mod/globals/captions";
 import { console_commands } from "@/mod/globals/console_commands";
 import { game_difficulties, TGameDifficulty } from "@/mod/globals/game_difficulties";
+import { game_tutorials } from "@/mod/globals/game_tutorials";
+import { game_types } from "@/mod/globals/game_types";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional, TNumberId } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
@@ -46,6 +49,12 @@ import { resolveXmlFile, resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 export const base: string = "menu\\MainMenu.component";
 const logger: LuaLogger = new LuaLogger("MainMenu");
 
+enum EMainMenuModalMode {
+  OFF,
+  ON,
+  CONFIRM_LOAD_SAVE,
+}
+
 /**
  * todo;
  */
@@ -60,7 +69,7 @@ export class MainMenu extends CUIScriptWnd {
   public xrMenuPageController!: XR_CUIMMShniaga;
 
   public uiModalBox!: XR_CUIMessageBoxEx;
-  public modalBoxMode: number = 0;
+  public modalBoxMode: EMainMenuModalMode = EMainMenuModalMode.OFF;
 
   public uiMultiplayerMenuDialog: Optional<MultiplayerMenu> = null;
   public uiGameOptionsDialog: Optional<OptionsDialog> = null;
@@ -191,14 +200,14 @@ export class MainMenu extends CUIScriptWnd {
    * todo;
    */
   public onMessageBoxOk(): void {
-    this.modalBoxMode = 0;
+    this.modalBoxMode = EMainMenuModalMode.OFF;
   }
 
   /**
    * todo;
    */
   public onMessageBoxCancel(): void {
-    this.modalBoxMode = 0;
+    this.modalBoxMode = EMainMenuModalMode.OFF;
   }
 
   /**
@@ -222,7 +231,7 @@ export class MainMenu extends CUIScriptWnd {
     }
 
     // If currently playing game and actor is alive, ask confirmation.
-    this.modalBoxMode = 1;
+    this.modalBoxMode = EMainMenuModalMode.CONFIRM_LOAD_SAVE;
     this.uiModalBox.InitMessageBox("message_box_confirm_load_save");
     this.uiModalBox.ShowDialog(true);
   }
@@ -231,7 +240,7 @@ export class MainMenu extends CUIScriptWnd {
    * todo;
    */
   public onButtonClickGameCredits(): void {
-    game.start_tutorial("credits_seq");
+    game.start_tutorial(game_tutorials.credits_seq);
   }
 
   /**
@@ -248,12 +257,11 @@ export class MainMenu extends CUIScriptWnd {
   public onButtonClickDisconnect(): void {
     this.uiModalBox.InitMessageBox("message_box_quit_game");
 
-    if (level.game_id() !== 1) {
-      this.uiModalBox.SetText("ui_mm_disconnect_message"); // -- MultiPlayer
-    } else {
-      this.uiModalBox.SetText("ui_mm_quit_game_message"); //  -- SinglePlayer
-    }
-
+    this.uiModalBox.SetText(
+      level.game_id() === game_types.eGameIDSingle
+        ? captions.ui_mm_quit_game_message
+        : captions.ui_mm_disconnect_message
+    );
     this.uiModalBox.ShowDialog(true);
   }
 
@@ -435,18 +443,18 @@ export class MainMenu extends CUIScriptWnd {
    * todo;
    */
   public onMessageBoxConfirm(): void {
-    if (this.modalBoxMode === 1) {
+    if (this.modalBoxMode === EMainMenuModalMode.CONFIRM_LOAD_SAVE) {
       this.onLoadLastSavedGame();
     }
 
-    this.modalBoxMode = 0;
+    this.modalBoxMode = EMainMenuModalMode.OFF;
   }
 
   /**
    * todo;
    */
   public onMessageBoxDecline(): void {
-    this.modalBoxMode = 0;
+    this.modalBoxMode = EMainMenuModalMode.OFF;
   }
 
   /**

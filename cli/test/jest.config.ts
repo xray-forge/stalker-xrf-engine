@@ -17,6 +17,7 @@ module.exports = {
   clearMocks: true,
   testEnvironment: "node",
   rootDir: ROOT_DIR,
+  setupFiles: [path.resolve(__dirname, "./jest_global.ts")],
   roots: ["<rootDir>"],
   cacheDirectory: "<rootDir>/target/test/cache",
   coverageDirectory: "<rootDir>/target/test/coverage",

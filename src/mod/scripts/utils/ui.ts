@@ -66,8 +66,6 @@ export function setUiVisibility(isVisible: boolean): void {
 
     level.show_indicators();
 
-    // --      db.actor:restore_weapon()
-
     actor.disable_hit_marks(false);
     hud.show_messages();
   } else {
@@ -82,8 +80,6 @@ export function setUiVisibility(isVisible: boolean): void {
     hud.HideActorMenu();
     hud.HidePdaMenu();
     hud.hide_messages();
-
-    // --      db.actor:hide_weapon()
 
     actor.disable_hit_marks(true);
   }

@@ -1,5 +1,8 @@
-export const game_type = {
-  // --s.t.a.l.k.e.r internal types, do not change
+/**
+ * todo;
+ */
+export const game_types = {
+  // -- game internal types, do not change
   eGameIDNoGame: 0,
   eGameIDSingle: 1, // --u32(1) << 0,
   eGameIDDeathmatch: 2, // --u32(1) << 1,
@@ -9,7 +12,7 @@ export const game_type = {
   eGameIDDominationZone: 32, // --u32(1) << 5,
   eGameIDTeamDominationZone: 64, // --u32(1) << 6,
 
-  // --backward compatibility
+  // -- backward compatibility
   GAME_ANY: 0,
   GAME_SINGLE: 1,
   GAME_DEATHMATCH: 2,
@@ -22,4 +25,4 @@ export const game_type = {
   // --script game types
   GAME_LASTSTANDING: 100,
   GAME_DUMMY: 255, // --max(unsigned8)
-};
+} as const;

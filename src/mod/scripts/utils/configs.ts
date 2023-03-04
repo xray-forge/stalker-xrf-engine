@@ -25,7 +25,7 @@ const logger: LuaLogger = new LuaLogger("configs");
  */
 export function getConfigString<D = string>(
   ini: XR_ini_file,
-  section: string,
+  section: TSection,
   field: string,
   // todo: Remove?
   object: Optional<XR_cse_abstract | XR_game_object | AnyObject>,
