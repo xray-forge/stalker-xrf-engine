@@ -1,15 +1,15 @@
 import { property_evaluator } from "xray16";
 
-import { IStoredObject } from "@/mod/scripts/core/database";
+import { ISchemeAbuseState } from "@/mod/scripts/core/schemes/abuse/ISchemeAbuseState";
 
 /**
  * todo;
  */
 @LuabindClass()
 export class EvaluatorAbuse extends property_evaluator {
-  public readonly state: IStoredObject;
+  public readonly state: ISchemeAbuseState;
 
-  public constructor(storage: IStoredObject) {
+  public constructor(storage: ISchemeAbuseState) {
     super(null, EvaluatorAbuse.__name);
     this.state = storage;
   }

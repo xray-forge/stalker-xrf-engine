@@ -1,6 +1,7 @@
 import { action_base } from "xray16";
 
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { registry } from "@/mod/scripts/core/database";
+import { ISchemeAbuseState } from "@/mod/scripts/core/schemes/abuse/ISchemeAbuseState";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 
 /**
@@ -8,10 +9,9 @@ import { set_state } from "@/mod/scripts/core/state_management/StateManager";
  */
 @LuabindClass()
 export class ActionAbuseHit extends action_base {
-  public readonly state: IStoredObject;
-  public hit_done: boolean = false;
+  public readonly state: ISchemeAbuseState;
 
-  public constructor(storage: IStoredObject) {
+  public constructor(storage: ISchemeAbuseState) {
     super(null, ActionAbuseHit.__name);
     this.state = storage;
   }
@@ -28,8 +28,6 @@ export class ActionAbuseHit extends action_base {
     const { set_state } = require("@/mod/scripts/core/state_management/StateManager");
 
     set_state(this.object, "punch", null, null, { look_object: registry.actor }, { animation: true });
-    // --    GlobalSound.set_sound_play(this.object.id(), "use_abuse")
-    this.hit_done = true;
   }
 
   public override execute(): void {

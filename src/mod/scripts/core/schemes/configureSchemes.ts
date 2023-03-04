@@ -1,7 +1,7 @@
 import { ini_file, XR_game_object, XR_ini_file } from "xray16";
 
-import { ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { registry } from "@/mod/scripts/core/database";
+import { ESchemeType, Optional, TName, TNumberId, TSection } from "@/mod/lib/types";
+import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { TradeManager } from "@/mod/scripts/core/managers/TradeManager";
 import { disableGenericSchemes } from "@/mod/scripts/core/schemes/disableGenericSchemes";
 import { enable_generic_schemes } from "@/mod/scripts/core/schemes/enable_generic_schemes";
@@ -15,85 +15,84 @@ import { getObjectBoundSmart } from "@/mod/scripts/utils/gulag";
  * todo;
  * todo;
  * todo;
- * todo;
  */
 export function configureSchemes(
   object: XR_game_object,
   ini: XR_ini_file,
-  ini_filename: string,
+  iniFilename: TName,
   schemeType: ESchemeType,
-  section_logic: TSection,
-  gulag_name: string
+  sectionLogic: TSection,
+  gulagName: TName
 ): XR_ini_file {
-  const npc_id = object.id();
-  const st = registry.objects.get(npc_id);
+  const objectId: TNumberId = object.id();
+  const state: IStoredObject = registry.objects.get(objectId);
 
-  if (st.active_section) {
-    issueSchemeEvent(object, st[st.active_scheme!], "deactivate", object);
+  if (state.active_section) {
+    issueSchemeEvent(object, state[state.active_scheme!], "deactivate", object);
   }
 
-  let actual_ini: XR_ini_file;
-  let actual_ini_filename: string;
+  let actualIni: XR_ini_file;
+  let actualIniFilename: TName;
 
-  if (!ini.section_exist(section_logic)) {
-    if (gulag_name === "") {
-      actual_ini_filename = ini_filename;
-      actual_ini = ini;
+  if (!ini.section_exist(sectionLogic)) {
+    if (gulagName === "") {
+      actualIniFilename = iniFilename;
+      actualIni = ini;
     } else {
       abort(
         "ERROR: object '%s': unable to find section '%s' in '%s'",
         object.name(),
-        section_logic,
-        tostring(ini_filename)
+        sectionLogic,
+        tostring(iniFilename)
       );
     }
   } else {
-    const filename: Optional<string> = getConfigString(ini, section_logic, "cfg", object, false, "");
+    const filename: Optional<TName> = getConfigString(ini, sectionLogic, "cfg", object, false, "");
 
     if (filename !== null) {
-      actual_ini_filename = filename;
-      actual_ini = new ini_file(filename);
-      if (!actual_ini.section_exist(section_logic)) {
+      actualIniFilename = filename;
+      actualIni = new ini_file(filename);
+      if (!actualIni.section_exist(sectionLogic)) {
         abort("object '%s' configuration file [%s] !FOUND || section [logic] isn't assigned ", object.name(), filename);
       }
 
-      return configureSchemes(object, actual_ini, actual_ini_filename, schemeType, section_logic, gulag_name);
+      return configureSchemes(object, actualIni, actualIniFilename, schemeType, sectionLogic, gulagName);
     } else {
       if (schemeType === ESchemeType.STALKER || schemeType === ESchemeType.MONSTER) {
-        const current_smart = getObjectBoundSmart(object);
+        const currentSmart = getObjectBoundSmart(object);
 
-        if (current_smart !== null) {
-          const t: any = current_smart.getJob(npc_id);
+        if (currentSmart !== null) {
+          const job: any = currentSmart.getJob(objectId);
 
-          if (t) {
-            st.job_ini = t.ini_path;
+          if (job) {
+            state.job_ini = job.ini_path;
           } else {
-            st.job_ini = null;
+            state.job_ini = null;
           }
         }
       }
 
-      actual_ini_filename = ini_filename;
-      actual_ini = ini;
+      actualIniFilename = iniFilename;
+      actualIni = ini;
     }
   }
 
   disableGenericSchemes(object, schemeType);
-  enable_generic_schemes(actual_ini, object, schemeType, section_logic);
+  enable_generic_schemes(actualIni, object, schemeType, sectionLogic);
 
-  st.active_section = null;
-  st.active_scheme = null;
-  st.gulag_name = gulag_name;
+  state.active_section = null;
+  state.active_scheme = null;
+  state.gulag_name = gulagName;
 
-  st.stype = schemeType;
-  st.ini = actual_ini;
-  st.ini_filename = actual_ini_filename;
-  st.section_logic = section_logic;
+  state.stype = schemeType;
+  state.ini = actualIni;
+  state.ini_filename = actualIniFilename;
+  state.section_logic = sectionLogic;
 
   if (schemeType === ESchemeType.STALKER) {
     const trade_ini = getConfigString(
-      actual_ini,
-      section_logic,
+      actualIni,
+      sectionLogic,
       "trade",
       object,
       false,
@@ -102,8 +101,8 @@ export function configureSchemes(
     );
 
     TradeManager.getInstance().initForObject(object, trade_ini);
-    spawnDefaultNpcItems(object, st);
+    spawnDefaultNpcItems(object, state);
   }
 
-  return st.ini;
+  return state.ini;
 }

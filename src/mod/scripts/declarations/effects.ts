@@ -912,7 +912,7 @@ export function actor_punch(npc: XR_game_object): void {
 }
 
 export function clearAbuse(npc: XR_game_object) {
-  SchemeAbuse.clear_abuse(npc);
+  SchemeAbuse.clearAbuse(npc);
 }
 
 export function turn_off_underpass_lamps(actor: XR_game_object, npc: XR_game_object): void {

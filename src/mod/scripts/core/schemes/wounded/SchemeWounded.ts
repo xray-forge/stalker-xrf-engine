@@ -11,7 +11,8 @@ import {
 
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { drugs } from "@/mod/globals/items/drugs";
-import { AnyObject, Optional } from "@/mod/lib/types";
+import { STRINGIFIED_FALSE, STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/mod/globals/lua";
+import { AnyObject, Optional, TCount, TRate } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
@@ -25,7 +26,7 @@ import { getConfigBoolean, getConfigString, pickSectionFromCondList } from "@/mo
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseData, parseSynData } from "@/mod/scripts/utils/parse";
 
-const wounded_by_state: Record<number, string> = {
+const woundedByState: Record<number, string> = {
   [0]: "wounded_heavy",
   [1]: "wounded_heavy_2",
   [2]: "wounded_heavy_3",
@@ -103,12 +104,12 @@ export class SchemeWounded extends AbstractScheme {
     state: IStoredObject,
     section: TSection
   ): void {
-    const wounded_section: TSection =
+    const woundedSection: TSection =
       scheme === null || scheme === EScheme.NIL
         ? getConfigString(state.ini!, state.section_logic!, "wounded", npc, false, "")
         : getConfigString(state.ini!, section, "wounded", npc, false, "");
 
-    SchemeWounded.initWounded(npc, state.ini!, wounded_section, state.wounded!, scheme);
+    SchemeWounded.initWounded(npc, state.ini!, woundedSection, state.wounded!, scheme);
 
     state.wounded!.wound_manager.hit_callback();
   }
@@ -135,7 +136,7 @@ export class SchemeWounded extends AbstractScheme {
     const npc_community: TCommunity = getCharacterCommunity(npc);
 
     if (npc_community === communities.monolith) {
-      const state = wounded_by_state[math.mod(npc.id(), 3)];
+      const state = woundedByState[math.mod(npc.id(), 3)];
 
       def.hp_state = "20|" + state + "@nil";
       def.hp_state_see = "20|" + state + "@nil";
@@ -163,7 +164,7 @@ export class SchemeWounded extends AbstractScheme {
       def.enable_talk = true;
       def.not_for_help = true;
     } else {
-      const state = wounded_by_state[math.mod(npc.id(), 3)];
+      const state = woundedByState[math.mod(npc.id(), 3)];
 
       def.hp_state = "20|" + state + "@help_heavy";
       def.hp_state_see = "20|" + state + "@help_heavy";
@@ -221,7 +222,7 @@ export class SchemeWounded extends AbstractScheme {
     const state = registry.objects.get(object.id());
 
     if (state.wounded !== null) {
-      state.wounded!.wound_manager.unlock_medkit();
+      state.wounded!.wound_manager.unlockMedkit();
     }
   }
 
@@ -232,7 +233,7 @@ export class SchemeWounded extends AbstractScheme {
     const state: Optional<IStoredObject> = registry.objects.get(object.id());
 
     if (state.wounded !== null) {
-      state.wounded!.wound_manager.eat_medkit();
+      state.wounded!.wound_manager.eatMedkit();
     }
   }
 
@@ -274,27 +275,30 @@ export class SchemeWounded extends AbstractScheme {
   public sound!: string;
   public wound_state!: string;
 
+  /**
+   * todo;
+   */
   public override update(): void {
-    const hp = 100 * this.object.health;
-    const psy = 100 * this.object.psy_health;
+    const hp: TCount = 100 * this.object.health;
+    const psy: TCount = 100 * this.object.psy_health;
 
     const [nState, nSound] = this.process_psy_wound(psy);
 
     this.wound_state = nState;
     this.sound = nSound;
 
-    if (this.wound_state === "nil" && this.sound === "nil") {
+    if (this.wound_state === STRINGIFIED_NIL && this.sound === STRINGIFIED_NIL) {
       const [state, sound] = this.process_hp_wound(hp);
 
       this.wound_state = state;
       this.sound = sound;
 
-      this.fight = this.process_fight(hp);
+      this.fight = this.processFight(hp);
       this.victim = this.process_victim(hp);
     } else {
-      this.fight = "false";
-      this.cover = "false";
-      this.victim = "nil";
+      this.fight = STRINGIFIED_FALSE;
+      this.cover = STRINGIFIED_FALSE;
+      this.victim = STRINGIFIED_NIL;
     }
 
     pstor_store(this.object, "wounded_state", this.wound_state);
@@ -303,11 +307,17 @@ export class SchemeWounded extends AbstractScheme {
     pstor_store(this.object, "wounded_victim", this.victim);
   }
 
-  public unlock_medkit(): void {
+  /**
+   * todo;
+   */
+  public unlockMedkit(): void {
     this.can_use_medkit = true;
   }
 
-  public eat_medkit(): void {
+  /**
+   * todo;
+   */
+  public eatMedkit(): void {
     if (this.can_use_medkit) {
       if (this.object.object("medkit_script") !== null) {
         this.object.eat(this.object.object("medkit_script")!);
@@ -337,8 +347,11 @@ export class SchemeWounded extends AbstractScheme {
     this.update();
   }
 
-  public process_fight(hp: number): string {
-    const key = this.get_key_from_distance(this.state.hp_fight, hp);
+  /**
+   * todo;
+   */
+  public processFight(hp: TRate): string {
+    const key = this.getKeyFromDistance(this.state.hp_fight, hp);
 
     if (key !== null) {
       if (this.state.hp_fight[key].state) {
@@ -346,11 +359,14 @@ export class SchemeWounded extends AbstractScheme {
       }
     }
 
-    return "true";
+    return STRINGIFIED_TRUE;
   }
 
-  public process_victim(hp: number): string {
-    const key = this.get_key_from_distance(this.state.hp_victim, hp);
+  /**
+   * todo;
+   */
+  public process_victim(hp: TRate): string {
+    const key = this.getKeyFromDistance(this.state.hp_victim, hp);
 
     if (key !== null) {
       if (this.state.hp_victim[key].state) {
@@ -358,11 +374,14 @@ export class SchemeWounded extends AbstractScheme {
       }
     }
 
-    return "nil";
+    return STRINGIFIED_NIL;
   }
 
-  public process_hp_wound(hp: number): LuaMultiReturn<[string, string]> {
-    const key = this.get_key_from_distance(this.state.hp_state, hp);
+  /**
+   * todo;
+   */
+  public process_hp_wound(hp: TRate): LuaMultiReturn<[string, string]> {
+    const key = this.getKeyFromDistance(this.state.hp_state, hp);
 
     if (key !== null) {
       let r1: Optional<string> = null;
@@ -389,11 +408,14 @@ export class SchemeWounded extends AbstractScheme {
       return $multi(tostring(r1), tostring(r2));
     }
 
-    return $multi("nil", "nil");
+    return $multi(STRINGIFIED_NIL, STRINGIFIED_NIL);
   }
 
+  /**
+   * todo;
+   */
   public process_psy_wound(hp: number): LuaMultiReturn<[string, string]> {
-    const key = this.get_key_from_distance(this.state.psy_state, hp);
+    const key = this.getKeyFromDistance(this.state.psy_state, hp);
 
     if (key !== null) {
       let r1: Optional<string> = null;
@@ -410,10 +432,13 @@ export class SchemeWounded extends AbstractScheme {
       return $multi(tostring(r1), tostring(r2));
     }
 
-    return $multi("nil", "nil");
+    return $multi(STRINGIFIED_NIL, STRINGIFIED_NIL);
   }
 
-  public get_key_from_distance(t: LuaTable<string>, hp: number): Optional<string> {
+  /**
+   * todo;
+   */
+  public getKeyFromDistance(t: LuaTable<string>, hp: TRate): Optional<string> {
     let key: Optional<string> = null;
 
     for (const [k, v] of t) {
@@ -427,12 +452,15 @@ export class SchemeWounded extends AbstractScheme {
     return key;
   }
 
+  /**
+   * todo;
+   */
   public hit_callback(): void {
-    if (this.object.alive() === false) {
+    if (!this.object.alive()) {
       return;
     }
 
-    if (this.object.critically_wounded() === true) {
+    if (this.object.critically_wounded()) {
       return;
     }
 

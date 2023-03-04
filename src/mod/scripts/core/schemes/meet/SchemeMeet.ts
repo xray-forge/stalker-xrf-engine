@@ -631,9 +631,9 @@ export class SchemeMeet extends AbstractScheme {
 
     if (this.abuse_mode !== abuse) {
       if (abuse === STRINGIFIED_TRUE) {
-        SchemeAbuse.enable_abuse(this.object);
+        SchemeAbuse.enableAbuse(this.object);
       } else {
-        SchemeAbuse.disable_abuse(this.object);
+        SchemeAbuse.disableAbuse(this.object);
       }
 
       this.abuse_mode = abuse;
