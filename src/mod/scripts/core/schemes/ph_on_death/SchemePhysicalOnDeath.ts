@@ -19,7 +19,7 @@ export class SchemePhysicalOnDeath extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_ON_DEATH;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.ITEM;
 
-  public static override add_to_binder(
+  public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -35,12 +35,7 @@ export class SchemePhysicalOnDeath extends AbstractScheme {
     subscribeActionForEvents(object, storage, action);
   }
 
-  public static override set_scheme(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection
-  ): void {
+  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     logger.info("Set scheme:", object.name());
 
     const st = assignStorageAndBind(object, ini, scheme, section);
@@ -48,7 +43,7 @@ export class SchemePhysicalOnDeath extends AbstractScheme {
     st.logic = cfg_get_switch_conditions(ini, section, object);
   }
 
-  public static override disable_scheme(npc: XR_game_object, scheme: string): void {
+  public static override disableScheme(npc: XR_game_object, scheme: string): void {
     // ---  npc:set_callback(callback.death, nil)
   }
 

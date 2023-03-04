@@ -32,7 +32,7 @@ export class SchemeDanger extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.DANGER;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  public static override add_to_binder(
+  public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,

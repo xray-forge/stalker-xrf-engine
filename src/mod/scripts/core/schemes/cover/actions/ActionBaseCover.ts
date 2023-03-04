@@ -30,7 +30,7 @@ export class ActionBaseCover extends action_base {
     this.board = get_sim_board();
   }
 
-  public activate_scheme(): void {
+  public activateScheme(): void {
     this.state.signals = {};
     this.board = get_sim_board();
 

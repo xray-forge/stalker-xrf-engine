@@ -30,7 +30,7 @@ export class SchemeHeliMove extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.HELI_MOVE;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.ITEM;
 
-  public static override add_to_binder(
+  public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -40,7 +40,7 @@ export class SchemeHeliMove extends AbstractScheme {
     subscribeActionForEvents(object, storage, new SchemeHeliMove(object, storage));
   }
 
-  public static override set_scheme(npc: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+  public static override setScheme(npc: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const a = assignStorageAndBind(npc, ini, scheme, section);
 
     a.logic = cfg_get_switch_conditions(ini, section, npc);
@@ -97,7 +97,7 @@ export class SchemeHeliMove extends AbstractScheme {
     this.heli_look = get_heli_looker(object);
   }
 
-  public override reset_scheme(loading?: boolean): void {
+  public override resetScheme(loading?: boolean): void {
     this.state.signals = {};
     this.heliObject.TurnEngineSound(this.state.engine_sound);
 

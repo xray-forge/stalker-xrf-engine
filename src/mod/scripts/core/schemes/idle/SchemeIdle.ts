@@ -19,7 +19,7 @@ export class SchemeIdle extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_IDLE;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
-  public static override add_to_binder(
+  public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -30,18 +30,13 @@ export class SchemeIdle extends AbstractScheme {
     subscribeActionForEvents(object, state, new SchemeIdle(object, state));
   }
 
-  public static override set_scheme(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection
-  ): void {
+  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const state: IStoredObject = assignStorageAndBind(object, ini, scheme, section);
 
     state.logic = cfg_get_switch_conditions(ini, section, object);
   }
 
-  public override reset_scheme(): void {
+  public override resetScheme(): void {
     this.state.signals = {};
   }
 

@@ -20,7 +20,7 @@ export class SchemeHit extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.HIT;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  public static override add_to_binder(
+  public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: string,
@@ -31,7 +31,7 @@ export class SchemeHit extends AbstractScheme {
     storage.action = new SchemeHit(object, storage);
   }
 
-  public static override disable_scheme(object: XR_game_object, scheme: EScheme): void {
+  public static override disableScheme(object: XR_game_object, scheme: EScheme): void {
     logger.info("Disable scheme:", object.id());
 
     const st = registry.objects.get(object.id())[scheme];
@@ -41,12 +41,7 @@ export class SchemeHit extends AbstractScheme {
     }
   }
 
-  public static override set_scheme(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection
-  ): void {
+  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     logger.info("Set scheme:", object.id());
 
     const st = assignStorageAndBind(object, ini, scheme, section);

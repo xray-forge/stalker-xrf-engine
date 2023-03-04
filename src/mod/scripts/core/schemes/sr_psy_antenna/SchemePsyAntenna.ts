@@ -34,7 +34,7 @@ export class SchemePsyAntenna extends AbstractScheme {
   /**
    * Add scheme to object binder for initialization.
    */
-  public static override add_to_binder(
+  public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -44,12 +44,7 @@ export class SchemePsyAntenna extends AbstractScheme {
     subscribeActionForEvents(object, state, new SchemePostProcess(object, state));
   }
 
-  public static override set_scheme(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection
-  ): void {
+  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const st = assignStorageAndBind(object, ini, scheme, section);
 
     st.logic = cfg_get_switch_conditions(ini, section, object);
@@ -67,7 +62,7 @@ export class SchemePsyAntenna extends AbstractScheme {
   public antennaState = state_void;
   public antennaManager = PsyAntennaManager.getInstance();
 
-  public override reset_scheme(loading?: boolean): void {
+  public override resetScheme(loading?: boolean): void {
     if (loading) {
       this.antennaState = pstor_retrieve(this.object, "inside")!;
     }

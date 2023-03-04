@@ -24,7 +24,7 @@ export class SchemeCode extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_CODE;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.ITEM;
 
-  public static override add_to_binder(
+  public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -34,12 +34,7 @@ export class SchemeCode extends AbstractScheme {
     subscribeActionForEvents(object, storage, new SchemeCode(object, storage));
   }
 
-  public static override set_scheme(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection
-  ): void {
+  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const state = assignStorageAndBind(object, ini, scheme, section);
 
     state.logic = cfg_get_switch_conditions(ini, section, object);
@@ -65,7 +60,7 @@ export class SchemeCode extends AbstractScheme {
     }
   }
 
-  public override reset_scheme(): void {
+  public override resetScheme(): void {
     this.object.set_nonscript_usable(false);
   }
 

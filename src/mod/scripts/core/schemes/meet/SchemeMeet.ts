@@ -40,7 +40,7 @@ export class SchemeMeet extends AbstractScheme {
   public static readonly SCHEME_SECTION_ADDITIONAL: EScheme = EScheme.ACTOR_DIALOGS;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  public static override add_to_binder(
+  public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -351,7 +351,7 @@ export class SchemeMeet extends AbstractScheme {
     st.meet_set = true;
   }
 
-  public static override disable_scheme(npc: XR_game_object, scheme: EScheme): void {
+  public static override disableScheme(npc: XR_game_object, scheme: EScheme): void {
     registry.objects.get(npc.id()).actor_dialogs = null;
     registry.objects.get(npc.id()).actor_disable = null;
   }

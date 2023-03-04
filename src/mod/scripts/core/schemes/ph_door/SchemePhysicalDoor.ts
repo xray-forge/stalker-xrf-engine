@@ -37,7 +37,7 @@ export class SchemePhysicalDoor extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_DOOR;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.ITEM;
 
-  public static override add_to_binder(
+  public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -50,12 +50,7 @@ export class SchemePhysicalDoor extends AbstractScheme {
     subscribeActionForEvents(object, state, new SchemePhysicalDoor(object, state));
   }
 
-  public static override set_scheme(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection
-  ): void {
+  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const state = assignStorageAndBind(object, ini, scheme, section);
 
     state.logic = cfg_get_switch_conditions(ini, section, object);
@@ -106,7 +101,7 @@ export class SchemePhysicalDoor extends AbstractScheme {
   public low_limits: number = 0;
   public hi_limits: number = 0;
 
-  public override reset_scheme(loading?: boolean): void {
+  public override resetScheme(loading?: boolean): void {
     this.state.signals = {};
 
     this.initialized = false;

@@ -51,7 +51,7 @@ export class SchemeMobWalker extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.MOB_WALKER;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
 
-  public static override add_to_binder(
+  public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -61,7 +61,7 @@ export class SchemeMobWalker extends AbstractScheme {
     subscribeActionForEvents(object, storage, new SchemeMobWalker(object, storage));
   }
 
-  public static override set_scheme(
+  public static override setScheme(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -106,7 +106,7 @@ export class SchemeMobWalker extends AbstractScheme {
 
   public path_look_info: Optional<LuaTable<number, IWaypointData>> = null;
 
-  public override reset_scheme(): void {
+  public override resetScheme(): void {
     setMobState(this.object, registry.actor, this.state.state);
 
     this.state.signals = {};
@@ -155,7 +155,7 @@ export class SchemeMobWalker extends AbstractScheme {
 
   public override update(): void {
     if (!mobCaptured(this.object)) {
-      this.reset_scheme();
+      this.resetScheme();
 
       return;
     }

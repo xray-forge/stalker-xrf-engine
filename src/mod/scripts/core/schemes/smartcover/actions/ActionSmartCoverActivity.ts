@@ -61,7 +61,7 @@ export class ActionSmartCoverActivity extends action_base {
 
     this.initialized = true;
 
-    this.activate_scheme();
+    this.activateScheme();
   }
 
   /**
@@ -91,7 +91,7 @@ export class ActionSmartCoverActivity extends action_base {
   /**
    * todo;
    */
-  public activate_scheme(): void {
+  public activateScheme(): void {
     this.st.signals = {};
 
     if (!this.initialized) {

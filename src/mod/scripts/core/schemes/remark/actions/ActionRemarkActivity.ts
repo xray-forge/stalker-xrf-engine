@@ -51,7 +51,7 @@ export class ActionRemarkActivity extends action_base {
     // --    GlobalSound:set_sound(this.object, null)
   }
 
-  public activate_scheme(): void {
+  public activateScheme(): void {
     this.st.signals = {};
     this.sound_end_signalled = false;
     this.action_end_signalled = false;

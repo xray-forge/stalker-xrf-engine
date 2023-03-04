@@ -23,7 +23,7 @@ export class SchemeCombatCamper extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.COMBAT_CAMPER;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  public static override add_to_binder(
+  public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -34,7 +34,7 @@ export class SchemeCombatCamper extends AbstractScheme {
     logger.info("Add to binder:", object.name());
 
     if (!planner) {
-      abort("Expected planner to be provided for add_to_binder method call.");
+      abort("Expected planner to be provided for addToBinder method call.");
     }
 
     const properties = {

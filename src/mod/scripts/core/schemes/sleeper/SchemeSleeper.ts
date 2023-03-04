@@ -20,7 +20,7 @@ export class SchemeSleeper extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SLEEPER;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  public static override add_to_binder(
+  public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -62,7 +62,7 @@ export class SchemeSleeper extends AbstractScheme {
     manager.action(action_ids.alife).add_precondition(new world_property(properties.need_sleeper, false));
   }
 
-  public static override set_scheme(
+  public static override setScheme(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,

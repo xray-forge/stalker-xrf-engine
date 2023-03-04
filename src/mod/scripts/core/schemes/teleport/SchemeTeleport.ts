@@ -30,7 +30,7 @@ export class SchemeTeleport extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_TELEPORT;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
-  public static override add_to_binder(
+  public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -41,12 +41,7 @@ export class SchemeTeleport extends AbstractScheme {
     subscribeActionForEvents(object, state, new SchemeTeleport(object, state));
   }
 
-  public static override set_scheme(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection
-  ): void {
+  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     logger.info("Set scheme:", object.name());
 
     const state: IStoredObject = assignStorageAndBind(object, ini, scheme, section);

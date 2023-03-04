@@ -22,7 +22,7 @@ export class SchemeCombatIgnore extends AbstractScheme {
   /**
    * todo
    */
-  public static override add_to_binder(
+  public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -43,7 +43,7 @@ export class SchemeCombatIgnore extends AbstractScheme {
   /**
    * todo
    */
-  public static override disable_scheme(npc: XR_game_object, scheme: EScheme): void {
+  public static override disableScheme(npc: XR_game_object, scheme: EScheme): void {
     npc.set_enemy_callback(null);
 
     const schemeState = registry.objects.get(npc.id())[scheme];

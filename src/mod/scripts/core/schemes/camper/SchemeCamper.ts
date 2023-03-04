@@ -25,7 +25,7 @@ export class SchemeCamper extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.CAMPER;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  public static override add_to_binder(
+  public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -83,7 +83,7 @@ export class SchemeCamper extends AbstractScheme {
     actionCombatPlanner.add_effect(new world_property(properties.end, true));
   }
 
-  public static override set_scheme(
+  public static override setScheme(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,

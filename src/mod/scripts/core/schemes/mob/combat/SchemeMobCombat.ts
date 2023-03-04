@@ -18,7 +18,10 @@ export class SchemeMobCombat extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.MOB_COMBAT;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
 
-  public static override add_to_binder(
+  /**
+   * todo;
+   */
+  public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -27,14 +30,17 @@ export class SchemeMobCombat extends AbstractScheme {
   ): void {
     logger.info("Add to binder:", object.name());
 
-    const new_action: SchemeMobCombat = new SchemeMobCombat(object, storage);
+    const newAction: SchemeMobCombat = new SchemeMobCombat(object, storage);
 
-    storage.action = new_action;
+    storage.action = newAction;
 
-    subscribeActionForEvents(object, storage, new_action);
+    subscribeActionForEvents(object, storage, newAction);
   }
 
-  public static override set_scheme(
+  /**
+   * todo;
+   */
+  public static override setScheme(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -49,7 +55,10 @@ export class SchemeMobCombat extends AbstractScheme {
     state.enabled = true;
   }
 
-  public static override disable_scheme(this: void, object: XR_game_object, scheme: EScheme): void {
+  /**
+   * todo;
+   */
+  public static override disableScheme(this: void, object: XR_game_object, scheme: EScheme): void {
     const state = registry.objects.get(object.id())[scheme];
 
     if (state !== null) {
@@ -57,6 +66,9 @@ export class SchemeMobCombat extends AbstractScheme {
     }
   }
 
+  /**
+   * todo;
+   */
   // todo: Is it needed at all?
   public combat_callback(): void {
     if (this.state.enabled && this.object.get_enemy() !== null) {

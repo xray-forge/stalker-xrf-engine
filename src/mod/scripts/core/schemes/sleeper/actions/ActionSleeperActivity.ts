@@ -31,6 +31,9 @@ export class ActionSleeperActivity extends action_base {
     random: number;
   };
 
+  /**
+   * todo;
+   */
   public constructor(state: IStoredObject, object: XR_game_object) {
     super(null, ActionSleeperActivity.__name);
 
@@ -39,16 +42,22 @@ export class ActionSleeperActivity extends action_base {
     this.was_reset = false;
   }
 
+  /**
+   * todo;
+   */
   public override initialize(): void {
     super.initialize();
 
     this.object.set_desired_position();
     this.object.set_desired_direction();
 
-    this.reset_scheme();
+    this.resetScheme();
   }
 
-  public reset_scheme(): void {
+  /**
+   * todo;
+   */
+  public resetScheme(): void {
     this.timer = {
       begin: null,
       idle: null,
@@ -115,10 +124,16 @@ export class ActionSleeperActivity extends action_base {
     this.was_reset = true;
   }
 
-  public activate_scheme(): void {
+  /**
+   * todo;
+   */
+  public activateScheme(): void {
     this.was_reset = false;
   }
 
+  /**
+   * todo;
+   */
   public callback(mode: number, number: number): boolean {
     this.sleeping_state = state_sleeping;
 
@@ -134,10 +149,13 @@ export class ActionSleeperActivity extends action_base {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public override execute(): void {
     super.execute();
     if (!this.was_reset) {
-      this.reset_scheme();
+      this.resetScheme();
     }
 
     if (this.sleeping_state === state_walking) {
@@ -153,6 +171,9 @@ export class ActionSleeperActivity extends action_base {
      */
   }
 
+  /**
+   * todo;
+   */
   public override finalize(): void {
     // --  GlobalSound:set_sound(this.object, null)
     this.moveManager.finalize();

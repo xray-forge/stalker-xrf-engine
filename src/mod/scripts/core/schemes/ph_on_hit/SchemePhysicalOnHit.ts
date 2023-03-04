@@ -19,7 +19,7 @@ export class SchemePhysicalOnHit extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_ON_HIT;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.ITEM;
 
-  public static override add_to_binder(
+  public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -31,12 +31,7 @@ export class SchemePhysicalOnHit extends AbstractScheme {
     storage.action = new SchemePhysicalOnHit(object, storage);
   }
 
-  public static override set_scheme(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection
-  ): void {
+  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     logger.info("Set scheme:", object.name());
 
     const st = assignStorageAndBind(object, ini, scheme, section);
@@ -45,7 +40,7 @@ export class SchemePhysicalOnHit extends AbstractScheme {
     subscribeActionForEvents(object, st, st.action);
   }
 
-  public static override disable_scheme(npc: XR_game_object, scheme: string): void {
+  public static override disableScheme(npc: XR_game_object, scheme: string): void {
     const st = registry.objects.get(npc.id())[scheme];
 
     if (st) {

@@ -26,7 +26,7 @@ export class SchemeCorpseDetection extends AbstractScheme {
   /**
    * todo;
    */
-  public static override add_to_binder(
+  public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,

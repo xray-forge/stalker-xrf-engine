@@ -25,7 +25,7 @@ export class SchemeMobJump extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.MOB_JUMP;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
 
-  public static override add_to_binder(
+  public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -37,7 +37,7 @@ export class SchemeMobJump extends AbstractScheme {
     subscribeActionForEvents(object, storage, new SchemeMobJump(object, storage));
   }
 
-  public static override set_scheme(
+  public static override setScheme(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -66,7 +66,7 @@ export class SchemeMobJump extends AbstractScheme {
   public point: Optional<XR_vector> = null;
   public state_current: Optional<number> = null;
 
-  public override reset_scheme(): void {
+  public override resetScheme(): void {
     mobCapture(this.object, true, SchemeMobJump.name);
 
     // -- reset signals

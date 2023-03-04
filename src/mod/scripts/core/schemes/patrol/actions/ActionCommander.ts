@@ -31,10 +31,10 @@ export class ActionCommander extends action_base {
     this.object.set_desired_position();
     this.object.set_desired_direction();
 
-    this.activate_scheme();
+    this.activateScheme();
   }
 
-  public activate_scheme(): void {
+  public activateScheme(): void {
     this.state.signals = {};
 
     if (this.state.path_walk_info === null) {

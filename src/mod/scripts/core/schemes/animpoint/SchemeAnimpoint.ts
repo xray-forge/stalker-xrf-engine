@@ -61,7 +61,7 @@ export class SchemeAnimpoint extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.ANIMPOINT;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  public static override add_to_binder(
+  public static override addToBinder(
     npc: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -116,7 +116,7 @@ export class SchemeAnimpoint extends AbstractScheme {
     manager.action(action_ids.alife).add_precondition(new world_property(properties.need_animpoint, false));
   }
 
-  public static override set_scheme(
+  public static override setScheme(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -174,7 +174,7 @@ export class SchemeAnimpoint extends AbstractScheme {
     this.cover_name = null;
   }
 
-  public activate_scheme(loading: boolean, object: XR_game_object, switching_scheme: boolean): void {
+  public activateScheme(loading: boolean, object: XR_game_object, switching_scheme: boolean): void {
     this.state.signals = {};
     this.calculate_position();
 

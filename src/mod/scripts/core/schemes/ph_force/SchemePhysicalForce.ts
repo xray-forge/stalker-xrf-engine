@@ -19,7 +19,7 @@ export class SchemePhysicalForce extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_FORCE;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.ITEM;
 
-  public static override add_to_binder(
+  public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -31,12 +31,7 @@ export class SchemePhysicalForce extends AbstractScheme {
     subscribeActionForEvents(object, storage, new SchemePhysicalForce(object, storage));
   }
 
-  public static override set_scheme(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection
-  ): void {
+  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     logger.info("Set scheme:", object.name());
 
     const st = assignStorageAndBind(object, ini, scheme, section);
@@ -79,7 +74,7 @@ export class SchemePhysicalForce extends AbstractScheme {
     this.process = false;
   }
 
-  public override reset_scheme(): void {
+  public override resetScheme(): void {
     if (this.state.delay !== 0) {
       this.time = time_global() + this.state.delay;
     }

@@ -22,7 +22,7 @@ export class SchemeLight extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_LIGHT;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
-  public static override add_to_binder(
+  public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -34,12 +34,7 @@ export class SchemeLight extends AbstractScheme {
     subscribeActionForEvents(object, state, new SchemeLight(object, state));
   }
 
-  public static override set_scheme(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection
-  ): void {
+  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const state = assignStorageAndBind(object, ini, scheme, section);
 
     state.logic = cfg_get_switch_conditions(ini, section, object);
@@ -130,7 +125,7 @@ export class SchemeLight extends AbstractScheme {
     this.active = false;
   }
 
-  public override reset_scheme(): void {
+  public override resetScheme(): void {
     logger.info("Reset scheme:", this.object.id());
     registry.lightZones.set(this.object.id(), this);
   }

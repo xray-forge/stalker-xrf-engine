@@ -66,14 +66,14 @@ export class ActionCamperPatrol extends action_base {
     this.object.set_desired_position();
     this.object.set_desired_direction();
 
-    this.reset_scheme();
+    this.resetScheme();
     this.enemy_position = null;
   }
 
   /**
    * todo;
    */
-  public reset_scheme(): void {
+  public resetScheme(): void {
     set_state(this.object, "patrol", null, null, null, null);
     this.state.signals = {};
     this.state.scan_table = new LuaTable();
@@ -138,8 +138,8 @@ export class ActionCamperPatrol extends action_base {
   /**
    * todo;
    */
-  public activate_scheme(): void {
-    this.reset_scheme();
+  public activateScheme(): void {
+    this.resetScheme();
   }
 
   /**

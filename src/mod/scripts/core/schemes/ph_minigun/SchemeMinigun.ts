@@ -58,7 +58,7 @@ export class SchemeMinigun extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_MINIGUN;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.ITEM;
 
-  public static override add_to_binder(
+  public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -70,7 +70,7 @@ export class SchemeMinigun extends AbstractScheme {
     subscribeActionForEvents(object, state, new SchemeMinigun(object, state));
   }
 
-  public static override set_scheme(
+  public static override setScheme(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -138,7 +138,7 @@ export class SchemeMinigun extends AbstractScheme {
     this.start_look_pos.y = this.object.position().y;
   }
 
-  public override reset_scheme(): void {
+  public override resetScheme(): void {
     this.start_delaying_time = time_global();
     this.start_shooting_time = time_global();
 

@@ -1,6 +1,7 @@
 import { game, time_global, XR_game_object, XR_ini_file } from "xray16";
 
-import { AnyObject, Optional } from "@/mod/lib/types";
+import { STRINGIFIED_NIL } from "@/mod/globals/lua";
+import { AnyObject, Optional, TName, TNumberId } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { registry } from "@/mod/scripts/core/database";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
@@ -20,60 +21,59 @@ const logger: LuaLogger = new LuaLogger("activateBySection");
  * todo
  */
 export function activateBySection(
-  npc: XR_game_object,
+  object: XR_game_object,
   ini: XR_ini_file,
   section: TSection,
-  gulag_name: string,
+  gulagName: TName,
   loading: boolean
 ): void {
-  logger.info("Activate by section:", npc.name(), section, gulag_name);
+  logger.info("Activate by section:", object.name(), section, gulagName);
 
   if (loading === null) {
     abort("core/logic: activate_by_section: loading field is null, true || false expected");
   }
 
-  const npc_id = npc.id();
+  const objectId: TNumberId = object.id();
 
   if (!loading) {
-    registry.objects.get(npc_id).activation_time = time_global();
-    // -- GAMETIME added by Stohe.
-    registry.objects.get(npc_id).activation_game_time = game.get_game_time();
+    registry.objects.get(objectId).activation_time = time_global();
+    registry.objects.get(objectId).activation_game_time = game.get_game_time();
   }
 
-  if (section === "nil") {
-    registry.objects.get(npc_id).overrides = null;
-    resetGenericSchemesOnSchemeSwitch(npc, EScheme.NIL, "nil");
-    registry.objects.get(npc_id).active_section = null;
-    registry.objects.get(npc_id).active_scheme = null;
+  if (section === STRINGIFIED_NIL) {
+    registry.objects.get(objectId).overrides = null;
+    resetGenericSchemesOnSchemeSwitch(object, EScheme.NIL, STRINGIFIED_NIL);
+    registry.objects.get(objectId).active_section = null;
+    registry.objects.get(objectId).active_scheme = null;
 
     return;
   }
 
   if (section === null) {
-    const current_gulag = getObjectBoundSmart(npc);
+    const current_gulag = getObjectBoundSmart(object);
 
     if (current_gulag === null) {
       abort("core/logic: activate_by_section: section is NIL && NPC !in gulag.");
     }
 
-    const t = current_gulag.getJob(npc_id) as AnyObject;
+    const t = current_gulag.getJob(objectId) as AnyObject;
 
     section = t.section;
   }
 
   if (!ini.section_exist(section)) {
-    abort("object '%s': activate_by_section: section '%s' does !exist", npc.name(), section);
+    abort("object '%s': activate_by_section: section '%s' does !exist", object.name(), section);
   }
 
   const scheme: Optional<EScheme> = get_scheme_by_section(section);
 
   if (scheme === null) {
-    abort("object '%s': unable to determine scheme name from section name '%s'", npc.name(), section);
+    abort("object '%s': unable to determine scheme name from section name '%s'", object.name(), section);
   }
 
-  registry.objects.get(npc_id).overrides = cfg_get_overrides(ini, section, npc) as any;
+  registry.objects.get(objectId).overrides = cfg_get_overrides(ini, section, object) as any;
 
-  resetGenericSchemesOnSchemeSwitch(npc, scheme, section);
+  resetGenericSchemesOnSchemeSwitch(object, scheme, section);
 
   const filenameOrHandler = registry.schemes.get(scheme);
 
@@ -81,18 +81,17 @@ export function activateBySection(
     abort("core/logic: scheme '%s' is !registered in modules.script", scheme);
   }
 
-  logger.info("Set active scheme:", npc.name(), scheme, section, gulag_name);
-  filenameOrHandler.set_scheme(npc, ini, scheme, section, gulag_name);
+  logger.info("Set active scheme:", object.name(), scheme, section, gulagName);
+  filenameOrHandler.setScheme(object, ini, scheme, section, gulagName);
 
-  registry.objects.get(npc_id).active_section = section;
-  registry.objects.get(npc_id).active_scheme = scheme;
+  registry.objects.get(objectId).active_section = section;
+  registry.objects.get(objectId).active_scheme = scheme;
 
-  if (registry.objects.get(npc_id).stype === ESchemeType.STALKER) {
-    // -- ����� �������� ����������� �������� �� ���� ��� ��������� ������������
-    sendToNearestAccessibleVertex(npc, npc.level_vertex_id());
+  if (registry.objects.get(objectId).stype === ESchemeType.STALKER) {
+    sendToNearestAccessibleVertex(object, object.level_vertex_id());
 
-    issueEvent(npc, registry.objects.get(npc_id)[scheme], "activate_scheme", loading, npc);
+    issueEvent(object, registry.objects.get(objectId)[scheme], "activateScheme", loading, object);
   } else {
-    issueEvent(npc, registry.objects.get(npc_id)[scheme], "reset_scheme", loading, npc);
+    issueEvent(object, registry.objects.get(objectId)[scheme], "resetScheme", loading, object);
   }
 }

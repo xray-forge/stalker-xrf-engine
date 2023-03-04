@@ -30,7 +30,7 @@ export class SchemeMobHome extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.MOB_HOME;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
 
-  public static override add_to_binder(
+  public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -40,7 +40,7 @@ export class SchemeMobHome extends AbstractScheme {
     subscribeActionForEvents(object, storage, new SchemeMobHome(object, storage));
   }
 
-  public static override set_scheme(
+  public static override setScheme(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -61,7 +61,7 @@ export class SchemeMobHome extends AbstractScheme {
     storage.aggressive = getConfigBoolean(ini, section, "aggressive", object, false, false);
   }
 
-  public override reset_scheme(): void {
+  public override resetScheme(): void {
     setMobState(this.object, registry.actor, this.state.state);
 
     let minr = def_min_radius;

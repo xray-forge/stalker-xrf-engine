@@ -52,15 +52,15 @@ export class ActionWalkerActivity extends action_base {
     super.initialize();
     this.object.set_desired_position();
     this.object.set_desired_direction();
-    this.reset_scheme(null, this.object);
+    this.resetScheme(null, this.object);
   }
 
-  public activate_scheme(isLoading: boolean, object: XR_game_object): void {
+  public activateScheme(isLoading: boolean, object: XR_game_object): void {
     this.state.signals = new LuaTable();
-    this.reset_scheme(isLoading, object);
+    this.resetScheme(isLoading, object);
   }
 
-  public reset_scheme(loading: Optional<boolean>, npc: XR_game_object): void {
+  public resetScheme(loading: Optional<boolean>, npc: XR_game_object): void {
     if (this.state.path_walk_info === null) {
       this.state.path_walk_info = path_parse_waypoints(this.state.path_walk);
     }

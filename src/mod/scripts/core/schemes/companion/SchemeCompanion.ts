@@ -20,7 +20,7 @@ export class SchemeCompanion extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.COMPANION;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  public static override add_to_binder(
+  public static override addToBinder(
     npc: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -54,7 +54,7 @@ export class SchemeCompanion extends AbstractScheme {
     actionPlanner.action(action_ids.alife).add_precondition(new world_property(properties.need_companion, false));
   }
 
-  public static override set_scheme(
+  public static override setScheme(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,

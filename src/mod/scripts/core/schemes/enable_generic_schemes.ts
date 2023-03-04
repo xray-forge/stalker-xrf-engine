@@ -52,7 +52,7 @@ export function enable_generic_schemes(
       const hitSection: Optional<string> = getConfigString(ini, section, "on_hit", object, false, "");
 
       if (hitSection !== null) {
-        SchemeHit.set_scheme(object, ini, SchemeHit.SCHEME_SECTION, hitSection);
+        SchemeHit.setScheme(object, ini, SchemeHit.SCHEME_SECTION, hitSection);
       }
 
       /*
@@ -89,13 +89,13 @@ export function enable_generic_schemes(
       const combatSection: Optional<TSection> = getConfigString(ini, section, "on_combat", object, false, "");
 
       if (combatSection !== null) {
-        SchemeMobCombat.set_scheme(object, ini, EScheme.MOB_COMBAT, combatSection);
+        SchemeMobCombat.setScheme(object, ini, EScheme.MOB_COMBAT, combatSection);
       }
 
       const deathSection: Optional<TSection> = getConfigString(ini, section, "on_death", object, false, "");
 
       if (deathSection !== null) {
-        SchemeMobDeath.set_scheme(object, ini, EScheme.MOB_DEATH, deathSection);
+        SchemeMobDeath.setScheme(object, ini, EScheme.MOB_DEATH, deathSection);
       }
 
       resetInvulnerability(object);
@@ -103,7 +103,7 @@ export function enable_generic_schemes(
       const hitSection: Optional<TSection> = getConfigString(ini, section, "on_hit", object, false, "");
 
       if (hitSection !== null) {
-        SchemeHit.set_scheme(object, ini, SchemeHit.SCHEME_SECTION, hitSection);
+        SchemeHit.setScheme(object, ini, SchemeHit.SCHEME_SECTION, hitSection);
       }
 
       SchemeCombatIgnore.setCombatIgnoreChecker(object, ini, EScheme.COMBAT_IGNORE);
@@ -115,7 +115,7 @@ export function enable_generic_schemes(
       const hitSection: Optional<TSection> = getConfigString(ini, section, "on_hit", object, false, "");
 
       if (hitSection !== null) {
-        SchemePhysicalOnHit.set_scheme(object, ini, SchemePhysicalOnHit.SCHEME_SECTION, hitSection);
+        SchemePhysicalOnHit.setScheme(object, ini, SchemePhysicalOnHit.SCHEME_SECTION, hitSection);
       }
 
       return;
@@ -125,7 +125,7 @@ export function enable_generic_schemes(
       const hitSection: Optional<TSection> = getConfigString(ini, section, "on_hit", object, false, "");
 
       if (hitSection !== null) {
-        SchemeHit.set_scheme(object, ini, SchemeHit.SCHEME_SECTION, hitSection);
+        SchemeHit.setScheme(object, ini, SchemeHit.SCHEME_SECTION, hitSection);
       }
 
       return;

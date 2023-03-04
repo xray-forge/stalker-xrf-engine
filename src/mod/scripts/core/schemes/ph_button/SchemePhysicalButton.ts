@@ -25,7 +25,7 @@ export class SchemePhysicalButton extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_BUTTON;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.ITEM;
 
-  public static override add_to_binder(
+  public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -35,12 +35,7 @@ export class SchemePhysicalButton extends AbstractScheme {
     subscribeActionForEvents(object, state, new SchemePhysicalButton(object, state));
   }
 
-  public static override set_scheme(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection
-  ): void {
+  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const st = assignStorageAndBind(object, ini, scheme, section);
 
     st.logic = cfg_get_switch_conditions(ini, section, object);
@@ -62,7 +57,7 @@ export class SchemePhysicalButton extends AbstractScheme {
 
   public last_hit_tm: Optional<number> = null;
 
-  public override reset_scheme(): void {
+  public override resetScheme(): void {
     this.object.play_cycle(this.state.anim, this.state.blending);
 
     this.last_hit_tm = time_global();

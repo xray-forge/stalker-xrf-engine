@@ -31,7 +31,7 @@ export class SchemeTimer extends AbstractScheme {
   /**
    * Add scheme to object binder for initialization.
    */
-  public static override add_to_binder(
+  public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -43,7 +43,7 @@ export class SchemeTimer extends AbstractScheme {
     subscribeActionForEvents(object, state, new SchemeTimer(object, state));
   }
 
-  public static override set_scheme(obj: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+  public static override setScheme(obj: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const st = assignStorageAndBind(obj, ini, scheme, section);
 
     st.logic = cfg_get_switch_conditions(ini, section, obj);

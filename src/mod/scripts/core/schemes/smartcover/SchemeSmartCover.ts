@@ -29,7 +29,7 @@ export class SchemeSmartCover extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SMARTCOVER;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  public static override add_to_binder(
+  public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -78,7 +78,7 @@ export class SchemeSmartCover extends AbstractScheme {
       .add_precondition(new world_property(properties.use_smartcover_in_combat, false));
   }
 
-  public static override set_scheme(
+  public static override setScheme(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,

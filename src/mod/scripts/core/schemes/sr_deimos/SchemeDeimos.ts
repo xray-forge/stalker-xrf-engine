@@ -25,7 +25,7 @@ export class SchemeDeimos extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_DEIMOS;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
-  public static override add_to_binder(
+  public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -37,12 +37,7 @@ export class SchemeDeimos extends AbstractScheme {
     subscribeActionForEvents(object, state, new SchemeDeimos(object, state));
   }
 
-  public static override set_scheme(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection
-  ): void {
+  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const state = assignStorageAndBind(object, ini, scheme, section);
 
     state.logic = cfg_get_switch_conditions(ini, section, object);

@@ -21,7 +21,7 @@ export class SchemeDeath extends AbstractScheme {
   /**
    * todo;
    */
-  public static override add_to_binder(
+  public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -36,14 +36,14 @@ export class SchemeDeath extends AbstractScheme {
   /**
    * todo;
    */
-  public static override set_scheme(
+  public static override setScheme(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
     additional: string
   ): void {
-    abort("Called not implemented set_scheme method: %s, %s", object.name(), scheme);
+    abort("Called not implemented setScheme method: %s, %s", object.name(), scheme);
   }
 
   /**

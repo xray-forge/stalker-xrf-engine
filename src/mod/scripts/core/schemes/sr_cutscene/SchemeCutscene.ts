@@ -31,7 +31,7 @@ export class SchemeCutscene extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_CUTSCENE;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
-  public static override add_to_binder(
+  public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -46,7 +46,7 @@ export class SchemeCutscene extends AbstractScheme {
     subscribeActionForEvents(object, storage, new_action);
   }
 
-  public static override set_scheme(
+  public static override setScheme(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -86,7 +86,7 @@ export class SchemeCutscene extends AbstractScheme {
     this.postprocess = false;
   }
 
-  public override reset_scheme(): void {
+  public override resetScheme(): void {
     this.sceneState = "";
     this.state.signals = {};
     this.motion = null;

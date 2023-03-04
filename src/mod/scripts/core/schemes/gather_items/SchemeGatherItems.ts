@@ -17,7 +17,7 @@ export class SchemeGatherItems extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.GATHER_ITEMS;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  public static override add_to_binder(
+  public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,

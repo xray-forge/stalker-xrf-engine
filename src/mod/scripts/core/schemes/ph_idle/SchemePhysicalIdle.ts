@@ -26,7 +26,7 @@ export class SchemePhysicalIdle extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_IDLE;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.ITEM;
 
-  public static override add_to_binder(
+  public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -37,12 +37,7 @@ export class SchemePhysicalIdle extends AbstractScheme {
     subscribeActionForEvents(object, state, new SchemePhysicalIdle(object, state));
   }
 
-  public static override set_scheme(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection
-  ): void {
+  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     logger.info("Set scheme:", object.name(), scheme, section);
 
     const state = assignStorageAndBind(object, ini, scheme, section);
@@ -57,7 +52,7 @@ export class SchemePhysicalIdle extends AbstractScheme {
     object.set_tip_text(state.tips);
   }
 
-  public override reset_scheme(): void {
+  public override resetScheme(): void {
     this.object.set_nonscript_usable(this.state.nonscript_usable);
   }
 

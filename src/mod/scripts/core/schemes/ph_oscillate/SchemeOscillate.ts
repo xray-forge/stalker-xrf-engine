@@ -19,7 +19,7 @@ export class SchemeOscillate extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_OSCILLATE;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.ITEM;
 
-  public static override add_to_binder(
+  public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -30,7 +30,7 @@ export class SchemeOscillate extends AbstractScheme {
     subscribeActionForEvents(object, state, new SchemeOscillate(object, state));
   }
 
-  public static override set_scheme(
+  public static override setScheme(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -66,7 +66,7 @@ export class SchemeOscillate extends AbstractScheme {
   public joint: Optional<XR_physics_joint> = null;
   public pause: boolean = false;
 
-  public override reset_scheme(): void {
+  public override resetScheme(): void {
     this.time = device().time_global();
     this.dir = new vector().set(math.random(), 0, math.random()).normalize();
     this.coefficient = this.state.force / this.state.period;

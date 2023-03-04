@@ -30,7 +30,7 @@ export function assignStorageAndBind(
 
     objectState[scheme] = schemeState;
 
-    registry.schemes.get(scheme).add_to_binder(object, ini, scheme, section as TSection, schemeState);
+    registry.schemes.get(scheme).addToBinder(object, ini, scheme, section as TSection, schemeState);
   }
 
   schemeState.scheme = scheme;

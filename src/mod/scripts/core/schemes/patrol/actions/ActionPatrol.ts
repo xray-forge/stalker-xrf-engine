@@ -41,7 +41,7 @@ export class ActionPatrol extends action_base {
     this.on_point = false;
   }
 
-  public activate_scheme(): void {
+  public activateScheme(): void {
     this.state.signals = {};
 
     if (this.state.path_walk_info === null) {

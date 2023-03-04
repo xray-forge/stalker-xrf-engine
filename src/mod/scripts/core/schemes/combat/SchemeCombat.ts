@@ -31,7 +31,7 @@ export class SchemeCombat extends AbstractScheme {
   /**
    * todo;
    */
-  public static override add_to_binder(
+  public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -48,14 +48,14 @@ export class SchemeCombat extends AbstractScheme {
 
     action.add_precondition(new world_property(evaluators_id.script_combat, false));
 
-    SchemeCombatZombied.add_to_binder(object, ini, scheme, section, state, manager);
-    SchemeCombatCamper.add_to_binder(object, ini, scheme, section, state, manager);
+    SchemeCombatZombied.addToBinder(object, ini, scheme, section, state, manager);
+    SchemeCombatCamper.addToBinder(object, ini, scheme, section, state, manager);
   }
 
   /**
    * todo;
    */
-  public static override disable_scheme(object: XR_game_object, scheme: EScheme): void {
+  public static override disableScheme(object: XR_game_object, scheme: EScheme): void {
     const state = registry.objects.get(object.id())[scheme];
 
     if (state !== null) {

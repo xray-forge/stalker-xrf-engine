@@ -25,7 +25,7 @@ export class SchemeParticle extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_PARTICLE;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
-  public static override add_to_binder(
+  public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -37,12 +37,7 @@ export class SchemeParticle extends AbstractScheme {
     subscribeActionForEvents(object, state, new SchemeParticle(object, state));
   }
 
-  public static override set_scheme(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection
-  ): void {
+  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const st = assignStorageAndBind(object, ini, scheme, section);
 
     st.logic = cfg_get_switch_conditions(ini, section, object);
@@ -66,7 +61,7 @@ export class SchemeParticle extends AbstractScheme {
   public started: boolean = false;
   public first_played: boolean = false;
 
-  public override reset_scheme(): void {
+  public override resetScheme(): void {
     if (this.state.mode === 2) {
       this.path = new patrol(this.state.path);
 

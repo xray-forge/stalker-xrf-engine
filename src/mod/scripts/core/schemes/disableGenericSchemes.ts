@@ -17,28 +17,28 @@ import { disableInvulnerability } from "@/mod/scripts/utils/alife";
 export function disableGenericSchemes(object: XR_game_object, schemeType: ESchemeType): void {
   switch (schemeType) {
     case ESchemeType.STALKER:
-      SchemeCombat.disable_scheme(object, EScheme.COMBAT);
-      SchemeHit.disable_scheme(object, SchemeHit.SCHEME_SECTION);
-      SchemeMeet.disable_scheme(object, EScheme.ACTOR_DIALOGS);
-      SchemeCombatIgnore.disable_scheme(object, EScheme.COMBAT_IGNORE);
+      SchemeCombat.disableScheme(object, EScheme.COMBAT);
+      SchemeHit.disableScheme(object, SchemeHit.SCHEME_SECTION);
+      SchemeMeet.disableScheme(object, EScheme.ACTOR_DIALOGS);
+      SchemeCombatIgnore.disableScheme(object, EScheme.COMBAT_IGNORE);
       disableInvulnerability(object);
 
       return;
 
     case ESchemeType.MONSTER:
-      SchemeMobCombat.disable_scheme(object, EScheme.MOB_COMBAT);
-      SchemeCombatIgnore.disable_scheme(object, EScheme.COMBAT_IGNORE);
+      SchemeMobCombat.disableScheme(object, EScheme.MOB_COMBAT);
+      SchemeCombatIgnore.disableScheme(object, EScheme.COMBAT_IGNORE);
       disableInvulnerability(object);
 
       return;
 
     case ESchemeType.ITEM:
-      SchemePhysicalOnHit.disable_scheme(object, SchemePhysicalOnHit.SCHEME_SECTION);
+      SchemePhysicalOnHit.disableScheme(object, SchemePhysicalOnHit.SCHEME_SECTION);
 
       return;
 
     case ESchemeType.HELI:
-      SchemeHit.disable_scheme(object, SchemeHit.SCHEME_SECTION);
+      SchemeHit.disableScheme(object, SchemeHit.SCHEME_SECTION);
 
       return;
   }
