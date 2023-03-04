@@ -534,7 +534,7 @@ export function parse_waypoint_data(pathname: string, wpflags: XR_flags32, wpnam
  */
 export function pickSectionFromCondList<T extends TSection>(
   actor: XR_game_object,
-  npc: Optional<XR_game_object | XR_cse_alife_object>,
+  object: Optional<XR_game_object | XR_cse_alife_object>,
   condlist: LuaTable<any, any>
 ): Optional<T> {
   let rval: Optional<number> = null; // -- math.random(100)
@@ -556,13 +556,13 @@ export function pickSectionFromCondList<T extends TSection>(
         if (!get_global<AnyCallablesModule>("xr_conditions")[infop.func]) {
           abort(
             "object '%s': pick_section_from_condlist: function '%s' is " + "not defined in xr_conditions.script",
-            npc?.name(),
+            object?.name(),
             infop.func
           );
         }
 
         if (infop.params) {
-          if (get_global<AnyCallablesModule>("xr_conditions")[infop.func](actor, npc, infop.params)) {
+          if (get_global<AnyCallablesModule>("xr_conditions")[infop.func](actor, object, infop.params)) {
             if (!infop.expected) {
               infop_conditions_met = false;
               break;
@@ -574,7 +574,7 @@ export function pickSectionFromCondList<T extends TSection>(
             }
           }
         } else {
-          if (get_global<AnyCallablesModule>("xr_conditions")[infop.func](actor, npc)) {
+          if (get_global<AnyCallablesModule>("xr_conditions")[infop.func](actor, object)) {
             if (!infop.expected) {
               infop_conditions_met = false;
               break;
@@ -613,15 +613,15 @@ export function pickSectionFromCondList<T extends TSection>(
           if (!get_global<AnyCallablesModule>("xr_effects")[infop.func]) {
             abort(
               "object '%s': pick_section_from_condlist: function '%s' is " + "not defined in xr_effects.script",
-              npc?.name(),
+              object?.name(),
               infop.func
             );
           }
 
           if (infop.params) {
-            get_global<AnyCallablesModule>("xr_effects")[infop.func](actor, npc, infop.params);
+            get_global<AnyCallablesModule>("xr_effects")[infop.func](actor, object, infop.params);
           } else {
-            get_global<AnyCallablesModule>("xr_effects")[infop.func](actor, npc);
+            get_global<AnyCallablesModule>("xr_effects")[infop.func](actor, object);
           }
         } else if (infop.required) {
           if (!hasAlifeInfo(infop.name)) {

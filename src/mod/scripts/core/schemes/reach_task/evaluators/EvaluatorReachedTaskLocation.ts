@@ -1,8 +1,8 @@
 import { alife, property_evaluator } from "xray16";
 
 import type { Actor } from "@/mod/scripts/core/alife/Actor";
-import type { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import type { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
+import type { Squad } from "@/mod/scripts/core/alife/Squad";
 import { getObjectSquad } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -21,7 +21,7 @@ export class EvaluatorReachedTaskLocation extends property_evaluator {
     const squad = getObjectSquad(this.object);
 
     if (squad && squad.current_action && squad.current_action.name === "reach_target") {
-      const squad_target = alife().object<Actor | SmartTerrain | SimSquad>(squad.assigned_target_id!);
+      const squad_target = alife().object<Actor | SmartTerrain | Squad>(squad.assigned_target_id!);
 
       if (squad_target === null) {
         return false;

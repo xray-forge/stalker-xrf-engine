@@ -35,8 +35,8 @@ import {
   TStringId,
   TTimestamp,
 } from "@/mod/lib/types";
-import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
+import { Squad } from "@/mod/scripts/core/alife/Squad";
 import { TSimulationObject } from "@/mod/scripts/core/alife/types";
 import { registry, TRAVEL_MANAGER_LTX } from "@/mod/scripts/core/database";
 import { get_sim_board, SimBoard } from "@/mod/scripts/core/database/SimBoard";
@@ -96,7 +96,7 @@ export class TravelManager extends AbstractCoreManager {
   private travelDistance: Optional<TDuration> = null;
   private travelActorPath: Optional<string> = null;
   private travelSquadPath: Optional<string> = null;
-  private travelSquad: Optional<SimSquad> = null;
+  private travelSquad: Optional<Squad> = null;
 
   /**
    * todo;
@@ -196,7 +196,7 @@ export class TravelManager extends AbstractCoreManager {
    * todo;
    */
   public canStartTravelingDialogs(actor: XR_game_object, npc: XR_game_object): boolean {
-    const squad: Optional<SimSquad> = getObjectSquad(npc);
+    const squad: Optional<Squad> = getObjectSquad(npc);
 
     if (squad !== null && squad.commander_id() !== npc.id()) {
       return false;
@@ -214,7 +214,7 @@ export class TravelManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public isEnemyWithSquadMember(squad: SimSquad): boolean {
+  public isEnemyWithSquadMember(squad: Squad): boolean {
     const actorId: TNumberId = alife().actor().id;
 
     for (const squadMember of squad.squad_members()) {
@@ -235,7 +235,7 @@ export class TravelManager extends AbstractCoreManager {
     dialogId?: TStringId,
     phraseId?: TStringId
   ): TLabel {
-    const squad: SimSquad = getObjectSquad(npc)!;
+    const squad: Squad = getObjectSquad(npc)!;
     const squadTargetId: Optional<TNumberId> = squad.assigned_target_id;
 
     if (squad.current_action === null || squad.current_action.name === "stay_point") {
@@ -253,9 +253,7 @@ export class TravelManager extends AbstractCoreManager {
     if (targetClsId === clsid.script_actor) {
       abort("Actor talking with squad, which chasing actor.");
     } else if (targetClsId === clsid.online_offline_group_s) {
-      return (
-        "dm_" + communities.stalker + "_chasing_squad_" + getAlifeCharacterCommunity(targetSquadObject as SimSquad)
-      ); // --npc:character_community()
+      return "dm_" + communities.stalker + "_chasing_squad_" + getAlifeCharacterCommunity(targetSquadObject as Squad); // --npc:character_community()
     } else if (targetClsId === clsid.smart_terrain) {
       const smartName: TName = targetSquadObject.name();
       const smartDescription: TLabel = this.smartDescriptionsByName.get(smartName);
@@ -279,7 +277,7 @@ export class TravelManager extends AbstractCoreManager {
     dialogId?: TStringId,
     phraseId?: TStringId
   ): boolean {
-    const squad: SimSquad = getObjectSquad(npc)!;
+    const squad: Squad = getObjectSquad(npc)!;
 
     return !(squad.current_action === null || squad.current_action.name === "stay_point");
   }
@@ -293,7 +291,7 @@ export class TravelManager extends AbstractCoreManager {
     dialogId?: TStringId,
     phraseId?: TStringId
   ): boolean {
-    const squad: SimSquad = getObjectSquad(npc)!;
+    const squad: Squad = getObjectSquad(npc)!;
     const squadTargetObject: XR_cse_alife_object = alife().object(squad.assigned_target_id!)!;
     const squadTargetClsId: TXR_cls_id = squadTargetObject.clsid();
 
@@ -315,7 +313,7 @@ export class TravelManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public isSmartAvailableToReach(smartName: TName, smartTable: ITravelRouteDescriptor, squad: SimSquad): boolean {
+  public isSmartAvailableToReach(smartName: TName, smartTable: ITravelRouteDescriptor, squad: Squad): boolean {
     if (smartTable.level !== level.name()) {
       return false;
     }
@@ -347,7 +345,7 @@ export class TravelManager extends AbstractCoreManager {
    * todo;
    */
   public canSquadTravel(npc: XR_game_object, actor: XR_game_object, dialogId: TStringId, phraseId: TStringId): boolean {
-    const squad: SimSquad = getObjectSquad(npc)!;
+    const squad: Squad = getObjectSquad(npc)!;
 
     // todo: Filter all squads to current level, do not check other locations.
     for (const [id, smartDescriptor] of this.smartTravelDescriptorsByName) {
@@ -456,7 +454,7 @@ export class TravelManager extends AbstractCoreManager {
     const travelPhraseId: TStringId = string.sub(phraseId, 1, string.len(phraseId) - 3);
     const smartName: TName = this.smartNamesByPhraseId.get(travelPhraseId);
     const smartTerrain: Optional<SmartTerrain> = simBoard.get_smart_by_name(smartName)!;
-    const squad: Optional<SimSquad> = getObjectSquad(npc);
+    const squad: Optional<Squad> = getObjectSquad(npc);
 
     logger.info("Actor travel with squad:", npc.name(), smartName);
 
@@ -498,7 +496,7 @@ export class TravelManager extends AbstractCoreManager {
   ): void {
     createScenarioAutoSave(captions.st_save_uni_travel_generic);
 
-    const squad: SimSquad = getObjectSquad(npc)!;
+    const squad: Squad = getObjectSquad(npc)!;
     const squadTargetId = squad.assigned_target_id;
     const smartTerrain: SmartTerrain = alife().object<SmartTerrain>(squadTargetId!)!;
 

@@ -377,7 +377,7 @@ export class SchemeMeet extends AbstractScheme {
     const use = meet.meet_manager.use;
 
     if (use === STRINGIFIED_TRUE) {
-      if (SchemeCorpseDetection.is_under_corpse_detection(npc) || SchemeHelpWounded.is_under_help_wounded(npc)) {
+      if (SchemeCorpseDetection.isUnderCorpseDetection(npc) || SchemeHelpWounded.isUnderHelpWounded(npc)) {
         npc.disable_talk();
       } else {
         npc.enable_talk();
@@ -415,7 +415,7 @@ export class SchemeMeet extends AbstractScheme {
       meet_manager.abuse_mode === STRINGIFIED_TRUE &&
       getObjectsRelationSafe(victim, registry.actor) === game_object.friend
     ) {
-      SchemeAbuse.add_abuse(victim, 1);
+      SchemeAbuse.addAbuse(victim, 1);
     }
   }
 

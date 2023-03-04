@@ -21,9 +21,9 @@ import { info_portions } from "@/mod/globals/info_portions/info_portions";
 import { relations } from "@/mod/globals/relations";
 import { zones } from "@/mod/globals/zones";
 import { AnyArgs, AnyCallablesModule, LuaArray, Maybe, Optional, TCount, TName, TSection } from "@/mod/lib/types";
-import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { ESmartTerrainStatus, SmartTerrainControl } from "@/mod/scripts/core/alife/SmartTerrainControl";
+import { Squad } from "@/mod/scripts/core/alife/Squad";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { pstor_retrieve } from "@/mod/scripts/core/database/pstor";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
@@ -1150,7 +1150,7 @@ export function is_squad_commander(
   npc: XR_game_object | XR_cse_alife_creature_abstract
 ): boolean {
   const npc_id: number = type(npc.id) === "number" ? (npc as XR_cse_alife_object).id : (npc as XR_game_object).id();
-  const squad: Optional<SimSquad> = getObjectSquad(npc);
+  const squad: Optional<Squad> = getObjectSquad(npc);
 
   return squad !== null && squad.commander_id() === npc_id;
 }
@@ -1165,7 +1165,7 @@ export function squad_npc_count_ge(actor: XR_game_object, npc: XR_game_object, p
     abort("Wrong parameter squad_id[%s] in 'squad_npc_count_ge' function", tostring(story_id));
   }
 
-  const squad: Optional<SimSquad> = getStorySquad(story_id) as Optional<SimSquad>;
+  const squad: Optional<Squad> = getStorySquad(story_id) as Optional<Squad>;
 
   if (squad) {
     return squad.npc_count() > tonumber(p[1])!;
@@ -1734,7 +1734,7 @@ export function pas_b400_actor_far_forward(actor: XR_game_object, npc: XR_game_o
     return false;
   }
 
-  const squad: SimSquad = alife().object(alife().object<XR_cse_alife_creature_abstract>(npc.id())!.group_id)!;
+  const squad: Squad = alife().object(alife().object<XR_cse_alife_creature_abstract>(npc.id())!.group_id)!;
 
   for (const squadMember in squad.squad_members()) {
     // todo: Mistake or typedef upd needed.
@@ -1770,7 +1770,7 @@ export function pas_b400_actor_far_backward(actor: XR_game_object, npc: XR_game_
   }
 
   const sim: XR_alife_simulator = alife();
-  const squad: SimSquad = sim.object<SimSquad>(sim.object<XR_cse_alife_creature_abstract>(npc.id())!.group_id)!;
+  const squad: Squad = sim.object<Squad>(sim.object<XR_cse_alife_creature_abstract>(npc.id())!.group_id)!;
 
   for (const squadMember of squad.squad_members()) {
     const other_dist = squadMember.object.position.distance_to_sqr(actor.position());

@@ -30,9 +30,9 @@ import { ObjectHangingLamp } from "@/mod/scripts/core/alife/items/ObjectHangingL
 import { ObjectPhysic } from "@/mod/scripts/core/alife/items/ObjectPhysic";
 import { LevelChanger } from "@/mod/scripts/core/alife/LevelChanger";
 import { Monster } from "@/mod/scripts/core/alife/Monster";
-import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { SmartCover } from "@/mod/scripts/core/alife/SmartCover";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
+import { Squad } from "@/mod/scripts/core/alife/Squad";
 import { Stalker } from "@/mod/scripts/core/alife/Stalker";
 import { EClientObjectClass } from "@/mod/scripts/declarations/registering/EClientObjectClass";
 import { MainMenu } from "@/mod/scripts/ui/menu/MainMenu";
@@ -305,7 +305,7 @@ export function registerGameClasses(factory: XR_object_factory): void {
     weapons.wpn_auto_shotgun_s
   );
 
-  serverRegister(factory, SimSquad.__name, "ON_OFF_S", "online_offline_group_s");
+  serverRegister(factory, Squad.__name, "ON_OFF_S", "online_offline_group_s");
 
   // -- ANOMALY ZONES --------------------------------------------------------------------------------------------------
   clientServerRegister(factory, EClientObjectClass.CHairsZone, ZoneVisual.__name, "ZS_BFUZZ", "zone_bfuzz_s");

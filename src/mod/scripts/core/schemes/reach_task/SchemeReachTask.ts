@@ -26,6 +26,9 @@ export class SchemeReachTask extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.REACH_TASK;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
+  /**
+   * todo;
+   */
   public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
@@ -43,12 +46,18 @@ export class SchemeReachTask extends AbstractScheme {
     subscribeActionForEvents(object, state, newAction);
   }
 
-  public static set_reach_task(npc: XR_game_object, ini: XR_ini_file, scheme: EScheme): void {
-    assignStorageAndBind(npc, ini, scheme, null);
+  /**
+   * todo;
+   */
+  public static setReachTask(object: XR_game_object, ini: XR_ini_file, scheme: EScheme): void {
+    assignStorageAndBind(object, ini, scheme, null);
   }
 
-  public static add_reach_task_action(npc: XR_game_object): void {
-    const manager: XR_action_planner = npc.motivation_action_manager();
+  /**
+   * todo;
+   */
+  public static add_reach_task_action(object: XR_game_object): void {
+    const manager: XR_action_planner = object.motivation_action_manager();
     const alifeAction: XR_action_base = manager.action(stalker_ids.action_alife_planner);
     const alifeActionPlanner: XR_action_planner = cast_planner(alifeAction);
 

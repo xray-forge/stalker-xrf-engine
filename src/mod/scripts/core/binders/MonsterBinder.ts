@@ -22,8 +22,8 @@ import {
 
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { EScheme, ESchemeType, Optional, TNumberId, TSection } from "@/mod/lib/types";
-import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { setup_gulag_and_logic_on_spawn, SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
+import { Squad } from "@/mod/scripts/core/alife/Squad";
 import { addObject, deleteObject, IStoredObject, registry, resetObject } from "@/mod/scripts/core/database";
 import { get_sim_obj_registry } from "@/mod/scripts/core/database/SimObjectsRegistry";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
@@ -76,7 +76,7 @@ export class MonsterBinder extends object_binder {
       registry.actorCombat.delete(this.object.id());
     }
 
-    const squad: Optional<SimSquad> = getObjectSquad(this.object);
+    const squad: Optional<Squad> = getObjectSquad(this.object);
     const object_alive: boolean = this.object.alive();
 
     if (!object_alive) {

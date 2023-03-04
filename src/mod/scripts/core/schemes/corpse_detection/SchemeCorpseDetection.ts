@@ -1,6 +1,6 @@
 import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
-import { Optional } from "@/mod/lib/types";
+import { Optional, TNumberId } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
@@ -23,6 +23,9 @@ export class SchemeCorpseDetection extends AbstractScheme {
   public static override SCHEME_SECTION: EScheme = EScheme.CORPSE_DETECTION;
   public static override SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
+  /**
+   * todo;
+   */
   public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
@@ -68,7 +71,10 @@ export class SchemeCorpseDetection extends AbstractScheme {
       .add_precondition(new world_property(properties.corpse_exist, false));
   }
 
-  public static set_corpse_detection(
+  /**
+   * todo;
+   */
+  public static setCorpseDetection(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -77,6 +83,9 @@ export class SchemeCorpseDetection extends AbstractScheme {
     assignStorageAndBind(object, ini, scheme, section);
   }
 
+  /**
+   * todo;
+   */
   public static override resetScheme(
     object: XR_game_object,
     scheme: EScheme,
@@ -93,30 +102,36 @@ export class SchemeCorpseDetection extends AbstractScheme {
     );
   }
 
-  public static is_under_corpse_detection(object: XR_game_object): boolean {
-    const mgr = object.motivation_action_manager();
+  /**
+   * todo;
+   */
+  public static isUnderCorpseDetection(object: XR_game_object): boolean {
+    const manager = object.motivation_action_manager();
 
-    if (!mgr.initialized()) {
+    if (!manager.initialized()) {
       return false;
     }
 
-    return mgr.current_action_id() === action_ids.corpse_exist;
+    return manager.current_action_id() === action_ids.corpse_exist;
   }
 
-  public static get_all_from_corpse(object: XR_game_object): void {
-    const corpse_npc_id: number = registry.objects.get(object.id()).corpse_detection.selected_corpse_id;
-    const corpse_npc: Optional<XR_game_object> =
-      registry.objects.get(corpse_npc_id) && registry.objects.get(corpse_npc_id).object!;
+  /**
+   * todo;
+   */
+  public static getAllFromCorpse(object: XR_game_object): void {
+    const corpseNpcId: TNumberId = registry.objects.get(object.id()).corpse_detection.selected_corpse_id;
+    const corpseNpc: Optional<XR_game_object> =
+      registry.objects.get(corpseNpcId) && registry.objects.get(corpseNpcId).object!;
 
-    if (corpse_npc === null) {
+    if (corpseNpc === null) {
       return;
     }
 
-    corpse_npc.iterate_inventory((npc, item) => {
+    corpseNpc.iterate_inventory((object, item) => {
       if (isLootableItem(item)) {
-        npc.transfer_item(item, object);
+        object.transfer_item(item, object);
       }
-    }, corpse_npc);
+    }, corpseNpc);
 
     if (math.random(100) > 20) {
       GlobalSoundManager.getInstance().setSoundPlaying(object.id(), "corpse_loot_begin", null, null);

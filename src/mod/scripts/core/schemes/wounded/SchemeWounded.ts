@@ -45,6 +45,9 @@ export class SchemeWounded extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.WOUNDED;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
+  /**
+   * todo;
+   */
   public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
@@ -85,7 +88,10 @@ export class SchemeWounded extends AbstractScheme {
     manager.action(stalker_ids.action_anomaly_planner).add_precondition(new world_property(properties.can_fight, true));
   }
 
-  public static set_wounded(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+  /**
+   * todo;
+   */
+  public static setWounded(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     logger.info("Set wounded:", object.name());
 
     const state = assignStorageAndBind(object, ini, scheme, section);
@@ -93,6 +99,9 @@ export class SchemeWounded extends AbstractScheme {
     state.wound_manager = new SchemeWounded(object, state);
   }
 
+  /**
+   * todo;
+   */
   public static override resetScheme(
     npc: XR_game_object,
     scheme: EScheme,
@@ -104,12 +113,15 @@ export class SchemeWounded extends AbstractScheme {
         ? getConfigString(state.ini!, state.section_logic!, "wounded", npc, false, "")
         : getConfigString(state.ini!, section, "wounded", npc, false, "");
 
-    SchemeWounded.init_wounded(npc, state.ini!, wounded_section, state.wounded!, scheme);
+    SchemeWounded.initWounded(npc, state.ini!, wounded_section, state.wounded!, scheme);
 
     state.wounded!.wound_manager.hit_callback();
   }
 
-  public static init_wounded(
+  /**
+   * todo;
+   */
+  public static initWounded(
     npc: XR_game_object,
     ini: XR_ini_file,
     section: TSection,
@@ -210,22 +222,31 @@ export class SchemeWounded extends AbstractScheme {
     st.wounded_set = true;
   }
 
-  public static unlock_medkit(npc: XR_game_object): void {
-    const state = registry.objects.get(npc.id());
+  /**
+   * todo;
+   */
+  public static unlockMedkit(object: XR_game_object): void {
+    const state = registry.objects.get(object.id());
 
     if (state.wounded !== null) {
       state.wounded!.wound_manager.unlock_medkit();
     }
   }
 
-  public static eat_medkit(npc: XR_game_object): void {
-    const state: Optional<IStoredObject> = registry.objects.get(npc.id());
+  /**
+   * todo;
+   */
+  public static eatMedkit(object: XR_game_object): void {
+    const state: Optional<IStoredObject> = registry.objects.get(object.id());
 
     if (state.wounded !== null) {
       state.wounded!.wound_manager.eat_medkit();
     }
   }
 
+  /**
+   * todo;
+   */
   public static hit_callback(npcId: number): void {
     const state: Optional<IStoredObject> = registry.objects.get(npcId);
 
@@ -234,6 +255,9 @@ export class SchemeWounded extends AbstractScheme {
     }
   }
 
+  /**
+   * todo;
+   */
   public static is_psy_wounded_by_id(npc_id: number) {
     const state: Optional<IStoredObject> = registry.objects.get(npc_id);
 

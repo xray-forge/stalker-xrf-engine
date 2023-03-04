@@ -17,7 +17,7 @@ import { SchemeMobDeath } from "@/mod/scripts/core/schemes/mob/death/SchemeMobDe
 import { SchemePhysicalOnHit } from "@/mod/scripts/core/schemes/ph_on_hit/SchemePhysicalOnHit";
 import { SchemeReachTask } from "@/mod/scripts/core/schemes/reach_task/SchemeReachTask";
 import { SchemeWounded } from "@/mod/scripts/core/schemes/wounded/SchemeWounded";
-import { reset_invulnerability, setObjectInfo } from "@/mod/scripts/utils/alife";
+import { resetInvulnerability, setObjectInfo } from "@/mod/scripts/utils/alife";
 import { getConfigString } from "@/mod/scripts/utils/configs";
 
 /**
@@ -34,25 +34,25 @@ export function enable_generic_schemes(
 ): void {
   switch (schemeType) {
     case ESchemeType.STALKER: {
-      SchemeDanger.set_danger(object, ini, SchemeDanger.SCHEME_SECTION, "danger");
-      SchemeGatherItems.set_gather_items(object, ini, SchemeGatherItems.SCHEME_SECTION, "gather_items");
+      SchemeDanger.setDanger(object, ini, SchemeDanger.SCHEME_SECTION, "danger");
+      SchemeGatherItems.setGatherItems(object, ini, SchemeGatherItems.SCHEME_SECTION, "gather_items");
 
-      const combat_section = getConfigString(ini, section, "on_combat", object, false, "");
+      const combatSection: TSection = getConfigString(ini, section, "on_combat", object, false, "");
 
-      SchemeCombat.set_combat_checker(object, ini, EScheme.COMBAT, combat_section);
+      SchemeCombat.setCombatChecker(object, ini, EScheme.COMBAT, combatSection);
 
-      reset_invulnerability(object, ini, section);
+      resetInvulnerability(object);
 
-      const info_section: Optional<string> = getConfigString(ini, section, "info", object, false, "");
+      const infoSection: Optional<TSection> = getConfigString(ini, section, "info", object, false, "");
 
-      if (info_section !== null) {
-        setObjectInfo(object, ini, info_section);
+      if (infoSection !== null) {
+        setObjectInfo(object, ini, infoSection);
       }
 
-      const hit_section: Optional<string> = getConfigString(ini, section, "on_hit", object, false, "");
+      const hitSection: Optional<string> = getConfigString(ini, section, "on_hit", object, false, "");
 
-      if (hit_section !== null) {
-        SchemeHit.set_scheme(object, ini, SchemeHit.SCHEME_SECTION, hit_section);
+      if (hitSection !== null) {
+        SchemeHit.set_scheme(object, ini, SchemeHit.SCHEME_SECTION, hitSection);
       }
 
       /*
@@ -65,67 +65,67 @@ export function enable_generic_schemes(
       }
      */
 
-      const wounded_section = getConfigString(ini, section, "wounded", object, false, "");
+      const woundedSection: TSection = getConfigString(ini, section, "wounded", object, false, "");
 
-      SchemeWounded.set_wounded(object, ini, EScheme.WOUNDED, wounded_section);
-      SchemeAbuse.set_abuse(object, ini, EScheme.ABUSE, section);
-      SchemeHelpWounded.set_help_wounded(object, ini, EScheme.HELP_WOUNDED, null);
-      SchemeCorpseDetection.set_corpse_detection(object, ini, EScheme.CORPSE_DETECTION, null);
+      SchemeWounded.setWounded(object, ini, EScheme.WOUNDED, woundedSection);
+      SchemeAbuse.setAbuse(object, ini, EScheme.ABUSE, section);
+      SchemeHelpWounded.setHelpWounded(object, ini, EScheme.HELP_WOUNDED, null);
+      SchemeCorpseDetection.setCorpseDetection(object, ini, EScheme.CORPSE_DETECTION, null);
 
-      const meet_section = getConfigString(ini, section, "meet", object, false, "");
+      const meetSection: TSection = getConfigString(ini, section, "meet", object, false, "");
 
-      SchemeMeet.set_meet(object, ini, EScheme.MEET, meet_section);
+      SchemeMeet.set_meet(object, ini, EScheme.MEET, meetSection);
 
-      const death_section = getConfigString(ini, section, "on_death", object, false, "");
+      const deathSection: TSection = getConfigString(ini, section, "on_death", object, false, "");
 
-      SchemeDeath.set_death(object, ini, EScheme.DEATH, death_section);
-      SchemeCombatIgnore.set_combat_ignore_checker(object, ini, EScheme.COMBAT_IGNORE);
-      SchemeReachTask.set_reach_task(object, ini, EScheme.REACH_TASK);
+      SchemeDeath.setDeath(object, ini, EScheme.DEATH, deathSection);
+      SchemeCombatIgnore.setCombatIgnoreChecker(object, ini, EScheme.COMBAT_IGNORE);
+      SchemeReachTask.setReachTask(object, ini, EScheme.REACH_TASK);
 
       return;
     }
 
     case ESchemeType.MONSTER: {
-      const combat_section: Optional<string> = getConfigString(ini, section, "on_combat", object, false, "");
+      const combatSection: Optional<TSection> = getConfigString(ini, section, "on_combat", object, false, "");
 
-      if (combat_section !== null) {
-        SchemeMobCombat.set_scheme(object, ini, EScheme.MOB_COMBAT, combat_section);
+      if (combatSection !== null) {
+        SchemeMobCombat.set_scheme(object, ini, EScheme.MOB_COMBAT, combatSection);
       }
 
-      const death_section: Optional<string> = getConfigString(ini, section, "on_death", object, false, "");
+      const deathSection: Optional<TSection> = getConfigString(ini, section, "on_death", object, false, "");
 
-      if (death_section !== null) {
-        SchemeMobDeath.set_scheme(object, ini, EScheme.MOB_DEATH, death_section);
+      if (deathSection !== null) {
+        SchemeMobDeath.set_scheme(object, ini, EScheme.MOB_DEATH, deathSection);
       }
 
-      reset_invulnerability(object, ini, section);
+      resetInvulnerability(object);
 
-      const hit_section: Optional<string> = getConfigString(ini, section, "on_hit", object, false, "");
+      const hitSection: Optional<TSection> = getConfigString(ini, section, "on_hit", object, false, "");
 
-      if (hit_section !== null) {
-        SchemeHit.set_scheme(object, ini, SchemeHit.SCHEME_SECTION, hit_section);
+      if (hitSection !== null) {
+        SchemeHit.set_scheme(object, ini, SchemeHit.SCHEME_SECTION, hitSection);
       }
 
-      SchemeCombatIgnore.set_combat_ignore_checker(object, ini, EScheme.COMBAT_IGNORE);
+      SchemeCombatIgnore.setCombatIgnoreChecker(object, ini, EScheme.COMBAT_IGNORE);
 
       return;
     }
 
     case ESchemeType.ITEM: {
-      const hit_section: Optional<string> = getConfigString(ini, section, "on_hit", object, false, "");
+      const hitSection: Optional<TSection> = getConfigString(ini, section, "on_hit", object, false, "");
 
-      if (hit_section !== null) {
-        SchemePhysicalOnHit.set_scheme(object, ini, SchemePhysicalOnHit.SCHEME_SECTION, hit_section);
+      if (hitSection !== null) {
+        SchemePhysicalOnHit.set_scheme(object, ini, SchemePhysicalOnHit.SCHEME_SECTION, hitSection);
       }
 
       return;
     }
 
     case ESchemeType.HELI: {
-      const hit_section: Optional<string> = getConfigString(ini, section, "on_hit", object, false, "");
+      const hitSection: Optional<TSection> = getConfigString(ini, section, "on_hit", object, false, "");
 
-      if (hit_section !== null) {
-        SchemeHit.set_scheme(object, ini, SchemeHit.SCHEME_SECTION, hit_section);
+      if (hitSection !== null) {
+        SchemeHit.set_scheme(object, ini, SchemeHit.SCHEME_SECTION, hitSection);
       }
 
       return;

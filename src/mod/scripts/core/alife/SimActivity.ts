@@ -2,7 +2,7 @@ import { XR_cse_alife_object } from "xray16";
 
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { Optional, PartialRecord } from "@/mod/lib/types";
-import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
+import { Squad } from "@/mod/scripts/core/alife/Squad";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { TravelManager } from "@/mod/scripts/core/managers/TravelManager";
 import { getAlifeDistanceBetween } from "@/mod/scripts/utils/alife";
@@ -12,7 +12,7 @@ import { isInTimeInterval } from "@/mod/scripts/utils/time";
 
 const logger: LuaLogger = new LuaLogger("SimActivity");
 
-export type TSimActivityPreconditionChecker = (squad: SimSquad, target: XR_cse_alife_object) => boolean;
+export type TSimActivityPreconditionChecker = (squad: Squad, target: XR_cse_alife_object) => boolean;
 
 export interface ISimActivityPrecondition {
   prec: TSimActivityPreconditionChecker;
@@ -36,7 +36,7 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
     squad: null,
     smart: {
       base: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(18, 8) &&
           !SurgeManager.getInstance().isStarted &&
           !TravelManager.getInstance().isEnemyWithSquadMember(squad) &&
@@ -47,7 +47,7 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
         prec: () => isInTimeInterval(8, 18) && !SurgeManager.getInstance().isStarted,
       },
       resource: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(8, 18) && !SurgeManager.getInstance().isStarted,
       },
     },
@@ -56,7 +56,7 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
   [communities.bandit]: {
     squad: {
       stalker: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(8, 21) &&
           !SurgeManager.getInstance().isStarted &&
           getAlifeDistanceBetween(squad, target) <= 150,
@@ -64,7 +64,7 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
     },
     smart: {
       base: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(21, 8) &&
           !SurgeManager.getInstance().isStarted &&
           !TravelManager.getInstance().isEnemyWithSquadMember(squad) &&
@@ -77,44 +77,44 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
       resource: null,
     },
     actor: {
-      prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+      prec: (squad: Squad, target: XR_cse_alife_object) =>
         hasAlifeInfo("sim_bandit_attack_harder") && getAlifeDistanceBetween(squad, target) <= 150,
     },
   },
   [communities.dolg]: {
     squad: {
       freedom: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(8, 19) &&
           !SurgeManager.getInstance().isStarted &&
           getAlifeDistanceBetween(squad, target) <= 150,
       },
       monster_predatory_day: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(8, 19) &&
           !SurgeManager.getInstance().isStarted &&
           getAlifeDistanceBetween(squad, target) <= 150,
       },
       monster_predatory_night: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(8, 19) &&
           !SurgeManager.getInstance().isStarted &&
           getAlifeDistanceBetween(squad, target) <= 150,
       },
       monster_vegetarian: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(8, 19) &&
           !SurgeManager.getInstance().isStarted &&
           getAlifeDistanceBetween(squad, target) <= 150,
       },
       monster_zombied_day: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(8, 19) &&
           !SurgeManager.getInstance().isStarted &&
           getAlifeDistanceBetween(squad, target) <= 150,
       },
       monster_special: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(8, 19) &&
           !SurgeManager.getInstance().isStarted &&
           getAlifeDistanceBetween(squad, target) <= 150,
@@ -122,7 +122,7 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
     },
     smart: {
       base: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(19, 8) &&
           !SurgeManager.getInstance().isStarted &&
           !TravelManager.getInstance().isEnemyWithSquadMember(squad) &&
@@ -139,7 +139,7 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
   [communities.freedom]: {
     squad: {
       dolg: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(8, 19) &&
           !SurgeManager.getInstance().isStarted &&
           getAlifeDistanceBetween(squad, target) <= 150,
@@ -147,7 +147,7 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
     },
     smart: {
       base: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(19, 8) &&
           !SurgeManager.getInstance().isStarted &&
           !TravelManager.getInstance().isEnemyWithSquadMember(squad) &&
@@ -170,7 +170,7 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
       surge: { prec: () => SurgeManager.getInstance().isStarted },
     },
     actor: {
-      prec: (squad: SimSquad, target: XR_cse_alife_object) => getAlifeDistanceBetween(squad, target) <= 150,
+      prec: (squad: Squad, target: XR_cse_alife_object) => getAlifeDistanceBetween(squad, target) <= 150,
     },
   },
   [communities.zombied]: {
@@ -182,23 +182,23 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
     squad: {
       monster_vegetarian: { prec: () => isInTimeInterval(6, 19) },
       stalker: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(6, 19) && getAlifeDistanceBetween(squad, target) <= 150,
       },
       bandit: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(6, 19) && getAlifeDistanceBetween(squad, target) <= 150,
       },
       dolg: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(6, 19) && getAlifeDistanceBetween(squad, target) <= 150,
       },
       freedom: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(6, 19) && getAlifeDistanceBetween(squad, target) <= 150,
       },
       killer: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(6, 19) && getAlifeDistanceBetween(squad, target) <= 150,
       },
     },
@@ -209,7 +209,7 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
       resource: null,
     },
     actor: {
-      prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+      prec: (squad: Squad, target: XR_cse_alife_object) =>
         isInTimeInterval(6, 19) && getAlifeDistanceBetween(squad, target) <= 150,
     },
   },
@@ -217,23 +217,23 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
     squad: {
       monster_vegetarian: { prec: () => isInTimeInterval(21, 6) },
       stalker: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(19, 6) && getAlifeDistanceBetween(squad, target) <= 150,
       },
       bandit: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(19, 6) && getAlifeDistanceBetween(squad, target) <= 150,
       },
       dolg: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(19, 6) && getAlifeDistanceBetween(squad, target) <= 150,
       },
       freedom: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(19, 6) && getAlifeDistanceBetween(squad, target) <= 150,
       },
       killer: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(19, 6) && getAlifeDistanceBetween(squad, target) <= 150,
       },
     },
@@ -244,7 +244,7 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
       resource: null,
     },
     actor: {
-      prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+      prec: (squad: Squad, target: XR_cse_alife_object) =>
         isInTimeInterval(19, 6) && getAlifeDistanceBetween(squad, target) <= 150,
     },
   },
@@ -256,30 +256,30 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
       resource: null,
     },
     actor: {
-      prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+      prec: (squad: Squad, target: XR_cse_alife_object) =>
         isInTimeInterval(6, 19) && getAlifeDistanceBetween(squad, target) <= 150,
     },
   },
   [communities.monster_zombied_day]: {
     squad: {
       stalker: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(6, 19) && getAlifeDistanceBetween(squad, target) <= 150,
       },
       bandit: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(6, 19) && getAlifeDistanceBetween(squad, target) <= 150,
       },
       dolg: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(6, 19) && getAlifeDistanceBetween(squad, target) <= 150,
       },
       freedom: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(6, 19) && getAlifeDistanceBetween(squad, target) <= 150,
       },
       killer: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(6, 19) && getAlifeDistanceBetween(squad, target) <= 150,
       },
     },
@@ -290,30 +290,30 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
       resource: null,
     },
     actor: {
-      prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+      prec: (squad: Squad, target: XR_cse_alife_object) =>
         isInTimeInterval(6, 19) && getAlifeDistanceBetween(squad, target) <= 150,
     },
   },
   [communities.monster_zombied_night]: {
     squad: {
       stalker: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(19, 6) && getAlifeDistanceBetween(squad, target) <= 150,
       },
       bandit: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(19, 6) && getAlifeDistanceBetween(squad, target) <= 150,
       },
       dolg: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(19, 6) && getAlifeDistanceBetween(squad, target) <= 150,
       },
       freedom: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(19, 6) && getAlifeDistanceBetween(squad, target) <= 150,
       },
       killer: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(19, 6) && getAlifeDistanceBetween(squad, target) <= 150,
       },
     },
@@ -324,7 +324,7 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
       resource: null,
     },
     actor: {
-      prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+      prec: (squad: Squad, target: XR_cse_alife_object) =>
         isInTimeInterval(19, 6) && getAlifeDistanceBetween(squad, target) <= 150,
     },
   },
@@ -342,7 +342,7 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
     squad: null,
     smart: {
       base: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(18, 8) && !SurgeManager.getInstance().isStarted,
       },
       surge: { prec: () => SurgeManager.getInstance().isStarted },
@@ -350,7 +350,7 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
         prec: () => isInTimeInterval(8, 18) && !SurgeManager.getInstance().isStarted,
       },
       resource: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(8, 18) && !SurgeManager.getInstance().isStarted,
       },
     },
@@ -360,7 +360,7 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
     squad: null,
     smart: {
       base: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(18, 8) && !SurgeManager.getInstance().isStarted,
       },
       surge: { prec: () => SurgeManager.getInstance().isStarted },
@@ -368,7 +368,7 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
         prec: () => isInTimeInterval(8, 18) && !SurgeManager.getInstance().isStarted,
       },
       resource: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(8, 18) && !SurgeManager.getInstance().isStarted,
       },
     },
@@ -378,7 +378,7 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
     squad: null,
     smart: {
       base: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(18, 8) && !SurgeManager.getInstance().isStarted,
       },
       surge: { prec: () => SurgeManager.getInstance().isStarted },
@@ -386,7 +386,7 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
         prec: () => isInTimeInterval(8, 18) && !SurgeManager.getInstance().isStarted,
       },
       resource: {
-        prec: (squad: SimSquad, target: XR_cse_alife_object) =>
+        prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(8, 18) && !SurgeManager.getInstance().isStarted,
       },
     },

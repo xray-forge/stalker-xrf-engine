@@ -1,7 +1,7 @@
 import { alife, XR_CTime } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import type { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
+import type { Squad } from "@/mod/scripts/core/alife/Squad";
 import { get_sim_obj_registry } from "@/mod/scripts/core/database/SimObjectsRegistry";
 
 /**
@@ -14,7 +14,7 @@ export class SimSquadReachTargetAction {
   public start_time: Optional<XR_CTime> = null;
   public idle_time!: number;
 
-  public constructor(squad: SimSquad) {
+  public constructor(squad: Squad) {
     this.board = squad.board;
     this.squad_id = squad.id;
   }
@@ -22,7 +22,7 @@ export class SimSquadReachTargetAction {
   public finalize(): void {}
 
   public update(isUnderSimulation: boolean): boolean {
-    const squad = alife().object<SimSquad>(this.squad_id)!;
+    const squad = alife().object<Squad>(this.squad_id)!;
     let squad_target = get_sim_obj_registry().objects.get(squad.assigned_target_id!);
 
     if (!isUnderSimulation) {
@@ -45,7 +45,7 @@ export class SimSquadReachTargetAction {
   }
 
   public make(isUnderSimulation: boolean): void {
-    const squad = alife().object<SimSquad>(this.squad_id)!;
+    const squad = alife().object<Squad>(this.squad_id)!;
     let squad_target = get_sim_obj_registry().objects.get(squad.assigned_target_id!);
 
     if (!isUnderSimulation) {

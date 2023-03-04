@@ -32,7 +32,7 @@ export class SchemeGatherItems extends AbstractScheme {
     manager.add_evaluator(stalker_ids.property_items, new EvaluatorGatherItems(state));
   }
 
-  public static set_gather_items(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+  public static setGatherItems(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     logger.info("Set gather items:", object.name());
 
     assignStorageAndBind(object, ini, scheme, section);

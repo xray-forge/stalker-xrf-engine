@@ -20,7 +20,7 @@ import { levels, TLevel } from "@/mod/globals/levels";
 import { STRINGIFIED_FALSE, STRINGIFIED_TRUE } from "@/mod/globals/lua";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { AnyCallablesModule, Optional, PartialRecord, TNumberId } from "@/mod/lib/types";
-import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
+import { Squad } from "@/mod/scripts/core/alife/Squad";
 import { registry, SURGE_MANAGER_LTX } from "@/mod/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
 import { get_sim_board, SimBoard } from "@/mod/scripts/core/database/SimBoard";
@@ -52,7 +52,7 @@ const logger: LuaLogger = new LuaLogger("SurgeManager");
  */
 export class SurgeManager extends AbstractCoreManager {
   private static check_squad_smart_props(squadId: TNumberId): boolean {
-    const squad: Optional<SimSquad> = alife().object(squadId);
+    const squad: Optional<Squad> = alife().object(squadId);
 
     if (squad) {
       const board = get_sim_board();

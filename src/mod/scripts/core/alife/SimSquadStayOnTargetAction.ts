@@ -1,7 +1,7 @@
 import { game, XR_CTime } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
+import { Squad } from "@/mod/scripts/core/alife/Squad";
 
 const STAY_POINT_IDLE_MIN = 180 * 60;
 const STAY_POINT_IDLE_MAX = 300 * 60;
@@ -14,7 +14,7 @@ export class SimSquadStayOnTargetAction {
   public start_time: Optional<XR_CTime>;
   public idle_time: number;
 
-  public constructor(squad: SimSquad) {
+  public constructor(squad: Squad) {
     this.name = "";
     this.start_time = null;
     this.idle_time = math.random(STAY_POINT_IDLE_MIN, STAY_POINT_IDLE_MAX);

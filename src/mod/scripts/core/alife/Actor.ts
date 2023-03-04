@@ -12,9 +12,9 @@ import {
 
 import { AnyCallable, AnyObject, Optional, TSection } from "@/mod/lib/types";
 import { simulation_activities } from "@/mod/scripts/core/alife/SimActivity";
-import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { nearest_to_actor_smart, SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { ESmartTerrainStatus, getCurrentSmartId } from "@/mod/scripts/core/alife/SmartTerrainControl";
+import { Squad } from "@/mod/scripts/core/alife/Squad";
 import { registry, softResetOfflineObject } from "@/mod/scripts/core/database";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
 import { evaluate_prior, get_sim_obj_registry } from "@/mod/scripts/core/database/SimObjectsRegistry";
@@ -153,7 +153,7 @@ export class Actor extends cse_alife_creature_actor {
     return true;
   }
 
-  public target_precondition(squad: SimSquad): boolean {
+  public target_precondition(squad: Squad): boolean {
     const squad_params = simulation_activities[squad.player_id];
 
     if (
@@ -167,7 +167,7 @@ export class Actor extends cse_alife_creature_actor {
     return true;
   }
 
-  public evaluate_prior(squad: SimSquad): number {
+  public evaluate_prior(squad: Squad): number {
     return evaluate_prior(this, squad);
   }
 }

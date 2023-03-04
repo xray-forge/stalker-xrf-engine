@@ -17,11 +17,12 @@ import {
 } from "xray16";
 
 import { communities, TCommunity } from "@/mod/globals/communities";
+import { STRINGIFIED_TRUE } from "@/mod/globals/lua";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
-import { AnyArgs, LuaArray, Maybe, Optional, TName, TSection } from "@/mod/lib/types";
-import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
+import { AnyArgs, EScheme, LuaArray, Maybe, Optional, TName, TSection } from "@/mod/lib/types";
 import { SimSquadReachTargetAction } from "@/mod/scripts/core/alife/SimSquadReachTargetAction";
 import { SimSquadStayOnTargetAction } from "@/mod/scripts/core/alife/SimSquadStayOnTargetAction";
+import { Squad } from "@/mod/scripts/core/alife/Squad";
 import { IStoredObject, registry } from "@/mod/scripts/core/database/registry";
 import { getStoryObjectsRegistry } from "@/mod/scripts/core/database/StoryObjectsRegistry";
 import { spawnItemsForObject } from "@/mod/scripts/utils/alife_spawn";
@@ -82,7 +83,7 @@ export function unregisterStoryId(id: string): void {
 /**
  * todo;
  */
-export function getObjectSquad(object: Optional<XR_game_object | XR_cse_alife_creature_abstract>): Optional<SimSquad> {
+export function getObjectSquad(object: Optional<XR_game_object | XR_cse_alife_creature_abstract>): Optional<Squad> {
   if (object === null) {
     return abort("Attempt to get squad object from NIL.") as never;
   }
@@ -92,7 +93,7 @@ export function getObjectSquad(object: Optional<XR_game_object | XR_cse_alife_cr
   const se_obj: Optional<any> = alife().object(objectId);
 
   if (se_obj && se_obj.group_id !== MAX_UNSIGNED_16_BIT) {
-    return alife().object<SimSquad>(se_obj.group_id);
+    return alife().object<Squad>(se_obj.group_id);
   }
 
   return null;
@@ -333,7 +334,7 @@ export function take_items_enabled(npc: XR_game_object, scheme: string, st: ISto
 /**
  * todo: rename, update
  */
-export function can_select_weapon(npc: XR_game_object, scheme: string, st: IStoredObject, section: string): void {
+export function can_select_weapon(npc: XR_game_object, scheme: EScheme, st: IStoredObject, section: TSection): void {
   let str = getConfigString(st.ini!, section, "can_select_weapon", npc, false, "", "");
 
   if (str === "") {
@@ -343,7 +344,7 @@ export function can_select_weapon(npc: XR_game_object, scheme: string, st: IStor
   const cond = parseCondList(npc, section, "can_select_weapon", str);
   const can: TSection = pickSectionFromCondList(registry.actor, npc, cond)!;
 
-  npc.can_select_weapon(can === "true");
+  npc.can_select_weapon(can === STRINGIFIED_TRUE);
 }
 
 /**
@@ -367,35 +368,35 @@ export function isInvulnerabilityNeeded(object: XR_game_object): boolean {
 
   const invulnerability_condlist = parseCondList(object, "invulnerability", "invulnerability", invulnerability);
 
-  return pickSectionFromCondList(registry.actor, object, invulnerability_condlist) === "true";
+  return pickSectionFromCondList(registry.actor, object, invulnerability_condlist) === STRINGIFIED_TRUE;
 }
 
 /**
  * todo;
  */
-export function reset_invulnerability(npc: XR_game_object, ini: XR_ini_file, section: TSection): void {
-  const invulnerability = isInvulnerabilityNeeded(npc);
+export function resetInvulnerability(object: XR_game_object): void {
+  const invulnerability = isInvulnerabilityNeeded(object);
 
-  if (npc.invulnerable() !== invulnerability) {
-    npc.invulnerable(invulnerability);
+  if (object.invulnerable() !== invulnerability) {
+    object.invulnerable(invulnerability);
   }
 }
 
 /**
  * todo;
  */
-export function disableInvulnerability(npc: XR_game_object): void {
-  npc.invulnerable(false);
+export function disableInvulnerability(object: XR_game_object): void {
+  object.invulnerable(false);
 }
 
 /**
  * todo;
  */
-export function updateInvulnerability(ob: XR_game_object): void {
-  const invulnerability = isInvulnerabilityNeeded(ob);
+export function updateInvulnerability(object: XR_game_object): void {
+  const invulnerability = isInvulnerabilityNeeded(object);
 
-  if (ob.invulnerable() !== invulnerability) {
-    ob.invulnerable(invulnerability);
+  if (object.invulnerable() !== invulnerability) {
+    object.invulnerable(invulnerability);
   }
 }
 

@@ -1,7 +1,7 @@
 import { alife, stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
 import { script_sounds } from "@/mod/globals/sound/script_sounds";
-import { Optional } from "@/mod/lib/types";
+import { Optional, TNumberId } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
@@ -22,6 +22,9 @@ export class SchemeHelpWounded extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.HELP_WOUNDED;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
+  /**
+   * todo;
+   */
   public static override add_to_binder(
     npc: XR_game_object,
     ini: XR_ini_file,
@@ -62,11 +65,17 @@ export class SchemeHelpWounded extends AbstractScheme {
       .add_precondition(new world_property(properties.wounded_exist, false));
   }
 
+  /**
+   * todo;
+   */
   public static override resetScheme(npc: XR_game_object, scheme: EScheme, st: IStoredObject, section: TSection) {
     st.help_wounded.help_wounded_enabled = getConfigBoolean(st.ini!, section, "help_wounded_enabled", npc, false, true);
   }
 
-  public static is_under_help_wounded(object: XR_game_object): boolean {
+  /**
+   * todo;
+   */
+  public static isUnderHelpWounded(object: XR_game_object): boolean {
     const actionManager: XR_action_planner = object.motivation_action_manager();
 
     if (!actionManager.initialized()) {
@@ -76,17 +85,18 @@ export class SchemeHelpWounded extends AbstractScheme {
     return actionManager.current_action_id() === action_ids.wounded_exist;
   }
 
-  public static set_help_wounded(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: Optional<TSection>
-  ) {
+  /**
+   * todo;
+   */
+  public static setHelpWounded(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: Optional<TSection>) {
     assignStorageAndBind(object, ini, scheme, section);
   }
 
-  public static help_wounded(object: XR_game_object): void {
-    const selected_id: number = registry.objects.get(object.id()).help_wounded.selected_id;
+  /**
+   * todo;
+   */
+  public static helpWounded(object: XR_game_object): void {
+    const selected_id: TNumberId = registry.objects.get(object.id()).help_wounded.selected_id;
     const selected_npc: Optional<XR_game_object> =
       registry.objects.get(selected_id) && registry.objects.get(selected_id).object!;
 
@@ -102,7 +112,7 @@ export class SchemeHelpWounded extends AbstractScheme {
       selected_id
     );
 
-    SchemeWounded.unlock_medkit(selected_npc);
+    SchemeWounded.unlockMedkit(selected_npc);
 
     registry.objects.get(selected_id).wounded_already_selected = -1;
 

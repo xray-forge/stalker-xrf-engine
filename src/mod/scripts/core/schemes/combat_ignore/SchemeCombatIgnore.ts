@@ -19,6 +19,9 @@ export class SchemeCombatIgnore extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.COMBAT_IGNORE;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
+  /**
+   * todo
+   */
   public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
@@ -30,10 +33,16 @@ export class SchemeCombatIgnore extends AbstractScheme {
     state.action = new ActionProcessEnemy(object, state);
   }
 
-  public static set_combat_ignore_checker(npc: XR_game_object, ini: XR_ini_file, scheme: EScheme): void {
-    assignStorageAndBind(npc, ini, scheme, null);
+  /**
+   * todo
+   */
+  public static setCombatIgnoreChecker(object: XR_game_object, ini: XR_ini_file, scheme: EScheme): void {
+    assignStorageAndBind(object, ini, scheme, null);
   }
 
+  /**
+   * todo
+   */
   public static override disable_scheme(npc: XR_game_object, scheme: EScheme): void {
     npc.set_enemy_callback(null);
 
@@ -44,6 +53,9 @@ export class SchemeCombatIgnore extends AbstractScheme {
     }
   }
 
+  /**
+   * todo
+   */
   public static override resetScheme(
     object: XR_game_object,
     scheme: EScheme,

@@ -58,15 +58,6 @@ export class ActionProcessEnemy {
 
     state.enemy_id = enemy.id();
 
-    const active_sector = state.active_sector;
-
-    if (active_sector !== null) {
-      // todo: Does not exist.
-      // if (sr_danger.check_danger_position(enemy.position(), active_sector) == false) {
-      //  return false;
-      // }
-    }
-
     if (enemy.id() !== registry.actor.id()) {
       for (const [k, v] of smarts_by_no_assault_zones) {
         const zone = registry.zones.get(k);

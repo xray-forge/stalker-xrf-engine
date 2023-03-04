@@ -1,10 +1,10 @@
 import { clsid, ini_file, XR_cse_alife_object } from "xray16";
 
 import { STRINGIFIED_TRUE } from "@/mod/globals/lua";
-import { Optional } from "@/mod/lib/types";
+import { Optional, TNumberId } from "@/mod/lib/types";
 import { Actor } from "@/mod/scripts/core/alife/Actor";
-import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
+import { Squad } from "@/mod/scripts/core/alife/Squad";
 import { registry } from "@/mod/scripts/core/database/registry";
 import { areOnSameAlifeLevel, getAlifeDistanceBetween } from "@/mod/scripts/utils/alife";
 import { parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
@@ -16,25 +16,25 @@ const props_ini = new ini_file("misc\\simulation_objects_props.ltx");
  * todo;
  */
 export class SimObjectsRegistry {
-  public readonly objects: LuaTable<number, Actor | SimSquad | SmartTerrain> = new LuaTable();
+  public readonly objects: LuaTable<TNumberId, Actor | Squad | SmartTerrain> = new LuaTable();
 
-  public register(obj: SmartTerrain | SimSquad | Actor): void {
-    this.get_props(obj);
-    this.update_avaliability(obj);
+  public register(object: SmartTerrain | Squad | Actor): void {
+    this.get_props(object);
+    this.update_avaliability(object);
   }
 
-  public update_avaliability(obj: SmartTerrain | SimSquad | Actor): void {
+  public update_avaliability(object: SmartTerrain | Squad | Actor): void {
     if (
-      pickSectionFromCondList(registry.actor, obj, obj.sim_avail as any) === STRINGIFIED_TRUE &&
-      obj.sim_available()
+      pickSectionFromCondList(registry.actor, object, object.sim_avail as any) === STRINGIFIED_TRUE &&
+      object.sim_available()
     ) {
-      this.objects.set(obj.id, obj);
+      this.objects.set(object.id, object);
     } else {
-      this.objects.delete(obj.id);
+      this.objects.delete(object.id);
     }
   }
 
-  public get_props(obj: SmartTerrain | SimSquad | Actor) {
+  public get_props(obj: SmartTerrain | Squad | Actor) {
     obj.props = new LuaTable();
 
     let props_section: string = obj.name();
@@ -85,13 +85,13 @@ export function get_sim_obj_registry() {
   return sim_objects_registry;
 }
 
-export function evaluate_prior_by_dist(target: SmartTerrain | Actor | SimSquad, squad: SimSquad): number {
+export function evaluate_prior_by_dist(target: SmartTerrain | Actor | Squad, squad: Squad): number {
   const dist = math.max(getAlifeDistanceBetween(target, squad), 1);
 
   return 1 + 1 / dist;
 }
 
-export function evaluate_prior(target: SmartTerrain | Actor | SimSquad, squad: SimSquad): number {
+export function evaluate_prior(target: SmartTerrain | Actor | Squad, squad: Squad): number {
   let prior = 0;
 
   if (!target.target_precondition(squad) || !areOnSameAlifeLevel(target, squad)) {

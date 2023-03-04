@@ -53,8 +53,8 @@ import { script_sounds } from "@/mod/globals/sound/script_sounds";
 import { TTreasure } from "@/mod/globals/treasures";
 import { TZone, zones } from "@/mod/globals/zones";
 import { AnyObject, LuaArray, Optional, TCount, TName, TNumberId } from "@/mod/lib/types";
-import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
+import { Squad } from "@/mod/scripts/core/alife/Squad";
 import { Stalker } from "@/mod/scripts/core/alife/Stalker";
 import { update_logic } from "@/mod/scripts/core/binders/StalkerBinder";
 import { deleteHelicopter, IStoredObject, registry, SYSTEM_INI } from "@/mod/scripts/core/database";
@@ -564,7 +564,7 @@ export function teleport_squad(actor: XR_game_object, npc: XR_game_object, param
   }
 
   const position: XR_vector = new patrol(patrol_point).point(patrol_point_index);
-  const squad: Optional<SimSquad> = getStorySquad(squad_story_id);
+  const squad: Optional<Squad> = getStorySquad(squad_story_id);
 
   if (squad === null) {
     abort("There is no squad with story id [%s]", squad_story_id);
@@ -1473,8 +1473,8 @@ export function create_squad_member(
   }
 
   const board = get_sim_board();
-  const squad: SimSquad = getStorySquad(story_id) as SimSquad;
-  const squad_smart = board.smarts.get(squad.smart_id as number).smrt;
+  const squad: Squad = getStorySquad(story_id) as Squad;
+  const squad_smart = board.smarts.get(squad.smart_id as TNumberId).smrt;
 
   if (params[2] !== null) {
     let spawn_point: Optional<string> = null;
@@ -1520,7 +1520,7 @@ export function remove_squad(actor: XR_game_object, obj: XR_game_object, p: [str
     abort("Wrong squad identificator [NIL] in remove_squad function");
   }
 
-  const squad: Optional<SimSquad> = getStorySquad(story_id);
+  const squad: Optional<Squad> = getStorySquad(story_id);
 
   if (squad === null) {
     abort("Wrong squad identificator [%s]. squad doesnt exist", tostring(story_id));
@@ -1647,7 +1647,7 @@ export function actor_enemy(actor: XR_game_object, npc: XR_game_object): void {
 }
 
 export function set_squad_neutral_to_actor(actor: XR_game_object, npc: XR_game_object, p: [string]): void {
-  const squad: Optional<SimSquad> = getStorySquad(p[0]);
+  const squad: Optional<Squad> = getStorySquad(p[0]);
 
   if (squad === null) {
     return;
@@ -1657,7 +1657,7 @@ export function set_squad_neutral_to_actor(actor: XR_game_object, npc: XR_game_o
 }
 
 export function set_squad_friend_to_actor(actor: XR_game_object, npc: XR_game_object, p: [string]): void {
-  const squad: Optional<SimSquad> = getStorySquad(p[0]);
+  const squad: Optional<Squad> = getStorySquad(p[0]);
 
   if (squad === null) {
     return;
@@ -1667,7 +1667,7 @@ export function set_squad_friend_to_actor(actor: XR_game_object, npc: XR_game_ob
 }
 
 export function set_squad_enemy_to_actor(actor: XR_game_object, npc: XR_game_object, p: [string]): void {
-  const squad: Optional<SimSquad> = getStorySquad(p[0]);
+  const squad: Optional<Squad> = getStorySquad(p[0]);
 
   if (squad === null) {
     return;

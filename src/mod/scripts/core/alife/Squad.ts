@@ -21,6 +21,7 @@ import { squadCommunityByBehaviour } from "@/mod/globals/behaviours";
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { goodwill } from "@/mod/globals/goodwill";
 import { info_portions } from "@/mod/globals/info_portions";
+import { STRINGIFIED_TRUE } from "@/mod/globals/lua";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { relations, TRelation } from "@/mod/globals/relations";
 import { SMART_TERRAIN_SECT } from "@/mod/globals/sections";
@@ -79,7 +80,7 @@ const smarts_by_no_assault_zones: LuaTable<string, string> = {
  * todo;
  */
 @LuabindClass()
-export class SimSquad<
+export class Squad<
   T extends XR_cse_alife_creature_abstract = XR_cse_alife_creature_abstract
 > extends cse_alife_online_offline_group<T> {
   public behaviour: LuaTable<string, string> = new LuaTable();
@@ -550,7 +551,7 @@ export class SimSquad<
     }
 
     const invulnerability: boolean =
-      pickSectionFromCondList(registry.actor, this, this.invulnerability as any) === "true";
+      pickSectionFromCondList(registry.actor, this, this.invulnerability as any) === STRINGIFIED_TRUE;
 
     for (const k of this.squad_members()) {
       const npc_st = registry.objects.get(k.id);
@@ -1014,19 +1015,19 @@ export class SimSquad<
         return smart_terrain.job_data.get(smart_terrain.npc_info.get(this.commander_id()).job_id).alife_task;
       }
 
-      return alife().object<SimSquad>(this.assigned_target_id)!.get_alife_task();
+      return alife().object<Squad>(this.assigned_target_id)!.get_alife_task();
     }
 
     return this.get_alife_task();
   }
 
-  public am_i_reached(squad: SimSquad): boolean {
+  public am_i_reached(squad: Squad): boolean {
     return this.npc_count() === 0;
   }
 
-  public on_after_reach(squad: SimSquad): void {}
+  public on_after_reach(squad: Squad): void {}
 
-  public on_reach_target(squad: SimSquad): void {
+  public on_reach_target(squad: Squad): void {
     squad.set_location_types();
 
     for (const it of squad.squad_members()) {
@@ -1080,7 +1081,7 @@ export class SimSquad<
     return true;
   }
 
-  public target_precondition(squad: SimSquad): boolean {
+  public target_precondition(squad: Squad): boolean {
     const squad_params = simulation_activities[squad.player_id];
 
     if (squad_params === null || squad_params.squad === null) {
@@ -1096,12 +1097,12 @@ export class SimSquad<
     return true;
   }
 
-  public evaluate_prior(squad: SimSquad): number {
+  public evaluate_prior(squad: Squad): number {
     return evaluate_prior(this, squad);
   }
 }
 
-export function get_help_target_id(squad: SimSquad): Optional<TNumberId> {
+export function get_help_target_id(squad: Squad): Optional<TNumberId> {
   // log.info("Get help target id:", squad.name());
 
   if (!can_help_actor(squad)) {
@@ -1112,7 +1113,7 @@ export function get_help_target_id(squad: SimSquad): Optional<TNumberId> {
     const enemy_squad_id: Optional<number> = alife().object<XR_cse_alife_creature_abstract>(id)!.group_id;
 
     if (enemy_squad_id !== null) {
-      const target_squad = alife().object<SimSquad>(enemy_squad_id);
+      const target_squad = alife().object<Squad>(enemy_squad_id);
 
       if (
         target_squad &&
@@ -1127,7 +1128,7 @@ export function get_help_target_id(squad: SimSquad): Optional<TNumberId> {
   return null;
 }
 
-export function can_help_actor(squad: SimSquad): boolean {
+export function can_help_actor(squad: Squad): boolean {
   if (isEmpty(registry.actorCombat)) {
     return false;
   }

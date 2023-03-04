@@ -17,6 +17,9 @@ export class SchemeAbuse extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.ABUSE;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
+  /**
+   * todo;
+   */
   public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
@@ -56,18 +59,27 @@ export class SchemeAbuse extends AbstractScheme {
     state.abuse_manager = new SchemeAbuse(object, state);
   }
 
-  public static set_abuse(npc: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const st = assignStorageAndBind(npc, ini, scheme, section);
+  /**
+   * todo;
+   */
+  public static setAbuse(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const st = assignStorageAndBind(object, ini, scheme, section);
   }
 
-  public static add_abuse(npc: XR_game_object, value: number): void {
-    const t: Optional<{ abuse_manager: SchemeAbuse }> = registry.objects.get(npc.id()).abuse;
+  /**
+   * todo;
+   */
+  public static addAbuse(object: XR_game_object, value: number): void {
+    const t: Optional<{ abuse_manager: SchemeAbuse }> = registry.objects.get(object.id()).abuse;
 
     if (t) {
       t.abuse_manager.addAbuse(value);
     }
   }
 
+  /**
+   * todo;
+   */
   public static override resetScheme(
     object: XR_game_object,
     scheme: EScheme,
@@ -75,6 +87,9 @@ export class SchemeAbuse extends AbstractScheme {
     section: TSection
   ): void {}
 
+  /**
+   * todo;
+   */
   public static clear_abuse(object: XR_game_object): void {
     const state = registry.objects.get(object.id()).abuse;
 
@@ -83,6 +98,9 @@ export class SchemeAbuse extends AbstractScheme {
     }
   }
 
+  /**
+   * todo;
+   */
   public static disable_abuse(object: XR_game_object): void {
     const state = registry.objects.get(object.id()).abuse;
 
@@ -91,6 +109,9 @@ export class SchemeAbuse extends AbstractScheme {
     }
   }
 
+  /**
+   * todo;
+   */
   public static enable_abuse(object: XR_game_object): void {
     const state = registry.objects.get(object.id()).abuse;
 
@@ -99,6 +120,9 @@ export class SchemeAbuse extends AbstractScheme {
     }
   }
 
+  /**
+   * todo;
+   */
   public static is_abuse(object: XR_game_object): boolean {
     const state = registry.objects.get(object.id()).abuse;
 

@@ -8,8 +8,8 @@ import { RestrictorManager } from "@/mod/scripts/core/schemes/RestrictorManager"
 import { resetScheme } from "@/mod/scripts/core/schemes/schemes_resetting";
 import {
   can_select_weapon,
-  reset_invulnerability,
   reset_threshold,
+  resetInvulnerability,
   resetObjectGroup,
   take_items_enabled,
 } from "@/mod/scripts/utils/alife";
@@ -49,7 +49,7 @@ export function resetGenericSchemesOnSchemeSwitch(
 
       MapDisplayManager.getInstance().updateObjectMapSpot(object, schemeToSwitch, state, section);
       reset_threshold(object, schemeToSwitch, state, section);
-      reset_invulnerability(object, state.ini!, section);
+      resetInvulnerability(object);
       resetObjectGroup(object, state.ini!, section);
       take_items_enabled(object, schemeToSwitch, state, section);
       can_select_weapon(object, schemeToSwitch, state, section);
@@ -70,7 +70,7 @@ export function resetGenericSchemesOnSchemeSwitch(
 
       resetScheme(EScheme.COMBAT_IGNORE, object, schemeToSwitch, state, section);
       resetScheme(EScheme.HEAR, object, schemeToSwitch, state, section);
-      reset_invulnerability(object, state.ini!, section);
+      resetInvulnerability(object);
       RestrictorManager.forNpc(object).reset_restrictions(state, section);
 
       return;

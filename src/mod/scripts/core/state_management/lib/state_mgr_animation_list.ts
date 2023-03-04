@@ -959,7 +959,7 @@ export const animations: LuaTable<string, IAnimationDescriptor> = {
               // eslint-disable-next-line @typescript-eslint/no-var-requires
             } = require("@/mod/scripts/core/schemes/corpse_detection/SchemeCorpseDetection");
 
-            SchemeCorpseDetection.get_all_from_corpse(object);
+            SchemeCorpseDetection.getAllFromCorpse(object);
           },
         },
       ],
@@ -983,7 +983,7 @@ export const animations: LuaTable<string, IAnimationDescriptor> = {
             // eslint-disable-next-line @typescript-eslint/no-var-requires
             const { SchemeHelpWounded } = require("@/mod/scripts/core/schemes/help_wounded/SchemeHelpWounded");
 
-            SchemeHelpWounded.help_wounded(object);
+            SchemeHelpWounded.helpWounded(object);
           },
         },
       ],

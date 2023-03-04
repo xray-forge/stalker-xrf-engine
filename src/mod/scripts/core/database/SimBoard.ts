@@ -2,8 +2,8 @@ import { alife, clsid, game_graph, level, XR_cse_alife_creature_abstract, XR_Eng
 
 import { TCommunity } from "@/mod/globals/communities";
 import { Optional, TNumberId } from "@/mod/lib/types";
-import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
+import { Squad } from "@/mod/scripts/core/alife/Squad";
 import { registry, SIMULATION_LTX } from "@/mod/scripts/core/database";
 import { get_sim_obj_registry } from "@/mod/scripts/core/database/SimObjectsRegistry";
 import { changeTeamSquadGroup } from "@/mod/scripts/utils/alife";
@@ -25,7 +25,7 @@ let board: Optional<SimBoard> = null;
 
 export interface ISimSmartDescriptor {
   smrt: SmartTerrain;
-  squads: LuaTable<number, SimSquad>;
+  squads: LuaTable<number, Squad>;
   stayed_squad_quan: number;
 }
 
@@ -38,11 +38,11 @@ export class SimBoard {
   public players: Optional<LuaTable> = null;
   public smarts: LuaTable<number, ISimSmartDescriptor> = new LuaTable();
   public smarts_by_names: LuaTable<string, SmartTerrain> = new LuaTable();
-  public squads: LuaTable<number, SimSquad> = new LuaTable();
+  public squads: LuaTable<number, Squad> = new LuaTable();
   public spawn_smarts: any;
   public mutant_lair: any;
-  public tmp_assigned_squad: LuaTable<number, LuaTable<number, SimSquad>>;
-  public tmp_entered_squad: LuaTable<number, LuaTable<number, SimSquad>>;
+  public tmp_assigned_squad: LuaTable<number, LuaTable<number, Squad>>;
+  public tmp_entered_squad: LuaTable<number, LuaTable<number, Squad>>;
 
   public start_position_filled: boolean = false;
 
@@ -103,9 +103,9 @@ export class SimBoard {
     this.smarts.delete(obj.id);
   }
 
-  public create_squad(spawn_smart: SmartTerrain, sq_id: string): SimSquad {
+  public create_squad(spawn_smart: SmartTerrain, sq_id: string): Squad {
     const squad_id = tostring(sq_id);
-    const squad = alife().create<SimSquad>(
+    const squad = alife().create<Squad>(
       squad_id,
       spawn_smart.position,
       spawn_smart.m_level_vertex_id,
@@ -128,7 +128,7 @@ export class SimBoard {
     return squad;
   }
 
-  public remove_squad(squad: SimSquad): void {
+  public remove_squad(squad: Squad): void {
     logger.info("Remove squad:", squad.name());
 
     squad.board.exit_smart(squad, squad.smart_id);
@@ -138,7 +138,7 @@ export class SimBoard {
     squad.remove_squad();
   }
 
-  public assign_squad_to_smart(squad: SimSquad, smart_id: Optional<number>): void {
+  public assign_squad_to_smart(squad: Squad, smart_id: Optional<number>): void {
     if (smart_id !== null && !this.smarts.has(smart_id)) {
       if (!this.tmp_assigned_squad.has(smart_id)) {
         this.tmp_assigned_squad.set(smart_id, new LuaTable());
@@ -173,7 +173,7 @@ export class SimBoard {
     target.smrt.refresh();
   }
 
-  public exit_smart(squad: SimSquad, smart_id: Optional<number>): void {
+  public exit_smart(squad: Squad, smart_id: Optional<number>): void {
     if (smart_id === null) {
       return;
     }
@@ -194,7 +194,7 @@ export class SimBoard {
     smart.squads.delete(squad.id);
   }
 
-  public enter_smart(squad: SimSquad, smartId: TNumberId): void {
+  public enter_smart(squad: Squad, smartId: TNumberId): void {
     if (!this.smarts.has(smartId)) {
       if (!this.tmp_entered_squad.has(smartId)) {
         this.tmp_entered_squad.set(smartId, new LuaTable());
@@ -226,7 +226,7 @@ export class SimBoard {
 
     changeTeamSquadGroup(obj, obj.team, obj.squad, group);
 
-    const squad = alife().object<SimSquad>(obj.group_id);
+    const squad = alife().object<Squad>(obj.group_id);
 
     if (squad === null) {
       changeTeamSquadGroup(obj, obj.team, 0, obj.group);
@@ -300,7 +300,7 @@ export class SimBoard {
     return this.smarts.get(smart.id).stayed_squad_quan;
   }
 
-  public get_squad_target(squad: SimSquad) {
+  public get_squad_target(squad: Squad) {
     const available_targets: LuaTable<number, { prior: number; target: any }> = new LuaTable();
     let most_priority_task = null;
     const max_prior = 0;

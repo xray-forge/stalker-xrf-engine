@@ -140,7 +140,7 @@ export function transfer_medkit(first_speaker: XR_game_object, second_speaker: X
     second_speaker.id()
   );
 
-  SchemeWounded.unlock_medkit(second_speaker);
+  SchemeWounded.unlockMedkit(second_speaker);
 
   if (second_speaker.relation(first_speaker) !== game_object.enemy) {
     second_speaker.set_relation(game_object.friend, first_speaker);

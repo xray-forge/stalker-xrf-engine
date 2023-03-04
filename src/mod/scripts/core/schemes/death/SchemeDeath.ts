@@ -18,6 +18,9 @@ export class SchemeDeath extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.DEATH;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
+  /**
+   * todo;
+   */
   public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
@@ -30,6 +33,9 @@ export class SchemeDeath extends AbstractScheme {
     subscribeActionForEvents(object, state, new SchemeDeath(object, state));
   }
 
+  /**
+   * todo;
+   */
   public static override set_scheme(
     object: XR_game_object,
     ini: XR_ini_file,
@@ -40,11 +46,17 @@ export class SchemeDeath extends AbstractScheme {
     abort("Called not implemented set_scheme method: %s, %s", object.name(), scheme);
   }
 
-  public static set_death(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+  /**
+   * todo;
+   */
+  public static setDeath(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     logger.info("Set death:", object.name());
     assignStorageAndBind(object, ini, scheme, section);
   }
 
+  /**
+   * todo;
+   */
   public static override resetScheme(
     object: XR_game_object,
     scheme: EScheme,
@@ -82,6 +94,9 @@ export class SchemeDeath extends AbstractScheme {
     }
   }
 
+  /**
+   * todo;
+   */
   public death_callback(victim: XR_game_object, who: Optional<XR_game_object>): void {
     registry.objects.get(victim.id()).death!.killer = who === null ? -1 : who.id();
 

@@ -13,7 +13,7 @@ import {
 
 import { communities } from "@/mod/globals/communities";
 import { logicsConfig } from "@/mod/lib/configs/LogicsConfig";
-import { AnyCallablesModule, EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
+import { EScheme, ESchemeType, Optional, TDistance, TSection } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
@@ -41,22 +41,21 @@ export class SchemeDanger extends AbstractScheme {
   ): void {
     logger.info("Add to binder:", object.name());
 
-    const manager = object.motivation_action_manager();
-    const danger_action: XR_action_base = manager.action(stalker_ids.action_danger_planner);
-    const danger_action_planner: XR_action_planner = cast_planner(danger_action);
+    const manager: XR_action_planner = object.motivation_action_manager();
+    const dangerAction: XR_action_base = manager.action(stalker_ids.action_danger_planner);
+    const dangerActionPlanner: XR_action_planner = cast_planner(dangerAction);
 
     manager.remove_evaluator(stalker_ids.property_danger);
     manager.add_evaluator(stalker_ids.property_danger, new EvaluatorDanger(state, this));
 
-    danger_action_planner.remove_evaluator(stalker_ids.property_danger);
-    danger_action_planner.add_evaluator(stalker_ids.property_danger, new EvaluatorDanger(state, this));
+    dangerActionPlanner.remove_evaluator(stalker_ids.property_danger);
+    dangerActionPlanner.add_evaluator(stalker_ids.property_danger, new EvaluatorDanger(state, this));
   }
 
-  public static set_danger(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: string): void {
+  public static setDanger(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     logger.info("Set danger:", object.name());
 
     assignStorageAndBind(object, ini, scheme, section);
-
     registry.objects.get(object.id()).danger_flag = false;
   }
 
@@ -67,40 +66,40 @@ export class SchemeDanger extends AbstractScheme {
     section: TSection
   ): void {}
 
-  public static is_danger(npc: XR_game_object): boolean {
-    const best_danger: Optional<XR_danger_object> = npc.best_danger();
+  public static is_danger(object: XR_game_object): boolean {
+    const bestDanger: Optional<XR_danger_object> = object.best_danger();
 
-    if (best_danger === null) {
+    if (bestDanger === null) {
       return false;
     }
 
-    let best_danger_object: Optional<XR_game_object> = best_danger.object();
-    const bd_type: TXR_danger_object = best_danger.type();
+    let bestDangerObject: Optional<XR_game_object> = bestDanger.object();
+    const bestDangerType: TXR_danger_object = bestDanger.type();
 
-    if (bd_type !== danger_object.grenade && best_danger.dependent_object() !== null) {
-      best_danger_object = best_danger.dependent_object();
+    if (bestDangerType !== danger_object.grenade && bestDanger.dependent_object() !== null) {
+      bestDangerObject = bestDanger.dependent_object();
     }
 
-    if (best_danger_object === null) {
+    if (bestDangerObject === null) {
       return false;
     }
 
     if (
-      bd_type !== danger_object.entity_corpse &&
-      bd_type !== danger_object.grenade &&
-      npc.relation(best_danger_object) !== game_object.enemy
+      bestDangerType !== danger_object.entity_corpse &&
+      bestDangerType !== danger_object.grenade &&
+      object.relation(bestDangerObject) !== game_object.enemy
     ) {
       return false;
     }
 
-    if (bd_type === danger_object.grenade) {
-      if (getCharacterCommunity(npc) === communities.zombied) {
+    if (bestDangerType === danger_object.grenade) {
+      if (getCharacterCommunity(object) === communities.zombied) {
         return false;
       }
     }
 
     // todo: Implement?
-    if (bd_type === danger_object.entity_corpse) {
+    if (bestDangerType === danger_object.entity_corpse) {
       return false;
       /**
        *  --const corpse_object = best_danger:object()
@@ -110,38 +109,26 @@ export class SchemeDanger extends AbstractScheme {
        */
     }
 
-    if (!ActionProcessEnemy.isEnemy(npc, best_danger_object, registry.objects.get(npc.id()).combat_ignore!, true)) {
+    if (!ActionProcessEnemy.isEnemy(object, bestDangerObject, registry.objects.get(object.id()).combat_ignore!, true)) {
       // --printf("[%s] check danger COMBAT IGNORE", npc:name())
       return false;
     }
 
-    const danger_distance_sqr: number = best_danger.position().distance_to_sqr(npc.position());
-    const ignore_distance_by_type: Optional<number> = logicsConfig.DANGER_IGNORE_DISTANCE_BY_TYPE[bd_type];
+    const dangerDistanceSqrt: TDistance = bestDanger.position().distance_to_sqr(object.position());
+    const ignoreDistanceByType: Optional<TDistance> = logicsConfig.DANGER_IGNORE_DISTANCE_BY_TYPE[bestDangerType];
 
-    if (ignore_distance_by_type !== null) {
-      if (danger_distance_sqr >= ignore_distance_by_type * ignore_distance_by_type) {
+    if (ignoreDistanceByType !== null) {
+      if (dangerDistanceSqrt >= ignoreDistanceByType * ignoreDistanceByType) {
         return false;
       }
     } else if (
-      danger_distance_sqr >=
+      dangerDistanceSqrt >=
       logicsConfig.DANGER_IGNORE_DISTANCE_GENERAL * logicsConfig.DANGER_IGNORE_DISTANCE_GENERAL
     ) {
       return false;
     }
 
-    const active_sector = registry.objects.get(npc.id()).active_sector;
-
-    if (active_sector !== null) {
-      // todo: Does not exist.
-      if (
-        get_global<AnyCallablesModule>("sr_danger").check_danger_position(best_danger.position(), active_sector) ===
-        false
-      ) {
-        return false;
-      }
-    }
-
-    if (isHeavilyWounded(npc.id())) {
+    if (isHeavilyWounded(object.id())) {
       return false;
     }
 

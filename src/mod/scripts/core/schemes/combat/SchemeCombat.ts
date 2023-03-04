@@ -28,6 +28,9 @@ export class SchemeCombat extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.COMBAT;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
+  /**
+   * todo;
+   */
   public static override add_to_binder(
     object: XR_game_object,
     ini: XR_ini_file,
@@ -49,6 +52,9 @@ export class SchemeCombat extends AbstractScheme {
     SchemeCombatCamper.add_to_binder(object, ini, scheme, section, state, manager);
   }
 
+  /**
+   * todo;
+   */
   public static override disable_scheme(object: XR_game_object, scheme: EScheme): void {
     const state = registry.objects.get(object.id())[scheme];
 
@@ -57,6 +63,9 @@ export class SchemeCombat extends AbstractScheme {
     }
   }
 
+  /**
+   * todo;
+   */
   public static set_combat_type(npc: XR_game_object, actor: XR_game_object, target: Optional<AnyObject>): void {
     if (target === null) {
       return;
@@ -80,10 +89,13 @@ export class SchemeCombat extends AbstractScheme {
     target.script_combat_type = script_combat_type;
   }
 
-  public static set_combat_checker(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const is_zombied: boolean = getCharacterCommunity(object) === communities.zombied;
+  /**
+   * todo;
+   */
+  public static setCombatChecker(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const isZombied: boolean = getCharacterCommunity(object) === communities.zombied;
 
-    if (section || is_zombied) {
+    if (section || isZombied) {
       const st = assignStorageAndBind(object, ini, scheme, section);
 
       st.logic = cfg_get_switch_conditions(ini, section, object);
@@ -95,7 +107,7 @@ export class SchemeCombat extends AbstractScheme {
         st.combat_type = null;
       }
 
-      if (!st.combat_type && is_zombied) {
+      if (!st.combat_type && isZombied) {
         st.combat_type = { condlist: parseCondList(object, section, "", communities.zombied) };
       }
 
