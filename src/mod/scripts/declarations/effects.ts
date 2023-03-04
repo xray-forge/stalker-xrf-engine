@@ -73,7 +73,6 @@ import { init_target } from "@/mod/scripts/core/schemes/remark/actions/ActionRem
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { showFreeplayDialog } from "@/mod/scripts/ui/game/FreeplayDialog";
 import { sleep as startSleeping } from "@/mod/scripts/ui/interaction/SleepDialog";
-import { disableInfo, giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { getStoryObject, getStorySquad } from "@/mod/scripts/utils/alife";
 import { isActorInZoneWithName } from "@/mod/scripts/utils/checkers/checkers";
 import { isStalker } from "@/mod/scripts/utils/checkers/is";
@@ -83,6 +82,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { createScenarioAutoSave } from "@/mod/scripts/utils/game_saves";
 import { find_stalker_for_job, switch_to_desired_job as switchToGulagDesiredJob } from "@/mod/scripts/utils/gulag";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
+import { disableInfo, giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import {
   increaseNumberRelationBetweenCommunityAndId,

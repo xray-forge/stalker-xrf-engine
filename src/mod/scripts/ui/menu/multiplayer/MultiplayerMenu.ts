@@ -363,7 +363,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
         "start client(" +
         this.message_box.GetHost() +
         "/name=" +
-        this.owner.gameSpyProfile!.unique_nick() +
+        this.owner.xrGameSpyProfile!.unique_nick() +
         "/psw=" +
         this.message_box.GetPassword() +
         ")";
@@ -394,7 +394,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
       this.message_box.ShowDialog(true);
     }
 
-    this.owner.loginManager.set_unique_nick(
+    this.owner.xrLoginManager.set_unique_nick(
       tmp_player_name,
       new login_operation_cb(this, (code, description) => this.ChangeNickOperationResult(code, description))
     );
@@ -479,7 +479,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
       this.btn_play_demo.Show(true);
     } else if (id === "profile") {
       this.dlg_profile.Show(true);
-      this.dlg_profile.edit_unique_nick.SetText(this.owner.gameSpyProfile!.unique_nick());
+      this.dlg_profile.edit_unique_nick.SetText(this.owner.xrGameSpyProfile!.unique_nick());
     }
   }
 
@@ -528,7 +528,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
     }
 
     const mm: XR_CMainMenu = main_menu.get_main_menu();
-    const gs_profile: Optional<XR_profile> = this.owner.loginManager.get_current_profile();
+    const gs_profile: Optional<XR_profile> = this.owner.xrLoginManager.get_current_profile();
 
     if (gs_profile && gs_profile.online() && mm.ValidateCDKey() === false) {
       return;
@@ -545,7 +545,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
       this.map_list.StartDedicatedServer();
     } else {
       const console: XR_CConsole = get_console();
-      const command: string = this.map_list.GetCommandLine(this.owner.gameSpyProfile!.unique_nick());
+      const command: string = this.map_list.GetCommandLine(this.owner.xrGameSpyProfile!.unique_nick());
       // --this.player_name.GetText())
 
       console.execute("main_menu off");
@@ -830,7 +830,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
     opt.SaveValues(option_groups.mm_mp_server);
     opt.SaveValues(option_groups.mm_mp_srv_filter);
 
-    this.server_list.SetPlayerName(this.owner.gameSpyProfile!.unique_nick()); // --this.player_name.GetText())
+    this.server_list.SetPlayerName(this.owner.xrGameSpyProfile!.unique_nick()); // --this.player_name.GetText())
     this.server_list.ConnectToSelected();
   }
 

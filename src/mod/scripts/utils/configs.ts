@@ -13,8 +13,8 @@ import {
 
 import { AnyArgs, AnyCallablesModule, AnyObject, EScheme, LuaArray, Optional, TSection } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
-import { disableInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { abort } from "@/mod/scripts/utils/debug";
+import { disableInfo, hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { trimString } from "@/mod/scripts/utils/string";
 

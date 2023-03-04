@@ -2,7 +2,7 @@ import { CUIMessageBoxEx, CUIScriptWnd, Frect, ui_events, XR_CUIMessageBoxEx } f
 
 import { info_portions } from "@/mod/globals/info_portions";
 import { Optional } from "@/mod/lib/types";
-import { giveInfo } from "@/mod/scripts/utils/actor";
+import { giveInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("FreeplayDialog");

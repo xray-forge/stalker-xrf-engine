@@ -19,8 +19,8 @@ import { AnyCallablesModule, AnyObject, LuaArray, Optional } from "@/mod/lib/typ
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { pstor_retrieve } from "@/mod/scripts/core/database/pstor";
 import { TreasureManager } from "@/mod/scripts/core/managers/TreasureManager";
-import { disableInfo, giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { isActorEnemyWithFaction } from "@/mod/scripts/utils/checkers/checkers";
+import { disableInfo, giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import {
   getActorSpeaker,

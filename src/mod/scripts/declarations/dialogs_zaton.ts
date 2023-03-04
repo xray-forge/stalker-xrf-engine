@@ -20,8 +20,8 @@ import { registry } from "@/mod/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
 import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
 import { TreasureManager } from "@/mod/scripts/core/managers/TreasureManager";
-import { disableInfo, giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { isSquadExisting } from "@/mod/scripts/utils/checkers/checkers";
+import { disableInfo, giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import {
   actorHasAtLeastOneItem,

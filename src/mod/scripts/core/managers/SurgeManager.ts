@@ -31,11 +31,11 @@ import { notificationManagerIcons } from "@/mod/scripts/core/managers/notificati
 import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { WeatherManager } from "@/mod/scripts/core/managers/WeatherManager";
-import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { isImmuneToSurge, isObjectOnLevel, isSurgeEnabledOnLevel } from "@/mod/scripts/utils/checkers/checkers";
 import { isStoryObject } from "@/mod/scripts/utils/checkers/is";
 import { parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { createScenarioAutoSave, setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
+import { hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { copyTable } from "@/mod/scripts/utils/table";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";

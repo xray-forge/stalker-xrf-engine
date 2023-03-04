@@ -13,7 +13,7 @@ import { quest_items } from "@/mod/globals/items/quest_items";
 import { weapons } from "@/mod/globals/items/weapons";
 import { LuaArray } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
-import { disableInfo, giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
+import { disableInfo, giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { giveItemsToActor, giveMoneyToActor, takeItemsFromActor, takeMoneyFromActor } from "@/mod/scripts/utils/quests";
 

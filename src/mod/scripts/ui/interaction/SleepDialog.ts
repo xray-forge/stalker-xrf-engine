@@ -27,7 +27,7 @@ import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { WeatherManager } from "@/mod/scripts/core/managers/WeatherManager";
-import { disableInfo, giveInfo } from "@/mod/scripts/utils/actor";
+import { disableInfo, giveInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { isWideScreen, resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 

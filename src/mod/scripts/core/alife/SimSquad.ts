@@ -44,7 +44,6 @@ import { evaluate_prior, get_sim_obj_registry } from "@/mod/scripts/core/databas
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";
 import { get_sound_manager, SoundManager } from "@/mod/scripts/core/sound/SoundManager";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
-import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { areOnSameAlifeLevel, unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { isSquadMonsterCommunity } from "@/mod/scripts/utils/checkers/is";
 import {
@@ -58,6 +57,7 @@ import {
 } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setSaveMarker } from "@/mod/scripts/utils/game_saves";
+import { hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import {
   getSquadIdRelationToActor,

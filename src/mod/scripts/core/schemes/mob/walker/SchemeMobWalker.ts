@@ -35,7 +35,7 @@ import {
 } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { isStalkerAtWaypoint } from "@/mod/scripts/utils/world";
+import { isStalkerAtWaypoint } from "@/mod/scripts/utils/position";
 
 const default_wait_time: number = 5000;
 const default_anim_standing: TXR_animation = anim.stand_idle;

@@ -1,12 +1,25 @@
-import { device, get_hud, getFS, level, XR_CUIGameCustom, XR_game_object } from "xray16";
+import {
+  CScriptXmlInit,
+  device,
+  get_hud,
+  getFS,
+  level,
+  XR_CScriptXmlInit,
+  XR_CUIGameCustom,
+  XR_game_object,
+} from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
+import { TPath } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("rendering");
 
+/**
+ * todo;
+ */
 export function isWideScreen(): boolean {
   return device().width / device().height > 1024 / 768 + 0.01;
 }
@@ -18,7 +31,7 @@ export function isWideScreen(): boolean {
  * todo: Respect dot-separated files in XRAY.
  * todo: Respect folders in XRAY.
  */
-export function resolveXmlFormPath(path: string, hasWideScreenSupport: boolean = false): string {
+export function resolveXmlFormPath(path: TPath, hasWideScreenSupport: boolean = false): TPath {
   const base: string = path.endsWith(".xml") ? path.slice(0, path.length - 4) : path;
   const wideBase: string = base + ".16" + ".xml";
   const canBeWide: boolean = hasWideScreenSupport && isWideScreen();
@@ -34,13 +47,16 @@ export function resolveXmlFormPath(path: string, hasWideScreenSupport: boolean =
     }
   }
 
-  const resolved: string = canBeWide && getFS().exist("$game_config$", "ui\\" + wideBase) ? wideBase : base + ".xml";
+  const resolved: TPath = canBeWide && getFS().exist("$game_config$", "ui\\" + wideBase) ? wideBase : base + ".xml";
 
   logger.info("Resolved XML to:", resolved);
 
   return resolved;
 }
 
+/**
+ * todo;
+ */
 export function setUiVisibility(isVisible: boolean): void {
   const hud: XR_CUIGameCustom = get_hud();
   const actor: XR_game_object = registry.actor;
@@ -73,4 +89,15 @@ export function setUiVisibility(isVisible: boolean): void {
   }
 
   logger.info("[setUiVisibility] Completed");
+}
+
+/**
+ * todo;
+ */
+export function resolveXmlFile(path: TPath): XR_CScriptXmlInit {
+  const xml: XR_CScriptXmlInit = new CScriptXmlInit();
+
+  xml.ParseFile(resolveXmlFormPath(path));
+
+  return xml;
 }

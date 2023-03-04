@@ -9,7 +9,7 @@ import { achievementIcons } from "@/mod/scripts/core/managers/achievements/Achie
 import { EAchievement } from "@/mod/scripts/core/managers/achievements/EAchievement";
 import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
-import { giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
+import { giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("AchievementsManager");

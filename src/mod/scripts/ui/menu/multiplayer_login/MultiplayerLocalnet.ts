@@ -99,7 +99,7 @@ export class MultiplayerLocalnet extends CUIScriptWnd {
   public OnBtnLogin(): void {
     logger.info("On button login");
 
-    this.owner.loginManager.login_offline(
+    this.owner.xrLoginManager.login_offline(
       this.lp_nickname.GetText(),
       new login_operation_cb(this, (profile, description) => this.LoginOperationResult(profile, description))
     );
@@ -115,18 +115,18 @@ export class MultiplayerLocalnet extends CUIScriptWnd {
       this.gs_login_message_box.ShowDialog(true);
     } else {
       logger.info("With profile");
-      this.owner.gameSpyProfile = profile;
+      this.owner.xrGameSpyProfile = profile;
 
-      this.owner.menuController.SetPage(
+      this.owner.xrMenuPageController.SetPage(
         CUIMMShniaga.epi_main,
         resolveXmlFormPath("menu\\MainMenu.component"),
         "menu_main_logout"
       );
-      this.owner.menuController.ShowPage(CUIMMShniaga.epi_main);
+      this.owner.xrMenuPageController.ShowPage(CUIMMShniaga.epi_main);
 
       if (this.lp_check_remember_me.GetCheck()) {
         logger.info("Saving to registry:", profile === null);
-        this.owner.loginManager.save_nick_to_registry(profile.unique_nick());
+        this.owner.xrLoginManager.save_nick_to_registry(profile.unique_nick());
       }
 
       this.HideDialog();
@@ -149,7 +149,7 @@ export class MultiplayerLocalnet extends CUIScriptWnd {
 
   public OnBtnRememberMe(): void {
     logger.info("On button remember me");
-    this.owner.loginManager.save_remember_me_to_registry(this.lp_check_remember_me.GetCheck());
+    this.owner.xrLoginManager.save_remember_me_to_registry(this.lp_check_remember_me.GetCheck());
   }
 
   public OnEditLPNicknameChanged(): void {

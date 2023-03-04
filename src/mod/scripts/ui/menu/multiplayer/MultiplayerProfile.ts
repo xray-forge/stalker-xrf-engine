@@ -128,8 +128,8 @@ export class MultiplayerProfile extends CUIWindow {
   public InitBestScores(): void {
     logger.info("Init best scores");
 
-    if (this.owner.owner.profile_store !== null) {
-      for (const it of this.owner.owner.profile_store.get_best_scores()) {
+    if (this.owner.owner.xrProfileStore !== null) {
+      for (const it of this.owner.owner.xrProfileStore.get_best_scores()) {
         const score_wnd: XR_CUITextWnd = this.xml.InitTextWnd(
           "tab_profile:best_results_list:cap_score_" + tostring(it.first),
           this.best_results_list
@@ -146,7 +146,7 @@ export class MultiplayerProfile extends CUIWindow {
   public OnEditUniqueNickChanged(): void {
     this.gs_change_nick_mb_cancel.SetText("ui_mp_gamespy_suggesting_unique_name");
     this.gs_change_nick_mb_cancel.ShowDialog(true);
-    this.owner.owner.accountManager.suggest_unique_nicks(
+    this.owner.owner.xrAccountManager.suggest_unique_nicks(
       this.edit_unique_nick.GetText(),
       new suggest_nicks_cb(this, (result, description) => this.OnNickSuggestionComplete(result, description))
     );
@@ -155,9 +155,9 @@ export class MultiplayerProfile extends CUIWindow {
   }
 
   public OnCancelChangeUnick(): void {
-    this.owner.owner.accountManager.stop_suggest_unique_nicks();
+    this.owner.owner.xrAccountManager.stop_suggest_unique_nicks();
     this.gs_change_nick_mb_cancel.HideDialog();
-    this.edit_unique_nick.SetText(this.owner.owner.gameSpyProfile!.unique_nick());
+    this.edit_unique_nick.SetText(this.owner.owner.xrGameSpyProfile!.unique_nick());
   }
 
   public UpdateControls(): void {
@@ -181,7 +181,7 @@ export class MultiplayerProfile extends CUIWindow {
       );
     }
 
-    this.edit_unique_nick.SetText(this.owner.owner.gameSpyProfile!.unique_nick());
+    this.edit_unique_nick.SetText(this.owner.owner.xrGameSpyProfile!.unique_nick());
     this.gs_change_nick_mb.ShowDialog(true);
   }
 
@@ -191,12 +191,12 @@ export class MultiplayerProfile extends CUIWindow {
     const new_unique_nick: string = this.edit_unique_nick.GetText();
     let index: number = 1;
 
-    for (const it of this.owner.owner.accountManager.get_suggested_unicks()) {
+    for (const it of this.owner.owner.xrAccountManager.get_suggested_unicks()) {
       if (it === new_unique_nick) {
         this.gs_change_nick_mb.InitMessageBox("message_box_gs_changing_unick");
         this.gs_change_nick_mb.SetText("ui_mp_gamespy_changing_unique_nick");
         this.gs_change_nick_mb.ShowDialog(true);
-        this.owner.owner.loginManager.set_unique_nick(
+        this.owner.owner.xrLoginManager.set_unique_nick(
           new_unique_nick,
           new login_operation_cb(this, (profile: Optional<XR_profile>, description: string) => {
             this.ChangeNickOperationResult(profile, description);
@@ -222,18 +222,18 @@ export class MultiplayerProfile extends CUIWindow {
       this.gs_change_nick_mb.SetText(desctiption);
     }
 
-    this.edit_unique_nick.SetText(this.owner.owner.gameSpyProfile!.unique_nick());
+    this.edit_unique_nick.SetText(this.owner.owner.xrGameSpyProfile!.unique_nick());
     this.gs_change_nick_mb.ShowDialog(true);
   }
 
   public FillRewardsTable() {
-    if (this.owner.owner.profile_store !== null) {
+    if (this.owner.owner.xrProfileStore !== null) {
       const pos: XR_vector2 = new vector2().set(0, 0);
 
       let field: number = 1;
       let index: number = 1;
 
-      for (const it of this.owner.owner.profile_store.get_awards()) {
+      for (const it of this.owner.owner.xrProfileStore.get_awards()) {
         const k: number = math.fmod(index, 3);
 
         if (k === 1) {

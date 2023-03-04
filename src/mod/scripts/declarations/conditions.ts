@@ -32,7 +32,6 @@ import { ActorInventoryMenuManager, EActorMenuMode } from "@/mod/scripts/core/ma
 import { ItemUpgradesManager } from "@/mod/scripts/core/managers/ItemUpgradesManager";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { SchemeDeimos } from "@/mod/scripts/core/schemes/sr_deimos/SchemeDeimos";
-import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import {
   anomalyHasArtefact,
   getCharacterCommunity,
@@ -59,6 +58,7 @@ import { isMonster, isStalker, isWeapon } from "@/mod/scripts/utils/checkers/is"
 import { abort } from "@/mod/scripts/utils/debug";
 import { getObjectBoundSmart } from "@/mod/scripts/utils/gulag";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
+import { hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { distanceBetween, npcInActorFrustum } from "@/mod/scripts/utils/physics";
 import {

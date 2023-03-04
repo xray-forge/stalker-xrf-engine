@@ -17,7 +17,7 @@ import { StalkerMoveManager } from "@/mod/scripts/core/state_management/StalkerM
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { path_parse_waypoints } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
-import { isStalkerAtWaypoint } from "@/mod/scripts/utils/world";
+import { isStalkerAtWaypoint } from "@/mod/scripts/utils/position";
 
 interface ICampPoint {
   key: number;

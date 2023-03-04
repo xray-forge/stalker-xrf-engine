@@ -4,13 +4,13 @@ import { captions } from "@/mod/globals/captions";
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { LuaArray, Optional } from "@/mod/lib/types";
 import { DIALOG_MANAGER_LTX, registry } from "@/mod/scripts/core/database";
-import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
 import { isObjectWounded } from "@/mod/scripts/utils/checkers/checkers";
 import { parse_infop1, parseNames } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { getObjectBoundSmart } from "@/mod/scripts/utils/gulag";
+import { hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { getNpcSpeaker } from "@/mod/scripts/utils/quests";
 

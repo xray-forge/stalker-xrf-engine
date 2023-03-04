@@ -1,4 +1,4 @@
-import { console_command } from "@/mod/globals/console_command";
+import { console_commands } from "@/mod/globals/console_commands";
 
 export enum EDebugSection {
   GENERAL = "general",
@@ -13,14 +13,14 @@ export enum EDebugSection {
 }
 
 export const on_off_cmds = [
-  console_command.g_god,
-  console_command.g_unlimitedammo,
-  console_command.g_autopickup,
-  console_command.hud_weapon,
-  console_command.hud_info,
-  console_command.hud_crosshair_dist,
-  console_command.hud_crosshair,
-  console_command.hud_draw,
+  console_commands.g_god,
+  console_commands.g_unlimitedammo,
+  console_commands.g_autopickup,
+  console_commands.hud_weapon,
+  console_commands.hud_info,
+  console_commands.hud_crosshair_dist,
+  console_commands.hud_crosshair,
+  console_commands.hud_draw,
 ];
 
-export const zero_one_cmds = [console_command.wpn_aim_toggle];
+export const zero_one_cmds = [console_commands.wpn_aim_toggle];

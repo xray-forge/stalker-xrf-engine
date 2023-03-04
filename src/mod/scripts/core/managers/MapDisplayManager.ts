@@ -17,10 +17,10 @@ import { story_ids } from "@/mod/globals/story_ids";
 import { Maybe, Optional, TSection } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
-import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { anomalyHasArtefact } from "@/mod/scripts/utils/alife";
 import { getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
+import { hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("MapDisplayManager");

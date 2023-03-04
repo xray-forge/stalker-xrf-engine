@@ -4,10 +4,10 @@ import { captions } from "@/mod/globals/captions";
 import { Optional, TSection } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
-import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { getStoryObject } from "@/mod/scripts/utils/alife";
 import { parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
+import { hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 
 export function condlist(id: string, field: string, p: string): Optional<TSection> {
   const parsed_condlist = parseCondList(null, "task", "task_condlist", p);

@@ -5,8 +5,8 @@ import { Optional, PartialRecord } from "@/mod/lib/types";
 import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { TravelManager } from "@/mod/scripts/core/managers/TravelManager";
-import { hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { getAlifeDistanceBetween } from "@/mod/scripts/utils/alife";
+import { hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { isInTimeInterval } from "@/mod/scripts/utils/time";
 

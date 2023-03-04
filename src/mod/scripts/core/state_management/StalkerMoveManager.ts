@@ -17,7 +17,7 @@ import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { IWaypointData, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { isStalkerAtWaypoint } from "@/mod/scripts/utils/world";
+import { isStalkerAtWaypoint } from "@/mod/scripts/utils/position";
 
 const logger: LuaLogger = new LuaLogger("StalkerMoveManager");
 

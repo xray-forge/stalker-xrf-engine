@@ -283,15 +283,15 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
   }
 
   public ShowLoginPage(): void {
-    const mail: string = this.owner.loginManager.get_email_from_registry();
-    const pass: string = this.owner.loginManager.get_password_from_registry();
+    const mail: string = this.owner.xrLoginManager.get_email_from_registry();
+    const pass: string = this.owner.xrLoginManager.get_password_from_registry();
 
     if (mail !== "" && pass !== "") {
       this.lp_email.SetText(mail);
       this.lp_password.SetText(pass);
     }
 
-    this.lp_check_remember_me.SetCheck(this.owner.loginManager!.get_remember_me_from_registry());
+    this.lp_check_remember_me.SetCheck(this.owner.xrLoginManager!.get_remember_me_from_registry());
 
     this.btn_create_acc.Show(true);
     this.btn_login.Show(true);
@@ -319,7 +319,7 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
 
   public OnBtnRememberMe(): void {
     logger.info("Button remember me");
-    this.owner.loginManager.save_remember_me_to_registry(this.lp_check_remember_me.GetCheck());
+    this.owner.xrLoginManager.save_remember_me_to_registry(this.lp_check_remember_me.GetCheck());
   }
 
   public CheckAccCreationAbility() {
@@ -333,7 +333,7 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
     this.gs_message_box.InitMessageBox("message_box_gs_acc_creation");
     this.gs_message_box.SetText("ui_mp_gamespy_creating_new_profile");
     this.gs_message_box.ShowDialog(true);
-    this.owner.accountManager.create_profile(
+    this.owner.xrAccountManager.create_profile(
       this.ca_email.GetText(),
       this.ca_unique_nick.GetText(),
       this.ca_email.GetText(),
@@ -384,7 +384,7 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
     this.gs_login_mb_cancel.SetText("ui_mp_gamespy_getting_account_profiles");
     this.gs_login_mb_cancel.ShowDialog(true);
     this.profile_name = "";
-    this.owner.accountManager.search_for_email(
+    this.owner.xrAccountManager.search_for_email(
       this.email,
       new found_email_cb(this, (found, description) => this.OnLoginEmailSearchComplete(found, description))
     );
@@ -404,7 +404,7 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
       return;
     }
 
-    this.owner.accountManager.get_account_profiles(
+    this.owner.xrAccountManager.get_account_profiles(
       this.email,
       this.password,
       new account_profiles_cb(this, (code, description) => this.GetAccountProfilesResult(code, description))
@@ -427,14 +427,14 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
       this.gs_login_mb_result.SetText(description);
       this.gs_login_mb_result.ShowDialog(true);
     } else {
-      for (const it of this.owner.accountManager.get_found_profiles()) {
+      for (const it of this.owner.xrAccountManager.get_found_profiles()) {
         if (this.profile_name === "") {
           this.profile_name = it;
         }
 
         if (it === this.email) {
           this.gs_login_mb_cancel.SetText("ui_mp_gamespy_logining_to_profile");
-          this.owner.loginManager.login(
+          this.owner.xrLoginManager.login(
             this.email,
             // todo: Maybe typo.
             this.email,
@@ -474,21 +474,21 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
     } else {
       logger.info("Continue with profile info load");
 
-      this.owner.gameSpyProfile = profile;
-      this.owner.menuController.SetPage(
+      this.owner.xrGameSpyProfile = profile;
+      this.owner.xrMenuPageController.SetPage(
         CUIMMShniaga.epi_main,
         resolveXmlFormPath("menu\\MainMenu.component"),
         "menu_main_logout"
       );
-      this.owner.menuController.ShowPage(CUIMMShniaga.epi_main);
-      this.owner.profile_store.load_current_profile(
+      this.owner.xrMenuPageController.ShowPage(CUIMMShniaga.epi_main);
+      this.owner.xrProfileStore.load_current_profile(
         new store_operation_cb(this, (code, description) => this.LoadingProgress(code, description)),
         new store_operation_cb(this, (code, description) => this.LoadingComplete(code, description))
       );
 
       if (this.lp_check_remember_me.GetCheck()) {
-        this.owner.loginManager.save_email_to_registry(this.email);
-        this.owner.loginManager.save_password_to_registry(this.password);
+        this.owner.xrLoginManager.save_email_to_registry(this.email);
+        this.owner.xrLoginManager.save_password_to_registry(this.password);
       }
     }
   }
@@ -496,22 +496,22 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
   public TerminateLogin(): void {
     logger.info("Terminate login");
 
-    if (this.owner.gameSpyProfile !== null) {
-      this.owner.profile_store.stop_loading();
-      this.owner.loginManager.logout();
-      this.owner.menuController.ShowPage(CUIMMShniaga.epi_new_network_game);
-      this.owner.menuController.SetPage(
+    if (this.owner.xrGameSpyProfile !== null) {
+      this.owner.xrProfileStore.stop_loading();
+      this.owner.xrLoginManager.logout();
+      this.owner.xrMenuPageController.ShowPage(CUIMMShniaga.epi_new_network_game);
+      this.owner.xrMenuPageController.SetPage(
         CUIMMShniaga.epi_main,
         resolveXmlFormPath("menu\\MainMenu.component"),
         "menu_main"
       );
     } else if (this.profile_name === "") {
-      this.owner.accountManager.stop_fetching_account_profiles();
+      this.owner.xrAccountManager.stop_fetching_account_profiles();
     } else {
-      this.owner.loginManager.stop_login();
+      this.owner.xrLoginManager.stop_login();
     }
 
-    this.owner.gameSpyProfile = null;
+    this.owner.xrGameSpyProfile = null;
   }
 
   public LoginProfileUseExist(): void {
@@ -520,7 +520,7 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
     this.gs_login_mb_cancel.InitMessageBox("message_box_gs_info");
     this.gs_login_mb_cancel.SetText("ui_mp_gamespy_logining_to_profile");
     this.gs_login_mb_cancel.ShowDialog(true);
-    this.owner.loginManager.login(
+    this.owner.xrLoginManager.login(
       this.email,
       this.profile_name,
       this.password,
@@ -533,7 +533,7 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
   }
 
   public OnLoginResultOk() {
-    if (this.owner.gameSpyProfile) {
+    if (this.owner.xrGameSpyProfile) {
       this.HideDialog();
       this.owner.ShowDialog(true);
       this.owner.Show(true);
@@ -552,7 +552,7 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
     this.gs_login_mb_cancel.InitMessageBox("message_box_gs_info");
     this.gs_login_mb_cancel.SetText("ui_mp_gamespy_logining_to_profile");
     this.gs_login_mb_cancel.ShowDialog(true);
-    this.owner.loginManager.login(
+    this.owner.xrLoginManager.login(
       this.email,
       this.profile_name,
       this.password,
@@ -605,7 +605,7 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
   }
 
   public OnBtnLPForgotPassword(): void {
-    this.owner.loginManager.forgot_password("https://login.gamespy.com/lostpassword.aspx");
+    this.owner.xrLoginManager.forgot_password("https://login.gamespy.com/lostpassword.aspx");
   }
 
   public LoadingProgress(fake_bool: any, progress_string: string) {
@@ -623,7 +623,7 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
     this.gs_login_mb_result.InitMessageBox("message_box_gs_result");
 
     if (load_result === true) {
-      const tmp_unick = this.owner.gameSpyProfile!.unique_nick();
+      const tmp_unick = this.owner.xrGameSpyProfile!.unique_nick();
       let hello_text = game.translate_string("ui_mp_gamespy_loading_rewards_hello") + " " + tmp_unick + "!";
 
       if (tmp_unick === "@unregistered") {
@@ -661,17 +661,17 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
     const email = this.ca_email.GetText();
 
     if (email !== "") {
-      if (this.owner.accountManager.verify_email(email)) {
+      if (this.owner.xrAccountManager.verify_email(email)) {
         this.gs_mb_create_vemail_cancel.InitMessageBox("message_box_gs_info");
         this.gs_mb_create_vemail_cancel.SetText("ui_mp_gamespy_verify_email");
         this.gs_mb_create_vemail_cancel.ShowDialog(true);
-        this.owner.accountManager.search_for_email(
+        this.owner.xrAccountManager.search_for_email(
           this.ca_email.GetText(),
           new found_email_cb(this, (found, description) => this.OnEmailSearchComplete(found, description))
         );
       } else {
         this.ca_st_email.InitTexture("ui_inGame2_lamp_RED");
-        this.ca_error.SetText(game.translate_string(this.owner.accountManager.get_verify_error_descr()));
+        this.ca_error.SetText(game.translate_string(this.owner.xrAccountManager.get_verify_error_descr()));
       }
     }
 
@@ -681,12 +681,12 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
   public OnEditCAPasswordChanged() {
     const pass = this.ca_password.GetText();
 
-    if (this.owner.accountManager.verify_password(pass)) {
+    if (this.owner.xrAccountManager.verify_password(pass)) {
       this.ca_st_password.InitTexture("ui_inGame2_lamp_GREEN");
       this.ca_error.SetText("");
     } else {
       this.ca_st_password.InitTexture("ui_inGame2_lamp_RED");
-      this.ca_error.SetText(game.translate_string(this.owner.accountManager.get_verify_error_descr()));
+      this.ca_error.SetText(game.translate_string(this.owner.xrAccountManager.get_verify_error_descr()));
       this.ca_passwords_valid = false;
     }
 
@@ -698,13 +698,13 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
     const conf_pass = this.ca_confirm_password.GetText();
 
     if (pass === conf_pass) {
-      if (this.owner.accountManager.verify_password(pass)) {
+      if (this.owner.xrAccountManager.verify_password(pass)) {
         this.ca_st_confirm_password.InitTexture("ui_inGame2_lamp_GREEN");
         this.ca_error.SetText("");
         this.ca_passwords_valid = true;
       } else {
         this.ca_st_confirm_password.InitTexture("ui_inGame2_lamp_RED");
-        this.ca_error.SetText(game.translate_string(this.owner.accountManager.get_verify_error_descr()));
+        this.ca_error.SetText(game.translate_string(this.owner.xrAccountManager.get_verify_error_descr()));
         this.ca_passwords_valid = false;
       }
     } else {
@@ -719,11 +719,11 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
   public OnEditCAUniqueNickChanged() {
     const nick = this.ca_unique_nick.GetText();
 
-    if (this.owner.accountManager.verify_unique_nick(nick)) {
+    if (this.owner.xrAccountManager.verify_unique_nick(nick)) {
       this.gs_mb_create_vnick_cancel.InitMessageBox("message_box_gs_info");
       this.gs_mb_create_vnick_cancel.SetText("ui_mp_gamespy_suggesting_unique_name");
       this.gs_mb_create_vnick_cancel.ShowDialog(true);
-      this.owner.accountManager.suggest_unique_nicks(
+      this.owner.xrAccountManager.suggest_unique_nicks(
         nick,
         new suggest_nicks_cb(this, (code: number, description: string) => {
           this.OnNickSuggestionComplete(code, description);
@@ -733,12 +733,12 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
       this.ca_combo_aval_unique_nick.ClearList();
     } else {
       this.ca_st_unique_nick.InitTexture("ui_inGame2_lamp_RED");
-      this.ca_error.SetText(game.translate_string(this.owner.accountManager.get_verify_error_descr()));
+      this.ca_error.SetText(game.translate_string(this.owner.xrAccountManager.get_verify_error_descr()));
     }
   }
 
   public TerminateVerifyEmail(): void {
-    this.owner.accountManager.stop_searching_email();
+    this.owner.xrAccountManager.stop_searching_email();
     this.ca_st_email.InitTexture("ui_inGame2_lamp_RED");
     this.ca_email_valid = false;
   }
@@ -760,7 +760,7 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
   }
 
   public TerminateVerifyNick() {
-    this.owner.accountManager.stop_suggest_unique_nicks();
+    this.owner.xrAccountManager.stop_suggest_unique_nicks();
     this.ca_st_unique_nick.InitTexture("ui_inGame2_lamp_RED");
     this.ca_unique_nick_valid = false;
   }
@@ -794,7 +794,7 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
     if (result > 0) {
       let index: number = 1;
 
-      for (const it of this.owner.accountManager.get_suggested_unicks()) {
+      for (const it of this.owner.xrAccountManager.get_suggested_unicks()) {
         if (it === this.ca_unique_nick.GetText()) {
           this.ca_st_unique_nick.InitTexture("ui_inGame2_lamp_GREEN");
           this.ca_unique_nick_valid = true;

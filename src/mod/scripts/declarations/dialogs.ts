@@ -16,11 +16,11 @@ import { NotificationManager } from "@/mod/scripts/core/managers/notifications/N
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { SchemeMeet } from "@/mod/scripts/core/schemes/meet/SchemeMeet";
 import { SchemeWounded } from "@/mod/scripts/core/schemes/wounded/SchemeWounded";
-import { giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/actor";
 import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
 import { isObjectWounded, isStalkerAlive } from "@/mod/scripts/utils/checkers/checkers";
 import { createScenarioAutoSave } from "@/mod/scripts/utils/game_saves";
 import { getObjectBoundSmart } from "@/mod/scripts/utils/gulag";
+import { giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 import {
   actorHasMedKit,
   getActorAvailableMedKit,

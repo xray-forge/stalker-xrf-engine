@@ -1,6 +1,6 @@
 import { get_console, IsDynamicMusic, level, time_global, XR_game_object, XR_vector } from "xray16";
 
-import { console_command } from "@/mod/globals/console_command";
+import { console_commands } from "@/mod/globals/console_commands";
 import { TSound } from "@/mod/globals/sound/sounds";
 import { Optional } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
@@ -327,7 +327,7 @@ export class DynamicMusicManager {
    * todo: Description.
    */
   public setSoundVolume(volume: number): void {
-    get_console().execute(console_command.snd_volume_music + " " + volume);
+    get_console().execute(console_commands.snd_volume_music + " " + volume);
   }
 
   /**
@@ -409,7 +409,7 @@ export class DynamicMusicManager {
    * todo: Description.
    */
   public onMainMenuOff(): void {
-    ambientVolume = get_console().get_float(console_command.snd_volume_music);
+    ambientVolume = get_console().get_float(console_commands.snd_volume_music);
 
     if (this.theme && this.theme.isPlaying()) {
       if (IsDynamicMusic()) {

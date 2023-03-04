@@ -37,8 +37,8 @@ import { smart_covers_list } from "@/mod/scripts/core/smart_covers/smart_covers_
 import { GameOutroManager } from "@/mod/scripts/ui/game/GameOutroManager";
 import { WeaponParams } from "@/mod/scripts/ui/game/WeaponParams";
 import * as SleepDialogModule from "@/mod/scripts/ui/interaction/SleepDialog";
-import { disableInfo } from "@/mod/scripts/utils/actor";
 import { externClassMethod } from "@/mod/scripts/utils/general";
+import { disableInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("extern");

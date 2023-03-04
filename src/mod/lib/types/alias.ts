@@ -9,6 +9,11 @@ export type TName = string;
 export type TLabel = string;
 
 /**
+ * String based path.
+ */
+export type TPath = string;
+
+/**
  * Number based identifier.
  */
 export type TNumberId = number;

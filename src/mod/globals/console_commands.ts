@@ -352,7 +352,7 @@
  * #endif
  * };
  */
-export const console_command = {
+export const console_commands = {
   /**
    * Save options changes.
    */
@@ -525,4 +525,14 @@ export const console_command = {
    */
   start: "start",
   wpn_aim_toggle: "wpn_aim_toggle",
-};
+} as const;
+
+/**
+ * todo;
+ */
+export type TConsoleCommands = typeof console_commands;
+
+/**
+ * todo;
+ */
+export type TConsoleCommand = TConsoleCommands[keyof TConsoleCommands];
