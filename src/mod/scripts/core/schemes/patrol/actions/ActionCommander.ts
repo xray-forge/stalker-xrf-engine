@@ -5,7 +5,7 @@ import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { StalkerMoveManager } from "@/mod/scripts/core/state_management/StalkerMoveManager";
 import { get_state } from "@/mod/scripts/core/state_management/StateManager";
-import { path_parse_waypoints } from "@/mod/scripts/utils/configs";
+import { parsePathWaypoints } from "@/mod/scripts/utils/parse";
 
 /**
  * todo;
@@ -38,11 +38,11 @@ export class ActionCommander extends action_base {
     this.state.signals = {};
 
     if (this.state.path_walk_info === null) {
-      this.state.path_walk_info = path_parse_waypoints(this.state.path_walk);
+      this.state.path_walk_info = parsePathWaypoints(this.state.path_walk);
     }
 
     if (this.state.path_look_info === null) {
-      this.state.path_look_info = path_parse_waypoints(this.state.path_look);
+      this.state.path_look_info = parsePathWaypoints(this.state.path_look);
     }
 
     this.moveManager.reset(

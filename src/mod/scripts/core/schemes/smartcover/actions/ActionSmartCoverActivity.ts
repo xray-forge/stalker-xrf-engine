@@ -7,9 +7,10 @@ import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManag
 import { ActionSleeperActivity } from "@/mod/scripts/core/schemes/sleeper/actions";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { getStoryObject } from "@/mod/scripts/utils/alife";
-import { getParamString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
+import { getParamString, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseConditionsList } from "@/mod/scripts/utils/parse";
 
 enum ECoverState {
   FIRE_TARGET = "fire_target",
@@ -117,11 +118,16 @@ export class ActionSmartCoverActivity extends action_base {
       // -- ���� � ���������� ����� ����� �������� (�������� ��� �����������, �������)
       set_state(this.object, "smartcover", null, null, null, null);
 
-      this.target_path_condlist = parseCondList(object, this.st.active_section!, "target_path", this.st.target_path);
+      this.target_path_condlist = parseConditionsList(
+        object,
+        this.st.active_section!,
+        "target_path",
+        this.st.target_path
+      );
       this.check_target();
 
       // --' ���������� �������� ������� ������ ��������� ������ � �����������.
-      this.cover_condlist = parseCondList(object, this.st.active_section!, "cover_state", this.st.cover_state);
+      this.cover_condlist = parseConditionsList(object, this.st.active_section!, "cover_state", this.st.cover_state);
       this.cover_state = pickSectionFromCondList(registry.actor, object, this.cover_condlist) as ECoverState;
       this.target_selector(this.object);
       this.check_target_selector();

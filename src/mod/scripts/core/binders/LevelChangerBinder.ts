@@ -11,7 +11,7 @@ import {
 import { TSection } from "@/mod/lib/types/scheme";
 import { LevelChanger } from "@/mod/scripts/core/alife/LevelChanger";
 import { addObject, deleteObject, resetObject } from "@/mod/scripts/core/database";
-import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
+import { loadObject, saveObject } from "@/mod/scripts/core/schemes/storing";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -76,7 +76,7 @@ export class LevelChangerBinder extends object_binder {
     setSaveMarker(packet, false, LevelChangerBinder.__name);
 
     super.save(packet);
-    save_obj(this.object, packet);
+    saveObject(this.object, packet);
 
     setSaveMarker(packet, true, LevelChangerBinder.__name);
   }
@@ -85,7 +85,7 @@ export class LevelChangerBinder extends object_binder {
     setLoadMarker(reader, false, LevelChangerBinder.__name);
 
     super.load(reader);
-    load_obj(this.object, reader);
+    loadObject(this.object, reader);
 
     setLoadMarker(reader, true, LevelChangerBinder.__name);
   }

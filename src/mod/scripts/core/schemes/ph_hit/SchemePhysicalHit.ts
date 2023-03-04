@@ -6,7 +6,7 @@ import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAn
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
-import { cfg_get_switch_conditions, getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
+import { getConfigNumber, getConfigString, getConfigSwitchConditions } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("SchemePhysicalHit");
@@ -31,7 +31,7 @@ export class SchemePhysicalHit extends AbstractScheme {
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const st = assignStorageAndBind(object, ini, scheme, section);
 
-    st.logic = cfg_get_switch_conditions(ini, section, object);
+    st.logic = getConfigSwitchConditions(ini, section, object);
     st.power = getConfigNumber(ini, section, "power", object, false, 0);
     st.impulse = getConfigNumber(ini, section, "impulse", object, false, 1000);
     st.bone = getConfigString(ini, section, "bone", object, true, "");

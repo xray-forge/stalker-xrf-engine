@@ -8,10 +8,10 @@ import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeAc
 import { switchToSection } from "@/mod/scripts/core/schemes/switchToSection";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import {
-  cfg_get_switch_conditions,
   getConfigBoolean,
   getConfigCondList,
   getConfigString,
+  getConfigSwitchConditions,
   pickSectionFromCondList,
 } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -38,7 +38,7 @@ export class SchemePhysicalButton extends AbstractScheme {
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const st = assignStorageAndBind(object, ini, scheme, section);
 
-    st.logic = cfg_get_switch_conditions(ini, section, object);
+    st.logic = getConfigSwitchConditions(ini, section, object);
     st.on_press = getConfigCondList(ini, section, "on_press", object);
     st.tooltip = getConfigString(ini, section, "tooltip", object, false, "");
 

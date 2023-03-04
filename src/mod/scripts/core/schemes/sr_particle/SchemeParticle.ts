@@ -7,14 +7,14 @@ import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import {
-  cfg_get_switch_conditions,
   getConfigBoolean,
   getConfigNumber,
   getConfigString,
-  path_parse_waypoints,
+  getConfigSwitchConditions,
 } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parsePathWaypoints } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("SchemeParticle");
 
@@ -40,7 +40,7 @@ export class SchemeParticle extends AbstractScheme {
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const st = assignStorageAndBind(object, ini, scheme, section);
 
-    st.logic = cfg_get_switch_conditions(ini, section, object);
+    st.logic = getConfigSwitchConditions(ini, section, object);
     st.name = getConfigString(ini, section, "name", object, true, "", null);
     st.path = getConfigString(ini, section, "path", object, true, "", null);
     st.mode = getConfigNumber(ini, section, "mode", object, true);
@@ -65,7 +65,7 @@ export class SchemeParticle extends AbstractScheme {
     if (this.state.mode === 2) {
       this.path = new patrol(this.state.path);
 
-      const flags = path_parse_waypoints(this.state.path)!;
+      const flags = parsePathWaypoints(this.state.path)!;
       const count = this.path.count();
 
       for (const a of $range(1, count)) {

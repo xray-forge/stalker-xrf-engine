@@ -26,14 +26,13 @@ import {
   getConfigBoolean,
   getConfigNumber,
   getConfigString,
-  parseCondList,
-  parseNames,
   pickSectionFromCondList,
 } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseConditionsList, parseNames } from "@/mod/scripts/utils/parse";
 import { giveMoneyToActor, relocateQuestItemSection, takeMoneyFromActor } from "@/mod/scripts/utils/quests";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
 
@@ -156,37 +155,40 @@ export class TaskObject {
     this.condlist = new LuaTable();
 
     while (task_ini.line_exist(id, "condlist_" + i)) {
-      this.condlist.set(i, parseCondList(null, "task_manager", "condlist", task_ini.r_string(id, "condlist_" + i)));
+      this.condlist.set(
+        i,
+        parseConditionsList(null, "task_manager", "condlist", task_ini.r_string(id, "condlist_" + i))
+      );
 
       i = i + 1;
     }
 
-    this.on_init = parseCondList(
+    this.on_init = parseConditionsList(
       null,
       "task_manager",
       "condlist",
       getConfigString(task_ini, id, "on_init", null, false, "", "")
     );
-    this.on_complete = parseCondList(
+    this.on_complete = parseConditionsList(
       null,
       "task_manager",
       "condlist",
       getConfigString(task_ini, id, "on_complete", null, false, "", "")
     );
-    this.on_reversed = parseCondList(
+    this.on_reversed = parseConditionsList(
       null,
       "task_manager",
       "condlist",
       getConfigString(task_ini, id, "on_reversed", null, false, "", "")
     );
 
-    this.reward_money = parseCondList(
+    this.reward_money = parseConditionsList(
       null,
       "task_manager",
       "condlist",
       getConfigString(task_ini, id, "reward_money", null, false, "", "")
     );
-    this.reward_item = parseCondList(
+    this.reward_item = parseConditionsList(
       null,
       "task_manager",
       "condlist",

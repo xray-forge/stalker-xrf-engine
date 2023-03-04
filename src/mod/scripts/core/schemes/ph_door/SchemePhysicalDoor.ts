@@ -18,15 +18,15 @@ import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeAc
 import { switchToSection } from "@/mod/scripts/core/schemes/switchToSection";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import {
-  cfg_get_switch_conditions,
   getConfigBoolean,
   getConfigCondList,
   getConfigString,
-  parse_data_1v,
+  getConfigSwitchConditions,
   pickSectionFromCondList,
 } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseData1v } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("SchemePhysicalDoor");
 
@@ -53,7 +53,7 @@ export class SchemePhysicalDoor extends AbstractScheme {
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const state = assignStorageAndBind(object, ini, scheme, section);
 
-    state.logic = cfg_get_switch_conditions(ini, section, object);
+    state.logic = getConfigSwitchConditions(ini, section, object);
     state.closed = getConfigBoolean(ini, section, "closed", object, false, true);
     state.locked = getConfigBoolean(ini, section, "locked", object, false);
     state.no_force = getConfigBoolean(ini, section, "no_force", object, false, false);
@@ -87,7 +87,7 @@ export class SchemePhysicalDoor extends AbstractScheme {
       }
     }
 
-    state.hit_on_bone = parse_data_1v(object, getConfigString(ini, section, "hit_on_bone", object, false, ""));
+    state.hit_on_bone = parseData1v(object, getConfigString(ini, section, "hit_on_bone", object, false, ""));
   }
 
   public snd_obj: Optional<unknown> = null;

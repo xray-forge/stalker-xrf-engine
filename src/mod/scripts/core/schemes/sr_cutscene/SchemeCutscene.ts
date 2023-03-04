@@ -5,19 +5,19 @@ import { AnyCallablesModule, EScheme, ESchemeType, Optional, TSection } from "@/
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
-import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
+import { issueSchemeEvent } from "@/mod/scripts/core/schemes/issueSchemeEvent";
 import { EEffectorState, effector_sets } from "@/mod/scripts/core/schemes/sr_cutscene/cam_effector_sets";
 import { CamEffectorSet } from "@/mod/scripts/core/schemes/sr_cutscene/CamEffectorSet";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import {
-  cfg_get_switch_conditions,
   getConfigBoolean,
   getConfigNumber,
   getConfigString,
-  parseNames,
+  getConfigSwitchConditions,
 } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseNames } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("ActionCutscene");
 
@@ -55,7 +55,7 @@ export class SchemeCutscene extends AbstractScheme {
   ): void {
     const st = assignStorageAndBind(object, ini, scheme, section);
 
-    st.logic = cfg_get_switch_conditions(ini, section, object);
+    st.logic = getConfigSwitchConditions(ini, section, object);
     st.point = getConfigString(ini, section, "point", object, true, "", "none");
     st.look = getConfigString(ini, section, "look", object, true, "", "none");
     st.global_cameffect = getConfigBoolean(ini, section, "global_cameffect", object, false, false);
@@ -67,7 +67,7 @@ export class SchemeCutscene extends AbstractScheme {
   }
 
   public static onCutsceneEnd(): void {
-    issueEvent(object_cutscene!, storage_scene!, "cutscene_callback");
+    issueSchemeEvent(object_cutscene!, storage_scene!, "cutscene_callback");
   }
 
   public ui_disabled: boolean;

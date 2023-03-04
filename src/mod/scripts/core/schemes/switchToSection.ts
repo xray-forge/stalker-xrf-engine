@@ -3,7 +3,7 @@ import { XR_game_object, XR_ini_file } from "xray16";
 import { Maybe, TSection } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { activateBySection } from "@/mod/scripts/core/schemes/activateBySection";
-import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
+import { issueSchemeEvent } from "@/mod/scripts/core/schemes/issueSchemeEvent";
 
 /**
  * todo
@@ -24,7 +24,7 @@ export function switchToSection(object: XR_game_object, ini: XR_ini_file, sectio
   }
 
   if (activeSection) {
-    issueEvent(object, state[activeSection], "deactivate", object);
+    issueSchemeEvent(object, state[activeSection], "deactivate", object);
   }
 
   state.exit_from_smartcover_initialized = null;

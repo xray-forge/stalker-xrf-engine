@@ -6,11 +6,11 @@ import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAn
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import {
-  cfg_get_switch_conditions,
   getConfigCondList,
   getConfigNumber,
   getConfigString,
   getConfigStringAndCondList,
+  getConfigSwitchConditions,
   pickSectionFromCondList,
 } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -37,7 +37,7 @@ export class SchemeCode extends AbstractScheme {
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const state = assignStorageAndBind(object, ini, scheme, section);
 
-    state.logic = cfg_get_switch_conditions(ini, section, object);
+    state.logic = getConfigSwitchConditions(ini, section, object);
     state.tips = getConfigString(ini, section, "tips", object, false, "", "st_codelock");
 
     object.set_tip_text(state.tips);

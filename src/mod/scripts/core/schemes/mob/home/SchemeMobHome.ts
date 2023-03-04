@@ -7,15 +7,14 @@ import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { getMobState, setMobState } from "@/mod/scripts/core/schemes/mob/MobStateManager";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import {
-  cfg_get_switch_conditions,
   getConfigBoolean,
   getConfigNumber,
   getConfigString,
-  IWaypointData,
-  parse_waypoint_data,
+  getConfigSwitchConditions,
 } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { IWaypointData, parseWaypointData } from "@/mod/scripts/utils/parse";
 
 const def_min_radius: number = 10;
 const def_mid_radius: number = 20;
@@ -51,7 +50,7 @@ export class SchemeMobHome extends AbstractScheme {
 
     const storage = assignStorageAndBind(object, ini, scheme, section);
 
-    storage.logic = cfg_get_switch_conditions(ini, section, object);
+    storage.logic = getConfigSwitchConditions(ini, section, object);
     storage.state = getMobState(ini, section, object);
     storage.home = getConfigString(ini, section, "path_home", object, false, gulag_name, null);
     storage.gulag_point = getConfigBoolean(ini, section, "gulag_point", object, false, false);
@@ -74,7 +73,7 @@ export class SchemeMobHome extends AbstractScheme {
 
     if (this.state.home !== null) {
       ptr = new patrol(this.state.home);
-      path_info = parse_waypoint_data(this.state.home, ptr.flags(0), ptr.name(0));
+      path_info = parseWaypointData(this.state.home, ptr.flags(0), ptr.name(0));
     }
 
     if (this.state.home_min_radius !== null) {

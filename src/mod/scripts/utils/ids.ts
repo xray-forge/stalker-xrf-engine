@@ -16,7 +16,7 @@ export function getClsId(object: Optional<XR_game_object | XR_cse_abstract>): Op
 /**
  * todo;
  */
-export function levelObjectBySid(sid: number): Optional<XR_game_object> {
+export function getLevelObjectBySid(sid: number): Optional<XR_game_object> {
   const se_obj: Optional<XR_cse_abstract> = alife()?.story_object(sid);
 
   return se_obj === null ? null : level.object_by_id(se_obj.id);

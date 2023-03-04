@@ -17,9 +17,9 @@ import { PhysicObjectItemBox } from "@/mod/scripts/core/binders/PhysicObjectItem
 import { addObject, deleteObject, IStoredObject, registry, resetObject } from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { initializeGameObject } from "@/mod/scripts/core/schemes/initializeGameObject";
-import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
+import { issueSchemeEvent } from "@/mod/scripts/core/schemes/issueSchemeEvent";
 import { SchemePhysicalOnHit } from "@/mod/scripts/core/schemes/ph_on_hit/SchemePhysicalOnHit";
-import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
+import { loadObject, saveObject } from "@/mod/scripts/core/schemes/storing";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -74,7 +74,7 @@ export class PhysicObjectBinder extends object_binder {
     const st = registry.objects.get(this.object.id());
 
     if (st.active_scheme) {
-      issueEvent(this.object, st[st.active_scheme], "net_destroy");
+      issueSchemeEvent(this.object, st[st.active_scheme], "net_destroy");
     }
 
     const on_offline_condlist = st?.overrides?.on_offline_condlist;
@@ -108,7 +108,7 @@ export class PhysicObjectBinder extends object_binder {
     super.save(packet);
 
     setSaveMarker(packet, false, PhysicObjectBinder.__name);
-    save_obj(this.object, packet);
+    saveObject(this.object, packet);
     setSaveMarker(packet, true, PhysicObjectBinder.__name);
   }
 
@@ -121,7 +121,7 @@ export class PhysicObjectBinder extends object_binder {
     super.load(reader);
 
     setLoadMarker(reader, false, PhysicObjectBinder.__name);
-    load_obj(this.object, reader);
+    loadObject(this.object, reader);
     setLoadMarker(reader, true, PhysicObjectBinder.__name);
   }
 
@@ -130,7 +130,7 @@ export class PhysicObjectBinder extends object_binder {
    */
   public use_callback(object: XR_game_object, who: XR_game_object): void {
     if (this.st.active_section) {
-      issueEvent(this.object, this.st[this.st.active_scheme as string], "use_callback", object, this);
+      issueSchemeEvent(this.object, this.st[this.st.active_scheme as string], "use_callback", object, this);
     }
   }
 
@@ -145,7 +145,7 @@ export class PhysicObjectBinder extends object_binder {
     bone_index: number
   ): void {
     if (this.st[SchemePhysicalOnHit.SCHEME_SECTION]) {
-      issueEvent(
+      issueSchemeEvent(
         this.object,
         this.st[SchemePhysicalOnHit.SCHEME_SECTION],
         "hit_callback",
@@ -158,7 +158,7 @@ export class PhysicObjectBinder extends object_binder {
     }
 
     if (this.st.active_section) {
-      issueEvent(
+      issueSchemeEvent(
         this.object,
         this.st[this.st.active_scheme as string],
         "hit_callback",
@@ -176,7 +176,7 @@ export class PhysicObjectBinder extends object_binder {
    */
   public death_callback(victim: XR_game_object, who: XR_game_object): void {
     if (this.st.active_section) {
-      issueEvent(this.object, this.st[this.st.active_scheme as string], "death_callback", victim, who);
+      issueSchemeEvent(this.object, this.st[this.st.active_scheme as string], "death_callback", victim, who);
     }
 
     if (this.particle !== null) {
@@ -239,7 +239,7 @@ export class PhysicObjectBinder extends object_binder {
     const spawn_ini: Optional<XR_ini_file> = this.object.spawn_ini();
 
     if (this.st.active_section !== null || (spawn_ini !== null && spawn_ini.section_exist("drop_box"))) {
-      issueEvent(this.object, this.st[this.st.active_scheme as string], "update", delta);
+      issueSchemeEvent(this.object, this.st[this.st.active_scheme as string], "update", delta);
       this.object.set_callback(callback.hit, this.hit_callback, this);
       this.object.set_callback(callback.death, this.death_callback, this);
       this.object.set_callback(callback.use_object, this.use_callback, this);

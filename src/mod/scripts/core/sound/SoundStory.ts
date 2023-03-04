@@ -1,8 +1,8 @@
 import { ini_file, XR_ini_file } from "xray16";
 
-import { parseNames } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseNames } from "@/mod/scripts/utils/parse";
 
 const story_ltx: XR_ini_file = new ini_file("misc\\sound_stories.ltx");
 

@@ -34,10 +34,11 @@ import {
   sleepZones,
 } from "@/mod/scripts/core/managers/map/MapDisplayManagerObjects";
 import { anomalyHasArtefact } from "@/mod/scripts/utils/alife";
-import { getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
+import { getConfigString, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseConditionsList } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("MapDisplayManager");
 
@@ -91,11 +92,11 @@ export class MapDisplayManager extends AbstractCoreManager {
     }
 
     if (mapSpot !== null) {
-      mapSpot = parseCondList(object, section, "level_spot", mapSpot);
+      mapSpot = parseConditionsList(object, section, "level_spot", mapSpot);
       mapSpot = pickSectionFromCondList(actor, object, mapSpot as any);
     }
 
-    const spot_condlist = parseCondList(object, section, "show_spot", spotSection);
+    const spot_condlist = parseConditionsList(object, section, "show_spot", spotSection);
     const spot: TSection = pickSectionFromCondList(actor, object, spot_condlist)!;
     const obj: Optional<XR_cse_alife_object> = sim.object(object.id());
 
@@ -159,7 +160,7 @@ export class MapDisplayManager extends AbstractCoreManager {
     if (mapSpot !== null) {
       const actor: XR_game_object = registry.actor;
 
-      mapSpot = parseCondList(object, state.active_section!, "level_spot", mapSpot);
+      mapSpot = parseConditionsList(object, state.active_section!, "level_spot", mapSpot);
       mapSpot = pickSectionFromCondList(actor, object, mapSpot as any);
     }
 

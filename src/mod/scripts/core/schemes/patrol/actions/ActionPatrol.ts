@@ -4,8 +4,8 @@ import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { StalkerMoveManager } from "@/mod/scripts/core/state_management/StalkerMoveManager";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { sendToNearestAccessibleVertex } from "@/mod/scripts/utils/alife";
-import { path_parse_waypoints } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parsePathWaypoints } from "@/mod/scripts/utils/parse";
 import { vectorCmp } from "@/mod/scripts/utils/physics";
 
 const logger: LuaLogger = new LuaLogger("ActionPatrol");
@@ -45,11 +45,11 @@ export class ActionPatrol extends action_base {
     this.state.signals = {};
 
     if (this.state.path_walk_info === null) {
-      this.state.path_walk_info = path_parse_waypoints(this.state.path_walk);
+      this.state.path_walk_info = parsePathWaypoints(this.state.path_walk);
     }
 
     if (this.state.path_look_info === null) {
-      this.state.path_look_info = path_parse_waypoints(this.state.path_look);
+      this.state.path_look_info = parsePathWaypoints(this.state.path_look);
     }
 
     this.moveManager.reset(

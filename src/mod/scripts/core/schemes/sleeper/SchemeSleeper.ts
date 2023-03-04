@@ -10,7 +10,7 @@ import { evaluators_id } from "@/mod/scripts/core/schemes/base/evaluators_id";
 import { ActionSleeperActivity } from "@/mod/scripts/core/schemes/sleeper/actions/ActionSleeperActivity";
 import { EvaluatorNeedSleep } from "@/mod/scripts/core/schemes/sleeper/evaluators/EvaluatorNeedSleep";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
-import { cfg_get_switch_conditions, getConfigBoolean, getConfigString } from "@/mod/scripts/utils/configs";
+import { getConfigBoolean, getConfigString, getConfigSwitchConditions } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { addCommonPrecondition } from "@/mod/scripts/utils/scheme";
 
@@ -73,7 +73,7 @@ export class SchemeSleeper extends AbstractScheme {
 
     const state = assignStorageAndBind(object, ini, scheme, section);
 
-    state.logic = cfg_get_switch_conditions(ini, section, object);
+    state.logic = getConfigSwitchConditions(ini, section, object);
     state.path_main = getConfigString(ini, section, "path_main", object, true, gulag_name);
     state.wakeable = getConfigBoolean(ini, section, "wakeable", object, false);
     state.path_walk = null;

@@ -29,11 +29,11 @@ import { get_sim_obj_registry } from "@/mod/scripts/core/database/SimObjectsRegi
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { ActionSchemeHear } from "@/mod/scripts/core/schemes/hear/ActionSchemeHear";
-import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
+import { issueSchemeEvent } from "@/mod/scripts/core/schemes/issueSchemeEvent";
 import { mobCapture } from "@/mod/scripts/core/schemes/mobCapture";
 import { mobCaptured } from "@/mod/scripts/core/schemes/mobCaptured";
 import { mobRelease } from "@/mod/scripts/core/schemes/mobRelease";
-import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
+import { loadObject, saveObject } from "@/mod/scripts/core/schemes/storing";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { action, getObjectSquad } from "@/mod/scripts/utils/alife";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
@@ -165,7 +165,7 @@ export class MonsterBinder extends object_binder {
     }
 
     if (this.st.active_section !== null) {
-      issueEvent(this.object, this.st[this.st.active_scheme as string], "update", delta);
+      issueSchemeEvent(this.object, this.st[this.st.active_scheme as string], "update", delta);
     }
   }
 
@@ -173,7 +173,7 @@ export class MonsterBinder extends object_binder {
     setSaveMarker(packet, false, MonsterBinder.__name);
 
     super.save(packet);
-    save_obj(this.object, packet);
+    saveObject(this.object, packet);
 
     setSaveMarker(packet, true, MonsterBinder.__name);
   }
@@ -183,7 +183,7 @@ export class MonsterBinder extends object_binder {
 
     setLoadMarker(reader, false, MonsterBinder.__name);
     super.load(reader);
-    load_obj(this.object, reader);
+    loadObject(this.object, reader);
 
     setLoadMarker(reader, true, MonsterBinder.__name);
   }
@@ -250,7 +250,7 @@ export class MonsterBinder extends object_binder {
     const st = registry.objects.get(this.object.id());
 
     if (st !== null && st.active_scheme !== null) {
-      issueEvent(this.object, st[st.active_scheme as string], "net_destroy");
+      issueSchemeEvent(this.object, st[st.active_scheme as string], "net_destroy");
     }
 
     const offlineObject = registry.offlineObjects.get(this.object.id());
@@ -294,7 +294,7 @@ export class MonsterBinder extends object_binder {
 
   public waypoint_callback(object: XR_game_object, action_type: number, index: number): void {
     if (this.st.active_section !== null) {
-      issueEvent(
+      issueSchemeEvent(
         this.object,
         this.st[this.st.active_scheme as string],
         "waypoint_callback",
@@ -318,11 +318,11 @@ export class MonsterBinder extends object_binder {
     }
 
     if (this.st.mob_death) {
-      issueEvent(this.object, this.st.mob_death, "death_callback", victim, killer);
+      issueSchemeEvent(this.object, this.st.mob_death, "death_callback", victim, killer);
     }
 
     if (this.st.active_section) {
-      issueEvent(this.object, this.st[this.st.active_scheme as EScheme], "death_callback", victim, killer);
+      issueSchemeEvent(this.object, this.st[this.st.active_scheme as EScheme], "death_callback", victim, killer);
     }
 
     const h: XR_hit = new hit();
@@ -360,7 +360,7 @@ export class MonsterBinder extends object_binder {
     }
 
     if (this.st.hit) {
-      issueEvent(this.object, this.st.hit, "hit_callback", object, amount, const_direction, who, bone_index);
+      issueSchemeEvent(this.object, this.st.hit, "hit_callback", object, amount, const_direction, who, bone_index);
     }
 
     if (amount > 0) {

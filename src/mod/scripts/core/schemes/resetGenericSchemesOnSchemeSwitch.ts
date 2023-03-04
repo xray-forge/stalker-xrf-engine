@@ -8,9 +8,9 @@ import { RestrictorManager } from "@/mod/scripts/core/schemes/RestrictorManager"
 import { resetScheme } from "@/mod/scripts/core/schemes/schemes_resetting";
 import {
   can_select_weapon,
-  reset_threshold,
   resetInvulnerability,
   resetObjectGroup,
+  resetThreshold,
   take_items_enabled,
 } from "@/mod/scripts/utils/alife";
 import { getClsId } from "@/mod/scripts/utils/ids";
@@ -48,7 +48,7 @@ export function resetGenericSchemesOnSchemeSwitch(
       resetScheme(EScheme.HEAR, object, schemeToSwitch, state, section);
 
       MapDisplayManager.getInstance().updateObjectMapSpot(object, schemeToSwitch, state, section);
-      reset_threshold(object, schemeToSwitch, state, section);
+      resetThreshold(object, schemeToSwitch, state, section);
       resetInvulnerability(object);
       resetObjectGroup(object, state.ini!, section);
       take_items_enabled(object, schemeToSwitch, state, section);

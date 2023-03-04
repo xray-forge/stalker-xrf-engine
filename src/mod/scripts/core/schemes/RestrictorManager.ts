@@ -1,8 +1,9 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
-import { getConfigString, getParamString, parseNames } from "@/mod/scripts/utils/configs";
+import { getConfigString, getParamString } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseNames } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("RestrictorManager");
 

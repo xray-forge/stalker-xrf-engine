@@ -6,7 +6,7 @@ import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAn
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
-import { cfg_get_switch_conditions } from "@/mod/scripts/utils/configs";
+import { getConfigSwitchConditions } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("SchemeMobDeath");
@@ -40,7 +40,7 @@ export class SchemeMobDeath extends AbstractScheme {
 
     const state = assignStorageAndBind(object, ini, scheme, section);
 
-    state.logic = cfg_get_switch_conditions(ini, section, object);
+    state.logic = getConfigSwitchConditions(ini, section, object);
   }
 
   public death_callback(victim: XR_game_object, who: Optional<XR_game_object>): void {

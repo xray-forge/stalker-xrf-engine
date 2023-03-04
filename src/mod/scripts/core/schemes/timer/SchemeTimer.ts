@@ -9,15 +9,15 @@ import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeAc
 import { switchToSection } from "@/mod/scripts/core/schemes/switchToSection";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import {
-  cfg_get_switch_conditions,
   getConfigNumber,
   getConfigString,
-  parseCondList,
+  getConfigSwitchConditions,
   pickSectionFromCondList,
 } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { timeToString } from "@/mod/scripts/utils/general";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseConditionsList } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("SchemeTimer");
 
@@ -46,7 +46,7 @@ export class SchemeTimer extends AbstractScheme {
   public static override setScheme(obj: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const st = assignStorageAndBind(obj, ini, scheme, section);
 
-    st.logic = cfg_get_switch_conditions(ini, section, obj);
+    st.logic = getConfigSwitchConditions(ini, section, obj);
     st.type = getConfigString(ini, section, "type", obj, false, "", "inc");
 
     if (st.type !== "inc" && st.type !== "dec") {
@@ -120,7 +120,7 @@ function parse_data(npc: XR_game_object, str: Optional<string>): LuaTable<number
 
       table.insert(data, {
         dist: tonumber(dist)!,
-        state: state === null ? null : parseCondList(npc, dist, state, state),
+        state: state === null ? null : parseConditionsList(npc, dist, state, state),
       });
     }
   }

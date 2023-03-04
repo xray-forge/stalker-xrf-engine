@@ -19,13 +19,13 @@ import {
   getConfigBoolean,
   getConfigNumber,
   getConfigString,
-  parseCondList,
   pickSectionFromCondList,
 } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { randomChoice } from "@/mod/scripts/utils/general";
 import { getIdBySid } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseConditionsList } from "@/mod/scripts/utils/parse";
 import { distanceBetween2d } from "@/mod/scripts/utils/physics";
 
 const logger: LuaLogger = new LuaLogger("HeliCombat");
@@ -162,7 +162,7 @@ export class HeliCombat {
     );
 
     if (combat_ignore !== null) {
-      this.combat_ignore = parseCondList(this.object, section, "combat_ignore", combat_ignore);
+      this.combat_ignore = parseConditionsList(this.object, section, "combat_ignore", combat_ignore);
     } else {
       this.combat_ignore = null;
     }

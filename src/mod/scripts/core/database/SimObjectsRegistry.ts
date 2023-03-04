@@ -7,7 +7,8 @@ import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { Squad } from "@/mod/scripts/core/alife/Squad";
 import { registry } from "@/mod/scripts/core/database/registry";
 import { areOnSameAlifeLevel, getAlifeDistanceBetween } from "@/mod/scripts/utils/alife";
-import { parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
+import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
+import { parseConditionsList } from "@/mod/scripts/utils/parse";
 
 let sim_objects_registry: Optional<SimObjectsRegistry> = null;
 const props_ini = new ini_file("misc\\simulation_objects_props.ltx");
@@ -61,14 +62,14 @@ export class SimObjectsRegistry {
       const [result, prop_name, prop_condlist] = props_ini.r_line(props_section, j, "", "");
 
       if (prop_name === "sim_avail") {
-        obj.sim_avail = parseCondList(null, "simulation_object", "sim_avail", prop_condlist);
+        obj.sim_avail = parseConditionsList(null, "simulation_object", "sim_avail", prop_condlist);
       } else {
         obj.props[prop_name] = prop_condlist;
       }
     }
 
     if (obj.sim_avail === null) {
-      obj.sim_avail = parseCondList(null, "simulation_object", "sim_avail", "true");
+      obj.sim_avail = parseConditionsList(null, "simulation_object", "sim_avail", "true");
     }
   }
 

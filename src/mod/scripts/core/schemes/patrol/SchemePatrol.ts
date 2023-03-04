@@ -12,7 +12,7 @@ import { EvaluatorPatrolComm, EvaluatorPatrolEnd } from "@/mod/scripts/core/sche
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { getObjectSquad } from "@/mod/scripts/utils/alife";
 import { isObjectMeeting } from "@/mod/scripts/utils/checkers/checkers";
-import { cfg_get_switch_conditions, getConfigBoolean, getConfigString } from "@/mod/scripts/utils/configs";
+import { getConfigBoolean, getConfigString, getConfigSwitchConditions } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { vectorCross, vectorRotateY, yawDegree } from "@/mod/scripts/utils/physics";
@@ -127,7 +127,7 @@ export class SchemePatrol extends AbstractScheme {
   ): void {
     const st = assignStorageAndBind(npc, ini, scheme, section);
 
-    st.logic = cfg_get_switch_conditions(ini, section, npc);
+    st.logic = getConfigSwitchConditions(ini, section, npc);
     st.path_name = getConfigString(ini, section, "path_walk", npc, true, gulag_name);
     st.path_walk = st.path_name;
     st.path_look = getConfigString(ini, section, "path_look", npc, false, gulag_name);

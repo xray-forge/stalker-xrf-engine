@@ -7,8 +7,9 @@ import { LuaArray, Optional, TCount, TLabel, TName, TRate } from "@/mod/lib/type
 import { TSection } from "@/mod/lib/types/scheme";
 import { ITEM_UPGRADES, registry, STALKER_UPGRADE_INFO, SYSTEM_INI } from "@/mod/scripts/core/database";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
-import { parseCondList, parseNames, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
+import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseConditionsList, parseNames } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("ItemUpgradesManager");
 
@@ -55,7 +56,7 @@ export class ItemUpgradesManager extends AbstractCoreManager {
   public setupDiscounts(): void {
     if (STALKER_UPGRADE_INFO.line_exist(this.currentMechanicName, "discount_condlist")) {
       const condlist = STALKER_UPGRADE_INFO.r_string(this.currentMechanicName, "discount_condlist");
-      const parsed = parseCondList(registry.actor, null, null, condlist);
+      const parsed = parseConditionsList(registry.actor, null, null, condlist);
 
       pickSectionFromCondList(registry.actor, null, parsed);
     }
@@ -196,7 +197,7 @@ export class ItemUpgradesManager extends AbstractCoreManager {
         if (param === STRINGIFIED_FALSE) {
           return 1;
         } else if (param !== STRINGIFIED_TRUE) {
-          const possibility_table = parseCondList(
+          const possibility_table = parseConditionsList(
             this.currentSpeaker,
             this.currentMechanicName + "_upgr",
             section,
@@ -245,7 +246,7 @@ export class ItemUpgradesManager extends AbstractCoreManager {
         } else {
           this.upgradeHints = null;
 
-          const possibility_table = parseCondList(
+          const possibility_table = parseConditionsList(
             this.currentSpeaker,
             this.currentMechanicName + "_upgr",
             section,

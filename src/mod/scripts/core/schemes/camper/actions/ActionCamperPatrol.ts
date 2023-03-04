@@ -15,8 +15,8 @@ import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManag
 import { SchemeDanger } from "@/mod/scripts/core/schemes/danger/SchemeDanger";
 import { StalkerMoveManager } from "@/mod/scripts/core/state_management/StalkerMoveManager";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
-import { path_parse_waypoints } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
+import { parsePathWaypoints } from "@/mod/scripts/utils/parse";
 import { isStalkerAtWaypoint } from "@/mod/scripts/utils/position";
 
 interface ICampPoint {
@@ -81,7 +81,7 @@ export class ActionCamperPatrol extends action_base {
     if (this.state.sniper === true) {
       this.moveManager.reset(
         this.state.path_walk,
-        path_parse_waypoints(this.state.path_walk)!,
+        parsePathWaypoints(this.state.path_walk)!,
         null,
         null,
         null,
@@ -114,9 +114,9 @@ export class ActionCamperPatrol extends action_base {
     } else {
       this.moveManager.reset(
         this.state.path_walk,
-        path_parse_waypoints(this.state.path_walk)!,
+        parsePathWaypoints(this.state.path_walk)!,
         this.state.path_look,
-        path_parse_waypoints(this.state.path_look),
+        parsePathWaypoints(this.state.path_look),
         null,
         this.state.suggested_state,
         { obj: this, func: this.process_point },

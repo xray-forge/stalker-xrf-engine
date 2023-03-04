@@ -5,7 +5,7 @@ import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
-import { cfg_get_switch_conditions } from "@/mod/scripts/utils/configs";
+import { getConfigSwitchConditions } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("SchemeSilence");
@@ -31,7 +31,7 @@ export class SchemeSilence extends AbstractScheme {
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const state: IStoredObject = assignStorageAndBind(object, ini, scheme, section);
 
-    state.logic = cfg_get_switch_conditions(ini, section, object);
+    state.logic = getConfigSwitchConditions(ini, section, object);
 
     registry.silenceZones.set(object.id(), object.name());
   }

@@ -12,7 +12,7 @@ import {
 
 import { TNumberId, TSection } from "@/mod/lib/types";
 import { addObject, deleteObject, registry, resetObject } from "@/mod/scripts/core/database";
-import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
+import { loadObject, saveObject } from "@/mod/scripts/core/schemes/storing";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -106,7 +106,7 @@ export class CrowBinder extends object_binder {
     setSaveMarker(packet, false, CrowBinder.__name);
 
     super.save(packet);
-    save_obj(this.object, packet);
+    saveObject(this.object, packet);
     packet.w_u32(this.bodyDisposalTimer);
 
     setSaveMarker(packet, true, CrowBinder.__name);
@@ -115,7 +115,7 @@ export class CrowBinder extends object_binder {
   public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, CrowBinder.__name);
     super.load(reader);
-    load_obj(this.object, reader);
+    loadObject(this.object, reader);
 
     this.bodyDisposalTimer = reader.r_u32();
     setLoadMarker(reader, true, CrowBinder.__name);

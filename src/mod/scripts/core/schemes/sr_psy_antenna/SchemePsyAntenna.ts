@@ -11,10 +11,10 @@ import { SchemePostProcess } from "@/mod/scripts/core/schemes/sr_postprocess/Sch
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import {
-  cfg_get_switch_conditions,
   getConfigBoolean,
   getConfigNumber,
   getConfigString,
+  getConfigSwitchConditions,
 } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -47,7 +47,7 @@ export class SchemePsyAntenna extends AbstractScheme {
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const st = assignStorageAndBind(object, ini, scheme, section);
 
-    st.logic = cfg_get_switch_conditions(ini, section, object);
+    st.logic = getConfigSwitchConditions(ini, section, object);
     st.intensity = getConfigNumber(ini, section, "eff_intensity", object, true) * 0.01;
     st.postprocess = getConfigString(ini, section, "postprocess", object, false, "", post_processors.psy_antenna);
     st.hit_intensity = getConfigNumber(ini, section, "hit_intensity", object, true) * 0.01;

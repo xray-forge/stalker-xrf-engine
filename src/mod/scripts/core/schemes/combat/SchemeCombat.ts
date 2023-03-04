@@ -11,13 +11,9 @@ import { EvaluatorCheckCombat } from "@/mod/scripts/core/schemes/combat/evaluato
 import { SchemeCombatCamper } from "@/mod/scripts/core/schemes/combat_camper/SchemeCombatCamper";
 import { SchemeCombatZombied } from "@/mod/scripts/core/schemes/combat_zombied/SchemeCombatZombied";
 import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
-import {
-  cfg_get_switch_conditions,
-  getConfigCondList,
-  parseCondList,
-  pickSectionFromCondList,
-} from "@/mod/scripts/utils/configs";
+import { getConfigCondList, getConfigSwitchConditions, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseConditionsList } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("SchemeCombat");
 
@@ -98,7 +94,7 @@ export class SchemeCombat extends AbstractScheme {
     if (section || isZombied) {
       const st = assignStorageAndBind(object, ini, scheme, section);
 
-      st.logic = cfg_get_switch_conditions(ini, section, object);
+      st.logic = getConfigSwitchConditions(ini, section, object);
       st.enabled = true;
 
       st.combat_type = getConfigCondList(ini, section, "combat_type", object);
@@ -108,7 +104,7 @@ export class SchemeCombat extends AbstractScheme {
       }
 
       if (!st.combat_type && isZombied) {
-        st.combat_type = { condlist: parseCondList(object, section, "", communities.zombied) };
+        st.combat_type = { condlist: parseConditionsList(object, section, "", communities.zombied) };
       }
 
       if (st.combat_type) {

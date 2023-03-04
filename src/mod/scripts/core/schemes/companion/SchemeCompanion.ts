@@ -7,7 +7,7 @@ import { AbstractScheme, action_ids, evaluators_id } from "@/mod/scripts/core/sc
 import { ActionCompanionActivity } from "@/mod/scripts/core/schemes/companion/actions";
 import { EvaluatorNeedCompanion } from "@/mod/scripts/core/schemes/companion/evaluators";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
-import { cfg_get_switch_conditions } from "@/mod/scripts/utils/configs";
+import { getConfigSwitchConditions } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { addCommonPrecondition } from "@/mod/scripts/utils/scheme";
 
@@ -63,7 +63,7 @@ export class SchemeCompanion extends AbstractScheme {
   ): void {
     const st = assignStorageAndBind(object, ini, scheme, section);
 
-    st.logic = cfg_get_switch_conditions(ini, section, object);
+    st.logic = getConfigSwitchConditions(ini, section, object);
     st.behavior = 0; // beh_walk_simple
   }
 }

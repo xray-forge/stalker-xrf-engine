@@ -17,9 +17,20 @@ import {
 } from "xray16";
 
 import { communities, TCommunity } from "@/mod/globals/communities";
-import { STRINGIFIED_TRUE } from "@/mod/globals/lua";
+import { STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/mod/globals/lua";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
-import { AnyArgs, EScheme, LuaArray, Maybe, Optional, TName, TSection } from "@/mod/lib/types";
+import {
+  AnyArgs,
+  EScheme,
+  LuaArray,
+  Maybe,
+  Optional,
+  TCount,
+  TName,
+  TNumberId,
+  TSection,
+  TStringId,
+} from "@/mod/lib/types";
 import { SimSquadReachTargetAction } from "@/mod/scripts/core/alife/SimSquadReachTargetAction";
 import { SimSquadStayOnTargetAction } from "@/mod/scripts/core/alife/SimSquadStayOnTargetAction";
 import { Squad } from "@/mod/scripts/core/alife/Squad";
@@ -32,12 +43,12 @@ import {
   getConfigNumber,
   getConfigString,
   getInfosFromData,
-  parseCondList,
   pickSectionFromCondList,
 } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseConditionsList } from "@/mod/scripts/utils/parse";
 import { graphDistance } from "@/mod/scripts/utils/physics";
 import { wait } from "@/mod/scripts/utils/time";
 
@@ -341,7 +352,7 @@ export function can_select_weapon(npc: XR_game_object, scheme: EScheme, st: ISto
     str = getConfigString(st.ini!, st.section_logic!, "can_select_weapon", npc, false, "", "true");
   }
 
-  const cond = parseCondList(npc, section, "can_select_weapon", str);
+  const cond = parseConditionsList(npc, section, "can_select_weapon", str);
   const can: TSection = pickSectionFromCondList(registry.actor, npc, cond)!;
 
   npc.can_select_weapon(can === STRINGIFIED_TRUE);
@@ -366,7 +377,7 @@ export function isInvulnerabilityNeeded(object: XR_game_object): boolean {
     return false;
   }
 
-  const invulnerability_condlist = parseCondList(object, "invulnerability", "invulnerability", invulnerability);
+  const invulnerability_condlist = parseConditionsList(object, "invulnerability", "invulnerability", invulnerability);
 
   return pickSectionFromCondList(registry.actor, object, invulnerability_condlist) === STRINGIFIED_TRUE;
 }
@@ -403,14 +414,14 @@ export function updateInvulnerability(object: XR_game_object): void {
 /**
  * todo
  */
-export function reset_threshold(
+export function resetThreshold(
   npc: XR_game_object,
   scheme: Optional<string>,
   st: IStoredObject,
   section: string
 ): void {
   const threshold_section: Optional<string> =
-    scheme === null || scheme === "nil"
+    scheme === null || scheme === STRINGIFIED_NIL
       ? getConfigString(st.ini!, st.section_logic!, "threshold", npc, false, "")
       : getConfigString(st.ini!, section, "threshold", npc, false, "");
 
@@ -436,14 +447,14 @@ export function reset_threshold(
 /**
  * todo;
  */
-export function isNpcInCombat(npc: XR_game_object): boolean {
-  const actionPlanner: XR_action_planner = npc.motivation_action_manager();
+export function isObjectInCombat(object: XR_game_object): boolean {
+  const actionPlanner: XR_action_planner = object.motivation_action_manager();
 
   if (!actionPlanner.initialized()) {
     return false;
   }
 
-  const current_action_id: number = actionPlanner.current_action_id();
+  const current_action_id: TNumberId = actionPlanner.current_action_id();
 
   return (
     current_action_id === stalker_ids.action_combat_planner || current_action_id === stalker_ids.action_post_combat_wait
@@ -453,25 +464,33 @@ export function isNpcInCombat(npc: XR_game_object): boolean {
 /**
  * todo: description
  */
-export function spawnDefaultNpcItems(npc: XR_game_object, state: IStoredObject): void {
-  const items_to_spawn: LuaTable<string, number> = new LuaTable();
-  const spawn_items_section = getConfigString(state.ini!, state.section_logic!, "spawn", npc, false, "", null);
+export function spawnDefaultNpcItems(object: XR_game_object, state: IStoredObject): void {
+  const itemsToSpawn: LuaTable<TStringId, TCount> = new LuaTable();
+  const spawnItemsSection: Optional<string> = getConfigString(
+    state.ini!,
+    state.section_logic!,
+    "spawn",
+    object,
+    false,
+    "",
+    null
+  );
 
-  if (spawn_items_section === null) {
+  if (spawnItemsSection === null) {
     return;
   }
 
-  const n = state.ini!.line_count(spawn_items_section);
+  const itemSectionsCount: TCount = state.ini!.line_count(spawnItemsSection);
 
-  for (const i of $range(0, n - 1)) {
-    const [result, id, value] = state.ini!.r_line(spawn_items_section, i, "", "");
+  for (const it of $range(0, itemSectionsCount - 1)) {
+    const [result, id, value] = state.ini!.r_line(spawnItemsSection, it, "", "");
 
-    items_to_spawn.set(id, value === "" ? 1 : tonumber(value)!);
+    itemsToSpawn.set(id, value === "" ? 1 : tonumber(value)!);
   }
 
-  for (const [k, v] of items_to_spawn) {
-    if (npc.object(k) === null) {
-      spawnItemsForObject(npc, k, v);
+  for (const [id, count] of itemsToSpawn) {
+    if (object.object(id) === null) {
+      spawnItemsForObject(object, id, count);
     }
   }
 }
@@ -486,7 +505,7 @@ export function isSeeingActor(object: XR_game_object): boolean {
 /**
  * todo: description
  */
-export function sendToNearestAccessibleVertex(object: XR_game_object, vertexId: number): number {
+export function sendToNearestAccessibleVertex(object: XR_game_object, vertexId: TNumberId): TNumberId {
   if (!object.accessible(vertexId)) {
     vertexId = object.accessible_nearest(level.vertex_position(vertexId), new vector());
   }

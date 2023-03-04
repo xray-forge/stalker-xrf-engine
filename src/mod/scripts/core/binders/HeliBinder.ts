@@ -23,8 +23,8 @@ import { get_heli_health } from "@/mod/scripts/core/schemes/heli_move/heli_utils
 import { HeliCombat } from "@/mod/scripts/core/schemes/heli_move/HeliCombat";
 import { get_heli_firer, HeliFire } from "@/mod/scripts/core/schemes/heli_move/HeliFire";
 import { initializeGameObject } from "@/mod/scripts/core/schemes/initializeGameObject";
-import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
-import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
+import { issueSchemeEvent } from "@/mod/scripts/core/schemes/issueSchemeEvent";
+import { loadObject, saveObject } from "@/mod/scripts/core/schemes/storing";
 import { getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { getClsId } from "@/mod/scripts/utils/ids";
@@ -101,7 +101,7 @@ export class HeliBinder extends object_binder {
     }
 
     if (this.st.active_section !== null) {
-      issueEvent(this.object, this.st[this.st.active_scheme!], "update", delta);
+      issueSchemeEvent(this.object, this.st[this.st.active_scheme!], "update", delta);
     }
 
     this.object.info_clear();
@@ -142,7 +142,7 @@ export class HeliBinder extends object_binder {
     setSaveMarker(packet, false, HeliBinder.__name);
     // --printf( "heli_binder: save")
 
-    save_obj(this.object, packet);
+    saveObject(this.object, packet);
     setSaveMarker(packet, true, HeliBinder.__name);
     this.st.combat!.save(packet);
   }
@@ -155,7 +155,7 @@ export class HeliBinder extends object_binder {
 
     // --printf( "heli_binder: load")
 
-    load_obj(this.object, reader);
+    loadObject(this.object, reader);
     setLoadMarker(reader, true, HeliBinder.__name);
     this.st.combat!.load(reader);
   }
@@ -192,7 +192,7 @@ export class HeliBinder extends object_binder {
 
     if (enemy_cls_id === clsid.actor || enemy_cls_id === clsid.script_stalker) {
       if (this.st.hit) {
-        issueEvent(this.object, this.st.hit, "hit_callback", this.object, power, null, enemy, null);
+        issueSchemeEvent(this.object, this.st.hit, "hit_callback", this.object, power, null, enemy, null);
       }
     }
 
@@ -204,7 +204,7 @@ export class HeliBinder extends object_binder {
 
   public on_point(distance: number, position: XR_vector, path_idx: number): void {
     if (this.st.active_section !== null) {
-      issueEvent(this.object, this.st[this.st.active_scheme!], "waypoint_callback", this.object, null, path_idx);
+      issueSchemeEvent(this.object, this.st[this.st.active_scheme!], "waypoint_callback", this.object, null, path_idx);
     }
   }
 }

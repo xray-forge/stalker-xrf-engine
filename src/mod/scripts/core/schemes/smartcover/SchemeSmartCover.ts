@@ -13,10 +13,10 @@ import {
 } from "@/mod/scripts/core/schemes/smartcover/evaluators";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import {
-  cfg_get_switch_conditions,
   getConfigBoolean,
   getConfigNumber,
   getConfigString,
+  getConfigSwitchConditions,
 } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -87,7 +87,7 @@ export class SchemeSmartCover extends AbstractScheme {
   ): void {
     const st = assignStorageAndBind(object, ini, scheme, section);
 
-    st.logic = cfg_get_switch_conditions(ini, section, object);
+    st.logic = getConfigSwitchConditions(ini, section, object);
     st.cover_name = getConfigString(ini, section, "cover_name", object, false, "", "$script_id$_cover");
     st.loophole_name = getConfigString(ini, section, "loophole_name", object, false, "", null);
     st.cover_state = getConfigString(ini, section, "cover_state", object, false, "", "default_behaviour");

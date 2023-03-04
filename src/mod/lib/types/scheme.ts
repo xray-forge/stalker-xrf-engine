@@ -28,7 +28,6 @@ export enum EScheme {
   HELI_MOVE = "heli_move",
   HELP_WOUNDED = "help_wounded",
   HIT = "hit",
-  KAMP = "kamp",
   MEET = "meet",
   MOB_COMBAT = "mob_combat",
   MOB_DEATH = "mob_death",

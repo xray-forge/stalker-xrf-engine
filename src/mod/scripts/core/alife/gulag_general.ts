@@ -19,16 +19,15 @@ import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { registry } from "@/mod/scripts/core/database";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import {
-  get_scheme_by_section,
   getConfigBoolean,
   getConfigNumber,
   getConfigString,
-  parse_waypoint_data,
-  parseCondList,
+  getSchemeBySection,
   pickSectionFromCondList,
 } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseConditionsList, parseWaypointData } from "@/mod/scripts/utils/parse";
 import { isInTimeInterval } from "@/mod/scripts/utils/time";
 
 const logger: LuaLogger = new LuaLogger("gulag_general");
@@ -519,7 +518,7 @@ export function loadGulagJobs(smart: SmartTerrain): LuaMultiReturn<[LuaTable, st
   while (level.patrol_path_exists(gname + "_patrol_" + it + "_walk")) {
     const way_name = gname + "_patrol_" + it + "_walk";
     const ptr = new patrol(way_name);
-    const wp_prop = parse_waypoint_data(way_name, ptr.flags(0), ptr.name(0));
+    const wp_prop = parseWaypointData(way_name, ptr.flags(0), ptr.name(0));
     let job_count = 3;
 
     if (wp_prop.count !== null) {
@@ -844,7 +843,7 @@ export function loadGulagJobs(smart: SmartTerrain): LuaMultiReturn<[LuaTable, st
   while (level.patrol_path_exists(gname + "_sniper_" + it + "_walk")) {
     const way_name = gname + "_sniper_" + it + "_walk";
     const ptr = new patrol(way_name);
-    const wp_prop = parse_waypoint_data(way_name, ptr.flags(0), ptr.name(0));
+    const wp_prop = parseWaypointData(way_name, ptr.flags(0), ptr.name(0));
     let state = "hide";
 
     if (wp_prop.state !== null) {
@@ -924,7 +923,7 @@ export function loadGulagJobs(smart: SmartTerrain): LuaMultiReturn<[LuaTable, st
   while (level.patrol_path_exists(gname + "_camper_" + it + "_walk")) {
     const way_name = gname + "_camper_" + it + "_walk";
     const ptr = new patrol(way_name);
-    const wp_prop = parse_waypoint_data(way_name, ptr.flags(0), ptr.name(0));
+    const wp_prop = parseWaypointData(way_name, ptr.flags(0), ptr.name(0));
     let state = "hide";
     let radius = 0;
 
@@ -1113,7 +1112,7 @@ function add_exclusive_job(sect: TSection, work_field: string, smart_ini: XR_ini
   const job_suitable = getConfigString(job_ini_file, "logic@" + work_field, "suitable", null, false, "");
   const is_monster = getConfigBoolean(job_ini_file, "logic@" + work_field, "monster_job", null, false, false);
   const active_section = getConfigString(job_ini_file, "logic@" + work_field, "active", null, false, "");
-  const scheme = get_scheme_by_section(active_section);
+  const scheme = getSchemeBySection(active_section);
 
   let job_type = JobTypeByScheme[scheme];
 
@@ -1141,7 +1140,7 @@ function add_exclusive_job(sect: TSection, work_field: string, smart_ini: XR_ini
     return;
   }
 
-  const condlist = parseCondList(null, "logic@" + work_field, "suitable", job_suitable);
+  const condlist = parseConditionsList(null, "logic@" + work_field, "suitable", job_suitable);
 
   table.insert(job_table, {
     _prior: new_prior,

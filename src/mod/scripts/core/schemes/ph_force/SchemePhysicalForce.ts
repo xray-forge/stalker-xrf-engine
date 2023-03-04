@@ -6,7 +6,7 @@ import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAn
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
-import { cfg_get_switch_conditions, getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
+import { getConfigNumber, getConfigString, getConfigSwitchConditions } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -36,7 +36,7 @@ export class SchemePhysicalForce extends AbstractScheme {
 
     const st = assignStorageAndBind(object, ini, scheme, section);
 
-    st.logic = cfg_get_switch_conditions(ini, section, object);
+    st.logic = getConfigSwitchConditions(ini, section, object);
     st.force = getConfigNumber(ini, section, "force", object, true, 0);
     st.time = getConfigNumber(ini, section, "time", object, true, 0);
     st.delay = getConfigNumber(ini, section, "delay", object, false, 0);

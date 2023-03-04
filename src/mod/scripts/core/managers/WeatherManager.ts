@@ -3,15 +3,11 @@ import { level, XR_net_packet, XR_reader } from "xray16";
 import { Optional } from "@/mod/lib/types";
 import { DYNAMIC_WEATHER_GRAPHS, GAME_LTX, registry } from "@/mod/scripts/core/database";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
-import {
-  getConfigString,
-  parseCondList,
-  parseIniSectionToArray,
-  pickSectionFromCondList,
-} from "@/mod/scripts/utils/configs";
+import { getConfigString, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseConditionsList, parseIniSectionToArray } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("WeatherManager");
 
@@ -47,9 +43,9 @@ export class WeatherManager extends AbstractCoreManager {
     }
 
     if (weather === "[default]") {
-      this.weather_list = parseCondList(registry.actor, level.name(), "weather", "[default]");
+      this.weather_list = parseConditionsList(registry.actor, level.name(), "weather", "[default]");
     } else {
-      this.weather_list = parseCondList(registry.actor, level.name(), "weather", weather);
+      this.weather_list = parseConditionsList(registry.actor, level.name(), "weather", weather);
     }
 
     this.select_weather(true);

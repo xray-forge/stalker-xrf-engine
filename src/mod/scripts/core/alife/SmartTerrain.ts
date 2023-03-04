@@ -53,17 +53,16 @@ import { switchToSection } from "@/mod/scripts/core/schemes/switchToSection";
 import { areOnSameAlifeLevel, unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { isMonster, isStalker } from "@/mod/scripts/utils/checkers/is";
 import {
-  get_scheme_by_section,
   getConfigBoolean,
   getConfigNumber,
   getConfigString,
-  parseCondList,
-  parseNames,
+  getSchemeBySection,
   pickSectionFromCondList,
 } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseConditionsList, parseNames } from "@/mod/scripts/utils/parse";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
 
 const logger: LuaLogger = new LuaLogger("SmartTerrain");
@@ -252,7 +251,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
         this.respawn_sector = "all";
       }
 
-      this.respawn_sector = parseCondList(null, SMART_TERRAIN_SECT, "respawn_sector", this.respawn_sector);
+      this.respawn_sector = parseConditionsList(null, SMART_TERRAIN_SECT, "respawn_sector", this.respawn_sector);
     }
 
     this.mutant_lair = getConfigBoolean(ini, SMART_TERRAIN_SECT, "mutant_lair", this, false);
@@ -270,7 +269,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
     this.arrive_dist = getConfigNumber(ini, SMART_TERRAIN_SECT, "arrive_dist", this, false, 30);
 
     const max_population: string = getConfigString(ini, SMART_TERRAIN_SECT, "max_population", this, false, "", "0");
-    const parsed_condlist = parseCondList(null, SMART_TERRAIN_SECT, "max_population", max_population);
+    const parsed_condlist = parseConditionsList(null, SMART_TERRAIN_SECT, "max_population", max_population);
 
     this.max_population = tonumber(pickSectionFromCondList(registry.actor, null, parsed_condlist))!;
 
@@ -652,7 +651,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
 
     const sect: TSection = determine_section_to_activate(object, ltx, job.section, registry.actor);
 
-    if (get_scheme_by_section(job.section) === "nil") {
+    if (getSchemeBySection(job.section) === "nil") {
       abort("[smart_terrain %s] section=%s, don't use section 'null'!", this.name(), sect);
     }
 
@@ -1246,7 +1245,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
         );
       }
 
-      spawn_num = parseCondList(null, prop_name, "spawn_num", spawn_num);
+      spawn_num = parseConditionsList(null, prop_name, "spawn_num", spawn_num);
 
       this.respawn_params.set(prop_name, {} as any);
       this.already_spawned.set(prop_name, {} as any);

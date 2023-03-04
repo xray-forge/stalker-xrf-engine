@@ -9,7 +9,7 @@ import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAn
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
-import { cfg_get_switch_conditions, getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
+import { getConfigNumber, getConfigString, getConfigSwitchConditions } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -46,7 +46,7 @@ export class SchemeTeleport extends AbstractScheme {
 
     const state: IStoredObject = assignStorageAndBind(object, ini, scheme, section);
 
-    state.logic = cfg_get_switch_conditions(ini, section, object);
+    state.logic = getConfigSwitchConditions(ini, section, object);
     state.timeout = getConfigNumber(ini, section, "timeout", object, false, 900);
     state.points = new LuaTable();
 

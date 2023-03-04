@@ -5,9 +5,10 @@ import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { switchToSection } from "@/mod/scripts/core/schemes/switchToSection";
-import { parseCondList, parseParams, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
+import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { getObjectStoryId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseConditionsList, parseParams } from "@/mod/scripts/utils/parse";
 import { mapSndTypeToSoundType } from "@/mod/scripts/utils/sound";
 
 const logger: LuaLogger = new LuaLogger("ActionSchemeHear");
@@ -32,7 +33,7 @@ export class ActionSchemeHear extends AbstractScheme {
     state.hear_sounds[parsed_params.get(1)][parsed_params.get(2)] = {
       dist: tonumber(parsed_params.get(3)),
       power: tonumber(parsed_params.get(4)),
-      condlist: parseCondList(object, "hear_callback", "hear_callback", parsed_params.get(5)),
+      condlist: parseConditionsList(object, "hear_callback", "hear_callback", parsed_params.get(5)),
     };
   }
 

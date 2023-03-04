@@ -11,14 +11,14 @@ import { get_heli_looker, HeliLook } from "@/mod/scripts/core/schemes/heli_move/
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import {
-  cfg_get_switch_conditions,
   getConfigBoolean,
   getConfigNumber,
   getConfigString,
-  path_parse_waypoints,
+  getConfigSwitchConditions,
 } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parsePathWaypoints } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("SchemeHeliMove");
 const state_move: number = 0;
@@ -43,7 +43,7 @@ export class SchemeHeliMove extends AbstractScheme {
   public static override setScheme(npc: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const a = assignStorageAndBind(npc, ini, scheme, section);
 
-    a.logic = cfg_get_switch_conditions(ini, section, npc);
+    a.logic = getConfigSwitchConditions(ini, section, npc);
     a.path_move = getConfigString(ini, section, "path_move", npc, true, "");
     a.path_look = getConfigString(ini, section, "path_look", npc, false, "");
     a.enemy_ = getConfigString(ini, section, "enemy", npc, false, "");
@@ -106,7 +106,7 @@ export class SchemeHeliMove extends AbstractScheme {
     }
 
     this.patrol_move = new patrol(this.state.path_move);
-    this.patrol_move_info = path_parse_waypoints(this.state.path_move)!;
+    this.patrol_move_info = parsePathWaypoints(this.state.path_move)!;
 
     if (this.state.path_look) {
       if (this.state.path_look === "actor") {

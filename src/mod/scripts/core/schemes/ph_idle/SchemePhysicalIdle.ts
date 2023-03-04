@@ -8,14 +8,14 @@ import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeAc
 import { switchToSection } from "@/mod/scripts/core/schemes/switchToSection";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import {
-  cfg_get_switch_conditions,
   getConfigBoolean,
   getConfigCondList,
   getConfigString,
-  parse_data_1v,
+  getConfigSwitchConditions,
   pickSectionFromCondList,
 } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseData1v } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("SchemePhysicalIdle");
 
@@ -42,8 +42,8 @@ export class SchemePhysicalIdle extends AbstractScheme {
 
     const state = assignStorageAndBind(object, ini, scheme, section);
 
-    state.logic = cfg_get_switch_conditions(ini, section, object);
-    state.hit_on_bone = parse_data_1v(object, getConfigString(ini, section, "hit_on_bone", object, false, ""));
+    state.logic = getConfigSwitchConditions(ini, section, object);
+    state.hit_on_bone = parseData1v(object, getConfigString(ini, section, "hit_on_bone", object, false, ""));
     state.nonscript_usable = getConfigBoolean(ini, section, "nonscript_usable", object, false);
     state.on_use = getConfigCondList(ini, section, "on_use", object);
 

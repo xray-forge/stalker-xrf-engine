@@ -21,14 +21,9 @@ import { AbstractScheme, action_ids, evaluators_id } from "@/mod/scripts/core/sc
 import { ActionWounded } from "@/mod/scripts/core/schemes/wounded/actions";
 import { EvaluatorCanFight, EvaluatorWounded } from "@/mod/scripts/core/schemes/wounded/evaluators";
 import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
-import {
-  getConfigBoolean,
-  getConfigString,
-  parse_data,
-  parse_syn_data,
-  pickSectionFromCondList,
-} from "@/mod/scripts/utils/configs";
+import { getConfigBoolean, getConfigString, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseData, parseSynData } from "@/mod/scripts/utils/parse";
 
 const wounded_by_state: Record<number, string> = {
   [0]: "wounded_heavy",
@@ -187,13 +182,13 @@ export class SchemeWounded extends AbstractScheme {
     }
 
     if (tostring(section) === "nil") {
-      st.hp_state = parse_data(npc, def.hp_state);
-      st.hp_state_see = parse_data(npc, def.hp_state_see);
-      st.psy_state = parse_data(npc, def.psy_state);
-      st.hp_victim = parse_data(npc, def.hp_victim);
-      st.hp_cover = parse_data(npc, def.hp_cover);
-      st.hp_fight = parse_data(npc, def.hp_fight);
-      st.syndata = parse_syn_data(npc, def.syndata);
+      st.hp_state = parseData(npc, def.hp_state);
+      st.hp_state_see = parseData(npc, def.hp_state_see);
+      st.psy_state = parseData(npc, def.psy_state);
+      st.hp_victim = parseData(npc, def.hp_victim);
+      st.hp_cover = parseData(npc, def.hp_cover);
+      st.hp_fight = parseData(npc, def.hp_fight);
+      st.syndata = parseSynData(npc, def.syndata);
       st.help_dialog = def.help_dialog;
       st.help_start_dialog = null;
       st.use_medkit = def.use_medkit;
@@ -201,16 +196,13 @@ export class SchemeWounded extends AbstractScheme {
       st.enable_talk = true;
       st.not_for_help = def.not_for_help;
     } else {
-      st.hp_state = parse_data(npc, getConfigString(ini, section, "hp_state", npc, false, "", def.hp_state));
-      st.hp_state_see = parse_data(
-        npc,
-        getConfigString(ini, section, "hp_state_see", npc, false, "", def.hp_state_see)
-      );
-      st.psy_state = parse_data(npc, getConfigString(ini, section, "psy_state", npc, false, "", def.psy_state));
-      st.hp_victim = parse_data(npc, getConfigString(ini, section, "hp_victim", npc, false, "", def.hp_victim));
-      st.hp_cover = parse_data(npc, getConfigString(ini, section, "hp_cover", npc, false, "", def.hp_cover));
-      st.hp_fight = parse_data(npc, getConfigString(ini, section, "hp_fight", npc, false, "", def.hp_fight));
-      st.syndata = parse_syn_data(npc, getConfigString(ini, section, "syndata", npc, false, "", def.syndata));
+      st.hp_state = parseData(npc, getConfigString(ini, section, "hp_state", npc, false, "", def.hp_state));
+      st.hp_state_see = parseData(npc, getConfigString(ini, section, "hp_state_see", npc, false, "", def.hp_state_see));
+      st.psy_state = parseData(npc, getConfigString(ini, section, "psy_state", npc, false, "", def.psy_state));
+      st.hp_victim = parseData(npc, getConfigString(ini, section, "hp_victim", npc, false, "", def.hp_victim));
+      st.hp_cover = parseData(npc, getConfigString(ini, section, "hp_cover", npc, false, "", def.hp_cover));
+      st.hp_fight = parseData(npc, getConfigString(ini, section, "hp_fight", npc, false, "", def.hp_fight));
+      st.syndata = parseSynData(npc, getConfigString(ini, section, "syndata", npc, false, "", def.syndata));
       st.help_dialog = getConfigString(ini, section, "help_dialog", npc, false, "", def.help_dialog);
       st.help_start_dialog = getConfigString(ini, section, "help_start_dialog", npc, false, "", null);
       st.use_medkit = getConfigBoolean(ini, section, "use_medkit", npc, false, def.use_medkit);

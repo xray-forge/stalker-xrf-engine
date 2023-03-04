@@ -4,10 +4,10 @@ import { STRINGIFIED_NIL } from "@/mod/globals/lua";
 import { AnyObject, Optional, TName, TNumberId } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { registry } from "@/mod/scripts/core/database";
-import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
+import { issueSchemeEvent } from "@/mod/scripts/core/schemes/issueSchemeEvent";
 import { resetGenericSchemesOnSchemeSwitch } from "@/mod/scripts/core/schemes/resetGenericSchemesOnSchemeSwitch";
 import { sendToNearestAccessibleVertex } from "@/mod/scripts/utils/alife";
-import { cfg_get_overrides, get_scheme_by_section } from "@/mod/scripts/utils/configs";
+import { getConfigOverrides, getSchemeBySection } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { getObjectBoundSmart } from "@/mod/scripts/utils/gulag";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -65,13 +65,13 @@ export function activateBySection(
     abort("object '%s': activate_by_section: section '%s' does !exist", object.name(), section);
   }
 
-  const scheme: Optional<EScheme> = get_scheme_by_section(section);
+  const scheme: Optional<EScheme> = getSchemeBySection(section);
 
   if (scheme === null) {
     abort("object '%s': unable to determine scheme name from section name '%s'", object.name(), section);
   }
 
-  registry.objects.get(objectId).overrides = cfg_get_overrides(ini, section, object) as any;
+  registry.objects.get(objectId).overrides = getConfigOverrides(ini, section, object) as any;
 
   resetGenericSchemesOnSchemeSwitch(object, scheme, section);
 
@@ -90,8 +90,8 @@ export function activateBySection(
   if (registry.objects.get(objectId).stype === ESchemeType.STALKER) {
     sendToNearestAccessibleVertex(object, object.level_vertex_id());
 
-    issueEvent(object, registry.objects.get(objectId)[scheme], "activateScheme", loading, object);
+    issueSchemeEvent(object, registry.objects.get(objectId)[scheme], "activateScheme", loading, object);
   } else {
-    issueEvent(object, registry.objects.get(objectId)[scheme], "resetScheme", loading, object);
+    issueSchemeEvent(object, registry.objects.get(objectId)[scheme], "resetScheme", loading, object);
   }
 }

@@ -5,9 +5,10 @@ import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
-import { getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
+import { getConfigString, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseConditionsList } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("SchemeDeath");
 
@@ -83,13 +84,13 @@ export class SchemeDeath extends AbstractScheme {
       const on_info = getConfigString(state.ini!, death_section, "on_info", object, false, "", null);
 
       if (on_info !== null) {
-        state.death!.info = parseCondList(object, death_section, "death", on_info);
+        state.death!.info = parseConditionsList(object, death_section, "death", on_info);
       }
 
       const onInfo2 = getConfigString(state.ini!, death_section, "on_info2", object, false, "", null);
 
       if (onInfo2 !== null) {
-        state.death!.info2 = parseCondList(object, death_section, "death", onInfo2);
+        state.death!.info2 = parseConditionsList(object, death_section, "death", onInfo2);
       }
     }
   }

@@ -3,7 +3,7 @@ import { game } from "xray16";
 import { TWeapon, weapons } from "@/mod/globals/items/weapons";
 import { monsters, TMonster } from "@/mod/globals/monsters";
 import { texturesIngame, TTexture } from "@/mod/globals/textures";
-import { Optional, PartialRecord } from "@/mod/lib/types";
+import { Optional, PartialRecord, TLabel } from "@/mod/lib/types";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -47,7 +47,7 @@ enum EStatSection {
  * todo;
  */
 export class PdaManager extends AbstractCoreManager {
-  public getStat(section: EStatSection): string {
+  public getStat(section: EStatSection): TLabel {
     const statisticsManager: StatisticsManager = StatisticsManager.getInstance();
 
     switch (section) {
@@ -70,24 +70,39 @@ export class PdaManager extends AbstractCoreManager {
     }
   }
 
+  /**
+   * todo;
+   */
   public getBestKilledMonster() {
     const bestKilledMonster: Optional<TMonster> = StatisticsManager.getInstance().actor_statistic.best_monster;
 
     return bestKilledMonster && killedMonsters[bestKilledMonster] ? killedMonsters[bestKilledMonster] : null;
   }
 
-  public getMonsterBackground(): string {
+  /**
+   * todo;
+   */
+  public getMonsterBackground(): TLabel {
     return this.getBestKilledMonster()?.back || "";
   }
 
-  public getMonsterIcon(): string {
+  /**
+   * todo;
+   */
+  public getMonsterIcon(): TLabel {
     return this.getBestKilledMonster()?.icon || "";
   }
 
+  /**
+   * todo;
+   */
   public getFavoriteWeapon(): TWeapon {
     return StatisticsManager.getInstance().actor_statistic.favorite_weapon_sect || weapons.wpn_knife;
   }
 
+  /**
+   * todo;
+   */
   public fillFactionState(state: Record<string, any>): void {
     logger.info("Fill faction state");
 

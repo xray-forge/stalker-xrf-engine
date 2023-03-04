@@ -18,9 +18,10 @@ import { registry } from "@/mod/scripts/core/database";
 import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
 import { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
 import { EPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/EPlayableSound";
-import { getConfigBoolean, getConfigString, parseNames } from "@/mod/scripts/utils/configs";
+import { getConfigBoolean, getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseNames } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("ActorSound");
 

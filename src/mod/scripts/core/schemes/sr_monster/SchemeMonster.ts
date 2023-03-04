@@ -24,8 +24,9 @@ import { mobRelease } from "@/mod/scripts/core/schemes/mobRelease";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { action } from "@/mod/scripts/utils/alife";
-import { cfg_get_switch_conditions, getConfigNumber, getConfigString, parseNames } from "@/mod/scripts/utils/configs";
+import { getConfigNumber, getConfigString, getConfigSwitchConditions } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseNames } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("SchemeMonster");
 
@@ -51,7 +52,7 @@ export class SchemeMonster extends AbstractScheme {
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const st = assignStorageAndBind(object, ini, scheme, section);
 
-    st.logic = cfg_get_switch_conditions(ini, section, object);
+    st.logic = getConfigSwitchConditions(ini, section, object);
     st.snd_obj = getConfigString(ini, section, "snd", object, false, "", null);
     st.delay = getConfigNumber(ini, section, "delay", object, false, 0);
     st.idle = getConfigNumber(ini, section, "idle", object, false, 30) * 10000;

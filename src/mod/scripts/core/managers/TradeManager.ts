@@ -3,10 +3,11 @@ import { ini_file, time_global, XR_game_object, XR_ini_file, XR_net_packet, XR_r
 import { Optional, TNumberId, TSection } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
-import { getConfigNumber, getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
+import { getConfigNumber, getConfigString, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseConditionsList } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("TradeManager");
 
@@ -50,18 +51,18 @@ export class TradeManager extends AbstractCoreManager {
       abort("Incorrect trader settings. Cannot find buy_condition. [%s]->[%s]", object.name(), configFilePath);
     }
 
-    registry.trade.get(objectId).buy_condition = parseCondList(object, "trade_manager", "buy_condition", str);
+    registry.trade.get(objectId).buy_condition = parseConditionsList(object, "trade_manager", "buy_condition", str);
 
     str = getConfigString(registry.trade.get(objectId).config, "trader", "sell_condition", object, true, "");
     if (str === null) {
       abort("Incorrect trader settings. Cannot find sell_condition. [%s]->[%s]", object.name(), configFilePath);
     }
 
-    registry.trade.get(objectId).sell_condition = parseCondList(object, "trade_manager", "sell_condition", str);
+    registry.trade.get(objectId).sell_condition = parseConditionsList(object, "trade_manager", "sell_condition", str);
 
     str = getConfigString(registry.trade.get(objectId).config, "trader", "buy_supplies", object, false, "");
     if (str !== null) {
-      registry.trade.get(objectId).buy_supplies = parseCondList(object, "trade_manager", "buy_supplies", str);
+      registry.trade.get(objectId).buy_supplies = parseConditionsList(object, "trade_manager", "buy_supplies", str);
     }
 
     // -- buy_item_condition_factor
@@ -75,7 +76,7 @@ export class TradeManager extends AbstractCoreManager {
       "0.7"
     );
     if (str !== null) {
-      registry.trade.get(objectId).buy_item_condition_factor = parseCondList(
+      registry.trade.get(objectId).buy_item_condition_factor = parseConditionsList(
         object,
         "trade_manager",
         "buy_item_condition_factor",
@@ -164,7 +165,7 @@ export class TradeManager extends AbstractCoreManager {
     const sect: TSection = pickSectionFromCondList(
       registry.actor,
       null,
-      parseCondList(null, "trade_manager", "discounts", str)
+      parseConditionsList(null, "trade_manager", "discounts", str)
     )!;
 
     return getConfigNumber(tradeDescriptor.config, sect, "buy", null, false, 1);
@@ -184,7 +185,7 @@ export class TradeManager extends AbstractCoreManager {
     const sect: TSection = pickSectionFromCondList(
       registry.actor,
       null,
-      parseCondList(null, "trade_manager", "discounts", str)
+      parseConditionsList(null, "trade_manager", "discounts", str)
     )!;
 
     return getConfigNumber(tt.config, sect, "sell", null, false, 1);

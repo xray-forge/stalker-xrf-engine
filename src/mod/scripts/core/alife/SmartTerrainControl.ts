@@ -7,9 +7,10 @@ import { registry } from "@/mod/scripts/core/database";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { isWeapon } from "@/mod/scripts/utils/checkers/is";
-import { getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
+import { getConfigString, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseConditionsList } from "@/mod/scripts/utils/parse";
 import { setSquadGoodwill } from "@/mod/scripts/utils/relations";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
 
@@ -45,13 +46,13 @@ export class SmartTerrainControl {
     this.noweap_zone = getConfigString(ini, section, "noweap_zone", this, true, "");
     this.ignore_zone = getConfigString(ini, section, "ignore_zone", this, false, "");
 
-    this.alarm_start_sound = parseCondList(
+    this.alarm_start_sound = parseConditionsList(
       smart,
       section,
       "alarm_start_sound",
       getConfigString(ini, section, "alarm_start_sound", this, false, "")
     );
-    this.alarm_stop_sound = parseCondList(
+    this.alarm_stop_sound = parseConditionsList(
       smart,
       section,
       "alarm_stop_sound",

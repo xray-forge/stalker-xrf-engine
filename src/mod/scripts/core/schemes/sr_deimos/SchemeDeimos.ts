@@ -7,7 +7,7 @@ import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAn
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
-import { cfg_get_switch_conditions, getConfigNumber } from "@/mod/scripts/utils/configs";
+import { getConfigNumber, getConfigSwitchConditions } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { clampNumber } from "@/mod/scripts/utils/number";
 
@@ -40,7 +40,7 @@ export class SchemeDeimos extends AbstractScheme {
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const state = assignStorageAndBind(object, ini, scheme, section);
 
-    state.logic = cfg_get_switch_conditions(ini, section, object);
+    state.logic = getConfigSwitchConditions(ini, section, object);
     state.movement_speed = getConfigNumber(ini, section, "movement_speed", object, false, 100);
     state.growing_koef = getConfigNumber(ini, section, "growing_koef", object, false, 0.1);
     state.lowering_koef = getConfigNumber(ini, section, "lowering_koef", object, false, state.growing_koef);

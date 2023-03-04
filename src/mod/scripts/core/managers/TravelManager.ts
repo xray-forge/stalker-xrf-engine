@@ -44,12 +44,13 @@ import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreMan
 import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { getAlifeCharacterCommunity, getAlifeDistanceBetween, getObjectSquad } from "@/mod/scripts/utils/alife";
-import { parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
+import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { createScenarioAutoSave } from "@/mod/scripts/utils/game_saves";
 import { getObjectBoundSmart } from "@/mod/scripts/utils/gulag";
 import { getObjectStoryId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseConditionsList } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("TravelManager");
 
@@ -116,7 +117,7 @@ export class TravelManager extends AbstractCoreManager {
       this.smartTravelDescriptorsByName.set(name, {
         name: TRAVEL_MANAGER_LTX.r_string(name, TravelManager.NAME_LTX_SECTION),
         level: TRAVEL_MANAGER_LTX.r_string(name, TravelManager.LEVEL_LTX_SECTION),
-        condlist: parseCondList(
+        condlist: parseConditionsList(
           registry.actor,
           name,
           TravelManager.CLOSE_DISTANCE_LTX_SECTION,

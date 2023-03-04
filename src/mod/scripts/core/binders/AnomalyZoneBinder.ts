@@ -17,17 +17,11 @@ import { Optional, TSection } from "@/mod/lib/types";
 import { FIELDS_BY_NAME } from "@/mod/scripts/core/binders/AnomalyFieldBinder";
 import { addAnomaly, deleteAnomaly, registry } from "@/mod/scripts/core/database";
 import { MapDisplayManager } from "@/mod/scripts/core/managers/map/MapDisplayManager";
-import {
-  getConfigNumber,
-  getConfigString,
-  parseCondList,
-  parseNames,
-  parseNumbers,
-  pickSectionFromCondList,
-} from "@/mod/scripts/utils/configs";
+import { getConfigNumber, getConfigString, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseConditionsList, parseNames, parseNumbers } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("AnomalyZoneBinder");
 
@@ -221,7 +215,7 @@ export class AnomalyZoneBinder extends object_binder {
         "",
         defaultCoeffSectionName
       );
-      const parsedCondlist = parseCondList(null, "anomal_zone_binder", "coeff_condlist", coeffsSection);
+      const parsedCondlist = parseConditionsList(null, "anomal_zone_binder", "coeff_condlist", coeffsSection);
       const coeffsSectionName = pickSectionFromCondList(registry.actor, null, parsedCondlist)!;
       const coeffs: Optional<string> = getConfigString(ini, section, coeffsSectionName, null, false, "", defaultCoeffs);
       /**

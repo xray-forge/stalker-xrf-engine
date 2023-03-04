@@ -5,12 +5,13 @@ import { Optional, TSection } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { getStoryObject } from "@/mod/scripts/utils/alife";
-import { parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
+import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
+import { parseConditionsList } from "@/mod/scripts/utils/parse";
 
 export function condlist(id: string, field: string, p: string): Optional<TSection> {
-  const parsed_condlist = parseCondList(null, "task", "task_condlist", p);
+  const parsed_condlist = parseConditionsList(null, "task", "task_condlist", p);
 
   return pickSectionFromCondList(registry.actor, null, parsed_condlist);
 }
@@ -122,7 +123,7 @@ export function surge_task_descr(): Optional<string> {
 
 export function target_condlist(id: string, field: string, p: string) {
   const cond_string = p;
-  const parsed_condlist = parseCondList(null, "task", "task_condlist", cond_string);
+  const parsed_condlist = parseConditionsList(null, "task", "task_condlist", cond_string);
   const value: Optional<TSection> = pickSectionFromCondList(registry.actor, null, parsed_condlist);
 
   if (value === null) {

@@ -8,7 +8,7 @@ import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { isUndergroundLevel } from "@/mod/scripts/utils/checkers/is";
-import { cfg_get_switch_conditions, getConfigBoolean } from "@/mod/scripts/utils/configs";
+import { getConfigBoolean, getConfigSwitchConditions } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resetTable } from "@/mod/scripts/utils/table";
 
@@ -37,7 +37,7 @@ export class SchemeLight extends AbstractScheme {
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const state = assignStorageAndBind(object, ini, scheme, section);
 
-    state.logic = cfg_get_switch_conditions(ini, section, object);
+    state.logic = getConfigSwitchConditions(ini, section, object);
     state.light = getConfigBoolean(ini, section, "light_on", object, false, false);
   }
 
@@ -100,7 +100,7 @@ export class SchemeLight extends AbstractScheme {
     if (!forced && light === true) {
       const scheme = registry.objects.get(object.id()).active_scheme!;
 
-      if (scheme === "kamp" || scheme === "camper" || scheme === "sleeper") {
+      if (scheme === "camper" || scheme === "sleeper") {
         light = false;
         forced = true;
       }

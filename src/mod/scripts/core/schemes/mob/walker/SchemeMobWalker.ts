@@ -26,15 +26,14 @@ import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeAc
 import { StalkerMoveManager } from "@/mod/scripts/core/state_management/StalkerMoveManager";
 import { action } from "@/mod/scripts/utils/alife";
 import {
-  cfg_get_switch_conditions,
   getConfigBoolean,
   getConfigString,
-  IWaypointData,
-  path_parse_waypoints,
+  getConfigSwitchConditions,
   pickSectionFromCondList,
 } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { IWaypointData, parsePathWaypoints } from "@/mod/scripts/utils/parse";
 import { isStalkerAtWaypoint } from "@/mod/scripts/utils/position";
 
 const default_wait_time: number = 5000;
@@ -72,7 +71,7 @@ export class SchemeMobWalker extends AbstractScheme {
 
     const state: IStoredObject = assignStorageAndBind(object, ini, scheme, section);
 
-    state.logic = cfg_get_switch_conditions(ini, section, object);
+    state.logic = getConfigSwitchConditions(ini, section, object);
     state.state = getMobState(ini, section, object);
     state.no_reset = getConfigBoolean(ini, section, "no_reset", object, false);
     state.path_walk = getConfigString(ini, section, "path_walk", object, true, gulag_name);
@@ -128,12 +127,12 @@ export class SchemeMobWalker extends AbstractScheme {
     }
 
     if (this.state.path_walk_info === null) {
-      this.state.path_walk_info = path_parse_waypoints(this.state.path_walk);
+      this.state.path_walk_info = parsePathWaypoints(this.state.path_walk);
       this.path_walk_info = this.state.path_walk_info;
     }
 
     if (this.state.path_look_info === null) {
-      this.state.path_look_info = path_parse_waypoints(this.state.path_look);
+      this.state.path_look_info = parsePathWaypoints(this.state.path_look);
       this.path_look_info = this.state.path_look_info;
     }
 

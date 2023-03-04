@@ -8,10 +8,10 @@ import { ActionCamperPatrol } from "@/mod/scripts/core/schemes/camper/actions";
 import { EvaluatorCloseCombat, EvaluatorEnd } from "@/mod/scripts/core/schemes/camper/evaluators";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import {
-  cfg_get_switch_conditions,
   getConfigBoolean,
   getConfigNumber,
   getConfigString,
+  getConfigSwitchConditions,
 } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -92,7 +92,7 @@ export class SchemeCamper extends AbstractScheme {
   ): void {
     const state = assignStorageAndBind(object, ini, scheme, section);
 
-    state.logic = cfg_get_switch_conditions(ini, section, object);
+    state.logic = getConfigSwitchConditions(ini, section, object);
     state.path_walk = getConfigString(ini, section, "path_walk", object, true, gulag_name);
     state.path_look = getConfigString(ini, section, "path_look", object, true, gulag_name);
 

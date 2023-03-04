@@ -5,8 +5,8 @@ import { ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { addZone, deleteZone, IStoredObject, registry } from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { initializeGameObject } from "@/mod/scripts/core/schemes/initializeGameObject";
-import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
-import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
+import { issueSchemeEvent } from "@/mod/scripts/core/schemes/issueSchemeEvent";
+import { loadObject, saveObject } from "@/mod/scripts/core/schemes/storing";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -65,7 +65,7 @@ export class RestrictorBinder extends object_binder {
     const state: IStoredObject = this.state;
 
     if (state.active_scheme !== null) {
-      issueEvent(this.object, state[state.active_scheme as string], "net_destroy");
+      issueSchemeEvent(this.object, state[state.active_scheme as string], "net_destroy");
     }
 
     deleteZone(this.object);
@@ -93,7 +93,7 @@ export class RestrictorBinder extends object_binder {
     this.object.info_add("name: [" + this.object.name() + "] id [" + objectId + "]");
 
     if (this.state.active_section !== null) {
-      issueEvent(this.object, this.state[this.state.active_scheme as string], "update", delta);
+      issueSchemeEvent(this.object, this.state[this.state.active_scheme as string], "update", delta);
     }
 
     GlobalSoundManager.getInstance().updateForObjectId(objectId);
@@ -107,7 +107,7 @@ export class RestrictorBinder extends object_binder {
     setSaveMarker(packet, false, RestrictorBinder.__name);
     super.save(packet);
 
-    save_obj(this.object, packet);
+    saveObject(this.object, packet);
     setSaveMarker(packet, true, RestrictorBinder.__name);
   }
 
@@ -118,7 +118,7 @@ export class RestrictorBinder extends object_binder {
 
     super.load(reader);
 
-    load_obj(this.object, reader);
+    loadObject(this.object, reader);
     setLoadMarker(reader, true, RestrictorBinder.__name);
   }
 }

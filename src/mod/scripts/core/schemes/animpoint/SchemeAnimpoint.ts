@@ -13,14 +13,14 @@ import { CampStoryManager } from "@/mod/scripts/core/schemes/camper/CampStoryMan
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { states } from "@/mod/scripts/core/state_management/lib/state_lib";
 import {
-  cfg_get_switch_conditions,
   getConfigBoolean,
   getConfigNumber,
   getConfigString,
-  parseNames,
+  getConfigSwitchConditions,
 } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseNames } from "@/mod/scripts/utils/parse";
 import { addCommonPrecondition } from "@/mod/scripts/utils/scheme";
 
 const logger: LuaLogger = new LuaLogger("SchemeAnimpoint");
@@ -125,7 +125,7 @@ export class SchemeAnimpoint extends AbstractScheme {
   ): void {
     const st = assignStorageAndBind(object, ini, scheme, section);
 
-    st.logic = cfg_get_switch_conditions(ini, section, object);
+    st.logic = getConfigSwitchConditions(ini, section, object);
     st.cover_name = getConfigString(ini, section, "cover_name", object, false, "", "$script_id$_cover");
     st.use_camp = getConfigBoolean(ini, section, "use_camp", object, false, true);
     st.reach_distance = getConfigNumber(ini, section, "reach_distance", object, false, 0.75);

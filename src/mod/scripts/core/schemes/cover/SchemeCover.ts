@@ -8,14 +8,14 @@ import { ActionBaseCover } from "@/mod/scripts/core/schemes/cover/actions";
 import { EvaluatorNeedCover } from "@/mod/scripts/core/schemes/cover/evaluators";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import {
-  cfg_get_switch_conditions,
   getConfigBoolean,
   getConfigNumber,
   getConfigString,
-  parseCondList,
+  getConfigSwitchConditions,
 } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseConditionsList } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("SchemeCover");
 
@@ -76,9 +76,9 @@ export class SchemeCover extends AbstractScheme {
 
     const state = assignStorageAndBind(object, ini, scheme, section);
 
-    state.logic = cfg_get_switch_conditions(ini, section, object);
+    state.logic = getConfigSwitchConditions(ini, section, object);
     state.smart = getConfigString(ini, section, "smart", object, false, "");
-    state.anim = parseCondList(
+    state.anim = parseConditionsList(
       object,
       "anim",
       "anim",

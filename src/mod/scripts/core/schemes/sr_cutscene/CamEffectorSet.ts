@@ -8,8 +8,9 @@ import {
   ICamEffectorSetDescriptorItem,
   TCamEffectorSetDescriptor,
 } from "@/mod/scripts/core/schemes/sr_cutscene/cam_effector_sets";
-import { parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
+import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseConditionsList } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("CamEffectorSet");
 const CAM_EFFECTOR_SET_SECTION: string = EScheme.SR_CUTSCENE;
@@ -104,7 +105,7 @@ export class CamEffectorSet {
       if (this.set.start.get(cur_effect) !== null) {
         this.cur_effect = cur_effect;
         if (type(this.set.start.get(cur_effect).enabled) === "string") {
-          const condlist = parseCondList(
+          const condlist = parseConditionsList(
             actor,
             CAM_EFFECTOR_SET_SECTION,
             "enabled_condlist",
@@ -118,7 +119,7 @@ export class CamEffectorSet {
 
         if (type(this.set.start.get(cur_effect).looped) === "string") {
           this.looped = true;
-          this.condlist = parseCondList(
+          this.condlist = parseConditionsList(
             actor,
             CAM_EFFECTOR_SET_SECTION,
             "effect_condlist",
@@ -138,7 +139,7 @@ export class CamEffectorSet {
       if (this.set.idle.get(cur_effect) !== null) {
         this.cur_effect = cur_effect;
         if (type(this.set.idle.get(cur_effect).enabled) === "string") {
-          const condlist = parseCondList(
+          const condlist = parseConditionsList(
             actor,
             CAM_EFFECTOR_SET_SECTION,
             "enabled_condlist",
@@ -152,7 +153,7 @@ export class CamEffectorSet {
 
         if (type(this.set.idle.get(cur_effect).looped) === "string") {
           this.looped = true;
-          this.condlist = parseCondList(
+          this.condlist = parseConditionsList(
             actor,
             CAM_EFFECTOR_SET_SECTION,
             "effect_condlist",
@@ -173,7 +174,7 @@ export class CamEffectorSet {
         this.cur_effect = cur_effect;
 
         if (type(this.set.finish.get(cur_effect).enabled) === "string") {
-          const condlist = parseCondList(
+          const condlist = parseConditionsList(
             actor,
             CAM_EFFECTOR_SET_SECTION,
             "enabled_condlist",
@@ -187,7 +188,7 @@ export class CamEffectorSet {
 
         if (type(this.set.finish.get(cur_effect).looped) === "string") {
           this.looped = true;
-          this.condlist = parseCondList(
+          this.condlist = parseConditionsList(
             actor,
             CAM_EFFECTOR_SET_SECTION,
             "effect_condlist",

@@ -5,7 +5,7 @@ import { registry } from "@/mod/scripts/core/database";
 import { TradeManager } from "@/mod/scripts/core/managers/TradeManager";
 import { disableGenericSchemes } from "@/mod/scripts/core/schemes/disableGenericSchemes";
 import { enable_generic_schemes } from "@/mod/scripts/core/schemes/enable_generic_schemes";
-import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
+import { issueSchemeEvent } from "@/mod/scripts/core/schemes/issueSchemeEvent";
 import { spawnDefaultNpcItems } from "@/mod/scripts/utils/alife";
 import { getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -29,7 +29,7 @@ export function configureSchemes(
   const st = registry.objects.get(npc_id);
 
   if (st.active_section) {
-    issueEvent(object, st[st.active_scheme!], "deactivate", object);
+    issueSchemeEvent(object, st[st.active_scheme!], "deactivate", object);
   }
 
   let actual_ini: XR_ini_file;

@@ -3,9 +3,10 @@ import { level, XR_game_object, XR_ini_file } from "xray16";
 import { Optional, TSection } from "@/mod/lib/types";
 import { PH_BOX_GENERIC_LTX } from "@/mod/scripts/core/database";
 import { spawnItemsForObject } from "@/mod/scripts/utils/alife_spawn";
-import { getConfigString, parseNames, parseNumbers } from "@/mod/scripts/utils/configs";
+import { getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseNames, parseNumbers } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("ItemBox");
 const item_by_community: LuaTable<string, LuaTable<string, number>> = new LuaTable();

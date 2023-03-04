@@ -13,9 +13,9 @@ import { getCharacterCommunity, setItemCondition } from "@/mod/scripts/utils/ali
 import { spawnAmmoForObject, spawnItemsForObject } from "@/mod/scripts/utils/alife_spawn";
 import { isExcludedFromLootDropItem } from "@/mod/scripts/utils/checkers/checkers";
 import { isAmmoItem, isArtefact, isGrenade, isLootableItem, isWeapon } from "@/mod/scripts/utils/checkers/is";
-import { parseNames, parseNumbers } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseNames, parseNumbers } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("DropManager");
 

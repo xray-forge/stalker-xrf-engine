@@ -3,12 +3,13 @@ import { time_global, XR_game_object, XR_ini_file, XR_vector } from "xray16";
 import { EScheme, Optional } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
-import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
+import { issueSchemeEvent } from "@/mod/scripts/core/schemes/issueSchemeEvent";
 import { get_sound_manager, SoundManager } from "@/mod/scripts/core/sound/SoundManager";
 import { isObjectMeeting } from "@/mod/scripts/utils/checkers/checkers";
-import { getConfigString, parseNames } from "@/mod/scripts/utils/configs";
+import { getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseNames } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("CampStoryManager");
 const npc_role = { noone: 0, listener: 1, director: 2 };
@@ -198,7 +199,7 @@ export class CampStoryManager {
       for (const [k, v] of this.npc) {
         if (registry.objects.get(k) !== null) {
           // todo: Optimize call.
-          issueEvent(
+          issueSchemeEvent(
             registry.objects.get(k).object!,
             registry.objects.get(k)[registry.objects.get(k).active_scheme!],
             "update"
@@ -344,7 +345,7 @@ export class CampStoryManager {
     this.sound_manager.register_npc(npc_id);
 
     // todo: Optimize.
-    issueEvent(
+    issueSchemeEvent(
       registry.objects.get(npc_id).object!,
       registry.objects.get(npc_id)[registry.objects.get(npc_id).active_scheme!],
       "update"

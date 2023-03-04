@@ -6,8 +6,9 @@ import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAn
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
-import { cfg_get_switch_conditions, getConfigNumber, getConfigString, parseNames } from "@/mod/scripts/utils/configs";
+import { getConfigNumber, getConfigString, getConfigSwitchConditions } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseNames } from "@/mod/scripts/utils/parse";
 import { copyTable } from "@/mod/scripts/utils/table";
 
 const logger: LuaLogger = new LuaLogger("SchemeCrowSpawner");
@@ -33,7 +34,7 @@ export class SchemeCrowSpawner extends AbstractScheme {
     // -- standart lines: assigning new storage and binding our space restrictor
     const state: IStoredObject = assignStorageAndBind(object, ini, scheme, section);
 
-    state.logic = cfg_get_switch_conditions(ini, section, object);
+    state.logic = getConfigSwitchConditions(ini, section, object);
     state.max_crows_on_level = getConfigNumber(ini, section, "max_crows_on_level", object, false, 16);
 
     const path = getConfigString(ini, section, "spawn_path", object, false, "", null);

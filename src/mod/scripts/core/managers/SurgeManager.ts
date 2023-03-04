@@ -33,10 +33,11 @@ import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager
 import { WeatherManager } from "@/mod/scripts/core/managers/WeatherManager";
 import { isImmuneToSurge, isObjectOnLevel, isSurgeEnabledOnLevel } from "@/mod/scripts/utils/checkers/checkers";
 import { isStoryObject } from "@/mod/scripts/utils/checkers/is";
-import { parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
+import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { createScenarioAutoSave, setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseConditionsList } from "@/mod/scripts/utils/parse";
 import { copyTable } from "@/mod/scripts/utils/table";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
 
@@ -132,7 +133,7 @@ export class SurgeManager extends AbstractCoreManager {
       cond_string = SURGE_MANAGER_LTX.r_string("settings", "condlist");
     }
 
-    this.surgeManagerCondlist = parseCondList(null, "surge_manager", "condlist", cond_string);
+    this.surgeManagerCondlist = parseConditionsList(null, "surge_manager", "condlist", cond_string);
 
     cond_string = STRINGIFIED_FALSE;
 
@@ -140,7 +141,7 @@ export class SurgeManager extends AbstractCoreManager {
       cond_string = SURGE_MANAGER_LTX.r_string("settings", "survive");
     }
 
-    this.surgeSurviveCondlist = parseCondList(null, "surge_manager", "survive_condlist", cond_string);
+    this.surgeSurviveCondlist = parseConditionsList(null, "surge_manager", "survive_condlist", cond_string);
 
     this.initializeSurgeCovers();
 
@@ -162,7 +163,7 @@ export class SurgeManager extends AbstractCoreManager {
         this.covers.set(this.surgeCoversCount, zone);
 
         if (SURGE_MANAGER_LTX.line_exist(id, "condlist")) {
-          (this.covers.get(this.surgeCoversCount) as any).condlist = parseCondList(
+          (this.covers.get(this.surgeCoversCount) as any).condlist = parseConditionsList(
             null,
             id,
             "condlist",

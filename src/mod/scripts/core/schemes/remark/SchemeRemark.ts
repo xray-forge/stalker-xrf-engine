@@ -9,13 +9,9 @@ import { evaluators_id } from "@/mod/scripts/core/schemes/base/evaluators_id";
 import { ActionRemarkActivity } from "@/mod/scripts/core/schemes/remark/actions/ActionRemarkActivity";
 import { EvaluatorNeedRemark } from "@/mod/scripts/core/schemes/remark/evaluators/EvaluatorNeedRemark";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
-import {
-  cfg_get_switch_conditions,
-  getConfigBoolean,
-  getConfigString,
-  parseCondList,
-} from "@/mod/scripts/utils/configs";
+import { getConfigBoolean, getConfigString, getConfigSwitchConditions } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseConditionsList } from "@/mod/scripts/utils/parse";
 import { addCommonPrecondition } from "@/mod/scripts/utils/scheme";
 
 const logger: LuaLogger = new LuaLogger("SchemeRemark");
@@ -74,10 +70,10 @@ export class SchemeRemark extends AbstractScheme {
   ): void {
     const state = assignStorageAndBind(object, ini, scheme, section);
 
-    state.logic = cfg_get_switch_conditions(ini, section, object);
+    state.logic = getConfigSwitchConditions(ini, section, object);
     state.snd_anim_sync = getConfigBoolean(ini, section, "snd_anim_sync", object, false);
     state.snd = getConfigString(ini, section, "snd", object, false, "", null);
-    state.anim = parseCondList(
+    state.anim = parseConditionsList(
       object,
       "anim",
       "anim",

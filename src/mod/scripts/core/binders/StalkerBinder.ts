@@ -51,11 +51,11 @@ import { PostCombatIdle } from "@/mod/scripts/core/schemes/danger/PostCombatIdle
 import { SchemeDanger } from "@/mod/scripts/core/schemes/danger/SchemeDanger";
 import { generic_scheme_overrides } from "@/mod/scripts/core/schemes/generic_scheme_overrides";
 import { ActionSchemeHear } from "@/mod/scripts/core/schemes/hear/ActionSchemeHear";
-import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
+import { issueSchemeEvent } from "@/mod/scripts/core/schemes/issueSchemeEvent";
 import { SchemeMeet } from "@/mod/scripts/core/schemes/meet/SchemeMeet";
 import { SchemeReachTask } from "@/mod/scripts/core/schemes/reach_task/SchemeReachTask";
 import { SchemeLight } from "@/mod/scripts/core/schemes/sr_light/SchemeLight";
-import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
+import { loadObject, saveObject } from "@/mod/scripts/core/schemes/storing";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { SchemeWounded } from "@/mod/scripts/core/schemes/wounded/SchemeWounded";
 import { DynamicMusicManager } from "@/mod/scripts/core/sound/DynamicMusicManager";
@@ -111,7 +111,7 @@ export class StalkerBinder extends object_binder {
    */
   public extrapolate_callback(cur_pt: number): boolean {
     if (this.state.active_section) {
-      issueEvent(this.object, this.state[this.state.active_scheme!], "extrapolate_callback");
+      issueSchemeEvent(this.object, this.state[this.state.active_scheme!], "extrapolate_callback");
       this.state.moveManager!.extrapolate_callback(this.object);
     }
 
@@ -246,11 +246,11 @@ export class StalkerBinder extends object_binder {
     const st: IStoredObject = registry.objects.get(this.object.id());
 
     if (st.active_scheme) {
-      issueEvent(this.object, st[st.active_scheme], "net_destroy", this.object);
+      issueSchemeEvent(this.object, st[st.active_scheme], "net_destroy", this.object);
     }
 
     if (this.state.reach_task) {
-      issueEvent(this.object, this.state.reach_task, "net_destroy", this.object);
+      issueSchemeEvent(this.object, this.state.reach_task, "net_destroy", this.object);
     }
 
     const on_offline_condlist = registry.objects.get(this.object.id())?.overrides
@@ -334,7 +334,7 @@ export class StalkerBinder extends object_binder {
     }
 
     if (this.state.active_section) {
-      issueEvent(
+      issueSchemeEvent(
         this.object,
         this.state[this.state.active_scheme!],
         "hit_callback",
@@ -347,15 +347,24 @@ export class StalkerBinder extends object_binder {
     }
 
     if (this.state.combat_ignore) {
-      issueEvent(this.object, this.state.combat_ignore, "hit_callback", obj, amount, local_direction, who, bone_index);
+      issueSchemeEvent(
+        this.object,
+        this.state.combat_ignore,
+        "hit_callback",
+        obj,
+        amount,
+        local_direction,
+        who,
+        bone_index
+      );
     }
 
     if (this.state.combat) {
-      issueEvent(this.object, this.state.combat, "hit_callback", obj, amount, local_direction, who, bone_index);
+      issueSchemeEvent(this.object, this.state.combat, "hit_callback", obj, amount, local_direction, who, bone_index);
     }
 
     if (this.state.hit) {
-      issueEvent(this.object, this.state.hit, "hit_callback", obj, amount, local_direction, who, bone_index);
+      issueSchemeEvent(this.object, this.state.hit, "hit_callback", obj, amount, local_direction, who, bone_index);
     }
 
     if (bone_index !== 15 && amount > this.object.health * 100) {
@@ -402,15 +411,15 @@ export class StalkerBinder extends object_binder {
     }
 
     if (this.state.reach_task) {
-      issueEvent(this.object, this.state.reach_task, "death_callback", victim, who);
+      issueSchemeEvent(this.object, this.state.reach_task, "death_callback", victim, who);
     }
 
     if (this.state.death) {
-      issueEvent(this.object, this.state.death, "death_callback", victim, who);
+      issueSchemeEvent(this.object, this.state.death, "death_callback", victim, who);
     }
 
     if (this.state.active_section) {
-      issueEvent(this.object, this.state[this.state.active_scheme!], "death_callback", victim, who);
+      issueSchemeEvent(this.object, this.state[this.state.active_scheme!], "death_callback", victim, who);
     }
 
     SchemeLight.check_light(this.object);
@@ -442,7 +451,7 @@ export class StalkerBinder extends object_binder {
 
       disabled_phrases.delete(obj.id());
       if (this.state.active_section) {
-        issueEvent(this.object, this.state[this.state.active_scheme!], "use_callback", obj, who);
+        issueSchemeEvent(this.object, this.state[this.state.active_scheme!], "use_callback", obj, who);
       }
     }
   }
@@ -559,7 +568,7 @@ export class StalkerBinder extends object_binder {
     setSaveMarker(packet, false, StalkerBinder.__name);
 
     super.save(packet);
-    save_obj(this.object, packet);
+    saveObject(this.object, packet);
     TradeManager.getInstance().saveObjectState(this.object, packet);
     GlobalSoundManager.getInstance().saveForObjectId(packet, this.object.id());
     saveNpcDialogs(packet, this.object.id());
@@ -576,7 +585,7 @@ export class StalkerBinder extends object_binder {
     setLoadMarker(reader, false, StalkerBinder.__name);
 
     super.load(reader);
-    load_obj(this.object, reader);
+    loadObject(this.object, reader);
     TradeManager.getInstance().loadObjectState(this.object, reader);
     GlobalSoundManager.getInstance().loadForObjectId(reader, this.object.id());
     loadNpcDialogs(reader, this.object.id());

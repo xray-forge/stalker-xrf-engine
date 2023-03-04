@@ -8,9 +8,10 @@ import { mobCapture } from "@/mod/scripts/core/schemes/mobCapture";
 import { mobRelease } from "@/mod/scripts/core/schemes/mobRelease";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { action } from "@/mod/scripts/utils/alife";
-import { cfg_get_switch_conditions, getConfigNumber, getConfigString, parseNames } from "@/mod/scripts/utils/configs";
+import { getConfigNumber, getConfigString, getConfigSwitchConditions } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseNames } from "@/mod/scripts/utils/parse";
 
 const STATE_START_LOOK = 1;
 const STATE_WAIT_LOOK_END = 2;
@@ -48,7 +49,7 @@ export class SchemeMobJump extends AbstractScheme {
 
     const storage = assignStorageAndBind(object, ini, scheme, section);
 
-    storage.logic = cfg_get_switch_conditions(ini, section, object);
+    storage.logic = getConfigSwitchConditions(ini, section, object);
     storage.jump_path_name = getConfigString(ini, section, "path_jump", object, false, gulag_name);
     storage.ph_jump_factor = getConfigNumber(ini, section, "ph_jump_factor", object, false, 1.8);
 

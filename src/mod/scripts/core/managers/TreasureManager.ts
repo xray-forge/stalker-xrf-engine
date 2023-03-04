@@ -17,10 +17,11 @@ import { registry, SECRETS_LTX } from "@/mod/scripts/core/database";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
-import { parseCondList, parseSpawns, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
+import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseConditionsList, parseSpawns } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("TreasureManager");
 
@@ -87,11 +88,11 @@ export class TreasureManager extends AbstractCoreManager {
           const [result, item_section, str] = SECRETS_LTX.r_line(id, i, "", "");
 
           if (item_section === "empty") {
-            const parsed_condlist = parseCondList(null, "treasure_manager", "empty_cond", str);
+            const parsed_condlist = parseConditionsList(null, "treasure_manager", "empty_cond", str);
 
             this.secrets.get(id).empty = parsed_condlist;
           } else if (item_section === "refreshing") {
-            const parsed_condlist = parseCondList(null, "treasure_manager", "refreshing_cond", str);
+            const parsed_condlist = parseConditionsList(null, "treasure_manager", "refreshing_cond", str);
 
             this.secrets.get(id).refreshing = parsed_condlist;
           } else {

@@ -1,6 +1,6 @@
 import { system_ini, XR_ini_file } from "xray16";
 
-import { parseNames } from "@/mod/scripts/utils/configs";
+import { parseNames } from "@/mod/scripts/utils/parse";
 
 export class WeaponParams {
   public static GetRPM(wpn_section: string, upgr_sections: string): number {

@@ -6,12 +6,12 @@ import { LuaArray, Optional } from "@/mod/lib/types";
 import { DIALOG_MANAGER_LTX, registry } from "@/mod/scripts/core/database";
 import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
 import { isObjectWounded } from "@/mod/scripts/utils/checkers/checkers";
-import { parse_infop1, parseNames } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { getObjectBoundSmart } from "@/mod/scripts/utils/gulag";
 import { hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseInfoPortions1, parseNames } from "@/mod/scripts/utils/parse";
 import { getNpcSpeaker } from "@/mod/scripts/utils/quests";
 
 // todo: Separate manager class.
@@ -134,7 +134,7 @@ export function fillPhrasesTable(): void {
       };
 
       if (dm_ini_file.line_exist(id, "info") && dm_ini_file.r_string(id, "info") !== "") {
-        parse_infop1(phrases.info, dm_ini_file.r_string(id, "info"));
+        parseInfoPortions1(phrases.info, dm_ini_file.r_string(id, "info"));
       }
 
       if (category === "anomalies" || category === "place") {

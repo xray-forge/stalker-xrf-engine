@@ -51,15 +51,14 @@ import {
   getConfigBoolean,
   getConfigNumber,
   getConfigString,
-  parseCondList,
-  parseNames,
   pickSectionFromCondList,
-  r_2nums,
+  read2nums,
 } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseConditionsList, parseNames } from "@/mod/scripts/utils/parse";
 import {
   getSquadIdRelationToActor,
   isFactionsEnemies,
@@ -138,19 +137,19 @@ export class Squad<
 
   public init_squad(): void {
     this.player_id = getConfigString(SYSTEM_INI, this.settings_id, "faction", this, true, "") as TCommunity;
-    this.action_condlist = parseCondList(
+    this.action_condlist = parseConditionsList(
       this,
       "assign_action",
       "target_smart",
       getConfigString(SYSTEM_INI, this.settings_id, "target_smart", this, false, "", "")
     );
-    this.death_condlist = parseCondList(
+    this.death_condlist = parseConditionsList(
       this,
       "death_condlist",
       "on_death",
       getConfigString(SYSTEM_INI, this.settings_id, "on_death", this, false, "", "")
     );
-    this.invulnerability = parseCondList(
+    this.invulnerability = parseConditionsList(
       this,
       "invulnerability",
       "invulnerability",
@@ -160,7 +159,7 @@ export class Squad<
       this.relationship ||
       (getConfigString(SYSTEM_INI, this.settings_id, "relationship", this, false, "", null) as TRelation);
     this.sympathy = getConfigNumber(SYSTEM_INI, this.settings_id, "sympathy", this, false, null);
-    this.show_spot = parseCondList(
+    this.show_spot = parseConditionsList(
       this,
       "show_spot",
       "show_spot",
@@ -662,7 +661,7 @@ export class Squad<
       getConfigString(ini, this.settings_id, "spawn_point", this, false, "", "self") ||
       getConfigString(spawn_smart.ini, SMART_TERRAIN_SECT, "spawn_point", this, false, "", "self");
 
-    spawn_point = parseCondList(this, "spawn_point", "spawn_point", spawn_point);
+    spawn_point = parseConditionsList(this, "spawn_point", "spawn_point", spawn_point);
     spawn_point = pickSectionFromCondList(registry.actor, this, spawn_point as any)!;
 
     let base_spawn_position: XR_vector = spawn_smart.position;
@@ -696,7 +695,7 @@ export class Squad<
     if (random_spawn_config !== null) {
       const random_spawn = parseNames(random_spawn_config)!;
 
-      const [count_min, count_max] = r_2nums(ini, this.settings_id, "npc_in_squad", 1 as any, 2 as any);
+      const [count_min, count_max] = read2nums(ini, this.settings_id, "npc_in_squad", 1 as any, 2 as any);
 
       if (count_min > count_max) {
         abort("min_count can't be greater then max_count [%s]!", this.settings_id);

@@ -76,7 +76,7 @@ import { sleep as startSleeping } from "@/mod/scripts/ui/interaction/SleepDialog
 import { getStoryObject, getStorySquad } from "@/mod/scripts/utils/alife";
 import { isActorInZoneWithName } from "@/mod/scripts/utils/checkers/checkers";
 import { isStalker } from "@/mod/scripts/utils/checkers/is";
-import { getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
+import { getConfigString, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { setInactiveInputTime } from "@/mod/scripts/utils/controls";
 import { abort } from "@/mod/scripts/utils/debug";
 import { createScenarioAutoSave } from "@/mod/scripts/utils/game_saves";
@@ -84,6 +84,7 @@ import { find_stalker_for_job, switch_to_desired_job as switchToGulagDesiredJob 
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseConditionsList } from "@/mod/scripts/utils/parse";
 import {
   increaseNumberRelationBetweenCommunityAndId,
   setObjectSympathy,
@@ -1482,9 +1483,9 @@ export function create_squad_member(
     if (params[2] === "simulation_point") {
       spawn_point = getConfigString(SYSTEM_INI, squad.section_name(), "spawn_point", obj, false, "");
       if (spawn_point === "" || spawn_point === null) {
-        spawn_point = parseCondList(obj, "spawn_point", "spawn_point", squad_smart.spawn_point as string);
+        spawn_point = parseConditionsList(obj, "spawn_point", "spawn_point", squad_smart.spawn_point as string);
       } else {
-        spawn_point = parseCondList(obj, "spawn_point", "spawn_point", spawn_point);
+        spawn_point = parseConditionsList(obj, "spawn_point", "spawn_point", spawn_point);
       }
 
       spawn_point = pickSectionFromCondList(actor, obj, spawn_point as any);

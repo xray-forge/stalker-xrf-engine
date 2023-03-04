@@ -15,10 +15,11 @@ import {
 import { Optional } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { addDoorObject, deleteDoorObject } from "@/mod/scripts/core/database/doors";
-import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
-import { getConfigNumber, getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
+import { loadObject, saveObject } from "@/mod/scripts/core/schemes/storing";
+import { getConfigNumber, getConfigString, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseConditionsList } from "@/mod/scripts/utils/parse";
 
 const ANIMATED_OBJECT_SECT: string = "animated_object";
 const logger: LuaLogger = new LuaLogger("LabX8DoorBinder");
@@ -106,7 +107,7 @@ export class LabX8DoorBinder extends object_binder {
       this.stop_snd = new sound_object(stop_snd);
     }
 
-    this.tip = parseCondList(
+    this.tip = parseConditionsList(
       null,
       "door_binder_labx8",
       "tip_condlist",
@@ -121,19 +122,19 @@ export class LabX8DoorBinder extends object_binder {
       on_use = ini.r_string(ANIMATED_OBJECT_SECT, "on_use");
     }
 
-    this.on_use = parseCondList(null, "door_binder_labx8", "on_use", on_use);
+    this.on_use = parseConditionsList(null, "door_binder_labx8", "on_use", on_use);
 
     if (ini.line_exist(ANIMATED_OBJECT_SECT, "on_start")) {
       on_start = ini.r_string(ANIMATED_OBJECT_SECT, "on_start");
     }
 
-    this.on_start = parseCondList(null, "door_binder_labx8", "on_start", on_start);
+    this.on_start = parseConditionsList(null, "door_binder_labx8", "on_start", on_start);
 
     if (ini.line_exist(ANIMATED_OBJECT_SECT, "on_stop")) {
       on_stop = ini.r_string(ANIMATED_OBJECT_SECT, "on_stop");
     }
 
-    this.on_stop = parseCondList(null, "door_binder_labx8", "on_stop", on_stop);
+    this.on_stop = parseConditionsList(null, "door_binder_labx8", "on_stop", on_stop);
 
     this.idle_delay = getConfigNumber(ini, ANIMATED_OBJECT_SECT, "idle_delay", null, false, 2000);
     this.start_delay = getConfigNumber(ini, ANIMATED_OBJECT_SECT, "start_delay", null, false, 0);
@@ -299,7 +300,7 @@ export class LabX8DoorBinder extends object_binder {
     setSaveMarker(packet, false, LabX8DoorBinder.__name);
 
     super.save(packet);
-    save_obj(this.object, packet);
+    saveObject(this.object, packet);
     packet.w_bool(this.is_idle);
     packet.w_bool(this.is_play_fwd);
     // --    packet.w_u32(this.idle_end)
@@ -312,7 +313,7 @@ export class LabX8DoorBinder extends object_binder {
     setLoadMarker(reader, false, LabX8DoorBinder.__name);
 
     super.load(reader);
-    load_obj(this.object, reader);
+    loadObject(this.object, reader);
     this.is_idle = reader.r_bool();
     this.is_play_fwd = reader.r_bool();
     //    this.idle_end = packet.r_u32()

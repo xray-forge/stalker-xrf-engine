@@ -7,9 +7,9 @@ import { Squad } from "@/mod/scripts/core/alife/Squad";
 import { registry, SIMULATION_LTX } from "@/mod/scripts/core/database";
 import { get_sim_obj_registry } from "@/mod/scripts/core/database/SimObjectsRegistry";
 import { changeTeamSquadGroup } from "@/mod/scripts/utils/alife";
-import { parseNames } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseNames } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("SimBoard");
 

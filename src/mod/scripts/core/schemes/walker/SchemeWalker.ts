@@ -9,7 +9,7 @@ import { evaluators_id } from "@/mod/scripts/core/schemes/base/evaluators_id";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { ActionWalkerActivity } from "@/mod/scripts/core/schemes/walker/actions";
 import { EvaluatorNeedWalker } from "@/mod/scripts/core/schemes/walker/evaluators";
-import { cfg_get_switch_conditions, getConfigBoolean, getConfigString } from "@/mod/scripts/utils/configs";
+import { getConfigBoolean, getConfigString, getConfigSwitchConditions } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { addCommonPrecondition } from "@/mod/scripts/utils/scheme";
@@ -73,7 +73,7 @@ export class SchemeWalker extends AbstractScheme {
   ): void {
     const state = assignStorageAndBind(object, ini, scheme, section);
 
-    state.logic = cfg_get_switch_conditions(ini, section, object);
+    state.logic = getConfigSwitchConditions(ini, section, object);
     state.path_walk = getConfigString(ini, section, "path_walk", object, true, gulag_name);
 
     if (!level.patrol_path_exists(state.path_walk)) {

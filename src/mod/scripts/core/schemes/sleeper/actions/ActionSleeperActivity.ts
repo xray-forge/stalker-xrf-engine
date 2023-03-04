@@ -4,9 +4,9 @@ import { AnyCallable, Optional } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { StalkerMoveManager } from "@/mod/scripts/core/state_management/StalkerMoveManager";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
-import { path_parse_waypoints_from_arglist } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parsePathWaypointsFromArgsList } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("ActionSleeperActivity");
 
@@ -80,19 +80,14 @@ export class ActionSleeperActivity extends action_base {
 
       if (num_wayp === 1) {
         this.state.path_walk = this.state.path_main;
-        this.state.path_walk_info = path_parse_waypoints_from_arglist(this.state.path_main, 1, [0, "wp00|ret=1"]);
+        this.state.path_walk_info = parsePathWaypointsFromArgsList(this.state.path_main, 1, [0, "wp00|ret=1"]);
         this.state.path_look = null;
         this.state.path_look_info = null;
       } else if (num_wayp === 2) {
         this.state.path_walk = this.state.path_main;
-        this.state.path_walk_info = path_parse_waypoints_from_arglist(
-          this.state.path_main,
-          2,
-          [1, "wp00"],
-          [0, "wp01"]
-        );
+        this.state.path_walk_info = parsePathWaypointsFromArgsList(this.state.path_main, 2, [1, "wp00"], [0, "wp01"]);
         this.state.path_look = this.state.path_main;
-        this.state.path_look_info = path_parse_waypoints_from_arglist(
+        this.state.path_look_info = parsePathWaypointsFromArgsList(
           this.state.path_main,
           2,
           [0, "wp00"],

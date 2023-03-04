@@ -24,10 +24,11 @@ import { ActionMeetWait } from "@/mod/scripts/core/schemes/meet/actions";
 import { EvaluatorContact } from "@/mod/scripts/core/schemes/meet/evaluators";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
-import { getStoryObject, isNpcInCombat } from "@/mod/scripts/utils/alife";
+import { getStoryObject, isObjectInCombat } from "@/mod/scripts/utils/alife";
 import { isObjectWounded } from "@/mod/scripts/utils/checkers/checkers";
-import { getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
+import { getConfigString, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseConditionsList } from "@/mod/scripts/utils/parse";
 import { getObjectsRelationSafe } from "@/mod/scripts/utils/relations";
 
 const logger: LuaLogger = new LuaLogger("SchemeMeet");
@@ -206,137 +207,137 @@ export class SchemeMeet extends AbstractScheme {
     }
 
     if (tostring(section) === "no_meet)") {
-      st.close_distance = parseCondList(npc, section, "close_distance", "0");
-      st.close_anim = parseCondList(npc, section, "close_anim", "nil");
-      st.close_snd_distance = parseCondList(npc, section, "close_distance", "0");
-      st.close_snd_hello = parseCondList(npc, section, "close_snd_hello", "nil");
-      st.close_snd_bye = parseCondList(npc, section, "close_snd_bye", "nil");
-      st.close_victim = parseCondList(npc, section, "close_victim", "nil");
+      st.close_distance = parseConditionsList(npc, section, "close_distance", "0");
+      st.close_anim = parseConditionsList(npc, section, "close_anim", "nil");
+      st.close_snd_distance = parseConditionsList(npc, section, "close_distance", "0");
+      st.close_snd_hello = parseConditionsList(npc, section, "close_snd_hello", "nil");
+      st.close_snd_bye = parseConditionsList(npc, section, "close_snd_bye", "nil");
+      st.close_victim = parseConditionsList(npc, section, "close_victim", "nil");
 
-      st.far_distance = parseCondList(npc, section, "far_distance", "0");
-      st.far_anim = parseCondList(npc, section, "far_anim", "nil");
-      st.far_snd_distance = parseCondList(npc, section, "far_distance", "0");
-      st.far_snd = parseCondList(npc, section, "far_snd", "nil");
-      st.far_victim = parseCondList(npc, section, "far_victim", "nil");
+      st.far_distance = parseConditionsList(npc, section, "far_distance", "0");
+      st.far_anim = parseConditionsList(npc, section, "far_anim", "nil");
+      st.far_snd_distance = parseConditionsList(npc, section, "far_distance", "0");
+      st.far_snd = parseConditionsList(npc, section, "far_snd", "nil");
+      st.far_victim = parseConditionsList(npc, section, "far_victim", "nil");
 
-      st.snd_on_use = parseCondList(npc, section, "snd_on_use", "nil");
-      st.use = parseCondList(npc, section, "use", STRINGIFIED_FALSE);
-      st.meet_dialog = parseCondList(npc, section, "meet_dialog", "nil");
-      st.abuse = parseCondList(npc, section, "abuse", STRINGIFIED_FALSE);
-      st.trade_enable = parseCondList(npc, section, "trade_enable", STRINGIFIED_TRUE);
-      st.allow_break = parseCondList(npc, section, "allow_break", STRINGIFIED_TRUE);
-      st.meet_on_talking = parseCondList(npc, section, "meet_on_talking", STRINGIFIED_FALSE);
-      st.use_text = parseCondList(npc, section, "use_text", "nil");
+      st.snd_on_use = parseConditionsList(npc, section, "snd_on_use", "nil");
+      st.use = parseConditionsList(npc, section, "use", STRINGIFIED_FALSE);
+      st.meet_dialog = parseConditionsList(npc, section, "meet_dialog", "nil");
+      st.abuse = parseConditionsList(npc, section, "abuse", STRINGIFIED_FALSE);
+      st.trade_enable = parseConditionsList(npc, section, "trade_enable", STRINGIFIED_TRUE);
+      st.allow_break = parseConditionsList(npc, section, "allow_break", STRINGIFIED_TRUE);
+      st.meet_on_talking = parseConditionsList(npc, section, "meet_on_talking", STRINGIFIED_FALSE);
+      st.use_text = parseConditionsList(npc, section, "use_text", "nil");
 
       st.reset_distance = 30;
       st.meet_only_at_path = true;
     } else {
-      st.close_distance = parseCondList(
+      st.close_distance = parseConditionsList(
         npc,
         section,
         "close_distance",
         getConfigString(ini, section, "close_distance", npc, false, "", def.close_distance)
       );
-      st.close_anim = parseCondList(
+      st.close_anim = parseConditionsList(
         npc,
         section,
         "close_anim",
         getConfigString(ini, section, "close_anim", npc, false, "", def.close_anim)
       );
-      st.close_snd_distance = parseCondList(
+      st.close_snd_distance = parseConditionsList(
         npc,
         section,
         "close_snd_distance",
         getConfigString(ini, section, "close_snd_distance", npc, false, "", def.close_distance)
       );
-      st.close_snd_hello = parseCondList(
+      st.close_snd_hello = parseConditionsList(
         npc,
         section,
         "close_snd_hello",
         getConfigString(ini, section, "close_snd_hello", npc, false, "", def.close_snd_hello)
       );
-      st.close_snd_bye = parseCondList(
+      st.close_snd_bye = parseConditionsList(
         npc,
         section,
         "close_snd_bye",
         getConfigString(ini, section, "close_snd_bye", npc, false, "", def.close_snd_bye)
       );
-      st.close_victim = parseCondList(
+      st.close_victim = parseConditionsList(
         npc,
         section,
         "close_victim",
         getConfigString(ini, section, "close_victim", npc, false, "", def.close_victim)
       );
 
-      st.far_distance = parseCondList(
+      st.far_distance = parseConditionsList(
         npc,
         section,
         "far_distance",
         getConfigString(ini, section, "far_distance", npc, false, "", def.far_distance)
       );
-      st.far_anim = parseCondList(
+      st.far_anim = parseConditionsList(
         npc,
         section,
         "far_anim",
         getConfigString(ini, section, "far_anim", npc, false, "", def.far_anim)
       );
-      st.far_snd_distance = parseCondList(
+      st.far_snd_distance = parseConditionsList(
         npc,
         section,
         "far_snd_distance",
         getConfigString(ini, section, "far_snd_distance", npc, false, "", def.far_snd_distance)
       );
-      st.far_snd = parseCondList(
+      st.far_snd = parseConditionsList(
         npc,
         section,
         "far_snd",
         getConfigString(ini, section, "far_snd", npc, false, "", def.far_snd)
       );
-      st.far_victim = parseCondList(
+      st.far_victim = parseConditionsList(
         npc,
         section,
         "far_victim",
         getConfigString(ini, section, "far_victim", npc, false, "", def.far_victim)
       );
 
-      st.snd_on_use = parseCondList(
+      st.snd_on_use = parseConditionsList(
         npc,
         section,
         "snd_on_use",
         getConfigString(ini, section, "snd_on_use", npc, false, "", def.snd_on_use)
       );
-      st.use = parseCondList(npc, section, "use", getConfigString(ini, section, "use", npc, false, "", def.use));
-      st.meet_dialog = parseCondList(
+      st.use = parseConditionsList(npc, section, "use", getConfigString(ini, section, "use", npc, false, "", def.use));
+      st.meet_dialog = parseConditionsList(
         npc,
         section,
         "meet_dialog",
         getConfigString(ini, section, "meet_dialog", npc, false, "", def.meet_dialog)
       );
-      st.abuse = parseCondList(
+      st.abuse = parseConditionsList(
         npc,
         section,
         "abuse",
         getConfigString(ini, section, "abuse", npc, false, "", def.abuse)
       );
-      st.trade_enable = parseCondList(
+      st.trade_enable = parseConditionsList(
         npc,
         section,
         "trade_enable",
         getConfigString(ini, section, "trade_enable", npc, false, "", def.trade_enable)
       );
-      st.allow_break = parseCondList(
+      st.allow_break = parseConditionsList(
         npc,
         section,
         "allow_break",
         getConfigString(ini, section, "allow_break", npc, false, "", def.allow_break)
       );
-      st.meet_on_talking = parseCondList(
+      st.meet_on_talking = parseConditionsList(
         npc,
         section,
         "meet_on_talking",
         getConfigString(ini, section, "meet_on_talking", npc, false, "", def.meet_on_talking)
       );
-      st.use_text = parseCondList(
+      st.use_text = parseConditionsList(
         npc,
         section,
         "use_text",
@@ -519,7 +520,7 @@ export class SchemeMeet extends AbstractScheme {
         if (this.hello_passed === false) {
           const snd = pickSectionFromCondList(actor, this.object, this.state.close_snd_hello);
 
-          if (tostring(snd) !== STRINGIFIED_NIL && !isNpcInCombat(this.object)) {
+          if (tostring(snd) !== STRINGIFIED_NIL && !isObjectInCombat(this.object)) {
             GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), snd, null, null);
           }
 
@@ -530,7 +531,7 @@ export class SchemeMeet extends AbstractScheme {
           if (this.bye_passed === false) {
             const snd = pickSectionFromCondList(actor, this.object, this.state.close_snd_bye);
 
-            if (tostring(snd) !== STRINGIFIED_NIL && !isNpcInCombat(this.object)) {
+            if (tostring(snd) !== STRINGIFIED_NIL && !isObjectInCombat(this.object)) {
               GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), snd, null, null);
             }
 

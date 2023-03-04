@@ -23,11 +23,11 @@ import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchT
 import { getStoryObject } from "@/mod/scripts/utils/alife";
 import { isHeavilyWounded } from "@/mod/scripts/utils/checkers/checkers";
 import {
-  cfg_get_switch_conditions,
   getConfigBoolean,
   getConfigNumber,
   getConfigString,
   getConfigStringAndCondList,
+  getConfigSwitchConditions,
   pickSectionFromCondList,
 } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -79,7 +79,7 @@ export class SchemeMinigun extends AbstractScheme {
   ): void {
     const state = assignStorageAndBind(object, ini, scheme, section);
 
-    state.logic = cfg_get_switch_conditions(ini, section, object);
+    state.logic = getConfigSwitchConditions(ini, section, object);
     state.path_fire = getConfigString(ini, section, "path_fire", object, false, gulag_name, null);
     state.auto_fire = getConfigBoolean(ini, section, "auto_fire", object, false, false);
     state.fire_time = getConfigNumber(ini, section, "fire_time", object, false, def_min_fire_time);

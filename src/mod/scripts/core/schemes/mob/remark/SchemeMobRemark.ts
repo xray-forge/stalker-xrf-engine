@@ -11,15 +11,15 @@ import { mobCapture } from "@/mod/scripts/core/schemes/mobCapture";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { action } from "@/mod/scripts/utils/alife";
 import {
-  cfg_get_switch_conditions,
   getConfigBoolean,
   getConfigCondList,
   getConfigString,
-  parseNames,
+  getConfigSwitchConditions,
   pickSectionFromCondList,
 } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parseNames } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("SchemeMobRemark");
 
@@ -51,7 +51,7 @@ export class SchemeMobRemark extends AbstractScheme {
 
     const st = assignStorageAndBind(object, ini, scheme, section);
 
-    st.logic = cfg_get_switch_conditions(ini, section, object);
+    st.logic = getConfigSwitchConditions(ini, section, object);
     st.state = getMobState(ini, section, object);
     st.dialog_cond = getConfigCondList(ini, section, "dialog_cond", object);
     st.no_reset = true;

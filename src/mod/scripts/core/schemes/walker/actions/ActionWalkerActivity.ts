@@ -7,8 +7,8 @@ import { associations, IAnimpointDescriptor } from "@/mod/scripts/core/schemes/a
 import { CampStoryManager } from "@/mod/scripts/core/schemes/camper/CampStoryManager";
 import { StalkerMoveManager } from "@/mod/scripts/core/state_management/StalkerMoveManager";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
-import { path_parse_waypoints } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { parsePathWaypoints } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("ActionWalkerActivity");
 
@@ -62,11 +62,11 @@ export class ActionWalkerActivity extends action_base {
 
   public resetScheme(loading: Optional<boolean>, npc: XR_game_object): void {
     if (this.state.path_walk_info === null) {
-      this.state.path_walk_info = path_parse_waypoints(this.state.path_walk);
+      this.state.path_walk_info = parsePathWaypoints(this.state.path_walk);
     }
 
     if (this.state.path_look_info === null) {
-      this.state.path_look_info = path_parse_waypoints(this.state.path_look);
+      this.state.path_look_info = parsePathWaypoints(this.state.path_look);
     }
 
     this.moveManager.reset(

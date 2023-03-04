@@ -7,7 +7,7 @@ import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { PPEffector } from "@/mod/scripts/core/schemes/sr_postprocess/PPEffector";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
-import { cfg_get_switch_conditions, getConfigNumber } from "@/mod/scripts/utils/configs";
+import { getConfigNumber, getConfigSwitchConditions } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -42,7 +42,7 @@ export class SchemePostProcess extends AbstractScheme {
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const state = assignStorageAndBind(object, ini, scheme, section);
 
-    state.logic = cfg_get_switch_conditions(ini, section, object);
+    state.logic = getConfigSwitchConditions(ini, section, object);
     state.intensity = getConfigNumber(ini, section, "intensity", object, true) * 0.01;
     state.intensity_speed = getConfigNumber(ini, section, "intensity_speed", object, true) * 0.01;
     state.hit_intensity = getConfigNumber(ini, section, "hit_intensity", object, true);

@@ -5,8 +5,8 @@ import { names } from "@/mod/globals/names";
 import { AnyObject, Optional } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { IStateDescriptor } from "@/mod/scripts/core/state_management/lib/state_lib";
-import { parseNames } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
+import { parseNames } from "@/mod/scripts/utils/parse";
 
 const weap_table: LuaTable<number, string> = [
   "pri_a15_wpn_svu",
