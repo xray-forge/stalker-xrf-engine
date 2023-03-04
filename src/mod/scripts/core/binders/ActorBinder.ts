@@ -2,7 +2,6 @@ import {
   actor_stats,
   alife,
   callback,
-  command_line,
   device,
   game,
   get_console,
@@ -37,7 +36,7 @@ import { DropManager } from "@/mod/scripts/core/managers/DropManager";
 import { EGameEvent } from "@/mod/scripts/core/managers/events/EGameEvent";
 import { EventsManager } from "@/mod/scripts/core/managers/events/EventsManager";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
-import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
+import { MapDisplayManager } from "@/mod/scripts/core/managers/map/MapDisplayManager";
 import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
 import { PsyAntennaManager } from "@/mod/scripts/core/managers/PsyAntennaManager";
 import { ReleaseBodyManager } from "@/mod/scripts/core/managers/ReleaseBodyManager";
@@ -90,6 +89,7 @@ export class ActorBinder extends object_binder {
   public readonly travelManager: TravelManager = TravelManager.getInstance();
   public readonly newsManager: NotificationManager = NotificationManager.getInstance();
   public readonly globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
+  public readonly mapDisplayManager: MapDisplayManager = MapDisplayManager.getInstance();
 
   public loaded: boolean = false;
   public spawn_frame: number = 0;
@@ -402,14 +402,12 @@ export class ActorBinder extends object_binder {
      */
 
     if (this.bCheckStart) {
-      logger.info("Set default infos");
-
-      if (!hasAlifeInfo("global_dialogs")) {
-        this.object.give_info_portion("global_dialogs");
+      if (!hasAlifeInfo(info_portions.global_dialogs)) {
+        this.object.give_info_portion(info_portions.global_dialogs);
       }
 
-      if (!hasAlifeInfo("level_changer_icons")) {
-        this.object.give_info_portion("level_changer_icons");
+      if (!hasAlifeInfo(info_portions.level_changer_icons)) {
+        this.object.give_info_portion(info_portions.level_changer_icons);
       }
 
       this.bCheckStart = false;
@@ -435,14 +433,12 @@ export class ActorBinder extends object_binder {
 
     get_sim_obj_registry().update_avaliability(alife().actor() as Actor);
 
+    this.treasureManager.update();
+    this.mapDisplayManager.update();
+
     if (!this.loaded) {
-      // get_console().execute("dump_infos")
       this.loaded = true;
     }
-
-    this.treasureManager.update();
-
-    mapDisplayManager.update();
   }
 
   /**

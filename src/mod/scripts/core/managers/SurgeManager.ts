@@ -19,14 +19,14 @@ import { info_portions } from "@/mod/globals/info_portions";
 import { levels, TLevel } from "@/mod/globals/levels";
 import { STRINGIFIED_FALSE, STRINGIFIED_TRUE } from "@/mod/globals/lua";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
-import { AnyCallablesModule, Optional, PartialRecord } from "@/mod/lib/types";
+import { AnyCallablesModule, Optional, PartialRecord, TNumberId } from "@/mod/lib/types";
 import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { registry, SURGE_MANAGER_LTX } from "@/mod/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
 import { get_sim_board, SimBoard } from "@/mod/scripts/core/database/SimBoard";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
-import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
+import { MapDisplayManager } from "@/mod/scripts/core/managers/map/MapDisplayManager";
 import { notificationManagerIcons } from "@/mod/scripts/core/managers/notifications";
 import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
@@ -40,10 +40,10 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { copyTable } from "@/mod/scripts/utils/table";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
 
-export const surge_shock_pp_eff_id: number = 1;
-export const earthquake_cam_eff_id: number = 2;
-export const sleep_cam_eff_id: number = 3;
-export const sleep_fade_pp_eff_id: number = 4;
+export const surge_shock_pp_eff_id: TNumberId = 1;
+export const earthquake_cam_eff_id: TNumberId = 2;
+export const sleep_cam_eff_id: TNumberId = 3;
+export const sleep_fade_pp_eff_id: TNumberId = 4;
 
 const logger: LuaLogger = new LuaLogger("SurgeManager");
 
@@ -51,8 +51,8 @@ const logger: LuaLogger = new LuaLogger("SurgeManager");
  * todo;
  */
 export class SurgeManager extends AbstractCoreManager {
-  private static check_squad_smart_props(squad_id: number): boolean {
-    const squad: Optional<SimSquad> = alife().object(squad_id);
+  private static check_squad_smart_props(squadId: TNumberId): boolean {
+    const squad: Optional<SimSquad> = alife().object(squadId);
 
     if (squad) {
       const board = get_sim_board();
@@ -98,6 +98,9 @@ export class SurgeManager extends AbstractCoreManager {
   public surge_message: string = "";
   public surge_task_sect: string = "";
 
+  /**
+   * todo;
+   */
   public override initialize(): void {
     this.isStarted = false;
     this.isFinished = true;
@@ -146,6 +149,9 @@ export class SurgeManager extends AbstractCoreManager {
     this.loaded = false;
   }
 
+  /**
+   * todo;
+   */
   public initializeSurgeCovers(): void {
     for (const i of $range(0, SURGE_MANAGER_LTX.line_count("list") - 1)) {
       const [temp1, id, temp2] = SURGE_MANAGER_LTX.r_line("list", i, "", "");
@@ -167,6 +173,9 @@ export class SurgeManager extends AbstractCoreManager {
     }
   }
 
+  /**
+   * todo;
+   */
   public getNearestAvailableCover(): Optional<number> {
     logger.info("Getting nearest cover");
 
@@ -508,6 +517,9 @@ export class SurgeManager extends AbstractCoreManager {
     }
   }
 
+  /**
+   * todo;
+   */
   public skipSurge(): void {
     logger.info("Skip surge");
 
@@ -654,10 +666,10 @@ export class SurgeManager extends AbstractCoreManager {
             } else {
               let release = true;
 
-              for (const i of $range(1, this.covers.length())) {
-                const sr = this.covers.get(i);
+              for (const it of $range(1, this.covers.length())) {
+                const cover = this.covers.get(it);
 
-                if (sr && sr.inside(member.object.position)) {
+                if (cover && cover.inside(member.object.position)) {
                   release = false;
                 }
               }
@@ -665,10 +677,10 @@ export class SurgeManager extends AbstractCoreManager {
               if (release) {
                 logger.info("Releasing npc from squad because of surge:", member.object.name(), squad.name());
 
-                const cl_obj = level.object_by_id(member.object.id);
+                const clientObject = level.object_by_id(member.object.id);
 
-                if (cl_obj !== null) {
-                  cl_obj.kill(cl_obj);
+                if (clientObject !== null) {
+                  clientObject.kill(clientObject);
                 } else {
                   member.object.kill();
                 }
@@ -685,7 +697,7 @@ export class SurgeManager extends AbstractCoreManager {
       if (
         !(cover && registry.objects.get(cover) && registry.objects.get(cover).object!.inside(registry.actor.position()))
       ) {
-        if (hasAlifeInfo("anabiotic_in_process")) {
+        if (hasAlifeInfo(info_portions.anabiotic_in_process)) {
           const counter_name = "actor_marked_by_zone_cnt";
           const cnt_value: number = pstor_retrieve(registry.actor, counter_name, 0);
 
@@ -762,7 +774,7 @@ export class SurgeManager extends AbstractCoreManager {
       v.respawnArtefactsAndReplaceAnomalyZones();
     }
 
-    mapDisplayManager.updateAnomaliesZones();
+    MapDisplayManager.getInstance().updateAnomalyZonesDisplay();
   }
 
   /**

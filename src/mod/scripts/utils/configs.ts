@@ -30,16 +30,17 @@ export function getConfigString<D = string>(
   // todo: Remove?
   object: Optional<XR_cse_abstract | XR_game_object | AnyObject>,
   mandatory: boolean,
-  gulagName: unknown,
+  prefix: Optional<string> | false,
   defaultVal?: D
 ): string | D {
-  if (mandatory === null || gulagName === null) {
+  if (mandatory === null || prefix === null) {
     abort("section '%s': wrong arguments order in call to cfg_get_string", section);
   }
 
+  // todo: Resolve prefix.
   if (section && ini.section_exist(section) && ini.line_exist(section, field)) {
-    if (gulagName && gulagName !== "") {
-      return gulagName + "_" + ini.r_string(section, field);
+    if (prefix && prefix !== "") {
+      return prefix + "_" + ini.r_string(section, field);
     } else {
       return ini.r_string(section, field);
     }
@@ -57,7 +58,7 @@ export function getConfigString<D = string>(
  */
 export function getConfigNumber<T = number>(
   ini: XR_ini_file,
-  section: string,
+  section: TSection,
   field: string,
   object: Optional<AnyObject>,
   mandatory: boolean,

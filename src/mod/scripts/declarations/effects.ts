@@ -62,7 +62,7 @@ import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { ItemUpgradesManager } from "@/mod/scripts/core/managers/ItemUpgradesManager";
-import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
+import { MapDisplayManager } from "@/mod/scripts/core/managers/map/MapDisplayManager";
 import { NotificationManager, TNotificationIcon } from "@/mod/scripts/core/managers/notifications";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { TaskManager } from "@/mod/scripts/core/managers/tasks";
@@ -389,7 +389,7 @@ export function jup_b32_place_scanner(actor: XR_game_object, npc: XR_game_object
 }
 
 export function jup_b32_pda_check(actor: XR_game_object, npc: XR_game_object): void {
-  mapDisplayManager.updateAnomaliesZones();
+  MapDisplayManager.getInstance().updateAnomalyZonesDisplay();
 }
 
 export function pri_b306_generator_start(actor: XR_game_object, npc: XR_game_object): void {

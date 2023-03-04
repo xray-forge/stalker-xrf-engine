@@ -7,7 +7,7 @@ import { AnyArgs } from "@/mod/lib/types";
  * todo;
  */
 export function executeConsoleCommand(command: TConsoleCommand, ...args: AnyArgs): void {
-  if (args.length) {
+  if (args.length > 0) {
     get_console().execute(command + " " + args.join(" "));
   } else {
     get_console().execute(command);

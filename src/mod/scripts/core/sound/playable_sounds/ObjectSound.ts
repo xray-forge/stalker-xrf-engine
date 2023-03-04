@@ -66,7 +66,7 @@ export class ObjectSound extends AbstractPlayableSound {
     this.played_id = null;
     this.faction = getConfigString(snd_ini, section, "faction", null, false, "", "");
     this.point = getConfigString(snd_ini, section, "point", null, false, "", "");
-    this.msg = getConfigString(snd_ini, section, "message", null, false, "", "");
+    this.msg = getConfigString<string>(snd_ini, section, "message", null, false, "", "");
 
     const f = getFS();
 

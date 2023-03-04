@@ -2,7 +2,7 @@ import { callback, clsid, XR_game_object } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
-import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
+import { MapDisplayManager } from "@/mod/scripts/core/managers/map/MapDisplayManager";
 import { mobRelease } from "@/mod/scripts/core/schemes/mobRelease";
 import { RestrictorManager } from "@/mod/scripts/core/schemes/RestrictorManager";
 import { resetScheme } from "@/mod/scripts/core/schemes/schemes_resetting";
@@ -47,7 +47,7 @@ export function resetGenericSchemesOnSchemeSwitch(
       resetScheme(EScheme.COMBAT_IGNORE, object, schemeToSwitch, state, section);
       resetScheme(EScheme.HEAR, object, schemeToSwitch, state, section);
 
-      mapDisplayManager.updateNpcSpot(object, schemeToSwitch, state, section);
+      MapDisplayManager.getInstance().updateObjectMapSpot(object, schemeToSwitch, state, section);
       reset_threshold(object, schemeToSwitch, state, section);
       reset_invulnerability(object, state.ini!, section);
       resetObjectGroup(object, state.ini!, section);

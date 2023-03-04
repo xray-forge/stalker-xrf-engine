@@ -42,7 +42,7 @@ import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
 import { DropManager } from "@/mod/scripts/core/managers/DropManager";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { ItemUpgradesManager } from "@/mod/scripts/core/managers/ItemUpgradesManager";
-import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
+import { MapDisplayManager } from "@/mod/scripts/core/managers/map/MapDisplayManager";
 import { ReleaseBodyManager } from "@/mod/scripts/core/managers/ReleaseBodyManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { TradeManager } from "@/mod/scripts/core/managers/TradeManager";
@@ -380,7 +380,7 @@ export class StalkerBinder extends object_binder {
     const npc = this.object;
     const actor = registry.actor;
 
-    mapDisplayManager.removeNpcSpot(npc, st);
+    MapDisplayManager.getInstance().removeObjectMapSpot(npc, st);
 
     // --' }  --
     if (who?.id() === actor.id()) {

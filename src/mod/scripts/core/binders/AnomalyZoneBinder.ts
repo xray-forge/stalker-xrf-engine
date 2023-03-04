@@ -16,7 +16,7 @@ import { MAX_UNSIGNED_8_BIT } from "@/mod/globals/memory";
 import { Optional, TSection } from "@/mod/lib/types";
 import { FIELDS_BY_NAME } from "@/mod/scripts/core/binders/AnomalyFieldBinder";
 import { addAnomaly, deleteAnomaly, registry } from "@/mod/scripts/core/database";
-import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
+import { MapDisplayManager } from "@/mod/scripts/core/managers/map/MapDisplayManager";
 import {
   getConfigNumber,
   getConfigString,
@@ -588,7 +588,7 @@ export class AnomalyZoneBinder extends object_binder {
 
     this.spawnedArtefactsCount = this.spawnedArtefactsCount - 1;
 
-    mapDisplayManager.updateAnomaliesZones();
+    MapDisplayManager.getInstance().updateAnomalyZonesDisplay();
   }
 
   public override net_save_relevant(): boolean {
