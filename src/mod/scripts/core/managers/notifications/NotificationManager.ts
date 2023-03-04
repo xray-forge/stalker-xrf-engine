@@ -7,7 +7,7 @@ import { Maybe, Optional, TCount, TDuration, TLabel, TName, TSection, TStringId,
 import { registry, SYSTEM_INI } from "@/mod/scripts/core/database";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
 import { get_smart_terrain_name } from "@/mod/scripts/core/database/smart_names";
-import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
+import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import {
   notificationManagerIcons,
@@ -115,7 +115,7 @@ export class NotificationManager extends AbstractCoreManager {
       durationOnScreen = NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION;
     }
 
-    GlobalSound.set_sound_play(registry.actor.id(), script_sounds.pda_task, null, null);
+    GlobalSoundManager.setSoundPlay(registry.actor.id(), script_sounds.pda_task, null, null);
 
     const notificationTitle: TLabel = game.translate_string(notificationTaskDescription[type]);
     const notificationDescription: string = game.translate_string(task.get_title());
@@ -174,7 +174,7 @@ export class NotificationManager extends AbstractCoreManager {
       }
     }
 
-    GlobalSound.set_sound_play(actor.id(), script_sounds.pda_task, null, null);
+    GlobalSoundManager.setSoundPlay(actor.id(), script_sounds.pda_task, null, null);
 
     let texture: string = texturesIngame.ui_iconsTotal_grouping;
 

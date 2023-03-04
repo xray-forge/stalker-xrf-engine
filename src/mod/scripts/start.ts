@@ -3,7 +3,7 @@ import { device } from "xray16";
 import { EScheme } from "@/mod/lib/types/scheme";
 import { resetSimBoard } from "@/mod/scripts/core/database/SimBoard";
 import { initSmartNamesTable } from "@/mod/scripts/core/database/smart_names";
-import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
+import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
 import { ActorInventoryMenuManager } from "@/mod/scripts/core/managers/ActorInventoryMenuManager";
 import { TaskManager } from "@/mod/scripts/core/managers/tasks";
 import { initializeModules } from "@/mod/scripts/core/schemes/schemes_registering";
@@ -33,7 +33,7 @@ start = (): void => {
   resetSimBoard();
 
   SoundTheme.loadSound();
-  GlobalSound.reset();
+  GlobalSoundManager.reset();
 
   fillPhrasesTable();
   DynamicMusicManager.getInstance().initialize();

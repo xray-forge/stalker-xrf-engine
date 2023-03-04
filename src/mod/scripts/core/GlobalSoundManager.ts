@@ -1,21 +1,28 @@
 import { XR_net_packet, XR_reader, XR_sound_object } from "xray16";
 
-import { Optional, TName, TNumberId } from "@/mod/lib/types";
+import { Optional, TName, TNumberId, TStringId } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
+import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
 import { LoopedSound } from "@/mod/scripts/core/sound/playable_sounds/LoopedSound";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("GlobalSound");
+const logger: LuaLogger = new LuaLogger("GlobalSoundManager");
 
-export class GlobalSound {
-  public static set_sound_play(
-    objectId: number,
-    sound: Optional<string>,
+/**
+ * todo;
+ */
+export class GlobalSoundManager extends AbstractCoreManager {
+  /**
+   * todo;
+   */
+  public static setSoundPlay(
+    objectId: TNumberId,
+    sound: Optional<TStringId>,
     faction: Optional<string>,
-    point: Optional<number>
+    point: Optional<TNumberId>
   ): Optional<XR_sound_object> {
     logger.info("Set sound play:", objectId, sound, faction, point);
 
@@ -26,17 +33,15 @@ export class GlobalSound {
     const playableSound: Optional<AbstractPlayableSound> = registry.sounds.themes.get(sound);
 
     if (playableSound === null) {
-      abort("set_sound_play. Wrong sound theme [%s], npc[%s]", tostring(sound), objectId);
-    }
-
-    if (playableSound.type === LoopedSound.type) {
+      abort("set_sound_play. Wrong sound theme [%s], npc[%s].", tostring(sound), objectId);
+    } else if (playableSound.type === LoopedSound.type) {
       abort("You trying to play sound [%s] which type is looped:", sound);
     }
 
-    const sound_item: Optional<AbstractPlayableSound> = registry.sounds.generic.get(objectId);
+    const soundItem: Optional<AbstractPlayableSound> = registry.sounds.generic.get(objectId);
 
-    if (sound_item === null || playableSound.play_always) {
-      if (sound_item !== null) {
+    if (soundItem === null || playableSound.play_always) {
+      if (soundItem !== null) {
         registry.sounds.generic.get(objectId).reset(objectId);
       }
 
@@ -53,7 +58,10 @@ export class GlobalSound {
     return registry.sounds.generic.get(objectId)?.snd_obj;
   }
 
-  public static stop_sounds_by_id(objectId: number): void {
+  /**
+   * todo;
+   */
+  public static stopSoundsById(objectId: TNumberId): void {
     logger.info("Stop sound play:", objectId);
 
     const playableSound: Optional<AbstractPlayableSound> = registry.sounds.generic.get(objectId);
@@ -73,27 +81,31 @@ export class GlobalSound {
     }
   }
 
-  public static update(npc_id: number): void {
-    const playableSound: Optional<AbstractPlayableSound> = registry.sounds.generic.get(npc_id);
+  /**
+   * todo;
+   */
+  public static updateForId(objectId: TNumberId): void {
+    const playableSound: Optional<AbstractPlayableSound> = registry.sounds.generic.get(objectId);
 
     if (playableSound !== null) {
-      if (!playableSound.is_playing(npc_id)) {
-        playableSound.callback(npc_id);
-        registry.sounds.generic.delete(npc_id);
+      if (!playableSound.is_playing(objectId)) {
+        playableSound.callback(objectId);
+        registry.sounds.generic.delete(objectId);
       }
     }
   }
 
-  public static play_sound_looped(objectId: TNumberId, sound: TName): void {
+  /**
+   * todo;
+   */
+  public static playLoopedSound(objectId: TNumberId, sound: TName): void {
     logger.info();
 
     const snd_theme: Optional<AbstractPlayableSound> = registry.sounds.themes.get(sound);
 
     if (snd_theme === null) {
       abort("play_sound_looped. Wrong sound theme [%s], npc[%s]", tostring(sound), objectId);
-    }
-
-    if (snd_theme.type !== "looped") {
+    } else if (snd_theme.type !== "looped") {
       abort("You trying to play sound [%s] which type is not looped", sound);
     }
 

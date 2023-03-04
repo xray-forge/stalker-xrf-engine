@@ -3,7 +3,7 @@ import { object_binder, XR_cse_alife_object, XR_game_object, XR_net_packet, XR_r
 import { Optional } from "@/mod/lib/types";
 import { ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { addZone, deleteZone, IStoredObject, registry } from "@/mod/scripts/core/database";
-import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
+import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
 import { initializeGameObject } from "@/mod/scripts/core/schemes/initializeGameObject";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
 import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
@@ -49,7 +49,7 @@ export class RestrictorBinder extends object_binder {
 
     if (registry.sounds.looped.get(objectId) !== null) {
       for (const [k, v] of registry.sounds.looped.get(objectId)) {
-        GlobalSound.play_sound_looped(objectId, k);
+        GlobalSoundManager.playLoopedSound(objectId, k);
       }
     }
 
@@ -59,7 +59,7 @@ export class RestrictorBinder extends object_binder {
   public override net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
 
-    GlobalSound.stop_sounds_by_id(this.object.id());
+    GlobalSoundManager.stopSoundsById(this.object.id());
 
     const state: IStoredObject = this.state;
 
@@ -95,7 +95,7 @@ export class RestrictorBinder extends object_binder {
       issueEvent(this.object, this.state[this.state.active_scheme as string], "update", delta);
     }
 
-    GlobalSound.update(objectId);
+    GlobalSoundManager.updateForId(objectId);
   }
 
   public override net_save_relevant(): boolean {

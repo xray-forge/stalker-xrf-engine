@@ -3,7 +3,7 @@ import { XR_game_object, XR_ini_file, XR_physics_joint, XR_physics_shell, XR_vec
 import { Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
-import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
+import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
@@ -202,14 +202,14 @@ export class SchemePhysicalDoor extends AbstractScheme {
     this.block = false;
 
     if (!this.soundless_block && this.state.snd_close_stop) {
-      GlobalSound.set_sound_play(this.object.id(), this.state.snd_close_stop, null, null);
+      GlobalSoundManager.setSoundPlay(this.object.id(), this.state.snd_close_stop, null, null);
     }
   }
 
   public open_door(disable_snd?: boolean): void {
     if (!disable_snd) {
       if (this.state.snd_open_start) {
-        GlobalSound.set_sound_play(this.object.id(), this.state.snd_open_start, null, null);
+        GlobalSoundManager.setSoundPlay(this.object.id(), this.state.snd_open_start, null, null);
       }
     }
 
@@ -257,7 +257,7 @@ export class SchemePhysicalDoor extends AbstractScheme {
   public close_door(disable_snd: boolean): void {
     if (!disable_snd) {
       if (this.state.snd_close_start) {
-        GlobalSound.set_sound_play(this.object.id(), this.state.snd_close_start, null, null);
+        GlobalSoundManager.setSoundPlay(this.object.id(), this.state.snd_close_start, null, null);
       }
     }
 
@@ -308,7 +308,7 @@ export class SchemePhysicalDoor extends AbstractScheme {
   public use_callback(target: XR_game_object, who: Optional<XR_game_object>): void {
     if (this.state.locked) {
       if (this.state.snd_open_start) {
-        GlobalSound.set_sound_play(this.object.id(), this.state.snd_open_start, null, null);
+        GlobalSoundManager.setSoundPlay(this.object.id(), this.state.snd_open_start, null, null);
       }
     }
 

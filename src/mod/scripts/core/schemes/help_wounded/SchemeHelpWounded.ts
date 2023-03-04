@@ -4,7 +4,7 @@ import { script_sounds } from "@/mod/globals/sound/script_sounds";
 import { Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
-import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
+import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme, action_ids, evaluators_id } from "@/mod/scripts/core/schemes/base";
 import { ActionHelpWounded } from "@/mod/scripts/core/schemes/help_wounded/actions";
@@ -106,6 +106,6 @@ export class SchemeHelpWounded extends AbstractScheme {
 
     registry.objects.get(selected_id).wounded_already_selected = -1;
 
-    GlobalSound.set_sound_play(object.id(), script_sounds.wounded_medkit, null, null);
+    GlobalSoundManager.setSoundPlay(object.id(), script_sounds.wounded_medkit, null, null);
   }
 }

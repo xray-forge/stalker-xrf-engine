@@ -12,7 +12,7 @@ import {
 import { STRINGIFIED_FALSE, STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/mod/globals/lua";
 import { AnyObject, EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
-import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
+import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
 import { SchemeAbuse } from "@/mod/scripts/core/schemes/abuse/SchemeAbuse";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
@@ -405,7 +405,7 @@ export class SchemeMeet extends AbstractScheme {
     const snd = pickSectionFromCondList(actor, victim, st.snd_on_use);
 
     if (tostring(snd) !== STRINGIFIED_NIL) {
-      GlobalSound.set_sound_play(victim.id(), snd, null, null);
+      GlobalSoundManager.setSoundPlay(victim.id(), snd, null, null);
     }
 
     const meet_manager = st.meet_manager;
@@ -461,7 +461,7 @@ export class SchemeMeet extends AbstractScheme {
     const snd = pickSectionFromCondList(actor, this.object, this.state.far_snd);
 
     if (tostring(snd) !== STRINGIFIED_NIL) {
-      GlobalSound.set_sound_play(this.object.id(), snd, null, null);
+      GlobalSoundManager.setSoundPlay(this.object.id(), snd, null, null);
     }
   }
 
@@ -520,7 +520,7 @@ export class SchemeMeet extends AbstractScheme {
           const snd = pickSectionFromCondList(actor, this.object, this.state.close_snd_hello);
 
           if (tostring(snd) !== STRINGIFIED_NIL && !isNpcInCombat(this.object)) {
-            GlobalSound.set_sound_play(this.object.id(), snd, null, null);
+            GlobalSoundManager.setSoundPlay(this.object.id(), snd, null, null);
           }
 
           this.hello_passed = true;
@@ -531,7 +531,7 @@ export class SchemeMeet extends AbstractScheme {
             const snd = pickSectionFromCondList(actor, this.object, this.state.close_snd_bye);
 
             if (tostring(snd) !== STRINGIFIED_NIL && !isNpcInCombat(this.object)) {
-              GlobalSound.set_sound_play(this.object.id(), snd, null, null);
+              GlobalSoundManager.setSoundPlay(this.object.id(), snd, null, null);
             }
 
             this.bye_passed = true;

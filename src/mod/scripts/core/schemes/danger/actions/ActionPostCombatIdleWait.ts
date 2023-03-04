@@ -1,7 +1,7 @@
 import { action_base, anim, look, move, object, XR_game_object } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
+import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
 import { IPostCombatSharedState } from "@/mod/scripts/core/schemes/danger/PostCombatIdle";
 import { AnimationManager } from "@/mod/scripts/core/state_management/AnimationManager";
 import { animations } from "@/mod/scripts/core/state_management/lib/state_mgr_animation_list";
@@ -53,11 +53,11 @@ export class ActionPostCombatIdleWait extends action_base {
       }
     }
 
-    GlobalSound.set_sound_play(this.object.id(), "post_combat_wait", null, null);
+    GlobalSoundManager.setSoundPlay(this.object.id(), "post_combat_wait", null, null);
   }
 
   public override finalize(): void {
-    GlobalSound.set_sound_play(this.object.id(), "post_combat_relax", null, null);
+    GlobalSoundManager.setSoundPlay(this.object.id(), "post_combat_relax", null, null);
 
     if (this.anim_started === true) {
       this.state.animation.set_state(null, true);

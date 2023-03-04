@@ -39,7 +39,7 @@ import {
   resetObject,
 } from "@/mod/scripts/core/database";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
-import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
+import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
 import { DropManager } from "@/mod/scripts/core/managers/DropManager";
 import { ItemUpgradesManager } from "@/mod/scripts/core/managers/ItemUpgradesManager";
 import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
@@ -222,7 +222,7 @@ export class StalkerBinder extends object_binder {
     DynamicMusicManager.NPC_TABLE.delete(this.object.id());
 
     registry.actorCombat.delete(this.object.id());
-    GlobalSound.stop_sounds_by_id(this.object.id());
+    GlobalSoundManager.stopSoundsById(this.object.id());
 
     const st: IStoredObject = registry.objects.get(this.object.id());
 
@@ -455,7 +455,7 @@ export class StalkerBinder extends object_binder {
     }
 
     if (object_alive) {
-      GlobalSound.update(object.id());
+      GlobalSoundManager.updateForId(object.id());
       SchemeMeet.process_npc_usability(object);
       updateInvulnerability(this.object);
     }
@@ -521,7 +521,7 @@ export class StalkerBinder extends object_binder {
     super.save(packet);
     save_obj(this.object, packet);
     TradeManager.getInstance().saveObjectState(this.object, packet);
-    GlobalSound.save_npc(packet, this.object.id());
+    GlobalSoundManager.save_npc(packet, this.object.id());
     saveNpcDialogs(packet, this.object.id());
 
     setSaveMarker(packet, true, StalkerBinder.__name);
@@ -535,7 +535,7 @@ export class StalkerBinder extends object_binder {
     super.load(reader);
     load_obj(this.object, reader);
     TradeManager.getInstance().loadObjectState(this.object, reader);
-    GlobalSound.load_npc(reader, this.object.id());
+    GlobalSoundManager.load_npc(reader, this.object.id());
     loadNpcDialogs(reader, this.object.id());
 
     setLoadMarker(reader, true, StalkerBinder.__name);

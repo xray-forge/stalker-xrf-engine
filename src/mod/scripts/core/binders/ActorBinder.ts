@@ -33,7 +33,7 @@ import { addActor, deleteActor } from "@/mod/scripts/core/database/actor";
 import { pstor_load_all, pstor_save_all } from "@/mod/scripts/core/database/pstor";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
 import { get_sim_obj_registry } from "@/mod/scripts/core/database/SimObjectsRegistry";
-import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
+import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
 import { DropManager } from "@/mod/scripts/core/managers/DropManager";
 import { EGameEvent } from "@/mod/scripts/core/managers/events/EGameEvent";
 import { EventsManager } from "@/mod/scripts/core/managers/events/EventsManager";
@@ -156,13 +156,13 @@ export class ActorBinder extends object_binder {
   public override net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
 
-    GlobalSound.stop_sounds_by_id(this.object.id());
+    GlobalSoundManager.stopSoundsById(this.object.id());
 
     const board_factions = get_sim_board().players;
 
     if (board_factions !== null) {
       for (const [k, v] of board_factions) {
-        GlobalSound.stop_sounds_by_id(v.id);
+        GlobalSoundManager.stopSoundsById(v.id);
       }
     }
 
@@ -308,7 +308,7 @@ export class ActorBinder extends object_binder {
     this.check_detective_achievement();
     this.check_mutant_hunter_achievement();
 
-    GlobalSound.update(this.object.id());
+    GlobalSoundManager.updateForId(this.object.id());
 
     if (
       this.st.disable_input_time !== null &&
@@ -432,7 +432,7 @@ export class ActorBinder extends object_binder {
     PsyAntennaManager.save(packet);
     packet.w_bool(get_sim_board().simulation_started);
 
-    GlobalSound.actor_save(packet);
+    GlobalSoundManager.actor_save(packet);
     packet.w_stringZ(tostring(this.last_level_name));
     StatisticsManager.getInstance().save(packet);
     this.treasureManager.save(packet);
@@ -505,7 +505,7 @@ export class ActorBinder extends object_binder {
     PsyAntennaManager.load(reader);
     get_sim_board().simulation_started = reader.r_bool();
 
-    GlobalSound.actor_load(reader);
+    GlobalSoundManager.actor_load(reader);
 
     const n = reader.r_stringZ();
 

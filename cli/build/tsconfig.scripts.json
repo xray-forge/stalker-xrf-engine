@@ -11,6 +11,9 @@
     "../../src/mod/scripts",
     "../../src/mod/globals"
   ],
+  "exclude": [
+    "../../**/*.test.ts"
+  ],
   "tstl": {
     "buildMode": "default",
     "extension": ".script",

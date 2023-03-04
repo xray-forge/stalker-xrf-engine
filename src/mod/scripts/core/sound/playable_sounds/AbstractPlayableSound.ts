@@ -2,10 +2,11 @@ import { XR_ini_file, XR_net_packet, XR_reader, XR_sound_object } from "xray16";
 
 import { AnyArgs, Optional } from "@/mod/lib/types";
 import { TSection } from "@/mod/lib/types/scheme";
+import { EPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/EPlayableSound";
 import { getConfigString } from "@/mod/scripts/utils/configs";
 
 export abstract class AbstractPlayableSound {
-  public abstract readonly type: string;
+  public abstract readonly type: EPlayableSound;
 
   public path: string;
   public section: TSection;

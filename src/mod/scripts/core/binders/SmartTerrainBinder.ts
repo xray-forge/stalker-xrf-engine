@@ -2,7 +2,7 @@ import { alife, object_binder, XR_cse_alife_object, XR_game_object } from "xray1
 
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { addSmartTerrain, deleteSmartTerrain } from "@/mod/scripts/core/database";
-import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
+import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("SmartTerrainBinder");
@@ -31,7 +31,7 @@ export class SmartTerrainBinder extends object_binder {
   }
 
   public override net_destroy(): void {
-    GlobalSound.stop_sounds_by_id(this.object.id());
+    GlobalSoundManager.stopSoundsById(this.object.id());
 
     deleteSmartTerrain(this.object, this.se_smart_terrain);
 

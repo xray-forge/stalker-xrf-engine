@@ -3,7 +3,7 @@ import { action_base, game_object, level, vector, XR_vector } from "xray16";
 import { Optional } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { get_sim_board, SimBoard } from "@/mod/scripts/core/database/SimBoard";
-import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
+import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { vectorCmp } from "@/mod/scripts/utils/physics";
@@ -94,7 +94,7 @@ export class ActionBaseCover extends action_base {
     }
 
     if (this.state.sound_idle !== null) {
-      GlobalSound.set_sound_play(this.object.id(), this.state.sound_idle, null, null);
+      GlobalSoundManager.setSoundPlay(this.object.id(), this.state.sound_idle, null, null);
     }
 
     super.execute();

@@ -18,7 +18,7 @@ import {
 
 import { ESchemeType, Optional, TSection } from "@/mod/lib/types";
 import { addHelicopter, deleteHelicopter, IStoredObject, registry, resetObject } from "@/mod/scripts/core/database";
-import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
+import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
 import { get_heli_health } from "@/mod/scripts/core/schemes/heli_move/heli_utils";
 import { HeliCombat } from "@/mod/scripts/core/schemes/heli_move/HeliCombat";
 import { get_heli_firer, HeliFire } from "@/mod/scripts/core/schemes/heli_move/HeliFire";
@@ -114,7 +114,7 @@ export class HeliBinder extends object_binder {
 
     this.check_health();
 
-    GlobalSound.update(this.object.id());
+    GlobalSoundManager.updateForId(this.object.id());
   }
 
   public override net_spawn(object: XR_cse_alife_object): boolean {

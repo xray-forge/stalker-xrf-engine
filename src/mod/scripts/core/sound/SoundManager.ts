@@ -3,7 +3,7 @@ import { alife, time_global, XR_cse_alife_creature_abstract } from "xray16";
 import { Optional } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
-import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
+import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
 import { SoundStory } from "@/mod/scripts/core/sound/SoundStory";
 import { getObjectSquad } from "@/mod/scripts/utils/alife";
 
@@ -133,7 +133,7 @@ export class SoundManager {
 
       for (const [k, v] of this.npc) {
         if (v.npc_id !== this.storyteller) {
-          GlobalSound.set_sound_play(v.npc_id, next_phrase.theme, null, null);
+          GlobalSoundManager.setSoundPlay(v.npc_id, next_phrase.theme, null, null);
           npc_id = v.npc_id;
         }
       }
@@ -177,14 +177,14 @@ export class SoundManager {
             if (next_phrase.who !== "teller") {
               const enemy_faction = task.counter_attack_community;
 
-              GlobalSound.set_sound_play(npc.id, next_phrase.theme, enemy_faction, null);
+              GlobalSoundManager.setSoundPlay(npc.id, next_phrase.theme, enemy_faction, null);
               this.phrase_timeout = null;
               this.phrase_idle = next_phrase.timeout * 1000;
 
               return;
             }
 
-            GlobalSound.set_sound_play(npc.id, next_phrase.theme, our_squad.player_id, our_smart);
+            GlobalSoundManager.setSoundPlay(npc.id, next_phrase.theme, our_squad.player_id, our_smart);
             this.phrase_timeout = null;
             this.phrase_idle = next_phrase.timeout * 1000;
 
@@ -193,7 +193,7 @@ export class SoundManager {
         }
       }
 
-      GlobalSound.set_sound_play(npc_id, next_phrase.theme, null, null);
+      GlobalSoundManager.setSoundPlay(npc_id, next_phrase.theme, null, null);
     }
 
     this.phrase_timeout = null;

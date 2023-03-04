@@ -30,7 +30,7 @@ const logger: LuaLogger = new LuaLogger("ActorSound");
 export class ActorSound extends AbstractPlayableSound {
   public static readonly type: EPlayableSound = EPlayableSound.ACTOR;
 
-  public type: string = ActorSound.type;
+  public type: EPlayableSound = ActorSound.type;
 
   public stereo: boolean;
   public prefix: boolean;

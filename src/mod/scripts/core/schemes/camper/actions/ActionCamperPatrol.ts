@@ -11,7 +11,7 @@ import {
 
 import { Optional } from "@/mod/lib/types";
 import { IStoredObject } from "@/mod/scripts/core/database";
-import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
+import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
 import { SchemeDanger } from "@/mod/scripts/core/schemes/danger/SchemeDanger";
 import { StalkerMoveManager } from "@/mod/scripts/core/state_management/StalkerMoveManager";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
@@ -213,7 +213,7 @@ export class ActionCamperPatrol extends action_base {
           }
         }
 
-        GlobalSound.set_sound_play(this.object.id(), this.state.attack_sound, null, null);
+        GlobalSoundManager.setSoundPlay(this.object.id(), this.state.attack_sound, null, null);
       } else {
         const memory_position = this.object.memory_position(this.enemy);
 

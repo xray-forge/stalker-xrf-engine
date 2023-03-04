@@ -16,7 +16,7 @@ import {
 import { sounds } from "@/mod/globals/sound/sounds";
 import { AnyObject, EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
-import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
+import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { mobCapture } from "@/mod/scripts/core/schemes/mobCapture";
@@ -153,7 +153,7 @@ export class SchemeMonster extends AbstractScheme {
         this.current = new vector().set(target_pos);
       }
 
-      this.snd_obj = GlobalSound.set_sound_play(this.object.id(), this.state.snd_obj, null, null);
+      this.snd_obj = GlobalSoundManager.setSoundPlay(this.object.id(), this.state.snd_obj, null, null);
       if (this.snd_obj && this.snd_obj.playing()) {
         this.snd_obj.set_position(this.current);
       }

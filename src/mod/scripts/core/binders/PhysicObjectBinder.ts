@@ -15,7 +15,7 @@ import {
 import { ESchemeType, Optional } from "@/mod/lib/types";
 import { PhysicObjectItemBox } from "@/mod/scripts/core/binders/PhysicObjectItemBox";
 import { addObject, deleteObject, IStoredObject, registry, resetObject } from "@/mod/scripts/core/database";
-import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
+import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
 import { initializeGameObject } from "@/mod/scripts/core/schemes/initializeGameObject";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
 import { SchemePhysicalOnHit } from "@/mod/scripts/core/schemes/ph_on_hit/SchemePhysicalOnHit";
@@ -57,7 +57,7 @@ export class PhysicObjectBinder extends object_binder {
       level.map_remove_object_spot(this.object.id(), "ui_pda2_actor_box_location");
     }
 
-    GlobalSound.stop_sounds_by_id(this.object.id());
+    GlobalSoundManager.stopSoundsById(this.object.id());
 
     const st = registry.objects.get(this.object.id());
 
@@ -213,6 +213,6 @@ export class PhysicObjectBinder extends object_binder {
       this.object.set_callback(callback.use_object, this.use_callback, this);
     }
 
-    GlobalSound.update(this.object.id());
+    GlobalSoundManager.updateForId(this.object.id());
   }
 }

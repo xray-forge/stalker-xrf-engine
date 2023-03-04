@@ -2,7 +2,7 @@ import { device, level, time_global, XR_game_object, XR_ini_file, XR_vector } fr
 
 import { AnyObject, EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
-import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
+import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
@@ -132,12 +132,12 @@ export class SchemeDeimos extends AbstractScheme {
 
       if (this.state.intensity > this.state.disable_bound) {
         level.add_pp_effector(this.state.pp_effector + ".ppe", pp_effector_id, true);
-        GlobalSound.play_sound_looped(actorId, this.state.noise_sound);
+        GlobalSoundManager.playLoopedSound(actorId, this.state.noise_sound);
         this.phase = 1;
       }
 
       if (this.state.intensity > this.state.switch_lower_bound) {
-        GlobalSound.play_sound_looped(actorId, this.state.heartbeet_sound);
+        GlobalSoundManager.playLoopedSound(actorId, this.state.heartbeet_sound);
         this.phase = 2;
       }
     }
@@ -160,10 +160,10 @@ export class SchemeDeimos extends AbstractScheme {
 
     if (this.phase > 0) {
       level.set_pp_effector_factor(pp_effector_id, pp_intensity);
-      GlobalSound.set_volume_sound_looped(actorId, this.state.noise_sound, noise_intensity);
+      GlobalSoundManager.set_volume_sound_looped(actorId, this.state.noise_sound, noise_intensity);
 
       if (this.phase > 1) {
-        GlobalSound.set_volume_sound_looped(actorId, this.state.heartbeet_sound, heartbeet_intensity);
+        GlobalSoundManager.set_volume_sound_looped(actorId, this.state.heartbeet_sound, heartbeet_intensity);
       }
     }
 
@@ -179,29 +179,29 @@ export class SchemeDeimos extends AbstractScheme {
         }
       } else if (this.state.intensity > this.state.switch_lower_bound) {
         if (this.phase < 2) {
-          GlobalSound.play_sound_looped(actor.id(), this.state.heartbeet_sound);
-          GlobalSound.set_volume_sound_looped(actor.id(), this.state.heartbeet_sound, heartbeet_intensity);
+          GlobalSoundManager.playLoopedSound(actor.id(), this.state.heartbeet_sound);
+          GlobalSoundManager.set_volume_sound_looped(actor.id(), this.state.heartbeet_sound, heartbeet_intensity);
           this.phase = 2;
         }
       } else if (this.state.intensity > this.state.disable_bound) {
         if (this.phase < 1) {
           level.add_pp_effector(this.state.pp_effector + ".ppe", pp_effector_id, true);
           level.set_pp_effector_factor(pp_effector_id, pp_intensity);
-          GlobalSound.play_sound_looped(actor.id(), this.state.noise_sound);
-          GlobalSound.set_volume_sound_looped(actor.id(), this.state.noise_sound, noise_intensity);
+          GlobalSoundManager.playLoopedSound(actor.id(), this.state.noise_sound);
+          GlobalSoundManager.set_volume_sound_looped(actor.id(), this.state.noise_sound, noise_intensity);
           this.phase = 1;
         }
       }
     } else {
       if (this.state.intensity < this.state.disable_bound) {
         if (this.phase > 0) {
-          GlobalSound.stop_sound_looped(actor.id(), this.state.noise_sound);
+          GlobalSoundManager.stop_sound_looped(actor.id(), this.state.noise_sound);
           level.remove_pp_effector(pp_effector_id);
           this.phase = 0;
         }
       } else if (this.state.intensity < this.state.switch_lower_bound) {
         if (this.phase > 1) {
-          GlobalSound.stop_sound_looped(actor.id(), this.state.heartbeet_sound);
+          GlobalSoundManager.stop_sound_looped(actor.id(), this.state.heartbeet_sound);
           this.phase = 1;
         }
       } else if (this.state.intensity < this.state.switch_upper_bound) {
@@ -212,10 +212,10 @@ export class SchemeDeimos extends AbstractScheme {
 
     if (trySwitchToAnotherSection(this.object, this.state, actor)) {
       if (this.phase > 0) {
-        GlobalSound.stop_sound_looped(actor.id(), this.state.noise_sound);
+        GlobalSoundManager.stop_sound_looped(actor.id(), this.state.noise_sound);
         level.remove_pp_effector(pp_effector_id);
         if (this.phase > 1) {
-          GlobalSound.stop_sound_looped(actor.id(), this.state.heartbeet_sound);
+          GlobalSoundManager.stop_sound_looped(actor.id(), this.state.heartbeet_sound);
           level.remove_cam_effector(cam_effector_id);
           level.remove_pp_effector(pp_effector2_id);
         }

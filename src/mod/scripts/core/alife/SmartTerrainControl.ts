@@ -5,7 +5,7 @@ import { Optional, TName, TSection } from "@/mod/lib/types";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { registry } from "@/mod/scripts/core/database";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
-import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
+import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
 import { isWeapon } from "@/mod/scripts/utils/checkers/is";
 import { getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
@@ -68,7 +68,7 @@ export class SmartTerrainControl {
       const sound = pickSectionFromCondList(registry.actor, this.smart, this.alarm_stop_sound as any);
 
       if (sound !== null) {
-        GlobalSound.set_sound_play(registry.actor.id(), sound, null, null);
+        GlobalSoundManager.setSoundPlay(registry.actor.id(), sound, null, null);
       }
 
       for (const [squad_id, squad] of get_sim_board().smarts.get(this.smart.id).squads) {
@@ -114,7 +114,7 @@ export class SmartTerrainControl {
       const sound = pickSectionFromCondList(registry.actor, this.smart, this.alarm_start_sound as any);
 
       if (sound !== null) {
-        GlobalSound.set_sound_play(registry.actor.id(), sound, null, null);
+        GlobalSoundManager.setSoundPlay(registry.actor.id(), sound, null, null);
       }
 
       for (const [squad_id, squad] of get_sim_board().smarts.get(this.smart.id).squads) {

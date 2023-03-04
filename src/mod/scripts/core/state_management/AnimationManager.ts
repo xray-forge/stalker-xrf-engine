@@ -2,7 +2,7 @@ import { callback, hit, time_global, vector, XR_game_object } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { AnyCallable, Optional } from "@/mod/lib/types";
-import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
+import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
 import { IAnimationDescriptor } from "@/mod/scripts/core/state_management/lib/state_mgr_animation_list";
 import { IAnimationStateDescriptor } from "@/mod/scripts/core/state_management/lib/state_mgr_animstate_list";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
@@ -457,7 +457,7 @@ export class AnimationManager {
 
     // Play sound.
     if (action_table.get("s") !== null) {
-      GlobalSound.set_sound_play(this.npc.id(), action_table.get("s"), null, null);
+      GlobalSoundManager.setSoundPlay(this.npc.id(), action_table.get("s"), null, null);
     }
 
     // Hit actor.

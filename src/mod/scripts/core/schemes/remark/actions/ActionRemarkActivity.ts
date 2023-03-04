@@ -3,7 +3,7 @@ import { action_base, level, patrol, XR_game_object, XR_sound_object, XR_vector 
 import { Optional } from "@/mod/lib/types";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
-import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
+import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -130,7 +130,7 @@ export class ActionRemarkActivity extends action_base {
     } else if (this.state === state_sound) {
       if (this.snd_scheduled === true) {
         this.snd_started = true;
-        GlobalSound.set_sound_play(this.object.id(), this.st.snd, null, null);
+        GlobalSoundManager.setSoundPlay(this.object.id(), this.st.snd, null, null);
       }
 
       // --' ������ ������ ������ anim_end

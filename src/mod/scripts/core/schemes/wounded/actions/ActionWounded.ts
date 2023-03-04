@@ -3,7 +3,7 @@ import { action_base, alife, hit, time_global, XR_alife_simulator } from "xray16
 import { STRINGIFIED_NIL } from "@/mod/globals/lua";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
-import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
+import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -88,9 +88,9 @@ export class ActionWounded extends action_base {
     }
 
     if (wound_manager_sound === STRINGIFIED_NIL) {
-      GlobalSound.set_sound_play(this.object.id(), null, null, null);
+      GlobalSoundManager.setSoundPlay(this.object.id(), null, null, null);
     } else {
-      GlobalSound.set_sound_play(this.object.id(), wound_manager_sound, null, null);
+      GlobalSoundManager.setSoundPlay(this.object.id(), wound_manager_sound, null, null);
     }
   }
 

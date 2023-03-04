@@ -26,7 +26,7 @@ import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { setup_gulag_and_logic_on_spawn, SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { addObject, deleteObject, IStoredObject, registry, resetObject } from "@/mod/scripts/core/database";
 import { get_sim_obj_registry } from "@/mod/scripts/core/database/SimObjectsRegistry";
-import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
+import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { ActionSchemeHear } from "@/mod/scripts/core/schemes/hear/ActionSchemeHear";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
@@ -244,7 +244,7 @@ export class MonsterBinder extends object_binder {
     this.object.set_callback(callback.hit, null);
     this.object.set_callback(callback.sound, null);
 
-    GlobalSound.stop_sounds_by_id(this.object.id());
+    GlobalSoundManager.stopSoundsById(this.object.id());
     registry.actorCombat.delete(this.object.id());
 
     const st = registry.objects.get(this.object.id());

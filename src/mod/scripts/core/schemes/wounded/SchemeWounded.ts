@@ -14,7 +14,7 @@ import { AnyObject, Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
-import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
+import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme, action_ids, evaluators_id } from "@/mod/scripts/core/schemes/base";
 import { ActionWounded } from "@/mod/scripts/core/schemes/wounded/actions";
@@ -310,7 +310,7 @@ export class SchemeWounded extends AbstractScheme {
       const begin_wounded: Optional<number> = pstor_retrieve(this.object, "begin_wounded");
 
       if (begin_wounded !== null && current_time - begin_wounded <= 60000) {
-        GlobalSound.set_sound_play(this.object.id(), "help_thanks", null, null);
+        GlobalSoundManager.setSoundPlay(this.object.id(), "help_thanks", null, null);
       }
 
       pstor_store(this.object, "begin_wounded", null);

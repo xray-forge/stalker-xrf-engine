@@ -3,7 +3,7 @@ import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_
 import { Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
-import { GlobalSound } from "@/mod/scripts/core/GlobalSound";
+import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { action_ids } from "@/mod/scripts/core/schemes/base/actions_id";
@@ -119,9 +119,9 @@ export class SchemeCorpseDetection extends AbstractScheme {
     }, corpse_npc);
 
     if (math.random(100) > 20) {
-      GlobalSound.set_sound_play(object.id(), "corpse_loot_begin", null, null);
+      GlobalSoundManager.setSoundPlay(object.id(), "corpse_loot_begin", null, null);
     } else {
-      GlobalSound.set_sound_play(object.id(), "corpse_loot_bad", null, null);
+      GlobalSoundManager.setSoundPlay(object.id(), "corpse_loot_bad", null, null);
     }
   }
 }
