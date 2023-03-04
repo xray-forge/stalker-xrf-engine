@@ -7,8 +7,8 @@ import { Maybe, Optional, TCount, TDuration, TLabel, TName, TSection, TStringId,
 import { registry, SYSTEM_INI } from "@/mod/scripts/core/database";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
 import { get_smart_terrain_name } from "@/mod/scripts/core/database/smart_names";
-import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
+import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import {
   notificationManagerIcons,
   TNotificationIcon,
@@ -115,7 +115,7 @@ export class NotificationManager extends AbstractCoreManager {
       durationOnScreen = NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION;
     }
 
-    GlobalSoundManager.setSoundPlay(registry.actor.id(), script_sounds.pda_task, null, null);
+    this.playPdaNotificationSound();
 
     const notificationTitle: TLabel = game.translate_string(notificationTaskDescription[type]);
     const notificationDescription: string = game.translate_string(task.get_title());
@@ -134,7 +134,14 @@ export class NotificationManager extends AbstractCoreManager {
 
   /**
    * todo;
+   *
+   * @param actor
+   * @param caption
    * @param timeout - duration of notification display, in seconds.
+   * @param sender
+   * @param showtime
+   * @param senderId
+   * @returns -
    */
   public sendTipNotification(
     actor: XR_game_object,
@@ -174,7 +181,7 @@ export class NotificationManager extends AbstractCoreManager {
       }
     }
 
-    GlobalSoundManager.setSoundPlay(actor.id(), script_sounds.pda_task, null, null);
+    this.playPdaNotificationSound();
 
     let texture: string = texturesIngame.ui_iconsTotal_grouping;
 
@@ -330,5 +337,12 @@ export class NotificationManager extends AbstractCoreManager {
    */
   protected getItemInventoryName(section: TSection): TName {
     return SYSTEM_INI.r_string(section, "inv_name");
+  }
+
+  /**
+   * todo;
+   */
+  protected playPdaNotificationSound(): void {
+    GlobalSoundManager.getInstance().setSoundPlaying(registry.actor.id(), script_sounds.pda_task, null, null);
   }
 }

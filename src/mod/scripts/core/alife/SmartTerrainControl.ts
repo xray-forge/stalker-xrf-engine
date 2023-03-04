@@ -5,7 +5,7 @@ import { Optional, TName, TSection } from "@/mod/lib/types";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { registry } from "@/mod/scripts/core/database";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
-import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
+import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { isWeapon } from "@/mod/scripts/utils/checkers/is";
 import { getConfigString, parseCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
@@ -38,6 +38,9 @@ export class SmartTerrainControl {
   public smart: SmartTerrain;
   public alarm_time: Optional<XR_CTime> = null;
 
+  /**
+   * todo;
+   */
   public constructor(smart: SmartTerrain, ini: XR_ini_file, section: TSection) {
     this.noweap_zone = getConfigString(ini, section, "noweap_zone", this, true, "");
     this.ignore_zone = getConfigString(ini, section, "ignore_zone", this, false, "");
@@ -59,6 +62,9 @@ export class SmartTerrainControl {
     this.status = ESmartTerrainStatus.NORMAL;
   }
 
+  /**
+   * todo;
+   */
   public update(): void {
     if (this.status === ESmartTerrainStatus.ALARM) {
       if (game.get_game_time().diffSec(this.alarm_time!) < ALARM_TIME) {
@@ -68,7 +74,7 @@ export class SmartTerrainControl {
       const sound = pickSectionFromCondList(registry.actor, this.smart, this.alarm_stop_sound as any);
 
       if (sound !== null) {
-        GlobalSoundManager.setSoundPlay(registry.actor.id(), sound, null, null);
+        GlobalSoundManager.getInstance().setSoundPlaying(registry.actor.id(), sound, null, null);
       }
 
       for (const [squad_id, squad] of get_sim_board().smarts.get(this.smart.id).squads) {
@@ -83,6 +89,9 @@ export class SmartTerrainControl {
     }
   }
 
+  /**
+   * todo;
+   */
   public get_actor_treat(): boolean {
     const zone = registry.zones.get(this.noweap_zone);
 
@@ -107,6 +116,9 @@ export class SmartTerrainControl {
     return false;
   }
 
+  /**
+   * todo;
+   */
   public actor_attack(): void {
     logger.info("Actor attacked smart:", this.smart.name());
 
@@ -114,7 +126,7 @@ export class SmartTerrainControl {
       const sound = pickSectionFromCondList(registry.actor, this.smart, this.alarm_start_sound as any);
 
       if (sound !== null) {
-        GlobalSoundManager.setSoundPlay(registry.actor.id(), sound, null, null);
+        GlobalSoundManager.getInstance().setSoundPlaying(registry.actor.id(), sound, null, null);
       }
 
       for (const [squad_id, squad] of get_sim_board().smarts.get(this.smart.id).squads) {
@@ -126,10 +138,16 @@ export class SmartTerrainControl {
     this.alarm_time = game.get_game_time();
   }
 
+  /**
+   * todo;
+   */
   public get_status(): ESmartTerrainStatus {
     return this.status;
   }
 
+  /**
+   * todo;
+   */
   public save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, SmartTerrainControl.name);
 
@@ -139,6 +157,9 @@ export class SmartTerrainControl {
     setSaveMarker(packet, true, SmartTerrainControl.name);
   }
 
+  /**
+   * todo;
+   */
   public load(reader: TXR_net_processor): void {
     setLoadMarker(reader, false, SmartTerrainControl.name);
 

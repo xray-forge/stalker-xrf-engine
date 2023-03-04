@@ -2,7 +2,7 @@ import { action_base, XR_game_object } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
-import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
+import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { associations, IAnimpointDescriptor } from "@/mod/scripts/core/schemes/animpoint/animpoint_predicates";
 import { CampStoryManager } from "@/mod/scripts/core/schemes/camper/CampStoryManager";
 import { StalkerMoveManager } from "@/mod/scripts/core/state_management/StalkerMoveManager";
@@ -102,7 +102,7 @@ export class ActionWalkerActivity extends action_base {
     }
 
     if (!this.in_camp && this.state.sound_idle !== null) {
-      GlobalSoundManager.setSoundPlay(this.object.id(), this.state.sound_idle, null, null);
+      GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), this.state.sound_idle, null, null);
     }
   }
 

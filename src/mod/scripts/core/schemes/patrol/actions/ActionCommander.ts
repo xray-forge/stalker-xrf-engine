@@ -2,7 +2,7 @@ import { action_base, XR_game_object } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
-import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
+import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { StalkerMoveManager } from "@/mod/scripts/core/state_management/StalkerMoveManager";
 import { get_state } from "@/mod/scripts/core/state_management/StateManager";
 import { path_parse_waypoints } from "@/mod/scripts/utils/configs";
@@ -70,17 +70,19 @@ export class ActionCommander extends action_base {
     const old_state = this.old_state;
 
     if (old_state !== new_state) {
+      const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
+
       if (this.state.silent !== true) {
         if (new_state === "sneak") {
-          GlobalSoundManager.setSoundPlay(this.object.id(), "patrol_sneak", null, null);
+          globalSoundManager.setSoundPlaying(this.object.id(), "patrol_sneak", null, null);
         } else if (new_state === "sneak_run") {
-          GlobalSoundManager.setSoundPlay(this.object.id(), "patrol_run", null, null);
+          globalSoundManager.setSoundPlaying(this.object.id(), "patrol_run", null, null);
         } else if (new_state === "run") {
-          GlobalSoundManager.setSoundPlay(this.object.id(), "patrol_run", null, null);
+          globalSoundManager.setSoundPlaying(this.object.id(), "patrol_run", null, null);
         } else if (new_state === "assault") {
-          GlobalSoundManager.setSoundPlay(this.object.id(), "patrol_run", null, null);
+          globalSoundManager.setSoundPlaying(this.object.id(), "patrol_run", null, null);
         } else if (new_state === "rush") {
-          GlobalSoundManager.setSoundPlay(this.object.id(), "patrol_run", null, null);
+          globalSoundManager.setSoundPlaying(this.object.id(), "patrol_run", null, null);
         } else {
           if (
             old_state === "sneak" ||
@@ -89,7 +91,7 @@ export class ActionCommander extends action_base {
             old_state === "assault" ||
             old_state === "rush"
           ) {
-            GlobalSoundManager.setSoundPlay(this.object.id(), "patrol_walk", null, null);
+            globalSoundManager.setSoundPlaying(this.object.id(), "patrol_walk", null, null);
           }
         }
       }

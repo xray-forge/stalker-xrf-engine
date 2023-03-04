@@ -15,7 +15,7 @@ import {
 import { ESchemeType, Optional } from "@/mod/lib/types";
 import { PhysicObjectItemBox } from "@/mod/scripts/core/binders/PhysicObjectItemBox";
 import { addObject, deleteObject, IStoredObject, registry, resetObject } from "@/mod/scripts/core/database";
-import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
+import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { initializeGameObject } from "@/mod/scripts/core/schemes/initializeGameObject";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
 import { SchemePhysicalOnHit } from "@/mod/scripts/core/schemes/ph_on_hit/SchemePhysicalOnHit";
@@ -39,25 +39,37 @@ export class PhysicObjectBinder extends object_binder {
 
   public st!: IStoredObject;
 
+  /**
+   * todo;
+   */
   public constructor(object: XR_game_object) {
     super(object);
   }
 
+  /**
+   * todo;
+   */
   public override reload(section: string): void {
     super.reload(section);
   }
 
+  /**
+   * todo;
+   */
   public override reinit(): void {
     super.reinit();
     this.st = resetObject(this.object);
   }
 
+  /**
+   * todo;
+   */
   public override net_destroy(): void {
     if (level.map_has_object_spot(this.object.id(), "ui_pda2_actor_box_location") !== 0) {
       level.map_remove_object_spot(this.object.id(), "ui_pda2_actor_box_location");
     }
 
-    GlobalSoundManager.stopSoundsById(this.object.id());
+    GlobalSoundManager.getInstance().stopSoundsByObjectId(this.object.id());
 
     const st = registry.objects.get(this.object.id());
 
@@ -82,10 +94,16 @@ export class PhysicObjectBinder extends object_binder {
     super.net_destroy();
   }
 
+  /**
+   * todo;
+   */
   public override net_save_relevant(): boolean {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public override save(packet: XR_net_packet): void {
     super.save(packet);
 
@@ -94,6 +112,9 @@ export class PhysicObjectBinder extends object_binder {
     setSaveMarker(packet, true, PhysicObjectBinder.__name);
   }
 
+  /**
+   * todo;
+   */
   public override load(reader: XR_reader): void {
     this.loaded = true;
 
@@ -104,12 +125,18 @@ export class PhysicObjectBinder extends object_binder {
     setLoadMarker(reader, true, PhysicObjectBinder.__name);
   }
 
+  /**
+   * todo;
+   */
   public use_callback(object: XR_game_object, who: XR_game_object): void {
     if (this.st.active_section) {
       issueEvent(this.object, this.st[this.st.active_scheme as string], "use_callback", object, this);
     }
   }
 
+  /**
+   * todo;
+   */
   public hit_callback(
     obj: XR_game_object,
     amount: number,
@@ -144,6 +171,9 @@ export class PhysicObjectBinder extends object_binder {
     }
   }
 
+  /**
+   * todo;
+   */
   public death_callback(victim: XR_game_object, who: XR_game_object): void {
     if (this.st.active_section) {
       issueEvent(this.object, this.st[this.st.active_scheme as string], "death_callback", victim, who);
@@ -158,6 +188,9 @@ export class PhysicObjectBinder extends object_binder {
     }
   }
 
+  /**
+   * todo;
+   */
   public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
@@ -182,6 +215,9 @@ export class PhysicObjectBinder extends object_binder {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public override update(delta: number): void {
     super.update(delta);
 
@@ -213,6 +249,6 @@ export class PhysicObjectBinder extends object_binder {
       this.object.set_callback(callback.use_object, this.use_callback, this);
     }
 
-    GlobalSoundManager.updateForId(this.object.id());
+    GlobalSoundManager.getInstance().updateForObjectId(this.object.id());
   }
 }

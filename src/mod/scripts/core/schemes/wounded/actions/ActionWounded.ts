@@ -1,9 +1,9 @@
 import { action_base, alife, hit, time_global, XR_alife_simulator } from "xray16";
 
-import { STRINGIFIED_NIL } from "@/mod/globals/lua";
+import { STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/mod/globals/lua";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
-import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
+import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -40,13 +40,12 @@ export class ActionWounded extends action_base {
   public override execute(): void {
     super.execute();
 
-    const wound_manager = this.state.wound_manager;
-    const wound_manager_victim = pstor_retrieve(this.object, "wounded_victim");
+    const woundManager = this.state.wound_manager;
 
     const sim: XR_alife_simulator = alife();
 
     if (this.state.autoheal === true) {
-      if (wound_manager.can_use_medkit !== true) {
+      if (woundManager.can_use_medkit !== true) {
         const begin_wounded: number = pstor_retrieve(this.object, "begin_wounded")!;
         const current_time: number = time_global();
 
@@ -56,15 +55,15 @@ export class ActionWounded extends action_base {
           const npc = this.object;
 
           sim.create("medkit_script", npc.position(), npc.level_vertex_id(), npc.game_vertex_id(), npc.id());
-          wound_manager.unlock_medkit();
+          woundManager.unlock_medkit();
         }
       }
     }
 
-    const wound_manager_state: string = pstor_retrieve(this.object, "wounded_state")!;
-    const wound_manager_sound: string = pstor_retrieve(this.object, "wounded_sound")!;
+    const woundManagerState: string = pstor_retrieve(this.object, "wounded_state")!;
+    const woundManagerSound: string = pstor_retrieve(this.object, "wounded_sound")!;
 
-    if (wound_manager_state === "true") {
+    if (woundManagerState === STRINGIFIED_TRUE) {
       const h = new hit();
 
       h.power = 0;
@@ -76,21 +75,21 @@ export class ActionWounded extends action_base {
       this.object.hit(h);
     } else {
       if (this.state.use_medkit === true) {
-        wound_manager.eat_medkit();
+        woundManager.eat_medkit();
       }
 
-      if (tostring(wound_manager_state) === STRINGIFIED_NIL) {
+      if (tostring(woundManagerState) === STRINGIFIED_NIL) {
         abort("Wrong wounded animation %s", this.object.name());
       }
 
       // todo: Here should be victim
-      set_state(this.object, wound_manager_state, null, null, { look_object: null }, null);
+      set_state(this.object, woundManagerState, null, null, { look_object: null }, null);
     }
 
-    if (wound_manager_sound === STRINGIFIED_NIL) {
-      GlobalSoundManager.setSoundPlay(this.object.id(), null, null, null);
+    if (woundManagerSound === STRINGIFIED_NIL) {
+      GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), null, null, null);
     } else {
-      GlobalSoundManager.setSoundPlay(this.object.id(), wound_manager_sound, null, null);
+      GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), woundManagerSound, null, null);
     }
   }
 
@@ -99,7 +98,6 @@ export class ActionWounded extends action_base {
 
     this.object.enable_trade();
     this.object.disable_talk();
-    // -- GlobalSound:set_sound(this.object, nil)
     this.object.wounded(false);
     this.object.movement_enabled(true);
   }

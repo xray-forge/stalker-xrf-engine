@@ -10,9 +10,9 @@ import {
 } from "xray16";
 
 import { STRINGIFIED_FALSE, STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/mod/globals/lua";
-import { AnyObject, EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
+import { AnyObject, EScheme, ESchemeType, Optional, TDistance, TSection } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
-import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
+import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { SchemeAbuse } from "@/mod/scripts/core/schemes/abuse/SchemeAbuse";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
@@ -402,10 +402,10 @@ export class SchemeMeet extends AbstractScheme {
     }
 
     const actor: XR_game_object = registry.actor;
-    const snd = pickSectionFromCondList(actor, victim, st.snd_on_use);
+    const sound = pickSectionFromCondList(actor, victim, st.snd_on_use);
 
-    if (tostring(snd) !== STRINGIFIED_NIL) {
-      GlobalSoundManager.setSoundPlay(victim.id(), snd, null, null);
+    if (tostring(sound) !== STRINGIFIED_NIL) {
+      GlobalSoundManager.getInstance().setSoundPlaying(victim.id(), sound, null, null);
     }
 
     const meet_manager = st.meet_manager;
@@ -461,7 +461,7 @@ export class SchemeMeet extends AbstractScheme {
     const snd = pickSectionFromCondList(actor, this.object, this.state.far_snd);
 
     if (tostring(snd) !== STRINGIFIED_NIL) {
-      GlobalSoundManager.setSoundPlay(this.object.id(), snd, null, null);
+      GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), snd, null, null);
     }
   }
 
@@ -510,17 +510,17 @@ export class SchemeMeet extends AbstractScheme {
   }
 
   public override update(): void {
-    const actor = registry.actor;
-    const distance = this.object.position().distance_to(actor.position());
-    const actor_visible = this.object.see(actor);
+    const actor: XR_game_object = registry.actor;
+    const distance: TDistance = this.object.position().distance_to(actor.position());
+    const isActorVisible: boolean = this.object.see(actor);
 
-    if (actor_visible) {
+    if (isActorVisible) {
       if (distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.close_snd_distance))!) {
         if (this.hello_passed === false) {
           const snd = pickSectionFromCondList(actor, this.object, this.state.close_snd_hello);
 
           if (tostring(snd) !== STRINGIFIED_NIL && !isNpcInCombat(this.object)) {
-            GlobalSoundManager.setSoundPlay(this.object.id(), snd, null, null);
+            GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), snd, null, null);
           }
 
           this.hello_passed = true;
@@ -531,7 +531,7 @@ export class SchemeMeet extends AbstractScheme {
             const snd = pickSectionFromCondList(actor, this.object, this.state.close_snd_bye);
 
             if (tostring(snd) !== STRINGIFIED_NIL && !isNpcInCombat(this.object)) {
-              GlobalSoundManager.setSoundPlay(this.object.id(), snd, null, null);
+              GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), snd, null, null);
             }
 
             this.bye_passed = true;
@@ -540,18 +540,18 @@ export class SchemeMeet extends AbstractScheme {
       }
     }
 
-    const is_object_far =
-      actor_visible && distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.far_distance))!;
-    const is_object_close =
-      (actor_visible &&
+    const isObjectFar =
+      isActorVisible && distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.far_distance))!;
+    const isObjectClose =
+      (isActorVisible &&
         distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.close_distance))!) ||
       (this.object.is_talking() && this.state.meet_on_talking);
 
-    if (is_object_close === true) {
+    if (isObjectClose === true) {
       if (this.current_distance !== "close") {
         this.current_distance = "close";
       }
-    } else if (is_object_far === true) {
+    } else if (isObjectFar === true) {
       this.current_distance = "far";
     } else if (distance > this.state.reset_distance) {
       this.hello_passed = false;
@@ -604,10 +604,10 @@ export class SchemeMeet extends AbstractScheme {
       }
     }
 
-    const use_text = pickSectionFromCondList(actor, this.object, this.state.use_text)!;
+    const shouldUseText = pickSectionFromCondList(actor, this.object, this.state.use_text)!;
 
-    if (use_text !== STRINGIFIED_NIL) {
-      this.object.set_tip_text(use_text);
+    if (shouldUseText !== STRINGIFIED_NIL) {
+      this.object.set_tip_text(shouldUseText);
     } else {
       if (this.object.is_talk_enabled()) {
         this.object.set_tip_text("character_use");

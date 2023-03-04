@@ -60,7 +60,7 @@ import { update_logic } from "@/mod/scripts/core/binders/StalkerBinder";
 import { deleteHelicopter, IStoredObject, registry, SYSTEM_INI } from "@/mod/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
-import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
+import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { ItemUpgradesManager } from "@/mod/scripts/core/managers/ItemUpgradesManager";
 import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
 import { NotificationManager, TNotificationIcon } from "@/mod/scripts/core/managers/notifications";
@@ -1378,25 +1378,25 @@ export function play_sound(
     }
   }
 
-  GlobalSoundManager.setSoundPlay(obj.id(), theme, faction, pointId);
+  GlobalSoundManager.getInstance().setSoundPlaying(obj.id(), theme, faction, pointId);
 }
 
 export function stop_sound(actor: XR_game_object, npc: XR_game_object): void {
-  GlobalSoundManager.stopSoundsById(npc.id());
+  GlobalSoundManager.getInstance().stopSoundsByObjectId(npc.id());
 }
 
 /**
  * todo;
  */
 export function play_sound_looped(actor: XR_game_object, obj: XR_game_object, params: [string]): void {
-  GlobalSoundManager.playLoopedSound(obj.id(), params[0]);
+  GlobalSoundManager.getInstance().playLoopedSound(obj.id(), params[0]);
 }
 
 /**
  * todo;
  */
 export function stop_sound_looped(actor: XR_game_object, obj: XR_game_object) {
-  GlobalSoundManager.stop_sound_looped(obj.id(), null);
+  GlobalSoundManager.getInstance().stopLoopedSound(obj.id(), null);
 }
 
 export function play_sound_by_story(
@@ -1410,7 +1410,7 @@ export function play_sound_by_story(
   const point: SmartTerrain = get_sim_board().smarts_by_names.get(p[3] as string);
   const pointId: number = point !== null ? point.id : (p[3] as number);
 
-  GlobalSoundManager.setSoundPlay(story_obj as number, theme, faction, pointId);
+  GlobalSoundManager.getInstance().setSoundPlaying(story_obj as number, theme, faction, pointId);
 }
 
 export function barrel_explode(actor: XR_game_object, npc: XR_game_object, p: [string]) {

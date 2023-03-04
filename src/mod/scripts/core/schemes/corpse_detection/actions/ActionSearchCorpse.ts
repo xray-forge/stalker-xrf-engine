@@ -1,7 +1,7 @@
 import { action_base } from "xray16";
 
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
-import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
+import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 
 /**
  * todo;
@@ -49,6 +49,6 @@ export class ActionSearchCorpse extends action_base {
     const { set_state } = require("@/mod/scripts/core/state_management/StateManager");
 
     set_state(this.object, "search_corpse", null, null, { look_position: this.state.vertex_position }, null);
-    GlobalSoundManager.setSoundPlay(this.object.id(), "corpse_loot_begin", null, null);
+    GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), "corpse_loot_begin", null, null);
   }
 }

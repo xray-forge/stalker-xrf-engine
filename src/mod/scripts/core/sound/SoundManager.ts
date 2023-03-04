@@ -1,15 +1,19 @@
 import { alife, time_global, XR_cse_alife_creature_abstract } from "xray16";
 
-import { Optional } from "@/mod/lib/types";
+import { STRINGIFIED_NIL } from "@/mod/globals/lua";
+import { Optional, TNumberId, TStringId } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
-import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
+import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { SoundStory } from "@/mod/scripts/core/sound/SoundStory";
 import { getObjectSquad } from "@/mod/scripts/utils/alife";
 
 // todo: Move to db.
 const sound_managers: LuaTable<string, SoundManager> = new LuaTable();
 
+/**
+ * todo;
+ */
 export class SoundManager {
   public id: string;
   public npc: LuaTable<number, { npc_id: number }>;
@@ -19,7 +23,7 @@ export class SoundManager {
   public phrase_timeout: Optional<number>;
   public phrase_idle: number;
 
-  public constructor(id: string) {
+  public constructor(id: TStringId) {
     this.id = tostring(id);
     this.npc = new LuaTable();
     this.storyteller = null;
@@ -93,7 +97,7 @@ export class SoundManager {
       return;
     }
 
-    let npc_id: Optional<number> = null;
+    let npcId: Optional<TNumberId> = null;
     const tn: number = this.npc.length();
 
     if (tn === 0) {
@@ -106,7 +110,7 @@ export class SoundManager {
         this.choose_random_storyteller();
       }
 
-      npc_id = this.storyteller;
+      npcId = this.storyteller;
     } else if (next_phrase.who === "reaction") {
       let teller_id = 0;
 
@@ -124,16 +128,16 @@ export class SoundManager {
           id = id + 1;
         }
 
-        npc_id = this.npc.get(id).npc_id;
+        npcId = this.npc.get(id).npc_id;
       } else {
-        npc_id = this.npc.get(1).npc_id;
+        npcId = this.npc.get(1).npc_id;
       }
     } else if (next_phrase.who === "reaction_all") {
       let npc_id: Optional<number> = null;
 
       for (const [k, v] of this.npc) {
         if (v.npc_id !== this.storyteller) {
-          GlobalSoundManager.setSoundPlay(v.npc_id, next_phrase.theme, null, null);
+          GlobalSoundManager.getInstance().setSoundPlaying(v.npc_id, next_phrase.theme, null, null);
           npc_id = v.npc_id;
         }
       }
@@ -144,25 +148,25 @@ export class SoundManager {
 
       return;
     } else {
-      npc_id = this.npc.get(math.random(1, this.npc.length())).npc_id;
+      npcId = this.npc.get(math.random(1, this.npc.length())).npc_id;
     }
 
-    if (npc_id === null || registry.objects.get(npc_id) === null) {
+    if (npcId === null || registry.objects.get(npcId) === null) {
       return;
     }
 
-    if (registry.objects.get(npc_id).object!.best_enemy() !== null && registry.sounds.generic.get(npc_id) !== null) {
+    if (registry.objects.get(npcId).object!.best_enemy() !== null && registry.sounds.generic.get(npcId) !== null) {
       this.story = null;
-      registry.sounds.generic.get(npc_id).stop(npc_id);
+      registry.sounds.generic.get(npcId).stop(npcId);
 
       return;
     }
 
-    this.last_playing_npc = npc_id;
+    this.last_playing_npc = npcId;
 
-    if (next_phrase.theme !== "nil") {
+    if (next_phrase.theme !== STRINGIFIED_NIL) {
       if (this.story && this.story.id === "squad_counter_attack") {
-        const npc = alife().object<XR_cse_alife_creature_abstract>(npc_id);
+        const npc = alife().object<XR_cse_alife_creature_abstract>(npcId);
         const board = get_sim_board();
 
         if (npc !== null) {
@@ -177,14 +181,14 @@ export class SoundManager {
             if (next_phrase.who !== "teller") {
               const enemy_faction = task.counter_attack_community;
 
-              GlobalSoundManager.setSoundPlay(npc.id, next_phrase.theme, enemy_faction, null);
+              GlobalSoundManager.getInstance().setSoundPlaying(npc.id, next_phrase.theme, enemy_faction, null);
               this.phrase_timeout = null;
               this.phrase_idle = next_phrase.timeout * 1000;
 
               return;
             }
 
-            GlobalSoundManager.setSoundPlay(npc.id, next_phrase.theme, our_squad.player_id, our_smart);
+            GlobalSoundManager.getInstance().setSoundPlaying(npc.id, next_phrase.theme, our_squad.player_id, our_smart);
             this.phrase_timeout = null;
             this.phrase_idle = next_phrase.timeout * 1000;
 
@@ -193,7 +197,7 @@ export class SoundManager {
         }
       }
 
-      GlobalSoundManager.setSoundPlay(npc_id, next_phrase.theme, null, null);
+      GlobalSoundManager.getInstance().setSoundPlaying(npcId, next_phrase.theme, null, null);
     }
 
     this.phrase_timeout = null;

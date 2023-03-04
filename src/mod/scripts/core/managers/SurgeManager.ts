@@ -24,8 +24,8 @@ import { SimSquad } from "@/mod/scripts/core/alife/SimSquad";
 import { registry, SURGE_MANAGER_LTX } from "@/mod/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
 import { get_sim_board, SimBoard } from "@/mod/scripts/core/database/SimBoard";
-import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
+import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
 import { notificationManagerIcons } from "@/mod/scripts/core/managers/notifications";
 import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
@@ -316,6 +316,7 @@ export class SurgeManager extends AbstractCoreManager {
     }
 
     const surgeDuration: number = math.ceil(game.get_game_time().diffSec(this.initedTime) / level.get_time_factor());
+    const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
 
     if (this.prev_sec !== surgeDuration) {
       this.prev_sec = surgeDuration;
@@ -337,11 +338,11 @@ export class SurgeManager extends AbstractCoreManager {
       if (surgeDuration >= surgeConfig.DURATION) {
         if (level !== null) {
           if (level.name() === levels.zaton) {
-            GlobalSoundManager.setSoundPlay(registry.actor.id(), "zat_a2_stalker_barmen_after_surge", null, null);
+            globalSoundManager.setSoundPlaying(registry.actor.id(), "zat_a2_stalker_barmen_after_surge", null, null);
           } else if (level.name() === levels.jupiter) {
-            GlobalSoundManager.setSoundPlay(registry.actor.id(), "jup_a6_stalker_medik_after_surge", null, null);
+            globalSoundManager.setSoundPlaying(registry.actor.id(), "jup_a6_stalker_medik_after_surge", null, null);
           } else if (!hasAlifeInfo("pri_b305_fifth_cam_end")) {
-            GlobalSoundManager.setSoundPlay(registry.actor.id(), "pri_a17_kovalsky_after_surge", null, null);
+            globalSoundManager.setSoundPlaying(registry.actor.id(), "pri_a17_kovalsky_after_surge", null, null);
           }
         }
 
@@ -349,7 +350,7 @@ export class SurgeManager extends AbstractCoreManager {
       } else {
         if (this.loaded) {
           if (this.blowout_sound) {
-            GlobalSoundManager.playLoopedSound(registry.actor.id(), "blowout_rumble");
+            globalSoundManager.playLoopedSound(registry.actor.id(), "blowout_rumble");
           }
 
           if (this.isEffectorSet) {
@@ -357,7 +358,7 @@ export class SurgeManager extends AbstractCoreManager {
           }
 
           if (this.second_message_given) {
-            GlobalSoundManager.playLoopedSound(registry.actor.id(), "surge_earthquake_sound_looped");
+            globalSoundManager.playLoopedSound(registry.actor.id(), "surge_earthquake_sound_looped");
             level.add_cam_effector(animations.camera_effects_earthquake, earthquake_cam_eff_id, true, "");
           }
 
@@ -370,7 +371,7 @@ export class SurgeManager extends AbstractCoreManager {
         }
 
         if (this.blowout_sound) {
-          GlobalSoundManager.set_volume_sound_looped(registry.actor.id(), "blowout_rumble", surgeDuration / 180);
+          globalSoundManager.setLoopedSoundVolume(registry.actor.id(), "blowout_rumble", surgeDuration / 180);
         }
 
         if (
@@ -408,15 +409,20 @@ export class SurgeManager extends AbstractCoreManager {
         } else if (surgeDuration >= 140 && !this.second_message_given) {
           if (level !== null) {
             if (level.name() === levels.zaton) {
-              GlobalSoundManager.setSoundPlay(registry.actor.id(), "zat_a2_stalker_barmen_surge_phase_2", null, null);
+              globalSoundManager.setSoundPlaying(
+                registry.actor.id(),
+                "zat_a2_stalker_barmen_surge_phase_2",
+                null,
+                null
+              );
             } else if (level.name() === levels.jupiter) {
-              GlobalSoundManager.setSoundPlay(registry.actor.id(), "jup_a6_stalker_medik_phase_2", null, null);
+              globalSoundManager.setSoundPlaying(registry.actor.id(), "jup_a6_stalker_medik_phase_2", null, null);
             } else if (!hasAlifeInfo("pri_b305_fifth_cam_end")) {
-              GlobalSoundManager.setSoundPlay(registry.actor.id(), "pri_a17_kovalsky_surge_phase_2", null, null);
+              globalSoundManager.setSoundPlaying(registry.actor.id(), "pri_a17_kovalsky_surge_phase_2", null, null);
             }
           }
 
-          GlobalSoundManager.playLoopedSound(registry.actor.id(), "surge_earthquake_sound_looped");
+          globalSoundManager.playLoopedSound(registry.actor.id(), "surge_earthquake_sound_looped");
           level.add_cam_effector(animations.camera_effects_earthquake, earthquake_cam_eff_id, true, "");
           this.second_message_given = true;
         } else if (surgeDuration >= 100 && !this.isEffectorSet) {
@@ -424,17 +430,17 @@ export class SurgeManager extends AbstractCoreManager {
           // --                level.set_pp_effector_factor(surge_shock_pp_eff, 0, 10)
           this.isEffectorSet = true;
         } else if (surgeDuration >= 35 && !this.blowout_sound) {
-          GlobalSoundManager.setSoundPlay(registry.actor.id(), "blowout_begin", null, null);
-          GlobalSoundManager.playLoopedSound(registry.actor.id(), "blowout_rumble");
-          GlobalSoundManager.set_volume_sound_looped(registry.actor.id(), "blowout_rumble", 0.25);
+          globalSoundManager.setSoundPlaying(registry.actor.id(), "blowout_begin", null, null);
+          globalSoundManager.playLoopedSound(registry.actor.id(), "blowout_rumble");
+          globalSoundManager.setLoopedSoundVolume(registry.actor.id(), "blowout_rumble", 0.25);
           this.blowout_sound = true;
         } else if (surgeDuration >= 0 && !this.task_given) {
           if (level.name() === levels.zaton) {
-            GlobalSoundManager.setSoundPlay(registry.actor.id(), "zat_a2_stalker_barmen_surge_phase_1", null, null);
+            globalSoundManager.setSoundPlaying(registry.actor.id(), "zat_a2_stalker_barmen_surge_phase_1", null, null);
           } else if (level.name() === levels.jupiter) {
-            GlobalSoundManager.setSoundPlay(registry.actor.id(), "jup_a6_stalker_medik_phase_1", null, null);
+            globalSoundManager.setSoundPlaying(registry.actor.id(), "jup_a6_stalker_medik_phase_1", null, null);
           } else if (!hasAlifeInfo("pri_b305_fifth_cam_end")) {
-            GlobalSoundManager.setSoundPlay(registry.actor.id(), "pri_a17_kovalsky_surge_phase_1", null, null);
+            globalSoundManager.setSoundPlaying(registry.actor.id(), "pri_a17_kovalsky_surge_phase_1", null, null);
           }
 
           level.set_weather_fx("fx_surge_day_3");
@@ -542,6 +548,9 @@ export class SurgeManager extends AbstractCoreManager {
     }
   }
 
+  /**
+   * todo;
+   */
   public endSurge(manual?: boolean): void {
     logger.info("Ending surge:", manual);
 
@@ -557,12 +566,14 @@ export class SurgeManager extends AbstractCoreManager {
     this.surge_task_sect = "";
     this.task_given = false;
 
+    const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
+
     if (this.isEffectorSet) {
-      GlobalSoundManager.stop_sound_looped(registry.actor.id(), "blowout_rumble");
+      globalSoundManager.stopLoopedSound(registry.actor.id(), "blowout_rumble");
     }
 
     if (this.second_message_given) {
-      GlobalSoundManager.stop_sound_looped(registry.actor.id(), "surge_earthquake_sound_looped");
+      globalSoundManager.stopLoopedSound(registry.actor.id(), "surge_earthquake_sound_looped");
     }
 
     level.remove_pp_effector(surge_shock_pp_eff_id);
@@ -594,6 +605,9 @@ export class SurgeManager extends AbstractCoreManager {
     StatisticsManager.getInstance().incrementSurgesCount();
   }
 
+  /**
+   * todo;
+   */
   public kill_all_unhided(): void {
     logger.info("Kill all surge unhided");
 
@@ -693,6 +707,9 @@ export class SurgeManager extends AbstractCoreManager {
     }
   }
 
+  /**
+   * todo;
+   */
   protected kill_all_unhided_after_actor_death(): void {
     const board: SimBoard = get_sim_board();
     const levelName: TLevel = level.name();
@@ -731,6 +748,9 @@ export class SurgeManager extends AbstractCoreManager {
     }
   }
 
+  /**
+   * todo;
+   */
   public respawnArtefactsAndReplaceAnomalyZones(): void {
     const lvl_nm: TLevel = level.name();
 
@@ -745,6 +765,9 @@ export class SurgeManager extends AbstractCoreManager {
     mapDisplayManager.updateAnomaliesZones();
   }
 
+  /**
+   * todo;
+   */
   protected giveSurgeHideTask(): void {
     if (this.surge_task_sect !== "empty") {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -760,6 +783,9 @@ export class SurgeManager extends AbstractCoreManager {
     }
   }
 
+  /**
+   * todo;
+   */
   protected launch_rockets(): void {
     logger.info("Launch rockets");
     for (const [k, v] of registry.signalLights) {
@@ -770,6 +796,9 @@ export class SurgeManager extends AbstractCoreManager {
     }
   }
 
+  /**
+   * todo;
+   */
   public save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, SurgeManager.name);
     packet.w_bool(this.isFinished);
@@ -797,6 +826,9 @@ export class SurgeManager extends AbstractCoreManager {
     setSaveMarker(packet, true, SurgeManager.name);
   }
 
+  /**
+   * todo;
+   */
   public load(reader: XR_reader): void {
     setLoadMarker(reader, false, SurgeManager.name);
     this.initialize();

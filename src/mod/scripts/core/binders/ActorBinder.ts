@@ -33,10 +33,10 @@ import { addActor, deleteActor } from "@/mod/scripts/core/database/actor";
 import { pstor_load_all, pstor_save_all } from "@/mod/scripts/core/database/pstor";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
 import { get_sim_obj_registry } from "@/mod/scripts/core/database/SimObjectsRegistry";
-import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
 import { DropManager } from "@/mod/scripts/core/managers/DropManager";
 import { EGameEvent } from "@/mod/scripts/core/managers/events/EGameEvent";
 import { EventsManager } from "@/mod/scripts/core/managers/events/EventsManager";
+import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
 import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
 import { PsyAntennaManager } from "@/mod/scripts/core/managers/PsyAntennaManager";
@@ -89,6 +89,7 @@ export class ActorBinder extends object_binder {
   public readonly releaseBodyManager: ReleaseBodyManager = ReleaseBodyManager.getInstance();
   public readonly travelManager: TravelManager = TravelManager.getInstance();
   public readonly newsManager: NotificationManager = NotificationManager.getInstance();
+  public readonly globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
 
   public loaded: boolean = false;
   public spawn_frame: number = 0;
@@ -106,12 +107,18 @@ export class ActorBinder extends object_binder {
 
   public st!: IStoredObject;
 
+  /**
+   * todo;
+   */
   public constructor(object: XR_game_object) {
     super(object);
 
     logger.info("Init new actor binder:", object.name());
   }
 
+  /**
+   * todo;
+   */
   public override net_spawn(data: XR_cse_alife_creature_actor): boolean {
     logger.info("Net spawn:", data.name());
 
@@ -153,16 +160,19 @@ export class ActorBinder extends object_binder {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public override net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
 
-    GlobalSoundManager.stopSoundsById(this.object.id());
+    GlobalSoundManager.getInstance().stopSoundsByObjectId(this.object.id());
 
     const board_factions = get_sim_board().players;
 
     if (board_factions !== null) {
       for (const [k, v] of board_factions) {
-        GlobalSoundManager.stopSoundsById(v.id);
+        GlobalSoundManager.getInstance().stopSoundsByObjectId(v.id);
       }
     }
 
@@ -202,6 +212,9 @@ export class ActorBinder extends object_binder {
     super.net_destroy();
   }
 
+  /**
+   * todo;
+   */
   public override reinit(): void {
     super.reinit();
 
@@ -221,18 +234,33 @@ export class ActorBinder extends object_binder {
     this.object.set_callback(callback.use_object, this.use_inventory_item, this);
   }
 
+  /**
+   * todo;
+   */
   public take_item_from_box(box: XR_game_object, item: XR_game_object): void {
     logger.info("Take item from box:", box.name(), item.name());
   }
 
+  /**
+   * todo;
+   */
   public info_callback(npc: XR_game_object, info_id: string): void {
     logger.info("[info callback]");
   }
 
+  /**
+   * todo;
+   */
   public on_trade(item: XR_game_object, sell_bye: boolean, money: number): void {}
 
+  /**
+   * todo;
+   */
   public article_callback(): void {}
 
+  /**
+   * todo;
+   */
   public on_item_take(object: XR_game_object): void {
     logger.info("On item take:", object.name());
 
@@ -255,8 +283,14 @@ export class ActorBinder extends object_binder {
     this.treasureManager.on_item_take(object.id());
   }
 
+  /**
+   * todo;
+   */
   public on_item_drop(object: XR_game_object): void {}
 
+  /**
+   * todo;
+   */
   public use_inventory_item(obj: XR_game_object): void {
     if (obj !== null) {
       const s_obj = alife().object(obj.id());
@@ -278,6 +312,9 @@ export class ActorBinder extends object_binder {
     }
   }
 
+  /**
+   * todo;
+   */
   public task_callback(task_object: XR_CGameTask, state: TXR_TaskState): void {
     if (state !== task.fail) {
       this.newsManager.sendTaskNotification(
@@ -290,14 +327,11 @@ export class ActorBinder extends object_binder {
     get_global<AnyCallablesModule>("extern").task_callback(task_object, state);
   }
 
+  /**
+   * todo;
+   */
   public override update(delta: number): void {
     super.update(delta);
-
-    const [index] = string.find(command_line(), "-designer");
-
-    if (index !== null) {
-      return;
-    }
 
     if (this.travelManager.isTraveling) {
       this.travelManager.onActiveTravelUpdate();
@@ -308,7 +342,7 @@ export class ActorBinder extends object_binder {
     this.check_detective_achievement();
     this.check_mutant_hunter_achievement();
 
-    GlobalSoundManager.updateForId(this.object.id());
+    this.globalSoundManager.updateForObjectId(this.object.id());
 
     if (
       this.st.disable_input_time !== null &&
@@ -411,6 +445,9 @@ export class ActorBinder extends object_binder {
     mapDisplayManager.update();
   }
 
+  /**
+   * todo;
+   */
   public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, ActorBinder.__name);
 
@@ -432,7 +469,7 @@ export class ActorBinder extends object_binder {
     PsyAntennaManager.save(packet);
     packet.w_bool(get_sim_board().simulation_started);
 
-    GlobalSoundManager.actor_save(packet);
+    this.globalSoundManager.saveActor(packet);
     packet.w_stringZ(tostring(this.last_level_name));
     StatisticsManager.getInstance().save(packet);
     this.treasureManager.save(packet);
@@ -481,6 +518,9 @@ export class ActorBinder extends object_binder {
     setSaveMarker(packet, true, ActorBinder.__name);
   }
 
+  /**
+   * todo;
+   */
   public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, ActorBinder.__name);
 
@@ -492,7 +532,7 @@ export class ActorBinder extends object_binder {
 
     const stored_input_time = reader.r_bool();
 
-    if (stored_input_time === true) {
+    if (stored_input_time) {
       this.st.disable_input_time = readCTimeFromPacket(reader);
     }
 
@@ -505,7 +545,7 @@ export class ActorBinder extends object_binder {
     PsyAntennaManager.load(reader);
     get_sim_board().simulation_started = reader.r_bool();
 
-    GlobalSoundManager.actor_load(reader);
+    this.globalSoundManager.loadActor(reader);
 
     const n = reader.r_stringZ();
 
@@ -536,19 +576,22 @@ export class ActorBinder extends object_binder {
 
     let stored_achievement_time = reader.r_bool();
 
-    if (stored_achievement_time === true) {
+    if (stored_achievement_time) {
       this.last_detective_achievement_spawn_time = readCTimeFromPacket(reader);
     }
 
     stored_achievement_time = reader.r_bool();
 
-    if (stored_achievement_time === true) {
+    if (stored_achievement_time) {
       this.last_mutant_hunter_achievement_spawn_time = readCTimeFromPacket(reader);
     }
 
     setLoadMarker(reader, true, ActorBinder.__name);
   }
 
+  /**
+   * todo;
+   */
   public check_detective_achievement(): void {
     if (!hasAlifeInfo(info_portions.detective_achievement_gained)) {
       return;
@@ -568,6 +611,9 @@ export class ActorBinder extends object_binder {
     }
   }
 
+  /**
+   * todo;
+   */
   public check_mutant_hunter_achievement(): void {
     if (!hasAlifeInfo(info_portions.mutant_hunter_achievement_gained)) {
       return;
@@ -588,6 +634,9 @@ export class ActorBinder extends object_binder {
   }
 }
 
+/**
+ * todo;
+ */
 export function check_for_weapon_hide_by_zones(): boolean {
   for (const [k, v] of weapon_hide) {
     if (v === true) {
@@ -598,14 +647,23 @@ export function check_for_weapon_hide_by_zones(): boolean {
   return false;
 }
 
+/**
+ * todo;
+ */
 export function hide_weapon(zone_id: number): void {
   weapon_hide.set(zone_id, true);
 }
 
+/**
+ * todo;
+ */
 export function restore_weapon(zone_id: number): void {
   weapon_hide.set(zone_id, false);
 }
 
+/**
+ * todo;
+ */
 export function spawn_achivement_items(
   items_table: LuaTable<number, string>,
   count: number,

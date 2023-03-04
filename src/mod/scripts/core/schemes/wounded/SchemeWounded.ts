@@ -10,11 +10,12 @@ import {
 } from "xray16";
 
 import { communities, TCommunity } from "@/mod/globals/communities";
+import { drugs } from "@/mod/globals/items/drugs";
 import { AnyObject, Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
-import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
+import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme, action_ids, evaluators_id } from "@/mod/scripts/core/schemes/base";
 import { ActionWounded } from "@/mod/scripts/core/schemes/wounded/actions";
@@ -298,19 +299,19 @@ export class SchemeWounded extends AbstractScheme {
 
       const sim: XR_alife_simulator = alife();
 
-      if (this.object.object("medkit") !== null) {
-        sim.release(sim.object(this.object.object("medkit")!.id()), true);
-      } else if (this.object.object("medkit_army") !== null) {
-        sim.release(sim.object(this.object.object("medkit_army")!.id()), true);
-      } else if (this.object.object("medkit_scientic") !== null) {
-        sim.release(sim.object(this.object.object("medkit_scientic")!.id()), true);
+      if (this.object.object(drugs.medkit) !== null) {
+        sim.release(sim.object(this.object.object(drugs.medkit)!.id()), true);
+      } else if (this.object.object(drugs.medkit_army) !== null) {
+        sim.release(sim.object(this.object.object(drugs.medkit_army)!.id()), true);
+      } else if (this.object.object(drugs.medkit_scientic) !== null) {
+        sim.release(sim.object(this.object.object(drugs.medkit_scientic)!.id()), true);
       }
 
       const current_time: number = time_global();
       const begin_wounded: Optional<number> = pstor_retrieve(this.object, "begin_wounded");
 
       if (begin_wounded !== null && current_time - begin_wounded <= 60000) {
-        GlobalSoundManager.setSoundPlay(this.object.id(), "help_thanks", null, null);
+        GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), "help_thanks", null, null);
       }
 
       pstor_store(this.object, "begin_wounded", null);

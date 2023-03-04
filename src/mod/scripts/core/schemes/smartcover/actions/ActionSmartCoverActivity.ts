@@ -3,7 +3,7 @@ import { action_base, level, patrol, XR_game_object, XR_vector } from "xray16";
 import { Optional, StringOptional } from "@/mod/lib/types";
 import { registered_smartcovers } from "@/mod/scripts/core/alife/SmartCover";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
-import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
+import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { ActionSleeperActivity } from "@/mod/scripts/core/schemes/sleeper/actions";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { getStoryObject } from "@/mod/scripts/utils/alife";
@@ -45,11 +45,17 @@ export class ActionSmartCoverActivity extends action_base {
   public fire_pos!: XR_vector;
   public target_path!: string;
 
+  /**
+   * todo;
+   */
   public constructor(state: IStoredObject) {
     super(null, ActionSleeperActivity.__name);
     this.st = state;
   }
 
+  /**
+   * todo;
+   */
   public override initialize(): void {
     super.initialize();
 
@@ -58,6 +64,9 @@ export class ActionSmartCoverActivity extends action_base {
     this.activate_scheme();
   }
 
+  /**
+   * todo;
+   */
   public target_selector(obj: XR_game_object): void {
     if (!obj.alive()) {
       return;
@@ -79,6 +88,9 @@ export class ActionSmartCoverActivity extends action_base {
     }
   }
 
+  /**
+   * todo;
+   */
   public activate_scheme(): void {
     this.st.signals = {};
 
@@ -122,6 +134,9 @@ export class ActionSmartCoverActivity extends action_base {
     }
   }
 
+  /**
+   * todo;
+   */
   public check_target_selector(): void {
     /**
      *   --if object.in_smart_cover() == false {
@@ -137,6 +152,9 @@ export class ActionSmartCoverActivity extends action_base {
     }
   }
 
+  /**
+   * todo;
+   */
   public check_target(): boolean {
     const object = this.object;
 
@@ -180,6 +198,9 @@ export class ActionSmartCoverActivity extends action_base {
     return false;
   }
 
+  /**
+   * todo;
+   */
   public override execute(): void {
     super.execute();
 
@@ -208,19 +229,28 @@ export class ActionSmartCoverActivity extends action_base {
     }
 
     if (this.st.sound_idle !== null) {
-      GlobalSoundManager.setSoundPlay(this.object.id(), this.st.sound_idle, null, null);
+      GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), this.st.sound_idle, null, null);
     }
   }
 
+  /**
+   * todo;
+   */
   public override finalize(): void {
     this.initialized = false;
     super.finalize();
   }
 
+  /**
+   * todo;
+   */
   public position_riched(): boolean {
     return this.object.in_smart_cover();
   }
 
+  /**
+   * todo;
+   */
   public deactivate(): void {
     this.st.cover_name = null;
     this.st.loophole_name = null;

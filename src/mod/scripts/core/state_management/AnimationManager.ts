@@ -2,7 +2,7 @@ import { callback, hit, time_global, vector, XR_game_object } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { AnyCallable, Optional } from "@/mod/lib/types";
-import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
+import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { IAnimationDescriptor } from "@/mod/scripts/core/state_management/lib/state_mgr_animation_list";
 import { IAnimationStateDescriptor } from "@/mod/scripts/core/state_management/lib/state_mgr_animstate_list";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
@@ -434,12 +434,10 @@ export class AnimationManager {
     }
   }
 
-  public process_special_action(action_table: LuaTable): void {
-    // --printf("[%s] process_special_action", this.npc:name())
-
+  public process_special_action(actionTable: LuaTable): void {
     // Attach.
-    if (action_table.get("a") !== null) {
-      const obj = this.npc.object(action_table.get("a"));
+    if (actionTable.get("a") !== null) {
+      const obj = this.npc.object(actionTable.get("a"));
 
       if (obj !== null) {
         obj.enable_attachable_item(true);
@@ -447,8 +445,8 @@ export class AnimationManager {
     }
 
     // Detach.
-    if (action_table.get("d") !== null) {
-      const obj = this.npc.object(action_table.get("d"));
+    if (actionTable.get("d") !== null) {
+      const obj = this.npc.object(actionTable.get("d"));
 
       if (obj !== null) {
         obj.enable_attachable_item(false);
@@ -456,15 +454,15 @@ export class AnimationManager {
     }
 
     // Play sound.
-    if (action_table.get("s") !== null) {
-      GlobalSoundManager.setSoundPlay(this.npc.id(), action_table.get("s"), null, null);
+    if (actionTable.get("s") !== null) {
+      GlobalSoundManager.getInstance().setSoundPlaying(this.npc.id(), actionTable.get("s"), null, null);
     }
 
     // Hit actor.
-    if (action_table.get("sh") !== null) {
+    if (actionTable.get("sh") !== null) {
       const h = new hit();
 
-      h.power = action_table.get("sh");
+      h.power = actionTable.get("sh");
       h.direction = vectorRotateY(this.npc.direction(), 90);
       h.draftsman = this.npc;
       h.impulse = 200;
@@ -473,7 +471,7 @@ export class AnimationManager {
     }
 
     // Custom function.
-    const cb: Optional<AnyCallable> = action_table.get("f");
+    const cb: Optional<AnyCallable> = actionTable.get("f");
 
     if (cb !== null) {
       // --printf("called function [%s]", tostring(action_table.f))

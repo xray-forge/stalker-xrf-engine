@@ -1,7 +1,7 @@
 import { action_base, anim, look, move, object, XR_game_object } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
+import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { IPostCombatSharedState } from "@/mod/scripts/core/schemes/danger/PostCombatIdle";
 import { AnimationManager } from "@/mod/scripts/core/state_management/AnimationManager";
 import { animations } from "@/mod/scripts/core/state_management/lib/state_mgr_animation_list";
@@ -21,6 +21,9 @@ export class ActionPostCombatIdleWait extends action_base {
     this.state = state;
   }
 
+  /**
+   * todo;
+   */
   public override initialize(): void {
     super.initialize();
 
@@ -42,6 +45,9 @@ export class ActionPostCombatIdleWait extends action_base {
     this.anim_started = false;
   }
 
+  /**
+   * todo;
+   */
   public override execute(): void {
     super.execute();
 
@@ -53,11 +59,14 @@ export class ActionPostCombatIdleWait extends action_base {
       }
     }
 
-    GlobalSoundManager.setSoundPlay(this.object.id(), "post_combat_wait", null, null);
+    GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), "post_combat_wait", null, null);
   }
 
+  /**
+   * todo;
+   */
   public override finalize(): void {
-    GlobalSoundManager.setSoundPlay(this.object.id(), "post_combat_relax", null, null);
+    GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), "post_combat_relax", null, null);
 
     if (this.anim_started === true) {
       this.state.animation.set_state(null, true);
@@ -68,32 +77,32 @@ export class ActionPostCombatIdleWait extends action_base {
   }
 }
 
-export function weapon_locked(npc: XR_game_object): boolean {
-  const weapon_strapped = npc.weapon_strapped();
-  const weapon_unstrapped = npc.weapon_unstrapped();
+export function weapon_locked(object: XR_game_object): boolean {
+  const isWeaponStrapped: boolean = object.weapon_strapped();
+  const isWeaponUnstrapped: boolean = object.weapon_unstrapped();
 
-  if (!(weapon_unstrapped || weapon_strapped)) {
+  if (!(isWeaponUnstrapped || isWeaponStrapped)) {
     return true;
   }
 
-  const bestweapon: Optional<XR_game_object> = npc.best_weapon();
+  const bestWeapon: Optional<XR_game_object> = object.best_weapon();
 
-  if (bestweapon === null) {
+  if (bestWeapon === null) {
     return false;
   }
 
-  if (npc.active_item() === null) {
+  if (object.active_item() === null) {
     return false;
   }
 
   // todo: From script extension classes
-  const weapon_going_to_be_strapped: boolean = (npc as any).is_weapon_going_to_be_strapped(bestweapon);
+  const isWeaponGoingToBeStrapped: boolean = (object as any).is_weapon_going_to_be_strapped(bestWeapon);
 
-  if (weapon_going_to_be_strapped && !weapon_strapped) {
+  if (isWeaponGoingToBeStrapped && !isWeaponStrapped) {
     return true;
   }
 
-  if (!weapon_going_to_be_strapped && !weapon_unstrapped) {
+  if (!isWeaponGoingToBeStrapped && !isWeaponUnstrapped) {
     return true;
   }
 

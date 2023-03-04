@@ -1,6 +1,6 @@
 import { XR_net_packet, XR_reader, XR_sound_object } from "xray16";
 
-import { Optional, TName, TNumberId, TStringId } from "@/mod/lib/types";
+import { Optional, TName, TNumberId, TRate, TStringId } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
@@ -18,7 +18,7 @@ export class GlobalSoundManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public static setSoundPlay(
+  public setSoundPlaying(
     objectId: TNumberId,
     sound: Optional<TStringId>,
     faction: Optional<string>,
@@ -61,7 +61,7 @@ export class GlobalSoundManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public static stopSoundsById(objectId: TNumberId): void {
+  public stopSoundsByObjectId(objectId: TNumberId): void {
     logger.info("Stop sound play:", objectId);
 
     const playableSound: Optional<AbstractPlayableSound> = registry.sounds.generic.get(objectId);
@@ -84,7 +84,7 @@ export class GlobalSoundManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public static updateForId(objectId: TNumberId): void {
+  public updateForObjectId(objectId: TNumberId): void {
     const playableSound: Optional<AbstractPlayableSound> = registry.sounds.generic.get(objectId);
 
     if (playableSound !== null) {
@@ -98,36 +98,37 @@ export class GlobalSoundManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public static playLoopedSound(objectId: TNumberId, sound: TName): void {
-    logger.info();
+  public playLoopedSound(objectId: TNumberId, sound: TName): void {
+    const soundTheme: Optional<AbstractPlayableSound> = registry.sounds.themes.get(sound);
 
-    const snd_theme: Optional<AbstractPlayableSound> = registry.sounds.themes.get(sound);
-
-    if (snd_theme === null) {
+    if (soundTheme === null) {
       abort("play_sound_looped. Wrong sound theme [%s], npc[%s]", tostring(sound), objectId);
-    } else if (snd_theme.type !== "looped") {
+    } else if (soundTheme.type !== "looped") {
       abort("You trying to play sound [%s] which type is not looped", sound);
     }
 
-    const looped_item = registry.sounds.looped.get(objectId);
+    const loopedItem = registry.sounds.looped.get(objectId);
 
-    if (looped_item !== null && looped_item.get(sound) !== null && looped_item.get(sound).is_playing(objectId)) {
+    if (loopedItem !== null && loopedItem.get(sound) !== null && loopedItem.get(sound).is_playing(objectId)) {
       return;
     }
 
-    if (snd_theme.play(objectId)) {
-      let new_item = looped_item;
+    if (soundTheme.play(objectId)) {
+      let newItem = loopedItem;
 
-      if (new_item === null) {
-        new_item = new LuaTable();
-        registry.sounds.looped.set(objectId, new_item);
+      if (newItem === null) {
+        newItem = new LuaTable();
+        registry.sounds.looped.set(objectId, newItem);
       }
 
-      new_item.set(sound, snd_theme);
+      newItem.set(sound, soundTheme);
     }
   }
 
-  public static stop_sound_looped(objectId: TNumberId, sound: Optional<TName>): void {
+  /**
+   * todo;
+   */
+  public stopLoopedSound(objectId: TNumberId, sound: Optional<TName>): void {
     const looped_item = registry.sounds.looped.get(objectId);
     const looped_sound_item = looped_item.get(sound as string);
 
@@ -151,20 +152,52 @@ export class GlobalSoundManager extends AbstractCoreManager {
     }
   }
 
-  public static set_volume_sound_looped(objectId: TNumberId, sound: TName, level: number): void {
-    const looped_item = registry.sounds.looped.get(objectId);
+  /**
+   * todo;
+   */
+  public setLoopedSoundVolume(objectId: TNumberId, sound: TName, volume: TRate): void {
+    const loopedSound = registry.sounds.looped.get(objectId);
 
-    if (looped_item !== null) {
-      const sound_item = looped_item.get(sound);
+    if (loopedSound !== null) {
+      const soundItem = loopedSound.get(sound);
 
-      if (sound_item && sound_item.is_playing(objectId)) {
-        sound_item.set_volume(level);
+      if (soundItem && soundItem.is_playing(objectId)) {
+        soundItem.set_volume(volume);
       }
     }
   }
 
-  public static actor_save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, "sound_actor_save");
+  /**
+   * todo;
+   */
+  public stopAllSounds(): void {
+    for (const [k, v] of registry.sounds.generic) {
+      if (type(v) !== "string") {
+        v.stop();
+      }
+    }
+
+    for (const [k, v] of registry.sounds.looped) {
+      for (const [kk, vv] of registry.sounds.looped.get(k)) {
+        if (vv && vv.is_playing()) {
+          vv.stop();
+        }
+      }
+    }
+  }
+
+  /**
+   * todo;
+   */
+  public reset(): void {
+    registry.sounds.generic = new LuaTable();
+  }
+
+  /**
+   * todo;
+   */
+  public saveActor(packet: XR_net_packet): void {
+    setSaveMarker(packet, false, GlobalSoundManager.name + "Actor");
 
     for (const [k, v] of registry.sounds.themes) {
       v.save(packet);
@@ -216,11 +249,14 @@ export class GlobalSoundManager extends AbstractCoreManager {
       }
     }
 
-    setSaveMarker(packet, true, "sound_actor_save");
+    setSaveMarker(packet, true, GlobalSoundManager.name + "Actor");
   }
 
-  public static set_save_marker(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, "sound_actor_save");
+  /**
+   * todo;
+   */
+  public save(packet: XR_net_packet): void {
+    setSaveMarker(packet, false, GlobalSoundManager.name);
 
     for (const [k, v] of registry.sounds.themes) {
       v.save(packet);
@@ -275,31 +311,14 @@ export class GlobalSoundManager extends AbstractCoreManager {
       }
     }
 
-    setSaveMarker(packet, true, "sound_actor_save");
+    setSaveMarker(packet, true, GlobalSoundManager.name);
   }
 
-  public stop_all_sounds(): void {
-    for (const [k, v] of registry.sounds.generic) {
-      if (type(v) !== "string") {
-        v.stop();
-      }
-    }
-
-    for (const [k, v] of registry.sounds.looped) {
-      for (const [kk, vv] of registry.sounds.looped.get(k)) {
-        if (vv && vv.is_playing()) {
-          vv.stop();
-        }
-      }
-    }
-  }
-
-  public static reset(): void {
-    registry.sounds.generic = new LuaTable();
-  }
-
-  public static actor_load(reader: XR_reader): void {
-    setLoadMarker(reader, false, "sound_actor_save");
+  /**
+   * todo;
+   */
+  public loadActor(reader: XR_reader): void {
+    setLoadMarker(reader, false, GlobalSoundManager.name + "Actor");
 
     for (const [k, v] of registry.sounds.themes) {
       v.load(reader);
@@ -333,26 +352,32 @@ export class GlobalSoundManager extends AbstractCoreManager {
       }
     }
 
-    setLoadMarker(reader, true, "sound_actor_save");
+    setLoadMarker(reader, true, GlobalSoundManager.name + "Actor");
   }
 
-  public static save_npc(packet: XR_net_packet, npc_id: number): void {
-    setSaveMarker(packet, false, "sound_npc_save");
+  /**
+   * todo;
+   */
+  public saveForObjectId(packet: XR_net_packet, objectId: TNumberId): void {
+    setSaveMarker(packet, false, GlobalSoundManager.name + "Object");
 
     for (const [k, v] of registry.sounds.themes) {
-      v.save_npc(packet, npc_id);
+      v.save_npc(packet, objectId);
     }
 
-    setSaveMarker(packet, true, "sound_npc_save");
+    setSaveMarker(packet, true, GlobalSoundManager.name + "Object");
   }
 
-  public static load_npc(reader: XR_reader, npc_id: number): void {
-    setLoadMarker(reader, false, "sound_npc_save");
+  /**
+   * todo;
+   */
+  public loadForObjectId(reader: XR_reader, objectId: TNumberId): void {
+    setLoadMarker(reader, false, GlobalSoundManager.name + "Object");
 
-    for (const [k, v] of registry.sounds.themes) {
-      v.load_npc(reader, npc_id);
+    for (const [name, theme] of registry.sounds.themes) {
+      theme.load_npc(reader, objectId);
     }
 
-    setLoadMarker(reader, true, "sound_npc_save");
+    setLoadMarker(reader, true, GlobalSoundManager.name + "Object");
   }
 }

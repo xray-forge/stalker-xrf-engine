@@ -1,9 +1,17 @@
-import { XR_game_object, XR_ini_file, XR_physics_joint, XR_physics_shell, XR_vector } from "xray16";
+import {
+  XR_CPhysicObject,
+  XR_game_object,
+  XR_ini_file,
+  XR_physics_element,
+  XR_physics_joint,
+  XR_physics_shell,
+  XR_vector,
+} from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
-import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
+import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
@@ -202,30 +210,33 @@ export class SchemePhysicalDoor extends AbstractScheme {
     this.block = false;
 
     if (!this.soundless_block && this.state.snd_close_stop) {
-      GlobalSoundManager.setSoundPlay(this.object.id(), this.state.snd_close_stop, null, null);
+      GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), this.state.snd_close_stop, null, null);
     }
   }
 
-  public open_door(disable_snd?: boolean): void {
-    if (!disable_snd) {
+  /**
+   * todo;
+   */
+  public open_door(disableSound?: boolean): void {
+    if (!disableSound) {
       if (this.state.snd_open_start) {
-        GlobalSoundManager.setSoundPlay(this.object.id(), this.state.snd_open_start, null, null);
+        GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), this.state.snd_open_start, null, null);
       }
     }
 
     this.object.set_fastcall(this.open_fastcall, this);
 
-    const ph_shell: Optional<XR_physics_shell> = this.object.get_physics_shell();
+    const physicsShell: Optional<XR_physics_shell> = this.object.get_physics_shell();
 
-    if (ph_shell) {
-      const ph_element = ph_shell.get_element_by_bone_name("door");
+    if (physicsShell) {
+      const physicsElement: XR_physics_element = physicsShell.get_element_by_bone_name("door");
 
-      if (ph_element.is_fixed()) {
-        ph_element.release_fixed();
+      if (physicsElement.is_fixed()) {
+        physicsElement.release_fixed();
 
-        const ph_obj = this.object.get_physics_object();
+        const physicsObject: XR_CPhysicObject = this.object.get_physics_object();
 
-        ph_obj.set_door_ignore_dynamics();
+        physicsObject.set_door_ignore_dynamics();
       }
     }
 
@@ -257,7 +268,7 @@ export class SchemePhysicalDoor extends AbstractScheme {
   public close_door(disable_snd: boolean): void {
     if (!disable_snd) {
       if (this.state.snd_close_start) {
-        GlobalSoundManager.setSoundPlay(this.object.id(), this.state.snd_close_start, null, null);
+        GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), this.state.snd_close_start, null, null);
       }
     }
 
@@ -308,7 +319,7 @@ export class SchemePhysicalDoor extends AbstractScheme {
   public use_callback(target: XR_game_object, who: Optional<XR_game_object>): void {
     if (this.state.locked) {
       if (this.state.snd_open_start) {
-        GlobalSoundManager.setSoundPlay(this.object.id(), this.state.snd_open_start, null, null);
+        GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), this.state.snd_open_start, null, null);
       }
     }
 

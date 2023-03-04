@@ -1,9 +1,9 @@
 import { object_binder, XR_cse_alife_object, XR_game_object, XR_net_packet, XR_reader } from "xray16";
 
-import { Optional } from "@/mod/lib/types";
+import { Optional, TNumberId } from "@/mod/lib/types";
 import { ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { addZone, deleteZone, IStoredObject, registry } from "@/mod/scripts/core/database";
-import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
+import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { initializeGameObject } from "@/mod/scripts/core/schemes/initializeGameObject";
 import { issueEvent } from "@/mod/scripts/core/schemes/issueEvent";
 import { load_obj, save_obj } from "@/mod/scripts/core/schemes/storing";
@@ -45,11 +45,12 @@ export class RestrictorBinder extends object_binder {
 
     addZone(this.object);
 
-    const objectId: number = this.object.id();
+    const objectId: TNumberId = this.object.id();
+    const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
 
     if (registry.sounds.looped.get(objectId) !== null) {
       for (const [k, v] of registry.sounds.looped.get(objectId)) {
-        GlobalSoundManager.playLoopedSound(objectId, k);
+        globalSoundManager.playLoopedSound(objectId, k);
       }
     }
 
@@ -59,7 +60,7 @@ export class RestrictorBinder extends object_binder {
   public override net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
 
-    GlobalSoundManager.stopSoundsById(this.object.id());
+    GlobalSoundManager.getInstance().stopSoundsByObjectId(this.object.id());
 
     const state: IStoredObject = this.state;
 
@@ -95,7 +96,7 @@ export class RestrictorBinder extends object_binder {
       issueEvent(this.object, this.state[this.state.active_scheme as string], "update", delta);
     }
 
-    GlobalSoundManager.updateForId(objectId);
+    GlobalSoundManager.getInstance().updateForObjectId(objectId);
   }
 
   public override net_save_relevant(): boolean {

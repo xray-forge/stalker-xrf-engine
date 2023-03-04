@@ -11,7 +11,7 @@ import {
 
 import { Optional } from "@/mod/lib/types";
 import { IStoredObject } from "@/mod/scripts/core/database";
-import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
+import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { SchemeDanger } from "@/mod/scripts/core/schemes/danger/SchemeDanger";
 import { StalkerMoveManager } from "@/mod/scripts/core/state_management/StalkerMoveManager";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
@@ -46,6 +46,9 @@ export class ActionCamperPatrol extends action_base {
   public enemy: Optional<XR_game_object> = null;
   public enemy_position: Optional<XR_vector> = null;
 
+  /**
+   * todo;
+   */
   public constructor(storage: IStoredObject, npc: XR_game_object) {
     super(null, ActionCamperPatrol.__name);
 
@@ -54,6 +57,9 @@ export class ActionCamperPatrol extends action_base {
     this.state.scan_table = new LuaTable();
   }
 
+  /**
+   * todo;
+   */
   public override initialize(): void {
     super.initialize();
 
@@ -64,6 +70,9 @@ export class ActionCamperPatrol extends action_base {
     this.enemy_position = null;
   }
 
+  /**
+   * todo;
+   */
   public reset_scheme(): void {
     set_state(this.object, "patrol", null, null, null, null);
     this.state.signals = {};
@@ -126,10 +135,16 @@ export class ActionCamperPatrol extends action_base {
     this.state.scan_begin = null;
   }
 
+  /**
+   * todo;
+   */
   public activate_scheme(): void {
     this.reset_scheme();
   }
 
+  /**
+   * todo;
+   */
   public can_shoot(): boolean {
     if (this.state.shoot === "always") {
       return true;
@@ -150,6 +165,9 @@ export class ActionCamperPatrol extends action_base {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public override execute(): void {
     super.execute();
     this.enemy = this.object.best_enemy();
@@ -213,7 +231,7 @@ export class ActionCamperPatrol extends action_base {
           }
         }
 
-        GlobalSoundManager.setSoundPlay(this.object.id(), this.state.attack_sound, null, null);
+        GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), this.state.attack_sound, null, null);
       } else {
         const memory_position = this.object.memory_position(this.enemy);
 
@@ -327,6 +345,9 @@ export class ActionCamperPatrol extends action_base {
     }
   }
 
+  /**
+   * todo;
+   */
   public process_danger(): boolean {
     if (!SchemeDanger.is_danger(this.object)) {
       return false;
@@ -373,6 +394,9 @@ export class ActionCamperPatrol extends action_base {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public scan(flag: number): void {
     if (this.state.scan_table!.get(flag) === null) {
       return;
@@ -434,6 +458,9 @@ export class ActionCamperPatrol extends action_base {
     }
   }
 
+  /**
+   * todo;
+   */
   public get_next_point(flag: number): ICampPoint {
     let next = false;
 
@@ -472,15 +499,24 @@ export class ActionCamperPatrol extends action_base {
     return this.state.last_look_point;
   }
 
+  /**
+   * todo;
+   */
   public process_point(): boolean {
     return false;
   }
 
+  /**
+   * todo;
+   */
   public override finalize(): void {
     this.moveManager.finalize();
     super.finalize();
   }
 
+  /**
+   * todo;
+   */
   public on_place(): boolean {
     if (this.state.no_retreat === true) {
       return false;

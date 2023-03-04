@@ -25,7 +25,7 @@ import {
 
 import { communities } from "@/mod/globals/communities";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
-import { Optional, TNumberId, TSection } from "@/mod/lib/types";
+import { Optional, TNumberId, TRate, TSection } from "@/mod/lib/types";
 import { ESchemeType } from "@/mod/lib/types/scheme";
 import { setup_gulag_and_logic_on_spawn, SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import {
@@ -39,8 +39,8 @@ import {
   resetObject,
 } from "@/mod/scripts/core/database";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
-import { GlobalSoundManager } from "@/mod/scripts/core/GlobalSoundManager";
 import { DropManager } from "@/mod/scripts/core/managers/DropManager";
+import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { ItemUpgradesManager } from "@/mod/scripts/core/managers/ItemUpgradesManager";
 import { mapDisplayManager } from "@/mod/scripts/core/managers/MapDisplayManager";
 import { ReleaseBodyManager } from "@/mod/scripts/core/managers/ReleaseBodyManager";
@@ -73,6 +73,10 @@ import { setObjectsRelation, setObjectSympathy } from "@/mod/scripts/utils/relat
 const logger: LuaLogger = new LuaLogger("MotivatorBinder");
 
 // todo: Rewrite with event emitting system
+
+/**
+ * todo;
+ */
 @LuabindClass()
 export class StalkerBinder extends object_binder {
   public state!: IStoredObject;
@@ -81,11 +85,17 @@ export class StalkerBinder extends object_binder {
   public first_update: boolean = false;
   public e_index: Optional<number> = null;
 
+  /**
+   * todo;
+   */
   public constructor(object: XR_game_object) {
     super(object);
     // --    this.need_relation_update = false
   }
 
+  /**
+   * todo;
+   */
   public override reinit(): void {
     super.reinit();
 
@@ -96,6 +106,9 @@ export class StalkerBinder extends object_binder {
     this.state.moveManager.initialize();
   }
 
+  /**
+   * todo;
+   */
   public extrapolate_callback(cur_pt: number): boolean {
     if (this.state.active_section) {
       issueEvent(this.object, this.state[this.state.active_scheme!], "extrapolate_callback");
@@ -105,6 +118,9 @@ export class StalkerBinder extends object_binder {
     return new patrol(this.object.patrol()!).flags(cur_pt).get() === 0;
   }
 
+  /**
+   * todo;
+   */
   public override net_spawn(obj: XR_cse_alife_object): boolean {
     const visual = getConfigString(system_ini(), this.object.section(), "set_visual", obj, false, "");
     const actor: XR_game_object = registry.actor;
@@ -218,11 +234,14 @@ export class StalkerBinder extends object_binder {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public override net_destroy(): void {
     DynamicMusicManager.NPC_TABLE.delete(this.object.id());
 
     registry.actorCombat.delete(this.object.id());
-    GlobalSoundManager.stopSoundsById(this.object.id());
+    GlobalSoundManager.getInstance().stopSoundsByObjectId(this.object.id());
 
     const st: IStoredObject = registry.objects.get(this.object.id());
 
@@ -258,6 +277,9 @@ export class StalkerBinder extends object_binder {
     super.net_destroy();
   }
 
+  /**
+   * todo;
+   */
   public clear_callbacks(): void {
     this.object.set_patrol_extrapolate_callback(null);
     this.object.set_callback(callback.hit, null);
@@ -265,6 +287,9 @@ export class StalkerBinder extends object_binder {
     this.object.set_callback(callback.sound, null);
   }
 
+  /**
+   * todo;
+   */
   public hit_callback(
     obj: XR_game_object,
     amount: number,
@@ -342,6 +367,9 @@ export class StalkerBinder extends object_binder {
     }
   }
 
+  /**
+   * todo;
+   */
   public death_callback(victim: XR_game_object, who: Optional<XR_game_object>): void {
     this.hit_callback(victim, 1, new vector().set(0, 0, 0), who, "from_death_callback");
 
@@ -404,6 +432,9 @@ export class StalkerBinder extends object_binder {
     ReleaseBodyManager.getInstance().addDeadBody(this.object);
   }
 
+  /**
+   * todo;
+   */
   public use_callback(obj: XR_game_object, who: XR_game_object): void {
     if (this.object.alive()) {
       ItemUpgradesManager.getInstance().setCurrentTech(obj);
@@ -416,6 +447,9 @@ export class StalkerBinder extends object_binder {
     }
   }
 
+  /**
+   * todo;
+   */
   public override update(delta: number): void {
     super.update(delta);
 
@@ -455,7 +489,7 @@ export class StalkerBinder extends object_binder {
     }
 
     if (object_alive) {
-      GlobalSoundManager.updateForId(object.id());
+      GlobalSoundManager.getInstance().updateForObjectId(object.id());
       SchemeMeet.process_npc_usability(object);
       updateInvulnerability(this.object);
     }
@@ -511,22 +545,31 @@ export class StalkerBinder extends object_binder {
     }
   }
 
+  /**
+   * todo;
+   */
   public override net_save_relevant(): boolean {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, StalkerBinder.__name);
 
     super.save(packet);
     save_obj(this.object, packet);
     TradeManager.getInstance().saveObjectState(this.object, packet);
-    GlobalSoundManager.save_npc(packet, this.object.id());
+    GlobalSoundManager.getInstance().saveForObjectId(packet, this.object.id());
     saveNpcDialogs(packet, this.object.id());
 
     setSaveMarker(packet, true, StalkerBinder.__name);
   }
 
+  /**
+   * todo;
+   */
   public override load(reader: XR_reader): void {
     this.loaded = true;
 
@@ -535,18 +578,21 @@ export class StalkerBinder extends object_binder {
     super.load(reader);
     load_obj(this.object, reader);
     TradeManager.getInstance().loadObjectState(this.object, reader);
-    GlobalSoundManager.load_npc(reader, this.object.id());
+    GlobalSoundManager.getInstance().loadForObjectId(reader, this.object.id());
     loadNpcDialogs(reader, this.object.id());
 
     setLoadMarker(reader, true, StalkerBinder.__name);
   }
 
+  /**
+   * todo;
+   */
   public hear_callback(
     target: XR_game_object,
-    who_id: number,
+    who_id: TNumberId,
     sound_type: TXR_snd_type,
     sound_position: XR_vector,
-    sound_power: number
+    sound_power: TRate
   ): void {
     if (who_id === target.id()) {
       return;
