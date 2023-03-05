@@ -11,7 +11,7 @@ import { SchemeCompanion } from "@/mod/scripts/core/schemes/companion";
 import { SchemeCorpseDetection } from "@/mod/scripts/core/schemes/corpse_detection";
 import { SchemeCover } from "@/mod/scripts/core/schemes/cover/SchemeCover";
 import { SchemeDanger } from "@/mod/scripts/core/schemes/danger/SchemeDanger";
-import { SchemeDeath } from "@/mod/scripts/core/schemes/death/SchemeDeath";
+import { SchemeDeath } from "@/mod/scripts/core/schemes/death";
 import { SchemeGatherItems } from "@/mod/scripts/core/schemes/gather_items";
 import { ActionSchemeHear } from "@/mod/scripts/core/schemes/hear/ActionSchemeHear";
 import { SchemeHelicopterMove } from "@/mod/scripts/core/schemes/heli_move/SchemeHelicopterMove";

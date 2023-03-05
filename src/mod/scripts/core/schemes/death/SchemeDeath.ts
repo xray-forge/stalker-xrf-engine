@@ -1,11 +1,13 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { IStoredObject } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
+import { DeathManager } from "@/mod/scripts/core/schemes/death/DeathManager";
+import { ISchemeDeathState } from "@/mod/scripts/core/schemes/death/ISchemeDeathState";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
-import { getConfigString, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
+import { getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseConditionsList } from "@/mod/scripts/utils/parse";
@@ -27,31 +29,15 @@ export class SchemeDeath extends AbstractScheme {
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
-    state: IStoredObject
+    state: ISchemeDeathState
   ): void {
-    logger.info("Add to binder:", object.name());
-
-    subscribeActionForEvents(object, state, new SchemeDeath(object, state));
+    subscribeActionForEvents(object, state, new DeathManager(object, state));
   }
 
   /**
    * todo;
    */
-  public static override setScheme(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection,
-    additional: string
-  ): void {
-    abort("Called not implemented setScheme method: %s, %s", object.name(), scheme);
-  }
-
-  /**
-   * todo;
-   */
-  public static setDeath(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    logger.info("Set death:", object.name());
+  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     assignStorageAndBind(object, ini, scheme, section);
   }
 
@@ -61,12 +47,12 @@ export class SchemeDeath extends AbstractScheme {
   public static override resetScheme(
     object: XR_game_object,
     scheme: EScheme,
-    state: IStoredObject,
+    objectState: IStoredObject,
     section: TSection
   ): void {
-    const death_section: Optional<TSection> = getConfigString(
-      state.ini!,
-      state.section_logic!,
+    const deathSection: Optional<TSection> = getConfigString(
+      objectState.ini!,
+      objectState.section_logic!,
       "on_death",
       object,
       false,
@@ -74,39 +60,41 @@ export class SchemeDeath extends AbstractScheme {
       null
     );
 
-    if (death_section !== null) {
+    if (deathSection !== null) {
       logger.info("Reset death:", object.name());
 
-      if (!state.ini!.section_exist(death_section)) {
-        abort("There is no section [%s] for object [%s]", death_section, object.name());
+      if (!objectState.ini!.section_exist(deathSection)) {
+        abort("There is no section [%s] for object [%s]", deathSection, object.name());
       }
 
-      const on_info = getConfigString(state.ini!, death_section, "on_info", object, false, "", null);
+      const state: ISchemeDeathState = objectState[SchemeDeath.SCHEME_SECTION];
+      const onInfo: Optional<string> = getConfigString(
+        objectState.ini!,
+        deathSection,
+        "on_info",
+        object,
+        false,
+        "",
+        null
+      );
 
-      if (on_info !== null) {
-        state.death!.info = parseConditionsList(object, death_section, "death", on_info);
+      if (onInfo !== null) {
+        state!.info = parseConditionsList(object, deathSection, "death", onInfo);
       }
 
-      const onInfo2 = getConfigString(state.ini!, death_section, "on_info2", object, false, "", null);
+      const onInfo2: Optional<string> = getConfigString(
+        objectState.ini!,
+        deathSection,
+        "on_info2",
+        object,
+        false,
+        "",
+        null
+      );
 
       if (onInfo2 !== null) {
-        state.death!.info2 = parseConditionsList(object, death_section, "death", onInfo2);
+        state!.info2 = parseConditionsList(object, deathSection, "death", onInfo2);
       }
-    }
-  }
-
-  /**
-   * todo;
-   */
-  public death_callback(victim: XR_game_object, who: Optional<XR_game_object>): void {
-    registry.objects.get(victim.id()).death!.killer = who === null ? -1 : who.id();
-
-    if (this.state.info) {
-      pickSectionFromCondList(registry.actor, this.object, this.state.info);
-    }
-
-    if (this.state.info2) {
-      pickSectionFromCondList(registry.actor, this.object, this.state.info2);
     }
   }
 }

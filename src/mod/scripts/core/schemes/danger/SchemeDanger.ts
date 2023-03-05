@@ -17,8 +17,10 @@ import { EScheme, ESchemeType, Optional, TDistance, TSection } from "@/mod/lib/t
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
-import { ActionProcessEnemy } from "@/mod/scripts/core/schemes/danger/actions/ActionProcessEnemy";
+import { ISchemeCombatIgnoreState } from "@/mod/scripts/core/schemes/combat_ignore";
+import { ActionProcessEnemy } from "@/mod/scripts/core/schemes/combat_ignore/actions/ActionProcessEnemy";
 import { EvaluatorDanger } from "@/mod/scripts/core/schemes/danger/evaluators";
+import { ISchemeDangerState } from "@/mod/scripts/core/schemes/danger/ISchemeDangerState";
 import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
 import { isHeavilyWounded } from "@/mod/scripts/utils/checkers/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -32,33 +34,38 @@ export class SchemeDanger extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.DANGER;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
+  /**
+   * todo;
+   */
   public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
-    state: IStoredObject
+    state: ISchemeDangerState
   ): void {
-    logger.info("Add to binder:", object.name());
-
-    const manager: XR_action_planner = object.motivation_action_manager();
-    const dangerAction: XR_action_base = manager.action(stalker_ids.action_danger_planner);
+    const actionPlanner: XR_action_planner = object.motivation_action_manager();
+    const dangerAction: XR_action_base = actionPlanner.action(stalker_ids.action_danger_planner);
     const dangerActionPlanner: XR_action_planner = cast_planner(dangerAction);
 
-    manager.remove_evaluator(stalker_ids.property_danger);
-    manager.add_evaluator(stalker_ids.property_danger, new EvaluatorDanger(state, this));
+    actionPlanner.remove_evaluator(stalker_ids.property_danger);
+    actionPlanner.add_evaluator(stalker_ids.property_danger, new EvaluatorDanger(state, this));
 
     dangerActionPlanner.remove_evaluator(stalker_ids.property_danger);
     dangerActionPlanner.add_evaluator(stalker_ids.property_danger, new EvaluatorDanger(state, this));
   }
 
-  public static setDanger(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    logger.info("Set danger:", object.name());
-
+  /**
+   * todo;
+   */
+  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     assignStorageAndBind(object, ini, scheme, section);
     registry.objects.get(object.id()).danger_flag = false;
   }
 
+  /**
+   * todo;
+   */
   public static override resetScheme(
     object: XR_game_object,
     scheme: EScheme,
@@ -66,7 +73,10 @@ export class SchemeDanger extends AbstractScheme {
     section: TSection
   ): void {}
 
-  public static is_danger(object: XR_game_object): boolean {
+  /**
+   * todo;
+   */
+  public static isDangerObject(object: XR_game_object): boolean {
     const bestDanger: Optional<XR_danger_object> = object.best_danger();
 
     if (bestDanger === null) {
@@ -109,8 +119,13 @@ export class SchemeDanger extends AbstractScheme {
        */
     }
 
-    if (!ActionProcessEnemy.isEnemy(object, bestDangerObject, registry.objects.get(object.id()).combat_ignore!, true)) {
-      // --printf("[%s] check danger COMBAT IGNORE", npc:name())
+    if (
+      !ActionProcessEnemy.isEnemy(
+        object,
+        bestDangerObject,
+        registry.objects.get(object.id())[EScheme.COMBAT_IGNORE] as ISchemeCombatIgnoreState
+      )
+    ) {
       return false;
     }
 
@@ -142,6 +157,9 @@ export class SchemeDanger extends AbstractScheme {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public static get_danger_name(best_danger: XR_danger_object): string {
     let best_danger_object: Optional<XR_game_object> = best_danger.object();
     const bd_type: TXR_danger_object = best_danger.type();
@@ -153,6 +171,9 @@ export class SchemeDanger extends AbstractScheme {
     return best_danger_object === null ? "none" : best_danger_object.name();
   }
 
+  /**
+   * todo;
+   */
   public static get_danger_time(danger: XR_danger_object): number {
     if (danger.type() === danger_object.entity_corpse) {
       return danger.object().death_time();

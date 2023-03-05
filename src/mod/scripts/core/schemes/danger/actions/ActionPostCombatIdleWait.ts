@@ -2,7 +2,7 @@ import { action_base, anim, look, move, object, XR_game_object } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
-import { IPostCombatSharedState } from "@/mod/scripts/core/schemes/danger/PostCombatIdle";
+import { ISchemePostCombatIdleState } from "@/mod/scripts/core/schemes/danger/ISchemePostCombatIdleState";
 import { AnimationManager } from "@/mod/scripts/core/state_management/AnimationManager";
 import { animations } from "@/mod/scripts/core/state_management/lib/state_mgr_animation_list";
 
@@ -11,12 +11,15 @@ import { animations } from "@/mod/scripts/core/state_management/lib/state_mgr_an
  */
 @LuabindClass()
 export class ActionPostCombatIdleWait extends action_base {
-  public readonly state: IPostCombatSharedState;
+  public readonly state: ISchemePostCombatIdleState;
 
   public anim_st!: { animstate: { states: { anim_marker: null } } };
   public anim_started: boolean = false;
 
-  public constructor(state: IPostCombatSharedState) {
+  /**
+   * todo;
+   */
+  public constructor(state: ISchemePostCombatIdleState) {
     super(null, ActionPostCombatIdleWait.__name);
     this.state = state;
   }
@@ -77,6 +80,9 @@ export class ActionPostCombatIdleWait extends action_base {
   }
 }
 
+/**
+ * todo;
+ */
 export function weapon_locked(object: XR_game_object): boolean {
   const isWeaponStrapped: boolean = object.weapon_strapped();
   const isWeaponUnstrapped: boolean = object.weapon_unstrapped();

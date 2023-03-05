@@ -5,5 +5,6 @@ import type { ActionProcessEnemy } from "@/mod/scripts/core/schemes/danger/actio
  * todo;
  */
 export interface ISchemeCombatIgnoreState extends IBaseSchemeState {
+  enabled?: boolean;
   action: ActionProcessEnemy;
 }

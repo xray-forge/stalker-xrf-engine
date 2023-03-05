@@ -11,7 +11,8 @@ import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { logicsConfig } from "@/mod/lib/configs/LogicsConfig";
 import { Optional } from "@/mod/lib/types";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { registry } from "@/mod/scripts/core/database";
+import { ISchemeDangerState } from "@/mod/scripts/core/schemes/danger";
 import { SchemeDanger } from "@/mod/scripts/core/schemes/danger/SchemeDanger";
 
 /**
@@ -19,16 +20,22 @@ import { SchemeDanger } from "@/mod/scripts/core/schemes/danger/SchemeDanger";
  */
 @LuabindClass()
 export class EvaluatorDanger extends property_evaluator {
-  private readonly state: IStoredObject;
+  private readonly state: ISchemeDangerState;
   private readonly schemeDanger: typeof SchemeDanger;
   public manager: Optional<XR_action_planner> = null;
 
-  public constructor(state: IStoredObject, schemeDanger: typeof SchemeDanger) {
+  /**
+   * todo;
+   */
+  public constructor(state: ISchemeDangerState, schemeDanger: typeof SchemeDanger) {
     super(null, EvaluatorDanger.__name);
     this.state = state;
     this.schemeDanger = schemeDanger;
   }
 
+  /**
+   * todo;
+   */
   public override evaluate(): boolean {
     if (this.manager === null) {
       this.manager = this.object.motivation_action_manager();
@@ -44,7 +51,7 @@ export class EvaluatorDanger extends property_evaluator {
       return true;
     }
 
-    if (!this.schemeDanger.is_danger(this.object)) {
+    if (!this.schemeDanger.isDangerObject(this.object)) {
       registry.objects.get(this.object.id()).danger_flag = false;
 
       return false;
@@ -56,10 +63,10 @@ export class EvaluatorDanger extends property_evaluator {
 
     registry.objects.get(this.object.id()).danger_flag = true;
 
-    const se_obj = alife().object<XR_cse_alife_creature_abstract>(this.object.id());
+    const serverObject = alife().object<XR_cse_alife_creature_abstract>(this.object.id());
 
-    if (se_obj && se_obj.m_smart_terrain_id !== MAX_UNSIGNED_16_BIT) {
-      alife().object<SmartTerrain>(se_obj.m_smart_terrain_id)!.set_alarm();
+    if (serverObject && serverObject.m_smart_terrain_id !== MAX_UNSIGNED_16_BIT) {
+      alife().object<SmartTerrain>(serverObject.m_smart_terrain_id)!.set_alarm();
     }
 
     return true;

@@ -345,7 +345,7 @@ export class ActionCamperPatrol extends action_base {
    * todo;
    */
   public process_danger(): boolean {
-    if (!SchemeDanger.is_danger(this.object)) {
+    if (!SchemeDanger.isDangerObject(this.object)) {
       return false;
     }
 

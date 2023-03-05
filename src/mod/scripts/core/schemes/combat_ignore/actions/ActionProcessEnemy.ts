@@ -1,7 +1,8 @@
 import { alife, XR_cse_alife_creature_abstract, XR_game_object, XR_vector } from "xray16";
 
+import { STRINGIFIED_TRUE } from "@/mod/globals/lua";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
-import { Optional, TName } from "@/mod/lib/types";
+import { Optional, TCount, TName, TNumberId } from "@/mod/lib/types";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { ESmartTerrainStatus } from "@/mod/scripts/core/alife/SmartTerrainControl";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
@@ -31,12 +32,7 @@ const ignored_smart = {
  * todo;
  */
 export class ActionProcessEnemy {
-  public static isEnemy(
-    object: XR_game_object,
-    enemy: XR_game_object,
-    st: IStoredObject,
-    not_check_sim: boolean
-  ): boolean {
+  public static isEnemy(object: XR_game_object, enemy: XR_game_object, state: ISchemeCombatIgnoreState): boolean {
     if (!object.alive()) {
       return false;
     }
@@ -45,19 +41,19 @@ export class ActionProcessEnemy {
       return true;
     }
 
-    if (st.enabled === false) {
+    if (state.enabled === false) {
       return true;
     }
 
-    const overrides = st.overrides;
+    const overrides = state.overrides;
     const obj_id = object.id();
-    const state = registry.objects.get(obj_id);
+    const objectState: IStoredObject = registry.objects.get(obj_id);
 
-    if (state === null) {
+    if (objectState === null) {
       return true;
     }
 
-    state.enemy_id = enemy.id();
+    objectState.enemy_id = enemy.id();
 
     if (enemy.id() !== registry.actor.id()) {
       for (const [k, v] of smarts_by_no_assault_zones) {
@@ -92,7 +88,7 @@ export class ActionProcessEnemy {
     if (overrides && overrides.combat_ignore) {
       const ret_value = pickSectionFromCondList(enemy, object, overrides.combat_ignore.condlist);
 
-      if (ret_value === "true") {
+      if (ret_value === STRINGIFIED_TRUE) {
         return false;
       }
 
@@ -105,11 +101,17 @@ export class ActionProcessEnemy {
   public readonly object: XR_game_object;
   public readonly state: ISchemeCombatIgnoreState;
 
+  /**
+   * todo;
+   */
   public constructor(object: XR_game_object, state: ISchemeCombatIgnoreState) {
     this.object = object;
     this.state = state;
   }
 
+  /**
+   * todo;
+   */
   public enemy_callback(object: XR_game_object, enemy: XR_game_object): boolean {
     if (enemy.id() === registry.actor.id()) {
       registry.actorCombat.set(object.id(), true);
@@ -157,12 +159,15 @@ export class ActionProcessEnemy {
     return isObjectEnemy;
   }
 
+  /**
+   * todo;
+   */
   public hit_callback(
     object: XR_game_object,
-    amount: number,
+    amount: TCount,
     direction: XR_vector,
     who: XR_game_object,
-    boneId: number
+    boneId: TNumberId
   ): void {
     if (who === null || amount === 0) {
       return;

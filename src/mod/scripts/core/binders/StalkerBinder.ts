@@ -226,7 +226,7 @@ export class StalkerBinder extends object_binder {
     setup_gulag_and_logic_on_spawn(this.object, this.state, obj, ESchemeType.STALKER, this.loaded);
 
     if (getCharacterCommunity(this.object) !== communities.zombied) {
-      PostCombatIdle.add_post_combat_idle(this.object);
+      PostCombatIdle.addPostCombatIdleWait(this.object);
     }
 
     this.object.group_throw_time_interval(2000);

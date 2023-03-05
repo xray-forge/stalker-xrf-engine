@@ -1,9 +1,10 @@
 import { property_evaluator, time_global, XR_game_object } from "xray16";
 
-import { Optional } from "@/mod/lib/types";
+import { EScheme, Optional } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
-import { ActionProcessEnemy } from "@/mod/scripts/core/schemes/danger/actions/ActionProcessEnemy";
-import { IPostCombatSharedState } from "@/mod/scripts/core/schemes/danger/PostCombatIdle";
+import { ISchemeCombatIgnoreState } from "@/mod/scripts/core/schemes/combat_ignore";
+import { ActionProcessEnemy } from "@/mod/scripts/core/schemes/combat_ignore/actions/ActionProcessEnemy";
+import { ISchemePostCombatIdleState } from "@/mod/scripts/core/schemes/danger/ISchemePostCombatIdleState";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("PostCombatIdleEnemyEvaluator");
@@ -13,37 +14,46 @@ const logger: LuaLogger = new LuaLogger("PostCombatIdleEnemyEvaluator");
  */
 @LuabindClass()
 export class EvaluatorPostCombatIdleEnemy extends property_evaluator {
-  public readonly state: IPostCombatSharedState;
+  public readonly state: ISchemePostCombatIdleState;
 
-  public constructor(state: IPostCombatSharedState) {
+  /**
+   * todo;
+   */
+  public constructor(state: ISchemePostCombatIdleState) {
     super(null, EvaluatorPostCombatIdleEnemy.__name);
-
     this.state = state;
     this.state.timer = time_global();
   }
 
+  /**
+   * todo;
+   */
   public override evaluate(): boolean {
-    const best_enemy: Optional<XR_game_object> = this.object.best_enemy();
+    const bestEnemy: Optional<XR_game_object> = this.object.best_enemy();
 
     if (
-      best_enemy !== null &&
-      !ActionProcessEnemy.isEnemy(this.object, best_enemy, registry.objects.get(this.object.id()).combat_ignore!, true)
+      bestEnemy !== null &&
+      !ActionProcessEnemy.isEnemy(
+        this.object,
+        bestEnemy,
+        registry.objects.get(this.object.id())[EScheme.COMBAT_IGNORE] as ISchemeCombatIgnoreState
+      )
     ) {
       return false;
     }
 
-    if (best_enemy !== null && this.state.timer !== null) {
-      this.state.last_best_enemy_id = best_enemy.id();
-      this.state.last_best_enemy_name = best_enemy.name();
+    if (bestEnemy !== null && this.state.timer !== null) {
+      this.state.last_best_enemy_id = bestEnemy.id();
+      this.state.last_best_enemy_name = bestEnemy.name();
       this.state.timer = null;
 
       return true;
     }
 
-    if (best_enemy === null && this.state.timer === null) {
+    if (bestEnemy === null && this.state.timer === null) {
       const overrides = registry.objects.get(this.object.id()).overrides;
-      const min = (overrides && overrides.min_post_combat_time * 1000) || 10000;
-      const max = (overrides && overrides.max_post_combat_time * 1000) || 15000;
+      const min = (overrides && overrides.min_post_combat_time * 1000) || 10_000;
+      const max = (overrides && overrides.max_post_combat_time * 1000) || 15_000;
 
       if (this.state.last_best_enemy_id === registry.actor.id()) {
         this.state.timer = time_global();
@@ -53,7 +63,7 @@ export class EvaluatorPostCombatIdleEnemy extends property_evaluator {
     }
 
     if (this.state.timer === null) {
-      return best_enemy !== null;
+      return bestEnemy !== null;
     }
 
     if (time_global() < this.state.timer) {

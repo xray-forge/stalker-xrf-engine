@@ -34,7 +34,7 @@ export function enable_generic_schemes(
 ): void {
   switch (schemeType) {
     case ESchemeType.STALKER: {
-      SchemeDanger.setDanger(object, ini, SchemeDanger.SCHEME_SECTION, "danger");
+      SchemeDanger.setScheme(object, ini, SchemeDanger.SCHEME_SECTION, "danger");
       SchemeGatherItems.setGatherItems(object, ini, SchemeGatherItems.SCHEME_SECTION, "gather_items");
 
       const combatSection: TSection = getConfigString(ini, section, "on_combat", object, false, "");
@@ -78,7 +78,7 @@ export function enable_generic_schemes(
 
       const deathSection: TSection = getConfigString(ini, section, "on_death", object, false, "");
 
-      SchemeDeath.setDeath(object, ini, EScheme.DEATH, deathSection);
+      SchemeDeath.setScheme(object, ini, EScheme.DEATH, deathSection);
       SchemeCombatIgnore.setCombatIgnoreChecker(object, ini, EScheme.COMBAT_IGNORE);
       SchemeReachTask.setScheme(object, ini, EScheme.REACH_TASK);
 
