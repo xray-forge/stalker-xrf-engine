@@ -29,7 +29,7 @@ import { SchemePatrol } from "@/mod/scripts/core/schemes/patrol/SchemePatrol";
 import { SchemePhysicalButton } from "@/mod/scripts/core/schemes/ph_button/SchemePhysicalButton";
 import { SchemeCode } from "@/mod/scripts/core/schemes/ph_code/SchemeCode";
 import { SchemePhysicalDoor } from "@/mod/scripts/core/schemes/ph_door/SchemePhysicalDoor";
-import { SchemePhysicalHit } from "@/mod/scripts/core/schemes/ph_hit/SchemePhysicalHit";
+import { SchemePhysicalHit } from "@/mod/scripts/core/schemes/ph_hit";
 import { SchemePhysicalIdle } from "@/mod/scripts/core/schemes/ph_idle";
 import { SchemeMinigun } from "@/mod/scripts/core/schemes/ph_minigun";
 import { SchemePhysicalOnDeath } from "@/mod/scripts/core/schemes/ph_on_death";
