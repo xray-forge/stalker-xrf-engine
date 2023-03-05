@@ -1,6 +1,6 @@
 import { property_evaluator } from "xray16";
 
-import { IStoredObject } from "@/mod/scripts/core/database";
+import { ISchemeSleeperState } from "@/mod/scripts/core/schemes/sleeper";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { isSchemeActive } from "@/mod/scripts/utils/scheme";
 
@@ -11,11 +11,11 @@ const logger: LuaLogger = new LuaLogger("EvaluatorNeedSleep");
  */
 @LuabindClass()
 export class EvaluatorNeedSleep extends property_evaluator {
-  public state: IStoredObject;
+  public state: ISchemeSleeperState;
 
-  public constructor(storage: IStoredObject) {
+  public constructor(state: ISchemeSleeperState) {
     super(null, EvaluatorNeedSleep.__name);
-    this.state = storage;
+    this.state = state;
   }
 
   public override evaluate(): boolean {

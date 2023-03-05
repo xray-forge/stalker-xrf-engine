@@ -21,6 +21,7 @@ import { STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/mod/globals/lua";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import {
   AnyArgs,
+  AnyObject,
   EScheme,
   LuaArray,
   Maybe,
@@ -556,4 +557,11 @@ export function anomalyHasArtefact(
   }
 
   return $multi(false, null);
+}
+
+/**
+ * todo;
+ */
+export function is_npc_asleep(npc: XR_game_object): boolean {
+  return (registry.objects.get(npc.id())!.state_mgr!.animstate as AnyObject).current_state === "sleep";
 }

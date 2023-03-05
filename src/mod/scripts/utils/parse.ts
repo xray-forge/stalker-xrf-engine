@@ -430,7 +430,11 @@ export function parsePathWaypoints(pathname: Optional<TPath>): Optional<LuaArray
 /**
  * todo;
  */
-export function parsePathWaypointsFromArgsList(pathname: TPath, pointsCount: TCount, ...args: AnyArgs): unknown {
+export function parsePathWaypointsFromArgsList(
+  pathname: TPath,
+  pointsCount: TCount,
+  ...args: AnyArgs
+): Optional<LuaArray<IWaypointData>> {
   if (!pathname) {
     return null;
   }
@@ -442,7 +446,7 @@ export function parsePathWaypointsFromArgsList(pathname: TPath, pointsCount: TCo
     abort("path '%s' has %d points, but %d points were expected", pathname, count, pointsCount);
   }
 
-  const result: LuaTable<number, IWaypointData> = new LuaTable();
+  const result: LuaArray<IWaypointData> = new LuaTable();
 
   for (const point of $range(0, count - 1)) {
     const cur_arg = args[point];

@@ -1,12 +1,13 @@
 import { action_base, patrol, XR_game_object } from "xray16";
 
-import { AnyCallable, Optional } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { AnyCallable, LuaArray, Optional } from "@/mod/lib/types";
+import { registry } from "@/mod/scripts/core/database";
+import { ISchemeSleeperState } from "@/mod/scripts/core/schemes/sleeper";
 import { StalkerMoveManager } from "@/mod/scripts/core/state_management/StalkerMoveManager";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { parsePathWaypointsFromArgsList } from "@/mod/scripts/utils/parse";
+import { IWaypointData, parsePathWaypointsFromArgsList } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("ActionSleeperActivity");
 
@@ -18,7 +19,7 @@ const state_sleeping = 1;
  */
 @LuabindClass()
 export class ActionSleeperActivity extends action_base {
-  public readonly state: IStoredObject;
+  public readonly state: ISchemeSleeperState;
   public readonly moveManager: StalkerMoveManager;
   public was_reset: boolean = false;
   public sleeping_state: number = state_walking;
@@ -34,7 +35,7 @@ export class ActionSleeperActivity extends action_base {
   /**
    * todo;
    */
-  public constructor(state: IStoredObject, object: XR_game_object) {
+  public constructor(state: ISchemeSleeperState, object: XR_game_object) {
     super(null, ActionSleeperActivity.__name);
 
     this.state = state;
@@ -66,7 +67,7 @@ export class ActionSleeperActivity extends action_base {
       random: 50,
     };
 
-    this.state.signals = {};
+    this.state.signals = new LuaTable();
     this.sleeping_state = state_walking;
 
     if (this.state.path_walk_info === null) {
@@ -104,8 +105,8 @@ export class ActionSleeperActivity extends action_base {
     }
 
     this.moveManager.reset(
-      this.state.path_walk,
-      this.state.path_walk_info,
+      this.state.path_walk as string,
+      this.state.path_walk_info as LuaArray<IWaypointData>,
       this.state.path_look,
       this.state.path_look_info,
       null,

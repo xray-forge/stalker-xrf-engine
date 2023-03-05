@@ -1,14 +1,14 @@
-import { stalker_ids, world_property, XR_game_object, XR_ini_file } from "xray16";
+import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
-import { AnyObject } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { registry } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { action_ids } from "@/mod/scripts/core/schemes/base/actions_id";
 import { evaluators_id } from "@/mod/scripts/core/schemes/base/evaluators_id";
 import { ActionSleeperActivity } from "@/mod/scripts/core/schemes/sleeper/actions/ActionSleeperActivity";
 import { EvaluatorNeedSleep } from "@/mod/scripts/core/schemes/sleeper/evaluators/EvaluatorNeedSleep";
+import { ISchemeSleeperState } from "@/mod/scripts/core/schemes/sleeper/ISchemeSleeperState";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { getConfigBoolean, getConfigString, getConfigSwitchConditions } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -16,16 +16,22 @@ import { addCommonPrecondition } from "@/mod/scripts/utils/scheme";
 
 const logger: LuaLogger = new LuaLogger("SchemeSleeper");
 
+/**
+ * todo;
+ */
 export class SchemeSleeper extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SLEEPER;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
+  /**
+   * todo;
+   */
   public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
-    state: IStoredObject
+    state: ISchemeSleeperState
   ): void {
     logger.info("Add to binder:", object.name());
 
@@ -38,9 +44,12 @@ export class SchemeSleeper extends AbstractScheme {
       state_mgr_logic_active: evaluators_id.state_mgr + 4,
     };
 
-    const manager = object.motivation_action_manager();
+    const actionPlanner: XR_action_planner = object.motivation_action_manager();
 
-    manager.add_evaluator(properties.need_sleeper, new EvaluatorNeedSleep(registry.objects.get(object.id()).sleeper));
+    actionPlanner.add_evaluator(
+      properties.need_sleeper,
+      new EvaluatorNeedSleep(registry.objects.get(object.id()).sleeper)
+    );
 
     const actionSleeper: ActionSleeperActivity = new ActionSleeperActivity(
       registry.objects.get(object.id()).sleeper,
@@ -52,16 +61,22 @@ export class SchemeSleeper extends AbstractScheme {
     actionSleeper.add_precondition(new world_property(stalker_ids.property_enemy, false));
     actionSleeper.add_precondition(new world_property(stalker_ids.property_anomaly, false));
     actionSleeper.add_precondition(new world_property(properties.need_sleeper, true));
+
     addCommonPrecondition(actionSleeper);
+
     actionSleeper.add_effect(new world_property(properties.need_sleeper, false));
     actionSleeper.add_effect(new world_property(properties.state_mgr_logic_active, false));
-    manager.add_action(operators.action_sleeper, actionSleeper);
+
+    actionPlanner.add_action(operators.action_sleeper, actionSleeper);
 
     subscribeActionForEvents(object, state, actionSleeper);
 
-    manager.action(action_ids.alife).add_precondition(new world_property(properties.need_sleeper, false));
+    actionPlanner.action(action_ids.alife).add_precondition(new world_property(properties.need_sleeper, false));
   }
 
+  /**
+   * todo;
+   */
   public static override setScheme(
     object: XR_game_object,
     ini: XR_ini_file,
@@ -71,7 +86,7 @@ export class SchemeSleeper extends AbstractScheme {
   ): void {
     logger.info("Set scheme:", object.name());
 
-    const state = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeSleeperState = assignStorageAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.path_main = getConfigString(ini, section, "path_main", object, true, gulag_name);
@@ -81,8 +96,4 @@ export class SchemeSleeper extends AbstractScheme {
     state.path_look = null;
     state.path_look_info = null;
   }
-}
-
-export function is_npc_asleep(npc: XR_game_object): boolean {
-  return (registry.objects.get(npc.id())!.state_mgr!.animstate as AnyObject).current_state === "sleep";
 }

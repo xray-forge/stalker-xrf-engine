@@ -11,7 +11,7 @@ import {
   XR_vector,
 } from "xray16";
 
-import { AnyCallable, AnyObject, Optional } from "@/mod/lib/types";
+import { AnyCallable, AnyObject, LuaArray, Optional } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
@@ -49,7 +49,7 @@ const sync: LuaTable<string, LuaTable<number, boolean>> = new LuaTable();
 export class StalkerMoveManager {
   public static choose_look_point(
     patrol_look: XR_patrol,
-    path_look_info: LuaTable<number, IWaypointData>,
+    path_look_info: LuaArray<IWaypointData>,
     search_for: XR_flags32
   ): LuaMultiReturn<[Optional<number>, number]> {
     let this_val;
