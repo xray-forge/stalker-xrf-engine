@@ -190,7 +190,7 @@ export function getInfosFromData(object: XR_game_object, data: Optional<string>)
 export function pickSectionFromCondList<T extends TSection>(
   actor: XR_game_object,
   object: Optional<XR_game_object | XR_cse_alife_object>,
-  condlist: LuaArray<IConfigSwitchCondition>
+  condlist: TConditionList
 ): Optional<T> {
   let randomValue: Optional<TRate> = null; // -- math.random(100)
   let infop_conditions_met;

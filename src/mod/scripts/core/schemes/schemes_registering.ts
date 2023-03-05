@@ -28,7 +28,7 @@ import { SchemeMobWalker } from "@/mod/scripts/core/schemes/mob/walker/SchemeMob
 import { SchemePatrol } from "@/mod/scripts/core/schemes/patrol/SchemePatrol";
 import { SchemePhysicalButton } from "@/mod/scripts/core/schemes/ph_button/SchemePhysicalButton";
 import { SchemeCode } from "@/mod/scripts/core/schemes/ph_code/SchemeCode";
-import { SchemePhysicalDoor } from "@/mod/scripts/core/schemes/ph_door/SchemePhysicalDoor";
+import { SchemePhysicalDoor } from "@/mod/scripts/core/schemes/ph_door";
 import { SchemePhysicalHit } from "@/mod/scripts/core/schemes/ph_hit";
 import { SchemePhysicalIdle } from "@/mod/scripts/core/schemes/ph_idle";
 import { SchemeMinigun } from "@/mod/scripts/core/schemes/ph_minigun";
