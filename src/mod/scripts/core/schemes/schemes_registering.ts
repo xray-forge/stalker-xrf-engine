@@ -24,7 +24,7 @@ import { SchemeMobDeath } from "@/mod/scripts/core/schemes/mob/death/SchemeMobDe
 import { SchemeMobHome } from "@/mod/scripts/core/schemes/mob/home/SchemeMobHome";
 import { SchemeMobJump } from "@/mod/scripts/core/schemes/mob/jump/SchemeMobJump";
 import { SchemeMobRemark } from "@/mod/scripts/core/schemes/mob/remark";
-import { SchemeMobWalker } from "@/mod/scripts/core/schemes/mob/walker/SchemeMobWalker";
+import { SchemeMobWalker } from "@/mod/scripts/core/schemes/mob/walker";
 import { SchemePatrol } from "@/mod/scripts/core/schemes/patrol/SchemePatrol";
 import { SchemePhysicalButton } from "@/mod/scripts/core/schemes/ph_button";
 import { SchemeCode } from "@/mod/scripts/core/schemes/ph_code";
