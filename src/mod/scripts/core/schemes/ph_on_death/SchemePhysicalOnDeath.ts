@@ -51,7 +51,7 @@ export class SchemePhysicalOnDeath extends AbstractScheme {
   /**
    * todo;
    */
-  public static override disableScheme(npc: XR_game_object, scheme: string): void {
+  public static override disableScheme(object: XR_game_object, scheme: EScheme): void {
     // ---  npc:set_callback(callback.death, nil)
   }
 }

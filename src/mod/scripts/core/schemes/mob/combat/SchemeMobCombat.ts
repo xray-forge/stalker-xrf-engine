@@ -1,11 +1,12 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { registry } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
+import { ISchemeMobCombatState } from "@/mod/scripts/core/schemes/mob/combat/ISchemeMobCombatState";
+import { MobCombatManager } from "@/mod/scripts/core/schemes/mob/combat/MobCombatManager";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
-import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { getConfigSwitchConditions } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -26,24 +27,20 @@ export class SchemeMobCombat extends AbstractScheme {
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
-    storage: IStoredObject
+    state: ISchemeMobCombatState
   ): void {
-    logger.info("Add to binder:", object.name());
+    const newAction: MobCombatManager = new MobCombatManager(object, state);
 
-    const newAction: SchemeMobCombat = new SchemeMobCombat(object, storage);
+    state.action = newAction;
 
-    storage.action = newAction;
-
-    subscribeActionForEvents(object, storage, newAction);
+    subscribeActionForEvents(object, state, newAction);
   }
 
   /**
    * todo;
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    logger.info("Set scheme:", object?.name(), scheme, section);
-
-    const state = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeMobCombatState = assignStorageAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.enabled = true;
@@ -52,25 +49,11 @@ export class SchemeMobCombat extends AbstractScheme {
   /**
    * todo;
    */
-  public static override disableScheme(this: void, object: XR_game_object, scheme: EScheme): void {
-    const state = registry.objects.get(object.id())[scheme];
+  public static override disableScheme(object: XR_game_object, scheme: EScheme): void {
+    const state: ISchemeMobCombatState = registry.objects.get(object.id())[scheme];
 
     if (state !== null) {
       state.enabled = false;
-    }
-  }
-
-  /**
-   * todo;
-   */
-  // todo: Is it needed at all?
-  public combat_callback(): void {
-    if (this.state.enabled && this.object.get_enemy() !== null) {
-      if (registry.objects.get(this.object.id()).active_scheme !== null) {
-        if (trySwitchToAnotherSection(this.object, this.state, registry.actor)) {
-          return;
-        }
-      }
     }
   }
 }

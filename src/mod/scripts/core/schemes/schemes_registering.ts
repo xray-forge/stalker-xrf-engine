@@ -19,7 +19,7 @@ import { SchemeHelpWounded } from "@/mod/scripts/core/schemes/help_wounded/Schem
 import { SchemeHit } from "@/mod/scripts/core/schemes/hit/SchemeHit";
 import { SchemeIdle } from "@/mod/scripts/core/schemes/idle";
 import { SchemeMeet } from "@/mod/scripts/core/schemes/meet/SchemeMeet";
-import { SchemeMobCombat } from "@/mod/scripts/core/schemes/mob/combat/SchemeMobCombat";
+import { SchemeMobCombat } from "@/mod/scripts/core/schemes/mob/combat";
 import { SchemeMobDeath } from "@/mod/scripts/core/schemes/mob/death";
 import { SchemeMobHome } from "@/mod/scripts/core/schemes/mob/home";
 import { SchemeMobJump } from "@/mod/scripts/core/schemes/mob/jump";
