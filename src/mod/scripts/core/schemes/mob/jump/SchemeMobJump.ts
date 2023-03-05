@@ -1,21 +1,15 @@
-import { cond, look, patrol, vector, XR_game_object, XR_ini_file, XR_patrol, XR_vector } from "xray16";
+import { vector, XR_game_object, XR_ini_file } from "xray16";
 
-import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { IStoredObject } from "@/mod/scripts/core/database";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
-import { mobCapture } from "@/mod/scripts/core/schemes/mobCapture";
-import { mobRelease } from "@/mod/scripts/core/schemes/mobRelease";
+import { ISchemeMobJumpState } from "@/mod/scripts/core/schemes/mob/jump/ISchemeMobJumpState";
+import { MobJumpManager } from "@/mod/scripts/core/schemes/mob/jump/MobJumpManager";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
-import { action } from "@/mod/scripts/utils/alife";
 import { getConfigNumber, getConfigString, getConfigSwitchConditions } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseNames } from "@/mod/scripts/utils/parse";
-
-const STATE_START_LOOK = 1;
-const STATE_WAIT_LOOK_END = 2;
-const STATE_JUMP = 3;
 
 const logger: LuaLogger = new LuaLogger("SchemeMobJump");
 
@@ -26,18 +20,22 @@ export class SchemeMobJump extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.MOB_JUMP;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
 
+  /**
+   * todo;
+   */
   public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
-    storage: IStoredObject
+    state: ISchemeMobJumpState
   ): void {
-    logger.info("Add to binder:", object.name(), scheme, section);
-
-    subscribeActionForEvents(object, storage, new SchemeMobJump(object, storage));
+    subscribeActionForEvents(object, state, new MobJumpManager(object, state));
   }
 
+  /**
+   * todo;
+   */
   public static override setScheme(
     object: XR_game_object,
     ini: XR_ini_file,
@@ -45,69 +43,19 @@ export class SchemeMobJump extends AbstractScheme {
     section: TSection,
     gulag_name: string
   ): void {
-    logger.info("Set scheme:", object.name(), scheme, section);
+    const state: ISchemeMobJumpState = assignStorageAndBind(object, ini, scheme, section);
 
-    const storage = assignStorageAndBind(object, ini, scheme, section);
-
-    storage.logic = getConfigSwitchConditions(ini, section, object);
-    storage.jump_path_name = getConfigString(ini, section, "path_jump", object, false, gulag_name);
-    storage.ph_jump_factor = getConfigNumber(ini, section, "ph_jump_factor", object, false, 1.8);
+    state.logic = getConfigSwitchConditions(ini, section, object);
+    state.jump_path_name = getConfigString(ini, section, "path_jump", object, false, gulag_name);
+    state.ph_jump_factor = getConfigNumber(ini, section, "ph_jump_factor", object, false, 1.8);
 
     const offset_str = getConfigString(ini, section, "offset", object, true, "");
     const elems = parseNames(offset_str);
 
-    storage.offset = new vector().set(tonumber(elems.get(1))!, tonumber(elems.get(2))!, tonumber(elems.get(3))!);
+    state.offset = new vector().set(tonumber(elems.get(1))!, tonumber(elems.get(2))!, tonumber(elems.get(3))!);
 
     if (!ini.line_exist(section, "on_signal")) {
       abort("Bad jump scheme usage! 'on_signal' line must be specified.");
-    }
-  }
-
-  public jump_path: Optional<XR_patrol> = null;
-  public point: Optional<XR_vector> = null;
-  public state_current: Optional<number> = null;
-
-  public override resetScheme(): void {
-    mobCapture(this.object, true, SchemeMobJump.name);
-
-    // -- reset signals
-    this.state.signals = {};
-
-    // -- initialize jump point
-    this.jump_path = null;
-
-    if (this.state.jump_path_name) {
-      this.jump_path = new patrol(this.state.jump_path_name);
-    } else {
-      this.state.jump_path_name = "[not defined]";
-    }
-
-    if (!this.jump_path) {
-      abort("object '%s': unable to find jump_path '%s' on the map", this.object.name(), this.state.jump_path_name);
-    }
-
-    this.point = new vector().add(this.jump_path.point(0), this.state.offset);
-
-    this.state_current = STATE_START_LOOK;
-  }
-
-  public override update(delta: number): void {
-    if (this.state_current === STATE_START_LOOK) {
-      if (!this.object.action()) {
-        action(this.object, new look(look.point, this.point!), new cond(cond.look_end));
-
-        this.state_current = STATE_WAIT_LOOK_END;
-      }
-    } else if (this.state_current === STATE_WAIT_LOOK_END) {
-      if (!this.object.action()) {
-        this.state_current = STATE_JUMP;
-      }
-    }
-
-    if (this.state_current === STATE_JUMP) {
-      this.object.jump(this.point!, this.state.ph_jump_factor);
-      this.state.signals["jumped"] = true;
-      mobRelease(this.object, SchemeMobJump.name);
     }
   }
 }

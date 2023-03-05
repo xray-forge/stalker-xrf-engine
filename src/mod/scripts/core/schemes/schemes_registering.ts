@@ -22,7 +22,7 @@ import { SchemeMeet } from "@/mod/scripts/core/schemes/meet/SchemeMeet";
 import { SchemeMobCombat } from "@/mod/scripts/core/schemes/mob/combat/SchemeMobCombat";
 import { SchemeMobDeath } from "@/mod/scripts/core/schemes/mob/death/SchemeMobDeath";
 import { SchemeMobHome } from "@/mod/scripts/core/schemes/mob/home/SchemeMobHome";
-import { SchemeMobJump } from "@/mod/scripts/core/schemes/mob/jump/SchemeMobJump";
+import { SchemeMobJump } from "@/mod/scripts/core/schemes/mob/jump";
 import { SchemeMobRemark } from "@/mod/scripts/core/schemes/mob/remark";
 import { SchemeMobWalker } from "@/mod/scripts/core/schemes/mob/walker";
 import { SchemePatrol } from "@/mod/scripts/core/schemes/patrol/SchemePatrol";
