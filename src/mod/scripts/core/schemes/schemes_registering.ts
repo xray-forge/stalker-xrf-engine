@@ -33,8 +33,8 @@ import { SchemePhysicalHit } from "@/mod/scripts/core/schemes/ph_hit/SchemePhysi
 import { SchemePhysicalIdle } from "@/mod/scripts/core/schemes/ph_idle";
 import { SchemeMinigun } from "@/mod/scripts/core/schemes/ph_minigun/SchemeMinigun";
 import { SchemePhysicalOnDeath } from "@/mod/scripts/core/schemes/ph_on_death/SchemePhysicalOnDeath";
-import { SchemePhysicalOnHit } from "@/mod/scripts/core/schemes/ph_on_hit/SchemePhysicalOnHit";
-import { SchemeOscillate } from "@/mod/scripts/core/schemes/ph_oscillate/SchemeOscillate";
+import { SchemePhysicalOnHit } from "@/mod/scripts/core/schemes/ph_on_hit";
+import { SchemeOscillate } from "@/mod/scripts/core/schemes/ph_oscillate";
 import { SchemeReachTask } from "@/mod/scripts/core/schemes/reach_task";
 import { SchemeRemark } from "@/mod/scripts/core/schemes/remark";
 import { SchemeSleeper } from "@/mod/scripts/core/schemes/sleeper";

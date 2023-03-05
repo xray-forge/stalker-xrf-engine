@@ -1,6 +1,7 @@
 import { XR_game_object } from "xray16";
 
-import { IStoredObject } from "@/mod/scripts/core/database";
+import { AnyObject } from "@/mod/lib/types";
+import { IBaseSchemeState } from "@/mod/scripts/core/schemes/base";
 
 /**
  * todo
@@ -8,10 +9,10 @@ import { IStoredObject } from "@/mod/scripts/core/database";
  * todo
  * todo
  */
-export function unsubscribeActionFromEvents(npc: XR_game_object, storage: IStoredObject, new_action: any): void {
-  if (storage.actions) {
-    storage.actions.delete(new_action);
+export function unsubscribeActionFromEvents(object: XR_game_object, state: IBaseSchemeState, action: AnyObject): void {
+  if (state.actions) {
+    state.actions.delete(action);
   } else {
-    storage.actions = new LuaTable();
+    state.actions = new LuaTable();
   }
 }
