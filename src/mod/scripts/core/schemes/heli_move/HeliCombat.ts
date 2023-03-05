@@ -25,7 +25,7 @@ import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { randomChoice } from "@/mod/scripts/utils/general";
 import { getIdBySid } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { parseConditionsList } from "@/mod/scripts/utils/parse";
+import { parseConditionsList, TConditionList } from "@/mod/scripts/utils/parse";
 import { distanceBetween2d } from "@/mod/scripts/utils/physics";
 
 const logger: LuaLogger = new LuaLogger("HeliCombat");
@@ -90,7 +90,7 @@ export class HeliCombat {
 
   public combat_use_rocket!: boolean;
   public combat_use_mgun!: boolean;
-  public combat_ignore!: Optional<LuaTable>;
+  public combat_ignore!: Optional<TConditionList>;
 
   public combat_type!: number;
   public enemy_id: Optional<number> = null;

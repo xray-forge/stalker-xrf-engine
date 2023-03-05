@@ -1,73 +1,23 @@
-import { level, patrol, XR_CHelicopter, XR_game_object, XR_ini_file, XR_patrol, XR_vector } from "xray16";
+import { level, patrol, XR_CHelicopter, XR_game_object, XR_patrol, XR_vector } from "xray16";
 
-import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { Optional, TRate } from "@/mod/lib/types";
+import { registry } from "@/mod/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
-import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
+import { AbstractSchemeManager } from "@/mod/scripts/core/schemes/base/AbstractSchemeManager";
 import { get_heli_firer, HeliFire } from "@/mod/scripts/core/schemes/heli_move/HeliFire";
 import { get_heli_flyer, HeliFly } from "@/mod/scripts/core/schemes/heli_move/HeliFly";
 import { get_heli_looker, HeliLook } from "@/mod/scripts/core/schemes/heli_move/HeliLook";
-import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
+import { ISchemeHelicopterMoveState } from "@/mod/scripts/core/schemes/heli_move/ISchemeHelicopterMoveState";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
-import {
-  getConfigBoolean,
-  getConfigNumber,
-  getConfigString,
-  getConfigSwitchConditions,
-} from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
-import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parsePathWaypoints } from "@/mod/scripts/utils/parse";
 
-const logger: LuaLogger = new LuaLogger("SchemeHeliMove");
 const state_move: number = 0;
 
 /**
- * todo
+ * todo;
  */
-export class SchemeHeliMove extends AbstractScheme {
-  public static override readonly SCHEME_SECTION: EScheme = EScheme.HELI_MOVE;
-  public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.ITEM;
-
-  public static override addToBinder(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection,
-    storage: IStoredObject
-  ): void {
-    subscribeActionForEvents(object, storage, new SchemeHeliMove(object, storage));
-  }
-
-  public static override setScheme(npc: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const a = assignStorageAndBind(npc, ini, scheme, section);
-
-    a.logic = getConfigSwitchConditions(ini, section, npc);
-    a.path_move = getConfigString(ini, section, "path_move", npc, true, "");
-    a.path_look = getConfigString(ini, section, "path_look", npc, false, "");
-    a.enemy_ = getConfigString(ini, section, "enemy", npc, false, "");
-    a.fire_point = getConfigString(ini, section, "fire_point", npc, false, "");
-    a.max_velocity = getConfigNumber(ini, section, "max_velocity", npc, true, null);
-    a.max_mgun_dist = getConfigNumber(ini, section, "max_mgun_attack_dist", npc, false);
-    a.max_rocket_dist = getConfigNumber(ini, section, "max_rocket_attack_dist", npc, false);
-    a.min_mgun_dist = getConfigNumber(ini, section, "min_mgun_attack_dist", npc, false);
-    a.min_rocket_dist = getConfigNumber(ini, section, "min_rocket_attack_dist", npc, false);
-    a.upd_vis = getConfigNumber(ini, section, "upd_vis", npc, false, 10);
-    a.use_rocket = getConfigBoolean(ini, section, "use_rocket", npc, false, true);
-    a.use_mgun = getConfigBoolean(ini, section, "use_mgun", npc, false, true);
-    a.engine_sound = getConfigBoolean(ini, section, "engine_sound", npc, false, true);
-    a.stop_fire = getConfigBoolean(ini, section, "stop_fire", npc, false, false);
-    a.show_health = getConfigBoolean(ini, section, "show_health", npc, false, false);
-    a.fire_trail = getConfigBoolean(ini, section, "fire_trail", npc, false, false);
-
-    const st = registry.objects.get(npc.id());
-
-    st.invulnerable = getConfigBoolean(ini, section, "invulnerable", npc, false, false);
-    st.immortal = getConfigBoolean(ini, section, "immortal", npc, false, false);
-    st.mute = getConfigBoolean(ini, section, "mute", npc, false, false);
-  }
-
+export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopterMoveState> {
   public readonly heliObject: XR_CHelicopter;
 
   public heli_look: HeliLook;
@@ -78,7 +28,7 @@ export class SchemeHeliMove extends AbstractScheme {
   public patrol_move_info!: LuaTable<number>;
   public patrol_look: Optional<XR_patrol> = null;
 
-  public max_velocity!: number;
+  public max_velocity!: TRate;
   public heliState: Optional<number> = null;
   public last_index: Optional<number> = null;
   public next_index: Optional<number> = null;
@@ -87,7 +37,10 @@ export class SchemeHeliMove extends AbstractScheme {
   public by_stop_fire_fly: Optional<boolean> = null;
   public stop_point: Optional<XR_vector> = null;
 
-  public constructor(object: XR_game_object, state: IStoredObject) {
+  /**
+   * todo;
+   */
+  public constructor(object: XR_game_object, state: ISchemeHelicopterMoveState) {
     super(object, state);
 
     this.heliObject = object.get_helicopter();
@@ -97,8 +50,11 @@ export class SchemeHeliMove extends AbstractScheme {
     this.heli_look = get_heli_looker(object);
   }
 
+  /**
+   * todo;
+   */
   public override resetScheme(loading?: boolean): void {
-    this.state.signals = {};
+    this.state.signals = new LuaTable();
     this.heliObject.TurnEngineSound(this.state.engine_sound);
 
     if (!level.patrol_path_exists(this.state.path_move)) {
@@ -202,6 +158,9 @@ export class SchemeHeliMove extends AbstractScheme {
     }
   }
 
+  /**
+   * todo;
+   */
   public save(): void {
     pstor_store(this.object, "st", this.heliState);
     // ---
@@ -211,6 +170,9 @@ export class SchemeHeliMove extends AbstractScheme {
     pstor_store(this.object, "wc", this.was_callback);
   }
 
+  /**
+   * todo;
+   */
   public override update(delta: number): void {
     const actor: XR_game_object = registry.actor;
 
@@ -251,6 +213,9 @@ export class SchemeHeliMove extends AbstractScheme {
     }
   }
 
+  /**
+   * todo;
+   */
   public update_movement_state(): void {
     // --'printf("update_movement_state()")
     this.heliState = state_move;
@@ -308,12 +273,18 @@ export class SchemeHeliMove extends AbstractScheme {
     }
   }
 
+  /**
+   * todo;
+   */
   public update_look_state(): void {
     // --'    printf("update_look_state()")
     this.heli_fly.set_block_flook(true);
     this.heli_fly.look_at_position();
   }
 
+  /**
+   * todo;
+   */
   public waypoint_callback(object: XR_game_object, action_type: string, index: number): void {
     if (!this._flag_to_wp_callback) {
       if (this.patrol_move !== null) {
@@ -328,7 +299,7 @@ export class SchemeHeliMove extends AbstractScheme {
             const signal = this.patrol_move_info.get(this.last_index!)["sig"];
 
             if (signal !== null) {
-              this.state.signals[signal] = true;
+              this.state.signals!.set(signal, true);
             }
           }
 

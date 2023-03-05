@@ -11,7 +11,6 @@ import {
   XR_game_object,
   XR_ini_file,
   XR_net_packet,
-  XR_object_binder,
   XR_reader,
   XR_vector,
 } from "xray16";
@@ -30,13 +29,13 @@ import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { getClsId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("HeliBinder");
+const logger: LuaLogger = new LuaLogger("HelicopterBinder");
 
 /**
  * todo;
  */
 @LuabindClass()
-export class HeliBinder extends object_binder {
+export class HelicopterBinder extends object_binder {
   public readonly ini: XR_ini_file;
 
   public st: IStoredObject = {};
@@ -139,24 +138,24 @@ export class HeliBinder extends object_binder {
 
   public override save(packet: XR_net_packet): void {
     super.save(packet);
-    setSaveMarker(packet, false, HeliBinder.__name);
+    setSaveMarker(packet, false, HelicopterBinder.__name);
     // --printf( "heli_binder: save")
 
     saveObject(this.object, packet);
-    setSaveMarker(packet, true, HeliBinder.__name);
+    setSaveMarker(packet, true, HelicopterBinder.__name);
     this.st.combat!.save(packet);
   }
 
   public override load(reader: XR_reader): void {
     this.loaded = true;
-    setLoadMarker(reader, false, HeliBinder.__name);
+    setLoadMarker(reader, false, HelicopterBinder.__name);
     // --printf("generic_object_binder:load(): this.object:name()='%s'", this.object:name())
     super.load(reader);
 
     // --printf( "heli_binder: load")
 
     loadObject(this.object, reader);
-    setLoadMarker(reader, true, HeliBinder.__name);
+    setLoadMarker(reader, true, HelicopterBinder.__name);
     this.st.combat!.load(reader);
   }
 

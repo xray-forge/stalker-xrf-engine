@@ -14,7 +14,7 @@ import { SchemeDanger } from "@/mod/scripts/core/schemes/danger/SchemeDanger";
 import { SchemeDeath } from "@/mod/scripts/core/schemes/death/SchemeDeath";
 import { SchemeGatherItems } from "@/mod/scripts/core/schemes/gather_items/SchemeGatherItems";
 import { ActionSchemeHear } from "@/mod/scripts/core/schemes/hear/ActionSchemeHear";
-import { SchemeHeliMove } from "@/mod/scripts/core/schemes/heli_move/SchemeHeliMove";
+import { SchemeHelicopterMove } from "@/mod/scripts/core/schemes/heli_move/SchemeHelicopterMove";
 import { SchemeHelpWounded } from "@/mod/scripts/core/schemes/help_wounded/SchemeHelpWounded";
 import { SchemeHit } from "@/mod/scripts/core/schemes/hit/SchemeHit";
 import { SchemeIdle } from "@/mod/scripts/core/schemes/idle";
@@ -132,7 +132,7 @@ export function initializeModules(): void {
     SchemePhysicalButton,
     SchemeCode,
     SchemePhysicalDoor,
-    SchemeHeliMove,
+    SchemeHelicopterMove,
     SchemePhysicalHit,
     SchemeMinigun,
     SchemePhysicalOnDeath,

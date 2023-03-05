@@ -9,7 +9,7 @@ import { ArtefactBinder } from "@/mod/scripts/core/binders/ArtefactBinder";
 import { CampBinder } from "@/mod/scripts/core/binders/CampBinder";
 import { CampfireBinder } from "@/mod/scripts/core/binders/CampfireBinder";
 import { CrowBinder } from "@/mod/scripts/core/binders/CrowBinder";
-import { HeliBinder } from "@/mod/scripts/core/binders/HeliBinder";
+import { HelicopterBinder } from "@/mod/scripts/core/binders/HelicopterBinder";
 import { LabX8DoorBinder } from "@/mod/scripts/core/binders/LabX8DoorBinder";
 import { LevelChangerBinder } from "@/mod/scripts/core/binders/LevelChangerBinder";
 import { MonsterBinder } from "@/mod/scripts/core/binders/MonsterBinder";
@@ -45,7 +45,7 @@ list = {
     const ini: Optional<XR_ini_file> = object.spawn_ini();
 
     if (ini !== null && ini.section_exist("logic")) {
-      object.bind_object(new HeliBinder(object, ini));
+      object.bind_object(new HelicopterBinder(object, ini));
     }
   },
   bindLabX8Door: (object: XR_game_object) => object.bind_object(new LabX8DoorBinder(object)),

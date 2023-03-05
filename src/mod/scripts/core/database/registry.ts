@@ -36,6 +36,10 @@ import type { StateManager } from "@/mod/scripts/core/state_management/StateMana
 export interface IStoredObject<T = XR_game_object> {
   active_section?: Optional<TSection>;
 
+  invulnerable?: Optional<boolean>;
+  immortal?: Optional<boolean>;
+  mute?: Optional<boolean>;
+
   [index: string]: any;
 
   moveManager?: StalkerMoveManager;

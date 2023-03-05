@@ -5,13 +5,13 @@ import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObject
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("Heli");
+const logger: LuaLogger = new LuaLogger("Helicopter");
 
 /**
  * todo;
  */
 @LuabindClass()
-export class Heli extends cse_alife_helicopter {
+export class Helicopter extends cse_alife_helicopter {
   public constructor(section: TSection) {
     super(section);
   }

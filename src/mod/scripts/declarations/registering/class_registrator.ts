@@ -8,7 +8,7 @@ import { AnomalousZone } from "@/mod/scripts/core/alife/anomal_zones/AnomalousZo
 import { ZoneRestrictor } from "@/mod/scripts/core/alife/anomal_zones/ZoneRestrictor";
 import { ZoneTorrid } from "@/mod/scripts/core/alife/anomal_zones/ZoneTorrid";
 import { ZoneVisual } from "@/mod/scripts/core/alife/anomal_zones/ZoneVisual";
-import { Heli } from "@/mod/scripts/core/alife/Heli";
+import { Helicopter } from "@/mod/scripts/core/alife/Helicopter";
 import { InventoryBox } from "@/mod/scripts/core/alife/items/InvertoryBox";
 import { Item } from "@/mod/scripts/core/alife/items/Item";
 import { ItemAmmo } from "@/mod/scripts/core/alife/items/ItemAmmo";
@@ -103,7 +103,7 @@ export function registerGameClasses(factory: XR_object_factory): void {
   clientServerRegister(factory, EClientObjectClass.CLevelChanger, LevelChanger.__name, "LVL_CHNG", "level_changer_s");
   clientServerRegister(factory, EClientObjectClass.CActor, Actor.__name, "S_ACTOR", "script_actor");
   clientServerRegister(factory, EClientObjectClass.CAI_Stalker, Stalker.__name, "AI_STL_S", "script_stalker");
-  clientServerRegister(factory, EClientObjectClass.CHelicopter, Heli.__name, "C_HLCP_S", "script_heli");
+  clientServerRegister(factory, EClientObjectClass.CHelicopter, Helicopter.__name, "C_HLCP_S", "script_heli");
 
   clientServerRegister(factory, EClientObjectClass.CPhysicObject, ObjectPhysic.__name, "O_PHYS_S", "script_phys");
   clientServerRegister(factory, EClientObjectClass.smart_cover_object, SmartCover.__name, "SMRT_C_S", "smartcover_s");
