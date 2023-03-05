@@ -2,12 +2,13 @@ import { device, level, XR_game_object } from "xray16";
 
 import { EScheme, Optional } from "@/mod/lib/types";
 import { stringifyAsJson } from "@/mod/lib/utils/json";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { registry } from "@/mod/scripts/core/database";
 import {
   EEffectorState,
   ICamEffectorSetDescriptorItem,
   TCamEffectorSetDescriptor,
 } from "@/mod/scripts/core/schemes/sr_cutscene/cam_effector_sets";
+import { ISchemeCutsceneState } from "@/mod/scripts/core/schemes/sr_cutscene/ISchemeCutsceneState";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseConditionsList } from "@/mod/scripts/utils/parse";
@@ -17,7 +18,7 @@ const CAM_EFFECTOR_SET_SECTION: string = EScheme.SR_CUTSCENE;
 
 export class CamEffectorSet {
   public set: TCamEffectorSetDescriptor;
-  public st: IStoredObject;
+  public st: ISchemeCutsceneState;
   public state: EEffectorState;
 
   public cur_effect: number;
@@ -26,7 +27,7 @@ export class CamEffectorSet {
   public looped: boolean;
   public condlist!: LuaTable;
 
-  public constructor(set: TCamEffectorSetDescriptor, storage: IStoredObject) {
+  public constructor(set: TCamEffectorSetDescriptor, storage: ISchemeCutsceneState) {
     logger.info("Init new set:", stringifyAsJson(set));
 
     this.set = set;
