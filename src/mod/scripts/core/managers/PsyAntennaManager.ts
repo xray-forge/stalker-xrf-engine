@@ -32,6 +32,9 @@ export interface IPsyPostProcessDescriptor {
   idx: number;
 }
 
+/**
+ * todo;
+ */
 export class PsyAntennaManager extends AbstractCoreManager {
   public static load(reader: XR_reader): void {
     setLoadMarker(reader, false, PsyAntennaManager.name + "_static");
