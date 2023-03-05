@@ -1,18 +1,16 @@
-import { time_global, XR_game_object, XR_ini_file, XR_object, XR_vector } from "xray16";
+import { XR_game_object, XR_ini_file } from "xray16";
 
-import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
+import { ISchemePhysicalButtonState } from "@/mod/scripts/core/schemes/ph_button/ISchemePhysicalButtonState";
+import { PhysicalButtonManager } from "@/mod/scripts/core/schemes/ph_button/PhysicalButtonManager";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
-import { switchToSection } from "@/mod/scripts/core/schemes/switchToSection";
-import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import {
   getConfigBoolean,
   getConfigCondList,
   getConfigString,
   getConfigSwitchConditions,
-  pickSectionFromCondList,
 } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -25,96 +23,39 @@ export class SchemePhysicalButton extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_BUTTON;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.ITEM;
 
+  /**
+   * todo;
+   */
   public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
-    state: IStoredObject
+    state: ISchemePhysicalButtonState
   ): void {
-    subscribeActionForEvents(object, state, new SchemePhysicalButton(object, state));
+    subscribeActionForEvents(object, state, new PhysicalButtonManager(object, state));
   }
 
+  /**
+   * todo;
+   */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const st = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemePhysicalButtonState = assignStorageAndBind(object, ini, scheme, section);
 
-    st.logic = getConfigSwitchConditions(ini, section, object);
-    st.on_press = getConfigCondList(ini, section, "on_press", object);
-    st.tooltip = getConfigString(ini, section, "tooltip", object, false, "");
+    state.logic = getConfigSwitchConditions(ini, section, object);
+    state.on_press = getConfigCondList(ini, section, "on_press", object);
+    state.tooltip = getConfigString(ini, section, "tooltip", object, false, "");
 
-    if (st.tooltip) {
-      object.set_tip_text(st.tooltip);
+    if (state.tooltip) {
+      object.set_tip_text(state.tooltip);
     } else {
       object.set_tip_text("");
     }
 
-    st.anim = getConfigString(ini, section, "anim", object, true, "");
-    st.blending = getConfigBoolean(ini, section, "anim_blend", object, false, true);
-    if (st.blending === null) {
-      st.blending = true;
+    state.anim = getConfigString(ini, section, "anim", object, true, "");
+    state.blending = getConfigBoolean(ini, section, "anim_blend", object, false, true);
+    if (state.blending === null) {
+      state.blending = true;
     }
-  }
-
-  public last_hit_tm: Optional<number> = null;
-
-  public override resetScheme(): void {
-    this.object.play_cycle(this.state.anim, this.state.blending);
-
-    this.last_hit_tm = time_global();
-  }
-
-  public override update(delta: number): void {
-    trySwitchToAnotherSection(this.object, this.state, registry.actor);
-  }
-
-  public try_switch(): boolean {
-    const state = registry.objects.get(this.object.id());
-
-    if (state.active_scheme && state.active_scheme === SchemePhysicalButton.SCHEME_SECTION && this.state.on_press) {
-      if (
-        switchToSection(
-          this.object,
-          this.state.ini!,
-          pickSectionFromCondList(registry.actor, this.object, this.state.on_press.condlist)!
-        )
-      ) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  public hit_callback(
-    object: XR_object,
-    amount: number,
-    local_direction: XR_vector,
-    who: Optional<XR_game_object>,
-    bone_index: number
-  ): void {
-    return;
-    /* --[[    const who_name
-      if who then
-        who_name = who:name()
-      else
-        who_name = "nil"
-      end
-
-      printf("_bp: ph_button:hit_callback: obj='%s', amount=%d, who='%s'", obj:name(), amount, who_name)
-
-      if time_global() - this.last_hit_tm > 500 then
-        this.last_hit_tm = time_global()
-        if this:try_switch() then
-          return
-        end
-      end
-    ]]
-    */
-  }
-
-  public use_callback(object: XR_game_object, who: Optional<XR_game_object>): void {
-    logger.info("Button used:", object.name(), who?.name());
-
-    this.try_switch();
   }
 }

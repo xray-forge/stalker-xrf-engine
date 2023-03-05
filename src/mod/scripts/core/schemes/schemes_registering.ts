@@ -23,10 +23,10 @@ import { SchemeMobCombat } from "@/mod/scripts/core/schemes/mob/combat/SchemeMob
 import { SchemeMobDeath } from "@/mod/scripts/core/schemes/mob/death/SchemeMobDeath";
 import { SchemeMobHome } from "@/mod/scripts/core/schemes/mob/home/SchemeMobHome";
 import { SchemeMobJump } from "@/mod/scripts/core/schemes/mob/jump/SchemeMobJump";
-import { SchemeMobRemark } from "@/mod/scripts/core/schemes/mob/remark/SchemeMobRemark";
+import { SchemeMobRemark } from "@/mod/scripts/core/schemes/mob/remark";
 import { SchemeMobWalker } from "@/mod/scripts/core/schemes/mob/walker/SchemeMobWalker";
 import { SchemePatrol } from "@/mod/scripts/core/schemes/patrol/SchemePatrol";
-import { SchemePhysicalButton } from "@/mod/scripts/core/schemes/ph_button/SchemePhysicalButton";
+import { SchemePhysicalButton } from "@/mod/scripts/core/schemes/ph_button";
 import { SchemeCode } from "@/mod/scripts/core/schemes/ph_code";
 import { SchemePhysicalDoor } from "@/mod/scripts/core/schemes/ph_door";
 import { SchemePhysicalHit } from "@/mod/scripts/core/schemes/ph_hit";
