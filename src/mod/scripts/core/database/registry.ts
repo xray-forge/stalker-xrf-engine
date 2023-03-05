@@ -10,6 +10,7 @@ import type {
   TName,
   TNumberId,
   TSection,
+  TStringId,
 } from "@/mod/lib/types";
 import type { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import type { AnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
@@ -23,7 +24,7 @@ import type { ITradeManagerDescriptor } from "@/mod/scripts/core/managers/TradeM
 import type { SchemeAnimpoint } from "@/mod/scripts/core/schemes/animpoint/SchemeAnimpoint";
 import type { TAbstractSchemeConstructor } from "@/mod/scripts/core/schemes/base";
 import type { CampStoryManager } from "@/mod/scripts/core/schemes/camper/CampStoryManager";
-import type { PatrolManager } from "@/mod/scripts/core/schemes/patrol/SchemePatrol";
+import type { PatrolManager } from "@/mod/scripts/core/schemes/patrol";
 import type { ReachTaskPatrolManager } from "@/mod/scripts/core/schemes/reach_task/ReachTaskPatrolManager";
 import type { RestrictorManager } from "@/mod/scripts/core/schemes/RestrictorManager";
 import type { LightManager } from "@/mod/scripts/core/schemes/sr_light/LightManager";
@@ -214,7 +215,7 @@ export const registry = {
    * List of active patrols and actions.
    */
   patrols: {
-    generic: new LuaTable<TNumberId, PatrolManager>(),
+    generic: new LuaTable<TStringId, PatrolManager>(),
     reachTask: new LuaTable<TName, ReachTaskPatrolManager>(),
   },
   /**

@@ -1,8 +1,9 @@
 import { action_base, XR_game_object } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { registry } from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
+import { ISchemePatrolState } from "@/mod/scripts/core/schemes/patrol";
 import { StalkerMoveManager } from "@/mod/scripts/core/state_management/StalkerMoveManager";
 import { get_state } from "@/mod/scripts/core/state_management/StateManager";
 import { parsePathWaypoints } from "@/mod/scripts/utils/parse";
@@ -12,19 +13,24 @@ import { parsePathWaypoints } from "@/mod/scripts/utils/parse";
  */
 @LuabindClass()
 export class ActionCommander extends action_base {
-  public readonly state: IStoredObject;
+  public readonly state: ISchemePatrolState;
   public readonly moveManager: StalkerMoveManager;
 
   public cur_state: string = "patrol";
   public old_state: Optional<string> = null;
 
-  public constructor(storage: IStoredObject, object: XR_game_object) {
+  /**
+   * todo;
+   */
+  public constructor(state: ISchemePatrolState, object: XR_game_object) {
     super(null, ActionCommander.__name);
-
-    this.state = storage;
-    this.moveManager = storage[object.id()].moveManager;
+    this.state = state;
+    this.moveManager = registry.objects.get(object.id()).moveManager!;
   }
 
+  /**
+   * todo;
+   */
   public override initialize(): void {
     super.initialize();
 
@@ -34,8 +40,11 @@ export class ActionCommander extends action_base {
     this.activateScheme();
   }
 
+  /**
+   * todo;
+   */
   public activateScheme(): void {
-    this.state.signals = {};
+    this.state.signals = new LuaTable();
 
     if (this.state.path_walk_info === null) {
       this.state.path_walk_info = parsePathWaypoints(this.state.path_walk);
@@ -47,7 +56,7 @@ export class ActionCommander extends action_base {
 
     this.moveManager.reset(
       this.state.path_walk,
-      this.state.path_walk_info,
+      this.state.path_walk_info!,
       this.state.path_look,
       this.state.path_look_info,
       this.state.team,
@@ -61,6 +70,9 @@ export class ActionCommander extends action_base {
     registry.patrols.generic.get(this.state.patrol_key).set_command(this.object, this.cur_state, this.state.formation);
   }
 
+  /**
+   * todo;
+   */
   public override execute(): void {
     super.execute();
 
@@ -102,6 +114,9 @@ export class ActionCommander extends action_base {
     registry.patrols.generic.get(this.state.patrol_key).set_command(this.object, new_state, this.state.formation);
   }
 
+  /**
+   * todo;
+   */
   public override finalize(): void {
     if (this.object.alive() === true) {
       // --printf ("ACTION_COMMANDER:FINALIZE CALLED")
@@ -112,18 +127,30 @@ export class ActionCommander extends action_base {
     super.finalize();
   }
 
+  /**
+   * todo;
+   */
   public deactivate(npc: XR_game_object): void {
     registry.patrols.generic.get(this.state.patrol_key).remove_npc(npc);
   }
 
+  /**
+   * todo;
+   */
   public death_callback(npc: XR_game_object): void {
     registry.patrols.generic.get(this.state.patrol_key).remove_npc(npc);
   }
 
-  public net_destroy(npc: XR_game_object): void {
-    this.deactivate(npc);
+  /**
+   * todo;
+   */
+  public net_destroy(object: XR_game_object): void {
+    this.deactivate(object);
   }
 
+  /**
+   * todo;
+   */
   public formation_callback(mode: number, number: number, index: number): void {
     if (number === 0) {
       this.state.formation = "line";

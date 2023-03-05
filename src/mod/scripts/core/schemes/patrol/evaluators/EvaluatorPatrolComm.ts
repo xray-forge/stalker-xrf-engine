@@ -1,6 +1,7 @@
 import { property_evaluator } from "xray16";
 
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { registry } from "@/mod/scripts/core/database";
+import { ISchemePatrolState } from "@/mod/scripts/core/schemes/patrol";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("EvaluatorPatrolComm");
@@ -10,11 +11,11 @@ const logger: LuaLogger = new LuaLogger("EvaluatorPatrolComm");
  */
 @LuabindClass()
 export class EvaluatorPatrolComm extends property_evaluator {
-  public readonly state: IStoredObject;
+  public readonly state: ISchemePatrolState;
 
-  public constructor(storage: IStoredObject) {
+  public constructor(state: ISchemePatrolState) {
     super(null, EvaluatorPatrolComm.__name);
-    this.state = storage;
+    this.state = state;
   }
 
   public override evaluate(): boolean {

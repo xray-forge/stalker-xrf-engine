@@ -1,6 +1,7 @@
 import { action_base, game_object, time_global, vector, XR_game_object, XR_vector } from "xray16";
 
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { registry } from "@/mod/scripts/core/database";
+import { ISchemePatrolState } from "@/mod/scripts/core/schemes/patrol";
 import { StalkerMoveManager } from "@/mod/scripts/core/state_management/StalkerMoveManager";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { sendToNearestAccessibleVertex } from "@/mod/scripts/utils/alife";
@@ -15,7 +16,7 @@ const logger: LuaLogger = new LuaLogger("ActionPatrol");
  */
 @LuabindClass()
 export class ActionPatrol extends action_base {
-  public readonly state: IStoredObject;
+  public readonly state: ISchemePatrolState;
   public readonly moveManager: StalkerMoveManager;
 
   public l_vid: number = -1;
@@ -25,13 +26,18 @@ export class ActionPatrol extends action_base {
   public on_point: boolean = false;
   public time_to_update: number = time_global() + 1000;
 
-  public constructor(storage: IStoredObject, object: XR_game_object) {
+  /**
+   * todo;
+   */
+  public constructor(state: ISchemePatrolState, object: XR_game_object) {
     super(null, ActionPatrol.__name);
-
-    this.state = storage;
-    this.moveManager = storage[object.id()].move;
+    this.state = state;
+    this.moveManager = registry.objects.get(object.id()).moveManager!;
   }
 
+  /**
+   * todo;
+   */
   public override initialize(): void {
     super.initialize();
 
@@ -41,8 +47,11 @@ export class ActionPatrol extends action_base {
     this.on_point = false;
   }
 
+  /**
+   * todo;
+   */
   public activateScheme(): void {
-    this.state.signals = {};
+    this.state.signals = new LuaTable();
 
     if (this.state.path_walk_info === null) {
       this.state.path_walk_info = parsePathWaypoints(this.state.path_walk);
@@ -54,7 +63,7 @@ export class ActionPatrol extends action_base {
 
     this.moveManager.reset(
       this.state.path_walk,
-      this.state.path_walk_info,
+      this.state.path_walk_info!,
       this.state.path_look,
       this.state.path_look_info,
       this.state.team,
@@ -66,6 +75,9 @@ export class ActionPatrol extends action_base {
     );
   }
 
+  /**
+   * todo;
+   */
   public override execute(): void {
     super.execute();
 
@@ -95,6 +107,9 @@ export class ActionPatrol extends action_base {
     set_state(this.object, this.cur_state, null, null, null, null);
   }
 
+  /**
+   * todo;
+   */
   public override finalize(): void {
     if (this.object.alive()) {
       this.moveManager.finalize();
@@ -103,16 +118,28 @@ export class ActionPatrol extends action_base {
     super.finalize();
   }
 
+  /**
+   * todo;
+   */
   public formation_callback(mode: number, number: number, index: number): void {}
 
+  /**
+   * todo;
+   */
   public death_callback(npc: XR_game_object): void {
     registry.patrols.generic.get(this.state.patrol_key).remove_npc(npc);
   }
 
+  /**
+   * todo;
+   */
   public deactivate(npc: XR_game_object): void {
     registry.patrols.generic.get(this.state.patrol_key).remove_npc(npc);
   }
 
+  /**
+   * todo;
+   */
   public net_destroy(npc: XR_game_object): void {
     this.deactivate(npc);
   }

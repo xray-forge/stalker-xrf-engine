@@ -1,6 +1,6 @@
 import { property_evaluator } from "xray16";
 
-import { IStoredObject } from "@/mod/scripts/core/database";
+import { ISchemePatrolState } from "@/mod/scripts/core/schemes/patrol";
 import { isActiveSection } from "@/mod/scripts/utils/checkers/is";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -11,11 +11,11 @@ const logger: LuaLogger = new LuaLogger("EvaluatorPatrolEnd");
  */
 @LuabindClass()
 export class EvaluatorPatrolEnd extends property_evaluator {
-  public readonly state: IStoredObject;
+  public readonly state: ISchemePatrolState;
 
-  public constructor(storage: IStoredObject) {
+  public constructor(state: ISchemePatrolState) {
     super(null, EvaluatorPatrolEnd.__name);
-    this.state = storage;
+    this.state = state;
   }
 
   public override evaluate(): boolean {
