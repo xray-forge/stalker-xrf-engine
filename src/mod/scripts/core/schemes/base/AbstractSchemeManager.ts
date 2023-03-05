@@ -13,7 +13,7 @@ export abstract class AbstractSchemeManager<T extends IBaseSchemeState> {
   public readonly object: XR_game_object;
   public readonly state: T;
 
-  protected constructor(object: XR_game_object, state: T) {
+  public constructor(object: XR_game_object, state: T) {
     this.object = object;
     this.state = state;
   }

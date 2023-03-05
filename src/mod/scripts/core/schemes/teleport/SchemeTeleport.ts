@@ -1,63 +1,57 @@
-import { level, patrol, sound_object, time_global, vector, XR_game_object, XR_ini_file, XR_vector } from "xray16";
+import { XR_game_object, XR_ini_file } from "xray16";
 
-import { post_processors } from "@/mod/globals/animation/post_processors";
-import { sounds } from "@/mod/globals/sound/sounds";
-import { Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
-import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
+import { ISchemeTeleportState, ITeleportPoint } from "@/mod/scripts/core/schemes/teleport/ISchemeTeleportState";
+import { TeleportManager } from "@/mod/scripts/core/schemes/teleport/TeleportManager";
 import { getConfigNumber, getConfigString, getConfigSwitchConditions } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("SchemeTeleport");
 
-export enum ETeleportState {
-  IDLE,
-  ACTIVATED,
-}
-
-export interface ITeleportPoint {
-  point: string;
-  look: string;
-  prob: number;
-}
-
+/**
+ * todo;
+ */
 export class SchemeTeleport extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_TELEPORT;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
+  /**
+   * todo;
+   */
   public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
-    state: IStoredObject
+    state: ISchemeTeleportState
   ): void {
     logger.info("Add to binder:", object.name());
-    subscribeActionForEvents(object, state, new SchemeTeleport(object, state));
+    subscribeActionForEvents(object, state, new TeleportManager(object, state));
   }
 
+  /**
+   * todo;
+   */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     logger.info("Set scheme:", object.name());
 
-    const state: IStoredObject = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeTeleportState = assignStorageAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.timeout = getConfigNumber(ini, section, "timeout", object, false, 900);
     state.points = new LuaTable();
 
-    for (const i of $range(1, 10)) {
+    for (const it of $range(1, 10)) {
       const teleportPoint: ITeleportPoint = {
-        point: getConfigString(ini, section, "point" + tostring(i), object, false, "", "none"),
-        look: getConfigString(ini, section, "look" + tostring(i), object, false, "", "none"),
-        prob: getConfigNumber(ini, section, "prob" + tostring(i), object, false, 100),
+        point: getConfigString(ini, section, "point" + tostring(it), object, false, "", "none"),
+        look: getConfigString(ini, section, "look" + tostring(it), object, false, "", "none"),
+        prob: getConfigNumber(ini, section, "prob" + tostring(it), object, false, 100),
       };
 
-      // todo: Break or continue?
       if (teleportPoint.point === "none" || teleportPoint.look === "none") {
         break;
       }
@@ -66,69 +60,7 @@ export class SchemeTeleport extends AbstractScheme {
     }
 
     if (state.points.length() === 0) {
-      abort("Wrong point nums in sr_teleport [%s]", tostring(section));
+      abort("Wrong point in teleport scheme: [%s].", tostring(section));
     }
-  }
-
-  public teleportState: ETeleportState = ETeleportState.IDLE;
-  public timer: Optional<number> = null;
-
-  public override update(delta: number): void {
-    const actor: Optional<XR_game_object> = registry.actor;
-
-    if (!actor) {
-      return;
-    }
-
-    if (this.teleportState === ETeleportState.IDLE) {
-      if (this.object.inside(actor.position())) {
-        this.teleportState = ETeleportState.ACTIVATED;
-        this.timer = time_global();
-        level.add_pp_effector(post_processors.teleport, 2006, false);
-        // --set_postprocess("scripts\\teleport.ltx")
-      }
-    }
-
-    if (this.teleportState === ETeleportState.ACTIVATED) {
-      if (time_global() - this.timer! >= this.state.timeout!) {
-        const temp: LuaTable<number, ITeleportPoint> = new LuaTable();
-        let maxRandom: number = 0;
-
-        for (const [k, v] of this.state.points!) {
-          temp.set(k, v);
-          maxRandom = maxRandom + v.prob;
-        }
-
-        let probability: number = math.random(0, maxRandom);
-
-        for (const [k, teleportPoint] of temp) {
-          probability = probability - teleportPoint.prob;
-          if (probability <= 0) {
-            this.teleportActor(actor, teleportPoint);
-            break;
-          }
-        }
-
-        this.teleportState = ETeleportState.IDLE;
-      } else {
-        return;
-      }
-    }
-
-    if (trySwitchToAnotherSection(this.object, this.state, actor)) {
-      return;
-    }
-  }
-
-  public teleportActor(actor: XR_game_object, teleportPoint: ITeleportPoint): void {
-    logger.info("Teleporting actor:", teleportPoint.point);
-
-    const pointPatrolVector: XR_vector = new patrol(teleportPoint.point).point(0);
-    const lookDirectionVector: XR_vector = new patrol(teleportPoint.look).point(0).sub(pointPatrolVector);
-
-    actor.set_actor_position(pointPatrolVector);
-    actor.set_actor_direction(-lookDirectionVector.getH());
-
-    new sound_object(sounds.affects_tinnitus3a).play_no_feedback(actor, sound_object.s2d, 0, new vector(), 1.0);
   }
 }
