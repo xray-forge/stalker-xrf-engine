@@ -27,7 +27,7 @@ import { SchemeMobRemark } from "@/mod/scripts/core/schemes/mob/remark/SchemeMob
 import { SchemeMobWalker } from "@/mod/scripts/core/schemes/mob/walker/SchemeMobWalker";
 import { SchemePatrol } from "@/mod/scripts/core/schemes/patrol/SchemePatrol";
 import { SchemePhysicalButton } from "@/mod/scripts/core/schemes/ph_button/SchemePhysicalButton";
-import { SchemeCode } from "@/mod/scripts/core/schemes/ph_code/SchemeCode";
+import { SchemeCode } from "@/mod/scripts/core/schemes/ph_code";
 import { SchemePhysicalDoor } from "@/mod/scripts/core/schemes/ph_door";
 import { SchemePhysicalHit } from "@/mod/scripts/core/schemes/ph_hit";
 import { SchemePhysicalIdle } from "@/mod/scripts/core/schemes/ph_idle";
