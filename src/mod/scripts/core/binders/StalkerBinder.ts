@@ -422,7 +422,7 @@ export class StalkerBinder extends object_binder {
       issueSchemeEvent(this.object, this.state[this.state.active_scheme!], "death_callback", victim, who);
     }
 
-    SchemeLight.check_light(this.object);
+    SchemeLight.checkObjectLight(this.object);
     DropManager.getInstance().createCorpseReleaseItems(this.object);
     deleteHelicopterEnemy(this.e_index!);
 
@@ -480,7 +480,7 @@ export class StalkerBinder extends object_binder {
     }
 
     if (time_global() - this.last_update > 1000) {
-      SchemeLight.check_light(object);
+      SchemeLight.checkObjectLight(object);
       this.last_update = time_global();
     }
 

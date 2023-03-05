@@ -26,8 +26,8 @@ import type { CampStoryManager } from "@/mod/scripts/core/schemes/camper/CampSto
 import type { PatrolManager } from "@/mod/scripts/core/schemes/patrol/SchemePatrol";
 import type { ReachTaskPatrolManager } from "@/mod/scripts/core/schemes/reach_task/ReachTaskPatrolManager";
 import type { RestrictorManager } from "@/mod/scripts/core/schemes/RestrictorManager";
-import type { SchemeLight } from "@/mod/scripts/core/schemes/sr_light/SchemeLight";
-import type { ITeleportPoint } from "@/mod/scripts/core/schemes/teleport/SchemeTeleport";
+import type { LightManager } from "@/mod/scripts/core/schemes/sr_light/LightManager";
+import type { ITeleportPoint } from "@/mod/scripts/core/schemes/teleport";
 import type { ISchemeWoundedState } from "@/mod/scripts/core/schemes/wounded";
 import type { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
 import type { StalkerMoveManager } from "@/mod/scripts/core/state_management/StalkerMoveManager";
@@ -180,7 +180,7 @@ export const registry = {
   /**
    * List of light active.
    */
-  lightZones: new LuaTable<number, SchemeLight>(),
+  lightZones: new LuaTable<number, LightManager>(),
   /**
    * List of active smart terrains.
    */

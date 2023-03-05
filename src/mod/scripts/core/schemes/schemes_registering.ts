@@ -42,8 +42,8 @@ import { SchemeSmartCover } from "@/mod/scripts/core/schemes/smartcover/SchemeSm
 import { SchemeCrowSpawner } from "@/mod/scripts/core/schemes/sr_crow_spawner/SchemeCrowSpawner";
 import { SchemeCutscene } from "@/mod/scripts/core/schemes/sr_cutscene/SchemeCutscene";
 import { SchemeDeimos } from "@/mod/scripts/core/schemes/sr_deimos/SchemeDeimos";
-import { SchemeLight } from "@/mod/scripts/core/schemes/sr_light/SchemeLight";
-import { SchemeMonster } from "@/mod/scripts/core/schemes/sr_monster/SchemeMonster";
+import { SchemeLight } from "@/mod/scripts/core/schemes/sr_light";
+import { SchemeMonster } from "@/mod/scripts/core/schemes/sr_monster";
 import { SchemeNoWeapon } from "@/mod/scripts/core/schemes/sr_no_weapon";
 import { SchemeParticle } from "@/mod/scripts/core/schemes/sr_particle";
 import { SchemePostProcess } from "@/mod/scripts/core/schemes/sr_postprocess";

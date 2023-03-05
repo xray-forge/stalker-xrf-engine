@@ -2,11 +2,12 @@ import { level, XR_game_object, XR_ini_file } from "xray16";
 
 import { misc } from "@/mod/globals/items/misc";
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { registry } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
+import { ISchemeLightState } from "@/mod/scripts/core/schemes/sr_light/ISchemeLightState";
+import { LightManager } from "@/mod/scripts/core/schemes/sr_light/LightManager";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
-import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { isUndergroundLevel } from "@/mod/scripts/utils/checkers/is";
 import { getConfigBoolean, getConfigSwitchConditions } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -22,31 +23,43 @@ export class SchemeLight extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_LIGHT;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
+  /**
+   * todo;
+   */
   public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
-    state: IStoredObject
+    state: ISchemeLightState
   ): void {
     logger.info("Add to binder:", object.name());
 
-    subscribeActionForEvents(object, state, new SchemeLight(object, state));
+    subscribeActionForEvents(object, state, new LightManager(object, state));
   }
 
+  /**
+   * todo;
+   */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeLightState = assignStorageAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.light = getConfigBoolean(ini, section, "light_on", object, false, false);
   }
 
+  /**
+   * todo;
+   */
   public static override resetScheme(): void {
     logger.info("Reset light zones");
     resetTable(registry.lightZones);
   }
 
-  public static check_light(object: XR_game_object): void {
+  /**
+   * todo;
+   */
+  public static checkObjectLight(object: XR_game_object): void {
     if (object === null) {
       return;
     }
@@ -115,42 +128,5 @@ export class SchemeLight extends AbstractScheme {
     if (light !== null) {
       torch.enable_attachable_item(light);
     }
-  }
-
-  public active: boolean;
-
-  public constructor(object: XR_game_object, state: IStoredObject) {
-    super(object, state);
-
-    this.active = false;
-  }
-
-  public override resetScheme(): void {
-    logger.info("Reset scheme:", this.object.id());
-    registry.lightZones.set(this.object.id(), this);
-  }
-
-  public override update(delta: number): void {
-    if (trySwitchToAnotherSection(this.object, this.state, registry.actor)) {
-      this.active = false;
-
-      registry.lightZones.delete(this.object.id());
-
-      return;
-    }
-
-    this.active = true;
-  }
-
-  public check_stalker(object: XR_game_object): LuaMultiReturn<[boolean, boolean]> {
-    if (this.active === false) {
-      return $multi(false, false);
-    }
-
-    if (this.object.inside(object.position())) {
-      return $multi(this.state.light!, true);
-    }
-
-    return $multi(false, false);
   }
 }
