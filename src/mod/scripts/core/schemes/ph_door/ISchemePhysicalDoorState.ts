@@ -15,8 +15,8 @@ export interface ISchemePhysicalDoorState extends IBaseSchemeState {
   tip_unlock: TLabel;
   tip_close: TLabel;
   slider: boolean;
-  snd_open_start: string;
-  snd_close_start: string;
+  snd_open_start: Optional<string>;
+  snd_close_start: Optional<string>;
   snd_close_stop: string;
   script_used_more_than_once: Optional<boolean>;
   on_use: Optional<{ name: TName; condlist: LuaArray<IConfigSwitchCondition> }>;

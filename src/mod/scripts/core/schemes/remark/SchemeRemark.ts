@@ -87,7 +87,7 @@ export class SchemeRemark extends AbstractScheme {
     );
     state.tips_id = getConfigString(ini, section, "tips", object, false, "");
 
-    if (state.tips_id) {
+    if (state.tips_id !== null) {
       state.sender = getConfigString(ini, section, "tips_sender", object, false, "");
     }
 

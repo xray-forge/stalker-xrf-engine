@@ -14,7 +14,7 @@ import { SchemeDanger } from "@/mod/scripts/core/schemes/danger";
 import { SchemeDeath } from "@/mod/scripts/core/schemes/death";
 import { SchemeGatherItems } from "@/mod/scripts/core/schemes/gather_items";
 import { ActionSchemeHear } from "@/mod/scripts/core/schemes/hear/ActionSchemeHear";
-import { SchemeHelicopterMove } from "@/mod/scripts/core/schemes/heli_move/SchemeHelicopterMove";
+import { SchemeHelicopterMove } from "@/mod/scripts/core/schemes/heli_move";
 import { SchemeHelpWounded } from "@/mod/scripts/core/schemes/help_wounded";
 import { SchemeHit } from "@/mod/scripts/core/schemes/hit";
 import { SchemeIdle } from "@/mod/scripts/core/schemes/idle";

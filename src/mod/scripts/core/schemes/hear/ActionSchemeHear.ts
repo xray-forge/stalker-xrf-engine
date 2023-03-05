@@ -18,12 +18,18 @@ export class ActionSchemeHear extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.HEAR;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER; // And monsters.
 
+  /**
+   * todo;
+   */
   public static is_on_sound_line(candidate: string): boolean {
     const [idx] = string.find(candidate, "^on_sound%d*$");
 
     return idx !== null;
   }
 
+  /**
+   * todo;
+   */
   public static add_parsed_data_to_storage(value: string, state: IStoredObject): void {
     const object: XR_game_object = state.object!;
     const parsed_params: LuaTable<number, string> = parseParams(value);
@@ -37,6 +43,9 @@ export class ActionSchemeHear extends AbstractScheme {
     };
   }
 
+  /**
+   * todo;
+   */
   public static override resetScheme(
     object: XR_game_object,
     scheme: EScheme,
@@ -53,8 +62,8 @@ export class ActionSchemeHear extends AbstractScheme {
 
     state.hear_sounds = {};
 
-    for (const i of $range(0, n - 1)) {
-      const [result, id, value] = ini.r_line(section, i, "", "");
+    for (const it of $range(0, n - 1)) {
+      const [result, id, value] = ini.r_line(section, it, "", "");
 
       if (ActionSchemeHear.is_on_sound_line(id)) {
         ActionSchemeHear.add_parsed_data_to_storage(value, state);
@@ -62,6 +71,9 @@ export class ActionSchemeHear extends AbstractScheme {
     }
   }
 
+  /**
+   * todo;
+   */
   public static hear_callback(
     object: XR_game_object,
     who_id: number,
@@ -75,11 +87,11 @@ export class ActionSchemeHear extends AbstractScheme {
       return;
     }
 
-    const s_type: ESoundType = mapSndTypeToSoundType(sound_type);
+    const soundType: ESoundType = mapSndTypeToSoundType(sound_type);
     const story_id: string = getObjectStoryId(who_id) || "any";
 
-    if (state.hear_sounds[story_id] && state.hear_sounds[story_id][s_type]) {
-      const hear_sound_params = state.hear_sounds[story_id][s_type];
+    if (state.hear_sounds[story_id] && state.hear_sounds[story_id][soundType]) {
+      const hear_sound_params = state.hear_sounds[story_id][soundType];
 
       if (
         hear_sound_params.dist >= sound_position.distance_to(object.position()) &&
@@ -90,7 +102,7 @@ export class ActionSchemeHear extends AbstractScheme {
         if (new_section !== null && new_section !== "") {
           switchToSection(object, state.ini!, new_section);
         } else if (new_section === "") {
-          state.hear_sounds[story_id][s_type] = null;
+          state.hear_sounds[story_id][soundType] = null;
         }
       }
     }

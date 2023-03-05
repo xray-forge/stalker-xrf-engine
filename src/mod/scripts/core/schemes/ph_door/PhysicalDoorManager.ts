@@ -217,7 +217,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
    */
   public close_door(disable_snd: boolean): void {
     if (!disable_snd) {
-      if (this.state.snd_close_start) {
+      if (this.state.snd_close_start !== null) {
         GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), this.state.snd_close_start, null, null);
       }
     }
