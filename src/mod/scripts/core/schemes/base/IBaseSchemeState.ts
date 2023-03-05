@@ -1,6 +1,6 @@
 import type { XR_game_object, XR_ini_file } from "xray16";
 
-import type { EScheme, LuaArray, Optional, TSection } from "@/mod/lib/types";
+import type { EScheme, LuaArray, Optional, TSection, TTimestamp } from "@/mod/lib/types";
 
 /**
  * todo;
@@ -13,4 +13,5 @@ export interface IBaseSchemeState {
   scheme: EScheme;
   section: Optional<TSection>;
   actions?: LuaTable;
+  idle_end: TTimestamp;
 }
