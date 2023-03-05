@@ -1,19 +1,25 @@
 import { property_evaluator } from "xray16";
 
-import { IStoredObject } from "@/mod/scripts/core/database";
+import { ISchemeGatherItemsState } from "@/mod/scripts/core/schemes/gather_items";
 
 /**
  * todo;
  */
 @LuabindClass()
 export class EvaluatorGatherItems extends property_evaluator {
-  public readonly state: IStoredObject;
+  public readonly state: ISchemeGatherItemsState;
 
-  public constructor(state: IStoredObject) {
+  /**
+   * todo;
+   */
+  public constructor(state: ISchemeGatherItemsState) {
     super(null, EvaluatorGatherItems.__name);
     this.state = state;
   }
 
+  /**
+   * todo;
+   */
   public override evaluate(): boolean {
     if (this.state.gather_items_enabled !== true) {
       return false;
