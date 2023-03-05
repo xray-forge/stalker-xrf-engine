@@ -8,6 +8,9 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("AbstractScheme");
 
+/**
+ * todo;
+ */
 export type TAbstractSchemeConstructor = typeof AbstractScheme;
 
 /**
@@ -55,53 +58,5 @@ export abstract class AbstractScheme {
    */
   public static disableScheme(object: XR_game_object, scheme: EScheme): void {
     abort("Called not implemented disableScheme method: %s, %s", object.name(), scheme);
-  }
-
-  // todo: Remove.
-  // todo: Remove.
-  // todo: Remove.
-  // todo: Remove.
-  // todo: Remove.
-  // todo: Remove.
-  // todo: Remove.
-  public readonly object: XR_game_object;
-  public readonly state: IStoredObject;
-
-  public constructor(object: XR_game_object, state: IStoredObject) {
-    this.object = object;
-    this.state = state;
-  }
-
-  /**
-   * todo;
-   */
-  public update(delta: number): void {}
-
-  /**
-   * todo;
-   */
-  public resetScheme(): void {
-    logger.info("Reset scheme:", this.constructor.prototype.SCHEME_SECTION, this.object.name());
-  }
-
-  /**
-   * todo;
-   */
-  public deactivate(): void {
-    logger.info("Deactivate:", this.constructor.prototype.SCHEME_SECTION, this.object.name());
-  }
-
-  /**
-   * todo;
-   */
-  public net_spawn(): void {
-    logger.info("Net spawn:", this.constructor.prototype.SCHEME_SECTION, this.object.name());
-  }
-
-  /**
-   * todo;
-   */
-  public net_destroy(): void {
-    logger.info("Net destroy:", this.constructor.prototype.SCHEME_SECTION, this.object.name());
   }
 }

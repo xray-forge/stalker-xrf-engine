@@ -1,7 +1,8 @@
+import { property_evaluator } from "xray16";
+
 import { IBaseSchemeState } from "@/mod/scripts/core/schemes/base";
 import { isActiveSection } from "@/mod/scripts/utils/checkers/is";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { property_evaluator } from "@/typedefs/xray16";
 
 const logger: LuaLogger = new LuaLogger("EvaluatorEnd");
 

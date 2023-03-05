@@ -38,7 +38,7 @@ import { getConfigString, pickSectionFromCondList } from "@/mod/scripts/utils/co
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { parseConditionsList } from "@/mod/scripts/utils/parse";
+import { parseConditionsList, TConditionList } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("MapDisplayManager");
 
@@ -92,8 +92,9 @@ export class MapDisplayManager extends AbstractCoreManager {
     }
 
     if (mapSpot !== null) {
-      mapSpot = parseConditionsList(object, section, "level_spot", mapSpot);
-      mapSpot = pickSectionFromCondList(actor, object, mapSpot as any);
+      const spotConditionList: TConditionList = parseConditionsList(object, section, "level_spot", mapSpot);
+
+      mapSpot = pickSectionFromCondList(actor, object, spotConditionList);
     }
 
     const spot_condlist = parseConditionsList(object, section, "show_spot", spotSection);
@@ -159,9 +160,14 @@ export class MapDisplayManager extends AbstractCoreManager {
 
     if (mapSpot !== null) {
       const actor: XR_game_object = registry.actor;
+      const mapSpotConditionsList: TConditionList = parseConditionsList(
+        object,
+        state.active_section!,
+        "level_spot",
+        mapSpot
+      );
 
-      mapSpot = parseConditionsList(object, state.active_section!, "level_spot", mapSpot);
-      mapSpot = pickSectionFromCondList(actor, object, mapSpot as any);
+      mapSpot = pickSectionFromCondList(actor, object, mapSpotConditionsList);
     }
 
     if (objectId && (mapSpot as string) !== "" && mapSpot !== null) {

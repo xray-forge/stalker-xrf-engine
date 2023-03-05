@@ -58,7 +58,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { parseConditionsList, parseNames } from "@/mod/scripts/utils/parse";
+import { parseConditionsList, parseNames, TConditionList } from "@/mod/scripts/utils/parse";
 import {
   getSquadIdRelationToActor,
   isFactionsEnemies,
@@ -88,7 +88,7 @@ export class Squad<
   public player_id!: TCommunity;
   public smart_id: Optional<number> = null;
   public board: SimBoard = get_sim_board();
-  public sim_avail: Optional<boolean> = null;
+  public sim_avail: Optional<TConditionList> = null;
   public squad_online: boolean = false;
   public show_disabled: boolean = false;
 
@@ -112,14 +112,14 @@ export class Squad<
   public next_target: Optional<number> = null;
   public parsed_targets: LuaTable<number, string> = new LuaTable();
 
-  public invulnerability: boolean = false;
+  public invulnerability: Optional<TConditionList> = null;
   public last_target: Optional<string> = null;
 
-  public action_condlist: LuaTable<string> = new LuaTable();
-  public death_condlist: LuaTable<string> = new LuaTable();
+  public action_condlist: TConditionList = new LuaTable();
+  public death_condlist: TConditionList = new LuaTable();
 
   public sympathy: Optional<number> = null;
-  public show_spot: boolean = false;
+  public show_spot: Optional<TConditionList> = null;
   public relationship: Optional<TRelation> = null;
 
   public always_walk: boolean = false;
@@ -653,16 +653,17 @@ export class Squad<
   public create_npc(spawn_smart: SmartTerrain): void {
     logger.info("Create npc:", this.name(), spawn_smart?.name());
 
-    const ini = system_ini();
+    const spawn_sections = parseNames(getConfigString(SYSTEM_INI, this.settings_id, "npc", this, false, "", ""));
 
-    const spawn_sections = parseNames(getConfigString(ini, this.settings_id, "npc", this, false, "", ""));
-
-    let spawn_point =
-      getConfigString(ini, this.settings_id, "spawn_point", this, false, "", "self") ||
+    const spawn_point_data =
+      getConfigString(SYSTEM_INI, this.settings_id, "spawn_point", this, false, "", "self") ||
       getConfigString(spawn_smart.ini, SMART_TERRAIN_SECT, "spawn_point", this, false, "", "self");
 
-    spawn_point = parseConditionsList(this, "spawn_point", "spawn_point", spawn_point);
-    spawn_point = pickSectionFromCondList(registry.actor, this, spawn_point as any)!;
+    const spawn_point = pickSectionFromCondList(
+      registry.actor,
+      this,
+      parseConditionsList(this, "spawn_point", "spawn_point", spawn_point_data)
+    )!;
 
     let base_spawn_position: XR_vector = spawn_smart.position;
     let base_lvi = spawn_smart.m_level_vertex_id;
@@ -690,12 +691,12 @@ export class Squad<
       }
     }
 
-    const random_spawn_config = getConfigString(ini, this.settings_id, "npc_random", this, false, "", null);
+    const random_spawn_config = getConfigString(SYSTEM_INI, this.settings_id, "npc_random", this, false, "", null);
 
     if (random_spawn_config !== null) {
       const random_spawn = parseNames(random_spawn_config)!;
 
-      const [count_min, count_max] = read2nums(ini, this.settings_id, "npc_in_squad", 1 as any, 2 as any);
+      const [count_min, count_max] = read2nums(SYSTEM_INI, this.settings_id, "npc_in_squad", 1 as any, 2 as any);
 
       if (count_min > count_max) {
         abort("min_count can't be greater then max_count [%s]!", this.settings_id);
@@ -703,7 +704,7 @@ export class Squad<
 
       const random_count = math.random(count_min as any, count_max as any);
 
-      for (const i of $range(1, random_count)) {
+      for (const it of $range(1, random_count)) {
         const random_id = math.random(1, random_spawn!.length());
 
         this.add_squad_member(random_spawn!.get(random_id), base_spawn_position, base_lvi, base_gvi);

@@ -16,7 +16,7 @@ import {
 
 import { levels, TLevel } from "@/mod/globals/levels";
 import { STRINGIFIED_NIL } from "@/mod/globals/lua";
-import { AnyCallablesModule, Optional, TCount, TName, TNumberId, TStringId } from "@/mod/lib/types";
+import { AnyCallablesModule, LuaArray, Optional, TCount, TName, TNumberId, TStringId } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { ItemUpgradesManager } from "@/mod/scripts/core/managers/ItemUpgradesManager";
 import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
@@ -32,7 +32,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { parseConditionsList, parseNames } from "@/mod/scripts/utils/parse";
+import { parseConditionsList, parseNames, TConditionList } from "@/mod/scripts/utils/parse";
 import { giveMoneyToActor, relocateQuestItemSection, takeMoneyFromActor } from "@/mod/scripts/utils/quests";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
 
@@ -108,7 +108,7 @@ export class TaskObject {
   public descr_functor: any;
   public current_descr: any;
 
-  public reward_money: number;
+  public reward_money: TConditionList;
   public reward_item: unknown;
 
   public target: any;
@@ -124,11 +124,11 @@ export class TaskObject {
   public prior: number;
   public spot: string;
   public storyline: boolean;
-  public condlist: LuaTable<number, boolean>;
+  public condlist: LuaArray<TConditionList>;
 
-  public on_init: () => void;
-  public on_complete: () => void;
-  public on_reversed: () => void;
+  public on_init: TConditionList;
+  public on_complete: TConditionList;
+  public on_reversed: TConditionList;
 
   /**
    * todo;
@@ -412,7 +412,7 @@ export class TaskObject {
     if (this.last_check_task === ETaskState.FAIL) {
       NotificationManager.getInstance().sendTaskNotification(registry.actor, ETaskState.FAIL, task);
     } else if (this.last_check_task === ETaskState.REVERSED) {
-      pickSectionFromCondList(registry.actor, registry.actor, this.on_reversed as any);
+      pickSectionFromCondList(registry.actor, registry.actor, this.on_reversed);
       NotificationManager.getInstance().sendTaskNotification(registry.actor, ETaskState.REVERSED, task);
     }
 

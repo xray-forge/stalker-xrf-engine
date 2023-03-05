@@ -1,5 +1,6 @@
 import { XR_game_object } from "xray16";
 
+import { TLabel } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { AbstractSchemeManager } from "@/mod/scripts/core/schemes/base/AbstractSchemeManager";
 import { ISchemeCodeState } from "@/mod/scripts/core/schemes/ph_code/ISchemeCodeState";
@@ -28,7 +29,7 @@ export class CodeManager extends AbstractSchemeManager<ISchemeCodeState> {
   /**
    * todo;
    */
-  public OnNumberReceive(text: string): void {
+  public OnNumberReceive(text: TLabel): void {
     if (this.state.code) {
       if (tonumber(text) === this.state.code) {
         if (this.state.on_code) {
@@ -38,7 +39,7 @@ export class CodeManager extends AbstractSchemeManager<ISchemeCodeState> {
     } else {
       const condlist = this.state.on_check_code.get(text);
 
-      if (condlist) {
+      if (condlist !== null) {
         pickSectionFromCondList(registry.actor, this.object, condlist);
       }
     }

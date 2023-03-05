@@ -11,7 +11,7 @@ export interface ISchemePhysicalDoorState extends IBaseSchemeState {
   no_force: boolean;
   not_for_npc: boolean;
   show_tips: boolean;
-  tip_open: TLabel;
+  tip_open: Optional<TLabel>;
   tip_unlock: TLabel;
   tip_close: TLabel;
   slider: boolean;

@@ -1,4 +1,4 @@
-import type { TCount, TDistance, TRate } from "@/mod/lib/types";
+import type { Optional, TCount, TDistance, TRate } from "@/mod/lib/types";
 import type { IBaseSchemeState } from "@/mod/scripts/core/schemes/base";
 
 /**
@@ -6,14 +6,14 @@ import type { IBaseSchemeState } from "@/mod/scripts/core/schemes/base";
  */
 export interface ISchemeHelicopterMoveState extends IBaseSchemeState {
   path_move: string;
-  path_look: string;
+  path_look: Optional<string>;
   enemy_: string;
-  fire_point: string;
+  fire_point: Optional<string>;
   max_velocity: TRate;
-  max_mgun_dist: TDistance;
-  max_rocket_dist: TDistance;
-  min_mgun_dist: TDistance;
-  min_rocket_dist: TDistance;
+  max_mgun_dist: Optional<TDistance>;
+  max_rocket_dist: Optional<TDistance>;
+  min_mgun_dist: Optional<TDistance>;
+  min_rocket_dist: Optional<TDistance>;
   upd_vis: TCount;
   use_rocket: boolean;
   use_mgun: boolean;

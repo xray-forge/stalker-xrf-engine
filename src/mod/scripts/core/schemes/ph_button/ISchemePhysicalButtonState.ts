@@ -7,7 +7,7 @@ import { IConfigSwitchCondition } from "@/mod/scripts/utils/parse";
  */
 export interface ISchemePhysicalButtonState extends IBaseSchemeState {
   on_press: Optional<{ name: TName; condlist: LuaArray<IConfigSwitchCondition> }>;
-  tooltip: TLabel;
+  tooltip: Optional<TLabel>;
   anim: TLabel;
   blending: boolean;
 }

@@ -50,7 +50,7 @@ import { createScenarioAutoSave } from "@/mod/scripts/utils/game_saves";
 import { getObjectBoundSmart } from "@/mod/scripts/utils/gulag";
 import { getObjectStoryId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { parseConditionsList } from "@/mod/scripts/utils/parse";
+import { parseConditionsList, TConditionList } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("TravelManager");
 
@@ -61,7 +61,7 @@ export interface ITravelRouteDescriptor {
   phrase_id: string;
   name: string;
   level: string;
-  condlist: LuaTable;
+  condlist: TConditionList;
 }
 
 /**

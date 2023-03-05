@@ -33,6 +33,7 @@ export const SQUAD_BEHAVIOURS_LTX: XR_ini_file = new ini_file("misc\\squad_behav
 export const SMART_TERRAIN_MASKS_LTX: XR_ini_file = new ini_file("misc\\smart_terrain_masks.ltx");
 export const TASK_MANAGER_LTX: XR_ini_file = new ini_file("misc\\task_manager.ltx");
 export const TRAVEL_MANAGER_LTX: XR_ini_file = new ini_file("misc\\travel_manager.ltx");
+export const SIMULATION_OBJECTS_PROPS_LTX: XR_ini_file = new ini_file("misc\\simulation_objects_props.ltx");
 
 /**
  * todo;

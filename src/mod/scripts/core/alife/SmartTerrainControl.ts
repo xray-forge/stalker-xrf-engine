@@ -10,7 +10,7 @@ import { isWeapon } from "@/mod/scripts/utils/checkers/is";
 import { getConfigString, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { parseConditionsList } from "@/mod/scripts/utils/parse";
+import { parseConditionsList, TConditionList } from "@/mod/scripts/utils/parse";
 import { setSquadGoodwill } from "@/mod/scripts/utils/relations";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
 
@@ -34,8 +34,8 @@ export class SmartTerrainControl {
   public status: ESmartTerrainStatus;
   public noweap_zone: TName;
   public ignore_zone: string;
-  public alarm_start_sound: string;
-  public alarm_stop_sound: string;
+  public alarm_start_sound: TConditionList;
+  public alarm_stop_sound: TConditionList;
   public smart: SmartTerrain;
   public alarm_time: Optional<XR_CTime> = null;
 

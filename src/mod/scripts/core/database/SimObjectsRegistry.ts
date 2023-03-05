@@ -1,17 +1,17 @@
-import { clsid, ini_file, XR_cse_alife_object } from "xray16";
+import { clsid, XR_cse_alife_object } from "xray16";
 
 import { STRINGIFIED_TRUE } from "@/mod/globals/lua";
-import { Optional, TNumberId } from "@/mod/lib/types";
+import { Optional, TNumberId, TRate } from "@/mod/lib/types";
 import { Actor } from "@/mod/scripts/core/alife/Actor";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { Squad } from "@/mod/scripts/core/alife/Squad";
+import { SIMULATION_OBJECTS_PROPS_LTX } from "@/mod/scripts/core/database/ini";
 import { registry } from "@/mod/scripts/core/database/registry";
 import { areOnSameAlifeLevel, getAlifeDistanceBetween } from "@/mod/scripts/utils/alife";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { parseConditionsList } from "@/mod/scripts/utils/parse";
 
 let sim_objects_registry: Optional<SimObjectsRegistry> = null;
-const props_ini = new ini_file("misc\\simulation_objects_props.ltx");
 
 /**
  * todo;
@@ -44,7 +44,7 @@ export class SimObjectsRegistry {
       props_section = obj.section_name();
     }
 
-    if (!props_ini.section_exist(props_section)) {
+    if (!SIMULATION_OBJECTS_PROPS_LTX.section_exist(props_section)) {
       props_section = "default";
 
       if (obj.clsid() === clsid.online_offline_group_s) {
@@ -56,10 +56,10 @@ export class SimObjectsRegistry {
       }
     }
 
-    const n: number = props_ini.line_count(props_section);
+    const n: number = SIMULATION_OBJECTS_PROPS_LTX.line_count(props_section);
 
     for (const j of $range(0, n - 1)) {
-      const [result, prop_name, prop_condlist] = props_ini.r_line(props_section, j, "", "");
+      const [result, prop_name, prop_condlist] = SIMULATION_OBJECTS_PROPS_LTX.r_line(props_section, j, "", "");
 
       if (prop_name === "sim_avail") {
         obj.sim_avail = parseConditionsList(null, "simulation_object", "sim_avail", prop_condlist);
@@ -102,8 +102,8 @@ export function evaluate_prior(target: SmartTerrain | Actor | Squad, squad: Squa
   }
 
   for (const [k, v] of squad.behaviour) {
-    const squad_koeff: number = tonumber(v)!;
-    let target_koeff: number = 0;
+    const squad_koeff: TRate = tonumber(v)!;
+    let target_koeff: TRate = 0;
 
     if (target.props[k] !== null) {
       target_koeff = tonumber(target.props[k])!;

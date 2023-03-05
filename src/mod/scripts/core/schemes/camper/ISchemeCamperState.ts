@@ -34,9 +34,9 @@ export interface ISchemeCamperState extends IBaseSchemeState {
   suggested_state: {
     moving: string;
     moving_fire: string;
-    campering: string;
-    standing: string;
-    campering_fire: string;
+    campering: Optional<string>;
+    standing: Optional<string>;
+    campering_fire: Optional<string>;
   };
   scan_table: LuaTable<any, LuaArray<ICampPoint>>;
   cur_look_point: Optional<TIndex>;

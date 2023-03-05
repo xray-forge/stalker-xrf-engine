@@ -7,7 +7,7 @@ import { getConfigString, pickSectionFromCondList } from "@/mod/scripts/utils/co
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { parseConditionsList, parseIniSectionToArray } from "@/mod/scripts/utils/parse";
+import { parseConditionsList, parseIniSectionToArray, TConditionList } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("WeatherManager");
 
@@ -27,7 +27,7 @@ export class WeatherManager extends AbstractCoreManager {
   public update_time: number = 0;
   public forced_weather_change_on_time_change: boolean = false;
   public weather_fx: Optional<string> = null;
-  public weather_list: LuaTable = new LuaTable();
+  public weather_list: TConditionList = new LuaTable();
 
   public state: LuaTable<string, IWeatherState> = new LuaTable();
   public graphs: LuaTable<string, LuaTable<string, number>> = new LuaTable();

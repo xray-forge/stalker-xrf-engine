@@ -11,10 +11,10 @@ export interface ISchemeMobRemarkState extends IBaseSchemeState {
   no_reset: boolean;
   anim: string;
   anim_movement: boolean;
-  anim_head: string;
-  tip: string;
-  snd: string;
-  time: string;
+  anim_head: Optional<string>;
+  tip: Optional<string>;
+  snd: Optional<string>;
+  time: Optional<string>;
 }
 
 /**

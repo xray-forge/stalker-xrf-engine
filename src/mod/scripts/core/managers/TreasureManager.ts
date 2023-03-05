@@ -21,15 +21,15 @@ import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { parseConditionsList, parseSpawns } from "@/mod/scripts/utils/parse";
+import { parseConditionsList, parseSpawns, TConditionList } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("TreasureManager");
 
 export interface ITreasureSecret {
   given: boolean;
   checked: boolean;
-  refreshing: boolean;
-  empty: Optional<boolean>;
+  refreshing: Optional<TConditionList>;
+  empty: Optional<TConditionList>;
   to_find: number;
   items: LuaTable<
     TSection, // section
@@ -63,6 +63,9 @@ export class TreasureManager extends AbstractCoreManager {
     return TreasureManager.getInstance().giveActorTreasureCoordinates(treasureId);
   }
 
+  /**
+   * todo;
+   */
   public override initialize(): void {
     const totalSecretsCount: number = SECRETS_LTX.line_count("list");
 
@@ -76,7 +79,7 @@ export class TreasureManager extends AbstractCoreManager {
           items: new LuaTable(),
           given: false,
           empty: null,
-          refreshing: false,
+          refreshing: null,
           checked: false,
           to_find: 0,
         });
@@ -88,13 +91,9 @@ export class TreasureManager extends AbstractCoreManager {
           const [result, item_section, str] = SECRETS_LTX.r_line(id, i, "", "");
 
           if (item_section === "empty") {
-            const parsed_condlist = parseConditionsList(null, "treasure_manager", "empty_cond", str);
-
-            this.secrets.get(id).empty = parsed_condlist;
+            this.secrets.get(id).empty = parseConditionsList(null, "treasure_manager", "empty_cond", str);
           } else if (item_section === "refreshing") {
-            const parsed_condlist = parseConditionsList(null, "treasure_manager", "refreshing_cond", str);
-
-            this.secrets.get(id).refreshing = parsed_condlist;
+            this.secrets.get(id).refreshing = parseConditionsList(null, "treasure_manager", "refreshing_cond", str);
           } else {
             this.secrets.get(id).items.set(item_section, new LuaTable());
 
@@ -117,6 +116,9 @@ export class TreasureManager extends AbstractCoreManager {
     }
   }
 
+  /**
+   * todo;
+   */
   public fill(se_obj: XR_cse_alife_object, treasureId: TTreasure): Optional<boolean> {
     logger.info("Fill:", se_obj.id, treasureId);
 
@@ -220,7 +222,7 @@ export class TreasureManager extends AbstractCoreManager {
             logger.info("Empty secret, remove map spot:", k);
           }
         } else if (v.refreshing && v.checked) {
-          const sect = pickSectionFromCondList(registry.actor, null, v.refreshing as any);
+          const sect = pickSectionFromCondList(registry.actor, null, v.refreshing);
 
           if (sect === STRINGIFIED_TRUE) {
             v.given = false;
@@ -328,6 +330,9 @@ export class TreasureManager extends AbstractCoreManager {
     }
   }
 
+  /**
+   * todo;
+   */
   public on_item_take(objectId: TNumberId): void {
     const restrId: Optional<TNumberId> = this.items_from_secrets.get(objectId);
     let treasureId: Optional<TTreasure> = null;
@@ -359,6 +364,9 @@ export class TreasureManager extends AbstractCoreManager {
     }
   }
 
+  /**
+   * todo;
+   */
   public save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, TreasureManager.name);
 
@@ -400,6 +408,9 @@ export class TreasureManager extends AbstractCoreManager {
     setSaveMarker(packet, true, TreasureManager.name);
   }
 
+  /**
+   * todo;
+   */
   public load(reader: XR_reader): void {
     setLoadMarker(reader, false, TreasureManager.name);
 

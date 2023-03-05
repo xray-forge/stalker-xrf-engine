@@ -7,7 +7,7 @@ import { IConfigSwitchCondition, TConditionList } from "@/mod/scripts/utils/pars
  */
 export interface ISchemeCodeState extends IBaseSchemeState {
   tips: TLabel;
-  code: number;
+  code: Optional<number>;
   on_code: Optional<{ name: TName; condlist: LuaArray<IConfigSwitchCondition> }>;
   on_check_code: LuaTable<TName, TConditionList>;
 }

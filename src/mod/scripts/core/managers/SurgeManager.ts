@@ -37,7 +37,7 @@ import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { createScenarioAutoSave, setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { parseConditionsList } from "@/mod/scripts/utils/parse";
+import { parseConditionsList, TConditionList } from "@/mod/scripts/utils/parse";
 import { copyTable } from "@/mod/scripts/utils/table";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
 
@@ -92,8 +92,8 @@ export class SurgeManager extends AbstractCoreManager {
   public lastSurgeTime!: XR_CTime;
 
   public covers: LuaTable<number, XR_game_object> = new LuaTable();
-  public surgeManagerCondlist: LuaTable = new LuaTable();
-  public surgeSurviveCondlist: LuaTable = new LuaTable();
+  public surgeManagerCondlist: TConditionList = new LuaTable();
+  public surgeSurviveCondlist: TConditionList = new LuaTable();
 
   public loaded: boolean = false;
   public surge_message: string = "";

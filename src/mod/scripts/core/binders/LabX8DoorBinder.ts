@@ -19,7 +19,7 @@ import { loadObject, saveObject } from "@/mod/scripts/core/schemes/storing";
 import { getConfigNumber, getConfigString, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { parseConditionsList } from "@/mod/scripts/utils/parse";
+import { parseConditionsList, TConditionList } from "@/mod/scripts/utils/parse";
 
 const ANIMATED_OBJECT_SECT: string = "animated_object";
 const logger: LuaLogger = new LuaLogger("LabX8DoorBinder");
@@ -41,11 +41,11 @@ export class LabX8DoorBinder extends object_binder {
 
   public idle_delay!: number;
   public start_delay!: number;
-  public tip!: LuaTable;
+  public tip!: TConditionList;
 
-  public on_use!: LuaTable;
-  public on_stop!: LuaTable;
-  public on_start!: LuaTable;
+  public on_use!: TConditionList;
+  public on_stop!: TConditionList;
+  public on_start!: TConditionList;
 
   public constructor(object: XR_game_object) {
     super(object);
@@ -135,7 +135,6 @@ export class LabX8DoorBinder extends object_binder {
     }
 
     this.on_stop = parseConditionsList(null, "door_binder_labx8", "on_stop", on_stop);
-
     this.idle_delay = getConfigNumber(ini, ANIMATED_OBJECT_SECT, "idle_delay", null, false, 2000);
     this.start_delay = getConfigNumber(ini, ANIMATED_OBJECT_SECT, "start_delay", null, false, 0);
   }

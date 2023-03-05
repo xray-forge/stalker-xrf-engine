@@ -117,7 +117,7 @@ export class ActionProcessEnemy {
       registry.actorCombat.set(object.id(), true);
     }
 
-    const isObjectEnemy: boolean = ActionProcessEnemy.isEnemy(object, enemy, this.state, false);
+    const isObjectEnemy: boolean = ActionProcessEnemy.isEnemy(object, enemy, this.state);
 
     if (isObjectEnemy) {
       const seObject: Optional<XR_cse_alife_creature_abstract> = alife().object<XR_cse_alife_creature_abstract>(

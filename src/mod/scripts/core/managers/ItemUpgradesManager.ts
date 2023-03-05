@@ -9,7 +9,7 @@ import { ITEM_UPGRADES, registry, STALKER_UPGRADE_INFO, SYSTEM_INI } from "@/mod
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { parseConditionsList, parseNames } from "@/mod/scripts/utils/parse";
+import { parseConditionsList, parseNames, TConditionList } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("ItemUpgradesManager");
 
@@ -96,7 +96,7 @@ export class ItemUpgradesManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public getPossibilitiesLabel(mechanicName: TName, possibilities: LuaArray<unknown>): TLabel {
+  public getPossibilitiesLabel(mechanicName: TName, possibilities: TConditionList): TLabel {
     let hintsLabel: TLabel = "";
 
     if (this.upgradeHints !== null) {
