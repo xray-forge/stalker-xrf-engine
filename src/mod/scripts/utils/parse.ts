@@ -580,7 +580,7 @@ export function parseData1v(
   data: Optional<string>
 ): LuaArray<{
   dist: Optional<TDistance>;
-  state: Optional<LuaArray<IConfigSwitchCondition>>;
+  state: Optional<TConditionList>;
 }> {
   const target: LuaArray<{
     dist: Optional<TDistance>;

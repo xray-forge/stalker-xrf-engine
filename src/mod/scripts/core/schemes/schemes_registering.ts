@@ -17,7 +17,7 @@ import { ActionSchemeHear } from "@/mod/scripts/core/schemes/hear/ActionSchemeHe
 import { SchemeHeliMove } from "@/mod/scripts/core/schemes/heli_move/SchemeHeliMove";
 import { SchemeHelpWounded } from "@/mod/scripts/core/schemes/help_wounded/SchemeHelpWounded";
 import { SchemeHit } from "@/mod/scripts/core/schemes/hit/SchemeHit";
-import { SchemeIdle } from "@/mod/scripts/core/schemes/idle/SchemeIdle";
+import { SchemeIdle } from "@/mod/scripts/core/schemes/idle";
 import { SchemeMeet } from "@/mod/scripts/core/schemes/meet/SchemeMeet";
 import { SchemeMobCombat } from "@/mod/scripts/core/schemes/mob/combat/SchemeMobCombat";
 import { SchemeMobDeath } from "@/mod/scripts/core/schemes/mob/death/SchemeMobDeath";
@@ -30,7 +30,7 @@ import { SchemePhysicalButton } from "@/mod/scripts/core/schemes/ph_button/Schem
 import { SchemeCode } from "@/mod/scripts/core/schemes/ph_code/SchemeCode";
 import { SchemePhysicalDoor } from "@/mod/scripts/core/schemes/ph_door/SchemePhysicalDoor";
 import { SchemePhysicalHit } from "@/mod/scripts/core/schemes/ph_hit/SchemePhysicalHit";
-import { SchemePhysicalIdle } from "@/mod/scripts/core/schemes/ph_idle/SchemePhysicalIdle";
+import { SchemePhysicalIdle } from "@/mod/scripts/core/schemes/ph_idle";
 import { SchemeMinigun } from "@/mod/scripts/core/schemes/ph_minigun/SchemeMinigun";
 import { SchemePhysicalOnDeath } from "@/mod/scripts/core/schemes/ph_on_death/SchemePhysicalOnDeath";
 import { SchemePhysicalOnHit } from "@/mod/scripts/core/schemes/ph_on_hit/SchemePhysicalOnHit";
