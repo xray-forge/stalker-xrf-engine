@@ -199,7 +199,7 @@ export class StalkerBinder extends object_binder {
       manager.add_evaluator(stalker_ids.property_anomaly, new property_evaluator_const(false));
     }
 
-    SchemeReachTask.add_reach_task_action(this.object);
+    SchemeReachTask.addReachTaskSchemeAction(this.object);
 
     // todo: Why? Already same in callback?
     const se_obj = alife().object<XR_cse_alife_human_abstract>(this.object.id());

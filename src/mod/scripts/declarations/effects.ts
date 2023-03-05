@@ -52,7 +52,7 @@ import { relations, TRelation } from "@/mod/globals/relations";
 import { script_sounds } from "@/mod/globals/sound/script_sounds";
 import { TTreasure } from "@/mod/globals/treasures";
 import { TZone, zones } from "@/mod/globals/zones";
-import { AnyObject, LuaArray, Optional, TCount, TName, TNumberId } from "@/mod/lib/types";
+import { AnyObject, LuaArray, Optional, TCount, TName, TNumberId, TStringId } from "@/mod/lib/types";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { Squad } from "@/mod/scripts/core/alife/Squad";
 import { Stalker } from "@/mod/scripts/core/alife/Stalker";
@@ -84,7 +84,7 @@ import { find_stalker_for_job, switch_to_desired_job as switchToGulagDesiredJob 
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { parseConditionsList } from "@/mod/scripts/utils/parse";
+import { IConfigSwitchCondition, parseConditionsList } from "@/mod/scripts/utils/parse";
 import {
   increaseNumberRelationBetweenCommunityAndId,
   setObjectSympathy,
@@ -888,6 +888,9 @@ export function set_counter(
   }
 }
 
+/**
+ * todo;
+ */
 export function actor_punch(npc: XR_game_object): void {
   const actor: XR_game_object = registry.actor;
 
@@ -911,10 +914,16 @@ export function actor_punch(npc: XR_game_object): void {
   }
 }
 
+/**
+ * todo;
+ */
 export function clearAbuse(npc: XR_game_object) {
   SchemeAbuse.clearAbuse(npc);
 }
 
+/**
+ * todo;
+ */
 export function turn_off_underpass_lamps(actor: XR_game_object, npc: XR_game_object): void {
   const lamps_table = {
     ["pas_b400_lamp_start_flash"]: true,
@@ -952,6 +961,9 @@ export function turn_off_underpass_lamps(actor: XR_game_object, npc: XR_game_obj
   }
 }
 
+/**
+ * todo;
+ */
 export function turn_off(actor: XR_game_object, npc: XR_game_object, p: LuaArray<string>): void {
   for (const [k, v] of p) {
     const obj = getStoryObject(v);
@@ -964,10 +976,16 @@ export function turn_off(actor: XR_game_object, npc: XR_game_object, p: LuaArray
   }
 }
 
+/**
+ * todo;
+ */
 export function turn_off_object(actor: XR_game_object, npc: XR_game_object): void {
   npc.get_hanging_lamp().turn_off();
 }
 
+/**
+ * todo;
+ */
 export function turn_on_and_force(actor: XR_game_object, npc: XR_game_object, params: [string, number, number]) {
   const obj = getStoryObject(params[0]);
 
@@ -990,7 +1008,9 @@ export function turn_on_and_force(actor: XR_game_object, npc: XR_game_object, pa
   obj.get_hanging_lamp().turn_on();
 }
 
-// ---���������� ������������ �������� � ��������� (hanging_lamp)
+/**
+ * todo;
+ */
 export function turn_off_and_force(actor: XR_game_object, npc: XR_game_object, p: [string]) {
   const obj = getStoryObject(p[0]);
 
@@ -1002,11 +1022,16 @@ export function turn_off_and_force(actor: XR_game_object, npc: XR_game_object, p
   obj.get_hanging_lamp().turn_off();
 }
 
+/**
+ * todo;
+ */
 export function turn_on_object(actor: XR_game_object, npc: XR_game_object): void {
   npc.get_hanging_lamp().turn_on();
 }
 
-// ---��������� ������������ �������� (hanging_lamp)
+/**
+ * todo;
+ */
 export function turn_on(actor: XR_game_object, npc: XR_game_object, p: LuaArray<string>) {
   for (const [k, v] of p) {
     const obj = getStoryObject(v);
@@ -1019,6 +1044,9 @@ export function turn_on(actor: XR_game_object, npc: XR_game_object, p: LuaArray<
   }
 }
 
+/**
+ * todo;
+ */
 export function disable_combat_handler(actor: XR_game_object, npc: XR_game_object): void {
   if (registry.objects.get(npc.id()).combat) {
     registry.objects.get(npc.id()).combat.enabled = false;
@@ -1029,17 +1057,25 @@ export function disable_combat_handler(actor: XR_game_object, npc: XR_game_objec
   }
 }
 
-// -- ����� ���� ������� �������� ���������� [combat_ignore] ��������� ��� ��� ���������.
+/**
+ * todo;
+ */
 export function disable_combat_ignore_handler(actor: XR_game_object, npc: XR_game_object): void {
   if (registry.objects.get(npc.id()).combat_ignore) {
     registry.objects.get(npc.id()).combat_ignore!.enabled = false;
   }
 }
 
+/**
+ * todo;
+ */
 export function heli_start_flame(actor: XR_game_object, npc: XR_game_object): void {
   npc.get_helicopter().StartFlame();
 }
 
+/**
+ * todo;
+ */
 export function heli_die(actor: XR_game_object, npc: XR_game_object): void {
   const heli = npc.get_helicopter();
   const st = registry.objects.get(npc.id());
@@ -1051,6 +1087,9 @@ export function heli_die(actor: XR_game_object, npc: XR_game_object): void {
   st.alt_check_time = time_global() + 1000;
 }
 
+/**
+ * todo;
+ */
 export function set_weather(actor: XR_game_object, npc: XR_game_object, p: [string, string]) {
   logger.info("Set weather:", p[0]);
 
@@ -1063,6 +1102,9 @@ export function set_weather(actor: XR_game_object, npc: XR_game_object, p: [stri
   }
 }
 
+/**
+ * todo;
+ */
 export function game_disconnect(actor: XR_game_object, npc: XR_game_object): void {
   logger.info("Game disconnect");
   get_console().execute("disconnect");
@@ -1070,6 +1112,9 @@ export function game_disconnect(actor: XR_game_object, npc: XR_game_object): voi
 
 let gameover_credits_started: boolean = false;
 
+/**
+ * todo;
+ */
 export function game_credits(actor: XR_game_object, npc: XR_game_object): void {
   logger.info("Game credits");
 
@@ -1077,6 +1122,9 @@ export function game_credits(actor: XR_game_object, npc: XR_game_object): void {
   game.start_tutorial("credits_seq");
 }
 
+/**
+ * todo;
+ */
 export function game_over(actor: XR_game_object, npc: XR_game_object): void {
   logger.info("Game over");
 
@@ -1087,31 +1135,51 @@ export function game_over(actor: XR_game_object, npc: XR_game_object): void {
   get_console().execute("main_menu on");
 }
 
+/**
+ * todo;
+ */
 export function after_credits(actor: XR_game_object, npc: XR_game_object): void {
   get_console().execute("main_menu on");
 }
 
+/**
+ * todo;
+ */
 export function before_credits(actor: XR_game_object, npc: XR_game_object): void {
   get_console().execute("main_menu off");
 }
 
+/**
+ * todo;
+ */
 export function on_tutor_gameover_stop() {
   get_console().execute("main_menu on");
 }
 
+/**
+ * todo;
+ */
 export function on_tutor_gameover_quickload() {
   get_console().execute("load_last_save");
 }
 
-// -- ��� ����� ������
+/**
+ * todo;
+ */
 export function get_stalker_for_new_job(actor: XR_game_object, npc: XR_game_object, p: [string]) {
   find_stalker_for_job(npc, p[0]);
 }
 
+/**
+ * todo;
+ */
 export function switch_to_desired_job(actor: XR_game_object, npc: XR_game_object, p: []) {
   switchToGulagDesiredJob(npc);
 }
 
+/**
+ * todo;
+ */
 export function spawn_object(
   actor: XR_game_object,
   obj: Optional<XR_game_object>,
@@ -1158,6 +1226,9 @@ let jup_b219_position: Optional<XR_vector> = null;
 let jup_b219_lvid: Optional<number> = null;
 let jup_b219_gvid: Optional<number> = null;
 
+/**
+ * todo;
+ */
 export function jup_b219_save_pos() {
   const obj = getStoryObject("jup_b219_gate_id");
 
@@ -1176,6 +1247,9 @@ export function jup_b219_save_pos() {
   }
 }
 
+/**
+ * todo;
+ */
 export function jup_b219_restore_gate() {
   const yaw = 0;
   const spawn_sect = "jup_b219_gate";
@@ -1192,6 +1266,9 @@ export function jup_b219_restore_gate() {
   }
 }
 
+/**
+ * todo;
+ */
 export function spawn_corpse(actor: XR_game_object, obj: XR_game_object, params: [string, string, number]): void {
   logger.info("Spawn corpse:", params[0]);
 
@@ -1224,6 +1301,9 @@ export function spawn_corpse(actor: XR_game_object, obj: XR_game_object, params:
   se_obj.kill();
 }
 
+/**
+ * todo;
+ */
 export function spawn_object_in(actor: XR_game_object, obj: XR_game_object, p: [string, string]): void {
   const spawn_sect = p[0];
 
@@ -1250,6 +1330,9 @@ export function spawn_object_in(actor: XR_game_object, obj: XR_game_object, p: [
   }
 }
 
+/**
+ * todo;
+ */
 export function spawn_npc_in_zone(actor: XR_game_object, obj: XR_game_object, params: [string, TName]): void {
   const spawn_sect = params[0];
 
@@ -1280,6 +1363,9 @@ export function spawn_npc_in_zone(actor: XR_game_object, obj: XR_game_object, pa
   registry.scriptSpawned.set(spawned_obj.id, zone_name);
 }
 
+/**
+ * todo;
+ */
 export function destroy_object(
   actor: XR_game_object,
   obj: XR_game_object,
@@ -1317,6 +1403,9 @@ export function destroy_object(
   alife().release(sobj, true);
 }
 
+/**
+ * todo;
+ */
 export function give_actor(actor: XR_game_object, npc: Optional<XR_game_object>, p: Array<string>): void;
 export function give_actor(
   actor: XR_game_object,
@@ -1329,10 +1418,16 @@ export function give_actor(
   }
 }
 
+/**
+ * todo;
+ */
 export function activate_weapon_slot(actor: XR_game_object, npc: XR_game_object, p: [number]): void {
   actor.activate_slot(p[0]);
 }
 
+/**
+ * todo;
+ */
 export function anim_obj_forward(actor: XR_game_object, npc: XR_game_object, p: LuaArray<string>): void {
   for (const [k, v] of p) {
     if (v !== null) {
@@ -1341,12 +1436,18 @@ export function anim_obj_forward(actor: XR_game_object, npc: XR_game_object, p: 
   }
 }
 
+/**
+ * todo;
+ */
 export function anim_obj_backward(actor: XR_game_object, npc: XR_game_object, p: [string]): void {
   if (p[0] !== null) {
     registry.animatedDoors.get(p[0]).anim_backward();
   }
 }
 
+/**
+ * todo;
+ */
 export function anim_obj_stop(actor: XR_game_object, npc: XR_game_object, p: [string]): void {
   if (p[0] !== null) {
     registry.animatedDoors.get(p[0]).anim_stop();
@@ -1382,6 +1483,9 @@ export function play_sound(
   GlobalSoundManager.getInstance().setSoundPlaying(obj.id(), theme, faction, pointId);
 }
 
+/**
+ * todo;
+ */
 export function stop_sound(actor: XR_game_object, npc: XR_game_object): void {
   GlobalSoundManager.getInstance().stopSoundsByObjectId(npc.id());
 }
@@ -1400,6 +1504,9 @@ export function stop_sound_looped(actor: XR_game_object, obj: XR_game_object) {
   GlobalSoundManager.getInstance().stopLoopedSound(obj.id(), null);
 }
 
+/**
+ * todo;
+ */
 export function play_sound_by_story(
   actor: XR_game_object,
   obj: XR_game_object,
@@ -1414,6 +1521,9 @@ export function play_sound_by_story(
   GlobalSoundManager.getInstance().setSoundPlaying(story_obj as number, theme, faction, pointId);
 }
 
+/**
+ * todo;
+ */
 export function barrel_explode(actor: XR_game_object, npc: XR_game_object, p: [string]) {
   const expl_obj = getStoryObject(p[0]);
 
@@ -1422,6 +1532,9 @@ export function barrel_explode(actor: XR_game_object, npc: XR_game_object, p: [s
   }
 }
 
+/**
+ * todo;
+ */
 export function create_squad(actor: XR_game_object, obj: Optional<XR_game_object>, params: [string, string]): void {
   const squad_id = params[0];
 
@@ -1457,6 +1570,9 @@ export function create_squad(actor: XR_game_object, obj: Optional<XR_game_object
   squad.update();
 }
 
+/**
+ * todo;
+ */
 export function create_squad_member(
   actor: XR_game_object,
   obj: XR_game_object,
@@ -1478,22 +1594,21 @@ export function create_squad_member(
   const squad_smart = board.smarts.get(squad.smart_id as TNumberId).smrt;
 
   if (params[2] !== null) {
-    let spawn_point: Optional<string> = null;
+    let spawn_point: TStringId;
 
     if (params[2] === "simulation_point") {
-      spawn_point = getConfigString(SYSTEM_INI, squad.section_name(), "spawn_point", obj, false, "");
-      if (spawn_point === "" || spawn_point === null) {
-        spawn_point = parseConditionsList(obj, "spawn_point", "spawn_point", squad_smart.spawn_point as string);
-      } else {
-        spawn_point = parseConditionsList(obj, "spawn_point", "spawn_point", spawn_point);
-      }
+      const data: string = getConfigString(SYSTEM_INI, squad.section_name(), "spawn_point", obj, false, "");
+      const condlist: LuaArray<IConfigSwitchCondition> =
+        data === "" || data === null
+          ? parseConditionsList(obj, "spawn_point", "spawn_point", squad_smart.spawn_point as string)
+          : parseConditionsList(obj, "spawn_point", "spawn_point", data);
 
-      spawn_point = pickSectionFromCondList(actor, obj, spawn_point as any);
+      spawn_point = pickSectionFromCondList(actor, obj, condlist) as TStringId;
     } else {
       spawn_point = params[2];
     }
 
-    const point = new patrol(spawn_point as string);
+    const point = new patrol(spawn_point);
 
     position = point.point(0);
     level_vertex_id = point.level_vertex_id(0);

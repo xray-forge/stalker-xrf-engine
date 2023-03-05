@@ -35,8 +35,8 @@ import { SchemeMinigun } from "@/mod/scripts/core/schemes/ph_minigun/SchemeMinig
 import { SchemePhysicalOnDeath } from "@/mod/scripts/core/schemes/ph_on_death/SchemePhysicalOnDeath";
 import { SchemePhysicalOnHit } from "@/mod/scripts/core/schemes/ph_on_hit/SchemePhysicalOnHit";
 import { SchemeOscillate } from "@/mod/scripts/core/schemes/ph_oscillate/SchemeOscillate";
-import { SchemeReachTask } from "@/mod/scripts/core/schemes/reach_task/SchemeReachTask";
-import { SchemeRemark } from "@/mod/scripts/core/schemes/remark/SchemeRemark";
+import { SchemeReachTask } from "@/mod/scripts/core/schemes/reach_task";
+import { SchemeRemark } from "@/mod/scripts/core/schemes/remark";
 import { SchemeSleeper } from "@/mod/scripts/core/schemes/sleeper";
 import { SchemeSmartCover } from "@/mod/scripts/core/schemes/smartcover";
 import { SchemeCrowSpawner } from "@/mod/scripts/core/schemes/sr_crow_spawner";

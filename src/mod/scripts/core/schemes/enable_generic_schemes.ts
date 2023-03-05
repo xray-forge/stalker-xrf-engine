@@ -80,7 +80,7 @@ export function enable_generic_schemes(
 
       SchemeDeath.setDeath(object, ini, EScheme.DEATH, deathSection);
       SchemeCombatIgnore.setCombatIgnoreChecker(object, ini, EScheme.COMBAT_IGNORE);
-      SchemeReachTask.setReachTask(object, ini, EScheme.REACH_TASK);
+      SchemeReachTask.setScheme(object, ini, EScheme.REACH_TASK);
 
       return;
     }

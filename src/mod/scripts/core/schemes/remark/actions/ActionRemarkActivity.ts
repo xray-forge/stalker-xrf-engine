@@ -2,8 +2,9 @@ import { action_base, level, patrol, XR_game_object, XR_sound_object, XR_vector 
 
 import { Optional } from "@/mod/lib/types";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { registry } from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
+import { ISchemeRemarkState } from "@/mod/scripts/core/schemes/remark";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -28,7 +29,7 @@ interface IDescriptor {
  */
 @LuabindClass()
 export class ActionRemarkActivity extends action_base {
-  public st: IStoredObject;
+  public st: ISchemeRemarkState;
   public state: number = state_initial;
 
   public sound_end_signalled: boolean = false;
@@ -39,11 +40,17 @@ export class ActionRemarkActivity extends action_base {
   public snd_started: boolean = false;
   public tips_sound: Optional<XR_sound_object> = null;
 
-  public constructor(state: IStoredObject) {
+  /**
+   * todo
+   */
+  public constructor(state: ISchemeRemarkState) {
     super(null, ActionRemarkActivity.__name);
     this.st = state;
   }
 
+  /**
+   * todo
+   */
   public override initialize(): void {
     super.initialize();
     this.object.set_desired_position();
@@ -51,8 +58,11 @@ export class ActionRemarkActivity extends action_base {
     // --    GlobalSound:set_sound(this.object, null)
   }
 
+  /**
+   * todo
+   */
   public activateScheme(): void {
-    this.st.signals = {};
+    this.st.signals = new LuaTable();
     this.sound_end_signalled = false;
     this.action_end_signalled = false;
     this.anim_end_signalled = false;
@@ -70,6 +80,9 @@ export class ActionRemarkActivity extends action_base {
     this.tips_sound = null;
   }
 
+  /**
+   * todo
+   */
   public get_target(): Optional<IDescriptor> {
     const look_tbl = {
       look_object: null as Optional<XR_game_object>,
@@ -98,11 +111,17 @@ export class ActionRemarkActivity extends action_base {
     return look_tbl;
   }
 
+  /**
+   * todo
+   */
   public time_callback(): void {
     this.state = state_sound;
     this.update();
   }
 
+  /**
+   * todo
+   */
   public update(): void {
     // --' 1. �� ������ ����������� �� ������.
 
@@ -136,31 +155,37 @@ export class ActionRemarkActivity extends action_base {
       // --' ������ ������ ������ anim_end
       if (this.anim_end_signalled === false) {
         this.anim_end_signalled = true;
-        this.st.signals["anim_end"] = true;
+        this.st.signals!.set("anim_end", true);
       }
 
-      if (this.st.signals["sound_end"] === true || this.st.signals["theme_end"] === true) {
+      if (this.st.signals!.get("sound_end") || this.st.signals!.get("theme_end")) {
         // --printf("SOUND_END signalled!!!")
         if (this.sound_end_signalled === false) {
           this.sound_end_signalled = true;
         }
       }
 
-      if (this.sound_end_signalled === true && this.anim_end_signalled === true) {
+      if (this.sound_end_signalled && this.anim_end_signalled) {
         if (this.action_end_signalled === false) {
           // --printf("ACTION_END signalled!!!")
-          this.st.signals["action_end"] = true;
+          this.st.signals!.set("action_end", true);
           this.action_end_signalled = true;
         }
       }
     }
   }
 
+  /**
+   * todo
+   */
   public override execute(): void {
     super.execute();
     this.update();
   }
 
+  /**
+   * todo
+   */
   public override finalize(): void {
     if (this.tips_sound !== null) {
       this.tips_sound.stop();
@@ -245,7 +270,10 @@ export function init_target(
   return $multi(target_pos, target_id, target_initialized);
 }
 
-function instruction(obj: XR_game_object, target_str: string): never {
+/**
+ * todo
+ */
+function instruction(object: XR_game_object, data: string): never {
   abort(
     "\nWrong target field for object [%s] in section [%s]!!!\n" +
       "Field [target] supports following:\n" +
@@ -254,8 +282,8 @@ function instruction(obj: XR_game_object, target_str: string): never {
       "   target = job   | job_section, smart_name\n" +
       "Your target field:\n" +
       "   target = %s",
-    obj.name(),
-    registry.objects.get(obj.id()).active_section,
-    target_str
+    object.name(),
+    registry.objects.get(object.id()).active_section,
+    data
   );
 }

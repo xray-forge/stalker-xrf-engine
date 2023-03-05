@@ -5,20 +5,40 @@ import { registry } from "@/mod/scripts/core/database";
 import { abort } from "@/mod/scripts/utils/debug";
 import { trimString } from "@/mod/scripts/utils/string";
 
+/**
+ * todo;
+ */
 export interface IWaypointData {
   [index: string]: any;
   a?: any;
   flags: XR_flags32;
 }
 
+/**
+ * todo;
+ */
 export interface IConfigCondition {
-  name?: string;
-  func?: string;
+  name?: TName;
+  func?: TName;
   required?: boolean;
   expected?: boolean;
   prob?: number;
   params?: Optional<LuaArray<string | number>>;
 }
+
+/**
+ * todo;
+ */
+export interface IConfigSwitchCondition {
+  section: TSection;
+  infop_check: LuaArray<IConfigCondition>;
+  infop_set: LuaArray<IConfigCondition>;
+}
+
+/**
+ * todo;
+ */
+export type TConditionList = LuaArray<IConfigSwitchCondition>;
 
 /**
  * todo;
@@ -138,21 +158,14 @@ export function parseConditionsList(
   section: Optional<TSection>,
   field: Optional<string>,
   data: string
-): any {
-  const lst: LuaTable<
-    number,
-    {
-      section: string | number;
-      infop_check: LuaTable<number, IConfigCondition>;
-      infop_set: LuaTable<number, IConfigCondition>;
-    }
-  > = new LuaTable();
+): LuaArray<IConfigSwitchCondition> {
+  const conditionList: LuaArray<IConfigSwitchCondition> = new LuaTable();
   let at, infop_check_lst, infop_set_lst, newsect, remainings, to;
 
   let n = 1;
 
   for (const fld of string.gfind(data, "%s*([^,]+)%s*")) {
-    lst.set(n, {} as any);
+    conditionList.set(n, {} as any);
 
     [at, to, infop_check_lst] = string.find(fld, "{%s*(.*)%s*}");
 
@@ -176,18 +189,18 @@ export function parseConditionsList(
       abort("object '%s': section '%s': field '%s': syntax error in switch condition", object?.name(), section, field);
     }
 
-    lst.get(n).section = newsect;
-    lst.get(n).infop_check = new LuaTable();
+    conditionList.get(n).section = newsect as string;
+    conditionList.get(n).infop_check = new LuaTable();
 
-    parseInfoPortions(lst.get(n).infop_check, infop_check_lst as string);
+    parseInfoPortions(conditionList.get(n).infop_check, infop_check_lst as string);
 
-    lst.get(n).infop_set = new LuaTable();
-    parseInfoPortions(lst.get(n).infop_set, infop_set_lst as string);
+    conditionList.get(n).infop_set = new LuaTable();
+    parseInfoPortions(conditionList.get(n).infop_set, infop_set_lst as string);
 
     n = n + 1;
   }
 
-  return lst;
+  return conditionList;
 }
 
 /**
@@ -477,15 +490,19 @@ export function parsePathWaypointsFromArgsList(
 export function parseData(
   object: XR_game_object,
   target: Optional<string>
-): LuaArray<{ dist: Optional<TDistance>; state: Optional<any>; sound: Optional<any> }> {
+): LuaArray<{
+  dist: Optional<TDistance>;
+  state: Optional<LuaArray<IConfigSwitchCondition>>;
+  sound: Optional<LuaArray<IConfigSwitchCondition>>;
+}> {
   const collection: LuaArray<any> = new LuaTable();
 
   if (target) {
     for (const name of string.gfind(target, "(%|*%d+%|[^%|]+)%p*")) {
       const dat = {
         dist: null as Optional<number>,
-        state: null,
-        sound: null,
+        state: null as Optional<LuaArray<IConfigSwitchCondition>>,
+        sound: null as Optional<LuaArray<IConfigSwitchCondition>>,
       };
 
       const [t_pos] = string.find(name, "|", 1, true);
@@ -558,14 +575,23 @@ export function parseSynData(
  * todo;
  * todo;
  */
-export function parseData1v(object: XR_game_object, data: Optional<string>): LuaArray<any> {
-  const target: LuaArray<any> = new LuaTable();
+export function parseData1v(
+  object: XR_game_object,
+  data: Optional<string>
+): LuaArray<{
+  dist: Optional<TDistance>;
+  state: Optional<LuaArray<IConfigSwitchCondition>>;
+}> {
+  const target: LuaArray<{
+    dist: Optional<TDistance>;
+    state: Optional<LuaArray<IConfigSwitchCondition>>;
+  }> = new LuaTable();
 
   if (data) {
     for (const name of string.gfind(data, "(%|*%d+%|[^%|]+)%p*")) {
       const dat = {
-        dist: null as Optional<number>,
-        state: null,
+        dist: null as Optional<TDistance>,
+        state: null as Optional<LuaArray<IConfigSwitchCondition>>,
       };
 
       const [t_pos] = string.find(name, "|", 1, true);

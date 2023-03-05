@@ -8,6 +8,7 @@ import { action_ids } from "@/mod/scripts/core/schemes/base/actions_id";
 import { evaluators_id } from "@/mod/scripts/core/schemes/base/evaluators_id";
 import { ActionRemarkActivity } from "@/mod/scripts/core/schemes/remark/actions/ActionRemarkActivity";
 import { EvaluatorNeedRemark } from "@/mod/scripts/core/schemes/remark/evaluators/EvaluatorNeedRemark";
+import { ISchemeRemarkState } from "@/mod/scripts/core/schemes/remark/ISchemeRemarkState";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { getConfigBoolean, getConfigString, getConfigSwitchConditions } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -23,12 +24,15 @@ export class SchemeRemark extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.REMARK;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
+  /**
+   * todo;
+   */
   public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
-    state: IStoredObject
+    state: ISchemeRemarkState
   ): void {
     logger.info("Add to binder:", object.name());
 
@@ -61,6 +65,9 @@ export class SchemeRemark extends AbstractScheme {
     manager.action(action_ids.alife).add_precondition(new world_property(properties.need_remark, false));
   }
 
+  /**
+   * todo;
+   */
   public static override setScheme(
     object: XR_game_object,
     ini: XR_ini_file,
@@ -68,7 +75,7 @@ export class SchemeRemark extends AbstractScheme {
     section: TSection,
     additional: string
   ): void {
-    const state = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeRemarkState = assignStorageAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.snd_anim_sync = getConfigBoolean(ini, section, "snd_anim_sync", object, false);

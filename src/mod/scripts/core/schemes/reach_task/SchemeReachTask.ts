@@ -9,11 +9,11 @@ import {
 } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { IStoredObject } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { ActionReachTaskLocation } from "@/mod/scripts/core/schemes/reach_task/actions";
 import { EvaluatorReachedTaskLocation } from "@/mod/scripts/core/schemes/reach_task/evaluators";
+import { ISchemeReachTaskState } from "@/mod/scripts/core/schemes/reach_task/ISchemeReachTaskState";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -34,7 +34,7 @@ export class SchemeReachTask extends AbstractScheme {
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
-    state: IStoredObject
+    state: ISchemeReachTaskState
   ): void {
     logger.info("Add to binder:", object.name());
 
@@ -49,16 +49,16 @@ export class SchemeReachTask extends AbstractScheme {
   /**
    * todo;
    */
-  public static setReachTask(object: XR_game_object, ini: XR_ini_file, scheme: EScheme): void {
-    assignStorageAndBind(object, ini, scheme, null);
+  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme): void {
+    const state: ISchemeReachTaskState = assignStorageAndBind(object, ini, scheme, null);
   }
 
   /**
    * todo;
    */
-  public static add_reach_task_action(object: XR_game_object): void {
-    const manager: XR_action_planner = object.motivation_action_manager();
-    const alifeAction: XR_action_base = manager.action(stalker_ids.action_alife_planner);
+  public static addReachTaskSchemeAction(object: XR_game_object): void {
+    const actionPlanner: XR_action_planner = object.motivation_action_manager();
+    const alifeAction: XR_action_base = actionPlanner.action(stalker_ids.action_alife_planner);
     const alifeActionPlanner: XR_action_planner = cast_planner(alifeAction);
 
     alifeActionPlanner.remove_evaluator(stalker_ids.property_smart_terrain_task);
@@ -70,6 +70,7 @@ export class SchemeReachTask extends AbstractScheme {
     reachTaskAction.add_precondition(new world_property(stalker_ids.property_alife, true));
     reachTaskAction.add_precondition(new world_property(stalker_ids.property_smart_terrain_task, true));
     reachTaskAction.add_effect(new world_property(stalker_ids.property_smart_terrain_task, false));
+
     alifeActionPlanner.add_action(stalker_ids.action_smart_terrain_task, reachTaskAction);
   }
 }

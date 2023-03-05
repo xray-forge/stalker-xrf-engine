@@ -18,19 +18,6 @@ export abstract class AbstractScheme {
   public static readonly SCHEME_TYPE: ESchemeType;
 
   /**
-   * Add scheme to object binder for initialization.
-   */
-  public static addToBinder(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection,
-    schemeState: IBaseSchemeState
-  ): void {
-    abort("Called not implemented addToBinder method: %s, %s", object.name(), scheme);
-  }
-
-  /**
    * todo;
    */
   public static setScheme(
@@ -41,6 +28,19 @@ export abstract class AbstractScheme {
     additional: string
   ): void {
     abort("Called not implemented setScheme method: %s, %s", object.name(), scheme);
+  }
+
+  /**
+   * Add scheme to object binder for initialization.
+   */
+  public static addToBinder(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection,
+    schemeState: IBaseSchemeState
+  ): void {
+    abort("Called not implemented addToBinder method: %s, %s", object.name(), scheme);
   }
 
   /**

@@ -45,10 +45,16 @@ export class ActionReachTaskLocation extends action_base {
   public was_reset!: boolean;
   public time_to_update!: number;
 
+  /**
+   * todo;
+   */
   public constructor() {
     super(null, ActionReachTaskLocation.__name);
   }
 
+  /**
+   * todo;
+   */
   public override initialize(): void {
     super.initialize();
 
@@ -83,6 +89,9 @@ export class ActionReachTaskLocation extends action_base {
     ReachTaskPatrolManager.add_to_reach_patrol(this.object, this.target_id);
   }
 
+  /**
+   * todo;
+   */
   public override execute(): void {
     if (this.object.id() === getObjectSquad(this.object)!.commander_id()) {
       this.commander_execute();
@@ -93,11 +102,17 @@ export class ActionReachTaskLocation extends action_base {
     super.execute();
   }
 
+  /**
+   * todo;
+   */
   public override finalize(): void {
     this.object.set_movement_selection_type(game_object.alifeMovementTypeRandom);
     super.finalize();
   }
 
+  /**
+   * todo;
+   */
   public commander_execute(): void {
     const squad = getObjectSquad(this.object)!;
     let squad_target = get_sim_obj_registry().objects.get(squad.assigned_target_id!);
@@ -143,6 +158,9 @@ export class ActionReachTaskLocation extends action_base {
       .set_command(this.object, this.cur_state, this.formation);
   }
 
+  /**
+   * todo;
+   */
   public soldier_execute(): void {
     if (this.time_to_update! - time_global() > 0) {
       return;
@@ -200,12 +218,18 @@ export class ActionReachTaskLocation extends action_base {
     }
   }
 
+  /**
+   * todo;
+   */
   public death_callback(object: XR_game_object): void {
     if (this.target_id !== null) {
       registry.patrols.reachTask.get(this.target_id + "_to_" + this.squad_id).remove_npc(object);
     }
   }
 
+  /**
+   * todo;
+   */
   public net_destroy(object: XR_game_object): void {
     if (this.target_id !== null) {
       registry.patrols.reachTask.get(this.target_id + "_to_" + this.squad_id).remove_npc(object);
@@ -213,6 +237,9 @@ export class ActionReachTaskLocation extends action_base {
   }
 }
 
+/**
+ * todo;
+ */
 function update_movement(target: Actor | Squad | SmartTerrain, object: XR_game_object): void {
   if (target !== null && !object.is_talking()) {
     if (SurgeManager.getInstance().isStarted) {

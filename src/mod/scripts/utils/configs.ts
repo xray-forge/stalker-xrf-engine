@@ -1,11 +1,22 @@
 import { alife, XR_alife_simulator, XR_cse_abstract, XR_cse_alife_object, XR_game_object, XR_ini_file } from "xray16";
 
-import { AnyCallablesModule, AnyObject, EScheme, LuaArray, Optional, TIndex, TName, TSection } from "@/mod/lib/types";
+import {
+  AnyCallablesModule,
+  AnyObject,
+  EScheme,
+  LuaArray,
+  Optional,
+  TIndex,
+  TName,
+  TRate,
+  TSection,
+  TStringId,
+} from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { abort } from "@/mod/scripts/utils/debug";
 import { disableInfo, hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { parseConditionsList, parseNames, parseParams } from "@/mod/scripts/utils/parse";
+import { IConfigSwitchCondition, parseConditionsList, parseNames, parseParams } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("configs");
 
@@ -173,20 +184,20 @@ export function getInfosFromData(object: XR_game_object, data: Optional<string>)
 export function pickSectionFromCondList<T extends TSection>(
   actor: XR_game_object,
   object: Optional<XR_game_object | XR_cse_alife_object>,
-  condlist: LuaTable<any, any>
+  condlist: LuaArray<IConfigSwitchCondition>
 ): Optional<T> {
-  let rval: Optional<number> = null; // -- math.random(100)
+  let randomValue: Optional<TRate> = null; // -- math.random(100)
   let infop_conditions_met;
 
   for (const [n, cond] of condlist) {
     infop_conditions_met = true;
     for (const [inum, infop] of pairs(cond.infop_check)) {
       if (infop.prob) {
-        if (!rval) {
-          rval = math.random(100);
+        if (!randomValue) {
+          randomValue = math.random(100);
         }
 
-        if (infop.prob < rval) {
+        if (infop.prob < randomValue) {
           infop_conditions_met = false;
           break;
         }
@@ -224,7 +235,7 @@ export function pickSectionFromCondList<T extends TSection>(
             }
           }
         }
-      } else if (hasAlifeInfo(infop.name)) {
+      } else if (hasAlifeInfo(infop.name as TStringId)) {
         if (!infop.required) {
           infop_conditions_met = false;
           break;
@@ -262,13 +273,12 @@ export function pickSectionFromCondList<T extends TSection>(
             get_global<AnyCallablesModule>("xr_effects")[infop.func](actor, object);
           }
         } else if (infop.required) {
-          if (!hasAlifeInfo(infop.name)) {
-            actor.give_info_portion(infop.name);
+          if (!hasAlifeInfo(infop.name as TStringId)) {
+            actor.give_info_portion(infop.name as TStringId);
           }
         } else {
-          if (hasAlifeInfo(infop.name)) {
-            // --printf("*INFO [disabled]*: npc='%s' id='%s'", actor:name(),infop.name)
-            disableInfo(infop.name);
+          if (hasAlifeInfo(infop.name as TStringId)) {
+            disableInfo(infop.name as TStringId);
           }
         }
       }
@@ -276,7 +286,7 @@ export function pickSectionFromCondList<T extends TSection>(
       if (cond.section === "never") {
         return null;
       } else {
-        return cond.section;
+        return cond.section as T;
       }
     }
   }
@@ -289,10 +299,10 @@ export function pickSectionFromCondList<T extends TSection>(
  */
 export function getConfigCondList(
   ini: XR_ini_file,
-  section: string,
-  field: string,
+  section: TSection,
+  field: TName,
   object: XR_game_object
-): Optional<{ name: string; condlist: LuaTable }> {
+): Optional<{ name: TName; condlist: LuaArray<IConfigSwitchCondition> }> {
   const str = getConfigString(ini, section, field, object, false, "");
 
   if (!str) {
@@ -322,7 +332,7 @@ export function getConfigStringAndCondList(
 ): Optional<{
   name: string;
   v1: string;
-  condlist: LuaTable;
+  condlist: LuaArray<IConfigSwitchCondition>;
 }> {
   const str = getConfigString(ini, section, field, object, false, "");
 

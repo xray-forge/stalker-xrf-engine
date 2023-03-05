@@ -11,7 +11,7 @@ import {
 import { ISchemeCutsceneState } from "@/mod/scripts/core/schemes/sr_cutscene/ISchemeCutsceneState";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { parseConditionsList } from "@/mod/scripts/utils/parse";
+import { parseConditionsList, TConditionList } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("CamEffectorSet");
 const CAM_EFFECTOR_SET_SECTION: string = EScheme.SR_CUTSCENE;
@@ -25,7 +25,7 @@ export class CamEffectorSet {
   public enabled: boolean;
   public playing: boolean;
   public looped: boolean;
-  public condlist!: LuaTable;
+  public condlist!: TConditionList;
 
   public constructor(set: TCamEffectorSetDescriptor, storage: ISchemeCutsceneState) {
     logger.info("Init new set:", stringifyAsJson(set));

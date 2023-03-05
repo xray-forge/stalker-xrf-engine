@@ -13,10 +13,16 @@ const logger: LuaLogger = new LuaLogger("EvaluatorReachedTaskLocation");
  */
 @LuabindClass()
 export class EvaluatorReachedTaskLocation extends property_evaluator {
+  /**
+   * todo;
+   */
   public constructor() {
     super(null, EvaluatorReachedTaskLocation.__name);
   }
 
+  /**
+   * todo;
+   */
   public override evaluate(): boolean {
     const squad = getObjectSquad(this.object);
 

@@ -17,7 +17,7 @@ import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { IWaypointData, parseConditionsList } from "@/mod/scripts/utils/parse";
+import { IWaypointData, parseConditionsList, TConditionList } from "@/mod/scripts/utils/parse";
 import { isStalkerAtWaypoint } from "@/mod/scripts/utils/position";
 
 const logger: LuaLogger = new LuaLogger("StalkerMoveManager");
@@ -47,6 +47,9 @@ const sync: LuaTable<string, LuaTable<number, boolean>> = new LuaTable();
  * todo;
  */
 export class StalkerMoveManager {
+  /**
+   * todo;
+   */
   public static choose_look_point(
     patrol_look: XR_patrol,
     path_look_info: LuaArray<IWaypointData>,
@@ -119,12 +122,15 @@ export class StalkerMoveManager {
   public run_until!: number;
   public retval_after_rotation: Optional<number> = null;
 
-  public default_state_standing!: string;
-  public default_state_moving1!: string;
-  public default_state_moving2!: string;
-  public default_state_moving3!: string;
+  public default_state_standing!: TConditionList;
+  public default_state_moving1!: TConditionList;
+  public default_state_moving2!: TConditionList;
+  public default_state_moving3!: TConditionList;
   public move_cb_info: Optional<{ obj: AnyObject; func: AnyCallable }> = null;
 
+  /**
+   * todo;
+   */
   public constructor(object: XR_game_object) {
     if (object === null) {
       abort("MoveManager:constructor() - object is null, please update the script");
@@ -133,15 +139,21 @@ export class StalkerMoveManager {
     this.object = object;
   }
 
+  /**
+   * todo;
+   */
   public initialize(): void {
     this.object.set_callback(callback.patrol_path_in_point, this.waypoint_callback, this as any);
   }
 
+  /**
+   * todo;
+   */
   public reset(
     path_walk: string,
-    path_walk_info: LuaTable<number, IWaypointData>,
+    path_walk_info: LuaArray<IWaypointData>,
     path_look: Optional<string>,
-    path_look_info: Optional<LuaTable<number, IWaypointData>>,
+    path_look_info: Optional<LuaArray<IWaypointData>>,
     team: Optional<string>,
     suggested_state: Optional<any>,
     move_cb_info: Optional<{ obj: AnyObject; func: AnyCallable }>,
@@ -152,27 +164,15 @@ export class StalkerMoveManager {
     this.pt_wait_time = default_wait_time;
     this.suggested_state = suggested_state;
 
-    if (suggested_state) {
-      this.default_state_standing = suggested_state.standing ? suggested_state.standing : default_state_standing;
-      this.default_state_moving1 = suggested_state.moving ? suggested_state.moving : default_state_moving1;
-      this.default_state_moving2 = suggested_state.moving ? suggested_state.moving : default_state_moving2;
-      this.default_state_moving3 = suggested_state.moving ? suggested_state.moving : default_state_moving3;
-    } else {
-      this.default_state_standing = default_state_standing;
-      this.default_state_moving1 = default_state_moving1;
-      this.default_state_moving2 = default_state_moving2;
-      this.default_state_moving3 = default_state_moving3;
-    }
+    const def_state_standing = suggested_state?.standing ? suggested_state.standing : default_state_standing;
+    const def_state_moving1 = suggested_state?.moving ? suggested_state.moving : default_state_moving1;
+    const def_state_moving2 = suggested_state?.moving ? suggested_state.moving : default_state_moving2;
+    const def_state_moving3 = suggested_state?.moving ? suggested_state.moving : default_state_moving3;
 
-    this.default_state_standing = parseConditionsList(
-      this.object,
-      "move_mgr",
-      "def_state",
-      this.default_state_standing
-    );
-    this.default_state_moving1 = parseConditionsList(this.object, "move_mgr", "def_state", this.default_state_moving1);
-    this.default_state_moving2 = parseConditionsList(this.object, "move_mgr", "def_state", this.default_state_moving2);
-    this.default_state_moving3 = parseConditionsList(this.object, "move_mgr", "def_state", this.default_state_moving3);
+    this.default_state_standing = parseConditionsList(this.object, "move_mgr", "def_state", def_state_standing);
+    this.default_state_moving1 = parseConditionsList(this.object, "move_mgr", "def_state", def_state_moving1);
+    this.default_state_moving2 = parseConditionsList(this.object, "move_mgr", "def_state", def_state_moving2);
+    this.default_state_moving3 = parseConditionsList(this.object, "move_mgr", "def_state", def_state_moving3);
 
     this.syn_signal_set_tm = time_global() + 1000;
     this.syn_signal = null;

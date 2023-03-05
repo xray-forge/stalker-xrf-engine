@@ -1,6 +1,6 @@
 import { property_evaluator } from "xray16";
 
-import { IStoredObject } from "@/mod/scripts/core/database";
+import { ISchemeRemarkState } from "@/mod/scripts/core/schemes/remark";
 import { isActiveSection } from "@/mod/scripts/utils/checkers/is";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -8,12 +8,13 @@ const logger: LuaLogger = new LuaLogger("EvaluatorNeedRemark");
 
 /**
  * todo;
+ * todo: Find all evaluators and create single shared 'is scheme active evaluator'
  */
 @LuabindClass()
 export class EvaluatorNeedRemark extends property_evaluator {
-  public readonly state: IStoredObject;
+  public readonly state: ISchemeRemarkState;
 
-  public constructor(state: IStoredObject) {
+  public constructor(state: ISchemeRemarkState) {
     super(null, EvaluatorNeedRemark.__name);
     this.state = state;
   }

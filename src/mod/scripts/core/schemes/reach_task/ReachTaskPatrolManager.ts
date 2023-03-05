@@ -1,6 +1,6 @@
 import { alife, level, vector, XR_cse_alife_creature_abstract, XR_game_object, XR_vector } from "xray16";
 
-import { Optional } from "@/mod/lib/types";
+import { Optional, TName, TNumberId } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { getObjectSquad } from "@/mod/scripts/utils/alife";
 import { isObjectMeeting } from "@/mod/scripts/utils/checkers/checkers";
@@ -10,6 +10,9 @@ import { vectorCross, vectorRotateY, yawDegree } from "@/mod/scripts/utils/physi
 
 const logger: LuaLogger = new LuaLogger("ReachTaskPatrolManager");
 
+/**
+ * todo;
+ */
 const formations = {
   back: [
     { dir: new vector().set(0.3, 0, -1), dist: 1.2 },
@@ -29,6 +32,9 @@ const formations = {
   ],
 };
 
+/**
+ * todo;
+ */
 const accel_by_curtype = {
   walk: "run",
   patrol: "rush",
@@ -37,6 +43,9 @@ const accel_by_curtype = {
   sneak_run: "assault",
 };
 
+/**
+ * todo;
+ */
 export class ReachTaskPatrolManager {
   public static add_to_reach_patrol(object: XR_game_object, targetId: number): void {
     logger.info("Add to patrol:", object.name());
@@ -64,47 +73,59 @@ export class ReachTaskPatrolManager {
   public commander_dir: XR_vector = new vector().set(0, 0, 1);
   public npc_count: number = 0;
 
-  public constructor(target_id: number) {
-    this.target_name = target_id;
+  /**
+   * todo;
+   */
+  public constructor(targetId: TNumberId) {
+    this.target_name = targetId;
   }
 
-  public add_npc(npc: XR_game_object): void {
-    if (npc === null || !npc.alive() || this.npc_list.has(npc.id())) {
+  /**
+   * todo;
+   */
+  public add_npc(object: XR_game_object): void {
+    if (object === null || !object.alive() || this.npc_list.has(object.id())) {
       return;
     }
 
-    this.npc_list.set(npc.id(), {
-      soldier: npc.id(),
+    this.npc_list.set(object.id(), {
+      soldier: object.id(),
       dir: new vector().set(1, 0, 0),
       dist: 0,
     });
     this.npc_count = this.npc_count + 1;
 
-    if (npc.id() === getObjectSquad(npc)!.commander_id()) {
-      this.commander_id = npc.id();
+    if (object.id() === getObjectSquad(object)!.commander_id()) {
+      this.commander_id = object.id();
     }
 
     this.reset_positions();
   }
 
-  public remove_npc(npc: XR_game_object): void {
-    if (npc === null) {
+  /**
+   * todo;
+   */
+  public remove_npc(object: XR_game_object): void {
+    if (object === null) {
       return;
     }
 
-    if (this.npc_list.get(npc.id()) === null) {
+    if (this.npc_list.get(object.id()) === null) {
       return;
     }
 
-    this.npc_list.delete(npc.id());
+    this.npc_list.delete(object.id());
     this.npc_count = this.npc_count - 1;
 
-    if (npc.id() === this.commander_id) {
+    if (object.id() === this.commander_id) {
       this.commander_id = -1;
       this.reset_positions();
     }
   }
 
+  /**
+   * todo;
+   */
   public reset_positions(): void {
     const form_ = formations[this.formation as "back"];
     let index = 1;
@@ -133,7 +154,10 @@ export class ReachTaskPatrolManager {
     }
   }
 
-  public set_formation(formation: string): void {
+  /**
+   * todo;
+   */
+  public set_formation(formation: TName): void {
     if (formation === null) {
       abort("Invalid formation (nil) for PatrolManager[%s]", this.target_name);
     }
@@ -146,16 +170,19 @@ export class ReachTaskPatrolManager {
     this.reset_positions();
   }
 
-  public get_commander(npc: XR_game_object): XR_game_object {
-    if (npc === null) {
+  /**
+   * todo;
+   */
+  public get_commander(object: XR_game_object): XR_game_object {
+    if (object === null) {
       abort("Invalid NPC on call PatrolManager:get_npc_command in PatrolManager[%s]", this.target_name);
     }
 
-    if (this.npc_list.get(npc.id()) === null) {
-      abort("NPC with name %s can't present in PatrolManager[%s]", npc.name(), this.target_name);
+    if (this.npc_list.get(object.id()) === null) {
+      abort("NPC with name %s can't present in PatrolManager[%s]", object.name(), this.target_name);
     }
 
-    if (npc.id() === this.commander_id) {
+    if (object.id() === this.commander_id) {
       abort("Patrol commander called function PatrolManager:get_npc_command in PatrolManager[%s]", this.target_name);
     }
 
@@ -168,18 +195,21 @@ export class ReachTaskPatrolManager {
     return level.object_by_id(commander)!;
   }
 
-  public get_npc_command(npc: XR_game_object): LuaMultiReturn<[number, XR_vector, Optional<string>]> {
-    if (npc === null) {
+  /**
+   * todo;
+   */
+  public get_npc_command(object: XR_game_object): LuaMultiReturn<[number, XR_vector, Optional<string>]> {
+    if (object === null) {
       abort("Invalid NPC on call PatrolManager:get_npc_command in PatrolManager[%s]", this.target_name);
     }
 
-    const npc_id = npc.id();
+    const npc_id = object.id();
 
     if (this.npc_list.get(this.commander_id) === null) {
-      return $multi(npc.level_vertex_id(), npc.direction(), this.current_state);
-    } else if (this.npc_list.get(npc.id()) === null) {
-      abort("NPC with name %s can't present in PatrolManager[%s]", npc.name(), this.target_name);
-    } else if (npc.id() === this.commander_id) {
+      return $multi(object.level_vertex_id(), object.direction(), this.current_state);
+    } else if (this.npc_list.get(object.id()) === null) {
+      abort("NPC with name %s can't present in PatrolManager[%s]", object.name(), this.target_name);
+    } else if (object.id() === this.commander_id) {
       abort("Patrol commander called function PatrolManager:get_npc_command in PatrolManager[%s]", this.target_name);
     }
 
@@ -234,12 +264,15 @@ export class ReachTaskPatrolManager {
     return $multi(vertex, dir, this.current_state);
   }
 
-  public set_command(npc: XR_game_object, command: string, formation: string): void {
-    if (npc === null || !npc.alive()) {
+  /**
+   * todo;
+   */
+  public set_command(object: XR_game_object, command: string, formation: TName): void {
+    if (object === null || !object.alive()) {
       abort("NPC commander possible dead in PatrolManager[%s]", this.target_name);
     }
 
-    if (npc.id() !== this.commander_id) {
+    if (object.id() !== this.commander_id) {
       return; // --abort ("NPC %s is not commander in PatrolManager[%s]", npc.name (), this.target_name)
     }
 
@@ -250,15 +283,21 @@ export class ReachTaskPatrolManager {
       this.set_formation(formation);
     }
 
-    this.commander_lid = npc.level_vertex_id();
-    this.commander_dir = npc.direction();
+    this.commander_lid = object.level_vertex_id();
+    this.commander_dir = object.direction();
     this.update();
   }
 
+  /**
+   * todo;
+   */
   public is_commander(npc_id: number): boolean {
     return npc_id === this.commander_id;
   }
 
+  /**
+   * todo;
+   */
   public is_commander_in_meet(): boolean {
     if (this.commander_id === -1) {
       return false;
