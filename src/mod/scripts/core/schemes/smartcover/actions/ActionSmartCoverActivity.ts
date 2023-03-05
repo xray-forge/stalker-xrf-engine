@@ -5,7 +5,11 @@ import { registered_smartcovers } from "@/mod/scripts/core/alife/SmartCover";
 import { registry } from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { ActionSleeperActivity } from "@/mod/scripts/core/schemes/sleeper/actions";
-import { cover_substate_table, ECoverState, ISchemeSmartCoverState } from "@/mod/scripts/core/schemes/smartcover";
+import {
+  cover_substate_table,
+  ECoverState,
+  ISchemeSmartCoverState,
+} from "@/mod/scripts/core/schemes/smartcover/ISchemeSmartCoverState";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { getStoryObject } from "@/mod/scripts/utils/alife";
 import { getParamString, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
@@ -20,7 +24,7 @@ const logger: LuaLogger = new LuaLogger("ActionSmartCoverActivity");
  */
 @LuabindClass()
 export class ActionSmartCoverActivity extends action_base {
-  public readonly st: ISchemeSmartCoverState;
+  public readonly state: ISchemeSmartCoverState;
   public initialized: boolean = false;
 
   public cover_condlist: any;
@@ -38,7 +42,7 @@ export class ActionSmartCoverActivity extends action_base {
    */
   public constructor(state: ISchemeSmartCoverState) {
     super(null, ActionSleeperActivity.__name);
-    this.st = state;
+    this.state = state;
   }
 
   /**
@@ -80,7 +84,7 @@ export class ActionSmartCoverActivity extends action_base {
    * todo;
    */
   public activateScheme(): void {
-    this.st.signals = new LuaTable();
+    this.state.signals = new LuaTable();
 
     if (!this.initialized) {
       return;
@@ -93,11 +97,11 @@ export class ActionSmartCoverActivity extends action_base {
     // --object.set_smart_cover_target_selector()
     this.target_enemy_id = null;
 
-    const [cover_name, used] = getParamString(this.st.cover_name as string, object);
+    const [cover_name, used] = getParamString(this.state.cover_name as string, object);
 
     this.cover_name = cover_name;
 
-    if (this.cover_name !== this.st.cover_name || used === false) {
+    if (this.cover_name !== this.state.cover_name || used === false) {
       if (registered_smartcovers.get(this.cover_name) === null) {
         abort("There is no smart_cover with name [%s]", this.cover_name);
       }
@@ -105,18 +109,18 @@ export class ActionSmartCoverActivity extends action_base {
       // -- ���� � ���������� ����� ����� �������� (�������� ��� �����������, �������)
       set_state(this.object, "smartcover", null, null, null, null);
 
-      this.target_path_condlist = parseConditionsList(object, null, "target_path", this.st.target_path);
+      this.target_path_condlist = parseConditionsList(object, null, "target_path", this.state.target_path);
       this.check_target();
 
-      this.cover_condlist = parseConditionsList(object, null, "cover_state", this.st.cover_state);
+      this.cover_condlist = parseConditionsList(object, null, "cover_state", this.state.cover_state);
       this.cover_state = pickSectionFromCondList(registry.actor, object, this.cover_condlist) as ECoverState;
       this.target_selector(this.object);
       this.check_target_selector();
 
-      object.idle_min_time(this.st.idle_min_time);
-      object.idle_max_time(this.st.idle_max_time);
-      object.lookout_min_time(this.st.lookout_min_time);
-      object.lookout_max_time(this.st.lookout_max_time);
+      object.idle_min_time(this.state.idle_min_time);
+      object.idle_max_time(this.state.idle_max_time);
+      object.lookout_min_time(this.state.lookout_min_time);
+      object.lookout_max_time(this.state.lookout_max_time);
     }
   }
 
@@ -162,9 +166,9 @@ export class ActionSmartCoverActivity extends action_base {
           abort("There is no patrol path [%s] for npc [%s]", this.target_path, object.name());
         }
       }
-    } else if (this.st.target_enemy !== null) {
+    } else if (this.state.target_enemy !== null) {
       // --printf("setting target_enemy [actor] for npc[%s]", object.name())
-      const storyObject = getStoryObject(this.st.target_enemy);
+      const storyObject = getStoryObject(this.state.target_enemy);
 
       this.target_enemy_id = storyObject && storyObject.id();
 
@@ -174,9 +178,9 @@ export class ActionSmartCoverActivity extends action_base {
 
         return true;
       }
-    } else if (this.st.target_position !== null) {
-      object.set_smart_cover_target(this.st.target_position);
-      this.fire_pos = this.st.target_position;
+    } else if (this.state.target_position !== null) {
+      object.set_smart_cover_target(this.state.target_position);
+      this.fire_pos = this.state.target_position;
 
       return true;
     }
@@ -206,16 +210,16 @@ export class ActionSmartCoverActivity extends action_base {
         level.object_by_id(this.target_enemy_id) &&
         this.object.in_current_loophole_fov(level.object_by_id(this.target_enemy_id)!.position()) === true
       ) {
-        this.st.signals!.set("enemy_in_fov", true);
-        this.st.signals!.delete("enemy_not_in_fov");
+        this.state.signals!.set("enemy_in_fov", true);
+        this.state.signals!.delete("enemy_not_in_fov");
       } else {
-        this.st.signals!.delete("enemy_in_fov");
-        this.st.signals!.set("enemy_not_in_fov", true);
+        this.state.signals!.delete("enemy_in_fov");
+        this.state.signals!.set("enemy_not_in_fov", true);
       }
     }
 
-    if (this.st.sound_idle !== null) {
-      GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), this.st.sound_idle, null, null);
+    if (this.state.sound_idle !== null) {
+      GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), this.state.sound_idle, null, null);
     }
   }
 
@@ -238,7 +242,7 @@ export class ActionSmartCoverActivity extends action_base {
    * todo;
    */
   public deactivate(): void {
-    this.st.cover_name = null;
-    this.st.loophole_name = null;
+    this.state.cover_name = null;
+    this.state.loophole_name = null;
   }
 }
