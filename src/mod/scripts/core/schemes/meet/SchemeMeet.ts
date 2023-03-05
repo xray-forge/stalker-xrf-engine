@@ -1,16 +1,7 @@
-import {
-  alife,
-  device,
-  game_object,
-  stalker_ids,
-  world_property,
-  XR_action_planner,
-  XR_game_object,
-  XR_ini_file,
-} from "xray16";
+import { game_object, stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
 import { STRINGIFIED_FALSE, STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/mod/globals/lua";
-import { AnyObject, EScheme, ESchemeType, Optional, TDistance, TSection } from "@/mod/lib/types";
+import { AnyObject, EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { SchemeAbuse } from "@/mod/scripts/core/schemes/abuse/SchemeAbuse";
@@ -22,9 +13,9 @@ import { SchemeCorpseDetection } from "@/mod/scripts/core/schemes/corpse_detecti
 import { SchemeHelpWounded } from "@/mod/scripts/core/schemes/help_wounded/SchemeHelpWounded";
 import { ActionMeetWait } from "@/mod/scripts/core/schemes/meet/actions";
 import { EvaluatorContact } from "@/mod/scripts/core/schemes/meet/evaluators";
+import { ISchemeMeetState } from "@/mod/scripts/core/schemes/meet/ISchemeMeetState";
+import { MeetManager } from "@/mod/scripts/core/schemes/meet/MeetManager";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
-import { set_state } from "@/mod/scripts/core/state_management/StateManager";
-import { getStoryObject, isObjectInCombat } from "@/mod/scripts/utils/alife";
 import { isObjectWounded } from "@/mod/scripts/utils/checkers/checkers";
 import { getConfigString, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -41,15 +32,16 @@ export class SchemeMeet extends AbstractScheme {
   public static readonly SCHEME_SECTION_ADDITIONAL: EScheme = EScheme.ACTOR_DIALOGS;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
+  /**
+   * todo;
+   */
   public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
-    state: IStoredObject
+    state: ISchemeMeetState
   ): void {
-    logger.info("Add to binder:", object.name());
-
     const operators = {
       contact: action_ids.stohe_meet_base + 1,
       state_mgr_to_idle_alife: action_ids.state_mgr + 2,
@@ -69,7 +61,7 @@ export class SchemeMeet extends AbstractScheme {
     actionPlanner.add_evaluator(properties.contact, new EvaluatorContact(state));
 
     // -- Actions
-    const actionMeetWait: ActionMeetWait = new ActionMeetWait(state, ini);
+    const actionMeetWait: ActionMeetWait = new ActionMeetWait(state);
 
     actionMeetWait.add_precondition(new world_property(stalker_ids.property_alive, true));
     actionMeetWait.add_precondition(new world_property(stalker_ids.property_enemy, false));
@@ -92,70 +84,63 @@ export class SchemeMeet extends AbstractScheme {
       .action(operators.state_mgr_to_idle_alife)
       .add_precondition(new world_property(properties.contact, false));
 
-    state.meet_manager = new SchemeMeet(object, state);
+    state.meet_manager = new MeetManager(object, state);
 
     subscribeActionForEvents(object, state, state.meet_manager);
   }
 
-  public static set_meet(npc: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    assignStorageAndBind(npc, ini, scheme, section);
+  /**
+   * todo;
+   */
+  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    assignStorageAndBind(object, ini, scheme, section);
   }
 
-  public static override resetScheme(npc: XR_game_object, scheme: EScheme, st: IStoredObject, section: TSection): void {
+  /**
+   * todo;
+   */
+  public static override resetScheme(
+    object: XR_game_object,
+    scheme: EScheme,
+    state: IStoredObject,
+    section: TSection
+  ): void {
     const meetSection: TSection =
       scheme === null || scheme === STRINGIFIED_NIL
-        ? getConfigString(st.ini!, st.section_logic!, SchemeMeet.SCHEME_SECTION, npc, false, "")
-        : getConfigString(st.ini!, section, SchemeMeet.SCHEME_SECTION, npc, false, "");
+        ? getConfigString(state.ini!, state.section_logic!, SchemeMeet.SCHEME_SECTION, object, false, "")
+        : getConfigString(state.ini!, section, SchemeMeet.SCHEME_SECTION, object, false, "");
 
-    SchemeMeet.init_meet(npc, st.ini!, meetSection, st.meet, scheme);
+    SchemeMeet.initMeetScheme(object, state.ini!, meetSection, state.meet as ISchemeMeetState, scheme);
   }
 
-  public static init_meet(
-    npc: XR_game_object,
+  /**
+   * todo;
+   */
+  public static override disableScheme(object: XR_game_object, scheme: EScheme): void {
+    const state: IStoredObject = registry.objects.get(object.id());
+
+    state.actor_dialogs = null;
+    state.actor_disable = null;
+  }
+
+  /**
+   * todo;
+   */
+  public static initMeetScheme(
+    object: XR_game_object,
     ini: XR_ini_file,
     section: TSection,
-    st: IStoredObject,
+    state: ISchemeMeetState,
     scheme: EScheme
   ): void {
-    if (tostring(section) === st.meet_section && tostring(section) !== STRINGIFIED_NIL) {
+    if (tostring(section) === state.meet_section && tostring(section) !== STRINGIFIED_NIL) {
       return;
     }
 
-    st.meet_section = tostring(section);
-
-    /**
-     *   // -- [[
-     *   [meet]
-     *   close_distance    = {=actor_has_weapon} 3, 3
-     *   close_anim        = {=actor_has_weapon} a, b
-     *   close_snd_hello = {=actor_has_weapon} a, b
-     *   close_snd_bye    = {=actor_has_weapon} a, b
-     *   close_victim    = {=actor_has_weapon} a, b
-     *
-     *
-     *   far_distance    = {=actor_has_weapon} 30, 30
-     *   far_anim        = {=actor_has_weapon} a, b
-     *   far_snd        = {=actor_has_weapon} a, b
-     *   far_victim        = {=actor_has_weapon} a, b
-     *
-     *
-     *   snd_on_use        = {=in_battle} a, {=no_talk} b, c
-     *
-     *   use                = {=actor_has_weapon} true, false  // --  this - ����� ���
-     *   meet_dialog        = {=actor_has_weapon} a
-     *   abuse            = {=in_battle} true, false
-     *   trade_enable    = {=in_battle} true, false
-     *   allow_break        = {=in_battle} true, false
-     *
-     *   ��������������� ���������:
-     *
-     *   reset_distance    = 30
-     *   ]]
-     */
+    state.meet_section = tostring(section);
 
     const def: AnyObject = {};
-
-    const relation = getObjectsRelationSafe(npc, registry.actor);
+    const relation = getObjectsRelationSafe(object, registry.actor);
 
     if (relation === game_object.enemy) {
       def.close_distance = "0";
@@ -206,210 +191,216 @@ export class SchemeMeet extends AbstractScheme {
       def.use_text = STRINGIFIED_NIL;
     }
 
-    if (tostring(section) === "no_meet)") {
-      st.close_distance = parseConditionsList(npc, section, "close_distance", "0");
-      st.close_anim = parseConditionsList(npc, section, "close_anim", "nil");
-      st.close_snd_distance = parseConditionsList(npc, section, "close_distance", "0");
-      st.close_snd_hello = parseConditionsList(npc, section, "close_snd_hello", "nil");
-      st.close_snd_bye = parseConditionsList(npc, section, "close_snd_bye", "nil");
-      st.close_victim = parseConditionsList(npc, section, "close_victim", "nil");
+    if (tostring(section) === "no_meet") {
+      state.close_distance = parseConditionsList(object, section, "close_distance", "0");
+      state.close_anim = parseConditionsList(object, section, "close_anim", "nil");
+      state.close_snd_distance = parseConditionsList(object, section, "close_distance", "0");
+      state.close_snd_hello = parseConditionsList(object, section, "close_snd_hello", "nil");
+      state.close_snd_bye = parseConditionsList(object, section, "close_snd_bye", "nil");
+      state.close_victim = parseConditionsList(object, section, "close_victim", "nil");
 
-      st.far_distance = parseConditionsList(npc, section, "far_distance", "0");
-      st.far_anim = parseConditionsList(npc, section, "far_anim", "nil");
-      st.far_snd_distance = parseConditionsList(npc, section, "far_distance", "0");
-      st.far_snd = parseConditionsList(npc, section, "far_snd", "nil");
-      st.far_victim = parseConditionsList(npc, section, "far_victim", "nil");
+      state.far_distance = parseConditionsList(object, section, "far_distance", "0");
+      state.far_anim = parseConditionsList(object, section, "far_anim", "nil");
+      state.far_snd_distance = parseConditionsList(object, section, "far_distance", "0");
+      state.far_snd = parseConditionsList(object, section, "far_snd", "nil");
+      state.far_victim = parseConditionsList(object, section, "far_victim", "nil");
 
-      st.snd_on_use = parseConditionsList(npc, section, "snd_on_use", "nil");
-      st.use = parseConditionsList(npc, section, "use", STRINGIFIED_FALSE);
-      st.meet_dialog = parseConditionsList(npc, section, "meet_dialog", "nil");
-      st.abuse = parseConditionsList(npc, section, "abuse", STRINGIFIED_FALSE);
-      st.trade_enable = parseConditionsList(npc, section, "trade_enable", STRINGIFIED_TRUE);
-      st.allow_break = parseConditionsList(npc, section, "allow_break", STRINGIFIED_TRUE);
-      st.meet_on_talking = parseConditionsList(npc, section, "meet_on_talking", STRINGIFIED_FALSE);
-      st.use_text = parseConditionsList(npc, section, "use_text", "nil");
+      state.snd_on_use = parseConditionsList(object, section, "snd_on_use", "nil");
+      state.use = parseConditionsList(object, section, "use", STRINGIFIED_FALSE);
+      state.meet_dialog = parseConditionsList(object, section, "meet_dialog", "nil");
+      state.abuse = parseConditionsList(object, section, "abuse", STRINGIFIED_FALSE);
+      state.trade_enable = parseConditionsList(object, section, "trade_enable", STRINGIFIED_TRUE);
+      state.allow_break = parseConditionsList(object, section, "allow_break", STRINGIFIED_TRUE);
+      state.meet_on_talking = parseConditionsList(object, section, "meet_on_talking", STRINGIFIED_FALSE);
+      state.use_text = parseConditionsList(object, section, "use_text", "nil");
 
-      st.reset_distance = 30;
-      st.meet_only_at_path = true;
+      state.reset_distance = 30;
+      state.meet_only_at_path = true;
     } else {
-      st.close_distance = parseConditionsList(
-        npc,
+      state.close_distance = parseConditionsList(
+        object,
         section,
         "close_distance",
-        getConfigString(ini, section, "close_distance", npc, false, "", def.close_distance)
+        getConfigString(ini, section, "close_distance", object, false, "", def.close_distance)
       );
-      st.close_anim = parseConditionsList(
-        npc,
+      state.close_anim = parseConditionsList(
+        object,
         section,
         "close_anim",
-        getConfigString(ini, section, "close_anim", npc, false, "", def.close_anim)
+        getConfigString(ini, section, "close_anim", object, false, "", def.close_anim)
       );
-      st.close_snd_distance = parseConditionsList(
-        npc,
+      state.close_snd_distance = parseConditionsList(
+        object,
         section,
         "close_snd_distance",
-        getConfigString(ini, section, "close_snd_distance", npc, false, "", def.close_distance)
+        getConfigString(ini, section, "close_snd_distance", object, false, "", def.close_distance)
       );
-      st.close_snd_hello = parseConditionsList(
-        npc,
+      state.close_snd_hello = parseConditionsList(
+        object,
         section,
         "close_snd_hello",
-        getConfigString(ini, section, "close_snd_hello", npc, false, "", def.close_snd_hello)
+        getConfigString(ini, section, "close_snd_hello", object, false, "", def.close_snd_hello)
       );
-      st.close_snd_bye = parseConditionsList(
-        npc,
+      state.close_snd_bye = parseConditionsList(
+        object,
         section,
         "close_snd_bye",
-        getConfigString(ini, section, "close_snd_bye", npc, false, "", def.close_snd_bye)
+        getConfigString(ini, section, "close_snd_bye", object, false, "", def.close_snd_bye)
       );
-      st.close_victim = parseConditionsList(
-        npc,
+      state.close_victim = parseConditionsList(
+        object,
         section,
         "close_victim",
-        getConfigString(ini, section, "close_victim", npc, false, "", def.close_victim)
+        getConfigString(ini, section, "close_victim", object, false, "", def.close_victim)
       );
 
-      st.far_distance = parseConditionsList(
-        npc,
+      state.far_distance = parseConditionsList(
+        object,
         section,
         "far_distance",
-        getConfigString(ini, section, "far_distance", npc, false, "", def.far_distance)
+        getConfigString(ini, section, "far_distance", object, false, "", def.far_distance)
       );
-      st.far_anim = parseConditionsList(
-        npc,
+      state.far_anim = parseConditionsList(
+        object,
         section,
         "far_anim",
-        getConfigString(ini, section, "far_anim", npc, false, "", def.far_anim)
+        getConfigString(ini, section, "far_anim", object, false, "", def.far_anim)
       );
-      st.far_snd_distance = parseConditionsList(
-        npc,
+      state.far_snd_distance = parseConditionsList(
+        object,
         section,
         "far_snd_distance",
-        getConfigString(ini, section, "far_snd_distance", npc, false, "", def.far_snd_distance)
+        getConfigString(ini, section, "far_snd_distance", object, false, "", def.far_snd_distance)
       );
-      st.far_snd = parseConditionsList(
-        npc,
+      state.far_snd = parseConditionsList(
+        object,
         section,
         "far_snd",
-        getConfigString(ini, section, "far_snd", npc, false, "", def.far_snd)
+        getConfigString(ini, section, "far_snd", object, false, "", def.far_snd)
       );
-      st.far_victim = parseConditionsList(
-        npc,
+      state.far_victim = parseConditionsList(
+        object,
         section,
         "far_victim",
-        getConfigString(ini, section, "far_victim", npc, false, "", def.far_victim)
+        getConfigString(ini, section, "far_victim", object, false, "", def.far_victim)
       );
 
-      st.snd_on_use = parseConditionsList(
-        npc,
+      state.snd_on_use = parseConditionsList(
+        object,
         section,
         "snd_on_use",
-        getConfigString(ini, section, "snd_on_use", npc, false, "", def.snd_on_use)
+        getConfigString(ini, section, "snd_on_use", object, false, "", def.snd_on_use)
       );
-      st.use = parseConditionsList(npc, section, "use", getConfigString(ini, section, "use", npc, false, "", def.use));
-      st.meet_dialog = parseConditionsList(
-        npc,
+      state.use = parseConditionsList(
+        object,
+        section,
+        "use",
+        getConfigString(ini, section, "use", object, false, "", def.use)
+      );
+      state.meet_dialog = parseConditionsList(
+        object,
         section,
         "meet_dialog",
-        getConfigString(ini, section, "meet_dialog", npc, false, "", def.meet_dialog)
+        getConfigString(ini, section, "meet_dialog", object, false, "", def.meet_dialog)
       );
-      st.abuse = parseConditionsList(
-        npc,
+      state.abuse = parseConditionsList(
+        object,
         section,
         "abuse",
-        getConfigString(ini, section, "abuse", npc, false, "", def.abuse)
+        getConfigString(ini, section, "abuse", object, false, "", def.abuse)
       );
-      st.trade_enable = parseConditionsList(
-        npc,
+      state.trade_enable = parseConditionsList(
+        object,
         section,
         "trade_enable",
-        getConfigString(ini, section, "trade_enable", npc, false, "", def.trade_enable)
+        getConfigString(ini, section, "trade_enable", object, false, "", def.trade_enable)
       );
-      st.allow_break = parseConditionsList(
-        npc,
+      state.allow_break = parseConditionsList(
+        object,
         section,
         "allow_break",
-        getConfigString(ini, section, "allow_break", npc, false, "", def.allow_break)
+        getConfigString(ini, section, "allow_break", object, false, "", def.allow_break)
       );
-      st.meet_on_talking = parseConditionsList(
-        npc,
+      state.meet_on_talking = parseConditionsList(
+        object,
         section,
         "meet_on_talking",
-        getConfigString(ini, section, "meet_on_talking", npc, false, "", def.meet_on_talking)
+        getConfigString(ini, section, "meet_on_talking", object, false, "", def.meet_on_talking)
       );
-      st.use_text = parseConditionsList(
-        npc,
+      state.use_text = parseConditionsList(
+        object,
         section,
         "use_text",
-        getConfigString(ini, section, "use_text", npc, false, "", def.use_text)
+        getConfigString(ini, section, "use_text", object, false, "", def.use_text)
       );
 
-      st.reset_distance = 30;
-      st.meet_only_at_path = true;
+      state.reset_distance = 30;
+      state.meet_only_at_path = true;
     }
 
-    st.meet_manager.set_start_distance();
-    st.meet_set = true;
+    state.meet_manager.setStartDistance();
+    state.meet_set = true;
   }
 
-  public static override disableScheme(npc: XR_game_object, scheme: EScheme): void {
-    registry.objects.get(npc.id()).actor_dialogs = null;
-    registry.objects.get(npc.id()).actor_disable = null;
-  }
-
-  public static process_npc_usability(npc: XR_game_object): void {
-    if (isObjectWounded(npc)) {
-      if (npc.relation(registry.actor) === game_object.enemy) {
-        npc.disable_talk();
+  /**
+   * todo;
+   */
+  public static updateObjectInteractionAvailability(object: XR_game_object): void {
+    if (isObjectWounded(object)) {
+      if (object.relation(registry.actor) === game_object.enemy) {
+        object.disable_talk();
       } else {
-        const wounded = registry.objects.get(npc.id()).wounded!;
+        const wounded = registry.objects.get(object.id()).wounded!;
 
         if (wounded.enable_talk) {
-          npc.enable_talk();
+          object.enable_talk();
         } else {
-          npc.disable_talk();
+          object.disable_talk();
         }
       }
 
       return;
     }
 
-    const meet = registry.objects.get(npc.id()).meet;
+    const meet = registry.objects.get(object.id()).meet;
     const use = meet.meet_manager.use;
 
     if (use === STRINGIFIED_TRUE) {
-      if (SchemeCorpseDetection.isUnderCorpseDetection(npc) || SchemeHelpWounded.isUnderHelpWounded(npc)) {
-        npc.disable_talk();
+      if (SchemeCorpseDetection.isUnderCorpseDetection(object) || SchemeHelpWounded.isUnderHelpWounded(object)) {
+        object.disable_talk();
       } else {
-        npc.enable_talk();
+        object.enable_talk();
       }
     } else if (use === STRINGIFIED_FALSE) {
-      npc.disable_talk();
-      if (npc.is_talking()) {
-        npc.stop_talk();
+      object.disable_talk();
+      if (object.is_talking()) {
+        object.stop_talk();
       }
     }
   }
 
-  public static notify_on_use(victim: XR_game_object, who: XR_game_object): void {
+  /**
+   * todo;
+   */
+  public static onMeetWithObject(victim: XR_game_object, who: XR_game_object): void {
     if (!victim.alive()) {
       return;
     }
 
-    const st = registry.objects.get(victim.id()).meet;
+    const state: Optional<ISchemeMeetState> = registry.objects.get(victim.id()).meet;
 
-    if (st === null) {
+    if (state === null) {
       return;
     }
 
     const actor: XR_game_object = registry.actor;
-    const sound = pickSectionFromCondList(actor, victim, st.snd_on_use);
+    const sound = pickSectionFromCondList(actor, victim, state.snd_on_use);
 
     if (tostring(sound) !== STRINGIFIED_NIL) {
       GlobalSoundManager.getInstance().setSoundPlaying(victim.id(), sound, null, null);
     }
 
-    const meet_manager = st.meet_manager;
+    const meet_manager = state.meet_manager;
 
     if (
       meet_manager.use === STRINGIFIED_FALSE &&
@@ -417,226 +408,6 @@ export class SchemeMeet extends AbstractScheme {
       getObjectsRelationSafe(victim, registry.actor) === game_object.friend
     ) {
       SchemeAbuse.addAbuse(victim, 1);
-    }
-  }
-
-  public startdialog: Optional<string> = null;
-  public abuse_mode: Optional<string> = null;
-  public trade_enable: Optional<boolean> = null;
-  public use: Optional<string> = null;
-  public allow_break: Optional<boolean> = null;
-  public npc_is_camp_director: boolean = false;
-  public hello_passed: boolean = false;
-  public bye_passed: boolean = false;
-  public current_distance: Optional<string> = null;
-
-  public update_state(): void {
-    const actor: XR_game_object = registry.actor;
-    let state: Optional<string> = null;
-    let victim = null;
-
-    if (this.current_distance === "close") {
-      state = pickSectionFromCondList(actor as XR_game_object, this.object, this.state.close_anim);
-      victim = pickSectionFromCondList(actor as XR_game_object, this.object, this.state.close_victim);
-    } else if (this.current_distance === "far") {
-      state = pickSectionFromCondList(actor as XR_game_object, this.object, this.state.far_anim);
-      victim = pickSectionFromCondList(actor as XR_game_object, this.object, this.state.far_victim);
-    }
-
-    if (tostring(victim) === STRINGIFIED_NIL) {
-      victim = null;
-    } else {
-      if (alife() !== null) {
-        victim = getStoryObject(victim!);
-      }
-    }
-
-    if (tostring(state) !== STRINGIFIED_NIL) {
-      if (victim === null) {
-        set_state(this.object, state!, null, null, null, null);
-      } else {
-        set_state(this.object, state!, null, null, { look_object: victim }, null);
-      }
-    }
-
-    const snd = pickSectionFromCondList(actor, this.object, this.state.far_snd);
-
-    if (tostring(snd) !== STRINGIFIED_NIL) {
-      GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), snd, null, null);
-    }
-  }
-
-  public set_start_distance(): void {
-    const actor: Optional<XR_game_object> = registry.actor;
-
-    if (actor === null) {
-      this.hello_passed = false;
-      this.bye_passed = false;
-      this.current_distance = null;
-
-      return;
-    }
-
-    if (!this.object.alive()) {
-      this.hello_passed = false;
-      this.bye_passed = false;
-      this.current_distance = null;
-
-      return;
-    }
-
-    const distance = this.object.position().distance_to(actor.position());
-    const actor_visible = this.object.see(actor);
-
-    const is_object_far =
-      actor_visible && distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.far_distance))!;
-    const is_object_close =
-      (actor_visible &&
-        distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.close_distance))!) ||
-      this.object.is_talking();
-
-    if (is_object_close === true) {
-      this.hello_passed = true;
-      this.current_distance = "close";
-    } else if (is_object_far === true) {
-      this.bye_passed = true;
-      this.current_distance = "far";
-    } else if (distance > this.state.reset_distance) {
-      this.hello_passed = false;
-      this.bye_passed = false;
-      this.current_distance = null;
-    } else {
-      this.current_distance = null;
-    }
-  }
-
-  public override update(): void {
-    const actor: XR_game_object = registry.actor;
-    const distance: TDistance = this.object.position().distance_to(actor.position());
-    const isActorVisible: boolean = this.object.see(actor);
-
-    if (isActorVisible) {
-      if (distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.close_snd_distance))!) {
-        if (this.hello_passed === false) {
-          const snd = pickSectionFromCondList(actor, this.object, this.state.close_snd_hello);
-
-          if (tostring(snd) !== STRINGIFIED_NIL && !isObjectInCombat(this.object)) {
-            GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), snd, null, null);
-          }
-
-          this.hello_passed = true;
-        }
-      } else if (distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.far_snd_distance))!) {
-        if (this.hello_passed === true) {
-          if (this.bye_passed === false) {
-            const snd = pickSectionFromCondList(actor, this.object, this.state.close_snd_bye);
-
-            if (tostring(snd) !== STRINGIFIED_NIL && !isObjectInCombat(this.object)) {
-              GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), snd, null, null);
-            }
-
-            this.bye_passed = true;
-          }
-        }
-      }
-    }
-
-    const isObjectFar =
-      isActorVisible && distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.far_distance))!;
-    const isObjectClose =
-      (isActorVisible &&
-        distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.close_distance))!) ||
-      (this.object.is_talking() && this.state.meet_on_talking);
-
-    if (isObjectClose === true) {
-      if (this.current_distance !== "close") {
-        this.current_distance = "close";
-      }
-    } else if (isObjectFar === true) {
-      this.current_distance = "far";
-    } else if (distance > this.state.reset_distance) {
-      this.hello_passed = false;
-      this.bye_passed = false;
-      this.current_distance = null;
-    } else {
-      this.current_distance = null;
-    }
-
-    const allow_break = pickSectionFromCondList(actor, this.object, this.state.allow_break);
-
-    if (this.allow_break !== (allow_break === STRINGIFIED_TRUE)) {
-      this.allow_break = allow_break === STRINGIFIED_TRUE;
-    }
-
-    if (this.state.meet_dialog !== null) {
-      const start_dialog = pickSectionFromCondList(actor, this.object, this.state.meet_dialog);
-
-      if (this.startdialog !== start_dialog) {
-        this.startdialog = start_dialog;
-        if (start_dialog === null || start_dialog === STRINGIFIED_NIL) {
-          this.object.restore_default_start_dialog();
-        } else {
-          this.object.set_start_dialog(start_dialog);
-          if (this.object.is_talking()) {
-            actor.run_talk_dialog(this.object, !this.allow_break);
-          }
-        }
-      }
-    }
-
-    const is_talking = this.object.is_talking();
-    let use = pickSectionFromCondList(actor, this.object, this.state.use);
-
-    if (this.npc_is_camp_director === true) {
-      use = STRINGIFIED_FALSE;
-    }
-
-    if (this.use !== use) {
-      if (use === "self") {
-        if (!is_talking && device().precache_frame < 1) {
-          this.object.enable_talk();
-          this.object.allow_break_talk_dialog(this.allow_break);
-          actor.run_talk_dialog(this.object, !this.allow_break);
-        }
-      }
-
-      if (device().precache_frame < 1) {
-        this.use = use;
-      }
-    }
-
-    const shouldUseText = pickSectionFromCondList(actor, this.object, this.state.use_text)!;
-
-    if (shouldUseText !== STRINGIFIED_NIL) {
-      this.object.set_tip_text(shouldUseText);
-    } else {
-      if (this.object.is_talk_enabled()) {
-        this.object.set_tip_text("character_use");
-      } else {
-        this.object.set_tip_text("");
-      }
-    }
-
-    this.object.allow_break_talk_dialog(this.allow_break);
-
-    /**
-     *   // -- [[
-     *     if (is_talking {
-     *       db.actor:allow_break_talk_dialog(this.allow_break)
-     *     }
-     *   ]]
-     */
-
-    const abuse = pickSectionFromCondList(actor, this.object, this.state.abuse);
-
-    if (this.abuse_mode !== abuse) {
-      if (abuse === STRINGIFIED_TRUE) {
-        SchemeAbuse.enableAbuse(this.object);
-      } else {
-        SchemeAbuse.disableAbuse(this.object);
-      }
-
-      this.abuse_mode = abuse;
     }
   }
 }

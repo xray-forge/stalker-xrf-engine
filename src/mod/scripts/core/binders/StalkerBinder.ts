@@ -447,7 +447,7 @@ export class StalkerBinder extends object_binder {
   public use_callback(obj: XR_game_object, who: XR_game_object): void {
     if (this.object.alive()) {
       ItemUpgradesManager.getInstance().setCurrentTech(obj);
-      SchemeMeet.notify_on_use(obj, who);
+      SchemeMeet.onMeetWithObject(obj, who);
 
       disabled_phrases.delete(obj.id());
       if (this.state.active_section) {
@@ -499,7 +499,7 @@ export class StalkerBinder extends object_binder {
 
     if (object_alive) {
       GlobalSoundManager.getInstance().updateForObjectId(object.id());
-      SchemeMeet.process_npc_usability(object);
+      SchemeMeet.updateObjectInteractionAvailability(object);
       updateInvulnerability(this.object);
     }
 

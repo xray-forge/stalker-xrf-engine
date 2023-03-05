@@ -18,7 +18,7 @@ import { SchemeHelicopterMove } from "@/mod/scripts/core/schemes/heli_move/Schem
 import { SchemeHelpWounded } from "@/mod/scripts/core/schemes/help_wounded/SchemeHelpWounded";
 import { SchemeHit } from "@/mod/scripts/core/schemes/hit/SchemeHit";
 import { SchemeIdle } from "@/mod/scripts/core/schemes/idle";
-import { SchemeMeet } from "@/mod/scripts/core/schemes/meet/SchemeMeet";
+import { SchemeMeet } from "@/mod/scripts/core/schemes/meet";
 import { SchemeMobCombat } from "@/mod/scripts/core/schemes/mob/combat";
 import { SchemeMobDeath } from "@/mod/scripts/core/schemes/mob/death";
 import { SchemeMobHome } from "@/mod/scripts/core/schemes/mob/home";

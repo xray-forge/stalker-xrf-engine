@@ -1,6 +1,6 @@
-import { action_base, XR_ini_file } from "xray16";
+import { action_base } from "xray16";
 
-import { IStoredObject } from "@/mod/scripts/core/database";
+import { ISchemeMeetState } from "@/mod/scripts/core/schemes/meet";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ActionMeetWait");
@@ -10,16 +10,19 @@ const logger: LuaLogger = new LuaLogger("ActionMeetWait");
  */
 @LuabindClass()
 export class ActionMeetWait extends action_base {
-  public readonly state: IStoredObject;
-  public readonly char_ini: XR_ini_file;
+  public readonly state: ISchemeMeetState;
 
-  public constructor(state: IStoredObject, char_ini: XR_ini_file) {
+  /**
+   * todo;
+   */
+  public constructor(state: ISchemeMeetState) {
     super(null, ActionMeetWait.__name);
-
     this.state = state;
-    this.char_ini = char_ini;
   }
 
+  /**
+   * todo;
+   */
   public override initialize(): void {
     super.initialize();
 
@@ -27,9 +30,12 @@ export class ActionMeetWait extends action_base {
     this.object.set_desired_direction();
   }
 
+  /**
+   * todo;
+   */
   public override execute(): void {
     super.execute();
 
-    this.state.meet_manager.update_state();
+    this.state.meet_manager.updateState();
   }
 }

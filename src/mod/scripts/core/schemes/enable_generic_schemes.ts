@@ -74,7 +74,7 @@ export function enable_generic_schemes(
 
       const meetSection: TSection = getConfigString(ini, section, "meet", object, false, "");
 
-      SchemeMeet.set_meet(object, ini, EScheme.MEET, meetSection);
+      SchemeMeet.setScheme(object, ini, EScheme.MEET, meetSection);
 
       const deathSection: TSection = getConfigString(ini, section, "on_death", object, false, "");
 

@@ -61,7 +61,7 @@ export function update_npc_dialog(first_speaker: XR_game_object, second_speaker:
   const npc = getNpcSpeaker(first_speaker, second_speaker);
 
   registry.objects.get(npc.id()).meet.meet_manager.update();
-  SchemeMeet.process_npc_usability(npc);
+  SchemeMeet.updateObjectInteractionAvailability(npc);
   update_logic(npc);
 }
 
