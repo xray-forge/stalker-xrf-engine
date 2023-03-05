@@ -1,7 +1,8 @@
 import { level, property_evaluator } from "xray16";
 
 import { communities } from "@/mod/globals/communities";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { registry } from "@/mod/scripts/core/database";
+import { ISchemeHelpWoundedState } from "@/mod/scripts/core/schemes/help_wounded";
 import { isObjectWounded } from "@/mod/scripts/utils/checkers/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -12,13 +13,19 @@ const logger: LuaLogger = new LuaLogger("EvaluatorWoundedExist");
  */
 @LuabindClass()
 export class EvaluatorWoundedExist extends property_evaluator {
-  public readonly state: IStoredObject;
+  public readonly state: ISchemeHelpWoundedState;
 
-  public constructor(storage: IStoredObject) {
+  /**
+   * todo;
+   */
+  public constructor(storage: ISchemeHelpWoundedState) {
     super(null, EvaluatorWoundedExist.__name);
     this.state = storage;
   }
 
+  /**
+   * todo;
+   */
   public override evaluate(): boolean {
     const npc = this.object;
 
@@ -83,7 +90,7 @@ export class EvaluatorWoundedExist extends property_evaluator {
 
     if (nearest_vertex !== null) {
       this.state.vertex_id = nearest_vertex;
-      this.state.vertex_position = nearest_position;
+      this.state.vertex_position = nearest_position!;
 
       if (
         this.state.selected_id !== null &&
@@ -93,7 +100,7 @@ export class EvaluatorWoundedExist extends property_evaluator {
         registry.objects.get(this.state.selected_id).wounded_already_selected = null;
       }
 
-      this.state.selected_id = selected_id;
+      this.state.selected_id = selected_id!;
       registry.objects.get(this.state.selected_id!).wounded_already_selected = npc.id();
 
       return true;

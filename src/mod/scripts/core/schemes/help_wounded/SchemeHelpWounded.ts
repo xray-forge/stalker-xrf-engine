@@ -9,6 +9,7 @@ import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAn
 import { AbstractScheme, action_ids, evaluators_id } from "@/mod/scripts/core/schemes/base";
 import { ActionHelpWounded } from "@/mod/scripts/core/schemes/help_wounded/actions";
 import { EvaluatorWoundedExist } from "@/mod/scripts/core/schemes/help_wounded/evaluators";
+import { ISchemeHelpWoundedState } from "@/mod/scripts/core/schemes/help_wounded/ISchemeHelpWoundedState";
 import { SchemeWounded } from "@/mod/scripts/core/schemes/wounded/SchemeWounded";
 import { getConfigBoolean } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -26,14 +27,12 @@ export class SchemeHelpWounded extends AbstractScheme {
    * todo;
    */
   public static override addToBinder(
-    npc: XR_game_object,
+    object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
-    state: IStoredObject
+    state: ISchemeHelpWoundedState
   ): void {
-    logger.info("Add to binder:", npc.name());
-
     const operators = {
       help_wounded: action_ids.wounded_exist,
       state_mgr_to_idle_alife: action_ids.state_mgr + 2,
@@ -43,9 +42,9 @@ export class SchemeHelpWounded extends AbstractScheme {
       wounded: evaluators_id.sidor_wounded_base,
     };
 
-    const manager: XR_action_planner = npc.motivation_action_manager();
+    const actionPlanner: XR_action_planner = object.motivation_action_manager();
 
-    manager.add_evaluator(properties.wounded_exist, new EvaluatorWoundedExist(state));
+    actionPlanner.add_evaluator(properties.wounded_exist, new EvaluatorWoundedExist(state));
 
     const action: ActionHelpWounded = new ActionHelpWounded(state);
 
@@ -56,11 +55,10 @@ export class SchemeHelpWounded extends AbstractScheme {
     action.add_precondition(new world_property(properties.wounded_exist, true));
     action.add_precondition(new world_property(properties.wounded, false));
     action.add_effect(new world_property(properties.wounded_exist, false));
-    manager.add_action(operators.help_wounded, action);
 
-    manager.action(action_ids.alife).add_precondition(new world_property(properties.wounded_exist, false));
-
-    manager
+    actionPlanner.add_action(operators.help_wounded, action);
+    actionPlanner.action(action_ids.alife).add_precondition(new world_property(properties.wounded_exist, false));
+    actionPlanner
       .action(operators.state_mgr_to_idle_alife)
       .add_precondition(new world_property(properties.wounded_exist, false));
   }
@@ -68,8 +66,15 @@ export class SchemeHelpWounded extends AbstractScheme {
   /**
    * todo;
    */
-  public static override resetScheme(npc: XR_game_object, scheme: EScheme, st: IStoredObject, section: TSection) {
-    st.help_wounded.help_wounded_enabled = getConfigBoolean(st.ini!, section, "help_wounded_enabled", npc, false, true);
+  public static override resetScheme(object: XR_game_object, scheme: EScheme, state: IStoredObject, section: TSection) {
+    (state[SchemeHelpWounded.SCHEME_SECTION] as ISchemeHelpWoundedState).help_wounded_enabled = getConfigBoolean(
+      state.ini!,
+      section,
+      "help_wounded_enabled",
+      object,
+      false,
+      true
+    );
   }
 
   /**
@@ -96,25 +101,25 @@ export class SchemeHelpWounded extends AbstractScheme {
    * todo;
    */
   public static helpWounded(object: XR_game_object): void {
-    const selected_id: TNumberId = registry.objects.get(object.id()).help_wounded.selected_id;
-    const selected_npc: Optional<XR_game_object> =
-      registry.objects.get(selected_id) && registry.objects.get(selected_id).object!;
+    const selectedId: TNumberId = registry.objects.get(object.id()).help_wounded.selected_id;
+    const selectedObject: Optional<XR_game_object> =
+      registry.objects.get(selectedId) && registry.objects.get(selectedId).object!;
 
-    if (selected_npc === null) {
+    if (selectedObject === null) {
       return;
     }
 
     alife().create(
       "medkit_script",
-      selected_npc.position(),
-      selected_npc.level_vertex_id(),
-      selected_npc.game_vertex_id(),
-      selected_id
+      selectedObject.position(),
+      selectedObject.level_vertex_id(),
+      selectedObject.game_vertex_id(),
+      selectedId
     );
 
-    SchemeWounded.unlockMedkit(selected_npc);
+    SchemeWounded.unlockMedkit(selectedObject);
 
-    registry.objects.get(selected_id).wounded_already_selected = -1;
+    registry.objects.get(selectedId).wounded_already_selected = -1;
 
     GlobalSoundManager.getInstance().setSoundPlaying(object.id(), script_sounds.wounded_medkit, null, null);
   }
