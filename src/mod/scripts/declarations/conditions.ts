@@ -1935,7 +1935,7 @@ export function jup_b25_flint_gone_condition(): boolean {
 export function check_deimos_phase(actor: XR_game_object, npc: XR_game_object, params: AnyArgs): boolean {
   if (params[0] && params[1]) {
     const obj: IStoredObject = registry.objects.get(npc.id());
-    const delta: boolean = SchemeDeimos.check_intensity_delta(obj);
+    const delta: boolean = SchemeDeimos.checkIntensityDelta(obj);
 
     if (params[1] === "increasing" && delta) {
       return false;
@@ -1945,27 +1945,27 @@ export function check_deimos_phase(actor: XR_game_object, npc: XR_game_object, p
 
     if (params[0] === "disable_bound") {
       if (params[1] === "increasing") {
-        if (!SchemeDeimos.check_disable_bound(obj)) {
+        if (!SchemeDeimos.checkDisableBound(obj)) {
           return true;
         }
       } else if (params[1] === "decreasing") {
-        return SchemeDeimos.check_disable_bound(obj);
+        return SchemeDeimos.checkDisableBound(obj);
       }
     } else if (params[0] === "lower_bound") {
       if (params[1] === "increasing") {
-        if (!SchemeDeimos.check_lower_bound(obj)) {
+        if (!SchemeDeimos.checkLowerBound(obj)) {
           return true;
         }
       } else if (params[1] === "decreasing") {
-        return SchemeDeimos.check_lower_bound(obj);
+        return SchemeDeimos.checkLowerBound(obj);
       }
     } else if (params[0] === "upper_bound") {
       if (params[1] === "increasing") {
-        if (!SchemeDeimos.check_upper_bound(obj)) {
+        if (!SchemeDeimos.checkUpperBound(obj)) {
           return true;
         }
       } else if (params[1] === "decreasing") {
-        return SchemeDeimos.check_upper_bound(obj);
+        return SchemeDeimos.checkUpperBound(obj);
       }
     }
   }
