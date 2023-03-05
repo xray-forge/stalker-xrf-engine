@@ -48,7 +48,7 @@ import { SchemeNoWeapon } from "@/mod/scripts/core/schemes/sr_no_weapon/SchemeNo
 import { SchemeParticle } from "@/mod/scripts/core/schemes/sr_particle/SchemeParticle";
 import { SchemePostProcess } from "@/mod/scripts/core/schemes/sr_postprocess/SchemePostProcess";
 import { SchemePsyAntenna } from "@/mod/scripts/core/schemes/sr_psy_antenna/SchemePsyAntenna";
-import { SchemeSilence } from "@/mod/scripts/core/schemes/sr_silence/SchemeSilence";
+import { SchemeSilence } from "@/mod/scripts/core/schemes/sr_silence";
 import { SchemeTeleport } from "@/mod/scripts/core/schemes/teleport";
 import { SchemeTimer } from "@/mod/scripts/core/schemes/timer";
 import { SchemeWalker } from "@/mod/scripts/core/schemes/walker";
