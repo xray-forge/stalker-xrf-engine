@@ -1,7 +1,7 @@
 import { property_evaluator } from "xray16";
 
 import { communities } from "@/mod/globals/communities";
-import { IStoredObject } from "@/mod/scripts/core/database";
+import { ISchemeCombatState } from "@/mod/scripts/core/schemes/combat";
 import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -12,9 +12,9 @@ const logger: LuaLogger = new LuaLogger("EvaluatorCombatZombied");
  */
 @LuabindClass()
 export class EvaluatorCombatZombied extends property_evaluator {
-  public readonly state: IStoredObject;
+  public readonly state: ISchemeCombatState;
 
-  public constructor(state: IStoredObject) {
+  public constructor(state: ISchemeCombatState) {
     super(null, EvaluatorCombatZombied.__name);
     this.state = state;
   }

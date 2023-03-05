@@ -453,8 +453,12 @@ export function getConfigTwoStringsAndConditionsList(
  * todo
  * todo
  */
-export function getConfigSwitchConditions(ini: XR_ini_file, section: TSection, object: XR_game_object) {
-  const conditionsList: LuaTable<number> = new LuaTable();
+export function getConfigSwitchConditions(
+  ini: XR_ini_file,
+  section: TSection,
+  object: XR_game_object
+): Optional<LuaArray<any>> {
+  const conditionsList: LuaArray<any> = new LuaTable();
   let index: TIndex = 1;
 
   if (!ini.section_exist(tostring(section))) {

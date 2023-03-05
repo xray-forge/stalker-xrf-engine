@@ -1,6 +1,7 @@
 import { action_base, device, vector, XR_game_object, XR_vector } from "xray16";
 
-import { IStoredObject } from "@/mod/scripts/core/database";
+import { TTimestamp } from "@/mod/lib/types";
+import { ISchemeCombatState } from "@/mod/scripts/core/schemes/combat";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -13,11 +14,11 @@ const logger: LuaLogger = new LuaLogger("ActionLookAround");
  */
 @LuabindClass()
 export class ActionLookAround extends action_base {
-  public readonly state: IStoredObject;
-  public forget_time: number = 0;
-  public change_dir_time: number = 0;
+  public readonly state: ISchemeCombatState;
+  public forget_time: TTimestamp = 0;
+  public change_dir_time: TTimestamp = 0;
 
-  public constructor(state: IStoredObject) {
+  public constructor(state: ISchemeCombatState) {
     super(null, ActionLookAround.__name);
     this.state = state;
   }

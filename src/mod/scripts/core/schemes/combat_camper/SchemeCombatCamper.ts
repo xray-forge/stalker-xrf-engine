@@ -1,8 +1,8 @@
 import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { IStoredObject } from "@/mod/scripts/core/database";
 import { AbstractScheme, action_ids, evaluators_id } from "@/mod/scripts/core/schemes/base";
+import { ISchemeCombatState } from "@/mod/scripts/core/schemes/combat";
 import { ActionLookAround, ActionShoot } from "@/mod/scripts/core/schemes/combat_camper/actions";
 import { EvaluatorCombatCamper, EvaluatorSee } from "@/mod/scripts/core/schemes/combat_camper/evaluator";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
@@ -28,7 +28,7 @@ export class SchemeCombatCamper extends AbstractScheme {
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
-    state: IStoredObject,
+    state: ISchemeCombatState,
     planner?: XR_action_planner
   ): void {
     logger.info("Add to binder:", object.name());

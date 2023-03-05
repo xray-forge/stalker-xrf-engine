@@ -1,6 +1,6 @@
 import { property_evaluator } from "xray16";
 
-import { IStoredObject } from "@/mod/scripts/core/database";
+import { ISchemeCompanionState } from "@/mod/scripts/core/schemes/companion";
 import { isActiveSection } from "@/mod/scripts/utils/checkers/is";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -11,9 +11,9 @@ const logger: LuaLogger = new LuaLogger("EvaluatorNeedCompanion");
  */
 @LuabindClass()
 export class EvaluatorNeedCompanion extends property_evaluator {
-  public readonly state: IStoredObject;
+  public readonly state: ISchemeCompanionState;
 
-  public constructor(storage: IStoredObject) {
+  public constructor(storage: ISchemeCompanionState) {
     super(null, EvaluatorNeedCompanion.__name);
     this.state = storage;
   }

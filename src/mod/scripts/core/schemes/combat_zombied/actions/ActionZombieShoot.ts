@@ -1,7 +1,7 @@
 import { action_base, game_object, level, move, time_global, vector, XR_game_object, XR_vector } from "xray16";
 
 import { AnyObject, Optional } from "@/mod/lib/types";
-import { IStoredObject } from "@/mod/scripts/core/database";
+import { ISchemeCombatState } from "@/mod/scripts/core/schemes/combat";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -15,7 +15,7 @@ const act_danger = 2;
  */
 @LuabindClass()
 export class ActionZombieShoot extends action_base {
-  public state: IStoredObject;
+  public state: ISchemeCombatState;
   public t: AnyObject = {};
 
   public enemy_last_seen_vid!: number;
@@ -30,11 +30,17 @@ export class ActionZombieShoot extends action_base {
   public enemy_last_accessible_vid: Optional<number> = null;
   public enemy_last_accessible_position: Optional<XR_vector> = null;
 
-  public constructor(storage: IStoredObject) {
+  /**
+   * todo;
+   */
+  public constructor(state: ISchemeCombatState) {
     super(null, ActionZombieShoot.__name);
-    this.state = storage;
+    this.state = state;
   }
 
+  /**
+   * todo;
+   */
   public override initialize(): void {
     super.initialize();
 
@@ -57,6 +63,9 @@ export class ActionZombieShoot extends action_base {
     // --    GlobalSound:set_sound_play(this.object:id(), "fight_enemy")
   }
 
+  /**
+   * todo;
+   */
   public override execute(): void {
     super.execute();
 
@@ -125,6 +134,9 @@ export class ActionZombieShoot extends action_base {
     }
   }
 
+  /**
+   * todo;
+   */
   public set_state(state: string, bestEnemy: Optional<XR_game_object>, position: Optional<XR_vector>): void {
     this.t.look_object = bestEnemy;
 
@@ -139,6 +151,9 @@ export class ActionZombieShoot extends action_base {
     this.last_state = state;
   }
 
+  /**
+   * todo;
+   */
   public calc_random_direction(): XR_vector {
     const ang = math.pi * 2 * math.random();
     const look_pos = new vector().set(this.object.position());
@@ -149,11 +164,17 @@ export class ActionZombieShoot extends action_base {
     return look_pos;
   }
 
+  /**
+   * todo;
+   */
   public override finalize(): void {
     super.finalize();
     this.state.cur_act = null;
   }
 
+  /**
+   * todo;
+   */
   public hit_callback(
     object: XR_game_object,
     amount: number,

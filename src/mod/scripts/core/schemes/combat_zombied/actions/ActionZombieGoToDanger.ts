@@ -1,7 +1,7 @@
 import { action_base, danger_object, game_object, move, time_global, XR_game_object, XR_vector } from "xray16";
 
 import { AnyObject, Optional } from "@/mod/lib/types";
-import { IStoredObject } from "@/mod/scripts/core/database";
+import { ISchemeCombatState } from "@/mod/scripts/core/schemes/combat";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { sendToNearestAccessibleVertex } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -16,7 +16,7 @@ const act_danger = 2;
  */
 @LuabindClass()
 export class ActionZombieGoToDanger extends action_base {
-  public state: IStoredObject;
+  public state: ISchemeCombatState;
   public t: AnyObject = {};
 
   public was_hit: boolean = false;
@@ -30,7 +30,7 @@ export class ActionZombieGoToDanger extends action_base {
   public enemy_last_seen_pos: Optional<XR_vector> = null;
   public enemy_last_seen_vid: Optional<number> = null;
 
-  public constructor(state: IStoredObject) {
+  public constructor(state: ISchemeCombatState) {
     super(null, ActionZombieGoToDanger.__name);
     this.state = state;
   }
@@ -50,7 +50,7 @@ export class ActionZombieGoToDanger extends action_base {
     this.state.cur_act = act_danger;
   }
 
-  public set_state(state: string, bestEnemy: Optional<XR_game_object>, pos: Optional<XR_vector>): void {
+  public setState(state: string, bestEnemy: Optional<XR_game_object>, pos: Optional<XR_vector>): void {
     if (state !== this.last_state) {
       this.t.look_object = bestEnemy;
       this.t.look_position = pos;
@@ -65,7 +65,7 @@ export class ActionZombieGoToDanger extends action_base {
     if (this.was_hit) {
       this.was_hit = false;
       this.hit_reaction_end_time = time_global() + 5000;
-      this.set_state("raid_fire", null, this.enemy_last_seen_pos);
+      this.setState("raid_fire", null, this.enemy_last_seen_pos);
     } else if (this.hit_reaction_end_time > time_global()) {
       // -- ���������� ���� � �������� � �����, �� ������� ��� ������ ���
     } else {
@@ -83,9 +83,9 @@ export class ActionZombieGoToDanger extends action_base {
           sendToNearestAccessibleVertex(this.object, this.bdo_vert_id!);
         }
 
-        this.set_state("raid", null, bd.position());
+        this.setState("raid", null, bd.position());
       } else {
-        this.set_state("threat_na", null, bd.position());
+        this.setState("threat_na", null, bd.position());
       }
     }
   }

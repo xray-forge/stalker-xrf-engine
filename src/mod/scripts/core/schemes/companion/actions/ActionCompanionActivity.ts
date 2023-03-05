@@ -1,7 +1,8 @@
 import { action_base, game_object, level, time_global, XR_game_object } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { registry } from "@/mod/scripts/core/database";
+import { ISchemeCompanionState } from "@/mod/scripts/core/schemes/companion";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { vectorRotateY } from "@/mod/scripts/utils/physics";
@@ -34,17 +35,23 @@ const sound_wait = "weather,state";
  */
 @LuabindClass()
 export class ActionCompanionActivity extends action_base {
-  public state: IStoredObject;
+  public state: ISchemeCompanionState;
 
   public assist_point: Optional<number> = null;
   public keep_state_until: number = 0;
   public last_state: string = "guard_na";
 
-  public constructor(storage: IStoredObject) {
+  /**
+   * todo;
+   */
+  public constructor(storage: ISchemeCompanionState) {
     super(null, ActionCompanionActivity.__name);
     this.state = storage;
   }
 
+  /**
+   * todo;
+   */
   public override initialize(): void {
     super.initialize();
 
@@ -60,6 +67,9 @@ export class ActionCompanionActivity extends action_base {
     this.keep_state_until = time_global();
   }
 
+  /**
+   * todo;
+   */
   public beh_walk_simple(): void {
     const actor: Optional<XR_game_object> = registry.actor;
     let select_new_pt: boolean = false;
@@ -120,6 +130,9 @@ export class ActionCompanionActivity extends action_base {
     // --    GlobalSound:set_sound(this.object, sound_wait)
   }
 
+  /**
+   * todo;
+   */
   public beh_wait_simple(): void {
     const new_state = "threat";
 
@@ -132,6 +145,9 @@ export class ActionCompanionActivity extends action_base {
     // --    GlobalSound:set_sound(this.object, sound_wait)
   }
 
+  /**
+   * todo;
+   */
   public override execute(): void {
     super.execute();
 
@@ -142,12 +158,18 @@ export class ActionCompanionActivity extends action_base {
     }
   }
 
+  /**
+   * todo;
+   */
   public override finalize(): void {
     super.finalize();
   }
 }
 
-function select_position(npc: XR_game_object, st: IStoredObject) {
+/**
+ * todo;
+ */
+function select_position(object: XR_game_object, state: ISchemeCompanionState) {
   let node_1_vertex_id = null;
   let node_1_distance = null;
   let node_2_vertex_id = null;
@@ -158,25 +180,25 @@ function select_position(npc: XR_game_object, st: IStoredObject) {
 
   node_1_vertex_id = level.vertex_in_direction(actor.level_vertex_id(), desired_direction, desired_distance);
 
-  if (npc.accessible(node_1_vertex_id) !== true || node_1_vertex_id === actor.level_vertex_id()) {
+  if (object.accessible(node_1_vertex_id) !== true || node_1_vertex_id === actor.level_vertex_id()) {
     node_1_vertex_id = null;
   }
 
   desired_direction = vectorRotateY(actor.direction(), -math.random(50, 60));
   node_2_vertex_id = level.vertex_in_direction(actor.level_vertex_id(), desired_direction, desired_distance);
 
-  if (npc.accessible(node_2_vertex_id) !== true || node_2_vertex_id === actor.level_vertex_id()) {
+  if (object.accessible(node_2_vertex_id) !== true || node_2_vertex_id === actor.level_vertex_id()) {
     node_2_vertex_id = null;
   }
 
   if (node_1_vertex_id !== null) {
-    node_1_distance = npc.position().distance_to_sqr(level.vertex_position(node_1_vertex_id));
+    node_1_distance = object.position().distance_to_sqr(level.vertex_position(node_1_vertex_id));
   } else {
     node_1_distance = -1;
   }
 
   if (node_2_vertex_id !== null) {
-    node_2_distance = npc.position().distance_to_sqr(level.vertex_position(node_2_vertex_id));
+    node_2_distance = object.position().distance_to_sqr(level.vertex_position(node_2_vertex_id));
   } else {
     node_2_distance = -1;
   }

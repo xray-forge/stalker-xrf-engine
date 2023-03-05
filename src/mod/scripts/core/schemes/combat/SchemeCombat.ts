@@ -2,12 +2,13 @@ import { stalker_ids, world_property, XR_action_base, XR_action_planner, XR_game
 
 import { communities } from "@/mod/globals/communities";
 import { STRINGIFIED_NIL } from "@/mod/globals/lua";
-import { AnyObject, Optional } from "@/mod/lib/types";
+import { AnyObject, LuaArray, Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { registry } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme, evaluators_id } from "@/mod/scripts/core/schemes/base";
 import { EvaluatorCheckCombat } from "@/mod/scripts/core/schemes/combat/evaluators/EvaluatorCheckCombat";
+import { ISchemeCombatState } from "@/mod/scripts/core/schemes/combat/ISchemeCombatState";
 import { SchemeCombatCamper } from "@/mod/scripts/core/schemes/combat_camper/SchemeCombatCamper";
 import { SchemeCombatZombied } from "@/mod/scripts/core/schemes/combat_zombied/SchemeCombatZombied";
 import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
@@ -32,20 +33,20 @@ export class SchemeCombat extends AbstractScheme {
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
-    state: IStoredObject
+    state: ISchemeCombatState
   ): void {
     logger.info("Add to binder:", object.name());
 
-    const manager: XR_action_planner = object.motivation_action_manager();
+    const actionPlanner: XR_action_planner = object.motivation_action_manager();
 
-    manager.add_evaluator(evaluators_id.script_combat, new EvaluatorCheckCombat(state));
+    actionPlanner.add_evaluator(evaluators_id.script_combat, new EvaluatorCheckCombat(state));
 
-    const action: XR_action_base = manager.action(stalker_ids.action_combat_planner);
+    const action: XR_action_base = actionPlanner.action(stalker_ids.action_combat_planner);
 
     action.add_precondition(new world_property(evaluators_id.script_combat, false));
 
-    SchemeCombatZombied.addToBinder(object, ini, scheme, section, state, manager);
-    SchemeCombatCamper.addToBinder(object, ini, scheme, section, state, manager);
+    SchemeCombatZombied.addToBinder(object, ini, scheme, section, state, actionPlanner);
+    SchemeCombatCamper.addToBinder(object, ini, scheme, section, state, actionPlanner);
   }
 
   /**
@@ -92,23 +93,23 @@ export class SchemeCombat extends AbstractScheme {
     const isZombied: boolean = getCharacterCommunity(object) === communities.zombied;
 
     if (section || isZombied) {
-      const st = assignStorageAndBind(object, ini, scheme, section);
+      const state: ISchemeCombatState = assignStorageAndBind(object, ini, scheme, section);
 
-      st.logic = getConfigSwitchConditions(ini, section, object);
-      st.enabled = true;
+      state.logic = getConfigSwitchConditions(ini, section, object);
+      state.enabled = true;
 
-      st.combat_type = getConfigCondList(ini, section, "combat_type", object);
+      state.combat_type = getConfigCondList(ini, section, "combat_type", object);
 
-      if (st.combat_type === communities.monolith) {
-        st.combat_type = null;
+      if ((state.combat_type as any) === communities.monolith) {
+        state.combat_type = null;
       }
 
-      if (!st.combat_type && isZombied) {
-        st.combat_type = { condlist: parseConditionsList(object, section, "", communities.zombied) };
+      if (!state.combat_type && isZombied) {
+        state.combat_type = { condlist: parseConditionsList(object, section, "", communities.zombied) };
       }
 
-      if (st.combat_type) {
-        SchemeCombat.set_combat_type(object, registry.actor, st);
+      if (state.combat_type) {
+        SchemeCombat.set_combat_type(object, registry.actor, state);
       }
     }
   }

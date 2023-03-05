@@ -1,6 +1,6 @@
 import { action_base } from "xray16";
 
-import { IStoredObject } from "@/mod/scripts/core/database";
+import { ISchemeCombatState } from "@/mod/scripts/core/schemes/combat";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -11,9 +11,9 @@ const logger: LuaLogger = new LuaLogger("ActionShoot");
  */
 @LuabindClass()
 export class ActionShoot extends action_base {
-  public readonly state: IStoredObject;
+  public readonly state: ISchemeCombatState;
 
-  public constructor(state: IStoredObject) {
+  public constructor(state: ISchemeCombatState) {
     super(null, ActionShoot.__name);
     this.state = state;
   }

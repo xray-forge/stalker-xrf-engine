@@ -4,6 +4,7 @@ import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
+import { ISchemeCombatIgnoreState } from "@/mod/scripts/core/schemes/combat_ignore/ISchemeCombatIgnoreState";
 import { ActionProcessEnemy } from "@/mod/scripts/core/schemes/danger/actions/ActionProcessEnemy";
 import { generic_scheme_overrides } from "@/mod/scripts/core/schemes/generic_scheme_overrides";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
@@ -27,7 +28,7 @@ export class SchemeCombatIgnore extends AbstractScheme {
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
-    state: IStoredObject
+    state: ISchemeCombatIgnoreState
   ): void {
     logger.info("Add to binder:", object.name());
     state.action = new ActionProcessEnemy(object, state);

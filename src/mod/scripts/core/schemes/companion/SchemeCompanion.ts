@@ -1,11 +1,11 @@
 import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { IStoredObject } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme, action_ids, evaluators_id } from "@/mod/scripts/core/schemes/base";
 import { ActionCompanionActivity } from "@/mod/scripts/core/schemes/companion/actions";
 import { EvaluatorNeedCompanion } from "@/mod/scripts/core/schemes/companion/evaluators";
+import { ISchemeCompanionState } from "@/mod/scripts/core/schemes/companion/ISchemeCompanionState";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { getConfigSwitchConditions } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -25,7 +25,7 @@ export class SchemeCompanion extends AbstractScheme {
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
-    state: IStoredObject
+    state: ISchemeCompanionState
   ): void {
     const operators = {
       action_companion: action_ids.zmey_companion_base + 1,
@@ -61,9 +61,9 @@ export class SchemeCompanion extends AbstractScheme {
     section: TSection,
     additional: string
   ): void {
-    const st = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeCompanionState = assignStorageAndBind(object, ini, scheme, section);
 
-    st.logic = getConfigSwitchConditions(ini, section, object);
-    st.behavior = 0; // beh_walk_simple
+    state.logic = getConfigSwitchConditions(ini, section, object);
+    state.behavior = 0; // beh_walk_simple
   }
 }

@@ -1,6 +1,7 @@
 import { property_evaluator } from "xray16";
 
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { registry } from "@/mod/scripts/core/database";
+import { ISchemeCombatState } from "@/mod/scripts/core/schemes/combat";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("EvaluatorCheckCombat");
@@ -10,9 +11,9 @@ const logger: LuaLogger = new LuaLogger("EvaluatorCheckCombat");
  */
 @LuabindClass()
 export class EvaluatorCheckCombat extends property_evaluator {
-  public readonly state: IStoredObject;
+  public readonly state: ISchemeCombatState;
 
-  public constructor(state: IStoredObject) {
+  public constructor(state: ISchemeCombatState) {
     super(null, EvaluatorCheckCombat.__name);
     this.state = state;
   }

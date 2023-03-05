@@ -7,6 +7,7 @@ import { ESmartTerrainStatus } from "@/mod/scripts/core/alife/SmartTerrainContro
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
 import { get_sim_obj_registry, SimObjectsRegistry } from "@/mod/scripts/core/database/SimObjectsRegistry";
+import { ISchemeCombatIgnoreState } from "@/mod/scripts/core/schemes/combat_ignore";
 import { isObjectInZone } from "@/mod/scripts/utils/checkers/checkers";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -102,9 +103,9 @@ export class ActionProcessEnemy {
   }
 
   public readonly object: XR_game_object;
-  public readonly state: IStoredObject;
+  public readonly state: ISchemeCombatIgnoreState;
 
-  public constructor(object: XR_game_object, state: IStoredObject) {
+  public constructor(object: XR_game_object, state: ISchemeCombatIgnoreState) {
     this.object = object;
     this.state = state;
   }
