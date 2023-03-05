@@ -13,7 +13,7 @@ const logger: LuaLogger = new LuaLogger("PhysicalHitManager");
 /**
  * todo;
  */
-export class PhysicalHitManager extends AbstractSchemeManager<ISchemePhysicalOnHitState> {
+export class PhysicalOnHitManager extends AbstractSchemeManager<ISchemePhysicalOnHitState> {
   /**
    * todo;
    */

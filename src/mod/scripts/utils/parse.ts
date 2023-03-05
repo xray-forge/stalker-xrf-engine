@@ -133,16 +133,17 @@ export function parseSpawns(data: string): LuaTable<number, { section: string; p
  * todo;
  * example: a | b | c ==> { 1 = "a", 2 = "b", 3 = "c" }
  */
-export function parseParams(params: string): LuaTable<number, string> {
-  const rslt: LuaTable<number, string> = new LuaTable();
+export function parseParams(params: string): LuaArray<string> {
+  const result: LuaArray<string> = new LuaTable();
+
   let n = 1;
 
   for (const field of string.gfind(params, "%s*([^|]+)%s*")) {
-    rslt.set(n, field);
+    result.set(n, field);
     n = n + 1;
   }
 
-  return rslt;
+  return result;
 }
 
 /**

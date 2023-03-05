@@ -5,7 +5,7 @@ import { registry } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { ISchemePhysicalOnHitState } from "@/mod/scripts/core/schemes/ph_on_hit/ISchemePhysicalOnHitState";
-import { PhysicalHitManager } from "@/mod/scripts/core/schemes/ph_on_hit/PhysicalHitManager";
+import { PhysicalOnHitManager } from "@/mod/scripts/core/schemes/ph_on_hit/PhysicalOnHitManager";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { unsubscribeActionFromEvents } from "@/mod/scripts/core/schemes/unsubscribeActionFromEvents";
 import { getConfigSwitchConditions } from "@/mod/scripts/utils/configs";
@@ -32,7 +32,7 @@ export class SchemePhysicalOnHit extends AbstractScheme {
   ): void {
     logger.info("Add to binder:", object.name());
 
-    state.action = new PhysicalHitManager(object, state);
+    state.action = new PhysicalOnHitManager(object, state);
   }
 
   /**

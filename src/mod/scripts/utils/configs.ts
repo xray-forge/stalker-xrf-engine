@@ -16,7 +16,13 @@ import { registry } from "@/mod/scripts/core/database";
 import { abort } from "@/mod/scripts/utils/debug";
 import { disableInfo, hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { IConfigSwitchCondition, parseConditionsList, parseNames, parseParams } from "@/mod/scripts/utils/parse";
+import {
+  IConfigSwitchCondition,
+  parseConditionsList,
+  parseNames,
+  parseParams,
+  TConditionList,
+} from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("configs");
 
@@ -326,21 +332,21 @@ export function getConfigCondList(
  */
 export function getConfigStringAndCondList(
   ini: XR_ini_file,
-  section: string,
-  field: string,
+  section: TSection,
+  field: TName,
   object: XR_game_object
 ): Optional<{
-  name: string;
+  name: TName;
   v1: string;
-  condlist: LuaArray<IConfigSwitchCondition>;
+  condlist: TConditionList;
 }> {
-  const str = getConfigString(ini, section, field, object, false, "");
+  const data: string = getConfigString(ini, section, field, object, false, "");
 
-  if (!str) {
+  if (!data) {
     return null;
   }
 
-  const par = parseParams(str);
+  const par = parseParams(data);
 
   if (!par.get(1) || !par.get(2)) {
     abort("Invalid syntax in condlist");
