@@ -1,6 +1,6 @@
 import { property_evaluator } from "xray16";
 
-import { IStoredObject } from "@/mod/scripts/core/database";
+import { ISchemeAnimpointState } from "@/mod/scripts/core/schemes/animpoint/ISchemeAnimpointState";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("EvaluatorReachAnimpoint");
@@ -10,14 +10,14 @@ const logger: LuaLogger = new LuaLogger("EvaluatorReachAnimpoint");
  */
 @LuabindClass()
 export class EvaluatorReachAnimpoint extends property_evaluator {
-  public readonly state: IStoredObject;
+  public readonly state: ISchemeAnimpointState;
 
-  public constructor(storage: IStoredObject) {
+  public constructor(storage: ISchemeAnimpointState) {
     super(null, EvaluatorReachAnimpoint.__name);
     this.state = storage;
   }
 
   public override evaluate(): boolean {
-    return this.state.animpoint!.position_riched();
+    return this.state.animpoint.position_riched();
   }
 }

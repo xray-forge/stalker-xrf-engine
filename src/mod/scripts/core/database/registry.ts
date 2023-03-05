@@ -39,7 +39,7 @@ export interface IStoredObject<T = XR_game_object> {
   moveManager?: StalkerMoveManager;
   enemy_id?: TNumberId;
   stype?: ESchemeType;
-  section?: TSection;
+  section?: Optional<TSection>;
   actions?: LuaTable<LuaTable<string, AnyCallable>, boolean>;
   pp?: XR_vector;
   avail_animations?: LuaTable<number, string>;

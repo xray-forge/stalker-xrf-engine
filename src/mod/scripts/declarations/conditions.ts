@@ -31,6 +31,8 @@ import { AchievementsManager } from "@/mod/scripts/core/managers/achievements/Ac
 import { ActorInventoryMenuManager, EActorMenuMode } from "@/mod/scripts/core/managers/ActorInventoryMenuManager";
 import { ItemUpgradesManager } from "@/mod/scripts/core/managers/ItemUpgradesManager";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
+import { SchemeAnimpoint } from "@/mod/scripts/core/schemes/animpoint";
+import { ISchemeAnimpointState } from "@/mod/scripts/core/schemes/animpoint/ISchemeAnimpointState";
 import { SchemeDeimos } from "@/mod/scripts/core/schemes/sr_deimos/SchemeDeimos";
 import {
   anomalyHasArtefact,
@@ -1237,14 +1239,15 @@ export function quest_npc_enemy_actor(actor: XR_game_object, npc: XR_game_object
  * todo;
  */
 export function animpoint_reached(actor: XR_game_object, npc: XR_game_object): boolean {
-  const animpoint_storage: Optional<IStoredObject> = registry.objects.get(npc.id())
-    .animpoint as Optional<IStoredObject>;
+  const animpointState: Optional<ISchemeAnimpointState> = registry.objects.get(npc.id())[
+    SchemeAnimpoint.SCHEME_TYPE
+  ] as Optional<ISchemeAnimpointState>;
 
-  if (animpoint_storage === null) {
+  if (animpointState === null) {
     return false;
   }
 
-  return animpoint_storage.animpoint!.position_riched();
+  return animpointState.animpoint.position_riched();
 }
 
 /**

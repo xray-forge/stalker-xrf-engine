@@ -10,8 +10,9 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { IStoredObject } from "@/mod/scripts/core/database";
+import { registry } from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
+import { ICampPoint, ISchemeCamperState } from "@/mod/scripts/core/schemes/camper/ISchemeCamperState";
 import { SchemeDanger } from "@/mod/scripts/core/schemes/danger/SchemeDanger";
 import { StalkerMoveManager } from "@/mod/scripts/core/state_management/StalkerMoveManager";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
@@ -19,17 +20,12 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { parsePathWaypoints } from "@/mod/scripts/utils/parse";
 import { isStalkerAtWaypoint } from "@/mod/scripts/utils/position";
 
-interface ICampPoint {
-  key: number;
-  pos: XR_vector;
-}
-
 /**
  * todo;
  */
 @LuabindClass()
 export class ActionCamperPatrol extends action_base {
-  public state: IStoredObject;
+  public state: ISchemeCamperState;
   public moveManager: StalkerMoveManager;
 
   public flag: Optional<number> = null;
@@ -49,11 +45,11 @@ export class ActionCamperPatrol extends action_base {
   /**
    * todo;
    */
-  public constructor(storage: IStoredObject, npc: XR_game_object) {
+  public constructor(state: ISchemeCamperState, object: XR_game_object) {
     super(null, ActionCamperPatrol.__name);
 
-    this.state = storage;
-    this.moveManager = storage[npc.id()].moveManager;
+    this.state = state;
+    this.moveManager = registry.objects.get(object.id()).moveManager!;
     this.state.scan_table = new LuaTable();
   }
 
@@ -75,7 +71,7 @@ export class ActionCamperPatrol extends action_base {
    */
   public resetScheme(): void {
     set_state(this.object, "patrol", null, null, null, null);
-    this.state.signals = {};
+    this.state.signals = new LuaTable();
     this.state.scan_table = new LuaTable();
 
     if (this.state.sniper === true) {
@@ -108,7 +104,7 @@ export class ActionCamperPatrol extends action_base {
         }
       }
 
-      if (this.object.sniper_update_rate() === false) {
+      if (!this.object.sniper_update_rate()) {
         this.object.sniper_update_rate(true);
       }
     } else {
@@ -125,7 +121,7 @@ export class ActionCamperPatrol extends action_base {
         null
       );
 
-      if (this.object.sniper_update_rate() === true) {
+      if (this.object.sniper_update_rate()) {
         this.object.sniper_update_rate(false);
       }
     }
@@ -276,7 +272,7 @@ export class ActionCamperPatrol extends action_base {
         }
 
         if (this.state.sniper === true) {
-          if (time_global() - this.state.mem_enemy < this.state.post_enemy_wait) {
+          if (time_global() - this.state.mem_enemy! < this.state.post_enemy_wait) {
             const position = this.enemy_position !== null ? { look_position: this.enemy_position } : null;
 
             if (this.state.suggested_state.campering) {
@@ -325,7 +321,7 @@ export class ActionCamperPatrol extends action_base {
           this.scantime = time_global();
         }
 
-        this.scan(this.state.wp_flag);
+        this.scan(this.state.wp_flag as number);
 
         const [isOnWaypoint] = this.moveManager.standing_on_terminal_waypoint();
 
@@ -485,7 +481,7 @@ export class ActionCamperPatrol extends action_base {
     }
 
     if (next === true) {
-      if (this.state.last_look_point.key === 0) {
+      if (this.state.last_look_point!.key === 0) {
         table.sort(this.state.scan_table!.get(flag), (a, b) => {
           return a.key < b.key;
         });
@@ -496,7 +492,7 @@ export class ActionCamperPatrol extends action_base {
       }
     }
 
-    return this.state.last_look_point;
+    return this.state.last_look_point!;
   }
 
   /**

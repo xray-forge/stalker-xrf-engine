@@ -1,8 +1,8 @@
 import { property_evaluator, stalker_ids, time_global, XR_action_planner } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { IStoredObject } from "@/mod/scripts/core/database";
 import { evaluators_id } from "@/mod/scripts/core/schemes/base/evaluators_id";
+import { ISchemeCamperState } from "@/mod/scripts/core/schemes/camper/ISchemeCamperState";
 import { isActiveSection } from "@/mod/scripts/utils/checkers/is";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -13,13 +13,13 @@ const logger: LuaLogger = new LuaLogger("EvaluatorCloseCombat");
  */
 @LuabindClass()
 export class EvaluatorCloseCombat extends property_evaluator {
-  public readonly state: IStoredObject;
+  public readonly state: ISchemeCamperState;
   public actionPlanner: Optional<XR_action_planner> = null;
   public isCloseCombat: boolean = false;
 
-  public constructor(storage: IStoredObject) {
+  public constructor(state: ISchemeCamperState) {
     super(null, EvaluatorCloseCombat.__name);
-    this.state = storage;
+    this.state = state;
   }
 
   public override evaluate(): boolean {
@@ -47,21 +47,19 @@ export class EvaluatorCloseCombat extends property_evaluator {
       return this.isCloseCombat;
     }
 
-    if (!this.isCloseCombat) {
-      this.isCloseCombat =
-        this.object.position().distance_to(this.object.memory_position(this.object.best_enemy()!)) < this.state.radius;
-    }
-
     if (this.isCloseCombat) {
       const memoryTime: number = this.object.memory_time(this.object.best_enemy()!);
 
       if (memoryTime !== null) {
-        if (time_global() - memoryTime > 20000) {
+        if (time_global() - memoryTime > 20_000) {
           this.isCloseCombat = false;
         }
       } else {
         this.isCloseCombat = false;
       }
+    } else {
+      this.isCloseCombat =
+        this.object.position().distance_to(this.object.memory_position(this.object.best_enemy()!)) < this.state.radius;
     }
 
     return this.isCloseCombat;

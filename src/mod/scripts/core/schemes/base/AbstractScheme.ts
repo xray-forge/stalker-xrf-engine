@@ -2,10 +2,11 @@ import { XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { IStoredObject } from "@/mod/scripts/core/database";
+import { IBaseSchemeState } from "@/mod/scripts/core/schemes/base/IBaseSchemeState";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("AbstractSchemeImplementation");
+const logger: LuaLogger = new LuaLogger("AbstractScheme");
 
 export type TAbstractSchemeConstructor = typeof AbstractScheme;
 
@@ -24,7 +25,7 @@ export abstract class AbstractScheme {
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
-    schemeState: IStoredObject
+    schemeState: IBaseSchemeState
   ): void {
     abort("Called not implemented addToBinder method: %s, %s", object.name(), scheme);
   }
@@ -56,6 +57,13 @@ export abstract class AbstractScheme {
     abort("Called not implemented disableScheme method: %s, %s", object.name(), scheme);
   }
 
+  // todo: Remove.
+  // todo: Remove.
+  // todo: Remove.
+  // todo: Remove.
+  // todo: Remove.
+  // todo: Remove.
+  // todo: Remove.
   public readonly object: XR_game_object;
   public readonly state: IStoredObject;
 

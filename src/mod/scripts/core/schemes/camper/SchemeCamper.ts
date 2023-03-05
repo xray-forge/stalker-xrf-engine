@@ -1,11 +1,12 @@
 import { stalker_ids, world_property, XR_action_base, XR_game_object, XR_ini_file } from "xray16";
 
+import { STRINGIFIED_FALSE } from "@/mod/globals/lua";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { IStoredObject } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme, action_ids, evaluators_id } from "@/mod/scripts/core/schemes/base";
 import { ActionCamperPatrol } from "@/mod/scripts/core/schemes/camper/actions";
 import { EvaluatorCloseCombat, EvaluatorEnd } from "@/mod/scripts/core/schemes/camper/evaluators";
+import { ISchemeCamperState } from "@/mod/scripts/core/schemes/camper/ISchemeCamperState";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import {
   getConfigBoolean,
@@ -30,7 +31,7 @@ export class SchemeCamper extends AbstractScheme {
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
-    storage: IStoredObject
+    state: ISchemeCamperState
   ): void {
     logger.info("Add to binder:", object.name());
 
@@ -48,10 +49,10 @@ export class SchemeCamper extends AbstractScheme {
 
     const manager = object.motivation_action_manager();
 
-    manager.add_evaluator(properties.end, new EvaluatorEnd(storage));
-    manager.add_evaluator(properties.close_combat, new EvaluatorCloseCombat(storage));
+    manager.add_evaluator(properties.end, new EvaluatorEnd(state));
+    manager.add_evaluator(properties.close_combat, new EvaluatorCloseCombat(state));
 
-    const actionPatrol: ActionCamperPatrol = new ActionCamperPatrol(storage, object);
+    const actionPatrol: ActionCamperPatrol = new ActionCamperPatrol(state, object);
 
     actionPatrol.add_precondition(new world_property(stalker_ids.property_alive, true));
     actionPatrol.add_precondition(new world_property(properties.end, false));
@@ -68,7 +69,7 @@ export class SchemeCamper extends AbstractScheme {
     actionPatrol.add_effect(new world_property(stalker_ids.property_enemy, false));
     actionPatrol.add_effect(new world_property(properties.state_mgr_logic_active, false));
     manager.add_action(operators.patrol, actionPatrol);
-    subscribeActionForEvents(object, storage, actionPatrol);
+    subscribeActionForEvents(object, state, actionPatrol);
 
     manager.action(action_ids.alife).add_precondition(new world_property(properties.end, true));
     manager.action(stalker_ids.action_gather_items).add_precondition(new world_property(properties.end, true));
@@ -90,7 +91,7 @@ export class SchemeCamper extends AbstractScheme {
     section: TSection,
     gulag_name: string
   ): void {
-    const state = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeCamperState = assignStorageAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.path_walk = getConfigString(ini, section, "path_walk", object, true, gulag_name);
@@ -108,29 +109,24 @@ export class SchemeCamper extends AbstractScheme {
     state.no_retreat = getConfigBoolean(ini, section, "no_retreat", object, false);
     state.shoot = getConfigString(ini, section, "shoot", object, false, "", "always");
     state.sniper_anim = getConfigString(ini, section, "sniper_anim", object, false, "hide_na");
+
     if (state.sniper === true && state.no_retreat === true) {
       abort("ERROR: NPC [%s] Section [%s]. No_retreat not available for SNIPER.", object.name(), section);
     }
 
     state.radius = getConfigNumber(ini, section, "radius", object, false, 20);
-    state.suggested_state = {};
-    state.suggested_state.moving = getConfigString(ini, section, "def_state_moving", object, false, "");
-    state.suggested_state.moving_fire = getConfigString(ini, section, "def_state_moving_fire", object, false, "");
-    state.suggested_state.campering = getConfigString(ini, section, "def_state_campering", object, false, "");
-    state.suggested_state.standing = getConfigString(
-      ini,
-      section,
-      "def_state_standing",
-      object,
-      false,
-      "",
-      state.suggested_state.campering
-    );
-    state.suggested_state.campering_fire = getConfigString(ini, section, "def_state_campering_fire", object, false, "");
+    state.suggested_state = {
+      moving: getConfigString(ini, section, "def_state_moving", object, false, ""),
+      moving_fire: getConfigString(ini, section, "def_state_moving_fire", object, false, ""),
+      campering: getConfigString(ini, section, "def_state_campering", object, false, ""),
+      standing: getConfigString(ini, section, "def_state_standing", object, false, "", state.suggested_state.campering),
+      campering_fire: getConfigString(ini, section, "def_state_campering_fire", object, false, ""),
+    };
+
     state.scantime_free = getConfigNumber(ini, section, "scantime_free", object, false, 60000);
     state.attack_sound = getConfigString(ini, section, "attack_sound", object, false, "", "fight_attack");
 
-    if (state.attack_sound === "false") {
+    if (state.attack_sound === STRINGIFIED_FALSE) {
       state.attack_sound = null;
     }
 

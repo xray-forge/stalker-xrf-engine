@@ -18,7 +18,7 @@ const npc_role = { noone: 0, listener: 1, director: 2 };
 // todo: Rename to camp story?
 // todo: Move?
 export class CampStoryManager {
-  public static readonly SCHEME_SECTION: string = EScheme.CAMP;
+  public static readonly SCHEME_SECTION: EScheme = EScheme.CAMP;
 
   public static get_current_camp(position: Optional<XR_vector>): Optional<CampStoryManager> {
     if (position === null) {

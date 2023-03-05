@@ -1,16 +1,13 @@
 import { time_global, XR_game_object } from "xray16";
 
 import { Optional, TCount, TRate, TTimestamp } from "@/mod/lib/types";
-import { IStoredObject } from "@/mod/scripts/core/database";
 import { ISchemeAbuseState } from "@/mod/scripts/core/schemes/abuse/ISchemeAbuseState";
+import { AbstractSchemeManager } from "@/mod/scripts/core/schemes/base/AbstractSchemeManager";
 
 /**
  * todo;
  */
-export class AbuseManager {
-  public readonly object: XR_game_object;
-  public readonly state: IStoredObject;
-
+export class AbuseManager extends AbstractSchemeManager<ISchemeAbuseState> {
   public enable: boolean = true;
   public hit_done: boolean = false;
   public abuse_rate: TRate = 2;
@@ -22,8 +19,7 @@ export class AbuseManager {
    * todo;
    */
   public constructor(object: XR_game_object, state: ISchemeAbuseState) {
-    this.object = object;
-    this.state = state;
+    super(object, state);
   }
 
   /**
@@ -43,7 +39,7 @@ export class AbuseManager {
   /**
    * todo;
    */
-  public update(): boolean {
+  public override update(): boolean {
     if (this.last_update === null) {
       this.last_update = time_global();
     }
