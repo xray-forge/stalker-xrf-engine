@@ -44,7 +44,7 @@ import { SchemeCutscene } from "@/mod/scripts/core/schemes/sr_cutscene/SchemeCut
 import { SchemeDeimos } from "@/mod/scripts/core/schemes/sr_deimos/SchemeDeimos";
 import { SchemeLight } from "@/mod/scripts/core/schemes/sr_light/SchemeLight";
 import { SchemeMonster } from "@/mod/scripts/core/schemes/sr_monster/SchemeMonster";
-import { SchemeNoWeapon } from "@/mod/scripts/core/schemes/sr_no_weapon/SchemeNoWeapon";
+import { SchemeNoWeapon } from "@/mod/scripts/core/schemes/sr_no_weapon";
 import { SchemeParticle } from "@/mod/scripts/core/schemes/sr_particle";
 import { SchemePostProcess } from "@/mod/scripts/core/schemes/sr_postprocess";
 import { SchemePsyAntenna } from "@/mod/scripts/core/schemes/sr_psy_antenna";
