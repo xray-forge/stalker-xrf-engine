@@ -1,6 +1,6 @@
 import { property_evaluator } from "xray16";
 
-import { IStoredObject } from "@/mod/scripts/core/database";
+import { ISchemeCoverState } from "@/mod/scripts/core/schemes/cover";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { isSchemeActive } from "@/mod/scripts/utils/scheme";
 
@@ -11,9 +11,9 @@ const logger: LuaLogger = new LuaLogger("EvaluatorNeedCover");
  */
 @LuabindClass()
 export class EvaluatorNeedCover extends property_evaluator {
-  public readonly state: IStoredObject;
+  public readonly state: ISchemeCoverState;
 
-  public constructor(state: IStoredObject) {
+  public constructor(state: ISchemeCoverState) {
     super(null, EvaluatorNeedCover.__name);
     this.state = state;
   }

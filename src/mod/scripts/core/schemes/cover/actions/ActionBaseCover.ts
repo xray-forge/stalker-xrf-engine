@@ -1,9 +1,10 @@
 import { action_base, game_object, level, vector, XR_vector } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { registry } from "@/mod/scripts/core/database";
 import { get_sim_board, SimBoard } from "@/mod/scripts/core/database/SimBoard";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
+import { ISchemeCoverState } from "@/mod/scripts/core/schemes/cover";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { vectorCmp } from "@/mod/scripts/utils/physics";
@@ -13,25 +14,34 @@ import { vectorCmp } from "@/mod/scripts/utils/physics";
  */
 @LuabindClass()
 export class ActionBaseCover extends action_base {
-  public readonly state: IStoredObject;
+  public readonly state: ISchemeCoverState;
   public board!: SimBoard;
 
   public enemy_random_position: Optional<XR_vector> = null;
   public cover_vertex_id!: number;
   public cover_position!: XR_vector;
 
-  public constructor(state: IStoredObject) {
+  /**
+   * todo;
+   */
+  public constructor(state: ISchemeCoverState) {
     super(null, ActionBaseCover.__name);
     this.state = state;
   }
 
+  /**
+   * todo;
+   */
   public override initialize(): void {
     super.initialize();
     this.board = get_sim_board();
   }
 
+  /**
+   * todo;
+   */
   public activateScheme(): void {
-    this.state.signals = {};
+    this.state.signals = new LuaTable();
     this.board = get_sim_board();
 
     const base_point = this.board.get_smart_by_name(this.state.smart)!.m_level_vertex_id;
@@ -83,6 +93,9 @@ export class ActionBaseCover extends action_base {
     set_state(this.object, "assault", null, null, null, null);
   }
 
+  /**
+   * todo;
+   */
   public override execute(): void {
     if (this.cover_position.distance_to_sqr(this.object.position()) <= 0.4) {
       const anim = pickSectionFromCondList(registry.actor, this.object, this.state.anim);
@@ -100,6 +113,9 @@ export class ActionBaseCover extends action_base {
     super.execute();
   }
 
+  /**
+   * todo;
+   */
   public position_reached(): boolean {
     return this.cover_position.distance_to_sqr(this.object.position()) <= 0.4;
   }

@@ -1,11 +1,11 @@
 import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { IStoredObject } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme, action_ids, evaluators_id } from "@/mod/scripts/core/schemes/base";
 import { ActionBaseCover } from "@/mod/scripts/core/schemes/cover/actions";
 import { EvaluatorNeedCover } from "@/mod/scripts/core/schemes/cover/evaluators";
+import { ISchemeCoverState } from "@/mod/scripts/core/schemes/cover/ISchemeCoverState";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import {
   getConfigBoolean,
@@ -26,15 +26,16 @@ export class SchemeCover extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.COVER;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
+  /**
+   * todo;
+   */
   public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
-    state: IStoredObject
+    state: ISchemeCoverState
   ): void {
-    logger.info("Add to binder:", object.name());
-
     const operators = {
       action_cover: action_ids.stohe_cover_base + 1,
     };
@@ -44,9 +45,9 @@ export class SchemeCover extends AbstractScheme {
       state_mgr_logic_active: evaluators_id.state_mgr + 4,
     };
 
-    const manager: XR_action_planner = object.motivation_action_manager();
+    const actionPlanner: XR_action_planner = object.motivation_action_manager();
 
-    manager.add_evaluator(properties.need_cover, new EvaluatorNeedCover(state));
+    actionPlanner.add_evaluator(properties.need_cover, new EvaluatorNeedCover(state));
 
     const new_action: ActionBaseCover = new ActionBaseCover(state);
 
@@ -58,13 +59,16 @@ export class SchemeCover extends AbstractScheme {
     new_action.add_precondition(new world_property(properties.need_cover, true));
     new_action.add_effect(new world_property(properties.need_cover, false));
     new_action.add_effect(new world_property(properties.state_mgr_logic_active, false));
-    manager.add_action(operators.action_cover, new_action);
+    actionPlanner.add_action(operators.action_cover, new_action);
 
     subscribeActionForEvents(object, state, new_action);
 
-    manager.action(action_ids.alife).add_precondition(new world_property(properties.need_cover, false));
+    actionPlanner.action(action_ids.alife).add_precondition(new world_property(properties.need_cover, false));
   }
 
+  /**
+   * todo;
+   */
   public static override setScheme(
     object: XR_game_object,
     ini: XR_ini_file,
@@ -72,9 +76,7 @@ export class SchemeCover extends AbstractScheme {
     section: TSection,
     additional: string
   ): void {
-    logger.info("Set scheme:", object.name());
-
-    const state = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeCoverState = assignStorageAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.smart = getConfigString(ini, section, "smart", object, false, "");

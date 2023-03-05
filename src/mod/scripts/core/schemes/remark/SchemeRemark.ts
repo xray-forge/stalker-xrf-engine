@@ -1,7 +1,6 @@
-import { stalker_ids, world_property, XR_game_object, XR_ini_file } from "xray16";
+import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { IStoredObject } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { action_ids } from "@/mod/scripts/core/schemes/base/actions_id";
@@ -45,9 +44,9 @@ export class SchemeRemark extends AbstractScheme {
       state_mgr_logic_active: evaluators_id.state_mgr + 4,
     };
 
-    const manager = object.motivation_action_manager();
+    const actionPlanner: XR_action_planner = object.motivation_action_manager();
 
-    manager.add_evaluator(properties.need_remark, new EvaluatorNeedRemark(state));
+    actionPlanner.add_evaluator(properties.need_remark, new EvaluatorNeedRemark(state));
 
     const actionRemarkActivity: ActionRemarkActivity = new ActionRemarkActivity(state);
 
@@ -59,10 +58,10 @@ export class SchemeRemark extends AbstractScheme {
     addCommonPrecondition(actionRemarkActivity);
     actionRemarkActivity.add_effect(new world_property(properties.need_remark, false));
     actionRemarkActivity.add_effect(new world_property(properties.state_mgr_logic_active, false));
-    manager.add_action(operators.action_remark, actionRemarkActivity);
+    actionPlanner.add_action(operators.action_remark, actionRemarkActivity);
 
     subscribeActionForEvents(object, state, actionRemarkActivity);
-    manager.action(action_ids.alife).add_precondition(new world_property(properties.need_remark, false));
+    actionPlanner.action(action_ids.alife).add_precondition(new world_property(properties.need_remark, false));
   }
 
   /**
