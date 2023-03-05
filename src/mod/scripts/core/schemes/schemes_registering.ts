@@ -38,7 +38,7 @@ import { SchemeOscillate } from "@/mod/scripts/core/schemes/ph_oscillate/SchemeO
 import { SchemeReachTask } from "@/mod/scripts/core/schemes/reach_task/SchemeReachTask";
 import { SchemeRemark } from "@/mod/scripts/core/schemes/remark/SchemeRemark";
 import { SchemeSleeper } from "@/mod/scripts/core/schemes/sleeper/SchemeSleeper";
-import { SchemeSmartCover } from "@/mod/scripts/core/schemes/smartcover/SchemeSmartCover";
+import { SchemeSmartCover } from "@/mod/scripts/core/schemes/smartcover";
 import { SchemeCrowSpawner } from "@/mod/scripts/core/schemes/sr_crow_spawner";
 import { SchemeCutscene } from "@/mod/scripts/core/schemes/sr_cutscene";
 import { SchemeDeimos } from "@/mod/scripts/core/schemes/sr_deimos";

@@ -1,6 +1,6 @@
 import { property_evaluator } from "xray16";
 
-import { IStoredObject } from "@/mod/scripts/core/database";
+import { ISchemeSmartCoverState } from "@/mod/scripts/core/schemes/smartcover";
 import { isActiveSection } from "@/mod/scripts/utils/checkers/is";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -11,9 +11,9 @@ const logger: LuaLogger = new LuaLogger("EvaluatorUseSmartCoverInCombat");
  */
 @LuabindClass()
 export class EvaluatorUseSmartCoverInCombat extends property_evaluator {
-  public readonly state: IStoredObject;
+  public readonly state: ISchemeSmartCoverState;
 
-  public constructor(state: IStoredObject) {
+  public constructor(state: ISchemeSmartCoverState) {
     super(null, EvaluatorUseSmartCoverInCombat.__name);
     this.state = state;
   }

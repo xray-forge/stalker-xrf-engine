@@ -2,29 +2,16 @@ import { action_base, level, patrol, XR_game_object, XR_vector } from "xray16";
 
 import { Optional, StringOptional } from "@/mod/lib/types";
 import { registered_smartcovers } from "@/mod/scripts/core/alife/SmartCover";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { registry } from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { ActionSleeperActivity } from "@/mod/scripts/core/schemes/sleeper/actions";
+import { cover_substate_table, ECoverState, ISchemeSmartCoverState } from "@/mod/scripts/core/schemes/smartcover";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { getStoryObject } from "@/mod/scripts/utils/alife";
 import { getParamString, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseConditionsList } from "@/mod/scripts/utils/parse";
-
-enum ECoverState {
-  FIRE_TARGET = "fire_target",
-  FIRE_NO_LOOKOUT_TARGET = "fire_no_lookout_target",
-  IDLE_TARGET = "idle_target",
-  LOOKOUT_TARGET = "lookout_target",
-}
-
-const cover_substate_table: Record<ECoverState, string> = {
-  [ECoverState.FIRE_TARGET]: "fire",
-  [ECoverState.FIRE_NO_LOOKOUT_TARGET]: "fire",
-  [ECoverState.IDLE_TARGET]: "idle",
-  [ECoverState.LOOKOUT_TARGET]: "idle",
-};
 
 const logger: LuaLogger = new LuaLogger("ActionSmartCoverActivity");
 
@@ -33,7 +20,7 @@ const logger: LuaLogger = new LuaLogger("ActionSmartCoverActivity");
  */
 @LuabindClass()
 export class ActionSmartCoverActivity extends action_base {
-  public readonly st: IStoredObject;
+  public readonly st: ISchemeSmartCoverState;
   public initialized: boolean = false;
 
   public cover_condlist: any;
@@ -49,7 +36,7 @@ export class ActionSmartCoverActivity extends action_base {
   /**
    * todo;
    */
-  public constructor(state: IStoredObject) {
+  public constructor(state: ISchemeSmartCoverState) {
     super(null, ActionSleeperActivity.__name);
     this.st = state;
   }
@@ -93,7 +80,7 @@ export class ActionSmartCoverActivity extends action_base {
    * todo;
    */
   public activateScheme(): void {
-    this.st.signals = {};
+    this.st.signals = new LuaTable();
 
     if (!this.initialized) {
       return;
@@ -106,7 +93,7 @@ export class ActionSmartCoverActivity extends action_base {
     // --object.set_smart_cover_target_selector()
     this.target_enemy_id = null;
 
-    const [cover_name, used] = getParamString(this.st.cover_name, object);
+    const [cover_name, used] = getParamString(this.st.cover_name as string, object);
 
     this.cover_name = cover_name;
 
@@ -118,21 +105,14 @@ export class ActionSmartCoverActivity extends action_base {
       // -- ���� � ���������� ����� ����� �������� (�������� ��� �����������, �������)
       set_state(this.object, "smartcover", null, null, null, null);
 
-      this.target_path_condlist = parseConditionsList(
-        object,
-        this.st.active_section!,
-        "target_path",
-        this.st.target_path
-      );
+      this.target_path_condlist = parseConditionsList(object, null, "target_path", this.st.target_path);
       this.check_target();
 
-      // --' ���������� �������� ������� ������ ��������� ������ � �����������.
-      this.cover_condlist = parseConditionsList(object, this.st.active_section!, "cover_state", this.st.cover_state);
+      this.cover_condlist = parseConditionsList(object, null, "cover_state", this.st.cover_state);
       this.cover_state = pickSectionFromCondList(registry.actor, object, this.cover_condlist) as ECoverState;
       this.target_selector(this.object);
       this.check_target_selector();
 
-      // -- �������� ����������� � ������������ �������� ������� ������� � ����� � ������������.
       object.idle_min_time(this.st.idle_min_time);
       object.idle_max_time(this.st.idle_max_time);
       object.lookout_min_time(this.st.lookout_min_time);
@@ -226,11 +206,11 @@ export class ActionSmartCoverActivity extends action_base {
         level.object_by_id(this.target_enemy_id) &&
         this.object.in_current_loophole_fov(level.object_by_id(this.target_enemy_id)!.position()) === true
       ) {
-        this.st.signals["enemy_in_fov"] = true;
-        this.st.signals["enemy_not_in_fov"] = null;
+        this.st.signals!.set("enemy_in_fov", true);
+        this.st.signals!.delete("enemy_not_in_fov");
       } else {
-        this.st.signals["enemy_in_fov"] = null;
-        this.st.signals["enemy_not_in_fov"] = true;
+        this.st.signals!.delete("enemy_in_fov");
+        this.st.signals!.set("enemy_not_in_fov", true);
       }
     }
 

@@ -1,7 +1,6 @@
 import { stalker_ids, world_property, XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { IStoredObject } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { action_ids } from "@/mod/scripts/core/schemes/base/actions_id";
@@ -11,6 +10,7 @@ import {
   EvaluatorNeedSmartCover,
   EvaluatorUseSmartCoverInCombat,
 } from "@/mod/scripts/core/schemes/smartcover/evaluators";
+import { ISchemeSmartCoverState } from "@/mod/scripts/core/schemes/smartcover/ISchemeSmartCoverState";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import {
   getConfigBoolean,
@@ -29,12 +29,15 @@ export class SchemeSmartCover extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SMARTCOVER;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
+  /**
+   * todo;
+   */
   public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
-    state: IStoredObject
+    state: ISchemeSmartCoverState
   ): void {
     logger.info("Add to binder:", object.name());
 
@@ -78,6 +81,9 @@ export class SchemeSmartCover extends AbstractScheme {
       .add_precondition(new world_property(properties.use_smartcover_in_combat, false));
   }
 
+  /**
+   * todo;
+   */
   public static override setScheme(
     object: XR_game_object,
     ini: XR_ini_file,
@@ -85,24 +91,24 @@ export class SchemeSmartCover extends AbstractScheme {
     section: TSection,
     additional: string
   ): void {
-    const st = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeSmartCoverState = assignStorageAndBind(object, ini, scheme, section);
 
-    st.logic = getConfigSwitchConditions(ini, section, object);
-    st.cover_name = getConfigString(ini, section, "cover_name", object, false, "", "$script_id$_cover");
-    st.loophole_name = getConfigString(ini, section, "loophole_name", object, false, "", null);
-    st.cover_state = getConfigString(ini, section, "cover_state", object, false, "", "default_behaviour");
-    st.target_enemy = getConfigString(ini, section, "target_enemy", object, false, "", null);
-    st.target_path = getConfigString(ini, section, "target_path", object, false, "", "nil");
-    st.idle_min_time = getConfigNumber(ini, section, "idle_min_time", object, false, 6);
-    st.idle_max_time = getConfigNumber(ini, section, "idle_max_time", object, false, 10);
-    st.lookout_min_time = getConfigNumber(ini, section, "lookout_min_time", object, false, 6);
-    st.lookout_max_time = getConfigNumber(ini, section, "lookout_max_time", object, false, 10);
-    st.exit_body_state = getConfigString(ini, section, "exit_body_state", object, false, "", "stand");
-    st.use_precalc_cover = getConfigBoolean(ini, section, "use_precalc_cover", object, false, false);
-    st.use_in_combat = getConfigBoolean(ini, section, "use_in_combat", object, false, false);
-    st.weapon_type = getConfigString(ini, section, "weapon_type", object, false, false);
-    st.moving = getConfigString(ini, section, "def_state_moving", object, false, "", "sneak");
-    st.sound_idle = getConfigString(ini, section, "sound_idle", object, false, "");
+    state.logic = getConfigSwitchConditions(ini, section, object);
+    state.cover_name = getConfigString(ini, section, "cover_name", object, false, "", "$script_id$_cover");
+    state.loophole_name = getConfigString(ini, section, "loophole_name", object, false, "", null);
+    state.cover_state = getConfigString(ini, section, "cover_state", object, false, "", "default_behaviour");
+    state.target_enemy = getConfigString(ini, section, "target_enemy", object, false, "", null);
+    state.target_path = getConfigString(ini, section, "target_path", object, false, "", "nil");
+    state.idle_min_time = getConfigNumber(ini, section, "idle_min_time", object, false, 6);
+    state.idle_max_time = getConfigNumber(ini, section, "idle_max_time", object, false, 10);
+    state.lookout_min_time = getConfigNumber(ini, section, "lookout_min_time", object, false, 6);
+    state.lookout_max_time = getConfigNumber(ini, section, "lookout_max_time", object, false, 10);
+    state.exit_body_state = getConfigString(ini, section, "exit_body_state", object, false, "", "stand");
+    state.use_precalc_cover = getConfigBoolean(ini, section, "use_precalc_cover", object, false, false);
+    state.use_in_combat = getConfigBoolean(ini, section, "use_in_combat", object, false, false);
+    state.weapon_type = getConfigString(ini, section, "weapon_type", object, false, false);
+    state.moving = getConfigString(ini, section, "def_state_moving", object, false, "", "sneak");
+    state.sound_idle = getConfigString(ini, section, "sound_idle", object, false, "");
 
     /**
      *   --[[
