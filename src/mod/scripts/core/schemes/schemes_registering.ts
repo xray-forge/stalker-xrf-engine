@@ -1,14 +1,14 @@
 import { EScheme, ESchemeType } from "@/mod/lib/types/scheme";
 import { registry } from "@/mod/scripts/core/database";
-import { SchemeAbuse } from "@/mod/scripts/core/schemes/abuse/SchemeAbuse";
-import { SchemeAnimpoint } from "@/mod/scripts/core/schemes/animpoint/SchemeAnimpoint";
-import { TAbstractSchemeConstructor } from "@/mod/scripts/core/schemes/base/AbstractScheme";
-import { SchemeCamper } from "@/mod/scripts/core/schemes/camper/SchemeCamper";
-import { SchemeCombat } from "@/mod/scripts/core/schemes/combat/SchemeCombat";
-import { SchemeCombatIgnore } from "@/mod/scripts/core/schemes/combat_ignore/SchemeCombatIgnore";
-import { SchemeCombatZombied } from "@/mod/scripts/core/schemes/combat_zombied/SchemeCombatZombied";
-import { SchemeCompanion } from "@/mod/scripts/core/schemes/companion/SchemeCompanion";
-import { SchemeCorpseDetection } from "@/mod/scripts/core/schemes/corpse_detection/SchemeCorpseDetection";
+import { SchemeAbuse } from "@/mod/scripts/core/schemes/abuse";
+import { SchemeAnimpoint } from "@/mod/scripts/core/schemes/animpoint";
+import { TAbstractSchemeConstructor } from "@/mod/scripts/core/schemes/base";
+import { SchemeCamper } from "@/mod/scripts/core/schemes/camper";
+import { SchemeCombat } from "@/mod/scripts/core/schemes/combat";
+import { SchemeCombatIgnore } from "@/mod/scripts/core/schemes/combat_ignore";
+import { SchemeCombatZombied } from "@/mod/scripts/core/schemes/combat_zombied";
+import { SchemeCompanion } from "@/mod/scripts/core/schemes/companion";
+import { SchemeCorpseDetection } from "@/mod/scripts/core/schemes/corpse_detection";
 import { SchemeCover } from "@/mod/scripts/core/schemes/cover/SchemeCover";
 import { SchemeDanger } from "@/mod/scripts/core/schemes/danger/SchemeDanger";
 import { SchemeDeath } from "@/mod/scripts/core/schemes/death/SchemeDeath";
@@ -50,9 +50,9 @@ import { SchemePostProcess } from "@/mod/scripts/core/schemes/sr_postprocess/Sch
 import { SchemePsyAntenna } from "@/mod/scripts/core/schemes/sr_psy_antenna/SchemePsyAntenna";
 import { SchemeSilence } from "@/mod/scripts/core/schemes/sr_silence/SchemeSilence";
 import { SchemeTeleport } from "@/mod/scripts/core/schemes/teleport/SchemeTeleport";
-import { SchemeTimer } from "@/mod/scripts/core/schemes/timer/SchemeTimer";
-import { SchemeWalker } from "@/mod/scripts/core/schemes/walker/SchemeWalker";
-import { SchemeWounded } from "@/mod/scripts/core/schemes/wounded/SchemeWounded";
+import { SchemeTimer } from "@/mod/scripts/core/schemes/timer";
+import { SchemeWalker } from "@/mod/scripts/core/schemes/walker";
+import { SchemeWounded } from "@/mod/scripts/core/schemes/wounded";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

@@ -3,13 +3,18 @@ import { XR_vector } from "xray16";
 import { LuaArray, Optional, TCount, TDistance, TDuration, TIndex, TName, TTimestamp } from "@/mod/lib/types";
 import { IBaseSchemeState } from "@/mod/scripts/core/schemes/base";
 
+/**
+ * todo;
+ */
 export interface ICampPoint {
   key: number;
   pos: XR_vector;
 }
 
+/**
+ * todo;
+ */
 export interface ISchemeCamperState extends IBaseSchemeState {
-  logic: any;
   path_walk: TName;
   path_look: TName;
   shoot: TName;
@@ -34,8 +39,6 @@ export interface ISchemeCamperState extends IBaseSchemeState {
     campering_fire: string;
   };
   scan_table: LuaTable<any, LuaArray<ICampPoint>>;
-  signals: LuaTable;
-
   cur_look_point: Optional<TIndex>;
   last_look_point: Optional<ICampPoint>;
   scan_begin: Optional<TTimestamp>;

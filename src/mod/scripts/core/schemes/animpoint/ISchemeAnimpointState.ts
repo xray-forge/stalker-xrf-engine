@@ -8,7 +8,6 @@ import { IBaseSchemeState } from "@/mod/scripts/core/schemes/base";
 export interface ISchemeAnimpointState extends IBaseSchemeState {
   animpoint: AnimpointManager;
   cover_name: TName;
-  logic: any;
   use_camp: boolean;
   reach_distance: TDistance;
   reach_movement: TName;
@@ -16,5 +15,4 @@ export interface ISchemeAnimpointState extends IBaseSchemeState {
   base_action: Optional<TName>;
   description: Optional<TName>;
   approved_actions: LuaTable<number, { name: TName; predicate: () => boolean }>;
-  signals: LuaTable;
 }

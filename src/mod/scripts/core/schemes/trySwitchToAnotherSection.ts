@@ -1,8 +1,9 @@
 import { game, level, time_global, XR_game_object } from "xray16";
 
-import { Optional } from "@/mod/lib/types";
+import { LuaArray, Optional } from "@/mod/lib/types";
 import { ESchemeCondition } from "@/mod/lib/types/scheme";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { registry } from "@/mod/scripts/core/database";
+import { IBaseSchemeState } from "@/mod/scripts/core/schemes/base";
 import { switchToSection } from "@/mod/scripts/core/schemes/switchToSection";
 import { isSeeingActor } from "@/mod/scripts/utils/alife";
 import { isNpcInZone } from "@/mod/scripts/utils/checkers/checkers";
@@ -13,6 +14,9 @@ import { getDistanceBetween } from "@/mod/scripts/utils/physics";
 
 const logger: LuaLogger = new LuaLogger("trySwitchToAnotherSection");
 
+/**
+ * todo;
+ */
 export function isSchemeCondition(condition: string, conditionType: ESchemeCondition): boolean {
   return string.find(condition, "^" + conditionType + "%d*$")[0] !== null;
 }
@@ -24,10 +28,10 @@ export function isSchemeCondition(condition: string, conditionType: ESchemeCondi
  */
 export function trySwitchToAnotherSection(
   object: XR_game_object,
-  state: IStoredObject,
+  state: IBaseSchemeState,
   actor: Optional<XR_game_object>
 ): boolean {
-  const logic: LuaTable<number> = state.logic;
+  const logic: Optional<LuaArray<any>> = state.logic;
 
   if (!actor) {
     abort("try_switch_to_another_section(): error in implementation of scheme '%s': actor is null", state.scheme);
@@ -40,7 +44,7 @@ export function trySwitchToAnotherSection(
     );
   }
 
-  const npcId = object.id();
+  const objectId = object.id();
   let switched: boolean = false;
 
   // todo: Parse once and then compare, do not do parsing in loop.
@@ -66,17 +70,17 @@ export function trySwitchToAnotherSection(
         switched = switchToSection(object, state.ini!, pickSectionFromCondList(actor, object, cond.condlist)!);
       }
     } else if (isSchemeCondition(cond.name, ESchemeCondition.ON_SIGNAL)) {
-      if (state.signals && state.signals[cond.v1]) {
+      if (state.signals && state.signals.get(cond.v1)) {
         switched = switchToSection(object, state.ini!, pickSectionFromCondList(actor, object, cond.condlist)!);
       }
     } else if (isSchemeCondition(cond.name, ESchemeCondition.ON_INFO)) {
       switched = switchToSection(object, state.ini!, pickSectionFromCondList(actor, object, cond.condlist)!);
     } else if (isSchemeCondition(cond.name, ESchemeCondition.ON_TIMER)) {
-      if (time_global() >= registry.objects.get(npcId).activation_time + cond.v1) {
+      if (time_global() >= registry.objects.get(objectId).activation_time + cond.v1) {
         switched = switchToSection(object, state.ini!, pickSectionFromCondList(actor, object, cond.condlist)!);
       }
     } else if (isSchemeCondition(cond.name, ESchemeCondition.ON_GAME_TIMER)) {
-      if (game.get_game_time().diffSec(registry.objects.get(npcId).activation_game_time) >= cond.v1) {
+      if (game.get_game_time().diffSec(registry.objects.get(objectId).activation_game_time) >= cond.v1) {
         switched = switchToSection(object, state.ini!, pickSectionFromCondList(actor, object, cond.condlist)!);
       }
     } else if (isSchemeCondition(cond.name, ESchemeCondition.ON_ACTOR_IN_ZONE)) {

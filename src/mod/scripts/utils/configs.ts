@@ -462,7 +462,7 @@ export function getConfigSwitchConditions(
   let index: TIndex = 1;
 
   if (!ini.section_exist(tostring(section))) {
-    return;
+    return null;
   }
 
   const line_count = ini.line_count(section);

@@ -1,8 +1,8 @@
 import { property_evaluator } from "xray16";
 
 import { STRINGIFIED_FALSE } from "@/mod/globals/lua";
-import { IStoredObject } from "@/mod/scripts/core/database";
 import { pstor_retrieve } from "@/mod/scripts/core/database/pstor";
+import { ISchemeWoundedState } from "@/mod/scripts/core/schemes/wounded";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("EvaluatorCanFight");
@@ -12,9 +12,9 @@ const logger: LuaLogger = new LuaLogger("EvaluatorCanFight");
  */
 @LuabindClass()
 export class EvaluatorCanFight extends property_evaluator {
-  public readonly state: IStoredObject;
+  public readonly state: ISchemeWoundedState;
 
-  public constructor(state: IStoredObject) {
+  public constructor(state: ISchemeWoundedState) {
     super(null, EvaluatorCanFight.__name);
     this.state = state;
   }

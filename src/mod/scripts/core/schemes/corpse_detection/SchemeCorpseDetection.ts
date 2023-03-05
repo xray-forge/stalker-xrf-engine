@@ -10,6 +10,7 @@ import { action_ids } from "@/mod/scripts/core/schemes/base/actions_id";
 import { evaluators_id } from "@/mod/scripts/core/schemes/base/evaluators_id";
 import { ActionSearchCorpse } from "@/mod/scripts/core/schemes/corpse_detection/actions";
 import { EvaluatorCorpseDetect } from "@/mod/scripts/core/schemes/corpse_detection/evaluators";
+import { ISchemeCorpseDetectionState } from "@/mod/scripts/core/schemes/corpse_detection/ISchemeCorpseDetectionState";
 import { isLootableItem } from "@/mod/scripts/utils/checkers/is";
 import { getConfigBoolean } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -31,7 +32,7 @@ export class SchemeCorpseDetection extends AbstractScheme {
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
-    state: IStoredObject
+    state: ISchemeCorpseDetectionState
   ): void {
     logger.info("Add to binder:", object.name());
 

@@ -1,7 +1,6 @@
 import { level, stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { IStoredObject } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { action_ids } from "@/mod/scripts/core/schemes/base/actions_id";
@@ -9,6 +8,7 @@ import { evaluators_id } from "@/mod/scripts/core/schemes/base/evaluators_id";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { ActionWalkerActivity } from "@/mod/scripts/core/schemes/walker/actions";
 import { EvaluatorNeedWalker } from "@/mod/scripts/core/schemes/walker/evaluators";
+import { ISchemeWalkerState } from "@/mod/scripts/core/schemes/walker/ISchemeWalkerState";
 import { getConfigBoolean, getConfigString, getConfigSwitchConditions } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -23,12 +23,15 @@ export class SchemeWalker extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.WALKER;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
+  /**
+   * todo;
+   */
   public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
-    state: IStoredObject
+    state: ISchemeWalkerState
   ): void {
     const operators = {
       action_walker: action_ids.zmey_walker_base + 1,
@@ -64,6 +67,9 @@ export class SchemeWalker extends AbstractScheme {
     actionPlanner.action(action_ids.alife).add_precondition(new world_property(properties.need_walker, false));
   }
 
+  /**
+   * todo;
+   */
   public static override setScheme(
     object: XR_game_object,
     ini: XR_ini_file,
@@ -71,7 +77,7 @@ export class SchemeWalker extends AbstractScheme {
     section: TSection,
     gulag_name: string
   ): void {
-    const state = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeWalkerState = assignStorageAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.path_walk = getConfigString(ini, section, "path_walk", object, true, gulag_name);
@@ -94,19 +100,12 @@ export class SchemeWalker extends AbstractScheme {
     state.sound_idle = getConfigString(ini, section, "sound_idle", object, false, "");
     state.use_camp = getConfigBoolean(ini, section, "use_camp", object, false, false);
 
-    state.suggested_state = {};
-    state.suggested_state.standing = getConfigString(ini, section, "def_state_standing", object, false, "");
+    const baseMoving = getConfigString(ini, section, "def_state_moving1", object, false, "");
 
-    state.suggested_state.moving = getConfigString(ini, section, "def_state_moving1", object, false, "");
-    state.suggested_state.moving = getConfigString(
-      ini,
-      section,
-      "def_state_moving",
-      object,
-      false,
-      "",
-      state.suggested_state.moving
-    );
+    state.suggested_state = {
+      standing: getConfigString(ini, section, "def_state_standing", object, false, ""),
+      moving: getConfigString(ini, section, "def_state_moving", object, false, "", baseMoving),
+    };
 
     state.path_walk_info = null;
     state.path_look_info = null;

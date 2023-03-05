@@ -1,9 +1,10 @@
 import { action_base, alife, hit, time_global, XR_alife_simulator } from "xray16";
 
 import { STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/mod/globals/lua";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { registry } from "@/mod/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
+import { ISchemeWoundedState } from "@/mod/scripts/core/schemes/wounded";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -15,13 +16,19 @@ const logger: LuaLogger = new LuaLogger("ActionWounded");
  */
 @LuabindClass()
 export class ActionWounded extends action_base {
-  public readonly state: IStoredObject;
+  public readonly state: ISchemeWoundedState;
 
-  public constructor(storage: IStoredObject) {
+  /**
+   * todo;
+   */
+  public constructor(storage: ISchemeWoundedState) {
     super(null, ActionWounded.__name);
     this.state = storage;
   }
 
+  /**
+   * todo;
+   */
   public override initialize(): void {
     super.initialize();
 
@@ -37,6 +44,9 @@ export class ActionWounded extends action_base {
     this.object.wounded(true);
   }
 
+  /**
+   * todo;
+   */
   public override execute(): void {
     super.execute();
 
@@ -55,7 +65,7 @@ export class ActionWounded extends action_base {
           const npc = this.object;
 
           sim.create("medkit_script", npc.position(), npc.level_vertex_id(), npc.game_vertex_id(), npc.id());
-          woundManager.unlock_medkit();
+          woundManager.unlockMedkit();
         }
       }
     }
@@ -75,7 +85,7 @@ export class ActionWounded extends action_base {
       this.object.hit(h);
     } else {
       if (this.state.use_medkit === true) {
-        woundManager.eat_medkit();
+        woundManager.eatMedkit();
       }
 
       if (tostring(woundManagerState) === STRINGIFIED_NIL) {
@@ -93,6 +103,9 @@ export class ActionWounded extends action_base {
     }
   }
 
+  /**
+   * todo;
+   */
   public override finalize(): void {
     super.finalize();
 

@@ -1,9 +1,10 @@
 import { level, property_evaluator, XR_game_object, XR_vector } from "xray16";
 
 import { communities } from "@/mod/globals/communities";
-import { Optional } from "@/mod/lib/types";
+import { Optional, TNumberId } from "@/mod/lib/types";
 import { IStoredObject, registry } from "@/mod/scripts/core/database";
 import { IReleaseDescriptor, ReleaseBodyManager } from "@/mod/scripts/core/managers/ReleaseBodyManager";
+import { ISchemeCorpseDetectionState } from "@/mod/scripts/core/schemes/corpse_detection";
 import { isObjectWounded } from "@/mod/scripts/utils/checkers/checkers";
 import { isLootableItem } from "@/mod/scripts/utils/checkers/is";
 
@@ -12,9 +13,9 @@ import { isLootableItem } from "@/mod/scripts/utils/checkers/is";
  */
 @LuabindClass()
 export class EvaluatorCorpseDetect extends property_evaluator {
-  public readonly state: IStoredObject;
+  public readonly state: ISchemeCorpseDetectionState;
 
-  public constructor(state: IStoredObject) {
+  public constructor(state: ISchemeCorpseDetectionState) {
     super(null, EvaluatorCorpseDetect.__name);
     this.state = state;
   }
@@ -49,26 +50,26 @@ export class EvaluatorCorpseDetect extends property_evaluator {
     };
 
     for (const it of $range(1, corpses.length())) {
-      const id = corpses.get(it).id;
-      const state: Optional<IStoredObject> = registry.objects.get(id);
-      const corpse_npc: Optional<XR_game_object> = state !== null ? state.object! : null;
+      const id: TNumberId = corpses.get(it).id;
+      const registryState: Optional<IStoredObject> = registry.objects.get(id);
+      const corpseObject: Optional<XR_game_object> = registryState !== null ? registryState.object! : null;
 
       if (
-        corpse_npc &&
-        this.object.see(corpse_npc) &&
-        (state.corpse_already_selected === null || state.corpse_already_selected === this.object.id())
+        corpseObject &&
+        this.object.see(corpseObject) &&
+        (registryState.corpse_already_selected === null || registryState.corpse_already_selected === this.object.id())
       ) {
-        if (this.object.position().distance_to_sqr(corpse_npc.position()) < nearest_corpse_dist_sqr) {
+        if (this.object.position().distance_to_sqr(corpseObject.position()) < nearest_corpse_dist_sqr) {
           hasValuableLoot = false;
-          corpse_npc.iterate_inventory(checkLoot, corpse_npc);
+          corpseObject.iterate_inventory(checkLoot, corpseObject);
 
           if (hasValuableLoot) {
-            const corpse_vertex: number = level.vertex_id(corpse_npc.position());
+            const corpse_vertex: number = level.vertex_id(corpseObject.position());
 
             if (this.object.accessible(corpse_vertex)) {
-              nearest_corpse_dist_sqr = this.object.position().distance_to_sqr(corpse_npc.position());
+              nearest_corpse_dist_sqr = this.object.position().distance_to_sqr(corpseObject.position());
               nearest_corpse_vertex = corpse_vertex;
-              nearest_corpse_position = corpse_npc.position();
+              nearest_corpse_position = corpseObject.position();
               corpse_id = id;
             }
           }
@@ -87,7 +88,7 @@ export class EvaluatorCorpseDetect extends property_evaluator {
       }
 
       this.state.selected_corpse_id = corpse_id;
-      registry.objects.get(this.state.selected_corpse_id).corpse_already_selected = this.object.id();
+      registry.objects.get(this.state.selected_corpse_id!).corpse_already_selected = this.object.id();
 
       return true;
     }

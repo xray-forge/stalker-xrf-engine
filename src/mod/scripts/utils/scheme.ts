@@ -1,13 +1,14 @@
 import { stalker_ids, world_property, XR_action_base, XR_game_object } from "xray16";
 
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { registry } from "@/mod/scripts/core/database";
+import { IBaseSchemeState } from "@/mod/scripts/core/schemes/base";
 import { evaluators_id } from "@/mod/scripts/core/schemes/base/evaluators_id";
 import { abort } from "@/mod/scripts/utils/debug";
 
 /**
  * Check if provided scheme state is active.
  */
-export function isSchemeActive(object: XR_game_object, state: IStoredObject): boolean {
+export function isSchemeActive(object: XR_game_object, state: IBaseSchemeState): boolean {
   if (state.section === null) {
     abort("Object %s '%s': state.section is null.", object.name(), state.section);
   }

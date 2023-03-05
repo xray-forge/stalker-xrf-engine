@@ -1,6 +1,6 @@
-import { property_evaluator, XR_property_evaluator } from "xray16";
+import { property_evaluator } from "xray16";
 
-import { IStoredObject } from "@/mod/scripts/core/database";
+import { ISchemeWalkerState } from "@/mod/scripts/core/schemes/walker";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { isSchemeActive } from "@/mod/scripts/utils/scheme";
 
@@ -11,9 +11,9 @@ const logger: LuaLogger = new LuaLogger("EvaluatorNeedWalker");
  */
 @LuabindClass()
 export class EvaluatorNeedWalker extends property_evaluator {
-  public readonly state: IStoredObject;
+  public readonly state: ISchemeWalkerState;
 
-  public constructor(storage: IStoredObject) {
+  public constructor(storage: ISchemeWalkerState) {
     super(null, EvaluatorNeedWalker.__name);
     this.state = storage;
   }

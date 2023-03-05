@@ -9,6 +9,7 @@ export interface IBaseSchemeState {
   npc: XR_game_object;
   ini: XR_ini_file;
   logic: Optional<LuaArray<any>>;
+  signals: Optional<LuaTable>;
   scheme: EScheme;
   section: Optional<TSection>;
   actions?: LuaTable;

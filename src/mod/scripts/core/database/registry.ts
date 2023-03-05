@@ -28,12 +28,14 @@ import type { ReachTaskPatrolManager } from "@/mod/scripts/core/schemes/reach_ta
 import type { RestrictorManager } from "@/mod/scripts/core/schemes/RestrictorManager";
 import type { SchemeLight } from "@/mod/scripts/core/schemes/sr_light/SchemeLight";
 import type { ITeleportPoint } from "@/mod/scripts/core/schemes/teleport/SchemeTeleport";
-import type { SchemeWounded } from "@/mod/scripts/core/schemes/wounded/SchemeWounded";
+import type { ISchemeWoundedState } from "@/mod/scripts/core/schemes/wounded";
 import type { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
 import type { StalkerMoveManager } from "@/mod/scripts/core/state_management/StalkerMoveManager";
 import type { StateManager } from "@/mod/scripts/core/state_management/StateManager";
 
 export interface IStoredObject<T = XR_game_object> {
+  active_section?: Optional<TSection>;
+
   [index: string]: any;
 
   moveManager?: StalkerMoveManager;
@@ -45,7 +47,7 @@ export interface IStoredObject<T = XR_game_object> {
   avail_animations?: LuaTable<number, string>;
   animpoint?: SchemeAnimpoint;
   scan_table?: LuaTable<number, LuaTable<number, { key: number; pos: XR_vector }>>;
-  wounded?: { wound_manager: SchemeWounded; not_for_help: boolean; enable_talk?: unknown; help_dialog?: unknown };
+  wounded?: ISchemeWoundedState;
   approved_actions?: LuaTable<number, { predicate: AnyCallable; name: string }>;
   light?: boolean;
   points?: LuaTable<number, ITeleportPoint>;
@@ -61,7 +63,6 @@ export interface IStoredObject<T = XR_game_object> {
   timeout?: number;
   smartcover?: any;
   active_scheme?: Optional<EScheme>;
-  active_section?: Optional<TSection>;
   combat_ignore?: AnyObject;
   section_logic?: string;
   post_combat_wait?: unknown;

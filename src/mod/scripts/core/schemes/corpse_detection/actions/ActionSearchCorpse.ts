@@ -1,20 +1,24 @@
-import { action_base } from "xray16";
+import { action_base, XR_vector } from "xray16";
 
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { registry } from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
+import { ISchemeCorpseDetectionState } from "@/mod/scripts/core/schemes/corpse_detection";
 
 /**
  * todo;
  */
 @LuabindClass()
 export class ActionSearchCorpse extends action_base {
-  public readonly state: IStoredObject;
+  public readonly state: ISchemeCorpseDetectionState;
 
-  public constructor(state: IStoredObject) {
+  public constructor(state: ISchemeCorpseDetectionState) {
     super(null, ActionSearchCorpse.__name);
     this.state = state;
   }
 
+  /**
+   * todo;
+   */
   public override finalize(): void {
     if (this.state.selected_corpse_id !== null && registry.objects.has(this.state.selected_corpse_id)) {
       registry.objects.get(this.state.selected_corpse_id).corpse_already_selected = null;
@@ -23,6 +27,9 @@ export class ActionSearchCorpse extends action_base {
     super.finalize();
   }
 
+  /**
+   * todo;
+   */
   public override initialize(): void {
     super.initialize();
 
@@ -38,10 +45,13 @@ export class ActionSearchCorpse extends action_base {
     set_state(this.object, "patrol", null, null, null, null);
   }
 
+  /**
+   * todo;
+   */
   public override execute(): void {
     super.execute();
 
-    if (this.object.position().distance_to_sqr(this.state.vertex_position) > 2) {
+    if (this.object.position().distance_to_sqr(this.state.vertex_position as XR_vector) > 2) {
       return;
     }
 

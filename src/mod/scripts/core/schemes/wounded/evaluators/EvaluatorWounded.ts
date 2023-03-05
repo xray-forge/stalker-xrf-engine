@@ -2,8 +2,8 @@ import { property_evaluator, stalker_ids, XR_action_planner } from "xray16";
 
 import { STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/mod/globals/lua";
 import { Optional } from "@/mod/lib/types";
-import { IStoredObject } from "@/mod/scripts/core/database";
 import { pstor_retrieve } from "@/mod/scripts/core/database/pstor";
+import { ISchemeWoundedState } from "@/mod/scripts/core/schemes/wounded";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("EvaluatorWounded");
@@ -13,10 +13,10 @@ const logger: LuaLogger = new LuaLogger("EvaluatorWounded");
  */
 @LuabindClass()
 export class EvaluatorWounded extends property_evaluator {
-  public readonly state: IStoredObject;
+  public readonly state: ISchemeWoundedState;
   public actionPlanner: Optional<XR_action_planner> = null;
 
-  public constructor(state: IStoredObject) {
+  public constructor(state: ISchemeWoundedState) {
     super(null, EvaluatorWounded.__name);
     this.state = state;
   }

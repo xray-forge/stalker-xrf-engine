@@ -1,10 +1,11 @@
 import { action_base, XR_game_object } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { registry } from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { associations, IAnimpointDescriptor } from "@/mod/scripts/core/schemes/animpoint/animpoint_predicates";
 import { CampStoryManager } from "@/mod/scripts/core/schemes/camper/CampStoryManager";
+import { ISchemeWalkerState } from "@/mod/scripts/core/schemes/walker";
 import { StalkerMoveManager } from "@/mod/scripts/core/state_management/StalkerMoveManager";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -24,14 +25,17 @@ const assoc_tbl = {
  */
 @LuabindClass()
 export class ActionWalkerActivity extends action_base {
-  public readonly state: IStoredObject;
+  public readonly state: ISchemeWalkerState;
   public readonly moveManager: StalkerMoveManager;
   public avail_actions: LuaTable<number, IAnimpointDescriptor>;
 
   public in_camp: Optional<boolean> = null;
   public camp: Optional<CampStoryManager> = null;
 
-  public constructor(state: IStoredObject, object: XR_game_object) {
+  /**
+   * todo;
+   */
+  public constructor(state: ISchemeWalkerState, object: XR_game_object) {
     super(null, ActionWalkerActivity.__name);
 
     this.state = state;
@@ -48,6 +52,9 @@ export class ActionWalkerActivity extends action_base {
     }
   }
 
+  /**
+   * todo;
+   */
   public override initialize(): void {
     super.initialize();
     this.object.set_desired_position();
@@ -55,11 +62,17 @@ export class ActionWalkerActivity extends action_base {
     this.resetScheme(null, this.object);
   }
 
+  /**
+   * todo;
+   */
   public activateScheme(isLoading: boolean, object: XR_game_object): void {
     this.state.signals = new LuaTable();
     this.resetScheme(isLoading, object);
   }
 
+  /**
+   * todo;
+   */
   public resetScheme(loading: Optional<boolean>, npc: XR_game_object): void {
     if (this.state.path_walk_info === null) {
       this.state.path_walk_info = parsePathWaypoints(this.state.path_walk);
@@ -71,7 +84,7 @@ export class ActionWalkerActivity extends action_base {
 
     this.moveManager.reset(
       this.state.path_walk,
-      this.state.path_walk_info,
+      this.state.path_walk_info as any, // todo cmp of string and table?
       this.state.path_look,
       this.state.path_look_info,
       this.state.team,
@@ -83,6 +96,9 @@ export class ActionWalkerActivity extends action_base {
     );
   }
 
+  /**
+   * todo;
+   */
   public override execute(): void {
     super.execute();
 
@@ -106,6 +122,9 @@ export class ActionWalkerActivity extends action_base {
     }
   }
 
+  /**
+   * todo;
+   */
   public update(): void {
     if (this.camp === null) {
       return;
@@ -123,6 +142,9 @@ export class ActionWalkerActivity extends action_base {
     set_state(this.object, anim, null, null, null, null);
   }
 
+  /**
+   * todo;
+   */
   public override finalize(): void {
     this.moveManager.finalize();
 
@@ -134,10 +156,16 @@ export class ActionWalkerActivity extends action_base {
     super.finalize();
   }
 
+  /**
+   * todo;
+   */
   public position_riched(): boolean {
     return this.moveManager.arrived_to_first_waypoint();
   }
 
+  /**
+   * todo;
+   */
   public net_destroy(npc: XR_game_object): void {
     if (this.in_camp === true) {
       this.camp!.unregister_npc(npc.id());
