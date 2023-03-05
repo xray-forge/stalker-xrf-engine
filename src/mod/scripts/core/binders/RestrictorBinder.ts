@@ -1,4 +1,4 @@
-import { object_binder, XR_cse_alife_object, XR_game_object, XR_net_packet, XR_reader } from "xray16";
+import { LuabindClass, object_binder, XR_cse_alife_object, XR_game_object, XR_net_packet, XR_reader } from "xray16";
 
 import { Optional, TNumberId } from "@/mod/lib/types";
 import { ESchemeType, TSection } from "@/mod/lib/types/scheme";
@@ -21,14 +21,23 @@ export class RestrictorBinder extends object_binder {
   public isLoaded: boolean = false;
   public state: IStoredObject = {};
 
+  /**
+   * todo;
+   */
   public constructor(object: XR_game_object) {
     super(object);
   }
 
+  /**
+   * todo;
+   */
   public override reload(section: TSection): void {
     super.reload(section);
   }
 
+  /**
+   * todo;
+   */
   public override reinit(): void {
     super.reinit();
 
@@ -36,6 +45,9 @@ export class RestrictorBinder extends object_binder {
     registry.objects.set(this.object.id(), this.state);
   }
 
+  /**
+   * todo;
+   */
   public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
@@ -57,6 +69,9 @@ export class RestrictorBinder extends object_binder {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public override net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
 
@@ -74,6 +89,9 @@ export class RestrictorBinder extends object_binder {
     super.net_destroy();
   }
 
+  /**
+   * todo;
+   */
   public override update(delta: number): void {
     const activeSection: Optional<TSection> = this.state.active_section as Optional<TSection>;
     const objectId: number = this.object.id();
@@ -99,10 +117,16 @@ export class RestrictorBinder extends object_binder {
     GlobalSoundManager.getInstance().updateForObjectId(objectId);
   }
 
+  /**
+   * todo;
+   */
   public override net_save_relevant(): boolean {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, RestrictorBinder.__name);
     super.save(packet);
@@ -111,6 +135,9 @@ export class RestrictorBinder extends object_binder {
     setSaveMarker(packet, true, RestrictorBinder.__name);
   }
 
+  /**
+   * todo;
+   */
   public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, RestrictorBinder.__name);
 

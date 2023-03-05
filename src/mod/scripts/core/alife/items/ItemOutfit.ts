@@ -1,4 +1,4 @@
-import { cse_alife_item_custom_outfit } from "xray16";
+import { cse_alife_item_custom_outfit, LuabindClass } from "xray16";
 
 import { Optional, TSection } from "@/mod/lib/types";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";

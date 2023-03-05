@@ -1,4 +1,4 @@
-import { action_base, XR_game_object } from "xray16";
+import { action_base, LuabindClass, XR_game_object } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";

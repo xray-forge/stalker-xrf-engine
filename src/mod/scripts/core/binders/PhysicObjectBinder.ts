@@ -2,6 +2,7 @@ import {
   callback,
   clsid,
   level,
+  LuabindClass,
   object_binder,
   XR_cse_alife_object,
   XR_game_object,
@@ -37,7 +38,7 @@ export class PhysicObjectBinder extends object_binder {
   public particle: Optional<XR_particles_object> = null;
   public itemBox: Optional<PhysicObjectItemBox> = null;
 
-  public st!: IStoredObject;
+  public state!: IStoredObject;
 
   /**
    * todo;
@@ -58,7 +59,7 @@ export class PhysicObjectBinder extends object_binder {
    */
   public override reinit(): void {
     super.reinit();
-    this.st = resetObject(this.object);
+    this.state = resetObject(this.object);
   }
 
   /**
@@ -129,8 +130,8 @@ export class PhysicObjectBinder extends object_binder {
    * todo;
    */
   public use_callback(object: XR_game_object, who: XR_game_object): void {
-    if (this.st.active_section) {
-      issueSchemeEvent(this.object, this.st[this.st.active_scheme as string], "use_callback", object, this);
+    if (this.state.active_section) {
+      issueSchemeEvent(this.object, this.state[this.state.active_scheme as string], "use_callback", object, this);
     }
   }
 
@@ -144,10 +145,10 @@ export class PhysicObjectBinder extends object_binder {
     who: XR_game_object,
     bone_index: number
   ): void {
-    if (this.st[SchemePhysicalOnHit.SCHEME_SECTION]) {
+    if (this.state[SchemePhysicalOnHit.SCHEME_SECTION]) {
       issueSchemeEvent(
         this.object,
-        this.st[SchemePhysicalOnHit.SCHEME_SECTION],
+        this.state[SchemePhysicalOnHit.SCHEME_SECTION],
         "hit_callback",
         obj,
         amount,
@@ -157,10 +158,10 @@ export class PhysicObjectBinder extends object_binder {
       );
     }
 
-    if (this.st.active_section) {
+    if (this.state.active_section) {
       issueSchemeEvent(
         this.object,
-        this.st[this.st.active_scheme as string],
+        this.state[this.state.active_scheme as string],
         "hit_callback",
         obj,
         amount,
@@ -175,8 +176,8 @@ export class PhysicObjectBinder extends object_binder {
    * todo;
    */
   public death_callback(victim: XR_game_object, who: XR_game_object): void {
-    if (this.st.active_section) {
-      issueSchemeEvent(this.object, this.st[this.st.active_scheme as string], "death_callback", victim, who);
+    if (this.state.active_section) {
+      issueSchemeEvent(this.object, this.state[this.state.active_scheme as string], "death_callback", victim, who);
     }
 
     if (this.particle !== null) {
@@ -223,7 +224,7 @@ export class PhysicObjectBinder extends object_binder {
 
     if (!this.initialized) {
       this.initialized = true;
-      initializeGameObject(this.object, this.st, this.loaded, registry.actor, ESchemeType.ITEM);
+      initializeGameObject(this.object, this.state, this.loaded, registry.actor, ESchemeType.ITEM);
     }
 
     this.object.info_clear();
@@ -238,8 +239,8 @@ export class PhysicObjectBinder extends object_binder {
 
     const spawn_ini: Optional<XR_ini_file> = this.object.spawn_ini();
 
-    if (this.st.active_section !== null || (spawn_ini !== null && spawn_ini.section_exist("drop_box"))) {
-      issueSchemeEvent(this.object, this.st[this.st.active_scheme as string], "update", delta);
+    if (this.state.active_section !== null || (spawn_ini !== null && spawn_ini.section_exist("drop_box"))) {
+      issueSchemeEvent(this.object, this.state[this.state.active_scheme as string], "update", delta);
       this.object.set_callback(callback.hit, this.hit_callback, this);
       this.object.set_callback(callback.death, this.death_callback, this);
       this.object.set_callback(callback.use_object, this.use_callback, this);

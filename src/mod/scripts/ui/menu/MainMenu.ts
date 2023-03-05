@@ -9,6 +9,7 @@ import {
   game,
   IsGameTypeSingle,
   level,
+  LuabindClass,
   main_menu,
   TXR_DIK_key,
   TXR_ui_event,
@@ -35,7 +36,7 @@ import { Optional, TNumberId } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { EGameEvent } from "@/mod/scripts/core/managers/events/EGameEvent";
 import { EventsManager } from "@/mod/scripts/core/managers/events/EventsManager";
-import { DebugDialog, IDebugDialog } from "@/mod/scripts/ui/debug/DebugDialog";
+import { DebugDialog } from "@/mod/scripts/ui/debug/DebugDialog";
 import { LoadDialog } from "@/mod/scripts/ui/menu/load/LoadDialog";
 import { MultiplayerMenu } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerMenu";
 import { MultiplayerGameSpy } from "@/mod/scripts/ui/menu/multiplayer_login/MultiplayerGamespy";
@@ -77,7 +78,7 @@ export class MainMenu extends CUIScriptWnd {
   public uiGameSavesLoadDialog: Optional<LoadDialog> = null;
   public uiLocalnetDialog: Optional<MultiplayerLocalnet> = null;
   public uiGamespyDialog: Optional<MultiplayerGameSpy> = null;
-  public uiGameDebugDialog: Optional<IDebugDialog> = null;
+  public uiGameDebugDialog: Optional<DebugDialog> = null;
 
   /**
    * todo;

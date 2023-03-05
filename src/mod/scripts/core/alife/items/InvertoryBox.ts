@@ -1,4 +1,4 @@
-import { cse_alife_inventory_box } from "xray16";
+import { cse_alife_inventory_box, LuabindClass } from "xray16";
 
 import { Optional, TSection } from "@/mod/lib/types";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";

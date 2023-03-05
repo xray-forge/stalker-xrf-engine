@@ -6,6 +6,7 @@ import {
   game,
   get_console,
   level,
+  LuabindClass,
   object_binder,
   task,
   TXR_TaskState,

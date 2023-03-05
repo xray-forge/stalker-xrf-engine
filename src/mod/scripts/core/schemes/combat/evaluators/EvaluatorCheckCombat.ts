@@ -1,4 +1,4 @@
-import { property_evaluator } from "xray16";
+import { LuabindClass, property_evaluator } from "xray16";
 
 import { registry } from "@/mod/scripts/core/database";
 import { ISchemeCombatState } from "@/mod/scripts/core/schemes/combat";
@@ -13,11 +13,17 @@ const logger: LuaLogger = new LuaLogger("EvaluatorCheckCombat");
 export class EvaluatorCheckCombat extends property_evaluator {
   public readonly state: ISchemeCombatState;
 
+  /**
+   * todo;
+   */
   public constructor(state: ISchemeCombatState) {
     super(null, EvaluatorCheckCombat.__name);
     this.state = state;
   }
 
+  /**
+   * todo;
+   */
   public override evaluate(): boolean {
     const state = this.state;
 

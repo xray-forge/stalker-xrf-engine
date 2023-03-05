@@ -1,4 +1,4 @@
-import { property_evaluator } from "xray16";
+import { LuabindClass, property_evaluator } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
@@ -16,11 +16,17 @@ const logger: LuaLogger = new LuaLogger(
 export class StateManagerEvaAnimationStateIdleNow extends property_evaluator {
   public readonly stateManager: StateManager;
 
+  /**
+   * todo;
+   */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaAnimationStateIdleNow.__name);
     this.stateManager = stateManager;
   }
 
+  /**
+   * todo;
+   */
   public override evaluate(): boolean {
     return this.stateManager.animstate.states.current_state === null;
   }

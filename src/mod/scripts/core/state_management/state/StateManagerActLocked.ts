@@ -1,4 +1,4 @@
-import { action_base } from "xray16";
+import { action_base, LuabindClass } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
@@ -13,19 +13,31 @@ const logger: LuaLogger = new LuaLogger("StateManagerActLocked", gameConfig.DEBU
 export class StateManagerActLocked extends action_base {
   public readonly stateManager: StateManager;
 
+  /**
+   * todo;
+   */
   public constructor(stateManager: StateManager, name: string) {
     super(null, name || StateManagerActLocked.__name);
     this.stateManager = stateManager;
   }
 
+  /**
+   * todo;
+   */
   public override initialize(): void {
     super.initialize();
   }
 
+  /**
+   * todo;
+   */
   public override execute(): void {
     super.execute();
   }
 
+  /**
+   * todo;
+   */
   public override finalize(): void {
     super.finalize();
   }

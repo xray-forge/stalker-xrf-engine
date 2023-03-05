@@ -1,4 +1,4 @@
-import { cse_zone_visual, editor, game, system_ini, XR_CTime, XR_net_packet } from "xray16";
+import { cse_zone_visual, editor, game, LuabindClass, system_ini, XR_CTime, XR_net_packet } from "xray16";
 
 import { Optional, TSection } from "@/mod/lib/types";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";
@@ -18,13 +18,18 @@ export class ZoneVisual extends cse_zone_visual {
   public artefact_spawn_idle: number = 0;
   public artefact_spawn_rnd: number = 0;
 
+  /**
+   * todo;
+   */
   public constructor(section: TSection) {
     super(section);
   }
 
+  /**
+   * todo;
+   */
   public override on_register(): void {
     super.on_register();
-
     logger.info("Register:", this.id, this.name(), this.section_name());
 
     checkSpawnIniForStoryId(this);
@@ -41,6 +46,9 @@ export class ZoneVisual extends cse_zone_visual {
     );
   }
 
+  /**
+   * todo;
+   */
   public override update(): void {
     super.update();
 
@@ -58,6 +66,9 @@ export class ZoneVisual extends cse_zone_visual {
     }
   }
 
+  /**
+   * todo;
+   */
   public override STATE_Write(packet: XR_net_packet): void {
     super.STATE_Write(packet);
 
@@ -73,6 +84,9 @@ export class ZoneVisual extends cse_zone_visual {
     }
   }
 
+  /**
+   * todo;
+   */
   public override STATE_Read(packet: XR_net_packet, size: number): void {
     super.STATE_Read(packet, size);
 

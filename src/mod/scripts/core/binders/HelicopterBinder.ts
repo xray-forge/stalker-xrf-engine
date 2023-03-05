@@ -2,6 +2,7 @@ import {
   callback,
   clsid,
   level,
+  LuabindClass,
   object_binder,
   system_ini,
   time_global,
@@ -15,7 +16,7 @@ import {
   XR_vector,
 } from "xray16";
 
-import { ESchemeType, Optional, TSection } from "@/mod/lib/types";
+import { ESchemeType, Optional, TDistance, TIndex, TNumberId, TRate, TSection } from "@/mod/lib/types";
 import { addHelicopter, deleteHelicopter, IStoredObject, registry, resetObject } from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { get_heli_health } from "@/mod/scripts/core/schemes/heli_move/heli_utils";
@@ -51,6 +52,9 @@ export class HelicopterBinder extends object_binder {
 
   public heliObject!: XR_CHelicopter;
 
+  /**
+   * todo;
+   */
   public constructor(object: XR_game_object, ini: XR_ini_file) {
     super(object);
 
@@ -58,10 +62,16 @@ export class HelicopterBinder extends object_binder {
     this.heli_fire = get_heli_firer(object);
   }
 
+  /**
+   * todo;
+   */
   public override reload(section: TSection): void {
     super.reload(section);
   }
 
+  /**
+   * todo;
+   */
   public override reinit(): void {
     super.reinit();
 
@@ -89,6 +99,9 @@ export class HelicopterBinder extends object_binder {
     this.st.alt_check_time = time_global() + 1000;
   }
 
+  /**
+   * todo;
+   */
   public override update(delta: number): void {
     super.update(delta);
 
@@ -116,6 +129,9 @@ export class HelicopterBinder extends object_binder {
     GlobalSoundManager.getInstance().updateForObjectId(this.object.id());
   }
 
+  /**
+   * todo;
+   */
   public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
@@ -126,16 +142,25 @@ export class HelicopterBinder extends object_binder {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public override net_destroy(): void {
     deleteHelicopter(this.object);
 
     super.net_destroy();
   }
 
+  /**
+   * todo;
+   */
   public override net_save_relevant(): boolean {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public override save(packet: XR_net_packet): void {
     super.save(packet);
     setSaveMarker(packet, false, HelicopterBinder.__name);
@@ -146,6 +171,9 @@ export class HelicopterBinder extends object_binder {
     this.st.combat!.save(packet);
   }
 
+  /**
+   * todo;
+   */
   public override load(reader: XR_reader): void {
     this.loaded = true;
     setLoadMarker(reader, false, HelicopterBinder.__name);
@@ -159,6 +187,9 @@ export class HelicopterBinder extends object_binder {
     this.st.combat!.load(reader);
   }
 
+  /**
+   * todo;
+   */
   public check_health(): void {
     const heli = this.heliObject;
 
@@ -182,7 +213,10 @@ export class HelicopterBinder extends object_binder {
     }
   }
 
-  public on_hit(power: number, impulse: number, hit_type: number, enemy_id: number): void {
+  /**
+   * todo;
+   */
+  public on_hit(power: TRate, impulse: TRate, hit_type: TNumberId, enemy_id: TNumberId): void {
     const enemy: Optional<XR_game_object> = level.object_by_id(enemy_id);
     const enemy_cls_id: Optional<TXR_cls_id> = getClsId(enemy);
 
@@ -201,7 +235,10 @@ export class HelicopterBinder extends object_binder {
     }
   }
 
-  public on_point(distance: number, position: XR_vector, path_idx: number): void {
+  /**
+   * todo;
+   */
+  public on_point(distance: TDistance, position: XR_vector, path_idx: TIndex): void {
     if (this.st.active_section !== null) {
       issueSchemeEvent(this.object, this.st[this.st.active_scheme!], "waypoint_callback", this.object, null, path_idx);
     }

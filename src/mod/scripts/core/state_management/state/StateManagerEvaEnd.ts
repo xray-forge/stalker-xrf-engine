@@ -1,4 +1,4 @@
-import { cast_planner, property_evaluator, stalker_ids, XR_action_planner } from "xray16";
+import { cast_planner, LuabindClass, property_evaluator, stalker_ids, XR_action_planner } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
@@ -16,11 +16,17 @@ export class StateManagerEvaEnd extends property_evaluator {
   private actionPlanner: Optional<XR_action_planner> = null;
   private combatPlanner: Optional<XR_action_planner> = null;
 
+  /**
+   * todo;
+   */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaEnd.__name);
     this.stateManager = stateManager;
   }
 
+  /**
+   * todo;
+   */
   public override evaluate(): boolean {
     if (this.actionPlanner === null) {
       this.actionPlanner = this.object.motivation_action_manager();

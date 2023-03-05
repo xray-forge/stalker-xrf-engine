@@ -1,6 +1,7 @@
 import {
   alife,
   callback,
+  LuabindClass,
   object_binder,
   time_global,
   XR_alife_simulator,

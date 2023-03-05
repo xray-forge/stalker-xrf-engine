@@ -1,4 +1,4 @@
-import { property_evaluator, stalker_ids, time_global, XR_action_planner } from "xray16";
+import { LuabindClass, property_evaluator, stalker_ids, time_global, XR_action_planner } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { evaluators_id } from "@/mod/scripts/core/schemes/base/evaluators_id";
@@ -17,11 +17,17 @@ export class EvaluatorCloseCombat extends property_evaluator {
   public actionPlanner: Optional<XR_action_planner> = null;
   public isCloseCombat: boolean = false;
 
+  /**
+   * todo;
+   */
   public constructor(state: ISchemeCamperState) {
     super(null, EvaluatorCloseCombat.__name);
     this.state = state;
   }
 
+  /**
+   * todo;
+   */
   public override evaluate(): boolean {
     if (!isActiveSection(this.object, this.state.section)) {
       return true;

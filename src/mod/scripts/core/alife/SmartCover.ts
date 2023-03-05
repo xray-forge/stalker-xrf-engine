@@ -1,4 +1,4 @@
-import { cse_smart_cover, game_graph, properties_helper, XR_net_packet } from "xray16";
+import { cse_smart_cover, game_graph, LuabindClass, properties_helper, XR_net_packet } from "xray16";
 
 import { Optional, TSection } from "@/mod/lib/types";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";
@@ -21,6 +21,9 @@ export class SmartCover extends cse_smart_cover {
   public loopholes: LuaTable<string> = new LuaTable();
   public last_description: string = "";
 
+  /**
+   * todo;
+   */
   public constructor(section: TSection) {
     super(section);
 
@@ -29,11 +32,17 @@ export class SmartCover extends cse_smart_cover {
     }
   }
 
+  /**
+   * todo;
+   */
   public override on_before_register(): void {
     super.on_before_register();
     registered_smartcovers.set(this.name(), this);
   }
 
+  /**
+   * todo;
+   */
   public override on_register(): void {
     super.on_register();
     logger.info("Register:", this.id, this.name(), this.section_name());
@@ -48,6 +57,9 @@ export class SmartCover extends cse_smart_cover {
     registered_smartcovers_by_lv_id.get(level_id)[this.m_level_vertex_id] = this;
   }
 
+  /**
+   * todo;
+   */
   public override on_unregister(): void {
     unregisterStoryObjectById(this.id);
     registered_smartcovers.delete(this.name());
@@ -58,6 +70,9 @@ export class SmartCover extends cse_smart_cover {
     super.on_unregister();
   }
 
+  /**
+   * todo;
+   */
   public override FillProps(pref: string, items: LuaTable<number>): void {
     super.FillProps(pref, items);
 
@@ -93,10 +108,16 @@ export class SmartCover extends cse_smart_cover {
     }
   }
 
+  /**
+   * todo;
+   */
   public override update(): void {
     super.update();
   }
 
+  /**
+   * todo;
+   */
   public override STATE_Write(packet: XR_net_packet): void {
     super.STATE_Write(packet);
 
@@ -116,6 +137,9 @@ export class SmartCover extends cse_smart_cover {
     }
   }
 
+  /**
+   * todo;
+   */
   public override STATE_Read(packet: XR_net_packet, size: number): void {
     super.STATE_Read(packet, size);
 

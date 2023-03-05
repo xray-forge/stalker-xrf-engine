@@ -1,5 +1,6 @@
 import {
   alife,
+  LuabindClass,
   property_evaluator,
   stalker_ids,
   time_global,

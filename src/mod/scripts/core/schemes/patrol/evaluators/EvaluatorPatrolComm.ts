@@ -1,4 +1,4 @@
-import { property_evaluator } from "xray16";
+import { LuabindClass, property_evaluator } from "xray16";
 
 import { registry } from "@/mod/scripts/core/database";
 import { ISchemePatrolState } from "@/mod/scripts/core/schemes/patrol";

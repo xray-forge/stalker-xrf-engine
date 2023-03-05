@@ -1,4 +1,4 @@
-import { cse_alife_item_weapon_shotgun } from "xray16";
+import { cse_alife_item_weapon_shotgun, LuabindClass } from "xray16";
 
 import { Optional, TSection } from "@/mod/lib/types";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";

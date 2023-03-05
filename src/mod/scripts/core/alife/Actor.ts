@@ -4,13 +4,13 @@ import {
   cse_alife_creature_actor,
   editor,
   level,
+  LuabindClass,
   XR_CALifeSmartTerrainTask,
-  XR_cse_abstract,
   XR_net_packet,
   XR_vector,
 } from "xray16";
 
-import { AnyCallable, AnyObject, Optional, TSection } from "@/mod/lib/types";
+import { AnyObject, Optional, TRate, TSection, TStringId } from "@/mod/lib/types";
 import { simulation_activities } from "@/mod/scripts/core/alife/SimActivity";
 import { nearest_to_actor_smart, SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { ESmartTerrainStatus, getCurrentSmartId } from "@/mod/scripts/core/alife/SmartTerrainControl";
@@ -35,10 +35,16 @@ export class Actor extends cse_alife_creature_actor {
   public sim_avail: Optional<boolean> = null;
   public props!: AnyObject;
 
+  /**
+   * todo;
+   */
   public constructor(section: TSection) {
     super(section);
   }
 
+  /**
+   * todo;
+   */
   public override on_register(): void {
     super.on_register();
 
@@ -55,6 +61,9 @@ export class Actor extends cse_alife_creature_actor {
     }
   }
 
+  /**
+   * todo;
+   */
   public override on_unregister(): void {
     logger.info("Unregister actor");
 
@@ -63,6 +72,9 @@ export class Actor extends cse_alife_creature_actor {
     get_sim_obj_registry().unregister(this);
   }
 
+  /**
+   * todo;
+   */
   public override STATE_Write(packet: XR_net_packet): void {
     super.STATE_Write(packet);
 
@@ -71,6 +83,9 @@ export class Actor extends cse_alife_creature_actor {
     setSaveMarker(packet, true, Actor.__name);
   }
 
+  /**
+   * todo;
+   */
   public override STATE_Read(packet: XR_net_packet, size: number): void {
     super.STATE_Read(packet, size);
 
@@ -85,40 +100,58 @@ export class Actor extends cse_alife_creature_actor {
     }
   }
 
+  /**
+   * todo;
+   */
   public get_location(): LuaMultiReturn<[XR_vector, number, number]> {
     return $multi(this.position, this.m_level_vertex_id, this.m_game_vertex_id);
   }
 
+  /**
+   * todo;
+   */
   public am_i_reached(): boolean {
     return !level.object_by_id(this.id)!.alive();
   }
 
+  /**
+   * todo;
+   */
   public on_after_reach(squad: any): void {
     /**
      *  --squad.current_target_id = squad.smart_id
      */
   }
 
-  public on_reach_target(squad: any): void {
+  /**
+   * todo;
+   */
+  public on_reach_target(squad: Squad): void {
     squad.set_location_types();
 
-    for (const it of squad.squadMembers() as LuaIterable<XR_cse_abstract>) {
-      softResetOfflineObject(it.id);
+    for (const squadMember of squad.squad_members()) {
+      softResetOfflineObject(squadMember.id);
     }
 
     get_sim_board().assign_squad_to_smart(squad, null);
   }
 
+  /**
+   * todo;
+   */
   public get_alife_task(): XR_CALifeSmartTerrainTask {
     return new CALifeSmartTerrainTask(this.m_game_vertex_id, this.m_level_vertex_id);
   }
 
+  /**
+   * todo;
+   */
   public sim_available(): boolean {
     const smarts_by_no_assault_zones = {
       ["zat_a2_sr_no_assault"]: "zat_stalker_base_smart",
       ["jup_a6_sr_no_assault"]: "jup_a6",
       ["jup_b41_sr_no_assault"]: "jup_b41",
-    } as unknown as LuaTable<string, string>;
+    } as unknown as LuaTable<TStringId, TStringId>;
 
     if (nearest_to_actor_smart.dist < 50 && !get_sim_obj_registry().objects.has(nearest_to_actor_smart.id!)) {
       return false;
@@ -153,21 +186,23 @@ export class Actor extends cse_alife_creature_actor {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public target_precondition(squad: Squad): boolean {
     const squad_params = simulation_activities[squad.player_id];
 
-    if (
-      squad_params === null ||
-      squad_params.actor === null ||
-      (squad_params.actor.prec as AnyCallable)(squad, this) === false
-    ) {
+    if (squad_params === null || squad_params.actor === null || !squad_params.actor.prec(squad, this)) {
       return false;
     }
 
     return true;
   }
 
-  public evaluate_prior(squad: Squad): number {
+  /**
+   * todo;
+   */
+  public evaluate_prior(squad: Squad): TRate {
     return evaluate_prior(this, squad);
   }
 }

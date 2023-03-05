@@ -1,4 +1,4 @@
-import { cse_anomalous_zone, editor, game, system_ini, XR_CTime, XR_net_packet } from "xray16";
+import { cse_anomalous_zone, editor, game, LuabindClass, system_ini, XR_CTime, XR_net_packet } from "xray16";
 
 import { Optional, TSection } from "@/mod/lib/types";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";
@@ -20,11 +20,17 @@ export class AnomalousZone extends cse_anomalous_zone {
 
   public last_spawn_time: Optional<XR_CTime> = null;
 
+  /**
+   * todo;
+   */
   public constructor(section: TSection) {
     super(section);
     this.m_registred = false;
   }
 
+  /**
+   * todo;
+   */
   public override on_register(): void {
     super.on_register();
 
@@ -45,6 +51,9 @@ export class AnomalousZone extends cse_anomalous_zone {
     );
   }
 
+  /**
+   * todo;
+   */
   public override update(): void {
     super.update();
 
@@ -61,6 +70,9 @@ export class AnomalousZone extends cse_anomalous_zone {
     }
   }
 
+  /**
+   * todo;
+   */
   public override STATE_Write(packet: XR_net_packet): void {
     super.STATE_Write(packet);
 
@@ -76,6 +88,9 @@ export class AnomalousZone extends cse_anomalous_zone {
     }
   }
 
+  /**
+   * todo;
+   */
   public override STATE_Read(packet: XR_net_packet, size: number): void {
     super.STATE_Read(packet, size);
 

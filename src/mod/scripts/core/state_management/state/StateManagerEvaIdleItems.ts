@@ -1,4 +1,4 @@
-import { property_evaluator } from "xray16";
+import { LuabindClass, property_evaluator } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
@@ -16,11 +16,17 @@ const logger: LuaLogger = new LuaLogger("StateManagerEvaIdleItems", gameConfig.D
 export class StateManagerEvaIdleItems extends property_evaluator {
   private readonly stateManager: StateManager;
 
+  /**
+   * todo;
+   */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaIdleItems.__name);
     this.stateManager = stateManager;
   }
 
+  /**
+   * todo;
+   */
   public override evaluate(): boolean {
     if (!this.object.alive()) {
       return true;
@@ -41,7 +47,5 @@ export class StateManagerEvaIdleItems extends property_evaluator {
     } else {
       return false;
     }
-    // --    end
-    // --    return true
   }
 }

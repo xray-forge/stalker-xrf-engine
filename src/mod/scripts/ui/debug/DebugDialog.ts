@@ -3,6 +3,7 @@ import {
   CUIScriptWnd,
   DIK_keys,
   Frect,
+  LuabindClass,
   TXR_DIK_key,
   TXR_ui_event,
   ui_events,
@@ -30,16 +31,6 @@ import { EDebugSection } from "@/mod/ui/menu/debug/sections";
 const base: string = "menu\\debug\\DebugDialog.component";
 const logger: LuaLogger = new LuaLogger("DebugDialog");
 
-export interface IDebugDialog extends XR_CUIScriptWnd {
-  InitControls(): void;
-  InitSections(): void;
-  InitCallBacks(): void;
-  InitState(): void;
-
-  onTabChange(): void;
-  onCancelButtonAction(): void;
-}
-
 /**
  * todo;
  */
@@ -66,13 +57,16 @@ export class DebugDialog extends CUIScriptWnd {
 
     this.owner = owner;
 
-    this.InitControls();
-    this.InitSections();
-    this.InitCallBacks();
-    this.InitState();
+    this.initControls();
+    this.initSections();
+    this.initCallBacks();
+    this.initState();
   }
 
-  public InitControls(): void {
+  /**
+   * todo;
+   */
+  public initControls(): void {
     this.SetWndRect(new Frect().set(0, 0, gameConfig.UI.BASE_WIDTH, gameConfig.UI.BASE_HEIGHT));
 
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
@@ -88,7 +82,10 @@ export class DebugDialog extends CUIScriptWnd {
     this.Register(this.tab, "tab");
   }
 
-  public InitSections(): void {
+  /**
+   * todo;
+   */
+  public initSections(): void {
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
     xml.ParseFile(resolveXmlFormPath(base));
@@ -157,15 +154,24 @@ export class DebugDialog extends CUIScriptWnd {
     xml.InitWindow("main_dialog:debug_section", 0, this.sectionWorld);
   }
 
-  public InitCallBacks(): void {
+  /**
+   * todo;
+   */
+  public initCallBacks(): void {
     this.AddCallback("btn_cancel", ui_events.BUTTON_CLICKED, () => this.onCancelButtonAction(), this);
     this.AddCallback("tab", ui_events.TAB_CHANGED, () => this.onTabChange(), this);
   }
 
-  public InitState(): void {
+  /**
+   * todo;
+   */
+  public initState(): void {
     this.tab.SetActiveTab(EDebugSection.GENERAL);
   }
 
+  /**
+   * todo;
+   */
   public onCancelButtonAction(): void {
     logger.info("Cancel action");
 
@@ -175,6 +181,9 @@ export class DebugDialog extends CUIScriptWnd {
     this.HideDialog();
   }
 
+  /**
+   * todo;
+   */
   public onTabChange(): void {
     logger.info("Tab change:", this.tab.GetActiveId());
 
@@ -214,6 +223,9 @@ export class DebugDialog extends CUIScriptWnd {
     }
   }
 
+  /**
+   * todo;
+   */
   public override OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
     const result: boolean = super.OnKeyboard(key, event);
 

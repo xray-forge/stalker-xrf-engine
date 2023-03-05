@@ -11,6 +11,7 @@ import {
   GetFontMedium,
   getFS,
   key_bindings,
+  LuabindClass,
   TXR_DIK_key,
   TXR_ui_event,
   ui_events,

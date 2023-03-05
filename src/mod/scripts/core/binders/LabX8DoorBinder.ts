@@ -1,6 +1,7 @@
 import {
   callback,
   ini_file,
+  LuabindClass,
   object_binder,
   sound_object,
   TXR_sound_object_type,
@@ -47,6 +48,9 @@ export class LabX8DoorBinder extends object_binder {
   public on_stop!: TConditionList;
   public on_start!: TConditionList;
 
+  /**
+   * todo;
+   */
   public constructor(object: XR_game_object) {
     super(object);
 
@@ -139,11 +143,17 @@ export class LabX8DoorBinder extends object_binder {
     this.start_delay = getConfigNumber(ini, ANIMATED_OBJECT_SECT, "start_delay", null, false, 0);
   }
 
+  /**
+   * todo;
+   */
   public override reinit(): void {
     super.reinit();
     registry.objects.set(this.object.id(), {});
   }
 
+  /**
+   * todo;
+   */
   public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
@@ -159,6 +169,9 @@ export class LabX8DoorBinder extends object_binder {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public override net_destroy(): void {
     if (this.idle_snd) {
       this.idle_snd.stop();
@@ -177,6 +190,9 @@ export class LabX8DoorBinder extends object_binder {
     super.net_destroy();
   }
 
+  /**
+   * todo;
+   */
   public override update(delta: number): void {
     super.update(delta);
 
@@ -213,6 +229,9 @@ export class LabX8DoorBinder extends object_binder {
     }
   }
 
+  /**
+   * todo;
+   */
   public anim_forward(): void {
     if (this.idle_snd) {
       this.idle_snd.stop();
@@ -239,6 +258,9 @@ export class LabX8DoorBinder extends object_binder {
     pickSectionFromCondList(registry.actor, this.object, this.on_start);
   }
 
+  /**
+   * todo;
+   */
   public anim_backward(): void {
     if (this.idle_snd) {
       this.idle_snd.stop();
@@ -264,6 +286,9 @@ export class LabX8DoorBinder extends object_binder {
     pickSectionFromCondList(registry.actor, this.object, this.on_start);
   }
 
+  /**
+   * todo;
+   */
   public anim_stop(): void {
     this.object.get_physics_object().stop_anim();
     this.is_idle = true;
@@ -275,6 +300,9 @@ export class LabX8DoorBinder extends object_binder {
     pickSectionFromCondList(registry.actor, this.object, this.on_stop);
   }
 
+  /**
+   * todo;
+   */
   public animation_end_callback(is_end?: boolean): void {
     if (is_end) {
       if (this.stop_snd) {
@@ -287,14 +315,23 @@ export class LabX8DoorBinder extends object_binder {
     }
   }
 
+  /**
+   * todo;
+   */
   public use_callback(object: XR_game_object): void {
     pickSectionFromCondList(registry.actor, object, this.on_use);
   }
 
+  /**
+   * todo;
+   */
   public override net_save_relevant(): boolean {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, LabX8DoorBinder.__name);
 
@@ -308,6 +345,9 @@ export class LabX8DoorBinder extends object_binder {
     setSaveMarker(packet, true, LabX8DoorBinder.__name);
   }
 
+  /**
+   * todo;
+   */
   public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, LabX8DoorBinder.__name);
 

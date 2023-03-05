@@ -1,4 +1,11 @@
-import { CUIListBoxItem, GetARGB, GetFontLetterica16Russian, GetFontLetterica18Russian, XR_CUITextWnd } from "xray16";
+import {
+  CUIListBoxItem,
+  GetARGB,
+  GetFontLetterica16Russian,
+  GetFontLetterica18Russian,
+  LuabindClass,
+  XR_CUITextWnd,
+} from "xray16";
 
 /**
  * todo;

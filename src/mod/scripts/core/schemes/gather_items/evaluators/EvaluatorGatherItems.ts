@@ -1,4 +1,4 @@
-import { property_evaluator } from "xray16";
+import { LuabindClass, property_evaluator } from "xray16";
 
 import { ISchemeGatherItemsState } from "@/mod/scripts/core/schemes/gather_items";
 

@@ -1,3 +1,5 @@
+import { LuabindClass } from "xray16";
+
 /**
  * todo;
  */

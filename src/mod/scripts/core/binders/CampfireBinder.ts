@@ -1,4 +1,4 @@
-import { object_binder, XR_cse_alife_object, XR_CZoneCampfire, XR_game_object, XR_object_binder } from "xray16";
+import { LuabindClass, object_binder, XR_cse_alife_object, XR_CZoneCampfire, XR_game_object } from "xray16";
 
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

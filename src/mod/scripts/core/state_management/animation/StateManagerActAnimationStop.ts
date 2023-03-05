@@ -1,4 +1,4 @@
-import { action_base } from "xray16";
+import { action_base, LuabindClass } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
@@ -18,11 +18,17 @@ const logger: LuaLogger = new LuaLogger(
 export class StateManagerActAnimationStop extends action_base {
   public readonly stateManager: StateManager;
 
+  /**
+   * todo;
+   */
   public constructor(state: StateManager) {
     super(null, StateManagerActAnimationStop.__name);
     this.stateManager = state;
   }
 
+  /**
+   * todo;
+   */
   public override initialize(): void {
     super.initialize();
 
@@ -33,10 +39,16 @@ export class StateManagerActAnimationStop extends action_base {
     this.stateManager.animation.set_control();
   }
 
+  /**
+   * todo;
+   */
   public override execute(): void {
     super.execute();
   }
 
+  /**
+   * todo;
+   */
   public override finalize(): void {
     super.finalize();
   }

@@ -1,4 +1,4 @@
-import { action_base, alife, hit, time_global, XR_alife_simulator } from "xray16";
+import { action_base, alife, hit, LuabindClass, time_global, XR_alife_simulator } from "xray16";
 
 import { STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/mod/globals/lua";
 import { registry } from "@/mod/scripts/core/database";

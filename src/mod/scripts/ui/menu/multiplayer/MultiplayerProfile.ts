@@ -4,6 +4,7 @@ import {
   CUIWindow,
   game,
   login_operation_cb,
+  LuabindClass,
   suggest_nicks_cb,
   ui_events,
   vector2,

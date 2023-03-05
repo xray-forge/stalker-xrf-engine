@@ -1,6 +1,6 @@
-import { action_base, device, vector, XR_game_object, XR_vector } from "xray16";
+import { action_base, device, LuabindClass, vector, XR_game_object, XR_vector } from "xray16";
 
-import { TTimestamp } from "@/mod/lib/types";
+import { TCount, TTimestamp } from "@/mod/lib/types";
 import { ISchemeCombatState } from "@/mod/scripts/core/schemes/combat";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -18,11 +18,17 @@ export class ActionLookAround extends action_base {
   public forget_time: TTimestamp = 0;
   public change_dir_time: TTimestamp = 0;
 
+  /**
+   * todo;
+   */
   public constructor(state: ISchemeCombatState) {
     super(null, ActionLookAround.__name);
     this.state = state;
   }
 
+  /**
+   * todo;
+   */
   public override initialize(): void {
     super.initialize();
 
@@ -31,6 +37,9 @@ export class ActionLookAround extends action_base {
     this.reset();
   }
 
+  /**
+   * todo;
+   */
   public reset(): void {
     this.forget_time = device().time_global() + 30000;
     this.change_dir_time = device().time_global() + 15000;
@@ -42,6 +51,9 @@ export class ActionLookAround extends action_base {
     set_state(this.object, "hide", null, null, { look_position: this.state.last_seen_pos }, null);
   }
 
+  /**
+   * todo;
+   */
   public override execute(): void {
     super.execute();
 
@@ -69,6 +81,9 @@ export class ActionLookAround extends action_base {
     }
   }
 
+  /**
+   * todo;
+   */
   public override finalize(): void {
     super.finalize();
 
@@ -76,9 +91,12 @@ export class ActionLookAround extends action_base {
     this.state.camper_combat_action = false;
   }
 
+  /**
+   * todo;
+   */
   public hit_callback(
     object: XR_game_object,
-    amount: number,
+    amount: TCount,
     const_direction: XR_vector,
     who: XR_game_object,
     bone_index: string

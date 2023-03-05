@@ -5,6 +5,7 @@ import {
   cond,
   hit,
   level,
+  LuabindClass,
   move,
   object_binder,
   patrol,
@@ -50,14 +51,23 @@ export class MonsterBinder extends object_binder {
   public loaded: boolean = false;
   public st: IStoredObject = {};
 
+  /**
+   * todo;
+   */
   public constructor(object: XR_game_object) {
     super(object);
   }
 
+  /**
+   * todo;
+   */
   public override reload(section: TSection): void {
     super.reload(section);
   }
 
+  /**
+   * todo;
+   */
   public override reinit(): void {
     super.reinit();
 
@@ -69,6 +79,9 @@ export class MonsterBinder extends object_binder {
     this.object.set_callback(callback.sound, this.hear_callback, this);
   }
 
+  /**
+   * todo;
+   */
   public override update(delta: number): void {
     super.update(delta);
 
@@ -169,6 +182,9 @@ export class MonsterBinder extends object_binder {
     }
   }
 
+  /**
+   * todo;
+   */
   public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, MonsterBinder.__name);
 
@@ -178,6 +194,9 @@ export class MonsterBinder extends object_binder {
     setSaveMarker(packet, true, MonsterBinder.__name);
   }
 
+  /**
+   * todo;
+   */
   public override load(reader: XR_reader): void {
     this.loaded = true;
 
@@ -188,6 +207,9 @@ export class MonsterBinder extends object_binder {
     setLoadMarker(reader, true, MonsterBinder.__name);
   }
 
+  /**
+   * todo;
+   */
   public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
@@ -236,6 +258,9 @@ export class MonsterBinder extends object_binder {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public override net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
 
@@ -265,10 +290,16 @@ export class MonsterBinder extends object_binder {
     super.net_destroy();
   }
 
+  /**
+   * todo;
+   */
   public override net_save_relevant(): boolean {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public extrapolate_callback(): Optional<boolean> {
     if (registry.objects.get(this.object.id()) === null || registry.objects.get(this.object.id()).object === null) {
       return null;
@@ -292,6 +323,9 @@ export class MonsterBinder extends object_binder {
     return false;
   }
 
+  /**
+   * todo;
+   */
   public waypoint_callback(object: XR_game_object, action_type: number, index: number): void {
     if (this.st.active_section !== null) {
       issueSchemeEvent(
@@ -305,6 +339,9 @@ export class MonsterBinder extends object_binder {
     }
   }
 
+  /**
+   * todo;
+   */
   public death_callback(victim: XR_game_object, killer: XR_game_object): void {
     registry.actorCombat.delete(this.object.id());
 
@@ -348,6 +385,9 @@ export class MonsterBinder extends object_binder {
     }
   }
 
+  /**
+   * todo;
+   */
   public hit_callback(
     object: XR_game_object,
     amount: number,
@@ -368,6 +408,9 @@ export class MonsterBinder extends object_binder {
     }
   }
 
+  /**
+   * todo;
+   */
   public hear_callback(
     object: XR_game_object,
     source_id: number,

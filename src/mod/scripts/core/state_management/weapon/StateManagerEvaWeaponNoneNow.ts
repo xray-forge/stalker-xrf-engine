@@ -1,4 +1,4 @@
-import { property_evaluator } from "xray16";
+import { LuabindClass, property_evaluator } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
@@ -16,11 +16,17 @@ const logger: LuaLogger = new LuaLogger(
 export class StateManagerEvaWeaponNoneNow extends property_evaluator {
   private readonly stateManager: StateManager;
 
+  /**
+   * todo;
+   */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaWeaponNoneNow.__name);
     this.stateManager = stateManager;
   }
 
+  /**
+   * todo;
+   */
   public override evaluate(): boolean {
     return this.object.active_item() === null;
   }

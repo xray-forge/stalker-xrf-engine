@@ -1,4 +1,4 @@
-import { property_evaluator, time_global, XR_game_object } from "xray16";
+import { LuabindClass, property_evaluator, time_global, XR_game_object } from "xray16";
 
 import { EScheme, Optional } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";

@@ -1,4 +1,4 @@
-import { action_base, move } from "xray16";
+import { action_base, LuabindClass, move } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { look_position_type } from "@/mod/scripts/core/state_management/direction/StateManagerDirection";
@@ -17,11 +17,17 @@ const logger: LuaLogger = new LuaLogger(
 export class StateManagerActMovementStandSearch extends action_base {
   private readonly stateManager: StateManager;
 
+  /**
+   * todo;
+   */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerActMovementStandSearch.__name);
     this.stateManager = stateManager;
   }
 
+  /**
+   * todo;
+   */
   public override initialize(): void {
     super.initialize();
 
@@ -29,10 +35,16 @@ export class StateManagerActMovementStandSearch extends action_base {
     this.object.set_sight(look_position_type(this.object, this.stateManager), null, 0);
   }
 
+  /**
+   * todo;
+   */
   public override execute(): void {
     super.execute();
   }
 
+  /**
+   * todo;
+   */
   public override finalize(): void {
     super.finalize();
   }

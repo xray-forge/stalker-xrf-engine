@@ -1,4 +1,4 @@
-import { level, property_evaluator } from "xray16";
+import { level, LuabindClass, property_evaluator } from "xray16";
 
 import { communities } from "@/mod/globals/communities";
 import { registry } from "@/mod/scripts/core/database";

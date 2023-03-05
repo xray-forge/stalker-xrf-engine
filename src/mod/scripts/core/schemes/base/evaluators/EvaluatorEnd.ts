@@ -1,4 +1,4 @@
-import { property_evaluator } from "xray16";
+import { LuabindClass, property_evaluator } from "xray16";
 
 import { IBaseSchemeState } from "@/mod/scripts/core/schemes/base";
 import { isActiveSection } from "@/mod/scripts/utils/checkers/is";
@@ -13,11 +13,17 @@ const logger: LuaLogger = new LuaLogger("EvaluatorEnd");
 export class EvaluatorEnd extends property_evaluator {
   public readonly state: IBaseSchemeState;
 
+  /**
+   * todo;
+   */
   public constructor(storage: IBaseSchemeState) {
     super(null, EvaluatorEnd.__name);
     this.state = storage;
   }
 
+  /**
+   * todo;
+   */
   public override evaluate(): boolean {
     return !isActiveSection(this.object, this.state.section);
   }

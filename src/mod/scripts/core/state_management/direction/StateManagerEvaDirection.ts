@@ -1,4 +1,12 @@
-import { CSightParams, property_evaluator, TXR_SightType, vector, XR_CSightParams, XR_vector } from "xray16";
+import {
+  CSightParams,
+  LuabindClass,
+  property_evaluator,
+  TXR_SightType,
+  vector,
+  XR_CSightParams,
+  XR_vector,
+} from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import {
@@ -18,11 +26,17 @@ const logger: LuaLogger = new LuaLogger("StateManagerEvaDirection", gameConfig.D
 export class StateManagerEvaDirection extends property_evaluator {
   public readonly stateManager: StateManager;
 
+  /**
+   * todo;
+   */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaDirection.__name);
     this.stateManager = stateManager;
   }
 
+  /**
+   * todo;
+   */
   public override evaluate(): boolean {
     if (this.stateManager.target_state === "smartcover") {
       return true;
@@ -84,6 +98,9 @@ export class StateManagerEvaDirection extends property_evaluator {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public callback(): void {
     if (this.stateManager.callback !== null && this.stateManager.callback.turn_end_func !== null) {
       this.stateManager.callback.turn_end_func(this.stateManager.callback.obj);

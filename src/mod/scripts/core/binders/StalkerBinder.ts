@@ -6,6 +6,7 @@ import {
   game_object,
   ini_file,
   level,
+  LuabindClass,
   object_binder,
   patrol,
   property_evaluator_const,
@@ -90,7 +91,6 @@ export class StalkerBinder extends object_binder {
    */
   public constructor(object: XR_game_object) {
     super(object);
-    // --    this.need_relation_update = false
   }
 
   /**

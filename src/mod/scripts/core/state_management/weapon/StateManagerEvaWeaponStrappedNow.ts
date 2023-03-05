@@ -1,4 +1,4 @@
-import { property_evaluator, XR_game_object } from "xray16";
+import { LuabindClass, property_evaluator, XR_game_object } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";

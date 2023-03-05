@@ -1,4 +1,4 @@
-import { alife, property_evaluator } from "xray16";
+import { alife, LuabindClass, property_evaluator } from "xray16";
 
 import type { Actor } from "@/mod/scripts/core/alife/Actor";
 import type { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";

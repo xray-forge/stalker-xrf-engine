@@ -1,4 +1,4 @@
-import { action_base, game_object, time_global, vector, XR_game_object, XR_vector } from "xray16";
+import { action_base, game_object, LuabindClass, time_global, vector, XR_game_object, XR_vector } from "xray16";
 
 import { registry } from "@/mod/scripts/core/database";
 import { ISchemePatrolState } from "@/mod/scripts/core/schemes/patrol";

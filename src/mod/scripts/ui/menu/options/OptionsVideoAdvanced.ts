@@ -1,4 +1,4 @@
-import { CUIWindow, vector2, XR_CScriptXmlInit, XR_CUIScrollView } from "xray16";
+import { CUIWindow, LuabindClass, vector2, XR_CScriptXmlInit, XR_CUIScrollView } from "xray16";
 
 import { OptionsDialog } from "@/mod/scripts/ui/menu/options/OptionsDialog";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

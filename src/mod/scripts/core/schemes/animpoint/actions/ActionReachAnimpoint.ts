@@ -1,4 +1,4 @@
-import { action_base, game_object } from "xray16";
+import { action_base, game_object, LuabindClass } from "xray16";
 
 import { ISchemeAnimpointState } from "@/mod/scripts/core/schemes/animpoint/ISchemeAnimpointState";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
@@ -13,16 +13,25 @@ const logger: LuaLogger = new LuaLogger("ActionReachAnimpoint");
 export class ActionReachAnimpoint extends action_base {
   public readonly state: ISchemeAnimpointState;
 
+  /**
+   * todo;
+   */
   public constructor(state: ISchemeAnimpointState) {
     super(null, ActionReachAnimpoint.__name);
     this.state = state;
   }
 
+  /**
+   * todo;
+   */
   public override initialize(): void {
     super.initialize();
     this.state.animpoint!.calculate_position();
   }
 
+  /**
+   * todo;
+   */
   public override execute(): void {
     super.execute();
 

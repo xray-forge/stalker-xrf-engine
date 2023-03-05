@@ -1,6 +1,6 @@
-import { object_binder, XR_cse_alife_object, XR_game_object } from "xray16";
+import { LuabindClass, object_binder, XR_cse_alife_object, XR_game_object } from "xray16";
 
-import { TSection } from "@/mod/lib/types";
+import { TDuration, TSection } from "@/mod/lib/types";
 import { addZone, deleteZone, registry } from "@/mod/scripts/core/database";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -15,21 +15,34 @@ const UPDATE_THROTTLE: number = 5_000;
  */
 @LuabindClass()
 export class AnomalyFieldBinder extends object_binder {
-  public delta: number = UPDATE_THROTTLE;
+  public delta: TDuration = UPDATE_THROTTLE;
+
+  /**
+   * todo;
+   */
   public constructor(object: XR_game_object) {
     super(object);
   }
 
+  /**
+   * todo;
+   */
   public override reload(section: TSection): void {
     super.reload(section);
   }
 
+  /**
+   * todo;
+   */
   public override reinit(): void {
     super.reinit();
 
     registry.objects.set(this.object.id(), {});
   }
 
+  /**
+   * todo;
+   */
   public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
@@ -44,6 +57,9 @@ export class AnomalyFieldBinder extends object_binder {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public override net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
 
@@ -55,6 +71,9 @@ export class AnomalyFieldBinder extends object_binder {
     super.net_destroy();
   }
 
+  /**
+   * todo;
+   */
   public set_enable(enabled: boolean): void {
     if (enabled) {
       this.object.enable_anomaly();
@@ -63,7 +82,10 @@ export class AnomalyFieldBinder extends object_binder {
     }
   }
 
-  public override update(delta: number): void {
+  /**
+   * todo;
+   */
+  public override update(delta: TDuration): void {
     this.delta += delta;
 
     if (this.delta >= UPDATE_THROTTLE) {
@@ -75,6 +97,9 @@ export class AnomalyFieldBinder extends object_binder {
     }
   }
 
+  /**
+   * todo;
+   */
   public override net_save_relevant(): boolean {
     return true;
   }

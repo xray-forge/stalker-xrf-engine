@@ -1,4 +1,14 @@
-import { action_base, game_object, level, move, time_global, vector, XR_game_object, XR_vector } from "xray16";
+import {
+  action_base,
+  game_object,
+  level,
+  LuabindClass,
+  move,
+  time_global,
+  vector,
+  XR_game_object,
+  XR_vector,
+} from "xray16";
 
 import { AnyObject, Optional } from "@/mod/lib/types";
 import { ISchemeCombatState } from "@/mod/scripts/core/schemes/combat";

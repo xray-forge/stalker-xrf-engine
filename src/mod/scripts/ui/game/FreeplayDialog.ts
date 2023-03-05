@@ -1,4 +1,4 @@
-import { CUIMessageBoxEx, CUIScriptWnd, Frect, ui_events, XR_CUIMessageBoxEx } from "xray16";
+import { CUIMessageBoxEx, CUIScriptWnd, Frect, LuabindClass, ui_events, XR_CUIMessageBoxEx } from "xray16";
 
 import { info_portions } from "@/mod/globals/info_portions";
 import { Optional } from "@/mod/lib/types";

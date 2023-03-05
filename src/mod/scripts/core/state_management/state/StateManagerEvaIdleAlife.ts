@@ -1,4 +1,4 @@
-import { property_evaluator } from "xray16";
+import { LuabindClass, property_evaluator, XR_action_planner } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { Optional } from "@/mod/lib/types";
@@ -16,32 +16,38 @@ const logger: LuaLogger = new LuaLogger("StateManagerEvaIdleAlife", gameConfig.D
 @LuabindClass()
 export class StateManagerEvaIdleAlife extends property_evaluator {
   private readonly stateManager: StateManager;
-  private t: Optional<number> = null;
+  private currentActionId: Optional<number> = null;
 
+  /**
+   * todo;
+   */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaIdleAlife.__name);
     this.stateManager = stateManager;
   }
 
+  /**
+   * todo;
+   */
   public override evaluate(): boolean {
     if (!this.object.alive()) {
       return true;
     }
 
-    const mgr = this.object.motivation_action_manager();
+    const actionPlanner: XR_action_planner = this.object.motivation_action_manager();
 
-    this.t = null;
+    this.currentActionId = null;
 
-    if (mgr.initialized()) {
-      this.t = mgr.current_action_id();
-      if (this.t !== action_ids.alife) {
+    if (actionPlanner.initialized()) {
+      this.currentActionId = actionPlanner.current_action_id();
+      if (this.currentActionId !== action_ids.alife) {
         this.stateManager.alife = false;
       }
     }
 
     // --    if db.storage[this.st.npc:id()].active_section === null then
     if (!isObjectMeeting(this.object)) {
-      const t =
+      const isAlifeIdle =
         this.stateManager.target_state === "idle" &&
         // --not this.st.planner.evaluator(this.st.properties["locked"]).evaluate() and
         !this.stateManager.planner.evaluator(EStateManagerProperty.weapon_locked).evaluate() &&
@@ -52,7 +58,7 @@ export class StateManagerEvaIdleAlife extends property_evaluator {
         this.stateManager.planner.evaluator(EStateManagerProperty.animation).evaluate() &&
         this.stateManager.planner.evaluator(EStateManagerProperty.smartcover).evaluate();
 
-      if (t === true) {
+      if (isAlifeIdle === true) {
         this.stateManager.alife = true;
       }
 
@@ -60,11 +66,9 @@ export class StateManagerEvaIdleAlife extends property_evaluator {
         return true;
       }
 
-      return t;
+      return isAlifeIdle;
     } else {
       return false;
     }
-    // --    end
-    // --    return true
   }
 }

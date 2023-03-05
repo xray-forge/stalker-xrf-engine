@@ -1,4 +1,4 @@
-import { property_evaluator } from "xray16";
+import { LuabindClass, property_evaluator } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
@@ -16,17 +16,18 @@ const logger: LuaLogger = new LuaLogger(
 export class StateManagerEvaAnimationLocked extends property_evaluator {
   public readonly stateManager: StateManager;
 
+  /**
+   * todo;
+   */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaAnimationLocked.__name);
     this.stateManager = stateManager;
   }
 
+  /**
+   * todo;
+   */
   public override evaluate(): boolean {
-    // tostring(self.st.fast_set), tostring(self.st.animation.states.anim_marker), tostring(self.st.animation.sid))
-    // --    if self.st.fast_set === true then
-    // --        return false
-    // --    end
-
     return this.stateManager.animation.states.anim_marker !== null;
   }
 }

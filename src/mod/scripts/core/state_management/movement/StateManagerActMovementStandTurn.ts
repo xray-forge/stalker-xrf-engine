@@ -1,4 +1,4 @@
-import { action_base, move } from "xray16";
+import { action_base, LuabindClass, move } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { turn } from "@/mod/scripts/core/state_management/direction/StateManagerDirection";
@@ -17,21 +17,33 @@ const logger: LuaLogger = new LuaLogger(
 export class StateManagerActMovementStandTurn extends action_base {
   public readonly stateManager: StateManager;
 
+  /**
+   * todo;
+   */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerActMovementStandTurn.__name);
     this.stateManager = stateManager;
   }
 
+  /**
+   * todo;
+   */
   public override initialize(): void {
     super.initialize();
     turn(this.object, this.stateManager);
     this.object.set_movement_type(move.stand);
   }
 
+  /**
+   * todo;
+   */
   public override execute(): void {
     super.execute();
   }
 
+  /**
+   * todo;
+   */
   public override finalize(): void {
     super.finalize();
   }

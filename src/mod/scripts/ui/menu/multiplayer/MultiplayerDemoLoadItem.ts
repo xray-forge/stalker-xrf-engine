@@ -2,6 +2,7 @@ import {
   CUIListBoxItemMsgChain,
   GetARGB,
   GetFontLetterica16Russian,
+  LuabindClass,
   ui_events,
   vector2,
   XR_CUI3tButton,
@@ -43,6 +44,6 @@ export class MultiplayerDemoLoadItem extends CUIListBoxItemMsgChain {
     this.delete_button = owner.xml.Init3tButton("delete_demo_button", this);
 
     handler.Register(this.delete_button, "delete_demo_button");
-    handler.AddCallback("delete_demo_button", ui_events.BUTTON_CLICKED, () => owner.DeleteSelectedDemo(), owner);
+    handler.AddCallback("delete_demo_button", ui_events.BUTTON_CLICKED, () => owner.deleteSelectedDemo(), owner);
   }
 }

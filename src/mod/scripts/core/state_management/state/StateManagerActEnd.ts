@@ -1,15 +1,15 @@
-import { action_base, game_object, level, object, time_global } from "xray16";
+import { action_base, game_object, level, LuabindClass, object, time_global } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
-import { Optional } from "@/mod/lib/types";
+import { Optional, TRate } from "@/mod/lib/types";
 import { states } from "@/mod/scripts/core/state_management/lib/state_lib";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
 import { get_idle_state, get_queue_params } from "@/mod/scripts/core/state_management/weapon/StateManagerWeapon";
 import { isStalker, isWeapon } from "@/mod/scripts/utils/checkers/is";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const aim_ratio: number = 1000 / 50;
-const min_ratio: number = 1500;
+const aim_ratio: TRate = 1000 / 50;
+const min_ratio: TRate = 1500;
 
 const logger: LuaLogger = new LuaLogger("StateManagerActEnd", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
@@ -20,25 +20,39 @@ const logger: LuaLogger = new LuaLogger("StateManagerActEnd", gameConfig.DEBUG.I
 export class StateManagerActEnd extends action_base {
   public readonly stateManager: StateManager;
 
+  /**
+   * todo;
+   */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerActEnd.__name);
     this.stateManager = stateManager;
   }
 
+  /**
+   * todo;
+   */
   public override initialize(): void {
     super.initialize();
   }
 
+  /**
+   * todo;
+   */
   public override execute(): void {
     super.execute();
-
     this.weapon_update();
   }
 
+  /**
+   * todo;
+   */
   public override finalize(): void {
     super.finalize();
   }
 
+  /**
+   * todo;
+   */
   public weapon_update(): void {
     if (this.stateManager.callback !== null) {
       if (this.stateManager.callback!.begin === null) {

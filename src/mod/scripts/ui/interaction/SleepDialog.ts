@@ -6,6 +6,7 @@ import {
   game,
   get_console,
   level,
+  LuabindClass,
   ui_events,
   vector2,
   XR_CConsole,

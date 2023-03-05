@@ -1,6 +1,7 @@
 import {
   alife,
   command_line,
+  LuabindClass,
   object_binder,
   XR_cse_alife_object,
   XR_game_object,
@@ -26,19 +27,31 @@ export class LevelChangerBinder extends object_binder {
     super(object);
   }
 
+  /**
+   * todo;
+   */
   public override update(delta: number): void {
     super.update(delta);
   }
 
+  /**
+   * todo;
+   */
   public override reload(section: TSection): void {
     super.reload(section);
   }
 
+  /**
+   * todo;
+   */
   public override reinit(): void {
     super.reinit();
     resetObject(this.object);
   }
 
+  /**
+   * todo;
+   */
   public override net_spawn(cse_object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(cse_object)) {
       return false;
@@ -62,16 +75,25 @@ export class LevelChangerBinder extends object_binder {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public override net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
     deleteObject(this.object);
     super.net_destroy();
   }
 
+  /**
+   * todo;
+   */
   public override net_save_relevant(): boolean {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, LevelChangerBinder.__name);
 
@@ -81,6 +103,9 @@ export class LevelChangerBinder extends object_binder {
     setSaveMarker(packet, true, LevelChangerBinder.__name);
   }
 
+  /**
+   * todo;
+   */
   public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, LevelChangerBinder.__name);
 

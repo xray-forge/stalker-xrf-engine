@@ -1,6 +1,15 @@
-import { action_base, danger_object, game_object, move, time_global, XR_game_object, XR_vector } from "xray16";
+import {
+  action_base,
+  danger_object,
+  game_object,
+  LuabindClass,
+  move,
+  time_global,
+  XR_game_object,
+  XR_vector,
+} from "xray16";
 
-import { AnyObject, Optional } from "@/mod/lib/types";
+import { AnyObject, Optional, TCount, TIndex } from "@/mod/lib/types";
 import { ISchemeCombatState } from "@/mod/scripts/core/schemes/combat";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { sendToNearestAccessibleVertex } from "@/mod/scripts/utils/alife";
@@ -30,11 +39,17 @@ export class ActionZombieGoToDanger extends action_base {
   public enemy_last_seen_pos: Optional<XR_vector> = null;
   public enemy_last_seen_vid: Optional<number> = null;
 
+  /**
+   * todo;
+   */
   public constructor(state: ISchemeCombatState) {
     super(null, ActionZombieGoToDanger.__name);
     this.state = state;
   }
 
+  /**
+   * todo;
+   */
   public override initialize(): void {
     super.initialize();
 
@@ -50,6 +65,9 @@ export class ActionZombieGoToDanger extends action_base {
     this.state.cur_act = act_danger;
   }
 
+  /**
+   * todo;
+   */
   public setState(state: string, bestEnemy: Optional<XR_game_object>, pos: Optional<XR_vector>): void {
     if (state !== this.last_state) {
       this.t.look_object = bestEnemy;
@@ -59,6 +77,9 @@ export class ActionZombieGoToDanger extends action_base {
     }
   }
 
+  /**
+   * todo;
+   */
   public override execute(): void {
     super.execute();
 
@@ -90,17 +111,23 @@ export class ActionZombieGoToDanger extends action_base {
     }
   }
 
+  /**
+   * todo;
+   */
   public override finalize(): void {
     super.finalize();
     this.state.cur_act = null;
   }
 
+  /**
+   * todo;
+   */
   public hit_callback(
     object: XR_game_object,
-    amount: number,
+    amount: TCount,
     direction: XR_vector,
     who: XR_game_object,
-    bone_id: number
+    bone_id: TIndex
   ): void {
     if (who === null) {
       return;

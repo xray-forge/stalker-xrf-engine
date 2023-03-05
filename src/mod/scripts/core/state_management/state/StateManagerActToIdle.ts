@@ -1,6 +1,7 @@
-import { action_base, game_object } from "xray16";
+import { action_base, game_object, LuabindClass } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
+import { TName } from "@/mod/lib/types";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
 import { sendToNearestAccessibleVertex } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -14,14 +15,19 @@ const logger: LuaLogger = new LuaLogger("StateManagerActToIdle", gameConfig.DEBU
 export class StateManagerActToIdle extends action_base {
   public readonly stateManager: StateManager;
 
-  public constructor(stateManager: StateManager, name?: string) {
+  /**
+   * todo;
+   */
+  public constructor(stateManager: StateManager, name?: TName) {
     super(null, name || StateManagerActToIdle.__name);
     this.stateManager = stateManager;
   }
 
+  /**
+   * todo;
+   */
   public override initialize(): void {
     super.initialize();
-    // --'    this.object:movement_enabled(true)
 
     this.object.inactualize_patrol_path();
 
@@ -44,11 +50,17 @@ export class StateManagerActToIdle extends action_base {
     this.object.set_path_type(game_object.level_path);
   }
 
+  /**
+   * todo;
+   */
   public override finalize(): void {
     this.stateManager.current_object = -1;
     super.finalize();
   }
 
+  /**
+   * todo;
+   */
   public override execute(): void {
     sendToNearestAccessibleVertex(this.object, this.object.level_vertex_id());
     this.object.set_path_type(game_object.level_path);

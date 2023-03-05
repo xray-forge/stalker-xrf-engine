@@ -11,6 +11,7 @@ import {
   Frect,
   game,
   login_operation_cb,
+  LuabindClass,
   store_operation_cb,
   suggest_nicks_cb,
   TXR_DIK_key,

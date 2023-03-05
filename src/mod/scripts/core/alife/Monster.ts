@@ -2,6 +2,7 @@ import {
   alife,
   cse_alife_monster_base,
   level,
+  LuabindClass,
   XR_cse_alife_creature_abstract,
   XR_ini_file,
   XR_net_packet,
@@ -32,17 +33,21 @@ const logger: LuaLogger = new LuaLogger("Monster");
 @LuabindClass()
 export class Monster extends cse_alife_monster_base {
   public ini: Optional<XR_ini_file> = null;
-
   public min_distance: number = 150;
   public m_registred: boolean = false;
-
   public job_online: Optional<number> = null;
 
+  /**
+   * todo;
+   */
   public constructor(section: TSection) {
     super(section);
     hardResetOfflineObject(this.id);
   }
 
+  /**
+   * todo;
+   */
   public override can_switch_offline(): boolean {
     if (this.group_id !== MAX_UNSIGNED_16_BIT) {
       return true;
@@ -51,6 +56,9 @@ export class Monster extends cse_alife_monster_base {
     return super.can_switch_offline();
   }
 
+  /**
+   * todo;
+   */
   public override can_switch_online(): boolean {
     if (this.group_id !== MAX_UNSIGNED_16_BIT) {
       return true;
@@ -59,20 +67,32 @@ export class Monster extends cse_alife_monster_base {
     return super.can_switch_online();
   }
 
+  /**
+   * todo;
+   */
   public override switch_online(): void {
     logger.info("Switch online:", this.name());
     super.switch_online();
   }
 
+  /**
+   * todo;
+   */
   public override switch_offline(): void {
     logger.info("Switch offline:", this.name());
     super.switch_offline();
   }
 
+  /**
+   * todo;
+   */
   public override update(): void {
     super.update();
   }
 
+  /**
+   * todo;
+   */
   public override STATE_Write(packet: XR_net_packet): void {
     super.STATE_Write(packet);
 
@@ -87,6 +107,9 @@ export class Monster extends cse_alife_monster_base {
     packet.w_stringZ(tostring(registry.offlineObjects.get(this.id)?.active_section));
   }
 
+  /**
+   * todo;
+   */
   public override STATE_Read(packet: XR_net_packet, size: number): void {
     super.STATE_Read(packet, size);
 
@@ -100,8 +123,14 @@ export class Monster extends cse_alife_monster_base {
     }
   }
 
+  /**
+   * todo;
+   */
   public override on_before_register(): void {}
 
+  /**
+   * todo;
+   */
   public override on_register(): void {
     super.on_register();
     logger.info("Register:", this.id, this.name(), this.section_name());
@@ -126,6 +155,9 @@ export class Monster extends cse_alife_monster_base {
     alife().object<SmartTerrain>(smart_obj.id)!.register_npc(this);
   }
 
+  /**
+   * todo;
+   */
   public override on_unregister(): void {
     logger.info("Unregister:", this.name());
 
@@ -144,6 +176,9 @@ export class Monster extends cse_alife_monster_base {
     super.on_unregister();
   }
 
+  /**
+   * todo;
+   */
   public override on_death(killer: XR_cse_alife_creature_abstract): void {
     logger.info("On death:", this.name(), killer?.name());
 

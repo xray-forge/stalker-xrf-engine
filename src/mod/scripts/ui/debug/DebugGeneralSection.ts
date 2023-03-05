@@ -2,6 +2,7 @@ import {
   command_line,
   CScriptXmlInit,
   CUIWindow,
+  LuabindClass,
   ui_events,
   XR_CScriptXmlInit,
   XR_CUIScriptWnd,

@@ -1,6 +1,7 @@
 import {
   CScriptXmlInit,
   CUIWindow,
+  LuabindClass,
   ui_events,
   XR_CScriptXmlInit,
   XR_CUIComboBox,
@@ -16,6 +17,9 @@ import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 const base: string = "menu\\debug\\DevDebugUiSection.component";
 const logger: LuaLogger = new LuaLogger("DevDebugUiSection");
 
+/**
+ * todo;
+ */
 @LuabindClass()
 export class DevDebugUiSection extends CUIWindow {
   public owner: XR_CUIScriptWnd;
@@ -29,17 +33,23 @@ export class DevDebugUiSection extends CUIWindow {
   public texturesListSquareSmallDisplay!: XR_CUIStatic;
   public texturesListSquareMiniDisplay!: XR_CUIStatic;
 
+  /**
+   * todo;
+   */
   public constructor(owner: XR_CUIScriptWnd) {
     super();
 
     this.owner = owner;
 
-    this.InitControls();
-    this.InitCallBacks();
+    this.initControls();
+    this.initCallBacks();
     this.InitData();
   }
 
-  public InitControls(): void {
+  /**
+   * todo;
+   */
+  public initControls(): void {
     logger.info("Init controls");
 
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
@@ -59,19 +69,28 @@ export class DevDebugUiSection extends CUIWindow {
     this.owner.Register(this.texturesListFilter, "textures_list_filter");
   }
 
-  public InitCallBacks(): void {
+  /**
+   * todo;
+   */
+  public initCallBacks(): void {
     logger.info("Init callbacks");
 
     this.owner.AddCallback("textures_list", ui_events.LIST_ITEM_SELECT, () => this.onTextureListChange(), this);
-    this.owner.AddCallback("textures_list_filter", ui_events.EDIT_TEXT_COMMIT, () => this.UpdateTexturesList(), this);
+    this.owner.AddCallback("textures_list_filter", ui_events.EDIT_TEXT_COMMIT, () => this.updateTexturesList(), this);
   }
 
+  /**
+   * todo;
+   */
   public InitData(): void {
     logger.info("Init data");
-    this.InitTexturesList();
+    this.initTexturesList();
   }
 
-  public InitTexturesList(): void {
+  /**
+   * todo;
+   */
+  public initTexturesList(): void {
     const filterMask: string = this.texturesListFilter.GetText();
     const hasMask: boolean = filterMask !== null && filterMask !== "";
 
@@ -87,11 +106,17 @@ export class DevDebugUiSection extends CUIWindow {
     });
   }
 
-  public UpdateTexturesList(): void {
+  /**
+   * todo;
+   */
+  public updateTexturesList(): void {
     this.texturesList.ClearList();
-    this.InitTexturesList();
+    this.initTexturesList();
   }
 
+  /**
+   * todo;
+   */
   public onTextureListChange(): void {
     const texture: string = this.texturesList.GetText();
 

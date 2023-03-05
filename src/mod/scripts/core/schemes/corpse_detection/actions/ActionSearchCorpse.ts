@@ -1,4 +1,4 @@
-import { action_base, XR_vector } from "xray16";
+import { action_base, LuabindClass, XR_vector } from "xray16";
 
 import { registry } from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
@@ -11,6 +11,9 @@ import { ISchemeCorpseDetectionState } from "@/mod/scripts/core/schemes/corpse_d
 export class ActionSearchCorpse extends action_base {
   public readonly state: ISchemeCorpseDetectionState;
 
+  /**
+   * todo;
+   */
   public constructor(state: ISchemeCorpseDetectionState) {
     super(null, ActionSearchCorpse.__name);
     this.state = state;

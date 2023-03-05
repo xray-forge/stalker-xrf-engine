@@ -1,4 +1,4 @@
-import { property_evaluator, stalker_ids, XR_action_planner, XR_game_object } from "xray16";
+import { LuabindClass, property_evaluator, stalker_ids, XR_action_planner, XR_game_object } from "xray16";
 
 import { STRINGIFIED_FALSE } from "@/mod/globals/lua";
 import { Optional } from "@/mod/lib/types";

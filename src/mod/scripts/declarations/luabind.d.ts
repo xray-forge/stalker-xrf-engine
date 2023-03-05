@@ -10,8 +10,3 @@ declare const declare_global: (key: string, value: unknown) => void;
  * todo: Remove after TS migration.
  */
 declare const get_global: <T = any>(key: string) => T;
-
-/**
- * todo;
- */
-declare const LuabindClass: () => ClassDecorator;

@@ -3,6 +3,7 @@ import {
   CUIListBoxItem,
   GetARGB,
   GetFontLetterica16Russian,
+  LuabindClass,
   vector2,
   XR_CUIStatic,
   XR_CUITextWnd,

@@ -1,4 +1,4 @@
-import { action_base, patrol, XR_game_object } from "xray16";
+import { action_base, LuabindClass, patrol, XR_game_object } from "xray16";
 
 import { AnyCallable, LuaArray, Optional } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";

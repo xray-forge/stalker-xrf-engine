@@ -6,6 +6,7 @@ import {
   game_object,
   level,
   look,
+  LuabindClass,
   move,
   object,
   time_global,

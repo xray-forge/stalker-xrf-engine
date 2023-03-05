@@ -8,6 +8,7 @@ import {
   getFS,
   ini_file,
   level,
+  LuabindClass,
   time_global,
   XR_CALifeSmartTerrainTask,
   XR_cse_alife_creature_abstract,

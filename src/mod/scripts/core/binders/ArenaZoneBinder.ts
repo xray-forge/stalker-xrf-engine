@@ -2,6 +2,7 @@ import {
   alife,
   callback,
   clsid,
+  LuabindClass,
   object_binder,
   XR_alife_simulator,
   XR_cse_alife_object,
@@ -27,11 +28,17 @@ const logger: LuaLogger = new LuaLogger("ArenaZoneBinder");
 export class ArenaZoneBinder extends object_binder {
   public saved_obj: LuaTable<number, boolean> = new LuaTable();
 
+  /**
+   * todo;
+   */
   public constructor(object: XR_game_object) {
     super(object);
     arena_zones.set(object.name(), this);
   }
 
+  /**
+   * todo;
+   */
   public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
@@ -43,6 +50,9 @@ export class ArenaZoneBinder extends object_binder {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public override net_destroy(): void {
     this.object.set_callback(callback.zone_enter, null);
     this.object.set_callback(callback.zone_exit, null);
@@ -50,6 +60,9 @@ export class ArenaZoneBinder extends object_binder {
     super.net_destroy();
   }
 
+  /**
+   * todo;
+   */
   public purge_items(): void {
     const sim: XR_alife_simulator = alife();
 
@@ -60,6 +73,9 @@ export class ArenaZoneBinder extends object_binder {
     }
   }
 
+  /**
+   * todo;
+   */
   public override save(packet: XR_net_packet): void {
     super.save(packet);
 
@@ -74,6 +90,9 @@ export class ArenaZoneBinder extends object_binder {
     setSaveMarker(packet, true, ArenaZoneBinder.__name);
   }
 
+  /**
+   * todo;
+   */
   public override load(reader: XR_reader): void {
     super.load(reader);
 
@@ -88,6 +107,9 @@ export class ArenaZoneBinder extends object_binder {
     setLoadMarker(reader, false, ArenaZoneBinder.__name);
   }
 
+  /**
+   * todo;
+   */
   public on_enter(zone: XR_game_object, object: XR_game_object): void {
     if (
       object.id() === registry.actor.id() ||
@@ -101,6 +123,9 @@ export class ArenaZoneBinder extends object_binder {
     this.saved_obj.set(object.id(), true);
   }
 
+  /**
+   * todo;
+   */
   public on_exit(zone: XR_game_object, object: XR_game_object): void {
     if (
       object.id() === registry.actor.id() ||
@@ -115,6 +140,9 @@ export class ArenaZoneBinder extends object_binder {
   }
 }
 
+/**
+ * todo;
+ */
 export function purge_arena_items(name: string): void {
   logger.info("Purge are zone items:", name);
 

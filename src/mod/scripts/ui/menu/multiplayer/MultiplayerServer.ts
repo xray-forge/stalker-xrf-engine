@@ -1,4 +1,4 @@
-import { CUIWindow, XR_CScriptXmlInit, XR_CUIMapInfo, XR_CUIStatic } from "xray16";
+import { CUIWindow, LuabindClass, XR_CScriptXmlInit, XR_CUIMapInfo, XR_CUIStatic } from "xray16";
 
 import { MultiplayerMenu } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerMenu";
 

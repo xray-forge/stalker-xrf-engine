@@ -1,4 +1,4 @@
-import { action_base } from "xray16";
+import { action_base, LuabindClass } from "xray16";
 
 import { ISchemeHelpWoundedState } from "@/mod/scripts/core/schemes/help_wounded";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";

@@ -7,6 +7,7 @@ import {
   DIK_keys,
   Frect,
   login_operation_cb,
+  LuabindClass,
   TXR_DIK_key,
   TXR_ui_event,
   ui_events,
@@ -43,16 +44,22 @@ export class MultiplayerLocalnet extends CUIScriptWnd {
   public gs_login_message_box!: XR_CUIMessageBoxEx;
   public lp_check_remember_me!: XR_CUICheckButton;
 
+  /**
+   * todo;
+   */
   public constructor(owner: MainMenu) {
     super();
 
     this.owner = owner;
 
-    this.InitControls();
-    this.InitCallbacks();
+    this.initControls();
+    this.initCallbacks();
   }
 
-  public InitControls(): void {
+  /**
+   * todo;
+   */
+  public initControls(): void {
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
     xml.ParseFile(resolveXmlFormPath(base));
@@ -88,24 +95,33 @@ export class MultiplayerLocalnet extends CUIScriptWnd {
     this.lp_nickname.CaptureFocus(true);
   }
 
-  public InitCallbacks(): void {
-    this.AddCallback("btn_login", ui_events.BUTTON_CLICKED, () => this.OnBtnLogin(), this);
-    this.AddCallback("btn_cancel", ui_events.BUTTON_CLICKED, () => this.OnBtnCancel(), this);
-    this.AddCallback("lp_check_remember_me", ui_events.BUTTON_CLICKED, () => this.OnBtnRememberMe(), this);
-    this.AddCallback("lp_edit_nickname", ui_events.EDIT_TEXT_COMMIT, () => this.OnEditLPNicknameChanged(), this);
-    this.AddCallback("gs_message_box", ui_events.MESSAGE_BOX_OK_CLICKED, () => this.OnMsgOk(), this);
+  /**
+   * todo;
+   */
+  public initCallbacks(): void {
+    this.AddCallback("btn_login", ui_events.BUTTON_CLICKED, () => this.onBtnLogin(), this);
+    this.AddCallback("btn_cancel", ui_events.BUTTON_CLICKED, () => this.onBtnCancel(), this);
+    this.AddCallback("lp_check_remember_me", ui_events.BUTTON_CLICKED, () => this.onBtnRememberMe(), this);
+    this.AddCallback("lp_edit_nickname", ui_events.EDIT_TEXT_COMMIT, () => this.onEditLPNicknameChanged(), this);
+    this.AddCallback("gs_message_box", ui_events.MESSAGE_BOX_OK_CLICKED, () => this.onMsgOk(), this);
   }
 
-  public OnBtnLogin(): void {
+  /**
+   * todo;
+   */
+  public onBtnLogin(): void {
     logger.info("On button login");
 
     this.owner.xrLoginManager.login_offline(
       this.lp_nickname.GetText(),
-      new login_operation_cb(this, (profile, description) => this.LoginOperationResult(profile, description))
+      new login_operation_cb(this, (profile, description) => this.loginOperationResult(profile, description))
     );
   }
 
-  public LoginOperationResult(profile: Optional<XR_profile>, description: string) {
+  /**
+   * todo;
+   */
+  public loginOperationResult(profile: Optional<XR_profile>, description: string) {
     logger.info("Login operation result:", type(profile), type(description));
 
     if (profile === null) {
@@ -136,32 +152,47 @@ export class MultiplayerLocalnet extends CUIScriptWnd {
     }
   }
 
-  public OnMsgOk(): void {
+  /**
+   * todo;
+   */
+  public onMsgOk(): void {
     logger.info("On message ok");
   }
 
-  public OnBtnCancel(): void {
+  /**
+   * todo;
+   */
+  public onBtnCancel(): void {
     logger.info("On button cancel");
     this.HideDialog();
     this.owner.ShowDialog(true);
     this.owner.Show(true);
   }
 
-  public OnBtnRememberMe(): void {
+  /**
+   * todo;
+   */
+  public onBtnRememberMe(): void {
     logger.info("On button remember me");
     this.owner.xrLoginManager.save_remember_me_to_registry(this.lp_check_remember_me.GetCheck());
   }
 
-  public OnEditLPNicknameChanged(): void {
-    this.OnBtnLogin();
+  /**
+   * todo;
+   */
+  public onEditLPNicknameChanged(): void {
+    this.onBtnLogin();
   }
 
+  /**
+   * todo;
+   */
   public override OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event) {
     super.OnKeyboard(key, event);
 
     if (event === ui_events.WINDOW_KEY_PRESSED) {
       if (key === DIK_keys.DIK_ESCAPE) {
-        this.OnBtnCancel();
+        this.onBtnCancel();
       }
     }
 

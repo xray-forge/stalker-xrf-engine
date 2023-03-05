@@ -1,4 +1,4 @@
-import { property_evaluator, XR_game_object } from "xray16";
+import { LuabindClass, property_evaluator, XR_game_object } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { ISchemeCombatState } from "@/mod/scripts/core/schemes/combat";
@@ -13,11 +13,17 @@ const logger: LuaLogger = new LuaLogger("EvaluatorSee");
 export class EvaluatorSee extends property_evaluator {
   public readonly state: ISchemeCombatState;
 
+  /**
+   * todo;
+   */
   public constructor(storage: ISchemeCombatState) {
     super(null, EvaluatorSee.__name);
     this.state = storage;
   }
 
+  /**
+   * todo;
+   */
   public override evaluate(): boolean {
     const bestEnemy: Optional<XR_game_object> = this.object.best_enemy();
 

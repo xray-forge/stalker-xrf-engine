@@ -12,6 +12,7 @@ import {
   get_console,
   level,
   login_operation_cb,
+  LuabindClass,
   main_menu,
   SServerFilters,
   TXR_DIK_key,
@@ -187,7 +188,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
     wrk_area.AttachChild(this.dlg_server);
 
     this.dlg_demo = new MultiplayerDemo();
-    this.dlg_demo.InitControls(0, 0, xml, this);
+    this.dlg_demo.initControls(0, 0, xml, this);
     this.dlg_demo.Show(false);
     wrk_area.AttachChild(this.dlg_demo);
 
@@ -318,28 +319,28 @@ export class MultiplayerMenu extends CUIScriptWnd {
     this.AddCallback(
       "demo_list_window",
       ui_events.LIST_ITEM_CLICKED,
-      () => this.dlg_demo.SelectDemoFile(),
+      () => this.dlg_demo.selectDemoFile(),
       this.dlg_demo
     );
     this.AddCallback(
       "demo_list_window",
       ui_events.WINDOW_LBUTTON_DB_CLICK,
-      () => this.dlg_demo.PlaySelectedDemo(),
+      () => this.dlg_demo.playSelectedDemo(),
       this.dlg_demo
     );
 
-    this.AddCallback("btn_play_demo", ui_events.BUTTON_CLICKED, () => this.dlg_demo.PlaySelectedDemo(), this.dlg_demo);
-    this.AddCallback("demo_file_name", ui_events.EDIT_TEXT_COMMIT, () => this.dlg_demo.OnRenameDemo(), this.dlg_demo);
+    this.AddCallback("btn_play_demo", ui_events.BUTTON_CLICKED, () => this.dlg_demo.playSelectedDemo(), this.dlg_demo);
+    this.AddCallback("demo_file_name", ui_events.EDIT_TEXT_COMMIT, () => this.dlg_demo.onRenameDemo(), this.dlg_demo);
     this.AddCallback(
       "demo_message_box",
       ui_events.MESSAGE_BOX_YES_CLICKED,
-      () => this.dlg_demo.OnMsgBoxYes(),
+      () => this.dlg_demo.onMsgBoxYes(),
       this.dlg_demo
     );
     this.AddCallback(
       "demo_message_box",
       ui_events.MESSAGE_BOX_OK_CLICKED,
-      () => this.dlg_demo.OnMsgBoxYes(),
+      () => this.dlg_demo.onMsgBoxYes(),
       this.dlg_demo
     );
 
@@ -474,7 +475,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
       this.dlg_server.Show(true);
       this.btn_create.Show(true);
     } else if (id === "demo") {
-      this.dlg_demo.FillList();
+      this.dlg_demo.fillList();
       this.dlg_demo.Show(true);
       this.btn_play_demo.Show(true);
     } else if (id === "profile") {

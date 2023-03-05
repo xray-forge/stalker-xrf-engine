@@ -2,6 +2,7 @@ import {
   CScriptXmlInit,
   CUIScriptWnd,
   DIK_keys,
+  LuabindClass,
   TXR_DIK_key,
   TXR_ui_event,
   ui_events,

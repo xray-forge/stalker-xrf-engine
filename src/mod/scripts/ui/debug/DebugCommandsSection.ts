@@ -2,6 +2,7 @@ import {
   CScriptXmlInit,
   CUIWindow,
   get_console,
+  LuabindClass,
   ui_events,
   XR_CConsole,
   XR_CScriptXmlInit,
@@ -25,20 +26,25 @@ const logger: LuaLogger = new LuaLogger("DebugCommandsSection");
 @LuabindClass()
 export class DebugCommandsSection extends CUIWindow {
   public owner: XR_CUIScriptWnd;
-
   public commandsList!: XR_CUIScrollView;
 
+  /**
+   * todo;
+   */
   public constructor(owner: XR_CUIScriptWnd) {
     super();
 
     this.owner = owner;
 
-    this.InitControls();
-    this.InitCallBacks();
-    this.InitState();
+    this.initControls();
+    this.initCallBacks();
+    this.initState();
   }
 
-  public InitControls(): void {
+  /**
+   * todo;
+   */
+  public initControls(): void {
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
     const console: XR_CConsole = get_console();
 
@@ -46,17 +52,26 @@ export class DebugCommandsSection extends CUIWindow {
 
     this.commandsList = xml.InitScrollView("commands_list", this);
 
-    zero_one_cmds.forEach((it) => this.InitEntry(it, xml, console, "numeric"));
-    on_off_cmds.forEach((it) => this.InitEntry(it, xml, console, "boolean"));
+    zero_one_cmds.forEach((it) => this.initEntry(it, xml, console, "numeric"));
+    on_off_cmds.forEach((it) => this.initEntry(it, xml, console, "boolean"));
   }
 
-  public InitCallBacks(): void {}
+  /**
+   * todo;
+   */
+  public initCallBacks(): void {}
 
-  public InitState(): void {
+  /**
+   * todo;
+   */
+  public initState(): void {
     logger.info("Init state");
   }
 
-  public InitEntry(name: string, xml: XR_CScriptXmlInit, console: XR_CConsole, type: "numeric" | "boolean"): void {
+  /**
+   * todo;
+   */
+  public initEntry(name: string, xml: XR_CScriptXmlInit, console: XR_CConsole, type: "numeric" | "boolean"): void {
     logger.info("Init item:", name);
 
     const item: XR_CUIStatic = xml.InitStatic("command_item", this.commandsList);
@@ -75,9 +90,11 @@ export class DebugCommandsSection extends CUIWindow {
     this.owner.AddCallback(name, ui_events.CHECK_BUTTON_RESET, () => this.onCheckboxChange(check, name, type), this);
   }
 
+  /**
+   * todo;
+   */
   public onCheckboxChange(check: XR_CUICheckButton, name: string, type: "numeric" | "boolean"): void {
     const isEnabled: boolean = check.GetCheck();
-
     let cmd: string = name + " ";
 
     if (type === "boolean") {

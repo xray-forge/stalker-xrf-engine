@@ -1,6 +1,7 @@
 import {
   alife,
   ini_file,
+  LuabindClass,
   object_binder,
   patrol,
   XR_cse_alife_item_artefact,

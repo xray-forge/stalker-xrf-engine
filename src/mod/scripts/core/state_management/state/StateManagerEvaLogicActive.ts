@@ -1,4 +1,4 @@
-import { property_evaluator } from "xray16";
+import { LuabindClass, property_evaluator } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { registry } from "@/mod/scripts/core/database";
@@ -17,12 +17,18 @@ const logger: LuaLogger = new LuaLogger(
 export class StateManagerEvaLogicActive extends property_evaluator {
   private readonly stateManager: StateManager;
 
+  /**
+   * todo;
+   */
   public constructor(state_manager: StateManager) {
     super(null, StateManagerEvaLogicActive.__name);
 
     this.stateManager = state_manager;
   }
 
+  /**
+   * todo;
+   */
   public override evaluate(): boolean {
     return registry.objects.get(this.object.id()).active_section !== null;
   }

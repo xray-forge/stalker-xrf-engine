@@ -1,4 +1,5 @@
 import {
+  LuabindClass,
   object_binder,
   vector,
   XR_CArtefact,
@@ -9,7 +10,7 @@ import {
   XR_physics_shell,
 } from "xray16";
 
-import { Optional } from "@/mod/lib/types";
+import { Optional, TDuration } from "@/mod/lib/types";
 import { AnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
 import { addObject, deleteObject, registry } from "@/mod/scripts/core/database";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -25,10 +26,16 @@ export class ArtefactBinder extends object_binder {
   public delta: number = UPDATE_THROTTLE;
   public isInitializing: boolean = false;
 
+  /**
+   * todo;
+   */
   public constructor(object: XR_game_object) {
     super(object);
   }
 
+  /**
+   * todo;
+   */
   public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
@@ -58,12 +65,18 @@ export class ArtefactBinder extends object_binder {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public override net_destroy(): void {
     deleteObject(this.object);
     super.net_destroy();
   }
 
-  public override update(delta: number): void {
+  /**
+   * todo;
+   */
+  public override update(delta: TDuration): void {
     this.delta += delta;
 
     if (this.delta >= UPDATE_THROTTLE) {

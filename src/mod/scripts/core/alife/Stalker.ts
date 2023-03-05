@@ -2,6 +2,7 @@ import {
   alife,
   cse_alife_human_stalker,
   level,
+  LuabindClass,
   XR_cse_alife_creature_abstract,
   XR_ini_file,
   XR_net_packet,

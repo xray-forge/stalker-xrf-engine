@@ -1,6 +1,7 @@
 import {
   action_base,
   danger_object,
+  LuabindClass,
   patrol,
   stalker_ids,
   time_global,

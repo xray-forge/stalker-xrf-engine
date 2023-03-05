@@ -1,4 +1,4 @@
-import { action_base, anim, move } from "xray16";
+import { action_base, anim, LuabindClass, move } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
@@ -16,11 +16,17 @@ const logger: LuaLogger = new LuaLogger(
 export class StateManagerActBodyStateCrouchDanger extends action_base {
   private readonly stateManager: StateManager;
 
+  /**
+   * todo;
+   */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerActBodyStateCrouchDanger.__name);
     this.stateManager = stateManager;
   }
 
+  /**
+   * todo;
+   */
   public override initialize(): void {
     super.initialize();
 
@@ -28,10 +34,16 @@ export class StateManagerActBodyStateCrouchDanger extends action_base {
     this.object.set_body_state(move.crouch);
   }
 
+  /**
+   * todo;
+   */
   public override execute(): void {
     super.execute();
   }
 
+  /**
+   * todo;
+   */
   public override finalize(): void {
     super.finalize();
   }

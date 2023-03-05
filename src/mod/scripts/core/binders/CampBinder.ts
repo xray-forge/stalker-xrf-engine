@@ -1,5 +1,6 @@
 import {
   ini_file,
+  LuabindClass,
   object_binder,
   XR_cse_alife_object,
   XR_game_object,

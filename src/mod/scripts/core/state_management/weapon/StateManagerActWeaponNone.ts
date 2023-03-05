@@ -1,4 +1,4 @@
-import { action_base, object } from "xray16";
+import { action_base, LuabindClass, object } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
@@ -16,20 +16,32 @@ const logger: LuaLogger = new LuaLogger(
 export class StateManagerActWeaponNone extends action_base {
   private readonly stateManager: StateManager;
 
+  /**
+   * todo;
+   */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerActWeaponNone.__name);
     this.stateManager = stateManager;
   }
 
+  /**
+   * todo;
+   */
   public override initialize(): void {
     super.initialize();
     this.object.set_item(object.idle, null);
   }
 
+  /**
+   * todo;
+   */
   public override execute(): void {
     super.execute();
   }
 
+  /**
+   * todo;
+   */
   public override finalize(): void {
     super.finalize();
   }

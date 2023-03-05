@@ -1,8 +1,9 @@
-import { property_evaluator } from "xray16";
+import { LuabindClass, property_evaluator } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
-import { Optional } from "@/mod/lib/types";
+import { EScheme, Optional, TName } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
+import { ISchemeSmartCoverState } from "@/mod/scripts/core/schemes/smartcover";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -18,18 +19,26 @@ const logger: LuaLogger = new LuaLogger(
 export class StateManagerEvaSmartCover extends property_evaluator {
   private readonly stateManager: StateManager;
 
+  /**
+   * todo;
+   */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaSmartCover.__name);
     this.stateManager = stateManager;
   }
 
+  /**
+   * todo;
+   */
   public override evaluate(): boolean {
-    if (this.stateManager.target_state !== "smartcover") {
+    if (this.stateManager.target_state !== EScheme.SMARTCOVER) {
       return true;
     }
 
-    const stateDescription: any = registry.objects.get(this.object.id())["smartcover"];
-    const destinationSmartCoverName: Optional<string> = this.object.get_dest_smart_cover_name();
+    const stateDescription: Optional<ISchemeSmartCoverState> = registry.objects.get(this.object.id())[
+      EScheme.SMARTCOVER
+    ];
+    const destinationSmartCoverName: Optional<TName> = this.object.get_dest_smart_cover_name();
 
     if (stateDescription === null) {
       return true;

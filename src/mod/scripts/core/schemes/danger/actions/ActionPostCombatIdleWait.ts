@@ -1,4 +1,4 @@
-import { action_base, anim, look, move, object, XR_game_object } from "xray16";
+import { action_base, anim, look, LuabindClass, move, object, XR_game_object } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";

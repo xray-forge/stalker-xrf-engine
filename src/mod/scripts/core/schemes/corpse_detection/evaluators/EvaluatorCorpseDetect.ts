@@ -1,4 +1,4 @@
-import { level, property_evaluator, XR_game_object, XR_vector } from "xray16";
+import { level, LuabindClass, property_evaluator, XR_game_object, XR_vector } from "xray16";
 
 import { communities } from "@/mod/globals/communities";
 import { Optional, TNumberId } from "@/mod/lib/types";
@@ -15,11 +15,17 @@ import { isLootableItem } from "@/mod/scripts/utils/checkers/is";
 export class EvaluatorCorpseDetect extends property_evaluator {
   public readonly state: ISchemeCorpseDetectionState;
 
+  /**
+   * todo;
+   */
   public constructor(state: ISchemeCorpseDetectionState) {
     super(null, EvaluatorCorpseDetect.__name);
     this.state = state;
   }
 
+  /**
+   * todo;
+   */
   public override evaluate(): boolean {
     if (!this.object.alive()) {
       return false;

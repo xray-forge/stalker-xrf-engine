@@ -1,4 +1,4 @@
-import { property_evaluator, stalker_ids, XR_action_planner } from "xray16";
+import { LuabindClass, property_evaluator, stalker_ids, XR_action_planner } from "xray16";
 
 import { STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/mod/globals/lua";
 import { Optional } from "@/mod/lib/types";
@@ -16,11 +16,17 @@ export class EvaluatorWounded extends property_evaluator {
   public readonly state: ISchemeWoundedState;
   public actionPlanner: Optional<XR_action_planner> = null;
 
+  /**
+   * todo;
+   */
   public constructor(state: ISchemeWoundedState) {
     super(null, EvaluatorWounded.__name);
     this.state = state;
   }
 
+  /**
+   * todo;
+   */
   public override evaluate(): boolean {
     if (this.object.in_smart_cover()) {
       return false;

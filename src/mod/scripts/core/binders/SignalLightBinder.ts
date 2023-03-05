@@ -1,4 +1,5 @@
 import {
+  LuabindClass,
   object_binder,
   time_global,
   vector,
@@ -8,7 +9,7 @@ import {
   XR_reader,
 } from "xray16";
 
-import { Optional } from "@/mod/lib/types";
+import { Optional, TDuration } from "@/mod/lib/types";
 import { deleteObject, registry, resetObject } from "@/mod/scripts/core/database";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -27,14 +28,23 @@ export class SignalLightBinder extends object_binder {
   public delta_time: Optional<number> = null;
   public start_time: Optional<number> = null;
 
+  /**
+   * todo;
+   */
   public constructor(object: XR_game_object) {
     super(object);
   }
 
+  /**
+   * todo;
+   */
   public override reload(section: string): void {
     super.reload(section);
   }
 
+  /**
+   * todo;
+   */
   public override reinit(): void {
     super.reinit();
 
@@ -42,7 +52,10 @@ export class SignalLightBinder extends object_binder {
     registry.signalLights.set(this.object.name(), this);
   }
 
-  public override update(delta: number): void {
+  /**
+   * todo;
+   */
+  public override update(delta: TDuration): void {
     super.update(delta);
 
     const obj = this.object;
@@ -99,6 +112,9 @@ export class SignalLightBinder extends object_binder {
     }
   }
 
+  /**
+   * todo;
+   */
   public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
@@ -109,6 +125,9 @@ export class SignalLightBinder extends object_binder {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public override net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
     registry.signalLights.delete(this.object.name());
@@ -116,6 +135,9 @@ export class SignalLightBinder extends object_binder {
     super.net_destroy();
   }
 
+  /**
+   * todo;
+   */
   public launch(): boolean {
     const actor: Optional<XR_game_object> = registry.actor;
 
@@ -140,11 +162,17 @@ export class SignalLightBinder extends object_binder {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public slow_fly(): void {
     this.slow_fly_started = true;
     this.object.set_const_force(new vector().set(0, 1, 0), 30, 20000);
   }
 
+  /**
+   * todo;
+   */
   public stop_light(): void {
     const obj: XR_game_object = this.object;
 
@@ -154,18 +182,30 @@ export class SignalLightBinder extends object_binder {
     obj.get_hanging_lamp().turn_off();
   }
 
+  /**
+   * todo;
+   */
   public stop(): void {
     this.start_time = null;
   }
 
+  /**
+   * todo;
+   */
   public is_flying(): boolean {
     return this.start_time !== null;
   }
 
+  /**
+   * todo;
+   */
   public override net_save_relevant(): boolean {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, SignalLightBinder.__name);
 
@@ -182,6 +222,9 @@ export class SignalLightBinder extends object_binder {
     setSaveMarker(packet, true, SignalLightBinder.__name);
   }
 
+  /**
+   * todo;
+   */
   public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, SignalLightBinder.__name);
 
@@ -189,7 +232,7 @@ export class SignalLightBinder extends object_binder {
 
     const time = reader.r_u32();
 
-    if (time !== 4294967296) {
+    if (time !== 4_294_967_296) {
       this.start_time = time_global() - time;
     }
 

@@ -1,4 +1,4 @@
-import { action_base } from "xray16";
+import { action_base, LuabindClass } from "xray16";
 
 import { registry } from "@/mod/scripts/core/database";
 import { ISchemeAbuseState } from "@/mod/scripts/core/schemes/abuse/ISchemeAbuseState";
@@ -11,16 +11,20 @@ import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 export class ActionAbuseHit extends action_base {
   public readonly state: ISchemeAbuseState;
 
-  public constructor(storage: ISchemeAbuseState) {
+  /**
+   * todo;
+   */
+  public constructor(state: ISchemeAbuseState) {
     super(null, ActionAbuseHit.__name);
-    this.state = storage;
+    this.state = state;
   }
 
+  /**
+   * todo;
+   */
   public override initialize(): void {
     super.initialize();
 
-    // --    this.object.set_node_evaluator()
-    // --    this.object.set_path_evaluator()
     this.object.set_desired_position();
     this.object.set_desired_direction();
 
@@ -30,6 +34,9 @@ export class ActionAbuseHit extends action_base {
     set_state(this.object, "punch", null, null, { look_object: registry.actor }, { animation: true });
   }
 
+  /**
+   * todo;
+   */
   public override execute(): void {
     super.execute();
   }

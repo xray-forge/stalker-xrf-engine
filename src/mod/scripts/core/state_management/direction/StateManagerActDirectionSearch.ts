@@ -1,4 +1,4 @@
-import { action_base, CSightParams } from "xray16";
+import { action_base, CSightParams, LuabindClass } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { look_position_type } from "@/mod/scripts/core/state_management/direction/StateManagerDirection";
@@ -18,11 +18,17 @@ const logger: LuaLogger = new LuaLogger(
 export class StateManagerActDirectionSearch extends action_base {
   public readonly stateManager: StateManager;
 
+  /**
+   * todo;
+   */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerActDirectionSearch.__name);
     this.stateManager = stateManager;
   }
 
+  /**
+   * todo;
+   */
   public override initialize(): void {
     super.initialize();
 
@@ -36,10 +42,16 @@ export class StateManagerActDirectionSearch extends action_base {
     }
   }
 
+  /**
+   * todo;
+   */
   public override execute(): void {
     super.execute();
   }
 
+  /**
+   * todo;
+   */
   public override finalize(): void {
     super.finalize();
   }

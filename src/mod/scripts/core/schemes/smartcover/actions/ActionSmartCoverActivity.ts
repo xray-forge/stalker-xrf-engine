@@ -1,4 +1,4 @@
-import { action_base, level, patrol, XR_game_object, XR_vector } from "xray16";
+import { action_base, level, LuabindClass, patrol, XR_game_object, XR_vector } from "xray16";
 
 import { Optional, StringOptional } from "@/mod/lib/types";
 import { registered_smartcovers } from "@/mod/scripts/core/alife/SmartCover";

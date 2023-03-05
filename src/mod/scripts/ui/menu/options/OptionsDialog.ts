@@ -7,6 +7,7 @@ import {
   Frect,
   get_console,
   is_enough_address_space_available,
+  LuabindClass,
   main_menu,
   TXR_DIK_key,
   TXR_ui_event,

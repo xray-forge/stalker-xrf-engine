@@ -7,6 +7,7 @@ import {
   game,
   get_console,
   getFS,
+  LuabindClass,
   main_menu,
   vector2,
   XR_CScriptXmlInit,
@@ -22,7 +23,7 @@ import {
 } from "xray16";
 
 import { textures } from "@/mod/globals/textures";
-import { Optional } from "@/mod/lib/types";
+import { Optional, TName } from "@/mod/lib/types";
 import { MultiplayerDemoLoadItem } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerDemoLoadItem";
 import { MultiplayerDemoPlayerInfo } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerDemoPlayerInfo";
 import { MultiplayerDemoPlayerStatsItem } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerDemoPlayerStatsItem";
@@ -61,7 +62,10 @@ export class MultiplayerDemo extends CUIWindow {
   public message_box!: XR_CUIMessageBoxEx;
   public players_list!: XR_CUIListBox;
 
-  public InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: MultiplayerMenu): void {
+  /**
+   * todo;
+   */
+  public initControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: MultiplayerMenu): void {
     this.SetAutoDelete(true);
     this.owner = handler;
     this.xml = xml;
@@ -124,7 +128,10 @@ export class MultiplayerDemo extends CUIWindow {
     handler.Register(this.demo_list, "demo_list_window");
   }
 
-  public FillList(): void {
+  /**
+   * todo;
+   */
+  public fillList(): void {
     this.demo_list.RemoveAll();
 
     const f = getFS();
@@ -139,13 +146,16 @@ export class MultiplayerDemo extends CUIWindow {
       const date_time: string = "[" + file.ModifDigitOnly() + "]";
 
       // --menu_item =  +
-      this.AddItemToList(file_name, date_time);
+      this.addItemToList(file_name, date_time);
     }
 
-    this.UpdateDemoInfo("");
+    this.updateDemoInfo("");
   }
 
-  public AddItemToList(file_name: string, date_time: string): void {
+  /**
+   * todo;
+   */
+  public addItemToList(file_name: string, date_time: string): void {
     const demoLoadItem: MultiplayerDemoLoadItem = new MultiplayerDemoLoadItem(
       this,
       this.file_item_fn_sz.y,
@@ -161,7 +171,10 @@ export class MultiplayerDemo extends CUIWindow {
     this.demo_list.AddExistingItem(demoLoadItem);
   }
 
-  public GetRankTextureName(playerInfo: MultiplayerDemoPlayerInfo): string {
+  /**
+   * todo;
+   */
+  public getRankTextureName(playerInfo: MultiplayerDemoPlayerInfo): string {
     let texture_name = "ui_hud_status_";
 
     if (playerInfo.rank > 4 || playerInfo.rank < 0) {
@@ -179,7 +192,10 @@ export class MultiplayerDemo extends CUIWindow {
     return texture_name;
   }
 
-  public GetMapTextureName(map_name: string): string {
+  /**
+   * todo;
+   */
+  public getMapTextureName(map_name: TName): string {
     const texture_name: string = "intro\\intro_map_pic_" + map_name;
 
     if (fileExists("$game_textures$", texture_name + ".dds")) {
@@ -189,7 +205,10 @@ export class MultiplayerDemo extends CUIWindow {
     return textures.ui_ui_noise;
   }
 
-  public AddPlayerToStats(player_stats: MultiplayerDemoPlayerInfo): void {
+  /**
+   * todo;
+   */
+  public addPlayerToStats(player_stats: MultiplayerDemoPlayerInfo): void {
     logger.info("Add player to stats");
 
     const itm: MultiplayerDemoPlayerStatsItem = new MultiplayerDemoPlayerStatsItem(
@@ -206,7 +225,7 @@ export class MultiplayerDemo extends CUIWindow {
     itm.artefacts.SetText(tostring(player_stats.artefacts));
     itm.spots.SetText(tostring(player_stats.spots));
 
-    const rank_texture_name: string = this.GetRankTextureName(player_stats);
+    const rank_texture_name: string = this.getRankTextureName(player_stats);
 
     if (rank_texture_name !== "") {
       itm.rank.InitTexture(rank_texture_name);
@@ -215,7 +234,10 @@ export class MultiplayerDemo extends CUIWindow {
     this.players_list.AddExistingItem(itm);
   }
 
-  public SelectDemoFile(): void {
+  /**
+   * todo;
+   */
+  public selectDemoFile(): void {
     logger.info("Select demo file");
 
     const item: Optional<MultiplayerDemoLoadItem> = this.demo_list.GetSelectedItem();
@@ -229,10 +251,13 @@ export class MultiplayerDemo extends CUIWindow {
     const filename: string = item.fn.GetText();
 
     logger.info("Selected demo file. " + filename + ".demo");
-    this.UpdateDemoInfo(filename);
+    this.updateDemoInfo(filename);
   }
 
-  public PlaySelectedDemo() {
+  /**
+   * todo;
+   */
+  public playSelectedDemo() {
     const item: Optional<MultiplayerDemoLoadItem> = this.demo_list.GetSelectedItem();
 
     if (item === null) {
@@ -244,7 +269,10 @@ export class MultiplayerDemo extends CUIWindow {
     get_console().execute("start demo(" + filename + ".demo)");
   }
 
-  public DeleteSelectedDemo(): void {
+  /**
+   * todo;
+   */
+  public deleteSelectedDemo(): void {
     logger.info("Delete selected demo");
 
     const item = this.demo_list.GetSelectedItem();
@@ -266,7 +294,10 @@ export class MultiplayerDemo extends CUIWindow {
     this.message_box.ShowDialog(true);
   }
 
-  public OnRenameDemo(): void {
+  /**
+   * todo;
+   */
+  public onRenameDemo(): void {
     logger.info("Rename demo");
 
     const item = this.demo_list.GetSelectedItem();
@@ -305,7 +336,10 @@ export class MultiplayerDemo extends CUIWindow {
     this.message_box.ShowDialog(true);
   }
 
-  public OnMsgBoxYes(): void {
+  /**
+   * todo;
+   */
+  public onMsgBoxYes(): void {
     logger.info("Confirm message box");
 
     const fs: XR_FS = getFS();
@@ -321,7 +355,7 @@ export class MultiplayerDemo extends CUIWindow {
       const file_name_to_delete: string = fs.update_path("$logs$", item.fn.GetText() + ".demo");
 
       fs.file_delete(file_name_to_delete);
-      this.FillList();
+      this.fillList();
       this.on_yes_action = "";
 
       return;
@@ -349,7 +383,10 @@ export class MultiplayerDemo extends CUIWindow {
     this.on_yes_action = "";
   }
 
-  public UpdateDemoInfo(file_name: string) {
+  /**
+   * todo;
+   */
+  public updateDemoInfo(file_name: TName) {
     this.players_list.RemoveAll();
     if (file_name === "") {
       this.map_info.InitMap("", "");
@@ -385,7 +422,7 @@ export class MultiplayerDemo extends CUIWindow {
 
     const orig_texture_rect = this.map_pic.GetTextureRect();
 
-    this.map_pic.InitTexture(this.GetMapTextureName(map_name));
+    this.map_pic.InitTexture(this.getMapTextureName(map_name));
 
     this.map_pic.SetTextureRect(
       new Frect().set(orig_texture_rect.x1, orig_texture_rect.y1, orig_texture_rect.x2, orig_texture_rect.y2)
@@ -409,7 +446,7 @@ export class MultiplayerDemo extends CUIWindow {
       player_info.spots = tmp_player.get_spots();
       player_info.team = tmp_player.get_team();
       player_info.rank = tmp_player.get_rank();
-      this.AddPlayerToStats(player_info);
+      this.addPlayerToStats(player_info);
     }
   }
 }
