@@ -14,7 +14,7 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { registry } from "@/mod/scripts/core/database";
+import { registry, resetObject } from "@/mod/scripts/core/database";
 import { addDoorObject, deleteDoorObject } from "@/mod/scripts/core/database/doors";
 import { loadObject, saveObject } from "@/mod/scripts/core/schemes/storing";
 import { getConfigNumber, getConfigString, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
@@ -148,7 +148,7 @@ export class LabX8DoorBinder extends object_binder {
    */
   public override reinit(): void {
     super.reinit();
-    registry.objects.set(this.object.id(), {});
+    resetObject(this.object);
   }
 
   /**
@@ -339,7 +339,6 @@ export class LabX8DoorBinder extends object_binder {
     saveObject(this.object, packet);
     packet.w_bool(this.is_idle);
     packet.w_bool(this.is_play_fwd);
-    // --    packet.w_u32(this.idle_end)
     packet.w_float(this.object.get_physics_object().anim_time_get());
 
     setSaveMarker(packet, true, LabX8DoorBinder.__name);
@@ -355,7 +354,6 @@ export class LabX8DoorBinder extends object_binder {
     loadObject(this.object, reader);
     this.is_idle = reader.r_bool();
     this.is_play_fwd = reader.r_bool();
-    //    this.idle_end = packet.r_u32()
     this.anim_time = reader.r_float();
     this.loaded = true;
 

@@ -1,7 +1,7 @@
 import { alife, device, XR_game_object } from "xray16";
 
 import { STRINGIFIED_FALSE, STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/mod/globals/lua";
-import { Optional, TDistance } from "@/mod/lib/types";
+import { Optional, TDistance, TStringId } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { SchemeAbuse } from "@/mod/scripts/core/schemes/abuse";
@@ -31,21 +31,22 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
   public updateState(): void {
     const actor: XR_game_object = registry.actor;
     let state: Optional<string> = null;
-    let victim = null;
+    let victim: Optional<XR_game_object> = null;
+    let victimStoryId: Optional<TStringId> = null;
 
     if (this.current_distance === "close") {
       state = pickSectionFromCondList(actor as XR_game_object, this.object, this.state.close_anim);
-      victim = pickSectionFromCondList(actor as XR_game_object, this.object, this.state.close_victim);
+      victimStoryId = pickSectionFromCondList(actor as XR_game_object, this.object, this.state.close_victim);
     } else if (this.current_distance === "far") {
       state = pickSectionFromCondList(actor as XR_game_object, this.object, this.state.far_anim);
-      victim = pickSectionFromCondList(actor as XR_game_object, this.object, this.state.far_victim);
+      victimStoryId = pickSectionFromCondList(actor as XR_game_object, this.object, this.state.far_victim);
     }
 
-    if (tostring(victim) === STRINGIFIED_NIL) {
-      victim = null;
+    if (tostring(victimStoryId) === STRINGIFIED_NIL) {
+      victimStoryId = null;
     } else {
       if (alife() !== null) {
-        victim = getStoryObject(victim!);
+        victim = getStoryObject(victimStoryId as TStringId);
       }
     }
 
@@ -53,7 +54,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
       if (victim === null) {
         set_state(this.object, state!, null, null, null, null);
       } else {
-        set_state(this.object, state!, null, null, { look_object: victim }, null);
+        set_state(this.object, state!, null, null, { look_object: victim, look_position: null }, null);
       }
     }
 

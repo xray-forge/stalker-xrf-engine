@@ -12,7 +12,7 @@ import {
 } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { get_heli_health } from "@/mod/scripts/core/schemes/heli_move/heli_utils";
 import { isLevelChanging } from "@/mod/scripts/utils/checkers/checkers";
 import {
@@ -47,7 +47,7 @@ const dummy_vector = new vector();
 export class HeliCombat {
   public readonly object: XR_game_object;
   public readonly heliObject: XR_CHelicopter;
-  public readonly st: IStoredObject;
+  public readonly st: IRegistryObjectState;
 
   public initialized: boolean;
   public retreat_initialized: boolean = false;
@@ -221,8 +221,6 @@ export class HeliCombat {
     this.can_forget_enemy = false;
     this.section_changed = true;
 
-    // --    this:set_combat_type( combat_type_flyby )
-    // --    this:set_combat_type( combat_type_search )
     this.combat_type = combat_type_flyby;
     this.change_combat_type_time = null;
     this.change_combat_type_allowed = true;
@@ -404,9 +402,7 @@ export class HeliCombat {
       }
     }
 
-    // --    printf( "combat_type = %s", tostring( this.combat_type ) )
     this.set_combat_type(ct);
-    // --    printf( "combat_type = %s", tostring( this.combat_type ) )
   }
 
   public combat_ignore_check(): boolean {

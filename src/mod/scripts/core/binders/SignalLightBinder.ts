@@ -10,7 +10,7 @@ import {
 } from "xray16";
 
 import { Optional, TDuration } from "@/mod/lib/types";
-import { deleteObject, registry, resetObject } from "@/mod/scripts/core/database";
+import { registry, resetObject, unregisterObject } from "@/mod/scripts/core/database";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -131,7 +131,7 @@ export class SignalLightBinder extends object_binder {
   public override net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
     registry.signalLights.delete(this.object.name());
-    deleteObject(this.object);
+    unregisterObject(this.object);
     super.net_destroy();
   }
 

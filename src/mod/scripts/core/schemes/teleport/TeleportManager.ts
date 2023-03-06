@@ -25,7 +25,7 @@ export class TeleportManager extends AbstractSchemeManager<ISchemeTeleportState>
   /**
    * todo;
    */
-  public override update(delta: TCount): void {
+  public override update(): void {
     const actor: Optional<XR_game_object> = registry.actor;
 
     if (!actor) {

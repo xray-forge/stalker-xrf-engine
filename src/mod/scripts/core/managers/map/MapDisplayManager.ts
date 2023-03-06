@@ -25,7 +25,7 @@ import {
   TSection,
   TTimestamp,
 } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import {
   anomalyScannerObjects,
@@ -55,7 +55,12 @@ export class MapDisplayManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public updateObjectMapSpot(object: XR_game_object, scheme: EScheme, state: IStoredObject, section: TSection): void {
+  public updateObjectMapSpot(
+    object: XR_game_object,
+    scheme: EScheme,
+    state: IRegistryObjectState,
+    section: TSection
+  ): void {
     logger.info("Update npc spot:", object.name());
 
     const npcId: TNumberId = object.id();
@@ -68,9 +73,9 @@ export class MapDisplayManager extends AbstractCoreManager {
     let spotSection;
 
     if (scheme === null || scheme === STRINGIFIED_NIL) {
-      spotSection = getConfigString(state.ini!, state.section_logic!, "show_spot", object, false, "");
+      spotSection = getConfigString(state.ini, state.section_logic, "show_spot", object, false, "");
     } else {
-      spotSection = getConfigString(state.ini!, section, "show_spot", object, false, "");
+      spotSection = getConfigString(state.ini, section, "show_spot", object, false, "");
     }
 
     if (spotSection === null) {
@@ -79,8 +84,8 @@ export class MapDisplayManager extends AbstractCoreManager {
 
     const actor: XR_game_object = registry.actor;
     let mapSpot: Optional<TMapMark> = getConfigString(
-      state.ini!,
-      state.section_logic!,
+      state.ini,
+      state.section_logic,
       "level_spot",
       object,
       false,
@@ -127,7 +132,7 @@ export class MapDisplayManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public removeObjectMapSpot(object: XR_game_object, state: IStoredObject): void {
+  public removeObjectMapSpot(object: XR_game_object, state: IRegistryObjectState): void {
     logger.info("Remove object spot:", object.name());
 
     const sim: XR_alife_simulator = alife();
@@ -138,8 +143,8 @@ export class MapDisplayManager extends AbstractCoreManager {
 
     const objectId: Maybe<TNumberId> = sim.object(object.id())?.id;
     let mapSpot: Optional<TMapMark> = getConfigString<TMapMark>(
-      state.ini!,
-      state.section_logic!,
+      state.ini,
+      state.section_logic,
       "level_spot",
       object,
       false,
@@ -148,14 +153,7 @@ export class MapDisplayManager extends AbstractCoreManager {
 
     // todo: Retry, probably not needed at all.
     if (mapSpot === null) {
-      mapSpot = getConfigString<TMapMark>(
-        state.ini!,
-        state.active_section!,
-        "level_spot",
-        object,
-        false,
-        ""
-      ) as TMapMark;
+      mapSpot = getConfigString<TMapMark>(state.ini, state.active_section, "level_spot", object, false, "") as TMapMark;
     }
 
     if (mapSpot !== null) {
@@ -218,7 +216,7 @@ export class MapDisplayManager extends AbstractCoreManager {
   public updateSleepZonesDisplay(): void {
     for (const [index, sleepZone] of sleepZones) {
       const objectId: Optional<TNumberId> = getStoryObjectId(sleepZone.target);
-      const storedObject: Optional<IStoredObject> = objectId ? registry.objects.get(objectId) : null;
+      const storedObject: Optional<IRegistryObjectState> = objectId ? registry.objects.get(objectId) : null;
 
       if (objectId && storedObject && storedObject.object) {
         const actorPosition: XR_vector = registry.actor.position();

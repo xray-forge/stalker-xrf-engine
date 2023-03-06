@@ -12,7 +12,7 @@ export interface IBaseSchemeState {
   signals: Optional<LuaTable<TName, boolean>>; // Rework with LuaSet?
   scheme: EScheme;
   section: Optional<TSection>;
-  actions?: LuaTable;
+  actions?: LuaTable<AnyObject, boolean>;
   idle_end: TTimestamp;
   overrides: Optional<AnyObject>;
 }

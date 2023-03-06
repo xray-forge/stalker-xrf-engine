@@ -13,7 +13,7 @@ import {
 } from "xray16";
 
 import { LuaArray, Optional, TCount, TIndex, TNumberId, TSection, TStringId, TTimestamp } from "@/mod/lib/types";
-import { DEATH_GENERIC_LTX, DUMMY_LTX, IStoredObject, registry } from "@/mod/scripts/core/database";
+import { DEATH_GENERIC_LTX, DUMMY_LTX, IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { isMonster, isStalker } from "@/mod/scripts/utils/checkers/is";
 import { getConfigString } from "@/mod/scripts/utils/configs";
@@ -159,9 +159,9 @@ export class ReleaseBodyManager extends AbstractCoreManager {
       char_ini = object.spawn_ini() || DUMMY_LTX;
     }
 
-    const state: IStoredObject = registry.objects.get(object.id());
+    const state: IRegistryObjectState = registry.objects.get(object.id());
     const knownInfo: string =
-      getConfigString(char_ini, state.section_logic!, "known_info", object, false, "", null) || "known_info";
+      getConfigString(char_ini, state.section_logic, "known_info", object, false, "", null) || "known_info";
 
     return char_ini.section_exist(knownInfo);
   }

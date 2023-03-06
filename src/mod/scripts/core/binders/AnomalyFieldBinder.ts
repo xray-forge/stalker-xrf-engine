@@ -1,7 +1,7 @@
 import { LuabindClass, object_binder, XR_cse_alife_object, XR_game_object } from "xray16";
 
 import { TDuration, TSection } from "@/mod/lib/types";
-import { addZone, deleteZone, registry } from "@/mod/scripts/core/database";
+import { registerZone, registry, resetObject, unregisterZone } from "@/mod/scripts/core/database";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("AnomalyFieldBinder");
@@ -36,8 +36,7 @@ export class AnomalyFieldBinder extends object_binder {
    */
   public override reinit(): void {
     super.reinit();
-
-    registry.objects.set(this.object.id(), {});
+    resetObject(this.object);
   }
 
   /**
@@ -50,7 +49,7 @@ export class AnomalyFieldBinder extends object_binder {
 
     logger.info("Net spawn:", object.name());
 
-    addZone(this.object);
+    registerZone(this.object);
 
     FIELDS_BY_NAME.set(this.object.name(), this);
 
@@ -63,7 +62,7 @@ export class AnomalyFieldBinder extends object_binder {
   public override net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
 
-    deleteZone(this.object);
+    unregisterZone(this.object);
 
     registry.objects.delete(this.object.id());
     FIELDS_BY_NAME.delete(this.object.name());

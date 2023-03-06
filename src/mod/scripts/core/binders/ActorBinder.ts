@@ -9,6 +9,7 @@ import {
   LuabindClass,
   object_binder,
   task,
+  TXR_game_difficulty,
   TXR_TaskState,
   vector,
   XR_CGameTask,
@@ -20,15 +21,16 @@ import {
 
 import { animations } from "@/mod/globals/animation/animations";
 import { post_processors } from "@/mod/globals/animation/post_processors";
+import { console_commands } from "@/mod/globals/console_commands";
 import { game_difficulties_by_number } from "@/mod/globals/game_difficulties";
 import { info_portions } from "@/mod/globals/info_portions";
 import { ammo } from "@/mod/globals/items/ammo";
 import { drugs } from "@/mod/globals/items/drugs";
 import { TLevel } from "@/mod/globals/levels";
 import { STRINGIFIED_NIL } from "@/mod/globals/lua";
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { AnyCallablesModule, Optional, TCount } from "@/mod/lib/types";
 import { Actor } from "@/mod/scripts/core/alife/Actor";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { IRegistryObjectState, registry, resetObject } from "@/mod/scripts/core/database";
 import { addActor, deleteActor } from "@/mod/scripts/core/database/actor";
 import { pstor_load_all, pstor_save_all } from "@/mod/scripts/core/database/pstor";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
@@ -48,9 +50,11 @@ import { TaskManager } from "@/mod/scripts/core/managers/tasks/TaskManager";
 import { TravelManager } from "@/mod/scripts/core/managers/TravelManager";
 import { TreasureManager } from "@/mod/scripts/core/managers/TreasureManager";
 import { WeatherManager } from "@/mod/scripts/core/managers/WeatherManager";
+import { ISchemeDeimosState } from "@/mod/scripts/core/schemes/sr_deimos";
 import { SchemeDeimos } from "@/mod/scripts/core/schemes/sr_deimos/SchemeDeimos";
 import { DynamicMusicManager } from "@/mod/scripts/core/sound/DynamicMusicManager";
 import { isArtefact } from "@/mod/scripts/utils/checkers/is";
+import { executeConsoleCommand } from "@/mod/scripts/utils/console";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
@@ -106,7 +110,7 @@ export class ActorBinder extends object_binder {
   public last_detective_achievement_spawn_time: Optional<any> = null;
   public last_mutant_hunter_achievement_spawn_time: Optional<any> = null;
 
-  public st!: IStoredObject;
+  public st!: IRegistryObjectState;
 
   /**
    * todo;
@@ -219,11 +223,7 @@ export class ActorBinder extends object_binder {
   public override reinit(): void {
     super.reinit();
 
-    const npc_id = this.object.id();
-
-    registry.objects.set(npc_id, {});
-
-    this.st = registry.objects.get(npc_id);
+    this.st = resetObject(this.object);
     this.st.pstor = null!;
 
     this.object.set_callback(callback.inventory_info, this.info_callback, this);
@@ -347,7 +347,7 @@ export class ActorBinder extends object_binder {
 
     if (
       this.st.disable_input_time !== null &&
-      game.get_game_time().diffSec(this.st.disable_input_time) >= this.st.disable_input_idle
+      game.get_game_time().diffSec(this.st.disable_input_time) >= (this.st.disable_input_idle as number)
     ) {
       level.enable_input();
       this.st.disable_input_time = null;
@@ -490,7 +490,7 @@ export class ActorBinder extends object_binder {
       if (registry.objects.get(v.id()) && registry.objects.get(v.id()).active_section === SchemeDeimos.SCHEME_SECTION) {
         deimos_exist = true;
         packet.w_bool(true);
-        packet.w_float(registry.objects.get(v.id())[SchemeDeimos.SCHEME_SECTION].intensity);
+        packet.w_float((registry.objects.get(v.id())[SchemeDeimos.SCHEME_SECTION] as ISchemeDeimosState).intensity);
       }
     }
 
@@ -523,13 +523,13 @@ export class ActorBinder extends object_binder {
 
     super.load(reader);
 
-    const game_difficulty: number = reader.r_u8();
+    const gameDifficulty: TXR_game_difficulty = reader.r_u8() as TXR_game_difficulty;
 
-    get_console().execute("g_game_difficulty " + game_difficulties_by_number[game_difficulty]);
+    executeConsoleCommand(console_commands.g_game_difficulty, game_difficulties_by_number[gameDifficulty]);
 
-    const stored_input_time = reader.r_bool();
+    const storedInputTime = reader.r_bool();
 
-    if (stored_input_time) {
+    if (storedInputTime) {
       this.st.disable_input_time = readCTimeFromPacket(reader);
     }
 
@@ -663,7 +663,7 @@ export function restore_weapon(zone_id: number): void {
  */
 export function spawn_achivement_items(
   items_table: LuaTable<number, string>,
-  count: number,
+  count: TCount,
   inv_box_story_id: string
 ): void {
   logger.info("Spawn achievement items");

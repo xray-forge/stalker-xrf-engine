@@ -166,10 +166,10 @@ export function setGulagRelationActor(gulagName: TName, relation: TRelation): vo
     goodwill = ERelation.FRIENDS;
   }
 
-  for (const [k, v] of gulag.npc_info) {
-    const object = registry.objects.get(v.se_obj.id)?.object;
+  for (const [index, npcInfo] of gulag.npc_info) {
+    const object: Optional<XR_game_object> = registry.objects.get(npcInfo.se_obj.id)?.object;
 
-    if (object) {
+    if (object !== null) {
       object.force_set_goodwill(goodwill, actor);
       object.set_community_goodwill(getCharacterCommunity(actor), goodwill);
     }
@@ -190,7 +190,7 @@ export function getGulagRelationToActor(gulagName: TName, relation: TRelation): 
     for (const [id, npcInfo] of gulag.npc_info) {
       const object = registry.objects.get(npcInfo.se_obj.id)?.object;
 
-      if (object && actor) {
+      if (object !== null && actor !== null) {
         goodwill = goodwill + object.general_goodwill(actor);
         npcCount = npcCount + 1;
       }
@@ -254,17 +254,17 @@ export function isSquadRelationBetweenActorAndRelation(squadName: TName, goodwil
     return false;
   }
 
-  for (const k of squad.squad_members()) {
+  for (const squadMember of squad.squad_members()) {
     let is_enemy;
 
     if (goodwill === relations.enemy) {
-      const goodwill: Maybe<number> = registry.objects.get(k.id)?.object?.general_goodwill(actor);
+      const goodwill: Optional<number> = registry.objects.get(squadMember.id)?.object.general_goodwill(actor);
 
-      is_enemy = goodwill ? goodwill <= ERelation.ENEMIES : false;
+      is_enemy = goodwill === null ? false : goodwill <= ERelation.ENEMIES;
     } else {
-      const goodwill: Maybe<number> = registry.objects.get(k.id)?.object?.general_goodwill(actor);
+      const goodwill: Optional<number> = registry.objects.get(squadMember.id)?.object.general_goodwill(actor);
 
-      is_enemy = goodwill ? goodwill >= ERelation.ENEMIES : false;
+      is_enemy = goodwill === null ? false : goodwill >= ERelation.ENEMIES;
     }
 
     if (is_enemy) {
@@ -475,7 +475,7 @@ export function setSquadGoodwillToCommunity(
   }
 
   for (const squadMember of squad.squad_members()) {
-    const object: Optional<XR_game_object> = registry.objects.get(squadMember.id)?.object as Optional<XR_game_object>;
+    const object: Optional<XR_game_object> = registry.objects.get(squadMember.id).object as Optional<XR_game_object>;
 
     if (object !== null) {
       object.set_community_goodwill(community, goodwill);

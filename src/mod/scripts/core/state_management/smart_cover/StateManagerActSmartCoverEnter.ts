@@ -33,7 +33,9 @@ export class StateManagerActSmartCoverEnter extends action_base {
   public override initialize(): void {
     super.initialize();
 
-    const smartCoverState: ISchemeSmartCoverState = registry.objects.get(this.object.id())[EScheme.SMARTCOVER];
+    const smartCoverState: ISchemeSmartCoverState = registry.objects.get(this.object.id())[
+      EScheme.SMARTCOVER
+    ] as ISchemeSmartCoverState;
 
     this.object.use_smart_covers_only(true);
     this.object.set_movement_type(move.run);

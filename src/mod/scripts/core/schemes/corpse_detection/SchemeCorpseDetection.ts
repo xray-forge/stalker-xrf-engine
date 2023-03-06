@@ -2,7 +2,7 @@ import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_
 
 import { Optional, TNumberId } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
@@ -90,10 +90,10 @@ export class SchemeCorpseDetection extends AbstractScheme {
   public static override resetScheme(
     object: XR_game_object,
     scheme: EScheme,
-    state: IStoredObject,
+    state: IRegistryObjectState,
     section: TSection
   ): void {
-    state.corpse_detection.corpse_detection_enabled = getConfigBoolean(
+    (state[EScheme.CORPSE_DETECTION] as ISchemeCorpseDetectionState).corpse_detection_enabled = getConfigBoolean(
       state.ini!,
       section,
       "corpse_detection_enabled",
@@ -120,19 +120,21 @@ export class SchemeCorpseDetection extends AbstractScheme {
    * todo;
    */
   public static getAllFromCorpse(object: XR_game_object): void {
-    const corpseNpcId: TNumberId = registry.objects.get(object.id()).corpse_detection.selected_corpse_id;
-    const corpseNpc: Optional<XR_game_object> =
-      registry.objects.get(corpseNpcId) && registry.objects.get(corpseNpcId).object!;
+    const state: IRegistryObjectState = registry.objects.get(object.id());
+    const corpseObjectId: Optional<TNumberId> = (state[EScheme.CORPSE_DETECTION] as ISchemeCorpseDetectionState)
+      .selected_corpse_id;
+    const corpseObject: Optional<XR_game_object> =
+      corpseObjectId === null ? null : registry.objects.get(corpseObjectId)?.object;
 
-    if (corpseNpc === null) {
+    if (corpseObject === null) {
       return;
     }
 
-    corpseNpc.iterate_inventory((object, item) => {
+    corpseObject.iterate_inventory((object, item) => {
       if (isLootableItem(item)) {
         object.transfer_item(item, object);
       }
-    }, corpseNpc);
+    }, corpseObject);
 
     if (math.random(100) > 20) {
       GlobalSoundManager.getInstance().setSoundPlaying(object.id(), "corpse_loot_begin", null, null);

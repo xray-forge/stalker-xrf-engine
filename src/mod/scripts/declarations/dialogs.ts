@@ -8,13 +8,15 @@ import { info_portions } from "@/mod/globals/info_portions/info_portions";
 import { drugs, TMedkit } from "@/mod/globals/items/drugs";
 import { pistols, TPistol } from "@/mod/globals/items/weapons";
 import { levels } from "@/mod/globals/levels";
-import { AnyCallablesModule, Optional } from "@/mod/lib/types";
+import { AnyCallablesModule, EScheme, Optional, TNumberId } from "@/mod/lib/types";
 import { update_logic } from "@/mod/scripts/core/binders/StalkerBinder";
 import { registry } from "@/mod/scripts/core/database";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
 import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
+import { ISchemeMeetState } from "@/mod/scripts/core/schemes/meet";
 import { SchemeMeet } from "@/mod/scripts/core/schemes/meet/SchemeMeet";
+import { ISchemeWoundedState } from "@/mod/scripts/core/schemes/wounded";
 import { SchemeWounded } from "@/mod/scripts/core/schemes/wounded/SchemeWounded";
 import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
 import { isObjectWounded, isStalkerAlive } from "@/mod/scripts/utils/checkers/checkers";
@@ -58,40 +60,11 @@ export function break_dialog(first_speaker: XR_game_object, second_speaker: XR_g
  * todo;
  */
 export function update_npc_dialog(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  const npc = getNpcSpeaker(first_speaker, second_speaker);
+  const object = getNpcSpeaker(first_speaker, second_speaker);
 
-  registry.objects.get(npc.id()).meet.meet_manager.update();
-  SchemeMeet.updateObjectInteractionAvailability(npc);
-  update_logic(npc);
-}
-
-/**
- * todo;
- */
-export function disable_talk_self(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  first_speaker.disable_talk();
-}
-
-/**
- * todo;
- */
-export function disable_talk_victim(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  second_speaker.disable_talk();
-}
-
-/**
- * todo;
- */
-export function punch(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  registry.objects.get(second_speaker.id()).punch.enabled = true;
-}
-
-/**
- * todo;
- */
-export function get_money_then_leave(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  registry.objects.get(first_speaker.id()).meet.enabled = false;
-  registry.objects.get(first_speaker.id()).robber.enabled = true;
+  (registry.objects.get(object.id())[EScheme.MEET] as ISchemeMeetState).meet_manager.update();
+  SchemeMeet.updateObjectInteractionAvailability(object);
+  update_logic(object);
 }
 
 /**
@@ -174,8 +147,8 @@ export function kill_yourself(npc: XR_game_object, actor: XR_game_object): void 
 /**
  * todo;
  */
-export function allow_wounded_dialog(object: XR_game_object, victim: XR_game_object, id: number): boolean {
-  return registry.objects.get(victim.id()).wounded?.help_dialog === id;
+export function allow_wounded_dialog(object: XR_game_object, victim: XR_game_object, id: TNumberId): boolean {
+  return (registry.objects.get(victim.id())[EScheme.WOUNDED] as ISchemeWoundedState)?.help_dialog === id;
 }
 
 /**

@@ -1,7 +1,7 @@
 import { ini_file, XR_game_object, XR_ini_file } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { DUMMY_LTX, IStoredObject, loadDynamicLtx, registry } from "@/mod/scripts/core/database";
+import { DUMMY_LTX, IRegistryObjectState, loadDynamicLtx, registry } from "@/mod/scripts/core/database";
 
 /**
  * todo;
@@ -9,7 +9,7 @@ import { DUMMY_LTX, IStoredObject, loadDynamicLtx, registry } from "@/mod/script
  * todo;
  */
 export function getCustomDataOrIniFile(npc: XR_game_object, filename: string): XR_ini_file {
-  const state: IStoredObject = registry.objects.get(npc.id());
+  const state: IRegistryObjectState = registry.objects.get(npc.id());
 
   if (filename === "<customdata>") {
     const ini: Optional<XR_ini_file> = npc.spawn_ini();

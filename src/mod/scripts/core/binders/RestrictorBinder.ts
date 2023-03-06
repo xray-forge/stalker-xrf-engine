@@ -1,9 +1,10 @@
 import { LuabindClass, object_binder, XR_cse_alife_object, XR_game_object, XR_net_packet, XR_reader } from "xray16";
 
-import { Optional, TNumberId } from "@/mod/lib/types";
+import { Optional, TDuration, TNumberId } from "@/mod/lib/types";
 import { ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { addZone, deleteZone, IStoredObject, registry } from "@/mod/scripts/core/database";
+import { IRegistryObjectState, registerZone, registry, resetObject, unregisterZone } from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
+import { ESchemeEvent } from "@/mod/scripts/core/schemes/base";
 import { initializeGameObject } from "@/mod/scripts/core/schemes/initializeGameObject";
 import { issueSchemeEvent } from "@/mod/scripts/core/schemes/issueSchemeEvent";
 import { loadObject, saveObject } from "@/mod/scripts/core/schemes/storing";
@@ -19,7 +20,7 @@ const logger: LuaLogger = new LuaLogger("RestrictorBinder");
 export class RestrictorBinder extends object_binder {
   public isInitialized: boolean = false;
   public isLoaded: boolean = false;
-  public state: IStoredObject = {};
+  public state!: IRegistryObjectState;
 
   /**
    * todo;
@@ -40,9 +41,7 @@ export class RestrictorBinder extends object_binder {
    */
   public override reinit(): void {
     super.reinit();
-
-    this.state = {};
-    registry.objects.set(this.object.id(), this.state);
+    this.state = resetObject(this.object);
   }
 
   /**
@@ -55,7 +54,7 @@ export class RestrictorBinder extends object_binder {
 
     logger.info("Net spawn:", this.object.name());
 
-    addZone(this.object);
+    registerZone(this.object);
 
     const objectId: TNumberId = this.object.id();
     const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
@@ -77,13 +76,13 @@ export class RestrictorBinder extends object_binder {
 
     GlobalSoundManager.getInstance().stopSoundsByObjectId(this.object.id());
 
-    const state: IStoredObject = this.state;
+    const state: IRegistryObjectState = this.state;
 
     if (state.active_scheme !== null) {
-      issueSchemeEvent(this.object, state[state.active_scheme as string], "net_destroy");
+      issueSchemeEvent(this.object, state[state.active_scheme!]!, ESchemeEvent.NET_DESTROY);
     }
 
-    deleteZone(this.object);
+    unregisterZone(this.object);
 
     registry.objects.delete(this.object.id());
     super.net_destroy();
@@ -92,7 +91,7 @@ export class RestrictorBinder extends object_binder {
   /**
    * todo;
    */
-  public override update(delta: number): void {
+  public override update(delta: TDuration): void {
     const activeSection: Optional<TSection> = this.state.active_section as Optional<TSection>;
     const objectId: number = this.object.id();
 
@@ -111,7 +110,7 @@ export class RestrictorBinder extends object_binder {
     this.object.info_add("name: [" + this.object.name() + "] id [" + objectId + "]");
 
     if (this.state.active_section !== null) {
-      issueSchemeEvent(this.object, this.state[this.state.active_scheme as string], "update", delta);
+      issueSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.UPDATE, delta);
     }
 
     GlobalSoundManager.getInstance().updateForObjectId(objectId);

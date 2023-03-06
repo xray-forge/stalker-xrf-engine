@@ -1,6 +1,6 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
-import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
+import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
@@ -50,7 +50,7 @@ export class SchemeMobCombat extends AbstractScheme {
    * todo;
    */
   public static override disableScheme(object: XR_game_object, scheme: EScheme): void {
-    const state: ISchemeMobCombatState = registry.objects.get(object.id())[scheme];
+    const state: Optional<ISchemeMobCombatState> = registry.objects.get(object.id())[scheme] as ISchemeMobCombatState;
 
     if (state !== null) {
       state.enabled = false;

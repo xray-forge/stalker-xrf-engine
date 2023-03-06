@@ -1,13 +1,16 @@
 import { anim, move, object, TXR_object_state, XR_game_object } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
-import { Optional } from "@/mod/lib/types";
-import { registry } from "@/mod/scripts/core/database";
+import { Optional, TNumberId, TTimestamp } from "@/mod/lib/types";
+import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { IStateDescriptor, states } from "@/mod/scripts/core/state_management/lib/state_lib";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("StateManagerWeapon", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
+/**
+ * todo;
+ */
 const state_queue_params: LuaTable<string, LuaTable<number, number>> = {
   barricade_0_attack: [5, 300, 0],
   barricade_1_attack: [5, 300, 0],
@@ -19,41 +22,48 @@ const state_queue_params: LuaTable<string, LuaTable<number, number>> = {
   bloodsucker_panic: [30, 100, 0],
 } as any;
 
+/**
+ * todo;
+ */
 export function get_queue_params(
-  npc: XR_game_object,
+  object: XR_game_object,
   target: unknown,
-  st: IStateDescriptor
+  descriptor: IStateDescriptor
 ): LuaMultiReturn<Array<number>> {
-  const a: LuaTable<number, number> = state_queue_params.get(st.animation!);
-  const bestWeapon: XR_game_object = npc.best_weapon()!;
-  const npcId: number = npc.id();
+  const animation: LuaTable<number, number> = state_queue_params.get(descriptor.animation!);
+  const bestWeapon: XR_game_object = object.best_weapon()!;
+  const objectId: TNumberId = object.id();
+  const state: IRegistryObjectState = registry.objects.get(objectId);
 
-  if (a !== null) {
-    if (a.get(3) !== null) {
-      const old_aim_time = npc.aim_time(bestWeapon);
+  if (animation !== null) {
+    if (animation.get(3) !== null) {
+      const old_aim_time: TTimestamp = object.aim_time(bestWeapon);
 
-      if (old_aim_time !== a.get(3)) {
-        registry.objects.get(npcId).old_aim_time = old_aim_time;
-        npc.aim_time(bestWeapon, a.get(3));
+      if (old_aim_time !== animation.get(3)) {
+        state.old_aim_time = old_aim_time;
+        object.aim_time(bestWeapon, animation.get(3));
       }
     }
 
-    if (registry.objects.get(npcId).old_aim_time !== null) {
-      npc.aim_time(bestWeapon, registry.objects.get(npcId).old_aim_time);
-      registry.objects.get(npcId).old_aim_time = null;
+    if (state.old_aim_time !== null) {
+      object.aim_time(bestWeapon, state.old_aim_time);
+      state.old_aim_time = null;
     }
 
-    return $multi(a.get(1), a.get(2));
+    return $multi(animation.get(1), animation.get(2));
   }
 
-  if (registry.objects.get(npcId).old_aim_time !== null) {
-    npc.aim_time(bestWeapon, registry.objects.get(npcId).old_aim_time);
-    registry.objects.get(npcId).old_aim_time = null;
+  if (state.old_aim_time !== null) {
+    object.aim_time(bestWeapon, state.old_aim_time);
+    state.old_aim_time = null;
   }
 
   return $multi(3, 1000);
 }
 
+/**
+ * todo;
+ */
 export function get_weapon(obj: XR_game_object, target_state: string): Optional<XR_game_object> {
   if (states.get(target_state).weapon_slot === null) {
     return obj.best_weapon();
@@ -62,6 +72,9 @@ export function get_weapon(obj: XR_game_object, target_state: string): Optional<
   }
 }
 
+/**
+ * todo;
+ */
 export function get_idle_state(target_state: string): TXR_object_state {
   const state_object = states.get(target_state);
 

@@ -15,7 +15,7 @@ import {
 } from "xray16";
 
 import { STRINGIFIED_TRUE } from "@/mod/globals/lua";
-import { EScheme, LuaArray, Optional } from "@/mod/lib/types";
+import { EScheme, LuaArray, Optional, TIndex, TName } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { AbstractSchemeManager } from "@/mod/scripts/core/schemes/base/AbstractSchemeManager";
 import { setMobState } from "@/mod/scripts/core/schemes/mob/MobStateManager";
@@ -140,7 +140,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
   /**
    * todo;
    */
-  public waypoint_callback(obj: XR_game_object, action_type: Optional<string>, index: Optional<number>): void {
+  public waypoint_callback(obj: XR_game_object, action_type: Optional<string>, index: Optional<TIndex>): void {
     if (index === -1 || index === null) {
       return;
     }
@@ -175,7 +175,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       // -- HACK, fixme:
       const npc_id = this.object.id();
       const scheme: EScheme = registry.objects.get(npc_id)["active_scheme"]!;
-      const signals: LuaTable = registry.objects.get(npc_id)[scheme!].signals;
+      const signals: LuaTable<TName, boolean> = registry.objects.get(npc_id)[scheme!]!.signals!;
 
       signals.set(sig, true);
     }

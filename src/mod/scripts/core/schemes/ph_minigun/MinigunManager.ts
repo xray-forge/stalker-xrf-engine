@@ -1,7 +1,7 @@
 import { CCar, level, move, patrol, time_global, vector, XR_CCar, XR_game_object, XR_vector } from "xray16";
 
 import { Optional, TName } from "@/mod/lib/types";
-import { registry } from "@/mod/scripts/core/database";
+import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { AbstractSchemeManager } from "@/mod/scripts/core/schemes/base/AbstractSchemeManager";
 import { mobCaptured } from "@/mod/scripts/core/schemes/mobCaptured";
 import { mobRelease } from "@/mod/scripts/core/schemes/mobRelease";
@@ -259,15 +259,6 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   /**
    * todo;
    */
-  public set_signal(sig: number): void {
-    const stor = registry.objects.get(this.object.id());
-
-    stor[stor.active_scheme!].signals[sig] = true;
-  }
-
-  /**
-   * todo;
-   */
   public fastcall(): boolean {
     if (isActiveSection(this.object, this.state.section)) {
       this.set_shooting(0);
@@ -281,7 +272,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   /**
    * todo;
    */
-  public override update(delta: number): void {
+  public override update(): void {
     if (trySwitchToAnotherSection(this.object, this.state, registry.actor)) {
       return;
     }

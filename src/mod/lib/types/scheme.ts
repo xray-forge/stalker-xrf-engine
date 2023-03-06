@@ -24,7 +24,7 @@ export enum EScheme {
   DANGER = "danger",
   DEATH = "death",
   GATHER_ITEMS = "gather_items",
-  HEAR = "HEAR",
+  HEAR = "hear",
   HELI_MOVE = "heli_move",
   HELP_WOUNDED = "help_wounded",
   HIT = "hit",

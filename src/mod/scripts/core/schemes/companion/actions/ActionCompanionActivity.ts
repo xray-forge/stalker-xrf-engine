@@ -3,7 +3,7 @@ import { action_base, game_object, level, LuabindClass, time_global, XR_game_obj
 import { Optional } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { ISchemeCompanionState } from "@/mod/scripts/core/schemes/companion";
-import { set_state } from "@/mod/scripts/core/state_management/StateManager";
+import { ITargetStateDescriptor, set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { vectorRotateY } from "@/mod/scripts/utils/physics";
 
@@ -99,11 +99,11 @@ export class ActionCompanionActivity extends action_base {
 
     const dist_to_assist_pt = level.vertex_position(this.assist_point).distance_to(this.object.position());
     let new_state: Optional<string> = null;
-    let target = null;
+    let target: Optional<ITargetStateDescriptor> = null;
 
     if (this.object.level_vertex_id() === this.assist_point) {
       new_state = "threat";
-      target = { look_object: registry.actor };
+      target = { look_object: registry.actor, look_position: null };
     } else {
       const t = time_global();
 
@@ -112,7 +112,7 @@ export class ActionCompanionActivity extends action_base {
 
         if (dist_to_assist_pt <= dist_walk) {
           new_state = "raid";
-          target = { look_object: registry.actor };
+          target = { look_object: registry.actor, look_position: null };
         } else if (dist_to_assist_pt <= dist_run) {
           new_state = "rush";
         } else {
@@ -137,7 +137,14 @@ export class ActionCompanionActivity extends action_base {
     const new_state = "threat";
 
     if (new_state !== this.last_state) {
-      set_state(this.object, new_state, null, null, { look_object: registry.actor }, { animation: true });
+      set_state(
+        this.object,
+        new_state,
+        null,
+        null,
+        { look_object: registry.actor, look_position: null },
+        { animation: true }
+      );
       this.last_state = new_state;
     }
 

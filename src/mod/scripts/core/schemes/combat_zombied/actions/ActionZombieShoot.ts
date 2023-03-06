@@ -12,7 +12,7 @@ import {
 
 import { AnyObject, Optional } from "@/mod/lib/types";
 import { ISchemeCombatState } from "@/mod/scripts/core/schemes/combat";
-import { set_state } from "@/mod/scripts/core/state_management/StateManager";
+import { ITargetStateDescriptor, set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ActionZombieShoot");
@@ -26,7 +26,10 @@ const act_danger = 2;
 @LuabindClass()
 export class ActionZombieShoot extends action_base {
   public state: ISchemeCombatState;
-  public t: AnyObject = {};
+  public targetStateDescriptor: ITargetStateDescriptor = {
+    look_position: null,
+    look_object: null,
+  };
 
   public enemy_last_seen_vid!: number;
   public was_hit: boolean = false;
@@ -148,15 +151,15 @@ export class ActionZombieShoot extends action_base {
    * todo;
    */
   public set_state(state: string, bestEnemy: Optional<XR_game_object>, position: Optional<XR_vector>): void {
-    this.t.look_object = bestEnemy;
+    this.targetStateDescriptor.look_object = bestEnemy;
 
     if (bestEnemy) {
-      this.t.look_position = this.enemy_last_seen_pos;
+      this.targetStateDescriptor.look_position = this.enemy_last_seen_pos;
     } else {
-      this.t.look_position = position;
+      this.targetStateDescriptor.look_position = position;
     }
 
-    set_state(this.object, state, null, null, this.t, null);
+    set_state(this.object, state, null, null, this.targetStateDescriptor, null);
 
     this.last_state = state;
   }

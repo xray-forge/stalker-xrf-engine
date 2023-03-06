@@ -31,7 +31,7 @@ export class CrowSpawnerManager extends AbstractSchemeManager<ISchemeCrowSpawner
   /**
    * todo;
    */
-  public override update(delta: number): void {
+  public override update(): void {
     // -- check for spawn crows on level
     if (this.time_for_spawn < time_global()) {
       this.spawned_count = registry.crows.count;

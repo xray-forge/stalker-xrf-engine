@@ -1,6 +1,6 @@
 import { flags32, patrol, XR_cse_alife_object, XR_flags32, XR_game_object, XR_ini_file, XR_patrol } from "xray16";
 
-import { AnyArgs, LuaArray, Optional, TCount, TDistance, TName, TPath, TSection } from "@/mod/lib/types";
+import { AnyArgs, LuaArray, Optional, TCount, TDistance, TIndex, TName, TPath, TSection } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { abort } from "@/mod/scripts/utils/debug";
 import { trimString } from "@/mod/scripts/utils/string";
@@ -44,7 +44,7 @@ export type TConditionList = LuaArray<IConfigSwitchCondition>;
  * todo;
  */
 export function parseNames<T extends TName = TName>(configString: string): LuaArray<T> {
-  const names: LuaTable<number, T> = new LuaTable();
+  const names: LuaArray<T> = new LuaTable();
 
   for (const it of string.gfind(configString, "([%w_%-.\\]+)%p*")) {
     table.insert(names, it as T);
@@ -96,7 +96,7 @@ export function parseNumbers(base: string): LuaArray<number> {
 /**
  *
  */
-export function parseSpawns(data: string): LuaTable<number, { section: string; prob: number }> {
+export function parseSpawns(data: string): LuaArray<{ section: string; prob: number }> {
   const t: LuaTable<number, string> = parseNames(data);
   const n = t.length();
 
@@ -136,11 +136,8 @@ export function parseSpawns(data: string): LuaTable<number, { section: string; p
 export function parseParams(params: string): LuaArray<string> {
   const result: LuaArray<string> = new LuaTable();
 
-  let n = 1;
-
   for (const field of string.gfind(params, "%s*([^|]+)%s*")) {
-    result.set(n, field);
-    n = n + 1;
+    table.insert(result, field);
   }
 
   return result;

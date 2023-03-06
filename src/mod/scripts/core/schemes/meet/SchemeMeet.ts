@@ -2,7 +2,7 @@ import { game_object, stalker_ids, world_property, XR_action_planner, XR_game_ob
 
 import { STRINGIFIED_FALSE, STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/mod/globals/lua";
 import { AnyObject, EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { SchemeAbuse } from "@/mod/scripts/core/schemes/abuse/SchemeAbuse";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
@@ -16,6 +16,7 @@ import { EvaluatorContact } from "@/mod/scripts/core/schemes/meet/evaluators";
 import { ISchemeMeetState } from "@/mod/scripts/core/schemes/meet/ISchemeMeetState";
 import { MeetManager } from "@/mod/scripts/core/schemes/meet/MeetManager";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
+import { ISchemeWoundedState } from "@/mod/scripts/core/schemes/wounded";
 import { isObjectWounded } from "@/mod/scripts/utils/checkers/checkers";
 import { getConfigString, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -102,25 +103,24 @@ export class SchemeMeet extends AbstractScheme {
   public static override resetScheme(
     object: XR_game_object,
     scheme: EScheme,
-    state: IStoredObject,
+    state: IRegistryObjectState,
     section: TSection
   ): void {
     const meetSection: TSection =
       scheme === null || scheme === STRINGIFIED_NIL
-        ? getConfigString(state.ini!, state.section_logic!, SchemeMeet.SCHEME_SECTION, object, false, "")
-        : getConfigString(state.ini!, section, SchemeMeet.SCHEME_SECTION, object, false, "");
+        ? getConfigString(state.ini, state.section_logic, SchemeMeet.SCHEME_SECTION, object, false, "")
+        : getConfigString(state.ini, section, SchemeMeet.SCHEME_SECTION, object, false, "");
 
-    SchemeMeet.initMeetScheme(object, state.ini!, meetSection, state.meet as ISchemeMeetState, scheme);
+    SchemeMeet.initMeetScheme(object, state.ini, meetSection, state.meet as ISchemeMeetState, scheme);
   }
 
   /**
    * todo;
    */
   public static override disableScheme(object: XR_game_object, scheme: EScheme): void {
-    const state: IStoredObject = registry.objects.get(object.id());
+    const state: IRegistryObjectState = registry.objects.get(object.id());
 
-    state.actor_dialogs = null;
-    state.actor_disable = null;
+    state[EScheme.ACTOR_DIALOGS] = null;
   }
 
   /**
@@ -350,9 +350,11 @@ export class SchemeMeet extends AbstractScheme {
       if (object.relation(registry.actor) === game_object.enemy) {
         object.disable_talk();
       } else {
-        const wounded = registry.objects.get(object.id()).wounded!;
+        const state: Optional<ISchemeWoundedState> = registry.objects.get(object.id())[
+          EScheme.WOUNDED
+        ] as ISchemeWoundedState;
 
-        if (wounded.enable_talk) {
+        if (state.enable_talk) {
           object.enable_talk();
         } else {
           object.disable_talk();
@@ -362,8 +364,8 @@ export class SchemeMeet extends AbstractScheme {
       return;
     }
 
-    const meet = registry.objects.get(object.id()).meet;
-    const use = meet.meet_manager.use;
+    const state: ISchemeMeetState = registry.objects.get(object.id())[EScheme.MEET] as ISchemeMeetState;
+    const use: Optional<string> = state.meet_manager.use;
 
     if (use === STRINGIFIED_TRUE) {
       if (SchemeCorpseDetection.isUnderCorpseDetection(object) || SchemeHelpWounded.isUnderHelpWounded(object)) {
@@ -387,7 +389,7 @@ export class SchemeMeet extends AbstractScheme {
       return;
     }
 
-    const state: Optional<ISchemeMeetState> = registry.objects.get(victim.id()).meet;
+    const state: Optional<ISchemeMeetState> = registry.objects.get(victim.id())[EScheme.MEET] as ISchemeMeetState;
 
     if (state === null) {
       return;

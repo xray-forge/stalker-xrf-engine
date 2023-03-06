@@ -26,7 +26,7 @@ export class PhysicalForceManager extends AbstractSchemeManager<ISchemePhysicalF
   /**
    * todo;
    */
-  public override update(delta: number): void {
+  public override update(): void {
     if (trySwitchToAnotherSection(this.object, this.state, registry.actor)) {
       return;
     }

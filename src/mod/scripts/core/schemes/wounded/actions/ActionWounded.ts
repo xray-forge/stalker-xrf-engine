@@ -93,7 +93,7 @@ export class ActionWounded extends action_base {
       }
 
       // todo: Here should be victim
-      set_state(this.object, woundManagerState, null, null, { look_object: null }, null);
+      set_state(this.object, woundManagerState, null, null, { look_object: null, look_position: null }, null);
     }
 
     if (woundManagerSound === STRINGIFIED_NIL) {

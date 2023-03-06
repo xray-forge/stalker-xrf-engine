@@ -1,100 +1,24 @@
-import type { TXR_MonsterBodyStateKey, XR_CUIGameCustom, XR_game_object, XR_ini_file, XR_vector } from "xray16";
+import type { XR_game_object } from "xray16";
 
 import type { TRelation } from "@/mod/globals/relations";
-import type {
-  AnyCallable,
-  AnyObject,
-  EScheme,
-  ESchemeType,
-  Optional,
-  TName,
-  TNumberId,
-  TSection,
-  TStringId,
-} from "@/mod/lib/types";
+import type { EScheme, TName, TNumberId, TStringId } from "@/mod/lib/types";
 import type { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import type { AnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
 import type { LabX8DoorBinder } from "@/mod/scripts/core/binders/LabX8DoorBinder";
 import type { SignalLightBinder } from "@/mod/scripts/core/binders/SignalLightBinder";
+import type { IRegistryObjectState } from "@/mod/scripts/core/database/objects";
+import type { IStoredOfflineObject } from "@/mod/scripts/core/database/offline";
 import type {
   AbstractCoreManager,
   TAbstractCoreManagerConstructor,
 } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import type { ITradeManagerDescriptor } from "@/mod/scripts/core/managers/TradeManager";
-import type { SchemeAnimpoint } from "@/mod/scripts/core/schemes/animpoint/SchemeAnimpoint";
 import type { TAbstractSchemeConstructor } from "@/mod/scripts/core/schemes/base";
 import type { CampStoryManager } from "@/mod/scripts/core/schemes/camper/CampStoryManager";
 import type { PatrolManager } from "@/mod/scripts/core/schemes/patrol";
 import type { ReachTaskPatrolManager } from "@/mod/scripts/core/schemes/reach_task/ReachTaskPatrolManager";
-import type { RestrictorManager } from "@/mod/scripts/core/schemes/RestrictorManager";
 import type { LightManager } from "@/mod/scripts/core/schemes/sr_light/LightManager";
-import type { ITeleportPoint } from "@/mod/scripts/core/schemes/teleport";
-import type { ISchemeWoundedState } from "@/mod/scripts/core/schemes/wounded";
 import type { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
-import type { StalkerMoveManager } from "@/mod/scripts/core/state_management/StalkerMoveManager";
-import type { StateManager } from "@/mod/scripts/core/state_management/StateManager";
-
-export interface IStoredObject<T = XR_game_object> {
-  active_section?: Optional<TSection>;
-
-  invulnerable?: Optional<boolean>;
-  immortal?: Optional<boolean>;
-  mute?: Optional<boolean>;
-
-  [index: string]: any;
-
-  moveManager?: StalkerMoveManager;
-  enemy_id?: TNumberId;
-  stype?: ESchemeType;
-  section?: Optional<TSection>;
-  actions?: LuaTable<LuaTable<string, AnyCallable>, boolean>;
-  pp?: XR_vector;
-  avail_animations?: LuaTable<number, string>;
-  animpoint?: SchemeAnimpoint;
-  scan_table?: LuaTable<number, LuaTable<number, { key: number; pos: XR_vector }>>;
-  wounded?: ISchemeWoundedState;
-  approved_actions?: LuaTable<number, { predicate: AnyCallable; name: string }>;
-  light?: boolean;
-  points?: LuaTable<number, ITeleportPoint>;
-  snd_close_start?: string;
-  path_table?: LuaTable<number, string>;
-  cam_effector?: LuaTable<number, string>;
-  anim_head?: TXR_MonsterBodyStateKey;
-  action?: any;
-  ini?: XR_ini_file;
-  object?: T;
-  max_crows_on_level?: number;
-  hit?: any;
-  timeout?: number;
-  smartcover?: any;
-  active_scheme?: Optional<EScheme>;
-  combat_ignore?: AnyObject;
-  section_logic?: string;
-  post_combat_wait?: unknown;
-  pstor?: LuaTable<string>;
-  death?: { killer: number; killer_name: Optional<string>; info: any; info2: any };
-  mob_death?: any;
-  disable_input_time?: any;
-  disable_input_idle?: any;
-  state_mgr?: Optional<StateManager>;
-  ui?: XR_CUIGameCustom;
-  restrictor_manager?: Optional<RestrictorManager>;
-  overrides?: Optional<{
-    combat_ignore_keep_when_attacked: number;
-    on_offline_condlist: number;
-    min_post_combat_time: number;
-    max_post_combat_time: number;
-    combat_ignore: AnyObject;
-  }>;
-}
-
-/**
- * todo;
- */
-export interface IStoredOfflineObject {
-  level_vertex_id: Optional<TNumberId>;
-  active_section: Optional<TSection>;
-}
 
 /**
  * Global-level registry of objects and references.
@@ -120,7 +44,7 @@ export const registry = {
   /**
    * List of active objects.
    */
-  objects: new LuaTable<TNumberId, IStoredObject>(),
+  objects: new LuaTable<TNumberId, IRegistryObjectState>(),
   /**
    * List of offline objects.
    */

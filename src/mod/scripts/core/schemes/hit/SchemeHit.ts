@@ -38,7 +38,7 @@ export class SchemeHit extends AbstractScheme {
    * todo;
    */
   public static override disableScheme(object: XR_game_object, scheme: EScheme): void {
-    const state: Optional<ISchemeHitState> = registry.objects.get(object.id())[scheme];
+    const state: Optional<ISchemeHitState> = registry.objects.get(object.id())[scheme] as ISchemeHitState;
 
     if (state !== null) {
       unsubscribeActionFromEvents(object, state, state.action);

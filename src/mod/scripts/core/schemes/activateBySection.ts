@@ -4,6 +4,7 @@ import { STRINGIFIED_NIL } from "@/mod/globals/lua";
 import { AnyObject, Optional, TName, TNumberId } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { registry } from "@/mod/scripts/core/database";
+import { ESchemeEvent } from "@/mod/scripts/core/schemes/base";
 import { issueSchemeEvent } from "@/mod/scripts/core/schemes/issueSchemeEvent";
 import { resetGenericSchemesOnSchemeSwitch } from "@/mod/scripts/core/schemes/resetGenericSchemesOnSchemeSwitch";
 import { sendToNearestAccessibleVertex } from "@/mod/scripts/utils/alife";
@@ -24,7 +25,7 @@ export function activateBySection(
   object: XR_game_object,
   ini: XR_ini_file,
   section: TSection,
-  gulagName: TName,
+  gulagName: Optional<TName>,
   loading: boolean
 ): void {
   logger.info("Activate by section:", object.name(), section, gulagName);
@@ -82,16 +83,15 @@ export function activateBySection(
   }
 
   logger.info("Set active scheme:", object.name(), scheme, section, gulagName);
-  filenameOrHandler.setScheme(object, ini, scheme, section, gulagName);
+  filenameOrHandler.setScheme(object, ini, scheme, section as TSection, gulagName);
 
   registry.objects.get(objectId).active_section = section;
   registry.objects.get(objectId).active_scheme = scheme;
 
   if (registry.objects.get(objectId).stype === ESchemeType.STALKER) {
     sendToNearestAccessibleVertex(object, object.level_vertex_id());
-
-    issueSchemeEvent(object, registry.objects.get(objectId)[scheme], "activateScheme", loading, object);
+    issueSchemeEvent(object, registry.objects.get(objectId)[scheme]!, ESchemeEvent.ACTIVATE_SCHEME, loading, object);
   } else {
-    issueSchemeEvent(object, registry.objects.get(objectId)[scheme], "resetScheme", loading, object);
+    issueSchemeEvent(object, registry.objects.get(objectId)[scheme]!, ESchemeEvent.RESET_SCHEME, loading, object);
   }
 }

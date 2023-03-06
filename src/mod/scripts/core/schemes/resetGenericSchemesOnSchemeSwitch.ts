@@ -1,7 +1,7 @@
 import { callback, clsid, XR_game_object } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { MapDisplayManager } from "@/mod/scripts/core/managers/map/MapDisplayManager";
 import { mobRelease } from "@/mod/scripts/core/schemes/mobRelease";
 import { RestrictorManager } from "@/mod/scripts/core/schemes/RestrictorManager";
@@ -26,9 +26,7 @@ export function resetGenericSchemesOnSchemeSwitch(
   schemeToSwitch: EScheme,
   section: TSection
 ): void {
-  const state: IStoredObject = registry.objects.get(object.id());
-
-  state.exit_from_smartcover_initialized = null;
+  const state: IRegistryObjectState = registry.objects.get(object.id());
 
   if (state.stype === null) {
     return;
@@ -53,7 +51,7 @@ export function resetGenericSchemesOnSchemeSwitch(
       resetObjectGroup(object, state.ini!, section);
       take_items_enabled(object, schemeToSwitch, state, section);
       can_select_weapon(object, schemeToSwitch, state, section);
-      RestrictorManager.forNpc(object).reset_restrictions(state, section);
+      RestrictorManager.forObject(object).reset_restrictions(state, section);
 
       return;
     }
@@ -71,7 +69,7 @@ export function resetGenericSchemesOnSchemeSwitch(
       resetScheme(EScheme.COMBAT_IGNORE, object, schemeToSwitch, state, section);
       resetScheme(EScheme.HEAR, object, schemeToSwitch, state, section);
       resetInvulnerability(object);
-      RestrictorManager.forNpc(object).reset_restrictions(state, section);
+      RestrictorManager.forObject(object).reset_restrictions(state, section);
 
       return;
     }

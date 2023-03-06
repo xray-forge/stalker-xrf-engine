@@ -118,7 +118,7 @@ export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkStat
   /**
    * todo;
    */
-  public override update(delta: number): void {
+  public override update(): void {
     const actor = registry.actor;
 
     if (

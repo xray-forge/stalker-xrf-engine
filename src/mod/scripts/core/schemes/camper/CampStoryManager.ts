@@ -1,9 +1,13 @@
 import { time_global, XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
-import { EScheme, Optional } from "@/mod/lib/types";
-import { registry } from "@/mod/scripts/core/database";
+import { EScheme, LuaArray, Optional, TCount, TName, TNumberId } from "@/mod/lib/types";
+import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
+import { IAnimpointAction, ISchemeAnimpointState } from "@/mod/scripts/core/schemes/animpoint/ISchemeAnimpointState";
+import { ESchemeEvent } from "@/mod/scripts/core/schemes/base";
 import { issueSchemeEvent } from "@/mod/scripts/core/schemes/issueSchemeEvent";
+import { ISchemeMeetState } from "@/mod/scripts/core/schemes/meet";
+import { MeetManager } from "@/mod/scripts/core/schemes/meet/MeetManager";
 import { get_sound_manager, SoundManager } from "@/mod/scripts/core/sound/SoundManager";
 import { isObjectMeeting } from "@/mod/scripts/utils/checkers/checkers";
 import { getConfigString } from "@/mod/scripts/utils/configs";
@@ -12,7 +16,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseNames } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("CampStoryManager");
-const npc_role = { noone: 0, listener: 1, director: 2 };
+const E_NPC_ROLE = { noone: 0, listener: 1, director: 2 };
 
 // todo: Implement as scheme.
 // todo: Rename to camp story?
@@ -20,6 +24,9 @@ const npc_role = { noone: 0, listener: 1, director: 2 };
 export class CampStoryManager {
   public static readonly SCHEME_SECTION: EScheme = EScheme.CAMP;
 
+  /**
+   * todo;
+   */
   public static get_current_camp(position: Optional<XR_vector>): Optional<CampStoryManager> {
     if (position === null) {
       return null;
@@ -35,6 +42,9 @@ export class CampStoryManager {
     return null;
   }
 
+  /**
+   * todo;
+   */
   public static start_guitar(npc: XR_game_object): void {
     const camp_id = registry.objects.get(npc.id()).registred_camp;
 
@@ -50,6 +60,9 @@ export class CampStoryManager {
     camp.sound_manager.update();
   }
 
+  /**
+   * todo;
+   */
   public static start_harmonica(object: XR_game_object): void {
     const capmId = registry.objects.get(object.id()).registred_camp;
 
@@ -97,6 +110,9 @@ export class CampStoryManager {
     }
   >;
 
+  /**
+   * todo;
+   */
   public constructor(object: XR_game_object, ini: XR_ini_file) {
     this.object = object;
     this.ini = ini;
@@ -167,6 +183,9 @@ export class CampStoryManager {
     } as any;
   }
 
+  /**
+   * todo;
+   */
   public update(): void {
     if (!this.sound_manager.is_finished()) {
       this.sound_manager.update();
@@ -196,21 +215,20 @@ export class CampStoryManager {
       }
 
       this.sound_manager_started = false;
+
       for (const [k, v] of this.npc) {
         if (registry.objects.get(k) !== null) {
           // todo: Optimize call.
           issueSchemeEvent(
             registry.objects.get(k).object!,
-            registry.objects.get(k)[registry.objects.get(k).active_scheme!],
-            "update"
+            registry.objects.get(k)[registry.objects.get(k).active_scheme!]!,
+            ESchemeEvent.UPDATE
           );
         }
 
-        // todo: Optimize call.
-        const meet =
-          registry.objects.get(k) && registry.objects.get(k).meet && registry.objects.get(k).meet.meet_manager;
+        const meet: Optional<MeetManager> = (registry.objects.get(k)[EScheme.MEET] as ISchemeMeetState)?.meet_manager;
 
-        if (meet) {
+        if (meet !== null) {
           meet.npc_is_camp_director = this.director === k;
         }
       }
@@ -237,6 +255,9 @@ export class CampStoryManager {
     }
   }
 
+  /**
+   * todo;
+   */
   public set_next_state(): void {
     const transitions = this.states.get(this.active_state).transitions;
     let rnd: number = math.random(100);
@@ -262,7 +283,9 @@ export class CampStoryManager {
     this.timeout = time_global() + this.states.get(this.active_state).timeout;
   }
 
-  // todo: Is it getter?
+  /**
+   * todo;
+   */
   public get_director(): Optional<boolean> {
     if (this.active_state === "idle") {
       this.director = null;
@@ -271,29 +294,30 @@ export class CampStoryManager {
     }
 
     const directors = new LuaTable();
-    let npc_count = 0;
+    let objectsCount: TCount = 0;
 
-    for (const [k, v] of this.npc) {
-      npc_count = npc_count + 1;
+    for (const [id, info] of this.npc) {
+      objectsCount = objectsCount + 1;
 
-      const st = registry.objects.get(k);
+      const state = registry.objects.get(id);
 
-      if (st !== null) {
-        const scheme = st.active_scheme && st[st.active_scheme];
-        const npc: Optional<XR_game_object> = st.object!;
+      if (state !== null) {
+        const schemeState: Optional<ISchemeAnimpointState> =
+          state.active_scheme && (state[state.active_scheme] as ISchemeAnimpointState);
+        const object: Optional<XR_game_object> = state.object;
 
         if (
-          v[this.active_state] === npc_role.director &&
-          scheme !== null &&
-          scheme.base_action === scheme.description &&
-          !isObjectMeeting(npc)
+          info[this.active_state] === E_NPC_ROLE.director &&
+          schemeState !== null &&
+          schemeState.base_action === schemeState.description &&
+          !isObjectMeeting(object)
         ) {
-          table.insert(directors, k);
+          table.insert(directors, id);
         }
       }
     }
 
-    if (npc_count === 0) {
+    if (objectsCount === 0) {
       this.director = null;
     } else if (directors.length() < 1) {
       return false;
@@ -306,6 +330,9 @@ export class CampStoryManager {
     return null;
   }
 
+  /**
+   * todo;
+   */
   public set_story(): void {
     if (this.active_state === "story") {
       this.sound_manager.set_storyteller(this.director);
@@ -316,6 +343,9 @@ export class CampStoryManager {
     }
   }
 
+  /**
+   * todo;
+   */
   public get_camp_action(npc_id: number): LuaMultiReturn<[Optional<string>, Optional<boolean>]> {
     if (npc_id === null) {
       abort("Trying to use destroyed object!");
@@ -328,32 +358,36 @@ export class CampStoryManager {
     return $multi(this.npc.get(npc_id)!.state, this.director === npc_id);
   }
 
-  public register_npc(npc_id: number): void {
-    this.npc.set(npc_id, { state: this.active_state });
-    registry.objects.get(npc_id).registred_camp = this.object.id();
+  /**
+   * todo;
+   */
+  public register_npc(objectId: TNumberId): void {
+    this.npc.set(objectId, { state: this.active_state });
+
+    const state: IRegistryObjectState = registry.objects.get(objectId);
+
+    state.registred_camp = this.object.id();
 
     for (const [k, v] of this.states) {
-      const role = this.get_npc_role(npc_id, k);
+      const role = this.get_npc_role(objectId, k);
 
-      if (role === npc_role.noone) {
-        abort("Wrong role for npc[%s] with id[%d] in camp [%s]!!!", "", npc_id, this.object.name());
+      if (role === E_NPC_ROLE.noone) {
+        abort("Wrong role for npc[%s] with id[%d] in camp [%s]!!!", "", objectId, this.object.name());
       }
 
-      this.npc.get(npc_id)[k] = role;
+      this.npc.get(objectId)[k] = role;
     }
 
-    this.sound_manager.register_npc(npc_id);
+    this.sound_manager.register_npc(objectId);
 
-    // todo: Optimize.
-    issueSchemeEvent(
-      registry.objects.get(npc_id).object!,
-      registry.objects.get(npc_id)[registry.objects.get(npc_id).active_scheme!],
-      "update"
-    );
+    issueSchemeEvent(state.object!, state[state.active_scheme!]!, ESchemeEvent.UPDATE);
   }
 
-  public unregister_npc(npc_id: number): void {
-    if (this.director === npc_id) {
+  /**
+   * todo;
+   */
+  public unregister_npc(objectId: TNumberId): void {
+    if (this.director === objectId) {
       this.sound_manager_started = false;
       this.active_state_time = 0;
       this.director = null;
@@ -364,44 +398,49 @@ export class CampStoryManager {
       }
     }
 
-    registry.objects.get(npc_id).registred_camp = null;
-    this.npc.delete(npc_id);
-    this.sound_manager.unregister_npc(npc_id);
+    registry.objects.get(objectId).registred_camp = null;
+    this.npc.delete(objectId);
+    this.sound_manager.unregister_npc(objectId);
   }
 
-  public get_npc_role(npc_id: number, state: string): number {
-    const scheme = registry.objects.get(npc_id)[registry.objects.get(npc_id).active_scheme!];
+  /**
+   * todo;
+   */
+  public get_npc_role(objectId: TNumberId, state: TName): number {
+    const schemeState: Optional<ISchemeAnimpointState> = registry.objects.get(objectId)[
+      registry.objects.get(objectId).active_scheme!
+    ] as ISchemeAnimpointState;
 
-    if (scheme === null) {
-      return npc_role.noone;
+    if (schemeState === null) {
+      return E_NPC_ROLE.noone;
     }
 
-    const npc_actions: LuaTable = scheme.approved_actions;
-    let descr = scheme.description;
+    const objectActions: LuaArray<IAnimpointAction> = schemeState.approved_actions;
+    let description: Optional<TName> = schemeState.description;
 
     if (state === "harmonica" || state === "guitar") {
-      descr = descr + "_" + state;
+      description = description + "_" + state;
 
-      for (const i of $range(1, npc_actions.length())) {
-        if (npc_actions.get(i).name === descr) {
-          return npc_role.director;
+      for (const i of $range(1, objectActions.length())) {
+        if (objectActions.get(i).name === description) {
+          return E_NPC_ROLE.director;
         }
       }
 
-      return npc_role.listener;
+      return E_NPC_ROLE.listener;
     } else if (state === "story") {
-      for (const i of $range(1, npc_actions.length())) {
-        if (npc_actions.get(i).name === descr || npc_actions.get(i).name === descr + "_weapon") {
-          return npc_role.director;
+      for (const i of $range(1, objectActions.length())) {
+        if (objectActions.get(i).name === description || objectActions.get(i).name === description + "_weapon") {
+          return E_NPC_ROLE.director;
         }
       }
 
-      return npc_role.listener;
+      return E_NPC_ROLE.listener;
     } else if (state === "idle") {
-      return npc_role.listener;
+      return E_NPC_ROLE.listener;
     }
 
-    return npc_role.noone;
+    return E_NPC_ROLE.noone;
   }
 }
 
@@ -415,29 +454,28 @@ function sr_camp_idle_precondition(camp: CampStoryManager): boolean {
 /**
  * todo;
  */
-function sr_camp_guitar_precondition(camp: CampStoryManager): boolean {
-  if (camp.guitar_table.length() > 0) {
-    let n = 0;
+function sr_camp_guitar_precondition(campStoryManager: CampStoryManager): boolean {
+  if (campStoryManager.guitar_table.length() > 0) {
+    let count: TCount = 0;
 
-    for (const [k, v] of camp.npc) {
-      n = n + 1;
+    for (const [k, v] of campStoryManager.npc) {
+      count = count + 1;
     }
 
-    if (n > 1) {
-      for (const [k, v] of camp.npc) {
-        // todo: Optimize checkers with constant GET.
-        const scheme =
-          registry.objects.get(k) &&
-          registry.objects.get(k).active_scheme &&
-          registry.objects.get(k)[registry.objects.get(k).active_scheme!];
-        const npc: Optional<XR_game_object> = registry.objects.get(k) && registry.objects.get(k).object!;
+    if (count > 1) {
+      for (const [objectId, objectInfo] of campStoryManager.npc) {
+        const state: Optional<IRegistryObjectState> = registry.objects.get(objectId);
+        const schemeState: Optional<ISchemeAnimpointState> = state?.active_scheme
+          ? (state[state.active_scheme] as ISchemeAnimpointState)
+          : null;
+        const object: Optional<XR_game_object> = state?.object;
 
         if (
-          v.guitar === npc_role.director &&
-          scheme !== null &&
-          scheme.base_action === scheme.description &&
-          npc !== null &&
-          !isObjectMeeting(npc)
+          objectInfo.guitar === E_NPC_ROLE.director &&
+          schemeState !== null &&
+          schemeState.base_action === schemeState.description &&
+          object !== null &&
+          !isObjectMeeting(object)
         ) {
           return true;
         }
@@ -448,21 +486,23 @@ function sr_camp_guitar_precondition(camp: CampStoryManager): boolean {
   return false;
 }
 
-function sr_camp_story_precondition(camp: CampStoryManager): boolean {
-  if (camp.story_table.length() > 0) {
-    let n = 0;
+/**
+ * todo;
+ */
+function sr_camp_story_precondition(campStoryManager: CampStoryManager): boolean {
+  if (campStoryManager.story_table.length() > 0) {
+    let count: TCount = 0;
 
-    for (const [k, v] of camp.npc) {
-      // todo: Optimize checkers with constant GET.
-      const npc: Optional<XR_game_object> = registry.objects.get(k) && registry.objects.get(k).object!;
+    for (const [k, v] of campStoryManager.npc) {
+      const object: Optional<XR_game_object> = registry.objects.get(k)?.object;
 
-      if (npc !== null && !isObjectMeeting(npc)) {
-        n = n + 1;
+      if (object !== null && !isObjectMeeting(object)) {
+        count = count + 1;
       }
     }
 
     // todo: Probably just return instead of full FOR?
-    if (n > 1) {
+    if (count > 1) {
       return true;
     }
   }
@@ -470,30 +510,32 @@ function sr_camp_story_precondition(camp: CampStoryManager): boolean {
   return false;
 }
 
-function sr_camp_harmonica_precondition(camp: CampStoryManager): boolean {
-  if (camp.harmonica_table.length() > 0) {
-    let n: number = 0;
+/**
+ * todo;
+ */
+function sr_camp_harmonica_precondition(campStoryManager: CampStoryManager): boolean {
+  if (campStoryManager.harmonica_table.length() > 0) {
+    let count: TCount = 0;
 
     // todo: Len util.
-    for (const [k, v] of camp.npc) {
-      n = n + 1;
+    for (const [k, v] of campStoryManager.npc) {
+      count = count + 1;
     }
 
-    if (n > 1) {
-      for (const [k, v] of camp.npc) {
-        // todo: Simplify.
-        const scheme =
-          registry.objects.get(k) &&
-          registry.objects.get(k).active_scheme &&
-          registry.objects.get(k)[registry.objects.get(k).active_scheme!];
-        const npc: Optional<XR_game_object> = registry.objects.get(k) && registry.objects.get(k).object!;
+    if (count > 1) {
+      for (const [id, info] of campStoryManager.npc) {
+        const state: Optional<IRegistryObjectState> = registry.objects.get(id);
+        const schemeState: Optional<ISchemeAnimpointState> = state?.active_scheme
+          ? (state[state.active_scheme!] as ISchemeAnimpointState)
+          : null;
+        const object: Optional<XR_game_object> = state?.object;
 
         if (
-          v.harmonica === npc_role.director &&
-          scheme !== null &&
-          scheme.base_action === scheme.description &&
-          npc !== null &&
-          !isObjectMeeting(npc)
+          info.harmonica === E_NPC_ROLE.director &&
+          schemeState !== null &&
+          schemeState.base_action === schemeState.description &&
+          object !== null &&
+          !isObjectMeeting(object)
         ) {
           return true;
         }

@@ -1,5 +1,6 @@
 import { color, hit, noise, time_global, vector, XR_game_object, XR_hit, XR_noise } from "xray16";
 
+import { TDuration } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { AbstractSchemeManager } from "@/mod/scripts/core/schemes/base/AbstractSchemeManager";
 import { ISchemePostProcessState } from "@/mod/scripts/core/schemes/sr_postprocess/ISchemePostProcessState";
@@ -60,7 +61,7 @@ export class SchemePostProcessManager extends AbstractSchemeManager<ISchemePostP
   /**
    * todo;
    */
-  public override update(delta: number): void {
+  public override update(delta: TDuration): void {
     const actor = registry.actor;
 
     if (trySwitchToAnotherSection(this.object, this.state, actor)) {

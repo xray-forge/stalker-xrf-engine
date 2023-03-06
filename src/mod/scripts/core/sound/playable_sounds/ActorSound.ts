@@ -14,8 +14,9 @@ import {
 
 import { STRINGIFIED_NIL } from "@/mod/globals/lua";
 import { TSection } from "@/mod/lib/types";
-import { registry } from "@/mod/scripts/core/database";
+import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
+import { IBaseSchemeState } from "@/mod/scripts/core/schemes/base";
 import { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
 import { EPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/EPlayableSound";
 import { getConfigBoolean, getConfigString } from "@/mod/scripts/utils/configs";
@@ -154,23 +155,19 @@ export class ActorSound extends AbstractPlayableSound {
 
     get_hud().RemoveCustomStatic("cs_subtitles_actor");
 
-    const state = registry.objects.get(objectId);
+    const objectState: IRegistryObjectState = registry.objects.get(objectId);
 
-    if (!state.active_scheme) {
+    if (!objectState.active_scheme || objectState[objectState.active_scheme!]!.signals === null) {
       return;
     }
 
-    if (state[state.active_scheme].signals === null) {
-      return;
-    }
-
-    const schemeState: AnyObject = state[state.active_scheme];
+    const schemeState: IBaseSchemeState = objectState[objectState.active_scheme] as IBaseSchemeState;
 
     if (this.played_id === this.sound.length() && this.shuffle !== "rnd") {
-      schemeState.signals["theme_end"] = true;
-      schemeState.signals["sound_end"] = true;
+      schemeState.signals!.set("theme_end", true);
+      schemeState.signals!.set("sound_end", true);
     } else {
-      schemeState.signals["sound_end"] = true;
+      schemeState.signals!.set("sound_end", true);
     }
   }
 

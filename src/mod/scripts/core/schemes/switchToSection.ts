@@ -1,8 +1,9 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
-import { Maybe, TSection } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { EScheme, Maybe, TSection } from "@/mod/lib/types";
+import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { activateBySection } from "@/mod/scripts/core/schemes/activateBySection";
+import { ESchemeEvent } from "@/mod/scripts/core/schemes/base";
 import { issueSchemeEvent } from "@/mod/scripts/core/schemes/issueSchemeEvent";
 
 /**
@@ -16,18 +17,17 @@ export function switchToSection(object: XR_game_object, ini: XR_ini_file, sectio
     return false;
   }
 
-  const state: IStoredObject = registry.objects.get(object.id());
-  const activeSection: Maybe<TSection> = state.active_section;
+  const state: IRegistryObjectState = registry.objects.get(object.id());
+  const activeSection: Maybe<EScheme> = state.active_section as EScheme;
 
   if (activeSection === section) {
     return false;
   }
 
-  if (activeSection) {
-    issueSchemeEvent(object, state[activeSection], "deactivate", object);
+  if (activeSection !== null) {
+    issueSchemeEvent(object, state[activeSection]!, ESchemeEvent.DEACTIVATE, object);
   }
 
-  state.exit_from_smartcover_initialized = null;
   state.active_section = null;
   state.active_scheme = null;
 

@@ -1,13 +1,13 @@
 import { XR_game_object, XR_vector } from "xray16";
 
-import { Optional, TCount, TIndex } from "@/mod/lib/types";
+import { EScheme, Optional, TCount, TIndex } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { AbstractSchemeManager } from "@/mod/scripts/core/schemes/base/AbstractSchemeManager";
 import { ISchemeHitState } from "@/mod/scripts/core/schemes/hit/ISchemeHitState";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("SchemeHit");
+const logger: LuaLogger = new LuaLogger("HitManager");
 
 /**
  * todo;
@@ -23,31 +23,31 @@ export class HitManager extends AbstractSchemeManager<ISchemeHitState> {
     who: Optional<XR_game_object>,
     boneIndex: TIndex
   ): void {
-    registry.objects.get(this.object.id()).hit.bone_index = boneIndex;
+    // todo: Probably play around with this and avoid this external refs. this.state?
+    const state: ISchemeHitState = registry.objects.get(this.object.id())[EScheme.HIT] as ISchemeHitState;
+
+    state.bone_index = boneIndex;
 
     if (amount === 0 && !object.invulnerable()) {
       return;
     }
 
     if (who) {
-      logger.info("Object hit:", object.name(), "<-", who.name(), amount);
-
-      registry.objects.get(object.id()).hit.who = who.id();
+      state.who = who.id();
     } else {
-      logger.info("Object hit:", object.name(), "<-", "unknown", amount);
-      registry.objects.get(object.id()).hit.who = -1;
+      state.who = -1;
     }
 
     if (registry.objects.get(this.object.id()).active_scheme) {
-      registry.objects.get(this.object.id()).hit.deadly_hit = amount >= this.object.health * 100;
+      state.deadly_hit = amount >= this.object.health * 100;
 
-      if (trySwitchToAnotherSection(object, registry.objects.get(this.object.id()).hit, registry.actor)) {
-        registry.objects.get(this.object.id()).hit.deadly_hit = false;
+      if (trySwitchToAnotherSection(object, state, registry.actor)) {
+        state.deadly_hit = false;
 
         return;
       }
 
-      registry.objects.get(this.object.id()).hit.deadly_hit = false;
+      state.deadly_hit = false;
     }
   }
 }

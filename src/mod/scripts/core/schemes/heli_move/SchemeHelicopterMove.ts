@@ -1,7 +1,7 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { HelicopterMoveManager } from "@/mod/scripts/core/schemes/heli_move/HelicopterMoveManager";
@@ -61,7 +61,7 @@ export class SchemeHelicopterMove extends AbstractScheme {
     state.show_health = getConfigBoolean(ini, section, "show_health", object, false, false);
     state.fire_trail = getConfigBoolean(ini, section, "fire_trail", object, false, false);
 
-    const objectState: IStoredObject = registry.objects.get(object.id());
+    const objectState: IRegistryObjectState = registry.objects.get(object.id());
 
     objectState.invulnerable = getConfigBoolean(ini, section, "invulnerable", object, false, false);
     objectState.immortal = getConfigBoolean(ini, section, "immortal", object, false, false);

@@ -610,17 +610,18 @@ export class Squad<
     const invulnerability: boolean =
       pickSectionFromCondList(registry.actor, this, this.invulnerability as any) === STRINGIFIED_TRUE;
 
-    for (const k of this.squad_members()) {
-      const npc_st = registry.objects.get(k.id);
+    for (const squadMember of this.squad_members()) {
+      const objectState = registry.objects.get(squadMember.id);
 
-      if (npc_st !== null) {
-        const npc = npc_st.object!;
+      if (objectState !== null) {
+        const object = objectState.object;
 
         if (
-          npc?.invulnerable() !== invulnerability &&
-          getConfigString(npc_st.ini!, npc_st.active_section!, "invulnerable", npc, false, "", null) === null
+          object.invulnerable() !== invulnerability &&
+          getConfigString(objectState.ini, objectState.active_section!, "invulnerable", object, false, "", null) ===
+            null
         ) {
-          npc.invulnerable(invulnerability);
+          object.invulnerable(invulnerability);
         }
       }
     }

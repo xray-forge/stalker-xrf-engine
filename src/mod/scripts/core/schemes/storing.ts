@@ -1,8 +1,10 @@
-import { time_global, XR_game_object, XR_net_packet, XR_reader } from "xray16";
+import { time_global, XR_CTime, XR_game_object, XR_net_packet, XR_reader } from "xray16";
 
-import { Optional, StringOptional, TName, TNumberId } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { STRINGIFIED_NIL } from "@/mod/globals/lua";
+import { Optional, StringOptional, TName, TNumberId, TPath, TSection, TTimestamp } from "@/mod/lib/types";
+import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { pstor_load_all, pstor_save_all } from "@/mod/scripts/core/database/pstor";
+import { ESchemeEvent } from "@/mod/scripts/core/schemes/base";
 import { issueSchemeEvent } from "@/mod/scripts/core/schemes/issueSchemeEvent";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
@@ -13,19 +15,18 @@ import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/tim
  * todo;
  */
 export function saveLogic(object: XR_game_object, packet: XR_net_packet): void {
-  const npc_id = object.id();
-  const cur_tm = time_global();
+  const objectId: TNumberId = object.id();
+  const now: TTimestamp = time_global();
 
-  let activation_time: number = registry.objects.get(npc_id).activation_time;
+  let activation_time: TTimestamp = registry.objects.get(objectId).activation_time;
 
   if (!activation_time) {
     activation_time = 0;
   }
 
-  packet.w_s32(activation_time - cur_tm);
+  packet.w_s32(activation_time - now);
 
-  // -- GAMETIME added by Stohe.
-  writeCTimeToPacket(packet, registry.objects.get(npc_id).activation_game_time);
+  writeCTimeToPacket(packet, registry.objects.get(objectId).activation_game_time);
 }
 
 /**
@@ -38,7 +39,7 @@ export function loadLogic(obj: XR_game_object, reader: XR_reader): void {
   const cur_tm = time_global();
 
   registry.objects.get(npc_id).activation_time = reader.r_s32() + cur_tm;
-  registry.objects.get(npc_id).activation_game_time = readCTimeFromPacket(reader);
+  registry.objects.get(npc_id).activation_game_time = readCTimeFromPacket(reader) as XR_CTime;
 }
 
 /**
@@ -49,45 +50,43 @@ export function loadLogic(obj: XR_game_object, reader: XR_reader): void {
 export function saveObject(object: XR_game_object, packet: XR_net_packet): void {
   setSaveMarker(packet, false, "object" + object.name());
 
-  const npc_id = object.id();
-  const st = registry.objects.get(npc_id);
+  const objectId: TNumberId = object.id();
+  const state: IRegistryObjectState = registry.objects.get(objectId);
 
-  if (st.job_ini) {
-    packet.w_stringZ(st.job_ini);
+  if (state.job_ini) {
+    packet.w_stringZ(state.job_ini);
   } else {
     packet.w_stringZ("");
   }
 
-  if (st.ini_filename) {
-    packet.w_stringZ(st.ini_filename);
+  if (state.ini_filename) {
+    packet.w_stringZ(state.ini_filename);
   } else {
     packet.w_stringZ("");
   }
 
-  if (st.section_logic) {
-    packet.w_stringZ(st.section_logic);
+  if (state.section_logic) {
+    packet.w_stringZ(state.section_logic);
   } else {
     packet.w_stringZ("");
   }
 
-  if (st.active_section) {
-    packet.w_stringZ(st.active_section);
+  if (state.active_section) {
+    packet.w_stringZ(state.active_section);
   } else {
     packet.w_stringZ("");
   }
 
-  if (st.gulag_name) {
-    packet.w_stringZ(st.gulag_name);
+  if (state.gulag_name) {
+    packet.w_stringZ(state.gulag_name);
   } else {
     packet.w_stringZ("");
   }
-
-  // --packet.w_s32(st.stype)
 
   saveLogic(object, packet);
 
-  if (st.active_scheme) {
-    issueSchemeEvent(object, registry.objects.get(npc_id)[st.active_scheme], "save");
+  if (state.active_scheme) {
+    issueSchemeEvent(object, state[state.active_scheme!]!, ESchemeEvent.SAVE);
   }
 
   pstor_save_all(object, packet);
@@ -103,8 +102,8 @@ export function loadObject(obj: XR_game_object, reader: XR_reader): void {
   setLoadMarker(reader, false, "object" + obj.name());
 
   const objectId: TNumberId = obj.id();
-  const state: IStoredObject = registry.objects.get(objectId);
-  let job_ini: Optional<string> = reader.r_stringZ();
+  const state: IRegistryObjectState = registry.objects.get(objectId);
+  let job_ini: Optional<TPath> = reader.r_stringZ();
 
   if (job_ini === "") {
     job_ini = null;
@@ -116,28 +115,25 @@ export function loadObject(obj: XR_game_object, reader: XR_reader): void {
     iniFilename = null;
   }
 
-  let section_logic: Optional<string> = reader.r_stringZ();
+  let section_logic: Optional<TSection> = reader.r_stringZ();
 
   if (section_logic === "") {
     section_logic = null;
   }
 
-  let active_section: StringOptional<string> = reader.r_stringZ();
+  let active_section: StringOptional = reader.r_stringZ();
 
   if (active_section === "") {
-    active_section = "nil";
+    active_section = STRINGIFIED_NIL;
   }
 
-  const gulag_name: string = reader.r_stringZ();
+  const gulag_name: TName = reader.r_stringZ();
 
-  // --const stype = reader.r_s32()
   state.job_ini = job_ini;
   state.loaded_ini_filename = iniFilename;
   state.loaded_section_logic = section_logic;
   state.loaded_active_section = active_section;
-  // --st.loaded_active_scheme = active_scheme
   state.loaded_gulag_name = gulag_name;
-  // --st.loaded_stype = stype
 
   loadLogic(obj, reader);
 

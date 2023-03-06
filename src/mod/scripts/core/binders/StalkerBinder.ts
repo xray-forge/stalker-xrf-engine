@@ -26,18 +26,18 @@ import {
 
 import { communities } from "@/mod/globals/communities";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
-import { Optional, TNumberId, TRate, TSection } from "@/mod/lib/types";
+import { EScheme, Optional, TDuration, TNumberId, TRate, TSection } from "@/mod/lib/types";
 import { ESchemeType } from "@/mod/lib/types/scheme";
 import { setup_gulag_and_logic_on_spawn, SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import {
   addHelicopterEnemy,
-  addObject,
   deleteHelicopterEnemy,
-  deleteObject,
   DUMMY_LTX,
-  IStoredObject,
+  IRegistryObjectState,
+  registerObject,
   registry,
   resetObject,
+  unregisterObject,
 } from "@/mod/scripts/core/database";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
 import { DropManager } from "@/mod/scripts/core/managers/DropManager";
@@ -47,6 +47,7 @@ import { MapDisplayManager } from "@/mod/scripts/core/managers/map/MapDisplayMan
 import { ReleaseBodyManager } from "@/mod/scripts/core/managers/ReleaseBodyManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { TradeManager } from "@/mod/scripts/core/managers/TradeManager";
+import { ESchemeEvent } from "@/mod/scripts/core/schemes/base";
 import { SchemeCombat } from "@/mod/scripts/core/schemes/combat/SchemeCombat";
 import { PostCombatIdle } from "@/mod/scripts/core/schemes/danger/PostCombatIdle";
 import { SchemeDanger } from "@/mod/scripts/core/schemes/danger/SchemeDanger";
@@ -69,6 +70,7 @@ import { getConfigString, pickSectionFromCondList } from "@/mod/scripts/utils/co
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { getObjectStoryId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { TConditionList } from "@/mod/scripts/utils/parse";
 import { setObjectsRelation, setObjectSympathy } from "@/mod/scripts/utils/relations";
 
 const logger: LuaLogger = new LuaLogger("MotivatorBinder");
@@ -80,7 +82,7 @@ const logger: LuaLogger = new LuaLogger("MotivatorBinder");
  */
 @LuabindClass()
 export class StalkerBinder extends object_binder {
-  public state!: IStoredObject;
+  public state!: IRegistryObjectState;
   public loaded: boolean = false;
   public last_update: number = 0;
   public first_update: boolean = false;
@@ -99,11 +101,9 @@ export class StalkerBinder extends object_binder {
   public override reinit(): void {
     super.reinit();
 
-    this.state = resetObject(this.object, { followers: {} });
+    this.state = resetObject(this.object);
     this.state.state_mgr = bind_state_manager(this.object);
-
-    this.state.moveManager = new StalkerMoveManager(this.object);
-    this.state.moveManager.initialize();
+    this.state.moveManager = new StalkerMoveManager(this.object).initialize();
   }
 
   /**
@@ -111,7 +111,7 @@ export class StalkerBinder extends object_binder {
    */
   public extrapolate_callback(cur_pt: number): boolean {
     if (this.state.active_section) {
-      issueSchemeEvent(this.object, this.state[this.state.active_scheme!], "extrapolate_callback");
+      issueSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.EXTRAPOLATE);
       this.state.moveManager!.extrapolate_callback(this.object);
     }
 
@@ -139,7 +139,7 @@ export class StalkerBinder extends object_binder {
       return false;
     }
 
-    addObject(this.object);
+    registerObject(this.object);
 
     this.object.set_patrol_extrapolate_callback(this.extrapolate_callback, this);
     this.object.set_callback(callback.hit, this.hit_callback, this);
@@ -243,21 +243,20 @@ export class StalkerBinder extends object_binder {
     registry.actorCombat.delete(this.object.id());
     GlobalSoundManager.getInstance().stopSoundsByObjectId(this.object.id());
 
-    const st: IStoredObject = registry.objects.get(this.object.id());
+    const state: IRegistryObjectState = registry.objects.get(this.object.id());
 
-    if (st.active_scheme) {
-      issueSchemeEvent(this.object, st[st.active_scheme], "net_destroy", this.object);
+    if (state.active_scheme) {
+      issueSchemeEvent(this.object, state[state.active_scheme]!, ESchemeEvent.NET_DESTROY, this.object);
     }
 
-    if (this.state.reach_task) {
-      issueSchemeEvent(this.object, this.state.reach_task, "net_destroy", this.object);
+    if (this.state[EScheme.REACH_TASK]) {
+      issueSchemeEvent(this.object, this.state[EScheme.REACH_TASK], ESchemeEvent.NET_DESTROY, this.object);
     }
 
-    const on_offline_condlist = registry.objects.get(this.object.id())?.overrides
-      ?.on_offline_condlist as Optional<number>;
+    const on_offline_condlist: Optional<TConditionList> = state.overrides?.on_offline_condlist;
 
     if (on_offline_condlist !== null) {
-      pickSectionFromCondList(registry.actor, this.object, on_offline_condlist as any);
+      pickSectionFromCondList(registry.actor, this.object, on_offline_condlist);
     }
 
     if (registry.offlineObjects.get(this.object.id()) !== null) {
@@ -266,7 +265,7 @@ export class StalkerBinder extends object_binder {
         .active_section as TSection;
     }
 
-    deleteObject(this.object);
+    unregisterObject(this.object);
 
     this.clear_callbacks();
 
@@ -336,8 +335,8 @@ export class StalkerBinder extends object_binder {
     if (this.state.active_section) {
       issueSchemeEvent(
         this.object,
-        this.state[this.state.active_scheme!],
-        "hit_callback",
+        this.state[this.state.active_scheme!]!,
+        ESchemeEvent.HIT,
         obj,
         amount,
         local_direction,
@@ -346,11 +345,12 @@ export class StalkerBinder extends object_binder {
       );
     }
 
+    // Probably should be reversed?
     if (this.state.combat_ignore) {
       issueSchemeEvent(
         this.object,
         this.state.combat_ignore,
-        "hit_callback",
+        ESchemeEvent.HIT,
         obj,
         amount,
         local_direction,
@@ -360,11 +360,11 @@ export class StalkerBinder extends object_binder {
     }
 
     if (this.state.combat) {
-      issueSchemeEvent(this.object, this.state.combat, "hit_callback", obj, amount, local_direction, who, bone_index);
+      issueSchemeEvent(this.object, this.state.combat, ESchemeEvent.HIT, obj, amount, local_direction, who, bone_index);
     }
 
     if (this.state.hit) {
-      issueSchemeEvent(this.object, this.state.hit, "hit_callback", obj, amount, local_direction, who, bone_index);
+      issueSchemeEvent(this.object, this.state.hit, ESchemeEvent.HIT, obj, amount, local_direction, who, bone_index);
     }
 
     if (bone_index !== 15 && amount > this.object.health * 100) {
@@ -400,26 +400,24 @@ export class StalkerBinder extends object_binder {
       statisticsManager.updateBestMonsterKilled(npc);
     }
 
-    // --' �������� ������� ��� ������.
-    const known_info = getConfigString(st.ini!, st.section_logic!, "known_info", this.object, false, "", null);
+    const known_info = getConfigString(st.ini!, st.section_logic, "known_info", this.object, false, "", null);
 
     loadInfo(this.object, st.ini!, known_info);
 
-    // --' ������������� �������� �������� �������� ����� ������������ ������������ �������
     if (this.state.state_mgr !== null) {
       this.state.state_mgr!.animation.set_state(null, true);
     }
 
-    if (this.state.reach_task) {
-      issueSchemeEvent(this.object, this.state.reach_task, "death_callback", victim, who);
+    if (this.state[EScheme.REACH_TASK]) {
+      issueSchemeEvent(this.object, this.state[EScheme.REACH_TASK], ESchemeEvent.DEATH, victim, who);
     }
 
-    if (this.state.death) {
-      issueSchemeEvent(this.object, this.state.death, "death_callback", victim, who);
+    if (this.state[EScheme.DEATH]) {
+      issueSchemeEvent(this.object, this.state[EScheme.DEATH], ESchemeEvent.DEATH, victim, who);
     }
 
     if (this.state.active_section) {
-      issueSchemeEvent(this.object, this.state[this.state.active_scheme!], "death_callback", victim, who);
+      issueSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.DEATH, victim, who);
     }
 
     SchemeLight.checkObjectLight(this.object);
@@ -427,7 +425,7 @@ export class StalkerBinder extends object_binder {
     deleteHelicopterEnemy(this.e_index!);
 
     this.clear_callbacks();
-    // --' ������� ��������� ������� ������.
+
     if (actor_stats.remove_from_ranking !== null) {
       const community = getCharacterCommunity(this.object);
 
@@ -444,14 +442,15 @@ export class StalkerBinder extends object_binder {
   /**
    * todo;
    */
-  public use_callback(obj: XR_game_object, who: XR_game_object): void {
+  public use_callback(object: XR_game_object, who: XR_game_object): void {
     if (this.object.alive()) {
-      ItemUpgradesManager.getInstance().setCurrentTech(obj);
-      SchemeMeet.onMeetWithObject(obj, who);
+      ItemUpgradesManager.getInstance().setCurrentTech(object);
+      SchemeMeet.onMeetWithObject(object, who);
 
-      disabled_phrases.delete(obj.id());
+      disabled_phrases.delete(object.id());
+
       if (this.state.active_section) {
-        issueSchemeEvent(this.object, this.state[this.state.active_scheme!], "use_callback", obj, who);
+        issueSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.USE, object, who);
       }
     }
   }
@@ -459,20 +458,20 @@ export class StalkerBinder extends object_binder {
   /**
    * todo;
    */
-  public override update(delta: number): void {
+  public override update(delta: TDuration): void {
     super.update(delta);
 
     if (registry.actorCombat.get(this.object.id()) && this.object.best_enemy() === null) {
       registry.actorCombat.delete(this.object.id());
     }
 
-    const object = this.object;
-    const object_alive = object.alive();
+    const object: XR_game_object = this.object;
+    const isObjectAlive: boolean = object.alive();
 
     update_logic(object);
 
     if (this.first_update === false) {
-      if (object_alive === false) {
+      if (isObjectAlive === false) {
         DropManager.getInstance().createCorpseReleaseItems(this.object);
       }
 
@@ -485,7 +484,7 @@ export class StalkerBinder extends object_binder {
     }
 
     if (this.state.state_mgr) {
-      if (object_alive) {
+      if (isObjectAlive) {
         this.state.state_mgr.update();
 
         if (this.state.state_mgr.combat === false && this.state.state_mgr.alife === false) {
@@ -497,7 +496,7 @@ export class StalkerBinder extends object_binder {
       }
     }
 
-    if (object_alive) {
+    if (isObjectAlive) {
       GlobalSoundManager.getInstance().updateForObjectId(object.id());
       SchemeMeet.updateObjectInteractionAvailability(object);
       updateInvulnerability(this.object);
@@ -513,7 +512,7 @@ export class StalkerBinder extends object_binder {
 
     object.info_clear();
 
-    if (object_alive) {
+    if (isObjectAlive) {
       const active_section = registry.objects.get(object.id()).active_section;
 
       if (active_section) {
@@ -607,7 +606,7 @@ export class StalkerBinder extends object_binder {
       return;
     }
 
-    ActionSchemeHear.hear_callback(target, who_id, sound_type, sound_position, sound_power);
+    ActionSchemeHear.onObjectHearSound(target, who_id, sound_type, sound_position, sound_power);
   }
 }
 
@@ -632,22 +631,22 @@ export function update_logic(object: XR_game_object): void {
         if (st_combat && (st_combat as any).logic) {
           if (!trySwitchToAnotherSection(object, st_combat, actor)) {
             if (overrides.get("combat_type")) {
-              SchemeCombat.set_combat_type(object, actor, overrides);
+              SchemeCombat.setCombatType(object, actor, overrides);
             }
           } else {
             switched = true;
           }
         }
       } else {
-        SchemeCombat.set_combat_type(object, actor, st_combat);
+        SchemeCombat.setCombatType(object, actor, st_combat);
       }
     }
 
     if (!switched) {
-      trySwitchToAnotherSection(object, st[st.active_scheme!], actor);
+      trySwitchToAnotherSection(object, st[st.active_scheme!]!, actor);
     }
   } else {
-    SchemeCombat.set_combat_type(object, actor, st_combat);
+    SchemeCombat.setCombatType(object, actor, st_combat);
   }
 }
 

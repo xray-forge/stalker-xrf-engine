@@ -37,7 +37,7 @@ export class StateManagerEvaSmartCover extends property_evaluator {
 
     const stateDescription: Optional<ISchemeSmartCoverState> = registry.objects.get(this.object.id())[
       EScheme.SMARTCOVER
-    ];
+    ] as ISchemeSmartCoverState;
     const destinationSmartCoverName: Optional<TName> = this.object.get_dest_smart_cover_name();
 
     if (stateDescription === null) {

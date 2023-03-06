@@ -1,7 +1,7 @@
 import { stalker_ids, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { IStoredObject } from "@/mod/scripts/core/database";
+import { IRegistryObjectState } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { EvaluatorGatherItems } from "@/mod/scripts/core/schemes/gather_items/evaluators";
@@ -47,10 +47,10 @@ export class SchemeGatherItems extends AbstractScheme {
   public static override resetScheme(
     object: XR_game_object,
     scheme: EScheme,
-    state: IStoredObject,
+    state: IRegistryObjectState,
     section: TSection
   ): void {
-    state.gather_items.gather_items_enabled = getConfigBoolean(
+    (state[EScheme.GATHER_ITEMS] as ISchemeGatherItemsState).gather_items_enabled = getConfigBoolean(
       state.ini!,
       section,
       "gather_items_enabled",

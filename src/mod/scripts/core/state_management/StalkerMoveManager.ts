@@ -11,7 +11,7 @@ import {
   XR_vector,
 } from "xray16";
 
-import { AnyCallable, AnyObject, LuaArray, Optional } from "@/mod/lib/types";
+import { AnyCallable, AnyObject, LuaArray, Optional, TName } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
@@ -142,8 +142,10 @@ export class StalkerMoveManager {
   /**
    * todo;
    */
-  public initialize(): void {
+  public initialize(): StalkerMoveManager {
     this.object.set_callback(callback.patrol_path_in_point, this.waypoint_callback, this as any);
+
+    return this;
   }
 
   /**
@@ -261,10 +263,16 @@ export class StalkerMoveManager {
     this.setup_movement_by_patrol_path();
   }
 
+  /**
+   * todo;
+   */
   public continue(): void {
     this.setup_movement_by_patrol_path();
   }
 
+  /**
+   * todo;
+   */
   public update(): void {
     if (this.syn_signal && time_global() >= this.syn_signal_set_tm) {
       if (this.sync_ok()) {
@@ -309,28 +317,38 @@ export class StalkerMoveManager {
     }
   }
 
+  /**
+   * todo;
+   */
   public arrived_to_first_waypoint() {
     return this.last_index !== null;
   }
 
+  /**
+   * todo;
+   */
   public update_movement_state(): void {
     set_state(this.object, this.cur_state_moving, null, null, null, null);
   }
 
+  /**
+   * todo;
+   */
   public update_standing_state(look_pos: XR_vector): void {
     set_state(
       this.object,
       this.cur_state_standing,
       { obj: this, func: this.time_callback, turn_end_func: this.turn_end_callback },
       this.pt_wait_time,
-      { look_position: look_pos },
+      { look_position: look_pos, look_object: null },
       null
     );
   }
 
+  /**
+   * todo;
+   */
   public finalize(): void {
-    logger.info("Finalize:", this.object.name());
-
     if (this.team) {
       sync.get(this.team).delete(this.object.id());
     }
@@ -360,6 +378,9 @@ export class StalkerMoveManager {
     }
   }
 
+  /**
+   * todo;
+   */
   public standing_on_terminal_waypoint(): LuaMultiReturn<[boolean, Optional<number>]> {
     for (const idx of $range(0, this.patrol_walk!.count() - 1)) {
       if (isStalkerAtWaypoint(this.object, this.patrol_walk!, idx) && this.patrol_walk!.terminal(idx)) {
@@ -370,6 +391,9 @@ export class StalkerMoveManager {
     return $multi(false, null);
   }
 
+  /**
+   * todo;
+   */
   public sync_ok(): boolean {
     if (this.team) {
       const state: LuaTable<number, boolean> = sync.get(this.team);
@@ -390,19 +414,25 @@ export class StalkerMoveManager {
     return true;
   }
 
-  public scheme_set_signal(sig: string): void {
+  /**
+   * todo;
+   */
+  public scheme_set_signal(sig: TName): void {
     const npc_id = this.object.id();
     const stor = registry.objects.get(npc_id);
 
     if (stor !== null && stor[stor.active_scheme!] !== null) {
-      const signals = stor[stor.active_scheme!].signals;
+      const signals = stor[stor.active_scheme!]!.signals;
 
       if (signals !== null) {
-        signals[sig] = true;
+        signals.set(sig, true);
       }
     }
   }
 
+  /**
+   * todo;
+   */
   public time_callback(): void {
     const sigtm = this.path_look_info!.get(this.last_look_index!)["sigtm"];
 
@@ -448,6 +478,9 @@ export class StalkerMoveManager {
     }
   }
 
+  /**
+   * todo;
+   */
   public turn_end_callback(): void {
     const syn = this.path_look_info!.get(this.last_look_index!)["syn"];
 
@@ -509,12 +542,18 @@ export class StalkerMoveManager {
     }
   }
 
-  public extrapolate_callback(npc: XR_game_object): void {
+  /**
+   * todo;
+   */
+  public extrapolate_callback(object: XR_game_object): void {
     this.can_use_get_current_point_index = true;
     this.current_point_init_time = time_global();
     this.current_point_index = this.object.get_current_point_index();
   }
 
+  /**
+   * todo;
+   */
   public waypoint_callback(obj: XR_game_object, action_type: Optional<number>, index: Optional<number>): void {
     if (index === -1 || index === null) {
       return;

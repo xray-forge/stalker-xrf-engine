@@ -11,7 +11,7 @@ import {
 
 import { AnyObject, Optional, TCount, TIndex } from "@/mod/lib/types";
 import { ISchemeCombatState } from "@/mod/scripts/core/schemes/combat";
-import { set_state } from "@/mod/scripts/core/state_management/StateManager";
+import { ITargetStateDescriptor, set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { sendToNearestAccessibleVertex } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -26,7 +26,7 @@ const act_danger = 2;
 @LuabindClass()
 export class ActionZombieGoToDanger extends action_base {
   public state: ISchemeCombatState;
-  public t: AnyObject = {};
+  public t: ITargetStateDescriptor = { look_object: null, look_position: null };
 
   public was_hit: boolean = false;
   public hit_reaction_end_time: number = 0;

@@ -1,7 +1,9 @@
 // todo: Probably pick && move some to globals
 
+import { XR_game_object } from "xray16";
+
 import { misc } from "@/mod/globals/items/misc";
-import { Optional } from "@/mod/lib/types";
+import { Optional, TNumberId } from "@/mod/lib/types";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { registry } from "@/mod/scripts/core/database";
 import { getObjectBoundSmart } from "@/mod/scripts/utils/gulag";
@@ -9,6 +11,9 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("animpoint_predicates");
 
+/**
+ * todo;
+ */
 export const smart_table: LuaTable<number, string> = [
   "zat_stalker_base_smart",
   "jup_b41",
@@ -16,6 +21,9 @@ export const smart_table: LuaTable<number, string> = [
   "pri_a16",
 ] as unknown as LuaTable<number, string>;
 
+/**
+ * todo;
+ */
 const eatable_visuals = {
   ["actors\\stalker_hero\\stalker_hero_1"]: true,
   ["actors\\stalker_hero\\stalker_hero_novice_1"]: true,
@@ -136,6 +144,9 @@ const harmonica_visuals = {
   ["actors\\stalker_neutral\\stalker_neutral_nauchniy_face_2"]: true,
 };
 
+/**
+ * todo;
+ */
 function const_predicate_true(npc_id: number) {
   return true;
 }
@@ -154,6 +165,9 @@ function animpoint_predicate_bread(npc_id: number): boolean {
   return false;
 }
 
+/**
+ * todo;
+ */
 function animpoint_predicate_kolbasa(npc_id: number): boolean {
   if (
     registry.objects.get(npc_id) &&
@@ -167,6 +181,9 @@ function animpoint_predicate_kolbasa(npc_id: number): boolean {
   return false;
 }
 
+/**
+ * todo;
+ */
 function animpoint_predicate_vodka(npc_id: number): boolean {
   if (
     registry.objects.get(npc_id) &&
@@ -180,6 +197,9 @@ function animpoint_predicate_vodka(npc_id: number): boolean {
   return false;
 }
 
+/**
+ * todo;
+ */
 function animpoint_predicate_energy(npc_id: number): boolean {
   if (
     registry.objects.get(npc_id) &&
@@ -193,6 +213,9 @@ function animpoint_predicate_energy(npc_id: number): boolean {
   return false;
 }
 
+/**
+ * todo;
+ */
 function animpoint_predicate_guitar(npc_id: number, is_in_camp?: Optional<boolean>): boolean {
   if (
     is_in_camp === true &&
@@ -206,6 +229,9 @@ function animpoint_predicate_guitar(npc_id: number, is_in_camp?: Optional<boolea
   return false;
 }
 
+/**
+ * todo;
+ */
 function animpoint_predicate_harmonica(npc_id: number, is_in_camp?: Optional<boolean>): boolean {
   if (
     is_in_camp === true &&
@@ -220,9 +246,14 @@ function animpoint_predicate_harmonica(npc_id: number, is_in_camp?: Optional<boo
   return false;
 }
 
-function animpoint_predicate_weapon(npc_id: number): boolean {
-  if (registry.objects.get(npc_id) && registry.objects.get(npc_id).object) {
-    const smart: Optional<SmartTerrain> = getObjectBoundSmart(registry.objects.get(npc_id).object!);
+/**
+ * todo;
+ */
+function animpoint_predicate_weapon(objectId: TNumberId): boolean {
+  const object: Optional<XR_game_object> = registry.objects.get(objectId)?.object;
+
+  if (object !== null) {
+    const smart: Optional<SmartTerrain> = getObjectBoundSmart(object);
 
     if (smart) {
       for (const [k, v] of smart_table) {
@@ -236,11 +267,17 @@ function animpoint_predicate_weapon(npc_id: number): boolean {
   return true;
 }
 
+/**
+ * todo;
+ */
 export interface IAnimpointDescriptor {
   predicate: (id?: number) => boolean;
   name: string;
 }
 
+/**
+ * todo;
+ */
 export const associations: LuaTable<string, LuaTable<number, IAnimpointDescriptor>> = {
   animpoint_stay_wall: [
     { name: "animpoint_stay_wall", predicate: const_predicate_true },

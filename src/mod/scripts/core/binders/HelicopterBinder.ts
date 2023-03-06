@@ -17,8 +17,15 @@ import {
 } from "xray16";
 
 import { ESchemeType, Optional, TDistance, TIndex, TNumberId, TRate, TSection } from "@/mod/lib/types";
-import { addHelicopter, deleteHelicopter, IStoredObject, registry, resetObject } from "@/mod/scripts/core/database";
+import {
+  addHelicopter,
+  deleteHelicopter,
+  IRegistryObjectState,
+  registry,
+  resetObject,
+} from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
+import { ESchemeEvent, IBaseSchemeState } from "@/mod/scripts/core/schemes/base";
 import { get_heli_health } from "@/mod/scripts/core/schemes/heli_move/heli_utils";
 import { HeliCombat } from "@/mod/scripts/core/schemes/heli_move/HeliCombat";
 import { get_heli_firer, HeliFire } from "@/mod/scripts/core/schemes/heli_move/HeliFire";
@@ -39,7 +46,7 @@ const logger: LuaLogger = new LuaLogger("HelicopterBinder");
 export class HelicopterBinder extends object_binder {
   public readonly ini: XR_ini_file;
 
-  public st: IStoredObject = {};
+  public state!: IRegistryObjectState;
   public loaded: boolean = false;
   public initialized: boolean = false;
   public heli_fire: HeliFire;
@@ -75,13 +82,14 @@ export class HelicopterBinder extends object_binder {
   public override reinit(): void {
     super.reinit();
 
-    this.st = resetObject(this.object);
+    this.state = resetObject(this.object);
     this.heliObject = this.object.get_helicopter();
 
     this.object.set_callback(callback.helicopter_on_point, this.on_point, this);
     this.object.set_callback(callback.helicopter_on_hit, this.on_hit, this);
 
-    this.st.combat = new HeliCombat(this.object, this.heliObject);
+    // todo: Needs revisit.
+    this.state.combat = new HeliCombat(this.object, this.heliObject) as unknown as IBaseSchemeState;
 
     this.last_hit_snd_timeout = 0;
 
@@ -94,9 +102,6 @@ export class HelicopterBinder extends object_binder {
     this.snd_hit = getConfigString(object_ini, "helicopter", "snd_hit", this.object, false, "", "heli_hit");
     this.snd_damage = getConfigString(object_ini, "helicopter", "snd_damage", this.object, false, "", "heli_damaged");
     this.snd_down = getConfigString(object_ini, "helicopter", "snd_down", this.object, false, "", "heli_down");
-
-    this.st.last_alt = this.heliObject.GetRealAltitude();
-    this.st.alt_check_time = time_global() + 1000;
   }
 
   /**
@@ -109,11 +114,11 @@ export class HelicopterBinder extends object_binder {
 
     if (!this.initialized && actor) {
       this.initialized = true;
-      initializeGameObject(this.object, this.st, this.loaded, actor, ESchemeType.HELI);
+      initializeGameObject(this.object, this.state, this.loaded, actor, ESchemeType.HELI);
     }
 
-    if (this.st.active_section !== null) {
-      issueSchemeEvent(this.object, this.st[this.st.active_scheme!], "update", delta);
+    if (this.state.active_section !== null) {
+      issueSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.UPDATE, delta);
     }
 
     this.object.info_clear();
@@ -168,7 +173,7 @@ export class HelicopterBinder extends object_binder {
 
     saveObject(this.object, packet);
     setSaveMarker(packet, true, HelicopterBinder.__name);
-    this.st.combat!.save(packet);
+    (this.state.combat as unknown as HeliCombat).save(packet);
   }
 
   /**
@@ -184,7 +189,7 @@ export class HelicopterBinder extends object_binder {
 
     loadObject(this.object, reader);
     setLoadMarker(reader, true, HelicopterBinder.__name);
-    this.st.combat!.load(reader);
+    (this.state.combat as unknown as HeliCombat).load(reader);
   }
 
   /**
@@ -196,19 +201,16 @@ export class HelicopterBinder extends object_binder {
     // --printf( "heli health: %d", heli:GetfHealth() )
 
     if (!heli.m_dead) {
-      const health = get_heli_health(this.heliObject, this.st);
+      const health = get_heli_health(this.heliObject, this.state);
 
       if (health < this.flame_start_health && !heli.m_flame_started) {
         this.heliObject.StartFlame();
         // --        GlobalSound.set_sound_play(this.object:id(), this.snd_damage)
       }
 
-      if (health <= 0.005 && !this.st.immortal) {
+      if (health <= 0.005 && !this.state.immortal) {
         this.heliObject.Die();
         deleteHelicopter(this.object);
-        this.st.last_alt = heli.GetRealAltitude();
-        this.st.alt_check_time = time_global() + 1000;
-        // --            GlobalSound.set_sound_play(this.object:id(), this.snd_down)
       }
     }
   }
@@ -224,8 +226,8 @@ export class HelicopterBinder extends object_binder {
     this.heli_fire.update_hit();
 
     if (enemy_cls_id === clsid.actor || enemy_cls_id === clsid.script_stalker) {
-      if (this.st.hit) {
-        issueSchemeEvent(this.object, this.st.hit, "hit_callback", this.object, power, null, enemy, null);
+      if (this.state.hit) {
+        issueSchemeEvent(this.object, this.state.hit, ESchemeEvent.HIT, this.object, power, null, enemy, null);
       }
     }
 
@@ -239,8 +241,15 @@ export class HelicopterBinder extends object_binder {
    * todo;
    */
   public on_point(distance: TDistance, position: XR_vector, path_idx: TIndex): void {
-    if (this.st.active_section !== null) {
-      issueSchemeEvent(this.object, this.st[this.st.active_scheme!], "waypoint_callback", this.object, null, path_idx);
+    if (this.state.active_section !== null) {
+      issueSchemeEvent(
+        this.object,
+        this.state[this.state.active_scheme!]!,
+        ESchemeEvent.WAYPOINT,
+        this.object,
+        null,
+        path_idx
+      );
     }
   }
 }

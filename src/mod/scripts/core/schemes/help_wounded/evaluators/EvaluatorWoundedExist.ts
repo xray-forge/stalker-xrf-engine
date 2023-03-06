@@ -1,8 +1,10 @@
-import { level, LuabindClass, property_evaluator } from "xray16";
+import { level, LuabindClass, property_evaluator, XR_game_object, XR_vector } from "xray16";
 
 import { communities } from "@/mod/globals/communities";
-import { registry } from "@/mod/scripts/core/database";
+import { EScheme, TDistance, TNumberId } from "@/mod/lib/types";
+import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { ISchemeHelpWoundedState } from "@/mod/scripts/core/schemes/help_wounded";
+import { ISchemeWoundedState } from "@/mod/scripts/core/schemes/wounded";
 import { isObjectWounded } from "@/mod/scripts/utils/checkers/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -27,81 +29,75 @@ export class EvaluatorWoundedExist extends property_evaluator {
    * todo;
    */
   public override evaluate(): boolean {
-    const npc = this.object;
+    const object: XR_game_object = this.object;
+    const objectId: TNumberId = object.id();
+    const objectPosition: XR_vector = object.position();
 
-    if (!npc.alive()) {
+    if (!object.alive()) {
+      return false;
+    } else if (object.best_enemy() !== null) {
+      return false;
+    } else if (object.character_community() === communities.zombied) {
+      return false;
+    } else if (this.state.help_wounded_enabled === false) {
       return false;
     }
 
-    if (npc.best_enemy() !== null) {
+    if (isObjectWounded(object)) {
+      return false;
+    } else if (object.section() === "actor_visual_stalker") {
       return false;
     }
 
-    if (npc.character_community() === communities.zombied) {
-      return false;
-    }
+    let nearestDistance: TDistance = 900; // sqr -> 30*30
+    let nearestVertex = null;
+    let nearestPosition = null;
+    let selectedId = null;
 
-    if (this.state.help_wounded_enabled === false) {
-      return false;
-    }
-
-    if (isObjectWounded(npc)) {
-      return false;
-    }
-
-    if (npc.section() === "actor_visual_stalker") {
-      return false;
-    }
-
-    let nearest_dist = 900; // sqr -> 30*30
-    let nearest_vertex = null;
-    let nearest_position = null;
-    let selected_id = null;
-
-    for (const v of npc.memory_visible_objects()) {
-      const vo = v.object();
-      const id = vo.id();
-      const npc_id = npc.id();
+    for (const memoryVisibleObject of object.memory_visible_objects()) {
+      const visibleObject: XR_game_object = memoryVisibleObject.object();
+      const visibleObjectId: TNumberId = visibleObject.id();
+      const visibleObjectState: IRegistryObjectState = registry.objects.get(visibleObjectId);
 
       if (
-        npc.see(vo) &&
-        isObjectWounded(vo) &&
-        (registry.objects.get(id).wounded_already_selected === null ||
-          registry.objects.get(id).wounded_already_selected === npc_id) &&
-        vo.alive()
+        object.see(visibleObject) &&
+        isObjectWounded(visibleObject) &&
+        (visibleObjectState.wounded_already_selected === null ||
+          visibleObjectState.wounded_already_selected === objectId) &&
+        visibleObject.alive()
       ) {
-        if (registry.objects.get(id).wounded!.not_for_help !== true) {
-          const npc_position = npc.position();
-          const vo_position = vo.position();
+        if ((visibleObjectState[EScheme.WOUNDED] as ISchemeWoundedState).not_for_help !== true) {
+          const visibleObjectPosition: XR_vector = visibleObject.position();
+          const distanceBetweenObjects: TDistance = objectPosition.distance_to_sqr(visibleObjectPosition);
 
-          if (npc_position.distance_to_sqr(vo_position) < nearest_dist) {
-            const vertex = level.vertex_id(vo_position);
+          if (distanceBetweenObjects < nearestDistance) {
+            const vertexId: TNumberId = level.vertex_id(visibleObjectPosition);
 
-            if (npc.accessible(vertex)) {
-              nearest_dist = npc_position.distance_to_sqr(vo_position);
-              nearest_vertex = vertex;
-              nearest_position = vo_position;
-              selected_id = id;
+            if (object.accessible(vertexId)) {
+              nearestDistance = distanceBetweenObjects;
+              nearestVertex = vertexId;
+              nearestPosition = visibleObjectPosition;
+              selectedId = visibleObjectId;
             }
           }
         }
       }
     }
 
-    if (nearest_vertex !== null) {
-      this.state.vertex_id = nearest_vertex;
-      this.state.vertex_position = nearest_position!;
+    if (nearestVertex !== null) {
+      this.state.vertex_id = nearestVertex;
+      this.state.vertex_position = nearestPosition!;
 
       if (
         this.state.selected_id !== null &&
-        this.state.selected_id !== selected_id &&
+        this.state.selected_id !== selectedId &&
         registry.objects.get(this.state.selected_id) !== null
       ) {
         registry.objects.get(this.state.selected_id).wounded_already_selected = null;
       }
 
-      this.state.selected_id = selected_id!;
-      registry.objects.get(this.state.selected_id!).wounded_already_selected = npc.id();
+      this.state.selected_id = selectedId!;
+      registry.objects.get(this.state.selected_id!).wounded_already_selected = object.id();
 
       return true;
     }

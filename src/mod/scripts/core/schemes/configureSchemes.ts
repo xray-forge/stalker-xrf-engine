@@ -1,8 +1,9 @@
 import { ini_file, XR_game_object, XR_ini_file } from "xray16";
 
 import { ESchemeType, Optional, TName, TNumberId, TSection } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { TradeManager } from "@/mod/scripts/core/managers/TradeManager";
+import { ESchemeEvent } from "@/mod/scripts/core/schemes/base";
 import { disableGenericSchemes } from "@/mod/scripts/core/schemes/disableGenericSchemes";
 import { enable_generic_schemes } from "@/mod/scripts/core/schemes/enable_generic_schemes";
 import { issueSchemeEvent } from "@/mod/scripts/core/schemes/issueSchemeEvent";
@@ -22,13 +23,13 @@ export function configureSchemes(
   iniFilename: TName,
   schemeType: ESchemeType,
   sectionLogic: TSection,
-  gulagName: TName
+  gulagName: Optional<TName>
 ): XR_ini_file {
   const objectId: TNumberId = object.id();
-  const state: IStoredObject = registry.objects.get(objectId);
+  const state: IRegistryObjectState = registry.objects.get(objectId);
 
   if (state.active_section) {
-    issueSchemeEvent(object, state[state.active_scheme!], "deactivate", object);
+    issueSchemeEvent(object, state[state.active_scheme!]!, ESchemeEvent.DEACTIVATE, object);
   }
 
   let actualIni: XR_ini_file;

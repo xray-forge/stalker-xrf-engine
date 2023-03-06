@@ -2,8 +2,9 @@ import { LuabindClass, property_evaluator } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { EScheme, Optional } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { registry } from "@/mod/scripts/core/database";
 import { ISchemeSmartCoverState } from "@/mod/scripts/core/schemes/smartcover";
+import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger(
@@ -16,12 +17,12 @@ const logger: LuaLogger = new LuaLogger(
  */
 @LuabindClass()
 export class StateManagerEvaSmartCoverNeed extends property_evaluator {
-  public readonly stateManager: IStoredObject;
+  public readonly stateManager: StateManager;
 
   /**
    * todo;
    */
-  public constructor(stateManager: IStoredObject) {
+  public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaSmartCoverNeed.__name);
     this.stateManager = stateManager;
   }
@@ -36,7 +37,7 @@ export class StateManagerEvaSmartCoverNeed extends property_evaluator {
 
     const smartCoverState: Optional<ISchemeSmartCoverState> = registry.objects.get(this.object.id())[
       EScheme.SMARTCOVER
-    ];
+    ] as ISchemeSmartCoverState;
 
     return smartCoverState !== null && smartCoverState.cover_name !== null;
   }

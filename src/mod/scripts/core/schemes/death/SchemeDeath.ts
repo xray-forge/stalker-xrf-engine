@@ -1,7 +1,7 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { IStoredObject } from "@/mod/scripts/core/database";
+import { IRegistryObjectState } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { DeathManager } from "@/mod/scripts/core/schemes/death/DeathManager";
@@ -47,12 +47,12 @@ export class SchemeDeath extends AbstractScheme {
   public static override resetScheme(
     object: XR_game_object,
     scheme: EScheme,
-    objectState: IStoredObject,
+    objectState: IRegistryObjectState,
     section: TSection
   ): void {
     const deathSection: Optional<TSection> = getConfigString(
       objectState.ini!,
-      objectState.section_logic!,
+      objectState.section_logic,
       "on_death",
       object,
       false,
@@ -67,7 +67,7 @@ export class SchemeDeath extends AbstractScheme {
         abort("There is no section [%s] for object [%s]", deathSection, object.name());
       }
 
-      const state: ISchemeDeathState = objectState[SchemeDeath.SCHEME_SECTION];
+      const state: ISchemeDeathState = objectState[SchemeDeath.SCHEME_SECTION] as ISchemeDeathState;
       const onInfo: Optional<string> = getConfigString(
         objectState.ini!,
         deathSection,

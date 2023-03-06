@@ -2,7 +2,7 @@ import { XR_game_object } from "xray16";
 
 import { AnyObject, Optional } from "@/mod/lib/types";
 import { EScheme, TSection } from "@/mod/lib/types/scheme";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { TAbstractSchemeConstructor } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { abort } from "@/mod/scripts/utils/debug";
 
@@ -13,7 +13,7 @@ export function resetScheme(
   scheme: EScheme,
   object: XR_game_object,
   schemeToSwitch: EScheme,
-  state: IStoredObject,
+  state: IRegistryObjectState,
   section: TSection
 ): void {
   const schemeImplementation: Optional<TAbstractSchemeConstructor> = registry.schemes.get(scheme);

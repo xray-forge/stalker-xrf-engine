@@ -100,7 +100,7 @@ export class ActionBaseCover extends action_base {
     if (this.cover_position.distance_to_sqr(this.object.position()) <= 0.4) {
       const anim = pickSectionFromCondList(registry.actor, this.object, this.state.anim);
 
-      set_state(this.object, anim!, null, null, { look_position: this.enemy_random_position }, null);
+      set_state(this.object, anim!, null, null, { look_position: this.enemy_random_position, look_object: null }, null);
     } else {
       this.object.set_dest_level_vertex_id(this.cover_vertex_id);
       set_state(this.object, "assault", null, null, null, null);

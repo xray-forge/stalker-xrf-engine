@@ -22,7 +22,7 @@ export class SchemeTimerManager extends AbstractSchemeManager<ISchemeTimerState>
   /**
    * todo;
    */
-  public override update(delta: number): void {
+  public override update(): void {
     const actor = registry.actor;
 
     if (trySwitchToAnotherSection(this.object, this.state, actor)) {

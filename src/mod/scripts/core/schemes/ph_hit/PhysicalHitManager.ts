@@ -30,7 +30,7 @@ export class PhysicalHitManager extends AbstractSchemeManager<ISchemePhysicalHit
   /**
    * todo;
    */
-  public override update(delta: number): void {
+  public override update(): void {
     trySwitchToAnotherSection(this.object, this.state, registry.actor);
   }
 

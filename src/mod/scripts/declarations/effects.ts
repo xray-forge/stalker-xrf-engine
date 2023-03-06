@@ -47,17 +47,18 @@ import { misc } from "@/mod/globals/items/misc";
 import { outfits } from "@/mod/globals/items/outfits";
 import { quest_items } from "@/mod/globals/items/quest_items";
 import { weapons } from "@/mod/globals/items/weapons";
+import { STRINGIFIED_TRUE } from "@/mod/globals/lua";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { relations, TRelation } from "@/mod/globals/relations";
 import { script_sounds } from "@/mod/globals/sound/script_sounds";
 import { TTreasure } from "@/mod/globals/treasures";
 import { TZone, zones } from "@/mod/globals/zones";
-import { AnyObject, LuaArray, Optional, TCount, TName, TNumberId, TStringId } from "@/mod/lib/types";
+import { AnyObject, EScheme, LuaArray, Optional, TCount, TName, TNumberId, TStringId } from "@/mod/lib/types";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { Squad } from "@/mod/scripts/core/alife/Squad";
 import { Stalker } from "@/mod/scripts/core/alife/Stalker";
 import { update_logic } from "@/mod/scripts/core/binders/StalkerBinder";
-import { deleteHelicopter, IStoredObject, registry, SYSTEM_INI } from "@/mod/scripts/core/database";
+import { deleteHelicopter, IRegistryObjectState, registry, SYSTEM_INI } from "@/mod/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
@@ -69,6 +70,10 @@ import { TaskManager } from "@/mod/scripts/core/managers/tasks";
 import { TreasureManager } from "@/mod/scripts/core/managers/TreasureManager";
 import { WeatherManager } from "@/mod/scripts/core/managers/WeatherManager";
 import { SchemeAbuse } from "@/mod/scripts/core/schemes/abuse/SchemeAbuse";
+import { ISchemeCombatState } from "@/mod/scripts/core/schemes/combat";
+import { ISchemeCombatIgnoreState } from "@/mod/scripts/core/schemes/combat_ignore";
+import { ISchemeDeathState } from "@/mod/scripts/core/schemes/death";
+import { ISchemeMobCombatState } from "@/mod/scripts/core/schemes/mob/combat";
 import { init_target } from "@/mod/scripts/core/schemes/remark/actions/ActionRemarkActivity";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { showFreeplayDialog } from "@/mod/scripts/ui/game/FreeplayDialog";
@@ -111,7 +116,7 @@ export function update_npc_logic(actor: XR_game_object, object: XR_game_object, 
       planner.update();
       planner.update();
 
-      const state: IStoredObject = registry.objects.get(npc.id());
+      const state: IRegistryObjectState = registry.objects.get(npc.id());
 
       // todo: Is it ok? Why?
       state.state_mgr!.update();
@@ -135,9 +140,9 @@ export function update_obj_logic(actor: XR_game_object, object: XR_game_object, 
     if (obj !== null) {
       logger.info("Update object logic:", obj.id());
 
-      const state: IStoredObject = registry.objects.get(obj.id());
+      const state: IRegistryObjectState = registry.objects.get(obj.id());
 
-      trySwitchToAnotherSection(obj, state[state.active_scheme!], actor);
+      trySwitchToAnotherSection(obj, state[state.active_scheme!]!, actor);
     }
   }
 }
@@ -337,11 +342,11 @@ export function cam_effector_callback() {
     return;
   }
 
-  if (state.get(state.active_scheme).signals === null) {
+  if (state[state.active_scheme!]!.signals === null) {
     return;
   }
 
-  state.get(state.active_scheme).signals["cameff_end"] = true;
+  state[state.active_scheme!]!.signals!.set("cameff_end", true);
 }
 
 export function run_postprocess(actor: XR_game_object, npc: XR_game_object, p: [string, number]) {
@@ -514,6 +519,9 @@ function reset_animation(npc: XR_game_object): void {
   npc.set_mental_state(anim.free);
 }
 
+/**
+ * todo;
+ */
 export function teleport_npc(actor: XR_game_object, npc: XR_game_object, p: [string, number]) {
   const patrol_point = p[0];
   const patrol_point_index = p[1] || 0;
@@ -529,6 +537,9 @@ export function teleport_npc(actor: XR_game_object, npc: XR_game_object, p: [str
   npc.set_npc_position(position);
 }
 
+/**
+ * todo;
+ */
 export function teleport_npc_by_story_id(actor: XR_game_object, npc: XR_game_object, p: [string, string, number]) {
   const story_id = p[0];
   const patrol_point = p[1];
@@ -555,6 +566,9 @@ export function teleport_npc_by_story_id(actor: XR_game_object, npc: XR_game_obj
   }
 }
 
+/**
+ * todo;
+ */
 export function teleport_squad(actor: XR_game_object, npc: XR_game_object, params: [string, string, number]) {
   const squad_story_id = params[0];
   const patrol_point = params[1];
@@ -574,6 +588,9 @@ export function teleport_squad(actor: XR_game_object, npc: XR_game_object, param
   squad.set_squad_position(position);
 }
 
+/**
+ * todo;
+ */
 export function jup_teleport_actor(actor: XR_game_object, npc: XR_game_object): void {
   const point_in = new patrol("jup_b16_teleport_in").point(0);
   const point_out = new patrol("jup_b16_teleport_out").point(0);
@@ -587,6 +604,9 @@ export function jup_teleport_actor(actor: XR_game_object, npc: XR_game_object): 
   actor.set_actor_position(out_position);
 }
 
+/**
+ * todo;
+ */
 export function give_items(actor: XR_game_object, npc: XR_game_object, params: Array<string>): void;
 export function give_items(actor: XR_game_object, npc: XR_game_object, params: LuaArray<string> | Array<string>): void {
   for (const [i, itemSection] of params as LuaArray<string>) {
@@ -609,6 +629,9 @@ export function give_item(
   alife().create(p[0], alifeNpc.position, alifeNpc.m_level_vertex_id, alifeNpc.m_game_vertex_id, alifeNpc.id);
 }
 
+/**
+ * todo;
+ */
 export function play_particle_on_path(actor: XR_game_object, npc: XR_game_object, p: [string, string, number]) {
   const name = p[0];
   const path = p[1];
@@ -634,6 +657,9 @@ export function play_particle_on_path(actor: XR_game_object, npc: XR_game_object
   }
 }
 
+/**
+ * todo;
+ */
 export function send_tip(actor: XR_game_object, npc: XR_game_object, params: [string, string, string]): void {
   logger.info("Send tip");
   NotificationManager.getInstance().sendTipNotification(
@@ -646,6 +672,9 @@ export function send_tip(actor: XR_game_object, npc: XR_game_object, params: [st
   );
 }
 
+/**
+ * todo;
+ */
 export function hit_npc(
   actor: XR_game_object,
   npc: XR_game_object,
@@ -716,37 +745,9 @@ export function hit_obj(
   obj.hit(h);
 }
 
-export function hit_by_killer(actor: XR_game_object, npc: XR_game_object, p: [string, number, number]): void {
-  if (!npc) {
-    return;
-  }
-
-  const t = registry.objects.get(npc.id()).death!;
-
-  if (t === null || t.killer === -1) {
-    return;
-  }
-
-  const killer = registry.objects.get(t.killer);
-
-  if (killer === null) {
-    return;
-  }
-
-  const p1 = npc.position();
-  const p2 = killer.position();
-
-  const h = new hit();
-
-  h.draftsman = npc;
-  h.type = hit.wound;
-  h.direction = new vector().set(p1).sub(p2);
-  (h as AnyObject).bone = p[0];
-  h.power = p[1];
-  h.impulse = p[2];
-  npc.hit(h);
-}
-
+/**
+ * todo;
+ */
 export function hit_npc_from_actor(actor: XR_game_object, npc: XR_game_object, p: [Optional<string>]) {
   const h = new hit();
   let sid: Optional<XR_game_object> = null;
@@ -1034,13 +1035,13 @@ export function turn_on_object(actor: XR_game_object, npc: XR_game_object): void
  */
 export function turn_on(actor: XR_game_object, npc: XR_game_object, p: LuaArray<string>) {
   for (const [k, v] of p) {
-    const obj = getStoryObject(v);
+    const object: Optional<XR_game_object> = getStoryObject(v);
 
-    if (!obj) {
+    if (!object) {
       abort("TURN_ON [%s]. Target object does ! exist", npc.name());
     }
 
-    obj.get_hanging_lamp().turn_on();
+    object.get_hanging_lamp().turn_on();
   }
 }
 
@@ -1048,12 +1049,14 @@ export function turn_on(actor: XR_game_object, npc: XR_game_object, p: LuaArray<
  * todo;
  */
 export function disable_combat_handler(actor: XR_game_object, npc: XR_game_object): void {
-  if (registry.objects.get(npc.id()).combat) {
-    registry.objects.get(npc.id()).combat.enabled = false;
+  const state: IRegistryObjectState = registry.objects.get(npc.id());
+
+  if (state[EScheme.COMBAT]) {
+    (state[EScheme.COMBAT] as ISchemeCombatState).enabled = false;
   }
 
-  if (registry.objects.get(npc.id()).mob_combat) {
-    registry.objects.get(npc.id()).mob_combat.enabled = false;
+  if (state[EScheme.MOB_COMBAT]) {
+    (state[EScheme.MOB_COMBAT] as ISchemeMobCombatState).enabled = false;
   }
 }
 
@@ -1061,8 +1064,10 @@ export function disable_combat_handler(actor: XR_game_object, npc: XR_game_objec
  * todo;
  */
 export function disable_combat_ignore_handler(actor: XR_game_object, npc: XR_game_object): void {
-  if (registry.objects.get(npc.id()).combat_ignore) {
-    registry.objects.get(npc.id()).combat_ignore!.enabled = false;
+  const state: IRegistryObjectState = registry.objects.get(npc.id());
+
+  if (state[EScheme.COMBAT_IGNORE]) {
+    (state[EScheme.COMBAT_IGNORE] as ISchemeCombatIgnoreState).enabled = false;
   }
 }
 
@@ -1077,14 +1082,8 @@ export function heli_start_flame(actor: XR_game_object, npc: XR_game_object): vo
  * todo;
  */
 export function heli_die(actor: XR_game_object, npc: XR_game_object): void {
-  const heli = npc.get_helicopter();
-  const st = registry.objects.get(npc.id());
-
-  heli.Die();
+  npc.get_helicopter().Die();
   deleteHelicopter(npc);
-
-  st.last_alt = heli.GetRealAltitude();
-  st.alt_check_time = time_global() + 1000;
 }
 
 /**
@@ -1094,7 +1093,7 @@ export function set_weather(actor: XR_game_object, npc: XR_game_object, p: [stri
   logger.info("Set weather:", p[0]);
 
   if (p[0]) {
-    if (p[1] === "true") {
+    if (p[1] === STRINGIFIED_TRUE) {
       level.set_weather(p[0], true);
     } else {
       level.set_weather(p[0], false);
@@ -1927,11 +1926,11 @@ export function make_actor_visible_to_squad(actor: XR_game_object, npc: XR_game_
 /**
  * todo;
  */
-export function stop_sr_cutscene(actor: XR_game_object, npc: XR_game_object, p: []) {
-  const obj: IStoredObject = registry.objects.get(npc.id());
+export function stop_sr_cutscene(actor: XR_game_object, npc: XR_game_object, parameters: []) {
+  const state: IRegistryObjectState = registry.objects.get(npc.id());
 
-  if (obj.active_scheme !== null) {
-    obj[obj.active_scheme!].signals["cam_effector_stop"] = true;
+  if (state.active_scheme !== null) {
+    state[state.active_scheme]!.signals!.set("cam_effector_stop", true);
   }
 }
 

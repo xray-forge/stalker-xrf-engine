@@ -171,17 +171,17 @@ export class ObjectSound extends AbstractPlayableSound {
       return;
     }
 
-    const it = st[st.active_scheme!];
+    const it = st[st.active_scheme!]!;
 
     if (it.signals === null) {
       return;
     }
 
     if (this.played_id === this.sound.length() && this.shuffle !== "rnd") {
-      it.signals["theme_end"] = true;
-      it.signals["sound_end"] = true;
+      it.signals.set("theme_end", true);
+      it.signals.set("sound_end", true);
     } else {
-      it.signals["sound_end"] = true;
+      it.signals.set("sound_end", true);
     }
   }
 

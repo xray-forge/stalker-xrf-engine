@@ -33,7 +33,7 @@ export class NoWeaponManager extends AbstractSchemeManager<ISchemeNoWeaponState>
   /**
    * todo: Check frequency of calls.
    */
-  public override update(delta: number): void {
+  public override update(): void {
     const actor: XR_game_object = registry.actor;
 
     if (trySwitchToAnotherSection(this.object, this.state, actor)) {

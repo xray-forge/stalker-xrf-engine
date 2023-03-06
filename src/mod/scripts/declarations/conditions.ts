@@ -20,11 +20,24 @@ import { TCommunity } from "@/mod/globals/communities";
 import { info_portions } from "@/mod/globals/info_portions/info_portions";
 import { relations } from "@/mod/globals/relations";
 import { zones } from "@/mod/globals/zones";
-import { AnyArgs, AnyCallablesModule, LuaArray, Maybe, Optional, TCount, TName, TSection } from "@/mod/lib/types";
+import {
+  AnyArgs,
+  AnyCallablesModule,
+  EScheme,
+  LuaArray,
+  Maybe,
+  Optional,
+  TCount,
+  TIndex,
+  TName,
+  TNumberId,
+  TSection,
+  TStringId,
+} from "@/mod/lib/types";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { ESmartTerrainStatus, SmartTerrainControl } from "@/mod/scripts/core/alife/SmartTerrainControl";
 import { Squad } from "@/mod/scripts/core/alife/Squad";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { pstor_retrieve } from "@/mod/scripts/core/database/pstor";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
 import { AchievementsManager } from "@/mod/scripts/core/managers/achievements/AchievementsManager";
@@ -33,6 +46,8 @@ import { ItemUpgradesManager } from "@/mod/scripts/core/managers/ItemUpgradesMan
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { SchemeAnimpoint } from "@/mod/scripts/core/schemes/animpoint";
 import { ISchemeAnimpointState } from "@/mod/scripts/core/schemes/animpoint/ISchemeAnimpointState";
+import { ISchemeDeathState } from "@/mod/scripts/core/schemes/death";
+import { ISchemeHitState } from "@/mod/scripts/core/schemes/hit";
 import { SchemeDeimos } from "@/mod/scripts/core/schemes/sr_deimos/SchemeDeimos";
 import {
   anomalyHasArtefact,
@@ -435,14 +450,14 @@ export function npc_community(
 /**
  * todo;
  */
-export function hitted_by(actor: XR_game_object, npc: XR_game_object, params: LuaTable<string>): boolean {
-  const hit = registry.objects.get(npc.id()).hit;
+export function hitted_by(actor: XR_game_object, npc: XR_game_object, parameters: LuaTable<TStringId>): boolean {
+  const state: Optional<ISchemeHitState> = registry.objects.get(npc.id())[EScheme.HIT] as ISchemeHitState;
 
-  if (hit !== null) {
-    for (const [i, v] of params) {
-      const listNpc: Optional<XR_game_object> = getStoryObject(v);
+  if (state !== null) {
+    for (const [index, storyId] of parameters) {
+      const listNpc: Optional<XR_game_object> = getStoryObject(storyId);
 
-      if (listNpc !== null && hit.who === listNpc.id()) {
+      if (listNpc !== null && state.who === listNpc.id()) {
         return true;
       }
     }
@@ -454,9 +469,11 @@ export function hitted_by(actor: XR_game_object, npc: XR_game_object, params: Lu
 /**
  * todo;
  */
-export function hitted_on_bone(actor: XR_game_object, npc: XR_game_object, p: LuaArray<string>): boolean {
-  for (const [k, v] of p) {
-    if (registry.objects.get(npc.id()).hit.bone_index === npc.get_bone_id(v)) {
+export function hitted_on_bone(actor: XR_game_object, npc: XR_game_object, parameters: LuaArray<TStringId>): boolean {
+  const boneIndex: TIndex = (registry.objects.get(npc.id())[EScheme.HIT] as ISchemeHitState).bone_index;
+
+  for (const [index, id] of parameters) {
+    if (npc.get_bone_id(id) === boneIndex) {
       return true;
     }
   }
@@ -475,20 +492,20 @@ export function best_pistol(actor: XR_game_object, npc: XR_game_object): boolean
  * todo;
  */
 export function deadly_hit(actor: XR_game_object, npc: XR_game_object): boolean {
-  return registry.objects.get(npc.id())?.hit?.deadly_hit === true;
+  return (registry.objects.get(npc.id())[EScheme.HIT] as ISchemeHitState)?.deadly_hit === true;
 }
 
 /**
  * todo;
  */
-export function killed_by(actor: XR_game_object, npc: XR_game_object, p: LuaArray<string>) {
-  const target = registry.objects.get(npc.id()).death;
+export function killed_by(actor: XR_game_object, npc: XR_game_object, parameters: LuaArray<string>) {
+  const schemeState: Optional<ISchemeDeathState> = registry.objects.get(npc.id())[EScheme.DEATH] as ISchemeDeathState;
 
-  if (target) {
-    for (const [i, v] of p) {
-      const npc1 = getStoryObject(v);
+  if (schemeState !== null) {
+    for (const [i, v] of parameters) {
+      const object = getStoryObject(v);
 
-      if (npc1 && target.killer === npc1.id()) {
+      if (object && schemeState.killer === object.id()) {
         return true;
       }
     }
@@ -649,9 +666,9 @@ export function actor_has_item_count(actor: XR_game_object, npc: XR_game_object,
 export function signal(actor: XR_game_object, npc: XR_game_object, p: [string]): boolean {
   if (p[0]) {
     const st = registry.objects.get(npc.id());
-    const sigs = st[st.active_scheme!].signals;
+    const sigs = st[st.active_scheme!]!.signals;
 
-    return sigs !== null && sigs[p[0]] === true;
+    return sigs !== null && sigs.get(p[0]);
   } else {
     return false;
   }
@@ -856,16 +873,16 @@ export function fighting_actor(actor: XR_game_object, npc: XR_game_object): bool
  * todo;
  */
 export function hit_by_actor(actor: XR_game_object, npc: XR_game_object): boolean {
-  const t = registry.objects.get(npc.id()).hit;
+  const state: Optional<ISchemeHitState> = registry.objects.get(npc.id())[EScheme.HIT] as ISchemeHitState;
 
-  return t !== null && t.who === actor.id();
+  return state !== null && state.who === actor.id();
 }
 
 /**
  * todo;
  */
 export function killed_by_actor(actor: XR_game_object, npc: XR_game_object): boolean {
-  return registry.objects.get(npc.id()).death?.killer === actor.id();
+  return (registry.objects.get(npc.id())[EScheme.DEATH] as ISchemeDeathState)?.killer === actor.id();
 }
 
 /**
@@ -1240,7 +1257,7 @@ export function quest_npc_enemy_actor(actor: XR_game_object, npc: XR_game_object
  */
 export function animpoint_reached(actor: XR_game_object, npc: XR_game_object): boolean {
   const animpointState: Optional<ISchemeAnimpointState> = registry.objects.get(npc.id())[
-    SchemeAnimpoint.SCHEME_TYPE
+    SchemeAnimpoint.SCHEME_SECTION
   ] as Optional<ISchemeAnimpointState>;
 
   if (animpointState === null) {
@@ -1442,9 +1459,9 @@ export function see_actor(actor: XR_game_object, npc: XR_game_object): boolean {
  * todo;
  */
 export function actor_enemy(actor: XR_game_object, npc: XR_game_object): boolean {
-  const t = registry.objects.get(npc.id()).death;
+  const state: Optional<ISchemeDeathState> = registry.objects.get(npc.id())[EScheme.DEATH] as ISchemeDeathState;
 
-  return npc.relation(actor) === game_object.enemy || t?.killer === actor.id();
+  return npc.relation(actor) === game_object.enemy || state?.killer === actor.id();
 }
 
 /**
@@ -1508,17 +1525,6 @@ export function zat_b7_is_night(): boolean {
  */
 export function zat_b7_is_late_attack_time(): boolean {
   return registry.actor !== null && (level.get_time_hours() >= 23 || level.get_time_hours() < 9);
-}
-
-/**
- * todo;
- */
-export function is_in_danger(
-  actor: XR_game_object,
-  npc: XR_game_object,
-  params: Optional<[Optional<string>]>
-): boolean {
-  return registry.objects.get(params && params[0] ? getStoryObject(params[0])!.id() : npc.id()).danger_flag;
 }
 
 /**
@@ -1808,10 +1814,10 @@ export function pri_a28_actor_is_far(actor: XR_game_object, npc: XR_game_object)
  * todo;
  */
 export function check_enemy_smart(actor: XR_game_object, npc: XR_game_object, params: [string]) {
-  const enemy_id: number = registry.objects.get(npc.id()).enemy_id as number;
-  const enemy: Optional<XR_game_object> = registry.objects.get(enemy_id)?.object as Optional<XR_game_object>;
+  const enemyId: Optional<TNumberId> = registry.objects.get(npc.id()).enemy_id;
+  const enemy: Optional<XR_game_object> = enemyId ? registry.objects.get(enemyId)?.object : null;
 
-  if (enemy === null || enemy_id === alife().actor().id) {
+  if (enemy === null || enemyId === alife().actor().id) {
     return false;
   }
 
@@ -1934,7 +1940,7 @@ export function jup_b25_flint_gone_condition(): boolean {
  */
 export function check_deimos_phase(actor: XR_game_object, npc: XR_game_object, params: AnyArgs): boolean {
   if (params[0] && params[1]) {
-    const obj: IStoredObject = registry.objects.get(npc.id());
+    const obj: IRegistryObjectState = registry.objects.get(npc.id());
     const delta: boolean = SchemeDeimos.checkIntensityDelta(obj);
 
     if (params[1] === "increasing" && delta) {

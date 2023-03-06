@@ -2,7 +2,7 @@ import { XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
-import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
+import { AbstractScheme, ESchemeEvent } from "@/mod/scripts/core/schemes/base";
 import { issueSchemeEvent } from "@/mod/scripts/core/schemes/issueSchemeEvent";
 import { CutsceneManager } from "@/mod/scripts/core/schemes/sr_cutscene/CutsceneManager";
 import { ISchemeCutsceneState } from "@/mod/scripts/core/schemes/sr_cutscene/ISchemeCutsceneState";
@@ -64,6 +64,6 @@ export class SchemeCutscene extends AbstractScheme {
    * todo;
    */
   public static onCutsceneEnd(): void {
-    issueSchemeEvent(CutsceneManager.object_cutscene!, CutsceneManager.storage_scene!, "cutscene_callback");
+    issueSchemeEvent(CutsceneManager.object_cutscene!, CutsceneManager.storage_scene!, ESchemeEvent.CUTSCENE);
   }
 }

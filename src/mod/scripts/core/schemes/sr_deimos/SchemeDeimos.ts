@@ -1,7 +1,7 @@
 import { XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
 import { EScheme, ESchemeType, TRate, TSection } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { DeimosManager } from "@/mod/scripts/core/schemes/sr_deimos/DeimosManager";
@@ -30,8 +30,6 @@ export class SchemeDeimos extends AbstractScheme {
     section: TSection,
     state: ISchemeDeimosState
   ): void {
-    logger.info("Add to binder:", object.name());
-
     subscribeActionForEvents(object, state, new DeimosManager(object, state));
   }
 
@@ -61,9 +59,9 @@ export class SchemeDeimos extends AbstractScheme {
   /**
    * todo;
    */
-  public static checkIntensityDelta(state: IStoredObject): boolean {
+  public static checkIntensityDelta(state: IRegistryObjectState): boolean {
     if (state.active_scheme === SchemeDeimos.SCHEME_SECTION) {
-      const deimosState: ISchemeDeimosState = state[state.active_scheme];
+      const deimosState: ISchemeDeimosState = state[state.active_scheme] as ISchemeDeimosState;
       const speedVector: XR_vector = registry.actor.get_movement_speed();
       const currentSpeed: TRate = math.sqrt(
         speedVector.x * speedVector.x + speedVector.y * speedVector.y + speedVector.z * speedVector.z
@@ -79,9 +77,9 @@ export class SchemeDeimos extends AbstractScheme {
   /**
    * todo;
    */
-  public static checkDisableBound(state: IStoredObject): boolean {
+  public static checkDisableBound(state: IRegistryObjectState): boolean {
     if (state.active_scheme === SchemeDeimos.SCHEME_SECTION) {
-      const deimosState: ISchemeDeimosState = state[state.active_scheme];
+      const deimosState: ISchemeDeimosState = state[state.active_scheme] as ISchemeDeimosState;
 
       return deimosState.intensity < deimosState.disable_bound;
     }
@@ -92,9 +90,9 @@ export class SchemeDeimos extends AbstractScheme {
   /**
    * todo;
    */
-  public static checkLowerBound(state: IStoredObject): boolean {
+  public static checkLowerBound(state: IRegistryObjectState): boolean {
     if (state.active_scheme === SchemeDeimos.SCHEME_SECTION) {
-      const deimosState: ISchemeDeimosState = state[state.active_scheme];
+      const deimosState: ISchemeDeimosState = state[state.active_scheme] as ISchemeDeimosState;
 
       return deimosState.intensity < deimosState.switch_lower_bound;
     }
@@ -105,9 +103,9 @@ export class SchemeDeimos extends AbstractScheme {
   /**
    * todo;
    */
-  public static checkUpperBound(state: IStoredObject): boolean {
+  public static checkUpperBound(state: IRegistryObjectState): boolean {
     if (state.active_scheme === SchemeDeimos.SCHEME_SECTION) {
-      const deimosState: ISchemeDeimosState = state[state.active_scheme];
+      const deimosState: ISchemeDeimosState = state[state.active_scheme] as ISchemeDeimosState;
 
       return deimosState.intensity < deimosState.switch_upper_bound;
     }

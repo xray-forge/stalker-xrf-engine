@@ -1,7 +1,7 @@
 import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { AbuseManager } from "@/mod/scripts/core/schemes/abuse/AbuseManager";
 import { ActionAbuseHit } from "@/mod/scripts/core/schemes/abuse/actions/ActionAbuseHit";
 import { EvaluatorAbuse } from "@/mod/scripts/core/schemes/abuse/evaluators/EvaluatorAbuse";
@@ -71,7 +71,9 @@ export class SchemeAbuse extends AbstractScheme {
    * todo;
    */
   public static addAbuse(object: XR_game_object, value: number): void {
-    const abuseState: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[SchemeAbuse.SCHEME_TYPE];
+    const abuseState: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[
+      SchemeAbuse.SCHEME_SECTION
+    ] as ISchemeAbuseState;
 
     abuseState?.abuse_manager.addAbuse(value);
   }
@@ -82,7 +84,7 @@ export class SchemeAbuse extends AbstractScheme {
   public static override resetScheme(
     object: XR_game_object,
     scheme: EScheme,
-    state: IStoredObject,
+    state: IRegistryObjectState,
     section: TSection
   ): void {}
 
@@ -90,7 +92,9 @@ export class SchemeAbuse extends AbstractScheme {
    * todo;
    */
   public static clearAbuse(object: XR_game_object): void {
-    const state: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[SchemeAbuse.SCHEME_TYPE];
+    const state: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[
+      SchemeAbuse.SCHEME_SECTION
+    ] as ISchemeAbuseState;
 
     state?.abuse_manager.clearAbuse();
   }
@@ -99,7 +103,9 @@ export class SchemeAbuse extends AbstractScheme {
    * todo;
    */
   public static disableAbuse(object: XR_game_object): void {
-    const state: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[SchemeAbuse.SCHEME_TYPE];
+    const state: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[
+      SchemeAbuse.SCHEME_SECTION
+    ] as ISchemeAbuseState;
 
     state?.abuse_manager.disableAbuse();
   }
@@ -108,7 +114,9 @@ export class SchemeAbuse extends AbstractScheme {
    * todo;
    */
   public static enableAbuse(object: XR_game_object): void {
-    const state: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[SchemeAbuse.SCHEME_TYPE];
+    const state: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[
+      SchemeAbuse.SCHEME_SECTION
+    ] as ISchemeAbuseState;
 
     state?.abuse_manager.enableAbuse();
   }
@@ -117,7 +125,7 @@ export class SchemeAbuse extends AbstractScheme {
    * todo;
    */
   public static isAbuse(object: XR_game_object): boolean {
-    const state = registry.objects.get(object.id())[SchemeAbuse.SCHEME_TYPE];
+    const state = registry.objects.get(object.id())[SchemeAbuse.SCHEME_SECTION] as ISchemeAbuseState;
 
     if (state === null) {
       return false;

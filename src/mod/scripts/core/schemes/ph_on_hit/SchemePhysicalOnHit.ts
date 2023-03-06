@@ -51,9 +51,11 @@ export class SchemePhysicalOnHit extends AbstractScheme {
    * todo;
    */
   public static override disableScheme(object: XR_game_object, scheme: EScheme): void {
-    const state: Optional<ISchemePhysicalOnHitState> = registry.objects.get(object.id())[scheme];
+    const state: Optional<ISchemePhysicalOnHitState> = registry.objects.get(object.id())[
+      scheme
+    ] as ISchemePhysicalOnHitState;
 
-    if (state) {
+    if (state !== null) {
       unsubscribeActionFromEvents(object, state, state.action);
     }
   }

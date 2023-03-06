@@ -2,7 +2,7 @@ import { get_console, IsDynamicMusic, level, time_global, XR_game_object, XR_vec
 
 import { console_commands } from "@/mod/globals/console_commands";
 import { TSound } from "@/mod/globals/sound/sounds";
-import { Optional } from "@/mod/lib/types";
+import { Optional, TDistance } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { EGameEvent } from "@/mod/scripts/core/managers/events/EGameEvent";
 import { EventsManager } from "@/mod/scripts/core/managers/events/EventsManager";
@@ -160,13 +160,13 @@ export class DynamicMusicManager {
         const actorPosition: XR_vector = actor.position();
 
         let nearestEnemy: Optional<XR_game_object> = null;
-        let nearestEnemyDist: number = 100;
+        let nearestEnemyDist: TDistance = 100;
 
         // todo: No need to check every enemy, just find at least one who meets threshold and flag 'true'
-        for (const [k, obj_id] of DynamicMusicManager.NPC_TABLE) {
-          const object = registry.objects.get(obj_id) && registry.objects.get(obj_id).object;
+        for (const [k, objectId] of DynamicMusicManager.NPC_TABLE) {
+          const object: Optional<XR_game_object> = registry.objects.get(objectId)?.object;
 
-          if (object) {
+          if (object !== null) {
             const enemy: Optional<XR_game_object> = object.best_enemy();
 
             if (enemy && enemy.id() === actor.id()) {

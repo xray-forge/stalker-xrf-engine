@@ -13,12 +13,14 @@ import {
 import { TCommunity } from "@/mod/globals/communities";
 import { lootable_table_exclude, TLootableExcludeItem } from "@/mod/globals/items/lootable_table";
 import { TLevel } from "@/mod/globals/levels";
+import { STRINGIFIED_NIL } from "@/mod/globals/lua";
 import { ERelation } from "@/mod/globals/relations";
 import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
-import { Optional } from "@/mod/lib/types";
+import { EScheme, Optional, TName, TNumberId } from "@/mod/lib/types";
 import { Squad } from "@/mod/scripts/core/alife/Squad";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { action_ids } from "@/mod/scripts/core/schemes/base/actions_id";
+import { ISchemeWoundedState } from "@/mod/scripts/core/schemes/wounded";
 import { getStorySquad } from "@/mod/scripts/utils/alife";
 import { isStalker } from "@/mod/scripts/utils/checkers/is";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
@@ -79,7 +81,7 @@ export function isActorNeutralWithFaction(faction: TCommunity, actor: XR_game_ob
 /**
  * @returns whether provided object is on a provided level.
  */
-export function isObjectOnLevel(object: Optional<XR_cse_alife_object>, levelName: string): boolean {
+export function isObjectOnLevel(object: Optional<XR_cse_alife_object>, levelName: TName): boolean {
   return object !== null && alife().level_name(game_graph().vertex(object.m_game_vertex_id).level_id()) === levelName;
 }
 
@@ -130,8 +132,8 @@ export function isObjectWounded(object: XR_game_object): boolean {
 
   if (state === null) {
     return false;
-  } else if (state.wounded !== null) {
-    return tostring(state.wounded!.wound_manager.wound_state) !== "nil";
+  } else if (state[EScheme.WOUNDED] !== null) {
+    return tostring((state[EScheme.WOUNDED] as ISchemeWoundedState).wound_manager.wound_state) !== STRINGIFIED_NIL;
   } else {
     return false;
   }
@@ -156,10 +158,13 @@ export function isObjectMeeting(object: XR_game_object): boolean {
 /**
  * @returns whether object is heavily wounded.
  */
-export function isHeavilyWounded(npcId: number): boolean {
-  const state: Optional<IStoredObject> = registry.objects.get(npcId);
+export function isHeavilyWounded(objectId: TNumberId): boolean {
+  const state: Optional<IRegistryObjectState> = registry.objects.get(objectId);
 
-  return state.wounded !== null && tostring(state.wounded!.wound_manager.wound_state) !== "nil";
+  return (
+    state[EScheme.WOUNDED] !== null &&
+    tostring((state[EScheme.WOUNDED] as ISchemeWoundedState).wound_manager.wound_state) !== STRINGIFIED_NIL
+  );
 }
 
 /**
@@ -187,7 +192,7 @@ export function isActorInZone(zone: Optional<XR_game_object>): boolean {
  * todo;
  * todo;
  */
-export function isActorInZoneWithName(zoneName: string, actor: Optional<XR_game_object> = registry.actor): boolean {
+export function isActorInZoneWithName(zoneName: TName, actor: Optional<XR_game_object> = registry.actor): boolean {
   const zone: Optional<XR_game_object> = registry.zones.get(zoneName);
 
   return actor !== null && zone !== null && zone.inside(actor.position());

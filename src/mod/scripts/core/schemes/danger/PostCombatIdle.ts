@@ -1,6 +1,5 @@
 import { cast_planner, stalker_ids, world_property, XR_action_base, XR_action_planner, XR_game_object } from "xray16";
 
-import { TSection } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { ActionPostCombatIdleWait } from "@/mod/scripts/core/schemes/danger/actions";
 import { EvaluatorPostCombatIdleEnemy } from "@/mod/scripts/core/schemes/danger/evaluators";
@@ -13,8 +12,6 @@ const logger: LuaLogger = new LuaLogger("PostCombatIdle");
  * todo;
  */
 export class PostCombatIdle {
-  public static readonly SECTION: TSection = "post_combat_wait";
-
   /**
    * todo;
    */
@@ -32,7 +29,7 @@ export class PostCombatIdle {
       last_best_enemy_name: null,
     };
 
-    registry.objects.get(object.id())[PostCombatIdle.SECTION] = state;
+    registry.objects.get(object.id()).post_combat_wait = state;
 
     actionPlanner.remove_evaluator(stalker_ids.property_enemy);
     actionPlanner.add_evaluator(stalker_ids.property_enemy, new EvaluatorPostCombatIdleEnemy(state));

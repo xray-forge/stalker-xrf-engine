@@ -12,7 +12,7 @@ import {
   TSection,
   TStringId,
 } from "@/mod/lib/types";
-import { registry } from "@/mod/scripts/core/database";
+import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { abort } from "@/mod/scripts/utils/debug";
 import { disableInfo, hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -28,12 +28,12 @@ const logger: LuaLogger = new LuaLogger("configs");
 
 /**
  * todo: Description
+ * todo: Add signature with null if default is not provided.
  */
 export function getConfigString<D = string>(
   ini: XR_ini_file,
-  section: TSection,
-  field: string,
-  // todo: Remove?
+  section: Optional<TSection>,
+  field: TName,
   object: Optional<XR_cse_abstract | XR_game_object | AnyObject>,
   mandatory: boolean,
   prefix: Optional<string> | false,
@@ -90,8 +90,8 @@ export function getConfigNumber<T = number>(
  */
 export function getConfigBoolean(
   char_ini: XR_ini_file,
-  section: TSection,
-  field: string,
+  section: Optional<TSection>,
+  field: TName,
   object: Optional<XR_game_object | XR_cse_alife_object>,
   mandatory: boolean,
   default_val?: boolean
@@ -139,13 +139,13 @@ export function getParamString(data: string, obj: XR_game_object): LuaMultiRetur
  */
 export function read2nums(
   spawn_ini: XR_ini_file,
-  section: string,
-  line: string,
+  section: Optional<TName>,
+  line: TName,
   default1: number,
   default2: number
 ): LuaMultiReturn<[number, number]> {
   if (spawn_ini.line_exist(section, line)) {
-    const t = parseNames(spawn_ini.r_string(section, line));
+    const t = parseNames(spawn_ini.r_string(section as TName, line));
     const n = t.length();
 
     if (n === 0) {
@@ -591,12 +591,12 @@ export function getConfigOverrides(ini: XR_ini_file, section: TSection, object: 
   overrides.combat_type = getConfigCondList(ini, section, "combat_type", object);
   overrides.on_combat = getConfigCondList(ini, section, "on_combat", object);
 
-  const state = registry.objects.get(object.id());
+  const state: IRegistryObjectState = registry.objects.get(object.id());
 
-  if (ini.line_exist(state.section_logic!, "post_combat_time")) {
+  if (ini.line_exist(state.section_logic, "post_combat_time")) {
     const [min_post_combat_time, max_post_combat_time] = read2nums(
       ini,
-      state.section_logic!,
+      state.section_logic,
       "post_combat_time",
       10,
       15
@@ -621,9 +621,9 @@ export function getConfigOverrides(ini: XR_ini_file, section: TSection, object: 
   } else {
     overrides.on_offline_condlist = parseConditionsList(
       object,
-      state.section_logic!,
+      state.section_logic,
       "on_offline",
-      getConfigString(ini, state.section_logic!, "on_offline", object, false, "", "nil")
+      getConfigString(ini, state.section_logic, "on_offline", object, false, "", "nil")
     );
   }
 

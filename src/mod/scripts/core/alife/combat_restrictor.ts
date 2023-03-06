@@ -34,34 +34,28 @@ export function clear_combat_restrictor(npc: XR_game_object): void {
 }
 
 export function accessible_job(se_obj: XR_cse_alife_object, way_name: string): boolean {
-  const obj = registry.objects.get(se_obj.id);
+  const state = registry.objects.get(se_obj.id);
 
-  if (obj === null) {
+  if (state === null || state.object === null) {
     return false;
   }
 
-  const gm_obj = obj.object!;
+  const objectPosition: XR_vector = state.object.position();
+  const jobPosition: XR_vector = new patrol(way_name).point(0);
 
-  if (gm_obj === null) {
-    return false;
-  }
-
-  const npc_position: XR_vector = obj.position();
-  const job_position: XR_vector = new patrol(way_name).point(0);
-
-  let is_npc_inside: boolean = false;
+  let isObjectInside: boolean = false;
 
   for (const [k, v] of combat_sectors) {
-    if (v.inside(npc_position)) {
-      is_npc_inside = true;
+    if (v.inside(objectPosition)) {
+      isObjectInside = true;
 
-      if (v.inside(job_position)) {
+      if (v.inside(jobPosition)) {
         return true;
       }
     }
   }
 
-  return is_npc_inside !== true;
+  return isObjectInside !== true;
 }
 
 export function get_job_restrictor(way_name: string): string {

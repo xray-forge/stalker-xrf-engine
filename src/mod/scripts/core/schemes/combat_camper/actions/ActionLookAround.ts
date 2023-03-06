@@ -41,14 +41,14 @@ export class ActionLookAround extends action_base {
    * todo;
    */
   public reset(): void {
-    this.forget_time = device().time_global() + 30000;
-    this.change_dir_time = device().time_global() + 15000;
+    this.forget_time = device().time_global() + 30_000;
+    this.change_dir_time = device().time_global() + 15_000;
 
     if (!this.state.last_seen_pos && this.object.best_enemy() !== null) {
       this.state.last_seen_pos = this.object.best_enemy()!.position();
     }
 
-    set_state(this.object, "hide", null, null, { look_position: this.state.last_seen_pos }, null);
+    set_state(this.object, "hide", null, null, { look_position: this.state.last_seen_pos, look_object: null }, null);
   }
 
   /**
@@ -77,7 +77,14 @@ export class ActionLookAround extends action_base {
 
       dir = vectorRotateY(dir, ang);
 
-      set_state(this.object, "hide", null, null, { look_position: this.object.position().add(dir) }, null);
+      set_state(
+        this.object,
+        "hide",
+        null,
+        null,
+        { look_position: this.object.position().add(dir), look_object: null },
+        null
+      );
     }
   }
 

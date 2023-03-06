@@ -33,7 +33,7 @@ export class StateManagerEvaSmartCoverLocked extends property_evaluator {
   public override evaluate(): boolean {
     const smartCoverState: Optional<ISchemeSmartCoverState> = registry.objects.get(this.object.id())[
       EScheme.SMARTCOVER
-    ];
+    ] as ISchemeSmartCoverState;
 
     if (smartCoverState === null) {
       return false;

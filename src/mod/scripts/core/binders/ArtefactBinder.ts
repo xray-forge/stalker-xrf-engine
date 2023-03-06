@@ -12,7 +12,7 @@ import {
 
 import { Optional, TDuration } from "@/mod/lib/types";
 import { AnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
-import { addObject, deleteObject, registry } from "@/mod/scripts/core/database";
+import { registerObject, registry, unregisterObject } from "@/mod/scripts/core/database";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ArtefactBinder");
@@ -43,7 +43,7 @@ export class ArtefactBinder extends object_binder {
 
     logger.info("Spawn artefact to network");
 
-    addObject(this.object);
+    registerObject(this.object);
 
     const artefact: XR_CArtefact = this.object.get_artefact();
     const id: number = this.object.id();
@@ -69,7 +69,7 @@ export class ArtefactBinder extends object_binder {
    * todo;
    */
   public override net_destroy(): void {
-    deleteObject(this.object);
+    unregisterObject(this.object);
     super.net_destroy();
   }
 

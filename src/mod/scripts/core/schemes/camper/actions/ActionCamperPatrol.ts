@@ -16,7 +16,7 @@ import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManag
 import { ICampPoint, ISchemeCamperState } from "@/mod/scripts/core/schemes/camper/ISchemeCamperState";
 import { SchemeDanger } from "@/mod/scripts/core/schemes/danger/SchemeDanger";
 import { StalkerMoveManager } from "@/mod/scripts/core/state_management/StalkerMoveManager";
-import { set_state } from "@/mod/scripts/core/state_management/StateManager";
+import { ITargetStateDescriptor, set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { abort } from "@/mod/scripts/utils/debug";
 import { parsePathWaypoints } from "@/mod/scripts/utils/parse";
 import { isStalkerAtWaypoint } from "@/mod/scripts/utils/position";
@@ -274,7 +274,8 @@ export class ActionCamperPatrol extends action_base {
 
         if (this.state.sniper === true) {
           if (time_global() - this.state.mem_enemy! < this.state.post_enemy_wait) {
-            const position = this.enemy_position !== null ? { look_position: this.enemy_position } : null;
+            const position: Optional<ITargetStateDescriptor> =
+              this.enemy_position !== null ? { look_position: this.enemy_position, look_object: null } : null;
 
             if (this.state.suggested_state.campering) {
               set_state(this.object, this.state.suggested_state.campering, null, null, position, null);
@@ -286,7 +287,8 @@ export class ActionCamperPatrol extends action_base {
           }
         } else {
           if (this.on_place()) {
-            const position = this.enemy_position !== null ? { look_position: this.enemy_position } : null;
+            const position: Optional<ITargetStateDescriptor> =
+              this.enemy_position !== null ? { look_position: this.enemy_position, look_object: null } : null;
 
             if (this.state.suggested_state.campering) {
               set_state(this.object, this.state.suggested_state.campering, null, null, position, null);
@@ -358,8 +360,7 @@ export class ActionCamperPatrol extends action_base {
 
     const best_danger_object = best_danger.object();
     const bd_type = best_danger.type();
-    const passed_time = time_global() - best_danger.time();
-    const position = { look_position: best_danger.position() };
+    const position = { look_position: best_danger.position(), look_object: null };
 
     if (!this.danger) {
       this.object.play_sound(stalker_ids.sound_alarm, 1, 0, 1, 0);
@@ -369,7 +370,7 @@ export class ActionCamperPatrol extends action_base {
       best_danger_object !== null && bd_type === danger_object.attacked && time_global() - best_danger.time() < 5000;
 
     if (urgent_danger === true) {
-      const danger_object_position = { look_position: best_danger_object.position() };
+      const danger_object_position = { look_position: best_danger_object.position(), look_object: null };
 
       if (this.state.suggested_state.campering_fire) {
         set_state(this.object, this.state.suggested_state.campering_fire, null, null, danger_object_position, null);
@@ -432,11 +433,11 @@ export class ActionCamperPatrol extends action_base {
           this.state.suggested_state.campering,
           null,
           null,
-          { look_position: this.look_point },
+          { look_position: this.look_point, look_object: null },
           null
         );
       } else {
-        set_state(this.object, "hide_na", null, null, { look_position: this.look_point }, null);
+        set_state(this.object, "hide_na", null, null, { look_position: this.look_point, look_object: null }, null);
       }
 
       if (this.state.cur_look_point >= this.state.scandelta) {

@@ -22,7 +22,7 @@ export class LightManager extends AbstractSchemeManager<ISchemeLightState> {
   /**
    * todo;
    */
-  public override update(delta: number): void {
+  public override update(): void {
     if (trySwitchToAnotherSection(this.object, this.state, registry.actor)) {
       this.active = false;
 

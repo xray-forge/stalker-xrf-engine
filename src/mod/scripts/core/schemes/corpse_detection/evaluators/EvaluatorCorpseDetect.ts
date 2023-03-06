@@ -2,7 +2,7 @@ import { level, LuabindClass, property_evaluator, XR_game_object, XR_vector } fr
 
 import { communities } from "@/mod/globals/communities";
 import { Optional, TNumberId } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { IReleaseDescriptor, ReleaseBodyManager } from "@/mod/scripts/core/managers/ReleaseBodyManager";
 import { ISchemeCorpseDetectionState } from "@/mod/scripts/core/schemes/corpse_detection";
 import { isObjectWounded } from "@/mod/scripts/utils/checkers/checkers";
@@ -57,7 +57,7 @@ export class EvaluatorCorpseDetect extends property_evaluator {
 
     for (const it of $range(1, corpses.length())) {
       const id: TNumberId = corpses.get(it).id;
-      const registryState: Optional<IStoredObject> = registry.objects.get(id);
+      const registryState: Optional<IRegistryObjectState> = registry.objects.get(id);
       const corpseObject: Optional<XR_game_object> = registryState !== null ? registryState.object! : null;
 
       if (

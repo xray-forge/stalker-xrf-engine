@@ -48,7 +48,7 @@ export class ActionReachAnimpoint extends action_base {
         this.state.reach_movement,
         null,
         null,
-        { look_position: this.state.animpoint!.look_position },
+        { look_position: this.state.animpoint!.look_position, look_object: null },
         null
       );
     } else {

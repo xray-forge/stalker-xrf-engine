@@ -1,7 +1,6 @@
 import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { registry } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { action_ids } from "@/mod/scripts/core/schemes/base/actions_id";
@@ -46,15 +45,9 @@ export class SchemeSleeper extends AbstractScheme {
 
     const actionPlanner: XR_action_planner = object.motivation_action_manager();
 
-    actionPlanner.add_evaluator(
-      properties.need_sleeper,
-      new EvaluatorNeedSleep(registry.objects.get(object.id()).sleeper)
-    );
+    actionPlanner.add_evaluator(properties.need_sleeper, new EvaluatorNeedSleep(state));
 
-    const actionSleeper: ActionSleeperActivity = new ActionSleeperActivity(
-      registry.objects.get(object.id()).sleeper,
-      object
-    );
+    const actionSleeper: ActionSleeperActivity = new ActionSleeperActivity(state, object);
 
     actionSleeper.add_precondition(new world_property(stalker_ids.property_alive, true));
     actionSleeper.add_precondition(new world_property(stalker_ids.property_danger, false));
@@ -84,8 +77,6 @@ export class SchemeSleeper extends AbstractScheme {
     section: TSection,
     gulag_name: string
   ): void {
-    logger.info("Set scheme:", object.name());
-
     const state: ISchemeSleeperState = assignStorageAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);

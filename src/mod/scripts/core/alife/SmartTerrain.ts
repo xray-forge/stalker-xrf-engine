@@ -45,7 +45,7 @@ import {
 } from "@/mod/scripts/core/binders/CampfireBinder";
 import {
   hardResetOfflineObject,
-  IStoredObject,
+  IRegistryObjectState,
   loadDynamicLtx,
   registry,
   SMART_TERRAIN_MASKS_LTX,
@@ -1504,7 +1504,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
  */
 export function setup_gulag_and_logic_on_spawn(
   obj: XR_game_object,
-  st: IStoredObject,
+  st: IRegistryObjectState,
   sobject: any,
   stype: ESchemeType,
   loaded: boolean

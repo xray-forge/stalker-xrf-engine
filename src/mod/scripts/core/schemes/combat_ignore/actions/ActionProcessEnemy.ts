@@ -2,10 +2,10 @@ import { alife, XR_cse_alife_creature_abstract, XR_game_object, XR_vector } from
 
 import { STRINGIFIED_TRUE } from "@/mod/globals/lua";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
-import { Optional, TCount, TName, TNumberId } from "@/mod/lib/types";
+import { AnyObject, Optional, TCount, TName, TNumberId } from "@/mod/lib/types";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { ESmartTerrainStatus } from "@/mod/scripts/core/alife/SmartTerrainControl";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
 import { get_sim_obj_registry, SimObjectsRegistry } from "@/mod/scripts/core/database/SimObjectsRegistry";
 import { ISchemeCombatIgnoreState } from "@/mod/scripts/core/schemes/combat_ignore";
@@ -45,9 +45,9 @@ export class ActionProcessEnemy {
       return true;
     }
 
-    const overrides = state.overrides;
-    const obj_id = object.id();
-    const objectState: IStoredObject = registry.objects.get(obj_id);
+    const overrides: Optional<AnyObject> = state.overrides;
+    const objectId: TNumberId = object.id();
+    const objectState: IRegistryObjectState = registry.objects.get(objectId);
 
     if (objectState === null) {
       return true;

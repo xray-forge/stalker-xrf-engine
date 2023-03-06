@@ -1,5 +1,13 @@
-import { Optional, TNumberId } from "@/mod/lib/types";
-import { IStoredOfflineObject, registry } from "@/mod/scripts/core/database/registry";
+import { Optional, TNumberId, TSection } from "@/mod/lib/types";
+import { registry } from "@/mod/scripts/core/database/registry";
+
+/**
+ * todo;
+ */
+export interface IStoredOfflineObject {
+  level_vertex_id: Optional<TNumberId>;
+  active_section: Optional<TSection>;
+}
 
 /**
  * todo;

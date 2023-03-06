@@ -3,7 +3,7 @@ import { alife, stalker_ids, world_property, XR_action_planner, XR_game_object, 
 import { script_sounds } from "@/mod/globals/sound/script_sounds";
 import { Optional, TNumberId } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme, action_ids, evaluators_id } from "@/mod/scripts/core/schemes/base";
@@ -66,7 +66,12 @@ export class SchemeHelpWounded extends AbstractScheme {
   /**
    * todo;
    */
-  public static override resetScheme(object: XR_game_object, scheme: EScheme, state: IStoredObject, section: TSection) {
+  public static override resetScheme(
+    object: XR_game_object,
+    scheme: EScheme,
+    state: IRegistryObjectState,
+    section: TSection
+  ) {
     (state[SchemeHelpWounded.SCHEME_SECTION] as ISchemeHelpWoundedState).help_wounded_enabled = getConfigBoolean(
       state.ini!,
       section,
@@ -101,7 +106,8 @@ export class SchemeHelpWounded extends AbstractScheme {
    * todo;
    */
   public static helpWounded(object: XR_game_object): void {
-    const selectedId: TNumberId = registry.objects.get(object.id()).help_wounded.selected_id;
+    const state: IRegistryObjectState = registry.objects.get(object.id());
+    const selectedId: TNumberId = (state[EScheme.HELP_WOUNDED] as ISchemeHelpWoundedState).selected_id;
     const selectedObject: Optional<XR_game_object> =
       registry.objects.get(selectedId) && registry.objects.get(selectedId).object!;
 

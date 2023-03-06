@@ -19,6 +19,9 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
   public antennaState: number = state_void;
   public antennaManager: PsyAntennaManager = PsyAntennaManager.getInstance();
 
+  /**
+   * todo;
+   */
   public override resetScheme(loading?: boolean): void {
     if (loading) {
       this.antennaState = pstor_retrieve(this.object, "inside")!;
@@ -33,13 +36,19 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
     this.switch_state(registry.actor);
   }
 
+  /**
+   * todo;
+   */
   public override deactivate(): void {
     if (this.antennaState === state_inside) {
       this.zone_leave();
     }
   }
 
-  public override update(delta: number): void {
+  /**
+   * todo;
+   */
+  public override update(): void {
     const actor = registry.actor;
 
     if (trySwitchToAnotherSection(this.object, this.state, actor)) {
@@ -49,6 +58,9 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
     this.switch_state(actor);
   }
 
+  /**
+   * todo;
+   */
   public switch_state(actor: XR_game_object): void {
     if (this.antennaState !== state_inside) {
       if (this.object.inside(actor.position())) {
@@ -65,6 +77,9 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
     }
   }
 
+  /**
+   * todo;
+   */
   public zone_enter(): void {
     this.antennaState = state_inside;
 
@@ -106,6 +121,9 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
       this.antennaManager.postprocess.get(this.state.postprocess).intensity_base + this.state.intensity;
   }
 
+  /**
+   * todo;
+   */
   public zone_leave(): void {
     this.antennaState = state_outside;
 
@@ -129,6 +147,9 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
     }
   }
 
+  /**
+   * todo;
+   */
   public save(): void {
     pstor_store(this.object, "inside", this.antennaState);
   }

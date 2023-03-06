@@ -4,7 +4,7 @@ import { communities } from "@/mod/globals/communities";
 import { STRINGIFIED_NIL } from "@/mod/globals/lua";
 import { AnyObject, LuaArray, Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { registry } from "@/mod/scripts/core/database";
+import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme, evaluators_id } from "@/mod/scripts/core/schemes/base";
 import { EvaluatorCheckCombat } from "@/mod/scripts/core/schemes/combat/evaluators/EvaluatorCheckCombat";
@@ -53,7 +53,7 @@ export class SchemeCombat extends AbstractScheme {
    * todo;
    */
   public static override disableScheme(object: XR_game_object, scheme: EScheme): void {
-    const state = registry.objects.get(object.id())[scheme];
+    const state: Optional<ISchemeCombatState> = registry.objects.get(object.id())[scheme] as ISchemeCombatState;
 
     if (state !== null) {
       state.enabled = false;
@@ -63,19 +63,19 @@ export class SchemeCombat extends AbstractScheme {
   /**
    * todo;
    */
-  public static set_combat_type(npc: XR_game_object, actor: XR_game_object, target: Optional<AnyObject>): void {
+  public static setCombatType(object: XR_game_object, actor: XR_game_object, target: Optional<AnyObject>): void {
     if (target === null) {
       return;
     }
 
-    const state = registry.objects.get(npc.id());
+    const state: IRegistryObjectState = registry.objects.get(object.id());
 
-    state.enemy = npc.best_enemy();
+    state.enemy = object.best_enemy();
 
     let script_combat_type = null;
 
     if (target.combat_type !== null) {
-      script_combat_type = pickSectionFromCondList(actor, npc, target.combat_type.condlist);
+      script_combat_type = pickSectionFromCondList(actor, object, target.combat_type.condlist);
 
       if (script_combat_type === STRINGIFIED_NIL) {
         script_combat_type = null;
@@ -109,7 +109,7 @@ export class SchemeCombat extends AbstractScheme {
       }
 
       if (state.combat_type) {
-        SchemeCombat.set_combat_type(object, registry.actor, state);
+        SchemeCombat.setCombatType(object, registry.actor, state);
       }
     }
   }

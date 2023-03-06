@@ -1,6 +1,7 @@
 import { XR_game_object } from "xray16";
 
-import { AnyArgs, AnyObject, TCount, TName } from "@/mod/lib/types";
+import { AnyArgs, AnyCallable } from "@/mod/lib/types";
+import { ESchemeEvent, IBaseSchemeState } from "@/mod/scripts/core/schemes/base";
 
 /**
  * todo
@@ -10,20 +11,17 @@ import { AnyArgs, AnyObject, TCount, TName } from "@/mod/lib/types";
  */
 export function issueSchemeEvent(
   object: XR_game_object,
-  state: AnyObject,
-  eventFunction: TName,
+  state: IBaseSchemeState,
+  event: ESchemeEvent,
   ...rest: AnyArgs
 ): void {
   if (!state || !state.actions) {
     return;
   }
 
-  let activation_count: TCount = 0;
-
-  for (const [action_ptr, is_active] of (state as { actions: LuaTable<LuaTable, boolean> }).actions) {
-    if (is_active && action_ptr.get(eventFunction)) {
-      action_ptr.get(eventFunction)(action_ptr, ...rest);
-      activation_count = activation_count + 1;
+  for (const [actionHandler, isHandlerActive] of state.actions) {
+    if (isHandlerActive && actionHandler[event] !== null) {
+      (actionHandler[event] as AnyCallable)(actionHandler, ...rest);
     }
   }
 }

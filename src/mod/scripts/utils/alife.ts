@@ -35,7 +35,7 @@ import {
 import { SimSquadReachTargetAction } from "@/mod/scripts/core/alife/SimSquadReachTargetAction";
 import { SimSquadStayOnTargetAction } from "@/mod/scripts/core/alife/SimSquadStayOnTargetAction";
 import { Squad } from "@/mod/scripts/core/alife/Squad";
-import { IStoredObject, registry } from "@/mod/scripts/core/database/registry";
+import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { getStoryObjectsRegistry } from "@/mod/scripts/core/database/StoryObjectsRegistry";
 import { spawnItemsForObject } from "@/mod/scripts/utils/alife_spawn";
 import { isStalker } from "@/mod/scripts/utils/checkers/is";
@@ -49,7 +49,7 @@ import {
 import { abort } from "@/mod/scripts/utils/debug";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { parseConditionsList } from "@/mod/scripts/utils/parse";
+import { parseConditionsList, TConditionList } from "@/mod/scripts/utils/parse";
 import { graphDistance } from "@/mod/scripts/utils/physics";
 import { wait } from "@/mod/scripts/utils/time";
 
@@ -187,18 +187,18 @@ export function stopPlaySound(object: XR_game_object): void {
  */
 export function changeTeamSquadGroup(
   serverObject: XR_cse_alife_creature_abstract,
-  team: number,
-  squad: number,
-  group: number
+  team: TNumberId,
+  squad: TNumberId,
+  group: TNumberId
 ): void {
-  const clientObject: Maybe<XR_game_object> = registry.objects.get(serverObject.id)?.object;
+  const clientObject: Optional<XR_game_object> = registry.objects.get(serverObject.id)?.object;
 
-  if (clientObject) {
-    clientObject.change_team(team, squad, group);
-  } else {
+  if (clientObject === null) {
     serverObject.team = team;
     serverObject.squad = squad;
     serverObject.group = group;
+  } else {
+    clientObject.change_team(team, squad, group);
   }
 }
 
@@ -335,38 +335,48 @@ export function resetObjectGroup(object: XR_game_object, ini: XR_ini_file, secti
 /**
  * todo: rename, update
  */
-export function take_items_enabled(npc: XR_game_object, scheme: string, st: IStoredObject, section: string): void {
-  const take_items = st.ini!.line_exist(section, "take_items")
-    ? getConfigBoolean(st.ini!, section, "take_items", npc, false, true)
-    : getConfigBoolean(st.ini!, st.section_logic!, "take_items", npc, false, true);
+export function take_items_enabled(
+  object: XR_game_object,
+  scheme: EScheme,
+  state: IRegistryObjectState,
+  section: TSection
+): void {
+  const isTakeItemsEnabled: boolean = state.ini.line_exist(section, "take_items")
+    ? getConfigBoolean(state.ini, section, "take_items", object, false, true)
+    : getConfigBoolean(state.ini, state.section_logic, "take_items", object, false, true);
 
-  npc.take_items_enabled(take_items);
+  object.take_items_enabled(isTakeItemsEnabled);
 }
 
 /**
  * todo: rename, update
  */
-export function can_select_weapon(npc: XR_game_object, scheme: EScheme, st: IStoredObject, section: TSection): void {
-  let str = getConfigString(st.ini!, section, "can_select_weapon", npc, false, "", "");
+export function can_select_weapon(
+  object: XR_game_object,
+  scheme: EScheme,
+  state: IRegistryObjectState,
+  section: TSection
+): void {
+  let str = getConfigString(state.ini, section, "can_select_weapon", object, false, "", "");
 
   if (str === "") {
-    str = getConfigString(st.ini!, st.section_logic!, "can_select_weapon", npc, false, "", "true");
+    str = getConfigString(state.ini, state.section_logic, "can_select_weapon", object, false, "", "true");
   }
 
-  const cond = parseConditionsList(npc, section, "can_select_weapon", str);
-  const can: TSection = pickSectionFromCondList(registry.actor, npc, cond)!;
+  const cond: TConditionList = parseConditionsList(object, section, "can_select_weapon", str);
+  const can: TSection = pickSectionFromCondList(registry.actor, object, cond)!;
 
-  npc.can_select_weapon(can === STRINGIFIED_TRUE);
+  object.can_select_weapon(can === STRINGIFIED_TRUE);
 }
 
 /**
  * todo;
  */
 export function isInvulnerabilityNeeded(object: XR_game_object): boolean {
-  const npc_st = registry.objects.get(object.id());
+  const state: IRegistryObjectState = registry.objects.get(object.id());
   const invulnerability: Optional<string> = getConfigString(
-    npc_st.ini!,
-    npc_st.active_section!,
+    state.ini,
+    state.active_section,
     "invulnerable",
     object,
     false,
@@ -416,31 +426,31 @@ export function updateInvulnerability(object: XR_game_object): void {
  * todo
  */
 export function resetThreshold(
-  npc: XR_game_object,
-  scheme: Optional<string>,
-  st: IStoredObject,
-  section: string
+  object: XR_game_object,
+  scheme: Optional<EScheme>,
+  state: IRegistryObjectState,
+  section: TSection
 ): void {
-  const threshold_section: Optional<string> =
+  const threshold_section: Optional<TSection> =
     scheme === null || scheme === STRINGIFIED_NIL
-      ? getConfigString(st.ini!, st.section_logic!, "threshold", npc, false, "")
-      : getConfigString(st.ini!, section, "threshold", npc, false, "");
+      ? getConfigString(state.ini, state.section_logic, "threshold", object, false, "")
+      : getConfigString(state.ini, section, "threshold", object, false, "");
 
   if (threshold_section !== null) {
-    const max_ignore_distance = getConfigNumber(st.ini!, threshold_section, "max_ignore_distance", npc, false);
+    const max_ignore_distance = getConfigNumber(state.ini, threshold_section, "max_ignore_distance", object, false);
 
     if (max_ignore_distance !== null) {
-      npc.max_ignore_monster_distance(max_ignore_distance);
+      object.max_ignore_monster_distance(max_ignore_distance);
     } else {
-      npc.restore_max_ignore_monster_distance();
+      object.restore_max_ignore_monster_distance();
     }
 
-    const ignore_monster: number = getConfigNumber(st.ini!, threshold_section, "ignore_monster", npc, false);
+    const ignore_monster: number = getConfigNumber(state.ini, threshold_section, "ignore_monster", object, false);
 
     if (ignore_monster !== null) {
-      npc.ignore_monster_threshold(ignore_monster);
+      object.ignore_monster_threshold(ignore_monster);
     } else {
-      npc.restore_ignore_monster_threshold();
+      object.restore_ignore_monster_threshold();
     }
   }
 }
@@ -465,11 +475,11 @@ export function isObjectInCombat(object: XR_game_object): boolean {
 /**
  * todo: description
  */
-export function spawnDefaultNpcItems(object: XR_game_object, state: IStoredObject): void {
+export function spawnDefaultNpcItems(object: XR_game_object, state: IRegistryObjectState): void {
   const itemsToSpawn: LuaTable<TStringId, TCount> = new LuaTable();
   const spawnItemsSection: Optional<string> = getConfigString(
-    state.ini!,
-    state.section_logic!,
+    state.ini,
+    state.section_logic,
     "spawn",
     object,
     false,

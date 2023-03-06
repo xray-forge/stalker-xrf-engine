@@ -1,8 +1,8 @@
 import { XR_CHelicopter, XR_game_object } from "xray16";
 
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 
-export function get_heli_health(heli: XR_CHelicopter, state: IStoredObject): number {
+export function get_heli_health(heli: XR_CHelicopter, state: IRegistryObjectState): number {
   let health: number;
 
   if (state.invulnerable) {

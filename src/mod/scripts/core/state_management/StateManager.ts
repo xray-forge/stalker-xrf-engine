@@ -11,9 +11,9 @@ import {
 } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
-import { AnyCallable, AnyObject, Optional } from "@/mod/lib/types";
+import { AnyCallable, AnyObject, Optional, TDuration, TName } from "@/mod/lib/types";
 import { stringifyAsJson } from "@/mod/lib/utils/json";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { registry } from "@/mod/scripts/core/database";
 import * as animationManagement from "@/mod/scripts/core/state_management/animation";
 import * as animationStateManagement from "@/mod/scripts/core/state_management/animation_state";
 import { AnimationManager } from "@/mod/scripts/core/state_management/AnimationManager";
@@ -37,11 +37,18 @@ import { vectorCmp } from "@/mod/scripts/utils/physics";
 const logger: LuaLogger = new LuaLogger("StateManager", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
 /**
+ * todo;
+ */
+export interface ITargetStateDescriptor {
+  look_object: Optional<XR_game_object>;
+  look_position: Optional<XR_vector>;
+}
+
+/**
  * todo:
  * - Refactor and simplify
  * - Simplify creation of actions with some helper function and evaluators descriptor?
  */
-
 export class StateManager {
   public npc: XR_game_object;
   public animation!: AnimationManager;
@@ -68,6 +75,9 @@ export class StateManager {
     obj: AnyObject;
   }> = null;
 
+  /**
+   * todo;
+   */
   public constructor(npc: XR_game_object) {
     this.npc = npc;
     this.planner = new action_planner();
@@ -78,11 +88,14 @@ export class StateManager {
     logger.info("Construct state manager for:", this);
   }
 
+  /**
+   * todo;
+   */
   public set_state(
-    state_name: string,
+    state_name: TName,
     callback: Optional<AnyObject>,
-    timeout: Optional<number>,
-    target: Optional<IStoredObject>,
+    timeout: Optional<TDuration>,
+    target: Optional<ITargetStateDescriptor>,
     extra: Optional<AnyObject>
   ): void {
     // --printf("Set State called: for %s State: %s", this.npc:name(), state_name)
@@ -92,31 +105,11 @@ export class StateManager {
       abort("ERROR: ILLEGAL SET STATE CALLED!!! %s fo %s", stringifyAsJson(state_name), this.npc.name());
     }
 
-    /**
-    if (target) {
-      if (target.look_position) {
-        // --printf("look position: %s %s %s", target.look_position.x,
-        // --                                    target.look_position.y,
-        // --                                    target.look_position.z)
-      } else {
-        // --printf("look position: null")
-      }
-
-      if (target.look_object) {
-        // --printf("look object: %s", target.look_object:name())
-      } else {
-        // --printf("look object: null")
-      }
-    } else {
-      // --printf("look target null")
-    }
-     */
-
     if (target !== null) {
       this.look_position = target.look_position;
 
       if (target.look_object !== null) {
-        this.look_object = (target.look_object as any).id();
+        this.look_object = target.look_object.id();
       } else {
         this.look_object = null;
       }
@@ -197,10 +190,16 @@ export class StateManager {
     }
   }
 
+  /**
+   * todo;
+   */
   public get_state(): Optional<string> {
     return this.target_state;
   }
 
+  /**
+   * todo;
+   */
   public update(): void {
     if (this.animation.states.current_state === states.get(this.target_state).animation) {
       if (this.callback !== null && this.callback.func !== null) {
@@ -241,6 +240,9 @@ export class StateManager {
     // --this.planner:show("")
   }
 
+  /**
+   * todo;
+   */
   public __tostring(): string {
     return `StateManager #npc: ${this.npc.name()} #target_state: ${this.target_state} #combat: ${
       this.combat
@@ -250,151 +252,211 @@ export class StateManager {
   }
 }
 
+/**
+ * todo;
+ */
 export function set_state(
   npc: XR_game_object,
   state_name: string,
   callback: Optional<AnyCallable> | AnyObject,
   timeout: Optional<number>,
-  target: Optional<AnyObject>,
+  target: Optional<ITargetStateDescriptor>,
   extra: Optional<AnyObject>
 ): void {
   registry.objects.get(npc.id()).state_mgr?.set_state(state_name, callback, timeout, target, extra);
 }
 
+/**
+ * todo;
+ */
 export function get_state(npc: XR_game_object): Optional<string> {
   return registry.objects.get(npc.id()).state_mgr?.get_state() as Optional<string>;
 }
 
-export function goap_graph(st: StateManager, npc: XR_game_object): void {
-  st.planner.add_evaluator(EStateManagerProperty.end, new stateManagement.StateManagerEvaEnd(st));
-  st.planner.add_evaluator(EStateManagerProperty.locked, new stateManagement.StateManagerEvaLocked(st));
-  st.planner.add_evaluator(
+/**
+ * todo;
+ */
+export function goap_graph(stateManager: StateManager, object: XR_game_object): void {
+  stateManager.planner.add_evaluator(EStateManagerProperty.end, new stateManagement.StateManagerEvaEnd(stateManager));
+  stateManager.planner.add_evaluator(
+    EStateManagerProperty.locked,
+    new stateManagement.StateManagerEvaLocked(stateManager)
+  );
+  stateManager.planner.add_evaluator(
     EStateManagerProperty.locked_external,
-    new stateManagement.StateManagerEvaLockedExternal(st)
+    new stateManagement.StateManagerEvaLockedExternal(stateManager)
   );
 
-  st.planner.add_evaluator(EStateManagerProperty.weapon, new weaponManagement.StateManagerEvaWeapon(st));
-  st.planner.add_evaluator(EStateManagerProperty.weapon_locked, new weaponManagement.StateManagerEvaWeaponLocked(st));
-  st.planner.add_evaluator(
+  stateManager.planner.add_evaluator(
+    EStateManagerProperty.weapon,
+    new weaponManagement.StateManagerEvaWeapon(stateManager)
+  );
+  stateManager.planner.add_evaluator(
+    EStateManagerProperty.weapon_locked,
+    new weaponManagement.StateManagerEvaWeaponLocked(stateManager)
+  );
+  stateManager.planner.add_evaluator(
     EStateManagerProperty.weapon_strapped,
-    new weaponManagement.StateManagerEvaWeaponStrapped(st)
+    new weaponManagement.StateManagerEvaWeaponStrapped(stateManager)
   );
-  st.planner.add_evaluator(
+  stateManager.planner.add_evaluator(
     EStateManagerProperty.weapon_strapped_now,
-    new weaponManagement.StateManagerEvaWeaponStrappedNow(st)
+    new weaponManagement.StateManagerEvaWeaponStrappedNow(stateManager)
   );
-  st.planner.add_evaluator(
+  stateManager.planner.add_evaluator(
     EStateManagerProperty.weapon_unstrapped,
-    new weaponManagement.StateManagerEvaWeaponUnstrapped(st)
+    new weaponManagement.StateManagerEvaWeaponUnstrapped(stateManager)
   );
-  st.planner.add_evaluator(
+  stateManager.planner.add_evaluator(
     EStateManagerProperty.weapon_unstrapped_now,
-    new weaponManagement.StateManagerEvaWeaponUnstrappedNow(st)
+    new weaponManagement.StateManagerEvaWeaponUnstrappedNow(stateManager)
   );
-  st.planner.add_evaluator(EStateManagerProperty.weapon_none, new weaponManagement.StateManagerEvaWeaponNone(st));
-  st.planner.add_evaluator(
+  stateManager.planner.add_evaluator(
+    EStateManagerProperty.weapon_none,
+    new weaponManagement.StateManagerEvaWeaponNone(stateManager)
+  );
+  stateManager.planner.add_evaluator(
     EStateManagerProperty.weapon_none_now,
-    new weaponManagement.StateManagerEvaWeaponNoneNow(st)
+    new weaponManagement.StateManagerEvaWeaponNoneNow(stateManager)
   );
-  st.planner.add_evaluator(EStateManagerProperty.weapon_drop, new weaponManagement.StateManagerEvaWeaponDrop(st));
-  st.planner.add_evaluator(EStateManagerProperty.weapon_fire, new weaponManagement.StateManagerEvaWeaponFire(st));
+  stateManager.planner.add_evaluator(
+    EStateManagerProperty.weapon_drop,
+    new weaponManagement.StateManagerEvaWeaponDrop(stateManager)
+  );
+  stateManager.planner.add_evaluator(
+    EStateManagerProperty.weapon_fire,
+    new weaponManagement.StateManagerEvaWeaponFire(stateManager)
+  );
 
-  st.planner.add_evaluator(EStateManagerProperty.movement, new movementManagement.StateManagerEvaMovement(st));
-  st.planner.add_evaluator(EStateManagerProperty.movement_walk, new movementManagement.StateManagerEvaMovementWalk(st));
-  st.planner.add_evaluator(EStateManagerProperty.movement_run, new movementManagement.StateManagerEvaMovementRun(st));
-  st.planner.add_evaluator(
+  stateManager.planner.add_evaluator(
+    EStateManagerProperty.movement,
+    new movementManagement.StateManagerEvaMovement(stateManager)
+  );
+  stateManager.planner.add_evaluator(
+    EStateManagerProperty.movement_walk,
+    new movementManagement.StateManagerEvaMovementWalk(stateManager)
+  );
+  stateManager.planner.add_evaluator(
+    EStateManagerProperty.movement_run,
+    new movementManagement.StateManagerEvaMovementRun(stateManager)
+  );
+  stateManager.planner.add_evaluator(
     EStateManagerProperty.movement_stand,
-    new movementManagement.StateManagerEvaMovementStand(st)
+    new movementManagement.StateManagerEvaMovementStand(stateManager)
   );
-  st.planner.add_evaluator(
+  stateManager.planner.add_evaluator(
     EStateManagerProperty.movement_stand_now,
-    new movementManagement.StateManagerEvaMovementStandNow(st)
+    new movementManagement.StateManagerEvaMovementStandNow(stateManager)
   );
 
-  st.planner.add_evaluator(EStateManagerProperty.mental, new mentalManagement.StateManagerEvaMental(st));
-  st.planner.add_evaluator(EStateManagerProperty.mental_free, new mentalManagement.StateManagerEvaMentalFree(st));
-  st.planner.add_evaluator(
+  stateManager.planner.add_evaluator(
+    EStateManagerProperty.mental,
+    new mentalManagement.StateManagerEvaMental(stateManager)
+  );
+  stateManager.planner.add_evaluator(
+    EStateManagerProperty.mental_free,
+    new mentalManagement.StateManagerEvaMentalFree(stateManager)
+  );
+  stateManager.planner.add_evaluator(
     EStateManagerProperty.mental_free_now,
-    new mentalManagement.StateManagerEvaMentalFreeNow(st)
+    new mentalManagement.StateManagerEvaMentalFreeNow(stateManager)
   );
-  st.planner.add_evaluator(EStateManagerProperty.mental_danger, new mentalManagement.StateManagerEvaMentalDanger(st));
-  st.planner.add_evaluator(
+  stateManager.planner.add_evaluator(
+    EStateManagerProperty.mental_danger,
+    new mentalManagement.StateManagerEvaMentalDanger(stateManager)
+  );
+  stateManager.planner.add_evaluator(
     EStateManagerProperty.mental_danger_now,
-    new mentalManagement.StateManagerEvaMentalDangerNow(st)
+    new mentalManagement.StateManagerEvaMentalDangerNow(stateManager)
   );
-  st.planner.add_evaluator(EStateManagerProperty.mental_panic, new mentalManagement.StateManagerEvaMentalPanic(st));
-  st.planner.add_evaluator(
+  stateManager.planner.add_evaluator(
+    EStateManagerProperty.mental_panic,
+    new mentalManagement.StateManagerEvaMentalPanic(stateManager)
+  );
+  stateManager.planner.add_evaluator(
     EStateManagerProperty.mental_panic_now,
-    new mentalManagement.StateManagerEvaMentalPanicNow(st)
+    new mentalManagement.StateManagerEvaMentalPanicNow(stateManager)
   );
 
-  st.planner.add_evaluator(EStateManagerProperty.bodystate, new bodyStateManagement.StateManagerEvaBodyState(st));
-  st.planner.add_evaluator(
+  stateManager.planner.add_evaluator(
+    EStateManagerProperty.bodystate,
+    new bodyStateManagement.StateManagerEvaBodyState(stateManager)
+  );
+  stateManager.planner.add_evaluator(
     EStateManagerProperty.bodystate_crouch,
-    new bodyStateManagement.StateManagerEvaBodyStateCrouch(st)
+    new bodyStateManagement.StateManagerEvaBodyStateCrouch(stateManager)
   );
-  st.planner.add_evaluator(
+  stateManager.planner.add_evaluator(
     EStateManagerProperty.bodystate_standing,
-    new bodyStateManagement.StateManagerEvaBodyStateStanding(st)
+    new bodyStateManagement.StateManagerEvaBodyStateStanding(stateManager)
   );
-  st.planner.add_evaluator(
+  stateManager.planner.add_evaluator(
     EStateManagerProperty.bodystate_crouch_now,
-    new bodyStateManagement.StateManagerEvaBodyStateCrouchNow(st)
+    new bodyStateManagement.StateManagerEvaBodyStateCrouchNow(stateManager)
   );
-  st.planner.add_evaluator(
+  stateManager.planner.add_evaluator(
     EStateManagerProperty.bodystate_standing_now,
-    new bodyStateManagement.StateManagerEvaBodyStateStandingNow(st)
+    new bodyStateManagement.StateManagerEvaBodyStateStandingNow(stateManager)
   );
 
-  st.planner.add_evaluator(EStateManagerProperty.direction, new directionManagement.StateManagerEvaDirection(st));
-  st.planner.add_evaluator(
+  stateManager.planner.add_evaluator(
+    EStateManagerProperty.direction,
+    new directionManagement.StateManagerEvaDirection(stateManager)
+  );
+  stateManager.planner.add_evaluator(
     EStateManagerProperty.direction_search,
-    new directionManagement.StateManagerEvaDirectionSearch(st)
+    new directionManagement.StateManagerEvaDirectionSearch(stateManager)
   );
 
-  st.animstate = new AnimationManager(npc, st, "state_mgr_animstate_list", animstates);
+  stateManager.animstate = new AnimationManager(object, stateManager, "state_mgr_animstate_list", animstates);
 
-  st.planner.add_evaluator(
+  stateManager.planner.add_evaluator(
     EStateManagerProperty.animstate,
-    new animationStateManagement.StateManagerEvaAnimationState(st)
+    new animationStateManagement.StateManagerEvaAnimationState(stateManager)
   );
-  st.planner.add_evaluator(
+  stateManager.planner.add_evaluator(
     EStateManagerProperty.animstate_idle_now,
-    new animationStateManagement.StateManagerEvaAnimationStateIdleNow(st)
+    new animationStateManagement.StateManagerEvaAnimationStateIdleNow(stateManager)
   );
-  st.planner.add_evaluator(
+  stateManager.planner.add_evaluator(
     EStateManagerProperty.animstate_play_now,
-    new animationStateManagement.StateManagerEvaAnimationStatePlayNow(st)
+    new animationStateManagement.StateManagerEvaAnimationStatePlayNow(stateManager)
   );
-  st.planner.add_evaluator(
+  stateManager.planner.add_evaluator(
     EStateManagerProperty.animstate_locked,
-    new animationStateManagement.StateManagerEvaAnimationStateLocked(st)
+    new animationStateManagement.StateManagerEvaAnimationStateLocked(stateManager)
   );
 
-  st.animation = new AnimationManager(npc, st, "state_mgr_animation_list", animations);
+  stateManager.animation = new AnimationManager(object, stateManager, "state_mgr_animation_list", animations);
 
-  st.planner.add_evaluator(EStateManagerProperty.animation, new animationManagement.StateManagerEvaAnimation(st));
-  st.planner.add_evaluator(
+  stateManager.planner.add_evaluator(
+    EStateManagerProperty.animation,
+    new animationManagement.StateManagerEvaAnimation(stateManager)
+  );
+  stateManager.planner.add_evaluator(
     EStateManagerProperty.animation_play_now,
-    new animationManagement.StateManagerEvaAnimationPlayNow(st)
+    new animationManagement.StateManagerEvaAnimationPlayNow(stateManager)
   );
-  st.planner.add_evaluator(
+  stateManager.planner.add_evaluator(
     EStateManagerProperty.animation_none_now,
-    new animationManagement.StateManagerEvaAnimationNoneNow(st)
+    new animationManagement.StateManagerEvaAnimationNoneNow(stateManager)
   );
-  st.planner.add_evaluator(
+  stateManager.planner.add_evaluator(
     EStateManagerProperty.animation_locked,
-    new animationManagement.StateManagerEvaAnimationLocked(st)
+    new animationManagement.StateManagerEvaAnimationLocked(stateManager)
   );
 
-  st.planner.add_evaluator(EStateManagerProperty.smartcover, new smartCoverManagement.StateManagerEvaSmartCover(st));
-  st.planner.add_evaluator(
-    EStateManagerProperty.smartcover_need,
-    new smartCoverManagement.StateManagerEvaSmartCoverNeed(st)
+  stateManager.planner.add_evaluator(
+    EStateManagerProperty.smartcover,
+    new smartCoverManagement.StateManagerEvaSmartCover(stateManager)
   );
-  st.planner.add_evaluator(
+  stateManager.planner.add_evaluator(
+    EStateManagerProperty.smartcover_need,
+    new smartCoverManagement.StateManagerEvaSmartCoverNeed(stateManager)
+  );
+  stateManager.planner.add_evaluator(
     EStateManagerProperty.in_smartcover,
-    new smartCoverManagement.StateManagerEvaInSmartCover(st)
+    new smartCoverManagement.StateManagerEvaInSmartCover(stateManager)
   );
 
   // --	st.planner.add_evaluator(EStateManagerProperty.smartcover_locked,
@@ -407,7 +469,7 @@ export function goap_graph(st: StateManager, npc: XR_game_object): void {
   // -- WEAPON
   // -- UNSTRAPP
 
-  const unstrappAction = new weaponManagement.StateManagerActWeaponUnstrapp(st);
+  const unstrappAction = new weaponManagement.StateManagerActWeaponUnstrapp(stateManager);
 
   unstrappAction.add_precondition(new world_property(EStateManagerProperty.locked, false));
   unstrappAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
@@ -420,10 +482,10 @@ export function goap_graph(st: StateManager, npc: XR_game_object): void {
   unstrappAction.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
   unstrappAction.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
   unstrappAction.add_effect(new world_property(EStateManagerProperty.weapon, true));
-  st.planner.add_action(EStateManagerOperator.weapon_unstrapp, unstrappAction);
+  stateManager.planner.add_action(EStateManagerOperator.weapon_unstrapp, unstrappAction);
 
   // -- STRAPP
-  const strappAction = new weaponManagement.StateManagerActWeaponStrapp(st);
+  const strappAction = new weaponManagement.StateManagerActWeaponStrapp(stateManager);
 
   strappAction.add_precondition(new world_property(EStateManagerProperty.locked, false));
   strappAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
@@ -436,10 +498,10 @@ export function goap_graph(st: StateManager, npc: XR_game_object): void {
   strappAction.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
   strappAction.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
   strappAction.add_effect(new world_property(EStateManagerProperty.weapon, true));
-  st.planner.add_action(EStateManagerOperator.weapon_strapp, strappAction);
+  stateManager.planner.add_action(EStateManagerOperator.weapon_strapp, strappAction);
 
   // -- NONE
-  const weaponNoneAction = new weaponManagement.StateManagerActWeaponNone(st);
+  const weaponNoneAction = new weaponManagement.StateManagerActWeaponNone(stateManager);
 
   weaponNoneAction.add_precondition(new world_property(EStateManagerProperty.locked, false));
   weaponNoneAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
@@ -451,10 +513,10 @@ export function goap_graph(st: StateManager, npc: XR_game_object): void {
   weaponNoneAction.add_precondition(new world_property(EStateManagerProperty.weapon_none, true));
   weaponNoneAction.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
   weaponNoneAction.add_effect(new world_property(EStateManagerProperty.weapon, true));
-  st.planner.add_action(EStateManagerOperator.weapon_none, weaponNoneAction);
+  stateManager.planner.add_action(EStateManagerOperator.weapon_none, weaponNoneAction);
 
   // -- DROP
-  const weaponDropAction = new weaponManagement.StateManagerActWeaponDrop(st);
+  const weaponDropAction = new weaponManagement.StateManagerActWeaponDrop(stateManager);
 
   weaponDropAction.add_precondition(new world_property(EStateManagerProperty.locked, false));
   weaponDropAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
@@ -466,10 +528,10 @@ export function goap_graph(st: StateManager, npc: XR_game_object): void {
   weaponDropAction.add_precondition(new world_property(EStateManagerProperty.weapon_drop, true));
   weaponDropAction.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
   weaponDropAction.add_effect(new world_property(EStateManagerProperty.weapon, true));
-  st.planner.add_action(EStateManagerOperator.weapon_drop, weaponDropAction);
+  stateManager.planner.add_action(EStateManagerOperator.weapon_drop, weaponDropAction);
 
   // -- WALK
-  const movementWalkAction = new movementManagement.StateManagerActMovementWalk(st);
+  const movementWalkAction = new movementManagement.StateManagerActMovementWalk(stateManager);
 
   movementWalkAction.add_precondition(new world_property(EStateManagerProperty.locked, false));
   movementWalkAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
@@ -483,11 +545,11 @@ export function goap_graph(st: StateManager, npc: XR_game_object): void {
   movementWalkAction.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
   movementWalkAction.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
   movementWalkAction.add_effect(new world_property(EStateManagerProperty.movement, true));
-  st.planner.add_action(EStateManagerOperator.movement_walk, movementWalkAction);
+  stateManager.planner.add_action(EStateManagerOperator.movement_walk, movementWalkAction);
 
   // -- WALK_turn
 
-  const movementWalkTurnAction = new movementManagement.StateManagerActMovementWalkTurn(st);
+  const movementWalkTurnAction = new movementManagement.StateManagerActMovementWalkTurn(stateManager);
 
   movementWalkTurnAction.add_precondition(new world_property(EStateManagerProperty.locked, false));
   movementWalkTurnAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
@@ -504,10 +566,10 @@ export function goap_graph(st: StateManager, npc: XR_game_object): void {
   movementWalkTurnAction.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
   movementWalkTurnAction.add_effect(new world_property(EStateManagerProperty.movement, true));
   movementWalkTurnAction.add_effect(new world_property(EStateManagerProperty.direction, true));
-  st.planner.add_action(EStateManagerOperator.movement_walk_turn, movementWalkTurnAction);
+  stateManager.planner.add_action(EStateManagerOperator.movement_walk_turn, movementWalkTurnAction);
 
   // -- WALK_search
-  const movementWalkSearchAction = new movementManagement.StateManagerActMovementWalkSearch(st);
+  const movementWalkSearchAction = new movementManagement.StateManagerActMovementWalkSearch(stateManager);
 
   movementWalkSearchAction.add_precondition(new world_property(EStateManagerProperty.locked, false));
   movementWalkSearchAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
@@ -524,10 +586,10 @@ export function goap_graph(st: StateManager, npc: XR_game_object): void {
   movementWalkSearchAction.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
   movementWalkSearchAction.add_effect(new world_property(EStateManagerProperty.movement, true));
   movementWalkSearchAction.add_effect(new world_property(EStateManagerProperty.direction, true));
-  st.planner.add_action(EStateManagerOperator.movement_walk_search, movementWalkSearchAction);
+  stateManager.planner.add_action(EStateManagerOperator.movement_walk_search, movementWalkSearchAction);
 
   // -- RUN
-  const movementRunAction = new movementManagement.StateManagerActMovementRun(st);
+  const movementRunAction = new movementManagement.StateManagerActMovementRun(stateManager);
 
   movementRunAction.add_precondition(new world_property(EStateManagerProperty.locked, false));
   movementRunAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
@@ -541,10 +603,10 @@ export function goap_graph(st: StateManager, npc: XR_game_object): void {
   movementRunAction.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
   movementRunAction.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
   movementRunAction.add_effect(new world_property(EStateManagerProperty.movement, true));
-  st.planner.add_action(EStateManagerOperator.movement_run, movementRunAction);
+  stateManager.planner.add_action(EStateManagerOperator.movement_run, movementRunAction);
 
   // -- RUN_turn
-  const movementRunTurnAction = new movementManagement.StateManagerActMovementRunTurn(st);
+  const movementRunTurnAction = new movementManagement.StateManagerActMovementRunTurn(stateManager);
 
   movementRunTurnAction.add_precondition(new world_property(EStateManagerProperty.locked, false));
   movementRunTurnAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
@@ -561,10 +623,10 @@ export function goap_graph(st: StateManager, npc: XR_game_object): void {
   movementRunTurnAction.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
   movementRunTurnAction.add_effect(new world_property(EStateManagerProperty.movement, true));
   movementRunTurnAction.add_effect(new world_property(EStateManagerProperty.direction, true));
-  st.planner.add_action(EStateManagerOperator.movement_run_turn, movementRunTurnAction);
+  stateManager.planner.add_action(EStateManagerOperator.movement_run_turn, movementRunTurnAction);
 
   // -- RUN_search
-  const movementRunSearchAction = new movementManagement.StateManagerActMovementRunSearch(st);
+  const movementRunSearchAction = new movementManagement.StateManagerActMovementRunSearch(stateManager);
 
   movementRunSearchAction.add_precondition(new world_property(EStateManagerProperty.locked, false));
   movementRunSearchAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
@@ -581,10 +643,10 @@ export function goap_graph(st: StateManager, npc: XR_game_object): void {
   movementRunSearchAction.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
   movementRunSearchAction.add_effect(new world_property(EStateManagerProperty.movement, true));
   movementRunSearchAction.add_effect(new world_property(EStateManagerProperty.direction, true));
-  st.planner.add_action(EStateManagerOperator.movement_run_search, movementRunSearchAction);
+  stateManager.planner.add_action(EStateManagerOperator.movement_run_search, movementRunSearchAction);
 
   // -- STAND
-  const movementStandAction = new movementManagement.StateManagerActMovementStand(st);
+  const movementStandAction = new movementManagement.StateManagerActMovementStand(stateManager);
 
   movementStandAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
   movementStandAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
@@ -593,10 +655,10 @@ export function goap_graph(st: StateManager, npc: XR_game_object): void {
   movementStandAction.add_precondition(new world_property(EStateManagerProperty.movement_stand, true));
   movementStandAction.add_precondition(new world_property(EStateManagerProperty.mental, true));
   movementStandAction.add_effect(new world_property(EStateManagerProperty.movement, true));
-  st.planner.add_action(EStateManagerOperator.movement_stand, movementStandAction);
+  stateManager.planner.add_action(EStateManagerOperator.movement_stand, movementStandAction);
 
   // -- STAND_turn
-  const standTurnAction = new movementManagement.StateManagerActMovementStandTurn(st);
+  const standTurnAction = new movementManagement.StateManagerActMovementStandTurn(stateManager);
 
   standTurnAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
   standTurnAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
@@ -608,10 +670,10 @@ export function goap_graph(st: StateManager, npc: XR_game_object): void {
   standTurnAction.add_precondition(new world_property(EStateManagerProperty.mental, true));
   standTurnAction.add_effect(new world_property(EStateManagerProperty.movement, true));
   standTurnAction.add_effect(new world_property(EStateManagerProperty.direction, true));
-  st.planner.add_action(EStateManagerOperator.movement_stand_turn, standTurnAction);
+  stateManager.planner.add_action(EStateManagerOperator.movement_stand_turn, standTurnAction);
 
   // -- STAND_search
-  const movementStandSearchAction = new movementManagement.StateManagerActMovementStandSearch(st);
+  const movementStandSearchAction = new movementManagement.StateManagerActMovementStandSearch(stateManager);
 
   movementStandSearchAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
   movementStandSearchAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
@@ -623,12 +685,12 @@ export function goap_graph(st: StateManager, npc: XR_game_object): void {
   movementStandSearchAction.add_precondition(new world_property(EStateManagerProperty.mental, true));
   movementStandSearchAction.add_effect(new world_property(EStateManagerProperty.movement, true));
   movementStandSearchAction.add_effect(new world_property(EStateManagerProperty.direction, true));
-  st.planner.add_action(EStateManagerOperator.movement_stand_search, movementStandSearchAction);
+  stateManager.planner.add_action(EStateManagerOperator.movement_stand_search, movementStandSearchAction);
 
   // -- DIRECTION
 
   // -- TURN
-  const directionTurnAction = new directionManagement.StateManagerActDirectionTurn(st);
+  const directionTurnAction = new directionManagement.StateManagerActDirectionTurn(stateManager);
 
   // --action.add_precondition    (new world_property(EStateManagerProperty.locked,                 false))
   directionTurnAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
@@ -641,10 +703,10 @@ export function goap_graph(st: StateManager, npc: XR_game_object): void {
   directionTurnAction.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
   directionTurnAction.add_precondition(new world_property(EStateManagerProperty.movement, true));
   directionTurnAction.add_effect(new world_property(EStateManagerProperty.direction, true));
-  st.planner.add_action(EStateManagerOperator.direction_turn, directionTurnAction);
+  stateManager.planner.add_action(EStateManagerOperator.direction_turn, directionTurnAction);
 
   // -- SEARCH
-  const directionSearchAction = new directionManagement.StateManagerActDirectionSearch(st);
+  const directionSearchAction = new directionManagement.StateManagerActDirectionSearch(stateManager);
 
   // --action.add_precondition    (new world_property(EStateManagerProperty.locked,                 false))
   directionSearchAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
@@ -657,12 +719,12 @@ export function goap_graph(st: StateManager, npc: XR_game_object): void {
   directionSearchAction.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
   directionSearchAction.add_precondition(new world_property(EStateManagerProperty.movement, true));
   directionSearchAction.add_effect(new world_property(EStateManagerProperty.direction, true));
-  st.planner.add_action(EStateManagerOperator.direction_search, directionSearchAction);
+  stateManager.planner.add_action(EStateManagerOperator.direction_search, directionSearchAction);
 
   // -- MENTAL STATES
 
   // -- FREE
-  const mentalFreeAction = new mentalManagement.StateManagerActMentalFree(st);
+  const mentalFreeAction = new mentalManagement.StateManagerActMentalFree(stateManager);
 
   mentalFreeAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
   mentalFreeAction.add_precondition(new world_property(EStateManagerProperty.mental, false));
@@ -674,11 +736,11 @@ export function goap_graph(st: StateManager, npc: XR_game_object): void {
   mentalFreeAction.add_precondition(new world_property(EStateManagerProperty.bodystate, true));
   mentalFreeAction.add_precondition(new world_property(EStateManagerProperty.bodystate_standing_now, true));
   mentalFreeAction.add_effect(new world_property(EStateManagerProperty.mental, true));
-  st.planner.add_action(EStateManagerOperator.mental_free, mentalFreeAction);
+  stateManager.planner.add_action(EStateManagerOperator.mental_free, mentalFreeAction);
 
   // -- DANGER
 
-  const mentalDangerAction = new mentalManagement.StateManagerActMentalDanger(st);
+  const mentalDangerAction = new mentalManagement.StateManagerActMentalDanger(stateManager);
 
   mentalDangerAction.add_precondition(new world_property(EStateManagerProperty.mental, false));
   mentalDangerAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
@@ -689,11 +751,11 @@ export function goap_graph(st: StateManager, npc: XR_game_object): void {
   mentalDangerAction.add_precondition(new world_property(EStateManagerProperty.mental_danger, true));
   mentalDangerAction.add_effect(new world_property(EStateManagerProperty.mental, true));
   mentalDangerAction.add_effect(new world_property(EStateManagerProperty.mental_danger_now, true));
-  st.planner.add_action(EStateManagerOperator.mental_danger, mentalDangerAction);
+  stateManager.planner.add_action(EStateManagerOperator.mental_danger, mentalDangerAction);
 
   // -- PANIC
 
-  const mentalPanicAction = new mentalManagement.StateManagerActMentalPanic(st);
+  const mentalPanicAction = new mentalManagement.StateManagerActMentalPanic(stateManager);
 
   mentalPanicAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
   mentalPanicAction.add_precondition(new world_property(EStateManagerProperty.mental, false));
@@ -702,12 +764,12 @@ export function goap_graph(st: StateManager, npc: XR_game_object): void {
   mentalPanicAction.add_precondition(new world_property(EStateManagerProperty.animation_none_now, true));
   mentalPanicAction.add_precondition(new world_property(EStateManagerProperty.mental_panic, true));
   mentalPanicAction.add_effect(new world_property(EStateManagerProperty.mental, true));
-  st.planner.add_action(EStateManagerOperator.mental_panic, mentalPanicAction);
+  stateManager.planner.add_action(EStateManagerOperator.mental_panic, mentalPanicAction);
 
   // -- BODYSTATES
 
   // -- CROUCH
-  const bodyStateStateCrouch = new bodyStateManagement.StateManagerActBodyStateCrouch(st);
+  const bodyStateStateCrouch = new bodyStateManagement.StateManagerActBodyStateCrouch(stateManager);
 
   bodyStateStateCrouch.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
   bodyStateStateCrouch.add_precondition(new world_property(EStateManagerProperty.bodystate, false));
@@ -717,10 +779,10 @@ export function goap_graph(st: StateManager, npc: XR_game_object): void {
   bodyStateStateCrouch.add_precondition(new world_property(EStateManagerProperty.bodystate_crouch, true));
   bodyStateStateCrouch.add_precondition(new world_property(EStateManagerProperty.mental_danger_now, true));
   bodyStateStateCrouch.add_effect(new world_property(EStateManagerProperty.bodystate, true));
-  st.planner.add_action(EStateManagerOperator.bodystate_crouch, bodyStateStateCrouch);
+  stateManager.planner.add_action(EStateManagerOperator.bodystate_crouch, bodyStateStateCrouch);
 
   // -- CROUCH_danger
-  const bodyStateCrouchDangerAction = new bodyStateManagement.StateManagerActBodyStateCrouchDanger(st);
+  const bodyStateCrouchDangerAction = new bodyStateManagement.StateManagerActBodyStateCrouchDanger(stateManager);
 
   bodyStateCrouchDangerAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
   bodyStateCrouchDangerAction.add_precondition(new world_property(EStateManagerProperty.bodystate, false));
@@ -731,11 +793,11 @@ export function goap_graph(st: StateManager, npc: XR_game_object): void {
   bodyStateCrouchDangerAction.add_precondition(new world_property(EStateManagerProperty.bodystate_crouch, true));
   bodyStateCrouchDangerAction.add_effect(new world_property(EStateManagerProperty.bodystate, true));
   bodyStateCrouchDangerAction.add_effect(new world_property(EStateManagerProperty.mental, true));
-  st.planner.add_action(EStateManagerOperator.bodystate_crouch_danger, bodyStateCrouchDangerAction);
+  stateManager.planner.add_action(EStateManagerOperator.bodystate_crouch_danger, bodyStateCrouchDangerAction);
 
   // --  STAND
 
-  const bodyStateStandingAction = new bodyStateManagement.StateManagerActBodyStateStanding(st);
+  const bodyStateStandingAction = new bodyStateManagement.StateManagerActBodyStateStanding(stateManager);
 
   bodyStateStandingAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
   bodyStateStandingAction.add_precondition(new world_property(EStateManagerProperty.bodystate, false));
@@ -745,11 +807,11 @@ export function goap_graph(st: StateManager, npc: XR_game_object): void {
   bodyStateStandingAction.add_precondition(new world_property(EStateManagerProperty.bodystate_standing, true));
   bodyStateStandingAction.add_effect(new world_property(EStateManagerProperty.bodystate, true));
   bodyStateStandingAction.add_effect(new world_property(EStateManagerProperty.bodystate_standing_now, true));
-  st.planner.add_action(EStateManagerOperator.bodystate_standing, bodyStateStandingAction);
+  stateManager.planner.add_action(EStateManagerOperator.bodystate_standing, bodyStateStandingAction);
 
   // --  STAND_free
 
-  const standingFreeAction = new bodyStateManagement.StateManagerActBodyStateStandingFree(st);
+  const standingFreeAction = new bodyStateManagement.StateManagerActBodyStateStandingFree(stateManager);
 
   standingFreeAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
   standingFreeAction.add_precondition(new world_property(EStateManagerProperty.bodystate, false));
@@ -762,10 +824,10 @@ export function goap_graph(st: StateManager, npc: XR_game_object): void {
   standingFreeAction.add_effect(new world_property(EStateManagerProperty.bodystate, true));
   standingFreeAction.add_effect(new world_property(EStateManagerProperty.bodystate_standing_now, true));
   standingFreeAction.add_effect(new world_property(EStateManagerProperty.mental, true));
-  st.planner.add_action(EStateManagerOperator.bodystate_standing_free, standingFreeAction);
+  stateManager.planner.add_action(EStateManagerOperator.bodystate_standing_free, standingFreeAction);
 
   // -- ANIMSTATES
-  const animationStateStartAction = new animationStateManagement.StateManagerActAnimationStateStart(st);
+  const animationStateStartAction = new animationStateManagement.StateManagerActAnimationStateStart(stateManager);
 
   animationStateStartAction.add_precondition(new world_property(EStateManagerProperty.locked, false));
   animationStateStartAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
@@ -778,9 +840,9 @@ export function goap_graph(st: StateManager, npc: XR_game_object): void {
   animationStateStartAction.add_precondition(new world_property(EStateManagerProperty.movement, true));
   animationStateStartAction.add_precondition(new world_property(EStateManagerProperty.animstate_play_now, false));
   animationStateStartAction.add_effect(new world_property(EStateManagerProperty.animstate, true));
-  st.planner.add_action(EStateManagerOperator.animstate_start, animationStateStartAction);
+  stateManager.planner.add_action(EStateManagerOperator.animstate_start, animationStateStartAction);
 
-  const animationStateStopAction = new animationStateManagement.StateManagerActAnimationStateStop(st);
+  const animationStateStopAction = new animationStateManagement.StateManagerActAnimationStateStop(stateManager);
 
   animationStateStopAction.add_precondition(new world_property(EStateManagerProperty.locked, false));
   animationStateStopAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
@@ -792,12 +854,12 @@ export function goap_graph(st: StateManager, npc: XR_game_object): void {
   animationStateStopAction.add_effect(new world_property(EStateManagerProperty.animstate, true));
   animationStateStopAction.add_effect(new world_property(EStateManagerProperty.animstate_play_now, false));
   animationStateStopAction.add_effect(new world_property(EStateManagerProperty.animstate_idle_now, true));
-  st.planner.add_action(EStateManagerOperator.animstate_stop, animationStateStopAction);
+  stateManager.planner.add_action(EStateManagerOperator.animstate_stop, animationStateStopAction);
 
   // -- ANIMATION
 
   // -- START
-  const animationStartAction = new animationManagement.StateManagerActAnimationStart(st);
+  const animationStartAction = new animationManagement.StateManagerActAnimationStart(stateManager);
 
   animationStartAction.add_precondition(new world_property(EStateManagerProperty.locked, false));
   animationStartAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, false));
@@ -813,10 +875,10 @@ export function goap_graph(st: StateManager, npc: XR_game_object): void {
   animationStartAction.add_precondition(new world_property(EStateManagerProperty.animation, false));
   animationStartAction.add_precondition(new world_property(EStateManagerProperty.animation_play_now, false));
   animationStartAction.add_effect(new world_property(EStateManagerProperty.animation, true));
-  st.planner.add_action(EStateManagerOperator.animation_start, animationStartAction);
+  stateManager.planner.add_action(EStateManagerOperator.animation_start, animationStartAction);
 
   // -- STOP
-  const animationStopAction = new animationManagement.StateManagerActAnimationStop(st);
+  const animationStopAction = new animationManagement.StateManagerActAnimationStop(stateManager);
 
   animationStopAction.add_precondition(new world_property(EStateManagerProperty.locked, false));
   animationStopAction.add_precondition(new world_property(EStateManagerProperty.locked_external, false));
@@ -826,9 +888,9 @@ export function goap_graph(st: StateManager, npc: XR_game_object): void {
   animationStopAction.add_effect(new world_property(EStateManagerProperty.animation, true));
   animationStopAction.add_effect(new world_property(EStateManagerProperty.animation_play_now, false));
   animationStopAction.add_effect(new world_property(EStateManagerProperty.animation_none_now, true));
-  st.planner.add_action(EStateManagerOperator.animation_stop, animationStopAction);
+  stateManager.planner.add_action(EStateManagerOperator.animation_stop, animationStopAction);
 
-  const smartCoverEnterAction = new smartCoverManagement.StateManagerActSmartCoverEnter(st);
+  const smartCoverEnterAction = new smartCoverManagement.StateManagerActSmartCoverEnter(stateManager);
 
   smartCoverEnterAction.add_precondition(new world_property(EStateManagerProperty.locked, false));
   smartCoverEnterAction.add_precondition(new world_property(EStateManagerProperty.weapon, true));
@@ -837,48 +899,48 @@ export function goap_graph(st: StateManager, npc: XR_game_object): void {
   smartCoverEnterAction.add_precondition(new world_property(EStateManagerProperty.animstate_idle_now, true));
   smartCoverEnterAction.add_precondition(new world_property(EStateManagerProperty.animation_play_now, false));
   smartCoverEnterAction.add_effect(new world_property(EStateManagerProperty.smartcover, true));
-  st.planner.add_action(EStateManagerOperator.smartcover_enter, smartCoverEnterAction);
+  stateManager.planner.add_action(EStateManagerOperator.smartcover_enter, smartCoverEnterAction);
 
-  const smartCoverExitAction = new smartCoverManagement.StateManagerActSmartCoverExit(st);
+  const smartCoverExitAction = new smartCoverManagement.StateManagerActSmartCoverExit(stateManager);
 
   smartCoverExitAction.add_precondition(new world_property(EStateManagerProperty.locked, false));
   smartCoverExitAction.add_precondition(new world_property(EStateManagerProperty.weapon, true));
   smartCoverExitAction.add_precondition(new world_property(EStateManagerProperty.smartcover_need, false));
   smartCoverExitAction.add_precondition(new world_property(EStateManagerProperty.smartcover, false));
   smartCoverExitAction.add_effect(new world_property(EStateManagerProperty.smartcover, true));
-  st.planner.add_action(EStateManagerOperator.smartcover_exit, smartCoverExitAction);
+  stateManager.planner.add_action(EStateManagerOperator.smartcover_exit, smartCoverExitAction);
 
-  const lockedSmartCoverAction = new stateManagement.StateManagerActLocked(st, "lockedSmartCoverAction");
+  const lockedSmartCoverAction = new stateManagement.StateManagerActLocked(stateManager, "lockedSmartCoverAction");
 
   lockedSmartCoverAction.add_precondition(new world_property(EStateManagerProperty.in_smartcover, true));
   lockedSmartCoverAction.add_effect(new world_property(EStateManagerProperty.in_smartcover, false));
-  st.planner.add_action(EStateManagerOperator.locked_smartcover, lockedSmartCoverAction);
+  stateManager.planner.add_action(EStateManagerOperator.locked_smartcover, lockedSmartCoverAction);
 
-  const lockedAction = new stateManagement.StateManagerActLocked(st, "lockedAction");
+  const lockedAction = new stateManagement.StateManagerActLocked(stateManager, "lockedAction");
 
   lockedAction.add_precondition(new world_property(EStateManagerProperty.locked, true));
   lockedAction.add_effect(new world_property(EStateManagerProperty.locked, false));
-  st.planner.add_action(EStateManagerOperator.locked, lockedAction);
+  stateManager.planner.add_action(EStateManagerOperator.locked, lockedAction);
 
-  const lockedAnimationAction = new stateManagement.StateManagerActLocked(st, "lockedAnimationAction");
+  const lockedAnimationAction = new stateManagement.StateManagerActLocked(stateManager, "lockedAnimationAction");
 
   lockedAnimationAction.add_precondition(new world_property(EStateManagerProperty.animation_locked, true));
   lockedAnimationAction.add_effect(new world_property(EStateManagerProperty.animation_locked, false));
-  st.planner.add_action(EStateManagerOperator.locked_animation, lockedAnimationAction);
+  stateManager.planner.add_action(EStateManagerOperator.locked_animation, lockedAnimationAction);
 
-  const lockedAnimstateAction = new stateManagement.StateManagerActLocked(st, "lockedAnimstateAction");
+  const lockedAnimstateAction = new stateManagement.StateManagerActLocked(stateManager, "lockedAnimstateAction");
 
   lockedAnimstateAction.add_precondition(new world_property(EStateManagerProperty.animstate_locked, true));
   lockedAnimstateAction.add_effect(new world_property(EStateManagerProperty.animstate_locked, false));
-  st.planner.add_action(EStateManagerOperator.locked_animstate, lockedAnimstateAction);
+  stateManager.planner.add_action(EStateManagerOperator.locked_animstate, lockedAnimstateAction);
 
-  const lockedExternalAction = new stateManagement.StateManagerActLocked(st, "lockedExternalAction");
+  const lockedExternalAction = new stateManagement.StateManagerActLocked(stateManager, "lockedExternalAction");
 
   lockedExternalAction.add_precondition(new world_property(EStateManagerProperty.locked_external, true));
   lockedExternalAction.add_effect(new world_property(EStateManagerProperty.locked_external, false));
-  st.planner.add_action(EStateManagerOperator.locked_external, lockedExternalAction);
+  stateManager.planner.add_action(EStateManagerOperator.locked_external, lockedExternalAction);
 
-  const endStateAction = new stateManagement.StateManagerActEnd(st);
+  const endStateAction = new stateManagement.StateManagerActEnd(stateManager);
 
   endStateAction.add_precondition(new world_property(EStateManagerProperty.end, false));
   endStateAction.add_precondition(new world_property(EStateManagerProperty.weapon, true));
@@ -890,10 +952,10 @@ export function goap_graph(st: StateManager, npc: XR_game_object): void {
   endStateAction.add_precondition(new world_property(EStateManagerProperty.animation, true));
   endStateAction.add_precondition(new world_property(EStateManagerProperty.smartcover, true));
   endStateAction.add_effect(new world_property(EStateManagerProperty.end, true));
-  st.planner.add_action(EStateManagerOperator.end, endStateAction);
+  stateManager.planner.add_action(EStateManagerOperator.end, endStateAction);
 
   const goal: XR_world_state = new world_state();
 
   goal.add_property(new world_property(EStateManagerProperty.end, true));
-  st.planner.set_goal_world_state(goal);
+  stateManager.planner.set_goal_world_state(goal);
 }

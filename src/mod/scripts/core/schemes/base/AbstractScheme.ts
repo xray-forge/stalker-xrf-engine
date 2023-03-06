@@ -1,7 +1,8 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
+import { Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { IStoredObject } from "@/mod/scripts/core/database";
+import { IRegistryObjectState } from "@/mod/scripts/core/database";
 import { IBaseSchemeState } from "@/mod/scripts/core/schemes/base/IBaseSchemeState";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -28,7 +29,7 @@ export abstract class AbstractScheme {
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
-    additional: string
+    additional: Optional<string>
   ): void {
     abort("Called not implemented setScheme method: %s, %s", object.name(), scheme);
   }
@@ -49,7 +50,12 @@ export abstract class AbstractScheme {
   /**
    * todo;
    */
-  public static resetScheme(object: XR_game_object, scheme: EScheme, state: IStoredObject, section: TSection): void {
+  public static resetScheme(
+    object: XR_game_object,
+    scheme: EScheme,
+    state: IRegistryObjectState,
+    section: TSection
+  ): void {
     abort("Called not implemented resetScheme method: %s, %s", object.name(), scheme);
   }
 

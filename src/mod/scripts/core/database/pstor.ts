@@ -1,6 +1,6 @@
 import { XR_game_object, XR_net_packet, XR_reader } from "xray16";
 
-import { Maybe, Optional } from "@/mod/lib/types";
+import { Maybe, Optional, TNumberId } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database/registry";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -72,13 +72,13 @@ export function pstor_retrieve<T>(obj: XR_game_object, varname: string, defval?:
  * todo;
  * todo;
  */
-export function pstor_save_all(obj: XR_game_object, packet: XR_net_packet): void {
-  const npc_id = obj.id();
-  let pstor: Maybe<LuaTable<string>> = registry.objects.get(npc_id).pstor;
+export function pstor_save_all(object: XR_game_object, packet: XR_net_packet): void {
+  const objectId: TNumberId = object.id();
+  let pstor: Maybe<LuaTable<string>> = registry.objects.get(objectId).pstor;
 
   if (!pstor) {
     pstor = new LuaTable<string>();
-    registry.objects.get(npc_id).pstor = pstor;
+    registry.objects.get(objectId).pstor = pstor;
   }
 
   let ctr: number = 0;

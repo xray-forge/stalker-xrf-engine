@@ -4,7 +4,7 @@ import { communities, TCommunity } from "@/mod/globals/communities";
 import { STRINGIFIED_NIL } from "@/mod/globals/lua";
 import { AnyObject, Maybe, Optional, TNumberId } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme, action_ids, evaluators_id } from "@/mod/scripts/core/schemes/base";
 import { ActionWounded } from "@/mod/scripts/core/schemes/wounded/actions";
@@ -89,17 +89,17 @@ export class SchemeWounded extends AbstractScheme {
    * todo;
    */
   public static override resetScheme(
-    npc: XR_game_object,
+    object: XR_game_object,
     scheme: EScheme,
-    state: IStoredObject,
+    state: IRegistryObjectState,
     section: TSection
   ): void {
     const woundedSection: TSection =
       scheme === null || scheme === EScheme.NIL
-        ? getConfigString(state.ini!, state.section_logic!, "wounded", npc, false, "")
-        : getConfigString(state.ini!, section, "wounded", npc, false, "");
+        ? getConfigString(state.ini, state.section_logic, "wounded", object, false, "")
+        : getConfigString(state.ini, section, "wounded", object, false, "");
 
-    SchemeWounded.initWounded(npc, state.ini!, woundedSection, state.wounded as ISchemeWoundedState, scheme);
+    SchemeWounded.initWounded(object, state.ini, woundedSection, state.wounded as ISchemeWoundedState, scheme);
 
     (state[SchemeWounded.SCHEME_SECTION] as ISchemeWoundedState).wound_manager.hit_callback();
   }
@@ -232,7 +232,7 @@ export class SchemeWounded extends AbstractScheme {
    * todo;
    */
   public static unlockMedkit(object: XR_game_object): void {
-    const state: Optional<IStoredObject> = registry.objects.get(object.id());
+    const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
 
     (state?.wounded as Maybe<ISchemeWoundedState>)?.wound_manager.unlockMedkit();
   }
@@ -241,7 +241,7 @@ export class SchemeWounded extends AbstractScheme {
    * todo;
    */
   public static eatMedkit(object: XR_game_object): void {
-    const state: Optional<IStoredObject> = registry.objects.get(object.id());
+    const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
 
     (state?.wounded as Maybe<ISchemeWoundedState>)?.wound_manager.eatMedkit();
   }
@@ -250,7 +250,7 @@ export class SchemeWounded extends AbstractScheme {
    * todo;
    */
   public static hit_callback(objectId: TNumberId): void {
-    const state: Optional<IStoredObject> = registry.objects.get(objectId);
+    const state: Optional<IRegistryObjectState> = registry.objects.get(objectId);
 
     (state?.wounded as Maybe<ISchemeWoundedState>)?.wound_manager.hit_callback();
   }
@@ -259,7 +259,7 @@ export class SchemeWounded extends AbstractScheme {
    * todo;
    */
   public static is_psy_wounded_by_id(objectId: TNumberId) {
-    const state: Optional<IStoredObject> = registry.objects.get(objectId);
+    const state: Optional<IRegistryObjectState> = registry.objects.get(objectId);
 
     if (state.wounded !== null) {
       const woundState = (state?.wounded as Maybe<ISchemeWoundedState>)?.wound_manager.wound_state;

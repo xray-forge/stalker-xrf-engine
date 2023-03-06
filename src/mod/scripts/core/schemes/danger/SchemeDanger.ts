@@ -14,7 +14,7 @@ import {
 import { communities } from "@/mod/globals/communities";
 import { logicsConfig } from "@/mod/lib/configs/LogicsConfig";
 import { EScheme, ESchemeType, Optional, TDistance, TSection } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { ISchemeCombatIgnoreState } from "@/mod/scripts/core/schemes/combat_ignore";
@@ -60,7 +60,6 @@ export class SchemeDanger extends AbstractScheme {
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     assignStorageAndBind(object, ini, scheme, section);
-    registry.objects.get(object.id()).danger_flag = false;
   }
 
   /**
@@ -69,7 +68,7 @@ export class SchemeDanger extends AbstractScheme {
   public static override resetScheme(
     object: XR_game_object,
     scheme: EScheme,
-    state: IStoredObject,
+    state: IRegistryObjectState,
     section: TSection
   ): void {}
 

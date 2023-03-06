@@ -137,9 +137,9 @@ export class ActionSleeperActivity extends action_base {
     const position = sleepPatrol.count() === 2 ? sleepPatrol.point(1) : null;
 
     if (this.state.wakeable) {
-      set_state(this.object, "sit", null, null, { look_position: position }, null);
+      set_state(this.object, "sit", null, null, { look_position: position, look_object: null }, null);
     } else {
-      set_state(this.object, "sleep", null, null, { look_position: position }, null);
+      set_state(this.object, "sleep", null, null, { look_position: position, look_object: null }, null);
     }
 
     return true;

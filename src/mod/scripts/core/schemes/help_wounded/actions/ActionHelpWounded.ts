@@ -44,6 +44,13 @@ export class ActionHelpWounded extends action_base {
       return;
     }
 
-    set_state(this.object, "help_wounded", null, null, { look_position: this.state.vertex_position }, null);
+    set_state(
+      this.object,
+      "help_wounded",
+      null,
+      null,
+      { look_position: this.state.vertex_position, look_object: null },
+      null
+    );
   }
 }

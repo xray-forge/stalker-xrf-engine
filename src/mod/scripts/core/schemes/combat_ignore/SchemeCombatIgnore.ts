@@ -1,7 +1,7 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
-import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
+import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { ActionProcessEnemy } from "@/mod/scripts/core/schemes/combat_ignore/actions/ActionProcessEnemy";
@@ -44,13 +44,15 @@ export class SchemeCombatIgnore extends AbstractScheme {
   /**
    * todo
    */
-  public static override disableScheme(npc: XR_game_object, scheme: EScheme): void {
-    npc.set_enemy_callback(null);
+  public static override disableScheme(object: XR_game_object, scheme: EScheme): void {
+    object.set_enemy_callback(null);
 
-    const schemeState = registry.objects.get(npc.id())[scheme];
+    const schemeState: Optional<ISchemeCombatIgnoreState> = registry.objects.get(object.id())[
+      scheme
+    ] as ISchemeCombatIgnoreState;
 
-    if (schemeState) {
-      unsubscribeActionFromEvents(npc, schemeState, schemeState.action);
+    if (schemeState !== null) {
+      unsubscribeActionFromEvents(object, schemeState, schemeState.action);
     }
   }
 
@@ -60,7 +62,7 @@ export class SchemeCombatIgnore extends AbstractScheme {
   public static override resetScheme(
     object: XR_game_object,
     scheme: EScheme,
-    state: IStoredObject,
+    state: IRegistryObjectState,
     section: TSection
   ): void {
     const schemeState = state.combat_ignore as any;

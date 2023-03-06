@@ -32,7 +32,7 @@ export class DeimosManager extends AbstractSchemeManager<ISchemeDeimosState> {
   /**
    * todo;
    */
-  public override update(delta: number): void {
+  public override update(): void {
     const actor: Optional<XR_game_object> = registry.actor;
     const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
 

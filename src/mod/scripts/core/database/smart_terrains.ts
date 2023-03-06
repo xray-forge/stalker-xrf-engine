@@ -2,13 +2,13 @@ import { XR_game_object } from "xray16";
 
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { registry } from "@/mod/scripts/core/database/registry";
-import { addZone, deleteZone } from "@/mod/scripts/core/database/zones";
+import { registerZone, unregisterZone } from "@/mod/scripts/core/database/zones";
 
 /**
  * todo;
  */
 export function addSmartTerrain(object: XR_game_object, cseObject: SmartTerrain): void {
-  addZone(object);
+  registerZone(object);
   registry.smartTerrains.set(cseObject.id, cseObject);
 }
 
@@ -16,6 +16,6 @@ export function addSmartTerrain(object: XR_game_object, cseObject: SmartTerrain)
  * todo;
  */
 export function deleteSmartTerrain(object: XR_game_object, cseObject: SmartTerrain): void {
-  deleteZone(object);
+  unregisterZone(object);
   registry.smartTerrains.delete(cseObject.id);
 }

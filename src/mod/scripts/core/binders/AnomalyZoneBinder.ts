@@ -16,7 +16,7 @@ import {
 import { MAX_UNSIGNED_8_BIT } from "@/mod/globals/memory";
 import { Optional, TSection } from "@/mod/lib/types";
 import { FIELDS_BY_NAME } from "@/mod/scripts/core/binders/AnomalyFieldBinder";
-import { addAnomaly, deleteAnomaly, registry } from "@/mod/scripts/core/database";
+import { addAnomaly, deleteAnomaly, registry, resetObject } from "@/mod/scripts/core/database";
 import { MapDisplayManager } from "@/mod/scripts/core/managers/map/MapDisplayManager";
 import { getConfigNumber, getConfigString, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -35,7 +35,7 @@ const ARTEFACT_SPAWN_CHANCE: number = 17;
 const UPDATE_THROTTLE: number = 5_000;
 
 /**
- * todo: Critically needs simplification of logic.
+ * todo: Needs simplification of logic.
  */
 @LuabindClass()
 export class AnomalyZoneBinder extends object_binder {
@@ -80,6 +80,9 @@ export class AnomalyZoneBinder extends object_binder {
   public fieldsTable: LuaTable<string, LuaTable<number, string>> = new LuaTable();
   public minesTable: LuaTable<string, LuaTable<number, string>> = new LuaTable();
 
+  /**
+   * todo;
+   */
   public constructor(object: XR_game_object) {
     super(object);
 
@@ -271,6 +274,9 @@ export class AnomalyZoneBinder extends object_binder {
     this.applyingForceY = this.layersForcesTable.get(this.currentZoneLayer).y;
   }
 
+  /**
+   * todo;
+   */
   public turn_off(): void {
     logger.info("Turn off zone:", this.object.name());
 
@@ -289,6 +295,9 @@ export class AnomalyZoneBinder extends object_binder {
     this.artefactPointsByArtefactId = new LuaTable();
   }
 
+  /**
+   * todo;
+   */
   public turn_on(forceRespawn: Optional<boolean>): void {
     logger.info("Turn on zone:", this.object.name());
 
@@ -302,6 +311,9 @@ export class AnomalyZoneBinder extends object_binder {
     }
   }
 
+  /**
+   * todo;
+   */
   public disableAnomalyFields(): void {
     logger.info("Disable anomaly fields:", this.object.name());
 
@@ -359,6 +371,9 @@ export class AnomalyZoneBinder extends object_binder {
     }
   }
 
+  /**
+   * todo;
+   */
   public respawnArtefactsAndReplaceAnomalyZones(): void {
     logger.info("Respawn artefacts and replace anomaly zone:", this.object.name());
 
@@ -403,6 +418,9 @@ export class AnomalyZoneBinder extends object_binder {
     }
   }
 
+  /**
+   * todo;
+   */
   public spawnRandomArtefact(): void {
     logger.info("Spawn random artefact:", this.object.name(), this.currentZoneLayer);
 
@@ -468,6 +486,9 @@ export class AnomalyZoneBinder extends object_binder {
     logger.info("Spawned random artefact:", randomArtefact, artefactObject.id);
   }
 
+  /**
+   * todo;
+   */
   public getRandomArtefactPath(): string {
     logger.info("Get artefact path:", this.object.name());
 
@@ -496,6 +517,9 @@ export class AnomalyZoneBinder extends object_binder {
     return paths.get(math.random(1, paths.length()));
   }
 
+  /**
+   * todo;
+   */
   public setForcedSpawnOverride(artefactName: string): void {
     logger.info("Set force override:", this.object.name());
 
@@ -505,15 +529,24 @@ export class AnomalyZoneBinder extends object_binder {
     logger.info("Set forced override for zone/artefact:", this.object.name(), artefactName);
   }
 
+  /**
+   * todo;
+   */
   public override reload(section: TSection): void {
     super.reload(section);
   }
 
+  /**
+   * todo;
+   */
   public override reinit(): void {
     super.reinit();
-    registry.objects.set(this.object.id(), {});
+    resetObject(this.object);
   }
 
+  /**
+   * todo;
+   */
   public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
@@ -524,6 +557,9 @@ export class AnomalyZoneBinder extends object_binder {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public override net_destroy(): void {
     deleteAnomaly(this);
 
@@ -531,6 +567,9 @@ export class AnomalyZoneBinder extends object_binder {
     super.net_destroy();
   }
 
+  /**
+   * todo;
+   */
   public override update(delta: number): void {
     this.delta += delta;
 
@@ -569,6 +608,9 @@ export class AnomalyZoneBinder extends object_binder {
     }
   }
 
+  /**
+   * todo;
+   */
   public onArtefactTaken(object: XR_game_object | XR_cse_alife_item_artefact): void {
     logger.info("On artefact take:", this.object.name());
 
@@ -586,10 +628,16 @@ export class AnomalyZoneBinder extends object_binder {
     MapDisplayManager.getInstance().updateAnomalyZonesDisplay();
   }
 
+  /**
+   * todo;
+   */
   public override net_save_relevant(): boolean {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, AnomalyZoneBinder.__name);
     super.save(packet);
@@ -658,6 +706,9 @@ export class AnomalyZoneBinder extends object_binder {
     setSaveMarker(packet, true, AnomalyZoneBinder.__name);
   }
 
+  /**
+   * todo;
+   */
   public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, AnomalyZoneBinder.__name);
 
@@ -702,6 +753,9 @@ export class AnomalyZoneBinder extends object_binder {
     setLoadMarker(reader, true, AnomalyZoneBinder.__name);
   }
 
+  /**
+   * todo;
+   */
   public getArtefactsListForSection(section: string, defaultArtefacts: Optional<string>): LuaTable<number, string> {
     const baseArtefactsList: Optional<string> = getConfigString(
       this.ini,

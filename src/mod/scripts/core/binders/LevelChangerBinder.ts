@@ -11,7 +11,7 @@ import {
 
 import { TSection } from "@/mod/lib/types/scheme";
 import { LevelChanger } from "@/mod/scripts/core/alife/LevelChanger";
-import { addObject, deleteObject, resetObject } from "@/mod/scripts/core/database";
+import { registerObject, resetObject, unregisterObject } from "@/mod/scripts/core/database";
 import { loadObject, saveObject } from "@/mod/scripts/core/schemes/storing";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -63,7 +63,7 @@ export class LevelChangerBinder extends object_binder {
       return true;
     }
 
-    addObject(this.object);
+    registerObject(this.object);
 
     const s_obj: LevelChanger = alife().object(this.object.id()) as LevelChanger;
 
@@ -80,7 +80,7 @@ export class LevelChangerBinder extends object_binder {
    */
   public override net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
-    deleteObject(this.object);
+    unregisterObject(this.object);
     super.net_destroy();
   }
 

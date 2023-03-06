@@ -1,23 +1,29 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { getConfigString, getParamString } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseNames } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("RestrictorManager");
 
+/**
+ * todo;
+ */
 export class RestrictorManager {
-  public static forNpc(npc: XR_game_object): RestrictorManager {
-    logger.info("Get restrictor manager for npc:", npc.name());
+  /**
+   * todo;
+   */
+  public static forObject(object: XR_game_object): RestrictorManager {
+    logger.info("Get restrictor manager for npc:", object.name());
 
-    const st: IStoredObject = registry.objects.get(npc.id());
+    const state: IRegistryObjectState = registry.objects.get(object.id());
 
-    if (st.restrictor_manager === null) {
-      st.restrictor_manager = new RestrictorManager(npc);
+    if (state.restrictor_manager === null) {
+      state.restrictor_manager = new RestrictorManager(object);
     }
 
-    return st.restrictor_manager!;
+    return state.restrictor_manager!;
   }
 
   public object: XR_game_object;
@@ -27,6 +33,9 @@ export class RestrictorManager {
   public in_restrictions: LuaTable<number, string>;
   public out_restrictions: LuaTable<number, string>;
 
+  /**
+   * todo;
+   */
   public constructor(object: XR_game_object) {
     this.object = object;
     this.base_out_restrictions = new LuaTable();
@@ -44,7 +53,10 @@ export class RestrictorManager {
     }
   }
 
-  public reset_restrictions(st: IStoredObject, section: string): void {
+  /**
+   * todo;
+   */
+  public reset_restrictions(st: IRegistryObjectState, section: string): void {
     logger.info("Reset restrictions:", this.object.name(), section);
 
     const actual_ini: XR_ini_file = st.ini!;

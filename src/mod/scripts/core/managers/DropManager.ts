@@ -7,7 +7,7 @@ import { TLevel } from "@/mod/globals/levels";
 import { STRINGIFIED_TRUE } from "@/mod/globals/lua";
 import { LuaArray, Optional, TCount, TProbability, TSection, TStringId } from "@/mod/lib/types";
 import { Stalker } from "@/mod/scripts/core/alife/Stalker";
-import { DEATH_GENERIC_LTX, IStoredObject, registry } from "@/mod/scripts/core/database";
+import { DEATH_GENERIC_LTX, IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { getCharacterCommunity, setItemCondition } from "@/mod/scripts/utils/alife";
 import { spawnAmmoForObject, spawnItemsForObject } from "@/mod/scripts/utils/alife_spawn";
@@ -172,9 +172,9 @@ export class DropManager extends AbstractCoreManager {
       return;
     }
 
-    const state: Optional<IStoredObject> = registry.objects.get(object.id());
+    const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
 
-    if (state?.ini?.line_exist(state.section_logic!, DropManager.DONT_SPAWN_LOOT_LTX_SECTION)) {
+    if (state?.ini?.line_exist(state.section_logic, DropManager.DONT_SPAWN_LOOT_LTX_SECTION)) {
       return;
     }
 

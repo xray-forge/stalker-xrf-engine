@@ -16,8 +16,8 @@ import {
 } from "xray16";
 
 import { communities, TCommunity } from "@/mod/globals/communities";
-import { AnyObject, Optional, TLabel, TNumberId } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { AnyObject, Optional, TLabel, TName, TNumberId } from "@/mod/lib/types";
+import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
 import { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
 import { EPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/EPlayableSound";
@@ -206,40 +206,43 @@ export class NpcSound extends AbstractPlayableSound {
     }
   }
 
-  public override callback(npc_id: number): void {
+  /**
+   * todo;
+   */
+  public override callback(objectId: TNumberId): void {
     this.played_time = time_global();
     this.idle_time = math.random(this.min_idle, this.max_idle) * 1000;
 
     if (this.group_snd) {
       this.can_play_group_sound = true;
     } else {
-      this.can_play_sound.set(npc_id, true);
+      this.can_play_sound.set(objectId, true);
     }
 
     // --    printf("npc_sound:callback!!!!!!!!")
     get_hud().RemoveCustomStatic("cs_subtitles_npc");
 
-    const st: IStoredObject = registry.objects.get(npc_id);
+    const state: IRegistryObjectState = registry.objects.get(objectId);
 
-    if (st.active_scheme === null) {
+    if (state.active_scheme === null) {
       return;
     }
 
-    if (st[st.active_scheme!].signals === null) {
+    const signals: Optional<LuaTable<TName, boolean>> = state[state.active_scheme!]!.signals;
+
+    if (signals === null) {
       return;
     }
 
-    if (this.npc.get(npc_id) === null) {
+    if (this.npc.get(objectId) === null) {
       return;
     }
 
-    if (this.played_id === this.npc.get(npc_id).max && this.shuffle !== "rnd") {
-      // --        printf("npc [%s] signalled [theme_end] for snd [%s]", npc_id, this.section)
-      st[st.active_scheme!].signals["theme_end"] = true;
-      st[st.active_scheme!].signals["sound_end"] = true;
+    if (this.played_id === this.npc.get(objectId).max && this.shuffle !== "rnd") {
+      signals.set("theme_end", true);
+      signals.set("sound_end", true);
     } else {
-      // --        printf("npc [%s] signalled [sound_end] for snd [%s]", npc_id, this.section)
-      st[st.active_scheme!].signals["sound_end"] = true;
+      signals.set("sound_end", true);
     }
   }
 

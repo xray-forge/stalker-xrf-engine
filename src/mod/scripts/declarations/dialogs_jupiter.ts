@@ -16,7 +16,8 @@ import { quest_items } from "@/mod/globals/items/quest_items";
 import { weapons } from "@/mod/globals/items/weapons";
 import { treasures } from "@/mod/globals/treasures";
 import { AnyCallablesModule, AnyObject, LuaArray, Optional } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { AnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
+import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { pstor_retrieve } from "@/mod/scripts/core/database/pstor";
 import { TreasureManager } from "@/mod/scripts/core/managers/TreasureManager";
 import { isActorEnemyWithFaction } from "@/mod/scripts/utils/checkers/checkers";
@@ -974,15 +975,15 @@ export function jup_b32_anomaly_do_not_has_af(first_speaker: XR_game_object, sec
     return true;
   }
 
-  const anomal_zone: IStoredObject = registry.anomalies.get(az_table.get(index));
+  const anomalyZone: AnomalyZoneBinder = registry.anomalies.get(az_table.get(index));
 
-  if (anomal_zone === null) {
+  if (anomalyZone === null) {
     disableInfo(infop_table.get(index));
 
     return true;
   }
 
-  if (anomal_zone.spawned_count > 0) {
+  if (anomalyZone.spawnedArtefactsCount > 0) {
     return false;
   }
 

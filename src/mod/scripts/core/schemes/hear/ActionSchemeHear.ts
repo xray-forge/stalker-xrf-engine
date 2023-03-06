@@ -1,9 +1,22 @@
 import { TXR_snd_type, XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
 import { ESoundType } from "@/mod/globals/sound/sound_type";
-import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import {
+  EScheme,
+  ESchemeType,
+  LuaArray,
+  Optional,
+  TCount,
+  TDistance,
+  TName,
+  TNumberId,
+  TRate,
+  TSection,
+  TStringId,
+} from "@/mod/lib/types";
+import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
+import { IActionSchemeHearState } from "@/mod/scripts/core/schemes/hear/IActionSchemeHearState";
 import { switchToSection } from "@/mod/scripts/core/schemes/switchToSection";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { getObjectStoryId } from "@/mod/scripts/utils/ids";
@@ -21,52 +34,34 @@ export class ActionSchemeHear extends AbstractScheme {
   /**
    * todo;
    */
-  public static is_on_sound_line(candidate: string): boolean {
-    const [idx] = string.find(candidate, "^on_sound%d*$");
-
-    return idx !== null;
-  }
-
-  /**
-   * todo;
-   */
-  public static add_parsed_data_to_storage(value: string, state: IStoredObject): void {
-    const object: XR_game_object = state.object!;
-    const parsed_params: LuaTable<number, string> = parseParams(value);
-
-    state.hear_sounds[parsed_params.get(1)] = state.hear_sounds[parsed_params.get(1)] || new LuaTable();
-
-    state.hear_sounds[parsed_params.get(1)][parsed_params.get(2)] = {
-      dist: tonumber(parsed_params.get(3)),
-      power: tonumber(parsed_params.get(4)),
-      condlist: parseConditionsList(object, "hear_callback", "hear_callback", parsed_params.get(5)),
-    };
-  }
-
-  /**
-   * todo;
-   */
   public static override resetScheme(
     object: XR_game_object,
     scheme: EScheme,
-    state: IStoredObject,
+    state: IRegistryObjectState,
     section: TSection
   ): void {
-    const ini: XR_ini_file = state.ini!;
+    const ini: XR_ini_file = state.ini;
 
     if (!ini.section_exist(section)) {
       return;
     }
 
-    const n: number = ini.line_count(section);
+    const lineCount: TCount = ini.line_count(section);
 
-    state.hear_sounds = {};
+    state.hearInfo = {} as IActionSchemeHearState;
 
-    for (const it of $range(0, n - 1)) {
+    for (const it of $range(0, lineCount - 1)) {
       const [result, id, value] = ini.r_line(section, it, "", "");
 
-      if (ActionSchemeHear.is_on_sound_line(id)) {
-        ActionSchemeHear.add_parsed_data_to_storage(value, state);
+      if (string.find(id, "^on_sound%d*$")[0] !== null) {
+        const parameters: LuaArray<TName> = parseParams(value);
+
+        state.hearInfo[parameters.get(1)] = state.hearInfo[parameters.get(1)] || {};
+        state.hearInfo[parameters.get(1)][parameters.get(2)] = {
+          dist: tonumber(parameters.get(3)) as TDistance,
+          power: tonumber(parameters.get(4)) as TRate,
+          condlist: parseConditionsList(object, "hear_callback", "hear_callback", parameters.get(5)),
+        };
       }
     }
   }
@@ -74,35 +69,38 @@ export class ActionSchemeHear extends AbstractScheme {
   /**
    * todo;
    */
-  public static hear_callback(
+  public static onObjectHearSound(
     object: XR_game_object,
-    who_id: number,
-    sound_type: TXR_snd_type,
-    sound_position: XR_vector,
-    sound_power: number
+    whoId: TNumberId,
+    soundType: TXR_snd_type,
+    soundPosition: XR_vector,
+    soundPower: TRate
   ): void {
-    const state = registry.objects.get(object.id());
+    const state: IRegistryObjectState = registry.objects.get(object.id());
 
-    if (state.hear_sounds === null) {
+    if (state.hearInfo === null) {
       return;
     }
 
-    const soundType: ESoundType = mapSndTypeToSoundType(sound_type);
-    const story_id: string = getObjectStoryId(who_id) || "any";
+    const storyId: TStringId = getObjectStoryId(whoId) || "any";
+    const soundClassType: ESoundType = mapSndTypeToSoundType(soundType);
+    const classTypeParameters = state.hearInfo[storyId] ? state.hearInfo[storyId][soundClassType] : null;
 
-    if (state.hear_sounds[story_id] && state.hear_sounds[story_id][soundType]) {
-      const hear_sound_params = state.hear_sounds[story_id][soundType];
-
+    if (classTypeParameters) {
       if (
-        hear_sound_params.dist >= sound_position.distance_to(object.position()) &&
-        sound_power >= hear_sound_params.power
+        classTypeParameters.dist >= soundPosition.distance_to(object.position()) &&
+        soundPower >= classTypeParameters.power
       ) {
-        const new_section = pickSectionFromCondList(registry.actor, object, hear_sound_params.condlist);
+        const nextSection: Optional<TSection> = pickSectionFromCondList(
+          registry.actor,
+          object,
+          classTypeParameters.condlist
+        );
 
-        if (new_section !== null && new_section !== "") {
-          switchToSection(object, state.ini!, new_section);
-        } else if (new_section === "") {
-          state.hear_sounds[story_id][soundType] = null;
+        if (nextSection !== null && nextSection !== "") {
+          switchToSection(object, state.ini!, nextSection);
+        } else if (nextSection === "") {
+          state.hearInfo[storyId][soundClassType] = null;
         }
       }
     }

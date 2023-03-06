@@ -12,7 +12,7 @@ import {
 } from "xray16";
 
 import { TNumberId, TSection } from "@/mod/lib/types";
-import { addObject, deleteObject, registry, resetObject } from "@/mod/scripts/core/database";
+import { registerObject, registry, resetObject, unregisterObject } from "@/mod/scripts/core/database";
 import { loadObject, saveObject } from "@/mod/scripts/core/schemes/storing";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -68,7 +68,7 @@ export class CrowBinder extends object_binder {
 
     const objectId: TNumberId = this.object.id();
 
-    addObject(this.object);
+    registerObject(this.object);
 
     registry.crows.storage.set(objectId, objectId);
     registry.crows.count += 1;
@@ -86,7 +86,7 @@ export class CrowBinder extends object_binder {
     registry.crows.storage.delete(this.object.id());
     registry.crows.count -= 1;
 
-    deleteObject(this.object);
+    unregisterObject(this.object);
 
     super.net_destroy();
   }

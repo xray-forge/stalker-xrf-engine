@@ -47,22 +47,16 @@ export class EvaluatorDanger extends property_evaluator {
       this.object.best_danger() !== null &&
       time_global() - this.state.danger_time < logicsConfig.DANGER_INERTION_TIME
     ) {
-      registry.objects.get(this.object.id()).danger_flag = true;
-
       return true;
     }
 
     if (!this.schemeDanger.isDangerObject(this.object)) {
-      registry.objects.get(this.object.id()).danger_flag = false;
-
       return false;
     }
 
     if (this.manager.initialized() && this.manager.current_action_id() === stalker_ids.action_danger_planner) {
       this.state.danger_time = this.schemeDanger.get_danger_time(this.object.best_danger()!);
     }
-
-    registry.objects.get(this.object.id()).danger_flag = true;
 
     const serverObject = alife().object<XR_cse_alife_creature_abstract>(this.object.id());
 

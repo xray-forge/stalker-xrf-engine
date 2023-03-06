@@ -1,8 +1,8 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
-import { AnyObject, Optional } from "@/mod/lib/types";
+import { Optional } from "@/mod/lib/types";
 import { EScheme, TSection } from "@/mod/lib/types/scheme";
-import { IStoredObject, registry } from "@/mod/scripts/core/database";
+import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { IBaseSchemeState } from "@/mod/scripts/core/schemes/base/IBaseSchemeState";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -22,10 +22,10 @@ export function assignStorageAndBind<T extends IBaseSchemeState>(
 ): T {
   logger.info("Assign storage and bind:", object.name(), "->", scheme, "->", section);
 
-  const objectState: IStoredObject = registry.objects.get(object.id());
-  let schemeState: T = objectState[scheme];
+  const objectState: IRegistryObjectState = registry.objects.get(object.id());
+  let schemeState: Optional<T> = objectState[scheme] as Optional<T>;
 
-  if (!schemeState) {
+  if (schemeState === null) {
     schemeState = {
       npc: object,
     } as T;

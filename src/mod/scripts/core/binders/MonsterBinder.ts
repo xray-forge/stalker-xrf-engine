@@ -22,13 +22,31 @@ import {
 } from "xray16";
 
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
-import { EScheme, ESchemeType, Optional, TNumberId, TSection } from "@/mod/lib/types";
+import {
+  EScheme,
+  ESchemeType,
+  Optional,
+  TCount,
+  TDuration,
+  TIndex,
+  TLabel,
+  TNumberId,
+  TRate,
+  TSection,
+} from "@/mod/lib/types";
 import { setup_gulag_and_logic_on_spawn, SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { Squad } from "@/mod/scripts/core/alife/Squad";
-import { addObject, deleteObject, IStoredObject, registry, resetObject } from "@/mod/scripts/core/database";
+import {
+  IRegistryObjectState,
+  registerObject,
+  registry,
+  resetObject,
+  unregisterObject,
+} from "@/mod/scripts/core/database";
 import { get_sim_obj_registry } from "@/mod/scripts/core/database/SimObjectsRegistry";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
+import { ESchemeEvent } from "@/mod/scripts/core/schemes/base";
 import { ActionSchemeHear } from "@/mod/scripts/core/schemes/hear/ActionSchemeHear";
 import { issueSchemeEvent } from "@/mod/scripts/core/schemes/issueSchemeEvent";
 import { mobCapture } from "@/mod/scripts/core/schemes/mobCapture";
@@ -49,7 +67,7 @@ const logger: LuaLogger = new LuaLogger("MonsterBinder");
 @LuabindClass()
 export class MonsterBinder extends object_binder {
   public loaded: boolean = false;
-  public st: IStoredObject = {};
+  public state!: IRegistryObjectState;
 
   /**
    * todo;
@@ -71,7 +89,7 @@ export class MonsterBinder extends object_binder {
   public override reinit(): void {
     super.reinit();
 
-    this.st = resetObject(this.object);
+    this.state = resetObject(this.object);
 
     this.object.set_callback(callback.patrol_path_in_point, this.waypoint_callback, this);
     this.object.set_callback(callback.hit, this.hit_callback, this);
@@ -82,7 +100,7 @@ export class MonsterBinder extends object_binder {
   /**
    * todo;
    */
-  public override update(delta: number): void {
+  public override update(delta: TDuration): void {
     super.update(delta);
 
     if (registry.actorCombat.get(this.object.id()) && this.object.best_enemy() === null) {
@@ -98,10 +116,8 @@ export class MonsterBinder extends object_binder {
 
     this.object.set_tip_text("");
 
-    const st = registry.objects.get(this.object.id());
-
-    if (st !== null && st.active_scheme !== null) {
-      trySwitchToAnotherSection(this.object, st[st.active_scheme!], registry.actor);
+    if (this.state.active_scheme !== null) {
+      trySwitchToAnotherSection(this.object, this.state[this.state.active_scheme!]!, registry.actor);
     }
 
     if (squad !== null && squad.commander_id() === this.object.id()) {
@@ -110,7 +126,7 @@ export class MonsterBinder extends object_binder {
 
     this.object.info_clear();
 
-    const active_section = st !== null && st.active_section;
+    const active_section = this.state.active_section;
 
     if (active_section !== null) {
       this.object.info_add("section: " + active_section);
@@ -158,7 +174,7 @@ export class MonsterBinder extends object_binder {
         return;
       }
 
-      const [target_pos, target_lv_id, target_gv_id] = squad_target.get_location();
+      const [target_pos] = squad_target.get_location();
 
       mobCapture(this.object, true, MonsterBinder.__name);
 
@@ -177,8 +193,8 @@ export class MonsterBinder extends object_binder {
       return;
     }
 
-    if (this.st.active_section !== null) {
-      issueSchemeEvent(this.object, this.st[this.st.active_scheme as string], "update", delta);
+    if (this.state.active_section !== null) {
+      issueSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.UPDATE, delta);
     }
   }
 
@@ -232,7 +248,7 @@ export class MonsterBinder extends object_binder {
       return false;
     }
 
-    addObject(this.object);
+    registerObject(this.object);
 
     const se_obj = alife().object<XR_cse_alife_creature_abstract>(this.object.id())!;
 
@@ -253,7 +269,7 @@ export class MonsterBinder extends object_binder {
       }
     }
 
-    setup_gulag_and_logic_on_spawn(this.object, this.st, object, ESchemeType.MONSTER, this.loaded);
+    setup_gulag_and_logic_on_spawn(this.object, this.state, object, ESchemeType.MONSTER, this.loaded);
 
     return true;
   }
@@ -272,21 +288,20 @@ export class MonsterBinder extends object_binder {
     GlobalSoundManager.getInstance().stopSoundsByObjectId(this.object.id());
     registry.actorCombat.delete(this.object.id());
 
-    const st = registry.objects.get(this.object.id());
-
-    if (st !== null && st.active_scheme !== null) {
-      issueSchemeEvent(this.object, st[st.active_scheme as string], "net_destroy");
+    if (this.state.active_scheme !== null) {
+      issueSchemeEvent(this.object, this.state[this.state.active_scheme]!, ESchemeEvent.NET_DESTROY);
     }
 
     const offlineObject = registry.offlineObjects.get(this.object.id());
 
     if (offlineObject !== null) {
       offlineObject.level_vertex_id = this.object.level_vertex_id();
-      offlineObject.active_section = st.active_section as TSection;
+      offlineObject.active_section = this.state.active_section;
     }
 
-    deleteObject(this.object);
+    unregisterObject(this.object);
     registry.objects.delete(this.object.id());
+
     super.net_destroy();
   }
 
@@ -326,12 +341,12 @@ export class MonsterBinder extends object_binder {
   /**
    * todo;
    */
-  public waypoint_callback(object: XR_game_object, action_type: number, index: number): void {
-    if (this.st.active_section !== null) {
+  public waypoint_callback(object: XR_game_object, action_type: number, index: TIndex): void {
+    if (this.state.active_section !== null) {
       issueSchemeEvent(
         this.object,
-        this.st[this.st.active_scheme as string],
-        "waypoint_callback",
+        this.state[this.state.active_scheme!]!,
+        ESchemeEvent.WAYPOINT,
         object,
         action_type,
         index
@@ -354,27 +369,27 @@ export class MonsterBinder extends object_binder {
       statisticsManager.updateBestMonsterKilled(this.object);
     }
 
-    if (this.st.mob_death) {
-      issueSchemeEvent(this.object, this.st.mob_death, "death_callback", victim, killer);
+    if (this.state[EScheme.MOB_DEATH]) {
+      issueSchemeEvent(this.object, this.state[EScheme.MOB_DEATH], ESchemeEvent.DEATH, victim, killer);
     }
 
-    if (this.st.active_section) {
-      issueSchemeEvent(this.object, this.st[this.st.active_scheme as EScheme], "death_callback", victim, killer);
+    if (this.state.active_section) {
+      issueSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.DEATH, victim, killer);
     }
 
-    const h: XR_hit = new hit();
+    const hitObject: XR_hit = new hit();
 
-    h.draftsman = this.object;
-    h.type = hit.fire_wound;
-    h.direction = registry.actor.position().sub(this.object.position());
-    h.bone("pelvis");
-    h.power = 1;
-    h.impulse = 10;
-    this.object.hit(h);
+    hitObject.draftsman = this.object;
+    hitObject.type = hit.fire_wound;
+    hitObject.direction = registry.actor.position().sub(this.object.position());
+    hitObject.bone("pelvis");
+    hitObject.power = 1;
+    hitObject.impulse = 10;
+    this.object.hit(hitObject);
 
-    const obj_clsid: TXR_cls_id = this.object.clsid();
+    const objectClsId: TXR_cls_id = this.object.clsid();
 
-    if (obj_clsid === clsid.poltergeist_s) {
+    if (objectClsId === clsid.poltergeist_s) {
       logger.info("Releasing poltergeist_s:", this.object.name());
 
       const target_object: Optional<XR_cse_alife_object> = alife().object(this.object.id());
@@ -390,21 +405,17 @@ export class MonsterBinder extends object_binder {
    */
   public hit_callback(
     object: XR_game_object,
-    amount: number,
-    const_direction: XR_vector,
+    amount: TCount,
+    direction: XR_vector,
     who: XR_game_object,
-    bone_index: string | number
+    boneIndex: TLabel | TIndex
   ): void {
     if (who.id() === registry.actor.id()) {
       StatisticsManager.getInstance().updateBestWeapon(amount);
     }
 
-    if (this.st.hit) {
-      issueSchemeEvent(this.object, this.st.hit, "hit_callback", object, amount, const_direction, who, bone_index);
-    }
-
-    if (amount > 0) {
-      logger.info("[hit] Hit done:", amount, who.name(), "->", object.name());
+    if (this.state[EScheme.HIT]) {
+      issueSchemeEvent(this.object, this.state.hit, ESchemeEvent.HIT, object, amount, direction, who, boneIndex);
     }
   }
 
@@ -413,13 +424,13 @@ export class MonsterBinder extends object_binder {
    */
   public hear_callback(
     object: XR_game_object,
-    source_id: number,
-    sound_type: TXR_snd_type,
-    sound_position: XR_vector,
-    sound_power: number
+    sourceId: TNumberId,
+    soundType: TXR_snd_type,
+    soundPosition: XR_vector,
+    soundPower: TRate
   ): void {
-    if (source_id !== object.id()) {
-      ActionSchemeHear.hear_callback(object, source_id, sound_type, sound_position, sound_power);
+    if (sourceId !== object.id()) {
+      ActionSchemeHear.onObjectHearSound(object, sourceId, soundType, soundPosition, soundPower);
     }
   }
 }
