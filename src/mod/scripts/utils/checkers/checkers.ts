@@ -172,15 +172,6 @@ export function isHeavilyWounded(objectId: TNumberId): boolean {
  * todo;
  * todo;
  */
-export function isNpcInZone(object: Optional<XR_game_object>, zone: Optional<XR_game_object>): boolean {
-  return object !== null && zone !== null && zone.inside(object.position());
-}
-
-/**
- * todo;
- * todo;
- * todo;
- */
 export function isActorInZone(zone: Optional<XR_game_object>): boolean {
   const actor: Optional<XR_game_object> = registry.actor;
 

@@ -509,7 +509,7 @@ export function spawnDefaultNpcItems(object: XR_game_object, state: IRegistryObj
 /**
  * todo: description
  */
-export function isSeeingActor(object: XR_game_object): boolean {
+export function isActorSeenByObject(object: XR_game_object): boolean {
   return object.alive() && object.see(registry.actor);
 }
 

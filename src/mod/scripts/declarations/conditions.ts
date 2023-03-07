@@ -18,6 +18,7 @@ import {
 import { captions, TCaption } from "@/mod/globals/captions";
 import { TCommunity } from "@/mod/globals/communities";
 import { info_portions } from "@/mod/globals/info_portions/info_portions";
+import { STRINGIFIED_FALSE } from "@/mod/globals/lua";
 import { relations } from "@/mod/globals/relations";
 import { zones } from "@/mod/globals/zones";
 import {
@@ -66,7 +67,7 @@ import {
   isDistanceBetweenObjectsGreaterOrEqual,
   isDistanceBetweenObjectsLessOrEqual,
   isHeavilyWounded,
-  isNpcInZone,
+  isObjectInZone,
   isObjectWounded,
   isPlayingSound,
   isSquadExisting,
@@ -117,7 +118,7 @@ export function enemy_in_zone(enemy: XR_game_object, npc: XR_game_object, params
     abort("Wrong zone name '%s' in enemy_in_zone function.", tostring(params[0]));
   }
 
-  return isNpcInZone(enemy, zone);
+  return isObjectInZone(enemy, zone);
 }
 
 /**
@@ -131,7 +132,7 @@ export function black_screen(): boolean {
  * todo;
  */
 export function check_npc_name(actor: XR_game_object, npc: XR_game_object, params: LuaArray<string>): boolean {
-  const npcName: Optional<string> = npc.name();
+  const npcName: Optional<TName> = npc.name();
 
   if (npcName === null) {
     return false;
@@ -150,8 +151,8 @@ export function check_npc_name(actor: XR_game_object, npc: XR_game_object, param
  * todo;
  */
 export function check_enemy_name(actor: XR_game_object, npc: XR_game_object, params: LuaArray<string>): boolean {
-  const enemy_id: number = registry.objects.get(npc.id()).enemy_id!;
-  const enemy: Maybe<XR_game_object> = registry.objects.get(enemy_id)?.object;
+  const enemyId: TNumberId = registry.objects.get(npc.id()).enemy_id!;
+  const enemy: Optional<XR_game_object> = registry.objects.get(enemyId)?.object;
 
   if (enemy && enemy.alive()) {
     const name: string = enemy.name();
@@ -304,7 +305,7 @@ export function one_obj_in_zone(actor: XR_game_object, zone: XR_game_object, par
   if (obj1) {
     return zone.inside(alife().object(obj1)!.position);
   } else {
-    return params[1] !== "false";
+    return params[1] !== STRINGIFIED_FALSE;
   }
 }
 
@@ -337,11 +338,11 @@ export function story_obj_in_zone_by_name(
   npc: XR_game_object,
   params: [string, string]
 ): boolean {
-  const object = getStoryObjectId(params[0]);
-  const zone = registry.zones.get(params[1]);
+  const objectId: Optional<TNumberId> = getStoryObjectId(params[0]);
+  const zone: Optional<XR_game_object> = registry.zones.get(params[1]);
 
-  if (object && zone) {
-    return zone.inside(alife().object(object)!.position);
+  if (objectId && zone) {
+    return zone.inside(alife().object(objectId)!.position);
   }
 
   return false;
@@ -351,29 +352,29 @@ export function story_obj_in_zone_by_name(
  * todo;
  */
 export function actor_in_zone(actor: XR_game_object, npc: XR_game_object, params: [string]): boolean {
-  return isNpcInZone(registry.actor, registry.zones.get(params[0]));
+  return isObjectInZone(registry.actor, registry.zones.get(params[0]));
 }
 
 /**
  * todo;
  */
 export function npc_in_zone(actor: XR_game_object, npc: XR_game_object | XR_cse_abstract, params: [string]): boolean {
-  const zone = registry.zones.get(params[0]);
-  let npc_obj: Optional<XR_game_object> = null;
+  const zone: Optional<XR_game_object> = registry.zones.get(params[0]);
+  let objectId: Optional<XR_game_object> = null;
 
   if (type(npc.id) !== "function") {
-    npc_obj = registry.objects.get((npc as XR_cse_abstract).id)?.object as Optional<XR_game_object>;
+    objectId = registry.objects.get((npc as XR_cse_abstract).id)?.object as Optional<XR_game_object>;
 
     if (zone === null) {
       return true;
-    } else if (npc_obj === null) {
+    } else if (objectId === null) {
       return zone.inside((npc as XR_cse_abstract).position);
     }
   } else {
-    npc_obj = npc as XR_game_object;
+    objectId = npc as XR_game_object;
   }
 
-  return isNpcInZone(npc_obj, zone);
+  return isObjectInZone(objectId, zone);
 }
 
 /**
@@ -1846,7 +1847,7 @@ export function zat_b29_rivals_dialog_precond(actor: XR_game_object, npc: XR_gam
     "zat_b29_stalker_rival_1_squad",
     "zat_b29_stalker_rival_2_squad",
   ] as unknown as LuaArray<string>;
-  const zones_table = [
+  const zonesTable = [
     zones.zat_b29_sr_1,
     "zat_b29_sr_2",
     "zat_b29_sr_3",
@@ -1867,8 +1868,8 @@ export function zat_b29_rivals_dialog_precond(actor: XR_game_object, npc: XR_gam
     return false;
   }
 
-  for (const [k, v] of zones_table) {
-    if (isNpcInZone(npc, registry.zones.get(v))) {
+  for (const [k, v] of zonesTable) {
+    if (isObjectInZone(npc, registry.zones.get(v))) {
       return true;
     }
   }
