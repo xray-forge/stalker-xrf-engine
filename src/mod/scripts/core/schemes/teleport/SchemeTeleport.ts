@@ -28,7 +28,6 @@ export class SchemeTeleport extends AbstractScheme {
     section: TSection,
     state: ISchemeTeleportState
   ): void {
-    logger.info("Add to binder:", object.name());
     subscribeActionForEvents(object, state, new TeleportManager(object, state));
   }
 
@@ -36,8 +35,6 @@ export class SchemeTeleport extends AbstractScheme {
    * todo;
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    logger.info("Set scheme:", object.name());
-
     const state: ISchemeTeleportState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);

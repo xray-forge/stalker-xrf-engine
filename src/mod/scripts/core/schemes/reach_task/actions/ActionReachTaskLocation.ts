@@ -19,7 +19,7 @@ import { Actor } from "@/mod/scripts/core/alife/Actor";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { Squad } from "@/mod/scripts/core/alife/Squad";
 import { registry } from "@/mod/scripts/core/database";
-import { get_sim_obj_registry } from "@/mod/scripts/core/database/SimObjectsRegistry";
+import { getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimObjectsRegistry";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { ReachTaskPatrolManager } from "@/mod/scripts/core/schemes/reach_task/ReachTaskPatrolManager";
 import { getObjectSquad, sendToNearestAccessibleVertex } from "@/mod/scripts/utils/alife";
@@ -116,7 +116,7 @@ export class ActionReachTaskLocation extends action_base {
    */
   public commander_execute(): void {
     const squad = getObjectSquad(this.object)!;
-    let squad_target = get_sim_obj_registry().objects.get(squad.assigned_target_id!);
+    let squad_target = getSimulationObjectsRegistry().objects.get(squad.assigned_target_id!);
 
     if (squad_target === null && squad.get_script_target() !== null) {
       squad_target = alife().object(squad.assigned_target_id!)!;
@@ -168,7 +168,7 @@ export class ActionReachTaskLocation extends action_base {
     }
 
     const squad: Squad = getObjectSquad(this.object)!;
-    let squad_target = get_sim_obj_registry().objects.get(squad.assigned_target_id!);
+    let squad_target = getSimulationObjectsRegistry().objects.get(squad.assigned_target_id!);
 
     if (squad_target === null && squad.get_script_target() !== null) {
       squad_target = alife().object(squad.assigned_target_id!)!;

@@ -1,5 +1,6 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
+import { STRINGIFIED_NIL } from "@/mod/globals/lua";
 import { Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
@@ -30,7 +31,7 @@ export abstract class AbstractScheme {
     scheme: EScheme,
     section: Optional<TSection>
   ): T {
-    logger.info("Assign state and bind:", object.name(), "->", scheme, "->", section);
+    logger.info("Assign state and bind:", object.name(), "->", scheme, "->", section || STRINGIFIED_NIL);
 
     const objectState: IRegistryObjectState = registry.objects.get(object.id());
     let schemeState: Optional<T> = objectState[scheme] as Optional<T>;

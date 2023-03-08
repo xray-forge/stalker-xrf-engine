@@ -78,7 +78,10 @@ export class SimObjectsRegistry {
   }
 }
 
-export function get_sim_obj_registry() {
+/**
+ * todo;
+ */
+export function getSimulationObjectsRegistry(): SimObjectsRegistry {
   if (sim_objects_registry === null) {
     sim_objects_registry = new SimObjectsRegistry();
   }

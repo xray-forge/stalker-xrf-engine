@@ -28,13 +28,23 @@ import { ammo } from "@/mod/globals/items/ammo";
 import { drugs } from "@/mod/globals/items/drugs";
 import { TLevel } from "@/mod/globals/levels";
 import { STRINGIFIED_NIL } from "@/mod/globals/lua";
-import { AnyCallablesModule, Optional, TCount } from "@/mod/lib/types";
+import {
+  AnyCallablesModule,
+  LuaArray,
+  Optional,
+  TCount,
+  TDuration,
+  TNumberId,
+  TSection,
+  TStringId,
+} from "@/mod/lib/types";
 import { Actor } from "@/mod/scripts/core/alife/Actor";
 import { IRegistryObjectState, registry, resetObject } from "@/mod/scripts/core/database";
 import { addActor, deleteActor } from "@/mod/scripts/core/database/actor";
 import { pstor_load_all, pstor_save_all } from "@/mod/scripts/core/database/pstor";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
-import { get_sim_obj_registry } from "@/mod/scripts/core/database/SimObjectsRegistry";
+import { getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimObjectsRegistry";
+import { AchievementsManager } from "@/mod/scripts/core/managers/achievements";
 import { DropManager } from "@/mod/scripts/core/managers/DropManager";
 import { EGameEvent } from "@/mod/scripts/core/managers/events/EGameEvent";
 import { EventsManager } from "@/mod/scripts/core/managers/events/EventsManager";
@@ -66,16 +76,6 @@ let weapon_hide: LuaTable<number, boolean> = new LuaTable();
 
 const logger: LuaLogger = new LuaLogger("ActorBinder");
 
-const detective_achievement_items: LuaTable<number, string> = [drugs.medkit, drugs.antirad, drugs.antirad] as any;
-
-const mutant_hunter_achievement_items: LuaTable<number, string> = [
-  ammo["ammo_5.45x39_ap"],
-  ammo["ammo_5.56x45_ap"],
-  ammo.ammo_9x39_ap,
-  ammo["ammo_5.56x45_ap"],
-  ammo.ammo_12x76_zhekan,
-] as any;
-
 /**
  * todo;
  */
@@ -84,17 +84,18 @@ export class ActorBinder extends object_binder {
   public bCheckStart: boolean = false;
   public isSurgeManagerLoaded: boolean = false;
 
-  public readonly taskManager: TaskManager = TaskManager.getInstance();
+  public readonly achievementsManager: AchievementsManager = AchievementsManager.getInstance();
   public readonly dropManager: DropManager = DropManager.getInstance(false);
   public readonly eventsManager: EventsManager = EventsManager.getInstance();
-  public readonly surgeManager: SurgeManager = SurgeManager.getInstance(false);
-  public readonly treasureManager: TreasureManager = TreasureManager.getInstance();
-  public readonly weatherManager: WeatherManager = WeatherManager.getInstance();
-  public readonly releaseBodyManager: ReleaseBodyManager = ReleaseBodyManager.getInstance();
-  public readonly travelManager: TravelManager = TravelManager.getInstance();
-  public readonly newsManager: NotificationManager = NotificationManager.getInstance();
   public readonly globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
   public readonly mapDisplayManager: MapDisplayManager = MapDisplayManager.getInstance();
+  public readonly newsManager: NotificationManager = NotificationManager.getInstance();
+  public readonly releaseBodyManager: ReleaseBodyManager = ReleaseBodyManager.getInstance();
+  public readonly surgeManager: SurgeManager = SurgeManager.getInstance(false);
+  public readonly taskManager: TaskManager = TaskManager.getInstance();
+  public readonly travelManager: TravelManager = TravelManager.getInstance();
+  public readonly treasureManager: TreasureManager = TreasureManager.getInstance();
+  public readonly weatherManager: WeatherManager = WeatherManager.getInstance();
 
   public loaded: boolean = false;
   public spawn_frame: number = 0;
@@ -107,9 +108,6 @@ export class ActorBinder extends object_binder {
   public weapon_hide: boolean = false;
   public weapon_hide_in_dialog: boolean = false;
 
-  public last_detective_achievement_spawn_time: Optional<any> = null;
-  public last_mutant_hunter_achievement_spawn_time: Optional<any> = null;
-
   public st!: IRegistryObjectState;
 
   /**
@@ -117,8 +115,7 @@ export class ActorBinder extends object_binder {
    */
   public constructor(object: XR_game_object) {
     super(object);
-
-    logger.info("Init new actor binder:", object.name());
+    logger.info("Construct actor binder:", object.name());
   }
 
   /**
@@ -331,7 +328,7 @@ export class ActorBinder extends object_binder {
   /**
    * todo;
    */
-  public override update(delta: number): void {
+  public override update(delta: TDuration): void {
     super.update(delta);
 
     if (this.travelManager.isTraveling) {
@@ -339,10 +336,7 @@ export class ActorBinder extends object_binder {
     }
 
     this.weatherManager.update();
-
-    this.check_detective_achievement();
-    this.check_mutant_hunter_achievement();
-
+    this.achievementsManager.update(delta);
     this.globalSoundManager.updateForObjectId(this.object.id());
 
     if (
@@ -432,7 +426,7 @@ export class ActorBinder extends object_binder {
 
     this.surgeManager.update();
 
-    get_sim_obj_registry().update_avaliability(alife().actor() as Actor);
+    getSimulationObjectsRegistry().update_avaliability(alife().actor() as Actor);
 
     this.treasureManager.update();
     this.mapDisplayManager.update();
@@ -498,19 +492,7 @@ export class ActorBinder extends object_binder {
       packet.w_bool(false);
     }
 
-    if (this.last_detective_achievement_spawn_time === null) {
-      packet.w_bool(false);
-    } else {
-      packet.w_bool(true);
-      writeCTimeToPacket(packet, this.last_detective_achievement_spawn_time);
-    }
-
-    if (this.last_mutant_hunter_achievement_spawn_time === null) {
-      packet.w_bool(false);
-    } else {
-      packet.w_bool(true);
-      writeCTimeToPacket(packet, this.last_mutant_hunter_achievement_spawn_time);
-    }
+    this.achievementsManager.save(packet);
 
     setSaveMarker(packet, true, ActorBinder.__name);
   }
@@ -571,63 +553,9 @@ export class ActorBinder extends object_binder {
       this.deimos_intensity = reader.r_float();
     }
 
-    let stored_achievement_time = reader.r_bool();
-
-    if (stored_achievement_time) {
-      this.last_detective_achievement_spawn_time = readCTimeFromPacket(reader);
-    }
-
-    stored_achievement_time = reader.r_bool();
-
-    if (stored_achievement_time) {
-      this.last_mutant_hunter_achievement_spawn_time = readCTimeFromPacket(reader);
-    }
+    this.achievementsManager.load(reader);
 
     setLoadMarker(reader, true, ActorBinder.__name);
-  }
-
-  /**
-   * todo;
-   */
-  public check_detective_achievement(): void {
-    if (!hasAlifeInfo(info_portions.detective_achievement_gained)) {
-      return;
-    }
-
-    if (this.last_detective_achievement_spawn_time === null) {
-      this.last_detective_achievement_spawn_time = game.get_game_time();
-    }
-
-    if (game.get_game_time().diffSec(this.last_detective_achievement_spawn_time) > 43200) {
-      spawn_achivement_items(detective_achievement_items, 4, "zat_a2_actor_treasure");
-      get_global<AnyCallablesModule>("xr_effects").send_tip(registry.actor, null, [
-        "st_detective_news",
-        "got_medicine",
-      ]);
-      this.last_detective_achievement_spawn_time = game.get_game_time();
-    }
-  }
-
-  /**
-   * todo;
-   */
-  public check_mutant_hunter_achievement(): void {
-    if (!hasAlifeInfo(info_portions.mutant_hunter_achievement_gained)) {
-      return;
-    }
-
-    if (this.last_mutant_hunter_achievement_spawn_time === null) {
-      this.last_mutant_hunter_achievement_spawn_time = game.get_game_time();
-    }
-
-    if (game.get_game_time().diffSec(this.last_mutant_hunter_achievement_spawn_time) > 43200) {
-      spawn_achivement_items(mutant_hunter_achievement_items, 5, "jup_b202_actor_treasure");
-      get_global<AnyCallablesModule>("xr_effects").send_tip(registry.actor, null, [
-        "st_mutant_hunter_news",
-        "got_ammo",
-      ]);
-      this.last_mutant_hunter_achievement_spawn_time = game.get_game_time();
-    }
   }
 }
 
@@ -647,36 +575,13 @@ export function check_for_weapon_hide_by_zones(): boolean {
 /**
  * todo;
  */
-export function hide_weapon(zone_id: number): void {
+export function hide_weapon(zone_id: TNumberId): void {
   weapon_hide.set(zone_id, true);
 }
 
 /**
  * todo;
  */
-export function restore_weapon(zone_id: number): void {
+export function restore_weapon(zone_id: TNumberId): void {
   weapon_hide.set(zone_id, false);
-}
-
-/**
- * todo;
- */
-export function spawn_achivement_items(
-  items_table: LuaTable<number, string>,
-  count: TCount,
-  inv_box_story_id: string
-): void {
-  logger.info("Spawn achievement items");
-
-  const inv_box = alife().object(getStoryObjectId(inv_box_story_id)!)!;
-
-  for (const i of $range(1, count)) {
-    alife().create(
-      items_table.get(math.random(items_table.length())),
-      inv_box.position,
-      inv_box.m_level_vertex_id,
-      inv_box.m_game_vertex_id,
-      inv_box.id
-    );
-  }
 }

@@ -40,8 +40,6 @@ export class SchemeWounded extends AbstractScheme {
     section: TSection,
     state: ISchemeWoundedState
   ): void {
-    logger.info("Add to binder:", object.name());
-
     const operators = {
       wounded: action_ids.sidor_act_wounded_base,
     };

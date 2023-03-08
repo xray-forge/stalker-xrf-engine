@@ -30,8 +30,6 @@ export class SchemeTimer extends AbstractScheme {
     section: TSection,
     state: ISchemeTimerState
   ): void {
-    logger.info("Add to binder:", object.name());
-
     subscribeActionForEvents(object, state, new SchemeTimerManager(object, state));
   }
 

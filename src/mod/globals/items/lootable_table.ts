@@ -26,6 +26,7 @@ export type TLootableItem = TLootableItems[keyof TLootableItems];
 export const lootable_table_exclude = {
   [misc.device_pda]: misc.device_pda,
   [misc.guitar_a]: misc.guitar_a,
+  [misc.device_torch]: misc.device_torch,
   [misc.harmonica_a]: misc.harmonica_a,
   [weapons.wpn_binoc]: weapons.wpn_binoc,
   [weapons.wpn_binocular]: weapons.wpn_binocular,

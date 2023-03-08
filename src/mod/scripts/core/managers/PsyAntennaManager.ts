@@ -15,7 +15,7 @@ import {
 } from "xray16";
 
 import { sounds } from "@/mod/globals/sound/sounds";
-import { Optional } from "@/mod/lib/types";
+import { Optional, TDuration } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { getWeakManagerInstance, isManagerInitialized } from "@/mod/scripts/core/database/managers";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
@@ -36,6 +36,9 @@ export interface IPsyPostProcessDescriptor {
  * todo;
  */
 export class PsyAntennaManager extends AbstractCoreManager {
+  /**
+   * todo;
+   */
   public static load(reader: XR_reader): void {
     setLoadMarker(reader, false, PsyAntennaManager.name + "_static");
 
@@ -50,6 +53,9 @@ export class PsyAntennaManager extends AbstractCoreManager {
     setLoadMarker(reader, true, PsyAntennaManager.name + "_static");
   }
 
+  /**
+   * todo;
+   */
   public static save(net_packet: XR_net_packet): void {
     setSaveMarker(net_packet, false, PsyAntennaManager.name + "_static");
 
@@ -100,6 +106,9 @@ export class PsyAntennaManager extends AbstractCoreManager {
   public hit_type: string = "wound";
   public hit_freq: number = 5000;
 
+  /**
+   * todo;
+   */
   public constructor() {
     super();
 
@@ -107,6 +116,9 @@ export class PsyAntennaManager extends AbstractCoreManager {
     this.sound_obj_right.volume = 0;
   }
 
+  /**
+   * todo;
+   */
   public override destroy(): void {
     this.sound_obj_right.stop();
     this.sound_obj_left.stop();
@@ -114,6 +126,9 @@ export class PsyAntennaManager extends AbstractCoreManager {
     get_hud().enable_fake_indicators(false);
   }
 
+  /**
+   * todo;
+   */
   public update_psy_hit(dt: number): void {
     const hud: XR_CUIGameCustom = get_hud();
     const custom_static: Optional<XR_StaticDrawableWrapper> = hud.GetCustomStatic("cs_psy_danger");
@@ -162,6 +177,9 @@ export class PsyAntennaManager extends AbstractCoreManager {
     }
   }
 
+  /**
+   * todo;
+   */
   public generate_phantoms(): void {
     if (this.phantom_idle === null) {
       this.phantom_idle = math.random(2000, 5000);
@@ -186,6 +204,9 @@ export class PsyAntennaManager extends AbstractCoreManager {
     }
   }
 
+  /**
+   * todo;
+   */
   public update_sound(): void {
     if (!this.sound_initialized) {
       this.sound_obj_left.play_at_pos(
@@ -216,6 +237,9 @@ export class PsyAntennaManager extends AbstractCoreManager {
     this.sound_obj_right.volume = 1 / vol - 1;
   }
 
+  /**
+   * todo;
+   */
   public update_postprocess(pp: IPsyPostProcessDescriptor): boolean {
     if (pp.intensity === 0) {
       this.postprocess_count = this.postprocess_count - 1;
@@ -229,11 +253,14 @@ export class PsyAntennaManager extends AbstractCoreManager {
     return true;
   }
 
-  public update(dt: number): void {
-    this.eff_time = this.eff_time + dt;
+  /**
+   * todo;
+   */
+  public override update(delta: TDuration): void {
+    this.eff_time = this.eff_time + delta;
 
     const update_intensity = (intensity_base: number, intensity: number) => {
-      const di = this.intensity_inertion * dt * 0.01;
+      const di = this.intensity_inertion * delta * 0.01;
       let ii = intensity_base;
 
       if (math.abs(intensity_base - intensity) >= di) {
@@ -258,10 +285,13 @@ export class PsyAntennaManager extends AbstractCoreManager {
       }
     }
 
-    this.update_psy_hit(dt);
+    this.update_psy_hit(delta);
   }
 
-  public save(packet: XR_net_packet): void {
+  /**
+   * todo;
+   */
+  public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, PsyAntennaManager.name);
 
     packet.w_float(this.hit_intensity);
@@ -284,7 +314,10 @@ export class PsyAntennaManager extends AbstractCoreManager {
     setSaveMarker(packet, true, PsyAntennaManager.name);
   }
 
-  public load(reader: XR_reader): void {
+  /**
+   * todo;
+   */
+  public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, PsyAntennaManager.name);
     this.hit_intensity = reader.r_float();
     this.sound_intensity = reader.r_float();
@@ -298,7 +331,7 @@ export class PsyAntennaManager extends AbstractCoreManager {
     this.postprocess_count = reader.r_u8();
 
     this.postprocess = new LuaTable();
-    for (const i of $range(1, this.postprocess_count)) {
+    for (const it of $range(1, this.postprocess_count)) {
       const k = reader.r_stringZ();
       const ii = reader.r_float();
       const ib = reader.r_float();

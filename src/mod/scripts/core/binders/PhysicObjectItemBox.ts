@@ -1,19 +1,20 @@
 import { level, XR_game_object, XR_ini_file } from "xray16";
 
-import { Optional, TSection } from "@/mod/lib/types";
+import { TInventoryItem } from "@/mod/globals/items";
+import { LuaArray, Optional, TCount, TProbability, TSection } from "@/mod/lib/types";
 import { PH_BOX_GENERIC_LTX } from "@/mod/scripts/core/database";
-import { spawnItemsForObject } from "@/mod/scripts/utils/alife_spawn";
 import { getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseNames, parseNumbers } from "@/mod/scripts/utils/parse";
+import { spawnItemsForObject } from "@/mod/scripts/utils/spawn";
 
 const logger: LuaLogger = new LuaLogger("ItemBox");
-const item_by_community: LuaTable<string, LuaTable<string, number>> = new LuaTable();
+const item_by_community: LuaTable<string, LuaTable<TInventoryItem, TCount>> = new LuaTable();
 const mul_by_level: LuaTable<string, number> = new LuaTable();
 const count_by_level: LuaTable<string, { min: number; max: number }> = new LuaTable();
 
-const community_list: LuaTable<number, string> = [
+const community_list: LuaArray<string> = [
   "def_box",
   "small_box_generic",
   "small_box_ussr",
@@ -34,12 +35,12 @@ export class PhysicObjectItemBox {
     section: TSection,
     line: string,
     obj: XR_game_object
-  ): Optional<LuaTable<string, { section: string; count: number }>> {
+  ): Optional<LuaTable<string, { section: TInventoryItem; count: TCount }>> {
     if (spawn_ini.line_exist(section, line)) {
-      const t = parseNames(spawn_ini.r_string(section, line));
-      const n = t.length();
+      const t: LuaArray<TInventoryItem> = parseNames(spawn_ini.r_string(section, line));
+      const n: TCount = t.length();
 
-      const ret_table: LuaTable<string, { section: string; count: number }> = new LuaTable();
+      const ret_table: LuaTable<string, { section: TInventoryItem; count: TCount }> = new LuaTable();
       let k = 1;
 
       while (k <= n) {
@@ -89,7 +90,7 @@ export class PhysicObjectItemBox {
         for (const i of $range(0, n - 1)) {
           const [result, id, value] = PH_BOX_GENERIC_LTX.r_line(v, i, "", "");
 
-          item_by_community.get(v).set(id, 100 * tonumber(value)!);
+          item_by_community.get(v).set(id as TInventoryItem, 100 * tonumber(value)!);
         }
       }
     }
@@ -143,12 +144,12 @@ export class PhysicObjectItemBox {
 
     if (currentBoxItems === null) {
       const community = getConfigString(ini, "drop_box", "community", this.object, false, "", "def_box");
-      const boxItemsToSpawn: LuaTable<string, number> =
+      const boxItemsToSpawn: LuaTable<TInventoryItem, TProbability> =
         item_by_community.get(community) ?? item_by_community.get("def_box");
 
       for (const [section, probability] of boxItemsToSpawn) {
         const it = count_by_level.get(section);
-        const count: number = math.ceil(math.random(it.min, it.max));
+        const count: TCount = math.ceil(math.random(it.min, it.max));
 
         spawnItemsForObject(this.object, section, count, probability);
       }

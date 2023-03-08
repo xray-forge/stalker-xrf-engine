@@ -2,28 +2,37 @@ import { alife, XR_CTime } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import type { Squad } from "@/mod/scripts/core/alife/Squad";
-import { get_sim_obj_registry } from "@/mod/scripts/core/database/SimObjectsRegistry";
+import { getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimObjectsRegistry";
 
 /**
  * todo;
  */
-export class SimSquadReachTargetAction {
+export class SquadReachTargetAction {
   public readonly name: string = "reach_target";
   public board: any;
   public squad_id: number;
   public start_time: Optional<XR_CTime> = null;
   public idle_time!: number;
 
+  /**
+   * todo;
+   */
   public constructor(squad: Squad) {
     this.board = squad.board;
     this.squad_id = squad.id;
   }
 
+  /**
+   * todo;
+   */
   public finalize(): void {}
 
+  /**
+   * todo;
+   */
   public update(isUnderSimulation: boolean): boolean {
     const squad = alife().object<Squad>(this.squad_id)!;
-    let squad_target = get_sim_obj_registry().objects.get(squad.assigned_target_id!);
+    let squad_target = getSimulationObjectsRegistry().objects.get(squad.assigned_target_id!);
 
     if (!isUnderSimulation) {
       squad_target = alife().object(squad.assigned_target_id!)!;
@@ -44,9 +53,12 @@ export class SimSquadReachTargetAction {
     return false;
   }
 
+  /**
+   * todo;
+   */
   public make(isUnderSimulation: boolean): void {
     const squad = alife().object<Squad>(this.squad_id)!;
-    let squad_target = get_sim_obj_registry().objects.get(squad.assigned_target_id!);
+    let squad_target = getSimulationObjectsRegistry().objects.get(squad.assigned_target_id!);
 
     if (!isUnderSimulation) {
       squad_target = alife().object(squad.assigned_target_id!)!;

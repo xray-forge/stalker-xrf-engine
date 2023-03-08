@@ -20,6 +20,9 @@ export class SchemeCombatZombied extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.COMBAT_ZOMBIED;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
+  /**
+   * todo;
+   */
   public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
@@ -28,8 +31,6 @@ export class SchemeCombatZombied extends AbstractScheme {
     state: ISchemeCombatState,
     planner?: XR_action_planner
   ): void {
-    logger.info("Add to binder:", object.name());
-
     if (!planner) {
       abort("Expected planner to be provided for addToBinder method call.");
     }

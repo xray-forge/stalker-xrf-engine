@@ -39,7 +39,7 @@ import {
   TTimestamp,
 } from "@/mod/lib/types";
 import { loadGulagJobs } from "@/mod/scripts/core/alife/gulag_general";
-import { simulation_activities } from "@/mod/scripts/core/alife/SimActivity";
+import { simulation_activities } from "@/mod/scripts/core/alife/SimulationActivity";
 import { registered_smartcovers } from "@/mod/scripts/core/alife/SmartCover";
 import { ESmartTerrainStatus, SmartTerrainControl } from "@/mod/scripts/core/alife/SmartTerrainControl";
 import { Squad } from "@/mod/scripts/core/alife/Squad";
@@ -56,7 +56,7 @@ import {
   softResetOfflineObject,
 } from "@/mod/scripts/core/database";
 import { get_sim_board, SimBoard } from "@/mod/scripts/core/database/SimBoard";
-import { evaluate_prior, get_sim_obj_registry } from "@/mod/scripts/core/database/SimObjectsRegistry";
+import { evaluate_prior, getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimObjectsRegistry";
 import { get_smart_terrain_name } from "@/mod/scripts/core/database/smart_names";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";
 import { activateSchemeBySection } from "@/mod/scripts/core/schemes/base/activateSchemeBySection";
@@ -227,7 +227,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
     logger.info("Register:", this.id, this.name(), this.section_name());
     checkSpawnIniForStoryId(this);
 
-    get_sim_obj_registry().register(this);
+    getSimulationObjectsRegistry().register(this);
 
     if (gameConfig.DEBUG.IS_SMARTS_DEBUG_ENABLED) {
       this.refresh();
@@ -259,7 +259,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
     this.board.unregister_smart(this);
     smart_terrains_by_name.delete(this.name());
     unregisterStoryObjectById(this.id);
-    get_sim_obj_registry().unregister(this);
+    getSimulationObjectsRegistry().unregister(this);
   }
 
   public read_params(): void {
@@ -349,7 +349,6 @@ export class SmartTerrain extends cse_alife_smart_zone {
     }
 
     if (level.patrol_path_exists(this.name() + "_traveller_actor")) {
-      logger.warn("No traveller_actor path:", this.name());
       this.traveler_actor_path = this.name() + "_traveller_actor";
     }
 
@@ -359,7 +358,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
     }
 
     if (!SMART_TERRAIN_MASKS_LTX.section_exist(this.name())) {
-      logger.info("No terrain_mask section in smart_terrain_masks.ltx:", this.name());
+      logger.warn("No terrain_mask section in smart_terrain_masks.ltx:", this.name());
     }
   }
 
@@ -369,13 +368,13 @@ export class SmartTerrain extends cse_alife_smart_zone {
   public fill_npc_info(object: XR_cse_alife_creature_abstract): INpcInfo {
     const npcInfo: INpcInfo = {} as any;
 
-    logger.info("Filling npc_info for obj:", object.name());
+    logger.info("Filling npc_info for object:", object.name());
 
     const isObjectStalker: boolean = isStalker(object);
 
     npcInfo.se_obj = object;
     npcInfo.is_monster = !isObjectStalker;
-    npcInfo.need_job = "nil";
+    npcInfo.need_job = STRINGIFIED_NIL;
     npcInfo.job_prior = -1;
     npcInfo.job_id = -1;
     npcInfo.begin_job = false;
@@ -1243,7 +1242,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
       this.base_on_actor_control.update();
     }
 
-    get_sim_obj_registry().update_avaliability(this);
+    getSimulationObjectsRegistry().update_avaliability(this);
   }
 
   /**
@@ -1665,7 +1664,7 @@ function arrived_to_smart(obj: XR_cse_alife_creature_abstract, smart: SmartTerra
 
     if (squad !== null && squad.current_action) {
       if (squad.current_action.name === "reach_target") {
-        const squad_target = get_sim_obj_registry().objects.get(squad.assigned_target_id!);
+        const squad_target = getSimulationObjectsRegistry().objects.get(squad.assigned_target_id!);
 
         if (squad_target !== null) {
           return squad_target.am_i_reached(squad);

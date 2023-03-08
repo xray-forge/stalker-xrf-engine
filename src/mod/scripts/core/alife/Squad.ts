@@ -29,11 +29,11 @@ import { SMART_TERRAIN_SECT } from "@/mod/globals/sections";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { AnyCallablesModule, AnyObject, Optional, TCount, TNumberId } from "@/mod/lib/types";
 import { TSection } from "@/mod/lib/types/scheme";
-import { simulation_activities } from "@/mod/scripts/core/alife/SimActivity";
-import { SimSquadReachTargetAction } from "@/mod/scripts/core/alife/SimSquadReachTargetAction";
-import { SimSquadStayOnTargetAction } from "@/mod/scripts/core/alife/SimSquadStayOnTargetAction";
+import { simulation_activities } from "@/mod/scripts/core/alife/SimulationActivity";
 import type { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { ESmartTerrainStatus } from "@/mod/scripts/core/alife/SmartTerrainControl";
+import { SquadReachTargetAction } from "@/mod/scripts/core/alife/SquadReachTargetAction";
+import { SquadStayOnTargetAction } from "@/mod/scripts/core/alife/SquadStayOnTargetAction";
 import {
   registry,
   SMART_TERRAIN_MASKS_LTX,
@@ -42,7 +42,7 @@ import {
   SYSTEM_INI,
 } from "@/mod/scripts/core/database";
 import { get_sim_board, SimBoard } from "@/mod/scripts/core/database/SimBoard";
-import { evaluate_prior, get_sim_obj_registry } from "@/mod/scripts/core/database/SimObjectsRegistry";
+import { evaluate_prior, getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimObjectsRegistry";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";
 import { get_sound_manager, SoundManager } from "@/mod/scripts/core/sound/SoundManager";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
@@ -68,7 +68,7 @@ import {
 } from "@/mod/scripts/utils/relations";
 import { isEmpty } from "@/mod/scripts/utils/table";
 
-const logger: LuaLogger = new LuaLogger("SimSquad");
+const logger: LuaLogger = new LuaLogger("Squad");
 
 const smarts_by_no_assault_zones: LuaTable<string, string> = {
   ["zat_a2_sr_no_assault"]: "zat_stalker_base_smart",
@@ -102,7 +102,7 @@ export class Squad<
   public current_spot_id: Optional<number> = null;
   public spot_section: Optional<string> = null;
 
-  public current_action: Optional<SimSquadStayOnTargetAction | SimSquadReachTargetAction> = null;
+  public current_action: Optional<SquadStayOnTargetAction | SquadReachTargetAction> = null;
   public current_target_id: Optional<any> = null;
   public assigned_target_id: Optional<number> = null;
 
@@ -319,7 +319,7 @@ export class Squad<
     super.update();
     this.refresh();
 
-    get_sim_obj_registry().update_avaliability(this);
+    getSimulationObjectsRegistry().update_avaliability(this);
 
     this.check_invulnerability();
 
@@ -468,7 +468,7 @@ export class Squad<
           squad_target.on_after_reach(this);
         }
 
-        this.current_action = new SimSquadStayOnTargetAction(this);
+        this.current_action = new SquadStayOnTargetAction(this);
         this.current_target_id = this.assigned_target_id;
         this.current_action.make(under_simulation);
 
@@ -477,11 +477,11 @@ export class Squad<
     }
 
     if (this.assigned_target_id === this.current_target_id || this.assigned_target_id === null) {
-      this.current_action = new SimSquadStayOnTargetAction(this);
+      this.current_action = new SquadStayOnTargetAction(this);
       this.current_target_id = this.assigned_target_id;
       this.current_action.make(under_simulation);
     } else {
-      this.current_action = new SimSquadReachTargetAction(this);
+      this.current_action = new SquadReachTargetAction(this);
       this.current_action.make(under_simulation);
     }
   }
@@ -632,8 +632,6 @@ export class Squad<
    */
   public set_location_types_section(section: string): void {
     if (SMART_TERRAIN_MASKS_LTX.section_exist(section)) {
-      logger.info("Set location types section:", this.name(), section);
-
       const [result, id, value] = SMART_TERRAIN_MASKS_LTX.r_line(section, 0, "", "");
 
       this.add_location_type(id);
@@ -644,7 +642,7 @@ export class Squad<
    * todo;
    */
   public set_location_types(new_smart_name?: string): void {
-    logger.info("Set location types");
+    logger.info("Set location types:", this.name(), new_smart_name);
 
     const default_location = "stalker_terrain";
 
@@ -665,7 +663,7 @@ export class Squad<
     } else {
       this.set_location_types_section("squad_terrain");
 
-      for (const [k, v] of get_sim_obj_registry().objects) {
+      for (const [k, v] of getSimulationObjectsRegistry().objects) {
         if (alife().object(k)?.clsid() === clsid.smart_terrain) {
           const props_base = alife().object<SmartTerrain>(k)!.props && alife().object<SmartTerrain>(k)!.props["base"];
 
@@ -722,7 +720,7 @@ export class Squad<
    * todo;
    */
   public create_npc(spawn_smart: SmartTerrain): void {
-    logger.info("Create npc:", this.name(), spawn_smart?.name());
+    logger.info("Create object:", this.name(), spawn_smart?.name());
 
     const spawn_sections = parseNames(getConfigString(SYSTEM_INI, this.settings_id, "npc", this, false, "", ""));
 
@@ -943,7 +941,7 @@ export class Squad<
     super.on_register();
     this.board.squads.set(this.id, this);
     checkSpawnIniForStoryId(this);
-    get_sim_obj_registry().register(this);
+    getSimulationObjectsRegistry().register(this);
   }
 
   /**
@@ -955,7 +953,7 @@ export class Squad<
     this.board.squads.delete(this.id);
     this.board.assign_squad_to_smart(this, null);
     super.on_unregister();
-    get_sim_obj_registry().unregister(this);
+    getSimulationObjectsRegistry().unregister(this);
 
     if (this.respawn_point_id !== null) {
       const smart = alife().object<SmartTerrain>(this.respawn_point_id)!;
@@ -1313,7 +1311,7 @@ function set_relation(
   npc2: Optional<XR_cse_alife_creature_abstract>,
   new_relation: TRelation
 ): void {
-  logger.info("Set relation:", npc1?.name(), npc2?.name(), new_relation);
+  logger.info("Set relation:", npc1?.name(), "->", npc2?.name(), "@", new_relation);
 
   let reputation: TCount = goodwill.neutral;
 

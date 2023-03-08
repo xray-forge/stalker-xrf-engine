@@ -24,6 +24,13 @@ import { getClsId, getObjectStoryId } from "@/mod/scripts/utils/ids";
 /**
  * todo;
  */
+export function isCseAlifeObject(object: XR_cse_abstract | XR_game_object): object is XR_cse_alife_object {
+  return type(object.id) === "number";
+}
+
+/**
+ * todo;
+ */
 export function isMonster(
   object: XR_game_object | XR_cse_abstract,
   class_id?: Maybe<TXR_cls_id>

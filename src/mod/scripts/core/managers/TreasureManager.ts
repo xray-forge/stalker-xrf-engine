@@ -12,7 +12,7 @@ import {
 import { STRINGIFIED_TRUE } from "@/mod/globals/lua";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { TTreasure } from "@/mod/globals/treasures";
-import { Optional, TCount, TNumberId, TProbability, TSection } from "@/mod/lib/types";
+import { LuaArray, Optional, TCount, TNumberId, TProbability, TSection } from "@/mod/lib/types";
 import { registry, SECRETS_LTX } from "@/mod/scripts/core/database";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
@@ -25,6 +25,9 @@ import { parseConditionsList, parseSpawns, TConditionList } from "@/mod/scripts/
 
 const logger: LuaLogger = new LuaLogger("TreasureManager");
 
+/**
+ * todo;
+ */
 export interface ITreasureSecret {
   given: boolean;
   checked: boolean;
@@ -33,14 +36,11 @@ export interface ITreasureSecret {
   to_find: number;
   items: LuaTable<
     TSection, // section
-    LuaTable<
-      number,
-      {
-        count: TCount;
-        prob: TProbability;
-        item_ids: Optional<LuaTable<number, number>>;
-      }
-    >
+    LuaArray<{
+      count: TCount;
+      prob: TProbability;
+      item_ids: Optional<LuaArray<TNumberId>>;
+    }>
   >;
 }
 
@@ -120,8 +120,6 @@ export class TreasureManager extends AbstractCoreManager {
    * todo;
    */
   public fill(se_obj: XR_cse_alife_object, treasureId: TTreasure): Optional<boolean> {
-    logger.info("Fill:", se_obj.id, treasureId);
-
     if (this.secrets.get(treasureId) !== null) {
       const item = this.secrets.get(treasureId).items.get(se_obj.section_name());
 
@@ -156,8 +154,6 @@ export class TreasureManager extends AbstractCoreManager {
     const spawn_ini: XR_ini_file = alifeObject.spawn_ini();
 
     if (spawn_ini.section_exist(TreasureManager.SECRET_LTX_SECTION)) {
-      logger.info("Register secret treasure item:", alifeObject.id);
-
       const [result, id, value] = spawn_ini.r_line<string, TTreasure | "">(
         TreasureManager.SECRET_LTX_SECTION,
         0,
@@ -185,53 +181,6 @@ export class TreasureManager extends AbstractCoreManager {
 
     if (spawnIni.section_exist(TreasureManager.SECRET_LTX_SECTION)) {
       this.secret_restrs.set(alifeObject.name(), alifeObject.id);
-    }
-  }
-
-  /**
-   * todo;
-   */
-  public update(): void {
-    if (!this.items_spawned) {
-      for (const [k, v] of this.secrets) {
-        this.spawnTreasure(k);
-      }
-
-      this.items_spawned = true;
-    }
-
-    const global_time: number = time_global();
-
-    if (this.check_time && global_time - this.check_time <= 500) {
-      return;
-    }
-
-    this.check_time = global_time;
-
-    for (const [k, v] of this.secrets) {
-      if (v.given) {
-        if (v.empty) {
-          const sect = pickSectionFromCondList(registry.actor, null, v.empty as any);
-
-          if (sect === STRINGIFIED_TRUE && !v.checked) {
-            level.map_remove_object_spot(this.secret_restrs.get(k), "treasure");
-            StatisticsManager.getInstance().incrementCollectedSecretsCount();
-            v.empty = null;
-            v.checked = true;
-
-            logger.info("Empty secret, remove map spot:", k);
-          }
-        } else if (v.refreshing && v.checked) {
-          const sect = pickSectionFromCondList(registry.actor, null, v.refreshing);
-
-          if (sect === STRINGIFIED_TRUE) {
-            v.given = false;
-            v.checked = false;
-
-            logger.info("Given secret for availability:", k);
-          }
-        }
-      }
     }
   }
 
@@ -367,7 +316,54 @@ export class TreasureManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public save(packet: XR_net_packet): void {
+  public override update(): void {
+    if (!this.items_spawned) {
+      for (const [k, v] of this.secrets) {
+        this.spawnTreasure(k);
+      }
+
+      this.items_spawned = true;
+    }
+
+    const global_time: number = time_global();
+
+    if (this.check_time && global_time - this.check_time <= 500) {
+      return;
+    }
+
+    this.check_time = global_time;
+
+    for (const [k, v] of this.secrets) {
+      if (v.given) {
+        if (v.empty) {
+          const sect = pickSectionFromCondList(registry.actor, null, v.empty as any);
+
+          if (sect === STRINGIFIED_TRUE && !v.checked) {
+            level.map_remove_object_spot(this.secret_restrs.get(k), "treasure");
+            StatisticsManager.getInstance().incrementCollectedSecretsCount();
+            v.empty = null;
+            v.checked = true;
+
+            logger.info("Empty secret, remove map spot:", k);
+          }
+        } else if (v.refreshing && v.checked) {
+          const sect = pickSectionFromCondList(registry.actor, null, v.refreshing);
+
+          if (sect === STRINGIFIED_TRUE) {
+            v.given = false;
+            v.checked = false;
+
+            logger.info("Given secret for availability:", k);
+          }
+        }
+      }
+    }
+  }
+
+  /**
+   * todo;
+   */
+  public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, TreasureManager.name);
 
     packet.w_bool(this.items_spawned);
@@ -411,7 +407,7 @@ export class TreasureManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public load(reader: XR_reader): void {
+  public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, TreasureManager.name);
 
     this.items_spawned = reader.r_bool();
@@ -438,16 +434,16 @@ export class TreasureManager extends AbstractCoreManager {
         }
       }
 
-      const given = reader.r_bool();
-      const checked = reader.r_bool();
-      const to_find = reader.r_u8();
+      const isGiven: boolean = reader.r_bool();
+      const isChecked: boolean = reader.r_bool();
+      const isToFind: number = reader.r_u8();
 
       if (id !== MAX_UNSIGNED_16_BIT && this.secrets.get(id as any)) {
         const secret = this.secrets.get(id as any);
 
-        secret.given = given;
-        secret.checked = checked;
-        secret.to_find = to_find;
+        secret.given = isGiven;
+        secret.checked = isChecked;
+        secret.to_find = isToFind;
       }
     }
 

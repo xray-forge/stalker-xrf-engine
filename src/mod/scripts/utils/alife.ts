@@ -14,6 +14,7 @@ import {
   XR_entity_action,
   XR_game_object,
   XR_ini_file,
+  XR_vector,
 } from "xray16";
 
 import { communities, TCommunity } from "@/mod/globals/communities";
@@ -26,19 +27,18 @@ import {
   LuaArray,
   Maybe,
   Optional,
-  TCount,
   TName,
   TNumberId,
   TSection,
   TStringId,
 } from "@/mod/lib/types";
-import { SimSquadReachTargetAction } from "@/mod/scripts/core/alife/SimSquadReachTargetAction";
-import { SimSquadStayOnTargetAction } from "@/mod/scripts/core/alife/SimSquadStayOnTargetAction";
+import { AnyGameObject } from "@/mod/lib/types/engine";
 import { Squad } from "@/mod/scripts/core/alife/Squad";
+import { SquadReachTargetAction } from "@/mod/scripts/core/alife/SquadReachTargetAction";
+import { SquadStayOnTargetAction } from "@/mod/scripts/core/alife/SquadStayOnTargetAction";
 import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { getStoryObjectsRegistry } from "@/mod/scripts/core/database/StoryObjectsRegistry";
-import { spawnItemsForObject } from "@/mod/scripts/utils/alife_spawn";
-import { isStalker } from "@/mod/scripts/utils/checkers/is";
+import { isCseAlifeObject, isStalker } from "@/mod/scripts/utils/checkers/is";
 import {
   getConfigBoolean,
   getConfigNumber,
@@ -56,9 +56,23 @@ import { wait } from "@/mod/scripts/utils/time";
 const logger: LuaLogger = new LuaLogger("alife");
 
 /**
+ * @param object - any game object used by the game engine.
+ * @returns tuple of object position details: id, gvi, lvi, position.
+ */
+export function getObjectPositioning(
+  object: AnyGameObject
+): LuaMultiReturn<[TNumberId, TNumberId, TNumberId, XR_vector]> {
+  if (isCseAlifeObject(object)) {
+    return $multi(object.id, object.m_game_vertex_id, object.m_level_vertex_id, object.position);
+  } else {
+    return $multi(object.id(), object.game_vertex_id(), object.level_vertex_id(), object.position());
+  }
+}
+
+/**
  * todo;
  */
-export function addStoryObject(objectId: number, storyObjectId: string): void {
+export function addStoryObject(objectId: TNumberId, storyObjectId: TStringId): void {
   getStoryObjectsRegistry().register(objectId, storyObjectId);
 }
 
@@ -113,8 +127,8 @@ export function getObjectSquad(object: Optional<XR_game_object | XR_cse_alife_cr
 
 export function getObjectSquadAction(
   object: XR_game_object
-): Optional<SimSquadReachTargetAction | SimSquadStayOnTargetAction> {
-  return getObjectSquad(object)?.current_action as Optional<SimSquadReachTargetAction | SimSquadStayOnTargetAction>;
+): Optional<SquadReachTargetAction | SquadStayOnTargetAction> {
+  return getObjectSquad(object)?.current_action as Optional<SquadReachTargetAction | SquadStayOnTargetAction>;
 }
 
 /**
@@ -470,40 +484,6 @@ export function isObjectInCombat(object: XR_game_object): boolean {
   return (
     current_action_id === stalker_ids.action_combat_planner || current_action_id === stalker_ids.action_post_combat_wait
   );
-}
-
-/**
- * todo: description
- */
-export function spawnDefaultObjectItems(object: XR_game_object, state: IRegistryObjectState): void {
-  const itemsToSpawn: LuaTable<TStringId, TCount> = new LuaTable();
-  const spawnItemsSection: Optional<TSection> = getConfigString(
-    state.ini,
-    state.section_logic,
-    "spawn",
-    object,
-    false,
-    "",
-    null
-  );
-
-  if (spawnItemsSection === null) {
-    return;
-  }
-
-  const itemSectionsCount: TCount = state.ini!.line_count(spawnItemsSection);
-
-  for (const it of $range(0, itemSectionsCount - 1)) {
-    const [result, id, value] = state.ini!.r_line(spawnItemsSection, it, "", "");
-
-    itemsToSpawn.set(id, value === "" ? 1 : tonumber(value)!);
-  }
-
-  for (const [id, count] of itemsToSpawn) {
-    if (object.object(id) === null) {
-      spawnItemsForObject(object, id, count);
-    }
-  }
 }
 
 /**

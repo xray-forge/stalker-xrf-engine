@@ -35,8 +35,6 @@ export class SchemeReachTask extends AbstractScheme {
     section: TSection,
     state: ISchemeReachTaskState
   ): void {
-    logger.info("Add to binder:", object.name());
-
     const manager: XR_action_planner = object.motivation_action_manager();
     const alifeAction: XR_action_base = manager.action(stalker_ids.action_alife_planner);
     const alifeActionPlanner: XR_action_planner = cast_planner(alifeAction);

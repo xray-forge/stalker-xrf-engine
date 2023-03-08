@@ -3,15 +3,18 @@ import {
   clsid,
   TXR_cls_id,
   XR_cse_alife_creature_abstract,
+  XR_cse_alife_object,
   XR_game_object,
   XR_net_packet,
   XR_reader,
 } from "xray16";
 
+import { TInventoryItem } from "@/mod/globals/items";
 import { TArtefact } from "@/mod/globals/items/artefacts";
-import { TWeapon } from "@/mod/globals/items/weapons";
+import { TWeapon, weapons } from "@/mod/globals/items/weapons";
+import { STRINGIFIED_NIL } from "@/mod/globals/lua";
 import { TMonster } from "@/mod/globals/monsters";
-import { Optional, PartialRecord, StringOptional } from "@/mod/lib/types";
+import { Optional, PartialRecord, StringOptional, TCount, TName, TNumberId } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { isStalker } from "@/mod/scripts/utils/checkers/is";
@@ -22,19 +25,25 @@ import { getTableSize } from "@/mod/scripts/utils/table";
 
 const logger: LuaLogger = new LuaLogger("StatisticsManager");
 
+/**
+ * todo;-
+ */
 export interface IActorStatistics {
-  surges: number;
-  completed_quests: number;
-  killed_monsters: number;
-  killed_stalkers: number;
-  founded_secrets: number;
-  artefacts_founded: number;
-  best_monster_rank: number;
+  surges: TCount;
+  completed_quests: TCount;
+  killed_monsters: TCount;
+  killed_stalkers: TCount;
+  founded_secrets: TCount;
+  artefacts_founded: TCount;
+  best_monster_rank: TCount;
   best_monster: Optional<TMonster>;
   favorite_weapon_sect: Optional<TWeapon>;
 }
 
-let weapons_table: LuaTable<string, number> = {
+/**
+ * todo;-
+ */
+let weaponsTable: LuaTable<TInventoryItem, TCount> = {
   abakan: 0,
   ak74: 0,
   ak74u: 0,
@@ -71,10 +80,16 @@ let weapons_table: LuaTable<string, number> = {
   vintorez: 0,
   walther: 0,
   wincheaster1300: 0,
-} as unknown as LuaTable<string, number>;
+} as unknown as LuaTable<TInventoryItem, TCount>;
 
+/**
+ * todo;
+ */
 let taken_artefacts = {} as unknown as LuaTable<number, number>;
 
+/**
+ * todo;
+ */
 export class StatisticsManager extends AbstractCoreManager {
   public actor_statistic: IActorStatistics = {
     surges: 0,
@@ -130,119 +145,46 @@ export class StatisticsManager extends AbstractCoreManager {
     [clsid.tushkano_s]: "tushkano",
   };
 
-  public load(reader: XR_reader): void {
-    this.actor_statistic = {} as IActorStatistics;
-    this.actor_statistic.surges = reader.r_u16();
-    this.actor_statistic.completed_quests = reader.r_u16();
-    this.actor_statistic.killed_monsters = reader.r_u32();
-    this.actor_statistic.killed_stalkers = reader.r_u32();
-    this.actor_statistic.founded_secrets = reader.r_u16();
-    this.actor_statistic.artefacts_founded = reader.r_u16();
-    this.actor_statistic.best_monster_rank = reader.r_u32();
-
-    const bestMonster: StringOptional<TMonster> = reader.r_stringZ();
-
-    this.actor_statistic.best_monster = bestMonster === "nil" ? null : bestMonster;
-
-    const favoriteWeapon: StringOptional<TWeapon> = reader.r_stringZ();
-
-    this.actor_statistic.favorite_weapon_sect = favoriteWeapon === "nil" ? null : favoriteWeapon;
-
-    weapons_table = new LuaTable();
-
-    const weaponsCount: number = reader.r_u8();
-
-    for (const it of $range(1, weaponsCount)) {
-      const k = reader.r_stringZ();
-      const v = reader.r_float();
-
-      weapons_table.set(k, v);
-    }
-
-    this.artefacts_table = new LuaTable();
-
-    const artefactsCount = reader.r_u8();
-
-    for (const i of $range(1, artefactsCount)) {
-      const k: TArtefact = reader.r_stringZ();
-      const v: boolean = reader.r_bool();
-
-      this.artefacts_table.set(k, v);
-    }
-
-    taken_artefacts = new LuaTable();
-
-    const n = reader.r_u8();
-
-    for (const i of $range(1, n)) {
-      const k: number = reader.r_u32();
-
-      taken_artefacts.set(k, k);
-    }
-  }
-
-  public save(packet: XR_net_packet): void {
-    packet.w_u16(this.actor_statistic.surges);
-    packet.w_u16(this.actor_statistic.completed_quests);
-    packet.w_u32(this.actor_statistic.killed_monsters);
-    packet.w_u32(this.actor_statistic.killed_stalkers);
-    packet.w_u16(this.actor_statistic.founded_secrets);
-    packet.w_u16(this.actor_statistic.artefacts_founded);
-    packet.w_u32(this.actor_statistic.best_monster_rank);
-    packet.w_stringZ(tostring(this.actor_statistic.best_monster));
-    packet.w_stringZ(tostring(this.actor_statistic.favorite_weapon_sect));
-
-    const weaponsCount = getTableSize(weapons_table);
-
-    packet.w_u8(weaponsCount);
-
-    for (const [k, v] of weapons_table) {
-      packet.w_stringZ(tostring(k));
-      packet.w_float(v);
-    }
-
-    const artefactsCount: number = getTableSize(this.artefacts_table);
-
-    packet.w_u8(artefactsCount);
-
-    for (const [k, v] of this.artefacts_table) {
-      packet.w_stringZ(tostring(k));
-      packet.w_bool(v);
-    }
-
-    const takenArtefactsCount: number = getTableSize(taken_artefacts);
-
-    packet.w_u8(takenArtefactsCount);
-    for (const [k, v] of taken_artefacts) {
-      packet.w_u32(k);
-    }
-  }
-
+  /**
+   * todo;
+   */
   public incrementSurgesCount(): void {
     logger.info("Increment surges count");
     this.actor_statistic.surges += 1;
   }
 
+  /**
+   * todo;
+   */
   public incrementCompletedQuestsCount(): void {
     logger.info("Increment completed quests count");
     this.actor_statistic.completed_quests += 1;
   }
 
+  /**
+   * todo;
+   */
   public incrementKilledMonstersCount(): void {
     logger.info("Increment killed monsters count");
     this.actor_statistic.killed_monsters += 1;
   }
 
+  /**
+   * todo;
+   */
   public incrementKilledStalkersCount(): void {
     logger.info("Increment killed stalkers count");
     this.actor_statistic.killed_stalkers += 1;
   }
 
+  /**
+   * todo;
+   */
   public incrementCollectedArtefactsCount(artefact: XR_game_object): void {
     logger.info("Increment collected artefacts count");
     // todo: Probably section vs section name should be checked and simplified.
 
-    const art_id: number = artefact.id();
+    const art_id: TNumberId = artefact.id();
 
     if (!taken_artefacts.has(art_id)) {
       this.actor_statistic.artefacts_founded += 1;
@@ -256,52 +198,61 @@ export class StatisticsManager extends AbstractCoreManager {
     }
   }
 
+  /**
+   * todo;
+   */
   public incrementCollectedSecretsCount(): void {
     logger.info("Increment collected secrets count");
     this.actor_statistic.founded_secrets += 1;
   }
 
-  public updateBestWeapon(hitAmount: number): void {
+  /**
+   * todo;
+   */
+  public updateBestWeapon(hitAmount: TCount): void {
     const active_item = registry.actor.active_item();
 
     if (active_item) {
-      const s_obj = alife().object(active_item.id());
+      const serverObject: Optional<XR_cse_alife_object> = alife().object(active_item.id());
 
-      if (s_obj) {
-        const s = s_obj.section_name();
+      if (serverObject) {
+        const sectionName: TName = serverObject.section_name();
 
-        for (const w of string.gfind(s, "%w+")) {
-          if (weapons_table.has(w)) {
-            weapons_table.set(w, weapons_table.get(w) + hitAmount);
+        for (const weapon of string.gfind(sectionName, "%w+")) {
+          if (weaponsTable.has(weapon as TWeapon)) {
+            weaponsTable.set(weapon as TWeapon, weaponsTable.get(weapon as TWeapon) + hitAmount);
           }
         }
       }
     }
 
-    let amount = 0;
+    let amount: TCount = 0;
 
     // todo: Why so complex? Probably just use normal namings
-    for (const [k, v] of weapons_table) {
-      if (v > amount) {
-        amount = v;
-        if (k === "rgd5" || k === "f1") {
-          this.actor_statistic.favorite_weapon_sect = ("grenade_" + k) as TWeapon;
+    for (const [weapon, value] of weaponsTable) {
+      if (value > amount) {
+        amount = value;
+        if (weapon === ("rgd5" as TInventoryItem) || weapon === ("f1" as TInventoryItem)) {
+          this.actor_statistic.favorite_weapon_sect = ("grenade_" + weapon) as TWeapon;
         } else {
-          this.actor_statistic.favorite_weapon_sect = ("wpn_" + k) as TWeapon;
+          this.actor_statistic.favorite_weapon_sect = ("wpn_" + weapon) as TWeapon;
         }
 
-        if (k === "desert") {
-          this.actor_statistic.favorite_weapon_sect = "wpn_desert_eagle";
-        } else if (k === "rg") {
-          this.actor_statistic.favorite_weapon_sect = "wpn_rg-6";
+        if (weapon === ("desert" as TInventoryItem)) {
+          this.actor_statistic.favorite_weapon_sect = weapons.wpn_desert_eagle;
+        } else if (weapon === ("rg" as TInventoryItem)) {
+          this.actor_statistic.favorite_weapon_sect = weapons["wpn_rg-6"];
         }
       }
     }
   }
 
+  /**
+   * todo;
+   */
   public updateBestMonsterKilled(object: XR_game_object): void {
     if (isStalker(object)) {
-      // --        actor_statistic.best_monster = "stalker"
+      // -- actor_statistic.best_monster = "stalker"
     } else {
       let community = this.monster_classes[getClsId(object)];
 
@@ -313,12 +264,12 @@ export class StatisticsManager extends AbstractCoreManager {
         );
       }
 
-      const s_obj: Optional<XR_cse_alife_creature_abstract> = alife().object<XR_cse_alife_creature_abstract>(
+      const serverObject: Optional<XR_cse_alife_creature_abstract> = alife().object<XR_cse_alife_creature_abstract>(
         object.id()
       );
 
-      if (s_obj) {
-        const rank = s_obj.rank();
+      if (serverObject) {
+        const rank = serverObject.rank();
 
         if (community === "flesh") {
           if (rank === 3) {
@@ -361,6 +312,100 @@ export class StatisticsManager extends AbstractCoreManager {
           this.actor_statistic.best_monster = community as TMonster;
         }
       }
+    }
+  }
+
+  /**
+   * todo;
+   */
+  public override load(reader: XR_reader): void {
+    this.actor_statistic = {} as IActorStatistics;
+    this.actor_statistic.surges = reader.r_u16();
+    this.actor_statistic.completed_quests = reader.r_u16();
+    this.actor_statistic.killed_monsters = reader.r_u32();
+    this.actor_statistic.killed_stalkers = reader.r_u32();
+    this.actor_statistic.founded_secrets = reader.r_u16();
+    this.actor_statistic.artefacts_founded = reader.r_u16();
+    this.actor_statistic.best_monster_rank = reader.r_u32();
+
+    const bestMonster: StringOptional<TMonster> = reader.r_stringZ();
+
+    this.actor_statistic.best_monster = bestMonster === STRINGIFIED_NIL ? null : bestMonster;
+
+    const favoriteWeapon: StringOptional<TWeapon> = reader.r_stringZ();
+
+    this.actor_statistic.favorite_weapon_sect = favoriteWeapon === STRINGIFIED_NIL ? null : favoriteWeapon;
+
+    weaponsTable = new LuaTable();
+
+    const weaponsCount: number = reader.r_u8();
+
+    for (const it of $range(1, weaponsCount)) {
+      const k: TWeapon = reader.r_stringZ();
+      const v: TCount = reader.r_float();
+
+      weaponsTable.set(k, v);
+    }
+
+    this.artefacts_table = new LuaTable();
+
+    const artefactsCount = reader.r_u8();
+
+    for (const i of $range(1, artefactsCount)) {
+      const k: TArtefact = reader.r_stringZ();
+      const v: boolean = reader.r_bool();
+
+      this.artefacts_table.set(k, v);
+    }
+
+    taken_artefacts = new LuaTable();
+
+    const n = reader.r_u8();
+
+    for (const i of $range(1, n)) {
+      const k: number = reader.r_u32();
+
+      taken_artefacts.set(k, k);
+    }
+  }
+
+  /**
+   * todo;
+   */
+  public override save(packet: XR_net_packet): void {
+    packet.w_u16(this.actor_statistic.surges);
+    packet.w_u16(this.actor_statistic.completed_quests);
+    packet.w_u32(this.actor_statistic.killed_monsters);
+    packet.w_u32(this.actor_statistic.killed_stalkers);
+    packet.w_u16(this.actor_statistic.founded_secrets);
+    packet.w_u16(this.actor_statistic.artefacts_founded);
+    packet.w_u32(this.actor_statistic.best_monster_rank);
+    packet.w_stringZ(tostring(this.actor_statistic.best_monster));
+    packet.w_stringZ(tostring(this.actor_statistic.favorite_weapon_sect));
+
+    const weaponsCount: TCount = getTableSize(weaponsTable);
+
+    packet.w_u8(weaponsCount);
+
+    for (const [k, v] of weaponsTable) {
+      packet.w_stringZ(tostring(k));
+      packet.w_float(v);
+    }
+
+    const artefactsCount: number = getTableSize(this.artefacts_table);
+
+    packet.w_u8(artefactsCount);
+
+    for (const [k, v] of this.artefacts_table) {
+      packet.w_stringZ(tostring(k));
+      packet.w_bool(v);
+    }
+
+    const takenArtefactsCount: TCount = getTableSize(taken_artefacts);
+
+    packet.w_u8(takenArtefactsCount);
+    for (const [k, v] of taken_artefacts) {
+      packet.w_u32(k);
     }
   }
 }

@@ -1,7 +1,7 @@
 import { alife, level, XR_game_object, XR_ini_file } from "xray16";
 
 import { communities, TCommunity } from "@/mod/globals/communities";
-import { ammo, TAmmoItem } from "@/mod/globals/items/ammo";
+import { TInventoryItem } from "@/mod/globals/items";
 import { misc } from "@/mod/globals/items/misc";
 import { TLevel } from "@/mod/globals/levels";
 import { STRINGIFIED_TRUE } from "@/mod/globals/lua";
@@ -10,12 +10,12 @@ import { Stalker } from "@/mod/scripts/core/alife/Stalker";
 import { DEATH_GENERIC_LTX, IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { getCharacterCommunity, setItemCondition } from "@/mod/scripts/utils/alife";
-import { spawnAmmoForObject, spawnItemsForObject } from "@/mod/scripts/utils/alife_spawn";
 import { isExcludedFromLootDropItem } from "@/mod/scripts/utils/checkers/checkers";
 import { isAmmoItem, isArtefact, isGrenade, isLootableItem, isWeapon } from "@/mod/scripts/utils/checkers/is";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseNames, parseNumbers } from "@/mod/scripts/utils/parse";
+import { spawnItemsForObject } from "@/mod/scripts/utils/spawn";
 
 const logger: LuaLogger = new LuaLogger("DropManager");
 
@@ -40,7 +40,7 @@ export class DropManager extends AbstractCoreManager {
   /**
    * List of items by community that drop with specified probability.
    */
-  protected readonly itemsByCommunity: LuaTable<TCommunity, LuaTable<TStringId, TProbability>> = new LuaTable();
+  protected readonly itemsByCommunity: LuaTable<TCommunity, LuaTable<TInventoryItem, TProbability>> = new LuaTable();
 
   /**
    * Dependent items by section id.
@@ -73,7 +73,7 @@ export class DropManager extends AbstractCoreManager {
 
     // Initialize communities drop.
     for (const [community] of communities as any as LuaTable<TCommunity, TCommunity>) {
-      const communityDrop: LuaTable<TStringId, TProbability> = new LuaTable();
+      const communityDrop: LuaTable<TInventoryItem, TProbability> = new LuaTable();
 
       if (DEATH_GENERIC_LTX.section_exist(community)) {
         const communityDropItemsCount: number = DEATH_GENERIC_LTX.line_count(community);
@@ -81,7 +81,7 @@ export class DropManager extends AbstractCoreManager {
         for (const it of $range(0, communityDropItemsCount - 1)) {
           const [result, id, value] = DEATH_GENERIC_LTX.r_line(community, it, "", "");
 
-          communityDrop.set(id, 100 * tonumber(value)!);
+          communityDrop.set(id as TInventoryItem, 100 * tonumber(value)!);
         }
       }
 
@@ -159,6 +159,8 @@ export class DropManager extends AbstractCoreManager {
    * @param object - target object to create release items.
    */
   public createCorpseReleaseItems(object: XR_game_object): void {
+    logger.info("Create corpse release items:", object.name());
+
     const alifeObject: Optional<Stalker> = alife().object<Stalker>(object.id());
 
     if (alifeObject === null || alifeObject.isCorpseLootDropped) {
@@ -168,17 +170,17 @@ export class DropManager extends AbstractCoreManager {
     alifeObject.isCorpseLootDropped = true;
     object.iterate_inventory((object, item) => this.releaseItem(object, item), object);
 
-    if (object.spawn_ini()?.section_exist(DropManager.DONT_SPAWN_LOOT_LTX_SECTION)) {
+    if (object.spawn_ini().section_exist(DropManager.DONT_SPAWN_LOOT_LTX_SECTION)) {
       return;
     }
 
     const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
 
-    if (state?.ini?.line_exist(state.section_logic, DropManager.DONT_SPAWN_LOOT_LTX_SECTION)) {
+    if (state.ini?.line_exist(state.section_logic, DropManager.DONT_SPAWN_LOOT_LTX_SECTION)) {
       return;
     }
 
-    const spawnItems: Optional<LuaTable<TStringId, TProbability>> = this.itemsByCommunity.get(
+    const spawnItems: Optional<LuaTable<TInventoryItem, TProbability>> = this.itemsByCommunity.get(
       getCharacterCommunity(object)
     );
 
@@ -186,7 +188,7 @@ export class DropManager extends AbstractCoreManager {
       return;
     }
 
-    // Spawn dependent items (ammo etc).
+    // Spawn dependent items (ammo etc) and corpse loot.
     for (const [section, probability] of spawnItems) {
       if (this.checkItemDependentDrops(object, section)) {
         if (!this.itemsDropCountByLevel.has(section)) {
@@ -196,19 +198,10 @@ export class DropManager extends AbstractCoreManager {
         const limits: IItemDropAmountDescriptor = this.itemsDropCountByLevel.get(section);
         const count: TCount = math.ceil(math.random(limits.min, limits.max));
 
-        this.createItems(object, section, count, probability);
+        if (count > 0 && probability > 0) {
+          spawnItemsForObject(object, section, count, probability);
+        }
       }
-    }
-  }
-
-  /**
-   * todo;
-   */
-  protected createItems(object: XR_game_object, section: TSection, count: number, probability: number): void {
-    if (ammo[section as TAmmoItem]) {
-      spawnAmmoForObject(object, section as TAmmoItem, count);
-    } else {
-      spawnItemsForObject(object, section, count, probability);
     }
   }
 
@@ -226,15 +219,12 @@ export class DropManager extends AbstractCoreManager {
     }
 
     if (isExcludedFromLootDropItem(item)) {
-      logger.info("Release excluded from drop item:", object.name(), item.name(), section);
       alife().release(alife().object(item.id()), true);
 
       return;
     }
 
     if (isArtefact(item)) {
-      logger.info("Keep item, artefact:", object.name(), item.name(), section);
-
       return;
     }
 
@@ -245,8 +235,6 @@ export class DropManager extends AbstractCoreManager {
     }
 
     if (section === misc.bolt) {
-      logger.info("Keep item, bolt:", object.name(), item.name(), section);
-
       return;
     }
 
@@ -261,7 +249,7 @@ export class DropManager extends AbstractCoreManager {
     }
 
     if (isLootableItem(item) && !isAmmoItem(item)) {
-      logger.info("Keep item, misc lootable", object.name(), item.name(), section);
+      logger.info("Keep item, misc lootable:", object.name(), item.name(), section);
 
       return;
     }

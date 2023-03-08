@@ -27,8 +27,6 @@ export class SchemePostProcess extends AbstractScheme {
     section: TSection,
     state: ISchemePostProcessState
   ): void {
-    logger.info("Add to binder:", object.name());
-
     subscribeActionForEvents(object, state, new SchemePostProcessManager(object, state));
   }
 

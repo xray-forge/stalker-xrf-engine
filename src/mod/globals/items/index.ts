@@ -9,6 +9,9 @@ import { TOutfit, TOutfits } from "@/mod/globals/items/outfits";
 import { TWeaponAddon, TWeaponAddons } from "@/mod/globals/items/weapon_addons";
 import { TWeapon, TWeapons } from "@/mod/globals/items/weapons";
 
+/**
+ * todo;
+ */
 export type TInventoryItems =
   | TAmmoItems
   | TArtefacts
@@ -21,6 +24,9 @@ export type TInventoryItems =
   | TWeaponAddons
   | TWeapons;
 
+/**
+ * todo;
+ */
 export type TInventoryItem =
   | TAmmoItem
   | TArtefact

@@ -33,9 +33,7 @@ const logger: LuaLogger = new LuaLogger("Monster");
 @LuabindClass()
 export class Monster extends cse_alife_monster_base {
   public ini: Optional<XR_ini_file> = null;
-  public min_distance: number = 150;
-  public m_registred: boolean = false;
-  public job_online: Optional<number> = null;
+  public isRegistered: boolean = false;
 
   /**
    * todo;
@@ -136,7 +134,7 @@ export class Monster extends cse_alife_monster_base {
     logger.info("Register:", this.id, this.name(), this.section_name());
     checkSpawnIniForStoryId(this);
 
-    this.m_registred = true;
+    this.isRegistered = true;
 
     const board = get_sim_board();
 

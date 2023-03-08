@@ -25,6 +25,9 @@ export class SchemeCamper extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.CAMPER;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
+  /**
+   * todo;
+   */
   public static override addToBinder(
     object: XR_game_object,
     ini: XR_ini_file,
@@ -32,8 +35,6 @@ export class SchemeCamper extends AbstractScheme {
     section: TSection,
     state: ISchemeCamperState
   ): void {
-    logger.info("Add to binder:", object.name());
-
     const operators = {
       patrol: action_ids.stohe_camper_base + 1,
       search_corpse: action_ids.corpse_exist,
@@ -83,6 +84,9 @@ export class SchemeCamper extends AbstractScheme {
     actionCombatPlanner.add_effect(new world_property(properties.end, true));
   }
 
+  /**
+   * todo;
+   */
   public static override setScheme(
     object: XR_game_object,
     ini: XR_ini_file,

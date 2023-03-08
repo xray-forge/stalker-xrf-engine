@@ -5,7 +5,7 @@ import { Optional, TNumberId } from "@/mod/lib/types";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { Squad } from "@/mod/scripts/core/alife/Squad";
 import { registry, SIMULATION_LTX } from "@/mod/scripts/core/database";
-import { get_sim_obj_registry } from "@/mod/scripts/core/database/SimObjectsRegistry";
+import { getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimObjectsRegistry";
 import { changeTeamSquadGroup } from "@/mod/scripts/utils/alife";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -305,7 +305,7 @@ export class SimBoard {
     let most_priority_task = null;
     const max_prior = 0;
 
-    for (const [k, v] of get_sim_obj_registry().objects) {
+    for (const [k, v] of getSimulationObjectsRegistry().objects) {
       let curr_prior = 0;
 
       if (v.id !== squad.id) {

@@ -33,8 +33,6 @@ export class SchemeCorpseDetection extends AbstractScheme {
     section: TSection,
     state: ISchemeCorpseDetectionState
   ): void {
-    logger.info("Add to binder:", object.name());
-
     const operators = {
       search_corpse: action_ids.corpse_exist,
       state_mgr_to_idle_alife: action_ids.state_mgr + 2,

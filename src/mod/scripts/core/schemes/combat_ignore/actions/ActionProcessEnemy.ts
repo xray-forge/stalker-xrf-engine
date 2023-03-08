@@ -7,7 +7,7 @@ import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { ESmartTerrainStatus } from "@/mod/scripts/core/alife/SmartTerrainControl";
 import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
-import { get_sim_obj_registry, SimObjectsRegistry } from "@/mod/scripts/core/database/SimObjectsRegistry";
+import { getSimulationObjectsRegistry, SimObjectsRegistry } from "@/mod/scripts/core/database/SimObjectsRegistry";
 import { ISchemeCombatIgnoreState } from "@/mod/scripts/core/schemes/combat_ignore";
 import { isObjectInZone } from "@/mod/scripts/utils/checkers/checkers";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
@@ -142,7 +142,7 @@ export class ActionProcessEnemy {
       );
 
       if (seObject && seEnemy) {
-        const sim_obj_registry: SimObjectsRegistry = get_sim_obj_registry();
+        const sim_obj_registry: SimObjectsRegistry = getSimulationObjectsRegistry();
 
         if (
           seObject.group_id !== MAX_UNSIGNED_16_BIT &&

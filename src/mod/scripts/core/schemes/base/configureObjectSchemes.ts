@@ -7,10 +7,10 @@ import { ESchemeEvent } from "@/mod/scripts/core/schemes/base/index";
 import { disableGenericSchemes } from "@/mod/scripts/core/schemes/disableGenericSchemes";
 import { enable_generic_schemes } from "@/mod/scripts/core/schemes/enable_generic_schemes";
 import { issueSchemeEvent } from "@/mod/scripts/core/schemes/issueSchemeEvent";
-import { spawnDefaultObjectItems } from "@/mod/scripts/utils/alife";
 import { getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { getObjectBoundSmart } from "@/mod/scripts/utils/gulag";
+import { spawnDefaultObjectItems } from "@/mod/scripts/utils/spawn";
 
 /**
  * todo;

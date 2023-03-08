@@ -43,7 +43,7 @@ import {
   resetObject,
   unregisterObject,
 } from "@/mod/scripts/core/database";
-import { get_sim_obj_registry } from "@/mod/scripts/core/database/SimObjectsRegistry";
+import { getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimObjectsRegistry";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { ESchemeEvent } from "@/mod/scripts/core/schemes/base";
@@ -168,7 +168,7 @@ export class MonsterBinder extends object_binder {
     }
 
     if (squad && squad.current_action && squad.current_action.name === "reach_target") {
-      const squad_target = get_sim_obj_registry().objects.get(squad.assigned_target_id!);
+      const squad_target = getSimulationObjectsRegistry().objects.get(squad.assigned_target_id!);
 
       if (squad_target === null) {
         return;

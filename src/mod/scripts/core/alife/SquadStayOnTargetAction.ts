@@ -9,7 +9,7 @@ const STAY_POINT_IDLE_MAX = 300 * 60;
 /**
  * todo;
  */
-export class SimSquadStayOnTargetAction {
+export class SquadStayOnTargetAction {
   public readonly name: string = "stay_point";
   public start_time: Optional<XR_CTime>;
   public idle_time: number;

@@ -28,8 +28,6 @@ export class SchemeAbuse extends AbstractScheme {
     section: TSection,
     state: ISchemeAbuseState
   ): void {
-    logger.info("Add to binder:", object.name());
-
     const operators = {
       abuse: action_ids.abuse_base,
     };

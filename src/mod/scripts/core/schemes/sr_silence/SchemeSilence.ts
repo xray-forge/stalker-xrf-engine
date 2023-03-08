@@ -28,8 +28,6 @@ export class SchemeSilence extends AbstractScheme {
     section: TSection,
     state: ISchemeSilenceState
   ): void {
-    logger.info("Add to binder:", object.name());
-
     subscribeActionForEvents(object, state, new SilenceManager(object, state));
   }
 

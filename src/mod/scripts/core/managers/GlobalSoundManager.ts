@@ -255,7 +255,7 @@ export class GlobalSoundManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public save(packet: XR_net_packet): void {
+  public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, GlobalSoundManager.name);
 
     for (const [k, v] of registry.sounds.themes) {

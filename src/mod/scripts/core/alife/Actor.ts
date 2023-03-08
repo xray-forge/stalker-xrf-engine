@@ -11,13 +11,13 @@ import {
 } from "xray16";
 
 import { AnyObject, Optional, TRate, TSection, TStringId } from "@/mod/lib/types";
-import { simulation_activities } from "@/mod/scripts/core/alife/SimActivity";
+import { simulation_activities } from "@/mod/scripts/core/alife/SimulationActivity";
 import { nearest_to_actor_smart, SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { ESmartTerrainStatus, getCurrentSmartId } from "@/mod/scripts/core/alife/SmartTerrainControl";
 import { Squad } from "@/mod/scripts/core/alife/Squad";
 import { registry, softResetOfflineObject } from "@/mod/scripts/core/database";
 import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
-import { evaluate_prior, get_sim_obj_registry } from "@/mod/scripts/core/database/SimObjectsRegistry";
+import { evaluate_prior, getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimObjectsRegistry";
 import { getStoryObjectsRegistry } from "@/mod/scripts/core/database/StoryObjectsRegistry";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
@@ -30,7 +30,7 @@ const logger: LuaLogger = new LuaLogger("Actor");
  */
 @LuabindClass()
 export class Actor extends cse_alife_creature_actor {
-  public m_registred: boolean = false;
+  public isRegistered: boolean = false;
   public start_position_filled: boolean = false;
   public sim_avail: Optional<boolean> = null;
   public props!: AnyObject;
@@ -51,9 +51,9 @@ export class Actor extends cse_alife_creature_actor {
     logger.info("Register:", this.id, this.name(), this.section_name());
     getStoryObjectsRegistry().register(this.id, "actor");
 
-    get_sim_obj_registry().register(this);
+    getSimulationObjectsRegistry().register(this);
 
-    this.m_registred = true;
+    this.isRegistered = true;
 
     if (!this.start_position_filled) {
       get_sim_board().fill_start_position();
@@ -69,7 +69,7 @@ export class Actor extends cse_alife_creature_actor {
 
     super.on_unregister();
     unregisterStoryObjectById(this.id);
-    get_sim_obj_registry().unregister(this);
+    getSimulationObjectsRegistry().unregister(this);
   }
 
   /**
@@ -153,7 +153,7 @@ export class Actor extends cse_alife_creature_actor {
       ["jup_b41_sr_no_assault"]: "jup_b41",
     } as unknown as LuaTable<TStringId, TStringId>;
 
-    if (nearest_to_actor_smart.dist < 50 && !get_sim_obj_registry().objects.has(nearest_to_actor_smart.id!)) {
+    if (nearest_to_actor_smart.dist < 50 && !getSimulationObjectsRegistry().objects.has(nearest_to_actor_smart.id!)) {
       return false;
     }
 
@@ -173,12 +173,12 @@ export class Actor extends cse_alife_creature_actor {
       return true;
     }
 
-    const smart: SmartTerrain = alife().object<SmartTerrain>(getCurrentSmartId()!)!;
+    const smartTerrain: SmartTerrain = alife().object<SmartTerrain>(getCurrentSmartId()!)!;
 
     if (
-      smart.base_on_actor_control !== null &&
-      smart.base_on_actor_control.status === ESmartTerrainStatus.NORMAL &&
-      registry.zones.get(smart.base_on_actor_control.noweap_zone).inside(this.position)
+      smartTerrain.base_on_actor_control !== null &&
+      smartTerrain.base_on_actor_control.status === ESmartTerrainStatus.NORMAL &&
+      registry.zones.get(smartTerrain.base_on_actor_control.noweap_zone).inside(this.position)
     ) {
       return false;
     }

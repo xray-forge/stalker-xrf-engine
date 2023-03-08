@@ -32,6 +32,9 @@ export class WeatherManager extends AbstractCoreManager {
   public state: LuaTable<string, IWeatherState> = new LuaTable();
   public graphs: LuaTable<string, LuaTable<string, number>> = new LuaTable();
 
+  /**
+   * todo;
+   */
   public reset(): void {
     const weather: string = getConfigString(GAME_LTX, level.name(), "weathers", registry.actor, false, "", "[default]");
     const postprocess: string = getConfigString(GAME_LTX, level.name(), "postprocess", registry.actor, false, "");
@@ -52,12 +55,18 @@ export class WeatherManager extends AbstractCoreManager {
     this.last_hour = level.get_time_hours();
   }
 
+  /**
+   * todo;
+   */
   public forced_weather_change(): void {
     logger.info("Force weather change");
     this.forced_weather_change_on_time_change = true;
   }
 
-  public update(): void {
+  /**
+   * todo;
+   */
+  public override update(): void {
     if (level.is_wfx_playing()) {
       this.weather_fx = level.get_weather();
     } else {
@@ -75,6 +84,9 @@ export class WeatherManager extends AbstractCoreManager {
     }
   }
 
+  /**
+   * todo;
+   */
   public select_weather(now: boolean): void {
     const weather = pickSectionFromCondList(registry.actor, registry.actor, this.weather_list)!;
     const graph = this.get_graph_by_name(weather);
@@ -121,6 +133,9 @@ export class WeatherManager extends AbstractCoreManager {
      */
   }
 
+  /**
+   * todo;
+   */
   public init_by_graph(graph: LuaTable<string, number>, graph_name: string): IWeatherState {
     const cur_state: string = this.get_next_state(graph, "");
     const next_state = this.get_next_state(graph, cur_state);
@@ -128,6 +143,9 @@ export class WeatherManager extends AbstractCoreManager {
     return { current_state: cur_state, next_state: next_state, graph_name: graph_name, graph: graph };
   }
 
+  /**
+   * todo;
+   */
   public get_next_state(graph: LuaTable<string, number>, state: Optional<string>): string {
     let sum = 0;
 
@@ -151,6 +169,9 @@ export class WeatherManager extends AbstractCoreManager {
     return next_state as string;
   }
 
+  /**
+   * todo;
+   */
   public set_state_as_string(ss: string): void {
     this.state = new LuaTable();
     for (const [lvlstring] of string.gmatch(ss, "[^;]+")) {
@@ -179,6 +200,9 @@ export class WeatherManager extends AbstractCoreManager {
     }
   }
 
+  /**
+   * todo;
+   */
   public get_state_as_string(): string {
     const lvlstrings: LuaTable<number, string> = new LuaTable();
 
@@ -194,6 +218,9 @@ export class WeatherManager extends AbstractCoreManager {
     return table.concat(lvlstrings, ";");
   }
 
+  /**
+   * todo;
+   */
   public get_graph_by_name(name: string): LuaTable<string, number> {
     if (!this.graphs.has(name)) {
       this.graphs.set(name, parseIniSectionToArray(DYNAMIC_WEATHER_GRAPHS, name) as any);
@@ -202,23 +229,38 @@ export class WeatherManager extends AbstractCoreManager {
     return this.graphs.get(name);
   }
 
+  /**
+   * todo;
+   */
   public pack_state<T>(state: T): T {
     return state;
   }
 
+  /**
+   * todo;
+   */
   public unpack_state<T>(st: T): T {
     return st;
   }
 
+  /**
+   * todo;
+   */
   public pack_graph_name(graph_name: string): string {
     return graph_name;
   }
 
+  /**
+   * todo;
+   */
   public unpack_graph_name(grn: string): string {
     return grn;
   }
 
-  public load(reader: XR_reader): void {
+  /**
+   * todo;
+   */
+  public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, WeatherManager.name);
 
     const state_string = reader.r_stringZ();
@@ -236,7 +278,10 @@ export class WeatherManager extends AbstractCoreManager {
     setLoadMarker(reader, true, WeatherManager.name);
   }
 
-  public save(packet: XR_net_packet): void {
+  /**
+   * todo;
+   */
+  public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, WeatherManager.name);
 
     packet.w_stringZ(this.get_state_as_string());

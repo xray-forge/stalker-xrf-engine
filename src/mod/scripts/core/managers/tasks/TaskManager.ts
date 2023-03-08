@@ -86,7 +86,7 @@ export class TaskManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public save(packet: XR_net_packet): void {
+  public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, TaskObject.name);
 
     const count: TCount = getTableSize(this.taskInfo);
@@ -101,7 +101,10 @@ export class TaskManager extends AbstractCoreManager {
     setSaveMarker(packet, true, TaskObject.name);
   }
 
-  public load(reader: XR_reader): void {
+  /**
+   * todo;
+   */
+  public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, TaskObject.name);
 
     const count: TCount = reader.r_u16();

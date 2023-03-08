@@ -200,7 +200,7 @@ export class ReleaseBodyManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public save(packet: XR_net_packet): void {
+  public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, ReleaseBodyManager.name);
 
     const count: TCount = this.releaseObjectRegistry.length();
@@ -211,9 +211,9 @@ export class ReleaseBodyManager extends AbstractCoreManager {
       packet.w_u16(v.id);
     }
 
-    const level_id = game_graph().vertex(alife().actor().m_game_vertex_id).level_id();
+    const levelId: TNumberId = game_graph().vertex(alife().actor().m_game_vertex_id).level_id();
 
-    packet.w_u16(level_id);
+    packet.w_u16(levelId);
 
     setSaveMarker(packet, true, ReleaseBodyManager.name);
   }
@@ -221,7 +221,7 @@ export class ReleaseBodyManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public load(reader: XR_reader): void {
+  public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, ReleaseBodyManager.name);
 
     const count: TCount = reader.r_u16();

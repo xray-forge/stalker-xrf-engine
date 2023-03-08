@@ -289,177 +289,6 @@ export class SurgeManager extends AbstractCoreManager {
     return this.isStarted && this.ui_disabled;
   }
 
-  public update(): void {
-    if (device().precache_frame > 1) {
-      return;
-    }
-
-    if (!this.isStarted) {
-      const currentGameTime: XR_CTime = game.get_game_time();
-
-      if (this.isTimeForwarded) {
-        const diff = math.abs(this.nextScheduledSurgeDelay - currentGameTime.diffSec(this.lastSurgeTime));
-
-        if (diff < surgeConfig.INTERVAL_BETWEEN_SURGES.POST_TF_DELAY_MIN) {
-          this.nextScheduledSurgeDelay =
-            surgeConfig.INTERVAL_BETWEEN_SURGES.POST_TF_DELAY_MAX + currentGameTime.diffSec(this.lastSurgeTime);
-        }
-
-        this.isTimeForwarded = false;
-      }
-
-      if (currentGameTime.diffSec(this.lastSurgeTime) < this.nextScheduledSurgeDelay) {
-        return;
-      }
-
-      if (pickSectionFromCondList(registry.actor, null, this.surgeManagerCondlist) !== "true") {
-        return;
-      }
-
-      if (!this.getNearestAvailableCover()) {
-        return;
-      }
-
-      this.start();
-
-      return;
-    }
-
-    const surgeDuration: number = math.ceil(game.get_game_time().diffSec(this.initedTime) / level.get_time_factor());
-    const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
-
-    if (this.prev_sec !== surgeDuration) {
-      this.prev_sec = surgeDuration;
-
-      const cover = this.getNearestAvailableCover();
-
-      if (cover === null && this.surgeCoversCount === 0) {
-        this.initializeSurgeCovers();
-
-        return;
-      }
-
-      if (!isSurgeEnabledOnLevel(level.name())) {
-        this.endSurge();
-
-        return;
-      }
-
-      if (surgeDuration >= surgeConfig.DURATION) {
-        if (level !== null) {
-          if (level.name() === levels.zaton) {
-            globalSoundManager.setSoundPlaying(registry.actor.id(), "zat_a2_stalker_barmen_after_surge", null, null);
-          } else if (level.name() === levels.jupiter) {
-            globalSoundManager.setSoundPlaying(registry.actor.id(), "jup_a6_stalker_medik_after_surge", null, null);
-          } else if (!hasAlifeInfo("pri_b305_fifth_cam_end")) {
-            globalSoundManager.setSoundPlaying(registry.actor.id(), "pri_a17_kovalsky_after_surge", null, null);
-          }
-        }
-
-        this.endSurge();
-      } else {
-        if (this.loaded) {
-          if (this.blowout_sound) {
-            globalSoundManager.playLoopedSound(registry.actor.id(), "blowout_rumble");
-          }
-
-          if (this.isEffectorSet) {
-            level.add_pp_effector(post_processors.surge_shock, surge_shock_pp_eff_id, true);
-          }
-
-          if (this.second_message_given) {
-            globalSoundManager.playLoopedSound(registry.actor.id(), "surge_earthquake_sound_looped");
-            level.add_cam_effector(animations.camera_effects_earthquake, earthquake_cam_eff_id, true, "");
-          }
-
-          this.loaded = false;
-        }
-
-        this.launch_rockets();
-        if (this.isEffectorSet) {
-          level.set_pp_effector_factor(surge_shock_pp_eff_id, surgeDuration / 90, 0.1);
-        }
-
-        if (this.blowout_sound) {
-          globalSoundManager.setLoopedSoundVolume(registry.actor.id(), "blowout_rumble", surgeDuration / 180);
-        }
-
-        if (
-          surgeDuration >= 140 &&
-          !this.ui_disabled &&
-          (cover === null || !registry.objects.get(cover).object!.inside(registry.actor.position()))
-        ) {
-          let att: number = 1 - (185 - surgeDuration) / (185 - 140);
-
-          att = att * att * att * 0.3;
-
-          const h: XR_hit = new hit();
-
-          h.type = hit.telepatic;
-          h.power = att;
-          h.impulse = 0.0;
-          h.direction = new vector().set(0, 0, 1);
-          h.draftsman = registry.actor;
-
-          if (pickSectionFromCondList(registry.actor, null, this.surgeSurviveCondlist) === "true") {
-            if (registry.actor.health <= h.power) {
-              h.power = registry.actor.health - 0.05;
-              if (h.power < 0) {
-                h.power = 0;
-              }
-            }
-          }
-
-          registry.actor.hit(h);
-        }
-
-        if (surgeDuration >= 185 && !this.ui_disabled) {
-          this.kill_all_unhided();
-          this.ui_disabled = true;
-        } else if (surgeDuration >= 140 && !this.second_message_given) {
-          if (level !== null) {
-            if (level.name() === levels.zaton) {
-              globalSoundManager.setSoundPlaying(
-                registry.actor.id(),
-                "zat_a2_stalker_barmen_surge_phase_2",
-                null,
-                null
-              );
-            } else if (level.name() === levels.jupiter) {
-              globalSoundManager.setSoundPlaying(registry.actor.id(), "jup_a6_stalker_medik_phase_2", null, null);
-            } else if (!hasAlifeInfo("pri_b305_fifth_cam_end")) {
-              globalSoundManager.setSoundPlaying(registry.actor.id(), "pri_a17_kovalsky_surge_phase_2", null, null);
-            }
-          }
-
-          globalSoundManager.playLoopedSound(registry.actor.id(), "surge_earthquake_sound_looped");
-          level.add_cam_effector(animations.camera_effects_earthquake, earthquake_cam_eff_id, true, "");
-          this.second_message_given = true;
-        } else if (surgeDuration >= 100 && !this.isEffectorSet) {
-          level.add_pp_effector(post_processors.surge_shock, surge_shock_pp_eff_id, true);
-          // --                level.set_pp_effector_factor(surge_shock_pp_eff, 0, 10)
-          this.isEffectorSet = true;
-        } else if (surgeDuration >= 35 && !this.blowout_sound) {
-          globalSoundManager.setSoundPlaying(registry.actor.id(), "blowout_begin", null, null);
-          globalSoundManager.playLoopedSound(registry.actor.id(), "blowout_rumble");
-          globalSoundManager.setLoopedSoundVolume(registry.actor.id(), "blowout_rumble", 0.25);
-          this.blowout_sound = true;
-        } else if (surgeDuration >= 0 && !this.task_given) {
-          if (level.name() === levels.zaton) {
-            globalSoundManager.setSoundPlaying(registry.actor.id(), "zat_a2_stalker_barmen_surge_phase_1", null, null);
-          } else if (level.name() === levels.jupiter) {
-            globalSoundManager.setSoundPlaying(registry.actor.id(), "jup_a6_stalker_medik_phase_1", null, null);
-          } else if (!hasAlifeInfo("pri_b305_fifth_cam_end")) {
-            globalSoundManager.setSoundPlaying(registry.actor.id(), "pri_a17_kovalsky_surge_phase_1", null, null);
-          }
-
-          level.set_weather_fx("fx_surge_day_3");
-          this.giveSurgeHideTask();
-        }
-      }
-    }
-  }
-
   /**
    * todo;
    */
@@ -812,7 +641,181 @@ export class SurgeManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public save(packet: XR_net_packet): void {
+  public override update(): void {
+    if (device().precache_frame > 1) {
+      return;
+    }
+
+    if (!this.isStarted) {
+      const currentGameTime: XR_CTime = game.get_game_time();
+
+      if (this.isTimeForwarded) {
+        const diff = math.abs(this.nextScheduledSurgeDelay - currentGameTime.diffSec(this.lastSurgeTime));
+
+        if (diff < surgeConfig.INTERVAL_BETWEEN_SURGES.POST_TF_DELAY_MIN) {
+          this.nextScheduledSurgeDelay =
+            surgeConfig.INTERVAL_BETWEEN_SURGES.POST_TF_DELAY_MAX + currentGameTime.diffSec(this.lastSurgeTime);
+        }
+
+        this.isTimeForwarded = false;
+      }
+
+      if (currentGameTime.diffSec(this.lastSurgeTime) < this.nextScheduledSurgeDelay) {
+        return;
+      }
+
+      if (pickSectionFromCondList(registry.actor, null, this.surgeManagerCondlist) !== "true") {
+        return;
+      }
+
+      if (!this.getNearestAvailableCover()) {
+        return;
+      }
+
+      this.start();
+
+      return;
+    }
+
+    const surgeDuration: number = math.ceil(game.get_game_time().diffSec(this.initedTime) / level.get_time_factor());
+    const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
+
+    if (this.prev_sec !== surgeDuration) {
+      this.prev_sec = surgeDuration;
+
+      const cover = this.getNearestAvailableCover();
+
+      if (cover === null && this.surgeCoversCount === 0) {
+        this.initializeSurgeCovers();
+
+        return;
+      }
+
+      if (!isSurgeEnabledOnLevel(level.name())) {
+        this.endSurge();
+
+        return;
+      }
+
+      if (surgeDuration >= surgeConfig.DURATION) {
+        if (level !== null) {
+          if (level.name() === levels.zaton) {
+            globalSoundManager.setSoundPlaying(registry.actor.id(), "zat_a2_stalker_barmen_after_surge", null, null);
+          } else if (level.name() === levels.jupiter) {
+            globalSoundManager.setSoundPlaying(registry.actor.id(), "jup_a6_stalker_medik_after_surge", null, null);
+          } else if (!hasAlifeInfo("pri_b305_fifth_cam_end")) {
+            globalSoundManager.setSoundPlaying(registry.actor.id(), "pri_a17_kovalsky_after_surge", null, null);
+          }
+        }
+
+        this.endSurge();
+      } else {
+        if (this.loaded) {
+          if (this.blowout_sound) {
+            globalSoundManager.playLoopedSound(registry.actor.id(), "blowout_rumble");
+          }
+
+          if (this.isEffectorSet) {
+            level.add_pp_effector(post_processors.surge_shock, surge_shock_pp_eff_id, true);
+          }
+
+          if (this.second_message_given) {
+            globalSoundManager.playLoopedSound(registry.actor.id(), "surge_earthquake_sound_looped");
+            level.add_cam_effector(animations.camera_effects_earthquake, earthquake_cam_eff_id, true, "");
+          }
+
+          this.loaded = false;
+        }
+
+        this.launch_rockets();
+        if (this.isEffectorSet) {
+          level.set_pp_effector_factor(surge_shock_pp_eff_id, surgeDuration / 90, 0.1);
+        }
+
+        if (this.blowout_sound) {
+          globalSoundManager.setLoopedSoundVolume(registry.actor.id(), "blowout_rumble", surgeDuration / 180);
+        }
+
+        if (
+          surgeDuration >= 140 &&
+          !this.ui_disabled &&
+          (cover === null || !registry.objects.get(cover).object!.inside(registry.actor.position()))
+        ) {
+          let att: number = 1 - (185 - surgeDuration) / (185 - 140);
+
+          att = att * att * att * 0.3;
+
+          const h: XR_hit = new hit();
+
+          h.type = hit.telepatic;
+          h.power = att;
+          h.impulse = 0.0;
+          h.direction = new vector().set(0, 0, 1);
+          h.draftsman = registry.actor;
+
+          if (pickSectionFromCondList(registry.actor, null, this.surgeSurviveCondlist) === "true") {
+            if (registry.actor.health <= h.power) {
+              h.power = registry.actor.health - 0.05;
+              if (h.power < 0) {
+                h.power = 0;
+              }
+            }
+          }
+
+          registry.actor.hit(h);
+        }
+
+        if (surgeDuration >= 185 && !this.ui_disabled) {
+          this.kill_all_unhided();
+          this.ui_disabled = true;
+        } else if (surgeDuration >= 140 && !this.second_message_given) {
+          if (level !== null) {
+            if (level.name() === levels.zaton) {
+              globalSoundManager.setSoundPlaying(
+                registry.actor.id(),
+                "zat_a2_stalker_barmen_surge_phase_2",
+                null,
+                null
+              );
+            } else if (level.name() === levels.jupiter) {
+              globalSoundManager.setSoundPlaying(registry.actor.id(), "jup_a6_stalker_medik_phase_2", null, null);
+            } else if (!hasAlifeInfo("pri_b305_fifth_cam_end")) {
+              globalSoundManager.setSoundPlaying(registry.actor.id(), "pri_a17_kovalsky_surge_phase_2", null, null);
+            }
+          }
+
+          globalSoundManager.playLoopedSound(registry.actor.id(), "surge_earthquake_sound_looped");
+          level.add_cam_effector(animations.camera_effects_earthquake, earthquake_cam_eff_id, true, "");
+          this.second_message_given = true;
+        } else if (surgeDuration >= 100 && !this.isEffectorSet) {
+          level.add_pp_effector(post_processors.surge_shock, surge_shock_pp_eff_id, true);
+          // --                level.set_pp_effector_factor(surge_shock_pp_eff, 0, 10)
+          this.isEffectorSet = true;
+        } else if (surgeDuration >= 35 && !this.blowout_sound) {
+          globalSoundManager.setSoundPlaying(registry.actor.id(), "blowout_begin", null, null);
+          globalSoundManager.playLoopedSound(registry.actor.id(), "blowout_rumble");
+          globalSoundManager.setLoopedSoundVolume(registry.actor.id(), "blowout_rumble", 0.25);
+          this.blowout_sound = true;
+        } else if (surgeDuration >= 0 && !this.task_given) {
+          if (level.name() === levels.zaton) {
+            globalSoundManager.setSoundPlaying(registry.actor.id(), "zat_a2_stalker_barmen_surge_phase_1", null, null);
+          } else if (level.name() === levels.jupiter) {
+            globalSoundManager.setSoundPlaying(registry.actor.id(), "jup_a6_stalker_medik_phase_1", null, null);
+          } else if (!hasAlifeInfo("pri_b305_fifth_cam_end")) {
+            globalSoundManager.setSoundPlaying(registry.actor.id(), "pri_a17_kovalsky_surge_phase_1", null, null);
+          }
+
+          level.set_weather_fx("fx_surge_day_3");
+          this.giveSurgeHideTask();
+        }
+      }
+    }
+  }
+
+  /**
+   * todo;
+   */
+  public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, SurgeManager.name);
     packet.w_bool(this.isFinished);
     packet.w_bool(this.isStarted);
@@ -842,8 +845,9 @@ export class SurgeManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public load(reader: XR_reader): void {
+  public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, SurgeManager.name);
+
     this.initialize();
     this.isFinished = reader.r_bool();
     this.isStarted = reader.r_bool();

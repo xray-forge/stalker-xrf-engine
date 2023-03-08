@@ -1,16 +1,23 @@
+import { alife, game, XR_CTime, XR_net_packet, XR_reader } from "xray16";
+
 import { captions } from "@/mod/globals/captions";
 import { communities } from "@/mod/globals/communities";
 import { info_portions, TInfoPortion } from "@/mod/globals/info_portions/info_portions";
-import { AnyCallablesModule } from "@/mod/lib/types";
+import { AnyCallablesModule, Optional, TDuration } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { pstor_retrieve } from "@/mod/scripts/core/database/pstor";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { achievementIcons } from "@/mod/scripts/core/managers/achievements/AchievementIcons";
+import { achievementRewards } from "@/mod/scripts/core/managers/achievements/AchievementRewards";
 import { EAchievement } from "@/mod/scripts/core/managers/achievements/EAchievement";
+import { notificationManagerIcons } from "@/mod/scripts/core/managers/notifications";
 import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
+import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
+import { spawnItemsForObjectFromList } from "@/mod/scripts/utils/spawn";
+import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
 
 const logger: LuaLogger = new LuaLogger("AchievementsManager");
 
@@ -18,6 +25,9 @@ const logger: LuaLogger = new LuaLogger("AchievementsManager");
  * todo;
  */
 export class AchievementsManager extends AbstractCoreManager {
+  public lastDetectiveAchievementSpawnTime: Optional<XR_CTime> = null;
+  public lastMutantHunterAchievementSpawnTime: Optional<XR_CTime> = null;
+
   /**
    * todo;
    */
@@ -219,8 +229,8 @@ export class AchievementsManager extends AbstractCoreManager {
       return true;
     }
 
-    for (const [k, v] of StatisticsManager.getInstance().artefacts_table) {
-      if (!v) {
+    for (const [artefactId, isArtefactFound] of StatisticsManager.getInstance().artefacts_table) {
+      if (!isArtefactFound) {
         return false;
       }
     }
@@ -642,5 +652,116 @@ export class AchievementsManager extends AbstractCoreManager {
     }
 
     return hasAlifeInfo(info_portions.sim_stalker_help_harder);
+  }
+
+  /**
+   * todo;
+   */
+  public override update(delta: TDuration): void {
+    this.updateDetectiveAchievementRewardSpawn();
+    this.updateMutantHunterAchievementSpawn();
+  }
+
+  /**
+   * todo;
+   */
+  protected updateDetectiveAchievementRewardSpawn(): void {
+    if (!hasAlifeInfo(info_portions.detective_achievement_gained)) {
+      return;
+    } else if (this.lastDetectiveAchievementSpawnTime === null) {
+      this.lastDetectiveAchievementSpawnTime = game.get_game_time();
+    }
+
+    if (
+      game.get_game_time().diffSec(this.lastDetectiveAchievementSpawnTime) >
+      achievementRewards.ACHIEVEMENT_REWARD_SPAWN_PERIOD
+    ) {
+      spawnItemsForObjectFromList(
+        alife().object(getStoryObjectId(achievementRewards.REWARD_BOXES.ZATON)!)!,
+        achievementRewards.ITEMS[EAchievement.DETECTIVE],
+        4
+      );
+
+      NotificationManager.getInstance().sendTipNotification(
+        registry.actor,
+        captions.st_detective_news,
+        null,
+        notificationManagerIcons.got_medicine,
+        null,
+        null
+      );
+
+      this.lastDetectiveAchievementSpawnTime = game.get_game_time();
+    }
+  }
+
+  /**
+   * todo;
+   */
+  protected updateMutantHunterAchievementSpawn(): void {
+    if (!hasAlifeInfo(info_portions.mutant_hunter_achievement_gained)) {
+      return;
+    } else if (this.lastMutantHunterAchievementSpawnTime === null) {
+      this.lastMutantHunterAchievementSpawnTime = game.get_game_time();
+    }
+
+    if (
+      game.get_game_time().diffSec(this.lastMutantHunterAchievementSpawnTime) >
+      achievementRewards.ACHIEVEMENT_REWARD_SPAWN_PERIOD
+    ) {
+      spawnItemsForObjectFromList(
+        alife().object(getStoryObjectId(achievementRewards.REWARD_BOXES.JUPITER)!)!,
+        achievementRewards.ITEMS[EAchievement.MUTANT_HUNTER],
+        5
+      );
+
+      NotificationManager.getInstance().sendTipNotification(
+        registry.actor,
+        captions.st_mutant_hunter_news,
+        null,
+        notificationManagerIcons.got_ammo,
+        null,
+        null
+      );
+
+      this.lastMutantHunterAchievementSpawnTime = game.get_game_time();
+    }
+  }
+
+  /**
+   * todo;
+   * todo: Probably named section.
+   */
+  public override save(packet: XR_net_packet): void {
+    if (this.lastDetectiveAchievementSpawnTime === null) {
+      packet.w_bool(false);
+    } else {
+      packet.w_bool(true);
+      writeCTimeToPacket(packet, this.lastDetectiveAchievementSpawnTime);
+    }
+
+    if (this.lastMutantHunterAchievementSpawnTime === null) {
+      packet.w_bool(false);
+    } else {
+      packet.w_bool(true);
+      writeCTimeToPacket(packet, this.lastMutantHunterAchievementSpawnTime);
+    }
+  }
+
+  /**
+   * todo;
+   */
+  public override load(reader: XR_reader): void {
+    const hasSpawnedDetectiveLoot: boolean = reader.r_bool();
+
+    if (hasSpawnedDetectiveLoot) {
+      this.lastDetectiveAchievementSpawnTime = readCTimeFromPacket(reader);
+    }
+
+    const hasSpawnedMutantHunterLoot: boolean = reader.r_bool();
+
+    if (hasSpawnedMutantHunterLoot) {
+      this.lastMutantHunterAchievementSpawnTime = readCTimeFromPacket(reader);
+    }
   }
 }

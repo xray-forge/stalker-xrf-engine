@@ -180,23 +180,6 @@ export class MapDisplayManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public update(): void {
-    const now: TTimestamp = time_global();
-
-    if (!this.isInitialized) {
-      this.updatePrimaryObjectsDisplay();
-      this.isInitialized = true;
-    }
-
-    if (now - this.lastUpdateAt >= MapDisplayManager.UPDATES_THROTTLE) {
-      this.updateSleepZonesDisplay();
-      this.lastUpdateAt = now;
-    }
-  }
-
-  /**
-   * todo;
-   */
   public updatePrimaryObjectsDisplay(): void {
     primaryMapSpotObjects.forEach((it) => {
       const objectId: Optional<TNumberId> = getStoryObjectId(it.target);
@@ -275,6 +258,23 @@ export class MapDisplayManager extends AbstractCoreManager {
           }
         }
       }
+    }
+  }
+
+  /**
+   * todo;
+   */
+  public override update(): void {
+    const now: TTimestamp = time_global();
+
+    if (!this.isInitialized) {
+      this.updatePrimaryObjectsDisplay();
+      this.isInitialized = true;
+    }
+
+    if (now - this.lastUpdateAt >= MapDisplayManager.UPDATES_THROTTLE) {
+      this.updateSleepZonesDisplay();
+      this.lastUpdateAt = now;
     }
   }
 }
