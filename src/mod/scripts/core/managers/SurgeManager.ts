@@ -95,7 +95,7 @@ export class SurgeManager extends AbstractCoreManager {
   public surgeManagerCondlist: TConditionList = new LuaTable();
   public surgeSurviveCondlist: TConditionList = new LuaTable();
 
-  public loaded: boolean = false;
+  public isLoaded: boolean = false;
   public surge_message: string = "";
   public surge_task_sect: string = "";
 
@@ -147,15 +147,15 @@ export class SurgeManager extends AbstractCoreManager {
 
     this.surge_message = "";
     this.surge_task_sect = "";
-    this.loaded = false;
+    this.isLoaded = false;
   }
 
   /**
    * todo;
    */
   public initializeSurgeCovers(): void {
-    for (const i of $range(0, SURGE_MANAGER_LTX.line_count("list") - 1)) {
-      const [temp1, id, temp2] = SURGE_MANAGER_LTX.r_line("list", i, "", "");
+    for (const it of $range(0, SURGE_MANAGER_LTX.line_count("list") - 1)) {
+      const [temp1, id, temp2] = SURGE_MANAGER_LTX.r_line("list", it, "", "");
       const zone: Optional<XR_game_object> = registry.zones.get(id);
 
       if (zone !== null) {
@@ -180,7 +180,7 @@ export class SurgeManager extends AbstractCoreManager {
   public getNearestAvailableCover(): Optional<number> {
     logger.info("Getting nearest cover");
 
-    if (this.loaded) {
+    if (this.isLoaded) {
       this.initializeSurgeCovers();
     }
 
@@ -439,7 +439,7 @@ export class SurgeManager extends AbstractCoreManager {
       v.stop();
     }
 
-    if (this.loaded) {
+    if (this.isLoaded) {
       this.kill_all_unhided();
     }
 
@@ -710,7 +710,7 @@ export class SurgeManager extends AbstractCoreManager {
 
         this.endSurge();
       } else {
-        if (this.loaded) {
+        if (this.isLoaded) {
           if (this.blowout_sound) {
             globalSoundManager.playLoopedSound(registry.actor.id(), "blowout_rumble");
           }
@@ -724,7 +724,7 @@ export class SurgeManager extends AbstractCoreManager {
             level.add_cam_effector(animations.camera_effects_earthquake, earthquake_cam_eff_id, true, "");
           }
 
-          this.loaded = false;
+          this.isLoaded = false;
         }
 
         this.launch_rockets();
@@ -848,7 +848,6 @@ export class SurgeManager extends AbstractCoreManager {
   public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, SurgeManager.name);
 
-    this.initialize();
     this.isFinished = reader.r_bool();
     this.isStarted = reader.r_bool();
     this.lastSurgeTime = readCTimeFromPacket(reader)!;
@@ -871,7 +870,7 @@ export class SurgeManager extends AbstractCoreManager {
     }
 
     this.nextScheduledSurgeDelay = reader.r_u32();
-    this.loaded = true;
+    this.isLoaded = true;
     setLoadMarker(reader, true, SurgeManager.name);
   }
 }

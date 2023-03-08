@@ -24,20 +24,9 @@ import { post_processors } from "@/mod/globals/animation/post_processors";
 import { console_commands } from "@/mod/globals/console_commands";
 import { game_difficulties_by_number } from "@/mod/globals/game_difficulties";
 import { info_portions } from "@/mod/globals/info_portions";
-import { ammo } from "@/mod/globals/items/ammo";
-import { drugs } from "@/mod/globals/items/drugs";
 import { TLevel } from "@/mod/globals/levels";
 import { STRINGIFIED_NIL } from "@/mod/globals/lua";
-import {
-  AnyCallablesModule,
-  LuaArray,
-  Optional,
-  TCount,
-  TDuration,
-  TNumberId,
-  TSection,
-  TStringId,
-} from "@/mod/lib/types";
+import { AnyCallablesModule, Optional, TDuration, TName, TNumberId } from "@/mod/lib/types";
 import { Actor } from "@/mod/scripts/core/alife/Actor";
 import { IRegistryObjectState, registry, resetObject } from "@/mod/scripts/core/database";
 import { addActor, deleteActor } from "@/mod/scripts/core/database/actor";
@@ -66,7 +55,6 @@ import { DynamicMusicManager } from "@/mod/scripts/core/sound/DynamicMusicManage
 import { isArtefact } from "@/mod/scripts/utils/checkers/is";
 import { executeConsoleCommand } from "@/mod/scripts/utils/console";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
-import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { getTableSize } from "@/mod/scripts/utils/table";
@@ -82,7 +70,6 @@ const logger: LuaLogger = new LuaLogger("ActorBinder");
 @LuabindClass()
 export class ActorBinder extends object_binder {
   public bCheckStart: boolean = false;
-  public isSurgeManagerLoaded: boolean = false;
 
   public readonly achievementsManager: AchievementsManager = AchievementsManager.getInstance();
   public readonly dropManager: DropManager = DropManager.getInstance(false);
@@ -91,16 +78,15 @@ export class ActorBinder extends object_binder {
   public readonly mapDisplayManager: MapDisplayManager = MapDisplayManager.getInstance();
   public readonly newsManager: NotificationManager = NotificationManager.getInstance();
   public readonly releaseBodyManager: ReleaseBodyManager = ReleaseBodyManager.getInstance();
-  public readonly surgeManager: SurgeManager = SurgeManager.getInstance(false);
+  public readonly surgeManager: SurgeManager = SurgeManager.getInstance();
   public readonly taskManager: TaskManager = TaskManager.getInstance();
   public readonly travelManager: TravelManager = TravelManager.getInstance();
   public readonly treasureManager: TreasureManager = TreasureManager.getInstance();
   public readonly weatherManager: WeatherManager = WeatherManager.getInstance();
 
-  public loaded: boolean = false;
+  public isLoaded: boolean = false;
   public spawn_frame: number = 0;
-
-  public last_level_name: Optional<string> = null;
+  public lastLevelName: Optional<TName> = null;
   public deimos_intensity: Optional<number> = null;
   public loaded_active_slot: number = 3;
   public loaded_slot_applied: boolean = false;
@@ -108,7 +94,7 @@ export class ActorBinder extends object_binder {
   public weapon_hide: boolean = false;
   public weapon_hide_in_dialog: boolean = false;
 
-  public st!: IRegistryObjectState;
+  public state!: IRegistryObjectState;
 
   /**
    * todo;
@@ -142,20 +128,20 @@ export class ActorBinder extends object_binder {
 
     this.deimos_intensity = null;
 
-    if (this.st.disable_input_time === null) {
+    if (this.state.disable_input_time === null) {
       level.enable_input();
     }
 
     // todo: If needed
-    if (this.st.pstor === null) {
-      this.st.pstor = new LuaTable();
+    if (this.state.pstor === null) {
+      this.state.pstor = new LuaTable();
     }
 
     this.weatherManager.reset();
     this.dropManager.initialize();
 
     this.spawn_frame = device().frame;
-    this.loaded = false;
+    this.isLoaded = false;
 
     this.eventsManager.emitEvent(EGameEvent.ACTOR_NET_SPAWN);
 
@@ -220,8 +206,8 @@ export class ActorBinder extends object_binder {
   public override reinit(): void {
     super.reinit();
 
-    this.st = resetObject(this.object);
-    this.st.pstor = null!;
+    this.state = resetObject(this.object);
+    this.state.pstor = null!;
 
     this.object.set_callback(callback.inventory_info, this.info_callback, this);
     this.object.set_callback(callback.on_item_take, this.on_item_take, this);
@@ -340,11 +326,11 @@ export class ActorBinder extends object_binder {
     this.globalSoundManager.updateForObjectId(this.object.id());
 
     if (
-      this.st.disable_input_time !== null &&
-      game.get_game_time().diffSec(this.st.disable_input_time) >= (this.st.disable_input_idle as number)
+      this.state.disable_input_time !== null &&
+      game.get_game_time().diffSec(this.state.disable_input_time) >= (this.state.disable_input_idle as number)
     ) {
       level.enable_input();
-      this.st.disable_input_time = null;
+      this.state.disable_input_time = null;
     }
 
     if (this.object.is_talking()) {
@@ -415,11 +401,6 @@ export class ActorBinder extends object_binder {
 
     this.eventsManager.emitEvent(EGameEvent.ACTOR_UPDATE, delta);
 
-    if (!this.isSurgeManagerLoaded) {
-      this.surgeManager.initialize();
-      this.isSurgeManagerLoaded = true;
-    }
-
     if (this.surgeManager.levels_respawn[level.name() as TLevel]) {
       this.surgeManager.respawnArtefactsAndReplaceAnomalyZones();
     }
@@ -431,8 +412,8 @@ export class ActorBinder extends object_binder {
     this.treasureManager.update();
     this.mapDisplayManager.update();
 
-    if (!this.loaded) {
-      this.loaded = true;
+    if (!this.isLoaded) {
+      this.isLoaded = true;
     }
   }
 
@@ -446,11 +427,11 @@ export class ActorBinder extends object_binder {
 
     packet.w_u8(level.get_game_difficulty());
 
-    if (this.st.disable_input_time === null) {
+    if (this.state.disable_input_time === null) {
       packet.w_bool(false);
     } else {
       packet.w_bool(true);
-      writeCTimeToPacket(packet, this.st.disable_input_time);
+      writeCTimeToPacket(packet, this.state.disable_input_time);
     }
 
     pstor_save_all(this.object, packet);
@@ -461,7 +442,7 @@ export class ActorBinder extends object_binder {
     packet.w_bool(get_sim_board().simulation_started);
 
     this.globalSoundManager.saveActor(packet);
-    packet.w_stringZ(tostring(this.last_level_name));
+    packet.w_stringZ(tostring(this.lastLevelName));
     StatisticsManager.getInstance().save(packet);
     this.treasureManager.save(packet);
 
@@ -512,7 +493,7 @@ export class ActorBinder extends object_binder {
     const storedInputTime = reader.r_bool();
 
     if (storedInputTime) {
-      this.st.disable_input_time = readCTimeFromPacket(reader);
+      this.state.disable_input_time = readCTimeFromPacket(reader);
     }
 
     pstor_load_all(this.object, reader);
@@ -520,7 +501,6 @@ export class ActorBinder extends object_binder {
     this.releaseBodyManager.load(reader);
 
     this.surgeManager.load(reader);
-    this.isSurgeManagerLoaded = true;
     PsyAntennaManager.load(reader);
     get_sim_board().simulation_started = reader.r_bool();
 
@@ -529,7 +509,7 @@ export class ActorBinder extends object_binder {
     const n = reader.r_stringZ();
 
     if (n !== STRINGIFIED_NIL) {
-      this.last_level_name = n;
+      this.lastLevelName = n;
     }
 
     StatisticsManager.getInstance().load(reader);

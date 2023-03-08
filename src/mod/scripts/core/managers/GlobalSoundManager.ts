@@ -48,8 +48,6 @@ export class GlobalSoundManager extends AbstractCoreManager {
       if (playableSound.play(objectId, faction, point)) {
         logger.info("Play sound, store in table:", objectId);
         registry.sounds.generic.set(objectId, playableSound);
-      } else {
-        logger.info("Play was not successful:", objectId, sound, faction, point);
       }
     } else {
       return registry.sounds.generic.get(objectId).snd_obj;

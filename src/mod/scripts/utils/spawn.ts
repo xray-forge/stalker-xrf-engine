@@ -21,14 +21,6 @@ export function spawnItemsForObject(
   count: TCount = 1,
   probability: TProbability = 100
 ): void {
-  logger.info(
-    type(object.name) === "string" ? (object.name as any) : (object as any).name(),
-    itemSection,
-    count,
-    probability,
-    "END"
-  );
-
   if (count < 1 || probability < 0) {
     return;
   } else if (isAmmoSection(itemSection)) {

@@ -246,13 +246,15 @@ export class NpcSound extends AbstractPlayableSound {
     }
   }
 
-  public play(objectId: TNumberId, faction: string, point: Optional<string>, msg: TLabel): boolean {
-    logger.info("Play:", objectId, faction, point, msg);
+  /**
+   * todo;
+   */
+  public play(objectId: TNumberId, faction: string, point: Optional<string>, message: TLabel): boolean {
+    logger.info("Play:", objectId, faction, point, message, "#");
 
-    const npc: Optional<XR_game_object> =
-      registry.objects.get(objectId) && (registry.objects.get(objectId).object as Optional<XR_game_object>);
+    const object: Optional<XR_game_object> = registry.objects.get(objectId)?.object;
 
-    if (npc === null) {
+    if (object === null) {
       return false;
     }
 
@@ -272,10 +274,9 @@ export class NpcSound extends AbstractPlayableSound {
 
     this.played_time = null;
 
-    const npc_data = this.npc.get(objectId);
+    const objectData = this.npc.get(objectId);
 
-    if (npc_data === null) {
-      // --printf("coudnt play nodata!!!")
+    if (objectData === null) {
       return false;
     }
 
@@ -285,24 +286,22 @@ export class NpcSound extends AbstractPlayableSound {
       return false;
     }
 
-    npc.play_sound(npc_data.id, this.delay_sound + 0.06, this.delay_sound + 0.05, 1, 0, this.played_id);
+    object.play_sound(objectData.id, this.delay_sound + 0.06, this.delay_sound + 0.05, 1, 0, this.played_id);
 
     const table_id = this.played_id + 1;
     const snd = this.sound_path.get(objectId)[table_id];
-
     const fs: XR_FS = getFS();
 
     if (
       snd &&
       fs.exist("$game_sounds$", snd + "_pda.ogg") !== null &&
-      npc.position().distance_to_sqr(registry.actor.position()) >= 100
+      object.position().distance_to_sqr(registry.actor.position()) >= 100
     ) {
       if (this.pda_snd_obj !== null && this.pda_snd_obj.playing()) {
         this.pda_snd_obj.stop();
       }
 
       this.pda_snd_obj = new sound_object(snd + "_pda");
-      // --play_at_pos(CScriptGameObject *object, const Fvector &position, float delay, int flags)
       this.pda_snd_obj.play_at_pos(registry.actor, new vector().set(0, 0, 0), this.delay_sound, sound_object.s2d);
       this.pda_snd_obj.volume = 0.8;
     }
@@ -317,27 +316,27 @@ export class NpcSound extends AbstractPlayableSound {
 
     if (game.translate_string(snd_st) !== snd_st) {
       if (!faction) {
-        faction = getCharacterCommunity(npc);
+        faction = getCharacterCommunity(object);
       }
 
       // Attempt to auto-translate npc goal.
       if (!point) {
-        point = npc.profile_name() + "_name";
+        point = object.profile_name() + "_name";
         if (game.translate_string(point) === point) {
           point = null;
         }
       }
 
-      NotificationManager.getInstance().sendSoundNotification(npc, faction, point, snd, snd_st, this.delay_sound);
+      NotificationManager.getInstance().sendSoundNotification(object, faction, point, snd, snd_st, this.delay_sound);
     } else {
-      NotificationManager.getInstance().sendSoundNotification(npc, faction, point, snd, null, this.delay_sound);
+      NotificationManager.getInstance().sendSoundNotification(object, faction, point, snd, null, this.delay_sound);
     }
 
     return true;
   }
 
-  public select_next_sound(npc_id: number): number {
-    const npc_data = this.npc.get(npc_id);
+  public select_next_sound(objectId: TNumberId): number {
+    const npc_data = this.npc.get(objectId);
 
     if (this.shuffle === "rnd") {
       if (npc_data.max === 0) {
