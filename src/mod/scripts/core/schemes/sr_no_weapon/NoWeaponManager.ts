@@ -1,11 +1,11 @@
 import { game, get_hud, XR_CTime, XR_CUIGameCustom, XR_game_object, XR_StaticDrawableWrapper } from "xray16";
 
-import { Optional, TDuration } from "@/mod/lib/types";
-import { hide_weapon, restore_weapon } from "@/mod/scripts/core/binders/ActorBinder";
+import { Optional, TDuration, TNumberId } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { AbstractSchemeManager } from "@/mod/scripts/core/schemes/base/AbstractSchemeManager";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/base/trySwitchToAnotherSection";
 import { EActorZoneState, ISchemeNoWeaponState } from "@/mod/scripts/core/schemes/sr_no_weapon/ISchemeNoWeaponState";
+import { SchemeNoWeapon } from "@/mod/scripts/core/schemes/sr_no_weapon/SchemeNoWeapon";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("NoWeaponManager");
@@ -19,6 +19,16 @@ export class NoWeaponManager extends AbstractSchemeManager<ISchemeNoWeaponState>
   public currentActorState: EActorZoneState = EActorZoneState.NOWHERE;
   public noWeaponZoneLeftLabelShownAt: XR_CTime = game.CTime();
   public isNoWeaponZoneLeftLabelVisible: boolean = false;
+
+  protected scheme: typeof SchemeNoWeapon;
+
+  /**
+   * todo;
+   */
+  public constructor(object: XR_game_object, state: ISchemeNoWeaponState, scheme: typeof SchemeNoWeapon) {
+    super(object, state);
+    this.scheme = scheme;
+  }
 
   /**
    * todo;
@@ -71,36 +81,6 @@ export class NoWeaponManager extends AbstractSchemeManager<ISchemeNoWeaponState>
   /**
    * todo;
    */
-  public onZoneEnter(): void {
-    logger.info("Entering no weapon zone");
-
-    this.currentActorState = EActorZoneState.INSIDE;
-    hide_weapon(this.object.id());
-
-    this.removeCanUseWeaponLabelOnUI();
-  }
-
-  /**
-   * todo;
-   */
-  public onZoneLeave(): void {
-    logger.info("Leaving no weapon zone");
-
-    this.currentActorState = EActorZoneState.OUTSIDE;
-    restore_weapon(this.object.id());
-
-    if (registry.noWeaponZones.get(this.object.name())) {
-      registry.noWeaponZones.set(this.object.name(), false);
-    } else {
-      this.showCanUseWeaponLabelOnUI();
-    }
-
-    this.noWeaponZoneLeftLabelShownAt = game.get_game_time();
-  }
-
-  /**
-   * todo;
-   */
   public showCanUseWeaponLabelOnUI(): void {
     if (this.isNoWeaponZoneLeftLabelVisible) {
       return;
@@ -132,5 +112,35 @@ export class NoWeaponManager extends AbstractSchemeManager<ISchemeNoWeaponState>
       this.isNoWeaponZoneLeftLabelVisible = false;
       hud.RemoveCustomStatic("can_use_weapon_now");
     }
+  }
+
+  /**
+   * todo;
+   */
+  public onZoneEnter(): void {
+    logger.info("Entering no weapon zone");
+
+    this.currentActorState = EActorZoneState.INSIDE;
+    this.scheme.NO_WEAPON_ZONES_STATE.set(this.object.id(), true);
+
+    this.removeCanUseWeaponLabelOnUI();
+  }
+
+  /**
+   * todo;
+   */
+  public onZoneLeave(): void {
+    logger.info("Leaving no weapon zone");
+
+    this.currentActorState = EActorZoneState.OUTSIDE;
+    this.scheme.NO_WEAPON_ZONES_STATE.set(this.object.id(), false);
+
+    if (registry.noWeaponZones.get(this.object.name())) {
+      registry.noWeaponZones.set(this.object.name(), false);
+    } else {
+      this.showCanUseWeaponLabelOnUI();
+    }
+
+    this.noWeaponZoneLeftLabelShownAt = game.get_game_time();
   }
 }

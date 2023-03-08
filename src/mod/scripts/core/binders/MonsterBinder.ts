@@ -43,7 +43,7 @@ import {
   resetObject,
   unregisterObject,
 } from "@/mod/scripts/core/database";
-import { getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimObjectsRegistry";
+import { getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimulationObjectsRegistry";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { ESchemeEvent } from "@/mod/scripts/core/schemes/base";

@@ -16,8 +16,8 @@ import { nearest_to_actor_smart, SmartTerrain } from "@/mod/scripts/core/alife/S
 import { ESmartTerrainStatus, getCurrentSmartId } from "@/mod/scripts/core/alife/SmartTerrainControl";
 import { Squad } from "@/mod/scripts/core/alife/Squad";
 import { registry, softResetOfflineObject } from "@/mod/scripts/core/database";
-import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
-import { evaluate_prior, getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimObjectsRegistry";
+import { get_sim_board } from "@/mod/scripts/core/database/SimulationBoardManager";
+import { evaluate_prior, getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimulationObjectsRegistry";
 import { getStoryObjectsRegistry } from "@/mod/scripts/core/database/StoryObjectsRegistry";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";

@@ -11,12 +11,12 @@ import { areOnSameAlifeLevel, getAlifeDistanceBetween } from "@/mod/scripts/util
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { parseConditionsList } from "@/mod/scripts/utils/parse";
 
-let sim_objects_registry: Optional<SimObjectsRegistry> = null;
+let sim_objects_registry: Optional<SimulationObjectsRegistry> = null;
 
 /**
  * todo;
  */
-export class SimObjectsRegistry {
+export class SimulationObjectsRegistry {
   public readonly objects: LuaTable<TNumberId, Actor | Squad | SmartTerrain> = new LuaTable();
 
   public register(object: SmartTerrain | Squad | Actor): void {
@@ -81,9 +81,9 @@ export class SimObjectsRegistry {
 /**
  * todo;
  */
-export function getSimulationObjectsRegistry(): SimObjectsRegistry {
+export function getSimulationObjectsRegistry(): SimulationObjectsRegistry {
   if (sim_objects_registry === null) {
-    sim_objects_registry = new SimObjectsRegistry();
+    sim_objects_registry = new SimulationObjectsRegistry();
   }
 
   return sim_objects_registry;

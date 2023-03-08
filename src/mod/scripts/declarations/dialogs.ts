@@ -11,7 +11,7 @@ import { levels } from "@/mod/globals/levels";
 import { AnyCallablesModule, EScheme, Optional, TNumberId } from "@/mod/lib/types";
 import { update_logic } from "@/mod/scripts/core/binders/StalkerBinder";
 import { registry } from "@/mod/scripts/core/database";
-import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
+import { get_sim_board } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { ISchemeMeetState } from "@/mod/scripts/core/schemes/meet";

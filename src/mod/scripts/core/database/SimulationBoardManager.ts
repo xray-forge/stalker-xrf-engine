@@ -5,7 +5,7 @@ import { Optional, TNumberId } from "@/mod/lib/types";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { Squad } from "@/mod/scripts/core/alife/Squad";
 import { registry, SIMULATION_LTX } from "@/mod/scripts/core/database";
-import { getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimObjectsRegistry";
+import { getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimulationObjectsRegistry";
 import { changeTeamSquadGroup } from "@/mod/scripts/utils/alife";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
@@ -21,7 +21,7 @@ const group_id_by_levels: LuaTable<string, number> = {
   jupiter_underground: 5,
 } as any;
 
-let board: Optional<SimBoard> = null;
+let board: Optional<SimulationBoardManager> = null;
 
 export interface ISimSmartDescriptor {
   smrt: SmartTerrain;
@@ -32,7 +32,7 @@ export interface ISimSmartDescriptor {
 /**
  * todo;
  */
-export class SimBoard {
+export class SimulationBoardManager {
   public simulation_started: boolean = true;
 
   public players: Optional<LuaTable> = null;
@@ -333,10 +333,10 @@ export class SimBoard {
   }
 }
 
-export function get_sim_board(): SimBoard {
+export function get_sim_board(): SimulationBoardManager {
   if (board === null) {
     logger.info("Init new board");
-    board = new SimBoard();
+    board = new SimulationBoardManager();
   }
 
   return board;

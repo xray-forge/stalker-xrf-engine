@@ -40,7 +40,7 @@ import { ESmartTerrainStatus, SmartTerrainControl } from "@/mod/scripts/core/ali
 import { Squad } from "@/mod/scripts/core/alife/Squad";
 import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { pstor_retrieve } from "@/mod/scripts/core/database/pstor";
-import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
+import { get_sim_board } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { AchievementsManager } from "@/mod/scripts/core/managers/achievements/AchievementsManager";
 import { ActorInventoryMenuManager, EActorMenuMode } from "@/mod/scripts/core/managers/ActorInventoryMenuManager";
 import { ItemUpgradesManager } from "@/mod/scripts/core/managers/ItemUpgradesManager";

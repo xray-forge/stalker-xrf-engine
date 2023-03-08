@@ -14,6 +14,7 @@ import {
   vector,
   XR_CGameTask,
   XR_cse_alife_creature_actor,
+  XR_cse_alife_object,
   XR_game_object,
   XR_net_packet,
   XR_reader,
@@ -26,13 +27,13 @@ import { game_difficulties_by_number } from "@/mod/globals/game_difficulties";
 import { info_portions } from "@/mod/globals/info_portions";
 import { TLevel } from "@/mod/globals/levels";
 import { STRINGIFIED_NIL } from "@/mod/globals/lua";
-import { AnyCallablesModule, Optional, TDuration, TName, TNumberId } from "@/mod/lib/types";
+import { AnyCallablesModule, Optional, TDuration, TIndex, TName } from "@/mod/lib/types";
 import { Actor } from "@/mod/scripts/core/alife/Actor";
 import { IRegistryObjectState, registry, resetObject } from "@/mod/scripts/core/database";
-import { addActor, deleteActor } from "@/mod/scripts/core/database/actor";
+import { registerActor, unregisterActor } from "@/mod/scripts/core/database/actor";
 import { pstor_load_all, pstor_save_all } from "@/mod/scripts/core/database/pstor";
-import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
-import { getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimObjectsRegistry";
+import { get_sim_board } from "@/mod/scripts/core/database/SimulationBoardManager";
+import { getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimulationObjectsRegistry";
 import { AchievementsManager } from "@/mod/scripts/core/managers/achievements";
 import { DropManager } from "@/mod/scripts/core/managers/DropManager";
 import { EGameEvent } from "@/mod/scripts/core/managers/events/EGameEvent";
@@ -51,6 +52,7 @@ import { TreasureManager } from "@/mod/scripts/core/managers/TreasureManager";
 import { WeatherManager } from "@/mod/scripts/core/managers/WeatherManager";
 import { ISchemeDeimosState } from "@/mod/scripts/core/schemes/sr_deimos";
 import { SchemeDeimos } from "@/mod/scripts/core/schemes/sr_deimos/SchemeDeimos";
+import { SchemeNoWeapon } from "@/mod/scripts/core/schemes/sr_no_weapon";
 import { DynamicMusicManager } from "@/mod/scripts/core/sound/DynamicMusicManager";
 import { isArtefact } from "@/mod/scripts/utils/checkers/is";
 import { executeConsoleCommand } from "@/mod/scripts/utils/console";
@@ -60,8 +62,6 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { getTableSize } from "@/mod/scripts/utils/table";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
 
-let weapon_hide: LuaTable<number, boolean> = new LuaTable();
-
 const logger: LuaLogger = new LuaLogger("ActorBinder");
 
 /**
@@ -69,8 +69,6 @@ const logger: LuaLogger = new LuaLogger("ActorBinder");
  */
 @LuabindClass()
 export class ActorBinder extends object_binder {
-  public bCheckStart: boolean = false;
-
   public readonly achievementsManager: AchievementsManager = AchievementsManager.getInstance();
   public readonly dropManager: DropManager = DropManager.getInstance(false);
   public readonly eventsManager: EventsManager = EventsManager.getInstance();
@@ -84,15 +82,17 @@ export class ActorBinder extends object_binder {
   public readonly treasureManager: TreasureManager = TreasureManager.getInstance();
   public readonly weatherManager: WeatherManager = WeatherManager.getInstance();
 
+  public isStartCheckNeeded: boolean = false;
   public isLoaded: boolean = false;
-  public spawn_frame: number = 0;
+  public isLoadedSlotApplied: boolean = false;
+
+  public isWeaponHidden: boolean = false;
+  public isWeaponHiddenInDialog: boolean = false;
+
+  public spawnFrame: TIndex = 0;
+  public activeItemSlot: TIndex = 3;
   public lastLevelName: Optional<TName> = null;
   public deimos_intensity: Optional<number> = null;
-  public loaded_active_slot: number = 3;
-  public loaded_slot_applied: boolean = false;
-
-  public weapon_hide: boolean = false;
-  public weapon_hide_in_dialog: boolean = false;
 
   public state!: IRegistryObjectState;
 
@@ -112,17 +112,15 @@ export class ActorBinder extends object_binder {
 
     level.show_indicators();
 
-    this.bCheckStart = true;
-    this.weapon_hide = false;
-    this.weapon_hide_in_dialog = false;
-
-    weapon_hide = new LuaTable();
+    this.isStartCheckNeeded = true;
+    this.isWeaponHidden = false;
+    this.isWeaponHiddenInDialog = false;
 
     if (!super.net_spawn(data)) {
       return false;
     }
 
-    addActor(this.object);
+    registerActor(this.object);
 
     (registry.actor as unknown as ActorBinder).deimos_intensity = this.deimos_intensity;
 
@@ -140,7 +138,7 @@ export class ActorBinder extends object_binder {
     this.weatherManager.reset();
     this.dropManager.initialize();
 
-    this.spawn_frame = device().frame;
+    this.spawnFrame = device().frame;
     this.isLoaded = false;
 
     this.eventsManager.emitEvent(EGameEvent.ACTOR_NET_SPAWN);
@@ -169,7 +167,7 @@ export class ActorBinder extends object_binder {
     }
 
     level.show_weapon(true);
-    deleteActor();
+    unregisterActor();
 
     this.object.set_callback(callback.inventory_info, null);
     this.object.set_callback(callback.article_info, null);
@@ -182,12 +180,12 @@ export class ActorBinder extends object_binder {
     this.object.set_callback(callback.use_object, null);
 
     if (registry.sounds.effectsVolume !== 0) {
-      get_console().execute("snd_volume_eff " + tostring(registry.sounds.effectsVolume));
+      executeConsoleCommand(console_commands.snd_volume_eff, tostring(registry.sounds.effectsVolume));
       registry.sounds.effectsVolume = 0;
     }
 
     if (registry.sounds.musicVolume !== 0) {
-      get_console().execute("snd_volume_music " + tostring(registry.sounds.musicVolume));
+      executeConsoleCommand(console_commands.snd_volume_music, tostring(registry.sounds.musicVolume));
       registry.sounds.musicVolume = 0;
     }
 
@@ -240,11 +238,6 @@ export class ActorBinder extends object_binder {
   /**
    * todo;
    */
-  public article_callback(): void {}
-
-  /**
-   * todo;
-   */
   public on_item_take(object: XR_game_object): void {
     logger.info("On item take:", object.name());
 
@@ -275,11 +268,11 @@ export class ActorBinder extends object_binder {
   /**
    * todo;
    */
-  public use_inventory_item(obj: XR_game_object): void {
-    if (obj !== null) {
-      const s_obj = alife().object(obj.id());
+  public use_inventory_item(object: XR_game_object): void {
+    if (object !== null) {
+      const serverObject: Optional<XR_cse_alife_object> = alife().object(object.id());
 
-      if (s_obj && s_obj.section_name() === "drug_anabiotic") {
+      if (serverObject && serverObject.section_name() === "drug_anabiotic") {
         get_global<AnyCallablesModule>("xr_effects").disable_ui_only(registry.actor, null);
 
         level.add_cam_effector(animations.camera_effects_surge_02, 10, false, "extern.anabiotic_callback");
@@ -317,6 +310,7 @@ export class ActorBinder extends object_binder {
   public override update(delta: TDuration): void {
     super.update(delta);
 
+    // Handle input disabling.
     if (this.travelManager.isTraveling) {
       this.travelManager.onActiveTravelUpdate();
     }
@@ -325,6 +319,7 @@ export class ActorBinder extends object_binder {
     this.achievementsManager.update(delta);
     this.globalSoundManager.updateForObjectId(this.object.id());
 
+    // Handle input disabling.
     if (
       this.state.disable_input_time !== null &&
       game.get_game_time().diffSec(this.state.disable_input_time) >= (this.state.disable_input_idle as number)
@@ -334,55 +329,36 @@ export class ActorBinder extends object_binder {
     }
 
     if (this.object.is_talking()) {
-      if (this.weapon_hide_in_dialog === false) {
-        this.object.hide_weapon();
+      if (!this.isWeaponHiddenInDialog) {
         logger.info("Hiding weapon in dialog");
-        this.weapon_hide_in_dialog = true;
+        this.object.hide_weapon();
+        this.isWeaponHiddenInDialog = true;
       }
     } else {
-      if (this.weapon_hide_in_dialog === true) {
+      if (this.isWeaponHiddenInDialog) {
         logger.info("Restoring weapon in dialog");
         this.object.restore_weapon();
-        this.weapon_hide_in_dialog = false;
+        this.isWeaponHiddenInDialog = false;
       }
     }
 
-    if (check_for_weapon_hide_by_zones() === true) {
-      if (this.weapon_hide === false) {
+    if (SchemeNoWeapon.isInWeaponRestrictionZone()) {
+      if (!this.isWeaponHidden) {
         logger.info("Hiding weapon");
         this.object.hide_weapon();
-        this.weapon_hide = true;
+        this.isWeaponHidden = true;
       }
     } else {
-      if (this.weapon_hide === true) {
+      if (this.isWeaponHidden) {
         logger.info("Restoring weapon");
         this.object.restore_weapon();
-        this.weapon_hide = false;
+        this.isWeaponHidden = false;
       }
     }
 
     PsyAntennaManager.getWeakInstance()?.update(delta);
 
-    /**
-     * todo: Not implemented originally.
-     *
-     *  if this.object.radiation >= 0.7 then
-     *    const hud = get_hud()
-     *    const custom_static = hud:GetCustomStatic("cs_radiation_danger")
-     *    if custom_static === null then
-     *      hud:AddCustomStatic("cs_radiation_danger", true)
-     *      hud:GetCustomStatic("cs_radiation_danger"):wnd():TextControl():SetTextST("st_radiation_danger")
-     *    end
-     *  else
-     *    const hud = get_hud()
-     *    const custom_static = hud:GetCustomStatic("cs_radiation_danger")
-     *    if custom_static !== null then
-     *      hud:RemoveCustomStatic("cs_radiation_danger")
-     *    end
-     *  end
-     */
-
-    if (this.bCheckStart) {
+    if (this.isStartCheckNeeded) {
       if (!hasAlifeInfo(info_portions.global_dialogs)) {
         this.object.give_info_portion(info_portions.global_dialogs);
       }
@@ -391,12 +367,12 @@ export class ActorBinder extends object_binder {
         this.object.give_info_portion(info_portions.level_changer_icons);
       }
 
-      this.bCheckStart = false;
+      this.isStartCheckNeeded = false;
     }
 
-    if (!this.loaded_slot_applied) {
-      this.object.activate_slot(this.loaded_active_slot);
-      this.loaded_slot_applied = true;
+    if (!this.isLoadedSlotApplied) {
+      this.object.activate_slot(this.activeItemSlot);
+      this.isLoadedSlotApplied = true;
     }
 
     this.eventsManager.emitEvent(EGameEvent.ACTOR_UPDATE, delta);
@@ -524,12 +500,12 @@ export class ActorBinder extends object_binder {
 
     this.taskManager.load(reader);
 
-    this.loaded_active_slot = reader.r_u8();
-    this.loaded_slot_applied = false;
+    this.activeItemSlot = reader.r_u8();
+    this.isLoadedSlotApplied = false;
 
-    const b = reader.r_bool();
+    const hasDeimos: boolean = reader.r_bool();
 
-    if (b) {
+    if (hasDeimos) {
       this.deimos_intensity = reader.r_float();
     }
 
@@ -537,31 +513,4 @@ export class ActorBinder extends object_binder {
 
     setLoadMarker(reader, true, ActorBinder.__name);
   }
-}
-
-/**
- * todo;
- */
-export function check_for_weapon_hide_by_zones(): boolean {
-  for (const [k, v] of weapon_hide) {
-    if (v === true) {
-      return true;
-    }
-  }
-
-  return false;
-}
-
-/**
- * todo;
- */
-export function hide_weapon(zone_id: TNumberId): void {
-  weapon_hide.set(zone_id, true);
-}
-
-/**
- * todo;
- */
-export function restore_weapon(zone_id: TNumberId): void {
-  weapon_hide.set(zone_id, false);
 }

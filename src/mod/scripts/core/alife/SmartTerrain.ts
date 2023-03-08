@@ -55,8 +55,8 @@ import {
   SMART_TERRAIN_MASKS_LTX,
   softResetOfflineObject,
 } from "@/mod/scripts/core/database";
-import { get_sim_board, SimBoard } from "@/mod/scripts/core/database/SimBoard";
-import { evaluate_prior, getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimObjectsRegistry";
+import { get_sim_board, SimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
+import { evaluate_prior, getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimulationObjectsRegistry";
 import { get_smart_terrain_name } from "@/mod/scripts/core/database/smart_names";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";
 import { activateSchemeBySection } from "@/mod/scripts/core/schemes/base/activateSchemeBySection";
@@ -194,7 +194,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   public ltx_name!: string;
 
   public props!: AnyObject;
-  public board!: SimBoard;
+  public board!: SimulationBoardManager;
   public smart_level: string = "";
 
   public respawn_params!: LuaTable<string, { squads: LuaArray<string>; num: TConditionList }>;

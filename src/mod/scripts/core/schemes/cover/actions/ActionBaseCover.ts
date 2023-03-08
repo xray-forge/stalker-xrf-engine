@@ -2,7 +2,7 @@ import { action_base, game_object, level, LuabindClass, vector, XR_vector } from
 
 import { Optional } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
-import { get_sim_board, SimBoard } from "@/mod/scripts/core/database/SimBoard";
+import { get_sim_board, SimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { ISchemeCoverState } from "@/mod/scripts/core/schemes/cover";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
@@ -15,7 +15,7 @@ import { vectorCmp } from "@/mod/scripts/utils/physics";
 @LuabindClass()
 export class ActionBaseCover extends action_base {
   public readonly state: ISchemeCoverState;
-  public board!: SimBoard;
+  public board!: SimulationBoardManager;
 
   public enemy_random_position: Optional<XR_vector> = null;
   public cover_vertex_id!: number;

@@ -18,7 +18,7 @@ import {
   IStoredOfflineObject,
   registry,
 } from "@/mod/scripts/core/database";
-import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
+import { get_sim_board } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { getConfigString } from "@/mod/scripts/utils/configs";

@@ -39,7 +39,7 @@ import {
   resetObject,
   unregisterObject,
 } from "@/mod/scripts/core/database";
-import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
+import { get_sim_board } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { DropManager } from "@/mod/scripts/core/managers/DropManager";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { ItemUpgradesManager } from "@/mod/scripts/core/managers/ItemUpgradesManager";

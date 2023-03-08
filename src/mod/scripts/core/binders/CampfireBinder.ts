@@ -1,6 +1,6 @@
 import { LuabindClass, object_binder, XR_cse_alife_object, XR_CZoneCampfire, XR_game_object } from "xray16";
 
-import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
+import { get_sim_board } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { isEmpty } from "@/mod/scripts/utils/table";
 

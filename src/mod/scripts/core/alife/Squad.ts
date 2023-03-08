@@ -41,8 +41,8 @@ import {
   SQUAD_BEHAVIOURS_LTX,
   SYSTEM_INI,
 } from "@/mod/scripts/core/database";
-import { get_sim_board, SimBoard } from "@/mod/scripts/core/database/SimBoard";
-import { evaluate_prior, getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimObjectsRegistry";
+import { get_sim_board, SimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
+import { evaluate_prior, getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimulationObjectsRegistry";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";
 import { get_sound_manager, SoundManager } from "@/mod/scripts/core/sound/SoundManager";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
@@ -88,7 +88,7 @@ export class Squad<
   // todo: Rename.
   public player_id!: TCommunity;
   public smart_id: Optional<number> = null;
-  public board: SimBoard = get_sim_board();
+  public board: SimulationBoardManager = get_sim_board();
   public sim_avail: Optional<TConditionList> = null;
   public squad_online: boolean = false;
   public show_disabled: boolean = false;

@@ -23,7 +23,7 @@ import { AnyCallablesModule, Optional, PartialRecord, TNumberId } from "@/mod/li
 import { Squad } from "@/mod/scripts/core/alife/Squad";
 import { registry, SURGE_MANAGER_LTX } from "@/mod/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
-import { get_sim_board, SimBoard } from "@/mod/scripts/core/database/SimBoard";
+import { get_sim_board, SimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { MapDisplayManager } from "@/mod/scripts/core/managers/map/MapDisplayManager";
@@ -474,7 +474,7 @@ export class SurgeManager extends AbstractCoreManager {
       }
     }
 
-    const board: SimBoard = get_sim_board();
+    const board: SimulationBoardManager = get_sim_board();
     const levelName: TLevel = level.name();
 
     logger.info("Releasing squads:", board.squads.length());
@@ -553,7 +553,7 @@ export class SurgeManager extends AbstractCoreManager {
    * todo;
    */
   protected kill_all_unhided_after_actor_death(): void {
-    const board: SimBoard = get_sim_board();
+    const board: SimulationBoardManager = get_sim_board();
     const levelName: TLevel = level.name();
 
     for (const [squadId, squad] of board.squads) {

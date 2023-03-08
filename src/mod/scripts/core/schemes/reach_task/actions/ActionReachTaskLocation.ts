@@ -19,7 +19,7 @@ import { Actor } from "@/mod/scripts/core/alife/Actor";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { Squad } from "@/mod/scripts/core/alife/Squad";
 import { registry } from "@/mod/scripts/core/database";
-import { getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimObjectsRegistry";
+import { getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimulationObjectsRegistry";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { ReachTaskPatrolManager } from "@/mod/scripts/core/schemes/reach_task/ReachTaskPatrolManager";
 import { getObjectSquad, sendToNearestAccessibleVertex } from "@/mod/scripts/utils/alife";

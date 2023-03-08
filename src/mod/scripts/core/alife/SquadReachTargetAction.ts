@@ -2,7 +2,7 @@ import { alife, XR_CTime } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
 import type { Squad } from "@/mod/scripts/core/alife/Squad";
-import { getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimObjectsRegistry";
+import { getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimulationObjectsRegistry";
 
 /**
  * todo;

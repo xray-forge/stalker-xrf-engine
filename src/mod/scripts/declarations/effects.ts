@@ -60,7 +60,7 @@ import { Stalker } from "@/mod/scripts/core/alife/Stalker";
 import { update_logic } from "@/mod/scripts/core/binders/StalkerBinder";
 import { deleteHelicopter, IRegistryObjectState, registry, SYSTEM_INI } from "@/mod/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
-import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
+import { get_sim_board } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { ItemUpgradesManager } from "@/mod/scripts/core/managers/ItemUpgradesManager";
 import { MapDisplayManager } from "@/mod/scripts/core/managers/map/MapDisplayManager";

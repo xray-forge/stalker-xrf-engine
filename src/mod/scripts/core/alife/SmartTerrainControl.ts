@@ -4,7 +4,7 @@ import { relations } from "@/mod/globals/relations";
 import { Optional, TName, TSection } from "@/mod/lib/types";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { registry } from "@/mod/scripts/core/database";
-import { get_sim_board } from "@/mod/scripts/core/database/SimBoard";
+import { get_sim_board } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { isWeapon } from "@/mod/scripts/utils/checkers/is";
 import { getConfigString, pickSectionFromCondList } from "@/mod/scripts/utils/configs";

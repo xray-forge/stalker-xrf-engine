@@ -1,7 +1,7 @@
 import { device } from "xray16";
 
 import { EScheme } from "@/mod/lib/types/scheme";
-import { resetSimBoard } from "@/mod/scripts/core/database/SimBoard";
+import { resetSimBoard } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { initSmartNamesTable } from "@/mod/scripts/core/database/smart_names";
 import { ActorInventoryMenuManager } from "@/mod/scripts/core/managers/ActorInventoryMenuManager";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
