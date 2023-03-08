@@ -129,9 +129,9 @@ export function find_stalker_for_job(obj: XR_game_object, need_job: string): voi
   const smart = getObjectBoundSmart(obj)!;
 
   for (const [k, v] of smart.npc_info) {
-    const npc_job = smart.job_data.get(v.job_id);
+    const objectJob = smart.job_data.get(v.job_id);
 
-    if (npc_job !== null && npc_job.reserve_job === true) {
+    if (objectJob !== null && objectJob.reserve_job === true) {
       const selected_npc_data = smart.npc_info.get(k);
 
       selected_npc_data.need_job = need_job;

@@ -2,8 +2,8 @@ import { XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, Maybe, TSection } from "@/mod/lib/types";
 import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
-import { activateBySection } from "@/mod/scripts/core/schemes/activateBySection";
 import { ESchemeEvent } from "@/mod/scripts/core/schemes/base";
+import { activateSchemeBySection } from "@/mod/scripts/core/schemes/base/activateSchemeBySection";
 import { issueSchemeEvent } from "@/mod/scripts/core/schemes/issueSchemeEvent";
 
 /**
@@ -31,7 +31,7 @@ export function switchToSection(object: XR_game_object, ini: XR_ini_file, sectio
   state.active_section = null;
   state.active_scheme = null;
 
-  activateBySection(object, ini, section, state.gulag_name, false);
+  activateSchemeBySection(object, ini, section, state.gulag_name, false);
 
   return true;
 }

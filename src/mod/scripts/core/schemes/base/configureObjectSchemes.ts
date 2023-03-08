@@ -3,11 +3,11 @@ import { ini_file, XR_game_object, XR_ini_file } from "xray16";
 import { ESchemeType, Optional, TName, TNumberId, TSection } from "@/mod/lib/types";
 import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { TradeManager } from "@/mod/scripts/core/managers/TradeManager";
-import { ESchemeEvent } from "@/mod/scripts/core/schemes/base";
+import { ESchemeEvent } from "@/mod/scripts/core/schemes/base/index";
 import { disableGenericSchemes } from "@/mod/scripts/core/schemes/disableGenericSchemes";
 import { enable_generic_schemes } from "@/mod/scripts/core/schemes/enable_generic_schemes";
 import { issueSchemeEvent } from "@/mod/scripts/core/schemes/issueSchemeEvent";
-import { spawnDefaultNpcItems } from "@/mod/scripts/utils/alife";
+import { spawnDefaultObjectItems } from "@/mod/scripts/utils/alife";
 import { getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { getObjectBoundSmart } from "@/mod/scripts/utils/gulag";
@@ -17,7 +17,7 @@ import { getObjectBoundSmart } from "@/mod/scripts/utils/gulag";
  * todo;
  * todo;
  */
-export function configureSchemes(
+export function configureObjectSchemes(
   object: XR_game_object,
   ini: XR_ini_file,
   iniFilename: TName,
@@ -57,7 +57,7 @@ export function configureSchemes(
         abort("object '%s' configuration file [%s] !FOUND || section [logic] isn't assigned ", object.name(), filename);
       }
 
-      return configureSchemes(object, actualIni, actualIniFilename, schemeType, sectionLogic, gulagName);
+      return configureObjectSchemes(object, actualIni, actualIniFilename, schemeType, sectionLogic, gulagName);
     } else {
       if (schemeType === ESchemeType.STALKER || schemeType === ESchemeType.MONSTER) {
         const currentSmart = getObjectBoundSmart(object);
@@ -91,7 +91,7 @@ export function configureSchemes(
   state.section_logic = sectionLogic;
 
   if (schemeType === ESchemeType.STALKER) {
-    const trade_ini = getConfigString(
+    const tradeIni = getConfigString(
       actualIni,
       sectionLogic,
       "trade",
@@ -101,8 +101,8 @@ export function configureSchemes(
       "misc\\trade\\trade_generic.ltx"
     );
 
-    TradeManager.getInstance().initForObject(object, trade_ini);
-    spawnDefaultNpcItems(object, state);
+    TradeManager.getInstance().initForObject(object, tradeIni);
+    spawnDefaultObjectItems(object, state);
   }
 
   return state.ini;

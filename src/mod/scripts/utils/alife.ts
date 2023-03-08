@@ -475,9 +475,9 @@ export function isObjectInCombat(object: XR_game_object): boolean {
 /**
  * todo: description
  */
-export function spawnDefaultNpcItems(object: XR_game_object, state: IRegistryObjectState): void {
+export function spawnDefaultObjectItems(object: XR_game_object, state: IRegistryObjectState): void {
   const itemsToSpawn: LuaTable<TStringId, TCount> = new LuaTable();
-  const spawnItemsSection: Optional<string> = getConfigString(
+  const spawnItemsSection: Optional<TSection> = getConfigString(
     state.ini,
     state.section_logic,
     "spawn",

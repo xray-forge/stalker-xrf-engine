@@ -1,10 +1,11 @@
 import { game, time_global, XR_game_object, XR_ini_file } from "xray16";
 
 import { STRINGIFIED_NIL } from "@/mod/globals/lua";
-import { AnyObject, Optional, TName, TNumberId } from "@/mod/lib/types";
+import { Optional, TNumberId } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
+import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { registry } from "@/mod/scripts/core/database";
-import { ESchemeEvent } from "@/mod/scripts/core/schemes/base";
+import { ESchemeEvent } from "@/mod/scripts/core/schemes/base/index";
 import { issueSchemeEvent } from "@/mod/scripts/core/schemes/issueSchemeEvent";
 import { resetGenericSchemesOnSchemeSwitch } from "@/mod/scripts/core/schemes/resetGenericSchemesOnSchemeSwitch";
 import { sendToNearestAccessibleVertex } from "@/mod/scripts/utils/alife";
@@ -21,17 +22,17 @@ const logger: LuaLogger = new LuaLogger("activateBySection");
  * todo
  * todo
  */
-export function activateBySection(
+export function activateSchemeBySection(
   object: XR_game_object,
   ini: XR_ini_file,
   section: TSection,
-  gulagName: Optional<TName>,
+  additional: Optional<string>,
   loading: boolean
 ): void {
-  logger.info("Activate by section:", object.name(), section, gulagName);
+  logger.info("Activate by section:", object.name(), section, additional);
 
   if (loading === null) {
-    abort("core/logic: activate_by_section: loading field is null, true || false expected");
+    abort("core/logic: activateBySection: loading field is null, true || false expected");
   }
 
   const objectId: TNumberId = object.id();
@@ -51,15 +52,15 @@ export function activateBySection(
   }
 
   if (section === null) {
-    const current_gulag = getObjectBoundSmart(object);
+    const currentSmartTerrain: Optional<SmartTerrain> = getObjectBoundSmart(object);
 
-    if (current_gulag === null) {
+    if (currentSmartTerrain === null) {
       abort("core/logic: activate_by_section: section is NIL && NPC !in gulag.");
     }
 
-    const t = current_gulag.getJob(objectId) as AnyObject;
+    const job = currentSmartTerrain.getJob(objectId)!;
 
-    section = t.section;
+    section = job.section;
   }
 
   if (!ini.section_exist(section)) {
@@ -76,14 +77,14 @@ export function activateBySection(
 
   resetGenericSchemesOnSchemeSwitch(object, scheme, section);
 
-  const filenameOrHandler = registry.schemes.get(scheme);
+  const schemeImplementation = registry.schemes.get(scheme);
 
-  if (filenameOrHandler === null) {
+  if (schemeImplementation === null) {
     abort("core/logic: scheme '%s' is !registered in modules.script", scheme);
   }
 
-  logger.info("Set active scheme:", object.name(), scheme, section, gulagName);
-  filenameOrHandler.setScheme(object, ini, scheme, section as TSection, gulagName);
+  logger.info("Set active scheme:", object.name(), scheme, section, additional);
+  schemeImplementation.setScheme(object, ini, scheme, section as TSection, additional);
 
   registry.objects.get(objectId).active_section = section;
   registry.objects.get(objectId).active_scheme = scheme;

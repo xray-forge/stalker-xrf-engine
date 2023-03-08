@@ -3,8 +3,8 @@ import { game_object, XR_game_object, XR_ini_file } from "xray16";
 import { Optional, TName } from "@/mod/lib/types";
 import { ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
-import { activateBySection } from "@/mod/scripts/core/schemes/activateBySection";
-import { configureSchemes } from "@/mod/scripts/core/schemes/configureSchemes";
+import { activateSchemeBySection } from "@/mod/scripts/core/schemes/base/activateSchemeBySection";
+import { configureObjectSchemes } from "@/mod/scripts/core/schemes/base/configureObjectSchemes";
 import { determine_section_to_activate } from "@/mod/scripts/core/schemes/determine_section_to_activate";
 import { getCustomDataOrIniFile } from "@/mod/scripts/core/schemes/getCustomDataOrIniFile";
 import { getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
@@ -28,7 +28,7 @@ export function initializeGameObject(
 
   if (!isLoaded) {
     const iniFilename: TName = "<customdata>";
-    const iniFile: XR_ini_file = configureSchemes(
+    const iniFile: XR_ini_file = configureObjectSchemes(
       object,
       getCustomDataOrIniFile(object, iniFilename),
       iniFilename,
@@ -39,7 +39,7 @@ export function initializeGameObject(
 
     const section: TSection = determine_section_to_activate(object, iniFile, "logic", actor);
 
-    activateBySection(object, iniFile, section, state.gulag_name, false);
+    activateSchemeBySection(object, iniFile, section, state.gulag_name, false);
 
     const relation = getConfigString(iniFile, "logic", "relation", object, false, "");
 
@@ -59,7 +59,7 @@ export function initializeGameObject(
     if (iniFilename !== null) {
       let iniFile: XR_ini_file = getCustomDataOrIniFile(object, iniFilename);
 
-      iniFile = configureSchemes(
+      iniFile = configureObjectSchemes(
         object,
         iniFile,
         iniFilename,
@@ -67,7 +67,7 @@ export function initializeGameObject(
         state.loaded_section_logic as TSection,
         state.loaded_gulag_name
       );
-      activateBySection(object, iniFile, state.loaded_active_section as TSection, state.loaded_gulag_name, true);
+      activateSchemeBySection(object, iniFile, state.loaded_active_section as TSection, state.loaded_gulag_name, true);
     }
   }
 }

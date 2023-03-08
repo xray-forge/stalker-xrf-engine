@@ -13,7 +13,7 @@ import { abort } from "@/mod/scripts/utils/debug";
  * todo;
  */
 export function determine_section_to_activate(
-  npc: XR_game_object,
+  object: XR_game_object,
   ini: XR_ini_file,
   sectionLogic: TSection,
   actor: XR_game_object
@@ -22,22 +22,26 @@ export function determine_section_to_activate(
     return STRINGIFIED_NIL;
   }
 
-  if (registry.offlineObjects.get(npc.id())?.active_section !== null) {
-    const sectionToRetr = registry.offlineObjects.get(npc.id()).active_section as TSection;
+  if (registry.offlineObjects.get(object.id())?.active_section !== null) {
+    const sectionToRetr = registry.offlineObjects.get(object.id()).active_section as TSection;
 
-    registry.offlineObjects.get(npc.id()).active_section = null;
+    registry.offlineObjects.get(object.id()).active_section = null;
     if (ini.section_exist(sectionToRetr)) {
       return sectionToRetr;
     }
   }
 
-  const activeSectionCond = getConfigConditionList(ini, sectionLogic, "active", npc);
+  const activeSectionCond = getConfigConditionList(ini, sectionLogic, "active", object);
 
   if (activeSectionCond) {
-    const section = pickSectionFromCondList(actor, npc, activeSectionCond.condlist);
+    const section = pickSectionFromCondList(actor, object, activeSectionCond.condlist);
 
     if (!section) {
-      abort("object '%s': section '%s': section 'active' has no conditionless }else{ clause", npc.name(), sectionLogic);
+      abort(
+        "object '%s': section '%s': section 'active' has no conditionless else clause",
+        object.name(),
+        sectionLogic
+      );
     }
 
     return section;

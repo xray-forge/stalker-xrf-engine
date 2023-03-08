@@ -10,6 +10,7 @@ import {
   level,
   LuabindClass,
   time_global,
+  XR_alife_simulator,
   XR_CALifeSmartTerrainTask,
   XR_cse_alife_creature_abstract,
   XR_CTime,
@@ -30,7 +31,10 @@ import {
   ESchemeType,
   LuaArray,
   Optional,
+  TName,
   TNumberId,
+  TPath,
+  TRate,
   TSection,
   TTimestamp,
 } from "@/mod/lib/types";
@@ -55,8 +59,8 @@ import { get_sim_board, SimBoard } from "@/mod/scripts/core/database/SimBoard";
 import { evaluate_prior, get_sim_obj_registry } from "@/mod/scripts/core/database/SimObjectsRegistry";
 import { get_smart_terrain_name } from "@/mod/scripts/core/database/smart_names";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";
-import { activateBySection } from "@/mod/scripts/core/schemes/activateBySection";
-import { configureSchemes } from "@/mod/scripts/core/schemes/configureSchemes";
+import { activateSchemeBySection } from "@/mod/scripts/core/schemes/base/activateSchemeBySection";
+import { configureObjectSchemes } from "@/mod/scripts/core/schemes/base/configureObjectSchemes";
 import { determine_section_to_activate } from "@/mod/scripts/core/schemes/determine_section_to_activate";
 import { initializeGameObject } from "@/mod/scripts/core/schemes/initializeGameObject";
 import { switchToSection } from "@/mod/scripts/core/schemes/switchToSection";
@@ -87,6 +91,9 @@ export const nearest_to_actor_smart = { id: null as Optional<number>, dist: math
 
 export const path_fields: LuaTable<number, string> = ["path_walk", "path_main", "path_home", "center_point"] as any;
 
+/**
+ * todo;
+ */
 interface INpcInfo {
   se_obj: any;
   is_monster: boolean;
@@ -98,6 +105,26 @@ interface INpcInfo {
   stype: any;
 }
 
+/**
+ * todo;
+ */
+export interface ISmartTerrainJob {
+  alife_task: XR_CALifeSmartTerrainTask;
+  _prior: TRate;
+  job_type: string;
+  reserve_job: Optional<boolean>;
+  section: TSection;
+  ini_path: TPath;
+  ini_file: XR_ini_file;
+  prefix_name: TName;
+  game_vertex_id: TNumberId;
+  level_id: TNumberId;
+  position: XR_vector;
+}
+
+/**
+ * todo;
+ */
 export const valid_territory: LuaTable<string, boolean> = {
   default: true,
   base: true,
@@ -161,7 +188,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   public smart_alife_task: Optional<XR_CALifeSmartTerrainTask> = null;
 
   public jobs: any;
-  public job_data: LuaTable<number> = new LuaTable();
+  public job_data: LuaArray<ISmartTerrainJob> = new LuaTable();
 
   public ltx!: XR_ini_file;
   public ltx_name!: string;
@@ -547,9 +574,9 @@ export class SmartTerrain extends cse_alife_smart_zone {
 
     get_jobs_data(this.jobs);
 
-    for (const [k, v] of this.job_data) {
-      const section = v.section;
-      const ltx: XR_ini_file = v.ini_file || this.ltx;
+    for (const [index, job] of this.job_data) {
+      const section = job.section;
+      const ltx: XR_ini_file = job.ini_file || this.ltx;
 
       if (!ltx.line_exist(section, "active")) {
         abort("gulag: ltx=%s  no 'active' in section %s", this.ltx_name, section);
@@ -557,7 +584,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
 
       const active_section = ltx.r_string(section, "active");
 
-      if (v.job_type === "path_job") {
+      if (job.job_type === "path_job") {
         let path_field: string = "";
 
         for (const [i, vv] of path_fields) {
@@ -569,8 +596,8 @@ export class SmartTerrain extends cse_alife_smart_zone {
 
         let path_name = ltx.r_string(active_section, path_field);
 
-        if (v.prefix_name !== null) {
-          path_name = v.prefix_name + "_" + path_name;
+        if (job.prefix_name !== null) {
+          path_name = job.prefix_name + "_" + path_name;
         } else {
           path_name = this.name() + "_" + path_name;
         }
@@ -581,8 +608,8 @@ export class SmartTerrain extends cse_alife_smart_zone {
           }
         }
 
-        v.alife_task = new CALifeSmartTerrainTask(path_name);
-      } else if (v.job_type === "smartcover_job") {
+        job.alife_task = new CALifeSmartTerrainTask(path_name);
+      } else if (job.job_type === "smartcover_job") {
         const smartcover_name = ltx.r_string(active_section, "cover_name");
         const smartcover = registered_smartcovers.get(smartcover_name);
 
@@ -594,14 +621,14 @@ export class SmartTerrain extends cse_alife_smart_zone {
           );
         }
 
-        v.alife_task = new CALifeSmartTerrainTask(smartcover.m_game_vertex_id, smartcover.m_level_vertex_id);
-      } else if (v.job_type === "point_job") {
-        v.alife_task = this.smart_alife_task;
+        job.alife_task = new CALifeSmartTerrainTask(smartcover.m_game_vertex_id, smartcover.m_level_vertex_id);
+      } else if (job.job_type === "point_job") {
+        job.alife_task = this.smart_alife_task as XR_CALifeSmartTerrainTask;
       }
 
-      v.game_vertex_id = v.alife_task.game_vertex_id();
-      v.level_id = game_graph().vertex(v.game_vertex_id).level_id();
-      v.position = v.alife_task.position();
+      job.game_vertex_id = job.alife_task.game_vertex_id();
+      job.level_id = game_graph().vertex(job.game_vertex_id).level_id();
+      job.position = job.alife_task.position();
     }
   }
 
@@ -691,7 +718,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
     const ltx = job.ini_file || this.ltx;
     const ltx_name = job.ini_path || this.ltx_name;
 
-    configureSchemes(object, ltx, ltx_name, npc_data.stype, job.section, job.prefix_name || this.name());
+    configureObjectSchemes(object, ltx, ltx_name, npc_data.stype, job.section, job.prefix_name || this.name());
 
     const sect: TSection = determine_section_to_activate(object, ltx, job.section, registry.actor);
 
@@ -699,21 +726,21 @@ export class SmartTerrain extends cse_alife_smart_zone {
       abort("[smart_terrain %s] section=%s, don't use section 'null'!", this.name(), sect);
     }
 
-    activateBySection(object, ltx, sect, job.prefix_name || this.name(), false);
+    activateSchemeBySection(object, ltx, sect, job.prefix_name || this.name(), false);
   }
 
   /**
    * todo;
    */
-  public getJob(obj_id: number): unknown {
-    return this.npc_info.get(obj_id) && this.job_data.get(this.npc_info.get(obj_id).job_id);
+  public getJob(objectId: TNumberId): Optional<ISmartTerrainJob> {
+    return this.npc_info.get(objectId) && this.job_data.get(this.npc_info.get(objectId).job_id);
   }
 
   /**
    * todo;
    */
-  public idNPCOnJob(job_name: string): number {
-    return this.npc_by_job_section.get(job_name);
+  public idNPCOnJob(jobName: TName): TNumberId {
+    return this.npc_by_job_section.get(jobName);
   }
 
   /**
@@ -1554,12 +1581,6 @@ function smart_terrain_squad_count(board_smart_squads: LuaTable<number, Squad>):
  * todo;
  */
 function job_avail_to_npc(npc_info: INpcInfo, job_info: any, smart: SmartTerrain): boolean {
-  let job = smart.job_data.get(job_info.job_id);
-
-  if (job !== null) {
-    job = job.section;
-  }
-
   if (smart.dead_time.get(job_info.job_id) !== null) {
     return false;
   }
@@ -1667,9 +1688,9 @@ function arrived_to_smart(obj: XR_cse_alife_creature_abstract, smart: SmartTerra
 /**
  * todo;
  */
-function is_only_monsters_on_jobs(npc_info: LuaTable<number, INpcInfo>): boolean {
-  for (const [k, v] of npc_info) {
-    if (v.is_monster === false) {
+function is_only_monsters_on_jobs(objectInfos: LuaArray<INpcInfo>): boolean {
+  for (const [index, objectInfo] of objectInfos) {
+    if (objectInfo.is_monster === false) {
       return false;
     }
   }
@@ -1680,21 +1701,21 @@ function is_only_monsters_on_jobs(npc_info: LuaTable<number, INpcInfo>): boolean
 /**
  * todo;
  */
-export function on_death(obj: XR_cse_alife_creature_abstract): void {
-  const sim = alife();
+export function on_death(object: XR_cse_alife_creature_abstract): void {
+  const simulator: XR_alife_simulator = alife();
 
-  if (sim !== null) {
-    obj = sim.object(obj.id) as XR_cse_alife_creature_abstract;
+  if (simulator !== null) {
+    object = simulator.object(object.id) as XR_cse_alife_creature_abstract;
 
-    if (obj === null) {
+    if (object === null) {
       return;
     }
 
-    const strn_id: number = obj.smart_terrain_id();
+    const smartTerrainId: TNumberId = object.smart_terrain_id();
 
-    if (strn_id !== MAX_UNSIGNED_16_BIT) {
-      logger.info("Clear dead object:", obj.name());
-      (sim.object(strn_id) as SmartTerrain).clear_dead(obj);
+    if (smartTerrainId !== MAX_UNSIGNED_16_BIT) {
+      logger.info("Clear dead object:", object.name());
+      (simulator.object(smartTerrainId) as SmartTerrain).clear_dead(object);
     }
   }
 }
