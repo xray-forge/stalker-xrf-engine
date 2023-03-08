@@ -9,7 +9,6 @@ import {
 } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { ActionReachTaskLocation } from "@/mod/scripts/core/schemes/reach_task/actions";
 import { EvaluatorReachedTaskLocation } from "@/mod/scripts/core/schemes/reach_task/evaluators";
@@ -50,7 +49,7 @@ export class SchemeReachTask extends AbstractScheme {
    * todo;
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme): void {
-    const state: ISchemeReachTaskState = assignStorageAndBind(object, ini, scheme, null);
+    const state: ISchemeReachTaskState = AbstractScheme.assignStateAndBind(object, ini, scheme, null);
   }
 
   /**

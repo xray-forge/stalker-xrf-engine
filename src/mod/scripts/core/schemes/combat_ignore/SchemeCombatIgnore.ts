@@ -2,7 +2,6 @@ import { XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
 import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { ActionProcessEnemy } from "@/mod/scripts/core/schemes/combat_ignore/actions/ActionProcessEnemy";
 import { ISchemeCombatIgnoreState } from "@/mod/scripts/core/schemes/combat_ignore/ISchemeCombatIgnoreState";
@@ -30,7 +29,6 @@ export class SchemeCombatIgnore extends AbstractScheme {
     section: TSection,
     state: ISchemeCombatIgnoreState
   ): void {
-    logger.info("Add to binder:", object.name());
     state.action = new ActionProcessEnemy(object, state);
   }
 
@@ -38,7 +36,7 @@ export class SchemeCombatIgnore extends AbstractScheme {
    * todo
    */
   public static setCombatIgnoreChecker(object: XR_game_object, ini: XR_ini_file, scheme: EScheme): void {
-    assignStorageAndBind(object, ini, scheme, null);
+    AbstractScheme.assignStateAndBind(object, ini, scheme, null);
   }
 
   /**

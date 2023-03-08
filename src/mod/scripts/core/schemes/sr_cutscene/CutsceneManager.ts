@@ -4,10 +4,10 @@ import { post_processors } from "@/mod/globals/animation/post_processors";
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { AbstractSchemeManager } from "@/mod/scripts/core/schemes/base/AbstractSchemeManager";
+import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/base/trySwitchToAnotherSection";
 import { EEffectorState, effector_sets } from "@/mod/scripts/core/schemes/sr_cutscene/cam_effector_sets";
 import { CamEffectorSet } from "@/mod/scripts/core/schemes/sr_cutscene/CamEffectorSet";
 import { ISchemeCutsceneState } from "@/mod/scripts/core/schemes/sr_cutscene/ISchemeCutsceneState";
-import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("CutsceneManager");

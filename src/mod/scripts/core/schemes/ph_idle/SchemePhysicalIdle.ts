@@ -1,14 +1,13 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { ISchemePhysicalIdleState } from "@/mod/scripts/core/schemes/ph_idle/ISchemePhysicalIdleState";
 import { PhysicalIdleManager } from "@/mod/scripts/core/schemes/ph_idle/PhysicalIdleManager";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import {
   getConfigBoolean,
-  getConfigCondList,
+  getConfigConditionList,
   getConfigString,
   getConfigSwitchConditions,
 } from "@/mod/scripts/utils/configs";
@@ -41,12 +40,12 @@ export class SchemePhysicalIdle extends AbstractScheme {
    * todo;
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemePhysicalIdleState = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemePhysicalIdleState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.hit_on_bone = parseData1v(object, getConfigString(ini, section, "hit_on_bone", object, false, ""));
     state.nonscript_usable = getConfigBoolean(ini, section, "nonscript_usable", object, false);
-    state.on_use = getConfigCondList(ini, section, "on_use", object);
+    state.on_use = getConfigConditionList(ini, section, "on_use", object);
     state.tips = getConfigString(ini, section, "tips", object, false, "", "");
 
     object.set_tip_text(state.tips);

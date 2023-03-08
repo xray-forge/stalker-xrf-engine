@@ -3,8 +3,8 @@ import { alife, patrol, time_global } from "xray16";
 import { Optional, TCount, TDuration, TIndex } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { AbstractSchemeManager } from "@/mod/scripts/core/schemes/base/AbstractSchemeManager";
+import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/base/trySwitchToAnotherSection";
 import { ISchemeCrowSpawnerState } from "@/mod/scripts/core/schemes/sr_crow_spawner/ISchemeCrowSpawnerState";
-import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { copyTable } from "@/mod/scripts/utils/table";
 

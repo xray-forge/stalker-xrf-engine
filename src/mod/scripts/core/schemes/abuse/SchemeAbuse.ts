@@ -6,7 +6,6 @@ import { AbuseManager } from "@/mod/scripts/core/schemes/abuse/AbuseManager";
 import { ActionAbuseHit } from "@/mod/scripts/core/schemes/abuse/actions/ActionAbuseHit";
 import { EvaluatorAbuse } from "@/mod/scripts/core/schemes/abuse/evaluators/EvaluatorAbuse";
 import { ISchemeAbuseState } from "@/mod/scripts/core/schemes/abuse/ISchemeAbuseState";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme, action_ids, evaluators_id } from "@/mod/scripts/core/schemes/base";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -63,8 +62,8 @@ export class SchemeAbuse extends AbstractScheme {
   /**
    * todo;
    */
-  public static setAbuse(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    assignStorageAndBind(object, ini, scheme, section);
+  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    AbstractScheme.assignStateAndBind(object, ini, scheme, section);
   }
 
   /**

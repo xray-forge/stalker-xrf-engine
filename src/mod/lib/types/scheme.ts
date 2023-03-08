@@ -93,10 +93,10 @@ export enum ESchemeCondition {
   ON_NPC_NOT_IN_ZONE = "on_npc_not_in_zone",
   ON_ACTOR_INSIDE = "on_actor_inside",
   ON_ACTOR_OUTSIDE = "on_actor_outside",
-  ACTOR_DISTANCE_GREATER_THAN = "on_actor_dist_ge",
-  ACTOR_DISTANCE_GREATER_THAN_AND_VISIBLE = "on_actor_dist_ge_nvis",
-  ACTOR_DISTANCE_LESS_THAN = "on_actor_dist_le",
-  ACTOR_DISTANCE_LESS_THAN_AND_VISIBLE = "on_actor_dist_le_nvis",
+  ON_ACTOR_DISTANCE_GREATER_THAN = "on_actor_dist_ge",
+  ON_ACTOR_DISTANCE_GREATER_THAN_AND_VISIBLE = "on_actor_dist_ge_nvis",
+  ON_ACTOR_DISTANCE_LESS_THAN = "on_actor_dist_le",
+  ON_ACTOR_DISTANCE_LESS_THAN_AND_VISIBLE = "on_actor_dist_le_nvis",
 }
 
 /**

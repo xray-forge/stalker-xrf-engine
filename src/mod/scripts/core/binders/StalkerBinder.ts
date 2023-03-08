@@ -48,6 +48,7 @@ import { ReleaseBodyManager } from "@/mod/scripts/core/managers/ReleaseBodyManag
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { TradeManager } from "@/mod/scripts/core/managers/TradeManager";
 import { ESchemeEvent } from "@/mod/scripts/core/schemes/base";
+import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/base/trySwitchToAnotherSection";
 import { SchemeCombat } from "@/mod/scripts/core/schemes/combat/SchemeCombat";
 import { PostCombatIdle } from "@/mod/scripts/core/schemes/danger/PostCombatIdle";
 import { SchemeDanger } from "@/mod/scripts/core/schemes/danger/SchemeDanger";
@@ -58,7 +59,6 @@ import { SchemeMeet } from "@/mod/scripts/core/schemes/meet/SchemeMeet";
 import { SchemeReachTask } from "@/mod/scripts/core/schemes/reach_task/SchemeReachTask";
 import { SchemeLight } from "@/mod/scripts/core/schemes/sr_light/SchemeLight";
 import { loadObject, saveObject } from "@/mod/scripts/core/schemes/storing";
-import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { SchemeWounded } from "@/mod/scripts/core/schemes/wounded/SchemeWounded";
 import { DynamicMusicManager } from "@/mod/scripts/core/sound/DynamicMusicManager";
 import { SoundTheme } from "@/mod/scripts/core/sound/SoundTheme";

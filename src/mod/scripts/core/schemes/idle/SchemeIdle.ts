@@ -1,7 +1,6 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { IdleManager } from "@/mod/scripts/core/schemes/idle/IdleManager";
 import { ISchemeIdleState } from "@/mod/scripts/core/schemes/idle/ISchemeIdleState";
@@ -29,7 +28,6 @@ export class SchemeIdle extends AbstractScheme {
     section: TSection,
     state: ISchemeIdleState
   ): void {
-    logger.info("Add to binder:", object.name());
     subscribeActionForEvents(object, state, new IdleManager(object, state));
   }
 
@@ -37,7 +35,7 @@ export class SchemeIdle extends AbstractScheme {
    * todo;
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemeIdleState = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeIdleState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
   }

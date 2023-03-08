@@ -1,7 +1,6 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { ISchemeMonsterState } from "@/mod/scripts/core/schemes/sr_monster/ISchemeMonsterState";
 import { MonsterManager } from "@/mod/scripts/core/schemes/sr_monster/MonsterManager";
@@ -29,8 +28,6 @@ export class SchemeMonster extends AbstractScheme {
     section: TSection,
     state: ISchemeMonsterState
   ): void {
-    logger.info("Add to binder:", object.id());
-
     subscribeActionForEvents(object, state, new MonsterManager(object, state));
   }
 
@@ -38,7 +35,7 @@ export class SchemeMonster extends AbstractScheme {
    * todo;
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemeMonsterState = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeMonsterState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.snd_obj = getConfigString(ini, section, "snd", object, false, "", null);

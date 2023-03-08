@@ -1,7 +1,7 @@
 import { registry } from "@/mod/scripts/core/database";
 import { AbstractSchemeManager } from "@/mod/scripts/core/schemes/base/AbstractSchemeManager";
+import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/base/trySwitchToAnotherSection";
 import { ISchemeMobCombatState } from "@/mod/scripts/core/schemes/mob/combat/ISchemeMobCombatState";
-import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 
 /**
  * todo;

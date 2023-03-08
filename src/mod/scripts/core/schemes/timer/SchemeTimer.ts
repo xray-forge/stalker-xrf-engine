@@ -1,8 +1,7 @@
 import { get_hud, XR_game_object, XR_ini_file } from "xray16";
 
-import { LuaArray, Optional } from "@/mod/lib/types";
+import { LuaArray, Optional, TDistance } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { ISchemeTimerState } from "@/mod/scripts/core/schemes/timer/ISchemeTimerState";
@@ -36,25 +35,28 @@ export class SchemeTimer extends AbstractScheme {
     subscribeActionForEvents(object, state, new SchemeTimerManager(object, state));
   }
 
-  public static override setScheme(obj: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemeTimerState = assignStorageAndBind(obj, ini, scheme, section);
+  /**
+   * todo;
+   */
+  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const state: ISchemeTimerState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
-    state.logic = getConfigSwitchConditions(ini, section, obj);
-    state.type = getConfigString(ini, section, "type", obj, false, "", "inc");
+    state.logic = getConfigSwitchConditions(ini, section, object);
+    state.type = getConfigString(ini, section, "type", object, false, "", "inc");
 
     if (state.type !== "inc" && state.type !== "dec") {
-      abort("ERROR: wrong sr_timer type. Section [%s], Restrictor [%s]", section, obj.name());
+      abort("ERROR: wrong sr_timer type. Section [%s], Restrictor [%s]", section, object.name());
     }
 
     if (state.type === "dec") {
-      state.start_value = getConfigNumber(ini, section, "start_value", obj, true);
+      state.start_value = getConfigNumber(ini, section, "start_value", object, true);
     } else {
-      state.start_value = getConfigNumber(ini, section, "start_value", obj, false, 0);
+      state.start_value = getConfigNumber(ini, section, "start_value", object, false, 0);
     }
 
-    state.on_value = parse_data(obj, getConfigString(ini, section, "on_value", obj, false, ""));
-    state.timer_id = getConfigString(ini, section, "timer_id", obj, false, "", "hud_timer");
-    state.string = getConfigString(ini, section, "string", obj, false, "");
+    state.on_value = parse_data(object, getConfigString(ini, section, "on_value", object, false, ""));
+    state.timer_id = getConfigString(ini, section, "timer_id", object, false, "", "hud_timer");
+    state.string = getConfigString(ini, section, "string", object, false, "");
 
     state.ui = get_hud();
     state.ui.AddCustomStatic(state.timer_id, true);
@@ -68,7 +70,7 @@ export class SchemeTimer extends AbstractScheme {
 }
 
 // todo: Probably same in utils?
-function parse_data(npc: XR_game_object, str: Optional<string>): LuaArray<{ dist: number; state: any }> {
+function parse_data(object: XR_game_object, str: Optional<string>): LuaArray<{ dist: TDistance; state: any }> {
   const data: LuaArray<any> = new LuaTable();
 
   if (str) {
@@ -80,7 +82,7 @@ function parse_data(npc: XR_game_object, str: Optional<string>): LuaArray<{ dist
 
       table.insert(data, {
         dist: tonumber(dist)!,
-        state: state === null ? null : parseConditionsList(npc, dist, state, state),
+        state: state === null ? null : parseConditionsList(object, dist, state, state),
       });
     }
   }

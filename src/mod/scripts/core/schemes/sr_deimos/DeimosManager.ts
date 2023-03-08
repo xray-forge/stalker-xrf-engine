@@ -5,8 +5,8 @@ import { ActorBinder } from "@/mod/scripts/core/binders/ActorBinder";
 import { registry } from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { AbstractSchemeManager } from "@/mod/scripts/core/schemes/base/AbstractSchemeManager";
+import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/base/trySwitchToAnotherSection";
 import { ISchemeDeimosState } from "@/mod/scripts/core/schemes/sr_deimos/ISchemeDeimosState";
-import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { clampNumber } from "@/mod/scripts/utils/number";
 
 const pp_effector_id: TNumberId = 5;

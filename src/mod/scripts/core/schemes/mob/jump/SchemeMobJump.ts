@@ -1,7 +1,6 @@
 import { vector, XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { ISchemeMobJumpState } from "@/mod/scripts/core/schemes/mob/jump/ISchemeMobJumpState";
 import { MobJumpManager } from "@/mod/scripts/core/schemes/mob/jump/MobJumpManager";
@@ -41,12 +40,12 @@ export class SchemeMobJump extends AbstractScheme {
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
-    gulag_name: string
+    additional: string
   ): void {
-    const state: ISchemeMobJumpState = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeMobJumpState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
-    state.jump_path_name = getConfigString(ini, section, "path_jump", object, false, gulag_name);
+    state.jump_path_name = getConfigString(ini, section, "path_jump", object, false, additional);
     state.ph_jump_factor = getConfigNumber(ini, section, "ph_jump_factor", object, false, 1.8);
 
     const offset_str = getConfigString(ini, section, "offset", object, true, "");

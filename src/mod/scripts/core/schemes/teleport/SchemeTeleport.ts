@@ -1,7 +1,6 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { ISchemeTeleportState, ITeleportPoint } from "@/mod/scripts/core/schemes/teleport/ISchemeTeleportState";
@@ -39,7 +38,7 @@ export class SchemeTeleport extends AbstractScheme {
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     logger.info("Set scheme:", object.name());
 
-    const state: ISchemeTeleportState = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeTeleportState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.timeout = getConfigNumber(ini, section, "timeout", object, false, 900);

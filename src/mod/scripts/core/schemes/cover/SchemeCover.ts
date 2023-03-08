@@ -1,7 +1,6 @@
 import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme, action_ids, evaluators_id } from "@/mod/scripts/core/schemes/base";
 import { ActionBaseCover } from "@/mod/scripts/core/schemes/cover/actions";
 import { EvaluatorNeedCover } from "@/mod/scripts/core/schemes/cover/evaluators";
@@ -76,7 +75,7 @@ export class SchemeCover extends AbstractScheme {
     section: TSection,
     additional: string
   ): void {
-    const state: ISchemeCoverState = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeCoverState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.smart = getConfigString(ini, section, "smart", object, false, "");

@@ -4,11 +4,11 @@ import { Optional, TRate } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
 import { AbstractSchemeManager } from "@/mod/scripts/core/schemes/base/AbstractSchemeManager";
+import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/base/trySwitchToAnotherSection";
 import { get_heli_firer, HeliFire } from "@/mod/scripts/core/schemes/heli_move/HeliFire";
 import { get_heli_flyer, HeliFly } from "@/mod/scripts/core/schemes/heli_move/HeliFly";
 import { get_heli_looker, HeliLook } from "@/mod/scripts/core/schemes/heli_move/HeliLook";
 import { ISchemeHelicopterMoveState } from "@/mod/scripts/core/schemes/heli_move/ISchemeHelicopterMoveState";
-import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { abort } from "@/mod/scripts/utils/debug";
 import { parsePathWaypoints } from "@/mod/scripts/utils/parse";
 

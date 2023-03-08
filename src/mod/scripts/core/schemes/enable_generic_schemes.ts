@@ -67,8 +67,8 @@ export function enable_generic_schemes(
 
       const woundedSection: TSection = getConfigString(ini, section, "wounded", object, false, "");
 
-      SchemeWounded.setWounded(object, ini, EScheme.WOUNDED, woundedSection);
-      SchemeAbuse.setAbuse(object, ini, EScheme.ABUSE, section);
+      SchemeWounded.setScheme(object, ini, EScheme.WOUNDED, woundedSection);
+      SchemeAbuse.setScheme(object, ini, EScheme.ABUSE, section);
       SchemeHelpWounded.setHelpWounded(object, ini, EScheme.HELP_WOUNDED, null);
       SchemeCorpseDetection.setCorpseDetection(object, ini, EScheme.CORPSE_DETECTION, null);
 

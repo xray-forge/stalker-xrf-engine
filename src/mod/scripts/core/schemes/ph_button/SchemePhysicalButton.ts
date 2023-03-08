@@ -1,14 +1,13 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { ISchemePhysicalButtonState } from "@/mod/scripts/core/schemes/ph_button/ISchemePhysicalButtonState";
 import { PhysicalButtonManager } from "@/mod/scripts/core/schemes/ph_button/PhysicalButtonManager";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import {
   getConfigBoolean,
-  getConfigCondList,
+  getConfigConditionList,
   getConfigString,
   getConfigSwitchConditions,
 } from "@/mod/scripts/utils/configs";
@@ -40,10 +39,10 @@ export class SchemePhysicalButton extends AbstractScheme {
    * todo;
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemePhysicalButtonState = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemePhysicalButtonState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
-    state.on_press = getConfigCondList(ini, section, "on_press", object);
+    state.on_press = getConfigConditionList(ini, section, "on_press", object);
     state.tooltip = getConfigString(ini, section, "tooltip", object, false, "");
 
     if (state.tooltip) {

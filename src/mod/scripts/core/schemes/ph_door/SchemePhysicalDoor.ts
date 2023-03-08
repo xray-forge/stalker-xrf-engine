@@ -1,14 +1,13 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { ISchemePhysicalDoorState } from "@/mod/scripts/core/schemes/ph_door/ISchemePhysicalDoorState";
 import { PhysicalDoorManager } from "@/mod/scripts/core/schemes/ph_door/PhysicalDoorManager";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import {
   getConfigBoolean,
-  getConfigCondList,
+  getConfigConditionList,
   getConfigString,
   getConfigSwitchConditions,
 } from "@/mod/scripts/utils/configs";
@@ -34,7 +33,6 @@ export class SchemePhysicalDoor extends AbstractScheme {
     section: TSection,
     state: ISchemePhysicalDoorState
   ): void {
-    logger.info("Add to binder:", object.name());
     object.register_door_for_npc();
 
     subscribeActionForEvents(object, state, new PhysicalDoorManager(object, state));
@@ -44,7 +42,7 @@ export class SchemePhysicalDoor extends AbstractScheme {
    * todo;
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemePhysicalDoorState = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemePhysicalDoorState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.closed = getConfigBoolean(ini, section, "closed", object, false, true);
@@ -68,7 +66,7 @@ export class SchemePhysicalDoor extends AbstractScheme {
       "trader_door_close_start"
     );
     state.snd_close_stop = getConfigString(ini, section, "snd_close_stop", object, false, "", "trader_door_close_stop");
-    state.on_use = getConfigCondList(ini, section, "on_use", object);
+    state.on_use = getConfigConditionList(ini, section, "on_use", object);
 
     if (state.locked === true || state.not_for_npc === true) {
       if (!object.is_door_locked_for_npc()) {

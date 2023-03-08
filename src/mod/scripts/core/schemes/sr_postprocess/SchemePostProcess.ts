@@ -1,7 +1,6 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { ISchemePostProcessState } from "@/mod/scripts/core/schemes/sr_postprocess/ISchemePostProcessState";
 import { SchemePostProcessManager } from "@/mod/scripts/core/schemes/sr_postprocess/SchemePostProcessManager";
@@ -37,7 +36,7 @@ export class SchemePostProcess extends AbstractScheme {
    * todo;
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemePostProcessState = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemePostProcessState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.intensity = getConfigNumber(ini, section, "intensity", object, true) * 0.01;

@@ -3,8 +3,8 @@ import { XR_game_object } from "xray16";
 import { Optional } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { AbstractSchemeManager } from "@/mod/scripts/core/schemes/base/AbstractSchemeManager";
+import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/base/trySwitchToAnotherSection";
 import { ISchemePhysicalOnDeathState } from "@/mod/scripts/core/schemes/ph_on_death/ISchemePhysicalOnDeathState";
-import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 
 /**
  * todo;

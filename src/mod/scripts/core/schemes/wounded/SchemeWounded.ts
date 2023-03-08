@@ -5,7 +5,6 @@ import { STRINGIFIED_NIL } from "@/mod/globals/lua";
 import { AnyObject, Maybe, Optional, TNumberId } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme, action_ids, evaluators_id } from "@/mod/scripts/core/schemes/base";
 import { ActionWounded } from "@/mod/scripts/core/schemes/wounded/actions";
 import { EvaluatorCanFight, EvaluatorWounded } from "@/mod/scripts/core/schemes/wounded/evaluators";
@@ -77,10 +76,8 @@ export class SchemeWounded extends AbstractScheme {
   /**
    * todo;
    */
-  public static setWounded(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    logger.info("Set wounded:", object.name());
-
-    const state: ISchemeWoundedState = assignStorageAndBind(object, ini, scheme, section);
+  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const state: ISchemeWoundedState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.wound_manager = new WoundManager(object, state);
   }

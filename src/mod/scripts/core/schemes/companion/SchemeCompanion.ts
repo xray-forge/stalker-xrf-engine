@@ -1,7 +1,6 @@
 import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme, action_ids, evaluators_id } from "@/mod/scripts/core/schemes/base";
 import { ActionCompanionActivity } from "@/mod/scripts/core/schemes/companion/actions";
 import { EvaluatorNeedCompanion } from "@/mod/scripts/core/schemes/companion/evaluators";
@@ -20,8 +19,11 @@ export class SchemeCompanion extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.COMPANION;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
+  /**
+   * todo;
+   */
   public static override addToBinder(
-    npc: XR_game_object,
+    object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
@@ -35,7 +37,7 @@ export class SchemeCompanion extends AbstractScheme {
       state_mgr_logic_active: evaluators_id.state_mgr + 4,
     };
 
-    const actionPlanner: XR_action_planner = npc.motivation_action_manager();
+    const actionPlanner: XR_action_planner = object.motivation_action_manager();
 
     actionPlanner.add_evaluator(properties.need_companion, new EvaluatorNeedCompanion(state));
 
@@ -49,7 +51,7 @@ export class SchemeCompanion extends AbstractScheme {
     actionCompanionActivity.add_effect(new world_property(properties.state_mgr_logic_active, false));
     actionPlanner.add_action(operators.action_companion, actionCompanionActivity);
 
-    subscribeActionForEvents(npc, state, actionCompanionActivity);
+    subscribeActionForEvents(object, state, actionCompanionActivity);
 
     actionPlanner.action(action_ids.alife).add_precondition(new world_property(properties.need_companion, false));
   }
@@ -61,7 +63,7 @@ export class SchemeCompanion extends AbstractScheme {
     section: TSection,
     additional: string
   ): void {
-    const state: ISchemeCompanionState = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeCompanionState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.behavior = 0; // beh_walk_simple

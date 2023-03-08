@@ -1,7 +1,6 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { getMobState } from "@/mod/scripts/core/schemes/mob/MobStateManager";
 import { ISchemeMobRemarkState } from "@/mod/scripts/core/schemes/mob/remark/ISchemeMobRemarkState";
@@ -9,7 +8,7 @@ import { MobRemarkManager } from "@/mod/scripts/core/schemes/mob/remark/MobRemar
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import {
   getConfigBoolean,
-  getConfigCondList,
+  getConfigConditionList,
   getConfigString,
   getConfigSwitchConditions,
 } from "@/mod/scripts/utils/configs";
@@ -47,11 +46,11 @@ export class SchemeMobRemark extends AbstractScheme {
     section: TSection,
     gulag_name: string
   ): void {
-    const state: ISchemeMobRemarkState = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeMobRemarkState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.state = getMobState(ini, section, object);
-    state.dialog_cond = getConfigCondList(ini, section, "dialog_cond", object);
+    state.dialog_cond = getConfigConditionList(ini, section, "dialog_cond", object);
     state.no_reset = true;
     state.anim = getConfigString(ini, section, "anim", object, false, "");
     state.anim_movement = getConfigBoolean(ini, section, "anim_movement", object, false, false);

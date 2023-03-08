@@ -133,11 +133,11 @@ export function parseSpawns(data: string): LuaArray<{ section: string; prob: num
  * todo;
  * example: a | b | c ==> { 1 = "a", 2 = "b", 3 = "c" }
  */
-export function parseParams(params: string): LuaArray<string> {
-  const result: LuaArray<string> = new LuaTable();
+export function parseParameters<T extends string>(parameters: T): LuaArray<T> {
+  const result: LuaArray<T> = new LuaTable();
 
-  for (const field of string.gfind(params, "%s*([^|]+)%s*")) {
-    table.insert(result, field);
+  for (const field of string.gfind(parameters, "%s*([^|]+)%s*")) {
+    table.insert(result, field as T);
   }
 
   return result;
@@ -204,23 +204,23 @@ export function parseConditionsList(
 /**
  * todo;
  */
-export function parseInfoPortions(result: LuaTable<number, IConfigCondition>, str: string): void {
-  if (str === null) {
+export function parseInfoPortions(result: LuaArray<IConfigCondition>, data: Optional<string>): void {
+  if (data === null) {
     return;
   }
 
   let infop_n = 1;
 
-  for (const s of string.gfind(str, "%s*([%-%+%~%=%!][^%-%+%~%=%!%s]+)%s*")) {
+  for (const s of string.gfind(data, "%s*([%-%+%~%=%!][^%-%+%~%=%!%s]+)%s*")) {
     const sign = string.sub(s, 1, 1);
     let infop_name = string.sub(s, 2);
-    let params: Optional<LuaTable<number, string | number>> = null;
+    let params: Optional<LuaArray<string | number>> = null;
 
     const [at] = string.find(infop_name, "%(");
 
     if (at !== null) {
       if (string.sub(infop_name, -1) !== ")") {
-        abort("wrong condlist %s", str);
+        abort("wrong condlist %s", data);
       }
 
       if (at < string.len(infop_name) - 1) {
@@ -270,11 +270,11 @@ export function parseInfoPortions(result: LuaTable<number, IConfigCondition>, st
  * todo
  * todo
  */
-export function parseInfoPortions1(result: LuaTable, str: Optional<string>): void {
-  if (str) {
+export function parseInfoPortions1(result: LuaTable, data: Optional<string>): void {
+  if (data) {
     let infop_n = 1;
 
-    for (const s of string.gfind(str, "%s*([%-%+%~%=%!][^%-%+%~%=%!%s]+)%s*")) {
+    for (const s of string.gfind(data, "%s*([%-%+%~%=%!][^%-%+%~%=%!%s]+)%s*")) {
       const sign: string = string.sub(s, 1, 1);
       const infop_name: string = string.sub(s, 2);
 
@@ -301,7 +301,7 @@ export function parseInfoPortions1(result: LuaTable, str: Optional<string>): voi
           expected: false,
         });
       } else {
-        abort("Syntax error in condition: %s", str);
+        abort("Syntax error in condition: %s", data);
       }
 
       infop_n += 1;

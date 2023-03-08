@@ -11,9 +11,9 @@ import { Optional, TCount, TIndex } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { AbstractSchemeManager } from "@/mod/scripts/core/schemes/base/AbstractSchemeManager";
+import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/base/trySwitchToAnotherSection";
 import { ISchemePhysicalDoorState } from "@/mod/scripts/core/schemes/ph_door/ISchemePhysicalDoorState";
 import { switchToSection } from "@/mod/scripts/core/schemes/switchToSection";
-import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 

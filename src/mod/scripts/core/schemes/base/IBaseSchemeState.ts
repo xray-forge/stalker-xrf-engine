@@ -1,6 +1,6 @@
 import type { XR_game_object, XR_ini_file } from "xray16";
 
-import type { AnyObject, EScheme, LuaArray, Optional, TName, TSection, TTimestamp } from "@/mod/lib/types";
+import type { AnyObject, EScheme, LuaArray, Optional, TName, TNumberId, TSection, TTimestamp } from "@/mod/lib/types";
 import type { TConditionList } from "@/mod/scripts/utils/parse";
 
 /**
@@ -8,10 +8,10 @@ import type { TConditionList } from "@/mod/scripts/utils/parse";
  */
 export interface IBaseSchemeLogic {
   name: TName;
-  v1: string | number;
-  v2: string | number;
-  npc_id: number;
   condlist: TConditionList;
+  npc_id: Optional<TNumberId>;
+  v1: Optional<string | number>;
+  v2: Optional<string | number>;
 }
 
 /**

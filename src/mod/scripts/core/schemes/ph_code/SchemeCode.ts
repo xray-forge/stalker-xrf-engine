@@ -1,13 +1,12 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
-import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
+import { EScheme, ESchemeType, TIndex, TName, TSection } from "@/mod/lib/types";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { CodeManager } from "@/mod/scripts/core/schemes/ph_code/CodeManager";
 import { ISchemeCodeState } from "@/mod/scripts/core/schemes/ph_code/ISchemeCodeState";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import {
-  getConfigCondList,
+  getConfigConditionList,
   getConfigNumber,
   getConfigString,
   getConfigStringAndCondList,
@@ -41,7 +40,7 @@ export class SchemeCode extends AbstractScheme {
    * todo;
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemeCodeState = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeCodeState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.tips = getConfigString(ini, section, "tips", object, false, "", "st_codelock");
@@ -51,15 +50,15 @@ export class SchemeCode extends AbstractScheme {
     state.code = getConfigNumber(ini, section, "code", object, false);
 
     if (state.code) {
-      state.on_code = getConfigCondList(ini, section, "on_code", object);
+      state.on_code = getConfigConditionList(ini, section, "on_code", object);
     } else {
       state.on_check_code = new LuaTable();
 
-      let it: number = 1;
+      let it: TIndex = 1;
       let cc = getConfigStringAndCondList(ini, section, "on_check_code" + it, object);
 
       while (cc) {
-        state.on_check_code.set(cc.v1, cc.condlist);
+        state.on_check_code.set(cc.v1 as TName, cc.condlist);
         it += 1;
         cc = getConfigStringAndCondList(ini, section, "on_check_code" + it, object);
       }

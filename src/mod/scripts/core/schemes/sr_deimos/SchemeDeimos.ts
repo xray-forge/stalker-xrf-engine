@@ -2,7 +2,6 @@ import { XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
 import { EScheme, ESchemeType, TRate, TSection } from "@/mod/lib/types";
 import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { DeimosManager } from "@/mod/scripts/core/schemes/sr_deimos/DeimosManager";
 import { ISchemeDeimosState } from "@/mod/scripts/core/schemes/sr_deimos/ISchemeDeimosState";
@@ -37,7 +36,7 @@ export class SchemeDeimos extends AbstractScheme {
    * todo;
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemeDeimosState = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeDeimosState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.movement_speed = getConfigNumber(ini, section, "movement_speed", object, false, 100);

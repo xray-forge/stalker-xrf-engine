@@ -1,7 +1,6 @@
 import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { action_ids } from "@/mod/scripts/core/schemes/base/actions_id";
 import { evaluators_id } from "@/mod/scripts/core/schemes/base/evaluators_id";
@@ -32,8 +31,6 @@ export class SchemeSleeper extends AbstractScheme {
     section: TSection,
     state: ISchemeSleeperState
   ): void {
-    logger.info("Add to binder:", object.name());
-
     const operators = {
       action_sleeper: action_ids.zmey_sleeper_base + 1,
     };
@@ -75,12 +72,12 @@ export class SchemeSleeper extends AbstractScheme {
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
-    gulag_name: string
+    additional: string
   ): void {
-    const state: ISchemeSleeperState = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeSleeperState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
-    state.path_main = getConfigString(ini, section, "path_main", object, true, gulag_name);
+    state.path_main = getConfigString(ini, section, "path_main", object, true, additional);
     state.wakeable = getConfigBoolean(ini, section, "wakeable", object, false);
     state.path_walk = null;
     state.path_walk_info = null;

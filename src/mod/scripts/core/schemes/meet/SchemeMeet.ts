@@ -5,7 +5,6 @@ import { AnyObject, EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/t
 import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { SchemeAbuse } from "@/mod/scripts/core/schemes/abuse/SchemeAbuse";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { action_ids } from "@/mod/scripts/core/schemes/base/actions_id";
 import { evaluators_id } from "@/mod/scripts/core/schemes/base/evaluators_id";
@@ -94,7 +93,7 @@ export class SchemeMeet extends AbstractScheme {
    * todo;
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    assignStorageAndBind(object, ini, scheme, section);
+    AbstractScheme.assignStateAndBind(object, ini, scheme, section);
   }
 
   /**

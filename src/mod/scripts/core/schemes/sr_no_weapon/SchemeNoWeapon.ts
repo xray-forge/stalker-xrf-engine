@@ -1,7 +1,6 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { ISchemeNoWeaponState } from "@/mod/scripts/core/schemes/sr_no_weapon/ISchemeNoWeaponState";
 import { NoWeaponManager } from "@/mod/scripts/core/schemes/sr_no_weapon/NoWeaponManager";
@@ -25,13 +24,11 @@ export class SchemeNoWeapon extends AbstractScheme {
     section: TSection,
     state: ISchemeNoWeaponState
   ): void {
-    logger.info("Add to binder:", object.name());
-
     subscribeActionForEvents(object, state, new NoWeaponManager(object, state));
   }
 
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemeNoWeaponState = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeNoWeaponState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
   }

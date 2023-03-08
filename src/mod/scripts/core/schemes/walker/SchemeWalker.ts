@@ -1,7 +1,6 @@
 import { level, stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { action_ids } from "@/mod/scripts/core/schemes/base/actions_id";
 import { evaluators_id } from "@/mod/scripts/core/schemes/base/evaluators_id";
@@ -77,7 +76,7 @@ export class SchemeWalker extends AbstractScheme {
     section: TSection,
     gulag_name: string
   ): void {
-    const state: ISchemeWalkerState = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeWalkerState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.path_walk = getConfigString(ini, section, "path_walk", object, true, gulag_name);

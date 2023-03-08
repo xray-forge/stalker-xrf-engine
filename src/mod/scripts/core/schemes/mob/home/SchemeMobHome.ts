@@ -1,7 +1,6 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TName, TSection } from "@/mod/lib/types";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { ISchemeMobHomeState } from "@/mod/scripts/core/schemes/mob/home/ISchemeMobHomeState";
 import { MobHomeManager } from "@/mod/scripts/core/schemes/mob/home/MobHomeManager";
@@ -49,7 +48,7 @@ export class SchemeMobHome extends AbstractScheme {
   ): void {
     logger.info("Set scheme:", object.name(), scheme, section);
 
-    const state: ISchemeMobHomeState = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeMobHomeState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.state = getMobState(ini, section, object);

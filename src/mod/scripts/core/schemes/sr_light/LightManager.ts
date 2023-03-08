@@ -2,8 +2,8 @@ import { XR_game_object } from "xray16";
 
 import { registry } from "@/mod/scripts/core/database";
 import { AbstractSchemeManager } from "@/mod/scripts/core/schemes/base/AbstractSchemeManager";
+import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/base/trySwitchToAnotherSection";
 import { ISchemeLightState } from "@/mod/scripts/core/schemes/sr_light/ISchemeLightState";
-import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("LightManager");

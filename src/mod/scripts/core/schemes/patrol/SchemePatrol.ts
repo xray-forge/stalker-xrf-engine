@@ -4,7 +4,6 @@ import { Optional, TName } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { Squad } from "@/mod/scripts/core/alife/Squad";
 import { registry } from "@/mod/scripts/core/database";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { action_ids } from "@/mod/scripts/core/schemes/base/actions_id";
 import { evaluators_id } from "@/mod/scripts/core/schemes/base/evaluators_id";
@@ -38,8 +37,6 @@ export class SchemePatrol extends AbstractScheme {
     section: TSection,
     state: ISchemePatrolState
   ): void {
-    logger.info("Add to binder:", object.name());
-
     const operators = {
       action_patrol: action_ids.sidor_act_patrol,
       action_commander: action_ids.sidor_act_patrol + 1,
@@ -97,7 +94,7 @@ export class SchemePatrol extends AbstractScheme {
     section: TSection,
     gulagName: TName
   ): void {
-    const state: ISchemePatrolState = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemePatrolState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.path_name = getConfigString(ini, section, "path_walk", object, true, gulagName);

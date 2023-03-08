@@ -5,7 +5,6 @@ import { Optional, TNumberId } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme, action_ids, evaluators_id } from "@/mod/scripts/core/schemes/base";
 import { ActionHelpWounded } from "@/mod/scripts/core/schemes/help_wounded/actions";
 import { EvaluatorWoundedExist } from "@/mod/scripts/core/schemes/help_wounded/evaluators";
@@ -99,7 +98,7 @@ export class SchemeHelpWounded extends AbstractScheme {
    * todo;
    */
   public static setHelpWounded(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: Optional<TSection>) {
-    assignStorageAndBind(object, ini, scheme, section);
+    AbstractScheme.assignStateAndBind(object, ini, scheme, section);
   }
 
   /**

@@ -4,8 +4,8 @@ import { STRINGIFIED_NIL } from "@/mod/globals/lua";
 import { Optional, TCount, TIndex, TName } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { AbstractSchemeManager } from "@/mod/scripts/core/schemes/base/AbstractSchemeManager";
+import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/base/trySwitchToAnotherSection";
 import { ISchemePhysicalOnHitState } from "@/mod/scripts/core/schemes/ph_on_hit/ISchemePhysicalOnHitState";
-import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("PhysicalHitManager");

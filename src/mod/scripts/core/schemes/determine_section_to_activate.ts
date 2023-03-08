@@ -3,7 +3,7 @@ import { XR_game_object, XR_ini_file } from "xray16";
 import { STRINGIFIED_NIL } from "@/mod/globals/lua";
 import { TSection } from "@/mod/lib/types/scheme";
 import { registry } from "@/mod/scripts/core/database";
-import { getConfigCondList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
+import { getConfigConditionList, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 
 /**
@@ -31,7 +31,7 @@ export function determine_section_to_activate(
     }
   }
 
-  const activeSectionCond = getConfigCondList(ini, sectionLogic, "active", npc);
+  const activeSectionCond = getConfigConditionList(ini, sectionLogic, "active", npc);
 
   if (activeSectionCond) {
     const section = pickSectionFromCondList(actor, npc, activeSectionCond.condlist);

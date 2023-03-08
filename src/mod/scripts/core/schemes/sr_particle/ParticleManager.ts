@@ -3,8 +3,8 @@ import { particles_object, patrol, time_global, XR_patrol } from "xray16";
 import { Optional, TCount, TTimestamp } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { AbstractSchemeManager } from "@/mod/scripts/core/schemes/base/AbstractSchemeManager";
+import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/base/trySwitchToAnotherSection";
 import { ISchemeParticleState } from "@/mod/scripts/core/schemes/sr_particle/ISchemeParticleState";
-import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { parsePathWaypoints } from "@/mod/scripts/utils/parse";
 
 /**

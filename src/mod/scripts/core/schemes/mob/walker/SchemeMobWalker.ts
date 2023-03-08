@@ -1,7 +1,6 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { getMobState } from "@/mod/scripts/core/schemes/mob/MobStateManager";
 import { ISchemeMobWalkerState } from "@/mod/scripts/core/schemes/mob/walker/ISchemeMobWalkerState";
@@ -43,7 +42,7 @@ export class SchemeMobWalker extends AbstractScheme {
     section: TSection,
     gulag_name: string
   ): void {
-    const state: ISchemeMobWalkerState = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeMobWalkerState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.state = getMobState(ini, section, object);

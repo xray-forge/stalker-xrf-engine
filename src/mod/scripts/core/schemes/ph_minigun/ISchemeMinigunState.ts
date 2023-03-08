@@ -1,6 +1,6 @@
 import type { TInfoPortion } from "@/mod/globals/info_portions";
 import type { Optional, TCount, TDistance, TDuration, TName, TRate } from "@/mod/lib/types";
-import type { IBaseSchemeState } from "@/mod/scripts/core/schemes/base";
+import type { IBaseSchemeLogic, IBaseSchemeState } from "@/mod/scripts/core/schemes/base";
 import type { TConditionList } from "@/mod/scripts/utils/parse";
 
 /**
@@ -17,14 +17,6 @@ export interface ISchemeMinigunState extends IBaseSchemeState {
   fire_angle: TRate;
   shoot_only_on_visible: boolean;
   on_death_info: Optional<TInfoPortion>;
-  on_target_vis: Optional<{
-    v1: string;
-    name: TName;
-    condlist: TConditionList;
-  }>;
-  on_target_nvis: Optional<{
-    v1: string;
-    name: TName;
-    condlist: TConditionList;
-  }>;
+  on_target_vis: Optional<IBaseSchemeLogic>;
+  on_target_nvis: Optional<IBaseSchemeLogic>;
 }

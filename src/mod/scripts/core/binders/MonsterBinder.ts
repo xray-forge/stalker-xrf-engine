@@ -47,13 +47,13 @@ import { get_sim_obj_registry } from "@/mod/scripts/core/database/SimObjectsRegi
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { ESchemeEvent } from "@/mod/scripts/core/schemes/base";
+import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/base/trySwitchToAnotherSection";
 import { ActionSchemeHear } from "@/mod/scripts/core/schemes/hear/ActionSchemeHear";
 import { issueSchemeEvent } from "@/mod/scripts/core/schemes/issueSchemeEvent";
 import { mobCapture } from "@/mod/scripts/core/schemes/mobCapture";
 import { mobCaptured } from "@/mod/scripts/core/schemes/mobCaptured";
 import { mobRelease } from "@/mod/scripts/core/schemes/mobRelease";
 import { loadObject, saveObject } from "@/mod/scripts/core/schemes/storing";
-import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { action, getObjectSquad } from "@/mod/scripts/utils/alife";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";

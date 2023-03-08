@@ -1,7 +1,6 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TName, TSection } from "@/mod/lib/types";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { ISchemeOscillateState } from "@/mod/scripts/core/schemes/ph_oscillate/ISchemeOscillateState";
 import { OscillateManager } from "@/mod/scripts/core/schemes/ph_oscillate/OscillateManager";
@@ -29,7 +28,6 @@ export class SchemeOscillate extends AbstractScheme {
     section: TSection,
     state: ISchemeOscillateState
   ): void {
-    logger.info("Add to binder:", object.name());
     subscribeActionForEvents(object, state, new OscillateManager(object, state));
   }
 
@@ -43,7 +41,7 @@ export class SchemeOscillate extends AbstractScheme {
     section: TSection,
     gulagName: TName
   ): void {
-    const state: ISchemeOscillateState = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeOscillateState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.joint = getConfigString(ini, section, "joint", object, true, gulagName);

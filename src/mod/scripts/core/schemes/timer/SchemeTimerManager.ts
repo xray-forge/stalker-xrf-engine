@@ -2,9 +2,9 @@ import { time_global, XR_game_object } from "xray16";
 
 import { registry } from "@/mod/scripts/core/database";
 import { AbstractSchemeManager } from "@/mod/scripts/core/schemes/base/AbstractSchemeManager";
+import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/base/trySwitchToAnotherSection";
 import { switchToSection } from "@/mod/scripts/core/schemes/switchToSection";
 import { ISchemeTimerState } from "@/mod/scripts/core/schemes/timer/ISchemeTimerState";
-import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { timeToString } from "@/mod/scripts/utils/general";
 

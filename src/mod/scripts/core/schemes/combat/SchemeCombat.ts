@@ -5,14 +5,17 @@ import { STRINGIFIED_NIL } from "@/mod/globals/lua";
 import { AnyObject, LuaArray, Optional } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme, evaluators_id } from "@/mod/scripts/core/schemes/base";
 import { EvaluatorCheckCombat } from "@/mod/scripts/core/schemes/combat/evaluators/EvaluatorCheckCombat";
 import { ISchemeCombatState } from "@/mod/scripts/core/schemes/combat/ISchemeCombatState";
 import { SchemeCombatCamper } from "@/mod/scripts/core/schemes/combat_camper/SchemeCombatCamper";
 import { SchemeCombatZombied } from "@/mod/scripts/core/schemes/combat_zombied/SchemeCombatZombied";
 import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
-import { getConfigCondList, getConfigSwitchConditions, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
+import {
+  getConfigConditionList,
+  getConfigSwitchConditions,
+  pickSectionFromCondList,
+} from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseConditionsList } from "@/mod/scripts/utils/parse";
 
@@ -35,8 +38,6 @@ export class SchemeCombat extends AbstractScheme {
     section: TSection,
     state: ISchemeCombatState
   ): void {
-    logger.info("Add to binder:", object.name());
-
     const actionPlanner: XR_action_planner = object.motivation_action_manager();
 
     actionPlanner.add_evaluator(evaluators_id.script_combat, new EvaluatorCheckCombat(state));
@@ -93,12 +94,12 @@ export class SchemeCombat extends AbstractScheme {
     const isZombied: boolean = getCharacterCommunity(object) === communities.zombied;
 
     if (section || isZombied) {
-      const state: ISchemeCombatState = assignStorageAndBind(object, ini, scheme, section);
+      const state: ISchemeCombatState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
       state.logic = getConfigSwitchConditions(ini, section, object);
       state.enabled = true;
 
-      state.combat_type = getConfigCondList(ini, section, "combat_type", object);
+      state.combat_type = getConfigConditionList(ini, section, "combat_type", object);
 
       if ((state.combat_type as any) === communities.monolith) {
         state.combat_type = null;

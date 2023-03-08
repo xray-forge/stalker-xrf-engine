@@ -1,13 +1,13 @@
 import { CCar, level, move, patrol, time_global, vector, XR_CCar, XR_game_object, XR_vector } from "xray16";
 
-import { Optional, TName } from "@/mod/lib/types";
+import { Optional, TName, TStringId } from "@/mod/lib/types";
 import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { AbstractSchemeManager } from "@/mod/scripts/core/schemes/base/AbstractSchemeManager";
+import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/base/trySwitchToAnotherSection";
 import { mobCaptured } from "@/mod/scripts/core/schemes/mobCaptured";
 import { mobRelease } from "@/mod/scripts/core/schemes/mobRelease";
 import { ISchemeMinigunState } from "@/mod/scripts/core/schemes/ph_minigun/ISchemeMinigunState";
 import { switchToSection } from "@/mod/scripts/core/schemes/switchToSection";
-import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 import { getStoryObject } from "@/mod/scripts/utils/alife";
 import { isHeavilyWounded } from "@/mod/scripts/utils/checkers/checkers";
 import { isActiveSection } from "@/mod/scripts/utils/checkers/is";
@@ -146,7 +146,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
         const vis = this.state.on_target_vis;
 
         if (vis.v1 !== null) {
-          const storyObject = getStoryObject(vis.v1);
+          const storyObject = getStoryObject(vis.v1 as TStringId);
 
           if (storyObject && storyObject.alive()) {
             vis.v1 = storyObject as any;
@@ -159,7 +159,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
         const nvis = this.state.on_target_nvis;
 
         if (nvis.v1 !== null) {
-          const storyObject = getStoryObject(nvis.v1);
+          const storyObject = getStoryObject(nvis.v1 as TStringId);
 
           if (storyObject && storyObject.alive()) {
             nvis.v1 = storyObject as any;

@@ -3,9 +3,9 @@ import { XR_game_object } from "xray16";
 import { EScheme, Optional } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { AbstractSchemeManager } from "@/mod/scripts/core/schemes/base/AbstractSchemeManager";
+import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/base/trySwitchToAnotherSection";
 import { ISchemeDeathState } from "@/mod/scripts/core/schemes/death";
 import { ISchemeMobDeathState } from "@/mod/scripts/core/schemes/mob/death/ISchemeMobDeathState";
-import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 
 /**
  * todo;

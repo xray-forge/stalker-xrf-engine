@@ -1,7 +1,6 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TName, TSection } from "@/mod/lib/types";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { ISchemeParticleState } from "@/mod/scripts/core/schemes/sr_particle/ISchemeParticleState";
 import { ParticleManager } from "@/mod/scripts/core/schemes/sr_particle/ParticleManager";
@@ -34,8 +33,6 @@ export class SchemeParticle extends AbstractScheme {
     section: TSection,
     state: ISchemeParticleState
   ): void {
-    logger.info("Add to binder:", object.name());
-
     subscribeActionForEvents(object, state, new ParticleManager(object, state));
   }
 
@@ -43,7 +40,7 @@ export class SchemeParticle extends AbstractScheme {
    * todo;
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemeParticleState = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeParticleState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.name = getConfigString(ini, section, "name", object, true, "", null) as TName;

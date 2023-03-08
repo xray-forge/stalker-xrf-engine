@@ -1,7 +1,6 @@
 import { stalker_ids, world_property, XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { action_ids } from "@/mod/scripts/core/schemes/base/actions_id";
 import { evaluators_id } from "@/mod/scripts/core/schemes/base/evaluators_id";
@@ -39,8 +38,6 @@ export class SchemeSmartCover extends AbstractScheme {
     section: TSection,
     state: ISchemeSmartCoverState
   ): void {
-    logger.info("Add to binder:", object.name());
-
     const operators = {
       action_smartcover: action_ids.smartcover_action,
       action_combat_smartcover: action_ids.smartcover_action + 2,
@@ -91,7 +88,7 @@ export class SchemeSmartCover extends AbstractScheme {
     section: TSection,
     additional: string
   ): void {
-    const state: ISchemeSmartCoverState = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeSmartCoverState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.cover_name = getConfigString(ini, section, "cover_name", object, false, "", "$script_id$_cover");

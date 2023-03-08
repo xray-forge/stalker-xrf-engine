@@ -2,7 +2,6 @@ import { XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { registry } from "@/mod/scripts/core/database";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { ISchemeSilenceState } from "@/mod/scripts/core/schemes/sr_silence/ISchemeSilenceState";
 import { SilenceManager } from "@/mod/scripts/core/schemes/sr_silence/SilenceManager";
@@ -38,7 +37,7 @@ export class SchemeSilence extends AbstractScheme {
    * todo;
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemeSilenceState = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeSilenceState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
 

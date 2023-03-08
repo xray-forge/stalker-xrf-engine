@@ -1,7 +1,6 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { CrowSpawnerManager } from "@/mod/scripts/core/schemes/sr_crow_spawner/CrowSpawnerManager";
 import { ISchemeCrowSpawnerState } from "@/mod/scripts/core/schemes/sr_crow_spawner/ISchemeCrowSpawnerState";
@@ -36,8 +35,7 @@ export class SchemeCrowSpawner extends AbstractScheme {
    * todo;
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    // -- standart lines: assigning new storage and binding our space restrictor
-    const state: ISchemeCrowSpawnerState = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeCrowSpawnerState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.max_crows_on_level = getConfigNumber(ini, section, "max_crows_on_level", object, false, 16);

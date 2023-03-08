@@ -3,7 +3,6 @@ import { level, XR_game_object, XR_ini_file } from "xray16";
 import { misc } from "@/mod/globals/items/misc";
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { ISchemeLightState } from "@/mod/scripts/core/schemes/sr_light/ISchemeLightState";
 import { LightManager } from "@/mod/scripts/core/schemes/sr_light/LightManager";
@@ -33,8 +32,6 @@ export class SchemeLight extends AbstractScheme {
     section: TSection,
     state: ISchemeLightState
   ): void {
-    logger.info("Add to binder:", object.name());
-
     subscribeActionForEvents(object, state, new LightManager(object, state));
   }
 
@@ -42,7 +39,7 @@ export class SchemeLight extends AbstractScheme {
    * todo;
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemeLightState = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeLightState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.light = getConfigBoolean(ini, section, "light_on", object, false, false);

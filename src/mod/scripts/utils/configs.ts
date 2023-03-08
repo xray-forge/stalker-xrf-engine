@@ -4,6 +4,7 @@ import {
   AnyCallablesModule,
   AnyObject,
   EScheme,
+  ESchemeCondition,
   LuaArray,
   Optional,
   TIndex,
@@ -13,16 +14,11 @@ import {
   TStringId,
 } from "@/mod/lib/types";
 import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
+import { IBaseSchemeLogic } from "@/mod/scripts/core/schemes/base";
 import { abort } from "@/mod/scripts/utils/debug";
 import { disableInfo, hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import {
-  IConfigSwitchCondition,
-  parseConditionsList,
-  parseNames,
-  parseParams,
-  TConditionList,
-} from "@/mod/scripts/utils/parse";
+import { parseConditionsList, parseNames, parseParameters, TConditionList } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("configs");
 
@@ -65,7 +61,7 @@ export function getConfigString<D = string>(
 export function getConfigNumber<T = number>(
   ini: XR_ini_file,
   section: TSection,
-  field: string,
+  field: TName,
   object: Optional<AnyObject>,
   mandatory: boolean,
   defaultVal?: T
@@ -303,27 +299,30 @@ export function pickSectionFromCondList<T extends TSection>(
 /**
  * todo
  */
-export function getConfigCondList(
+export function getConfigConditionList(
   ini: XR_ini_file,
   section: TSection,
   field: TName,
   object: XR_game_object
-): Optional<{ name: TName; condlist: LuaArray<IConfigSwitchCondition> }> {
-  const str = getConfigString(ini, section, field, object, false, "");
+): Optional<IBaseSchemeLogic> {
+  const data: Optional<string> = getConfigString(ini, section, field, object, false, "");
 
-  if (!str) {
+  if (!data) {
     return null;
   }
 
-  const par = parseParams(str);
+  const parameters: LuaArray<string> = parseParameters(data);
 
-  if (!par.get(1)) {
+  if (!parameters.get(1)) {
     abort("Invalid syntax in condlist");
   }
 
   return {
     name: field,
-    condlist: parseConditionsList(object, section, field, par.get(1)),
+    condlist: parseConditionsList(object, section, field, parameters.get(1)),
+    npc_id: null,
+    v1: null,
+    v2: null,
   };
 }
 
@@ -335,27 +334,25 @@ export function getConfigStringAndCondList(
   section: TSection,
   field: TName,
   object: XR_game_object
-): Optional<{
-  name: TName;
-  v1: string;
-  condlist: TConditionList;
-}> {
+): Optional<IBaseSchemeLogic> {
   const data: string = getConfigString(ini, section, field, object, false, "");
 
   if (!data) {
     return null;
   }
 
-  const par = parseParams(data);
+  const parameters: LuaArray<string> = parseParameters(data);
 
-  if (!par.get(1) || !par.get(2)) {
+  if (!parameters.get(1) || !parameters.get(2)) {
     abort("Invalid syntax in condlist");
   }
 
   return {
     name: field,
-    v1: par.get(1),
-    condlist: parseConditionsList(object, section, field, par.get(2)),
+    condlist: parseConditionsList(object, section, field, parameters.get(2)),
+    npc_id: null,
+    v1: parameters.get(1),
+    v2: null,
   };
 }
 
@@ -368,29 +365,27 @@ export function getConfigStringAndCondList(
 export function getConfigNumberAndConditionList(
   ini: XR_ini_file,
   section: TSection,
-  field: string,
-  npc: XR_game_object
-): Optional<{
-  name: TName;
-  v1: number;
-  condlist: any;
-}> {
-  const str = getConfigString(ini, section, field, npc, false, "");
+  field: TName,
+  object: XR_game_object
+): Optional<IBaseSchemeLogic> {
+  const data: Optional<string> = getConfigString(ini, section, field, object, false, "");
 
-  if (!str) {
+  if (!data) {
     return null;
   }
 
-  const par = parseParams(str);
+  const params: LuaArray<string> = parseParameters(data);
 
-  if (!par.get(1) || !par.get(2)) {
-    abort("Invalid condlist: %s", str);
+  if (!params.get(1) || !params.get(2)) {
+    abort("Invalid condlist: %s", data);
   }
 
   return {
     name: field,
-    v1: tonumber(par.get(1))!,
-    condlist: parseConditionsList(npc, section, field, par.get(2)),
+    v1: tonumber(params.get(1))!,
+    condlist: parseConditionsList(object, section, field, params.get(2)),
+    npc_id: null,
+    v2: null,
   };
 }
 
@@ -399,32 +394,30 @@ export function getConfigNumberAndConditionList(
  * todo
  * todo
  */
-export function getConfigStringAndConditionsList(
+export function getConfigStringAndConditionList(
   ini: XR_ini_file,
   section: TSection,
-  field: string,
+  field: TName,
   object: XR_game_object
-): Optional<{
-  name: string;
-  v1: string;
-  condlist: any;
-}> {
-  const str = getConfigString(ini, section, field, object, false, "");
+): Optional<IBaseSchemeLogic> {
+  const data: Optional<string> = getConfigString(ini, section, field, object, false, "");
 
-  if (!str) {
+  if (!data) {
     return null;
   }
 
-  const par = parseParams(str);
+  const parameters: LuaArray<string> = parseParameters(data);
 
-  if (!par.get(1) || !par.get(2)) {
+  if (!parameters.get(1) || !parameters.get(2)) {
     abort("Invalid condlist: %s, %s", field, section);
   }
 
   return {
     name: field,
-    v1: par.get(1),
-    condlist: parseConditionsList(object, section, field, par.get(2)),
+    condlist: parseConditionsList(object, section, field, parameters.get(2)),
+    npc_id: null,
+    v1: parameters.get(1),
+    v2: null,
   };
 }
 
@@ -436,21 +429,16 @@ export function getConfigStringAndConditionsList(
 export function getConfigTwoStringsAndConditionsList(
   ini: XR_ini_file,
   section: TSection,
-  field: string,
+  field: TName,
   object: XR_game_object
-): Optional<{
-  name: string;
-  v1: string;
-  v2: string;
-  condlist: any;
-}> {
-  const str = getConfigString(ini, section, field, object, false, "");
+): Optional<IBaseSchemeLogic> {
+  const data: string = getConfigString(ini, section, field, object, false, "");
 
-  if (!str) {
+  if (!data) {
     return null;
   }
 
-  const par = parseParams(str);
+  const par = parseParameters(data);
 
   if (!par.get(1) || !par.get(2) || !par.get(3)) {
     abort("Invalid condlist: %s, %s", field, section);
@@ -458,9 +446,10 @@ export function getConfigTwoStringsAndConditionsList(
 
   return {
     name: field,
+    condlist: parseConditionsList(object, section, field, par.get(3)),
+    npc_id: null,
     v1: par.get(1),
     v2: par.get(2),
-    condlist: parseConditionsList(object, section, field, par.get(3)),
   };
 }
 
@@ -473,8 +462,8 @@ export function getConfigSwitchConditions(
   ini: XR_ini_file,
   section: TSection,
   object: XR_game_object
-): Optional<LuaArray<any>> {
-  const conditionsList: LuaArray<any> = new LuaTable();
+): Optional<LuaArray<IBaseSchemeLogic>> {
+  const conditionsList: LuaArray<IBaseSchemeLogic> = new LuaTable();
   let index: TIndex = 1;
 
   if (!ini.section_exist(tostring(section))) {
@@ -484,8 +473,8 @@ export function getConfigSwitchConditions(
   const line_count = ini.line_count(section);
 
   function add_conditions(
-    func: (ini: XR_ini_file, section: TSection, id: string, npc: XR_game_object) => any,
-    cond: string
+    func: (ini: XR_ini_file, section: TSection, id: TStringId, npc: XR_game_object) => Optional<IBaseSchemeLogic>,
+    cond: ESchemeCondition
   ) {
     for (const line_number of $range(0, line_count - 1)) {
       const [result, id, value] = ini.r_line(section, line_number, "", "");
@@ -498,20 +487,20 @@ export function getConfigSwitchConditions(
   }
 
   // todo: Move conditions to enum.
-  add_conditions(getConfigNumberAndConditionList, "on_actor_dist_le");
-  add_conditions(getConfigNumberAndConditionList, "on_actor_dist_le_nvis");
-  add_conditions(getConfigNumberAndConditionList, "on_actor_dist_ge");
-  add_conditions(getConfigNumberAndConditionList, "on_actor_dist_ge_nvis");
-  add_conditions(getConfigStringAndConditionsList, "on_signal");
-  add_conditions(getConfigCondList, "on_info");
-  add_conditions(getConfigNumberAndConditionList, "on_timer");
-  add_conditions(getConfigNumberAndConditionList, "on_game_timer");
-  add_conditions(getConfigStringAndConditionsList, "on_actor_in_zone");
-  add_conditions(getConfigStringAndConditionsList, "on_actor_not_in_zone");
-  add_conditions(getConfigCondList, "on_actor_inside");
-  add_conditions(getConfigCondList, "on_actor_outside");
-  add_conditions(getConfigNpcAndZone, "on_npc_in_zone");
-  add_conditions(getConfigNpcAndZone, "on_npc_not_in_zone");
+  add_conditions(getConfigNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_LESS_THAN);
+  add_conditions(getConfigNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_LESS_THAN_AND_VISIBLE);
+  add_conditions(getConfigNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_GREATER_THAN);
+  add_conditions(getConfigNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_GREATER_THAN_AND_VISIBLE);
+  add_conditions(getConfigStringAndConditionList, ESchemeCondition.ON_SIGNAL);
+  add_conditions(getConfigConditionList, ESchemeCondition.ON_INFO);
+  add_conditions(getConfigNumberAndConditionList, ESchemeCondition.ON_TIMER);
+  add_conditions(getConfigNumberAndConditionList, ESchemeCondition.ON_GAME_TIMER);
+  add_conditions(getConfigStringAndConditionList, ESchemeCondition.ON_ACTOR_IN_ZONE);
+  add_conditions(getConfigStringAndConditionList, ESchemeCondition.ON_ACTOR_NOT_IN_ZONE);
+  add_conditions(getConfigConditionList, ESchemeCondition.ON_ACTOR_INSIDE);
+  add_conditions(getConfigConditionList, ESchemeCondition.ON_ACTOR_OUTSIDE);
+  add_conditions(getConfigObjectAndZone, ESchemeCondition.ON_NPC_IN_ZONE);
+  add_conditions(getConfigObjectAndZone, ESchemeCondition.ON_NPC_NOT_IN_ZONE);
 
   return conditionsList;
 }
@@ -521,9 +510,13 @@ export function getConfigSwitchConditions(
  * todo;
  * todo;
  */
-export function addCondition(lst: LuaTable<number>, at: TIndex, cond: any): number {
-  if (cond) {
-    lst.set(at, cond);
+export function addCondition(
+  conditionsList: LuaArray<IBaseSchemeLogic>,
+  at: TIndex,
+  conditions: Optional<IBaseSchemeLogic>
+): TIndex {
+  if (conditions) {
+    conditionsList.set(at, conditions);
 
     return at + 1;
   }
@@ -536,10 +529,15 @@ export function addCondition(lst: LuaTable<number>, at: TIndex, cond: any): numb
  * todo;
  * todo;
  */
-export function getConfigNpcAndZone(ini: XR_ini_file, section: TSection, field: string, object: XR_game_object) {
+export function getConfigObjectAndZone(
+  ini: XR_ini_file,
+  section: TSection,
+  field: TName,
+  object: XR_game_object
+): Optional<IBaseSchemeLogic> {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const { getStoryObjectId } = require("@/mod/scripts/utils/ids");
-  const target: AnyObject = getConfigTwoStringsAndConditionsList(ini, section, field, object) as AnyObject;
+  const target: Optional<IBaseSchemeLogic> = getConfigTwoStringsAndConditionsList(ini, section, field, object);
 
   if (target !== null) {
     const simulator: Optional<XR_alife_simulator> = alife();
@@ -580,7 +578,7 @@ export function getConfigOverrides(ini: XR_ini_file, section: TSection, object: 
     overrides.heli_hunter = parseConditionsList(object, section, "heli_hunter", heliHunter);
   }
 
-  overrides.combat_ignore = getConfigCondList(ini, section, "combat_ignore_cond", object);
+  overrides.combat_ignore = getConfigConditionList(ini, section, "combat_ignore_cond", object);
   overrides.combat_ignore_keep_when_attacked = getConfigBoolean(
     ini,
     section,
@@ -588,8 +586,8 @@ export function getConfigOverrides(ini: XR_ini_file, section: TSection, object: 
     object,
     false
   );
-  overrides.combat_type = getConfigCondList(ini, section, "combat_type", object);
-  overrides.on_combat = getConfigCondList(ini, section, "on_combat", object);
+  overrides.combat_type = getConfigConditionList(ini, section, "combat_type", object);
+  overrides.on_combat = getConfigConditionList(ini, section, "on_combat", object);
 
   const state: IRegistryObjectState = registry.objects.get(object.id());
 

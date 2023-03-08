@@ -1,7 +1,6 @@
 import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { action_ids } from "@/mod/scripts/core/schemes/base/actions_id";
 import { evaluators_id } from "@/mod/scripts/core/schemes/base/evaluators_id";
@@ -33,8 +32,6 @@ export class SchemeRemark extends AbstractScheme {
     section: TSection,
     state: ISchemeRemarkState
   ): void {
-    logger.info("Add to binder:", object.name());
-
     const operators = {
       action_remark: action_ids.zmey_remark_base + 1,
     };
@@ -74,7 +71,7 @@ export class SchemeRemark extends AbstractScheme {
     section: TSection,
     additional: string
   ): void {
-    const state: ISchemeRemarkState = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeRemarkState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.snd_anim_sync = getConfigBoolean(ini, section, "snd_anim_sync", object, false);

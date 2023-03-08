@@ -1,7 +1,6 @@
 import { patrol, XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { ISchemePhysicalForceState } from "@/mod/scripts/core/schemes/ph_force/ISchemePhysicalForceState";
 import { PhysicalForceManager } from "@/mod/scripts/core/schemes/ph_force/PhysicalForceManager";
@@ -36,7 +35,7 @@ export class SchemePhysicalForce extends AbstractScheme {
    * todo;
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemePhysicalForceState = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemePhysicalForceState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.force = getConfigNumber(ini, section, "force", object, true, 0);

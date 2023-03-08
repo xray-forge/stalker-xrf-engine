@@ -1,11 +1,10 @@
-import { stalker_ids, world_property, XR_game_object, XR_ini_file } from "xray16";
+import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { ActionAnimpoint, ActionReachAnimpoint } from "@/mod/scripts/core/schemes/animpoint/actions";
 import { AnimpointManager } from "@/mod/scripts/core/schemes/animpoint/AnimpointManager";
 import { EvaluatorNeedAnimpoint, EvaluatorReachAnimpoint } from "@/mod/scripts/core/schemes/animpoint/evaluators";
 import { ISchemeAnimpointState } from "@/mod/scripts/core/schemes/animpoint/ISchemeAnimpointState";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme, action_ids, evaluators_id } from "@/mod/scripts/core/schemes/base";
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import {
@@ -47,10 +46,10 @@ export class SchemeAnimpoint extends AbstractScheme {
       state_mgr_logic_active: evaluators_id.state_mgr + 4,
     };
 
-    const manager = object.motivation_action_manager();
+    const actionPlanner: XR_action_planner = object.motivation_action_manager();
 
-    manager.add_evaluator(properties.need_animpoint, new EvaluatorNeedAnimpoint(schemeState));
-    manager.add_evaluator(properties.reach_animpoint, new EvaluatorReachAnimpoint(schemeState));
+    actionPlanner.add_evaluator(properties.need_animpoint, new EvaluatorNeedAnimpoint(schemeState));
+    actionPlanner.add_evaluator(properties.reach_animpoint, new EvaluatorReachAnimpoint(schemeState));
 
     schemeState.animpoint = new AnimpointManager(object, schemeState);
 
@@ -66,7 +65,7 @@ export class SchemeAnimpoint extends AbstractScheme {
     addCommonPrecondition(actionReachAnimpoint);
     actionReachAnimpoint.add_effect(new world_property(properties.need_animpoint, false));
     actionReachAnimpoint.add_effect(new world_property(properties.state_mgr_logic_active, false));
-    manager.add_action(operators.action_reach_animpoint, actionReachAnimpoint);
+    actionPlanner.add_action(operators.action_reach_animpoint, actionReachAnimpoint);
     subscribeActionForEvents(object, schemeState, actionReachAnimpoint);
 
     const actionAnimpoint: ActionAnimpoint = new ActionAnimpoint(schemeState);
@@ -79,10 +78,10 @@ export class SchemeAnimpoint extends AbstractScheme {
     addCommonPrecondition(actionAnimpoint);
     actionAnimpoint.add_effect(new world_property(properties.need_animpoint, false));
     actionAnimpoint.add_effect(new world_property(properties.state_mgr_logic_active, false));
-    manager.add_action(operators.action_animpoint, actionAnimpoint);
+    actionPlanner.add_action(operators.action_animpoint, actionAnimpoint);
     subscribeActionForEvents(object, schemeState, actionAnimpoint);
 
-    manager.action(action_ids.alife).add_precondition(new world_property(properties.need_animpoint, false));
+    actionPlanner.action(action_ids.alife).add_precondition(new world_property(properties.need_animpoint, false));
   }
 
   /**
@@ -95,7 +94,7 @@ export class SchemeAnimpoint extends AbstractScheme {
     section: TSection,
     additional: string
   ): void {
-    const state: ISchemeAnimpointState = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeAnimpointState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.cover_name = getConfigString(ini, section, "cover_name", object, false, "", "$script_id$_cover");

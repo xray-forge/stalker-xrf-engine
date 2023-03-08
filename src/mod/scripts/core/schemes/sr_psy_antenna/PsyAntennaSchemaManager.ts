@@ -5,8 +5,8 @@ import { registry } from "@/mod/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
 import { PsyAntennaManager } from "@/mod/scripts/core/managers/PsyAntennaManager";
 import { AbstractSchemeManager } from "@/mod/scripts/core/schemes/base/AbstractSchemeManager";
+import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/base/trySwitchToAnotherSection";
 import { ISchemePsyAntennaState } from "@/mod/scripts/core/schemes/sr_psy_antenna/ISchemePsyAntennaState";
-import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/trySwitchToAnotherSection";
 
 const state_outside: number = 0;
 const state_inside: number = 1;

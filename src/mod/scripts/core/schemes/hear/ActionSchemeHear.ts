@@ -21,7 +21,7 @@ import { switchToSection } from "@/mod/scripts/core/schemes/switchToSection";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { getObjectStoryId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { parseConditionsList, parseParams } from "@/mod/scripts/utils/parse";
+import { parseConditionsList, parseParameters } from "@/mod/scripts/utils/parse";
 import { mapSndTypeToSoundType } from "@/mod/scripts/utils/sound";
 
 const logger: LuaLogger = new LuaLogger("ActionSchemeHear");
@@ -54,7 +54,7 @@ export class ActionSchemeHear extends AbstractScheme {
       const [result, id, value] = ini.r_line(section, it, "", "");
 
       if (string.find(id, "^on_sound%d*$")[0] !== null) {
-        const parameters: LuaArray<TName> = parseParams(value);
+        const parameters: LuaArray<TName> = parseParameters(value);
 
         state.hearInfo[parameters.get(1)] = state.hearInfo[parameters.get(1)] || {};
         state.hearInfo[parameters.get(1)][parameters.get(2)] = {

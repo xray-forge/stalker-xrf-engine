@@ -15,7 +15,6 @@ import { communities } from "@/mod/globals/communities";
 import { logicsConfig } from "@/mod/lib/configs/LogicsConfig";
 import { EScheme, ESchemeType, Optional, TDistance, TSection } from "@/mod/lib/types";
 import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { ISchemeCombatIgnoreState } from "@/mod/scripts/core/schemes/combat_ignore";
 import { ActionProcessEnemy } from "@/mod/scripts/core/schemes/combat_ignore/actions/ActionProcessEnemy";
@@ -59,7 +58,7 @@ export class SchemeDanger extends AbstractScheme {
    * todo;
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    assignStorageAndBind(object, ini, scheme, section);
+    AbstractScheme.assignStateAndBind(object, ini, scheme, section);
   }
 
   /**

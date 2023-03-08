@@ -1,7 +1,6 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { ISchemeMinigunState } from "@/mod/scripts/core/schemes/ph_minigun/ISchemeMinigunState";
 import { MinigunManager } from "@/mod/scripts/core/schemes/ph_minigun/MinigunManager";
@@ -39,8 +38,6 @@ export class SchemeMinigun extends AbstractScheme {
     section: TSection,
     state: ISchemeMinigunState
   ): void {
-    logger.info("Add to binder:", object.name());
-
     subscribeActionForEvents(object, state, new MinigunManager(object, state));
   }
 
@@ -54,7 +51,7 @@ export class SchemeMinigun extends AbstractScheme {
     section: TSection,
     gulag_name: string
   ): void {
-    const state: ISchemeMinigunState = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeMinigunState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.path_fire = getConfigString(ini, section, "path_fire", object, false, gulag_name, null);

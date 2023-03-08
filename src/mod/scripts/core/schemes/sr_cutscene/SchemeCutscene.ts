@@ -1,7 +1,6 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme, ESchemeEvent } from "@/mod/scripts/core/schemes/base";
 import { issueSchemeEvent } from "@/mod/scripts/core/schemes/issueSchemeEvent";
 import { CutsceneManager } from "@/mod/scripts/core/schemes/sr_cutscene/CutsceneManager";
@@ -35,8 +34,6 @@ export class SchemeCutscene extends AbstractScheme {
     section: TSection,
     state: ISchemeCutsceneState
   ): void {
-    logger.info("Add to binder:", object.name(), scheme, section);
-
     const cutsceneManager: CutsceneManager = new CutsceneManager(object, state);
 
     state.cutscene_action = cutsceneManager;
@@ -47,7 +44,7 @@ export class SchemeCutscene extends AbstractScheme {
    * todo;
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemeCutsceneState = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeCutsceneState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.point = getConfigString(ini, section, "point", object, true, "", "none");

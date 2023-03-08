@@ -2,7 +2,6 @@ import { XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
 import { IRegistryObjectState } from "@/mod/scripts/core/database";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base";
 import { DeathManager } from "@/mod/scripts/core/schemes/death/DeathManager";
 import { ISchemeDeathState } from "@/mod/scripts/core/schemes/death/ISchemeDeathState";
@@ -38,7 +37,7 @@ export class SchemeDeath extends AbstractScheme {
    * todo;
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    assignStorageAndBind(object, ini, scheme, section);
+    AbstractScheme.assignStateAndBind(object, ini, scheme, section);
   }
 
   /**

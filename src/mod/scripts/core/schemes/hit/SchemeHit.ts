@@ -2,7 +2,6 @@ import { XR_game_object, XR_ini_file } from "xray16";
 
 import { EScheme, ESchemeType, Optional, TSection } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { HitManager } from "@/mod/scripts/core/schemes/hit/HitManager";
 import { ISchemeHitState } from "@/mod/scripts/core/schemes/hit/ISchemeHitState";
@@ -49,7 +48,7 @@ export class SchemeHit extends AbstractScheme {
    * todo;
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemeHitState = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemeHitState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     if (!ini.section_exist(section)) {
       abort("There is no section [%s] for npc [%s]", section, object.name());

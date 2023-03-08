@@ -2,7 +2,6 @@ import { XR_game_object, XR_ini_file } from "xray16";
 
 import { post_processors } from "@/mod/globals/animation/post_processors";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types";
-import { assignStorageAndBind } from "@/mod/scripts/core/schemes/assignStorageAndBind";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { ISchemePsyAntennaState } from "@/mod/scripts/core/schemes/sr_psy_antenna/ISchemePsyAntennaState";
 import { PsyAntennaSchemaManager } from "@/mod/scripts/core/schemes/sr_psy_antenna/PsyAntennaSchemaManager";
@@ -41,7 +40,7 @@ export class SchemePsyAntenna extends AbstractScheme {
    * todo;
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemePsyAntennaState = assignStorageAndBind(object, ini, scheme, section);
+    const state: ISchemePsyAntennaState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.intensity = getConfigNumber(ini, section, "eff_intensity", object, true) * 0.01;
