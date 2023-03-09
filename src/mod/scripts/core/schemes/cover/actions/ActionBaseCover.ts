@@ -2,7 +2,7 @@ import { action_base, game_object, level, LuabindClass, vector, XR_vector } from
 
 import { Optional } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
-import { get_sim_board, SimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
+import { getSimulationBoardManager, SimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { ISchemeCoverState } from "@/mod/scripts/core/schemes/cover";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
@@ -34,7 +34,7 @@ export class ActionBaseCover extends action_base {
    */
   public override initialize(): void {
     super.initialize();
-    this.board = get_sim_board();
+    this.board = getSimulationBoardManager();
   }
 
   /**
@@ -42,7 +42,7 @@ export class ActionBaseCover extends action_base {
    */
   public activateScheme(): void {
     this.state.signals = new LuaTable();
-    this.board = get_sim_board();
+    this.board = getSimulationBoardManager();
 
     const base_point = this.board.get_smart_by_name(this.state.smart)!.m_level_vertex_id;
 

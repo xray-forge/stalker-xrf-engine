@@ -6,7 +6,7 @@ import { AnyObject, Optional, TCount, TName, TNumberId } from "@/mod/lib/types";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { ESmartTerrainStatus } from "@/mod/scripts/core/alife/SmartTerrainControl";
 import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
-import { get_sim_board } from "@/mod/scripts/core/database/SimulationBoardManager";
+import { getSimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
 import {
   getSimulationObjectsRegistry,
   SimulationObjectsRegistry,
@@ -63,7 +63,7 @@ export class ActionProcessEnemy {
         const zone = registry.zones.get(k);
 
         if (zone && (isObjectInZone(object, zone) || isObjectInZone(enemy, zone))) {
-          const smart = get_sim_board().get_smart_by_name(v);
+          const smart = getSimulationBoardManager().get_smart_by_name(v);
 
           if (
             smart &&

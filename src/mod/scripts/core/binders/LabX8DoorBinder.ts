@@ -15,7 +15,7 @@ import {
 
 import { Optional } from "@/mod/lib/types";
 import { registry, resetObject } from "@/mod/scripts/core/database";
-import { addDoorObject, deleteDoorObject } from "@/mod/scripts/core/database/doors";
+import { registerDoorObject, unregisterDoorObject } from "@/mod/scripts/core/database/doors";
 import { loadObject, saveObject } from "@/mod/scripts/core/schemes/storing";
 import { getConfigNumber, getConfigString, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
@@ -159,7 +159,7 @@ export class LabX8DoorBinder extends object_binder {
       return false;
     }
 
-    addDoorObject(this.object, this);
+    registerDoorObject(this.object, this);
 
     this.object.get_physics_object().stop_anim();
     this.object.get_physics_object().anim_time_set(0);
@@ -186,7 +186,7 @@ export class LabX8DoorBinder extends object_binder {
     }
 
     this.object.set_callback(callback.script_animation, null);
-    deleteDoorObject(this.object);
+    unregisterDoorObject(this.object);
     super.net_destroy();
   }
 

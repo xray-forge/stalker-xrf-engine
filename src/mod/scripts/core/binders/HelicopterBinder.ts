@@ -18,11 +18,11 @@ import {
 
 import { ESchemeType, Optional, TDistance, TIndex, TNumberId, TRate, TSection } from "@/mod/lib/types";
 import {
-  addHelicopter,
-  deleteHelicopter,
   IRegistryObjectState,
+  registerHelicopter,
   registry,
   resetObject,
+  unregisterHelicopter,
 } from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { ESchemeEvent, IBaseSchemeState } from "@/mod/scripts/core/schemes/base";
@@ -142,7 +142,7 @@ export class HelicopterBinder extends object_binder {
       return false;
     }
 
-    addHelicopter(this.object);
+    registerHelicopter(this.object);
 
     return true;
   }
@@ -151,7 +151,7 @@ export class HelicopterBinder extends object_binder {
    * todo;
    */
   public override net_destroy(): void {
-    deleteHelicopter(this.object);
+    unregisterHelicopter(this.object);
 
     super.net_destroy();
   }
@@ -210,7 +210,7 @@ export class HelicopterBinder extends object_binder {
 
       if (health <= 0.005 && !this.state.immortal) {
         this.heliObject.Die();
-        deleteHelicopter(this.object);
+        unregisterHelicopter(this.object);
       }
     }
   }

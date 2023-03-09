@@ -66,7 +66,8 @@ const logger: LuaLogger = new LuaLogger("MonsterBinder");
  */
 @LuabindClass()
 export class MonsterBinder extends object_binder {
-  public loaded: boolean = false;
+  public isLoaded: boolean = false;
+
   public state!: IRegistryObjectState;
 
   /**
@@ -214,7 +215,7 @@ export class MonsterBinder extends object_binder {
    * todo;
    */
   public override load(reader: XR_reader): void {
-    this.loaded = true;
+    this.isLoaded = true;
 
     setLoadMarker(reader, false, MonsterBinder.__name);
     super.load(reader);
@@ -269,7 +270,7 @@ export class MonsterBinder extends object_binder {
       }
     }
 
-    setup_gulag_and_logic_on_spawn(this.object, this.state, object, ESchemeType.MONSTER, this.loaded);
+    setup_gulag_and_logic_on_spawn(this.object, this.state, object, ESchemeType.MONSTER, this.isLoaded);
 
     return true;
   }

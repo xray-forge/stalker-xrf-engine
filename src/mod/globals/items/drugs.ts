@@ -1,15 +1,27 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
+/**
+ * todo;
+ */
 export const medkits = {
   medkit: "medkit",
   medkit_army: "medkit_army",
   medkit_scientic: "medkit_scientic",
 } as const;
 
+/**
+ * todo;
+ */
 export type TMedkits = typeof medkits;
 
+/**
+ * todo;
+ */
 export type TMedkit = TMedkits[keyof TMedkits];
 
+/**
+ * todo;
+ */
 export const drugs = {
   ...medkits,
   antirad: "antirad",
@@ -22,6 +34,12 @@ export const drugs = {
   drug_radioprotector: "drug_radioprotector",
 } as const;
 
+/**
+ * todo;
+ */
 export type TDrugItems = typeof drugs;
 
+/**
+ * todo;
+ */
 export type TDrugItem = TDrugItems[keyof TDrugItems];

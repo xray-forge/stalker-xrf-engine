@@ -55,7 +55,7 @@ import {
   SMART_TERRAIN_MASKS_LTX,
   softResetOfflineObject,
 } from "@/mod/scripts/core/database";
-import { get_sim_board, SimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
+import { getSimulationBoardManager, SimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { evaluate_prior, getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimulationObjectsRegistry";
 import { get_smart_terrain_name } from "@/mod/scripts/core/database/smart_names";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";
@@ -213,7 +213,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   public override on_before_register(): void {
     super.on_before_register();
 
-    this.board = get_sim_board();
+    this.board = getSimulationBoardManager();
     this.board.register_smart(this);
     this.smart_level = alife().level_name(game_graph().vertex(this.m_game_vertex_id).level_id());
   }
@@ -1065,7 +1065,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
         "capacity = " +
         tostring(this.max_population) +
         " (" +
-        get_sim_board().get_smart_population(this) +
+        getSimulationBoardManager().get_smart_population(this) +
         ")\\n";
 
       if (this.respawn_point !== null && this.already_spawned !== null) {
@@ -1091,7 +1091,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
         }
       }
 
-      for (const [k, v] of get_sim_board().smarts.get(this.id).squads) {
+      for (const [k, v] of getSimulationBoardManager().smarts.get(this.id).squads) {
         props = props + tostring(v.id) + "\\n";
       }
     }

@@ -333,7 +333,10 @@ export class SimulationBoardManager {
   }
 }
 
-export function get_sim_board(): SimulationBoardManager {
+/**
+ * todo;
+ */
+export function getSimulationBoardManager(): SimulationBoardManager {
   if (board === null) {
     logger.info("Init new board");
     board = new SimulationBoardManager();
@@ -342,6 +345,9 @@ export function get_sim_board(): SimulationBoardManager {
   return board;
 }
 
+/**
+ * todo;
+ */
 export function resetSimBoard(): void {
   logger.info("Clear board");
   board = null;

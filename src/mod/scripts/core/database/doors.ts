@@ -7,7 +7,7 @@ import { registry } from "@/mod/scripts/core/database/registry";
 /**
  * todo;
  */
-export function addDoorObject(object: XR_game_object, doorBinder: LabX8DoorBinder): void {
+export function registerDoorObject(object: XR_game_object, doorBinder: LabX8DoorBinder): void {
   registry.animatedDoors.set(object.name(), doorBinder);
   registerObject(object);
 }
@@ -15,7 +15,7 @@ export function addDoorObject(object: XR_game_object, doorBinder: LabX8DoorBinde
 /**
  * todo;
  */
-export function deleteDoorObject(object: XR_game_object): void {
+export function unregisterDoorObject(object: XR_game_object): void {
   registry.animatedDoors.delete(object.name());
   unregisterObject(object);
 }

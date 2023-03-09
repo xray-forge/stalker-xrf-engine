@@ -12,6 +12,7 @@ import {
   TXR_game_difficulty,
   TXR_TaskState,
   vector,
+  XR_CArtefact,
   XR_CGameTask,
   XR_cse_alife_creature_actor,
   XR_cse_alife_object,
@@ -24,15 +25,18 @@ import { animations } from "@/mod/globals/animation/animations";
 import { post_processors } from "@/mod/globals/animation/post_processors";
 import { console_commands } from "@/mod/globals/console_commands";
 import { game_difficulties_by_number } from "@/mod/globals/game_difficulties";
-import { info_portions } from "@/mod/globals/info_portions";
+import { info_portions, TInfoPortion } from "@/mod/globals/info_portions";
+import { TInventoryItem } from "@/mod/globals/items";
+import { drugs } from "@/mod/globals/items/drugs";
 import { TLevel } from "@/mod/globals/levels";
 import { STRINGIFIED_NIL } from "@/mod/globals/lua";
 import { AnyCallablesModule, Optional, TDuration, TIndex, TName } from "@/mod/lib/types";
 import { Actor } from "@/mod/scripts/core/alife/Actor";
+import { AnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
 import { IRegistryObjectState, registry, resetObject } from "@/mod/scripts/core/database";
 import { registerActor, unregisterActor } from "@/mod/scripts/core/database/actor";
 import { pstor_load_all, pstor_save_all } from "@/mod/scripts/core/database/pstor";
-import { get_sim_board } from "@/mod/scripts/core/database/SimulationBoardManager";
+import { getSimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimulationObjectsRegistry";
 import { AchievementsManager } from "@/mod/scripts/core/managers/achievements";
 import { DropManager } from "@/mod/scripts/core/managers/DropManager";
@@ -154,7 +158,7 @@ export class ActorBinder extends object_binder {
 
     GlobalSoundManager.getInstance().stopSoundsByObjectId(this.object.id());
 
-    const board_factions = get_sim_board().players;
+    const board_factions = getSimulationBoardManager().players;
 
     if (board_factions !== null) {
       for (const [k, v] of board_factions) {
@@ -207,50 +211,50 @@ export class ActorBinder extends object_binder {
     this.state = resetObject(this.object);
     this.state.pstor = null!;
 
-    this.object.set_callback(callback.inventory_info, this.info_callback, this);
-    this.object.set_callback(callback.on_item_take, this.on_item_take, this);
-    this.object.set_callback(callback.on_item_drop, this.on_item_drop, this);
-    this.object.set_callback(callback.trade_sell_buy_item, this.on_trade, this);
-    this.object.set_callback(callback.task_state, this.task_callback, this);
-    this.object.set_callback(callback.take_item_from_box, this.take_item_from_box, this);
-    this.object.set_callback(callback.use_object, this.use_inventory_item, this);
+    this.object.set_callback(callback.inventory_info, this.onInfoUpdate, this);
+    this.object.set_callback(callback.on_item_take, this.onItemTake, this);
+    this.object.set_callback(callback.on_item_drop, this.onItemDrop, this);
+    this.object.set_callback(callback.trade_sell_buy_item, this.onTrade, this);
+    this.object.set_callback(callback.task_state, this.onTaskUpdate, this);
+    this.object.set_callback(callback.take_item_from_box, this.onTakeItemFromBox, this);
+    this.object.set_callback(callback.use_object, this.onUseInventoryItem, this);
   }
 
   /**
    * todo;
    */
-  public take_item_from_box(box: XR_game_object, item: XR_game_object): void {
+  public onTakeItemFromBox(box: XR_game_object, item: XR_game_object): void {
     logger.info("Take item from box:", box.name(), item.name());
   }
 
   /**
    * todo;
    */
-  public info_callback(npc: XR_game_object, info_id: string): void {
-    logger.info("[info callback]");
+  public onInfoUpdate(object: XR_game_object, infoPortion: string): void {
+    logger.info("Info update");
   }
 
   /**
    * todo;
    */
-  public on_trade(item: XR_game_object, sell_bye: boolean, money: number): void {}
+  public onTrade(item: XR_game_object, sell_bye: boolean, money: number): void {}
 
   /**
    * todo;
    */
-  public on_item_take(object: XR_game_object): void {
+  public onItemTake(object: XR_game_object): void {
     logger.info("On item take:", object.name());
 
     if (isArtefact(object)) {
-      const anomal_zone = registry.artefacts.parentZones.get(object.id());
+      const anomalyZone: Optional<AnomalyZoneBinder> = registry.artefacts.parentZones.get(object.id());
 
-      if (anomal_zone !== null) {
-        anomal_zone.onArtefactTaken(object);
+      if (anomalyZone !== null) {
+        anomalyZone.onArtefactTaken(object);
       } else {
         registry.artefacts.ways.delete(object.id());
       }
 
-      const artefact = object.get_artefact();
+      const artefact: XR_CArtefact = object.get_artefact();
 
       artefact.FollowByPath("NULL", 0, new vector().set(500, 500, 500));
 
@@ -263,36 +267,28 @@ export class ActorBinder extends object_binder {
   /**
    * todo;
    */
-  public on_item_drop(object: XR_game_object): void {}
+  public onItemDrop(object: XR_game_object): void {}
 
   /**
    * todo;
    */
-  public use_inventory_item(object: XR_game_object): void {
-    if (object !== null) {
-      const serverObject: Optional<XR_cse_alife_object> = alife().object(object.id());
+  public onUseInventoryItem(object: Optional<XR_game_object>): void {
+    if (object === null) {
+      return;
+    }
 
-      if (serverObject && serverObject.section_name() === "drug_anabiotic") {
-        get_global<AnyCallablesModule>("xr_effects").disable_ui_only(registry.actor, null);
+    const serverObject: Optional<XR_cse_alife_object> = alife().object(object.id());
+    const serverItemSection: Optional<TInventoryItem> = serverObject?.section_name() as Optional<TInventoryItem>;
 
-        level.add_cam_effector(animations.camera_effects_surge_02, 10, false, "extern.anabiotic_callback");
-        level.add_pp_effector(post_processors.surge_fade, 11, false);
-
-        giveInfo(info_portions.anabiotic_in_process);
-
-        registry.sounds.musicVolume = get_console().get_float("snd_volume_music");
-        registry.sounds.effectsVolume = get_console().get_float("snd_volume_eff");
-
-        get_console().execute("snd_volume_music 0");
-        get_console().execute("snd_volume_eff 0");
-      }
+    if (serverItemSection === drugs.drug_anabiotic) {
+      this.surgeManager.processAnabioticItemUsage();
     }
   }
 
   /**
    * todo;
    */
-  public task_callback(task_object: XR_CGameTask, state: TXR_TaskState): void {
+  public onTaskUpdate(task_object: XR_CGameTask, state: TXR_TaskState): void {
     if (state !== task.fail) {
       this.newsManager.sendTaskNotification(
         registry.actor,
@@ -415,7 +411,7 @@ export class ActorBinder extends object_binder {
     this.releaseBodyManager.save(packet);
     this.surgeManager.save(packet);
     PsyAntennaManager.save(packet);
-    packet.w_bool(get_sim_board().simulation_started);
+    packet.w_bool(getSimulationBoardManager().simulation_started);
 
     this.globalSoundManager.saveActor(packet);
     packet.w_stringZ(tostring(this.lastLevelName));
@@ -478,7 +474,7 @@ export class ActorBinder extends object_binder {
 
     this.surgeManager.load(reader);
     PsyAntennaManager.load(reader);
-    get_sim_board().simulation_started = reader.r_bool();
+    getSimulationBoardManager().simulation_started = reader.r_bool();
 
     this.globalSoundManager.loadActor(reader);
 

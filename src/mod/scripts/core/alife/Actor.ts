@@ -16,7 +16,7 @@ import { nearest_to_actor_smart, SmartTerrain } from "@/mod/scripts/core/alife/S
 import { ESmartTerrainStatus, getCurrentSmartId } from "@/mod/scripts/core/alife/SmartTerrainControl";
 import { Squad } from "@/mod/scripts/core/alife/Squad";
 import { registry, softResetOfflineObject } from "@/mod/scripts/core/database";
-import { get_sim_board } from "@/mod/scripts/core/database/SimulationBoardManager";
+import { getSimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { evaluate_prior, getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimulationObjectsRegistry";
 import { getStoryObjectsRegistry } from "@/mod/scripts/core/database/StoryObjectsRegistry";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
@@ -31,7 +31,7 @@ const logger: LuaLogger = new LuaLogger("Actor");
 @LuabindClass()
 export class Actor extends cse_alife_creature_actor {
   public isRegistered: boolean = false;
-  public start_position_filled: boolean = false;
+  public isStartPositionsFilling: boolean = false;
   public sim_avail: Optional<boolean> = null;
   public props!: AnyObject;
 
@@ -49,15 +49,15 @@ export class Actor extends cse_alife_creature_actor {
     super.on_register();
 
     logger.info("Register:", this.id, this.name(), this.section_name());
-    getStoryObjectsRegistry().register(this.id, "actor");
 
+    getStoryObjectsRegistry().register(this.id, "actor");
     getSimulationObjectsRegistry().register(this);
 
     this.isRegistered = true;
 
-    if (!this.start_position_filled) {
-      get_sim_board().fill_start_position();
-      this.start_position_filled = true;
+    if (!this.isStartPositionsFilling) {
+      getSimulationBoardManager().fill_start_position();
+      this.isStartPositionsFilling = true;
     }
   }
 
@@ -79,7 +79,7 @@ export class Actor extends cse_alife_creature_actor {
     super.STATE_Write(packet);
 
     setSaveMarker(packet, false, Actor.__name);
-    packet.w_bool(this.start_position_filled);
+    packet.w_bool(this.isStartPositionsFilling);
     setSaveMarker(packet, true, Actor.__name);
   }
 
@@ -89,13 +89,9 @@ export class Actor extends cse_alife_creature_actor {
   public override STATE_Read(packet: XR_net_packet, size: number): void {
     super.STATE_Read(packet, size);
 
-    if (editor()) {
-      return;
-    }
-
     if (registry.actor === null) {
       setLoadMarker(packet, false, Actor.__name);
-      this.start_position_filled = packet.r_bool();
+      this.isStartPositionsFilling = packet.r_bool();
       setLoadMarker(packet, true, Actor.__name);
     }
   }
@@ -133,7 +129,7 @@ export class Actor extends cse_alife_creature_actor {
       softResetOfflineObject(squadMember.id);
     }
 
-    get_sim_board().assign_squad_to_smart(squad, null);
+    getSimulationBoardManager().assign_squad_to_smart(squad, null);
   }
 
   /**
@@ -161,7 +157,7 @@ export class Actor extends cse_alife_creature_actor {
       const zone = registry.zones.get(k);
 
       if (zone !== null && zone.inside(this.position)) {
-        const smart = get_sim_board().get_smart_by_name(v);
+        const smart = getSimulationBoardManager().get_smart_by_name(v);
 
         if (smart !== null && smart.base_on_actor_control.status !== ESmartTerrainStatus.ALARM) {
           return false;

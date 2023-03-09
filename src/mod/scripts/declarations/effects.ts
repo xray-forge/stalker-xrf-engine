@@ -53,14 +53,14 @@ import { relations, TRelation } from "@/mod/globals/relations";
 import { script_sounds } from "@/mod/globals/sound/script_sounds";
 import { TTreasure } from "@/mod/globals/treasures";
 import { TZone, zones } from "@/mod/globals/zones";
-import { AnyObject, EScheme, LuaArray, Optional, TCount, TName, TNumberId, TStringId } from "@/mod/lib/types";
+import { AnyObject, EScheme, LuaArray, Optional, TCount, TIndex, TName, TNumberId, TStringId } from "@/mod/lib/types";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { Squad } from "@/mod/scripts/core/alife/Squad";
 import { Stalker } from "@/mod/scripts/core/alife/Stalker";
 import { update_logic } from "@/mod/scripts/core/binders/StalkerBinder";
-import { deleteHelicopter, IRegistryObjectState, registry, SYSTEM_INI } from "@/mod/scripts/core/database";
+import { IRegistryObjectState, registry, SYSTEM_INI, unregisterHelicopter } from "@/mod/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
-import { get_sim_board } from "@/mod/scripts/core/database/SimulationBoardManager";
+import { getSimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { ItemUpgradesManager } from "@/mod/scripts/core/managers/ItemUpgradesManager";
 import { MapDisplayManager } from "@/mod/scripts/core/managers/map/MapDisplayManager";
@@ -81,7 +81,7 @@ import { getStoryObject, getStorySquad } from "@/mod/scripts/utils/alife";
 import { isActorInZoneWithName } from "@/mod/scripts/utils/checkers/checkers";
 import { isStalker } from "@/mod/scripts/utils/checkers/is";
 import { getConfigString, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
-import { setInactiveInputTime } from "@/mod/scripts/utils/controls";
+import { disableGameUi, disableGameUiOnly, enableGameUi, setInactiveInputTime } from "@/mod/scripts/utils/controls";
 import { abort } from "@/mod/scripts/utils/debug";
 import { createScenarioAutoSave } from "@/mod/scripts/utils/game_saves";
 import { find_stalker_for_job, switch_to_desired_job as switchToGulagDesiredJob } from "@/mod/scripts/utils/gulag";
@@ -146,79 +146,25 @@ export function update_obj_logic(actor: XR_game_object, object: XR_game_object, 
   }
 }
 
-let ui_active_slot = 0;
-
+/**
+ * todo;
+ */
 export function disable_ui(actor: XR_game_object, npc: XR_game_object, p: [string]) {
-  logger.info("Disable UI");
-
-  if (actor.is_talking()) {
-    actor.stop_talk();
-  }
-
-  level.show_weapon(false);
-
-  if (!p || (p && p[0] !== "true")) {
-    const slot = actor.active_slot();
-
-    if (slot !== 0) {
-      ui_active_slot = slot;
-      actor.activate_slot(0);
-    }
-  }
-
-  level.disable_input();
-  level.hide_indicators_safe();
-
-  const hud: XR_CUIGameCustom = get_hud();
-
-  hud.HideActorMenu();
-  hud.HidePdaMenu();
-
-  disable_actor_nightvision(actor);
-  disable_actor_torch(actor);
+  disableGameUi(actor, !p || (p && p[0] !== "true"));
 }
 
+/**
+ * todo;
+ */
 export function disable_ui_only(actor: XR_game_object, npc: XR_game_object): void {
-  logger.info("Disable UI only");
-
-  if (actor.is_talking()) {
-    actor.stop_talk();
-  }
-
-  level.show_weapon(false);
-
-  const slot = actor.active_slot();
-
-  if (slot !== 0) {
-    ui_active_slot = slot;
-    actor.activate_slot(0);
-  }
-
-  level.disable_input();
-  level.hide_indicators_safe();
-
-  const hud: XR_CUIGameCustom = get_hud();
-
-  hud.HideActorMenu();
-  hud.HidePdaMenu();
+  disableGameUiOnly(actor);
 }
 
+/**
+ * todo;
+ */
 export function enable_ui(actor: XR_game_object, npc: XR_game_object, p: [string]) {
-  logger.info("Enable UI");
-
-  if (!p || (p && p[0] !== "true")) {
-    if (ui_active_slot !== 0 && registry.actor.item_in_slot(ui_active_slot) !== null) {
-      registry.actor.activate_slot(ui_active_slot);
-    }
-  }
-
-  ui_active_slot = 0;
-  level.show_weapon(true);
-  level.enable_input();
-  level.show_indicators();
-
-  enable_actor_nightvision(registry.actor);
-  enable_actor_torch(registry.actor);
+  enableGameUi(!p || (p && p[0] !== "true"));
 }
 
 let cam_effector_playing_object_id: Optional<number> = null;
@@ -1082,7 +1028,7 @@ export function heli_start_flame(actor: XR_game_object, npc: XR_game_object): vo
  */
 export function heli_die(actor: XR_game_object, npc: XR_game_object): void {
   npc.get_helicopter().Die();
-  deleteHelicopter(npc);
+  unregisterHelicopter(npc);
 }
 
 /**
@@ -1464,7 +1410,7 @@ export function play_sound(
 
   const theme = p[0];
   const faction: Optional<TCommunity> = p[1];
-  const point: SmartTerrain = get_sim_board().smarts_by_names.get(p[2] as string);
+  const point: SmartTerrain = getSimulationBoardManager().smarts_by_names.get(p[2] as string);
   const pointId = point !== null ? point.id : (p[2] as number);
 
   if (obj && isStalker(obj)) {
@@ -1513,7 +1459,7 @@ export function play_sound_by_story(
   const story_obj = getStoryObjectId(p[0]);
   const theme = p[1];
   const faction = p[2];
-  const point: SmartTerrain = get_sim_board().smarts_by_names.get(p[3] as string);
+  const point: SmartTerrain = getSimulationBoardManager().smarts_by_names.get(p[3] as string);
   const pointId: number = point !== null ? point.id : (p[3] as number);
 
   GlobalSoundManager.getInstance().setSoundPlaying(story_obj as number, theme, faction, pointId);
@@ -1550,7 +1496,7 @@ export function create_squad(actor: XR_game_object, obj: Optional<XR_game_object
     abort("Wrong squad identificator [%s]. Squad descr doesnt exist.", tostring(squad_id));
   }
 
-  const board = get_sim_board();
+  const board = getSimulationBoardManager();
   const smart = board.smarts_by_names.get(smart_name);
 
   if (smart === null) {
@@ -1587,7 +1533,7 @@ export function create_squad_member(
     abort("Wrong squad identificator [NIL] in 'create_squad_member' function");
   }
 
-  const board = get_sim_board();
+  const board = getSimulationBoardManager();
   const squad: Squad = getStorySquad(story_id) as Squad;
   const squad_smart = board.smarts.get(squad.smart_id as TNumberId).smrt;
 
@@ -1640,7 +1586,7 @@ export function remove_squad(actor: XR_game_object, obj: XR_game_object, p: [str
     abort("Wrong squad identificator [%s]. squad doesnt exist", tostring(story_id));
   }
 
-  get_sim_board().remove_squad(squad);
+  getSimulationBoardManager().remove_squad(squad);
 }
 
 export function kill_squad(actor: XR_game_object, obj: XR_game_object, p: [string]): void {
@@ -1709,7 +1655,7 @@ export function clear_smart_terrain(actor: XR_game_object, obj: XR_game_object, 
     abort("Wrong squad identificator [NIL] in clear_smart_terrain function");
   }
 
-  const board = get_sim_board();
+  const board = getSimulationBoardManager();
   const smart = board.smarts_by_names.get(smart_name);
   const smart_id = smart.id;
 

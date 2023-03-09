@@ -30,16 +30,16 @@ import { EScheme, Optional, TDuration, TNumberId, TRate, TSection } from "@/mod/
 import { ESchemeType } from "@/mod/lib/types/scheme";
 import { setup_gulag_and_logic_on_spawn, SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import {
-  addHelicopterEnemy,
-  deleteHelicopterEnemy,
   DUMMY_LTX,
   IRegistryObjectState,
+  registerHelicopterEnemy,
   registerObject,
   registry,
   resetObject,
+  unregisterHelicopterEnemy,
   unregisterObject,
 } from "@/mod/scripts/core/database";
-import { get_sim_board } from "@/mod/scripts/core/database/SimulationBoardManager";
+import { getSimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { DropManager } from "@/mod/scripts/core/managers/DropManager";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { ItemUpgradesManager } from "@/mod/scripts/core/managers/ItemUpgradesManager";
@@ -109,13 +109,13 @@ export class StalkerBinder extends object_binder {
   /**
    * todo;
    */
-  public extrapolate_callback(cur_pt: number): boolean {
+  public extrapolate_callback(currentPoint: TNumberId): boolean {
     if (this.state.active_section) {
       issueSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.EXTRAPOLATE);
       this.state.moveManager!.extrapolate_callback(this.object);
     }
 
-    return new patrol(this.object.patrol()!).flags(cur_pt).get() === 0;
+    return new patrol(this.object.patrol()!).flags(currentPoint).get() === 0;
   }
 
   /**
@@ -142,10 +142,10 @@ export class StalkerBinder extends object_binder {
     registerObject(this.object);
 
     this.object.set_patrol_extrapolate_callback(this.extrapolate_callback, this);
-    this.object.set_callback(callback.hit, this.hit_callback, this);
-    this.object.set_callback(callback.death, this.death_callback, this);
-    this.object.set_callback(callback.use_object, this.use_callback, this);
-    this.object.set_callback(callback.sound, this.hear_callback, this);
+    this.object.set_callback(callback.hit, this.onHit, this);
+    this.object.set_callback(callback.death, this.onDeath, this);
+    this.object.set_callback(callback.use_object, this.onUse, this);
+    this.object.set_callback(callback.sound, this.onHearSound, this);
 
     this.object.apply_loophole_direction_distance(1.0);
 
@@ -187,7 +187,7 @@ export class StalkerBinder extends object_binder {
       setObjectSympathy(this.object, sympathy);
     }
 
-    addHelicopterEnemy(this.object);
+    registerHelicopterEnemy(this.object);
     this.e_index = registry.helicopter.enemiesCount - 1;
 
     SoundTheme.init_npc_sound(this.object);
@@ -270,7 +270,7 @@ export class StalkerBinder extends object_binder {
     this.clear_callbacks();
 
     if (this.e_index !== null) {
-      deleteHelicopterEnemy(this.e_index);
+      unregisterHelicopterEnemy(this.e_index);
     }
 
     super.net_destroy();
@@ -289,9 +289,9 @@ export class StalkerBinder extends object_binder {
   /**
    * todo;
    */
-  public hit_callback(
-    obj: XR_game_object,
-    amount: number,
+  public onHit(
+    object: XR_game_object,
+    amount: TRate,
     local_direction: XR_vector,
     who: Optional<XR_game_object>,
     bone_index: string | number
@@ -301,21 +301,8 @@ export class StalkerBinder extends object_binder {
     // -- FIXME: �������� ������� ���� �� �������������� � ����� storage, � �� ��������...
     if (who?.id() === actor.id()) {
       StatisticsManager.getInstance().updateBestWeapon(amount);
-
-      /* --[[
-      const se_obj = alife():object(obj:id())
-      if se_obj and se_obj.m_smart_terrain_id !== 65535 and amount > 0 {
-        const smart_obj = alife():object(se_obj.m_smart_terrain_id)
-        smart_obj:set_alarm()
-
-        if smart_obj.base_on_actor_control !== null {
-          smart_obj.base_on_actor_control:actor_attack()
-        }
-      }
-    ]]*/
-
       if (amount > 0) {
-        for (const [k, v] of get_sim_board().smarts) {
+        for (const [k, v] of getSimulationBoardManager().smarts) {
           const smart = v.smrt;
 
           if (smart.base_on_actor_control !== null) {
@@ -337,7 +324,7 @@ export class StalkerBinder extends object_binder {
         this.object,
         this.state[this.state.active_scheme!]!,
         ESchemeEvent.HIT,
-        obj,
+        object,
         amount,
         local_direction,
         who,
@@ -351,7 +338,7 @@ export class StalkerBinder extends object_binder {
         this.object,
         this.state.combat_ignore,
         ESchemeEvent.HIT,
-        obj,
+        object,
         amount,
         local_direction,
         who,
@@ -360,11 +347,20 @@ export class StalkerBinder extends object_binder {
     }
 
     if (this.state.combat) {
-      issueSchemeEvent(this.object, this.state.combat, ESchemeEvent.HIT, obj, amount, local_direction, who, bone_index);
+      issueSchemeEvent(
+        this.object,
+        this.state.combat,
+        ESchemeEvent.HIT,
+        object,
+        amount,
+        local_direction,
+        who,
+        bone_index
+      );
     }
 
     if (this.state.hit) {
-      issueSchemeEvent(this.object, this.state.hit, ESchemeEvent.HIT, obj, amount, local_direction, who, bone_index);
+      issueSchemeEvent(this.object, this.state.hit, ESchemeEvent.HIT, object, amount, local_direction, who, bone_index);
     }
 
     if (bone_index !== 15 && amount > this.object.health * 100) {
@@ -372,15 +368,15 @@ export class StalkerBinder extends object_binder {
     }
 
     if (amount > 0) {
-      SchemeWounded.hit_callback(obj.id());
+      SchemeWounded.hit_callback(object.id());
     }
   }
 
   /**
    * todo;
    */
-  public death_callback(victim: XR_game_object, who: Optional<XR_game_object>): void {
-    this.hit_callback(victim, 1, new vector().set(0, 0, 0), who, "from_death_callback");
+  public onDeath(victim: XR_game_object, who: Optional<XR_game_object>): void {
+    this.onHit(victim, 1, new vector().set(0, 0, 0), who, "from_death_callback");
 
     DynamicMusicManager.NPC_TABLE.delete(this.object.id());
     registry.actorCombat.delete(this.object.id());
@@ -391,7 +387,6 @@ export class StalkerBinder extends object_binder {
 
     MapDisplayManager.getInstance().removeObjectMapSpot(npc, st);
 
-    // --' }  --
     if (who?.id() === actor.id()) {
       const statisticsManager: StatisticsManager = StatisticsManager.getInstance();
 
@@ -422,7 +417,7 @@ export class StalkerBinder extends object_binder {
 
     SchemeLight.checkObjectLight(this.object);
     DropManager.getInstance().createCorpseReleaseItems(this.object);
-    deleteHelicopterEnemy(this.e_index!);
+    unregisterHelicopterEnemy(this.e_index!);
 
     this.clear_callbacks();
 
@@ -442,7 +437,7 @@ export class StalkerBinder extends object_binder {
   /**
    * todo;
    */
-  public use_callback(object: XR_game_object, who: XR_game_object): void {
+  public onUse(object: XR_game_object, who: XR_game_object): void {
     if (this.object.alive()) {
       ItemUpgradesManager.getInstance().setCurrentTech(object);
       SchemeMeet.onMeetWithObject(object, who);
@@ -595,7 +590,7 @@ export class StalkerBinder extends object_binder {
   /**
    * todo;
    */
-  public hear_callback(
+  public onHearSound(
     target: XR_game_object,
     who_id: TNumberId,
     sound_type: TXR_snd_type,

@@ -1,20 +1,16 @@
 import { AnyArgs, AnyCallable, AnyObject, Optional } from "@/mod/lib/types";
+import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { EGameEvent } from "@/mod/scripts/core/managers/events/EGameEvent";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("CoreEventsManager");
 
-export class EventsManager {
-  public static instance: Optional<EventsManager> = null;
-
-  public static getInstance(): EventsManager {
-    if (!this.instance) {
-      this.instance = new this();
-    }
-
-    return this.instance;
-  }
+/**
+ * todo;
+ */
+export class EventsManager extends AbstractCoreManager {
+  public static s(): void {}
 
   public callbacks: Record<EGameEvent, LuaTable<AnyCallable, { context: Optional<AnyObject> }>> = {
     [EGameEvent.ACTOR_NET_SPAWN]: new LuaTable(),
@@ -30,6 +26,9 @@ export class EventsManager {
     [EGameEvent.MAIN_MENU_OFF]: new LuaTable(),
   };
 
+  /**
+   * todo;
+   */
   public registerCallback<T>(
     event: EGameEvent,
     func: (this: T, ...args: AnyArgs) => void,
@@ -41,6 +40,9 @@ export class EventsManager {
     this.callbacks[event].set(func as any, { context: context });
   }
 
+  /**
+   * todo;
+   */
   public unregisterCallback(event: EGameEvent, func: AnyCallable): void {
     logger.info("Unregister callback:", event);
 
@@ -48,6 +50,9 @@ export class EventsManager {
     this.callbacks[event].delete(func);
   }
 
+  /**
+   * todo;
+   */
   public emitEvent(event: EGameEvent, ...data: AnyArgs): void {
     for (const [func, config] of this.callbacks[event]) {
       func(config.context, ...data);

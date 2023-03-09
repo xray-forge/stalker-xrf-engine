@@ -5,7 +5,7 @@ import { script_sounds } from "@/mod/globals/sound/script_sounds";
 import { texturesIngame } from "@/mod/globals/textures";
 import { Maybe, Optional, TCount, TDuration, TLabel, TName, TSection, TStringId, TTimestamp } from "@/mod/lib/types";
 import { registry, SYSTEM_INI } from "@/mod/scripts/core/database";
-import { get_sim_board } from "@/mod/scripts/core/database/SimulationBoardManager";
+import { getSimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { get_smart_terrain_name } from "@/mod/scripts/core/database/smart_names";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
@@ -219,7 +219,7 @@ export class NotificationManager extends AbstractCoreManager {
     let point_name = "";
 
     if (point !== null) {
-      const smart = get_sim_board().smarts.get(point as any);
+      const smart = getSimulationBoardManager().smarts.get(point as any);
 
       if (smart !== null) {
         point_name = get_smart_terrain_name(smart.smrt) as string;

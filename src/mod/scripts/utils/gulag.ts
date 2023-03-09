@@ -3,7 +3,7 @@ import { alife, game_object, XR_cse_alife_creature_abstract, XR_game_object, XR_
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { Optional } from "@/mod/lib/types";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { get_sim_board } from "@/mod/scripts/core/database/SimulationBoardManager";
+import { getSimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -13,7 +13,7 @@ const logger: LuaLogger = new LuaLogger("gulag");
  * todo;
  */
 export function get_gulag_by_name(name: string): Optional<SmartTerrain> {
-  return get_sim_board().smarts_by_names.get(name);
+  return getSimulationBoardManager().smarts_by_names.get(name);
 }
 
 /**

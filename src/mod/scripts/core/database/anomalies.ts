@@ -5,7 +5,7 @@ import { registry } from "@/mod/scripts/core/database/registry";
 /**
  * todo;
  */
-export function addAnomaly(anomaly: AnomalyZoneBinder): void {
+export function registerAnomaly(anomaly: AnomalyZoneBinder): void {
   registry.anomalies.set(anomaly.object.name(), anomaly);
   registerObject(anomaly.object);
 }
@@ -13,7 +13,7 @@ export function addAnomaly(anomaly: AnomalyZoneBinder): void {
 /**
  * todo;
  */
-export function deleteAnomaly(anomaly: AnomalyZoneBinder): void {
+export function unregisterAnomaly(anomaly: AnomalyZoneBinder): void {
   registry.anomalies.delete(anomaly.object.name());
   unregisterObject(anomaly.object);
 }

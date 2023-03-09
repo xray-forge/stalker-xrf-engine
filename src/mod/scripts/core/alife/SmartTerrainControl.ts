@@ -4,7 +4,7 @@ import { relations } from "@/mod/globals/relations";
 import { Optional, TName, TSection } from "@/mod/lib/types";
 import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { registry } from "@/mod/scripts/core/database";
-import { get_sim_board } from "@/mod/scripts/core/database/SimulationBoardManager";
+import { getSimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { isWeapon } from "@/mod/scripts/utils/checkers/is";
 import { getConfigString, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
@@ -78,7 +78,7 @@ export class SmartTerrainControl {
         GlobalSoundManager.getInstance().setSoundPlaying(registry.actor.id(), sound, null, null);
       }
 
-      for (const [squad_id, squad] of get_sim_board().smarts.get(this.smart.id).squads) {
+      for (const [squad_id, squad] of getSimulationBoardManager().smarts.get(this.smart.id).squads) {
         setSquadGoodwill(squad_id, relations.neutral);
       }
     }
@@ -130,7 +130,7 @@ export class SmartTerrainControl {
         GlobalSoundManager.getInstance().setSoundPlaying(registry.actor.id(), sound, null, null);
       }
 
-      for (const [squad_id, squad] of get_sim_board().smarts.get(this.smart.id).squads) {
+      for (const [squad_id, squad] of getSimulationBoardManager().smarts.get(this.smart.id).squads) {
         setSquadGoodwill(squad_id, relations.enemy);
       }
     }

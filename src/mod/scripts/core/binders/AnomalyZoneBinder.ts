@@ -16,7 +16,7 @@ import {
 import { MAX_UNSIGNED_8_BIT } from "@/mod/globals/memory";
 import { Optional, TSection } from "@/mod/lib/types";
 import { FIELDS_BY_NAME } from "@/mod/scripts/core/binders/AnomalyFieldBinder";
-import { addAnomaly, deleteAnomaly, registry, resetObject } from "@/mod/scripts/core/database";
+import { registerAnomaly, registry, resetObject, unregisterAnomaly } from "@/mod/scripts/core/database";
 import { MapDisplayManager } from "@/mod/scripts/core/managers/map/MapDisplayManager";
 import { getConfigNumber, getConfigString, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
@@ -552,7 +552,7 @@ export class AnomalyZoneBinder extends object_binder {
       return false;
     }
 
-    addAnomaly(this);
+    registerAnomaly(this);
 
     return true;
   }
@@ -561,7 +561,7 @@ export class AnomalyZoneBinder extends object_binder {
    * todo;
    */
   public override net_destroy(): void {
-    deleteAnomaly(this);
+    unregisterAnomaly(this);
 
     registry.objects.delete(this.object.id());
     super.net_destroy();

@@ -2,6 +2,7 @@ import {
   alife,
   device,
   game,
+  get_console,
   hit,
   level,
   vector,
@@ -15,6 +16,7 @@ import {
 import { animations } from "@/mod/globals/animation/animations";
 import { post_processors } from "@/mod/globals/animation/post_processors";
 import { captions } from "@/mod/globals/captions";
+import { console_commands } from "@/mod/globals/console_commands";
 import { info_portions } from "@/mod/globals/info_portions";
 import { levels, TLevel } from "@/mod/globals/levels";
 import { STRINGIFIED_FALSE, STRINGIFIED_TRUE } from "@/mod/globals/lua";
@@ -23,7 +25,7 @@ import { AnyCallablesModule, Optional, PartialRecord, TNumberId } from "@/mod/li
 import { Squad } from "@/mod/scripts/core/alife/Squad";
 import { registry, SURGE_MANAGER_LTX } from "@/mod/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
-import { get_sim_board, SimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
+import { getSimulationBoardManager, SimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { MapDisplayManager } from "@/mod/scripts/core/managers/map/MapDisplayManager";
@@ -34,8 +36,10 @@ import { WeatherManager } from "@/mod/scripts/core/managers/WeatherManager";
 import { isImmuneToSurge, isObjectOnLevel, isSurgeEnabledOnLevel } from "@/mod/scripts/utils/checkers/checkers";
 import { isStoryObject } from "@/mod/scripts/utils/checkers/is";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
+import { executeConsoleCommand } from "@/mod/scripts/utils/console";
+import { disableGameUiOnly } from "@/mod/scripts/utils/controls";
 import { createScenarioAutoSave, setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
-import { hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
+import { giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseConditionsList, TConditionList } from "@/mod/scripts/utils/parse";
 import { copyTable } from "@/mod/scripts/utils/table";
@@ -56,7 +60,7 @@ export class SurgeManager extends AbstractCoreManager {
     const squad: Optional<Squad> = alife().object(squadId);
 
     if (squad) {
-      const board = get_sim_board();
+      const board = getSimulationBoardManager();
 
       if (board && squad.smart_id && board.smarts.get(squad.smart_id)) {
         const smart = board.smarts.get(squad.smart_id).smrt;
@@ -474,7 +478,7 @@ export class SurgeManager extends AbstractCoreManager {
       }
     }
 
-    const board: SimulationBoardManager = get_sim_board();
+    const board: SimulationBoardManager = getSimulationBoardManager();
     const levelName: TLevel = level.name();
 
     logger.info("Releasing squads:", board.squads.length());
@@ -553,7 +557,7 @@ export class SurgeManager extends AbstractCoreManager {
    * todo;
    */
   protected kill_all_unhided_after_actor_death(): void {
-    const board: SimulationBoardManager = get_sim_board();
+    const board: SimulationBoardManager = getSimulationBoardManager();
     const levelName: TLevel = level.name();
 
     for (const [squadId, squad] of board.squads) {
@@ -605,6 +609,24 @@ export class SurgeManager extends AbstractCoreManager {
     }
 
     MapDisplayManager.getInstance().updateAnomalyZonesDisplay();
+  }
+
+  /**
+   * todo;
+   */
+  public processAnabioticItemUsage(): void {
+    disableGameUiOnly(registry.actor);
+
+    level.add_cam_effector(animations.camera_effects_surge_02, 10, false, "extern.anabiotic_callback");
+    level.add_pp_effector(post_processors.surge_fade, 11, false);
+
+    giveInfo(info_portions.anabiotic_in_process);
+
+    registry.sounds.musicVolume = get_console().get_float("snd_volume_music");
+    registry.sounds.effectsVolume = get_console().get_float("snd_volume_eff");
+
+    executeConsoleCommand(console_commands.snd_volume_music, 0);
+    executeConsoleCommand(console_commands.snd_volume_eff, 0);
   }
 
   /**

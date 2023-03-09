@@ -40,7 +40,7 @@ import { ESmartTerrainStatus, SmartTerrainControl } from "@/mod/scripts/core/ali
 import { Squad } from "@/mod/scripts/core/alife/Squad";
 import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { pstor_retrieve } from "@/mod/scripts/core/database/pstor";
-import { get_sim_board } from "@/mod/scripts/core/database/SimulationBoardManager";
+import { getSimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { AchievementsManager } from "@/mod/scripts/core/managers/achievements/AchievementsManager";
 import { ActorInventoryMenuManager, EActorMenuMode } from "@/mod/scripts/core/managers/ActorInventoryMenuManager";
 import { ItemUpgradesManager } from "@/mod/scripts/core/managers/ItemUpgradesManager";
@@ -262,7 +262,8 @@ export function distance_to_obj_on_job_le(actor: XR_game_object, npc: XR_game_ob
  * todo;
  */
 export function is_obj_on_job(actor: XR_game_object, npc: XR_game_object, params: AnyArgs): boolean {
-  const smart = params && params[1] ? get_sim_board().get_smart_by_name(params[1]) : getObjectBoundSmart(npc);
+  const smart =
+    params && params[1] ? getSimulationBoardManager().get_smart_by_name(params[1]) : getObjectBoundSmart(npc);
 
   if (smart === null) {
     return false;
@@ -765,7 +766,7 @@ export function check_smart_alarm_status(
     abort("Wrong status[%s] in 'check_smart_alarm_status'", tostring(params[1]));
   }
 
-  const smart: SmartTerrain = get_sim_board().get_smart_by_name(smartName)!;
+  const smart: SmartTerrain = getSimulationBoardManager().get_smart_by_name(smartName)!;
   const smartControl: SmartTerrainControl = smart.base_on_actor_control;
 
   if (smartControl === null) {
@@ -1089,7 +1090,7 @@ export function squad_in_zone_all(actor: XR_game_object, npc: XR_game_object, p:
  * todo;
  */
 export function squads_in_zone_b41(actor: XR_game_object, npc: XR_game_object): boolean {
-  const smart = get_sim_board().get_smart_by_name("jup_b41");
+  const smart = getSimulationBoardManager().get_smart_by_name("jup_b41");
   const zone = registry.zones.get("jup_b41_sr_light");
 
   if (zone === null) {
@@ -1100,7 +1101,7 @@ export function squads_in_zone_b41(actor: XR_game_object, npc: XR_game_object): 
     return false;
   }
 
-  for (const [k, v] of get_sim_board().smarts.get(smart.id).squads) {
+  for (const [k, v] of getSimulationBoardManager().smarts.get(smart.id).squads) {
     if (v !== null) {
       for (const j of v.squad_members()) {
         if (!zone.inside(j.object.position)) {
