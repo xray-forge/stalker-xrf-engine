@@ -1,8 +1,8 @@
 import { alife, LuabindClass, object_binder, XR_cse_alife_object, XR_game_object } from "xray16";
 
-import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { addSmartTerrain, deleteSmartTerrain } from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
+import { SmartTerrain } from "@/mod/scripts/core/objects/alife/SmartTerrain";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("SmartTerrainBinder");

@@ -14,7 +14,6 @@ import {
   particles_object,
   patrol,
   sound_object,
-  time_global,
   user_name,
   vector,
   XR_action_planner,
@@ -25,7 +24,6 @@ import {
   XR_cse_alife_item_weapon,
   XR_cse_alife_object,
   XR_cse_alife_object_physic,
-  XR_CUIGameCustom,
   XR_game_object,
   XR_particles_object,
   XR_patrol,
@@ -53,11 +51,7 @@ import { relations, TRelation } from "@/mod/globals/relations";
 import { script_sounds } from "@/mod/globals/sound/script_sounds";
 import { TTreasure } from "@/mod/globals/treasures";
 import { TZone, zones } from "@/mod/globals/zones";
-import { AnyObject, EScheme, LuaArray, Optional, TCount, TIndex, TName, TNumberId, TStringId } from "@/mod/lib/types";
-import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { Squad } from "@/mod/scripts/core/alife/Squad";
-import { Stalker } from "@/mod/scripts/core/alife/Stalker";
-import { update_logic } from "@/mod/scripts/core/binders/StalkerBinder";
+import { EScheme, LuaArray, Optional, TCount, TIndex, TName, TNumberId, TStringId } from "@/mod/lib/types";
 import { IRegistryObjectState, registry, SYSTEM_INI, unregisterHelicopter } from "@/mod/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
 import { getSimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
@@ -69,6 +63,10 @@ import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { TaskManager } from "@/mod/scripts/core/managers/tasks";
 import { TreasureManager } from "@/mod/scripts/core/managers/TreasureManager";
 import { WeatherManager } from "@/mod/scripts/core/managers/WeatherManager";
+import { SmartTerrain } from "@/mod/scripts/core/objects/alife/SmartTerrain";
+import { Squad } from "@/mod/scripts/core/objects/alife/Squad";
+import { Stalker } from "@/mod/scripts/core/objects/alife/Stalker";
+import { update_logic } from "@/mod/scripts/core/objects/binders/StalkerBinder";
 import { SchemeAbuse } from "@/mod/scripts/core/schemes/abuse/SchemeAbuse";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/base/trySwitchToAnotherSection";
 import { ISchemeCombatState } from "@/mod/scripts/core/schemes/combat";
@@ -81,7 +79,16 @@ import { getStoryObject, getStorySquad } from "@/mod/scripts/utils/alife";
 import { isActorInZoneWithName } from "@/mod/scripts/utils/checkers/checkers";
 import { isStalker } from "@/mod/scripts/utils/checkers/is";
 import { getConfigString, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
-import { disableGameUi, disableGameUiOnly, enableGameUi, setInactiveInputTime } from "@/mod/scripts/utils/controls";
+import {
+  disableActorNightVision,
+  disableActorTorch,
+  disableGameUi,
+  disableGameUiOnly,
+  enableActorNightVision,
+  enableActorTorch,
+  enableGameUi,
+  setInactiveInputTime,
+} from "@/mod/scripts/utils/controls";
 import { abort } from "@/mod/scripts/utils/debug";
 import { createScenarioAutoSave } from "@/mod/scripts/utils/game_saves";
 import { find_stalker_for_job, switch_to_desired_job as switchToGulagDesiredJob } from "@/mod/scripts/utils/gulag";
@@ -198,55 +205,32 @@ export function stop_cam_effector(actor: XR_game_object, npc: XR_game_object, p:
   }
 }
 
-let actor_nightvision: boolean = false;
-let actor_torch: boolean = false;
-
 /**
  * todo;
  */
 export function disable_actor_nightvision(actor: XR_game_object): void {
-  const nightvision = actor.object(misc.device_torch);
-
-  if (nightvision !== null && nightvision.night_vision_enabled()) {
-    nightvision.enable_night_vision(false);
-    actor_nightvision = true;
-  }
+  disableActorNightVision(actor);
 }
 
 /**
  * todo;
  */
 export function enable_actor_nightvision(actor: XR_game_object): void {
-  const nightvision = actor.object(misc.device_torch);
-
-  if (nightvision !== null && !nightvision.night_vision_enabled() && actor_nightvision) {
-    nightvision.enable_night_vision(true);
-    actor_nightvision = false;
-  }
+  enableActorNightVision(actor);
 }
 
 /**
  * todo;
  */
 export function disable_actor_torch(actor: XR_game_object): void {
-  const torch = actor.object(misc.device_torch);
-
-  if (torch !== null && torch.torch_enabled()) {
-    torch.enable_torch(false);
-    actor_torch = true;
-  }
+  disableActorTorch(actor);
 }
 
 /**
  * todo;
  */
 export function enable_actor_torch(actor: XR_game_object): void {
-  const torch = actor.object(misc.device_torch);
-
-  if (torch !== null && !torch.torch_enabled() && actor_torch) {
-    torch.enable_torch(true);
-    actor_torch = false;
-  }
+  enableActorTorch(actor);
 }
 
 /**

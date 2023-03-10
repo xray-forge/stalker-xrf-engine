@@ -1,7 +1,7 @@
 import { game, XR_CTime } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { Squad } from "@/mod/scripts/core/alife/Squad";
+import type { Squad } from "@/mod/scripts/core/objects/alife/Squad";
 
 const STAY_POINT_IDLE_MIN = 180 * 60;
 const STAY_POINT_IDLE_MAX = 300 * 60;

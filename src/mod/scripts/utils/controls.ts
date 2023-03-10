@@ -1,13 +1,8 @@
 import { game, get_hud, level, XR_CUIGameCustom, XR_game_object } from "xray16";
 
-import { TDuration, TIndex } from "@/mod/lib/types";
+import { misc } from "@/mod/globals/items/misc";
+import { Optional, TDuration, TIndex } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
-import {
-  disable_actor_nightvision,
-  disable_actor_torch,
-  enable_actor_nightvision,
-  enable_actor_torch,
-} from "@/mod/scripts/declarations/effects";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("controls");
@@ -16,6 +11,8 @@ const logger: LuaLogger = new LuaLogger("controls");
  * todo; move to registry
  */
 let uiActiveSlot: TIndex = 0;
+let isActorNightVisionEnabled: boolean = false;
+let isActorTorchEnabled: boolean = false;
 
 /**
  * todo;
@@ -82,8 +79,8 @@ export function disableGameUi(actor: XR_game_object, resetSlot: boolean): void {
   hud.HideActorMenu();
   hud.HidePdaMenu();
 
-  disable_actor_nightvision(actor);
-  disable_actor_torch(actor);
+  disableActorNightVision(actor);
+  disableActorTorch(actor);
 }
 
 export function enableGameUi(restore: boolean): void {
@@ -96,10 +93,59 @@ export function enableGameUi(restore: boolean): void {
   }
 
   uiActiveSlot = 0;
+
   level.show_weapon(true);
   level.enable_input();
   level.show_indicators();
 
-  enable_actor_nightvision(registry.actor);
-  enable_actor_torch(registry.actor);
+  enableActorNightVision(registry.actor);
+  enableActorTorch(registry.actor);
+}
+
+/**
+ * todo;
+ */
+export function disableActorNightVision(actor: XR_game_object = registry.actor): void {
+  const nightVision: Optional<XR_game_object> = actor.object(misc.device_torch);
+
+  if (nightVision !== null && nightVision.night_vision_enabled()) {
+    nightVision.enable_night_vision(false);
+    isActorNightVisionEnabled = true;
+  }
+}
+
+/**
+ * todo;
+ */
+export function enableActorNightVision(actor: XR_game_object = registry.actor): void {
+  const nightVision: Optional<XR_game_object> = actor.object(misc.device_torch);
+
+  if (nightVision !== null && !nightVision.night_vision_enabled() && isActorNightVisionEnabled) {
+    nightVision.enable_night_vision(true);
+    isActorNightVisionEnabled = false;
+  }
+}
+
+/**
+ * todo;
+ */
+export function disableActorTorch(actor: XR_game_object = registry.actor): void {
+  const torch: Optional<XR_game_object> = actor.object(misc.device_torch);
+
+  if (torch !== null && torch.torch_enabled()) {
+    torch.enable_torch(false);
+    isActorTorchEnabled = true;
+  }
+}
+
+/**
+ * todo;
+ */
+export function enableActorTorch(actor: XR_game_object = registry.actor): void {
+  const torch: Optional<XR_game_object> = actor.object(misc.device_torch);
+
+  if (torch !== null && !torch.torch_enabled() && isActorTorchEnabled) {
+    torch.enable_torch(true);
+    isActorTorchEnabled = false;
+  }
 }

@@ -35,9 +35,6 @@ import {
   TSection,
   TStringId,
 } from "@/mod/lib/types";
-import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { ESmartTerrainStatus, SmartTerrainControl } from "@/mod/scripts/core/alife/SmartTerrainControl";
-import { Squad } from "@/mod/scripts/core/alife/Squad";
 import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { pstor_retrieve } from "@/mod/scripts/core/database/pstor";
 import { getSimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
@@ -45,6 +42,9 @@ import { AchievementsManager } from "@/mod/scripts/core/managers/achievements/Ac
 import { ActorInventoryMenuManager, EActorMenuMode } from "@/mod/scripts/core/managers/ActorInventoryMenuManager";
 import { ItemUpgradesManager } from "@/mod/scripts/core/managers/ItemUpgradesManager";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
+import { SmartTerrain } from "@/mod/scripts/core/objects/alife/SmartTerrain";
+import { ESmartTerrainStatus, SmartTerrainControl } from "@/mod/scripts/core/objects/alife/SmartTerrainControl";
+import { Squad } from "@/mod/scripts/core/objects/alife/Squad";
 import { SchemeAnimpoint } from "@/mod/scripts/core/schemes/animpoint";
 import { ISchemeAnimpointState } from "@/mod/scripts/core/schemes/animpoint/ISchemeAnimpointState";
 import { ISchemeDeathState } from "@/mod/scripts/core/schemes/death";

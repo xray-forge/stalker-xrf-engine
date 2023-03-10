@@ -10,9 +10,9 @@ import {
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { ERelation, relations, TRelation } from "@/mod/globals/relations";
 import { Maybe, Optional, TCount, TName, TNumberId, TStringId } from "@/mod/lib/types";
-import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import type { Squad } from "@/mod/scripts/core/alife/Squad";
 import { registry } from "@/mod/scripts/core/database";
+import { SmartTerrain } from "@/mod/scripts/core/objects/alife/SmartTerrain";
+import type { Squad } from "@/mod/scripts/core/objects/alife/Squad";
 import { getCharacterCommunity, getStorySquad } from "@/mod/scripts/utils/alife";
 import { abort } from "@/mod/scripts/utils/debug";
 import { get_gulag_by_name } from "@/mod/scripts/utils/gulag";

@@ -2,10 +2,6 @@ import type { XR_game_object } from "xray16";
 
 import type { TRelation } from "@/mod/globals/relations";
 import type { EScheme, TName, TNumberId, TStringId } from "@/mod/lib/types";
-import type { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import type { AnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
-import type { LabX8DoorBinder } from "@/mod/scripts/core/binders/LabX8DoorBinder";
-import type { SignalLightBinder } from "@/mod/scripts/core/binders/SignalLightBinder";
 import type { IRegistryObjectState } from "@/mod/scripts/core/database/objects";
 import type { IStoredOfflineObject } from "@/mod/scripts/core/database/offline";
 import type {
@@ -13,6 +9,10 @@ import type {
   TAbstractCoreManagerConstructor,
 } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import type { ITradeManagerDescriptor } from "@/mod/scripts/core/managers/TradeManager";
+import type { SmartTerrain } from "@/mod/scripts/core/objects/alife/SmartTerrain";
+import type { AnomalyZoneBinder } from "@/mod/scripts/core/objects/binders/AnomalyZoneBinder";
+import type { LabX8DoorBinder } from "@/mod/scripts/core/objects/binders/LabX8DoorBinder";
+import type { SignalLightBinder } from "@/mod/scripts/core/objects/binders/SignalLightBinder";
 import type { TAbstractSchemeConstructor } from "@/mod/scripts/core/schemes/base";
 import type { CampStoryManager } from "@/mod/scripts/core/schemes/camper/CampStoryManager";
 import type { PatrolManager } from "@/mod/scripts/core/schemes/patrol";

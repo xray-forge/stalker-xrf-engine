@@ -1,8 +1,8 @@
 import { alife, LuabindClass, property_evaluator } from "xray16";
 
-import type { Actor } from "@/mod/scripts/core/alife/Actor";
-import type { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import type { Squad } from "@/mod/scripts/core/alife/Squad";
+import type { Actor } from "@/mod/scripts/core/objects/alife/Actor";
+import type { SmartTerrain } from "@/mod/scripts/core/objects/alife/SmartTerrain";
+import type { Squad } from "@/mod/scripts/core/objects/alife/Squad";
 import { getObjectSquad } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

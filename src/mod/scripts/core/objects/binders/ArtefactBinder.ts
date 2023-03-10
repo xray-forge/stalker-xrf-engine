@@ -11,8 +11,8 @@ import {
 } from "xray16";
 
 import { Optional, TDuration } from "@/mod/lib/types";
-import { AnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
 import { registerObject, registry, unregisterObject } from "@/mod/scripts/core/database";
+import { AnomalyZoneBinder } from "@/mod/scripts/core/objects/binders/AnomalyZoneBinder";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("ArtefactBinder");

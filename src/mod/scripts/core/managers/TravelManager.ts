@@ -35,14 +35,14 @@ import {
   TStringId,
   TTimestamp,
 } from "@/mod/lib/types";
-import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { Squad } from "@/mod/scripts/core/alife/Squad";
-import { TSimulationObject } from "@/mod/scripts/core/alife/types";
 import { registry, TRAVEL_MANAGER_LTX } from "@/mod/scripts/core/database";
 import { getSimulationBoardManager, SimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
+import { SmartTerrain } from "@/mod/scripts/core/objects/alife/SmartTerrain";
+import { Squad } from "@/mod/scripts/core/objects/alife/Squad";
+import { TSimulationObject } from "@/mod/scripts/core/objects/alife/types";
 import { getAlifeCharacterCommunity, getAlifeDistanceBetween, getObjectSquad } from "@/mod/scripts/utils/alife";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";

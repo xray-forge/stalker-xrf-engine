@@ -33,11 +33,11 @@ import {
   TStringId,
 } from "@/mod/lib/types";
 import { AnyGameObject } from "@/mod/lib/types/engine";
-import { Squad } from "@/mod/scripts/core/alife/Squad";
-import { SquadReachTargetAction } from "@/mod/scripts/core/alife/SquadReachTargetAction";
-import { SquadStayOnTargetAction } from "@/mod/scripts/core/alife/SquadStayOnTargetAction";
 import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { getStoryObjectsRegistry } from "@/mod/scripts/core/database/StoryObjectsRegistry";
+import { Squad } from "@/mod/scripts/core/objects/alife/Squad";
+import { SquadReachTargetAction } from "@/mod/scripts/core/objects/alife/SquadReachTargetAction";
+import { SquadStayOnTargetAction } from "@/mod/scripts/core/objects/alife/SquadStayOnTargetAction";
 import { isCseAlifeObject, isStalker } from "@/mod/scripts/utils/checkers/is";
 import {
   getConfigBoolean,

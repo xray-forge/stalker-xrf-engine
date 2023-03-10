@@ -1,8 +1,8 @@
 import { level, vector, XR_game_object, XR_vector } from "xray16";
 
 import { LuaArray, Optional, TNumberId } from "@/mod/lib/types";
-import { registered_smartcovers } from "@/mod/scripts/core/alife/SmartCover";
 import { registry } from "@/mod/scripts/core/database";
+import { registered_smartcovers } from "@/mod/scripts/core/objects/alife/SmartCover";
 import { associations } from "@/mod/scripts/core/schemes/animpoint/animpoint_predicates";
 import { ISchemeAnimpointState } from "@/mod/scripts/core/schemes/animpoint/ISchemeAnimpointState";
 import { AbstractSchemeManager } from "@/mod/scripts/core/schemes/base/AbstractSchemeManager";

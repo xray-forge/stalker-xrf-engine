@@ -11,14 +11,14 @@ import {
 } from "xray16";
 
 import { AnyObject, Optional, TRate, TSection, TStringId } from "@/mod/lib/types";
-import { simulation_activities } from "@/mod/scripts/core/alife/SimulationActivity";
-import { nearest_to_actor_smart, SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { ESmartTerrainStatus, getCurrentSmartId } from "@/mod/scripts/core/alife/SmartTerrainControl";
-import { Squad } from "@/mod/scripts/core/alife/Squad";
 import { registry, softResetOfflineObject } from "@/mod/scripts/core/database";
 import { getSimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { evaluate_prior, getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimulationObjectsRegistry";
 import { getStoryObjectsRegistry } from "@/mod/scripts/core/database/StoryObjectsRegistry";
+import { simulation_activities } from "@/mod/scripts/core/objects/alife/SimulationActivity";
+import { nearest_to_actor_smart, SmartTerrain } from "@/mod/scripts/core/objects/alife/SmartTerrain";
+import { ESmartTerrainStatus, getCurrentSmartId } from "@/mod/scripts/core/objects/alife/SmartTerrainControl";
+import { Squad } from "@/mod/scripts/core/objects/alife/Squad";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

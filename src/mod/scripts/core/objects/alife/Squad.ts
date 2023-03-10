@@ -29,11 +29,6 @@ import { SMART_TERRAIN_SECT } from "@/mod/globals/sections";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { AnyCallablesModule, AnyObject, Optional, TCount, TNumberId } from "@/mod/lib/types";
 import { TSection } from "@/mod/lib/types/scheme";
-import { simulation_activities } from "@/mod/scripts/core/alife/SimulationActivity";
-import type { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { ESmartTerrainStatus } from "@/mod/scripts/core/alife/SmartTerrainControl";
-import { SquadReachTargetAction } from "@/mod/scripts/core/alife/SquadReachTargetAction";
-import { SquadStayOnTargetAction } from "@/mod/scripts/core/alife/SquadStayOnTargetAction";
 import {
   registry,
   SMART_TERRAIN_MASKS_LTX,
@@ -44,6 +39,11 @@ import {
 import { getSimulationBoardManager, SimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { evaluate_prior, getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimulationObjectsRegistry";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";
+import { simulation_activities } from "@/mod/scripts/core/objects/alife/SimulationActivity";
+import type { SmartTerrain } from "@/mod/scripts/core/objects/alife/SmartTerrain";
+import { ESmartTerrainStatus } from "@/mod/scripts/core/objects/alife/SmartTerrainControl";
+import { SquadReachTargetAction } from "@/mod/scripts/core/objects/alife/SquadReachTargetAction";
+import { SquadStayOnTargetAction } from "@/mod/scripts/core/objects/alife/SquadStayOnTargetAction";
 import { get_sound_manager, SoundManager } from "@/mod/scripts/core/sound/SoundManager";
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
 import { areOnSameAlifeLevel, unregisterStoryObjectById } from "@/mod/scripts/utils/alife";

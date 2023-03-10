@@ -1,9 +1,9 @@
 import { device, level, time_global, XR_game_object, XR_vector } from "xray16";
 
 import { AnyObject, Optional, TCount, TNumberId } from "@/mod/lib/types";
-import { ActorBinder } from "@/mod/scripts/core/binders/ActorBinder";
 import { registry } from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
+import { ActorBinder } from "@/mod/scripts/core/objects/binders/ActorBinder";
 import { AbstractSchemeManager } from "@/mod/scripts/core/schemes/base/AbstractSchemeManager";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/base/trySwitchToAnotherSection";
 import { ISchemeDeimosState } from "@/mod/scripts/core/schemes/sr_deimos/ISchemeDeimosState";

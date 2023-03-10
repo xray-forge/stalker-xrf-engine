@@ -10,8 +10,8 @@ import {
 } from "xray16";
 
 import { TSection } from "@/mod/lib/types/scheme";
-import { LevelChanger } from "@/mod/scripts/core/alife/LevelChanger";
 import { registerObject, resetObject, unregisterObject } from "@/mod/scripts/core/database";
+import { LevelChanger } from "@/mod/scripts/core/objects/alife/LevelChanger";
 import { loadObject, saveObject } from "@/mod/scripts/core/schemes/storing";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

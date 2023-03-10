@@ -4,8 +4,8 @@ import { XR_game_object } from "xray16";
 
 import { misc } from "@/mod/globals/items/misc";
 import { Optional, TNumberId } from "@/mod/lib/types";
-import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { registry } from "@/mod/scripts/core/database";
+import { SmartTerrain } from "@/mod/scripts/core/objects/alife/SmartTerrain";
 import { getObjectBoundSmart } from "@/mod/scripts/utils/gulag";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

@@ -13,11 +13,11 @@ import {
 import { communities } from "@/mod/globals/communities";
 import { SMART_TERRAIN_SECT } from "@/mod/globals/sections";
 import { AnyObject, EJobType, EScheme, JobTypeByScheme, Optional, TName, TSection } from "@/mod/lib/types";
-import { accessible_job, get_job_restrictor } from "@/mod/scripts/core/alife/combat_restrictor";
-import { registered_smartcovers } from "@/mod/scripts/core/alife/SmartCover";
-import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { registry } from "@/mod/scripts/core/database";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
+import { accessible_job, get_job_restrictor } from "@/mod/scripts/core/objects/alife/combat_restrictor";
+import { registered_smartcovers } from "@/mod/scripts/core/objects/alife/SmartCover";
+import type { SmartTerrain } from "@/mod/scripts/core/objects/alife/SmartTerrain";
 import {
   getConfigBoolean,
   getConfigNumber,

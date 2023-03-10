@@ -2,8 +2,8 @@ import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_
 
 import { Optional, TName } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
-import { Squad } from "@/mod/scripts/core/alife/Squad";
 import { registry } from "@/mod/scripts/core/database";
+import { Squad } from "@/mod/scripts/core/objects/alife/Squad";
 import { AbstractScheme } from "@/mod/scripts/core/schemes/base/AbstractScheme";
 import { action_ids } from "@/mod/scripts/core/schemes/base/actions_id";
 import { evaluators_id } from "@/mod/scripts/core/schemes/base/evaluators_id";

@@ -28,7 +28,6 @@ import { communities } from "@/mod/globals/communities";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { EScheme, Optional, TDuration, TNumberId, TRate, TSection } from "@/mod/lib/types";
 import { ESchemeType } from "@/mod/lib/types/scheme";
-import { setup_gulag_and_logic_on_spawn, SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import {
   DUMMY_LTX,
   IRegistryObjectState,
@@ -47,6 +46,7 @@ import { MapDisplayManager } from "@/mod/scripts/core/managers/map/MapDisplayMan
 import { ReleaseBodyManager } from "@/mod/scripts/core/managers/ReleaseBodyManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { TradeManager } from "@/mod/scripts/core/managers/TradeManager";
+import { setup_gulag_and_logic_on_spawn, SmartTerrain } from "@/mod/scripts/core/objects/alife/SmartTerrain";
 import { ESchemeEvent } from "@/mod/scripts/core/schemes/base";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/base/trySwitchToAnotherSection";
 import { SchemeCombat } from "@/mod/scripts/core/schemes/combat/SchemeCombat";

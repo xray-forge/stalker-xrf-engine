@@ -15,9 +15,9 @@ import {
 
 import { MAX_UNSIGNED_8_BIT } from "@/mod/globals/memory";
 import { Optional, TSection } from "@/mod/lib/types";
-import { FIELDS_BY_NAME } from "@/mod/scripts/core/binders/AnomalyFieldBinder";
 import { registerAnomaly, registry, resetObject, unregisterAnomaly } from "@/mod/scripts/core/database";
 import { MapDisplayManager } from "@/mod/scripts/core/managers/map/MapDisplayManager";
+import { FIELDS_BY_NAME } from "@/mod/scripts/core/objects/binders/AnomalyFieldBinder";
 import { getConfigNumber, getConfigString, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";

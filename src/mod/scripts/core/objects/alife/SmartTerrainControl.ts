@@ -2,10 +2,10 @@ import { game, TXR_net_processor, XR_CTime, XR_ini_file, XR_net_packet } from "x
 
 import { relations } from "@/mod/globals/relations";
 import { Optional, TName, TSection } from "@/mod/lib/types";
-import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { registry } from "@/mod/scripts/core/database";
 import { getSimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
+import { SmartTerrain } from "@/mod/scripts/core/objects/alife/SmartTerrain";
 import { isWeapon } from "@/mod/scripts/utils/checkers/is";
 import { getConfigString, pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";

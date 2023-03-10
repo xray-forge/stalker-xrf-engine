@@ -1,6 +1,5 @@
 import { vector, XR_vector } from "xray16";
 
-import { Optional } from "@/mod/lib/types";
 import { ISmartCoverLoopholeDescriptor } from "@/mod/scripts/core/smart_covers/smart_covers_list";
 
 export function get_animpoint_stay_wall_loophole(

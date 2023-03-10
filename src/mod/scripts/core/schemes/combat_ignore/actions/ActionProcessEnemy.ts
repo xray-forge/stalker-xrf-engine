@@ -3,14 +3,14 @@ import { alife, XR_cse_alife_creature_abstract, XR_game_object, XR_vector } from
 import { STRINGIFIED_TRUE } from "@/mod/globals/lua";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { AnyObject, Optional, TCount, TName, TNumberId } from "@/mod/lib/types";
-import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { ESmartTerrainStatus } from "@/mod/scripts/core/alife/SmartTerrainControl";
 import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { getSimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
 import {
   getSimulationObjectsRegistry,
   SimulationObjectsRegistry,
 } from "@/mod/scripts/core/database/SimulationObjectsRegistry";
+import { SmartTerrain } from "@/mod/scripts/core/objects/alife/SmartTerrain";
+import { ESmartTerrainStatus } from "@/mod/scripts/core/objects/alife/SmartTerrainControl";
 import { ISchemeCombatIgnoreState } from "@/mod/scripts/core/schemes/combat_ignore";
 import { isObjectInZone } from "@/mod/scripts/utils/checkers/checkers";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";

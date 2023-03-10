@@ -1,6 +1,6 @@
 import { cse_smart_cover, game_graph, LuabindClass, properties_helper, XR_net_packet } from "xray16";
 
-import { Optional, TSection } from "@/mod/lib/types";
+import { Optional, TName, TNumberId, TSection } from "@/mod/lib/types";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";
 import { ISmartCoverLoopholeDescriptor, smart_covers_list } from "@/mod/scripts/core/smart_covers/smart_covers_list";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
@@ -10,8 +10,8 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 const logger: LuaLogger = new LuaLogger("SmartCover");
 
 // todo: Move to db.
-export const registered_smartcovers: LuaTable<string, SmartCover> = new LuaTable();
-export const registered_smartcovers_by_lv_id: LuaTable<number> = new LuaTable();
+export const registered_smartcovers: LuaTable<TName, SmartCover> = new LuaTable();
+export const registered_smartcovers_by_level_id: LuaTable<TNumberId> = new LuaTable();
 
 /**
  * todo;
@@ -50,11 +50,11 @@ export class SmartCover extends cse_smart_cover {
 
     const level_id = game_graph().vertex(this.m_game_vertex_id).level_id();
 
-    if (registered_smartcovers_by_lv_id.get(level_id) === null) {
-      registered_smartcovers_by_lv_id.set(level_id, {});
+    if (registered_smartcovers_by_level_id.get(level_id) === null) {
+      registered_smartcovers_by_level_id.set(level_id, {});
     }
 
-    registered_smartcovers_by_lv_id.get(level_id)[this.m_level_vertex_id] = this;
+    registered_smartcovers_by_level_id.get(level_id)[this.m_level_vertex_id] = this;
   }
 
   /**
@@ -64,9 +64,9 @@ export class SmartCover extends cse_smart_cover {
     unregisterStoryObjectById(this.id);
     registered_smartcovers.delete(this.name());
 
-    const level_id: number = game_graph().vertex(this.m_game_vertex_id).level_id();
+    const levelId: TNumberId = game_graph().vertex(this.m_game_vertex_id).level_id();
 
-    registered_smartcovers_by_lv_id.get(level_id)[this.m_level_vertex_id] = null;
+    registered_smartcovers_by_level_id.get(levelId)[this.m_level_vertex_id] = null;
     super.on_unregister();
   }
 

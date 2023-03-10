@@ -1,25 +1,27 @@
 import { alife, clsid, XR_game_object, XR_ini_file } from "xray16";
 
 import { Optional } from "@/mod/lib/types";
-import { ActorBinder } from "@/mod/scripts/core/binders/ActorBinder";
-import { AnomalyFieldBinder } from "@/mod/scripts/core/binders/AnomalyFieldBinder";
-import { AnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
-import { ArenaZoneBinder } from "@/mod/scripts/core/binders/ArenaZoneBinder";
-import { ArtefactBinder } from "@/mod/scripts/core/binders/ArtefactBinder";
-import { CampBinder } from "@/mod/scripts/core/binders/CampBinder";
-import { CampfireBinder } from "@/mod/scripts/core/binders/CampfireBinder";
-import { CrowBinder } from "@/mod/scripts/core/binders/CrowBinder";
-import { HelicopterBinder } from "@/mod/scripts/core/binders/HelicopterBinder";
-import { LabX8DoorBinder } from "@/mod/scripts/core/binders/LabX8DoorBinder";
-import { LevelChangerBinder } from "@/mod/scripts/core/binders/LevelChangerBinder";
-import { MonsterBinder } from "@/mod/scripts/core/binders/MonsterBinder";
-import { PhantomBinder } from "@/mod/scripts/core/binders/PhantomBinder";
-import { PhysicObjectBinder } from "@/mod/scripts/core/binders/PhysicObjectBinder";
-import { RestrictorBinder } from "@/mod/scripts/core/binders/RestrictorBinder";
-import { SignalLightBinder } from "@/mod/scripts/core/binders/SignalLightBinder";
-import { SmartCoverBinder } from "@/mod/scripts/core/binders/SmartCoverBinder";
-import { SmartTerrainBinder } from "@/mod/scripts/core/binders/SmartTerrainBinder";
-import { StalkerBinder } from "@/mod/scripts/core/binders/StalkerBinder";
+import {
+  ActorBinder,
+  AnomalyFieldBinder,
+  AnomalyZoneBinder,
+  ArenaZoneBinder,
+  ArtefactBinder,
+  CampBinder,
+  CampfireBinder,
+  CrowBinder,
+  HelicopterBinder,
+  LabX8DoorBinder,
+  LevelChangerBinder,
+  MonsterBinder,
+  PhantomBinder,
+  PhysicObjectBinder,
+  RestrictorBinder,
+  SignalLightBinder,
+  SmartCoverBinder,
+  SmartTerrainBinder,
+  StalkerBinder,
+} from "@/mod/scripts/core/objects/binders";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

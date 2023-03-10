@@ -38,15 +38,6 @@ import {
   TSection,
   TTimestamp,
 } from "@/mod/lib/types";
-import { loadGulagJobs } from "@/mod/scripts/core/alife/gulag_general";
-import { simulation_activities } from "@/mod/scripts/core/alife/SimulationActivity";
-import { registered_smartcovers } from "@/mod/scripts/core/alife/SmartCover";
-import { ESmartTerrainStatus, SmartTerrainControl } from "@/mod/scripts/core/alife/SmartTerrainControl";
-import { Squad } from "@/mod/scripts/core/alife/Squad";
-import {
-  turn_off_campfires_by_smart_name,
-  turn_on_campfires_by_smart_name,
-} from "@/mod/scripts/core/binders/CampfireBinder";
 import {
   hardResetOfflineObject,
   IRegistryObjectState,
@@ -59,6 +50,15 @@ import { getSimulationBoardManager, SimulationBoardManager } from "@/mod/scripts
 import { evaluate_prior, getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimulationObjectsRegistry";
 import { get_smart_terrain_name } from "@/mod/scripts/core/database/smart_names";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";
+import { loadGulagJobs } from "@/mod/scripts/core/objects/alife/gulag_general";
+import { simulation_activities } from "@/mod/scripts/core/objects/alife/SimulationActivity";
+import { registered_smartcovers } from "@/mod/scripts/core/objects/alife/SmartCover";
+import { ESmartTerrainStatus, SmartTerrainControl } from "@/mod/scripts/core/objects/alife/SmartTerrainControl";
+import { Squad } from "@/mod/scripts/core/objects/alife/Squad";
+import {
+  turn_off_campfires_by_smart_name,
+  turn_on_campfires_by_smart_name,
+} from "@/mod/scripts/core/objects/binders/CampfireBinder";
 import { activateSchemeBySection } from "@/mod/scripts/core/schemes/base/activateSchemeBySection";
 import { configureObjectSchemes } from "@/mod/scripts/core/schemes/base/configureObjectSchemes";
 import { determine_section_to_activate } from "@/mod/scripts/core/schemes/determine_section_to_activate";

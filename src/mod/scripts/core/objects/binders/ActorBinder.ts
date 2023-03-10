@@ -4,7 +4,6 @@ import {
   callback,
   device,
   game,
-  get_console,
   level,
   LuabindClass,
   object_binder,
@@ -21,18 +20,14 @@ import {
   XR_reader,
 } from "xray16";
 
-import { animations } from "@/mod/globals/animation/animations";
-import { post_processors } from "@/mod/globals/animation/post_processors";
 import { console_commands } from "@/mod/globals/console_commands";
 import { game_difficulties_by_number } from "@/mod/globals/game_difficulties";
-import { info_portions, TInfoPortion } from "@/mod/globals/info_portions";
+import { info_portions } from "@/mod/globals/info_portions";
 import { TInventoryItem } from "@/mod/globals/items";
 import { drugs } from "@/mod/globals/items/drugs";
 import { TLevel } from "@/mod/globals/levels";
 import { STRINGIFIED_NIL } from "@/mod/globals/lua";
 import { AnyCallablesModule, Optional, TDuration, TIndex, TName } from "@/mod/lib/types";
-import { Actor } from "@/mod/scripts/core/alife/Actor";
-import { AnomalyZoneBinder } from "@/mod/scripts/core/binders/AnomalyZoneBinder";
 import { IRegistryObjectState, registry, resetObject } from "@/mod/scripts/core/database";
 import { registerActor, unregisterActor } from "@/mod/scripts/core/database/actor";
 import { pstor_load_all, pstor_save_all } from "@/mod/scripts/core/database/pstor";
@@ -54,6 +49,8 @@ import { TaskManager } from "@/mod/scripts/core/managers/tasks/TaskManager";
 import { TravelManager } from "@/mod/scripts/core/managers/TravelManager";
 import { TreasureManager } from "@/mod/scripts/core/managers/TreasureManager";
 import { WeatherManager } from "@/mod/scripts/core/managers/WeatherManager";
+import { Actor } from "@/mod/scripts/core/objects/alife/Actor";
+import { AnomalyZoneBinder } from "@/mod/scripts/core/objects/binders/AnomalyZoneBinder";
 import { ISchemeDeimosState } from "@/mod/scripts/core/schemes/sr_deimos";
 import { SchemeDeimos } from "@/mod/scripts/core/schemes/sr_deimos/SchemeDeimos";
 import { SchemeNoWeapon } from "@/mod/scripts/core/schemes/sr_no_weapon";
@@ -61,7 +58,7 @@ import { DynamicMusicManager } from "@/mod/scripts/core/sound/DynamicMusicManage
 import { isArtefact } from "@/mod/scripts/utils/checkers/is";
 import { executeConsoleCommand } from "@/mod/scripts/utils/console";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
-import { giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
+import { hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { getTableSize } from "@/mod/scripts/utils/table";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";

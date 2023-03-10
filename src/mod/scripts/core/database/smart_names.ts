@@ -1,8 +1,8 @@
 import { alife, game, game_graph } from "xray16";
 
 import { Optional, TCount, TName } from "@/mod/lib/types";
-import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
 import { SMART_NAMES_LTX } from "@/mod/scripts/core/database";
+import { SmartTerrain } from "@/mod/scripts/core/objects/alife/SmartTerrain";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger("smart_names");

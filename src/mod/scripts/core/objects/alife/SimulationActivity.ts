@@ -2,9 +2,9 @@ import { XR_cse_alife_object } from "xray16";
 
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { Optional, PartialRecord } from "@/mod/lib/types";
-import { Squad } from "@/mod/scripts/core/alife/Squad";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { TravelManager } from "@/mod/scripts/core/managers/TravelManager";
+import { Squad } from "@/mod/scripts/core/objects/alife/Squad";
 import { getAlifeDistanceBetween } from "@/mod/scripts/utils/alife";
 import { hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

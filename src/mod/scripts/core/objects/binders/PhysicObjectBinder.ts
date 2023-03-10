@@ -14,7 +14,6 @@ import {
 } from "xray16";
 
 import { EScheme, ESchemeType, Optional, TCount, TDuration, TIndex } from "@/mod/lib/types";
-import { PhysicObjectItemBox } from "@/mod/scripts/core/binders/PhysicObjectItemBox";
 import {
   IRegistryObjectState,
   registerObject,
@@ -23,6 +22,7 @@ import {
   unregisterObject,
 } from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
+import { PhysicObjectItemBox } from "@/mod/scripts/core/objects/binders/PhysicObjectItemBox";
 import { ESchemeEvent } from "@/mod/scripts/core/schemes/base";
 import { initializeGameObject } from "@/mod/scripts/core/schemes/initializeGameObject";
 import { issueSchemeEvent } from "@/mod/scripts/core/schemes/issueSchemeEvent";

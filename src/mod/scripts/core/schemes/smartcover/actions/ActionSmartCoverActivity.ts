@@ -1,9 +1,9 @@
 import { action_base, level, LuabindClass, patrol, XR_game_object, XR_vector } from "xray16";
 
 import { Optional, StringOptional } from "@/mod/lib/types";
-import { registered_smartcovers } from "@/mod/scripts/core/alife/SmartCover";
 import { registry } from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
+import { registered_smartcovers } from "@/mod/scripts/core/objects/alife/SmartCover";
 import { ActionSleeperActivity } from "@/mod/scripts/core/schemes/sleeper/actions";
 import {
   cover_substate_table,

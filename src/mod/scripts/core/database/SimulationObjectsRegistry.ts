@@ -2,11 +2,11 @@ import { clsid, XR_cse_alife_object } from "xray16";
 
 import { STRINGIFIED_TRUE } from "@/mod/globals/lua";
 import { Optional, TNumberId, TRate } from "@/mod/lib/types";
-import { Actor } from "@/mod/scripts/core/alife/Actor";
-import { SmartTerrain } from "@/mod/scripts/core/alife/SmartTerrain";
-import { Squad } from "@/mod/scripts/core/alife/Squad";
 import { SIMULATION_OBJECTS_PROPS_LTX } from "@/mod/scripts/core/database/ini";
 import { registry } from "@/mod/scripts/core/database/registry";
+import { Actor } from "@/mod/scripts/core/objects/alife/Actor";
+import { SmartTerrain } from "@/mod/scripts/core/objects/alife/SmartTerrain";
+import { Squad } from "@/mod/scripts/core/objects/alife/Squad";
 import { areOnSameAlifeLevel, getAlifeDistanceBetween } from "@/mod/scripts/utils/alife";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { parseConditionsList } from "@/mod/scripts/utils/parse";
