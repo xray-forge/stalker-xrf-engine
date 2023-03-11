@@ -40,7 +40,7 @@ import { getSimulationBoardManager, SimulationBoardManager } from "@/mod/scripts
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
-import { SmartTerrain } from "@/mod/scripts/core/objects/alife/SmartTerrain";
+import { SmartTerrain } from "@/mod/scripts/core/objects/alife/smart/SmartTerrain";
 import { Squad } from "@/mod/scripts/core/objects/alife/Squad";
 import { TSimulationObject } from "@/mod/scripts/core/objects/alife/types";
 import { getAlifeCharacterCommunity, getAlifeDistanceBetween, getObjectSquad } from "@/mod/scripts/utils/alife";

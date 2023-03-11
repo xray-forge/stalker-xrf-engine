@@ -19,7 +19,7 @@ import {
 } from "@/mod/scripts/core/database";
 import { getSimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";
-import { on_death, SmartTerrain } from "@/mod/scripts/core/objects/alife/SmartTerrain";
+import { on_death, SmartTerrain } from "@/mod/scripts/core/objects/alife/smart/SmartTerrain";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";

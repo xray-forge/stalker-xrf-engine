@@ -3,7 +3,7 @@ import { action_base, level, LuabindClass, patrol, XR_game_object, XR_sound_obje
 import { Optional } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
-import { SmartTerrain } from "@/mod/scripts/core/objects/alife/SmartTerrain";
+import { SmartTerrain } from "@/mod/scripts/core/objects/alife/smart/SmartTerrain";
 import { ISchemeRemarkState } from "@/mod/scripts/core/schemes/remark";
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";

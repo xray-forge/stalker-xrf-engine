@@ -5,7 +5,7 @@ import { Optional, TNumberId, TRate } from "@/mod/lib/types";
 import { SIMULATION_OBJECTS_PROPS_LTX } from "@/mod/scripts/core/database/ini";
 import { registry } from "@/mod/scripts/core/database/registry";
 import { Actor } from "@/mod/scripts/core/objects/alife/Actor";
-import { SmartTerrain } from "@/mod/scripts/core/objects/alife/SmartTerrain";
+import { SmartTerrain } from "@/mod/scripts/core/objects/alife/smart/SmartTerrain";
 import { Squad } from "@/mod/scripts/core/objects/alife/Squad";
 import { areOnSameAlifeLevel, getAlifeDistanceBetween } from "@/mod/scripts/utils/alife";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";

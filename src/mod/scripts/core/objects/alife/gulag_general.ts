@@ -16,8 +16,7 @@ import { AnyObject, EJobType, EScheme, JobTypeByScheme, Optional, TName, TSectio
 import { registry } from "@/mod/scripts/core/database";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { accessible_job, get_job_restrictor } from "@/mod/scripts/core/objects/alife/combat_restrictor";
-import { registered_smartcovers } from "@/mod/scripts/core/objects/alife/SmartCover";
-import type { SmartTerrain } from "@/mod/scripts/core/objects/alife/SmartTerrain";
+import type { SmartTerrain } from "@/mod/scripts/core/objects/alife/smart/SmartTerrain";
 import {
   getConfigBoolean,
   getConfigNumber,
@@ -604,7 +603,7 @@ export function loadGulagJobs(smart: SmartTerrain): LuaMultiReturn<[LuaTable, st
   logger.info("Animpoint jobs load:", smartName);
   it = 1;
 
-  while (registered_smartcovers.get(gname + "_animpoint_" + it) !== null) {
+  while (registry.smartCovers.get(gname + "_animpoint_" + it) !== null) {
     const smartcover_name = gname + "_animpoint_" + it;
 
     t = {

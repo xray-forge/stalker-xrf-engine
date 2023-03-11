@@ -12,7 +12,7 @@ import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { logicsConfig } from "@/mod/lib/configs/LogicsConfig";
 import { Optional } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
-import { SmartTerrain } from "@/mod/scripts/core/objects/alife/SmartTerrain";
+import { SmartTerrain } from "@/mod/scripts/core/objects/alife/smart/SmartTerrain";
 import { ISchemeDangerState } from "@/mod/scripts/core/schemes/danger";
 import { SchemeDanger } from "@/mod/scripts/core/schemes/danger/SchemeDanger";
 

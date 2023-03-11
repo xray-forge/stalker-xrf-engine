@@ -4,7 +4,7 @@ import { STRINGIFIED_NIL } from "@/mod/globals/lua";
 import { Optional, TNumberId } from "@/mod/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/mod/lib/types/scheme";
 import { registry } from "@/mod/scripts/core/database";
-import { SmartTerrain } from "@/mod/scripts/core/objects/alife/SmartTerrain";
+import { SmartTerrain } from "@/mod/scripts/core/objects/alife/smart/SmartTerrain";
 import { ESchemeEvent } from "@/mod/scripts/core/schemes/base/index";
 import { issueSchemeEvent } from "@/mod/scripts/core/schemes/issueSchemeEvent";
 import { resetGenericSchemesOnSchemeSwitch } from "@/mod/scripts/core/schemes/resetGenericSchemesOnSchemeSwitch";

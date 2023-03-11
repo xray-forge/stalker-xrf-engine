@@ -1,9 +1,9 @@
 import { action_base, level, LuabindClass, patrol, XR_game_object, XR_vector } from "xray16";
 
+import { STRINGIFIED_NIL } from "@/mod/globals/lua";
 import { Optional, StringOptional } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
-import { registered_smartcovers } from "@/mod/scripts/core/objects/alife/SmartCover";
 import { ActionSleeperActivity } from "@/mod/scripts/core/schemes/sleeper/actions";
 import {
   cover_substate_table,
@@ -102,7 +102,7 @@ export class ActionSmartCoverActivity extends action_base {
     this.cover_name = cover_name;
 
     if (this.cover_name !== this.state.cover_name || used === false) {
-      if (registered_smartcovers.get(this.cover_name) === null) {
+      if (registry.smartCovers.get(this.cover_name) === null) {
         abort("There is no smart_cover with name [%s]", this.cover_name);
       }
 
@@ -135,7 +135,7 @@ export class ActionSmartCoverActivity extends action_base {
      *   --}
      */
 
-    if (this.cover_state === "nil") {
+    if (this.cover_state === STRINGIFIED_NIL) {
       this.object.set_smart_cover_target_selector();
     } else {
       this.object.set_smart_cover_target_selector((object) => this.target_selector(object), this);

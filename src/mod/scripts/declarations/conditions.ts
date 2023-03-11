@@ -42,8 +42,8 @@ import { AchievementsManager } from "@/mod/scripts/core/managers/achievements/Ac
 import { ActorInventoryMenuManager, EActorMenuMode } from "@/mod/scripts/core/managers/ActorInventoryMenuManager";
 import { ItemUpgradesManager } from "@/mod/scripts/core/managers/ItemUpgradesManager";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
-import { SmartTerrain } from "@/mod/scripts/core/objects/alife/SmartTerrain";
-import { ESmartTerrainStatus, SmartTerrainControl } from "@/mod/scripts/core/objects/alife/SmartTerrainControl";
+import { SmartTerrain } from "@/mod/scripts/core/objects/alife/smart/SmartTerrain";
+import { ESmartTerrainStatus, SmartTerrainControl } from "@/mod/scripts/core/objects/alife/smart/SmartTerrainControl";
 import { Squad } from "@/mod/scripts/core/objects/alife/Squad";
 import { SchemeAnimpoint } from "@/mod/scripts/core/schemes/animpoint";
 import { ISchemeAnimpointState } from "@/mod/scripts/core/schemes/animpoint/ISchemeAnimpointState";

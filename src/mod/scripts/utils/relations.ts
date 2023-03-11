@@ -11,7 +11,7 @@ import { communities, TCommunity } from "@/mod/globals/communities";
 import { ERelation, relations, TRelation } from "@/mod/globals/relations";
 import { Maybe, Optional, TCount, TName, TNumberId, TStringId } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
-import { SmartTerrain } from "@/mod/scripts/core/objects/alife/SmartTerrain";
+import { SmartTerrain } from "@/mod/scripts/core/objects/alife/smart/SmartTerrain";
 import type { Squad } from "@/mod/scripts/core/objects/alife/Squad";
 import { getCharacterCommunity, getStorySquad } from "@/mod/scripts/utils/alife";
 import { abort } from "@/mod/scripts/utils/debug";

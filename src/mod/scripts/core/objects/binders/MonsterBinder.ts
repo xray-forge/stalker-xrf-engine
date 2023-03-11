@@ -44,7 +44,7 @@ import {
 import { getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimulationObjectsRegistry";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
-import { setup_gulag_and_logic_on_spawn, SmartTerrain } from "@/mod/scripts/core/objects/alife/SmartTerrain";
+import { setup_gulag_and_logic_on_spawn, SmartTerrain } from "@/mod/scripts/core/objects/alife/smart/SmartTerrain";
 import { Squad } from "@/mod/scripts/core/objects/alife/Squad";
 import { ESchemeEvent } from "@/mod/scripts/core/schemes/base";
 import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/base/trySwitchToAnotherSection";

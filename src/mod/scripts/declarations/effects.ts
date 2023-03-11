@@ -63,7 +63,7 @@ import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { TaskManager } from "@/mod/scripts/core/managers/tasks";
 import { TreasureManager } from "@/mod/scripts/core/managers/TreasureManager";
 import { WeatherManager } from "@/mod/scripts/core/managers/WeatherManager";
-import { SmartTerrain } from "@/mod/scripts/core/objects/alife/SmartTerrain";
+import { SmartTerrain } from "@/mod/scripts/core/objects/alife/smart/SmartTerrain";
 import { Squad } from "@/mod/scripts/core/objects/alife/Squad";
 import { Stalker } from "@/mod/scripts/core/objects/alife/Stalker";
 import { update_logic } from "@/mod/scripts/core/objects/binders/StalkerBinder";

@@ -40,8 +40,8 @@ import { getSimulationBoardManager, SimulationBoardManager } from "@/mod/scripts
 import { evaluate_prior, getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimulationObjectsRegistry";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";
 import { simulation_activities } from "@/mod/scripts/core/objects/alife/SimulationActivity";
-import type { SmartTerrain } from "@/mod/scripts/core/objects/alife/SmartTerrain";
-import { ESmartTerrainStatus } from "@/mod/scripts/core/objects/alife/SmartTerrainControl";
+import type { SmartTerrain } from "@/mod/scripts/core/objects/alife/smart/SmartTerrain";
+import { ESmartTerrainStatus } from "@/mod/scripts/core/objects/alife/smart/SmartTerrainControl";
 import { SquadReachTargetAction } from "@/mod/scripts/core/objects/alife/SquadReachTargetAction";
 import { SquadStayOnTargetAction } from "@/mod/scripts/core/objects/alife/SquadStayOnTargetAction";
 import { get_sound_manager, SoundManager } from "@/mod/scripts/core/sound/SoundManager";

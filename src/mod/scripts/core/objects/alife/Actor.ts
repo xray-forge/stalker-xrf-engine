@@ -16,8 +16,8 @@ import { getSimulationBoardManager } from "@/mod/scripts/core/database/Simulatio
 import { evaluate_prior, getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimulationObjectsRegistry";
 import { getStoryObjectsRegistry } from "@/mod/scripts/core/database/StoryObjectsRegistry";
 import { simulation_activities } from "@/mod/scripts/core/objects/alife/SimulationActivity";
-import { nearest_to_actor_smart, SmartTerrain } from "@/mod/scripts/core/objects/alife/SmartTerrain";
-import { ESmartTerrainStatus, getCurrentSmartId } from "@/mod/scripts/core/objects/alife/SmartTerrainControl";
+import { nearest_to_actor_smart, SmartTerrain } from "@/mod/scripts/core/objects/alife/smart/SmartTerrain";
+import { ESmartTerrainStatus, getCurrentSmartId } from "@/mod/scripts/core/objects/alife/smart/SmartTerrainControl";
 import { Squad } from "@/mod/scripts/core/objects/alife/Squad";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";

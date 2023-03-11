@@ -9,15 +9,18 @@ import type {
   TAbstractCoreManagerConstructor,
 } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import type { ITradeManagerDescriptor } from "@/mod/scripts/core/managers/TradeManager";
-import type { SmartTerrain } from "@/mod/scripts/core/objects/alife/SmartTerrain";
-import type { AnomalyZoneBinder } from "@/mod/scripts/core/objects/binders/AnomalyZoneBinder";
-import type { LabX8DoorBinder } from "@/mod/scripts/core/objects/binders/LabX8DoorBinder";
-import type { SignalLightBinder } from "@/mod/scripts/core/objects/binders/SignalLightBinder";
+import {
+  AnomalyZoneBinder,
+  LabX8DoorBinder,
+  SignalLightBinder,
+  SmartCover,
+  SmartTerrain,
+} from "@/mod/scripts/core/objects";
 import type { TAbstractSchemeConstructor } from "@/mod/scripts/core/schemes/base";
-import type { CampStoryManager } from "@/mod/scripts/core/schemes/camper/CampStoryManager";
+import type { CampStoryManager } from "@/mod/scripts/core/schemes/camper";
 import type { PatrolManager } from "@/mod/scripts/core/schemes/patrol";
-import type { ReachTaskPatrolManager } from "@/mod/scripts/core/schemes/reach_task/ReachTaskPatrolManager";
-import type { LightManager } from "@/mod/scripts/core/schemes/sr_light/LightManager";
+import type { ReachTaskPatrolManager } from "@/mod/scripts/core/schemes/reach_task";
+import type { LightManager } from "@/mod/scripts/core/schemes/sr_light";
 import type { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
 
 /**
@@ -114,6 +117,10 @@ export const registry = {
    * List of active smart terrains.
    */
   smartTerrains: new LuaTable<TNumberId, SmartTerrain>(),
+  /**
+   * List of active smart covers.
+   */
+  smartCovers: new LuaTable<TName, SmartCover>(),
   /**
    * List of objects spawned by scripts execution.
    * $ key - object id, value - zone name.

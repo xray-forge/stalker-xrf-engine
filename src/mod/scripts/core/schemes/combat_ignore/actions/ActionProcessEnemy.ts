@@ -9,8 +9,8 @@ import {
   getSimulationObjectsRegistry,
   SimulationObjectsRegistry,
 } from "@/mod/scripts/core/database/SimulationObjectsRegistry";
-import { SmartTerrain } from "@/mod/scripts/core/objects/alife/SmartTerrain";
-import { ESmartTerrainStatus } from "@/mod/scripts/core/objects/alife/SmartTerrainControl";
+import { SmartTerrain } from "@/mod/scripts/core/objects/alife/smart/SmartTerrain";
+import { ESmartTerrainStatus } from "@/mod/scripts/core/objects/alife/smart/SmartTerrainControl";
 import { ISchemeCombatIgnoreState } from "@/mod/scripts/core/schemes/combat_ignore";
 import { isObjectInZone } from "@/mod/scripts/utils/checkers/checkers";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";

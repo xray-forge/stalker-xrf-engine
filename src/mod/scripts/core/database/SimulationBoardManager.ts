@@ -1,10 +1,10 @@
-import { alife, clsid, game_graph, level, XR_cse_alife_creature_abstract, XR_EngineBinding } from "xray16";
+import { alife, clsid, game_graph, level, XR_cse_alife_creature_abstract } from "xray16";
 
 import { TCommunity } from "@/mod/globals/communities";
 import { Optional, TNumberId } from "@/mod/lib/types";
 import { registry, SIMULATION_LTX } from "@/mod/scripts/core/database";
 import { getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimulationObjectsRegistry";
-import { SmartTerrain } from "@/mod/scripts/core/objects/alife/SmartTerrain";
+import { SmartTerrain } from "@/mod/scripts/core/objects/alife/smart/SmartTerrain";
 import { Squad } from "@/mod/scripts/core/objects/alife/Squad";
 import { changeTeamSquadGroup } from "@/mod/scripts/utils/alife";
 import { abort } from "@/mod/scripts/utils/debug";
