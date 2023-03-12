@@ -6,19 +6,19 @@ export function normalizeBaseNodeProps<T extends object>(props: T): T {
 
   ["x", "y", "width", "height", "rightIdent", "leftIdent", "topIndent", "bottomIndent", "vertInterval"].forEach(
     (key) => {
-      const it = nextProps[key];
+      const it = nextProps[key as keyof T];
 
       if (typeof it === "number") {
-        nextProps[key] = Math.round(it);
+        nextProps[key as keyof T] = Math.round(it) as any;
       }
     }
   );
 
   ["stretch", "alwaysShowScroll", "flipVert", "canSelect"].forEach((key) => {
-    const it = nextProps[key];
+    const it = nextProps[key as keyof T];
 
     if (typeof it === "boolean") {
-      nextProps[key] = it ? "1" : "0";
+      nextProps[key as keyof T] = (it ? "1" : "0") as any;
     }
   });
 

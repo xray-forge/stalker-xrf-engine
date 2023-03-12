@@ -1,4 +1,3 @@
-import * as fs from "fs";
 import * as fsPromises from "fs/promises";
 import * as path from "path";
 
@@ -7,12 +6,15 @@ import { default as chalk } from "chalk";
 import { TFolderFiles, TFolderReplicationDescriptor } from "@/mod/lib/types/general";
 
 import { GAME_DATA_UI_DIR, TARGET_GAME_DATA_UI_DIR } from "#/globals";
-import { NodeLogger, readDirContent } from "#/utils";
+import { createDirForConfigs, NodeLogger, readDirContent } from "#/utils";
 import { renderJsxToXmlText } from "#/utils/xml";
 
 const log: NodeLogger = new NodeLogger("BUILD_UI_DYNAMIC");
 const EXPECTED_DYNAMIC_XML_EXTENSIONS: Array<string> = [".tsx", ".ts"];
 
+/**
+ * todo;
+ */
 export async function buildDynamicUi(): Promise<void> {
   log.info(chalk.blueBright("Build dynamic UI schemas"));
 
@@ -24,7 +26,7 @@ export async function buildDynamicUi(): Promise<void> {
     let processedXmlConfigs: number = 0;
     let skippedXmlConfigs: number = 0;
 
-    createFoldersForConfigs(xmlConfigs);
+    createDirForConfigs(xmlConfigs, log);
 
     await Promise.all(
       xmlConfigs.map(async ([from, to]) => {
@@ -36,7 +38,7 @@ export async function buildDynamicUi(): Promise<void> {
           await fsPromises.writeFile(to, renderJsxToXmlText(xmlContent));
           processedXmlConfigs += 1;
         } else {
-          log.debug("SKIP, not XML source:", chalk.blue(from));
+          log.debug("SKIP, not valid XML source:", chalk.blue(from));
           skippedXmlConfigs += 1;
         }
       })
@@ -45,24 +47,13 @@ export async function buildDynamicUi(): Promise<void> {
     log.info("TSX files processed:", processedXmlConfigs);
     log.info("TSX files skipped:", skippedXmlConfigs);
   } else {
-    log.info("No dynamic TSX configs found");
+    log.info("No dynamic UI typescript configs found");
   }
 }
 
 /**
- * Sync way for folder creation when needed.
+ * todo;
  */
-function createFoldersForConfigs(xmlConfigs: Array<TFolderReplicationDescriptor>): void {
-  xmlConfigs.forEach(([, to]) => {
-    const targetDir: string = path.dirname(to);
-
-    if (!fs.existsSync(targetDir)) {
-      log.debug("MKDIR:", chalk.blueBright(targetDir));
-      fs.mkdirSync(targetDir, { recursive: true });
-    }
-  });
-}
-
 async function getUiConfigs(): Promise<Array<TFolderReplicationDescriptor>> {
   function collectXmlConfigs(
     acc: Array<TFolderReplicationDescriptor>,

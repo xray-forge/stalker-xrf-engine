@@ -3,7 +3,7 @@
  */
 export function stringifyValue(value: unknown): string {
   const references: Array<unknown> = [];
-  const replacer = (key, value) => {
+  const replacer = (key: string, value: unknown) => {
     if (typeof value === "object" && value !== null) {
       if (references.includes(value)) {
         return "~circular~";

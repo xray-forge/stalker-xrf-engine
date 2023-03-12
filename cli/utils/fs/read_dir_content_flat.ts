@@ -4,7 +4,7 @@ import * as path from "path";
 /**
  * Read contents of directory including folders and scripts.
  */
-export async function readDirContentFlat(dirPath, container: Array<string> = []): Promise<Array<string>> {
+export async function readDirContentFlat(dirPath: string, container: Array<string> = []): Promise<Array<string>> {
   await Promise.all(
     (
       await fs.readdir(dirPath, { withFileTypes: true })

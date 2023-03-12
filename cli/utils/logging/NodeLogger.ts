@@ -104,7 +104,7 @@ export class NodeLogger {
       )}`;
 
       if (NodeLogger.IS_CONSOLE_ENABLED && (NodeLogger.IS_VERBOSE ? true : method !== "debug")) {
-        console[method](`${timestamp} ${chalk.green(this.prefix)}`, ...args);
+        console[method as unknown as "info"](`${timestamp} ${chalk.green(this.prefix)}`, ...args);
       }
 
       if (NodeLogger.IS_FILE_ENABLED) {

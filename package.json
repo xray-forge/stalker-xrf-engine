@@ -23,6 +23,7 @@
     "build:gold": "ts-node -P cli/tsconfig.json ./cli/build/build.ts --clean --no-lua-logs",
     "build:no-resources": "ts-node -P cli/tsconfig.json ./cli/build/build.ts --no-resources",
     "build:scripts": "ts-node -P cli/tsconfig.json ./cli/build/build.ts --no-resources --no-ui --no-configs --no-translations",
+    "build:configs": "ts-node -P cli/tsconfig.json ./cli/build/build.ts --no-resources --no-scripts --no-ui --no-translations",
     "build:ui": "ts-node -P cli/tsconfig.json ./cli/build/build.ts --no-resources --no-scripts --no-configs --no-translations",
     "build:resources": "ts-node -P cli/tsconfig.json ./cli/build/build.ts --no-scripts --no-ui --no-configs --no-translations",
     "watch:scripts": "tstl -P ./cli/build/tsconfig.scripts.json --watch",
