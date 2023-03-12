@@ -3,7 +3,7 @@ import { alife, time_global, XR_cse_alife_creature_abstract } from "xray16";
 import { STRINGIFIED_NIL } from "@/mod/globals/lua";
 import { Optional, TNumberId, TStringId } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
-import { getSimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
+import { SimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { SoundStory } from "@/mod/scripts/core/sound/SoundStory";
 import { getObjectSquad } from "@/mod/scripts/utils/alife";
@@ -167,7 +167,6 @@ export class SoundManager {
     if (next_phrase.theme !== STRINGIFIED_NIL) {
       if (this.story && this.story.id === "squad_counter_attack") {
         const npc = alife().object<XR_cse_alife_creature_abstract>(npcId);
-        const board = getSimulationBoardManager();
 
         if (npc !== null) {
           const our_squad = getObjectSquad(npc);

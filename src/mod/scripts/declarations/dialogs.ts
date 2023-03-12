@@ -10,7 +10,7 @@ import { pistols, TPistol } from "@/mod/globals/items/weapons";
 import { levels } from "@/mod/globals/levels";
 import { AnyCallablesModule, EScheme, Optional, TNumberId } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
-import { getSimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
+import { SimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
 import { update_logic } from "@/mod/scripts/core/objects/binders/StalkerBinder";
@@ -218,7 +218,7 @@ export function become_friend(first_speaker: XR_game_object, second_speaker: XR_
  * todo;
  */
 export function actor_set_stalker(actor: XR_game_object, npc: XR_game_object): boolean {
-  getSimulationBoardManager().set_actor_community(communities.stalker);
+  SimulationBoardManager.getInstance().set_actor_community(communities.stalker);
 
   return true;
 }
@@ -227,7 +227,7 @@ export function actor_set_stalker(actor: XR_game_object, npc: XR_game_object): b
  * todo;
  */
 export function actor_clear_community(actor: XR_game_object, npc: XR_game_object): boolean {
-  getSimulationBoardManager().set_actor_community(communities.none);
+  SimulationBoardManager.getInstance().set_actor_community(communities.none);
 
   return true;
 }
@@ -281,7 +281,7 @@ export function npc_army(first_speaker: XR_game_object, second_speaker: XR_game_
  * todo;
  */
 export function actor_set_dolg(actor: XR_game_object, npc: XR_game_object): boolean {
-  getSimulationBoardManager().set_actor_community(communities.dolg);
+  SimulationBoardManager.getInstance().set_actor_community(communities.dolg);
 
   return true;
 }
@@ -290,7 +290,7 @@ export function actor_set_dolg(actor: XR_game_object, npc: XR_game_object): bool
  * todo;
  */
 export function actor_in_dolg(actor: XR_game_object, npc: XR_game_object): boolean {
-  for (const [k, v] of getSimulationBoardManager().players!) {
+  for (const [k, v] of SimulationBoardManager.getInstance().players!) {
     if (v.community_player === true && v.player_name === communities.dolg) {
       return true;
     }
@@ -303,7 +303,7 @@ export function actor_in_dolg(actor: XR_game_object, npc: XR_game_object): boole
  * todo;
  */
 export function actor_not_in_dolg(actor: XR_game_object, npc: XR_game_object): boolean {
-  for (const [k, v] of getSimulationBoardManager().players!) {
+  for (const [k, v] of SimulationBoardManager.getInstance().players!) {
     if (v.community_player === true && v.player_name === communities.dolg) {
       return false;
     }
@@ -316,7 +316,7 @@ export function actor_not_in_dolg(actor: XR_game_object, npc: XR_game_object): b
  * todo;
  */
 export function actor_in_freedom(actor: XR_game_object, npc: XR_game_object): boolean {
-  for (const [k, v] of getSimulationBoardManager().players!) {
+  for (const [k, v] of SimulationBoardManager.getInstance().players!) {
     if (v.community_player === true && v.player_name === communities.freedom) {
       return true;
     }
@@ -329,7 +329,7 @@ export function actor_in_freedom(actor: XR_game_object, npc: XR_game_object): bo
  * todo;
  */
 export function actor_not_in_freedom(actor: XR_game_object, npc: XR_game_object): boolean {
-  for (const [k, v] of getSimulationBoardManager().players!) {
+  for (const [k, v] of SimulationBoardManager.getInstance().players!) {
     if (v.community_player === true && v.player_name === communities.freedom) {
       return false;
     }
@@ -342,7 +342,7 @@ export function actor_not_in_freedom(actor: XR_game_object, npc: XR_game_object)
  * todo;
  */
 export function actor_set_freedom(actor: XR_game_object, npc: XR_game_object): boolean {
-  getSimulationBoardManager().set_actor_community(communities.freedom);
+  SimulationBoardManager.getInstance().set_actor_community(communities.freedom);
 
   return true;
 }
@@ -351,7 +351,7 @@ export function actor_set_freedom(actor: XR_game_object, npc: XR_game_object): b
  * todo;
  */
 export function actor_in_bandit(actor: XR_game_object, npc: XR_game_object): boolean {
-  for (const [k, v] of getSimulationBoardManager().players!) {
+  for (const [k, v] of SimulationBoardManager.getInstance().players!) {
     if (v.community_player === true && v.player_name === communities.bandit) {
       return true;
     }
@@ -364,7 +364,7 @@ export function actor_in_bandit(actor: XR_game_object, npc: XR_game_object): boo
  * todo;
  */
 export function actor_not_in_bandit(actor: XR_game_object, npc: XR_game_object): boolean {
-  for (const [k, v] of getSimulationBoardManager().players!) {
+  for (const [k, v] of SimulationBoardManager.getInstance().players!) {
     if (v.community_player === true && v.player_name === communities.bandit) {
       return false;
     }
@@ -377,7 +377,7 @@ export function actor_not_in_bandit(actor: XR_game_object, npc: XR_game_object):
  * todo;
  */
 export function actor_set_bandit(actor: XR_game_object, npc: XR_game_object): boolean {
-  getSimulationBoardManager().set_actor_community(communities.bandit);
+  SimulationBoardManager.getInstance().set_actor_community(communities.bandit);
 
   return true;
 }
@@ -386,7 +386,7 @@ export function actor_set_bandit(actor: XR_game_object, npc: XR_game_object): bo
  * todo;
  */
 export function actor_in_stalker(actor: XR_game_object, npc: XR_game_object): boolean {
-  for (const [k, v] of getSimulationBoardManager().players!) {
+  for (const [k, v] of SimulationBoardManager.getInstance().players!) {
     if (v.community_player === true && v.player_name === communities.stalker) {
       return true;
     }
@@ -399,7 +399,7 @@ export function actor_in_stalker(actor: XR_game_object, npc: XR_game_object): bo
  * todo;
  */
 export function actor_not_in_stalker(actor: XR_game_object, npc: XR_game_object): boolean {
-  for (const [k, v] of getSimulationBoardManager().players!) {
+  for (const [k, v] of SimulationBoardManager.getInstance().players!) {
     if (v.community_player === true && v.player_name === communities.stalker) {
       return false;
     }

@@ -36,7 +36,7 @@ import {
   SQUAD_BEHAVIOURS_LTX,
   SYSTEM_INI,
 } from "@/mod/scripts/core/database";
-import { getSimulationBoardManager, SimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
+import { SimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { evaluate_prior, getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimulationObjectsRegistry";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";
 import { simulation_activities } from "@/mod/scripts/core/objects/alife/SimulationActivity";
@@ -88,7 +88,7 @@ export class Squad<
   // todo: Rename.
   public player_id!: TCommunity;
   public smart_id: Optional<number> = null;
-  public board: SimulationBoardManager = getSimulationBoardManager();
+  public board: SimulationBoardManager = SimulationBoardManager.getInstance();
   public sim_avail: Optional<TConditionList> = null;
   public squad_online: boolean = false;
   public show_disabled: boolean = false;
@@ -1180,7 +1180,7 @@ export class Squad<
       const zone = registry.zones.get(k);
 
       if (zone && zone.inside(this.position)) {
-        const smart = getSimulationBoardManager().get_smart_by_name(v);
+        const smart = SimulationBoardManager.getInstance().get_smart_by_name(v);
 
         if (
           smart &&

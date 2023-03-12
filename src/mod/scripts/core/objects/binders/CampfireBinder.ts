@@ -1,6 +1,6 @@
 import { LuabindClass, object_binder, XR_cse_alife_object, XR_CZoneCampfire, XR_game_object } from "xray16";
 
-import { getSimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
+import { SimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { isEmpty } from "@/mod/scripts/utils/table";
 
@@ -29,7 +29,7 @@ export class CampfireBinder extends object_binder {
 
     const [smart_name] = string.gsub(this.object.name(), "_campfire_%d*", "");
 
-    if (getSimulationBoardManager().smarts_by_names.get(smart_name) !== null) {
+    if (SimulationBoardManager.getInstance().smarts_by_names.get(smart_name) !== null) {
       this.campfire.turn_off();
 
       if (campfire_table_by_smart_names.get(smart_name) === null) {

@@ -1,9 +1,11 @@
 import { alife, clsid, game_graph, level, XR_cse_alife_creature_abstract } from "xray16";
 
 import { TCommunity } from "@/mod/globals/communities";
+import { TLevel } from "@/mod/globals/levels";
 import { Optional, TNumberId } from "@/mod/lib/types";
 import { registry, SIMULATION_LTX } from "@/mod/scripts/core/database";
 import { getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimulationObjectsRegistry";
+import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { SmartTerrain } from "@/mod/scripts/core/objects/alife/smart/SmartTerrain";
 import { Squad } from "@/mod/scripts/core/objects/alife/Squad";
 import { changeTeamSquadGroup } from "@/mod/scripts/utils/alife";
@@ -13,13 +15,13 @@ import { parseNames } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger("SimBoard");
 
-const group_id_by_levels: LuaTable<string, number> = {
+const group_id_by_levels: LuaTable<TLevel, TNumberId> = {
   zaton: 1,
   pripyat: 2,
   jupiter: 3,
   labx8: 4,
   jupiter_underground: 5,
-} as any;
+} as unknown as LuaTable<TLevel, TNumberId>;
 
 let board: Optional<SimulationBoardManager> = null;
 
@@ -32,41 +34,43 @@ export interface ISimSmartDescriptor {
 /**
  * todo;
  */
-export class SimulationBoardManager {
+export class SimulationBoardManager extends AbstractCoreManager {
   public simulation_started: boolean = true;
 
   public players: Optional<LuaTable> = null;
   public smarts: LuaTable<number, ISimSmartDescriptor> = new LuaTable();
   public smarts_by_names: LuaTable<string, SmartTerrain> = new LuaTable();
   public squads: LuaTable<number, Squad> = new LuaTable();
-  public spawn_smarts: any;
-  public mutant_lair: any;
-  public tmp_assigned_squad: LuaTable<number, LuaTable<number, Squad>>;
-  public tmp_entered_squad: LuaTable<number, LuaTable<number, Squad>>;
+  public tmp_assigned_squad: LuaTable<number, LuaTable<number, Squad>> = new LuaTable();
+  public tmp_entered_squad: LuaTable<number, LuaTable<number, Squad>> = new LuaTable();
 
   public start_position_filled: boolean = false;
 
-  public constructor() {
-    this.spawn_smarts = {};
-    this.mutant_lair = {};
-
-    this.tmp_assigned_squad = new LuaTable();
-    this.tmp_entered_squad = new LuaTable();
-  }
-
+  /**
+   * todo;
+   */
   public start_sim(): void {
     this.simulation_started = true;
   }
 
+  /**
+   * todo;
+   */
   public stop_sim(): void {
     this.simulation_started = false;
   }
 
+  /**
+   * todo;
+   */
   public set_actor_community(community: TCommunity): void {
     // May be broken?
     registry.actor.set_character_community(get_global("actor_communitites")[community], 0, 0);
   }
 
+  /**
+   * todo;
+   */
   public register_smart(obj: SmartTerrain): void {
     if (this.smarts.get(obj.id) !== null) {
       abort("Smart already exist in list [%s]", obj.name());
@@ -77,6 +81,9 @@ export class SimulationBoardManager {
     this.smarts_by_names.set(obj.name(), obj);
   }
 
+  /**
+   * todo;
+   */
   public init_smart(obj: SmartTerrain): void {
     if (this.tmp_assigned_squad.has(obj.id)) {
       for (const [k, v] of this.tmp_assigned_squad.get(obj.id)) {
@@ -95,6 +102,9 @@ export class SimulationBoardManager {
     }
   }
 
+  /**
+   * todo;
+   */
   public unregister_smart(obj: SmartTerrain): void {
     if (!this.smarts.has(obj.id)) {
       abort("Trying to unregister null smart [%s]", obj.name());
@@ -103,6 +113,9 @@ export class SimulationBoardManager {
     this.smarts.delete(obj.id);
   }
 
+  /**
+   * todo;
+   */
   public create_squad(spawn_smart: SmartTerrain, sq_id: string): Squad {
     const squad_id = tostring(sq_id);
     const squad = alife().create<Squad>(
@@ -128,6 +141,9 @@ export class SimulationBoardManager {
     return squad;
   }
 
+  /**
+   * todo;
+   */
   public remove_squad(squad: Squad): void {
     logger.info("Remove squad:", squad.name());
 
@@ -138,6 +154,9 @@ export class SimulationBoardManager {
     squad.remove_squad();
   }
 
+  /**
+   * todo;
+   */
   public assign_squad_to_smart(squad: Squad, smart_id: Optional<number>): void {
     if (smart_id !== null && !this.smarts.has(smart_id)) {
       if (!this.tmp_assigned_squad.has(smart_id)) {
@@ -173,6 +192,9 @@ export class SimulationBoardManager {
     target.smrt.refresh();
   }
 
+  /**
+   * todo;
+   */
   public exit_smart(squad: Squad, smart_id: Optional<number>): void {
     if (smart_id === null) {
       return;
@@ -194,6 +216,9 @@ export class SimulationBoardManager {
     smart.squads.delete(squad.id);
   }
 
+  /**
+   * todo;
+   */
   public enter_smart(squad: Squad, smartId: TNumberId): void {
     if (!this.smarts.has(smartId)) {
       if (!this.tmp_entered_squad.has(smartId)) {
@@ -217,12 +242,15 @@ export class SimulationBoardManager {
     smart.stayed_squad_quan = smart.stayed_squad_quan + 1;
   }
 
+  /**
+   * todo;
+   */
   public setup_squad_and_group(obj: XR_cse_alife_creature_abstract): void {
-    const level_name: string = level.name();
+    const levelName: TLevel = level.name();
 
     obj = alife().object(obj.id)!;
 
-    const group: number = group_id_by_levels.get(level_name) || 0;
+    const group: TNumberId = group_id_by_levels.get(levelName) || 0;
 
     changeTeamSquadGroup(obj, obj.team, obj.squad, group);
 
@@ -257,6 +285,9 @@ export class SimulationBoardManager {
     changeTeamSquadGroup(obj, obj.team, obj_sq, obj.group);
   }
 
+  /**
+   * todo;
+   */
   public fill_start_position(): void {
     if (this.start_position_filled === true) {
       return;
@@ -292,14 +323,23 @@ export class SimulationBoardManager {
     }
   }
 
+  /**
+   * todo;
+   */
   public get_smart_by_name(name: string): Optional<SmartTerrain> {
     return this.smarts_by_names.get(name);
   }
 
+  /**
+   * todo;
+   */
   public get_smart_population(smart: SmartTerrain): number {
     return this.smarts.get(smart.id).stayed_squad_quan;
   }
 
+  /**
+   * todo;
+   */
   public get_squad_target(squad: Squad) {
     const available_targets: LuaTable<number, { prior: number; target: any }> = new LuaTable();
     let most_priority_task = null;
@@ -320,29 +360,17 @@ export class SimulationBoardManager {
     if (available_targets.length() > 0) {
       table.sort(available_targets, (a, b) => a.prior > b.prior);
 
-      let max_id = math.floor(0.3 * available_targets.length());
+      let maxId: TNumberId = math.floor(0.3 * available_targets.length());
 
-      if (max_id === 0) {
-        max_id = 1;
+      if (maxId === 0) {
+        maxId = 1;
       }
 
-      most_priority_task = available_targets.get(math.random(max_id)).target;
+      most_priority_task = available_targets.get(math.random(maxId)).target;
     }
 
     return most_priority_task || (squad.smart_id && alife().object<SmartTerrain>(squad.smart_id)) || squad;
   }
-}
-
-/**
- * todo;
- */
-export function getSimulationBoardManager(): SimulationBoardManager {
-  if (board === null) {
-    logger.info("Init new board");
-    board = new SimulationBoardManager();
-  }
-
-  return board;
 }
 
 /**

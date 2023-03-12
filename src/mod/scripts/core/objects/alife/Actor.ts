@@ -12,7 +12,7 @@ import {
 
 import { AnyObject, Optional, TRate, TSection, TStringId } from "@/mod/lib/types";
 import { registry, softResetOfflineObject } from "@/mod/scripts/core/database";
-import { getSimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
+import { SimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { evaluate_prior, getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimulationObjectsRegistry";
 import { getStoryObjectsRegistry } from "@/mod/scripts/core/database/StoryObjectsRegistry";
 import { simulation_activities } from "@/mod/scripts/core/objects/alife/SimulationActivity";
@@ -56,7 +56,7 @@ export class Actor extends cse_alife_creature_actor {
     this.isRegistered = true;
 
     if (!this.isStartPositionsFilling) {
-      getSimulationBoardManager().fill_start_position();
+      SimulationBoardManager.getInstance().fill_start_position();
       this.isStartPositionsFilling = true;
     }
   }
@@ -129,7 +129,7 @@ export class Actor extends cse_alife_creature_actor {
       softResetOfflineObject(squadMember.id);
     }
 
-    getSimulationBoardManager().assign_squad_to_smart(squad, null);
+    SimulationBoardManager.getInstance().assign_squad_to_smart(squad, null);
   }
 
   /**
@@ -157,7 +157,7 @@ export class Actor extends cse_alife_creature_actor {
       const zone = registry.zones.get(k);
 
       if (zone !== null && zone.inside(this.position)) {
-        const smart = getSimulationBoardManager().get_smart_by_name(v);
+        const smart = SimulationBoardManager.getInstance().get_smart_by_name(v);
 
         if (smart !== null && smart.base_on_actor_control.status !== ESmartTerrainStatus.ALARM) {
           return false;

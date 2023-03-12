@@ -36,7 +36,7 @@ import {
   TTimestamp,
 } from "@/mod/lib/types";
 import { registry, TRAVEL_MANAGER_LTX } from "@/mod/scripts/core/database";
-import { getSimulationBoardManager, SimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
+import { SimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
 import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
@@ -319,8 +319,8 @@ export class TravelManager extends AbstractCoreManager {
       return false;
     }
 
-    const simBoard: SimulationBoardManager = getSimulationBoardManager();
-    const smartTerrain: Optional<SmartTerrain> = simBoard.get_smart_by_name(smartName);
+    const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
+    const smartTerrain: Optional<SmartTerrain> = simulationBoardManager.get_smart_by_name(smartName);
 
     if (smartTerrain === null) {
       abort("Error in travel manager. Smart [%s] doesnt exist.", tostring(smartName));
@@ -399,7 +399,7 @@ export class TravelManager extends AbstractCoreManager {
    * todo;
    */
   public getTravelConst(actor: XR_game_object, npc: XR_game_object, dialogId: TStringId, phraseId: TStringId): TLabel {
-    const simBoard: SimulationBoardManager = getSimulationBoardManager();
+    const simBoard: SimulationBoardManager = SimulationBoardManager.getInstance();
     const travelPhraseId: TStringId = string.sub(phraseId, 1, string.len(phraseId) - 2);
     const smartName: TName = this.smartNamesByPhraseId.get(travelPhraseId);
     const smartTerrain: Optional<SmartTerrain> = simBoard.get_smart_by_name(smartName)!;
@@ -421,7 +421,7 @@ export class TravelManager extends AbstractCoreManager {
   ): boolean {
     const travelPhraseId: TStringId = string.sub(phraseId, 1, string.len(phraseId) - 2);
     const smartName: TName = this.smartNamesByPhraseId.get(travelPhraseId);
-    const smart: Optional<SmartTerrain> = getSimulationBoardManager().get_smart_by_name(smartName);
+    const smart: Optional<SmartTerrain> = SimulationBoardManager.getInstance().get_smart_by_name(smartName);
 
     const distance: TDistance = npc.position().distance_to(smart!.position);
     const price: TCount = this.getTravelPriceByDistance(distance);
@@ -451,10 +451,10 @@ export class TravelManager extends AbstractCoreManager {
     dialogId: TStringId,
     phraseId: TStringId
   ): void {
-    const simBoard: SimulationBoardManager = getSimulationBoardManager();
+    const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
     const travelPhraseId: TStringId = string.sub(phraseId, 1, string.len(phraseId) - 3);
     const smartName: TName = this.smartNamesByPhraseId.get(travelPhraseId);
-    const smartTerrain: Optional<SmartTerrain> = simBoard.get_smart_by_name(smartName)!;
+    const smartTerrain: Optional<SmartTerrain> = simulationBoardManager.get_smart_by_name(smartName)!;
     const squad: Optional<Squad> = getObjectSquad(npc);
 
     logger.info("Actor travel with squad:", npc.name(), smartName);
@@ -536,7 +536,7 @@ export class TravelManager extends AbstractCoreManager {
 
       const point: XR_patrol = new patrol(this.travelActorPath!);
       const direction: TDirection = -point.point(1).sub(point.point(0)).getH();
-      const board: SimulationBoardManager = getSimulationBoardManager();
+      const board: SimulationBoardManager = SimulationBoardManager.getInstance();
 
       for (const [k, v] of board.smarts.get(this.travelToSmartId!).squads) {
         if (getObjectStoryId(v.id) === null && this.isEnemyWithSquadMember(v)) {

@@ -4,7 +4,7 @@ import { STRINGIFIED_TRUE } from "@/mod/globals/lua";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { AnyObject, Optional, TCount, TName, TNumberId } from "@/mod/lib/types";
 import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
-import { getSimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
+import { SimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
 import {
   getSimulationObjectsRegistry,
   SimulationObjectsRegistry,
@@ -63,7 +63,7 @@ export class ActionProcessEnemy {
         const zone = registry.zones.get(k);
 
         if (zone && (isObjectInZone(object, zone) || isObjectInZone(enemy, zone))) {
-          const smart = getSimulationBoardManager().get_smart_by_name(v);
+          const smart = SimulationBoardManager.getInstance().get_smart_by_name(v);
 
           if (
             smart &&

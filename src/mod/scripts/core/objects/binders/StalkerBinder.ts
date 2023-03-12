@@ -38,7 +38,7 @@ import {
   unregisterHelicopterEnemy,
   unregisterObject,
 } from "@/mod/scripts/core/database";
-import { getSimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
+import { SimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { DropManager } from "@/mod/scripts/core/managers/DropManager";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { ItemUpgradesManager } from "@/mod/scripts/core/managers/ItemUpgradesManager";
@@ -302,7 +302,7 @@ export class StalkerBinder extends object_binder {
     if (who?.id() === actor.id()) {
       StatisticsManager.getInstance().updateBestWeapon(amount);
       if (amount > 0) {
-        for (const [k, v] of getSimulationBoardManager().smarts) {
+        for (const [k, v] of SimulationBoardManager.getInstance().smarts) {
           const smart = v.smrt;
 
           if (smart.base_on_actor_control !== null) {

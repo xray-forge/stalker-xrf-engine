@@ -12,7 +12,7 @@ import { STRINGIFIED_NIL } from "@/mod/globals/lua";
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { Optional, StringOptional, TSection } from "@/mod/lib/types";
 import { initializeOfflineObject, IStoredOfflineObject, registry } from "@/mod/scripts/core/database";
-import { getSimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
+import { SimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";
 import { on_death, SmartTerrain } from "@/mod/scripts/core/objects/alife/smart/SmartTerrain";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
@@ -103,7 +103,7 @@ export class Stalker extends cse_alife_human_stalker {
     logger.info("Register:", this.id, this.name(), this.section_name());
     checkSpawnIniForStoryId(this);
 
-    const board = getSimulationBoardManager();
+    const board = SimulationBoardManager.getInstance();
     const obj_ini = this.spawn_ini();
 
     this.m_registred = true;

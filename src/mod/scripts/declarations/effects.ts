@@ -51,10 +51,10 @@ import { relations, TRelation } from "@/mod/globals/relations";
 import { script_sounds } from "@/mod/globals/sound/script_sounds";
 import { TTreasure } from "@/mod/globals/treasures";
 import { TZone, zones } from "@/mod/globals/zones";
-import { EScheme, LuaArray, Optional, TCount, TIndex, TName, TNumberId, TStringId } from "@/mod/lib/types";
+import { EScheme, LuaArray, Optional, TCount, TName, TNumberId, TStringId } from "@/mod/lib/types";
 import { IRegistryObjectState, registry, SYSTEM_INI, unregisterHelicopter } from "@/mod/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
-import { getSimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
+import { SimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { ItemUpgradesManager } from "@/mod/scripts/core/managers/ItemUpgradesManager";
 import { MapDisplayManager } from "@/mod/scripts/core/managers/map/MapDisplayManager";
@@ -1394,7 +1394,7 @@ export function play_sound(
 
   const theme = p[0];
   const faction: Optional<TCommunity> = p[1];
-  const point: SmartTerrain = getSimulationBoardManager().smarts_by_names.get(p[2] as string);
+  const point: SmartTerrain = SimulationBoardManager.getInstance().smarts_by_names.get(p[2] as string);
   const pointId = point !== null ? point.id : (p[2] as number);
 
   if (obj && isStalker(obj)) {
@@ -1443,8 +1443,8 @@ export function play_sound_by_story(
   const story_obj = getStoryObjectId(p[0]);
   const theme = p[1];
   const faction = p[2];
-  const point: SmartTerrain = getSimulationBoardManager().smarts_by_names.get(p[3] as string);
-  const pointId: number = point !== null ? point.id : (p[3] as number);
+  const smartTerrain: SmartTerrain = SimulationBoardManager.getInstance().smarts_by_names.get(p[3] as string);
+  const pointId: TNumberId = smartTerrain !== null ? smartTerrain.id : (p[3] as number);
 
   GlobalSoundManager.getInstance().setSoundPlaying(story_obj as number, theme, faction, pointId);
 }
@@ -1480,7 +1480,7 @@ export function create_squad(actor: XR_game_object, obj: Optional<XR_game_object
     abort("Wrong squad identificator [%s]. Squad descr doesnt exist.", tostring(squad_id));
   }
 
-  const board = getSimulationBoardManager();
+  const board = SimulationBoardManager.getInstance();
   const smart = board.smarts_by_names.get(smart_name);
 
   if (smart === null) {
@@ -1503,7 +1503,7 @@ export function create_squad(actor: XR_game_object, obj: Optional<XR_game_object
  */
 export function create_squad_member(
   actor: XR_game_object,
-  obj: XR_game_object,
+  object: XR_game_object,
   params: [string, string, string]
 ): void {
   const squad_member_sect = params[0];
@@ -1517,7 +1517,7 @@ export function create_squad_member(
     abort("Wrong squad identificator [NIL] in 'create_squad_member' function");
   }
 
-  const board = getSimulationBoardManager();
+  const board: SimulationBoardManager = SimulationBoardManager.getInstance();
   const squad: Squad = getStorySquad(story_id) as Squad;
   const squad_smart = board.smarts.get(squad.smart_id as TNumberId).smrt;
 
@@ -1525,13 +1525,13 @@ export function create_squad_member(
     let spawn_point: TStringId;
 
     if (params[2] === "simulation_point") {
-      const data: string = getConfigString(SYSTEM_INI, squad.section_name(), "spawn_point", obj, false, "");
+      const data: string = getConfigString(SYSTEM_INI, squad.section_name(), "spawn_point", object, false, "");
       const condlist: LuaArray<IConfigSwitchCondition> =
         data === "" || data === null
-          ? parseConditionsList(obj, "spawn_point", "spawn_point", squad_smart.spawn_point as string)
-          : parseConditionsList(obj, "spawn_point", "spawn_point", data);
+          ? parseConditionsList(object, "spawn_point", "spawn_point", squad_smart.spawn_point as string)
+          : parseConditionsList(object, "spawn_point", "spawn_point", data);
 
-      spawn_point = pickSectionFromCondList(actor, obj, condlist) as TStringId;
+      spawn_point = pickSectionFromCondList(actor, object, condlist) as TStringId;
     } else {
       spawn_point = params[2];
     }
@@ -1570,7 +1570,7 @@ export function remove_squad(actor: XR_game_object, obj: XR_game_object, p: [str
     abort("Wrong squad identificator [%s]. squad doesnt exist", tostring(story_id));
   }
 
-  getSimulationBoardManager().remove_squad(squad);
+  SimulationBoardManager.getInstance().remove_squad(squad);
 }
 
 export function kill_squad(actor: XR_game_object, obj: XR_game_object, p: [string]): void {
@@ -1630,7 +1630,10 @@ export function heal_squad(actor: XR_game_object, obj: XR_game_object, params: [
   }
 }
 
-export function clear_smart_terrain(actor: XR_game_object, obj: XR_game_object, p: [string, string]) {
+/**
+ * todo;
+ */
+export function clear_smart_terrain(actor: XR_game_object, object: XR_game_object, p: [string, string]) {
   logger.info("Clear smart terrain");
 
   const smart_name = p[0];
@@ -1639,19 +1642,19 @@ export function clear_smart_terrain(actor: XR_game_object, obj: XR_game_object, 
     abort("Wrong squad identificator [NIL] in clear_smart_terrain function");
   }
 
-  const board = getSimulationBoardManager();
-  const smart = board.smarts_by_names.get(smart_name);
+  const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
+  const smart = simulationBoardManager.smarts_by_names.get(smart_name);
   const smart_id = smart.id;
 
-  for (const [k, v] of board.smarts.get(smart_id).squads) {
+  for (const [k, v] of simulationBoardManager.smarts.get(smart_id).squads) {
     if (p[1] && p[1] === "false") {
       if (!getStoryObjectId(v.id as unknown as string)) {
-        board.exit_smart(v, smart_id);
-        board.remove_squad(v);
+        simulationBoardManager.exit_smart(v, smart_id);
+        simulationBoardManager.remove_squad(v);
       }
     } else {
-      board.exit_smart(v, smart_id);
-      board.remove_squad(v);
+      simulationBoardManager.exit_smart(v, smart_id);
+      simulationBoardManager.remove_squad(v);
     }
   }
 }

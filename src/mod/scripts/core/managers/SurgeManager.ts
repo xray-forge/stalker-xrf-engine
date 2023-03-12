@@ -24,7 +24,7 @@ import { surgeConfig } from "@/mod/lib/configs/SurgeConfig";
 import { AnyCallablesModule, Optional, PartialRecord, TNumberId } from "@/mod/lib/types";
 import { registry, SURGE_MANAGER_LTX } from "@/mod/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/mod/scripts/core/database/pstor";
-import { getSimulationBoardManager, SimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
+import { SimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
 import { MapDisplayManager } from "@/mod/scripts/core/managers/map/MapDisplayManager";
@@ -60,7 +60,7 @@ export class SurgeManager extends AbstractCoreManager {
     const squad: Optional<Squad> = alife().object(squadId);
 
     if (squad) {
-      const board = getSimulationBoardManager();
+      const board = SimulationBoardManager.getInstance();
 
       if (board && squad.smart_id && board.smarts.get(squad.smart_id)) {
         const smart = board.smarts.get(squad.smart_id).smrt;
@@ -478,12 +478,12 @@ export class SurgeManager extends AbstractCoreManager {
       }
     }
 
-    const board: SimulationBoardManager = getSimulationBoardManager();
+    const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
     const levelName: TLevel = level.name();
 
-    logger.info("Releasing squads:", board.squads.length());
+    logger.info("Releasing squads:", simulationBoardManager.squads.length());
 
-    for (const [squadId, squad] of board.squads) {
+    for (const [squadId, squad] of simulationBoardManager.squads) {
       if (isObjectOnLevel(squad, levelName) && !isImmuneToSurge(squad) && !isStoryObject(squad)) {
         for (const member of squad.squad_members()) {
           if (!isStoryObject(member.object)) {
@@ -557,7 +557,7 @@ export class SurgeManager extends AbstractCoreManager {
    * todo;
    */
   protected kill_all_unhided_after_actor_death(): void {
-    const board: SimulationBoardManager = getSimulationBoardManager();
+    const board: SimulationBoardManager = SimulationBoardManager.getInstance();
     const levelName: TLevel = level.name();
 
     for (const [squadId, squad] of board.squads) {
@@ -565,8 +565,8 @@ export class SurgeManager extends AbstractCoreManager {
         for (const member of squad.squad_members()) {
           let isInCover: boolean = false;
 
-          for (const i of $range(1, this.covers.length())) {
-            const cover: Optional<XR_game_object> = this.covers.get(i);
+          for (const it of $range(1, this.covers.length())) {
+            const cover: Optional<XR_game_object> = this.covers.get(it);
 
             if (cover && cover.inside(member.object.position)) {
               isInCover = true;

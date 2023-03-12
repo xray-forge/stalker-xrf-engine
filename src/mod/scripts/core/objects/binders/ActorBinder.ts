@@ -31,7 +31,7 @@ import { AnyCallablesModule, Optional, TDuration, TIndex, TName } from "@/mod/li
 import { IRegistryObjectState, registry, resetObject } from "@/mod/scripts/core/database";
 import { registerActor, unregisterActor } from "@/mod/scripts/core/database/actor";
 import { pstor_load_all, pstor_save_all } from "@/mod/scripts/core/database/pstor";
-import { getSimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
+import { SimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { getSimulationObjectsRegistry } from "@/mod/scripts/core/database/SimulationObjectsRegistry";
 import { AchievementsManager } from "@/mod/scripts/core/managers/achievements";
 import { DropManager } from "@/mod/scripts/core/managers/DropManager";
@@ -155,7 +155,7 @@ export class ActorBinder extends object_binder {
 
     GlobalSoundManager.getInstance().stopSoundsByObjectId(this.object.id());
 
-    const board_factions = getSimulationBoardManager().players;
+    const board_factions = SimulationBoardManager.getInstance().players;
 
     if (board_factions !== null) {
       for (const [k, v] of board_factions) {
@@ -408,7 +408,7 @@ export class ActorBinder extends object_binder {
     this.releaseBodyManager.save(packet);
     this.surgeManager.save(packet);
     PsyAntennaManager.save(packet);
-    packet.w_bool(getSimulationBoardManager().simulation_started);
+    packet.w_bool(SimulationBoardManager.getInstance().simulation_started);
 
     this.globalSoundManager.saveActor(packet);
     packet.w_stringZ(tostring(this.lastLevelName));
@@ -471,7 +471,7 @@ export class ActorBinder extends object_binder {
 
     this.surgeManager.load(reader);
     PsyAntennaManager.load(reader);
-    getSimulationBoardManager().simulation_started = reader.r_bool();
+    SimulationBoardManager.getInstance().simulation_started = reader.r_bool();
 
     this.globalSoundManager.loadActor(reader);
 

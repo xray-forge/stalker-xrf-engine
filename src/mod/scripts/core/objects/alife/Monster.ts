@@ -17,7 +17,7 @@ import {
   IStoredOfflineObject,
   registry,
 } from "@/mod/scripts/core/database";
-import { getSimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
+import { SimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
 import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObjectsRegistry";
 import { on_death, SmartTerrain } from "@/mod/scripts/core/objects/alife/smart/SmartTerrain";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
@@ -136,7 +136,7 @@ export class Monster extends cse_alife_monster_base {
 
     this.isRegistered = true;
 
-    const board = getSimulationBoardManager();
+    const board = SimulationBoardManager.getInstance();
 
     initializeOfflineObject(this.id);
 
