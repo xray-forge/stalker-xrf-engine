@@ -7,7 +7,7 @@ import { ISchemeMeetState } from "@/mod/scripts/core/schemes/meet";
 import { isObjectWounded } from "@/mod/scripts/utils/checkers/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("EvaluatorContact");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

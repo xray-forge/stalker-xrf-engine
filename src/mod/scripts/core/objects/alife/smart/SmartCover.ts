@@ -11,7 +11,7 @@ import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("SmartCover");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

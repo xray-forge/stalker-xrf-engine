@@ -29,7 +29,7 @@ import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 import { EDebugSection } from "@/mod/ui/menu/debug/sections";
 
 const base: string = "menu\\debug\\DebugDialog.component";
-const logger: LuaLogger = new LuaLogger("DebugDialog");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

@@ -8,7 +8,7 @@ import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeAc
 import { getConfigSwitchConditions } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("SchemeMobDeath");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

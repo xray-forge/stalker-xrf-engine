@@ -8,7 +8,7 @@ import { IBaseSchemeState } from "@/mod/scripts/core/schemes/base/IBaseSchemeSta
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("AbstractScheme");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

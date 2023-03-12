@@ -50,7 +50,7 @@ export const earthquake_cam_eff_id: TNumberId = 2;
 export const sleep_cam_eff_id: TNumberId = 3;
 export const sleep_fade_pp_eff_id: TNumberId = 4;
 
-const logger: LuaLogger = new LuaLogger("SurgeManager");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

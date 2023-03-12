@@ -6,7 +6,7 @@ import { TreasureManager } from "@/mod/scripts/core/managers/TreasureManager";
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("ItemExplosive");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

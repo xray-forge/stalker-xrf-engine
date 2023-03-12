@@ -78,7 +78,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseConditionsList, parseNames, TConditionList } from "@/mod/scripts/utils/parse";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
 
-const logger: LuaLogger = new LuaLogger("SmartTerrain");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 export const ALARM_TIMEOUT: number = 21_600;
 export const DEATH_IDLE_TIME: number = 10 * 60;

@@ -20,7 +20,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { IWaypointData, parseConditionsList, TConditionList } from "@/mod/scripts/utils/parse";
 import { isStalkerAtWaypoint } from "@/mod/scripts/utils/position";
 
-const logger: LuaLogger = new LuaLogger("StalkerMoveManager");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 const dist_walk: number = 10;
 const dist_run: number = 2500;

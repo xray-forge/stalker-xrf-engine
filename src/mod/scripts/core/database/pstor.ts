@@ -5,7 +5,7 @@ import { registry } from "@/mod/scripts/core/database/registry";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("pstor");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 const pstor_number = 0;
 const pstor_string = 1;

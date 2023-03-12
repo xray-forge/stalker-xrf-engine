@@ -17,7 +17,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseNames } from "@/mod/scripts/utils/parse";
 import { addCommonPrecondition } from "@/mod/scripts/utils/scheme";
 
-const logger: LuaLogger = new LuaLogger("SchemeAnimpoint");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

@@ -13,7 +13,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { addCommonPrecondition } from "@/mod/scripts/utils/scheme";
 
-const logger: LuaLogger = new LuaLogger("SchemeWalker");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

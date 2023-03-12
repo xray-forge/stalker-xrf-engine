@@ -4,7 +4,7 @@ import { SimulationBoardManager } from "@/mod/scripts/core/database/SimulationBo
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { isEmpty } from "@/mod/scripts/utils/table";
 
-const logger: LuaLogger = new LuaLogger("CampfireBinder");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 export const campfire_table_by_smart_names: LuaTable<string, LuaTable<number, XR_CZoneCampfire>> = new LuaTable();
 

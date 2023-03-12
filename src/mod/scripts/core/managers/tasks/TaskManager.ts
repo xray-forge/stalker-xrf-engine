@@ -11,7 +11,7 @@ import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { getTableSize } from "@/mod/scripts/utils/table";
 
-const logger: LuaLogger = new LuaLogger("TaskManager");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

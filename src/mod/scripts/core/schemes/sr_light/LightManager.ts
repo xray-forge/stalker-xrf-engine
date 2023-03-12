@@ -6,7 +6,7 @@ import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/base/trySw
 import { ISchemeLightState } from "@/mod/scripts/core/schemes/sr_light/ISchemeLightState";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("LightManager");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

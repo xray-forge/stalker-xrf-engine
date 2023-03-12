@@ -8,7 +8,7 @@ import { NotificationManager } from "@/mod/scripts/core/managers/notifications/N
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("quests");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

@@ -11,7 +11,7 @@ import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeAc
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("SchemeCombatZombied");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

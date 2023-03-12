@@ -1,7 +1,7 @@
 import { AnyArgs } from "@/mod/lib/types";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("debug");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * Call game abort and print reason.

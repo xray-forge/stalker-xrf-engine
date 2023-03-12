@@ -8,7 +8,7 @@ import { ISchemeWoundedState } from "@/mod/scripts/core/schemes/wounded";
 import { isObjectWounded } from "@/mod/scripts/utils/checkers/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("EvaluatorWoundedExist");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

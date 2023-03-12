@@ -1,7 +1,7 @@
 import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("LoadScreenManager");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 export class LoadScreenManager extends AbstractCoreManager {
   public get_tip_number(levelName: string): number {

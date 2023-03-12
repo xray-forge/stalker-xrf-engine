@@ -4,7 +4,7 @@ import { IBaseSchemeState } from "@/mod/scripts/core/schemes/base";
 import { isActiveSection } from "@/mod/scripts/utils/checkers/is";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("EvaluatorEnd");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

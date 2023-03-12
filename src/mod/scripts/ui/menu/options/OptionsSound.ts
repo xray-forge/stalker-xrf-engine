@@ -2,7 +2,7 @@ import { CUIWindow, LuabindClass, vector2, XR_CScriptXmlInit } from "xray16";
 
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("OptionsSound");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

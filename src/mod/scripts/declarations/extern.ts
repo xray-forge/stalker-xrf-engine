@@ -41,7 +41,7 @@ import { externClassMethod } from "@/mod/scripts/utils/general";
 import { disableInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("extern");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 logger.info("Resolve and bind externals");
 

@@ -19,7 +19,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { spawnItemsForObjectFromList } from "@/mod/scripts/utils/spawn";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
 
-const logger: LuaLogger = new LuaLogger("AchievementsManager");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

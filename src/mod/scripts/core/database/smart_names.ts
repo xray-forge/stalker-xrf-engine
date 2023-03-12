@@ -5,7 +5,7 @@ import { SMART_NAMES_LTX } from "@/mod/scripts/core/database";
 import { SmartTerrain } from "@/mod/scripts/core/objects/alife/smart/SmartTerrain";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("smart_names");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 export const smart_names_table: LuaTable<string, LuaTable<string, string>> = new LuaTable();
 

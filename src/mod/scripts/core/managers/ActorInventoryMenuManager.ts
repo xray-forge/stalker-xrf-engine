@@ -5,7 +5,7 @@ import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreMan
 import { getConfigString } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("ActorInventoryMenuManager");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 export enum EActorMenuMode {
   UNDEFINED = 0,

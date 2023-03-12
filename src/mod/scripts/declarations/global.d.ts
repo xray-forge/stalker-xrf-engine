@@ -10,3 +10,8 @@ declare const declare_global: (key: string, value: unknown) => void;
  * todo: Remove after TS migration.
  */
 declare const get_global: <T = any>(key: string) => T;
+
+/**
+ * Utility to get current filename, similar to __filename in nodejs.
+ */
+declare const FILENAME: string;

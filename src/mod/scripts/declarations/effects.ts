@@ -103,7 +103,7 @@ import {
   setSquadGoodwillToNpc,
 } from "@/mod/scripts/utils/relations";
 
-const logger: LuaLogger = new LuaLogger("effects");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

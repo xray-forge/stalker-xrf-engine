@@ -1,7 +1,7 @@
 import { AnyObject, Optional } from "@/mod/lib/types";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("table");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * Check if provided container is empty collection.

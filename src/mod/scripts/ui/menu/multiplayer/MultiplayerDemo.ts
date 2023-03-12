@@ -31,7 +31,7 @@ import { MultiplayerMenu } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerMe
 import { fileExists } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("MultiplayerDemo");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

@@ -26,7 +26,7 @@ import { getObjectSquad, sendToNearestAccessibleVertex } from "@/mod/scripts/uti
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { vectorCmp } from "@/mod/scripts/utils/physics";
 
-const logger: LuaLogger = new LuaLogger("ActionReachTaskLocation");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

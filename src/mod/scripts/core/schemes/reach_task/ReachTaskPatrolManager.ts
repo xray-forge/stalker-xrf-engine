@@ -8,7 +8,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { vectorCross, vectorRotateY, yawDegree } from "@/mod/scripts/utils/physics";
 
-const logger: LuaLogger = new LuaLogger("ReachTaskPatrolManager");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

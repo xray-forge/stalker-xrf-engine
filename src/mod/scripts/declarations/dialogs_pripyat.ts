@@ -17,7 +17,7 @@ import { disableInfo, giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/info_po
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { giveItemsToActor, giveMoneyToActor, takeItemsFromActor, takeMoneyFromActor } from "@/mod/scripts/utils/quests";
 
-const log: LuaLogger = new LuaLogger("dialogs_pripyat");
+const log: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

@@ -19,7 +19,7 @@ import { getTableSize } from "@/mod/scripts/utils/table";
 
 // todo: Move to db.
 const arena_zones: LuaTable<string, ArenaZoneBinder> = new LuaTable();
-const logger: LuaLogger = new LuaLogger("ArenaZoneBinder");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

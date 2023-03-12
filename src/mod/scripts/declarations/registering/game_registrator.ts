@@ -1,6 +1,6 @@
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("game_registrator");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 export function getGameClsId(gameTypeOption: string, isServer: boolean): string {
   logger.info("Return game clsId:", gameTypeOption, isServer);

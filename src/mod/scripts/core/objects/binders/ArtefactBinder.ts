@@ -15,7 +15,7 @@ import { registerObject, registry, unregisterObject } from "@/mod/scripts/core/d
 import { AnomalyZoneBinder } from "@/mod/scripts/core/objects/binders/AnomalyZoneBinder";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("ArtefactBinder");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 const UPDATE_THROTTLE: number = 1_000;
 
 /**

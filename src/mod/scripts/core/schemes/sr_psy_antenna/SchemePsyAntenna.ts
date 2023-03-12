@@ -14,7 +14,7 @@ import {
 } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("SchemePsyAntenna");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

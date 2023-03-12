@@ -33,7 +33,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { isWideScreen, resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
 const base: string = "interaction\\SleepDialog.component";
-const logger: LuaLogger = new LuaLogger("SleepDialog");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 let sleep_control: Optional<SleepDialog> = null;
 const isWide: boolean = isWideScreen();

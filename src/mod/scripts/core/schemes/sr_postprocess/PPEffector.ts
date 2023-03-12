@@ -3,7 +3,7 @@ import { effector, effector_params, LuabindClass, XR_effector_params } from "xra
 import { TNumberId } from "@/mod/lib/types";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("PPEffector");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

@@ -6,7 +6,7 @@ import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { IStateDescriptor, states } from "@/mod/scripts/core/state_management/lib/state_lib";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("StateManagerWeapon", gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
+const logger: LuaLogger = new LuaLogger(FILENAME, gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
 /**
  * todo;

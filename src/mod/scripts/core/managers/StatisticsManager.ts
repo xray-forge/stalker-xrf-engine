@@ -23,7 +23,7 @@ import { getClsId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { getTableSize } from "@/mod/scripts/utils/table";
 
-const logger: LuaLogger = new LuaLogger("StatisticsManager");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;-

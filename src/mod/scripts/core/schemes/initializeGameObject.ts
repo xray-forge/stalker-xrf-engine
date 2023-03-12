@@ -10,7 +10,7 @@ import { getCustomDataOrIniFile } from "@/mod/scripts/core/schemes/getCustomData
 import { getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("initializeObject");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

@@ -9,7 +9,7 @@ import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseConditionsList, parseIniSectionToArray, TConditionList } from "@/mod/scripts/utils/parse";
 
-const logger: LuaLogger = new LuaLogger("WeatherManager");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 export interface IWeatherState {
   current_state: Optional<string>;

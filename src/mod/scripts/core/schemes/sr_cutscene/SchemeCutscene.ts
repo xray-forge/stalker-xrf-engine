@@ -15,7 +15,7 @@ import {
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseNames } from "@/mod/scripts/utils/parse";
 
-const logger: LuaLogger = new LuaLogger("ActionCutscene");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

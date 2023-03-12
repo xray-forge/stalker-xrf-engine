@@ -85,7 +85,7 @@ import {
   isSquadRelationBetweenActorAndRelation,
 } from "@/mod/scripts/utils/relations";
 
-const logger: LuaLogger = new LuaLogger("xr_conditions");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

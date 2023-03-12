@@ -6,7 +6,7 @@ import { parseNames } from "@/mod/scripts/utils/parse";
 
 const story_ltx: XR_ini_file = new ini_file("misc\\sound_stories.ltx");
 
-const logger: LuaLogger = new LuaLogger("SoundStory");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 export interface IReplicDescriptor {
   who: string;

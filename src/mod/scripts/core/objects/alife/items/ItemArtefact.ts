@@ -5,7 +5,7 @@ import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObject
 import { unregisterStoryObjectById } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("ItemArtefact");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

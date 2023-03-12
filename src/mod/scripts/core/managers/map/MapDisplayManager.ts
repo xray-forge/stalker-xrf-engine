@@ -40,7 +40,7 @@ import { hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseConditionsList, TConditionList } from "@/mod/scripts/utils/parse";
 
-const logger: LuaLogger = new LuaLogger("MapDisplayManager");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

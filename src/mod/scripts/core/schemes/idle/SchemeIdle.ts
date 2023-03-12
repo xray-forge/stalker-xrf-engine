@@ -8,7 +8,7 @@ import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeAc
 import { getConfigSwitchConditions } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("SchemeIdle");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * Action scheme to block NPCs from any action until some conditions are met.

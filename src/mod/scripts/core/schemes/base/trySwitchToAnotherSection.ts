@@ -13,7 +13,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { getDistanceBetween } from "@/mod/scripts/utils/physics";
 
-const logger: LuaLogger = new LuaLogger("trySwitchToAnotherSection");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

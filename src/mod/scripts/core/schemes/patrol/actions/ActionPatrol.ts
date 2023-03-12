@@ -9,7 +9,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parsePathWaypoints } from "@/mod/scripts/utils/parse";
 import { vectorCmp } from "@/mod/scripts/utils/physics";
 
-const logger: LuaLogger = new LuaLogger("ActionPatrol");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

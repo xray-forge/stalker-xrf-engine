@@ -28,7 +28,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { isWideScreen, resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
 const base: string = "menu\\multiplayer\\MultiplayerAwards.component";
-const logger: LuaLogger = new LuaLogger("MultiplayerProfile");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 const awards_xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
 /**

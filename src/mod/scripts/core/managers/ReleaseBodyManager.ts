@@ -22,7 +22,7 @@ import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { getObjectStoryId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("ReleaseBodyManager");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

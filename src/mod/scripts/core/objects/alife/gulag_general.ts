@@ -29,7 +29,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseConditionsList, parseWaypointData } from "@/mod/scripts/utils/parse";
 import { isInTimeInterval } from "@/mod/scripts/utils/time";
 
-const logger: LuaLogger = new LuaLogger("gulag_general");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

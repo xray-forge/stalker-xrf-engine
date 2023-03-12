@@ -1,6 +1,6 @@
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("ram");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 export function collectLuaGarbage(): void {
   collectgarbage("collect");

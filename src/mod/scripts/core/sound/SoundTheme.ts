@@ -12,7 +12,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resetTable } from "@/mod/scripts/utils/table";
 
-const logger: LuaLogger = new LuaLogger("SoundTheme");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 export class SoundTheme {
   public static loadSound(): void {

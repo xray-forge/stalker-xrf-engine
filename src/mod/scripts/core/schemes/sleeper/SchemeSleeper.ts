@@ -12,7 +12,7 @@ import { getConfigBoolean, getConfigString, getConfigSwitchConditions } from "@/
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { addCommonPrecondition } from "@/mod/scripts/utils/scheme";
 
-const logger: LuaLogger = new LuaLogger("SchemeSleeper");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

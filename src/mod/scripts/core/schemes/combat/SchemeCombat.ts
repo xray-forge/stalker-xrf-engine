@@ -19,7 +19,7 @@ import {
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseConditionsList } from "@/mod/scripts/utils/parse";
 
-const logger: LuaLogger = new LuaLogger("SchemeCombat");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

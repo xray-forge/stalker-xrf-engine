@@ -4,7 +4,7 @@ import { Optional } from "@/mod/lib/types";
 import { ISchemeCombatState } from "@/mod/scripts/core/schemes/combat";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("EvaluatorSee");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

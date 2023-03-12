@@ -14,7 +14,7 @@ import {
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseData1v } from "@/mod/scripts/utils/parse";
 
-const logger: LuaLogger = new LuaLogger("SchemePhysicalDoor");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

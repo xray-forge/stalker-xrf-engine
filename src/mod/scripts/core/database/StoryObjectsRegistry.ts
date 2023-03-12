@@ -8,7 +8,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("StoryObjectsRegistry");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 let storyObjectsRegistry: Optional<StoryObjectsRegistry> = null;
 
 // todo: Manager singleton.

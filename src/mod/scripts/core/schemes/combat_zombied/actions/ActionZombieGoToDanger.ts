@@ -15,7 +15,7 @@ import { ITargetStateDescriptor, set_state } from "@/mod/scripts/core/state_mana
 import { sendToNearestAccessibleVertex } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("ActionZombieGoToDanger");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 const act_shoot = 1;
 const act_danger = 2;

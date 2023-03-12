@@ -5,7 +5,7 @@ import { pstor_retrieve } from "@/mod/scripts/core/database/pstor";
 import { ISchemeWoundedState } from "@/mod/scripts/core/schemes/wounded";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("EvaluatorCanFight");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

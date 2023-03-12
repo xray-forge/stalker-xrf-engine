@@ -1,6 +1,9 @@
 import { jest } from "@jest/globals";
 import type { XR_EngineBinding } from "xray16";
 
+/**
+ * todo;
+ */
 interface IXR_EngineBinding {
   __name: string;
   __init: () => void;
@@ -9,6 +12,9 @@ interface IXR_EngineBinding {
   __tostring: () => string;
 }
 
+/**
+ * todo;
+ */
 export function mockLuabindBase({
   __name = "EngineBindingTest",
   __init = jest.fn(),

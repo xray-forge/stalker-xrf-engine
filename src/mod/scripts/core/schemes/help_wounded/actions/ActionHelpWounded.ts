@@ -4,7 +4,7 @@ import { ISchemeHelpWoundedState } from "@/mod/scripts/core/schemes/help_wounded
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("ActionHelpWounded");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

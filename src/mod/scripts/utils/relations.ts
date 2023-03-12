@@ -18,7 +18,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { get_gulag_by_name } from "@/mod/scripts/utils/gulag";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("relations");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

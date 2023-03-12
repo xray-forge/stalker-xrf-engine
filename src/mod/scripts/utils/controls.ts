@@ -5,7 +5,7 @@ import { Optional, TDuration, TIndex } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("controls");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo; move to registry

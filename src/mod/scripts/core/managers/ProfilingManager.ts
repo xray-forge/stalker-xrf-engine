@@ -7,7 +7,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { getLuaMemoryUsed } from "@/mod/scripts/utils/ram";
 
-const logger: LuaLogger = new LuaLogger("ProfilingManager");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 export interface IProfileSnapshotDescriptor {
   count: number;

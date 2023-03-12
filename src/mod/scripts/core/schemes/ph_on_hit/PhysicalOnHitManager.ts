@@ -8,7 +8,7 @@ import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/base/trySw
 import { ISchemePhysicalOnHitState } from "@/mod/scripts/core/schemes/ph_on_hit/ISchemePhysicalOnHitState";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("PhysicalHitManager");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

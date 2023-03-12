@@ -56,7 +56,7 @@ import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
 const baseOnline: string = "menu\\multiplayer\\MultiplayerOnline.component";
 const baseOffline: string = "menu\\multiplayer\\MultiplayerOffline.component";
-const logger: LuaLogger = new LuaLogger("MultiplayerMenu");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

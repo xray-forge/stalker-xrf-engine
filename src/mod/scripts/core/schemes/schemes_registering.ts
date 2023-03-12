@@ -56,7 +56,7 @@ import { SchemeWounded } from "@/mod/scripts/core/schemes/wounded";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("schemes_registering");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

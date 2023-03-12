@@ -4,7 +4,7 @@ import { ISchemeSmartCoverState } from "@/mod/scripts/core/schemes/smartcover";
 import { isActiveSection } from "@/mod/scripts/utils/checkers/is";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("EvaluatorUseSmartCoverInCombat");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

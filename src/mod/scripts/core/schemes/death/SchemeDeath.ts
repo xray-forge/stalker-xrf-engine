@@ -11,7 +11,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseConditionsList } from "@/mod/scripts/utils/parse";
 
-const logger: LuaLogger = new LuaLogger("SchemeDeath");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

@@ -53,7 +53,7 @@ import { parseConditionsList, TConditionList } from "@/mod/scripts/utils/parse";
 import { graphDistance } from "@/mod/scripts/utils/physics";
 import { wait } from "@/mod/scripts/utils/time";
 
-const logger: LuaLogger = new LuaLogger("alife");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * @param object - any game object used by the game engine.

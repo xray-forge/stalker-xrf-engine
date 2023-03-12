@@ -8,7 +8,7 @@ import { EActorZoneState, ISchemeNoWeaponState } from "@/mod/scripts/core/scheme
 import { SchemeNoWeapon } from "@/mod/scripts/core/schemes/sr_no_weapon/SchemeNoWeapon";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("NoWeaponManager");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

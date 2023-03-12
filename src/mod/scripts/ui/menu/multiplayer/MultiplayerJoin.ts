@@ -3,7 +3,7 @@ import { CUIWindow, LuabindClass, XR_CScriptXmlInit } from "xray16";
 import { MultiplayerMenu } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerMenu";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("MultiplayerJoin");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

@@ -9,7 +9,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { IWaypointData, parsePathWaypointsFromArgsList } from "@/mod/scripts/utils/parse";
 
-const logger: LuaLogger = new LuaLogger("ActionSleeperActivity");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 const state_walking = 0;
 const state_sleeping = 1;

@@ -4,7 +4,7 @@ import { ISchemePatrolState } from "@/mod/scripts/core/schemes/patrol";
 import { isActiveSection } from "@/mod/scripts/utils/checkers/is";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("EvaluatorPatrolEnd");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

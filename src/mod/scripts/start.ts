@@ -13,7 +13,7 @@ import { SoundTheme } from "@/mod/scripts/core/sound/SoundTheme";
 import { fillPhrasesTable } from "@/mod/scripts/declarations/dialog_manager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("start_game");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * Main start game callback.

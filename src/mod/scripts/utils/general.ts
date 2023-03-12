@@ -3,7 +3,7 @@ import { alife, device, IsGameTypeSingle, XR_vector } from "xray16";
 import { AnyArgs, Optional } from "@/mod/lib/types";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("general");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo: description

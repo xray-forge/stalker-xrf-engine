@@ -4,7 +4,7 @@ import { ISchemeSleeperState } from "@/mod/scripts/core/schemes/sleeper";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { isSchemeActive } from "@/mod/scripts/utils/scheme";
 
-const logger: LuaLogger = new LuaLogger("EvaluatorNeedSleep");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

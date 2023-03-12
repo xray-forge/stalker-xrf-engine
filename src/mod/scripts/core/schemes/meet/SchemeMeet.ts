@@ -22,7 +22,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseConditionsList } from "@/mod/scripts/utils/parse";
 import { getObjectsRelationSafe } from "@/mod/scripts/utils/relations";
 
-const logger: LuaLogger = new LuaLogger("SchemeMeet");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

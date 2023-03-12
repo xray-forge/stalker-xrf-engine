@@ -13,7 +13,7 @@ import {
 } from "@/mod/scripts/core/schemes/teleport/ISchemeTeleportState";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("TeleportManager");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

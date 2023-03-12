@@ -73,7 +73,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { TConditionList } from "@/mod/scripts/utils/parse";
 import { setObjectsRelation, setObjectSympathy } from "@/mod/scripts/utils/relations";
 
-const logger: LuaLogger = new LuaLogger("MotivatorBinder");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 // todo: Rewrite with event emitting system
 

@@ -5,7 +5,7 @@ import { Optional } from "@/mod/lib/types";
 import { giveInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("FreeplayDialog");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

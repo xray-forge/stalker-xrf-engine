@@ -36,7 +36,7 @@ import { parseConditionsList, parseNames, TConditionList } from "@/mod/scripts/u
 import { giveMoneyToActor, relocateQuestItemSection, takeMoneyFromActor } from "@/mod/scripts/utils/quests";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
 
-const logger: LuaLogger = new LuaLogger("TaskObject");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 const guiders_by_level: LuaTable<TLevel, LuaTable<TLevel, string>> = {
   [levels.zaton]: {

@@ -24,7 +24,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseNames } from "@/mod/scripts/utils/parse";
 
-const logger: LuaLogger = new LuaLogger("ActorSound");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

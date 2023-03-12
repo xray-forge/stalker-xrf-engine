@@ -20,7 +20,7 @@ import { getConfigString } from "@/mod/scripts/utils/configs";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("Stalker");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

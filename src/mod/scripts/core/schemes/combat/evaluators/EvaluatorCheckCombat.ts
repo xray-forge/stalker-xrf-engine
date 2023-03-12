@@ -4,7 +4,7 @@ import { registry } from "@/mod/scripts/core/database";
 import { ISchemeCombatState } from "@/mod/scripts/core/schemes/combat";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("EvaluatorCheckCombat");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

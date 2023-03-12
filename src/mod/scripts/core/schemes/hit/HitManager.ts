@@ -7,7 +7,7 @@ import { trySwitchToAnotherSection } from "@/mod/scripts/core/schemes/base/trySw
 import { ISchemeHitState } from "@/mod/scripts/core/schemes/hit/ISchemeHitState";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("HitManager");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

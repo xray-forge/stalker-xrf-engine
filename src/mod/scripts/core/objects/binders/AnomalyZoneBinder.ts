@@ -24,7 +24,7 @@ import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseConditionsList, parseNames, parseNumbers } from "@/mod/scripts/utils/parse";
 
-const logger: LuaLogger = new LuaLogger("AnomalyZoneBinder");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * Section name in ini file, contains configuration

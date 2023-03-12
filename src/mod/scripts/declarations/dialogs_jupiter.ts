@@ -35,7 +35,7 @@ import {
 } from "@/mod/scripts/utils/quests";
 import { getObjectsRelationSafe } from "@/mod/scripts/utils/relations";
 
-const logger: LuaLogger = new LuaLogger("dialogs_jupiter");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

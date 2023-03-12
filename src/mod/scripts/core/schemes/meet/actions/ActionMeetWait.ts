@@ -3,7 +3,7 @@ import { action_base, LuabindClass } from "xray16";
 import { ISchemeMeetState } from "@/mod/scripts/core/schemes/meet";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("ActionMeetWait");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

@@ -63,7 +63,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { getTableSize } from "@/mod/scripts/utils/table";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
 
-const logger: LuaLogger = new LuaLogger("ActorBinder");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;
@@ -227,8 +227,8 @@ export class ActorBinder extends object_binder {
   /**
    * todo;
    */
-  public onInfoUpdate(object: XR_game_object, infoPortion: string): void {
-    logger.info("Info update");
+  public onInfoUpdate(object: XR_game_object, info: string): void {
+    logger.info("Info update:", info);
   }
 
   /**

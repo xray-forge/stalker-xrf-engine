@@ -6,7 +6,7 @@ import type {
 } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("managers");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * Get initialized manager singleton.

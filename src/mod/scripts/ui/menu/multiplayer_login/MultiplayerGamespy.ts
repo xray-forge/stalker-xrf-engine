@@ -36,7 +36,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
 const base: string = "menu\\multiplayer\\MultiplayerGamespy.component";
-const logger: LuaLogger = new LuaLogger("MultiplayerGameSpy");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 let ctrl: boolean = false;
 let focused_eb: number = 0;

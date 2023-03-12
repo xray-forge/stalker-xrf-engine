@@ -7,7 +7,7 @@ import { SmartTerrain } from "@/mod/scripts/core/objects/alife/smart/SmartTerrai
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("gulag");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

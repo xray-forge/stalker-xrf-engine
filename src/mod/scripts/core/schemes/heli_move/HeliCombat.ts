@@ -28,7 +28,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseConditionsList, TConditionList } from "@/mod/scripts/utils/parse";
 import { distanceBetween2d } from "@/mod/scripts/utils/physics";
 
-const logger: LuaLogger = new LuaLogger("HeliCombat");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 const combat_type_flyby = 0;
 const combat_type_round = 1;

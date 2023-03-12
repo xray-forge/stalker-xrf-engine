@@ -5,7 +5,7 @@ import { registry } from "@/mod/scripts/core/database";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("StereoSound");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 export class StereoSound {
   public soundObject: Optional<XR_sound_object> = null;

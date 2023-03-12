@@ -14,7 +14,7 @@ import { registry, resetObject, unregisterObject } from "@/mod/scripts/core/data
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("SignalLightBinder");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;

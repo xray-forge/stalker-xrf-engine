@@ -19,7 +19,7 @@ import { getIdBySid } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { distanceBetween2d } from "@/mod/scripts/utils/physics";
 
-const logger: LuaLogger = new LuaLogger("HeliFire");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 const heli_firer: LuaTable<number, HeliFire> = new LuaTable();
 
 export class HeliFire {

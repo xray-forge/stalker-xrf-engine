@@ -4,7 +4,7 @@ import { ISchemeAnimpointState } from "@/mod/scripts/core/schemes/animpoint/ISch
 import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger("ActionAnimpoint");
+const logger: LuaLogger = new LuaLogger(FILENAME);
 
 /**
  * todo;
