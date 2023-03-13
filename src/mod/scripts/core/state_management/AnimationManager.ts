@@ -14,7 +14,7 @@ const MARKER_IN: number = 1;
 const MARKER_OUT: number = 2;
 const MARKER_IDLE: number = 3;
 
-const logger: LuaLogger = new LuaLogger(FILENAME, gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
+const logger: LuaLogger = new LuaLogger($filename, gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
 /**
  * todo;

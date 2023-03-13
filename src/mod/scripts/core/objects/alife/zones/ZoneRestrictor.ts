@@ -5,7 +5,7 @@ import { checkSpawnIniForStoryId } from "@/mod/scripts/core/database/StoryObject
 import { TreasureManager } from "@/mod/scripts/core/managers/TreasureManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

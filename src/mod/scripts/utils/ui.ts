@@ -15,7 +15,7 @@ import { registry } from "@/mod/scripts/core/database";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

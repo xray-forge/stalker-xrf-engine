@@ -45,7 +45,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
  * script_clsid - key value from ClsId registry
  */
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 function clientServerRegister(
   factory: XR_object_factory,

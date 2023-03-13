@@ -6,7 +6,7 @@ import { EvaluatorPostCombatIdleEnemy } from "@/mod/scripts/core/schemes/danger/
 import { ISchemePostCombatIdleState } from "@/mod/scripts/core/schemes/danger/ISchemePostCombatIdleState";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

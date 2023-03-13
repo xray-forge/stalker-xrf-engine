@@ -10,7 +10,7 @@ import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeAc
 import { unsubscribeActionFromEvents } from "@/mod/scripts/core/schemes/unsubscribeActionFromEvents";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo

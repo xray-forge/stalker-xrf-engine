@@ -7,7 +7,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { vectorRotateY } from "@/mod/scripts/utils/physics";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

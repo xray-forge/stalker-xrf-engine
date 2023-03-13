@@ -68,7 +68,7 @@ import {
 } from "@/mod/scripts/utils/relations";
 import { isEmpty } from "@/mod/scripts/utils/table";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 const smarts_by_no_assault_zones: LuaTable<string, string> = {
   ["zat_a2_sr_no_assault"]: "zat_stalker_base_smart",

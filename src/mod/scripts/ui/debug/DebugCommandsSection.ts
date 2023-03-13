@@ -18,7 +18,7 @@ import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 import { on_off_cmds, zero_one_cmds } from "@/mod/ui/menu/debug/sections";
 
 const base: string = "menu\\debug\\DebugCommandsSection.component";
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

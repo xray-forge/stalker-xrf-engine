@@ -8,7 +8,7 @@ import { ISchemeCrowSpawnerState } from "@/mod/scripts/core/schemes/sr_crow_spaw
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { copyTable } from "@/mod/scripts/utils/table";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

@@ -14,7 +14,7 @@ import { parseConditionsList, TConditionList } from "@/mod/scripts/utils/parse";
 import { setSquadGoodwill } from "@/mod/scripts/utils/relations";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 export enum ESmartTerrainStatus {
   NORMAL = 0,

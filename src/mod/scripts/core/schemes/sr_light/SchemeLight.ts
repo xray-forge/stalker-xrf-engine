@@ -12,7 +12,7 @@ import { getConfigBoolean, getConfigSwitchConditions } from "@/mod/scripts/utils
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resetTable } from "@/mod/scripts/utils/table";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

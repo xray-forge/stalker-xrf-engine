@@ -13,7 +13,7 @@ import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseConditionsList, TConditionList } from "@/mod/scripts/utils/parse";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 const CAM_EFFECTOR_SET_SECTION: string = EScheme.SR_CUTSCENE;
 
 export class CamEffectorSet {

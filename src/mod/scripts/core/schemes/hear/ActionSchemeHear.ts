@@ -24,7 +24,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseConditionsList, parseParameters } from "@/mod/scripts/utils/parse";
 import { mapSndTypeToSoundType } from "@/mod/scripts/utils/sound";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 // Todo: move to scheme.
 export class ActionSchemeHear extends AbstractScheme {

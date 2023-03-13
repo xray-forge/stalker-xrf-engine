@@ -14,4 +14,4 @@ declare const get_global: <T = any>(key: string) => T;
 /**
  * Utility to get current filename, similar to __filename in nodejs.
  */
-declare const FILENAME: string;
+declare const $filename: string;

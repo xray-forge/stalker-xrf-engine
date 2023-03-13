@@ -24,7 +24,7 @@ import { isStalkerClassId } from "@/mod/scripts/utils/checkers/is";
 import { getStoryObjectId } from "@/mod/scripts/utils/ids";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

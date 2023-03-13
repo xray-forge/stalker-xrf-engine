@@ -7,7 +7,7 @@ import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
 import { isObjectMeeting } from "@/mod/scripts/utils/checkers/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME, gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
+const logger: LuaLogger = new LuaLogger($filename, gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
 /**
  * todo

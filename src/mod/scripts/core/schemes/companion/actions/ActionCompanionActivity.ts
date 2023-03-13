@@ -7,7 +7,7 @@ import { ITargetStateDescriptor, set_state } from "@/mod/scripts/core/state_mana
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { vectorRotateY } from "@/mod/scripts/utils/physics";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 const beh_walk_simple = 0;
 const beh_walk_near = 1;

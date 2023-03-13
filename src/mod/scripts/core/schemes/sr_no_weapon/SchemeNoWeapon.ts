@@ -8,7 +8,7 @@ import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeAc
 import { getConfigSwitchConditions } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Observe whether actor is in no-weapon zone or not and allow usage of weapons.

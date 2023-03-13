@@ -63,7 +63,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { getTableSize } from "@/mod/scripts/utils/table";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

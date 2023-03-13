@@ -1,7 +1,7 @@
 import type { Maybe } from "@/mod/lib/types";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 // todo: Magic constants.
 export function getUiClsId(gameType: string): Maybe<string> {

@@ -16,7 +16,7 @@ import { isObjectInZone } from "@/mod/scripts/utils/checkers/checkers";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 const smarts_by_no_assault_zones: LuaTable<TName, string> = {
   ["zat_a2_sr_no_assault"]: "zat_stalker_base_smart",

@@ -7,7 +7,7 @@ import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { vectorCmp } from "@/mod/scripts/utils/physics";
 
-const logger: LuaLogger = new LuaLogger(FILENAME, gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
+const logger: LuaLogger = new LuaLogger($filename, gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
 export function look_at_object(npc: XR_game_object, st: StateManager): void {
   st.point_obj_dir = look_object_type(npc, st);

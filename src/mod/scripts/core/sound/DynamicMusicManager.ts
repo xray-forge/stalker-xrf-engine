@@ -13,7 +13,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { clampNumber } from "@/mod/scripts/utils/number";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 // -- global variables (used from other scripts)
 

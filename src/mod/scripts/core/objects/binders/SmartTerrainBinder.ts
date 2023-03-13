@@ -5,7 +5,7 @@ import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManag
 import { SmartTerrain } from "@/mod/scripts/core/objects/alife/smart/SmartTerrain";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

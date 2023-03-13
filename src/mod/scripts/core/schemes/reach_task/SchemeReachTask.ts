@@ -16,7 +16,7 @@ import { ISchemeReachTaskState } from "@/mod/scripts/core/schemes/reach_task/ISc
 import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeActionForEvents";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

@@ -10,7 +10,7 @@ import { StateManagerEvaLogicActive } from "@/mod/scripts/core/state_management/
 import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

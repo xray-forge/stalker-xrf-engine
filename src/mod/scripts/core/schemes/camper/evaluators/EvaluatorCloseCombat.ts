@@ -6,7 +6,7 @@ import { ISchemeCamperState } from "@/mod/scripts/core/schemes/camper/ISchemeCam
 import { isActiveSection } from "@/mod/scripts/utils/checkers/is";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

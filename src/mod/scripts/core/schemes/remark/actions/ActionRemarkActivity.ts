@@ -17,7 +17,7 @@ const state_animation = 1;
 const state_sound = 2;
 const state_finish = 3;
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 interface IDescriptor {
   look_object: Optional<XR_game_object>;

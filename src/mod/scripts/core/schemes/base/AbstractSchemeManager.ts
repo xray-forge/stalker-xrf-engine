@@ -4,7 +4,7 @@ import { TCount } from "@/mod/lib/types";
 import { IBaseSchemeState } from "@/mod/scripts/core/schemes/base/IBaseSchemeState";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

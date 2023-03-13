@@ -8,7 +8,7 @@ import { ISchemeGatherItemsState } from "@/mod/scripts/core/schemes/gather_items
 import { getConfigBoolean } from "@/mod/scripts/utils/configs";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

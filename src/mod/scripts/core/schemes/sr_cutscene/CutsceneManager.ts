@@ -10,7 +10,7 @@ import { CamEffectorSet } from "@/mod/scripts/core/schemes/sr_cutscene/CamEffect
 import { ISchemeCutsceneState } from "@/mod/scripts/core/schemes/sr_cutscene/ISchemeCutsceneState";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

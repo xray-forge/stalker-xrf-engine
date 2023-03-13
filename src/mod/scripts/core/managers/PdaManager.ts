@@ -8,7 +8,7 @@ import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreMan
 import { StatisticsManager } from "@/mod/scripts/core/managers/StatisticsManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 const killedMonsters: PartialRecord<TMonster, { back: TTexture; icon: string }> = {
   [monsters.bloodsucker_weak]: { back: texturesIngame.ui_inGame2_Krovosos, icon: "" },

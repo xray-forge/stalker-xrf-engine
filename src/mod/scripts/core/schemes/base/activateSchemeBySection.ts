@@ -14,7 +14,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { getObjectBoundSmart } from "@/mod/scripts/utils/gulag";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo

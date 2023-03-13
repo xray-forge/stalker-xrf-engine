@@ -31,7 +31,7 @@ import { getNpcSpeaker } from "@/mod/scripts/utils/quests";
 // todo: Move to core.
 // todo: Move to core.
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 // -- temporary table of phrases which have been disabled during a conversation
 export const disabled_phrases: LuaTable<number, LuaTable<string, boolean>> = new LuaTable();

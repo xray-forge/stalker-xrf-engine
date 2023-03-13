@@ -4,7 +4,7 @@ import { Optional } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 // todo: Config constants?
 const PI_DEGREE: number = math.pi / 180;

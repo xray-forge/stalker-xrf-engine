@@ -6,7 +6,7 @@ import type { Squad } from "@/mod/scripts/core/objects/alife/Squad";
 import { getObjectSquad } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

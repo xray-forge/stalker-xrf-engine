@@ -8,7 +8,7 @@ import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreMan
 import { hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 const volume_max: number = 1.0;
 const volume_min: number = 0.3;
 

@@ -27,7 +27,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseNames } from "@/mod/scripts/utils/parse";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 const nstl = 64;
 
 export class NpcSound extends AbstractPlayableSound {

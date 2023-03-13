@@ -3,7 +3,7 @@ import { CUIWindow, GAME_TYPE, LuabindClass, TXR_GAME_TYPE, XR_CScriptXmlInit } 
 import { MultiplayerMenu } from "@/mod/scripts/ui/menu/multiplayer/MultiplayerMenu";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

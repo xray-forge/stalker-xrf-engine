@@ -6,7 +6,7 @@ import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
 import { sendToNearestAccessibleVertex } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME, gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
+const logger: LuaLogger = new LuaLogger($filename, gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
 /**
  * todo;

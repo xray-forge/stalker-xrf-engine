@@ -48,7 +48,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resolveXmlFile, resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
 export const base: string = "menu\\MainMenu.component";
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 enum EMainMenuModalMode {
   OFF,

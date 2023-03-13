@@ -3,7 +3,7 @@ import { LuabindClass, object_binder, XR_cse_alife_object, XR_game_object } from
 import { TDuration } from "@/mod/lib/types";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

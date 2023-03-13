@@ -10,7 +10,7 @@ import { hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { isInTimeInterval } from "@/mod/scripts/utils/time";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 export type TSimActivityPreconditionChecker = (squad: Squad, target: XR_cse_alife_object) => boolean;
 

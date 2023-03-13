@@ -2,7 +2,7 @@ import * as path from "path";
 import { SyntaxKind } from "typescript";
 import { createStringLiteral, Plugin } from "typescript-to-lua";
 
-const FILENAME_IDENTIFIER: string = "FILENAME";
+const FILENAME_IDENTIFIER: string = "$filename";
 
 /**
  * Plugin that injects FILE_NAME in compile-time.

@@ -15,7 +15,7 @@ import { collectLuaGarbage, getLuaMemoryUsed } from "@/mod/scripts/utils/ram";
 import { resolveXmlFile, resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
 const base: string = "menu\\debug\\DebugGeneralSection.component";
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

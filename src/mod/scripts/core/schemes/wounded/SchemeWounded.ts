@@ -21,7 +21,7 @@ const woundedByState: Record<number, string> = {
   [2]: "wounded_heavy_3",
 };
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

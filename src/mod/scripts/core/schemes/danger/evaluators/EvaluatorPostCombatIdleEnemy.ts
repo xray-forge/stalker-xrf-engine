@@ -7,7 +7,7 @@ import { ActionProcessEnemy } from "@/mod/scripts/core/schemes/combat_ignore/act
 import { ISchemePostCombatIdleState } from "@/mod/scripts/core/schemes/danger/ISchemePostCombatIdleState";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

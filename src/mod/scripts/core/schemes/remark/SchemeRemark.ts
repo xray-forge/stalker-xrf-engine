@@ -13,7 +13,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseConditionsList } from "@/mod/scripts/utils/parse";
 import { addCommonPrecondition } from "@/mod/scripts/utils/scheme";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

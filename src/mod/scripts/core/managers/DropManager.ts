@@ -17,7 +17,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseNames, parseNumbers } from "@/mod/scripts/utils/parse";
 import { spawnItemsForObject } from "@/mod/scripts/utils/spawn";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

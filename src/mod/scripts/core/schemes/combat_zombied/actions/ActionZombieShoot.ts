@@ -15,7 +15,7 @@ import { ISchemeCombatState } from "@/mod/scripts/core/schemes/combat";
 import { ITargetStateDescriptor, set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 const act_shoot = 1;
 const act_danger = 2;

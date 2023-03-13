@@ -4,7 +4,7 @@ import { TDuration, TSection } from "@/mod/lib/types";
 import { registerZone, registry, resetObject, unregisterZone } from "@/mod/scripts/core/database";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 // todo: Move to db.
 export const FIELDS_BY_NAME: LuaTable<string, AnomalyFieldBinder> = new LuaTable();

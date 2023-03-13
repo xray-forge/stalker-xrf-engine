@@ -37,7 +37,7 @@ import {
   takeMoneyFromActor,
 } from "@/mod/scripts/utils/quests";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

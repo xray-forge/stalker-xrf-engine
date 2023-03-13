@@ -3,7 +3,7 @@ import { CSightParams, move, vector, XR_game_object, XR_patrol, XR_vector } from
 import { TDistance, TNumberId } from "@/mod/lib/types";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

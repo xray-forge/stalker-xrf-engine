@@ -24,7 +24,7 @@ import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
 import { isHeavilyWounded } from "@/mod/scripts/utils/checkers/checkers";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

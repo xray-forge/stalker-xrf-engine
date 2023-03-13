@@ -13,7 +13,7 @@ import {
 import { Optional } from "@/mod/lib/types";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 export interface INumPadWindowOwner {
   OnNumberReceive(text: string): void;

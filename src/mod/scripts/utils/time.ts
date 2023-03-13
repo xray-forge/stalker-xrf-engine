@@ -14,7 +14,7 @@ import { MAX_UNSIGNED_8_BIT } from "@/mod/globals/memory";
 import { Optional } from "@/mod/lib/types";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

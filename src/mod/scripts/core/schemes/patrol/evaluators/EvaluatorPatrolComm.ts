@@ -4,7 +4,7 @@ import { registry } from "@/mod/scripts/core/database";
 import { ISchemePatrolState } from "@/mod/scripts/core/schemes/patrol";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

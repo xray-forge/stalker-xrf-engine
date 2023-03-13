@@ -13,7 +13,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseNames } from "@/mod/scripts/utils/parse";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 const group_id_by_levels: LuaTable<TLevel, TNumberId> = {
   zaton: 1,

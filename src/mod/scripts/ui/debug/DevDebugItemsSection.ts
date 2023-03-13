@@ -5,7 +5,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
 
 const base: string = "menu\\debug\\DevDebugItemsSection.component";
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

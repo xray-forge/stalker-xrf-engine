@@ -19,7 +19,7 @@ const def_min_fire_time: number = 1.0;
 const def_fire_rep: number = 0.5;
 const def_fire_range: number = 50;
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

@@ -11,7 +11,7 @@ import { set_state } from "@/mod/scripts/core/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parsePathWaypoints } from "@/mod/scripts/utils/parse";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 const assoc_tbl = {
   idle: { director: ["wait"] },

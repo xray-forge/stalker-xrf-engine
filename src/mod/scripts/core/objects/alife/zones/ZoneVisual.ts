@@ -7,7 +7,7 @@ import { isSinglePlayerGame } from "@/mod/scripts/utils/general";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/mod/scripts/utils/time";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

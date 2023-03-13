@@ -9,7 +9,7 @@ import { subscribeActionForEvents } from "@/mod/scripts/core/schemes/subscribeAc
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 const prop_enable = evaluators_id.combat_camper_base + 0;
 const prop_see = evaluators_id.combat_camper_base + 1;

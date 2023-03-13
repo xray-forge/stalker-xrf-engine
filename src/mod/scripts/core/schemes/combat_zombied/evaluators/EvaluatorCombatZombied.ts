@@ -5,7 +5,7 @@ import { ISchemeCombatState } from "@/mod/scripts/core/schemes/combat";
 import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

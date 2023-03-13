@@ -9,7 +9,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseNames, parseNumbers } from "@/mod/scripts/utils/parse";
 import { spawnItemsForObject } from "@/mod/scripts/utils/spawn";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 const item_by_community: LuaTable<string, LuaTable<TInventoryItem, TCount>> = new LuaTable();
 const mul_by_level: LuaTable<string, number> = new LuaTable();
 const count_by_level: LuaTable<string, { min: number; max: number }> = new LuaTable();

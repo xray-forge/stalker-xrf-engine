@@ -23,7 +23,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseConditionsList, TConditionList } from "@/mod/scripts/utils/parse";
 
 const ANIMATED_OBJECT_SECT: string = "animated_object";
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo

@@ -15,7 +15,7 @@ import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseNames } from "@/mod/scripts/utils/parse";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 const E_NPC_ROLE = { noone: 0, listener: 1, director: 2 };
 
 // todo: Implement as scheme.

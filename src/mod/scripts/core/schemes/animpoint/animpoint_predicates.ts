@@ -9,7 +9,7 @@ import { SmartTerrain } from "@/mod/scripts/core/objects/alife/smart/SmartTerrai
 import { getObjectBoundSmart } from "@/mod/scripts/utils/gulag";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

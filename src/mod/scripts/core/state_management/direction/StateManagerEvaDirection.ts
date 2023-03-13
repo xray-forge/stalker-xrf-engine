@@ -17,7 +17,7 @@ import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { vectorCmpPrec } from "@/mod/scripts/utils/physics";
 
-const logger: LuaLogger = new LuaLogger(FILENAME, gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
+const logger: LuaLogger = new LuaLogger($filename, gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
 /**
  * todo;

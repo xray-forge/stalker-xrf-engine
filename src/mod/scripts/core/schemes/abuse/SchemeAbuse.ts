@@ -9,7 +9,7 @@ import { ISchemeAbuseState } from "@/mod/scripts/core/schemes/abuse/ISchemeAbuse
 import { AbstractScheme, action_ids, evaluators_id } from "@/mod/scripts/core/schemes/base";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

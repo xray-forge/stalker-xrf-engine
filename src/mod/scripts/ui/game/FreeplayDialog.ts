@@ -5,7 +5,7 @@ import { Optional } from "@/mod/lib/types";
 import { giveInfo } from "@/mod/scripts/utils/info_portions";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
-const logger: LuaLogger = new LuaLogger(FILENAME);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

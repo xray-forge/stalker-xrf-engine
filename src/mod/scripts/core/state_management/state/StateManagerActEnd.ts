@@ -11,7 +11,7 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 const aim_ratio: TRate = 1000 / 50;
 const min_ratio: TRate = 1500;
 
-const logger: LuaLogger = new LuaLogger(FILENAME, gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
+const logger: LuaLogger = new LuaLogger($filename, gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
 /**
  * todo;
