@@ -100,7 +100,7 @@
                 "pathGroups": [
                     {
                         "group": "external",
-                        "pattern": "@/macroses/**",
+                        "pattern": "#/**",
                         "position": "after"
                     },
                     {

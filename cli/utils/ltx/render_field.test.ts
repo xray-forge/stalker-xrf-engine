@@ -5,8 +5,6 @@ import {
   newEmptyField,
   newFloatField,
   newFloatsField,
-  newIdField,
-  newIdsField,
   newIntegerField,
   newIntegersField,
   newStringField,
@@ -18,11 +16,7 @@ describe("'render_field' function", () => {
   const comment: string = "some text";
 
   it("should correctly generate string fields", () => {
-    expect(renderField("test", newStringField("abcdef", { comment }))).toBe(`test = "abcdef"; ${comment}`);
-  });
-
-  it("should correctly generate identifier fields", () => {
-    expect(renderField("test", newIdField("abcdef", { comment }))).toBe(`test = abcdef; ${comment}`);
+    expect(renderField("test", newStringField("abcdef", { comment }))).toBe(`test = abcdef; ${comment}`);
   });
 
   it("should correctly generate integer fields", () => {
@@ -51,12 +45,7 @@ describe("'render_field' function", () => {
 
   it("should correctly generate string array fields", () => {
     expect(() => renderField("test", newStringsField("a" as any, { comment }))).toThrow();
-    expect(renderField("test", newStringsField(["a", "b", "c"], { comment }))).toBe(`test = "a", "b", "c"; ${comment}`);
-  });
-
-  it("should correctly generate identifier array fields", () => {
-    expect(() => renderField("test", newIdsField("a" as any, { comment }))).toThrow();
-    expect(renderField("test", newIdsField(["a", "b", "c"], { comment }))).toBe(`test = a, b, c; ${comment}`);
+    expect(renderField("test", newStringsField(["a", "b", "c"], { comment }))).toBe(`test = a, b, c; ${comment}`);
   });
 
   it("should correctly generate integer number array fields", () => {

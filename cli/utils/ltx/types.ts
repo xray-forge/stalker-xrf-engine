@@ -6,11 +6,9 @@ import { Optional } from "@/mod/lib/types";
 export enum ELtxFieldType {
   EMPTY,
   STRING,
-  IDENTIFIER,
   INTEGER,
   BOOLEAN,
   FLOAT,
-  IDENTIFIER_ARRAY,
   STRING_ARRAY,
   INTEGER_ARRAY,
   FLOAT_ARRAY,
@@ -35,4 +33,11 @@ export interface ILtxFieldDescriptor<T> {
 /**
  * todo;
  */
-export interface ILtxConfigDescriptor extends Record<string, Record<string, ILtxFieldDescriptor<unknown>>> {}
+export interface ILtxConfigDescriptor extends Record<string, Record<string, ILtxFieldDescriptor<unknown>>> {
+  [index: symbol]: Record<string, ILtxFieldDescriptor<unknown>>;
+}
+
+/**
+ * todo;
+ */
+export const LTX_ROOT: unique symbol = Symbol("LTX_ROOT");

@@ -1,5 +1,7 @@
 import { ELtxFieldType, ILtxFieldDescriptor } from "#/utils/ltx/types";
 
+import { Optional } from "@/mod/lib/types";
+
 /**
  * todo;
  */
@@ -46,15 +48,17 @@ function toFloat(it: number, precision: number = 1): string {
 /**
  * todo;
  */
-export function renderField(name: string, value: ILtxFieldDescriptor<unknown>): string {
-  const comment: string = value.meta?.comment ? `; ${value.meta.comment}` : ";";
+export function renderField(name: string, value: Optional<ILtxFieldDescriptor<unknown>>): string {
+  const comment: string = value?.meta?.comment ? `; ${value.meta.comment}` : ";";
+
+  // In case of empty fields without data or placeholders.
+  if (value === null) {
+    return name + comment;
+  }
 
   switch (value.type) {
-    case ELtxFieldType.IDENTIFIER:
-      return `${name} = ${value.value}` + comment;
-
     case ELtxFieldType.STRING:
-      return `${name} = "${value.value}"` + comment;
+      return `${name} = ${value.value}` + comment;
 
     case ELtxFieldType.INTEGER:
       assertIsInteger(value.value);
@@ -75,11 +79,6 @@ export function renderField(name: string, value: ILtxFieldDescriptor<unknown>): 
       return `${name}` + comment;
 
     case ELtxFieldType.STRING_ARRAY:
-      assertIsArray(value.value);
-
-      return `${name} = ${(value.value as Array<string>).map((it) => `"${it}"`).join(", ")}` + comment;
-
-    case ELtxFieldType.IDENTIFIER_ARRAY:
       assertIsArray(value.value);
 
       return `${name} = ${(value.value as Array<string>).join(", ")}` + comment;

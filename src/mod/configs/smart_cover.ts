@@ -3,11 +3,12 @@ import {
   newEmptyField,
   newFloatField,
   newFloatsField,
-  newIdField,
   newIntegerField,
   newIntegersField,
   newStringField,
 } from "#/utils";
+
+import { quoted } from "@/mod/lib/utils/string";
 
 /**
  * todo;
@@ -19,18 +20,18 @@ export const IS_LTX: boolean = true;
  */
 export const config = {
   smart_cover: {
-    GroupControlSection: newIdField("spawn_group_zone"),
-    $spawn: newStringField("ai\\smart_cover"),
+    GroupControlSection: newStringField("spawn_group_zone"),
+    $spawn: newStringField(quoted("ai\\smart_cover")),
     $def_sphere: newIntegerField(2),
     $_render_if_selected: newEmptyField(),
-    class: newIdField("SMRT_C_S"),
+    class: newStringField("SMRT_C_S"),
     is_combat_cover: newIntegerField(1),
     shape_transp_color: newIntegersField([0, 200, 200, 60], { comment: "0x1800FF00" }),
     shape_edge_color: newIntegersField([32, 32, 32, 255], { comment: "0xFF202020" }),
     enter_min_enemy_distance: newFloatField(15.0),
     exit_min_enemy_distance: newFloatField(10.0),
     can_fire: newBooleanField(false),
-    script_binding: newIdField("bind.list.bindSmartCover"),
+    script_binding: newStringField("bind.list.bindSmartCover"),
   },
   smart_covers_animation_offsets: {
     loophole_1_no_look_idle_0: newFloatsField([45.0, 0.0]),

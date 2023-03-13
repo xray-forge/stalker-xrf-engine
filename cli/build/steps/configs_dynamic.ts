@@ -33,7 +33,10 @@ export async function buildDynamicConfigs(): Promise<void> {
 
         if (ltxContent) {
           log.debug("TRANSFORM:", chalk.blue(to));
-          await fsPromises.writeFile(to, renderJsonToLtx(ltxContent));
+
+          const filename: string = path.parse(to).base;
+
+          await fsPromises.writeFile(to, renderJsonToLtx(filename, ltxContent));
           processedXmlConfigs += 1;
         } else {
           log.debug("SKIP, not valid LTX source:", chalk.blue(from));

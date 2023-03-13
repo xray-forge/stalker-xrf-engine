@@ -48,23 +48,6 @@ export function newEmptyField(meta: ILtxFieldMeta = {}): ILtxFieldDescriptor<nul
 /**
  * todo;
  */
-export function newIdField<T extends string>(value: T, meta: ILtxFieldMeta = {}): ILtxFieldDescriptor<T> {
-  return newField(ELtxFieldType.IDENTIFIER, value, meta);
-}
-
-/**
- * todo;
- */
-export function newIdsField<T extends string>(
-  value: Array<T>,
-  meta: ILtxFieldMeta = {}
-): ILtxFieldDescriptor<Array<T>> {
-  return newField(ELtxFieldType.IDENTIFIER_ARRAY, value, meta);
-}
-
-/**
- * todo;
- */
 export function newStringsField<T extends string>(
   value: Array<T>,
   meta: ILtxFieldMeta = {}
