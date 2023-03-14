@@ -41,13 +41,6 @@ export function newBooleanField(value: boolean, meta: ILtxFieldMeta = {}): ILtxF
 /**
  * todo;
  */
-export function newEmptyField(meta: ILtxFieldMeta = {}): ILtxFieldDescriptor<null> {
-  return newField(ELtxFieldType.EMPTY, null, meta);
-}
-
-/**
- * todo;
- */
 export function newStringsField<T extends string>(
   value: Array<T>,
   meta: ILtxFieldMeta = {}

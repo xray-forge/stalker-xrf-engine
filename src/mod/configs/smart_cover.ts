@@ -1,6 +1,5 @@
 import {
   newBooleanField,
-  newEmptyField,
   newFloatField,
   newFloatsField,
   newIntegerField,
@@ -23,7 +22,7 @@ export const config = {
     GroupControlSection: newStringField("spawn_group_zone"),
     $spawn: newStringField(quoted("ai\\smart_cover")),
     $def_sphere: newIntegerField(2),
-    $_render_if_selected: newEmptyField(),
+    $_render_if_selected: null,
     class: newStringField("SMRT_C_S"),
     is_combat_cover: newIntegerField(1),
     shape_transp_color: newIntegersField([0, 200, 200, 60], { comment: "0x1800FF00" }),

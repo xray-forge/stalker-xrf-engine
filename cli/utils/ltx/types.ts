@@ -4,7 +4,6 @@ import { Optional } from "@/mod/lib/types";
  * todo;
  */
 export enum ELtxFieldType {
-  EMPTY,
   STRING,
   INTEGER,
   BOOLEAN,
@@ -19,6 +18,7 @@ export enum ELtxFieldType {
  */
 export interface ILtxFieldMeta {
   comment?: Optional<string>;
+  isBinding?: boolean;
 }
 
 /**
