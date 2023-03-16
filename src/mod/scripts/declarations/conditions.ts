@@ -38,18 +38,18 @@ import {
 import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { pstor_retrieve } from "@/mod/scripts/core/database/pstor";
 import { SimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
-import { AchievementsManager } from "@/mod/scripts/core/managers/achievements/AchievementsManager";
-import { ActorInventoryMenuManager, EActorMenuMode } from "@/mod/scripts/core/managers/ActorInventoryMenuManager";
-import { ItemUpgradesManager } from "@/mod/scripts/core/managers/ItemUpgradesManager";
-import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
-import { SmartTerrain } from "@/mod/scripts/core/objects/alife/smart/SmartTerrain";
-import { ESmartTerrainStatus, SmartTerrainControl } from "@/mod/scripts/core/objects/alife/smart/SmartTerrainControl";
-import { Squad } from "@/mod/scripts/core/objects/alife/Squad";
-import { SchemeAnimpoint } from "@/mod/scripts/core/schemes/animpoint";
-import { ISchemeAnimpointState } from "@/mod/scripts/core/schemes/animpoint/ISchemeAnimpointState";
-import { ISchemeDeathState } from "@/mod/scripts/core/schemes/death";
-import { ISchemeHitState } from "@/mod/scripts/core/schemes/hit";
-import { SchemeDeimos } from "@/mod/scripts/core/schemes/sr_deimos/SchemeDeimos";
+import { AchievementsManager } from "@/mod/scripts/core/manager/achievements/AchievementsManager";
+import { ActorInventoryMenuManager, EActorMenuMode } from "@/mod/scripts/core/manager/ActorInventoryMenuManager";
+import { ItemUpgradesManager } from "@/mod/scripts/core/manager/ItemUpgradesManager";
+import { SurgeManager } from "@/mod/scripts/core/manager/SurgeManager";
+import { SmartTerrain } from "@/mod/scripts/core/object/alife/smart/SmartTerrain";
+import { ESmartTerrainStatus, SmartTerrainControl } from "@/mod/scripts/core/object/alife/smart/SmartTerrainControl";
+import { Squad } from "@/mod/scripts/core/object/alife/Squad";
+import { SchemeAnimpoint } from "@/mod/scripts/core/scheme/animpoint";
+import { ISchemeAnimpointState } from "@/mod/scripts/core/scheme/animpoint/ISchemeAnimpointState";
+import { ISchemeDeathState } from "@/mod/scripts/core/scheme/death";
+import { ISchemeHitState } from "@/mod/scripts/core/scheme/hit";
+import { SchemeDeimos } from "@/mod/scripts/core/scheme/sr_deimos/SchemeDeimos";
 import {
   anomalyHasArtefact,
   getCharacterCommunity,
@@ -71,19 +71,19 @@ import {
   isObjectWounded,
   isPlayingSound,
   isSquadExisting,
-} from "@/mod/scripts/utils/checkers/checkers";
-import { isMonster, isStalker, isWeapon } from "@/mod/scripts/utils/checkers/is";
+} from "@/mod/scripts/utils/check/check";
+import { isMonster, isStalker, isWeapon } from "@/mod/scripts/utils/check/is";
 import { abort } from "@/mod/scripts/utils/debug";
 import { getObjectBoundSmart } from "@/mod/scripts/utils/gulag";
-import { getStoryObjectId } from "@/mod/scripts/utils/ids";
-import { hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
+import { getStoryObjectId } from "@/mod/scripts/utils/id";
+import { hasAlifeInfo } from "@/mod/scripts/utils/info_portion";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { distanceBetween, npcInActorFrustum } from "@/mod/scripts/utils/physics";
 import {
   isFactionsEnemies,
   isFactionsFriends,
   isSquadRelationBetweenActorAndRelation,
-} from "@/mod/scripts/utils/relations";
+} from "@/mod/scripts/utils/relation";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

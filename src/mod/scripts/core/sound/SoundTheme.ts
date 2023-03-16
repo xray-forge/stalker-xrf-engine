@@ -7,7 +7,7 @@ import { LoopedSound } from "@/mod/scripts/core/sound/playable_sounds/LoopedSoun
 import { NpcSound } from "@/mod/scripts/core/sound/playable_sounds/NpcSound";
 import { ObjectSound } from "@/mod/scripts/core/sound/playable_sounds/ObjectSound";
 import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
-import { getConfigString } from "@/mod/scripts/utils/configs";
+import { getConfigString } from "@/mod/scripts/utils/config";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resetTable } from "@/mod/scripts/utils/table";

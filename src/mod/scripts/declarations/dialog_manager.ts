@@ -5,14 +5,14 @@ import { communities, TCommunity } from "@/mod/globals/communities";
 import { LuaArray, Optional } from "@/mod/lib/types";
 import { DIALOG_MANAGER_LTX, registry } from "@/mod/scripts/core/database";
 import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
-import { isObjectWounded } from "@/mod/scripts/utils/checkers/checkers";
+import { isObjectWounded } from "@/mod/scripts/utils/check/check";
 import { abort } from "@/mod/scripts/utils/debug";
-import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
+import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_save";
 import { getObjectBoundSmart } from "@/mod/scripts/utils/gulag";
-import { hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
+import { hasAlifeInfo } from "@/mod/scripts/utils/info_portion";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseInfoPortions1, parseNames } from "@/mod/scripts/utils/parse";
-import { getNpcSpeaker } from "@/mod/scripts/utils/quests";
+import { getNpcSpeaker } from "@/mod/scripts/utils/quest";
 
 // todo: Separate manager class.
 // todo: Separate manager class.

@@ -3,9 +3,9 @@ import { alife, TXR_net_processor, XR_cse_abstract, XR_ini_file, XR_net_packet }
 import { MAX_UNSIGNED_16_BIT } from "@/mod/globals/memory";
 import { Optional } from "@/mod/lib/types";
 import { SYSTEM_INI } from "@/mod/scripts/core/database/ini";
-import { getConfigString } from "@/mod/scripts/utils/configs";
+import { getConfigString } from "@/mod/scripts/utils/config";
 import { abort } from "@/mod/scripts/utils/debug";
-import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_saves";
+import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_save";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

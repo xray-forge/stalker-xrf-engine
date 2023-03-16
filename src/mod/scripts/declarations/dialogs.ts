@@ -11,24 +11,24 @@ import { levels } from "@/mod/globals/levels";
 import { AnyCallablesModule, EScheme, Optional, TNumberId } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { SimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
-import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
-import { SurgeManager } from "@/mod/scripts/core/managers/SurgeManager";
-import { update_logic } from "@/mod/scripts/core/objects/binders/StalkerBinder";
-import { ISchemeMeetState } from "@/mod/scripts/core/schemes/meet";
-import { SchemeMeet } from "@/mod/scripts/core/schemes/meet/SchemeMeet";
-import { ISchemeWoundedState } from "@/mod/scripts/core/schemes/wounded";
-import { SchemeWounded } from "@/mod/scripts/core/schemes/wounded/SchemeWounded";
+import { NotificationManager } from "@/mod/scripts/core/manager/notifications/NotificationManager";
+import { SurgeManager } from "@/mod/scripts/core/manager/SurgeManager";
+import { update_logic } from "@/mod/scripts/core/object/binders/StalkerBinder";
+import { ISchemeMeetState } from "@/mod/scripts/core/scheme/meet";
+import { SchemeMeet } from "@/mod/scripts/core/scheme/meet/SchemeMeet";
+import { ISchemeWoundedState } from "@/mod/scripts/core/scheme/wounded";
+import { SchemeWounded } from "@/mod/scripts/core/scheme/wounded/SchemeWounded";
 import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
-import { isObjectWounded, isStalkerAlive } from "@/mod/scripts/utils/checkers/checkers";
-import { createScenarioAutoSave } from "@/mod/scripts/utils/game_saves";
+import { isObjectWounded, isStalkerAlive } from "@/mod/scripts/utils/check/check";
+import { createScenarioAutoSave } from "@/mod/scripts/utils/game_save";
 import { getObjectBoundSmart } from "@/mod/scripts/utils/gulag";
-import { giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
+import { giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/info_portion";
 import {
   actorHasMedKit,
   getActorAvailableMedKit,
   getNpcSpeaker,
   relocateQuestItemSection,
-} from "@/mod/scripts/utils/quests";
+} from "@/mod/scripts/utils/quest";
 
 /**
  * todo;

@@ -35,19 +35,19 @@ import {
 import { AnyGameObject } from "@/mod/lib/types/engine";
 import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { getStoryObjectsRegistry } from "@/mod/scripts/core/database/StoryObjectsRegistry";
-import { Squad } from "@/mod/scripts/core/objects/alife/Squad";
-import { SquadReachTargetAction } from "@/mod/scripts/core/objects/alife/SquadReachTargetAction";
-import { SquadStayOnTargetAction } from "@/mod/scripts/core/objects/alife/SquadStayOnTargetAction";
-import { isCseAlifeObject, isStalker } from "@/mod/scripts/utils/checkers/is";
+import { Squad } from "@/mod/scripts/core/object/alife/Squad";
+import { SquadReachTargetAction } from "@/mod/scripts/core/object/alife/SquadReachTargetAction";
+import { SquadStayOnTargetAction } from "@/mod/scripts/core/object/alife/SquadStayOnTargetAction";
+import { isCseAlifeObject, isStalker } from "@/mod/scripts/utils/check/is";
 import {
   getConfigBoolean,
   getConfigNumber,
   getConfigString,
   getInfosFromData,
   pickSectionFromCondList,
-} from "@/mod/scripts/utils/configs";
+} from "@/mod/scripts/utils/config";
 import { abort } from "@/mod/scripts/utils/debug";
-import { getStoryObjectId } from "@/mod/scripts/utils/ids";
+import { getStoryObjectId } from "@/mod/scripts/utils/id";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseConditionsList, TConditionList } from "@/mod/scripts/utils/parse";
 import { graphDistance } from "@/mod/scripts/utils/physics";

@@ -1,6 +1,6 @@
 import { registerObject, unregisterObject } from "@/mod/scripts/core/database/objects";
 import { registry } from "@/mod/scripts/core/database/registry";
-import { AnomalyZoneBinder } from "@/mod/scripts/core/objects/binders/AnomalyZoneBinder";
+import { AnomalyZoneBinder } from "@/mod/scripts/core/object/binders/AnomalyZoneBinder";
 
 /**
  * todo;

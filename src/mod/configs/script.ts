@@ -9,9 +9,9 @@ export const config = {
   common: {
     script: newStringField("_G"),
     levels: null,
-    class_registrators: newStringField("register.register_classes"),
-    game_type_clsid_factory: newStringField("register.get_game_clsid"),
-    ui_type_clsid_factory: newStringField("register.get_ui_clsid"),
+    class_registrators: newStringField("register.registerGameClasses"),
+    game_type_clsid_factory: newStringField("register.getGameClassId"),
+    ui_type_clsid_factory: newStringField("register.getUiClassId"),
   },
   single: {
     script: null,

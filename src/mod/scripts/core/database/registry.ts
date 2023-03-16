@@ -7,20 +7,20 @@ import type { IStoredOfflineObject } from "@/mod/scripts/core/database/offline";
 import type {
   AbstractCoreManager,
   TAbstractCoreManagerConstructor,
-} from "@/mod/scripts/core/managers/AbstractCoreManager";
-import type { ITradeManagerDescriptor } from "@/mod/scripts/core/managers/TradeManager";
+} from "@/mod/scripts/core/manager/AbstractCoreManager";
+import type { ITradeManagerDescriptor } from "@/mod/scripts/core/manager/TradeManager";
 import {
   AnomalyZoneBinder,
   LabX8DoorBinder,
   SignalLightBinder,
   SmartCover,
   SmartTerrain,
-} from "@/mod/scripts/core/objects";
-import type { TAbstractSchemeConstructor } from "@/mod/scripts/core/schemes/base";
-import type { CampStoryManager } from "@/mod/scripts/core/schemes/camper";
-import type { PatrolManager } from "@/mod/scripts/core/schemes/patrol";
-import type { ReachTaskPatrolManager } from "@/mod/scripts/core/schemes/reach_task";
-import type { LightManager } from "@/mod/scripts/core/schemes/sr_light";
+} from "@/mod/scripts/core/object";
+import type { TAbstractSchemeConstructor } from "@/mod/scripts/core/scheme/base";
+import type { CampStoryManager } from "@/mod/scripts/core/scheme/camper";
+import type { PatrolManager } from "@/mod/scripts/core/scheme/patrol";
+import type { ReachTaskPatrolManager } from "@/mod/scripts/core/scheme/reach_task";
+import type { LightManager } from "@/mod/scripts/core/scheme/sr_light";
 import type { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
 
 /**

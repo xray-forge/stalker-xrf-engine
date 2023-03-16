@@ -12,12 +12,12 @@ import {
   TTimestamp,
 } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database/registry";
-import { IBaseSchemeState } from "@/mod/scripts/core/schemes/base";
-import { ISchemePostCombatIdleState } from "@/mod/scripts/core/schemes/danger/ISchemePostCombatIdleState";
-import { IActionSchemeHearState } from "@/mod/scripts/core/schemes/hear";
-import { RestrictorManager } from "@/mod/scripts/core/schemes/RestrictorManager";
-import { StalkerMoveManager } from "@/mod/scripts/core/state_management/StalkerMoveManager";
-import { StateManager } from "@/mod/scripts/core/state_management/StateManager";
+import { IBaseSchemeState } from "@/mod/scripts/core/scheme/base";
+import { ISchemePostCombatIdleState } from "@/mod/scripts/core/scheme/danger/ISchemePostCombatIdleState";
+import { IActionSchemeHearState } from "@/mod/scripts/core/scheme/hear";
+import { RestrictorManager } from "@/mod/scripts/core/scheme/RestrictorManager";
+import { StalkerMoveManager } from "@/mod/scripts/core/object/state/StalkerMoveManager";
+import { StateManager } from "@/mod/scripts/core/object/state/StateManager";
 
 /**
  * todo;

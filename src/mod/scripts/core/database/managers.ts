@@ -3,7 +3,7 @@ import { registry } from "@/mod/scripts/core/database/registry";
 import type {
   AbstractCoreManager,
   TAbstractCoreManagerConstructor,
-} from "@/mod/scripts/core/managers/AbstractCoreManager";
+} from "@/mod/scripts/core/manager/AbstractCoreManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

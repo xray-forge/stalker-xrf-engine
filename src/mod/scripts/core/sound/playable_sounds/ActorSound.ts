@@ -15,11 +15,11 @@ import {
 import { STRINGIFIED_NIL } from "@/mod/globals/lua";
 import { TSection } from "@/mod/lib/types";
 import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
-import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
-import { IBaseSchemeState } from "@/mod/scripts/core/schemes/base";
+import { NotificationManager } from "@/mod/scripts/core/manager/notifications/NotificationManager";
+import { IBaseSchemeState } from "@/mod/scripts/core/scheme/base";
 import { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
 import { EPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/EPlayableSound";
-import { getConfigBoolean, getConfigString } from "@/mod/scripts/utils/configs";
+import { getConfigBoolean, getConfigString } from "@/mod/scripts/utils/config";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseNames } from "@/mod/scripts/utils/parse";

@@ -1,28 +1,30 @@
-/* eslint prefer-const: 0,  @typescript-eslint/no-var-requires: 0 */
-
 import type { XR_object_factory } from "xray16";
 
+/* eslint @typescript-eslint/no-var-requires: 0 */
+
 /**
- * Registration:
+ * todo;
  */
-declare let register_classes: (objectFactory: XR_object_factory) => void;
-declare let get_game_clsid: (gameTypeOption: string, isServer: boolean) => void;
-declare let get_ui_clsid: (gameType: string) => void;
+registerGameClasses = (factory: XR_object_factory): void => {
+  const { registerGameClasses } = require("@/mod/scripts/declarations/register/class_registrator");
 
-register_classes = (object_factory) => {
-  const { registerGameClasses } = require("@/mod/scripts/declarations/registering/class_registrator");
-
-  registerGameClasses(object_factory);
+  registerGameClasses(factory);
 };
 
-get_game_clsid = (gameTypeOption: string, isServer: boolean) => {
-  const { getGameClsId } = require("@/mod/scripts/declarations/registering/game_registrator");
+/**
+ * todo;
+ */
+getGameClassId = (gameTypeOption: string, isServer: boolean): void => {
+  const { getGameClassId } = require("@/mod/scripts/declarations/register/game_registrator");
 
-  getGameClsId(gameTypeOption, isServer);
+  getGameClassId(gameTypeOption, isServer);
 };
 
-get_ui_clsid = (gameType: string) => {
-  const { getUiClsId } = require("@/mod/scripts/declarations/registering/ui_registrator");
+/**
+ * todo;
+ */
+getUiClassId = (gameType: string): void => {
+  const { getUiClassId } = require("@/mod/scripts/declarations/register/ui_registrator");
 
-  getUiClsId(gameType);
+  getUiClassId(gameType);
 };

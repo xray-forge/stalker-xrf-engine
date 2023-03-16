@@ -6,8 +6,8 @@ import { LuaArray, Optional, TCount, TProbability, TSection } from "@/mod/lib/ty
 import { AnyGameObject } from "@/mod/lib/types/engine";
 import { IRegistryObjectState } from "@/mod/scripts/core/database";
 import { getObjectPositioning } from "@/mod/scripts/utils/alife";
-import { isAmmoSection } from "@/mod/scripts/utils/checkers/is";
-import { getConfigString } from "@/mod/scripts/utils/configs";
+import { isAmmoSection } from "@/mod/scripts/utils/check/is";
+import { getConfigString } from "@/mod/scripts/utils/config";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

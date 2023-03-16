@@ -18,11 +18,11 @@ import {
 import { communities, TCommunity } from "@/mod/globals/communities";
 import { AnyObject, Optional, TLabel, TName, TNumberId } from "@/mod/lib/types";
 import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
-import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
+import { NotificationManager } from "@/mod/scripts/core/manager/notifications/NotificationManager";
 import { AbstractPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/AbstractPlayableSound";
 import { EPlayableSound } from "@/mod/scripts/core/sound/playable_sounds/EPlayableSound";
 import { getCharacterCommunity } from "@/mod/scripts/utils/alife";
-import { getConfigBoolean, getConfigNumber, getConfigString } from "@/mod/scripts/utils/configs";
+import { getConfigBoolean, getConfigNumber, getConfigString } from "@/mod/scripts/utils/config";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { parseNames } from "@/mod/scripts/utils/parse";

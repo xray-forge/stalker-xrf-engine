@@ -18,10 +18,10 @@ import { treasures } from "@/mod/globals/treasures";
 import { AnyCallablesModule, AnyObject, LuaArray, Optional } from "@/mod/lib/types";
 import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { pstor_retrieve } from "@/mod/scripts/core/database/pstor";
-import { TreasureManager } from "@/mod/scripts/core/managers/TreasureManager";
-import { AnomalyZoneBinder } from "@/mod/scripts/core/objects/binders/AnomalyZoneBinder";
-import { isActorEnemyWithFaction } from "@/mod/scripts/utils/checkers/checkers";
-import { disableInfo, giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/info_portions";
+import { TreasureManager } from "@/mod/scripts/core/manager/TreasureManager";
+import { AnomalyZoneBinder } from "@/mod/scripts/core/object/binders/AnomalyZoneBinder";
+import { isActorEnemyWithFaction } from "@/mod/scripts/utils/check/check";
+import { disableInfo, giveInfo, hasAlifeInfo } from "@/mod/scripts/utils/info_portion";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import {
   getActorSpeaker,
@@ -32,8 +32,8 @@ import {
   relocateQuestItemSection,
   takeItemsFromActor,
   takeMoneyFromActor,
-} from "@/mod/scripts/utils/quests";
-import { getObjectsRelationSafe } from "@/mod/scripts/utils/relations";
+} from "@/mod/scripts/utils/quest";
+import { getObjectsRelationSafe } from "@/mod/scripts/utils/relation";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

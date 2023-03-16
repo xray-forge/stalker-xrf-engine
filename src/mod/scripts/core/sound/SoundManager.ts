@@ -4,7 +4,7 @@ import { STRINGIFIED_NIL } from "@/mod/globals/lua";
 import { Optional, TNumberId, TStringId } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { SimulationBoardManager } from "@/mod/scripts/core/database/SimulationBoardManager";
-import { GlobalSoundManager } from "@/mod/scripts/core/managers/GlobalSoundManager";
+import { GlobalSoundManager } from "@/mod/scripts/core/manager/GlobalSoundManager";
 import { SoundStory } from "@/mod/scripts/core/sound/SoundStory";
 import { getObjectSquad } from "@/mod/scripts/utils/alife";
 

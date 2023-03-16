@@ -21,13 +21,15 @@ import {
   SmartCoverBinder,
   SmartTerrainBinder,
   StalkerBinder,
-} from "@/mod/scripts/core/objects/binders";
+} from "@/mod/scripts/core/object/binders";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
-// @ts-ignore, declare lua global
+/**
+ * todo;
+ */
 list = {
   bindActor: (object: XR_game_object) => object.bind_object(new ActorBinder(object)),
   bindAnomalyField: (object: XR_game_object) => object.bind_object(new AnomalyFieldBinder(object)),

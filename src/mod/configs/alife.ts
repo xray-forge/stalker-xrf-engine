@@ -20,7 +20,7 @@ export const config = {
     autosave_interval: newStringField("01:05:00"),
     delay_autosave_interval: newStringField("00:00:30"),
     objects_per_update: newIntegerField(10),
-    start_game_callback: newStringField("start_game_callback", {
+    start_game_callback: newStringField("start.startGame", {
       comment: "on starting new game or loading saved one -> start.ts root",
     }),
   },
