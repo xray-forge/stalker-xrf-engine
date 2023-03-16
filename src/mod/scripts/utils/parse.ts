@@ -46,34 +46,11 @@ export type TConditionList = LuaArray<IConfigSwitchCondition>;
 export function parseNames<T extends TName = TName>(configString: string): LuaArray<T> {
   const names: LuaArray<T> = new LuaTable();
 
-  for (const it of string.gfind(configString, "([%w_%-.\\]+)%p*")) {
+  for (const it of string.gmatch<T>(configString, "([%w_%-.\\]+)%p*")) {
     table.insert(names, it as T);
   }
 
   return names;
-}
-
-/**
- * todo;
- */
-export function parseKeyValue(str: Optional<string>): Optional<Record<string, string>> {
-  if (str === null) {
-    return null;
-  }
-
-  const container: Record<string, string> = {};
-  let key: Optional<string> = null;
-
-  for (const name of string.gfind(str, "([%w_\\]+)%p*")) {
-    if (key === null) {
-      key = name;
-    } else {
-      container[key] = name;
-      key = null;
-    }
-  }
-
-  return container;
 }
 
 /**
@@ -86,7 +63,7 @@ export function parseNumbers<T = LuaArray<number>>(base: string): T;
 export function parseNumbers(base: string): LuaArray<number> {
   const container: LuaArray<number> = new LuaTable();
 
-  for (const it of string.gfind(base, "([%-%d%.]+)%,*")) {
+  for (const it of string.gmatch<string>(base, "([%-%d%.]+)%,*")) {
     table.insert(container, tonumber(it) as number);
   }
 
