@@ -1,14 +1,14 @@
 # 🎮 [Stalker XR-TS template](README.md)
 
 <p>
-XRTS template for STALKER provides foundation for creating mods that are more maintainable and easier to develop.
+XRTS template for STALKER provides foundation for creating mods.
 The template uses TypeScript and custom build tools to ensure type safety,
-support unified development tools, automated builds, and a shared template for mods development.
+simplify development, automated builds, and provide shared template for mods development.
 </p>
 
 ## 📦 In short
 
-- Game scripts rewritten with typescript, more scalable and easier to develop
+- Game scripts engine rewritten with typescript
 - Custom build pipeline to add verification steps and simplify development
 - Tools to generate UI forms from JSX 
 - Tools to generate configs from dynamic typescript
@@ -28,14 +28,10 @@ support unified development tools, automated builds, and a shared template for m
 The intention of this mod template is to allow easier mod development without introducing breaking changes to the original. <br/>
 Everything else can be added in your own mod extending the template.
 
-- Game codebase is refactored with TypeScript
-- Separate verification and preparation steps have been added
-- Tools have been added to make debugging and development easier
-
 ## 📌What is used
 
+- [NodeJS](https://nodejs.org/en/)
 - [Typescript](https://www.typescriptlang.org/)
-- [Ts-node](https://typestrong.org/ts-node/)
 - [TypeScriptToLua](https://typescripttolua.github.io/docs/getting-started)
 - [Open-X-Ray](https://github.com/OpenXRay/xray-16)
 - Custom [build system](cli/README.md)
@@ -65,9 +61,7 @@ Everything else can be added in your own mod extending the template.
 
 `$ npm run verify` - will check whether project is set up and ready to start developing
 
-# 🧰 Development
-
-## 🏗️ Project commands
+## 🏗️ Project scripts
 
 `$ npm run COMMAND_NAME`
 
