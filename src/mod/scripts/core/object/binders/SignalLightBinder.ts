@@ -31,20 +31,6 @@ export class SignalLightBinder extends object_binder {
   /**
    * todo;
    */
-  public constructor(object: XR_game_object) {
-    super(object);
-  }
-
-  /**
-   * todo;
-   */
-  public override reload(section: string): void {
-    super.reload(section);
-  }
-
-  /**
-   * todo;
-   */
   public override reinit(): void {
     super.reinit();
 

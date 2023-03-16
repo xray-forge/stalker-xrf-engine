@@ -45,13 +45,13 @@ export class CamEffectorSet {
     // --callstack()
 
     if (!effect.global_cameffect) {
-      level.add_cam_effector("camera_effects\\" + effect.anim + ".anm", 210408, false, "extern.effector_callback");
+      level.add_cam_effector("camera_effects\\" + effect.anim + ".anm", 210408, false, "engine.effector_callback");
     } else {
       level.add_cam_effector2(
         "camera_effects\\" + effect.anim + ".anm",
         210408,
         false,
-        "extern.effector_callback",
+        "engine.effector_callback",
         this.st.fov || registry.actor.fov() * 0.75
       );
     }

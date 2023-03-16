@@ -16,28 +16,33 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Main start game callback.
- * Called when game is started or loaded.
- *
- * todo: Reset all managers in a generic way.
+ * Register methods related to game start flows.
  */
-startGame = (): void => {
-  logger.info("Start game");
+extern("start", {
+  /**
+   * Main start game callback.
+   * Called when game is started or loaded.
+   *
+   * todo: Reset all managers in a generic way.
+   */
+  callback: (): void => {
+    logger.info("Start game");
 
-  math.randomseed(device().time_global());
+    math.randomseed(device().time_global());
 
-  initializeModules();
-  initSmartNamesTable();
-  TaskManager.dispose();
-  resetSimBoard();
+    initializeModules();
+    initSmartNamesTable();
+    TaskManager.dispose();
+    resetSimBoard();
 
-  SoundTheme.loadSound();
-  GlobalSoundManager.getInstance().reset(); // todo: Just reset the manager.
+    SoundTheme.loadSound();
+    GlobalSoundManager.getInstance().reset(); // todo: Just reset the manager.
 
-  fillPhrasesTable();
-  DynamicMusicManager.getInstance().initialize();
+    fillPhrasesTable();
+    DynamicMusicManager.getInstance().initialize();
 
-  resetSchemeHard(EScheme.SR_LIGHT);
+    resetSchemeHard(EScheme.SR_LIGHT);
 
-  ActorInventoryMenuManager.getInstance().initQuickSlotItems();
-};
+    ActorInventoryMenuManager.getInstance().initQuickSlotItems();
+  },
+});

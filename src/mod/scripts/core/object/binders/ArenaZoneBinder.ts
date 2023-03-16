@@ -139,16 +139,3 @@ export class ArenaZoneBinder extends object_binder {
     this.saved_obj.delete(object.id());
   }
 }
-
-/**
- * todo;
- */
-export function purge_arena_items(name: string): void {
-  logger.info("Purge are zone items:", name);
-
-  const arena_zone: Optional<ArenaZoneBinder> = arena_zones.get(name);
-
-  if (arena_zone !== null) {
-    arena_zone.purge_items();
-  }
-}

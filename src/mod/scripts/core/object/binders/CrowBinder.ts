@@ -11,7 +11,7 @@ import {
   XR_reader,
 } from "xray16";
 
-import { TNumberId, TSection } from "@/mod/lib/types";
+import { TDuration, TNumberId } from "@/mod/lib/types";
 import { registerObject, registry, resetObject, unregisterObject } from "@/mod/scripts/core/database";
 import { loadObject, saveObject } from "@/mod/scripts/core/scheme/storing";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_save";
@@ -32,7 +32,10 @@ export class CrowBinder extends object_binder {
     super(object);
   }
 
-  public override update(delta: number): void {
+  /**
+   * todo;
+   */
+  public override update(delta: TDuration): void {
     super.update(delta);
 
     if (
@@ -47,10 +50,9 @@ export class CrowBinder extends object_binder {
     }
   }
 
-  public override reload(section: TSection): void {
-    super.reload(section);
-  }
-
+  /**
+   * todo;
+   */
   public override reinit(): void {
     super.reinit();
 
@@ -59,6 +61,9 @@ export class CrowBinder extends object_binder {
     resetObject(this.object);
   }
 
+  /**
+   * todo;
+   */
   public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
@@ -78,6 +83,9 @@ export class CrowBinder extends object_binder {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public override net_destroy(): void {
     logger.info("Crow net destroy");
 
@@ -91,6 +99,9 @@ export class CrowBinder extends object_binder {
     super.net_destroy();
   }
 
+  /**
+   * todo;
+   */
   public death_callback(victim: XR_game_object, killer: XR_game_object): void {
     logger.info("Crow death registered");
 
@@ -99,10 +110,16 @@ export class CrowBinder extends object_binder {
     registry.crows.count -= 1;
   }
 
+  /**
+   * todo;
+   */
   public override net_save_relevant(): boolean {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, CrowBinder.__name);
 
@@ -113,6 +130,9 @@ export class CrowBinder extends object_binder {
     setSaveMarker(packet, true, CrowBinder.__name);
   }
 
+  /**
+   * todo;
+   */
   public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, CrowBinder.__name);
     super.load(reader);

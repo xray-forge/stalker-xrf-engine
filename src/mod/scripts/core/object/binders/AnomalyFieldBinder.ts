@@ -1,6 +1,5 @@
 import { LuabindClass, object_binder, XR_cse_alife_object, XR_game_object } from "xray16";
 
-import { TDuration, TSection } from "@/mod/lib/types";
 import { registerZone, registry, resetObject, unregisterZone } from "@/mod/scripts/core/database";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 
@@ -8,29 +7,12 @@ const logger: LuaLogger = new LuaLogger($filename);
 
 // todo: Move to db.
 export const FIELDS_BY_NAME: LuaTable<string, AnomalyFieldBinder> = new LuaTable();
-const UPDATE_THROTTLE: number = 5_000;
 
 /**
  * todo;
  */
 @LuabindClass()
 export class AnomalyFieldBinder extends object_binder {
-  public delta: TDuration = UPDATE_THROTTLE;
-
-  /**
-   * todo;
-   */
-  public constructor(object: XR_game_object) {
-    super(object);
-  }
-
-  /**
-   * todo;
-   */
-  public override reload(section: TSection): void {
-    super.reload(section);
-  }
-
   /**
    * todo;
    */
@@ -78,21 +60,6 @@ export class AnomalyFieldBinder extends object_binder {
       this.object.enable_anomaly();
     } else {
       this.object.disable_anomaly();
-    }
-  }
-
-  /**
-   * todo;
-   */
-  public override update(delta: TDuration): void {
-    this.delta += delta;
-
-    if (this.delta >= UPDATE_THROTTLE) {
-      super.update(this.delta);
-
-      this.delta = 0;
-    } else {
-      return;
     }
   }
 

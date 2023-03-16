@@ -45,36 +45,34 @@ const logger: LuaLogger = new LuaLogger($filename);
 
 logger.info("Resolve and bind externals");
 
-declare_global("xr_conditions", require("@/mod/scripts/declarations/conditions"));
-declare_global("xr_effects", require("@/mod/scripts/declarations/effects"));
-declare_global("dialogs_pripyat", require("@/mod/scripts/declarations/dialogs_pripyat"));
-declare_global("dialogs_jupiter", require("@/mod/scripts/declarations/dialogs_jupiter"));
-declare_global("dialogs_zaton", require("@/mod/scripts/declarations/dialogs_zaton"));
-declare_global("dialogs", require("@/mod/scripts/declarations/dialogs"));
-declare_global("dialog_manager", require("@/mod/scripts/declarations/dialog_manager"));
-declare_global("functors", require("@/mod/scripts/declarations/functors"));
+extern("xr_conditions", require("@/mod/scripts/declarations/conditions"));
+extern("xr_effects", require("@/mod/scripts/declarations/effects"));
+extern("dialogs_pripyat", require("@/mod/scripts/declarations/dialogs_pripyat"));
+extern("dialogs_jupiter", require("@/mod/scripts/declarations/dialogs_jupiter"));
+extern("dialogs_zaton", require("@/mod/scripts/declarations/dialogs_zaton"));
+extern("dialogs", require("@/mod/scripts/declarations/dialogs"));
+extern("dialog_manager", require("@/mod/scripts/declarations/dialog_manager"));
+extern("functors", require("@/mod/scripts/declarations/functors"));
 
 // todo: Check if needed.
-declare_global("smart_covers", {
+extern("smart_covers", {
   descriptions: smart_covers_list,
 });
-
-declare_global("extern", {});
 
 /**
  * Sleeping functionality.
  */
 
-declare_global("extern.dream_callback", SleepDialogModule.dream_callback);
+extern("engine.dream_callback", SleepDialogModule.dream_callback);
 
-declare_global("extern.dream_callback2", SleepDialogModule.dream_callback2);
+extern("engine.dream_callback2", SleepDialogModule.dream_callback2);
 
 /**
  * Anabiotic functionality.
  */
 
-declare_global("extern.anabiotic_callback", () => {
-  level.add_cam_effector(animations.camera_effects_surge_01, 10, false, "extern.anabiotic_callback2");
+extern("engine.anabiotic_callback", () => {
+  level.add_cam_effector(animations.camera_effects_surge_01, 10, false, "engine.anabiotic_callback2");
 
   const rnd = math.random(35, 45);
   const surgeManager: SurgeManager = SurgeManager.getInstance();
@@ -95,7 +93,7 @@ declare_global("extern.anabiotic_callback", () => {
   WeatherManager.getInstance().forced_weather_change();
 });
 
-declare_global("extern.anabiotic_callback2", () => {
+extern("engine.anabiotic_callback2", () => {
   get_global<AnyCallablesModule>("xr_effects").enable_ui(registry.actor, null);
 
   get_console().execute("snd_volume_music " + tostring(registry.sounds.musicVolume));
@@ -107,14 +105,14 @@ declare_global("extern.anabiotic_callback2", () => {
   disableInfo(info_portions.anabiotic_in_process);
 });
 
-declare_global("extern.surge_callback", () => {
-  level.add_cam_effector(animations.camera_effects_surge_01, sleep_cam_eff_id, false, "extern.surge_callback2");
+extern("engine.surge_callback", () => {
+  level.add_cam_effector(animations.camera_effects_surge_01, sleep_cam_eff_id, false, "engine.surge_callback2");
   // --    level.stop_weather_fx()
   // --    level.change_game_time(0,0,15)
   // --    WeatherManager.get_weather_manager():forced_weather_change()
 });
 
-declare_global("extern.surge_callback", () => {
+extern("engine.surge_callback", () => {
   get_global<AnyCallablesModule>("xr_effects").enable_ui(registry.actor, null);
   /* --[[
     level.enable_input()
@@ -123,25 +121,25 @@ declare_global("extern.surge_callback", () => {
   ]]-- */
 });
 
-declare_global("extern.task_complete", (taskId: TStringId): boolean => {
+extern("engine.task_complete", (taskId: TStringId): boolean => {
   return TaskManager.getInstance().onTaskCompleted(taskId);
 });
 
-declare_global("extern.task_fail", (taskId: TStringId): boolean => TaskManager.getInstance().onTaskFailed(taskId));
+extern("engine.task_fail", (taskId: TStringId): boolean => TaskManager.getInstance().onTaskFailed(taskId));
 
-declare_global("extern.task_callback", (target: XR_CGameTask, state: TXR_TaskState): void => {
+extern("engine.task_callback", (target: XR_CGameTask, state: TXR_TaskState): void => {
   if (state === task.fail || state === task.completed) {
     // todo: Supply task state enum.
     TaskManager.getInstance().onTaskCallback(target, state === task.completed);
   }
 });
 
-declare_global("loadscreen", {
+extern("loadscreen", {
   get_tip_number: (levelName: string) => loadScreenManager.get_tip_number(levelName),
   get_mp_tip_number: (levelName: string) => loadScreenManager.get_mp_tip_number(levelName),
 });
 
-declare_global("trade_manager", {
+extern("trade_manager", {
   get_sell_discount: (objectId: TNumberId) => TradeManager.getInstance().getSellDiscountForObject(objectId),
   get_buy_discount: (objectId: TNumberId) => TradeManager.getInstance().getBuyDiscountForObject(objectId),
 });
@@ -149,7 +147,7 @@ declare_global("trade_manager", {
 /**
  * todo;
  */
-declare_global("inventory_upgrades", {
+extern("inventory_upgrades", {
   get_upgrade_cost: (section: TSection): TLabel => ItemUpgradesManager.getInstance().getUpgradeCost(section),
   can_repair_item: (itemName: TName, itemCondition: number, mechanicName: TName): boolean =>
     ItemUpgradesManager.getInstance().isAbleToRepairItem(itemName, itemCondition, mechanicName),
@@ -176,7 +174,7 @@ declare_global("inventory_upgrades", {
 /**
  * todo;
  */
-declare_global("travel_callbacks", {
+extern("travel_callbacks", {
   initializeTravellerDialog: (dialog: XR_CPhraseDialog) =>
     TravelManager.getInstance().initializeTravellerDialog(dialog),
   canStartTravelingDialogs: (actor: XR_game_object, npc: XR_game_object) =>
@@ -216,53 +214,53 @@ declare_global("travel_callbacks", {
     TravelManager.getInstance().cannotSquadTravel(npc, actor, dialogId, phraseId),
 });
 
-declare_global("extern.effector_callback", () => SchemeCutscene.onCutsceneEnd());
+extern("engine.effector_callback", () => SchemeCutscene.onCutsceneEnd());
 
-declare_global("on_actor_critical_power", () => {
+extern("on_actor_critical_power", () => {
   logger.info("Actor critical power");
 });
 
-declare_global("on_actor_critical_max_power", () => {
+extern("on_actor_critical_max_power", () => {
   logger.info("Actor critical max power");
 });
 
-declare_global("on_actor_bleeding", () => {
+extern("on_actor_bleeding", () => {
   logger.info("Actor bleeding");
 });
 
-declare_global("on_actor_satiety", () => {
+extern("on_actor_satiety", () => {
   logger.info("Actor satiety");
 });
 
-declare_global("on_actor_radiation", () => {
+extern("on_actor_radiation", () => {
   logger.info("Actor radiation");
 });
 
-declare_global("on_actor_weapon_jammed", () => {
+extern("on_actor_weapon_jammed", () => {
   logger.info("Actor weapon jammed");
 });
 
-declare_global("on_actor_cant_walk_weight", () => {
+extern("on_actor_cant_walk_weight", () => {
   logger.info("Actor cant walk weight");
 });
 
-declare_global("on_actor_psy", () => {
+extern("on_actor_psy", () => {
   logger.info("Actor psy");
 });
 
-declare_global("actor_menu", {
+extern("actor_menu", {
   actor_menu_mode: (mode: EActorMenuMode): void => {
     return ActorInventoryMenuManager.getInstance().setActiveMode(mode);
   },
 });
 
-declare_global("actor_menu_inventory", {
+extern("actor_menu_inventory", {
   CUIActorMenu_OnItemDropped: (from: XR_game_object, to: XR_game_object, oldList: number, newList: number): void => {
     return ActorInventoryMenuManager.getInstance().onItemDropped();
   },
 });
 
-declare_global("pda", {
+extern("pda", {
   set_active_subdialog: (...args: AnyArgs): void => {
     logger.info("Set active subdialog", ...args);
   },
@@ -304,7 +302,7 @@ declare_global("pda", {
 /**
  * Params in weapon menu in inventory.
  */
-declare_global("ui_wpn_params", {
+extern("ui_wpn_params", {
   GetRPM: externClassMethod(WeaponParams, WeaponParams.GetRPM),
   GetDamage: externClassMethod(WeaponParams, WeaponParams.GetDamage),
   GetDamageMP: externClassMethod(WeaponParams, WeaponParams.GetDamageMP),
@@ -315,8 +313,8 @@ declare_global("ui_wpn_params", {
 /**
  * Checkers for achievements called from C++.
  */
-declare_global(
-  "extern.check_achievement",
+extern(
+  "engine.check_achievement",
   Object.values(EAchievement).reduce<PartialRecord<EAchievement, AnyCallable>>((acc, it) => {
     acc[it] = () => AchievementsManager.getInstance().checkAchieved(it);
 
@@ -327,7 +325,7 @@ declare_global(
 /**
  * Outro conditions for game ending based on alife information.
  */
-declare_global("outro", {
+extern("outro", {
   conditions: GameOutroManager.getInstance().conditions,
   start_bk_sound: () => GameOutroManager.getInstance().start_bk_sound(),
   stop_bk_sound: () => GameOutroManager.getInstance().stop_bk_sound(),

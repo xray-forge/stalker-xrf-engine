@@ -72,13 +72,6 @@ export class HelicopterBinder extends object_binder {
   /**
    * todo;
    */
-  public override reload(section: TSection): void {
-    super.reload(section);
-  }
-
-  /**
-   * todo;
-   */
   public override reinit(): void {
     super.reinit();
 

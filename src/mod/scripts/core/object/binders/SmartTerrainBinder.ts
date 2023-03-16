@@ -1,5 +1,6 @@
 import { alife, LuabindClass, object_binder, XR_cse_alife_object, XR_game_object } from "xray16";
 
+import { TDuration } from "@/mod/lib/types";
 import { addSmartTerrain, deleteSmartTerrain } from "@/mod/scripts/core/database";
 import { GlobalSoundManager } from "@/mod/scripts/core/manager/GlobalSoundManager";
 import { SmartTerrain } from "@/mod/scripts/core/object/alife/smart/SmartTerrain";
@@ -50,7 +51,7 @@ export class SmartTerrainBinder extends object_binder {
   /**
    * todo;
    */
-  public override update(delta: number): void {
+  public override update(delta: TDuration): void {
     super.update(delta);
     this.se_smart_terrain.update();
   }

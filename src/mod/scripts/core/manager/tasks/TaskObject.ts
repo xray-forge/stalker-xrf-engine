@@ -248,8 +248,8 @@ export class TaskObject {
     t.set_description(this.current_descr);
     t.set_priority(this.prior);
     t.set_icon_name(this.icon);
-    t.add_complete_func("extern.task_complete");
-    t.add_fail_func("extern.task_fail");
+    t.add_complete_func("engine.task_complete");
+    t.add_fail_func("engine.task_fail");
 
     pickSectionFromCondList(registry.actor, registry.actor, this.on_init as any);
 

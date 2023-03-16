@@ -3,18 +3,21 @@ local create_ts_class_instance = require("lualib_bundle").__TS__New
 local log = create_ts_class_instance(LuaLogger, "global");
 
 -- ---------------------------------------------------------------------------------------------------------------------
--- With TS we are using mostly locals to prevent scope pollution
--- If explicit global declaration is needed, we can use this utility function and declare something as global from TS
+-- Extern provided key/value pair to global scope (lua _g)
 -- ---------------------------------------------------------------------------------------------------------------------
-_G.declare_global = function (key, value)
+_G.extern = function (key, value)
   local matches = string.gmatch(key, "[^.]+")
   local target = _G
   local target_key = matches()
 
   for match in matches do
+    if (target[target_key] == nil) then
+      target[target_key] = target
+    end
+
     target = target[target_key]
     target_key = match;
-  end
+    end
 
   target[target_key] = value
 end

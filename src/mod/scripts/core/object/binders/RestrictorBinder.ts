@@ -25,20 +25,6 @@ export class RestrictorBinder extends object_binder {
   /**
    * todo;
    */
-  public constructor(object: XR_game_object) {
-    super(object);
-  }
-
-  /**
-   * todo;
-   */
-  public override reload(section: TSection): void {
-    super.reload(section);
-  }
-
-  /**
-   * todo;
-   */
   public override reinit(): void {
     super.reinit();
     this.state = resetObject(this.object);
@@ -93,7 +79,7 @@ export class RestrictorBinder extends object_binder {
    */
   public override update(delta: TDuration): void {
     const activeSection: Optional<TSection> = this.state.active_section as Optional<TSection>;
-    const objectId: number = this.object.id();
+    const objectId: TNumberId = this.object.id();
 
     if (!this.isInitialized) {
       this.isInitialized = true;

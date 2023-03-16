@@ -28,35 +28,35 @@ import { LuaLogger } from "@/mod/scripts/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Register binders of engine client side objects.
  */
-list = {
-  bindActor: (object: XR_game_object) => object.bind_object(new ActorBinder(object)),
-  bindAnomalyField: (object: XR_game_object) => object.bind_object(new AnomalyFieldBinder(object)),
-  bindAnomalyZone: (object: XR_game_object) => object.bind_object(new AnomalyZoneBinder(object)),
-  bindArenaZone: (object: XR_game_object) => {
+extern("bind", {
+  actor: (object: XR_game_object) => object.bind_object(new ActorBinder(object)),
+  anomalyField: (object: XR_game_object) => object.bind_object(new AnomalyFieldBinder(object)),
+  anomalyZone: (object: XR_game_object) => object.bind_object(new AnomalyZoneBinder(object)),
+  arenaZone: (object: XR_game_object) => {
     const ini: Optional<XR_ini_file> = object.spawn_ini();
 
     if (ini !== null && ini.section_exist("arena_zone") && alife() !== null) {
       object.bind_object(new ArenaZoneBinder(object));
     }
   },
-  bindArtefact: (object: XR_game_object) => object.bind_object(new ArtefactBinder(object)),
-  bindCamp: (object: XR_game_object) => object.bind_object(new CampBinder(object)),
-  bindCampfire: (object: XR_game_object) => object.bind_object(new CampfireBinder(object)),
-  bindCrow: (object: XR_game_object) => object.bind_object(new CrowBinder(object)),
-  bindHeli: (object: XR_game_object) => {
+  artefact: (object: XR_game_object) => object.bind_object(new ArtefactBinder(object)),
+  camp: (object: XR_game_object) => object.bind_object(new CampBinder(object)),
+  campfire: (object: XR_game_object) => object.bind_object(new CampfireBinder(object)),
+  crow: (object: XR_game_object) => object.bind_object(new CrowBinder(object)),
+  heli: (object: XR_game_object) => {
     const ini: Optional<XR_ini_file> = object.spawn_ini();
 
     if (ini !== null && ini.section_exist("logic")) {
       object.bind_object(new HelicopterBinder(object, ini));
     }
   },
-  bindLabX8Door: (object: XR_game_object) => object.bind_object(new LabX8DoorBinder(object)),
-  bindLevelChanger: (object: XR_game_object) => object.bind_object(new LevelChangerBinder(object)),
-  bindMonster: (object: XR_game_object) => object.bind_object(new MonsterBinder(object)),
-  bindPhantom: (object: XR_game_object) => object.bind_object(new PhantomBinder(object)),
-  bindPhysicObject: (object: XR_game_object) => {
+  labX8Door: (object: XR_game_object) => object.bind_object(new LabX8DoorBinder(object)),
+  levelChanger: (object: XR_game_object) => object.bind_object(new LevelChangerBinder(object)),
+  monster: (object: XR_game_object) => object.bind_object(new MonsterBinder(object)),
+  phantom: (object: XR_game_object) => object.bind_object(new PhantomBinder(object)),
+  physicObject: (object: XR_game_object) => {
     const ini: Optional<XR_ini_file> = object.spawn_ini();
 
     if (!ini?.section_exist("logic")) {
@@ -67,10 +67,10 @@ list = {
 
     object.bind_object(new PhysicObjectBinder(object));
   },
-  bindRestrictor: (object: XR_game_object) => object.bind_object(new RestrictorBinder(object)),
-  bindSignalLight: (object: XR_game_object) => object.bind_object(new SignalLightBinder(object)),
-  bindSmartCover: (object: XR_game_object) => object.bind_object(new SmartCoverBinder(object)),
-  bindSmartTerrain: (object: XR_game_object) => {
+  restrictor: (object: XR_game_object) => object.bind_object(new RestrictorBinder(object)),
+  signalLight: (object: XR_game_object) => object.bind_object(new SignalLightBinder(object)),
+  smartCover: (object: XR_game_object) => object.bind_object(new SmartCoverBinder(object)),
+  smartTerrain: (object: XR_game_object) => {
     const ini: Optional<XR_ini_file> = object.spawn_ini();
 
     if (ini !== null && (ini.section_exist("gulag1") || ini.section_exist("smart_terrain"))) {
@@ -85,5 +85,5 @@ list = {
       }
     }
   },
-  bindStalker: (object: XR_game_object) => object.bind_object(new StalkerBinder(object)),
-};
+  stalker: (object: XR_game_object) => object.bind_object(new StalkerBinder(object)),
+});

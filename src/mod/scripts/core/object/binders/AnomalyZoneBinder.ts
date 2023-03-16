@@ -14,7 +14,7 @@ import {
 } from "xray16";
 
 import { MAX_UNSIGNED_8_BIT } from "@/mod/globals/memory";
-import { Optional, TSection } from "@/mod/lib/types";
+import { Optional, TDuration, TSection } from "@/mod/lib/types";
 import { registerAnomaly, registry, resetObject, unregisterAnomaly } from "@/mod/scripts/core/database";
 import { MapDisplayManager } from "@/mod/scripts/core/manager/map/MapDisplayManager";
 import { FIELDS_BY_NAME } from "@/mod/scripts/core/object/binders/AnomalyFieldBinder";
@@ -532,13 +532,6 @@ export class AnomalyZoneBinder extends object_binder {
   /**
    * todo;
    */
-  public override reload(section: TSection): void {
-    super.reload(section);
-  }
-
-  /**
-   * todo;
-   */
   public override reinit(): void {
     super.reinit();
     resetObject(this.object);
@@ -570,7 +563,7 @@ export class AnomalyZoneBinder extends object_binder {
   /**
    * todo;
    */
-  public override update(delta: number): void {
+  public override update(delta: TDuration): void {
     this.delta += delta;
 
     if (this.delta >= UPDATE_THROTTLE) {

@@ -294,7 +294,7 @@ export class ActorBinder extends object_binder {
       );
     }
 
-    get_global<AnyCallablesModule>("extern").task_callback(task_object, state);
+    get_global<AnyCallablesModule>("engine").task_callback(task_object, state);
   }
 
   /**

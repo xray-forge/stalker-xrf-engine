@@ -30,7 +30,7 @@ export const config = {
     enter_min_enemy_distance: newFloatField(15.0),
     exit_min_enemy_distance: newFloatField(10.0),
     can_fire: newBooleanField(false),
-    script_binding: newStringField("bind.list.bindSmartCover"),
+    script_binding: newStringField("bind.smartCover"),
   },
   smart_covers_animation_offsets: {
     loophole_1_no_look_idle_0: newFloatsField([45.0, 0.0]),

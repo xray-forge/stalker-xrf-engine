@@ -150,14 +150,14 @@ slot_active_12      = false
 GroupControlSection = spawn_group
 $spawn        = "physics\hanging lamp"
 class       = SO_HLAMP
-script_binding      = bind.list.bindPhysicObject
+script_binding      = bind.physicObject
 
 
 [lights_signal_light]
 GroupControlSection = spawn_group
 $spawn        = "physics\signal_light"
 class       = SO_HLAMP
-script_binding      = bind.list.bindSignalLight
+script_binding      = bind.signalLight
 
 
 [search_light]
@@ -166,7 +166,7 @@ $spawn        = "physics\search light"
 class       = O_SEARCH
 cform       = skeleton
 visual        = dynamics\light\projector.ogf
-script_binding      = bind.list.bindPhysicObject
+script_binding      = bind.physicObject
 
 [explosion_marks]
 wallmarks     = wm\wm_grenade
@@ -277,7 +277,7 @@ cost          = 100000
 inv_grid_width      = 1
 inv_grid_height     = 1
 
-script_binding      = bind.list.bindPhysicObject
+script_binding      = bind.physicObject
 
 
 [actor_firsteye_cam]
@@ -391,7 +391,7 @@ GroupControlSection =
 $spawn      = "ai\level changer"
 ;$prefetch    = 4
 class     = LVL_CHNG
-script_binding  = bind.list.bindLevelChanger
+script_binding  = bind.levelChanger
 
 shape_transp_color    = 255, 255, 255, 100
 shape_edge_color    = 32, 32, 32, 255
@@ -401,7 +401,7 @@ GroupControlSection =
 $spawn      = "ai\script zone"
 ;$prefetch    = 4
 class     = SCRIPTZN
-script_binding  = bind.list.bindArenaZone
+script_binding  = bind.arenaZone
 
 [physics]
 object_damage_factor    = 1.2f
@@ -623,7 +623,7 @@ GroupControlSection   = spawn_group_restrictor
 $spawn          = "ai\space_restrictor"
 ;$prefetch        = 64
 class         = SPC_RS_S
-script_binding          = bind.list.bindRestrictor
+script_binding          = bind.restrictor
 
 shape_transp_color    = 0, 255, 0, 24
 shape_edge_color    = 32, 32, 32, 255
@@ -636,7 +636,7 @@ $spawn				= "ai\camp"
 $prefetch        	= 16
 $def_sphere         = 2
 class         		= SPC_RS_S
-script_binding      = bind.list.bindCamp
+script_binding      = bind.camp
 
 shape_transp_color  = 0, 0, 255, 24
 shape_edge_color    = 32, 32, 32, 255
@@ -648,7 +648,7 @@ GroupControlSection = spawn_group_zone
 $spawn          = "ai\anomal_zone"
 $def_sphere                 = 2
 $prefetch       = 16
-script_binding      = bind.list.bindAnomalyZone
+script_binding      = bind.anomalyZone
 
 shape_transp_color    = 240, 217, 182, 58
 shape_edge_color    = 32, 32, 32, 255
