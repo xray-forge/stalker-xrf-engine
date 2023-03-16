@@ -4,6 +4,7 @@ import { TLabel } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
 import { AbstractSchemeManager } from "@/mod/scripts/core/scheme/base/AbstractSchemeManager";
 import { ISchemeCodeState } from "@/mod/scripts/core/scheme/ph_code/ISchemeCodeState";
+import { NumPadWindow } from "@/mod/scripts/core/ui/game/NumPadWindow";
 import { pickSectionFromCondList } from "@/mod/scripts/utils/config";
 
 /**
@@ -21,9 +22,9 @@ export class CodeManager extends AbstractSchemeManager<ISchemeCodeState> {
    * todo;
    */
   public use_callback(object: XR_game_object, who: XR_game_object): void {
-    const numpad = get_global("ui_numpad").numpad(this);
+    const numPadWindow: NumPadWindow = new NumPadWindow(this);
 
-    numpad.ShowDialog(true);
+    numPadWindow.ShowDialog(true);
   }
 
   /**

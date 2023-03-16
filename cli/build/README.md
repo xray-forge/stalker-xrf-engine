@@ -22,27 +22,34 @@ Build includes such steps:
 
 List of arguments:
 
+- `--all` - build all assets
 - `--verbose` - use more verbose logging
 - `--clean` - clean up `target/gamedata` folder before build
 - `--no-lua-logger` - strip LuaLogger calls and creation from built code
-- `--no-resources` - skip static resources copy, useful when copy process is not needed
-- `--no-ui` - skip UI building/copying steps
-- `--no-scripts` - skip lua scripts building/copying steps
-- `--no-configs` - skip configs building/copying steps
-- `--no-translations` - skip translations building/copying steps
+- `--resources` - add static resources copy
+- `--no-resources` - skip static resources copy
+- `--ui` - add UI building/copy steps
+- `--no-ui` - skip UI building/copy steps
+- `--scripts` - add lua scripts building/copy steps
+- `--no-scripts` - skip lua scripts building/copy steps
+- `--configs` - add configs building/copy steps
+- `--no-configs` - skip configs building/copy steps
+- `--translations` - add translations building/copy steps
+- `--no-translations` - skip translations building/copy steps
 
 ### Example
 
-- `npm run build -- --clean`
-- `npm run build -- --clean --no-lua-logger`
-- `npm run build -- --verbose`
-- `npm run build -- --no-resources --no-ui`
+- `npm run build -- --all --clean`
+- `npm run build -- --all --clean --no-lua-logger`
+- `npm run build -- --all --verbose`
+- `npm run build -- --resources --ui`
+- `npm run build -- --all --no-resources --no-ui`
 
 ### Example output
 
 ```text
 > stalker-xrts-template@1.0.0 build:clean
-> ts-node -P cli/tsconfig.json ./cli/build/build.ts --clean --no-scripts --no-ui
+> ts-node -P cli/tsconfig.json ./cli/build/build.ts --all --clean --no-scripts --no-ui
 
 23:23:11:667 [BUILD_ALL] XRTS build: xrts-template 12/20/2022, 11:23:11 PM
 23:23:11:669 [BUILD_ALL] Perform target cleanup
