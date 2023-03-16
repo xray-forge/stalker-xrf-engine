@@ -1,4 +1,6 @@
-# 🏗️ Typedefs
+# [XRTS](../README.md) / [DOCS](./README.md)
+
+## 🏗️ Typedefs
 
 To use X-Ray engine globals direct import from "xray16" module required. <br/>
 After transpiling process import statements will be stripped and transformed to globals.

@@ -1,4 +1,6 @@
-# ️️🏗️ Debugging game
+# [XRTS](../README.md) / [DOCS](./README.md)
+
+## ️️🏗️ Debugging game
 
 To attach a debugger to Lua/C++ code, follow these steps:
 

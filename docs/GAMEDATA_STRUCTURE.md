@@ -1,4 +1,6 @@
-# 🏗️ Mod gamedata folder structure
+# [XRTS](../README.md) / [DOCS](./README.md)
+
+## 🏗️ Mod gamedata folder structure
 
 - `ai`
 - `anims`

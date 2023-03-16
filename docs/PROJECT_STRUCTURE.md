@@ -1,4 +1,6 @@
-# 🧰 Project structure
+# [XRTS](../README.md) / [DOCS](./README.md)
+
+## 🧰 Project structure
 
 - [bin](https://github.com/stalker-xrts/stalker-xrts-bin) - submodule with binaries for development and testing
 - [cli](cli/README.md)

@@ -1,4 +1,6 @@
-# 🧰 Checking game logs
+# [XRTS](../README.md) / [DOCS](./README.md)
+
+## 🧰 Checking game logs
 
 To enable loggingб make sure the `GameConfig` logging flag is set to true. <br/>
 

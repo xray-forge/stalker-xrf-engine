@@ -1,4 +1,6 @@
-# 🏗️ Todo, game/project docs
+# [XRTS](../README.md) / DOCS
+
+## 🏗️ Todo, game/project docs
 
 - Gamedata structure: [link](GAMEDATA_STRUCTURE.md)
 - Project structure: [link](PROJECT_STRUCTURE.md)
