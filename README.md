@@ -1,33 +1,32 @@
 # 🎮 [Stalker XR-TS template](README.md)
 
-<sub> Enabling power of typescript for mods creation. </sub>
-
 <p>
-XRTS template for STALKER provides a solid foundation for creating mods that are more maintainable,
-efficient, and easier to develop. The template uses TypeScript and custom build tools to ensure type safety,
-unified development tools, automated builds and versioning systems, and a shared template for mods development.
+XRTS template for STALKER provides foundation for creating mods that are more maintainable and easier to develop.
+The template uses TypeScript and custom build tools to ensure type safety,
+support unified development tools, automated builds, and a shared template for mods development.
 </p>
 
-<p>
-With documented and readable code, the mod template simplifies the development process and streamlines
-the creation of complex STALKER mods.
-</p>
+## 📦 In short
+
+- Game scripts rewritten with typescript, more scalable and easier to develop
+- Custom build pipeline to add verification steps and simplify development
+- Tools to generate UI forms from JSX 
+- Tools to generate configs from dynamic typescript
+- Tools to generate simple translations
+- Tools to debug the game
 
 ## 📍 Purpose
 
-- Ensure type safety
-- Provide unified development tools
-- Enable automated builds and versioning system
 - Provide a shared template for mods development
 - Produce documented and readable code
-- Simplify the development process
+- Simplify development process
 
 ---
 
 ## 📦 Main differences with original
 
 The intention of this mod template is to allow easier mod development without introducing breaking changes to the original. <br/>
-Everything else can be added in your own mod.
+Everything else can be added in your own mod extending the template.
 
 - Game codebase is refactored with TypeScript
 - Separate verification and preparation steps have been added
@@ -88,109 +87,9 @@ Everything else can be added in your own mod.
 - `format` - reformat TS code and lint it
 - `lint` - lint TS code with eslint utils
 
-## 🏗️ Codestyle
-
-To ensure code style unification and validation, we use `prettier` and `eslint`. <br/>
-Additionally, we set the line endings to CRLF to match the Windows system.
-
 ---
 
-## 🏗️ Typedefs
+## 🧰 Docs
 
-To use X-Ray engine globals direct import from "xray16" module required. <br/>
-After transpiling process import statements will be stripped and transformed to globals.
-
-- [Lua](https://www.npmjs.com/package/lua-types)
-- [TSTL language extension](https://www.npmjs.com/package/@typescript-to-lua/language-extensions)
-- [X-Ray16 typedefs](https://github.com/stalker-xrts/xray-16-types)
-
-For types correction and validation: [Open X-Ray source code](https://github.com/OpenXRay/xray-16) <br/>
-Bindings documentation: [xray-16-types](https://stalker-xrts.github.io/xray-16-types/modules.html)
-
----
-
-## 🏗️ Mod gamedata folder structure
-
-- `ai`
-- `anims`
-- `configs`
-- `levels`
-- `meshes`
-- `scripts`
-- `shaders`
-- `sounds`
-- `spawns`
-- `textures`
-
-## 🧰 Project structure
-
-- [bin](https://github.com/stalker-xrts/stalker-xrts-bin) - submodule with binaries for development and testing
-- [cli](cli/README.md)
-  - [build](cli/build/README.md)
-  - [engine](cli/engine/README.md)
-  - [info](cli/info/README.md)
-  - [link](cli/link/README.md)
-  - [logs](cli/logs/README.md)
-  - [open_game_folder](cli/open/README.md)
-  - [preview](cli/preview/README.md)
-  - [start_game](cli/start_game/README.md)
-  - [utils](cli/utils/README.md)
-  - [verify](cli/verify/README.md)
-- [src](src/README.md)
-  - [mod](src/mod/README.md)
-    - [configs](src/mod/cfg_b/README.md)
-    - [globals](src/mod/globals/README.md)
-    - [lib](src/mod/lib/README.md)
-    - [scripts](src/mod/scripts/README.md)
-    - [translations](src/mod/translations/README.md)
-    - [ui](src/mod/ui/README.md)
-  - [resources](https://github.com/stalker-xrts/stalker-xrts-resources) - submodule with resources of the mod
-  - [typedefs](src/typedefs/README.md)
-    - [luaJIT](src/typedefs/luaJIT/README.md)
-    - [xray16](https://github.com/stalker-xrts/xray-16-types) - submodule with type definitions for xray engine
-- [target](target/README.md)
-
-## 🧰 Custom forms and UI
-
-Notes:
-
-- When creating forms, use [JSX](https://www.typescriptlang.org/docs/handbook/jsx.html)
-- When mod compilation happens, JSX is transformed to valid XML
-- All coordinates with (x, y) are based on 'attach' parent (not XML child, rather script register parent) and related
-- Use `preview` command to preview forms and develop faster, example: `npm run preview menu`
-
-For examples check: `src/mod/ui`.
-
-## ️️🏗️ Debugging game
-
-To attach a debugger to Lua/C++ code, follow these steps:
-
-- Download Visual Studio
-- Install the [LUA debug](https://github.com/WheretIB/LuaDkmDebugger) extension for Visual Studio. (fixes [A](https://github.com/WheretIB/LuaDkmDebugger/pull/25) + [B](https://github.com/WheretIB/LuaDkmDebugger/pull/26) required)
-- Set up the engine project by following the OpenXray instructions
-- Link the game by running npm run link and targeting the folder of xrts
-- Run the game in debug/release mode directly from Visual Studio
-
-Note that it is not possible to debug TypeScript directly. <br/>
-Instead, attach a breakpoint and observe the transpiled Lua code. <br/>
-Additionally, it is not possible to debug luabind declared classes and userdata.
-
-## 🧰 Checking game logs
-
-To enable loggingб make sure the `GameConfig` logging flag is set to true. <br/>
-
-Depending on how you run the game, you can use the following approaches to check the logs:
-
-### With pre-built engine
-
-- Make sure you are using the custom engine. If not, switch to the mixed/release variant: `npm run engine use release`
-- Link the application logs folder with the target directory: `npm run link`
-- Start the game (`npm run start_game`) and check the log files in `target/logs_link` directory
-
-### With visual studio
-
-- Just run the project and check `Output` window of application
-
-## ️🏗️ Development utils
-
-[Can be checked here.](UTILS.md)
+- Development and game documentation:  [docs](docs/README.md)
+- Types and game bindings: [source](https://github.com/stalker-xrts/xray-16-types), [docs](https://stalker-xrts.github.io/xray-16-types/modules.html)
