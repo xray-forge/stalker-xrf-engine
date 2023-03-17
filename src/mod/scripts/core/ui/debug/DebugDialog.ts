@@ -14,6 +14,7 @@ import {
   XR_CUITabControl,
 } from "xray16";
 
+import { EDebugSection } from "@/mod/forms/menu/debug/sections";
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { DebugCommandsSection } from "@/mod/scripts/core/ui/debug/DebugCommandsSection";
 import { DebugGeneralSection } from "@/mod/scripts/core/ui/debug/DebugGeneralSection";
@@ -26,7 +27,6 @@ import { DevDebugUiSection } from "@/mod/scripts/core/ui/debug/DevDebugUiSection
 import { DevDebugWorldSection } from "@/mod/scripts/core/ui/debug/DevDebugWorldSection";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
-import { EDebugSection } from "@/mod/ui/menu/debug/sections";
 
 const base: string = "menu\\debug\\DebugDialog.component";
 const logger: LuaLogger = new LuaLogger($filename);

@@ -7,7 +7,7 @@ import {
   newStringField,
 } from "#/utils";
 
-import { quoted } from "@/mod/lib/utils/string";
+import { quoted } from "#/utils/string";
 
 /**
  * todo;

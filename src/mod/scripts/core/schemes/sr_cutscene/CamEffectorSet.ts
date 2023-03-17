@@ -1,7 +1,7 @@
 import { device, level, XR_game_object } from "xray16";
 
 import { EScheme, Optional } from "@/mod/lib/types";
-import { stringifyAsJson } from "@/mod/lib/utils/json";
+import { stringifyAsJson } from "@/mod/scripts/utils/json";
 import { registry } from "@/mod/scripts/core/database";
 import {
   EEffectorState,

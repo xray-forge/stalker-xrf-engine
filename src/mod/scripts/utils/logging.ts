@@ -2,7 +2,7 @@ import { log, print_stack, time_global } from "xray16";
 
 import { gameConfig } from "@/mod/lib/configs/GameConfig";
 import { AnyArgs, AnyObject } from "@/mod/lib/types";
-import { stringifyAsJson } from "@/mod/lib/utils/json";
+import { stringifyAsJson } from "@/mod/scripts/utils/json";
 
 /**
  * Lua logger class.

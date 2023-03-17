@@ -21,7 +21,7 @@
         - [lib](src/mod/lib/README.md)
         - [scripts](src/mod/scripts/README.md)
         - [translations](src/mod/translations/README.md)
-        - [ui](src/mod/ui/README.md)
+        - [forms](../src/mod/forms/README.md)
     - [resources](https://github.com/stalker-xrts/stalker-xrts-resources) - submodule with resources of the mod
     - [typedefs](src/typedefs/README.md)
         - [luaJIT](src/typedefs/luaJIT/README.md)

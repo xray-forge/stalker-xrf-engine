@@ -12,10 +12,10 @@ import {
   XR_CUIStatic,
 } from "xray16";
 
+import { on_off_cmds, zero_one_cmds } from "@/mod/forms/menu/debug/sections";
 import { Optional } from "@/mod/lib/types";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { resolveXmlFormPath } from "@/mod/scripts/utils/ui";
-import { on_off_cmds, zero_one_cmds } from "@/mod/ui/menu/debug/sections";
 
 const base: string = "menu\\debug\\DebugCommandsSection.component";
 const logger: LuaLogger = new LuaLogger($filename);

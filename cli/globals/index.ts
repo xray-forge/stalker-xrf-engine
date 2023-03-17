@@ -13,7 +13,7 @@ export const CLI_CONFIG: string = path.resolve(CLI_DIR, "config.json");
 
 export const GAME_DATA_CONFIGS_DIR: string = path.resolve(MOD_DIR, "configs");
 export const GAME_DATA_TRANSLATIONS_DIR: string = path.resolve(MOD_DIR, "translations");
-export const GAME_DATA_UI_DIR: string = path.resolve(MOD_DIR, "ui");
+export const GAME_DATA_UI_DIR: string = path.resolve(MOD_DIR, "forms");
 
 export const TARGET_DIR: string = path.resolve(ROOT_DIR, "target");
 export const TARGET_GAME_DATA_DIR: string = path.resolve(TARGET_DIR, "gamedata");
