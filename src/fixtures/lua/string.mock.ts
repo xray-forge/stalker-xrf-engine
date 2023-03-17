@@ -1,10 +1,43 @@
-import { lauxlib, lua, lualib, to_jsstring, to_luastring } from "fengari";
+import { ILuaString, lauxlib, lua, lualib, to_jsstring, to_luastring } from "fengari";
+
+import { STRINGIFIED_NIL } from "@/mod/globals/lua";
+import { Optional } from "@/mod/lib/types";
 
 /**
  * todo;
  */
 export const string = {
-  format: () => "",
+  format: (base: string) => base,
+  find: (
+    target: string,
+    pattern: string,
+    startIndex?: number
+  ): [Optional<number>, Optional<number>, Optional<string>] => {
+    const L = lauxlib.luaL_newstate();
+
+    lualib.luaL_openlibs(L);
+
+    lua.lua_getglobal(L, "string");
+    lua.lua_getfield(L, -1, "find");
+    lua.lua_pushstring(L, to_luastring(target));
+    lua.lua_pushstring(L, to_luastring(pattern));
+
+    if (typeof startIndex === "number") {
+      lua.lua_pushnumber(L, startIndex);
+      lua.lua_call(L, 3, 3);
+    } else {
+      lua.lua_call(L, 2, 3);
+    }
+
+    const start: Optional<number> = lua.lua_isnil(L, -3) ? null : lua.lua_tonumber(L, -3);
+    const end: Optional<number> = lua.lua_isnil(L, -2) ? null : lua.lua_tonumber(L, -2);
+
+    const matchData: Optional<ILuaString> = lauxlib.luaL_tolstring(L, -1);
+    const match: Optional<string> = matchData ? to_jsstring(matchData) : null;
+
+    return [start, end, match === STRINGIFIED_NIL ? null : match];
+  },
+  gfind: (target: string, pattern: string) => string.gmatch(target, pattern),
   gmatch: (target: string, pattern: string): Array<string> => {
     const L = lauxlib.luaL_newstate();
 
@@ -30,6 +63,28 @@ export const string = {
     }
 
     return result;
+  },
+  sub(target: string, start: number, end: number): Optional<string> {
+    const L = lauxlib.luaL_newstate();
+
+    lualib.luaL_openlibs(L);
+
+    lua.lua_getglobal(L, "string");
+    lua.lua_getfield(L, -1, "sub");
+    lua.lua_pushstring(L, to_luastring(target));
+    lua.lua_pushnumber(L, start);
+
+    if (end === null || end === undefined) {
+      lua.lua_pushnil(L);
+    } else {
+      lua.lua_pushnumber(L, typeof end === "number" ? end : Number.parseInt(end));
+    }
+
+    lua.lua_call(L, 3, 1);
+
+    const matchData: Optional<ILuaString> = lauxlib.luaL_tolstring(L, -1);
+
+    return matchData ? to_jsstring(matchData) : null;
   },
   len: (target: string): number => {
     const L = lauxlib.luaL_newstate();

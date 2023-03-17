@@ -28,9 +28,12 @@ declare module "fengari" {
     lua_pushstring(state: ILuaState, luaString: ILuaString): unknown;
     lua_call(state: ILuaState, parametersCount: number, returnValuesCount: number): unknown;
     lua_pushvalue(state: ILuaState, index: number): unknown;
+    lua_pushnumber(state: ILuaState, number: number): unknown;
+    lua_pushnil(state: ILuaState,): unknown;
     lua_pop(state: ILuaState, index: number): unknown;
     lua_isnil(state: ILuaState, index: number): boolean
     lua_tostring(state: ILuaState, index: number): ILuaString;
+    lua_tonumber(state: ILuaState, index: number): number;
   }
 
   /**
@@ -45,6 +48,7 @@ declare module "fengari" {
    */
   interface ILauxlib {
     luaL_newstate(): ILuaState;
+    luaL_checkinteger(value: number): ILuaString;
     luaL_tolstring(state: ILuaState, index: number): ILuaString;
   }
 

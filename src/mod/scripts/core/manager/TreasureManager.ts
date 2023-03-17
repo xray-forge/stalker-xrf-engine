@@ -21,7 +21,7 @@ import { pickSectionFromCondList } from "@/mod/scripts/utils/config";
 import { abort } from "@/mod/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/mod/scripts/utils/game_save";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
-import { parseConditionsList, parseSpawns, TConditionList } from "@/mod/scripts/utils/parse";
+import { parseConditionsList, parseSpawnDetails, TConditionList } from "@/mod/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -97,16 +97,19 @@ export class TreasureManager extends AbstractCoreManager {
           } else {
             this.secrets.get(id).items.set(item_section, new LuaTable());
 
-            const tbl = parseSpawns(str);
+            const spawnDetails = parseSpawnDetails(str);
 
-            if (tbl.length() === 0) {
+            if (spawnDetails.length() === 0) {
               abort("There is no items count set for treasure [%s], item [%s]", id, item_section);
             }
 
-            for (const it of $range(1, tbl.length())) {
-              const tbl2 = { count: tonumber(tbl.get(it).section), prob: tonumber(tbl.get(it).prob || 1) };
+            for (const [index, it] of spawnDetails) {
+              const detail = {
+                count: tonumber(it.count),
+                prob: tonumber(it.probability || 1),
+              };
 
-              table.insert(this.secrets.get(id).items.get(item_section) as LuaTable<any>, tbl2);
+              table.insert(this.secrets.get(id).items.get(item_section) as LuaTable<any>, detail);
             }
           }
         }

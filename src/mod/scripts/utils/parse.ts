@@ -1,9 +1,13 @@
 import { flags32, patrol, XR_cse_alife_object, XR_flags32, XR_game_object, XR_ini_file, XR_patrol } from "xray16";
 
-import { AnyArgs, LuaArray, Optional, TCount, TDistance, TIndex, TName, TPath, TSection } from "@/mod/lib/types";
+import { AnyArgs, LuaArray, Optional, TCount, TDistance, TName, TPath, TProbability, TSection } from "@/mod/lib/types";
+import { stringifyAsJson } from "@/mod/lib/utils/json";
 import { registry } from "@/mod/scripts/core/database";
 import { abort } from "@/mod/scripts/utils/debug";
+import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { trimString } from "@/mod/scripts/utils/string";
+
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
@@ -43,14 +47,14 @@ export type TConditionList = LuaArray<IConfigSwitchCondition>;
 /**
  * todo;
  */
-export function parseNames<T extends TName = TName>(configString: string): LuaArray<T> {
-  const names: LuaArray<T> = new LuaTable();
+export function parseNames<T extends TName = TName>(data: string): LuaArray<T> {
+  const result: LuaArray<T> = new LuaTable();
 
-  for (const it of string.gmatch<T>(configString, "([%w_%-.\\]+)%p*")) {
-    table.insert(names, it as T);
+  for (const it of string.gfind(data, "([%w_%-.\\]+)%p*")) {
+    table.insert(result, it as T);
   }
 
-  return names;
+  return result;
 }
 
 /**
@@ -60,60 +64,66 @@ export function parseNames<T extends TName = TName>(configString: string): LuaAr
  * @returns parsed array of numbers.
  */
 export function parseNumbers<T = LuaArray<number>>(base: string): T;
-export function parseNumbers(base: string): LuaArray<number> {
-  const container: LuaArray<number> = new LuaTable();
+export function parseNumbers(data: string): LuaArray<number> {
+  const result: LuaArray<number> = new LuaTable();
 
-  for (const it of string.gmatch<string>(base, "([%-%d%.]+)%,*")) {
-    table.insert(container, tonumber(it) as number);
+  for (const it of string.gfind(data, "([%-%d%.]+)%,*")) {
+    table.insert(result, tonumber(it) as number);
   }
 
-  return container;
+  return result;
 }
 
 /**
+ * Parse pairs of spawn details from string to number.
  *
+ * Example input values:
+ * - "1,1"
+ * - "2,1"
+ * - "1,0.5,1,1"
  */
-export function parseSpawns(data: string): LuaArray<{ section: string; prob: number }> {
-  const t: LuaTable<number, string> = parseNames(data);
+export function parseSpawnDetails(data: string): LuaArray<{ count: number; probability: number }> {
+  const t: LuaArray<TName> = parseNames(data);
   const n = t.length();
 
-  const ret_table: LuaTable<number, { section: string; prob: number }> = new LuaTable();
+  const result: LuaArray<{ count: TCount; probability: TProbability }> = new LuaTable();
   let k = 1;
 
   while (k <= n) {
-    const spawn: { section: string; prob: number } = {} as any;
+    const spawn: { count: TCount; probability: TProbability } = {} as any;
 
-    spawn.section = t.get(k);
+    spawn.count = tonumber(t.get(k)) as number;
 
     if (t.get(k + 1) !== null) {
-      const p: number = tonumber(t.get(k + 1)) as number;
+      const p: TProbability = tonumber(t.get(k + 1)) as number;
 
       if (p !== null) {
-        spawn.prob = p;
+        spawn.probability = p;
         k = k + 2;
       } else {
-        spawn.prob = 1;
+        spawn.probability = 1;
         k = k + 1;
       }
     } else {
-      spawn.prob = 1;
+      spawn.probability = 1;
       k = k + 1;
     }
 
-    table.insert(ret_table, spawn);
+    table.insert(result, spawn);
   }
 
-  return ret_table;
+  return result;
 }
 
 /**
- * todo;
- * example: a | b | c ==> { 1 = "a", 2 = "b", 3 = "c" }
+ * Parse function call parameters separated with pipe.
+ *
+ * Example: "a|b|c" ==> { 1 = "a", 2 = "b", 3 = "c" }
  */
-export function parseParameters<T extends string>(parameters: T): LuaArray<T> {
+export function parseParameters<T extends string>(data: T): LuaArray<T> {
   const result: LuaArray<T> = new LuaTable();
 
-  for (const field of string.gfind(parameters, "%s*([^|]+)%s*")) {
+  for (const field of string.gfind(data, "%s*([^|]+)%s*")) {
     table.insert(result, field as T);
   }
 
@@ -121,7 +131,9 @@ export function parseParameters<T extends string>(parameters: T): LuaArray<T> {
 }
 
 /**
- * todo;
+ * Parse condition list supplied from game ltx files.
+ * Used as conditional descriptor of actions/info portions/effects and things to switch engine logic based on state.
+ *
  * -- {+infop1} section1 %-infop2%, {+infop3 -infop4} section2 ...
  * -- {
  * --   1 = { infop_check = { 1 = {"infop1" = true} }, infop_set = { 1 = {"infop2" = false } }, section = "section1" },
@@ -134,63 +146,67 @@ export function parseConditionsList(
   field: Optional<string>,
   data: string
 ): LuaArray<IConfigSwitchCondition> {
-  const conditionList: LuaArray<IConfigSwitchCondition> = new LuaTable();
-  let at, infop_check_lst, infop_set_lst, newsect, remainings, to;
+  const result: LuaArray<IConfigSwitchCondition> = new LuaTable();
 
-  let n = 1;
+  for (const condition of string.gfind(data, "%s*([^,]+)%s*")) {
+    let rest: string = condition;
 
-  for (const fld of string.gfind(data, "%s*([^,]+)%s*")) {
-    conditionList.set(n, {} as any);
+    const [infoPortionsCheckStart, infoPortionsCheckEnd, infoPortionsCheckList] = string.find(
+      condition,
+      "{%s*(.*)%s*}"
+    );
 
-    [at, to, infop_check_lst] = string.find(fld, "{%s*(.*)%s*}");
-
-    if (infop_check_lst !== null) {
-      remainings = string.sub(fld, 1, (at as number) - 1) + string.sub(fld, (to as number) + 1);
-    } else {
-      remainings = fld;
+    if (infoPortionsCheckList !== null) {
+      rest =
+        string.sub(rest, 1, (infoPortionsCheckStart as number) - 1) +
+        string.sub(rest, (infoPortionsCheckEnd as number) + 1);
     }
 
-    [at, to, infop_set_lst] = string.find(remainings, "%%%s*(.*)%s*%%");
+    const [infoPortionsSetStart, infoPortionsSetEnd, infoPortionsSetList] = string.find(rest, "%%%s*(.*)%s*%%");
 
-    if (infop_set_lst !== null) {
-      newsect = string.sub(remainings, 1, (at as number) - 1) + string.sub(remainings, (to as number) + 1);
-    } else {
-      newsect = remainings;
+    if (infoPortionsSetList !== null) {
+      rest =
+        string.sub(rest, 1, (infoPortionsSetStart as number) - 1) +
+        string.sub(rest, (infoPortionsSetEnd as number) + 1);
     }
 
-    [at, to, newsect] = string.find(newsect, "%s*(.*)%s*");
+    const [, , newSection] = string.find(rest, "%s*(.*)%s*");
 
-    if (!newsect) {
-      abort("object '%s': section '%s': field '%s': syntax error in switch condition", object?.name(), section, field);
+    if (newSection === null) {
+      abort(
+        "object '%s': section '%s': field '%s': syntax error in switch condition",
+        object?.name(),
+        section,
+        condition
+      );
     }
 
-    conditionList.get(n).section = newsect as string;
-    conditionList.get(n).infop_check = new LuaTable();
-
-    parseInfoPortions(conditionList.get(n).infop_check, infop_check_lst as string);
-
-    conditionList.get(n).infop_set = new LuaTable();
-    parseInfoPortions(conditionList.get(n).infop_set, infop_set_lst as string);
-
-    n = n + 1;
+    table.insert(result, {
+      section: newSection as TName,
+      infop_check: parseInfoPortions(new LuaTable(), infoPortionsCheckList as string),
+      infop_set: parseInfoPortions(new LuaTable(), infoPortionsSetList as string),
+    });
   }
 
-  return conditionList;
+  return result;
 }
 
 /**
  * todo;
  */
-export function parseInfoPortions(result: LuaArray<IConfigCondition>, data: Optional<string>): void {
+export function parseInfoPortions(
+  result: LuaArray<IConfigCondition>,
+  data: Optional<string>
+): LuaArray<IConfigCondition> {
   if (data === null) {
-    return;
+    return result;
   }
 
   let infop_n = 1;
 
-  for (const s of string.gfind(data, "%s*([%-%+%~%=%!][^%-%+%~%=%!%s]+)%s*")) {
-    const sign = string.sub(s, 1, 1);
-    let infop_name = string.sub(s, 2);
+  for (const infoPortion of string.gfind(data, "%s*([%-%+%~%=%!][^%-%+%~%=%!%s]+)%s*")) {
+    const sign = string.sub(infoPortion, 1, 1);
+    let infop_name = string.sub(infoPortion, 2);
     let params: Optional<LuaArray<string | number>> = null;
 
     const [at] = string.find(infop_name, "%(");
@@ -239,6 +255,8 @@ export function parseInfoPortions(result: LuaArray<IConfigCondition>, data: Opti
 
     infop_n = infop_n + 1;
   }
+
+  return result;
 }
 
 /**

@@ -111,7 +111,7 @@ export function unregisterStoryId(id: string): void {
  */
 export function getObjectSquad(object: Optional<XR_game_object | XR_cse_alife_creature_abstract>): Optional<Squad> {
   if (object === null) {
-    return abort("Attempt to get squad object from NIL.") as never;
+    return abort("Attempt to get squad object from NIL.");
   }
 
   const objectId: number =

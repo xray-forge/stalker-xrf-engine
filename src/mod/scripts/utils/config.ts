@@ -52,7 +52,7 @@ export function getConfigString<D = string>(
     return defaultVal as string;
   }
 
-  return abort("'Attempt to read a non-existent string field '" + field + "' in section '" + section + "'") as never;
+  return abort("'Attempt to read a non-existent string field '" + field + "' in section '" + section + "'");
 }
 
 /**

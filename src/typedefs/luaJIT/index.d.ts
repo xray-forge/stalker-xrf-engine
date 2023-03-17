@@ -14,7 +14,6 @@ declare namespace table {
  */
 declare namespace string {
   function gfind(this: void, s: string, pattern: unknown, init?: number, plain?: boolean): LuaIterable<string>;
-  function gmatch<T extends string>(target: string, pattern: string): LuaIterable<T>;
 }
 
 /**
