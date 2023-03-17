@@ -2,19 +2,19 @@
 
 import { alife, game_object, XR_cse_alife_creature_abstract, XR_game_object } from "xray16";
 
-import { communities } from "@/engine/globals/communities";
-import { info_portions, TInfoPortion } from "@/engine/globals/info_portions/info_portions";
-import { ammo } from "@/engine/globals/items/ammo";
-import { artefacts, TArtefact } from "@/engine/globals/items/artefacts";
-import { detectors } from "@/engine/globals/items/detectors";
-import { drugs } from "@/engine/globals/items/drugs";
-import { food } from "@/engine/globals/items/food";
-import { helmets, THelmet } from "@/engine/globals/items/helmets";
-import { misc } from "@/engine/globals/items/misc";
-import { outfits, TOutfit } from "@/engine/globals/items/outfits";
-import { quest_items } from "@/engine/globals/items/quest_items";
-import { weapons } from "@/engine/globals/items/weapons";
-import { treasures } from "@/engine/globals/treasures";
+import { communities } from "@/engine/lib/constants/communities";
+import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
+import { ammo } from "@/engine/lib/constants/items/ammo";
+import { artefacts, TArtefact } from "@/engine/lib/constants/items/artefacts";
+import { detectors } from "@/engine/lib/constants/items/detectors";
+import { drugs } from "@/engine/lib/constants/items/drugs";
+import { food } from "@/engine/lib/constants/items/food";
+import { helmets, THelmet } from "@/engine/lib/constants/items/helmets";
+import { misc } from "@/engine/lib/constants/items/misc";
+import { outfits, TOutfit } from "@/engine/lib/constants/items/outfits";
+import { quest_items } from "@/engine/lib/constants/items/quest_items";
+import { weapons } from "@/engine/lib/constants/items/weapons";
+import { treasures } from "@/engine/lib/constants/treasures";
 import { AnyCallablesModule, AnyObject, LuaArray, Optional } from "@/engine/lib/types";
 import { IRegistryObjectState, registry } from "@/engine/scripts/core/database";
 import { pstor_retrieve } from "@/engine/scripts/core/database/pstor";

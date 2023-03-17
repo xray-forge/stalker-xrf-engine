@@ -17,9 +17,9 @@ import {
   XR_vector,
 } from "xray16";
 
-import { communities, TCommunity } from "@/engine/globals/communities";
-import { STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/globals/lua";
-import { MAX_UNSIGNED_16_BIT } from "@/engine/globals/memory";
+import { communities, TCommunity } from "@/engine/lib/constants/communities";
+import { STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/lua";
+import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
 import {
   AnyArgs,
   AnyObject,

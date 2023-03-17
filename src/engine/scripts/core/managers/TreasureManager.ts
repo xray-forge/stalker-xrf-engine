@@ -9,9 +9,9 @@ import {
   XR_reader,
 } from "xray16";
 
-import { STRINGIFIED_TRUE } from "@/engine/globals/lua";
-import { MAX_UNSIGNED_16_BIT } from "@/engine/globals/memory";
-import { TTreasure } from "@/engine/globals/treasures";
+import { STRINGIFIED_TRUE } from "@/engine/lib/constants/lua";
+import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
+import { TTreasure } from "@/engine/lib/constants/treasures";
 import { LuaArray, Optional, TCount, TNumberId, TProbability, TSection } from "@/engine/lib/types";
 import { registry, SECRETS_LTX } from "@/engine/scripts/core/database";
 import { AbstractCoreManager } from "@/engine/scripts/core/managers/AbstractCoreManager";

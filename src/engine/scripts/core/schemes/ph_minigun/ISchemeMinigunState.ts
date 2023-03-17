@@ -1,4 +1,4 @@
-import type { TInfoPortion } from "@/engine/globals/info_portions";
+import type { TInfoPortion } from "@/engine/lib/constants/info_portions";
 import type { Optional, TCount, TDistance, TDuration, TName, TRate } from "@/engine/lib/types";
 import type { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/scripts/core/schemes/base";
 import type { TConditionList } from "@/engine/scripts/utils/parse";

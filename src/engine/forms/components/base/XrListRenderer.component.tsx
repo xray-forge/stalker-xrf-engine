@@ -2,7 +2,7 @@ import { JSXNode, JSXXML } from "jsx-xml";
 
 import { normalizeBaseNodeProps } from "#/utils";
 
-import { fonts } from "@/engine/globals/fonts";
+import { fonts } from "@/engine/lib/constants/fonts";
 import { IBaseXmlNode } from "@/engine/lib/types";
 
 export interface IXrListRendererComponentProps extends IBaseXmlNode {}

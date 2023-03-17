@@ -10,7 +10,7 @@ import {
   XR_CUIStatic,
 } from "xray16";
 
-import { textures } from "@/engine/globals/textures";
+import { textures } from "@/engine/lib/constants/textures";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { resolveXmlFormPath } from "@/engine/scripts/utils/ui";
 

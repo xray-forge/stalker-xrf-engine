@@ -2,10 +2,10 @@
 
 import { game, get_console, level, task, TXR_TaskState, XR_CGameTask, XR_CPhraseDialog, XR_game_object } from "xray16";
 
-import { animations } from "@/engine/globals/animation/animations";
-import { info_portions } from "@/engine/globals/info_portions";
-import { TWeapon } from "@/engine/globals/items/weapons";
 import { surgeConfig } from "@/engine/lib/configs/SurgeConfig";
+import { animations } from "@/engine/lib/constants/animation/animations";
+import { info_portions } from "@/engine/lib/constants/info_portions";
+import { TWeapon } from "@/engine/lib/constants/items/weapons";
 import {
   AnyArgs,
   AnyCallable,

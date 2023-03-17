@@ -1,10 +1,10 @@
 import { alife, level, XR_game_object, XR_ini_file } from "xray16";
 
-import { communities, TCommunity } from "@/engine/globals/communities";
-import { TInventoryItem } from "@/engine/globals/items";
-import { misc } from "@/engine/globals/items/misc";
-import { TLevel } from "@/engine/globals/levels";
-import { STRINGIFIED_TRUE } from "@/engine/globals/lua";
+import { communities, TCommunity } from "@/engine/lib/constants/communities";
+import { TInventoryItem } from "@/engine/lib/constants/items";
+import { misc } from "@/engine/lib/constants/items/misc";
+import { TLevel } from "@/engine/lib/constants/levels";
+import { STRINGIFIED_TRUE } from "@/engine/lib/constants/lua";
 import { LuaArray, Optional, TCount, TProbability, TSection, TStringId } from "@/engine/lib/types";
 import { DEATH_GENERIC_LTX, IRegistryObjectState, registry } from "@/engine/scripts/core/database";
 import { AbstractCoreManager } from "@/engine/scripts/core/managers/AbstractCoreManager";

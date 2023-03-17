@@ -8,8 +8,8 @@ import {
   XR_net_packet,
 } from "xray16";
 
-import { STRINGIFIED_NIL } from "@/engine/globals/lua";
-import { MAX_UNSIGNED_16_BIT } from "@/engine/globals/memory";
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
+import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
 import { Optional, StringOptional, TSection } from "@/engine/lib/types";
 import { initializeOfflineObject, IStoredOfflineObject, registry } from "@/engine/scripts/core/database";
 import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";

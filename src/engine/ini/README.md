@@ -1,4 +1,4 @@
-# [XRTS](../../../) / SRC / MOD / CONFIGS
+# [XRTS](../../../) / SRC / ENGINE / INI
 
 ## LTX configurations TS variant
 

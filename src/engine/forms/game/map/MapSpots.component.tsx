@@ -6,7 +6,7 @@ import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";
 import { MapSpotsComplex } from "@/engine/forms/game/map/MapSpotsComplex.part";
 import { MapSpotsMp } from "@/engine/forms/game/map/MapSpotsMp.part";
 import { MapSpotsRelations } from "@/engine/forms/game/map/MapSpotsRelations.part";
-import { textures } from "@/engine/globals/textures";
+import { textures } from "@/engine/lib/constants/textures";
 import { IBaseXmlNode, TTextAlign } from "@/engine/lib/types";
 
 interface IPdaMapSpotProps extends IBaseXmlNode {

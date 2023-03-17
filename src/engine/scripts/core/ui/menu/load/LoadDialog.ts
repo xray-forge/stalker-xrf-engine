@@ -33,8 +33,8 @@ import {
   XR_vector2,
 } from "xray16";
 
-import { textures } from "@/engine/globals/textures";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { textures } from "@/engine/lib/constants/textures";
 import { Optional } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { LoadItem } from "@/engine/scripts/core/ui/menu/load/LoadItem";

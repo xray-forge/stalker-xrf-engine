@@ -21,7 +21,7 @@ import {
   XR_vector,
 } from "xray16";
 
-import { MAX_UNSIGNED_16_BIT } from "@/engine/globals/memory";
+import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
 import {
   EScheme,
   ESchemeType,

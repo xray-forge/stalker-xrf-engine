@@ -24,8 +24,8 @@ import {
   XR_vector,
 } from "xray16";
 
-import { communities } from "@/engine/globals/communities";
-import { MAX_UNSIGNED_16_BIT } from "@/engine/globals/memory";
+import { communities } from "@/engine/lib/constants/communities";
+import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
 import { EScheme, Optional, TDuration, TNumberId, TRate, TSection } from "@/engine/lib/types";
 import { ESchemeType } from "@/engine/lib/types/scheme";
 import {

@@ -7,7 +7,7 @@ export const CLI_DIR: string = path.resolve(ROOT_DIR, "cli");
 export const SRC_DIR: string = path.resolve(ROOT_DIR, "src");
 export const ENGINE_DIR: string = path.resolve(SRC_DIR, "engine");
 export const BIN_DIR: string = path.resolve(ROOT_DIR, "bin");
-export const OPEN_XRAY_ENGINES_DIR: string = path.resolve(BIN_DIR, "openxray");
+export const OPEN_XRAY_ENGINES_DIR: string = path.resolve(BIN_DIR, "engines");
 export const BUILD_LUA_TSCONFIG: string = path.resolve(CLI_DIR, "build/tsconfig.scripts.json");
 export const CLI_CONFIG: string = path.resolve(CLI_DIR, "config.json");
 

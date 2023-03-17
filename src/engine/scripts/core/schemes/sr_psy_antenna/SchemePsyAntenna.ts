@@ -1,6 +1,6 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
-import { post_processors } from "@/engine/globals/animation/post_processors";
+import { post_processors } from "@/engine/lib/constants/animation/post_processors";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
 import { AbstractScheme } from "@/engine/scripts/core/schemes/base/AbstractScheme";
 import { ISchemePsyAntennaState } from "@/engine/scripts/core/schemes/sr_psy_antenna/ISchemePsyAntennaState";

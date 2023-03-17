@@ -3,7 +3,7 @@ import { JSXNode, JSXXML } from "jsx-xml";
 import { normalizeBaseNodeProps } from "#/utils";
 
 import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";
-import { TTexture } from "@/engine/globals/textures";
+import { TTexture } from "@/engine/lib/constants/textures";
 import { IBaseXmlNode, TTextAlign } from "@/engine/lib/types";
 
 export interface IXrTabButtonProps extends IBaseXmlNode {

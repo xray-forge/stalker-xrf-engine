@@ -1,6 +1,6 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
-import { TTexture } from "@/engine/globals/textures";
+import { TTexture } from "@/engine/lib/constants/textures";
 import { IBaseXmlNode } from "@/engine/lib/types";
 
 export interface IXrTextureProps extends IBaseXmlNode {

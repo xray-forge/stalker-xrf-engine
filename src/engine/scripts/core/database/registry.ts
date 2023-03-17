@@ -1,6 +1,6 @@
 import type { XR_game_object } from "xray16";
 
-import type { TRelation } from "@/engine/globals/relations";
+import type { TRelation } from "@/engine/lib/constants/relations";
 import type { EScheme, TName, TNumberId, TStringId } from "@/engine/lib/types";
 import type { IRegistryObjectState } from "@/engine/scripts/core/database/objects";
 import type { IStoredOfflineObject } from "@/engine/scripts/core/database/offline";

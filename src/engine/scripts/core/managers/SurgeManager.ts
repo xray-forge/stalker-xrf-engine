@@ -13,14 +13,14 @@ import {
   XR_reader,
 } from "xray16";
 
-import { animations } from "@/engine/globals/animation/animations";
-import { post_processors } from "@/engine/globals/animation/post_processors";
-import { captions } from "@/engine/globals/captions";
-import { console_commands } from "@/engine/globals/console_commands";
-import { info_portions } from "@/engine/globals/info_portions";
-import { levels, TLevel } from "@/engine/globals/levels";
-import { STRINGIFIED_FALSE, STRINGIFIED_TRUE } from "@/engine/globals/lua";
 import { surgeConfig } from "@/engine/lib/configs/SurgeConfig";
+import { animations } from "@/engine/lib/constants/animation/animations";
+import { post_processors } from "@/engine/lib/constants/animation/post_processors";
+import { captions } from "@/engine/lib/constants/captions";
+import { console_commands } from "@/engine/lib/constants/console_commands";
+import { info_portions } from "@/engine/lib/constants/info_portions";
+import { levels, TLevel } from "@/engine/lib/constants/levels";
+import { STRINGIFIED_FALSE, STRINGIFIED_TRUE } from "@/engine/lib/constants/lua";
 import { AnyCallablesModule, Optional, PartialRecord, TNumberId } from "@/engine/lib/types";
 import { registry, SURGE_MANAGER_LTX } from "@/engine/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/engine/scripts/core/database/pstor";

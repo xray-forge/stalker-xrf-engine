@@ -1,6 +1,6 @@
 import { bit_and, snd_type, TXR_snd_type } from "xray16";
 
-import { ESoundType } from "@/engine/globals/sound/sound_type";
+import { ESoundType } from "@/engine/lib/constants/sound/sound_type";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

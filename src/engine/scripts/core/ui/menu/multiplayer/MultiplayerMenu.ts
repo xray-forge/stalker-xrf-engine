@@ -42,8 +42,8 @@ import {
   XR_SServerFilters,
 } from "xray16";
 
-import { option_groups } from "@/engine/globals/option_groups";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { option_groups } from "@/engine/lib/constants/option_groups";
 import { Optional } from "@/engine/lib/types";
 import { MainMenu } from "@/engine/scripts/core/ui/menu/MainMenu";
 import { MultiplayerDemo } from "@/engine/scripts/core/ui/menu/multiplayer/MultiplayerDemo";

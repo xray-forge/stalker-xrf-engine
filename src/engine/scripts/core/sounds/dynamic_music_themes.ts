@@ -1,4 +1,4 @@
-import { sounds, TSound } from "@/engine/globals/sound/sounds";
+import { sounds, TSound } from "@/engine/lib/constants/sound/sounds";
 import { Optional } from "@/engine/lib/types";
 
 export interface IDynamicMusicDescriptor {

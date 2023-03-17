@@ -1,6 +1,6 @@
 import { get_console } from "xray16";
 
-import { TConsoleCommand } from "@/engine/globals/console_commands";
+import { TConsoleCommand } from "@/engine/lib/constants/console_commands";
 import { AnyArgs } from "@/engine/lib/types";
 
 /**

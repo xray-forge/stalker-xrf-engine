@@ -1,7 +1,7 @@
 import { get_console, IsDynamicMusic, level, time_global, XR_game_object, XR_vector } from "xray16";
 
-import { console_commands } from "@/engine/globals/console_commands";
-import { TSound } from "@/engine/globals/sound/sounds";
+import { console_commands } from "@/engine/lib/constants/console_commands";
+import { TSound } from "@/engine/lib/constants/sound/sounds";
 import { Optional, TDistance } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { EGameEvent } from "@/engine/scripts/core/managers/events/EGameEvent";

@@ -1,6 +1,6 @@
 import { XR_cse_alife_object } from "xray16";
 
-import { communities, TCommunity } from "@/engine/globals/communities";
+import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { Optional, PartialRecord } from "@/engine/lib/types";
 import { SurgeManager } from "@/engine/scripts/core/managers/SurgeManager";
 import { TravelManager } from "@/engine/scripts/core/managers/TravelManager";

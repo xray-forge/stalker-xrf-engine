@@ -9,11 +9,11 @@ import {
   XR_reader,
 } from "xray16";
 
-import { TInventoryItem } from "@/engine/globals/items";
-import { TArtefact } from "@/engine/globals/items/artefacts";
-import { TWeapon, weapons } from "@/engine/globals/items/weapons";
-import { STRINGIFIED_NIL } from "@/engine/globals/lua";
-import { TMonster } from "@/engine/globals/monsters";
+import { TInventoryItem } from "@/engine/lib/constants/items";
+import { TArtefact } from "@/engine/lib/constants/items/artefacts";
+import { TWeapon, weapons } from "@/engine/lib/constants/items/weapons";
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
+import { TMonster } from "@/engine/lib/constants/monsters";
 import { Optional, PartialRecord, StringOptional, TCount, TName, TNumberId } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { AbstractCoreManager } from "@/engine/scripts/core/managers/AbstractCoreManager";

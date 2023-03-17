@@ -1,6 +1,6 @@
 import { game, TXR_net_processor, XR_CTime, XR_ini_file, XR_net_packet } from "xray16";
 
-import { relations } from "@/engine/globals/relations";
+import { relations } from "@/engine/lib/constants/relations";
 import { Optional, TName, TSection } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";

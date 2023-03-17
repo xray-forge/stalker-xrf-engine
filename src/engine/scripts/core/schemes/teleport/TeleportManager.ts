@@ -1,7 +1,7 @@
 import { level, patrol, sound_object, time_global, vector, XR_game_object, XR_vector } from "xray16";
 
-import { post_processors } from "@/engine/globals/animation/post_processors";
-import { sounds } from "@/engine/globals/sound/sounds";
+import { post_processors } from "@/engine/lib/constants/animation/post_processors";
+import { sounds } from "@/engine/lib/constants/sound/sounds";
 import { Optional, TCount, TDuration } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { AbstractSchemeManager } from "@/engine/scripts/core/schemes/base/AbstractSchemeManager";

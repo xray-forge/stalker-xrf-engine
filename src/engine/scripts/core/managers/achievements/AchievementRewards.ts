@@ -1,7 +1,7 @@
-import { TInventoryItem } from "@/engine/globals/items";
-import { ammo } from "@/engine/globals/items/ammo";
-import { drugs } from "@/engine/globals/items/drugs";
-import { names } from "@/engine/globals/names";
+import { TInventoryItem } from "@/engine/lib/constants/items";
+import { ammo } from "@/engine/lib/constants/items/ammo";
+import { drugs } from "@/engine/lib/constants/items/drugs";
+import { names } from "@/engine/lib/constants/names";
 import { LuaArray } from "@/engine/lib/types";
 import { EAchievement } from "@/engine/scripts/core/managers/achievements/EAchievement";
 

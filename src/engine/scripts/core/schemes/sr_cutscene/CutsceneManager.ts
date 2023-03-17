@@ -1,6 +1,6 @@
 import { level, patrol, XR_game_object } from "xray16";
 
-import { post_processors } from "@/engine/globals/animation/post_processors";
+import { post_processors } from "@/engine/lib/constants/animation/post_processors";
 import { AnyCallablesModule, Optional } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { AbstractSchemeManager } from "@/engine/scripts/core/schemes/base/AbstractSchemeManager";

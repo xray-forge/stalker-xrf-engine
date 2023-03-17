@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 import { SECTION_HEIGHT, SECTION_WIDTH } from "@/engine/forms/menu/debug/DebugDialog.component";
-import { texturesIngame } from "@/engine/globals/textures";
+import { texturesIngame } from "@/engine/lib/constants/textures";
 
 export const IS_XML: boolean = true;
 

@@ -1,5 +1,5 @@
-import { communities, TCommunity } from "@/engine/globals/communities";
-import { levels, TLevel } from "@/engine/globals/levels";
+import { communities, TCommunity } from "@/engine/lib/constants/communities";
+import { levels, TLevel } from "@/engine/lib/constants/levels";
 import { PartialRecord } from "@/engine/lib/types";
 
 export const surgeConfig = {

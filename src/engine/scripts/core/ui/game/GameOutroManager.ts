@@ -1,7 +1,7 @@
 import { game, get_hud, sound_object, XR_CUIGameCustom, XR_sound_object } from "xray16";
 
-import { game_tutorials } from "@/engine/globals/game_tutorials";
-import { sounds } from "@/engine/globals/sound/sounds";
+import { game_tutorials } from "@/engine/lib/constants/game_tutorials";
+import { sounds } from "@/engine/lib/constants/sound/sounds";
 import { AnyCallablesModule, Optional } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { AbstractCoreManager } from "@/engine/scripts/core/managers/AbstractCoreManager";

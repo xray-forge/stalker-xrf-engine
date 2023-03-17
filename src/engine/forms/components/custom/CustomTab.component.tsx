@@ -4,8 +4,8 @@ import { normalizeBaseNodeProps } from "#/utils";
 
 import { XrText, XrTextColor } from "@/engine/forms/components/base";
 import { CustomTabButton } from "@/engine/forms/components/custom/CustomTabButton.component";
-import { TFontId } from "@/engine/globals/fonts";
-import { TTexture } from "@/engine/globals/textures";
+import { TFontId } from "@/engine/lib/constants/fonts";
+import { TTexture } from "@/engine/lib/constants/textures";
 import { IRgbColor, TTextAlign } from "@/engine/lib/types";
 
 export interface ICustomTabProps {

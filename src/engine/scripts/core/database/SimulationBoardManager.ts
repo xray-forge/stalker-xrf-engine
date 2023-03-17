@@ -1,7 +1,7 @@
 import { alife, clsid, game_graph, level, XR_cse_alife_creature_abstract } from "xray16";
 
-import { TCommunity } from "@/engine/globals/communities";
-import { TLevel } from "@/engine/globals/levels";
+import { TCommunity } from "@/engine/lib/constants/communities";
+import { TLevel } from "@/engine/lib/constants/levels";
 import { Optional, TNumberId } from "@/engine/lib/types";
 import { registry, SIMULATION_LTX } from "@/engine/scripts/core/database";
 import { getSimulationObjectsRegistry } from "@/engine/scripts/core/database/SimulationObjectsRegistry";

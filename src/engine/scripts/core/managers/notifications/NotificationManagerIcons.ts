@@ -1,4 +1,4 @@
-import { texturesIngame } from "@/engine/globals/textures";
+import { texturesIngame } from "@/engine/lib/constants/textures";
 
 /**
  * todo;

@@ -10,12 +10,12 @@ import {
   XR_game_object,
 } from "xray16";
 
-import { TCommunity } from "@/engine/globals/communities";
-import { lootable_table_exclude, TLootableExcludeItem } from "@/engine/globals/items/lootable_table";
-import { TLevel } from "@/engine/globals/levels";
-import { STRINGIFIED_NIL } from "@/engine/globals/lua";
-import { ERelation } from "@/engine/globals/relations";
 import { surgeConfig } from "@/engine/lib/configs/SurgeConfig";
+import { TCommunity } from "@/engine/lib/constants/communities";
+import { lootable_table_exclude, TLootableExcludeItem } from "@/engine/lib/constants/items/lootable_table";
+import { TLevel } from "@/engine/lib/constants/levels";
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
+import { ERelation } from "@/engine/lib/constants/relations";
 import { EScheme, Optional, TName, TNumberId } from "@/engine/lib/types";
 import { IRegistryObjectState, registry } from "@/engine/scripts/core/database";
 import { Squad } from "@/engine/scripts/core/objects/alife/Squad";

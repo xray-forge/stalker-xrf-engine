@@ -7,8 +7,8 @@ import {
   XR_game_object,
 } from "xray16";
 
-import { communities, TCommunity } from "@/engine/globals/communities";
-import { ERelation, relations, TRelation } from "@/engine/globals/relations";
+import { communities, TCommunity } from "@/engine/lib/constants/communities";
+import { ERelation, relations, TRelation } from "@/engine/lib/constants/relations";
 import { Maybe, Optional, TCount, TName, TNumberId, TStringId } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";

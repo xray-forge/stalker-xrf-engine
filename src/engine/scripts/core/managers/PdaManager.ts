@@ -1,8 +1,8 @@
 import { game } from "xray16";
 
-import { TWeapon, weapons } from "@/engine/globals/items/weapons";
-import { monsters, TMonster } from "@/engine/globals/monsters";
-import { texturesIngame, TTexture } from "@/engine/globals/textures";
+import { TWeapon, weapons } from "@/engine/lib/constants/items/weapons";
+import { monsters, TMonster } from "@/engine/lib/constants/monsters";
+import { texturesIngame, TTexture } from "@/engine/lib/constants/textures";
 import { Optional, PartialRecord, TLabel } from "@/engine/lib/types";
 import { AbstractCoreManager } from "@/engine/scripts/core/managers/AbstractCoreManager";
 import { StatisticsManager } from "@/engine/scripts/core/managers/StatisticsManager";

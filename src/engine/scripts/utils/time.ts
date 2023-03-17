@@ -10,7 +10,7 @@ import {
   XR_reader,
 } from "xray16";
 
-import { MAX_UNSIGNED_8_BIT } from "@/engine/globals/memory";
+import { MAX_UNSIGNED_8_BIT } from "@/engine/lib/constants/memory";
 import { Optional } from "@/engine/lib/types";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 

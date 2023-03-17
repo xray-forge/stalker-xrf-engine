@@ -1,8 +1,8 @@
 import { alife, game, XR_CTime, XR_net_packet, XR_reader } from "xray16";
 
-import { captions } from "@/engine/globals/captions";
-import { communities } from "@/engine/globals/communities";
-import { info_portions, TInfoPortion } from "@/engine/globals/info_portions/info_portions";
+import { captions } from "@/engine/lib/constants/captions";
+import { communities } from "@/engine/lib/constants/communities";
+import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
 import { AnyCallablesModule, Optional, TDuration } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { pstor_retrieve } from "@/engine/scripts/core/database/pstor";

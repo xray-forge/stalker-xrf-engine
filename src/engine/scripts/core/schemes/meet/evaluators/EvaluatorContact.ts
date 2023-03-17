@@ -1,6 +1,6 @@
 import { LuabindClass, property_evaluator, stalker_ids, XR_action_planner, XR_game_object } from "xray16";
 
-import { STRINGIFIED_FALSE } from "@/engine/globals/lua";
+import { STRINGIFIED_FALSE } from "@/engine/lib/constants/lua";
 import { Optional } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { ISchemeMeetState } from "@/engine/scripts/core/schemes/meet";

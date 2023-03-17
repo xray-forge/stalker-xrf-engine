@@ -2,9 +2,9 @@ import { JSXNode, JSXXML } from "jsx-xml";
 
 import { Xr3tButton, XrRoot, XrStatic, XrText } from "@/engine/forms/components/base";
 import { SECTION_HEIGHT, SECTION_WIDTH } from "@/engine/forms/menu/debug/DebugDialog.component";
-import { WHITE } from "@/engine/globals/colors";
-import { fonts } from "@/engine/globals/fonts";
-import { texturesIngame } from "@/engine/globals/textures";
+import { WHITE } from "@/engine/lib/constants/colors";
+import { fonts } from "@/engine/lib/constants/fonts";
+import { texturesIngame } from "@/engine/lib/constants/textures";
 
 export const IS_XML: boolean = true;
 

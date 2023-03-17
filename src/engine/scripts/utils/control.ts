@@ -1,6 +1,6 @@
 import { game, get_hud, level, XR_CUIGameCustom, XR_game_object } from "xray16";
 
-import { misc } from "@/engine/globals/items/misc";
+import { misc } from "@/engine/lib/constants/items/misc";
 import { Optional, TDuration, TIndex } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { LuaLogger } from "@/engine/scripts/utils/logging";

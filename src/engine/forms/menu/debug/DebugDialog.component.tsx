@@ -4,10 +4,10 @@ import { Xr3tButton, XrBackground, XrRoot, XrStatic } from "@/engine/forms/compo
 import { XrContainer } from "@/engine/forms/components/base/XrContainer.component";
 import { CustomTab } from "@/engine/forms/components/custom";
 import { EDebugSection } from "@/engine/forms/menu/debug/sections";
-import { captions } from "@/engine/globals/captions";
-import { fonts } from "@/engine/globals/fonts";
-import { textures, texturesIngame } from "@/engine/globals/textures";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { captions } from "@/engine/lib/constants/captions";
+import { fonts } from "@/engine/lib/constants/fonts";
+import { textures, texturesIngame } from "@/engine/lib/constants/textures";
 import { IRgbColor } from "@/engine/lib/types";
 
 export const IS_XML: boolean = true;

@@ -1,8 +1,8 @@
 import { editor, TXR_cls_key, XR_object_factory } from "xray16";
 
-import { inventory_objects } from "@/engine/globals/items/inventory_objects";
-import { misc } from "@/engine/globals/items/misc";
-import { weapons } from "@/engine/globals/items/weapons";
+import { inventory_objects } from "@/engine/lib/constants/items/inventory_objects";
+import { misc } from "@/engine/lib/constants/items/misc";
+import { weapons } from "@/engine/lib/constants/items/weapons";
 import { Actor } from "@/engine/scripts/core/objects/alife/Actor";
 import { Helicopter } from "@/engine/scripts/core/objects/alife/Helicopter";
 import { InventoryBox } from "@/engine/scripts/core/objects/alife/items/InvertoryBox";

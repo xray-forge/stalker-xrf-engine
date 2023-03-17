@@ -14,7 +14,7 @@ import {
   XR_StaticDrawableWrapper,
 } from "xray16";
 
-import { sounds } from "@/engine/globals/sound/sounds";
+import { sounds } from "@/engine/lib/constants/sound/sounds";
 import { Optional, TDuration } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { getWeakManagerInstance, isManagerInitialized } from "@/engine/scripts/core/database/managers";

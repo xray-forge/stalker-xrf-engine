@@ -1,6 +1,6 @@
 import { alife, stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
-import { script_sounds } from "@/engine/globals/sound/script_sounds";
+import { script_sounds } from "@/engine/lib/constants/sound/script_sounds";
 import { Optional, TNumberId } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 import { IRegistryObjectState, registry } from "@/engine/scripts/core/database";

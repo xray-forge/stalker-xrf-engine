@@ -26,12 +26,12 @@ import {
   XR_profile_store,
 } from "xray16";
 
-import { captions } from "@/engine/globals/captions";
-import { console_commands } from "@/engine/globals/console_commands";
-import { game_difficulties, TGameDifficulty } from "@/engine/globals/game_difficulties";
-import { game_tutorials } from "@/engine/globals/game_tutorials";
-import { game_types } from "@/engine/globals/game_types";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { captions } from "@/engine/lib/constants/captions";
+import { console_commands } from "@/engine/lib/constants/console_commands";
+import { game_difficulties, TGameDifficulty } from "@/engine/lib/constants/game_difficulties";
+import { game_tutorials } from "@/engine/lib/constants/game_tutorials";
+import { game_types } from "@/engine/lib/constants/game_types";
 import { Optional, TNumberId } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { EGameEvent } from "@/engine/scripts/core/managers/events/EGameEvent";

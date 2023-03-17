@@ -18,15 +18,15 @@ import {
   XR_vector,
 } from "xray16";
 
-import { squadCommunityByBehaviour } from "@/engine/globals/behaviours";
-import { communities, TCommunity } from "@/engine/globals/communities";
-import { goodwill } from "@/engine/globals/goodwill";
-import { info_portions } from "@/engine/globals/info_portions";
-import { STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/globals/lua";
-import { MAX_UNSIGNED_16_BIT } from "@/engine/globals/memory";
-import { relations, TRelation } from "@/engine/globals/relations";
-import { SMART_TERRAIN_SECT } from "@/engine/globals/sections";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { squadCommunityByBehaviour } from "@/engine/lib/constants/behaviours";
+import { communities, TCommunity } from "@/engine/lib/constants/communities";
+import { goodwill } from "@/engine/lib/constants/goodwill";
+import { info_portions } from "@/engine/lib/constants/info_portions";
+import { STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/lua";
+import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
+import { relations, TRelation } from "@/engine/lib/constants/relations";
+import { SMART_TERRAIN_SECT } from "@/engine/lib/constants/sections";
 import { AnyCallablesModule, AnyObject, Optional, TCount, TNumberId } from "@/engine/lib/types";
 import { TSection } from "@/engine/lib/types/scheme";
 import {

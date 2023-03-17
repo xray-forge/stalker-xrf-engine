@@ -15,7 +15,7 @@ import {
   XR_sound_object,
 } from "xray16";
 
-import { communities, TCommunity } from "@/engine/globals/communities";
+import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { AnyObject, Optional, TLabel, TName, TNumberId } from "@/engine/lib/types";
 import { IRegistryObjectState, registry } from "@/engine/scripts/core/database";
 import { NotificationManager } from "@/engine/scripts/core/managers/notifications/NotificationManager";

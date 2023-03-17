@@ -1,8 +1,8 @@
-import { captions } from "@/engine/globals/captions";
-import { info_portions } from "@/engine/globals/info_portions";
-import { map_mark_type, npc_map_marks } from "@/engine/globals/npc_map_marks";
-import { story_ids } from "@/engine/globals/story_ids";
-import { zones } from "@/engine/globals/zones";
+import { captions } from "@/engine/lib/constants/captions";
+import { info_portions } from "@/engine/lib/constants/info_portions";
+import { map_mark_type, npc_map_marks } from "@/engine/lib/constants/npc_map_marks";
+import { story_ids } from "@/engine/lib/constants/story_ids";
+import { zones } from "@/engine/lib/constants/zones";
 import { LuaArray, TLabel, TName, TStringId } from "@/engine/lib/types";
 
 /**

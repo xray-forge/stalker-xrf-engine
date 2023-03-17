@@ -27,7 +27,7 @@ import {
   XR_Patch_Dawnload_Progress,
 } from "xray16";
 
-import { option_groups, option_groups_messages } from "@/engine/globals/option_groups";
+import { option_groups, option_groups_messages } from "@/engine/lib/constants/option_groups";
 import { OptionsControls } from "@/engine/scripts/core/ui/menu/options/OptionsControls";
 import { OptionsGameplay } from "@/engine/scripts/core/ui/menu/options/OptionsGameplay";
 import { OptionsSound } from "@/engine/scripts/core/ui/menu/options/OptionsSound";

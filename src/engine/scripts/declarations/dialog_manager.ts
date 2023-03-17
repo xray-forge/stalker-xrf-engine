@@ -1,7 +1,7 @@
 import { game, level, XR_CPhraseDialog, XR_CPhraseScript, XR_game_object, XR_net_packet, XR_reader } from "xray16";
 
-import { captions } from "@/engine/globals/captions";
-import { communities, TCommunity } from "@/engine/globals/communities";
+import { captions } from "@/engine/lib/constants/captions";
+import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { LuaArray, Optional } from "@/engine/lib/types";
 import { DIALOG_MANAGER_LTX, registry } from "@/engine/scripts/core/database";
 import { getCharacterCommunity } from "@/engine/scripts/utils/alife";

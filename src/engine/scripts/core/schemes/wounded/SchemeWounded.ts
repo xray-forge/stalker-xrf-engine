@@ -1,7 +1,7 @@
 import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
-import { communities, TCommunity } from "@/engine/globals/communities";
-import { STRINGIFIED_NIL } from "@/engine/globals/lua";
+import { communities, TCommunity } from "@/engine/lib/constants/communities";
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
 import { AnyObject, Maybe, Optional, TNumberId } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 import { IRegistryObjectState, registry } from "@/engine/scripts/core/database";

@@ -15,12 +15,12 @@ import {
   XR_vector,
 } from "xray16";
 
-import { captions, TCaption } from "@/engine/globals/captions";
-import { TCommunity } from "@/engine/globals/communities";
-import { info_portions } from "@/engine/globals/info_portions/info_portions";
-import { STRINGIFIED_FALSE } from "@/engine/globals/lua";
-import { relations } from "@/engine/globals/relations";
-import { zones } from "@/engine/globals/zones";
+import { captions, TCaption } from "@/engine/lib/constants/captions";
+import { TCommunity } from "@/engine/lib/constants/communities";
+import { info_portions } from "@/engine/lib/constants/info_portions/info_portions";
+import { STRINGIFIED_FALSE } from "@/engine/lib/constants/lua";
+import { relations } from "@/engine/lib/constants/relations";
+import { zones } from "@/engine/lib/constants/zones";
 import {
   AnyArgs,
   AnyCallablesModule,

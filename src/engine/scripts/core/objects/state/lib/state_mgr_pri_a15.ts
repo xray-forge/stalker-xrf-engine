@@ -1,7 +1,7 @@
 import { anim, CSightParams, move, XR_game_object } from "xray16";
 
-import { info_portions } from "@/engine/globals/info_portions";
-import { names } from "@/engine/globals/names";
+import { info_portions } from "@/engine/lib/constants/info_portions";
+import { names } from "@/engine/lib/constants/names";
 import { AnyObject, Optional } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { IStateDescriptor } from "@/engine/scripts/core/objects/state/lib/state_lib";

@@ -1,6 +1,6 @@
 import { game } from "xray16";
 
-import { captions } from "@/engine/globals/captions";
+import { captions } from "@/engine/lib/constants/captions";
 import { Optional, TSection } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { SurgeManager } from "@/engine/scripts/core/managers/SurgeManager";

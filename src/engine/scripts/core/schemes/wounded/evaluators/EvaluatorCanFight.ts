@@ -1,6 +1,6 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
-import { STRINGIFIED_FALSE } from "@/engine/globals/lua";
+import { STRINGIFIED_FALSE } from "@/engine/lib/constants/lua";
 import { pstor_retrieve } from "@/engine/scripts/core/database/pstor";
 import { ISchemeWoundedState } from "@/engine/scripts/core/schemes/wounded";
 import { LuaLogger } from "@/engine/scripts/utils/logging";

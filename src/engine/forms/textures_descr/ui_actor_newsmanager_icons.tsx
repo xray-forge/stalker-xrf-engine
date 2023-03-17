@@ -1,6 +1,6 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
-import { textures } from "@/engine/globals/textures";
+import { textures } from "@/engine/lib/constants/textures";
 
 export const IS_XML: boolean = true;
 

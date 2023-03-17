@@ -19,11 +19,11 @@ import {
   XR_game_object,
 } from "xray16";
 
-import { animations } from "@/engine/globals/animation/animations";
-import { post_processors } from "@/engine/globals/animation/post_processors";
-import { captions } from "@/engine/globals/captions";
-import { info_portions } from "@/engine/globals/info_portions/info_portions";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { animations } from "@/engine/lib/constants/animation/animations";
+import { post_processors } from "@/engine/lib/constants/animation/post_processors";
+import { captions } from "@/engine/lib/constants/captions";
+import { info_portions } from "@/engine/lib/constants/info_portions/info_portions";
 import { AnyCallablesModule, Optional } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { SurgeManager } from "@/engine/scripts/core/managers/SurgeManager";

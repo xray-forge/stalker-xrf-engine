@@ -1,6 +1,6 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error"*/
 
-import { game_difficulties } from "@/engine/globals/game_difficulties";
+import { game_difficulties } from "@/engine/lib/constants/game_difficulties";
 
 /**
  * Translation enum captions.

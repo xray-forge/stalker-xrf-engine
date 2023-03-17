@@ -14,8 +14,8 @@ import {
   XR_reader,
 } from "xray16";
 
-import { levels, TLevel } from "@/engine/globals/levels";
-import { STRINGIFIED_NIL } from "@/engine/globals/lua";
+import { levels, TLevel } from "@/engine/lib/constants/levels";
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
 import { AnyCallablesModule, LuaArray, Optional, TCount, TName, TNumberId, TStringId } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { ItemUpgradesManager } from "@/engine/scripts/core/managers/ItemUpgradesManager";

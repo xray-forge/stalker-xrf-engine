@@ -13,7 +13,7 @@ import {
   XR_reader,
 } from "xray16";
 
-import { MAX_UNSIGNED_8_BIT } from "@/engine/globals/memory";
+import { MAX_UNSIGNED_8_BIT } from "@/engine/lib/constants/memory";
 import { Optional, TDuration, TSection } from "@/engine/lib/types";
 import { registerAnomaly, registry, resetObject, unregisterAnomaly } from "@/engine/scripts/core/database";
 import { MapDisplayManager } from "@/engine/scripts/core/managers/map/MapDisplayManager";

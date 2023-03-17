@@ -11,8 +11,8 @@ import {
   XR_ini_file,
 } from "xray16";
 
-import { communities } from "@/engine/globals/communities";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
+import { communities } from "@/engine/lib/constants/communities";
 import { EScheme, ESchemeType, Optional, TDistance, TSection } from "@/engine/lib/types";
 import { IRegistryObjectState, registry } from "@/engine/scripts/core/database";
 import { AbstractScheme } from "@/engine/scripts/core/schemes/base";

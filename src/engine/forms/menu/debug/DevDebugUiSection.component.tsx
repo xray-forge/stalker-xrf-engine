@@ -3,8 +3,8 @@ import { JSXNode, JSXXML } from "jsx-xml";
 import { XrEditBox, XrStatic } from "@/engine/forms/components/base";
 import { XrListRenderer } from "@/engine/forms/components/base/XrListRenderer.component";
 import { SECTION_HEIGHT, SECTION_WIDTH } from "@/engine/forms/menu/debug/DebugDialog.component";
-import { fonts } from "@/engine/globals/fonts";
-import { textures, texturesIngame } from "@/engine/globals/textures";
+import { fonts } from "@/engine/lib/constants/fonts";
+import { textures, texturesIngame } from "@/engine/lib/constants/textures";
 import { IRgbColor } from "@/engine/lib/types";
 
 export const IS_XML: boolean = true;

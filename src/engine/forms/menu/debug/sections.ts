@@ -1,4 +1,4 @@
-import { console_commands } from "@/engine/globals/console_commands";
+import { console_commands } from "@/engine/lib/constants/console_commands";
 
 export enum EDebugSection {
   GENERAL = "general",

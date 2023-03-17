@@ -1,8 +1,8 @@
 import { alife, game, XR_alife_simulator, XR_CGameTask, XR_cse_alife_human_stalker, XR_game_object } from "xray16";
 
-import { captions, TCaption } from "@/engine/globals/captions";
-import { script_sounds } from "@/engine/globals/sound/script_sounds";
-import { texturesIngame } from "@/engine/globals/textures";
+import { captions, TCaption } from "@/engine/lib/constants/captions";
+import { script_sounds } from "@/engine/lib/constants/sound/script_sounds";
+import { texturesIngame } from "@/engine/lib/constants/textures";
 import { Maybe, Optional, TCount, TDuration, TLabel, TName, TSection, TStringId, TTimestamp } from "@/engine/lib/types";
 import { registry, SYSTEM_INI } from "@/engine/scripts/core/database";
 import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";

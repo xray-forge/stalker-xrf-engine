@@ -1,6 +1,6 @@
 import { level, XR_game_object, XR_ini_file } from "xray16";
 
-import { misc } from "@/engine/globals/items/misc";
+import { misc } from "@/engine/lib/constants/items/misc";
 import { EScheme, ESchemeType, Optional, TSection } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { AbstractScheme } from "@/engine/scripts/core/schemes/base/AbstractScheme";

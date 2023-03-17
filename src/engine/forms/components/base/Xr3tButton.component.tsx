@@ -4,8 +4,8 @@ import { normalizeBaseNodeProps } from "#/utils";
 
 import { XrTextColor } from "@/engine/forms/components/base/XrTextColor.component";
 import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";
-import { TFontId } from "@/engine/globals/fonts";
-import { TTexture } from "@/engine/globals/textures";
+import { TFontId } from "@/engine/lib/constants/fonts";
+import { TTexture } from "@/engine/lib/constants/textures";
 import { IBaseXmlNode, IRgbColor, TTextAlign } from "@/engine/lib/types";
 
 export interface IXrButtonProps extends IBaseXmlNode {

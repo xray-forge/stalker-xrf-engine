@@ -12,7 +12,7 @@ import {
   XR_vector,
 } from "xray16";
 
-import { sounds } from "@/engine/globals/sound/sounds";
+import { sounds } from "@/engine/lib/constants/sound/sounds";
 import { AnyObject, Optional } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { GlobalSoundManager } from "@/engine/scripts/core/managers/GlobalSoundManager";

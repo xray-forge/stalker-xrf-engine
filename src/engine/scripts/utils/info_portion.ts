@@ -1,6 +1,6 @@
 import { alife, XR_alife_simulator } from "xray16";
 
-import { TInfoPortion } from "@/engine/globals/info_portions/info_portions";
+import { TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
 import { registry } from "@/engine/scripts/core/database";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 

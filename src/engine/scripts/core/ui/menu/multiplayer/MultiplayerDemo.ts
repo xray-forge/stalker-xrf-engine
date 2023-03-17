@@ -22,7 +22,7 @@ import {
   XR_vector2,
 } from "xray16";
 
-import { textures } from "@/engine/globals/textures";
+import { textures } from "@/engine/lib/constants/textures";
 import { Optional, TName } from "@/engine/lib/types";
 import { MultiplayerDemoLoadItem } from "@/engine/scripts/core/ui/menu/multiplayer/MultiplayerDemoLoadItem";
 import { MultiplayerDemoPlayerInfo } from "@/engine/scripts/core/ui/menu/multiplayer/MultiplayerDemoPlayerInfo";

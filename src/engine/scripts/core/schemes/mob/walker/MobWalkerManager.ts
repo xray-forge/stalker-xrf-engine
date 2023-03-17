@@ -14,7 +14,7 @@ import {
   XR_patrol,
 } from "xray16";
 
-import { STRINGIFIED_TRUE } from "@/engine/globals/lua";
+import { STRINGIFIED_TRUE } from "@/engine/lib/constants/lua";
 import { EScheme, LuaArray, Optional, TIndex, TName } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { StalkerMoveManager } from "@/engine/scripts/core/objects/state/StalkerMoveManager";

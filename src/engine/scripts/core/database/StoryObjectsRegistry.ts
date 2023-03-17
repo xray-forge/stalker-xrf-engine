@@ -1,6 +1,6 @@
 import { alife, TXR_net_processor, XR_cse_abstract, XR_ini_file, XR_net_packet } from "xray16";
 
-import { MAX_UNSIGNED_16_BIT } from "@/engine/globals/memory";
+import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
 import { Optional } from "@/engine/lib/types";
 import { SYSTEM_INI } from "@/engine/scripts/core/database/ini";
 import { getConfigString } from "@/engine/scripts/utils/config";

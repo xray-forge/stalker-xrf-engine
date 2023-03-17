@@ -9,11 +9,11 @@ import {
   XR_vector,
 } from "xray16";
 
-import { captions } from "@/engine/globals/captions";
-import { info_portions } from "@/engine/globals/info_portions/info_portions";
-import { levels } from "@/engine/globals/levels";
-import { STRINGIFIED_FALSE, STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/globals/lua";
-import { npc_map_marks, TMapMark } from "@/engine/globals/npc_map_marks";
+import { captions } from "@/engine/lib/constants/captions";
+import { info_portions } from "@/engine/lib/constants/info_portions/info_portions";
+import { levels } from "@/engine/lib/constants/levels";
+import { STRINGIFIED_FALSE, STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/lua";
+import { npc_map_marks, TMapMark } from "@/engine/lib/constants/npc_map_marks";
 import {
   EScheme,
   Maybe,

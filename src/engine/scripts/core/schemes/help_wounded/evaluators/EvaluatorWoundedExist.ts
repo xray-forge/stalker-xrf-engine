@@ -1,6 +1,6 @@
 import { level, LuabindClass, property_evaluator, XR_game_object, XR_vector } from "xray16";
 
-import { communities } from "@/engine/globals/communities";
+import { communities } from "@/engine/lib/constants/communities";
 import { EScheme, TDistance, TNumberId } from "@/engine/lib/types";
 import { IRegistryObjectState, registry } from "@/engine/scripts/core/database";
 import { ISchemeHelpWoundedState } from "@/engine/scripts/core/schemes/help_wounded";

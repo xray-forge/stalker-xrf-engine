@@ -4,8 +4,8 @@ import { normalizeBaseNodeProps } from "#/utils";
 
 import { XrText } from "@/engine/forms/components/base/XrText.component";
 import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";
-import { fonts, TFontId } from "@/engine/globals/fonts";
-import { TTexture } from "@/engine/globals/textures";
+import { fonts, TFontId } from "@/engine/lib/constants/fonts";
+import { TTexture } from "@/engine/lib/constants/textures";
 import { IBaseXmlNode, IRgbColor, TTextAlign } from "@/engine/lib/types";
 
 export interface IXrEditBoxProps extends IBaseXmlNode {

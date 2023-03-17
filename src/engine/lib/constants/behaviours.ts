@@ -1,4 +1,4 @@
-import { communities, TCommunity } from "@/engine/globals/communities";
+import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { PartialRecord } from "@/engine/lib/types";
 
 export const squadCommunityByBehaviour: Record<TCommunity, TCommunity> = {

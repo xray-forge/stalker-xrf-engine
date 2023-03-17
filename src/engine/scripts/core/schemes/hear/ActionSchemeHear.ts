@@ -1,6 +1,6 @@
 import { TXR_snd_type, XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
-import { ESoundType } from "@/engine/globals/sound/sound_type";
+import { ESoundType } from "@/engine/lib/constants/sound/sound_type";
 import {
   EScheme,
   ESchemeType,

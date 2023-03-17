@@ -2,7 +2,7 @@
 
 import { XR_game_object } from "xray16";
 
-import { misc } from "@/engine/globals/items/misc";
+import { misc } from "@/engine/lib/constants/items/misc";
 import { Optional, TNumberId } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";

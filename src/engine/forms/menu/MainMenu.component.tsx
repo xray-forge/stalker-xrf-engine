@@ -1,8 +1,8 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
-import { captions } from "@/engine/globals/captions";
-import { fonts } from "@/engine/globals/fonts";
-import { textures, texturesIngame } from "@/engine/globals/textures";
+import { captions } from "@/engine/lib/constants/captions";
+import { fonts } from "@/engine/lib/constants/fonts";
+import { textures, texturesIngame } from "@/engine/lib/constants/textures";
 
 export const IS_XML: boolean = true;
 

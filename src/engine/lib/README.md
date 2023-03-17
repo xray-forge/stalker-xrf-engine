@@ -1,5 +1,7 @@
-# [XRTS](../../../) / SRC / MOD / LIB
+# [XRTS](../../../) / SRC / ENGINE / LIB
 
-## Core TS lib
+## Engine lib
 
-- Shared enums / configs and params
+- Shared constants
+- Shared types
+- Shared configuration objects

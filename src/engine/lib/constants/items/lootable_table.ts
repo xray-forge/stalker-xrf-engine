@@ -1,12 +1,12 @@
-import { ammo } from "@/engine/globals/items/ammo";
-import { detectors } from "@/engine/globals/items/detectors";
-import { drugs } from "@/engine/globals/items/drugs";
-import { food } from "@/engine/globals/items/food";
-import { helmets } from "@/engine/globals/items/helmets";
-import { misc } from "@/engine/globals/items/misc";
-import { outfits } from "@/engine/globals/items/outfits";
-import { weapon_addons } from "@/engine/globals/items/weapon_addons";
-import { weapons } from "@/engine/globals/items/weapons";
+import { ammo } from "@/engine/lib/constants/items/ammo";
+import { detectors } from "@/engine/lib/constants/items/detectors";
+import { drugs } from "@/engine/lib/constants/items/drugs";
+import { food } from "@/engine/lib/constants/items/food";
+import { helmets } from "@/engine/lib/constants/items/helmets";
+import { misc } from "@/engine/lib/constants/items/misc";
+import { outfits } from "@/engine/lib/constants/items/outfits";
+import { weapon_addons } from "@/engine/lib/constants/items/weapon_addons";
+import { weapons } from "@/engine/lib/constants/items/weapons";
 
 export const lootable_table = {
   ...ammo,

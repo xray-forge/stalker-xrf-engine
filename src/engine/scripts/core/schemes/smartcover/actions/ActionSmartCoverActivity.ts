@@ -1,6 +1,6 @@
 import { action_base, level, LuabindClass, patrol, XR_game_object, XR_vector } from "xray16";
 
-import { STRINGIFIED_NIL } from "@/engine/globals/lua";
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
 import { Optional, StringOptional } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { GlobalSoundManager } from "@/engine/scripts/core/managers/GlobalSoundManager";

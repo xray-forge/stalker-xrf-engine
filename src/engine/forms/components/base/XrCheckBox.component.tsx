@@ -3,7 +3,7 @@ import { JSXNode, JSXXML } from "jsx-xml";
 import { normalizeBaseNodeProps } from "#/utils";
 
 import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";
-import { texturesIngame, TTexture } from "@/engine/globals/textures";
+import { texturesIngame, TTexture } from "@/engine/lib/constants/textures";
 import { IBaseXmlNode } from "@/engine/lib/types";
 
 export interface IXrCheckBoxProps extends IBaseXmlNode {

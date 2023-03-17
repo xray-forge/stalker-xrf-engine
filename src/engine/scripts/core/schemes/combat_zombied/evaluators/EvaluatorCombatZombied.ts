@@ -1,6 +1,6 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
-import { communities } from "@/engine/globals/communities";
+import { communities } from "@/engine/lib/constants/communities";
 import { ISchemeCombatState } from "@/engine/scripts/core/schemes/combat";
 import { getCharacterCommunity } from "@/engine/scripts/utils/alife";
 import { LuaLogger } from "@/engine/scripts/utils/logging";

@@ -6,8 +6,8 @@ import { XrStatic } from "@/engine/forms/components/base/XrStatic.component";
 import { XrTabButton } from "@/engine/forms/components/base/XrTabButton.component";
 import { XrText } from "@/engine/forms/components/base/XrText.component";
 import { XrTextColor } from "@/engine/forms/components/base/XrTextColor.component";
-import { TFontId } from "@/engine/globals/fonts";
-import { texturesIngame } from "@/engine/globals/textures";
+import { TFontId } from "@/engine/lib/constants/fonts";
+import { texturesIngame } from "@/engine/lib/constants/textures";
 import { IBaseXmlNode, IRgbColor } from "@/engine/lib/types";
 
 export interface IXrTabProps extends IBaseXmlNode {

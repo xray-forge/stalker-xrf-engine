@@ -16,12 +16,12 @@ import {
   XR_vector,
 } from "xray16";
 
-import { post_processors } from "@/engine/globals/animation/post_processors";
-import { captions } from "@/engine/globals/captions";
-import { communities, TCommunity } from "@/engine/globals/communities";
-import { STRINGIFIED_TRUE } from "@/engine/globals/lua";
-import { ERelation } from "@/engine/globals/relations";
-import { zones } from "@/engine/globals/zones";
+import { post_processors } from "@/engine/lib/constants/animation/post_processors";
+import { captions } from "@/engine/lib/constants/captions";
+import { communities, TCommunity } from "@/engine/lib/constants/communities";
+import { STRINGIFIED_TRUE } from "@/engine/lib/constants/lua";
+import { ERelation } from "@/engine/lib/constants/relations";
+import { zones } from "@/engine/lib/constants/zones";
 import {
   Optional,
   TCount,

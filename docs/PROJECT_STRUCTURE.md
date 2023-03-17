@@ -17,7 +17,7 @@
 - [src](src/README.md)
   - [engine](../src/engine/README.md)
     - [ini](../src/engine/ini/README.md)
-    - [globals](../src/engine/globals/README.md)
+    - [globals](../src/engine/lib/constants/README.md)
     - [lib](../src/engine/lib/README.md)
     - [scripts](../src/engine/scripts/README.md)
     - [translations](../src/engine/translations/README.md)

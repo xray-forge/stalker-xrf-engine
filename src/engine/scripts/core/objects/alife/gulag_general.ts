@@ -10,8 +10,8 @@ import {
   XR_patrol,
 } from "xray16";
 
-import { communities } from "@/engine/globals/communities";
-import { SMART_TERRAIN_SECT } from "@/engine/globals/sections";
+import { communities } from "@/engine/lib/constants/communities";
+import { SMART_TERRAIN_SECT } from "@/engine/lib/constants/sections";
 import { AnyObject, EJobType, EScheme, JobTypeByScheme, Optional, TName, TSection } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { SurgeManager } from "@/engine/scripts/core/managers/SurgeManager";

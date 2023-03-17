@@ -2,12 +2,12 @@
 
 import { alife, game_object, level, XR_game_object } from "xray16";
 
-import { captions } from "@/engine/globals/captions";
-import { communities } from "@/engine/globals/communities";
-import { info_portions } from "@/engine/globals/info_portions/info_portions";
-import { drugs, TMedkit } from "@/engine/globals/items/drugs";
-import { pistols, TPistol } from "@/engine/globals/items/weapons";
-import { levels } from "@/engine/globals/levels";
+import { captions } from "@/engine/lib/constants/captions";
+import { communities } from "@/engine/lib/constants/communities";
+import { info_portions } from "@/engine/lib/constants/info_portions/info_portions";
+import { drugs, TMedkit } from "@/engine/lib/constants/items/drugs";
+import { pistols, TPistol } from "@/engine/lib/constants/items/weapons";
+import { levels } from "@/engine/lib/constants/levels";
 import { AnyCallablesModule, EScheme, Optional, TNumberId } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";

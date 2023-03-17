@@ -1,6 +1,6 @@
 import { alife, game_object, XR_cse_alife_creature_abstract, XR_game_object, XR_vector } from "xray16";
 
-import { MAX_UNSIGNED_16_BIT } from "@/engine/globals/memory";
+import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
 import { Optional } from "@/engine/lib/types";
 import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";
 import { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";

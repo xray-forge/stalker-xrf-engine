@@ -1,7 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
-import { console_commands } from "@/engine/globals/console_commands";
-import { game_difficulties } from "@/engine/globals/game_difficulties";
+import { console_commands } from "@/engine/lib/constants/console_commands";
+import { game_difficulties } from "@/engine/lib/constants/game_difficulties";
 import { executeConsoleCommand } from "@/engine/scripts/utils/console";
 import { gameConsole } from "@/fixtures/xray/console.mock";
 import { resetMethodMock } from "@/fixtures/xray/utils.mock";

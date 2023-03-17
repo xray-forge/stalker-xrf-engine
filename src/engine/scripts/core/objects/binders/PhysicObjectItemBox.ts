@@ -1,6 +1,6 @@
 import { level, XR_game_object, XR_ini_file } from "xray16";
 
-import { TInventoryItem } from "@/engine/globals/items";
+import { TInventoryItem } from "@/engine/lib/constants/items";
 import { LuaArray, Optional, TCount, TProbability, TSection } from "@/engine/lib/types";
 import { PH_BOX_GENERIC_LTX } from "@/engine/scripts/core/database";
 import { getConfigString } from "@/engine/scripts/utils/config";

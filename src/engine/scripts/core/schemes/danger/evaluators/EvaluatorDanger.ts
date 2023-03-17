@@ -8,8 +8,8 @@ import {
   XR_cse_alife_creature_abstract,
 } from "xray16";
 
-import { MAX_UNSIGNED_16_BIT } from "@/engine/globals/memory";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
+import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
 import { Optional } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";

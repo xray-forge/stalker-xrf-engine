@@ -1,7 +1,7 @@
 import { alife, XR_game_object } from "xray16";
 
-import { ammo, TAmmoItem } from "@/engine/globals/items/ammo";
-import { medkits, TMedkit } from "@/engine/globals/items/drugs";
+import { ammo, TAmmoItem } from "@/engine/lib/constants/items/ammo";
+import { medkits, TMedkit } from "@/engine/lib/constants/items/drugs";
 import { LuaArray, Optional } from "@/engine/lib/types";
 import { registry, SYSTEM_INI } from "@/engine/scripts/core/database";
 import { NotificationManager } from "@/engine/scripts/core/managers/notifications/NotificationManager";

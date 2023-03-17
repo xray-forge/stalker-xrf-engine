@@ -9,7 +9,7 @@
     "../../src/typedefs",
     "../../src/engine/lib",
     "../../src/engine/scripts",
-    "../../src/engine/globals"
+    "../../src/engine/lib/constants"
   ],
   "exclude": [
     "../../**/*.test.ts"

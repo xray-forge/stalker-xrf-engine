@@ -1,6 +1,6 @@
 import { action_base, alife, hit, LuabindClass, time_global, XR_alife_simulator } from "xray16";
 
-import { STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/globals/lua";
+import { STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/lua";
 import { registry } from "@/engine/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/engine/scripts/core/database/pstor";
 import { GlobalSoundManager } from "@/engine/scripts/core/managers/GlobalSoundManager";

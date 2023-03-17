@@ -1,4 +1,4 @@
-import { TAnimation } from "@/engine/globals/animation/animations";
+import { TAnimation } from "@/engine/lib/constants/animation/animations";
 
 export enum EEffectorState {
   START = "start",

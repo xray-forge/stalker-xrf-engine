@@ -10,12 +10,17 @@ import {
   XR_game_object,
 } from "xray16";
 
-import { squadMonsters } from "@/engine/globals/behaviours";
-import { artefact_class_ids, monster_class_ids, stalker_class_ids, weapon_class_ids } from "@/engine/globals/class_ids";
-import { TCommunity } from "@/engine/globals/communities";
-import { ammo, TAmmoItem } from "@/engine/globals/items/ammo";
-import { lootable_table, TLootableItem } from "@/engine/globals/items/lootable_table";
-import { levels, TLevel } from "@/engine/globals/levels";
+import { squadMonsters } from "@/engine/lib/constants/behaviours";
+import {
+  artefact_class_ids,
+  monster_class_ids,
+  stalker_class_ids,
+  weapon_class_ids,
+} from "@/engine/lib/constants/class_ids";
+import { TCommunity } from "@/engine/lib/constants/communities";
+import { ammo, TAmmoItem } from "@/engine/lib/constants/items/ammo";
+import { lootable_table, TLootableItem } from "@/engine/lib/constants/items/lootable_table";
+import { levels, TLevel } from "@/engine/lib/constants/levels";
 import { Maybe, Optional, TSection } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { abort } from "@/engine/scripts/utils/debug";

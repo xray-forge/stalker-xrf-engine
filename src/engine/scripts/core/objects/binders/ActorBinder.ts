@@ -20,13 +20,13 @@ import {
   XR_reader,
 } from "xray16";
 
-import { console_commands } from "@/engine/globals/console_commands";
-import { game_difficulties_by_number } from "@/engine/globals/game_difficulties";
-import { info_portions } from "@/engine/globals/info_portions";
-import { TInventoryItem } from "@/engine/globals/items";
-import { drugs } from "@/engine/globals/items/drugs";
-import { TLevel } from "@/engine/globals/levels";
-import { STRINGIFIED_NIL } from "@/engine/globals/lua";
+import { console_commands } from "@/engine/lib/constants/console_commands";
+import { game_difficulties_by_number } from "@/engine/lib/constants/game_difficulties";
+import { info_portions } from "@/engine/lib/constants/info_portions";
+import { TInventoryItem } from "@/engine/lib/constants/items";
+import { drugs } from "@/engine/lib/constants/items/drugs";
+import { TLevel } from "@/engine/lib/constants/levels";
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
 import { AnyCallablesModule, Optional, TDuration, TIndex, TName } from "@/engine/lib/types";
 import { IRegistryObjectState, registry, resetObject } from "@/engine/scripts/core/database";
 import { registerActor, unregisterActor } from "@/engine/scripts/core/database/actor";

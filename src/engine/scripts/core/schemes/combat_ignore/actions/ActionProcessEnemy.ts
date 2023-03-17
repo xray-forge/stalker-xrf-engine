@@ -1,7 +1,7 @@
 import { alife, XR_cse_alife_creature_abstract, XR_game_object, XR_vector } from "xray16";
 
-import { STRINGIFIED_TRUE } from "@/engine/globals/lua";
-import { MAX_UNSIGNED_16_BIT } from "@/engine/globals/memory";
+import { STRINGIFIED_TRUE } from "@/engine/lib/constants/lua";
+import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
 import { AnyObject, Optional, TCount, TName, TNumberId } from "@/engine/lib/types";
 import { IRegistryObjectState, registry } from "@/engine/scripts/core/database";
 import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";

@@ -1,3 +1,3 @@
-# [XRTS](../../../) / SRC / MOD / SCRIPTS
+# [XRTS](../../../) / SRC / ENGINE / SCRIPTS
 
 todo
