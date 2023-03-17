@@ -7,7 +7,7 @@ import { SchemeHit } from "@/engine/scripts/core/schemes/hit/SchemeHit";
 import { SchemeMeet } from "@/engine/scripts/core/schemes/meet/SchemeMeet";
 import { SchemeMobCombat } from "@/engine/scripts/core/schemes/mob/combat/SchemeMobCombat";
 import { SchemePhysicalOnHit } from "@/engine/scripts/core/schemes/ph_on_hit/SchemePhysicalOnHit";
-import { disableObjectInvulnerability } from "@/engine/scripts/utils/alife";
+import { disableObjectInvulnerability } from "@/engine/scripts/utils/object";
 
 /**
  * todo;

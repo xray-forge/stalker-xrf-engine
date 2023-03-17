@@ -23,9 +23,9 @@ import { setMobState } from "@/engine/scripts/core/schemes/mob/MobStateManager";
 import { ISchemeMobWalkerState } from "@/engine/scripts/core/schemes/mob/walker/ISchemeMobWalkerState";
 import { mobCapture } from "@/engine/scripts/core/schemes/mobCapture";
 import { mobCaptured } from "@/engine/scripts/core/schemes/mobCaptured";
-import { action } from "@/engine/scripts/utils/alife";
 import { abort } from "@/engine/scripts/utils/debug";
 import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
+import { action } from "@/engine/scripts/utils/object";
 import { IWaypointData, parsePathWaypoints } from "@/engine/scripts/utils/parse";
 import { isStalkerAtWaypoint } from "@/engine/scripts/utils/position";
 

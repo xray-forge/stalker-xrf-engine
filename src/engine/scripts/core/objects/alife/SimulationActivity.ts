@@ -5,9 +5,9 @@ import { Optional, PartialRecord } from "@/engine/lib/types";
 import { SurgeManager } from "@/engine/scripts/core/managers/SurgeManager";
 import { TravelManager } from "@/engine/scripts/core/managers/TravelManager";
 import { Squad } from "@/engine/scripts/core/objects/alife/Squad";
-import { getServerDistanceBetween } from "@/engine/scripts/utils/alife";
 import { hasAlifeInfo } from "@/engine/scripts/utils/info_portion";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
+import { getServerDistanceBetween } from "@/engine/scripts/utils/object";
 import { isInTimeInterval } from "@/engine/scripts/utils/time";
 
 const logger: LuaLogger = new LuaLogger($filename);

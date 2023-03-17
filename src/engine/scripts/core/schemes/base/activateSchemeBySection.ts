@@ -8,12 +8,12 @@ import { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTer
 import { ESchemeEvent } from "@/engine/scripts/core/schemes/base/index";
 import { issueSchemeEvent } from "@/engine/scripts/core/schemes/issueSchemeEvent";
 import { resetGenericSchemesOnSchemeSwitch } from "@/engine/scripts/core/schemes/resetGenericSchemesOnSchemeSwitch";
-import { sendToNearestAccessibleVertex } from "@/engine/scripts/utils/alife";
 import { abort } from "@/engine/scripts/utils/debug";
 import { getObjectBoundSmart } from "@/engine/scripts/utils/gulag";
 import { getObjectConfigOverrides } from "@/engine/scripts/utils/ini_config/config";
 import { getSchemeByIniSection } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
+import { sendToNearestAccessibleVertex } from "@/engine/scripts/utils/object";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

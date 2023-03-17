@@ -3,8 +3,8 @@ import { alife, LuabindClass, property_evaluator } from "xray16";
 import type { Actor } from "@/engine/scripts/core/objects/alife/Actor";
 import type { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
 import type { Squad } from "@/engine/scripts/core/objects/alife/Squad";
-import { getObjectSquad } from "@/engine/scripts/utils/alife";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
+import { getObjectSquad } from "@/engine/scripts/utils/object";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

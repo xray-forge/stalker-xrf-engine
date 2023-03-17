@@ -3,8 +3,8 @@ import { action_base, game_object, LuabindClass } from "xray16";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { TName } from "@/engine/lib/types";
 import { StateManager } from "@/engine/scripts/core/objects/state/StateManager";
-import { sendToNearestAccessibleVertex } from "@/engine/scripts/utils/alife";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
+import { sendToNearestAccessibleVertex } from "@/engine/scripts/utils/object";
 
 const logger: LuaLogger = new LuaLogger($filename, gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 

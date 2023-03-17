@@ -3,7 +3,8 @@
 import { alife, game, level, XR_game_object } from "xray16";
 
 import { captions } from "@/engine/lib/constants/captions";
-import { info_portions } from "@/engine/lib/constants/info_portions/info_portions";
+import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
+import { TInventoryItem } from "@/engine/lib/constants/items";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { artefacts, TArtefact } from "@/engine/lib/constants/items/artefacts";
 import { detectors } from "@/engine/lib/constants/items/detectors";
@@ -12,7 +13,7 @@ import { food, TFoodItem } from "@/engine/lib/constants/items/food";
 import { helmets } from "@/engine/lib/constants/items/helmets";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { outfits } from "@/engine/lib/constants/items/outfits";
-import { quest_items } from "@/engine/lib/constants/items/quest_items";
+import { quest_items, TQuestItem } from "@/engine/lib/constants/items/quest_items";
 import { TWeapon, weapons } from "@/engine/lib/constants/items/weapons";
 import { treasures } from "@/engine/lib/constants/treasures";
 import { AnyCallablesModule, AnyObject, LuaArray, Optional, TCount } from "@/engine/lib/types";
@@ -35,7 +36,7 @@ import {
   relocateQuestItemSection,
   takeItemsFromActor,
   takeMoneyFromActor,
-} from "@/engine/scripts/utils/quest";
+} from "@/engine/scripts/utils/quest_reward";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -46,7 +47,7 @@ export function zat_b30_owl_stalker_trader_actor_has_item_to_sell(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  const items_table: LuaArray<string> = [
+  const itemsTable: LuaArray<TInventoryItem> = [
     quest_items.zat_b20_noah_pda,
     quest_items.zat_b40_notebook,
     quest_items.zat_b40_pda_1,
@@ -74,24 +75,24 @@ export function zat_b30_owl_stalker_trader_actor_has_item_to_sell(
     artefacts.af_quest_b14_twisted,
     artefacts.af_oasis_heart,
     detectors.detector_scientific,
-  ] as unknown as LuaArray<string>;
+  ] as unknown as LuaArray<TInventoryItem>;
 
-  const info_table = {
+  const infoPortionsTable = {
     [quest_items.jup_b1_half_artifact]: info_portions.zat_b30_owl_stalker_about_halfart_jup_b6_asked,
     [artefacts.af_quest_b14_twisted]: info_portions.zat_b30_owl_stalker_about_halfart_zat_b14_asked,
     [artefacts.af_oasis_heart]: info_portions.zat_b30_owl_stalker_trader_about_osis_art,
     [detectors.detector_scientific]: info_portions.zat_b30_owl_detectors_approached,
-  } as unknown as LuaTable<string, string>;
+  } as unknown as LuaTable<TInventoryItem, TInfoPortion>;
 
   const actor: XR_game_object = registry.actor;
 
-  for (const [k, v] of items_table) {
+  for (const [k, v] of itemsTable) {
     if (actor.object(v) !== null) {
       if (v === detectors.detector_scientific && !hasAlifeInfo(info_portions.zat_b30_second_detector)) {
         // --
       } else {
-        if (info_table.get(v) !== null) {
-          if (!hasAlifeInfo(info_table.get(v))) {
+        if (infoPortionsTable.get(v) !== null) {
+          if (!hasAlifeInfo(infoPortionsTable.get(v))) {
             return true;
           }
         } else {
@@ -112,15 +113,15 @@ export function zat_b30_owl_can_say_about_heli(first_speaker: XR_game_object, se
     info_portions.zat_b28_heli_3_searched,
     info_portions.zat_b100_heli_2_searched,
     info_portions.zat_b101_heli_5_searched,
-  ] as unknown as LuaArray<string>;
+  ] as unknown as LuaArray<TInfoPortion>;
 
   const table2 = [
     info_portions.zat_b30_owl_scat_1,
     info_portions.zat_b30_owl_scat_2,
     info_portions.zat_b30_owl_scat_3,
-  ] as unknown as LuaArray<string>;
+  ] as unknown as LuaArray<TInfoPortion>;
 
-  let cnt: number = 3;
+  let cnt: TCount = 3;
 
   for (const k of $range(1, table.length())) {
     if (hasAlifeInfo(table.get(k)) || hasAlifeInfo(table2.get(k))) {
@@ -804,15 +805,15 @@ const zat_b29_af_names_table = {
  * todo;
  */
 const zat_b29_infop_table = {
-  [16]: "zat_b29_af_16",
-  [17]: "zat_b29_af_17",
-  [18]: "zat_b29_af_18",
-  [19]: "zat_b29_af_19",
-  [20]: "zat_b29_af_20",
-  [21]: "zat_b29_af_21",
-  [22]: "zat_b29_af_22",
-  [23]: "zat_b29_af_23",
-} as unknown as LuaArray<string>;
+  [16]: info_portions.zat_b29_af_16,
+  [17]: info_portions.zat_b29_af_17,
+  [18]: info_portions.zat_b29_af_18,
+  [19]: info_portions.zat_b29_af_19,
+  [20]: info_portions.zat_b29_af_20,
+  [21]: info_portions.zat_b29_af_21,
+  [22]: info_portions.zat_b29_af_22,
+  [23]: info_portions.zat_b29_af_23,
+} as unknown as LuaArray<TInfoPortion>;
 
 /**
  * todo;
@@ -826,7 +827,7 @@ const zat_b29_infop_bring_table = {
   [21]: "zat_b29_bring_af_21",
   [22]: "zat_b29_bring_af_22",
   [23]: "zat_b29_bring_af_23",
-} as unknown as LuaArray<string>;
+} as unknown as LuaArray<TInfoPortion>;
 
 /**
  * todo;
@@ -1237,21 +1238,23 @@ const zat_b51_buy_item_table = [
  * todo;
  */
 export function zat_b51_randomize_item(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  for (const i of $range(1, 7)) {
-    if (hasAlifeInfo("zat_b51_processing_category_" + tostring(i))) {
-      const zat_b51_available_items_table: LuaArray<number> = new LuaTable();
+  for (const it of $range(1, 7)) {
+    if (hasAlifeInfo(("zat_b51_processing_category_" + tostring(it)) as TInfoPortion)) {
+      const zat_b51_available_items_table: LuaArray<TCount> = new LuaTable();
 
-      for (const j of $range(1, item_count_by_category.get(i))) {
-        if (!hasAlifeInfo("zat_b51_done_item_" + tostring(i) + "_" + tostring(j))) {
+      for (const j of $range(1, item_count_by_category.get(it))) {
+        if (!hasAlifeInfo(("zat_b51_done_item_" + tostring(it) + "_" + tostring(j)) as TInfoPortion)) {
           table.insert(zat_b51_available_items_table, j);
         }
       }
 
       giveInfo(
-        "zat_b51_ordered_item_" +
-          tostring(i) +
+        ("zat_b51_ordered_item_" +
+          tostring(it) +
           "_" +
-          tostring(zat_b51_available_items_table.get(math.random(1, zat_b51_available_items_table.length())))
+          tostring(
+            zat_b51_available_items_table.get(math.random(1, zat_b51_available_items_table.length()))
+          )) as TInfoPortion
       );
     }
   }
@@ -1261,13 +1264,13 @@ export function zat_b51_randomize_item(first_speaker: XR_game_object, second_spe
  * todo;
  */
 export function zat_b51_give_prepay(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  for (const i of $range(1, 7)) {
-    if (hasAlifeInfo("zat_b51_processing_category_" + tostring(i))) {
+  for (const it of $range(1, 7)) {
+    if (hasAlifeInfo(("zat_b51_processing_category_" + tostring(it)) as TInfoPortion)) {
       if (!hasAlifeInfo(info_portions.zat_b51_order_refused)) {
-        return takeMoneyFromActor(first_speaker, second_speaker, zat_b51_costs_table.get(i).prepay_agreed);
+        return takeMoneyFromActor(first_speaker, second_speaker, zat_b51_costs_table.get(it).prepay_agreed);
       }
 
-      return takeMoneyFromActor(first_speaker, second_speaker, zat_b51_costs_table.get(i).prepay_refused);
+      return takeMoneyFromActor(first_speaker, second_speaker, zat_b51_costs_table.get(it).prepay_refused);
     }
   }
 }
@@ -1278,13 +1281,13 @@ export function zat_b51_give_prepay(first_speaker: XR_game_object, second_speake
 export function zat_b51_has_prepay(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
   const actor: XR_game_object = registry.actor;
 
-  for (const i of $range(1, 7)) {
-    if (hasAlifeInfo("zat_b51_processing_category_" + tostring(i))) {
+  for (const it of $range(1, 7)) {
+    if (hasAlifeInfo(("zat_b51_processing_category_" + tostring(it)) as TInfoPortion)) {
       if (!hasAlifeInfo(info_portions.zat_b51_order_refused)) {
-        return actor.money() >= zat_b51_costs_table.get(i).prepay_agreed;
+        return actor.money() >= zat_b51_costs_table.get(it).prepay_agreed;
       }
 
-      return actor.money() >= zat_b51_costs_table.get(i).prepay_refused;
+      return actor.money() >= zat_b51_costs_table.get(it).prepay_refused;
     }
   }
 
@@ -1302,33 +1305,33 @@ export function zat_b51_hasnt_prepay(first_speaker: XR_game_object, second_speak
  * todo;
  */
 export function zat_b51_buy_item(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  for (const i of $range(1, 7)) {
-    if (hasAlifeInfo("zat_b51_processing_category_" + tostring(i))) {
-      for (const j of $range(1, zat_b51_buy_item_table.get(i).length())) {
-        if (hasAlifeInfo("zat_b51_ordered_item_" + tostring(i) + "_" + tostring(j))) {
-          for (const [k, v] of zat_b51_buy_item_table.get(i).get(j).item) {
+  for (const it of $range(1, 7)) {
+    if (hasAlifeInfo(("zat_b51_processing_category_" + tostring(it)) as TInfoPortion)) {
+      for (const j of $range(1, zat_b51_buy_item_table.get(it).length())) {
+        if (hasAlifeInfo(("zat_b51_ordered_item_" + tostring(it) + "_" + tostring(j)) as TInfoPortion)) {
+          for (const [k, v] of zat_b51_buy_item_table.get(it).get(j).item) {
             giveItemsToActor(first_speaker, second_speaker, v);
           }
 
-          takeMoneyFromActor(first_speaker, second_speaker, zat_b51_costs_table.get(i).cost);
-          disableInfo("zat_b51_processing_category_" + tostring(i));
-          disableInfo("zat_b51_ordered_item_" + tostring(i) + "_" + tostring(j));
-          giveInfo("zat_b51_done_item_" + tostring(i) + "_" + tostring(j));
+          takeMoneyFromActor(first_speaker, second_speaker, zat_b51_costs_table.get(it).cost);
+          disableInfo(("zat_b51_processing_category_" + tostring(it)) as TInfoPortion);
+          disableInfo(("zat_b51_ordered_item_" + tostring(it) + "_" + tostring(j)) as TInfoPortion);
+          giveInfo(("zat_b51_done_item_" + tostring(it) + "_" + tostring(j)) as TInfoPortion);
           break;
         }
       }
 
       let category_finishing: boolean = true;
 
-      for (const j of $range(1, zat_b51_buy_item_table.get(i).length())) {
-        if (!hasAlifeInfo("zat_b51_done_item_" + tostring(i) + "_" + tostring(j))) {
+      for (const j of $range(1, zat_b51_buy_item_table.get(it).length())) {
+        if (!hasAlifeInfo(("zat_b51_done_item_" + tostring(it) + "_" + tostring(j)) as TInfoPortion)) {
           category_finishing = false;
           break;
         }
       }
 
       if (category_finishing) {
-        giveInfo("zat_b51_finishing_category_" + tostring(i));
+        giveInfo(("zat_b51_finishing_category_" + tostring(it)) as TInfoPortion);
       }
 
       return;
@@ -1341,12 +1344,12 @@ export function zat_b51_buy_item(first_speaker: XR_game_object, second_speaker: 
  */
 export function zat_b51_refuse_item(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   for (const i of $range(1, 7)) {
-    if (hasAlifeInfo("zat_b51_processing_category_" + tostring(i))) {
+    if (hasAlifeInfo(("zat_b51_processing_category_" + tostring(i)) as TInfoPortion)) {
       for (const j of $range(1, zat_b51_buy_item_table.get(i).length())) {
-        if (hasAlifeInfo("zat_b51_ordered_item_" + tostring(i) + "_" + tostring(j))) {
-          disableInfo("zat_b51_processing_category_" + tostring(i));
-          disableInfo("zat_b51_ordered_item_" + tostring(i) + "_" + tostring(j));
-          giveInfo("zat_b51_done_item_" + tostring(i) + "_" + tostring(j));
+        if (hasAlifeInfo(("zat_b51_ordered_item_" + tostring(i) + "_" + tostring(j)) as TInfoPortion)) {
+          disableInfo(("zat_b51_processing_category_" + tostring(i)) as TInfoPortion);
+          disableInfo(("zat_b51_ordered_item_" + tostring(i) + "_" + tostring(j)) as TInfoPortion);
+          giveInfo(("zat_b51_done_item_" + tostring(i) + "_" + tostring(j)) as TInfoPortion);
           break;
         }
       }
@@ -1354,14 +1357,14 @@ export function zat_b51_refuse_item(first_speaker: XR_game_object, second_speake
       let category_finishing = true;
 
       for (const j of $range(1, zat_b51_buy_item_table.get(i).length())) {
-        if (!hasAlifeInfo("zat_b51_done_item_" + tostring(i) + "_" + tostring(j))) {
+        if (!hasAlifeInfo(("zat_b51_done_item_" + tostring(i) + "_" + tostring(j)) as TInfoPortion)) {
           category_finishing = false;
           break;
         }
       }
 
       if (category_finishing === true) {
-        giveInfo("zat_b51_finishing_category_" + tostring(i));
+        giveInfo(("zat_b51_finishing_category_" + tostring(i)) as TInfoPortion);
       }
 
       return;
@@ -1376,7 +1379,7 @@ export function zat_b51_has_item_cost(first_speaker: XR_game_object, second_spea
   const actor: XR_game_object = registry.actor;
 
   for (const i of $range(1, 7)) {
-    if (hasAlifeInfo("zat_b51_processing_category_" + tostring(i))) {
+    if (hasAlifeInfo(("zat_b51_processing_category_" + tostring(i)) as TInfoPortion)) {
       return actor.money() >= zat_b51_costs_table.get(i).cost;
     }
   }
@@ -1408,13 +1411,13 @@ export function zat_b12_actor_transfer_documents(
   const npc: XR_game_object = getNpcSpeaker(first_speaker, second_speaker);
   const actor: XR_game_object = registry.actor;
 
-  const amount_doc1: number = 1000;
-  const amount_doc2: number = 600;
-  const amount_doc3: number = 400;
+  const amount_doc1: TCount = 1000;
+  const amount_doc2: TCount = 600;
+  const amount_doc3: TCount = 400;
 
-  let amount_total: number = 0;
-  let cnt: number = 0;
-  let cnt2: number = 0;
+  let amount_total: TCount = 0;
+  let cnt: TCount = 0;
+  let cnt2: TCount = 0;
 
   if (actor.object(quest_items.zat_b12_documents_1) !== null) {
     takeItemsFromActor(first_speaker, second_speaker, quest_items.zat_b12_documents_1);

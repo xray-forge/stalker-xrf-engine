@@ -6,11 +6,11 @@ import { ESchemeCondition } from "@/engine/lib/types/scheme";
 import { registry } from "@/engine/scripts/core/database";
 import { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/scripts/core/schemes/base/index";
 import { switchToSection } from "@/engine/scripts/core/schemes/switchToSection";
-import { isActorSeenByObject } from "@/engine/scripts/utils/alife";
 import { isObjectInZone } from "@/engine/scripts/utils/check/check";
-import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { abort } from "@/engine/scripts/utils/debug";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
+import { isActorSeenByObject } from "@/engine/scripts/utils/object";
 import { getDistanceBetween } from "@/engine/scripts/utils/physics";
 
 const logger: LuaLogger = new LuaLogger($filename);

@@ -5,8 +5,8 @@ import { AbstractSchemeManager } from "@/engine/scripts/core/schemes/base/Abstra
 import { ISchemeMobJumpState } from "@/engine/scripts/core/schemes/mob/jump/ISchemeMobJumpState";
 import { mobCapture } from "@/engine/scripts/core/schemes/mobCapture";
 import { mobRelease } from "@/engine/scripts/core/schemes/mobRelease";
-import { action } from "@/engine/scripts/utils/alife";
 import { abort } from "@/engine/scripts/utils/debug";
+import { action } from "@/engine/scripts/utils/object";
 
 const STATE_START_LOOK = 1;
 const STATE_WAIT_LOOK_END = 2;

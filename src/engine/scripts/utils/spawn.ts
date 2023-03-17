@@ -5,10 +5,10 @@ import { TAmmoItem } from "@/engine/lib/constants/items/ammo";
 import { LuaArray, Optional, TCount, TProbability, TSection } from "@/engine/lib/types";
 import { AnyGameObject } from "@/engine/lib/types/engine";
 import { IRegistryObjectState } from "@/engine/scripts/core/database";
-import { getObjectPositioning } from "@/engine/scripts/utils/alife";
 import { isAmmoSection } from "@/engine/scripts/utils/check/is";
 import { getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
+import { getObjectPositioning } from "@/engine/scripts/utils/object";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

@@ -2,10 +2,10 @@ import { alife, level, vector, XR_cse_alife_creature_abstract, XR_game_object, X
 
 import { Optional, TName, TNumberId } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
-import { getObjectSquad } from "@/engine/scripts/utils/alife";
 import { isObjectMeeting } from "@/engine/scripts/utils/check/check";
 import { abort } from "@/engine/scripts/utils/debug";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
+import { getObjectSquad } from "@/engine/scripts/utils/object";
 import { vectorCross, vectorRotateY, yawDegree } from "@/engine/scripts/utils/physics";
 
 const logger: LuaLogger = new LuaLogger($filename);

@@ -21,7 +21,7 @@ import { trySwitchToAnotherSection } from "@/engine/scripts/core/schemes/base/tr
 import { mobCapture } from "@/engine/scripts/core/schemes/mobCapture";
 import { mobRelease } from "@/engine/scripts/core/schemes/mobRelease";
 import { ISchemeMonsterState } from "@/engine/scripts/core/schemes/sr_monster/ISchemeMonsterState";
-import { action } from "@/engine/scripts/utils/alife";
+import { action } from "@/engine/scripts/utils/object";
 
 /**
  * todo;

@@ -7,9 +7,9 @@ import { AbstractSchemeManager } from "@/engine/scripts/core/schemes/base/Abstra
 import { setMobState } from "@/engine/scripts/core/schemes/mob/MobStateManager";
 import { ISchemeMobRemarkState } from "@/engine/scripts/core/schemes/mob/remark/ISchemeMobRemarkState";
 import { mobCapture } from "@/engine/scripts/core/schemes/mobCapture";
-import { action } from "@/engine/scripts/utils/alife";
-import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { abort } from "@/engine/scripts/utils/debug";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
+import { action } from "@/engine/scripts/utils/object";
 import { parseNames } from "@/engine/scripts/utils/parse";
 
 /**

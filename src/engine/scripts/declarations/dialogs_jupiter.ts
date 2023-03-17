@@ -15,7 +15,7 @@ import { outfits, TOutfit } from "@/engine/lib/constants/items/outfits";
 import { quest_items } from "@/engine/lib/constants/items/quest_items";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { treasures } from "@/engine/lib/constants/treasures";
-import { AnyCallablesModule, AnyObject, LuaArray, Optional } from "@/engine/lib/types";
+import { AnyCallablesModule, AnyObject, LuaArray, Optional, TCount, TIndex } from "@/engine/lib/types";
 import { IRegistryObjectState, registry } from "@/engine/scripts/core/database";
 import { pstor_retrieve } from "@/engine/scripts/core/database/pstor";
 import { TreasureManager } from "@/engine/scripts/core/managers/TreasureManager";
@@ -32,7 +32,7 @@ import {
   relocateQuestItemSection,
   takeItemsFromActor,
   takeMoneyFromActor,
-} from "@/engine/scripts/utils/quest";
+} from "@/engine/scripts/utils/quest_reward";
 import { getObjectsRelationSafe } from "@/engine/scripts/utils/relation";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -954,19 +954,19 @@ export function jup_b32_anomaly_do_not_has_af(first_speaker: XR_game_object, sec
     "jup_b211_anomal_zone",
     "jup_b10_anomal_zone",
   ] as unknown as LuaArray<string>;
-  const infop_table = [
-    "jup_b32_anomaly_1",
-    "jup_b32_anomaly_2",
-    "jup_b32_anomaly_3",
-    "jup_b32_anomaly_4",
-    "jup_b32_anomaly_5",
-  ] as unknown as LuaArray<string>;
+  const infoPortionsTable = [
+    info_portions.jup_b32_anomaly_1,
+    info_portions.jup_b32_anomaly_2,
+    info_portions.jup_b32_anomaly_3,
+    info_portions.jup_b32_anomaly_4,
+    info_portions.jup_b32_anomaly_5,
+  ] as unknown as LuaArray<TInfoPortion>;
 
-  let index = 0;
+  let index: TIndex = 0;
 
-  for (const i of $range(1, infop_table.length())) {
-    if (hasAlifeInfo(infop_table.get(i))) {
-      index = i;
+  for (const it of $range(1, infoPortionsTable.length())) {
+    if (hasAlifeInfo(infoPortionsTable.get(it))) {
+      index = it;
       break;
     }
   }
@@ -978,7 +978,7 @@ export function jup_b32_anomaly_do_not_has_af(first_speaker: XR_game_object, sec
   const anomalyZone: AnomalyZoneBinder = registry.anomalies.get(az_table.get(index));
 
   if (anomalyZone === null) {
-    disableInfo(infop_table.get(index));
+    disableInfo(infoPortionsTable.get(index));
 
     return true;
   }
@@ -987,7 +987,7 @@ export function jup_b32_anomaly_do_not_has_af(first_speaker: XR_game_object, sec
     return false;
   }
 
-  disableInfo(infop_table.get(index));
+  disableInfo(infoPortionsTable.get(index));
 
   return true;
 }
@@ -1001,7 +1001,7 @@ export function jup_b207_generic_decrypt_need_dialog_precond(
 ): boolean {
   const actor: XR_game_object = registry.actor;
 
-  if (actor.object("jup_b9_blackbox") !== null) {
+  if (actor.object(quest_items.jup_b9_blackbox) !== null) {
     return true;
   }
 
@@ -1024,8 +1024,8 @@ export function jup_b207_actor_has_dealers_pda(first_speaker: XR_game_object, se
  */
 export function jup_b207_sell_dealers_pda(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   takeItemsFromActor(first_speaker, second_speaker, "device_pda_zat_b5_dealer");
-  giveMoneyToActor(4000);
-  giveInfo("jup_b207_dealers_pda_sold");
+  giveMoneyToActor(4_000);
+  giveInfo(info_portions.jup_b207_dealers_pda_sold);
 }
 
 /**
@@ -1497,7 +1497,7 @@ export function jup_b9_actor_has_money(first_speaker: XR_game_object, second_spe
   let money_count: number = 0;
 
   for (const it of $range(1, 9)) {
-    if (hasAlifeInfo("jup_b200_tech_materials_brought_counter_" + it)) {
+    if (hasAlifeInfo(("jup_b200_tech_materials_brought_counter_" + it) as TInfoPortion)) {
       money_count = money_count_table.get(it);
     }
   }
@@ -1509,15 +1509,15 @@ export function jup_b9_actor_has_money(first_speaker: XR_game_object, second_spe
  * todo;
  */
 export function jupiter_b9_relocate_money(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  let money_count: number = 0;
+  let moneyCount: TCount = 0;
 
   for (const it of $range(1, 9)) {
-    if (hasAlifeInfo("jup_b200_tech_materials_brought_counter_" + it)) {
-      money_count = money_count_table.get(it);
+    if (hasAlifeInfo(("jup_b200_tech_materials_brought_counter_" + it) as TInfoPortion)) {
+      moneyCount = money_count_table.get(it);
     }
   }
 
-  takeMoneyFromActor(first_speaker, second_speaker, money_count);
+  takeMoneyFromActor(first_speaker, second_speaker, moneyCount);
 }
 
 /**
@@ -1606,10 +1606,10 @@ export function jup_b46_sell_duty_founder_pda(first_speaker: XR_game_object, sec
  * todo;
  */
 export function jup_b46_transfer_duty_founder_pda(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  const npc: XR_game_object = getNpcSpeaker(first_speaker, second_speaker);
+  const object: XR_game_object = getNpcSpeaker(first_speaker, second_speaker);
 
   if (registry.actor.object(quest_items.jup_b46_duty_founder_pda) !== null) {
-    relocateQuestItemSection(npc, quest_items.jup_b46_duty_founder_pda, "out");
+    relocateQuestItemSection(object, quest_items.jup_b46_duty_founder_pda, "out");
   }
 }
 
@@ -1771,12 +1771,12 @@ export function jup_b32_anomaly_has_af(first_speaker: XR_game_object, second_spe
     "jup_b10_anomal_zone",
   ] as unknown as LuaArray<string>;
   const infop_table = [
-    "jup_b32_anomaly_1",
-    "jup_b32_anomaly_2",
-    "jup_b32_anomaly_3",
-    "jup_b32_anomaly_4",
-    "jup_b32_anomaly_5",
-  ] as unknown as LuaArray<string>;
+    info_portions.jup_b32_anomaly_1,
+    info_portions.jup_b32_anomaly_2,
+    info_portions.jup_b32_anomaly_3,
+    info_portions.jup_b32_anomaly_4,
+    info_portions.jup_b32_anomaly_5,
+  ] as unknown as LuaArray<TInfoPortion>;
 
   let index = 0;
 

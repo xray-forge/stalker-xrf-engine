@@ -180,6 +180,7 @@ export const jupiter_info_portions = {
   jup_b207_about_dealers_pda_novikov: "jup_b207_about_dealers_pda_novikov",
   jup_b207_attack_end: "jup_b207_attack_end",
   jup_b207_attack_started: "jup_b207_attack_started",
+  jup_b207_dealers_pda_sold: "jup_b207_dealers_pda_sold",
   jup_b207_dealers_pda_sold_owl: "jup_b207_dealers_pda_sold_owl",
   jup_b207_duty_asked_to_leave: "jup_b207_duty_asked_to_leave",
   jup_b207_duty_knows_about_depot: "jup_b207_duty_knows_about_depot",
@@ -210,6 +211,7 @@ export const jupiter_info_portions = {
   /**
    * Jupiter b209.
    */
+  jup_b209_scanner_placed: "jup_b209_scanner_placed",
   jup_b209_task_done: "jup_b209_task_done",
   /**
    * Jupiter b211.
@@ -257,6 +259,11 @@ export const jupiter_info_portions = {
   jup_b220_trapper_jupiter_chimera_why_me_done: "jup_b220_trapper_jupiter_chimera_why_me_done",
   jup_b220_trapper_zaton_chimera_hunted_told: "jup_b220_trapper_zaton_chimera_hunted_told",
   /**
+   * Jupiter b221 - ?.
+   */
+  jup_b221_duty_reply: "jup_b221_duty_reply",
+  jup_b221_freedom_reply: "jup_b221_freedom_reply",
+  /**
    * Jupiter b25 - flint chain.
    */
   jup_b25_accuse_flint_gived: "jup_b25_accuse_flint_gived",
@@ -286,6 +293,11 @@ export const jupiter_info_portions = {
   /**
    * Jupiter b32 - scientists scanners.
    */
+  jup_b32_anomaly_1: "jup_b32_anomaly_1",
+  jup_b32_anomaly_2: "jup_b32_anomaly_2",
+  jup_b32_anomaly_3: "jup_b32_anomaly_3",
+  jup_b32_anomaly_4: "jup_b32_anomaly_4",
+  jup_b32_anomaly_5: "jup_b32_anomaly_5",
   jup_b32_anomaly_true: "jup_b32_anomaly_true",
   jup_b32_scanner_1_placed: "jup_b32_scanner_1_placed",
   jup_b32_scanner_2_placed: "jup_b32_scanner_2_placed",
@@ -300,9 +312,12 @@ export const jupiter_info_portions = {
   jup_b32_task_end: "jup_b32_task_end",
   jup_b32_task_start: "jup_b32_task_start",
   jup_b32_tutorial_done: "jup_b32_tutorial_done",
+  /**
+   * Jupiter b32 - ?.
+   */
   jup_b43_stalker_assistant_b301_about_zulus_done: "jup_b43_stalker_assistant_b301_about_zulus_done",
   /**
-   * Jupiter b46.
+   * Jupiter b46 - ?.
    */
   jup_b46_duty_founder_pda_sold: "jup_b46_duty_founder_pda_sold",
   jup_b46_duty_founder_pda_to_duty: "jup_b46_duty_founder_pda_to_duty",

@@ -9,11 +9,11 @@ import { LuaArray, Optional, TCount, TProbability, TSection, TStringId } from "@
 import { DEATH_GENERIC_LTX, IRegistryObjectState, registry } from "@/engine/scripts/core/database";
 import { AbstractCoreManager } from "@/engine/scripts/core/managers/AbstractCoreManager";
 import { Stalker } from "@/engine/scripts/core/objects/alife/Stalker";
-import { getCharacterCommunity, setItemCondition } from "@/engine/scripts/utils/alife";
 import { isExcludedFromLootDropItem } from "@/engine/scripts/utils/check/check";
 import { isAmmoItem, isArtefact, isGrenade, isLootableItem, isWeapon } from "@/engine/scripts/utils/check/is";
 import { abort } from "@/engine/scripts/utils/debug";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
+import { getCharacterCommunity, setItemCondition } from "@/engine/scripts/utils/object";
 import { parseNames, parseNumbers } from "@/engine/scripts/utils/parse";
 import { spawnItemsForObject } from "@/engine/scripts/utils/spawn";
 

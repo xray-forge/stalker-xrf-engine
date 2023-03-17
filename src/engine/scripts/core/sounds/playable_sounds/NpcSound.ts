@@ -22,10 +22,10 @@ import { IRegistryObjectState, registry } from "@/engine/scripts/core/database";
 import { NotificationManager } from "@/engine/scripts/core/managers/notifications/NotificationManager";
 import { AbstractPlayableSound } from "@/engine/scripts/core/sounds/playable_sounds/AbstractPlayableSound";
 import { EPlayableSound } from "@/engine/scripts/core/sounds/playable_sounds/EPlayableSound";
-import { getCharacterCommunity } from "@/engine/scripts/utils/alife";
 import { abort } from "@/engine/scripts/utils/debug";
 import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
+import { getCharacterCommunity } from "@/engine/scripts/utils/object";
 import { parseNames } from "@/engine/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger($filename);

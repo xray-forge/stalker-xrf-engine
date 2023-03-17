@@ -1,14 +1,13 @@
 import { jest } from "@jest/globals";
 
+import { LuaLoggerMock } from "@/fixtures/engine/LuaLogger.mock";
+
 /**
  * todo;
  */
 export function mockGlobals(): void {
   jest.mock("@/engine/scripts/utils/logging", () => ({
-    LuaLogger: class {
-      public error = jest.fn();
-      public printStack = jest.fn();
-    },
+    LuaLogger: LuaLoggerMock,
   }));
 
   // @ts-ignore

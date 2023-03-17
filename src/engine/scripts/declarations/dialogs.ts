@@ -18,17 +18,17 @@ import { ISchemeMeetState } from "@/engine/scripts/core/schemes/meet";
 import { SchemeMeet } from "@/engine/scripts/core/schemes/meet/SchemeMeet";
 import { ISchemeWoundedState } from "@/engine/scripts/core/schemes/wounded";
 import { SchemeWounded } from "@/engine/scripts/core/schemes/wounded/SchemeWounded";
-import { getCharacterCommunity } from "@/engine/scripts/utils/alife";
 import { isObjectWounded, isStalkerAlive } from "@/engine/scripts/utils/check/check";
 import { createScenarioAutoSave } from "@/engine/scripts/utils/game_save";
 import { getObjectBoundSmart } from "@/engine/scripts/utils/gulag";
 import { giveInfo, hasAlifeInfo } from "@/engine/scripts/utils/info_portion";
+import { getCharacterCommunity } from "@/engine/scripts/utils/object";
 import {
   actorHasMedKit,
   getActorAvailableMedKit,
   getNpcSpeaker,
   relocateQuestItemSection,
-} from "@/engine/scripts/utils/quest";
+} from "@/engine/scripts/utils/quest_reward";
 
 /**
  * todo;

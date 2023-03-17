@@ -8,8 +8,8 @@ import { set_state } from "@/engine/scripts/core/objects/state/StateManager";
 import { SchemeAbuse } from "@/engine/scripts/core/schemes/abuse";
 import { AbstractSchemeManager } from "@/engine/scripts/core/schemes/base/AbstractSchemeManager";
 import { ISchemeMeetState } from "@/engine/scripts/core/schemes/meet/ISchemeMeetState";
-import { isObjectInCombat } from "@/engine/scripts/utils/alife";
 import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
+import { isObjectInCombat } from "@/engine/scripts/utils/object";
 
 /**
  * todo;

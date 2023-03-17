@@ -275,6 +275,9 @@ export function run_cam_effector_global(
   cam_effector_playing_object_id = npc.id();
 }
 
+/**
+ * todo;
+ */
 export function cam_effector_callback() {
   logger.info("Run cam effector callback");
 
@@ -295,6 +298,9 @@ export function cam_effector_callback() {
   state[state.active_scheme!]!.signals!.set("cameff_end", true);
 }
 
+/**
+ * todo;
+ */
 export function run_postprocess(actor: XR_game_object, npc: XR_game_object, p: [string, number]) {
   logger.info("Run postprocess");
 
@@ -313,6 +319,9 @@ export function run_postprocess(actor: XR_game_object, npc: XR_game_object, p: [
   }
 }
 
+/**
+ * todo;
+ */
 export function stop_postprocess(actor: XR_game_object, npc: XR_game_object, p: [number]) {
   logger.info("Stop postprocess");
 
@@ -321,18 +330,24 @@ export function stop_postprocess(actor: XR_game_object, npc: XR_game_object, p: 
   }
 }
 
+/**
+ * todo;
+ */
 export function run_tutorial(actor: XR_game_object, npc: XR_game_object, params: [string]) {
   logger.info("Run tutorial");
   game.start_tutorial(params[0]);
 }
 
+/**
+ * todo;
+ */
 export function jup_b32_place_scanner(actor: XR_game_object, npc: XR_game_object): void {
   for (const i of $range(1, 5)) {
     if (
       isActorInZoneWithName("jup_b32_sr_scanner_place_" + i, actor) &&
-      !hasAlifeInfo("jup_b32_scanner_" + i + "_placed")
+      !hasAlifeInfo(("jup_b32_scanner_" + i + "_placed") as TInfoPortion)
     ) {
-      giveInfo("jup_b32_scanner_" + i + "_placed");
+      giveInfo(("jup_b32_scanner_" + i + "_placed") as TInfoPortion);
       giveInfo(info_portions.jup_b32_tutorial_done);
       remove_item(actor, npc, ["jup_b32_scanner_device"]);
       spawn_object(actor, null, ["jup_b32_ph_scanner", "jup_b32_scanner_place_" + i, null, null]);
@@ -340,16 +355,25 @@ export function jup_b32_place_scanner(actor: XR_game_object, npc: XR_game_object
   }
 }
 
+/**
+ * todo;
+ */
 export function jup_b32_pda_check(actor: XR_game_object, npc: XR_game_object): void {
   MapDisplayManager.getInstance().updateAnomalyZonesDisplay();
 }
 
+/**
+ * todo;
+ */
 export function pri_b306_generator_start(actor: XR_game_object, npc: XR_game_object): void {
   if (isActorInZoneWithName(zones.pri_b306_sr_generator, actor)) {
     giveInfo(info_portions.pri_b306_lift_generator_used);
   }
 }
 
+/**
+ * todo;
+ */
 export function jup_b206_get_plant(actor: XR_game_object, npc: XR_game_object): void {
   if (isActorInZoneWithName(zones.jup_b206_sr_quest_line, actor)) {
     giveInfo(info_portions.jup_b206_anomalous_grove_has_plant);
@@ -358,16 +382,22 @@ export function jup_b206_get_plant(actor: XR_game_object, npc: XR_game_object): 
   }
 }
 
+/**
+ * todo;
+ */
 export function pas_b400_switcher(actor: XR_game_object, npc: XR_game_object): void {
   if (isActorInZoneWithName(zones.pas_b400_sr_switcher, actor)) {
     giveInfo(info_portions.pas_b400_switcher_use);
   }
 }
 
+/**
+ * todo;
+ */
 export function jup_b209_place_scanner(actor: XR_game_object, npc: XR_game_object): void {
   if (isActorInZoneWithName(zones.jup_b209_hypotheses)) {
     createScenarioAutoSave(captions.st_save_jup_b209_placed_mutant_scanner);
-    giveInfo("jup_b209_scanner_placed");
+    giveInfo(info_portions.jup_b209_scanner_placed);
     remove_item(actor, npc, ["jup_b209_monster_scanner"]);
     spawn_object(actor, null, ["jup_b209_ph_scanner", "jup_b209_scanner_place_point", null, null]);
   }
@@ -400,13 +430,13 @@ export function jup_b10_ufo_searching(actor: XR_game_object, npc: XR_game_object
 
 export function zat_b101_heli_5_searching(actor: XR_game_object, npc: XR_game_object): void {
   if (isActorInZoneWithName(zones.zat_b101_heli_5)) {
-    giveInfo("zat_b101_heli_5_searching");
+    giveInfo(info_portions.zat_b101_heli_5_searching);
   }
 }
 
 export function zat_b28_heli_3_searching(actor: XR_game_object, npc: XR_game_object): void {
   if (isActorInZoneWithName(zones.zat_b28_heli_3)) {
-    giveInfo("zat_b28_heli_3_searching");
+    giveInfo(info_portions.zat_b28_heli_3_searching);
   }
 }
 
@@ -1246,17 +1276,17 @@ export function spawn_corpse(actor: XR_game_object, obj: XR_game_object, params:
     abort("Path %s doesnt exist. Function 'spawn_corpse' for object %s ", tostring(path_name), obj.name());
   }
 
-  const ptr: XR_patrol = new patrol(path_name);
-  const index = params[2] || 0;
+  const patrolObject: XR_patrol = new patrol(path_name);
+  const index: TIndex = params[2] || 0;
 
-  const se_obj: XR_cse_alife_creature_abstract = alife().create(
+  const serverObject: XR_cse_alife_creature_abstract = alife().create(
     spawn_sect,
-    ptr.point(index),
-    ptr.level_vertex_id(0),
-    ptr.game_vertex_id(0)
+    patrolObject.point(index),
+    patrolObject.level_vertex_id(0),
+    patrolObject.game_vertex_id(0)
   );
 
-  se_obj.kill();
+  serverObject.kill();
 }
 
 /**
@@ -1592,6 +1622,9 @@ export function create_squad_member(
   squad.update();
 }
 
+/**
+ * todo;
+ */
 export function remove_squad(actor: XR_game_object, obj: XR_game_object, p: [string]): void {
   const story_id = p[0];
 
@@ -1641,6 +1674,9 @@ export function kill_squad(actor: XR_game_object, obj: XR_game_object, p: [Optio
   }
 }
 
+/**
+ * todo;
+ */
 export function heal_squad(actor: XR_game_object, obj: XR_game_object, params: [TStringId, number]) {
   const storyId: Optional<TStringId> = params[0];
   let health_mod = 1;
@@ -1698,6 +1734,9 @@ export function clear_smart_terrain(actor: XR_game_object, object: XR_game_objec
   }
 }
 
+/**
+ * todo;
+ */
 export function give_task(actor: XR_game_object, obj: XR_game_object, p: [Optional<string>]) {
   logger.info("Give actor task");
 
@@ -1708,6 +1747,9 @@ export function give_task(actor: XR_game_object, obj: XR_game_object, p: [Option
   TaskManager.getInstance().giveTask(p[0]);
 }
 
+/**
+ * todo;
+ */
 export function set_active_task(actor: XR_game_object, npc: XR_game_object, p: [string]): void {
   logger.info("Set active task");
 
@@ -1720,18 +1762,30 @@ export function set_active_task(actor: XR_game_object, npc: XR_game_object, p: [
   }
 }
 
+/**
+ * todo;
+ */
 export function actor_friend(actor: XR_game_object, npc: XR_game_object): void {
   npc.force_set_goodwill(1000, actor);
 }
 
+/**
+ * todo;
+ */
 export function actor_neutral(actor: XR_game_object, npc: XR_game_object): void {
   npc.force_set_goodwill(0, actor);
 }
 
+/**
+ * todo;
+ */
 export function actor_enemy(actor: XR_game_object, npc: XR_game_object): void {
   npc.force_set_goodwill(-1000, actor);
 }
 
+/**
+ * todo;
+ */
 export function set_squad_neutral_to_actor(actor: XR_game_object, npc: XR_game_object, p: [TStringId]): void {
   const squad: Optional<Squad> = getServerObjectByStoryId(p[0]);
 
@@ -1742,6 +1796,9 @@ export function set_squad_neutral_to_actor(actor: XR_game_object, npc: XR_game_o
   }
 }
 
+/**
+ * todo;
+ */
 export function set_squad_friend_to_actor(actor: XR_game_object, npc: XR_game_object, p: [TStringId]): void {
   const squad: Optional<Squad> = getServerObjectByStoryId(p[0]);
 
@@ -1752,6 +1809,9 @@ export function set_squad_friend_to_actor(actor: XR_game_object, npc: XR_game_ob
   }
 }
 
+/**
+ * todo;
+ */
 export function set_squad_enemy_to_actor(actor: XR_game_object, npc: XR_game_object, p: [TStringId]): void {
   const squad: Optional<Squad> = getServerObjectByStoryId(p[0]);
 
@@ -1762,18 +1822,27 @@ export function set_squad_enemy_to_actor(actor: XR_game_object, npc: XR_game_obj
   }
 }
 
+/**
+ * todo;
+ */
 export function set_npc_sympathy(actor: XR_game_object, npc: XR_game_object, p: [number]): void {
   if (p[0] !== null) {
     setObjectSympathy(npc, p[0]);
   }
 }
 
+/**
+ * todo;
+ */
 export function set_squad_goodwill(actor: XR_game_object, npc: XR_game_object, p: [string, TRelation]): void {
   if (p[0] !== null && p[1] !== null) {
     setSquadGoodwill(p[0], p[1]);
   }
 }
 
+/**
+ * todo;
+ */
 export function set_squad_goodwill_to_npc(actor: XR_game_object, npc: XR_game_object, p: [string, TRelation]): void {
   if (p[0] !== null && p[1] !== null) {
     setSquadGoodwillToNpc(npc, p[0], p[1]);
@@ -2184,33 +2253,37 @@ export function scenario_autosave(actor: XR_game_object, npc: XR_game_object, p:
 /**
  * todo;
  */
-export function zat_b29_create_random_infop(actor: XR_game_object, npc: XR_game_object, p: LuaArray<string>) {
-  if (p.get(2) === null) {
+export function zat_b29_create_random_infop(
+  actor: XR_game_object,
+  npc: XR_game_object,
+  parameters: LuaArray<TInfoPortion>
+): void {
+  if (parameters.get(2) === null) {
     abort("Not enough parameters for zat_b29_create_random_infop!");
   }
 
-  let amount_needed: number = p.get(1) as unknown as number;
+  let amountNeeded: number = parameters.get(1) as unknown as number;
   let current_infop: number = 0;
   let total_infop: number = 0;
 
-  if (!amount_needed || amount_needed === null) {
-    amount_needed = 1;
+  if (!amountNeeded || amountNeeded === null) {
+    amountNeeded = 1;
   }
 
-  for (const [k, v] of p) {
-    if (k > 1) {
+  for (const [index, infoPortion] of parameters) {
+    if (index > 1) {
       total_infop = total_infop + 1;
-      disableInfo(v);
+      disableInfo(infoPortion);
     }
   }
 
-  if (amount_needed > total_infop) {
-    amount_needed = total_infop;
+  if (amountNeeded > total_infop) {
+    amountNeeded = total_infop;
   }
 
-  for (const i of $range(1, amount_needed)) {
+  for (const it of $range(1, amountNeeded)) {
     current_infop = math.random(1, total_infop);
-    for (const [k, v] of p) {
+    for (const [k, v] of parameters) {
       if (k > 1) {
         if (k === current_infop + 1 && !hasAlifeInfo(v)) {
           giveInfo(v);
@@ -2226,32 +2299,35 @@ export function zat_b29_create_random_infop(actor: XR_game_object, npc: XR_game_
  */
 export function give_item_b29(actor: XR_game_object, npc: XR_game_object, p: [string]) {
   // --	const story_object = p && getStoryObject(p[1])
-  const az_table = [
+  const anomalyZonesList = [
     "zat_b55_anomal_zone",
     "zat_b54_anomal_zone",
     "zat_b53_anomal_zone",
     "zat_b39_anomal_zone",
     "zaton_b56_anomal_zone",
-  ];
+  ] as unknown as LuaArray<TName>;
 
   for (const i of $range(16, 23)) {
     if (hasAlifeInfo(get_global("dialogs_zaton").zat_b29_infop_bring_table[i])) {
-      let az_name: Optional<string> = null;
+      let anomalyZoneName: Optional<TName> = null;
 
-      for (const [k, v] of az_table) {
-        if (hasAlifeInfo(v)) {
-          az_name = v;
-          disableInfo(az_name);
+      for (const [index, name] of anomalyZonesList) {
+        if (hasAlifeInfo(name as TInfoPortion)) {
+          anomalyZoneName = name;
+          disableInfo(anomalyZoneName as TInfoPortion);
           break;
         }
       }
 
-      pick_artefact_from_anomaly(actor, null, [p[0], az_name, get_global("dialogs_zaton").zat_b29_af_table[i]]);
+      pick_artefact_from_anomaly(actor, null, [p[0], anomalyZoneName, get_global("dialogs_zaton").zat_b29_af_table[i]]);
       break;
     }
   }
 }
 
+/**
+ * todo;
+ */
 export function relocate_item_b29(actor: XR_game_object, npc: XR_game_object, p: [string, string]) {
   let item: Optional<string> = null;
 
@@ -2276,7 +2352,9 @@ export function relocate_item_b29(actor: XR_game_object, npc: XR_game_object, p:
   }
 }
 
-// -- ������� ������� ���������� �������� ���� � ������. by peacemaker, hein, redstain
+/**
+ * todo;
+ */
 export function reset_sound_npc(actor: XR_game_object, npc: XR_game_object): void {
   const objectId: TNumberId = npc.id();
 
@@ -2333,6 +2411,9 @@ export function clear_box(actor: XR_game_object, npc: XR_game_object, p: [string
   }
 }
 
+/**
+ * todo;
+ */
 export function activate_weapon(actor: XR_game_object, npc: XR_game_object, p: [string]) {
   const object: Optional<XR_game_object> = actor.object(p[0]);
 
@@ -2345,6 +2426,9 @@ export function activate_weapon(actor: XR_game_object, npc: XR_game_object, p: [
   }
 }
 
+/**
+ * todo;
+ */
 export function set_game_time(actor: XR_game_object, npc: XR_game_object, params: [string, string]) {
   logger.info("Set game time:", params[0], params[1]);
 
@@ -2378,6 +2462,9 @@ export function set_game_time(actor: XR_game_object, npc: XR_game_object, params
   SurgeManager.getInstance().isTimeForwarded = true;
 }
 
+/**
+ * todo;
+ */
 export function forward_game_time(actor: XR_game_object, npc: XR_game_object, p: [string, string]) {
   logger.info("Forward game time");
 
@@ -2397,11 +2484,17 @@ export function forward_game_time(actor: XR_game_object, npc: XR_game_object, p:
   SurgeManager.getInstance().isTimeForwarded = true;
 }
 
+/**
+ * todo;
+ */
 export function stop_tutorial(): void {
   logger.info("Stop tutorial");
   game.stop_tutorial();
 }
 
+/**
+ * todo;
+ */
 export function jup_b10_spawn_drunk_dead_items(actor: XR_game_object, npc: XR_game_object, params: [string]): void {
   const items_all = {
     [weapons.wpn_ak74]: 1,
@@ -2625,11 +2718,14 @@ export function zat_b202_spawn_random_loot(actor: XR_game_object, npc: XR_game_o
   }
 }
 
+/**
+ * todo;
+ */
 export function jup_b221_play_main(actor: XR_game_object, npc: XR_game_object, p: [string]) {
-  let info_table: LuaArray<string> = new LuaTable();
+  let infoPortionsList: LuaArray<TInfoPortion> = new LuaTable();
   let main_theme: string;
   let reply_theme: string;
-  let info_need_reply: string;
+  let info_need_reply: TInfoPortion;
   const reachable_theme: LuaTable = new LuaTable();
 
   if ((p && p[0]) === null) {
@@ -2637,35 +2733,35 @@ export function jup_b221_play_main(actor: XR_game_object, npc: XR_game_object, p
   }
 
   if (tostring(p[0]) === "duty") {
-    info_table = [
-      "jup_b25_freedom_flint_gone",
-      "jup_b25_flint_blame_done_to_duty",
-      "jup_b4_monolith_squad_in_duty",
-      "jup_a6_duty_leader_bunker_guards_work",
-      "jup_a6_duty_leader_employ_work",
-      "jup_b207_duty_wins",
-    ] as unknown as LuaArray<string>;
+    infoPortionsList = [
+      info_portions.jup_b25_freedom_flint_gone,
+      info_portions.jup_b25_flint_blame_done_to_duty,
+      info_portions.jup_b4_monolith_squad_in_duty,
+      info_portions.jup_a6_duty_leader_bunker_guards_work,
+      info_portions.jup_a6_duty_leader_employ_work,
+      info_portions.jup_b207_duty_wins,
+    ] as unknown as LuaArray<TInfoPortion>;
     main_theme = "jup_b221_duty_main_";
     reply_theme = "jup_b221_duty_reply_";
-    info_need_reply = "jup_b221_duty_reply";
+    info_need_reply = info_portions.jup_b221_duty_reply;
   } else if (tostring(p[0]) === "freedom") {
-    info_table = [
-      "jup_b207_freedom_know_about_depot",
-      "jup_b46_duty_founder_pda_to_freedom",
-      "jup_b4_monolith_squad_in_freedom",
-      "jup_a6_freedom_leader_bunker_guards_work",
-      "jup_a6_freedom_leader_employ_work",
-      "jup_b207_freedom_wins",
-    ] as unknown as LuaArray<string>;
+    infoPortionsList = [
+      info_portions.jup_b207_freedom_know_about_depot,
+      info_portions.jup_b46_duty_founder_pda_to_freedom,
+      info_portions.jup_b4_monolith_squad_in_freedom,
+      info_portions.jup_a6_freedom_leader_bunker_guards_work,
+      info_portions.jup_a6_freedom_leader_employ_work,
+      info_portions.jup_b207_freedom_wins,
+    ] as unknown as LuaArray<TInfoPortion>;
     main_theme = "jup_b221_freedom_main_";
     reply_theme = "jup_b221_freedom_reply_";
-    info_need_reply = "jup_b221_freedom_reply";
+    info_need_reply = info_portions.jup_b221_freedom_reply;
   } else {
     abort("Wrong parameters in function 'jup_b221_play_main'");
   }
 
-  for (const [k, v] of info_table) {
-    if (hasAlifeInfo(v) && !hasAlifeInfo(main_theme + tostring(k) + "_played")) {
+  for (const [k, v] of infoPortionsList) {
+    if (hasAlifeInfo(v) && !hasAlifeInfo((main_theme + tostring(k) + "_played") as TInfoPortion)) {
       table.insert(reachable_theme, k);
     }
   }
@@ -2675,7 +2771,7 @@ export function jup_b221_play_main(actor: XR_game_object, npc: XR_game_object, p
 
     disableInfo(info_need_reply);
     pstor_store(actor, "jup_b221_played_main_theme", tostring(theme_to_play));
-    giveInfo(main_theme + tostring(theme_to_play) + "_played");
+    giveInfo((main_theme + tostring(theme_to_play) + "_played") as TInfoPortion);
 
     if (theme_to_play !== 0) {
       play_sound(actor, npc, [main_theme + tostring(theme_to_play), null, null]);
@@ -2799,6 +2895,9 @@ export function damage_pri_a17_gauss() {
   }
 }
 
+/**
+ * todo;
+ */
 export function pri_a17_hard_animation_reset(actor: XR_game_object, npc: XR_game_object, p: []) {
   const stateManager = registry.objects.get(npc.id()).state_mgr!;
 
@@ -2808,6 +2907,9 @@ export function pri_a17_hard_animation_reset(actor: XR_game_object, npc: XR_game
   stateManager.animation.set_control();
 }
 
+/**
+ * todo;
+ */
 export function jup_b217_hard_animation_reset(actor: XR_game_object, npc: XR_game_object): void {
   const stateManager = registry.objects.get(npc.id()).state_mgr!;
 
@@ -2817,6 +2919,9 @@ export function jup_b217_hard_animation_reset(actor: XR_game_object, npc: XR_gam
   stateManager.animation.set_control();
 }
 
+/**
+ * todo;
+ */
 export function sleep(actor: XR_game_object, npc: XR_game_object): void {
   logger.info("Sleep effect");
 
@@ -2844,6 +2949,9 @@ export function mech_discount(actor: XR_game_object, npc: XR_game_object, p: [st
   }
 }
 
+/**
+ * todo;
+ */
 export function polter_actor_ignore(actor: XR_game_object, npc: XR_game_object, p: [string]) {
   if (p[0] === "true") {
     npc.poltergeist_set_actor_ignore(true);
@@ -2852,14 +2960,23 @@ export function polter_actor_ignore(actor: XR_game_object, npc: XR_game_object, 
   }
 }
 
+/**
+ * todo;
+ */
 export function burer_force_gravi_attack(actor: XR_game_object, npc: XR_game_object): void {
   npc.burer_set_force_gravi_attack(true);
 }
 
+/**
+ * todo;
+ */
 export function burer_force_anti_aim(actor: XR_game_object, npc: XR_game_object): void {
   npc.set_force_anti_aim(true);
 }
 
+/**
+ * todo;
+ */
 export function show_freeplay_dialog(actor: XR_game_object, npc: XR_game_object, p: [string, Optional<"true">]) {
   if (p[0] && p[1] && p[1] === "true") {
     showFreeplayDialog("message_box_yes_no", p[0]);
@@ -2867,6 +2984,7 @@ export function show_freeplay_dialog(actor: XR_game_object, npc: XR_game_object,
     showFreeplayDialog("message_box_ok", p[0]);
   }
 }
+
 const detectorsOrder = [
   detectors.detector_simple,
   detectors.detector_advanced,
@@ -2874,7 +2992,9 @@ const detectorsOrder = [
   detectors.detector_scientific,
 ] as unknown as LuaArray<TDetector>;
 
-// -- ������ ��� state_mgr
+/**
+ * todo;
+ */
 export function get_best_detector(npc: XR_game_object): void {
   for (const [k, v] of detectorsOrder) {
     const obj = npc.object(v);
@@ -2887,6 +3007,9 @@ export function get_best_detector(npc: XR_game_object): void {
   }
 }
 
+/**
+ * todo;
+ */
 export function hide_best_detector(npc: XR_game_object): void {
   for (const [k, v] of detectorsOrder) {
     const item = npc.object(v);
@@ -2898,86 +3021,150 @@ export function hide_best_detector(npc: XR_game_object): void {
     }
   }
 }
+
+/**
+ * todo;
+ */
 export function pri_a18_radio_start(actor: XR_game_object, npc: XR_game_object): void {
   giveInfo(info_portions.pri_a18_radio_start);
 }
 
+/**
+ * todo;
+ */
 export function pri_a17_ice_climb_end(actor: XR_game_object, npc: XR_game_object): void {
   giveInfo(info_portions.pri_a17_ice_climb_end);
 }
 
+/**
+ * todo;
+ */
 export function jup_b219_opening(actor: XR_game_object, npc: XR_game_object): void {
   giveInfo(info_portions.jup_b219_opening);
 }
 
+/**
+ * todo;
+ */
 export function jup_b219_entering_underpass(actor: XR_game_object, npc: XR_game_object): void {
   giveInfo(info_portions.jup_b219_entering_underpass);
 }
 
+/**
+ * todo;
+ */
 export function pri_a17_pray_start(actor: XR_game_object, npc: XR_game_object): void {
   giveInfo(info_portions.pri_a17_pray_start);
 }
 
+/**
+ * todo;
+ */
 export function zat_b38_open_info(actor: XR_game_object, npc: XR_game_object): void {
   giveInfo(info_portions.zat_b38_open_info);
 }
 
+/**
+ * todo;
+ */
 export function zat_b38_switch_info(actor: XR_game_object, npc: XR_game_object): void {
   giveInfo(info_portions.zat_b38_switch_info);
 }
 
+/**
+ * todo;
+ */
 export function zat_b38_cop_dead(actor: XR_game_object, npc: XR_game_object): void {
   giveInfo(info_portions.zat_b38_cop_dead);
 }
 
+/**
+ * todo;
+ */
 export function jup_b15_zulus_drink_anim_info(actor: XR_game_object, npc: XR_game_object): void {
   giveInfo(info_portions.jup_b15_zulus_drink_anim_info);
 }
 
+/**
+ * todo;
+ */
 export function pri_a17_preacher_death(actor: XR_game_object, npc: XR_game_object): void {
   giveInfo(info_portions.pri_a17_preacher_death);
 }
 
+/**
+ * todo;
+ */
 export function zat_b3_tech_surprise_anim_end(actor: XR_game_object, npc: XR_game_object): void {
   giveInfo(info_portions.zat_b3_tech_surprise_anim_end);
 }
 
+/**
+ * todo;
+ */
 export function zat_b3_tech_waked_up(actor: XR_game_object, npc: XR_game_object): void {
   giveInfo(info_portions.zat_b3_tech_waked_up);
 }
 
+/**
+ * todo;
+ */
 export function zat_b3_tech_drinked_out(actor: XR_game_object, npc: XR_game_object): void {
   giveInfo(info_portions.zat_b3_tech_drinked_out);
 }
 
+/**
+ * todo;
+ */
 export function pri_a28_kirillov_hq_online(actor: XR_game_object, npc: XR_game_object): void {
   giveInfo(info_portions.pri_a28_kirillov_hq_online);
 }
 
+/**
+ * todo;
+ */
 export function pri_a20_radio_start(actor: XR_game_object, npc: XR_game_object): void {
   giveInfo(info_portions.pri_a20_radio_start);
 }
 
+/**
+ * todo;
+ */
 export function pri_a22_kovalski_speak(actor: XR_game_object, npc: XR_game_object): void {
   giveInfo(info_portions.pri_a22_kovalski_speak);
 }
 
+/**
+ * todo;
+ */
 export function zat_b38_underground_door_open(actor: XR_game_object, npc: XR_game_object): void {
   giveInfo(info_portions.zat_b38_underground_door_open);
 }
 
+/**
+ * todo;
+ */
 export function zat_b38_jump_tonnel_info(actor: XR_game_object, npc: XR_game_object): void {
   giveInfo(info_portions.zat_b38_jump_tonnel_info);
 }
 
+/**
+ * todo;
+ */
 export function jup_a9_cam1_actor_anim_end(actor: XR_game_object, npc: XR_game_object): void {
   giveInfo(info_portions.jup_a9_cam1_actor_anim_end);
 }
 
+/**
+ * todo;
+ */
 export function pri_a28_talk_ssu_video_end(actor: XR_game_object, npc: XR_game_object): void {
   giveInfo(info_portions.pri_a28_talk_ssu_video_end);
 }
 
+/**
+ * todo;
+ */
 export function set_torch_state(actor: XR_game_object, npc: XR_game_object, p: [string, Optional<string>]) {
   if (p === null || p[1] === null) {
     abort("Not enough parameters in 'set_torch_state' function!");
@@ -3000,6 +3187,9 @@ export function set_torch_state(actor: XR_game_object, npc: XR_game_object, p: [
   }
 }
 
+/**
+ * todo;
+ */
 export function create_cutscene_actor_with_weapon(
   first: XR_game_object,
   second: XR_game_object,
@@ -3084,16 +3274,23 @@ export function create_cutscene_actor_with_weapon(
   }
 }
 
-// -- ��������� ������ ���������� �������� ���(� ���������)
+/**
+ * todo;
+ */
 export function set_force_sleep_animation(actor: XR_game_object, npc: XR_game_object, p: [number]) {
   npc.force_stand_sleep_animation(tonumber(p[0])!);
 }
 
-// -- ������ ���������� �������� ���(� ���������)
+/**
+ * todo;
+ */
 export function release_force_sleep_animation(actor: XR_game_object, npc: XR_game_object): void {
   npc.release_stand_sleep_animation();
 }
 
+/**
+ * todo;
+ */
 export function zat_b33_pic_snag_container(actor: XR_game_object, npc: XR_game_object): void {
   if (isActorInZoneWithName(zones.zat_b33_tutor)) {
     give_actor(actor, npc, [quest_items.zat_b33_safe_container]);
@@ -3104,12 +3301,18 @@ export function zat_b33_pic_snag_container(actor: XR_game_object, npc: XR_game_o
   }
 }
 
+/**
+ * todo;
+ */
 export function set_visual_memory_enabled(actor: XR_game_object, npc: XR_game_object, p: [number]): void {
   if (p && p[0] && tonumber(p[0])! >= 0 && tonumber(p[0])! <= 1) {
     npc.set_visual_memory_enabled(tonumber(p[0]) === 1);
   }
 }
 
+/**
+ * todo;
+ */
 export function disable_memory_object(actor: XR_game_object, npc: XR_game_object): void {
   const best_enemy = npc.best_enemy();
 
@@ -3118,8 +3321,11 @@ export function disable_memory_object(actor: XR_game_object, npc: XR_game_object
   }
 }
 
+/**
+ * todo;
+ */
 export function zat_b202_spawn_b33_loot(actor: XR_game_object, npc: XR_game_object, p: []) {
-  const info_table = [
+  const infoPortionsList = [
     info_portions.zat_b33_first_item_gived,
     info_portions.zat_b33_second_item_gived,
     info_portions.zat_b33_third_item_gived,
@@ -3147,17 +3353,20 @@ export function zat_b202_spawn_b33_loot(actor: XR_game_object, npc: XR_game_obje
     [helmets.helm_hardhat_snag],
   ] as unknown as LuaArray<LuaArray<string>>;
 
-  for (const [k, v] of info_table) {
-    const obj_id = k === 1 || k === 3 ? "jup_b202_stalker_snag" : "jup_b202_snag_treasure";
+  for (const [index, infoPortion] of infoPortionsList) {
+    const objectId: TStringId = index === 1 || index === 3 ? "jup_b202_stalker_snag" : "jup_b202_snag_treasure";
 
-    if (!hasAlifeInfo(tostring(v))) {
-      for (const [l, m] of item_table.get(k)) {
-        spawn_object_in(actor, npc, [tostring(m), tostring(obj_id)]);
+    if (!hasAlifeInfo(infoPortion)) {
+      for (const [l, m] of item_table.get(index)) {
+        spawn_object_in(actor, npc, [tostring(m), tostring(objectId)]);
       }
     }
   }
 }
 
+/**
+ * todo;
+ */
 export function set_monster_animation(actor: XR_game_object, npc: XR_game_object, p: [string]) {
   if (!(p && p[0])) {
     abort("Wrong parameters in function 'set_monster_animation'!!!");
@@ -3166,16 +3375,25 @@ export function set_monster_animation(actor: XR_game_object, npc: XR_game_object
   npc.set_override_animation(p[0]);
 }
 
+/**
+ * todo;
+ */
 export function clear_monster_animation(actor: XR_game_object, npc: XR_game_object): void {
   npc.clear_override_animation();
 }
 
 let actor_position_for_restore: Optional<XR_vector> = null;
 
+/**
+ * todo;
+ */
 export function save_actor_position(): void {
   actor_position_for_restore = registry.actor.position();
 }
 
+/**
+ * todo;
+ */
 export function restore_actor_position(): void {
   registry.actor.set_actor_position(actor_position_for_restore!);
 }
@@ -3193,6 +3411,9 @@ export function upgrade_hint(
   }
 }
 
+/**
+ * todo;
+ */
 export function force_obj(actor: XR_game_object, npc: XR_game_object, p: [string, Optional<number>, Optional<number>]) {
   logger.info("Force object");
 
@@ -3213,6 +3434,9 @@ export function force_obj(actor: XR_game_object, npc: XR_game_object, p: [string
   object.set_const_force(new vector().set(0, 1, 0), p[1], p[2]);
 }
 
+/**
+ * todo;
+ */
 export function pri_a28_check_zones(): void {
   const actor: XR_game_object = registry.actor;
   let dist: TDistance = 0;
@@ -3224,11 +3448,11 @@ export function pri_a28_check_zones(): void {
     "pri_a28_sr_mono_add_3",
   ] as unknown as LuaArray<TStringId>;
 
-  const infoList: LuaArray<TStringId> = [
-    "pri_a28_wave_1_spawned",
-    "pri_a28_wave_2_spawned",
-    "pri_a28_wave_3_spawned",
-  ] as unknown as LuaArray<TStringId>;
+  const infoList: LuaArray<TInfoPortion> = [
+    info_portions.pri_a28_wave_1_spawned,
+    info_portions.pri_a28_wave_2_spawned,
+    info_portions.pri_a28_wave_3_spawned,
+  ] as unknown as LuaArray<TInfoPortion>;
 
   const squadsList: LuaArray<TStringId> = [
     "pri_a28_heli_mono_add_1",
@@ -3270,6 +3494,9 @@ export function pri_a28_check_zones(): void {
   create_squad(actor, null, [squadsList.get(index), "pri_a28_heli"]);
 }
 
+/**
+ * todo;
+ */
 export function eat_vodka_script() {
   const actor: XR_game_object = registry.actor;
 

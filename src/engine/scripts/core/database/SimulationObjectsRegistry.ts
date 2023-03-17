@@ -7,8 +7,8 @@ import { registry } from "@/engine/scripts/core/database/registry";
 import { Actor } from "@/engine/scripts/core/objects/alife/Actor";
 import { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
 import { Squad } from "@/engine/scripts/core/objects/alife/Squad";
-import { areObjectsOnSameLevel, getServerDistanceBetween } from "@/engine/scripts/utils/alife";
 import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
+import { areObjectsOnSameLevel, getServerDistanceBetween } from "@/engine/scripts/utils/object";
 import { parseConditionsList } from "@/engine/scripts/utils/parse";
 
 let sim_objects_registry: Optional<SimulationObjectsRegistry> = null;

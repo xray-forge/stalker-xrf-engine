@@ -16,7 +16,7 @@ import {
 
 import { captions, TCaption } from "@/engine/lib/constants/captions";
 import { TCommunity } from "@/engine/lib/constants/communities";
-import { info_portions } from "@/engine/lib/constants/info_portions/info_portions";
+import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
 import { STRINGIFIED_FALSE } from "@/engine/lib/constants/lua";
 import { relations } from "@/engine/lib/constants/relations";
 import { zones } from "@/engine/lib/constants/zones";
@@ -58,7 +58,6 @@ import { ISchemeAnimpointState } from "@/engine/scripts/core/schemes/animpoint/I
 import { ISchemeDeathState } from "@/engine/scripts/core/schemes/death";
 import { ISchemeHitState } from "@/engine/scripts/core/schemes/hit";
 import { SchemeDeimos } from "@/engine/scripts/core/schemes/sr_deimos/SchemeDeimos";
-import { anomalyHasArtefact, getCharacterCommunity, getObjectSquad } from "@/engine/scripts/utils/alife";
 import {
   isActorAlive,
   isActorEnemy,
@@ -79,6 +78,7 @@ import { abort } from "@/engine/scripts/utils/debug";
 import { getObjectBoundSmart } from "@/engine/scripts/utils/gulag";
 import { hasAlifeInfo } from "@/engine/scripts/utils/info_portion";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
+import { anomalyHasArtefact, getCharacterCommunity, getObjectSquad } from "@/engine/scripts/utils/object";
 import { distanceBetween, npcInActorFrustum } from "@/engine/scripts/utils/physics";
 import {
   isFactionsEnemies,
@@ -383,7 +383,7 @@ export function npc_in_zone(actor: XR_game_object, npc: XR_game_object | XR_cse_
  * todo;
  */
 export function jup_b16_is_zone_active(actor: XR_game_object, npc: XR_game_object): boolean {
-  return hasAlifeInfo(npc.name());
+  return hasAlifeInfo(npc.name() as TInfoPortion);
 }
 
 /**
@@ -1676,7 +1676,7 @@ export function zat_b29_anomaly_has_af(actor: XR_game_object, npc: XR_game_objec
  */
 export function jup_b221_who_will_start(actor: XR_game_object, npc: XR_game_object, p: [string]): boolean {
   const reachable_theme: LuaArray<number> = new LuaTable();
-  const info_table: LuaArray<string> = [
+  const infoPortionsList: LuaArray<TInfoPortion> = [
     info_portions.jup_b25_freedom_flint_gone,
     info_portions.jup_b25_flint_blame_done_to_duty,
     info_portions.jup_b4_monolith_squad_in_duty,
@@ -1689,23 +1689,27 @@ export function jup_b221_who_will_start(actor: XR_game_object, npc: XR_game_obje
     info_portions.jup_a6_freedom_leader_bunker_guards_work,
     info_portions.jup_a6_freedom_leader_employ_work,
     info_portions.jup_b207_freedom_wins,
-  ] as unknown as LuaArray<string>;
+  ] as unknown as LuaArray<TInfoPortion>;
 
-  for (const [k, v] of info_table) {
-    const faction_table: LuaArray<string> = new LuaTable();
+  for (const [k, v] of infoPortionsList) {
+    const factionsList: LuaArray<string> = new LuaTable();
 
     if (k <= 6) {
-      faction_table.set(1, "duty");
-      faction_table.set(2, "0");
+      factionsList.set(1, "duty");
+      factionsList.set(2, "0");
     } else {
-      faction_table.set(1, "freedom");
-      faction_table.set(2, "6");
+      factionsList.set(1, "freedom");
+      factionsList.set(2, "6");
     }
 
     if (
       hasAlifeInfo(v) &&
       !hasAlifeInfo(
-        "jup_b221_" + faction_table.get(1) + "_main_" + tostring(k - tonumber(faction_table.get(2))!) + "_played"
+        ("jup_b221_" +
+          factionsList.get(1) +
+          "_main_" +
+          tostring(k - tonumber(factionsList.get(2))!) +
+          "_played") as TInfoPortion
       )
     ) {
       table.insert(reachable_theme, k);

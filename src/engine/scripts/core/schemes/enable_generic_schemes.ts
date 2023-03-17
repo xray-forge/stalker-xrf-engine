@@ -17,8 +17,8 @@ import { SchemeMobDeath } from "@/engine/scripts/core/schemes/mob/death/SchemeMo
 import { SchemePhysicalOnHit } from "@/engine/scripts/core/schemes/ph_on_hit/SchemePhysicalOnHit";
 import { SchemeReachTask } from "@/engine/scripts/core/schemes/reach_task/SchemeReachTask";
 import { SchemeWounded } from "@/engine/scripts/core/schemes/wounded/SchemeWounded";
-import { resetObjectInvulnerability, setObjectInfo } from "@/engine/scripts/utils/alife";
 import { getConfigString } from "@/engine/scripts/utils/ini_config/getters";
+import { resetObjectInvulnerability, setObjectInfo } from "@/engine/scripts/utils/object";
 
 /**
  * todo

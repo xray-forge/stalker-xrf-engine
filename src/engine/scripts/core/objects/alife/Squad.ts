@@ -47,7 +47,6 @@ import { SquadReachTargetAction } from "@/engine/scripts/core/objects/alife/Squa
 import { SquadStayOnTargetAction } from "@/engine/scripts/core/objects/alife/SquadStayOnTargetAction";
 import { StateManager } from "@/engine/scripts/core/objects/state/StateManager";
 import { get_sound_manager, SoundManager } from "@/engine/scripts/core/sounds/SoundManager";
-import { areObjectsOnSameLevel } from "@/engine/scripts/utils/alife";
 import { isSquadMonsterCommunity } from "@/engine/scripts/utils/check/is";
 import { abort } from "@/engine/scripts/utils/debug";
 import { setSaveMarker } from "@/engine/scripts/utils/game_save";
@@ -60,6 +59,7 @@ import {
   getTwoNumbers,
 } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
+import { areObjectsOnSameLevel } from "@/engine/scripts/utils/object";
 import { parseConditionsList, parseNames, TConditionList } from "@/engine/scripts/utils/parse";
 import {
   getSquadIdRelationToActor,

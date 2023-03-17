@@ -20,9 +20,9 @@ import { ISchemeCombatIgnoreState } from "@/engine/scripts/core/schemes/combat_i
 import { ActionProcessEnemy } from "@/engine/scripts/core/schemes/combat_ignore/actions/ActionProcessEnemy";
 import { EvaluatorDanger } from "@/engine/scripts/core/schemes/danger/evaluators";
 import { ISchemeDangerState } from "@/engine/scripts/core/schemes/danger/ISchemeDangerState";
-import { getCharacterCommunity } from "@/engine/scripts/utils/alife";
 import { isHeavilyWounded } from "@/engine/scripts/utils/check/check";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
+import { getCharacterCommunity } from "@/engine/scripts/utils/object";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

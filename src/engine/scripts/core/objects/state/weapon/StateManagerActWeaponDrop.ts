@@ -4,9 +4,9 @@ import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { Optional } from "@/engine/lib/types";
 import { StateManager } from "@/engine/scripts/core/objects/state/StateManager";
 import { get_weapon } from "@/engine/scripts/core/objects/state/weapon/StateManagerWeapon";
-import { setItemCondition } from "@/engine/scripts/utils/alife";
 import { isStrappableWeapon } from "@/engine/scripts/utils/check/is";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
+import { setItemCondition } from "@/engine/scripts/utils/object";
 
 const logger: LuaLogger = new LuaLogger(
   "StateManagerActWeaponDrop",

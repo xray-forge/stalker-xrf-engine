@@ -8,9 +8,9 @@ import { getSimulationObjectsRegistry } from "@/engine/scripts/core/database/Sim
 import { AbstractCoreManager } from "@/engine/scripts/core/managers/AbstractCoreManager";
 import { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
 import { Squad } from "@/engine/scripts/core/objects/alife/Squad";
-import { changeTeamSquadGroup } from "@/engine/scripts/utils/alife";
 import { abort } from "@/engine/scripts/utils/debug";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
+import { changeTeamSquadGroup } from "@/engine/scripts/utils/object";
 import { parseNames } from "@/engine/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger($filename);

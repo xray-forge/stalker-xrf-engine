@@ -6,14 +6,14 @@ import { MapDisplayManager } from "@/engine/scripts/core/managers/map/MapDisplay
 import { mobRelease } from "@/engine/scripts/core/schemes/mobRelease";
 import { RestrictorManager } from "@/engine/scripts/core/schemes/RestrictorManager";
 import { resetScheme } from "@/engine/scripts/core/schemes/schemes_resetting";
+import { getObjectClassId } from "@/engine/scripts/utils/id";
 import {
   initializeObjectCanSelectWeaponState,
   initializeObjectTakeItemsEnabledState,
   resetObjectGroup,
   resetObjectInvulnerability,
   resetObjectThreshold,
-} from "@/engine/scripts/utils/alife";
-import { getObjectClassId } from "@/engine/scripts/utils/id";
+} from "@/engine/scripts/utils/object";
 
 /**
  * todo;

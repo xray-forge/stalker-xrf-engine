@@ -1,6 +1,5 @@
-import { alife, XR_alife_simulator } from "xray16";
-
 import { TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
+import { Optional, TCount } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
@@ -9,18 +8,21 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * todo;
  */
-export function giveInfo(infoId: string): void {
+export function giveInfo(infoId?: Optional<TInfoPortion>): void {
   logger.info("Give alife info:", infoId);
-  registry.actor.give_info_portion(infoId);
+
+  if (infoId) {
+    registry.actor.give_info_portion(infoId);
+  }
 }
 
 /**
  * todo;
  */
-export function disableInfo(infoId: string): void {
+export function disableInfo(infoId?: Optional<TInfoPortion>): void {
   logger.info("Disable alife info:", infoId);
 
-  if (hasAlifeInfo(infoId)) {
+  if (infoId && hasAlifeInfo(infoId)) {
     registry.actor.disable_info_portion(infoId);
   }
 }
@@ -28,14 +30,12 @@ export function disableInfo(infoId: string): void {
 /**
  * Whether actor has alife info active.
  */
-export function hasAlifeInfo(infoId: string): boolean {
-  const sim: XR_alife_simulator = alife();
-
-  if (sim === null) {
+export function hasAlifeInfo(infoId?: Optional<TInfoPortion>): infoId is TInfoPortion {
+  if (!infoId) {
     return false;
   }
 
-  return sim.has_info(0, infoId);
+  return registry.actor.has_info(infoId);
 }
 
 /**
@@ -59,17 +59,11 @@ export function hasAtLeastOneAlifeInfo(infoIds: Array<TInfoPortion>): boolean {
  * @param infoIds - array of infos to check.
  * @param count - count of infos required to satisfy conditions.
  */
-export function hasFewAlifeInfos(infoIds: Array<TInfoPortion>, count: number): boolean {
-  const sim: XR_alife_simulator = alife();
-
-  if (sim === null) {
-    return false;
-  }
-
-  let activeInfos: number = 0;
+export function hasFewAlifeInfos(infoIds: Array<TInfoPortion>, count: TCount): boolean {
+  let activeInfos: TCount = 0;
 
   for (let it = 0; it < infoIds.length; it++) {
-    if (sim.has_info(0, infoIds[it])) {
+    if (registry.actor.has_info(infoIds[it])) {
       activeInfos += 1;
 
       if (activeInfos >= count) {

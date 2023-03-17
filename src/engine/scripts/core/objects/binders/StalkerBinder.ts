@@ -66,11 +66,11 @@ import { SchemeWounded } from "@/engine/scripts/core/schemes/wounded/SchemeWound
 import { DynamicMusicManager } from "@/engine/scripts/core/sounds/DynamicMusicManager";
 import { SoundTheme } from "@/engine/scripts/core/sounds/SoundTheme";
 import { disabled_phrases, loadNpcDialogs, saveNpcDialogs } from "@/engine/scripts/declarations/dialog_manager";
-import { getCharacterCommunity, getObjectSquad, updateObjectInvulnerability } from "@/engine/scripts/utils/alife";
 import { setLoadMarker, setSaveMarker } from "@/engine/scripts/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
+import { getCharacterCommunity, getObjectSquad, updateObjectInvulnerability } from "@/engine/scripts/utils/object";
 import { TConditionList } from "@/engine/scripts/utils/parse";
 import { setObjectsRelation, setObjectSympathy } from "@/engine/scripts/utils/relation";
 

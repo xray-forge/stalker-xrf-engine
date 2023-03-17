@@ -28,7 +28,7 @@ import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/confi
 import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseConditionsList, parseNames, TConditionList } from "@/engine/scripts/utils/parse";
-import { giveMoneyToActor, relocateQuestItemSection, takeMoneyFromActor } from "@/engine/scripts/utils/quest";
+import { giveMoneyToActor, relocateQuestItemSection, takeMoneyFromActor } from "@/engine/scripts/utils/quest_reward";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/engine/scripts/utils/time";
 
 const logger: LuaLogger = new LuaLogger($filename);

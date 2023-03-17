@@ -33,11 +33,11 @@ import {
   primaryMapSpotObjects,
   sleepZones,
 } from "@/engine/scripts/core/managers/map/MapDisplayManagerObjects";
-import { anomalyHasArtefact } from "@/engine/scripts/utils/alife";
 import { hasAlifeInfo } from "@/engine/scripts/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
+import { anomalyHasArtefact } from "@/engine/scripts/utils/object";
 import { parseConditionsList, TConditionList } from "@/engine/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger($filename);

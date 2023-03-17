@@ -18,7 +18,7 @@ import {
 import { getObjectIdByStoryId, IRegistryObjectState, registry } from "@/engine/scripts/core/database";
 import { IBaseSchemeLogic } from "@/engine/scripts/core/schemes/base";
 import { abort } from "@/engine/scripts/utils/debug";
-import { disableInfo, hasAlifeInfo } from "@/engine/scripts/utils/info_portion";
+import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/scripts/utils/info_portion";
 import {
   addCondition,
   getConfigBoolean,
@@ -125,7 +125,7 @@ export function pickSectionFromCondList<T extends TSection>(
             }
           }
         }
-      } else if (hasAlifeInfo(infop.name as TStringId)) {
+      } else if (hasAlifeInfo(infop.name)) {
         if (!infop.required) {
           infop_conditions_met = false;
           break;
@@ -163,12 +163,12 @@ export function pickSectionFromCondList<T extends TSection>(
             get_global<AnyCallablesModule>("xr_effects")[infop.func](actor, object);
           }
         } else if (infop.required) {
-          if (!hasAlifeInfo(infop.name as TStringId)) {
-            actor.give_info_portion(infop.name as TStringId);
+          if (!hasAlifeInfo(infop.name)) {
+            giveInfo(infop.name);
           }
         } else {
-          if (hasAlifeInfo(infop.name as TStringId)) {
-            disableInfo(infop.name as TStringId);
+          if (hasAlifeInfo(infop.name)) {
+            disableInfo(infop.name);
           }
         }
       }

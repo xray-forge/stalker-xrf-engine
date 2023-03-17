@@ -43,12 +43,12 @@ import { SurgeManager } from "@/engine/scripts/core/managers/SurgeManager";
 import { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
 import { Squad } from "@/engine/scripts/core/objects/alife/Squad";
 import { TSimulationObject } from "@/engine/scripts/core/objects/alife/types";
-import { getAlifeCharacterCommunity, getObjectSquad, getServerDistanceBetween } from "@/engine/scripts/utils/alife";
 import { abort } from "@/engine/scripts/utils/debug";
 import { createScenarioAutoSave } from "@/engine/scripts/utils/game_save";
 import { getObjectBoundSmart } from "@/engine/scripts/utils/gulag";
 import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
+import { getAlifeCharacterCommunity, getObjectSquad, getServerDistanceBetween } from "@/engine/scripts/utils/object";
 import { parseConditionsList, TConditionList } from "@/engine/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger($filename);

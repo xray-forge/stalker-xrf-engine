@@ -12,11 +12,11 @@ import { EvaluatorPatrolComm, EvaluatorPatrolEnd } from "@/engine/scripts/core/s
 import { ISchemePatrolState } from "@/engine/scripts/core/schemes/patrol/ISchemePatrolState";
 import { PatrolManager } from "@/engine/scripts/core/schemes/patrol/PatrolManager";
 import { subscribeActionForEvents } from "@/engine/scripts/core/schemes/subscribeActionForEvents";
-import { getObjectSquad } from "@/engine/scripts/utils/alife";
 import { abort } from "@/engine/scripts/utils/debug";
 import { getConfigSwitchConditions } from "@/engine/scripts/utils/ini_config/config";
 import { getConfigBoolean, getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
+import { getObjectSquad } from "@/engine/scripts/utils/object";
 import { addCommonPrecondition } from "@/engine/scripts/utils/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);

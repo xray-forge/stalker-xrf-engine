@@ -10,10 +10,10 @@ import { EvaluatorCheckCombat } from "@/engine/scripts/core/schemes/combat/evalu
 import { ISchemeCombatState } from "@/engine/scripts/core/schemes/combat/ISchemeCombatState";
 import { SchemeCombatCamper } from "@/engine/scripts/core/schemes/combat_camper/SchemeCombatCamper";
 import { SchemeCombatZombied } from "@/engine/scripts/core/schemes/combat_zombied/SchemeCombatZombied";
-import { getCharacterCommunity } from "@/engine/scripts/utils/alife";
 import { getConfigSwitchConditions, pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { getConfigConditionList } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
+import { getCharacterCommunity } from "@/engine/scripts/utils/object";
 import { parseConditionsList } from "@/engine/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger($filename);

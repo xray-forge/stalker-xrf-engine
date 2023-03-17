@@ -67,7 +67,6 @@ import { configureObjectSchemes } from "@/engine/scripts/core/schemes/base/confi
 import { determine_section_to_activate } from "@/engine/scripts/core/schemes/determine_section_to_activate";
 import { initializeGameObject } from "@/engine/scripts/core/schemes/initializeGameObject";
 import { switchToSection } from "@/engine/scripts/core/schemes/switchToSection";
-import { areObjectsOnSameLevel } from "@/engine/scripts/utils/alife";
 import { isMonster, isStalker } from "@/engine/scripts/utils/check/is";
 import { abort } from "@/engine/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/engine/scripts/utils/game_save";
@@ -79,6 +78,7 @@ import {
   getSchemeByIniSection,
 } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
+import { areObjectsOnSameLevel } from "@/engine/scripts/utils/object";
 import { parseConditionsList, parseNames, TConditionList } from "@/engine/scripts/utils/parse";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/engine/scripts/utils/time";
 

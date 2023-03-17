@@ -1,5 +1,5 @@
 import { captions } from "@/engine/lib/constants/captions";
-import { info_portions } from "@/engine/lib/constants/info_portions";
+import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { map_mark_type, npc_map_marks } from "@/engine/lib/constants/npc_map_marks";
 import { story_ids } from "@/engine/lib/constants/story_ids";
 import { zones } from "@/engine/lib/constants/zones";
@@ -109,7 +109,7 @@ export const anomalyScannerObjects: LuaArray<{
   target: TName;
   hint: TLabel;
   zone: TName;
-  group: TName;
+  group: TInfoPortion;
   enabled: boolean;
 }> = [
   {

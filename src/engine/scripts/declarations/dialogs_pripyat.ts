@@ -2,7 +2,8 @@
 
 import { XR_game_object } from "xray16";
 
-import { info_portions } from "@/engine/lib/constants/info_portions/info_portions";
+import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
+import { TInventoryItem } from "@/engine/lib/constants/items";
 import { ammo, TAmmoItem } from "@/engine/lib/constants/items/ammo";
 import { artefacts } from "@/engine/lib/constants/items/artefacts";
 import { drugs } from "@/engine/lib/constants/items/drugs";
@@ -11,7 +12,7 @@ import { helmets } from "@/engine/lib/constants/items/helmets";
 import { outfits } from "@/engine/lib/constants/items/outfits";
 import { quest_items } from "@/engine/lib/constants/items/quest_items";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { LuaArray } from "@/engine/lib/types";
+import { LuaArray, TCount } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/scripts/utils/info_portion";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
@@ -20,7 +21,7 @@ import {
   giveMoneyToActor,
   takeItemsFromActor,
   takeMoneyFromActor,
-} from "@/engine/scripts/utils/quest";
+} from "@/engine/scripts/utils/quest_reward";
 
 const log: LuaLogger = new LuaLogger($filename);
 
@@ -144,7 +145,7 @@ export function pri_b35_give_actor_reward(first_speaker: XR_game_object, second_
 /**
  * todo;
  */
-const medic_items_table = {
+const medicItemsTable = {
   ["basic"]: {
     [food.conserva]: 2,
     [drugs.medkit_army]: 2,
@@ -163,7 +164,7 @@ const medic_items_table = {
     [drugs.antirad]: 5,
     [drugs.bandage]: 8,
   },
-} as unknown as LuaTable<string, LuaTable<string, number>>;
+} as unknown as LuaTable<TInfoPortion, LuaTable<TInventoryItem, TCount>>;
 
 /**
  * todo;
@@ -177,18 +178,18 @@ export function pri_a25_medic_give_kit(first_speaker: XR_game_object, second_spe
     kit = "elite";
   }
 
-  for (const [k, v] of medic_items_table) {
-    if (k === kit) {
-      for (const [kk, vv] of v) {
-        giveItemsToActor(first_speaker, second_speaker, kk, vv);
+  for (const [key, itemsList] of medicItemsTable) {
+    if (key === kit) {
+      for (const [section, count] of itemsList) {
+        giveItemsToActor(first_speaker, second_speaker, section, count);
       }
 
-      disableInfo(k);
+      disableInfo(key);
     }
   }
 }
 
-const supp_table = {
+const suppliesList = {
   ["supply_ammo_1"]: { ["ammo_9x18_fmj"]: 2, ["ammo_9x18_pmm"]: 1 },
   ["supply_ammo_2"]: { ["ammo_9x19_fmj"]: 2, ["ammo_9x19_pbp"]: 1 },
   ["supply_ammo_3"]: { ["ammo_11.43x23_fmj"]: 2, ["ammo_11.43x23_hydro"]: 1 },
@@ -201,16 +202,16 @@ const supp_table = {
   ["supply_grenade_1"]: { ["grenade_rgd5"]: 3, ["grenade_f1"]: 2 },
   ["supply_grenade_2"]: { ["ammo_vog-25"]: 3 },
   ["supply_grenade_3"]: { ["ammo_m209"]: 3 },
-} as unknown as LuaTable<string, LuaTable<TAmmoItem, number>>;
+} as unknown as LuaTable<TInfoPortion, LuaTable<TAmmoItem, TCount>>;
 
 export function pri_a22_army_signaller_supply(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  for (const [k, v] of supp_table) {
-    if (hasAlifeInfo(k)) {
-      for (const [kk, vv] of v) {
-        giveItemsToActor(first_speaker, second_speaker, kk, vv);
+  for (const [name, itemsList] of suppliesList) {
+    if (hasAlifeInfo(name)) {
+      for (const [section, amount] of itemsList) {
+        giveItemsToActor(first_speaker, second_speaker, section, amount);
       }
 
-      disableInfo(k);
+      disableInfo(name);
     }
   }
 }

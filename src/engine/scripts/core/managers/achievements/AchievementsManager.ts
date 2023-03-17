@@ -3,7 +3,7 @@ import { alife, game, XR_CTime, XR_net_packet, XR_reader } from "xray16";
 import { captions } from "@/engine/lib/constants/captions";
 import { communities } from "@/engine/lib/constants/communities";
 import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
-import { AnyCallablesModule, Optional, TDuration } from "@/engine/lib/types";
+import { AnyCallablesModule, LuaArray, Optional, TDuration } from "@/engine/lib/types";
 import { getObjectIdByStoryId, registry } from "@/engine/scripts/core/database";
 import { pstor_retrieve } from "@/engine/scripts/core/database/pstor";
 import { AbstractCoreManager } from "@/engine/scripts/core/managers/AbstractCoreManager";
@@ -394,20 +394,20 @@ export class AchievementsManager extends AbstractCoreManager {
       return true;
     }
 
-    const info_table = {
-      [1]: info_portions.jup_b16_task_done,
-      [2]: info_portions.jup_b1_task_done,
-      [3]: info_portions.jup_b46_task_done,
-      [4]: info_portions.jup_b47_task_end,
-      [5]: info_portions.jup_b32_task_done,
-      [6]: info_portions.jup_b6_task_done,
-      [7]: info_portions.jup_b206_task_done,
-      [8]: info_portions.jup_b209_task_done,
-    } as unknown as LuaTable<number, string>;
+    const infoPortionsList = [
+      info_portions.jup_b16_task_done,
+      info_portions.jup_b1_task_done,
+      info_portions.jup_b46_task_done,
+      info_portions.jup_b47_task_end,
+      info_portions.jup_b32_task_done,
+      info_portions.jup_b6_task_done,
+      info_portions.jup_b206_task_done,
+      info_portions.jup_b209_task_done,
+    ] as unknown as LuaArray<TInfoPortion>;
 
     let count = 0;
 
-    for (const [k, v] of info_table) {
+    for (const [k, v] of infoPortionsList) {
       if (hasAlifeInfo(v)) {
         count = count + 1;
       }

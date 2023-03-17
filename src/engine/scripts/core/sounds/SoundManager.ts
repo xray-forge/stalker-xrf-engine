@@ -6,7 +6,7 @@ import { registry } from "@/engine/scripts/core/database";
 import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/scripts/core/managers/GlobalSoundManager";
 import { SoundStory } from "@/engine/scripts/core/sounds/SoundStory";
-import { getObjectSquad } from "@/engine/scripts/utils/alife";
+import { getObjectSquad } from "@/engine/scripts/utils/object";
 
 // todo: Move to db.
 const sound_managers: LuaTable<string, SoundManager> = new LuaTable();

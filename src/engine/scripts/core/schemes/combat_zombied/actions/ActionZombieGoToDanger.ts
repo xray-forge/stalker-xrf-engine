@@ -12,8 +12,8 @@ import {
 import { AnyObject, Optional, TCount, TIndex } from "@/engine/lib/types";
 import { ITargetStateDescriptor, set_state } from "@/engine/scripts/core/objects/state/StateManager";
 import { ISchemeCombatState } from "@/engine/scripts/core/schemes/combat";
-import { sendToNearestAccessibleVertex } from "@/engine/scripts/utils/alife";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
+import { sendToNearestAccessibleVertex } from "@/engine/scripts/utils/object";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

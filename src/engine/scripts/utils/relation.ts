@@ -13,10 +13,10 @@ import { Optional, TCount, TName, TNumberId, TStringId } from "@/engine/lib/type
 import { getServerObjectByStoryId, registry } from "@/engine/scripts/core/database";
 import { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
 import type { Squad } from "@/engine/scripts/core/objects/alife/Squad";
-import { getCharacterCommunity } from "@/engine/scripts/utils/alife";
 import { abort } from "@/engine/scripts/utils/debug";
 import { get_gulag_by_name } from "@/engine/scripts/utils/gulag";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
+import { getCharacterCommunity } from "@/engine/scripts/utils/object";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

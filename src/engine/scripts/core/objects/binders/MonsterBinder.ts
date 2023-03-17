@@ -54,10 +54,10 @@ import { mobCapture } from "@/engine/scripts/core/schemes/mobCapture";
 import { mobCaptured } from "@/engine/scripts/core/schemes/mobCaptured";
 import { mobRelease } from "@/engine/scripts/core/schemes/mobRelease";
 import { loadObject, saveObject } from "@/engine/scripts/core/schemes/storing";
-import { action, getObjectSquad } from "@/engine/scripts/utils/alife";
-import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { setLoadMarker, setSaveMarker } from "@/engine/scripts/utils/game_save";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
+import { action, getObjectSquad } from "@/engine/scripts/utils/object";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

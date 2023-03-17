@@ -1,8 +1,8 @@
 import { XR_game_object } from "xray16";
 
 import { Maybe } from "@/engine/lib/types";
-import { resetObjectAction } from "@/engine/scripts/utils/alife";
 import { abort } from "@/engine/scripts/utils/debug";
+import { resetObjectAction } from "@/engine/scripts/utils/object";
 
 /**
  * todo;

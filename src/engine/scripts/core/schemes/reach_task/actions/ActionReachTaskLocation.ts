@@ -22,8 +22,8 @@ import { Actor } from "@/engine/scripts/core/objects/alife/Actor";
 import { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
 import { Squad } from "@/engine/scripts/core/objects/alife/Squad";
 import { ReachTaskPatrolManager } from "@/engine/scripts/core/schemes/reach_task/ReachTaskPatrolManager";
-import { getObjectSquad, sendToNearestAccessibleVertex } from "@/engine/scripts/utils/alife";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
+import { getObjectSquad, sendToNearestAccessibleVertex } from "@/engine/scripts/utils/object";
 import { vectorCmp } from "@/engine/scripts/utils/physics";
 
 const logger: LuaLogger = new LuaLogger($filename);

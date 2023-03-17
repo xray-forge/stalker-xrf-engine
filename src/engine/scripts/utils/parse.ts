@@ -1,5 +1,6 @@
 import { flags32, patrol, XR_flags32, XR_game_object, XR_ini_file, XR_patrol } from "xray16";
 
+import { TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { STRINGIFIED_TRUE } from "@/engine/lib/constants/lua";
 import {
   AnyArgs,
@@ -7,6 +8,7 @@ import {
   Optional,
   TCount,
   TDistance,
+  TIndex,
   TName,
   TPath,
   TProbability,
@@ -31,11 +33,11 @@ export interface IWaypointData {
  * todo;
  */
 export interface IConfigCondition {
-  name?: TName;
+  name?: TInfoPortion;
   func?: TName;
   required?: boolean;
   expected?: boolean;
-  prob?: number;
+  prob?: TProbability;
   params?: Optional<LuaArray<string | number>>;
 }
 
@@ -203,48 +205,48 @@ export function parseInfoPortions(
 
   let infop_n = 1;
 
-  for (const infoPortion of string.gfind(data, "%s*([%-%+%~%=%!][^%-%+%~%=%!%s]+)%s*")) {
-    const sign = string.sub(infoPortion, 1, 1);
-    let infop_name = string.sub(infoPortion, 2);
+  for (const infoPortionRaw of string.gfind(data, "%s*([%-%+%~%=%!][^%-%+%~%=%!%s]+)%s*")) {
+    const sign = string.sub(infoPortionRaw, 1, 1);
+    let infoPortion: TInfoPortion = string.sub(infoPortionRaw, 2) as TInfoPortion;
     let params: Optional<LuaArray<string | number>> = null;
 
-    const [at] = string.find(infop_name, "%(");
+    const [at] = string.find(infoPortion, "%(");
 
     if (at !== null) {
-      if (string.sub(infop_name, -1) !== ")") {
+      if (string.sub(infoPortion, -1) !== ")") {
         abort("wrong condlist %s", data);
       }
 
-      if (at < string.len(infop_name) - 1) {
-        params = parseFunctionParams(string.sub(infop_name, (at as number) + 1, -2));
+      if (at < string.len(infoPortion) - 1) {
+        params = parseFunctionParams(string.sub(infoPortion, (at as TIndex) + 1, -2));
       } else {
         params = new LuaTable();
       }
 
-      infop_name = string.sub(infop_name, 1, (at as number) - 1);
+      infoPortion = string.sub(infoPortion, 1, (at as TIndex) - 1) as TInfoPortion;
     }
 
     if (sign === "+") {
       result.set(infop_n, {
-        name: infop_name,
+        name: infoPortion,
         required: true,
       });
     } else if (sign === "-") {
       result.set(infop_n, {
-        name: infop_name,
+        name: infoPortion,
         required: false,
       });
     } else if (sign === "~") {
-      result.set(infop_n, { prob: tonumber(infop_name) });
+      result.set(infop_n, { prob: tonumber(infoPortion) });
     } else if (sign === "=") {
       result.set(infop_n, {
-        func: infop_name,
+        func: infoPortion,
         expected: true,
         params: params,
       });
     } else if (sign === "!") {
       result.set(infop_n, {
-        func: infop_name,
+        func: infoPortion,
         expected: false,
         params: params,
       });

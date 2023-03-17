@@ -4,15 +4,15 @@ import { captions } from "@/engine/lib/constants/captions";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { LuaArray, Optional } from "@/engine/lib/types";
 import { DIALOG_MANAGER_LTX, registry } from "@/engine/scripts/core/database";
-import { getCharacterCommunity } from "@/engine/scripts/utils/alife";
 import { isObjectWounded } from "@/engine/scripts/utils/check/check";
 import { abort } from "@/engine/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/engine/scripts/utils/game_save";
 import { getObjectBoundSmart } from "@/engine/scripts/utils/gulag";
 import { hasAlifeInfo } from "@/engine/scripts/utils/info_portion";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
+import { getCharacterCommunity } from "@/engine/scripts/utils/object";
 import { parseInfoPortions1, parseNames } from "@/engine/scripts/utils/parse";
-import { getNpcSpeaker } from "@/engine/scripts/utils/quest";
+import { getNpcSpeaker } from "@/engine/scripts/utils/quest_reward";
 
 // todo: Separate manager class.
 // todo: Separate manager class.

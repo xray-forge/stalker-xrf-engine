@@ -10,9 +10,9 @@ import { ActionWounded } from "@/engine/scripts/core/schemes/wounded/actions";
 import { EvaluatorCanFight, EvaluatorWounded } from "@/engine/scripts/core/schemes/wounded/evaluators";
 import { ISchemeWoundedState } from "@/engine/scripts/core/schemes/wounded/ISchemeWoundedState";
 import { WoundManager } from "@/engine/scripts/core/schemes/wounded/WoundManager";
-import { getCharacterCommunity } from "@/engine/scripts/utils/alife";
 import { getConfigBoolean, getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
+import { getCharacterCommunity } from "@/engine/scripts/utils/object";
 import { parseData, parseSynData } from "@/engine/scripts/utils/parse";
 
 const woundedByState: Record<number, string> = {

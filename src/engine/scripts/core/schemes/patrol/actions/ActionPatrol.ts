@@ -4,8 +4,8 @@ import { registry } from "@/engine/scripts/core/database";
 import { StalkerMoveManager } from "@/engine/scripts/core/objects/state/StalkerMoveManager";
 import { set_state } from "@/engine/scripts/core/objects/state/StateManager";
 import { ISchemePatrolState } from "@/engine/scripts/core/schemes/patrol";
-import { sendToNearestAccessibleVertex } from "@/engine/scripts/utils/alife";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
+import { sendToNearestAccessibleVertex } from "@/engine/scripts/utils/object";
 import { parsePathWaypoints } from "@/engine/scripts/utils/parse";
 import { vectorCmp } from "@/engine/scripts/utils/physics";
 
