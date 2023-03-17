@@ -11,7 +11,7 @@
     "jsxFactory": "JSXXML",
     "strict": true,
     "rootDir": "..",
-    "baseUrl": "./mod",
+    "baseUrl": "./engine",
     "paths": {
       "#/*": ["../../cli/*"],
       "@/*": ["../*"]

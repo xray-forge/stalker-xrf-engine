@@ -3,16 +3,16 @@ import * as path from "path";
 
 import { default as chalk } from "chalk";
 
-import { Optional } from "@/mod/lib/types";
-
 import { default as config } from "#/config.json";
 import { TARGET_LOGS_LINK_DIR } from "#/globals";
 import { NodeLogger } from "#/utils";
 
+import { Optional } from "@/engine/lib/types";
+
 const log: NodeLogger = new NodeLogger("UNLINK");
 
 (async function unlinkFolders(): Promise<void> {
-  log.info("Unlinking mod development folders");
+  log.info("Unlinking engine development folders");
 
   try {
     const gameGamedataFolderPath: string = path.resolve(config.targets.STALKER_GAME_FOLDER_PATH, "gamedata");

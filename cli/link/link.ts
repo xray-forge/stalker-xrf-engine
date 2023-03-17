@@ -11,7 +11,7 @@ const log: NodeLogger = new NodeLogger("LINK");
 const isForceLink: boolean = process.argv.includes("--force");
 
 (async function linkFolders(): Promise<void> {
-  log.info("Linking mod development folders");
+  log.info("Linking engine mod development folders");
 
   try {
     await linkGameFolder();

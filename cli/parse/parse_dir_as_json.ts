@@ -5,10 +5,10 @@ import * as process from "process";
 
 import { default as chalk } from "chalk";
 
-import { Maybe } from "@/mod/lib/types";
-
 import { ROOT_DIR, TARGET_PARSED } from "#/globals";
 import { NodeLogger, readDirContentFlat } from "#/utils";
+
+import { Maybe } from "@/engine/lib/types";
 
 const TARGET_PATH: Maybe<string> = process.argv[2];
 const NO_EXT: boolean = process.argv.includes("--no-ext");

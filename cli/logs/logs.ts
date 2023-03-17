@@ -5,11 +5,11 @@ import * as process from "process";
 
 import { default as chalk } from "chalk";
 
-import { Optional } from "@/mod/lib/types";
-
 import { default as config } from "#/config.json";
 import { NodeLogger } from "#/utils";
 import { readLastLinesOfFile } from "#/utils/fs/read_last_lines_of_file";
+
+import { Optional } from "@/engine/lib/types";
 
 const GAME_DIR: string = path.resolve(config.targets.STALKER_GAME_FOLDER_PATH);
 const GAME_LOGS_DIR: string = path.resolve(config.targets.STALKER_LOGS_FOLDER_PATH);

@@ -1,9 +1,9 @@
 import * as fsPromises from "fs/promises";
 import { FileHandle } from "fs/promises";
 
-import { Optional } from "@/mod/lib/types";
-
 import { exists } from "#/utils/fs/exists";
+
+import { Optional } from "@/engine/lib/types";
 
 const NEW_LINE_CHARACTERS: Array<string> = ["\n"];
 

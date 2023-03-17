@@ -1,7 +1,7 @@
 import { ILuaString, lauxlib, lua, lualib, to_jsstring, to_luastring } from "fengari";
 
-import { STRINGIFIED_NIL } from "@/mod/globals/lua";
-import { Optional } from "@/mod/lib/types";
+import { STRINGIFIED_NIL } from "@/engine/globals/lua";
+import { Optional } from "@/engine/lib/types";
 
 /**
  * todo;

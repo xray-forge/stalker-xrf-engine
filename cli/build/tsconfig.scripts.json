@@ -2,14 +2,14 @@
   "extends": "../../src/tsconfig.json",
   "compilerOptions": {
     "jsx": "react",
-    "rootDir": "../../src/mod",
+    "rootDir": "../../src/engine",
     "outDir": "../../target/gamedata"
   },
   "include": [
     "../../src/typedefs",
-    "../../src/mod/lib",
-    "../../src/mod/scripts",
-    "../../src/mod/globals"
+    "../../src/engine/lib",
+    "../../src/engine/scripts",
+    "../../src/engine/globals"
   ],
   "exclude": [
     "../../**/*.test.ts"

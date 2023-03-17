@@ -3,11 +3,11 @@ import * as path from "path";
 
 import { default as chalk } from "chalk";
 
-import { Optional } from "@/mod/lib/types";
-
 import { default as config } from "#/config.json";
 import { OPEN_XRAY_ENGINES_DIR, XR_ENGINE_BACKUP_DIR } from "#/globals";
 import { exists, NodeLogger } from "#/utils";
+
+import { Optional } from "@/engine/lib/types";
 
 enum EEngineCmd {
   INFO = "info",

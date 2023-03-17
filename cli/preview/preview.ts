@@ -5,11 +5,11 @@ import * as process from "process";
 
 import { default as chalk } from "chalk";
 
-import { TFolderFiles, TFolderReplicationDescriptor } from "@/mod/lib/types";
-
 import { GAME_DATA_UI_DIR, TARGET_PREVIEW_DIR } from "#/globals";
 import { generatePreview } from "#/preview/utils/generate_preview";
 import { NodeLogger, readDirContent, renderJsxToXmlText, TimeTracker } from "#/utils";
+
+import { TFolderFiles, TFolderReplicationDescriptor } from "@/engine/lib/types";
 
 const FILTERS: Array<string> = process.argv.slice(2).filter((it) => !it.trim().startsWith("--"));
 

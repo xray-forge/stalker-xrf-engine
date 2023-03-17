@@ -5,7 +5,7 @@
 Contains commands related to linking and unlinking of game folders.
 
 - Allows linking of game folder and easier navigation
-- Allows linking of gamedata folder and easier rebuilding of mod
+- Allows linking of gamedata folder and easier rebuilding of the engine mod
 - Allows linking of game logs for easier observation from IDE
 
 Unlinking removes folders if they are pointing to the project.
@@ -29,7 +29,7 @@ List of arguments:
 > stalker-xrts-template@1.0.0 unlink
 > ts-node -P ./cli/tsconfig.json cli/link/unlink.ts
 
-23:54:34:535 [UNLINK] Unlinking mod development folders
+23:54:34:535 [UNLINK] Unlinking engine mod development folders
 23:54:34:548 [UNLINK] Unlinking: F:\Applications\Steam\steamapps\common\Stalker Call of Pripyat\gamedata
 23:54:34:549 [UNLINK] Unlinked: F:\Applications\Steam\steamapps\common\Stalker Call of Pripyat\gamedata
 23:54:34:550 [UNLINK] Unlinking: F:\Documents\Projects\stalker-xrts-template\target\logs

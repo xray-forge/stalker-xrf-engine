@@ -10,7 +10,7 @@ simplify development, automated builds, and provide shared template for mods dev
 
 - Game scripts engine rewritten with typescript
 - Custom build pipeline to add verification steps and simplify development
-- Tools to generate UI forms from JSX 
+- Tools to generate UI forms from JSX
 - Tools to generate configs from dynamic typescript
 - Tools to generate simple translations
 - Tools to debug the game
@@ -25,7 +25,7 @@ simplify development, automated builds, and provide shared template for mods dev
 
 ## 📦 Main differences with original
 
-The intention of this mod template is to allow easier mod development without introducing breaking changes to the original. <br/>
+The intention of this engine template is to allow easier mod development without introducing breaking changes to the original. <br/>
 Everything else can be added in your own mod extending the template.
 
 ## 📌What is used
@@ -85,5 +85,5 @@ Everything else can be added in your own mod extending the template.
 
 ## 🧰 Docs
 
-- Development and game documentation:  [docs](docs/README.md)
+- Development and game documentation: [docs](docs/README.md)
 - Types and game bindings: [source](https://github.com/stalker-xrts/xray-16-types), [docs](https://stalker-xrts.github.io/xray-16-types/modules.html)

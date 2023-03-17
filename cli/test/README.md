@@ -15,7 +15,7 @@ Testing scripts and configs.
 > stalker-xrts-template@1.0.0 test
 > jest --detectOpenHandles --config cli/test/jest.config.ts number
 
- PASS  src/mod/scripts/utils/number.test.ts
+ PASS  src/engine/scripts/utils/number.test.ts
   'number' utils
     √ 'clamp' should correctly limit numbers (3 ms)
 

@@ -4,10 +4,10 @@ import * as path from "path";
 
 import { default as chalk } from "chalk";
 
-import { TFolderFiles, TFolderReplicationDescriptor } from "@/mod/lib/types/general";
-
 import { GAME_DATA_TRANSLATIONS_DIR, TARGET_GAME_DATA_TRANSLATIONS_DIR } from "#/globals";
 import { NodeLogger, readDirContent } from "#/utils";
+
+import { TFolderFiles, TFolderReplicationDescriptor } from "@/engine/lib/types/general";
 
 const log: NodeLogger = new NodeLogger("BUILD_TRANSLATIONS_STATIC");
 const EXPECTED_CONFIG_EXTENSIONS: Array<string> = [".xml"];

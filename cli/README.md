@@ -1,6 +1,6 @@
 # [XRTS](.) / CLI
 
-Custom CLI for mod building. <br/>
+Custom CLI for the engine mod building. <br/>
 All commands are using `ts-node` and simply can be called with `npm run $NAME` command from project root.
 
 - [build](build/README.md)

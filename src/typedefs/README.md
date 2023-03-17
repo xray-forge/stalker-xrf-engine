@@ -2,7 +2,7 @@
 
 This folder contains global Lua definitions or XRay engine typings that are used across the mod. <br/>
 By defining Lua types, we can help ensure type safety in our TypeScript codebase.  <br/>
-By providing Xray engine typings, we can improve editor intellisense, making it easier to develop and debug the mod.
+By providing Xray engine typings, we can improve editor intellisense, making it easier to develop and debug the engine.
 
 ## luaJIT
 

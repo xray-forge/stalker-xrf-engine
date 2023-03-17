@@ -1,4 +1,4 @@
-import { PartialRecord } from "@/mod/lib/types";
+import { PartialRecord } from "@/engine/lib/types";
 
 /**
  * todo;

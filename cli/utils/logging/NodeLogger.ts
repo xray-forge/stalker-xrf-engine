@@ -1,8 +1,8 @@
 import { default as chalk } from "chalk";
 
-import { Optional } from "@/mod/lib/types";
-
 import { stringifyValue } from "#/utils/logging/stringify_value";
+
+import { Optional } from "@/engine/lib/types";
 
 /**
  * DebugLogger file that logs only in dev/flagged environment.

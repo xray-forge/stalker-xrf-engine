@@ -16,7 +16,7 @@ Build includes such steps:
 - build dynamic translation files
 - copy static translation files
 - copy static resources (textures, shaders, models, sounds)
-- build mod metadata.json
+- build engine mod metadata.json
 
 ### Arguments
 
@@ -69,7 +69,7 @@ List of arguments:
 23:23:11:897 [META] Collecting gamedata meta: F:\Documents\Projects\stalker-xrts-template\target\gamedata
 23:23:11:897 [META] Collected files count: 446
 23:23:11:897 [META] Collected files size: 0.463 MB
-23:23:11:901 [META] Included mod metadata
+23:23:11:901 [META] Included engine mod metadata
 23:23:11:901 [BUILD_ALL] Successfully executed build command, took: 0.237 sec
 23:23:11:902 [BUILD_COLLECT_LOG] File log collect
 ```
