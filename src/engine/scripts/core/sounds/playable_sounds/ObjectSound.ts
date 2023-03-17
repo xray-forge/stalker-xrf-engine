@@ -16,8 +16,8 @@ import { registry } from "@/engine/scripts/core/database";
 import { NotificationManager } from "@/engine/scripts/core/managers/notifications/NotificationManager";
 import { AbstractPlayableSound } from "@/engine/scripts/core/sounds/playable_sounds/AbstractPlayableSound";
 import { EPlayableSound } from "@/engine/scripts/core/sounds/playable_sounds/EPlayableSound";
-import { getConfigString } from "@/engine/scripts/utils/config";
 import { abort } from "@/engine/scripts/utils/debug";
+import { getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseNames } from "@/engine/scripts/utils/parse";
 

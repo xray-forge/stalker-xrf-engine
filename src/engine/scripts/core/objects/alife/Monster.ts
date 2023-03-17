@@ -15,13 +15,14 @@ import {
   hardResetOfflineObject,
   initializeOfflineObject,
   IStoredOfflineObject,
+  registerObjectStoryLinks,
   registry,
+  unregisterStoryLinkByObjectId,
 } from "@/engine/scripts/core/database";
 import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";
-import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 import { on_death, SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
-import { getConfigString } from "@/engine/scripts/utils/config";
 import { abort } from "@/engine/scripts/utils/debug";
+import { getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -119,7 +120,7 @@ export class Monster extends cse_alife_monster_base {
   public override on_register(): void {
     super.on_register();
     logger.info("Register:", this.id, this.name(), this.section_name());
-    StoryObjectsManager.checkSpawnIniForStoryId(this);
+    registerObjectStoryLinks(this);
 
     this.isRegistered = true;
 
@@ -157,7 +158,7 @@ export class Monster extends cse_alife_monster_base {
     }
 
     registry.offlineObjects.delete(this.id);
-    StoryObjectsManager.unregisterStoryObjectById(this.id);
+    unregisterStoryLinkByObjectId(this.id);
     super.on_unregister();
   }
 

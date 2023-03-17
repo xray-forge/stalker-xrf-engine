@@ -6,7 +6,7 @@ import { ActionCompanionActivity } from "@/engine/scripts/core/schemes/companion
 import { EvaluatorNeedCompanion } from "@/engine/scripts/core/schemes/companion/evaluators";
 import { ISchemeCompanionState } from "@/engine/scripts/core/schemes/companion/ISchemeCompanionState";
 import { subscribeActionForEvents } from "@/engine/scripts/core/schemes/subscribeActionForEvents";
-import { getConfigSwitchConditions } from "@/engine/scripts/utils/config";
+import { getConfigSwitchConditions } from "@/engine/scripts/utils/ini_config/config";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { addCommonPrecondition } from "@/engine/scripts/utils/scheme";
 

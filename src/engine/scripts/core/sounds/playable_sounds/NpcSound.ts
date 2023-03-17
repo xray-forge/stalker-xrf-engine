@@ -22,8 +22,8 @@ import { NotificationManager } from "@/engine/scripts/core/managers/notification
 import { AbstractPlayableSound } from "@/engine/scripts/core/sounds/playable_sounds/AbstractPlayableSound";
 import { EPlayableSound } from "@/engine/scripts/core/sounds/playable_sounds/EPlayableSound";
 import { getCharacterCommunity } from "@/engine/scripts/utils/alife";
-import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/scripts/utils/config";
 import { abort } from "@/engine/scripts/utils/debug";
+import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseNames } from "@/engine/scripts/utils/parse";
 

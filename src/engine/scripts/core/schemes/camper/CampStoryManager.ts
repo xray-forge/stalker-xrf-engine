@@ -10,8 +10,8 @@ import { ISchemeMeetState } from "@/engine/scripts/core/schemes/meet";
 import { MeetManager } from "@/engine/scripts/core/schemes/meet/MeetManager";
 import { get_sound_manager, SoundManager } from "@/engine/scripts/core/sounds/SoundManager";
 import { isObjectMeeting } from "@/engine/scripts/utils/check/check";
-import { getConfigString } from "@/engine/scripts/utils/config";
 import { abort } from "@/engine/scripts/utils/debug";
+import { getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseNames } from "@/engine/scripts/utils/parse";
 
@@ -150,7 +150,7 @@ export class CampStoryManager {
         min_time: 30000,
         max_time: 40000,
         timeout: 0,
-        transitions: { harmonica: 30, guitar: 30, story: 40 },
+        transitions: { harmonica: 30, guitar: 30, storyLink: 40 },
         precondition: sr_camp_idle_precondition,
       },
       harmonica: {
@@ -159,7 +159,7 @@ export class CampStoryManager {
         min_time: 10000,
         max_time: 11000,
         timeout: 3000,
-        transitions: { idle: 100, harmonica: 0, guitar: 0, story: 0 },
+        transitions: { idle: 100, harmonica: 0, guitar: 0, storyLink: 0 },
         precondition: sr_camp_harmonica_precondition,
       },
       guitar: {
@@ -168,16 +168,16 @@ export class CampStoryManager {
         min_time: 10000,
         max_time: 11000,
         timeout: 4500,
-        transitions: { idle: 100, harmonica: 0, guitar: 0, story: 0 },
+        transitions: { idle: 100, harmonica: 0, guitar: 0, storyLink: 0 },
         precondition: sr_camp_guitar_precondition,
       },
-      story: {
+      storyLink: {
         director_state: "tell",
         general_state: "listen",
         min_time: 10000,
         max_time: 11000,
         timeout: 0,
-        transitions: { idle: 100, harmonica: 0, guitar: 0, story: 0 },
+        transitions: { idle: 100, harmonica: 0, guitar: 0, storyLink: 0 },
         precondition: sr_camp_story_precondition,
       },
     } as any;

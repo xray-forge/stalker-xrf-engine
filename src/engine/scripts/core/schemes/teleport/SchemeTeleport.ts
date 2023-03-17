@@ -5,8 +5,9 @@ import { AbstractScheme } from "@/engine/scripts/core/schemes/base/AbstractSchem
 import { subscribeActionForEvents } from "@/engine/scripts/core/schemes/subscribeActionForEvents";
 import { ISchemeTeleportState, ITeleportPoint } from "@/engine/scripts/core/schemes/teleport/ISchemeTeleportState";
 import { TeleportManager } from "@/engine/scripts/core/schemes/teleport/TeleportManager";
-import { getConfigNumber, getConfigString, getConfigSwitchConditions } from "@/engine/scripts/utils/config";
 import { abort } from "@/engine/scripts/utils/debug";
+import { getConfigSwitchConditions } from "@/engine/scripts/utils/ini_config/config";
+import { getConfigNumber, getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

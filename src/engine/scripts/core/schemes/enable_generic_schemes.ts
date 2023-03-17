@@ -17,8 +17,8 @@ import { SchemeMobDeath } from "@/engine/scripts/core/schemes/mob/death/SchemeMo
 import { SchemePhysicalOnHit } from "@/engine/scripts/core/schemes/ph_on_hit/SchemePhysicalOnHit";
 import { SchemeReachTask } from "@/engine/scripts/core/schemes/reach_task/SchemeReachTask";
 import { SchemeWounded } from "@/engine/scripts/core/schemes/wounded/SchemeWounded";
-import { resetInvulnerability, setObjectInfo } from "@/engine/scripts/utils/alife";
-import { getConfigString } from "@/engine/scripts/utils/config";
+import { resetObjectInvulnerability, setObjectInfo } from "@/engine/scripts/utils/alife";
+import { getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 
 /**
  * todo
@@ -41,7 +41,7 @@ export function enable_generic_schemes(
 
       SchemeCombat.setCombatChecker(object, ini, EScheme.COMBAT, combatSection);
 
-      resetInvulnerability(object);
+      resetObjectInvulnerability(object);
 
       const infoSection: Optional<TSection> = getConfigString(ini, section, "info", object, false, "");
 
@@ -98,7 +98,7 @@ export function enable_generic_schemes(
         SchemeMobDeath.setScheme(object, ini, EScheme.MOB_DEATH, deathSection);
       }
 
-      resetInvulnerability(object);
+      resetObjectInvulnerability(object);
 
       const hitSection: Optional<TSection> = getConfigString(ini, section, "on_hit", object, false, "");
 

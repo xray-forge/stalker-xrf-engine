@@ -7,8 +7,9 @@ import { SimulationBoardManager } from "@/engine/scripts/core/database/Simulatio
 import { GlobalSoundManager } from "@/engine/scripts/core/managers/GlobalSoundManager";
 import { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
 import { isWeapon } from "@/engine/scripts/utils/check/is";
-import { getConfigString, pickSectionFromCondList } from "@/engine/scripts/utils/config";
 import { setLoadMarker, setSaveMarker } from "@/engine/scripts/utils/game_save";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
+import { getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/scripts/utils/parse";
 import { setSquadGoodwill } from "@/engine/scripts/utils/relation";

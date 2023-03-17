@@ -1,11 +1,10 @@
-import { game } from "xray16";
+import { game, XR_game_object } from "xray16";
 
 import { captions } from "@/engine/lib/constants/captions";
 import { Optional, TSection, TStringId } from "@/engine/lib/types";
-import { registry } from "@/engine/scripts/core/database";
-import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
+import { getObjectIdByStoryId, registry } from "@/engine/scripts/core/database";
 import { SurgeManager } from "@/engine/scripts/core/managers/SurgeManager";
-import { pickSectionFromCondList } from "@/engine/scripts/utils/config";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { hasAlifeInfo } from "@/engine/scripts/utils/info_portion";
 import { parseConditionsList } from "@/engine/scripts/utils/parse";
 
@@ -129,29 +128,32 @@ export function surge_task_descr(): Optional<string> {
     : game.translate_string(captions.hide_from_surge_descr_1_a);
 }
 
+/**
+ * todo;
+ */
 export function target_condlist(id: TStringId, field: string, p: string) {
-  const cond_string = p;
-  const parsed_condlist = parseConditionsList(null, "task", "task_condlist", cond_string);
+  const conditionListString: string = p;
+  const parsed_condlist = parseConditionsList(null, "task", "task_condlist", conditionListString);
   const value: Optional<TSection> = pickSectionFromCondList(registry.actor, null, parsed_condlist);
 
   if (value === null) {
     return null;
   }
 
-  return StoryObjectsManager.getStoryObjectId(value);
+  return getObjectIdByStoryId(value);
 }
 
 export function zat_b29_adv_target(id: TStringId, field: string, p: string) {
-  let target_obj_id = "zat_a2_stalker_barmen";
-  let af: Optional<string> = null;
-  const actor = registry.actor;
+  let targetObjectId: TStringId = "zat_a2_stalker_barmen";
+  let artefact: Optional<TStringId> = null;
+  const actor: XR_game_object = registry.actor;
 
   for (const i of $range(16, 23)) {
     if (
       hasAlifeInfo(get_global("dialogs_zaton").zat_b29_infop_bring_table[i]) &&
       actor.object(get_global("dialogs_zaton").zat_b29_af_table[i])
     ) {
-      af = get_global("dialogs_zaton").zat_b29_af_table[i];
+      artefact = get_global("dialogs_zaton").zat_b29_af_table[i];
       break;
     }
   }
@@ -160,38 +162,38 @@ export function zat_b29_adv_target(id: TStringId, field: string, p: string) {
     if (hasAlifeInfo("zat_b29_stalker_rival_1_found_af")) {
       if (!hasAlifeInfo("zat_b29_first_rival_taken_out")) {
         if (hasAlifeInfo("zat_b29_exclusive_conditions")) {
-          target_obj_id = "zat_b29_stalker_rival_1";
+          targetObjectId = "zat_b29_stalker_rival_1";
         } else {
-          target_obj_id = "zat_b29_stalker_rival_default_1";
+          targetObjectId = "zat_b29_stalker_rival_default_1";
         }
-      } else if (af === null) {
+      } else if (artefact === null) {
         if (hasAlifeInfo("zat_b29_exclusive_conditions")) {
-          target_obj_id = "zat_b29_stalker_rival_1";
+          targetObjectId = "zat_b29_stalker_rival_1";
         } else {
-          target_obj_id = "zat_b29_stalker_rival_default_1";
+          targetObjectId = "zat_b29_stalker_rival_default_1";
         }
       }
     } else if (hasAlifeInfo("zat_b29_stalker_rival_2_found_af")) {
       if (!hasAlifeInfo("zat_b29_second_rival_taken_out")) {
         if (hasAlifeInfo("zat_b29_exclusive_conditions")) {
-          target_obj_id = "zat_b29_stalker_rival_2";
+          targetObjectId = "zat_b29_stalker_rival_2";
         } else {
-          target_obj_id = "zat_b29_stalker_rival_default_2";
+          targetObjectId = "zat_b29_stalker_rival_default_2";
         }
-      } else if (af === null) {
+      } else if (artefact === null) {
         if (hasAlifeInfo("zat_b29_exclusive_conditions")) {
-          target_obj_id = "zat_b29_stalker_rival_2";
+          targetObjectId = "zat_b29_stalker_rival_2";
         } else {
-          target_obj_id = "zat_b29_stalker_rival_default_2";
+          targetObjectId = "zat_b29_stalker_rival_default_2";
         }
       }
     }
 
-    return StoryObjectsManager.getStoryObjectId(target_obj_id);
+    return getObjectIdByStoryId(targetObjectId);
   }
 
-  if (af !== null) {
-    return StoryObjectsManager.getStoryObjectId(target_obj_id);
+  if (artefact !== null) {
+    return getObjectIdByStoryId(targetObjectId);
   }
 
   return null;

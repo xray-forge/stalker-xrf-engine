@@ -9,3 +9,4 @@ export * from "@/engine/scripts/core/database/registry";
 export * from "@/engine/scripts/core/database/smart_terrains";
 export * from "@/engine/scripts/core/database/zones";
 export * from "@/engine/scripts/core/database/ini";
+export * from "@/engine/scripts/core/database/story";

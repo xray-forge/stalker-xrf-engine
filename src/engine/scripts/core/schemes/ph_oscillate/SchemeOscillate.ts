@@ -5,8 +5,9 @@ import { AbstractScheme } from "@/engine/scripts/core/schemes/base/AbstractSchem
 import { ISchemeOscillateState } from "@/engine/scripts/core/schemes/ph_oscillate/ISchemeOscillateState";
 import { OscillateManager } from "@/engine/scripts/core/schemes/ph_oscillate/OscillateManager";
 import { subscribeActionForEvents } from "@/engine/scripts/core/schemes/subscribeActionForEvents";
-import { getConfigNumber, getConfigString, getConfigSwitchConditions } from "@/engine/scripts/utils/config";
 import { abort } from "@/engine/scripts/utils/debug";
+import { getConfigSwitchConditions } from "@/engine/scripts/utils/ini_config/config";
+import { getConfigNumber, getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

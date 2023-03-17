@@ -51,7 +51,7 @@ export const registry = {
   /**
    * Story objects mapping to match currently spawned object IDs and unique story objects.
    */
-  story: {
+  storyLink: {
     sidById: new LuaTable<TNumberId, TStringId>(),
     idBySid: new LuaTable<TStringId, TNumberId>(),
   },

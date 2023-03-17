@@ -6,8 +6,9 @@ import { AbstractScheme } from "@/engine/scripts/core/schemes/base/AbstractSchem
 import { subscribeActionForEvents } from "@/engine/scripts/core/schemes/subscribeActionForEvents";
 import { ISchemeTimerState } from "@/engine/scripts/core/schemes/timer/ISchemeTimerState";
 import { SchemeTimerManager } from "@/engine/scripts/core/schemes/timer/SchemeTimerManager";
-import { getConfigNumber, getConfigString, getConfigSwitchConditions } from "@/engine/scripts/utils/config";
 import { abort } from "@/engine/scripts/utils/debug";
+import { getConfigSwitchConditions } from "@/engine/scripts/utils/ini_config/config";
+import { getConfigNumber, getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseConditionsList } from "@/engine/scripts/utils/parse";
 

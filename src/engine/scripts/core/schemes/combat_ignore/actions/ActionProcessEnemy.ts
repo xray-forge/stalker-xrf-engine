@@ -13,7 +13,7 @@ import { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTer
 import { ESmartTerrainStatus } from "@/engine/scripts/core/objects/alife/smart/SmartTerrainControl";
 import { ISchemeCombatIgnoreState } from "@/engine/scripts/core/schemes/combat_ignore";
 import { isObjectInZone } from "@/engine/scripts/utils/check/check";
-import { pickSectionFromCondList } from "@/engine/scripts/utils/config";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

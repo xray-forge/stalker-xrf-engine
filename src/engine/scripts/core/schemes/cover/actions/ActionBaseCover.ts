@@ -6,7 +6,7 @@ import { SimulationBoardManager } from "@/engine/scripts/core/database/Simulatio
 import { GlobalSoundManager } from "@/engine/scripts/core/managers/GlobalSoundManager";
 import { set_state } from "@/engine/scripts/core/objects/state/StateManager";
 import { ISchemeCoverState } from "@/engine/scripts/core/schemes/cover";
-import { pickSectionFromCondList } from "@/engine/scripts/utils/config";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { vectorCmp } from "@/engine/scripts/utils/physics";
 
 /**

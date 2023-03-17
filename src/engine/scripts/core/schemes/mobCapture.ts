@@ -1,7 +1,7 @@
 import { XR_game_object } from "xray16";
 
 import { Maybe } from "@/engine/lib/types";
-import { resetAction } from "@/engine/scripts/utils/alife";
+import { resetObjectAction } from "@/engine/scripts/utils/alife";
 import { abort } from "@/engine/scripts/utils/debug";
 
 /**
@@ -15,7 +15,7 @@ export function mobCapture(object: XR_game_object, resetActions: Maybe<boolean>,
   }
 
   if (resetActions !== null) {
-    resetAction(object, "gamedata");
+    resetObjectAction(object, "gamedata");
   } else {
     if (!object.get_script()) {
       object.script(true, "gamedata");

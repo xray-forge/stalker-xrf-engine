@@ -5,7 +5,7 @@ import { Optional, PartialRecord } from "@/engine/lib/types";
 import { SurgeManager } from "@/engine/scripts/core/managers/SurgeManager";
 import { TravelManager } from "@/engine/scripts/core/managers/TravelManager";
 import { Squad } from "@/engine/scripts/core/objects/alife/Squad";
-import { getAlifeDistanceBetween } from "@/engine/scripts/utils/alife";
+import { getServerDistanceBetween } from "@/engine/scripts/utils/alife";
 import { hasAlifeInfo } from "@/engine/scripts/utils/info_portion";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { isInTimeInterval } from "@/engine/scripts/utils/time";
@@ -59,7 +59,7 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
         prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(8, 21) &&
           !SurgeManager.getInstance().isStarted &&
-          getAlifeDistanceBetween(squad, target) <= 150,
+          getServerDistanceBetween(squad, target) <= 150,
       },
     },
     smart: {
@@ -78,7 +78,7 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
     },
     actor: {
       prec: (squad: Squad, target: XR_cse_alife_object) =>
-        hasAlifeInfo("sim_bandit_attack_harder") && getAlifeDistanceBetween(squad, target) <= 150,
+        hasAlifeInfo("sim_bandit_attack_harder") && getServerDistanceBetween(squad, target) <= 150,
     },
   },
   [communities.dolg]: {
@@ -87,37 +87,37 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
         prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(8, 19) &&
           !SurgeManager.getInstance().isStarted &&
-          getAlifeDistanceBetween(squad, target) <= 150,
+          getServerDistanceBetween(squad, target) <= 150,
       },
       monster_predatory_day: {
         prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(8, 19) &&
           !SurgeManager.getInstance().isStarted &&
-          getAlifeDistanceBetween(squad, target) <= 150,
+          getServerDistanceBetween(squad, target) <= 150,
       },
       monster_predatory_night: {
         prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(8, 19) &&
           !SurgeManager.getInstance().isStarted &&
-          getAlifeDistanceBetween(squad, target) <= 150,
+          getServerDistanceBetween(squad, target) <= 150,
       },
       monster_vegetarian: {
         prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(8, 19) &&
           !SurgeManager.getInstance().isStarted &&
-          getAlifeDistanceBetween(squad, target) <= 150,
+          getServerDistanceBetween(squad, target) <= 150,
       },
       monster_zombied_day: {
         prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(8, 19) &&
           !SurgeManager.getInstance().isStarted &&
-          getAlifeDistanceBetween(squad, target) <= 150,
+          getServerDistanceBetween(squad, target) <= 150,
       },
       monster_special: {
         prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(8, 19) &&
           !SurgeManager.getInstance().isStarted &&
-          getAlifeDistanceBetween(squad, target) <= 150,
+          getServerDistanceBetween(squad, target) <= 150,
       },
     },
     smart: {
@@ -142,7 +142,7 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
         prec: (squad: Squad, target: XR_cse_alife_object) =>
           isInTimeInterval(8, 19) &&
           !SurgeManager.getInstance().isStarted &&
-          getAlifeDistanceBetween(squad, target) <= 150,
+          getServerDistanceBetween(squad, target) <= 150,
       },
     },
     smart: {
@@ -170,7 +170,7 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
       surge: { prec: () => SurgeManager.getInstance().isStarted },
     },
     actor: {
-      prec: (squad: Squad, target: XR_cse_alife_object) => getAlifeDistanceBetween(squad, target) <= 150,
+      prec: (squad: Squad, target: XR_cse_alife_object) => getServerDistanceBetween(squad, target) <= 150,
     },
   },
   [communities.zombied]: {
@@ -183,23 +183,23 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
       monster_vegetarian: { prec: () => isInTimeInterval(6, 19) },
       stalker: {
         prec: (squad: Squad, target: XR_cse_alife_object) =>
-          isInTimeInterval(6, 19) && getAlifeDistanceBetween(squad, target) <= 150,
+          isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
       },
       bandit: {
         prec: (squad: Squad, target: XR_cse_alife_object) =>
-          isInTimeInterval(6, 19) && getAlifeDistanceBetween(squad, target) <= 150,
+          isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
       },
       dolg: {
         prec: (squad: Squad, target: XR_cse_alife_object) =>
-          isInTimeInterval(6, 19) && getAlifeDistanceBetween(squad, target) <= 150,
+          isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
       },
       freedom: {
         prec: (squad: Squad, target: XR_cse_alife_object) =>
-          isInTimeInterval(6, 19) && getAlifeDistanceBetween(squad, target) <= 150,
+          isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
       },
       killer: {
         prec: (squad: Squad, target: XR_cse_alife_object) =>
-          isInTimeInterval(6, 19) && getAlifeDistanceBetween(squad, target) <= 150,
+          isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
       },
     },
     smart: {
@@ -210,7 +210,7 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
     },
     actor: {
       prec: (squad: Squad, target: XR_cse_alife_object) =>
-        isInTimeInterval(6, 19) && getAlifeDistanceBetween(squad, target) <= 150,
+        isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
     },
   },
   [communities.monster_predatory_night]: {
@@ -218,23 +218,23 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
       monster_vegetarian: { prec: () => isInTimeInterval(21, 6) },
       stalker: {
         prec: (squad: Squad, target: XR_cse_alife_object) =>
-          isInTimeInterval(19, 6) && getAlifeDistanceBetween(squad, target) <= 150,
+          isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
       },
       bandit: {
         prec: (squad: Squad, target: XR_cse_alife_object) =>
-          isInTimeInterval(19, 6) && getAlifeDistanceBetween(squad, target) <= 150,
+          isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
       },
       dolg: {
         prec: (squad: Squad, target: XR_cse_alife_object) =>
-          isInTimeInterval(19, 6) && getAlifeDistanceBetween(squad, target) <= 150,
+          isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
       },
       freedom: {
         prec: (squad: Squad, target: XR_cse_alife_object) =>
-          isInTimeInterval(19, 6) && getAlifeDistanceBetween(squad, target) <= 150,
+          isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
       },
       killer: {
         prec: (squad: Squad, target: XR_cse_alife_object) =>
-          isInTimeInterval(19, 6) && getAlifeDistanceBetween(squad, target) <= 150,
+          isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
       },
     },
     smart: {
@@ -245,7 +245,7 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
     },
     actor: {
       prec: (squad: Squad, target: XR_cse_alife_object) =>
-        isInTimeInterval(19, 6) && getAlifeDistanceBetween(squad, target) <= 150,
+        isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
     },
   },
   [communities.monster_vegetarian]: {
@@ -257,30 +257,30 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
     },
     actor: {
       prec: (squad: Squad, target: XR_cse_alife_object) =>
-        isInTimeInterval(6, 19) && getAlifeDistanceBetween(squad, target) <= 150,
+        isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
     },
   },
   [communities.monster_zombied_day]: {
     squad: {
       stalker: {
         prec: (squad: Squad, target: XR_cse_alife_object) =>
-          isInTimeInterval(6, 19) && getAlifeDistanceBetween(squad, target) <= 150,
+          isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
       },
       bandit: {
         prec: (squad: Squad, target: XR_cse_alife_object) =>
-          isInTimeInterval(6, 19) && getAlifeDistanceBetween(squad, target) <= 150,
+          isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
       },
       dolg: {
         prec: (squad: Squad, target: XR_cse_alife_object) =>
-          isInTimeInterval(6, 19) && getAlifeDistanceBetween(squad, target) <= 150,
+          isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
       },
       freedom: {
         prec: (squad: Squad, target: XR_cse_alife_object) =>
-          isInTimeInterval(6, 19) && getAlifeDistanceBetween(squad, target) <= 150,
+          isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
       },
       killer: {
         prec: (squad: Squad, target: XR_cse_alife_object) =>
-          isInTimeInterval(6, 19) && getAlifeDistanceBetween(squad, target) <= 150,
+          isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
       },
     },
     smart: {
@@ -291,30 +291,30 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
     },
     actor: {
       prec: (squad: Squad, target: XR_cse_alife_object) =>
-        isInTimeInterval(6, 19) && getAlifeDistanceBetween(squad, target) <= 150,
+        isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
     },
   },
   [communities.monster_zombied_night]: {
     squad: {
       stalker: {
         prec: (squad: Squad, target: XR_cse_alife_object) =>
-          isInTimeInterval(19, 6) && getAlifeDistanceBetween(squad, target) <= 150,
+          isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
       },
       bandit: {
         prec: (squad: Squad, target: XR_cse_alife_object) =>
-          isInTimeInterval(19, 6) && getAlifeDistanceBetween(squad, target) <= 150,
+          isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
       },
       dolg: {
         prec: (squad: Squad, target: XR_cse_alife_object) =>
-          isInTimeInterval(19, 6) && getAlifeDistanceBetween(squad, target) <= 150,
+          isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
       },
       freedom: {
         prec: (squad: Squad, target: XR_cse_alife_object) =>
-          isInTimeInterval(19, 6) && getAlifeDistanceBetween(squad, target) <= 150,
+          isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
       },
       killer: {
         prec: (squad: Squad, target: XR_cse_alife_object) =>
-          isInTimeInterval(19, 6) && getAlifeDistanceBetween(squad, target) <= 150,
+          isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
       },
     },
     smart: {
@@ -325,7 +325,7 @@ export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> =
     },
     actor: {
       prec: (squad: Squad, target: XR_cse_alife_object) =>
-        isInTimeInterval(19, 6) && getAlifeDistanceBetween(squad, target) <= 150,
+        isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
     },
   },
   [communities.monster_special]: {

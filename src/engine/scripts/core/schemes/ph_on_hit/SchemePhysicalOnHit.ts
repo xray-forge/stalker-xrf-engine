@@ -7,7 +7,7 @@ import { ISchemePhysicalOnHitState } from "@/engine/scripts/core/schemes/ph_on_h
 import { PhysicalOnHitManager } from "@/engine/scripts/core/schemes/ph_on_hit/PhysicalOnHitManager";
 import { subscribeActionForEvents } from "@/engine/scripts/core/schemes/subscribeActionForEvents";
 import { unsubscribeActionFromEvents } from "@/engine/scripts/core/schemes/unsubscribeActionFromEvents";
-import { getConfigSwitchConditions } from "@/engine/scripts/utils/config";
+import { getConfigSwitchConditions } from "@/engine/scripts/utils/ini_config/config";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

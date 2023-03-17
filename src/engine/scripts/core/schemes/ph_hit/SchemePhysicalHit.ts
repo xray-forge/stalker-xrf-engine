@@ -5,7 +5,8 @@ import { AbstractScheme } from "@/engine/scripts/core/schemes/base";
 import { ISchemePhysicalHitState } from "@/engine/scripts/core/schemes/ph_hit/ISchemePhysicalHitState";
 import { PhysicalHitManager } from "@/engine/scripts/core/schemes/ph_hit/PhysicalHitManager";
 import { subscribeActionForEvents } from "@/engine/scripts/core/schemes/subscribeActionForEvents";
-import { getConfigNumber, getConfigString, getConfigSwitchConditions } from "@/engine/scripts/utils/config";
+import { getConfigSwitchConditions } from "@/engine/scripts/utils/ini_config/config";
+import { getConfigNumber, getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

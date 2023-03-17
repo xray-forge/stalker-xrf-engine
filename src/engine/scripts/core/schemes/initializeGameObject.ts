@@ -7,7 +7,7 @@ import { activateSchemeBySection } from "@/engine/scripts/core/schemes/base/acti
 import { configureObjectSchemes } from "@/engine/scripts/core/schemes/base/configureObjectSchemes";
 import { determine_section_to_activate } from "@/engine/scripts/core/schemes/determine_section_to_activate";
 import { getCustomDataOrIniFile } from "@/engine/scripts/core/schemes/getCustomDataOrIniFile";
-import { getConfigNumber, getConfigString } from "@/engine/scripts/utils/config";
+import { getConfigNumber, getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

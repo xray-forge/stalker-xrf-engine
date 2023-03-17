@@ -9,9 +9,10 @@ import { ESchemeEvent } from "@/engine/scripts/core/schemes/base/index";
 import { issueSchemeEvent } from "@/engine/scripts/core/schemes/issueSchemeEvent";
 import { resetGenericSchemesOnSchemeSwitch } from "@/engine/scripts/core/schemes/resetGenericSchemesOnSchemeSwitch";
 import { sendToNearestAccessibleVertex } from "@/engine/scripts/utils/alife";
-import { getConfigOverrides, getSchemeBySection } from "@/engine/scripts/utils/config";
 import { abort } from "@/engine/scripts/utils/debug";
 import { getObjectBoundSmart } from "@/engine/scripts/utils/gulag";
+import { getObjectConfigOverrides } from "@/engine/scripts/utils/ini_config/config";
+import { getSchemeByIniSection } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -67,13 +68,13 @@ export function activateSchemeBySection(
     abort("object '%s': activate_by_section: section '%s' does !exist", object.name(), section);
   }
 
-  const scheme: Optional<EScheme> = getSchemeBySection(section);
+  const scheme: Optional<EScheme> = getSchemeByIniSection(section);
 
   if (scheme === null) {
     abort("object '%s': unable to determine scheme name from section name '%s'", object.name(), section);
   }
 
-  registry.objects.get(objectId).overrides = getConfigOverrides(ini, section, object) as any;
+  registry.objects.get(objectId).overrides = getObjectConfigOverrides(ini, section, object) as any;
 
   resetGenericSchemesOnSchemeSwitch(object, scheme, section);
 

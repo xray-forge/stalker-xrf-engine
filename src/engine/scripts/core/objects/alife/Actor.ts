@@ -2,7 +2,6 @@ import {
   alife,
   CALifeSmartTerrainTask,
   cse_alife_creature_actor,
-  editor,
   level,
   LuabindClass,
   XR_CALifeSmartTerrainTask,
@@ -11,10 +10,14 @@ import {
 } from "xray16";
 
 import { AnyObject, Optional, TRate, TStringId } from "@/engine/lib/types";
-import { registry, softResetOfflineObject } from "@/engine/scripts/core/database";
+import {
+  registerStoryLink,
+  registry,
+  softResetOfflineObject,
+  unregisterStoryLinkByObjectId,
+} from "@/engine/scripts/core/database";
 import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";
 import { evaluate_prior, getSimulationObjectsRegistry } from "@/engine/scripts/core/database/SimulationObjectsRegistry";
-import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 import { simulation_activities } from "@/engine/scripts/core/objects/alife/SimulationActivity";
 import { nearest_to_actor_smart, SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
 import { ESmartTerrainStatus, getCurrentSmartId } from "@/engine/scripts/core/objects/alife/smart/SmartTerrainControl";
@@ -42,7 +45,7 @@ export class Actor extends cse_alife_creature_actor {
 
     logger.info("Register:", this.id, this.name(), this.section_name());
 
-    StoryObjectsManager.getInstance().register(this.id, "actor");
+    registerStoryLink(this.id, "actor");
     getSimulationObjectsRegistry().register(this);
 
     this.isRegistered = true;
@@ -60,7 +63,7 @@ export class Actor extends cse_alife_creature_actor {
     logger.info("Unregister actor");
 
     super.on_unregister();
-    StoryObjectsManager.unregisterStoryObjectById(this.id);
+    unregisterStoryLinkByObjectId(this.id);
     getSimulationObjectsRegistry().unregister(this);
   }
 

@@ -27,9 +27,10 @@ import { STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/lua";
 import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
 import { relations, TRelation } from "@/engine/lib/constants/relations";
 import { SMART_TERRAIN_SECT } from "@/engine/lib/constants/sections";
-import { AnyCallablesModule, AnyObject, Optional, TCount, TNumberId } from "@/engine/lib/types";
+import { AnyCallablesModule, AnyObject, LuaArray, Optional, TCount, TName, TNumberId } from "@/engine/lib/types";
 import { TSection } from "@/engine/lib/types/scheme";
 import {
+  registerObjectStoryLinks,
   registry,
   SMART_TERRAIN_MASKS_LTX,
   softResetOfflineObject,
@@ -38,7 +39,7 @@ import {
 } from "@/engine/scripts/core/database";
 import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";
 import { evaluate_prior, getSimulationObjectsRegistry } from "@/engine/scripts/core/database/SimulationObjectsRegistry";
-import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
+import { unregisterStoryLinkByObjectId } from "@/engine/scripts/core/database/story";
 import { simulation_activities } from "@/engine/scripts/core/objects/alife/SimulationActivity";
 import type { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
 import { ESmartTerrainStatus } from "@/engine/scripts/core/objects/alife/smart/SmartTerrainControl";
@@ -46,18 +47,18 @@ import { SquadReachTargetAction } from "@/engine/scripts/core/objects/alife/Squa
 import { SquadStayOnTargetAction } from "@/engine/scripts/core/objects/alife/SquadStayOnTargetAction";
 import { StateManager } from "@/engine/scripts/core/objects/state/StateManager";
 import { get_sound_manager, SoundManager } from "@/engine/scripts/core/sounds/SoundManager";
-import { areOnSameAlifeLevel } from "@/engine/scripts/utils/alife";
+import { areObjectsOnSameLevel } from "@/engine/scripts/utils/alife";
 import { isSquadMonsterCommunity } from "@/engine/scripts/utils/check/is";
+import { abort } from "@/engine/scripts/utils/debug";
+import { setSaveMarker } from "@/engine/scripts/utils/game_save";
+import { hasAlifeInfo } from "@/engine/scripts/utils/info_portion";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import {
   getConfigBoolean,
   getConfigNumber,
   getConfigString,
-  pickSectionFromCondList,
-  read2nums,
-} from "@/engine/scripts/utils/config";
-import { abort } from "@/engine/scripts/utils/debug";
-import { setSaveMarker } from "@/engine/scripts/utils/game_save";
-import { hasAlifeInfo } from "@/engine/scripts/utils/info_portion";
+  getTwoNumbers,
+} from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseConditionsList, parseNames, TConditionList } from "@/engine/scripts/utils/parse";
 import {
@@ -706,7 +707,7 @@ export class Squad<
     this.soundManager.register_npc(obj.id);
 
     if (
-      areOnSameAlifeLevel(obj, alife().actor()) &&
+      areObjectsOnSameLevel(obj, alife().actor()) &&
       position.distance_to_sqr(alife().actor().position) <= alife().switch_distance() * alife().switch_distance()
     ) {
       // todo: Delete also, same as with stalkers and monsters??? Memory leak probable
@@ -722,31 +723,32 @@ export class Squad<
   public create_npc(spawn_smart: SmartTerrain): void {
     logger.info("Create object:", this.name(), spawn_smart?.name());
 
-    const spawn_sections = parseNames(getConfigString(SYSTEM_INI, this.settings_id, "npc", this, false, "", ""));
-
-    const spawn_point_data =
+    const spawnSections: LuaArray<TSection> = parseNames(
+      getConfigString(SYSTEM_INI, this.settings_id, "npc", this, false, "", "")
+    );
+    const spawnPointData =
       getConfigString(SYSTEM_INI, this.settings_id, "spawn_point", this, false, "", "self") ||
       getConfigString(spawn_smart.ini, SMART_TERRAIN_SECT, "spawn_point", this, false, "", "self");
 
-    const spawn_point = pickSectionFromCondList(
+    const spawnPoint: Optional<TName> = pickSectionFromCondList(
       registry.actor,
       this,
-      parseConditionsList(this, "spawn_point", "spawn_point", spawn_point_data)
+      parseConditionsList(this, "spawn_point", "spawn_point", spawnPointData)
     )!;
 
     let base_spawn_position: XR_vector = spawn_smart.position;
     let base_lvi = spawn_smart.m_level_vertex_id;
     let base_gvi = spawn_smart.m_game_vertex_id;
 
-    if (spawn_point !== null) {
-      if (spawn_point === "self") {
+    if (spawnPoint !== null) {
+      if (spawnPoint === "self") {
         base_spawn_position = spawn_smart.position;
         base_lvi = spawn_smart.m_level_vertex_id;
         base_gvi = spawn_smart.m_game_vertex_id;
       } else {
-        base_spawn_position = new patrol(spawn_point).point(0);
-        base_lvi = new patrol(spawn_point).level_vertex_id(0);
-        base_gvi = new patrol(spawn_point).game_vertex_id(0);
+        base_spawn_position = new patrol(spawnPoint).point(0);
+        base_lvi = new patrol(spawnPoint).level_vertex_id(0);
+        base_gvi = new patrol(spawnPoint).game_vertex_id(0);
       }
     } else if (spawn_smart.spawn_point !== null) {
       base_spawn_position = new patrol(spawn_smart.spawn_point).point(0);
@@ -754,31 +756,31 @@ export class Squad<
       base_gvi = new patrol(spawn_smart.spawn_point).game_vertex_id(0);
     }
 
-    if (spawn_sections.length() !== 0) {
-      for (const [k, v] of spawn_sections) {
+    if (spawnSections.length() !== 0) {
+      for (const [k, v] of spawnSections) {
         this.add_squad_member(v, base_spawn_position, base_lvi, base_gvi);
       }
     }
 
-    const random_spawn_config = getConfigString(SYSTEM_INI, this.settings_id, "npc_random", this, false, "", null);
+    const randomSpawnConfig = getConfigString(SYSTEM_INI, this.settings_id, "npc_random", this, false, "", null);
 
-    if (random_spawn_config !== null) {
-      const random_spawn = parseNames(random_spawn_config)!;
+    if (randomSpawnConfig !== null) {
+      const randomSpawn: LuaArray<string> = parseNames(randomSpawnConfig)!;
 
-      const [count_min, count_max] = read2nums(SYSTEM_INI, this.settings_id, "npc_in_squad", 1 as any, 2 as any);
+      const [countMin, countMax] = getTwoNumbers(SYSTEM_INI, this.settings_id, "npc_in_squad", 1 as any, 2 as any);
 
-      if (count_min > count_max) {
+      if (countMin > countMax) {
         abort("min_count can't be greater then max_count [%s]!", this.settings_id);
       }
 
-      const random_count = math.random(count_min as any, count_max as any);
+      const randomCount: TCount = math.random(countMin, countMax);
 
-      for (const it of $range(1, random_count)) {
-        const random_id = math.random(1, random_spawn!.length());
+      for (const it of $range(1, randomCount)) {
+        const random_id = math.random(1, randomSpawn!.length());
 
-        this.add_squad_member(random_spawn!.get(random_id), base_spawn_position, base_lvi, base_gvi);
+        this.add_squad_member(randomSpawn!.get(random_id), base_spawn_position, base_lvi, base_gvi);
       }
-    } else if (spawn_sections.length() === 0) {
+    } else if (spawnSections.length() === 0) {
       abort("You are trying to spawn an empty squad [%s]!", this.settings_id);
     }
 
@@ -902,7 +904,7 @@ export class Squad<
 
     this.current_target_id = packet.r_stringZ();
 
-    if (this.current_target_id === "nil") {
+    if (this.current_target_id === STRINGIFIED_NIL) {
       this.current_target_id = null;
     } else {
       this.current_target_id = tonumber(this.current_target_id);
@@ -910,7 +912,7 @@ export class Squad<
 
     const respawn_point_id = packet.r_stringZ();
 
-    if (respawn_point_id === "nil") {
+    if (respawn_point_id === STRINGIFIED_NIL) {
       this.respawn_point_id = null;
     } else {
       this.respawn_point_id = tonumber(respawn_point_id)!;
@@ -918,13 +920,13 @@ export class Squad<
 
     this.respawn_point_prop_section = packet.r_stringZ();
 
-    if (this.respawn_point_prop_section === "nil") {
+    if (this.respawn_point_prop_section === STRINGIFIED_NIL) {
       this.respawn_point_prop_section = null;
     }
 
     const smart_id = packet.r_stringZ();
 
-    if (smart_id === "nil") {
+    if (smart_id === STRINGIFIED_NIL) {
       this.smart_id = null;
     } else {
       this.smart_id = tonumber(this.smart_id)!;
@@ -940,7 +942,7 @@ export class Squad<
   public override on_register(): void {
     super.on_register();
     this.board.squads.set(this.id, this);
-    StoryObjectsManager.checkSpawnIniForStoryId(this);
+    registerObjectStoryLinks(this);
     getSimulationObjectsRegistry().register(this);
   }
 
@@ -948,10 +950,11 @@ export class Squad<
    * todo;
    */
   public override on_unregister(): void {
-    StoryObjectsManager.unregisterStoryObjectById(this.id);
+    unregisterStoryLinkByObjectId(this.id);
 
     this.board.squads.delete(this.id);
     this.board.assign_squad_to_smart(this, null);
+
     super.on_unregister();
     getSimulationObjectsRegistry().unregister(this);
 

@@ -11,11 +11,11 @@ import {
   XR_vector,
 } from "xray16";
 
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
 import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
 import { Optional } from "@/engine/lib/types";
-import { registry } from "@/engine/scripts/core/database";
+import { getIdBySid, registry } from "@/engine/scripts/core/database";
 import { randomChoice } from "@/engine/scripts/utils/general";
-import { getIdBySid } from "@/engine/scripts/utils/id";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { distanceBetween2d } from "@/engine/scripts/utils/physics";
 
@@ -162,7 +162,7 @@ export class HeliFire {
             if (this.enemy_ === "all") {
               this.update_enemy_arr();
             } else {
-              if (this.enemy_ !== "nil") {
+              if (this.enemy_ !== STRINGIFIED_NIL) {
                 this.enemy_id = getIdBySid(tonumber(this.enemy_)!);
                 this.enemy = level.object_by_id(this.enemy_id!);
               }

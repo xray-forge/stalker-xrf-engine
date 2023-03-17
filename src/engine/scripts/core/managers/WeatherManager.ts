@@ -3,9 +3,10 @@ import { level, XR_net_packet, XR_reader } from "xray16";
 import { Optional } from "@/engine/lib/types";
 import { DYNAMIC_WEATHER_GRAPHS, GAME_LTX, registry } from "@/engine/scripts/core/database";
 import { AbstractCoreManager } from "@/engine/scripts/core/managers/AbstractCoreManager";
-import { getConfigString, pickSectionFromCondList } from "@/engine/scripts/utils/config";
 import { abort } from "@/engine/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/engine/scripts/utils/game_save";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
+import { getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseConditionsList, parseIniSectionToArray, TConditionList } from "@/engine/scripts/utils/parse";
 

@@ -1,13 +1,12 @@
 import { action_base, level, LuabindClass, patrol, XR_game_object, XR_sound_object, XR_vector } from "xray16";
 
-import { Optional } from "@/engine/lib/types";
-import { registry } from "@/engine/scripts/core/database";
+import { Optional, TNumberId } from "@/engine/lib/types";
+import { getObjectIdByStoryId, registry } from "@/engine/scripts/core/database";
 import { GlobalSoundManager } from "@/engine/scripts/core/managers/GlobalSoundManager";
-import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 import { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
 import { set_state } from "@/engine/scripts/core/objects/state/StateManager";
 import { ISchemeRemarkState } from "@/engine/scripts/core/schemes/remark";
-import { pickSectionFromCondList } from "@/engine/scripts/utils/config";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { abort } from "@/engine/scripts/utils/debug";
 import { get_gulag_by_name } from "@/engine/scripts/utils/gulag";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
@@ -231,12 +230,12 @@ export function init_target(
     return $multi(target_type, target);
   }
 
-  let target_pos: Optional<XR_vector> = null;
-  let target_id: Optional<number> = null;
-  let target_initialized: boolean = false;
+  let targetPosition: Optional<XR_vector> = null;
+  let targetId: Optional<TNumberId> = null;
+  let isTargetInitialized: boolean = false;
 
   if (targetString === "nil") {
-    return $multi(target_pos, target_id, target_initialized);
+    return $multi(targetPosition, targetId, isTargetInitialized);
   } else if (targetString === null) {
     instruction(obj, "");
   }
@@ -246,28 +245,28 @@ export function init_target(
   if (target_type === "story") {
     const [story_id] = parse_target(target);
 
-    target_id = StoryObjectsManager.getStoryObjectId(story_id!);
-    target_initialized = true;
+    targetId = getObjectIdByStoryId(story_id!);
+    isTargetInitialized = true;
   } else if (target_type === "path") {
     const [path, point] = parse_target(target);
 
     const pointNumber = tonumber(point)!;
 
     if (point) {
-      target_pos = new patrol(path!).point(pointNumber);
-      target_initialized = true;
+      targetPosition = new patrol(path!).point(pointNumber);
+      isTargetInitialized = true;
     }
   } else if (target_type === "job") {
     const [job, gulag] = parse_target(target);
     const smartTerrain: SmartTerrain = get_gulag_by_name(gulag!)!;
 
-    target_id = smartTerrain.idNPCOnJob(job!);
-    target_initialized = target_id !== null && true;
+    targetId = smartTerrain.idNPCOnJob(job!);
+    isTargetInitialized = targetId !== null && true;
   } else {
     instruction(obj, targetString);
   }
 
-  return $multi(target_pos, target_id, target_initialized);
+  return $multi(targetPosition, targetId, isTargetInitialized);
 }
 
 /**

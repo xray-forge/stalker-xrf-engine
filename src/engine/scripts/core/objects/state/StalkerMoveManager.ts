@@ -14,7 +14,7 @@ import {
 import { AnyCallable, AnyObject, LuaArray, Optional, TName } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { set_state } from "@/engine/scripts/core/objects/state/StateManager";
-import { pickSectionFromCondList } from "@/engine/scripts/utils/config";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { abort } from "@/engine/scripts/utils/debug";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { IWaypointData, parseConditionsList, TConditionList } from "@/engine/scripts/utils/parse";

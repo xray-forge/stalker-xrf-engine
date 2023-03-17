@@ -1,7 +1,7 @@
 import {
   alife,
   clsid,
-  TXR_cls_id,
+  TXR_class_id,
   XR_cse_alife_creature_abstract,
   XR_cse_alife_object,
   XR_game_object,
@@ -19,7 +19,7 @@ import { registry } from "@/engine/scripts/core/database";
 import { AbstractCoreManager } from "@/engine/scripts/core/managers/AbstractCoreManager";
 import { isStalker } from "@/engine/scripts/utils/check/is";
 import { abort } from "@/engine/scripts/utils/debug";
-import { getClsId } from "@/engine/scripts/utils/id";
+import { getObjectClassId } from "@/engine/scripts/utils/id";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { getTableSize } from "@/engine/scripts/utils/table";
 
@@ -129,7 +129,7 @@ export class StatisticsManager extends AbstractCoreManager {
     af_ice: false,
   } as unknown as LuaTable<TArtefact, boolean>;
 
-  public monster_classes: PartialRecord<TXR_cls_id, string> = {
+  public monster_classes: PartialRecord<TXR_class_id, string> = {
     [clsid.bloodsucker_s]: "bloodsucker",
     [clsid.boar_s]: "boar",
     [clsid.burer_s]: "burer",
@@ -254,13 +254,13 @@ export class StatisticsManager extends AbstractCoreManager {
     if (isStalker(object)) {
       // -- actor_statistic.best_monster = "stalker"
     } else {
-      let community = this.monster_classes[getClsId(object)];
+      let community = this.monster_classes[getObjectClassId(object)];
 
       if (!community) {
         abort(
           "Statistic ERROR: cannot find monster class for [%s] clsid [%s]",
           object.name(),
-          tostring(getClsId(object))
+          tostring(getObjectClassId(object))
         );
       }
 

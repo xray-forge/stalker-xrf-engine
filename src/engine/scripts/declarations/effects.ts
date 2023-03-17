@@ -63,14 +63,21 @@ import {
   TNumberId,
   TStringId,
 } from "@/engine/lib/types";
-import { IRegistryObjectState, registry, SYSTEM_INI, unregisterHelicopter } from "@/engine/scripts/core/database";
+import {
+  getObjectByStoryId,
+  getObjectIdByStoryId,
+  getServerObjectByStoryId,
+  IRegistryObjectState,
+  registry,
+  SYSTEM_INI,
+  unregisterHelicopter,
+} from "@/engine/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/engine/scripts/core/database/pstor";
 import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/scripts/core/managers/GlobalSoundManager";
 import { ItemUpgradesManager } from "@/engine/scripts/core/managers/ItemUpgradesManager";
 import { MapDisplayManager } from "@/engine/scripts/core/managers/map/MapDisplayManager";
 import { NotificationManager, TNotificationIcon } from "@/engine/scripts/core/managers/notifications";
-import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 import { SurgeManager } from "@/engine/scripts/core/managers/SurgeManager";
 import { TaskManager } from "@/engine/scripts/core/managers/tasks";
 import { TreasureManager } from "@/engine/scripts/core/managers/TreasureManager";
@@ -89,7 +96,6 @@ import { showFreeplayDialog } from "@/engine/scripts/core/ui/game/FreeplayDialog
 import { sleep as startSleeping } from "@/engine/scripts/core/ui/interaction/SleepDialog";
 import { isActorInZoneWithName } from "@/engine/scripts/utils/check/check";
 import { isStalker } from "@/engine/scripts/utils/check/is";
-import { getConfigString, pickSectionFromCondList } from "@/engine/scripts/utils/config";
 import {
   disableActorNightVision,
   disableActorTorch,
@@ -104,6 +110,8 @@ import { abort } from "@/engine/scripts/utils/debug";
 import { createScenarioAutoSave } from "@/engine/scripts/utils/game_save";
 import { find_stalker_for_job, switch_to_desired_job as switchToGulagDesiredJob } from "@/engine/scripts/utils/gulag";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/scripts/utils/info_portion";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
+import { getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { IConfigSwitchCondition, parseConditionsList } from "@/engine/scripts/utils/parse";
 import {
@@ -120,7 +128,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export function update_npc_logic(actor: XR_game_object, npc: XR_game_object, params: LuaArray<TStringId>): void {
   for (const [index, storyId] of params) {
-    const object: Optional<XR_game_object> = StoryObjectsManager.getStoryObject(storyId);
+    const object: Optional<XR_game_object> = getObjectByStoryId(storyId);
 
     if (object !== null) {
       update_logic(object);
@@ -150,7 +158,7 @@ export function update_npc_logic(actor: XR_game_object, npc: XR_game_object, par
  */
 export function update_obj_logic(actor: XR_game_object, npc: XR_game_object, params: LuaArray<TStringId>): void {
   for (const [index, storyId] of params) {
-    const object: Optional<XR_game_object> = StoryObjectsManager.getStoryObject(storyId);
+    const object: Optional<XR_game_object> = getObjectByStoryId(storyId);
 
     if (object !== null) {
       logger.info("Update object logic:", object.id());
@@ -488,7 +496,7 @@ export function teleport_npc_by_story_id(actor: XR_game_object, npc: XR_game_obj
   }
 
   const position: XR_vector = new patrol(tostring(patrolPoint)).point(patrolPointIndex);
-  const objectId: Optional<TNumberId> = StoryObjectsManager.getStoryObjectId(storyId);
+  const objectId: Optional<TNumberId> = getObjectIdByStoryId(storyId);
 
   if (objectId === null) {
     abort("There is no story object with id [%s]", storyId);
@@ -517,7 +525,7 @@ export function teleport_squad(actor: XR_game_object, npc: XR_game_object, param
   }
 
   const position: XR_vector = new patrol(patrolPoint).point(patrolPointIndex);
-  const squad: Optional<Squad> = StoryObjectsManager.getStorySquad(squadStoryId);
+  const squad: Optional<Squad> = getServerObjectByStoryId(squadStoryId);
 
   if (squad === null) {
     abort("There is no squad with story id [%s]", squadStoryId);
@@ -559,8 +567,7 @@ export function give_item(
   npc: Optional<XR_game_object> | XR_cse_alife_human_abstract,
   p: [string, Optional<string>]
 ) {
-  const objectId: TNumberId =
-    p[1] === null ? (npc as XR_game_object).id() : StoryObjectsManager.getStoryObjectId(p[1])!;
+  const objectId: TNumberId = p[1] === null ? (npc as XR_game_object).id() : getObjectIdByStoryId(p[1])!;
   const serverObject: XR_cse_alife_object = alife().object(objectId)!;
 
   logger.info("Give item:", objectId, p[0]);
@@ -633,7 +640,7 @@ export function hit_npc(
   h.draftsman = npc;
   h.type = hit.wound;
   if (params[0] !== "self") {
-    const hitter: Optional<XR_game_object> = StoryObjectsManager.getStoryObject(params[0]);
+    const hitter: Optional<XR_game_object> = getObjectByStoryId(params[0]);
 
     if (!hitter) {
       return;
@@ -672,7 +679,7 @@ export function hit_obj(
   logger.info("Hit obj");
 
   const h: XR_hit = new hit();
-  const object: Optional<XR_game_object> = StoryObjectsManager.getStoryObject(params[0]);
+  const object: Optional<XR_game_object> = getObjectByStoryId(params[0]);
 
   if (!object) {
     return;
@@ -704,7 +711,7 @@ export function hit_npc_from_actor(actor: XR_game_object, npc: XR_game_object, p
   h.type = hit.wound;
 
   if (p[0]) {
-    storyObject = StoryObjectsManager.getStoryObject(p[0]);
+    storyObject = getObjectByStoryId(p[0]);
 
     if (storyObject) {
       h.direction = actor.position().sub(storyObject.position());
@@ -743,10 +750,10 @@ export function make_enemy(actor: XR_game_object, npc: XR_game_object, p: [strin
   const h: XR_hit = new hit();
   let hitted_npc = npc;
 
-  h.draftsman = StoryObjectsManager.getStoryObject(p[0]);
+  h.draftsman = getObjectByStoryId(p[0]);
 
   if (p[1] !== null) {
-    hitted_npc = StoryObjectsManager.getStoryObject(p[1])!;
+    hitted_npc = getObjectByStoryId(p[1])!;
   }
 
   h.type = hit.wound;
@@ -773,7 +780,7 @@ export function sniper_fire_mode(actor: XR_game_object, npc: XR_game_object, p: 
  */
 export function kill_npc(actor: XR_game_object, npc: Optional<XR_game_object>, p: [Optional<TStringId>]) {
   if (p && p[0]) {
-    npc = StoryObjectsManager.getStoryObject(p[0]);
+    npc = getObjectByStoryId(p[0]);
   }
 
   if (npc !== null && npc.alive()) {
@@ -788,7 +795,7 @@ export function remove_npc(actor: XR_game_object, npc: XR_game_object, p: [Optio
   let objectId: Optional<TNumberId> = null;
 
   if (p && p[0]) {
-    objectId = StoryObjectsManager.getStoryObjectId(p[0]);
+    objectId = getObjectIdByStoryId(p[0]);
   }
 
   if (objectId !== null) {
@@ -900,7 +907,7 @@ export function turn_off_underpass_lamps(actor: XR_game_object, npc: XR_game_obj
   } as unknown as LuaTable<string, boolean>;
 
   for (const [k, v] of lamps_table) {
-    const object: Optional<XR_game_object> = StoryObjectsManager.getStoryObject(k);
+    const object: Optional<XR_game_object> = getObjectByStoryId(k);
 
     if (object) {
       object.get_hanging_lamp().turn_off();
@@ -915,7 +922,7 @@ export function turn_off_underpass_lamps(actor: XR_game_object, npc: XR_game_obj
  */
 export function turn_off(actor: XR_game_object, npc: XR_game_object, parameters: LuaArray<TStringId>): void {
   for (const [index, storyId] of parameters) {
-    const object: Optional<XR_game_object> = StoryObjectsManager.getStoryObject(storyId);
+    const object: Optional<XR_game_object> = getObjectByStoryId(storyId);
 
     if (!object) {
       abort("TURN_OFF. Target object with story_id [%s] does ! exist", storyId);
@@ -940,7 +947,7 @@ export function turn_on_and_force(
   npc: XR_game_object,
   params: [TStringId, number, number]
 ): void {
-  const object: Optional<XR_game_object> = StoryObjectsManager.getStoryObject(params[0]);
+  const object: Optional<XR_game_object> = getObjectByStoryId(params[0]);
 
   if (!object) {
     abort("TURN_ON_AND_FORCE. Target object does ! exist");
@@ -965,7 +972,7 @@ export function turn_on_and_force(
  * todo;
  */
 export function turn_off_and_force(actor: XR_game_object, npc: XR_game_object, p: [TStringId]): void {
-  const object: Optional<XR_game_object> = StoryObjectsManager.getStoryObject(p[0]);
+  const object: Optional<XR_game_object> = getObjectByStoryId(p[0]);
 
   if (!object) {
     abort("TURN_OFF [%s]. Target object does ! exist", npc.name());
@@ -987,7 +994,7 @@ export function turn_on_object(actor: XR_game_object, npc: XR_game_object): void
  */
 export function turn_on(actor: XR_game_object, npc: XR_game_object, parameters: LuaArray<TStringId>) {
   for (const [index, storyId] of parameters) {
-    const object: Optional<XR_game_object> = StoryObjectsManager.getStoryObject(storyId);
+    const object: Optional<XR_game_object> = getObjectByStoryId(storyId);
 
     if (!object) {
       abort("TURN_ON [%s]. Target object does ! exist", npc.name());
@@ -1181,7 +1188,7 @@ let jup_b219_gvid: Optional<number> = null;
  * todo;
  */
 export function jup_b219_save_pos(): void {
-  const object: Optional<XR_game_object> = StoryObjectsManager.getStoryObject("jup_b219_gate_id");
+  const object: Optional<XR_game_object> = getObjectByStoryId("jup_b219_gate_id");
 
   if (object && object.position()) {
     jup_b219_position = object.position();
@@ -1266,7 +1273,7 @@ export function spawn_object_in(actor: XR_game_object, obj: XR_game_object, p: [
     abort("Wrong target_name for 'spawn_object_in' function %s. For object %s", tostring(p[1]), obj.name());
   }
 
-  const targetObjectId: Optional<TNumberId> = StoryObjectsManager.getStoryObjectId(p[1]);
+  const targetObjectId: Optional<TNumberId> = getObjectIdByStoryId(p[1]);
 
   if (targetObjectId !== null) {
     const box = alife().object(targetObjectId);
@@ -1463,7 +1470,7 @@ export function play_sound_by_story(
   obj: XR_game_object,
   p: [string, string, string, string | number]
 ) {
-  const storyObjectId: Optional<TNumberId> = StoryObjectsManager.getStoryObjectId(p[0]);
+  const storyObjectId: Optional<TNumberId> = getObjectIdByStoryId(p[0]);
   const theme = p[1];
   const faction = p[2];
   const smartTerrain: SmartTerrain = SimulationBoardManager.getInstance().smarts_by_names.get(p[3] as string);
@@ -1476,7 +1483,7 @@ export function play_sound_by_story(
  * todo;
  */
 export function barrel_explode(actor: XR_game_object, npc: XR_game_object, p: [TStringId]) {
-  const explodeObject: Optional<XR_game_object> = StoryObjectsManager.getStoryObject(p[0]);
+  const explodeObject: Optional<XR_game_object> = getObjectByStoryId(p[0]);
 
   if (explodeObject !== null) {
     explodeObject.explode(0);
@@ -1541,7 +1548,7 @@ export function create_squad_member(
   }
 
   const board: SimulationBoardManager = SimulationBoardManager.getInstance();
-  const squad: Squad = StoryObjectsManager.getStorySquad(story_id) as Squad;
+  const squad: Squad = getServerObjectByStoryId(story_id) as Squad;
   const squad_smart = board.smarts.get(squad.smart_id as TNumberId).smrt;
 
   if (params[2] !== null) {
@@ -1592,7 +1599,7 @@ export function remove_squad(actor: XR_game_object, obj: XR_game_object, p: [str
     abort("Wrong squad identificator [NIL] in remove_squad function");
   }
 
-  const squad: Optional<Squad> = StoryObjectsManager.getStorySquad(story_id);
+  const squad: Optional<Squad> = getServerObjectByStoryId(story_id);
 
   if (squad === null) {
     abort("Wrong squad identificator [%s]. squad doesnt exist", tostring(story_id));
@@ -1611,7 +1618,7 @@ export function kill_squad(actor: XR_game_object, obj: XR_game_object, p: [Optio
     abort("Wrong squad identificator [NIL] in kill_squad function");
   }
 
-  const squad: Optional<Squad> = StoryObjectsManager.getStorySquad(storyId);
+  const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
 
   if (squad === null) {
     return;
@@ -1646,7 +1653,7 @@ export function heal_squad(actor: XR_game_object, obj: XR_game_object, params: [
     abort("Wrong squad identificator [NIL] in heal_squad function");
   }
 
-  const squad: Optional<Squad> = StoryObjectsManager.getStorySquad(storyId);
+  const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
 
   if (squad === null) {
     return;
@@ -1680,7 +1687,7 @@ export function clear_smart_terrain(actor: XR_game_object, object: XR_game_objec
   for (const [k, v] of simulationBoardManager.smarts.get(smart_id).squads) {
     if (p[1] && p[1] === STRINGIFIED_FALSE) {
       // todo: Probably unreachable condition / cast
-      if (!StoryObjectsManager.getStoryObjectId(v.id as unknown as string)) {
+      if (!getObjectIdByStoryId(v.id as unknown as string)) {
         simulationBoardManager.exit_smart(v, smart_id);
         simulationBoardManager.remove_squad(v);
       }
@@ -1726,7 +1733,7 @@ export function actor_enemy(actor: XR_game_object, npc: XR_game_object): void {
 }
 
 export function set_squad_neutral_to_actor(actor: XR_game_object, npc: XR_game_object, p: [TStringId]): void {
-  const squad: Optional<Squad> = StoryObjectsManager.getStorySquad(p[0]);
+  const squad: Optional<Squad> = getServerObjectByStoryId(p[0]);
 
   if (squad === null) {
     return;
@@ -1736,7 +1743,7 @@ export function set_squad_neutral_to_actor(actor: XR_game_object, npc: XR_game_o
 }
 
 export function set_squad_friend_to_actor(actor: XR_game_object, npc: XR_game_object, p: [TStringId]): void {
-  const squad: Optional<Squad> = StoryObjectsManager.getStorySquad(p[0]);
+  const squad: Optional<Squad> = getServerObjectByStoryId(p[0]);
 
   if (squad === null) {
     return;
@@ -1746,7 +1753,7 @@ export function set_squad_friend_to_actor(actor: XR_game_object, npc: XR_game_ob
 }
 
 export function set_squad_enemy_to_actor(actor: XR_game_object, npc: XR_game_object, p: [TStringId]): void {
-  const squad: Optional<Squad> = StoryObjectsManager.getStorySquad(p[0]);
+  const squad: Optional<Squad> = getServerObjectByStoryId(p[0]);
 
   if (squad === null) {
     return;
@@ -1872,7 +1879,7 @@ export function set_surge_mess_and_task(
  */
 export function make_actor_visible_to_squad(actor: XR_game_object, npc: XR_game_object, p: [TStringId]): void {
   const storyId: Optional<TStringId> = p && p[0];
-  const squad: Optional<Squad> = StoryObjectsManager.getStorySquad(storyId);
+  const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
 
   if (squad === null) {
     abort("There is no squad with id[%s]", storyId);
@@ -1906,7 +1913,7 @@ export function enable_anomaly(actor: XR_game_object, npc: XR_game_object, p: [s
     abort("Story id for enable_anomaly function is ! set");
   }
 
-  const object: Optional<XR_game_object> = StoryObjectsManager.getStoryObject(p[0]);
+  const object: Optional<XR_game_object> = getObjectByStoryId(p[0]);
 
   if (!object) {
     abort("There is no object with story_id %s for enable_anomaly function", tostring(p[0]));
@@ -1923,7 +1930,7 @@ export function disable_anomaly(actor: XR_game_object, npc: XR_game_object, p: [
     abort("Story id for disable_anomaly function is ! set");
   }
 
-  const object: Optional<XR_game_object> = StoryObjectsManager.getStoryObject(p[0]);
+  const object: Optional<XR_game_object> = getObjectByStoryId(p[0]);
 
   if (!object) {
     abort("There is no object with story_id %s for disable_anomaly function", tostring(p[0]));
@@ -2017,8 +2024,8 @@ export function relocate_item(actor: XR_game_object, npc: XR_game_object, params
   logger.info("Relocate item");
 
   const item = params && params[0];
-  const from_obj = params && StoryObjectsManager.getStoryObject(params[1]);
-  const to_obj = params && StoryObjectsManager.getStoryObject(params[2]);
+  const from_obj = params && getObjectByStoryId(params[1]);
+  const to_obj = params && getObjectByStoryId(params[2]);
 
   if (to_obj !== null) {
     if (from_obj !== null && from_obj.object(item) !== null) {
@@ -2041,8 +2048,8 @@ export function set_squads_enemies(actor: XR_game_object, npc: XR_game_object, p
     return;
   }
 
-  const squad_1: Optional<Squad> = StoryObjectsManager.getStorySquad(p[0]);
-  const squad_2: Optional<Squad> = StoryObjectsManager.getStorySquad(p[1]);
+  const squad_1: Optional<Squad> = getServerObjectByStoryId(p[0]);
+  const squad_2: Optional<Squad> = getServerObjectByStoryId(p[1]);
 
   if (squad_1 === null) {
     abort("There is no squad with id[%s]", tostring(p[0]));
@@ -2108,7 +2115,7 @@ export function set_bloodsucker_state(actor: XR_game_object, npc: XR_game_object
 
   if (p[1] !== null) {
     state = p[1];
-    npc = StoryObjectsManager.getStoryObject(p[1]) as XR_game_object;
+    npc = getObjectByStoryId(p[1]) as XR_game_object;
   }
 
   if (npc !== null) {
@@ -2255,8 +2262,8 @@ export function relocate_item_b29(actor: XR_game_object, npc: XR_game_object, p:
     }
   }
 
-  const fromObject: Optional<XR_game_object> = p && StoryObjectsManager.getStoryObject(p[0]);
-  const toObject: Optional<XR_game_object> = p && StoryObjectsManager.getStoryObject(p[1]);
+  const fromObject: Optional<XR_game_object> = p && getObjectByStoryId(p[0]);
+  const toObject: Optional<XR_game_object> = p && getObjectByStoryId(p[1]);
 
   if (toObject !== null) {
     if (fromObject !== null && fromObject.object(item!) !== null) {
@@ -2282,8 +2289,8 @@ export function reset_sound_npc(actor: XR_game_object, npc: XR_game_object): voi
  * todo;
  */
 export function jup_b202_inventory_box_relocate(actor: XR_game_object, npc: XR_game_object): void {
-  const inventoryBoxOut: Optional<XR_game_object> = StoryObjectsManager.getStoryObject("jup_b202_actor_treasure");
-  const inventoryBoxIn: Optional<XR_game_object> = StoryObjectsManager.getStoryObject("jup_b202_snag_treasure");
+  const inventoryBoxOut: Optional<XR_game_object> = getObjectByStoryId("jup_b202_actor_treasure");
+  const inventoryBoxIn: Optional<XR_game_object> = getObjectByStoryId("jup_b202_snag_treasure");
   const itemsToRelocate: LuaArray<XR_game_object> = new LuaTable();
 
   if (!inventoryBoxIn || !inventoryBoxOut) {
@@ -2309,7 +2316,7 @@ export function clear_box(actor: XR_game_object, npc: XR_game_object, p: [string
     abort("Wrong parameters in function 'clear_box'!!!");
   }
 
-  const inventoryBox: Optional<XR_game_object> = StoryObjectsManager.getStoryObject(p[0]);
+  const inventoryBox: Optional<XR_game_object> = getObjectByStoryId(p[0]);
 
   if (inventoryBox === null) {
     abort("There is no object with story_id [%s]", tostring(p[0]));
@@ -2449,7 +2456,7 @@ export function jup_b10_spawn_drunk_dead_items(actor: XR_game_object, npc: XR_ga
     }
 
     for (const [k, v] of items.get(cnt)) {
-      const targetObjectId: Optional<TNumberId> = StoryObjectsManager.getStoryObjectId(params[0]);
+      const targetObjectId: Optional<TNumberId> = getObjectIdByStoryId(params[0]);
 
       if (targetObjectId !== null) {
         const box = alife().object(targetObjectId);
@@ -2488,7 +2495,7 @@ export function pick_artefact_from_anomaly(
   const anomalyZone = registry.anomalies.get(anomalyZoneName as TName);
 
   if (params && params[0]) {
-    const objectId: Optional<TNumberId> = StoryObjectsManager.getStoryObjectId(params[0]);
+    const objectId: Optional<TNumberId> = getObjectIdByStoryId(params[0]);
 
     if (objectId === null) {
       abort("Couldn't relocate item to NULL in function 'pick_artefact_from_anomaly!'");
@@ -2785,7 +2792,7 @@ export function pas_b400_stop_particle(actor: XR_game_object, npc: XR_game_objec
  * todo
  */
 export function damage_pri_a17_gauss() {
-  const object: Optional<XR_game_object> = StoryObjectsManager.getStoryObject(quest_items.pri_a17_gauss_rifle);
+  const object: Optional<XR_game_object> = getObjectByStoryId(quest_items.pri_a17_gauss_rifle);
 
   if (object !== null) {
     object.set_condition(0.0);
@@ -2976,7 +2983,7 @@ export function set_torch_state(actor: XR_game_object, npc: XR_game_object, p: [
     abort("Not enough parameters in 'set_torch_state' function!");
   }
 
-  const object: Optional<XR_game_object> = StoryObjectsManager.getStoryObject(p[0]);
+  const object: Optional<XR_game_object> = getObjectByStoryId(p[0]);
 
   if (object === null) {
     return;
@@ -3189,7 +3196,7 @@ export function upgrade_hint(
 export function force_obj(actor: XR_game_object, npc: XR_game_object, p: [string, Optional<number>, Optional<number>]) {
   logger.info("Force object");
 
-  const object: Optional<XR_game_object> = StoryObjectsManager.getStoryObject(p[0]);
+  const object: Optional<XR_game_object> = getObjectByStoryId(p[0]);
 
   if (!object) {
     abort("'force_obj' Target object does ! exist");
@@ -3229,8 +3236,8 @@ export function pri_a28_check_zones(): void {
     "pri_a28_heli_mono_add_3",
   ] as unknown as LuaArray<TStringId>;
 
-  for (const [k, v] of zonesList) {
-    const storyObjectId: Optional<TNumberId> = StoryObjectsManager.getStoryObjectId(v);
+  for (const [itIndex, it] of zonesList) {
+    const storyObjectId: Optional<TNumberId> = getObjectIdByStoryId(it);
 
     if (storyObjectId) {
       const serverObject: Optional<XR_cse_alife_object> = alife().object(storyObjectId)!;
@@ -3238,10 +3245,10 @@ export function pri_a28_check_zones(): void {
 
       if (index === 0) {
         dist = distance;
-        index = k;
+        index = itIndex;
       } else if (dist < distance) {
         dist = distance;
-        index = k;
+        index = itIndex;
       }
     }
   }
@@ -3290,7 +3297,7 @@ export function jup_b200_count_found(actor: XR_game_object): void {
   let cnt = 0;
 
   for (const [index, materialId] of materialsTable) {
-    const materialObject: Optional<XR_game_object> = StoryObjectsManager.getStoryObject(materialId);
+    const materialObject: Optional<XR_game_object> = getObjectByStoryId(materialId);
 
     if (materialObject !== null) {
       const parent = materialObject.parent();

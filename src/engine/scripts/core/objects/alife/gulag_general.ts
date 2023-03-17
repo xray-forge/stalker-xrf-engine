@@ -17,14 +17,14 @@ import { registry } from "@/engine/scripts/core/database";
 import { SurgeManager } from "@/engine/scripts/core/managers/SurgeManager";
 import { accessible_job, get_job_restrictor } from "@/engine/scripts/core/objects/alife/combat_restrictor";
 import type { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
+import { abort } from "@/engine/scripts/utils/debug";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import {
   getConfigBoolean,
   getConfigNumber,
   getConfigString,
-  getSchemeBySection,
-  pickSectionFromCondList,
-} from "@/engine/scripts/utils/config";
-import { abort } from "@/engine/scripts/utils/debug";
+  getSchemeByIniSection,
+} from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseConditionsList, parseWaypointData } from "@/engine/scripts/utils/parse";
 import { isInTimeInterval } from "@/engine/scripts/utils/time";
@@ -1111,7 +1111,7 @@ function add_exclusive_job(sect: TSection, work_field: string, smart_ini: XR_ini
   const job_suitable = getConfigString(job_ini_file, "logic@" + work_field, "suitable", null, false, "");
   const is_monster = getConfigBoolean(job_ini_file, "logic@" + work_field, "monster_job", null, false, false);
   const active_section = getConfigString(job_ini_file, "logic@" + work_field, "active", null, false, "");
-  const scheme = getSchemeBySection(active_section);
+  const scheme = getSchemeByIniSection(active_section);
 
   let job_type = JobTypeByScheme[scheme];
 

@@ -5,13 +5,9 @@ import { AbstractScheme } from "@/engine/scripts/core/schemes/base";
 import { ISchemeParticleState } from "@/engine/scripts/core/schemes/sr_particle/ISchemeParticleState";
 import { ParticleManager } from "@/engine/scripts/core/schemes/sr_particle/ParticleManager";
 import { subscribeActionForEvents } from "@/engine/scripts/core/schemes/subscribeActionForEvents";
-import {
-  getConfigBoolean,
-  getConfigNumber,
-  getConfigString,
-  getConfigSwitchConditions,
-} from "@/engine/scripts/utils/config";
 import { abort } from "@/engine/scripts/utils/debug";
+import { getConfigSwitchConditions } from "@/engine/scripts/utils/ini_config/config";
+import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

@@ -9,7 +9,6 @@ import {
   XR_cse_alife_creature_abstract,
   XR_cse_alife_human_abstract,
   XR_cse_alife_object,
-  XR_cse_alife_online_offline_group,
   XR_game_object,
   XR_MonsterHitInfo,
   XR_vector,
@@ -35,13 +34,18 @@ import {
   TSection,
   TStringId,
 } from "@/engine/lib/types";
-import { IRegistryObjectState, registry } from "@/engine/scripts/core/database";
+import {
+  getObjectByStoryId,
+  getObjectIdByStoryId,
+  getServerObjectByStoryId,
+  IRegistryObjectState,
+  registry,
+} from "@/engine/scripts/core/database";
 import { pstor_retrieve } from "@/engine/scripts/core/database/pstor";
 import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";
 import { AchievementsManager } from "@/engine/scripts/core/managers/achievements/AchievementsManager";
 import { ActorInventoryMenuManager, EActorMenuMode } from "@/engine/scripts/core/managers/ActorInventoryMenuManager";
 import { ItemUpgradesManager } from "@/engine/scripts/core/managers/ItemUpgradesManager";
-import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 import { SurgeManager } from "@/engine/scripts/core/managers/SurgeManager";
 import { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
 import {
@@ -182,7 +186,7 @@ export function actor_alive(): boolean {
  * todo;
  */
 export function see_npc(actor: XR_game_object, npc: XR_game_object, params: AnyArgs): boolean {
-  const targetNpc: Optional<XR_game_object> = StoryObjectsManager.getStoryObject(params[0]);
+  const targetNpc: Optional<XR_game_object> = getObjectByStoryId(params[0]);
 
   if (npc && targetNpc) {
     return npc.see(targetNpc);
@@ -284,7 +288,7 @@ export function obj_in_zone(actor: XR_game_object, zone: XR_game_object, params:
   const sim: XR_alife_simulator = alife();
 
   for (const [i, v] of params) {
-    const objectId: Optional<TNumberId> = StoryObjectsManager.getStoryObjectId(v);
+    const objectId: Optional<TNumberId> = getObjectIdByStoryId(v);
 
     if (objectId && zone.inside(sim.object(objectId)!.position)) {
       return true;
@@ -298,7 +302,7 @@ export function obj_in_zone(actor: XR_game_object, zone: XR_game_object, params:
  * todo;
  */
 export function one_obj_in_zone(actor: XR_game_object, zone: XR_game_object, params: [string, string]): boolean {
-  const obj1: Optional<number> = StoryObjectsManager.getStoryObjectId(params[0]);
+  const obj1: Optional<number> = getObjectIdByStoryId(params[0]);
 
   if (obj1) {
     return zone.inside(alife().object(obj1)!.position);
@@ -334,9 +338,9 @@ export function heli_health_le(actor: XR_game_object, object: XR_game_object, pa
 export function story_obj_in_zone_by_name(
   actor: XR_game_object,
   npc: XR_game_object,
-  params: [string, string]
+  params: [TStringId, string]
 ): boolean {
-  const objectId: Optional<TNumberId> = StoryObjectsManager.getStoryObjectId(params[0]);
+  const objectId: Optional<TNumberId> = getObjectIdByStoryId(params[0]);
   const zone: Optional<XR_game_object> = registry.zones.get(params[1]);
 
   if (objectId && zone) {
@@ -387,7 +391,7 @@ export function jup_b16_is_zone_active(actor: XR_game_object, npc: XR_game_objec
  */
 export function heli_see_npc(actor: XR_game_object, object: XR_game_object, params: [string]) {
   if (params[0]) {
-    const storyObject: Optional<XR_game_object> = StoryObjectsManager.getStoryObject(params[0]);
+    const storyObject: Optional<XR_game_object> = getObjectByStoryId(params[0]);
 
     return storyObject !== null && object.get_helicopter().isVisible(storyObject);
   } else {
@@ -454,7 +458,7 @@ export function hitted_by(actor: XR_game_object, npc: XR_game_object, parameters
 
   if (state !== null) {
     for (const [index, storyId] of parameters) {
-      const listNpc: Optional<XR_game_object> = StoryObjectsManager.getStoryObject(storyId);
+      const listNpc: Optional<XR_game_object> = getObjectByStoryId(storyId);
 
       if (listNpc !== null && state.who === listNpc.id()) {
         return true;
@@ -502,7 +506,7 @@ export function killed_by(actor: XR_game_object, npc: XR_game_object, parameters
 
   if (schemeState !== null) {
     for (const [i, v] of parameters) {
-      const object = StoryObjectsManager.getStoryObject(v);
+      const object = getObjectByStoryId(v);
 
       if (object && schemeState.killer === object.id()) {
         return true;
@@ -518,7 +522,7 @@ export function killed_by(actor: XR_game_object, npc: XR_game_object, parameters
  */
 export function is_alive_all(actor: XR_game_object, npc: XR_game_object, params: LuaArray<string>): boolean {
   for (const [i, v] of params) {
-    const npcId = StoryObjectsManager.getStoryObjectId(v);
+    const npcId = getObjectIdByStoryId(v);
 
     if (npcId === null) {
       return false;
@@ -539,7 +543,7 @@ export function is_alive_all(actor: XR_game_object, npc: XR_game_object, params:
  */
 export function is_alive_one(actor: XR_game_object, npc: XR_game_object, p: LuaArray<string>): boolean {
   for (const [i, v] of p) {
-    const npcId = StoryObjectsManager.getStoryObjectId(v);
+    const npcId = getObjectIdByStoryId(v);
 
     if (npcId === null) {
       return false;
@@ -562,7 +566,7 @@ export function is_alive(actor: XR_game_object, npc: XR_game_object | XR_cse_abs
   let npc1: Optional<TNumberId> = null;
 
   if (npc === null || (params && params[0])) {
-    npc1 = StoryObjectsManager.getStoryObjectId(params[0]);
+    npc1 = getObjectIdByStoryId(params[0]);
   } else if (type(npc.id) === "number") {
     npc1 = (npc as XR_cse_abstract).id;
   } else {
@@ -583,7 +587,7 @@ export function is_alive(actor: XR_game_object, npc: XR_game_object | XR_cse_abs
  */
 export function is_dead_all(actor: XR_game_object, npc: XR_game_object, params: LuaArray<string>): boolean {
   for (const [index, value] of params) {
-    const npc1: Optional<XR_game_object> = StoryObjectsManager.getStoryObject(value);
+    const npc1: Optional<XR_game_object> = getObjectByStoryId(value);
 
     if (npc1) {
       return !npc1.alive();
@@ -600,7 +604,7 @@ export function is_dead_all(actor: XR_game_object, npc: XR_game_object, params: 
  */
 export function is_dead_one(actor: XR_game_object, npc: XR_game_object, p: LuaArray<string>): boolean {
   for (const [index, value] of p) {
-    const npc1: Optional<XR_game_object> = StoryObjectsManager.getStoryObject(value);
+    const npc1: Optional<XR_game_object> = getObjectByStoryId(value);
 
     if (!npc1 || !npc1.alive()) {
       return true;
@@ -614,7 +618,7 @@ export function is_dead_one(actor: XR_game_object, npc: XR_game_object, p: LuaAr
  * todo;
  */
 export function is_dead(actor: XR_game_object, npc: XR_game_object, p: [string]): boolean {
-  const npc1: Optional<XR_game_object> = StoryObjectsManager.getStoryObject(p[0]);
+  const npc1: Optional<XR_game_object> = getObjectByStoryId(p[0]);
 
   return !npc1 || !npc1.alive();
 }
@@ -623,7 +627,7 @@ export function is_dead(actor: XR_game_object, npc: XR_game_object, p: [string])
  * todo;
  */
 export function story_object_exist(actor: XR_game_object, npc: XR_game_object, p: [string]): boolean {
-  return StoryObjectsManager.getStoryObject(p[0]) !== null;
+  return getObjectByStoryId(p[0]) !== null;
 }
 
 /**
@@ -976,8 +980,8 @@ export function treasure_exist(actor: XR_game_object, npc: XR_game_object) {
  * todo;
  */
 export function squad_in_zone(actor: XR_game_object, npc: XR_game_object, p: [string, string]) {
-  const storyId: string = p[0];
-  let zoneName: string = p[1];
+  const storyId: TStringId = p[0];
+  let zoneName: TName = p[1];
 
   if (storyId === null) {
     abort(
@@ -991,7 +995,7 @@ export function squad_in_zone(actor: XR_game_object, npc: XR_game_object, p: [st
     zoneName = npc.name();
   }
 
-  const squad: Optional<Squad> = StoryObjectsManager.getStorySquad(storyId);
+  const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
 
   if (squad === null) {
     return false;
@@ -1024,7 +1028,7 @@ export function squad_has_enemy(actor: XR_game_object, npc: XR_game_object, p: [
     abort("Insufficient params in squad_has_enemy function. story_id [%s]", tostring(storyId));
   }
 
-  const squad: Optional<Squad> = StoryObjectsManager.getStorySquad(storyId);
+  const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
 
   if (squad === null) {
     return false;
@@ -1048,25 +1052,25 @@ export function squad_has_enemy(actor: XR_game_object, npc: XR_game_object, p: [
 /**
  * todo;
  */
-export function squad_in_zone_all(actor: XR_game_object, npc: XR_game_object, p: [string, string]): boolean {
-  const story_id = p[0];
-  const zone_name = p[1];
+export function squad_in_zone_all(actor: XR_game_object, npc: XR_game_object, p: [TStringId, TName]): boolean {
+  const storyId: TStringId = p[0];
+  const zoneName: TName = p[1];
 
-  if (story_id === null || zone_name === null) {
+  if (storyId === null || zoneName === null) {
     abort(
       "Insufficient params in squad_in_zone_all function. story_id[%s], zone_name[%s]",
-      tostring(story_id),
-      tostring(zone_name)
+      tostring(storyId),
+      tostring(zoneName)
     );
   }
 
-  const squad: Optional<Squad> = StoryObjectsManager.getStorySquad(story_id);
+  const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
 
   if (squad === null) {
     return false;
   }
 
-  const zone: Optional<XR_game_object> = registry.zones.get(zone_name);
+  const zone: Optional<XR_game_object> = registry.zones.get(zoneName);
 
   if (zone === null) {
     return false;
@@ -1183,7 +1187,7 @@ export function squad_npc_count_ge(actor: XR_game_object, npc: XR_game_object, p
     abort("Wrong parameter squad_id[%s] in 'squad_npc_count_ge' function", tostring(story_id));
   }
 
-  const squad: Optional<Squad> = StoryObjectsManager.getStorySquad(story_id) as Optional<Squad>;
+  const squad: Optional<Squad> = getServerObjectByStoryId(story_id) as Optional<Squad>;
 
   if (squad) {
     return squad.npc_count() > tonumber(p[1])!;
@@ -1237,7 +1241,7 @@ export function quest_npc_enemy_actor(actor: XR_game_object, npc: XR_game_object
   if (p[0] === null) {
     abort("wrong story id");
   } else {
-    const object: Optional<XR_game_object> = StoryObjectsManager.getStoryObject(p[0]);
+    const object: Optional<XR_game_object> = getObjectByStoryId(p[0]);
 
     if (object && isStalker(object)) {
       const actor: Optional<XR_game_object> = registry.actor;
@@ -1277,7 +1281,7 @@ export function in_dest_smart_cover(actor: XR_game_object, npc: XR_game_object):
  * todo;
  */
 export function distance_to_obj_ge(actor: XR_game_object, npc: XR_game_object, p: [string, number]): boolean {
-  const objectId: Optional<TNumberId> = StoryObjectsManager.getStoryObjectId(p[0]);
+  const objectId: Optional<TNumberId> = getObjectIdByStoryId(p[0]);
   const object: Optional<XR_cse_alife_object> = objectId ? alife().object(objectId) : null;
 
   if (object) {
@@ -1291,7 +1295,7 @@ export function distance_to_obj_ge(actor: XR_game_object, npc: XR_game_object, p
  * todo;
  */
 export function distance_to_obj_le(actor: XR_game_object, npc: XR_game_object, p: [string, number]): boolean {
-  const objectId: Optional<TNumberId> = StoryObjectsManager.getStoryObjectId(p[0]);
+  const objectId: Optional<TNumberId> = getObjectIdByStoryId(p[0]);
   const object: Optional<XR_cse_alife_object> = objectId ? alife().object(objectId) : null;
 
   if (object) {
@@ -1332,7 +1336,7 @@ export function check_bloodsucker_state(
 
   if (p[1] !== null) {
     state = p[1];
-    npc = StoryObjectsManager.getStoryObject(p[1]);
+    npc = getObjectByStoryId(p[1]);
   }
 
   if (npc !== null) {
@@ -1354,7 +1358,7 @@ export function actor_nomove_nowpn(): boolean {
  */
 export function dist_to_story_obj_ge(actor: XR_game_object, npc: XR_game_object, p: [string, number]): boolean {
   const storyId: TStringId = p && p[0];
-  const storyObjectId: Optional<TNumberId> = StoryObjectsManager.getStoryObjectId(storyId);
+  const storyObjectId: Optional<TNumberId> = getObjectIdByStoryId(storyId);
 
   if (storyObjectId === null) {
     return true;
@@ -1423,7 +1427,7 @@ export function actor_has_active_nimble_weapon(actor: XR_game_object, npc: XR_ga
  * todo;
  */
 export function jup_b202_inventory_box_empty(actor: XR_game_object, npc: XR_game_object): boolean {
-  return StoryObjectsManager.getStoryObject("jup_b202_actor_treasure")!.is_inv_box_empty();
+  return getObjectByStoryId("jup_b202_actor_treasure")!.is_inv_box_empty();
 }
 
 /**
@@ -1530,7 +1534,7 @@ export function zat_b7_is_late_attack_time(): boolean {
  * todo;
  */
 export function object_exist(actor: XR_game_object, npc: XR_game_object, params: [string]): boolean {
-  return StoryObjectsManager.getStoryObject(params[0]) !== null;
+  return getObjectByStoryId(params[0]) !== null;
 }
 
 /**
@@ -1614,7 +1618,7 @@ export function dead_body_searching(actor: XR_game_object, npc: XR_game_object):
  * todo;
  */
 export function jup_b47_npc_online(actor: XR_game_object, npc: XR_game_object, params: [string]) {
-  const storyObject: Optional<XR_game_object> = StoryObjectsManager.getStoryObject(params[0]);
+  const storyObject: Optional<XR_game_object> = getObjectByStoryId(params[0]);
 
   if (storyObject === null) {
     return false;
@@ -1725,7 +1729,7 @@ export function jup_b221_who_will_start(actor: XR_game_object, npc: XR_game_obje
  * todo;
  */
 export function pas_b400_actor_far_forward(actor: XR_game_object, npc: XR_game_object): boolean {
-  const forwardObject = StoryObjectsManager.getStoryObject("pas_b400_fwd");
+  const forwardObject = getObjectByStoryId("pas_b400_fwd");
 
   if (forwardObject) {
     if (distanceBetween(forwardObject, registry.actor) > distanceBetween(forwardObject, npc)) {
@@ -1760,7 +1764,7 @@ export function pas_b400_actor_far_forward(actor: XR_game_object, npc: XR_game_o
  * todo;
  */
 export function pas_b400_actor_far_backward(actor: XR_game_object, npc: XR_game_object): boolean {
-  const backwardObject: Optional<XR_game_object> = StoryObjectsManager.getStoryObject("pas_b400_bwd");
+  const backwardObject: Optional<XR_game_object> = getObjectByStoryId("pas_b400_bwd");
 
   if (backwardObject !== null) {
     if (distanceBetween(backwardObject, registry.actor) > distanceBetween(backwardObject, npc)) {
@@ -1796,7 +1800,7 @@ export function pas_b400_actor_far_backward(actor: XR_game_object, npc: XR_game_
  */
 export function pri_a28_actor_is_far(actor: XR_game_object, npc: XR_game_object): boolean {
   const distance: TDistance = 150 * 150;
-  const squad: Optional<Squad> = StoryObjectsManager.getStorySquad("pri_a16_military_squad")!;
+  const squad: Optional<Squad> = getServerObjectByStoryId("pri_a16_military_squad")!;
 
   if (squad === null) {
     abort("Unexpected actor far check - no squad existing.");

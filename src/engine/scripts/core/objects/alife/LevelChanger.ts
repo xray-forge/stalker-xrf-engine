@@ -1,7 +1,7 @@
 import { cse_alife_level_changer, editor, LuabindClass, XR_net_packet } from "xray16";
 
 import { TSection } from "@/engine/lib/types";
-import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
+import { registerObjectStoryLinks, unregisterStoryLinkByObjectId } from "@/engine/scripts/core/database";
 import { setLoadMarker, setSaveMarker } from "@/engine/scripts/utils/game_save";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
@@ -29,7 +29,7 @@ export class LevelChanger extends cse_alife_level_changer {
     super.on_register();
 
     logger.info("Register:", this.id, this.name(), this.section_name());
-    StoryObjectsManager.checkSpawnIniForStoryId(this);
+    registerObjectStoryLinks(this);
   }
 
   /**
@@ -37,8 +37,7 @@ export class LevelChanger extends cse_alife_level_changer {
    */
   public override on_unregister(): void {
     logger.info("Unregister:", this.name());
-    StoryObjectsManager.unregisterStoryObjectById(this.id);
-
+    unregisterStoryLinkByObjectId(this.id);
     super.on_unregister();
   }
 

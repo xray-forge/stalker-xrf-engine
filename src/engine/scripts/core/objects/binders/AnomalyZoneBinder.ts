@@ -18,9 +18,10 @@ import { Optional, TDuration, TSection } from "@/engine/lib/types";
 import { registerAnomaly, registry, resetObject, unregisterAnomaly } from "@/engine/scripts/core/database";
 import { MapDisplayManager } from "@/engine/scripts/core/managers/map/MapDisplayManager";
 import { FIELDS_BY_NAME } from "@/engine/scripts/core/objects/binders/AnomalyFieldBinder";
-import { getConfigNumber, getConfigString, pickSectionFromCondList } from "@/engine/scripts/utils/config";
 import { abort } from "@/engine/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/engine/scripts/utils/game_save";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
+import { getConfigNumber, getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseConditionsList, parseNames, parseNumbers } from "@/engine/scripts/utils/parse";
 

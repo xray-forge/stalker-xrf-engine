@@ -1,7 +1,7 @@
 import { alife, cse_alife_item_artefact, LuabindClass, XR_cse_alife_creature_actor } from "xray16";
 
 import { Optional } from "@/engine/lib/types";
-import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
+import { registerObjectStoryLinks, unregisterStoryLinkByObjectId } from "@/engine/scripts/core/database";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -16,14 +16,14 @@ export class ItemArtefact extends cse_alife_item_artefact {
    */
   public override on_register(): void {
     super.on_register();
-    StoryObjectsManager.checkSpawnIniForStoryId(this);
+    registerObjectStoryLinks(this);
   }
 
   /**
    * todo;
    */
   public override on_unregister(): void {
-    StoryObjectsManager.unregisterStoryObjectById(this.id);
+    unregisterStoryLinkByObjectId(this.id);
     super.on_unregister();
   }
 
@@ -33,6 +33,8 @@ export class ItemArtefact extends cse_alife_item_artefact {
   public override can_switch_offline(): boolean {
     const actor: Optional<XR_cse_alife_creature_actor> = alife()?.actor();
 
+    // todo: Is it needed?
+    // todo: if so, move 150 to config
     if (actor !== null && actor.position.distance_to(this.position) <= 150) {
       return false;
     }

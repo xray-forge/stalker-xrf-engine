@@ -7,7 +7,7 @@ import { LuaArray, Optional, TCount, TLabel, TName, TRate } from "@/engine/lib/t
 import { TSection } from "@/engine/lib/types/scheme";
 import { ITEM_UPGRADES, registry, STALKER_UPGRADE_INFO, SYSTEM_INI } from "@/engine/scripts/core/database";
 import { AbstractCoreManager } from "@/engine/scripts/core/managers/AbstractCoreManager";
-import { pickSectionFromCondList } from "@/engine/scripts/utils/config";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseConditionsList, parseNames, TConditionList } from "@/engine/scripts/utils/parse";
 

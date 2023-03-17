@@ -42,14 +42,15 @@ import {
   hardResetOfflineObject,
   IRegistryObjectState,
   loadDynamicLtx,
+  registerObjectStoryLinks,
   registry,
   SMART_TERRAIN_MASKS_LTX,
   softResetOfflineObject,
+  unregisterStoryLinkByObjectId,
 } from "@/engine/scripts/core/database";
 import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";
 import { evaluate_prior, getSimulationObjectsRegistry } from "@/engine/scripts/core/database/SimulationObjectsRegistry";
 import { get_smart_terrain_name } from "@/engine/scripts/core/database/smart_names";
-import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 import { loadGulagJobs } from "@/engine/scripts/core/objects/alife/gulag_general";
 import { simulation_activities } from "@/engine/scripts/core/objects/alife/SimulationActivity";
 import {
@@ -66,17 +67,17 @@ import { configureObjectSchemes } from "@/engine/scripts/core/schemes/base/confi
 import { determine_section_to_activate } from "@/engine/scripts/core/schemes/determine_section_to_activate";
 import { initializeGameObject } from "@/engine/scripts/core/schemes/initializeGameObject";
 import { switchToSection } from "@/engine/scripts/core/schemes/switchToSection";
-import { areOnSameAlifeLevel } from "@/engine/scripts/utils/alife";
+import { areObjectsOnSameLevel } from "@/engine/scripts/utils/alife";
 import { isMonster, isStalker } from "@/engine/scripts/utils/check/is";
+import { abort } from "@/engine/scripts/utils/debug";
+import { setLoadMarker, setSaveMarker } from "@/engine/scripts/utils/game_save";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import {
   getConfigBoolean,
   getConfigNumber,
   getConfigString,
-  getSchemeBySection,
-  pickSectionFromCondList,
-} from "@/engine/scripts/utils/config";
-import { abort } from "@/engine/scripts/utils/debug";
-import { setLoadMarker, setSaveMarker } from "@/engine/scripts/utils/game_save";
+  getSchemeByIniSection,
+} from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseConditionsList, parseNames, TConditionList } from "@/engine/scripts/utils/parse";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/engine/scripts/utils/time";
@@ -220,7 +221,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
     super.on_register();
 
     logger.info("Register:", this.id, this.name(), this.section_name());
-    StoryObjectsManager.checkSpawnIniForStoryId(this);
+    registerObjectStoryLinks(this);
 
     getSimulationObjectsRegistry().register(this);
 
@@ -253,7 +254,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
     super.on_unregister();
     this.board.unregister_smart(this);
     smart_terrains_by_name.delete(this.name());
-    StoryObjectsManager.unregisterStoryObjectById(this.id);
+    unregisterStoryLinkByObjectId(this.id);
     getSimulationObjectsRegistry().unregister(this);
   }
 
@@ -716,7 +717,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
 
     const sect: TSection = determine_section_to_activate(object, ltx, job.section, registry.actor);
 
-    if (getSchemeBySection(job.section) === "nil") {
+    if (getSchemeByIniSection(job.section) === "nil") {
       abort("[smart_terrain %s] section=%s, don't use section 'null'!", this.name(), sect);
     }
 
@@ -1184,7 +1185,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
 
     const current_time = time_global();
 
-    if (areOnSameAlifeLevel(this, alife().actor())) {
+    if (areObjectsOnSameLevel(this, alife().actor())) {
       const dist_to_actor = this.position.distance_to(alife().actor()!.position);
       const old_dist_to_actor =
         (nearest_to_actor_smart.id === null && nearest_to_actor_smart.dist) ||

@@ -17,7 +17,7 @@ import { registry, SECRETS_LTX } from "@/engine/scripts/core/database";
 import { AbstractCoreManager } from "@/engine/scripts/core/managers/AbstractCoreManager";
 import { NotificationManager } from "@/engine/scripts/core/managers/notifications/NotificationManager";
 import { StatisticsManager } from "@/engine/scripts/core/managers/StatisticsManager";
-import { pickSectionFromCondList } from "@/engine/scripts/utils/config";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { abort } from "@/engine/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/engine/scripts/utils/game_save";
 import { LuaLogger } from "@/engine/scripts/utils/logging";

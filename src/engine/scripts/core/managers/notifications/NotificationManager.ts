@@ -4,7 +4,7 @@ import { captions, TCaption } from "@/engine/lib/constants/captions";
 import { script_sounds } from "@/engine/lib/constants/sound/script_sounds";
 import { texturesIngame } from "@/engine/lib/constants/textures";
 import { Maybe, Optional, TCount, TDuration, TLabel, TName, TSection, TStringId, TTimestamp } from "@/engine/lib/types";
-import { registry, SYSTEM_INI } from "@/engine/scripts/core/database";
+import { getObjectIdByStoryId, registry, SYSTEM_INI } from "@/engine/scripts/core/database";
 import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";
 import { get_smart_terrain_name } from "@/engine/scripts/core/database/smart_names";
 import { AbstractCoreManager } from "@/engine/scripts/core/managers/AbstractCoreManager";
@@ -18,7 +18,7 @@ import {
   notificationTaskDescription,
   TNotificationTaskDescriptionKey,
 } from "@/engine/scripts/core/managers/notifications/NotificationTaskDescription";
-import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
+import { Stalker } from "@/engine/scripts/core/objects";
 import { isHeavilyWounded } from "@/engine/scripts/utils/check/check";
 import { isStalkerClassId } from "@/engine/scripts/utils/check/is";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
@@ -160,20 +160,18 @@ export class NotificationManager extends AbstractCoreManager {
       const simulator: Optional<XR_alife_simulator> = alife();
 
       if (simulator !== null) {
-        const object: XR_cse_alife_human_stalker = simulator.object(
-          StoryObjectsManager.getStoryObjectId(senderId)!
-        ) as XR_cse_alife_human_stalker;
+        const serverObject: Stalker = simulator.object(getObjectIdByStoryId(senderId)!) as Stalker;
 
-        if (object !== null) {
-          if (object.online) {
-            if (isHeavilyWounded(object.id)) {
+        if (serverObject !== null) {
+          if (serverObject.online) {
+            if (isHeavilyWounded(serverObject.id)) {
               logger.info("Cannot send tip, npc is wounded");
 
               return false;
             }
           }
 
-          if (!object.alive()) {
+          if (!serverObject.alive()) {
             logger.info("Cannot send tip, npc is not alive");
 
             return false;

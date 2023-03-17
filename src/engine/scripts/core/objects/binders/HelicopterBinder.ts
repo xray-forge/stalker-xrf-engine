@@ -6,7 +6,7 @@ import {
   object_binder,
   system_ini,
   time_global,
-  TXR_cls_id,
+  TXR_class_id,
   XR_CHelicopter,
   XR_cse_alife_object,
   XR_game_object,
@@ -32,9 +32,9 @@ import { get_heli_firer, HeliFire } from "@/engine/scripts/core/schemes/heli_mov
 import { initializeGameObject } from "@/engine/scripts/core/schemes/initializeGameObject";
 import { issueSchemeEvent } from "@/engine/scripts/core/schemes/issueSchemeEvent";
 import { loadObject, saveObject } from "@/engine/scripts/core/schemes/storing";
-import { getConfigNumber, getConfigString } from "@/engine/scripts/utils/config";
 import { setLoadMarker, setSaveMarker } from "@/engine/scripts/utils/game_save";
-import { getClsId } from "@/engine/scripts/utils/id";
+import { getObjectClassId } from "@/engine/scripts/utils/id";
+import { getConfigNumber, getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -213,7 +213,7 @@ export class HelicopterBinder extends object_binder {
    */
   public on_hit(power: TRate, impulse: TRate, hit_type: TNumberId, enemy_id: TNumberId): void {
     const enemy: Optional<XR_game_object> = level.object_by_id(enemy_id);
-    const enemy_cls_id: Optional<TXR_cls_id> = getClsId(enemy);
+    const enemy_cls_id: Optional<TXR_class_id> = getObjectClassId(enemy);
 
     this.heli_fire.enemy = enemy;
     this.heli_fire.update_hit();

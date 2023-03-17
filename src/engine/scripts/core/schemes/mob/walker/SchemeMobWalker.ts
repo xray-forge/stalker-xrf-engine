@@ -6,8 +6,9 @@ import { getMobState } from "@/engine/scripts/core/schemes/mob/MobStateManager";
 import { ISchemeMobWalkerState } from "@/engine/scripts/core/schemes/mob/walker/ISchemeMobWalkerState";
 import { MobWalkerManager } from "@/engine/scripts/core/schemes/mob/walker/MobWalkerManager";
 import { subscribeActionForEvents } from "@/engine/scripts/core/schemes/subscribeActionForEvents";
-import { getConfigBoolean, getConfigString, getConfigSwitchConditions } from "@/engine/scripts/utils/config";
 import { abort } from "@/engine/scripts/utils/debug";
+import { getConfigSwitchConditions } from "@/engine/scripts/utils/ini_config/config";
+import { getConfigBoolean, getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

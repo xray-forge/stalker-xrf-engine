@@ -6,7 +6,7 @@ import {
   patrol,
   relation_registry,
   time_global,
-  TXR_cls_id,
+  TXR_class_id,
   XR_CPhrase,
   XR_CPhraseDialog,
   XR_CPhraseScript,
@@ -35,7 +35,7 @@ import {
   TStringId,
   TTimestamp,
 } from "@/engine/lib/types";
-import { registry, TRAVEL_MANAGER_LTX } from "@/engine/scripts/core/database";
+import { getStoryIdByObjectId, registry, TRAVEL_MANAGER_LTX } from "@/engine/scripts/core/database";
 import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";
 import { AbstractCoreManager } from "@/engine/scripts/core/managers/AbstractCoreManager";
 import { NotificationManager } from "@/engine/scripts/core/managers/notifications/NotificationManager";
@@ -43,12 +43,11 @@ import { SurgeManager } from "@/engine/scripts/core/managers/SurgeManager";
 import { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
 import { Squad } from "@/engine/scripts/core/objects/alife/Squad";
 import { TSimulationObject } from "@/engine/scripts/core/objects/alife/types";
-import { getAlifeCharacterCommunity, getAlifeDistanceBetween, getObjectSquad } from "@/engine/scripts/utils/alife";
-import { pickSectionFromCondList } from "@/engine/scripts/utils/config";
+import { getAlifeCharacterCommunity, getObjectSquad, getServerDistanceBetween } from "@/engine/scripts/utils/alife";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { abort } from "@/engine/scripts/utils/debug";
 import { createScenarioAutoSave } from "@/engine/scripts/utils/game_save";
 import { getObjectBoundSmart } from "@/engine/scripts/utils/gulag";
-import { getObjectStoryId } from "@/engine/scripts/utils/id";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/scripts/utils/parse";
 
@@ -249,7 +248,7 @@ export class TravelManager extends AbstractCoreManager {
       abort("SIM TARGET NOT EXIST %s, action_name %s", tostring(squadTargetId), tostring(squad.current_action.name));
     }
 
-    const targetClsId: TXR_cls_id = targetSquadObject.clsid();
+    const targetClsId: TXR_class_id = targetSquadObject.clsid();
 
     if (targetClsId === clsid.script_actor) {
       abort("Actor talking with squad, which chasing actor.");
@@ -294,7 +293,7 @@ export class TravelManager extends AbstractCoreManager {
   ): boolean {
     const squad: Squad = getObjectSquad(npc)!;
     const squadTargetObject: XR_cse_alife_object = alife().object(squad.assigned_target_id!)!;
-    const squadTargetClsId: TXR_cls_id = squadTargetObject.clsid();
+    const squadTargetClsId: TXR_class_id = squadTargetObject.clsid();
 
     return squadTargetClsId === clsid.smart_terrain;
   }
@@ -330,7 +329,7 @@ export class TravelManager extends AbstractCoreManager {
       return false;
     }
 
-    if (getAlifeDistanceBetween(squad, smartTerrain) < TravelManager.SMART_TRAVEL_DISTANCE_MIN_THRESHOLD) {
+    if (getServerDistanceBetween(squad, smartTerrain) < TravelManager.SMART_TRAVEL_DISTANCE_MIN_THRESHOLD) {
       return false;
     }
 
@@ -468,7 +467,7 @@ export class TravelManager extends AbstractCoreManager {
     level.add_pp_effector(post_processors.fade_in_out, 613, false);
 
     // todo: Alife distance vs abs distance.
-    const distance: TDistance = getAlifeDistanceBetween(squad!, smartTerrain);
+    const distance: TDistance = getServerDistanceBetween(squad!, smartTerrain);
     const price: TCount = this.getTravelPriceByDistance(distance);
 
     actor.give_money(-price);
@@ -510,7 +509,7 @@ export class TravelManager extends AbstractCoreManager {
     this.isTravelTeleported = false;
     this.isTraveling = true;
 
-    this.travelDistance = getAlifeDistanceBetween(squad, smartTerrain);
+    this.travelDistance = getServerDistanceBetween(squad, smartTerrain);
     this.travelActorPath = smartTerrain.traveler_actor_path;
     this.travelSquadPath = smartTerrain.traveler_squad_path;
     this.travelToSmartId = smartTerrain.id;
@@ -539,7 +538,7 @@ export class TravelManager extends AbstractCoreManager {
       const board: SimulationBoardManager = SimulationBoardManager.getInstance();
 
       for (const [k, v] of board.smarts.get(this.travelToSmartId!).squads) {
-        if (getObjectStoryId(v.id) === null && this.isEnemyWithSquadMember(v)) {
+        if (getStoryIdByObjectId(v.id) === null && this.isEnemyWithSquadMember(v)) {
           board.exit_smart(v, this.travelToSmartId);
           board.remove_squad(v);
         }

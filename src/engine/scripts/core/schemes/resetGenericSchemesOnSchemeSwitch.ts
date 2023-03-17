@@ -7,13 +7,13 @@ import { mobRelease } from "@/engine/scripts/core/schemes/mobRelease";
 import { RestrictorManager } from "@/engine/scripts/core/schemes/RestrictorManager";
 import { resetScheme } from "@/engine/scripts/core/schemes/schemes_resetting";
 import {
-  can_select_weapon,
-  resetInvulnerability,
+  initializeObjectCanSelectWeaponState,
+  initializeObjectTakeItemsEnabledState,
   resetObjectGroup,
-  resetThreshold,
-  take_items_enabled,
+  resetObjectInvulnerability,
+  resetObjectThreshold,
 } from "@/engine/scripts/utils/alife";
-import { getClsId } from "@/engine/scripts/utils/id";
+import { getObjectClassId } from "@/engine/scripts/utils/id";
 
 /**
  * todo;
@@ -46,11 +46,11 @@ export function resetGenericSchemesOnSchemeSwitch(
       resetScheme(EScheme.HEAR, object, schemeToSwitch, state, section);
 
       MapDisplayManager.getInstance().updateObjectMapSpot(object, schemeToSwitch, state, section);
-      resetThreshold(object, schemeToSwitch, state, section);
-      resetInvulnerability(object);
+      resetObjectThreshold(object, schemeToSwitch, state, section);
+      resetObjectInvulnerability(object);
       resetObjectGroup(object, state.ini!, section);
-      take_items_enabled(object, schemeToSwitch, state, section);
-      can_select_weapon(object, schemeToSwitch, state, section);
+      initializeObjectTakeItemsEnabledState(object, schemeToSwitch, state, section);
+      initializeObjectCanSelectWeaponState(object, schemeToSwitch, state, section);
       RestrictorManager.forObject(object).reset_restrictions(state, section);
 
       return;
@@ -58,7 +58,7 @@ export function resetGenericSchemesOnSchemeSwitch(
 
     case ESchemeType.MONSTER: {
       mobRelease(object, ""); // ???
-      if (getClsId(object) === clsid.bloodsucker_s) {
+      if (getObjectClassId(object) === clsid.bloodsucker_s) {
         if (schemeToSwitch === EScheme.NIL) {
           object.set_manual_invisibility(false);
         } else {
@@ -68,7 +68,7 @@ export function resetGenericSchemesOnSchemeSwitch(
 
       resetScheme(EScheme.COMBAT_IGNORE, object, schemeToSwitch, state, section);
       resetScheme(EScheme.HEAR, object, schemeToSwitch, state, section);
-      resetInvulnerability(object);
+      resetObjectInvulnerability(object);
       RestrictorManager.forObject(object).reset_restrictions(state, section);
 
       return;
@@ -77,7 +77,7 @@ export function resetGenericSchemesOnSchemeSwitch(
     case ESchemeType.ITEM: {
       object.set_callback(callback.use_object, null);
       object.set_nonscript_usable(true);
-      if (getClsId(object) === clsid.car) {
+      if (getObjectClassId(object) === clsid.car) {
         (object as any).destroy_car();
         mobRelease(object, "");
       }

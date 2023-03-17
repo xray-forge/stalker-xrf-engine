@@ -5,7 +5,7 @@ import { registry } from "@/engine/scripts/core/database";
 import { AbstractSchemeManager } from "@/engine/scripts/core/schemes/base/AbstractSchemeManager";
 import { ISchemeCodeState } from "@/engine/scripts/core/schemes/ph_code/ISchemeCodeState";
 import { NumPadWindow } from "@/engine/scripts/core/ui/game/NumPadWindow";
-import { pickSectionFromCondList } from "@/engine/scripts/utils/config";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 
 /**
  * todo;

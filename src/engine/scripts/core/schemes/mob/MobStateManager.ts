@@ -1,9 +1,9 @@
-import { clsid, TXR_cls_id, XR_game_object, XR_ini_file } from "xray16";
+import { clsid, TXR_class_id, XR_game_object, XR_ini_file } from "xray16";
 
 import { Optional } from "@/engine/lib/types";
-import { getConfigString } from "@/engine/scripts/utils/config";
 import { abort } from "@/engine/scripts/utils/debug";
-import { getClsId } from "@/engine/scripts/utils/id";
+import { getObjectClassId } from "@/engine/scripts/utils/id";
+import { getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -19,7 +19,7 @@ export function setMobState(obj: XR_game_object, actor: XR_game_object, state: O
     return;
   }
 
-  const obj_clsid: TXR_cls_id = getClsId(obj);
+  const obj_clsid: TXR_class_id = getObjectClassId(obj);
 
   if (obj_clsid === clsid.bloodsucker_s) {
     if (state === "invis") {

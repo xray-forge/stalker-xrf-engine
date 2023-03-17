@@ -17,8 +17,12 @@ import { TLevel } from "@/engine/lib/constants/levels";
 import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
 import { ERelation } from "@/engine/lib/constants/relations";
 import { EScheme, Optional, TName, TNumberId, TStringId } from "@/engine/lib/types";
-import { IRegistryObjectState, registry } from "@/engine/scripts/core/database";
-import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
+import {
+  getObjectIdByStoryId,
+  getServerObjectByStoryId,
+  IRegistryObjectState,
+  registry,
+} from "@/engine/scripts/core/database";
 import { Squad } from "@/engine/scripts/core/objects/alife/Squad";
 import { action_ids } from "@/engine/scripts/core/schemes/base/actions_id";
 import { ISchemeWoundedState } from "@/engine/scripts/core/schemes/wounded";
@@ -28,7 +32,7 @@ import { isStalker } from "@/engine/scripts/utils/check/is";
  * todo;
  */
 export function isSquadExisting(squadId: TStringId): boolean {
-  return StoryObjectsManager.getStorySquad(squadId) !== null;
+  return getServerObjectByStoryId(squadId) !== null;
 }
 
 /**
@@ -38,7 +42,7 @@ export function isStalkerAlive(targetObject: XR_game_object | XR_cse_alife_human
   let targetId: Optional<TNumberId> = null;
 
   if (type(targetObject) === "string") {
-    targetId = StoryObjectsManager.getStoryObjectId(targetObject as TStringId);
+    targetId = getObjectIdByStoryId(targetObject as TStringId);
   } else if (type((targetObject as XR_cse_alife_human_abstract).id) === "number") {
     targetId = (targetObject as XR_cse_alife_human_abstract).id;
   } else {
@@ -113,7 +117,7 @@ export function isLevelChanging(): boolean {
 
   return simulator === null
     ? false
-    : game_graph().vertex(simulator.actor().m_game_vertex_id).level_id() !== simulator?.level_id();
+    : game_graph().vertex(simulator.actor().m_game_vertex_id).level_id() !== simulator.level_id();
 }
 
 /**

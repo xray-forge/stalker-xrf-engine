@@ -2,7 +2,7 @@ import { get_console, system_ini, XR_CConsole, XR_game_object, XR_ini_file } fro
 
 import { registry } from "@/engine/scripts/core/database";
 import { AbstractCoreManager } from "@/engine/scripts/core/managers/AbstractCoreManager";
-import { getConfigString } from "@/engine/scripts/utils/config";
+import { getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

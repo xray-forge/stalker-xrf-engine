@@ -27,7 +27,7 @@ import { ESchemeEvent } from "@/engine/scripts/core/schemes/base";
 import { initializeGameObject } from "@/engine/scripts/core/schemes/initializeGameObject";
 import { issueSchemeEvent } from "@/engine/scripts/core/schemes/issueSchemeEvent";
 import { loadObject, saveObject } from "@/engine/scripts/core/schemes/storing";
-import { pickSectionFromCondList } from "@/engine/scripts/utils/config";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { setLoadMarker, setSaveMarker } from "@/engine/scripts/utils/game_save";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { TConditionList } from "@/engine/scripts/utils/parse";

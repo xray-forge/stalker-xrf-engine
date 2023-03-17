@@ -35,7 +35,7 @@ import { WeatherManager } from "@/engine/scripts/core/managers/WeatherManager";
 import { Squad } from "@/engine/scripts/core/objects/alife/Squad";
 import { isImmuneToSurge, isObjectOnLevel, isSurgeEnabledOnLevel } from "@/engine/scripts/utils/check/check";
 import { isStoryObject } from "@/engine/scripts/utils/check/is";
-import { pickSectionFromCondList } from "@/engine/scripts/utils/config";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { executeConsoleCommand } from "@/engine/scripts/utils/console";
 import { disableGameUiOnly } from "@/engine/scripts/utils/control";
 import { createScenarioAutoSave, setLoadMarker, setSaveMarker } from "@/engine/scripts/utils/game_save";

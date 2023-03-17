@@ -7,8 +7,8 @@ import { registry } from "@/engine/scripts/core/database/registry";
 import { Actor } from "@/engine/scripts/core/objects/alife/Actor";
 import { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
 import { Squad } from "@/engine/scripts/core/objects/alife/Squad";
-import { areOnSameAlifeLevel, getAlifeDistanceBetween } from "@/engine/scripts/utils/alife";
-import { pickSectionFromCondList } from "@/engine/scripts/utils/config";
+import { areObjectsOnSameLevel, getServerDistanceBetween } from "@/engine/scripts/utils/alife";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { parseConditionsList } from "@/engine/scripts/utils/parse";
 
 let sim_objects_registry: Optional<SimulationObjectsRegistry> = null;
@@ -90,7 +90,7 @@ export function getSimulationObjectsRegistry(): SimulationObjectsRegistry {
 }
 
 export function evaluate_prior_by_dist(target: SmartTerrain | Actor | Squad, squad: Squad): number {
-  const dist = math.max(getAlifeDistanceBetween(target, squad), 1);
+  const dist = math.max(getServerDistanceBetween(target, squad), 1);
 
   return 1 + 1 / dist;
 }
@@ -98,7 +98,7 @@ export function evaluate_prior_by_dist(target: SmartTerrain | Actor | Squad, squ
 export function evaluate_prior(target: SmartTerrain | Actor | Squad, squad: Squad): number {
   let prior = 0;
 
-  if (!target.target_precondition(squad) || !areOnSameAlifeLevel(target, squad)) {
+  if (!target.target_precondition(squad) || !areObjectsOnSameLevel(target, squad)) {
     return 0;
   } else {
     prior = 3;

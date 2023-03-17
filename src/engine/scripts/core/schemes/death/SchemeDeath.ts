@@ -6,8 +6,8 @@ import { AbstractScheme } from "@/engine/scripts/core/schemes/base";
 import { DeathManager } from "@/engine/scripts/core/schemes/death/DeathManager";
 import { ISchemeDeathState } from "@/engine/scripts/core/schemes/death/ISchemeDeathState";
 import { subscribeActionForEvents } from "@/engine/scripts/core/schemes/subscribeActionForEvents";
-import { getConfigString } from "@/engine/scripts/utils/config";
 import { abort } from "@/engine/scripts/utils/debug";
+import { getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseConditionsList } from "@/engine/scripts/utils/parse";
 

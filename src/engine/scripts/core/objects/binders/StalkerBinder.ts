@@ -30,6 +30,7 @@ import { EScheme, Optional, TDuration, TNumberId, TRate, TSection } from "@/engi
 import { ESchemeType } from "@/engine/lib/types/scheme";
 import {
   DUMMY_LTX,
+  getStoryIdByObjectId,
   IRegistryObjectState,
   registerHelicopterEnemy,
   registerObject,
@@ -65,10 +66,10 @@ import { SchemeWounded } from "@/engine/scripts/core/schemes/wounded/SchemeWound
 import { DynamicMusicManager } from "@/engine/scripts/core/sounds/DynamicMusicManager";
 import { SoundTheme } from "@/engine/scripts/core/sounds/SoundTheme";
 import { disabled_phrases, loadNpcDialogs, saveNpcDialogs } from "@/engine/scripts/declarations/dialog_manager";
-import { getCharacterCommunity, getObjectSquad, updateInvulnerability } from "@/engine/scripts/utils/alife";
-import { getConfigString, pickSectionFromCondList } from "@/engine/scripts/utils/config";
+import { getCharacterCommunity, getObjectSquad, updateObjectInvulnerability } from "@/engine/scripts/utils/alife";
 import { setLoadMarker, setSaveMarker } from "@/engine/scripts/utils/game_save";
-import { getObjectStoryId } from "@/engine/scripts/utils/id";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
+import { getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { TConditionList } from "@/engine/scripts/utils/parse";
 import { setObjectsRelation, setObjectSympathy } from "@/engine/scripts/utils/relation";
@@ -192,7 +193,7 @@ export class StalkerBinder extends object_binder {
 
     SoundTheme.init_npc_sound(this.object);
 
-    if (getObjectStoryId(this.object.id()) === "zat_b53_artefact_hunter_1") {
+    if (getStoryIdByObjectId(this.object.id()) === "zat_b53_artefact_hunter_1") {
       const manager = this.object.motivation_action_manager();
 
       manager.remove_evaluator(stalker_ids.property_anomaly);
@@ -494,7 +495,7 @@ export class StalkerBinder extends object_binder {
     if (isObjectAlive) {
       GlobalSoundManager.getInstance().updateForObjectId(object.id());
       SchemeMeet.updateObjectInteractionAvailability(object);
-      updateInvulnerability(this.object);
+      updateObjectInvulnerability(this.object);
     }
 
     const squad = getObjectSquad(this.object);

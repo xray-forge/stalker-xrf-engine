@@ -12,8 +12,8 @@ import {
 import { Optional } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { CampStoryManager } from "@/engine/scripts/core/schemes/camper/CampStoryManager";
-import { getConfigString } from "@/engine/scripts/utils/config";
 import { setLoadMarker, setSaveMarker } from "@/engine/scripts/utils/game_save";
+import { getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

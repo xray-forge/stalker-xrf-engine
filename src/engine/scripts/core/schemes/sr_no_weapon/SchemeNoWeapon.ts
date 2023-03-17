@@ -5,7 +5,7 @@ import { AbstractScheme } from "@/engine/scripts/core/schemes/base";
 import { ISchemeNoWeaponState } from "@/engine/scripts/core/schemes/sr_no_weapon/ISchemeNoWeaponState";
 import { NoWeaponManager } from "@/engine/scripts/core/schemes/sr_no_weapon/NoWeaponManager";
 import { subscribeActionForEvents } from "@/engine/scripts/core/schemes/subscribeActionForEvents";
-import { getConfigSwitchConditions } from "@/engine/scripts/utils/config";
+import { getConfigSwitchConditions } from "@/engine/scripts/utils/ini_config/config";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

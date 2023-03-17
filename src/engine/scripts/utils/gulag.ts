@@ -1,9 +1,9 @@
-import { alife, game_object, XR_cse_alife_creature_abstract, XR_game_object, XR_vector } from "xray16";
+import { alife, game_object, XR_cse_alife_creature_abstract, XR_game_object } from "xray16";
 
 import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
 import { Optional, TName, TStringId } from "@/engine/lib/types";
+import { getObjectIdByStoryId } from "@/engine/scripts/core/database";
 import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";
-import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 import { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
@@ -20,7 +20,7 @@ export function get_gulag_by_name(name: TName): Optional<SmartTerrain> {
  * todo;
  */
 export function get_gulag_by_sid(storyId: TStringId): Optional<SmartTerrain> {
-  return alife().object(StoryObjectsManager.getStoryObjectId(storyId)!);
+  return alife().object(getObjectIdByStoryId(storyId)!);
 }
 
 /**

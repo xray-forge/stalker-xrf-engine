@@ -7,8 +7,8 @@ import { HitManager } from "@/engine/scripts/core/schemes/hit/HitManager";
 import { ISchemeHitState } from "@/engine/scripts/core/schemes/hit/ISchemeHitState";
 import { subscribeActionForEvents } from "@/engine/scripts/core/schemes/subscribeActionForEvents";
 import { unsubscribeActionFromEvents } from "@/engine/scripts/core/schemes/unsubscribeActionFromEvents";
-import { getConfigSwitchConditions } from "@/engine/scripts/utils/config";
 import { abort } from "@/engine/scripts/utils/debug";
+import { getConfigSwitchConditions } from "@/engine/scripts/utils/ini_config/config";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

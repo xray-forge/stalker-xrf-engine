@@ -41,7 +41,7 @@ const associativeTable: LuaTable<
     director: ["_guitar"],
     listener: ["", "_eat_bread", "_eat_kolbasa", "_drink_vodka", "_drink_energy", "_weapon"],
   },
-  story: {
+  storyLink: {
     director: ["", "_weapon"],
     listener: ["", "_eat_bread", "_eat_kolbasa", "_drink_vodka", "_drink_energy", "_weapon"],
   },

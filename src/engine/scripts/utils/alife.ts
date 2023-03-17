@@ -5,6 +5,7 @@ import {
   game_graph,
   level,
   stalker_ids,
+  TXR_entity_action,
   vector,
   XR_action_planner,
   XR_cse_alife_creature_abstract,
@@ -18,21 +19,28 @@ import {
 } from "xray16";
 
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
+import { TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/lua";
 import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
-import { AnyArgs, AnyObject, EScheme, LuaArray, Optional, TName, TNumberId, TSection } from "@/engine/lib/types";
+import {
+  EScheme,
+  LuaArray,
+  Optional,
+  TDistance,
+  TIndex,
+  TName,
+  TNumberId,
+  TRate,
+  TSection,
+  TTimestamp,
+} from "@/engine/lib/types";
 import { AnyGameObject } from "@/engine/lib/types/engine";
 import { IRegistryObjectState, registry } from "@/engine/scripts/core/database";
 import { Squad } from "@/engine/scripts/core/objects/alife/Squad";
 import { isCseAlifeObject, isStalker } from "@/engine/scripts/utils/check/is";
-import {
-  getConfigBoolean,
-  getConfigNumber,
-  getConfigString,
-  getInfosFromData,
-  pickSectionFromCondList,
-} from "@/engine/scripts/utils/config";
 import { abort } from "@/engine/scripts/utils/debug";
+import { getInfosFromData, pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
+import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/scripts/utils/parse";
 import { graphDistance } from "@/engine/scripts/utils/physics";
@@ -76,53 +84,54 @@ export function getObjectSquad(object: Optional<XR_game_object | XR_cse_alife_cr
 /**
  * Set item condition.
  *
- * @param item
+ * @param object - client object to change condition
  * @param condition - value from 0 to 100, percents
  */
-export function setItemCondition(item: XR_game_object, condition: number): void {
-  item.set_condition(condition / 100);
+export function setItemCondition(object: XR_game_object, condition: TRate): void {
+  object.set_condition(condition / 100);
 }
 
 /**
- * -- ��������� �� ������ � �������.
- * function is_object_online(obj_id)
- *  return level.object_by_id(obj_id) ~= nil
- * end
+ * Check whether provided object ID is online.
+ *
+ * @param objectId - object identifier
  */
-export function isObjectOnline(objectId: number): boolean {
+export function isObjectOnline(objectId: TNumberId): boolean {
   return level.object_by_id(objectId) !== null;
 }
 
 /**
- * todo;
+ * Set current time in level.
+ * Creates idle state with multiplied time factor.
  */
-export function setCurrentTime(hour: number, min: number, sec: number) {
-  const current_time_factor = level.get_time_factor();
-  const current_time = game.time();
+export function setCurrentTime(hour: number, min: number, sec: number): void {
+  const currentTimeFactor: TRate = level.get_time_factor();
+  const currentGameTime: TTimestamp = game.time();
 
-  let c_day = math.floor(current_time / 86400000);
-  const c_time = current_time - c_day * 86400000;
-  let n_time = (sec + min * 60 + hour * 3600) * 1000;
+  // todo: Magic constants.
+  let currentDay: number = math.floor(currentGameTime / 86_400_000);
+  const currentTime: number = currentGameTime - currentDay * 86_400_000;
+  let newTime: number = (sec + min * 60 + hour * 3_600) * 1000;
 
-  if (c_time > n_time) {
-    c_day = c_day + 1;
+  if (currentTime > newTime) {
+    currentDay = currentDay + 1;
   }
 
-  n_time = n_time + c_day * 86400000;
+  newTime = newTime + currentDay * 86_400_000;
 
-  level.set_time_factor(10000);
+  level.set_time_factor(10_000);
 
-  while (game.time() < n_time) {
+  while (game.time() < newTime) {
     wait();
   }
 
-  level.set_time_factor(current_time_factor);
+  level.set_time_factor(currentTimeFactor);
 }
 
 /**
  * todo;
  */
-export function stopPlaySound(object: XR_game_object): void {
+export function stopObjectPlayingSound(object: XR_game_object): void {
   if (object.alive()) {
     object.set_sound_mask(-1);
     object.set_sound_mask(0);
@@ -149,66 +158,54 @@ export function changeTeamSquadGroup(
   }
 }
 
-export function action(obj: Optional<XR_game_object>, ...args: AnyArgs): XR_entity_action {
-  const act: XR_entity_action = new entity_action();
-  let i: number = 0;
+/**
+ * todo;
+ */
+export function action(object: Optional<XR_game_object>, ...actions: Array<TXR_entity_action>): XR_entity_action {
+  const entityAction: XR_entity_action = new entity_action();
+  let index: TIndex = 0;
 
-  while (args[i] !== null) {
-    act.set_action(args[i]);
-    i = i + 1;
+  while (actions[index] !== null) {
+    entityAction.set_action(actions[index]);
+    index += 1;
   }
 
-  if (obj !== null) {
-    obj.command(act, false);
+  if (object !== null) {
+    object.command(entityAction, false);
   }
 
-  return new entity_action(act);
-}
-
-export function actionFirst(obj: Optional<XR_game_object>, ...args: AnyArgs): XR_entity_action {
-  const act: XR_entity_action = new entity_action();
-  let i: number = 0;
-
-  while (args[i] !== null) {
-    act.set_action(args[i]);
-    i = i + 1;
-  }
-
-  if (obj !== null) {
-    obj.command(act, true);
-  }
-
-  return new entity_action(act);
+  // todo: Is copy needed?
+  return new entity_action(entityAction);
 }
 
 /**
  * todo;
  */
-export function resetAction(npc: XR_game_object, scriptName: TName): void {
-  if (npc.get_script()) {
-    npc.script(false, scriptName);
+export function resetObjectAction(object: XR_game_object, scriptName: TName): void {
+  if (object.get_script()) {
+    object.script(false, scriptName);
   }
 
-  npc.script(true, scriptName);
+  object.script(true, scriptName);
 }
 
 /**
  * todo;
  */
-export function interruptAction(npc: XR_game_object, scriptName: TName): void {
-  if (npc.get_script()) {
-    npc.script(false, scriptName);
+export function interruptObjectAction(object: XR_game_object, scriptName: TName): void {
+  if (object.get_script()) {
+    object.script(false, scriptName);
   }
 }
 
 /**
  * todo;
  */
-export function getObjectCommunity(object: XR_game_object | XR_cse_alife_creature_abstract) {
+export function getObjectCommunity(object: AnyGameObject): TCommunity {
   if (type(object.id) === "function") {
     return getCharacterCommunity(object as XR_game_object);
   } else {
-    getAlifeCharacterCommunity(object as XR_cse_alife_human_abstract);
+    return getAlifeCharacterCommunity(object as XR_cse_alife_human_abstract);
   }
 }
 
@@ -239,14 +236,14 @@ export function getAlifeCharacterCommunity(
 /**
  * todo;
  */
-export function getAlifeDistanceBetween(first: XR_cse_alife_object, second: XR_cse_alife_object): number {
+export function getServerDistanceBetween(first: XR_cse_alife_object, second: XR_cse_alife_object): TDistance {
   return graphDistance(first.m_game_vertex_id, second.m_game_vertex_id);
 }
 
 /**
  * todo;
  */
-export function areOnSameAlifeLevel(first: XR_cse_alife_object, second: XR_cse_alife_object): boolean {
+export function areObjectsOnSameLevel(first: XR_cse_alife_object, second: XR_cse_alife_object): boolean {
   return (
     game_graph().vertex(first.m_game_vertex_id).level_id() === game_graph().vertex(second.m_game_vertex_id).level_id()
   );
@@ -256,15 +253,21 @@ export function areOnSameAlifeLevel(first: XR_cse_alife_object, second: XR_cse_a
  * todo;
  */
 export function setObjectInfo(object: XR_game_object, ini: XR_ini_file, section: TSection): void {
-  const in_info = getInfosFromData(object, getConfigString(ini, section, "in", object, false, ""));
-  const out_info = getInfosFromData(object, getConfigString(ini, section, "out", object, false, ""));
+  const inInfosList: LuaArray<TInfoPortion> = getInfosFromData(
+    object,
+    getConfigString(ini, section, "in", object, false, "")
+  );
+  const outInfosList: LuaArray<TInfoPortion> = getInfosFromData(
+    object,
+    getConfigString(ini, section, "out", object, false, "")
+  );
 
-  for (const [k, v] of in_info) {
-    object.give_info_portion(v);
+  for (const [index, infoPortion] of inInfosList) {
+    object.give_info_portion(infoPortion);
   }
 
-  for (const [k, v] of out_info) {
-    object.disable_info_portion(v);
+  for (const [index, infoPortion] of outInfosList) {
+    object.disable_info_portion(infoPortion);
   }
 }
 
@@ -272,7 +275,7 @@ export function setObjectInfo(object: XR_game_object, ini: XR_ini_file, section:
  * todo: rename, update
  */
 export function resetObjectGroup(object: XR_game_object, ini: XR_ini_file, section: TSection): void {
-  const group = getConfigNumber(ini, section, "group", object, false, -1);
+  const group: TNumberId = getConfigNumber(ini, section, "group", object, false, -1);
 
   if (group !== -1) {
     object.change_team(object.team(), object.squad(), group);
@@ -282,7 +285,7 @@ export function resetObjectGroup(object: XR_game_object, ini: XR_ini_file, secti
 /**
  * todo: rename, update
  */
-export function take_items_enabled(
+export function initializeObjectTakeItemsEnabledState(
   object: XR_game_object,
   scheme: EScheme,
   state: IRegistryObjectState,
@@ -298,28 +301,28 @@ export function take_items_enabled(
 /**
  * todo: rename, update
  */
-export function can_select_weapon(
+export function initializeObjectCanSelectWeaponState(
   object: XR_game_object,
   scheme: EScheme,
   state: IRegistryObjectState,
   section: TSection
 ): void {
-  let str = getConfigString(state.ini, section, "can_select_weapon", object, false, "", "");
+  let data: string = getConfigString(state.ini, section, "can_select_weapon", object, false, "", "");
 
-  if (str === "") {
-    str = getConfigString(state.ini, state.section_logic, "can_select_weapon", object, false, "", "true");
+  if (data === "") {
+    data = getConfigString(state.ini, state.section_logic, "can_select_weapon", object, false, "", STRINGIFIED_TRUE);
   }
 
-  const cond: TConditionList = parseConditionsList(object, section, "can_select_weapon", str);
-  const can: TSection = pickSectionFromCondList(registry.actor, object, cond)!;
+  const conditionsList: TConditionList = parseConditionsList(object, section, "can_select_weapon", data);
+  const canSelectSection: TSection = pickSectionFromCondList(registry.actor, object, conditionsList)!;
 
-  object.can_select_weapon(can === STRINGIFIED_TRUE);
+  object.can_select_weapon(canSelectSection === STRINGIFIED_TRUE);
 }
 
 /**
  * todo;
  */
-export function isInvulnerabilityNeeded(object: XR_game_object): boolean {
+export function isObjectInvulnerabilityNeeded(object: XR_game_object): boolean {
   const state: IRegistryObjectState = registry.objects.get(object.id());
   const invulnerability: Optional<string> = getConfigString(
     state.ini,
@@ -335,16 +338,21 @@ export function isInvulnerabilityNeeded(object: XR_game_object): boolean {
     return false;
   }
 
-  const invulnerability_condlist = parseConditionsList(object, "invulnerability", "invulnerability", invulnerability);
+  const conditionsList: TConditionList = parseConditionsList(
+    object,
+    "invulnerability",
+    "invulnerability",
+    invulnerability
+  );
 
-  return pickSectionFromCondList(registry.actor, object, invulnerability_condlist) === STRINGIFIED_TRUE;
+  return pickSectionFromCondList(registry.actor, object, conditionsList) === STRINGIFIED_TRUE;
 }
 
 /**
  * todo;
  */
-export function resetInvulnerability(object: XR_game_object): void {
-  const invulnerability = isInvulnerabilityNeeded(object);
+export function resetObjectInvulnerability(object: XR_game_object): void {
+  const invulnerability = isObjectInvulnerabilityNeeded(object);
 
   if (object.invulnerable() !== invulnerability) {
     object.invulnerable(invulnerability);
@@ -354,25 +362,25 @@ export function resetInvulnerability(object: XR_game_object): void {
 /**
  * todo;
  */
-export function disableInvulnerability(object: XR_game_object): void {
+export function disableObjectInvulnerability(object: XR_game_object): void {
   object.invulnerable(false);
 }
 
 /**
  * todo;
  */
-export function updateInvulnerability(object: XR_game_object): void {
-  const invulnerability = isInvulnerabilityNeeded(object);
+export function updateObjectInvulnerability(object: XR_game_object): void {
+  const isInvulnerabilityNeeded: boolean = isObjectInvulnerabilityNeeded(object);
 
-  if (object.invulnerable() !== invulnerability) {
-    object.invulnerable(invulnerability);
+  if (object.invulnerable() !== isInvulnerabilityNeeded) {
+    object.invulnerable(isInvulnerabilityNeeded);
   }
 }
 
 /**
  * todo
  */
-export function resetThreshold(
+export function resetObjectThreshold(
   object: XR_game_object,
   scheme: Optional<EScheme>,
   state: IRegistryObjectState,
@@ -384,18 +392,24 @@ export function resetThreshold(
       : getConfigString(state.ini, section, "threshold", object, false, "");
 
   if (threshold_section !== null) {
-    const max_ignore_distance = getConfigNumber(state.ini, threshold_section, "max_ignore_distance", object, false);
+    const maxIgnoreDistance = getConfigNumber(state.ini, threshold_section, "max_ignore_distance", object, false);
 
-    if (max_ignore_distance !== null) {
-      object.max_ignore_monster_distance(max_ignore_distance);
+    if (maxIgnoreDistance !== null) {
+      object.max_ignore_monster_distance(maxIgnoreDistance);
     } else {
       object.restore_max_ignore_monster_distance();
     }
 
-    const ignore_monster: number = getConfigNumber(state.ini, threshold_section, "ignore_monster", object, false);
+    const ignoreMonster: Optional<TNumberId> = getConfigNumber(
+      state.ini,
+      threshold_section,
+      "ignore_monster",
+      object,
+      false
+    );
 
-    if (ignore_monster !== null) {
-      object.ignore_monster_threshold(ignore_monster);
+    if (ignoreMonster !== null) {
+      object.ignore_monster_threshold(ignoreMonster);
     } else {
       object.restore_ignore_monster_threshold();
     }
@@ -412,10 +426,10 @@ export function isObjectInCombat(object: XR_game_object): boolean {
     return false;
   }
 
-  const current_action_id: TNumberId = actionPlanner.current_action_id();
+  const currentActionId: Optional<TNumberId> = actionPlanner.current_action_id();
 
   return (
-    current_action_id === stalker_ids.action_combat_planner || current_action_id === stalker_ids.action_post_combat_wait
+    currentActionId === stalker_ids.action_combat_planner || currentActionId === stalker_ids.action_post_combat_wait
   );
 }
 
@@ -485,6 +499,6 @@ export function anomalyHasArtefact(
 /**
  * todo;
  */
-export function is_npc_asleep(npc: XR_game_object): boolean {
-  return (registry.objects.get(npc.id())!.state_mgr!.animstate as AnyObject).current_state === "sleep";
+export function isObjectAsleep(object: XR_game_object): boolean {
+  return registry.objects.get(object.id()).state_mgr!.animstate.states.current_state === "sleep";
 }

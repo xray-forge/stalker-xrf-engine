@@ -5,7 +5,8 @@ import { AbstractScheme } from "@/engine/scripts/core/schemes/base";
 import { CrowSpawnerManager } from "@/engine/scripts/core/schemes/sr_crow_spawner/CrowSpawnerManager";
 import { ISchemeCrowSpawnerState } from "@/engine/scripts/core/schemes/sr_crow_spawner/ISchemeCrowSpawnerState";
 import { subscribeActionForEvents } from "@/engine/scripts/core/schemes/subscribeActionForEvents";
-import { getConfigNumber, getConfigString, getConfigSwitchConditions } from "@/engine/scripts/utils/config";
+import { getConfigSwitchConditions } from "@/engine/scripts/utils/ini_config/config";
+import { getConfigNumber, getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseNames } from "@/engine/scripts/utils/parse";
 

@@ -13,13 +13,18 @@ import {
 } from "xray16";
 
 import { LuaArray, Optional, TCount, TIndex, TNumberId, TSection, TStringId, TTimestamp } from "@/engine/lib/types";
-import { DEATH_GENERIC_LTX, DUMMY_LTX, IRegistryObjectState, registry } from "@/engine/scripts/core/database";
+import {
+  DEATH_GENERIC_LTX,
+  DUMMY_LTX,
+  getStoryIdByObjectId,
+  IRegistryObjectState,
+  registry,
+} from "@/engine/scripts/core/database";
 import { AbstractCoreManager } from "@/engine/scripts/core/managers/AbstractCoreManager";
 import { isMonster, isStalker } from "@/engine/scripts/utils/check/is";
-import { getConfigString } from "@/engine/scripts/utils/config";
 import { abort } from "@/engine/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/engine/scripts/utils/game_save";
-import { getObjectStoryId } from "@/engine/scripts/utils/id";
+import { getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -117,7 +122,7 @@ export class ReleaseBodyManager extends AbstractCoreManager {
    * todo;
    */
   protected inspectionResult(object: XR_game_object): boolean {
-    if (getObjectStoryId(object.id()) !== null) {
+    if (getStoryIdByObjectId(object.id()) !== null) {
       logger.info("Ignore release, present in story:", object.name());
 
       return false;

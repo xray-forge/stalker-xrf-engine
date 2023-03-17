@@ -4,7 +4,7 @@ import { EScheme, Optional } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { AbstractSchemeManager } from "@/engine/scripts/core/schemes/base/AbstractSchemeManager";
 import { ISchemeDeathState } from "@/engine/scripts/core/schemes/death/ISchemeDeathState";
-import { pickSectionFromCondList } from "@/engine/scripts/utils/config";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 
 /**
  * todo;

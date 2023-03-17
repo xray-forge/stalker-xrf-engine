@@ -11,7 +11,7 @@ import { EvaluatorCanFight, EvaluatorWounded } from "@/engine/scripts/core/schem
 import { ISchemeWoundedState } from "@/engine/scripts/core/schemes/wounded/ISchemeWoundedState";
 import { WoundManager } from "@/engine/scripts/core/schemes/wounded/WoundManager";
 import { getCharacterCommunity } from "@/engine/scripts/utils/alife";
-import { getConfigBoolean, getConfigString } from "@/engine/scripts/utils/config";
+import { getConfigBoolean, getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseData, parseSynData } from "@/engine/scripts/utils/parse";
 

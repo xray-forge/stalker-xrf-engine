@@ -1,8 +1,7 @@
 import { cse_smart_cover, LuabindClass, properties_helper, XR_net_packet } from "xray16";
 
 import { Optional, TCount, TSection, TStringId } from "@/engine/lib/types";
-import { registry } from "@/engine/scripts/core/database";
-import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
+import { registerObjectStoryLinks, registry, unregisterStoryLinkByObjectId } from "@/engine/scripts/core/database";
 import {
   ISmartCoverLoopholeDescriptor,
   smart_covers_list,
@@ -46,14 +45,14 @@ export class SmartCover extends cse_smart_cover {
     super.on_register();
 
     logger.info("Register:", this.id, this.name(), this.section_name());
-    StoryObjectsManager.checkSpawnIniForStoryId(this);
+    registerObjectStoryLinks(this);
   }
 
   /**
    * todo;
    */
   public override on_unregister(): void {
-    StoryObjectsManager.unregisterStoryObjectById(this.id);
+    unregisterStoryLinkByObjectId(this.id);
     registry.smartCovers.delete(this.name());
 
     super.on_unregister();

@@ -1,7 +1,7 @@
 import {
   clsid,
   system_ini,
-  TXR_cls_id,
+  TXR_class_id,
   XR_cse_abstract,
   XR_cse_alife_human_stalker,
   XR_cse_alife_item_artefact,
@@ -22,9 +22,9 @@ import { ammo, TAmmoItem } from "@/engine/lib/constants/items/ammo";
 import { lootable_table, TLootableItem } from "@/engine/lib/constants/items/lootable_table";
 import { levels, TLevel } from "@/engine/lib/constants/levels";
 import { Maybe, Optional, TSection } from "@/engine/lib/types";
-import { registry } from "@/engine/scripts/core/database";
+import { getStoryIdByObjectId, registry } from "@/engine/scripts/core/database";
 import { abort } from "@/engine/scripts/utils/debug";
-import { getClsId, getObjectStoryId } from "@/engine/scripts/utils/id";
+import { getObjectClassId } from "@/engine/scripts/utils/id";
 
 /**
  * todo;
@@ -38,9 +38,9 @@ export function isCseAlifeObject(object: XR_cse_abstract | XR_game_object): obje
  */
 export function isMonster(
   object: XR_game_object | XR_cse_abstract,
-  class_id?: Maybe<TXR_cls_id>
+  class_id?: Maybe<TXR_class_id>
 ): object is XR_cse_alife_monster_abstract {
-  const id: TXR_cls_id = class_id || getClsId(object);
+  const id: TXR_class_id = class_id || getObjectClassId(object);
 
   return monster_class_ids[id] === true;
 }
@@ -57,9 +57,9 @@ export function isSquadMonsterCommunity(community: TCommunity): boolean {
  */
 export function isStalker(
   object: XR_game_object | XR_cse_abstract,
-  class_id?: Maybe<TXR_cls_id>
+  class_id?: Maybe<TXR_class_id>
 ): object is XR_cse_alife_human_stalker {
-  const id: TXR_cls_id = class_id || getClsId(object);
+  const id: TXR_class_id = class_id || getObjectClassId(object);
 
   return stalker_class_ids[id] === true;
 }
@@ -74,12 +74,12 @@ export function isStalkerClassId(class_id: number): boolean {
 /**
  * todo;
  */
-export function isWeapon(object: Optional<XR_game_object | XR_cse_abstract>, class_id?: Maybe<TXR_cls_id>): boolean {
+export function isWeapon(object: Optional<XR_game_object | XR_cse_abstract>, class_id?: Maybe<TXR_class_id>): boolean {
   if (object === null) {
     return false;
   }
 
-  const id: TXR_cls_id = class_id || getClsId(object);
+  const id: TXR_class_id = class_id || getObjectClassId(object);
 
   return weapon_class_ids[id] === true;
 }
@@ -87,12 +87,12 @@ export function isWeapon(object: Optional<XR_game_object | XR_cse_abstract>, cla
 /**
  * todo;
  */
-export function isGrenade(object: Optional<XR_game_object | XR_cse_abstract>, class_id?: Maybe<TXR_cls_id>): boolean {
+export function isGrenade(object: Optional<XR_game_object | XR_cse_abstract>, class_id?: Maybe<TXR_class_id>): boolean {
   if (object === null) {
     return false;
   }
 
-  const id: TXR_cls_id = class_id || getClsId(object);
+  const id: TXR_class_id = class_id || getObjectClassId(object);
 
   return id === clsid.wpn_grenade_rgd5_s || id === clsid.wpn_grenade_f1_s;
 }
@@ -102,9 +102,9 @@ export function isGrenade(object: Optional<XR_game_object | XR_cse_abstract>, cl
  */
 export function isArtefact(
   object: XR_game_object | XR_cse_abstract,
-  class_id?: Maybe<TXR_cls_id>
+  class_id?: Maybe<TXR_class_id>
 ): object is XR_cse_alife_item_artefact {
-  const id: TXR_cls_id = class_id || getClsId(object);
+  const id: TXR_class_id = class_id || getObjectClassId(object);
 
   return artefact_class_ids[id] === true;
 }
@@ -127,7 +127,7 @@ export function isUndergroundLevel(level: TLevel): boolean {
  * @returns whether provided object has linked story id.
  */
 export function isStoryObject(object: XR_cse_alife_object): boolean {
-  return getObjectStoryId(object.id) !== null;
+  return getStoryIdByObjectId(object.id) !== null;
 }
 
 /**

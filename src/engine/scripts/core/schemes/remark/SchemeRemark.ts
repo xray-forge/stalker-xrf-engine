@@ -8,7 +8,8 @@ import { ActionRemarkActivity } from "@/engine/scripts/core/schemes/remark/actio
 import { EvaluatorNeedRemark } from "@/engine/scripts/core/schemes/remark/evaluators/EvaluatorNeedRemark";
 import { ISchemeRemarkState } from "@/engine/scripts/core/schemes/remark/ISchemeRemarkState";
 import { subscribeActionForEvents } from "@/engine/scripts/core/schemes/subscribeActionForEvents";
-import { getConfigBoolean, getConfigString, getConfigSwitchConditions } from "@/engine/scripts/utils/config";
+import { getConfigSwitchConditions } from "@/engine/scripts/utils/ini_config/config";
+import { getConfigBoolean, getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseConditionsList } from "@/engine/scripts/utils/parse";
 import { addCommonPrecondition } from "@/engine/scripts/utils/scheme";

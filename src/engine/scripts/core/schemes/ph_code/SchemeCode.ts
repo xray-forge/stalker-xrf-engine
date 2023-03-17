@@ -5,13 +5,13 @@ import { AbstractScheme } from "@/engine/scripts/core/schemes/base/AbstractSchem
 import { CodeManager } from "@/engine/scripts/core/schemes/ph_code/CodeManager";
 import { ISchemeCodeState } from "@/engine/scripts/core/schemes/ph_code/ISchemeCodeState";
 import { subscribeActionForEvents } from "@/engine/scripts/core/schemes/subscribeActionForEvents";
+import { getConfigSwitchConditions } from "@/engine/scripts/utils/ini_config/config";
 import {
   getConfigConditionList,
   getConfigNumber,
   getConfigString,
   getConfigStringAndCondList,
-  getConfigSwitchConditions,
-} from "@/engine/scripts/utils/config";
+} from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

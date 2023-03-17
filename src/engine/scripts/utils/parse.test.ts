@@ -10,7 +10,7 @@ import {
 } from "@/engine/scripts/utils/parse";
 import { luaTableToArray } from "@/fixtures/lua/utils";
 
-describe("'parse' utils", () => {
+describe("'ini_data' parsing utils", () => {
   it("Should correctly parse names array", () => {
     expect(luaTableToArray(parseNames("a, b, c"))).toEqual(["a", "b", "c"]);
     expect(luaTableToArray(parseNames("name_1, example_b, name_complex_here"))).toEqual([

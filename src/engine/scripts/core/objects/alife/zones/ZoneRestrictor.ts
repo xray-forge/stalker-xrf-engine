@@ -1,6 +1,6 @@
 import { cse_alife_space_restrictor, LuabindClass } from "xray16";
 
-import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
+import { registerObjectStoryLinks } from "@/engine/scripts/core/database";
 import { TreasureManager } from "@/engine/scripts/core/managers/TreasureManager";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
@@ -17,7 +17,7 @@ export class ZoneRestrictor extends cse_alife_space_restrictor {
    */
   public override on_register(): void {
     super.on_register();
-    StoryObjectsManager.checkSpawnIniForStoryId(this);
+    registerObjectStoryLinks(this);
     TreasureManager.getInstance().registerAlifeRestrictor(this);
   }
 

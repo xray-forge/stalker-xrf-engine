@@ -17,20 +17,15 @@ import {
 import { levels, TLevel } from "@/engine/lib/constants/levels";
 import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
 import { AnyCallablesModule, LuaArray, Optional, TCount, TName, TNumberId, TStringId } from "@/engine/lib/types";
-import { registry } from "@/engine/scripts/core/database";
+import { getObjectIdByStoryId, registry } from "@/engine/scripts/core/database";
 import { ItemUpgradesManager } from "@/engine/scripts/core/managers/ItemUpgradesManager";
 import { NotificationManager } from "@/engine/scripts/core/managers/notifications/NotificationManager";
-import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 import { ETaskState } from "@/engine/scripts/core/managers/tasks/ETaskState";
 import * as TaskFunctor from "@/engine/scripts/core/managers/tasks/TaskFunctor";
-import {
-  getConfigBoolean,
-  getConfigNumber,
-  getConfigString,
-  pickSectionFromCondList,
-} from "@/engine/scripts/utils/config";
 import { abort } from "@/engine/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/engine/scripts/utils/game_save";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
+import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseConditionsList, parseNames, TConditionList } from "@/engine/scripts/utils/parse";
 import { giveMoneyToActor, relocateQuestItemSection, takeMoneyFromActor } from "@/engine/scripts/utils/quest";
@@ -80,11 +75,11 @@ const id_by_status: Record<string, number> = {
  */
 export class TaskObject {
   public static get_guider(target_level: TLevel) {
-    const ln: TLevel = level.name() as TLevel;
-    const target: string = guiders_by_level.get(ln) && guiders_by_level.get(ln).get(target_level);
+    const levelName: TLevel = level.name() as TLevel;
+    const target: string = guiders_by_level.get(levelName) && guiders_by_level.get(levelName).get(target_level);
 
     if (target !== null) {
-      return StoryObjectsManager.getStoryObjectId(target);
+      return getObjectIdByStoryId(target);
     }
 
     return null;
@@ -478,7 +473,7 @@ export class TaskObject {
     }
 
     for (const [k, v] of guiders_by_level.get(level.name())) {
-      const guiderId: Optional<TNumberId> = StoryObjectsManager.getStoryObjectId(v);
+      const guiderId: Optional<TNumberId> = getObjectIdByStoryId(v);
 
       if (guiderId !== null) {
         if (level.map_has_object_spot(guiderId, "storyline_task_on_guider") !== 0) {

@@ -6,13 +6,9 @@ import { ActionBaseCover } from "@/engine/scripts/core/schemes/cover/actions";
 import { EvaluatorNeedCover } from "@/engine/scripts/core/schemes/cover/evaluators";
 import { ISchemeCoverState } from "@/engine/scripts/core/schemes/cover/ISchemeCoverState";
 import { subscribeActionForEvents } from "@/engine/scripts/core/schemes/subscribeActionForEvents";
-import {
-  getConfigBoolean,
-  getConfigNumber,
-  getConfigString,
-  getConfigSwitchConditions,
-} from "@/engine/scripts/utils/config";
 import { abort } from "@/engine/scripts/utils/debug";
+import { getConfigSwitchConditions } from "@/engine/scripts/utils/ini_config/config";
+import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseConditionsList } from "@/engine/scripts/utils/parse";
 

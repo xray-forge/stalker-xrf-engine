@@ -8,7 +8,8 @@ import { ActionSleeperActivity } from "@/engine/scripts/core/schemes/sleeper/act
 import { EvaluatorNeedSleep } from "@/engine/scripts/core/schemes/sleeper/evaluators/EvaluatorNeedSleep";
 import { ISchemeSleeperState } from "@/engine/scripts/core/schemes/sleeper/ISchemeSleeperState";
 import { subscribeActionForEvents } from "@/engine/scripts/core/schemes/subscribeActionForEvents";
-import { getConfigBoolean, getConfigString, getConfigSwitchConditions } from "@/engine/scripts/utils/config";
+import { getConfigSwitchConditions } from "@/engine/scripts/utils/ini_config/config";
+import { getConfigBoolean, getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { addCommonPrecondition } from "@/engine/scripts/utils/scheme";
 

@@ -8,7 +8,7 @@ import { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/scripts/core/scheme
 import { switchToSection } from "@/engine/scripts/core/schemes/switchToSection";
 import { isActorSeenByObject } from "@/engine/scripts/utils/alife";
 import { isObjectInZone } from "@/engine/scripts/utils/check/check";
-import { pickSectionFromCondList } from "@/engine/scripts/utils/config";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { abort } from "@/engine/scripts/utils/debug";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { getDistanceBetween } from "@/engine/scripts/utils/physics";

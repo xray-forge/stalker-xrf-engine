@@ -11,19 +11,15 @@ import {
   XR_vector,
 } from "xray16";
 
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
 import { Optional } from "@/engine/lib/types";
-import { IRegistryObjectState, registry } from "@/engine/scripts/core/database";
+import { getIdBySid, IRegistryObjectState, registry } from "@/engine/scripts/core/database";
 import { get_heli_health } from "@/engine/scripts/core/schemes/heli_move/heli_utils";
 import { isLevelChanging } from "@/engine/scripts/utils/check/check";
-import {
-  getConfigBoolean,
-  getConfigNumber,
-  getConfigString,
-  pickSectionFromCondList,
-} from "@/engine/scripts/utils/config";
 import { setLoadMarker, setSaveMarker } from "@/engine/scripts/utils/game_save";
 import { randomChoice } from "@/engine/scripts/utils/general";
-import { getIdBySid } from "@/engine/scripts/utils/id";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
+import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/scripts/utils/parse";
 import { distanceBetween2d } from "@/engine/scripts/utils/physics";
@@ -188,7 +184,7 @@ export class HeliCombat {
         } else {
           this.forget_enemy();
         }
-      } else if (combat_enemy === "nil") {
+      } else if (combat_enemy === STRINGIFIED_NIL) {
         this.forget_enemy();
       } else {
         this.enemy_id = getIdBySid(tonumber(combat_enemy)!);

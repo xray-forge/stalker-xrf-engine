@@ -7,7 +7,7 @@ import { AnyGameObject } from "@/engine/lib/types/engine";
 import { IRegistryObjectState } from "@/engine/scripts/core/database";
 import { getObjectPositioning } from "@/engine/scripts/utils/alife";
 import { isAmmoSection } from "@/engine/scripts/utils/check/is";
-import { getConfigString } from "@/engine/scripts/utils/config";
+import { getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

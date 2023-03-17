@@ -8,7 +8,7 @@ import { pstor_retrieve, pstor_store } from "@/engine/scripts/core/database/psto
 import { GlobalSoundManager } from "@/engine/scripts/core/managers/GlobalSoundManager";
 import { AbstractSchemeManager } from "@/engine/scripts/core/schemes/base/AbstractSchemeManager";
 import { ISchemeWoundedState } from "@/engine/scripts/core/schemes/wounded/ISchemeWoundedState";
-import { pickSectionFromCondList } from "@/engine/scripts/utils/config";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 
 /**
  * todo;

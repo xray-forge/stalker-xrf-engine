@@ -7,13 +7,9 @@ import { ActionCamperPatrol } from "@/engine/scripts/core/schemes/camper/actions
 import { EvaluatorCloseCombat, EvaluatorEnd } from "@/engine/scripts/core/schemes/camper/evaluators";
 import { ISchemeCamperState } from "@/engine/scripts/core/schemes/camper/ISchemeCamperState";
 import { subscribeActionForEvents } from "@/engine/scripts/core/schemes/subscribeActionForEvents";
-import {
-  getConfigBoolean,
-  getConfigNumber,
-  getConfigString,
-  getConfigSwitchConditions,
-} from "@/engine/scripts/utils/config";
 import { abort } from "@/engine/scripts/utils/debug";
+import { getConfigSwitchConditions } from "@/engine/scripts/utils/ini_config/config";
+import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

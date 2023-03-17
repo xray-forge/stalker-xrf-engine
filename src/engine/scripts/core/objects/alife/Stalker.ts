@@ -10,13 +10,18 @@ import {
 
 import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
 import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
-import { Optional, StringOptional, TNumberId, TSection } from "@/engine/lib/types";
-import { initializeOfflineObject, IStoredOfflineObject, registry } from "@/engine/scripts/core/database";
+import { Optional, StringOptional, TName, TNumberId, TSection } from "@/engine/lib/types";
+import {
+  initializeOfflineObject,
+  IStoredOfflineObject,
+  registerObjectStoryLinks,
+  registry,
+  unregisterStoryLinkByObjectId,
+} from "@/engine/scripts/core/database";
 import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";
-import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 import { on_death, SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
-import { getConfigString } from "@/engine/scripts/utils/config";
 import { abort } from "@/engine/scripts/utils/debug";
+import { getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -103,7 +108,7 @@ export class Stalker extends cse_alife_human_stalker {
     super.on_register();
 
     logger.info("Register:", this.id, this.name(), this.section_name());
-    StoryObjectsManager.checkSpawnIniForStoryId(this);
+    registerObjectStoryLinks(this);
 
     const board = SimulationBoardManager.getInstance();
     const obj_ini = this.spawn_ini();
@@ -112,14 +117,14 @@ export class Stalker extends cse_alife_human_stalker {
 
     this.brain().can_choose_alife_tasks(false);
 
-    const smart = getConfigString(obj_ini, "logic", "smart_terrain", this, false, "", "");
-    const smart_obj = board.get_smart_by_name(smart);
+    const smartName: TName = getConfigString(obj_ini, "logic", "smart_terrain", this, false, "", "");
+    const smartTerrain: Optional<SmartTerrain> = board.get_smart_by_name(smartName);
 
-    if (smart_obj === null) {
+    if (smartTerrain === null) {
       return;
     }
 
-    alife()!.object<SmartTerrain>(smart_obj.id)!.register_npc(this);
+    alife().object<SmartTerrain>(smartTerrain.id)!.register_npc(this);
   }
 
   /**
@@ -139,7 +144,7 @@ export class Stalker extends cse_alife_human_stalker {
     }
 
     registry.offlineObjects.delete(this.id);
-    StoryObjectsManager.unregisterStoryObjectById(this.id);
+    unregisterStoryLinkByObjectId(this.id);
     super.on_unregister();
   }
 

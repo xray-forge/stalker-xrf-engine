@@ -10,7 +10,7 @@ import { ActionHelpWounded } from "@/engine/scripts/core/schemes/help_wounded/ac
 import { EvaluatorWoundedExist } from "@/engine/scripts/core/schemes/help_wounded/evaluators";
 import { ISchemeHelpWoundedState } from "@/engine/scripts/core/schemes/help_wounded/ISchemeHelpWoundedState";
 import { SchemeWounded } from "@/engine/scripts/core/schemes/wounded/SchemeWounded";
-import { getConfigBoolean } from "@/engine/scripts/utils/config";
+import { getConfigBoolean } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

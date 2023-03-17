@@ -5,12 +5,8 @@ import { AbstractScheme } from "@/engine/scripts/core/schemes/base";
 import { ISchemePhysicalIdleState } from "@/engine/scripts/core/schemes/ph_idle/ISchemePhysicalIdleState";
 import { PhysicalIdleManager } from "@/engine/scripts/core/schemes/ph_idle/PhysicalIdleManager";
 import { subscribeActionForEvents } from "@/engine/scripts/core/schemes/subscribeActionForEvents";
-import {
-  getConfigBoolean,
-  getConfigConditionList,
-  getConfigString,
-  getConfigSwitchConditions,
-} from "@/engine/scripts/utils/config";
+import { getConfigSwitchConditions } from "@/engine/scripts/utils/ini_config/config";
+import { getConfigBoolean, getConfigConditionList, getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseData1v } from "@/engine/scripts/utils/parse";
 

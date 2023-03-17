@@ -4,7 +4,7 @@ import { captions } from "@/engine/lib/constants/captions";
 import { communities } from "@/engine/lib/constants/communities";
 import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
 import { AnyCallablesModule, Optional, TDuration } from "@/engine/lib/types";
-import { registry } from "@/engine/scripts/core/database";
+import { getObjectIdByStoryId, registry } from "@/engine/scripts/core/database";
 import { pstor_retrieve } from "@/engine/scripts/core/database/pstor";
 import { AbstractCoreManager } from "@/engine/scripts/core/managers/AbstractCoreManager";
 import { achievementIcons } from "@/engine/scripts/core/managers/achievements/AchievementIcons";
@@ -13,7 +13,6 @@ import { EAchievement } from "@/engine/scripts/core/managers/achievements/EAchie
 import { notificationManagerIcons } from "@/engine/scripts/core/managers/notifications";
 import { NotificationManager } from "@/engine/scripts/core/managers/notifications/NotificationManager";
 import { StatisticsManager } from "@/engine/scripts/core/managers/StatisticsManager";
-import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 import { giveInfo, hasAlifeInfo } from "@/engine/scripts/utils/info_portion";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { spawnItemsForObjectFromList } from "@/engine/scripts/utils/spawn";
@@ -677,7 +676,7 @@ export class AchievementsManager extends AbstractCoreManager {
       achievementRewards.ACHIEVEMENT_REWARD_SPAWN_PERIOD
     ) {
       spawnItemsForObjectFromList(
-        alife().object(StoryObjectsManager.getStoryObjectId(achievementRewards.REWARD_BOXES.ZATON)!)!,
+        alife().object(getObjectIdByStoryId(achievementRewards.REWARD_BOXES.ZATON)!)!,
         achievementRewards.ITEMS[EAchievement.DETECTIVE],
         4
       );
@@ -710,7 +709,7 @@ export class AchievementsManager extends AbstractCoreManager {
       achievementRewards.ACHIEVEMENT_REWARD_SPAWN_PERIOD
     ) {
       spawnItemsForObjectFromList(
-        alife().object(StoryObjectsManager.getStoryObjectId(achievementRewards.REWARD_BOXES.JUPITER)!)!,
+        alife().object(getObjectIdByStoryId(achievementRewards.REWARD_BOXES.JUPITER)!)!,
         achievementRewards.ITEMS[EAchievement.MUTANT_HUNTER],
         5
       );

@@ -6,12 +6,8 @@ import { issueSchemeEvent } from "@/engine/scripts/core/schemes/issueSchemeEvent
 import { CutsceneManager } from "@/engine/scripts/core/schemes/sr_cutscene/CutsceneManager";
 import { ISchemeCutsceneState } from "@/engine/scripts/core/schemes/sr_cutscene/ISchemeCutsceneState";
 import { subscribeActionForEvents } from "@/engine/scripts/core/schemes/subscribeActionForEvents";
-import {
-  getConfigBoolean,
-  getConfigNumber,
-  getConfigString,
-  getConfigSwitchConditions,
-} from "@/engine/scripts/utils/config";
+import { getConfigSwitchConditions } from "@/engine/scripts/utils/ini_config/config";
+import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseNames } from "@/engine/scripts/utils/parse";
 

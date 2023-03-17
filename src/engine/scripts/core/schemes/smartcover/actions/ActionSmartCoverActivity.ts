@@ -1,10 +1,9 @@
 import { action_base, level, LuabindClass, patrol, XR_game_object, XR_vector } from "xray16";
 
 import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
-import { Optional, StringOptional } from "@/engine/lib/types";
-import { registry } from "@/engine/scripts/core/database";
+import { Optional, StringOptional, TNumberId } from "@/engine/lib/types";
+import { getObjectByStoryId, registry } from "@/engine/scripts/core/database";
 import { GlobalSoundManager } from "@/engine/scripts/core/managers/GlobalSoundManager";
-import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 import { set_state } from "@/engine/scripts/core/objects/state/StateManager";
 import { ActionSleeperActivity } from "@/engine/scripts/core/schemes/sleeper/actions";
 import {
@@ -12,7 +11,7 @@ import {
   ECoverState,
   ISchemeSmartCoverState,
 } from "@/engine/scripts/core/schemes/smartcover/ISchemeSmartCoverState";
-import { getParamString, pickSectionFromCondList } from "@/engine/scripts/utils/config";
+import { getParamString, pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { abort } from "@/engine/scripts/utils/debug";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseConditionsList } from "@/engine/scripts/utils/parse";
@@ -167,9 +166,9 @@ export class ActionSmartCoverActivity extends action_base {
         }
       }
     } else if (this.state.target_enemy !== null) {
-      const storyObject = StoryObjectsManager.getStoryObject(this.state.target_enemy);
+      const storyObject: Optional<XR_game_object> = getObjectByStoryId(this.state.target_enemy);
 
-      this.target_enemy_id = storyObject && storyObject.id();
+      this.target_enemy_id = storyObject?.id() as Optional<TNumberId>;
 
       if (this.target_enemy_id !== null && level.object_by_id(this.target_enemy_id)!.alive()) {
         object.set_smart_cover_target(level.object_by_id(this.target_enemy_id)!);
@@ -193,13 +192,17 @@ export class ActionSmartCoverActivity extends action_base {
   public override execute(): void {
     super.execute();
 
-    const need_cover_state = pickSectionFromCondList(registry.actor, this.object, this.cover_condlist) as ECoverState;
+    const needCoverState: ECoverState = pickSectionFromCondList(
+      registry.actor,
+      this.object,
+      this.cover_condlist
+    ) as ECoverState;
 
     if (
-      need_cover_state === ("default_behaviour" as any) ||
-      cover_substate_table[this.cover_state as ECoverState] !== cover_substate_table[need_cover_state]
+      needCoverState === ("default_behaviour" as any) ||
+      cover_substate_table[this.cover_state as ECoverState] !== cover_substate_table[needCoverState]
     ) {
-      this.cover_state = need_cover_state;
+      this.cover_state = needCoverState;
     }
 
     this.check_target_selector();

@@ -8,7 +8,8 @@ import { ISchemeLightState } from "@/engine/scripts/core/schemes/sr_light/ISchem
 import { LightManager } from "@/engine/scripts/core/schemes/sr_light/LightManager";
 import { subscribeActionForEvents } from "@/engine/scripts/core/schemes/subscribeActionForEvents";
 import { isUndergroundLevel } from "@/engine/scripts/utils/check/is";
-import { getConfigBoolean, getConfigSwitchConditions } from "@/engine/scripts/utils/config";
+import { getConfigSwitchConditions } from "@/engine/scripts/utils/ini_config/config";
+import { getConfigBoolean } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { resetTable } from "@/engine/scripts/utils/table";
 

@@ -7,9 +7,9 @@ import { ESchemeEvent } from "@/engine/scripts/core/schemes/base/index";
 import { disableGenericSchemes } from "@/engine/scripts/core/schemes/disableGenericSchemes";
 import { enable_generic_schemes } from "@/engine/scripts/core/schemes/enable_generic_schemes";
 import { issueSchemeEvent } from "@/engine/scripts/core/schemes/issueSchemeEvent";
-import { getConfigString } from "@/engine/scripts/utils/config";
 import { abort } from "@/engine/scripts/utils/debug";
 import { getObjectBoundSmart } from "@/engine/scripts/utils/gulag";
+import { getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { spawnDefaultObjectItems } from "@/engine/scripts/utils/spawn";
 
 /**

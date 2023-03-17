@@ -6,12 +6,8 @@ import { getMobState } from "@/engine/scripts/core/schemes/mob/MobStateManager";
 import { ISchemeMobRemarkState } from "@/engine/scripts/core/schemes/mob/remark/ISchemeMobRemarkState";
 import { MobRemarkManager } from "@/engine/scripts/core/schemes/mob/remark/MobRemarkManager";
 import { subscribeActionForEvents } from "@/engine/scripts/core/schemes/subscribeActionForEvents";
-import {
-  getConfigBoolean,
-  getConfigConditionList,
-  getConfigString,
-  getConfigSwitchConditions,
-} from "@/engine/scripts/utils/config";
+import { getConfigSwitchConditions } from "@/engine/scripts/utils/ini_config/config";
+import { getConfigBoolean, getConfigConditionList, getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

@@ -9,7 +9,7 @@ import {
   move,
   object_binder,
   patrol,
-  TXR_cls_id,
+  TXR_class_id,
   TXR_snd_type,
   vector,
   XR_cse_alife_creature_abstract,
@@ -55,7 +55,7 @@ import { mobCaptured } from "@/engine/scripts/core/schemes/mobCaptured";
 import { mobRelease } from "@/engine/scripts/core/schemes/mobRelease";
 import { loadObject, saveObject } from "@/engine/scripts/core/schemes/storing";
 import { action, getObjectSquad } from "@/engine/scripts/utils/alife";
-import { pickSectionFromCondList } from "@/engine/scripts/utils/config";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { setLoadMarker, setSaveMarker } from "@/engine/scripts/utils/game_save";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
@@ -388,7 +388,7 @@ export class MonsterBinder extends object_binder {
     hitObject.impulse = 10;
     this.object.hit(hitObject);
 
-    const objectClsId: TXR_cls_id = this.object.clsid();
+    const objectClsId: TXR_class_id = this.object.clsid();
 
     if (objectClsId === clsid.poltergeist_s) {
       logger.info("Releasing poltergeist_s:", this.object.name());

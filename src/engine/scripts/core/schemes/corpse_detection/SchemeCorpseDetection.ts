@@ -11,7 +11,7 @@ import { ActionSearchCorpse } from "@/engine/scripts/core/schemes/corpse_detecti
 import { EvaluatorCorpseDetect } from "@/engine/scripts/core/schemes/corpse_detection/evaluators";
 import { ISchemeCorpseDetectionState } from "@/engine/scripts/core/schemes/corpse_detection/ISchemeCorpseDetectionState";
 import { isLootableItem } from "@/engine/scripts/utils/check/is";
-import { getConfigBoolean } from "@/engine/scripts/utils/config";
+import { getConfigBoolean } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

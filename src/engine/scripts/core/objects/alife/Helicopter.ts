@@ -1,6 +1,6 @@
 import { cse_alife_helicopter, LuabindClass } from "xray16";
 
-import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
+import { registerObjectStoryLinks, unregisterStoryLinkByObjectId } from "@/engine/scripts/core/database";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -15,14 +15,14 @@ export class Helicopter extends cse_alife_helicopter {
    */
   public override on_register(): void {
     super.on_register();
-    StoryObjectsManager.checkSpawnIniForStoryId(this);
+    registerObjectStoryLinks(this);
   }
 
   /**
    * todo;
    */
   public override on_unregister(): void {
-    StoryObjectsManager.unregisterStoryObjectById(this.id);
+    unregisterStoryLinkByObjectId(this.id);
     super.on_unregister();
   }
 

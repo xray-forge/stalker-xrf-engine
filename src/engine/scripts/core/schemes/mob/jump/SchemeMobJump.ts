@@ -5,8 +5,9 @@ import { AbstractScheme } from "@/engine/scripts/core/schemes/base";
 import { ISchemeMobJumpState } from "@/engine/scripts/core/schemes/mob/jump/ISchemeMobJumpState";
 import { MobJumpManager } from "@/engine/scripts/core/schemes/mob/jump/MobJumpManager";
 import { subscribeActionForEvents } from "@/engine/scripts/core/schemes/subscribeActionForEvents";
-import { getConfigNumber, getConfigString, getConfigSwitchConditions } from "@/engine/scripts/utils/config";
 import { abort } from "@/engine/scripts/utils/debug";
+import { getConfigSwitchConditions } from "@/engine/scripts/utils/ini_config/config";
+import { getConfigNumber, getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseNames } from "@/engine/scripts/utils/parse";
 

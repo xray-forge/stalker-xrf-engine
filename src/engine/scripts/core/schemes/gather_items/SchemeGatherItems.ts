@@ -5,7 +5,7 @@ import { IRegistryObjectState } from "@/engine/scripts/core/database";
 import { AbstractScheme } from "@/engine/scripts/core/schemes/base";
 import { EvaluatorGatherItems } from "@/engine/scripts/core/schemes/gather_items/evaluators";
 import { ISchemeGatherItemsState } from "@/engine/scripts/core/schemes/gather_items/ISchemeGatherItemsState";
-import { getConfigBoolean } from "@/engine/scripts/utils/config";
+import { getConfigBoolean } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

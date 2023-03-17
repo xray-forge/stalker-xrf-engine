@@ -1,4 +1,4 @@
-import { editor, TXR_cls_key, XR_object_factory } from "xray16";
+import { editor, TXR_class_key, XR_object_factory } from "xray16";
 
 import { inventory_objects } from "@/engine/lib/constants/items/inventory_objects";
 import { misc } from "@/engine/lib/constants/items/misc";
@@ -55,7 +55,7 @@ function clientServerRegister(
   clientObjectClass: EClientObjectClass,
   serverObjectClass: string,
   clsId: string,
-  scriptClsId: TXR_cls_key
+  scriptClsId: TXR_class_key
 ): void {
   logger.info(
     "[clientServerRegister] Registering:",
@@ -81,7 +81,7 @@ function clientRegister(
 ): void {
   if (!editor()) {
     logger.info("[clientRegister] Registering:", serverObjectClass, clsId, scriptClsId);
-    factory.register(serverObjectClass, clsId, scriptClsId as TXR_cls_key);
+    factory.register(serverObjectClass, clsId, scriptClsId as TXR_class_key);
   }
 }
 
@@ -92,7 +92,7 @@ function serverRegister(
   factory: XR_object_factory,
   serverObjectClass: string,
   clsId: string,
-  scriptClsId: TXR_cls_key
+  scriptClsId: TXR_class_key
 ): void {
   logger.info("[serverRegister] Registering:", serverObjectClass, clsId, scriptClsId);
   factory.register(serverObjectClass, clsId, scriptClsId);

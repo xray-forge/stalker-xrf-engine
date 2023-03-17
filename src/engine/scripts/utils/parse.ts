@@ -11,7 +11,6 @@ import {
   TProbability,
   TSection,
 } from "@/engine/lib/types";
-import { registry } from "@/engine/scripts/core/database";
 import { abort } from "@/engine/scripts/utils/debug";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { trimString } from "@/engine/scripts/utils/string";
@@ -379,7 +378,7 @@ export function parseWaypointData(pathname: TPath, wpflags: XR_flags32, waypoint
       }
 
       if (fld === "a") {
-        waypointData[fld] = parseConditionsList(registry.actor, "waypoint_data", "anim_state", val);
+        waypointData[fld] = parseConditionsList(null, "waypoint_data", "anim_state", val);
       } else {
         waypointData[fld] = val;
       }

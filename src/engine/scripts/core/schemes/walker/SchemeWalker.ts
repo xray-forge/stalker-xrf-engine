@@ -8,8 +8,9 @@ import { subscribeActionForEvents } from "@/engine/scripts/core/schemes/subscrib
 import { ActionWalkerActivity } from "@/engine/scripts/core/schemes/walker/actions";
 import { EvaluatorNeedWalker } from "@/engine/scripts/core/schemes/walker/evaluators";
 import { ISchemeWalkerState } from "@/engine/scripts/core/schemes/walker/ISchemeWalkerState";
-import { getConfigBoolean, getConfigString, getConfigSwitchConditions } from "@/engine/scripts/utils/config";
 import { abort } from "@/engine/scripts/utils/debug";
+import { getConfigSwitchConditions } from "@/engine/scripts/utils/ini_config/config";
+import { getConfigBoolean, getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { addCommonPrecondition } from "@/engine/scripts/utils/scheme";
 

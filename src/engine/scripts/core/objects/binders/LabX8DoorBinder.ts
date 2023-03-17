@@ -17,8 +17,9 @@ import { Optional } from "@/engine/lib/types";
 import { registry, resetObject } from "@/engine/scripts/core/database";
 import { registerDoorObject, unregisterDoorObject } from "@/engine/scripts/core/database/doors";
 import { loadObject, saveObject } from "@/engine/scripts/core/schemes/storing";
-import { getConfigNumber, getConfigString, pickSectionFromCondList } from "@/engine/scripts/utils/config";
 import { setLoadMarker, setSaveMarker } from "@/engine/scripts/utils/game_save";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
+import { getConfigNumber, getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/scripts/utils/parse";
 

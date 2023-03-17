@@ -5,7 +5,7 @@ import { AbstractScheme } from "@/engine/scripts/core/schemes/base/AbstractSchem
 import { ISchemePhysicalOnDeathState } from "@/engine/scripts/core/schemes/ph_on_death/ISchemePhysicalOnDeathState";
 import { PhysicalDeathManager } from "@/engine/scripts/core/schemes/ph_on_death/PhysicalDeathManager";
 import { subscribeActionForEvents } from "@/engine/scripts/core/schemes/subscribeActionForEvents";
-import { getConfigSwitchConditions } from "@/engine/scripts/utils/config";
+import { getConfigSwitchConditions } from "@/engine/scripts/utils/ini_config/config";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

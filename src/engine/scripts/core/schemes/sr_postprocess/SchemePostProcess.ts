@@ -5,7 +5,8 @@ import { AbstractScheme } from "@/engine/scripts/core/schemes/base";
 import { ISchemePostProcessState } from "@/engine/scripts/core/schemes/sr_postprocess/ISchemePostProcessState";
 import { SchemePostProcessManager } from "@/engine/scripts/core/schemes/sr_postprocess/SchemePostProcessManager";
 import { subscribeActionForEvents } from "@/engine/scripts/core/schemes/subscribeActionForEvents";
-import { getConfigNumber, getConfigSwitchConditions } from "@/engine/scripts/utils/config";
+import { getConfigSwitchConditions } from "@/engine/scripts/utils/ini_config/config";
+import { getConfigNumber } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

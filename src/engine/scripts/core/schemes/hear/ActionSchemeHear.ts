@@ -14,12 +14,11 @@ import {
   TSection,
   TStringId,
 } from "@/engine/lib/types";
-import { IRegistryObjectState, registry } from "@/engine/scripts/core/database";
+import { getStoryIdByObjectId, IRegistryObjectState, registry } from "@/engine/scripts/core/database";
 import { AbstractScheme } from "@/engine/scripts/core/schemes/base";
 import { IActionSchemeHearState } from "@/engine/scripts/core/schemes/hear/IActionSchemeHearState";
 import { switchToSection } from "@/engine/scripts/core/schemes/switchToSection";
-import { pickSectionFromCondList } from "@/engine/scripts/utils/config";
-import { getObjectStoryId } from "@/engine/scripts/utils/id";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseConditionsList, parseParameters } from "@/engine/scripts/utils/parse";
 import { mapSndTypeToSoundType } from "@/engine/scripts/utils/sound";
@@ -82,7 +81,7 @@ export class ActionSchemeHear extends AbstractScheme {
       return;
     }
 
-    const storyId: TStringId = getObjectStoryId(whoId) || "any";
+    const storyId: TStringId = getStoryIdByObjectId(whoId) || "any";
     const soundClassType: ESoundType = mapSndTypeToSoundType(soundType);
     const classTypeParameters = state.hearInfo[storyId] ? state.hearInfo[storyId][soundClassType] : null;
 

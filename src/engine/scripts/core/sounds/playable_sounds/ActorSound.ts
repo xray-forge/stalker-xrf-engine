@@ -19,8 +19,8 @@ import { NotificationManager } from "@/engine/scripts/core/managers/notification
 import { IBaseSchemeState } from "@/engine/scripts/core/schemes/base";
 import { AbstractPlayableSound } from "@/engine/scripts/core/sounds/playable_sounds/AbstractPlayableSound";
 import { EPlayableSound } from "@/engine/scripts/core/sounds/playable_sounds/EPlayableSound";
-import { getConfigBoolean, getConfigString } from "@/engine/scripts/utils/config";
 import { abort } from "@/engine/scripts/utils/debug";
+import { getConfigBoolean, getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseNames } from "@/engine/scripts/utils/parse";
 

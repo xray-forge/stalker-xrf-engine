@@ -25,7 +25,7 @@ import {
   TSection,
   TTimestamp,
 } from "@/engine/lib/types";
-import { IRegistryObjectState, registry } from "@/engine/scripts/core/database";
+import { getObjectIdByStoryId, IRegistryObjectState, registry } from "@/engine/scripts/core/database";
 import { AbstractCoreManager } from "@/engine/scripts/core/managers/AbstractCoreManager";
 import {
   anomalyScannerObjects,
@@ -33,10 +33,10 @@ import {
   primaryMapSpotObjects,
   sleepZones,
 } from "@/engine/scripts/core/managers/map/MapDisplayManagerObjects";
-import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 import { anomalyHasArtefact } from "@/engine/scripts/utils/alife";
-import { getConfigString, pickSectionFromCondList } from "@/engine/scripts/utils/config";
 import { hasAlifeInfo } from "@/engine/scripts/utils/info_portion";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
+import { getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/scripts/utils/parse";
 
@@ -182,7 +182,7 @@ export class MapDisplayManager extends AbstractCoreManager {
    */
   public updatePrimaryObjectsDisplay(): void {
     primaryMapSpotObjects.forEach((it) => {
-      const objectId: Optional<TNumberId> = StoryObjectsManager.getStoryObjectId(it.target);
+      const objectId: Optional<TNumberId> = getObjectIdByStoryId(it.target);
 
       if (objectId) {
         level.map_add_object_spot(objectId, "primary_object", it.hint);
@@ -198,7 +198,7 @@ export class MapDisplayManager extends AbstractCoreManager {
    */
   public updateSleepZonesDisplay(): void {
     for (const [index, sleepZone] of sleepZones) {
-      const objectId: Optional<TNumberId> = StoryObjectsManager.getStoryObjectId(sleepZone.target);
+      const objectId: Optional<TNumberId> = getObjectIdByStoryId(sleepZone.target);
       const storedObject: Optional<IRegistryObjectState> = objectId ? registry.objects.get(objectId) : null;
 
       if (objectId && storedObject && storedObject.object) {
@@ -233,7 +233,7 @@ export class MapDisplayManager extends AbstractCoreManager {
     if (level.name() === levels.jupiter) {
       for (const [index, scanner] of anomalyScannerObjects) {
         if (scanner.enabled) {
-          const objectId: Optional<number> = StoryObjectsManager.getStoryObjectId(scanner.target);
+          const objectId: Optional<number> = getObjectIdByStoryId(scanner.target);
 
           let hint: TLabel = game.translate_string(scanner.hint) + "\\n" + " \\n";
           const actor: XR_game_object = registry.actor;

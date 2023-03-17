@@ -2,15 +2,14 @@ import { alife, device, XR_game_object } from "xray16";
 
 import { STRINGIFIED_FALSE, STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/lua";
 import { Optional, TDistance, TStringId } from "@/engine/lib/types";
-import { registry } from "@/engine/scripts/core/database";
+import { getObjectByStoryId, registry } from "@/engine/scripts/core/database";
 import { GlobalSoundManager } from "@/engine/scripts/core/managers/GlobalSoundManager";
-import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 import { set_state } from "@/engine/scripts/core/objects/state/StateManager";
 import { SchemeAbuse } from "@/engine/scripts/core/schemes/abuse";
 import { AbstractSchemeManager } from "@/engine/scripts/core/schemes/base/AbstractSchemeManager";
 import { ISchemeMeetState } from "@/engine/scripts/core/schemes/meet/ISchemeMeetState";
 import { isObjectInCombat } from "@/engine/scripts/utils/alife";
-import { pickSectionFromCondList } from "@/engine/scripts/utils/config";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 
 /**
  * todo;
@@ -47,7 +46,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
       victimStoryId = null;
     } else {
       if (alife() !== null) {
-        victim = StoryObjectsManager.getStoryObject(victimStoryId as TStringId);
+        victim = getObjectByStoryId(victimStoryId as TStringId);
       }
     }
 

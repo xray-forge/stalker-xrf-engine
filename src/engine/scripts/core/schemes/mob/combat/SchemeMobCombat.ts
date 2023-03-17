@@ -6,7 +6,7 @@ import { AbstractScheme } from "@/engine/scripts/core/schemes/base";
 import { ISchemeMobCombatState } from "@/engine/scripts/core/schemes/mob/combat/ISchemeMobCombatState";
 import { MobCombatManager } from "@/engine/scripts/core/schemes/mob/combat/MobCombatManager";
 import { subscribeActionForEvents } from "@/engine/scripts/core/schemes/subscribeActionForEvents";
-import { getConfigSwitchConditions } from "@/engine/scripts/utils/config";
+import { getConfigSwitchConditions } from "@/engine/scripts/utils/ini_config/config";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

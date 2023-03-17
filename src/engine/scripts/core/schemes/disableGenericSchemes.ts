@@ -7,7 +7,7 @@ import { SchemeHit } from "@/engine/scripts/core/schemes/hit/SchemeHit";
 import { SchemeMeet } from "@/engine/scripts/core/schemes/meet/SchemeMeet";
 import { SchemeMobCombat } from "@/engine/scripts/core/schemes/mob/combat/SchemeMobCombat";
 import { SchemePhysicalOnHit } from "@/engine/scripts/core/schemes/ph_on_hit/SchemePhysicalOnHit";
-import { disableInvulnerability } from "@/engine/scripts/utils/alife";
+import { disableObjectInvulnerability } from "@/engine/scripts/utils/alife";
 
 /**
  * todo;
@@ -21,14 +21,14 @@ export function disableGenericSchemes(object: XR_game_object, schemeType: ESchem
       SchemeHit.disableScheme(object, SchemeHit.SCHEME_SECTION);
       SchemeMeet.disableScheme(object, EScheme.ACTOR_DIALOGS);
       SchemeCombatIgnore.disableScheme(object, EScheme.COMBAT_IGNORE);
-      disableInvulnerability(object);
+      disableObjectInvulnerability(object);
 
       return;
 
     case ESchemeType.MONSTER:
       SchemeMobCombat.disableScheme(object, EScheme.MOB_COMBAT);
       SchemeCombatIgnore.disableScheme(object, EScheme.COMBAT_IGNORE);
-      disableInvulnerability(object);
+      disableObjectInvulnerability(object);
 
       return;
 

@@ -7,7 +7,7 @@ import { trySwitchToAnotherSection } from "@/engine/scripts/core/schemes/base/tr
 import { ISchemePhysicalButtonState } from "@/engine/scripts/core/schemes/ph_button/ISchemePhysicalButtonState";
 import { switchToSection } from "@/engine/scripts/core/schemes/switchToSection";
 import { isActiveSection } from "@/engine/scripts/utils/check/is";
-import { pickSectionFromCondList } from "@/engine/scripts/utils/config";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

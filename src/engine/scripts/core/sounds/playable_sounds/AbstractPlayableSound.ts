@@ -3,7 +3,7 @@ import { XR_ini_file, XR_net_packet, XR_reader, XR_sound_object } from "xray16";
 import { AnyArgs, Optional } from "@/engine/lib/types";
 import { TSection } from "@/engine/lib/types/scheme";
 import { EPlayableSound } from "@/engine/scripts/core/sounds/playable_sounds/EPlayableSound";
-import { getConfigString } from "@/engine/scripts/utils/config";
+import { getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 
 export abstract class AbstractPlayableSound {
   public abstract readonly type: EPlayableSound;

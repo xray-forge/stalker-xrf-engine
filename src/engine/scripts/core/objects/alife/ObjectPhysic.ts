@@ -1,7 +1,7 @@
 import { cse_alife_object_physic, LuabindClass } from "xray16";
 
-import { Optional, TSection } from "@/engine/lib/types";
-import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
+import { Optional } from "@/engine/lib/types";
+import { registerObjectStoryLinks, unregisterStoryLinkByObjectId } from "@/engine/scripts/core/database";
 import { TreasureManager } from "@/engine/scripts/core/managers/TreasureManager";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
@@ -20,7 +20,7 @@ export class ObjectPhysic extends cse_alife_object_physic {
   public override on_register(): void {
     super.on_register();
     logger.info("Register:", this.id, this.name(), this.section_name());
-    StoryObjectsManager.checkSpawnIniForStoryId(this);
+    registerObjectStoryLinks(this);
 
     this.secret_item = TreasureManager.getInstance().registerAlifeItem(this);
   }
@@ -29,7 +29,7 @@ export class ObjectPhysic extends cse_alife_object_physic {
    * todo;
    */
   public override on_unregister(): void {
-    StoryObjectsManager.unregisterStoryObjectById(this.id);
+    unregisterStoryLinkByObjectId(this.id);
     super.on_unregister();
   }
 
