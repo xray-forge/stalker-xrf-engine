@@ -1,5 +1,6 @@
 import { XR_game_object } from "xray16";
 
+import { TCount } from "@/engine/lib/types";
 import { registry, SCRIPT_SOUND_LTX } from "@/engine/scripts/core/database";
 import { ActorSound } from "@/engine/scripts/core/sounds/playable_sounds/ActorSound";
 import { EPlayableSound } from "@/engine/scripts/core/sounds/playable_sounds/EPlayableSound";
@@ -20,11 +21,11 @@ export class SoundTheme {
       abort("There is no section [list] in script_sound.ltx");
     }
 
-    const n: number = SCRIPT_SOUND_LTX.line_count("list");
+    const linesCount: TCount = SCRIPT_SOUND_LTX.line_count("list");
 
     resetTable(registry.sounds.themes);
 
-    for (const i of $range(0, n - 1)) {
+    for (const i of $range(0, linesCount - 1)) {
       const [result, section, value] = SCRIPT_SOUND_LTX.r_line("list", i, "", "");
 
       const type: EPlayableSound = getConfigString<EPlayableSound>(

@@ -31,7 +31,7 @@ export function disableInfo(infoId?: Optional<TInfoPortion>): void {
  * Whether actor has alife info active.
  */
 export function hasAlifeInfo(infoId?: Optional<TInfoPortion>): infoId is TInfoPortion {
-  if (!infoId) {
+  if (!infoId || !registry.actor) {
     return false;
   }
 

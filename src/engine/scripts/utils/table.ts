@@ -67,7 +67,7 @@ export function copyTable(target: LuaTable<string | number>, source: LuaTable<st
  */
 export function clearTable(target: LuaTable): void {
   while (target.length() !== 0) {
-    table.remove(target as any, target.length());
+    table.remove(target, target.length());
   }
 }
 
