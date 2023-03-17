@@ -4,10 +4,10 @@ import * as path from "path";
 
 import { default as chalk } from "chalk";
 
-import { TFolderFiles, TFolderReplicationDescriptor } from "@/mod/lib/types/general";
-
-import { GAME_DATA_CONFIGS_DIR, TARGET_GAME_DATA_CONFIGS_DIR } from "#/globals";
+import { GAME_DATA_LTX_CONFIGS_DIR, TARGET_GAME_DATA_CONFIGS_DIR } from "#/globals";
 import { NodeLogger, readDirContent } from "#/utils";
+
+import { TFolderFiles, TFolderReplicationDescriptor } from "@/mod/lib/types/general";
 
 const log: NodeLogger = new NodeLogger("BUILD_CONFIGS_STATICS");
 const EXPECTED_CONFIG_EXTENSIONS: Array<string> = [".ltx", ".xml"];
@@ -22,7 +22,7 @@ export async function buildStaticConfigs(): Promise<void> {
     if (Array.isArray(it)) {
       it.forEach((nested) => collectConfigs(acc, nested));
     } else if (EXPECTED_CONFIG_EXTENSIONS.includes(path.extname(it))) {
-      const relativePath: string = it.slice(GAME_DATA_CONFIGS_DIR.length);
+      const relativePath: string = it.slice(GAME_DATA_LTX_CONFIGS_DIR.length);
 
       acc.push([it, path.join(TARGET_GAME_DATA_CONFIGS_DIR, relativePath)]);
     }
@@ -30,7 +30,7 @@ export async function buildStaticConfigs(): Promise<void> {
     return acc;
   }
 
-  const staticConfigs: Array<TFolderReplicationDescriptor> = (await readDirContent(GAME_DATA_CONFIGS_DIR)).reduce(
+  const staticConfigs: Array<TFolderReplicationDescriptor> = (await readDirContent(GAME_DATA_LTX_CONFIGS_DIR)).reduce(
     collectConfigs,
     []
   );

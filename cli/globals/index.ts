@@ -11,7 +11,7 @@ export const OPEN_XRAY_ENGINES_DIR: string = path.resolve(BIN_DIR, "openxray");
 export const BUILD_LUA_TSCONFIG: string = path.resolve(CLI_DIR, "build/tsconfig.scripts.json");
 export const CLI_CONFIG: string = path.resolve(CLI_DIR, "config.json");
 
-export const GAME_DATA_CONFIGS_DIR: string = path.resolve(MOD_DIR, "configs");
+export const GAME_DATA_LTX_CONFIGS_DIR: string = path.resolve(MOD_DIR, "ini");
 export const GAME_DATA_TRANSLATIONS_DIR: string = path.resolve(MOD_DIR, "translations");
 export const GAME_DATA_UI_DIR: string = path.resolve(MOD_DIR, "forms");
 

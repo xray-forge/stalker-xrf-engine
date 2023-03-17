@@ -11,3 +11,7 @@ Contains type definitions for lua libraries.
 ## xray16
 
 Contains type definitions for xray engine exposed functionality.
+
+## fengari
+
+Contains type definitions for fengari lua VM. Used for jest testing of some aspects of the template.

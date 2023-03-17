@@ -3,10 +3,10 @@ import * as path from "path";
 
 import { default as chalk } from "chalk";
 
-import { Optional, TFolderFiles, TFolderReplicationDescriptor } from "@/mod/lib/types";
-
-import { GAME_DATA_CONFIGS_DIR, TARGET_GAME_DATA_CONFIGS_DIR } from "#/globals";
+import { GAME_DATA_LTX_CONFIGS_DIR, TARGET_GAME_DATA_CONFIGS_DIR } from "#/globals";
 import { createDirForConfigs, ILtxConfigDescriptor, NodeLogger, readDirContent, renderJsonToLtx } from "#/utils";
+
+import { Optional, TFolderFiles, TFolderReplicationDescriptor } from "@/mod/lib/types";
 
 const log: NodeLogger = new NodeLogger("BUILD_CONFIGS_DYNAMIC");
 const EXPECTED_DYNAMIC_XML_EXTENSIONS: Array<string> = [".ts"];
@@ -63,7 +63,7 @@ async function getLtxConfigs(): Promise<Array<TFolderReplicationDescriptor>> {
     if (Array.isArray(it)) {
       it.forEach((nested) => collectLtxConfigs(acc, nested));
     } else if (EXPECTED_DYNAMIC_XML_EXTENSIONS.includes(path.extname(it))) {
-      const to: string = it.slice(GAME_DATA_CONFIGS_DIR.length).replace(/\.[^/.]+$/, "") + ".ltx";
+      const to: string = it.slice(GAME_DATA_LTX_CONFIGS_DIR.length).replace(/\.[^/.]+$/, "") + ".ltx";
 
       acc.push([it, path.join(TARGET_GAME_DATA_CONFIGS_DIR, to)]);
     }
@@ -71,5 +71,5 @@ async function getLtxConfigs(): Promise<Array<TFolderReplicationDescriptor>> {
     return acc;
   }
 
-  return (await readDirContent(GAME_DATA_CONFIGS_DIR)).reduce(collectLtxConfigs, []);
+  return (await readDirContent(GAME_DATA_LTX_CONFIGS_DIR)).reduce(collectLtxConfigs, []);
 }
