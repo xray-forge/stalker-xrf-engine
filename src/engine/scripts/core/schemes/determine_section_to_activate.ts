@@ -1,6 +1,6 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
 import { TSection } from "@/engine/lib/types/scheme";
 import { registry } from "@/engine/scripts/core/database";
 import { abort } from "@/engine/scripts/utils/debug";

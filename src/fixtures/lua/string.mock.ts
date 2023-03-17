@@ -1,6 +1,6 @@
 import { ILuaString, lauxlib, lua, lualib, to_jsstring, to_luastring } from "fengari";
 
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
 import { Optional } from "@/engine/lib/types";
 
 /**

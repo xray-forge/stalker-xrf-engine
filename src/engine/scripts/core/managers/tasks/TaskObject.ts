@@ -15,7 +15,7 @@ import {
 } from "xray16";
 
 import { levels, TLevel } from "@/engine/lib/constants/levels";
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
 import { AnyCallablesModule, LuaArray, Optional, TCount, TName, TNumberId, TStringId } from "@/engine/lib/types";
 import { getObjectIdByStoryId, registry } from "@/engine/scripts/core/database";
 import { ItemUpgradesManager } from "@/engine/scripts/core/managers/ItemUpgradesManager";

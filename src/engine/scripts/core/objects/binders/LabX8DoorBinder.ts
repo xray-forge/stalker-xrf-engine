@@ -13,7 +13,7 @@ import {
   XR_sound_object,
 } from "xray16";
 
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
 import { Optional } from "@/engine/lib/types";
 import { registry, resetObject } from "@/engine/scripts/core/database";
 import { registerDoorObject, unregisterDoorObject } from "@/engine/scripts/core/database/doors";

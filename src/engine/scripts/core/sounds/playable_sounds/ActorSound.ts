@@ -12,7 +12,7 @@ import {
   XR_reader,
 } from "xray16";
 
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
 import { TSection } from "@/engine/lib/types";
 import { IRegistryObjectState, registry } from "@/engine/scripts/core/database";
 import { NotificationManager } from "@/engine/scripts/core/managers/notifications/NotificationManager";

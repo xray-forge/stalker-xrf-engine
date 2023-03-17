@@ -25,6 +25,7 @@ export interface ILtxFieldMeta {
  * todo;
  */
 export interface ILtxFieldDescriptor<T> {
+  $isField: boolean;
   type: ELtxFieldType;
   value: T;
   meta?: ILtxFieldMeta;

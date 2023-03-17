@@ -1,6 +1,6 @@
 import { time_global, XR_CTime, XR_game_object, XR_net_packet, XR_reader } from "xray16";
 
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
 import { Optional, StringOptional, TName, TNumberId, TPath, TSection, TTimestamp } from "@/engine/lib/types";
 import { IRegistryObjectState, registry } from "@/engine/scripts/core/database";
 import { pstor_load_all, pstor_save_all } from "@/engine/scripts/core/database/pstor";

@@ -22,9 +22,9 @@ import {
 } from "xray16";
 
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
-import { STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/lua";
 import { MAX_UNSIGNED_16_BIT, MAX_UNSIGNED_8_BIT } from "@/engine/lib/constants/memory";
 import { SMART_TERRAIN_SECT } from "@/engine/lib/constants/sections";
+import { STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
 import {
   AnyCallable,
   AnyObject,

@@ -19,8 +19,8 @@ import {
 import { post_processors } from "@/engine/lib/constants/animation/post_processors";
 import { captions } from "@/engine/lib/constants/captions";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
-import { STRINGIFIED_TRUE } from "@/engine/lib/constants/lua";
 import { ERelation } from "@/engine/lib/constants/relations";
+import { STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
 import { zones } from "@/engine/lib/constants/zones";
 import {
   Optional,

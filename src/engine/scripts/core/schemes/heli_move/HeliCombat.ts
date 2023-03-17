@@ -11,7 +11,7 @@ import {
   XR_vector,
 } from "xray16";
 
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
 import { Optional } from "@/engine/lib/types";
 import { getIdBySid, IRegistryObjectState, registry } from "@/engine/scripts/core/database";
 import { get_heli_health } from "@/engine/scripts/core/schemes/heli_move/heli_utils";

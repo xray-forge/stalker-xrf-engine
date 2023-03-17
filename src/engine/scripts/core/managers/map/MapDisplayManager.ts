@@ -12,8 +12,8 @@ import {
 import { captions } from "@/engine/lib/constants/captions";
 import { info_portions } from "@/engine/lib/constants/info_portions/info_portions";
 import { levels } from "@/engine/lib/constants/levels";
-import { STRINGIFIED_FALSE, STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/lua";
 import { npc_map_marks, TMapMark } from "@/engine/lib/constants/npc_map_marks";
+import { STRINGIFIED_FALSE, STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
 import {
   EScheme,
   Maybe,

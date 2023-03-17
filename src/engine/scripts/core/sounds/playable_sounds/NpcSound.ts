@@ -16,7 +16,7 @@ import {
 } from "xray16";
 
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
 import { AnyObject, Optional, TLabel, TName, TNumberId } from "@/engine/lib/types";
 import { IRegistryObjectState, registry } from "@/engine/scripts/core/database";
 import { NotificationManager } from "@/engine/scripts/core/managers/notifications/NotificationManager";

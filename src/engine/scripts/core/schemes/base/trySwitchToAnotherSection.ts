@@ -1,6 +1,6 @@
 import { game, level, time_global, XR_game_object } from "xray16";
 
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
 import { LuaArray, Optional, TDistance, TDuration, TName, TNumberId, TTimestamp } from "@/engine/lib/types";
 import { ESchemeCondition } from "@/engine/lib/types/scheme";
 import { registry } from "@/engine/scripts/core/database";

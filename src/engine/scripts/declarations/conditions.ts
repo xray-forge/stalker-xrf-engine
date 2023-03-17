@@ -17,8 +17,8 @@ import {
 import { captions, TCaption } from "@/engine/lib/constants/captions";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
-import { STRINGIFIED_FALSE } from "@/engine/lib/constants/lua";
 import { relations } from "@/engine/lib/constants/relations";
+import { STRINGIFIED_FALSE } from "@/engine/lib/constants/words";
 import { zones } from "@/engine/lib/constants/zones";
 import {
   AnyArgs,

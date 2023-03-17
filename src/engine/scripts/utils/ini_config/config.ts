@@ -1,7 +1,7 @@
 import { alife, XR_alife_simulator, XR_cse_alife_object, XR_game_object, XR_ini_file } from "xray16";
 
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
 import {
   AnyCallablesModule,
   AnyObject,

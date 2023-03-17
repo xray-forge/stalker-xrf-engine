@@ -46,11 +46,11 @@ import { misc } from "@/engine/lib/constants/items/misc";
 import { outfits } from "@/engine/lib/constants/items/outfits";
 import { quest_items } from "@/engine/lib/constants/items/quest_items";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { STRINGIFIED_FALSE, STRINGIFIED_TRUE } from "@/engine/lib/constants/lua";
 import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
 import { relations, TRelation } from "@/engine/lib/constants/relations";
 import { script_sounds } from "@/engine/lib/constants/sound/script_sounds";
 import { TTreasure } from "@/engine/lib/constants/treasures";
+import { STRINGIFIED_FALSE, STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
 import { TZone, zones } from "@/engine/lib/constants/zones";
 import {
   EScheme,

@@ -5,6 +5,7 @@ import { ELtxFieldType, ILtxFieldDescriptor, ILtxFieldMeta } from "#/utils/ltx/t
  */
 export function newField<T>(type: ELtxFieldType, value: T, meta: ILtxFieldMeta = {}): ILtxFieldDescriptor<T> {
   return {
+    $isField: true,
     type: type,
     value: value,
     meta,

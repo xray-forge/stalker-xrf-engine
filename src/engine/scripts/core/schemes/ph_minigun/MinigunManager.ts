@@ -1,6 +1,6 @@
 import { CCar, level, move, patrol, time_global, vector, XR_CCar, XR_game_object, XR_vector } from "xray16";
 
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
 import { Optional, TName, TStringId } from "@/engine/lib/types";
 import { getObjectByStoryId, registry } from "@/engine/scripts/core/database";
 import { AbstractSchemeManager } from "@/engine/scripts/core/schemes/base/AbstractSchemeManager";
@@ -11,8 +11,8 @@ import { ISchemeMinigunState } from "@/engine/scripts/core/schemes/ph_minigun/IS
 import { switchToSection } from "@/engine/scripts/core/schemes/switchToSection";
 import { isHeavilyWounded } from "@/engine/scripts/utils/check/check";
 import { isActiveSection } from "@/engine/scripts/utils/check/is";
-import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { abort } from "@/engine/scripts/utils/debug";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { TConditionList } from "@/engine/scripts/utils/parse";
 import { yaw } from "@/engine/scripts/utils/physics";
 

@@ -11,8 +11,8 @@ import {
   XR_vector,
 } from "xray16";
 
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
 import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
 import { Optional } from "@/engine/lib/types";
 import { getIdBySid, registry } from "@/engine/scripts/core/database";
 import { randomChoice } from "@/engine/scripts/utils/general";

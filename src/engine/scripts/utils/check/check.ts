@@ -14,8 +14,8 @@ import { surgeConfig } from "@/engine/lib/configs/SurgeConfig";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { lootable_table_exclude, TLootableExcludeItem } from "@/engine/lib/constants/items/lootable_table";
 import { TLevel } from "@/engine/lib/constants/levels";
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
 import { ERelation } from "@/engine/lib/constants/relations";
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
 import { EScheme, Optional, TName, TNumberId, TStringId } from "@/engine/lib/types";
 import {
   getObjectIdByStoryId,

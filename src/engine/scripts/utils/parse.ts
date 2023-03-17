@@ -1,7 +1,7 @@
 import { flags32, patrol, XR_flags32, XR_game_object, XR_ini_file, XR_patrol } from "xray16";
 
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
-import { STRINGIFIED_TRUE } from "@/engine/lib/constants/lua";
+import { STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
 import {
   AnyArgs,
   LuaArray,

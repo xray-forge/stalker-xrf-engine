@@ -20,8 +20,8 @@ import {
 
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
-import { STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/lua";
 import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
+import { STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
 import {
   EScheme,
   LuaArray,

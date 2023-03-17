@@ -1,6 +1,6 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
 import { Optional } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 import { IRegistryObjectState, registry } from "@/engine/scripts/core/database";

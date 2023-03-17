@@ -2,7 +2,7 @@ import { game, XR_game_object } from "xray16";
 
 import { captions, TCaption } from "@/engine/lib/constants/captions";
 import { quest_items } from "@/engine/lib/constants/items/quest_items";
-import { STRINGIFIED_FALSE, STRINGIFIED_TRUE } from "@/engine/lib/constants/lua";
+import { STRINGIFIED_FALSE, STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
 import { LuaArray, Optional, TCount, TLabel, TName, TRate } from "@/engine/lib/types";
 import { TSection } from "@/engine/lib/types/scheme";
 import { ITEM_UPGRADES, registry, STALKER_UPGRADE_INFO, SYSTEM_INI } from "@/engine/scripts/core/database";

@@ -20,7 +20,7 @@ import { captions } from "@/engine/lib/constants/captions";
 import { console_commands } from "@/engine/lib/constants/console_commands";
 import { info_portions } from "@/engine/lib/constants/info_portions";
 import { levels, TLevel } from "@/engine/lib/constants/levels";
-import { STRINGIFIED_FALSE, STRINGIFIED_TRUE } from "@/engine/lib/constants/lua";
+import { STRINGIFIED_FALSE, STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
 import { AnyCallablesModule, Optional, PartialRecord, TNumberId } from "@/engine/lib/types";
 import { registry, SURGE_MANAGER_LTX } from "@/engine/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/engine/scripts/core/database/pstor";

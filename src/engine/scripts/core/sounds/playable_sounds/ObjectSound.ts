@@ -10,7 +10,7 @@ import {
   XR_sound_object,
 } from "xray16";
 
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
 import { Optional, TNumberId } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { NotificationManager } from "@/engine/scripts/core/managers/notifications/NotificationManager";

@@ -12,8 +12,8 @@ import {
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { TArtefact } from "@/engine/lib/constants/items/artefacts";
 import { TWeapon, weapons } from "@/engine/lib/constants/items/weapons";
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
 import { TMonster } from "@/engine/lib/constants/monsters";
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
 import { Optional, PartialRecord, StringOptional, TCount, TName, TNumberId } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { AbstractCoreManager } from "@/engine/scripts/core/managers/AbstractCoreManager";

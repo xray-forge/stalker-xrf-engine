@@ -1,7 +1,5 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error"*/
 
-import { game_difficulties } from "@/engine/lib/constants/game_difficulties";
-
 /**
  * Translation enum captions.
  * todo: Include all translations, build translation collecting script.
@@ -77,9 +75,13 @@ export const captions = {
   st_jup_b6_name: "st_jup_b6_name",
   st_jup_b9_name: "st_jup_b9_name",
   st_mutant_hunter_news: "st_mutant_hunter_news",
+  st_opt_high: "st_opt_high",
+  st_opt_low: "st_opt_low",
+  st_opt_medium: "st_opt_medium",
+  st_opt_off: "st_opt_off",
   st_pri_a16_name: "st_pri_a16_name",
   st_pri_a17_name: "st_pri_a17_name",
-  st_pri_a18_name: "st_pri_a18_name ",
+  st_pri_a18_name: "st_pri_a18_name",
   st_pri_a21_name: "st_pri_a21_name",
   st_pri_a25_name: "st_pri_a25_name",
   st_pri_a28_name: "st_pri_a28_name",

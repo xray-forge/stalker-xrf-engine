@@ -4,7 +4,7 @@ import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { TLevel } from "@/engine/lib/constants/levels";
-import { STRINGIFIED_TRUE } from "@/engine/lib/constants/lua";
+import { STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
 import { LuaArray, Optional, TCount, TProbability, TSection, TStringId } from "@/engine/lib/types";
 import { DEATH_GENERIC_LTX, IRegistryObjectState, registry } from "@/engine/scripts/core/database";
 import { AbstractCoreManager } from "@/engine/scripts/core/managers/AbstractCoreManager";

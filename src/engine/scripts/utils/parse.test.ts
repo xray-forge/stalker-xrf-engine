@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
 import {
   parseConditionsList,
   parseNames,

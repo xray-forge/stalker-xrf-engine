@@ -23,10 +23,10 @@ import { squadCommunityByBehaviour } from "@/engine/lib/constants/behaviours";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { goodwill } from "@/engine/lib/constants/goodwill";
 import { info_portions } from "@/engine/lib/constants/info_portions";
-import { STRINGIFIED_FALSE, STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/lua";
 import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
 import { relations, TRelation } from "@/engine/lib/constants/relations";
 import { SMART_TERRAIN_SECT } from "@/engine/lib/constants/sections";
+import { STRINGIFIED_FALSE, STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
 import { AnyCallablesModule, AnyObject, LuaArray, Optional, TCount, TName, TNumberId } from "@/engine/lib/types";
 import { TSection } from "@/engine/lib/types/scheme";
 import {

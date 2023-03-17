@@ -1,6 +1,6 @@
 import { device, level, XR_game_object } from "xray16";
 
-import { STRINGIFIED_FALSE } from "@/engine/lib/constants/lua";
+import { STRINGIFIED_FALSE } from "@/engine/lib/constants/words";
 import { Optional } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import {

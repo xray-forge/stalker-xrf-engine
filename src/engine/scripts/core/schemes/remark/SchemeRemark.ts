@@ -1,6 +1,6 @@
 import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
 import { AbstractScheme } from "@/engine/scripts/core/schemes/base/AbstractScheme";
 import { action_ids } from "@/engine/scripts/core/schemes/base/actions_id";

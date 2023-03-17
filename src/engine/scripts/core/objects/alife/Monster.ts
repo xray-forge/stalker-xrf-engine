@@ -8,8 +8,8 @@ import {
   XR_net_packet,
 } from "xray16";
 
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
 import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
 import { Optional, StringOptional, TSection } from "@/engine/lib/types";
 import {
   hardResetOfflineObject,

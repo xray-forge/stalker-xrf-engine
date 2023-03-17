@@ -1,6 +1,6 @@
 import { stalker_ids, world_property, XR_action_base, XR_game_object, XR_ini_file } from "xray16";
 
-import { STRINGIFIED_FALSE } from "@/engine/lib/constants/lua";
+import { STRINGIFIED_FALSE } from "@/engine/lib/constants/words";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
 import { AbstractScheme, action_ids, evaluators_id } from "@/engine/scripts/core/schemes/base";
 import { ActionCamperPatrol } from "@/engine/scripts/core/schemes/camper/actions";

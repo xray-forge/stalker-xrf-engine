@@ -1,6 +1,6 @@
 import { clsid, XR_cse_alife_object } from "xray16";
 
-import { STRINGIFIED_TRUE } from "@/engine/lib/constants/lua";
+import { STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
 import { Optional, TNumberId, TRate } from "@/engine/lib/types";
 import { SIMULATION_OBJECTS_PROPS_LTX } from "@/engine/scripts/core/database/ini";
 import { registry } from "@/engine/scripts/core/database/registry";

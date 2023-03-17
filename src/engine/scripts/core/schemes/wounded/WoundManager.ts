@@ -1,7 +1,7 @@
 import { alife, time_global, XR_alife_simulator, XR_game_object } from "xray16";
 
 import { drugs } from "@/engine/lib/constants/items/drugs";
-import { STRINGIFIED_FALSE, STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/lua";
+import { STRINGIFIED_FALSE, STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
 import { LuaArray, Optional, TCount, TRate } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/engine/scripts/core/database/pstor";
