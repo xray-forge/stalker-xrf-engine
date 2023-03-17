@@ -45,14 +45,14 @@ export class CampStoryManager {
   /**
    * todo;
    */
-  public static start_guitar(npc: XR_game_object): void {
-    const camp_id = registry.objects.get(npc.id()).registred_camp;
+  public static start_guitar(object: XR_game_object): void {
+    const campId: Optional<TNumberId> = registry.objects.get(object.id()).registred_camp;
 
-    if (camp_id === null) {
+    if (campId === null) {
       return;
     }
 
-    const camp = registry.camps.stories.get(camp_id);
+    const camp: CampStoryManager = registry.camps.stories.get(campId);
 
     camp.sound_manager.set_storyteller(camp.director);
     camp.sound_manager.set_story(camp.guitar_table.get(math.random(camp.guitar_table.length())));
@@ -64,13 +64,13 @@ export class CampStoryManager {
    * todo;
    */
   public static start_harmonica(object: XR_game_object): void {
-    const capmId = registry.objects.get(object.id()).registred_camp;
+    const campId: Optional<TNumberId> = registry.objects.get(object.id()).registred_camp;
 
-    if (capmId === null) {
+    if (campId === null) {
       return;
     }
 
-    const camp = registry.camps.stories.get(capmId);
+    const camp: CampStoryManager = registry.camps.stories.get(campId);
 
     camp.sound_manager.set_storyteller(camp.director);
     camp.sound_manager.set_story(camp.harmonica_table.get(math.random(camp.harmonica_table.length())));
@@ -150,7 +150,7 @@ export class CampStoryManager {
         min_time: 30000,
         max_time: 40000,
         timeout: 0,
-        transitions: { harmonica: 30, guitar: 30, storyLink: 40 },
+        transitions: { harmonica: 30, guitar: 30, story: 40 },
         precondition: sr_camp_idle_precondition,
       },
       harmonica: {
@@ -159,7 +159,7 @@ export class CampStoryManager {
         min_time: 10000,
         max_time: 11000,
         timeout: 3000,
-        transitions: { idle: 100, harmonica: 0, guitar: 0, storyLink: 0 },
+        transitions: { idle: 100, harmonica: 0, guitar: 0, story: 0 },
         precondition: sr_camp_harmonica_precondition,
       },
       guitar: {
@@ -168,16 +168,16 @@ export class CampStoryManager {
         min_time: 10000,
         max_time: 11000,
         timeout: 4500,
-        transitions: { idle: 100, harmonica: 0, guitar: 0, storyLink: 0 },
+        transitions: { idle: 100, harmonica: 0, guitar: 0, story: 0 },
         precondition: sr_camp_guitar_precondition,
       },
-      storyLink: {
+      story: {
         director_state: "tell",
         general_state: "listen",
         min_time: 10000,
         max_time: 11000,
         timeout: 0,
-        transitions: { idle: 100, harmonica: 0, guitar: 0, storyLink: 0 },
+        transitions: { idle: 100, harmonica: 0, guitar: 0, story: 0 },
         precondition: sr_camp_story_precondition,
       },
     } as any;

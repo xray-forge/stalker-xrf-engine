@@ -1,4 +1,4 @@
-import { flags32, patrol, XR_cse_alife_object, XR_flags32, XR_game_object, XR_ini_file, XR_patrol } from "xray16";
+import { flags32, patrol, XR_flags32, XR_game_object, XR_ini_file, XR_patrol } from "xray16";
 
 import { STRINGIFIED_TRUE } from "@/engine/lib/constants/lua";
 import {
