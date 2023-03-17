@@ -15,6 +15,8 @@ describe("'render_field' function", () => {
   const comment: string = "some text";
 
   it("should correctly generate string fields", () => {
+    expect(renderField("test", newStringField(""))).toBe("test = ");
+    expect(renderField("test", newStringField("", { comment }))).toBe(`test =  ; ${comment}`);
     expect(renderField("test", newStringField("abcdef"))).toBe("test = abcdef");
     expect(renderField("test", newStringField("abcdef", { comment }))).toBe(`test = abcdef ; ${comment}`);
     expect(renderField("test", newStringField("abcdef", { comment, isBinding: true }))).toBe(
@@ -50,6 +52,7 @@ describe("'render_field' function", () => {
 
   it("should correctly generate string array fields", () => {
     expect(() => renderField("test", newStringsField("a" as any, { comment }))).toThrow();
+    expect(renderField("test", newStringsField(["", "", ""], { comment }))).toBe(`test = , ,  ; ${comment}`);
     expect(renderField("test", newStringsField(["a", "b", "c"], { comment }))).toBe(`test = a, b, c ; ${comment}`);
     expect(renderField("test", newStringsField(["a", "b", "c"], { comment, isBinding: true }))).toBe(
       `test a, b, c ; ${comment}`
@@ -72,5 +75,12 @@ describe("'render_field' function", () => {
     expect(renderField("test", newFloatsField([123, 255.0, 1.22333], { comment }))).toBe(
       `test = 123.0, 255.0, 1.22333 ; ${comment}`
     );
+  });
+
+  it("should correctly generate fields without key", () => {
+    expect(renderField(null, newStringField("bind test", { comment }))).toBe(`bind test ; ${comment}`);
+    expect(renderField(null, newStringField("another"))).toBe("another");
+    expect(renderField(null, newStringField("another text", { isBinding: true }))).toBe("another text");
+    expect(renderField("", newStringField("another"))).toBe("another");
   });
 });

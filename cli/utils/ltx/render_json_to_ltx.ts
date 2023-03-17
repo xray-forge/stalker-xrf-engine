@@ -5,9 +5,13 @@ import { ILtxConfigDescriptor, ILtxFieldDescriptor, LTX_ROOT, renderField } from
  */
 function renderLtxSection(
   name: string | typeof LTX_ROOT,
-  object: Record<string, ILtxFieldDescriptor<unknown>>
+  object: Record<string, ILtxFieldDescriptor<unknown>> | Array<ILtxFieldDescriptor<unknown>>
 ): string {
   const sectionName: string = name === LTX_ROOT ? "\n" : `\n[${name}]\n`;
+
+  if (Array.isArray(object)) {
+    return sectionName + object.map((it) => renderField(null, it)).join("\n");
+  }
 
   return Object.entries(object).reduce((result, [key, value]) => result + renderField(key, value) + "\n", sectionName);
 }
