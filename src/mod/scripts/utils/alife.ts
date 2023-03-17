@@ -35,9 +35,9 @@ import {
 import { AnyGameObject } from "@/mod/lib/types/engine";
 import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
 import { getStoryObjectsRegistry } from "@/mod/scripts/core/database/StoryObjectsRegistry";
-import { Squad } from "@/mod/scripts/core/object/alife/Squad";
-import { SquadReachTargetAction } from "@/mod/scripts/core/object/alife/SquadReachTargetAction";
-import { SquadStayOnTargetAction } from "@/mod/scripts/core/object/alife/SquadStayOnTargetAction";
+import { Squad } from "@/mod/scripts/core/objects/alife/Squad";
+import { SquadReachTargetAction } from "@/mod/scripts/core/objects/alife/SquadReachTargetAction";
+import { SquadStayOnTargetAction } from "@/mod/scripts/core/objects/alife/SquadStayOnTargetAction";
 import { isCseAlifeObject, isStalker } from "@/mod/scripts/utils/check/is";
 import {
   getConfigBoolean,

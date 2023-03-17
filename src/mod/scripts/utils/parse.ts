@@ -1,7 +1,6 @@
 import { flags32, patrol, XR_cse_alife_object, XR_flags32, XR_game_object, XR_ini_file, XR_patrol } from "xray16";
 
 import { AnyArgs, LuaArray, Optional, TCount, TDistance, TName, TPath, TProbability, TSection } from "@/mod/lib/types";
-import { stringifyAsJson } from "@/mod/lib/utils/json";
 import { registry } from "@/mod/scripts/core/database";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";

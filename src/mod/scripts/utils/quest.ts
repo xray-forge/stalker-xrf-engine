@@ -4,7 +4,7 @@ import { ammo, TAmmoItem } from "@/mod/globals/items/ammo";
 import { medkits, TMedkit } from "@/mod/globals/items/drugs";
 import { LuaArray, Optional } from "@/mod/lib/types";
 import { registry, SYSTEM_INI } from "@/mod/scripts/core/database";
-import { NotificationManager } from "@/mod/scripts/core/manager/notifications/NotificationManager";
+import { NotificationManager } from "@/mod/scripts/core/managers/notifications/NotificationManager";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

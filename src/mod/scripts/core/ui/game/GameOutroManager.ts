@@ -4,7 +4,7 @@ import { game_tutorials } from "@/mod/globals/game_tutorials";
 import { sounds } from "@/mod/globals/sound/sounds";
 import { AnyCallablesModule, Optional } from "@/mod/lib/types";
 import { registry } from "@/mod/scripts/core/database";
-import { AbstractCoreManager } from "@/mod/scripts/core/manager/AbstractCoreManager";
+import { AbstractCoreManager } from "@/mod/scripts/core/managers/AbstractCoreManager";
 import { hasAlifeInfo } from "@/mod/scripts/utils/info_portion";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

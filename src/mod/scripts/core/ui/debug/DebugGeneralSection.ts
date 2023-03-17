@@ -9,7 +9,7 @@ import {
   XR_CUIStatic,
 } from "xray16";
 
-import { ProfilingManager } from "@/mod/scripts/core/manager/ProfilingManager";
+import { ProfilingManager } from "@/mod/scripts/core/managers/ProfilingManager";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 import { collectLuaGarbage, getLuaMemoryUsed } from "@/mod/scripts/utils/ram";
 import { resolveXmlFile, resolveXmlFormPath } from "@/mod/scripts/utils/ui";

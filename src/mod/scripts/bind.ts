@@ -21,7 +21,7 @@ import {
   SmartCoverBinder,
   SmartTerrainBinder,
   StalkerBinder,
-} from "@/mod/scripts/core/object/binders";
+} from "@/mod/scripts/core/objects/binders";
 import { abort } from "@/mod/scripts/utils/debug";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
 

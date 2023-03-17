@@ -14,7 +14,7 @@ import {
   TStringId,
 } from "@/mod/lib/types";
 import { IRegistryObjectState, registry } from "@/mod/scripts/core/database";
-import { IBaseSchemeLogic } from "@/mod/scripts/core/scheme/base";
+import { IBaseSchemeLogic } from "@/mod/scripts/core/schemes/base";
 import { abort } from "@/mod/scripts/utils/debug";
 import { disableInfo, hasAlifeInfo } from "@/mod/scripts/utils/info_portion";
 import { LuaLogger } from "@/mod/scripts/utils/logging";
