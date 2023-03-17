@@ -4,17 +4,17 @@ import { captions } from "@/engine/lib/constants/captions";
 import { Optional, TSection, TStringId } from "@/engine/lib/types";
 import { getObjectIdByStoryId, registry } from "@/engine/scripts/core/database";
 import { SurgeManager } from "@/engine/scripts/core/managers/SurgeManager";
-import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { hasAlifeInfo } from "@/engine/scripts/utils/info_portion";
-import { parseConditionsList } from "@/engine/scripts/utils/parse";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
+import { parseConditionsList, TConditionList } from "@/engine/scripts/utils/parse";
 
 /**
  * todo;
  */
 export function condlist(id: TStringId, field: string, p: string): Optional<TSection> {
-  const parsed_condlist = parseConditionsList(null, "task", "task_condlist", p);
+  const conditionsList: TConditionList = parseConditionsList(p);
 
-  return pickSectionFromCondList(registry.actor, null, parsed_condlist);
+  return pickSectionFromCondList(registry.actor, null, conditionsList);
 }
 
 /**
@@ -133,8 +133,8 @@ export function surge_task_descr(): Optional<string> {
  */
 export function target_condlist(id: TStringId, field: string, p: string) {
   const conditionListString: string = p;
-  const parsed_condlist = parseConditionsList(null, "task", "task_condlist", conditionListString);
-  const value: Optional<TSection> = pickSectionFromCondList(registry.actor, null, parsed_condlist);
+  const conditionsList: TConditionList = parseConditionsList(conditionListString);
+  const value: Optional<TSection> = pickSectionFromCondList(registry.actor, null, conditionsList);
 
   if (value === null) {
     return null;

@@ -1,5 +1,6 @@
 import { stalker_ids, world_property, XR_game_object, XR_ini_file } from "xray16";
 
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
 import { AbstractScheme } from "@/engine/scripts/core/schemes/base/AbstractScheme";
 import { action_ids } from "@/engine/scripts/core/schemes/base/actions_id";
@@ -91,7 +92,7 @@ export class SchemeSmartCover extends AbstractScheme {
     state.loophole_name = getConfigString(ini, section, "loophole_name", object, false, "", null);
     state.cover_state = getConfigString(ini, section, "cover_state", object, false, "", "default_behaviour");
     state.target_enemy = getConfigString(ini, section, "target_enemy", object, false, "", null);
-    state.target_path = getConfigString(ini, section, "target_path", object, false, "", "nil");
+    state.target_path = getConfigString(ini, section, "target_path", object, false, "", STRINGIFIED_NIL);
     state.idle_min_time = getConfigNumber(ini, section, "idle_min_time", object, false, 6);
     state.idle_max_time = getConfigNumber(ini, section, "idle_max_time", object, false, 10);
     state.lookout_min_time = getConfigNumber(ini, section, "lookout_min_time", object, false, 6);

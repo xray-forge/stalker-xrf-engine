@@ -14,8 +14,8 @@ import {
 import { AnyCallable, AnyObject, LuaArray, Optional, TName } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { set_state } from "@/engine/scripts/core/objects/state/StateManager";
-import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { abort } from "@/engine/scripts/utils/debug";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { IWaypointData, parseConditionsList, TConditionList } from "@/engine/scripts/utils/parse";
 import { isStalkerAtWaypoint } from "@/engine/scripts/utils/position";
@@ -171,10 +171,10 @@ export class StalkerMoveManager {
     const def_state_moving2 = suggested_state?.moving ? suggested_state.moving : default_state_moving2;
     const def_state_moving3 = suggested_state?.moving ? suggested_state.moving : default_state_moving3;
 
-    this.default_state_standing = parseConditionsList(this.object, "move_mgr", "def_state", def_state_standing);
-    this.default_state_moving1 = parseConditionsList(this.object, "move_mgr", "def_state", def_state_moving1);
-    this.default_state_moving2 = parseConditionsList(this.object, "move_mgr", "def_state", def_state_moving2);
-    this.default_state_moving3 = parseConditionsList(this.object, "move_mgr", "def_state", def_state_moving3);
+    this.default_state_standing = parseConditionsList(def_state_standing);
+    this.default_state_moving1 = parseConditionsList(def_state_moving1);
+    this.default_state_moving2 = parseConditionsList(def_state_moving2);
+    this.default_state_moving3 = parseConditionsList(def_state_moving3);
 
     this.syn_signal_set_tm = time_global() + 1000;
     this.syn_signal = null;

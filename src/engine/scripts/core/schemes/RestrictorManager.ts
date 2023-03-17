@@ -1,5 +1,6 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
 import { IRegistryObjectState, registry } from "@/engine/scripts/core/database";
 import { getParamString } from "@/engine/scripts/utils/ini_config/config";
 import { getConfigString } from "@/engine/scripts/utils/ini_config/getters";
@@ -97,7 +98,7 @@ export class RestrictorManager {
         }
       }
 
-      if (exist_rest === false && v !== "nil") {
+      if (exist_rest === false && v !== STRINGIFIED_NIL) {
         table.insert(ins_restr, v);
       }
     }
@@ -145,7 +146,7 @@ export class RestrictorManager {
         }
       }
 
-      if (exist_rest === false && v !== "nil") {
+      if (exist_rest === false && v !== STRINGIFIED_NIL) {
         table.insert(ins_restr, v);
       }
     }

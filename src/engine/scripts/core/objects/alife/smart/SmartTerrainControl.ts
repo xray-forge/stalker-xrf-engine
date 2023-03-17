@@ -47,18 +47,8 @@ export class SmartTerrainControl {
     this.noweap_zone = getConfigString(ini, section, "noweap_zone", this, true, "");
     this.ignore_zone = getConfigString(ini, section, "ignore_zone", this, false, "");
 
-    this.alarm_start_sound = parseConditionsList(
-      smart,
-      section,
-      "alarm_start_sound",
-      getConfigString(ini, section, "alarm_start_sound", this, false, "")
-    );
-    this.alarm_stop_sound = parseConditionsList(
-      smart,
-      section,
-      "alarm_stop_sound",
-      getConfigString(ini, section, "alarm_stop_sound", this, false, "")
-    );
+    this.alarm_start_sound = parseConditionsList(getConfigString(ini, section, "alarm_start_sound", this, false, ""));
+    this.alarm_stop_sound = parseConditionsList(getConfigString(ini, section, "alarm_stop_sound", this, false, ""));
 
     this.smart = smart;
     this.status = ESmartTerrainStatus.NORMAL;

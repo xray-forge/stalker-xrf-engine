@@ -200,7 +200,7 @@ export class HeliFire {
     }
 
     if (this.enemy!.id() === this.fire_id) {
-      if (this.enemy_ !== "nil") {
+      if (this.enemy_ !== STRINGIFIED_NIL) {
         this.hit_count = this.hit_count + 1;
       } else {
         this.hit_count = 0;

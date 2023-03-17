@@ -150,45 +150,17 @@ export class TaskObject {
     this.condlist = new LuaTable();
 
     while (task_ini.line_exist(id, "condlist_" + i)) {
-      this.condlist.set(
-        i,
-        parseConditionsList(null, "task_manager", "condlist", task_ini.r_string(id, "condlist_" + i))
-      );
+      this.condlist.set(i, parseConditionsList(task_ini.r_string(id, "condlist_" + i)));
 
       i = i + 1;
     }
 
-    this.on_init = parseConditionsList(
-      null,
-      "task_manager",
-      "condlist",
-      getConfigString(task_ini, id, "on_init", null, false, "", "")
-    );
-    this.on_complete = parseConditionsList(
-      null,
-      "task_manager",
-      "condlist",
-      getConfigString(task_ini, id, "on_complete", null, false, "", "")
-    );
-    this.on_reversed = parseConditionsList(
-      null,
-      "task_manager",
-      "condlist",
-      getConfigString(task_ini, id, "on_reversed", null, false, "", "")
-    );
+    this.on_init = parseConditionsList(getConfigString(task_ini, id, "on_init", null, false, "", ""));
+    this.on_complete = parseConditionsList(getConfigString(task_ini, id, "on_complete", null, false, "", ""));
+    this.on_reversed = parseConditionsList(getConfigString(task_ini, id, "on_reversed", null, false, "", ""));
 
-    this.reward_money = parseConditionsList(
-      null,
-      "task_manager",
-      "condlist",
-      getConfigString(task_ini, id, "reward_money", null, false, "", "")
-    );
-    this.reward_item = parseConditionsList(
-      null,
-      "task_manager",
-      "condlist",
-      getConfigString(task_ini, id, "reward_item", null, false, "", "")
-    );
+    this.reward_money = parseConditionsList(getConfigString(task_ini, id, "reward_money", null, false, "", ""));
+    this.reward_item = parseConditionsList(getConfigString(task_ini, id, "reward_item", null, false, "", ""));
 
     this.community_relation_delta_fail = getConfigNumber(task_ini, id, "community_relation_delta_fail", null, false, 0);
     this.community_relation_delta_complete = getConfigNumber(

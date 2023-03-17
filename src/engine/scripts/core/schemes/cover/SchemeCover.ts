@@ -75,12 +75,7 @@ export class SchemeCover extends AbstractScheme {
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.smart = getConfigString(ini, section, "smart", object, false, "");
-    state.anim = parseConditionsList(
-      object,
-      "anim",
-      "anim",
-      getConfigString(ini, section, "anim", object, false, "", "hide")
-    );
+    state.anim = parseConditionsList(getConfigString(ini, section, "anim", object, false, "", "hide"));
     state.sound_idle = getConfigString(ini, section, "sound_idle", object, false, "");
 
     if (state.smart === null) {

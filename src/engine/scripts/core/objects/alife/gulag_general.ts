@@ -26,7 +26,7 @@ import {
   getSchemeByIniSection,
 } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
-import { parseConditionsList, parseWaypointData } from "@/engine/scripts/utils/parse";
+import { parseConditionsList, parseWaypointData, TConditionList } from "@/engine/scripts/utils/parse";
 import { isInTimeInterval } from "@/engine/scripts/utils/time";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -1139,7 +1139,7 @@ function add_exclusive_job(sect: TSection, work_field: string, smart_ini: XR_ini
     return;
   }
 
-  const condlist = parseConditionsList(null, "logic@" + work_field, "suitable", job_suitable);
+  const conditionsList: TConditionList = parseConditionsList(job_suitable);
 
   table.insert(job_table, {
     _prior: new_prior,
@@ -1151,7 +1151,7 @@ function add_exclusive_job(sect: TSection, work_field: string, smart_ini: XR_ini
       online: job_online,
       job_type: job_type,
     },
-    _precondition_params: { condlist: condlist },
+    _precondition_params: { condlist: conditionsList },
     _precondition_function: function (
       se_obj: XR_cse_alife_human_abstract,
       smart: SmartTerrain,

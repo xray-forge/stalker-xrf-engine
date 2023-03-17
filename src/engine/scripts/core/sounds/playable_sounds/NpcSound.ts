@@ -16,6 +16,7 @@ import {
 } from "xray16";
 
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
 import { AnyObject, Optional, TLabel, TName, TNumberId } from "@/engine/lib/types";
 import { IRegistryObjectState, registry } from "@/engine/scripts/core/database";
 import { NotificationManager } from "@/engine/scripts/core/managers/notifications/NotificationManager";
@@ -412,7 +413,7 @@ export class NpcSound extends AbstractPlayableSound {
   public override load(reader: XR_reader): void {
     const id: string = reader.r_stringZ();
 
-    this.played_id = id === "nil" ? null : tonumber(id)!;
+    this.played_id = id === STRINGIFIED_NIL ? null : tonumber(id)!;
 
     if (this.group_snd) {
       this.can_play_group_sound = reader.r_bool();

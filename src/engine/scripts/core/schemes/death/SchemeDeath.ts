@@ -78,7 +78,7 @@ export class SchemeDeath extends AbstractScheme {
       );
 
       if (onInfo !== null) {
-        state!.info = parseConditionsList(object, deathSection, "death", onInfo);
+        state!.info = parseConditionsList(onInfo);
       }
 
       const onInfo2: Optional<string> = getConfigString(
@@ -92,7 +92,7 @@ export class SchemeDeath extends AbstractScheme {
       );
 
       if (onInfo2 !== null) {
-        state!.info2 = parseConditionsList(object, deathSection, "death", onInfo2);
+        state!.info2 = parseConditionsList(onInfo2);
       }
     }
   }

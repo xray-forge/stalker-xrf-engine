@@ -62,14 +62,14 @@ export class SimulationObjectsRegistry {
       const [result, prop_name, prop_condlist] = SIMULATION_OBJECTS_PROPS_LTX.r_line(props_section, j, "", "");
 
       if (prop_name === "sim_avail") {
-        obj.sim_avail = parseConditionsList(null, "simulation_object", "sim_avail", prop_condlist);
+        obj.sim_avail = parseConditionsList(prop_condlist);
       } else {
         obj.props[prop_name] = prop_condlist;
       }
     }
 
     if (obj.sim_avail === null) {
-      obj.sim_avail = parseConditionsList(null, "simulation_object", "sim_avail", "true");
+      obj.sim_avail = parseConditionsList(STRINGIFIED_TRUE);
     }
   }
 

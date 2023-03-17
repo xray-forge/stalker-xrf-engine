@@ -55,10 +55,10 @@ export class ItemUpgradesManager extends AbstractCoreManager {
    */
   public setupDiscounts(): void {
     if (STALKER_UPGRADE_INFO.line_exist(this.currentMechanicName, "discount_condlist")) {
-      const condlist = STALKER_UPGRADE_INFO.r_string(this.currentMechanicName, "discount_condlist");
-      const parsed = parseConditionsList(registry.actor, null, null, condlist);
+      const data: string = STALKER_UPGRADE_INFO.r_string(this.currentMechanicName, "discount_condlist");
+      const conditionsList: TConditionList = parseConditionsList(data);
 
-      pickSectionFromCondList(registry.actor, null, parsed);
+      pickSectionFromCondList(registry.actor, null, conditionsList);
     }
   }
 
@@ -197,12 +197,7 @@ export class ItemUpgradesManager extends AbstractCoreManager {
         if (param === STRINGIFIED_FALSE) {
           return 1;
         } else if (param !== STRINGIFIED_TRUE) {
-          const possibility_table = parseConditionsList(
-            this.currentSpeaker,
-            this.currentMechanicName + "_upgr",
-            section,
-            param
-          );
+          const possibility_table = parseConditionsList(param);
           const possibility: Optional<TSection> = pickSectionFromCondList(
             registry.actor,
             this.currentSpeaker,
@@ -246,12 +241,7 @@ export class ItemUpgradesManager extends AbstractCoreManager {
         } else {
           this.upgradeHints = null;
 
-          const possibility_table = parseConditionsList(
-            this.currentSpeaker,
-            this.currentMechanicName + "_upgr",
-            section,
-            param
-          );
+          const possibility_table = parseConditionsList(param);
           const possibility = pickSectionFromCondList(actor, this.currentSpeaker, possibility_table);
 
           if (!possibility || possibility === STRINGIFIED_FALSE) {

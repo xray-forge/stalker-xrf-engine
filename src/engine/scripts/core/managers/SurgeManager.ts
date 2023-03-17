@@ -35,11 +35,11 @@ import { WeatherManager } from "@/engine/scripts/core/managers/WeatherManager";
 import { Squad } from "@/engine/scripts/core/objects/alife/Squad";
 import { isImmuneToSurge, isObjectOnLevel, isSurgeEnabledOnLevel } from "@/engine/scripts/utils/check/check";
 import { isStoryObject } from "@/engine/scripts/utils/check/is";
-import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { executeConsoleCommand } from "@/engine/scripts/utils/console";
 import { disableGameUiOnly } from "@/engine/scripts/utils/control";
 import { createScenarioAutoSave, setLoadMarker, setSaveMarker } from "@/engine/scripts/utils/game_save";
 import { giveInfo, hasAlifeInfo } from "@/engine/scripts/utils/info_portion";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/scripts/utils/parse";
 import { copyTable } from "@/engine/scripts/utils/table";
@@ -131,21 +131,21 @@ export class SurgeManager extends AbstractCoreManager {
     this.surgeManagerCondlist = new LuaTable();
     this.surgeSurviveCondlist = new LuaTable();
 
-    let cond_string: string = STRINGIFIED_TRUE;
+    let conditionString: string = STRINGIFIED_TRUE;
 
     if (SURGE_MANAGER_LTX.line_exist("settings", "condlist")) {
-      cond_string = SURGE_MANAGER_LTX.r_string("settings", "condlist");
+      conditionString = SURGE_MANAGER_LTX.r_string("settings", "condlist");
     }
 
-    this.surgeManagerCondlist = parseConditionsList(null, "surge_manager", "condlist", cond_string);
+    this.surgeManagerCondlist = parseConditionsList(conditionString);
 
-    cond_string = STRINGIFIED_FALSE;
+    conditionString = STRINGIFIED_FALSE;
 
     if (SURGE_MANAGER_LTX.line_exist("settings", "survive")) {
-      cond_string = SURGE_MANAGER_LTX.r_string("settings", "survive");
+      conditionString = SURGE_MANAGER_LTX.r_string("settings", "survive");
     }
 
-    this.surgeSurviveCondlist = parseConditionsList(null, "surge_manager", "survive_condlist", cond_string);
+    this.surgeSurviveCondlist = parseConditionsList(conditionString);
 
     this.initializeSurgeCovers();
 
@@ -168,9 +168,6 @@ export class SurgeManager extends AbstractCoreManager {
 
         if (SURGE_MANAGER_LTX.line_exist(id, "condlist")) {
           (this.covers.get(this.surgeCoversCount) as any).condlist = parseConditionsList(
-            null,
-            id,
-            "condlist",
             SURGE_MANAGER_LTX.r_string(id, "condlist")
           );
         }

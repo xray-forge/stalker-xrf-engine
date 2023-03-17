@@ -103,7 +103,7 @@ export class SchemeCombat extends AbstractScheme {
       }
 
       if (!state.combat_type && isZombied) {
-        state.combat_type = { condlist: parseConditionsList(object, section, "", communities.zombied) };
+        state.combat_type = { condlist: parseConditionsList(communities.zombied) };
       }
 
       if (state.combat_type) {

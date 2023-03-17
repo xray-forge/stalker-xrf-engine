@@ -23,7 +23,7 @@ import { squadCommunityByBehaviour } from "@/engine/lib/constants/behaviours";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { goodwill } from "@/engine/lib/constants/goodwill";
 import { info_portions } from "@/engine/lib/constants/info_portions";
-import { STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/lua";
+import { STRINGIFIED_FALSE, STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/lua";
 import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
 import { relations, TRelation } from "@/engine/lib/constants/relations";
 import { SMART_TERRAIN_SECT } from "@/engine/lib/constants/sections";
@@ -146,21 +146,12 @@ export class Squad<
   public init_squad(): void {
     this.player_id = getConfigString(SYSTEM_INI, this.settings_id, "faction", this, true, "") as TCommunity;
     this.action_condlist = parseConditionsList(
-      this,
-      "assign_action",
-      "target_smart",
       getConfigString(SYSTEM_INI, this.settings_id, "target_smart", this, false, "", "")
     );
     this.death_condlist = parseConditionsList(
-      this,
-      "death_condlist",
-      "on_death",
       getConfigString(SYSTEM_INI, this.settings_id, "on_death", this, false, "", "")
     );
     this.invulnerability = parseConditionsList(
-      this,
-      "invulnerability",
-      "invulnerability",
       getConfigString(SYSTEM_INI, this.settings_id, "invulnerability", this, false, "", "")
     );
     this.relationship =
@@ -168,10 +159,7 @@ export class Squad<
       (getConfigString(SYSTEM_INI, this.settings_id, "relationship", this, false, "", null) as TRelation);
     this.sympathy = getConfigNumber(SYSTEM_INI, this.settings_id, "sympathy", this, false, null);
     this.show_spot = parseConditionsList(
-      this,
-      "show_spot",
-      "show_spot",
-      getConfigString(SYSTEM_INI, this.settings_id, "show_spot", this, false, "", "false")
+      getConfigString(SYSTEM_INI, this.settings_id, "show_spot", this, false, "", STRINGIFIED_FALSE)
     );
 
     this.always_walk = getConfigBoolean(SYSTEM_INI, this.settings_id, "always_walk", this, false);
@@ -733,7 +721,7 @@ export class Squad<
     const spawnPoint: Optional<TName> = pickSectionFromCondList(
       registry.actor,
       this,
-      parseConditionsList(this, "spawn_point", "spawn_point", spawnPointData)
+      parseConditionsList(spawnPointData)
     )!;
 
     let base_spawn_position: XR_vector = spawn_smart.position;

@@ -59,21 +59,18 @@ describe("'ini_data' parsing utils", () => {
   });
 
   it("Should correctly parse condition lists", () => {
-    expect(luaTableToArray(parseConditionsList(null, null, null, "{+zat_b104_task_end}4,0"))).toStrictEqual([
+    expect(luaTableToArray(parseConditionsList("{+zat_b104_task_end}4,0"))).toStrictEqual([
       { infop_check: { 1: { name: "zat_b104_task_end", required: true } }, infop_set: {}, section: "4" },
       { infop_check: {}, section: "0", infop_set: {} },
     ]);
 
-    expect(luaTableToArray(parseConditionsList(null, null, null, "zat_b28_heli_3_crash_name"))).toStrictEqual([
+    expect(luaTableToArray(parseConditionsList("zat_b28_heli_3_crash_name"))).toStrictEqual([
       { infop_check: {}, section: "zat_b28_heli_3_crash_name", infop_set: {} },
     ]);
 
     expect(
       luaTableToArray(
         parseConditionsList(
-          null,
-          null,
-          null,
           "{+jup_b218_pripyat_group_gathering}0,{+zat_b28_heli_3_searched}4," +
             "{+zat_b100_heli_2_searched}4,{+zat_b101_heli_5_searched}4,0"
         )
@@ -93,9 +90,6 @@ describe("'ini_data' parsing utils", () => {
     expect(
       luaTableToArray(
         parseConditionsList(
-          null,
-          null,
-          null,
           "{+zat_b57_bloodsucker_lair_clear}0,{+zat_b38_disappearance_stalkers_meet_cop_later_give}1," +
             "{+zat_b38_failed}3,0"
         )
@@ -112,7 +106,7 @@ describe("'ini_data' parsing utils", () => {
     ]);
 
     expect(
-      luaTableToArray(parseConditionsList(null, null, null, "sr_idle@end%=create_squad(zat_b56_polter_squad:zat_b56)%"))
+      luaTableToArray(parseConditionsList("sr_idle@end%=create_squad(zat_b56_polter_squad:zat_b56)%"))
     ).toStrictEqual([
       {
         infop_check: {},
@@ -126,9 +120,6 @@ describe("'ini_data' parsing utils", () => {
     expect(
       luaTableToArray(
         parseConditionsList(
-          null,
-          null,
-          null,
           "{-zat_b42_mayron_spawn}sr_idle%=spawn_corpse(zat_b42_mayron:zat_b42_mayron_walk)+zat_b42_mayron_spawn%"
         )
       )

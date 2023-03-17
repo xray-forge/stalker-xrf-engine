@@ -11,8 +11,8 @@ import {
   ECoverState,
   ISchemeSmartCoverState,
 } from "@/engine/scripts/core/schemes/smartcover/ISchemeSmartCoverState";
-import { getParamString, pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { abort } from "@/engine/scripts/utils/debug";
+import { getParamString, pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseConditionsList } from "@/engine/scripts/utils/parse";
 
@@ -108,10 +108,10 @@ export class ActionSmartCoverActivity extends action_base {
       // -- ���� � ���������� ����� ����� �������� (�������� ��� �����������, �������)
       set_state(this.object, "smartcover", null, null, null, null);
 
-      this.target_path_condlist = parseConditionsList(object, null, "target_path", this.state.target_path);
+      this.target_path_condlist = parseConditionsList(this.state.target_path);
       this.check_target();
 
-      this.cover_condlist = parseConditionsList(object, null, "cover_state", this.state.cover_state);
+      this.cover_condlist = parseConditionsList(this.state.cover_state);
       this.cover_state = pickSectionFromCondList(registry.actor, object, this.cover_condlist) as ECoverState;
       this.target_selector(this.object);
       this.check_target_selector();
@@ -149,12 +149,12 @@ export class ActionSmartCoverActivity extends action_base {
 
     const target_path_section = pickSectionFromCondList(registry.actor, this.object, this.target_path_condlist);
 
-    if (target_path_section !== "nil" && target_path_section !== null) {
+    if (target_path_section !== STRINGIFIED_NIL && target_path_section !== null) {
       const [target_path, used] = getParamString(target_path_section, object);
 
       this.target_path = target_path;
 
-      if (this.target_path !== "nil") {
+      if (this.target_path !== STRINGIFIED_NIL) {
         if (level.patrol_path_exists(this.target_path)) {
           // --printf("target_selector:using fire_point[%s] for npc[%s]!!!", this.target_path, this.object.name())
           object.set_smart_cover_target(new patrol(this.target_path).point(0));

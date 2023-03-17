@@ -17,9 +17,9 @@ import { registry, SECRETS_LTX } from "@/engine/scripts/core/database";
 import { AbstractCoreManager } from "@/engine/scripts/core/managers/AbstractCoreManager";
 import { NotificationManager } from "@/engine/scripts/core/managers/notifications/NotificationManager";
 import { StatisticsManager } from "@/engine/scripts/core/managers/StatisticsManager";
-import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { abort } from "@/engine/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/engine/scripts/utils/game_save";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseConditionsList, parseSpawnDetails, TConditionList } from "@/engine/scripts/utils/parse";
 
@@ -88,19 +88,19 @@ export class TreasureManager extends AbstractCoreManager {
         const item_section: string = "";
 
         for (const i of $range(0, items_count - 1)) {
-          const [result, item_section, str] = SECRETS_LTX.r_line(id, i, "", "");
+          const [result, itemSection, data] = SECRETS_LTX.r_line(id, i, "", "");
 
-          if (item_section === "empty") {
-            this.secrets.get(id).empty = parseConditionsList(null, "treasure_manager", "empty_cond", str);
-          } else if (item_section === "refreshing") {
-            this.secrets.get(id).refreshing = parseConditionsList(null, "treasure_manager", "refreshing_cond", str);
+          if (itemSection === "empty") {
+            this.secrets.get(id).empty = parseConditionsList(data);
+          } else if (itemSection === "refreshing") {
+            this.secrets.get(id).refreshing = parseConditionsList(data);
           } else {
-            this.secrets.get(id).items.set(item_section, new LuaTable());
+            this.secrets.get(id).items.set(itemSection, new LuaTable());
 
-            const spawnDetails = parseSpawnDetails(str);
+            const spawnDetails = parseSpawnDetails(data);
 
             if (spawnDetails.length() === 0) {
-              abort("There is no items count set for treasure [%s], item [%s]", id, item_section);
+              abort("There is no items count set for treasure [%s], item [%s]", id, itemSection);
             }
 
             for (const [index, it] of spawnDetails) {
@@ -109,7 +109,7 @@ export class TreasureManager extends AbstractCoreManager {
                 prob: tonumber(it.probability || 1),
               };
 
-              table.insert(this.secrets.get(id).items.get(item_section) as LuaTable<any>, detail);
+              table.insert(this.secrets.get(id).items.get(itemSection) as LuaTable<any>, detail);
             }
           }
         }

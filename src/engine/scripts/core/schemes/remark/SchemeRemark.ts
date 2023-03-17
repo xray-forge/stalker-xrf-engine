@@ -1,5 +1,6 @@
 import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
 import { AbstractScheme } from "@/engine/scripts/core/schemes/base/AbstractScheme";
 import { action_ids } from "@/engine/scripts/core/schemes/base/actions_id";
@@ -77,19 +78,14 @@ export class SchemeRemark extends AbstractScheme {
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.snd_anim_sync = getConfigBoolean(ini, section, "snd_anim_sync", object, false);
     state.snd = getConfigString(ini, section, "snd", object, false, "", null);
-    state.anim = parseConditionsList(
-      object,
-      "anim",
-      "anim",
-      getConfigString(ini, section, "anim", object, false, "", "wait")
-    );
+    state.anim = parseConditionsList(getConfigString(ini, section, "anim", object, false, "", "wait"));
     state.tips_id = getConfigString(ini, section, "tips", object, false, "");
 
     if (state.tips_id !== null) {
       state.sender = getConfigString(ini, section, "tips_sender", object, false, "");
     }
 
-    state.target = getConfigString(ini, section, "target", object, false, "", "nil");
+    state.target = getConfigString(ini, section, "target", object, false, "", STRINGIFIED_NIL);
     state.target_id = null;
     state.target_position = null;
   }

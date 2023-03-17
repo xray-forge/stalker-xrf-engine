@@ -23,7 +23,7 @@ import { setLoadMarker, setSaveMarker } from "@/engine/scripts/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { getConfigNumber, getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
-import { parseConditionsList, parseNames, parseNumbers } from "@/engine/scripts/utils/parse";
+import { parseConditionsList, parseNames, parseNumbers, TConditionList } from "@/engine/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -220,8 +220,8 @@ export class AnomalyZoneBinder extends object_binder {
         "",
         defaultCoeffSectionName
       );
-      const parsedCondlist = parseConditionsList(null, "anomal_zone_binder", "coeff_condlist", coeffsSection);
-      const coeffsSectionName = pickSectionFromCondList(registry.actor, null, parsedCondlist)!;
+      const conditionsList: TConditionList = parseConditionsList(coeffsSection);
+      const coeffsSectionName = pickSectionFromCondList(registry.actor, null, conditionsList)!;
       const coeffs: Optional<string> = getConfigString(ini, section, coeffsSectionName, null, false, "", defaultCoeffs);
       /**
        * end todo;

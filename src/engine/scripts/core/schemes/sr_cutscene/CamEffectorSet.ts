@@ -1,6 +1,7 @@
 import { device, level, XR_game_object } from "xray16";
 
-import { EScheme, Optional } from "@/engine/lib/types";
+import { STRINGIFIED_FALSE } from "@/engine/lib/constants/lua";
+import { Optional } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import {
   EEffectorState,
@@ -14,8 +15,10 @@ import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/scripts/utils/parse";
 
 const logger: LuaLogger = new LuaLogger($filename);
-const CAM_EFFECTOR_SET_SECTION: string = EScheme.SR_CUTSCENE;
 
+/**
+ * todo;
+ */
 export class CamEffectorSet {
   public set: TCamEffectorSetDescriptor;
   public st: ISchemeCutsceneState;
@@ -78,7 +81,7 @@ export class CamEffectorSet {
       if (eff && eff.looped !== false) {
         const cond = pickSectionFromCondList(registry.actor, null, this.condlist);
 
-        if (cond === "false") {
+        if (cond === STRINGIFIED_FALSE) {
           this.looped = false;
           // --                this.stop_effect()
         }
@@ -92,6 +95,9 @@ export class CamEffectorSet {
     }
   }
 
+  /**
+   * todo;
+   */
   public select_effect(): Optional<ICamEffectorSetDescriptorItem> {
     const state = this.state;
     const actor: XR_game_object = registry.actor;
@@ -106,26 +112,16 @@ export class CamEffectorSet {
       if (this.set.start.get(cur_effect) !== null) {
         this.cur_effect = cur_effect;
         if (type(this.set.start.get(cur_effect).enabled) === "string") {
-          const condlist = parseConditionsList(
-            actor,
-            CAM_EFFECTOR_SET_SECTION,
-            "enabled_condlist",
-            this.set.start.get(cur_effect).enabled!
-          );
+          const conditionsList: TConditionList = parseConditionsList(this.set.start.get(cur_effect).enabled!);
 
-          if (pickSectionFromCondList(actor, null, condlist) === "false") {
+          if (pickSectionFromCondList(actor, null, conditionsList) === STRINGIFIED_FALSE) {
             return this.select_effect();
           }
         }
 
         if (type(this.set.start.get(cur_effect).looped) === "string") {
           this.looped = true;
-          this.condlist = parseConditionsList(
-            actor,
-            CAM_EFFECTOR_SET_SECTION,
-            "effect_condlist",
-            this.set.start.get(cur_effect).looped as any
-          );
+          this.condlist = parseConditionsList(this.set.start.get(cur_effect).looped as any);
         }
 
         return this.set.start.get(cur_effect);
@@ -140,26 +136,16 @@ export class CamEffectorSet {
       if (this.set.idle.get(cur_effect) !== null) {
         this.cur_effect = cur_effect;
         if (type(this.set.idle.get(cur_effect).enabled) === "string") {
-          const condlist = parseConditionsList(
-            actor,
-            CAM_EFFECTOR_SET_SECTION,
-            "enabled_condlist",
-            this.set.idle.get(cur_effect).enabled as any
-          );
+          const conditionsList: TConditionList = parseConditionsList(this.set.idle.get(cur_effect).enabled as any);
 
-          if (pickSectionFromCondList(actor, null, condlist) === "false") {
+          if (pickSectionFromCondList(actor, null, conditionsList) === STRINGIFIED_FALSE) {
             return this.select_effect();
           }
         }
 
         if (type(this.set.idle.get(cur_effect).looped) === "string") {
           this.looped = true;
-          this.condlist = parseConditionsList(
-            actor,
-            CAM_EFFECTOR_SET_SECTION,
-            "effect_condlist",
-            this.set.idle.get(cur_effect).looped as any
-          );
+          this.condlist = parseConditionsList(this.set.idle.get(cur_effect).looped as any);
         }
 
         return this.set.idle.get(cur_effect);
@@ -175,12 +161,7 @@ export class CamEffectorSet {
         this.cur_effect = cur_effect;
 
         if (type(this.set.finish.get(cur_effect).enabled) === "string") {
-          const condlist = parseConditionsList(
-            actor,
-            CAM_EFFECTOR_SET_SECTION,
-            "enabled_condlist",
-            this.set.finish.get(cur_effect).enabled as any
-          );
+          const condlist = parseConditionsList(this.set.finish.get(cur_effect).enabled as any);
 
           if (pickSectionFromCondList(actor, null, condlist) === "false") {
             return this.select_effect();
@@ -189,12 +170,7 @@ export class CamEffectorSet {
 
         if (type(this.set.finish.get(cur_effect).looped) === "string") {
           this.looped = true;
-          this.condlist = parseConditionsList(
-            actor,
-            CAM_EFFECTOR_SET_SECTION,
-            "effect_condlist",
-            this.set.finish.get(cur_effect).looped as any
-          );
+          this.condlist = parseConditionsList(this.set.finish.get(cur_effect).looped as any);
         }
 
         return this.set.finish.get(cur_effect);

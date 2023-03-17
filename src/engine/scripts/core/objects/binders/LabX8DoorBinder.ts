@@ -13,6 +13,7 @@ import {
   XR_sound_object,
 } from "xray16";
 
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
 import { Optional } from "@/engine/lib/types";
 import { registry, resetObject } from "@/engine/scripts/core/database";
 import { registerDoorObject, unregisterDoorObject } from "@/engine/scripts/core/database/doors";
@@ -100,24 +101,19 @@ export class LabX8DoorBinder extends object_binder {
       "device\\airtight_door_stop"
     );
 
-    if (idle_snd !== null && idle_snd !== "nil") {
+    if (idle_snd !== null && idle_snd !== STRINGIFIED_NIL) {
       this.idle_snd = new sound_object(idle_snd);
     }
 
-    if (start_snd !== null && start_snd !== "nil") {
+    if (start_snd !== null && start_snd !== STRINGIFIED_NIL) {
       this.start_snd = new sound_object(start_snd);
     }
 
-    if (stop_snd !== null && stop_snd !== "nil") {
+    if (stop_snd !== null && stop_snd !== STRINGIFIED_NIL) {
       this.stop_snd = new sound_object(stop_snd);
     }
 
-    this.tip = parseConditionsList(
-      null,
-      "door_binder_labx8",
-      "tip_condlist",
-      getConfigString(ini, ANIMATED_OBJECT_SECT, "tip", null, false, "", "none")
-    );
+    this.tip = parseConditionsList(getConfigString(ini, ANIMATED_OBJECT_SECT, "tip", null, false, "", "none"));
 
     let on_use = "true";
     let on_start = "true";
@@ -127,19 +123,19 @@ export class LabX8DoorBinder extends object_binder {
       on_use = ini.r_string(ANIMATED_OBJECT_SECT, "on_use");
     }
 
-    this.on_use = parseConditionsList(null, "door_binder_labx8", "on_use", on_use);
+    this.on_use = parseConditionsList(on_use);
 
     if (ini.line_exist(ANIMATED_OBJECT_SECT, "on_start")) {
       on_start = ini.r_string(ANIMATED_OBJECT_SECT, "on_start");
     }
 
-    this.on_start = parseConditionsList(null, "door_binder_labx8", "on_start", on_start);
+    this.on_start = parseConditionsList(on_start);
 
     if (ini.line_exist(ANIMATED_OBJECT_SECT, "on_stop")) {
       on_stop = ini.r_string(ANIMATED_OBJECT_SECT, "on_stop");
     }
 
-    this.on_stop = parseConditionsList(null, "door_binder_labx8", "on_stop", on_stop);
+    this.on_stop = parseConditionsList(on_stop);
     this.idle_delay = getConfigNumber(ini, ANIMATED_OBJECT_SECT, "idle_delay", null, false, 2000);
     this.start_delay = getConfigNumber(ini, ANIMATED_OBJECT_SECT, "start_delay", null, false, 0);
   }

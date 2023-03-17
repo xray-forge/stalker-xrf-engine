@@ -313,7 +313,7 @@ export function initializeObjectCanSelectWeaponState(
     data = getConfigString(state.ini, state.section_logic, "can_select_weapon", object, false, "", STRINGIFIED_TRUE);
   }
 
-  const conditionsList: TConditionList = parseConditionsList(object, section, "can_select_weapon", data);
+  const conditionsList: TConditionList = parseConditionsList(data);
   const canSelectSection: TSection = pickSectionFromCondList(registry.actor, object, conditionsList)!;
 
   object.can_select_weapon(canSelectSection === STRINGIFIED_TRUE);
@@ -338,14 +338,7 @@ export function isObjectInvulnerabilityNeeded(object: XR_game_object): boolean {
     return false;
   }
 
-  const conditionsList: TConditionList = parseConditionsList(
-    object,
-    "invulnerability",
-    "invulnerability",
-    invulnerability
-  );
-
-  return pickSectionFromCondList(registry.actor, object, conditionsList) === STRINGIFIED_TRUE;
+  return pickSectionFromCondList(registry.actor, object, parseConditionsList(invulnerability)) === STRINGIFIED_TRUE;
 }
 
 /**

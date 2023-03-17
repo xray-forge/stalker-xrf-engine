@@ -1,6 +1,7 @@
 import { alife, XR_alife_simulator, XR_cse_alife_object, XR_game_object, XR_ini_file } from "xray16";
 
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
 import {
   AnyCallablesModule,
   AnyObject,
@@ -56,7 +57,7 @@ export function getInfosFromData(object: XR_game_object, data: Optional<string>)
 
   if (data !== null) {
     for (const name of string.gfind(data, "(%|*[^%|]+%|*)%p*")) {
-      const conditionsList: Optional<TConditionList> = parseConditionsList(object, "in", name, name);
+      const conditionsList: Optional<TConditionList> = parseConditionsList(name);
 
       if (conditionsList !== null) {
         table.insert(infos, pickSectionFromCondList(actor, object, conditionsList) as TInfoPortion);
@@ -232,7 +233,7 @@ export function getObjectConfigOverrides(ini: XR_ini_file, section: TSection, ob
   const heliHunter: Optional<string> = getConfigString(ini, section, "heli_hunter", object, false, "");
 
   if (heliHunter !== null) {
-    overrides.heli_hunter = parseConditionsList(object, section, "heli_hunter", heliHunter);
+    overrides.heli_hunter = parseConditionsList(heliHunter);
   }
 
   overrides.combat_ignore = getConfigConditionList(ini, section, "combat_ignore_cond", object);
@@ -268,17 +269,11 @@ export function getObjectConfigOverrides(ini: XR_ini_file, section: TSection, ob
 
   if (ini.line_exist(section, "on_offline")) {
     overrides.on_offline_condlist = parseConditionsList(
-      object,
-      section,
-      "on_offline",
-      getConfigString(ini, section, "on_offline", object, false, "", "nil")
+      getConfigString(ini, section, "on_offline", object, false, "", STRINGIFIED_NIL)
     );
   } else {
     overrides.on_offline_condlist = parseConditionsList(
-      object,
-      state.section_logic,
-      "on_offline",
-      getConfigString(ini, state.section_logic, "on_offline", object, false, "", "nil")
+      getConfigString(ini, state.section_logic, "on_offline", object, false, "", STRINGIFIED_NIL)
     );
   }
 

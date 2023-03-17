@@ -151,7 +151,7 @@ export function getConfigConditionList(
 
   return {
     name: field,
-    condlist: parseConditionsList(object, section, field, parameters.get(1)),
+    condlist: parseConditionsList(parameters.get(1)),
     npc_id: null,
     v1: null,
     v2: null,
@@ -181,7 +181,7 @@ export function getConfigStringAndCondList(
 
   return {
     name: field,
-    condlist: parseConditionsList(object, section, field, parameters.get(2)),
+    condlist: parseConditionsList(parameters.get(2)),
     npc_id: null,
     v1: parameters.get(1),
     v2: null,
@@ -231,7 +231,7 @@ export function getConfigNumberAndConditionList(
   return {
     name: field,
     v1: tonumber(params.get(1))!,
-    condlist: parseConditionsList(object, section, field, params.get(2)),
+    condlist: parseConditionsList(params.get(2)),
     npc_id: null,
     v2: null,
   };
@@ -262,7 +262,7 @@ export function getConfigStringAndConditionList(
 
   return {
     name: field,
-    condlist: parseConditionsList(object, section, field, parameters.get(2)),
+    condlist: parseConditionsList(parameters.get(2)),
     npc_id: null,
     v1: parameters.get(1),
     v2: null,
@@ -294,7 +294,7 @@ export function getConfigTwoStringsAndConditionsList(
 
   return {
     name: field,
-    condlist: parseConditionsList(object, section, field, parameters.get(3)),
+    condlist: parseConditionsList(parameters.get(3)),
     npc_id: null,
     v1: parameters.get(1),
     v2: parameters.get(2),

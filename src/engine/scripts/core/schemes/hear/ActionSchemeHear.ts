@@ -59,7 +59,7 @@ export class ActionSchemeHear extends AbstractScheme {
         state.hearInfo[parameters.get(1)][parameters.get(2)] = {
           dist: tonumber(parameters.get(3)) as TDistance,
           power: tonumber(parameters.get(4)) as TRate,
-          condlist: parseConditionsList(object, "hear_callback", "hear_callback", parameters.get(5)),
+          condlist: parseConditionsList(parameters.get(5)),
         };
       }
     }

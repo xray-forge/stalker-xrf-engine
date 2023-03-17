@@ -1,5 +1,6 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
 import { AbstractScheme, ESchemeEvent } from "@/engine/scripts/core/schemes/base";
 import { issueSchemeEvent } from "@/engine/scripts/core/schemes/issueSchemeEvent";
@@ -46,7 +47,7 @@ export class SchemeCutscene extends AbstractScheme {
     state.point = getConfigString(ini, section, "point", object, true, "", "none");
     state.look = getConfigString(ini, section, "look", object, true, "", "none");
     state.global_cameffect = getConfigBoolean(ini, section, "global_cameffect", object, false, false);
-    state.pp_effector = getConfigString(ini, section, "pp_effector", object, false, "", "nil") + ".ppe";
+    state.pp_effector = getConfigString(ini, section, "pp_effector", object, false, "", STRINGIFIED_NIL) + ".ppe";
     state.cam_effector = parseNames(getConfigString(ini, section, "cam_effector", object, true, ""));
     state.fov = getConfigNumber(ini, section, "fov", object, true);
     state.enable_ui_on_end = getConfigBoolean(ini, section, "enable_ui_on_end", object, false, true);

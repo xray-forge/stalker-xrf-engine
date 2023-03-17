@@ -158,7 +158,7 @@ export class HeliCombat {
     );
 
     if (combat_ignore !== null) {
-      this.combat_ignore = parseConditionsList(this.object, section, "combat_ignore", combat_ignore);
+      this.combat_ignore = parseConditionsList(combat_ignore);
     } else {
       this.combat_ignore = null;
     }

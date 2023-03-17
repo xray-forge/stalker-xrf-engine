@@ -192,147 +192,80 @@ export class SchemeMeet extends AbstractScheme {
     }
 
     if (tostring(section) === "no_meet") {
-      state.close_distance = parseConditionsList(object, section, "close_distance", "0");
-      state.close_anim = parseConditionsList(object, section, "close_anim", "nil");
-      state.close_snd_distance = parseConditionsList(object, section, "close_distance", "0");
-      state.close_snd_hello = parseConditionsList(object, section, "close_snd_hello", "nil");
-      state.close_snd_bye = parseConditionsList(object, section, "close_snd_bye", "nil");
-      state.close_victim = parseConditionsList(object, section, "close_victim", "nil");
+      state.close_distance = parseConditionsList("0");
+      state.close_anim = parseConditionsList(STRINGIFIED_NIL);
+      state.close_snd_distance = parseConditionsList("0");
+      state.close_snd_hello = parseConditionsList(STRINGIFIED_NIL);
+      state.close_snd_bye = parseConditionsList(STRINGIFIED_NIL);
+      state.close_victim = parseConditionsList(STRINGIFIED_NIL);
 
-      state.far_distance = parseConditionsList(object, section, "far_distance", "0");
-      state.far_anim = parseConditionsList(object, section, "far_anim", "nil");
-      state.far_snd_distance = parseConditionsList(object, section, "far_distance", "0");
-      state.far_snd = parseConditionsList(object, section, "far_snd", "nil");
-      state.far_victim = parseConditionsList(object, section, "far_victim", "nil");
+      state.far_distance = parseConditionsList("0");
+      state.far_anim = parseConditionsList(STRINGIFIED_NIL);
+      state.far_snd_distance = parseConditionsList("0");
+      state.far_snd = parseConditionsList(STRINGIFIED_NIL);
+      state.far_victim = parseConditionsList(STRINGIFIED_NIL);
 
-      state.snd_on_use = parseConditionsList(object, section, "snd_on_use", "nil");
-      state.use = parseConditionsList(object, section, "use", STRINGIFIED_FALSE);
-      state.meet_dialog = parseConditionsList(object, section, "meet_dialog", "nil");
-      state.abuse = parseConditionsList(object, section, "abuse", STRINGIFIED_FALSE);
-      state.trade_enable = parseConditionsList(object, section, "trade_enable", STRINGIFIED_TRUE);
-      state.allow_break = parseConditionsList(object, section, "allow_break", STRINGIFIED_TRUE);
-      state.meet_on_talking = parseConditionsList(object, section, "meet_on_talking", STRINGIFIED_FALSE);
-      state.use_text = parseConditionsList(object, section, "use_text", "nil");
+      state.snd_on_use = parseConditionsList(STRINGIFIED_NIL);
+      state.use = parseConditionsList(STRINGIFIED_FALSE);
+      state.meet_dialog = parseConditionsList(STRINGIFIED_NIL);
+      state.abuse = parseConditionsList(STRINGIFIED_FALSE);
+      state.trade_enable = parseConditionsList(STRINGIFIED_TRUE);
+      state.allow_break = parseConditionsList(STRINGIFIED_TRUE);
+      state.meet_on_talking = parseConditionsList(STRINGIFIED_FALSE);
+      state.use_text = parseConditionsList(STRINGIFIED_NIL);
 
       state.reset_distance = 30;
       state.meet_only_at_path = true;
     } else {
       state.close_distance = parseConditionsList(
-        object,
-        section,
-        "close_distance",
         getConfigString(ini, section, "close_distance", object, false, "", def.close_distance)
       );
       state.close_anim = parseConditionsList(
-        object,
-        section,
-        "close_anim",
         getConfigString(ini, section, "close_anim", object, false, "", def.close_anim)
       );
       state.close_snd_distance = parseConditionsList(
-        object,
-        section,
-        "close_snd_distance",
         getConfigString(ini, section, "close_snd_distance", object, false, "", def.close_distance)
       );
       state.close_snd_hello = parseConditionsList(
-        object,
-        section,
-        "close_snd_hello",
         getConfigString(ini, section, "close_snd_hello", object, false, "", def.close_snd_hello)
       );
       state.close_snd_bye = parseConditionsList(
-        object,
-        section,
-        "close_snd_bye",
         getConfigString(ini, section, "close_snd_bye", object, false, "", def.close_snd_bye)
       );
       state.close_victim = parseConditionsList(
-        object,
-        section,
-        "close_victim",
         getConfigString(ini, section, "close_victim", object, false, "", def.close_victim)
       );
 
       state.far_distance = parseConditionsList(
-        object,
-        section,
-        "far_distance",
         getConfigString(ini, section, "far_distance", object, false, "", def.far_distance)
       );
-      state.far_anim = parseConditionsList(
-        object,
-        section,
-        "far_anim",
-        getConfigString(ini, section, "far_anim", object, false, "", def.far_anim)
-      );
+      state.far_anim = parseConditionsList(getConfigString(ini, section, "far_anim", object, false, "", def.far_anim));
       state.far_snd_distance = parseConditionsList(
-        object,
-        section,
-        "far_snd_distance",
         getConfigString(ini, section, "far_snd_distance", object, false, "", def.far_snd_distance)
       );
-      state.far_snd = parseConditionsList(
-        object,
-        section,
-        "far_snd",
-        getConfigString(ini, section, "far_snd", object, false, "", def.far_snd)
-      );
+      state.far_snd = parseConditionsList(getConfigString(ini, section, "far_snd", object, false, "", def.far_snd));
       state.far_victim = parseConditionsList(
-        object,
-        section,
-        "far_victim",
         getConfigString(ini, section, "far_victim", object, false, "", def.far_victim)
       );
 
       state.snd_on_use = parseConditionsList(
-        object,
-        section,
-        "snd_on_use",
         getConfigString(ini, section, "snd_on_use", object, false, "", def.snd_on_use)
       );
-      state.use = parseConditionsList(
-        object,
-        section,
-        "use",
-        getConfigString(ini, section, "use", object, false, "", def.use)
-      );
+      state.use = parseConditionsList(getConfigString(ini, section, "use", object, false, "", def.use));
       state.meet_dialog = parseConditionsList(
-        object,
-        section,
-        "meet_dialog",
         getConfigString(ini, section, "meet_dialog", object, false, "", def.meet_dialog)
       );
-      state.abuse = parseConditionsList(
-        object,
-        section,
-        "abuse",
-        getConfigString(ini, section, "abuse", object, false, "", def.abuse)
-      );
+      state.abuse = parseConditionsList(getConfigString(ini, section, "abuse", object, false, "", def.abuse));
       state.trade_enable = parseConditionsList(
-        object,
-        section,
-        "trade_enable",
         getConfigString(ini, section, "trade_enable", object, false, "", def.trade_enable)
       );
       state.allow_break = parseConditionsList(
-        object,
-        section,
-        "allow_break",
         getConfigString(ini, section, "allow_break", object, false, "", def.allow_break)
       );
       state.meet_on_talking = parseConditionsList(
-        object,
-        section,
-        "meet_on_talking",
         getConfigString(ini, section, "meet_on_talking", object, false, "", def.meet_on_talking)
       );
-      state.use_text = parseConditionsList(
-        object,
-        section,
-        "use_text",
-        getConfigString(ini, section, "use_text", object, false, "", def.use_text)
-      );
+      state.use_text = parseConditionsList(getConfigString(ini, section, "use_text", object, false, "", def.use_text));
 
       state.reset_distance = 30;
       state.meet_only_at_path = true;

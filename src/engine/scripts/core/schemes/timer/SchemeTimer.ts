@@ -81,7 +81,7 @@ function parse_data(object: XR_game_object, str: Optional<string>): LuaArray<{ d
 
       table.insert(data, {
         dist: tonumber(dist)!,
-        state: state === null ? null : parseConditionsList(object, dist, state, state),
+        state: state === null ? null : parseConditionsList(state),
       });
     }
   }

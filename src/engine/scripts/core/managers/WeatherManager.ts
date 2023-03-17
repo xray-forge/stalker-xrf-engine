@@ -1,5 +1,6 @@
 import { level, XR_net_packet, XR_reader } from "xray16";
 
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
 import { Optional } from "@/engine/lib/types";
 import { DYNAMIC_WEATHER_GRAPHS, GAME_LTX, registry } from "@/engine/scripts/core/database";
 import { AbstractCoreManager } from "@/engine/scripts/core/managers/AbstractCoreManager";
@@ -47,9 +48,9 @@ export class WeatherManager extends AbstractCoreManager {
     }
 
     if (weather === "[default]") {
-      this.weather_list = parseConditionsList(registry.actor, level.name(), "weather", "[default]");
+      this.weather_list = parseConditionsList("[default]");
     } else {
-      this.weather_list = parseConditionsList(registry.actor, level.name(), "weather", weather);
+      this.weather_list = parseConditionsList(weather);
     }
 
     this.select_weather(true);
@@ -271,7 +272,7 @@ export class WeatherManager extends AbstractCoreManager {
 
     const str = reader.r_stringZ();
 
-    if (str !== "nil") {
+    if (str !== STRINGIFIED_NIL) {
       this.weather_fx = str;
       this.wfx_time = reader.r_float();
     }

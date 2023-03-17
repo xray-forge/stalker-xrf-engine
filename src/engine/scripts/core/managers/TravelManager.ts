@@ -44,10 +44,10 @@ import { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTer
 import { Squad } from "@/engine/scripts/core/objects/alife/Squad";
 import { TSimulationObject } from "@/engine/scripts/core/objects/alife/types";
 import { getAlifeCharacterCommunity, getObjectSquad, getServerDistanceBetween } from "@/engine/scripts/utils/alife";
-import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { abort } from "@/engine/scripts/utils/debug";
 import { createScenarioAutoSave } from "@/engine/scripts/utils/game_save";
 import { getObjectBoundSmart } from "@/engine/scripts/utils/gulag";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/scripts/utils/parse";
 
@@ -116,12 +116,7 @@ export class TravelManager extends AbstractCoreManager {
       this.smartTravelDescriptorsByName.set(name, {
         name: TRAVEL_MANAGER_LTX.r_string(name, TravelManager.NAME_LTX_SECTION),
         level: TRAVEL_MANAGER_LTX.r_string(name, TravelManager.LEVEL_LTX_SECTION),
-        condlist: parseConditionsList(
-          registry.actor,
-          name,
-          TravelManager.CLOSE_DISTANCE_LTX_SECTION,
-          TRAVEL_MANAGER_LTX.r_string(name, "condlist")
-        ),
+        condlist: parseConditionsList(TRAVEL_MANAGER_LTX.r_string(name, "condlist")),
         phrase_id: phraseId,
       });
     }

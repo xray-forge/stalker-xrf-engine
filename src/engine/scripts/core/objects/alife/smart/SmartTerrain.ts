@@ -304,7 +304,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
         respawnSectorData = "all";
       }
 
-      this.respawn_sector = parseConditionsList(null, SMART_TERRAIN_SECT, "respawn_sector", respawnSectorData);
+      this.respawn_sector = parseConditionsList(respawnSectorData);
     } else {
       this.respawn_sector = null;
     }
@@ -324,7 +324,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
     this.arrive_dist = getConfigNumber(ini, SMART_TERRAIN_SECT, "arrive_dist", this, false, 30);
 
     const max_population: string = getConfigString(ini, SMART_TERRAIN_SECT, "max_population", this, false, "", "0");
-    const parsed_condlist = parseConditionsList(null, SMART_TERRAIN_SECT, "max_population", max_population);
+    const parsed_condlist = parseConditionsList(max_population);
 
     this.max_population = tonumber(pickSectionFromCondList(registry.actor, null, parsed_condlist))!;
 
@@ -681,7 +681,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
       const obj_storage = registry.objects.get(npcInfo.se_obj.id);
 
       if (obj_storage !== null) {
-        switchToSection(obj_storage.object!, this.ltx, "nil");
+        switchToSection(obj_storage.object!, this.ltx, STRINGIFIED_NIL);
       }
     }
 
@@ -717,7 +717,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
 
     const sect: TSection = determine_section_to_activate(object, ltx, job.section, registry.actor);
 
-    if (getSchemeByIniSection(job.section) === "nil") {
+    if (getSchemeByIniSection(job.section) === STRINGIFIED_NIL) {
       abort("[smart_terrain %s] section=%s, don't use section 'null'!", this.name(), sect);
     }
 
@@ -1375,7 +1375,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
       this.already_spawned.set(prop_name, {} as any);
 
       this.respawn_params.get(prop_name).squads = parseNames(spawn_squads);
-      this.respawn_params.get(prop_name).num = parseConditionsList(null, prop_name, "spawn_num", spawn_num);
+      this.respawn_params.get(prop_name).num = parseConditionsList(spawn_num);
       this.already_spawned.get(prop_name).num = 0;
     }
   }

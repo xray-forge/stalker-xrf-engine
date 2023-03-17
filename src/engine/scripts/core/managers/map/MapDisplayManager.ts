@@ -97,12 +97,12 @@ export class MapDisplayManager extends AbstractCoreManager {
     }
 
     if (mapSpot !== null) {
-      const spotConditionList: TConditionList = parseConditionsList(object, section, "level_spot", mapSpot);
+      const spotConditionList: TConditionList = parseConditionsList(mapSpot);
 
       mapSpot = pickSectionFromCondList(actor, object, spotConditionList);
     }
 
-    const spot_condlist = parseConditionsList(object, section, "show_spot", spotSection);
+    const spot_condlist = parseConditionsList(spotSection);
     const spot: TSection = pickSectionFromCondList(actor, object, spot_condlist)!;
     const obj: Optional<XR_cse_alife_object> = sim.object(object.id());
 
@@ -158,12 +158,7 @@ export class MapDisplayManager extends AbstractCoreManager {
 
     if (mapSpot !== null) {
       const actor: XR_game_object = registry.actor;
-      const mapSpotConditionsList: TConditionList = parseConditionsList(
-        object,
-        state.active_section!,
-        "level_spot",
-        mapSpot
-      );
+      const mapSpotConditionsList: TConditionList = parseConditionsList(mapSpot);
 
       mapSpot = pickSectionFromCondList(actor, object, mapSpotConditionsList);
     }

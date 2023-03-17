@@ -1,5 +1,6 @@
 import { flags32, patrol, XR_cse_alife_object, XR_flags32, XR_game_object, XR_ini_file, XR_patrol } from "xray16";
 
+import { STRINGIFIED_TRUE } from "@/engine/lib/constants/lua";
 import {
   AnyArgs,
   LuaArray,
@@ -42,9 +43,9 @@ export interface IConfigCondition {
  * todo;
  */
 export interface IConfigSwitchCondition {
-  section: TSection;
-  infop_check: LuaArray<IConfigCondition>;
-  infop_set: LuaArray<IConfigCondition>;
+  readonly section: TSection;
+  readonly infop_check: LuaArray<IConfigCondition>;
+  readonly infop_set: LuaArray<IConfigCondition>;
 }
 
 /**
@@ -148,12 +149,7 @@ export function parseParameters<T extends string>(data: T): LuaArray<T> {
  * --   2 = { infop_check = { 1 = {"infop3" = true}, 2 = {"infop4" = false} }, infop_set = {}, section = "section2" },
  * -- }
  */
-export function parseConditionsList(
-  object: Optional<XR_game_object | XR_cse_alife_object>,
-  section: Optional<TSection>,
-  field: Optional<string>,
-  data: string
-): LuaArray<IConfigSwitchCondition> {
+export function parseConditionsList(data: string): LuaArray<IConfigSwitchCondition> {
   const result: LuaArray<IConfigSwitchCondition> = new LuaTable();
 
   for (const condition of string.gfind(data, "%s*([^,]+)%s*")) {
@@ -181,12 +177,7 @@ export function parseConditionsList(
     const [, , newSection] = string.find(rest, "%s*(.*)%s*");
 
     if (newSection === null) {
-      abort(
-        "object '%s': section '%s': field '%s': syntax error in switch condition",
-        object?.name(),
-        section,
-        condition
-      );
+      abort("Syntax error in switch condition: '%s' from entry '%s'", condition, data);
     }
 
     table.insert(result, {
@@ -345,7 +336,7 @@ export function parseWaypointData(pathname: TPath, wpflags: XR_flags32, waypoint
 
   let par_num = 1;
   let fld;
-  let val;
+  let data: string;
 
   for (const param of string.gfind(waypointName, "([%w%+~_\\%=%{%}%s%!%-%,%*]+)|*")) {
     if (par_num === 1) {
@@ -362,7 +353,7 @@ export function parseWaypointData(pathname: TPath, wpflags: XR_flags32, waypoint
       }
 
       fld = string.sub(param, 1, t_pos - 1);
-      val = string.sub(param, t_pos + 1);
+      data = string.sub(param, t_pos + 1);
 
       if (!fld || fld === "") {
         abort(
@@ -373,14 +364,14 @@ export function parseWaypointData(pathname: TPath, wpflags: XR_flags32, waypoint
         );
       }
 
-      if (!val || val === "") {
-        val = "true";
+      if (!data || data === "") {
+        data = STRINGIFIED_TRUE;
       }
 
       if (fld === "a") {
-        waypointData[fld] = parseConditionsList(null, "waypoint_data", "anim_state", val);
+        waypointData[fld] = parseConditionsList(data);
       } else {
-        waypointData[fld] = val;
+        waypointData[fld] = data;
       }
     }
 
@@ -524,11 +515,11 @@ export function parseData(
       dat.dist = tonumber(dist)!;
 
       if (state !== null) {
-        dat.state = parseConditionsList(object, dist, state, state);
+        dat.state = parseConditionsList(state);
       }
 
       if (sound !== null) {
-        dat.sound = parseConditionsList(object, dist, sound, sound);
+        dat.sound = parseConditionsList(sound);
       }
 
       table.insert(collection, dat);
@@ -603,7 +594,7 @@ export function parseData1v(
       dat.dist = tonumber(dist)!;
 
       if (state !== null) {
-        dat.state = parseConditionsList(object, dist, state, state);
+        dat.state = parseConditionsList(state);
       }
 
       target.set(tonumber(dist)!, dat);

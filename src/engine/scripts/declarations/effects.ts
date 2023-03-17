@@ -1549,7 +1549,7 @@ export function create_squad_member(
 
   const board: SimulationBoardManager = SimulationBoardManager.getInstance();
   const squad: Squad = getServerObjectByStoryId(story_id) as Squad;
-  const squad_smart = board.smarts.get(squad.smart_id as TNumberId).smrt;
+  const squadSmartTerrain: Optional<SmartTerrain> = board.smarts.get(squad.smart_id as TNumberId).smrt;
 
   if (params[2] !== null) {
     let spawn_point: TStringId;
@@ -1558,8 +1558,8 @@ export function create_squad_member(
       const data: string = getConfigString(SYSTEM_INI, squad.section_name(), "spawn_point", object, false, "");
       const condlist: LuaArray<IConfigSwitchCondition> =
         data === "" || data === null
-          ? parseConditionsList(object, "spawn_point", "spawn_point", squad_smart.spawn_point as string)
-          : parseConditionsList(object, "spawn_point", "spawn_point", data);
+          ? parseConditionsList(squadSmartTerrain.spawn_point as string)
+          : parseConditionsList(data);
 
       spawn_point = pickSectionFromCondList(actor, object, condlist) as TStringId;
     } else {
@@ -1586,7 +1586,7 @@ export function create_squad_member(
     game_vertex_id
   );
 
-  squad.assign_squad_member_to_smart(newSquadMemberId, squad_smart, null);
+  squad.assign_squad_member_to_smart(newSquadMemberId, squadSmartTerrain, null);
   board.setup_squad_and_group(alife().object(newSquadMemberId) as XR_cse_alife_creature_abstract);
   // --squad_smart.refresh()
   squad.update();

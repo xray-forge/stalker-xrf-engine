@@ -14,7 +14,7 @@ import {
   XR_patrol,
 } from "xray16";
 
-import { STRINGIFIED_TRUE } from "@/engine/lib/constants/lua";
+import { STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/lua";
 import { EScheme, LuaArray, Optional, TIndex, TName } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { StalkerMoveManager } from "@/engine/scripts/core/objects/state/StalkerMoveManager";
@@ -24,8 +24,8 @@ import { ISchemeMobWalkerState } from "@/engine/scripts/core/schemes/mob/walker/
 import { mobCapture } from "@/engine/scripts/core/schemes/mobCapture";
 import { mobCaptured } from "@/engine/scripts/core/schemes/mobCaptured";
 import { action } from "@/engine/scripts/utils/alife";
-import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { abort } from "@/engine/scripts/utils/debug";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { IWaypointData, parsePathWaypoints } from "@/engine/scripts/utils/parse";
 import { isStalkerAtWaypoint } from "@/engine/scripts/utils/position";
 
@@ -216,7 +216,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       let suggested_anim_set = this.path_look_info!.get(pt_chosen_idx)["a"];
 
       if (suggested_anim_set) {
-        if (suggested_anim_set === "nil") {
+        if (suggested_anim_set === STRINGIFIED_NIL) {
           suggested_anim_set = null;
         }
 

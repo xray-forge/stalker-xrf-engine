@@ -46,28 +46,28 @@ export class TradeManager extends AbstractCoreManager {
     registry.trade.get(objectId).cfg_ltx = configFilePath;
     registry.trade.get(objectId).config = new ini_file(configFilePath);
 
-    let str = getConfigString(registry.trade.get(objectId).config, "trader", "buy_condition", object, true, "");
+    let data = getConfigString(registry.trade.get(objectId).config, "trader", "buy_condition", object, true, "");
 
-    if (str === null) {
+    if (data === null) {
       abort("Incorrect trader settings. Cannot find buy_condition. [%s]->[%s]", object.name(), configFilePath);
     }
 
-    registry.trade.get(objectId).buy_condition = parseConditionsList(object, "trade_manager", "buy_condition", str);
+    registry.trade.get(objectId).buy_condition = parseConditionsList(data);
 
-    str = getConfigString(registry.trade.get(objectId).config, "trader", "sell_condition", object, true, "");
-    if (str === null) {
+    data = getConfigString(registry.trade.get(objectId).config, "trader", "sell_condition", object, true, "");
+    if (data === null) {
       abort("Incorrect trader settings. Cannot find sell_condition. [%s]->[%s]", object.name(), configFilePath);
     }
 
-    registry.trade.get(objectId).sell_condition = parseConditionsList(object, "trade_manager", "sell_condition", str);
+    registry.trade.get(objectId).sell_condition = parseConditionsList(data);
 
-    str = getConfigString(registry.trade.get(objectId).config, "trader", "buy_supplies", object, false, "");
-    if (str !== null) {
-      registry.trade.get(objectId).buy_supplies = parseConditionsList(object, "trade_manager", "buy_supplies", str);
+    data = getConfigString(registry.trade.get(objectId).config, "trader", "buy_supplies", object, false, "");
+    if (data !== null) {
+      registry.trade.get(objectId).buy_supplies = parseConditionsList(data);
     }
 
     // -- buy_item_condition_factor
-    str = getConfigString(
+    data = getConfigString(
       registry.trade.get(objectId).config,
       "trader",
       "buy_item_condition_factor",
@@ -76,13 +76,8 @@ export class TradeManager extends AbstractCoreManager {
       "",
       "0.7"
     );
-    if (str !== null) {
-      registry.trade.get(objectId).buy_item_condition_factor = parseConditionsList(
-        object,
-        "trade_manager",
-        "buy_item_condition_factor",
-        str
-      );
+    if (data !== null) {
+      registry.trade.get(objectId).buy_item_condition_factor = parseConditionsList(data);
     }
   }
 
@@ -157,39 +152,31 @@ export class TradeManager extends AbstractCoreManager {
 
   public getBuyDiscountForObject(objectId: TNumberId): number {
     const tradeDescriptor: ITradeManagerDescriptor = registry.trade.get(objectId);
-    const str: string = getConfigString(tradeDescriptor.config, "trader", "discounts", null, false, "", "");
+    const data: string = getConfigString(tradeDescriptor.config, "trader", "discounts", null, false, "", "");
 
-    if (str === "") {
+    if (data === "") {
       return 1;
     }
 
-    const sect: TSection = pickSectionFromCondList(
-      registry.actor,
-      null,
-      parseConditionsList(null, "trade_manager", "discounts", str)
-    )!;
+    const section: TSection = pickSectionFromCondList(registry.actor, null, parseConditionsList(data))!;
 
-    return getConfigNumber(tradeDescriptor.config, sect, "buy", null, false, 1);
+    return getConfigNumber(tradeDescriptor.config, section, "buy", null, false, 1);
   }
 
   /**
    * todo;
    */
   public getSellDiscountForObject(objectId: TNumberId): number {
-    const tt: ITradeManagerDescriptor = registry.trade.get(objectId);
-    const str = getConfigString(tt.config, "trader", "discounts", null, false, "", "");
+    const tradeManagerDescriptor: ITradeManagerDescriptor = registry.trade.get(objectId);
+    const data: string = getConfigString(tradeManagerDescriptor.config, "trader", "discounts", null, false, "", "");
 
-    if (str === "") {
+    if (data === "") {
       return 1;
     }
 
-    const sect: TSection = pickSectionFromCondList(
-      registry.actor,
-      null,
-      parseConditionsList(null, "trade_manager", "discounts", str)
-    )!;
+    const section: TSection = pickSectionFromCondList(registry.actor, null, parseConditionsList(data))!;
 
-    return getConfigNumber(tt.config, sect, "sell", null, false, 1);
+    return getConfigNumber(tradeManagerDescriptor.config, section, "sell", null, false, 1);
   }
 
   /**

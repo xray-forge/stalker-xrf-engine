@@ -1,14 +1,15 @@
 import { action_base, level, LuabindClass, patrol, XR_game_object, XR_sound_object, XR_vector } from "xray16";
 
+import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
 import { Optional, TNumberId } from "@/engine/lib/types";
 import { getObjectIdByStoryId, registry } from "@/engine/scripts/core/database";
 import { GlobalSoundManager } from "@/engine/scripts/core/managers/GlobalSoundManager";
 import { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
 import { set_state } from "@/engine/scripts/core/objects/state/StateManager";
 import { ISchemeRemarkState } from "@/engine/scripts/core/schemes/remark";
-import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { abort } from "@/engine/scripts/utils/debug";
 import { get_gulag_by_name } from "@/engine/scripts/utils/gulag";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const state_initial = 0;
@@ -234,7 +235,7 @@ export function init_target(
   let targetId: Optional<TNumberId> = null;
   let isTargetInitialized: boolean = false;
 
-  if (targetString === "nil") {
+  if (targetString === STRINGIFIED_NIL) {
     return $multi(targetPosition, targetId, isTargetInitialized);
   } else if (targetString === null) {
     instruction(obj, "");
