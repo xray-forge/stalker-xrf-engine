@@ -16,12 +16,11 @@ import {
 } from "@/engine/scripts/core/managers/notifications/NotificationManagerIcons";
 import {
   notificationTaskDescription,
-  TNotificationTaskDescription,
   TNotificationTaskDescriptionKey,
 } from "@/engine/scripts/core/managers/notifications/NotificationTaskDescription";
+import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 import { isHeavilyWounded } from "@/engine/scripts/utils/check/check";
 import { isStalkerClassId } from "@/engine/scripts/utils/check/is";
-import { getStoryObjectId } from "@/engine/scripts/utils/id";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -158,21 +157,23 @@ export class NotificationManager extends AbstractCoreManager {
     }
 
     if (senderId !== null) {
-      const sim: Optional<XR_alife_simulator> = alife();
+      const simulator: Optional<XR_alife_simulator> = alife();
 
-      if (sim !== null) {
-        const npc: XR_cse_alife_human_stalker = sim.object(getStoryObjectId(senderId)!) as XR_cse_alife_human_stalker;
+      if (simulator !== null) {
+        const object: XR_cse_alife_human_stalker = simulator.object(
+          StoryObjectsManager.getStoryObjectId(senderId)!
+        ) as XR_cse_alife_human_stalker;
 
-        if (npc !== null) {
-          if (npc.online) {
-            if (isHeavilyWounded(npc.id)) {
+        if (object !== null) {
+          if (object.online) {
+            if (isHeavilyWounded(object.id)) {
               logger.info("Cannot send tip, npc is wounded");
 
               return false;
             }
           }
 
-          if (!npc.alive()) {
+          if (!object.alive()) {
             logger.info("Cannot send tip, npc is not alive");
 
             return false;
@@ -183,7 +184,7 @@ export class NotificationManager extends AbstractCoreManager {
 
     this.playPdaNotificationSound();
 
-    let texture: string = texturesIngame.ui_iconsTotal_grouping;
+    let texture: TName = texturesIngame.ui_iconsTotal_grouping;
 
     if (sender !== null) {
       texture = type(sender) === "string" ? (sender as TNotificationIcon) : (sender as XR_game_object).character_icon();

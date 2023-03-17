@@ -38,7 +38,7 @@ import {
 } from "@/engine/scripts/core/database";
 import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";
 import { evaluate_prior, getSimulationObjectsRegistry } from "@/engine/scripts/core/database/SimulationObjectsRegistry";
-import { checkSpawnIniForStoryId } from "@/engine/scripts/core/database/StoryObjectsRegistry";
+import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 import { simulation_activities } from "@/engine/scripts/core/objects/alife/SimulationActivity";
 import type { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
 import { ESmartTerrainStatus } from "@/engine/scripts/core/objects/alife/smart/SmartTerrainControl";
@@ -46,7 +46,7 @@ import { SquadReachTargetAction } from "@/engine/scripts/core/objects/alife/Squa
 import { SquadStayOnTargetAction } from "@/engine/scripts/core/objects/alife/SquadStayOnTargetAction";
 import { StateManager } from "@/engine/scripts/core/objects/state/StateManager";
 import { get_sound_manager, SoundManager } from "@/engine/scripts/core/sounds/SoundManager";
-import { areOnSameAlifeLevel, unregisterStoryObjectById } from "@/engine/scripts/utils/alife";
+import { areOnSameAlifeLevel } from "@/engine/scripts/utils/alife";
 import { isSquadMonsterCommunity } from "@/engine/scripts/utils/check/is";
 import {
   getConfigBoolean,
@@ -940,7 +940,7 @@ export class Squad<
   public override on_register(): void {
     super.on_register();
     this.board.squads.set(this.id, this);
-    checkSpawnIniForStoryId(this);
+    StoryObjectsManager.checkSpawnIniForStoryId(this);
     getSimulationObjectsRegistry().register(this);
   }
 
@@ -948,7 +948,7 @@ export class Squad<
    * todo;
    */
   public override on_unregister(): void {
-    unregisterStoryObjectById(this.id);
+    StoryObjectsManager.unregisterStoryObjectById(this.id);
 
     this.board.squads.delete(this.id);
     this.board.assign_squad_to_smart(this, null);

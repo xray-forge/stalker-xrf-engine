@@ -16,30 +16,29 @@ import { lootable_table_exclude, TLootableExcludeItem } from "@/engine/lib/const
 import { TLevel } from "@/engine/lib/constants/levels";
 import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
 import { ERelation } from "@/engine/lib/constants/relations";
-import { EScheme, Optional, TName, TNumberId } from "@/engine/lib/types";
+import { EScheme, Optional, TName, TNumberId, TStringId } from "@/engine/lib/types";
 import { IRegistryObjectState, registry } from "@/engine/scripts/core/database";
+import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 import { Squad } from "@/engine/scripts/core/objects/alife/Squad";
 import { action_ids } from "@/engine/scripts/core/schemes/base/actions_id";
 import { ISchemeWoundedState } from "@/engine/scripts/core/schemes/wounded";
-import { getStorySquad } from "@/engine/scripts/utils/alife";
 import { isStalker } from "@/engine/scripts/utils/check/is";
-import { getStoryObjectId } from "@/engine/scripts/utils/id";
 
 /**
  * todo;
  */
-export function isSquadExisting(squadId: string): boolean {
-  return getStorySquad(squadId) !== null;
+export function isSquadExisting(squadId: TStringId): boolean {
+  return StoryObjectsManager.getStorySquad(squadId) !== null;
 }
 
 /**
  * Is provided target stalker and alive.
  */
-export function isStalkerAlive(targetObject: XR_game_object | XR_cse_alife_human_abstract | string): boolean {
-  let targetId: Optional<number> = null;
+export function isStalkerAlive(targetObject: XR_game_object | XR_cse_alife_human_abstract | TStringId): boolean {
+  let targetId: Optional<TNumberId> = null;
 
   if (type(targetObject) === "string") {
-    targetId = getStoryObjectId(targetObject as string);
+    targetId = StoryObjectsManager.getStoryObjectId(targetObject as TStringId);
   } else if (type((targetObject as XR_cse_alife_human_abstract).id) === "number") {
     targetId = (targetObject as XR_cse_alife_human_abstract).id;
   } else {

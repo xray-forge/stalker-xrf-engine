@@ -10,12 +10,11 @@ import {
 
 import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
 import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
-import { Optional, StringOptional, TSection } from "@/engine/lib/types";
+import { Optional, StringOptional, TNumberId, TSection } from "@/engine/lib/types";
 import { initializeOfflineObject, IStoredOfflineObject, registry } from "@/engine/scripts/core/database";
 import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";
-import { checkSpawnIniForStoryId } from "@/engine/scripts/core/database/StoryObjectsRegistry";
+import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 import { on_death, SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
-import { unregisterStoryObjectById } from "@/engine/scripts/utils/alife";
 import { getConfigString } from "@/engine/scripts/utils/config";
 import { abort } from "@/engine/scripts/utils/debug";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
@@ -31,14 +30,19 @@ export class Stalker extends cse_alife_human_stalker {
 
   public job_online: Optional<boolean> = null;
   public isCorpseLootDropped: boolean = false;
-  public m_registred: boolean = false;
   public sim_forced_online: boolean = false;
 
+  /**
+   * todo;
+   */
   public constructor(section: TSection) {
     super(section);
     initializeOfflineObject(this.id);
   }
 
+  /**
+   * todo;
+   */
   public override can_switch_offline(): boolean {
     if (this.group_id !== MAX_UNSIGNED_16_BIT) {
       return true;
@@ -47,6 +51,9 @@ export class Stalker extends cse_alife_human_stalker {
     return super.can_switch_offline();
   }
 
+  /**
+   * todo;
+   */
   public override can_switch_online(): boolean {
     if (this.group_id !== MAX_UNSIGNED_16_BIT) {
       return true;
@@ -55,16 +62,9 @@ export class Stalker extends cse_alife_human_stalker {
     return super.can_switch_online();
   }
 
-  public override switch_online() {
-    logger.info("Switch online:", this.name());
-    super.switch_online();
-  }
-
-  public override switch_offline() {
-    logger.info("Switch offline:", this.name());
-    super.switch_offline();
-  }
-
+  /**
+   * todo;
+   */
   public override STATE_Write(packet: XR_net_packet) {
     super.STATE_Write(packet);
 
@@ -78,6 +78,9 @@ export class Stalker extends cse_alife_human_stalker {
     packet.w_bool(this.isCorpseLootDropped);
   }
 
+  /**
+   * todo;
+   */
   public override STATE_Read(packet: XR_net_packet, size: number) {
     super.STATE_Read(packet, size);
 
@@ -93,20 +96,17 @@ export class Stalker extends cse_alife_human_stalker {
     this.isCorpseLootDropped = packet.r_bool();
   }
 
-  public override on_before_register(): void {
-    super.on_before_register();
-  }
-
+  /**
+   * todo;
+   */
   public override on_register(): void {
     super.on_register();
 
     logger.info("Register:", this.id, this.name(), this.section_name());
-    checkSpawnIniForStoryId(this);
+    StoryObjectsManager.checkSpawnIniForStoryId(this);
 
     const board = SimulationBoardManager.getInstance();
     const obj_ini = this.spawn_ini();
-
-    this.m_registred = true;
 
     initializeOfflineObject(this.id);
 
@@ -122,13 +122,16 @@ export class Stalker extends cse_alife_human_stalker {
     alife()!.object<SmartTerrain>(smart_obj.id)!.register_npc(this);
   }
 
+  /**
+   * todo;
+   */
   public override on_unregister(): void {
     logger.info("Unregister:", this.name());
 
-    const strn_id = this.smart_terrain_id();
+    const smartTerrainId: TNumberId = this.smart_terrain_id();
 
-    if (strn_id !== MAX_UNSIGNED_16_BIT) {
-      const smart: Optional<SmartTerrain> = alife().object(strn_id);
+    if (smartTerrainId !== MAX_UNSIGNED_16_BIT) {
+      const smart: Optional<SmartTerrain> = alife().object(smartTerrainId);
 
       if (smart !== null) {
         smart.unregister_npc(this);
@@ -136,15 +139,21 @@ export class Stalker extends cse_alife_human_stalker {
     }
 
     registry.offlineObjects.delete(this.id);
-    unregisterStoryObjectById(this.id);
+    StoryObjectsManager.unregisterStoryObjectById(this.id);
     super.on_unregister();
   }
 
+  /**
+   * todo;
+   */
   public override on_spawn(): void {
     logger.info("Spawn:", this.name());
     super.on_spawn();
   }
 
+  /**
+   * todo;
+   */
   public override on_death(killer: XR_cse_alife_creature_abstract): void {
     logger.info("On death:", this.name(), killer.id, killer?.name());
 
@@ -161,9 +170,5 @@ export class Stalker extends cse_alife_human_stalker {
 
       squad.on_npc_death(this);
     }
-  }
-
-  public override update(): void {
-    super.update();
   }
 }

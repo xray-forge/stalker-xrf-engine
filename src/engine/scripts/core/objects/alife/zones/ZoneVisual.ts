@@ -1,7 +1,7 @@
 import { cse_zone_visual, editor, game, LuabindClass, system_ini, XR_CTime, XR_net_packet } from "xray16";
 
-import { Optional, TSection } from "@/engine/lib/types";
-import { checkSpawnIniForStoryId } from "@/engine/scripts/core/database/StoryObjectsRegistry";
+import { Optional } from "@/engine/lib/types";
+import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 import { getConfigNumber } from "@/engine/scripts/utils/config";
 import { isSinglePlayerGame } from "@/engine/scripts/utils/general";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
@@ -21,18 +21,11 @@ export class ZoneVisual extends cse_zone_visual {
   /**
    * todo;
    */
-  public constructor(section: TSection) {
-    super(section);
-  }
-
-  /**
-   * todo;
-   */
   public override on_register(): void {
     super.on_register();
     logger.info("Register:", this.id, this.name(), this.section_name());
 
-    checkSpawnIniForStoryId(this);
+    StoryObjectsManager.checkSpawnIniForStoryId(this);
 
     this.artefact_spawn_idle =
       60 * 60 * 1000 * getConfigNumber(system_ini(), this.section_name(), "artefact_spawn_idle", this, false, 24);

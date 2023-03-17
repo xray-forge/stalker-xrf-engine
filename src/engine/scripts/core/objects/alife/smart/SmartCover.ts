@@ -2,12 +2,11 @@ import { cse_smart_cover, LuabindClass, properties_helper, XR_net_packet } from 
 
 import { Optional, TCount, TSection, TStringId } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
-import { checkSpawnIniForStoryId } from "@/engine/scripts/core/database/StoryObjectsRegistry";
+import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 import {
   ISmartCoverLoopholeDescriptor,
   smart_covers_list,
 } from "@/engine/scripts/core/objects/alife/smart/smart_covers/smart_covers_list";
-import { unregisterStoryObjectById } from "@/engine/scripts/utils/alife";
 import { abort } from "@/engine/scripts/utils/debug";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
@@ -45,16 +44,18 @@ export class SmartCover extends cse_smart_cover {
    */
   public override on_register(): void {
     super.on_register();
+
     logger.info("Register:", this.id, this.name(), this.section_name());
-    checkSpawnIniForStoryId(this);
+    StoryObjectsManager.checkSpawnIniForStoryId(this);
   }
 
   /**
    * todo;
    */
   public override on_unregister(): void {
-    unregisterStoryObjectById(this.id);
+    StoryObjectsManager.unregisterStoryObjectById(this.id);
     registry.smartCovers.delete(this.name());
+
     super.on_unregister();
   }
 
@@ -94,13 +95,6 @@ export class SmartCover extends cse_smart_cover {
         this.set_loopholes_table_checker(h);
       }
     }
-  }
-
-  /**
-   * todo;
-   */
-  public override update(): void {
-    super.update();
   }
 
   /**

@@ -13,7 +13,7 @@ import { EAchievement } from "@/engine/scripts/core/managers/achievements/EAchie
 import { notificationManagerIcons } from "@/engine/scripts/core/managers/notifications";
 import { NotificationManager } from "@/engine/scripts/core/managers/notifications/NotificationManager";
 import { StatisticsManager } from "@/engine/scripts/core/managers/StatisticsManager";
-import { getStoryObjectId } from "@/engine/scripts/utils/id";
+import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 import { giveInfo, hasAlifeInfo } from "@/engine/scripts/utils/info_portion";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { spawnItemsForObjectFromList } from "@/engine/scripts/utils/spawn";
@@ -677,7 +677,7 @@ export class AchievementsManager extends AbstractCoreManager {
       achievementRewards.ACHIEVEMENT_REWARD_SPAWN_PERIOD
     ) {
       spawnItemsForObjectFromList(
-        alife().object(getStoryObjectId(achievementRewards.REWARD_BOXES.ZATON)!)!,
+        alife().object(StoryObjectsManager.getStoryObjectId(achievementRewards.REWARD_BOXES.ZATON)!)!,
         achievementRewards.ITEMS[EAchievement.DETECTIVE],
         4
       );
@@ -710,7 +710,7 @@ export class AchievementsManager extends AbstractCoreManager {
       achievementRewards.ACHIEVEMENT_REWARD_SPAWN_PERIOD
     ) {
       spawnItemsForObjectFromList(
-        alife().object(getStoryObjectId(achievementRewards.REWARD_BOXES.JUPITER)!)!,
+        alife().object(StoryObjectsManager.getStoryObjectId(achievementRewards.REWARD_BOXES.JUPITER)!)!,
         achievementRewards.ITEMS[EAchievement.MUTANT_HUNTER],
         5
       );

@@ -1,22 +1,27 @@
 import { game } from "xray16";
 
 import { captions } from "@/engine/lib/constants/captions";
-import { Optional, TSection } from "@/engine/lib/types";
+import { Optional, TSection, TStringId } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
+import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 import { SurgeManager } from "@/engine/scripts/core/managers/SurgeManager";
-import { getStoryObject } from "@/engine/scripts/utils/alife";
 import { pickSectionFromCondList } from "@/engine/scripts/utils/config";
-import { getStoryObjectId } from "@/engine/scripts/utils/id";
 import { hasAlifeInfo } from "@/engine/scripts/utils/info_portion";
 import { parseConditionsList } from "@/engine/scripts/utils/parse";
 
-export function condlist(id: string, field: string, p: string): Optional<TSection> {
+/**
+ * todo;
+ */
+export function condlist(id: TStringId, field: string, p: string): Optional<TSection> {
   const parsed_condlist = parseConditionsList(null, "task", "task_condlist", p);
 
   return pickSectionFromCondList(registry.actor, null, parsed_condlist);
 }
 
-export function zat_b29_adv_title(id: string, field: string, p: string): Optional<string> {
+/**
+ * todo;
+ */
+export function zat_b29_adv_title(id: TStringId, field: string, p: string): Optional<string> {
   const actor = registry.actor;
   let title: Optional<string> = null;
 
@@ -36,7 +41,10 @@ export function zat_b29_adv_title(id: string, field: string, p: string): Optiona
   return title;
 }
 
-export function zat_b29_adv_descr(id: string, field: string, p: string) {
+/**
+ * todo;
+ */
+export function zat_b29_adv_descr(id: TStringId, field: string, p: string) {
   let descr = "";
   let f_af = 0;
   const actor = registry.actor;
@@ -121,7 +129,7 @@ export function surge_task_descr(): Optional<string> {
     : game.translate_string(captions.hide_from_surge_descr_1_a);
 }
 
-export function target_condlist(id: string, field: string, p: string) {
+export function target_condlist(id: TStringId, field: string, p: string) {
   const cond_string = p;
   const parsed_condlist = parseConditionsList(null, "task", "task_condlist", cond_string);
   const value: Optional<TSection> = pickSectionFromCondList(registry.actor, null, parsed_condlist);
@@ -130,10 +138,10 @@ export function target_condlist(id: string, field: string, p: string) {
     return null;
   }
 
-  return getStoryObjectId(value);
+  return StoryObjectsManager.getStoryObjectId(value);
 }
 
-export function zat_b29_adv_target(id: string, field: string, p: string) {
+export function zat_b29_adv_target(id: TStringId, field: string, p: string) {
   let target_obj_id = "zat_a2_stalker_barmen";
   let af: Optional<string> = null;
   const actor = registry.actor;
@@ -179,16 +187,19 @@ export function zat_b29_adv_target(id: string, field: string, p: string) {
       }
     }
 
-    return getStoryObjectId(target_obj_id);
+    return StoryObjectsManager.getStoryObjectId(target_obj_id);
   }
 
   if (af !== null) {
-    return getStoryObjectId(target_obj_id);
+    return StoryObjectsManager.getStoryObjectId(target_obj_id);
   }
 
   return null;
 }
 
-export function surge_task_target(id: string, field: string, p: string): Optional<number> {
+/**
+ * todo;
+ */
+export function surge_task_target(id: TStringId, field: string, p: string): Optional<number> {
   return SurgeManager.getInstance().getTaskTarget();
 }

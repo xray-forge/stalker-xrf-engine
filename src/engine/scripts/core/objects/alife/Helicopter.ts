@@ -1,8 +1,6 @@
 import { cse_alife_helicopter, LuabindClass } from "xray16";
 
-import { TSection } from "@/engine/lib/types";
-import { checkSpawnIniForStoryId } from "@/engine/scripts/core/database/StoryObjectsRegistry";
-import { unregisterStoryObjectById } from "@/engine/scripts/utils/alife";
+import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -15,23 +13,16 @@ export class Helicopter extends cse_alife_helicopter {
   /**
    * todo;
    */
-  public constructor(section: TSection) {
-    super(section);
-  }
-
-  /**
-   * todo;
-   */
   public override on_register(): void {
     super.on_register();
-    checkSpawnIniForStoryId(this);
+    StoryObjectsManager.checkSpawnIniForStoryId(this);
   }
 
   /**
    * todo;
    */
   public override on_unregister(): void {
-    unregisterStoryObjectById(this.id);
+    StoryObjectsManager.unregisterStoryObjectById(this.id);
     super.on_unregister();
   }
 

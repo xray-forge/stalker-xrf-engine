@@ -18,9 +18,8 @@ import {
   registry,
 } from "@/engine/scripts/core/database";
 import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";
-import { checkSpawnIniForStoryId } from "@/engine/scripts/core/database/StoryObjectsRegistry";
+import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 import { on_death, SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
-import { unregisterStoryObjectById } from "@/engine/scripts/utils/alife";
 import { getConfigString } from "@/engine/scripts/utils/config";
 import { abort } from "@/engine/scripts/utils/debug";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
@@ -84,13 +83,6 @@ export class Monster extends cse_alife_monster_base {
   /**
    * todo;
    */
-  public override update(): void {
-    super.update();
-  }
-
-  /**
-   * todo;
-   */
   public override STATE_Write(packet: XR_net_packet): void {
     super.STATE_Write(packet);
 
@@ -124,15 +116,10 @@ export class Monster extends cse_alife_monster_base {
   /**
    * todo;
    */
-  public override on_before_register(): void {}
-
-  /**
-   * todo;
-   */
   public override on_register(): void {
     super.on_register();
     logger.info("Register:", this.id, this.name(), this.section_name());
-    checkSpawnIniForStoryId(this);
+    StoryObjectsManager.checkSpawnIniForStoryId(this);
 
     this.isRegistered = true;
 
@@ -170,7 +157,7 @@ export class Monster extends cse_alife_monster_base {
     }
 
     registry.offlineObjects.delete(this.id);
-    unregisterStoryObjectById(this.id);
+    StoryObjectsManager.unregisterStoryObjectById(this.id);
     super.on_unregister();
   }
 

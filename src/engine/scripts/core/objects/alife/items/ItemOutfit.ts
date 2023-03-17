@@ -1,9 +1,8 @@
 import { cse_alife_item_custom_outfit, LuabindClass } from "xray16";
 
-import { Optional, TSection } from "@/engine/lib/types";
-import { checkSpawnIniForStoryId } from "@/engine/scripts/core/database/StoryObjectsRegistry";
+import { Optional } from "@/engine/lib/types";
+import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 import { TreasureManager } from "@/engine/scripts/core/managers/TreasureManager";
-import { unregisterStoryObjectById } from "@/engine/scripts/utils/alife";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -15,22 +14,27 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class ItemOutfit extends cse_alife_item_custom_outfit {
   public secret_item: Optional<boolean> = false;
 
-  public constructor(section: TSection) {
-    super(section);
-  }
-
+  /**
+   * todo;
+   */
   public override on_register(): void {
     super.on_register();
-    checkSpawnIniForStoryId(this);
+    StoryObjectsManager.checkSpawnIniForStoryId(this);
 
     this.secret_item = TreasureManager.getInstance().registerAlifeItem(this);
   }
 
+  /**
+   * todo;
+   */
   public override on_unregister(): void {
-    unregisterStoryObjectById(this.id);
+    StoryObjectsManager.unregisterStoryObjectById(this.id);
     super.on_unregister();
   }
 
+  /**
+   * todo;
+   */
   public override can_switch_online(): boolean {
     if (this.secret_item) {
       return false;

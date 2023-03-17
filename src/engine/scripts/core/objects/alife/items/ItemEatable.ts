@@ -1,9 +1,8 @@
 import { cse_alife_item, LuabindClass } from "xray16";
 
-import { Optional, TSection } from "@/engine/lib/types";
-import { checkSpawnIniForStoryId } from "@/engine/scripts/core/database/StoryObjectsRegistry";
+import { Optional } from "@/engine/lib/types";
+import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 import { TreasureManager } from "@/engine/scripts/core/managers/TreasureManager";
-import { unregisterStoryObjectById } from "@/engine/scripts/utils/alife";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -18,16 +17,9 @@ export class ItemEatable extends cse_alife_item {
   /**
    * todo;
    */
-  public constructor(section: TSection) {
-    super(section);
-  }
-
-  /**
-   * todo;
-   */
   public override on_register(): void {
     super.on_register();
-    checkSpawnIniForStoryId(this);
+    StoryObjectsManager.checkSpawnIniForStoryId(this);
 
     this.secret_item = TreasureManager.getInstance().registerAlifeItem(this);
   }
@@ -36,7 +28,7 @@ export class ItemEatable extends cse_alife_item {
    * todo;
    */
   public override on_unregister(): void {
-    unregisterStoryObjectById(this.id);
+    StoryObjectsManager.unregisterStoryObjectById(this.id);
     super.on_unregister();
   }
 

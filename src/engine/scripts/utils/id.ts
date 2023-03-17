@@ -1,7 +1,7 @@
 import { alife, level, TXR_cls_id, XR_cse_abstract, XR_game_object } from "xray16";
 
-import { Optional } from "@/engine/lib/types";
-import { getStoryObjectsRegistry } from "@/engine/scripts/core/database/StoryObjectsRegistry";
+import { Optional, TNumberId, TStringId } from "@/engine/lib/types";
+import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 
 /**
  * todo;
@@ -25,20 +25,13 @@ export function getLevelObjectBySid(sid: number): Optional<XR_game_object> {
 /**
  * todo;
  */
-export function getObjectStoryId(objectId: number): Optional<string> {
-  return getStoryObjectsRegistry().get_story_id(objectId);
-}
-
-/**
- * todo: description
- */
-export function getStoryObjectId(storyObjectId: string): Optional<number> {
-  return getStoryObjectsRegistry().id_by_story_id.get(storyObjectId);
+export function getObjectStoryId(objectId: TNumberId): Optional<string> {
+  return StoryObjectsManager.getInstance().get_story_id(objectId);
 }
 
 /**
  * todo;
  */
-export function getIdBySid(sid: number): Optional<number> {
+export function getIdBySid(sid: TNumberId): Optional<number> {
   return alife()?.story_object(sid)?.id;
 }

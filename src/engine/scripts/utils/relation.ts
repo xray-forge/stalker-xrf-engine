@@ -9,11 +9,12 @@ import {
 
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { ERelation, relations, TRelation } from "@/engine/lib/constants/relations";
-import { Maybe, Optional, TCount, TName, TNumberId, TStringId } from "@/engine/lib/types";
+import { Optional, TCount, TName, TNumberId, TStringId } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
+import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 import { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
 import type { Squad } from "@/engine/scripts/core/objects/alife/Squad";
-import { getCharacterCommunity, getStorySquad } from "@/engine/scripts/utils/alife";
+import { getCharacterCommunity } from "@/engine/scripts/utils/alife";
 import { abort } from "@/engine/scripts/utils/debug";
 import { get_gulag_by_name } from "@/engine/scripts/utils/gulag";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
@@ -24,7 +25,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo;
  */
 export function getSquadGoodwillToActor(squadName: TName): TRelation {
-  const squad: Optional<Squad> = getStorySquad(squadName);
+  const squad: Optional<Squad> = StoryObjectsManager.getStorySquad(squadName);
 
   if (squad === null) {
     abort("No such squad %s in board", tostring(squadName));
@@ -243,7 +244,7 @@ export function setObjectsRelation(
  * todo;
  */
 export function isSquadRelationBetweenActorAndRelation(squadName: TName, goodwill: TRelation): boolean {
-  const squad: Optional<Squad> = getStorySquad(squadName);
+  const squad: Optional<Squad> = StoryObjectsManager.getStorySquad(squadName);
   const actor: XR_game_object = registry.actor;
 
   if (squad === null) {
@@ -384,7 +385,7 @@ export function setObjectSympathy(object: Optional<XR_game_object>, newSympathy:
 export function setSquadGoodwill(squadId: TStringId | TNumberId, newGoodwill: TRelation): void {
   logger.info("Applying new game relation between squad and actor:", squadId, newGoodwill);
 
-  let squad: Optional<Squad> = getStorySquad<Squad>(squadId as string);
+  let squad: Optional<Squad> = StoryObjectsManager.getStorySquad<Squad>(squadId as string);
 
   if (squad === null) {
     if (type(squadId) === "string") {
@@ -419,7 +420,7 @@ export function setSquadGoodwillToNpc(
     goodwill = ERelation.FRIENDS;
   }
 
-  let squad: Optional<Squad> = getStorySquad(objectId as TStringId);
+  let squad: Optional<Squad> = StoryObjectsManager.getStorySquad(objectId as TStringId);
 
   if (squad === null) {
     if (type(objectId) === "string") {
@@ -460,7 +461,7 @@ export function setSquadGoodwillToCommunity(
     goodwill = ERelation.FRIENDS;
   }
 
-  let squad: Optional<Squad> = getStorySquad<Squad>(squadId as TStringId);
+  let squad: Optional<Squad> = StoryObjectsManager.getStorySquad<Squad>(squadId as TStringId);
 
   if (squad === null) {
     if (type(squadId) === "string") {

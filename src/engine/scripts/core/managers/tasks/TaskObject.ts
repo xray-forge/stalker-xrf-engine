@@ -20,6 +20,7 @@ import { AnyCallablesModule, LuaArray, Optional, TCount, TName, TNumberId, TStri
 import { registry } from "@/engine/scripts/core/database";
 import { ItemUpgradesManager } from "@/engine/scripts/core/managers/ItemUpgradesManager";
 import { NotificationManager } from "@/engine/scripts/core/managers/notifications/NotificationManager";
+import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 import { ETaskState } from "@/engine/scripts/core/managers/tasks/ETaskState";
 import * as TaskFunctor from "@/engine/scripts/core/managers/tasks/TaskFunctor";
 import {
@@ -30,7 +31,6 @@ import {
 } from "@/engine/scripts/utils/config";
 import { abort } from "@/engine/scripts/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/engine/scripts/utils/game_save";
-import { getStoryObjectId } from "@/engine/scripts/utils/id";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseConditionsList, parseNames, TConditionList } from "@/engine/scripts/utils/parse";
 import { giveMoneyToActor, relocateQuestItemSection, takeMoneyFromActor } from "@/engine/scripts/utils/quest";
@@ -84,7 +84,7 @@ export class TaskObject {
     const target: string = guiders_by_level.get(ln) && guiders_by_level.get(ln).get(target_level);
 
     if (target !== null) {
-      return getStoryObjectId(target);
+      return StoryObjectsManager.getStoryObjectId(target);
     }
 
     return null;
@@ -478,15 +478,15 @@ export class TaskObject {
     }
 
     for (const [k, v] of guiders_by_level.get(level.name())) {
-      const guider_id = getStoryObjectId(v);
+      const guiderId: Optional<TNumberId> = StoryObjectsManager.getStoryObjectId(v);
 
-      if (guider_id !== null) {
-        if (level.map_has_object_spot(guider_id, "storyline_task_on_guider") !== 0) {
-          level.map_remove_object_spot(guider_id, "storyline_task_on_guider");
+      if (guiderId !== null) {
+        if (level.map_has_object_spot(guiderId, "storyline_task_on_guider") !== 0) {
+          level.map_remove_object_spot(guiderId, "storyline_task_on_guider");
         }
 
-        if (level.map_has_object_spot(guider_id, "secondary_task_on_guider") !== 0) {
-          level.map_remove_object_spot(guider_id, "secondary_task_on_guider");
+        if (level.map_has_object_spot(guiderId, "secondary_task_on_guider") !== 0) {
+          level.map_remove_object_spot(guiderId, "secondary_task_on_guider");
         }
       }
     }

@@ -4,11 +4,12 @@ import { STRINGIFIED_FALSE, STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/l
 import { Optional, TDistance, TStringId } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { GlobalSoundManager } from "@/engine/scripts/core/managers/GlobalSoundManager";
+import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 import { set_state } from "@/engine/scripts/core/objects/state/StateManager";
 import { SchemeAbuse } from "@/engine/scripts/core/schemes/abuse";
 import { AbstractSchemeManager } from "@/engine/scripts/core/schemes/base/AbstractSchemeManager";
 import { ISchemeMeetState } from "@/engine/scripts/core/schemes/meet/ISchemeMeetState";
-import { getStoryObject, isObjectInCombat } from "@/engine/scripts/utils/alife";
+import { isObjectInCombat } from "@/engine/scripts/utils/alife";
 import { pickSectionFromCondList } from "@/engine/scripts/utils/config";
 
 /**
@@ -46,7 +47,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
       victimStoryId = null;
     } else {
       if (alife() !== null) {
-        victim = getStoryObject(victimStoryId as TStringId);
+        victim = StoryObjectsManager.getStoryObject(victimStoryId as TStringId);
       }
     }
 

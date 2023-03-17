@@ -3,13 +3,13 @@ import { action_base, level, LuabindClass, patrol, XR_game_object, XR_sound_obje
 import { Optional } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { GlobalSoundManager } from "@/engine/scripts/core/managers/GlobalSoundManager";
+import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 import { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
 import { set_state } from "@/engine/scripts/core/objects/state/StateManager";
 import { ISchemeRemarkState } from "@/engine/scripts/core/schemes/remark";
 import { pickSectionFromCondList } from "@/engine/scripts/utils/config";
 import { abort } from "@/engine/scripts/utils/debug";
 import { get_gulag_by_name } from "@/engine/scripts/utils/gulag";
-import { getStoryObjectId } from "@/engine/scripts/utils/id";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const state_initial = 0;
@@ -246,7 +246,7 @@ export function init_target(
   if (target_type === "story") {
     const [story_id] = parse_target(target);
 
-    target_id = getStoryObjectId(story_id!);
+    target_id = StoryObjectsManager.getStoryObjectId(story_id!);
     target_initialized = true;
   } else if (target_type === "path") {
     const [path, point] = parse_target(target);

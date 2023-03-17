@@ -10,16 +10,15 @@ import {
   XR_vector,
 } from "xray16";
 
-import { AnyObject, Optional, TRate, TSection, TStringId } from "@/engine/lib/types";
+import { AnyObject, Optional, TRate, TStringId } from "@/engine/lib/types";
 import { registry, softResetOfflineObject } from "@/engine/scripts/core/database";
 import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";
 import { evaluate_prior, getSimulationObjectsRegistry } from "@/engine/scripts/core/database/SimulationObjectsRegistry";
-import { getStoryObjectsRegistry } from "@/engine/scripts/core/database/StoryObjectsRegistry";
+import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 import { simulation_activities } from "@/engine/scripts/core/objects/alife/SimulationActivity";
 import { nearest_to_actor_smart, SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
 import { ESmartTerrainStatus, getCurrentSmartId } from "@/engine/scripts/core/objects/alife/smart/SmartTerrainControl";
 import { Squad } from "@/engine/scripts/core/objects/alife/Squad";
-import { unregisterStoryObjectById } from "@/engine/scripts/utils/alife";
 import { setLoadMarker, setSaveMarker } from "@/engine/scripts/utils/game_save";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
@@ -38,19 +37,12 @@ export class Actor extends cse_alife_creature_actor {
   /**
    * todo;
    */
-  public constructor(section: TSection) {
-    super(section);
-  }
-
-  /**
-   * todo;
-   */
   public override on_register(): void {
     super.on_register();
 
     logger.info("Register:", this.id, this.name(), this.section_name());
 
-    getStoryObjectsRegistry().register(this.id, "actor");
+    StoryObjectsManager.getInstance().register(this.id, "actor");
     getSimulationObjectsRegistry().register(this);
 
     this.isRegistered = true;
@@ -68,7 +60,7 @@ export class Actor extends cse_alife_creature_actor {
     logger.info("Unregister actor");
 
     super.on_unregister();
-    unregisterStoryObjectById(this.id);
+    StoryObjectsManager.unregisterStoryObjectById(this.id);
     getSimulationObjectsRegistry().unregister(this);
   }
 

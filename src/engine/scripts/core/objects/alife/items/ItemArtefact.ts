@@ -1,8 +1,7 @@
 import { alife, cse_alife_item_artefact, LuabindClass, XR_cse_alife_creature_actor } from "xray16";
 
-import { Optional, TSection } from "@/engine/lib/types";
-import { checkSpawnIniForStoryId } from "@/engine/scripts/core/database/StoryObjectsRegistry";
-import { unregisterStoryObjectById } from "@/engine/scripts/utils/alife";
+import { Optional } from "@/engine/lib/types";
+import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -12,31 +11,20 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class ItemArtefact extends cse_alife_item_artefact {
-  public constructor(section: TSection) {
-    super(section);
-  }
-
   /**
    * todo;
    */
   public override on_register(): void {
     super.on_register();
-    checkSpawnIniForStoryId(this);
+    StoryObjectsManager.checkSpawnIniForStoryId(this);
   }
 
   /**
    * todo;
    */
   public override on_unregister(): void {
-    unregisterStoryObjectById(this.id);
+    StoryObjectsManager.unregisterStoryObjectById(this.id);
     super.on_unregister();
-  }
-
-  /**
-   * todo;
-   */
-  public override can_switch_online(): boolean {
-    return super.can_switch_online();
   }
 
   /**

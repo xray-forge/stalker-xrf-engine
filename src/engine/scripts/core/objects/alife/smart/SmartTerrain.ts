@@ -49,7 +49,7 @@ import {
 import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";
 import { evaluate_prior, getSimulationObjectsRegistry } from "@/engine/scripts/core/database/SimulationObjectsRegistry";
 import { get_smart_terrain_name } from "@/engine/scripts/core/database/smart_names";
-import { checkSpawnIniForStoryId } from "@/engine/scripts/core/database/StoryObjectsRegistry";
+import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 import { loadGulagJobs } from "@/engine/scripts/core/objects/alife/gulag_general";
 import { simulation_activities } from "@/engine/scripts/core/objects/alife/SimulationActivity";
 import {
@@ -66,7 +66,7 @@ import { configureObjectSchemes } from "@/engine/scripts/core/schemes/base/confi
 import { determine_section_to_activate } from "@/engine/scripts/core/schemes/determine_section_to_activate";
 import { initializeGameObject } from "@/engine/scripts/core/schemes/initializeGameObject";
 import { switchToSection } from "@/engine/scripts/core/schemes/switchToSection";
-import { areOnSameAlifeLevel, unregisterStoryObjectById } from "@/engine/scripts/utils/alife";
+import { areOnSameAlifeLevel } from "@/engine/scripts/utils/alife";
 import { isMonster, isStalker } from "@/engine/scripts/utils/check/is";
 import {
   getConfigBoolean,
@@ -205,13 +205,6 @@ export class SmartTerrain extends cse_alife_smart_zone {
   /**
    * todo;
    */
-  public constructor(section: TSection) {
-    super(section);
-  }
-
-  /**
-   * todo;
-   */
   public override on_before_register(): void {
     super.on_before_register();
 
@@ -227,7 +220,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
     super.on_register();
 
     logger.info("Register:", this.id, this.name(), this.section_name());
-    checkSpawnIniForStoryId(this);
+    StoryObjectsManager.checkSpawnIniForStoryId(this);
 
     getSimulationObjectsRegistry().register(this);
 
@@ -260,7 +253,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
     super.on_unregister();
     this.board.unregister_smart(this);
     smart_terrains_by_name.delete(this.name());
-    unregisterStoryObjectById(this.id);
+    StoryObjectsManager.unregisterStoryObjectById(this.id);
     getSimulationObjectsRegistry().unregister(this);
   }
 

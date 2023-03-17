@@ -4,6 +4,7 @@ import { STRINGIFIED_NIL } from "@/engine/lib/constants/lua";
 import { Optional, StringOptional } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { GlobalSoundManager } from "@/engine/scripts/core/managers/GlobalSoundManager";
+import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 import { set_state } from "@/engine/scripts/core/objects/state/StateManager";
 import { ActionSleeperActivity } from "@/engine/scripts/core/schemes/sleeper/actions";
 import {
@@ -11,7 +12,6 @@ import {
   ECoverState,
   ISchemeSmartCoverState,
 } from "@/engine/scripts/core/schemes/smartcover/ISchemeSmartCoverState";
-import { getStoryObject } from "@/engine/scripts/utils/alife";
 import { getParamString, pickSectionFromCondList } from "@/engine/scripts/utils/config";
 import { abort } from "@/engine/scripts/utils/debug";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
@@ -167,8 +167,7 @@ export class ActionSmartCoverActivity extends action_base {
         }
       }
     } else if (this.state.target_enemy !== null) {
-      // --printf("setting target_enemy [actor] for npc[%s]", object.name())
-      const storyObject = getStoryObject(this.state.target_enemy);
+      const storyObject = StoryObjectsManager.getStoryObject(this.state.target_enemy);
 
       this.target_enemy_id = storyObject && storyObject.id();
 

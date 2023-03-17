@@ -49,6 +49,13 @@ export const registry = {
    */
   objects: new LuaTable<TNumberId, IRegistryObjectState>(),
   /**
+   * Story objects mapping to match currently spawned object IDs and unique story objects.
+   */
+  story: {
+    sidById: new LuaTable<TNumberId, TStringId>(),
+    idBySid: new LuaTable<TStringId, TNumberId>(),
+  },
+  /**
    * List of offline objects.
    */
   offlineObjects: new LuaTable<TNumberId, IStoredOfflineObject>(),

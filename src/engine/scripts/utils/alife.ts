@@ -20,24 +20,10 @@ import {
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/lua";
 import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
-import {
-  AnyArgs,
-  AnyObject,
-  EScheme,
-  LuaArray,
-  Maybe,
-  Optional,
-  TName,
-  TNumberId,
-  TSection,
-  TStringId,
-} from "@/engine/lib/types";
+import { AnyArgs, AnyObject, EScheme, LuaArray, Optional, TName, TNumberId, TSection } from "@/engine/lib/types";
 import { AnyGameObject } from "@/engine/lib/types/engine";
 import { IRegistryObjectState, registry } from "@/engine/scripts/core/database";
-import { getStoryObjectsRegistry } from "@/engine/scripts/core/database/StoryObjectsRegistry";
 import { Squad } from "@/engine/scripts/core/objects/alife/Squad";
-import { SquadReachTargetAction } from "@/engine/scripts/core/objects/alife/SquadReachTargetAction";
-import { SquadStayOnTargetAction } from "@/engine/scripts/core/objects/alife/SquadStayOnTargetAction";
 import { isCseAlifeObject, isStalker } from "@/engine/scripts/utils/check/is";
 import {
   getConfigBoolean,
@@ -47,7 +33,6 @@ import {
   pickSectionFromCondList,
 } from "@/engine/scripts/utils/config";
 import { abort } from "@/engine/scripts/utils/debug";
-import { getStoryObjectId } from "@/engine/scripts/utils/id";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/scripts/utils/parse";
 import { graphDistance } from "@/engine/scripts/utils/physics";
@@ -72,72 +57,20 @@ export function getObjectPositioning(
 /**
  * todo;
  */
-export function addStoryObject(objectId: TNumberId, storyObjectId: TStringId): void {
-  getStoryObjectsRegistry().register(objectId, storyObjectId);
-}
-
-/**
- * todo;
- */
-export function getStoryObject(storyObjectId: string): Optional<XR_game_object> {
-  const objectId: Optional<number> = getStoryObjectsRegistry().get(storyObjectId);
-  const possibleObject: Maybe<XR_game_object> = objectId ? registry.objects.get(objectId)?.object : null;
-
-  if (possibleObject) {
-    return possibleObject;
-  } else if (level && objectId) {
-    return level.object_by_id(objectId);
-  }
-
-  return null;
-}
-
-/**
- * todo;
- */
-export function unregisterStoryObjectById(id: number): void {
-  getStoryObjectsRegistry().unregister_by_id(id);
-}
-
-/**
- * todo;
- */
-export function unregisterStoryId(id: string): void {
-  getStoryObjectsRegistry().unregister_by_story_id(id);
-}
-
-/**
- * todo;
- */
 export function getObjectSquad(object: Optional<XR_game_object | XR_cse_alife_creature_abstract>): Optional<Squad> {
   if (object === null) {
     return abort("Attempt to get squad object from NIL.");
   }
 
-  const objectId: number =
+  const objectId: TNumberId =
     type(object.id) === "function" ? (object as XR_game_object).id() : (object as XR_cse_alife_creature_abstract).id;
-  const se_obj: Optional<any> = alife().object(objectId);
+  const serverObject: Optional<XR_cse_alife_creature_abstract> = alife().object(objectId);
 
-  if (se_obj && se_obj.group_id !== MAX_UNSIGNED_16_BIT) {
-    return alife().object<Squad>(se_obj.group_id);
+  if (serverObject && serverObject.group_id !== MAX_UNSIGNED_16_BIT) {
+    return alife().object<Squad>(serverObject.group_id);
   }
 
   return null;
-}
-
-export function getObjectSquadAction(
-  object: XR_game_object
-): Optional<SquadReachTargetAction | SquadStayOnTargetAction> {
-  return getObjectSquad(object)?.current_action as Optional<SquadReachTargetAction | SquadStayOnTargetAction>;
-}
-
-/**
- * todo;
- */
-export function getStorySquad<T extends XR_cse_alife_online_offline_group>(storyId: string): Optional<T> {
-  const squadId: Optional<number> = getStoryObjectId(storyId);
-
-  return squadId ? alife().object<T>(squadId) : null;
 }
 
 /**

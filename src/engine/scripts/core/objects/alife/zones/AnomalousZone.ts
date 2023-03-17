@@ -1,7 +1,7 @@
 import { cse_anomalous_zone, editor, game, LuabindClass, system_ini, XR_CTime, XR_net_packet } from "xray16";
 
-import { Optional, TSection } from "@/engine/lib/types";
-import { checkSpawnIniForStoryId } from "@/engine/scripts/core/database/StoryObjectsRegistry";
+import { Optional } from "@/engine/lib/types";
+import { StoryObjectsManager } from "@/engine/scripts/core/managers/StoryObjectsManager";
 import { getConfigNumber } from "@/engine/scripts/utils/config";
 import { isSinglePlayerGame } from "@/engine/scripts/utils/general";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
@@ -14,19 +14,9 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class AnomalousZone extends cse_anomalous_zone {
-  public m_registred: boolean = false;
   public artefact_spawn_idle: number = 0;
   public artefact_spawn_rnd: number = 0;
-
   public last_spawn_time: Optional<XR_CTime> = null;
-
-  /**
-   * todo;
-   */
-  public constructor(section: TSection) {
-    super(section);
-    this.m_registred = false;
-  }
 
   /**
    * todo;
@@ -36,9 +26,8 @@ export class AnomalousZone extends cse_anomalous_zone {
 
     logger.info("Register:", this.id, this.name(), this.section_name());
 
-    checkSpawnIniForStoryId(this);
+    StoryObjectsManager.checkSpawnIniForStoryId(this);
 
-    this.m_registred = true;
     this.artefact_spawn_idle =
       60 * 60 * 1000 * getConfigNumber(system_ini(), this.section_name(), "artefact_spawn_idle", this, false, 24);
     this.artefact_spawn_rnd = getConfigNumber(
