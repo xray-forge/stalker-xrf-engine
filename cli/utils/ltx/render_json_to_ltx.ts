@@ -1,19 +1,24 @@
 import { ILtxConfigDescriptor, ILtxFieldDescriptor, LTX_ROOT, renderField } from "#/utils";
 
+type TPossibleFieldDescriptorBase = Record<string, ILtxFieldDescriptor<unknown>> | Array<ILtxFieldDescriptor<unknown>>;
+type TPossibleFieldDescriptorFull = TPossibleFieldDescriptorBase | (() => TPossibleFieldDescriptorBase);
+
 /**
  * todo;
  */
-function renderLtxSection(
-  name: string | typeof LTX_ROOT,
-  object: Record<string, ILtxFieldDescriptor<unknown>> | Array<ILtxFieldDescriptor<unknown>>
-): string {
+function renderLtxSection(name: string | typeof LTX_ROOT, descriptorRaw: TPossibleFieldDescriptorFull): string {
   const sectionName: string = name === LTX_ROOT ? "\n" : `\n[${name}]\n`;
+  const descriptor: TPossibleFieldDescriptorBase =
+    typeof descriptorRaw === "function" ? descriptorRaw() : descriptorRaw;
 
-  if (Array.isArray(object)) {
-    return sectionName + object.map((it) => renderField(null, it)).join("\n") + "\n";
+  if (Array.isArray(descriptor)) {
+    return sectionName + descriptor.map((it) => renderField(null, it)).join("\n") + "\n";
   }
 
-  return Object.entries(object).reduce((result, [key, value]) => result + renderField(key, value) + "\n", sectionName);
+  return Object.entries(descriptor).reduce(
+    (result, [key, value]) => result + renderField(key, value) + "\n",
+    sectionName
+  );
 }
 
 /**
