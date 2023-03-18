@@ -16,8 +16,8 @@ import {
   softResetOfflineObject,
   unregisterStoryLinkByObjectId,
 } from "@/engine/scripts/core/database";
-import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";
 import { evaluate_prior, getSimulationObjectsRegistry } from "@/engine/scripts/core/database/SimulationObjectsRegistry";
+import { SimulationBoardManager } from "@/engine/scripts/core/managers/SimulationBoardManager";
 import { simulation_activities } from "@/engine/scripts/core/objects/alife/SimulationActivity";
 import { nearest_to_actor_smart, SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
 import { ESmartTerrainStatus, getCurrentSmartId } from "@/engine/scripts/core/objects/alife/smart/SmartTerrainControl";

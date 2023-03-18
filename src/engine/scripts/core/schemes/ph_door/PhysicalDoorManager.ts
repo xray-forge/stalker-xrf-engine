@@ -14,8 +14,8 @@ import { AbstractSchemeManager } from "@/engine/scripts/core/schemes/base/Abstra
 import { trySwitchToAnotherSection } from "@/engine/scripts/core/schemes/base/trySwitchToAnotherSection";
 import { ISchemePhysicalDoorState } from "@/engine/scripts/core/schemes/ph_door/ISchemePhysicalDoorState";
 import { switchToSection } from "@/engine/scripts/core/schemes/switchToSection";
-import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { abort } from "@/engine/scripts/utils/debug";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 
 /**
  * todo;

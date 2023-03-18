@@ -3,8 +3,8 @@ import { game, TXR_net_processor, XR_CTime, XR_ini_file, XR_net_packet } from "x
 import { relations } from "@/engine/lib/constants/relations";
 import { Optional, TName, TSection } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
-import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/scripts/core/managers/GlobalSoundManager";
+import { SimulationBoardManager } from "@/engine/scripts/core/managers/SimulationBoardManager";
 import { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
 import { isWeapon } from "@/engine/scripts/utils/check/is";
 import { setLoadMarker, setSaveMarker } from "@/engine/scripts/utils/game_save";

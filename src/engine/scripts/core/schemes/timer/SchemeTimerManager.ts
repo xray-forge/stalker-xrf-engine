@@ -5,8 +5,8 @@ import { AbstractSchemeManager } from "@/engine/scripts/core/schemes/base/Abstra
 import { trySwitchToAnotherSection } from "@/engine/scripts/core/schemes/base/trySwitchToAnotherSection";
 import { switchToSection } from "@/engine/scripts/core/schemes/switchToSection";
 import { ISchemeTimerState } from "@/engine/scripts/core/schemes/timer/ISchemeTimerState";
-import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { timeToString } from "@/engine/scripts/utils/general";
+import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 
 /**
  * todo;

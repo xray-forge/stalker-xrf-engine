@@ -1,7 +1,9 @@
-import { get_console, system_ini, XR_CConsole, XR_game_object, XR_ini_file } from "xray16";
+import { system_ini, XR_game_object, XR_ini_file } from "xray16";
 
+import { console_commands } from "@/engine/lib/constants/console_commands";
 import { registry } from "@/engine/scripts/core/database";
 import { AbstractCoreManager } from "@/engine/scripts/core/managers/AbstractCoreManager";
+import { executeConsoleCommand } from "@/engine/scripts/utils/console";
 import { getConfigString } from "@/engine/scripts/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
@@ -22,6 +24,9 @@ export enum EActorMenuMode {
 export class ActorInventoryMenuManager extends AbstractCoreManager {
   public activeMode: EActorMenuMode = EActorMenuMode.UNDEFINED;
 
+  /**
+   * todo;
+   */
   public setActiveMode(nextMode: EActorMenuMode): void {
     if (nextMode === EActorMenuMode.UNDEFINED || nextMode === EActorMenuMode.TALK_DIALOG_HIDE) {
       this.closeActorMenu();
@@ -30,6 +35,9 @@ export class ActorInventoryMenuManager extends AbstractCoreManager {
     }
   }
 
+  /**
+   * todo;
+   */
   public closeActorMenu(): void {
     switch (this.activeMode) {
       case EActorMenuMode.INVENTORY:
@@ -47,6 +55,9 @@ export class ActorInventoryMenuManager extends AbstractCoreManager {
     this.activeMode = EActorMenuMode.UNDEFINED;
   }
 
+  /**
+   * todo;
+   */
   public openActorMenu(mode: EActorMenuMode): void {
     switch (mode) {
       case EActorMenuMode.INVENTORY:
@@ -64,29 +75,43 @@ export class ActorInventoryMenuManager extends AbstractCoreManager {
     }
   }
 
+  /**
+   * todo;
+   */
   public isActiveMode(mode: EActorMenuMode): boolean {
     return this.activeMode === mode;
   }
 
+  /**
+   * todo;
+   */
   public initQuickSlotItems(): void {
-    const console: XR_CConsole = get_console();
     const ini: XR_ini_file = system_ini();
     const actor: XR_game_object = registry.actor;
 
-    console.execute("slot_0 " + getConfigString(ini, "actor", "quick_item_1", actor, false, "", ""));
-    console.execute("slot_1 " + getConfigString(ini, "actor", "quick_item_2", actor, false, "", ""));
-    console.execute("slot_2 " + getConfigString(ini, "actor", "quick_item_3", actor, false, "", ""));
-    console.execute("slot_3 " + getConfigString(ini, "actor", "quick_item_4", actor, false, "", ""));
+    executeConsoleCommand(console_commands.slot_0, getConfigString(ini, "actor", "quick_item_1", actor, false, "", ""));
+    executeConsoleCommand(console_commands.slot_1, getConfigString(ini, "actor", "quick_item_2", actor, false, "", ""));
+    executeConsoleCommand(console_commands.slot_2, getConfigString(ini, "actor", "quick_item_3", actor, false, "", ""));
+    executeConsoleCommand(console_commands.slot_3, getConfigString(ini, "actor", "quick_item_4", actor, false, "", ""));
   }
 
+  /**
+   * todo;
+   */
   public onItemDropped(): void {
     logger.info("Actor menu inventory item dropped");
   }
 
+  /**
+   * todo;
+   */
   public onWindowOpen(mode: EActorMenuMode) {
     logger.info("Actor menu open:", EActorMenuMode[mode]);
   }
 
+  /**
+   * todo;
+   */
   public onWindowClosed(mode: EActorMenuMode) {
     logger.info("Actor menu close:", EActorMenuMode[mode]);
   }

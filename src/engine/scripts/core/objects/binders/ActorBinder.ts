@@ -31,7 +31,6 @@ import { AnyCallablesModule, Optional, TDuration, TIndex, TName } from "@/engine
 import { IRegistryObjectState, registry, resetObject } from "@/engine/scripts/core/database";
 import { registerActor, unregisterActor } from "@/engine/scripts/core/database/actor";
 import { pstor_load_all, pstor_save_all } from "@/engine/scripts/core/database/pstor";
-import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";
 import { getSimulationObjectsRegistry } from "@/engine/scripts/core/database/SimulationObjectsRegistry";
 import { AchievementsManager } from "@/engine/scripts/core/managers/achievements";
 import { DropManager } from "@/engine/scripts/core/managers/DropManager";
@@ -42,6 +41,7 @@ import { MapDisplayManager } from "@/engine/scripts/core/managers/map/MapDisplay
 import { NotificationManager } from "@/engine/scripts/core/managers/notifications/NotificationManager";
 import { PsyAntennaManager } from "@/engine/scripts/core/managers/PsyAntennaManager";
 import { ReleaseBodyManager } from "@/engine/scripts/core/managers/ReleaseBodyManager";
+import { SimulationBoardManager } from "@/engine/scripts/core/managers/SimulationBoardManager";
 import { StatisticsManager } from "@/engine/scripts/core/managers/StatisticsManager";
 import { SurgeManager } from "@/engine/scripts/core/managers/SurgeManager";
 import { ETaskState } from "@/engine/scripts/core/managers/tasks";
@@ -408,7 +408,7 @@ export class ActorBinder extends object_binder {
     this.releaseBodyManager.save(packet);
     this.surgeManager.save(packet);
     PsyAntennaManager.save(packet);
-    packet.w_bool(SimulationBoardManager.getInstance().simulation_started);
+    packet.w_bool(SimulationBoardManager.getInstance().isSimulationStarted);
 
     this.globalSoundManager.saveActor(packet);
     packet.w_stringZ(tostring(this.lastLevelName));
@@ -471,7 +471,7 @@ export class ActorBinder extends object_binder {
 
     this.surgeManager.load(reader);
     PsyAntennaManager.load(reader);
-    SimulationBoardManager.getInstance().simulation_started = reader.r_bool();
+    SimulationBoardManager.getInstance().isSimulationStarted = reader.r_bool();
 
     this.globalSoundManager.loadActor(reader);
 

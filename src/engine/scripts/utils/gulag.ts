@@ -3,7 +3,7 @@ import { alife, game_object, XR_cse_alife_creature_abstract, XR_game_object } fr
 import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
 import { Optional, TName, TStringId } from "@/engine/lib/types";
 import { getObjectIdByStoryId } from "@/engine/scripts/core/database";
-import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";
+import { SimulationBoardManager } from "@/engine/scripts/core/managers/SimulationBoardManager";
 import { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 

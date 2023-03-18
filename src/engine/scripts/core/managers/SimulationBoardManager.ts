@@ -2,7 +2,7 @@ import { alife, clsid, game_graph, level, XR_cse_alife_creature_abstract } from 
 
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { TLevel } from "@/engine/lib/constants/levels";
-import { Optional, TNumberId } from "@/engine/lib/types";
+import { Optional, TName, TNumberId } from "@/engine/lib/types";
 import { registry, SIMULATION_LTX } from "@/engine/scripts/core/database";
 import { getSimulationObjectsRegistry } from "@/engine/scripts/core/database/SimulationObjectsRegistry";
 import { AbstractCoreManager } from "@/engine/scripts/core/managers/AbstractCoreManager";
@@ -23,8 +23,6 @@ const group_id_by_levels: LuaTable<TLevel, TNumberId> = {
   jupiter_underground: 5,
 } as unknown as LuaTable<TLevel, TNumberId>;
 
-let board: Optional<SimulationBoardManager> = null;
-
 export interface ISimSmartDescriptor {
   smrt: SmartTerrain;
   squads: LuaTable<number, Squad>;
@@ -35,7 +33,7 @@ export interface ISimSmartDescriptor {
  * todo;
  */
 export class SimulationBoardManager extends AbstractCoreManager {
-  public simulation_started: boolean = true;
+  public isSimulationStarted: boolean = true;
 
   public players: Optional<LuaTable> = null;
   public smarts: LuaTable<number, ISimSmartDescriptor> = new LuaTable();
@@ -49,15 +47,15 @@ export class SimulationBoardManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public start_sim(): void {
-    this.simulation_started = true;
+  public startSimulation(): void {
+    this.isSimulationStarted = true;
   }
 
   /**
    * todo;
    */
-  public stop_sim(): void {
-    this.simulation_started = false;
+  public stopSimulation(): void {
+    this.isSimulationStarted = false;
   }
 
   /**
@@ -326,7 +324,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public get_smart_by_name(name: string): Optional<SmartTerrain> {
+  public get_smart_by_name(name: TName): Optional<SmartTerrain> {
     return this.smarts_by_names.get(name);
   }
 
@@ -371,12 +369,4 @@ export class SimulationBoardManager extends AbstractCoreManager {
 
     return most_priority_task || (squad.smart_id && alife().object<SmartTerrain>(squad.smart_id)) || squad;
   }
-}
-
-/**
- * todo;
- */
-export function resetSimBoard(): void {
-  logger.info("Clear board");
-  board = null;
 }

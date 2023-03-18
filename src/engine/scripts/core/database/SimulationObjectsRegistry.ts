@@ -15,6 +15,7 @@ let sim_objects_registry: Optional<SimulationObjectsRegistry> = null;
 
 /**
  * todo;
+ * todo: Remove class, move to db+utils.
  */
 export class SimulationObjectsRegistry {
   public readonly objects: LuaTable<TNumberId, Actor | Squad | SmartTerrain> = new LuaTable();
@@ -73,8 +74,8 @@ export class SimulationObjectsRegistry {
     }
   }
 
-  public unregister(obj: XR_cse_alife_object): void {
-    this.objects.delete(obj.id);
+  public unregister(object: XR_cse_alife_object): void {
+    this.objects.delete(object.id);
   }
 }
 
@@ -89,13 +90,13 @@ export function getSimulationObjectsRegistry(): SimulationObjectsRegistry {
   return sim_objects_registry;
 }
 
-export function evaluate_prior_by_dist(target: SmartTerrain | Actor | Squad, squad: Squad): number {
+export function evaluate_prior_by_dist(target: XR_cse_alife_object, squad: Squad): TRate {
   const dist = math.max(getServerDistanceBetween(target, squad), 1);
 
   return 1 + 1 / dist;
 }
 
-export function evaluate_prior(target: SmartTerrain | Actor | Squad, squad: Squad): number {
+export function evaluate_prior(target: SmartTerrain | Actor | Squad, squad: Squad): TRate {
   let prior = 0;
 
   if (!target.target_precondition(squad) || !areObjectsOnSameLevel(target, squad)) {

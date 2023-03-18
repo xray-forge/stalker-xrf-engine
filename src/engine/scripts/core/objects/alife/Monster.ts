@@ -13,13 +13,13 @@ import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
 import { Optional, StringOptional, TSection } from "@/engine/lib/types";
 import {
   hardResetOfflineObject,
-  initializeOfflineObject,
   IStoredOfflineObject,
   registerObjectStoryLinks,
+  registerOfflineObject,
   registry,
   unregisterStoryLinkByObjectId,
 } from "@/engine/scripts/core/database";
-import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";
+import { SimulationBoardManager } from "@/engine/scripts/core/managers/SimulationBoardManager";
 import { on_death, SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
 import { abort } from "@/engine/scripts/utils/debug";
 import { getConfigString } from "@/engine/scripts/utils/ini_config/getters";
@@ -107,7 +107,7 @@ export class Monster extends cse_alife_monster_base {
     if (this.script_version > 10) {
       const oldLevelId: StringOptional = packet.r_stringZ();
       const oldSection: StringOptional = packet.r_stringZ();
-      const offlineObject: IStoredOfflineObject = initializeOfflineObject(this.id);
+      const offlineObject: IStoredOfflineObject = registerOfflineObject(this.id);
 
       offlineObject.active_section = oldSection === STRINGIFIED_NIL ? null : oldSection;
       offlineObject.level_vertex_id = oldLevelId === STRINGIFIED_NIL ? null : (tonumber(oldLevelId) as number);
@@ -126,7 +126,7 @@ export class Monster extends cse_alife_monster_base {
 
     const board = SimulationBoardManager.getInstance();
 
-    initializeOfflineObject(this.id);
+    registerOfflineObject(this.id);
 
     this.brain().can_choose_alife_tasks(false);
 

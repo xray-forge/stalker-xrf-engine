@@ -36,9 +36,9 @@ import {
   TTimestamp,
 } from "@/engine/lib/types";
 import { getStoryIdByObjectId, registry, TRAVEL_MANAGER_LTX } from "@/engine/scripts/core/database";
-import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";
 import { AbstractCoreManager } from "@/engine/scripts/core/managers/AbstractCoreManager";
 import { NotificationManager } from "@/engine/scripts/core/managers/notifications/NotificationManager";
+import { SimulationBoardManager } from "@/engine/scripts/core/managers/SimulationBoardManager";
 import { SurgeManager } from "@/engine/scripts/core/managers/SurgeManager";
 import { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
 import { Squad } from "@/engine/scripts/core/objects/alife/Squad";

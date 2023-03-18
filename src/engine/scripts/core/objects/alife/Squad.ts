@@ -37,9 +37,9 @@ import {
   SQUAD_BEHAVIOURS_LTX,
   SYSTEM_INI,
 } from "@/engine/scripts/core/database";
-import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";
 import { evaluate_prior, getSimulationObjectsRegistry } from "@/engine/scripts/core/database/SimulationObjectsRegistry";
-import { unregisterStoryLinkByObjectId } from "@/engine/scripts/core/database/story";
+import { unregisterStoryLinkByObjectId } from "@/engine/scripts/core/database/story_objects";
+import { SimulationBoardManager } from "@/engine/scripts/core/managers/SimulationBoardManager";
 import { simulation_activities } from "@/engine/scripts/core/objects/alife/SimulationActivity";
 import type { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
 import { ESmartTerrainStatus } from "@/engine/scripts/core/objects/alife/smart/SmartTerrainControl";

@@ -4,11 +4,11 @@ import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
 import { STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
 import { AnyObject, Optional, TCount, TName, TNumberId } from "@/engine/lib/types";
 import { IRegistryObjectState, registry } from "@/engine/scripts/core/database";
-import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";
 import {
   getSimulationObjectsRegistry,
   SimulationObjectsRegistry,
 } from "@/engine/scripts/core/database/SimulationObjectsRegistry";
+import { SimulationBoardManager } from "@/engine/scripts/core/managers/SimulationBoardManager";
 import { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
 import { ESmartTerrainStatus } from "@/engine/scripts/core/objects/alife/smart/SmartTerrainControl";
 import { ISchemeCombatIgnoreState } from "@/engine/scripts/core/schemes/combat_ignore";

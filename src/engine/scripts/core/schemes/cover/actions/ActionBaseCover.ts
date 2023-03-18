@@ -2,8 +2,8 @@ import { action_base, game_object, level, LuabindClass, vector, XR_vector } from
 
 import { Optional } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
-import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/scripts/core/managers/GlobalSoundManager";
+import { SimulationBoardManager } from "@/engine/scripts/core/managers/SimulationBoardManager";
 import { set_state } from "@/engine/scripts/core/objects/state/StateManager";
 import { ISchemeCoverState } from "@/engine/scripts/core/schemes/cover";
 import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";

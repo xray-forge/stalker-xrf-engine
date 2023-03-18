@@ -445,77 +445,58 @@ export const console_commands = {
   dbg_ph_ai_never_phmove: "dbg_ph_ai_never_phmove",
 
   dbg_ph_character_control: "dbg_ph_character_control",
-
   dbg_ph_ik: "dbg_ph_ik",
-
   dbg_ph_ik_limits: "dbg_ph_ik_limits",
-
   dbg_ph_ik_off: "dbg_ph_ik_off",
-
   dbg_ph_ladder: "dbg_ph_ladder",
-
   dbg_ph_obj_collision_damage: "dbg_ph_obj_collision_damage",
-
   /**
    * Disconnect from server / game session.
    */
   disconnect: "disconnect",
-
   g_always_run: "g_always_run",
-
   g_autopickup: "g_autopickup",
-
   /**
    * Set game difficulty.
    * Second param - diffuculty value.
    */
   g_game_difficulty: "g_game_difficulty",
-
   /**
    * Debug commands:
    */
   g_god: "g_god",
-
   g_unlimitedammo: "g_unlimitedammo",
-
   hud_crosshair: "hud_crosshair",
-
   hud_crosshair_dist: "hud_crosshair_dist",
-
   hud_draw: "hud_draw",
-
   hud_info: "hud_info",
-
   hud_weapon: "hud_weapon",
-
   /**
    * Load save.
    */
   load: "load",
-
   /**
    * Load last save.
    */
   load_last_save: "load_last_save",
-
   /**
    * Toggle main menu.
    * Second param - on / off.
    */
   main_menu: "main_menu",
-
   /**
    * Quit from game.
    */
   quit: "quit",
-
   show_wnd_rect_all: "show_wnd_rect_all",
-
+  slot_0: "slot_0",
+  slot_1: "slot_1",
+  slot_2: "slot_2",
+  slot_3: "slot_3",
   /**
    * todo: ???
    */
   snd_volume_eff: "snd_volume_eff",
-
   /**
    * todo: ???
    */

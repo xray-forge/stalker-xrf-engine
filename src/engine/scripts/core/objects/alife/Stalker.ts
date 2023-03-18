@@ -12,13 +12,13 @@ import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
 import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
 import { Optional, StringOptional, TName, TNumberId, TSection } from "@/engine/lib/types";
 import {
-  initializeOfflineObject,
   IStoredOfflineObject,
   registerObjectStoryLinks,
+  registerOfflineObject,
   registry,
   unregisterStoryLinkByObjectId,
 } from "@/engine/scripts/core/database";
-import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";
+import { SimulationBoardManager } from "@/engine/scripts/core/managers/SimulationBoardManager";
 import { on_death, SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
 import { abort } from "@/engine/scripts/utils/debug";
 import { getConfigString } from "@/engine/scripts/utils/ini_config/getters";
@@ -42,7 +42,7 @@ export class Stalker extends cse_alife_human_stalker {
    */
   public constructor(section: TSection) {
     super(section);
-    initializeOfflineObject(this.id);
+    registerOfflineObject(this.id);
   }
 
   /**
@@ -89,14 +89,12 @@ export class Stalker extends cse_alife_human_stalker {
   public override STATE_Read(packet: XR_net_packet, size: number) {
     super.STATE_Read(packet, size);
 
-    if (this.script_version > 10) {
-      const oldLevelId: StringOptional = packet.r_stringZ();
-      const oldSection: StringOptional = packet.r_stringZ();
-      const offlineObject: IStoredOfflineObject = initializeOfflineObject(this.id);
+    const oldLevelId: StringOptional = packet.r_stringZ();
+    const oldSection: StringOptional = packet.r_stringZ();
+    const offlineObject: IStoredOfflineObject = registerOfflineObject(this.id);
 
-      offlineObject.active_section = oldSection === STRINGIFIED_NIL ? null : oldSection;
-      offlineObject.level_vertex_id = oldSection === STRINGIFIED_NIL ? null : (tonumber(oldLevelId) as number);
-    }
+    offlineObject.active_section = oldSection === STRINGIFIED_NIL ? null : oldSection;
+    offlineObject.level_vertex_id = oldSection === STRINGIFIED_NIL ? null : (tonumber(oldLevelId) as number);
 
     this.isCorpseLootDropped = packet.r_bool();
   }
@@ -110,15 +108,15 @@ export class Stalker extends cse_alife_human_stalker {
     logger.info("Register:", this.id, this.name(), this.section_name());
     registerObjectStoryLinks(this);
 
-    const board = SimulationBoardManager.getInstance();
-    const obj_ini = this.spawn_ini();
+    const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
+    const objectIni: XR_ini_file = this.spawn_ini();
 
-    initializeOfflineObject(this.id);
+    registerOfflineObject(this.id);
 
     this.brain().can_choose_alife_tasks(false);
 
-    const smartName: TName = getConfigString(obj_ini, "logic", "smart_terrain", this, false, "", "");
-    const smartTerrain: Optional<SmartTerrain> = board.get_smart_by_name(smartName);
+    const smartName: TName = getConfigString(objectIni, "logic", "smart_terrain", this, false, "", "");
+    const smartTerrain: Optional<SmartTerrain> = simulationBoardManager.get_smart_by_name(smartName);
 
     if (smartTerrain === null) {
       return;
@@ -160,9 +158,9 @@ export class Stalker extends cse_alife_human_stalker {
    * todo;
    */
   public override on_death(killer: XR_cse_alife_creature_abstract): void {
-    logger.info("On death:", this.name(), killer.id, killer?.name());
-
     super.on_death(killer);
+
+    logger.info("On death:", this.name(), killer.id, killer?.name());
 
     on_death(this);
 

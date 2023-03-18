@@ -5,8 +5,6 @@ import { script_sounds } from "@/engine/lib/constants/sound/script_sounds";
 import { texturesIngame } from "@/engine/lib/constants/textures";
 import { Maybe, Optional, TCount, TDuration, TLabel, TName, TSection, TStringId, TTimestamp } from "@/engine/lib/types";
 import { getObjectIdByStoryId, registry, SYSTEM_INI } from "@/engine/scripts/core/database";
-import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";
-import { get_smart_terrain_name } from "@/engine/scripts/core/database/smart_names";
 import { AbstractCoreManager } from "@/engine/scripts/core/managers/AbstractCoreManager";
 import { GlobalSoundManager } from "@/engine/scripts/core/managers/GlobalSoundManager";
 import {
@@ -18,6 +16,7 @@ import {
   notificationTaskDescription,
   TNotificationTaskDescriptionKey,
 } from "@/engine/scripts/core/managers/notifications/NotificationTaskDescription";
+import { SimulationBoardManager } from "@/engine/scripts/core/managers/SimulationBoardManager";
 import { Stalker } from "@/engine/scripts/core/objects";
 import { isHeavilyWounded } from "@/engine/scripts/utils/check/check";
 import { isStalkerClassId } from "@/engine/scripts/utils/check/is";
@@ -215,15 +214,15 @@ export class NotificationManager extends AbstractCoreManager {
       return;
     }
 
-    let point_name = "";
+    let pointName: TName = "";
 
     if (point !== null) {
       const smart = SimulationBoardManager.getInstance().smarts.get(point as any);
 
       if (smart !== null) {
-        point_name = get_smart_terrain_name(smart.smrt) as string;
+        pointName = smart.smrt.getNameCaption();
       } else {
-        point_name = game.translate_string(point);
+        pointName = game.translate_string(point);
       }
     }
 
@@ -254,8 +253,8 @@ export class NotificationManager extends AbstractCoreManager {
 
     let news_caption = game.translate_string("st_tip") + " " + game.translate_string(faction);
 
-    if (point_name !== "") {
-      news_caption = news_caption + ". " + point_name + ":";
+    if (pointName !== "") {
+      news_caption = news_caption + ". " + pointName + ":";
     } else {
       news_caption = news_caption + ":";
     }

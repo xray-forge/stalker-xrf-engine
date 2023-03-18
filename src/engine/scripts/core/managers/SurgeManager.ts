@@ -21,15 +21,15 @@ import { console_commands } from "@/engine/lib/constants/console_commands";
 import { info_portions } from "@/engine/lib/constants/info_portions";
 import { levels, TLevel } from "@/engine/lib/constants/levels";
 import { STRINGIFIED_FALSE, STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
-import { AnyCallablesModule, Optional, PartialRecord, TNumberId } from "@/engine/lib/types";
+import { AnyCallablesModule, Optional, PartialRecord, TLabel, TNumberId } from "@/engine/lib/types";
 import { registry, SURGE_MANAGER_LTX } from "@/engine/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/engine/scripts/core/database/pstor";
-import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";
 import { AbstractCoreManager } from "@/engine/scripts/core/managers/AbstractCoreManager";
 import { GlobalSoundManager } from "@/engine/scripts/core/managers/GlobalSoundManager";
 import { MapDisplayManager } from "@/engine/scripts/core/managers/map/MapDisplayManager";
 import { notificationManagerIcons } from "@/engine/scripts/core/managers/notifications";
 import { NotificationManager } from "@/engine/scripts/core/managers/notifications/NotificationManager";
+import { SimulationBoardManager } from "@/engine/scripts/core/managers/SimulationBoardManager";
 import { StatisticsManager } from "@/engine/scripts/core/managers/StatisticsManager";
 import { WeatherManager } from "@/engine/scripts/core/managers/WeatherManager";
 import { Squad } from "@/engine/scripts/core/objects/alife/Squad";
@@ -74,7 +74,11 @@ export class SurgeManager extends AbstractCoreManager {
     return false; // -- can't delete squad in his smart if squad is in cover
   }
 
-  public levels_respawn: PartialRecord<TLevel, boolean> = { zaton: false, jupiter: false, pripyat: false };
+  public levels_respawn: PartialRecord<TLevel, boolean> = {
+    [levels.zaton]: false,
+    [levels.jupiter]: false,
+    [levels.pripyat]: false,
+  };
 
   public isStarted: boolean = false;
   public isFinished: boolean = true;
@@ -163,7 +167,7 @@ export class SurgeManager extends AbstractCoreManager {
       const zone: Optional<XR_game_object> = registry.zones.get(id);
 
       if (zone !== null) {
-        this.surgeCoversCount = this.surgeCoversCount + 1;
+        this.surgeCoversCount += 1;
         this.covers.set(this.surgeCoversCount, zone);
 
         if (SURGE_MANAGER_LTX.line_exist(id, "condlist")) {
@@ -178,7 +182,7 @@ export class SurgeManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public getNearestAvailableCover(): Optional<number> {
+  public getNearestAvailableCoverId(): Optional<TNumberId> {
     logger.info("Getting nearest cover");
 
     if (this.isLoaded) {
@@ -246,9 +250,9 @@ export class SurgeManager extends AbstractCoreManager {
    * todo;
    */
   public isActorInCover(): boolean {
-    const cover_id: Optional<number> = this.getNearestAvailableCover();
+    const coverObjectId: Optional<TNumberId> = this.getNearestAvailableCoverId();
 
-    return cover_id !== null && registry.objects.get(cover_id).object!.inside(registry.actor.position());
+    return coverObjectId !== null && registry.objects.get(coverObjectId).object.inside(registry.actor.position());
   }
 
   /**
@@ -268,7 +272,7 @@ export class SurgeManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public setSurgeMessage(message: string): void {
+  public setSurgeMessage(message: TLabel): void {
     this.surge_message = message;
   }
 
@@ -280,7 +284,7 @@ export class SurgeManager extends AbstractCoreManager {
       return null;
     }
 
-    return this.getNearestAvailableCover();
+    return this.getNearestAvailableCoverId();
   }
 
   /**
@@ -296,7 +300,7 @@ export class SurgeManager extends AbstractCoreManager {
   public requestSurgeStart(): void {
     logger.info("Request surge start");
 
-    if (this.getNearestAvailableCover()) {
+    if (this.getNearestAvailableCoverId()) {
       this.start(true);
     } else {
       logger.info("Error: Surge covers are not set! Can't manually start");
@@ -522,7 +526,7 @@ export class SurgeManager extends AbstractCoreManager {
       }
     }
 
-    const cover = this.getNearestAvailableCover();
+    const cover = this.getNearestAvailableCoverId();
 
     if (registry.actor.alive()) {
       if (
@@ -687,7 +691,7 @@ export class SurgeManager extends AbstractCoreManager {
         return;
       }
 
-      if (!this.getNearestAvailableCover()) {
+      if (!this.getNearestAvailableCoverId()) {
         return;
       }
 
@@ -702,7 +706,7 @@ export class SurgeManager extends AbstractCoreManager {
     if (this.prev_sec !== surgeDuration) {
       this.prev_sec = surgeDuration;
 
-      const cover = this.getNearestAvailableCover();
+      const cover = this.getNearestAvailableCoverId();
 
       if (cover === null && this.surgeCoversCount === 0) {
         this.initializeSurgeCovers();

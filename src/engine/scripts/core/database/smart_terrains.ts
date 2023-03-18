@@ -7,7 +7,7 @@ import { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTer
 /**
  * todo;
  */
-export function addSmartTerrain(object: XR_game_object, cseObject: SmartTerrain): void {
+export function registerSmartTerrain(object: XR_game_object, cseObject: SmartTerrain): void {
   registerZone(object);
   registry.smartTerrains.set(cseObject.id, cseObject);
 }
@@ -15,7 +15,7 @@ export function addSmartTerrain(object: XR_game_object, cseObject: SmartTerrain)
 /**
  * todo;
  */
-export function deleteSmartTerrain(object: XR_game_object, cseObject: SmartTerrain): void {
+export function unregisterSmartTerrain(object: XR_game_object, cseObject: SmartTerrain): void {
   unregisterZone(object);
   registry.smartTerrains.delete(cseObject.id);
 }

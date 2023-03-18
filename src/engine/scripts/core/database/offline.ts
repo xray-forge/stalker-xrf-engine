@@ -34,7 +34,7 @@ export function softResetOfflineObject(objectId: TNumberId): void {
 /**
  * todo;
  */
-export function initializeOfflineObject(objectId: TNumberId): IStoredOfflineObject {
+export function registerOfflineObject(objectId: TNumberId): IStoredOfflineObject {
   let offlineRecord: Optional<IStoredOfflineObject> = registry.offlineObjects.get(objectId);
 
   if (offlineRecord === null) {

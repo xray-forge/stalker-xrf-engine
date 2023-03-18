@@ -1,6 +1,6 @@
 import { LuabindClass, object_binder, XR_cse_alife_object, XR_CZoneCampfire, XR_game_object } from "xray16";
 
-import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";
+import { SimulationBoardManager } from "@/engine/scripts/core/managers/SimulationBoardManager";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { isEmpty } from "@/engine/scripts/utils/table";
 

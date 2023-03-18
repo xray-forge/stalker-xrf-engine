@@ -1,10 +1,9 @@
 import { device } from "xray16";
 
 import { EScheme } from "@/engine/lib/types/scheme";
-import { resetSimBoard } from "@/engine/scripts/core/database/SimulationBoardManager";
-import { initSmartNamesTable } from "@/engine/scripts/core/database/smart_names";
 import { ActorInventoryMenuManager } from "@/engine/scripts/core/managers/ActorInventoryMenuManager";
 import { GlobalSoundManager } from "@/engine/scripts/core/managers/GlobalSoundManager";
+import { SimulationBoardManager } from "@/engine/scripts/core/managers/SimulationBoardManager";
 import { TaskManager } from "@/engine/scripts/core/managers/tasks";
 import { initializeModules } from "@/engine/scripts/core/schemes/schemes_registering";
 import { resetSchemeHard } from "@/engine/scripts/core/schemes/schemes_resetting";
@@ -24,6 +23,7 @@ extern("start", {
    * Called when game is started or loaded.
    *
    * todo: Reset all managers in a generic way.
+   * todo: Since context of lua is destroyed after load, should all these actions be performed?
    */
   callback: (): void => {
     logger.info("Start game");
@@ -31,9 +31,9 @@ extern("start", {
     math.randomseed(device().time_global());
 
     initializeModules();
-    initSmartNamesTable();
+
     TaskManager.dispose();
-    resetSimBoard();
+    SimulationBoardManager.dispose();
 
     SoundTheme.loadSound();
     GlobalSoundManager.getInstance().reset(); // todo: Just reset the manager.

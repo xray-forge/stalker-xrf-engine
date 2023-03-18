@@ -22,6 +22,7 @@ import {
 } from "xray16";
 
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { TCaption } from "@/engine/lib/constants/captions";
 import { MAX_UNSIGNED_16_BIT, MAX_UNSIGNED_8_BIT } from "@/engine/lib/constants/memory";
 import { SMART_TERRAIN_SECT } from "@/engine/lib/constants/sections";
 import { STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
@@ -48,9 +49,8 @@ import {
   softResetOfflineObject,
   unregisterStoryLinkByObjectId,
 } from "@/engine/scripts/core/database";
-import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";
 import { evaluate_prior, getSimulationObjectsRegistry } from "@/engine/scripts/core/database/SimulationObjectsRegistry";
-import { get_smart_terrain_name } from "@/engine/scripts/core/database/smart_names";
+import { SimulationBoardManager } from "@/engine/scripts/core/managers/SimulationBoardManager";
 import { loadGulagJobs } from "@/engine/scripts/core/objects/alife/gulag_general";
 import { simulation_activities } from "@/engine/scripts/core/objects/alife/SimulationActivity";
 import {
@@ -258,6 +258,17 @@ export class SmartTerrain extends cse_alife_smart_zone {
     getSimulationObjectsRegistry().unregister(this);
   }
 
+  /**
+   * Get smart terrain name label.
+   * Used for UI display or mentioning in strings.
+   */
+  public getNameCaption(): TCaption {
+    return string.format("st_%s_name", this.name());
+  }
+
+  /**
+   * todo;
+   */
   public read_params(): void {
     this.ini = this.spawn_ini();
 
@@ -1045,7 +1056,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
    * todo;
    */
   public get_smart_props(): string {
-    let props: Optional<string> = get_smart_terrain_name(this);
+    let props: Optional<TName> = this.getNameCaption();
 
     if (props === null || gameConfig.DEBUG.IS_SMARTS_DEBUG_ENABLED) {
       props =

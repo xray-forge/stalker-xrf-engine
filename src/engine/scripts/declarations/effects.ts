@@ -73,11 +73,11 @@ import {
   unregisterHelicopter,
 } from "@/engine/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/engine/scripts/core/database/pstor";
-import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/scripts/core/managers/GlobalSoundManager";
 import { ItemUpgradesManager } from "@/engine/scripts/core/managers/ItemUpgradesManager";
 import { MapDisplayManager } from "@/engine/scripts/core/managers/map/MapDisplayManager";
 import { NotificationManager, TNotificationIcon } from "@/engine/scripts/core/managers/notifications";
+import { SimulationBoardManager } from "@/engine/scripts/core/managers/SimulationBoardManager";
 import { SurgeManager } from "@/engine/scripts/core/managers/SurgeManager";
 import { TaskManager } from "@/engine/scripts/core/managers/tasks";
 import { TreasureManager } from "@/engine/scripts/core/managers/TreasureManager";

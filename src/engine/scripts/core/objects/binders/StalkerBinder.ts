@@ -39,12 +39,12 @@ import {
   unregisterHelicopterEnemy,
   unregisterObject,
 } from "@/engine/scripts/core/database";
-import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";
 import { DropManager } from "@/engine/scripts/core/managers/DropManager";
 import { GlobalSoundManager } from "@/engine/scripts/core/managers/GlobalSoundManager";
 import { ItemUpgradesManager } from "@/engine/scripts/core/managers/ItemUpgradesManager";
 import { MapDisplayManager } from "@/engine/scripts/core/managers/map/MapDisplayManager";
 import { ReleaseBodyManager } from "@/engine/scripts/core/managers/ReleaseBodyManager";
+import { SimulationBoardManager } from "@/engine/scripts/core/managers/SimulationBoardManager";
 import { StatisticsManager } from "@/engine/scripts/core/managers/StatisticsManager";
 import { TradeManager } from "@/engine/scripts/core/managers/TradeManager";
 import { setup_gulag_and_logic_on_spawn, SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";

@@ -1,7 +1,7 @@
 import { alife, LuabindClass, object_binder, XR_cse_alife_object, XR_game_object } from "xray16";
 
 import { TDuration } from "@/engine/lib/types";
-import { addSmartTerrain, deleteSmartTerrain } from "@/engine/scripts/core/database";
+import { registerSmartTerrain, unregisterSmartTerrain } from "@/engine/scripts/core/database";
 import { GlobalSoundManager } from "@/engine/scripts/core/managers/GlobalSoundManager";
 import { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
@@ -32,7 +32,7 @@ export class SmartTerrainBinder extends object_binder {
 
     this.se_smart_terrain = alife().object(object.id) as SmartTerrain;
 
-    addSmartTerrain(this.object, this.se_smart_terrain);
+    registerSmartTerrain(this.object, this.se_smart_terrain);
 
     return true;
   }
@@ -43,7 +43,7 @@ export class SmartTerrainBinder extends object_binder {
   public override net_destroy(): void {
     GlobalSoundManager.getInstance().stopSoundsByObjectId(this.object.id());
 
-    deleteSmartTerrain(this.object, this.se_smart_terrain);
+    unregisterSmartTerrain(this.object, this.se_smart_terrain);
 
     super.net_destroy();
   }

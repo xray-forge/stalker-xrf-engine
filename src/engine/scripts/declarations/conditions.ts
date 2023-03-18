@@ -42,10 +42,10 @@ import {
   registry,
 } from "@/engine/scripts/core/database";
 import { pstor_retrieve } from "@/engine/scripts/core/database/pstor";
-import { SimulationBoardManager } from "@/engine/scripts/core/database/SimulationBoardManager";
 import { AchievementsManager } from "@/engine/scripts/core/managers/achievements/AchievementsManager";
 import { ActorInventoryMenuManager, EActorMenuMode } from "@/engine/scripts/core/managers/ActorInventoryMenuManager";
 import { ItemUpgradesManager } from "@/engine/scripts/core/managers/ItemUpgradesManager";
+import { SimulationBoardManager } from "@/engine/scripts/core/managers/SimulationBoardManager";
 import { SurgeManager } from "@/engine/scripts/core/managers/SurgeManager";
 import { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
 import {
