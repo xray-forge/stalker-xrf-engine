@@ -98,7 +98,7 @@ export const path_fields: LuaTable<number, string> = ["path_walk", "path_main", 
  * todo;
  */
 interface INpcInfo {
-  se_obj: any;
+  se_obj: XR_cse_alife_creature_abstract;
   is_monster: boolean;
   need_job: string;
   job_prior: number;
@@ -667,8 +667,6 @@ export class SmartTerrain extends cse_alife_smart_zone {
    * todo;
    */
   public select_npc_job(npcInfo: INpcInfo): void {
-    // log.info("Select npc job:", this.name(), npc_info.se_obj.id);
-
     const [selected_job_id, selected_job_prior, selected_job_link] = job_iterator(this.jobs, npcInfo, 0, this);
 
     if (selected_job_id === null) {
