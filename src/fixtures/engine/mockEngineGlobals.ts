@@ -7,11 +7,11 @@ import { mockTableUtils } from "@/fixtures/engine/mocks/table.mocks";
  * todo;
  */
 export function mockEngineGlobals(): void {
-  jest.mock("@/engine/scripts/utils/logging", () => ({
+  jest.mock("@/engine/core/utils/logging", () => ({
     LuaLogger: MockLuaLogger,
   }));
 
-  jest.mock("@/engine/scripts/utils/table", () => mockTableUtils);
+  jest.mock("@/engine/core/utils/table", () => mockTableUtils);
 
   // @ts-ignore
   global._G = global;

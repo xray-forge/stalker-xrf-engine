@@ -85,5 +85,5 @@ Everything else can be added in your own mod extending the template.
 
 ## 🧰 Docs
 
-- Development and game documentation: [docs](docs/README.md)
+- Development and game documentation: [docs](doc/README.md)
 - Types and game bindings: [source](https://github.com/stalker-xrts/xray-16-types), [docs](https://stalker-xrts.github.io/xray-16-types/modules.html)
