@@ -217,10 +217,11 @@ export class NotificationManager extends AbstractCoreManager {
     let pointName: TName = "";
 
     if (point !== null) {
-      const smart = SimulationBoardManager.getInstance().smarts.get(point as any);
+      // todo: Probably name and number id problem?
+      const smart = SimulationBoardManager.getInstance().getSmartTerrainDescriptorById(point as any);
 
       if (smart !== null) {
-        pointName = smart.smrt.getNameCaption();
+        pointName = smart.smartTerrain.getNameCaption();
       } else {
         pointName = game.translate_string(point);
       }

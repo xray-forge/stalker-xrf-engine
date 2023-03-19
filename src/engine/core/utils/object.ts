@@ -140,21 +140,26 @@ export function stopObjectPlayingSound(object: XR_game_object): void {
 
 /**
  * todo;
+ * @param serverObject - alife server object to change team parameters
+ * @param teamId - ?
+ * @param squadId - id of the parent squad
+ * @param groupId - id of the level group
+ *
  */
 export function changeTeamSquadGroup(
   serverObject: XR_cse_alife_creature_abstract,
-  team: TNumberId,
-  squad: TNumberId,
-  group: TNumberId
+  teamId: TNumberId,
+  squadId: TNumberId,
+  groupId: TNumberId
 ): void {
   const clientObject: Optional<XR_game_object> = registry.objects.get(serverObject.id)?.object;
 
   if (clientObject === null) {
-    serverObject.team = team;
-    serverObject.squad = squad;
-    serverObject.group = group;
+    serverObject.team = teamId;
+    serverObject.squad = squadId;
+    serverObject.group = groupId;
   } else {
-    clientObject.change_team(team, squad, group);
+    clientObject.change_team(teamId, squadId, groupId);
   }
 }
 

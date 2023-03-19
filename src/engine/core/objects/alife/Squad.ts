@@ -38,6 +38,7 @@ import type { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrai
 import { ESmartTerrainStatus } from "@/engine/core/objects/alife/smart/SmartTerrainControl";
 import { SquadReachTargetAction } from "@/engine/core/objects/alife/SquadReachTargetAction";
 import { SquadStayOnTargetAction } from "@/engine/core/objects/alife/SquadStayOnTargetAction";
+import { TSimulationObject } from "@/engine/core/objects/alife/types";
 import { StateManager } from "@/engine/core/objects/state/StateManager";
 import { get_sound_manager, SoundManager } from "@/engine/core/sounds/SoundManager";
 import { isSquadMonsterCommunity } from "@/engine/core/utils/check/is";
@@ -70,7 +71,17 @@ import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
 import { relations, TRelation } from "@/engine/lib/constants/relations";
 import { SMART_TERRAIN_SECT } from "@/engine/lib/constants/sections";
 import { STRINGIFIED_FALSE, STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
-import { AnyCallablesModule, AnyObject, LuaArray, Optional, TCount, TName, TNumberId, TRate } from "@/engine/lib/types";
+import {
+  AnyCallablesModule,
+  AnyObject,
+  LuaArray,
+  Optional,
+  StringOptional,
+  TCount,
+  TName,
+  TNumberId,
+  TRate,
+} from "@/engine/lib/types";
 import { TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -92,8 +103,10 @@ export class Squad<
 
   // todo: Rename.
   public player_id!: TCommunity;
-  public smart_id: Optional<number> = null;
-  public board: SimulationBoardManager = SimulationBoardManager.getInstance();
+  public smart_id: Optional<TNumberId> = null;
+
+  public simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
+
   public isSimulationAvailableConditionList: TConditionList = parseConditionsList(STRINGIFIED_TRUE);
   public squad_online: boolean = false;
   public show_disabled: boolean = false;
@@ -179,10 +192,10 @@ export class Squad<
     logger.info("Init squad on load:", this.name());
 
     this.set_squad_sympathy();
-    this.board.assign_squad_to_smart(this, this.smart_id);
+    this.simulationBoardManager.assignSquadToSmartTerrain(this, this.smart_id);
 
     if (this.smart_id !== null) {
-      this.board.enter_smart(this, this.smart_id);
+      this.simulationBoardManager.enterSmartTerrain(this, this.smart_id);
     }
 
     this.need_to_reset_location_masks = true;
@@ -246,19 +259,19 @@ export class Squad<
       this.next_target = 1;
     }
 
-    let nt: string = this.pick_next_target();
+    let nextTargetName: StringOptional<TName> = this.pick_next_target();
 
-    if (nt === STRINGIFIED_NIL) {
+    if (nextTargetName === STRINGIFIED_NIL) {
       return null;
-    } else if (nt === "loop") {
+    } else if (nextTargetName === "loop") {
       this.next_target = 1;
-      nt = this.pick_next_target();
+      nextTargetName = this.pick_next_target();
     }
 
-    const point = this.board.smarts_by_names.get(nt);
+    const point = this.simulationBoardManager.getSmartTerrainByName(nextTargetName);
 
     if (point === null) {
-      abort("Incorrect next point [%s] for squad [%s]", tostring(nt), tostring(this.id));
+      abort("Incorrect next point [%s] for squad [%s]", tostring(nextTargetName), tostring(this.id));
     }
 
     return point.id;
@@ -267,8 +280,8 @@ export class Squad<
   /**
    * todo;
    */
-  public pick_next_target(): string {
-    return this.parsed_targets.get(this.next_target as number);
+  public pick_next_target(): StringOptional<TName> {
+    return this.parsed_targets.get(this.next_target as TNumberId);
   }
 
   /**
@@ -414,7 +427,7 @@ export class Squad<
       alife().object(this.assigned_target_id)! &&
       alife().object(this.assigned_target_id)!.clsid() !== clsid.online_offline_group_s
     ) {
-      const squad_target = this.board.get_squad_target(this)!;
+      const squad_target = this.simulationBoardManager.getSquadSimulationTarget(this)!;
 
       if (squad_target.clsid() === clsid.online_offline_group_s) {
         this.assigned_target_id = squad_target.id;
@@ -432,7 +445,7 @@ export class Squad<
         this.current_action.finalize();
 
         if (this.current_action.name === "stay_point" || this.assigned_target_id === null) {
-          this.assigned_target_id = this.board.get_squad_target(this)!.id;
+          this.assigned_target_id = this.simulationBoardManager.getSquadSimulationTarget(this)!.id;
         }
 
         this.current_action = null;
@@ -442,7 +455,7 @@ export class Squad<
     } else {
       this.current_action = null;
       this.current_target_id = null;
-      this.assigned_target_id = this.board.get_squad_target(this)!.id;
+      this.assigned_target_id = this.simulationBoardManager.getSquadSimulationTarget(this)!.id;
     }
 
     this.get_next_action(true);
@@ -482,22 +495,22 @@ export class Squad<
   /**
    * todo;
    */
-  public remove_squad(): void {
+  public onRemoveSquadFromSimulation(): void {
     logger.info("Remove squad:", this.name());
 
-    const squad_npcs: LuaTable<number, boolean> = new LuaTable();
+    const squadMembers: LuaTable<TNumberId, boolean> = new LuaTable();
 
-    for (const k of this.squad_members()) {
-      squad_npcs.set(k.id, true);
+    for (const squadMember of this.squad_members()) {
+      squadMembers.set(squadMember.id, true);
     }
 
-    // todo: May be more simple.
-    for (const [j, v] of squad_npcs) {
-      const obj = alife().object(j);
+    // Second loop is to prevent iteration breaking when iterating + mutating?
+    for (const [id, v] of squadMembers) {
+      const object = alife().object(id);
 
-      if (obj !== null) {
-        this.unregister_member(j);
-        alife().release(obj, true);
+      if (object !== null) {
+        this.unregister_member(id);
+        alife().release(object, true);
       }
     }
 
@@ -507,8 +520,8 @@ export class Squad<
   /**
    * todo;
    */
-  public remove_npc(npc_id: number): void {
-    const npc = alife().object<XR_cse_alife_creature_abstract>(npc_id)!;
+  public remove_npc(objectId: TNumberId): void {
+    const npc = alife().object<XR_cse_alife_creature_abstract>(objectId)!;
 
     logger.info("Remove npc:", this.name(), npc.name());
 
@@ -519,11 +532,11 @@ export class Squad<
   /**
    * todo;
    */
-  public on_npc_death(npc: XR_cse_alife_creature_abstract): void {
-    logger.info("On npc death:", this.name(), npc.name());
+  public on_npc_death(object: XR_cse_alife_creature_abstract): void {
+    logger.info("On npc death:", this.name(), object.name());
 
-    this.soundManager.unregister_npc(npc.id);
-    this.unregister_member(npc.id);
+    this.soundManager.unregister_npc(object.id);
+    this.unregister_member(object.id);
 
     if (this.npc_count() === 0) {
       logger.info("Removing dead squad:", this.name());
@@ -537,7 +550,7 @@ export class Squad<
         pickSectionFromCondList(registry.actor, this, this.death_condlist as any);
       }
 
-      this.board.remove_squad(this);
+      this.simulationBoardManager.onRemoveSquad(this);
 
       return;
     }
@@ -549,13 +562,13 @@ export class Squad<
    * todo;
    */
   public assign_squad_member_to_smart(
-    member_id: number,
-    smart: Optional<SmartTerrain>,
-    old_smart_id: Optional<number>
+    memberId: TNumberId,
+    smartTerrain: Optional<SmartTerrain>,
+    oldSmartTerrainId: Optional<TNumberId>
   ): void {
-    logger.info("Assign squad member to squad:", this.name(), smart?.name(), member_id);
+    logger.info("Assign squad member to squad:", this.name(), smartTerrain?.name(), memberId);
 
-    const obj = alife().object<XR_cse_alife_creature_abstract>(member_id);
+    const obj = alife().object<XR_cse_alife_creature_abstract>(memberId);
 
     if (obj !== null) {
       if (obj.m_smart_terrain_id === this.smart_id) {
@@ -564,15 +577,15 @@ export class Squad<
 
       if (
         obj.m_smart_terrain_id !== MAX_UNSIGNED_16_BIT &&
-        old_smart_id !== null &&
-        obj.m_smart_terrain_id === old_smart_id &&
-        this.board.smarts.get(old_smart_id) !== null
+        oldSmartTerrainId !== null &&
+        obj.m_smart_terrain_id === oldSmartTerrainId &&
+        this.simulationBoardManager.getSmartTerrainDescriptorById(oldSmartTerrainId) !== null
       ) {
-        this.board.smarts.get(old_smart_id).smrt.unregister_npc(obj);
+        this.simulationBoardManager.getSmartTerrainDescriptorById(oldSmartTerrainId)!.smartTerrain.unregister_npc(obj);
       }
 
-      if (smart !== null) {
-        smart.register_npc(obj);
+      if (smartTerrain !== null) {
+        smartTerrain.register_npc(obj);
       }
     }
   }
@@ -712,15 +725,15 @@ export class Squad<
   /**
    * todo;
    */
-  public create_npc(spawn_smart: SmartTerrain): void {
-    logger.info("Create object:", this.name(), spawn_smart?.name());
+  public createSquadMembers(spawnSmartTerrain: SmartTerrain): void {
+    logger.info("Create squad members:", this.name(), spawnSmartTerrain?.name());
 
     const spawnSections: LuaArray<TSection> = parseNames(
       getConfigString(SYSTEM_INI, this.settings_id, "npc", this, false, "", "")
     );
     const spawnPointData =
       getConfigString(SYSTEM_INI, this.settings_id, "spawn_point", this, false, "", "self") ||
-      getConfigString(spawn_smart.ini, SMART_TERRAIN_SECT, "spawn_point", this, false, "", "self");
+      getConfigString(spawnSmartTerrain.ini, SMART_TERRAIN_SECT, "spawn_point", this, false, "", "self");
 
     const spawnPoint: Optional<TName> = pickSectionFromCondList(
       registry.actor,
@@ -728,24 +741,24 @@ export class Squad<
       parseConditionsList(spawnPointData)
     )!;
 
-    let base_spawn_position: XR_vector = spawn_smart.position;
-    let base_lvi = spawn_smart.m_level_vertex_id;
-    let base_gvi = spawn_smart.m_game_vertex_id;
+    let base_spawn_position: XR_vector = spawnSmartTerrain.position;
+    let base_lvi = spawnSmartTerrain.m_level_vertex_id;
+    let base_gvi = spawnSmartTerrain.m_game_vertex_id;
 
     if (spawnPoint !== null) {
       if (spawnPoint === "self") {
-        base_spawn_position = spawn_smart.position;
-        base_lvi = spawn_smart.m_level_vertex_id;
-        base_gvi = spawn_smart.m_game_vertex_id;
+        base_spawn_position = spawnSmartTerrain.position;
+        base_lvi = spawnSmartTerrain.m_level_vertex_id;
+        base_gvi = spawnSmartTerrain.m_game_vertex_id;
       } else {
         base_spawn_position = new patrol(spawnPoint).point(0);
         base_lvi = new patrol(spawnPoint).level_vertex_id(0);
         base_gvi = new patrol(spawnPoint).game_vertex_id(0);
       }
-    } else if (spawn_smart.spawn_point !== null) {
-      base_spawn_position = new patrol(spawn_smart.spawn_point).point(0);
-      base_lvi = new patrol(spawn_smart.spawn_point).level_vertex_id(0);
-      base_gvi = new patrol(spawn_smart.spawn_point).game_vertex_id(0);
+    } else if (spawnSmartTerrain.spawn_point !== null) {
+      base_spawn_position = new patrol(spawnSmartTerrain.spawn_point).point(0);
+      base_lvi = new patrol(spawnSmartTerrain.spawn_point).level_vertex_id(0);
+      base_gvi = new patrol(spawnSmartTerrain.spawn_point).game_vertex_id(0);
     }
 
     if (spawnSections.length() !== 0) {
@@ -776,7 +789,7 @@ export class Squad<
       abort("You are trying to spawn an empty squad [%s]!", this.settings_id);
     }
 
-    this.smart_id = spawn_smart.id;
+    this.smart_id = spawnSmartTerrain.id;
     this.refresh();
   }
 
@@ -801,20 +814,20 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * Set relation of squad to object with desired parameter.
+   * In case of no parameter provided squad members relation will be updated with already in-memory stored value.
+   *
+   * @param relation - optional, new relation between squad and actor
    */
-  public set_squad_relation(relation?: Optional<TRelation>): void {
-    const squadRelation: Optional<TRelation> = relation || this.relationship;
-
-    if (squadRelation !== null) {
+  public updateSquadRelationToActor(relation: Optional<TRelation> = this.relationship): void {
+    if (relation !== null) {
       for (const squadMember of this.squad_members()) {
-        const object: Optional<XR_game_object> =
-          registry.objects.get(squadMember.id) && registry.objects.get(squadMember.id).object!;
+        const object: Optional<XR_game_object> = registry.objects.get(squadMember.id)?.object;
 
         if (object !== null) {
-          setObjectsRelation(object, registry.actor, squadRelation);
+          setObjectsRelation(object, registry.actor, relation);
         } else {
-          set_relation(alife().object(squadMember.id), alife().actor(), squadRelation);
+          set_relation(alife().object(squadMember.id), alife().actor(), relation);
         }
       }
     }
@@ -933,7 +946,9 @@ export class Squad<
    */
   public override on_register(): void {
     super.on_register();
-    this.board.squads.set(this.id, this);
+
+    this.simulationBoardManager.registerSquad(this);
+
     registerObjectStoryLinks(this);
     registerSimulationObject(this);
   }
@@ -947,8 +962,8 @@ export class Squad<
     unregisterStoryLinkByObjectId(this.id);
     unregisterSimulationObject(this);
 
-    this.board.squads.delete(this.id);
-    this.board.assign_squad_to_smart(this, null);
+    this.simulationBoardManager.getSquads().delete(this.id);
+    this.simulationBoardManager.assignSquadToSmartTerrain(this, null);
 
     if (this.respawn_point_id !== null) {
       const smart = alife().object<SmartTerrain>(this.respawn_point_id)!;
@@ -1080,7 +1095,9 @@ export class Squad<
         t =
           t +
           "stay_on_point = [" +
-          tostring(this.current_action.idle_time - game.get_game_time().diffSec(this.current_action.start_time!)) +
+          tostring(
+            this.current_action.actionIdleTime - game.get_game_time().diffSec(this.current_action.actionStartTime!)
+          ) +
           "]";
       }
 
@@ -1093,14 +1110,14 @@ export class Squad<
   /**
    * todo;
    */
-  public get_location(): LuaMultiReturn<[XR_vector, number, number]> {
+  public get_location(): LuaMultiReturn<[XR_vector, TNumberId, TNumberId]> {
     return $multi(this.position, this.m_level_vertex_id, this.m_game_vertex_id);
   }
 
   /**
    * todo;
    */
-  public override get_current_task() {
+  public override get_current_task(): XR_CALifeSmartTerrainTask {
     if (this.assigned_target_id !== null && alife().object(this.assigned_target_id) !== null) {
       const smart_terrain = alife().object<SmartTerrain>(this.assigned_target_id)!;
 
@@ -1115,7 +1132,7 @@ export class Squad<
         return smart_terrain.job_data.get(smart_terrain.npc_info.get(this.commander_id()).job_id).alife_task;
       }
 
-      return alife().object<Squad>(this.assigned_target_id)!.get_alife_task();
+      return alife().object<TSimulationObject>(this.assigned_target_id)!.get_alife_task();
     }
 
     return this.get_alife_task();
@@ -1143,7 +1160,7 @@ export class Squad<
       softResetOfflineObject(it.id);
     }
 
-    this.board.assign_squad_to_smart(squad, null);
+    this.simulationBoardManager.assignSquadToSmartTerrain(squad, null);
   }
 
   /**
@@ -1165,7 +1182,7 @@ export class Squad<
       const zone = registry.zones.get(k);
 
       if (zone && zone.inside(this.position)) {
-        const smart = SimulationBoardManager.getInstance().get_smart_by_name(v);
+        const smart = SimulationBoardManager.getInstance().getSmartTerrainByName(v);
 
         if (
           smart &&

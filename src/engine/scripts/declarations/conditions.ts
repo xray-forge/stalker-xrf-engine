@@ -263,7 +263,9 @@ export function distance_to_obj_on_job_le(actor: XR_game_object, npc: XR_game_ob
  */
 export function is_obj_on_job(actor: XR_game_object, npc: XR_game_object, params: AnyArgs): boolean {
   const smart =
-    params && params[1] ? SimulationBoardManager.getInstance().get_smart_by_name(params[1]) : getObjectBoundSmart(npc);
+    params && params[1]
+      ? SimulationBoardManager.getInstance().getSmartTerrainByName(params[1])
+      : getObjectBoundSmart(npc);
 
   if (smart === null) {
     return false;
@@ -766,7 +768,7 @@ export function check_smart_alarm_status(
     abort("Wrong status[%s] in 'check_smart_alarm_status'", tostring(params[1]));
   }
 
-  const smart: SmartTerrain = SimulationBoardManager.getInstance().get_smart_by_name(smartName)!;
+  const smart: SmartTerrain = SimulationBoardManager.getInstance().getSmartTerrainByName(smartName)!;
   const smartControl: SmartTerrainControl = smart.base_on_actor_control;
 
   if (smartControl === null) {
@@ -1090,18 +1092,19 @@ export function squad_in_zone_all(actor: XR_game_object, npc: XR_game_object, p:
  * todo;
  */
 export function squads_in_zone_b41(actor: XR_game_object, npc: XR_game_object): boolean {
-  const smart: Optional<SmartTerrain> = SimulationBoardManager.getInstance().get_smart_by_name("jup_b41");
+  const smartTerrain: Optional<SmartTerrain> = SimulationBoardManager.getInstance().getSmartTerrainByName("jup_b41");
   const zone: Optional<XR_game_object> = registry.zones.get("jup_b41_sr_light");
 
   if (zone === null) {
     return false;
   }
 
-  if (smart === null) {
+  if (smartTerrain === null) {
     return false;
   }
 
-  for (const [k, v] of SimulationBoardManager.getInstance().smarts.get(smart.id).squads) {
+  for (const [k, v] of SimulationBoardManager.getInstance().getSmartTerrainDescriptorById(smartTerrain.id)!
+    .assignedSquads) {
     if (v !== null) {
       for (const j of v.squad_members()) {
         if (!zone.inside(j.object.position)) {

@@ -11,7 +11,7 @@ import { getServerObjectByStoryId, registry } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import type { Squad } from "@/engine/core/objects/alife/Squad";
 import { abort } from "@/engine/core/utils/debug";
-import { get_gulag_by_name } from "@/engine/core/utils/gulag";
+import { getSmartTerrainByName } from "@/engine/core/utils/gulag";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity } from "@/engine/core/utils/object";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
@@ -156,7 +156,7 @@ export function getSquadIdRelationToActor(squadId: TNumberId): TRelation {
  */
 export function setGulagRelationActor(gulagName: TName, relation: TRelation): void {
   const actor: XR_game_object = registry.actor;
-  const gulag: SmartTerrain = get_gulag_by_name(gulagName)!;
+  const gulag: SmartTerrain = getSmartTerrainByName(gulagName)!;
 
   let goodwill: ERelation = ERelation.NEUTRALS;
 
@@ -180,7 +180,7 @@ export function setGulagRelationActor(gulagName: TName, relation: TRelation): vo
  * todo;
  */
 export function getGulagRelationToActor(gulagName: TName, relation: TRelation): boolean {
-  const gulag: Optional<SmartTerrain> = get_gulag_by_name(gulagName);
+  const gulag: Optional<SmartTerrain> = getSmartTerrainByName(gulagName);
   const actor: XR_game_object = registry.actor;
 
   if (gulag) {
@@ -395,7 +395,7 @@ export function setSquadGoodwill(squadId: TStringId | TNumberId, newGoodwill: TR
   }
 
   if (squad) {
-    squad.set_squad_relation(newGoodwill);
+    squad.updateSquadRelationToActor(newGoodwill);
   } else {
     abort("There is no squad [%s] in sim_board", squadId);
   }

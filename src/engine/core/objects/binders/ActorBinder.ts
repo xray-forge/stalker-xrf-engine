@@ -71,19 +71,6 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class ActorBinder extends object_binder {
-  public readonly achievementsManager: AchievementsManager = AchievementsManager.getInstance();
-  public readonly dropManager: DropManager = DropManager.getInstance(false);
-  public readonly eventsManager: EventsManager = EventsManager.getInstance();
-  public readonly globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
-  public readonly mapDisplayManager: MapDisplayManager = MapDisplayManager.getInstance();
-  public readonly newsManager: NotificationManager = NotificationManager.getInstance();
-  public readonly releaseBodyManager: ReleaseBodyManager = ReleaseBodyManager.getInstance();
-  public readonly surgeManager: SurgeManager = SurgeManager.getInstance();
-  public readonly taskManager: TaskManager = TaskManager.getInstance();
-  public readonly travelManager: TravelManager = TravelManager.getInstance();
-  public readonly treasureManager: TreasureManager = TreasureManager.getInstance();
-  public readonly weatherManager: WeatherManager = WeatherManager.getInstance();
-
   public isStartCheckNeeded: boolean = false;
   public isLoaded: boolean = false;
   public isLoadedSlotApplied: boolean = false;
@@ -98,13 +85,20 @@ export class ActorBinder extends object_binder {
 
   public state!: IRegistryObjectState;
 
-  /**
-   * todo;
-   */
-  public constructor(object: XR_game_object) {
-    super(object);
-    logger.info("Construct actor binder:", object.name());
-  }
+  protected readonly achievementsManager: AchievementsManager = AchievementsManager.getInstance();
+  protected readonly dropManager: DropManager = DropManager.getInstance();
+  protected readonly dynamicMusicManager: DynamicMusicManager = DynamicMusicManager.getInstance();
+  protected readonly eventsManager: EventsManager = EventsManager.getInstance();
+  protected readonly globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
+  protected readonly mapDisplayManager: MapDisplayManager = MapDisplayManager.getInstance();
+  protected readonly newsManager: NotificationManager = NotificationManager.getInstance();
+  protected readonly releaseBodyManager: ReleaseBodyManager = ReleaseBodyManager.getInstance();
+  protected readonly simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
+  protected readonly surgeManager: SurgeManager = SurgeManager.getInstance();
+  protected readonly taskManager: TaskManager = TaskManager.getInstance();
+  protected readonly travelManager: TravelManager = TravelManager.getInstance();
+  protected readonly treasureManager: TreasureManager = TreasureManager.getInstance();
+  protected readonly weatherManager: WeatherManager = WeatherManager.getInstance();
 
   /**
    * todo;
@@ -138,8 +132,6 @@ export class ActorBinder extends object_binder {
     }
 
     this.weatherManager.reset();
-    this.dropManager.initialize();
-
     this.spawnFrame = device().frame;
     this.isLoaded = false;
 
@@ -154,21 +146,16 @@ export class ActorBinder extends object_binder {
   public override net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
 
-    GlobalSoundManager.getInstance().stopSoundsByObjectId(this.object.id());
+    this.globalSoundManager.stopSoundsByObjectId(this.object.id());
 
-    const board_factions = SimulationBoardManager.getInstance().players;
-
-    if (board_factions !== null) {
-      for (const [k, v] of board_factions) {
-        GlobalSoundManager.getInstance().stopSoundsByObjectId(v.id);
-      }
-    }
+    this.simulationBoardManager.onNetworkDestroy();
 
     if (actor_stats.remove_from_ranking !== null) {
       actor_stats.remove_from_ranking(this.object.id());
     }
 
     level.show_weapon(true);
+
     unregisterActor();
 
     this.object.set_callback(callback.inventory_info, null);
@@ -193,7 +180,7 @@ export class ActorBinder extends object_binder {
 
     PsyAntennaManager.dispose();
 
-    DynamicMusicManager.getInstance().stopTheme();
+    this.dynamicMusicManager.stopTheme();
 
     this.eventsManager.emitEvent(EGameEvent.ACTOR_NET_DESTROY);
 
@@ -409,7 +396,6 @@ export class ActorBinder extends object_binder {
     this.releaseBodyManager.save(packet);
     this.surgeManager.save(packet);
     PsyAntennaManager.save(packet);
-    packet.w_bool(SimulationBoardManager.getInstance().isSimulationStarted);
 
     this.globalSoundManager.saveActor(packet);
     packet.w_stringZ(tostring(this.lastLevelName));
@@ -472,7 +458,6 @@ export class ActorBinder extends object_binder {
 
     this.surgeManager.load(reader);
     PsyAntennaManager.load(reader);
-    SimulationBoardManager.getInstance().isSimulationStarted = reader.r_bool();
 
     this.globalSoundManager.loadActor(reader);
 

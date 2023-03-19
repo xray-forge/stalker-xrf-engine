@@ -12,8 +12,8 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * todo;
  */
-export function get_gulag_by_name(name: TName): Optional<SmartTerrain> {
-  return SimulationBoardManager.getInstance().smarts_by_names.get(name);
+export function getSmartTerrainByName(name: TName): Optional<SmartTerrain> {
+  return SimulationBoardManager.getInstance().getSmartTerrainByName(name);
 }
 
 /**
@@ -30,7 +30,7 @@ export function get_gulag_by_sid(storyId: TStringId): Optional<SmartTerrain> {
 export function get_gulag(name_or_sid: string | number): Optional<SmartTerrain> {
   return type(name_or_sid) === "number"
     ? get_gulag_by_sid(name_or_sid as string)
-    : get_gulag_by_name(name_or_sid as string);
+    : getSmartTerrainByName(name_or_sid as string);
 }
 
 /**

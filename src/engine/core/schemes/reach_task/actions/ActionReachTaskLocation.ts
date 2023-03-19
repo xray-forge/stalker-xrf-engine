@@ -20,10 +20,12 @@ import { SurgeManager } from "@/engine/core/managers/SurgeManager";
 import { Actor } from "@/engine/core/objects/alife/Actor";
 import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { Squad } from "@/engine/core/objects/alife/Squad";
+import { TSimulationObject } from "@/engine/core/objects/alife/types";
 import { ReachTaskPatrolManager } from "@/engine/core/schemes/reach_task/ReachTaskPatrolManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad, sendToNearestAccessibleVertex } from "@/engine/core/utils/object";
 import { vectorCmp } from "@/engine/core/utils/physics";
+import { Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -114,22 +116,22 @@ export class ActionReachTaskLocation extends action_base {
    * todo;
    */
   public commander_execute(): void {
-    const squad = getObjectSquad(this.object)!;
-    let squad_target = registry.simulationObjects.get(squad.assigned_target_id!);
+    const squad: Squad = getObjectSquad(this.object)!;
+    let squadTarget: Optional<TSimulationObject> = registry.simulationObjects.get(squad.assigned_target_id!);
 
-    if (squad_target === null && squad.get_script_target() !== null) {
-      squad_target = alife().object(squad.assigned_target_id!)!;
+    if (squadTarget === null && squad.get_script_target() !== null) {
+      squadTarget = alife().object(squad.assigned_target_id!)!;
     }
 
-    if (squad_target !== null && !this.object.is_talking()) {
+    if (squadTarget !== null && !this.object.is_talking()) {
       // eslint-disable-next-line prefer-const
-      let [pos, lv_id, gv_id] = squad_target.get_location();
+      let [pos, lv_id, gv_id] = squadTarget.get_location();
 
       if (this.object.game_vertex_id() !== gv_id) {
         this.object.set_path_type(game_object.game_path);
         this.object.set_dest_game_vertex_id(gv_id);
         this.object.set_sight(look.path_dir, null, 0);
-        update_movement(squad_target, this.object);
+        update_movement(squadTarget, this.object);
 
         registry.patrols.reachTask
           .get(this.target_id + "_to_" + this.squad_id)
@@ -151,7 +153,7 @@ export class ActionReachTaskLocation extends action_base {
       this.object.set_desired_position(pos);
     }
 
-    update_movement(squad_target, this.object);
+    update_movement(squadTarget, this.object);
 
     registry.patrols.reachTask
       .get(this.target_id + "_to_" + this.squad_id)
@@ -167,10 +169,10 @@ export class ActionReachTaskLocation extends action_base {
     }
 
     const squad: Squad = getObjectSquad(this.object)!;
-    let squad_target = registry.simulationObjects.get(squad.assigned_target_id!);
+    let squadTarget: Optional<TSimulationObject> = registry.simulationObjects.get(squad.assigned_target_id!);
 
-    if (squad_target === null && squad.get_script_target() !== null) {
-      squad_target = alife().object(squad.assigned_target_id!)!;
+    if (squadTarget === null && squad.get_script_target() !== null) {
+      squadTarget = alife().object(squad.assigned_target_id!)!;
     }
 
     this.time_to_update = time_global() + 1000;
@@ -195,8 +197,8 @@ export class ActionReachTaskLocation extends action_base {
     this.object.set_path_type(game_object.level_path);
 
     if (
-      squad_target === null ||
-      squad_target.clsid() === clsid.online_offline_group_s ||
+      squadTarget === null ||
+      squadTarget.clsid() === clsid.online_offline_group_s ||
       SurgeManager.getInstance().isStarted
     ) {
       this.object.set_movement_type(level.object_by_id(squad.commander_id())!.movement_type());

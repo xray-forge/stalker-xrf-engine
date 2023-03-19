@@ -69,12 +69,14 @@ export class SmartTerrainControl {
         GlobalSoundManager.getInstance().setSoundPlaying(registry.actor.id(), sound, null, null);
       }
 
-      for (const [squad_id, squad] of SimulationBoardManager.getInstance().smarts.get(this.smart.id).squads) {
+      for (const [squad_id, squad] of SimulationBoardManager.getInstance().getSmartTerrainDescriptorById(
+        this.smart.id!
+      )!.assignedSquads) {
         setSquadGoodwill(squad_id, relations.neutral);
       }
     }
 
-    if (this.get_actor_treat() === true) {
+    if (this.get_actor_treat()) {
       this.status = ESmartTerrainStatus.DANGER;
     } else {
       this.status = ESmartTerrainStatus.NORMAL;
@@ -121,7 +123,8 @@ export class SmartTerrainControl {
         GlobalSoundManager.getInstance().setSoundPlaying(registry.actor.id(), sound, null, null);
       }
 
-      for (const [squad_id, squad] of SimulationBoardManager.getInstance().smarts.get(this.smart.id).squads) {
+      for (const [squad_id, squad] of SimulationBoardManager.getInstance().getSmartTerrainDescriptorById(this.smart.id)!
+        .assignedSquads) {
         setSquadGoodwill(squad_id, relations.enemy);
       }
     }

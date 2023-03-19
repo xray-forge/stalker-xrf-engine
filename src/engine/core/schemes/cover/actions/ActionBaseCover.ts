@@ -44,7 +44,7 @@ export class ActionBaseCover extends action_base {
     this.state.signals = new LuaTable();
     this.board = SimulationBoardManager.getInstance();
 
-    const base_point = this.board.get_smart_by_name(this.state.smart)!.m_level_vertex_id;
+    const base_point = this.board.getSmartTerrainByName(this.state.smart)!.m_level_vertex_id;
 
     const direction_vector = new vector().set(math.random(-100, 100), 0, math.random(-100, 100));
     const base_vertex_id = level.vertex_in_direction(

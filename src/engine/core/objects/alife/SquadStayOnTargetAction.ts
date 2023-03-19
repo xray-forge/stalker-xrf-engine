@@ -1,36 +1,52 @@
 import { game, XR_CTime } from "xray16";
 
-import type { Squad } from "@/engine/core/objects/alife/Squad";
-import { Optional } from "@/engine/lib/types";
-
-const STAY_POINT_IDLE_MIN = 180 * 60;
-const STAY_POINT_IDLE_MAX = 300 * 60;
+import { Squad } from "@/engine/core/objects";
+import { Optional, TDuration, TNumberId } from "@/engine/lib/types";
 
 /**
  * todo;
  */
 export class SquadStayOnTargetAction {
-  public readonly name: string = "stay_point";
-  public start_time: Optional<XR_CTime>;
-  public idle_time: number;
+  public static readonly STAY_POINT_IDLE_MIN = 180 * 60;
+  public static readonly STAY_POINT_IDLE_MAX = 300 * 60;
 
+  public readonly name: string = "stay_point";
+
+  public squadId: TNumberId;
+
+  /**
+   * todo;
+   */
   public constructor(squad: Squad) {
-    this.name = "";
-    this.start_time = null;
-    this.idle_time = math.random(STAY_POINT_IDLE_MIN, STAY_POINT_IDLE_MAX);
+    this.squadId = squad.id;
   }
 
+  public actionStartTime: Optional<XR_CTime> = null;
+  public actionIdleTime: TDuration = math.random(
+    SquadStayOnTargetAction.STAY_POINT_IDLE_MIN,
+    SquadStayOnTargetAction.STAY_POINT_IDLE_MAX
+  );
+
+  /**
+   * todo;
+   */
   public finalize(): void {}
 
+  /**
+   * todo;
+   */
   public update(isUnderSimulation: boolean): boolean {
     if (!isUnderSimulation) {
       return true;
     } else {
-      return game.get_game_time().diffSec(this.start_time!) > this.idle_time;
+      return game.get_game_time().diffSec(this.actionStartTime!) > this.actionIdleTime;
     }
   }
 
-  public make(isUnderSimulation: boolean) {
-    this.start_time = game.get_game_time();
+  /**
+   * todo;
+   */
+  public make(isUnderSimulation: boolean): void {
+    this.actionStartTime = game.get_game_time();
   }
 }

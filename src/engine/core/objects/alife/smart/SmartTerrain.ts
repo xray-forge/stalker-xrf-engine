@@ -75,11 +75,13 @@ import {
   ESchemeType,
   LuaArray,
   Optional,
+  TCount,
   TName,
   TNumberId,
   TPath,
   TRate,
   TSection,
+  TStringId,
   TTimestamp,
 } from "@/engine/lib/types";
 
@@ -91,6 +93,7 @@ export const RESPAWN_IDLE: number = 1_000;
 export const RESPAWN_RADIUS: number = 150;
 
 export const smart_terrains_by_name: LuaTable<TName, SmartTerrain> = new LuaTable();
+// todo: Move to db.
 export const nearest_to_actor_smart = { id: null as Optional<number>, dist: math.huge };
 
 export const path_fields: LuaTable<number, string> = ["path_walk", "path_main", "path_home", "center_point"] as any;
@@ -189,7 +192,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   public npc_info: LuaTable<TNumberId, INpcInfo> = new LuaTable();
   public arriving_npc: LuaTable<TNumberId> = new LuaTable();
 
-  public smart_alife_task: Optional<XR_CALifeSmartTerrainTask> = null;
+  public smart_alife_task!: XR_CALifeSmartTerrainTask;
 
   public jobs: any;
   public job_data: LuaArray<ISmartTerrainJob> = new LuaTable();
@@ -198,8 +201,8 @@ export class SmartTerrain extends cse_alife_smart_zone {
   public ltx_name!: string;
 
   public props!: AnyObject;
-  public board!: SimulationBoardManager;
-  public smart_level: string = "";
+  public simulationBoardManager!: SimulationBoardManager;
+  public level: TName = "";
 
   public respawn_params!: LuaTable<string, { squads: LuaArray<string>; num: TConditionList }>;
   public already_spawned!: LuaTable<string, { num: number }>;
@@ -210,9 +213,10 @@ export class SmartTerrain extends cse_alife_smart_zone {
   public override on_before_register(): void {
     super.on_before_register();
 
-    this.board = SimulationBoardManager.getInstance();
-    this.board.register_smart(this);
-    this.smart_level = alife().level_name(game_graph().vertex(this.m_game_vertex_id).level_id());
+    this.simulationBoardManager = SimulationBoardManager.getInstance();
+    this.simulationBoardManager.registerSmartTerrain(this);
+
+    this.level = alife().level_name(game_graph().vertex(this.m_game_vertex_id).level_id());
   }
 
   /**
@@ -222,8 +226,8 @@ export class SmartTerrain extends cse_alife_smart_zone {
     super.on_register();
 
     logger.info("Register:", this.id, this.name(), this.section_name());
-    registerObjectStoryLinks(this);
 
+    registerObjectStoryLinks(this);
     registerSimulationObject(this);
 
     if (gameConfig.DEBUG.IS_SMARTS_DEBUG_ENABLED) {
@@ -237,7 +241,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
 
     this.load_jobs();
 
-    this.board.init_smart(this);
+    this.simulationBoardManager.initializeSmartTerrain(this);
 
     if (this.need_init_npc === true) {
       this.need_init_npc = false;
@@ -254,7 +258,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   public override on_unregister(): void {
     super.on_unregister();
 
-    this.board.unregister_smart(this);
+    this.simulationBoardManager.unregisterSmartTerrain(this);
     smart_terrains_by_name.delete(this.name());
 
     unregisterStoryLinkByObjectId(this.id);
@@ -1073,7 +1077,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
         "capacity = " +
         tostring(this.max_population) +
         " (" +
-        SimulationBoardManager.getInstance().get_smart_population(this) +
+        SimulationBoardManager.getInstance().getSmartTerrainPopulation(this) +
         ")\\n";
 
       if (this.respawn_point !== null && this.already_spawned !== null) {
@@ -1099,7 +1103,8 @@ export class SmartTerrain extends cse_alife_smart_zone {
         }
       }
 
-      for (const [k, v] of SimulationBoardManager.getInstance().smarts.get(this.id).squads) {
+      for (const [k, v] of SimulationBoardManager.getInstance().getSmartTerrainDescriptorById(this.id)!
+        .assignedSquads) {
         props = props + tostring(v.id) + "\\n";
       }
     }
@@ -1302,10 +1307,8 @@ export class SmartTerrain extends cse_alife_smart_zone {
    * todo;
    */
   public on_after_reach(squad: Squad): void {
-    for (const k of squad.squad_members()) {
-      const obj = k.object;
-
-      squad.board.setup_squad_and_group(obj);
+    for (const squadMember of squad.squad_members()) {
+      squad.simulationBoardManager.setupObjectSquadAndGroup(squadMember.object);
     }
 
     squad.current_target_id = this.id;
@@ -1316,7 +1319,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
    */
   public on_reach_target(squad: Squad): void {
     squad.set_location_types(this.name());
-    this.board.assign_squad_to_smart(squad, this.id);
+    this.simulationBoardManager.assignSquadToSmartTerrain(squad, this.id);
 
     for (const it of squad.squad_members()) {
       softResetOfflineObject(it.id);
@@ -1326,7 +1329,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   /**
    * todo;
    */
-  public get_alife_task(): Optional<XR_CALifeSmartTerrainTask> {
+  public get_alife_task(): XR_CALifeSmartTerrainTask {
     return this.smart_alife_task;
   }
 
@@ -1402,16 +1405,18 @@ export class SmartTerrain extends cse_alife_smart_zone {
     if (available_sects.length() > 0) {
       const sect_to_spawn = available_sects.get(math.random(1, available_sects.length()));
       const sect_to_spawn_params: any = this.respawn_params.get(sect_to_spawn);
-      let squad = sect_to_spawn_params.squads[math.random(1, (sect_to_spawn_params.squads as LuaTable).length())];
+      const squadId: TStringId =
+        sect_to_spawn_params.squads[math.random(1, (sect_to_spawn_params.squads as LuaTable).length())];
 
-      squad = this.board.create_squad(this, squad);
+      const squad = this.simulationBoardManager.createSmartSquad(this, squadId);
+
       squad.respawn_point_id = this.id;
       squad.respawn_point_prop_section = sect_to_spawn;
 
-      this.board.enter_smart(squad, this.id);
+      this.simulationBoardManager.enterSmartTerrain(squad, this.id);
 
-      for (const it of squad.squad_members() as LuaIterable<any>) {
-        this.board.setup_squad_and_group(it.object);
+      for (const squadMember of squad.squad_members()) {
+        this.simulationBoardManager.setupObjectSquadAndGroup(squadMember.object);
       }
 
       this.already_spawned.get(sect_to_spawn).num = this.already_spawned.get(sect_to_spawn).num + 1;
@@ -1431,10 +1436,12 @@ export class SmartTerrain extends cse_alife_smart_zone {
         return;
       }
 
-      const squad_count = smart_terrain_squad_count(this.board.smarts.get(this.id).squads);
+      const squadsCount: TCount = smart_terrain_squad_count(
+        this.simulationBoardManager.getSmartTerrainDescriptorById(this.id)!.assignedSquads
+      );
 
-      if (this.max_population <= squad_count) {
-        logger.info("%s cannot respawn due to squad_count %s of %s", this.name(), this.max_population, squad_count);
+      if (this.max_population <= squadsCount) {
+        logger.info("%s cannot respawn due to squad_count %s of %s", this.name(), this.max_population, squadsCount);
 
         return;
       }
@@ -1470,13 +1477,15 @@ export class SmartTerrain extends cse_alife_smart_zone {
       return false;
     }
 
-    let squad_count = smart_terrain_squad_count(this.board.smarts.get(this.id).squads);
+    let squadsCount: TCount = smart_terrain_squad_count(
+      this.simulationBoardManager.getSmartTerrainDescriptorById(this.id)!.assignedSquads
+    );
 
     if (need_to_dec_population) {
-      squad_count = squad_count - 1;
+      squadsCount -= 1;
     }
 
-    if (squad_count !== null && this.max_population <= squad_count) {
+    if (squadsCount !== null && this.max_population <= squadsCount) {
       return false;
     }
 
@@ -1646,26 +1655,26 @@ function job_iterator(
 /**
  * todo;
  */
-function arrived_to_smart(obj: XR_cse_alife_creature_abstract, smart: SmartTerrain): boolean {
-  const st = registry.objects.get(obj.id);
+function arrived_to_smart(object: XR_cse_alife_creature_abstract, smartTerrain: SmartTerrain): boolean {
+  const state: Optional<IRegistryObjectState> = registry.objects.get(object.id);
 
-  let obj_gv;
-  let obj_pos;
+  let objectGameVertex: XR_GameGraph__CVertex;
+  let objectPosition: XR_vector;
 
-  if (st === null) {
-    obj_gv = game_graph().vertex(obj.m_game_vertex_id);
-    obj_pos = obj.position;
+  if (state === null) {
+    objectGameVertex = game_graph().vertex(object.m_game_vertex_id);
+    objectPosition = object.position;
   } else {
-    const it = registry.objects.get(obj.id).object!;
+    const it = registry.objects.get(object.id).object!;
 
-    obj_gv = game_graph().vertex(it.game_vertex_id());
-    obj_pos = it.position();
+    objectGameVertex = game_graph().vertex(it.game_vertex_id());
+    objectPosition = it.position();
   }
 
-  const smart_gv: XR_GameGraph__CVertex = game_graph().vertex(smart.m_game_vertex_id);
+  const smartTerrainGameVertex: XR_GameGraph__CVertex = game_graph().vertex(smartTerrain.m_game_vertex_id);
 
-  if (obj.group_id !== null) {
-    const squad = smart.board.squads.get(obj.group_id);
+  if (object.group_id !== null) {
+    const squad = smartTerrain.simulationBoardManager.getSquads().get(object.group_id);
 
     if (squad !== null && squad.current_action) {
       if (squad.current_action.name === "reach_target") {
@@ -1682,8 +1691,8 @@ function arrived_to_smart(obj: XR_cse_alife_creature_abstract, smart: SmartTerra
     }
   }
 
-  if (obj_gv.level_id() === smart_gv.level_id()) {
-    return obj_pos.distance_to_sqr(smart.position) <= 10000;
+  if (objectGameVertex.level_id() === smartTerrainGameVertex.level_id()) {
+    return objectPosition.distance_to_sqr(smartTerrain.position) <= 10000;
   } else {
     return false;
   }

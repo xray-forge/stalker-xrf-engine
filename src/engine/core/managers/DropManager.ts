@@ -76,7 +76,7 @@ export class DropManager extends AbstractCoreManager {
       const communityDrop: LuaTable<TInventoryItem, TProbability> = new LuaTable();
 
       if (DEATH_GENERIC_LTX.section_exist(community)) {
-        const communityDropItemsCount: number = DEATH_GENERIC_LTX.line_count(community);
+        const communityDropItemsCount: TCount = DEATH_GENERIC_LTX.line_count(community);
 
         for (const it of $range(0, communityDropItemsCount - 1)) {
           const [result, id, value] = DEATH_GENERIC_LTX.r_line(community, it, "", "");

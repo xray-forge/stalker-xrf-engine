@@ -26,7 +26,7 @@ import { pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { ACTOR, STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
-import { AnyObject, TRate, TStringId } from "@/engine/lib/types";
+import { AnyObject, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -35,10 +35,10 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class Actor extends cse_alife_creature_actor {
-  public isRegistered: boolean = false;
-  public isStartPositionsFilling: boolean = false;
   public isSimulationAvailableConditionList: TConditionList = parseConditionsList(STRINGIFIED_TRUE);
   public props!: AnyObject;
+
+  protected readonly simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
 
   /**
    * todo;
@@ -51,12 +51,7 @@ export class Actor extends cse_alife_creature_actor {
     registerStoryLink(this.id, ACTOR);
     registerSimulationObject(this);
 
-    this.isRegistered = true;
-
-    if (!this.isStartPositionsFilling) {
-      SimulationBoardManager.getInstance().fill_start_position();
-      this.isStartPositionsFilling = true;
-    }
+    this.simulationBoardManager.onNetworkRegister();
   }
 
   /**
@@ -78,7 +73,7 @@ export class Actor extends cse_alife_creature_actor {
     super.STATE_Write(packet);
 
     setSaveMarker(packet, false, Actor.__name);
-    packet.w_bool(this.isStartPositionsFilling);
+    this.simulationBoardManager.save(packet);
     setSaveMarker(packet, true, Actor.__name);
   }
 
@@ -90,7 +85,7 @@ export class Actor extends cse_alife_creature_actor {
 
     if (registry.actor === null) {
       setLoadMarker(packet, false, Actor.__name);
-      this.isStartPositionsFilling = packet.r_bool();
+      this.simulationBoardManager.load(packet);
       setLoadMarker(packet, true, Actor.__name);
     }
   }
@@ -128,7 +123,7 @@ export class Actor extends cse_alife_creature_actor {
       softResetOfflineObject(squadMember.id);
     }
 
-    SimulationBoardManager.getInstance().assign_squad_to_smart(squad, null);
+    SimulationBoardManager.getInstance().assignSquadToSmartTerrain(squad, null);
   }
 
   /**
@@ -146,7 +141,7 @@ export class Actor extends cse_alife_creature_actor {
       return false;
     }
 
-    const smarts_by_no_assault_zones = {
+    const smartsByNoAssaultZones = {
       ["zat_a2_sr_no_assault"]: "zat_stalker_base_smart",
       ["jup_a6_sr_no_assault"]: "jup_a6",
       ["jup_b41_sr_no_assault"]: "jup_b41",
@@ -156,11 +151,11 @@ export class Actor extends cse_alife_creature_actor {
       return false;
     }
 
-    for (const [k, v] of smarts_by_no_assault_zones) {
+    for (const [k, v] of smartsByNoAssaultZones) {
       const zone = registry.zones.get(k);
 
       if (zone !== null && zone.inside(this.position)) {
-        const smart = SimulationBoardManager.getInstance().get_smart_by_name(v);
+        const smart = SimulationBoardManager.getInstance().getSmartTerrainByName(v);
 
         if (smart !== null && smart.base_on_actor_control.status !== ESmartTerrainStatus.ALARM) {
           return false;

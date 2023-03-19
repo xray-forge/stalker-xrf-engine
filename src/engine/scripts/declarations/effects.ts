@@ -120,6 +120,7 @@ import {
   TIndex,
   TName,
   TNumberId,
+  TSection,
   TStringId,
 } from "@/engine/lib/types";
 import { zat_b29_af_table, zat_b29_infop_bring_table } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
@@ -1450,28 +1451,30 @@ export function anim_obj_stop(actor: XR_game_object, npc: XR_game_object, p: [st
  */
 export function play_sound(
   actor: XR_game_object,
-  obj: XR_game_object,
+  object: XR_game_object,
   p: [Optional<string>, Optional<TCommunity>, Optional<string | number>]
 ): void {
   logger.info("Play sound");
 
   const theme = p[0];
   const faction: Optional<TCommunity> = p[1];
-  const point: SmartTerrain = SimulationBoardManager.getInstance().smarts_by_names.get(p[2] as string);
-  const pointId = point !== null ? point.id : (p[2] as number);
+  const smartTerrain: SmartTerrain = SimulationBoardManager.getInstance().getSmartTerrainByName(
+    p[2] as TName
+  ) as SmartTerrain;
+  const smartTerrainId = smartTerrain !== null ? smartTerrain.id : (p[2] as TNumberId);
 
-  if (obj && isStalker(obj)) {
-    if (!obj.alive()) {
+  if (object && isStalker(object)) {
+    if (!object.alive()) {
       abort(
         "Stalker [%s][%s] is dead, but you wants to say something for you. [%s]!",
-        tostring(obj.id()),
-        tostring(obj.name()),
+        tostring(object.id()),
+        tostring(object.name()),
         p[0]
       );
     }
   }
 
-  GlobalSoundManager.getInstance().setSoundPlaying(obj.id(), theme, faction, pointId);
+  GlobalSoundManager.getInstance().setSoundPlaying(object.id(), theme, faction, smartTerrainId);
 }
 
 /**
@@ -1501,15 +1504,18 @@ export function stop_sound_looped(actor: XR_game_object, obj: XR_game_object) {
 export function play_sound_by_story(
   actor: XR_game_object,
   obj: XR_game_object,
-  p: [string, string, string, string | number]
+  p: [string, string, string, TName | number]
 ) {
   const storyObjectId: Optional<TNumberId> = getObjectIdByStoryId(p[0]);
   const theme = p[1];
   const faction = p[2];
-  const smartTerrain: SmartTerrain = SimulationBoardManager.getInstance().smarts_by_names.get(p[3] as string);
-  const pointId: TNumberId = smartTerrain !== null ? smartTerrain.id : (p[3] as number);
 
-  GlobalSoundManager.getInstance().setSoundPlaying(storyObjectId as number, theme, faction, pointId);
+  const smartTerrain: Optional<SmartTerrain> = SimulationBoardManager.getInstance().getSmartTerrainByName(
+    p[3] as TName
+  );
+  const smartTerrainId: TNumberId = smartTerrain !== null ? smartTerrain.id : (p[3] as number);
+
+  GlobalSoundManager.getInstance().setSoundPlaying(storyObjectId as number, theme, faction, smartTerrainId);
 }
 
 /**
@@ -1526,36 +1532,36 @@ export function barrel_explode(actor: XR_game_object, npc: XR_game_object, p: [T
 /**
  * todo;
  */
-export function create_squad(actor: XR_game_object, obj: Optional<XR_game_object>, params: [string, string]): void {
-  const squad_id = params[0];
+export function create_squad(actor: XR_game_object, obj: Optional<XR_game_object>, params: [TStringId, TName]): void {
+  const squadId: Optional<TStringId> = params[0];
 
-  if (squad_id === null) {
+  if (squadId === null) {
     abort("Wrong squad identificator [NIL] in create_squad function");
   }
 
-  const smart_name = params[1];
+  const smartTerrainName: Optional<TName> = params[1];
 
-  if (smart_name === null) {
+  if (smartTerrainName === null) {
     abort("Wrong smart name [NIL] in create_squad function");
   }
 
-  if (!SYSTEM_INI.section_exist(squad_id)) {
-    abort("Wrong squad identificator [%s]. Squad descr doesnt exist.", tostring(squad_id));
+  if (!SYSTEM_INI.section_exist(squadId)) {
+    abort("Wrong squad identificator [%s]. Squad descr doesnt exist.", tostring(squadId));
   }
 
-  const board = SimulationBoardManager.getInstance();
-  const smart = board.smarts_by_names.get(smart_name);
+  const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
+  const smartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainByName(smartTerrainName);
 
-  if (smart === null) {
-    abort("Wrong smart_name [%s] for faction in create_squad function", tostring(smart_name));
+  if (smartTerrain === null) {
+    abort("Wrong smart_name [%s] for faction in create_squad function", tostring(smartTerrainName));
   }
 
-  const squad = board.create_squad(smart, squad_id);
+  const squad: Squad = simulationBoardManager.createSmartSquad(smartTerrain, squadId);
 
-  board.enter_smart(squad, smart.id);
+  simulationBoardManager.enterSmartTerrain(squad, smartTerrain.id);
 
-  for (const k of squad.squad_members()) {
-    board.setup_squad_and_group(k.object);
+  for (const squadMember of squad.squad_members()) {
+    simulationBoardManager.setupObjectSquadAndGroup(squadMember.object);
   }
 
   squad.update();
@@ -1567,22 +1573,24 @@ export function create_squad(actor: XR_game_object, obj: Optional<XR_game_object
 export function create_squad_member(
   actor: XR_game_object,
   object: XR_game_object,
-  params: [string, string, string]
+  params: [TSection, TStringId, string]
 ): void {
   const squad_member_sect = params[0];
-  const story_id = params[1];
+  const storyId: Optional<TStringId> = params[1];
 
   let position = null;
   let level_vertex_id = null;
   let game_vertex_id = null;
 
-  if (story_id === null) {
+  if (storyId === null) {
     abort("Wrong squad identificator [NIL] in 'create_squad_member' function");
   }
 
-  const board: SimulationBoardManager = SimulationBoardManager.getInstance();
-  const squad: Squad = getServerObjectByStoryId(story_id) as Squad;
-  const squadSmartTerrain: Optional<SmartTerrain> = board.smarts.get(squad.smart_id as TNumberId).smrt;
+  const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
+  const squad: Squad = getServerObjectByStoryId(storyId) as Squad;
+  const squadSmartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainDescriptorById(
+    squad.smart_id as TNumberId
+  )!.smartTerrain;
 
   if (params[2] !== null) {
     let spawn_point: TStringId;
@@ -1620,7 +1628,7 @@ export function create_squad_member(
   );
 
   squad.assign_squad_member_to_smart(newSquadMemberId, squadSmartTerrain, null);
-  board.setup_squad_and_group(alife().object(newSquadMemberId) as XR_cse_alife_creature_abstract);
+  simulationBoardManager.setupObjectSquadAndGroup(alife().object(newSquadMemberId) as XR_cse_alife_creature_abstract);
   // --squad_smart.refresh()
   squad.update();
 }
@@ -1641,7 +1649,7 @@ export function remove_squad(actor: XR_game_object, obj: XR_game_object, p: [str
     abort("Wrong squad identificator [%s]. squad doesnt exist", tostring(story_id));
   }
 
-  SimulationBoardManager.getInstance().remove_squad(squad);
+  SimulationBoardManager.getInstance().onRemoveSquad(squad);
 }
 
 /**
@@ -1713,26 +1721,26 @@ export function heal_squad(actor: XR_game_object, obj: XR_game_object, params: [
 export function clear_smart_terrain(actor: XR_game_object, object: XR_game_object, p: [string, string]) {
   logger.info("Clear smart terrain");
 
-  const smart_name = p[0];
+  const smartTerrainname: TName = p[0];
 
-  if (smart_name === null) {
+  if (smartTerrainname === null) {
     abort("Wrong squad identificator [NIL] in clear_smart_terrain function");
   }
 
   const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
-  const smart = simulationBoardManager.smarts_by_names.get(smart_name);
-  const smart_id = smart.id;
+  const smartTerrain: SmartTerrain = simulationBoardManager.getSmartTerrainByName(smartTerrainname) as SmartTerrain;
+  const smartTerrainId: TNumberId = smartTerrain.id;
 
-  for (const [k, v] of simulationBoardManager.smarts.get(smart_id).squads) {
+  for (const [k, v] of simulationBoardManager.getSmartTerrainDescriptorById(smartTerrainId)!.assignedSquads) {
     if (p[1] && p[1] === STRINGIFIED_FALSE) {
       // todo: Probably unreachable condition / cast
       if (!getObjectIdByStoryId(v.id as unknown as string)) {
-        simulationBoardManager.exit_smart(v, smart_id);
-        simulationBoardManager.remove_squad(v);
+        simulationBoardManager.exitSmartTerrain(v, smartTerrainId);
+        simulationBoardManager.onRemoveSquad(v);
       }
     } else {
-      simulationBoardManager.exit_smart(v, smart_id);
-      simulationBoardManager.remove_squad(v);
+      simulationBoardManager.exitSmartTerrain(v, smartTerrainId);
+      simulationBoardManager.onRemoveSquad(v);
     }
   }
 }
@@ -1795,7 +1803,7 @@ export function set_squad_neutral_to_actor(actor: XR_game_object, npc: XR_game_o
   if (squad === null) {
     return;
   } else {
-    squad.set_squad_relation(relations.neutral);
+    squad.updateSquadRelationToActor(relations.neutral);
   }
 }
 
@@ -1808,7 +1816,7 @@ export function set_squad_friend_to_actor(actor: XR_game_object, npc: XR_game_ob
   if (squad === null) {
     return;
   } else {
-    squad.set_squad_relation(relations.friend);
+    squad.updateSquadRelationToActor(relations.friend);
   }
 }
 
@@ -1821,7 +1829,7 @@ export function set_squad_enemy_to_actor(actor: XR_game_object, npc: XR_game_obj
   if (squad === null) {
     return;
   } else {
-    squad.set_squad_relation("enemy");
+    squad.updateSquadRelationToActor(relations.enemy);
   }
 }
 

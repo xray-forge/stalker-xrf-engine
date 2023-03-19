@@ -295,7 +295,7 @@ export class StalkerBinder extends object_binder {
     amount: TRate,
     local_direction: XR_vector,
     who: Optional<XR_game_object>,
-    bone_index: string | number
+    boneIndex: string | number
   ): void {
     const actor: XR_game_object = registry.actor;
 
@@ -303,16 +303,16 @@ export class StalkerBinder extends object_binder {
     if (who?.id() === actor.id()) {
       StatisticsManager.getInstance().updateBestWeapon(amount);
       if (amount > 0) {
-        for (const [k, v] of SimulationBoardManager.getInstance().smarts) {
-          const smart = v.smrt;
+        for (const [k, v] of SimulationBoardManager.getInstance().getSmartTerrainDescriptors()) {
+          const smartTerrain = v.smartTerrain;
 
-          if (smart.base_on_actor_control !== null) {
-            const level_id = game_graph().vertex(smart.m_game_vertex_id).level_id();
-            const actor_level_id = game_graph().vertex(alife().actor().m_game_vertex_id).level_id();
+          if (smartTerrain.base_on_actor_control !== null) {
+            const levelId: TNumberId = game_graph().vertex(smartTerrain.m_game_vertex_id).level_id();
+            const actorLevelId: TNumberId = game_graph().vertex(alife().actor().m_game_vertex_id).level_id();
 
-            if (level_id === actor_level_id && actor.position().distance_to_sqr(smart.position) <= 6400) {
+            if (levelId === actorLevelId && actor.position().distance_to_sqr(smartTerrain.position) <= 6400) {
               if (this.object.relation(actor) !== game_object.enemy) {
-                smart.base_on_actor_control.actor_attack();
+                smartTerrain.base_on_actor_control.actor_attack();
               }
             }
           }
@@ -329,7 +329,7 @@ export class StalkerBinder extends object_binder {
         amount,
         local_direction,
         who,
-        bone_index
+        boneIndex
       );
     }
 
@@ -343,7 +343,7 @@ export class StalkerBinder extends object_binder {
         amount,
         local_direction,
         who,
-        bone_index
+        boneIndex
       );
     }
 
@@ -356,15 +356,15 @@ export class StalkerBinder extends object_binder {
         amount,
         local_direction,
         who,
-        bone_index
+        boneIndex
       );
     }
 
     if (this.state.hit) {
-      issueSchemeEvent(this.object, this.state.hit, ESchemeEvent.HIT, object, amount, local_direction, who, bone_index);
+      issueSchemeEvent(this.object, this.state.hit, ESchemeEvent.HIT, object, amount, local_direction, who, boneIndex);
     }
 
-    if (bone_index !== 15 && amount > this.object.health * 100) {
+    if (boneIndex !== 15 && amount > this.object.health * 100) {
       this.object.health = 0.15;
     }
 

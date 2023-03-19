@@ -132,7 +132,7 @@ export class Monster extends cse_alife_monster_base {
 
     const obj_ini = this.spawn_ini();
     const smart = getConfigString(obj_ini, "logic", "smart_terrain", this, false, "", "");
-    const smart_obj = board.get_smart_by_name(smart);
+    const smart_obj = board.getSmartTerrainByName(smart);
 
     if (smart_obj === null) {
       return;

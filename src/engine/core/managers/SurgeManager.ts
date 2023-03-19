@@ -23,6 +23,7 @@ import { NotificationManager } from "@/engine/core/managers/notifications/Notifi
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
 import { StatisticsManager } from "@/engine/core/managers/StatisticsManager";
 import { WeatherManager } from "@/engine/core/managers/WeatherManager";
+import { SmartTerrain } from "@/engine/core/objects";
 import { Squad } from "@/engine/core/objects/alife/Squad";
 import { isImmuneToSurge, isObjectOnLevel, isSurgeEnabledOnLevel } from "@/engine/core/utils/check/check";
 import { isStoryObject } from "@/engine/core/utils/check/is";
@@ -60,12 +61,13 @@ export class SurgeManager extends AbstractCoreManager {
     const squad: Optional<Squad> = alife().object(squadId);
 
     if (squad) {
-      const board = SimulationBoardManager.getInstance();
+      const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
+      const smartTerrain: Optional<SmartTerrain> = squad.smart_id
+        ? (simulationBoardManager.getSmartTerrainDescriptorById(squad.smart_id)?.smartTerrain as Optional<SmartTerrain>)
+        : null;
 
-      if (board && squad.smart_id && board.smarts.get(squad.smart_id)) {
-        const smart = board.smarts.get(squad.smart_id).smrt;
-
-        if (tonumber(smart.props["surge"])! <= 0) {
+      if (smartTerrain) {
+        if (tonumber(smartTerrain.props["surge"])! <= 0) {
           return true;
         }
       }
@@ -482,9 +484,9 @@ export class SurgeManager extends AbstractCoreManager {
     const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
     const levelName: TLevel = level.name();
 
-    logger.info("Releasing squads:", simulationBoardManager.squads.length());
+    logger.info("Releasing squads:", simulationBoardManager.getSquads().length());
 
-    for (const [squadId, squad] of simulationBoardManager.squads) {
+    for (const [squadId, squad] of simulationBoardManager.getSquads()) {
       if (isObjectOnLevel(squad, levelName) && !isImmuneToSurge(squad) && !isStoryObject(squad)) {
         for (const member of squad.squad_members()) {
           if (!isStoryObject(member.object)) {
@@ -559,10 +561,10 @@ export class SurgeManager extends AbstractCoreManager {
    * todo;
    */
   protected kill_all_unhided_after_actor_death(): void {
-    const board: SimulationBoardManager = SimulationBoardManager.getInstance();
+    const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
     const levelName: TLevel = level.name();
 
-    for (const [squadId, squad] of board.squads) {
+    for (const [squadId, squad] of simulationBoardManager.getSquads()) {
       if (isObjectOnLevel(squad, levelName) && !isImmuneToSurge(squad)) {
         for (const member of squad.squad_members()) {
           let isInCover: boolean = false;

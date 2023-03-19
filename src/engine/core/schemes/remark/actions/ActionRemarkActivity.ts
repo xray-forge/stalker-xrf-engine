@@ -6,7 +6,7 @@ import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { set_state } from "@/engine/core/objects/state/StateManager";
 import { ISchemeRemarkState } from "@/engine/core/schemes/remark";
 import { abort } from "@/engine/core/utils/debug";
-import { get_gulag_by_name } from "@/engine/core/utils/gulag";
+import { getSmartTerrainByName } from "@/engine/core/utils/gulag";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
@@ -259,7 +259,7 @@ export function init_target(
     }
   } else if (target_type === "job") {
     const [job, gulag] = parse_target(target);
-    const smartTerrain: SmartTerrain = get_gulag_by_name(gulag!)!;
+    const smartTerrain: SmartTerrain = getSmartTerrainByName(gulag!)!;
 
     targetId = smartTerrain.idNPCOnJob(job!);
     isTargetInitialized = targetId !== null && true;

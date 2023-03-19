@@ -1,4 +1,4 @@
-import { XR_net_packet, XR_reader } from "xray16";
+import { TXR_net_processor, XR_net_packet, XR_reader } from "xray16";
 
 import { disposeManager, getManagerInstance, getWeakManagerInstance } from "@/engine/core/database/managers";
 import { abort } from "@/engine/core/utils/debug";
@@ -61,7 +61,7 @@ export abstract class AbstractCoreManager {
   /**
    * todo;
    */
-  public load(reader: XR_reader): void {
+  public load(reader: TXR_net_processor): void {
     abort("Load method is not implemented.");
   }
 }

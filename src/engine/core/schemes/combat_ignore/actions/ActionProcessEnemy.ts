@@ -59,7 +59,7 @@ export class ActionProcessEnemy {
         const zone = registry.zones.get(k);
 
         if (zone && (isObjectInZone(object, zone) || isObjectInZone(enemy, zone))) {
-          const smart = SimulationBoardManager.getInstance().get_smart_by_name(v);
+          const smart = SimulationBoardManager.getInstance().getSmartTerrainByName(v);
 
           if (
             smart &&
