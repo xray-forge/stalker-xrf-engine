@@ -2,8 +2,8 @@
 
 ## 🧰 Project structure
 
-- [bin](https://github.com/stalker-xrts/stalker-xrts-bin) - submodule with binaries for development and testing
 - [cli](cli/README.md)
+  - [bin](https://github.com/stalker-xrts/stalker-xrts-bin) - submodule with binaries for development and testing
   - [build](cli/build/README.md)
   - [engine](cli/engine/README.md)
   - [info](cli/info/README.md)

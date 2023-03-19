@@ -1,52 +1,50 @@
 # 🎮 [Stalker XR-TS template](README.md)
 
 <p>
-XRTS template for STALKER provides foundation for creating mods.
-The template uses TypeScript and custom build tools to ensure type safety,
-simplify development, automated builds, and provide shared template for mods development.
+XRTS template for stalker modifications. <br/>
 </p>
 
 ## 📦 In short
 
-- Game scripts engine rewritten with typescript
-- Custom build pipeline to add verification steps and simplify development
-- Tools to generate UI forms from JSX
-- Tools to generate configs from dynamic typescript
-- Tools to generate simple translations
-- Tools to debug the game
+- Scripts engine rewritten with typescript
+- Custom build pipeline
+- Generation UI forms from JSX
+- Game configs from dynamic typescript
+- Simple translations generation
+- Game profiling / debugging tools
 
 ## 📍 Purpose
 
 - Provide a shared template for mods development
-- Produce documented and readable code
-- Simplify development process
+- Produce documented and readable code, document xray SDK
+- Simplify development process, involve more people
 
 ---
 
 ## 📦 Main differences with original
 
-The intention of this engine template is to allow easier mod development without introducing breaking changes to the original. <br/>
-Everything else can be added in your own mod extending the template.
+The intention of this engine template is to allow easier mod development without introducing breaking changes to the original plot. <br/>
 
 ## 📌What is used
 
 - [NodeJS](https://nodejs.org/en/)
 - [Typescript](https://www.typescriptlang.org/)
 - [TypeScriptToLua](https://typescripttolua.github.io/docs/getting-started)
+- [Jest](https://jestjs.io/)
+- [Fengari Lua VM](https://github.com/fengari-lua/fengari)
 - [Open-X-Ray](https://github.com/OpenXRay/xray-16)
-- Custom [build system](cli/README.md)
 
 # 🌓 Starting work
 
 ## 🧰 Pre-requirements
 
 - [NodeJS](https://nodejs.org/en/) 14 or later
-- [Stalker-COP](https://store.steampowered.com/app/41700/STALKER_Call_of_Pripyat/)
-- `cli/config.json` file should be edited to match your local system
+- [Stalker-COP](https://store.steampowered.com/app/41700/STALKER_Call_of_Pripyat/) game
+- `cli/config.json` file should be edited to match your system paths
 
 ## 💿 Start development
 
-- DOWNLOAD the game (stalker call of pripyat)
+- DOWNLOAD [the game](https://store.steampowered.com/app/41700/STALKER_Call_of_Pripyat/)
 - RUN `git clone https://github.com/stalker-xrts/stalker-xrts-template.git` - clone repository
 - RUN `cd stalker-xrts-template` - cd to project folder
 - EDIT `cli/config.json` - correct paths to match your local system (game path, logs path, resources path)

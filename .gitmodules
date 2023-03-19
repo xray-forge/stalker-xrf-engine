@@ -1,5 +1,5 @@
-[submodule "bin"]
-	path = bin
+[submodule "cli/bin"]
+	path = cli/bin
 	url = https://github.com/stalker-xrts/stalker-xrts-bin.git
     branch = master
 
