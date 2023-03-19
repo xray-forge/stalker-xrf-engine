@@ -13,7 +13,7 @@ import { getCharacterCommunity } from "@/engine/core/utils/object";
 import { parseConditionsList } from "@/engine/core/utils/parse";
 import { communities } from "@/engine/lib/constants/communities";
 import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
-import { AnyObject, LuaArray, Optional } from "@/engine/lib/types";
+import { AnyObject, Optional } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);

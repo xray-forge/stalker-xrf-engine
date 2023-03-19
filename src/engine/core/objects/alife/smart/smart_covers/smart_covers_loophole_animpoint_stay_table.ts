@@ -1,7 +1,6 @@
 import { vector, XR_vector } from "xray16";
 
 import { ISmartCoverLoopholeDescriptor } from "@/engine/core/objects/alife/smart/smart_covers/smart_covers_list";
-import { Optional } from "@/engine/lib/types";
 
 export function get_animpoint_stay_table_loophole(
   id: string,

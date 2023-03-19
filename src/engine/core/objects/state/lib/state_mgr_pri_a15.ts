@@ -7,7 +7,7 @@ import { parseNames } from "@/engine/core/utils/parse";
 import { getTableSize } from "@/engine/core/utils/table";
 import { info_portions } from "@/engine/lib/constants/info_portions";
 import { names } from "@/engine/lib/constants/names";
-import { AnyObject, LuaArray, Optional, TName } from "@/engine/lib/types";
+import { LuaArray, Optional, TName } from "@/engine/lib/types";
 
 const weap_table: LuaTable<number, string> = [
   "pri_a15_wpn_svu",

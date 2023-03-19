@@ -1,5 +1,4 @@
 import type { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/schemes/base";
-import type { TConditionList } from "@/engine/core/utils/parse";
 import type { TInfoPortion } from "@/engine/lib/constants/info_portions";
 import type { Optional, TCount, TDistance, TDuration, TName, TRate } from "@/engine/lib/types";
 

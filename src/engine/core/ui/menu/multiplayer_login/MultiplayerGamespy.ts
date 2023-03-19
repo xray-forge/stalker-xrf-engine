@@ -23,7 +23,6 @@ import {
   XR_CUIComboBox,
   XR_CUIEditBox,
   XR_CUIMessageBoxEx,
-  XR_CUIScriptWnd,
   XR_CUIStatic,
   XR_CUITextWnd,
   XR_CUIWindow,

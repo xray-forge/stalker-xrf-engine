@@ -1,4 +1,4 @@
-import { describe, expect, it, jest } from "@jest/globals";
+import { describe, expect, it } from "@jest/globals";
 
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { console_commands } from "@/engine/lib/constants/console_commands";

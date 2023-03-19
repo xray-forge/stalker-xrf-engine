@@ -15,7 +15,6 @@ import { registry } from "@/engine/core/database";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getTableSize } from "@/engine/core/utils/table";
-import { Optional } from "@/engine/lib/types";
 
 // todo: Move to db.
 const arena_zones: LuaTable<string, ArenaZoneBinder> = new LuaTable();

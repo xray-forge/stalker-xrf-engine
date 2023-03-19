@@ -23,7 +23,7 @@ import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini_config
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, parseNames, parseNumbers, TConditionList } from "@/engine/core/utils/parse";
 import { MAX_UNSIGNED_8_BIT } from "@/engine/lib/constants/memory";
-import { Optional, TDuration, TSection } from "@/engine/lib/types";
+import { Optional, TDuration } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

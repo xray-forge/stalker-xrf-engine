@@ -13,7 +13,7 @@ import { ITargetStateDescriptor, set_state } from "@/engine/core/objects/state/S
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object";
-import { AnyObject, Optional, TCount, TIndex } from "@/engine/lib/types";
+import { Optional, TCount, TIndex } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

@@ -1,7 +1,6 @@
 import { XR_game_object } from "xray16";
 
 import { IAnimationDescriptor } from "@/engine/core/objects/state/lib/state_mgr_animation_list";
-import { CampStoryManager } from "@/engine/core/schemes/camper/CampStoryManager";
 
 export function add_animpoint_animation_list(): LuaTable<string, IAnimationDescriptor> {
   return {

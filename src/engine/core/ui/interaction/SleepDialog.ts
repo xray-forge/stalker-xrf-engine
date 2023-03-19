@@ -22,7 +22,6 @@ import {
 import { registry } from "@/engine/core/database";
 import { SurgeManager } from "@/engine/core/managers/SurgeManager";
 import { WeatherManager } from "@/engine/core/managers/WeatherManager";
-import { getExtern } from "@/engine/core/utils/binding";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { disableGameUi, enableGameUi } from "@/engine/core/utils/control";
 import { disableInfo, giveInfo } from "@/engine/core/utils/info_portion";
@@ -34,7 +33,7 @@ import { post_processors } from "@/engine/lib/constants/animation/post_processor
 import { captions } from "@/engine/lib/constants/captions";
 import { console_commands } from "@/engine/lib/constants/console_commands";
 import { info_portions } from "@/engine/lib/constants/info_portions/info_portions";
-import { AnyCallablesModule, Optional } from "@/engine/lib/types";
+import { Optional } from "@/engine/lib/types";
 
 const base: string = "interaction\\SleepDialog.component";
 const logger: LuaLogger = new LuaLogger($filename);

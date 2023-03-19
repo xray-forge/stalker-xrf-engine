@@ -25,7 +25,7 @@ import { pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
 import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/core/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, parseNames, TConditionList } from "@/engine/core/utils/parse";
-import { giveMoneyToActor, relocateQuestItemSection, takeMoneyFromActor } from "@/engine/core/utils/quest_reward";
+import { giveMoneyToActor, relocateQuestItemSection } from "@/engine/core/utils/quest_reward";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/engine/core/utils/time";
 import { levels, TLevel } from "@/engine/lib/constants/levels";
 import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";

@@ -13,7 +13,7 @@ import {
 import { ITargetStateDescriptor, set_state } from "@/engine/core/objects/state/StateManager";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { AnyObject, Optional } from "@/engine/lib/types";
+import { Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

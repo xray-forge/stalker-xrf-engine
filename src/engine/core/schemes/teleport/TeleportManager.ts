@@ -11,7 +11,7 @@ import {
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { post_processors } from "@/engine/lib/constants/animation/post_processors";
 import { sounds } from "@/engine/lib/constants/sound/sounds";
-import { Optional, TCount, TDuration } from "@/engine/lib/types";
+import { Optional, TDuration } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

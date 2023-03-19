@@ -1,4 +1,4 @@
-import { LuabindClass, object_binder, XR_cse_alife_object, XR_game_object } from "xray16";
+import { LuabindClass, object_binder, XR_cse_alife_object } from "xray16";
 
 import { registerZone, registry, resetObject, unregisterZone } from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";

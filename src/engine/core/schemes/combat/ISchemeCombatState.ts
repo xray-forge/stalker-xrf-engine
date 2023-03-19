@@ -1,7 +1,7 @@
 import { XR_vector } from "xray16";
 
 import type { IBaseSchemeState } from "@/engine/core/schemes/base";
-import { AnyObject, LuaArray, Optional } from "@/engine/lib/types";
+import { AnyObject, Optional } from "@/engine/lib/types";
 
 /**
  * todo;

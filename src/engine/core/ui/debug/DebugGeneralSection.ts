@@ -1,6 +1,5 @@
 import {
   command_line,
-  CScriptXmlInit,
   CUIWindow,
   LuabindClass,
   ui_events,
@@ -12,7 +11,7 @@ import {
 import { ProfilingManager } from "@/engine/core/managers/ProfilingManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { collectLuaGarbage, getLuaMemoryUsed } from "@/engine/core/utils/ram";
-import { resolveXmlFile, resolveXmlFormPath } from "@/engine/core/utils/ui";
+import { resolveXmlFile } from "@/engine/core/utils/ui";
 
 const base: string = "menu\\debug\\DebugGeneralSection.component";
 const logger: LuaLogger = new LuaLogger($filename);

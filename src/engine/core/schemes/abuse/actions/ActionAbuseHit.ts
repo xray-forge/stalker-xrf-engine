@@ -1,7 +1,6 @@
 import { action_base, LuabindClass } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { set_state } from "@/engine/core/objects/state/StateManager";
 import { ISchemeAbuseState } from "@/engine/core/schemes/abuse/ISchemeAbuseState";
 
 /**

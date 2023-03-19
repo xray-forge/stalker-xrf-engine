@@ -35,7 +35,7 @@ import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { getObjectClassId } from "@/engine/core/utils/id";
 import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ESchemeType, Optional, TDistance, TIndex, TNumberId, TRate, TSection } from "@/engine/lib/types";
+import { ESchemeType, Optional, TDistance, TIndex, TNumberId, TRate } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

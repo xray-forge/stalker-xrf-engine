@@ -1,4 +1,4 @@
-import { alife, game, XR_alife_simulator, XR_CGameTask, XR_cse_alife_human_stalker, XR_game_object } from "xray16";
+import { alife, game, XR_alife_simulator, XR_CGameTask, XR_game_object } from "xray16";
 
 import { getObjectIdByStoryId, registry, SYSTEM_INI } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";

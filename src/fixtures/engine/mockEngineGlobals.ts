@@ -1,6 +1,5 @@
 import { jest } from "@jest/globals";
 
-import { AnyObject } from "@/engine/lib/types";
 import { MockLuaLogger } from "@/fixtures/engine/mocks/LuaLogger.mock";
 import { mockTableUtils } from "@/fixtures/engine/mocks/table.mocks";
 

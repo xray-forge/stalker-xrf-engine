@@ -8,7 +8,6 @@ import {
   XR_cse_alife_creature_abstract,
 } from "xray16";
 
-import { registry } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { ISchemeDangerState } from "@/engine/core/schemes/danger";
 import { SchemeDanger } from "@/engine/core/schemes/danger/SchemeDanger";
