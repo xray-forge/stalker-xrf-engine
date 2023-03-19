@@ -22,7 +22,7 @@ import {
 
 import { IRegistryObjectState, registry, resetObject } from "@/engine/core/database";
 import { registerActor, unregisterActor } from "@/engine/core/database/actor";
-import { pstor_load_all, pstor_save_all } from "@/engine/core/database/pstor";
+import { pstor_load_all, pstor_save_all } from "@/engine/core/database/portable_store";
 import { getSimulationObjectsRegistry } from "@/engine/core/database/SimulationObjectsRegistry";
 import { AchievementsManager } from "@/engine/core/managers/achievements";
 import { DropManager } from "@/engine/core/managers/DropManager";

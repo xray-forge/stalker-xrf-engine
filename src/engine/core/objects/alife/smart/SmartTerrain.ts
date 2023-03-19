@@ -1666,7 +1666,7 @@ function arrived_to_smart(obj: XR_cse_alife_creature_abstract, smart: SmartTerra
 
     if (squad !== null && squad.current_action) {
       if (squad.current_action.name === "reach_target") {
-        const squad_target = getSimulationObjectsRegistry().objects.get(squad.assigned_target_id!);
+        const squad_target = registry.simulationObjects.get(squad.assigned_target_id!);
 
         if (squad_target !== null) {
           return squad_target.am_i_reached(squad);

@@ -144,7 +144,7 @@ export class Actor extends cse_alife_creature_actor {
       ["jup_b41_sr_no_assault"]: "jup_b41",
     } as unknown as LuaTable<TStringId, TStringId>;
 
-    if (nearest_to_actor_smart.dist < 50 && !getSimulationObjectsRegistry().objects.has(nearest_to_actor_smart.id!)) {
+    if (nearest_to_actor_smart.dist < 50 && !registry.simulationObjects.has(nearest_to_actor_smart.id!)) {
       return false;
     }
 

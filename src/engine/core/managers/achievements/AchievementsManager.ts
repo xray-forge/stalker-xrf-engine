@@ -1,7 +1,7 @@
 import { alife, game, XR_CTime, XR_net_packet, XR_reader } from "xray16";
 
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
-import { pstor_retrieve } from "@/engine/core/database/pstor";
+import { pstor_retrieve } from "@/engine/core/database/portable_store";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
 import { achievementIcons } from "@/engine/core/managers/achievements/AchievementIcons";
 import { achievementRewards } from "@/engine/core/managers/achievements/AchievementRewards";

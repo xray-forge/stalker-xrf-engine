@@ -41,7 +41,7 @@ import {
   SYSTEM_INI,
   unregisterHelicopter,
 } from "@/engine/core/database";
-import { pstor_retrieve, pstor_store } from "@/engine/core/database/pstor";
+import { pstor_retrieve, pstor_store } from "@/engine/core/database/portable_store";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { ItemUpgradesManager } from "@/engine/core/managers/ItemUpgradesManager";
 import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";

@@ -1,7 +1,7 @@
 import { time_global, XR_CTime, XR_game_object, XR_net_packet, XR_reader } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { pstor_load_all, pstor_save_all } from "@/engine/core/database/pstor";
+import { pstor_load_all, pstor_save_all } from "@/engine/core/database/portable_store";
 import { ESchemeEvent } from "@/engine/core/schemes/base";
 import { issueSchemeEvent } from "@/engine/core/schemes/issueSchemeEvent";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";

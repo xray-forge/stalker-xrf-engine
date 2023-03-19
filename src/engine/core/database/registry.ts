@@ -4,7 +4,15 @@ import type { IRegistryObjectState } from "@/engine/core/database/objects";
 import type { IStoredOfflineObject } from "@/engine/core/database/offline";
 import type { AbstractCoreManager, TAbstractCoreManagerConstructor } from "@/engine/core/managers/AbstractCoreManager";
 import type { ITradeManagerDescriptor } from "@/engine/core/managers/TradeManager";
-import { AnomalyZoneBinder, LabX8DoorBinder, SignalLightBinder, SmartCover, SmartTerrain } from "@/engine/core/objects";
+import {
+  Actor,
+  AnomalyZoneBinder,
+  LabX8DoorBinder,
+  SignalLightBinder,
+  SmartCover,
+  SmartTerrain,
+  Squad,
+} from "@/engine/core/objects";
 import type { TAbstractSchemeConstructor } from "@/engine/core/schemes/base";
 import type { CampStoryManager } from "@/engine/core/schemes/camper";
 import type { PatrolManager } from "@/engine/core/schemes/patrol";
@@ -40,16 +48,20 @@ export const registry = {
    */
   objects: new LuaTable<TNumberId, IRegistryObjectState>(),
   /**
+   * List of offline objects.
+   */
+  offlineObjects: new LuaTable<TNumberId, IStoredOfflineObject>(),
+  /**
+   * List of objects participating in alife simulation.
+   */
+  simulationObjects: new LuaTable<TNumberId, Actor | Squad | SmartTerrain>(),
+  /**
    * Story objects mapping to match currently spawned object IDs and unique story objects.
    */
   storyLink: {
     sidById: new LuaTable<TNumberId, TStringId>(),
     idBySid: new LuaTable<TStringId, TNumberId>(),
   },
-  /**
-   * List of offline objects.
-   */
-  offlineObjects: new LuaTable<TNumberId, IStoredOfflineObject>(),
   /**
    * State of trade.
    */

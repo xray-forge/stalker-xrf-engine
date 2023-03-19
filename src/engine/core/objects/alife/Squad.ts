@@ -652,7 +652,7 @@ export class Squad<
     } else {
       this.set_location_types_section("squad_terrain");
 
-      for (const [k, v] of getSimulationObjectsRegistry().objects) {
+      for (const [k, v] of registry.simulationObjects) {
         if (alife().object(k)?.clsid() === clsid.smart_terrain) {
           const props_base = alife().object<SmartTerrain>(k)!.props && alife().object<SmartTerrain>(k)!.props["base"];
 

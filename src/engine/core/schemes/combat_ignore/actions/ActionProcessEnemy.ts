@@ -1,10 +1,6 @@
 import { alife, XR_cse_alife_creature_abstract, XR_game_object, XR_vector } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import {
-  getSimulationObjectsRegistry,
-  SimulationObjectsRegistry,
-} from "@/engine/core/database/SimulationObjectsRegistry";
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
 import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/alife/smart/SmartTerrainControl";
@@ -140,19 +136,16 @@ export class ActionProcessEnemy {
         }
       }
 
-      const seEnemy: Optional<XR_cse_alife_creature_abstract> = alife().object<XR_cse_alife_creature_abstract>(
-        enemy.id()
-      );
+      const serverEnemyObject: Optional<XR_cse_alife_creature_abstract> =
+        alife().object<XR_cse_alife_creature_abstract>(enemy.id());
 
-      if (seObject && seEnemy) {
-        const sim_obj_registry: SimulationObjectsRegistry = getSimulationObjectsRegistry();
-
+      if (seObject && serverEnemyObject) {
         if (
           seObject.group_id !== MAX_UNSIGNED_16_BIT &&
-          sim_obj_registry.objects.get(seObject.group_id) !== null &&
-          seEnemy.group_id !== MAX_UNSIGNED_16_BIT &&
-          sim_obj_registry.objects.get(seEnemy.group_id) === null &&
-          seObject.position.distance_to_sqr(seEnemy.position) > 900
+          registry.simulationObjects.get(seObject.group_id) !== null &&
+          serverEnemyObject.group_id !== MAX_UNSIGNED_16_BIT &&
+          registry.simulationObjects.get(serverEnemyObject.group_id) === null &&
+          seObject.position.distance_to_sqr(serverEnemyObject.position) > 900
         ) {
           return false;
         }

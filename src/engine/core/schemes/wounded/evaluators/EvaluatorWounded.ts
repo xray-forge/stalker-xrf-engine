@@ -1,6 +1,6 @@
 import { LuabindClass, property_evaluator, stalker_ids, XR_action_planner } from "xray16";
 
-import { pstor_retrieve } from "@/engine/core/database/pstor";
+import { pstor_retrieve } from "@/engine/core/database/portable_store";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/words";

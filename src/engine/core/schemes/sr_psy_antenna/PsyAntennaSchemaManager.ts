@@ -1,7 +1,7 @@
 import { get_hud, level, XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { pstor_retrieve, pstor_store } from "@/engine/core/database/pstor";
+import { pstor_retrieve, pstor_store } from "@/engine/core/database/portable_store";
 import { PsyAntennaManager } from "@/engine/core/managers/PsyAntennaManager";
 import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractSchemeManager";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/trySwitchToAnotherSection";

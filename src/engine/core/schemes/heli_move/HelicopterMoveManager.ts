@@ -1,7 +1,7 @@
 import { level, patrol, XR_CHelicopter, XR_game_object, XR_patrol, XR_vector } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { pstor_retrieve, pstor_store } from "@/engine/core/database/pstor";
+import { pstor_retrieve, pstor_store } from "@/engine/core/database/portable_store";
 import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractSchemeManager";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/trySwitchToAnotherSection";
 import { get_heli_firer, HeliFire } from "@/engine/core/schemes/heli_move/HeliFire";

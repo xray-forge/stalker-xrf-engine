@@ -18,8 +18,6 @@ let sim_objects_registry: Optional<SimulationObjectsRegistry> = null;
  * todo: Remove class, move to db+utils.
  */
 export class SimulationObjectsRegistry {
-  public readonly objects: LuaTable<TNumberId, Actor | Squad | SmartTerrain> = new LuaTable();
-
   public register(object: SmartTerrain | Squad | Actor): void {
     this.get_props(object);
     this.update_avaliability(object);
@@ -30,9 +28,9 @@ export class SimulationObjectsRegistry {
       pickSectionFromCondList(registry.actor, object, object.sim_avail as any) === STRINGIFIED_TRUE &&
       object.sim_available()
     ) {
-      this.objects.set(object.id, object);
+      registry.simulationObjects.set(object.id, object);
     } else {
-      this.objects.delete(object.id);
+      registry.simulationObjects.delete(object.id);
     }
   }
 
@@ -75,7 +73,7 @@ export class SimulationObjectsRegistry {
   }
 
   public unregister(object: XR_cse_alife_object): void {
-    this.objects.delete(object.id);
+    registry.simulationObjects.delete(object.id);
   }
 }
 

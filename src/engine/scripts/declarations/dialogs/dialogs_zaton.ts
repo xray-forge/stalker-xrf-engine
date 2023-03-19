@@ -3,7 +3,7 @@
 import { alife, game, level, XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { pstor_retrieve, pstor_store } from "@/engine/core/database/pstor";
+import { pstor_retrieve, pstor_store } from "@/engine/core/database/portable_store";
 import { NotificationManager } from "@/engine/core/managers/notifications/NotificationManager";
 import { TreasureManager } from "@/engine/core/managers/TreasureManager";
 import { getExtern } from "@/engine/core/utils/binding";

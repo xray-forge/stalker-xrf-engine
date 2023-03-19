@@ -3,7 +3,7 @@
 import { alife, game_object, XR_cse_alife_creature_abstract, XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { pstor_retrieve } from "@/engine/core/database/pstor";
+import { pstor_retrieve } from "@/engine/core/database/portable_store";
 import { TreasureManager } from "@/engine/core/managers/TreasureManager";
 import { AnomalyZoneBinder } from "@/engine/core/objects/binders/AnomalyZoneBinder";
 import { getExtern } from "@/engine/core/utils/binding";

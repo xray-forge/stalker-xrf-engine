@@ -16,7 +16,6 @@ import {
 } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { getSimulationObjectsRegistry } from "@/engine/core/database/SimulationObjectsRegistry";
 import { SurgeManager } from "@/engine/core/managers/SurgeManager";
 import { Actor } from "@/engine/core/objects/alife/Actor";
 import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
@@ -116,7 +115,7 @@ export class ActionReachTaskLocation extends action_base {
    */
   public commander_execute(): void {
     const squad = getObjectSquad(this.object)!;
-    let squad_target = getSimulationObjectsRegistry().objects.get(squad.assigned_target_id!);
+    let squad_target = registry.simulationObjects.get(squad.assigned_target_id!);
 
     if (squad_target === null && squad.get_script_target() !== null) {
       squad_target = alife().object(squad.assigned_target_id!)!;
@@ -168,7 +167,7 @@ export class ActionReachTaskLocation extends action_base {
     }
 
     const squad: Squad = getObjectSquad(this.object)!;
-    let squad_target = getSimulationObjectsRegistry().objects.get(squad.assigned_target_id!);
+    let squad_target = registry.simulationObjects.get(squad.assigned_target_id!);
 
     if (squad_target === null && squad.get_script_target() !== null) {
       squad_target = alife().object(squad.assigned_target_id!)!;

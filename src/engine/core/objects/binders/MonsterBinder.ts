@@ -22,7 +22,6 @@ import {
 } from "xray16";
 
 import { IRegistryObjectState, registerObject, registry, resetObject, unregisterObject } from "@/engine/core/database";
-import { getSimulationObjectsRegistry } from "@/engine/core/database/SimulationObjectsRegistry";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { StatisticsManager } from "@/engine/core/managers/StatisticsManager";
 import { setup_gulag_and_logic_on_spawn, SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
@@ -163,7 +162,7 @@ export class MonsterBinder extends object_binder {
     }
 
     if (squad && squad.current_action && squad.current_action.name === "reach_target") {
-      const squad_target = getSimulationObjectsRegistry().objects.get(squad.assigned_target_id!);
+      const squad_target = registry.simulationObjects.get(squad.assigned_target_id!);
 
       if (squad_target === null) {
         return;

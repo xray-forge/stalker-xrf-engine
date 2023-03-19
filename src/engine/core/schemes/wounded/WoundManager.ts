@@ -1,7 +1,7 @@
 import { alife, time_global, XR_alife_simulator, XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { pstor_retrieve, pstor_store } from "@/engine/core/database/pstor";
+import { pstor_retrieve, pstor_store } from "@/engine/core/database/portable_store";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractSchemeManager";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded/ISchemeWoundedState";

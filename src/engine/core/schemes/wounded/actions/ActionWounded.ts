@@ -1,7 +1,7 @@
 import { action_base, alife, hit, LuabindClass, time_global, XR_alife_simulator } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { pstor_retrieve, pstor_store } from "@/engine/core/database/pstor";
+import { pstor_retrieve, pstor_store } from "@/engine/core/database/portable_store";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { set_state } from "@/engine/core/objects/state/StateManager";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";

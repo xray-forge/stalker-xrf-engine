@@ -1,7 +1,6 @@
 import { alife, clsid, game_graph, level, XR_cse_alife_creature_abstract } from "xray16";
 
-import { SIMULATION_LTX } from "@/engine/core/database";
-import { getSimulationObjectsRegistry } from "@/engine/core/database/SimulationObjectsRegistry";
+import { registry, SIMULATION_LTX } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
 import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { Squad } from "@/engine/core/objects/alife/Squad";
@@ -334,7 +333,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
     let most_priority_task = null;
     const max_prior = 0;
 
-    for (const [k, v] of getSimulationObjectsRegistry().objects) {
+    for (const [k, v] of registry.simulationObjects) {
       let curr_prior = 0;
 
       if (v.id !== squad.id) {

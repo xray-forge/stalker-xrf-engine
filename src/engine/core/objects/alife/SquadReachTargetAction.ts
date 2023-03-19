@@ -1,7 +1,8 @@
 import { alife, XR_CTime } from "xray16";
 
-import { getSimulationObjectsRegistry } from "@/engine/core/database/SimulationObjectsRegistry";
+import { registry } from "@/engine/core/database";
 import type { Squad } from "@/engine/core/objects/alife/Squad";
+import { TSimulationObject } from "@/engine/core/objects/alife/types";
 import { Optional } from "@/engine/lib/types";
 
 /**
@@ -32,20 +33,20 @@ export class SquadReachTargetAction {
    */
   public update(isUnderSimulation: boolean): boolean {
     const squad = alife().object<Squad>(this.squad_id)!;
-    let squad_target = getSimulationObjectsRegistry().objects.get(squad.assigned_target_id!);
+    let squadTarget: Optional<TSimulationObject> = registry.simulationObjects.get(squad.assigned_target_id!);
 
     if (!isUnderSimulation) {
-      squad_target = alife().object(squad.assigned_target_id!)!;
+      squadTarget = alife().object(squad.assigned_target_id!)!;
     }
 
-    if (squad_target === null) {
+    if (squadTarget === null) {
       squad.clear_assigned_target();
 
       return true;
     }
 
-    if (squad_target.am_i_reached(squad)) {
-      squad_target.on_after_reach(squad);
+    if (squadTarget.am_i_reached(squad)) {
+      squadTarget.on_after_reach(squad);
 
       return true;
     }
@@ -58,7 +59,7 @@ export class SquadReachTargetAction {
    */
   public make(isUnderSimulation: boolean): void {
     const squad = alife().object<Squad>(this.squad_id)!;
-    let squad_target = getSimulationObjectsRegistry().objects.get(squad.assigned_target_id!);
+    let squad_target = registry.simulationObjects.get(squad.assigned_target_id!);
 
     if (!isUnderSimulation) {
       squad_target = alife().object(squad.assigned_target_id!)!;
