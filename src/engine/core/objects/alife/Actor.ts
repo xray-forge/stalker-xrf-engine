@@ -15,15 +15,18 @@ import {
   softResetOfflineObject,
   unregisterStoryLinkByObjectId,
 } from "@/engine/core/database";
-import { evaluate_prior, getSimulationObjectsRegistry } from "@/engine/core/database/SimulationObjectsRegistry";
+import { registerSimulationObject, unregisterSimulationObject } from "@/engine/core/database/simulation";
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
 import { simulation_activities } from "@/engine/core/objects/alife/SimulationActivity";
 import { nearest_to_actor_smart, SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { ESmartTerrainStatus, getCurrentSmartId } from "@/engine/core/objects/alife/smart/SmartTerrainControl";
 import { Squad } from "@/engine/core/objects/alife/Squad";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { AnyObject, Optional, TRate, TStringId } from "@/engine/lib/types";
+import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
+import { ACTOR, STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
+import { AnyObject, TRate, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -34,7 +37,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class Actor extends cse_alife_creature_actor {
   public isRegistered: boolean = false;
   public isStartPositionsFilling: boolean = false;
-  public sim_avail: Optional<boolean> = null;
+  public isSimulationAvailableConditionList: TConditionList = parseConditionsList(STRINGIFIED_TRUE);
   public props!: AnyObject;
 
   /**
@@ -45,8 +48,8 @@ export class Actor extends cse_alife_creature_actor {
 
     logger.info("Register:", this.id, this.name(), this.section_name());
 
-    registerStoryLink(this.id, "actor");
-    getSimulationObjectsRegistry().register(this);
+    registerStoryLink(this.id, ACTOR);
+    registerSimulationObject(this);
 
     this.isRegistered = true;
 
@@ -60,11 +63,12 @@ export class Actor extends cse_alife_creature_actor {
    * todo;
    */
   public override on_unregister(): void {
+    super.on_unregister();
+
     logger.info("Unregister actor");
 
-    super.on_unregister();
     unregisterStoryLinkByObjectId(this.id);
-    getSimulationObjectsRegistry().unregister(this);
+    unregisterSimulationObject(this);
   }
 
   /**
@@ -137,7 +141,11 @@ export class Actor extends cse_alife_creature_actor {
   /**
    * todo;
    */
-  public sim_available(): boolean {
+  public isSimulationAvailable(): boolean {
+    if (pickSectionFromCondList(registry.actor, this, this.isSimulationAvailableConditionList) !== STRINGIFIED_TRUE) {
+      return false;
+    }
+
     const smarts_by_no_assault_zones = {
       ["zat_a2_sr_no_assault"]: "zat_stalker_base_smart",
       ["jup_a6_sr_no_assault"]: "jup_a6",
@@ -188,12 +196,5 @@ export class Actor extends cse_alife_creature_actor {
     }
 
     return true;
-  }
-
-  /**
-   * todo;
-   */
-  public evaluate_prior(squad: Squad): TRate {
-    return evaluate_prior(this, squad);
   }
 }

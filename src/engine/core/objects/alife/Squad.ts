@@ -26,7 +26,11 @@ import {
   SQUAD_BEHAVIOURS_LTX,
   SYSTEM_INI,
 } from "@/engine/core/database";
-import { evaluate_prior, getSimulationObjectsRegistry } from "@/engine/core/database/SimulationObjectsRegistry";
+import {
+  registerSimulationObject,
+  unregisterSimulationObject,
+  updateSimulationObjectAvailability,
+} from "@/engine/core/database/simulation";
 import { unregisterStoryLinkByObjectId } from "@/engine/core/database/story_objects";
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
 import { simulation_activities } from "@/engine/core/objects/alife/SimulationActivity";
@@ -66,7 +70,7 @@ import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
 import { relations, TRelation } from "@/engine/lib/constants/relations";
 import { SMART_TERRAIN_SECT } from "@/engine/lib/constants/sections";
 import { STRINGIFIED_FALSE, STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
-import { AnyCallablesModule, AnyObject, LuaArray, Optional, TCount, TName, TNumberId } from "@/engine/lib/types";
+import { AnyCallablesModule, AnyObject, LuaArray, Optional, TCount, TName, TNumberId, TRate } from "@/engine/lib/types";
 import { TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -90,7 +94,7 @@ export class Squad<
   public player_id!: TCommunity;
   public smart_id: Optional<number> = null;
   public board: SimulationBoardManager = SimulationBoardManager.getInstance();
-  public sim_avail: Optional<TConditionList> = null;
+  public isSimulationAvailableConditionList: TConditionList = parseConditionsList(STRINGIFIED_TRUE);
   public squad_online: boolean = false;
   public show_disabled: boolean = false;
 
@@ -308,7 +312,7 @@ export class Squad<
     super.update();
     this.refresh();
 
-    getSimulationObjectsRegistry().update_avaliability(this);
+    updateSimulationObjectAvailability(this);
 
     this.check_invulnerability();
 
@@ -931,20 +935,20 @@ export class Squad<
     super.on_register();
     this.board.squads.set(this.id, this);
     registerObjectStoryLinks(this);
-    getSimulationObjectsRegistry().register(this);
+    registerSimulationObject(this);
   }
 
   /**
    * todo;
    */
   public override on_unregister(): void {
+    super.on_unregister();
+
     unregisterStoryLinkByObjectId(this.id);
+    unregisterSimulationObject(this);
 
     this.board.squads.delete(this.id);
     this.board.assign_squad_to_smart(this, null);
-
-    super.on_unregister();
-    getSimulationObjectsRegistry().unregister(this);
 
     if (this.respawn_point_id !== null) {
       const smart = alife().object<SmartTerrain>(this.respawn_point_id)!;
@@ -956,20 +960,6 @@ export class Squad<
       smart.already_spawned.get(this.respawn_point_prop_section!).num =
         smart.already_spawned.get(this.respawn_point_prop_section!).num - 1;
     }
-  }
-
-  /**
-   * todo;
-   */
-  public override can_switch_offline(): boolean {
-    return super.can_switch_offline();
-  }
-
-  /**
-   * todo;
-   */
-  public override can_switch_online(): boolean {
-    return super.can_switch_online();
   }
 
   /**
@@ -1166,7 +1156,11 @@ export class Squad<
   /**
    * todo;
    */
-  public sim_available(): boolean {
+  public isSimulationAvailable(): boolean {
+    if (pickSectionFromCondList(registry.actor, this, this.isSimulationAvailableConditionList) !== STRINGIFIED_TRUE) {
+      return false;
+    }
+
     for (const [k, v] of smarts_by_no_assault_zones) {
       const zone = registry.zones.get(k);
 
@@ -1223,13 +1217,6 @@ export class Squad<
     }
 
     return true;
-  }
-
-  /**
-   * todo;
-   */
-  public evaluate_prior(squad: Squad): number {
-    return evaluate_prior(this, squad);
   }
 }
 

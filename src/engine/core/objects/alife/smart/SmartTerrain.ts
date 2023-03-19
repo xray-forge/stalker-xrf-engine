@@ -31,7 +31,11 @@ import {
   softResetOfflineObject,
   unregisterStoryLinkByObjectId,
 } from "@/engine/core/database";
-import { evaluate_prior, getSimulationObjectsRegistry } from "@/engine/core/database/SimulationObjectsRegistry";
+import {
+  registerSimulationObject,
+  unregisterSimulationObject,
+  updateSimulationObjectAvailability,
+} from "@/engine/core/database/simulation";
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
 import { loadGulagJobs } from "@/engine/core/objects/alife/gulag_general";
 import { simulation_activities } from "@/engine/core/objects/alife/SimulationActivity";
@@ -154,7 +158,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
 
   public disabled: boolean = false;
   public campfires_on: boolean = false;
-  public sim_avail: Optional<TConditionList> = null;
+  public isSimulationAvailableConditionList: TConditionList = parseConditionsList(STRINGIFIED_TRUE);
   public initialized: boolean = false;
   public b_registred: boolean = false;
   public respawn_only_smart: boolean = false;
@@ -220,7 +224,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
     logger.info("Register:", this.id, this.name(), this.section_name());
     registerObjectStoryLinks(this);
 
-    getSimulationObjectsRegistry().register(this);
+    registerSimulationObject(this);
 
     if (gameConfig.DEBUG.IS_SMARTS_DEBUG_ENABLED) {
       this.refresh();
@@ -249,10 +253,12 @@ export class SmartTerrain extends cse_alife_smart_zone {
    */
   public override on_unregister(): void {
     super.on_unregister();
+
     this.board.unregister_smart(this);
     smart_terrains_by_name.delete(this.name());
+
     unregisterStoryLinkByObjectId(this.id);
-    getSimulationObjectsRegistry().unregister(this);
+    unregisterSimulationObject(this);
   }
 
   /**
@@ -1116,8 +1122,8 @@ export class SmartTerrain extends cse_alife_smart_zone {
     let spot = "neutral";
 
     if (
-      this.sim_avail === null ||
-      pickSectionFromCondList(registry.actor, this, this.sim_avail as any) === STRINGIFIED_TRUE
+      this.isSimulationAvailableConditionList === null ||
+      pickSectionFromCondList(registry.actor, this, this.isSimulationAvailableConditionList) === STRINGIFIED_TRUE
     ) {
       spot = "friend";
     } else {
@@ -1244,7 +1250,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
       this.base_on_actor_control.update();
     }
 
-    getSimulationObjectsRegistry().update_avaliability(this);
+    updateSimulationObjectAvailability(this);
   }
 
   /**
@@ -1322,13 +1328,6 @@ export class SmartTerrain extends cse_alife_smart_zone {
    */
   public get_alife_task(): Optional<XR_CALifeSmartTerrainTask> {
     return this.smart_alife_task;
-  }
-
-  /**
-   * todo;
-   */
-  public evaluate_prior(squad: Squad): number {
-    return evaluate_prior(this, squad);
   }
 
   /**
@@ -1428,7 +1427,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
     if (this.last_respawn_update === null || curr_time.diffSec(this.last_respawn_update) > RESPAWN_IDLE) {
       this.last_respawn_update = curr_time;
 
-      if (this.sim_avail !== null && pickSectionFromCondList(registry.actor, this, this.sim_avail as any) !== "true") {
+      if (pickSectionFromCondList(registry.actor, this, this.isSimulationAvailableConditionList) !== STRINGIFIED_TRUE) {
         return;
       }
 
@@ -1455,7 +1454,11 @@ export class SmartTerrain extends cse_alife_smart_zone {
   /**
    * todo;
    */
-  public sim_available(): boolean {
+  public isSimulationAvailable(): boolean {
+    if (pickSectionFromCondList(registry.actor, this, this.isSimulationAvailableConditionList) !== STRINGIFIED_TRUE) {
+      return false;
+    }
+
     return !(this.base_on_actor_control !== null && this.base_on_actor_control.status !== ESmartTerrainStatus.NORMAL);
   }
 

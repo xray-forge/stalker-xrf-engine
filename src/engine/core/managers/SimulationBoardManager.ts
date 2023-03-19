@@ -4,12 +4,14 @@ import { registry, SIMULATION_LTX } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
 import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { Squad } from "@/engine/core/objects/alife/Squad";
+import { TSimulationObject } from "@/engine/core/objects/alife/types";
+import { evaluateSimulationPriority } from "@/engine/core/utils/alife";
 import { abort } from "@/engine/core/utils/debug";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { changeTeamSquadGroup } from "@/engine/core/utils/object";
 import { parseNames } from "@/engine/core/utils/parse";
 import { TLevel } from "@/engine/lib/constants/levels";
-import { Optional, TName, TNumberId } from "@/engine/lib/types";
+import { LuaArray, Optional, TCount, TName, TNumberId, TRate } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -321,7 +323,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public get_smart_population(smart: SmartTerrain): number {
+  public get_smart_population(smart: SmartTerrain): TCount {
     return this.smarts.get(smart.id).stayed_squad_quan;
   }
 
@@ -329,19 +331,18 @@ export class SimulationBoardManager extends AbstractCoreManager {
    * todo;
    */
   public get_squad_target(squad: Squad) {
-    const available_targets: LuaTable<number, { prior: number; target: any }> = new LuaTable();
+    const available_targets: LuaArray<{ prior: TRate; target: TSimulationObject }> = new LuaTable();
     let most_priority_task = null;
-    const max_prior = 0;
 
-    for (const [k, v] of registry.simulationObjects) {
-      let curr_prior = 0;
+    for (const [id, simulationObject] of registry.simulationObjects) {
+      let currentPriority: TRate = 0;
 
-      if (v.id !== squad.id) {
-        curr_prior = v.evaluate_prior(squad);
+      if (simulationObject.id !== squad.id) {
+        currentPriority = evaluateSimulationPriority(simulationObject, squad);
       }
 
-      if (curr_prior > 0) {
-        table.insert(available_targets, { prior: curr_prior, target: v });
+      if (currentPriority > 0) {
+        table.insert(available_targets, { prior: currentPriority, target: simulationObject });
       }
     }
 

@@ -16,7 +16,7 @@ import { randomChoice } from "@/engine/core/utils/general";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { distanceBetween2d } from "@/engine/core/utils/physics";
 import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
+import { ACTOR, STRINGIFIED_NIL } from "@/engine/lib/constants/words";
 import { Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -156,7 +156,7 @@ export class HeliFire {
         }
       } else {
         if (this.enemy_) {
-          if (this.enemy_ === "actor") {
+          if (this.enemy_ === ACTOR) {
             this.enemy = registry.actor;
           } else {
             if (this.enemy_ === "all") {

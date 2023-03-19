@@ -10,6 +10,7 @@ import { get_heli_looker, HeliLook } from "@/engine/core/schemes/heli_move/HeliL
 import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/heli_move/ISchemeHelicopterMoveState";
 import { abort } from "@/engine/core/utils/debug";
 import { parsePathWaypoints } from "@/engine/core/utils/parse";
+import { ACTOR } from "@/engine/lib/constants/words";
 import { Optional, TRate } from "@/engine/lib/types";
 
 const state_move: number = 0;
@@ -65,7 +66,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
     this.patrol_move_info = parsePathWaypoints(this.state.path_move)!;
 
     if (this.state.path_look) {
-      if (this.state.path_look === "actor") {
+      if (this.state.path_look === ACTOR) {
         this.heli_fly.set_look_point(registry.actor.position());
         this.update_look_state();
       } else {
@@ -187,7 +188,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
     }
 
     if (this.state.path_look) {
-      if (this.state.path_look === "actor") {
+      if (this.state.path_look === ACTOR) {
         this.heli_fly.set_look_point(actor.position());
         if (this.state.stop_fire) {
           if (this.heliObject.isVisible(actor)) {

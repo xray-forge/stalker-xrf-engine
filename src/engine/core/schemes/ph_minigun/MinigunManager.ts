@@ -13,7 +13,7 @@ import { abort } from "@/engine/core/utils/debug";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
 import { TConditionList } from "@/engine/core/utils/parse";
 import { yaw } from "@/engine/core/utils/physics";
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
+import { ACTOR, STRINGIFIED_NIL } from "@/engine/lib/constants/words";
 import { Optional, TName, TStringId } from "@/engine/lib/types";
 
 const state_cannon_rotate: number = 1;
@@ -123,7 +123,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
       if (this.state.fire_target === "points") {
         this.state_firetarget = state_firetarget_points;
       } else {
-        if (this.state.fire_target === "actor" && actor.alive()) {
+        if (this.state.fire_target === ACTOR && actor.alive()) {
           this.target_obj = actor;
           this.state_firetarget = state_firetarget_enemy;
         } else {

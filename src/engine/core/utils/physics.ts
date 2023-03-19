@@ -2,7 +2,7 @@ import { device, game_graph, vector, XR_game_object, XR_vector } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional } from "@/engine/lib/types";
+import { Optional, TDistance, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -117,7 +117,7 @@ export function vectorCmpPrec(first: XR_vector, second: XR_vector, d: number): b
 /**
  *
  */
-export function graphDistance(vertexId1: number, vertexId2: number): number {
+export function graphDistance(vertexId1: TNumberId, vertexId2: TNumberId): TDistance {
   const point1: XR_vector = game_graph().vertex(vertexId1).game_point();
   const point2: XR_vector = game_graph().vertex(vertexId2).game_point();
 

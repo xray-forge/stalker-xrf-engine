@@ -22,3 +22,13 @@ export const ON = "on" as const;
  * Constant string for options / configurations.
  */
 export const OFF = "off" as const;
+
+/**
+ * Constant string for configuration default.
+ */
+export const DEFAULT = "default" as const;
+
+/**
+ * Constant string for actor.
+ */
+export const ACTOR = "actor" as const;
