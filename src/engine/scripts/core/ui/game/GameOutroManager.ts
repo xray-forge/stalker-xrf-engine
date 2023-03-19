@@ -5,6 +5,8 @@ import { sounds } from "@/engine/lib/constants/sound/sounds";
 import { AnyCallablesModule, Optional } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { AbstractCoreManager } from "@/engine/scripts/core/managers/AbstractCoreManager";
+import { getExtern } from "@/engine/scripts/utils/binding";
+import { disableGameUiOnly } from "@/engine/scripts/utils/control";
 import { hasAlifeInfo } from "@/engine/scripts/utils/info_portion";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
@@ -151,7 +153,7 @@ export class GameOutroManager extends AbstractCoreManager {
     const hud: XR_CUIGameCustom = get_hud();
 
     hud.AddCustomStatic("blackscreen", true);
-    get_global<AnyCallablesModule>("xr_effects").disable_ui_only(registry.actor, null);
+    disableGameUiOnly(registry.actor);
   }
 
   public stop_bk_sound(): void {
@@ -159,8 +161,8 @@ export class GameOutroManager extends AbstractCoreManager {
       this.stopSound();
     }
 
-    get_global<AnyCallablesModule>("xr_effects").game_disconnect();
-    get_global<AnyCallablesModule>("xr_effects").game_credits();
+    getExtern<AnyCallablesModule>("xr_effects").game_disconnect();
+    getExtern<AnyCallablesModule>("xr_effects").game_credits();
   }
 
   public update_bk_sound_fade_start(factor: number): void {

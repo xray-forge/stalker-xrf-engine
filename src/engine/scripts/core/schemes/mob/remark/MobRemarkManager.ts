@@ -7,6 +7,7 @@ import { AbstractSchemeManager } from "@/engine/scripts/core/schemes/base/Abstra
 import { setMobState } from "@/engine/scripts/core/schemes/mob/MobStateManager";
 import { ISchemeMobRemarkState } from "@/engine/scripts/core/schemes/mob/remark/ISchemeMobRemarkState";
 import { mobCapture } from "@/engine/scripts/core/schemes/mobCapture";
+import { getExtern } from "@/engine/scripts/utils/binding";
 import { abort } from "@/engine/scripts/utils/debug";
 import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { action } from "@/engine/scripts/utils/object";
@@ -61,7 +62,7 @@ export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkStat
 
       if (sndset && an) {
         // todo: Never defined anywhere. Probably remove?
-        const snd = get_global<AnyCallablesModule>("mob_sound").pick_sound_from_set(this.object, sndset, {});
+        const snd = getExtern<AnyCallablesModule>("mob_sound").pick_sound_from_set(this.object, sndset, {});
 
         if (!snd) {
           abort(

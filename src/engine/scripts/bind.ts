@@ -22,6 +22,7 @@ import {
   SmartTerrainBinder,
   StalkerBinder,
 } from "@/engine/scripts/core/objects/binders";
+import { extern } from "@/engine/scripts/utils/binding";
 import { abort } from "@/engine/scripts/utils/debug";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
@@ -37,7 +38,7 @@ extern("bind", {
   arenaZone: (object: XR_game_object) => {
     const ini: Optional<XR_ini_file> = object.spawn_ini();
 
-    if (ini !== null && ini.section_exist("arena_zone") && alife() !== null) {
+    if (ini?.section_exist("arena_zone") && alife() !== null) {
       object.bind_object(new ArenaZoneBinder(object));
     }
   },
@@ -45,10 +46,11 @@ extern("bind", {
   camp: (object: XR_game_object) => object.bind_object(new CampBinder(object)),
   campfire: (object: XR_game_object) => object.bind_object(new CampfireBinder(object)),
   crow: (object: XR_game_object) => object.bind_object(new CrowBinder(object)),
+  // todo: Rename to full name 'helicopter'.
   heli: (object: XR_game_object) => {
     const ini: Optional<XR_ini_file> = object.spawn_ini();
 
-    if (ini !== null && ini.section_exist("logic")) {
+    if (ini?.section_exist("logic")) {
       object.bind_object(new HelicopterBinder(object, ini));
     }
   },

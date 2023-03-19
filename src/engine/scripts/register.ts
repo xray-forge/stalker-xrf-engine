@@ -1,8 +1,7 @@
 import type { XR_object_factory } from "xray16";
 
-import { registerGameClasses } from "@/engine/scripts/declarations/register/class_registrator";
-import { getGameClassId } from "@/engine/scripts/declarations/register/game_registrator";
-import { getUiClassId } from "@/engine/scripts/declarations/register/ui_registrator";
+import { AnyCallable } from "@/engine/lib/types";
+import { extern } from "@/engine/scripts/utils/binding";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -11,30 +10,28 @@ const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Register methods for game classes, objects and types.
+ * Use dynamic imports to reduce pressure when engine tries to register all related class ids multiple times.
  */
 extern("register", {
   /**
    * todo;
    */
   registerGameClasses: (factory: XR_object_factory): void => {
-    const { registerGameClasses } = require("@/engine/scripts/declarations/register/class_registrator");
-
-    registerGameClasses(factory);
+    (require("@/engine/scripts/declarations/register/class_registrator").registerGameClasses as AnyCallable)(factory);
   },
   /**
    * todo;
    */
   getGameClassId: (gameTypeOption: string, isServer: boolean): void => {
-    const { getGameClassId } = require("@/engine/scripts/declarations/register/game_registrator");
-
-    getGameClassId(gameTypeOption, isServer);
+    (require("@/engine/scripts/declarations/register/game_registrator").getGameClassId as AnyCallable)(
+      gameTypeOption,
+      isServer
+    );
   },
   /**
    * todo;
    */
   getUiClassId: (gameType: string): void => {
-    const { getUiClassId } = require("@/engine/scripts/declarations/register/ui_registrator");
-
-    getUiClassId(gameType);
+    (require("@/engine/scripts/declarations/register/ui_registrator").getUiClassId as AnyCallable)(gameType);
   },
 });

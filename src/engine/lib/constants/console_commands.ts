@@ -357,93 +357,52 @@ export const console_commands = {
    * Save options changes.
    */
   cfg_save: "cfg_save",
-
   /**
    * Check game updates.
    */
   check_for_updates: "check_for_updates",
-
   /**
    * todo: ???
    */
   cl_mpdemosave: "cl_mpdemosave",
-
   dbg_destroy: "dbg_destroy",
-
   dbg_draw_actor_alive: "dbg_draw_actor_alive",
-
   dbg_draw_actor_dead: "dbg_draw_actor_dead",
-
   dbg_draw_actor_phys: "dbg_draw_actor_phys",
-
   dbg_draw_autopickupbox: "dbg_draw_autopickupbox",
-
   dbg_draw_bullet_hit: "dbg_draw_bullet_hit",
-
   dbg_draw_climbable: "dbg_draw_climbable",
-
   dbg_draw_customzone: "dbg_draw_customzone",
-
   dbg_draw_invitem: "dbg_draw_invitem",
-
   dbg_draw_ph_cashed_tries_stats: "dbg_draw_ph_cashed_tries_stats",
-
   dbg_draw_ph_contacts: "dbg_draw_ph_contacts",
-
   dbg_draw_ph_death_boxes: "dbg_draw_ph_death_boxes",
-
   dbg_draw_ph_enabled_aabbs: "dbg_draw_ph_enabled_aabbs",
-
   dbg_draw_ph_explosion_position: "dbg_draw_ph_explosion_position",
-
   dbg_draw_ph_explosions: "dbg_draw_ph_explosions",
-
   dbg_draw_ph_hit_anims: "dbg_draw_ph_hit_anims",
-
   dbg_draw_ph_hit_app_pos: "dbg_draw_ph_hit_app_pos",
-
   dbg_draw_ph_ik_goal: "dbg_draw_ph_ik_goal",
-
   dbg_draw_ph_ik_limits: "dbg_draw_ph_ik_limits",
-
   dbg_draw_ph_intersected_tries: "dbg_draw_ph_intersected_tries",
-
   dbg_draw_ph_mass_centres: "dbg_draw_ph_mass_centres",
-
   dbg_draw_ph_negative_tries: "dbg_draw_ph_negative_tries",
-
   dbg_draw_ph_positive_tries: "dbg_draw_ph_positive_tries",
-
   dbg_draw_ph_ray_motions: "dbg_draw_ph_ray_motions",
-
   dbg_draw_ph_saved_tries: "dbg_draw_ph_saved_tries",
-
   dbg_draw_ph_statistics: "dbg_draw_ph_statistics",
-
   dbg_draw_ph_tri_point: "dbg_draw_ph_tri_point",
-
   dbg_draw_ph_tri_test_aabb: "dbg_draw_ph_tri_test_aabb",
-
   dbg_draw_ph_tri_trace: "dbg_draw_ph_tri_trace",
-
   dbg_draw_ph_tries_changes_sign: "dbg_draw_ph_tries_changes_sign",
-
   dbg_draw_ph_zbuffer_disable: "dbg_draw_ph_zbuffer_disable",
-
   dbg_draw_rp: "dbg_draw_rp",
-
   dbg_draw_skeleton: "dbg_draw_skeleton",
-
   dbg_draw_teamzone: "dbg_draw_teamzone",
-
   dbg_dump_physics_step: "dbg_dump_physics_step",
-
   dbg_ph_actor_restriction: "dbg_ph_actor_restriction",
-
   dbg_ph_ai_always_phmove: "dbg_ph_ai_always_phmove",
-
   dbg_ph_ai_never_phmove: "dbg_ph_ai_never_phmove",
-
   dbg_ph_character_control: "dbg_ph_character_control",
   dbg_ph_ik: "dbg_ph_ik",
   dbg_ph_ik_limits: "dbg_ph_ik_limits",
@@ -488,6 +447,10 @@ export const console_commands = {
    * Quit from game.
    */
   quit: "quit",
+  /**
+   * Create game save.
+   */
+  save: "save",
   show_wnd_rect_all: "show_wnd_rect_all",
   slot_0: "slot_0",
   slot_1: "slot_1",

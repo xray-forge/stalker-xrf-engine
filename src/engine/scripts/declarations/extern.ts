@@ -4,6 +4,7 @@ import { game, get_console, level, task, TXR_TaskState, XR_CGameTask, XR_CPhrase
 
 import { surgeConfig } from "@/engine/lib/configs/SurgeConfig";
 import { animations } from "@/engine/lib/constants/animation/animations";
+import { console_commands } from "@/engine/lib/constants/console_commands";
 import { info_portions } from "@/engine/lib/constants/info_portions";
 import { TWeapon } from "@/engine/lib/constants/items/weapons";
 import {
@@ -37,6 +38,9 @@ import { SchemeCutscene } from "@/engine/scripts/core/schemes/sr_cutscene/Scheme
 import { GameOutroManager } from "@/engine/scripts/core/ui/game/GameOutroManager";
 import { WeaponParams } from "@/engine/scripts/core/ui/game/WeaponParams";
 import * as SleepDialogModule from "@/engine/scripts/core/ui/interaction/SleepDialog";
+import { extern, getExtern } from "@/engine/scripts/utils/binding";
+import { executeConsoleCommand } from "@/engine/scripts/utils/console";
+import { enableGameUi } from "@/engine/scripts/utils/control";
 import { externClassMethod } from "@/engine/scripts/utils/general";
 import { disableInfo } from "@/engine/scripts/utils/info_portion";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
@@ -47,11 +51,11 @@ logger.info("Resolve and bind externals");
 
 extern("xr_conditions", require("@/engine/scripts/declarations/conditions"));
 extern("xr_effects", require("@/engine/scripts/declarations/effects"));
-extern("dialogs_pripyat", require("@/engine/scripts/declarations/dialogs_pripyat"));
-extern("dialogs_jupiter", require("@/engine/scripts/declarations/dialogs_jupiter"));
-extern("dialogs_zaton", require("@/engine/scripts/declarations/dialogs_zaton"));
-extern("dialogs", require("@/engine/scripts/declarations/dialogs"));
-extern("dialog_manager", require("@/engine/scripts/declarations/dialog_manager"));
+extern("dialogs_pripyat", require("@/engine/scripts/declarations/dialogs/dialogs_pripyat"));
+extern("dialogs_jupiter", require("@/engine/scripts/declarations/dialogs/dialogs_jupiter"));
+extern("dialogs_zaton", require("@/engine/scripts/declarations/dialogs/dialogs_zaton"));
+extern("dialogs", require("@/engine/scripts/declarations/dialogs/dialogs"));
+extern("dialog_manager", require("@/engine/scripts/declarations/dialogs/dialog_manager"));
 extern("functors", require("@/engine/scripts/declarations/functors"));
 
 // todo: Check if needed.
@@ -94,10 +98,10 @@ extern("engine.anabiotic_callback", () => {
 });
 
 extern("engine.anabiotic_callback2", () => {
-  get_global<AnyCallablesModule>("xr_effects").enable_ui(registry.actor, null);
+  enableGameUi();
 
-  get_console().execute("snd_volume_music " + tostring(registry.sounds.musicVolume));
-  get_console().execute("snd_volume_eff " + tostring(registry.sounds.effectsVolume));
+  executeConsoleCommand(console_commands.snd_volume_music, registry.sounds.musicVolume);
+  executeConsoleCommand(console_commands.snd_volume_eff, registry.sounds.effectsVolume);
 
   registry.sounds.effectsVolume = 0;
   registry.sounds.musicVolume = 0;
@@ -113,7 +117,7 @@ extern("engine.surge_callback", () => {
 });
 
 extern("engine.surge_callback", () => {
-  get_global<AnyCallablesModule>("xr_effects").enable_ui(registry.actor, null);
+  getExtern<AnyCallablesModule>("xr_effects").enable_ui(registry.actor, null);
   /* --[[
     level.enable_input()
     level.show_indicators()

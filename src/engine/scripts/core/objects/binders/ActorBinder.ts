@@ -55,6 +55,7 @@ import { ISchemeDeimosState } from "@/engine/scripts/core/schemes/sr_deimos";
 import { SchemeDeimos } from "@/engine/scripts/core/schemes/sr_deimos/SchemeDeimos";
 import { SchemeNoWeapon } from "@/engine/scripts/core/schemes/sr_no_weapon";
 import { DynamicMusicManager } from "@/engine/scripts/core/sounds/DynamicMusicManager";
+import { getExtern } from "@/engine/scripts/utils/binding";
 import { isArtefact } from "@/engine/scripts/utils/check/is";
 import { executeConsoleCommand } from "@/engine/scripts/utils/console";
 import { setLoadMarker, setSaveMarker } from "@/engine/scripts/utils/game_save";
@@ -294,7 +295,7 @@ export class ActorBinder extends object_binder {
       );
     }
 
-    get_global<AnyCallablesModule>("engine").task_callback(task_object, state);
+    getExtern<AnyCallablesModule>("engine").task_callback(task_object, state);
   }
 
   /**

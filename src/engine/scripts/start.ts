@@ -9,7 +9,8 @@ import { initializeModules } from "@/engine/scripts/core/schemes/schemes_registe
 import { resetSchemeHard } from "@/engine/scripts/core/schemes/schemes_resetting";
 import { DynamicMusicManager } from "@/engine/scripts/core/sounds/DynamicMusicManager";
 import { SoundTheme } from "@/engine/scripts/core/sounds/SoundTheme";
-import { fillPhrasesTable } from "@/engine/scripts/declarations/dialog_manager";
+import { fillPhrasesTable } from "@/engine/scripts/declarations/dialogs/dialog_manager";
+import { extern } from "@/engine/scripts/utils/binding";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

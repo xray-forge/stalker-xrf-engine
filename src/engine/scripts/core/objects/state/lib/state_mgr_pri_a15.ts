@@ -2,11 +2,12 @@ import { anim, CSightParams, move, XR_game_object } from "xray16";
 
 import { info_portions } from "@/engine/lib/constants/info_portions";
 import { names } from "@/engine/lib/constants/names";
-import { AnyObject, Optional } from "@/engine/lib/types";
+import { AnyObject, LuaArray, Optional, TName } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { IStateDescriptor } from "@/engine/scripts/core/objects/state/lib/state_lib";
 import { abort } from "@/engine/scripts/utils/debug";
 import { parseNames } from "@/engine/scripts/utils/parse";
+import { getTableSize } from "@/engine/scripts/utils/table";
 
 const weap_table: LuaTable<number, string> = [
   "pri_a15_wpn_svu",
@@ -76,7 +77,25 @@ function end_scene(): void {
   registry.actor.give_info_portion(info_portions.pri_a15_cutscene_end);
 }
 
-const cutscene = {
+const cutscene: Record<
+  number,
+  {
+    precondition: Array<string>;
+    animation: Record<
+      string,
+      {
+        a?: string;
+        a2?: string;
+        att?: string;
+        s?: string;
+        s1?: string;
+        det?: string;
+        f?: (npc: XR_game_object) => void;
+        f1?: (npc: XR_game_object) => void;
+      }
+    >;
+  }
+> = {
   [1]: {
     precondition: ["vano", "sokolov", "zulus", "wanderer", "actor"],
     animation: {
@@ -597,7 +616,7 @@ const cutscene = {
   },
 };
 
-function check_availability(precondition: LuaTable<number, string>, existing_npc: string): boolean {
+function check_availability(precondition: LuaArray<string>, existing_npc: string): boolean {
   const check_names = parseNames(existing_npc);
 
   for (const [k, v] of precondition) {
@@ -613,67 +632,75 @@ function check_availability(precondition: LuaTable<number, string>, existing_npc
 
 // --get_sequence_for_npc("zulus", "zulus,vano")
 // --get_sequence_for_npc("vano", "vano")
-function get_sequence_for_npc(npc: string, existing_npc: string) {
-  const return_table: LuaTable<number, AnyObject> = new LuaTable();
 
-  for (const i of $range(1, (cutscene as any as LuaTable).length())) {
-    if (check_availability((cutscene as any as LuaTable).get(i).precondition, existing_npc)) {
-      const anm = (cutscene as any as LuaTable).get(i).animation[npc].a;
-      const anm2 = (cutscene as any as LuaTable).get(i).animation[npc].a2;
-      const snd1 = (cutscene as any as LuaTable).get(i).animation[npc].s1;
-      const snd = (cutscene as any as LuaTable).get(i).animation[npc].s;
-      const det = (cutscene as any as LuaTable).get(i).animation[npc].det;
-      const att = (cutscene as any as LuaTable).get(i).animation[npc].att;
-      const func = (cutscene as any as LuaTable).get(i).animation[npc].f;
-      const func1 = (cutscene as any as LuaTable).get(i).animation[npc].f1;
+type TNpcSequence = LuaArray<
+  string | { f: (object: XR_game_object) => void } | { s: string } | { d: string } | { a: string }
+>;
+
+/**
+ * todo; Needs fix
+ */
+function get_sequence_for_npc(objectName: TName, existing_npc: string): TNpcSequence {
+  const result: TNpcSequence = new LuaTable();
+
+  for (const it of $range(1, getTableSize(cutscene as unknown as LuaTable))) {
+    if (check_availability(cutscene[it].precondition as unknown as LuaArray<string>, existing_npc)) {
+      const anm = cutscene[it].animation[objectName].a;
+      const anm2 = cutscene[it].animation[objectName].a2;
+      const snd1 = cutscene[it].animation[objectName].s1;
+      const snd = cutscene[it].animation[objectName].s;
+      const det = cutscene[it].animation[objectName].det;
+      const att = cutscene[it].animation[objectName].att;
+      const func = cutscene[it].animation[objectName].f;
+      const func1 = cutscene[it].animation[objectName].f1;
 
       if (func1 !== null) {
-        const func_tbl = { f: func1 };
+        const func_tbl = { f: func1! };
 
-        table.insert(return_table, func_tbl);
+        table.insert(result, func_tbl);
       }
 
       if (snd1 !== null && snd1 !== "") {
-        const snd_tbl = { s: snd1 };
+        const snd_tbl = { s: snd1! };
 
-        table.insert(return_table, snd_tbl);
+        table.insert(result, snd_tbl);
       }
 
       if (anm !== null && anm !== "") {
-        table.insert(return_table, anm);
+        table.insert(result, anm!);
       }
 
       if (func !== null) {
-        const func_tbl = { f: func };
+        const func_tbl = { f: func! };
 
-        table.insert(return_table, func_tbl);
+        table.insert(result, func_tbl);
       }
 
       if (snd !== null && snd !== "") {
-        const snd_tbl = { s: snd };
+        const snd_tbl = { s: snd! };
 
-        table.insert(return_table, snd_tbl);
+        table.insert(result, snd_tbl);
       }
 
       if (det !== null && det !== "") {
-        const det_tbl = { d: det };
+        const det_tbl = { d: det! };
 
-        table.insert(return_table, det_tbl);
+        table.insert(result, det_tbl);
       }
 
       if (att !== null && att !== "") {
-        const att_tbl = { a: att };
+        const att_tbl = { a: att! };
 
-        table.insert(return_table, att_tbl);
+        table.insert(result, att_tbl);
       }
 
       if (anm2 !== null && anm2 !== "") {
-        table.insert(return_table, anm2);
+        table.insert(result, anm2!);
       }
     }
   }
 
-  return return_table;
+  return result;
 }
 
 export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {

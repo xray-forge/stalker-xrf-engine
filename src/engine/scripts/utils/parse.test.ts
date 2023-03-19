@@ -8,7 +8,7 @@ import {
   parseParameters,
   parseSpawnDetails,
 } from "@/engine/scripts/utils/parse";
-import { luaTableToArray } from "@/fixtures/lua/utils";
+import { luaTableToArray } from "@/fixtures/lua/mocks/utils";
 
 describe("'ini_data' parsing utils", () => {
   it("Should correctly parse names array", () => {

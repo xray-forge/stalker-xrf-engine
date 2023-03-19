@@ -5,7 +5,5 @@ package.path = package.path + string.format("%sgamedata\\?.script;", getFS().upd
 
 /**
  * Initialize extern references from game code.
- * Initialize global utils to work with luabind.
  */
-require("@/engine/scripts/declarations/global");
 require("@/engine/scripts/declarations/extern");

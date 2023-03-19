@@ -1,5 +1,6 @@
 import { AnyArgs, AnyCallablesModule } from "@/engine/lib/types";
 import { IAnimationStateDescriptor } from "@/engine/scripts/core/objects/state/lib/state_mgr_animstate_list";
+import { getExtern } from "@/engine/scripts/utils/binding";
 
 export function add_animstate_animation_list(): LuaTable<string, IAnimationStateDescriptor> {
   return {
@@ -381,7 +382,7 @@ export function add_animstate_animation_list(): LuaTable<string, IAnimationState
       into: {
         [0]: [
           "pri_a20_colonel_radio_in",
-          { f: (...args: AnyArgs) => get_global<AnyCallablesModule>("xr_effects").pri_a20_radio_start(...args) },
+          { f: (...args: AnyArgs) => getExtern<AnyCallablesModule>("xr_effects").pri_a20_radio_start(...args) },
         ],
       },
       out: { [0]: ["pri_a20_colonel_radio_out"] },
@@ -399,7 +400,7 @@ export function add_animstate_animation_list(): LuaTable<string, IAnimationState
       into: {
         [0]: [
           "pri_a22_colonel_lean_on_tabl_in",
-          { f: (...args: AnyArgs) => get_global<AnyCallablesModule>("xr_effects").pri_a22_kovalski_speak(...args) },
+          { f: (...args: AnyArgs) => getExtern<AnyCallablesModule>("xr_effects").pri_a22_kovalski_speak(...args) },
         ],
       },
       out: { [0]: ["pri_a22_colonel_lean_on_tabl_out"] },

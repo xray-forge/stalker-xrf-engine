@@ -58,6 +58,8 @@ import { ISchemeAnimpointState } from "@/engine/scripts/core/schemes/animpoint/I
 import { ISchemeDeathState } from "@/engine/scripts/core/schemes/death";
 import { ISchemeHitState } from "@/engine/scripts/core/schemes/hit";
 import { SchemeDeimos } from "@/engine/scripts/core/schemes/sr_deimos/SchemeDeimos";
+import { zat_b29_af_table, zat_b29_infop_bring_table } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
+import { getExtern } from "@/engine/scripts/utils/binding";
 import {
   isActorAlive,
   isActorEnemy,
@@ -1654,8 +1656,8 @@ export function zat_b29_anomaly_has_af(actor: XR_game_object, npc: XR_game_objec
   }
 
   for (const i of $range(16, 23)) {
-    if (hasAlifeInfo(get_global("dialogs_zaton").zat_b29_infop_bring_table[i])) {
-      af_name = get_global("dialogs_zaton").zat_b29_af_table[i];
+    if (hasAlifeInfo(zat_b29_infop_bring_table.get(i))) {
+      af_name = zat_b29_af_table.get(i);
       break;
     }
   }
@@ -1842,7 +1844,7 @@ export function check_enemy_smart(actor: XR_game_object, npc: XR_game_object, pa
  */
 export function zat_b103_actor_has_needed_food(actor: XR_game_object, npc: XR_game_object): boolean {
   return (
-    get_global<AnyCallablesModule>("dialogs_zaton").zat_b103_actor_has_needed_food(actor, npc) ||
+    getExtern<AnyCallablesModule>("dialogs_zaton").zat_b103_actor_has_needed_food(actor, npc) ||
     hasAlifeInfo(info_portions.zat_b103_merc_task_done)
   );
 }

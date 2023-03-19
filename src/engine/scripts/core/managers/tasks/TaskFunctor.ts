@@ -4,6 +4,8 @@ import { captions } from "@/engine/lib/constants/captions";
 import { Optional, TSection, TStringId } from "@/engine/lib/types";
 import { getObjectIdByStoryId, registry } from "@/engine/scripts/core/database";
 import { SurgeManager } from "@/engine/scripts/core/managers/SurgeManager";
+import { zat_b29_af_table, zat_b29_infop_bring_table } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
+import { getExtern } from "@/engine/scripts/utils/binding";
 import { hasAlifeInfo } from "@/engine/scripts/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { parseConditionsList, TConditionList } from "@/engine/scripts/utils/parse";
@@ -25,13 +27,10 @@ export function zat_b29_adv_title(id: TStringId, field: string, p: string): Opti
   let title: Optional<string> = null;
 
   for (const i of $range(16, 23)) {
-    if (
-      hasAlifeInfo(get_global("dialogs_zaton").zat_b29_infop_bring_table[i]) &&
-      actor.object(get_global("dialogs_zaton").zat_b29_af_table[i])
-    ) {
+    if (hasAlifeInfo(zat_b29_infop_bring_table.get(i)) && actor.object(zat_b29_af_table.get(i))) {
       title = "zat_b29_simple_bring_title_" + i;
       break;
-    } else if (hasAlifeInfo(get_global("dialogs_zaton").zat_b29_infop_bring_table[i])) {
+    } else if (hasAlifeInfo(zat_b29_infop_bring_table.get(i))) {
       title = "zat_b29_simple_find_title_" + i;
       break;
     }
@@ -49,10 +48,7 @@ export function zat_b29_adv_descr(id: TStringId, field: string, p: string) {
   const actor = registry.actor;
 
   for (const i of $range(16, 23)) {
-    if (
-      hasAlifeInfo(get_global("dialogs_zaton").zat_b29_infop_bring_table[i]) &&
-      actor.object(get_global("dialogs_zaton").zat_b29_af_table[i])
-    ) {
+    if (hasAlifeInfo(zat_b29_infop_bring_table.get(i)) && actor.object(zat_b29_af_table.get(i))) {
       f_af = 1;
       descr = "zat_b29_simple_bring_text_5";
       if (
@@ -78,7 +74,7 @@ export function zat_b29_adv_descr(id: TStringId, field: string, p: string) {
       }
 
       break;
-    } else if (hasAlifeInfo(get_global("dialogs_zaton").zat_b29_infop_bring_table[i])) {
+    } else if (hasAlifeInfo(zat_b29_infop_bring_table.get(i))) {
       descr = "zat_b29_simple_find_text_5";
 
       if (
@@ -149,11 +145,8 @@ export function zat_b29_adv_target(id: TStringId, field: string, p: string) {
   const actor: XR_game_object = registry.actor;
 
   for (const i of $range(16, 23)) {
-    if (
-      hasAlifeInfo(get_global("dialogs_zaton").zat_b29_infop_bring_table[i]) &&
-      actor.object(get_global("dialogs_zaton").zat_b29_af_table[i])
-    ) {
-      artefact = get_global("dialogs_zaton").zat_b29_af_table[i];
+    if (hasAlifeInfo(zat_b29_infop_bring_table.get(i)) && actor.object(zat_b29_af_table.get(i))) {
+      artefact = zat_b29_af_table.get(i);
       break;
     }
   }

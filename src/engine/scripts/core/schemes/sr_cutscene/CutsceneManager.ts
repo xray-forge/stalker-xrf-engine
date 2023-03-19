@@ -8,6 +8,8 @@ import { trySwitchToAnotherSection } from "@/engine/scripts/core/schemes/base/tr
 import { EEffectorState, effector_sets } from "@/engine/scripts/core/schemes/sr_cutscene/cam_effector_sets";
 import { CamEffectorSet } from "@/engine/scripts/core/schemes/sr_cutscene/CamEffectorSet";
 import { ISchemeCutsceneState } from "@/engine/scripts/core/schemes/sr_cutscene/ISchemeCutsceneState";
+import { getExtern } from "@/engine/scripts/utils/binding";
+import { disableGameUi, enableGameUi } from "@/engine/scripts/utils/control";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -78,16 +80,13 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
 
     this.sceneState = "run";
 
-    get_global<AnyCallablesModule>("xr_effects").teleport_actor(actor, this.object, [
-      this.state.point,
-      this.state.look,
-    ]);
+    getExtern<AnyCallablesModule>("xr_effects").teleport_actor(actor, this.object, [this.state.point, this.state.look]);
 
     if (this.state.pp_effector !== post_processors.nil) {
       level.add_pp_effector(this.state.pp_effector, 234, false);
     }
 
-    get_global<AnyCallablesModule>("xr_effects").disable_ui(actor, null);
+    disableGameUi(actor, false);
     this.ui_disabled = true;
 
     const time_hours: number = level.get_time_hours();
@@ -146,7 +145,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
 
         if (this.ui_disabled) {
           if (!actor.is_talking() && this.state.enable_ui_on_end) {
-            get_global<AnyCallablesModule>("xr_effects").enable_ui(XR_game_object, null);
+            enableGameUi(false);
           } else if (this.state.enable_ui_on_end) {
             level.enable_input();
           }

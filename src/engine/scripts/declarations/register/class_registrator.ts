@@ -99,7 +99,7 @@ function serverRegister(
 }
 
 /**
- * todo;
+ *  @noSelf
  * src/xrServerEntities/clsid_game.h
  */
 export function registerGameClasses(factory: XR_object_factory): void {

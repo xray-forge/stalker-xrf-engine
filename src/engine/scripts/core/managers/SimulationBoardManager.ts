@@ -61,14 +61,6 @@ export class SimulationBoardManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public set_actor_community(community: TCommunity): void {
-    // May be broken?
-    registry.actor.set_character_community(get_global("actor_communitites")[community], 0, 0);
-  }
-
-  /**
-   * todo;
-   */
   public register_smart(obj: SmartTerrain): void {
     if (this.smarts.get(obj.id) !== null) {
       abort("Smart already exist in list [%s]", obj.name());

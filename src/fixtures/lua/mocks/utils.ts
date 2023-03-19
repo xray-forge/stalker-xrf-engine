@@ -1,10 +1,10 @@
-import { LuaTableMock } from "@/fixtures/lua/LuaTable.mock";
+import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 
 /**
  * todo;
  */
 export function luaTableToArray<T>(value: LuaTable<number, T>): Array<T> {
-  if (value instanceof LuaTableMock) {
+  if (value instanceof MockLuaTable) {
     return [...(value as unknown as Map<number, T>).values()].map((it) => {
       return mapFromLua<any>(it);
     });
@@ -17,7 +17,7 @@ export function luaTableToArray<T>(value: LuaTable<number, T>): Array<T> {
  * todo;
  */
 export function mapFromLua<T>(value: T): T {
-  if (value instanceof LuaTableMock) {
+  if (value instanceof MockLuaTable) {
     return [...(value as unknown as Map<any, any>).entries()].reduce((acc: Record<any, any>, [key, value]) => {
       acc[key] = mapFromLua(value);
 

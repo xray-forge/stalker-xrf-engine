@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
 import type { XR_CConsole } from "xray16";
 
-import { mockLuabindBase } from "@/fixtures/xray/luabind.mock";
+import { mockLuabindBase } from "@/fixtures/xray/mocks/luabind.mock";
 
 export function mockConsole({
   show = jest.fn(),

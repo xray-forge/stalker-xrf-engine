@@ -23,11 +23,15 @@ import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { animations } from "@/engine/lib/constants/animation/animations";
 import { post_processors } from "@/engine/lib/constants/animation/post_processors";
 import { captions } from "@/engine/lib/constants/captions";
+import { console_commands } from "@/engine/lib/constants/console_commands";
 import { info_portions } from "@/engine/lib/constants/info_portions/info_portions";
 import { AnyCallablesModule, Optional } from "@/engine/lib/types";
 import { registry } from "@/engine/scripts/core/database";
 import { SurgeManager } from "@/engine/scripts/core/managers/SurgeManager";
 import { WeatherManager } from "@/engine/scripts/core/managers/WeatherManager";
+import { getExtern } from "@/engine/scripts/utils/binding";
+import { executeConsoleCommand } from "@/engine/scripts/utils/console";
+import { disableGameUi, enableGameUi } from "@/engine/scripts/utils/control";
 import { disableInfo, giveInfo } from "@/engine/scripts/utils/info_portion";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { isWideScreen, resolveXmlFormPath } from "@/engine/scripts/utils/ui";
@@ -202,7 +206,7 @@ export class SleepDialog extends CUIScriptWnd {
 
     this.HideDialog();
 
-    get_global<AnyCallablesModule>("xr_effects").disable_ui(registry.actor, null);
+    disableGameUi(registry.actor);
 
     level.add_cam_effector(animations.camera_effects_sleep, 10, false, "engine.dream_callback");
     level.add_pp_effector(post_processors.sleep_fade, 11, false);
@@ -257,9 +261,10 @@ export function dream_callback(): void {
 export function dream_callback2(): void {
   logger.info("Dream callback 2");
 
-  get_global<AnyCallablesModule>("xr_effects").enable_ui(registry.actor, null);
-  get_console().execute("snd_volume_music " + tostring(registry.sounds.musicVolume));
-  get_console().execute("snd_volume_eff " + tostring(registry.sounds.effectsVolume));
+  enableGameUi();
+
+  executeConsoleCommand(console_commands.snd_volume_music, registry.sounds.musicVolume);
+  executeConsoleCommand(console_commands.snd_volume_eff, registry.sounds.effectsVolume);
 
   registry.sounds.musicVolume = 0;
   registry.sounds.effectsVolume = 0;

@@ -1,9 +1,10 @@
 import { XR_game_object } from "xray16";
 
-import { AnyCallable, AnyCallablesModule, Optional } from "@/engine/lib/types";
+import { AnyCallable, AnyCallablesModule, LuaArray, Optional } from "@/engine/lib/types";
 import { add_animpoint_animation_list } from "@/engine/scripts/core/objects/state/lib/state_mgr_animation_list_animpoint";
 import { add_animation_list_pri_a15 } from "@/engine/scripts/core/objects/state/lib/state_mgr_pri_a15";
 import { add_animation_list_scenario } from "@/engine/scripts/core/objects/state/lib/state_mgr_scenario";
+import { getExtern } from "@/engine/scripts/utils/binding";
 import { copyTable } from "@/engine/scripts/utils/table";
 
 export interface IAnimationDescriptor {
@@ -13,10 +14,10 @@ export interface IAnimationDescriptor {
     rnd: number;
     moving: Optional<boolean>;
   };
-  into: Optional<LuaTable<number, string | { a: string } | { f: AnyCallable }>>;
-  out: Optional<LuaTable<number, string | { a: string } | { f: AnyCallable }>>;
-  idle: Optional<LuaTable<number, string | { a: string } | { f: AnyCallable }>>;
-  rnd: Optional<LuaTable<number, LuaTable<number, string>>>;
+  into: Optional<LuaArray<string | { a: string } | { f: AnyCallable }>>;
+  out: Optional<LuaArray<string | { a: string } | { f: AnyCallable }>>;
+  idle: Optional<LuaArray<string | { a: string } | { f: AnyCallable }>>;
+  rnd: Optional<LuaArray<LuaTable<number, string>>>;
 }
 
 export const animations: LuaTable<string, IAnimationDescriptor> = {
@@ -354,51 +355,51 @@ export const animations: LuaTable<string, IAnimationDescriptor> = {
     into: {
       [0]: [
         "norm_facer_0_0",
-        { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").actor_punch(...args) },
+        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").actor_punch(...args) },
         "norm_facer_0_1",
-        { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").clearAbuse(...args) },
+        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").clearAbuse(...args) },
       ],
       [1]: [
         "norm_facer_1_0",
-        { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").actor_punch(...args) },
+        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").actor_punch(...args) },
         "norm_facer_1_1",
-        { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").clearAbuse(...args) },
+        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").clearAbuse(...args) },
       ],
       [2]: [
         "norm_facer_2_0",
-        { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").actor_punch(...args) },
+        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").actor_punch(...args) },
         "norm_facer_2_1",
-        { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").clearAbuse(...args) },
+        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").clearAbuse(...args) },
       ],
       [3]: [
         "norm_facer_3_0",
-        { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").actor_punch(...args) },
+        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").actor_punch(...args) },
         "norm_facer_3_1",
-        { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").clearAbuse(...args) },
+        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").clearAbuse(...args) },
       ],
       [4]: [
         "norm_facer_4_0",
-        { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").actor_punch(...args) },
+        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").actor_punch(...args) },
         "norm_facer_4_1",
-        { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").clearAbuse(...args) },
+        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").clearAbuse(...args) },
       ],
       [8]: [
         "norm_facer_8_0",
-        { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").actor_punch(...args) },
+        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").actor_punch(...args) },
         "norm_facer_8_1",
-        { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").clearAbuse(...args) },
+        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").clearAbuse(...args) },
       ],
       [9]: [
         "norm_facer_9_0",
-        { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").actor_punch(...args) },
+        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").actor_punch(...args) },
         "norm_facer_9_1",
-        { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").clearAbuse(...args) },
+        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").clearAbuse(...args) },
       ],
       [10]: [
         "norm_facer_10_0",
-        { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").actor_punch(...args) },
+        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").actor_punch(...args) },
         "norm_facer_10_1",
-        { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").clearAbuse(...args) },
+        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").clearAbuse(...args) },
       ],
     },
     out: null,
@@ -651,14 +652,14 @@ export const animations: LuaTable<string, IAnimationDescriptor> = {
     into: {
       [0]: [
         "metering_anomalys_0_draw_0",
-        { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").get_best_detector(...args) },
+        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").get_best_detector(...args) },
         "metering_anomalys_0_draw_1",
       ],
     },
     out: {
       [0]: [
         "metering_anomalys_0_hide_0",
-        { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").hide_best_detector(...args) },
+        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").hide_best_detector(...args) },
         "metering_anomalys_0_hide_1",
       ],
     },
@@ -683,7 +684,7 @@ export const animations: LuaTable<string, IAnimationDescriptor> = {
     into: {
       [0]: [
         "metering_anomalys_0_draw_0",
-        { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").get_best_detector(...args) },
+        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").get_best_detector(...args) },
         "metering_anomalys_0_draw_1",
         "metering_anomalys_0_idle_6",
       ],
@@ -691,7 +692,7 @@ export const animations: LuaTable<string, IAnimationDescriptor> = {
     out: {
       [0]: [
         "metering_anomalys_0_hide_0",
-        { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").hide_best_detector(...args) },
+        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").hide_best_detector(...args) },
         "metering_anomalys_0_hide_1",
       ],
     },
@@ -708,14 +709,14 @@ export const animations: LuaTable<string, IAnimationDescriptor> = {
     into: {
       [0]: [
         "metering_anomalys_1_draw_0",
-        { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").get_best_detector(...args) },
+        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").get_best_detector(...args) },
         "metering_anomalys_1_draw_1",
       ],
     },
     out: {
       [0]: [
         "metering_anomalys_1_hide_0",
-        { f: (...args: Array<any>) => get_global<AnyCallablesModule>("xr_effects").hide_best_detector(...args) },
+        { f: (...args: Array<any>) => getExtern<AnyCallablesModule>("xr_effects").hide_best_detector(...args) },
         "metering_anomalys_1_hide_1",
       ],
     },

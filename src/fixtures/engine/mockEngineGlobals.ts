@@ -1,14 +1,21 @@
 import { jest } from "@jest/globals";
 
-import { LuaLoggerMock } from "@/fixtures/engine/LuaLogger.mock";
+import { AnyObject } from "@/engine/lib/types";
+import { MockLuaLogger } from "@/fixtures/engine/mocks/LuaLogger.mock";
+import { mockTableUtils } from "@/fixtures/engine/mocks/table.mocks";
 
 /**
  * todo;
  */
-export function mockGlobals(): void {
+export function mockEngineGlobals(): void {
   jest.mock("@/engine/scripts/utils/logging", () => ({
-    LuaLogger: LuaLoggerMock,
+    LuaLogger: MockLuaLogger,
   }));
+
+  jest.mock("@/engine/scripts/utils/table", () => mockTableUtils);
+
+  // @ts-ignore
+  global._G = global;
 
   // @ts-ignore
   global.$filename = "JEST_TEST";

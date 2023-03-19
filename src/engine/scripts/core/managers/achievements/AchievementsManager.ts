@@ -13,6 +13,7 @@ import { EAchievement } from "@/engine/scripts/core/managers/achievements/EAchie
 import { notificationManagerIcons } from "@/engine/scripts/core/managers/notifications";
 import { NotificationManager } from "@/engine/scripts/core/managers/notifications/NotificationManager";
 import { StatisticsManager } from "@/engine/scripts/core/managers/StatisticsManager";
+import { getExtern } from "@/engine/scripts/utils/binding";
 import { giveInfo, hasAlifeInfo } from "@/engine/scripts/utils/info_portion";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { spawnItemsForObjectFromList } from "@/engine/scripts/utils/spawn";
@@ -244,7 +245,7 @@ export class AchievementsManager extends AbstractCoreManager {
       null,
       null
     );
-    get_global<AnyCallablesModule>("xr_effects").inc_faction_goodwill_to_actor(registry.actor, null, [
+    getExtern<AnyCallablesModule>("xr_effects").inc_faction_goodwill_to_actor(registry.actor, null, [
       communities.stalker,
       200,
     ]);
@@ -363,19 +364,19 @@ export class AchievementsManager extends AbstractCoreManager {
           null
         );
 
-        get_global<AnyCallablesModule>("xr_effects").inc_faction_goodwill_to_actor(registry.actor, null, [
+        getExtern<AnyCallablesModule>("xr_effects").inc_faction_goodwill_to_actor(registry.actor, null, [
           communities.stalker,
           200,
         ]);
-        get_global<AnyCallablesModule>("xr_effects").inc_faction_goodwill_to_actor(registry.actor, null, [
+        getExtern<AnyCallablesModule>("xr_effects").inc_faction_goodwill_to_actor(registry.actor, null, [
           communities.freedom,
           200,
         ]);
-        get_global<AnyCallablesModule>("xr_effects").inc_faction_goodwill_to_actor(registry.actor, null, [
+        getExtern<AnyCallablesModule>("xr_effects").inc_faction_goodwill_to_actor(registry.actor, null, [
           communities.dolg,
           200,
         ]);
-        get_global<AnyCallablesModule>("xr_effects").inc_faction_goodwill_to_actor(registry.actor, null, [
+        getExtern<AnyCallablesModule>("xr_effects").inc_faction_goodwill_to_actor(registry.actor, null, [
           communities.bandit,
           200,
         ]);
@@ -643,7 +644,7 @@ export class AchievementsManager extends AbstractCoreManager {
           null,
           null
         );
-        get_global<AnyCallablesModule>("xr_effects").inc_faction_goodwill_to_actor(registry.actor, null, [
+        getExtern<AnyCallablesModule>("xr_effects").inc_faction_goodwill_to_actor(registry.actor, null, [
           communities.stalker,
           100,
         ]);

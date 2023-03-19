@@ -21,7 +21,7 @@ import { console_commands } from "@/engine/lib/constants/console_commands";
 import { info_portions } from "@/engine/lib/constants/info_portions";
 import { levels, TLevel } from "@/engine/lib/constants/levels";
 import { STRINGIFIED_FALSE, STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
-import { AnyCallablesModule, Optional, PartialRecord, TLabel, TNumberId } from "@/engine/lib/types";
+import { Optional, PartialRecord, TLabel, TNumberId } from "@/engine/lib/types";
 import { registry, SURGE_MANAGER_LTX } from "@/engine/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/engine/scripts/core/database/pstor";
 import { AbstractCoreManager } from "@/engine/scripts/core/managers/AbstractCoreManager";
@@ -539,7 +539,8 @@ export class SurgeManager extends AbstractCoreManager {
           pstor_store(registry.actor, counter_name, cnt_value + 1);
         }
 
-        get_global<AnyCallablesModule>("xr_effects").disable_ui_only(registry.actor, null);
+        disableGameUiOnly(registry.actor);
+
         if (pickSectionFromCondList(registry.actor, null, this.surgeSurviveCondlist) !== STRINGIFIED_TRUE) {
           this.kill_all_unhided_after_actor_death();
           registry.actor.kill(registry.actor);

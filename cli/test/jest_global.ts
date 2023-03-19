@@ -1,7 +1,7 @@
-import { mockGlobals } from "@/fixtures/engine/mockGlobals";
-import { mockLuaLib } from "@/fixtures/lua/mockLuaLib";
-import { mockXRay16 } from "@/fixtures/xray/mockXRay16";
+import { mockEngineGlobals } from "@/fixtures/engine";
+import { mockLuaLib } from "@/fixtures/lua";
+import { mockXRay16 } from "@/fixtures/xray";
 
-mockGlobals();
+mockEngineGlobals();
 mockLuaLib();
 mockXRay16();

@@ -1,7 +1,5 @@
 /* eslint @typescript-eslint/explicit-function-return-type: "error" */
 
-import { XR_game_object } from "xray16";
-
 import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { ammo, TAmmoItem } from "@/engine/lib/constants/items/ammo";
@@ -22,6 +20,7 @@ import {
   takeItemsFromActor,
   takeMoneyFromActor,
 } from "@/engine/scripts/utils/quest_reward";
+import { XR_game_object } from "@/typedefs/xray16";
 
 const log: LuaLogger = new LuaLogger($filename);
 

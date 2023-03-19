@@ -65,7 +65,7 @@ import { loadObject, saveObject } from "@/engine/scripts/core/schemes/storing";
 import { SchemeWounded } from "@/engine/scripts/core/schemes/wounded/SchemeWounded";
 import { DynamicMusicManager } from "@/engine/scripts/core/sounds/DynamicMusicManager";
 import { SoundTheme } from "@/engine/scripts/core/sounds/SoundTheme";
-import { disabled_phrases, loadNpcDialogs, saveNpcDialogs } from "@/engine/scripts/declarations/dialog_manager";
+import { disabled_phrases, loadNpcDialogs, saveNpcDialogs } from "@/engine/scripts/declarations/dialogs/dialog_manager";
 import { setLoadMarker, setSaveMarker } from "@/engine/scripts/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
 import { getConfigString } from "@/engine/scripts/utils/ini_config/getters";

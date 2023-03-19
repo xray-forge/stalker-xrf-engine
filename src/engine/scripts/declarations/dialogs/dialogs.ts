@@ -1,7 +1,5 @@
 /* eslint @typescript-eslint/explicit-function-return-type: "error" */
 
-import { alife, game_object, level, XR_game_object } from "xray16";
-
 import { captions } from "@/engine/lib/constants/captions";
 import { communities } from "@/engine/lib/constants/communities";
 import { info_portions } from "@/engine/lib/constants/info_portions/info_portions";
@@ -18,7 +16,9 @@ import { ISchemeMeetState } from "@/engine/scripts/core/schemes/meet";
 import { SchemeMeet } from "@/engine/scripts/core/schemes/meet/SchemeMeet";
 import { ISchemeWoundedState } from "@/engine/scripts/core/schemes/wounded";
 import { SchemeWounded } from "@/engine/scripts/core/schemes/wounded/SchemeWounded";
+import { getExtern } from "@/engine/scripts/utils/binding";
 import { isObjectWounded, isStalkerAlive } from "@/engine/scripts/utils/check/check";
+import { disableGameUi } from "@/engine/scripts/utils/control";
 import { createScenarioAutoSave } from "@/engine/scripts/utils/game_save";
 import { getObjectBoundSmart } from "@/engine/scripts/utils/gulag";
 import { giveInfo, hasAlifeInfo } from "@/engine/scripts/utils/info_portion";
@@ -29,6 +29,7 @@ import {
   getNpcSpeaker,
   relocateQuestItemSection,
 } from "@/engine/scripts/utils/quest_reward";
+import { alife, game_object, level, XR_game_object } from "@/typedefs/xray16";
 
 /**
  * todo;
@@ -217,24 +218,6 @@ export function become_friend(first_speaker: XR_game_object, second_speaker: XR_
 /**
  * todo;
  */
-export function actor_set_stalker(actor: XR_game_object, npc: XR_game_object): boolean {
-  SimulationBoardManager.getInstance().set_actor_community(communities.stalker);
-
-  return true;
-}
-
-/**
- * todo;
- */
-export function actor_clear_community(actor: XR_game_object, npc: XR_game_object): boolean {
-  SimulationBoardManager.getInstance().set_actor_community(communities.none);
-
-  return true;
-}
-
-/**
- * todo;
- */
 export function npc_stalker(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
   const npc = getNpcSpeaker(first_speaker, second_speaker);
 
@@ -275,15 +258,6 @@ export function npc_army(first_speaker: XR_game_object, second_speaker: XR_game_
   const npc = getNpcSpeaker(first_speaker, second_speaker);
 
   return getCharacterCommunity(npc) === communities.army;
-}
-
-/**
- * todo;
- */
-export function actor_set_dolg(actor: XR_game_object, npc: XR_game_object): boolean {
-  SimulationBoardManager.getInstance().set_actor_community(communities.dolg);
-
-  return true;
 }
 
 /**
@@ -341,15 +315,6 @@ export function actor_not_in_freedom(actor: XR_game_object, npc: XR_game_object)
 /**
  * todo;
  */
-export function actor_set_freedom(actor: XR_game_object, npc: XR_game_object): boolean {
-  SimulationBoardManager.getInstance().set_actor_community(communities.freedom);
-
-  return true;
-}
-
-/**
- * todo;
- */
 export function actor_in_bandit(actor: XR_game_object, npc: XR_game_object): boolean {
   for (const [k, v] of SimulationBoardManager.getInstance().players!) {
     if (v.community_player === true && v.player_name === communities.bandit) {
@@ -369,15 +334,6 @@ export function actor_not_in_bandit(actor: XR_game_object, npc: XR_game_object):
       return false;
     }
   }
-
-  return true;
-}
-
-/**
- * todo;
- */
-export function actor_set_bandit(actor: XR_game_object, npc: XR_game_object): boolean {
-  SimulationBoardManager.getInstance().set_actor_community(communities.bandit);
 
   return true;
 }
@@ -457,14 +413,14 @@ export function have_actor_any_pistol(first_speaker: XR_game_object, second_spea
  * todo;
  */
 export function disable_ui(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  get_global<AnyCallablesModule>("xr_effects").disable_ui(first_speaker, second_speaker);
+  disableGameUi(first_speaker, false);
 }
 
 /**
  * todo;
  */
 export function disable_ui_only(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  get_global<AnyCallablesModule>("xr_effects").disable_ui_only(first_speaker, second_speaker);
+  disableGameUi(first_speaker, false);
 }
 
 /**
@@ -942,7 +898,7 @@ export function save_zat_b106_arrived_to_chimera_lair(
  * todo;
  */
 export function save_zat_b5_met_with_others(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  get_global<AnyCallablesModule>("xr_effects").scenario_autosave(registry.actor, null, [
+  getExtern<AnyCallablesModule>("xr_effects").scenario_autosave(registry.actor, null, [
     "st_save_zat_b5_met_with_others",
   ]);
 }

@@ -1,7 +1,5 @@
 /* eslint @typescript-eslint/explicit-function-return-type: "error" */
 
-import { alife, game_object, XR_cse_alife_creature_abstract, XR_game_object } from "xray16";
-
 import { communities } from "@/engine/lib/constants/communities";
 import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
 import { ammo } from "@/engine/lib/constants/items/ammo";
@@ -16,10 +14,11 @@ import { quest_items } from "@/engine/lib/constants/items/quest_items";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { treasures } from "@/engine/lib/constants/treasures";
 import { AnyCallablesModule, AnyObject, LuaArray, Optional, TCount, TIndex } from "@/engine/lib/types";
-import { IRegistryObjectState, registry } from "@/engine/scripts/core/database";
+import { registry } from "@/engine/scripts/core/database";
 import { pstor_retrieve } from "@/engine/scripts/core/database/pstor";
 import { TreasureManager } from "@/engine/scripts/core/managers/TreasureManager";
 import { AnomalyZoneBinder } from "@/engine/scripts/core/objects/binders/AnomalyZoneBinder";
+import { getExtern } from "@/engine/scripts/utils/binding";
 import { isActorEnemyWithFaction } from "@/engine/scripts/utils/check/check";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/scripts/utils/info_portion";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
@@ -34,6 +33,7 @@ import {
   takeMoneyFromActor,
 } from "@/engine/scripts/utils/quest_reward";
 import { getObjectsRelationSafe } from "@/engine/scripts/utils/relation";
+import { alife, game_object, XR_cse_alife_creature_abstract, XR_game_object } from "@/typedefs/xray16";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -1273,7 +1273,7 @@ export function jup_b202_hit_bandit_from_actor(first_speaker: XR_game_object, se
 
   giveInfo(info_portions.jup_b202_bandit_hited);
   giveInfo(info_portions.jup_b202_bandit_hited_by_actor);
-  get_global<AnyCallablesModule>("xr_effects").set_squad_goodwill(actor, npc, ["jup_b202_bandit_squad", "enemy"]);
+  getExtern<AnyCallablesModule>("xr_effects").set_squad_goodwill(actor, npc, ["jup_b202_bandit_squad", "enemy"]);
   // --xr_effects.hit_npc_from_actor(actor,npc,{"jup_b202_bandit"})
 }
 
@@ -1401,7 +1401,7 @@ export function jupiter_b200_tech_materials_relocate(
 
   actor.iterate_inventory(relocate_and_inc_count, actor);
 
-  get_global<AnyCallablesModule>("xr_effects").inc_counter(actor, null, [
+  getExtern<AnyCallablesModule>("xr_effects").inc_counter(actor, null, [
     "jup_b200_tech_materials_brought_counter",
     tostring(count),
   ]);
@@ -1415,7 +1415,7 @@ export function jupiter_b200_tech_materials_relocate(
  * todo;
  */
 export function npc_in_b4_smart(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  return get_global<AnyCallablesModule>("dialogs").is_npc_in_current_smart(first_speaker, second_speaker, "jup_b4");
+  return getExtern<AnyCallablesModule>("dialogs").is_npc_in_current_smart(first_speaker, second_speaker, "jup_b4");
 }
 
 /**
@@ -1581,7 +1581,7 @@ export function jup_b15_dec_counter(first_speaker: XR_game_object, second_speake
   const npc: XR_game_object = getNpcSpeaker(first_speaker, second_speaker);
   const actor: XR_game_object = getActorSpeaker(first_speaker, second_speaker);
 
-  return get_global<AnyCallablesModule>("xr_effects").dec_counter(actor, npc, ["jup_b15_full_drunk_count", 1]);
+  return getExtern<AnyCallablesModule>("xr_effects").dec_counter(actor, npc, ["jup_b15_full_drunk_count", 1]);
 }
 
 /**
@@ -1756,7 +1756,7 @@ export function jup_b25_frase_count_inc(first_speaker: XR_game_object, second_sp
   const npc = getNpcSpeaker(first_speaker, second_speaker);
   const actor = getActorSpeaker(first_speaker, second_speaker);
 
-  return get_global<AnyCallablesModule>("xr_effects").inc_counter(actor, npc, ["jup_b25_frase", 1]);
+  return getExtern<AnyCallablesModule>("xr_effects").inc_counter(actor, npc, ["jup_b25_frase", 1]);
 }
 
 /**

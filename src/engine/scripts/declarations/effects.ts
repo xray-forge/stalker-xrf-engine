@@ -35,6 +35,7 @@ import {
 import { animations } from "@/engine/lib/constants/animation/animations";
 import { captions, TCaption } from "@/engine/lib/constants/captions";
 import { TCommunity } from "@/engine/lib/constants/communities";
+import { console_commands } from "@/engine/lib/constants/console_commands";
 import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { artefacts } from "@/engine/lib/constants/items/artefacts";
@@ -94,8 +95,10 @@ import { ISchemeMobCombatState } from "@/engine/scripts/core/schemes/mob/combat"
 import { init_target } from "@/engine/scripts/core/schemes/remark/actions/ActionRemarkActivity";
 import { showFreeplayDialog } from "@/engine/scripts/core/ui/game/FreeplayDialog";
 import { sleep as startSleeping } from "@/engine/scripts/core/ui/interaction/SleepDialog";
+import { zat_b29_af_table, zat_b29_infop_bring_table } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
 import { isActorInZoneWithName } from "@/engine/scripts/utils/check/check";
 import { isStalker } from "@/engine/scripts/utils/check/is";
+import { executeConsoleCommand } from "@/engine/scripts/utils/console";
 import {
   disableActorNightVision,
   disableActorTorch,
@@ -2231,22 +2234,23 @@ export function remove_item(actor: XR_game_object, npc: XR_game_object, p: [stri
 
 /**
  * todo;
+ * todo: Shared game_save util.
  */
 export function scenario_autosave(actor: XR_game_object, npc: XR_game_object, p: [string]) {
-  const save_name = p[0];
+  const newSaveFileName = p[0];
 
-  if (save_name === null) {
+  if (newSaveFileName === null) {
     abort("You are trying to use scenario_autosave without save name");
   }
 
   if (IsImportantSave()) {
-    const save_param = user_name() + " - " + game.translate_string(save_name);
+    const saveParameter: string = user_name() + " - " + game.translate_string(newSaveFileName);
 
-    logger.info("Performing auto-save, detected as important.", save_name, save_param);
+    logger.info("Performing auto-save, detected as important.", newSaveFileName, saveParameter);
 
-    get_console().execute("save " + save_param);
+    executeConsoleCommand(console_commands.save, saveParameter);
   } else {
-    logger.info("Not important save, skip.", save_name);
+    logger.info("Not important save, skip.", newSaveFileName);
   }
 }
 
@@ -2307,8 +2311,8 @@ export function give_item_b29(actor: XR_game_object, npc: XR_game_object, p: [st
     "zaton_b56_anomal_zone",
   ] as unknown as LuaArray<TName>;
 
-  for (const i of $range(16, 23)) {
-    if (hasAlifeInfo(get_global("dialogs_zaton").zat_b29_infop_bring_table[i])) {
+  for (const it of $range(16, 23)) {
+    if (hasAlifeInfo(zat_b29_infop_bring_table.get(it))) {
       let anomalyZoneName: Optional<TName> = null;
 
       for (const [index, name] of anomalyZonesList) {
@@ -2319,7 +2323,7 @@ export function give_item_b29(actor: XR_game_object, npc: XR_game_object, p: [st
         }
       }
 
-      pick_artefact_from_anomaly(actor, null, [p[0], anomalyZoneName, get_global("dialogs_zaton").zat_b29_af_table[i]]);
+      pick_artefact_from_anomaly(actor, null, [p[0], anomalyZoneName, zat_b29_af_table.get(it)]);
       break;
     }
   }
@@ -2331,9 +2335,9 @@ export function give_item_b29(actor: XR_game_object, npc: XR_game_object, p: [st
 export function relocate_item_b29(actor: XR_game_object, npc: XR_game_object, p: [string, string]) {
   let item: Optional<string> = null;
 
-  for (const i of $range(16, 23)) {
-    if (hasAlifeInfo(get_global("dialogs_zaton").zat_b29_infop_bring_table[i])) {
-      item = get_global("dialogs_zaton").zat_b29_af_table[i];
+  for (const it of $range(16, 23)) {
+    if (hasAlifeInfo(zat_b29_infop_bring_table.get(it))) {
+      item = zat_b29_af_table.get(it);
       break;
     }
   }

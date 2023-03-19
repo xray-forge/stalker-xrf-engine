@@ -1,5 +1,3 @@
-import { game, level, XR_CPhraseDialog, XR_CPhraseScript, XR_game_object, XR_net_packet, XR_reader } from "xray16";
-
 import { captions } from "@/engine/lib/constants/captions";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { LuaArray, Optional } from "@/engine/lib/types";
@@ -13,6 +11,15 @@ import { LuaLogger } from "@/engine/scripts/utils/logging";
 import { getCharacterCommunity } from "@/engine/scripts/utils/object";
 import { parseInfoPortions1, parseNames } from "@/engine/scripts/utils/parse";
 import { getNpcSpeaker } from "@/engine/scripts/utils/quest_reward";
+import {
+  game,
+  level,
+  XR_CPhraseDialog,
+  XR_CPhraseScript,
+  XR_game_object,
+  XR_net_packet,
+  XR_reader,
+} from "@/typedefs/xray16";
 
 // todo: Separate manager class.
 // todo: Separate manager class.

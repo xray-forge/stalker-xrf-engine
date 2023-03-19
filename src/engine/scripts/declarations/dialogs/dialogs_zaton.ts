@@ -1,7 +1,5 @@
 /* eslint @typescript-eslint/explicit-function-return-type: "error" */
 
-import { alife, game, level, XR_game_object } from "xray16";
-
 import { captions } from "@/engine/lib/constants/captions";
 import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
 import { TInventoryItem } from "@/engine/lib/constants/items";
@@ -21,6 +19,7 @@ import { registry } from "@/engine/scripts/core/database";
 import { pstor_retrieve, pstor_store } from "@/engine/scripts/core/database/pstor";
 import { NotificationManager } from "@/engine/scripts/core/managers/notifications/NotificationManager";
 import { TreasureManager } from "@/engine/scripts/core/managers/TreasureManager";
+import { getExtern } from "@/engine/scripts/utils/binding";
 import { isSquadExisting } from "@/engine/scripts/utils/check/check";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/scripts/utils/info_portion";
 import { LuaLogger } from "@/engine/scripts/utils/logging";
@@ -37,6 +36,7 @@ import {
   takeItemsFromActor,
   takeMoneyFromActor,
 } from "@/engine/scripts/utils/quest_reward";
+import { alife, game, level, XR_game_object } from "@/typedefs/xray16";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -564,7 +564,7 @@ export function zat_b103_transfer_merc_supplies(firstSpeaker: XR_game_object, se
 export function zat_b33_set_counter_10(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   const actor = getActorSpeaker(first_speaker, second_speaker);
 
-  get_global<AnyCallablesModule>("xr_effects").set_counter(actor, null, ["zat_b33_items", 10]);
+  getExtern<AnyCallablesModule>("xr_effects").set_counter(actor, null, ["zat_b33_items", 10]);
 }
 
 /**
@@ -621,7 +621,7 @@ export function zat_b33_counter_le_8(first_speaker: XR_game_object, second_speak
 export function zat_b33_counter_de_2(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
   const actor = getActorSpeaker(first_speaker, second_speaker);
 
-  return get_global<AnyCallablesModule>("xr_effects").dec_counter(actor, null, ["zat_b33_items", 2]);
+  return getExtern<AnyCallablesModule>("xr_effects").dec_counter(actor, null, ["zat_b33_items", 2]);
 }
 
 /**
@@ -630,7 +630,7 @@ export function zat_b33_counter_de_2(first_speaker: XR_game_object, second_speak
 export function zat_b33_counter_de_4(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
   const actor = getActorSpeaker(first_speaker, second_speaker);
 
-  return get_global<AnyCallablesModule>("xr_effects").dec_counter(actor, null, ["zat_b33_items", 4]);
+  return getExtern<AnyCallablesModule>("xr_effects").dec_counter(actor, null, ["zat_b33_items", 4]);
 }
 
 /**
@@ -639,7 +639,7 @@ export function zat_b33_counter_de_4(first_speaker: XR_game_object, second_speak
 export function zat_b33_counter_de_8(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
   const actor = getActorSpeaker(first_speaker, second_speaker);
 
-  return get_global<AnyCallablesModule>("xr_effects").dec_counter(actor, null, ["zat_b33_items", 8]);
+  return getExtern<AnyCallablesModule>("xr_effects").dec_counter(actor, null, ["zat_b33_items", 8]);
 }
 
 /**
@@ -776,7 +776,7 @@ export function zat_b33_relocate_money(first_speaker: XR_game_object, second_spe
 /**
  * todo;
  */
-const zat_b29_af_table = {
+export const zat_b29_af_table = {
   [16]: artefacts.af_gravi,
   [17]: artefacts.af_eye,
   [18]: artefacts.af_baloon,
@@ -790,7 +790,7 @@ const zat_b29_af_table = {
 /**
  * todo;
  */
-const zat_b29_af_names_table = {
+export const zat_b29_af_names_table = {
   [16]: captions.st_af_gravi_name,
   [17]: captions.st_af_eye_name,
   [18]: captions.st_af_baloon_name,
@@ -804,7 +804,7 @@ const zat_b29_af_names_table = {
 /**
  * todo;
  */
-const zat_b29_infop_table = {
+export const zat_b29_infop_table = {
   [16]: info_portions.zat_b29_af_16,
   [17]: info_portions.zat_b29_af_17,
   [18]: info_portions.zat_b29_af_18,
@@ -818,7 +818,7 @@ const zat_b29_infop_table = {
 /**
  * todo;
  */
-const zat_b29_infop_bring_table = {
+export const zat_b29_infop_bring_table = {
   [16]: "zat_b29_bring_af_16",
   [17]: "zat_b29_bring_af_17",
   [18]: "zat_b29_bring_af_18",

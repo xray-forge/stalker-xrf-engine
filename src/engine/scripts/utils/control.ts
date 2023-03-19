@@ -55,7 +55,7 @@ export function disableGameUiOnly(actor: XR_game_object): void {
 /**
  * todo;
  */
-export function disableGameUi(actor: XR_game_object, resetSlot: boolean): void {
+export function disableGameUi(actor: XR_game_object, resetSlot: boolean = false): void {
   if (actor.is_talking()) {
     actor.stop_talk();
   }
@@ -83,7 +83,10 @@ export function disableGameUi(actor: XR_game_object, resetSlot: boolean): void {
   disableActorTorch(actor);
 }
 
-export function enableGameUi(restore: boolean): void {
+/**
+ * todo;
+ */
+export function enableGameUi(restore: boolean = false): void {
   logger.info("Enable UI");
 
   if (restore) {
