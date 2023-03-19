@@ -1,5 +1,5 @@
+import { LuaLogger } from "@/engine/core/utils/logging";
 import type { Maybe } from "@/engine/lib/types";
-import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

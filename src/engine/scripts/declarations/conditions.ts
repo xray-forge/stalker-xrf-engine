@@ -14,6 +14,55 @@ import {
   XR_vector,
 } from "xray16";
 
+import {
+  getObjectByStoryId,
+  getObjectIdByStoryId,
+  getServerObjectByStoryId,
+  IRegistryObjectState,
+  registry,
+} from "@/engine/core/database";
+import { pstor_retrieve } from "@/engine/core/database/pstor";
+import { AchievementsManager } from "@/engine/core/managers/achievements/AchievementsManager";
+import { ActorInventoryMenuManager, EActorMenuMode } from "@/engine/core/managers/ActorInventoryMenuManager";
+import { ItemUpgradesManager } from "@/engine/core/managers/ItemUpgradesManager";
+import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
+import { SurgeManager } from "@/engine/core/managers/SurgeManager";
+import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
+import { ESmartTerrainStatus, SmartTerrainControl } from "@/engine/core/objects/alife/smart/SmartTerrainControl";
+import { Squad } from "@/engine/core/objects/alife/Squad";
+import { SchemeAnimpoint } from "@/engine/core/schemes/animpoint";
+import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/ISchemeAnimpointState";
+import { ISchemeDeathState } from "@/engine/core/schemes/death";
+import { ISchemeHitState } from "@/engine/core/schemes/hit";
+import { SchemeDeimos } from "@/engine/core/schemes/sr_deimos/SchemeDeimos";
+import { getExtern } from "@/engine/core/utils/binding";
+import {
+  isActorAlive,
+  isActorEnemy,
+  isActorEnemyWithFaction,
+  isActorFriendWithFaction,
+  isActorNeutralWithFaction,
+  isBlackScreen,
+  isDistanceBetweenObjectsGreaterOrEqual,
+  isDistanceBetweenObjectsLessOrEqual,
+  isHeavilyWounded,
+  isObjectInZone,
+  isObjectWounded,
+  isPlayingSound,
+  isSquadExisting,
+} from "@/engine/core/utils/check/check";
+import { isMonster, isStalker, isWeapon } from "@/engine/core/utils/check/is";
+import { abort } from "@/engine/core/utils/debug";
+import { getObjectBoundSmart } from "@/engine/core/utils/gulag";
+import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
+import { LuaLogger } from "@/engine/core/utils/logging";
+import { anomalyHasArtefact, getCharacterCommunity, getObjectSquad } from "@/engine/core/utils/object";
+import { distanceBetween, npcInActorFrustum } from "@/engine/core/utils/physics";
+import {
+  isFactionsEnemies,
+  isFactionsFriends,
+  isSquadRelationBetweenActorAndRelation,
+} from "@/engine/core/utils/relation";
 import { captions, TCaption } from "@/engine/lib/constants/captions";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
@@ -34,59 +83,7 @@ import {
   TSection,
   TStringId,
 } from "@/engine/lib/types";
-import {
-  getObjectByStoryId,
-  getObjectIdByStoryId,
-  getServerObjectByStoryId,
-  IRegistryObjectState,
-  registry,
-} from "@/engine/scripts/core/database";
-import { pstor_retrieve } from "@/engine/scripts/core/database/pstor";
-import { AchievementsManager } from "@/engine/scripts/core/managers/achievements/AchievementsManager";
-import { ActorInventoryMenuManager, EActorMenuMode } from "@/engine/scripts/core/managers/ActorInventoryMenuManager";
-import { ItemUpgradesManager } from "@/engine/scripts/core/managers/ItemUpgradesManager";
-import { SimulationBoardManager } from "@/engine/scripts/core/managers/SimulationBoardManager";
-import { SurgeManager } from "@/engine/scripts/core/managers/SurgeManager";
-import { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
-import {
-  ESmartTerrainStatus,
-  SmartTerrainControl,
-} from "@/engine/scripts/core/objects/alife/smart/SmartTerrainControl";
-import { Squad } from "@/engine/scripts/core/objects/alife/Squad";
-import { SchemeAnimpoint } from "@/engine/scripts/core/schemes/animpoint";
-import { ISchemeAnimpointState } from "@/engine/scripts/core/schemes/animpoint/ISchemeAnimpointState";
-import { ISchemeDeathState } from "@/engine/scripts/core/schemes/death";
-import { ISchemeHitState } from "@/engine/scripts/core/schemes/hit";
-import { SchemeDeimos } from "@/engine/scripts/core/schemes/sr_deimos/SchemeDeimos";
 import { zat_b29_af_table, zat_b29_infop_bring_table } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
-import { getExtern } from "@/engine/scripts/utils/binding";
-import {
-  isActorAlive,
-  isActorEnemy,
-  isActorEnemyWithFaction,
-  isActorFriendWithFaction,
-  isActorNeutralWithFaction,
-  isBlackScreen,
-  isDistanceBetweenObjectsGreaterOrEqual,
-  isDistanceBetweenObjectsLessOrEqual,
-  isHeavilyWounded,
-  isObjectInZone,
-  isObjectWounded,
-  isPlayingSound,
-  isSquadExisting,
-} from "@/engine/scripts/utils/check/check";
-import { isMonster, isStalker, isWeapon } from "@/engine/scripts/utils/check/is";
-import { abort } from "@/engine/scripts/utils/debug";
-import { getObjectBoundSmart } from "@/engine/scripts/utils/gulag";
-import { hasAlifeInfo } from "@/engine/scripts/utils/info_portion";
-import { LuaLogger } from "@/engine/scripts/utils/logging";
-import { anomalyHasArtefact, getCharacterCommunity, getObjectSquad } from "@/engine/scripts/utils/object";
-import { distanceBetween, npcInActorFrustum } from "@/engine/scripts/utils/physics";
-import {
-  isFactionsEnemies,
-  isFactionsFriends,
-  isSquadRelationBetweenActorAndRelation,
-} from "@/engine/scripts/utils/relation";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

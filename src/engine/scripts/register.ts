@@ -1,8 +1,8 @@
 import type { XR_object_factory } from "xray16";
 
+import { extern } from "@/engine/core/utils/binding";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import { AnyCallable } from "@/engine/lib/types";
-import { extern } from "@/engine/scripts/utils/binding";
-import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

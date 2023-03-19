@@ -1,17 +1,17 @@
 import { device } from "xray16";
 
+import { ActorInventoryMenuManager } from "@/engine/core/managers/ActorInventoryMenuManager";
+import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
+import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
+import { TaskManager } from "@/engine/core/managers/tasks";
+import { initializeModules } from "@/engine/core/schemes/schemes_registering";
+import { resetSchemeHard } from "@/engine/core/schemes/schemes_resetting";
+import { DynamicMusicManager } from "@/engine/core/sounds/DynamicMusicManager";
+import { SoundTheme } from "@/engine/core/sounds/SoundTheme";
+import { extern } from "@/engine/core/utils/binding";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme } from "@/engine/lib/types/scheme";
-import { ActorInventoryMenuManager } from "@/engine/scripts/core/managers/ActorInventoryMenuManager";
-import { GlobalSoundManager } from "@/engine/scripts/core/managers/GlobalSoundManager";
-import { SimulationBoardManager } from "@/engine/scripts/core/managers/SimulationBoardManager";
-import { TaskManager } from "@/engine/scripts/core/managers/tasks";
-import { initializeModules } from "@/engine/scripts/core/schemes/schemes_registering";
-import { resetSchemeHard } from "@/engine/scripts/core/schemes/schemes_resetting";
-import { DynamicMusicManager } from "@/engine/scripts/core/sounds/DynamicMusicManager";
-import { SoundTheme } from "@/engine/scripts/core/sounds/SoundTheme";
 import { fillPhrasesTable } from "@/engine/scripts/declarations/dialogs/dialog_manager";
-import { extern } from "@/engine/scripts/utils/binding";
-import { LuaLogger } from "@/engine/scripts/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

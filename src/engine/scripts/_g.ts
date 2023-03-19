@@ -4,6 +4,6 @@ import { getFS } from "xray16";
 package.path = package.path + string.format("%sgamedata\\?.script;", getFS().update_path("$fs_root$", ""));
 
 /**
- * Initialize extern references from game code.
+ * Initialize extern references.
  */
-require("@/engine/scripts/declarations/extern");
+require("@/engine/scripts/declarations/callbacks");

@@ -1,4 +1,4 @@
-import { LuaLogger } from "@/engine/scripts/utils/logging";
+import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

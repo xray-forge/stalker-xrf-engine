@@ -1,5 +1,16 @@
 /* eslint @typescript-eslint/explicit-function-return-type: "error" */
 
+import { XR_game_object } from "xray16";
+
+import { registry } from "@/engine/core/database";
+import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
+import { LuaLogger } from "@/engine/core/utils/logging";
+import {
+  giveItemsToActor,
+  giveMoneyToActor,
+  takeItemsFromActor,
+  takeMoneyFromActor,
+} from "@/engine/core/utils/quest_reward";
 import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { ammo, TAmmoItem } from "@/engine/lib/constants/items/ammo";
@@ -11,16 +22,6 @@ import { outfits } from "@/engine/lib/constants/items/outfits";
 import { quest_items } from "@/engine/lib/constants/items/quest_items";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { LuaArray, TCount } from "@/engine/lib/types";
-import { registry } from "@/engine/scripts/core/database";
-import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/scripts/utils/info_portion";
-import { LuaLogger } from "@/engine/scripts/utils/logging";
-import {
-  giveItemsToActor,
-  giveMoneyToActor,
-  takeItemsFromActor,
-  takeMoneyFromActor,
-} from "@/engine/scripts/utils/quest_reward";
-import { XR_game_object } from "@/typedefs/xray16";
 
 const log: LuaLogger = new LuaLogger($filename);
 

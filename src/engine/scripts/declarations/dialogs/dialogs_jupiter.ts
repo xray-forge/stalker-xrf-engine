@@ -1,5 +1,26 @@
 /* eslint @typescript-eslint/explicit-function-return-type: "error" */
 
+import { alife, game_object, XR_cse_alife_creature_abstract, XR_game_object } from "xray16";
+
+import { registry } from "@/engine/core/database";
+import { pstor_retrieve } from "@/engine/core/database/pstor";
+import { TreasureManager } from "@/engine/core/managers/TreasureManager";
+import { AnomalyZoneBinder } from "@/engine/core/objects/binders/AnomalyZoneBinder";
+import { getExtern } from "@/engine/core/utils/binding";
+import { isActorEnemyWithFaction } from "@/engine/core/utils/check/check";
+import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
+import { LuaLogger } from "@/engine/core/utils/logging";
+import {
+  getActorSpeaker,
+  getNpcSpeaker,
+  giveItemsToActor,
+  giveMoneyToActor,
+  isNpcName,
+  relocateQuestItemSection,
+  takeItemsFromActor,
+  takeMoneyFromActor,
+} from "@/engine/core/utils/quest_reward";
+import { getObjectsRelationSafe } from "@/engine/core/utils/relation";
 import { communities } from "@/engine/lib/constants/communities";
 import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
 import { ammo } from "@/engine/lib/constants/items/ammo";
@@ -14,26 +35,6 @@ import { quest_items } from "@/engine/lib/constants/items/quest_items";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { treasures } from "@/engine/lib/constants/treasures";
 import { AnyCallablesModule, AnyObject, LuaArray, Optional, TCount, TIndex } from "@/engine/lib/types";
-import { registry } from "@/engine/scripts/core/database";
-import { pstor_retrieve } from "@/engine/scripts/core/database/pstor";
-import { TreasureManager } from "@/engine/scripts/core/managers/TreasureManager";
-import { AnomalyZoneBinder } from "@/engine/scripts/core/objects/binders/AnomalyZoneBinder";
-import { getExtern } from "@/engine/scripts/utils/binding";
-import { isActorEnemyWithFaction } from "@/engine/scripts/utils/check/check";
-import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/scripts/utils/info_portion";
-import { LuaLogger } from "@/engine/scripts/utils/logging";
-import {
-  getActorSpeaker,
-  getNpcSpeaker,
-  giveItemsToActor,
-  giveMoneyToActor,
-  isNpcName,
-  relocateQuestItemSection,
-  takeItemsFromActor,
-  takeMoneyFromActor,
-} from "@/engine/scripts/utils/quest_reward";
-import { getObjectsRelationSafe } from "@/engine/scripts/utils/relation";
-import { alife, game_object, XR_cse_alife_creature_abstract, XR_game_object } from "@/typedefs/xray16";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

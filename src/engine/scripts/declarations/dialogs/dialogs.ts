@@ -1,5 +1,29 @@
 /* eslint @typescript-eslint/explicit-function-return-type: "error" */
 
+import { alife, game_object, level, XR_game_object } from "xray16";
+
+import { registry } from "@/engine/core/database";
+import { NotificationManager } from "@/engine/core/managers/notifications/NotificationManager";
+import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
+import { SurgeManager } from "@/engine/core/managers/SurgeManager";
+import { update_logic } from "@/engine/core/objects/binders/StalkerBinder";
+import { ISchemeMeetState } from "@/engine/core/schemes/meet";
+import { SchemeMeet } from "@/engine/core/schemes/meet/SchemeMeet";
+import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
+import { SchemeWounded } from "@/engine/core/schemes/wounded/SchemeWounded";
+import { getExtern } from "@/engine/core/utils/binding";
+import { isObjectWounded, isStalkerAlive } from "@/engine/core/utils/check/check";
+import { disableGameUi } from "@/engine/core/utils/control";
+import { createScenarioAutoSave } from "@/engine/core/utils/game_save";
+import { getObjectBoundSmart } from "@/engine/core/utils/gulag";
+import { giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
+import { getCharacterCommunity } from "@/engine/core/utils/object";
+import {
+  actorHasMedKit,
+  getActorAvailableMedKit,
+  getNpcSpeaker,
+  relocateQuestItemSection,
+} from "@/engine/core/utils/quest_reward";
 import { captions } from "@/engine/lib/constants/captions";
 import { communities } from "@/engine/lib/constants/communities";
 import { info_portions } from "@/engine/lib/constants/info_portions/info_portions";
@@ -7,29 +31,6 @@ import { drugs, TMedkit } from "@/engine/lib/constants/items/drugs";
 import { pistols, TPistol } from "@/engine/lib/constants/items/weapons";
 import { levels } from "@/engine/lib/constants/levels";
 import { AnyCallablesModule, EScheme, Optional, TNumberId } from "@/engine/lib/types";
-import { registry } from "@/engine/scripts/core/database";
-import { NotificationManager } from "@/engine/scripts/core/managers/notifications/NotificationManager";
-import { SimulationBoardManager } from "@/engine/scripts/core/managers/SimulationBoardManager";
-import { SurgeManager } from "@/engine/scripts/core/managers/SurgeManager";
-import { update_logic } from "@/engine/scripts/core/objects/binders/StalkerBinder";
-import { ISchemeMeetState } from "@/engine/scripts/core/schemes/meet";
-import { SchemeMeet } from "@/engine/scripts/core/schemes/meet/SchemeMeet";
-import { ISchemeWoundedState } from "@/engine/scripts/core/schemes/wounded";
-import { SchemeWounded } from "@/engine/scripts/core/schemes/wounded/SchemeWounded";
-import { getExtern } from "@/engine/scripts/utils/binding";
-import { isObjectWounded, isStalkerAlive } from "@/engine/scripts/utils/check/check";
-import { disableGameUi } from "@/engine/scripts/utils/control";
-import { createScenarioAutoSave } from "@/engine/scripts/utils/game_save";
-import { getObjectBoundSmart } from "@/engine/scripts/utils/gulag";
-import { giveInfo, hasAlifeInfo } from "@/engine/scripts/utils/info_portion";
-import { getCharacterCommunity } from "@/engine/scripts/utils/object";
-import {
-  actorHasMedKit,
-  getActorAvailableMedKit,
-  getNpcSpeaker,
-  relocateQuestItemSection,
-} from "@/engine/scripts/utils/quest_reward";
-import { alife, game_object, level, XR_game_object } from "@/typedefs/xray16";
 
 /**
  * todo;

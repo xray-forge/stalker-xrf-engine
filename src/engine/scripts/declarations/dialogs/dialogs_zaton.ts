@@ -1,28 +1,15 @@
 /* eslint @typescript-eslint/explicit-function-return-type: "error" */
 
-import { captions } from "@/engine/lib/constants/captions";
-import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
-import { TInventoryItem } from "@/engine/lib/constants/items";
-import { ammo } from "@/engine/lib/constants/items/ammo";
-import { artefacts, TArtefact } from "@/engine/lib/constants/items/artefacts";
-import { detectors } from "@/engine/lib/constants/items/detectors";
-import { drugs, TDrugItem } from "@/engine/lib/constants/items/drugs";
-import { food, TFoodItem } from "@/engine/lib/constants/items/food";
-import { helmets } from "@/engine/lib/constants/items/helmets";
-import { misc } from "@/engine/lib/constants/items/misc";
-import { outfits } from "@/engine/lib/constants/items/outfits";
-import { quest_items, TQuestItem } from "@/engine/lib/constants/items/quest_items";
-import { TWeapon, weapons } from "@/engine/lib/constants/items/weapons";
-import { treasures } from "@/engine/lib/constants/treasures";
-import { AnyCallablesModule, AnyObject, LuaArray, Optional, TCount } from "@/engine/lib/types";
-import { registry } from "@/engine/scripts/core/database";
-import { pstor_retrieve, pstor_store } from "@/engine/scripts/core/database/pstor";
-import { NotificationManager } from "@/engine/scripts/core/managers/notifications/NotificationManager";
-import { TreasureManager } from "@/engine/scripts/core/managers/TreasureManager";
-import { getExtern } from "@/engine/scripts/utils/binding";
-import { isSquadExisting } from "@/engine/scripts/utils/check/check";
-import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/scripts/utils/info_portion";
-import { LuaLogger } from "@/engine/scripts/utils/logging";
+import { alife, game, level, XR_game_object } from "xray16";
+
+import { registry } from "@/engine/core/database";
+import { pstor_retrieve, pstor_store } from "@/engine/core/database/pstor";
+import { NotificationManager } from "@/engine/core/managers/notifications/NotificationManager";
+import { TreasureManager } from "@/engine/core/managers/TreasureManager";
+import { getExtern } from "@/engine/core/utils/binding";
+import { isSquadExisting } from "@/engine/core/utils/check/check";
+import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import {
   actorHasAtLeastOneItem,
   actorHasItem,
@@ -35,8 +22,22 @@ import {
   relocateQuestItemSection,
   takeItemsFromActor,
   takeMoneyFromActor,
-} from "@/engine/scripts/utils/quest_reward";
-import { alife, game, level, XR_game_object } from "@/typedefs/xray16";
+} from "@/engine/core/utils/quest_reward";
+import { captions } from "@/engine/lib/constants/captions";
+import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
+import { TInventoryItem } from "@/engine/lib/constants/items";
+import { ammo } from "@/engine/lib/constants/items/ammo";
+import { artefacts, TArtefact } from "@/engine/lib/constants/items/artefacts";
+import { detectors } from "@/engine/lib/constants/items/detectors";
+import { drugs, TDrugItem } from "@/engine/lib/constants/items/drugs";
+import { food, TFoodItem } from "@/engine/lib/constants/items/food";
+import { helmets } from "@/engine/lib/constants/items/helmets";
+import { misc } from "@/engine/lib/constants/items/misc";
+import { outfits } from "@/engine/lib/constants/items/outfits";
+import { quest_items } from "@/engine/lib/constants/items/quest_items";
+import { TWeapon, weapons } from "@/engine/lib/constants/items/weapons";
+import { treasures } from "@/engine/lib/constants/treasures";
+import { AnyCallablesModule, AnyObject, LuaArray, Optional, TCount } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

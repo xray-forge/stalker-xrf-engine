@@ -32,6 +32,64 @@ import {
   XR_vector,
 } from "xray16";
 
+import {
+  getObjectByStoryId,
+  getObjectIdByStoryId,
+  getServerObjectByStoryId,
+  IRegistryObjectState,
+  registry,
+  SYSTEM_INI,
+  unregisterHelicopter,
+} from "@/engine/core/database";
+import { pstor_retrieve, pstor_store } from "@/engine/core/database/pstor";
+import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
+import { ItemUpgradesManager } from "@/engine/core/managers/ItemUpgradesManager";
+import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
+import { NotificationManager, TNotificationIcon } from "@/engine/core/managers/notifications";
+import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
+import { SurgeManager } from "@/engine/core/managers/SurgeManager";
+import { TaskManager } from "@/engine/core/managers/tasks";
+import { TreasureManager } from "@/engine/core/managers/TreasureManager";
+import { WeatherManager } from "@/engine/core/managers/WeatherManager";
+import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
+import { Squad } from "@/engine/core/objects/alife/Squad";
+import { Stalker } from "@/engine/core/objects/alife/Stalker";
+import { update_logic } from "@/engine/core/objects/binders/StalkerBinder";
+import { SchemeAbuse } from "@/engine/core/schemes/abuse/SchemeAbuse";
+import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/trySwitchToAnotherSection";
+import { ISchemeCombatState } from "@/engine/core/schemes/combat";
+import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore";
+import { ISchemeMobCombatState } from "@/engine/core/schemes/mob/combat";
+import { init_target } from "@/engine/core/schemes/remark/actions/ActionRemarkActivity";
+import { showFreeplayDialog } from "@/engine/core/ui/game/FreeplayDialog";
+import { sleep as startSleeping } from "@/engine/core/ui/interaction/SleepDialog";
+import { isActorInZoneWithName } from "@/engine/core/utils/check/check";
+import { isStalker } from "@/engine/core/utils/check/is";
+import { executeConsoleCommand } from "@/engine/core/utils/console";
+import {
+  disableActorNightVision,
+  disableActorTorch,
+  disableGameUi,
+  disableGameUiOnly,
+  enableActorNightVision,
+  enableActorTorch,
+  enableGameUi,
+  setInactiveInputTime,
+} from "@/engine/core/utils/control";
+import { abort } from "@/engine/core/utils/debug";
+import { createScenarioAutoSave } from "@/engine/core/utils/game_save";
+import { find_stalker_for_job, switch_to_desired_job as switchToGulagDesiredJob } from "@/engine/core/utils/gulag";
+import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
+import { getConfigString } from "@/engine/core/utils/ini_config/getters";
+import { LuaLogger } from "@/engine/core/utils/logging";
+import { IConfigSwitchCondition, parseConditionsList } from "@/engine/core/utils/parse";
+import {
+  increaseNumberRelationBetweenCommunityAndId,
+  setObjectSympathy,
+  setSquadGoodwill,
+  setSquadGoodwillToNpc,
+} from "@/engine/core/utils/relation";
 import { animations } from "@/engine/lib/constants/animation/animations";
 import { captions, TCaption } from "@/engine/lib/constants/captions";
 import { TCommunity } from "@/engine/lib/constants/communities";
@@ -64,65 +122,7 @@ import {
   TNumberId,
   TStringId,
 } from "@/engine/lib/types";
-import {
-  getObjectByStoryId,
-  getObjectIdByStoryId,
-  getServerObjectByStoryId,
-  IRegistryObjectState,
-  registry,
-  SYSTEM_INI,
-  unregisterHelicopter,
-} from "@/engine/scripts/core/database";
-import { pstor_retrieve, pstor_store } from "@/engine/scripts/core/database/pstor";
-import { GlobalSoundManager } from "@/engine/scripts/core/managers/GlobalSoundManager";
-import { ItemUpgradesManager } from "@/engine/scripts/core/managers/ItemUpgradesManager";
-import { MapDisplayManager } from "@/engine/scripts/core/managers/map/MapDisplayManager";
-import { NotificationManager, TNotificationIcon } from "@/engine/scripts/core/managers/notifications";
-import { SimulationBoardManager } from "@/engine/scripts/core/managers/SimulationBoardManager";
-import { SurgeManager } from "@/engine/scripts/core/managers/SurgeManager";
-import { TaskManager } from "@/engine/scripts/core/managers/tasks";
-import { TreasureManager } from "@/engine/scripts/core/managers/TreasureManager";
-import { WeatherManager } from "@/engine/scripts/core/managers/WeatherManager";
-import { SmartTerrain } from "@/engine/scripts/core/objects/alife/smart/SmartTerrain";
-import { Squad } from "@/engine/scripts/core/objects/alife/Squad";
-import { Stalker } from "@/engine/scripts/core/objects/alife/Stalker";
-import { update_logic } from "@/engine/scripts/core/objects/binders/StalkerBinder";
-import { SchemeAbuse } from "@/engine/scripts/core/schemes/abuse/SchemeAbuse";
-import { trySwitchToAnotherSection } from "@/engine/scripts/core/schemes/base/trySwitchToAnotherSection";
-import { ISchemeCombatState } from "@/engine/scripts/core/schemes/combat";
-import { ISchemeCombatIgnoreState } from "@/engine/scripts/core/schemes/combat_ignore";
-import { ISchemeMobCombatState } from "@/engine/scripts/core/schemes/mob/combat";
-import { init_target } from "@/engine/scripts/core/schemes/remark/actions/ActionRemarkActivity";
-import { showFreeplayDialog } from "@/engine/scripts/core/ui/game/FreeplayDialog";
-import { sleep as startSleeping } from "@/engine/scripts/core/ui/interaction/SleepDialog";
 import { zat_b29_af_table, zat_b29_infop_bring_table } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
-import { isActorInZoneWithName } from "@/engine/scripts/utils/check/check";
-import { isStalker } from "@/engine/scripts/utils/check/is";
-import { executeConsoleCommand } from "@/engine/scripts/utils/console";
-import {
-  disableActorNightVision,
-  disableActorTorch,
-  disableGameUi,
-  disableGameUiOnly,
-  enableActorNightVision,
-  enableActorTorch,
-  enableGameUi,
-  setInactiveInputTime,
-} from "@/engine/scripts/utils/control";
-import { abort } from "@/engine/scripts/utils/debug";
-import { createScenarioAutoSave } from "@/engine/scripts/utils/game_save";
-import { find_stalker_for_job, switch_to_desired_job as switchToGulagDesiredJob } from "@/engine/scripts/utils/gulag";
-import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/scripts/utils/info_portion";
-import { pickSectionFromCondList } from "@/engine/scripts/utils/ini_config/config";
-import { getConfigString } from "@/engine/scripts/utils/ini_config/getters";
-import { LuaLogger } from "@/engine/scripts/utils/logging";
-import { IConfigSwitchCondition, parseConditionsList } from "@/engine/scripts/utils/parse";
-import {
-  increaseNumberRelationBetweenCommunityAndId,
-  setObjectSympathy,
-  setSquadGoodwill,
-  setSquadGoodwillToNpc,
-} from "@/engine/scripts/utils/relation";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

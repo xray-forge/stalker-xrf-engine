@@ -1,6 +1,5 @@
 import { alife, clsid, XR_game_object, XR_ini_file } from "xray16";
 
-import { Optional } from "@/engine/lib/types";
 import {
   ActorBinder,
   AnomalyFieldBinder,
@@ -21,10 +20,11 @@ import {
   SmartCoverBinder,
   SmartTerrainBinder,
   StalkerBinder,
-} from "@/engine/scripts/core/objects/binders";
-import { extern } from "@/engine/scripts/utils/binding";
-import { abort } from "@/engine/scripts/utils/debug";
-import { LuaLogger } from "@/engine/scripts/utils/logging";
+} from "@/engine/core/objects/binders";
+import { extern } from "@/engine/core/utils/binding";
+import { abort } from "@/engine/core/utils/debug";
+import { LuaLogger } from "@/engine/core/utils/logging";
+import { Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
